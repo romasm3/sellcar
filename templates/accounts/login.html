@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %}Prisijungimas - SellCar{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0 text-center">
+                        <i class="fas fa-sign-in-alt"></i> Prisijungimas
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-center text-muted mb-4">
+                        Prisijunkite prie savo paskyros
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Vartotojo vardas</label>
+                            {{ form.username }} {% if form.username.errors %}
+                            <div class="text-danger small">
+                                {{ form.username.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Slaptažodis</label>
+                            {{ form.password }} {% if form.password.errors %}
+                            <div class="text-danger small">
+                                {{ form.password.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 mb-3"
+                        >
+                            <i class="fas fa-sign-in-alt"></i> Prisijungti
+                        </button>
+
+                        <div class="text-center">
+                            <p class="mb-0">
+                                Neturite paskyros?
+                                <a href="{% url 'accounts:register' %}"
+                                    >Registruokitės</a
+                                >
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block extra_css %}
+<style>
+    .card {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+</style>
+{% endblock %}

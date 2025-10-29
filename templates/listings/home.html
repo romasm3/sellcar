@@ -1,0 +1,224 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Pagrindinis -
+SellCar{% endblock %} {% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">Rask savo svajonių automobilį</h1>
+                <p class="lead">
+                    Didžiausia automobilių ir kitos technikos pardavimo
+                    platforma Lietuvoje
+                </p>
+                <div class="d-flex gap-3 mt-4">
+                    <a
+                        href="{% url 'listings:listing_list' %}"
+                        class="btn btn-light btn-lg"
+                    >
+                        <i class="fas fa-search"></i> Ieškoti
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a
+                        href="{% url 'listings:listing_create' %}"
+                        class="btn btn-outline-light btn-lg"
+                    >
+                        <i class="fas fa-plus"></i> Pridėti skelbimą
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <i class="fas fa-car display-1"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="search-section py-5 bg-light">
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h3 class="mb-4">Greita paieška</h3>
+                <form method="get" action="{% url 'listings:listing_list' %}">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Markė, modelis..."
+                            />
+                        </div>
+                        <div class="col-md-2">
+                            <input
+                                type="number"
+                                name="year_from"
+                                class="form-control"
+                                placeholder="Metai nuo"
+                            />
+                        </div>
+                        <div class="col-md-2">
+                            <input
+                                type="number"
+                                name="year_to"
+                                class="form-control"
+                                placeholder="Metai iki"
+                            />
+                        </div>
+                        <div class="col-md-2">
+                            <input
+                                type="number"
+                                name="price_from"
+                                class="form-control"
+                                placeholder="Kaina nuo €"
+                            />
+                        </div>
+                        <div class="col-md-2">
+                            <input
+                                type="number"
+                                name="price_to"
+                                class="form-control"
+                                placeholder="Kaina iki €"
+                            />
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Listings -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Naujausi skelbimai</h2>
+            <a
+                href="{% url 'listings:listing_list' %}"
+                class="btn btn-outline-primary"
+            >
+                Visi skelbimai <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            {% for listing in listings %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm hover-shadow">
+                    {% if listing.get_main_image %}
+                    <img
+                        src="{{ listing.get_main_image }}"
+                        class="card-img-top"
+                        alt="{{ listing.title }}"
+                        style="height: 200px; object-fit: cover"
+                    />
+                    {% else %}
+                    <div
+                        class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
+                        style="height: 200px"
+                    >
+                        <i class="fas fa-car fa-3x text-white"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <p class="card-text text-muted small">
+                            <i class="fas fa-calendar"></i> {{ listing.year }} |
+                            <i class="fas fa-road"></i> {{
+                            listing.mileage|floatformat:0 }} km
+                        </p>
+                        <p class="card-text">
+                            <strong class="text-primary fs-4"
+                                >{{ listing.price|floatformat:0 }} €</strong
+                            >
+                        </p>
+                        <p class="card-text text-muted small">
+                            <i class="fas fa-map-marker-alt"></i> {{
+                            listing.city }}
+                        </p>
+                        <a
+                            href="{% url 'listings:listing_detail' listing.slug %}"
+                            class="btn btn-primary w-100"
+                        >
+                            Peržiūrėti
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> Skelbimų nėra
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Kodėl SellCar?</h2>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div
+                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                    style="width: 80px; height: 80px"
+                >
+                    <i class="fas fa-search fa-2x"></i>
+                </div>
+                <h4>Paprasta paieška</h4>
+                <p class="text-muted">
+                    Raskite automobilį pagal savo poreikius naudodami išsamius
+                    filtrus ir žemėlapį
+                </p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div
+                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                    style="width: 80px; height: 80px"
+                >
+                    <i class="fas fa-shield-alt fa-2x"></i>
+                </div>
+                <h4>Saugu</h4>
+                <p class="text-muted">
+                    Patikrinti pardavėjai ir saugi pardavimo platforma
+                </p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div
+                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                    style="width: 80px; height: 80px"
+                >
+                    <i class="fas fa-bolt fa-2x"></i>
+                </div>
+                <h4>Greita</h4>
+                <p class="text-muted">
+                    Skelbimai skelbiami akimirksniu, susisiekite su pardavėju
+                    bet kada
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+</style>
+{% endblock %}

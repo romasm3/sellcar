@@ -1,0 +1,324 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Redaguoti skelbimą
+- SellCar{% endblock %} {% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-edit"></i> Redaguoti skelbimą
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form
+                        method="post"
+                        enctype="multipart/form-data"
+                        id="listingForm"
+                    >
+                        {% csrf_token %}
+
+                        <!-- Vehicle Type and Brand/Model -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    Pagrindine informacija
+                                </h5>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label"
+                                    >Transporto tipas *</label
+                                >
+                                {{ form.vehicle_type }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Markė *</label>
+                                {{ form.brand }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Modelis *</label>
+                                {{ form.model }}
+                            </div>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label class="form-label">Pavadinimas *</label>
+                            {{ form.title }}
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label class="form-label">Aprašymas *</label>
+                            {{ form.description }}
+                        </div>
+
+                        <!-- Technical Specifications -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    Techninės specifikacijos
+                                </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Metai *</label>
+                                {{ form.year }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Rida (km) *</label>
+                                {{ form.mileage }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Kuro tipas *</label>
+                                {{ form.fuel_type }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Pavarų dėžė *</label>
+                                {{ form.transmission }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <label class="form-label"
+                                    >Variklio tūris (L)</label
+                                >
+                                {{ form.engine_capacity }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Galia (kW)</label>
+                                {{ form.power }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Spalva</label>
+                                {{ form.color }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Būklė *</label>
+                                {{ form.condition }}
+                            </div>
+                        </div>
+
+                        <!-- VIN and Registration -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">VIN kodas</label>
+                                {{ form.vin }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label"
+                                    >Valstybinis numeris</label
+                                >
+                                {{ form.registration_number }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label"
+                                    >Pirma registracija</label
+                                >
+                                {{ form.first_registration }}
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">Kaina</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Kaina (€) *</label>
+                                {{ form.price }}
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check mt-4">
+                                    {{ form.negotiable }}
+                                    <label
+                                        class="form-check-label"
+                                        for="id_negotiable"
+                                    >
+                                        Kaina derinama
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2 mb-3">Vieta</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Miestas *</label>
+                                {{ form.city }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Adresas</label>
+                                {{ form.address }}
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div id="map" style="height: 300px"></div>
+                                {{ form.latitude }} {{ form.longitude }}
+                            </div>
+                        </div>
+
+                        <!-- Features -->
+                        <div class="mb-4">
+                            <label class="form-label">Papildoma įranga</label>
+                            {{ form.features }}
+                        </div>
+
+                        <!-- Current Images -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3">
+                                Esamos nuotraukos
+                            </h5>
+                            <div class="row g-3">
+                                {% for image in listing.images.all %}
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <img
+                                            src="{{ image.image.url }}"
+                                            class="card-img-top"
+                                            alt="Image"
+                                            style="
+                                                height: 150px;
+                                                object-fit: cover;
+                                            "
+                                        />
+                                        <div class="card-body p-2">
+                                            {% if image.is_main %}
+                                            <span
+                                                class="badge bg-success w-100 mb-2"
+                                                >Pagrindinė</span
+                                            >
+                                            {% endif %}
+                                            <form
+                                                method="post"
+                                                action="{% url 'listings:image_delete' image.pk %}"
+                                                class="d-inline"
+                                            >
+                                                {% csrf_token %}
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-danger btn-sm w-100"
+                                                    onclick="return confirm('Ar tikrai norite ištrinti šią nuotrauką?')"
+                                                >
+                                                    <i class="fas fa-trash"></i>
+                                                    Ištrinti
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Add New Images -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3">
+                                Pridėti naujas nuotraukas
+                            </h5>
+                            <input
+                                type="file"
+                                name="images"
+                                class="form-control"
+                                multiple
+                                accept="image/*"
+                            />
+                            <small class="form-text text-muted"
+                                >Galite įkelti kelias naujas nuotraukas</small
+                            >
+                        </div>
+
+                        <!-- Status -->
+                        <div class="mb-4">
+                            <label class="form-label"
+                                >Skelbimo statusas *</label
+                            >
+                            {{ form.status }}
+                        </div>
+
+                        <!-- Form Errors -->
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Klaidos:</strong>
+                            <ul class="mb-0">
+                                {% for field in form %} {% for error in
+                                field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                                {% endfor %} {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- Submit Buttons -->
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a
+                                href="{% url 'listings:listing_detail' listing.slug %}"
+                                class="btn btn-secondary"
+                            >
+                                <i class="fas fa-times"></i> Atšaukti
+                            </a>
+                            <button
+                                type="submit"
+                                class="btn btn-warning text-white"
+                            >
+                                <i class="fas fa-save"></i> Išsaugoti pakeitimus
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
+<script>
+    let map, marker, autocomplete;
+
+    function initMap() {
+        const currentLat =
+            parseFloat(document.getElementById("id_latitude").value) || 54.6872;
+        const currentLng =
+            parseFloat(document.getElementById("id_longitude").value) ||
+            25.2797;
+        const currentLocation = { lat: currentLat, lng: currentLng };
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: currentLocation,
+        });
+
+        marker = new google.maps.Marker({
+            position: currentLocation,
+            map: map,
+            draggable: true,
+        });
+
+        google.maps.event.addListener(marker, "dragend", function () {
+            const position = marker.getPosition();
+            document.getElementById("id_latitude").value = position.lat();
+            document.getElementById("id_longitude").value = position.lng();
+        });
+
+        const addressInput = document.getElementById("id_address");
+        autocomplete = new google.maps.places.Autocomplete(addressInput, {
+            componentRestrictions: { country: "lt" },
+            fields: ["geometry", "formatted_address"],
+        });
+
+        autocomplete.addListener("place_changed", function () {
+            const place = autocomplete.getPlace();
+            if (place.geometry) {
+                const location = place.geometry.location;
+                map.setCenter(location);
+                marker.setPosition(location);
+                document.getElementById("id_latitude").value = location.lat();
+                document.getElementById("id_longitude").value = location.lng();
+            }
+        });
+    }
+
+    window.onload = initMap;
+</script>
+{% endblock %}

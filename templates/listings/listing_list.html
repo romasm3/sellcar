@@ -1,0 +1,273 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Skelbimai -
+SellCar{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Filters Sidebar -->
+        <div class="col-lg-3">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-filter"></i> Filtrai</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get">
+                        {{ filter.form.as_p }}
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 mt-3"
+                        >
+                            <i class="fas fa-search"></i> Ieškoti
+                        </button>
+                        <a
+                            href="{% url 'listings:listing_list' %}"
+                            class="btn btn-outline-secondary w-100 mt-2"
+                        >
+                            <i class="fas fa-redo"></i> Išvalyti
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listings Grid -->
+        <div class="col-lg-9">
+            <!-- Search Bar and Results Count -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <form method="get" class="d-flex gap-2">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Paieška..."
+                                    value="{{ search_query }}"
+                                />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <p class="mb-0 text-muted">
+                                Rasta:
+                                <strong>{{ total_count }}</strong> skelbimai(-ų)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sorting -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Skelbimai</h4>
+                <form method="get" class="d-flex gap-2">
+                    {% for key, value in request.GET.items %} {% if key !=
+                    'ordering' %}
+                    <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                    {% endif %} {% endfor %}
+                    <select
+                        name="ordering"
+                        class="form-select"
+                        style="width: auto"
+                        onchange="this.form.submit()"
+                    >
+                        <option
+                            value="-created_at"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="-created_at"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Naujausi
+                        </option>
+                        <option
+                            value="created_at"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="created_at"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Seniausi
+                        </option>
+                        <option
+                            value="price"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="price"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Kaina: mažiausia
+                        </option>
+                        <option
+                            value="-price"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="-price"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Kaina: didžiausia
+                        </option>
+                        <option
+                            value="-year"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="-year"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Metai: naujesni
+                        </option>
+                        <option
+                            value="year"
+                            {%
+                            if
+                            request.GET.ordering=""
+                            ="year"
+                            %}selected{%
+                            endif
+                            %}
+                        >
+                            Metai: senesni
+                        </option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Listings -->
+            <div class="row g-4">
+                {% for listing in page_obj %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 shadow-sm hover-shadow">
+                        {% if listing.get_main_image %}
+                        <img
+                            src="{{ listing.get_main_image }}"
+                            class="card-img-top"
+                            alt="{{ listing.title }}"
+                            style="height: 200px; object-fit: cover"
+                        />
+                        {% else %}
+                        <div
+                            class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
+                            style="height: 200px"
+                        >
+                            <i class="fas fa-car fa-3x text-white"></i>
+                        </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text text-muted small">
+                                <i class="fas fa-calendar"></i> {{ listing.year
+                                }} | <i class="fas fa-road"></i> {{
+                                listing.mileage|floatformat:0 }} km<br />
+                                <i class="fas fa-gas-pump"></i> {{
+                                listing.fuel_type }} |
+                                <i class="fas fa-cog"></i> {{
+                                listing.transmission }}
+                            </p>
+                            <p class="card-text">
+                                <strong class="text-primary fs-4"
+                                    >{{ listing.price|floatformat:0 }} €</strong
+                                >
+                                {% if listing.negotiable %}
+                                <span class="badge bg-info">Derinama</span>
+                                {% endif %}
+                            </p>
+                            <p class="card-text text-muted small">
+                                <i class="fas fa-map-marker-alt"></i> {{
+                                listing.city }}
+                            </p>
+                            <a
+                                href="{% url 'listings:listing_detail' listing.slug %}"
+                                class="btn btn-primary w-100"
+                            >
+                                Peržiūrėti
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        <i class="fas fa-info-circle"></i> Skelbimų su
+                        pasirinktais filtrais nerasta
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                            >Pirmas</a
+                        >
+                    </li>
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                            >Ankstesnis</a
+                        >
+                    </li>
+                    {% endif %}
+
+                    <li class="page-item active">
+                        <span class="page-link"
+                            >{{ page_obj.number }} iš {{
+                            page_obj.paginator.num_pages }}</span
+                        >
+                    </li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                            >Kitas</a
+                        >
+                    </li>
+                    <li class="page-item">
+                        <a
+                            class="page-link"
+                            href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                            >Paskutinis</a
+                        >
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} {% block extra_css %}
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+</style>
+{% endblock %}

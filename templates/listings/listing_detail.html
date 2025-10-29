@@ -1,0 +1,420 @@
+{% extends 'base.html' %} {% load static %} {% block title %}{{ listing.title }}
+- SellCar{% endblock %} {% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'listings:home' %}">Pagrindinis</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'listings:listing_list' %}">Skelbimai</a>
+            </li>
+            <li class="breadcrumb-item active">{{ listing.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Image Gallery -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    {% if listing.images.all %}
+                    <!-- Main Image -->
+                    <div
+                        id="carouselImages"
+                        class="carousel slide"
+                        data-bs-ride="carousel"
+                    >
+                        <div class="carousel-indicators">
+                            {% for image in listing.images.all %}
+                            <button
+                                type="button"
+                                data-bs-target="#carouselImages"
+                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                class="{% if forloop.first %}active{% endif %}"
+                            ></button>
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-inner">
+                            {% for image in listing.images.all %}
+                            <div
+                                class="carousel-item {% if forloop.first %}active{% endif %}"
+                            >
+                                <img
+                                    src="{{ image.image.url }}"
+                                    class="d-block w-100"
+                                    alt="{{ image.caption }}"
+                                    style="height: 500px; object-fit: cover"
+                                />
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#carouselImages"
+                            data-bs-slide="prev"
+                        >
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#carouselImages"
+                            data-bs-slide="next"
+                        >
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    {% else %}
+                    <div
+                        class="bg-secondary d-flex align-items-center justify-content-center"
+                        style="height: 500px"
+                    >
+                        <i class="fas fa-car fa-5x text-white"></i>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle"></i> Aprašymas
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ listing.description|linebreaks }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cogs"></i> Techninės specifikacijos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-sm">
+                                <tr>
+                                    <th width="40%">Markė:</th>
+                                    <td>{{ listing.brand }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Modelis:</th>
+                                    <td>{{ listing.model }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Metai:</th>
+                                    <td>{{ listing.year }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rida:</th>
+                                    <td>
+                                        {{ listing.mileage|floatformat:0 }} km
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kuro tipas:</th>
+                                    <td>{{ listing.fuel_type }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pavarų dėžė:</th>
+                                    <td>{{ listing.transmission }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-sm">
+                                {% if listing.engine_capacity %}
+                                <tr>
+                                    <th width="40%">Variklio tūris:</th>
+                                    <td>{{ listing.engine_capacity }} L</td>
+                                </tr>
+                                {% endif %} {% if listing.power %}
+                                <tr>
+                                    <th>Galia:</th>
+                                    <td>{{ listing.power }} kW</td>
+                                </tr>
+                                {% endif %} {% if listing.color %}
+                                <tr>
+                                    <th>Spalva:</th>
+                                    <td>{{ listing.color }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th>Būklė:</th>
+                                    <td>
+                                        <span
+                                            class="badge bg-{% if listing.condition == 'new' %}success{% elif listing.condition == 'used' %}primary{% else %}warning{% endif %}"
+                                        >
+                                            {{ listing.get_condition_display }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% if listing.vin %}
+                                <tr>
+                                    <th>VIN:</th>
+                                    <td>{{ listing.vin }}</td>
+                                </tr>
+                                {% endif %} {% if listing.first_registration %}
+                                <tr>
+                                    <th>Pirma registracija:</th>
+                                    <td>{{ listing.first_registration }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+
+                    {% if listing.features %}
+                    <hr />
+                    <h6>
+                        <i class="fas fa-check-circle text-success"></i>
+                        Papildoma įranga:
+                    </h6>
+                    <p>{{ listing.features }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Location Map -->
+            {% if listing.latitude and listing.longitude %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-map-marker-alt"></i> Vieta
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="map" style="height: 400px"></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Price Card -->
+            <div class="card shadow-sm mb-4 sticky-top" style="top: 20px">
+                <div class="card-body">
+                    <h2 class="text-primary mb-3">
+                        {{ listing.price|floatformat:0 }} €
+                    </h2>
+                    {% if listing.negotiable %}
+                    <span class="badge bg-info mb-3">Kaina derinama</span>
+                    {% endif %}
+
+                    <div class="d-grid gap-2">
+                        {% if user.is_authenticated %} {% if user ==
+                        listing.seller %}
+                        <a
+                            href="{% url 'listings:listing_edit' listing.slug %}"
+                            class="btn btn-warning"
+                        >
+                            <i class="fas fa-edit"></i> Redaguoti
+                        </a>
+                        <a
+                            href="{% url 'listings:listing_delete' listing.slug %}"
+                            class="btn btn-danger"
+                        >
+                            <i class="fas fa-trash"></i> Ištrinti
+                        </a>
+                        {% else %}
+                        <a
+                            href="mailto:{{ listing.seller.email }}"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-envelope"></i> Susisiekti
+                        </a>
+                        <form
+                            method="post"
+                            action="{% url 'listings:save_listing' listing.slug %}"
+                        >
+                            {% csrf_token %}
+                            <button
+                                type="submit"
+                                class="btn btn-outline-danger w-100"
+                            >
+                                <i
+                                    class="fas fa-heart{% if is_saved %} text-danger{% endif %}"
+                                ></i>
+                                {% if is_saved %}Pašalinti iš išsaugotų{% else
+                                %}Išsaugoti{% endif %}
+                            </button>
+                        </form>
+                        {% endif %} {% else %}
+                        <a
+                            href="{% url 'accounts:login' %}"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-sign-in-alt"></i> Prisijunkite
+                            susisiekti
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <hr class="my-3" />
+
+                    <!-- Seller Info -->
+                    <h6 class="mb-3"><i class="fas fa-user"></i> Pardavėjas</h6>
+                    <div class="d-flex align-items-center mb-2">
+                        {% if listing.seller.profile.avatar %}
+                        <img
+                            src="{{ listing.seller.profile.avatar.url }}"
+                            class="rounded-circle me-2"
+                            width="40"
+                            height="40"
+                            alt="{{ listing.seller.username }}"
+                        />
+                        {% else %}
+                        <div
+                            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2"
+                            style="width: 40px; height: 40px"
+                        >
+                            <i class="fas fa-user"></i>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <strong
+                                >{{
+                                listing.seller.get_full_name|default:listing.seller.username
+                                }}</strong
+                            >
+                        </div>
+                    </div>
+                    {% if listing.seller.profile.phone %}
+                    <p class="mb-1">
+                        <i class="fas fa-phone"></i> {{
+                        listing.seller.profile.phone }}
+                    </p>
+                    {% endif %}
+
+                    <hr class="my-3" />
+
+                    <!-- Location -->
+                    <h6 class="mb-2">
+                        <i class="fas fa-map-marker-alt"></i> Vieta
+                    </h6>
+                    <p class="mb-1">{{ listing.city }}</p>
+                    {% if listing.address %}
+                    <p class="text-muted small">{{ listing.address }}</p>
+                    {% endif %}
+
+                    <hr class="my-3" />
+
+                    <!-- Meta Info -->
+                    <div class="text-muted small">
+                        <p class="mb-1">
+                            <i class="fas fa-eye"></i> Peržiūros: {{
+                            listing.views }}
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-calendar"></i> Paskelbta: {{
+                            listing.created_at|date:"Y-m-d H:i" }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Listings -->
+    {% if similar_listings %}
+    <div class="mt-5">
+        <h3 class="mb-4">Panašūs skelbimai</h3>
+        <div class="row g-4">
+            {% for similar in similar_listings %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm hover-shadow">
+                    {% if similar.get_main_image %}
+                    <img
+                        src="{{ similar.get_main_image }}"
+                        class="card-img-top"
+                        alt="{{ similar.title }}"
+                        style="height: 200px; object-fit: cover"
+                    />
+                    {% else %}
+                    <div
+                        class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
+                        style="height: 200px"
+                    >
+                        <i class="fas fa-car fa-3x text-white"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ similar.title }}</h5>
+                        <p class="card-text text-muted small">
+                            {{ similar.year }} | {{
+                            similar.mileage|floatformat:0 }} km
+                        </p>
+                        <p class="card-text">
+                            <strong class="text-primary"
+                                >{{ similar.price|floatformat:0 }} €</strong
+                            >
+                        </p>
+                        <a
+                            href="{% url 'listings:listing_detail' similar.slug %}"
+                            class="btn btn-primary w-100"
+                        >
+                            Peržiūrėti
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} {% block extra_css %}
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+</style>
+{% endblock %} {% block extra_js %} {% if listing.latitude and listing.longitude
+%}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
+<script>
+    function initMap() {
+        const location = { lat: {{ listing.latitude }}, lng: {{ listing.longitude }} };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: location,
+        });
+
+        const marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: "{{ listing.title }}"
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: `
+                <div style="padding: 10px;">
+                    <h6>{{ listing.title }}</h6>
+                    <p class="mb-0">{{ listing.city }}</p>
+                    <p class="text-primary mb-0"><strong>{{ listing.price|floatformat:0 }} €</strong></p>
+                </div>
+            `
+        });
+
+        marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+        });
+    }
+
+    window.onload = initMap;
+</script>
+{% endif %} {% endblock %}
