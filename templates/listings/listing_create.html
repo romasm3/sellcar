@@ -1,154 +1,379 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block extra_css %}
-<style>
-/* Progress Bar Styling */
-.listing-create-progress {
-    background: #f8f9fa;
-    padding: 30px 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-.progress-steps {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-}
-
-.progress-steps::before {
-    content: '';
-    position: absolute;
-    top: 25px;
-    left: 60px;
-    right: 60px;
-    height: 3px;
-    background: #dee2e6;
-    z-index: 0;
-}
-
-.step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-    position: relative;
-    z-index: 1;
-}
-
-.step-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #fff;
-    border: 3px solid #dee2e6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 18px;
-    color: #6c757d;
-    margin-bottom: 12px;
-}
-
-.step.active .step-circle {
-    border-color: #0d6efd;
-    color: #0d6efd;
-    background: #e7f3ff;
-}
-
-.step.completed .step-circle {
-    border-color: #198754;
-    background: #198754;
-    color: #fff;
-}
-
-.step-label {
-    font-size: 12px;
-    color: #6c757d;
-    max-width: 120px;
-}
-
-.step.active .step-label {
-    color: #0d6efd;
-    font-weight: 600;
-}
-</style>
-{% endblock %}
+{% block title %}Create Listing - SellCar{% endblock %}
 
 {% block content %}
-<div class="container mt-4 mb-5">
-    <!-- Progress Bar -->
-    <div class="listing-create-progress">
-        <div class="progress-steps">
-            {% for i in "1234567" %}
-            <div class="step {% if step == forloop.counter %}active{% elif forloop.counter < step %}completed{% endif %}">
-                <div class="step-circle">
-                    {% if forloop.counter < step %}
-                        <i class="fas fa-check"></i>
-                    {% else %}
-                        <span>{{ forloop.counter }}</span>
-                    {% endif %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Progress Bar -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Create New Listing</h2>
+                <span class="text-sm text-gray-600">Step {{ step }} of 7</span>
+            </div>
+
+            <!-- Progress -->
+            <div class="relative">
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-200">
+                    <div style="width:{{ step|multiply:14.28 }}%"
+                         class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary transition-all duration-500"></div>
                 </div>
-                <div class="step-label">
-                    {% if forloop.counter == 1 %}Brand & Model
-                    {% elif forloop.counter == 2 %}Photos & Video
-                    {% elif forloop.counter == 3 %}Vehicle Data
-                    {% elif forloop.counter == 4 %}Equipment
-                    {% elif forloop.counter == 5 %}Price
-                    {% elif forloop.counter == 6 %}Description
-                    {% elif forloop.counter == 7 %}Contact
-                    {% endif %}
+                <div class="flex justify-between text-xs text-gray-600">
+                    <span :class="step >= 1 ? 'text-primary font-medium' : ''">Basic</span>
+                    <span :class="step >= 2 ? 'text-primary font-medium' : ''">Media</span>
+                    <span :class="step >= 3 ? 'text-primary font-medium' : ''">Details</span>
+                    <span :class="step >= 4 ? 'text-primary font-medium' : ''">Equipment</span>
+                    <span :class="step >= 5 ? 'text-primary font-medium' : ''">Price</span>
+                    <span :class="step >= 6 ? 'text-primary font-medium' : ''">Description</span>
+                    <span :class="step >= 7 ? 'text-primary font-medium' : ''">Contact</span>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </div>
 
-    <!-- Step Title -->
-    <div class="text-center mb-4">
-        <h3>
-            Step {{ step }} of 7:
-            {% if step == 1 %}Brand, Model & VIN
-            {% elif step == 2 %}Photos & Video
-            {% elif step == 3 %}Vehicle Data
-            {% elif step == 4 %}Equipment
-            {% elif step == 5 %}Price
-            {% elif step == 6 %}Description
-            {% elif step == 7 %}Contact Information
-            {% endif %}
-        </h3>
-    </div>
-
-    <!-- Form Card -->
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <form method="post" enctype="multipart/form-data">
+        <!-- Form Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <!-- Render form fields -->
-                {{ form.as_p }}
+                <!-- Step 1: Basic Info -->
+                {% if step == 1 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Basic Information</h3>
+                        <p class="text-gray-600">Tell us about your vehicle</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Vehicle Type *
+                            </label>
+                            {{ form.vehicle_type }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Brand *
+                            </label>
+                            {{ form.brand }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Model *
+                            </label>
+                            {{ form.model }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Year *
+                            </label>
+                            {{ form.year }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                First Registration Month *
+                            </label>
+                            {{ form.first_registration_month }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                VIN Code (optional)
+                            </label>
+                            {{ form.vin }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 2: Media -->
+                {% if step == 2 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Photos & Video</h3>
+                        <p class="text-gray-600">Add images and video to attract buyers</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Upload Photos
+                        </label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-primary transition-colors cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
+                            <p class="text-sm text-gray-500">PNG, JPG up to 10MB (Max 10 images)</p>
+                            <input type="file" name="images" multiple accept="image/*" class="hidden">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Video URL (YouTube, optional)
+                        </label>
+                        {{ form.video_url }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 3: Vehicle Data -->
+                {% if step == 3 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Technical Details</h3>
+                        <p class="text-gray-600">Provide technical specifications</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Body Type *
+                            </label>
+                            {{ form.body_type }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Fuel Type *
+                            </label>
+                            {{ form.fuel_type }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Transmission *
+                            </label>
+                            {{ form.transmission }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Number of Doors *
+                            </label>
+                            {{ form.doors }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Condition *
+                            </label>
+                            {{ form.condition }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Color
+                            </label>
+                            {{ form.color }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Mileage (km) *
+                            </label>
+                            {{ form.mileage }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Engine Capacity (L)
+                            </label>
+                            {{ form.engine_capacity }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Power (kW)
+                            </label>
+                            {{ form.power }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 4: Equipment -->
+                {% if step == 4 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Additional Equipment</h3>
+                        <p class="text-gray-600">Select features your vehicle has</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Search Features
+                        </label>
+                        {{ form.features_text }}
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {{ form.equipment }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 5: Price -->
+                {% if step == 5 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Set Your Price</h3>
+                        <p class="text-gray-600">What's your asking price?</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Price (€) *
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-3 text-gray-500 text-lg">€</span>
+                            {{ form.price }}
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        {{ form.negotiable }}
+                        <label class="text-sm text-gray-700">
+                            Price is negotiable
+                        </label>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-info-circle text-blue-600 mt-0.5"></i>
+                            <div class="text-sm text-blue-900">
+                                <p class="font-medium mb-1">Pricing Tips:</p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Research similar vehicles in your area</li>
+                                    <li>Consider the condition and mileage</li>
+                                    <li>Be competitive but realistic</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 6: Description -->
+                {% if step == 6 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Description</h3>
+                        <p class="text-gray-600">Describe your vehicle in detail</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Description
+                        </label>
+                        {{ form.description }}
+                        <p class="text-sm text-gray-500 mt-2">
+                            Minimum 50 characters. Include condition, features, service history, etc.
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Step 7: Contact -->
+                {% if step == 7 %}
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Contact Information</h3>
+                        <p class="text-gray-600">How can buyers reach you?</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Country *
+                            </label>
+                            {{ form.country }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                City *
+                            </label>
+                            {{ form.city }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Phone *
+                            </label>
+                            {{ form.phone }}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Email *
+                            </label>
+                            {{ form.email }}
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-gray-200">
+                        <div class="flex items-start gap-3">
+                            {{ form.agree_terms }}
+                            <label class="text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> and
+                                <a href="#" class="text-primary hover:underline">Privacy Policy</a> *
+                            </label>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            {{ form.agree_newsletter }}
+                            <label class="text-sm text-gray-700">
+                                Send me newsletters and offers
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Form Errors -->
+                {% if form.errors %}
+                <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div class="flex items-start gap-3 text-red-800">
+                        <i class="fas fa-exclamation-circle mt-0.5"></i>
+                        <div class="text-sm">
+                            <p class="font-medium mb-1">Please fix the following errors:</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                    <li>{{ field }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
                 <!-- Navigation Buttons -->
-                <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+                <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
                     {% if step > 1 %}
-                    <a href="?step={{ step|add:'-1' }}" class="btn btn-outline-secondary btn-lg">
-                        <i class="fas fa-arrow-left"></i> Back
+                    <a href="?step={{ step|add:'-1' }}"
+                       class="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
                     </a>
                     {% else %}
                     <div></div>
                     {% endif %}
 
                     {% if step < 7 %}
-                    <button type="submit" class="btn btn-primary btn-lg px-5">
-                        Continue <i class="fas fa-arrow-right"></i>
+                    <button type="submit"
+                            class="flex items-center gap-2 px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                        Continue
+                        <i class="fas fa-arrow-right"></i>
                     </button>
                     {% else %}
-                    <button type="submit" class="btn btn-success btn-lg px-5">
-                        <i class="fas fa-check"></i> Submit Listing
+                    <button type="submit"
+                            class="flex items-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+                        <i class="fas fa-check"></i>
+                        Submit Listing
                     </button>
                     {% endif %}
                 </div>
@@ -157,9 +382,39 @@
     </div>
 </div>
 
-{% endblock %}
+<style>
+    /* Form field styles */
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
 
-{% block extra_js %}
+    select:focus, input:focus, textarea:focus {
+        outline: none;
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0.25rem;
+        border: 1px solid #d1d5db;
+    }
+
+    #id_price {
+        padding-left: 2.5rem;
+    }
+</style>
+
 <script>
 // AJAX for model selection
 document.addEventListener('DOMContentLoaded', function() {
@@ -182,11 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             modelSelect.appendChild(option);
                         });
                         modelSelect.disabled = false;
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                modelSelect.innerHTML = '<option value="">---------</option>';
-                modelSelect.disabled = true;
+                    });
             }
         });
     }

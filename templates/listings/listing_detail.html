@@ -1,79 +1,278 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <h1>{{ listing.title }}</h1>
-            <p class="text-muted">{{ listing.brand.name }} {{ listing.model.name }} - {{ listing.year }}</p>
+{% block title %}{{ listing.title }} - SellCar{% endblock %}
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3 class="text-success">€{{ listing.price }}</h3>
-                    {% if listing.negotiable %}
-                    <span class="badge bg-info">Negotiable</span>
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-6">
+            <ol class="flex items-center gap-2 text-sm text-gray-600">
+                <li><a href="{% url 'listings:listing_list' %}" class="hover:text-primary">Browse Cars</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li class="text-gray-900 font-medium">{{ listing.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Image Gallery -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    {% if listing.images.all %}
+                    <div class="relative h-96 bg-gray-900" x-data="{ currentImage: 0, images: {{ listing.images.count }} }">
+                        {% for image in listing.images.all %}
+                        <img src="{{ image.image.url }}" alt="{{ listing.title }}"
+                             x-show="currentImage === {{ forloop.counter0 }}"
+                             class="w-full h-full object-contain">
+                        {% endfor %}
+
+                        <!-- Navigation Arrows -->
+                        {% if listing.images.count > 1 %}
+                        <button @click="currentImage = currentImage > 0 ? currentImage - 1 : images - 1"
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors">
+                            <i class="fas fa-chevron-left text-gray-900"></i>
+                        </button>
+                        <button @click="currentImage = currentImage < images - 1 ? currentImage + 1 : 0"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors">
+                            <i class="fas fa-chevron-right text-gray-900"></i>
+                        </button>
+
+                        <!-- Thumbnails -->
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            {% for image in listing.images.all %}
+                            <button @click="currentImage = {{ forloop.counter0 }}"
+                                    :class="currentImage === {{ forloop.counter0 }} ? 'ring-2 ring-white' : ''"
+                                    class="w-16 h-16 rounded-lg overflow-hidden transition-all">
+                                <img src="{{ image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                            </button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="h-96 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-car text-gray-400 text-6xl"></i>
+                    </div>
                     {% endif %}
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Details</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Year:</strong> {{ listing.year }}</p>
-                            <p><strong>Mileage:</strong> {{ listing.mileage }} km</p>
-                            <p><strong>Fuel Type:</strong> {{ listing.fuel_type.name }}</p>
-                            <p><strong>Transmission:</strong> {{ listing.transmission.name }}</p>
+                <!-- Title & Details -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">Year</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <p><strong>Body Type:</strong> {{ listing.get_body_type_display }}</p>
-                            <p><strong>Color:</strong> {{ listing.color }}</p>
-                            <p><strong>Doors:</strong> {{ listing.doors }}</p>
-                            <p><strong>Condition:</strong> {{ listing.get_condition_display }}</p>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-tachometer-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">Mileage</div>
+                                <div class="font-semibold text-gray-900">{{ listing.mileage|floatformat:0 }} km</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-gas-pump text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">Fuel</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|title }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-cog text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">Transmission</div>
+                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|title }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="border-t border-gray-200 pt-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Price</p>
+                                <p class="text-4xl font-bold text-primary">€{{ listing.price|floatformat:0 }}</p>
+                                {% if listing.negotiable %}
+                                <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                                    Negotiable
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Description</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Vehicle Details -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Vehicle Details</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Make</span>
+                            <span class="font-medium text-gray-900">{{ listing.brand.name }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Model</span>
+                            <span class="font-medium text-gray-900">{{ listing.model.name }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Body Type</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Color</span>
+                            <span class="font-medium text-gray-900">{{ listing.color|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Doors</span>
+                            <span class="font-medium text-gray-900">{{ listing.doors|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Condition</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_condition_display }}</span>
+                        </div>
+                        {% if listing.engine_capacity %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Engine Capacity</span>
+                            <span class="font-medium text-gray-900">{{ listing.engine_capacity }}L</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.power %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Power</span>
+                            <span class="font-medium text-gray-900">{{ listing.power }} kW</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Location</h2>
+                    <div class="flex items-center gap-3 text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                        <div>
+                            <p class="font-medium">{{ listing.city }}</p>
+                            {% if listing.address %}
+                            <p class="text-sm text-gray-600">{{ listing.address }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {% if listing.description %}
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Description</h5>
-                </div>
-                <div class="card-body">
-                    {{ listing.description|linebreaks }}
-                </div>
-            </div>
-            {% endif %}
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Seller Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Seller Information</h3>
 
-            <div class="card">
-                <div class="card-header">
-                    <h5>Location</h5>
-                </div>
-                <div class="card-body">
-                    <p><i class="fas fa-map-marker-alt"></i> {{ listing.city }}</p>
-                </div>
-            </div>
-        </div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold">
+                            {{ listing.seller.username|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">{{ listing.seller.username }}</p>
+                            <p class="text-sm text-gray-600">Member since {{ listing.seller.date_joined|date:"Y" }}</p>
+                        </div>
+                    </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5>Contact Seller</h5>
-                </div>
-                <div class="card-body">
-                    <p><strong>Seller:</strong> {{ listing.seller.username }}</p>
-                    <a href="#" class="btn btn-success btn-block">Contact</a>
-                </div>
-            </div>
+                    {% if user.is_authenticated %}
+                    <div class="space-y-3">
+                        <a href="#" class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            Show Phone
+                        </a>
+                        <a href="#" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Send Message
+                        </a>
+                        <button class="w-full bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 py-3 rounded-lg transition-colors font-medium">
+                            <i class="far fa-heart mr-2"></i>
+                            Save Listing
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="space-y-3">
+                        <a href="{% url 'accounts:login' %}" class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
+                            Login to Contact
+                        </a>
+                    </div>
+                    {% endif %}
 
-            <div class="card mt-3">
-                <div class="card-body text-center">
-                    <p class="text-muted">Views: {{ listing.views_count }}</p>
-                    <p class="text-muted small">Posted: {{ listing.created_at|date:"M d, Y" }}</p>
+                    <!-- Edit/Delete (for owner) -->
+                    {% if user == listing.seller %}
+                    <div class="mt-4 pt-4 border-t border-gray-200 space-y-2">
+                        <a href="{% url 'listings:listing_edit' listing.pk %}"
+                           class="block w-full bg-yellow-500 hover:bg-yellow-600 text-white text-center py-2.5 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-edit mr-2"></i>
+                            Edit Listing
+                        </a>
+                        <a href="{% url 'listings:listing_delete' listing.pk %}"
+                           class="block w-full bg-red-500 hover:bg-red-600 text-white text-center py-2.5 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-trash mr-2"></i>
+                            Delete Listing
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <!-- Stats -->
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600">
+                                <i class="far fa-eye mr-2"></i>
+                                Views
+                            </span>
+                            <span class="font-medium text-gray-900">{{ listing.views_count }}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm mt-3">
+                            <span class="text-gray-600">
+                                <i class="far fa-clock mr-2"></i>
+                                Posted
+                            </span>
+                            <span class="font-medium text-gray-900">{{ listing.created_at|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety Tips -->
+                <div class="bg-blue-50 rounded-xl border border-blue-200 p-6">
+                    <h4 class="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                        <i class="fas fa-shield-alt"></i>
+                        Safety Tips
+                    </h4>
+                    <ul class="space-y-2 text-sm text-blue-900">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                            <span>Meet in a safe, public location</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                            <span>Check the vehicle thoroughly</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                            <span>Never pay in advance</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                            <span>Verify all documents</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

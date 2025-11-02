@@ -1,172 +1,173 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}{{ profile.user.username }}'s Profile - SellCars{% endblock %}
+{% block title %}{{ user.username }}'s Profile - SellCar{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <!-- Profile Info -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow">
-                <div class="card-body text-center">
-                    {% if profile.profile_picture %}
-                        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
-                    {% else %}
-                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px; font-size: 3rem;">
-                            {{ profile.user.username|first|upper }}
-                        </div>
-                    {% endif %}
-
-                    <h3>{{ profile.user.username }}</h3>
-                    <p class="text-muted">{{ profile.user.email }}</p>
-
-                    {% if user == profile.user %}
-                    <div class="mt-3">
-                        <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary btn-block">
-                            <i class="fas fa-edit"></i> Edit Profile
-                        </a>
-                        <a href="{% url 'accounts:password_change' %}" class="btn btn-outline-secondary btn-block mt-2">
-                            <i class="fas fa-lock"></i> Change Password
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Stats Card -->
-            <div class="card shadow mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Stats</h5>
-                    <hr>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span><i class="fas fa-car text-primary"></i> Listings</span>
-                        <strong>{{ profile.user.listing_set.count }}</strong>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span><i class="fas fa-heart text-danger"></i> Saved</span>
-                        <strong>{{ profile.user.savedlisting_set.count }}</strong>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span><i class="fas fa-calendar text-info"></i> Joined</span>
-                        <strong>{{ profile.user.date_joined|date:"M Y" }}</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- About Card -->
-            {% if profile.bio %}
-            <div class="card shadow mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">About</h5>
-                    <hr>
-                    <p>{{ profile.bio }}</p>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Contact Info -->
-            <div class="card shadow mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Contact Info</h5>
-                    <hr>
-                    {% if profile.phone_number %}
-                    <p class="mb-2">
-                        <i class="fas fa-phone text-primary"></i>
-                        <a href="tel:{{ profile.phone_number }}">{{ profile.phone_number }}</a>
-                    </p>
-                    {% endif %}
-                    {% if profile.location %}
-                    <p class="mb-0">
-                        <i class="fas fa-map-marker-alt text-danger"></i>
-                        {{ profile.location }}
-                    </p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Listings -->
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-white">
-                    <h4 class="mb-0">
-                        {% if user == profile.user %}
-                            My Listings
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Profile Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                    <!-- Profile Picture -->
+                    <div class="text-center mb-6">
+                        {% if user.profile.profile_picture %}
+                        <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
+                             class="w-24 h-24 rounded-full mx-auto object-cover mb-4 ring-4 ring-gray-100">
                         {% else %}
-                            {{ profile.user.username }}'s Listings
+                        <div class="w-24 h-24 bg-primary rounded-full mx-auto flex items-center justify-center text-white text-3xl font-bold mb-4 ring-4 ring-gray-100">
+                            {{ user.username|slice:":1"|upper }}
+                        </div>
                         {% endif %}
-                    </h4>
+                        <h2 class="text-xl font-bold text-gray-900">{{ user.username }}</h2>
+                        <p class="text-gray-600 text-sm">{{ user.email }}</p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-primary">{{ user.listings.count }}</div>
+                            <div class="text-xs text-gray-600">Listings</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-primary">0</div>
+                            <div class="text-xs text-gray-600">Saved</div>
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    {% if user.profile.location or user.profile.phone_number %}
+                    <div class="space-y-3 mb-6 pb-6 border-b border-gray-200">
+                        {% if user.profile.location %}
+                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                            <i class="fas fa-map-marker-alt text-gray-400 w-5"></i>
+                            <span>{{ user.profile.location }}</span>
+                        </div>
+                        {% endif %}
+                        {% if user.profile.phone_number %}
+                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                            <i class="fas fa-phone text-gray-400 w-5"></i>
+                            <span>{{ user.profile.phone_number }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Member Since -->
+                    <div class="text-sm text-gray-600 mb-6">
+                        <i class="far fa-calendar mr-2"></i>
+                        Member since {{ user.date_joined|date:"F Y" }}
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="space-y-2">
+                        <a href="{% url 'accounts:profile_edit' %}"
+                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-2.5 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-edit mr-2"></i>
+                            Edit Profile
+                        </a>
+                        <a href="{% url 'accounts:settings' %}"
+                           class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-2.5 rounded-lg transition-colors font-medium">
+                            <i class="fas fa-cog mr-2"></i>
+                            Settings
+                        </a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    {% if listings %}
-                        <div class="row">
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Bio -->
+                {% if user.profile.bio %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">About</h3>
+                    <p class="text-gray-700 whitespace-pre-line">{{ user.profile.bio }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Tabs -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+                     x-data="{ activeTab: 'active' }">
+                    <!-- Tab Headers -->
+                    <div class="border-b border-gray-200">
+                        <div class="flex">
+                            <button @click="activeTab = 'active'"
+                                    :class="activeTab === 'active' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
+                                    class="px-6 py-4 border-b-2 font-medium transition-colors">
+                                Active Listings ({{ user.listings.filter(status='active').count }})
+                            </button>
+                            <button @click="activeTab = 'sold'"
+                                    :class="activeTab === 'sold' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
+                                    class="px-6 py-4 border-b-2 font-medium transition-colors">
+                                Sold ({{ user.listings.filter(status='sold').count }})
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Active Listings -->
+                    <div x-show="activeTab === 'active'" class="p-6">
+                        {% with listings=user.listings.filter|slice:":6" %}
+                        {% if listings %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {% for listing in listings %}
-                            <div class="col-md-6 mb-3">
-                                <div class="card h-100">
+                            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
+                                <div class="relative h-40 overflow-hidden">
                                     {% if listing.images.first %}
-                                        <img src="{{ listing.images.first.image.url }}" class="card-img-top" alt="{{ listing.title }}" style="height: 200px; object-fit: cover;">
+                                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                                     {% else %}
-                                        <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
-                                            <i class="fas fa-car fa-3x text-white"></i>
-                                        </div>
+                                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                        <i class="fas fa-car text-gray-400 text-3xl"></i>
+                                    </div>
                                     {% endif %}
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ listing.title }}</h5>
-                                        <p class="card-text text-primary font-weight-bold">${{ listing.price|floatformat:0 }}</p>
-                                        <p class="card-text text-muted small">
-                                            <i class="fas fa-tachometer-alt"></i> {{ listing.mileage|floatformat:0 }} km
-                                            <i class="fas fa-calendar ml-2"></i> {{ listing.year }}
-                                        </p>
-                                        <a href="{% url 'listings:listing_detail' listing.slug %}" class="btn btn-sm btn-outline-primary">
-                                            View Details
+                                    <div class="absolute top-2 right-2">
+                                        <span class="bg-white px-2 py-1 rounded-full text-xs font-semibold">
+                                            €{{ listing.price|floatformat:0 }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-1 line-clamp-1">{{ listing.title }}</h4>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        {{ listing.year }} • {{ listing.mileage|floatformat:0 }}k km
+                                    </p>
+                                    <div class="flex gap-2">
+                                        <a href="{% url 'listings:listing_detail' listing.pk %}"
+                                           class="flex-1 bg-primary text-white text-center py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
+                                            View
                                         </a>
-                                        {% if user == profile.user %}
-                                        <a href="{% url 'listings:listing_edit' listing.slug %}" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{% url 'listings:listing_edit' listing.pk %}"
+                                           class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
-
-                        {% if is_paginated %}
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center mt-4">
-                                {% if page_obj.has_previous %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                                </li>
-                                {% endif %}
-
-                                {% for num in page_obj.paginator.page_range %}
-                                    {% if page_obj.number == num %}
-                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-
-                                {% if page_obj.has_next %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
-                        {% endif %}
-                    {% else %}
-                        <div class="text-center py-5">
-                            <i class="fas fa-car fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">No listings yet</h5>
-                            {% if user == profile.user %}
-                            <a href="{% url 'listings:listing_create' %}" class="btn btn-primary mt-3">
-                                <i class="fas fa-plus"></i> Create Your First Listing
+                        {% else %}
+                        <div class="text-center py-12">
+                            <i class="fas fa-car text-gray-300 text-5xl mb-4"></i>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2">No Active Listings</h4>
+                            <p class="text-gray-600 mb-6">Start selling by creating your first listing</p>
+                            <a href="{% url 'listings:listing_create' %}"
+                               class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                                <i class="fas fa-plus mr-2"></i>
+                                Create Listing
                             </a>
-                            {% endif %}
                         </div>
-                    {% endif %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+
+                    <!-- Sold Listings -->
+                    <div x-show="activeTab === 'sold'" class="p-6">
+                        <div class="text-center py-12">
+                            <i class="fas fa-check-circle text-gray-300 text-5xl mb-4"></i>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2">No Sold Listings Yet</h4>
+                            <p class="text-gray-600">Your sold listings will appear here</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

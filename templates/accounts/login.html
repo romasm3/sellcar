@@ -1,84 +1,114 @@
 {% extends 'base.html' %}
 
+{% block title %}Login - SellCar{% endblock %}
+
 {% block content %}
-<div class="container" style="max-width: 450px; margin: 50px auto;">
-    <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin-bottom: 30px;">Login to SellCar</h2>
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <div class="max-w-md w-full">
+        <!-- Logo & Title -->
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                SC
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900">Welcome Back</h2>
+            <p class="text-gray-600 mt-2">Login to your SellCar account</p>
+        </div>
 
-        <!-- Django messages -->
-        {% if messages %}
-            {% for message in messages %}
-                <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px;
-                    {% if message.tags == 'success' %}background: #d4edda; color: #155724;{% endif %}
-                    {% if message.tags == 'error' %}background: #f8d7da; color: #721c24;{% endif %}">
-                    {{ message }}
+        <!-- Login Form -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div class="mb-6">
+                    <label for="id_username" class="block text-sm font-medium text-gray-700 mb-2">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" name="username" id="id_username" required
+                               class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                               placeholder="Enter your username">
+                    </div>
                 </div>
-            {% endfor %}
-        {% endif %}
 
-        <form method="POST">
-            {% csrf_token %}
-
-            <!-- Username -->
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Username:</label>
-                <input type="text" name="username" class="form-control"
-                       placeholder="Enter your username" required
-                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-
-            <!-- Password -->
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
-                <input type="password" name="password" class="form-control"
-                       placeholder="Enter your password" required
-                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-
-            <!-- Error messages -->
-            {% if form.errors %}
-                <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                    ❌ Invalid username or password. Please try again.
+                <!-- Password -->
+                <div class="mb-6">
+                    <label for="id_password" class="block text-sm font-medium text-gray-700 mb-2">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" name="password" id="id_password" required
+                               class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                               placeholder="Enter your password">
+                    </div>
                 </div>
-            {% endif %}
 
-            <!-- Forgot Password Link -->
-            <div style="text-align: right; margin-bottom: 20px;">
-                <a href="{% url 'accounts:password_reset' %}" style="color: #007bff; text-decoration: none; font-size: 14px;">
-                    Forgot Password?
-                </a>
+                <!-- Error Messages -->
+                {% if form.errors %}
+                <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div class="flex items-center gap-2 text-red-800">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="text-sm">Invalid username or password. Please try again.</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember"
+                               class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                        <label for="remember" class="ml-2 text-sm text-gray-700">
+                            Remember me
+                        </label>
+                    </div>
+                    <a href="{% url 'accounts:password_reset' %}" class="text-sm text-primary hover:text-primary-dark transition-colors">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-white text-gray-500">Or</span>
+                </div>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary"
-                    style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-                Login
-            </button>
-        </form>
+            <!-- Register Link -->
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Don't have an account?
+                    <a href="{% url 'accounts:register' %}" class="text-primary hover:text-primary-dark font-semibold transition-colors">
+                        Sign up for free
+                    </a>
+                </p>
+            </div>
+        </div>
 
-        <!-- Register Link -->
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-            <p style="margin: 0; color: #666;">
-                Don't have an account?
-                <a href="{% url 'accounts:register' %}" style="color: #007bff; text-decoration: none; font-weight: bold;">
-                    Register here
-                </a>
-            </p>
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="{% url 'listings:listing_list' %}" class="text-gray-600 hover:text-primary transition-colors text-sm flex items-center justify-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
         </div>
     </div>
 </div>
-
-<style>
-    .btn-primary:hover {
-        background: #0056b3 !important;
-    }
-    a:hover {
-        text-decoration: underline !important;
-    }
-    .form-control:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-    }
-</style>
 {% endblock %}

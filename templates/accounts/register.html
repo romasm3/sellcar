@@ -1,46 +1,183 @@
 {% extends 'base.html' %}
 
+{% block title %}Sign Up - SellCar{% endblock %}
+
 {% block content %}
-<div class="container" style="max-width: 500px; margin: 50px auto;">
-    <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; margin-bottom: 30px;">Create Account</h2>
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <div class="max-w-md w-full">
+        <!-- Logo & Title -->
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                SC
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900">Create Account</h2>
+            <p class="text-gray-600 mt-2">Join SellCar today</p>
+        </div>
 
-        <form method="POST">
-            {% csrf_token %}
+        <!-- Registration Form -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+            <form method="POST">
+                {% csrf_token %}
 
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Username:</label>
-                {{ form.username }}
+                <!-- Username -->
+                <div class="mb-5">
+                    <label for="id_username" class="block text-sm font-medium text-gray-700 mb-2">
+                        Username *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        {{ form.username }}
+                    </div>
+                    {% if form.username.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Email -->
+                <div class="mb-5">
+                    <label for="id_email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Password -->
+                <div class="mb-5">
+                    <label for="id_password1" class="block text-sm font-medium text-gray-700 mb-2">
+                        Password *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        {{ form.password1 }}
+                    </div>
+                    {% if form.password1.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-5">
+                    <label for="id_password2" class="block text-sm font-medium text-gray-700 mb-2">
+                        Confirm Password *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        {{ form.password2 }}
+                    </div>
+                    {% if form.password2.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Non-field Errors -->
+                {% if form.non_field_errors %}
+                <div class="mb-5 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div class="flex items-start gap-2 text-red-800 text-sm">
+                        <i class="fas fa-exclamation-circle mt-0.5"></i>
+                        <div>{{ form.non_field_errors }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Password Requirements -->
+                <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p class="text-sm font-medium text-blue-900 mb-2">Password Requirements:</p>
+                    <ul class="text-sm text-blue-800 space-y-1">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-xs"></i>
+                            At least 8 characters long
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-xs"></i>
+                            Cannot be entirely numeric
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-check text-xs"></i>
+                            Not too similar to your username
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Terms Agreement -->
+                <div class="mb-6">
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" required
+                               class="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                        <span class="text-sm text-gray-700">
+                            I agree to the <a href="#" class="text-primary hover:text-primary-dark">Terms of Service</a>
+                            and <a href="#" class="text-primary hover:text-primary-dark">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-white text-gray-500">Or</span>
+                </div>
             </div>
 
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email:</label>
-                {{ form.email }}
+            <!-- Login Link -->
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Already have an account?
+                    <a href="{% url 'accounts:login' %}" class="text-primary hover:text-primary-dark font-semibold transition-colors">
+                        Login here
+                    </a>
+                </p>
             </div>
+        </div>
 
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
-                {{ form.password1 }}
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Confirm Password:</label>
-                {{ form.password2 }}
-            </div>
-
-            {{ form.errors }}
-
-            <button type="submit" style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-                Register
-            </button>
-        </form>
-
-        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-            <p style="margin: 0;">
-                Already have an account?
-                <a href="{% url 'accounts:login' %}">Login here</a>
-            </p>
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="{% url 'listings:listing_list' %}" class="text-gray-600 hover:text-primary transition-colors text-sm flex items-center justify-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
         </div>
     </div>
 </div>
+
+<style>
+    /* Style for Django form fields */
+    #id_username, #id_email, #id_password1, #id_password2 {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    #id_username:focus, #id_email:focus, #id_password1:focus, #id_password2:focus {
+        outline: none;
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+</style>
 {% endblock %}

@@ -1,224 +1,206 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Pagrindinis -
-SellCar{% endblock %} {% block content %}
-<!-- Hero Section -->
-<section class="hero-section bg-primary text-white py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold">Rask savo svajonių automobilį</h1>
-                <p class="lead">
-                    Didžiausia automobilių ir kitos technikos pardavimo
-                    platforma Lietuvoje
-                </p>
-                <div class="d-flex gap-3 mt-4">
-                    <a
-                        href="{% url 'listings:listing_list' %}"
-                        class="btn btn-light btn-lg"
-                    >
-                        <i class="fas fa-search"></i> Ieškoti
-                    </a>
-                    {% if user.is_authenticated %}
-                    <a
-                        href="{% url 'listings:listing_create' %}"
-                        class="btn btn-outline-light btn-lg"
-                    >
-                        <i class="fas fa-plus"></i> Pridėti skelbimą
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-6 d-none d-lg-block">
-                <i class="fas fa-car display-1"></i>
-            </div>
-        </div>
-    </div>
-</section>
+{% extends 'base.html' %}
 
-<!-- Search Section -->
-<section class="search-section py-5 bg-light">
-    <div class="container">
-        <div class="card shadow">
-            <div class="card-body p-4">
-                <h3 class="mb-4">Greita paieška</h3>
-                <form method="get" action="{% url 'listings:listing_list' %}">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <input
-                                type="text"
-                                name="search"
-                                class="form-control"
-                                placeholder="Markė, modelis..."
-                            />
-                        </div>
-                        <div class="col-md-2">
-                            <input
-                                type="number"
-                                name="year_from"
-                                class="form-control"
-                                placeholder="Metai nuo"
-                            />
-                        </div>
-                        <div class="col-md-2">
-                            <input
-                                type="number"
-                                name="year_to"
-                                class="form-control"
-                                placeholder="Metai iki"
-                            />
-                        </div>
-                        <div class="col-md-2">
-                            <input
-                                type="number"
-                                name="price_from"
-                                class="form-control"
-                                placeholder="Kaina nuo €"
-                            />
-                        </div>
-                        <div class="col-md-2">
-                            <input
-                                type="number"
-                                name="price_to"
-                                class="form-control"
-                                placeholder="Kaina iki €"
-                            />
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+{% block title %}SellCar - Buy & Sell Cars Online{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-br from-purple-600 to-purple-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Find Your Dream Car
+            </h1>
+            <p class="text-xl md:text-2xl text-purple-100 mb-8">
+                Browse thousands of vehicles from trusted sellers
+            </p>
+
+            <!-- Quick Search -->
+            <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-4xl mx-auto">
+                <form method="get" action="{% url 'listings:listing_list' %}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Make</label>
+                        <select name="brand" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900">
+                            <option value="">All Makes</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                            <option value="Audi">Audi</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Honda">Honda</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Max Price</label>
+                        <select name="price_max" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900">
+                            <option value="">Any Price</option>
+                            <option value="5000">€5,000</option>
+                            <option value="10000">€10,000</option>
+                            <option value="20000">€20,000</option>
+                            <option value="30000">€30,000</option>
+                            <option value="50000">€50,000</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Body Type</label>
+                        <select name="body_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900">
+                            <option value="">All Types</option>
+                            <option value="sedan">Sedan</option>
+                            <option value="suv">SUV</option>
+                            <option value="hatchback">Hatchback</option>
+                            <option value="coupe">Coupe</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+<!-- Stats -->
+<div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl font-bold text-primary mb-2">1,500+</div>
+                <div class="text-gray-600">Cars Listed</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-primary mb-2">5,000+</div>
+                <div class="text-gray-600">Happy Customers</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-primary mb-2">50+</div>
+                <div class="text-gray-600">Cities Covered</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+                <div class="text-gray-600">Support</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Latest Listings -->
-<section class="py-5">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Naujausi skelbimai</h2>
-            <a
-                href="{% url 'listings:listing_list' %}"
-                class="btn btn-outline-primary"
-            >
-                Visi skelbimai <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <div class="row g-4">
-            {% for listing in listings %}
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 shadow-sm hover-shadow">
-                    {% if listing.get_main_image %}
-                    <img
-                        src="{{ listing.get_main_image }}"
-                        class="card-img-top"
-                        alt="{{ listing.title }}"
-                        style="height: 200px; object-fit: cover"
-                    />
-                    {% else %}
-                    <div
-                        class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
-                        style="height: 200px"
-                    >
-                        <i class="fas fa-car fa-3x text-white"></i>
-                    </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ listing.title }}</h5>
-                        <p class="card-text text-muted small">
-                            <i class="fas fa-calendar"></i> {{ listing.year }} |
-                            <i class="fas fa-road"></i> {{
-                            listing.mileage|floatformat:0 }} km
-                        </p>
-                        <p class="card-text">
-                            <strong class="text-primary fs-4"
-                                >{{ listing.price|floatformat:0 }} €</strong
-                            >
-                        </p>
-                        <p class="card-text text-muted small">
-                            <i class="fas fa-map-marker-alt"></i> {{
-                            listing.city }}
-                        </p>
-                        <a
-                            href="{% url 'listings:listing_detail' listing.slug %}"
-                            class="btn btn-primary w-100"
-                        >
-                            Peržiūrėti
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12">
-                <div class="alert alert-info text-center">
-                    <i class="fas fa-info-circle"></i> Skelbimų nėra
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Latest Listings</h2>
+        <a href="{% url 'listings:listing_list' %}" class="text-primary hover:text-primary-dark font-medium flex items-center gap-2">
+            View All
+            <i class="fas fa-arrow-right"></i>
+        </a>
     </div>
-</section>
 
-<!-- Features Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">Kodėl SellCar?</h2>
-        <div class="row g-4">
-            <div class="col-md-4 text-center">
-                <div
-                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                    style="width: 80px; height: 80px"
-                >
-                    <i class="fas fa-search fa-2x"></i>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for listing in listings|slice:":8" %}
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-shadow overflow-hidden group">
+            <div class="relative h-48 overflow-hidden">
+                {% if listing.images.first %}
+                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                {% else %}
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-car text-gray-400 text-4xl"></i>
                 </div>
-                <h4>Paprasta paieška</h4>
-                <p class="text-muted">
-                    Raskite automobilį pagal savo poreikius naudodami išsamius
-                    filtrus ir žemėlapį
-                </p>
+                {% endif %}
+                <div class="absolute top-3 right-3">
+                    <span class="bg-white px-3 py-1 rounded-full text-sm font-semibold text-gray-900">
+                        €{{ listing.price|floatformat:0 }}
+                    </span>
+                </div>
             </div>
-            <div class="col-md-4 text-center">
-                <div
-                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                    style="width: 80px; height: 80px"
-                >
-                    <i class="fas fa-shield-alt fa-2x"></i>
+            <div class="p-5">
+                <h3 class="font-semibold text-lg text-gray-900 mb-2 line-clamp-1">{{ listing.title }}</h3>
+                <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span class="flex items-center gap-1">
+                        <i class="far fa-calendar"></i>
+                        {{ listing.year }}
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <i class="fas fa-tachometer-alt"></i>
+                        {{ listing.mileage|floatformat:0 }}k
+                    </span>
                 </div>
-                <h4>Saugu</h4>
-                <p class="text-muted">
-                    Patikrinti pardavėjai ir saugi pardavimo platforma
-                </p>
+                <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ listing.city }}</span>
+                </div>
+                <a href="{% url 'listings:listing_detail' listing.pk %}"
+                   class="block w-full bg-primary text-white text-center py-2.5 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                    View Details
+                </a>
             </div>
-            <div class="col-md-4 text-center">
-                <div
-                    class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-                    style="width: 80px; height: 80px"
-                >
-                    <i class="fas fa-bolt fa-2x"></i>
+        </div>
+        {% empty %}
+        <div class="col-span-4 text-center py-12 text-gray-500">
+            <i class="fas fa-car text-5xl mb-4"></i>
+            <p>No listings available yet</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Features -->
+<div class="bg-gray-100 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose SellCar?</h2>
+            <p class="text-gray-600 text-lg">The best platform to buy and sell cars</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-search text-3xl text-primary"></i>
                 </div>
-                <h4>Greita</h4>
-                <p class="text-muted">
-                    Skelbimai skelbiami akimirksniu, susisiekite su pardavėju
-                    bet kada
-                </p>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Easy Search</h3>
+                <p class="text-gray-600">Find your dream car with advanced filters and map search</p>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-shield-alt text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Safe & Secure</h3>
+                <p class="text-gray-600">All listings are verified. Buy and sell with confidence</p>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-bolt text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Fast & Easy</h3>
+                <p class="text-gray-600">List your car in minutes and connect with buyers instantly</p>
             </div>
         </div>
     </div>
-</section>
-{% endblock %} {% block extra_css %}
-<style>
-    .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    .hover-shadow {
-        transition: all 0.3s ease;
-    }
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-    }
-</style>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-primary text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Sell Your Car?</h2>
+        <p class="text-xl text-purple-100 mb-8">
+            Join thousands of sellers who found buyers on SellCar
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'listings:listing_create' %}"
+           class="inline-block bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            Create Listing
+        </a>
+        {% else %}
+        <a href="{% url 'accounts:register' %}"
+           class="inline-block bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            Get Started
+        </a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
