@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 500px; margin: 50px auto;">
+    <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; margin-bottom: 30px;">Create Account</h2>
+
+        <!-- Django messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px;
+                    {% if message.tags == 'success' %}background: #d4edda; color: #155724;{% endif %}
+                    {% if message.tags == 'error' %}background: #f8d7da; color: #721c24;{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Username:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <small style="color: red;">{{ form.username.errors }}</small>
+                {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <small style="color: red;">{{ form.email.errors }}</small>
+                {% endif %}
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <small style="color: red;">{{ form.password1.errors }}</small>
+                {% endif %}
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Confirm Password:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <small style="color: red;">{{ form.password2.errors }}</small>
+                {% endif %}
+            </div>
+
+            <!-- Non-field errors -->
+            {% if form.non_field_errors %}
+                <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary"
+                    style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Register
+            </button>
+        </form>
+
+        <!-- Login Link -->
+        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p style="margin: 0; color: #666;">
+                Already have an account?
+                <a href="{% url 'accounts:login' %}" style="color: #007bff; text-decoration: none; font-weight: bold;">
+                    Login here
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-primary:hover {
+        background: #218838 !important;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    input:focus {
+        outline: none;
+        border-color: #28a745;
+        box-shadow: 0 0 0 3px rgba(40,167,69,0.1);
+    }
+</style>
+{% endblock %}

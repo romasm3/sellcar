@@ -1,130 +1,43 @@
-{% extends 'base.html' %} {% load crispy_forms_tags %} {% block title
-%}Redaguoti profilį - SellCar{% endblock %} {% block content %}
-<div class="container">
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Profile - SellCars{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
+        <div class="col-md-8">
+            <div class="card shadow">
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0">
-                        <i class="fas fa-user-edit"></i> Redaguoti profilį
+                        <i class="fas fa-user-edit"></i> Edit Profile
                     </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        <!-- User Information -->
-                        <div class="mb-4">
-                            <h5 class="border-bottom pb-2 mb-3">
-                                Vartotojo informacija
-                            </h5>
-
-                            <div class="mb-3">
-                                <label class="form-label"
-                                    >Vartotojo vardas</label
-                                >
-                                {{ u_form.username }}
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Vardas</label>
-                                    {{ u_form.first_name }}
+                        <div class="text-center mb-4">
+                            {% if profile.profile_picture %}
+                                <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px; font-size: 2.5rem;">
+                                    {{ user.username|first|upper }}
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Pavardė</label>
-                                    {{ u_form.last_name }}
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">El. paštas</label>
-                                {{ u_form.email }}
-                            </div>
+                            {% endif %}
                         </div>
 
-                        <!-- Profile Information -->
-                        <div class="mb-4">
-                            <h5 class="border-bottom pb-2 mb-3">
-                                Profilio informacija
-                            </h5>
+                        {{ user_form|crispy }}
+                        {{ profile_form|crispy }}
 
-                            <div class="mb-3">
-                                <label class="form-label"
-                                    >Telefono numeris</label
-                                >
-                                {{ p_form.phone }}
-                            </div>
+                        <hr class="my-4">
 
-                            <div class="row">
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">Adresas</label>
-                                    {{ p_form.address }}
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Miestas</label>
-                                    {{ p_form.city }}
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Šalis</label>
-                                {{ p_form.country }}
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Apie mane</label>
-                                {{ p_form.bio }}
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label"
-                                    >Profilio nuotrauka</label
-                                >
-                                {% if user.profile.avatar %}
-                                <div class="mb-2">
-                                    <img
-                                        src="{{ user.profile.avatar.url }}"
-                                        class="rounded"
-                                        width="100"
-                                        height="100"
-                                        style="object-fit: cover"
-                                        alt="Current avatar"
-                                    />
-                                </div>
-                                {% endif %} {{ p_form.avatar }}
-                                <small class="form-text text-muted"
-                                    >Rekomenduojamas dydis: 400x400px</small
-                                >
-                            </div>
-                        </div>
-
-                        <!-- Form Errors -->
-                        {% if u_form.errors or p_form.errors %}
-                        <div class="alert alert-danger">
-                            <strong>Klaidos:</strong>
-                            <ul class="mb-0">
-                                {% for field in u_form %} {% for error in
-                                field.errors %}
-                                <li>{{ field.label }}: {{ error }}</li>
-                                {% endfor %} {% endfor %} {% for field in p_form
-                                %} {% for error in field.errors %}
-                                <li>{{ field.label }}: {{ error }}</li>
-                                {% endfor %} {% endfor %}
-                            </ul>
-                        </div>
-                        {% endif %}
-
-                        <!-- Submit Buttons -->
-                        <div class="d-flex gap-2 justify-content-end">
-                            <a
-                                href="{% url 'accounts:profile' %}"
-                                class="btn btn-secondary"
-                            >
-                                <i class="fas fa-times"></i> Atšaukti
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times"></i> Cancel
                             </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Išsaugoti pakeitimus
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save Changes
                             </button>
                         </div>
                     </form>

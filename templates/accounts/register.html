@@ -1,110 +1,46 @@
-{% extends 'base.html' %} {% load crispy_forms_tags %} {% block title
-%}Registracija - SellCar{% endblock %} {% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0 text-center">
-                        <i class="fas fa-user-plus"></i> Registracija
-                    </h3>
-                </div>
-                <div class="card-body p-4">
-                    <p class="text-center text-muted mb-4">
-                        Sukurkite paskyrą ir pradėkite prekiauti!
-                    </p>
+{% extends 'base.html' %}
 
-                    <form method="post">
-                        {% csrf_token %}
+{% block content %}
+<div class="container" style="max-width: 500px; margin: 50px auto;">
+    <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; margin-bottom: 30px;">Create Account</h2>
 
-                        <div class="mb-3">
-                            <label class="form-label">Vartotojo vardas *</label>
-                            {{ form.username }} {% if form.username.errors %}
-                            <div class="text-danger small">
-                                {{ form.username.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
+        <form method="POST">
+            {% csrf_token %}
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Vardas *</label>
-                                {{ form.first_name }} {% if
-                                form.first_name.errors %}
-                                <div class="text-danger small">
-                                    {{ form.first_name.errors }}
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Pavardė *</label>
-                                {{ form.last_name }} {% if form.last_name.errors
-                                %}
-                                <div class="text-danger small">
-                                    {{ form.last_name.errors }}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">El. paštas *</label>
-                            {{ form.email }} {% if form.email.errors %}
-                            <div class="text-danger small">
-                                {{ form.email.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Slaptažodis *</label>
-                            {{ form.password1 }} {% if form.password1.errors %}
-                            <div class="text-danger small">
-                                {{ form.password1.errors }}
-                            </div>
-                            {% endif %}
-                            <small class="form-text text-muted">
-                                Slaptažodis turi būti bent 8 simbolių ilgio
-                            </small>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label"
-                                >Pakartokite slaptažodį *</label
-                            >
-                            {{ form.password2 }} {% if form.password2.errors %}
-                            <div class="text-danger small">
-                                {{ form.password2.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary w-100 mb-3"
-                        >
-                            <i class="fas fa-user-plus"></i> Registruotis
-                        </button>
-
-                        <div class="text-center">
-                            <p class="mb-0">
-                                Jau turite paskyrą?
-                                <a href="{% url 'accounts:login' %}"
-                                    >Prisijunkite</a
-                                >
-                            </p>
-                        </div>
-                    </form>
-                </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Username:</label>
+                {{ form.username }}
             </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email:</label>
+                {{ form.email }}
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
+                {{ form.password1 }}
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Confirm Password:</label>
+                {{ form.password2 }}
+            </div>
+
+            {{ form.errors }}
+
+            <button type="submit" style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Register
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p style="margin: 0;">
+                Already have an account?
+                <a href="{% url 'accounts:login' %}">Login here</a>
+            </p>
         </div>
     </div>
 </div>
-{% endblock %} {% block extra_css %}
-<style>
-    .card {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-</style>
 {% endblock %}

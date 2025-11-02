@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search on Map - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+    #map {
+        height: 600px;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .search-sidebar {
+        height: 600px;
+        overflow-y: auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .listing-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .listing-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
+    }
+
+    .listing-card.active {
+        border: 2px solid #007bff;
+    }
+
+    .listing-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .filter-section {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .price-badge {
+        background: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar with filters and listings -->
+        <div class="col-md-4">
+            <div class="search-sidebar">
+                <!-- Filters -->
+                <div class="filter-section">
+                    <h5 class="mb-3">
+                        <i class="fas fa-filter"></i> Filters
+                    </h5>
+                    <form method="get" id="filterForm">
+                        <!-- Make (Dropdown) -->
+                        <div class="mb-3">
+                            <label class="form-label">Make</label>
+                            <select name="make" id="makeSelect" class="form-select">
+                                <option value="">All makes</option>
+                                {% for make in makes %}
+                                    <option value="{{ make }}" {% if request.GET.make == make %}selected{% endif %}>
+                                        {{ make }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Model (Dropdown - dynamic) -->
+                        <div class="mb-3">
+                            <label class="form-label">Model</label>
+                            <select name="model" id="modelSelect" class="form-select">
+                                <option value="">All models</option>
+                                {% for model in models %}
+                                    <option value="{{ model }}" {% if request.GET.model == model %}selected{% endif %}>
+                                        {{ model }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Price from</label>
+                                <input type="number" name="price_min" class="form-control"
+                                       placeholder="€"
+                                       value="{{ request.GET.price_min }}">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Price to</label>
+                                <input type="number" name="price_max" class="form-control"
+                                       placeholder="€"
+                                       value="{{ request.GET.price_max }}">
+                            </div>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Year from</label>
+                                <select name="year_min" class="form-select">
+                                    <option value="">From</option>
+                                    {% for year in years %}
+                                        <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>
+                                            {{ year }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Year to</label>
+                                <select name="year_max" class="form-select">
+                                    <option value="">To</option>
+                                    {% for year in years %}
+                                        <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>
+                                            {{ year }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Fuel Type -->
+                        <div class="mb-3">
+                            <label class="form-label">Fuel Type</label>
+                            <select name="fuel_type" class="form-select">
+                                <option value="">All</option>
+                                <option value="petrol" {% if request.GET.fuel_type == 'petrol' %}selected{% endif %}>Petrol</option>
+                                <option value="diesel" {% if request.GET.fuel_type == 'diesel' %}selected{% endif %}>Diesel</option>
+                                <option value="electric" {% if request.GET.fuel_type == 'electric' %}selected{% endif %}>Electric</option>
+                                <option value="hybrid" {% if request.GET.fuel_type == 'hybrid' %}selected{% endif %}>Hybrid</option>
+                                <option value="gas" {% if request.GET.fuel_type == 'gas' %}selected{% endif %}>Gas</option>
+                            </select>
+                        </div>
+
+                        <!-- Transmission -->
+                        <div class="mb-3">
+                            <label class="form-label">Transmission</label>
+                            <select name="transmission" class="form-select">
+                                <option value="">All</option>
+                                <option value="manual" {% if request.GET.transmission == 'manual' %}selected{% endif %}>Manual</option>
+                                <option value="automatic" {% if request.GET.transmission == 'automatic' %}selected{% endif %}>Automatic</option>
+                                <option value="semi-automatic" {% if request.GET.transmission == 'semi-automatic' %}selected{% endif %}>Semi-Automatic</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <a href="{% url 'listings:search_map' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-redo"></i> Clear
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Listings List -->
+                <div class="listings-list">
+                    <h6 class="mb-3">Found listings: {{ listings.count }}</h6>
+
+                    {% if listings %}
+                        {% for listing in listings %}
+                        <div class="listing-card"
+                             data-lat="{{ listing.latitude }}"
+                             data-lng="{{ listing.longitude }}"
+                             data-id="{{ listing.id }}"
+                             onclick="focusListing({{ listing.id }}, {{ listing.latitude }}, {{ listing.longitude }})">
+
+                            {% if listing.main_image %}
+                                <img src="{{ listing.main_image.url }}" alt="{{ listing.title }}" class="listing-image">
+                            {% else %}
+                                <div class="listing-image bg-secondary d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-car fa-3x text-white"></i>
+                                </div>
+                            {% endif %}
+
+                            <h6 class="mb-1">{{ listing.title }}</h6>
+                            <p class="text-muted mb-1 small">
+                                {{ listing.year }} • {{ listing.mileage|floatformat:0 }} km
+                            </p>
+                            <div class="price-badge">
+                                €{{ listing.price|floatformat:0 }}
+                            </div>
+
+                            {% if listing.city %}
+                                <p class="text-muted mb-0 mt-2 small">
+                                    <i class="fas fa-map-marker-alt"></i> {{ listing.city }}
+                                </p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-search fa-3x mb-3"></i>
+                            <p>No listings found</p>
+                            <small>Try changing the filters</small>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div class="col-md-8">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
+
+<script>
+let map;
+let markers = [];
+let infoWindow;
+
+// Dynamic model change based on make
+document.getElementById('makeSelect').addEventListener('change', function() {
+    const selectedMake = this.value;
+
+    if (selectedMake) {
+        // AJAX request to get models
+        fetch(`/listings/api/models/?make=${selectedMake}`)
+            .then(response => response.json())
+            .then(data => {
+                const modelSelect = document.getElementById('modelSelect');
+                modelSelect.innerHTML = '<option value="">All models</option>';
+
+                data.models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.textContent = model;
+                    modelSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        // If no make selected, show all models
+        document.getElementById('modelSelect').innerHTML = '<option value="">All models</option>';
+    }
+});
+
+// Initialize map
+function initMap() {
+    // Default location - Lithuania
+    const defaultLocation = { lat: 55.1694, lng: 23.8813 };
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 7,
+        center: defaultLocation,
+        mapTypeControl: true,
+        streetViewControl: false,
+        fullscreenControl: true
+    });
+
+    infoWindow = new google.maps.InfoWindow();
+
+    // Add markers from listings
+    addMarkers();
+
+    // Auto fit map to markers
+    fitMapToMarkers();
+}
+
+// Add markers
+function addMarkers() {
+    const listings = {{ listings_json|safe }};
+
+    listings.forEach(listing => {
+        if (listing.latitude && listing.longitude) {
+            const marker = new google.maps.Marker({
+                position: { lat: listing.latitude, lng: listing.longitude },
+                map: map,
+                title: listing.title,
+                icon: {
+                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                }
+            });
+
+            // Info window content
+            const contentString = `
+                <div style="max-width: 200px;">
+                    ${listing.main_image ? `<img src="${listing.main_image}" style="width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">` : ''}
+                    <h6 style="margin: 0 0 5px 0;">${listing.title}</h6>
+                    <p style="margin: 0; color: #666; font-size: 14px;">
+                        ${listing.year} • ${listing.mileage} km
+                    </p>
+                    <p style="margin: 5px 0; color: #28a745; font-weight: bold;">
+                        €${listing.price}
+                    </p>
+                    <a href="/listings/${listing.slug}/" class="btn btn-sm btn-primary" style="text-decoration: none;">
+                        View Details
+                    </a>
+                </div>
+            `;
+
+            marker.addListener('click', () => {
+                infoWindow.setContent(contentString);
+                infoWindow.open(map, marker);
+
+                // Highlight matching card
+                highlightCard(listing.id);
+            });
+
+            markers.push({ marker: marker, id: listing.id });
+        }
+    });
+}
+
+// Fit map to markers
+function fitMapToMarkers() {
+    if (markers.length > 0) {
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach(item => {
+            bounds.extend(item.marker.getPosition());
+        });
+        map.fitBounds(bounds);
+    }
+}
+
+// Focus on specific listing
+function focusListing(id, lat, lng) {
+    if (lat && lng) {
+        map.setCenter({ lat: lat, lng: lng });
+        map.setZoom(14);
+
+        // Find and open matching marker
+        const markerItem = markers.find(m => m.id === id);
+        if (markerItem) {
+            google.maps.event.trigger(markerItem.marker, 'click');
+        }
+    }
+
+    highlightCard(id);
+}
+
+// Highlight card
+function highlightCard(id) {
+    // Remove active class from all
+    document.querySelectorAll('.listing-card').forEach(card => {
+        card.classList.remove('active');
+    });
+
+    // Add active class to selected
+    const card = document.querySelector(`.listing-card[data-id="${id}"]`);
+    if (card) {
+        card.classList.add('active');
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+// Initialize map when page loads
+window.onload = initMap;
+</script>
+{% endblock %}

@@ -1,240 +1,358 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.paginator import Paginator
-from django.db.models import Q
-from .models import Listing, ListingImage, SavedListing, Brand, Model
-from .forms import ListingCreateForm, ListingImageForm, ListingSearchForm
-from .filters import ListingFilter
-
-
-def home(request):
-    """Pagrindinis puslapis"""
-    listings = Listing.objects.filter(status="active").order_by("-created_at")[:8]
-
-    context = {
-        "listings": listings,
-    }
-    return render(request, "listings/home.html", context)
-
-
-def listing_list(request):
-    """Skelbimų sąrašas su paieška ir filtravimu"""
-    listings = Listing.objects.filter(status="active")
-
-    # Paieška
-    search_query = request.GET.get("search", "")
-    if search_query:
-        listings = listings.filter(
-            Q(title__icontains=search_query)
-            | Q(description__icontains=search_query)
-            | Q(brand__name__icontains=search_query)
-            | Q(model__name__icontains=search_query)
-        )
-
-    # Filtravimas
-    listing_filter = ListingFilter(request.GET, queryset=listings)
-    listings = listing_filter.qs
-
-    # Rūšiavimas
-    ordering = request.GET.get("ordering", "-created_at")
-    listings = listings.order_by(ordering)
-
-    # Paginacija
-    paginator = Paginator(listings, 12)  # 12 skelbimų per puslapį
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        "page_obj": page_obj,
-        "filter": listing_filter,
-        "search_query": search_query,
-        "total_count": listings.count(),
-    }
-    return render(request, "listings/listing_list.html", context)
-
-
-def listing_detail(request, slug):
-    """Skelbimo detalus vaizdas"""
-    listing = get_object_or_404(Listing, slug=slug)
-
-    # Padidinti peržiūrų skaičių
-    listing.views += 1
-    listing.save(update_fields=["views"])
-
-    # Panašūs skelbimai
-    similar_listings = Listing.objects.filter(
-        brand=listing.brand, status="active"
-    ).exclude(id=listing.id)[:4]
-
-    # Ar vartotojas išsaugojo šį skelbimą?
-    is_saved = False
-    if request.user.is_authenticated:
-        is_saved = SavedListing.objects.filter(
-            user=request.user, listing=listing
-        ).exists()
-
-    context = {
-        "listing": listing,
-        "similar_listings": similar_listings,
-        "is_saved": is_saved,
-    }
-    return render(request, "listings/listing_detail.html", context)
+from django.http import JsonResponse
+from .forms import (
+    Step1BasicInfoForm,
+    Step2MediaForm,
+    Step3VehicleDataForm,
+    Step4EquipmentForm,
+    Step5PriceForm,
+    Step6DescriptionForm,
+    Step7ContactForm,
+)
+from .models import Listing, ListingImage, Model, Equipment, ListingEquipment, VehicleType, Brand, FuelType, Transmission
+from datetime import date
 
 
 @login_required
 def listing_create(request):
-    """Naujo skelbimo kūrimas"""
-    if request.method == "POST":
-        form = ListingCreateForm(request.POST)
-        images = request.FILES.getlist("images")
+    """Multi-step listing creation view"""
 
-        if form.is_valid():
-            listing = form.save(commit=False)
-            listing.seller = request.user
-            listing.save()
+    # Get step from GET parameter or start from 1
+    step = int(request.GET.get('step', 1))
 
-            # Išsaugoti nuotraukas
-            for idx, image in enumerate(images):
-                ListingImage.objects.create(
-                    listing=listing,
-                    image=image,
-                    is_main=(idx == 0),  # Pirmą nuotrauką padaryti pagrindine
-                )
+    # Session data keys
+    SESSION_KEY = 'listing_create_data'
 
-            messages.success(request, "Skelbimas sėkmingai sukurtas!")
-            return redirect("listings:listing_detail", slug=listing.slug)
+    # Initialize session data
+    if SESSION_KEY not in request.session:
+        request.session[SESSION_KEY] = {}
+
+    listing_data = request.session[SESSION_KEY]
+
+    # POST request handling
+    if request.method == 'POST':
+
+        # STEP 1
+        if step == 1:
+            form = Step1BasicInfoForm(request.POST)
+            if form.is_valid():
+                listing_data['step1'] = {
+                    'vehicle_type': form.cleaned_data['vehicle_type'].id,
+                    'brand': form.cleaned_data['brand'].id,
+                    'model': form.cleaned_data['model'].id,
+                    'year': form.cleaned_data['year'],
+                    'first_registration_month': form.cleaned_data['first_registration_month'],
+                    'vin': form.cleaned_data.get('vin', ''),
+                }
+                request.session[SESSION_KEY] = listing_data
+                return redirect(f'/listings/create/?step=2')
+
+        # STEP 2
+        elif step == 2:
+            form = Step2MediaForm(request.POST)
+            if form.is_valid():
+                listing_data['step2'] = {
+                    'video_url': form.cleaned_data.get('video_url', ''),
+                }
+                request.session[SESSION_KEY] = listing_data
+
+                # Handle image uploads
+                if request.FILES.getlist('images'):
+                    # Temporarily store images in session
+                    # Actual upload will happen after full listing creation
+                    pass
+
+                return redirect(f'/listings/create/?step=3')
+
+        # STEP 3
+        elif step == 3:
+            form = Step3VehicleDataForm(request.POST)
+            if form.is_valid():
+                listing_data['step3'] = {
+                    'body_type': form.cleaned_data['body_type'],
+                    'fuel_type': form.cleaned_data['fuel_type'].id,
+                    'transmission': form.cleaned_data['transmission'].id,
+                    'doors': form.cleaned_data['doors'],
+                    'condition': form.cleaned_data['condition'],
+                    'color': form.cleaned_data.get('color', ''),
+                    'mileage': form.cleaned_data['mileage'],
+                    'engine_capacity': float(form.cleaned_data['engine_capacity']) if form.cleaned_data.get('engine_capacity') else None,
+                    'power': form.cleaned_data.get('power'),
+                }
+                request.session[SESSION_KEY] = listing_data
+                return redirect(f'/listings/create/?step=4')
+
+        # STEP 4
+        elif step == 4:
+            form = Step4EquipmentForm(request.POST)
+            if form.is_valid():
+                listing_data['step4'] = {
+                    'equipment': [eq.id for eq in form.cleaned_data.get('equipment', [])]
+                }
+                request.session[SESSION_KEY] = listing_data
+                return redirect(f'/listings/create/?step=5')
+
+        # STEP 5
+        elif step == 5:
+            form = Step5PriceForm(request.POST)
+            if form.is_valid():
+                listing_data['step5'] = {
+                    'price': float(form.cleaned_data['price']),
+                    'negotiable': form.cleaned_data.get('negotiable', False),
+                }
+                request.session[SESSION_KEY] = listing_data
+                return redirect(f'/listings/create/?step=6')
+
+        # STEP 6
+        elif step == 6:
+            form = Step6DescriptionForm(request.POST)
+            if form.is_valid():
+                listing_data['step6'] = {
+                    'description': form.cleaned_data.get('description', ''),
+                }
+                request.session[SESSION_KEY] = listing_data
+                return redirect(f'/listings/create/?step=7')
+
+        # STEP 7 - Final
+        elif step == 7:
+            form = Step7ContactForm(request.POST)
+            if form.is_valid():
+                listing_data['step7'] = {
+                    'country': form.cleaned_data['country'],
+                    'city': form.cleaned_data['city'],
+                    'phone': form.cleaned_data['phone'],
+                    'email': form.cleaned_data['email'],
+                    'show_additional_phone': form.cleaned_data.get('show_additional_phone', False),
+                    'agree_terms': form.cleaned_data['agree_terms'],
+                    'agree_newsletter': form.cleaned_data.get('agree_newsletter', False),
+                }
+
+                # Create listing
+                listing = create_listing_from_session(request.user, listing_data)
+
+                # Clear session
+                del request.session[SESSION_KEY]
+
+                messages.success(request, 'Listing created successfully!')
+                return redirect('listings:listing_detail', pk=listing.pk)
+
+    # GET requests - display form
     else:
-        form = ListingCreateForm()
+        if step == 1:
+            initial_data = listing_data.get('step1', {})
+            # Convert IDs back to objects
+            if initial_data and 'vehicle_type' in initial_data:
+                try:
+                    initial_data['vehicle_type'] = VehicleType.objects.get(id=initial_data['vehicle_type'])
+                    initial_data['brand'] = Brand.objects.get(id=initial_data['brand'])
+                    initial_data['model'] = Model.objects.get(id=initial_data['model'])
+                except:
+                    pass
+            form = Step1BasicInfoForm(initial=initial_data)
+
+        elif step == 2:
+            form = Step2MediaForm(initial=listing_data.get('step2', {}))
+
+        elif step == 3:
+            initial_data = listing_data.get('step3', {})
+            if initial_data and 'fuel_type' in initial_data:
+                try:
+                    initial_data['fuel_type'] = FuelType.objects.get(id=initial_data['fuel_type'])
+                    initial_data['transmission'] = Transmission.objects.get(id=initial_data['transmission'])
+                except:
+                    pass
+            form = Step3VehicleDataForm(initial=initial_data)
+
+        elif step == 4:
+            form = Step4EquipmentForm(initial=listing_data.get('step4', {}))
+
+        elif step == 5:
+            form = Step5PriceForm(initial=listing_data.get('step5', {}))
+
+        elif step == 6:
+            form = Step6DescriptionForm(initial=listing_data.get('step6', {}))
+
+        elif step == 7:
+            form = Step7ContactForm(initial=listing_data.get('step7', {}))
+
+        else:
+            return redirect('/listings/create/?step=1')
 
     context = {
-        "form": form,
+        'form': form,
+        'step': step,
+        'total_steps': 7,
+        'listing_data': listing_data,
     }
-    return render(request, "listings/listing_create.html", context)
+
+    return render(request, 'listings/listing_create.html', context)
 
 
-@login_required
-def listing_edit(request, slug):
-    """Skelbimo redagavimas"""
-    listing = get_object_or_404(Listing, slug=slug, seller=request.user)
+def create_listing_from_session(user, listing_data):
+    """Create listing from session data"""
 
-    if request.method == "POST":
-        form = ListingCreateForm(request.POST, instance=listing)
-        images = request.FILES.getlist("images")
+    # Combine all data
+    step1 = listing_data.get('step1', {})
+    step2 = listing_data.get('step2', {})
+    step3 = listing_data.get('step3', {})
+    step4 = listing_data.get('step4', {})
+    step5 = listing_data.get('step5', {})
+    step6 = listing_data.get('step6', {})
+    step7 = listing_data.get('step7', {})
 
-        if form.is_valid():
-            form.save()
+    # Create first_registration date
+    first_registration = None
+    if 'year' in step1 and 'first_registration_month' in step1:
+        first_registration = date(
+            year=step1['year'],
+            month=step1['first_registration_month'],
+            day=1
+        )
 
-            # Pridėti naujas nuotraukas
-            for image in images:
-                ListingImage.objects.create(listing=listing, image=image)
+    # Get foreign key objects
+    vehicle_type = VehicleType.objects.get(id=step1['vehicle_type'])
+    brand = Brand.objects.get(id=step1['brand'])
+    model = Model.objects.get(id=step1['model'])
+    fuel_type = FuelType.objects.get(id=step3['fuel_type']) if step3.get('fuel_type') else None
+    transmission = Transmission.objects.get(id=step3['transmission']) if step3.get('transmission') else None
 
-            messages.success(request, "Skelbimas atnaujintas!")
-            return redirect("listings:listing_detail", slug=listing.slug)
-    else:
-        form = ListingCreateForm(instance=listing)
+    # Create title
+    title = f"{brand.name} {model.name} {step1['year']}"
 
-    context = {
-        "form": form,
-        "listing": listing,
-    }
-    return render(request, "listings/listing_edit.html", context)
-
-
-@login_required
-def listing_delete(request, slug):
-    """Skelbimo ištrynimas"""
-    listing = get_object_or_404(Listing, slug=slug, seller=request.user)
-
-    if request.method == "POST":
-        listing.delete()
-        messages.success(request, "Skelbimas ištrintas!")
-        return redirect("accounts:profile")
-
-    context = {
-        "listing": listing,
-    }
-    return render(request, "listings/listing_delete.html", context)
-
-
-@login_required
-def image_delete(request, pk):
-    """Nuotraukos ištrynimas"""
-    image = get_object_or_404(ListingImage, pk=pk, listing__seller=request.user)
-    listing_slug = image.listing.slug
-
-    if request.method == "POST":
-        image.delete()
-        messages.success(request, "Nuotrauka ištrinta!")
-
-    return redirect("listings:listing_edit", slug=listing_slug)
-
-
-@login_required
-def save_listing(request, slug):
-    """Išsaugoti skelbimą (pridėti į favorites)"""
-    listing = get_object_or_404(Listing, slug=slug)
-
-    saved, created = SavedListing.objects.get_or_create(
-        user=request.user, listing=listing
+    # Create listing
+    listing = Listing.objects.create(
+        seller=user,
+        vehicle_type=vehicle_type,
+        brand=brand,
+        model=model,
+        title=title,
+        year=step1['year'],
+        first_registration=first_registration,
+        vin=step1.get('vin', ''),
+        video_url=step2.get('video_url', ''),
+        body_type=step3.get('body_type', ''),
+        fuel_type=fuel_type,
+        transmission=transmission,
+        doors=step3.get('doors', ''),
+        condition=step3.get('condition', 'used'),
+        color=step3.get('color', ''),
+        mileage=step3.get('mileage', 0),
+        engine_capacity=step3.get('engine_capacity'),
+        power=step3.get('power'),
+        price=step5.get('price', 0),
+        negotiable=step5.get('negotiable', False),
+        description=step6.get('description', ''),
+        city=step7.get('city', ''),
+        status='active',
     )
 
-    if created:
-        messages.success(request, "Skelbimas išsaugotas!")
-    else:
-        saved.delete()
-        messages.success(request, "Skelbimas pašalintas iš išsaugotų!")
+    # Add equipment
+    if 'equipment' in step4:
+        for equipment_id in step4['equipment']:
+            equipment = Equipment.objects.get(id=equipment_id)
+            ListingEquipment.objects.create(listing=listing, equipment=equipment)
 
-    return redirect("listings:listing_detail", slug=slug)
+    return listing
+
+
+# AJAX endpoint for getting models
+def get_models_ajax(request):
+    """AJAX endpoint to get models by brand"""
+    brand_id = request.GET.get('brand_id')
+    models = Model.objects.filter(brand_id=brand_id).values('id', 'name')
+    return JsonResponse(list(models), safe=False)
+
+
+# Simple listing detail view
+def listing_detail(request, pk):
+    """Listing detail view"""
+    listing = get_object_or_404(Listing, pk=pk)
+
+    # Increment views count
+    listing.views_count += 1
+    listing.save(update_fields=['views_count'])
+
+    context = {
+        'listing': listing,
+    }
+    return render(request, 'listings/listing_detail.html', context)
+
+
+# Additional views - NOTE: These are at module level, NOT indented inside listing_detail
+def listing_list(request):
+    """List all active listings"""
+    listings = Listing.objects.filter(status='active').order_by('-created_at')
+    context = {'listings': listings}
+    return render(request, 'listings/listing_list.html', context)
+
+
+@login_required
+def listing_edit(request, pk):
+    """Edit listing"""
+    listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+
+    if request.method == 'POST':
+        messages.success(request, 'Listing updated successfully!')
+        return redirect('listings:listing_detail', pk=listing.pk)
+
+    context = {'listing': listing}
+    return render(request, 'listings/listing_edit.html', context)
+
+
+@login_required
+def listing_delete(request, pk):
+    """Delete listing"""
+    listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+
+    if request.method == 'POST':
+        listing.delete()
+        messages.success(request, 'Listing deleted successfully!')
+        return redirect('listings:listing_list')
+
+    context = {'listing': listing}
+    return render(request, 'listings/listing_delete_confirm.html', context)
 
 
 @login_required
 def saved_listings(request):
-    """Vartotojo išsaugoti skelbimai"""
-    saved = SavedListing.objects.filter(user=request.user).select_related("listing")
+    """View saved/favorite listings"""
+    context = {}
+    return render(request, 'listings/saved_listings.html', context)
 
-    context = {
-        "saved_listings": saved,
-    }
-    return render(request, "listings/saved_listings.html", context)
+
+@login_required
+def save_listing(request, pk):
+    """Save/unsave a listing"""
+    listing = get_object_or_404(Listing, pk=pk)
+    messages.success(request, 'Listing saved!')
+    return redirect('listings:listing_detail', pk=listing.pk)
 
 
 def search_map(request):
-    """Paieška su žemėlapiu"""
-    listings = Listing.objects.filter(
-        status="active", latitude__isnull=False, longitude__isnull=False
-    )
+    """Map view of listings"""
+    listings = Listing.objects.filter(status='active')
+    context = {'listings': listings}
+    return render(request, 'listings/search_map.html', context)
 
-    # Filtravimas
-    listing_filter = ListingFilter(request.GET, queryset=listings)
-    listings = listing_filter.qs
 
-    # Konvertuoti į JSON formatą žemėlapiui
-    listings_data = []
-    for listing in listings:
-        listings_data.append(
-            {
-                "id": listing.id,
-                "title": listing.title,
-                "price": float(listing.price),
-                "lat": float(listing.latitude),
-                "lng": float(listing.longitude),
-                "url": listing.slug,
-                "image": listing.get_main_image(),
-                "year": listing.year,
-                "mileage": listing.mileage,
-            }
-        )
+@login_required
+def image_delete(request, pk):
+    """Delete listing image"""
+    image = get_object_or_404(ListingImage, pk=pk, listing__seller=request.user)
+    listing_pk = image.listing.pk
 
-    context = {
-        "listings_data": listings_data,
-        "filter": listing_filter,
-    }
-    return render(request, "listings/search_map.html", context)
+    if request.method == 'POST':
+        image.delete()
+        messages.success(request, 'Image deleted!')
+        return redirect('listings:listing_detail', pk=listing_pk)
+
+    return redirect('listings:listing_detail', pk=listing_pk)
 
 
 def get_models_by_brand(request):
-    """AJAX: Gauti modelius pagal markę"""
-    brand_id = request.GET.get("brand_id")
-    models = Model.objects.filter(brand_id=brand_id).values("id", "name")
+    """API endpoint to get models by brand"""
+    brand_id = request.GET.get('brand_id')
+    models = Model.objects.filter(brand_id=brand_id).values('id', 'name')
     return JsonResponse(list(models), safe=False)

@@ -1,59 +1,82 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
+from .models import Profile  # <-- PAKEISTA iš UserProfile į Profile
 
 
-class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label="El. paštas")
-    phone = forms.CharField(max_length=20, required=False, label="Telefonas")
-    city = forms.CharField(max_length=100, required=False, label="Miestas")
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ("username", "email", "phone", "city", "password1", "password2")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs["class"] = "form-control"
-
-
-class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(
-        label="Vartotojo vardas",
-        widget=forms.TextInput(attrs={"class": "form-control"}),
-    )
-    password = forms.CharField(
-        label="Slaptažodis", widget=forms.PasswordInput(attrs={"class": "form-control"})
-    )
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label="El. paštas")
+    email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = (
-            "username",
-            "email",
-            "first_name",
-            "last_name",
-            "phone",
-            "city",
-            "profile_image",
-            "bio",
-        )
-        labels = {
-            "username": "Vartotojo vardas",
-            "first_name": "Vardas",
-            "last_name": "Pavardė",
-            "phone": "Telefonas",
-            "city": "Miestas",
-            "profile_image": "Profilio nuotrauka",
-            "bio": "Apie mane",
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile  # <-- PAKEISTA iš UserProfile į Profile
+        fields = ['bio', 'location', 'phone_number', 'profile_picture']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself...'}),
+            'location': forms.TextInput(attrs={'placeholder': 'City, Country'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': '+370 600 00000'}),
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs["class"] = "form-control"
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your email'
+        })
+    )
+
+
+class CustomSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="New password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter new password'
+        })
+    )
+    new_password2 = forms.CharField(
+        label="Confirm new password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirm new password'
+        })
+    )
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Current password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter current password'
+        })
+    )
+    new_password1 = forms.CharField(
+        label="New password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter new password'
+        })
+    )
+    new_password2 = forms.CharField(
+        label="Confirm new password",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirm new password'
+        })
+    )

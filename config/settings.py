@@ -71,23 +71,15 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# SQLite (for development/testing)
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-# PostgreSQL (production)
+# PostgreSQL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "sellcar",
-        "USER": "sellcar",
-        "PASSWORD": "sellcar",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": config("DB_NAME", default="sellcar_db"),
+        "USER": config("DB_USER", default="postgres"),
+        "PASSWORD": config("DB_PASSWORD", default="postgres"),
+        "HOST": config("DB_HOST", default="localhost"),
+        "PORT": config("DB_PORT", default="5432"),
     }
 }
 
@@ -126,13 +118,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Media files
+# Media files (uploaded images)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -141,20 +133,30 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Custom user model
-AUTH_USER_MODEL = "accounts.User"
-
 # Crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Login/Logout URLs
 LOGIN_URL = "accounts:login"
-LOGIN_REDIRECT_URL = "listings:home"
-LOGOUT_REDIRECT_URL = "listings:home"
+LOGIN_REDIRECT_URL = "accounts:home"
+LOGOUT_REDIRECT_URL = "accounts:home"
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY = config("GOOGLE_MAPS_API_KEY", default="")
 
-# Email settings (for development)
+# Email Configuration
+# Development - emails displayed in console
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Production - Gmail (uncomment when needed)
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = config("EMAIL_USER")
+# EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
+# DEFAULT_FROM_EMAIL = config("EMAIL_USER")
+
+# Password Reset settings
+PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds

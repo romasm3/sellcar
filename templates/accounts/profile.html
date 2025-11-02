@@ -1,111 +1,175 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "base.html" %}
 
-{% block title %}Mano profilis - SellCar{% endblock %}
+{% block title %}{{ profile.user.username }}'s Profile - SellCars{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <!-- Profile Sidebar -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm mb-4">
+        <!-- Profile Info -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
                 <div class="card-body text-center">
-                    {% if user.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" class="rounded-circle mb-3" width="150" height="150" alt="{{ user.username }}" style="object-fit: cover;">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                     {% else %}
-                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px;">
-                            <i class="fas fa-user fa-4x"></i>
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px; font-size: 3rem;">
+                            {{ profile.user.username|first|upper }}
                         </div>
                     {% endif %}
 
-                    <h4>{{ user.get_full_name|default:user.username }}</h4>
-                    <p class="text-muted mb-3">@{{ user.username }}</p>
+                    <h3>{{ profile.user.username }}</h3>
+                    <p class="text-muted">{{ profile.user.email }}</p>
 
-                    {% if user.profile.bio %}
-                        <p class="text-muted small">{{ user.profile.bio }}</p>
-                    {% endif %}
-
-                    <hr>
-
-                    <div class="text-start">
-                        <p class="mb-2"><i class="fas fa-envelope text-primary"></i> {{ user.email }}</p>
-                        {% if user.profile.phone %}
-                            <p class="mb-2"><i class="fas fa-phone text-primary"></i> {{ user.profile.phone }}</p>
-                        {% endif %}
-                        {% if user.profile.city %}
-                            <p class="mb-2"><i class="fas fa-map-marker-alt text-primary"></i> {{ user.profile.city }}, {{ user.profile.country }}</p>
-                        {% endif %}
-                        <p class="mb-2 text-muted small">
-                            <i class="fas fa-calendar"></i> Narys nuo {{ user.date_joined|date:"Y-m-d" }}
-                        </p>
+                    {% if user == profile.user %}
+                    <div class="mt-3">
+                        <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary btn-block">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                        <a href="{% url 'accounts:password_change' %}" class="btn btn-outline-secondary btn-block mt-2">
+                            <i class="fas fa-lock"></i> Change Password
+                        </a>
                     </div>
-
-                    <hr>
-
-                    <a href="{% url 'accounts:profile_edit' %}" class="btn btn-primary w-100">
-                        <i class="fas fa-edit"></i> Redaguoti profilį
-                    </a>
+                    {% endif %}
                 </div>
             </div>
 
-            <!-- Quick Stats -->
-            <div class="card shadow-sm">
+            <!-- Stats Card -->
+            <div class="card shadow mt-3">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Statistika</h5>
+                    <h5 class="card-title">Stats</h5>
+                    <hr>
                     <div class="d-flex justify-content-between mb-2">
-                        <span><i class="fas fa-car text-primary"></i> Aktyvūs skelbimai:</span>
-                        <strong>{{ user_listings|length }}</strong>
+                        <span><i class="fas fa-car text-primary"></i> Listings</span>
+                        <strong>{{ profile.user.listing_set.count }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><i class="fas fa-heart text-danger"></i> Saved</span>
+                        <strong>{{ profile.user.savedlisting_set.count }}</strong>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <span><i class="fas fa-eye text-primary"></i> Bendros peržiūros:</span>
-                        <strong>{{ user_listings|length }}</strong>
+                        <span><i class="fas fa-calendar text-info"></i> Joined</span>
+                        <strong>{{ profile.user.date_joined|date:"M Y" }}</strong>
                     </div>
+                </div>
+            </div>
+
+            <!-- About Card -->
+            {% if profile.bio %}
+            <div class="card shadow mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">About</h5>
+                    <hr>
+                    <p>{{ profile.bio }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Contact Info -->
+            <div class="card shadow mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Info</h5>
+                    <hr>
+                    {% if profile.phone_number %}
+                    <p class="mb-2">
+                        <i class="fas fa-phone text-primary"></i>
+                        <a href="tel:{{ profile.phone_number }}">{{ profile.phone_number }}</a>
+                    </p>
+                    {% endif %}
+                    {% if profile.location %}
+                    <p class="mb-0">
+                        <i class="fas fa-map-marker-alt text-danger"></i>
+                        {{ profile.location }}
+                    </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
-        <!-- User Listings -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-list"></i> Mano skelbimai</h5>
-                    <a href="{% url 'listings:listing_create' %}" class="btn btn-light btn-sm">
-                        <i class="fas fa-plus"></i> Naujas skelbimas
-                    </a>
+        <!-- Listings -->
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0">
+                        {% if user == profile.user %}
+                            My Listings
+                        {% else %}
+                            {{ profile.user.username }}'s Listings
+                        {% endif %}
+                    </h4>
                 </div>
                 <div class="card-body">
-                    {% if user_listings %}
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Pavadinimas</th>
-                                        <th>Kaina</th>
-                                        <th>Statusas</th>
-                                        <th>Peržiūros</th>
-                                        <th>Data</th>
-                                        <th>Veiksmai</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for listing in user_listings %}
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    {% if listing.get_main_image %}
-                                                        <img src="{{ listing.get_main_image }}" class="rounded me-2" width="50" height="50" style="object-fit: cover;" alt="{{ listing.title }}">
-                                                    {% else %}
-                                                        <div class="bg-secondary rounded me-2 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                                            <i class="fas fa-car text-white"></i>
-                                                        </div>
-                                                    {% endif %}
-                                                    <div>
-                                                        <a href="{% url 'listings:listing_detail' listing.slug %}" class="text-decoration-none">
-                                                            {{ listing.title|truncatewords:5 }}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>{{ listing.price|floatformat:0 }} €</td>
-                                            <td>
-                                                <span class="badge bg-{% if listing.status == 'active' %}success{% elif listing.status == 'sold' %}danger{% elif listing.status == 'reserved' %}warning{% else %}se
+                    {% if listings %}
+                        <div class="row">
+                            {% for listing in listings %}
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    {% if listing.images.first %}
+                                        <img src="{{ listing.images.first.image.url }}" class="card-img-top" alt="{{ listing.title }}" style="height: 200px; object-fit: cover;">
+                                    {% else %}
+                                        <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                                            <i class="fas fa-car fa-3x text-white"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ listing.title }}</h5>
+                                        <p class="card-text text-primary font-weight-bold">${{ listing.price|floatformat:0 }}</p>
+                                        <p class="card-text text-muted small">
+                                            <i class="fas fa-tachometer-alt"></i> {{ listing.mileage|floatformat:0 }} km
+                                            <i class="fas fa-calendar ml-2"></i> {{ listing.year }}
+                                        </p>
+                                        <a href="{% url 'listings:listing_detail' listing.slug %}" class="btn btn-sm btn-outline-primary">
+                                            View Details
+                                        </a>
+                                        {% if user == profile.user %}
+                                        <a href="{% url 'listings:listing_edit' listing.slug %}" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if is_paginated %}
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center mt-4">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num %}
+                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-car fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No listings yet</h5>
+                            {% if user == profile.user %}
+                            <a href="{% url 'listings:listing_create' %}" class="btn btn-primary mt-3">
+                                <i class="fas fa-plus"></i> Create Your First Listing
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

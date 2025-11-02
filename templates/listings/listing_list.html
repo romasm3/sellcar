@@ -1,27 +1,114 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Skelbimai -
-SellCar{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Listings - SellCar{% endblock %}
+
+{% block content %}
 <div class="container">
     <div class="row">
         <!-- Filters Sidebar -->
         <div class="col-lg-3">
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-filter"></i> Filtrai</h5>
+                    <h5 class="mb-0"><i class="fas fa-filter"></i> Filters</h5>
                 </div>
                 <div class="card-body">
-                    <form method="get">
-                        {{ filter.form.as_p }}
-                        <button
-                            type="submit"
-                            class="btn btn-primary w-100 mt-3"
-                        >
-                            <i class="fas fa-search"></i> Ieškoti
+                    <form method="get" id="filterForm">
+                        <!-- Make - DROPDOWN -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Make</label>
+                            <select name="brand" id="brandSelect" class="form-select">
+                                <option value="">All makes</option>
+                                {% for brand in brands %}
+                                    <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>
+                                        {{ brand }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Model - DROPDOWN -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Model</label>
+                            <select name="model" id="modelSelect" class="form-select">
+                                <option value="">All models</option>
+                                {% for model in models %}
+                                    <option value="{{ model }}" {% if request.GET.model == model %}selected{% endif %}>
+                                        {{ model }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Price Range</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="number" name="price_min" class="form-control" placeholder="Min €" value="{{ request.GET.price_min }}">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="price_max" class="form-control" placeholder="Max €" value="{{ request.GET.price_max }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Year</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <select name="year_min" class="form-select">
+                                        <option value="">From</option>
+                                        {% for year in years %}
+                                            <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>
+                                                {{ year }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <select name="year_max" class="form-select">
+                                        <option value="">To</option>
+                                        {% for year in years %}
+                                            <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>
+                                                {{ year }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fuel Type -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fuel Type</label>
+                            <select name="fuel_type" class="form-select">
+                                <option value="">All</option>
+                                <option value="petrol" {% if request.GET.fuel_type == 'petrol' %}selected{% endif %}>Petrol</option>
+                                <option value="diesel" {% if request.GET.fuel_type == 'diesel' %}selected{% endif %}>Diesel</option>
+                                <option value="electric" {% if request.GET.fuel_type == 'electric' %}selected{% endif %}>Electric</option>
+                                <option value="hybrid" {% if request.GET.fuel_type == 'hybrid' %}selected{% endif %}>Hybrid</option>
+                                <option value="gas" {% if request.GET.fuel_type == 'gas' %}selected{% endif %}>Gas</option>
+                            </select>
+                        </div>
+
+                        <!-- Transmission -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Transmission</label>
+                            <select name="transmission" class="form-select">
+                                <option value="">All</option>
+                                <option value="manual" {% if request.GET.transmission == 'manual' %}selected{% endif %}>Manual</option>
+                                <option value="automatic" {% if request.GET.transmission == 'automatic' %}selected{% endif %}>Automatic</option>
+                                <option value="semi-automatic" {% if request.GET.transmission == 'semi-automatic' %}selected{% endif %}>Semi-Automatic</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <i class="fas fa-search"></i> Apply Filters
                         </button>
-                        <a
-                            href="{% url 'listings:listing_list' %}"
-                            class="btn btn-outline-secondary w-100 mt-2"
-                        >
-                            <i class="fas fa-redo"></i> Išvalyti
+                        <a href="{% url 'listings:listing_list' %}" class="btn btn-outline-secondary w-100 mt-2">
+                            <i class="fas fa-redo"></i> Clear All
                         </a>
                     </form>
                 </div>
@@ -36,13 +123,7 @@ SellCar{% endblock %} {% block content %}
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <form method="get" class="d-flex gap-2">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    class="form-control"
-                                    placeholder="Paieška..."
-                                    value="{{ search_query }}"
-                                />
+                                <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ search_query }}" />
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -50,8 +131,7 @@ SellCar{% endblock %} {% block content %}
                         </div>
                         <div class="col-md-4 text-end">
                             <p class="mb-0 text-muted">
-                                Rasta:
-                                <strong>{{ total_count }}</strong> skelbimai(-ų)
+                                Found: <strong>{{ total_count }}</strong> listing{{ total_count|pluralize }}
                             </p>
                         </div>
                     </div>
@@ -60,89 +140,31 @@ SellCar{% endblock %} {% block content %}
 
             <!-- Sorting -->
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Skelbimai</h4>
+                <h4>Listings</h4>
                 <form method="get" class="d-flex gap-2">
-                    {% for key, value in request.GET.items %} {% if key !=
-                    'ordering' %}
-                    <input type="hidden" name="{{ key }}" value="{{ value }}" />
-                    {% endif %} {% endfor %}
-                    <select
-                        name="ordering"
-                        class="form-select"
-                        style="width: auto"
-                        onchange="this.form.submit()"
-                    >
-                        <option
-                            value="-created_at"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="-created_at"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Naujausi
+                    {% for key, value in request.GET.items %}
+                        {% if key != 'ordering' %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                        {% endif %}
+                    {% endfor %}
+                    <select name="ordering" class="form-select" style="width: auto" onchange="this.form.submit()">
+                        <option value="-created_at" {% if request.GET.ordering == "-created_at" or not request.GET.ordering %}selected{% endif %}>
+                            Newest First
                         </option>
-                        <option
-                            value="created_at"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="created_at"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Seniausi
+                        <option value="created_at" {% if request.GET.ordering == "created_at" %}selected{% endif %}>
+                            Oldest First
                         </option>
-                        <option
-                            value="price"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="price"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Kaina: mažiausia
+                        <option value="price" {% if request.GET.ordering == "price" %}selected{% endif %}>
+                            Price: Low to High
                         </option>
-                        <option
-                            value="-price"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="-price"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Kaina: didžiausia
+                        <option value="-price" {% if request.GET.ordering == "-price" %}selected{% endif %}>
+                            Price: High to Low
                         </option>
-                        <option
-                            value="-year"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="-year"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Metai: naujesni
+                        <option value="-year" {% if request.GET.ordering == "-year" %}selected{% endif %}>
+                            Year: Newest
                         </option>
-                        <option
-                            value="year"
-                            {%
-                            if
-                            request.GET.ordering=""
-                            ="year"
-                            %}selected{%
-                            endif
-                            %}
-                        >
-                            Metai: senesni
+                        <option value="year" {% if request.GET.ordering == "year" %}selected{% endif %}>
+                            Year: Oldest
                         </option>
                     </select>
                 </form>
@@ -154,48 +176,32 @@ SellCar{% endblock %} {% block content %}
                 <div class="col-md-6 col-xl-4">
                     <div class="card h-100 shadow-sm hover-shadow">
                         {% if listing.get_main_image %}
-                        <img
-                            src="{{ listing.get_main_image }}"
-                            class="card-img-top"
-                            alt="{{ listing.title }}"
-                            style="height: 200px; object-fit: cover"
-                        />
+                            <img src="{{ listing.get_main_image }}" class="card-img-top" alt="{{ listing.title }}" style="height: 200px; object-fit: cover" />
                         {% else %}
-                        <div
-                            class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
-                            style="height: 200px"
-                        >
-                            <i class="fas fa-car fa-3x text-white"></i>
-                        </div>
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px">
+                                <i class="fas fa-car fa-3x text-white"></i>
+                            </div>
                         {% endif %}
+
                         <div class="card-body">
                             <h5 class="card-title">{{ listing.title }}</h5>
                             <p class="card-text text-muted small">
-                                <i class="fas fa-calendar"></i> {{ listing.year
-                                }} | <i class="fas fa-road"></i> {{
-                                listing.mileage|floatformat:0 }} km<br />
-                                <i class="fas fa-gas-pump"></i> {{
-                                listing.fuel_type }} |
-                                <i class="fas fa-cog"></i> {{
-                                listing.transmission }}
+                                <i class="fas fa-calendar"></i> {{ listing.year }} |
+                                <i class="fas fa-road"></i> {{ listing.mileage|floatformat:0 }} km<br />
+                                <i class="fas fa-gas-pump"></i> {{ listing.get_fuel_type_display }} |
+                                <i class="fas fa-cog"></i> {{ listing.get_transmission_display }}
                             </p>
                             <p class="card-text">
-                                <strong class="text-primary fs-4"
-                                    >{{ listing.price|floatformat:0 }} €</strong
-                                >
+                                <strong class="text-primary fs-4">€{{ listing.price|floatformat:0 }}</strong>
                                 {% if listing.negotiable %}
-                                <span class="badge bg-info">Derinama</span>
+                                    <span class="badge bg-info">Negotiable</span>
                                 {% endif %}
                             </p>
                             <p class="card-text text-muted small">
-                                <i class="fas fa-map-marker-alt"></i> {{
-                                listing.city }}
+                                <i class="fas fa-map-marker-alt"></i> {{ listing.city }}
                             </p>
-                            <a
-                                href="{% url 'listings:listing_detail' listing.slug %}"
-                                class="btn btn-primary w-100"
-                            >
-                                Peržiūrėti
+                            <a href="{% url 'listings:listing_detail' listing.slug %}" class="btn btn-primary w-100">
+                                View Details
                             </a>
                         </div>
                     </div>
@@ -203,8 +209,7 @@ SellCar{% endblock %} {% block content %}
                 {% empty %}
                 <div class="col-12">
                     <div class="alert alert-info text-center">
-                        <i class="fas fa-info-circle"></i> Skelbimų su
-                        pasirinktais filtrais nerasta
+                        <i class="fas fa-info-circle"></i> No listings found with the selected filters
                     </div>
                 </div>
                 {% endfor %}
@@ -216,42 +221,31 @@ SellCar{% endblock %} {% block content %}
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a
-                            class="page-link"
-                            href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            >Pirmas</a
-                        >
+                        <a class="page-link" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                            First
+                        </a>
                     </li>
                     <li class="page-item">
-                        <a
-                            class="page-link"
-                            href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            >Ankstesnis</a
-                        >
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                            Previous
+                        </a>
                     </li>
                     {% endif %}
 
                     <li class="page-item active">
-                        <span class="page-link"
-                            >{{ page_obj.number }} iš {{
-                            page_obj.paginator.num_pages }}</span
-                        >
+                        <span class="page-link">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                     </li>
 
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a
-                            class="page-link"
-                            href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            >Kitas</a
-                        >
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                            Next
+                        </a>
                     </li>
                     <li class="page-item">
-                        <a
-                            class="page-link"
-                            href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            >Paskutinis</a
-                        >
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                            Last
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
@@ -260,7 +254,45 @@ SellCar{% endblock %} {% block content %}
         </div>
     </div>
 </div>
-{% endblock %} {% block extra_css %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// BRANDS AND MODELS DATA
+const BRANDS_MODELS = {{ brands_models_json|safe }};
+
+console.log('Loaded brands:', Object.keys(BRANDS_MODELS));
+console.log('Total brands:', Object.keys(BRANDS_MODELS).length);
+
+// Dynamic model dropdown based on selected brand
+document.getElementById('brandSelect').addEventListener('change', function() {
+    const selectedBrand = this.value;
+    const modelSelect = document.getElementById('modelSelect');
+
+    console.log('Selected brand:', selectedBrand);
+
+    // Clear current options
+    modelSelect.innerHTML = '<option value="">All models</option>';
+
+    if (selectedBrand && BRANDS_MODELS[selectedBrand]) {
+        const models = BRANDS_MODELS[selectedBrand];
+        console.log('Models for', selectedBrand + ':', models.length, 'models');
+
+        // Add models for selected brand
+        models.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model;
+            option.textContent = model;
+            modelSelect.appendChild(option);
+        });
+
+        console.log('Model dropdown updated with', models.length, 'options');
+    }
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
 <style>
     .hover-shadow {
         transition: all 0.3s ease;

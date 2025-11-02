@@ -7,124 +7,106 @@ from .models import (
     Transmission,
     Listing,
     ListingImage,
-    SavedListing,
+    Equipment,
+    ListingEquipment,
 )
 
 
 @admin.register(VehicleType)
 class VehicleTypeAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug"]
-    prepopulated_fields = {"slug": ("name",)}
+    list_display = ['name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug"]
-    prepopulated_fields = {"slug": ("name",)}
-    search_fields = ["name"]
+    list_display = ['name', 'vehicle_type', 'slug']
+    list_filter = ['vehicle_type']
+    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name']
 
 
 @admin.register(Model)
 class ModelAdmin(admin.ModelAdmin):
-    list_display = ["name", "brand", "slug"]
-    list_filter = ["brand"]
-    search_fields = ["name", "brand__name"]
-    prepopulated_fields = {"slug": ("name",)}
+    list_display = ['name', 'brand', 'slug']
+    list_filter = ['brand']
+    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name', 'brand__name']
 
 
 @admin.register(FuelType)
 class FuelTypeAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ['name']
+    search_fields = ['name']
 
 
 @admin.register(Transmission)
 class TransmissionAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ['name']
+    search_fields = ['name']
 
 
 class ListingImageInline(admin.TabularInline):
     model = ListingImage
     extra = 1
-    fields = ["image", "caption", "is_main"]
+    fields = ['image', 'caption', 'is_main', 'order']
+
+
+class ListingEquipmentInline(admin.TabularInline):
+    model = ListingEquipment
+    extra = 1
 
 
 @admin.register(Listing)
 class ListingAdmin(admin.ModelAdmin):
-    list_display = [
-        "title",
-        "seller",
-        "brand",
-        "model",
-        "year",
-        "price",
-        "status",
-        "views",
-        "created_at",
-    ]
-    list_filter = [
-        "status",
-        "vehicle_type",
-        "brand",
-        "fuel_type",
-        "transmission",
-        "condition",
-        "created_at",
-    ]
-    search_fields = ["title", "description", "seller__username", "vin"]
-    prepopulated_fields = {"slug": ("title",)}
-    readonly_fields = ["views", "created_at", "updated_at"]
-    inlines = [ListingImageInline]
+    list_display = ['title', 'brand', 'model', 'year', 'price', 'seller', 'status', 'created_at']
+    list_filter = ['status', 'vehicle_type', 'brand', 'fuel_type', 'transmission', 'condition']
+    search_fields = ['title', 'description', 'vin']
+    readonly_fields = ['created_at', 'updated_at', 'views_count']
+    inlines = [ListingImageInline, ListingEquipmentInline]
 
     fieldsets = (
-        (
-            "Pagrindinė informacija",
-            {
-                "fields": (
-                    "seller",
-                    "vehicle_type",
-                    "brand",
-                    "model",
-                    "title",
-                    "slug",
-                    "description",
-                    "status",
-                )
-            },
-        ),
-        (
-            "Techninės specifikacijos",
-            {
-                "fields": (
-                    "year",
-                    "mileage",
-                    "fuel_type",
-                    "transmission",
-                    "engine_capacity",
-                    "power",
-                    "color",
-                    "condition",
-                    "vin",
-                    "registration_number",
-                    "first_registration",
-                )
-            },
-        ),
-        ("Kaina", {"fields": ("price", "negotiable")}),
-        ("Vieta", {"fields": ("city", "address", "latitude", "longitude")}),
-        ("Papildoma informacija", {"fields": ("features",)}),
-        ("Meta", {"fields": ("views", "created_at", "updated_at")}),
+        ('Basic Information', {
+            'fields': ('seller', 'vehicle_type', 'brand', 'model', 'title', 'status')
+        }),
+        ('Main Details', {
+            'fields': ('year', 'mileage', 'first_registration', 'description')
+        }),
+        ('Technical Details', {
+            'fields': ('fuel_type', 'transmission', 'body_type', 'engine_capacity',
+                      'power', 'color', 'doors', 'condition')
+        }),
+        ('VIN and Registration', {
+            'fields': ('vin', 'registration_number')
+        }),
+        ('Price', {
+            'fields': ('price', 'negotiable')
+        }),
+        ('Location', {
+            'fields': ('city', 'address', 'latitude', 'longitude')
+        }),
+        ('Media', {
+            'fields': ('video_url',)
+        }),
+        ('Features', {
+            'fields': ('features',)
+        }),
+        ('Meta', {
+            'fields': ('created_at', 'updated_at', 'views_count'),
+            'classes': ('collapse',)
+        }),
     )
+
+
+@admin.register(Equipment)
+class EquipmentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'category']
+    list_filter = ['category']
+    search_fields = ['name']
 
 
 @admin.register(ListingImage)
 class ListingImageAdmin(admin.ModelAdmin):
-    list_display = ["listing", "is_main", "uploaded_at"]
-    list_filter = ["is_main", "uploaded_at"]
-    search_fields = ["listing__title", "caption"]
-
-
-@admin.register(SavedListing)
-class SavedListingAdmin(admin.ModelAdmin):
-    list_display = ["user", "listing", "saved_at"]
-    list_filter = ["saved_at"]
-    search_fields = ["user__username", "listing__title"]
+    list_display = ['listing', 'order', 'is_main', 'uploaded_at']
+    list_filter = ['is_main', 'uploaded_at']
+    search_fields = ['listing__title', 'caption']
