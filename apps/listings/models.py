@@ -107,6 +107,32 @@ class Listing(models.Model):
         ('4/5', '4/5 doors'),
     ]
 
+    COUNTRY_CHOICES = [
+        ('LT', 'Lithuania'),
+        ('LV', 'Latvia'),
+        ('EE', 'Estonia'),
+        ('PL', 'Poland'),
+        ('DE', 'Germany'),
+        ('NL', 'Netherlands'),
+        ('BE', 'Belgium'),
+        ('FR', 'France'),
+        ('IT', 'Italy'),
+        ('ES', 'Spain'),
+        ('AT', 'Austria'),
+        ('CZ', 'Czech Republic'),
+        ('SK', 'Slovakia'),
+        ('HU', 'Hungary'),
+        ('RO', 'Romania'),
+        ('BG', 'Bulgaria'),
+        ('SE', 'Sweden'),
+        ('DK', 'Denmark'),
+        ('FI', 'Finland'),
+        ('NO', 'Norway'),
+        ('GB', 'United Kingdom'),
+        ('IE', 'Ireland'),
+        ('CH', 'Switzerland'),
+    ]
+
     # Basic Information
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listings')
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, verbose_name="Vehicle Type")
@@ -138,9 +164,12 @@ class Listing(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Price (€)")
     negotiable = models.BooleanField(default=False, verbose_name="Price Negotiable")
 
-    # Location
+    # Location - ENHANCED
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, verbose_name="Country", default='LT')
     city = models.CharField(max_length=100, verbose_name="City")
+    postal_code = models.CharField(max_length=20, verbose_name="Postal Code", blank=True)
     address = models.CharField(max_length=200, verbose_name="Address", blank=True)
+    hide_exact_address = models.BooleanField(default=False, verbose_name="Hide exact address")
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
@@ -167,6 +196,32 @@ class Listing(models.Model):
 
     def get_absolute_url(self):
         return reverse('listings:listing_detail', kwargs={'pk': self.pk})
+    
+    def get_country_display_name(self):
+        """Get full country name"""
+        return dict(self.COUNTRY_CHOICES).get(self.country, self.country)
+    
+    def get_display_location(self):
+        """Get location string for display (respects hide_exact_address)"""
+        parts = []
+        if self.city:
+            parts.append(self.city)
+        if self.country:
+            parts.append(self.get_country_display_name())
+        return ', '.join(parts)
+    
+    def get_full_address(self):
+        """Get full address (only for owner/admin)"""
+        parts = []
+        if self.address:
+            parts.append(self.address)
+        if self.postal_code:
+            parts.append(self.postal_code)
+        if self.city:
+            parts.append(self.city)
+        if self.country:
+            parts.append(self.get_country_display_name())
+        return ', '.join(parts)
 
 
 class ListingImage(models.Model):

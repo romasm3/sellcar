@@ -189,17 +189,17 @@ class Step5PriceForm(forms.Form):
     """Step 5: Price"""
 
     price = forms.DecimalField(
-        label="Price in Lithuania, with taxes, €",
+        label="Price (€)",
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
-            'placeholder': '-',
+            'placeholder': 'Enter price',
             'min': '0',
             'step': '0.01'
         })
     )
 
     negotiable = forms.BooleanField(
-        label="Show additional price without VAT",
+        label="Price is negotiable",
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
@@ -215,14 +215,14 @@ class Step6DescriptionForm(forms.Form):
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'rows': 5,
-            'placeholder': 'Description'
+            'placeholder': 'Describe your vehicle...'
         })
     )
 
 
-# STEP 7: Contact
+# STEP 7: Contact & Location - ENHANCED
 class Step7ContactForm(forms.Form):
-    """Step 7: Contact Information"""
+    """Step 7: Contact Information & Location"""
 
     COUNTRY_CHOICES = [
         ('LT', 'Lithuania'),
@@ -230,38 +230,92 @@ class Step7ContactForm(forms.Form):
         ('EE', 'Estonia'),
         ('PL', 'Poland'),
         ('DE', 'Germany'),
+        ('NL', 'Netherlands'),
+        ('BE', 'Belgium'),
+        ('FR', 'France'),
+        ('IT', 'Italy'),
+        ('ES', 'Spain'),
+        ('AT', 'Austria'),
+        ('CZ', 'Czech Republic'),
+        ('SK', 'Slovakia'),
+        ('HU', 'Hungary'),
+        ('RO', 'Romania'),
+        ('BG', 'Bulgaria'),
+        ('SE', 'Sweden'),
+        ('DK', 'Denmark'),
+        ('FI', 'Finland'),
+        ('NO', 'Norway'),
+        ('GB', 'United Kingdom'),
+        ('IE', 'Ireland'),
+        ('CH', 'Switzerland'),
     ]
 
+    # Location fields
     country = forms.ChoiceField(
         label="Country",
         choices=COUNTRY_CHOICES,
+        initial='LT',
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     city = forms.CharField(
         label="City",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'e.g., Vilnius'
+        })
     )
 
+    postal_code = forms.CharField(
+        label="Postal Code",
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'e.g., LT-01100'
+        })
+    )
+
+    address = forms.CharField(
+        label="Street Address",
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'e.g., Gedimino pr. 1'
+        })
+    )
+
+    hide_exact_address = forms.BooleanField(
+        label="Hide exact address (show only city/area on map)",
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )
+
+    # Contact fields
     phone = forms.CharField(
         label="Contact Phone",
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': '+37067112478'
+            'placeholder': '+370 600 00000'
         })
     )
 
     email = forms.EmailField(
         label="Email Address",
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email@example.com'})
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'email@example.com'
+        })
     )
 
-    show_additional_phone = forms.BooleanField(
-        label="Additional Phone",
+    show_phone = forms.BooleanField(
+        label="Show phone number in listing",
         required=False,
+        initial=True,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
+    # Terms
     agree_terms = forms.BooleanField(
         label="I agree to the Terms and Conditions and Privacy Policy",
         required=True,
@@ -269,13 +323,13 @@ class Step7ContactForm(forms.Form):
     )
 
     agree_newsletter = forms.BooleanField(
-        label="Newsletter and offers",
+        label="Subscribe to newsletter and special offers",
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
 
-# Image Upload Form - FIXED: Removed 'multiple': True
+# Image Upload Form
 class ListingImageForm(forms.ModelForm):
     """Image Upload Form"""
 
@@ -286,6 +340,5 @@ class ListingImageForm(forms.ModelForm):
             'image': forms.FileInput(attrs={
                 'class': 'form-control',
                 'accept': 'image/*',
-                # REMOVED: 'multiple': True  - Django ModelForm doesn't support this
             })
         }

@@ -174,12 +174,27 @@ def password_change(request):
 @login_required
 def profile(request):
     """User profile view"""
-    # Get user listings (when we create listings app)
-    # user_listings = Listing.objects.filter(seller=request.user).order_by('-created_at')
+    from apps.listings.models import Listing
+    
+    # Get user listings
+    active_listings = Listing.objects.filter(
+        seller=request.user, status='active'
+    ).select_related('brand', 'model').order_by('-created_at')[:6]
+    
+    sold_listings = Listing.objects.filter(
+        seller=request.user, status='sold'
+    ).select_related('brand', 'model').order_by('-created_at')[:6]
+    
+    active_count = Listing.objects.filter(seller=request.user, status='active').count()
+    sold_count = Listing.objects.filter(seller=request.user, status='sold').count()
 
     context = {
         "user": request.user,
-        # 'user_listings': user_listings,
+        "active_listings": active_listings,
+        "sold_listings": sold_listings,
+        "active_count": active_count,
+        "sold_count": sold_count,
+        "saved_count": 0,  # TODO: implement saved listings count
     }
     return render(request, "accounts/profile.html", context)
 

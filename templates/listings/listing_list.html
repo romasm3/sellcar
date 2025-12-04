@@ -1,246 +1,284 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Browse Cars - SellCar{% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 min-h-screen">
-    <!-- Page Header -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Browse Cars</h1>
-                    <p class="text-gray-600 mt-1">Found <span class="font-semibold text-primary">{{ page_obj.paginator.count }}</span> listings</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+        
+        <!-- Filters Sidebar -->
+        <div class="lg:w-1/4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-24">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="font-semibold text-gray-900">
+                        <i class="fas fa-filter mr-2 text-primary"></i>Filters
+                    </h3>
+                    <a href="{% url 'listings:listing_list' %}" class="text-sm text-primary hover:underline">Clear All</a>
                 </div>
-                <a href="{% url 'listings:search_map' %}"
-                   class="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
-                    <i class="fas fa-map-marked-alt"></i>
-                    Map View
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Filters Sidebar -->
-            <aside class="lg:w-80 flex-shrink-0">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-semibold text-gray-900">Filters</h3>
-                        <a href="{% url 'listings:listing_list' %}" class="text-sm text-primary hover:text-primary-dark">
-                            Clear All
-                        </a>
+                
+                <form method="get" id="filterForm" class="p-4 space-y-4">
+                    
+                    <!-- Search -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                        <input type="text" name="search" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                               placeholder="Search by make, model..." 
+                               value="{{ search_query }}">
                     </div>
 
-                    <form method="get" class="space-y-6">
-                        <!-- Search -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Search
-                            </label>
-                            <input type="text" name="search" value="{{ request.GET.search }}"
-                                   placeholder="Search by make, model..."
-                                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                        </div>
-
-                        <!-- Make -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Make
-                            </label>
-                            <select name="brand" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <option value="">All Makes</option>
-                                {% for brand in brands %}
-                                <option value="{{ brand }}" {% if request.GET.brand == brand %}selected{% endif %}>
-                                    {{ brand }}
+                    <!-- Make -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Make</label>
+                        <select name="brand" id="brandSelect" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                            <option value="">All Makes</option>
+                            {% for brand in brands %}
+                                <option value="{{ brand.id }}" 
+                                        {% if request.GET.brand == brand.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ brand.name }}
                                 </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Model -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Model</label>
+                        <select name="model" id="modelSelect" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                            <option value="">All Models</option>
+                            {% for model in models %}
+                                <option value="{{ model.id }}" 
+                                        {% if request.GET.model == model.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ model.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="number" name="price_min" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                   placeholder="Min €" value="{{ request.GET.price_min }}">
+                            <input type="number" name="price_max" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                   placeholder="Max €" value="{{ request.GET.price_max }}">
+                        </div>
+                    </div>
+
+                    <!-- Year -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select name="year_min" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                                <option value="">From</option>
+                                {% for year in years %}
+                                    <option value="{{ year }}" 
+                                            {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>
+                                        {{ year }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <select name="year_max" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                                <option value="">To</option>
+                                {% for year in years %}
+                                    <option value="{{ year }}" 
+                                            {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>
+                                        {{ year }}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
-
-                        <!-- Price Range -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Price Range
-                            </label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <input type="number" name="price_min" value="{{ request.GET.price_min }}"
-                                       placeholder="Min €"
-                                       class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <input type="number" name="price_max" value="{{ request.GET.price_max }}"
-                                       placeholder="Max €"
-                                       class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                        </div>
-
-                        <!-- Year -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Year
-                            </label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <select name="year_min" class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">From</option>
-                                    {% for year in years %}
-                                    <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>
-                                        {{ year }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                                <select name="year_max" class="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">To</option>
-                                    {% for year in years %}
-                                    <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>
-                                        {{ year }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Fuel Type -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Fuel Type
-                            </label>
-                            <select name="fuel_type" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <option value="">All</option>
-                                <option value="petrol" {% if request.GET.fuel_type == 'petrol' %}selected{% endif %}>Petrol</option>
-                                <option value="diesel" {% if request.GET.fuel_type == 'diesel' %}selected{% endif %}>Diesel</option>
-                                <option value="electric" {% if request.GET.fuel_type == 'electric' %}selected{% endif %}>Electric</option>
-                                <option value="hybrid" {% if request.GET.fuel_type == 'hybrid' %}selected{% endif %}>Hybrid</option>
-                            </select>
-                        </div>
-
-                        <!-- Transmission -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Transmission
-                            </label>
-                            <select name="transmission" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <option value="">All</option>
-                                <option value="manual" {% if request.GET.transmission == 'manual' %}selected{% endif %}>Manual</option>
-                                <option value="automatic" {% if request.GET.transmission == 'automatic' %}selected{% endif %}>Automatic</option>
-                            </select>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit"
-                                class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-search"></i>
-                            Apply Filters
-                        </button>
-                    </form>
-                </div>
-            </aside>
-
-            <!-- Listings Grid -->
-            <div class="flex-1">
-                <!-- Sort -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6 flex items-center justify-between">
-                    <span class="text-sm text-gray-600">
-                        Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}
-                    </span>
-                    <form method="get" class="flex items-center gap-2">
-                        {% for key, value in request.GET.items %}
-                            {% if key != 'ordering' %}
-                            <input type="hidden" name="{{ key }}" value="{{ value }}">
-                            {% endif %}
-                        {% endfor %}
-                        <label class="text-sm text-gray-600">Sort by:</label>
-                        <select name="ordering" onchange="this.form.submit()"
-                                class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm">
-                            <option value="-created_at" {% if request.GET.ordering == "-created_at" or not request.GET.ordering %}selected{% endif %}>Newest</option>
-                            <option value="created_at" {% if request.GET.ordering == "created_at" %}selected{% endif %}>Oldest</option>
-                            <option value="price" {% if request.GET.ordering == "price" %}selected{% endif %}>Price: Low to High</option>
-                            <option value="-price" {% if request.GET.ordering == "-price" %}selected{% endif %}>Price: High to Low</option>
-                            <option value="-year" {% if request.GET.ordering == "-year" %}selected{% endif %}>Year: Newest</option>
-                        </select>
-                    </form>
-                </div>
-
-                <!-- Listings -->
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {% for listing in page_obj %}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all overflow-hidden group">
-                        <div class="relative h-48 overflow-hidden">
-                            {% if listing.images.first %}
-                            <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
-                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            {% else %}
-                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <i class="fas fa-car text-gray-400 text-4xl"></i>
-                            </div>
-                            {% endif %}
-                            <div class="absolute top-3 right-3">
-                                <span class="bg-white px-3 py-1.5 rounded-full text-sm font-bold text-gray-900 shadow-lg">
-                                    €{{ listing.price|floatformat:0 }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-semibold text-lg text-gray-900 mb-2 line-clamp-1">
-                                {{ listing.title }}
-                            </h3>
-                            <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                                <span class="flex items-center gap-1.5">
-                                    <i class="far fa-calendar"></i>
-                                    {{ listing.year }}
-                                </span>
-                                <span class="flex items-center gap-1.5">
-                                    <i class="fas fa-tachometer-alt"></i>
-                                    {{ listing.mileage|floatformat:0 }}k
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ listing.city }}</span>
-                            </div>
-                            <a href="{% url 'listings:listing_detail' listing.pk %}"
-                               class="block w-full bg-primary text-white text-center py-2.5 rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                                View Details
-                            </a>
-                        </div>
                     </div>
-                    {% empty %}
-                    <div class="col-span-full text-center py-16">
-                        <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">No listings found</h3>
-                        <p class="text-gray-600 mb-6">Try adjusting your filters</p>
-                        <a href="{% url 'listings:listing_list' %}" class="text-primary hover:text-primary-dark font-medium">
-                            Clear filters
-                        </a>
+
+                    <!-- Fuel Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Fuel Type</label>
+                        <select name="fuel_type" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                            <option value="">All</option>
+                            {% for fuel in fuel_types %}
+                                <option value="{{ fuel.id }}" 
+                                        {% if request.GET.fuel_type == fuel.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ fuel.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Transmission -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Transmission</label>
+                        <select name="transmission" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
+                            <option value="">All</option>
+                            {% for trans in transmissions %}
+                                <option value="{{ trans.id }}" 
+                                        {% if request.GET.transmission == trans.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ trans.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" 
+                            class="w-full bg-primary text-white py-2.5 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                        <i class="fas fa-search mr-2"></i>Apply Filters
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Listings Grid -->
+        <div class="lg:w-3/4">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Browse Cars</h1>
+                    <p class="text-gray-600">Found {{ total_count }} listing{{ total_count|pluralize }}</p>
+                </div>
+                <a href="{% url 'listings:search_map' %}" 
+                   class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors font-medium inline-flex items-center">
+                    <i class="fas fa-map-marked-alt mr-2"></i>Map View
+                </a>
+            </div>
+
+            <!-- Sort Bar -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <span class="text-gray-600 text-sm">Showing {{ listings|length }} of {{ total_count }}</span>
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm text-gray-600">Sort by:</label>
+                        <select class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary bg-white"
+                                onchange="window.location.href=this.value">
+                            <option value="?ordering=-created_at">Newest</option>
+                            <option value="?ordering=price">Price: Low to High</option>
+                            <option value="?ordering=-price">Price: High to Low</option>
+                            <option value="?ordering=-year">Year: Newest</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listings -->
+            {% if listings %}
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {% for listing in listings %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
+                        <!-- Image -->
+                        <div class="relative h-48 bg-gray-200">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" 
+                                     class="w-full h-full object-cover"
+                                     alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center bg-gray-300">
+                                    <i class="fas fa-car text-5xl text-gray-400"></i>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Price Badge -->
+                            <div class="absolute top-3 right-3 bg-primary text-white px-3 py-1 rounded-lg font-semibold">
+                                €{{ listing.price|floatformat:0 }}
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-900 mb-1 truncate">{{ listing.title }}</h3>
+                            <p class="text-gray-500 text-sm mb-3">
+                                {{ listing.brand.name }} {{ listing.model.name }}
+                            </p>
+                            
+                            <!-- Specs -->
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-calendar text-gray-400"></i>
+                                    <span>{{ listing.year }}</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-road text-gray-400"></i>
+                                    <span>{{ listing.mileage|floatformat:0 }} km</span>
+                                </div>
+                                {% if listing.fuel_type %}
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-gas-pump text-gray-400"></i>
+                                    <span>{{ listing.fuel_type.name }}</span>
+                                </div>
+                                {% endif %}
+                                {% if listing.transmission %}
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-cog text-gray-400"></i>
+                                    <span>{{ listing.transmission.name }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Footer -->
+                            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                <div class="flex items-center gap-1 text-sm text-gray-500">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ listing.city|default:"Lithuania" }}</span>
+                                </div>
+                                <a href="{% url 'listings:listing_detail' listing.pk %}" 
+                                   class="text-primary hover:text-primary-dark font-medium text-sm transition-colors">
+                                    View Details →
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
-
-                <!-- Pagination -->
-                {% if page_obj.has_other_pages %}
-                <div class="mt-8 flex justify-center">
-                    <nav class="flex items-center gap-2">
-                        {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                           class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                            Previous
-                        </a>
-                        {% endif %}
-
-                        <span class="px-4 py-2 text-gray-700">
-                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                        </span>
-
-                        {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                           class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                            Next
-                        </a>
-                        {% endif %}
-                    </nav>
+            {% else %}
+                <!-- No Results -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-3xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No listings found</h3>
+                    <p class="text-gray-600 mb-6">Try adjusting your filters to find what you're looking for</p>
+                    <a href="{% url 'listings:listing_list' %}" 
+                       class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                        <i class="fas fa-times mr-2"></i>Clear Filters
+                    </a>
                 </div>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Dynamic model dropdown based on brand selection
+document.getElementById('brandSelect').addEventListener('change', function() {
+    const brandId = this.value;
+    const modelSelect = document.getElementById('modelSelect');
+    
+    // Clear current models
+    modelSelect.innerHTML = '<option value="">All Models</option>';
+    
+    if (brandId) {
+        // Fetch models for selected brand
+        fetch(`/listings/ajax/get-models/?brand_id=${brandId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.textContent = model.name;
+                    modelSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+</script>
 {% endblock %}

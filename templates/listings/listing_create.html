@@ -15,17 +15,17 @@
             <!-- Progress -->
             <div class="relative">
                 <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-200">
-                    <div style="width:{{ step|multiply:14.28 }}%"
+                    <div style="width:{{ progress_percent }}%"
                          class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary transition-all duration-500"></div>
                 </div>
                 <div class="flex justify-between text-xs text-gray-600">
-                    <span :class="step >= 1 ? 'text-primary font-medium' : ''">Basic</span>
-                    <span :class="step >= 2 ? 'text-primary font-medium' : ''">Media</span>
-                    <span :class="step >= 3 ? 'text-primary font-medium' : ''">Details</span>
-                    <span :class="step >= 4 ? 'text-primary font-medium' : ''">Equipment</span>
-                    <span :class="step >= 5 ? 'text-primary font-medium' : ''">Price</span>
-                    <span :class="step >= 6 ? 'text-primary font-medium' : ''">Description</span>
-                    <span :class="step >= 7 ? 'text-primary font-medium' : ''">Contact</span>
+                    <span class="{% if step >= 1 %}text-primary font-medium{% endif %}">Basic</span>
+                    <span class="{% if step >= 2 %}text-primary font-medium{% endif %}">Media</span>
+                    <span class="{% if step >= 3 %}text-primary font-medium{% endif %}">Details</span>
+                    <span class="{% if step >= 4 %}text-primary font-medium{% endif %}">Equipment</span>
+                    <span class="{% if step >= 5 %}text-primary font-medium{% endif %}">Price</span>
+                    <span class="{% if step >= 6 %}text-primary font-medium{% endif %}">Description</span>
+                    <span class="{% if step >= 7 %}text-primary font-medium{% endif %}">Contact</span>
                 </div>
             </div>
         </div>
@@ -46,35 +46,35 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Vehicle Type *
+                                Vehicle Type <span class="text-red-500">*</span>
                             </label>
                             {{ form.vehicle_type }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Brand *
+                                Brand <span class="text-red-500">*</span>
                             </label>
                             {{ form.brand }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Model *
+                                Model <span class="text-red-500">*</span>
                             </label>
                             {{ form.model }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Year *
+                                Year <span class="text-red-500">*</span>
                             </label>
                             {{ form.year }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                First Registration Month *
+                                First Registration Month <span class="text-red-500">*</span>
                             </label>
                             {{ form.first_registration_month }}
                         </div>
@@ -101,12 +101,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Upload Photos
                         </label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-primary transition-colors cursor-pointer">
-                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-                            <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
+                        <div id="dropZone" 
+                             class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-primary transition-colors cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4 block"></i>
+                            <p id="dropText" class="text-gray-600 mb-2">Click to upload or drag and drop</p>
                             <p class="text-sm text-gray-500">PNG, JPG up to 10MB (Max 10 images)</p>
-                            <input type="file" name="images" multiple accept="image/*" class="hidden">
+                            <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
                         </div>
+                        <div id="imagePreview" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4"></div>
                     </div>
 
                     <div>
@@ -129,35 +131,35 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Body Type *
+                                Body Type <span class="text-red-500">*</span>
                             </label>
                             {{ form.body_type }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Fuel Type *
+                                Fuel Type <span class="text-red-500">*</span>
                             </label>
                             {{ form.fuel_type }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Transmission *
+                                Transmission <span class="text-red-500">*</span>
                             </label>
                             {{ form.transmission }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Number of Doors *
+                                Number of Doors <span class="text-red-500">*</span>
                             </label>
                             {{ form.doors }}
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Condition *
+                                Condition <span class="text-red-500">*</span>
                             </label>
                             {{ form.condition }}
                         </div>
@@ -171,7 +173,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Mileage (km) *
+                                Mileage (km) <span class="text-red-500">*</span>
                             </label>
                             {{ form.mileage }}
                         </div>
@@ -201,15 +203,13 @@
                         <p class="text-gray-600">Select features your vehicle has</p>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Search Features
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {% for checkbox in form.equipment %}
+                        <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                            {{ checkbox.tag }}
+                            <span class="text-sm text-gray-700">{{ checkbox.choice_label }}</span>
                         </label>
-                        {{ form.features_text }}
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {{ form.equipment }}
+                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
@@ -224,7 +224,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Price (€) *
+                            Price (€) <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <span class="absolute left-4 top-3 text-gray-500 text-lg">€</span>
@@ -232,11 +232,9 @@
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-3">
+                    <div class="flex items-center gap-3">
                         {{ form.negotiable }}
-                        <label class="text-sm text-gray-700">
-                            Price is negotiable
-                        </label>
+                        <label class="text-sm text-gray-700">Price is negotiable</label>
                     </div>
 
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -269,63 +267,97 @@
                         </label>
                         {{ form.description }}
                         <p class="text-sm text-gray-500 mt-2">
-                            Minimum 50 characters. Include condition, features, service history, etc.
+                            Include condition, features, service history, etc.
                         </p>
                     </div>
                 </div>
                 {% endif %}
 
-                <!-- Step 7: Contact -->
+                <!-- Step 7: Contact & Location -->
                 {% if step == 7 %}
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Contact Information</h3>
-                        <p class="text-gray-600">How can buyers reach you?</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Contact & Location</h3>
+                        <p class="text-gray-600">Where is the vehicle and how can buyers reach you?</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Country *
-                            </label>
-                            {{ form.country }}
+                    <!-- Location Section -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-semibold text-gray-900 mb-4">
+                            <i class="fas fa-map-marker-alt text-primary mr-2"></i>Vehicle Location
+                        </h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Country <span class="text-red-500">*</span></label>
+                                {{ form.country }}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City <span class="text-red-500">*</span></label>
+                                {{ form.city }}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Postal Code</label>
+                                {{ form.postal_code }}
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Street Address</label>
+                                {{ form.address }}
+                            </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                City *
+                        <div class="mt-4">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                {{ form.hide_exact_address }}
+                                <span class="text-gray-700">
+                                    <i class="fas fa-eye-slash text-gray-400 mr-1"></i>
+                                    Hide exact address (show only city on map)
+                                </span>
                             </label>
-                            {{ form.city }}
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Phone *
-                            </label>
-                            {{ form.phone }}
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
-                                Email *
-                            </label>
-                            {{ form.email }}
+                            <p class="text-sm text-gray-500 mt-1 ml-8">Buyers will only see the general area, not your exact address.</p>
                         </div>
                     </div>
 
-                    <div class="space-y-3 pt-4 border-t border-gray-200">
-                        <div class="flex items-start gap-3">
-                            {{ form.agree_terms }}
-                            <label class="text-sm text-gray-700">
-                                I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> and
-                                <a href="#" class="text-primary hover:underline">Privacy Policy</a> *
-                            </label>
-                        </div>
+                    <!-- Contact Section -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-semibold text-gray-900 mb-4">
+                            <i class="fas fa-phone text-primary mr-2"></i>Contact Information
+                        </h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone <span class="text-red-500">*</span></label>
+                                {{ form.phone }}
+                            </div>
 
-                        <div class="flex items-start gap-3">
-                            {{ form.agree_newsletter }}
-                            <label class="text-sm text-gray-700">
-                                Send me newsletters and offers
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email (optional)</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms Section -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-semibold text-gray-900 mb-4">
+                            <i class="fas fa-file-contract text-primary mr-2"></i>Terms & Conditions
+                        </h4>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                {{ form.agree_terms }}
+                                <span class="text-gray-700">
+                                    I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> 
+                                    and <a href="#" class="text-primary hover:underline">Privacy Policy</a> <span class="text-red-500">*</span>
+                                </span>
+                            </label>
+
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                {{ form.agree_newsletter }}
+                                <span class="text-gray-700">Send me newsletters and offers</span>
                             </label>
                         </div>
                     </div>
@@ -383,8 +415,7 @@
 </div>
 
 <style>
-    /* Form field styles */
-    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], textarea {
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
         width: 100%;
         padding: 0.75rem 1rem;
         border: 1px solid #d1d5db;
@@ -407,7 +438,7 @@
         width: 1.25rem;
         height: 1.25rem;
         border-radius: 0.25rem;
-        border: 1px solid #d1d5db;
+        accent-color: #7C3AED;
     }
 
     #id_price {
@@ -416,8 +447,8 @@
 </style>
 
 <script>
-// AJAX for model selection
 document.addEventListener('DOMContentLoaded', function() {
+    // AJAX for model selection (Step 1)
     const brandSelect = document.getElementById('id_brand');
     const modelSelect = document.getElementById('id_model');
 
@@ -436,10 +467,65 @@ document.addEventListener('DOMContentLoaded', function() {
                             option.textContent = model.name;
                             modelSelect.appendChild(option);
                         });
-                        modelSelect.disabled = false;
                     });
             }
         });
+    }
+
+    // Image upload (Step 2)
+    const dropZone = document.getElementById('dropZone');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const dropText = document.getElementById('dropText');
+
+    if (dropZone && imageInput) {
+        dropZone.addEventListener('click', function() {
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', handleFiles);
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.classList.add('border-primary', 'bg-purple-50');
+        });
+
+        dropZone.addEventListener('dragleave', function() {
+            dropZone.classList.remove('border-primary', 'bg-purple-50');
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.classList.remove('border-primary', 'bg-purple-50');
+            imageInput.files = e.dataTransfer.files;
+            handleFiles();
+        });
+
+        function handleFiles() {
+            const files = imageInput.files;
+            imagePreview.innerHTML = '';
+
+            if (files.length > 0) {
+                dropText.textContent = `${files.length} file(s) selected`;
+                dropZone.classList.add('border-primary');
+            }
+
+            Array.from(files).slice(0, 10).forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const div = document.createElement('div');
+                        div.className = 'relative group';
+                        div.innerHTML = `
+                            <img src="${e.target.result}" class="w-full h-24 object-cover rounded-lg border border-gray-200">
+                            <span class="absolute top-1 left-1 bg-primary text-white text-xs px-2 py-0.5 rounded">${index + 1}</span>
+                        `;
+                        imagePreview.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
     }
 });
 </script>

@@ -81,14 +81,14 @@
                             <i class="fas fa-gas-pump text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">Fuel</div>
-                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|title }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"N/A" }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-cog text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">Transmission</div>
-                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|title }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|default:"N/A" }}</div>
                             </div>
                         </div>
                     </div>
@@ -157,21 +157,74 @@
                             <span class="font-medium text-gray-900">{{ listing.power }} kW</span>
                         </div>
                         {% endif %}
+                        {% if listing.vin %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">VIN</span>
+                            <span class="font-medium text-gray-900">{{ listing.vin }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.first_registration %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">First Registration</span>
+                            <span class="font-medium text-gray-900">{{ listing.first_registration|date:"F Y" }}</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
+
+                <!-- Equipment -->
+                {% if listing.equipment_items.all %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Equipment & Features</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {% for item in listing.equipment_items.all %}
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <i class="fas fa-check text-green-500"></i>
+                            <span>{{ item.equipment.name }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
 
                 <!-- Location -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">Location</h2>
-                    <div class="flex items-center gap-3 text-gray-700">
-                        <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                    <div class="flex items-start gap-3 text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium">{{ listing.city }}</p>
-                            {% if listing.address %}
-                            <p class="text-sm text-gray-600">{{ listing.address }}</p>
+                            <!-- Always show city and country -->
+                            <p class="font-medium text-lg">
+                                {{ listing.city }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}
+                            </p>
+                            
+                            <!-- Show address details only if not hidden -->
+                            {% if not listing.hide_exact_address %}
+                                {% if listing.address %}
+                                <p class="text-gray-600 mt-1">
+                                    <i class="fas fa-road text-gray-400 mr-2"></i>{{ listing.address }}
+                                </p>
+                                {% endif %}
+                                {% if listing.postal_code %}
+                                <p class="text-gray-600 mt-1">
+                                    <i class="fas fa-mail-bulk text-gray-400 mr-2"></i>{{ listing.postal_code }}
+                                </p>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-sm text-gray-500 mt-1">
+                                    <i class="fas fa-eye-slash text-gray-400 mr-1"></i>
+                                    Exact address hidden by seller
+                                </p>
                             {% endif %}
                         </div>
                     </div>
+                    
+                    <!-- Map Preview (if coordinates available) -->
+                    {% if listing.latitude and listing.longitude %}
+                    <div class="mt-4">
+                        <div id="locationMap" class="h-48 rounded-lg border border-gray-200"></div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -193,10 +246,15 @@
 
                     {% if user.is_authenticated %}
                     <div class="space-y-3">
-                        <a href="#" class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
+                        <button onclick="showPhone()" id="phoneBtn" class="w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
                             <i class="fas fa-phone-alt mr-2"></i>
                             Show Phone
-                        </a>
+                        </button>
+                        <div id="phoneNumber" class="hidden w-full bg-green-100 text-green-800 text-center py-3 rounded-lg font-medium">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <!-- Phone would be shown here -->
+                            Contact seller
+                        </div>
                         <a href="#" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium">
                             <i class="fas fa-envelope mr-2"></i>
                             Send Message
@@ -278,4 +336,50 @@
         </div>
     </div>
 </div>
+
+{% if listing.latitude and listing.longitude %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mapElement = document.getElementById('locationMap');
+    if (mapElement) {
+        const lat = {{ listing.latitude }};
+        const lng = {{ listing.longitude }};
+        
+        const map = new google.maps.Map(mapElement, {
+            center: { lat: lat, lng: lng },
+            zoom: {% if listing.hide_exact_address %}12{% else %}15{% endif %},
+            disableDefaultUI: true,
+            zoomControl: true
+        });
+        
+        {% if listing.hide_exact_address %}
+        // Show circle for hidden address
+        new google.maps.Circle({
+            map: map,
+            center: { lat: lat, lng: lng },
+            radius: 2000,
+            fillColor: '#7C3AED',
+            fillOpacity: 0.2,
+            strokeColor: '#7C3AED',
+            strokeOpacity: 0.5,
+            strokeWeight: 2
+        });
+        {% else %}
+        // Show marker for exact address
+        new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map,
+            title: '{{ listing.title }}'
+        });
+        {% endif %}
+    }
+});
+
+function showPhone() {
+    document.getElementById('phoneBtn').classList.add('hidden');
+    document.getElementById('phoneNumber').classList.remove('hidden');
+}
+</script>
+{% endif %}
 {% endblock %}

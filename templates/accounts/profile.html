@@ -26,11 +26,11 @@
                     <!-- Stats -->
                     <div class="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-primary">{{ user.listings.count }}</div>
+                            <div class="text-2xl font-bold text-primary">{{ active_count|default:0 }}</div>
                             <div class="text-xs text-gray-600">Listings</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-primary">0</div>
+                            <div class="text-2xl font-bold text-primary">{{ saved_count|default:0 }}</div>
                             <div class="text-xs text-gray-600">Saved</div>
                         </div>
                     </div>
@@ -94,22 +94,21 @@
                             <button @click="activeTab = 'active'"
                                     :class="activeTab === 'active' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
                                     class="px-6 py-4 border-b-2 font-medium transition-colors">
-                                Active Listings ({{ user.listings.filter(status='active').count }})
+                                Active Listings ({{ active_count|default:0 }})
                             </button>
                             <button @click="activeTab = 'sold'"
                                     :class="activeTab === 'sold' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
                                     class="px-6 py-4 border-b-2 font-medium transition-colors">
-                                Sold ({{ user.listings.filter(status='sold').count }})
+                                Sold ({{ sold_count|default:0 }})
                             </button>
                         </div>
                     </div>
 
                     <!-- Active Listings -->
                     <div x-show="activeTab === 'active'" class="p-6">
-                        {% with listings=user.listings.filter|slice:":6" %}
-                        {% if listings %}
+                        {% if active_listings %}
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {% for listing in listings %}
+                            {% for listing in active_listings %}
                             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
                                 <div class="relative h-40 overflow-hidden">
                                     {% if listing.images.first %}
@@ -129,7 +128,7 @@
                                 <div class="p-4">
                                     <h4 class="font-semibold text-gray-900 mb-1 line-clamp-1">{{ listing.title }}</h4>
                                     <p class="text-sm text-gray-600 mb-3">
-                                        {{ listing.year }} • {{ listing.mileage|floatformat:0 }}k km
+                                        {{ listing.year }} • {{ listing.mileage|floatformat:0 }} km
                                     </p>
                                     <div class="flex gap-2">
                                         <a href="{% url 'listings:listing_detail' listing.pk %}"
@@ -157,16 +156,45 @@
                             </a>
                         </div>
                         {% endif %}
-                        {% endwith %}
                     </div>
 
                     <!-- Sold Listings -->
-                    <div x-show="activeTab === 'sold'" class="p-6">
+                    <div x-show="activeTab === 'sold'" x-cloak class="p-6">
+                        {% if sold_listings %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {% for listing in sold_listings %}
+                            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden opacity-75">
+                                <div class="relative h-40 overflow-hidden">
+                                    {% if listing.images.first %}
+                                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                                         class="w-full h-full object-cover grayscale">
+                                    {% else %}
+                                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                        <i class="fas fa-car text-gray-400 text-3xl"></i>
+                                    </div>
+                                    {% endif %}
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                        <span class="bg-green-500 text-white px-4 py-2 rounded-full font-semibold">
+                                            SOLD
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="font-semibold text-gray-900 mb-1 line-clamp-1">{{ listing.title }}</h4>
+                                    <p class="text-sm text-gray-600">
+                                        {{ listing.year }} • €{{ listing.price|floatformat:0 }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
                         <div class="text-center py-12">
                             <i class="fas fa-check-circle text-gray-300 text-5xl mb-4"></i>
                             <h4 class="text-lg font-semibold text-gray-900 mb-2">No Sold Listings Yet</h4>
                             <p class="text-gray-600">Your sold listings will appear here</p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

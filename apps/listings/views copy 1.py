@@ -31,217 +31,6 @@ from datetime import date
 
 
 # ============================================
-# GEOCODING - City/Country to Coordinates
-# ============================================
-
-# Major cities coordinates database
-CITY_COORDINATES = {
-    # Lithuania
-    'vilnius': (54.6872, 25.2797),
-    'kaunas': (54.8985, 23.9036),
-    'klaipeda': (55.7033, 21.1443),
-    'siauliai': (55.9349, 23.3137),
-    'panevezys': (55.7348, 24.3575),
-    'alytus': (54.3963, 24.0459),
-    'marijampole': (54.5594, 23.3500),
-    'mazeikiai': (56.3167, 22.3333),
-    'jonava': (55.0833, 24.2833),
-    'utena': (55.5000, 25.6000),
-    
-    # Latvia
-    'riga': (56.9496, 24.1052),
-    'daugavpils': (55.8747, 26.5356),
-    'liepaja': (56.5047, 21.0108),
-    'jelgava': (56.6511, 23.7211),
-    'jurmala': (56.9680, 23.7704),
-    
-    # Estonia
-    'tallinn': (59.4370, 24.7536),
-    'tartu': (58.3780, 26.7290),
-    'narva': (59.3797, 28.1791),
-    'parnu': (58.3859, 24.4971),
-    
-    # Poland
-    'warsaw': (52.2297, 21.0122),
-    'warszawa': (52.2297, 21.0122),
-    'krakow': (50.0647, 19.9450),
-    'lodz': (51.7592, 19.4560),
-    'wroclaw': (51.1079, 17.0385),
-    'poznan': (52.4064, 16.9252),
-    'gdansk': (54.3520, 18.6466),
-    'szczecin': (53.4285, 14.5528),
-    'bydgoszcz': (53.1235, 18.0084),
-    'lublin': (51.2465, 22.5684),
-    'katowice': (50.2649, 19.0238),
-    'bialystok': (53.1325, 23.1688),
-    
-    # Germany
-    'berlin': (52.5200, 13.4050),
-    'hamburg': (53.5511, 9.9937),
-    'munich': (48.1351, 11.5820),
-    'munchen': (48.1351, 11.5820),
-    'cologne': (50.9375, 6.9603),
-    'koln': (50.9375, 6.9603),
-    'frankfurt': (50.1109, 8.6821),
-    'stuttgart': (48.7758, 9.1829),
-    'dusseldorf': (51.2277, 6.7735),
-    'dortmund': (51.5136, 7.4653),
-    'essen': (51.4556, 7.0116),
-    'leipzig': (51.3397, 12.3731),
-    'bremen': (53.0793, 8.8017),
-    'dresden': (51.0504, 13.7373),
-    'hannover': (52.3759, 9.7320),
-    'nurnberg': (49.4521, 11.0767),
-    'duisburg': (51.4344, 6.7623),
-    
-    # Netherlands
-    'amsterdam': (52.3676, 4.9041),
-    'rotterdam': (51.9244, 4.4777),
-    'the hague': (52.0705, 4.3007),
-    'den haag': (52.0705, 4.3007),
-    'utrecht': (52.0907, 5.1214),
-    'eindhoven': (51.4416, 5.4697),
-    
-    # Belgium
-    'brussels': (50.8503, 4.3517),
-    'brussel': (50.8503, 4.3517),
-    'antwerp': (51.2194, 4.4025),
-    'antwerpen': (51.2194, 4.4025),
-    'ghent': (51.0543, 3.7174),
-    'gent': (51.0543, 3.7174),
-    'charleroi': (50.4108, 4.4446),
-    'liege': (50.6326, 5.5797),
-    
-    # France
-    'paris': (48.8566, 2.3522),
-    'marseille': (43.2965, 5.3698),
-    'lyon': (45.7640, 4.8357),
-    'toulouse': (43.6047, 1.4442),
-    'nice': (43.7102, 7.2620),
-    'nantes': (47.2184, -1.5536),
-    'strasbourg': (48.5734, 7.7521),
-    'montpellier': (43.6108, 3.8767),
-    'bordeaux': (44.8378, -0.5792),
-    'lille': (50.6292, 3.0573),
-    
-    # Italy
-    'rome': (41.9028, 12.4964),
-    'roma': (41.9028, 12.4964),
-    'milan': (45.4642, 9.1900),
-    'milano': (45.4642, 9.1900),
-    'naples': (40.8518, 14.2681),
-    'napoli': (40.8518, 14.2681),
-    'turin': (45.0703, 7.6869),
-    'torino': (45.0703, 7.6869),
-    'palermo': (38.1157, 13.3615),
-    'genoa': (44.4056, 8.9463),
-    'genova': (44.4056, 8.9463),
-    'bologna': (44.4949, 11.3426),
-    'florence': (43.7696, 11.2558),
-    'firenze': (43.7696, 11.2558),
-    'venice': (45.4408, 12.3155),
-    'venezia': (45.4408, 12.3155),
-    
-    # Spain
-    'madrid': (40.4168, -3.7038),
-    'barcelona': (41.3851, 2.1734),
-    'valencia': (39.4699, -0.3763),
-    'seville': (37.3891, -5.9845),
-    'sevilla': (37.3891, -5.9845),
-    'zaragoza': (41.6488, -0.8891),
-    'malaga': (36.7213, -4.4214),
-    'murcia': (37.9922, -1.1307),
-    'palma': (39.5696, 2.6502),
-    'bilbao': (43.2630, -2.9350),
-    
-    # Austria
-    'vienna': (48.2082, 16.3738),
-    'wien': (48.2082, 16.3738),
-    'graz': (47.0707, 15.4395),
-    'linz': (48.3069, 14.2858),
-    'salzburg': (47.8095, 13.0550),
-    'innsbruck': (47.2692, 11.4041),
-    
-    # Czech Republic
-    'prague': (50.0755, 14.4378),
-    'praha': (50.0755, 14.4378),
-    'brno': (49.1951, 16.6068),
-    'ostrava': (49.8209, 18.2625),
-    'plzen': (49.7384, 13.3736),
-    
-    # Other countries
-    'budapest': (47.4979, 19.0402),  # Hungary
-    'bucharest': (44.4268, 26.1025),  # Romania
-    'bucuresti': (44.4268, 26.1025),
-    'sofia': (42.6977, 23.3219),  # Bulgaria
-    'stockholm': (59.3293, 18.0686),  # Sweden
-    'gothenburg': (57.7089, 11.9746),
-    'goteborg': (57.7089, 11.9746),
-    'copenhagen': (55.6761, 12.5683),  # Denmark
-    'kobenhavn': (55.6761, 12.5683),
-    'helsinki': (60.1699, 24.9384),  # Finland
-    'oslo': (59.9139, 10.7522),  # Norway
-    'london': (51.5074, -0.1278),  # UK
-    'manchester': (53.4808, -2.2426),
-    'birmingham': (52.4862, -1.8904),
-    'glasgow': (55.8642, -4.2518),
-    'liverpool': (53.4084, -2.9916),
-    'edinburgh': (55.9533, -3.1883),
-    'dublin': (53.3498, -6.2603),  # Ireland
-    'zurich': (47.3769, 8.5417),  # Switzerland
-    'geneva': (46.2044, 6.1432),
-    'geneve': (46.2044, 6.1432),
-    'basel': (47.5596, 7.5886),
-    'bern': (46.9480, 7.4474),
-}
-
-# Country center coordinates (fallback)
-COUNTRY_COORDINATES = {
-    'LT': (55.1694, 23.8813),  # Lithuania
-    'LV': (56.8796, 24.6032),  # Latvia
-    'EE': (58.5953, 25.0136),  # Estonia
-    'PL': (51.9194, 19.1451),  # Poland
-    'DE': (51.1657, 10.4515),  # Germany
-    'NL': (52.1326, 5.2913),   # Netherlands
-    'BE': (50.5039, 4.4699),   # Belgium
-    'FR': (46.2276, 2.2137),   # France
-    'IT': (41.8719, 12.5674),  # Italy
-    'ES': (40.4637, -3.7492),  # Spain
-    'AT': (47.5162, 14.5501),  # Austria
-    'CZ': (49.8175, 15.4730),  # Czech Republic
-    'SK': (48.6690, 19.6990),  # Slovakia
-    'HU': (47.1625, 19.5033),  # Hungary
-    'RO': (45.9432, 24.9668),  # Romania
-    'BG': (42.7339, 25.4858),  # Bulgaria
-    'SE': (60.1282, 18.6435),  # Sweden
-    'DK': (56.2639, 9.5018),   # Denmark
-    'FI': (61.9241, 25.7482),  # Finland
-    'NO': (60.4720, 8.4689),   # Norway
-    'GB': (55.3781, -3.4360),  # United Kingdom
-    'IE': (53.1424, -7.6921),  # Ireland
-    'CH': (46.8182, 8.2275),   # Switzerland
-}
-
-
-def get_coordinates_for_location(city, country_code):
-    """
-    Get coordinates for a city/country combination.
-    First tries exact city match, then falls back to country center.
-    """
-    if city:
-        city_lower = city.lower().strip()
-        if city_lower in CITY_COORDINATES:
-            return CITY_COORDINATES[city_lower]
-    
-    # Fallback to country center
-    if country_code and country_code in COUNTRY_COORDINATES:
-        return COUNTRY_COORDINATES[country_code]
-    
-    # Default to Lithuania (Kaunas)
-    return (54.8985, 23.9036)
-
-
-# ============================================
 # LISTING LIST (Browse Cars)
 # ============================================
 def listing_list(request):
@@ -322,13 +111,9 @@ def listing_detail(request, pk):
     # Increment views count
     listing.views_count += 1
     listing.save(update_fields=['views_count'])
-    
-    # Check if user is owner
-    is_owner = request.user.is_authenticated and listing.seller == request.user
 
     context = {
         'listing': listing,
-        'is_owner': is_owner,
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
     }
     return render(request, 'listings/listing_detail.html', context)
@@ -456,12 +241,9 @@ def listing_create(request):
                 listing_data['step7'] = {
                     'country': form.cleaned_data['country'],
                     'city': form.cleaned_data['city'],
-                    'postal_code': form.cleaned_data.get('postal_code', ''),
-                    'address': form.cleaned_data.get('address', ''),
-                    'hide_exact_address': form.cleaned_data.get('hide_exact_address', False),
                     'phone': form.cleaned_data['phone'],
                     'email': form.cleaned_data['email'],
-                    'show_phone': form.cleaned_data.get('show_phone', True),
+                    'show_additional_phone': form.cleaned_data.get('show_additional_phone', False),
                     'agree_terms': form.cleaned_data['agree_terms'],
                     'agree_newsletter': form.cleaned_data.get('agree_newsletter', False),
                 }
@@ -558,11 +340,6 @@ def create_listing_from_session(user, listing_data, temp_images=None):
     transmission = Transmission.objects.get(id=step3['transmission']) if step3.get('transmission') else None
 
     title = f"{brand.name} {model.name} {step1['year']}"
-    
-    # Get coordinates from city/country
-    city = step7.get('city', '')
-    country = step7.get('country', 'LT')
-    lat, lng = get_coordinates_for_location(city, country)
 
     listing = Listing.objects.create(
         seller=user,
@@ -586,14 +363,7 @@ def create_listing_from_session(user, listing_data, temp_images=None):
         price=step5.get('price', 0),
         negotiable=step5.get('negotiable', False),
         description=step6.get('description', ''),
-        # Location fields
-        country=country,
-        city=city,
-        postal_code=step7.get('postal_code', ''),
-        address=step7.get('address', ''),
-        hide_exact_address=step7.get('hide_exact_address', False),
-        latitude=lat,
-        longitude=lng,
+        city=step7.get('city', ''),
         status='active',
     )
 
@@ -736,12 +506,9 @@ def search_map(request):
         if first_image:
             main_image = first_image.image.url
         
-        # Use coordinates or default to country center
-        if listing.latitude and listing.longitude:
-            lat = float(listing.latitude)
-            lng = float(listing.longitude)
-        else:
-            lat, lng = get_coordinates_for_location(listing.city, listing.country)
+        # Use coordinates or default to Kaunas
+        lat = float(listing.latitude) if listing.latitude else 54.8985
+        lng = float(listing.longitude) if listing.longitude else 23.9036
         
         listings_json.append({
             'id': listing.pk,
@@ -753,8 +520,6 @@ def search_map(request):
             'latitude': lat,
             'longitude': lng,
             'main_image': main_image,
-            'city': listing.city,
-            'country': listing.get_country_display_name() if hasattr(listing, 'get_country_display_name') else listing.country,
         })
     
     context = {
