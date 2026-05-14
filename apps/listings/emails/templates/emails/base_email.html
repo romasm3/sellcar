@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SellCar{% endblock %}</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;color:#222;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f5;padding:20px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background:#fff;border-radius:8px;overflow:hidden;max-width:600px;">
+
+                    <!-- HEADER -->
+                    <tr>
+                        <td style="padding:20px 30px;border-bottom:1px solid #eee;">
+                            <a href="{{ site_url }}" style="color:#111;text-decoration:none;font-size:20px;font-weight:700;">
+                                SellCar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- BODY -->
+                    <tr>
+                        <td style="padding:30px;font-size:15px;line-height:1.6;color:#222;">
+                            {% block body %}{% endblock %}
+                        </td>
+                    </tr>
+
+                    <!-- FOOTER -->
+                    <tr>
+                        <td style="padding:20px 30px;border-top:1px solid #eee;font-size:12px;color:#888;line-height:1.5;">
+                            <p style="margin:0 0 8px 0;">
+                                SellCar &middot; <a href="{{ site_url }}" style="color:#888;">{{ site_url }}</a>
+                            </p>
+                            <p style="margin:0 0 8px 0;">
+                                You received this email because you are registered on SellCar.
+                            </p>
+                            <p style="margin:0;">
+                                <a href="{{ site_url }}/settings/emails/" style="color:#888;">Unsubscribe</a>
+                                {% block unsubscribe_extra %}{% endblock %}
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

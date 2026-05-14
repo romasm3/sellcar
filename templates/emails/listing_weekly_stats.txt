@@ -1,0 +1,29 @@
+Hi {{ user_name|default:"there" }},
+
+Here's your weekly listings summary:
+
+ACTIVE LISTINGS: {{ active_count }}
+
+Top performer this week:
+   {{ top_listing_title }}
+   {{ top_views }} views, {{ top_saves }} saves
+
+This week totals (across all listings):
+   {{ total_views }} views ({{ views_change_text }})
+   {{ total_impressions }} impressions
+   {{ total_saves }} saves
+
+Quick actions:
+  - Renew listings to top: {{ site_url }}/dashboard/announcements/
+  - Update prices or photos
+  - Reply to pending messages
+
+View detailed stats:
+{{ site_url }}/dashboard/announcements/
+
+Have a great week!
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

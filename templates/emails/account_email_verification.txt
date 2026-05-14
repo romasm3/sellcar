@@ -1,0 +1,13 @@
+Hi {{ user_name|default:"there" }},
+
+Welcome! Please confirm your email address:
+
+{{ verification_url }}
+
+This link will expire in 24 hours.
+
+If you didn't create an account, you can safely ignore this email.
+
+- Thank you
+
+---

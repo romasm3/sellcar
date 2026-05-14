@@ -1,0 +1,890 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Sell Car For Parts" %}{% endif %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if is_edit_mode %}
+        <a href="{% url 'listing_detail' listing.pk %}" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Back to listing" %}</span>
+        </a>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">{% trans "Edit listing" %}</h1>
+            <p class="text-sm text-gray-500 mt-1">{% trans "Update the listing details below." %}</p>
+        </div>
+        {% else %}
+        <a href="/create/" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Back to category selection" %}</span>
+        </a>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">{% trans "Sell whole car for parts" %}</h1>
+            <p class="text-sm text-gray-500 mt-1">{% trans "Fill out the listing details below." %}</p>
+        </div>
+        {% endif %}
+
+        {% if messages %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg" id="server-errors">
+            <div class="flex items-start gap-3 text-red-800">
+                <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                <div class="text-sm">
+                    <p class="font-medium mb-1">{% trans "Please fix the following:" %}</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        {% for msg in messages %}
+                        <li>{{ msg }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="js-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div class="flex items-start gap-3 text-red-800">
+                <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                <div class="text-sm">
+                    <p class="font-medium mb-1">{% trans "Please fix the following:" %}</p>
+                    <ul class="list-disc list-inside space-y-1" id="js-errors-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" id="mainForm" novalidate
+              action="{% if is_edit_mode %}{% url 'car_for_parts_edit' listing.pk %}{% else %}{% url 'car_for_parts_create' %}{% endif %}">
+            {% csrf_token %}
+
+            {# ═══ MAIN DETAILS ═══ #}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">{% trans "Main details" %}</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div data-field-wrap="condition">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Condition" %} <span class="text-red-500">*</span></label>
+                        <select name="condition" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for v, l in condition_choices %}
+                            <option value="{{ v }}" {% if draft.condition == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div data-field-wrap="brand">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Brand" %} <span class="text-red-500">*</span></label>
+                        <select name="brand" id="id_brand" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for b in brands %}
+                            <option value="{{ b.id }}" {% if draft.brand_id == b.id %}selected{% endif %}>{{ b.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Model" %}</label>
+                        <select name="model" id="id_model" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Modification" %}</label>
+                        <input type="text" name="modification" maxlength="100" placeholder="{% trans 'e.g. 2.0 TDI 140kW' %}"
+                               value="{{ draft.modification|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div data-field-wrap="year">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Year" %} <span class="text-red-500">*</span></label>
+                        <select name="year" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for y in years %}
+                            <option value="{{ y }}" {% if is_edit_mode and draft.year == y %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Version" %}</label>
+                        <input type="text" name="version" maxlength="100" placeholder="{% trans 'e.g. GTD, M Sport, AMG Line' %}"
+                               value="{{ draft.version|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Fuel type" %}</label>
+                        <select name="fuel_type" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for ft in fuel_types %}
+                            <option value="{{ ft.id }}" {% if draft.fuel_type_id == ft.id %}selected{% endif %}>{{ ft.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Power" %}</label>
+                        <div style="display:flex;align-items:stretch;width:100%;border:1px solid #d1d5db;border-radius:0.5rem;overflow:hidden;">
+                            <input type="number" id="power_display" min="0" placeholder="{% trans 'e.g. 110' %}"
+                                   style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
+                                   oninput="updatePower()">
+                            <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
+                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">kW</button>
+                            <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
+                                    style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">HP</button>
+                        </div>
+                        <input type="hidden" name="power" id="id_power_kw" value="{{ draft.power|default:'' }}">
+                        <p id="power_converted" class="text-xs text-gray-400 mt-1" style="min-height:1rem;"></p>
+                    </div>
+
+                    <div data-field-wrap="mileage" class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Mileage" %}</label>
+                        <div style="display:flex;align-items:stretch;width:100%;border:1px solid #d1d5db;border-radius:0.5rem;overflow:hidden;">
+                            <input type="number" id="mileage_display" min="0" placeholder="{% trans 'e.g. 150000' %}"
+                                   style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
+                                   oninput="updateMileage()">
+                            <button type="button" id="btn_km" onclick="setMileageUnit('km')"
+                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">km</button>
+                            <button type="button" id="btn_mi" onclick="setMileageUnit('mi')"
+                                    style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">mi</button>
+                        </div>
+                        <input type="hidden" name="mileage_km" id="id_mileage_km" value="{% if draft.mileage %}{{ draft.mileage }}{% endif %}">
+                        <p id="mileage_converted" class="text-xs text-gray-400 mt-1" style="min-height:1rem;"></p>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Engine capacity" %}</label>
+                        <div style="display:flex;align-items:stretch;width:100%;border:1px solid #d1d5db;border-radius:0.5rem;overflow:hidden;">
+                            <input type="number" id="engine_display" step="0.1" min="0" placeholder="{% trans 'e.g. 1.6' %}"
+                                   style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
+                                   oninput="updateEngine()">
+                            <button type="button" id="btn_l" onclick="setEngineUnit('l')"
+                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">L</button>
+                            <button type="button" id="btn_cc" onclick="setEngineUnit('cc')"
+                                    style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">cm³</button>
+                        </div>
+                        <input type="hidden" name="engine_capacity" id="id_engine_l" value="{{ draft.engine_capacity|default:'' }}">
+                        <p id="engine_converted" class="text-xs text-gray-400 mt-1" style="min-height:1rem;"></p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Transmission" %}</label>
+                        <select name="transmission" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for tr in transmissions %}
+                            <option value="{{ tr.id }}" {% if draft.transmission_id == tr.id %}selected{% endif %}>{{ tr.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Body type" %}</label>
+                        <select name="body_type" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for v, l in body_type_choices %}
+                            <option value="{{ v }}" {% if draft.body_type == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Doors" %}</label>
+                        <select name="doors" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for v, l in door_choices %}
+                            <option value="{{ v }}" {% if draft.doors == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Drive type" %}</label>
+                        <select name="drive_type" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for v, l in drive_type_choices %}
+                            <option value="{{ v }}" {% if draft.drive_type == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Color" %}</label>
+                        <select name="color" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for v, l in color_choices %}
+                            <option value="{{ v }}" {% if draft.color == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Color code" %}</label>
+                        <input type="text" name="color_code" maxlength="30" placeholder="{% trans 'e.g. LY7G' %}"
+                               value="{{ draft.color_code|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Engine code" %}</label>
+                        <input type="text" name="engine_code" maxlength="30" placeholder="{% trans 'e.g. BKD' %}"
+                               value="{{ draft.engine_code|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Gearbox code" %}</label>
+                        <input type="text" name="gearbox_code" maxlength="30" placeholder="{% trans 'e.g. DSG7' %}"
+                               value="{{ draft.gearbox_code|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+
+                <div class="mt-4" data-field-wrap="price">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Price ($)" %} <span class="text-red-500">*</span></label>
+                    <div class="relative max-w-xs">
+                        <span class="absolute left-3 top-2.5 text-gray-500">$</span>
+                        <input type="number" name="price" min="0" step="1" required
+                               value="{% if draft.price %}{{ draft.price|floatformat:0 }}{% endif %}"
+                               class="w-full pl-8 pr-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+            </div>
+
+            {# ═══ DESCRIPTION ═══ #}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">{% trans "Description" %}</h2>
+                <textarea name="description" rows="6" placeholder="{% trans 'Describe what is included, defects, parts condition, etc.' %}"
+                          class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">{{ draft.description|default:'' }}</textarea>
+            </div>
+
+            {# ═══ PHOTOS ═══ #}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">
+                    {% trans "Photos" %}
+                    <span class="text-xs font-normal text-gray-400 ml-2" id="photos-count">
+                        {% blocktrans with count=draft.images.count %}({{ count }} / 36 — drag to reorder, click to enlarge){% endblocktrans %}
+                    </span>
+                </h2>
+
+                <div id="photos-grid" class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4">
+                    {% for img in draft.images.all %}
+                    <div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move"
+                         data-img-id="{{ img.pk }}"
+                         draggable="true">
+                        <img src="{{ img.image.url }}" class="w-full h-full object-cover hover:opacity-90 pointer-events-none"
+                             data-lightbox-url="{{ img.image.url }}">
+                        {% if img.is_main %}
+                        <span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none">
+                            <i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}
+                        </span>
+                        {% else %}
+                        <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>
+                        {% endif %}
+                        <button type="button" onclick="event.stopPropagation(); deletePhoto({{ img.pk }})"
+                                class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">×</button>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-primary cursor-pointer transition-colors">
+                    <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2 block"></i>
+                    <p class="text-gray-600 text-sm mb-1">{% trans "Click to upload or drag and drop" %}</p>
+                    <p class="text-xs text-gray-500">{% trans "Max 36 photos, 20MB each" %}</p>
+                    <input type="file" id="imageInput" multiple accept="image/*" class="hidden">
+                </div>
+            </div>
+
+            {# ═══ CONTACTS ═══ #}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">{% trans "Contacts & Location" %}</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div data-field-wrap="phone">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Phone" %} <span class="text-red-500">*</span></label>
+                        <input type="tel" name="phone" required value="{{ user_phone }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Email" %}</label>
+                        <input type="email" name="email" value="{{ request.user.email }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                    <div data-field-wrap="country">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Country" %} <span class="text-red-500">*</span></label>
+                        <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            {% for code, name in country_choices %}
+                            <option value="{{ code }}" {% if draft.country == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="stateWrapper" data-field-wrap="state">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "State" %} <span class="text-red-500">*</span></label>
+                        <select name="state" id="id_state" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">{% trans "— Select —" %}</option>
+                            {% for code, name in us_states %}
+                            <option value="{{ code }}" {% if draft.state == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div data-field-wrap="city">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "City" %} <span class="text-red-500">*</span></label>
+                        <input type="text" name="city" required
+                               value="{% if draft.city != '—' %}{{ draft.city|default:'' }}{% endif %}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Address" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                        <input type="text" name="address" value="{{ draft.address|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                {% if is_edit_mode %}
+                <a href="{% url 'listing_detail' listing.pk %}" class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i>{% trans "Cancel" %}
+                </a>
+                <button type="submit"
+                        style="background:#374151;color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
+                        onmouseover="this.style.background='#1f2937'"
+                        onmouseout="this.style.background='#374151'">
+                    <i class="fas fa-save mr-2"></i>{% trans "Save Changes" %}
+                </button>
+                {% else %}
+                <a href="/create/" class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i>{% trans "Cancel" %}
+                </a>
+                <button type="submit"
+                        style="background:#374151;color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
+                        onmouseover="this.style.background='#1f2937'"
+                        onmouseout="this.style.background='#374151'">
+                    <i class="fas fa-check mr-2"></i>{% trans "Publish Listing" %}
+                </button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+{# ═══ LIGHTBOX ═══ #}
+<div id="lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closeLightbox(event)">
+    <button type="button" onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10">×</button>
+    <button type="button" onclick="lightboxPrev(event)" class="absolute left-4 text-white text-4xl hover:text-gray-300 z-10 bg-black/40 rounded-full w-12 h-12 flex items-center justify-center">‹</button>
+    <button type="button" onclick="lightboxNext(event)" class="absolute right-4 text-white text-4xl hover:text-gray-300 z-10 bg-black/40 rounded-full w-12 h-12 flex items-center justify-center">›</button>
+    <img id="lightbox-img" src="" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+    <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/60 px-3 py-1 rounded-full"></div>
+</div>
+
+<script>
+var CSRF_TOKEN = '{{ csrf_token }}';
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+var EDIT_LISTING_PK = {% if is_edit_mode %}{{ listing.pk }}{% else %}null{% endif %};
+
+// Translated strings for JS use
+var I18N = {
+    select: '{% trans "— Select —" %}',
+    main: '{% trans "MAIN" %}',
+    maxPhotos: '{% trans "Maximum 36 photos. Remove some first." %}',
+    photosCountTpl: '{% trans "({count} / 36 — drag to reorder, click to enlarge)" %}'
+};
+
+function onCountryChange() {
+    var c = document.getElementById('id_country').value;
+    var stateW = document.getElementById('stateWrapper');
+    if (c === 'US') {
+        stateW.classList.remove('hidden');
+    } else {
+        stateW.classList.add('hidden');
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// UNIT TOGGLES (km/mi, kW/HP, L/cm³)
+// ═══════════════════════════════════════════════════════════
+
+function _setToggleStyle(btnActive, btnInactive) {
+    btnActive.style.background = '#374151';
+    btnActive.style.color = '#ffffff';
+    btnInactive.style.background = '#ffffff';
+    btnInactive.style.color = '#6b7280';
+}
+
+// ── MILEAGE (km ↔ mi) ──
+var mileageUnit = 'km';
+function setMileageUnit(unit) {
+    var display = document.getElementById('mileage_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'mi' && mileageUnit === 'km')
+        display.value = val ? Math.round(val / 1.60934) : '';
+    else if (unit === 'km' && mileageUnit === 'mi')
+        display.value = val ? Math.round(val * 1.60934) : '';
+    mileageUnit = unit;
+    var btnKm = document.getElementById('btn_km');
+    var btnMi = document.getElementById('btn_mi');
+    if (unit === 'km') _setToggleStyle(btnKm, btnMi);
+    else _setToggleStyle(btnMi, btnKm);
+    updateMileage();
+}
+function updateMileage() {
+    var display = document.getElementById('mileage_display');
+    var hidden = document.getElementById('id_mileage_km');
+    var label = document.getElementById('mileage_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var km = mileageUnit === 'km' ? val : Math.round(val * 1.60934);
+    var mi = mileageUnit === 'mi' ? val : Math.round(val / 1.60934);
+    hidden.value = km || '';
+    if (label) label.textContent = val
+        ? (mileageUnit === 'km' ? '≈ ' + mi.toLocaleString() + ' mi' : '≈ ' + km.toLocaleString() + ' km')
+        : '';
+}
+function initMileage() {
+    var hidden = document.getElementById('id_mileage_km');
+    var display = document.getElementById('mileage_display');
+    if (!hidden || !display) return;
+    var km = parseFloat(hidden.value) || 0;
+    if (km > 0) { display.value = km; updateMileage(); }
+}
+
+// ── POWER (kW ↔ HP) ──
+var powerUnit = 'kw';
+function setPowerUnit(unit) {
+    var display = document.getElementById('power_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'hp' && powerUnit === 'kw')
+        display.value = val ? Math.round(val * 1.34102) : '';
+    else if (unit === 'kw' && powerUnit === 'hp')
+        display.value = val ? Math.round(val / 1.34102) : '';
+    powerUnit = unit;
+    var btnKw = document.getElementById('btn_kw');
+    var btnHp = document.getElementById('btn_hp');
+    if (unit === 'kw') _setToggleStyle(btnKw, btnHp);
+    else _setToggleStyle(btnHp, btnKw);
+    updatePower();
+}
+function updatePower() {
+    var display = document.getElementById('power_display');
+    var hidden = document.getElementById('id_power_kw');
+    var label = document.getElementById('power_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var kw = powerUnit === 'kw' ? val : Math.round(val / 1.34102);
+    var hp = powerUnit === 'hp' ? val : Math.round(val * 1.34102);
+    hidden.value = kw || '';
+    if (label) label.textContent = val
+        ? (powerUnit === 'kw' ? '≈ ' + hp + ' HP' : '≈ ' + kw + ' kW')
+        : '';
+}
+function initPower() {
+    var hidden = document.getElementById('id_power_kw');
+    var display = document.getElementById('power_display');
+    if (!hidden || !display) return;
+    var kw = parseFloat(hidden.value) || 0;
+    if (kw > 0) { display.value = kw; updatePower(); }
+}
+
+// ── ENGINE CAPACITY (L ↔ cm³) ──
+var engineUnit = 'l';
+function setEngineUnit(unit) {
+    var display = document.getElementById('engine_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'cc' && engineUnit === 'l')
+        display.value = val ? Math.round(val * 1000) : '';
+    else if (unit === 'l' && engineUnit === 'cc')
+        display.value = val ? (val / 1000).toFixed(1) : '';
+    engineUnit = unit;
+    var btnL = document.getElementById('btn_l');
+    var btnCc = document.getElementById('btn_cc');
+    if (unit === 'l') _setToggleStyle(btnL, btnCc);
+    else _setToggleStyle(btnCc, btnL);
+    updateEngine();
+}
+function updateEngine() {
+    var display = document.getElementById('engine_display');
+    var hidden = document.getElementById('id_engine_l');
+    var label = document.getElementById('engine_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var liters = engineUnit === 'l' ? val : (val / 1000);
+    var cc = engineUnit === 'cc' ? val : Math.round(val * 1000);
+    hidden.value = liters ? liters.toFixed(1) : '';
+    if (label) label.textContent = val
+        ? (engineUnit === 'l' ? '≈ ' + cc + ' cm³' : '≈ ' + (val / 1000).toFixed(1) + ' L')
+        : '';
+}
+function initEngine() {
+    var hidden = document.getElementById('id_engine_l');
+    var display = document.getElementById('engine_display');
+    if (!hidden || !display) return;
+    var l = parseFloat(hidden.value) || 0;
+    if (l > 0) { display.value = l; updateEngine(); }
+}
+
+function markErr(field, has) {
+    var wrap = document.querySelector('[data-field-wrap="' + field + '"]');
+    if (wrap) wrap.classList.toggle('field-error', has);
+}
+
+function clearAllErrs() {
+    document.querySelectorAll('[data-field-wrap]').forEach(function(el) {
+        el.classList.remove('field-error');
+    });
+    var jsBox = document.getElementById('js-errors');
+    if (jsBox) jsBox.classList.add('hidden');
+}
+
+document.getElementById('mainForm').addEventListener('submit', function(e) {
+    clearAllErrs();
+    var serverErrors = document.getElementById('server-errors');
+    if (serverErrors) serverErrors.style.display = 'none';
+
+    var errors = [];
+    var condition = document.querySelector('[name="condition"]').value;
+    var brand = document.getElementById('id_brand').value;
+    var year = document.querySelector('[name="year"]').value;
+    var price = document.querySelector('[name="price"]').value;
+    var phone = document.querySelector('[name="phone"]').value;
+    var country = document.getElementById('id_country').value;
+    var state = document.getElementById('id_state').value;
+    var city = document.querySelector('[name="city"]').value.trim();
+
+    if (!condition)            { errors.push('{% trans "Condition is required" %}'); markErr('condition', true); }
+    if (!brand)                { errors.push('{% trans "Brand is required" %}');     markErr('brand', true); }
+    if (!year)                 { errors.push('{% trans "Year is required" %}');      markErr('year', true); }
+    if (!price || price <= 0)  { errors.push('{% trans "Price is required" %}');     markErr('price', true); }
+    if (!phone.trim())         { errors.push('{% trans "Phone is required" %}');     markErr('phone', true); }
+    if (!city)                 { errors.push('{% trans "City is required" %}');      markErr('city', true); }
+    if (country === 'US' && !state) { errors.push('{% trans "State is required" %}'); markErr('state', true); }
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        var box = document.getElementById('js-errors');
+        var list = document.getElementById('js-errors-list');
+        list.innerHTML = '';
+        errors.forEach(function(er) {
+            var li = document.createElement('li');
+            li.textContent = er;
+            list.appendChild(li);
+        });
+        box.classList.remove('hidden');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+
+// ═══════════════════════════════════════════════════════════
+// LIGHTBOX
+// ═══════════════════════════════════════════════════════════
+var lightboxImages = [];
+var lightboxCurrentIdx = 0;
+
+function openLightbox(url, idx) {
+    lightboxImages = Array.from(document.querySelectorAll('[data-lightbox-url]')).map(function(el) {
+        return el.getAttribute('data-lightbox-url');
+    });
+    lightboxCurrentIdx = idx;
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightbox-img');
+    img.src = url;
+    updateLightboxCounter();
+    lb.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+    if (e && e.target.id !== 'lightbox' && e.type === 'click') return;
+    document.getElementById('lightbox').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+function lightboxPrev(e) {
+    e.stopPropagation();
+    if (!lightboxImages.length) return;
+    lightboxCurrentIdx = (lightboxCurrentIdx - 1 + lightboxImages.length) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxCurrentIdx];
+    updateLightboxCounter();
+}
+function lightboxNext(e) {
+    e.stopPropagation();
+    if (!lightboxImages.length) return;
+    lightboxCurrentIdx = (lightboxCurrentIdx + 1) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxCurrentIdx];
+    updateLightboxCounter();
+}
+function updateLightboxCounter() {
+    document.getElementById('lightbox-counter').textContent = (lightboxCurrentIdx + 1) + ' / ' + lightboxImages.length;
+}
+document.addEventListener('keydown', function(e) {
+    var lb = document.getElementById('lightbox');
+    if (lb && !lb.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') lightboxPrev(e);
+        else if (e.key === 'ArrowRight') lightboxNext(e);
+    }
+});
+
+// ═══════════════════════════════════════════════════════════
+// DRAG & DROP REORDER
+// ═══════════════════════════════════════════════════════════
+var draftDragSrc = null;
+
+function attachPhotoHandlers(div) {
+    div.addEventListener('click', function(e) {
+        if (e.target.closest('button')) return;
+        if (div._suppressClick) {
+            div._suppressClick = false;
+            return;
+        }
+        var img = div.querySelector('img');
+        if (img) {
+            var idx = Array.from(document.querySelectorAll('#photos-grid > div[data-img-id]')).indexOf(div);
+            openLightbox(img.src, idx);
+        }
+    });
+    div.addEventListener('dragstart', onDragStart);
+    div.addEventListener('dragend', onDragEnd);
+    div.addEventListener('dragover', onDragOver);
+    div.addEventListener('dragleave', onDragLeave);
+    div.addEventListener('drop', onDrop);
+}
+
+function onDragStart(e) {
+    draftDragSrc = this;
+    this.classList.add('opacity-50');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', this.dataset.imgId);
+}
+function onDragEnd() {
+    this.classList.remove('opacity-50');
+    if (draftDragSrc) {
+        draftDragSrc._suppressClick = true;
+        setTimeout(function() {
+            if (draftDragSrc) draftDragSrc._suppressClick = false;
+        }, 300);
+    }
+    document.querySelectorAll('#photos-grid > div').forEach(function(el) {
+        el.classList.remove('ring-2', 'ring-blue-400');
+    });
+}
+function onDragOver(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (this !== draftDragSrc) this.classList.add('ring-2', 'ring-blue-400');
+    return false;
+}
+function onDragLeave() {
+    this.classList.remove('ring-2', 'ring-blue-400');
+}
+function onDrop(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+
+    if (draftDragSrc !== this) {
+        var grid = document.getElementById('photos-grid');
+        var items = Array.from(grid.querySelectorAll('div[data-img-id]'));
+        var srcIdx = items.indexOf(draftDragSrc);
+        var tgtIdx = items.indexOf(this);
+
+        if (srcIdx < tgtIdx) {
+            this.parentNode.insertBefore(draftDragSrc, this.nextSibling);
+        } else {
+            this.parentNode.insertBefore(draftDragSrc, this);
+        }
+
+        refreshPhotoBadges();
+        savePhotoOrder();
+    }
+    this.classList.remove('ring-2', 'ring-blue-400');
+    return false;
+}
+
+function refreshPhotoBadges() {
+    var items = document.querySelectorAll('#photos-grid > div[data-img-id]');
+    items.forEach(function(el, idx) {
+        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
+        el.classList.remove('border-green-500', 'border-gray-200');
+        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
+
+        var badge = document.createElement('span');
+        if (idx === 0) {
+            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
+            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>' + I18N.main;
+        } else {
+            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
+            badge.textContent = (idx + 1);
+        }
+        el.appendChild(badge);
+    });
+}
+
+function savePhotoOrder() {
+    var ids = Array.from(document.querySelectorAll('#photos-grid > div[data-img-id]'))
+                  .map(function(el) { return parseInt(el.dataset.imgId, 10); });
+    var url = IS_EDIT_MODE
+        ? '/ajax/reorder-car-for-parts-edit-images/' + EDIT_LISTING_PK + '/'
+        : '/ajax/reorder-car-for-parts-images/';
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ image_ids: ids }),
+    });
+}
+
+function updatePhotosCount() {
+    var count = document.querySelectorAll('#photos-grid > div[data-img-id]').length;
+    var el = document.getElementById('photos-count');
+    if (el) el.textContent = I18N.photosCountTpl.replace('{count}', count);
+}
+
+// ═══════════════════════════════════════════════════════════
+// MAIN INIT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+    onCountryChange();
+    initMileage();
+    initPower();
+    initEngine();
+
+    document.querySelectorAll('#photos-grid > div[data-img-id]').forEach(function(el) {
+        attachPhotoHandlers(el);
+    });
+
+    var brandSel = document.getElementById('id_brand');
+    var modelSel = document.getElementById('id_model');
+    var initialBrandId = brandSel.value;
+    var initialModelId = '{{ draft.model_id|default:"" }}';
+
+    function loadModels(brandId, selectedId) {
+        if (!brandId) {
+            modelSel.innerHTML = '<option value="">' + I18N.select + '</option>';
+            return;
+        }
+        fetch('/ajax/get-models/?brand_id=' + brandId)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                modelSel.innerHTML = '<option value="">' + I18N.select + '</option>';
+                data.forEach(function(m) {
+                    if (m.type !== 'model') return;
+                    var o = document.createElement('option');
+                    o.value = m.model_id;
+                    o.textContent = m.name;
+                    if (selectedId && String(m.model_id) === String(selectedId)) o.selected = true;
+                    modelSel.appendChild(o);
+                });
+            });
+    }
+
+    if (initialBrandId) loadModels(initialBrandId, initialModelId);
+    brandSel.addEventListener('change', function() { loadModels(this.value, ''); });
+
+    var dropZone = document.getElementById('dropZone');
+    var imageInput = document.getElementById('imageInput');
+
+    dropZone.addEventListener('click', function() { imageInput.click(); });
+    imageInput.addEventListener('change', function() {
+        if (imageInput.files.length) uploadPhotos(imageInput.files);
+        imageInput.value = '';
+    });
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('border-primary', 'bg-gray-50');
+    });
+    dropZone.addEventListener('dragleave', function() {
+        dropZone.classList.remove('border-primary', 'bg-gray-50');
+    });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-primary', 'bg-gray-50');
+        if (e.dataTransfer.files.length) uploadPhotos(e.dataTransfer.files);
+    });
+
+    function uploadPhotos(files) {
+        var existing = document.querySelectorAll('#photos-grid > div[data-img-id]').length;
+        var available = 36 - existing;
+        if (available <= 0) {
+            alert(I18N.maxPhotos);
+            return;
+        }
+        var arr = Array.from(files).filter(function(f) { return f.type.startsWith('image/'); }).slice(0, available);
+        if (!arr.length) return;
+
+        var fd = new FormData();
+        arr.forEach(function(f) { fd.append('images', f); });
+
+        var url = IS_EDIT_MODE
+            ? '/ajax/upload-car-for-parts-edit-image/' + EDIT_LISTING_PK + '/'
+            : '/ajax/upload-car-for-parts-image/';
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': CSRF_TOKEN },
+            body: fd,
+        }).then(function(r) { return r.json(); })
+          .then(function(data) {
+              if (data.success) appendPhotos(data.uploaded);
+          });
+    }
+
+    function appendPhotos(items) {
+        var grid = document.getElementById('photos-grid');
+        items.forEach(function(img) {
+            var existingCount = grid.querySelectorAll('div[data-img-id]').length;
+            var div = document.createElement('div');
+            div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
+                            (img.is_main ? 'border-green-500' : 'border-gray-200') + ' bg-gray-100 cursor-move';
+            div.dataset.imgId = img.id;
+            div.draggable = true;
+            var label = img.is_main
+                ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>' + I18N.main + '</span>'
+                : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">' + (existingCount + 1) + '</span>';
+            div.innerHTML =
+                '<img src="' + img.url + '" class="w-full h-full object-cover hover:opacity-90 pointer-events-none" data-lightbox-url="' + img.url + '">' +
+                label +
+                '<button type="button" onclick="event.stopPropagation(); deletePhoto(' + img.id + ')" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">×</button>';
+            attachPhotoHandlers(div);
+            grid.appendChild(div);
+        });
+        updatePhotosCount();
+    }
+});
+
+window.deletePhoto = function(id) {
+    fetch('/ajax/delete-car-for-parts-image/' + id + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (data.success) {
+              var el = document.querySelector('[data-img-id="' + id + '"]');
+              if (el) el.remove();
+              refreshPhotoBadges();
+              updatePhotosCount();
+          }
+      });
+};
+</script>
+
+<style>
+input[type="text"], input[type="number"], input[type="email"], input[type="tel"],
+select, textarea {
+    transition: all 0.2s;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #374151;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+}
+[data-field-wrap].field-error input,
+[data-field-wrap].field-error select,
+[data-field-wrap].field-error textarea {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+[data-field-wrap].field-error label {
+    color: #dc2626 !important;
+}
+</style>
+{% endblock %}

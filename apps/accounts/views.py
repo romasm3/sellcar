@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -10,6 +10,8 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView,
 )
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from .forms import (
     UserRegisterForm,
     UserUpdateForm,
@@ -21,204 +23,194 @@ from .forms import (
 from .models import Profile
 
 
-# ============================================
-# HOME PAGE (temporary)
-# ============================================
-
-
 def home(request):
-    """Temporary home page"""
-    return render(request, "home.html")
-
-
-# ============================================
-# REGISTRATION & LOGIN/LOGOUT
-# ============================================
+    return redirect("/")
 
 
 def register(request):
-    """User registration"""
     if request.user.is_authenticated:
         return redirect("accounts:home")
-
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get("username")
-            messages.success(request, f"Account created! You can now login.")
 
-            # Auto login after registration (optional)
+            # ═══ EMAIL: welcome naujas user'is ═══
+            try:
+                from apps.listings.emails.sender import send_scenario
+                send_scenario(
+                    code='account_welcome',
+                    to_email=user.email,
+                    to_user=user,
+                    context={
+                        'user_name': user.first_name or user.username,
+                    },
+                )
+            except Exception as e:
+                print(f"[email] account_welcome failed: {e}")
+
             login(request, user)
             return redirect("accounts:home")
         else:
             messages.error(request, "Please fix the errors.")
     else:
         form = UserRegisterForm()
-
     return render(request, "accounts/register.html", {"form": form})
 
 
 def login_view(request):
-    """User login"""
     if request.user.is_authenticated:
         return redirect("accounts:home")
-
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                messages.success(request, f"Welcome back, {username}!")
-
-                # Redirect to next page if specified
-                next_page = request.GET.get("next")
-                if next_page:
-                    return redirect(next_page)
-                return redirect("accounts:home")
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        try:
+            user_obj = User.objects.get(email=email)
+            user = authenticate(request, username=user_obj.username, password=password)
+        except User.DoesNotExist:
+            user = None
+        if user is not None:
+            login(request, user)
+            next_page = request.GET.get("next")
+            if next_page:
+                return redirect(next_page)
+            return redirect("accounts:home")
         else:
-            messages.error(request, "Invalid username or password.")
-    else:
-        form = AuthenticationForm()
-
-    return render(request, "accounts/login.html", {"form": form})
+            messages.error(request, "Invalid email or password.")
+            return render(request, "accounts/login.html", {"email": email})
+    return render(request, "accounts/login.html", {})
 
 
 def logout_view(request):
-    """User logout"""
     logout(request)
-    messages.success(request, "Successfully logged out.")
     return redirect("accounts:home")
 
 
-# ============================================
-# PASSWORD RESET (via email)
-# ============================================
-
-
 class CustomPasswordResetView(PasswordResetView):
-    """Password reset view - send email"""
-
+    """Password reset view — siunčia per naują EmailScenario framework'ą."""
     form_class = CustomPasswordResetForm
     template_name = "accounts/password_reset.html"
-    email_template_name = "accounts/password_reset_email.html"
-    subject_template_name = "accounts/password_reset_subject.txt"
     success_url = reverse_lazy("accounts:password_reset_done")
 
     def form_valid(self, form):
-        messages.success(
-            self.request, "Password reset instructions sent to your email."
-        )
-        return super().form_valid(form)
+        from django.contrib.auth.tokens import default_token_generator
+        from django.utils.http import urlsafe_base64_encode
+        from django.utils.encoding import force_bytes
+        from django.conf import settings
+
+        email = form.cleaned_data.get("email")
+        users = list(form.get_users(email))
+
+        site_url = getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
+
+        for user in users:
+            if not user.email:
+                continue
+
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            reset_url = f'{site_url}/accounts/password-reset-confirm/{uid}/{token}/'
+
+            try:
+                from apps.listings.emails.sender import send_scenario
+                send_scenario(
+                    code='account_password_reset',
+                    to_email=user.email,
+                    to_user=user,
+                    context={
+                        'user_name': user.first_name or user.username,
+                        'reset_url': reset_url,
+                        'site_url': site_url,
+                    },
+                )
+            except Exception as e:
+                print(f"[account_password_reset] Failed for {user.email}: {e}")
+
+        return redirect(self.success_url)
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
-    """Password reset done view - confirmation that email sent"""
-
     template_name = "accounts/password_reset_done.html"
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    """Password reset confirm view - new password"""
-
     form_class = CustomSetPasswordForm
     template_name = "accounts/password_reset_confirm.html"
     success_url = reverse_lazy("accounts:password_reset_complete")
 
     def form_valid(self, form):
-        messages.success(
-            self.request, "Password successfully changed! You can now login."
-        )
         return super().form_valid(form)
 
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-    """Password reset complete view - completion"""
-
     template_name = "accounts/password_reset_complete.html"
-
-
-# ============================================
-# PASSWORD CHANGE (for logged in users)
-# ============================================
 
 
 @login_required
 def password_change(request):
-    """Password change for logged in users"""
     if request.method == "POST":
         form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            # Important: update session so user doesn't get logged out
             update_session_auth_hash(request, user)
-            messages.success(request, "Password successfully changed!")
             return redirect("accounts:profile")
         else:
             messages.error(request, "Please fix the errors.")
     else:
         form = CustomPasswordChangeForm(request.user)
-
     return render(request, "accounts/password_change.html", {"form": form})
 
 
-# ============================================
-# USER PROFILE
-# ============================================
+@login_required
+def boost_listings(request):
+    if request.method == "POST":
+        from apps.listings.models import Listing
+        from django.utils import timezone
+        Listing.objects.filter(
+            seller=request.user, status='active'
+        ).update(updated_at=timezone.now())
+    return redirect("accounts:profile")
 
 
 @login_required
 def profile(request):
-    """User profile view"""
     from apps.listings.models import Listing
-    
-    # Get user listings
     active_listings = Listing.objects.filter(
         seller=request.user, status='active'
     ).select_related('brand', 'model').order_by('-created_at')[:6]
-    
     sold_listings = Listing.objects.filter(
         seller=request.user, status='sold'
     ).select_related('brand', 'model').order_by('-created_at')[:6]
-    
     active_count = Listing.objects.filter(seller=request.user, status='active').count()
     sold_count = Listing.objects.filter(seller=request.user, status='sold').count()
-
     context = {
         "user": request.user,
         "active_listings": active_listings,
         "sold_listings": sold_listings,
         "active_count": active_count,
         "sold_count": sold_count,
-        "saved_count": 0,  # TODO: implement saved listings count
+        "saved_count": 0,
     }
     return render(request, "accounts/profile.html", context)
 
 
 @login_required
 def profile_edit(request):
-    """User profile edit"""
     if request.method == "POST":
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile
-        )
-
+        post_data = request.POST.copy()
+        if not post_data.get('email'):
+            post_data['email'] = request.user.email
+        u_form = UserUpdateForm(post_data, instance=request.user)
+        p_form = ProfileUpdateForm(post_data, request.FILES, instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, "Profile successfully updated!")
-            return redirect("accounts:profile")
+            return redirect("accounts:settings")
         else:
             messages.error(request, "Please fix the errors.")
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-
     context = {
         "u_form": u_form,
         "p_form": p_form,
@@ -226,14 +218,8 @@ def profile_edit(request):
     return render(request, "accounts/profile_edit.html", context)
 
 
-# ============================================
-# ACCOUNT SETTINGS
-# ============================================
-
-
 @login_required
 def settings(request):
-    """Account settings main page"""
     context = {
         "user": request.user,
     }
@@ -241,57 +227,1087 @@ def settings(request):
 
 
 @login_required
-def update_notifications(request):
-    """Update notification preferences"""
-    if request.method == "POST":
-        profile = request.user.profile
+def wallet(request):
+    """Wallet page — balance, top-up, transaction history."""
+    from .models import WalletTransaction
+    from django.conf import settings as dj_settings
 
-        # Get notification preferences from form
-        profile.email_notifications = request.POST.get("email_notifications") == "on"
-        profile.marketing_emails = request.POST.get("marketing_emails") == "on"
-        profile.sms_notifications = request.POST.get("sms_notifications") == "on"
+    profile = request.user.profile
+    transactions = WalletTransaction.objects.filter(user=request.user)[:50]
+
+    special_offers = [
+        {'tier': 'I', 'pay': 20, 'bonus_percent': 10, 'total': 22},
+        {'tier': 'II', 'pay': 100, 'bonus_percent': 15, 'total': 115},
+        {'tier': 'III', 'pay': 500, 'bonus_percent': 20, 'total': 600},
+    ]
+
+    stripe_enabled = bool(getattr(dj_settings, 'STRIPE_SECRET_KEY', ''))
+
+    if request.GET.get('success') == '1':
+        amount = request.GET.get('amount', '')
+        if amount:
+            messages.success(request, f'Top-up successful! Added {amount} points to your wallet.')
+    elif request.GET.get('canceled') == '1':
+        messages.info(request, 'Top-up canceled.')
+
+    context = {
+        "wallet_balance": profile.wallet_balance,
+        "transactions": transactions,
+        "special_offers": special_offers,
+        "stripe_enabled": stripe_enabled,
+        "debug_mode": dj_settings.DEBUG,
+    }
+    return render(request, "accounts/wallet.html", context)
+
+
+@login_required
+def wallet_top_up(request):
+    """Top-up wallet via Stripe Checkout (or placeholder if not configured)."""
+    from django.conf import settings as dj_settings
+    from .models import WalletTransaction
+
+    if request.method != 'POST':
+        return redirect('accounts:wallet')
+
+    try:
+        amount = int(request.POST.get('amount', 0))
+        bonus_percent = int(request.POST.get('bonus_percent', 0))
+    except (ValueError, TypeError):
+        messages.error(request, 'Invalid amount.')
+        return redirect('accounts:wallet')
+
+    if amount < 1 or amount > 10000:
+        messages.error(request, 'Amount must be between 1 and 10,000.')
+        return redirect('accounts:wallet')
+
+    bonus = round(amount * bonus_percent / 100, 2)
+
+    stripe_secret = getattr(dj_settings, 'STRIPE_SECRET_KEY', '')
+    if not stripe_secret:
+        messages.warning(
+            request,
+            'Payment system is being set up. Please check back soon.'
+        )
+        return redirect('accounts:wallet')
+
+    try:
+        import stripe
+        stripe.api_key = stripe_secret
+
+        product_name = f'Wallet top-up: {amount} points'
+        if bonus > 0:
+            product_name += f' (+{bonus} bonus)'
+
+        session = stripe.checkout.Session.create(
+            mode='payment',
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'eur',
+                    'product_data': {'name': product_name},
+                    'unit_amount': amount * 100,
+                },
+                'quantity': 1,
+            }],
+            customer_email=request.user.email,
+            success_url=request.build_absolute_uri(
+                f'/accounts/wallet/?success=1&amount={amount + bonus}'
+            ),
+            cancel_url=request.build_absolute_uri('/accounts/wallet/?canceled=1'),
+            metadata={
+                'user_id': str(request.user.id),
+                'type': 'wallet_topup',
+                'amount': str(amount),
+                'bonus': str(bonus),
+            }
+        )
+
+        WalletTransaction.objects.create(
+            user=request.user,
+            amount=amount,
+            bonus_amount=bonus,
+            transaction_type='topup',
+            status='pending',
+            description=f'Top-up {amount}' + (f' (+{bonus_percent}% bonus)' if bonus_percent else ''),
+            stripe_session_id=session.id,
+        )
+
+        return redirect(session.url)
+
+    except Exception as e:
+        messages.error(request, f'Payment error: {str(e)[:100]}')
+        return redirect('accounts:wallet')
+
+
+@login_required
+def wallet_top_up_test(request):
+    """DEBUG only — instant top-up without Stripe."""
+    from django.conf import settings as dj_settings
+    from django.utils import timezone
+    from .models import WalletTransaction
+
+    if not dj_settings.DEBUG:
+        messages.error(request, 'Test mode is disabled in production.')
+        return redirect('accounts:wallet')
+
+    if request.method != 'POST':
+        return redirect('accounts:wallet')
+
+    try:
+        amount = int(request.POST.get('amount', 0))
+    except (ValueError, TypeError):
+        messages.error(request, 'Invalid amount.')
+        return redirect('accounts:wallet')
+
+    if amount < 1 or amount > 10000:
+        messages.error(request, 'Amount must be between 1 and 10,000.')
+        return redirect('accounts:wallet')
+
+    profile = request.user.profile
+    profile.wallet_balance = (profile.wallet_balance or 0) + amount
+    profile.save(update_fields=['wallet_balance'])
+
+    WalletTransaction.objects.create(
+        user=request.user,
+        amount=amount,
+        transaction_type='test_topup',
+        status='completed',
+        description=f'Test top-up +{amount} pts',
+        completed_at=timezone.now(),
+    )
+
+    messages.success(request, f'Added {amount} points (test mode).')
+    return redirect('accounts:wallet')
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    """Stripe webhook handler for wallet top-ups."""
+    from django.conf import settings as dj_settings
+    from django.utils import timezone
+    from .models import WalletTransaction
+
+    stripe_secret = getattr(dj_settings, 'STRIPE_SECRET_KEY', '')
+    webhook_secret = getattr(dj_settings, 'STRIPE_WEBHOOK_SECRET', '')
+
+    if not stripe_secret or not webhook_secret:
+        return HttpResponse('Stripe not configured', status=503)
+
+    try:
+        import stripe
+        stripe.api_key = stripe_secret
+
+        payload = request.body
+        sig_header = request.META.get('HTTP_STRIPE_SIGNATURE', '')
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, webhook_secret
+            )
+        except (ValueError, stripe.error.SignatureVerificationError):
+            return HttpResponse(status=400)
+
+        if event['type'] == 'checkout.session.completed':
+            session = event['data']['object']
+            metadata = session.get('metadata', {})
+
+            if metadata.get('type') == 'wallet_topup':
+                user_id = int(metadata.get('user_id', 0))
+                amount = int(metadata.get('amount', 0))
+                bonus = float(metadata.get('bonus', 0))
+
+                tx = WalletTransaction.objects.filter(
+                    stripe_session_id=session['id'],
+                    status='completed'
+                ).first()
+                if tx:
+                    return HttpResponse(status=200)
+
+                tx = WalletTransaction.objects.filter(
+                    stripe_session_id=session['id']
+                ).first()
+                if tx:
+                    tx.status = 'completed'
+                    tx.completed_at = timezone.now()
+                    tx.stripe_payment_intent = session.get('payment_intent', '')
+                    tx.save()
+
+                user = User.objects.get(id=user_id)
+                profile = user.profile
+                profile.wallet_balance = (profile.wallet_balance or 0) + amount + bonus
+                profile.save(update_fields=['wallet_balance'])
+
+                if bonus > 0:
+                    WalletTransaction.objects.create(
+                        user=user,
+                        amount=bonus,
+                        transaction_type='bonus',
+                        status='completed',
+                        description=f'Bonus from {amount} top-up',
+                        stripe_session_id=session['id'],
+                        completed_at=timezone.now(),
+                    )
+
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)[:200]}', status=500)
+
+
+@login_required
+def become_dealer(request):
+    """Become Dealer puslapis — $100/mėn, iki 30 skelbimų.
+
+    GET: rodo pricing kortelę su Subscribe mygtuku.
+    POST: nuskaito $100 nuo wallet, aktyvuoja subscription 30 dienų,
+          redirect'ina į /dealer/setup/ (jei pirmas kartas) arba /dealer/dashboard/.
+    """
+    from decimal import Decimal
+    from django.utils import timezone
+    from datetime import timedelta
+    from apps.listings.constants import (
+        DEALER_SUB_PRICE_USD, DEALER_SUBSCRIPTION_DAYS, DEALER_LIMIT,
+        ACCOUNT_TYPE_DEALER, DEALER_STATUS_APPROVED,
+    )
+    from .models import WalletTransaction
+
+    profile = request.user.profile
+
+    is_dealer_active = profile.dealer_subscription_active
+    expires_at = profile.dealer_subscription_expires
+
+    if request.method == 'POST':
+        price = Decimal(str(DEALER_SUB_PRICE_USD))
+        wallet_balance = profile.wallet_balance or Decimal('0')
+
+        if wallet_balance < price:
+            messages.error(
+                request,
+                f'Insufficient wallet balance. Need ${price}, have ${wallet_balance:.2f}. '
+                f'Top up your wallet first.'
+            )
+            return redirect('accounts:wallet')
+
+        profile.wallet_balance = wallet_balance - price
+
+        now = timezone.now()
+        if is_dealer_active and expires_at and expires_at > now:
+            new_expires = expires_at + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
+        else:
+            new_expires = now + timedelta(days=DEALER_SUBSCRIPTION_DAYS)
+
+        profile.dealer_subscription_active = True
+        profile.dealer_subscription_expires = new_expires
+        profile.account_type = ACCOUNT_TYPE_DEALER
+        profile.dealer_status = DEALER_STATUS_APPROVED
+
+        if not profile.dealer_applied_at:
+            profile.dealer_applied_at = now
+        if not profile.dealer_approved_at:
+            profile.dealer_approved_at = now
 
         profile.save()
-        messages.success(request, "Notification settings updated successfully!")
-        return redirect("accounts:settings")
 
+        try:
+            WalletTransaction.objects.create(
+                user=request.user,
+                amount=-price,
+                transaction_type='spend',
+                status='completed',
+                description=f'Dealer subscription ({DEALER_SUBSCRIPTION_DAYS} days)',
+                completed_at=now,
+            )
+        except Exception as e:
+            print(f"[become_dealer] wallet tx log failed: {e}")
+
+        if not profile.dealer_company_name:
+            messages.success(request, 'Dealer subscription activated! Fill in your profile info.')
+            return redirect('accounts:dealer_setup')
+        else:
+            messages.success(
+                request,
+                f'Dealer subscription extended until {new_expires.strftime("%Y-%m-%d")}.'
+            )
+            return redirect('accounts:dealer_dashboard')
+
+    context = {
+        "is_dealer_active": is_dealer_active,
+        "expires_at": expires_at,
+        "wallet_balance": profile.wallet_balance or Decimal('0'),
+        "price": DEALER_SUB_PRICE_USD,
+        "duration_days": DEALER_SUBSCRIPTION_DAYS,
+        "listings_limit": DEALER_LIMIT,
+    }
+    return render(request, "accounts/become_dealer.html", context)
+
+
+@login_required
+def inline_update(request):
+    if request.method == "POST":
+        user = request.user
+        profile = user.profile
+        user_fields = ['first_name', 'last_name', 'email']
+        profile_fields = ['phone_number', 'phone_number_secondary', 'street', 'house_number', 'city', 'country']
+        user_changed = False
+        profile_changed = False
+        for field in user_fields:
+            value = request.POST.get(field)
+            if value is not None:
+                setattr(user, field, value)
+                user_changed = True
+        for field in profile_fields:
+            value = request.POST.get(field)
+            if value is not None:
+                setattr(profile, field, value)
+                profile_changed = True
+        if user_changed:
+            user.save()
+        if profile_changed:
+            profile.save()
+    return redirect("accounts:settings")
+
+
+@login_required
+def update_profile_picture(request):
+    if request.method == "POST" and request.FILES.get('profile_picture'):
+        profile = request.user.profile
+        if profile.profile_picture:
+            profile.profile_picture.delete()
+        profile.profile_picture = request.FILES['profile_picture']
+        profile.save()
+    return redirect("accounts:settings")
+
+
+@login_required
+def delete_profile_picture(request):
+    if request.method == "POST":
+        profile = request.user.profile
+        if profile.profile_picture:
+            profile.profile_picture.delete()
+            profile.save()
+    return redirect("accounts:settings")
+
+
+@login_required
+def update_notifications(request):
+    if request.method == "POST":
+        profile = request.user.profile
+        profile.email_notifications = request.POST.get("email_notifications") == "on"
+        profile.email_messages = request.POST.get("email_messages") == "on"
+        profile.marketing_emails = request.POST.get("marketing_emails") == "on"
+        profile.sms_notifications = request.POST.get("sms_notifications") == "on"
+        profile.save()
+        return redirect("accounts:settings")
     return render(request, "accounts/settings_notifications.html")
 
 
 @login_required
 def update_privacy(request):
-    """Update privacy settings"""
     if request.method == "POST":
         profile = request.user.profile
-
-        # Get privacy preferences from form
         profile.show_email = request.POST.get("show_email") == "on"
         profile.show_phone = request.POST.get("show_phone") == "on"
         profile.public_profile = request.POST.get("public_profile") == "on"
-
+        profile.show_location_map = request.POST.get("show_location_map") == "on"
         profile.save()
-        messages.success(request, "Privacy settings updated successfully!")
         return redirect("accounts:settings")
-
     return render(request, "accounts/settings_privacy.html")
 
 
 @login_required
 def delete_account(request):
-    """Delete user account"""
     if request.method == "POST":
         password = request.POST.get("password")
         user = request.user
-
-        # Verify password before deletion
         if user.check_password(password):
-            # Log out and delete user
             logout(request)
             user.delete()
-            messages.success(request, "Your account has been deleted successfully.")
             return redirect("accounts:home")
         else:
             messages.error(request, "Incorrect password. Account was not deleted.")
             return redirect("accounts:delete_account")
-
     return render(request, "accounts/delete_account.html")
+
+
+@login_required
+def update_business_profile(request):
+    if request.method == 'POST':
+        profile = request.user.profile
+        profile.seller_type = request.POST.get('seller_type', 'private')
+        profile.company_name = request.POST.get('company_name', '')
+        profile.contact_person = request.POST.get('contact_person', '')
+        profile.website = request.POST.get('website', '')
+        profile.working_hours = request.POST.get('working_hours', '')
+        profile.company_description = request.POST.get('company_description', '')
+
+        if request.FILES.get('company_logo'):
+            if profile.company_logo:
+                profile.company_logo.delete(save=False)
+            profile.company_logo = request.FILES['company_logo']
+
+        if request.FILES.get('banner_image'):
+            if profile.banner_image:
+                profile.banner_image.delete(save=False)
+            profile.banner_image = request.FILES['banner_image']
+
+        profile.save()
+    return redirect('accounts:settings')
+
+
+def seller_profile(request, pk):
+    from apps.listings.models import Listing, Brand, FuelType, Transmission
+    from apps.accounts.models import SellerReview
+    from django.db.models import Count
+
+    seller = get_object_or_404(User, pk=pk)
+    base_qs = Listing.objects.filter(seller=seller, status='active')
+
+    listings = base_qs.select_related(
+        'brand', 'model', 'fuel_type', 'transmission'
+    ).prefetch_related('images')
+
+    brand_filter = request.GET.get('brand')
+    model_filter = request.GET.get('model')
+    price_min = request.GET.get('price_min')
+    price_max = request.GET.get('price_max')
+    year_min = request.GET.get('year_min')
+    year_max = request.GET.get('year_max')
+    fuel_type_filter = request.GET.get('fuel_type')
+    transmission_filter = request.GET.get('transmission')
+    body_type_filter = request.GET.get('body_type')
+    mileage_max = request.GET.get('mileage_max')
+    sort = request.GET.get('sort', '-created_at')
+
+    if brand_filter:
+        listings = listings.filter(brand_id=brand_filter)
+    if model_filter:
+        listings = listings.filter(model_id=model_filter)
+    if price_min:
+        listings = listings.filter(price__gte=price_min)
+    if price_max:
+        listings = listings.filter(price__lte=price_max)
+    if year_min:
+        listings = listings.filter(year__gte=year_min)
+    if year_max:
+        listings = listings.filter(year__lte=year_max)
+    if fuel_type_filter:
+        listings = listings.filter(fuel_type_id=fuel_type_filter)
+    if transmission_filter:
+        listings = listings.filter(transmission_id=transmission_filter)
+    if body_type_filter:
+        listings = listings.filter(body_type=body_type_filter)
+    if mileage_max:
+        listings = listings.filter(mileage__lte=mileage_max)
+
+    allowed_sorts = ['price', '-price', 'mileage', '-mileage', 'year', '-year', '-created_at', 'created_at']
+    if sort in allowed_sorts:
+        listings = listings.order_by(sort)
+
+    listings_count = base_qs.count()
+
+    brand_counts = {
+        item['brand_id']: item['count']
+        for item in base_qs.values('brand_id').annotate(count=Count('id'))
+    }
+    fuel_counts = {
+        item['fuel_type_id']: item['count']
+        for item in base_qs.exclude(fuel_type=None).values('fuel_type_id').annotate(count=Count('id'))
+    }
+    transmission_counts = {
+        item['transmission_id']: item['count']
+        for item in base_qs.exclude(transmission=None).values('transmission_id').annotate(count=Count('id'))
+    }
+    body_type_counts = {
+        item['body_type']: item['count']
+        for item in base_qs.exclude(body_type='').values('body_type').annotate(count=Count('id'))
+    }
+
+    available_brands = Brand.objects.filter(
+        listing__seller=seller, listing__status='active'
+    ).distinct()
+
+    filter_models = []
+    if brand_filter:
+        from apps.listings.models import Model as ListingModel
+        filter_models = ListingModel.objects.filter(
+            brand_id=brand_filter,
+            listings__seller=seller,
+            listings__status='active'
+        ).distinct()
+
+    fuel_types = FuelType.objects.filter(
+        listing__seller=seller, listing__status='active'
+    ).distinct()
+    transmissions = Transmission.objects.filter(
+        listing__seller=seller, listing__status='active'
+    ).distinct()
+    used_body_types = list(base_qs.exclude(body_type='').values_list('body_type', flat=True).distinct())
+    body_type_choices = [
+        (value, label) for value, label in Listing.BODY_TYPE_CHOICES
+        if value in used_body_types
+    ]
+
+    reviews = SellerReview.objects.filter(seller=seller).select_related('reviewer')
+
+    can_review = False
+    if request.user.is_authenticated and request.user != seller:
+        can_review = not SellerReview.objects.filter(
+            reviewer=request.user, seller=seller
+        ).exists()
+
+    context = {
+        'seller': seller,
+        'listings': listings,
+        'listings_count': listings_count,
+        'available_brands': available_brands,
+        'filter_models': filter_models,
+        'reviews': reviews,
+        'can_review': can_review,
+        'fuel_types': fuel_types,
+        'transmissions': transmissions,
+        'body_type_choices': body_type_choices,
+        'years': list(range(2026, 1989, -1)),
+        'brand_counts': brand_counts,
+        'fuel_counts': fuel_counts,
+        'transmission_counts': transmission_counts,
+        'body_type_counts': body_type_counts,
+    }
+    return render(request, 'accounts/seller_profile.html', context)
+
+
+@login_required
+def leave_review(request, seller_pk):
+    from apps.accounts.models import SellerReview, update_seller_rating
+
+    seller = get_object_or_404(User, pk=seller_pk)
+    if request.method == 'POST' and request.user != seller:
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment', '')
+        if rating and rating.isdigit() and 1 <= int(rating) <= 5:
+            SellerReview.objects.update_or_create(
+                reviewer=request.user,
+                seller=seller,
+                defaults={'rating': int(rating), 'comment': comment}
+            )
+            update_seller_rating(seller)
+    return redirect('accounts:seller_profile', pk=seller_pk)
+
+
+@csrf_exempt
+def set_language(request):
+    """
+    Custom set_language wrapper.
+
+    Saves language to:
+    1. Cookie (via Django's standard set_language)
+    2. user.profile.language (if user is authenticated)
+    """
+    from django.views.i18n import set_language as django_set_language
+
+    if request.method == 'POST':
+        language_code = request.POST.get('language')
+        if language_code and request.user.is_authenticated:
+            try:
+                profile = request.user.profile
+                profile.language = language_code
+                profile.save(update_fields=['language'])
+            except Exception as e:
+                print(f"[set_language] Failed to save to profile: {e}")
+
+    return django_set_language(request)
+
+
+# ════════════════════════════════════════════════════════════
+# DEALER AREA
+# ════════════════════════════════════════════════════════════
+
+@login_required
+def dealer_setup(request):
+    """Dealer profilio užpildymo forma — visi laukai optional.
+
+    Naudoja esamus Profile laukus:
+      - dealer_company_name, dealer_logo, dealer_address, dealer_phone, dealer_description
+      - banner_image, website
+      - dealer_working_hours (JSON: 7 dienos su laikais)
+    """
+    profile = request.user.profile
+
+    if not profile.dealer_subscription_active:
+        messages.warning(request, 'You need an active Dealer subscription first.')
+        return redirect('accounts:become_dealer')
+
+    DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+
+    if request.method == 'POST':
+        profile.dealer_company_name = request.POST.get('dealer_company_name', '').strip()
+        profile.dealer_phone = request.POST.get('dealer_phone', '').strip()
+        profile.dealer_address = request.POST.get('dealer_address', '').strip()
+        profile.dealer_description = request.POST.get('dealer_description', '').strip()
+        profile.website = request.POST.get('website', '').strip()
+
+        # Working hours JSON
+        wh = {}
+        for day in DAYS:
+            closed = request.POST.get(f'wh_{day}_closed') == 'on'
+            wh[day] = {
+                'closed': closed,
+                'open': request.POST.get(f'wh_{day}_open', '').strip() if not closed else '',
+                'close': request.POST.get(f'wh_{day}_close', '').strip() if not closed else '',
+            }
+        profile.dealer_working_hours = wh
+
+        if request.FILES.get('dealer_logo'):
+            if profile.dealer_logo:
+                profile.dealer_logo.delete(save=False)
+            profile.dealer_logo = request.FILES['dealer_logo']
+
+        if request.FILES.get('banner_image'):
+            if profile.banner_image:
+                profile.banner_image.delete(save=False)
+            profile.banner_image = request.FILES['banner_image']
+
+        profile.save()
+
+        # ═══ EMAIL ADMIN'UI apie naują/atnaujintą dealer'į ═══
+        try:
+            from django.core.mail import send_mail
+            from django.conf import settings as dj_settings
+
+            admin_email = 'helpautoinfo@gmail.com'
+            site_url = getattr(dj_settings, 'SITE_URL', 'http://127.0.0.1:8000')
+
+            subject = f'[SellCar] Dealer profile updated: {profile.dealer_company_name or request.user.username}'
+            message = f"""
+Dealer profile updated on SellCar.
+
+User: {request.user.username} ({request.user.email})
+Company: {profile.dealer_company_name or '—'}
+Address: {profile.dealer_address or '—'}
+Phone: {profile.dealer_phone or '—'}
+Website: {profile.website or '—'}
+Description: {profile.dealer_description[:200] if profile.dealer_description else '—'}
+Subscription expires: {profile.dealer_subscription_expires}
+
+Review:
+- Public page: {site_url}/accounts/dealer/{request.user.username}/
+- Admin moderation: {site_url}/accounts/admin/dealers/{request.user.id}/
+"""
+
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=getattr(dj_settings, 'DEFAULT_FROM_EMAIL', admin_email),
+                recipient_list=[admin_email],
+                fail_silently=True,
+            )
+        except Exception as e:
+            print(f"[dealer_setup] admin notification email failed: {e}")
+
+        messages.success(request, 'Dealer profile saved.')
+        return redirect('accounts:dealer_dashboard')
+
+    # Default working hours (jei dar tuščia)
+    default_wh = {
+        'mon': {'open': '09:00', 'close': '18:00', 'closed': False},
+        'tue': {'open': '09:00', 'close': '18:00', 'closed': False},
+        'wed': {'open': '09:00', 'close': '18:00', 'closed': False},
+        'thu': {'open': '09:00', 'close': '18:00', 'closed': False},
+        'fri': {'open': '09:00', 'close': '18:00', 'closed': False},
+        'sat': {'open': '09:00', 'close': '15:00', 'closed': False},
+        'sun': {'open': '', 'close': '', 'closed': True},
+    }
+    current_wh = profile.dealer_working_hours or default_wh
+
+    day_labels = [
+        ('mon', 'Monday'),
+        ('tue', 'Tuesday'),
+        ('wed', 'Wednesday'),
+        ('thu', 'Thursday'),
+        ('fri', 'Friday'),
+        ('sat', 'Saturday'),
+        ('sun', 'Sunday'),
+    ]
+
+    working_hours_form = []
+    for day_key, day_label in day_labels:
+        day_data = current_wh.get(day_key, default_wh[day_key])
+        working_hours_form.append({
+            'key': day_key,
+            'label': day_label,
+            'open': day_data.get('open', ''),
+            'close': day_data.get('close', ''),
+            'closed': day_data.get('closed', False),
+        })
+
+    context = {
+        'profile': profile,
+        'working_hours_form': working_hours_form,
+    }
+    return render(request, 'accounts/dealer_setup.html', context)
+
+
+@login_required
+def dealer_dashboard(request):
+    """Dealer dashboard — KPI, listing count, subscription info."""
+    from apps.listings.models import Listing
+    from apps.listings.constants import DEALER_LIMIT
+    from django.utils import timezone
+
+    profile = request.user.profile
+
+    if not profile.dealer_subscription_active:
+        messages.warning(request, 'You need an active Dealer subscription.')
+        return redirect('accounts:become_dealer')
+
+    active_listings = Listing.objects.filter(seller=request.user, status='active')
+    active_count = active_listings.count()
+    total_views = sum(l.views_count or 0 for l in active_listings)
+    total_saves = sum(l.saved_by.count() for l in active_listings)
+
+    expires_at = profile.dealer_subscription_expires
+    days_remaining = 0
+    if expires_at:
+        delta = expires_at - timezone.now()
+        days_remaining = max(0, delta.days)
+
+    top_listings = active_listings.order_by('-views_count')[:5]
+
+    context = {
+        'profile': profile,
+        'active_count': active_count,
+        'listings_limit': DEALER_LIMIT,
+        'total_views': total_views,
+        'total_saves': total_saves,
+        'expires_at': expires_at,
+        'days_remaining': days_remaining,
+        'top_listings': top_listings,
+        'dealer_public_url': request.build_absolute_uri(
+            f'/accounts/dealer/{request.user.username}/'
+        ),
+    }
+    return render(request, 'accounts/dealer_dashboard.html', context)
+
+
+# ════════════════════════════════════════════════════════════
+# DEALER ADMIN MODERATION
+# ════════════════════════════════════════════════════════════
+
+from django.contrib.auth.decorators import user_passes_test
+
+
+def _is_superuser_check(user):
+    return user.is_authenticated and user.is_superuser
+
+
+@user_passes_test(_is_superuser_check)
+def admin_dealers_list(request):
+    """Admin moderation puslapis — visi dealer'iai sąraše.
+
+    Rodo:
+      - Aktyvūs subscribers (žali)
+      - Subscription baigėsi (pilki)
+      - Naujausi viršuje
+      - Filter pagal status
+    """
+    from django.db.models import Count, Q
+
+    filter_status = request.GET.get('status', 'all')
+
+    dealers_qs = Profile.objects.filter(
+        Q(dealer_subscription_active=True) |
+        Q(dealer_company_name__isnull=False, dealer_company_name__gt='')
+    ).select_related('user').order_by('-dealer_subscription_expires', '-id')
+
+    if filter_status == 'active':
+        dealers_qs = dealers_qs.filter(dealer_subscription_active=True)
+    elif filter_status == 'expired':
+        dealers_qs = dealers_qs.filter(dealer_subscription_active=False)
+    elif filter_status == 'new':
+        from django.utils import timezone
+        from datetime import timedelta
+        week_ago = timezone.now() - timedelta(days=7)
+        dealers_qs = dealers_qs.filter(dealer_approved_at__gte=week_ago)
+
+    search_query = request.GET.get('search', '').strip()
+    if search_query:
+        dealers_qs = dealers_qs.filter(
+            Q(dealer_company_name__icontains=search_query) |
+            Q(user__email__icontains=search_query) |
+            Q(user__username__icontains=search_query)
+        )
+
+    # Suskaičiuojam aktyvių skelbimų skaičių kiekvienam
+    from apps.listings.models import Listing
+    dealers_list = []
+    for profile in dealers_qs:
+        active_listings = Listing.objects.filter(
+            seller=profile.user,
+            status='active',
+            is_shadow_banned=False,
+        ).count()
+        total_listings = Listing.objects.filter(seller=profile.user).count()
+        dealers_list.append({
+            'profile': profile,
+            'user': profile.user,
+            'active_listings': active_listings,
+            'total_listings': total_listings,
+        })
+
+    # Stats
+    total_dealers = Profile.objects.filter(dealer_subscription_active=True).count()
+    expired_dealers = Profile.objects.filter(
+        dealer_subscription_active=False,
+        dealer_company_name__isnull=False,
+    ).exclude(dealer_company_name='').count()
+
+    from django.utils import timezone
+    from datetime import timedelta
+    week_ago = timezone.now() - timedelta(days=7)
+    new_dealers_week = Profile.objects.filter(
+        dealer_approved_at__gte=week_ago,
+        dealer_subscription_active=True,
+    ).count()
+
+    context = {
+        'dealers': dealers_list,
+        'filter_status': filter_status,
+        'search_query': search_query,
+        'total_dealers': total_dealers,
+        'expired_dealers': expired_dealers,
+        'new_dealers_week': new_dealers_week,
+    }
+    return render(request, 'accounts/admin_dealers_list.html', context)
+
+
+@user_passes_test(_is_superuser_check)
+def admin_dealer_detail(request, user_id):
+    """Vieno dealer'io detalus moderavimo puslapis."""
+    from apps.listings.models import Listing
+
+    dealer_user = get_object_or_404(User, pk=user_id)
+    profile = dealer_user.profile
+
+    all_listings = Listing.objects.filter(seller=dealer_user).order_by('-created_at')
+    active_count = all_listings.filter(status='active', is_shadow_banned=False).count()
+    total_count = all_listings.count()
+    sold_count = all_listings.filter(status='sold').count()
+    shadow_banned_count = all_listings.filter(is_shadow_banned=True).count()
+
+    recent_listings = all_listings[:10]
+
+    context = {
+        'dealer_user': dealer_user,
+        'profile': profile,
+        'active_count': active_count,
+        'total_count': total_count,
+        'sold_count': sold_count,
+        'shadow_banned_count': shadow_banned_count,
+        'recent_listings': recent_listings,
+    }
+    return render(request, 'accounts/admin_dealer_detail.html', context)
+
+
+@user_passes_test(_is_superuser_check)
+def admin_dealer_toggle_active(request, user_id):
+    """Suspend / Reactivate dealer'io subscription."""
+    if request.method != 'POST':
+        return redirect('accounts:admin_dealers_list')
+
+    dealer_user = get_object_or_404(User, pk=user_id)
+    profile = dealer_user.profile
+
+    profile.dealer_subscription_active = not profile.dealer_subscription_active
+    profile.save(update_fields=['dealer_subscription_active'])
+
+    if profile.dealer_subscription_active:
+        messages.success(request, f'Dealer {dealer_user.username} reactivated.')
+    else:
+        messages.warning(request, f'Dealer {dealer_user.username} suspended (public page hidden).')
+
+    return redirect('accounts:admin_dealer_detail', user_id=user_id)
+
+
+def dealer_public_page(request, username):
+    """Viešas dealer puslapis — /accounts/dealer/<username>/
+
+    Nereikalauja login.
+    Rodo dealer info + skelbimus + kategorijų sidebar + top filter bar
+    + working hours display.
+    """
+    from apps.listings.models import Listing, Brand, Model, FuelType, Transmission
+    from django.http import Http404
+    from django.db.models import Count
+    from django.utils import timezone
+
+    dealer_user = get_object_or_404(User, username=username)
+    profile = dealer_user.profile
+
+    if not profile.dealer_subscription_active:
+        raise Http404("Dealer not found or inactive")
+
+    base_qs = Listing.objects.filter(
+        seller=dealer_user,
+        status='active',
+        is_shadow_banned=False,
+    )
+
+    # ─── Kategorijų sidebar su counts ───
+    category_counts = (
+        base_qs.values('vehicle_type__slug', 'vehicle_type__name')
+        .annotate(count=Count('id'))
+        .order_by('-count')
+    )
+
+    CATEGORY_ICONS_MAP = {
+        'cars': '🚗', 'vans': '🚐', 'motorcycles': '🏍️', 'trucks': '🚛',
+        'parts': '⚙️', 'tires': '🛞', 'boats': '🚤', 'trailers': '🚚',
+        'construction': '🏗️', 'agriculture': '🚜', 'bicycles': '🚲',
+        'services': '🔧', 'rental': '🔑',
+    }
+
+    sidebar_categories = []
+    for cc in category_counts:
+        slug = cc['vehicle_type__slug']
+        if not slug:
+            continue
+        sidebar_categories.append({
+            'slug': slug,
+            'name': cc['vehicle_type__name'] or slug.title(),
+            'icon': CATEGORY_ICONS_MAP.get(slug, '📦'),
+            'count': cc['count'],
+        })
+
+    total_count = base_qs.count()
+
+    # ─── Filtrai (URL params) ───
+    selected_category = request.GET.get('category', '').strip()
+    brand_filter = request.GET.get('brand', '')
+    model_filter = request.GET.get('model', '')
+    year_min = request.GET.get('year_min', '')
+    year_max = request.GET.get('year_max', '')
+    price_min = request.GET.get('price_min', '')
+    price_max = request.GET.get('price_max', '')
+    fuel_filter = request.GET.get('fuel_type', '')
+    transmission_filter = request.GET.get('transmission', '')
+    body_type_filter = request.GET.get('body_type', '')
+
+    listings = base_qs.select_related(
+        'brand', 'model', 'fuel_type', 'transmission', 'vehicle_type'
+    ).prefetch_related('images')
+
+    if selected_category:
+        listings = listings.filter(vehicle_type__slug=selected_category)
+    if brand_filter:
+        listings = listings.filter(brand_id=brand_filter)
+    if model_filter:
+        listings = listings.filter(model_id=model_filter)
+    if year_min:
+        listings = listings.filter(year__gte=year_min)
+    if year_max:
+        listings = listings.filter(year__lte=year_max)
+    if price_min:
+        listings = listings.filter(price__gte=price_min)
+    if price_max:
+        listings = listings.filter(price__lte=price_max)
+    if fuel_filter:
+        listings = listings.filter(fuel_type_id=fuel_filter)
+    if transmission_filter:
+        listings = listings.filter(transmission_id=transmission_filter)
+    if body_type_filter:
+        listings = listings.filter(body_type=body_type_filter)
+
+    # ─── Sort ───
+    sort_param = request.GET.get('sort', '-created_at')
+    allowed_sorts = ['-created_at', 'created_at', 'price', '-price', '-views_count']
+    if sort_param in allowed_sorts:
+        listings = listings.order_by(sort_param)
+
+    listings_list = list(listings[:60])
+
+    # ─── Filter options (tik tas, kuriuos dealer turi savo skelbimuose) ───
+    available_brands = (
+        Brand.objects.filter(listing__seller=dealer_user, listing__status='active')
+        .annotate(count=Count('listing'))
+        .order_by('name')
+    )
+    available_fuel_types = FuelType.objects.filter(
+        listing__seller=dealer_user, listing__status='active'
+    ).distinct().order_by('name')
+    available_transmissions = Transmission.objects.filter(
+        listing__seller=dealer_user, listing__status='active'
+    ).distinct().order_by('name')
+
+    available_models = []
+    if brand_filter:
+        available_models = Model.objects.filter(
+            brand_id=brand_filter,
+            listing__seller=dealer_user,
+            listing__status='active',
+        ).distinct().order_by('name')
+
+    used_body_types = list(
+        base_qs.exclude(body_type='').values_list('body_type', flat=True).distinct()
+    )
+    body_type_choices = [
+        (value, label) for value, label in Listing.BODY_TYPE_CHOICES
+        if value in used_body_types
+    ]
+
+    current_year = timezone.now().year
+    years = list(range(current_year + 1, 1989, -1))
+
+    # ─── Working hours rendering ───
+    DAY_LABELS = [
+        ('mon', 'Monday'), ('tue', 'Tuesday'), ('wed', 'Wednesday'),
+        ('thu', 'Thursday'), ('fri', 'Friday'), ('sat', 'Saturday'),
+        ('sun', 'Sunday'),
+    ]
+    wh_data = profile.dealer_working_hours or {}
+    working_hours_display = []
+    has_any_hours = False
+    if wh_data:
+        for day_key, day_label in DAY_LABELS:
+            day_info = wh_data.get(day_key, {})
+            is_closed = day_info.get('closed', False)
+            open_t = day_info.get('open', '')
+            close_t = day_info.get('close', '')
+            if is_closed or (open_t and close_t):
+                has_any_hours = True
+            working_hours_display.append({
+                'label': day_label,
+                'closed': is_closed,
+                'open': open_t,
+                'close': close_t,
+            })
+
+    context = {
+        'dealer_user': dealer_user,
+        'profile': profile,
+        'listings': listings_list,
+        'listings_count': listings.count(),
+        'total_count': total_count,
+        'sidebar_categories': sidebar_categories,
+        'selected_category': selected_category,
+        'sort_param': sort_param,
+        # Filter options
+        'available_brands': available_brands,
+        'available_models': available_models,
+        'available_fuel_types': available_fuel_types,
+        'available_transmissions': available_transmissions,
+        'body_type_choices': body_type_choices,
+        'years': years,
+        # Selected filter values
+        'brand_filter': brand_filter,
+        'model_filter': model_filter,
+        'year_min': year_min,
+        'year_max': year_max,
+        'price_min': price_min,
+        'price_max': price_max,
+        'fuel_filter': fuel_filter,
+        'transmission_filter': transmission_filter,
+        'body_type_filter': body_type_filter,
+        # Working hours
+        'working_hours_display': working_hours_display,
+        'has_any_hours': has_any_hours,
+    }
+    return render(request, 'accounts/dealer_public_page.html', context)

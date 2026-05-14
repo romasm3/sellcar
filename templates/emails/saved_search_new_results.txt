@@ -1,0 +1,20 @@
+Hi {{ user_name|default:"there" }},
+
+{{ new_count }} new listing{{ new_count|pluralize }} match{{ new_count|pluralize:"es," }} your saved search "{{ search_name }}":
+
+{% for listing in listings %}
+   {{ forloop.counter }}. {{ listing.title }} - {{ listing.price_display }}
+      {{ listing.url }}
+
+{% endfor %}
+
+View all results:
+{{ search_url }}
+
+To stop receiving these alerts, edit your saved search:
+{{ site_url }}/searches/
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

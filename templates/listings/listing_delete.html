@@ -1,46 +1,48 @@
-{% extends 'base.html' %} {% block title %}Ištrinti skelbimą - SellCar{%
-endblock %} {% block content %}
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Ištrinti skelbimą" %} - SellCar{% endblock %}
+
+{% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-danger text-white">
                     <h3 class="mb-0">
-                        <i class="fas fa-trash"></i> Ištrinti skelbimą
+                        <i class="fas fa-trash"></i> {% trans "Ištrinti skelbimą" %}
                     </h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <strong>Dėmesio!</strong> Šis veiksmas negrįžtamas.
+                        <strong>{% trans "Dėmesio!" %}</strong> {% trans "Šis veiksmas negrįžtamas." %}
                     </div>
-
-                    <h5>Ar tikrai norite ištrinti šį skelbimą?</h5>
+                    <h5>{% trans "Ar tikrai norite ištrinti šį skelbimą?" %}</h5>
                     <div class="card mt-3">
                         <div class="card-body">
                             <h6 class="card-title">{{ listing.title }}</h6>
                             <p class="card-text text-muted">
                                 {{ listing.brand }} {{ listing.model }}, {{
                                 listing.year }}<br />
-                                Kaina:
+                                {% trans "Kaina:" %}
                                 <strong
                                     >{{ listing.price|floatformat:0 }} €</strong
                                 >
                             </p>
                         </div>
                     </div>
-
                     <form method="post" class="mt-4">
                         {% csrf_token %}
                         <div class="d-flex gap-2 justify-content-end">
-                            <a
-                                href="{% url 'listings:listing_detail' listing.slug %}"
+                            
+                                href="{% url 'listing_detail' listing.slug %}"
                                 class="btn btn-secondary"
                             >
-                                <i class="fas fa-times"></i> Atšaukti
+                                <i class="fas fa-times"></i> {% trans "Atšaukti" %}
                             </a>
                             <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-trash"></i> Ištrinti
+                                <i class="fas fa-trash"></i> {% trans "Ištrinti" %}
                             </button>
                         </div>
                     </form>

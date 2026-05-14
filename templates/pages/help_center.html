@@ -1,0 +1,836 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Help Center" %} - SellCar{% endblock %}
+
+{% block content %}
+<div x-data="{ activeTab: window.location.hash.replace('#','') || 'overview' }"
+     @hashchange.window="activeTab = window.location.hash.replace('#','') || 'overview'">
+
+<!-- Page header -->
+<div class="bg-white border-b border-gray-300">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+        <nav class="text-xs text-gray-500 mb-2">
+            <a href="/" class="hover:text-gray-700">{% trans "Home" %}</a>
+            <span class="mx-1.5">›</span>
+            <a href="#overview" @click="activeTab = 'overview'" class="hover:text-gray-700">{% trans "Help Center" %}</a>
+            <template x-if="activeTab !== 'overview'">
+                <span>
+                    <span class="mx-1.5">›</span>
+                    <span class="text-gray-700 capitalize" x-text="activeTab.replace('-', ' ')"></span>
+                </span>
+            </template>
+        </nav>
+        <h1 class="text-xl font-bold text-gray-900">{% trans "Help & Information" %}</h1>
+    </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 py-6">
+
+    <!-- Top notice -->
+    <div class="bg-red-50 border border-red-200 rounded p-3 mb-6 flex items-center gap-3">
+        <i class="fas fa-bullhorn text-red-600 text-sm"></i>
+        <div class="flex-1 text-sm">
+            <span class="font-semibold text-gray-900">{% trans "New: Dealer subscriptions available" %}</span>
+            <span class="text-gray-600 mx-1">·</span>
+            <a href="{% url 'accounts:become_dealer' %}" class="text-red-600 hover:underline font-medium">{% trans "Learn more →" %}</a>
+        </div>
+        <span class="text-xs text-gray-500 hidden md:inline">{% trans "May 13" %}</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <!-- ═══ LEFT SIDEBAR ═══ -->
+        <aside class="lg:col-span-1">
+            <div class="sticky top-20">
+
+                <!-- Quick Navigation -->
+                <div class="bg-white border border-gray-300 rounded">
+                    <div class="bg-gray-100 px-3 py-2 border-b border-gray-300">
+                        <h3 class="text-xs font-bold text-gray-700 uppercase">{% trans "Quick navigation" %}</h3>
+                    </div>
+                    <nav class="p-1">
+
+                        <a href="#overview" @click.prevent="activeTab='overview'; history.pushState(null,'','#overview')"
+                           :class="activeTab === 'overview' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-home text-xs mr-1.5"></i> {% trans "Overview" %}
+                        </a>
+
+                        <!-- NEWS & UPDATES -->
+                        <div class="mt-2 px-3 mb-1">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{% trans "News & Updates" %}</span>
+                        </div>
+                        <a href="#whats-new" @click.prevent="activeTab='whats-new'; history.pushState(null,'','#whats-new')"
+                           :class="activeTab === 'whats-new' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-bullhorn text-xs text-gray-400 mr-1.5"></i> {% trans "What's new" %}
+                        </a>
+                        <a href="#market-trends" @click.prevent="activeTab='market-trends'; history.pushState(null,'','#market-trends')"
+                           :class="activeTab === 'market-trends' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-chart-line text-xs text-gray-400 mr-1.5"></i> {% trans "Market trends" %}
+                        </a>
+                        <a href="#tips" @click.prevent="activeTab='tips'; history.pushState(null,'','#tips')"
+                           :class="activeTab === 'tips' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-lightbulb text-xs text-gray-400 mr-1.5"></i> {% trans "Tips & guides" %}
+                        </a>
+
+                        <!-- HELP & SUPPORT -->
+                        <div class="mt-2 px-3 mb-1">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{% trans "Help & Support" %}</span>
+                        </div>
+                        <a href="#faq" @click.prevent="activeTab='faq'; history.pushState(null,'','#faq')"
+                           :class="activeTab === 'faq' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="far fa-question-circle text-xs text-gray-400 mr-1.5"></i> {% trans "FAQ" %}
+                        </a>
+                        <a href="#contact" @click.prevent="activeTab='contact'; history.pushState(null,'','#contact')"
+                           :class="activeTab === 'contact' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="far fa-envelope text-xs text-gray-400 mr-1.5"></i> {% trans "Contact us" %}
+                        </a>
+
+                        <!-- PRICING -->
+                        <div class="mt-2 px-3 mb-1">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{% trans "Pricing" %}</span>
+                        </div>
+                        <a href="#pricing" @click.prevent="activeTab='pricing'; history.pushState(null,'','#pricing')"
+                           :class="activeTab === 'pricing' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-tag text-xs text-gray-400 mr-1.5"></i> {% trans "Pricing" %}
+                        </a>
+                        <a href="#advertise" @click.prevent="activeTab='advertise'; history.pushState(null,'','#advertise')"
+                           :class="activeTab === 'advertise' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-bullhorn text-xs text-gray-400 mr-1.5"></i> {% trans "Advertising" %}
+                        </a>
+
+                        <!-- ABOUT & LEGAL -->
+                        <div class="mt-2 px-3 mb-1">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{% trans "About & Legal" %}</span>
+                        </div>
+                        <a href="#about" @click.prevent="activeTab='about'; history.pushState(null,'','#about')"
+                           :class="activeTab === 'about' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-info-circle text-xs text-gray-400 mr-1.5"></i> {% trans "About us" %}
+                        </a>
+                        <a href="#terms" @click.prevent="activeTab='terms'; history.pushState(null,'','#terms')"
+                           :class="activeTab === 'terms' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-file-contract text-xs text-gray-400 mr-1.5"></i> {% trans "Terms of use" %}
+                        </a>
+                        <a href="#privacy" @click.prevent="activeTab='privacy'; history.pushState(null,'','#privacy')"
+                           :class="activeTab === 'privacy' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-shield-alt text-xs text-gray-400 mr-1.5"></i> {% trans "Privacy policy" %}
+                        </a>
+                        <a href="#cookies" @click.prevent="activeTab='cookies'; history.pushState(null,'','#cookies')"
+                           :class="activeTab === 'cookies' ? 'bg-red-50 text-red-700 font-semibold border-l-2 border-red-600' : 'text-gray-700 hover:bg-gray-50 border-l-2 border-transparent'"
+                           class="block px-3 py-1.5 text-sm rounded-r transition-colors">
+                            <i class="fas fa-cookie-bite text-xs text-gray-400 mr-1.5"></i> {% trans "Cookies" %}
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Contact card -->
+                <div class="bg-white border border-gray-300 rounded mt-4">
+                    <div class="bg-gray-100 px-3 py-2 border-b border-gray-300">
+                        <h3 class="text-xs font-bold text-gray-700 uppercase">{% trans "Contact" %}</h3>
+                    </div>
+                    <div class="p-3 text-xs">
+                        <div class="mb-2">
+                            <div class="text-gray-500 mb-0.5">{% trans "Email" %}</div>
+                            <a href="mailto:helpautoinfo@gmail.com" class="text-red-600 hover:underline font-medium break-all">helpautoinfo@gmail.com</a>
+                        </div>
+                        <div class="mb-2">
+                            <div class="text-gray-500 mb-0.5">{% trans "Hours" %}</div>
+                            <div class="text-gray-800">Mon-Sun 8:00 - 22:00</div>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'conversations:start_support' %}" class="block mt-3 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-center text-xs font-semibold rounded">
+                            {% trans "Live chat" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ═══ MAIN CONTENT — keičiasi pagal activeTab ═══ -->
+        <div class="lg:col-span-3">
+
+            <!-- OVERVIEW (pradinis) -->
+            <div x-show="activeTab === 'overview'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6 mb-4">
+                    <h2 class="text-xl font-bold text-gray-900 mb-3">{% trans "Welcome to Help Center" %}</h2>
+                    <p class="text-sm text-gray-600 mb-4">
+                        {% trans "Browse topics on the left to find what you need. Below are the most popular categories:" %}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <a href="#faq" @click.prevent="activeTab='faq'; history.pushState(null,'','#faq')" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors flex items-center gap-3 group">
+                            <i class="far fa-question-circle text-gray-400 group-hover:text-red-600"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">{% trans "FAQ" %}</div>
+                                <div class="text-xs text-gray-500">{% trans "Common questions" %}</div>
+                            </div>
+                        </a>
+                        <a href="#pricing" @click.prevent="activeTab='pricing'; history.pushState(null,'','#pricing')" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors flex items-center gap-3 group">
+                            <i class="fas fa-tag text-gray-400 group-hover:text-red-600"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">{% trans "Pricing" %}</div>
+                                <div class="text-xs text-gray-500">{% trans "Listing fees & dealer plans" %}</div>
+                            </div>
+                        </a>
+                        <a href="#whats-new" @click.prevent="activeTab='whats-new'; history.pushState(null,'','#whats-new')" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors flex items-center gap-3 group">
+                            <i class="fas fa-bullhorn text-gray-400 group-hover:text-red-600"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">{% trans "What's new" %}</div>
+                                <div class="text-xs text-gray-500">{% trans "Latest updates" %}</div>
+                            </div>
+                        </a>
+                        <a href="#contact" @click.prevent="activeTab='contact'; history.pushState(null,'','#contact')" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors flex items-center gap-3 group">
+                            <i class="far fa-envelope text-gray-400 group-hover:text-red-600"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-gray-900">{% trans "Contact us" %}</div>
+                                <div class="text-xs text-gray-500">{% trans "Get in touch" %}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT'S NEW -->
+            <div x-show="activeTab === 'whats-new'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-bullhorn text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "What's New" %}</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-l-2 border-red-500 pl-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs text-gray-500">2026-05-13</span>
+                                <span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold rounded uppercase">{% trans "New Feature" %}</span>
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Dealer Subscriptions Launched" %}</h3>
+                            <p class="text-sm text-gray-600">{% trans "Become a verified dealer for $100/month and list up to 30 vehicles." %}</p>
+                        </div>
+                        <div class="border-l-2 border-blue-500 pl-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs text-gray-500">2026-05-10</span>
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-semibold rounded uppercase">{% trans "Update" %}</span>
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "New Vehicle Categories: Trucks" %}</h3>
+                            <p class="text-sm text-gray-600">{% trans "You can now buy and sell heavy commercial vehicles." %}</p>
+                        </div>
+                        <div class="border-l-2 border-red-500 pl-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs text-gray-500">2026-04-28</span>
+                                <span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold rounded uppercase">{% trans "New Feature" %}</span>
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Wallet System & Bonuses" %}</h3>
+                            <p class="text-sm text-gray-600">{% trans "Top up your wallet and get up to 20% bonus on payments." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MARKET TRENDS -->
+            <div x-show="activeTab === 'market-trends'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-chart-line text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Market Trends" %}</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-5">
+                        {% trans "Insights and statistics about the SellCar marketplace — what's selling, where, and at what price." %}
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                        <div class="border border-gray-200 rounded p-4">
+                            <div class="text-xs text-gray-500 uppercase mb-1">{% trans "Most popular category" %}</div>
+                            <div class="text-lg font-bold text-gray-900">{% trans "Sedans" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "42% of all listings" %}</div>
+                        </div>
+                        <div class="border border-gray-200 rounded p-4">
+                            <div class="text-xs text-gray-500 uppercase mb-1">{% trans "Average sale time" %}</div>
+                            <div class="text-lg font-bold text-gray-900">{% trans "18 days" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "Across all categories" %}</div>
+                        </div>
+                        <div class="border border-gray-200 rounded p-4">
+                            <div class="text-xs text-gray-500 uppercase mb-1">{% trans "Top selling brand" %}</div>
+                            <div class="text-lg font-bold text-gray-900">{% trans "Toyota" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "By volume" %}</div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-gray-900 mb-2">{% trans "What buyers are searching for" %}</h3>
+                    <ul class="text-sm text-gray-700 space-y-1 mb-5 list-disc pl-5">
+                        <li>{% trans "Fuel-efficient sedans under $15,000" %}</li>
+                        <li>{% trans "Pickup trucks with low mileage" %}</li>
+                        <li>{% trans "Hybrid and electric vehicles" %}</li>
+                        <li>{% trans "SUVs with all-wheel drive" %}</li>
+                    </ul>
+
+                    <h3 class="text-sm font-bold text-gray-900 mb-2">{% trans "Selling tips based on data" %}</h3>
+                    <ul class="text-sm text-gray-700 space-y-1 list-disc pl-5">
+                        <li>{% trans "Listings with 8+ photos sell 2x faster" %}</li>
+                        <li>{% trans "Detailed descriptions reduce time-to-sale by 35%" %}</li>
+                        <li>{% trans "Listings posted on weekends get 40% more views" %}</li>
+                        <li>{% trans "Featured listings receive 5x more inquiries" %}</li>
+                    </ul>
+
+                    <p class="text-xs text-gray-500 mt-5 italic">{% trans "Data updated weekly based on SellCar marketplace activity." %}</p>
+                </div>
+            </div>
+
+            <!-- TIPS & GUIDES -->
+            <div x-show="activeTab === 'tips'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-lightbulb text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Tips & Guides" %}</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-6">
+                        {% trans "Everything you need to know to sell faster and buy smarter on SellCar." %}
+                    </p>
+
+                    <div class="space-y-5">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">1</span>
+                                {% trans "Posting your first listing" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "Click 'Create Ad' in the top menu, choose a category, and fill in the vehicle details. Upload at least 5 clear photos — listings with more photos get more views. Add a detailed description including condition, history, and any modifications. Your first 3 listings are completely free." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">2</span>
+                                {% trans "Renewing your listing" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "Listings stay active for 30 days. After that, you'll need to renew them — once per hour you can boost any listing back to the top of search results. Renewing is free for your first 3 listings; additional renewals require a paid plan." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">3</span>
+                                {% trans "Drafts — save and activate later" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "Started a listing but not ready to publish? Your work is saved automatically as a draft. Find drafts in 'My Listings' and continue editing whenever you want. Activate the draft when you're ready — it will go live for 30 days." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">4</span>
+                                {% trans "Saving favorites with the heart icon" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "See a listing you like? Click the heart icon to save it. All your favorites are kept in 'Saved Listings' so you can compare prices and come back to them later. You'll also receive email notifications when a saved listing's price drops." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">5</span>
+                                {% trans "Tracking listing performance" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "Each listing has a statistics page showing views, impressions, saves, and where it ranks compared to similar listings. Use these numbers to figure out if your price is competitive and whether you need better photos or a stronger description." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">6</span>
+                                {% trans "Communicating with buyers" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "Buyers can message you directly through the platform — no need to share your phone number publicly. Reply quickly: fast responses build trust and sell vehicles faster. Use the in-app conversation system to keep records of negotiations." %}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="inline-flex items-center justify-center w-6 h-6 bg-red-100 text-red-700 rounded-full text-xs font-bold">7</span>
+                                {% trans "When you sell — mark it sold" %}
+                            </h3>
+                            <p class="text-sm text-gray-700 leading-relaxed pl-8">
+                                {% trans "When the deal closes, mark the listing as sold from the 'My Listings' page. Buyers who saved the listing will be notified automatically, and the sale gets recorded in your seller history." %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div x-show="activeTab === 'faq'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="far fa-question-circle text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Frequently Asked Questions" %}</h2>
+                    </div>
+                    <div class="space-y-2" x-data="{ openFaq: null }">
+                        <div class="border border-gray-200 rounded">
+                            <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-gray-50">
+                                <span class="text-sm font-semibold text-gray-900">{% trans "How do I create an ad?" %}</span>
+                                <i class="fas text-xs text-gray-400" :class="openFaq === 1 ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                            </button>
+                            <div x-show="openFaq === 1" x-collapse class="px-4 pb-3 text-sm text-gray-600 border-t border-gray-100">
+                                <p class="pt-3">{% trans "Click the 'Create Ad' button in the top right corner, select a category, fill in the details, upload photos, and publish your listing. The process takes about 5 minutes." %}</p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded">
+                            <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-gray-50">
+                                <span class="text-sm font-semibold text-gray-900">{% trans "How to become a dealer?" %}</span>
+                                <i class="fas text-xs text-gray-400" :class="openFaq === 2 ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                            </button>
+                            <div x-show="openFaq === 2" x-collapse class="px-4 pb-3 text-sm text-gray-600 border-t border-gray-100">
+                                <p class="pt-3">{% trans "Visit the 'Become a Dealer' page, subscribe for $100/month, and fill in your business profile. You'll get a verified dealer badge, public dealer page, and ability to list up to 30 vehicles." %}</p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded">
+                            <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-gray-50">
+                                <span class="text-sm font-semibold text-gray-900">{% trans "Is my data safe?" %}</span>
+                                <i class="fas text-xs text-gray-400" :class="openFaq === 3 ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                            </button>
+                            <div x-show="openFaq === 3" x-collapse class="px-4 pb-3 text-sm text-gray-600 border-t border-gray-100">
+                                <p class="pt-3">{% trans "Yes. We use industry-standard encryption to protect your personal information. See our Privacy Policy for details." %}</p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded">
+                            <button @click="openFaq = openFaq === 4 ? null : 4" class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-gray-50">
+                                <span class="text-sm font-semibold text-gray-900">{% trans "How do I delete my listing?" %}</span>
+                                <i class="fas text-xs text-gray-400" :class="openFaq === 4 ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                            </button>
+                            <div x-show="openFaq === 4" x-collapse class="px-4 pb-3 text-sm text-gray-600 border-t border-gray-100">
+                                <p class="pt-3">{% trans "Go to 'My Ads' in the user menu, find the listing, click the menu icon, and select 'Delete'. The listing will be permanently removed." %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div x-show="activeTab === 'contact'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="far fa-envelope text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Contact Us" %}</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-2">
+                        {% trans "Get in touch with our team — we usually reply within 24 hours." %}
+                    </p>
+                    <p class="text-xs text-gray-500 mb-6">
+                        🇺🇸 {% trans "United States based support — serving customers worldwide." %}
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'conversations:start_support' %}" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="fas fa-comments text-red-600 mb-2"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Private message support" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "Start a chat — fastest response" %}</div>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}?next={% url 'help_center' %}%23contact" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="fas fa-comments text-red-600 mb-2"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Private message support" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "Login to start a chat" %}</div>
+                        </a>
+                        {% endif %}
+
+                        <a href="mailto:helpautoinfo@gmail.com" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="far fa-envelope text-red-600 mb-2"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Email" %}</div>
+                            <div class="text-xs text-red-600 mt-1">helpautoinfo@gmail.com</div>
+                        </a>
+
+                        <div class="border border-gray-200 rounded p-4 md:col-span-2">
+                            <i class="far fa-clock text-gray-600 mb-2"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Working hours" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">Mon-Sun 8:00 - 22:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRICING -->
+            <div x-show="activeTab === 'pricing'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-tag text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Pricing" %}</h2>
+                    </div>
+
+                    <!-- FREE TIER highlight -->
+                    <div class="bg-green-50 border border-green-200 rounded p-4 mb-5">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-gift text-green-600 text-lg mt-0.5"></i>
+                            <div>
+                                <div class="font-bold text-gray-900 mb-1">{% trans "First 3 listings — FREE" %}</div>
+                                <p class="text-sm text-gray-700">
+                                    {% trans "Your first 3 listings are completely free, in any category. Renewals are free too. After 3 listings, paid plans apply for additional listings and renewals." %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2">{% trans "Private sellers — additional listings" %}</h3>
+                            <table class="w-full text-sm border border-gray-200">
+                                <tbody>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="px-3 py-2 text-gray-700">{% trans "First 3 listings" %}</td>
+                                        <td class="px-3 py-2 text-right font-semibold text-green-600">{% trans "FREE" %}</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="px-3 py-2 text-gray-700">{% trans "Basic — 30 days" %}</td>
+                                        <td class="px-3 py-2 text-right font-semibold">$5</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="px-3 py-2 text-gray-700">{% trans "Standard — 60 days" %}</td>
+                                        <td class="px-3 py-2 text-right font-semibold">$8</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 text-gray-700">{% trans "Recommended — 90 days" %}</td>
+                                        <td class="px-3 py-2 text-right font-semibold">$12</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-xs text-gray-500 mt-2">{% trans "Renewing a listing is free for the first 3 listings. After that, renewing costs the same as a fresh listing." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2">{% trans "Dealers" %}</h3>
+                            <div class="bg-red-50 border border-red-200 rounded p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-bold text-gray-900">{% trans "Dealer Subscription" %}</span>
+                                    <span class="text-xl font-bold text-red-600">$100<span class="text-sm text-gray-600">/month</span></span>
+                                </div>
+                                <ul class="text-sm text-gray-700 space-y-1 mb-3">
+                                    <li><i class="fas fa-check text-green-600 text-xs mr-1"></i> {% trans "Up to 30 active listings" %}</li>
+                                    <li><i class="fas fa-check text-green-600 text-xs mr-1"></i> {% trans "Verified Dealer badge" %}</li>
+                                    <li><i class="fas fa-check text-green-600 text-xs mr-1"></i> {% trans "Public dealer page" %}</li>
+                                    <li><i class="fas fa-check text-green-600 text-xs mr-1"></i> {% trans "Priority support" %}</li>
+                                </ul>
+                                <a href="{% url 'accounts:become_dealer' %}" class="inline-block px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded">{% trans "Become a Dealer" %}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADVERTISING -->
+            <div x-show="activeTab === 'advertise'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-bullhorn text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Advertising" %}</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-5">
+                        {% trans "Reach thousands of car buyers and sellers across Europe and the United States. Contact us to discuss advertising opportunities on SellCar — banners, sponsored placements, or partnership campaigns." %}
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <a href="mailto:romasm3@gmail.com?subject=Advertising%20Inquiry" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="far fa-envelope text-red-600 mb-2 text-lg"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Email" %}</div>
+                            <div class="text-xs text-red-600 mt-1 break-all">romasm3@gmail.com</div>
+                        </a>
+
+                        <a href="https://wa.me/37067112478?text=Hi%2C%20I'm%20interested%20in%20advertising%20on%20SellCar" target="_blank" rel="noopener" class="border border-gray-200 hover:border-green-300 hover:bg-green-50 rounded p-4 transition-colors">
+                            <i class="fab fa-whatsapp text-green-600 mb-2 text-lg"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "WhatsApp" %}</div>
+                            <div class="text-xs text-green-700 mt-1">+370 671 12478</div>
+                        </a>
+
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'conversations:start_support' %}" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="fas fa-comments text-red-600 mb-2 text-lg"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Live support" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "Chat with our team" %}</div>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}?next={% url 'help_center' %}%23advertise" class="border border-gray-200 hover:border-red-300 hover:bg-red-50 rounded p-4 transition-colors">
+                            <i class="fas fa-comments text-red-600 mb-2 text-lg"></i>
+                            <div class="font-semibold text-gray-900 text-sm">{% trans "Live support" %}</div>
+                            <div class="text-xs text-gray-600 mt-1">{% trans "Login to chat" %}</div>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT US -->
+            <div x-show="activeTab === 'about'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-info-circle text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "About Us" %}</h2>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                        {% trans "Thousands of clients use SellCar every day to browse, buy, and sell vehicles directly — without middlemen, without dealer markups, without hidden fees." %}
+                    </p>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                        {% trans "We're not a dealership. We don't buy or sell cars. We're a marketplace — a platform where private sellers and verified dealers meet real buyers. The deal happens between you and the other party, exactly as it should." %}
+                    </p>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                        {% trans "What we do is help you get noticed. We promote listings through targeted ads, video content, and social media campaigns — bringing more eyes to the right vehicles, so sales happen faster and at fair prices for everyone involved." %}
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-3 mt-6 pt-6 border-t border-gray-100">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-600">10,000+</div>
+                            <div class="text-xs text-gray-500 uppercase mt-1">{% trans "Active users" %}</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-600">5,000+</div>
+                            <div class="text-xs text-gray-500 uppercase mt-1">{% trans "Vehicles listed" %}</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-red-600">0%</div>
+                            <div class="text-xs text-gray-500 uppercase mt-1">{% trans "Middleman fees" %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERMS -->
+            <div x-show="activeTab === 'terms'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-file-contract text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Terms of Use" %}</h2>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mb-5">{% trans "Last updated: May 13, 2026" %}</p>
+
+                    <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "1. Acceptance of Terms" %}</h3>
+                            <p>{% trans "By accessing or using SellCar, you agree to these Terms of Use. If you don't agree, please don't use the platform." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "2. What SellCar Is" %}</h3>
+                            <p>{% trans "SellCar is an online marketplace that connects buyers and sellers of vehicles. We don't own, sell, inspect, or warrant any vehicle listed on the platform. All transactions happen directly between users." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "3. User Accounts" %}</h3>
+                            <p>{% trans "To create listings or contact sellers, you must register an account. You are responsible for keeping your password secure and for all activity under your account. Provide accurate information — fake accounts will be removed." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "4. Listings Content" %}</h3>
+                            <p>{% trans "You are fully responsible for the content you post: photos, descriptions, prices, and vehicle data. Listings must be accurate, legal, and your own. Don't post stolen vehicles, vehicles you don't have the right to sell, or fraudulent listings. SellCar reserves the right to remove any listing without notice." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "5. Transactions Between Users" %}</h3>
+                            <p>{% trans "SellCar is not a party to any transaction between buyers and sellers. We don't handle payments, deliveries, inspections, or disputes. Always verify the vehicle in person before paying. Use safe payment methods and meet in safe public locations." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "6. Fees and Payments" %}</h3>
+                            <p>{% trans "The first 3 listings per user are free. Additional listings, premium plans, and dealer subscriptions are paid. All fees are non-refundable except where required by law. See the Pricing page for current rates." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "7. Prohibited Activities" %}</h3>
+                            <p>{% trans "You may not: post duplicate listings, spam other users, harass anyone, scrape data from the site, attempt to manipulate search rankings, post illegal or fraudulent content, or use bots to interact with the platform. Violations may result in account suspension." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "8. Disclaimer of Warranties" %}</h3>
+                            <p>{% trans "SellCar is provided 'as is' without warranties of any kind. We don't guarantee that listings are accurate, that transactions will be successful, or that the service will be uninterrupted." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "9. Limitation of Liability" %}</h3>
+                            <p>{% trans "To the maximum extent allowed by law, SellCar is not liable for any damages arising from your use of the platform or from transactions between users." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "10. Termination" %}</h3>
+                            <p>{% trans "We reserve the right to suspend or terminate accounts that violate these Terms. You may delete your account at any time from your account settings." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "11. Changes to Terms" %}</h3>
+                            <p>{% trans "We may update these Terms occasionally. Significant changes will be announced on the site. Continued use after changes means you accept the updated Terms." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "12. Contact" %}</h3>
+                            <p>{% trans "Questions about these Terms? Email us at helpautoinfo@gmail.com." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRIVACY -->
+            <div x-show="activeTab === 'privacy'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-shield-alt text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Privacy Policy" %}</h2>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mb-5">{% trans "Last updated: May 13, 2026" %}</p>
+
+                    <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "1. What We Collect" %}</h3>
+                            <p>{% trans "When you use SellCar, we collect: your email and name (for your account), your phone number (if you choose to share it on listings), photos and descriptions you upload, your IP address and browser type, and pages you visit on our site." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "2. How We Use Your Data" %}</h3>
+                            <p>{% trans "We use your data to: operate the marketplace (show your listings, deliver messages), send important account emails, improve the platform, prevent fraud and abuse, and (with your consent) send marketing emails. We don't sell your personal data to third parties." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "3. What's Public" %}</h3>
+                            <p>{% trans "Your listings, including photos and descriptions, are public. Your name or username, city, and (if enabled) phone number are visible to other users. Your email is not shown publicly unless you choose to display it." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "4. Cookies and Tracking" %}</h3>
+                            <p>{% trans "We use cookies to keep you logged in, remember your language and search preferences, and analyze how the site is used. See the Cookie Policy for full details." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "5. Third-Party Services" %}</h3>
+                            <p>{% trans "We use trusted third-party services for payments (Stripe), email delivery, and analytics. These providers handle data securely under their own privacy policies. We also embed Google Maps on listing pages." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "6. Your Rights (GDPR)" %}</h3>
+                            <p>{% trans "If you're in the EU, you have the right to: access the data we hold about you, correct inaccurate data, delete your account and data, export your data, and withdraw marketing consent. Contact us to use these rights." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "7. Data Retention" %}</h3>
+                            <p>{% trans "We keep your data while your account is active. If you delete your account, we remove personal data within 30 days, except where we need to keep it for legal reasons (tax records, fraud prevention)." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "8. Security" %}</h3>
+                            <p>{% trans "We use industry-standard encryption (HTTPS) and secure password hashing. No system is 100% secure — please use a strong unique password and don't share your account." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "9. Children" %}</h3>
+                            <p>{% trans "SellCar is not intended for users under 18. We don't knowingly collect data from minors." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "10. Changes" %}</h3>
+                            <p>{% trans "We may update this Privacy Policy. Important changes will be announced on the site." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "11. Contact" %}</h3>
+                            <p>{% trans "Questions about your privacy or data? Email us at helpautoinfo@gmail.com." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COOKIES -->
+            <div x-show="activeTab === 'cookies'" x-transition>
+                <div class="bg-white border border-gray-300 rounded p-6">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                        <i class="fas fa-cookie-bite text-red-600"></i>
+                        <h2 class="text-xl font-bold text-gray-900">{% trans "Cookie Policy" %}</h2>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mb-5">{% trans "Last updated: May 13, 2026" %}</p>
+
+                    <div class="space-y-4 text-sm text-gray-700 leading-relaxed">
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "What are cookies?" %}</h3>
+                            <p>{% trans "Cookies are small text files that websites store on your device to remember things — like that you're logged in, what language you prefer, or which listings you've viewed." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Cookies we use" %}</h3>
+
+                            <div class="mt-3 border border-gray-200 rounded overflow-hidden">
+                                <table class="w-full text-xs">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="text-left px-3 py-2 font-semibold">{% trans "Type" %}</th>
+                                            <th class="text-left px-3 py-2 font-semibold">{% trans "Purpose" %}</th>
+                                            <th class="text-left px-3 py-2 font-semibold">{% trans "Required?" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-t border-gray-200">
+                                            <td class="px-3 py-2 font-medium">{% trans "Essential" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "Login session, security, CSRF protection" %}</td>
+                                            <td class="px-3 py-2 text-green-700">{% trans "Yes" %}</td>
+                                        </tr>
+                                        <tr class="border-t border-gray-200">
+                                            <td class="px-3 py-2 font-medium">{% trans "Preferences" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "Language, currency, recent searches" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "No" %}</td>
+                                        </tr>
+                                        <tr class="border-t border-gray-200">
+                                            <td class="px-3 py-2 font-medium">{% trans "Analytics" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "Anonymous usage statistics (page views, errors)" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "No" %}</td>
+                                        </tr>
+                                        <tr class="border-t border-gray-200">
+                                            <td class="px-3 py-2 font-medium">{% trans "Third-party" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "Stripe (payments), Google Maps (location)" %}</td>
+                                            <td class="px-3 py-2 text-gray-600">{% trans "Optional" %}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "How long cookies last" %}</h3>
+                            <p>{% trans "Session cookies are deleted when you close your browser. Persistent cookies (like login remembering) last up to 1 year. You can clear cookies any time from your browser settings." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Managing cookies" %}</h3>
+                            <p>{% trans "You can disable cookies in your browser settings — but if you disable essential cookies, SellCar may not work properly. You won't be able to log in, post listings, or save preferences." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Do Not Track" %}</h3>
+                            <p>{% trans "We honor 'Do Not Track' signals where technically feasible. Non-essential analytics cookies will not be set if your browser sends this signal." %}</p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-1">{% trans "Questions?" %}</h3>
+                            <p>{% trans "Email us at helpautoinfo@gmail.com." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

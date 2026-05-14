@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Frequently Asked Questions" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-12">
+
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-900 mb-3">{% trans "Frequently asked questions" %}</h1>
+        <p class="text-gray-600">{% trans "Find answers to common questions about using SellCar." %}</p>
+    </div>
+
+    <div class="space-y-3" x-data="{ open: null }">
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I create a listing?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 1 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 1" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Click the red 'Create Ad' button at the top of any page. Choose a category (Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set your price, and publish. The listing will be live within 5-10 minutes." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 2 ? null : 2" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I edit or delete my listing?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 2 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 2" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Go to 'My Listings' from the user menu. Click any listing to view it, then use the Edit or Delete buttons. Edits are reflected immediately." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 3 ? null : 3" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How long is my listing active?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 3 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 3" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Listings are active for 30 days. You can renew them anytime. After expiration, listings are kept in your account for 160 days before being automatically deleted." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 4 ? null : 4" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I contact a seller?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 4 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 4" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Open any listing and use the 'Send Message' or 'Send Email' buttons. The seller's phone number is shown if they have enabled it." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 5 ? null : 5" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How does the wallet work?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 5 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 5" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Your wallet stores credits used for boosting listings, featured ads, and cross-posting. Top up with $20, $100, $500 (with bonus credits) or any custom amount. 1 EUR = 1 credit." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 6 ? null : 6" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I become a dealer?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 6 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 6" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, or Enterprise) and subscribe. You'll get unlimited listings, a branded dealer page, custom logo, and featured placement." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 7 ? null : 7" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I change my password?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 7 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 7" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Go to Settings, then click 'Change Password'. Enter your current password and the new one. If you forgot your password, use 'Forgot password?' on the login page." %}
+            </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <button @click="open = open === 8 ? null : 8" class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900">{% trans "How do I delete my account?" %}</span>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform" :class="open === 8 ? 'rotate-180' : ''"></i>
+            </button>
+            <div x-show="open === 8" x-cloak class="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                {% trans "Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll need to enter your password to confirm. This action is permanent and cannot be undone." %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mt-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4 text-center">{% trans "Still need help?" %}</h2>
+        <a href="mailto:helpautoinfo@gmail.com" class="group flex items-center gap-4 p-5 rounded-2xl transition-all max-w-md mx-auto" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); box-shadow: 0 8px 20px -5px rgba(239,68,68,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px -5px rgba(239,68,68,0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 20px -5px rgba(239,68,68,0.3)';">
+            <div class="w-12 h-12 rounded-xl bg-white bg-opacity-20 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-envelope text-white text-xl"></i>
+            </div>
+            <div class="flex-1 min-w-0 text-white">
+                <div class="text-xs opacity-90 mb-0.5 font-medium">{% trans "Email our support team" %}</div>
+                <div class="font-bold text-base" style="word-break: break-all;">helpautoinfo@gmail.com</div>
+            </div>
+            <i class="fas fa-arrow-right text-white opacity-90 group-hover:translate-x-1 transition-transform flex-shrink-0"></i>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

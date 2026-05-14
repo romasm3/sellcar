@@ -1,0 +1,1 @@
+{{ seller_name }} replied to your inquiry

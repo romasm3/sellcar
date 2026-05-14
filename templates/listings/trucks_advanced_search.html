@@ -1,0 +1,920 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Advanced Truck Search" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ─── Filter card ─── */
+.filter-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+.filter-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+    background: #f9fafb;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s;
+}
+.filter-card-header:hover { background: #f3f4f6; }
+.filter-card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.filter-card-title .icon { color: #0891b2; font-size: 0.95rem; }
+.filter-card-toggle { color: #9ca3af; transition: transform 0.2s; }
+.filter-card.collapsed .filter-card-toggle { transform: rotate(-90deg); }
+.filter-card.collapsed .filter-card-body { display: none; }
+.filter-card-body { padding: 1rem 1.25rem; }
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem 1rem;
+}
+@media (max-width: 1024px) { .filter-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .filter-grid { grid-template-columns: 1fr; } }
+
+.filter-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+.filter-input,
+.filter-select {
+    width: 100%;
+    padding: 0.5rem 0.625rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: #fff;
+    color: #111827;
+    transition: border-color 0.15s;
+}
+.filter-input:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.1);
+}
+
+.range-row { display: flex; gap: 0.5rem; align-items: center; }
+.range-row > * { flex: 1; min-width: 0; }
+.range-sep { flex: 0 0 auto; color: #9ca3af; font-size: 0.85rem; padding: 0 0.25rem; }
+
+/* ─── Brand-Model pair chips ─── */
+.pair-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    background: #ecfeff;
+    border: 1px solid #67e8f9;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    color: #0e7490;
+    margin: 0 0.4rem 0.4rem 0;
+}
+.pair-chip-remove {
+    background: none;
+    border: none;
+    color: #0e7490;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.2rem;
+    font-size: 0.85rem;
+    line-height: 1;
+    opacity: 0.7;
+}
+.pair-chip-remove:hover { opacity: 1; }
+.add-pair-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: #fff;
+    border: 1px dashed #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.add-pair-btn:hover { border-color: #0891b2; color: #0891b2; background: #ecfeff; }
+
+/* ─── Equipment checkboxes ─── */
+.equipment-category {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+.equipment-category:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.equipment-cat-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 0.75rem;
+}
+@media (max-width: 768px) { .equipment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .equipment-grid { grid-template-columns: 1fr; } }
+.equipment-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.equipment-row:hover { background: #f9fafb; }
+.equipment-row input { accent-color: #0891b2; width: 14px; height: 14px; flex-shrink: 0; }
+.equipment-row span { font-size: 0.825rem; color: #374151; }
+
+/* ─── Multi-select checkbox grid (truck_type, body_type, etc.) ─── */
+.multiselect-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 0.75rem;
+}
+@media (max-width: 768px) { .multiselect-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .multiselect-grid { grid-template-columns: 1fr; } }
+
+/* ─── Subcategory pills ─── */
+.subcat-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1rem; }
+.subcat-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#fff; border:1px solid #e5e7eb; border-radius:999px; font-size:0.85rem; color:#374151; cursor:pointer; transition:all 0.15s; text-decoration:none; }
+.subcat-pill:hover { background:#f9fafb; border-color:#d1d5db; color:#111827; }
+.subcat-pill.active { background:#0891b2; border-color:#0891b2; color:#fff; font-weight:600; }
+.subcat-pill .pill-count { font-size:0.7rem; opacity:0.8; padding:0 5px; background:rgba(0,0,0,0.06); border-radius:10px; }
+.subcat-pill.active .pill-count { background:rgba(255,255,255,0.2); opacity:1; }
+
+/* ─── Sticky bottom action bar ─── */
+.action-bar {
+    position: sticky;
+    bottom: 1rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    z-index: 20;
+    margin-top: 1rem;
+}
+.action-bar .left { color: #6b7280; font-size: 0.875rem; }
+.action-bar .left strong { color: #0891b2; font-size: 1.05rem; font-weight: 700; }
+.action-bar .actions { display: flex; gap: 0.5rem; }
+.btn-clear {
+    padding: 0.55rem 1rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn-clear:hover { background: #f9fafb; color: #111827; }
+.btn-search {
+    padding: 0.55rem 1.5rem;
+    background: linear-gradient(to right, #0891b2, #0e7490);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.15s;
+}
+.btn-search:hover { box-shadow: 0 6px 14px rgba(8, 145, 178, 0.35); transform: translateY(-1px); }
+
+/* ─── Listing card styles (cloned from listing_list.html) ─── */
+.card-badge-group { display:inline-flex; align-items:stretch; border-radius:5px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-badge-new { display:inline-flex; align-items:center; padding:2px 7px; background:#10b981; color:#fff; font-size:0.62rem; font-weight:700; }
+.card-badge-time { display:inline-flex; align-items:center; padding:2px 7px; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); color:#fff; font-size:0.62rem; font-weight:600; }
+.card-bottom-left { position:absolute; bottom:8px; left:8px; max-width:calc(100% - 16px); display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:3px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,0.2); }
+.mini-2star { background:#fff; color:#d97706; border:1px solid #f59e0b; }
+.mini-1star { background:#fff; color:#6366f1; border:1px solid #6366f1; }
+.card-truck-type-badge { display:inline-flex; align-items:center; padding:2px 7px; background:#0891b2; color:#fff; font-size:0.62rem; font-weight:700; border-radius:3px; box-shadow:0 1px 2px rgba(0,0,0,0.2); }
+.sold-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:5; }
+.sold-badge-big { padding:5px 16px; background:#16a34a; color:#fff; font-size:0.85rem; font-weight:800; letter-spacing:0.08em; border-radius:5px; box-shadow:0 4px 12px rgba(0,0,0,0.3); transform:rotate(-8deg); }
+.sold-card { opacity:0.85; }
+
+.ap-title { font-weight:700; color:#111827; font-size:0.82rem; line-height:1.2; flex:1; min-width:0; word-wrap:break-word; }
+.ap-price { font-size:0.95rem; font-weight:800; color:#111827; line-height:1; white-space:nowrap; flex-shrink:0; }
+.ap-title-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+.ap-spec-line { display:flex; align-items:center; flex-wrap:wrap; gap:0; color:#6b7280; font-size:0.72rem; line-height:1.4; }
+.ap-spec-line .sep { margin:0 4px; color:#d1d5db; }
+.ap-loc { display:inline-flex; align-items:center; gap:4px; color:#10b981; font-weight:600; font-size:0.72rem; }
+.ap-loc i { font-size:0.7rem; }
+
+.gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: rgba(255,255,255,0.92); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); color: #374151; font-size: 0.75rem; z-index: 6; opacity: 0; transition: opacity 0.15s, background 0.15s; }
+.listing-card:hover .gallery-arrow { opacity: 1; }
+.gallery-arrow:hover { background: #fff; }
+.gallery-arrow.left { left: 8px; }
+.gallery-arrow.right { right: 8px; }
+.gallery-dots { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; z-index: 6; pointer-events: none; }
+.gallery-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.55); box-shadow: 0 0 2px rgba(0,0,0,0.4); transition: background 0.15s; }
+.gallery-dot.active { background: #fff; }
+.gallery-counter { position: absolute; top: 8px; right: 8px; padding: 2px 7px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.65rem; font-weight: 600; border-radius: 4px; z-index: 6; }
+
+[x-cloak] { display: none !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 py-6">
+
+        {# ═══ Page header ═══ #}
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class="fas fa-sliders-h text-cyan-600"></i> {% trans "Advanced Truck Search" %}
+                </h1>
+                <p class="text-gray-500 text-sm mt-1">{% trans "Refine your search with detailed filters" %}</p>
+            </div>
+            <a href="/?category=trucks" class="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 inline-flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> {% trans "Back to listings" %}
+            </a>
+        </div>
+
+        {# ═══ Subcategory pills ═══ #}
+        <div class="subcat-pills">
+            <a href="?category=trucks" class="subcat-pill {% if not f.subcategory %}active{% endif %}">
+                <span>{% trans "All" %}</span>
+                <span class="pill-count">{{ total_count }}</span>
+            </a>
+            {% for sc in subcategories %}
+            <a href="?category=trucks&subcategory={{ sc.slug }}"
+               class="subcat-pill {% if selected_subcategory == sc.slug %}active{% endif %}">
+                <span>{{ sc.icon }} {{ sc.name }}</span>
+                {% if sc.count %}<span class="pill-count">{{ sc.count }}</span>{% endif %}
+            </a>
+            {% endfor %}
+        </div>
+
+        <form method="get" id="advForm">
+            <input type="hidden" name="category" value="trucks">
+            {% if selected_subcategory %}<input type="hidden" name="subcategory" value="{{ selected_subcategory }}">{% endif %}
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
+
+                {# ════════════════════════════════════════════════ #}
+                {#  LEFT — Filters                                  #}
+                {# ════════════════════════════════════════════════ #}
+                <div>
+
+                    {# ─── Make & Model ─── #}
+                    <div class="filter-card" x-data="{ open: true }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-truck icon"></i> {% trans "Make & Model" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+
+                            {# Existing brand-model pairs (chips) #}
+                            <div id="pairsContainer" class="mb-3">
+                                {% for pair in f.pair %}
+                                {% with parts=pair|stringformat:"s" %}
+                                <span class="pair-chip" data-pair="{{ pair }}">
+                                    <span class="chip-text">{{ pair|cut:"|"|truncatechars:30 }}</span>
+                                    <button type="button" class="pair-chip-remove" onclick="removePair(this)">×</button>
+                                    <input type="hidden" name="pair" value="{{ pair }}">
+                                </span>
+                                {% endwith %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="filter-grid">
+                                <div>
+                                    <label class="filter-label">{% trans "Make" %}</label>
+                                    <select id="advBrand" class="filter-select" onchange="onAdvBrandChange()">
+                                        <option value="">— {% trans "Select Make" %} —</option>
+                                        {% for brand in brands %}
+                                        <option value="{{ brand.id }}" data-name="{{ brand.name }}">{{ brand.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Model" %}</label>
+                                    <select id="advModel" class="filter-select">
+                                        <option value="">— {% trans "Select Make first" %} —</option>
+                                    </select>
+                                </div>
+                                <div class="col-span-2 flex items-end">
+                                    <button type="button" class="add-pair-btn" onclick="addBrandModelPair()">
+                                        <i class="fas fa-plus"></i> {% trans "Add Make/Model combo" %}
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">
+                                {% blocktrans %}Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>.{% endblocktrans %}
+                            </p>
+                        </div>
+                    </div>
+
+                    {# ─── Year, Price, Mileage, Power, Engine ─── #}
+                    <div class="filter-card" x-data="{ open: true }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-calendar-alt icon"></i> {% trans "Year, Price & Performance" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+                            <div class="filter-grid">
+                                <div>
+                                    <label class="filter-label">{% trans "First registration" %}</label>
+                                    <div class="range-row">
+                                        <select name="year_min" class="filter-select">
+                                            <option value="">{% trans "From" %}</option>
+                                            {% for y in years %}<option value="{{ y }}" {% if f.year_min == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                                        </select>
+                                        <span class="range-sep">–</span>
+                                        <select name="year_max" class="filter-select">
+                                            <option value="">{% trans "To" %}</option>
+                                            {% for y in years %}<option value="{{ y }}" {% if f.year_max == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Price ($)" %}</label>
+                                    <div class="range-row">
+                                        <input type="number" name="price_min" placeholder="{% trans 'Min' %}" value="{{ f.price_min }}" class="filter-input">
+                                        <span class="range-sep">–</span>
+                                        <input type="number" name="price_max" placeholder="{% trans 'Max' %}" value="{{ f.price_max }}" class="filter-input">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Mileage (km)" %}</label>
+                                    <div class="range-row">
+                                        <input type="number" name="mileage_min" placeholder="{% trans 'Min' %}" value="{{ f.mileage_min }}" class="filter-input">
+                                        <span class="range-sep">–</span>
+                                        <input type="number" name="mileage_max" placeholder="{% trans 'Max' %}" value="{{ f.mileage_max }}" class="filter-input">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Power (kW)" %}</label>
+                                    <div class="range-row">
+                                        <input type="number" name="power_min" placeholder="{% trans 'Min' %}" value="{{ f.power_min }}" class="filter-input">
+                                        <span class="range-sep">–</span>
+                                        <input type="number" name="power_max" placeholder="{% trans 'Max' %}" value="{{ f.power_max }}" class="filter-input">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Engine size (L)" %}</label>
+                                    <div class="range-row">
+                                        <input type="number" step="0.1" name="engine_min" placeholder="{% trans 'Min' %}" value="{{ f.engine_min }}" class="filter-input">
+                                        <span class="range-sep">–</span>
+                                        <input type="number" step="0.1" name="engine_max" placeholder="{% trans 'Max' %}" value="{{ f.engine_max }}" class="filter-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ─── Truck specifics (Tipas, Drive, Euro, Fuel, Transmission) ─── #}
+                    <div class="filter-card" x-data="{ open: true }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-cogs icon"></i> {% trans "Truck specifics" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+
+                            {# Tipas (truck_type) — multi-select #}
+                            <div class="mb-4">
+                                <label class="filter-label">{% trans "Truck type" %}</label>
+                                <div class="multiselect-grid">
+                                    {% for choice in truck_type_choices_with_counts %}
+                                    <label class="equipment-row">
+                                        <input type="checkbox" name="truck_type" value="{{ choice.value }}"
+                                               {% if choice.value in selected_truck_types %}checked{% endif %}>
+                                        <span>{{ choice.label }}{% if choice.count %} <span class="text-gray-400">({{ choice.count }})</span>{% endif %}</span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="filter-grid">
+                                <div>
+                                    <label class="filter-label">{% trans "Fuel type" %}</label>
+                                    <select name="fuel_type" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for ft in fuel_types %}
+                                        <option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Transmission" %}</label>
+                                    <select name="transmission" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for tr in transmissions %}
+                                        <option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Drive type (axle)" %}</label>
+                                    <select name="drive_type" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in drive_type_choices %}
+                                        <option value="{{ value }}" {% if f.drive_type == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Euro standard" %}</label>
+                                    <select name="euro_standard" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in euro_standard_choices %}
+                                        <option value="{{ value }}" {% if f.euro_standard == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Steering" %}</label>
+                                    <select name="steering" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in steering_choices %}
+                                        <option value="{{ value }}" {% if f.steering == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ─── Condition, Color, Defects ─── #}
+                    <div class="filter-card" x-data="{ open: false }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-paint-brush icon"></i> {% trans "Condition & Appearance" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+                            <div class="filter-grid">
+                                <div>
+                                    <label class="filter-label">{% trans "Condition" %}</label>
+                                    <select name="condition" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in condition_choices %}
+                                        <option value="{{ value }}" {% if f.condition == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Color" %}</label>
+                                    <select name="color" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in color_choices %}
+                                        <option value="{{ value }}" {% if f.color == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="filter-label">{% trans "Defects" %}</label>
+                                    <select name="defects" class="filter-select">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in defect_choices %}
+                                        <option value="{{ value }}" {% if f.defects == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ─── Equipment ─── #}
+                    {% if equipment_by_category %}
+                    <div class="filter-card" x-data="{ open: false }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-list-check icon"></i> {% trans "Equipment & Features" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+                            {% for cat_key, cat_label, items in equipment_by_category %}
+                            <div class="equipment-category">
+                                <div class="equipment-cat-title">{{ cat_label }}</div>
+                                <div class="equipment-grid">
+                                    {% for item in items %}
+                                    <label class="equipment-row">
+                                        <input type="checkbox" name="equipment" value="{{ item.id }}"
+                                               {% if item.id|stringformat:'s' in selected_equipment %}checked{% endif %}>
+                                        <span>{{ item.name }}</span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# ─── Location ─── #}
+                    <div class="filter-card" x-data="{ open: false }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-map-marker-alt icon"></i> {% trans "Location" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+                            <div class="filter-grid">
+                                <div>
+                                    <label class="filter-label">{% trans "US State" %}</label>
+                                    <select name="state_filter" class="filter-select">
+                                        <option value="">{% trans "All states" %}</option>
+                                        {% for code, name in us_states %}
+                                        <option value="{{ code }}" {% if f.state_filter == code %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# ─── Search keyword ─── #}
+                    <div class="filter-card" x-data="{ open: false }" :class="{ 'collapsed': !open }">
+                        <div class="filter-card-header" @click="open = !open">
+                            <div class="filter-card-title"><i class="fas fa-search icon"></i> {% trans "Keyword search" %}</div>
+                            <i class="fas fa-chevron-down filter-card-toggle"></i>
+                        </div>
+                        <div class="filter-card-body">
+                            <input type="text" name="search" placeholder="{% trans 'Search by title or description...' %}"
+                                   value="{{ f.search }}" class="filter-input">
+                        </div>
+                    </div>
+
+                </div>
+
+                {# ════════════════════════════════════════════════ #}
+                {#  RIGHT — Results preview (sticky)                #}
+                {# ════════════════════════════════════════════════ #}
+                <div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-4 sticky top-20">
+                        <div class="text-center mb-4">
+                            <div class="text-3xl font-bold text-cyan-600">{{ total_count }}</div>
+                            <div class="text-sm text-gray-500">{% trans "listings match your filters" %}</div>
+                        </div>
+                        <button type="submit" class="btn-search w-full justify-center mb-2">
+                            <i class="fas fa-search"></i> {% blocktrans with count=total_count %}Show {{ count }} results{% endblocktrans %}
+                        </button>
+                        <a href="?category=trucks" class="btn-clear w-full justify-center">
+                            <i class="fas fa-undo"></i> {% trans "Clear all filters" %}
+                        </a>
+
+                        {% if user.is_authenticated %}
+                        <hr class="my-3 border-gray-100">
+                        <button type="button" onclick="saveAdvSearch(this)" id="saveAdvSearchBtn"
+                                class="w-full px-4 py-2 bg-white hover:bg-cyan-50 border border-gray-200 hover:border-cyan-400 text-gray-700 hover:text-cyan-700 text-sm font-medium rounded-lg flex items-center justify-center gap-2 transition-all">
+                            <i class="far fa-bell" id="saveAdvSearchIcon"></i>
+                            <span id="saveAdvSearchLabel">{% trans "Save this search" %}</span>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+            {# ─── Sticky bottom action bar ─── #}
+            <div class="action-bar">
+                <div class="left">{% blocktrans with count=total_count %}Found <strong>{{ count }}</strong> trucks matching your filters{% endblocktrans %}</div>
+                <div class="actions">
+                    <a href="?category=trucks" class="btn-clear">
+                        <i class="fas fa-undo"></i> {% trans "Clear" %}
+                    </a>
+                    <button type="submit" class="btn-search">
+                        <i class="fas fa-search"></i> {% trans "Show results" %}
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        {# ═══════════════════════════════════════════════════════════ #}
+        {#  RESULTS                                                    #}
+        {# ═══════════════════════════════════════════════════════════ #}
+        <div class="mt-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold text-gray-900">{% trans "Results" %} <span class="text-gray-400 font-normal">({{ total_count }})</span></h2>
+                <select class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
+                    <option>{% trans "Newest" %}</option>
+                    <option>{% trans "Price: Low to High" %}</option>
+                    <option>{% trans "Price: High to Low" %}</option>
+                    <option>{% trans "Mileage" %}</option>
+                </select>
+            </div>
+
+            {% if listings %}
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                {% for listing in listings %}
+                {% with eff_level=listing.get_effective_star_level %}
+                <div class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer listing-card {% if listing.status == 'sold' %}sold-card{% else %}hover:shadow-lg hover:border-cyan-500/20 hover:-translate-y-0.5{% endif %}"
+                     x-data="{ idx: 0, total: {{ listing.images.count }} }"
+                     data-created="{{ listing.created_at|date:'c' }}"
+                     {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>
+                    <div class="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                        {% if listing.images.count > 0 %}
+                            {% for img in listing.images.all|slice:":8" %}
+                            <img src="{{ img.image.url }}" alt="{{ listing.title }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 x-show="idx === {{ forloop.counter0 }}"
+                                 {% if not forloop.first %}style="display:none;"{% endif %}>
+                            {% endfor %}
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                                <i class="fas fa-truck text-3xl text-gray-300"></i>
+                            </div>
+                        {% endif %}
+
+                        {% if listing.images.count > 1 %}
+                        <button class="gallery-arrow left" @click.stop="idx = (idx - 1 + Math.min(total, 8)) % Math.min(total, 8)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="gallery-arrow right" @click.stop="idx = (idx + 1) % Math.min(total, 8)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="gallery-counter"><span x-text="idx + 1"></span>/<span x-text="Math.min(total, 8)"></span></div>
+                        <div class="gallery-dots">
+                            {% for img in listing.images.all|slice:":8" %}
+                            <span class="gallery-dot" :class="{ 'active': idx === {{ forloop.counter0 }} }"></span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {% if listing.status == 'sold' %}
+                        <div class="sold-overlay"><span class="sold-badge-big">{% trans "SOLD" %}</span></div>
+                        {% endif %}
+
+                        {% if listing.status != 'sold' %}
+                        {% if user.is_authenticated %}
+                        <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all hover:scale-110 z-10">
+                            <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-xs"></i>
+                        </button>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md hover:scale-110 z-10">
+                            <i class="far fa-heart text-gray-400 text-xs"></i>
+                        </a>
+                        {% endif %}
+                        {% endif %}
+
+                        {% if listing.is_truck and listing.truck_type %}
+                        <span class="card-truck-type-badge absolute top-2 right-2 z-10">
+                            🚛 {{ listing.get_truck_type_display }}
+                        </span>
+                        {% endif %}
+
+                        {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                        <div class="card-bottom-left">
+                            {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
+                            <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
+                                <span class="card-badge-new">{% trans "New" %}</span>
+                                <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                            </div>
+                            {% endif %}
+                            {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">⭐</span>{% endif %}
+                            {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">⭐⭐</span>{% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="p-2.5 flex flex-col gap-1">
+                        <div class="ap-title-row">
+                            <h3 class="ap-title group-hover:text-cyan-600 transition-colors truncate">{{ listing.title }}</h3>
+                            <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                        <div class="ap-spec-line">
+                            <span>{{ listing.year }}</span>
+                            {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                            <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                        </div>
+                        {% if listing.transmission or listing.engine_capacity or listing.power or listing.euro_standard %}
+                        <div class="ap-spec-line">
+                            {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                            {% if listing.engine_capacity or listing.power %}
+                                {% if listing.transmission %}<span class="sep">·</span>{% endif %}
+                                <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
+                            {% endif %}
+                            {% if listing.euro_standard %}
+                                {% if listing.transmission or listing.engine_capacity or listing.power %}<span class="sep">·</span>{% endif %}
+                                <span>{{ listing.get_euro_standard_display }}</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="ap-loc">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="truncate">{{ listing.city|default:_("Unknown") }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+                <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-truck text-4xl text-gray-300"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No trucks match your filters" %}</h3>
+                <p class="text-gray-500 mb-6">{% trans "Try removing some filters or adjusting the ranges." %}</p>
+                <a href="?category=trucks" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-all duration-200">
+                    <i class="fas fa-undo"></i> {% trans "Clear all filters" %}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ─── i18n strings ───
+var I18N = {
+    selectModel: "{% trans 'Select Model' %}",
+    selectMakeFirst: "{% trans 'Select Make first' %}",
+    selectMakeAlert: "{% trans 'Please select a Make first' %}",
+    searchSaved: "{% trans 'Search saved' %}",
+    saveFailedAlert: "{% trans 'Failed to save search. Please try again.' %}",
+    sAgo: "{% trans 's ago' %}",
+    minAgo: "{% trans 'min ago' %}",
+    hAgo: "{% trans 'h ago' %}",
+    dayAgo: "{% trans '1 day ago' %}",
+    daysAgoSuffix: "{% trans 'days ago' %}"
+};
+
+// ═══════════════════════════════════════════════════════════
+// BRAND-MODEL PAIR LOGIC
+// ═══════════════════════════════════════════════════════════
+
+function onAdvBrandChange() {
+    var brandSel = document.getElementById('advBrand');
+    var modelSel = document.getElementById('advModel');
+    if (!brandSel || !modelSel) return;
+
+    modelSel.innerHTML = '<option value="">— ' + I18N.selectModel + ' —</option>';
+    var brandId = brandSel.value;
+    if (!brandId) return;
+
+    fetch('/ajax/get-models/?brand_id=' + brandId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            data.forEach(function(m) {
+                if (m.type !== 'model') return;
+                var opt = document.createElement('option');
+                opt.value = m.model_id;
+                opt.dataset.name = m.name;
+                opt.textContent = m.name + ' (' + m.count + ')';
+                modelSel.appendChild(opt);
+            });
+        });
+}
+
+function addBrandModelPair() {
+    var brandSel = document.getElementById('advBrand');
+    var modelSel = document.getElementById('advModel');
+    if (!brandSel || !brandSel.value) {
+        alert(I18N.selectMakeAlert);
+        return;
+    }
+    var brandId = brandSel.value;
+    var brandName = brandSel.options[brandSel.selectedIndex].dataset.name || brandSel.options[brandSel.selectedIndex].textContent;
+    var modelId = modelSel.value || '';
+    var modelName = '';
+    if (modelId) {
+        var opt = modelSel.options[modelSel.selectedIndex];
+        modelName = opt.dataset.name || opt.textContent.split(' (')[0];
+    }
+
+    var pair = brandId + '|' + brandName + '|' + modelId + '|' + modelName;
+
+    // Avoid duplicates
+    var existing = document.querySelectorAll('#pairsContainer .pair-chip');
+    for (var i = 0; i < existing.length; i++) {
+        if (existing[i].dataset.pair === pair) {
+            return;
+        }
+    }
+
+    var label = brandName + (modelName ? ' ' + modelName : '');
+    var chip = document.createElement('span');
+    chip.className = 'pair-chip';
+    chip.dataset.pair = pair;
+    chip.innerHTML =
+        '<span class="chip-text">' + label + '</span>' +
+        '<button type="button" class="pair-chip-remove" onclick="removePair(this)">×</button>' +
+        '<input type="hidden" name="pair" value="' + pair.replace(/"/g, '&quot;') + '">';
+    document.getElementById('pairsContainer').appendChild(chip);
+
+    // Reset selectors
+    brandSel.value = '';
+    modelSel.innerHTML = '<option value="">— ' + I18N.selectMakeFirst + ' —</option>';
+}
+
+function removePair(btn) {
+    var chip = btn.closest('.pair-chip');
+    if (chip) chip.remove();
+}
+
+// ═══════════════════════════════════════════════════════════
+// SAVE SEARCH
+// ═══════════════════════════════════════════════════════════
+
+function saveAdvSearch(btn) {
+    var form = document.getElementById('advForm');
+    var formData = new FormData(form);
+    fetch('/search/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: formData
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() {
+        btn.classList.remove('bg-white', 'hover:bg-cyan-50', 'border-gray-200', 'text-gray-700');
+        btn.classList.add('bg-cyan-50', 'border-cyan-400', 'text-cyan-700');
+        document.getElementById('saveAdvSearchIcon').className = 'fas fa-bell';
+        document.getElementById('saveAdvSearchLabel').textContent = I18N.searchSaved;
+    })
+    .catch(function() {
+        alert(I18N.saveFailedAlert);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// CARD INTERACTIONS (toggle save, time ago)
+// ═══════════════════════════════════════════════════════════
+
+function toggleSave(btn, listingId) {
+    var icon = btn.querySelector('i');
+    fetch('/' + listingId + '/save/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        icon.className = data.saved ? 'fas fa-heart text-red-500 text-xs' : 'far fa-heart text-gray-400 text-xs';
+    });
+}
+
+function formatTimeAgo(isoString) {
+    if (!isoString) return '';
+    var created = new Date(isoString);
+    if (isNaN(created.getTime())) return '';
+    var now = new Date();
+    var diffSec = Math.floor((now - created) / 1000);
+    if (diffSec < 60) return Math.max(1, diffSec) + I18N.sAgo;
+    var diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return diffMin + I18N.minAgo;
+    var diffH = Math.floor(diffMin / 60);
+    if (diffH < 24) return diffH + I18N.hAgo;
+    var diffD = Math.floor(diffH / 24);
+    if (diffD === 1) return I18N.dayAgo;
+    return diffD + ' ' + I18N.daysAgoSuffix;
+}
+
+function refreshTimeAgo() {
+    document.querySelectorAll('.time-ago').forEach(function(el) {
+        var iso = el.dataset.created;
+        var txtEl = el.querySelector('.time-ago-text');
+        if (txtEl) txtEl.textContent = formatTimeAgo(iso);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    refreshTimeAgo();
+    setInterval(refreshTimeAgo, 60000);
+});
+</script>
+{% endblock %}

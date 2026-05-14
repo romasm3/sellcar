@@ -1,0 +1,1602 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if is_edit_mode %}
+        <a href="{% url 'listing_edit_hub' edit_listing_id %}"
+           class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Back to listing edit" %}</span>
+        </a>
+        {% endif %}
+
+        {# ═══ HEADER ═══ #}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
+            <h2 class="text-xl font-bold text-gray-900">
+                {% if is_edit_mode %}
+                    {% blocktrans with brand=listing.brand.name model=listing.model.name %}Edit listing: {{ brand }} {{ model }}{% endblocktrans %}
+                {% else %}
+                    {% trans "New listing: Cars" %}
+                {% endif %}
+            </h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" id="quickForm"
+              action="{% if is_edit_mode %}{% url 'listing_create_cars_quick' %}?edit={{ edit_listing_id }}{% else %}{% url 'listing_create_cars_quick' %}{% endif %}">
+            {% csrf_token %}
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: MAIN LISTING DATA                                  #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Main listing data" %}</h3>
+                </div>
+
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div data-field-wrap="brand" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Brand" %} <span class="text-red-500">*</span></label>
+                            <div class="relative" id="brandWrapper2">
+                                <input type="text" id="brandSearch2" placeholder="---------" autocomplete="off"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm cursor-pointer"
+                                       value="{{ step1_brand|default:'' }}"
+                                       onfocus="openBrandDropdown2()" oninput="filterBrands2(this.value)"
+                                       {% if is_edit_mode %}disabled{% endif %}>
+                                <div id="brandDropdown2" class="hidden absolute z-50 w-full bg-white border border-gray-200 rounded shadow-lg mt-1 max-h-60 overflow-y-auto">
+                                    <div class="px-3 py-2 cursor-pointer hover:bg-gray-50 text-sm text-gray-500" onclick="chooseBrand2('', '')">{% trans "-- Select brand --" %}</div>
+                                    {% for brand in brands %}
+                                    <div class="px-3 py-2 cursor-pointer hover:bg-gray-50 text-sm brand-option2"
+                                         data-id="{{ brand.id }}" data-name="{{ brand.name }}"
+                                         onclick="chooseBrand2('{{ brand.id }}', '{{ brand.name }}')">{{ brand.name }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <input type="hidden" name="brand" id="id_brand" value="{{ listing_data.step1.brand|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="model" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %} <span class="text-red-500">*</span></label>
+                            <select name="model" id="id_model" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
+                                <option value="">---------</option>
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="year" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Year" %} <span class="text-red-500">*</span></label>
+                            <select name="year" id="id_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
+                                <option value="">---------</option>
+                                {% for year in years %}
+                                <option value="{{ year }}" {% if listing_data.step1.year == year %}selected{% endif %}>{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="month" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Month" %} <span class="text-red-500">*</span></label>
+                            <select name="month" id="id_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
+                                <option value="">--</option>
+                                <option value="1" {% if listing_data.step1.first_registration_month == 1 %}selected{% endif %}>01</option>
+                                <option value="2" {% if listing_data.step1.first_registration_month == 2 %}selected{% endif %}>02</option>
+                                <option value="3" {% if listing_data.step1.first_registration_month == 3 %}selected{% endif %}>03</option>
+                                <option value="4" {% if listing_data.step1.first_registration_month == 4 %}selected{% endif %}>04</option>
+                                <option value="5" {% if listing_data.step1.first_registration_month == 5 %}selected{% endif %}>05</option>
+                                <option value="6" {% if listing_data.step1.first_registration_month == 6 %}selected{% endif %}>06</option>
+                                <option value="7" {% if listing_data.step1.first_registration_month == 7 %}selected{% endif %}>07</option>
+                                <option value="8" {% if listing_data.step1.first_registration_month == 8 %}selected{% endif %}>08</option>
+                                <option value="9" {% if listing_data.step1.first_registration_month == 9 %}selected{% endif %}>09</option>
+                                <option value="10" {% if listing_data.step1.first_registration_month == 10 %}selected{% endif %}>10</option>
+                                <option value="11" {% if listing_data.step1.first_registration_month == 11 %}selected{% endif %}>11</option>
+                                <option value="12" {% if listing_data.step1.first_registration_month == 12 %}selected{% endif %}>12</option>
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="fuel_type" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel type" %} <span class="text-red-500">*</span></label>
+                            <select id="id_fuel_type_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncFuelType(this.value)">
+                                <option value="">---------</option>
+                                {% for ft in form.fuel_type.field.queryset %}
+                                <option value="{{ ft.pk }}" {% if listing_data.step3_partial.fuel_type == ft.pk|stringformat:"s" %}selected{% endif %}>{{ ft.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="fuel_type" id="fuel_type_input" value="{{ listing_data.step3_partial.fuel_type|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="body_type" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Body type" %} <span class="text-red-500">*</span></label>
+                            <select id="id_body_type_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncBodyType(this.value)">
+                                <option value="">---------</option>
+                                {% for value, label in form.body_type.field.choices %}{% if value %}
+                                <option value="{{ value }}" {% if listing_data.step3_partial.body_type == value %}selected{% endif %}>{{ label }}</option>
+                                {% endif %}{% endfor %}
+                            </select>
+                            <input type="hidden" name="body_type" id="body_type_input" value="{{ listing_data.step3_partial.body_type|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="transmission" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Transmission" %} <span class="text-red-500">*</span></label>
+                            <select id="id_transmission_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncTransmission(this.value)">
+                                <option value="">---------</option>
+                                {% for tr in form.transmission.field.queryset %}
+                                <option value="{{ tr.pk }}" {% if listing_data.step3_partial.transmission == tr.pk|stringformat:"s" %}selected{% endif %}>{{ tr.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="transmission" id="transmission_input" value="{{ listing_data.step3_partial.transmission|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="doors" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Doors" %} <span class="text-red-500">*</span></label>
+                            <select id="id_doors_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncDoors(this.value)">
+                                <option value="">---------</option>
+                                {% for value, label in form.doors.field.choices %}{% if value %}
+                                <option value="{{ value }}" {% if listing_data.step3_partial.doors == value %}selected{% endif %}>{{ label }}</option>
+                                {% endif %}{% endfor %}
+                            </select>
+                            <input type="hidden" name="doors" id="doors_input" value="{{ listing_data.step3_partial.doors|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="engine_capacity">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Engine" %}</label>
+                            <div style="display: flex; gap: 0.4rem; align-items: center;">
+                                <input type="number" id="engine_display" min="0" step="0.1" placeholder="{% trans 'e.g. 1.6' %}"
+                                       value="{{ listing_data.step3_partial.engine_capacity|default:'' }}"
+                                       style="flex: 1;"
+                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updateEngine()">
+                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
+                                    <button type="button" id="btn_l" onclick="setEngineUnit('l')"
+                                            style="padding: 0.5rem 0.6rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 32px;">L</button>
+                                    <button type="button" id="btn_cc" onclick="setEngineUnit('cc')"
+                                            style="padding: 0.5rem 0.5rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.7rem; font-weight: 500; cursor: pointer; min-width: 38px;">cm³</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="engine_capacity" id="engine_l_value" value="{{ listing_data.step3_partial.engine_capacity|default:'' }}">
+                            <p id="engine_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                        </div>
+
+                        <div data-field-wrap="steering">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Steering" %}</label>
+                            <select id="id_steering_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncSteering(this.value)">
+                                <option value="">---------</option>
+                                {% for value, label in form.steering.field.choices %}{% if value %}
+                                <option value="{{ value }}" {% if listing_data.step3_partial.steering == value %}selected{% endif %}>{{ label }}</option>
+                                {% endif %}{% endfor %}
+                            </select>
+                            <input type="hidden" name="steering" id="steering_input" value="{{ listing_data.step3_partial.steering|default:'' }}">
+                        </div>
+
+                        <div data-field-wrap="defects" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Defects" %} <span class="text-red-500">*</span></label>
+                            <select name="defects" id="id_defects" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in form.defects.field.choices %}{% if value %}
+                                <option value="{{ value }}" {% if listing_data.step3_partial.defects == value %}selected{% endif %}>{{ label }}</option>
+                                {% endif %}{% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="mileage" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mileage" %} <span class="text-red-500">*</span></label>
+                            <div style="display: flex; gap: 0.4rem; align-items: center;">
+                                <input type="number" id="mileage_display" min="0" placeholder="{% trans 'e.g. 150000' %}"
+                                       value="{{ listing_data.step3_partial.mileage|default:'' }}"
+                                       style="flex: 1;"
+                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updateMileage()">
+                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
+                                    <button type="button" id="btn_km" onclick="setMileageUnit('km')"
+                                            style="padding: 0.5rem 0.75rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">km</button>
+                                    <button type="button" id="btn_mi" onclick="setMileageUnit('mi')"
+                                            style="padding: 0.5rem 0.75rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">mi</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="mileage" id="mileage_km_value" value="{{ listing_data.step3_partial.mileage|default:'' }}">
+                            <p id="mileage_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                        </div>
+
+                        <div data-field-wrap="condition" style="display:none">
+                            <input type="hidden" name="condition" id="condition_input" value="{{ listing_data.step3_partial.condition|default:'used' }}">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "VIN code" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="vin" maxlength="17" placeholder="{% trans 'e.g. WBA3A5C51DF000000' %}"
+                                   value="{% if is_edit_mode %}{{ listing.vin|default:'' }}{% else %}{{ listing_data.step1.vin|default:'' }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        {# ═══ PRICE — $ DEŠINĖJE ═══ #}
+                        <div data-field-wrap="price" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price" %} <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" name="price" id="id_price" min="0" step="1"
+                                       value="{% if listing %}{{ listing.price|floatformat:0 }}{% elif listing_data.step5.price %}{{ listing_data.step5.price|floatformat:0 }}{% endif %}"
+                                       oninput="if(this.value) markFieldError('price', false)"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                            <input type="hidden" name="currency" value="{% if listing.currency %}{{ listing.currency }}{% else %}USD{% endif %}">
+                        </div>
+
+                        {# ═══ EXPORT PRICE — naujas laukas ═══ #}
+                        <div data-field-wrap="export_price" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">
+                                {% trans "Price for export" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span>
+                            </label>
+                            <div class="relative">
+                                <input type="number" name="export_price" id="id_export_price" min="0" step="1"
+                                       value="{% if listing.export_price %}{{ listing.export_price|floatformat:0 }}{% endif %}"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        {# ═══ 3 CHECKBOXAI VIENOJE EILĖJE ═══ #}
+                        <div class="md:col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="negotiable" id="id_negotiable"
+                                       {% if listing.negotiable or listing_data.step5.negotiable %}checked{% endif %}
+                                       class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Negotiable" %}</span>
+                            </label>
+
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="open_to_trade" id="id_open_to_trade"
+                                       {% if listing.open_to_trade %}checked{% endif %}
+                                       class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Interested in trade" %}</span>
+                            </label>
+
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="taxes_extra" id="id_taxes_extra"
+                                       {% if listing.taxes_extra %}checked{% endif %}
+                                       class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "+ Taxes" %}</span>
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-56 shadow-lg font-normal">
+                                        {% trans "Price excludes taxes — ask the seller for details about applicable taxes." %}
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: ADDITIONAL DATA (collapsible)                      #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100 flex items-center justify-between cursor-pointer" onclick="toggleAdditional()">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Additional data" %}</h3>
+                    <button type="button" id="additional-toggle-btn" class="text-gray-500 hover:text-gray-700">
+                        <i id="additional-icon" class="fas fa-chevron-down text-xs"></i>
+                        <span id="additional-label" class="text-xs ml-1">{% trans "Submit more details" %}</span>
+                    </button>
+                </div>
+
+                <div id="additional-panel" class="hidden p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modification (TDI, TSI, CDI...)" %}</label>
+                            <input type="text" name="modification" placeholder="---------" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Tech inspection until" %}</label>
+                            <div class="flex gap-2">
+                                {{ form.technical_inspection_month }}
+                                {{ form.technical_inspection_year }}
+                            </div>
+                        </div>
+                        <div data-field-wrap="power">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Power" %}</label>
+                            <div style="display: flex; gap: 0.4rem; align-items: center;">
+                                <input type="number" id="power_display" min="0" placeholder="-"
+                                       value="{{ listing_data.step3_partial.power|default:'' }}"
+                                       style="flex: 1;"
+                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updatePower()">
+                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
+                                    <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
+                                            style="padding: 0.5rem 0.6rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">kW</button>
+                                    <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
+                                            style="padding: 0.5rem 0.6rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">HP</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="power" id="power_kw_value" value="{{ listing_data.step3_partial.power|default:'' }}">
+                            <p id="power_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Summer/Winter wheels" %}</label>
+                            {{ form.rim_size }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "CO₂ emission, g/km" %}</label>
+                            {{ form.co2_emission }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Color" %}</label>
+                            {{ form.color }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "First registration country" %}</label>
+                            {{ form.origin_country }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Drive type" %}</label>
+                            {{ form.drive_type }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Number of seats" %}</label>
+                            {{ form.seats }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Climate control" %}</label>
+                            {{ form.climate }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Curb weight, kg" %}</label>
+                            {{ form.curb_weight }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Euro standard" %}</label>
+                            {{ form.euro_standard }}
+                        </div>
+                        <div class="md:col-span-4">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel consumption (l/100km)" %}</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div><label class="block text-xs text-gray-500 mb-1">{% trans "City" %}</label>{{ form.fuel_consumption_city }}</div>
+                                <div><label class="block text-xs text-gray-500 mb-1">{% trans "Highway" %}</label>{{ form.fuel_consumption_highway }}</div>
+                                <div><label class="block text-xs text-gray-500 mb-1">{% trans "Combined" %}</label>{{ form.fuel_consumption_combined }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: FEATURES — DB-driven (Equipment model, grouped)    #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Features" %}</h3>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    {% for cat in equipment_by_category %}
+                    <div>
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
+                            <h4 class="text-sm font-semibold text-gray-700">{{ cat.label }} <span class="text-xs text-gray-400 font-normal">{% trans "(Select all)" %}</span></h4>
+                            <button type="button" onclick="toggleCategoryFeatures('{{ cat.key }}')" class="text-xs text-gray-500 hover:text-gray-700 underline">{% trans "Select all" %}</button>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2" data-category="{{ cat.key }}">
+                            {% for eq in cat.items %}
+                            <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                                <input type="checkbox" name="equipment" value="{{ eq.pk }}"
+                                       {% if eq.pk in selected_equipment_ids %}checked{% endif %}
+                                       class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{{ eq.name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: SPECIAL FEATURES (sidebar filter checkboxes)       #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Special Features" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2">
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="has_warranty" {% if listing.has_warranty %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Warranty included" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="available_on_lease" {% if listing.available_on_lease %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Available on lease" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="has_service_book" {% if listing.has_service_book %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Service book" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="imported_from_us" {% if listing.imported_from_us %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Imported from US" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="multiple_keys" {% if listing.multiple_keys %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Multiple key sets" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="valid_inspection" {% if listing.valid_inspection %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Valid technical inspection" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="is_sport_ready" {% if listing.is_sport_ready %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Sport-ready" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="disabled_friendly" {% if listing.disabled_friendly %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Adapted for disabled" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="power_boosted" {% if listing.power_boosted %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Increased engine power" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="pneumatic_suspension" {% if listing.pneumatic_suspension %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Pneumatic suspension" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="remote_start" {% if listing.remote_start %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Remote start" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="spare_wheel" {% if listing.spare_wheel %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Spare wheel" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                            <input type="checkbox" name="is_auction" {% if listing.is_auction %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "From auction" %}</span>
+                        </label>
+                    </div>
+
+                    {# Seller type — Private / Dealer #}
+                    <div class="mt-5 pt-4 border-t border-gray-100">
+                        <label class="block text-xs font-medium text-gray-600 mb-2">{% trans "Seller type" %}</label>
+                        <div class="flex gap-3">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="radio" name="seller_type" value="private"
+                                       {% if not listing.seller_type or listing.seller_type == 'private' %}checked{% endif %}
+                                       class="w-4 h-4">
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            {{ form.description }}
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded p-4 text-xs text-gray-700">
+                            <p class="font-semibold mb-2">{% trans "Describe your offer in detail." %}</p>
+                            <p class="mb-2">{% trans "The fewer questions buyers have when reading your listing, the faster you'll find a buyer." %}</p>
+                            <p>{% trans "Avoid using ALL CAPS or excessive symbols." %}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Video URL (YouTube, optional)" %}</label>
+                        {{ form.video_url }}
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: PHOTOS                                             #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Photos" %}</h3>
+                </div>
+                <div class="p-6">
+                    {% if is_edit_mode and listing.images.all %}
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">{% trans "Current photos" %}</label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="existing-photos">
+                            {% for img in listing.images.all %}
+                                <div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move existing-photo"
+                                     data-existing-img-id="{{ img.pk }}"
+                                     draggable="true">
+                                    <img src="{{ img.image.url }}"
+                                         class="w-full h-full object-cover hover:opacity-90 transition-opacity pointer-events-none"
+                                         data-lightbox-url="{{ img.image.url }}">
+                                    {% if img.is_main %}
+                                    <span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none">
+                                        <i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}
+                                    </span>
+                                    {% else %}
+                                    <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>
+                                    {% endif %}
+
+                                    {# Bottom action bar — set main + rotate buttons #}
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                        {% if not img.is_main %}
+                                        <button type="button" onclick="event.stopPropagation(); setExistingImageMain({{ img.pk }})" class="flex-1 bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 rounded" title="{% trans 'Set as main' %}">★</button>
+                                        {% endif %}
+                                        <button type="button" onclick="event.stopPropagation(); rotateExistingImage({{ img.pk }}, 'ccw', this)" class="bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 px-1.5 rounded" title="{% trans 'Rotate left' %}"><i class="fas fa-undo"></i></button>
+                                        <button type="button" onclick="event.stopPropagation(); rotateExistingImage({{ img.pk }}, 'cw', this)" class="bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 px-1.5 rounded" title="{% trans 'Rotate right' %}"><i class="fas fa-redo"></i></button>
+                                    </div>
+
+                                    <button type="button" onclick="event.stopPropagation(); deleteExistingImage({{ img.pk }})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm shadow z-10">×</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if not is_edit_mode %}
+                    <div id="draft-photos-wrapper" {% if not current_draft.images.all %}style="display:none"{% endif %} class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            {% trans "Already uploaded" %}
+                            <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count }} / 40)</span>
+                        </label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="draft-photos">
+                            {% if current_draft and current_draft.images.all %}
+                                {% for img in current_draft.images.all %}
+                                    <div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move"
+                                         data-img-id="{{ img.pk }}"
+                                         draggable="true">
+                                        <img src="{{ img.image.url }}"
+                                             class="w-full h-full object-cover hover:opacity-90 transition-opacity pointer-events-none"
+                                             data-draft-lightbox-url="{{ img.image.url }}">
+                                        {% if img.is_main %}
+                                        <span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none">
+                                            <i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}
+                                        </span>
+                                        {% else %}
+                                        <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none photo-order-badge">{{ forloop.counter }}</span>
+                                        {% endif %}
+                                        <button type="button" onclick="event.stopPropagation(); deleteDraftImage({{ img.pk }})" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10" title="{% trans 'Delete' %}">×</button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-500 transition-colors cursor-pointer">
+                        <i class="fas fa-camera text-3xl text-gray-400 mb-3 block"></i>
+                        <p id="dropText" class="text-sm text-gray-700 font-medium mb-1">{% trans "Upload photos" %}</p>
+                        <p class="text-xs text-gray-500">{% trans "Up to 40 photos. Max size 24MB. JPG, GIF, PNG." %}</p>
+                        <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: CONTACTS                                           #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Contacts" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {# ═══ PHONE — su info tooltipu ═══ #}
+                        <div data-field-wrap="phone" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
+                                <span>{% trans "Phone" %} <span class="text-red-500">*</span></span>
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
+                                        {% trans "Phone number is required so potential buyers can contact you by phone." %}
+                                    </span>
+                                </span>
+                            </label>
+                            <input type="tel" name="phone" id="id_phone" required
+                                   value="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% endif %}"
+                                   placeholder="{% trans '+1 555 123 4567' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        {# ═══ EMAIL — su info tooltipu ═══ #}
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
+                                <span>{% trans "Email" %} <span class="text-xs text-gray-400 font-normal">{% trans "(optional)" %}</span></span>
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
+                                        {% trans "Email lets potential buyers reach you by email. Hidden from public listing visitors." %}
+                                    </span>
+                                </span>
+                            </label>
+                            <input type="email" name="email" id="id_email"
+                                   value="{{ user.email|default:'' }}"
+                                   placeholder="{% trans 'your@email.com' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div data-field-wrap="country" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
+                            <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                {% for code, name in country_choices %}
+                                <option value="{{ code }}" {% if listing_data.step7.country == code %}selected{% elif not listing_data.step7.country and code == 'US' %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        {# State + City always visible (USA = State+City; Other = City) #}
+                        <div id="stateFieldWrapper" data-field-wrap="state" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500" id="state-required">*</span></label>
+                            <select name="state" id="id_state" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">{% trans "Select state" %}</option>
+                                {% for code, name in us_states %}
+                                <option value="{{ code }}" {% if listing_data.step7.state == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div id="cityFieldWrapper" data-field-wrap="city" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
+                            <input type="text" name="city" id="id_city" placeholder="{% trans 'e.g., Vilnius' %}"
+                                   value="{% if is_edit_mode and listing %}{% if listing.city != '—' %}{{ listing.city|default:'' }}{% endif %}{% else %}{{ listing_data.step7.city|default:'' }}{% endif %}"
+                                   oninput="if(this.value) markFieldError('city', false)"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Address" %}
+                                <span class="text-xs text-gray-400">{% trans "(optional)" %}</span>
+                            </label>
+                            <input type="text" name="address" placeholder="{% trans 'Street, house number' %}"
+                                   value="{% if is_edit_mode and listing %}{{ listing.address|default:'' }}{% else %}{{ listing_data.step7.address|default:'' }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+
+                    {% if not is_edit_mode %}
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            {{ form.agree_terms }}
+                            <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
+                        </label>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# ERRORS                                                     #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div id="quick-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                    <div class="text-sm">
+                        <p class="font-semibold mb-1">{% trans "Not all required fields are filled in or filled in incorrectly. These fields are marked in red." %}</p>
+                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="quick-form-error-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            {% if form.errors %}
+            <div class="mb-5 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div class="flex items-start gap-3 text-red-800">
+                    <i class="fas fa-exclamation-circle mt-0.5"></i>
+                    <div class="text-sm">
+                        <p class="font-medium mb-1">{% trans "Please fix the following errors:" %}</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            {% for field, errors in form.errors.items %}{% for error in errors %}<li>{{ field }}: {{ error }}</li>{% endfor %}{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SUBMIT                                                     #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="flex items-center justify-center mb-8">
+                {% if is_edit_mode %}
+                <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">
+                    {% trans "Cancel" %}
+                </a>
+                <button type="button" onclick="handleQuickSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-sm">
+                    {% trans "Save Changes" %}
+                </button>
+                {% else %}
+                <button type="button" onclick="handleQuickSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold text-base shadow">
+                    {% trans "Submit Listing" %}
+                </button>
+                {% endif %}
+            </div>
+
+            <p class="text-center text-xs text-gray-500 mb-8">{% trans "* Required fields" %}</p>
+        </form>
+    </div>
+</div>
+
+<div id="lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closeLightbox(event)">
+    <button type="button" onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10">×</button>
+    <button type="button" onclick="lightboxPrev(event)" class="absolute left-4 text-white text-4xl hover:text-gray-300 z-10 bg-black/40 rounded-full w-12 h-12 flex items-center justify-center">‹</button>
+    <button type="button" onclick="lightboxNext(event)" class="absolute right-4 text-white text-4xl hover:text-gray-300 z-10 bg-black/40 rounded-full w-12 h-12 flex items-center justify-center">›</button>
+    <img id="lightbox-img" src="" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+    <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/60 px-3 py-1 rounded-full"></div>
+</div>
+
+<div id="preview-lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closePreviewLightbox(event)">
+    <button type="button" onclick="closePreviewLightbox()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10">×</button>
+    <img id="preview-lightbox-img" src="" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+</div>
+
+<style>
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
+        width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
+        font-size: 0.875rem; transition: all 0.2s;
+    }
+    select:focus, input:focus, textarea:focus {
+        outline: none; border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.15);
+    }
+    textarea { min-height: 140px; resize: vertical; padding: 0.75rem; }
+    input[type="checkbox"] { width: 1rem; height: 1rem; border-radius: 0.25rem; accent-color: #4b5563; }
+    .btn-choice.active {
+        border-color: #4b5563; color: #ffffff; background-color: #4b5563; font-weight: 500;
+    }
+
+    /* Privalomas laukas turi storesn pilka border IS VISU PUSIU + sviesiai pilkas bg viduje */
+    [data-required="true"] input[type="text"],
+    [data-required="true"] input[type="number"],
+    [data-required="true"] input[type="tel"],
+    [data-required="true"] input[type="email"],
+    [data-required="true"] select,
+    [data-required="true"] textarea {
+        border: 2px solid #6b7280;
+        background-color: #f3f4f6;
+    }
+    [data-required="true"] input[type="text"]:focus,
+    [data-required="true"] input[type="number"]:focus,
+    [data-required="true"] input[type="tel"]:focus,
+    [data-required="true"] input[type="email"]:focus,
+    [data-required="true"] select:focus,
+    [data-required="true"] textarea:focus {
+        border: 2px solid #4b5563;
+        background-color: #ffffff;
+    }
+    /* Privalomi button-choice (pvz Condition) — taip pat storesnis border + sviesiai pilkas bg */
+    [data-required="true"] .btn-choice {
+        border: 2px solid #6b7280;
+        background-color: #f3f4f6;
+    }
+    [data-required="true"] .btn-choice.active {
+        background-color: #4b5563;
+        border-color: #4b5563;
+    }
+
+    /* ERROR STATE — raudonas border + light pink bg (kaip autogidas) */
+    [data-field-wrap].field-error input,
+    [data-field-wrap].field-error select,
+    [data-field-wrap].field-error textarea {
+        border-color: #ef4444 !important;
+        background-color: #fef2f2 !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    [data-field-wrap].field-error label {
+        color: #dc2626 !important;
+    }
+    [data-field-wrap].field-error .btn-choice {
+        border-color: #ef4444 !important;
+        background-color: #fef2f2;
+    }
+
+    /* Top error banner — autogidas style */
+    .top-error-banner {
+        background-color: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #b91c1c;
+    }
+</style>
+
+<script>
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+var CSRF_TOKEN = '{{ csrf_token }}';
+
+function autoSave(fieldName, value) {
+    if (IS_EDIT_MODE) return Promise.resolve();
+    var payload = {};
+    payload[fieldName] = value;
+    return fetch('/ajax/save-cars-draft/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN},
+        body: JSON.stringify(payload)
+    }).catch(function(){});
+}
+
+function syncFuelType(val) { document.getElementById('fuel_type_input').value = val; markFieldError('fuel_type', !val); autoSave('fuel_type', val); }
+function syncBodyType(val) { document.getElementById('body_type_input').value = val; markFieldError('body_type', !val); autoSave('body_type', val); }
+function syncTransmission(val) { document.getElementById('transmission_input').value = val; markFieldError('transmission', !val); autoSave('transmission', val); }
+function syncDoors(val) { document.getElementById('doors_input').value = val; markFieldError('doors', !val); autoSave('doors', val); }
+function syncSteering(val) { document.getElementById('steering_input').value = val; autoSave('steering', val); }
+
+function toggleAdditional() {
+    var panel = document.getElementById('additional-panel');
+    var icon = document.getElementById('additional-icon');
+    var label = document.getElementById('additional-label');
+    if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        icon.className = 'fas fa-chevron-up text-xs';
+        label.textContent = '{% trans "Hide details" %}';
+    } else {
+        panel.classList.add('hidden');
+        icon.className = 'fas fa-chevron-down text-xs';
+        label.textContent = '{% trans "Submit more details" %}';
+    }
+}
+
+function toggleCategoryFeatures(categoryKey) {
+    var grid = document.querySelector('[data-category="' + categoryKey + '"]');
+    if (!grid) return;
+    var checkboxes = grid.querySelectorAll('input[type="checkbox"]');
+    var allChecked = Array.from(checkboxes).every(function(cb) { return cb.checked; });
+    checkboxes.forEach(function(cb) { cb.checked = !allChecked; });
+}
+
+var lightboxImages = []; var lightboxCurrentIdx = 0;
+function openLightbox(url, idx) {
+    lightboxImages = Array.from(document.querySelectorAll('[data-lightbox-url]')).map(function(el) { return el.getAttribute('data-lightbox-url'); });
+    lightboxCurrentIdx = idx;
+    var lb = document.getElementById('lightbox'); var img = document.getElementById('lightbox-img');
+    if (!lb || !img) return;
+    img.src = url; updateLightboxCounter();
+    lb.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+    if (e && e.target.id !== 'lightbox' && e.type === 'click') return;
+    var lb = document.getElementById('lightbox'); if (lb) lb.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+function lightboxPrev(e) { e.stopPropagation(); if (!lightboxImages.length) return;
+    lightboxCurrentIdx = (lightboxCurrentIdx - 1 + lightboxImages.length) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxCurrentIdx]; updateLightboxCounter();
+}
+function lightboxNext(e) { e.stopPropagation(); if (!lightboxImages.length) return;
+    lightboxCurrentIdx = (lightboxCurrentIdx + 1) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxCurrentIdx]; updateLightboxCounter();
+}
+function updateLightboxCounter() {
+    var c = document.getElementById('lightbox-counter');
+    if (c) c.textContent = (lightboxCurrentIdx + 1) + ' / ' + lightboxImages.length;
+}
+document.addEventListener('keydown', function(e) {
+    var lb = document.getElementById('lightbox');
+    if (lb && !lb.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowLeft') lightboxPrev(e);
+        else if (e.key === 'ArrowRight') lightboxNext(e);
+    }
+    var pb = document.getElementById('preview-lightbox');
+    if (pb && !pb.classList.contains('hidden')) { if (e.key === 'Escape') closePreviewLightbox(); }
+});
+function openPreviewLightbox(url) {
+    var pb = document.getElementById('preview-lightbox'); var img = document.getElementById('preview-lightbox-img');
+    if (!pb || !img) return; img.src = url; pb.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+}
+function closePreviewLightbox(e) {
+    if (e && e.target.id !== 'preview-lightbox' && e.type === 'click') return;
+    var pb = document.getElementById('preview-lightbox'); if (pb) pb.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════════════════
+// COUNTRY CHANGE — show/hide State (only for USA)
+// ═══════════════════════════════════════════════════════════
+function onCountryChange() {
+    var country = document.getElementById('id_country'); if (!country) return;
+    var val = country.value;
+    var stateWrap = document.getElementById('stateFieldWrapper');
+    var stateRequired = document.getElementById('state-required');
+    if (!stateWrap) return;
+    if (val === 'US') {
+        stateWrap.classList.remove('hidden');
+        if (stateRequired) stateRequired.style.display = '';
+    } else {
+        stateWrap.classList.add('hidden');
+        if (stateRequired) stateRequired.style.display = 'none';
+    }
+}
+
+function markFieldError(fieldName, hasError) {
+    var wrap = document.querySelector('[data-field-wrap="' + fieldName + '"]');
+    if (wrap) {
+        if (hasError) wrap.classList.add('field-error');
+        else wrap.classList.remove('field-error');
+    }
+}
+
+function clearAllFieldErrors() {
+    document.querySelectorAll('[data-field-wrap].field-error').forEach(function(el) {
+        el.classList.remove('field-error');
+    });
+}
+
+function handleQuickSubmit() {
+    clearAllFieldErrors();
+    var errors = [];
+
+    if (!IS_EDIT_MODE) {
+        var brandId = document.getElementById('id_brand') ? document.getElementById('id_brand').value : '';
+        var modelId = document.getElementById('id_model') ? document.getElementById('id_model').value : '';
+        var yearVal = document.getElementById('id_year') ? document.getElementById('id_year').value : '';
+        var monthVal = document.getElementById('id_month') ? document.getElementById('id_month').value : '';
+
+        if (!brandId) { errors.push('{% trans "Brand is required" %}'); markFieldError('brand', true); }
+        if (!modelId) { errors.push('{% trans "Model is required" %}'); markFieldError('model', true); }
+        if (!yearVal) { errors.push('{% trans "Year is required" %}'); markFieldError('year', true); }
+        if (!monthVal) { errors.push('{% trans "Month is required" %}'); markFieldError('month', true); }
+
+        var requiredFields = [
+            ['body_type', '{% trans "Body type" %}'],
+            ['fuel_type', '{% trans "Fuel type" %}'],
+            ['transmission', '{% trans "Transmission" %}'],
+            ['doors', '{% trans "Doors" %}'],
+        ];
+        requiredFields.forEach(function(pair) {
+            var fname = pair[0], flabel = pair[1];
+            var input = document.getElementById(fname + '_input');
+            if (!input || !input.value) {
+                errors.push(flabel + ' {% trans "is required" %}');
+                markFieldError(fname, true);
+            }
+        });
+        var mileageHidden = document.getElementById('mileage_km_value');
+        if (!mileageHidden || !mileageHidden.value) {
+            errors.push('Mileage is required');
+            markFieldError('mileage', true);
+        }
+        var defectsEl = document.getElementById('id_defects');
+        if (defectsEl && !defectsEl.value) {
+            errors.push('Defects is required');
+            markFieldError('defects', true);
+        }
+
+        var price = document.getElementById('id_price');
+        if (price && !price.value) {
+            errors.push('Price is required');
+            markFieldError('price', true);
+        }
+
+        var country = document.getElementById('id_country');
+        var city = document.querySelector('[name="city"]');
+        var state = document.getElementById('id_state');
+        var phone = document.querySelector('[name="phone"]');
+        var agreeTerms = document.querySelector('[name="agree_terms"]');
+
+        if (country && country.value === 'US') {
+            if (!state || !state.value) { errors.push('State is required'); markFieldError('state', true); }
+        }
+        if (!city || !city.value) { errors.push('City is required'); markFieldError('city', true); }
+        if (!phone || !phone.value) { errors.push('{% trans "Phone is required" %}'); markFieldError('phone', true); }
+        if (agreeTerms && !agreeTerms.checked) { errors.push('{% trans "You must agree to terms and conditions" %}'); }
+    }
+
+    if (errors.length > 0) {
+        showFormErrors(errors);
+        return;
+    }
+
+    document.getElementById('quickForm').submit();
+}
+
+function showFormErrors(errors) {
+    var box = document.getElementById('quick-form-errors');
+    var list = document.getElementById('quick-form-error-list');
+    if (!box || !list) return;
+    list.innerHTML = '';
+    errors.forEach(function(e) { var li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+    box.classList.remove('hidden');
+    // Scroll to top banner first
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Then after a moment, also blink the first error field
+    setTimeout(function() {
+        var firstError = document.querySelector('[data-field-wrap].field-error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 600);
+}
+
+function openBrandDropdown2() { var d = document.getElementById('brandDropdown2'); if (d) d.classList.remove('hidden'); }
+function chooseBrand2(id, name) {
+    document.getElementById('id_brand').value = id;
+    document.getElementById('brandSearch2').value = id ? name : '';
+    document.getElementById('brandSearch2').classList.remove('field-error');
+    document.getElementById('brandDropdown2').classList.add('hidden');
+    if (id) {
+        autoSave('brand', id);
+        markFieldError('brand', false);
+        loadModels(document.getElementById('id_model'), id, '', true);
+    } else {
+        document.getElementById('id_model').innerHTML = '<option value="">---------</option>';
+    }
+}
+function filterBrands2(q) {
+    document.getElementById('brandDropdown2').classList.remove('hidden');
+    document.querySelectorAll('.brand-option2').forEach(function(el) {
+        el.style.display = el.dataset.name.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function loadModels(selectEl, brandId, savedModelId, onlyModels) {
+    if (!selectEl || !brandId) return;
+    fetch('/ajax/get-models/?brand_id=' + brandId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            selectEl.innerHTML = '<option value="">---------</option>';
+            data.forEach(function(m) {
+                if (onlyModels && m.type !== 'model') return;
+                var o = document.createElement('option');
+                o.value = m.model_id; o.textContent = m.name;
+                if (savedModelId && String(m.model_id) === String(savedModelId)) o.selected = true;
+                selectEl.appendChild(o);
+            });
+        });
+}
+
+function selectBtn(btn, field, value) {
+    btn.closest('div').querySelectorAll('.btn-choice').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var hid = document.getElementById(field + '_input');
+    if (hid) hid.value = value;
+    markFieldError(field, false);
+    autoSave(field, value);
+}
+
+// ═══════════════════════════════════════════════════════════
+// UNIT TOGGLES: Mileage / Engine / Power
+// ═══════════════════════════════════════════════════════════
+var mileageUnit = 'km';
+var engineUnit = 'l';
+var powerUnit = 'kw';
+
+function setMileageUnit(unit) {
+    var display = document.getElementById('mileage_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'mi' && mileageUnit === 'km')
+        display.value = val ? Math.round(val / 1.60934) : '';
+    else if (unit === 'km' && mileageUnit === 'mi')
+        display.value = val ? Math.round(val * 1.60934) : '';
+    mileageUnit = unit;
+    var btnKm = document.getElementById('btn_km');
+    var btnMi = document.getElementById('btn_mi');
+    if (unit === 'km') {
+        btnKm.style.backgroundColor = '#4b5563'; btnKm.style.color = '#ffffff';
+        btnMi.style.backgroundColor = '#ffffff'; btnMi.style.color = '#6b7280';
+    } else {
+        btnKm.style.backgroundColor = '#ffffff'; btnKm.style.color = '#6b7280';
+        btnMi.style.backgroundColor = '#4b5563'; btnMi.style.color = '#ffffff';
+    }
+    updateMileage();
+}
+
+function updateMileage() {
+    var display = document.getElementById('mileage_display');
+    var hidden = document.getElementById('mileage_km_value');
+    var label = document.getElementById('mileage_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var km = mileageUnit === 'km' ? val : Math.round(val * 1.60934);
+    var mi = mileageUnit === 'mi' ? val : Math.round(val / 1.60934);
+    hidden.value = km || '';
+    if (label) label.textContent = val
+        ? (mileageUnit === 'km' ? '≈ ' + mi.toLocaleString() + ' mi' : '≈ ' + km.toLocaleString() + ' km')
+        : '';
+    if (val) markFieldError('mileage', false);
+    autoSave('mileage', hidden.value);
+}
+
+function setEngineUnit(unit) {
+    var display = document.getElementById('engine_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'cc' && engineUnit === 'l') display.value = val ? Math.round(val * 1000) : '';
+    else if (unit === 'l' && engineUnit === 'cc') display.value = val ? (val / 1000).toFixed(1) : '';
+    engineUnit = unit;
+    var btnL = document.getElementById('btn_l');
+    var btnCc = document.getElementById('btn_cc');
+    if (unit === 'l') {
+        btnL.style.backgroundColor = '#4b5563'; btnL.style.color = '#ffffff';
+        btnCc.style.backgroundColor = '#ffffff'; btnCc.style.color = '#6b7280';
+    } else {
+        btnL.style.backgroundColor = '#ffffff'; btnL.style.color = '#6b7280';
+        btnCc.style.backgroundColor = '#4b5563'; btnCc.style.color = '#ffffff';
+    }
+    updateEngine();
+}
+
+function updateEngine() {
+    var display = document.getElementById('engine_display');
+    var hidden = document.getElementById('engine_l_value');
+    var label = document.getElementById('engine_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var liters = engineUnit === 'l' ? val : (val / 1000);
+    var cc = engineUnit === 'cc' ? val : Math.round(val * 1000);
+    hidden.value = liters ? liters.toFixed(1) : '';
+    if (label) label.textContent = val
+        ? (engineUnit === 'l' ? '≈ ' + cc + ' cm³' : '≈ ' + (val / 1000).toFixed(1) + ' L')
+        : '';
+    autoSave('engine_capacity', hidden.value);
+}
+
+function setPowerUnit(unit) {
+    var display = document.getElementById('power_display'); if (!display) return;
+    var val = parseFloat(display.value) || 0;
+    if (unit === 'hp' && powerUnit === 'kw') display.value = val ? Math.round(val * 1.34102) : '';
+    else if (unit === 'kw' && powerUnit === 'hp') display.value = val ? Math.round(val / 1.34102) : '';
+    powerUnit = unit;
+    var btnKw = document.getElementById('btn_kw');
+    var btnHp = document.getElementById('btn_hp');
+    if (unit === 'kw') {
+        btnKw.style.backgroundColor = '#4b5563'; btnKw.style.color = '#ffffff';
+        btnHp.style.backgroundColor = '#ffffff'; btnHp.style.color = '#6b7280';
+    } else {
+        btnKw.style.backgroundColor = '#ffffff'; btnKw.style.color = '#6b7280';
+        btnHp.style.backgroundColor = '#4b5563'; btnHp.style.color = '#ffffff';
+    }
+    updatePower();
+}
+
+function updatePower() {
+    var display = document.getElementById('power_display');
+    var hidden = document.getElementById('power_kw_value');
+    var label = document.getElementById('power_converted');
+    if (!display || !hidden) return;
+    var val = parseFloat(display.value) || 0;
+    var kw = powerUnit === 'kw' ? val : Math.round(val / 1.34102);
+    var hp = powerUnit === 'hp' ? val : Math.round(val * 1.34102);
+    hidden.value = kw || '';
+    if (label) label.textContent = val
+        ? (powerUnit === 'kw' ? '≈ ' + hp + ' HP' : '≈ ' + kw + ' kW')
+        : '';
+    autoSave('power', hidden.value);
+}
+
+var draftDragSrc = null;
+
+function attachDraftPhotoHandlers(div) {
+    div.addEventListener('click', function(e) {
+        if (e.target.closest('button')) return;
+        if (div._suppressClick) {
+            div._suppressClick = false;
+            return;
+        }
+        var img = div.querySelector('img');
+        if (img) openPreviewLightbox(img.src);
+    });
+    div.addEventListener('dragstart', onDraftDragStart);
+    div.addEventListener('dragend', onDraftDragEnd);
+    div.addEventListener('dragover', onDraftDragOver);
+    div.addEventListener('dragleave', onDraftDragLeave);
+    div.addEventListener('drop', onDraftDrop);
+}
+
+function onDraftDragStart(e) {
+    draftDragSrc = this;
+    this.classList.add('opacity-50');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', this.dataset.imgId);
+}
+
+function onDraftDragEnd() {
+    this.classList.remove('opacity-50');
+    if (draftDragSrc) {
+        draftDragSrc._suppressClick = true;
+        setTimeout(function() {
+            if (draftDragSrc) draftDragSrc._suppressClick = false;
+        }, 300);
+    }
+    document.querySelectorAll('#draft-photos > div').forEach(function(el) {
+        el.classList.remove('ring-2', 'ring-blue-400');
+    });
+}
+
+function onDraftDragOver(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (this !== draftDragSrc) this.classList.add('ring-2', 'ring-blue-400');
+    return false;
+}
+
+function onDraftDragLeave() {
+    this.classList.remove('ring-2', 'ring-blue-400');
+}
+
+function onDraftDrop(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+    if (draftDragSrc !== this) {
+        var panel = document.getElementById('draft-photos');
+        var items = Array.from(panel.querySelectorAll('div[data-img-id]'));
+        var srcIdx = items.indexOf(draftDragSrc);
+        var tgtIdx = items.indexOf(this);
+        if (srcIdx < tgtIdx) this.parentNode.insertBefore(draftDragSrc, this.nextSibling);
+        else this.parentNode.insertBefore(draftDragSrc, this);
+        refreshDraftPhotoBadges();
+        saveDraftPhotoOrder();
+    }
+    this.classList.remove('ring-2', 'ring-blue-400');
+    return false;
+}
+
+function refreshDraftPhotoBadges() {
+    var items = document.querySelectorAll('#draft-photos > div[data-img-id]');
+    items.forEach(function(el, idx) {
+        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
+        el.classList.remove('border-green-500', 'border-gray-200');
+        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
+        var badge = document.createElement('span');
+        if (idx === 0) {
+            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
+            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
+        } else {
+            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none photo-order-badge';
+            badge.textContent = (idx + 1);
+        }
+        el.appendChild(badge);
+    });
+}
+
+function saveDraftPhotoOrder() {
+    var ids = Array.from(document.querySelectorAll('#draft-photos > div[data-img-id]'))
+                  .map(function(el) { return parseInt(el.dataset.imgId, 10); });
+    fetch('/ajax/reorder-draft-images/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ image_ids: ids }),
+    });
+}
+
+function updateDraftPhotosCount() {
+    var count = document.querySelectorAll('#draft-photos > div[data-img-id]').length;
+    var el = document.getElementById('draft-photos-count');
+    if (el) el.textContent = '(' + count + ' / 40)';
+}
+
+window.deleteDraftImage = function(imgId) {
+    fetch('/ajax/delete-draft-image/' + imgId + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (data.success) {
+              var el = document.querySelector('[data-img-id="' + imgId + '"]');
+              if (el) el.remove();
+              refreshDraftPhotoBadges();
+              updateDraftPhotosCount();
+              var wrap = document.getElementById('draft-photos-wrapper');
+              var remain = document.querySelectorAll('#draft-photos > div[data-img-id]').length;
+              if (wrap && remain === 0) wrap.style.display = 'none';
+          }
+      });
+};
+
+window.setExistingImageMain = function(imgId) {
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fetch('/listings/image/' + imgId + '/set-main/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd,
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (data && data.success) location.reload();
+      }).catch(function() { location.reload(); });
+};
+
+window.deleteExistingImage = function(imgId) {
+    if (!confirm('{% trans "Delete this photo?" %}')) return;
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fetch('/listings/image/' + imgId + '/delete/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+        body: fd,
+    }).then(function() { location.reload(); });
+};
+
+window.rotateExistingImage = function(imgId, direction, btn) {
+    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; }
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fd.append('direction', direction);
+    fetch('/ajax/rotate-listing-image/' + imgId + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+        body: fd,
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (data && data.success) {
+              // Update image src with cache buster
+              var card = document.querySelector('[data-existing-img-id="' + imgId + '"]');
+              if (card) {
+                  var imgEl = card.querySelector('img');
+                  if (imgEl) imgEl.src = data.url;
+              }
+              if (btn) {
+                  btn.disabled = false;
+                  btn.innerHTML = direction === 'ccw' ? '<i class="fas fa-undo"></i>' : '<i class="fas fa-redo"></i>';
+              }
+          } else {
+              alert('{% trans "Rotate failed" %}: ' + (data && data.error || 'unknown'));
+              if (btn) btn.disabled = false;
+          }
+      }).catch(function(err) {
+          alert('{% trans "Rotate failed" %}: ' + err);
+          if (btn) btn.disabled = false;
+      });
+};
+
+// ═══════════════════════════════════════════════════════════
+// EXISTING PHOTOS — Drag & Drop reorder (Edit mode)
+// ═══════════════════════════════════════════════════════════
+var existingDragSrc = null;
+var existingPhotosListingId = {% if edit_listing_id %}{{ edit_listing_id }}{% else %}0{% endif %};
+
+function attachExistingPhotoDragHandlers() {
+    document.querySelectorAll('.existing-photo').forEach(function(card) {
+        if (card._dragAttached) return;
+        card._dragAttached = true;
+
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('button')) return;
+            var imgEl = card.querySelector('img');
+            if (imgEl) {
+                var url = imgEl.dataset.lightboxUrl || imgEl.src;
+                openPreviewLightbox(url);
+            }
+        });
+
+        card.addEventListener('dragstart', function(e) {
+            existingDragSrc = card;
+            card.classList.add('opacity-50');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', card.dataset.existingImgId);
+        });
+
+        card.addEventListener('dragend', function() {
+            card.classList.remove('opacity-50');
+            document.querySelectorAll('.existing-photo').forEach(function(el) {
+                el.classList.remove('ring-2', 'ring-blue-400');
+            });
+        });
+
+        card.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            if (card !== existingDragSrc) card.classList.add('ring-2', 'ring-blue-400');
+        });
+
+        card.addEventListener('dragleave', function() {
+            card.classList.remove('ring-2', 'ring-blue-400');
+        });
+
+        card.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (existingDragSrc !== card) {
+                var panel = document.getElementById('existing-photos');
+                var items = Array.from(panel.querySelectorAll('.existing-photo'));
+                var srcIdx = items.indexOf(existingDragSrc);
+                var tgtIdx = items.indexOf(card);
+                if (srcIdx < tgtIdx) card.parentNode.insertBefore(existingDragSrc, card.nextSibling);
+                else card.parentNode.insertBefore(existingDragSrc, card);
+                refreshExistingPhotoBadges();
+                saveExistingPhotoOrder();
+            }
+            card.classList.remove('ring-2', 'ring-blue-400');
+        });
+    });
+}
+
+function refreshExistingPhotoBadges() {
+    var items = document.querySelectorAll('#existing-photos .existing-photo');
+    items.forEach(function(el, idx) {
+        // Remove existing top-1 left-1 badges
+        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
+        // Update border
+        el.classList.remove('border-green-500', 'border-gray-200');
+        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
+
+        var badge = document.createElement('span');
+        if (idx === 0) {
+            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
+            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
+        } else {
+            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
+            badge.textContent = (idx + 1);
+        }
+        el.appendChild(badge);
+    });
+}
+
+function saveExistingPhotoOrder() {
+    if (!existingPhotosListingId) return;
+    var ids = Array.from(document.querySelectorAll('#existing-photos .existing-photo'))
+                  .map(function(el) { return parseInt(el.dataset.existingImgId, 10); });
+    fetch('/ajax/reorder-listing-images/' + existingPhotosListingId + '/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ image_ids: ids }),
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // ═══ FIX: Sync visible <select> reikšmes į hidden inputs po Back navigation ═══
+    // Browser atstato <select> bet NESUKELIA onchange event'o, todėl hidden inputs lieka tuščios
+    var syncMap = [
+        ['id_fuel_type_select', 'fuel_type_input'],
+        ['id_body_type_select', 'body_type_input'],
+        ['id_transmission_select', 'transmission_input'],
+        ['id_doors_select', 'doors_input'],
+        ['id_steering_select', 'steering_input'],
+    ];
+    syncMap.forEach(function(pair) {
+        var sel = document.getElementById(pair[0]);
+        var hidden = document.getElementById(pair[1]);
+        if (sel && hidden && sel.value && !hidden.value) {
+            hidden.value = sel.value;
+        }
+    });
+
+    document.querySelectorAll('#draft-photos > div[data-img-id]').forEach(function(el) {
+        attachDraftPhotoHandlers(el);
+    });
+
+    // Edit mode: attach drag handlers to existing photos
+    if (typeof attachExistingPhotoDragHandlers === 'function') {
+        attachExistingPhotoDragHandlers();
+    }
+
+    if (document.getElementById('id_country')) onCountryChange();
+
+    document.addEventListener('click', function(e) {
+        var w2 = document.getElementById('brandWrapper2');
+        if (w2 && !w2.contains(e.target)) { var d = document.getElementById('brandDropdown2'); if (d) d.classList.add('hidden'); }
+    });
+
+    var modelSelect2 = document.getElementById('id_model');
+    var brandSearchEl = document.getElementById('brandSearch2');
+    if (modelSelect2) {
+        modelSelect2.addEventListener('change', function() {
+            autoSave('model', this.value);
+            if (this.value) markFieldError('model', false);
+        });
+    }
+    var year2 = document.getElementById('id_year');
+    if (year2) year2.addEventListener('change', function() { autoSave('year', this.value); markFieldError('year', !this.value); });
+    var month2 = document.getElementById('id_month');
+    if (month2) month2.addEventListener('change', function() { autoSave('month', this.value); markFieldError('month', !this.value); });
+
+    var vinInput = document.querySelector('[name="vin"]');
+    if (vinInput) {
+        var vinTimer = null;
+        vinInput.addEventListener('input', function() {
+            var val = this.value;
+            clearTimeout(vinTimer);
+            vinTimer = setTimeout(function() { autoSave('vin', val); }, 600);
+        });
+    }
+
+    if (brandSearchEl && modelSelect2 && brandSearchEl.value) {
+        var foundOption = document.querySelector('.brand-option2[data-name="' + brandSearchEl.value + '"]');
+        if (foundOption) {
+            document.getElementById('id_brand').value = foundOption.dataset.id;
+            loadModels(modelSelect2, foundOption.dataset.id, "{{ listing_data.step1.model|default:'' }}", true);
+        }
+    }
+
+    var defectsEl = document.getElementById('id_defects');
+    if (defectsEl) defectsEl.addEventListener('change', function() {
+        autoSave('defects', this.value);
+        if (this.value) markFieldError('defects', false);
+    });
+
+    var dropZone = document.getElementById('dropZone');
+    var imageInput = document.getElementById('imageInput');
+    var MAX_PHOTOS = 40;
+
+    if (dropZone && imageInput) {
+        dropZone.addEventListener('click', function(e) { imageInput.click(); });
+        imageInput.addEventListener('change', function() {
+            addFiles(imageInput.files);
+            imageInput.value = '';
+        });
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.classList.add('border-gray-500', 'bg-gray-50');
+        });
+        dropZone.addEventListener('dragleave', function() {
+            dropZone.classList.remove('border-gray-500', 'bg-gray-50');
+        });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.classList.remove('border-gray-500', 'bg-gray-50');
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                addFiles(e.dataTransfer.files);
+            }
+        });
+
+        function addFiles(fileList) {
+            var newFiles = Array.from(fileList).filter(function(f) {
+                return f.type && f.type.startsWith('image/');
+            });
+
+            if (IS_EDIT_MODE) {
+                if (newFiles.length > 0) uploadPhotosToEditListing(newFiles);
+                return;
+            }
+
+            var existingDraftCount = document.querySelectorAll('#draft-photos > div[data-img-id]').length;
+            var available = MAX_PHOTOS - existingDraftCount;
+            if (newFiles.length > available) {
+                if (available <= 0) {
+                    alert('{% trans "Maximum 40 photos. Remove some first." %}');
+                    return;
+                }
+                alert('{% trans "You picked too many photos — only the first available ones will be added." %}');
+                newFiles = newFiles.slice(0, available);
+            }
+            if (!IS_EDIT_MODE && newFiles.length > 0) {
+                uploadPhotosToDraft(newFiles);
+            }
+        }
+
+        function uploadPhotosToEditListing(files) {
+            var listingId = {{ edit_listing_id|default:0 }};
+            if (!listingId) {
+                alert('{% trans "Listing ID not found" %}');
+                return;
+            }
+            var fd = new FormData();
+            files.forEach(function(f) { fd.append('images', f); });
+            fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+            fetch('/ajax/upload-listing-images/' + listingId + '/', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': CSRF_TOKEN },
+                body: fd,
+            }).then(function(r) { return r.json(); })
+              .then(function(data) {
+                  if (data && data.success) {
+                      location.reload();
+                  } else {
+                      alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown error'));
+                  }
+              }).catch(function(err) {
+                  alert('{% trans "Upload failed" %}: ' + err);
+              });
+        }
+
+        function uploadPhotosToDraft(files) {
+            var fd = new FormData();
+            files.forEach(function(f) { fd.append('images', f); });
+            fetch('/ajax/upload-draft-images/', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': CSRF_TOKEN },
+                body: fd,
+            }).then(function(r) { return r.json(); })
+              .then(function(data) {
+                  if (data.success) {
+                      var wrap = document.getElementById('draft-photos-wrapper');
+                      if (wrap) wrap.style.display = '';
+                      appendUploadedToDraftPanel(data.uploaded);
+                      updateDraftPhotosCount();
+                  }
+              });
+        }
+
+        function appendUploadedToDraftPanel(uploaded) {
+            var panel = document.getElementById('draft-photos');
+            if (!panel) return;
+            uploaded.forEach(function(img) {
+                var div = document.createElement('div');
+                div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
+                                (img.is_main ? 'border-green-500' : 'border-gray-200') +
+                                ' bg-gray-100 cursor-move';
+                div.dataset.imgId = img.id;
+                div.draggable = true;
+                var existingCount = panel.querySelectorAll('div[data-img-id]').length;
+                var label = img.is_main
+                    ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}</span>'
+                    : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none photo-order-badge">' + (existingCount + 1) + '</span>';
+                div.innerHTML =
+                    '<img src="' + img.url + '" class="w-full h-full object-cover hover:opacity-90 transition-opacity pointer-events-none" data-draft-lightbox-url="' + img.url + '">' +
+                    label +
+                    '<button type="button" onclick="event.stopPropagation(); deleteDraftImage(' + img.id + ')" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10" title="{% trans 'Delete' %}">×</button>';
+                attachDraftPhotoHandlers(div);
+                panel.appendChild(div);
+            });
+        }
+    }
+});
+</script>
+{% endblock %}

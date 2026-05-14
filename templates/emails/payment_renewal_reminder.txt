@@ -1,0 +1,15 @@
+Hi {{ user_name|default:"there" }},
+
+your subscription will renew in {{ days_until }} day{{ days_until|pluralize }}:
+
+   Plan: {{ plan_name }}
+   Amount: {{ payment_amount }}
+   Renewal date: {{ renewal_date }}
+   Payment method: {{ payment_method }}
+
+To cancel or change your plan:
+{{ subscription_url }}
+
+- Thank you
+
+---

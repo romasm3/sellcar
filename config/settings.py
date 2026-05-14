@@ -2,23 +2,23 @@ import os
 from pathlib import Path
 from decouple import config
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ═══════════════════════════════════════════════════════════
+# GOOGLE TRANSLATE API
+# ═══════════════════════════════════════════════════════════
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(
+    BASE_DIR / 'google-translate-key.json'
+)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-change-this-key")
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
-
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1").split(",")
 
-
-# Application definition
+# Stripe — leave empty until ready to enable payments
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY", default="")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", default="")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -27,21 +27,27 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     # Local apps
     "apps.accounts",
     "apps.listings",
+    "apps.conversations",
+    "apps.broadcasts",
     # Third party apps
     "crispy_forms",
     "crispy_bootstrap4",
     "django_filters",
+    "rosetta",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "apps.accounts.middleware.UserLanguageMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -60,6 +66,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
+                "apps.conversations.context_processors.unread_messages",
+                "apps.listings.context_processors.saved_searches_count",
+                "apps.listings.context_processors.saved_listings_count",
             ],
         },
     },
@@ -67,11 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# PostgreSQL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -83,40 +87,41 @@ DATABASES = {
     }
 }
 
+AUTH_PASSWORD_VALIDATORS = []
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+from django.utils.translation import gettext_lazy as _
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
+LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Vilnius"
-
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
+LANGUAGES = [
+    ("en", _("English")),
+    ("lt", _("Lithuanian")),
+    ("lv", _("Latvian")),
+    ("et", _("Estonian")),
+    ("pl", _("Polish")),
+    ("de", _("German")),
+    ("ru", _("Russian")),
+    ("fr", _("French")),
+    ("es", _("Spanish")),
+    ("zh-hans", _("Chinese")),
+    ("vi", _("Vietnamese")),
+    ("ar", _("Arabic")),
+    ("ko", _("Korean")),
+]
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
+
+# Language cookie — išlieka 1 metus
+LANGUAGE_COOKIE_NAME = "django_language"
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365  # 1 metai (sekundėmis)
+LANGUAGE_COOKIE_SAMESITE = "Lax"
+LANGUAGE_COOKIE_HTTPONLY = False
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -124,12 +129,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Media files (uploaded images)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -139,24 +140,58 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Login/Logout URLs
 LOGIN_URL = "accounts:login"
-LOGIN_REDIRECT_URL = "accounts:home"
-LOGOUT_REDIRECT_URL = "accounts:home"
+LOGIN_REDIRECT_URL = "/"     # po login → home (root)
+LOGOUT_REDIRECT_URL = "/"    # po logout → home (root)
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY = config("GOOGLE_MAPS_API_KEY", default="")
 
+# ═══════════════════════════════════════════════════════════
 # Email Configuration
-# Development - emails displayed in console
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# ═══════════════════════════════════════════════════════════
+# Default: realus SMTP (siunčia tikrus email'us)
+# Jei nori lokaliai tiktai printint į console - .env faile pridėk:
+#   EMAIL_USE_CONSOLE=True
+# ═══════════════════════════════════════════════════════════
+EMAIL_USE_CONSOLE = config("EMAIL_USE_CONSOLE", default=False, cast=bool)
 
-# Production - Gmail (uncomment when needed)
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = config("EMAIL_USER")
-# EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
-# DEFAULT_FROM_EMAIL = config("EMAIL_USER")
+if EMAIL_USE_CONSOLE:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = config("EMAIL_USER")
+    EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
+
+DEFAULT_FROM_EMAIL = config("EMAIL_USER", default="helpautoinfo@gmail.com")
 
 # Password Reset settings
-PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
+PASSWORD_RESET_TIMEOUT = 259200
+
+# Session settings
+SESSION_COOKIE_AGE = 15552000  # 6 mėnesiai
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True
+
+# ═══════════════════════════════════════════════════════════
+# Listing lifecycle (expire / reminders / cleanup)
+# ═══════════════════════════════════════════════════════════
+SITE_URL = config("SITE_URL", default="http://127.0.0.1:8000")
+PAYMENTS_ENABLED = False
+
+# ═══════════════════════════════════════════════════════════
+# File uploads (skelbimo nuotraukoms)
+# ═══════════════════════════════════════════════════════════
+DATA_UPLOAD_MAX_NUMBER_FILES = 500                  # iki 500 failų per request
+DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024     # 200 MB total request
+FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024      # 50 MB per failas
+
+
+# ═══ ROSETTA SETTINGS ═══
+ROSETTA_SHOW_AT_ADMIN_PANEL = True
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+ROSETTA_MESSAGES_PER_PAGE = 25
+ROSETTA_REQUIRES_AUTH = True
+ROSETTA_LOGIN_URL = '/accounts/login/'

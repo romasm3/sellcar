@@ -1,0 +1,15 @@
+Hi {{ user_name|default:"there" }},
+
+You have {{ count }} unanswered inquir{{ count|pluralize:"y,ies" }} on your listings.
+
+Buyers expect quick responses (within 1 hour ideally).
+
+View your messages:
+{{ messages_url }}
+
+Quick replies tip: even "I'll get back to you in 1 hour" keeps buyers engaged.
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

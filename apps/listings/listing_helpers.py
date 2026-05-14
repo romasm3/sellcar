@@ -1,0 +1,304 @@
+"""
+═══════════════════════════════════════════════════════════════════════════════
+SellCar — Listing Helper Functions
+═══════════════════════════════════════════════════════════════════════════════
+
+Bendros funkcijos VISOMS kategorijų (Cars, Motorcycles, Trucks, Car-for-parts,
+Moto Gear, ir t.t.) views'ams.
+
+Tikslas: NEKARTOTI to paties kodo 5 failuose. Vietoj to — vienoje vietoje 
+suderini logiką, ir visi view'ai automatiškai gauna pakeitimus.
+
+═══════════════════════════════════════════════════════════════════════════════
+KAIP NAUDOTI
+═══════════════════════════════════════════════════════════════════════════════
+
+Kategorijos view'e (pvz. car_for_parts_views.py):
+
+    from .listing_helpers import (
+        parse_common_listing_fields,
+        validate_common_fields,
+        apply_common_fields_to_listing,
+        finalize_listing_publish,
+        finalize_listing_edit,
+    )
+
+    def my_category_create(request):
+        # ... draft setup ...
+        
+        if request.method == 'POST':
+            # 1. Parse BENDRUS laukus
+            common = parse_common_listing_fields(request)
+            
+            # 2. Parse SPECIFINIUS laukus (kategorijos-unique)
+            brand_id = request.POST.get('brand')
+            modification = request.POST.get('modification')
+            # ... etc
+            
+            # 3. Validate
+            errors = validate_common_fields(common)
+            # ... pridek specifines validacijas ...
+            
+            if not errors:
+                # 4. Apply BENDRUS laukus
+                apply_common_fields_to_listing(draft, common)
+                
+                # 5. Apply SPECIFINIUS laukus
+                draft.modification = modification
+                # ... etc ...
+                
+                # 6. Publish (viena eilute, viskas atlieka helperis)
+                finalize_listing_publish(draft, common['phone'], request.user)
+                
+                return redirect('listing_success', pk=draft.pk)
+"""
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PARSE HELPERS — saugiai parse'ina POST string'us į int/float
+# ═══════════════════════════════════════════════════════════════════════════
+
+def _int_or_none(value):
+    """Saugiai parse'ina string į int, arba grąžina None jei tuščia/invalid."""
+    if value is None or value == '':
+        return None
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
+
+def _float_or_none(value):
+    """Saugiai parse'ina string į float, arba grąžina None jei tuščia/invalid."""
+    if value is None or value == '':
+        return None
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return None
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 1. PARSE COMMON FIELDS — bendrų laukų parsavimas iš POST
+# ═══════════════════════════════════════════════════════════════════════════
+
+def parse_common_listing_fields(request):
+    """
+    Parsuoja BENDRUS laukus kurie kartojasi VISOSE kategorijose.
+    
+    Grąžina dict su standartiniais raktais:
+    - condition, year, price, currency, negotiable
+    - description
+    - phone, email
+    - country, state, city, address, postal_code, hide_exact_address
+    
+    Specifiniai kategorijos laukai (brand, body_type, modification, etc.) 
+    parse'inami atskirai pačiame view'e.
+    """
+    return {
+        # Pagrindiniai
+        'condition': request.POST.get('condition', '').strip(),
+        'year': _int_or_none(request.POST.get('year')),
+        'price': _float_or_none(request.POST.get('price')),
+        'currency': request.POST.get('currency', 'USD').strip() or 'USD',
+        'negotiable': request.POST.get('negotiable') in ('on', 'true', '1'),
+        
+        # Aprašymas
+        'description': request.POST.get('description', '').strip(),
+        
+        # Kontaktai
+        'phone': request.POST.get('phone', '').strip(),
+        'email': request.POST.get('email', '').strip(),
+        
+        # Lokacija
+        'country': request.POST.get('country', 'US').strip() or 'US',
+        'state': request.POST.get('state', '').strip(),
+        'city': request.POST.get('city', '').strip(),
+        'address': request.POST.get('address', '').strip(),
+        'postal_code': request.POST.get('postal_code', '').strip(),
+        'hide_exact_address': request.POST.get('hide_exact_address') in ('on', 'true', '1'),
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 2. VALIDATE COMMON FIELDS — bendrų laukų validacija
+# ═══════════════════════════════════════════════════════════════════════════
+
+def validate_common_fields(common_data, require_condition=True, require_year=True):
+    """
+    Validuoja BENDRUS required laukus. Grąžina errors list (tuščias = ok).
+    
+    Optional flags:
+    - require_condition: ar Condition required (default True)
+    - require_year: ar Year required (default True)
+    """
+    errors = []
+    
+    if require_condition and not common_data['condition']:
+        errors.append('Condition is required')
+    
+    if require_year and not common_data['year']:
+        errors.append('Year is required')
+    
+    if not common_data['price'] or common_data['price'] <= 0:
+        errors.append('Price is required')
+    
+    if not common_data['phone']:
+        errors.append('Phone is required')
+    
+    if not common_data['city']:
+        errors.append('City is required')
+    
+    if common_data['country'] == 'US' and not common_data['state']:
+        errors.append('State is required for US listings')
+    
+    return errors
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 3. APPLY COMMON FIELDS TO LISTING — bendrų laukų užpildymas į listing
+# ═══════════════════════════════════════════════════════════════════════════
+
+def apply_common_fields_to_listing(listing, common_data):
+    """
+    Užpildo BENDRUS laukus į listing objektą.
+    NEPADAROMA save() — tai daro finalize_listing_publish() arba 
+    finalize_listing_edit().
+    
+    Specifinius laukus (brand, model, body_type, etc.) view'as turi pats 
+    užpildyti po šios funkcijos.
+    """
+    listing.condition = common_data['condition']
+    if common_data['year']:
+        listing.year = common_data['year']
+    listing.price = common_data['price']
+    listing.currency = common_data['currency']
+    listing.negotiable = common_data['negotiable']
+    listing.description = common_data['description']
+    
+    # Country/State swap logic — state TIK kai US
+    listing.country = common_data['country']
+    listing.state = common_data['state'] if common_data['country'] == 'US' else ''
+    
+    listing.city = common_data['city']
+    listing.address = common_data['address']
+    listing.postal_code = common_data['postal_code']
+    listing.hide_exact_address = common_data['hide_exact_address']
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 4. FINALIZE PUBLISH — paskutiniai žingsniai prieš publish (CREATE)
+# ═══════════════════════════════════════════════════════════════════════════
+
+def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
+    """
+    Standartinis PUBLISH workflow VISOMS kategorijoms.
+    
+    Atlieka:
+    1. Phone save į user profile
+    2. Coordinates calculation (lat/lng iš city/country)
+    3. CRITICAL: listing.save() PRIEŠ activate() — kad nepradangtų laukai
+    4. Activate (status='active', set activated_at)
+    5. Send "listing published" email
+    
+    Args:
+        listing: Listing objektas (jau su user'io užpildytais laukais)
+        phone: Telefono numeris
+        user: request.user
+        send_email: Ar siųsti published email (default True)
+        days: Kiek dienų aktyvus (default Listing.DEFAULT_ACTIVE_DAYS)
+    """
+    # Importas viduje, kad išvengti cyclic imports
+    from .models import Listing
+    from .views import get_coordinates_for_location
+    
+    # 1. Phone save į user profile
+    if phone and hasattr(user, 'profile'):
+        user.profile.phone_number = phone
+        user.profile.save(update_fields=['phone_number'])
+    
+    # 2. Coordinates
+    if listing.city and listing.country:
+        lat, lng = get_coordinates_for_location(listing.city, listing.country)
+        listing.latitude = lat
+        listing.longitude = lng
+    
+    # 3. CRITICAL: save() PRIEŠ activate()
+    # activate() naudoja update_fields=['status', 'activated_at', ...] 
+    # ir IGNORUOS visus kitus field changes jei jų nesave'insim pirma!
+    listing.save()
+    
+    # 4. Activate
+    if days is None:
+        days = Listing.DEFAULT_ACTIVE_DAYS
+    listing.activate(days=days)
+    
+    # 5. Email
+    if send_email:
+        try:
+            from .views import _send_listing_published_email
+            _send_listing_published_email(listing, user)
+        except (ImportError, AttributeError):
+            # Email funkcija gali neegzistuoti senose versijose — silent fail
+            pass
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 5. FINALIZE EDIT — paskutiniai žingsniai prieš save (EDIT)
+# ═══════════════════════════════════════════════════════════════════════════
+
+def finalize_listing_edit(listing, phone, user, recalc_coordinates=True):
+    """
+    Standartinis EDIT workflow VISOMS kategorijoms.
+    
+    Atlieka:
+    1. Phone save į user profile (jei pasikeitė)
+    2. Recalculate coordinates (jei city/country pasikeitė)
+    3. listing.save()
+    
+    Args:
+        listing: Listing objektas (jau su pakeistais laukais)
+        phone: Telefono numeris
+        user: request.user
+        recalc_coordinates: Ar perskaičiuoti koordinates (default True)
+    """
+    from .views import get_coordinates_for_location
+    
+    # 1. Phone save į profile
+    if phone and hasattr(user, 'profile'):
+        user.profile.phone_number = phone
+        user.profile.save(update_fields=['phone_number'])
+    
+    # 2. Recalculate coordinates
+    if recalc_coordinates and listing.city and listing.country:
+        lat, lng = get_coordinates_for_location(listing.city, listing.country)
+        listing.latitude = lat
+        listing.longitude = lng
+    
+    # 3. Save
+    listing.save()
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 6. BUILD TITLE — bendras titulo formavimas
+# ═══════════════════════════════════════════════════════════════════════════
+
+def build_listing_title(brand_name='', model_name='', year=None, suffix=''):
+    """
+    Sudeda title iš dalių. Praleidžia tuščias dalis.
+    
+    Examples:
+        build_listing_title('BMW', 'M5', 2024)              → 'BMW M5 2024'
+        build_listing_title('AC', 'Cobra', 2026, '(for parts)') → 'AC Cobra 2026 (for parts)'
+        build_listing_title('Honda', '', 2023)              → 'Honda 2023'
+    """
+    parts = []
+    if brand_name:
+        parts.append(str(brand_name))
+    if model_name:
+        parts.append(str(model_name))
+    if year:
+        parts.append(str(year))
+    if suffix:
+        parts.append(str(suffix))
+    return ' '.join(parts)

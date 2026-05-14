@@ -1,18 +1,134 @@
 from django.urls import path
 from . import views
-
-app_name = "listings"
+from . import views_help
+from . import motorcycles_views
+from . import motogear_views
+from . import trucks_views
+from . import car_for_parts_views
+from .decorators import staff_only
 
 urlpatterns = [
+    path('upgrade/', views.listing_upgrade, name='listing_upgrade'),
+    path('listings/<int:pk>/select-plan/', views.listing_select_plan, name='listing_select_plan'),
+    path('listings/<int:pk>/pay-plan/<str:plan_code>/', views.listing_pay_plan, name='listing_pay_plan'),
+    path('ajax/validate-promo-code/', views.validate_promo_code_ajax, name='validate_promo_code_ajax'),
+    # ─── Browse ───
     path("", views.listing_list, name="listing_list"),
-    path("create/", views.listing_create, name="listing_create"),
-    path("saved/", views.saved_listings, name="saved_listings"),
+    path('browse/', views.listing_list, name='browse_listings'),
+    path('v2/', views.listing_list_v2, name='listing_list_v2'),
     path("map/", views.search_map, name="search_map"),
+
+    # ─── Create ───
+    path("create/", views.listing_create, name="listing_create"),
+    path("create/cars/quick/", views.listing_create_cars_quick, name="listing_create_cars_quick"),
+    path("create/motorcycle/", motorcycles_views.motorcycle_listing_create, name="motorcycle_listing_create"),
+    path("create/trucks/", trucks_views.trucks_listing_create, name="trucks_listing_create"),
+
+    # ─── Misc ───
+    path("contact/", views.contact, name="contact"),
+    path("faq/", views.faq, name="faq"),
+    path("saved/", views.saved_listings, name="saved_listings"),
+    path('searches/', views.saved_searches_list, name='saved_searches_list'),
+
+    # ─── HELP CENTER ───
+    path('help/', views_help.help_center, name='help_center'),
+    path('help/whats-new/', views_help.whats_new, name='whats_new'),
+    path('help/market-trends/', views_help.market_trends, name='market_trends'),
+    path('help/tips/', views_help.tips_guides, name='tips_guides'),
+    path('help/pricing/', views_help.pricing, name='pricing'),
+    path('help/valuation/', views_help.valuation, name='valuation'),
+    path('help/advertise/', views_help.advertise, name='advertise'),
+    path('help/about/', views_help.about_us, name='about_us'),
+    path('help/contact/', views_help.contact_page, name='contact_page'),
+    path('help/terms/', views_help.terms, name='terms'),
+    path('help/privacy/', views_help.privacy, name='privacy'),
+    path('help/cookies/', views_help.cookies, name='cookies'),
+
+    # ─── AJAX (cars) ───
     path("api/models/", views.get_models_by_brand, name="get_models_by_brand"),
     path('ajax/get-models/', views.get_models_ajax, name='get_models_ajax'),
+    path('ajax/get-subcategories/', views.get_subcategories_ajax, name='get_subcategories_ajax'),
+    path('ajax/get-submodels/', views.get_submodels_ajax, name='get_submodels'),
+    path('ajax/save-step3-data/', views.save_step3_data, name='save_step3_data'),
+    path('ajax/save-cars-draft/', views.save_cars_draft_ajax, name='save_cars_draft_ajax'),
+    path('ajax/upload-draft-images/', views.upload_draft_images_ajax, name='upload_draft_images_ajax'),
+    path('ajax/upload-listing-images/<int:pk>/', views.upload_listing_images_ajax, name='upload_listing_images_ajax'),
+    path('ajax/reorder-listing-images/<int:pk>/', views.reorder_listing_images_ajax, name='reorder_listing_images_ajax'),
+    path('ajax/rotate-listing-image/<int:pk>/', views.rotate_listing_image_ajax, name='rotate_listing_image_ajax'),
+    path('ajax/delete-draft-image/<int:pk>/', views.delete_draft_image_ajax, name='delete_draft_image_ajax'),
+    path('ajax/reorder-draft-images/', views.reorder_draft_images_ajax, name='reorder_draft_images_ajax'),
+
+    # ─── AJAX (motorcycles) ───
+    path('ajax/get-motorcycle-brands/', motorcycles_views.get_motorcycle_brands_ajax, name='get_motorcycle_brands_ajax'),
+    path('ajax/get-motorcycle-models/', motorcycles_views.get_motorcycle_models_ajax, name='get_motorcycle_models_ajax'),
+    path('ajax/save-motorcycle-draft/', motorcycles_views.save_motorcycle_draft_ajax, name='save_motorcycle_draft_ajax'),
+    path('ajax/delete-draft/<int:pk>/', motorcycles_views.delete_draft_ajax, name='delete_draft_ajax'),
+
+    # ─── AJAX (trucks) ───
+    path('ajax/save-trucks-draft/', trucks_views.save_trucks_draft_ajax, name='save_trucks_draft_ajax'),
+    path('ajax/upload-trucks-image/', trucks_views.upload_trucks_image_ajax, name='upload_trucks_image_ajax'),
+    path('ajax/delete-trucks-image/<int:pk>/', trucks_views.delete_trucks_image_ajax, name='delete_trucks_image_ajax'),
+    path('ajax/reorder-trucks-images/', trucks_views.reorder_trucks_images_ajax, name='reorder_trucks_images_ajax'),
+
+    # ─── CAR FOR PARTS (WIP — tik staff'ui) ───
+    path('create/car-for-parts/', staff_only(car_for_parts_views.car_for_parts_create), name='car_for_parts_create'),
+    path('<int:pk>/edit-car-for-parts/', car_for_parts_views.car_for_parts_edit, name='car_for_parts_edit'),
+    path('ajax/upload-car-for-parts-image/', car_for_parts_views.upload_car_for_parts_image, name='upload_car_for_parts_image'),
+    path('ajax/delete-car-for-parts-image/<int:pk>/', car_for_parts_views.delete_car_for_parts_image, name='delete_car_for_parts_image'),
+    path('ajax/reorder-car-for-parts-images/', car_for_parts_views.reorder_car_for_parts_images, name='reorder_car_for_parts_images'),
+    path('ajax/upload-car-for-parts-edit-image/<int:pk>/', car_for_parts_views.upload_car_for_parts_edit_image, name='upload_car_for_parts_edit_image'),
+    path('ajax/reorder-car-for-parts-edit-images/<int:pk>/', car_for_parts_views.reorder_car_for_parts_edit_images, name='reorder_car_for_parts_edit_images'),
+
+    # ─── Search ───
+    path('search/advanced/', views.advanced_search, name='advanced_search'),
+    path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
+    path('search/advanced/motorcycles/', motorcycles_views.motorcycles_advanced_search, name='motorcycles_advanced_search'),
+    path('search/advanced/trucks/', trucks_views.trucks_advanced_search, name='trucks_advanced_search'),
+    path('search/save/', views.save_search, name='save_search'),
+    path('search/delete/<int:pk>/', views.delete_search, name='delete_search'),
+    path('search/toggle/<int:pk>/', views.toggle_search_notify, name='toggle_search_notify'),
+    path('search/duplicate/<int:pk>/', views.duplicate_search, name='duplicate_search'),
+    path('search/<int:pk>/viewed/', views.mark_search_viewed, name='mark_search_viewed'),
+
+    # ─── Image ───
+    path("image/<int:pk>/delete/", views.image_delete, name="image_delete"),
+    path("image/<int:pk>/set-main/", views.image_set_main, name="image_set_main"),
+
+    # ─── Dashboard ───
+    path('dashboard/announcements/', views.my_listings, name='my_listings'),
+    path('dashboard/announcements/boost-all/', views.listing_boost_all, name='listing_boost_all'),
+
+    # ─── Admin moderation ───
+    path('admin-moderate/', views.admin_users_list, name='admin_users_list'),
+    path('admin-moderate/user/<int:user_id>/', views.admin_moderate_user, name='admin_moderate_user'),
+    path('admin-moderate/listing/<int:pk>/toggle-shadow-ban/', views.admin_toggle_shadow_ban, name='admin_toggle_shadow_ban'),
+    path('admin-moderate/sales-stats/', views.admin_sales_stats, name='admin_sales_stats'),
+
+    # ─── MOTO GEAR ───
+    path('create/motogear/', motogear_views.motogear_listing_create, name='motogear_listing_create'),
+    path('ajax/save-motogear-draft/', motogear_views.save_motogear_draft_ajax, name='save_motogear_draft_ajax'),
+    path('ajax/get-gear-equipment/', motogear_views.get_gear_equipment_ajax, name='get_gear_equipment_ajax'),
+    path('ajax/get-gear-subtypes/', motogear_views.get_gear_subtypes_ajax, name='get_gear_subtypes_ajax'),
+    path('ajax/upload-motogear-draft-images/', motogear_views.upload_motogear_draft_images_ajax, name='upload_motogear_draft_images_ajax'),
+    path('ajax/delete-motogear-draft-image/<int:pk>/', motogear_views.delete_motogear_draft_image_ajax, name='delete_motogear_draft_image_ajax'),
+    path('ajax/reorder-motogear-draft-images/', motogear_views.reorder_motogear_draft_images_ajax, name='reorder_motogear_draft_images_ajax'),
+    path('browse/motogear/', motogear_views.motogear_list, name='motogear_list'),
+
+    # ─── Listing detail + edit + lifecycle ───
     path("<int:pk>/", views.listing_detail, name="listing_detail"),
-    path("<int:pk>/edit/", views.listing_edit, name="listing_edit"),
+    path("<int:pk>/success/", views.listing_success, name="listing_success"),
+    path("<int:pk>/stats/", views.listing_stats, name="listing_stats"),
+    path("<int:pk>/edit/", views.listing_edit_hub, name="listing_edit_hub"),
+    path("<int:pk>/edit-trucks/", trucks_views.trucks_listing_edit, name="trucks_listing_edit"),
+    path("<int:pk>/edit/section/<str:section>/", views.listing_edit_section, name="listing_edit_section"),
+    path("<int:pk>/edit/step/<int:step>/", views.listing_edit_step, name="listing_edit_step"),
+    path("<int:pk>/edit-legacy/", views.listing_edit, name="listing_edit"),
+    path("<int:pk>/activation-plans/", views.listing_activation_plans, name="listing_activation_plans"),
+    path("<int:pk>/activate/", views.listing_activate, name="listing_activate"),
+    path("<int:pk>/reserve/", views.listing_reserve_toggle, name="listing_reserve_toggle"),
+    path("<int:pk>/vin-update/", views.listing_vin_update, name="listing_vin_update"),
     path("<int:pk>/delete/", views.listing_delete, name="listing_delete"),
     path("<int:pk>/save/", views.save_listing, name="save_listing"),
-    path("image/<int:pk>/delete/", views.image_delete, name="image_delete"),
+    path("<int:pk>/contact/", views.contact_seller, name="contact_seller"),
+    path("<int:pk>/report/", views.report_listing, name="report_listing"),
 ]

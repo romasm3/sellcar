@@ -1,0 +1,18 @@
+Hi {{ user_name|default:"there" }},
+
+Your listing has expired:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+   {% if views_count %}{{ views_count }} view{{ views_count|pluralize }} during active period{% endif %}
+
+Reactivate it with one click:
+{{ reactivate_url }}
+
+Or if you've already sold it, mark as SOLD here:
+{{ site_url }}/dashboard/announcements/
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

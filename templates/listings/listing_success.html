@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load i18n %}
+
+{% block title %}{% trans "Listing published" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-10">
+    <div class="max-w-3xl mx-auto px-4">
+
+        <!-- SUCCESS HEADER -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+                <i class="fas fa-check text-green-600 text-3xl"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                {{ headline }}
+            </h1>
+            <p class="text-gray-600">
+                <span class="font-semibold text-gray-900">
+                    {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %} {{ listing.year }}
+                </span>
+                <span class="mx-1">·</span>
+                <span class="text-gray-500">#{{ listing.pk }}</span>
+            </p>
+        </div>
+
+        <!-- LISTING PREVIEW CARD -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-48 flex-shrink-0">
+                    {% if main_image %}
+                        <img src="{{ main_image.image.url }}"
+                             alt="{{ listing.title }}"
+                             class="w-full h-48 md:h-full object-cover">
+                    {% else %}
+                        <div class="w-full h-48 md:h-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-image text-4xl text-gray-300"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="flex-1 p-6">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <span class="inline-block px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded mb-2">
+                                {% trans "ACTIVE" %}
+                            </span>
+                            <h3 class="text-xl font-bold text-gray-900">
+                                {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %} {{ listing.year }}
+                            </h3>
+                            <div class="text-2xl font-bold text-gray-900 mt-1">
+                                {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div class="flex items-center gap-2">
+                            <i class="far fa-calendar-check text-gray-400 w-4"></i>
+                            <span>{% blocktrans with days=listing.DEFAULT_ACTIVE_DAYS %}Listing valid for <strong class="text-gray-900">{{ days }} days</strong>{% endblocktrans %}</span>
+                        </div>
+                        {% if listing.expires_at %}
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-clock text-gray-400 w-4"></i>
+                            <span>{% blocktrans with date=listing.expires_at|date:"F j, Y" %}Expires on <strong class="text-gray-900">{{ date }}</strong>{% endblocktrans %}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-eye text-gray-400 w-4"></i>
+                            <span>{% trans "Visible to buyers in 5-10 minutes" %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <a href="{% url 'listing_detail' listing.pk %}"
+               class="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark font-semibold">
+                <i class="fas fa-eye"></i> {% trans "View listing" %}
+            </a>
+            <a href="{% url 'listing_edit_hub' listing.pk %}"
+               class="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-semibold">
+                <i class="fas fa-pen"></i> {% trans "Edit listing" %}
+            </a>
+        </div>
+
+        <!-- SHARE SECTION -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            <h3 class="font-semibold text-gray-900 mb-4">{% trans "Share this listing" %}</h3>
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' listing.pk %}"
+                   target="_blank" rel="noopener"
+                   class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#1877F2">
+                        <i class="fab fa-facebook-f text-white"></i>
+                    </div>
+                    <span class="text-xs text-gray-600">Facebook</span>
+                </a>
+                <a href="https://t.me/share/url?url={{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' listing.pk %}&text={{ listing.title|urlencode }}"
+                   target="_blank" rel="noopener"
+                   class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#26A5E4">
+                        <i class="fab fa-telegram-plane text-white"></i>
+                    </div>
+                    <span class="text-xs text-gray-600">Telegram</span>
+                </a>
+                <a href="https://wa.me/?text={{ listing.title|urlencode }}%20{{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' listing.pk %}"
+                   target="_blank" rel="noopener"
+                   class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#25D366">
+                        <i class="fab fa-whatsapp text-white"></i>
+                    </div>
+                    <span class="text-xs text-gray-600">WhatsApp</span>
+                </a>
+                <a href="https://twitter.com/intent/tweet?text={{ listing.title|urlencode }}&url={{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' listing.pk %}"
+                   target="_blank" rel="noopener"
+                   class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#000000">
+                        <i class="fab fa-x-twitter text-white"></i>
+                    </div>
+                    <span class="text-xs text-gray-600">X</span>
+                </a>
+                <button type="button"
+                        onclick="shareToInstagram()"
+                        class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+                        <i class="fab fa-instagram text-white"></i>
+                    </div>
+                    <span class="text-xs text-gray-600">Instagram</span>
+                </button>
+                <button type="button"
+                        onclick="copyListingLink()"
+                        class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#f3f4f6">
+                        <i class="fas fa-link text-gray-700" id="copyIcon"></i>
+                    </div>
+                    <span class="text-xs text-gray-600" id="copyLabel">{% trans "Copy link" %}</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- TIPS FOR SELLING FASTER -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
+            <h3 class="font-semibold text-blue-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-lightbulb"></i>
+                {% trans "Tips to sell faster" %}
+            </h3>
+            <ul class="space-y-2 text-sm text-blue-900">
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                    <span>{% trans "Add at least 8 high-quality photos from different angles" %}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                    <span>{% trans "Write a detailed description including service history" %}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                    <span>{% trans "Set a competitive price based on similar listings" %}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <i class="fas fa-check text-blue-600 mt-0.5"></i>
+                    <span>{% trans "Respond quickly to buyer messages" %}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- BACK LINK -->
+        <div class="text-center">
+            <a href="{% url 'my_listings' %}"
+               class="text-sm text-gray-600 hover:text-primary inline-flex items-center gap-1">
+                <i class="fas fa-arrow-left text-xs"></i> {% trans "Back to My Listings" %}
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// i18n strings iš template'o
+const I18N_PUBLISHED = {
+    copyLink: "{% trans 'Copy link' %}",
+    copied: "{% trans 'Copied!' %}",
+    instagramAlert: "{% trans 'Link copied! Paste it into your Instagram story, DM, or bio.' %}"
+};
+
+function copyListingLink() {
+    const url = '{{ request.scheme }}://{{ request.get_host }}{% url "listing_detail" listing.pk %}';
+    navigator.clipboard.writeText(url).then(function() {
+        const icon = document.getElementById('copyIcon');
+        const label = document.getElementById('copyLabel');
+        icon.classList.remove('fa-link');
+        icon.classList.add('fa-check');
+        icon.classList.remove('text-gray-700');
+        icon.classList.add('text-green-600');
+        label.textContent = I18N_PUBLISHED.copied;
+        setTimeout(function() {
+            icon.classList.remove('fa-check');
+            icon.classList.add('fa-link');
+            icon.classList.remove('text-green-600');
+            icon.classList.add('text-gray-700');
+            label.textContent = I18N_PUBLISHED.copyLink;
+        }, 2000);
+    });
+}
+
+function shareToInstagram() {
+    // Instagram doesn't support direct share URLs,
+    // so we copy the link and open Instagram.com
+    const url = '{{ request.scheme }}://{{ request.get_host }}{% url "listing_detail" listing.pk %}';
+    navigator.clipboard.writeText(url).then(function() {
+        alert(I18N_PUBLISHED.instagramAlert);
+        window.open('https://www.instagram.com/', '_blank');
+    });
+}
+</script>
+{% endblock %}

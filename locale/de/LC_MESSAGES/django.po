@@ -1,0 +1,5826 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 17:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\config\settings.py:100
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:101
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:102
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:103
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:104
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:105
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:106
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:107
+msgid "Français"
+msgstr "Français"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "Händler werden"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "Für Händler"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "Verkaufe mehr Autos auf SellCar"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr ""
+"Erreichen Sie Tausende von Käufern mit Ihrer eigenen Händlerseite, "
+"unbegrenzten Angeboten und hervorgehobener Platzierung."
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "Basic"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/Monat"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "Beinhaltet"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "Bis zu 50 Einträge"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "Markenhändlerseite"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "Individuelles Logo & Banner"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "Arbeitszeitanzeige"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "Hervorgehobene Platzierung"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "Am beliebtesten"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "Pro"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "Alles aus der Basisversion, plus"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "Unbegrenzte Einträge"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "Verifiziertes Händlerabzeichen"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "Analyse-Dashboard"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "Prioritätsunterstützung"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "Unternehmen"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "Alles aus der Pro-Version, plus"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "Spitzenplatz in der Suche"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "Individuell gestaltetes Design"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "Persönlicher Kundenbetreuer"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "API-Zugriff"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "Mehrbenutzerteam"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "Benötigen Sie einen individuellen Plan?"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr ""
+"Sprechen Sie uns auf Mengenrabatte oder Partnerschaftsmöglichkeiten an."
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "Kontaktieren Sie uns"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "Die Stripe-Abonnementintegration folgt in Kürze."
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "Login"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "Willkommen zurück"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "Melden Sie sich in Ihrem SellCar-Konto an."
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "Geben Sie Ihre E-Mail-Adresse ein"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "Passwort"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "Geben Sie Ihr Passwort ein"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "Erinnere dich an mich"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "Oder"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "Sie haben noch kein Konto?"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "Kostenlos anmelden"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "Zurück zur Startseite"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "Abgemeldet"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "Sie wurden erfolgreich abgemeldet."
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "Vielen Dank, dass Sie SellCar genutzt haben!"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "Erneut anmelden"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "Zur Startseite"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "Kennwort ändern"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "Aktualisieren Sie Ihr Kontopasswort."
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "Aktuelles Passwort*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "Geben Sie das aktuelle Passwort ein."
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "Neues Passwort*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "Neues Passwort eingeben"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "Neues Passwort bestätigen*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "Neues Passwort bestätigen"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "Passwortanforderungen:"
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "Mindestens 1 Zeichen lang"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "Kann rein numerisch sein"
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "Kann Ihrem Benutzernamen ähneln."
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "Passwort aktualisieren"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "Zurück zu den Einstellungen"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "Passwort vergessen?"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr ""
+"Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen Anweisungen zum "
+"Zurücksetzen Ihres Passworts."
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "E-Mail-Adresse:"
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "Link zum Zurücksetzen senden"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "Zurück zur Anmeldung"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "Passwort aktualisiert"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "Passwort aktualisiert!"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "Ihr Passwort wurde erfolgreich geändert."
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "Ihr Konto ist jetzt sicherer."
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "Zum Anmelden"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "Neues Passwort festlegen"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "Wählen Sie ein sicheres Passwort für Ihr Konto."
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "Link ungültig"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr ""
+"Dieser Link zum Zurücksetzen des Passworts ist ungültig oder wurde bereits "
+"verwendet."
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "Neuen Link anfordern"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "Prüfen Sie Ihre E-Mails"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr ""
+"Wir haben Ihnen Anweisungen zum Zurücksetzen Ihres Passworts gesendet."
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr ""
+"Überprüfen Sie Ihren Posteingang (und vorsichtshalber auch Ihren Spam-"
+"Ordner)."
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "Der Link ist 1 Stunde gültig."
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "Heim"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "Aktualisieren Sie Ihre persönlichen Daten"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "Profilbild"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG, PNG. Maximal 5 MB."
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "Persönliche Daten"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "Vorname"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "Nachname"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "E-Mail"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "Zweittelefon"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "(optional)"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "Adresse"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "Land"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "Stadt"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "Straße"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "Hausnummer"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "Über mich"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "Stornieren"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "Melden Sie sich an"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "Benutzerkonto erstellen"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "Jetzt bei SellCar anmelden"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "E-Mail-Adresse *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "Passwort *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "Passwort bestätigen *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "Mindestens 8 Zeichen lang"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "Kann nicht rein numerisch sein"
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"Ich stimme den <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Nutzungsbedingungen</a> zu.\n"
+"\n"
+"Und der <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Datenschutzrichtlinie</a>"
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "Sie haben bereits ein Konto?"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "Hier einloggen"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "Zurück zu SellCar"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "Händlerseite bereitgestellt von SellCar"
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "Einträge"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "Kontakte"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "Über uns"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "Rezensionen"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "Privatverkäufer"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "Ansprechpartner"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "Arbeitszeit"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "Mitglied seit %(Jahre)"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "Marke"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "Alle Marken"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "Modell"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "Alle Modelle"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "Jahr"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "Aus"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "Zu"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "Preis ab €"
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "Mindestbetrag €"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "Max €"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "Kraftstoffart"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "Alle"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "Übertragung"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "Körpertyp"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "Alles löschen"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "Suchen"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "Anzeige"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "von %(gesamt)s"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "Angebote"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "Neueste zuerst"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "Preis ↑"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "Preis ↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "Kilometerstand ↑"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "Jahr ↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "Jahr ↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "verhandelbar"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "Keine Einträge gefunden."
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "Filter löschen"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "Kontaktinformationen"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "Unternehmen"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "Telefon 2"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "Webseite"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "Über %(Unternehmen)s"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "Noch keine Bewertungen."
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "Hinterlassen Sie eine Bewertung"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "Teilen Sie Ihre Erfahrungen..."
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "Einreichen"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "Geldbörse"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "Verfügbares Guthaben"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "Punkte"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "Nachfüllen"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "Transaktionsverlauf"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "Laden Sie Ihr Konto auf"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr ""
+"Punkte sind die virtuelle Währung von SellCar. Verwenden Sie sie für Boosts,"
+" hervorgehobene Anzeigen und Cross-Posting."
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1 € = 1 Punkt"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "Betrag eingeben"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr ""
+"Das Zahlungssystem wird eingerichtet. Bitte schauen Sie bald wieder vorbei."
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "Sonderangebote"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "Zahlen"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "Erhalten"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(gesamt)s Punkte"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "Testmodus (nur für Entwickler)"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "Punkte sofort hinzufügen – ohne Stripe-Zahlung."
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "Datum"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "Typ"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "Beschreibung"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "Menge"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "Status"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "Bonus"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "Vollendet"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "Bisher keine Transaktionen."
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "SellCar – Autos online kaufen und verkaufen"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "Kartensuche"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "Anzeige erstellen"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "Gespeicherte Einträge"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "Meine Suchanfragen"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "Meine Angebote"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "Händler"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "Administrator"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "Moderate Benutzer"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "Verkaufsstatistiken"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "Django-Administration"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "Abmelden"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr ""
+"Entdecken Sie vertrauenswürdige Fahrzeuge und Dienstleistungen – einfacher, "
+"schneller, unkomplizierter."
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "Datenschutzrichtlinie"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "Cookie-Einstellungen"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "Dienstleistungen"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "Preisgestaltung"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "Werbung"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "Fahrzeugbewertung"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "Häufig gestellte Fragen"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "Haben Sie Fragen?"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "Täglich geöffnet"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "Mo-Fr"
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "Sa-So"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "Schreib uns eine Nachricht"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "Brauchen Sie Hilfe?"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "Nachricht an den Support senden"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten."
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "Bedingungen"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "Cookies"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "Chat"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "Gesehen"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "Eröffne das Gespräch!"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "Geben Sie eine Nachricht ein..."
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "SellCar-Support"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "Foto"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "Noch keine Nachrichten"
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "ÜBERSETZEN SIE DAS GESPRÄCH"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "Originalnachrichten anzeigen"
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "Geben Sie eine Nachricht ein oder fügen Sie ein Bild ein (Strg+V)..."
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "Füge ein Foto hinzu"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "Wählen Sie eine Konversation aus"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "Wählen Sie ein Gespräch von links aus."
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "ORIGINAL ZEIGEN"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "Übersetzung..."
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "Übersetzte Nachrichten anzeigen"
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "Übersetzung fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "Herunterladen"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "Häufig gestellte Fragen"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "Häufig gestellte Fragen"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr ""
+"Hier finden Sie Antworten auf häufig gestellte Fragen zur Nutzung von "
+"SellCar."
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "Wie erstelle ich ein Angebot?"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"Klicken Sie oben auf einer beliebigen Seite auf den roten Button „Anzeige "
+"erstellen“. Wählen Sie eine Kategorie (Autos, Motorräder, Lkw usw.), geben "
+"Sie die Details ein, laden Sie Fotos hoch, legen Sie Ihren Preis fest und "
+"veröffentlichen Sie die Anzeige. Die Anzeige ist innerhalb von 5–10 Minuten "
+"online."
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "Wie kann ich meinen Eintrag bearbeiten oder löschen?"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr ""
+"Gehen Sie im Benutzermenü zu „Meine Angebote“. Klicken Sie auf ein "
+"beliebiges Angebot, um es anzuzeigen, und verwenden Sie dann die "
+"Schaltflächen „Bearbeiten“ oder „Löschen“. Änderungen werden sofort "
+"übernommen."
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "Wie lange ist mein Angebot aktiv?"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr ""
+"Einträge sind 30 Tage lang aktiv. Sie können sie jederzeit verlängern. Nach "
+"Ablauf der Gültigkeitsdauer bleiben die Einträge 160 Tage lang in Ihrem "
+"Konto gespeichert, bevor sie automatisch gelöscht werden."
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "Wie kann ich einen Verkäufer kontaktieren?"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr ""
+"Öffnen Sie ein beliebiges Angebot und nutzen Sie die Schaltflächen "
+"„Nachricht senden“ oder „E-Mail senden“. Die Telefonnummer des Verkäufers "
+"wird angezeigt, sofern dieser sie aktiviert hat."
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "Wie funktioniert die Brieftasche?"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"In Ihrer Wallet werden Guthaben für die Hervorhebung von Einträgen, "
+"hervorgehobene Anzeigen und Cross-Posting gespeichert. Laden Sie Ihr "
+"Guthaben mit 20 $, 100 $, 500 $ (inkl. Bonusguthaben) oder einem beliebigen "
+"Betrag auf. 1 EUR = 1 Guthaben."
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "Wie werde ich Händler?"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"Besuchen Sie die Händlerseite in Ihrem Kontomenü. Wählen Sie ein Paket "
+"(Basic, Pro oder Enterprise) und abonnieren Sie es. Sie erhalten unbegrenzte"
+" Einträge, eine personalisierte Händlerseite, ein individuelles Logo und "
+"eine hervorgehobene Platzierung."
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "Wie kann ich mein Passwort ändern?"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr ""
+"Gehen Sie zu Einstellungen und klicken Sie dann auf „Passwort ändern“. Geben"
+" Sie Ihr aktuelles Passwort und das neue ein. Falls Sie Ihr Passwort "
+"vergessen haben, nutzen Sie die Option „Passwort vergessen?“ auf der "
+"Anmeldeseite."
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "Wie kann ich mein Konto löschen?"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr ""
+"Gehen Sie zu den Einstellungen, scrollen Sie nach unten und klicken Sie auf "
+"„Konto löschen“. Sie müssen Ihr Passwort zur Bestätigung eingeben. Diese "
+"Aktion ist endgültig und kann nicht rückgängig gemacht werden."
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "Benötigen Sie noch Hilfe?"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "Senden Sie eine E-Mail an unser Support-Team."
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "Autos durchsuchen"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "Finden Sie Ihr perfektes Fahrzeug"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "Durchsuchen Sie %(count)s Angebote"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "Kategorie"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "Alle Kategorien"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "Machen"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "Mindestpreis"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "Maximalpreis"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "Jahr ab"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "Jahr zu"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "Kraftstoffart"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "Teilebezeichnung / Code"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "Suche nach Teilebezeichnung oder Code"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "Verfügbare Fahrzeuge"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "%(count)s Einträge gefunden"
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "Neueste"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "Preis: Niedrig bis Hoch"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "Preis: Hoch bis Niedrig"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "Kilometerstand"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "Kartenansicht"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "km"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "Keine Einträge gefunden"
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "Versuchen Sie, Ihre Filter anzupassen."
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "Alle Filter löschen"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "Erweiterte Suche"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "Fahrzeugsuche"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "Suche löschen"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "Weitere Marken/Modelle hinzufügen"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "Preis, $"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "Körpertyp"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "mi"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "Motor"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "Leistung"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "Laufwerkstyp"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "Lenkung"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "Mängel"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "Türen"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "Farbe"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "Sitze"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "Klimaanlage"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "Zustand"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "Euro-Standard"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "Bundesstaat (USA)"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "Alle Staaten"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "Stadt (USA)"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "Alle Städte"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "Textsuche"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "z. B. BMW 320d mit geringer Laufleistung..."
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "Ausrüstung"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "Teilesuche"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "Teilebezeichnung oder Code"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "z. B. Bremsbeläge, 06H 145 601 H, BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "Neu"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "Gebraucht"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "Kompatibel mit (Fahrzeug)"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr ""
+"Geben Sie an, für welche Fahrzeuge dieses Teil geeignet ist. Leere Zeilen "
+"werden ignoriert. Wenn Sie alle Zeilen leer lassen, werden alle Teile "
+"durchsucht."
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "Suche (%(count)s)"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "Entfernen"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "Eintrag bearbeiten"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "Auto in Ersatzteilen verkaufen"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "Zurück zur Übersicht"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "Eintrag bearbeiten"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "Aktualisieren Sie die unten stehenden Angebotsdetails."
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "Zurück zur Kategorienauswahl"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "Verkaufe das ganze Auto in Einzelteilen"
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "Füllen Sie die folgenden Angaben zum Angebot aus."
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "Bitte beheben Sie Folgendes:"
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "Hauptdetails"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "- Wählen -"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "Änderung"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "z. B. 2.0 TDI 140 kW"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "Version"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "z. B. GTD, M Sport, AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "z.B. 110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "z.B. 150000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "Motorkapazität"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "z. B. 1.6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "Laufwerkstyp"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "Farbcode"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "z.B. LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "Motorkennung"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "z.B. BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "Getriebecode"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "z.B. DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "Preis ($)"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "Beschreiben Sie, was enthalten ist, Mängel, Zustand der Teile usw."
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "Fotos"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr "(%(count)s / 36 — zum Neuordnen ziehen, zum Vergrößern klicken)"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "HAUPTSÄCHLICH"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "Zum Hochladen klicken oder per Drag & Drop ablegen"
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "Maximal 36 Fotos, je 20 MB"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "Kontakt & Standort"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "Zustand"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "Eintrag veröffentlichen"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "Maximal 36 Fotos. Entfernen Sie zunächst einige."
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr "({count} / 36 — zum Neusortieren ziehen, zum Vergrößern klicken)"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "Bedingung erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "Marke erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "Jahr erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "Preis erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "Telefon erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "Die Stadt ist erforderlich"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "Der Staat ist erforderlich"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "Finde dein Traumauto"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr ""
+"Durchsuchen Sie Tausende von Fahrzeugen von vertrauenswürdigen Verkäufern."
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "Höchstpreis"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "Jeder Preis"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "Alle Arten"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "Limousine"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "SUV"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "Schrägheck"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "Coupe"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "Liste der Fahrzeuge"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "Zufriedene Kunden"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "Abgedeckte Städte"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "Unterstützung"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "Neueste Angebote"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "Alle anzeigen"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "k"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "Details anzeigen"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "Noch sind keine Einträge verfügbar."
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "Warum SellCar wählen?"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "Die beste Plattform zum Kauf und Verkauf von Autos"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "Einfache Suche"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr "Finden Sie Ihr Traumauto mit erweiterten Filtern und der Kartensuche"
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "Sicher und geschützt"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "Alle Angebote sind geprüft. Kaufen und verkaufen Sie mit Vertrauen."
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "Schnell und einfach"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr ""
+"Bieten Sie Ihr Auto in wenigen Minuten an und treten Sie sofort mit Käufern "
+"in Kontakt."
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "Bereit, Ihr Auto zu verkaufen?"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr ""
+"Schließen Sie sich Tausenden von Verkäufern an, die auf SellCar Käufer "
+"gefunden haben."
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "Eintrag erstellen"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "Los geht's"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "Aktivieren Sie Ihren Eintrag"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "AM BELIEBTESTEN"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "Ausgewählter Tarif:"
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "Keine ausgewählt"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "Als Entwurf speichern"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "Eintrag aktivieren"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "1 Tag"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{n} Tage"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "Zurück zur Artikelübersicht bearbeiten"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "Fotos & Videos"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "Fahrzeugdetails"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "Preis"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "Bearbeitung: %(Marke)s %(Modell)s"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "Neuen Eintrag erstellen"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "Schritt %(aktuell)s von %(gesamt)s"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "Führen Sie zuerst die vorherigen Schritte durch."
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "Fahrzeugkategorie auswählen"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← Wählen Sie eine Kategorie aus"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "Bitte beheben Sie die folgenden Fehler:"
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "Fahrzeugdetails & Fotos"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "Wählen Sie Ihr Fahrzeug aus und fügen Sie Fotos hinzu."
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "Marke suchen..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- Marke auswählen --"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "Dieses Feld ist erforderlich"
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "Modell auswählen"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "Erste Registrierung"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "MM"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "VIN"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "z.B. WBA3A5C51DF000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "Aktuelle Fotos"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr ""
+"(Zum Vergrößern klicken, mit der Maus darüberfahren, um Optionen anzuzeigen)"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "Hauptsächlich"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "Als Hauptdatei festlegen"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr ""
+"💡 Bewegen Sie den Mauszeiger über das Foto, um die Optionen anzuzeigen. "
+"Klicken Sie auf das Foto, um es zu vergrößern."
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "Bereits hochgeladen"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr "(%(count)s / 40 — zum Vergrößern klicken, zum Neuanordnen ziehen)"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "Löschen"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "Weitere Fotos hinzufügen"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "Fotos hochladen"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr "PNG, JPG bis zu 20 MB pro Bild (maximal 40 Bilder)"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "Video-URL (YouTube, optional)"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "Technische Details"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "Technische Spezifikationen bereitstellen"
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "Anzahl der Türen"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "Motorkapazität"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "Weitere Details"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "Antriebsart, Sitze, Felgengröße, Kraftstoffverbrauch usw."
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "Anzahl Sitzplätze"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "Felgengröße"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "Leergewicht (kg)"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "CO₂-Emission (g/km)"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "Herkunftsland"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "Kraftstoffverbrauch (l/100km)"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "Autobahn"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "Kombiniert"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "Technische Inspektion gültig bis"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "Monat"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "Zusätzliche Ausrüstung"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "Wählen Sie die Ausstattungsmerkmale Ihres Fahrzeugs aus"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "Legen Sie Ihren Preis fest"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "Was ist Ihre Preisvorstellung?"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "Der Preis ist verhandelbar."
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "Beschreiben Sie Ihr Fahrzeug detailliert"
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "Bitte geben Sie Zustand, Ausstattung, Wartungshistorie usw. an."
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "Kontakt & Standort"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "Wo befindet sich das Fahrzeug und wie können Käufer Sie erreichen?"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "Fahrzeugstandort"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "Bundesland auswählen"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "Straßenadresse"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "Genaue Adresse ausblenden"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "Kontaktinformationen"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "E-Mail (optional)"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "Allgemeine Geschäftsbedingungen"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"Ich stimme den <a href=\"#\" class=\"text-primary "
+"hover:underline\">Allgemeinen Geschäftsbedingungen</a> und der <a href=\"#\""
+" class=\"text-primary hover:underline\">Datenschutzrichtlinie</a> zu."
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "Senden Sie mir Newsletter und Angebote"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "Speichern"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "Zurück"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "Weitermachen"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "Eintrag einreichen"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "Typ auswählen:"
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "Unterkategorie auswählen:"
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "Keine Optionen"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "Details ausblenden"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr "({count} / 40 — zum Vergrößern klicken, zum Neuanordnen ziehen)"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "Maximal 40 Fotos. Entfernen Sie zunächst einige."
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr ""
+"Du hast {n} Fotos ausgewählt, aber nur {a} passen. Das erste {a} wird "
+"hinzugefügt."
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "Ein Modell wird benötigt."
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "Ein Monat wird benötigt"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "Körpertyp erforderlich"
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "Kraftstoffart erforderlich"
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "Übertragung erforderlich"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "Anzahl der Türen erforderlich"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "Kilometerstand erforderlich"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "Mängel sind erforderlich"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen."
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "Eintrag bearbeiten: %(brand)s %(model)s"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "Neu im Angebot: Autos"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "Hauptlistendaten"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "VIN-Code"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "Preis für den Export"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "Verhandelbar"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "Ich bin an einem Tausch interessiert."
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "+ Steuern"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr ""
+"Der Preis versteht sich exklusive Steuern – bitte erfragen Sie beim "
+"Verkäufer Einzelheiten zu den anfallenden Steuern."
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "Zusätzliche Daten"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "Weitere Details übermitteln"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "Modifikation (TDI, TSI, CDI...)"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "Technische Inspektion bis"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "Sommer-/Winterräder"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "CO₂-Emission, g/km"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "Erstes Registrierungsland"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "Anzahl Sitzplätze"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "Klimaanlage"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "Leergewicht, kg"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "Euro-Standard"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "Kraftstoffverbrauch (l/100km)"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "Merkmale"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "(Alle auswählen)"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "Alle auswählen"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "Besondere Merkmale"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "Garantie inklusive"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "Verfügbar zur Miete"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "Servicebuch"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "Importiert aus den USA"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "Mehrere Schlüsselsätze"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "Gültige technische Prüfung"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "Sportbereit"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "Für Menschen mit Behinderungen geeignet"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "Erhöhte Motorleistung"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "Pneumatische Federung"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "Fernstart"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "Ersatzrad"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "Aus der Auktion"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "Verkäufertyp"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "Beschreiben Sie Ihr Angebot im Detail."
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr ""
+"Je weniger Fragen Käufer beim Lesen Ihres Angebots haben, desto schneller "
+"finden Sie einen Käufer."
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr ""
+"Vermeiden Sie die Verwendung von GROSSBUCHSTABEN oder übermäßigen Symbolen."
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "Nach links drehen"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "Nach rechts drehen"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "Fotos hochladen"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr "Bis zu 40 Fotos. Maximale Größe 24 MB. JPG, GIF, PNG."
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr ""
+"Die Angabe Ihrer Telefonnummer ist erforderlich, damit potenzielle Käufer "
+"Sie telefonisch kontaktieren können."
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr ""
+"Per E-Mail können potenzielle Käufer Sie kontaktieren. Für Besucher des "
+"öffentlichen Inserats ist dies nicht sichtbar."
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "z.B. Vilnius"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "Straße, Hausnummer"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"Mit dem Absenden stimme ich den <a href=\"#\" class=\"text-gray-600 "
+"underline hover:text-gray-900\">Allgemeinen Geschäftsbedingungen</a> und der"
+" <a href=\"#\" class=\"text-gray-600 underline hover:text-"
+"gray-900\">Datenschutzrichtlinie</a> zu."
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr ""
+"Nicht alle Pflichtfelder sind ausgefüllt oder fehlerhaft ausgefüllt. Diese "
+"Felder sind rot markiert."
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* Pflichtfelder"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "ist erforderlich"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "Dieses Foto löschen?"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "Drehung fehlgeschlagen"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr ""
+"Sie haben zu viele Fotos ausgewählt – es werden nur die ersten verfügbaren "
+"hinzugefügt."
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "Angebots-ID nicht gefunden"
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "Hochladen fehlgeschlagen"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "Ištrinti skelbimą"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "Dėmesio!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "Šis veiksmas negrįžtamas."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "Ar tikrai norite ištrinti šį skelbimą?"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "Kaina:"
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "Atšaukti"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "Ištrinti"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "LKWs durchsuchen"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "Motorräder durchsuchen"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "Bruttogewicht"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "Kraftstoff"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "Radformel"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "LKW-Details"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "Erste Registrierung"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "Massenintervall"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "Leergewicht"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "Nutzlastkapazität"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "Kraftstofftankkapazität"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "Länge"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "Breite"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "Höhe"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "Volumen"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "Neu / Gebraucht"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "Getriebe"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "Schlafplätze"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "Vorderradaufhängung"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "Hinterradaufhängung"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "SDK-Nummer"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "Technische Inspektion bis"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "Fahrzeughistoriebericht von Carfaxreport.eu anfordern"
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "Geschichtsbericht"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "Ausstattung & Funktionen"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "Standort"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "Die genaue Adresse wird vom Verkäufer verborgen."
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "Wegbeschreibung"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "+ Steuern"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "Exportpreis:"
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "Fahrzeugdetails (für Ersatzteile)"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "Wegbeschreibung"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "In Karten öffnen"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "REISSVERSCHLUSS:"
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "Vom Verkäufer ausgeblendet"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "Koordinaten"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "Kopiert!"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "Koordinaten kopieren"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "Nur ungefähre Fläche"
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "Keine Mängel"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "Leergewicht"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "CO₂-Emissionen"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "Stadt:"
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "Autobahn:"
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "Kombiniert:"
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "Technische Inspektion bis"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr ""
+"Der Preis versteht sich exklusive Steuern – bitte erkundigen Sie sich beim "
+"Verkäufer nach den für Ihre Region geltenden Steuern."
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "Export:"
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr ""
+"Sonderpreis für Exportkäufer – gilt üblicherweise für den Versand des "
+"Fahrzeugs außerhalb des Landes des Verkäufers. Erkundigen Sie sich beim "
+"Verkäufer nach den Exportdokumenten und -bedingungen."
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "Privat"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "Alle Angebote ansehen →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "Zum Kopieren klicken"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "Der Verkäufer hat die Anzeige der Telefonnummer deaktiviert."
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "Nachricht senden"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "E-Mail senden"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "Anmelden und Kontakt aufnehmen"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "Aktie"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "Bericht"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "Erneuert"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "Sicherheitstipps"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "Treffen Sie sich an einem sicheren, öffentlichen Ort"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "Überprüfen Sie das Fahrzeug gründlich"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "Zahlen Sie niemals im Voraus."
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "Alle Dokumente prüfen"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "Diese Anzeige teilen"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "Kopie"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "Berichtsliste"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "Grund*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "Falscher Preis"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "Betrügerischer Eintrag"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "Falsche Kategorie"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "Doppelter Eintrag"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "Bereits verkauft"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "Andere"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "Zusätzlicher Kommentar"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "Beschreiben Sie das Problem..."
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "Ihre E-Mail-Adresse (optional)"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "Bericht einreichen"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "E-Mail an den Verkäufer senden"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "Ihre E-Mail-Adresse*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "Ihr Telefon"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "Nachricht*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "Hallo, ich interessiere mich für dieses Angebot..."
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr ""
+"Marke, Modell und Erstzulassung können nicht geändert werden. Die "
+"Fahrzeugidentifikationsnummer (FIN) kann bearbeitet werden."
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "Preis (€)*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "Kilometerstand*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "Beschreiben Sie Ihr Fahrzeug..."
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "Aktuelle Bilder"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "Dieses Bild löschen?"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "Neue Bilder hinzufügen"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "Sie können mehrere Bilder hochladen."
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "Eintrag löschen"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "Kategorie auswählen"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "Autos"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "Minibusse, Busse & Wohnmobile"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "Motorräder & Motorradausrüstung"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "Lkw & Nutzfahrzeuge"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "Teile"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "Boote & Wassertransport"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "Anhänger und Sattelanhänger"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "Reifen & Felgen"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "Bau- und Lagerausrüstung"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "Landwirtschaft & Forstwirtschaft"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "Fahrräder & Roller"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "Autovermietung"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "Flugzeuge und Luftfahrzeuge"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "Flugzeugteile"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "Wählen Sie eine Kategorie aus"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "Fortschrittlich"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "Karte"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "Weitere Filter"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "Alle Marken"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "Suchmodell..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "Marke und Modell hinzufügen"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "Kilometerstand (km)"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "Textsuche"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "Suchen..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "Gültige Inspektion"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "Eintrag mit Fahrgestellnummer"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "Vor Auktionen ausblenden"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "Name oder Teilenummer"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "z.B. 06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "Mehr"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "Weniger"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "Kleinere Mängel"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "Beschädigt"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "Retten"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "Zeigen Sie keine älteren als"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "Jederzeit"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24 Stunden"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3 Tage"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7 Tage"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30 Tage"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "Inzahlungnahme akzeptiert"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "Garantie"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "Verkauf im Rahmen eines Leasingvertrags"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "Neueste und erneuerte"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "Kilometerstand: Niedrig bis Hoch"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "Kilometerstand: Hoch bis Niedrig"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "Jahr: Neueste zuerst"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "Jahr: Älteste zuerst"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "Suche speichern"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "VERKAUFT"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "Alle Standorte"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "Standort suchen..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "Vereinigte Staaten"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "Marken mit 0 Einträgen anzeigen"
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "Preisklasse"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "Mindestbetrag"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "Max $"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "Suche nach Teilebezeichnung oder -nummer (z. B. 06H 145 601 H)"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "Filter anwenden"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "Zeigt %(total_count)s von %(total_count)s"
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "Sortieren nach:"
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr ""
+"Versuchen Sie, Ihre Filter anzupassen, um das zu finden, wonach Sie suchen."
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "Tagesangebote"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "Am teuersten"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "Noch keine hervorgehobenen Einträge."
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "Noch keine Einträge."
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "vor s"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "vor Minuten"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "vor 1 Stunde"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "vor 1 Tag"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "vor Tagen"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "Maximal 5 Marken-/Modellpaare"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "Wählen Sie zuerst die Marke aus."
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "Wählen Sie zuerst „Erstellen“."
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "Laden..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "Wählen Sie einen Tarif"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "Angebotsinformationen"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "Serviceauswahl"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "Zahlung"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "Angebotsdauer"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "Top-Stars"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "Vorschau"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "Auf der Startseite hervorgehoben"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "Highlights der Auflistung"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "Empfohlen"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "Tage"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "D."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "Position in der Liste"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr ""
+"Platzieren Sie Ihre Platzierung weiter oben, um mehr Interesse zu wecken."
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "Sie möchten schneller verkaufen?"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "Rabattcode"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "Code"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "Anwenden"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "Punkte"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "Gesamt"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "Befehl"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "Mit dem Absenden Ihres Angebots stimmen Sie SellCar zu."
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "Bedingungen"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "Und"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "Datenschutzrichtlinie"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "Ihr Guthaben reicht nicht aus. Bitte laden Sie es auf."
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "L"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "Zurück zur Bearbeitung des Eintrags"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "Bitte geben Sie einen Code ein."
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "Bitte wählen Sie zuerst einen Tarif aus."
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "Ungültiger Code"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "Fehler"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr ""
+"Ihr Eintrag wird in den Suchergebnissen weiter oben angezeigt als andere. Je"
+" mehr Sterne-Boosts Sie bestellen, desto höher wird er platziert."
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr ""
+"Ihr Eintrag wird auf der Startseite unter den Top-Einträgen angezeigt und "
+"erzielt so bis zu 5-mal mehr Aufrufe."
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr ""
+"Ihr Eintrag wird in den Suchergebnissen einen farbigen Hintergrund haben, "
+"wodurch er sich von anderen Einträgen abhebt."
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "Zurück zu meinen Angeboten"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "Auflistung"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "Erstellt"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "AKTIV"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "INAKTIV"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "ENTWURF"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "Gültig bis"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "Ansichten"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "%(pct)s%% im Vergleich zur Vorwoche"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "Eindrücke"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "CTR"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "Ansichten / Eindrücke"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(rate)s%% Sparrate"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "Ihre Position in der Liste: %(pos)s / %(total)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Ihr Angebot gehört zu den Top 10 aller aktiven Angebote. Steigern Sie die "
+"Sichtbarkeit, um weiter oben zu erscheinen."
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Ihr Angebot gehört zu den Top 50 aller aktiven Angebote. Steigern Sie die "
+"Platzierung, um weiter oben zu erscheinen."
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr ""
+"Verbessern Sie die Platzierung Ihres Eintrags, um in der Rangliste aller "
+"aktiven Einträge weiter oben zu erscheinen."
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "Aufrufe pro Tag (letzte 30 Tage)"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "Impressionen pro Tag (letzte 30 Tage)"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "Wann sehen sich die Käufer Ihr Angebot an?"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "Gipfel"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "Tageszeit (00:00 - 23:00)"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "Sicht"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "Ansichten"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "Eindruck"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "Eindrücke"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "Eintrag veröffentlicht"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "Angebot gültig für <strong class=\"text-gray-900\">%(Tage)s Tage</strong>"
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "Läuft ab am <strong class=\"text-gray-900\">%(date)s</strong>"
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "Für Käufer in 5-10 Minuten sichtbar"
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "Angebot ansehen"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "Link kopieren"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "Tipps für schnellere Verkäufe"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr ""
+"Fügen Sie mindestens 8 hochwertige Fotos aus verschiedenen Blickwinkeln "
+"hinzu."
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr ""
+"Verfassen Sie eine detaillierte Beschreibung inklusive Servicehistorie."
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr ""
+"Legen Sie einen wettbewerbsfähigen Preis basierend auf ähnlichen Angeboten "
+"fest."
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "Reagiere schnell auf Käufernachrichten."
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr ""
+"Link kopiert! Füge ihn in deine Instagram-Story, Direktnachricht oder Bio "
+"ein."
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "Aktualisieren Sie Ihr Konto"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "Sie haben Ihr Angebotslimit erreicht."
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr ""
+"Sie haben derzeit %(count)s von %(limit)s aktiven Einträgen. Wählen Sie "
+"unten eine Option, um weitere hinzuzufügen."
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "Bezahlung pro Eintrag"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "Einmalzahlung"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "pro Auflistung"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "Fügen Sie jetzt einen weiteren Eintrag hinzu."
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "30 Tage aktiv"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "Kein Abonnement"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "Demnächst verfügbar (Stripe)"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "BELIEBT"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "Privat+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "Monatsabonnement"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "pro Monat"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(Anzahl)s aktive Angebote"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "Jederzeit kündbar"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "Alle Funktionen inklusive"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "Für Unternehmen"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "Händlerabzeichen in den Angeboten"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "Öffentliche Händlerseite"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "Erfordert die Genehmigung durch den Administrator."
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "Demnächst verfügbar (Phase 3)"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "Zurück zu meinen Angeboten"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "Motorradbekleidung verkaufen"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "Motorradbekleidung und Zubehör verkaufen"
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "Helme, Jacken, Handschuhe, Stiefel und andere Motorradbekleidung"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "Grundlegende Informationen"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "Typ angeben..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "Hersteller"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "Hersteller angeben..."
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "z.B. GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "Größe"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "Größe angeben..."
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "Sicherheitszertifizierung"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "Zertifizierung angeben..."
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "Anzahl der Lüftungsöffnungen"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "z.B. 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "Material"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "Material angeben..."
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "Geschlecht angeben..."
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "Farbe angeben..."
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "Merkmale / Ausstattung"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr ""
+"Wählen Sie zuerst eine Kategorie aus, um die verfügbaren Funktionen "
+"anzuzeigen."
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "Für den Handel geöffnet"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr ""
+"Beschreiben Sie den Artikel – Zustand, Geschichte, Grund für den Verkauf..."
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"Bis zu <strong>40</strong> Fotos. Maximal <strong>16 MB</strong> pro Foto. "
+"JPG, PNG, WEBP. Das erste Foto ist das Hauptfoto."
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr "PNG, JPG bis zu 16 MB pro Datei (maximal 40 Fotos)"
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "Wird hochgeladen..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "Video"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "Postleitzahl"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"Ich stimme den <a href=\"#\" class=\"text-primary "
+"hover:underline\">Nutzungsbedingungen</a> und der <a href=\"#\" "
+"class=\"text-primary hover:underline\">Datenschutzrichtlinie</a> zu."
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "Ich bin ein gewerblicher Verkäufer"
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "Erforderliche Felder fehlen:"
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "Wählen Sie zuerst eine Kategorie aus."
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "Keine Funktionen verfügbar."
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "Entwurf wird vorbereitet..."
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "Es werden {n} Fotos hochgeladen..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "Upload fehlgeschlagen: Keine Antwort"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "Hochladen fehlgeschlagen:"
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "Unbekannter Fehler"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "Upload-Fehler:"
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "Löschen fehlgeschlagen"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "Nutzungsbedingungen"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "Stöbern Sie in der Motorradausrüstung"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "Motorradausrüstung & Zubehör"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "Motorradausrüstung verkaufen"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "Marke, Modell, Stichwort..."
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr ""
+"Halten Sie Strg/Cmd gedrückt, um mehrere Tasten gleichzeitig zu drücken."
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "Min"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "Max"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "Alle Länder"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "Alle US-Bundesstaaten"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "Filter anwenden"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "NEU"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "Ohne Titel"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "Keine Angebote für Motorradbekleidung gefunden."
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr ""
+"Versuche, deine Filter anzupassen oder sei der Erste, der etwas auflistet!"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "Motorrad-Eintrag erstellen"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "Zurück zu den Kategorien"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "Hauptinformationen"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "Hubraum (cm³)"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "z.B. 600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "Herstellungsdatum"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "Gebraucht / Neu"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "Kilometer"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "Mi"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "Motorradtyp"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "Kühlart"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "Motortyp"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "Erstes Registrierungsland"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "z.B. Japan"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "Zusätzliche Ausrüstung"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "Elektrostarter"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "Kickstarter"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "Automatikgetriebe"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "Breiter Hinterreifen"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "Sitzheizung"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "Beheizbarer Lenker"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "Frontscheibe"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "Koffer"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "Beifahrersitz"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "Topcase"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "Scheibenbremsen"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "Audiosystem"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "Tempomat"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "Traktionskontrolle"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "Schnellschaltung"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "LED-Leuchten"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "Weitere Funktionen"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "Tausch möglich"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "Verkauft auf Leasingbasis"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "Wird in Litauen nicht betrieben"
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "Oldtimer"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "Wartungshistorie"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "Katalysator"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "Sicherheit"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "ABS"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "Alarmanlage"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "Bremsscheibenblockierung"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "Wegfahrsperre"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "Ortungsgerät (GPS)"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "Beschreiben Sie Ihr Motorrad detailliert..."
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "Eine detaillierte Beschreibung"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "steigert das Interesse der Käufer an Ihrem Angebot."
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "Je informativer die Auflistung,"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "Je weniger Fragen die Käufer stellen werden."
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "Kreativ verfasste Angebote"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "werden möglicherweise auf unseren Social-Media-Seiten vorgestellt."
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"Sie können bis zu <strong>40</strong> Fotos hochladen. Die maximale Größe "
+"pro Foto beträgt <strong>10 MB</strong>. Unterstützte Formate: <strong>JPG, "
+"PNG, GIF</strong>."
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr ""
+"Um die Reihenfolge der Fotos zu ändern, ziehen Sie sie per Drag & Drop an "
+"die gewünschte Position. Das erste Foto wird als Titelbild verwendet."
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr ""
+"Fotografieren Sie bei guten Lichtverhältnissen, idealerweise im Freien."
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr ""
+"Fügen Sie Fotos von der Vorderseite, der Seite, dem Heck und dem Motorraum "
+"bei."
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "Mängel ehrlich aufzeigen – das schafft Vertrauen beim Käufer."
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "Vermeiden Sie Filter – Käufer wollen den tatsächlichen Zustand sehen."
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "Video (optional)"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "YouTube-URL"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "Kontakt & Standort"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "Name"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "Genaue Adresse vor der Öffentlichkeit verbergen"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "Bitte füllen Sie alle rot markierten Pflichtfelder aus."
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "{n} ausgewählte Dateien"
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "Erweiterte Motorradsuche"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "Motorräder"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "Jahr von–bis"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "Hubraum, cm³ von–bis"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "Entfernung von–bis"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "Erstes Registrierungsland"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "Registrierungsart"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "Batteriekapazität, kWh"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "Elektrische Reichweite, km"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "z. B. Yamaha R1 mit geringer Laufleistung..."
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "Ausstattung / Merkmale"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "Elektrischer Anlasser"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "Breiter Hinterreifen"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "Touring Cases"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "Rückenlehne für Beifahrer"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "Beheizbare Sitze"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "Automatikgetriebe"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "Beheizte Griffe"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "Scheibenbremsen"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "Alarm"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "Inzahlungnahme möglich"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "Leasingmöglichkeiten verfügbar"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "Wird in Litauen nicht verwendet"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "Servicebuch"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "Metallic-Lack"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "Zurück zu Motorrädern"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "Gefunden"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "Keine Motorräder gefunden"
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "Versuchen Sie, Ihre Suchkriterien zu erweitern."
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "%(count)s Motorradangebote gefunden"
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "Motor cm³"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "Anzeige von %(angezeigt)s von %(gesamt)s"
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "Keine Motorradangebote gefunden"
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "Erneuern"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr "Alle %(count)s aktiven Einträge wieder ganz oben anzeigen?"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "Alle erneuern"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "%(count)s aktive Angebote springen an den Anfang der Liste"
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "Neu erstellen"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "Filter löschen"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "Aktiv"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "Reserviert"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "Verkauft"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "ERNEUERT"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "RESERVIERT"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "Kürzlich verlängert – kann nach 1 Stunde erneut verlängert werden."
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "Verlängern"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "Position"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "Detaillierte Statistiken anzeigen"
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "Automatische Löschung in %(days)sd"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "Preis noch nicht festgelegt"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "Das Angebot ist <strong>inaktiv</strong>"
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "Aktivieren"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "Angebot ist"
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "inaktiv"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "In dieser Kategorie sind keine Einträge vorhanden."
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "Noch keine Einträge"
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "Versuchen Sie, \\ auszuwählen."
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "Erstellen Sie Ihr erstes Angebot, um mit dem Verkauf zu beginnen."
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "Eintrag erstellen"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "Ich habe es verkauft."
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "Eintrag mit \\ kennzeichnen"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "Eintrag löschen"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "Diese Handlung kann nicht rückgängig gemacht werden."
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "Noch keine gespeicherten Einträge"
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "Stöbern Sie in den Angeboten und speichern Sie Ihre Favoriten!"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "Gespeicherte Suchanfragen"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "Zurück zur Übersicht"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "E-Mail-Benachrichtigungen"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "Duplikat"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "von %(y)s"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "bis %(y)s"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "Keine gespeicherten Suchanfragen"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr ""
+"Speichern Sie eine Suche, um schnell Angebote zu finden, die Ihren Kriterien"
+" entsprechen."
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "Angebote durchsuchen"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "E-Mail-Benachrichtigungen aktualisiert"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "Suche doppelt"
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "Filter"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "Alle Marken"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "Preis ab"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "Preis bis"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "Jahr ab"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "Jahr zu"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "Klar"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "Versuchen Sie, die Filter zu ändern."
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "Kein Bild"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "Erweiterte LKW-Suche"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "Verfeinern Sie Ihre Suche mit detaillierten Filtern."
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "Marke und Modell"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "Wählen Sie „Herstellen“."
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "Wählen Sie „Erst erstellen“ aus."
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "Marke/Modell-Kombination hinzufügen"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr ""
+"Fügen Sie mehrere Kombinationen zur Suche hinzu, z. B. <em>Volvo FH</em> UND"
+" <em>Scania R</em>."
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "Jahr, Preis und Leistung"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "Leistung (kW)"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "Hubraum (L)"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "LKW-Spezifikationen"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "LKW-Typ"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "Antriebsart (Achse)"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "Zustand & Aussehen"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "US-Bundesstaat"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "Alle Staaten"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "Stichwortsuche"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "Suche nach Titel oder Beschreibung..."
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "Die Einträge entsprechen Ihren Filtern."
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "%(Anzahl)s Ergebnisse anzeigen"
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "Diese Suche speichern"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr ""
+"Es wurden <strong>%(count)s</strong> LKW gefunden, die Ihren Filtern "
+"entsprechen."
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "Ergebnisse anzeigen"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "Kein LKW entspricht Ihren Filtern"
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr ""
+"Versuchen Sie, einige Filter zu entfernen oder die Bereiche anzupassen."
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "Modell auswählen"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "Bitte wählen Sie zuerst eine Marke aus."
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "Suche gespeichert"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "Suche konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "Durchsuchen Sie Lkw & Nutzfahrzeuge"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "%(count)s Einträge gefunden"
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "Unterkategorie"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "Alle Lkw & Nutzfahrzeuge"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "Suche erstellen..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "%(count)s Einträge werden angezeigt"
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "Keine LKWs gefunden"
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "Marken mit 0 Einträgen anzeigen"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "Euro"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "EMPFOHLEN"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "Noch keine vorgestellten Trucks."
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "Noch keine Lkw."
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "Erstellen"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "LKW-Liste"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "LKW-Liste bearbeiten"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "Status:"
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "Läuft ab %(Datum)s"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "Öffentliche Seite anzeigen"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "LKW- und Gewerbeeintrag erstellen"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr ""
+"Füllen Sie die folgenden Felder aus. Pflichtfelder sind mit einem Sternchen "
+"(*) gekennzeichnet."
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "Grundlegende Informationen"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "Wählen"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "z.B. FH16, Actros 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "Technische Inspektion gültig bis"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "Hubraum, Liter"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "z. B. 12.0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "Fahrzeugidentifikationsnummer (VIN)"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "Z.B. WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "Beschreiben Sie Ihren LKW..."
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr "Hier Fotos einfügen oder <strong>zum Hochladen klicken</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr ""
+"Bis zu 40 Fotos · JPG, PNG · max. 10 MB pro Foto · Fotos per Drag & Drop neu"
+" anordnen"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "Sicht"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "Noch keine Fotos – laden Sie welche hoch, um Käufer anzulocken."
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "YouTube-URL – z. B. https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "Angebotspreis"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "Adresse (optional)"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "Speichern fehlgeschlagen"

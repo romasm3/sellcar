@@ -1,0 +1,1 @@
+Congrats on the sale of your {{ listing_title }}!

@@ -1,0 +1,15 @@
+Hi,
+
+Listings matching your saved search "{{ search_name }}" dropped in price:
+
+{% for listing in listings %}   {{ forloop.counter }}. {{ listing.title }}
+      {{ listing.url }}
+
+{% endfor %}
+View all matching listings:
+{{ search_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

@@ -1,0 +1,476 @@
+{% load static %}
+{% load i18n %}
+{% load dict_extras %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ seller.profile.display_name }} - SellCar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .tab-btn { transition: all 0.15s; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#7C3AED', 'primary-dark': '#6D28D9' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Back to SellCar -->
+    <div class="bg-primary text-white text-xs py-1.5 px-4 flex items-center justify-between">
+        <a href="{% url 'home' %}" class="flex items-center gap-1.5 hover:underline font-medium">
+            <i class="fas fa-arrow-left text-xs"></i> {% trans "Back to SellCar" %}
+        </a>
+        <span class="text-purple-200 text-xs">{% trans "Dealer page powered by SellCar" %}</span>
+    </div>
+
+    {% if seller.profile.is_dealer %}
+    <!-- BANNER -->
+    {% if seller.profile.banner_image %}
+    <div class="bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4 pt-4">
+            <div style="overflow:hidden; max-height:180px; border-radius:0.5rem;">
+                <img src="{{ seller.profile.banner_image.url }}" style="width:100%; height:180px; object-fit:cover; object-position:center;">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- TABS — constrained to max-w-6xl -->
+    <div class="bg-gray-100 mt-3">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="bg-white border-b border-gray-200 rounded-t-lg">
+                <div class="flex overflow-x-auto gap-0 px-2">
+                    <button onclick="showTab('listings')" id="tab-listings"
+                            class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-primary text-primary whitespace-nowrap">
+                        {% trans "Listings" %} ({{ listings_count }})
+                    </button>
+                    <button onclick="showTab('contacts')" id="tab-contacts"
+                            class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap">
+                        {% trans "Contacts" %}
+                    </button>
+                    {% if seller.profile.company_description %}
+                    <button onclick="showTab('about')" id="tab-about"
+                            class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap">
+                        {% trans "About us" %}
+                    </button>
+                    {% endif %}
+                    <button onclick="showTab('reviews')" id="tab-reviews"
+                            class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap">
+                        {% trans "Reviews" %} ({{ reviews.count }})
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- MAIN LAYOUT -->
+    <div class="max-w-6xl mx-auto px-4 py-4">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+
+            <!-- LEFT SIDEBAR -->
+            <div class="lg:col-span-1">
+                <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+
+                    {% if seller.profile.is_dealer %}
+                    <div class="p-4 border-b border-gray-100">
+                        {% if seller.profile.company_logo %}
+                        <img src="{{ seller.profile.company_logo.url }}"
+                             class="max-h-20 max-w-full object-contain mx-auto mb-3"
+                             alt="{{ seller.profile.company_name }}">
+                        {% else %}
+                        <div class="w-16 h-16 rounded-lg bg-primary flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3">
+                            {{ seller.profile.display_name|first|upper }}
+                        </div>
+                        {% endif %}
+                        <h2 class="font-bold text-gray-900 text-sm text-center">{{ seller.profile.company_name }}</h2>
+                        {% if seller.profile.rating_count > 0 %}
+                        <div class="flex items-center justify-center gap-1 mt-1">
+                            {% for i in "12345" %}<i class="{% if forloop.counter <= seller.profile.rating %}fas{% else %}far{% endif %} fa-star text-yellow-400 text-xs"></i>{% endfor %}
+                            <span class="text-xs text-gray-500 ml-1">({{ seller.profile.rating_count }})</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="p-4 border-b border-gray-100">
+                        <div class="flex items-center gap-3">
+                            {% if seller.profile.profile_picture %}
+                            <img src="{{ seller.profile.profile_picture.url }}" class="w-12 h-12 rounded-full object-cover flex-shrink-0">
+                            {% else %}
+                            <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
+                                {{ seller.profile.display_name|first|upper }}
+                            </div>
+                            {% endif %}
+                            <div>
+                                <p class="font-bold text-gray-900 text-sm">{{ seller.profile.display_name }}</p>
+                                <span class="text-xs text-gray-500">{% trans "Private seller" %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="p-4 space-y-2.5 text-sm">
+                        {% if seller.profile.is_dealer and seller.profile.contact_person %}
+                        <div>
+                            <p class="text-xs text-gray-400">{% trans "Contact person" %}</p>
+                            <p class="font-medium text-gray-800 text-sm">{{ seller.profile.contact_person }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if seller.profile.show_phone and seller.profile.phone_number %}
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-gray-400 w-4 text-xs"></i>
+                            <a href="tel:{{ seller.profile.phone_number }}" class="font-semibold text-gray-900 hover:text-primary text-sm">{{ seller.profile.phone_number }}</a>
+                        </div>
+                        {% endif %}
+
+                        {% if seller.profile.show_phone and seller.profile.phone_number_secondary %}
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-gray-400 w-4 text-xs"></i>
+                            <a href="tel:{{ seller.profile.phone_number_secondary }}" class="font-semibold text-gray-900 hover:text-primary text-sm">{{ seller.profile.phone_number_secondary }}</a>
+                        </div>
+                        {% endif %}
+
+                        {% if seller.profile.street or seller.profile.city %}
+                        <div class="flex items-start gap-2 text-xs text-gray-600">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-0.5 w-4"></i>
+                            <span>{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if seller.profile.working_hours %}
+                        <div class="border-t border-gray-100 pt-2">
+                            <p class="text-xs text-gray-400 mb-1">{% trans "Working hours" %}</p>
+                            <p class="text-xs text-gray-700">{{ seller.profile.working_hours }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if seller.profile.website %}
+                        <div class="flex items-center gap-2 text-xs">
+                            <i class="fas fa-globe text-gray-400 w-4"></i>
+                            <a href="{{ seller.profile.website }}" target="_blank" class="text-primary hover:underline">{{ seller.profile.website|truncatechars:25 }}</a>
+                        </div>
+                        {% endif %}
+
+                        <div class="border-t border-gray-100 pt-2 space-y-1">
+                            <div class="flex items-center gap-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-300 w-4"></i> {% blocktrans count counter=listings_count %}{{ counter }} listing{% plural %}{{ counter }} listings{% endblocktrans %}
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-gray-500">
+                                <i class="far fa-calendar-alt text-gray-300 w-4"></i> {% blocktrans with year=seller.date_joined|date:"Y" %}Member since {{ year }}{% endblocktrans %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="lg:col-span-3">
+
+                <!-- TAB: LISTINGS -->
+                <div id="panel-listings">
+
+                    <!-- FILTERS -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-4">
+                        <form method="get">
+                            {% if seller.profile.is_dealer %}<input type="hidden" name="tab" value="listings">{% endif %}
+                            <div class="flex flex-wrap items-end gap-3">
+                                <div class="flex-1 min-w-[120px]">
+                                    <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Brand" %}</label>
+                                    <select name="brand" id="filter-brand" onchange="loadModels(this.value)"
+                                            class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                        <option value="">{% trans "All Makes" %}</option>
+                                        {% for brand in available_brands %}
+                                        <option value="{{ brand.id }}" {% if request.GET.brand == brand.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ brand.name }} ({{ brand_counts|get_item:brand.id }})
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="flex-1 min-w-[120px]">
+                                    <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Model" %}</label>
+                                    <select name="model" id="filter-model"
+                                            class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                        <option value="">{% trans "All Models" %}</option>
+                                        {% for m in filter_models %}
+                                        <option value="{{ m.id }}" {% if request.GET.model == m.id|stringformat:"s" %}selected{% endif %}>{{ m.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="min-w-[75px]">
+                                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Year" %}</label>
+                                        <select name="year_min" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                            <option value="">{% trans "From" %}</option>
+                                            {% for y in years %}
+                                            <option value="{{ y }}" {% if request.GET.year_min == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="min-w-[75px]">
+                                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
+                                        <select name="year_max" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                            <option value="">{% trans "To" %}</option>
+                                            {% for y in years %}
+                                            <option value="{{ y }}" {% if request.GET.year_max == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="min-w-[80px]">
+                                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Price from €" %}</label>
+                                        <input type="number" name="price_min" value="{{ request.GET.price_min }}" placeholder="{% trans 'Min €' %}"
+                                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                    </div>
+                                    <div class="min-w-[80px]">
+                                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
+                                        <input type="number" name="price_max" value="{{ request.GET.price_max }}" placeholder="{% trans 'Max €' %}"
+                                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-[90px]">
+                                    <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Fuel type" %}</label>
+                                    <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for ft in fuel_types %}
+                                        <option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ ft.name }} ({{ fuel_counts|get_item:ft.id }})
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="flex-1 min-w-[90px]">
+                                    <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Transmission" %}</label>
+                                    <select name="transmission" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for tr in transmissions %}
+                                        <option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ tr.name }} ({{ transmission_counts|get_item:tr.id }})
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="flex-1 min-w-[90px]">
+                                    <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Body type" %}</label>
+                                    <select name="body_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                                        <option value="">{% trans "All" %}</option>
+                                        {% for value, label in body_type_choices %}
+                                        <option value="{{ value }}" {% if request.GET.body_type == value %}selected{% endif %}>
+                                            {{ label }} ({{ body_type_counts|get_item:value }})
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="flex gap-3 items-end">
+                                    {% if request.GET %}
+                                    <a href="?" class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-all">
+                                        {% trans "Clear All" %}
+                                    </a>
+                                    {% endif %}
+                                    <button type="submit"
+                                            class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium rounded-lg transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-500/30">
+                                        <i class="fas fa-search"></i> {% trans "Search" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Count + sort -->
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-sm text-gray-500">
+                            {% trans "Showing" %} <span class="font-semibold text-gray-900">{{ listings.count }}</span>
+                            {% if listings.count != listings_count %} {% blocktrans with total=listings_count %}of {{ total }}{% endblocktrans %}{% endif %} {% trans "listings" %}
+                        </p>
+                        <form method="get" class="flex items-center gap-2">
+                            {% for key, value in request.GET.items %}
+                                {% if key != 'sort' %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endif %}
+                            {% endfor %}
+                            <select name="sort" onchange="this.form.submit()"
+                                    class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" style="width:auto;">
+                                <option value="-created_at" {% if not request.GET.sort or request.GET.sort == '-created_at' %}selected{% endif %}>{% trans "Newest first" %}</option>
+                                <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>{% trans "Price ↑" %}</option>
+                                <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>{% trans "Price ↓" %}</option>
+                                <option value="mileage" {% if request.GET.sort == 'mileage' %}selected{% endif %}>{% trans "Mileage ↑" %}</option>
+                                <option value="-year" {% if request.GET.sort == '-year' %}selected{% endif %}>{% trans "Year ↓" %}</option>
+                                <option value="year" {% if request.GET.sort == 'year' %}selected{% endif %}>{% trans "Year ↑" %}</option>
+                            </select>
+                        </form>
+                    </div>
+
+                    {% if listings %}
+                    <div class="space-y-2">
+                        {% for listing in listings %}
+                        <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                            <a href="{{ listing.get_absolute_url }}" class="flex">
+                                <div class="w-48 h-32 flex-shrink-0 bg-gray-100 relative">
+                                    {% if listing.images.first %}
+                                        <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                                    {% else %}
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <i class="fas fa-car text-gray-300 text-3xl"></i>
+                                        </div>
+                                    {% endif %}
+                                    {% if listing.images.count > 1 %}
+                                    <span class="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
+                                        <i class="fas fa-camera mr-0.5"></i>{{ listing.images.count }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1 p-3 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-sm mb-1">{{ listing.title }}</h3>
+                                        <div class="flex flex-wrap gap-x-1 text-xs text-gray-500">
+                                            {% if listing.first_registration %}<span>{{ listing.first_registration|date:"Y-m" }}</span>{% elif listing.year %}<span>{{ listing.year }}</span>{% endif %}
+                                            {% if listing.body_type %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.get_body_type_display }}</span>{% endif %}
+                                            {% if listing.mileage %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.mileage|floatformat:0 }} km</span>{% endif %}
+                                            {% if listing.fuel_type %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                            {% if listing.transmission %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.transmission.name }}</span>{% endif %}
+                                            {% if listing.engine_capacity %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.engine_capacity }} L</span>{% endif %}
+                                            {% if listing.power %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.power }} kW</span>{% endif %}
+                                            {% if listing.city %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.city }}</span>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mt-2">
+                                        <p class="text-lg font-bold text-primary">
+                                            €{{ listing.price|floatformat:0 }}
+                                            {% if listing.negotiable %}<span class="text-xs font-normal text-gray-400 ml-1">{% trans "negotiable" %}</span>{% endif %}
+                                        </p>
+                                        <span class="text-xs text-gray-400">{{ listing.created_at|date:"Y-m-d" }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-10 text-center">
+                        <i class="fas fa-car text-gray-300 text-4xl mb-3"></i>
+                        <p class="text-gray-500 text-sm">{% trans "No listings found." %}</p>
+                        <a href="?" class="inline-block mt-2 text-xs text-primary hover:underline">{% trans "Clear filters" %}</a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- TAB: CONTACTS -->
+                <div id="panel-contacts" class="hidden">
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 max-w-lg">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">{% trans "Contact information" %}</h2>
+                        <div class="space-y-3 text-sm">
+                            {% if seller.profile.company_name %}<div class="flex gap-3"><i class="fas fa-building text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Company" %}</p><p class="font-medium">{{ seller.profile.company_name }}</p></div></div>{% endif %}
+                            {% if seller.profile.contact_person %}<div class="flex gap-3"><i class="fas fa-user text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Contact person" %}</p><p class="font-medium">{{ seller.profile.contact_person }}</p></div></div>{% endif %}
+                            {% if seller.profile.phone_number %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone" %}</p><a href="tel:{{ seller.profile.phone_number }}" class="font-medium text-primary">{{ seller.profile.phone_number }}</a></div></div>{% endif %}
+                            {% if seller.profile.phone_number_secondary %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone 2" %}</p><a href="tel:{{ seller.profile.phone_number_secondary }}" class="font-medium text-primary">{{ seller.profile.phone_number_secondary }}</a></div></div>{% endif %}
+                            {% if seller.profile.street or seller.profile.city %}<div class="flex gap-3"><i class="fas fa-map-marker-alt text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Address" %}</p><p class="font-medium">{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city }}{% if seller.profile.country %}, {{ seller.profile.country }}{% endif %}</p></div></div>{% endif %}
+                            {% if seller.profile.working_hours %}<div class="flex gap-3"><i class="fas fa-clock text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Working hours" %}</p><p class="font-medium">{{ seller.profile.working_hours }}</p></div></div>{% endif %}
+                            {% if seller.profile.website %}<div class="flex gap-3"><i class="fas fa-globe text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Website" %}</p><a href="{{ seller.profile.website }}" target="_blank" class="font-medium text-primary">{{ seller.profile.website }}</a></div></div>{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if seller.profile.company_description %}
+                <div id="panel-about" class="hidden">
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 max-w-3xl">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4">{% blocktrans with company=seller.profile.company_name %}About {{ company }}{% endblocktrans %}</h2>
+                        <p class="text-gray-600 leading-relaxed whitespace-pre-line text-sm">{{ seller.profile.company_description }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- TAB: REVIEWS -->
+                <div id="panel-reviews" class="hidden">
+                    {% if reviews %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        {% for review in reviews %}
+                        <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">{{ review.reviewer.username|first|upper }}</div>
+                                    <div><p class="font-semibold text-gray-900 text-xs">{{ review.reviewer.username }}</p><p class="text-xs text-gray-400">{{ review.created_at|date:"Y-m-d" }}</p></div>
+                                </div>
+                                <div class="flex gap-0.5">{% for i in "12345" %}<i class="{% if forloop.counter <= review.rating %}fas{% else %}far{% endif %} fa-star text-yellow-400 text-xs"></i>{% endfor %}</div>
+                            </div>
+                            {% if review.comment %}<p class="text-gray-600 text-xs">{{ review.comment }}</p>{% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 text-center mb-4">
+                        <p class="text-gray-400 text-sm">{% trans "No reviews yet." %}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if user.is_authenticated and user != seller and can_review %}
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-5 max-w-lg">
+                        <h3 class="font-semibold text-gray-900 mb-3 text-sm">{% trans "Leave a review" %}</h3>
+                        <form method="post" action="{% url 'accounts:leave_review' seller.pk %}">
+                            {% csrf_token %}
+                            <div class="flex items-center gap-1 mb-3">
+                                {% for i in "12345" %}
+                                <button type="button" onclick="setRating({{ forloop.counter }})" class="star-btn text-xl text-gray-300 hover:text-yellow-400"><i class="far fa-star"></i></button>
+                                {% endfor %}
+                                <input type="hidden" name="rating" id="rating-input" required>
+                            </div>
+                            <textarea name="comment" rows="3" placeholder="{% trans 'Share your experience...' %}"
+                                      class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary mb-3 bg-gray-50"></textarea>
+                            <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg text-sm font-medium">{% trans "Submit" %}</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+function showTab(name) {
+    ['listings','contacts','about','reviews'].forEach(t => {
+        const p = document.getElementById('panel-'+t), b = document.getElementById('tab-'+t);
+        if (p) p.classList.add('hidden');
+        if (b) { b.classList.remove('border-primary','text-primary'); b.classList.add('border-transparent','text-gray-600'); }
+    });
+    const ap = document.getElementById('panel-'+name), ab = document.getElementById('tab-'+name);
+    if (ap) ap.classList.remove('hidden');
+    if (ab) { ab.classList.add('border-primary','text-primary'); ab.classList.remove('border-transparent','text-gray-600'); }
+}
+
+function loadModels(brandId) {
+    const s = document.getElementById('filter-model');
+    s.innerHTML = '<option value="">{% trans "All Models" %}</option>';
+    if (!brandId) return;
+    fetch(`/listings/ajax/get-models/?brand_id=${brandId}&seller_pk={{ seller.pk }}`)
+        .then(r => r.json())
+        .then(data => {
+            data.forEach(m => {
+                const o = document.createElement('option');
+                o.value = m.id;
+                o.textContent = m.count ? `${m.name} (${m.count})` : m.name;
+                s.appendChild(o);
+            });
+        });
+}
+
+function setRating(value) {
+    document.getElementById('rating-input').value = value;
+    document.querySelectorAll('.star-btn').forEach((btn, i) => {
+        const ic = btn.querySelector('i');
+        if (i < value) { ic.className = 'fas fa-star'; btn.classList.add('text-yellow-400'); btn.classList.remove('text-gray-300'); }
+        else { ic.className = 'far fa-star'; btn.classList.remove('text-yellow-400'); btn.classList.add('text-gray-300'); }
+    });
+}
+
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab) showTab(urlTab);
+</script>
+</body>
+</html>

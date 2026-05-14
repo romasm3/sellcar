@@ -1,0 +1,19 @@
+Hi {{ user_name|default:"there" }},
+
+Milestone reached - your listing has been viewed {{ milestone }} times:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+View your stats:
+{{ stats_url }}
+
+That's a lot of interest. Time to:
+  - Check your inbox for any inquiries
+  - Renew your listing to stay on top
+  - Consider a small price adjustment if no inquiries
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

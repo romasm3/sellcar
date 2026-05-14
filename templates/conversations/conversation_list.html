@@ -1,0 +1,497 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Messages" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden" style="height: calc(100vh - 140px);">
+        <div class="flex h-full">
+
+            <!-- Kairė kolona — pokalbių sąrašas -->
+            <div class="w-80 border-r border-gray-200 flex flex-col flex-shrink-0">
+                <div class="px-4 py-4 border-b border-gray-200">
+                    <h2 class="font-bold text-lg text-gray-900">{% trans "Messages" %}</h2>
+                </div>
+
+                <div class="overflow-y-auto flex-1">
+                    {% for item in conv_data %}
+                    <a href="?conv={{ item.conversation.pk }}"
+                       class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors {% if selected_conv and selected_conv.pk == item.conversation.pk %}{% if item.is_support %}bg-blue-50 border-l-4 border-l-blue-600{% else %}bg-purple-50 border-l-4 border-l-primary{% endif %}{% endif %}">
+
+                        <!-- Skelbimo nuotrauka arba avatar -->
+                        <div class="flex-shrink-0">
+                            {% if item.is_support %}
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-xl shadow-sm">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            {% elif item.conversation.listing and item.conversation.listing.images.first %}
+                            <img src="{{ item.conversation.listing.images.first.image.url }}"
+                                 class="w-12 h-12 rounded-lg object-cover border border-gray-200">
+                            {% else %}
+                            <div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-lg">
+                                {{ item.other_user.email|first|upper }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between">
+                                <p class="font-semibold text-gray-900 text-sm truncate">{{ item.other_user.email }}</p>
+                                {% if item.last_message %}
+                                <span class="text-xs text-gray-400 flex-shrink-0 ml-1">{{ item.last_message.created_at|date:"H:i" }}</span>
+                                {% endif %}
+                            </div>
+                            {% if item.is_support %}
+                            <p class="text-xs font-semibold text-blue-600 truncate">
+                                <i class="fas fa-headset mr-1"></i>{% trans "SellCar Support" %}
+                            </p>
+                            {% elif item.conversation.listing %}
+                            <p class="text-xs text-primary truncate">{{ item.conversation.listing }}</p>
+                            {% endif %}
+                            <div class="flex items-center justify-between">
+                                {% if item.last_message %}
+                                <p class="text-xs text-gray-500 truncate">
+                                    {% if item.last_message.image and not item.last_message.content %}
+                                    <i class="fas fa-camera mr-1"></i>{% trans "Photo" %}
+                                    {% elif item.last_message.image %}
+                                    <i class="fas fa-camera mr-1"></i>{{ item.last_message.content }}
+                                    {% else %}
+                                    {{ item.last_message.content }}
+                                    {% endif %}
+                                </p>
+                                {% endif %}
+                                {% if item.unread_count > 0 %}
+                                <span class="bg-primary text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ml-1">
+                                    {{ item.unread_count }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% empty %}
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-comments text-4xl mb-3"></i>
+                        <p class="text-sm">{% trans "No messages yet" %}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Dešinė kolona — chat -->
+            <div class="flex-1 flex flex-col">
+                {% if selected_conv %}
+
+                <!-- Chat header -->
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center gap-4">
+                    {% if not selected_conv.listing %}
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white shadow-sm">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    {% elif selected_conv.listing.images.first %}
+                    <img src="{{ selected_conv.listing.images.first.image.url }}"
+                         class="w-10 h-10 rounded-lg object-cover border border-gray-200">
+                    {% endif %}
+                    <div>
+                        {% if not selected_conv.listing %}
+                        <p class="font-semibold text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-headset"></i> {% trans "SellCar Support" %}
+                        </p>
+                        <p class="text-xs text-gray-500">{{ selected_other_user.email }}</p>
+                        {% else %}
+                        <p class="font-semibold text-gray-900">{{ selected_other_user.email }}</p>
+                        <a href="{% url 'listing_detail' selected_conv.listing.pk %}"
+                           class="text-xs text-primary hover:underline">
+                            {{ selected_conv.listing }} — €{{ selected_conv.listing.price|floatformat:0 }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Žinutės -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-3" id="messageContainer">
+                    {% for message in selected_messages %}
+                    <div class="flex {% if message.sender == request.user %}justify-end{% else %}justify-start{% endif %}">
+                        <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-2xl text-sm
+                            {% if message.sender == request.user %}
+                            bg-primary text-white rounded-br-sm
+                            {% else %}
+                            bg-gray-100 text-gray-800 rounded-bl-sm
+                            {% endif %}"
+                            data-message-id="{{ message.id }}">
+                            {% if message.image %}
+                            <img src="{{ message.image.url }}"
+                                 data-fullsrc="{{ message.image.url }}"
+                                 class="lightbox-trigger rounded-lg max-w-full max-h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity mb-1"
+                                 loading="lazy">
+                            {% endif %}
+                            {% if message.content %}
+                            <p class="message-text" data-original="{{ message.content }}">{{ message.content }}</p>
+                            {% endif %}
+                            <p class="text-xs mt-1 {% if message.sender == request.user %}text-purple-200{% else %}text-gray-400{% endif %}">
+                                {{ message.created_at|date:"H:i" }}
+                                {% if message.sender == request.user %}
+                                    {% if message.is_read %}✓✓ {% trans "Seen" %}{% else %}✓{% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center text-gray-400 py-8">
+                        <p class="text-sm">{% trans "Start the conversation!" %}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- ═══ TRANSLATE TOGGLE — kaip Ovoko ═══ -->
+                {% if selected_messages %}
+                <div class="px-6 py-3 border-t border-gray-100 text-center" id="translateBar">
+                    <button type="button" id="translateBtn"
+                            class="text-sm font-semibold text-blue-600 hover:text-blue-800 uppercase tracking-wide transition-colors">
+                        <i class="fas fa-language mr-1"></i>
+                        <span id="translateBtnText">{% trans "TRANSLATE CONVERSATION" %}</span>
+                    </button>
+                    <p class="text-xs text-gray-500 mt-0.5" id="translateStatus">
+                        {% trans "Showing original messages" %}
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- Input -->
+                <div class="px-6 py-4 border-t border-gray-200">
+                    <form method="post" action="{% url 'conversations:detail' selected_conv.pk %}"
+                          enctype="multipart/form-data"
+                          id="messageForm"
+                          class="flex flex-col gap-2">
+                        {% csrf_token %}
+
+                        <!-- Image preview -->
+                        <div id="imagePreview" class="hidden relative inline-block self-start">
+                            <img id="previewImg" class="max-h-32 rounded-lg border border-gray-200" />
+                            <button type="button" id="removeImage"
+                                    class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center shadow">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <!-- Input row: [tekstas] [📎] [➤] -->
+                        <div class="flex gap-2 items-center">
+                            <input type="text" name="content" id="messageContent"
+                                   placeholder="{% trans 'Type a message or paste image (Ctrl+V)...' %}"
+                                   autocomplete="off"
+                                   class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
+
+                            <input type="file" id="imageInput" name="image" accept="image/*" class="hidden">
+                            <label for="imageInput"
+                                   class="cursor-pointer text-gray-500 hover:text-primary px-3 py-2 border border-gray-300 rounded-lg hover:border-primary transition-colors"
+                                   title="{% trans 'Add a photo' %}">
+                                <i class="fas fa-paperclip text-base"></i>
+                            </label>
+
+                            <button type="submit" id="sendButton"
+                                    class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                {% else %}
+                <!-- Kai nepasirinktas pokalbis -->
+                <div class="flex-1 flex flex-col items-center justify-center text-gray-400">
+                    <i class="fas fa-comments text-6xl mb-4"></i>
+                    <p class="text-lg font-medium">{% trans "Select a conversation" %}</p>
+                    <p class="text-sm mt-1">{% trans "Choose a conversation from the left" %}</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// ─── i18n strings ───
+var I18N = {
+    translate: "{% trans 'TRANSLATE CONVERSATION' %}",
+    showOriginal: "{% trans 'SHOW ORIGINAL' %}",
+    translating: "{% trans 'Translating...' %}",
+    showingOriginal: "{% trans 'Showing original messages' %}",
+    showingTranslated: "{% trans 'Showing translated messages' %}",
+    translateError: "{% trans 'Translation failed. Please try again.' %}"
+};
+
+const container = document.getElementById('messageContainer');
+if (container) {
+    container.scrollTop = container.scrollHeight;
+}
+
+// === TRANSLATE CONVERSATION (1v1 kaip Ovoko) ===
+(function() {
+    const btn = document.getElementById('translateBtn');
+    const btnText = document.getElementById('translateBtnText');
+    const status = document.getElementById('translateStatus');
+    if (!btn) return;
+
+    let isTranslated = false;
+    let translatedCache = null;
+
+    {% if selected_conv %}
+    const TRANSLATE_URL = '{% url "conversations:translate" selected_conv.pk %}';
+    {% endif %}
+
+    btn.addEventListener('click', async () => {
+        if (isTranslated) {
+            // Toggle atgal į originalą
+            document.querySelectorAll('.message-text').forEach(p => {
+                p.textContent = p.dataset.original;
+            });
+            btnText.textContent = I18N.translate;
+            status.textContent = I18N.showingOriginal;
+            isTranslated = false;
+            return;
+        }
+
+        if (translatedCache) {
+            applyTranslations(translatedCache);
+            btnText.textContent = I18N.showOriginal;
+            status.textContent = I18N.showingTranslated;
+            isTranslated = true;
+            return;
+        }
+
+        btnText.textContent = I18N.translating;
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(TRANSLATE_URL, {
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+            });
+            const data = await response.json();
+
+            if (data.success && data.messages) {
+                translatedCache = {};
+                data.messages.forEach(m => {
+                    translatedCache[m.id] = m.translated;
+                });
+                applyTranslations(translatedCache);
+                btnText.textContent = I18N.showOriginal;
+                status.textContent = I18N.showingTranslated;
+                isTranslated = true;
+            } else {
+                alert(I18N.translateError);
+                btnText.textContent = I18N.translate;
+            }
+        } catch (e) {
+            console.error('Translate error:', e);
+            alert(I18N.translateError);
+            btnText.textContent = I18N.translate;
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    function applyTranslations(cache) {
+        document.querySelectorAll('[data-message-id]').forEach(bubble => {
+            const msgId = parseInt(bubble.dataset.messageId);
+            const translated = cache[msgId];
+            if (translated) {
+                const p = bubble.querySelector('.message-text');
+                if (p) p.textContent = translated;
+            }
+        });
+    }
+})();
+
+// === IMAGE UPLOAD (paste / drag&drop / file picker) ===
+(function() {
+    const imageInput = document.getElementById('imageInput');
+    const messageContent = document.getElementById('messageContent');
+    const messageForm = document.getElementById('messageForm');
+    const previewBox = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const removeBtn = document.getElementById('removeImage');
+
+    if (!imageInput || !messageContent) return;
+
+    function showPreview(file) {
+        if (!file || !file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            previewBox.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function setFile(file) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        imageInput.files = dt.files;
+        showPreview(file);
+    }
+
+    imageInput.addEventListener('change', () => {
+        if (imageInput.files[0]) showPreview(imageInput.files[0]);
+    });
+
+    if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+            imageInput.value = '';
+            previewBox.classList.add('hidden');
+            previewImg.src = '';
+        });
+    }
+
+    document.addEventListener('paste', (e) => {
+        const items = e.clipboardData?.items;
+        if (!items) return;
+        for (const item of items) {
+            if (item.type.startsWith('image/')) {
+                const file = item.getAsFile();
+                if (file) {
+                    setFile(file);
+                    e.preventDefault();
+                    break;
+                }
+            }
+        }
+    });
+
+    const dropZone = document.getElementById('messageContainer');
+    if (dropZone) {
+        ['dragover', 'dragenter'].forEach(evt => {
+            dropZone.addEventListener(evt, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('bg-blue-50');
+            });
+        });
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('bg-blue-50');
+            });
+        });
+        dropZone.addEventListener('drop', (e) => {
+            const file = e.dataTransfer?.files?.[0];
+            if (file && file.type.startsWith('image/')) {
+                setFile(file);
+            }
+        });
+    }
+
+    if (messageForm) {
+        messageForm.addEventListener('submit', (e) => {
+            const hasText = messageContent.value.trim().length > 0;
+            const hasImage = imageInput.files.length > 0;
+            if (!hasText && !hasImage) {
+                e.preventDefault();
+                messageContent.focus();
+                return false;
+            }
+            const btn = document.getElementById('sendButton');
+            if (btn) {
+                btn.disabled = true;
+                setTimeout(() => { btn.disabled = false; }, 3000);
+            }
+        });
+    }
+})();
+
+// === POLLING su typing protection ===
+let lastUnreadCount = {{ unread_messages_count|default:0 }};
+let isUserTyping = false;
+
+const typingInput = document.getElementById('messageContent');
+if (typingInput) {
+    typingInput.addEventListener('input', () => {
+        isUserTyping = typingInput.value.length > 0;
+    });
+}
+
+setInterval(function() {
+    if (isUserTyping) return;
+
+    fetch('{% url "conversations:check_new" %}')
+        .then(r => r.json())
+        .then(data => {
+            if (data.unread_count !== lastUnreadCount) {
+                lastUnreadCount = data.unread_count;
+                location.reload();
+            }
+        });
+}, 5000);
+
+// === LIGHTBOX (foto modal) ===
+(function() {
+    // Dinamiškai sukuriam modal'ą
+    const modalHTML = `
+        <div id="lightboxModal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-90 items-center justify-center p-4 cursor-pointer" style="backdrop-filter: blur(4px);">
+            <button id="lightboxClose" class="absolute top-4 right-4 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full flex items-center justify-center text-2xl transition-all z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <a id="lightboxDownload" download class="absolute top-4 right-20 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full flex items-center justify-center text-lg transition-all z-10" title="{% trans 'Download' %}">
+                <i class="fas fa-download"></i>
+            </a>
+            <img id="lightboxImg" src="" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" />
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('lightboxClose');
+    const downloadBtn = document.getElementById('lightboxDownload');
+
+    function openLightbox(src) {
+        modalImg.src = src;
+        downloadBtn.href = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        modalImg.src = '';
+        document.body.style.overflow = '';
+    }
+
+    // Click ant bet kurio paveikslėlio chat'e
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.lightbox-trigger');
+        if (trigger) {
+            e.preventDefault();
+            const src = trigger.dataset.fullsrc || trigger.src;
+            openLightbox(src);
+        }
+    });
+
+    // Close — X mygtukas
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+    });
+
+    // Close — paspaudus ant fono (ne ant paties paveikslėlio)
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeLightbox();
+        }
+    });
+
+    // Close — ESC klavišas
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeLightbox();
+        }
+    });
+
+    // Download mygtuko stop propagation (kad neuždarytų modal'o)
+    downloadBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+})();
+</script>
+{% endblock %}

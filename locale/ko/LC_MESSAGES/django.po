@@ -1,0 +1,5741 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 18:21+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\config\settings.py:101
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:102
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:103
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:104
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:105
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:106
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:107
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:108
+msgid "Français"
+msgstr "Français"
+
+#: .\config\settings.py:109
+msgid "Español"
+msgstr "Español"
+
+#: .\config\settings.py:110
+msgid "中文"
+msgstr "中文"
+
+#: .\config\settings.py:111
+msgid "Tiếng Việt"
+msgstr "Tiếng Việt"
+
+#: .\config\settings.py:112
+msgid "العربية"
+msgstr "العربية"
+
+#: .\config\settings.py:113
+msgid "한국어"
+msgstr "한국어"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "딜러가 되세요"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "딜러용"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "SellCar에서 더 많은 차량을 판매하세요"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr "브랜드화된 딜러 페이지, 무제한 상품 등록 및 추천 게재를 통해 수천 명의 구매자에게 도달하세요."
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "기초적인"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/월"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "구독하다"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "포함되는 사항"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "최대 50개 상품 등록 가능"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "브랜드 판매점 페이지"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "맞춤 로고 및 배너"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "근무시간 표시"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "주요 배치 위치"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "가장 인기 있는"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "찬성"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "Basic에 포함된 모든 기능에 더해"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "무제한 상품 등록"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "인증된 딜러 배지"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "분석 대시보드"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "우선 지원"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "기업"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "프로 버전의 모든 기능에 더해"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "검색 결과 1위"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "맞춤형 브랜드 테마"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "전담 계정 관리자"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "API 접근"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "다중 사용자 팀"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "맞춤형 플랜이 필요하신가요?"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr "대량 구매 할인이나 파트너십 기회에 대해 문의해 주세요."
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "저희에게 연락하세요"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "Stripe 구독 연동 기능이 곧 추가될 예정입니다."
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "로그인"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "다시 오신 것을 환영합니다"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "SellCar 계정에 로그인하세요"
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "이메일 주소"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "이메일 주소를 입력하세요"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "비밀번호"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "비밀번호를 입력하세요"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "나를 기억해줘"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "또는"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "계정이 없으신가요?"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "무료로 가입하세요"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "홈으로 돌아가기"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "로그아웃됨"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "로그아웃이 성공적으로 완료되었습니다."
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "SellCar를 이용해 주셔서 감사합니다!"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "다시 로그인"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "홈으로 가기"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "비밀번호 변경"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "계정 비밀번호를 업데이트하세요"
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "현재 비밀번호*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "현재 비밀번호를 입력하세요"
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "새 비밀번호*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "새 비밀번호를 입력하세요"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "새 비밀번호를 확인하세요*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "새 비밀번호를 확인하세요"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "비밀번호 요구 사항:"
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "최소 1자 이상"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "완전히 숫자로 표현될 수 있습니다."
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "사용자 이름과 유사할 수 있습니다."
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "비밀번호 업데이트"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "설정으로 돌아가기"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr "이메일 주소를 입력하시면 비밀번호 재설정 방법을 안내해 드리겠습니다."
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "이메일 주소:"
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "재설정 링크 보내기"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "로그인으로 돌아가기"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "비밀번호가 업데이트되었습니다"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "비밀번호가 업데이트되었습니다!"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "비밀번호가 성공적으로 변경되었습니다."
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "이제 귀하의 계정은 더욱 안전해졌습니다."
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "로그인으로 이동"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "새 비밀번호"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "새 비밀번호 설정"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "계정에 사용할 강력한 비밀번호를 선택하세요"
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "링크가 잘못되었습니다"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr "이 비밀번호 재설정 링크는 유효하지 않거나 이미 사용되었습니다."
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "새 링크 요청"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "이메일을 확인하세요"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr "비밀번호 재설정 방법을 보내드렸습니다."
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr "받은 편지함(혹시 모르니 스팸 폴더도)을 확인하세요."
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "해당 링크는 1시간 후에 만료됩니다."
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "집"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "프로필 수정"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "개인 정보를 업데이트하세요"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "프로필 사진"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG, PNG 형식. 최대 5MB."
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "개인 정보"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "이름"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "성"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "이메일"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "전화 번호"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "보조 전화"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "(선택 과목)"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "주소"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "국가"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "도시"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "거리"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "집 번호"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "나에 대하여"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "취소"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "변경 사항 저장"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "회원가입"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "계정 생성"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "지금 바로 SellCar에 가입하세요"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "이메일 주소 *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "비밀번호 *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "비밀번호 확인 *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "최소 8자 이상"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "완전히 숫자로만 표현될 수는 없습니다."
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"본인은 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">서비스 약관</a> "
+"및 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">개인정보 "
+"보호정책</a>에 동의합니다."
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "이미 계정이 있으신가요?"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "여기에서 로그인하세요"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "SellCar 페이지로 돌아가기"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "SellCar에서 제공하는 딜러 페이지입니다."
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "목록"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "콘택트 렌즈"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "회사 소개"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "리뷰"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "개인 판매자"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "담당자"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "근무 시간"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "가입일: %(년)년"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "상표"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "모든 브랜드"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "모델"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "모든 모델"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "년도"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "에서"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "에게"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "가격은 €부터 시작합니다."
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "최소 유로"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "최대 유로"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "연료 종류"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "모두"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "전염"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "체형"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "모두 지우기"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "찾다"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "전시"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "%(총계)"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "목록"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "최신순"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "가격 상승"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "가격 ↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "주행거리 ↑"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "연도 ↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "년 ↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "협상 가능"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "검색 결과가 없습니다."
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "필터 지우기"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "연락처 정보"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "회사"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "핸드폰"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "전화 2"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "웹사이트"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "%(회사)에 대하여"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "아직 리뷰가 없습니다."
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "리뷰를 남겨주세요"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "경험을 공유해 주세요..."
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "제출하다"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "지갑"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "사용 가능한 잔액"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "점"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "충전"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "거래 내역"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "계정에 충전하세요"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr ""
+"포인트는 셀카(SellCar)의 가상 화폐입니다. 포인트를 사용하여 광고 부스트, 추천 광고 및 여러 플랫폼에 광고를 게재할 수 "
+"있습니다."
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1유로 = 1포인트"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "금액을 입력하세요"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr "결제 시스템을 구축 중입니다. 잠시 후 다시 확인해 주세요."
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "특별 할인"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "지불하다"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "얻다"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(총)점"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "테스트 모드(개발자 전용)"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "Stripe 결제 없이 즉시 포인트를 적립하세요."
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "날짜"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "유형"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "설명"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "양"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "상태"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "보너스"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "완전한"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "보류 중"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "실패한"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "아직 거래 내역이 없습니다."
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "SellCar - 온라인 자동차 구매 및 판매"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "지도 검색"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "광고 만들기"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "저장된 목록"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "내 검색"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "메시지"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "내 상품 목록"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "설정"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "상인"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "관리자"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "보통 사용자"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "판매 통계"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "장고 관리자"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "로그아웃"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr "믿을 수 있는 차량과 서비스를 더욱 쉽고 빠르게 만나보세요."
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "이용약관"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "개인정보 보호정책"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "쿠키 설정"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "서비스"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "가격"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "광고"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "차량 평가"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "자주 묻는 질문"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "궁금한 점이 있으신가요?"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "매일 영업합니다"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "월요일-금요일"
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "토-일"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "저희에게 연락 주세요"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "도움이 필요하세요?"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "지원팀에 메시지를 보내세요"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "모든 권리 보유."
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "자귀"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "은둔"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "쿠키"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "채팅"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "봤다"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "대화를 시작하세요!"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "메시지를 입력하세요..."
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "셀카 지원"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "사진"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "아직 메시지가 없습니다."
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "대화 번역"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "원본 메시지를 표시합니다."
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "메시지를 입력하거나 이미지를 붙여넣으세요(Ctrl+V)..."
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "사진을 추가하세요"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "대화를 선택하세요"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "왼쪽에서 대화를 선택하세요"
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "원본 보기"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "번역 중..."
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "번역된 메시지를 표시합니다."
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "번역에 실패했습니다. 다시 시도해 주세요."
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "다운로드"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "자주 묻는 질문"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "자주 묻는 질문"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr "SellCar 사용과 관련된 일반적인 질문에 대한 답변을 찾아보세요."
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "상품 등록은 어떻게 하나요?"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"페이지 상단에 있는 빨간색 '광고 만들기' 버튼을 클릭하세요. 카테고리(자동차, 오토바이, 트럭 등)를 선택하고, 세부 정보를 입력하고,"
+" 사진을 업로드하고, 가격을 설정한 후 게시하세요. 광고는 5~10분 내에 게시됩니다."
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "내 상품 정보를 어떻게 수정하거나 삭제할 수 있나요?"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr ""
+"사용자 메뉴에서 '내 상품 목록'으로 이동하세요. 원하는 상품 목록을 클릭하여 내용을 확인한 후, '수정' 또는 '삭제' 버튼을 "
+"사용하세요. 수정 사항은 즉시 반영됩니다."
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "내 상품 목록은 얼마나 오랫동안 활성화 상태로 유지되나요?"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr ""
+"상품 등록은 30일 동안 유효합니다. 언제든지 갱신할 수 있습니다. 등록 기간이 만료된 후에는 160일 동안 계정에 보관된 후 자동으로 "
+"삭제됩니다."
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "판매자에게 어떻게 연락할 수 있나요?"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr ""
+"상품 목록을 열고 '메시지 보내기' 또는 '이메일 보내기' 버튼을 사용하세요. 판매자가 전화번호 표시를 설정해 놓았다면 전화번호가 "
+"표시됩니다."
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "지갑은 어떻게 작동하나요?"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"지갑에는 상품 목록 노출 증대, 추천 광고 게재, 교차 게시 등에 사용할 수 있는 크레딧이 저장됩니다. 20달러, 100달러, "
+"500달러(보너스 크레딧 포함) 또는 원하는 금액으로 충전하세요. 1유로 = 1크레딧."
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "어떻게 하면 딜러가 될 수 있나요?"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"계정 메뉴에서 '딜러' 페이지를 방문하세요. 플랜(기본, 프로 또는 엔터프라이즈)을 선택하고 구독하세요. 무제한 차량 등록, 브랜드 딜러"
+" 페이지, 맞춤 로고 및 추천 게재 기능을 이용하실 수 있습니다."
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "비밀번호를 어떻게 변경하나요?"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr ""
+"설정으로 이동한 다음 '비밀번호 변경'을 클릭하세요. 현재 비밀번호와 새 비밀번호를 입력하세요. 비밀번호를 잊어버린 경우 로그인 "
+"페이지에서 '비밀번호 찾기'를 사용하세요."
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "내 계정을 어떻게 삭제하나요?"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr ""
+"설정으로 이동하여 맨 아래로 스크롤한 다음 '계정 삭제'를 클릭하세요. 확인하려면 비밀번호를 입력해야 합니다. 이 작업은 영구적이며 "
+"되돌릴 수 없습니다."
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "여전히 도움이 필요하신가요?"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "저희 지원팀에 이메일을 보내주세요."
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "차량 둘러보기"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "당신에게 딱 맞는 차량을 찾아보세요"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "%(count)개의 목록을 찾아보세요"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "범주"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "모든 카테고리"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "만들다"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "가격 최소"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "최대 가격"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "년"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "년"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "연료 종류"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "부품명/코드"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "부품명 또는 코드로 검색하세요"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "이용 가능한 차량"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "%(count)개의 목록을 찾았습니다."
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "최신"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "가격: 낮은 가격부터 높은 가격 순"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "가격: 높은 가격순에서 낮은 가격순으로"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "사용량"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "지도 보기"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "km"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "알려지지 않은"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "검색 결과가 없습니다."
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "필터를 조정해 보세요."
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "모든 필터 지우기"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "고급 검색"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "차량 검색"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "검색 결과 지우기"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "브랜드/모델을 더 추가하세요"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "가격, $"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "체형"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "미"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "엔진"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "힘"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "구동 방식"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "조종"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "결함"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "문"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "색상"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "좌석"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "온도 조절"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "상태"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "유로 스탠다드"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "주 (미국)"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "모든 주"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "도시 (미국)"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "모든 도시"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "텍스트 검색"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "예: 주행거리가 짧은 BMW 320d..."
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "장비"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "부품 검색"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "부품명 또는 코드"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "예: 브레이크 패드, 06H 145 601 H, BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "새로운"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "사용된"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "(차량)과 호환 가능"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr "이 부품이 호환되는 차량을 지정하십시오. 빈 행은 무시됩니다. 모든 행을 비워두면 모든 부품을 검색합니다."
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "검색 (%(count)s)"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "제거하다"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "목록 수정"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "차량 부품용으로 판매합니다"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "목록으로 돌아가기"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "목록 수정"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "아래의 상품 정보를 업데이트하세요."
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "카테고리 선택으로 돌아가기"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "차량 전체를 부품용으로 판매합니다."
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "아래에 상품 정보를 입력해 주세요."
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "다음 사항을 수정해 주세요:"
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "주요 세부 정보"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "- 선택하다 -"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "가감"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "예: 2.0 TDI 140kW"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "버전"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "예: GTD, M Sport, AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "예: 110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "예: 150000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "엔진 용량"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "예: 1.6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "구동 방식"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "색상 코드"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "예: LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "엔진 코드"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "예: BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "기어박스 코드"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "예: DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "가격($)"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "구성품, 결함, 부품 상태 등을 설명하십시오."
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "사진"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr "(%(count)s / 36 — 드래그하여 순서를 바꾸고, 클릭하여 확대하세요)"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "기본"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "클릭하여 업로드하거나 드래그 앤 드롭하세요."
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "최대 36장의 사진, 각 20MB"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "연락처 및 위치"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "상태"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "목록 게시"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "사진은 최대 36장까지 가능합니다. 일부를 먼저 삭제하세요."
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr "({count} / 36 — 드래그하여 순서를 바꾸고, 클릭하여 확대하세요)"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "조건이 필수입니다"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "브랜드는 필수입니다."
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "연도가 필요합니다."
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "가격이 필요합니다"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "휴대전화가 필요합니다."
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "도시가 필요합니다"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "주정부가 요구합니다"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "꿈에 그리던 자동차를 찾아보세요"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr "신뢰할 수 있는 판매자들이 제공하는 수천 대의 차량을 둘러보세요."
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "최대 가격"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "어떤 가격이든"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "모든 유형"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "의자 가마"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "SUV"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "해치백"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "쿠페"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "등록된 차량"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "만족한 고객들"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "대상 도시"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "지원하다"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "최신 매물"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "모두 보기"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "케이"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "상세 정보 보기"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "아직 등록된 매물이 없습니다."
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "SellCar를 선택해야 하는 이유는 무엇일까요?"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "자동차를 사고팔기에 가장 좋은 플랫폼"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "간편 검색"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr "고급 필터와 지도 검색 기능을 이용하여 꿈에 그리던 차량을 찾아보세요."
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "안전하고 보안이 철저합니다"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "모든 상품은 검증되었습니다. 안심하고 구매하고 판매하세요."
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "빠르고 간편함"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr "몇 분 만에 차량을 등록하고 구매자와 즉시 연결하세요"
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "차량을 판매할 준비가 되셨나요?"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr "SellCar에서 구매자를 찾은 수천 명의 판매자와 함께하세요."
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "상품 등록하기"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "시작하기"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "상품 정보를 활성화하세요"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "가장 인기 있는"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "선택한 요금제:"
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "선택된 항목 없음"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "초안으로 저장"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "리스팅 활성화"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "1일"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{n}일"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "목록 편집으로 돌아가기"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "사진 및 동영상"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "차량 상세 정보"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "가격"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "편집: %(브랜드)s %(모델)s"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "새 상품 등록하기"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "단계 %(현재)s의 %(총)s"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "이전 단계를 먼저 완료하세요."
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "차량 카테고리를 선택하세요"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← 카테고리를 선택하세요"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "다음 오류를 수정해 주세요:"
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "차량 상세 정보 및 사진"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "차량을 선택하고 사진을 추가하세요."
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "브랜드 검색..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- 브랜드 선택 --"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "이 항목은 필수 입력 사항입니다."
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "모델을 선택하세요"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "첫 등록"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "MM"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "VIN"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "예: WBA3A5C51DF000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "현재 사진"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr "(클릭하면 확대되고, 마우스 커서를 올려놓으면 옵션이 나타납니다)"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "기본"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "메인으로 설정"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr "💡 사진 위에 마우스를 올려놓으면 옵션을 볼 수 있습니다. 사진을 클릭하면 확대됩니다."
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "이미 업로드됨"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr "(%(count)s / 40 — 클릭하면 확대되고, 드래그하면 순서를 바꿀 수 있습니다)"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "삭제"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "사진 더 추가하기"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "사진 업로드"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr "PNG, JPG 파일 형식 각각 최대 20MB (최대 40개 이미지)"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "동영상 URL (YouTube, 선택 사항)"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "기술적 세부 사항"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "기술 사양을 제공하십시오."
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "문의 개수"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "엔진 용량"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "추가 정보"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "구동 방식, 좌석 수, 휠 크기, 연비 등"
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "좌석 수"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "림 사이즈"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "공차중량(kg)"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "이산화탄소 배출량(g/km)"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "원산지"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "연비(리터/100km)"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "고속도로"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "결합"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "기술 검사 유효 기간"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "월"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "추가 장비"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "차량에 있는 기능을 선택하세요"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "가격을 설정하세요"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "희망 판매 가격은 얼마인가요?"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "가격은 협의 가능합니다"
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "차량에 대해 자세히 설명해 주세요."
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "차량 상태, 특징, 정비 이력 등을 포함하십시오."
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "연락처 및 위치"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "차량은 어디에 있으며, 구매자는 어떻게 연락할 수 있나요?"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "차량 위치"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "주를 선택하세요"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "우편번호"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "도로명 주소"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "정확한 주소를 숨기기"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "연락처 정보"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "이메일 (선택 사항)"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "이용약관"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"본인은 <a href=\"#\" class=\"text-primary hover:underline\">이용 약관</a> 및 <a "
+"href=\"#\" class=\"text-primary hover:underline\">개인정보 보호정책</a>에 동의합니다."
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "뉴스레터와 특별 혜택을 보내주세요"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "구하다"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "뒤쪽에"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "계속하다"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "상품 등록하기"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "유형을 선택하세요:"
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "하위 카테고리를 선택하세요:"
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "옵션 없음"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "세부 정보 숨기기"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr "({count} / 40 — 클릭하면 확대되고, 드래그하면 순서를 바꿀 수 있습니다)"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "사진은 최대 40장까지 가능합니다. 먼저 일부를 삭제해 주세요."
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr "{n}장의 사진을 선택하셨지만 {a}장만 적합합니다. 첫 번째 {a}장이 추가됩니다."
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "모델이 필요합니다"
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "월이 필요합니다"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "체형 정보가 필요합니다."
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "연료 종류를 입력해야 합니다."
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "전송이 필요합니다"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "문의 개수가 필요합니다"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "주행 거리가 필요합니다"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "결함은 필수적입니다"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "이용약관에 동의하셔야 합니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "목록 수정: %(브랜드)s %(모델)s"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "신규 등록: 자동차"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "주요 목록 데이터"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "VIN 코드"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "수출 가격"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "협상 가능"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "무역에 관심 있음"
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "+ 세금"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr "가격에는 세금이 포함되어 있지 않습니다. 적용되는 세금에 대한 자세한 내용은 판매자에게 문의하십시오."
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "추가 데이터"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "자세한 내용을 제출하세요"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "개조 (TDI, TSI, CDI 등)"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "기술 검사까지"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "여름/겨울용 휠"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "이산화탄소 배출량, g/km"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "최초 등록 국가"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "좌석 수"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "온도 조절"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "공차중량(kg)"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "유로 표준"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "연료 소비량(리터/100km)"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "특징"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "(모두 선택하세요)"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "모두 선택하세요"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "특별 기능"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "보증 포함"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "임대 가능"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "서비스 책자"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "미국에서 수입"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "여러 개의 키 세트"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "유효한 기술 검사"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "스포츠 준비 완료"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "장애인을 위해 개조됨"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "엔진 출력 증가"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "공압식 서스펜션"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "원격 시동"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "예비 타이어"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "경매에서"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "판매자 유형"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "제안 내용을 자세히 설명해 주세요."
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr "구매자들이 상품 설명을 읽으면서 궁금해하는 점이 적을수록, 더 빨리 구매자를 찾을 수 있습니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr "대문자만 사용하거나 기호를 과도하게 사용하지 마십시오."
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "왼쪽으로 회전"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "오른쪽으로 회전"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "사진 업로드"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr "사진은 최대 40장까지 업로드 가능합니다. 최대 파일 크기는 24MB입니다. 파일 형식은 JPG, GIF, PNG입니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr "잠재 구매자들이 전화로 연락할 수 있도록 전화번호를 입력해 주세요."
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr "이메일 주소를 통해 잠재 구매자가 이메일로 연락할 수 있습니다. 공개 목록 방문자에게는 표시되지 않습니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "예: 빌뉴스"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "거리, 집 번호"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"제출함으로써 본인은 <a href=\"#\" class=\"text-gray-600 underline hover:text-"
+"gray-900\">이용 약관</a> 및 <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">개인정보 보호정책</a>에 동의합니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr "필수 입력 항목 중 일부가 입력되지 않았거나 잘못 입력되었습니다. 이러한 항목은 빨간색으로 표시되어 있습니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* 필수 입력 항목"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "필수입니다"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "이 사진을 삭제하시겠습니까?"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "회전 실패"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr "사진을 너무 많이 선택하셨습니다. 가장 먼저 선택 가능한 사진만 추가됩니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "상품 ID를 찾을 수 없습니다."
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "업로드 실패"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "이스트린티 스켈비마"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "데메시오!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "Šis veiksmas negrįžtamas."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "Ar tikrai norite ištrinti šį skelbimą?"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "카이나:"
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "아차우크티"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "이스트린티"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "트럭 찾아보기"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "오토바이 둘러보기"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "총중량"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "연료"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "휠 공식"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "트럭 상세 정보"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "첫 등록"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "질량 간격"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "공차 중량"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "탑재량 용량"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "연료 탱크 용량"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "길이"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "너비"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "키"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "용량"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "새 제품 / 중고 제품"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "변속 장치"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "수면용 좌석"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "전륜 서스펜션"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "후방 서스펜션"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "SDK 번호"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "기술 검사까지"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "Carfaxreport.eu에서 차량 이력 보고서를 받아보세요."
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "역사 보고서"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "장비 및 특징"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "위치"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "판매자가 정확한 주소를 숨겼습니다."
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "길찾기"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "+ 세금"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "수출 가격:"
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "차량 상세 정보 (부품용)"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "지도"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "지도에서 열기"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "지퍼:"
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "판매자가 숨김"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "좌표"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "복사했어요!"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "좌표 복사"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "면적은 대략적인 수치입니다."
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "결함 없음"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "공차 중량"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "CO₂ 배출량"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "도시:"
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "고속도로:"
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "종합:"
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "기술 검사 완료"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr "가격에는 세금이 포함되어 있지 않습니다. 해당 지역의 세금 관련 사항은 판매자에게 문의하십시오."
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "내보내다:"
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr ""
+"수출 구매자 특별 가격 - 일반적으로 판매자의 국가 외 지역으로 차량을 배송할 때 적용됩니다. 수출 서류 및 조건에 대해서는 판매자에게 "
+"문의하십시오."
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "사적인"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "모든 상품 보기 →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "클릭하여 복사"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "판매자가 전화번호 공개를 비활성화했습니다."
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "메시지 보내기"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "이메일 보내기"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "연락처에 로그인하세요"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "공유하다"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "저장됨"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "보고서"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "갱신됨"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "안전 수칙"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "안전하고 사람이 많은 장소에서 만나세요"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "차량을 꼼꼼히 점검하세요"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "절대로 선불하지 마세요"
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "모든 서류를 확인하십시오"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "이 상품 정보를 공유하세요"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "복사"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "보고서 목록"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "이유*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "가격이 잘못되었습니다"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "사기성 목록"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "잘못된 카테고리입니다"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "중복 목록"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "이미 판매되었습니다"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "다른"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "추가 의견"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "문제를 설명해 주세요..."
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "이메일 주소 (선택 사항)"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "보고서 제출"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "판매자에게 이메일 보내기"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "이메일 주소*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "당신의 휴대폰"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "메시지*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "안녕하세요, 이 상품에 관심이 있습니다..."
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "편집하다"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr "브랜드, 모델 및 최초 등록 정보는 변경할 수 없습니다. 차량 식별 번호(VIN)는 수정할 수 있습니다."
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "가격(€)*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "사용량*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "차량에 대해 설명해 주세요..."
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "현재 이미지"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "이 이미지를 삭제하시겠습니까?"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "새 이미지 추가"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "여러 장의 이미지를 업로드할 수 있습니다."
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "목록 삭제"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "카테고리를 선택하세요"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "자동차"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "미니버스, 버스 및 캠핑카"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "오토바이 및 오토바이 용품"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "트럭 및 상용차"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "부분품"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "보트 및 수상 운송"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "트레일러 및 세미트레일러"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "타이어 및 휠"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "건설 및 창고 장비"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "농업 및 임업"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "자전거 및 스쿠터"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "렌터카"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "비행기 및 항공기"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "항공기 부품"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "카테고리를 선택하세요"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "고급의"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "지도"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "추가 필터"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "모든 브랜드"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "검색 모델..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "브랜드와 모델을 추가하세요"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "주행거리(km)"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "텍스트 검색"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "찾다..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "유효한 검사"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "차량식별번호(VIN) 포함 목록"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "경매에서 숨기기"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "이름 또는 부품 번호"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "예: 06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "더"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "더 적은"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "사소한 결함"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "손상된"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "구제"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "나이 제한 없음"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "언제든지"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24시간"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3일"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7일"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30일"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "중고차 보상 판매 가능"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "보증"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "리스 계약으로 판매됨"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "최신 및 리뉴얼"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "주행 거리: 낮음에서 높음"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "주행 거리: 높음에서 낮음으로"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "연도: 최신순"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "연도: 가장 오래된 순서부터"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "검색 저장"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "판매된"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "모든 지점"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "검색 위치..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "미국"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "목록이 없는 브랜드를 표시합니다."
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "가격대"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "최소 금액"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "최대 $"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "부품명 또는 번호로 검색하세요 (예: 06H 145 601 H)"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "필터 적용"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "%(total_count)개의 %(total_count)개를 표시합니다."
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "정렬 기준:"
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr "원하는 결과를 찾으려면 필터를 조정해 보세요."
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "오늘의 특가 상품"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "가장 비싼"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "아직 추천 상품이 없습니다."
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "아직 등록된 상품이 없습니다."
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "몇 년 전"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "몇 분 전"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "h 전"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "1일 전"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "며칠 전"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "최대 5개 브랜드/모델 쌍"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "먼저 브랜드를 선택하세요"
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "먼저 만들기를 선택하세요"
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "로딩 중..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "요금제를 선택하세요"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "매물 정보"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "서비스 선택"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "지불"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "목록 기간"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "탑 스팟 스타즈"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "시사"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "홈페이지에 소개됨"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "주요 상품 목록"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "추천"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "날"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "디."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "목록에서의 위치"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr "더 많은 관심을 끌려면 상품 목록 상단을 노출시키세요."
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "더 빨리 팔고 싶으세요?"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "할인 코드"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "암호"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "적용하다"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "전철기"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "총"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "주문하다"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "상품 등록을 완료하시면 SellCar의 이용약관에 동의하시는 것입니다."
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "자귀"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "그리고"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "개인정보 보호정책"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "지갑 잔액이 부족합니다. 충전해 주세요."
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "엘"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "목록 수정으로 돌아가기"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "코드를 입력하세요"
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "먼저 요금제를 선택해 주세요."
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "잘못된 코드"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "오류"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr "귀하의 상품 정보는 다른 상품보다 검색 결과 상단에 표시됩니다. 별점 부스트를 많이 주문할수록 표시 순위가 높아집니다."
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr "귀하의 상품 정보는 홈페이지의 추천 상품 목록에 표시되어 최대 5배 더 많은 조회수를 기록할 것입니다."
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr "검색 결과에서 귀하의 상품 정보는 배경에 색상이 표시되어 다른 상품 정보보다 눈에 띄게 됩니다."
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "통계"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "내 목록으로 돌아가기"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "목록"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "생성됨"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "활동적인"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "비활성"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "초안"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "유효기간"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "조회수"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "%(퍼센트)s%% 지난주 대비"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "인상"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "CTR"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "조회수/인상"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(rate)s%% 절약률"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "귀하의 목록 순위: %(pos)s / %(total)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr "귀하의 상품 목록이 모든 활성 상품 목록 중 상위 10위 안에 있습니다. 순위를 높이려면 홍보해 보세요."
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr "귀하의 상품 목록이 모든 활성 상품 목록 중 상위 50위 안에 있습니다. 순위를 높이려면 홍보해 보세요."
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr "모든 활성 목록 중에서 더 높은 순위에 노출되도록 목록 노출 순위를 높이세요."
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "일일 조회수 (지난 30일)"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "일일 조회수 (지난 30일간)"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "구매자들이 언제 귀하의 매물을 보나요?"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "정점"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "시간대 (00:00 - 23:00)"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "보다"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "조회수"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "인상"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "인상"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "목록이 게시되었습니다"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "목록은 <strong class=\"text-gray-900\">%(일)일</strong> 동안 유효합니다."
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "만료일은 <strong class=\"text-gray-900\">%(날짜)</strong>입니다."
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "구매자들이 5~10분 안에 확인할 수 있습니다."
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "목록 보기"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "링크 복사"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "더 빨리 판매하는 팁"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr "다양한 각도에서 촬영한 고화질 사진을 최소 8장 이상 추가해 주세요."
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr "서비스 이력을 포함하여 자세한 설명을 작성하십시오."
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr "유사한 매물들을 기준으로 경쟁력 있는 가격을 책정하세요"
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "구매자 메시지에 신속하게 응답하세요"
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr "링크를 복사했습니다! 인스타그램 스토리, DM 또는 프로필에 붙여넣으세요."
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "계정을 업그레이드하세요"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "등록 제한에 도달했습니다."
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr "현재 %(count)개의 활성 목록이 %(limit)개 있습니다. 아래 옵션을 선택하여 목록을 추가하세요."
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "목록당 지불"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "일회성 결제"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "목록당"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "지금 상품 목록을 하나 추가하세요"
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "30일 동안 활성 상태 유지"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "구독료 없음"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "곧 출시 예정 (스트라이프)"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "인기 있는"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "프라이빗+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "월간 구독"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "월"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(count)개의 활성 목록"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "언제든지 취소 가능"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "모든 기능 포함"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "기업용"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "상품 목록에 딜러 배지 표시"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "공개 딜러 페이지"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "관리자 승인이 필요합니다"
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "곧 출시 예정 (3단계)"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "내 판매 목록으로 돌아가기"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "오토바이 용품 판매"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "오토바이 장비 및 액세서리를 판매합니다."
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "헬멧, 재킷, 장갑, 부츠 및 기타 오토바이 장비"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "기본 정보"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "유형을 지정하세요..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "제조업체"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "제조업체를 명시하십시오..."
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "예: GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "크기"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "크기를 지정해 주세요..."
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "안전 인증"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "인증 유형을 명시하십시오..."
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "환기구 개수"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "예: 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "재료"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "재질을 명시하십시오..."
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "성별"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "성별을 명시해 주세요..."
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "색상을 지정하세요..."
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "특징/장비"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr "먼저 카테고리를 선택하여 사용 가능한 기능을 확인하세요."
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "교환 가능"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr "판매하려는 물건의 상태, 이력, 판매 이유 등을 자세히 설명해 주세요."
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"최대 <strong>40장</strong>의 사진. 각 사진 최대 <strong>16MB</strong>. JPG, PNG, WEBP "
+"형식. 첫 번째 사진이 대표 사진입니다."
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr "PNG, JPG 파일 형식은 각각 최대 16MB (사진 최대 40장)입니다."
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "업로드 중..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "동영상"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "우편번호"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"저는 <a href=\"#\" class=\"text-primary hover:underline\">이용 약관</a>과 <a "
+"href=\"#\" class=\"text-primary hover:underline\">개인정보 보호정책</a>에 동의합니다."
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "저는 사업체 판매자입니다."
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "필수 입력 항목이 누락되었습니다."
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "먼저 카테고리를 선택하세요."
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "사용 가능한 기능이 없습니다."
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "초안 작성 중..."
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "{n}장의 사진을 업로드하는 중..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "업로드 실패: 응답 없음"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "업로드 실패:"
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "알 수 없는 오류"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "업로드 오류:"
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "삭제 실패"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "이용약관"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "Moto Gear를 살펴보세요"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "오토바이 장비 및 액세서리"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "오토바이 용품을 판매합니다"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "브랜드, 모델, 키워드..."
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr "Ctrl/Cmd 키를 누른 상태로 여러 번 누르세요"
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "민"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "맥스"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "제국"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "미국 모든 주"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "필터 적용"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "다시 놓기"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "새로운"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "제목 없음"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "오토바이 장비 목록을 찾을 수 없습니다."
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr "필터를 조정해 보거나, 먼저 상품을 등록해 보세요!"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "오토바이 상품 등록하기"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "카테고리로 돌아가기"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "주요 정보"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "엔진 배기량(cm³)"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "예: 600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "제조일자"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "중고/새 제품"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "킬로미터"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "미"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "오토바이 유형"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "냉각 방식"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "엔진 유형"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "최초 등록 국가"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "예: 일본"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "추가 장비"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "전기 스타터"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "킥스타터"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "자동 변속기"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "넓은 뒷타이어"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "열선 시트"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "열선 핸들바"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "앞 유리"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "패니어 케이스"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "조수석"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "상단 케이스"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "디스크 브레이크"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "오디오 시스템"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "크루즈 컨트롤"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "트랙션 컨트롤"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "퀵 시프터"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "LED 조명"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "기타 기능"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "교환 가능"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "리스 계약으로 판매됨"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "리투아니아에서는 운영되지 않습니다."
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "올드타이머"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "유지보수 이력"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "촉매 변환기"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "보안"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "ABS"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "경보 시스템"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "브레이크 디스크 잠금 장치"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "이모빌라이저"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "추적 장치(GPS)"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "당신의 오토바이에 대해 자세히 설명해 주세요..."
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "상세 설명"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "매물에 대한 구매자의 관심을 높여줍니다."
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "상품 설명이 자세할수록,"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "구매자들이 묻는 질문이 줄어들 것입니다."
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "창의적으로 작성된 목록"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "저희 소셜 미디어 페이지에 소개될 수도 있습니다."
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"사진은 최대 <strong>40장</strong>까지 업로드할 수 있습니다. 사진 한 장당 최대 크기는 "
+"<strong>10MB</strong>입니다. 지원되는 파일 형식은 <strong>JPG, PNG, GIF</strong>입니다."
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr "사진 순서를 변경하려면 원하는 위치로 드래그 앤 드롭하세요. 첫 번째 사진은 메인 표지 이미지로 사용됩니다."
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr "조명이 좋은 곳에서 촬영하세요. 가능하면 야외에서 촬영하는 것이 좋습니다."
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr "전면, 측면, 후면 및 엔진 사진을 포함해 주세요."
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "결함을 솔직하게 보여주세요 - 구매자의 신뢰를 얻습니다."
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "필터 사용은 피하세요. 구매자는 실제 상태를 보고 싶어합니다."
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "동영상 (선택 사항)"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "유튜브 URL"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "연락처 및 위치"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "이름"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "정확한 주소를 공개하지 않도록 숨기기"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "빨간색으로 표시된 모든 필수 항목을 입력해 주세요."
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "{n}개의 파일이 선택되었습니다."
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "고급 오토바이 검색"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "오토바이"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "(시작 연도 – 종료 연도)"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "엔진, cm³ ~ ~"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "출발지에서 목적지까지의 거리"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "최초 등록 국가"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "등록 유형"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "배터리 용량(kWh)"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "전기 주행 가능 거리(km)"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "예: 주행거리가 짧은 야마하 R1..."
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "장비/특징"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "전기 스타터"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "넓은 뒷타이어"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "여행용 케이스"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "승객용 등받이"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "열선 시트"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "자동 변속기"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "열선 그립"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "디스크 브레이크"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "경보"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "중고차 보상 판매 가능"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "임대 가능"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "리투아니아에서는 사용되지 않음"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "서비스북"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "메탈릭 페인트"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "오토바이 페이지로 돌아가기"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "설립하다"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "오토바이를 찾을 수 없습니다."
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "검색 조건을 넓혀 보세요."
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "%(count)개의 오토바이 매물을 찾았습니다."
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "엔진 cm³"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "%(표시됨)개 중 %(총)개를 표시합니다."
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "오토바이 매물을 찾을 수 없습니다."
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "고쳐 쓰다"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr "%(count)개의 활성 목록을 모두 맨 위로 갱신하시겠습니까?"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "모두 갱신하세요"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "%(count)s개의 활성 목록이 목록 맨 위로 이동합니다."
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "새 항목 생성"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "필터 지우기"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "활동적인"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "예약된"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "비활성화됨"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "판매된"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "갱신됨"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "예약된"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "최근 갱신됨 - 1시간 후 다시 갱신 가능"
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "연장하다"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "위치"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "자세한 통계를 보려면 클릭하세요."
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "%(일)sd 후 자동 삭제"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "가격 미정"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "해당 상품은 <strong>비활성</strong> 상태입니다."
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "활성화"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "목록은 다음과 같습니다."
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "비활성"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "이 카테고리에는 등록된 항목이 없습니다."
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "아직 등록된 상품이 없습니다."
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "\\를 선택해 보세요"
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "판매를 시작하려면 첫 번째 상품 등록을 하세요."
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "상품 목록 생성"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "이 게시물을 정말 삭제하시겠습니까?"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "저는 그것을 팔았습니다."
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "목록에 \\ 표시"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "목록 삭제"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "이 작업은 되돌릴 수 없습니다."
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "아직 저장된 목록이 없습니다."
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "상품 목록을 살펴보고 마음에 드는 상품을 저장하세요!"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "저장된 검색"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "목록으로 돌아가기"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "이메일 알림"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "복제하다"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "%(y)s에서"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "%(y)s까지"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "저장된 검색 없음"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr "조건을 저장해 두면 원하는 조건에 맞는 매물을 빠르게 찾을 수 있습니다."
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "목록 보기"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "이메일 알림이 업데이트되었습니다"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "검색 결과가 중복되었습니다."
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "필터"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "모든 제조사"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "가격은 ~부터"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "가격"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "1년 전"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "년"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "분명한"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "필터를 바꿔보세요"
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "이미지 없음"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "고급 트럭 검색"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "세부 필터를 사용하여 검색 결과를 좁히세요."
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "제조사 및 모델"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "제조사를 선택하세요"
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "먼저 만들기를 선택하세요"
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "제조사/모델 조합을 추가하세요"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr ""
+"예를 들어 <em>Volvo FH</em> AND <em>Scania R</em>과 같이 여러 조합을 추가하여 검색할 수 있습니다."
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "연식, 가격 및 성능"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "전력(kW)"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "엔진 크기(리터)"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "트럭 제원"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "트럭 종류"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "구동 방식(차축)"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "상태 및 외관"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "미국 주"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "모든 주"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "키워드 검색"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "제목 또는 설명으로 검색..."
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "필터 조건에 맞는 목록을 보여줍니다."
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "%(개수)개의 결과를 표시합니다."
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "이 검색을 저장하세요"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr "필터 조건에 맞는 트럭이 <strong>%(count)대</strong>대 발견되었습니다."
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "결과 보기"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "결과"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "귀하의 필터 조건에 맞는 트럭이 없습니다."
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr "필터를 일부 제거하거나 범위를 조정해 보세요."
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "모델 선택"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "먼저 '제조'를 선택해 주세요."
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "저장된 검색"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "검색 결과를 저장하는 데 실패했습니다. 다시 시도해 주세요."
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "트럭 및 상용차 둘러보기"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "%(count)s개의 목록이 발견되었습니다."
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "하위 카테고리"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "모든 트럭 및 상용차"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "검색..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "%(개)개의 목록을 표시합니다."
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "트럭을 찾을 수 없습니다."
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "목록이 없는 브랜드를 보여주세요"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "유로"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "추천 상품"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "아직 추천 트럭이 없습니다."
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "아직 트럭은 없어요."
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "만들다"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "트럭 목록"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "트럭 목록 수정"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "상태:"
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "만료일 %(날짜)초"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "공개 페이지 보기"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "트럭 및 상용차 목록 생성"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr ""
+"아래 세부 정보를 입력해 주세요. 필수 입력 항목은 <span class=\"text-red-600\">*</span>로 표시되어 "
+"있습니다."
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "기본 정보"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "선택하다"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "예: FH16, Actros 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "기술 검사 유효 기간"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "엔진 배기량(리터)"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "예: 12.0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "VIN(차체 번호)"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "예: WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "트럭에 대해 설명해 주세요..."
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr "여기에 사진을 드롭하거나 <strong>클릭하여 업로드</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr "최대 40장 사진 · JPG, PNG 형식 · 각 사진 최대 10MB · 사진을 드래그하여 순서를 변경하세요"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "보다"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "아직 사진이 없습니다. 구매자들의 관심을 끌 수 있도록 사진을 업로드해 주세요."
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "YouTube URL — 예: https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "부르는 값"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "주소 (선택 사항)"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "저장 실패"

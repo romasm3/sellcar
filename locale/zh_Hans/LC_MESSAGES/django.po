@@ -1,0 +1,5720 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 18:21+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\config\settings.py:101
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:102
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:103
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:104
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:105
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:106
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:107
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:108
+msgid "Français"
+msgstr "Français"
+
+#: .\config\settings.py:109
+msgid "Español"
+msgstr "Español"
+
+#: .\config\settings.py:110
+msgid "中文"
+msgstr "中文"
+
+#: .\config\settings.py:111
+msgid "Tiếng Việt"
+msgstr "Tiếng Việt"
+
+#: .\config\settings.py:112
+msgid "العربية"
+msgstr "العربية"
+
+#: .\config\settings.py:113
+msgid "한국어"
+msgstr "한국어"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "成为经销商"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "经销商"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "在 SellCar 上卖出更多汽车"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr "利用您的品牌经销商页面、无限量列表和特色展示，触达成千上万的买家。"
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "基本的"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/月"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "订阅"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "包括"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "最多 50 个房源"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "品牌经销商页面"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "定制徽标和横幅"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "工作时间显示"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "重点展示"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "最受欢迎"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "专业版"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "Basic 中的所有内容，外加"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "无限量房源"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "认证经销商徽章"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "分析仪表板"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "优先支持"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "企业"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "专业版的所有功能，外加"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "搜索排名第一"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "定制品牌主题"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "专属客户经理"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "API 访问"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "多用户团队"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "需要定制方案？"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr "请与我们联系，洽谈批量定价或合作机会。"
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "联系我们"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "Stripe订阅集成即将上线。"
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "登录"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "欢迎回来"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "登录您的 SellCar 帐户"
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "电子邮件"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "请输入您的电子邮件地址"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "密码"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "请输入您的密码"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "记住账号"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "忘记密码？"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "或者"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "还没有账号？"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "免费注册"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "返回首页"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "已登出"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "您已成功登出。"
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "感谢您使用 SellCar！"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "再次登录"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "返回首页"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "更改密码"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "更新您的帐户密码"
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "当前密码*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "请输入当前密码"
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "新密码*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "输入新密码"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "确认新密码*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "确认新密码"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "密码要求："
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "至少 1 个字符长"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "可以完全是数字式的"
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "可以类似于你的用户名"
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "更新密码"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "返回设置"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "忘记密码？"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr "请输入您的电子邮件地址，我们将向您发送重置密码的说明。"
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "电子邮件："
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "发送重置链接"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "返回登录"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "密码已更新"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "密码已更新！"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "您的密码已成功更改。"
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "您的账户现在更加安全了。"
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "前往登录"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "新密码"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "设置新密码"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "为您的帐户选择一个强密码"
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "链接无效"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr "此密码重置链接无效或已被使用。"
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "请求新链接"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "请查收您的电子邮件"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr "我们已向您发送密码重置说明。"
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr "请检查您的收件箱（也请检查垃圾邮件文件夹，以防万一）。"
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "链接将在1小时后失效。"
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "家"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "编辑个人资料"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "更新您的个人信息"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "头像"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG、PNG格式，最大5MB。"
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "个人信息"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "名"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "姓"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "电子邮件"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "电话号码"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "备用电话"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "（选修的）"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "地址"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "国家"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "城市"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "街道"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "门牌号"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "关于我"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "取消"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "保存更改"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "报名"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "创建账户"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "立即加入 SellCar"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "电子邮件地址 *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "密码 *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "确认密码 *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "至少 8 个字符长"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "不能完全是数字式的"
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"我同意<a href=\"#\" class=\"text-primary hover:text-primary-dark\">服务条款</a>\n"
+"\n"
+"和<a href=\"#\" class=\"text-primary hover:text-primary-dark\">隐私政策</a>"
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "已有账号？"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "在此登录"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "返回 SellCar"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "经销商页面由 SellCar 提供技术支持"
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "列表"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "联系方式"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "关于我们"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "评论"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "私人卖家"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "联络人"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "工作时间"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "会员自%(年)起"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "品牌"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "所有品牌"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "模型"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "所有型号"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "年"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "从"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "到"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "价格从€起"
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "最低欧元"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "最高欧元"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "燃料类型"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "全部"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "传播"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "体型"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "全部清除"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "搜索"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "显示"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "占总人数的 %"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "列表"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "最新优先"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "价格上涨"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "价格↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "里程数↑"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "年份↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "年份↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "可协商"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "未找到任何房源。"
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "清除过滤器"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "联系信息"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "公司"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "电话"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "电话 2"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "网站"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "约 %（公司）"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "暂无评论。"
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "留下评论"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "分享您的经历……"
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "提交"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "钱包"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "可用余额"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "点"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "充值"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "交易历史记录"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "充值您的账户"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr "积分是SellCar的虚拟货币。您可以使用积分来提升广告曝光率、展示广告位置和进行跨平台推广。"
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1 欧元 = 1 分"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "输入金额"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr "支付系统正在设置中，请稍后再来查看。"
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "特价优惠"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "支付"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "得到"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(总分)s 分"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "测试模式（仅限开发者）"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "无需Stripe支付，即可立即获得积分。"
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "日期"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "类型"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "描述"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "数量"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "地位"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "奖金"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "完全的"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "待办的"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "失败的"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "暂无交易记录。"
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "SellCar - 在线买卖汽车"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "地图搜索"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "创建广告"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "已保存列表"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "我的搜索"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "消息"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "我的房源"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "设置"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "经销商"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "行政"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "中度用户"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "销售统计数据"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "Django 管理员"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "注销"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr "发现值得信赖的车辆和服务——更轻松、更快捷、更简单。"
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "使用条款"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "隐私政策"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "Cookie 设置"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "服务"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "定价"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "广告"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "车辆估值"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "常问问题"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "有疑问吗？"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "每日营业"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "周一至周五"
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "周六周日"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "请给我们留言"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "需要帮助吗？"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "发送消息给支持人员"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "版权所有。"
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "条款"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "隐私"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "曲奇饼"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "聊天"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "已见"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "开始对话吧！"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "输入消息……"
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "SellCar 支持"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "照片"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "暂无消息"
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "翻译晚间对话"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "显示原始消息"
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "输入消息或粘贴图片（Ctrl+V）……"
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "添加照片"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "选择一段对话"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "从左侧选择一个对话。"
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "显示原图"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "正在翻译……"
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "显示已翻译的消息"
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "翻译失败，请重试。"
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "下载"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "常见问题解答"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "常见问题解答"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr "查找有关使用 SellCar 的常见问题的答案。"
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "如何创建房源信息？"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"点击任意页面顶部的红色“创建广告”按钮。选择类别（汽车、摩托车、卡车等），填写详细信息，上传照片，设置价格，然后发布。广告将在 5-10 分钟内上线。"
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "如何编辑或删除我的房源信息？"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr "从用户菜单进入“我的房源”。点击任意房源即可查看，然后使用编辑或删除按钮。编辑内容会立即生效。"
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "我的房源信息会持续多久？"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr "商品信息有效期为30天，您可以随时续订。过期后，商品信息将在您的账户中保留160天，之后会自动删除。"
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "我该如何联系卖家？"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr "打开任意商品页面，使用“发送消息”或“发送邮件”按钮。如果卖家已启用电话号码功能，则会显示该号码。"
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "钱包是如何运作的？"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"您的钱包用于存储推广商品信息、精选广告和交叉发布所需的积分。您可以充值 20 美元、100 美元、500 美元（含奖励积分）或任何自定义金额。1 欧元 "
+"= 1 积分。"
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "我如何才能成为经销商？"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"从您的账户菜单访问“经销商”页面。选择套餐（基础版、专业版或企业版）并订阅。您将获得无限量列表发布、品牌经销商页面、自定义徽标和精选展示位置。"
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "如何修改密码？"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr "进入“设置”，然后点击“更改密码”。输入您当前的密码和新密码。如果您忘记了密码，请在登录页面使用“忘记密码？”功能。"
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "如何删除我的账户？"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr "前往“设置”，滚动到页面底部，然后点击“删除帐户”。您需要输入密码进行确认。此操作不可撤销。"
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "还需要帮助吗？"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "请发送电子邮件至我们的支持团队"
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "浏览汽车"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "找到您的理想座驾"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "浏览 %(count) 个列表"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "类别"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "所有类别"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "制作"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "最低价格"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "价格最高"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "年份"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "年份"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "燃料类型"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "零件名称/代码"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "按零件名称或代码搜索"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "可用车辆"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "找到 %(count)s 条记录"
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "最新"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "价格：从低到高"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "价格：从高到低"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "里程"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "地图视图"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "公里"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "未知"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "未找到任何房源。"
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "尝试调整您的过滤器"
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "清除所有筛选条件"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "高级搜索"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "车辆搜查"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "清除搜索"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "添加更多品牌/型号"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "价格，美元"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "体型"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "米"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "引擎"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "力量"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "驱动类型"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "转向"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "缺陷"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "门"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "颜色"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "座位"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "气候控制"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "健康）状况"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "欧元标准"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "州（美国）"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "所有州"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "城市（美国）"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "所有城市"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "文本搜索"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "例如：低里程的宝马320d……"
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "设备"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "零件搜索"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "零件名称或代码"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "例如刹车片，06H 145 601 H，BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "新的"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "用过的"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "兼容车型"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr "请指定此零件适用于哪些车辆。空行将被忽略。全部留空则搜索所有零件。"
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "搜索（%(计数)s）"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "消除"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "编辑列表"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "出售汽车零件"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "返回列表"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "编辑列表"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "请在下方更新房源详情。"
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "返回类别选择"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "整车拆解出售"
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "请在下方填写房源详情。"
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "请修复以下问题："
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "主要细节"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "- 选择 -"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "修改"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "例如：2.0 TDI 140kW"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "版本"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "例如：GTD、M Sport、AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "例如：110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "例如：150000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "发动机排量"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "例如 1.6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "驱动类型"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "颜色代码"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "例如 LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "发动机代码"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "例如 BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "变速箱代码"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "例如：DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "价格（美元）"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "描述包含哪些内容、缺陷、零件状况等。"
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "照片"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr "（%(count)s / 36 — 拖动重新排序，点击放大）"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "主要的"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "点击上传或拖放"
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "最多36张照片，每张20MB。"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "联系方式及地址"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "状态"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "发布列表"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "最多上传36张照片。请先删除一些。"
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr "（{count} / 36 — 拖动重新排序，点击放大）"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "需要满足特定条件"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "品牌信息是必需的"
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "需要年份"
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "需要价格"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "需要电话"
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "需要填写城市名称"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "州政府要求"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "找到你的梦想之车"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr "浏览来自信誉卖家的数千辆汽车"
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "最高价格"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "任何价格"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "所有类型"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "轿车"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "SUV"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "掀背车"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "双门轿跑车"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "已列出车辆"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "满意的顾客"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "覆盖城市"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "支持"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "最新房源"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "查看全部"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "k"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "查看详情"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "目前暂无房源信息"
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "为什么选择 SellCar？"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "买卖汽车的最佳平台"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "轻松搜索"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr "利用高级筛选器和地图搜索功能，找到您的梦想之车"
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "安全可靠"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "所有房源信息均已核实。放心买卖。"
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "快速简便"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr "几分钟内即可发布您的车辆信息，并立即与买家联系。"
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "准备卖车了吗？"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr "加入成千上万在 SellCar 上找到买家的卖家行列吧！"
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "创建列表"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "开始使用"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "激活您的房源"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "最受欢迎"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "已选方案："
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "未选择"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "保存为草稿"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "激活列表"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "1天"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{n} 天"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "返回列表编辑"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "照片和视频"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "车辆详情"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "价格"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "正在编辑：%(品牌)s %(型号)s"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "创建新列表"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "当前步骤 %(总步骤) 秒"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "请先完成前面的步骤。"
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "选择车辆类别"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← 选择类别"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "请修正以下错误："
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "车辆详情及照片"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "选择您的车辆并添加照片"
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "搜索品牌..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- 选择品牌 --"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "此字段是必需的"
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "选择模型"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "首次注册"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "毫米"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "车辆识别码"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "例如：WBA3A5C51DF000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "当前照片"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr "（点击放大，鼠标悬停查看选项）"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "主要的"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "设为主"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr "💡 将鼠标悬停在照片上即可查看选项。点击照片可放大。"
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "已上传"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr "（%(计数)s / 40 — 点击放大，拖动重新排序）"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "删除"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "添加更多照片"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "上传照片"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr "PNG、JPG格式，每张最大20MB（最多40张图片）"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "视频网址（YouTube，可选）"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "技术细节"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "提供技术规格"
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "门的数量"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "发动机排量"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "更多详情"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "驱动方式、座位数、轮毂尺寸、油耗等。"
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "座位数"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "轮辋尺寸"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "整备质量（公斤）"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "二氧化碳排放量（克/公里）"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "原产国"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "燃油消耗量（升/100公里）"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "公路"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "合并"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "技术检验有效期至"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "月"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "附加设备"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "选择您车辆的功能"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "自行定价"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "你的要价是多少？"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "价格可议"
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "请详细描述您的车辆。"
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "包括车况、功能、保养记录等。"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "联系方式及地址"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "车辆在哪里？买家如何联系到您？"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "车辆位置"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "选择州"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "邮政编码"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "街道地址"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "隐藏确切地址"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "联系信息"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "电子邮件（可选）"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "条款及细则"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"我同意<a href=\"#\" class=\"text-primary hover:underline\">条款和条件</a>和<a "
+"href=\"#\" class=\"text-primary hover:underline\">隐私政策</a>。"
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "请向我发送新闻简讯和优惠信息"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "节省"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "后退"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "继续"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "提交列表"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "选择类型："
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "选择子类别："
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "没有选项"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "隐藏详情"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr "（{count} / 40 — 点击放大，拖动重新排序）"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "最多40张照片。先删掉一些。"
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr "您选择了{n}张照片，但只有{a}张符合要求。将添加第一张{a}。"
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "需要模型"
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "需要月份"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "体型要求"
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "需要燃料类型"
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "需要变速器"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "需要多少扇门"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "需要里程数"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "缺陷是必需的"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "您必须同意这些条款和条件"
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "编辑列表：%(品牌)s %(型号)s"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "新上架：汽车"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "主要上市数据"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "车辆识别码"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "出口价格"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "可协商"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "对贸易感兴趣"
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "含税"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr "价格不含税——请向卖家咨询适用税费的详情。"
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "附加数据"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "提交更多详情"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "改装（TDI、TSI、CDI……）"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "技术检验直至"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "夏季/冬季轮胎"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "二氧化碳排放量，克/公里"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "首次注册国家"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "座位数"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "气候控制"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "整备质量，千克"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "欧洲标准"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "燃油消耗量（升/100公里）"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "特征"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "（选择所有选项）"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "全选"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "特别功能"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "包含保修"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "可供租赁"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "服务手册"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "美国进口"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "多套钥匙"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "有效的技术检验"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "运动型"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "适用于残疾人士"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "发动机功率提升"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "气动悬架"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "远程启动"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "备胎"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "拍卖"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "卖家类型"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "请详细描述您的报价。"
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr "买家在阅读您的商品信息时提出的问题越少，您就能越快找到买家。"
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr "避免使用全部大写字母或过多符号。"
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "向左旋转"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "向右旋转"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "上传照片"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr "最多可上传40张照片，最大文件大小为24MB，支持JPG、GIF、PNG格式。"
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr "必须提供电话号码，以便潜在买家可以通过电话与您联系。"
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr "电子邮件让潜在买家可以通过电子邮件联系您。对公开房源访问者隐藏。"
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "例如，维尔纽斯"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "街道，门牌号"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"提交即表示我同意<a href=\"#\" class=\"text-gray-600 underline hover:text-"
+"gray-900\">条款和条件</a>和<a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">隐私政策</a>。"
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr "并非所有必填字段都已填写或填写错误。这些字段以红色标记。"
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* 必填项"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "是必须的"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "删除这张照片？"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "旋转失败"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr "您选择的照片数量过多——只会添加最前面可用的照片。"
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "未找到房源 ID"
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "上传失败"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "Ištrinti skelbimą"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "Dėmesio!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "Šis veiksmas negrįžtamas."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "Ar tikrai norite ištrinti šį skelbimą？"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "凯娜："
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "阿特绍克蒂"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "伊什特里尼"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "浏览卡车"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "浏览摩托车"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "毛重"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "燃料"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "车轮公式"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "卡车详情"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "首次注册"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "质量间隔"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "整备质量"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "有效载荷能力"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "油箱容量"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "长度"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "宽度"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "高度"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "体积"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "全新/二手"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "变速箱"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "卧铺"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "前悬架"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "后悬架"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "SDK编号"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "技术检验直至"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "从 Carfaxreport.eu 获取车辆历史报告"
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "历史报告"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "设备及功能"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "地点"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "卖家已隐藏确切地址"
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "获取路线"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "另加税费"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "出口价格："
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "车辆详情（用于零件）"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "方向"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "在地图中打开"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "拉链："
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "卖家已隐藏"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "坐标"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "已复制！"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "复制坐标"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "仅为大致面积"
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "无缺陷"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "整备质量"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "二氧化碳排放"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "城市："
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "公路："
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "合并："
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "技术检验直至"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr "价格不含税——请向卖家咨询您所在地区的适用税费。"
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "出口："
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr "出口买家特价——通常用于将车辆运往卖家所在国以外的地区。请向卖家咨询出口文件和相关条件。"
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "私人的"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "查看所有房源 →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "点击复制"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "卖家已关闭电话号码显示功能。"
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "发送消息"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "发送电子邮件"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "登录以联系我们"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "分享"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "已保存"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "报告"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "更新"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "安全提示"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "在安全的公共场所见面"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "彻底检查车辆"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "绝不提前付款"
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "核实所有文件"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "分享此房源"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "复制"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "报告列表"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "原因*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "价格错误"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "虚假列表"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "类别错误"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "重复列表"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "已售出"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "其他"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "补充评论"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "请描述一下问题……"
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "您的邮箱（可选）"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "提交报告"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "给卖家发送邮件"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "您的邮箱*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "你的手机"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "信息*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "您好，我对这套房源很感兴趣……"
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "编辑"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr "品牌、型号和首次登记信息无法更改。车辆识别码（VIN）可以编辑。"
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "价格（欧元）*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "里程*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "请描述一下您的车辆……"
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "当前图像"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "删除这张图片？"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "添加新图片"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "您可以上传多张图片"
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "删除列表"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "选择类别"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "汽车"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "小型巴士、巴士和露营车"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "摩托车及摩托车装备"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "卡车和商用车"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "部分"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "船舶和水上运输"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "拖车和半挂车"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "轮胎和车轮"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "建筑及仓储设备"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "农业和林业"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "自行车和滑板车"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "租车"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "飞机和航空器"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "飞机零件"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "选择一个类别"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "先进的"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "地图"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "更多筛选条件"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "所有品牌"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "搜索模型..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "添加品牌和型号"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "里程（公里）"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "文本搜索"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "搜索..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "有效检查"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "车辆识别码 (VIN) 列表"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "隐藏在拍卖之外"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "名称或零件编号"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "例如：06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "更多的"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "较少的"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "轻微缺陷"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "损坏的"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "打捞"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "显示不超过"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "任何时间"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24小时"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3天"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7天"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30天"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "接受以旧换新"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "保修单"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "以租赁方式出售"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "最新和更新"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "里程：低到高"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "里程：从高到低"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "年份：最新在前"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "年份：最老的年份"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "保存搜索"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "卖"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "所有地点"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "搜索位置..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "美国"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "显示没有列表的品牌"
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "价格范围"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "最低金额"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "最高金额"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "按零件名称或编号搜索（例如：06H 145 601 H）"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "应用筛选条件"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "显示 %(total_count)s 中的 %(total_count)s"
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "排序方式："
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr "尝试调整筛选条件，找到您想要的内容。"
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "当日特惠"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "最贵的"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "目前还没有精选房源。"
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "目前还没有房源。"
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "几年前"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "几分钟前"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "一小时前"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "1天前"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "几天前"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "最多 5 双品牌/型号"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "首先选择品牌"
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "选择首先创建"
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "加载中..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "选择方案"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "房源信息"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "服务选择"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "支付"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "上市时长"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "顶级明星"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "预览"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "首页推荐"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "房源亮点"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "受到推崇的"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "天"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "d."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "列表中的位置"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr "提升您的列表排名，吸引更多关注"
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "想更快卖出去？"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "折扣码"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "代码"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "申请"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "积分"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "全部的"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "命令"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "提交您的商品信息即表示您同意 SellCar 的条款。"
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "条款"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "和"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "隐私政策"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "钱包余额不足，请充值。"
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "L"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "返回编辑列表"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "请输入验证码"
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "请先选择一个方案。"
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "无效代码"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "错误"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr "您的商家信息在搜索结果中的排名将高于其他商家。您购买的星级推广服务越多，排名就越高。"
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr "您的房源将出现在首页的精选房源列表中，吸引高达 5 倍的浏览量。"
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr "您的房源信息在搜索结果中将显示彩色背景，使其在其他房源信息中脱颖而出。"
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "统计数据"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "返回我的列表"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "列表"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "创建"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "积极的"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "非活跃状态"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "草稿"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "有效期至"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "浏览量"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "与上周相比"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "印象"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "中心率"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "浏览量/印象"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(利率)s%% 节省率"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "您的排名：%(pos)s / %(total)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr "您的房源目前在所有活跃房源中排名前十。提升排名，让它排名更高。"
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr "您的房源目前在所有活跃房源中排名前 50。提升排名，让它排名更高。"
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr "提升您的房源排名，使其在所有活跃房源中名列前茅。"
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "每日浏览量（过去 30 天）"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "每日曝光量（过去 30 天）"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "买家何时会查看您的房源？"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "顶峰"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "一天中的时间（00:00 - 23:00）"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "看法"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "浏览"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "印象"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "印象"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "房源已发布"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "房源有效期为<strong class=\"text-gray-900\">%(days)s 天</strong>"
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "有效期至<strong class=\"text-gray-900\">%(date)s</strong>"
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "买家可在 5-10 分钟内看到"
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "查看列表"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "复制链接"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "快速销售的技巧"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr "至少添加8张不同角度的高质量照片。"
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr "请撰写详细描述，包括维修保养记录。"
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr "根据类似房源的价格设定有竞争力的价格"
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "快速回复买家消息"
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr "链接已复制！请将其粘贴到您的 Instagram 快拍、私信或个人简介中。"
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "升级您的帐户"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "您的商品数量已达上限"
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr "您目前有 %(count)s 个有效房源，共 %(limit)s 个。请选择以下选项以添加更多房源。"
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "按列表付费"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "一次性付款"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "每份清单"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "立即添加 1 个额外房源"
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "活跃期30天"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "无需订阅"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "即将推出（Stripe）"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "受欢迎的"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "私人+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "月度订阅"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "每月"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(count)s 个活跃房源"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "随时取消"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "包含所有功能"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "对于企业"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "商家标识出现在商品列表中"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "公开交易商页面"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "需要管理员批准"
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "即将推出（第三阶段）"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "返回我的商品列表"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "出售摩托车装备"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "出售摩托车装备及配件"
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "头盔、夹克、手套、靴子和其他摩托车装备"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "基本信息"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "请指定类型..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "制造商"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "请指定制造商……"
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "例如 GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "尺寸"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "请指定尺寸……"
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "安全认证"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "具体说明认证信息……"
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "通风口数量"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "例如 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "材料"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "具体说明材料……"
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "性别"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "请注明性别……"
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "请指定颜色……"
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "功能/设备"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr "请先选择一个类别以查看可用功能。"
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "开放交易"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr "描述物品——状况、来历、出售原因……"
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"最多<strong>40张照片</strong>。每张照片最大<strong>16MB</strong>。JPG、PNG、WEBP格式。第一张照片为主图。"
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr "PNG、JPG格式，每张最大16MB（最多40张照片）"
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "正在上传..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "视频"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "邮政编码"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"我同意<a href=\"#\" class=\"text-primary hover:underline\">使用条款</a>和<a "
+"href=\"#\" class=\"text-primary hover:underline\">隐私政策</a>。"
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "我是一名企业卖家"
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "缺少必填字段："
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "请先选择一个类别。"
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "暂无可用功能。"
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "准备草稿……"
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "正在上传{n}张照片..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "上传失败：无响应"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "上传失败："
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "未知错误"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "上传错误："
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "删除失败"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "条款协议"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "浏览摩托车装备"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "摩托车装备及配件"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "出售摩托车装备"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "品牌、型号、关键词……"
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr "按住 Ctrl/Cmd 键可进行多次"
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "敏"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "最大限度"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "所有国家"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "美国所有州"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "应用筛选器"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "重置"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "新的"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "无题"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "未找到摩托车装备列表。"
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr "尝试调整筛选条件，或者成为第一个发布内容的人！"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "创建摩托车列表"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "返回分类"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "主要信息"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "发动机排量（立方厘米）"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "例如：600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "生产日期"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "二手/全新"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "公里"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "米"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "摩托车类型"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "冷却类型"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "发动机类型"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "首次注册国家"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "例如：日本"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "附加设备"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "电动启动器"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "启动器"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "自动变速器"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "宽大的后轮胎"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "座椅加热"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "加热车把"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "前挡风玻璃"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "边箱"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "乘客座椅"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "顶盖"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "碟刹"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "音响系统"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "巡航控制"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "牵引力控制"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "快速换挡器"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "LED灯"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "其他功能"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "可以交换"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "以租赁方式出售"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "未在立陶宛运营"
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "老爷车"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "维护历史"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "催化转化器"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "安全"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "ABS"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "报警系统"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "刹车盘锁"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "防盗器"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "追踪设备（GPS）"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "请详细描述您的摩托车……"
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "详细描述"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "提高买家对您房源的兴趣。"
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "房源信息越详细，"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "买家提出的问题就越少。"
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "创意十足的房源信息"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "可能会在我们的社交媒体页面上展示。"
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"您最多可以上传<strong>40张照片</strong>。每张照片最大尺寸为<strong>10MB</strong>。支持的格式：<strong>JPG、PNG、GIF</strong>。"
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr "要更改照片顺序，请将其拖放到所需位置。第一张照片将用作主封面图片。"
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr "拍摄时光线要好，最好是在户外。"
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr "请提供车辆正面、侧面、背面和发动机舱的照片。"
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "如实展示所有缺陷——这有助于建立买家信任"
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "避免使用筛选条件——买家想看到的是真实情况。"
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "视频（可选）"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "YouTube网址"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "联系方式及地址"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "姓名"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "对公众隐藏确切地址"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "请填写所有以红色高亮显示的必填项。"
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "已选择 n 个文件"
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "高级摩托车搜索"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "摩托车"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "从–到"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "发动机，cm³ 从–到"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "从–到"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "第一注册国"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "注册类型"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "电池容量，千瓦时"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "电动续航里程，公里"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "例如：低里程的雅马哈 R1……"
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "设备/功能"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "电动启动器"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "宽后轮胎"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "巡演箱"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "乘客靠背"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "加热座椅"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "自动变速器"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "加热手把"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "碟刹"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "警报"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "可以旧换新"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "可供租赁"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "立陶宛未使用"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "服务手册"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "金属漆"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "返回摩托车页面"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "成立"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "未找到摩托车"
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "尝试扩大搜索范围"
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "找到 %(count)s 条摩托车信息"
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "发动机立方厘米"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "显示 %(已显示) 的 %(总计)"
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "未找到摩托车信息"
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "更新"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr "将所有 %(count) 个活跃列表置顶？"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "全部更新"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "%(count)s 个活跃房源将跳转到列表顶部"
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "创建新的"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "清除过滤器"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "积极的"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "预订的"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "非活跃状态"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "卖"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "更新"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "预订的"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "最近已续订 - 1 小时后可再次续订"
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "延长"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "位置"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "查看详细统计数据"
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "自动删除时间为 %(天)sd"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "价格未设定"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "该房源已失效。"
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "激活"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "房源信息如下："
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "不活跃"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "此类别暂无列表"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "暂无房源"
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "尝试选择\\"
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "创建您的第一个商品信息即可开始销售。"
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "创建列表"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "您确定要删除此列表吗？"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "我把它卖了"
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "用 \\ 标记列表"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "删除列表"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "此操作无法撤销。"
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "暂无已保存的房源"
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "浏览房源并保存您喜欢的房源！"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "已保存的搜索"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "返回列表"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "电子邮件提醒"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "复制"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "来自 %(y)s"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "直到 %(y)s"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "没有已保存的搜索"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr "保存搜索条件，以便快速查找符合您要求的房源"
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "浏览列表"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "电子邮件提醒已更新"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "搜索结果重复。"
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "过滤器"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "所有品牌"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "价格从"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "价格"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "年份"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "到年份"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "清除"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "尝试更改筛选条件。"
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "无图片"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "高级卡车搜索"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "使用详细筛选器优化搜索结果"
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "品牌和型号"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "选择制作"
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "首先选择“创建”。"
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "添加品牌/型号组合"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr "在搜索中添加多个组合，例如 <em>Volvo FH</em> AND <em>Scania R</em>。"
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "年份、价格和性能"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "功率（千瓦）"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "发动机排量（升）"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "卡车规格"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "卡车类型"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "驱动类型（车轴）"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "状况与外观"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "美国州"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "所有州"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "关键词搜索"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "按标题或描述搜索……"
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "符合您筛选条件的列表"
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "显示 %(count)s 个结果"
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "保存此搜索"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr "找到 <strong>%(count)s</strong> 辆符合您筛选条件的卡车"
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "显示结果"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "结果"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "没有卡车符合您的筛选条件"
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr "尝试移除一些筛选条件或调整筛选范围。"
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "选择模型"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "请先选择一个品牌"
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "搜索已保存"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "搜索保存失败，请重试。"
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "浏览卡车和商用车"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "找到 %(count)s 个列表"
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "子类别"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "所有卡车和商用车"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "搜索创建..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "显示 %(count) 条记录"
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "未找到卡车"
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "显示列表为 0 的商家"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "欧元"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "特色"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "目前还没有特色卡车。"
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "目前还没有卡车。"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "创造"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "卡车列表"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "编辑卡车列表"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "地位："
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "有效期至 %(date)s"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "查看公共页面"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "创建卡车和商业列表"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr "请在下方填写详细信息。必填字段标有<span class=\"text-red-600\">*</span>。"
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "基本信息"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "选择"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "例如：FH16、Actros 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "技术检验有效期至"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "发动机排量，升"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "例如：12.0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "车辆识别码（车身编号）"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "例如：WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "请描述一下您的卡车……"
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr "在此处上传照片或<strong>点击上传</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr "最多可上传 40 张照片 · JPG、PNG 格式 · 每张照片最大 10 MB · 拖动照片即可重新排序"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "看法"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "目前还没有照片——上传一些照片来吸引买家"
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "YouTube 网址 — 例如：https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "要价"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "地址（可选）"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "保存失败"

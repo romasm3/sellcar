@@ -1,0 +1,24 @@
+Hi {{ user_name|default:"there" }},
+
+A listing similar to yours just sold :
+
+   {{ similar_brand }} {{ similar_model }} {{ similar_year }}
+   Sold for: {{ similar_price_display }}
+   Time on platform: {{ similar_days_active }} day{{ similar_days_active|pluralize }}
+
+Your listing:
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+Insights:
+  - The market is active for your vehicle type
+  - Consider checking your price competitiveness
+  - Now might be a good time to renew or promote
+
+View your listing:
+{{ listing_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

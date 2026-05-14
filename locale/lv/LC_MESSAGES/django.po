@@ -1,0 +1,5809 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 17:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+
+#: .\config\settings.py:100
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:101
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:102
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:103
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:104
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:105
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:106
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:107
+msgid "Français"
+msgstr "Français"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "Kļūsti par dīleri"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "Dīleriem"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "Pārdodiet vairāk automašīnu vietnē SellCar"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr ""
+"Sasniedziet tūkstošiem pircēju ar savu zīmola dīlera lapu, neierobežotu "
+"sarakstu skaitu un izcelto izvietojumu."
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "Pamata"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/mēnesī"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "Abonēt"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "Iekļauts"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "Līdz 50 sludinājumiem"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "Zīmola izplatītāja lapa"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "Pielāgots logotips un baneris"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "Darba stundu attēlošana"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "Piedāvātais izvietojums"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "Populārākais"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "Profesionālis"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "Viss Basic versijā, kā arī"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "Neierobežots sludinājumu skaits"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "Verificēta dīlera emblēma"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "Analītikas informācijas panelis"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "Prioritārs atbalsts"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "Uzņēmums"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "Viss Pro versijā, kā arī"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "Augstākā vieta meklēšanā"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "Pielāgota zīmola tēma"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "Īpašs konta pārvaldnieks"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "API piekļuve"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "Vairāku lietotāju komanda"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "Vai nepieciešams pielāgots plāns?"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr "Runājiet ar mums par apjoma cenām vai partnerības iespējām."
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "Sazinieties ar mums"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "Stripe abonementa integrācija būs pieejama drīzumā."
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "Pieteikšanās"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "Laipni lūgti atpakaļ"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "Piesakieties savā SellCar kontā"
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "E-pasta adrese"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "Ievadiet savu e-pasta adresi"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "Parole"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "Ievadiet savu paroli"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "Atceries mani"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "Aizmirsu paroli?"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "Vai"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "Vai jums nav konta?"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "Reģistrējieties bez maksas"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "Atpakaļ uz sākumu"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "Izrakstīts"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "Jūs esat veiksmīgi izrakstījies."
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "Paldies, ka izmantojāt SellCar!"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "Pieslēgties vēlreiz"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "Doties uz sākumu"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "Mainīt paroli"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "Atjauniniet sava konta paroli"
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "Pašreizējā parole*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "Ievadiet pašreizējo paroli"
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "Jauna parole*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "Ievadiet jauno paroli"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "Apstipriniet jauno paroli*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "Apstiprināt jauno paroli"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "Paroles prasības:"
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "Vismaz 1 rakstzīmi garš"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "Var būt pilnībā skaitlisks"
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "Var būt līdzīgs jūsu lietotājvārdam"
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "Atjaunināt paroli"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "Atpakaļ uz iestatījumiem"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "Aizmirsu paroli?"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr ""
+"Ievadiet savu e-pasta adresi, un mēs nosūtīsim jums norādījumus par paroles "
+"atiestatīšanu."
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "E-pasta adrese:"
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "Sūtīt atiestatīšanas saiti"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "Atpakaļ uz pieteikšanos"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "Parole atjaunināta"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "Parole atjaunināta!"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "Jūsu parole ir veiksmīgi nomainīta."
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "Jūsu konts tagad ir drošāks."
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "Dodieties uz pieteikšanos"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "Jauna parole"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "Iestatīt jaunu paroli"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "Izvēlieties savam kontam spēcīgu paroli"
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "Saite nav derīga"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr "Šī paroles atiestatīšanas saite nav derīga vai jau ir izmantota."
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "Pieprasīt jaunu saiti"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "Pārbaudiet savu e-pastu"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr "Esam nosūtījuši jums paroles atiestatīšanas instrukcijas."
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr "Pārbaudiet savu iesūtni (un surogātpasta mapi, ja nu kas)."
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "Saite beigsies pēc 1 stundas."
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "Sākums"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "Rediģēt profilu"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "Atjauniniet savu personisko informāciju"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "Profila attēls"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG, PNG. Maks. 5 MB."
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "Personīgā informācija"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "Vārds"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "Uzvārds"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "E-pasts"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "Tālruņa numurs"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "Otrais tālrunis"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "(pēc izvēles)"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "Adrese"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "Valsts"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "Pilsēta"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "Iela"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "Mājas numurs"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "Par mani"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "Saglabāt izmaiņas"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "Reģistrēties"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "Izveidot kontu"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "Pievienojieties SellCar jau šodien"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "E-pasta adrese *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "Parole *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "Apstiprināt paroli *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "Vismaz 8 rakstzīmes garš"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "Nevar būt tikai skaitlisks"
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"Es piekrītu <a href=\"#\" class=\"text-primary hover:text-primary-"
+"dark\">pakalpojumu sniegšanas noteikumiem</a> un <a href=\"#\" class=\"text-"
+"primary hover:text-primary-dark\">konfidencialitātes politikai</a>"
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "Vai jums jau ir konts?"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "Pieslēgties šeit"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "Atpakaļ uz SellCar"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "Dīlera lapa, ko nodrošina SellCar"
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "Saraksti"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "Kontakti"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "Par mums"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "Atsauksmes"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "Privāts pārdevējs"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "Kontaktpersona"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "Darba laiks"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "Dalībnieks kopš %(gads)s"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "Zīmols"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "Visas markas"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "Modelis"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "Visi modeļi"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "Gads"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "No"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "Uz"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "Cena no €"
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "Minimālā cena €"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "Maks. €"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "Degvielas veids"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "Visi"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "Pārnešana"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "Ķermeņa tips"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "Notīrīt visu"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "Meklēt"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "Rāda"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "no %(kopā)s"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "saraksti"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "Jaunākie vispirms"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "Cena ↑"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "Cena ↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "Nobraukums ↑"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "Gads ↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "Gads ↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "apspriežams"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "Nav atrasts neviens ieraksts."
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "Notīrīt filtrus"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "Kontaktinformācija"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "Uzņēmums"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "Tālrunis"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "2. tālrunis"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "Tīmekļa vietne"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "Par %(uzņēmums)s"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "Vēl nav atsauksmju."
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "Atstāt atsauksmi"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "Dalieties pieredzē..."
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "Maka"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "Pieejamais atlikums"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "punkti"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "Papildināt"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "Darījumu vēsture"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "Papildiniet savu kontu"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr ""
+"Punkti ir virtuāla SellCar valūta. Izmantojiet tos bonusiem, izceltām "
+"reklāmām un savstarpējai publicēšanai."
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1 € = 1 punkts"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "Ievadiet summu"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr "Maksājumu sistēma tiek iestatīta. Lūdzu, pārbaudiet vēlāk."
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "Īpašie piedāvājumi"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "Maksāt"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "Iegūt"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(kopā)s punkti"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "Testa režīms (tikai izstrādātājiem)"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "Pievienojiet punktus acumirklī bez Stripe maksājuma."
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "Datums"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "Tips"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "Apraksts"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "Summa"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "Statuss"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "bonuss"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "Pabeigts"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "Gaida apstiprinājumu"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "Neizdevās"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "Vēl nav darījumu."
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "SellCar — pērciet un pārdodiet automašīnas tiešsaistē"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "Kartes meklēšana"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "Izveidot reklāmu"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "Saglabātie ieraksti"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "Mani meklējumi"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "Ziņojumi"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "Mani sludinājumi"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "Iestatījumi"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "Dīleris"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "Administrators"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "Vidēji lietotāji"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "Pārdošanas statistika"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "Django administrators"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "Izrakstīties"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr ""
+"Atklājiet uzticamus transportlīdzekļus un pakalpojumus — vieglāk, ātrāk, "
+"vienkāršāk."
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "Lietošanas noteikumi"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "Privātuma politika"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "Sīkfailu iestatījumi"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "Pakalpojumi"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "Cenu noteikšana"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "Reklāma"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "Transportlīdzekļa novērtēšana"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "Bieži uzdotie jautājumi"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "Vai jums ir jautājumi?"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "Atvērts katru dienu"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "Pirmd.–piekt."
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "Sestdiena–svētdiena"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "Sazinieties ar mums"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "Vai nepieciešama palīdzība?"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "Sūtīt ziņojumu atbalsta dienestam"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "Visas tiesības aizsargātas."
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "Noteikumi"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "Privātums"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "Sīkfaili"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "Tērzēšana"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "Redzēts"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "Sāciet sarunu!"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "Ierakstiet ziņojumu..."
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "SellCar atbalsts"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "Foto"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "Vēl nav ziņojumu"
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "TULKOJIET SARUNU"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "Tiek rādīti sākotnējie ziņojumi"
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "Ierakstiet ziņojumu vai ielīmējiet attēlu (Ctrl+V)..."
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "Pievienot fotoattēlu"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "Atlasiet sarunu"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "Izvēlieties sarunu kreisajā pusē"
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "RĀDĪT ORIĢINĀLU"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "Tulkošana..."
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "Tiek rādīti tulkotie ziņojumi"
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "Tulkojums neizdevās. Lūdzu, mēģiniet vēlreiz."
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "Lejupielādēt"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "Bieži uzdotie jautājumi"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "Bieži uzdotie jautājumi"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr ""
+"Atrodiet atbildes uz bieži uzdotiem jautājumiem par SellCar lietošanu."
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "Kā izveidot sludinājumu?"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"Jebkuras lapas augšdaļā noklikšķiniet uz sarkanās pogas “Izveidot "
+"sludinājumu”. Izvēlieties kategoriju (automašīnas, motocikli, kravas "
+"automašīnas utt.), aizpildiet informāciju, augšupielādējiet fotoattēlus, "
+"iestatiet cenu un publicējiet. Sludinājums tiks publicēts 5–10 minūšu laikā."
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "Kā rediģēt vai dzēst savu sludinājumu?"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr ""
+"Lietotāja izvēlnē dodieties uz sadaļu “Mani sludinājumi”. Noklikšķiniet uz "
+"jebkura sludinājuma, lai to skatītu, un pēc tam izmantojiet pogas “Rediģēt” "
+"vai “Dzēst”. Labojumi tiek atspoguļoti nekavējoties."
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "Cik ilgi mans sludinājums ir aktīvs?"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr ""
+"Sludinājumi ir aktīvi 30 dienas. Tos var atjaunot jebkurā laikā. Pēc termiņa"
+" beigām sludinājumi tiek glabāti jūsu kontā 160 dienas, pirms tie tiek "
+"automātiski dzēsti."
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "Kā sazināties ar pārdevēju?"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr ""
+"Atveriet jebkuru sludinājumu un izmantojiet pogas “Sūtīt ziņojumu” vai "
+"“Sūtīt e-pastu”. Pārdevēja tālruņa numurs tiek parādīts, ja tas ir "
+"iespējots."
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "Kā darbojas maks?"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"Jūsu makā tiek glabāti kredīti, ko izmanto ierakstu reklamēšanai, "
+"piedāvātajām reklāmām un savstarpējai publicēšanai. Papildiniet kontu ar 20,"
+" 100, 500 USD (ar bonusa kredītiem) vai jebkuru citu pielāgotu summu. 1 EUR "
+"= 1 kredīts."
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "Kā kļūt par dīleri?"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"Apmeklējiet lapu “Dīleris” sava konta izvēlnē. Izvēlieties plānu (Basic, Pro"
+" vai Enterprise) un abonējiet. Jūs saņemsiet neierobežotu skaitu "
+"sludinājumu, zīmola dīlera lapu, pielāgotu logotipu un izceltu izvietojumu."
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "Kā es varu mainīt savu paroli?"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr ""
+"Dodieties uz Iestatījumi un pēc tam noklikšķiniet uz “Mainīt paroli”. "
+"Ievadiet savu pašreizējo paroli un jauno paroli. Ja esat aizmirsis paroli, "
+"pieteikšanās lapā izmantojiet sadaļu “Aizmirsāt paroli?”."
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "Kā es varu izdzēst savu kontu?"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr ""
+"Dodieties uz Iestatījumi, ritiniet uz leju un noklikšķiniet uz “Dzēst "
+"kontu”. Lai apstiprinātu, jums būs jāievada parole. Šī darbība ir "
+"neatgriezeniska un to nevar atsaukt."
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "Vai joprojām nepieciešama palīdzība?"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "Sūtiet e-pastu mūsu atbalsta komandai"
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "Pārlūkot automašīnas"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "Atrodi savu ideālo transportlīdzekli"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "Pārlūkot %(count)s ierakstus"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "Kategorija"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "Visas kategorijas"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "Izgatavot"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "Minimālā cena"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "Maksimālā cena"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "Gads no"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "Gads līdz"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "Degvielas veids"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "Detaļas nosaukums/kods"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "Meklēt pēc detaļas nosaukuma vai koda"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "Pieejamie transportlīdzekļi"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "Atrasti %(count)s ieraksti"
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "Jaunākais"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "Cena: no zemākās uz augstāko"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "Cena: no augstākās uz zemāko"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "Nobraukums"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "Kartes skats"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "km"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "Nezināms"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "Nav atrasts neviens ieraksts"
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "Mēģiniet pielāgot filtrus"
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "Notīrīt visus filtrus"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "Paplašinātā meklēšana"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "Transportlīdzekļu meklēšana"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "Notīrīt meklēšanu"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "Pievienot vairāk zīmolu/modeļu"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "Cena, $"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "Ķermeņa tips"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "mi"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "Dzinējs"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "Jauda"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "Piedziņas tips"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "Stūrēšana"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "Defekti"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "Durvis"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "Krāsa"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "Sēdvietas"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "Klimata kontrole"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "Stāvoklis"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "Eiro standarts"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "Štats (ASV)"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "Visas valstis"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "Pilsēta (ASV)"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "Visas pilsētas"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "Teksta meklēšana"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "piemēram, BMW 320d ar mazu nobraukumu..."
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "Aprīkojums"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "Detaļu meklēšana"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "Detaļas nosaukums vai kods"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "piemēram, bremžu kluči, 06H 145 601 H, BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "Jauns"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "Lietots"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "Saderīgs ar (transportlīdzekli)"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr ""
+"Norādiet, kuriem transportlīdzekļiem šī detaļa der. Tukšās rindas tiek "
+"ignorētas. Atstājiet visu tukšu = meklēt visās detaļās."
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "Meklēšana (%(skaits)s)"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "Noņemt"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "Rediģēt ierakstu"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "Pārdod automašīnu rezerves daļām"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "Atpakaļ uz ierakstu"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "Rediģēt ierakstu"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "Atjauniniet tālāk norādīto saraksta informāciju."
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "Atpakaļ uz kategorijas izvēli"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "Pārdodu visu automašīnu rezerves daļās"
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "Aizpildiet tālāk norādīto informāciju par sludinājumu."
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "Lūdzu, izlabojiet sekojošo:"
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "Galvenās detaļas"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "— Izvēlieties —"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "Modifikācija"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "piemēram, 2.0 TDI 140 kW"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "Versija"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "piemēram, GTD, M Sport, AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "piem., 110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "piem., 150 000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "Dzinēja tilpums"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "piemēram, 1,6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "Piedziņas tips"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "Krāsas kods"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "piem., LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "Dzinēja kods"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "piem., BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "Pārnesumkārbas kods"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "piem., DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "Cena ($)"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "Aprakstiet iekļauto, defektus, detaļu stāvokli utt."
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "Fotogrāfijas"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr ""
+"(%(skaits)s / 36 — velciet, lai mainītu secību, noklikšķiniet, lai "
+"palielinātu)"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "GALVENĀ"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "Noklikšķiniet, lai augšupielādētu, vai velciet un nometiet"
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "Maks. 36 fotoattēli, katrs 20 MB"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "Kontakti un atrašanās vieta"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "Štats"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "Publicēt ierakstu"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "Maksimāli 36 fotoattēli. Vispirms noņemiet dažus."
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr ""
+"({count} / 36 — velciet, lai mainītu secību, noklikšķiniet, lai palielinātu)"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "Nosacījums ir obligāts"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "Zīmols ir obligāts"
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "Obligāti jānorāda gads"
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "Cena ir obligāta"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "Nepieciešams tālruņa numurs"
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "Pilsēta ir obligāta"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "Obligāti jānorāda štats"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "Atrodi savu sapņu automašīnu"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr "Pārlūkojiet tūkstošiem transportlīdzekļu no uzticamiem pārdevējiem"
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "Maksimālā cena"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "Jebkura cena"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "Visi veidi"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "Sedans"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "Apvidus auto"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "Hečbeks"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "Kupeja"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "Automašīnas sarakstā"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "Apmierināti klienti"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "Aptvertās pilsētas"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "Atbalsts"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "Jaunākie sludinājumi"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "Skatīt visu"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "k"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "Skatīt sīkāku informāciju"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "Vēl nav pieejams neviens sludinājums"
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "Kāpēc izvēlēties SellCar?"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "Labākā platforma automašīnu pirkšanai un pārdošanai"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "Vienkārša meklēšana"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr ""
+"Atrodi savu sapņu automašīnu ar uzlabotiem filtriem un kartes meklēšanu"
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "Droši un aizsargāti"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "Visi sludinājumi ir pārbaudīti. Pērciet un pārdodiet ar pārliecību."
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "Ātri un vienkārši"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr ""
+"Ievietojiet savu automašīnu sarakstā dažu minūšu laikā un nekavējoties "
+"sazinieties ar pircējiem"
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "Vai esat gatavs pārdot savu automašīnu?"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr ""
+"Pievienojieties tūkstošiem pārdevēju, kuri atrada pircējus vietnē SellCar"
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "Izveidot ierakstu"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "Sākt darbu"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "Aktivizējiet savu sludinājumu"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "POPULĀRĀKIE"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "Izvēlētais plāns:"
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "Nav atlasīts"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "Saglabāt kā melnrakstu"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "Aktivizēt ierakstu"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "1 diena"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{n} dienas"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "Atpakaļ pie saraksta rediģēšanas"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "Fotoattēli un video"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "Transportlīdzekļa dati"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "Cena"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "Rediģēšana: %(zīmols)s %(modelis)s"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "Izveidot jaunu ierakstu"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "Solis %(current)s no %(cost)s"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "Vispirms veiciet iepriekšējās darbības"
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "Izvēlieties transportlīdzekļa kategoriju"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← Izvēlieties kategoriju"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "Lūdzu, izlabojiet šādas kļūdas:"
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "Transportlīdzekļa informācija un fotoattēli"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "Izvēlieties savu transportlīdzekli un pievienojiet fotoattēlus"
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "Meklēt zīmolu..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- Izvēlieties zīmolu --"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "Šis lauks ir obligāts"
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "Izvēlieties modeli"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "Pirmā reģistrācija"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "MM"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "VIN"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "piem., WBA3A5C51DF000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "Pašreizējās fotogrāfijas"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr ""
+"(noklikšķiniet, lai palielinātu, novietojiet kursoru, lai skatītu opcijas"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "Galvenais"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "Iestatīt kā galveno"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr ""
+"💡 Novietojiet kursoru virs fotoattēla, lai skatītu opcijas. Noklikšķiniet uz"
+" fotoattēla, lai to palielinātu."
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "Jau augšupielādēts"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr ""
+"(%(skaits)s / 40 — noklikšķiniet, lai palielinātu, velciet, lai mainītu "
+"secību)"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "Dzēst"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "Pievienot vēl fotoattēlus"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "Augšupielādēt fotoattēlus"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr "PNG, JPG līdz 20 MB katrs (maksimums 40 attēli)"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "Video URL (YouTube, pēc izvēles)"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "Tehniskā informācija"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "Sniedziet tehniskās specifikācijas"
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "Durvju skaits"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "Dzinēja tilpums"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "Papildu informācija"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "Piedziņas tips, sēdekļi, disku izmērs, degvielas patēriņš utt."
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "Sēdvietu skaits"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "Diska izmērs"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "Pašmasa (kg)"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "CO₂ emisija (g/km)"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "Izcelsmes valsts"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "Degvielas patēriņš (l/100km)"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "Automaģistrāle"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "Kombinēts"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "Tehniskā apskate derīga līdz"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "Mēnesis"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "Papildu aprīkojums"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "Izvēlieties sava transportlīdzekļa funkcijas"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "Nosakiet savu cenu"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "Kāda ir jūsu prasītā cena?"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "Cena ir apspriežama"
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "Aprakstiet savu transportlīdzekli detalizēti"
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "Iekļaujiet stāvokli, funkcijas, apkopes vēsturi utt."
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "Kontaktinformācija un atrašanās vieta"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "Kur atrodas transportlīdzeklis un kā pircēji var ar jums sazināties?"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "Transportlīdzekļa atrašanās vieta"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "Izvēlieties štatu"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "Pasta indekss"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "Ielas adrese"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "Slēpt precīzu adresi"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "Kontaktinformācija"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "E-pasts (pēc izvēles)"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "Noteikumi un nosacījumi"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"Es piekrītu <a href=\"#\" class=\"text-primary hover:underline\">Noteikumiem"
+" un nosacījumiem</a> un <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privātuma politikai</a>"
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "Sūtīt man jaunumus un piedāvājumus"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "Saglabāt"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "Atpakaļ"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "Turpināt"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "Iesniegt ierakstu"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "Izvēlieties veidu:"
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "Izvēlieties apakškategoriju:"
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "Nav opciju"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "Slēpt informāciju"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr ""
+"({count} / 40 — noklikšķiniet, lai palielinātu, velciet, lai mainītu secību)"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "Maksimāli 40 fotoattēli. Vispirms noņemiet dažus."
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr ""
+"Jūs izvēlējāties {n} fotoattēlus, bet der tikai {a}. Vispirms tiks "
+"pievienoti {a}."
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "Modelis ir obligāts"
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "Obligāti jānorāda mēnesis"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "Obligāti jānorāda ķermeņa tips"
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "Degvielas veids ir obligāts."
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "Nepieciešama pārraide"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "Nepieciešams durvju skaits"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "Nobraukums ir obligāts"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "Defekti ir nepieciešami"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "Jums jāpiekrīt noteikumiem un nosacījumiem"
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "Rediģēt ierakstu: %(zīmols)s %(modelis)s"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "Jauns sludinājums: Automašīnas"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "Galvenie saraksta dati"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "VIN kods"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "Eksporta cena"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "Apspriežams"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "Interesē tirdzniecība"
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "+ Nodokļi"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr ""
+"Cena neietver nodokļus — jautājiet pārdevējam sīkāku informāciju par "
+"piemērojamajiem nodokļiem."
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "Papildu dati"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "Iesniegt sīkāku informāciju"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "Modifikācija (TDI, TSI, CDI...)"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "Tehniskā apskate līdz"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "Vasaras/ziemas riteņi"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "CO₂ emisija, g/km"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "Pirmās reģistrācijas valsts"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "Vietu skaits"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "Klimata kontrole"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "Pašmasa, kg"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "Eiro standarts"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "Degvielas patēriņš (l/100km)"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "Funkcijas"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "(Atlasīt visu)"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "Atlasīt visu"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "Īpašas funkcijas"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "Garantija iekļauta"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "Pieejams nomā"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "Servisa grāmatiņa"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "Importēts no ASV"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "Vairāki atslēgu komplekti"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "Derīga tehniskā apskate"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "Gatavs sportam"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "Pielāgots cilvēkiem ar invaliditāti"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "Palielināta dzinēja jauda"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "Pneimatiskā piekare"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "Attālā palaišana"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "Rezerves ritenis"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "No izsoles"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "Pārdevēja veids"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "Detalizēti aprakstiet savu piedāvājumu."
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr ""
+"Jo mazāk jautājumu pircējiem radīsies, lasot jūsu sludinājumu, jo ātrāk jūs "
+"atradīsiet pircēju."
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr ""
+"Izvairieties lietot VISUS LIELOS BURTUS vai pārmērīgu simbolu daudzumu."
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "Pagriezt pa kreisi"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "Pagriezt pa labi"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "Augšupielādēt fotoattēlus"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr ""
+"Līdz 40 fotoattēliem. Maksimālais izmērs 24 MB. JPG, GIF, PNG formāti."
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr ""
+"Tālruņa numurs ir obligāts, lai potenciālie pircēji varētu ar jums "
+"sazināties pa tālruni."
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr ""
+"E-pasts ļauj potenciālajiem pircējiem sazināties ar jums pa e-pastu. Slēpts "
+"no publisko ierakstu apmeklētājiem."
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "piem., Viļņa"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "Iela, mājas numurs"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"Iesniedzot, es piekrītu <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Noteikumiem un nosacījumiem</a> un <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privātuma "
+"politikai</a>"
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr ""
+"Ne visi obligātie lauki ir aizpildīti vai aizpildīti nepareizi. Šie lauki ir"
+" atzīmēti sarkanā krāsā."
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* Obligāti aizpildāmie lauki"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "ir nepieciešams"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "Vai dzēst šo fotoattēlu?"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "Pagriešana neizdevās"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr ""
+"Jūs izvēlējāties pārāk daudz fotoattēlu — tiks pievienoti tikai pirmie "
+"pieejamie."
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "Sludinājuma ID nav atrasts"
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "Augšupielāde neizdevās"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "Izsvītrot sludinājumu"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "Dėmesio!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "Šis rezultāts neatgriezenisks."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "Vai tiešām vēlies redzēt šo skelbimą?"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "Kaina:"
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "Atšaukti"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "Ištrinti"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "Pārlūkot kravas automašīnas"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "Pārlūkot motociklus"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "Bruto svars"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "Degviela"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "Riteņu formula"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "Kravas automašīnas detaļas"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "Pirmā reģistrācija"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "Masas intervāls"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "Pašmasa"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "Kravnesība"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "Degvielas tvertnes tilpums"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "Garums"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "Platums"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "Augstums"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "Apjoms"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "Jauns / Lietots"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "Ātrumkārba"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "Guļvietas"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "Priekšējā piekare"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "Aizmugurējā piekare"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "SDK numurs"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "Tehniskā pārbaude līdz"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "Iegūstiet transportlīdzekļa vēstures pārskatu no Carfaxreport.eu"
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "Vēstures ziņojums"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "Aprīkojums un funkcijas"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "Atrašanās vieta"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "Pārdevējs slēpa precīzu adresi"
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "Iegūt norādes"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "+ nodokļi"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "Eksporta cena:"
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "Transportlīdzekļa dati (rezerves daļām)"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "Norādes"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "Atvērt pakalpojumā Maps"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "Pasta indekss:"
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "Pārdevēja paslēpis"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "Koordinātas"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "Nokopēts!"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "Kopēt koordinātas"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "Tikai aptuvens apgabals"
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "Nav defektu"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "Pašmasa"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "CO₂ emisija"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "Pilsēta:"
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "Automaģistrāle:"
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "Apvienots:"
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "Tehniskā pārbaude līdz"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr ""
+"Cenā nav iekļauti nodokļi — lūdzu, jautājiet pārdevējam par piemērojamajiem "
+"nodokļiem jūsu reģionā."
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "Eksportēt:"
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr ""
+"Īpaša cena eksporta pircējiem — parasti tiek izmantota, nosūtot "
+"transportlīdzekli ārpus pārdevēja valsts. Jautājiet pārdevējam par eksporta "
+"dokumentāciju un nosacījumiem."
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "Privāts"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "Skatīt visus sludinājumus →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "Noklikšķiniet, lai kopētu"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "Pārdevējs ir atspējojis tālruņa numura redzamību."
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "Sūtīt ziņojumu"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "Sūtīt e-pastu"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "Pieslēgties, lai sazinātos"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "Kopīgot"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "Saglabāts"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "Ziņojums"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "Atjaunots"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "Drošības padomi"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "Tikšanās drošā, publiskā vietā"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "Rūpīgi pārbaudiet transportlīdzekli"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "Nekad nemaksājiet iepriekš"
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "Pārbaudiet visus dokumentus"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "Kopīgot šo ierakstu"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "Kopēt"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "Ziņojumu saraksts"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "Iemesls*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "Nepareiza cena"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "Krāpniecisks sludinājums"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "Nepareiza kategorija"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "Dublikāts ieraksts"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "Jau pārdots"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "Citi"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "Papildu komentārs"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "Aprakstiet problēmu..."
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "Jūsu e-pasts (pēc izvēles)"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "Iesniegt ziņojumu"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "Nosūtīt e-pastu pārdevējam"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "Jūsu e-pasts*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "Jūsu tālrunis"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "Ziņojums*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "Sveiki, mani interesē šis sludinājums..."
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "Rediģēt"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr ""
+"Marku, modeli un pirmo reģistrāciju nevar mainīt. VIN numuru var rediģēt."
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "Cena (€)*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "Nobraukums*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "Aprakstiet savu transportlīdzekli..."
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "Pašreizējie attēli"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "Vai dzēst šo attēlu?"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "Pievienot jaunus attēlus"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "Varat augšupielādēt vairākus attēlus"
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "Dzēst ierakstu"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "Izvēlieties kategoriju"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "Automašīnas"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "Mikroautobusi, autobusi un kemperi"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "Motocikli un moto aprīkojums"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "Kravas automašīnas un komerctransports"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "Daļas"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "Laivas un ūdens transports"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "Piekabes un puspiekabes"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "Riepas un diski"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "Būvniecības un noliktavu aprīkojums"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "Lauksaimniecība un mežsaimniecība"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "Velosipēdi un skrejriteņi"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "Auto noma"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "Lidmašīnas un lidaparāti"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "Lidmašīnu detaļas"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "Izvēlieties kategoriju"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "Paplašināts"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "Karte"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "Vairāk filtru"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "Visi zīmoli"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "Meklēt modeli..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "Pievienot zīmolu un modeli"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "Nobraukums (km)"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "Teksta meklēšana"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "Meklēt..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "Derīga pārbaude"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "Saraksts ar VIN"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "Slēpt no izsolēm"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "Nosaukums vai detaļas numurs"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "piem., 06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "Vairāk"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "Mazāk"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "Nelieli defekti"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "Bojāts"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "Glābšana"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "Nerādīt vecākus par"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "Jebkurā laikā"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24 stundas"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3 dienas"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7 dienas"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30 dienas"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "Atgriešanas darījums ir pieņemts"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "Garantija"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "Pārdots līzingā"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "Jaunākais un atjaunotais"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "Nobraukums: no mazākā līdz lielākajam"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "Nobraukums: no augstākā līdz zemākajam"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "Gads: Jaunākie vispirms"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "Gads: No vecākā vispirms"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "Saglabāt meklēšanu"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "PĀRDOTS"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "Visas atrašanās vietas"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "Meklēt atrašanās vietu..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "Amerikas Savienotās Valstis"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "Rādīt zīmolus ar 0 ierakstiem"
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "Cenu diapazons"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "Min. $"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "Maks. $"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "Meklēt pēc detaļas nosaukuma vai numura (piemēram, 06H 145 601 H)"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "Lietot filtrus"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "Rāda %(total_count)s no %(total_count)s"
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "Kārtot pēc:"
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr "Mēģiniet pielāgot filtrus, lai atrastu meklēto."
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "Dienas piedāvājumi"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "Visdārgākais"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "Vēl nav piedāvātu ierakstu."
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "Vēl nav ierakstu."
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "pirms s"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "pirms minūtes"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "pirms stundām"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "pirms 1 dienas"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "pirms dienām"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "Maksimāli 5 zīmolu/modeļu pāri"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "Vispirms izvēlieties zīmolu"
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "Vispirms atlasiet ražotāju"
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "Notiek ielāde..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "Izvēlieties plānu"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "Sludinājuma informācija"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "Pakalpojumu izvēle"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "Maksājums"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "Sludinājuma ilgums"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "Augstākās vietas zvaigznes"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "Priekšskatījums"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "Piedāvāts sākumlapā"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "Saraksta izcelšana"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "Ieteicams"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "dienas"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "d."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "Pozīcija sarakstā"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr "Paaugstiniet savu sludinājumu, lai piesaistītu lielāku interesi"
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "Vai vēlaties pārdot ātrāk?"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "Atlaides kods"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "Kods"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "Pieteikties"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "Punkti"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "Kopā"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "Pasūtījums"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "Iesniedzot savu sludinājumu, jūs piekrītat SellCar."
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "termini"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "un"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "privātuma politika"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "Nepietiekams maka atlikums. Lūdzu, papildiniet."
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "L"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "Atpakaļ uz saraksta rediģēšanu"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "Lūdzu, ievadiet kodu"
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "Lūdzu, vispirms izvēlieties plānu"
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "Nederīgs kods"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "Kļūda"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr ""
+"Jūsu sludinājums meklēšanas rezultātos tiks parādīts augstāk nekā citi. Jo "
+"vairāk zvaigžņu piešķiršanas jūs pasūtīsiet, jo augstāk tas tiks parādīts."
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr ""
+"Jūsu sludinājums tiks parādīts sākumlapā starp piedāvātajiem sludinājumiem, "
+"piesaistot līdz pat 5 reizēm vairāk skatījumu."
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr ""
+"Jūsu sludinājumam meklēšanas rezultātos būs krāsains fons, kas to izcels "
+"starp citiem sludinājumiem."
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "Statistika"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "Atpakaļ uz maniem sludinājumiem"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "Saraksts"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "Izveidots"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "AKTĪVS"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "NEAKTIVS"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "MELNRAKSTS"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "Derīgs līdz"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "Skatījumi"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "%(pct)s%% salīdzinājumā ar iepriekšējo nedēļu"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "Iespaidi"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "Klikšķu skaits"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "skatījumi/iespaidi"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(rate)s%% ietaupījumu likme"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "Jūsu saraksta pozīcija: %(pos)s / %(kopā)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Jūsu sludinājums ir starp 10 labākajiem starp visiem aktīvajiem "
+"sludinājumiem. Paaugstiniet savu pozīcijas, lai pārvietotos augstāk."
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Jūsu sludinājums ir starp 50 labākajiem aktīvajiem sludinājumiem. "
+"Paaugstiniet savu pozīcijas, lai paceltos augstāk."
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr ""
+"Paaugstiniet sava sludinājuma pozīciju, lai tas paceltos augstāk starp "
+"visiem aktīvajiem sludinājumiem."
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "Skatījumi dienā (pēdējās 30 dienās)"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "Iespaidu skaits dienā (pēdējās 30 dienās)"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "Kad pircēji skata jūsu sludinājumu?"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "Pīķis"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "Dienas stunda (00:00 - 23:00)"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "skats"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "skatījumi"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "iespaids"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "iespaidi"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "Sludinājums publicēts"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr ""
+"Sludinājums ir derīgs <strong class=\"text-gray-900\">%(days)s "
+"dienas</strong>"
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "Beidzas <strong class=\"text-gray-900\">%(date)s</strong>"
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "Redzams pircējiem 5–10 minūšu laikā"
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "Skatīt ierakstu"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "Kopēt saiti"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "Padomi, kā ātrāk pārdot"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr ""
+"Pievienojiet vismaz 8 augstas kvalitātes fotoattēlus no dažādiem leņķiem"
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr "Uzrakstiet detalizētu aprakstu, ieskaitot apkopes vēsturi"
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr ""
+"Nosakiet konkurētspējīgu cenu, pamatojoties uz līdzīgiem sludinājumiem"
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "Ātri atbildiet uz pircēju ziņojumiem"
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr ""
+"Saite nokopēta! Ielīmējiet to savā Instagram stāstā, tiešajā ziņojumā vai "
+"biogrāfijā."
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "Jauniniet savu kontu"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "Jūs esat sasniedzis savu ierakstu ierobežojumu"
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr ""
+"Jums pašlaik ir %(count)s no %(limit)s aktīviem sludinājumiem. Izvēlieties "
+"kādu no tālāk norādītajām opcijām, lai pievienotu vēl."
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "Maksāt par katru sludinājumu"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "Vienreizējs maksājums"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "par ierakstu"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "Pievienot vēl 1 sludinājumu tūlīt"
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "30 dienas aktīvas"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "Nav abonementa"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "Drīzumā (Stripe)"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "POPULĀRS"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "Privāts+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "Mēneša abonements"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "mēnesī"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(count)s aktīvi sludinājumi"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "Atcelt jebkurā laikā"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "Visas funkcijas iekļautas"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "Uzņēmumiem"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "Dīlera emblēma sludinājumos"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "Publiskā dīlera lapa"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "Nepieciešams administratora apstiprinājums"
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "Drīzumā (3. posms)"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "Atpakaļ pie maniem sludinājumiem"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "Pārdod motociklu aprīkojumu"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "Pārdodu motociklu aprīkojumu un aksesuārus"
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "Ķiveres, jakas, cimdi, zābaki un cits moto aprīkojums"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "Pamatinformācija"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "Norādiet veidu..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "Ražotājs"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "Norādiet ražotāju..."
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "piem., GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "Izmērs"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "Norādiet izmēru..."
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "Drošības sertifikācija"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "Norādiet sertifikāciju..."
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "Ventilācijas atveru skaits"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "piemēram, 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "Materiāls"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "Norādiet materiālu..."
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "Dzimums"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "Norādiet dzimumu..."
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "Norādiet krāsu..."
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "Funkcijas/aprīkojums"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr "Vispirms atlasiet kategoriju, lai skatītu pieejamās funkcijas."
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "Atvērts tirdzniecībai"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr "Aprakstiet preci — stāvokli, vēsturi, kāpēc jūs to pārdodat..."
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"Līdz <strong>40 fotoattēliem</strong>. Maks. <strong>16 MB</strong> katram. "
+"JPG, PNG, WEBP. Pirmais ir galvenais."
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr "PNG, JPG līdz 16 MB katrs (maksimums 40 fotoattēli)"
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "Augšupielādē..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "Video"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "Pasta indekss"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"Es piekrītu <a href=\"#\" class=\"text-primary hover:underline\">Lietošanas "
+"noteikumiem</a> un <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privātuma politikai</a>."
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "Esmu biznesa pārdevējs"
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "Trūkst obligātie lauki:"
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "Vispirms atlasiet kategoriju."
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "Nav pieejamu funkciju."
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "Notiek melnraksta sagatavošana..."
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "Notiek {n} fotoattēla(-u) augšupielāde..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "Augšupielāde neizdevās: nav atbildes"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "Augšupielāde neizdevās:"
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "Nezināma kļūda"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "Augšupielādes kļūda:"
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "Dzēšana neizdevās"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "Noteikumu līgums"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "Pārlūkot motociklu aprīkojumu"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "Motociklu aprīkojums un aksesuāri"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "Pārdodu moto ekipējumu"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "Zīmols, modelis, atslēgvārds..."
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr "Turiet Ctrl/Cmd vairākas reizes"
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "Min"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "Makss"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "Visas valstis"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "Visi ASV štati"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "Lietot filtrus"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "Atiestatīt"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "JAUNS"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "Bez nosaukuma"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "Nav atrasts neviens moto aprīkojuma saraksts."
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr ""
+"Mēģiniet pielāgot filtrus vai esiet pirmais, kas kaut ko ievieto sarakstā!"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "Izveidot motocikla sludinājumu"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "Atpakaļ uz kategorijām"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "Galvenā informācija"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "Dzinēja tilpums (cm³)"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "piem., 600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "Ražošanas datums"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "Lietots / Jauns"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "Km"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "Mi"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "Motocikla tips"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "Dzesēšanas veids"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "Dzinēja tips"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "Pirmās reģistrācijas valsts"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "piem., Japāna"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "Papildu aprīkojums"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "Elektriskais starteris"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "Spēka starteris"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "Automātiskā pārnesumkārba"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "Plata aizmugurējā riepa"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "Apsildāmi sēdekļi"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "Apsildāma stūre"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "Priekšējais vējstikls"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "Logu somas"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "Pasažiera sēdeklis"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "Augšējais korpuss"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "Disku bremzes"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "Audio sistēma"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "Kruīza kontrole"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "Vilces kontrole"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "Ātrā pārslēgšana"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "LED gaismas"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "Citas funkcijas"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "Iespējama apmaiņa"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "Pārdots līzingā"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "Netiek ekspluatēts Lietuvā"
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "Oldtimer"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "Apkopes vēsture"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "Katalītiskais neitralizators"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "Drošība"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "ABS"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "Signalizācijas sistēma"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "Bremžu diska bloķēšana"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "Imobilizators"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "Izsekošanas ierīce (GPS)"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "Aprakstiet savu motociklu detalizēti..."
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "Detalizēts apraksts"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "palielina pircēju interesi par jūsu sludinājumu."
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "Jo informatīvāks ir saraksts,"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "jo mazāk jautājumu pircēji uzdos."
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "Radoši uzrakstīti saraksti"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "var tikt publicēts mūsu sociālo mediju lapās."
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"Varat augšupielādēt līdz <strong>40 fotoattēliem</strong>. Maksimālais "
+"fotoattēla izmērs ir <strong>10 MB</strong>. Atbalstītie formāti: "
+"<strong>JPG, PNG, GIF</strong>."
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr ""
+"Lai mainītu fotoattēlu secību, velciet un nometiet tos vēlamajā pozīcijā. "
+"Pirmais fotoattēls tiks izmantots kā galvenais vāka attēls."
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr "Fotografējiet labā apgaismojumā, ideālā gadījumā ārā"
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr "Iekļaujiet priekšpuses, sānu, aizmugures un dzinēja fotoattēlus"
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "Godīgi norādiet visus defektus — tas vairo pircēja uzticību"
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "Izvairieties no filtriem — pircēji vēlas redzēt reālo stāvokli"
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "Video (pēc izvēles)"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "YouTube URL"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "Kontaktinformācija un atrašanās vieta"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "Vārds"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "Slēpt precīzu adresi no publiskiem avotiem"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "Lūdzu, aizpildiet visus obligātos laukus, kas iezīmēti sarkanā krāsā."
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "Atlasīti {n} faili"
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "Paplašināta motociklu meklēšana"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "Motocikli"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "Gads no–līdz"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "Dzinējs, cm³ no–līdz"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "Nobraukums no–līdz"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "Pirmās reģistrācijas valsts"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "Reģistrācijas veids"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "Akumulatora ietilpība, kWh"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "Elektriskais nobraukums, km"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "piemēram, Yamaha R1 ar mazu nobraukumu..."
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "Aprīkojums/funkcijas"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "Elektriskais starteris"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "Plata aizmugurējā riepa"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "Tūrisma somas"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "Pasažiera atzveltne"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "Apsildāmi sēdekļi"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "Automātiskā pārnesumkārba"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "Apsildāmi rokturi"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "Disku bremzes"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "Trauksme"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "Pieejama maiņas maksa"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "Pieejams līzings"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "Netiek izmantots Lietuvā"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "Servisa grāmata"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "Metāliska krāsa"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "Atpakaļ pie motocikliem"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "Atrasts"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "Nav atrasts neviens motocikls"
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "Mēģiniet paplašināt meklēšanas kritērijus"
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "Atrasti %(count)s motociklu sludinājumi"
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "Dzinējs cm³"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "Rāda %(parādītās) no %(kopā)"
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "Nav atrasts neviens motociklu saraksts"
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "Atjaunot"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr "Vai atjaunot visus %(count)s aktīvos sludinājumus uz augšu?"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "Atjaunot visu"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "%(count)s aktīvie ieraksti pāriet uz saraksta augšdaļu"
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "Izveidot jaunu"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "Notīrīt filtru"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "Aktīvs"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "Rezervēts"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "Neaktīvs"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "Pārdots"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "ATJAUNOTS"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "REZERVĒTS"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "Nesen atjaunots — var atjaunot vēlreiz pēc 1 stundas"
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "Paplašināt"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "Pozīcija"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "Skatīt detalizētu statistiku"
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "Automātiska dzēšana pēc %(dienām)sd"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "Cena nav noteikta"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "Sludinājums ir <strong>neaktīvs</strong>"
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "Aktivizēt"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "Saraksts ir"
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "neaktīvs"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "Šajā kategorijā nav ierakstu"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "Vēl nav ierakstu"
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "Mēģiniet atlasīt \\"
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "Izveidojiet savu pirmo sludinājumu, lai sāktu pārdošanu."
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "Izveidot ierakstu"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "Vai tiešām vēlaties dzēst šo ierakstu?"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "Es to pārdevu"
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "Atzīmēt ierakstu ar \\"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "Dzēst ierakstu"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "Šo darbību nevar atsaukt."
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "Vēl nav saglabātu ierakstu"
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "Pārlūkojiet sarakstus un saglabājiet savus favorītus!"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "Saglabātās meklēšanas"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "Atpakaļ pie ierakstiem"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "E-pasta brīdinājumi"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "Dublikāts"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "no %(y)s"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "līdz %(y)s"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "Nav saglabātu meklējumu"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr ""
+"Saglabājiet meklēšanu, lai ātri atrastu jūsu kritērijiem atbilstošus "
+"sludinājumus"
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "Pārlūkot ierakstus"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "E-pasta brīdinājumi ir atjaunināti"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "Meklēšanas dublikāts"
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "Filtri"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "Visas markas"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "Cena no"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "Cena līdz"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "Gads no"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "Gads līdz"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "Skaidrs"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "Mēģiniet mainīt filtrus"
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "Nav attēla"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "Paplašinātā kravas automašīnu meklēšana"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "Precizējiet meklēšanu ar detalizētiem filtriem"
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "Ražotājs un modelis"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "Izvēlieties Ražotājs"
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "Atlasiet Izveidot pirmo"
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "Pievienot markas/modeļa kombināciju"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr ""
+"Pievienojiet vairākas kombinācijas meklēšanai, piemēram, <em>Volvo FH</em> "
+"UN <em>Scania R</em>."
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "Gads, cena un veiktspēja"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "Jauda (kW)"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "Dzinēja tilpums (l)"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "Kravas automašīnas specifika"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "Kravas automašīnas tips"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "Piedziņas tips (ass)"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "Stāvoklis un izskats"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "ASV štats"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "Visas valstis"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "Atslēgvārdu meklēšana"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "Meklēt pēc nosaukuma vai apraksta..."
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "ieraksti atbilst jūsu filtriem"
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "Rādīt %(skaits) rezultātus"
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "Saglabāt šo meklēšanu"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr ""
+"Atrastas <strong>%(count)s</strong> kravas automašīnas, kas atbilst jūsu "
+"filtriem"
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "Rādīt rezultātus"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "Rezultāti"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "Nav neviena kravas automašīnas, kas atbilstu jūsu filtriem"
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr "Mēģiniet noņemt dažus filtrus vai pielāgot diapazonus."
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "Izvēlieties modeli"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "Lūdzu, vispirms atlasiet Ražotājs"
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "Meklēšana saglabāta"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "Neizdevās saglabāt meklēšanas vaicājumu. Lūdzu, mēģiniet vēlreiz."
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "Pārlūkot kravas automašīnas un komerciālos objektus"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "Atrasti %(count)s ieraksti"
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "Apakškategorija"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "Visas kravas automašīnas un komerctransports"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "Meklēt marku..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "Rāda %(count)s ierakstus"
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "Nav atrastas kravas automašīnas"
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "Rādīt ražotājus ar 0 ierakstiem"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "Eiro"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "IZCELTAIS"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "Vēl nav piedāvātu kravas automašīnu."
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "Kravas automašīnu vēl nav."
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "Izveidot"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "Kravas automašīnu saraksts"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "Rediģēt kravas automašīnu sarakstu"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "Statuss:"
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "Derīgs līdz %(datums)s"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "Skatīt publisko lapu"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "Izveidojiet kravas automašīnu un komerciālo sludinājumu"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr ""
+"Aizpildiet tālāk norādīto informāciju. Obligātie lauki ir atzīmēti ar <span "
+"class=\"text-red-600\">*</span>."
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "Pamatinformācija"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "Atlasīt"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "piemēram, FH16, Actros 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "Tehniskā apskate derīga līdz"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "Dzinēja tilpums, l"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "piem., 12,0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "VIN (virsbūves numurs)"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "Piemēram, WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "Aprakstiet savu kravas automašīnu..."
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr ""
+"Iemetiet fotoattēlus šeit vai <strong>noklikšķiniet, lai "
+"augšupielādētu</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr ""
+"Līdz 40 fotoattēliem · JPG, PNG · maks. 10 MB katrs · Velciet fotoattēlus, "
+"lai mainītu secību"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "Skatīt"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "Vēl nav fotoattēlu — augšupielādējiet dažus, lai piesaistītu pircējus"
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "YouTube URL — piem., https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "Prasītā cena"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "Adrese (pēc izvēles)"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "Saglabāšana neizdevās"

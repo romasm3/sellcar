@@ -1,0 +1,18 @@
+Hi {{ user_name|default:"there" }},
+
+A seller you follow just posted a new listing:
+
+   Seller: {{ seller_name }}
+   New listing: {{ listing_title }}
+   Price: {{ listing_price_display }}
+
+View listing:
+{{ listing_url }}
+
+View all of {{ seller_name }}'s listings:
+{{ seller_profile_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

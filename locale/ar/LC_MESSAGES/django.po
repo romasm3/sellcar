@@ -1,0 +1,5786 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 18:21+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\config\settings.py:101
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:102
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:103
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:104
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:105
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:106
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:107
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:108
+msgid "Français"
+msgstr "Français"
+
+#: .\config\settings.py:109
+msgid "Español"
+msgstr "Español"
+
+#: .\config\settings.py:110
+msgid "中文"
+msgstr "中文"
+
+#: .\config\settings.py:111
+msgid "Tiếng Việt"
+msgstr "Tiếng Việt"
+
+#: .\config\settings.py:112
+msgid "العربية"
+msgstr "العربية"
+
+#: .\config\settings.py:113
+msgid "한국어"
+msgstr "한국어"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "كن موزعًا"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "للتجار"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "بيع المزيد من السيارات على SellCar"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr ""
+"يمكنك الوصول إلى آلاف المشترين من خلال صفحة التاجر الخاصة بك، وقوائم غير "
+"محدودة، ومكانة مميزة."
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "أساسي"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/شهر"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "يشترك"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "يشمل"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "ما يصل إلى 50 إعلانًا"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "صفحة الوكيل المعتمد"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "شعار وشعار مخصصان"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "عرض ساعات العمل"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "موقع مميز"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "الأكثر شعبية"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "محترف"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "كل شيء في المستوى الأساسي، بالإضافة إلى"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "قوائم غير محدودة"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "شارة تاجر معتمد"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "لوحة تحليلات البيانات"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "دعم ذو أولوية"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "مَشرُوع"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "كل شيء في النسخة الاحترافية، بالإضافة إلى"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "المركز الأول في نتائج البحث"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "قالب مخصص يحمل علامة تجارية"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "مدير حساب مخصص"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "الوصول إلى واجهة برمجة التطبيقات (API)"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "فريق متعدد المستخدمين"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "هل تحتاج إلى خطة مخصصة؟"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr "تحدث إلينا بشأن أسعار الكميات الكبيرة أو فرص الشراكة."
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "اتصل بنا"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "سيتم قريباً دمج خدمة اشتراكات Stripe."
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "مرحبًا بعودتك"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "قم بتسجيل الدخول إلى حسابك على SellCar"
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "أدخل بريدك الإلكتروني"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "أدخل كلمة المرور الخاصة بك"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "تذكرنى"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "هل نسيت كلمة السر؟"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "أو"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "سجل مجاناً"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "العودة إلى الصفحة الرئيسية"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "تم تسجيل الخروج"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "تم تسجيل خروجك بنجاح."
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "شكراً لاستخدامك SellCar!"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "قم بتسجيل الدخول مرة أخرى"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "انتقل إلى الصفحة الرئيسية"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "قم بتحديث كلمة مرور حسابك"
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "كلمة المرور الحالية*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "أدخل كلمة المرور الحالية"
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "كلمة المرور الجديدة*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "أدخل كلمة المرور الجديدة"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "تأكيد كلمة المرور الجديدة*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "تأكيد كلمة المرور الجديدة"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "متطلبات كلمة المرور:"
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "يجب ألا يقل طوله عن حرف واحد"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "يمكن أن يكون رقميًا بالكامل"
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "يمكن أن يكون مشابهاً لاسم المستخدم الخاص بك"
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "تحديث كلمة المرور"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "العودة إلى الإعدادات"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "هل نسيت كلمة السر؟"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr ""
+"أدخل عنوان بريدك الإلكتروني وسنرسل لك تعليمات لإعادة تعيين كلمة المرور "
+"الخاصة بك."
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "عنوان البريد الإلكتروني:"
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "إرسال رابط إعادة التعيين"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "العودة إلى صفحة تسجيل الدخول"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "تم تحديث كلمة المرور"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "تم تحديث كلمة المرور!"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "تم تغيير كلمة مرورك بنجاح."
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "أصبح حسابك الآن أكثر أمانًا."
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "انتقل إلى صفحة تسجيل الدخول"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "كلمة المرور الجديدة"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "تعيين كلمة مرور جديدة"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "اختر كلمة مرور قوية لحسابك"
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "الرابط غير صالح"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr "رابط إعادة تعيين كلمة المرور هذا غير صالح أو تم استخدامه بالفعل."
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "طلب رابط جديد"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "تحقق من بريدك الإلكتروني"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr "لقد أرسلنا إليك تعليمات إعادة تعيين كلمة المرور."
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr ""
+"تحقق من صندوق الوارد (ومجلد الرسائل غير المرغوب فيها تحسباً لأي طارئ)."
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "سينتهي صلاحية الرابط خلال ساعة واحدة."
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "بيت"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "تعديل الملف الشخصي"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "قم بتحديث معلوماتك الشخصية"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "صورة الملف الشخصي"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG، PNG. الحد الأقصى 5 ميجابايت."
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "معلومات شخصية"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "رقم التليفون"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "هاتف ثانوي"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "(خياري)"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "عنوان"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "دولة"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "مدينة"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "شارع"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "رقم المنزل"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "ْعَنِّي"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "يلغي"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "اشتراك"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "انضم إلى SellCar اليوم"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "عنوان البريد الإلكتروني *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "كلمة المرور *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "تأكيد كلمة المرور *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "يجب ألا يقل طوله عن 8 أحرف"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "لا يمكن أن يكون رقميًا بالكامل"
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"أوافق على <a href=\"#\" class=\"text-primary hover:text-primary-dark\">شروط الخدمة</a>\n"
+"\n"
+"و<a href=\"#\" class=\"text-primary hover:text-primary-dark\">سياسة الخصوصية</a>"
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "هل لديك حساب بالفعل؟"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "سجل دخولك هنا"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "العودة إلى بيع السيارات"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "صفحة التاجر مقدمة من SellCar"
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "قوائم"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "جهات الاتصال"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "معلومات عنا"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "التقييمات"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "بائع خاص"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "الشخص الذي يمكن الاتصال به"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "ساعات العمل"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "عضو منذ %(سنة)"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "ماركة"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "جميع الماركات"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "نموذج"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "جميع الموديلات"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "سنة"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "من"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "ل"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "السعر ابتداءً من يورو"
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "الحد الأدنى يورو"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "الحد الأقصى يورو"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "نوع الوقود"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "الجميع"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "الانتقال"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "نوع الجسم"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "مسح الكل"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "يبحث"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "عرض"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "من إجمالي %"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "قوائم"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "الأحدث أولاً"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "السعر ↑"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "السعر ↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "زيادة المسافة المقطوعة"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "السنة ↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "السنة ↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "قابل للتفاوض"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "لم يتم العثور على أي نتائج."
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "مساحة فارغة"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "معلومات الاتصال"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "شركة"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "هاتف"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "الهاتف 2"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "موقع إلكتروني"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "حوالي %(الشركة)"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "لا توجد تقييمات حتى الآن."
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "اترك تعليقًا"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "شارك تجربتك..."
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "يُقدِّم"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "محفظة"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "الرصيد المتاح"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "نقاط"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "تعبئة الرصيد"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "سجل المعاملات"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "قم بشحن حسابك"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr ""
+"النقاط هي عملة SellCar الافتراضية. استخدمها للترويج، والإعلانات المميزة، "
+"والنشر المتبادل."
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1 يورو = 1 نقطة"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "أدخل"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr "يجري حاليًا إعداد نظام الدفع. يرجى مراجعة الموقع لاحقًا."
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "عروض خاصة"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "يدفع"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "يحصل"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(المجموع) نقاط"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "وضع الاختبار (للمطورين فقط)"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "أضف النقاط فوراً بدون دفع عبر Stripe."
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "تاريخ"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "يكتب"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "وصف"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "كمية"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "حالة"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "علاوة"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "مكتمل"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "فشل"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "لم يتم إجراء أي معاملات حتى الآن."
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "سيل كار - بيع وشراء السيارات عبر الإنترنت"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "البحث في الخريطة"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "إنشاء إعلان"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "القوائم المحفوظة"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "عمليات البحث الخاصة بي"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "رسائل"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "قوائمي"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "إعدادات"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "تاجر"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "مسؤل"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "المستخدمون المعتدلون"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "إحصائيات المبيعات"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "إدارة Django"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr "اكتشف المركبات والخدمات الموثوقة - بسهولة وسرعة وبساطة."
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "شروط الاستخدام"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "سياسة الخصوصية"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "إعدادات ملفات تعريف الارتباط"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "خدمات"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "التسعير"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "دعاية"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "تقييم المركبات"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "التعليمات"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "هل لديك أسئلة؟"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "مفتوح يومياً"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "من الإثنين إلى الجمعة"
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "السبت - الأحد"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "راسلنا"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "هل تحتاج إلى مساعدة؟"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "أرسل رسالة إلى الدعم"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "شروط"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "خصوصية"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "ملفات تعريف الارتباط"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "محادثة"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "مرئي"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "ابدأ المحادثة!"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "اكتب رسالة..."
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "دعم SellCar"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "صورة"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "لم يتم إرسال أي رسالة بعد"
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "ترجمة المحادثة"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "عرض الرسائل الأصلية"
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "اكتب رسالة أو الصق صورة (Ctrl+V)..."
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "أضف صورة"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "اختر محادثة"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "اختر محادثة من اليسار"
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "عرض الأصل"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "جارٍ الترجمة..."
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "عرض الرسائل المترجمة"
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "فشلت الترجمة. يرجى المحاولة مرة أخرى."
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "تحميل"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة الشائعة"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "الأسئلة الشائعة"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr "اعثر على إجابات للأسئلة الشائعة حول استخدام SellCar."
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "كيف أقوم بإنشاء قائمة؟"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"انقر على زر \"إنشاء إعلان\" الأحمر أعلى أي صفحة. اختر فئة (سيارات، دراجات "
+"نارية، شاحنات، إلخ)، املأ البيانات، حمّل الصور، حدد السعر، وانشر الإعلان. "
+"سيظهر الإعلان خلال 5-10 دقائق."
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "كيف يمكنني تعديل أو حذف إعلاني؟"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr ""
+"انتقل إلى \"قوائمي\" من قائمة المستخدم. انقر على أي قائمة لعرضها، ثم استخدم "
+"زري \"تعديل\" أو \"حذف\". تُطبّق التعديلات فورًا."
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "ما هي مدة صلاحية إعلاني؟"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr ""
+"تبقى الإعلانات فعّالة لمدة 30 يومًا، ويمكنك تجديدها في أي وقت. بعد انتهاء "
+"صلاحيتها، تُحفظ الإعلانات في حسابك لمدة 160 يومًا قبل حذفها تلقائيًا."
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "كيف أتواصل مع البائع؟"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr ""
+"افتح أي إعلان واستخدم زر \"إرسال رسالة\" أو \"إرسال بريد إلكتروني\". سيظهر "
+"رقم هاتف البائع إذا كان قد فعّل هذه الخاصية."
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "كيف تعمل المحفظة؟"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"تحتوي محفظتك على رصيد يُستخدم لتعزيز قوائم الإعلانات، والإعلانات المميزة، "
+"وإعادة النشر. يمكنك شحن رصيدك بمبلغ 20 دولارًا، أو 100 دولار، أو 500 دولار "
+"(مع رصيد إضافي)، أو أي مبلغ تحدده. 1 يورو = 1 رصيد."
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "كيف أصبح تاجرًا؟"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"انتقل إلى صفحة \"الوكلاء\" من قائمة حسابك. اختر باقة (أساسية، احترافية، أو "
+"مؤسسية) واشترك. ستحصل على عدد غير محدود من الإعلانات، وصفحة وكيل تحمل علامتك"
+" التجارية، وشعار مخصص، ومكان مميز في الصفحة الرئيسية."
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "كيف يمكنني تغيير كلمة المرور الخاصة بي؟"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr ""
+"انتقل إلى الإعدادات، ثم انقر على \"تغيير كلمة المرور\". أدخل كلمة مرورك "
+"الحالية والجديدة. إذا نسيت كلمة مرورك، فاستخدم \"هل نسيت كلمة المرور؟\" في "
+"صفحة تسجيل الدخول."
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "كيف يمكنني حذف حسابي؟"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr ""
+"انتقل إلى الإعدادات، ثم مرر إلى أسفل الصفحة، وانقر على \"حذف الحساب\". "
+"ستحتاج إلى إدخال كلمة مرورك للتأكيد. هذا الإجراء نهائي ولا يمكن التراجع عنه."
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "هل ما زلت بحاجة إلى مساعدة؟"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "راسل فريق الدعم لدينا عبر البريد الإلكتروني"
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "تصفح السيارات"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "اعثر على سيارتك المثالية"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "تصفح %(count)s قائمة"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "فئة"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "جميع الفئات"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "يصنع"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "الحد الأدنى للسعر"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "الحد الأقصى للسعر"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "سنة من"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "من عام إلى"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "نوع الوقود"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "اسم الجزء / الرمز"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "ابحث باستخدام اسم الجزء أو رمزه"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "المركبات المتاحة"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "تم العثور على %(count)s من القوائم"
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "الأحدث"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "السعر: من الأدنى إلى الأعلى"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "السعر: من الأعلى إلى الأدنى"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "عداد المسافة"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "عرض الخريطة"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "كم"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "مجهول"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "لم يتم العثور على أي نتائج"
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "حاول ضبط الفلاتر الخاصة بك"
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "مسح جميع التطبيقات"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "بحث متقدم"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "البحث عن المركبات"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "مسح البحث"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "أضف المزيد من العلامات التجارية/الموديلات"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "السعر، دولار"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "نوع الجسم"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "مي"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "محرك"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "قوة"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "نوع محرك الأقراص"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "توجيه"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "العيوب"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "الأبواب"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "لون"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "مقاعد"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "نظام التحكم في المناخ"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "حالة"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "المعيار الأوروبي"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "ولاية (الولايات المتحدة الأمريكية)"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "جميع الولايات"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "مدينة (الولايات المتحدة الأمريكية)"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "جميع المدن"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "البحث النصي"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "مثال: سيارة BMW 320d ذات عداد كيلومترات منخفض..."
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "معدات"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "البحث عن قطع الغيار"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "اسم الجزء أو رمزه"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "على سبيل المثال، وسادات الفرامل، 06H 145 601 H، BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "جديد"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "مستخدم"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "متوافق مع (المركبة)"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr ""
+"حدد المركبات التي يناسبها هذا الجزء. يتم تجاهل الصفوف الفارغة. اترك جميع "
+"الصفوف فارغة = البحث عن جميع الأجزاء."
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "ابحث عن (%(العدد)s)"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "يزيل"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "تعديل القائمة"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "بيع السيارة كقطع غيار"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "العودة إلى القائمة"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "تعديل القائمة"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "قم بتحديث تفاصيل القائمة أدناه."
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "العودة إلى اختيار الفئة"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "بيع السيارة كاملة كقطع غيار"
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "املأ تفاصيل القائمة أدناه."
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "يرجى إصلاح ما يلي:"
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "التفاصيل الرئيسية"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "- يختار -"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "تعديل"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "مثال: 2.0 TDI 140 كيلوواط"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "إصدار"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "على سبيل المثال: GTD، M Sport، AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "مثال: 110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "مثال: 150000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "سعة المحرك"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "مثال: 1.6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "نوع محرك الأقراص"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "ترميز الألوان"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "مثال: LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "رمز المحرك"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "مثال: BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "رمز علبة التروس"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "مثال: DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "السعر ($)"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "صف ما هو مشمول، والعيوب، وحالة الأجزاء، وما إلى ذلك."
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "صور"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr "(%(count)s / 36 — اسحب لإعادة الترتيب، انقر للتكبير)"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "رئيسي"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "انقر للتحميل أو اسحب وأفلت"
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "الحد الأقصى 36 صورة، 20 ميجابايت لكل صورة"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "معلومات الاتصال والموقع"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "ولاية"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "نشر القائمة"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "الحد الأقصى 36 صورة. قم بإزالة بعضها أولاً."
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr "({count} / 36 — اسحب لإعادة الترتيب، انقر للتكبير)"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "الشرط مطلوب"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "العلامة التجارية مطلوبة"
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "السنة الدراسية مطلوبة"
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "السعر مطلوب"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "الهاتف مطلوب"
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "المدينة مطلوبة"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "الولاية مطلوبة"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "اعثر على سيارة أحلامك"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr "تصفح آلاف المركبات من بائعين موثوقين"
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "السعر الأقصى"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "أي ثمن"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "جميع الأنواع"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "سيارة سيدان"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "سيارة رياضية متعددة الاستخدامات"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "هاتشباك"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "كوبيه"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "السيارات المعروضة"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "عملاء سعداء"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "المدن المشمولة"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "يدعم"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "أحدث القوائم"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "عرض الكل"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "ك"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "لا توجد قوائم متاحة حتى الآن"
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "لماذا تختار SellCar؟"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "أفضل منصة لشراء وبيع السيارات"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "بحث سهل"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr "اعثر على سيارة أحلامك باستخدام الفلاتر المتقدمة والبحث عبر الخريطة"
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "آمن ومضمون"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "جميع الإعلانات موثقة. اشترِ وبِع بثقة"
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "سريع وسهل"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr "اعرض سيارتك في دقائق وتواصل مع المشترين على الفور"
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "هل أنت مستعد لبيع سيارتك؟"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr "انضم إلى آلاف البائعين الذين وجدوا مشترين على SellCar"
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "إنشاء قائمة"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "ابدأ الآن"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "فعّل قائمتك"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "الأكثر شعبية"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "الخطة المختارة:"
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "لا شيء محدد"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "حفظ كمسودة"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "تفعيل القائمة"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "يوم واحد"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{ن} يومًا"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "العودة إلى تعديل القائمة"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "صور وفيديو"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "تفاصيل المركبة"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "سعر"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "التحرير: %(العلامة التجارية) %(الطراز)"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "إنشاء قائمة جديدة"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "الخطوة %(الحالية) من %(الإجمالية)"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "أكمل الخطوات السابقة أولاً"
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "اختر فئة المركبة"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← اختر فئة"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "يرجى تصحيح الأخطاء التالية:"
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "تفاصيل وصور المركبة"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "اختر سيارتك وأضف الصور"
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "ابحث عن العلامة التجارية..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- اختر العلامة التجارية"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "هذه الخانة مطلوبه"
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "اختر الطراز"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "التسجيل الأول"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "مم"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "رقم تعريف المركبة"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "مثال: WBA3A5C51DF000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "الصور الحالية"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr "(انقر للتكبير، مرر المؤشر للاطلاع على الخيارات)"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "رئيسي"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "تم تعيينه كرئيسي"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr ""
+"💡 مرر مؤشر الماوس فوق الصورة للاطلاع على الخيارات. انقر على الصورة لتكبيرها."
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "تم التحميل مسبقاً"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr "(%(count)s / 40 — انقر للتكبير، اسحب لإعادة الترتيب)"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "يمسح"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "أضف المزيد من الصور"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "تحميل الصور"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr ""
+"صور بصيغة PNG و JPG بحجم يصل إلى 20 ميجابايت لكل صورة (بحد أقصى 40 صورة)"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "رابط الفيديو (يوتيوب، اختياري)"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "التفاصيل الفنية"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "تقديم المواصفات الفنية"
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "عدد الأبواب"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "سعة المحرك"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "تفاصيل إضافية"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "نوع الدفع، المقاعد، حجم الجنوط، استهلاك الوقود، إلخ."
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "عدد المقاعد"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "حجم الحافة"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "الوزن الصافي (كجم)"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "انبعاثات ثاني أكسيد الكربون (غ/كم)"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "بلد المنشأ"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "استهلاك الوقود (لتر/100 كم)"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "الطريق السريع"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "مجموع"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "الفحص الفني ساري حتى"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "شهر"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "معدات إضافية"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "اختر الميزات التي تتمتع بها سيارتك"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "حدد سعرك"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "ما هو السعر المطلوب؟"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "السعر قابل للتفاوض"
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "صف سيارتك بالتفصيل"
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "يتضمن ذلك الحالة والميزات وسجل الصيانة وما إلى ذلك."
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "معلومات الاتصال والموقع"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "أين توجد السيارة وكيف يمكن للمشترين التواصل معك؟"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "موقع المركبة"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "اختر الولاية"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "رمز بريدي"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "عنوان الشارع"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "إخفاء العنوان الدقيق"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "معلومات الاتصال"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "البريد الإلكتروني (اختياري)"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "الشروط والأحكام"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"أوافق على <a href=\"#\" class=\"text-primary hover:underline\">الشروط "
+"والأحكام</a> و <a href=\"#\" class=\"text-primary hover:underline\">سياسة "
+"الخصوصية</a>"
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "أرسل لي رسائل إخبارية وعروضًا"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "يحفظ"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "خلف"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "يكمل"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "إرسال إعلان"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "اختر النوع:"
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "اختر الفئة الفرعية:"
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "لا توجد خيارات"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "إخفاء التفاصيل"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr "({count} / 40 — انقر للتكبير، اسحب لإعادة الترتيب)"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "الحد الأقصى 40 صورة. قم بإزالة بعضها أولاً."
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr "لقد اخترت {ن} صورة، ولكن {أ} صورة فقط تناسبك. سيتم إضافة {أ} الأولى."
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "مطلوب نموذج"
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "الشهر مطلوب"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "نوع الجسم مطلوب"
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "نوع الوقود مطلوب"
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "الإرسال مطلوب"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "عدد الأبواب مطلوب"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "يلزم تحديد عدد الأميال المقطوعة"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "العيوب مطلوبة"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "يجب عليك الموافقة على الشروط والأحكام"
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "تعديل القائمة: %(العلامة التجارية) %(الطراز)"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "إعلان جديد: سيارات"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "بيانات القائمة الرئيسية"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "رمز تعريف المركبة (VIN)"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "سعر التصدير"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "قابل للتفاوض"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "مهتم بالتجارة"
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "+ الضرائب"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr "السعر لا يشمل الضرائب - اسأل البائع عن تفاصيل الضرائب المطبقة."
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "بيانات إضافية"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "أرسل المزيد من التفاصيل"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "التعديل (TDI، TSI، CDI...)"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "الفحص الفني حتى"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "عجلات صيفية/شتوية"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "انبعاثات ثاني أكسيد الكربون، غ/كم"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "بلد التسجيل الأول"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "عدد المقاعد"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "نظام التحكم في المناخ"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "الوزن الفارغ، كجم"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "المعيار الأوروبي"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "معدل استهلاك الوقود (لتر/100 كم)"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "سمات"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "(اختر الكل)"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "حدد الكل"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "ميزات خاصة"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "يشمل الضمان"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "متاح للإيجار"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "كتاب الخدمة"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "مستورد من الولايات المتحدة"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "مجموعات مفاتيح متعددة"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "فحص فني ساري المفعول"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "جاهز للرياضة"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "مُعدّ لذوي الاحتياجات الخاصة"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "زيادة قوة المحرك"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "نظام التعليق الهوائي"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "التشغيل عن بعد"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "عجلة احتياطية"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "من المزاد"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "نوع البائع"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "صف عرضك بالتفصيل."
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr ""
+"كلما قلّت أسئلة المشترين عند قراءة إعلانك، كلما أسرعت في العثور على مشترٍ."
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr "تجنب استخدام الأحرف الكبيرة فقط أو الرموز المفرطة."
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "أدر لليسار"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "أدر إلى اليمين"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "تحميل الصور"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr "حتى 40 صورة. الحد الأقصى للحجم 24 ميجابايت. صيغ الصور: JPG، GIF، PNG."
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr ""
+"رقم الهاتف مطلوب حتى يتمكن المشترون المحتملون من الاتصال بك عبر الهاتف."
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr ""
+"يتيح لك البريد الإلكتروني التواصل مع المشترين المحتملين عبر البريد "
+"الإلكتروني. وهو غير مرئي لزوار القوائم العامة."
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "your@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "على سبيل المثال، فيلنيوس"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "الشارع، رقم المنزل"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"بإرسال هذا الطلب، أوافق على <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">الشروط والأحكام</a> و <a href=\"#\" class=\"text-"
+"gray-600 underline hover:text-gray-900\">سياسة الخصوصية</a>"
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr ""
+"لم يتم ملء جميع الحقول المطلوبة أو تم ملؤها بشكل غير صحيح. هذه الحقول "
+"مُعلّمة باللون الأحمر."
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* الحقول المطلوبة"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "مطلوب"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "هل تريد حذف هذه الصورة؟"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "فشلت عملية التدوير"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr ""
+"لقد اخترت عددًا كبيرًا جدًا من الصور - سيتم إضافة الصور الأولى المتاحة فقط."
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "لم يتم العثور على معرف القائمة"
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "فشل التحميل"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "Ištrinti skelbimą"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "ديميسيو!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "Šis veiksmas negrįžtamas."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "هل من الممكن أن تكون مخطئًا؟"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "كاينا:"
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "أتساوكتي"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "إيسترينتي"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "تصفح الشاحنات"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "تصفح الدراجات النارية"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "الوزن الإجمالي"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "وقود"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "فورمولا ويل"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "تفاصيل الشاحنة"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "التسجيل الأول"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "فاصل الكتلة"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "وزن السيارة"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "سعة الحمولة"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "سعة خزان الوقود"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "طول"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "عرض"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "ارتفاع"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "مقدار"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "جديد / مستعمل"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "علبة التروس"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "مقاعد النوم"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "نظام التعليق الأمامي"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "نظام التعليق الخلفي"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "رقم SDK"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "الفحص الفني حتى"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "احصل على تقرير تاريخ المركبة من Carfaxreport.eu"
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "تقرير تاريخي"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "المعدات والميزات"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "موقع"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "العنوان الكامل مخفي من قبل البائع"
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "احصل على الاتجاهات"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "بالإضافة إلى الضرائب"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "سعر التصدير:"
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "تفاصيل المركبة (للقطع)"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "التعليمات"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "افتح في الخرائط"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "أَزِيز:"
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "مخفي من قبل البائع"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "الإحداثيات"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "تم النسخ!"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "نسخ الإحداثيات"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "المساحة تقريبية فقط"
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "لا توجد عيوب"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "الوزن الصافي"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "انبعاثات ثاني أكسيد الكربون"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "مدينة:"
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "الطريق السريع:"
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "مجموع:"
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "الفحص الفني حتى"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr ""
+"السعر لا يشمل الضرائب - يرجى الاستفسار من البائع عن الضرائب المطبقة في "
+"منطقتك."
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "يصدّر:"
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr ""
+"سعر خاص للمشترين للتصدير - يُستخدم عادةً عند شحن السيارة خارج بلد البائع. "
+"استفسر من البائع عن وثائق وشروط التصدير."
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "خاص"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "عرض جميع الإعلانات →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "انقر للنسخ"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "قام البائع بتعطيل إمكانية رؤية رقم الهاتف."
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "إرسال رسالة"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "إرسال بريد إلكتروني"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "سجل الدخول للتواصل"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "يشارك"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "أنقذ"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "تقرير"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "متجدد"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "نصائح السلامة"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "التقوا في مكان عام وآمن"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "افحص السيارة بدقة"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "لا تدفع مقدماً أبداً"
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "تحقق من جميع المستندات"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "شارك هذا الإعلان"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "ينسخ"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "قائمة التقارير"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "سبب*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "سعر غير صحيح"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "إعلان احتيالي"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "فئة خاطئة"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "قائمة مكررة"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "تم البيع بالفعل"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "آخر"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "تعليق إضافي"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "صف المشكلة..."
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "بريدك الإلكتروني (اختياري)"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "إرسال التقرير"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "أرسل بريدًا إلكترونيًا إلى البائع"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "بريدك الإلكتروني*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "هاتفك"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "رسالة*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "مرحباً، أنا مهتم بهذا الإعلان..."
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "يحرر"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr ""
+"لا يمكن تغيير العلامة التجارية والطراز ورقم التسجيل الأول. يمكن تعديل رقم "
+"تعريف المركبة (VIN)."
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "السعر (€)*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "المسافة المقطوعة*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "صف سيارتك..."
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "الصور الحالية"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "هل تريد حذف هذه الصورة؟"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "إضافة صور جديدة"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "يمكنك تحميل صور متعددة"
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "حذف القائمة"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "اختر الفئة"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "سيارات"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "الحافلات الصغيرة والحافلات العادية وعربات التخييم"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "الدراجات النارية ومعدات الدراجات النارية"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "الشاحنات والمركبات التجارية"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "أجزاء"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "القوارب والنقل المائي"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "المقطورات ونصف المقطورات"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "الإطارات والعجلات"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "معدات البناء والمستودعات"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "الزراعة والغابات"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "الدراجات الهوائية والدراجات البخارية"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "تأجير سيارات"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "الطائرات والمركبات الجوية"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "قطع غيار الطائرات"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "اختر فئة"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "متقدم"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "رسم خريطة"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "المزيد من الفلاتر"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "جميع العلامات التجارية"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "نموذج البحث..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "أضف العلامة التجارية والطراز"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "المسافة المقطوعة (كم)"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "البحث النصي"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "يبحث..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "فحص ساري المفعول"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "قائمة برقم تعريف المركبة (VIN)"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "الاختباء من المزادات"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "الاسم أو رقم القطعة"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "مثال: 06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "أكثر"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "أقل"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "عيوب طفيفة"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "تالف"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "إنقاذ"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "لا تظهر أقدم من"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "في أي وقت"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24 ساعة"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3 أيام"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7 أيام"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30 يومًا"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "نقبل المقايضة"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "ضمان"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "تم بيعها بالإيجار"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "أحدث المنتجات وأكثرها تجديداً"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "المسافة المقطوعة: منخفضة إلى عالية"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "المسافة المقطوعة: من الأعلى إلى الأدنى"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "السنة: الأحدث أولاً"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "السنة: الأقدم أولاً"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "حفظ البحث"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "مُباع"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "جميع المواقع"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "ابحث عن الموقع..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "الولايات المتحدة"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "عرض العلامات التجارية التي ليس لديها أي قوائم"
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "نطاق السعر"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "الحد الأدنى للدولار"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "الحد الأقصى $"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "ابحث باستخدام اسم الجزء أو رقمه (على سبيل المثال 06H 145 601 H)"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "تطبيق الفلاتر"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "عرض %(total_count)s من أصل %(total_count)s"
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "الترتيب حسب:"
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr "حاول تعديل عوامل التصفية للعثور على ما تبحث عنه."
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "عروض اليوم"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "الأغلى ثمناً"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "لا توجد قوائم مميزة حتى الآن."
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "لا توجد قوائم حتى الآن."
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "منذ s"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "منذ دقيقة"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "منذ ساعة"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "قبل يوم واحد"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "قبل أيام"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "خمسة أزواج كحد أقصى من العلامات التجارية/الموديلات"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "اختر العلامة التجارية أولاً"
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "اختر الماركة أولاً"
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "تحميل..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "اختر خطة"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "معلومات القائمة"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "اختيار الخدمة"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "قسط"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "مدة الإعلان"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "نجوم النقاط العليا"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "معاينة"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "مُدرج في الصفحة الرئيسية"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "أبرز ما في القائمة"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "مُستَحسَن"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "أيام"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "د."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "الترتيب في القائمة"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr "ارفع مستوى إعلانك لجذب المزيد من الاهتمام"
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "هل تريد البيع بشكل أسرع؟"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "رمز الخصم"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "شفرة"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "يتقدم"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "نقاط"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "المجموع"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "طلب"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "بتقديمك لإعلانك، فإنك توافق على شروط SellCar"
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "شروط"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "و"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "سياسة الخصوصية"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "رصيد المحفظة غير كافٍ. يرجى إعادة شحنها."
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "ل"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "العودة إلى تعديل القائمة"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "الرجاء إدخال رمز"
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "يرجى اختيار الخطة أولاً"
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "رمز غير صالح"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "خطأ"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr ""
+"سيظهر إعلانك في مرتبة أعلى في نتائج البحث مقارنةً بالإعلانات الأخرى. وكلما "
+"زاد عدد مرات تعزيز ظهوره بالنجوم، ارتفع ترتيبه في نتائج البحث."
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr ""
+"سيتم عرض إعلانك على الصفحة الرئيسية ضمن الإعلانات المميزة، مما يجذب ما يصل "
+"إلى 5 أضعاف عدد المشاهدات."
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr ""
+"سيظهر إعلانك بخلفية ملونة في نتائج البحث، مما يجعله مميزاً عن الإعلانات "
+"الأخرى."
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "إحصائيات"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "العودة إلى قوائمي"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "قائمة"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "مخلوق"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "نشيط"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "غير نشط"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "مسودة"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "صالح حتى"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "المشاهدات"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "%(pct)s%% مقارنة بالأسبوع الماضي"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "انطباعات"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "نسبة النقر إلى الظهور"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "الآراء / الانطباعات"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(rate)s%% حفظ المعدل"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "ترتيب إعلانك: %(pos)s / %(total)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr "إعلانك ضمن أفضل 10 إعلانات نشطة. عززه ليحتل مرتبة أعلى."
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"إعلانك ضمن أفضل 50 إعلانًا من بين جميع الإعلانات النشطة. قم برفعه للظهور في "
+"مرتبة أعلى."
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr "عزز إعلانك ليحتل مرتبة أعلى بين جميع الإعلانات النشطة."
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "عدد المشاهدات يومياً (آخر 30 يوماً)"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "عدد مرات الظهور يومياً (آخر 30 يوماً)"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "متى يشاهد المشترون إعلانك؟"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "قمة"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "الساعة من اليوم (00:00 - 23:00)"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "منظر"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "المشاهدات"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "انطباع"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "انطباعات"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "تم نشر القائمة"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr ""
+"يسري هذا الإعلان لمدة <strong class=\"text-gray-900\">%(days)s "
+"يومًا</strong>"
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "تاريخ الانتهاء <strong class=\"text-gray-900\">%(date)s</strong>"
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "يمكن للمشترين رؤيتها في غضون 5-10 دقائق"
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "عرض القائمة"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "نسخ الوصلة"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "نصائح لبيع أسرع"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr "أضف ما لا يقل عن 8 صور عالية الجودة من زوايا مختلفة"
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr "اكتب وصفًا تفصيليًا يتضمن سجل الخدمة"
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr "حدد سعرًا تنافسيًا بناءً على قوائم مماثلة"
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "الرد السريع على رسائل المشترين"
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr ""
+"تم نسخ الرابط! الصقه في قصتك على إنستغرام، أو في رسالة خاصة، أو في سيرتك "
+"الذاتية."
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "قم بترقية حسابك"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "لقد وصلت إلى الحد الأقصى لعدد الإعلانات المسموح بها"
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr ""
+"لديك حاليًا %(count)s من أصل %(limit)s من القوائم النشطة. اختر خيارًا أدناه "
+"لإضافة المزيد."
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "الدفع مقابل كل إعلان"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "دفعة لمرة واحدة"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "لكل قائمة"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "أضف إعلانًا إضافيًا واحدًا الآن"
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "30 يومًا من النشاط"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "لا يوجد اشتراك"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "قريباً (مخطط)"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "شائع"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "خاص+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "اشتراك شهري"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "كل شهر"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(count)s من القوائم النشطة"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "يمكنك الإلغاء في أي وقت"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "جميع الميزات متضمنة"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "للشركات"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "شارة التاجر في قوائم المنتجات"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "صفحة التاجر العام"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "يتطلب موافقة الإدارة"
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "قريبًا (المرحلة 3)"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "العودة إلى قوائمي"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "بيع معدات الدراجات النارية"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "بيع معدات وملحقات الدراجات النارية"
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "الخوذات والسترات والقفازات والأحذية وغيرها من معدات الدراجات النارية"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "معلومات أساسية"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "حدد النوع..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "الشركة المصنعة"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "حدد الشركة المصنعة..."
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "مثال: GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "مقاس"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "حدد الحجم..."
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "شهادة السلامة"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "حدد الشهادة..."
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "عدد فتحات التهوية"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "مثال 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "مادة"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "حدد المادة..."
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "جنس"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "حدد الجنس..."
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "حدد اللون..."
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "الميزات / المعدات"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr "اختر فئة أولاً للاطلاع على الميزات المتاحة."
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "مفتوح للتداول"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr "صف السلعة - حالتها، تاريخها، سبب بيعها..."
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"حتى ٤٠ صورة. الحد الأقصى ١٦ ميجابايت لكل صورة. صيغ الصور: JPG، PNG، WEBP. "
+"الصورة الأولى هي الرئيسية."
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr ""
+"صور بصيغة PNG و JPG بحجم يصل إلى 16 ميجابايت لكل صورة (بحد أقصى 40 صورة)"
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "جارٍ التحميل..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "فيديو"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "رمز بريدي"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"أوافق على <a href=\"#\" class=\"text-primary hover:underline\">شروط "
+"الاستخدام</a> و<a href=\"#\" class=\"text-primary hover:underline\">سياسة "
+"الخصوصية</a>"
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "أنا بائع أعمال"
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "الحقول المطلوبة مفقودة:"
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "اختر فئة أولاً."
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "لا توجد ميزات متاحة."
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "جارٍ إعداد المسودة..."
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "جارٍ تحميل {ن} صورة(صور)..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "فشل التحميل: لا يوجد رد"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "فشل التحميل:"
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "خطأ غير معروف"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "خطأ في التحميل:"
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "فشلت عملية الحذف"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "اتفاقية الشروط"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "تصفح معدات الدراجات النارية"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "معدات وملحقات الدراجات النارية"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "بيع معدات الدراجات النارية"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "العلامة التجارية، الطراز، الكلمة المفتاحية..."
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr "اضغط باستمرار على Ctrl/Cmd لعرض عدة أوامر"
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "مين"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "الأعلى"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "جميع البلدان"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "جميع الولايات الأمريكية"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "تطبيق الفلاتر"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "جديد"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "بدون عنوان"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "لم يتم العثور على أي قوائم لمعدات الدراجات النارية."
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr "حاول تعديل فلاتر البحث أو كن أول من يضيف شيئًا جديدًا!"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "إنشاء قائمة دراجات نارية"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "العودة إلى التصنيفات"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "المعلومات الرئيسية"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "سعة المحرك (سم³)"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "مثال: 600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "تاريخ الصنع"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "مستعمل / جديد"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "كم"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "مي"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "نوع الدراجة النارية"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "نوع التبريد"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "نوع المحرك"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "بلد التسجيل الأول"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "مثال: اليابان"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "معدات إضافية"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "بادئ تشغيل كهربائي"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "كيكستارتر"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "ناقل الحركة العكسي"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "إطار خلفي عريض"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "مقاعد مدفأة"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "مقابض مدفأة"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "الزجاج الأمامي"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "حقائب جانبية"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "مقعد الراكب"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "توب تشامبي"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "فرامل قرصية"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "نظام صوتي"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "مثبت السرعة"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "نظام التحكم في الجر"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "ناقل حركة سريع"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "أضواء LED"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "ميزات أخرى"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "إمكانية الاستبدال"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "بيع بالتأجير"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "لا يتم تشغيلها في ليتوانيا"
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "سيارة قديمة"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "سجل الصيانة"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "المحول الحفاز"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "حماية"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "أب"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "نظام إنذار"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "قفل قرص الفرامل"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "جهاز منع الحركة"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "جهاز التتبع (نظام تحديد المواقع العالمي GPS)"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "صف دراجتك النارية بالتفصيل..."
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "وصف تفصيلي"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "يزيد من اهتمام المشترين بإعلانك."
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "كلما كانت القائمة أكثر إفادة،"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "كلما قلّت الأسئلة التي سيطرحها المشترون."
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "قوائم مكتوبة بأسلوب إبداعي"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "قد يتم عرضها على صفحاتنا على مواقع التواصل الاجتماعي."
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"يمكنك تحميل ما يصل إلى 40 صورة. الحد الأقصى لحجم الصورة الواحدة هو 10 "
+"ميجابايت. الصيغ المدعومة: JPG، PNG، GIF."
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr ""
+"لتغيير ترتيب الصور، اسحبها وأفلتها في الموضع المطلوب. ستُستخدم الصورة الأولى"
+" كصورة الغلاف الرئيسية."
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr "صوّر في إضاءة جيدة، ويفضل أن يكون ذلك في الهواء الطلق."
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr "أرفق صورًا للواجهة الأمامية والجانبية والخلفية والمحرك"
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "أظهر أي عيوب بصدق - فهذا يبني ثقة المشتري"
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "تجنب استخدام الفلاتر — المشترون يريدون رؤية الحالة الحقيقية"
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "فيديو (اختياري)"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "رابط يوتيوب"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "معلومات الاتصال والموقع"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "اسم"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "إخفاء العنوان الكامل عن العامة"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "يرجى ملء جميع الحقول المطلوبة المظللة باللون الأحمر."
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "تم تحديد {ن} ملفًا"
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "بحث متقدم عن الدراجات النارية"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "الدراجات النارية"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "السنة من - إلى"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "محرك، سم³ من - إلى"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "المسافة من – إلى"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "البلد المسجل الأول"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "نوع التسجيل"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "سعة البطارية، كيلوواط ساعة"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "المدى الكهربائي، كم"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "مثال: دراجة ياماها R1 ذات عداد كيلومترات منخفض..."
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "المعدات / الميزات"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "بادئ تشغيل كهربائي"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "إطار خلفي عريض"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "حقائب السفر"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "مسند ظهر الراكب"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "مقاعد مُدفأة"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "ناقل الحركة الأوتوماتيكي"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "مقابض مدفأة"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "فرامل قرصية"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "جهاز إنذار"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "إمكانية الاستبدال متاحة"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "التأجير متاح"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "غير مستخدم في ليتوانيا"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "كتاب الخدمة"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "طلاء معدني"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "العودة إلى الدراجات النارية"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "وجد"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "لم يتم العثور على دراجات نارية"
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "حاول توسيع نطاق معايير البحث الخاصة بك"
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "تم العثور على %(count)s من قوائم الدراجات النارية"
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "حجم المحرك سم³"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "عرض %(المعروض) من %(الإجمالي)"
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "لم يتم العثور على أي قوائم للدراجات النارية"
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "تجديد"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr ""
+"هل تريد تحديث جميع قوائم العقارات النشطة (عددها %(count)) إلى أعلى القائمة؟"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "جدد الكل"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "تظهر نسبة (عدد) من القوائم النشطة في أعلى القائمة"
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "إنشاء جديد"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "فلتر شفاف"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "نشيط"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "محجوز"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "غير نشط"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "مُباع"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "متجدد"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "محجوز"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "تم التجديد مؤخراً - يمكن التجديد مرة أخرى بعد ساعة واحدة"
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "يمتد"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "موضع"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "عرض الإحصائيات التفصيلية"
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "حذف تلقائي خلال %(أيام)sd"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "لم يتم تحديد السعر"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "القائمة <strong>غير نشطة</strong>"
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "فعل"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "القائمة هي"
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "غير نشط"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "لا توجد قوائم في هذه الفئة"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "لا توجد قوائم حتى الآن"
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "حاول تحديد \\"
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "أنشئ أول إعلان لك لتبدأ البيع."
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "إنشاء قائمة"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "هل أنت متأكد من رغبتك في حذف هذا الإعلان؟"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "بعتها"
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "ضع علامة على القائمة باستخدام \\"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "حذف القائمة"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "لا يمكن التراجع عن هذا الإجراء."
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "لا توجد قوائم محفوظة حتى الآن"
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "تصفح القوائم واحفظ مفضلاتك!"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "عمليات البحث المحفوظة"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "العودة إلى القوائم"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "تنبيهات البريد الإلكتروني"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "ينسخ"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "من %(y)s"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "حتى %(y)s"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "لا توجد عمليات بحث محفوظة"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr "احفظ عملية البحث للعثور بسرعة على قوائم مطابقة لمعاييرك"
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "تصفح القوائم"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "تحديث تنبيهات البريد الإلكتروني"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "البحث عن التكرارات"
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "الفلاتر"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "جميع الماركات"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "السعر ابتداءً من"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "السعر إلى"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "سنة من"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "من عام إلى"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "واضح"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "حاول تغيير الفلاتر"
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "لا توجد صورة"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "بحث متقدم عن الشاحنات"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "حسّن بحثك باستخدام فلاتر مفصلة"
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "الماركة والطراز"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "اختر صنع"
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "اختر \"إنشاء أولاً\""
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "أضف اسم الشركة المصنعة/طراز المنتج"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr ""
+"أضف مجموعات متعددة للبحث على سبيل المثال <em>Volvo FH</em> AND <em>Scania "
+"R</em>."
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "السنة، السعر والأداء"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "الطاقة (كيلوواط)"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "حجم المحرك (لتر)"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "مواصفات الشاحنة"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "نوع الشاحنة"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "نوع الدفع (المحور)"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "الحالة والمظهر"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "ولاية أمريكية"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "جميع الولايات"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "البحث بالكلمات المفتاحية"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "ابحث حسب العنوان أو الوصف..."
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "تتوافق القوائم مع فلاترك"
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "عرض نتائج عدد النتائج %(count)"
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "احفظ هذا البحث"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr "تم العثور على <strong>%(count)s</strong> شاحنة مطابقة لمرشحاتك"
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "عرض النتائج"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "نتائج"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "لا توجد شاحنات مطابقة لمرشحاتك"
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr "حاول إزالة بعض المرشحات أو تعديل النطاقات."
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "اختر الطراز"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "يرجى اختيار صنع أولاً"
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "تم حفظ البحث"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "فشل حفظ البحث. يرجى المحاولة مرة أخرى."
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "تصفح الشاحنات والمركبات التجارية"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "تم العثور على %(count)s من القوائم"
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "الفئة الفرعية"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "جميع الشاحنات والمركبات التجارية"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "ابحث عن..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "عرض عدد %(count) من القوائم"
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "لم يتم العثور على شاحنات"
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "عرض العلامات التجارية التي لا تحتوي على أي قوائم"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "اليورو"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "مميز"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "لا توجد شاحنات مميزة حتى الآن."
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "لم تصل الشاحنات بعد."
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "يخلق"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "قائمة الشاحنات"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "تعديل قائمة الشاحنات"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "حالة:"
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "تاريخ الانتهاء %(date)s"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "عرض الصفحة العامة"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "إنشاء قوائم الشاحنات والإعلانات التجارية"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr "املأ البيانات أدناه. الحقول المطلوبة مُشار إليها بعلامة *."
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "معلومات أساسية"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "يختار"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "مثال: FH16، أكتيروس 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "الفحص الفني ساري حتى"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "سعة المحرك، لتر"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "مثال: 12.0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "رقم تعريف المركبة (VIN)"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "مثال: WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "صف شاحنتك..."
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr "أسقط الصور هنا أو <strong>انقر للتحميل</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr ""
+"حتى 40 صورة · JPG، PNG · بحد أقصى 10 ميجابايت لكل صورة · اسحب الصور لإعادة "
+"ترتيبها"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "منظر"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "لا توجد صور حتى الآن — قم بتحميل بعض الصور لجذب المشترين"
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "رابط يوتيوب — على سبيل المثال https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "السعر المطلوب"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "العنوان (اختياري)"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "فشلت عملية الحفظ"

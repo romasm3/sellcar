@@ -1,0 +1,19 @@
+Hi {{ user_name|default:"there" }},
+
+Your payment was successful:
+
+   Amount: {{ payment_amount }}
+   For: {{ payment_for }}
+   Transaction ID: {{ transaction_id }}
+   Date: {{ payment_date }}
+
+{% if listing %}Your listing is now active:
+{{ listing_url }}
+{% endif %}
+
+Download invoice:
+{{ invoice_url }}
+
+- Thank you
+
+---

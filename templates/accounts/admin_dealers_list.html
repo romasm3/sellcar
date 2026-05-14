@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Dealer Moderation - Admin{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">🛡️ Dealer Moderation</h1>
+            <p class="text-sm text-gray-600 mt-1">Manage all dealer accounts on the platform.</p>
+        </div>
+        <a href="{% url 'admin_sales_stats' %}" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium text-gray-700">
+            <i class="fas fa-arrow-left mr-1"></i> Back to Admin
+        </a>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Active Dealers</div>
+            <div class="text-3xl font-bold text-green-600">{{ total_dealers }}</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">New This Week</div>
+            <div class="text-3xl font-bold text-blue-600">{{ new_dealers_week }}</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Expired / Suspended</div>
+            <div class="text-3xl font-bold text-gray-400">{{ expired_dealers }}</div>
+        </div>
+    </div>
+
+    <!-- Filter tabs + Search -->
+    <div class="bg-white border border-gray-200 rounded-xl p-4 mb-6">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="flex gap-2">
+                <a href="?" class="px-3 py-1.5 rounded-lg text-sm font-medium {% if filter_status == 'all' %}bg-primary text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    All
+                </a>
+                <a href="?status=active" class="px-3 py-1.5 rounded-lg text-sm font-medium {% if filter_status == 'active' %}bg-green-600 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    🟢 Active
+                </a>
+                <a href="?status=new" class="px-3 py-1.5 rounded-lg text-sm font-medium {% if filter_status == 'new' %}bg-blue-600 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    🆕 New (7d)
+                </a>
+                <a href="?status=expired" class="px-3 py-1.5 rounded-lg text-sm font-medium {% if filter_status == 'expired' %}bg-gray-600 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    ⏸ Expired
+                </a>
+            </div>
+            <form method="get" class="flex items-center gap-2">
+                {% if filter_status != 'all' %}<input type="hidden" name="status" value="{{ filter_status }}">{% endif %}
+                <input type="text" name="search" value="{{ search_query }}" placeholder="Search by name, email, username..."
+                       class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent w-64">
+                <button type="submit" class="px-3 py-1.5 bg-primary text-white rounded-lg text-sm font-medium">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dealers table -->
+    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Dealer</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Contact</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Listings</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Subscription</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Status</th>
+                    <th class="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for d in dealers %}
+                <tr class="hover:bg-gray-50">
+                    <!-- Dealer info -->
+                    <td class="px-4 py-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                                {% if d.profile.dealer_logo %}
+                                    <img src="{{ d.profile.dealer_logo.url }}" class="w-full h-full object-contain p-0.5">
+                                {% else %}
+                                    <div class="w-full h-full bg-primary text-white flex items-center justify-center text-sm font-bold">
+                                        {{ d.profile.dealer_company_name|default:d.user.username|first|upper }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900">
+                                    {{ d.profile.dealer_company_name|default:d.user.username }}
+                                </div>
+                                <div class="text-xs text-gray-500">@{{ d.user.username }}</div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Contact -->
+                    <td class="px-4 py-3">
+                        <div class="text-xs text-gray-600">
+                            <div>{{ d.user.email }}</div>
+                            {% if d.profile.dealer_phone %}
+                            <div class="text-gray-500">{{ d.profile.dealer_phone }}</div>
+                            {% endif %}
+                            {% if d.profile.dealer_address %}
+                            <div class="text-gray-400 truncate max-w-[200px]" title="{{ d.profile.dealer_address }}">
+                                <i class="fas fa-map-marker-alt text-xs"></i> {{ d.profile.dealer_address }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </td>
+
+                    <!-- Listings -->
+                    <td class="px-4 py-3">
+                        <div class="text-sm">
+                            <div><strong class="text-gray-900">{{ d.active_listings }}</strong> active</div>
+                            <div class="text-xs text-gray-500">{{ d.total_listings }} total</div>
+                        </div>
+                    </td>
+
+                    <!-- Subscription -->
+                    <td class="px-4 py-3">
+                        {% if d.profile.dealer_subscription_expires %}
+                            <div class="text-sm">
+                                <div class="text-gray-900">{{ d.profile.dealer_subscription_expires|date:"Y-m-d" }}</div>
+                                <div class="text-xs text-gray-500">
+                                    {% if d.profile.dealer_subscription_active %}
+                                        Expires in {{ d.profile.dealer_subscription_expires|timeuntil }}
+                                    {% else %}
+                                        <span class="text-red-500">Expired</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <span class="text-xs text-gray-400">No subscription</span>
+                        {% endif %}
+                    </td>
+
+                    <!-- Status -->
+                    <td class="px-4 py-3">
+                        {% if d.profile.dealer_subscription_active %}
+                            <span class="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Active
+                            </span>
+                        {% else %}
+                            <span class="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">
+                                <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span> Inactive
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <!-- Actions -->
+                    <td class="px-4 py-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <a href="{% url 'accounts:dealer_public_page' d.user.username %}" target="_blank"
+                               class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs rounded-md font-medium"
+                               title="View public page">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="{% url 'accounts:admin_dealer_detail' d.user.id %}"
+                               class="px-3 py-1 bg-primary hover:bg-primary-dark text-white text-xs rounded-md font-medium">
+                                Manage
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="px-4 py-12 text-center text-gray-500">
+                        No dealers found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

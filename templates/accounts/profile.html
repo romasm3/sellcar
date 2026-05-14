@@ -60,20 +60,28 @@
                     </div>
 
                     <!-- Actions -->
-                    <div class="space-y-2">
-                        <a href="{% url 'accounts:profile_edit' %}"
-                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-2.5 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-edit mr-2"></i>
-                            Edit Profile
-                        </a>
-                        <a href="{% url 'accounts:settings' %}"
-                           class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-2.5 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-cog mr-2"></i>
-                            Settings
-                        </a>
-                    </div>
-                </div>
-            </div>
+                                        <div class="space-y-2">
+                                            <a href="{% url 'accounts:profile_edit' %}"
+                                               class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-2.5 rounded-lg transition-colors font-medium">
+                                                <i class="fas fa-edit mr-2"></i>
+                                                Edit Profile
+                                            </a>
+                                            <a href="{% url 'accounts:settings' %}"
+                                               class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-2.5 rounded-lg transition-colors font-medium">
+                                                <i class="fas fa-cog mr-2"></i>
+                                                Settings
+                                            </a>
+                                            <form method="POST" action="{% url 'accounts:boost_listings' %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        class="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-2.5 rounded-lg transition-colors font-medium">
+                                                    <i class="fas fa-rocket mr-2"></i>
+                                                    Boost All Listings
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
             <!-- Main Content -->
             <div class="lg:col-span-3">
@@ -131,11 +139,11 @@
                                         {{ listing.year }} • {{ listing.mileage|floatformat:0 }} km
                                     </p>
                                     <div class="flex gap-2">
-                                        <a href="{% url 'listings:listing_detail' listing.pk %}"
+                                        <a href="{% url 'listing_detail' listing.pk %}"
                                            class="flex-1 bg-primary text-white text-center py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
                                             View
                                         </a>
-                                        <a href="{% url 'listings:listing_edit' listing.pk %}"
+                                        <a href="{% url 'listing_edit' listing.pk %}"
                                            class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -149,7 +157,7 @@
                             <i class="fas fa-car text-gray-300 text-5xl mb-4"></i>
                             <h4 class="text-lg font-semibold text-gray-900 mb-2">No Active Listings</h4>
                             <p class="text-gray-600 mb-6">Start selling by creating your first listing</p>
-                            <a href="{% url 'listings:listing_create' %}"
+                            <a href="{% url 'listing_create' %}"
                                class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
                                 <i class="fas fa-plus mr-2"></i>
                                 Create Listing

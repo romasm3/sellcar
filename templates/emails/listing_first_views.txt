@@ -1,0 +1,19 @@
+Hi {{ user_name|default:"there" }},
+
+Great news - people are looking at your listing:
+
+   {{ listing_title }}
+   {{ views_count }} view{{ views_count|pluralize }} so far
+
+View your listing:
+{{ listing_url }}
+
+Tips to convert views to inquiries:
+  - Make sure your phone number is visible
+  - Respond quickly to messages (within 1 hour ideally)
+  - Update your description with any missing details
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

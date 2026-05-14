@@ -1,0 +1,19 @@
+Hi {{ user_name|default:"there" }},
+
+{{ seller_name }} replied to your inquiry about:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+Reply:
+{{ reply_message }}
+
+View listing:
+{{ listing_url }}
+
+Reply directly to {{ seller_email }}.
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

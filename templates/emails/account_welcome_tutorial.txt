@@ -1,0 +1,40 @@
+Hi {{ user_name|default:"there" }},
+
+You signed up yesterday - welcome again!
+
+Here are some quick tips to make the most of the platform:
+
+FOR SELLERS:
+
+  1. Take great photos
+     5-8 well-lit photos sell 3x faster than 1-2 dark ones.
+
+  2. Write honest descriptions
+     Be upfront about damage. Buyers appreciate honesty.
+
+  3. Set a competitive price
+     Check similar listings: {{ site_url }}/
+
+  4. Respond fast
+     Buyers contact 3-5 sellers - first to reply often wins.
+
+FOR BUYERS:
+
+  1. Save searches
+     Get notified when new matches appear: {{ site_url }}/searches/
+
+  2. Save listings you like
+     Easy comparison and tracking: {{ site_url }}/saved/
+
+  3. Check seller ratings
+     Always look at seller's profile and reviews.
+
+Need help? Reply to this email or visit:
+{{ site_url }}/contact/
+
+Happy buying and selling!
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

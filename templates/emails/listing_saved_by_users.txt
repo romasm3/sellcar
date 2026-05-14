@@ -1,0 +1,21 @@
+Hi {{ user_name|default:"there" }},
+
+{{ saves_count }} {% if saves_count == 1 %}person has{% else %}people have{% endif %} saved your listing:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+Saved listings are a strong buying signal - these users are seriously interested.
+
+Make sure:
+  - Your contact info is correct and visible
+  - You respond to messages quickly
+  - Your photos and description are up to date
+
+View your listing:
+{{ listing_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

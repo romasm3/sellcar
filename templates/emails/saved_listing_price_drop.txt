@@ -1,0 +1,15 @@
+Hi,
+
+Good news — a listing you saved just got cheaper:
+
+   {{ listing_title }}
+   Was: {{ old_price_display }}
+   Now: {{ new_price_display }}  (-{{ drop_amount_display }}, {{ drop_percent }}% off)
+
+View the listing:
+{{ listing_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

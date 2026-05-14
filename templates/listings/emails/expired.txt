@@ -1,0 +1,17 @@
+Your listing is inactive
+
+Hi,
+
+Your listing {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %} ({{ listing.year }}, {{ listing.price|floatformat:0 }} €)
+has been inactive for {{ days_since_expired }} day{{ days_since_expired|pluralize }}.
+
+Buyers cannot see or contact you about it.
+
+Reactivate it now{% if payments_enabled %} for {{ fee }} €{% endif %} and it will be visible to buyers again for 30 days.
+
+Activate listing:
+{{ edit_url }}
+
+—
+SellCar
+To stop receiving reminders, delete the listing from your dashboard.

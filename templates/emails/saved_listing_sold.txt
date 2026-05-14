@@ -1,0 +1,17 @@
+Hi {{ user_name|default:"there" }},
+
+A listing you saved was just marked as SOLD:
+
+   {{ listing_title }}
+   Sold for: {{ listing_price_display }}
+
+Want to find similar vehicles?
+{{ similar_url }}
+
+Or browse all listings:
+{{ site_url }}/
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

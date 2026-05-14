@@ -1,0 +1,1 @@
+{{ new_count }} new listings match "{{ search_name }}"

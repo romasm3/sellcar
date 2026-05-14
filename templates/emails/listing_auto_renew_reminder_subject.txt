@@ -1,0 +1,1 @@
+Your listing will auto-renew in {{ days_until }} days

@@ -1,119 +1,301 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
 
-{% block title %}Home - SellCars{% endblock %}
+{% block title %}{% trans "Browse Cars" %} - SellCar{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="jumbotron jumbotron-fluid bg-dark text-white text-center" style="margin-bottom: 0; padding: 100px 0;">
-    <div class="container">
-        <h1 class="display-3">Welcome to SellCars</h1>
-        <p class="lead">Your trusted marketplace for buying and selling cars</p>
-        {% if user.is_authenticated %}
-            <a href="{% url 'listings:listing_list' %}" class="btn btn-primary btn-lg mt-3">Browse Listings</a>
-            <a href="{% url 'listings:listing_create' %}" class="btn btn-success btn-lg mt-3">Sell Your Car</a>
+<!-- Hero Search Section -->
+<div class="bg-gradient-to-b from-primary/10 to-gray-100 py-10">
+    <div class="max-w-6xl mx-auto px-4">
+        <!-- Title -->
+        <div class="text-center mb-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">{% trans "Find Your Perfect Vehicle" %}</h1>
+            <p class="text-gray-600">{% blocktrans with count=total_count %}Browse {{ count }} listings{% endblocktrans %}</p>
+        </div>
+        
+        <!-- Search Bar -->
+        <form method="get" action="{% url 'home' %}" class="bg-white rounded-xl shadow-lg p-6">
+            <!-- Row 1 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-4">
+                <!-- Category -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Category" %}</label>
+                    <select name="category" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="">{% trans "All Categories" %}</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.value }}" {% if selected_category == cat.value %}selected{% endif %}>{{ cat.label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Make -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Make" %}</label>
+                    <select name="brand" id="brandSelect" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="">{% trans "All Makes" %}</option>
+                        {% for brand in brands %}
+                            <option value="{{ brand.id }}" {% if request.GET.brand == brand.id|stringformat:"i" %}selected{% endif %}>{{ brand.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Model -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Model" %}</label>
+                    <select name="model" id="modelSelect" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="">{% trans "All Models" %}</option>
+                        {% for model in models %}
+                            <option value="{{ model.id }}">{{ model.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Price Min -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Price Min" %}</label>
+                    <input type="number" name="price_min" placeholder="{% trans 'Min €' %}" value="{{ request.GET.price_min }}"
+                           class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                </div>
+                
+                <!-- Price Max -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Price Max" %}</label>
+                    <input type="number" name="price_max" placeholder="{% trans 'Max €' %}" value="{{ request.GET.price_max }}"
+                           class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                </div>
+                
+                <!-- Year From -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Year From" %}</label>
+                    <select name="year_min" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="">{% trans "From" %}</option>
+                        {% for year in years %}
+                            <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Year To -->
+                <div>
+                    <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Year To" %}</label>
+                    <select name="year_max" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="">{% trans "To" %}</option>
+                        {% for year in years %}
+                            <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="flex flex-wrap items-end gap-4">
+
+                {# CARS EXTRAS - Fuel + Transmission - default visible #}
+                <div id="cars_extras" class="flex flex-wrap items-end gap-4" style="flex:1;">
+                    <div class="flex-1 min-w-[150px]">
+                        <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Fuel Type" %}</label>
+                        <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                            <option value="">{% trans "All" %}</option>
+                            {% for ft in fuel_types %}
+                                <option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="flex-1 min-w-[150px]">
+                        <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Transmission" %}</label>
+                        <select name="transmission" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                            <option value="">{% trans "All" %}</option>
+                            {% for tr in transmissions %}
+                                <option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                {# PARTS EXTRAS - Detalės pavadinimas/kodas - paslepta default #}
+                <div id="parts_extras" class="flex flex-wrap items-end gap-4" style="flex:1; display:none;">
+                    <div class="flex-1 min-w-[300px]">
+                        <label class="block text-xs text-gray-500 mb-1 font-medium">{% trans "Part name / code" %}</label>
+                        <input type="text" name="part_query" placeholder="{% trans 'Search by part name or code' %}" value="{{ request.GET.part_query|default:'' }}"
+                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-2">
+                    <a href="{% url 'home' %}" class="px-4 py-2.5 text-gray-600 hover:text-gray-800 text-sm font-medium">
+                        {% trans "Clear All" %}
+                    </a>
+                    <button type="submit" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors flex items-center gap-2">
+                        <i class="fas fa-search"></i>
+                        {% trans "Search" %}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Listings Section -->
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4">
+        
+        <!-- Results Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">{% trans "Available Vehicles" %}</h2>
+                <p class="text-gray-600 text-sm">{% blocktrans with count=total_count %}Found {{ count }} listings{% endblocktrans %}</p>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <!-- Sort -->
+                <select class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 focus:ring-2 focus:ring-primary shadow-sm">
+                    <option value="newest">{% trans "Newest" %}</option>
+                    <option value="price_asc">{% trans "Price: Low to High" %}</option>
+                    <option value="price_desc">{% trans "Price: High to Low" %}</option>
+                    <option value="mileage">{% trans "Mileage" %}</option>
+                </select>
+                
+                <!-- Map View Button -->
+                <a href="{% url 'search_map' %}" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors shadow-sm">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>{% trans "Map View" %}</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Listings Grid -->
+        {% if listings %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {% for listing in listings %}
+            <a href="{% url 'listing_detail' listing.pk %}" class="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <!-- Image -->
+                <div class="relative aspect-[4/3] bg-gray-200 overflow-hidden">
+                    {% if listing.images.first %}
+                        <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                            <i class="fas fa-car text-4xl text-gray-300"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Price Badge -->
+                    <div class="absolute top-3 left-3 px-3 py-1 bg-primary text-white text-sm font-bold rounded-lg shadow-lg">
+                        €{{ listing.price|floatformat:0 }}
+                    </div>
+                    
+                    <!-- Save Button -->
+                    <button class="absolute top-3 right-3 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-colors">
+                        <i class="far fa-heart text-gray-600 hover:text-red-500"></i>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-900 mb-1 truncate">{{ listing.brand.name }} {{ listing.model.name }}</h3>
+                    <p class="text-gray-500 text-sm mb-3 truncate">{{ listing.title }}</p>
+                    
+                    <!-- Specs Grid -->
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <div class="flex items-center gap-1.5">
+                            <i class="far fa-calendar text-gray-400"></i>
+                            <span>{{ listing.year }}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fas fa-road text-gray-400"></i>
+                            <span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fas fa-gas-pump text-gray-400"></i>
+                            <span>{{ listing.fuel_type.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fas fa-cog text-gray-400"></i>
+                            <span>{{ listing.transmission.name|default:"—" }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Location -->
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex items-center gap-1.5 text-xs text-gray-500">
+                        <i class="fas fa-map-marker-alt text-gray-400"></i>
+                        <span>{{ listing.city|default:_("Unknown") }}</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
         {% else %}
-            <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg mt-3">Get Started</a>
-            <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-lg mt-3">Login</a>
+        <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-car text-3xl text-gray-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
+            <p class="text-gray-600 mb-6">{% trans "Try adjusting your filters" %}</p>
+            <a href="{% url 'home' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+                <i class="fas fa-undo"></i>
+                {% trans "Clear all filters" %}
+            </a>
+        </div>
         {% endif %}
     </div>
 </div>
+{% endblock %}
 
-<!-- Features Section -->
-<div class="container my-5">
-    <h2 class="text-center mb-5">Why Choose SellCars?</h2>
-    <div class="row">
-        <div class="col-md-4 text-center mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-search fa-3x text-primary mb-3"></i>
-                    <h4 class="card-title">Easy Search</h4>
-                    <p class="card-text">Find your dream car with our advanced search filters. Browse by make, model, price, and more.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
-                    <h4 class="card-title">Safe & Secure</h4>
-                    <p class="card-text">All listings are verified. Buy and sell with confidence on our secure platform.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-dollar-sign fa-3x text-warning mb-3"></i>
-                    <h4 class="card-title">Best Prices</h4>
-                    <p class="card-text">Get the best deals on the market. Compare prices and find great value.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% block extra_js %}
+<script>
+// ─── i18n strings ───
+var I18N = {
+    allModels: "{% trans 'All Models' %}"
+};
 
-<!-- Stats Section -->
-<div class="bg-light py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-3">
-                <h2 class="display-4 text-primary">500+</h2>
-                <p class="lead">Cars Listed</p>
-            </div>
-            <div class="col-md-3">
-                <h2 class="display-4 text-success">1000+</h2>
-                <p class="lead">Happy Customers</p>
-            </div>
-            <div class="col-md-3">
-                <h2 class="display-4 text-warning">50+</h2>
-                <p class="lead">Cities Covered</p>
-            </div>
-            <div class="col-md-3">
-                <h2 class="display-4 text-info">24/7</h2>
-                <p class="lead">Support Available</p>
-            </div>
-        </div>
-    </div>
-</div>
+// Brand → Model AJAX
+document.getElementById('brandSelect').addEventListener('change', function() {
+    const brandId = this.value;
+    const modelSelect = document.getElementById('modelSelect');
+    
+    modelSelect.innerHTML = '<option value="">' + I18N.allModels + '</option>';
+    
+    if (brandId) {
+        fetch(`/listings/ajax/get-models/?brand_id=${brandId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model.id;
+                    option.textContent = model.name;
+                    modelSelect.appendChild(option);
+                });
+            });
+    }
+});
 
-<!-- How It Works Section -->
-<div class="container my-5">
-    <h2 class="text-center mb-5">How It Works</h2>
-    <div class="row">
-        <div class="col-md-4 text-center mb-4">
-            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                <h2 class="mb-0">1</h2>
-            </div>
-            <h4>Create Account</h4>
-            <p>Sign up in seconds and start browsing our extensive car listings.</p>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-            <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                <h2 class="mb-0">2</h2>
-            </div>
-            <h4>Find Your Car</h4>
-            <p>Use filters to search for your perfect vehicle by make, model, and price.</p>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-            <div class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                <h2 class="mb-0">3</h2>
-            </div>
-            <h4>Make a Deal</h4>
-            <p>Contact sellers directly and finalize your purchase securely.</p>
-        </div>
-    </div>
-</div>
+// Category → Cars/Parts extras toggle
+function toggleCategoryExtras() {
+    const categorySelect = document.querySelector('select[name="category"]');
+    const carsExtras = document.getElementById('cars_extras');
+    const partsExtras = document.getElementById('parts_extras');
+    
+    if (!categorySelect || !carsExtras || !partsExtras) return;
+    
+    const value = categorySelect.value.toLowerCase();
+    const isParts = value === 'parts' || value === 'dalys' || value.includes('part') || value.includes('dali');
+    
+    if (isParts) {
+        carsExtras.style.display = 'none';
+        partsExtras.style.display = 'flex';
+    } else {
+        carsExtras.style.display = 'flex';
+        partsExtras.style.display = 'none';
+    }
+}
 
-<!-- CTA Section -->
-<div class="bg-primary text-white py-5 text-center">
-    <div class="container">
-        <h2 class="mb-4">Ready to Find Your Dream Car?</h2>
-        <p class="lead mb-4">Join thousands of satisfied customers who found their perfect vehicle on SellCars</p>
-        {% if not user.is_authenticated %}
-            <a href="{% url 'accounts:register' %}" class="btn btn-light btn-lg">Sign Up Now</a>
-        {% else %}
-            <a href="{% url 'listings:listing_list' %}" class="btn btn-light btn-lg">Browse All Cars</a>
-        {% endif %}
-    </div>
-</div>
+// On category change
+document.querySelector('select[name="category"]').addEventListener('change', toggleCategoryExtras);
+
+// On page load (jei URL turi ?category=parts)
+document.addEventListener('DOMContentLoaded', toggleCategoryExtras);
+</script>
 {% endblock %}

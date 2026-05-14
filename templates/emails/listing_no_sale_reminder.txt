@@ -1,0 +1,29 @@
+Hi {{ user_name|default:"there" }},
+
+Your listing has been active for {{ days_active }} days:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+   {{ views_count }} view{{ views_count|pluralize }}, {{ saves_count|default:"0" }} saves
+
+Tips to attract buyers:
+
+  1. Lower the price by 5-10%
+     {{ edit_url }}
+
+  2. Add more or better photos
+     {{ photo_edit_url }}
+
+  3. Refresh the listing to bring it back to top
+     {{ renew_url }}
+
+  4. Write a more compelling description
+     {{ edit_url }}
+
+If you've already sold it, please mark it as SOLD here:
+{{ site_url }}/dashboard/announcements/
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

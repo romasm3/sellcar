@@ -1,0 +1,17 @@
+Hi {{ user_name|default:"there" }},
+
+Based on what you've been viewing, you might like:
+
+{% for listing in similar_listings %}
+   {{ forloop.counter }}. {{ listing.title }} - {{ listing.price_display }}
+      {{ listing.url }}
+
+{% endfor %}
+
+Browse all:
+{{ site_url }}/
+
+- Thank you
+
+---
+To unsubscribe from marketing: {{ site_url }}/settings/

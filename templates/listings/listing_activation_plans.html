@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Activate Your Listing" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">{% trans "Activate Your Listing" %}</h1>
+            <p class="text-gray-600 text-sm mt-1">{{ listing.title }}</p>
+        </div>
+
+        <form method="POST" id="planForm">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                {% for plan in plans %}
+                <div class="relative bg-white rounded-xl shadow-sm border-2 {% if plan.is_popular %}border-primary{% else %}border-gray-200{% endif %} p-6 hover:shadow-lg transition-all cursor-pointer plan-card"
+                     data-days="{{ plan.days }}"
+                     onclick="selectPlan(this)">
+
+                    {% if plan.is_popular %}
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full">
+                        {% trans "MOST POPULAR" %}
+                    </span>
+                    {% endif %}
+
+                    {% if plan.discount %}
+                    <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        -{{ plan.discount }}%
+                    </span>
+                    {% endif %}
+
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            {% blocktrans count counter=plan.days %}
+                            {{ counter }} day
+                            {% plural %}
+                            {{ counter }} days
+                            {% endblocktrans %}
+                        </h3>
+
+                        {% if plan.old_price %}
+                        <p class="text-sm text-gray-400 line-through">${{ plan.old_price }}</p>
+                        {% endif %}
+
+                        <p class="text-4xl font-bold text-primary mt-2">${{ plan.price }}</p>
+                    </div>
+
+                    <ul class="space-y-3 text-sm">
+                        {% for feature in plan.features %}
+                        <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+                            <span class="text-gray-600">{{ feature.label }}</span>
+                            <span class="font-semibold text-gray-900">{{ feature.value }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="mt-6 text-center">
+                        <div class="plan-radio w-6 h-6 mx-auto rounded-full border-2 border-gray-300 flex items-center justify-center">
+                            <div class="plan-radio-inner w-3 h-3 rounded-full bg-primary hidden"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <input type="hidden" name="plan" id="selectedPlan" value="">
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600">{% trans "Selected plan:" %}</p>
+                        <p id="selectedPlanLabel" class="text-lg font-bold text-gray-900">{% trans "None selected" %}</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <a href="{% url 'my_listings' %}" class="text-gray-600 hover:text-gray-900">
+                            {% trans "Save as draft" %}
+                        </a>
+                        <button type="submit" id="submitBtn" disabled
+                                class="flex items-center gap-2 px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+                            {% trans "Activate Listing" %} <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+// Translated strings for JS
+var I18N = {
+    daysLabelSingular: '{% trans "1 day" %}',
+    daysLabelPluralTpl: '{% trans "{n} days" %}'
+};
+
+function pluralizeDays(n) {
+    if (n === 1) return I18N.daysLabelSingular;
+    return I18N.daysLabelPluralTpl.replace('{n}', n);
+}
+
+function selectPlan(card) {
+    document.querySelectorAll('.plan-card').forEach(function(c) {
+        c.classList.remove('border-primary', 'ring-2', 'ring-primary');
+        c.classList.add('border-gray-200');
+        c.querySelector('.plan-radio').classList.remove('border-primary');
+        c.querySelector('.plan-radio').classList.add('border-gray-300');
+        c.querySelector('.plan-radio-inner').classList.add('hidden');
+    });
+
+    card.classList.remove('border-gray-200');
+    card.classList.add('border-primary', 'ring-2', 'ring-primary');
+    card.querySelector('.plan-radio').classList.remove('border-gray-300');
+    card.querySelector('.plan-radio').classList.add('border-primary');
+    card.querySelector('.plan-radio-inner').classList.remove('hidden');
+
+    var days = parseInt(card.dataset.days, 10);
+    document.getElementById('selectedPlan').value = days;
+    document.getElementById('selectedPlanLabel').textContent = pluralizeDays(days);
+    document.getElementById('submitBtn').disabled = false;
+}
+</script>
+{% endblock %}

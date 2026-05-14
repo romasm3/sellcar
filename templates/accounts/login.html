@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Login - SellCar{% endblock %}
+{% block title %}{% trans "Login" %} - SellCar{% endblock %}
 
 {% block content %}
 <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -10,8 +11,8 @@
             <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
                 SC
             </div>
-            <h2 class="text-3xl font-bold text-gray-900">Welcome Back</h2>
-            <p class="text-gray-600 mt-2">Login to your SellCar account</p>
+            <h2 class="text-3xl font-bold text-gray-900">{% trans "Welcome Back" %}</h2>
+            <p class="text-gray-600 mt-2">{% trans "Login to your SellCar account" %}</p>
         </div>
 
         <!-- Login Form -->
@@ -19,25 +20,25 @@
             <form method="POST">
                 {% csrf_token %}
 
-                <!-- Username -->
+                <!-- Email -->
                 <div class="mb-6">
-                    <label for="id_username" class="block text-sm font-medium text-gray-700 mb-2">
-                        Username
+                    <label for="id_email" class="block text-sm font-medium text-gray-700 mb-2">
+                        {% trans "Email Address" %}
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-user text-gray-400"></i>
+                            <i class="fas fa-envelope text-gray-400"></i>
                         </div>
-                        <input type="text" name="username" id="id_username" required
+                        <input type="email" name="email" id="id_email" required
                                class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-                               placeholder="Enter your username">
+                               placeholder="{% trans 'Enter your email' %}">
                     </div>
                 </div>
 
                 <!-- Password -->
                 <div class="mb-6">
                     <label for="id_password" class="block text-sm font-medium text-gray-700 mb-2">
-                        Password
+                        {% trans "Password" %}
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -45,18 +46,22 @@
                         </div>
                         <input type="password" name="password" id="id_password" required
                                class="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-                               placeholder="Enter your password">
+                               placeholder="{% trans 'Enter your password' %}">
                     </div>
                 </div>
 
                 <!-- Error Messages -->
-                {% if form.errors %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
                 <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                     <div class="flex items-center gap-2 text-red-800">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span class="text-sm">Invalid username or password. Please try again.</span>
+                        <span class="text-sm">{{ message }}</span>
                     </div>
                 </div>
+                {% endif %}
+                {% endfor %}
                 {% endif %}
 
                 <!-- Remember Me & Forgot Password -->
@@ -65,11 +70,11 @@
                         <input type="checkbox" id="remember" name="remember"
                                class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
                         <label for="remember" class="ml-2 text-sm text-gray-700">
-                            Remember me
+                            {% trans "Remember me" %}
                         </label>
                     </div>
                     <a href="{% url 'accounts:password_reset' %}" class="text-sm text-primary hover:text-primary-dark transition-colors">
-                        Forgot password?
+                        {% trans "Forgot password?" %}
                     </a>
                 </div>
 
@@ -77,7 +82,7 @@
                 <button type="submit"
                         class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
                     <i class="fas fa-sign-in-alt"></i>
-                    Login
+                    {% trans "Login" %}
                 </button>
             </form>
 
@@ -87,16 +92,16 @@
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                    <span class="px-4 bg-white text-gray-500">Or</span>
+                    <span class="px-4 bg-white text-gray-500">{% trans "Or" %}</span>
                 </div>
             </div>
 
             <!-- Register Link -->
             <div class="text-center">
                 <p class="text-gray-600">
-                    Don't have an account?
+                    {% trans "Don't have an account?" %}
                     <a href="{% url 'accounts:register' %}" class="text-primary hover:text-primary-dark font-semibold transition-colors">
-                        Sign up for free
+                        {% trans "Sign up for free" %}
                     </a>
                 </p>
             </div>
@@ -104,9 +109,9 @@
 
         <!-- Back to Home -->
         <div class="text-center mt-6">
-            <a href="{% url 'listings:listing_list' %}" class="text-gray-600 hover:text-primary transition-colors text-sm flex items-center justify-center gap-2">
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-primary transition-colors text-sm flex items-center justify-center gap-2">
                 <i class="fas fa-arrow-left"></i>
-                Back to Home
+                {% trans "Back to Home" %}
             </a>
         </div>
     </div>

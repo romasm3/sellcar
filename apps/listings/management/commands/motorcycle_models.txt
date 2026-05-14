@@ -1,0 +1,1391 @@
+# Motorcycle Models - autoplius.lt
+# Formatas: BRAND|MODEL
+# Vienas iraso per eilute. Eilutes prasidedancios # yra komentarai.
+
+# === ABM ===
+ABM|Other
+ABM|Phantom 125
+ABM|Raptor
+
+# === Access Motor ===
+Access Motor|Other
+Access Motor|DRR 100 WITH REVERSE
+Access Motor|SHADE 600
+Access Motor|SHADE 650LT EPS
+Access Motor|SHADE 850LT EPS
+Access Motor|SP400
+Access Motor|Streak
+
+# === ADVENTO ===
+ADVENTO|MAXI
+
+# === AGM ===
+AGM|Other
+AGM|City
+AGM|Retro
+
+# === AJP ===
+AJP|Other
+AJP|PR4 Enduro
+AJP|PR4 Supermotard
+AJP|PR7
+
+# === Alfarad ===
+Alfarad|AF250G
+
+# === AODES ===
+AODES|850L
+AODES|850S
+AODES|1000L
+AODES|1000S
+AODES|650L
+AODES|650S
+AODES|ALPINECROSS 1000
+AODES|DESERTCROSS 1000
+AODES|E-TRAILCROSS
+AODES|PATHCROSS 525 L
+AODES|PATHCROSS 525 S
+AODES|PATHCROSS 650L
+AODES|PATHCROSS 650S
+AODES|PATHCROSS 850L
+AODES|PATHCROSS 850S
+AODES|PATHCROSS 1000L
+AODES|PATHCROSS 1000L MUD PRO
+AODES|PATHCROSS 1000S
+AODES|PATHCROSS 1000S MUD PRO
+AODES|TRAILCROSS 250
+AODES|TRAILCROSS 400
+AODES|WORKCROSS 650
+AODES|WORKCROSS 1000
+
+# === Apollo ===
+Apollo|Other
+Apollo|A36BW250
+
+# === Aprilia ===
+Aprilia|Other
+Aprilia|AF
+Aprilia|Area
+Aprilia|Atlantic
+Aprilia|Atlantic 125
+Aprilia|Atlantic 200
+Aprilia|Atlantic 300
+Aprilia|Atlantic 500
+Aprilia|Caponord (ETV)
+Aprilia|Caponord 1000
+Aprilia|Caponord 1200
+Aprilia|Classic
+Aprilia|Dorsoduro
+Aprilia|Dorsoduro 750
+Aprilia|Dorsoduro 900
+Aprilia|Dorsoduro 1200
+Aprilia|ETV 1000 Caponord
+Aprilia|Europe
+Aprilia|Falco
+Aprilia|Gulliver
+Aprilia|Habana
+Aprilia|Leonardo
+Aprilia|Leonardo 125
+Aprilia|Leonardo 150
+Aprilia|Leonardo 250
+Aprilia|Leonardo 300
+Aprilia|Mana
+Aprilia|Mana 850
+Aprilia|Mojito Custom
+Aprilia|Moto
+Aprilia|MX
+Aprilia|MX 125
+Aprilia|Pegaso
+Aprilia|Pegaso 125
+Aprilia|Pegaso 250
+Aprilia|Pegaso 600
+Aprilia|Pegaso 650
+Aprilia|Pegaso Trail
+Aprilia|Rally
+Aprilia|Red Rose
+Aprilia|RS
+Aprilia|Rs Tuono
+Aprilia|RST
+Aprilia|RSV
+Aprilia|RX
+Aprilia|Scarabeo
+Aprilia|Shiver
+Aprilia|Sonic
+Aprilia|Sportcity
+Aprilia|SR
+Aprilia|SRV
+Aprilia|SX
+Aprilia|SXR
+Aprilia|SXV
+Aprilia|Tuareg
+Aprilia|Tuono
+
+# === Benelli ===
+Benelli|Other
+Benelli|502 C
+Benelli|752 S
+Benelli|BN 125
+Benelli|BN 251
+Benelli|BN 302
+Benelli|BN 600
+Benelli|BN 600 GT
+Benelli|BN 600 R
+Benelli|Imperiale 400
+Benelli|Leoncino 250
+Benelli|Leoncino 500
+Benelli|Leoncino 800
+Benelli|Tornado Naked T
+Benelli|TNT 125
+Benelli|TNT 135
+Benelli|TNT 1130
+Benelli|TNT 25
+Benelli|TNT 300
+Benelli|TNT 600
+Benelli|TNT 600 GT
+Benelli|TNT 899
+Benelli|TNT R
+Benelli|TRK 125
+Benelli|TRK 251
+Benelli|TRK 502
+Benelli|TRK 502 X
+Benelli|TRK 502X
+Benelli|TRK 702
+Benelli|TRK 702 X
+
+# === Beta ===
+Beta|Other
+Beta|Aikon
+Beta|Alp
+Beta|Eikon
+Beta|Euro
+Beta|EVO
+Beta|Jonathan
+Beta|KR 250
+Beta|Motard
+Beta|Rev
+Beta|RR
+Beta|RX
+Beta|Supermoto 50
+Beta|TR
+Beta|XT
+Beta|XTrainer
+
+# === Blinc ===
+Blinc|Fantasy
+Blinc|Grace
+
+# === BLUROC ===
+BLUROC|Heritage
+BLUROC|Hero
+BLUROC|Hunt XC
+BLUROC|Legend
+BLUROC|Spirit
+BLUROC|Tracker
+BLUROC|V-BOB
+
+# === BMW ===
+BMW|Other
+BMW|C 400 GT
+BMW|C 400 X
+BMW|C 600
+BMW|C 600 Sport
+BMW|C 650 GT
+BMW|C 650 Sport
+BMW|C Evolution
+BMW|C1
+BMW|CE 02
+BMW|CE 04
+BMW|F 650
+BMW|F 650 CS
+BMW|F 650 GS
+BMW|F 650 ST
+BMW|F 700 GS
+BMW|F 750 GS
+BMW|F 800 GS
+BMW|F 800 GS Adventure
+BMW|F 800 GT
+BMW|F 800 R
+BMW|F 800 S
+BMW|F 800 ST
+BMW|F 850 GS
+BMW|F 850 GS Adventure
+BMW|F 900 GS
+BMW|F 900 GS Adventure
+BMW|F 900 R
+BMW|F 900 XR
+BMW|G 310 GS
+BMW|G 310 R
+BMW|G 450 X
+BMW|G 650 GS
+BMW|G 650 X
+BMW|G 650 XChallenge
+BMW|G 650 XCountry
+BMW|G 650 XMoto
+BMW|HP2
+BMW|HP4
+BMW|K 1
+BMW|K 100
+BMW|K 1100
+BMW|K 1200
+BMW|K 1200 GT
+BMW|K 1200 LT
+BMW|K 1200 R
+BMW|K 1200 R Sport
+BMW|K 1200 RS
+BMW|K 1200 S
+BMW|K 1300 GT
+BMW|K 1300 R
+BMW|K 1300 S
+BMW|K 1600
+BMW|K 1600 B
+BMW|K 1600 GT
+BMW|K 1600 GTL
+BMW|K 1600 Grand America
+BMW|K 75
+BMW|M 1000 R
+BMW|M 1000 RR
+BMW|M 1000 XR
+BMW|M 1000R
+BMW|R 100
+BMW|R 1100 GS
+BMW|R 1100 R
+BMW|R 1100 RS
+BMW|R 1100 RT
+BMW|R 1100 S
+BMW|R 1150 GS
+BMW|R 1150 R
+BMW|R 1150 RS
+BMW|R 1150 RT
+BMW|R 12 nineT
+BMW|R 1200 C
+BMW|R 1200 CL
+BMW|R 1200 GS
+BMW|R 1200 GS Adventure
+BMW|R 1200 R
+BMW|R 1200 RS
+BMW|R 1200 RT
+BMW|R 1200 S
+BMW|R 1200 ST
+BMW|R 1250 GS
+BMW|R 1250 GS Adventure
+BMW|R 1250 R
+BMW|R 1250 RS
+BMW|R 1250 RT
+BMW|R 1300 GS
+BMW|R 1300 GS Adventure
+BMW|R 1300 R
+BMW|R 1300 RS
+BMW|R 1300 RT
+BMW|R 18
+BMW|R 18 B
+BMW|R 18 Bagger
+BMW|R 18 Classic
+BMW|R 18 Roctane
+BMW|R 18 Transcontinental
+BMW|R 26
+BMW|R 35
+BMW|R 45
+BMW|R 50
+BMW|R 60
+BMW|R 65
+BMW|R 75
+BMW|R 80
+BMW|R 850
+BMW|R 850 GS
+BMW|R 850 R
+BMW|R 850 RT
+BMW|R 90
+BMW|R nineT
+BMW|R nineT Pure
+BMW|R nineT Racer
+BMW|R nineT Scrambler
+BMW|R nineT Urban G/S
+BMW|S 1000 R
+BMW|S 1000 RR
+BMW|S 1000 XR
+
+# === Bombardier ===
+Bombardier|3D
+Bombardier|6900
+Bombardier|Adventure
+Bombardier|Alpine
+Bombardier|Cross-over
+Bombardier|DS
+Bombardier|Elan
+Bombardier|Enduro
+Bombardier|Expedition
+Bombardier|Forest Fox
+Bombardier|Formula Deluxe
+Bombardier|Freestyle
+Bombardier|Grand Touring
+Bombardier|GSX
+Bombardier|Legend
+Bombardier|LRV
+Bombardier|MACH Z
+Bombardier|MINI Z
+Bombardier|MX Z
+Bombardier|Olympique
+Bombardier|Outlander
+Bombardier|Quest
+Bombardier|Rally
+Bombardier|Ranger
+Bombardier|Rave
+Bombardier|Renegade
+Bombardier|RX
+Bombardier|Safari
+Bombardier|Sarasota
+Bombardier|Skandic
+Bombardier|Sport
+Bombardier|Spyder
+Bombardier|ST
+Bombardier|Summit
+Bombardier|Touring
+Bombardier|Traxter
+Bombardier|Tundra
+Bombardier|Utility
+Bombardier|XP
+Bombardier|Xtrim
+Bombardier|Yeti
+
+# === Boss Hoss ===
+Boss Hoss|Other
+Boss Hoss|BHC
+
+# === Brixton ===
+Brixton|Cromwell 1200
+Brixton|Cromwell 125
+Brixton|Cromwell 250
+Brixton|Crossfire 125
+Brixton|Crossfire 125 XS
+Brixton|Crossfire 125LC
+Brixton|Crossfire 125XS
+Brixton|Crossfire 500
+Brixton|Crossfire 500 X
+Brixton|Crossfire 500 XC
+Brixton|Felsberg 125
+Brixton|Felsberg 125 XC
+Brixton|Felsberg 250
+Brixton|Rayburn 125
+Brixton|Sunray 125
+
+# === Buell ===
+Buell|Other
+Buell|1125
+Buell|Blast
+Buell|Firebolt
+Buell|M2 Cyclone
+Buell|S3
+Buell|S3T
+Buell|Thunderbolt
+Buell|Ulysses
+Buell|White
+Buell|X1 Lightning
+Buell|X1W Lightning
+
+# === Bullit ===
+Bullit|Other
+Bullit|Hero
+Bullit|Spirit
+
+# === Cagiva ===
+Cagiva|Other
+Cagiva|Canyon
+Cagiva|Freccia
+Cagiva|Grand Canyon
+Cagiva|Mito
+Cagiva|Navigator
+Cagiva|Planet
+Cagiva|Raptor
+Cagiva|River
+Cagiva|Roadster
+Cagiva|SST
+Cagiva|Supercity
+Cagiva|V-Raptor
+Cagiva|W 12
+Cagiva|W 16
+Cagiva|Xtra-Raptor
+
+# === Can-Am ===
+Can-Am|Commander XT
+Can-Am|DS
+Can-Am|Maverick
+Can-Am|Outlander
+Can-Am|Outlander Max
+Can-Am|Renegade
+Can-Am|Ryker
+Can-Am|Spyder
+Can-Am|Traxter
+Can-Am|Youth
+
+# === CF ===
+CF|ROAR
+
+# === CFMOTO ===
+CFMOTO|125 NK
+CFMOTO|150NK
+CFMOTO|250NK
+CFMOTO|300CL-X
+CFMOTO|300NK
+CFMOTO|400NK
+CFMOTO|450CL-C
+CFMOTO|450MT
+CFMOTO|450SR
+CFMOTO|450SR S
+CFMOTO|650MT
+CFMOTO|650NK
+CFMOTO|650TR
+CFMOTO|675 NK
+CFMOTO|675 SRR
+CFMOTO|700CL-X Adventure
+CFMOTO|700CL-X HERITAGE
+CFMOTO|700CL-X Sport
+CFMOTO|700MT
+CFMOTO|800 Explore
+CFMOTO|800MT
+CFMOTO|800MT-X
+CFMOTO|800NK
+CFMOTO|1000MT-X
+CFMOTO|Allroad
+CFMOTO|Brizzer
+CFMOTO|CF250
+CFMOTO|CF500
+CFMOTO|CF500A
+CFMOTO|CF650
+CFMOTO|CFORCE 110
+CFMOTO|CFORCE 1000
+CFMOTO|CFORCE 425
+CFMOTO|CFORCE 450L
+CFMOTO|CFORCE 450L Basic
+CFMOTO|CFORCE 450s Basic
+CFMOTO|CFORCE 520L
+CFMOTO|CFORCE 520S
+CFMOTO|CFORCE 550
+CFMOTO|CFORCE 600
+CFMOTO|CFORCE 625
+CFMOTO|CFORCE 625 TOURING
+CFMOTO|CFORCE 850 Standart G3
+CFMOTO|CFORCE 850 Touring G3
+CFMOTO|CFORCE 850XC
+CFMOTO|CFORCE EV110
+CFMOTO|CX-2
+CFMOTO|CX-5
+
+# === Honda (is foto) ===
+Honda|Other
+Honda|ATV
+Honda|ATV Dragon
+Honda|CB 1000
+Honda|CB 1100
+Honda|CB 125
+Honda|CB 1300
+Honda|CB 250
+Honda|CB 300
+Honda|CB 400
+Honda|CB 450
+Honda|CB 500
+Honda|CB 600
+Honda|CB 650
+Honda|CB 750
+Honda|CB 900
+Honda|CBF 1000
+Honda|CBF 125
+Honda|CBF 250
+Honda|CBF 500
+Honda|CBF 600
+Honda|CBR 1000
+Honda|CBR 125
+Honda|CBR 250
+Honda|CBR 300
+Honda|CBR 500
+Honda|CBR 600
+Honda|CBR 650
+Honda|CBR 900
+Honda|CBR 929
+Honda|CBR 954
+Honda|CL 250
+Honda|CMX 1100
+Honda|CMX 250 Rebel
+Honda|CMX 500 Rebel
+Honda|CR 125
+Honda|CR 250
+Honda|CR 500
+Honda|CRF 1000 Africa Twin
+Honda|CRF 1100 Africa Twin
+Honda|CRF 125
+Honda|CRF 150
+Honda|CRF 250
+Honda|CRF 300
+Honda|CRF 450
+Honda|CRF 50
+Honda|CRF 70
+Honda|CRF 80
+Honda|Forza 125
+Honda|Forza 250
+Honda|Forza 300
+Honda|Forza 350
+Honda|Forza 750
+Honda|FMX 650
+Honda|GL 1000
+Honda|GL 1100
+Honda|GL 1200
+Honda|GL 1500
+Honda|GL 1800 Goldwing
+Honda|Hornet
+Honda|Hornet 600
+Honda|Hornet 750
+Honda|Hornet 900
+Honda|Integra 700
+Honda|Integra 750
+Honda|MSX 125 Grom
+Honda|NC 700
+Honda|NC 750
+Honda|NSR 125
+Honda|NSR 250
+Honda|NSR 50
+Honda|NT 1100
+Honda|NT 650 Deauville
+Honda|NT 700 Deauville
+Honda|NX 250
+Honda|NX 650
+Honda|PCX 125
+Honda|PCX 150
+Honda|Rebel 1100
+Honda|Rebel 250
+Honda|Rebel 300
+Honda|Rebel 500
+Honda|Shadow
+Honda|Shadow 1100
+Honda|Shadow 600
+Honda|Shadow 750
+Honda|SH 125
+Honda|SH 150
+Honda|SH 300
+Honda|SH 350
+Honda|Silver Wing 600
+Honda|ST 1100 Pan European
+Honda|ST 1300 Pan European
+Honda|Transalp 600
+Honda|Transalp 650
+Honda|Transalp 750 (XL750)
+Honda|Valkyrie
+Honda|VF
+Honda|VFR 1200
+Honda|VFR 750
+Honda|VFR 800
+Honda|VFR Crosstourer
+Honda|VFR Crossrunner
+Honda|Vigor
+Honda|Vision
+Honda|VT Shadow
+Honda|VTR
+Honda|VTR 1000
+Honda|VTX 1300
+Honda|VTX 1800
+Honda|X-ADV
+Honda|XL 125
+Honda|XL 250
+Honda|XL 600
+Honda|XL 650
+Honda|XL 700
+Honda|XL 750 Transalp
+Honda|XL Varadero
+Honda|XLR
+Honda|XLV
+Honda|XR 125
+Honda|XR 250
+Honda|XR 400
+Honda|XR 50
+Honda|XR 600
+Honda|XR 650
+Honda|XRV 750 Africa Twin
+Honda|Z50
+Honda|Zoomer
+
+# === HORWIN ===
+HORWIN|CR6
+HORWIN|CR6 Pro
+HORWIN|EK1
+HORWIN|EK1 Light
+HORWIN|EK3
+HORWIN|EK3 Deluxe
+HORWIN|GT SLIDER
+HORWIN|K1
+HORWIN|RANGER
+HORWIN|SK1
+HORWIN|SK3
+
+# === Husqvarna ===
+Husqvarna|Other
+Husqvarna|125 SM
+Husqvarna|125 TC
+Husqvarna|125 TE
+Husqvarna|150 BW
+Husqvarna|250 FC
+Husqvarna|250 FE
+Husqvarna|250 FX
+Husqvarna|250 TC
+Husqvarna|250 TE
+Husqvarna|250 TX
+Husqvarna|300 TE
+Husqvarna|350 FC
+Husqvarna|350 FE
+Husqvarna|350 FX
+Husqvarna|450 FC
+Husqvarna|450 FE
+Husqvarna|450 FX
+Husqvarna|501 FE
+Husqvarna|65 TC
+Husqvarna|85 TC
+Husqvarna|701 Enduro
+Husqvarna|701 Supermoto
+Husqvarna|AE
+Husqvarna|Automatic 430
+Husqvarna|CR
+Husqvarna|Enduro
+Husqvarna|FC 250
+Husqvarna|FC 350
+Husqvarna|FC 450
+Husqvarna|FE 250
+Husqvarna|FE 350
+Husqvarna|FE 450
+Husqvarna|FE 501
+Husqvarna|FS
+Husqvarna|FX
+Husqvarna|Husky Boy
+Husqvarna|Husky Nox
+Husqvarna|Norden 901
+Husqvarna|Nuda
+Husqvarna|SM
+Husqvarna|SM 125
+Husqvarna|SM 510
+Husqvarna|SM 610
+Husqvarna|SM R 449
+Husqvarna|SM R 510
+Husqvarna|SMR
+Husqvarna|Supermoto
+Husqvarna|Svartpilen
+Husqvarna|Svartpilen 125
+Husqvarna|Svartpilen 200
+Husqvarna|Svartpilen 250
+Husqvarna|Svartpilen 401
+Husqvarna|Svartpilen 701
+Husqvarna|Svartpilen 801
+Husqvarna|TC
+Husqvarna|TC 125
+Husqvarna|TC 250
+Husqvarna|TC 449
+Husqvarna|TC 65
+Husqvarna|TC 85
+Husqvarna|TE
+Husqvarna|TE 125
+Husqvarna|TE 250
+Husqvarna|TE 300
+Husqvarna|TE 449
+Husqvarna|TE 511
+Husqvarna|TE 610
+Husqvarna|TE310
+Husqvarna|TR650R
+Husqvarna|TX
+Husqvarna|Vitpilen
+Husqvarna|Vitpilen 125
+Husqvarna|Vitpilen 250
+Husqvarna|Vitpilen 401
+Husqvarna|Vitpilen 701
+Husqvarna|Vitpilen 801
+Husqvarna|WR
+Husqvarna|WRE
+Husqvarna|WRK
+
+# === Hyosung ===
+Hyosung|Other
+Hyosung|Aquila
+Hyosung|Classic
+Hyosung|Comet
+Hyosung|Cruise
+Hyosung|GA
+Hyosung|GF
+Hyosung|GT
+Hyosung|GV
+Hyosung|RX
+Hyosung|SF
+Hyosung|XRX
+
+# === Indian ===
+Indian|Other
+Indian|Challenger
+Indian|Chief
+Indian|Chieftain
+Indian|Dakota
+Indian|FTR
+Indian|FTR 1200
+Indian|FTR 1200 Carbon
+Indian|FTR 1200 Rally
+Indian|FTR 1200 S
+Indian|FTR Sport
+Indian|Pursuit
+Indian|Roadmaster
+Indian|Roadmaster Classic
+Indian|Roadmaster Dark Horse
+Indian|Roadmaster Elite
+Indian|Roadmaster Limited
+Indian|Scout
+Indian|Scout Bobber
+Indian|Scout Bobber Sixty
+Indian|Scout Bobber Twenty
+Indian|Scout Rogue
+Indian|Scout Sixty
+Indian|Springfield
+Indian|Springfield Dark Horse
+Indian|Super Chief
+Indian|Super Chief Dark Horse
+Indian|Super Chief Limited
+Indian|Vintage
+
+# === Italjet ===
+Italjet|Other
+Italjet|Dragster
+Italjet|Formula
+Italjet|Grifon
+Italjet|JetSet
+Italjet|Velocifero
+
+# === Izh ===
+Izh|Other
+Izh|350
+Izh|49-56
+Izh|Jupiter
+Izh|Planeta
+
+# === Jawa ===
+Jawa|Other
+Jawa|125
+Jawa|250
+Jawa|300 CL
+Jawa|330
+Jawa|350
+Jawa|500
+Jawa|593
+Jawa|812
+Jawa|90
+Jawa|Chopper
+Jawa|Dakar
+Jawa|Dandy
+Jawa|Pioner
+Jawa|Robby
+Jawa|T
+
+# === Jianshe Yamaha ===
+Jianshe Yamaha|Other
+Jianshe Yamaha|50PY
+Jianshe Yamaha|90
+Jianshe Yamaha|JS200GY
+
+# === Jinpeng ===
+Jinpeng|A6
+Jinpeng|JP2300
+Jinpeng|King BOX I
+Jinpeng|King BOX II
+Jinpeng|XD
+
+# === Jonway ===
+Jonway|Other
+Jonway|Italia
+Jonway|UFO
+
+# === Junak ===
+Junak|901 Sport
+Junak|M12
+Junak|M16
+
+# === KAYO ===
+KAYO|A150
+KAYO|A150 EFI
+KAYO|A180
+KAYO|A200
+KAYO|A300
+KAYO|A50
+KAYO|AT110
+KAYO|AT125
+KAYO|AT125 EFI
+KAYO|AU110
+KAYO|AU125
+KAYO|AU125 EFI
+KAYO|AU150
+KAYO|AU150 CVT
+KAYO|AU150 EFI
+KAYO|AU180
+KAYO|AU200
+KAYO|AU300
+KAYO|AY70
+KAYO|eA110
+KAYO|eA50
+KAYO|eA70
+KAYO|eKMB
+KAYO|eS125
+KAYO|eS50
+KAYO|eS70
+KAYO|eT110
+KAYO|K2
+KAYO|K2 PRO
+KAYO|K4
+KAYO|K5
+KAYO|K6
+KAYO|K6-R
+KAYO|KMB
+KAYO|KT250
+KAYO|KT50
+KAYO|S110
+KAYO|S150
+KAYO|S200
+KAYO|S70
+KAYO|SX50
+KAYO|T2
+KAYO|T4
+KAYO|T4 300
+KAYO|TD110 EFI
+KAYO|TD125
+KAYO|TD125R
+KAYO|TS70
+KAYO|TS90
+KAYO|TS90 R
+KAYO|TSD110
+KAYO|TT125
+KAYO|TT125 EFI
+KAYO|TT140
+KAYO|TT160
+KAYO|TT190R
+
+# === Kawasaki ===
+Kawasaki|Other
+Kawasaki|Brute Force
+Kawasaki|D-Tracker
+Kawasaki|EL
+Kawasaki|Eliminator
+Kawasaki|EN
+Kawasaki|EN 500
+Kawasaki|ER
+Kawasaki|ER-5
+Kawasaki|ER-6f
+Kawasaki|ER-6n
+Kawasaki|EX
+Kawasaki|GPX
+Kawasaki|GPZ
+Kawasaki|GT
+Kawasaki|GTR
+Kawasaki|H2 SX
+Kawasaki|J
+Kawasaki|KDX
+Kawasaki|KE
+Kawasaki|KEF
+Kawasaki|KFX
+Kawasaki|KH
+Kawasaki|KL
+Kawasaki|KLE
+Kawasaki|KLF
+Kawasaki|KLR
+Kawasaki|KLV
+Kawasaki|KLX
+Kawasaki|KM
+Kawasaki|KMX
+Kawasaki|KVF
+Kawasaki|KX
+Kawasaki|KXF
+Kawasaki|KXT
+Kawasaki|KZ
+Kawasaki|Mule
+Kawasaki|Ninja
+Kawasaki|Ninja 1000SX
+Kawasaki|Ninja 125
+Kawasaki|Ninja 650
+Kawasaki|Ninja H2
+Kawasaki|Prairie
+Kawasaki|Super Sherpa
+Kawasaki|Tengai
+Kawasaki|Teryx
+Kawasaki|Versys
+Kawasaki|VN
+Kawasaki|Voyager
+Kawasaki|Vulcan
+Kawasaki|W
+Kawasaki|Z
+Kawasaki|Zephyr
+Kawasaki|ZG
+Kawasaki|ZL
+Kawasaki|ZR
+Kawasaki|ZRX
+Kawasaki|ZX (Ninja)
+Kawasaki|ZX-R
+Kawasaki|ZZR
+
+# === Keeway ===
+Keeway|Other
+Keeway|Arn
+Keeway|ATV
+Keeway|ATV Dragon
+Keeway|Cityblade
+Keeway|Cooper
+Keeway|Cruiser
+Keeway|E-ZI Mini
+Keeway|Ezi-plus
+Keeway|F-Act
+Keeway|F352
+Keeway|Fact Evo
+Keeway|Flash
+Keeway|Focus
+Keeway|Gallop
+Keeway|Hurricane
+Keeway|Icon
+Keeway|Klight
+Keeway|Landcruiser
+Keeway|Matrix
+Keeway|Mini atv
+Keeway|Outlook
+Keeway|Partner
+
+# === Suzuki ===
+Suzuki|Other
+Suzuki|Address
+Suzuki|AN 125
+Suzuki|AN 250
+Suzuki|AN 400 Burgman
+Suzuki|AN 650 Burgman
+Suzuki|Bandit 1200
+Suzuki|Bandit 250
+Suzuki|Bandit 400
+Suzuki|Bandit 600
+Suzuki|Bandit 650
+Suzuki|Boulevard
+Suzuki|Burgman 125
+Suzuki|Burgman 200
+Suzuki|Burgman 400
+Suzuki|Burgman 650
+Suzuki|DL 1000 V-Strom
+Suzuki|DL 1050 V-Strom
+Suzuki|DL 250 V-Strom
+Suzuki|DL 650 V-Strom
+Suzuki|DR 125
+Suzuki|DR 200
+Suzuki|DR 350
+Suzuki|DR 600
+Suzuki|DR 650
+Suzuki|DR 800
+Suzuki|DR-Z 125
+Suzuki|DR-Z 250
+Suzuki|DR-Z 400
+Suzuki|DR-Z 50
+Suzuki|GN 125
+Suzuki|GN 250
+Suzuki|GS 1000
+Suzuki|GS 125
+Suzuki|GS 500
+Suzuki|GS 550
+Suzuki|GS 750
+Suzuki|GSF 1200
+Suzuki|GSF 1250
+Suzuki|GSF 250
+Suzuki|GSF 400
+Suzuki|GSF 600
+Suzuki|GSF 650
+Suzuki|GSR 600
+Suzuki|GSR 750
+Suzuki|GSX 1100
+Suzuki|GSX 1250
+Suzuki|GSX 1300 R Hayabusa
+Suzuki|GSX 1400
+Suzuki|GSX 250
+Suzuki|GSX 600
+Suzuki|GSX 650
+Suzuki|GSX 750
+Suzuki|GSX 8R
+Suzuki|GSX 8S
+Suzuki|GSX-R 1000
+Suzuki|GSX-R 1100
+Suzuki|GSX-R 125
+Suzuki|GSX-R 250
+Suzuki|GSX-R 400
+Suzuki|GSX-R 600
+Suzuki|GSX-R 750
+Suzuki|GSX-S 1000
+Suzuki|GSX-S 125
+Suzuki|GSX-S 750
+Suzuki|GSX-S 950
+Suzuki|GW 250 Inazuma
+Suzuki|Hayabusa
+Suzuki|Intruder 1400
+Suzuki|Intruder 1500
+Suzuki|Intruder 250
+Suzuki|Intruder 750
+Suzuki|Intruder 800
+Suzuki|Katana
+Suzuki|LS 650 Savage
+Suzuki|M 1500
+Suzuki|M 1800 R
+Suzuki|M 800
+Suzuki|RF 600
+Suzuki|RF 900
+Suzuki|RG 125
+Suzuki|RG 250
+Suzuki|RG 500
+Suzuki|RGV 250
+Suzuki|RM 125
+Suzuki|RM 250
+Suzuki|RM 85
+Suzuki|RMX 250
+Suzuki|RMX 450
+Suzuki|RMZ 250
+Suzuki|RMZ 450
+Suzuki|SFV 650 Gladius
+Suzuki|SV 1000
+Suzuki|SV 250
+Suzuki|SV 400
+Suzuki|SV 650
+Suzuki|TL 1000 R
+Suzuki|TL 1000 S
+Suzuki|UH 125 Burgman
+Suzuki|UH 200 Burgman
+Suzuki|V-Strom 1000
+Suzuki|V-Strom 1050
+Suzuki|V-Strom 250
+Suzuki|V-Strom 650
+Suzuki|V-Strom 800
+Suzuki|VL 1500
+Suzuki|VS 1400
+Suzuki|VS 600
+Suzuki|VS 750
+Suzuki|VS 800
+Suzuki|VZ 1500
+Suzuki|VZ 1600
+Suzuki|VZ 800
+Suzuki|XF 650 Freewind
+
+# === Yamaha ===
+Yamaha|Other
+Yamaha|Aerox
+Yamaha|Bolt
+Yamaha|Booster
+Yamaha|BT
+Yamaha|BWS
+Yamaha|Cygnus
+Yamaha|Drag Star
+Yamaha|DT 125
+Yamaha|DT 50
+Yamaha|FJ 1200
+Yamaha|FJR
+Yamaha|FJR 1300
+Yamaha|FZ
+Yamaha|FZ-1 N
+Yamaha|FZ-6R
+Yamaha|FZ-8
+Yamaha|FZ-S 600
+Yamaha|FZ1
+Yamaha|FZ6
+Yamaha|FZ8
+Yamaha|FZR
+Yamaha|FZR 1000
+Yamaha|FZS
+Yamaha|FZS 1000
+Yamaha|FZS 600
+Yamaha|Grizzly
+Yamaha|JT
+Yamaha|Kodiak
+Yamaha|Majesty
+Yamaha|Midnight Star
+Yamaha|MT-01
+Yamaha|MT-03
+Yamaha|MT-07
+Yamaha|MT-09
+Yamaha|MT-10
+Yamaha|MT-125
+Yamaha|MT-15
+Yamaha|MT-25
+Yamaha|Neos
+Yamaha|Niken
+Yamaha|PW
+Yamaha|R1
+Yamaha|R125
+Yamaha|R3
+Yamaha|R6
+Yamaha|R7
+Yamaha|RD 350
+Yamaha|RD 500
+Yamaha|Raptor
+Yamaha|Royal Star
+Yamaha|SR 250
+Yamaha|SR 400
+Yamaha|SR 500
+Yamaha|SZR
+Yamaha|TDM 850
+Yamaha|TDM 900
+Yamaha|TDR
+Yamaha|TMAX
+Yamaha|TT 600
+Yamaha|TTR
+Yamaha|TW 125
+Yamaha|TW 200
+Yamaha|TZR
+Yamaha|Tenere 700
+Yamaha|Tracer 7
+Yamaha|Tracer 700
+Yamaha|Tracer 9
+Yamaha|Tracer 900
+Yamaha|V-Max
+Yamaha|Virago
+Yamaha|WR 125
+Yamaha|WR 250
+Yamaha|WR 450
+Yamaha|XJ 600
+Yamaha|XJ 650
+Yamaha|XJ 700
+Yamaha|XJ 750
+Yamaha|XJ 900
+Yamaha|XJR 1200
+Yamaha|XJR 1300
+Yamaha|XS 650
+Yamaha|XSR 125
+Yamaha|XSR 700
+Yamaha|XSR 900
+Yamaha|XT 250
+Yamaha|XT 350
+Yamaha|XT 600
+Yamaha|XT 660
+Yamaha|XT 700
+Yamaha|XT 1200
+Yamaha|XV 1100 Virago
+Yamaha|XV 1700
+Yamaha|XV 1900
+Yamaha|XV 250 Virago
+Yamaha|XV 535 Virago
+Yamaha|XV 750 Virago
+Yamaha|XV 920 Virago
+Yamaha|XVS 1100
+Yamaha|XVS 1300
+Yamaha|XVS 650
+Yamaha|YBR 125
+Yamaha|YZ 125
+Yamaha|YZ 250
+Yamaha|YZ 250F
+Yamaha|YZ 450F
+Yamaha|YZ 50
+Yamaha|YZ 65
+Yamaha|YZ 85
+Yamaha|YZF
+Yamaha|YZF-R1
+Yamaha|YZF-R125
+Yamaha|YZF-R3
+Yamaha|YZF-R6
+Yamaha|YZF-R7
+Yamaha|Zuma
+
+# === Harley-Davidson ===
+Harley-Davidson|Other
+Harley-Davidson|Breakout
+Harley-Davidson|CVO
+Harley-Davidson|CVO Limited
+Harley-Davidson|CVO Pro Street Breakout
+Harley-Davidson|CVO Road Glide
+Harley-Davidson|CVO Road Glide Limited
+Harley-Davidson|CVO Street Glide
+Harley-Davidson|Custom
+Harley-Davidson|Deluxe
+Harley-Davidson|Dyna
+Harley-Davidson|Dyna Fat Bob
+Harley-Davidson|Dyna Glide
+Harley-Davidson|Dyna Low Rider
+Harley-Davidson|Dyna Street Bob
+Harley-Davidson|Dyna Super Glide
+Harley-Davidson|Dyna Switchback
+Harley-Davidson|Dyna Wide Glide
+Harley-Davidson|Electra Glide
+Harley-Davidson|Electra Glide Classic
+Harley-Davidson|Electra Glide Standard
+Harley-Davidson|Electra Glide Ultra Classic
+Harley-Davidson|Electra Glide Ultra Limited
+Harley-Davidson|Fat Bob
+Harley-Davidson|Fat Boy
+Harley-Davidson|FLD Switchback
+Harley-Davidson|FLHR Road King
+Harley-Davidson|FLHRC Road King Classic
+Harley-Davidson|FLHX Street Glide
+Harley-Davidson|FLHXS Street Glide Special
+Harley-Davidson|FLHXSE CVO Street Glide
+Harley-Davidson|Forty-Eight
+Harley-Davidson|FXDR
+Harley-Davidson|Heritage Softail Classic
+Harley-Davidson|Iron 1200
+Harley-Davidson|Iron 883
+Harley-Davidson|Livewire
+Harley-Davidson|Low Rider
+Harley-Davidson|Low Rider S
+Harley-Davidson|Nightster
+Harley-Davidson|Nightster Special
+Harley-Davidson|Nightster 975
+Harley-Davidson|Pan America
+Harley-Davidson|Pan America 1250
+Harley-Davidson|Pan America 1250 Special
+Harley-Davidson|Road Glide
+Harley-Davidson|Road Glide Custom
+Harley-Davidson|Road Glide Limited
+Harley-Davidson|Road Glide Special
+Harley-Davidson|Road Glide ST
+Harley-Davidson|Road Glide Ultra
+Harley-Davidson|Road King
+Harley-Davidson|Road King Classic
+Harley-Davidson|Road King Special
+Harley-Davidson|Roadster
+Harley-Davidson|Seventy-Two
+Harley-Davidson|Softail
+Harley-Davidson|Softail Custom
+Harley-Davidson|Softail Deluxe
+Harley-Davidson|Softail Slim
+Harley-Davidson|Softail Standard
+Harley-Davidson|Sport Glide
+Harley-Davidson|Sportster
+Harley-Davidson|Sportster S
+Harley-Davidson|Sportster XL
+Harley-Davidson|Street 500
+Harley-Davidson|Street 750
+Harley-Davidson|Street Bob
+Harley-Davidson|Street Glide
+Harley-Davidson|Street Glide Special
+Harley-Davidson|Street Glide ST
+Harley-Davidson|Street Rod
+Harley-Davidson|SuperLow
+Harley-Davidson|Superlow 1200T
+Harley-Davidson|Tour Glide
+Harley-Davidson|Tri Glide Ultra
+Harley-Davidson|Ultra Classic
+Harley-Davidson|Ultra Limited
+Harley-Davidson|V-Rod
+Harley-Davidson|V-Rod Muscle
+Harley-Davidson|VRSCD Night Rod
+Harley-Davidson|VRSCDX Night Rod Special
+Harley-Davidson|VRSCF V-Rod Muscle
+Harley-Davidson|VRSCR Street Rod
+Harley-Davidson|Wide Glide
+Harley-Davidson|XG 500
+Harley-Davidson|XG 750
+Harley-Davidson|XL 1200
+Harley-Davidson|XL 883
+Harley-Davidson|XR 1200
+
+# === Triumph ===
+Triumph|Other
+Triumph|America
+Triumph|Bonneville
+Triumph|Bonneville Bobber
+Triumph|Bonneville Speedmaster
+Triumph|Bonneville T100
+Triumph|Bonneville T120
+Triumph|Daytona 600
+Triumph|Daytona 650
+Triumph|Daytona 660
+Triumph|Daytona 675
+Triumph|Daytona 765
+Triumph|Daytona 955
+Triumph|Daytona Moto2 765
+Triumph|Legend
+Triumph|Rocket 3
+Triumph|Rocket III
+Triumph|Scrambler 1200
+Triumph|Scrambler 400 X
+Triumph|Scrambler 900
+Triumph|Speed 400
+Triumph|Speed Four
+Triumph|Speed Triple
+Triumph|Speed Triple 1050
+Triumph|Speed Triple 1200 RR
+Triumph|Speed Triple 1200 RS
+Triumph|Speed Twin
+Triumph|Speed Twin 900
+Triumph|Speedmaster
+Triumph|Sprint
+Triumph|Sprint GT
+Triumph|Sprint RS
+Triumph|Sprint ST
+Triumph|Street Cup
+Triumph|Street Scrambler
+Triumph|Street Triple
+Triumph|Street Triple 660
+Triumph|Street Triple 675
+Triumph|Street Triple 765
+Triumph|Street Triple R
+Triumph|Street Triple RS
+Triumph|Street Twin
+Triumph|Thruxton
+Triumph|Thruxton 1200
+Triumph|Thruxton 900
+Triumph|Thruxton R
+Triumph|Thruxton RS
+Triumph|Thunderbird
+Triumph|Thunderbird 1600
+Triumph|Thunderbird 1700
+Triumph|Thunderbird Storm
+Triumph|Tiger
+Triumph|Tiger 1050
+Triumph|Tiger 1200
+Triumph|Tiger 660 Sport
+Triumph|Tiger 800
+Triumph|Tiger 850 Sport
+Triumph|Tiger 900
+Triumph|Tiger Explorer
+Triumph|Tiger Sport
+Triumph|Tiger Sport 660
+Triumph|Tiger Sport 800
+Triumph|Trident 660
+Triumph|Trophy
+Triumph|Trophy 1200
+Triumph|TT 600
+Triumph|Tuxedo
+
+# === Royal Enfield ===
+Royal Enfield|Other
+Royal Enfield|Bullet 350
+Royal Enfield|Bullet 500
+Royal Enfield|Classic 350
+Royal Enfield|Classic 500
+Royal Enfield|Continental GT 535
+Royal Enfield|Continental GT 650
+Royal Enfield|Hunter 350
+Royal Enfield|Himalayan 411
+Royal Enfield|Himalayan 450
+Royal Enfield|Interceptor 650
+Royal Enfield|Meteor 350
+Royal Enfield|Scram 411
+Royal Enfield|Shotgun 650
+Royal Enfield|Super Meteor 650
+Royal Enfield|Thunderbird 350
+Royal Enfield|Thunderbird 500
+Royal Enfield|Thunderbird X
+
+# === Vespa ===
+Vespa|Other
+Vespa|946
+Vespa|ET2
+Vespa|ET4
+Vespa|GTS 125
+Vespa|GTS 150
+Vespa|GTS 250
+Vespa|GTS 300
+Vespa|GTS Super
+Vespa|GTV 125
+Vespa|GTV 250
+Vespa|GTV 300
+Vespa|LX 125
+Vespa|LX 150
+Vespa|LX 50
+Vespa|LXV 125
+Vespa|PK 50
+Vespa|PK 80
+Vespa|Primavera
+Vespa|Primavera 125
+Vespa|Primavera 150
+Vespa|Primavera 50
+Vespa|PX 125
+Vespa|PX 150
+Vespa|PX 200
+Vespa|S 125
+Vespa|S 150
+Vespa|S 50
+Vespa|Sprint 125
+Vespa|Sprint 150
+Vespa|Sprint 50

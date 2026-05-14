@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ profile.dealer_company_name|default:dealer_user.username }} - SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- Banner + Logo header -->
+    <div class="relative rounded-2xl overflow-hidden mb-6">
+        {% if profile.banner_image %}
+            <div class="h-48 md:h-56 bg-cover bg-center" style="background-image: url('{{ profile.banner_image.url }}');"></div>
+        {% else %}
+            <div class="h-48 md:h-56 bg-gradient-to-r from-red-500 to-orange-500"></div>
+        {% endif %}
+
+        <div class="absolute bottom-4 left-4 md:bottom-6 md:left-6 flex items-end gap-4">
+            <div class="w-20 h-20 md:w-28 md:h-28 bg-white rounded-xl border-4 border-white shadow-lg flex items-center justify-center overflow-hidden">
+                {% if profile.dealer_logo %}
+                    <img src="{{ profile.dealer_logo.url }}" alt="Logo" class="w-full h-full object-contain">
+                {% else %}
+                    <div class="w-full h-full bg-red-600 text-white flex items-center justify-center text-3xl font-bold">
+                        {{ profile.dealer_company_name|default:dealer_user.username|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="text-white pb-2">
+                <h1 class="text-2xl md:text-3xl font-bold drop-shadow">
+                    {{ profile.dealer_company_name|default:dealer_user.username }}
+                </h1>
+                <div class="flex items-center gap-2 text-sm mt-1">
+                    <span class="inline-flex items-center gap-1 bg-green-500 px-2 py-0.5 rounded-full text-xs font-semibold">
+                        <i class="fas fa-check-circle"></i> {% trans "Verified Dealer" %}
+                    </span>
+                    <span class="drop-shadow">{{ total_count }} {% trans "listings" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP FILTER BAR -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+        <form method="get" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+            {% if selected_category %}
+                <input type="hidden" name="category" value="{{ selected_category }}">
+            {% endif %}
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Brand" %}</label>
+                <select name="brand" onchange="this.form.submit()" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    <option value="">{% trans "All" %}</option>
+                    {% for b in available_brands %}
+                        <option value="{{ b.id }}" {% if brand_filter == b.id|stringformat:"s" %}selected{% endif %}>{{ b.name }} ({{ b.count }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %}</label>
+                <select name="model" {% if not brand_filter %}disabled{% endif %} class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 disabled:bg-gray-50">
+                    <option value="">{% trans "All" %}</option>
+                    {% for m in available_models %}
+                        <option value="{{ m.id }}" {% if model_filter == m.id|stringformat:"s" %}selected{% endif %}>{{ m.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Year from" %}</label>
+                <select name="year_min" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    <option value="">—</option>
+                    {% for y in years %}
+                        <option value="{{ y }}" {% if year_min == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Year to" %}</label>
+                <select name="year_max" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    <option value="">—</option>
+                    {% for y in years %}
+                        <option value="{{ y }}" {% if year_max == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price from" %}</label>
+                <input type="number" name="price_min" value="{{ price_min }}" placeholder="$ min" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price to" %}</label>
+                <input type="number" name="price_max" value="{{ price_max }}" placeholder="$ max" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel" %}</label>
+                <select name="fuel_type" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    <option value="">{% trans "All" %}</option>
+                    {% for ft in available_fuel_types %}
+                        <option value="{{ ft.id }}" {% if fuel_filter == ft.id|stringformat:"s" %}selected{% endif %}>{{ ft.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Transmission" %}</label>
+                <select name="transmission" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    <option value="">{% trans "All" %}</option>
+                    {% for t in available_transmissions %}
+                        <option value="{{ t.id }}" {% if transmission_filter == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-span-2 md:col-span-4 lg:col-span-8 flex items-end gap-3 pt-2 border-t border-gray-100 mt-2">
+                <div class="flex-1 max-w-xs">
+                    <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Body type" %}</label>
+                    <select name="body_type" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                        <option value="">{% trans "All" %}</option>
+                        {% for value, label in body_type_choices %}
+                            <option value="{{ value }}" {% if body_type_filter == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-semibold">
+                    <i class="fas fa-search mr-1"></i> {% trans "Search" %}
+                </button>
+                <a href="?{% if selected_category %}category={{ selected_category }}{% endif %}" class="px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg text-sm">
+                    {% trans "Clear" %}
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- LEFT SIDEBAR — Kategorijos su counts -->
+        <aside class="lg:col-span-3">
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sticky top-4">
+                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
+                    {% trans "Categories" %}
+                </h3>
+                <nav class="space-y-1">
+                    <a href="?" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm transition
+                       {% if not selected_category %}bg-red-50 text-red-700 font-semibold{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                        <span class="flex items-center gap-2">
+                            <span>📋</span>
+                            <span>{% trans "All listings" %}</span>
+                        </span>
+                        <span class="text-xs {% if not selected_category %}text-red-600{% else %}text-gray-500{% endif %}">
+                            ({{ total_count }})
+                        </span>
+                    </a>
+
+                    {% for cat in sidebar_categories %}
+                    <a href="?category={{ cat.slug }}" class="flex items-center justify-between px-3 py-2 rounded-lg text-sm transition
+                       {% if selected_category == cat.slug %}bg-red-50 text-red-700 font-semibold{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                        <span class="flex items-center gap-2">
+                            <span>{{ cat.icon }}</span>
+                            <span>{{ cat.name }}</span>
+                        </span>
+                        <span class="text-xs {% if selected_category == cat.slug %}text-red-600{% else %}text-gray-500{% endif %}">
+                            ({{ cat.count }})
+                        </span>
+                    </a>
+                    {% endfor %}
+                </nav>
+            </div>
+        </aside>
+
+        <!-- CENTER — Listings -->
+        <main class="lg:col-span-6">
+
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-sm text-gray-700">
+                    {% trans "Showing" %} <strong>{{ listings_count }}</strong> {% trans "listings" %}
+                </div>
+                <form method="get" class="flex items-center gap-2">
+                    {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
+                    {% if brand_filter %}<input type="hidden" name="brand" value="{{ brand_filter }}">{% endif %}
+                    {% if model_filter %}<input type="hidden" name="model" value="{{ model_filter }}">{% endif %}
+                    {% if year_min %}<input type="hidden" name="year_min" value="{{ year_min }}">{% endif %}
+                    {% if year_max %}<input type="hidden" name="year_max" value="{{ year_max }}">{% endif %}
+                    {% if price_min %}<input type="hidden" name="price_min" value="{{ price_min }}">{% endif %}
+                    {% if price_max %}<input type="hidden" name="price_max" value="{{ price_max }}">{% endif %}
+                    {% if fuel_filter %}<input type="hidden" name="fuel_type" value="{{ fuel_filter }}">{% endif %}
+                    {% if transmission_filter %}<input type="hidden" name="transmission" value="{{ transmission_filter }}">{% endif %}
+                    {% if body_type_filter %}<input type="hidden" name="body_type" value="{{ body_type_filter }}">{% endif %}
+                    <label class="text-xs text-gray-500">{% trans "Sort" %}:</label>
+                    <select name="sort" onchange="this.form.submit()" class="text-sm border border-gray-300 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-red-500">
+                        <option value="-created_at" {% if sort_param == "-created_at" %}selected{% endif %}>{% trans "Newest first" %}</option>
+                        <option value="created_at" {% if sort_param == "created_at" %}selected{% endif %}>{% trans "Oldest first" %}</option>
+                        <option value="price" {% if sort_param == "price" %}selected{% endif %}>{% trans "Price: low to high" %}</option>
+                        <option value="-price" {% if sort_param == "-price" %}selected{% endif %}>{% trans "Price: high to low" %}</option>
+                        <option value="-views_count" {% if sort_param == "-views_count" %}selected{% endif %}>{% trans "Most viewed" %}</option>
+                    </select>
+                </form>
+            </div>
+
+            {% if listings %}
+            <div class="space-y-2">
+                {% for listing in listings %}
+                <a href="{% url 'listing_detail' pk=listing.pk %}" class="block bg-white rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-sm transition">
+                    <div class="flex items-stretch gap-3 p-3">
+                        <div class="flex-shrink-0 w-32 h-24 md:w-40 md:h-28 rounded-lg overflow-hidden bg-gray-100">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-car text-2xl"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex-1 min-w-0 flex flex-col justify-between">
+                            <div>
+                                <div class="font-semibold text-gray-900 line-clamp-1">{{ listing.title }}</div>
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-600 mt-1">
+                                    {% if listing.year %}<span>{{ listing.year }}</span>{% endif %}
+                                    {% if listing.mileage %}<span class="text-gray-400">•</span><span>{{ listing.mileage|floatformat:0 }} mi</span>{% endif %}
+                                    {% if listing.fuel_type %}<span class="text-gray-400">•</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                    {% if listing.transmission %}<span class="text-gray-400">•</span><span>{{ listing.transmission.name }}</span>{% endif %}
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-map-marker-alt mr-1"></i>{{ listing.city|default:"—" }}
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-1">
+                                {{ listing.created_at|date:"Y-m-d" }}
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col items-end justify-between">
+                            <div class="text-xl font-bold text-red-600">${{ listing.price|floatformat:0 }}</div>
+                            {% if listing.views_count %}
+                            <div class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>{{ listing.views_count }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-white rounded-xl border border-gray-200 p-8 text-center text-gray-500">
+                {% trans "No listings match your filters." %}
+            </div>
+            {% endif %}
+
+        </main>
+
+        <!-- RIGHT SIDEBAR — Contact + Working hours -->
+        <aside class="lg:col-span-3">
+            <div class="space-y-4 sticky top-4">
+
+                <!-- Contact card -->
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <h3 class="font-semibold text-gray-900 mb-3">{% trans "Contact" %}</h3>
+                    <div class="space-y-2 text-sm">
+                        {% if profile.dealer_phone %}
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <i class="fas fa-phone text-gray-400 w-4"></i>
+                            <a href="tel:{{ profile.dealer_phone }}" class="hover:text-red-600">{{ profile.dealer_phone }}</a>
+                        </div>
+                        {% endif %}
+                        {% if profile.dealer_address %}
+                        <div class="flex items-start gap-2 text-gray-700">
+                            <i class="fas fa-map-marker-alt text-gray-400 w-4 mt-1"></i>
+                            <span>{{ profile.dealer_address }}</span>
+                        </div>
+                        {% endif %}
+                        {% if profile.website %}
+                        <div class="flex items-center gap-2 text-gray-700">
+                            <i class="fas fa-globe text-gray-400 w-4"></i>
+                            <a href="{% if profile.website|slice:':4' != 'http' %}https://{% endif %}{{ profile.website }}" target="_blank" rel="noopener" class="hover:text-red-600 truncate">{{ profile.website|cut:"https://"|cut:"http://"|cut:"www." }}</a>
+                        </div>
+                        {% endif %}
+                        {% if not profile.dealer_phone and not profile.dealer_address and not profile.website %}
+                        <div class="text-gray-500 italic">{% trans "No contact info provided" %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Working hours (struktūruotos) -->
+                {% if has_any_hours %}
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <div class="flex items-center justify-center gap-2 mb-4 pb-3 border-b border-gray-200">
+                        <i class="far fa-clock text-gray-400"></i>
+                        <h3 class="font-bold text-gray-900 uppercase tracking-widest text-sm">
+                            {% trans "Open Hours" %}
+                        </h3>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        {% for day in working_hours_display %}
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-gray-700 text-xs uppercase tracking-wide">{{ day.label }}</span>
+                            {% if day.closed %}
+                                <span class="text-red-500 font-semibold text-xs uppercase tracking-wider">{% trans "Closed" %}</span>
+                            {% elif day.open and day.close %}
+                                <span class="text-gray-900 font-medium tabular-nums">{{ day.open|slice:":5" }} – {{ day.close|slice:":5" }}</span>
+                            {% else %}
+                                <span class="text-gray-300">—</span>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- About -->
+                {% if profile.dealer_description %}
+                <div class="bg-white rounded-xl border border-gray-200 p-5">
+                    <h3 class="font-semibold text-gray-900 mb-3">{% trans "About" %}</h3>
+                    <div class="text-sm text-gray-700 whitespace-pre-line">{{ profile.dealer_description }}</div>
+                </div>
+                {% endif %}
+
+            </div>
+        </aside>
+
+    </div>
+
+</div>
+{% endblock %}

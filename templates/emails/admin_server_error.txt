@@ -1,0 +1,11 @@
+Server error occurred:
+
+   Error: {{ error_type }}
+   Time: {{ error_time }}
+   URL: {{ request_url }}
+   User: {{ user_email|default:"anonymous" }}
+
+Stack trace:
+{{ stack_trace }}
+
+Check logs for details.

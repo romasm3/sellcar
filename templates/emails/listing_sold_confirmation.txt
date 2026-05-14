@@ -1,0 +1,31 @@
+Hi {{ user_name|default:"there" }},
+
+Congratulations! You marked as SOLD:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+   {% if days_active %}Sold in {{ days_active }} day{{ days_active|pluralize }}{% endif %}
+
+Well done!
+
+{% if display_sold %}Your listing will stay visible with a SOLD badge for {{ sold_display_days|default:"3" }} days, then it will be automatically removed.{% else %}Your listing has been removed from public view.{% endif %}
+
+What's next?
+
+  - Planning to sell another vehicle?
+    {{ site_url }}/create/
+
+  - View all your sales history:
+    {{ site_url }}/my-listings/?status=sold
+
+We'd love your feedback - reply to this email to tell us how the experience was.
+
+Thanks!
+
+- Thank you
+
+---
+
+You received this email because you marked a listing as SOLD.
+To change your notification settings:
+{{ site_url }}/settings/

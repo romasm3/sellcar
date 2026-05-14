@@ -1,0 +1,15 @@
+A listing was reported:
+
+   Listing: {{ listing_title }}
+   ID: #{{ listing_id }}
+   URL: {{ listing_url }}
+   Seller: {{ seller_email }}
+
+Report details:
+   Reason: {{ report_reason }}
+   Comment: {{ report_comment|default:"(no comment)" }}
+   Reporter: {{ reporter_email|default:"Anonymous" }}
+   Time: {{ report_time }}
+
+Admin link:
+{{ admin_url }}

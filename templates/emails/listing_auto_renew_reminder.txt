@@ -1,0 +1,18 @@
+Hi {{ user_name|default:"there" }},
+
+Your listing has been active for a while now:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+   {{ views_count }} views, {{ saves_count|default:"0" }} save{{ saves_count|pluralize }}
+
+Want more visibility? Hit "Renew" to jump back to the top of the list:
+{{ my_listings_url }}
+
+If you've already sold it, you can mark it as SOLD here too:
+{{ my_listings_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
-from .models import Profile  # <-- PAKEISTA iš UserProfile į Profile
+from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -9,7 +9,21 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['email', 'password1', 'password2']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already registered.")
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = self.cleaned_data['email']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -17,17 +31,30 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['email', 'first_name', 'last_name']
 
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = Profile  # <-- PAKEISTA iš UserProfile į Profile
-        fields = ['bio', 'location', 'phone_number', 'profile_picture']
+        model = Profile
+        fields = [
+            'bio',
+            'phone_number',
+            'phone_number_secondary',
+            'street',
+            'house_number',
+            'city',
+            'country',
+            'profile_picture',
+        ]
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself...'}),
-            'location': forms.TextInput(attrs={'placeholder': 'City, Country'}),
             'phone_number': forms.TextInput(attrs={'placeholder': '+370 600 00000'}),
+            'phone_number_secondary': forms.TextInput(attrs={'placeholder': '+370 600 00000'}),
+            'street': forms.TextInput(attrs={'placeholder': 'Street name'}),
+            'house_number': forms.TextInput(attrs={'placeholder': 'House number'}),
+            'city': forms.TextInput(attrs={'placeholder': 'City'}),
+            'country': forms.TextInput(attrs={'placeholder': 'Country'}),
         }
 
 

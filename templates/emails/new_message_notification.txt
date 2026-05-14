@@ -1,0 +1,19 @@
+Hi,
+
+You received a new message from {{ sender_name }}{% if listing_title %} about your listing "{{ listing_title }}"{% endif %}:
+
+---
+{{ message_content }}
+---
+
+Reply here:
+{{ conversation_url }}
+
+{% if listing_url %}View the listing:
+{{ listing_url }}
+{% endif %}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

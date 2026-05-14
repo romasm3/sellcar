@@ -1,0 +1,22 @@
+Hi {{ user_name|default:"there" }},
+
+We noticed your new listing has only {{ photo_count }} photo{{ photo_count|pluralize }}:
+
+   {{ listing_title }}
+
+Listings with 5-8 good photos sell up to 3x faster!
+
+Quick photo tips:
+  - Take photos in daylight (not at night)
+  - Clean the car first
+  - Show: front, back, both sides, interior, dashboard, engine
+  - Include any damage or wear honestly
+  - Avoid blurry or dark images
+
+Add more photos:
+{{ photo_edit_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

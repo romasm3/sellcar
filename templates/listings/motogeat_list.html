@@ -1,0 +1,526 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Browse Moto Gear" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.cat-modal-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; }
+.cat-modal-box { background:#fff; border-radius:1rem; box-shadow:0 8px 40px rgba(0,0,0,0.18); width:100%; max-width:720px; max-height:80vh; overflow:hidden; display:flex; flex-direction:column; }
+.cat-modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid #f3f4f6; flex-shrink:0; }
+.cat-modal-body { display:flex; flex:1; overflow:hidden; }
+.cat-modal-left { width:280px; flex-shrink:0; overflow-y:auto; border-right:1px solid #f3f4f6; }
+.cat-modal-right { flex:1; overflow-y:auto; background:#fafafa; }
+.cat-modal-right-empty { display:flex; align-items:center; justify-content:center; height:100%; color:#d1d5db; font-size:0.9rem; }
+.cat-left-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; font-size:0.9rem; color:#374151; border-bottom:1px solid #f9fafb; transition:background 0.1s; position:relative; }
+.cat-left-item:hover, .cat-left-item.active { background:#f3f4f6; color:#111827; }
+.cat-left-item.active::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:#374151; border-radius:2px 0 0 2px; }
+.cat-left-item .cat-arrow { margin-left:auto; color:#d1d5db; font-size:0.7rem; }
+.cat-left-item:hover .cat-arrow, .cat-left-item.active .cat-arrow { color:#374151; }
+.cat-modal-icon { width:20px; height:20px; flex-shrink:0; color:#9ca3af; }
+.cat-left-item:hover .cat-modal-icon, .cat-left-item.active .cat-modal-icon { color:#374151; }
+.cat-right-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:0.88rem; color:#374151; border-bottom:1px solid #f0f0f0; transition:background 0.1s; }
+.cat-right-item:hover { background:#f3f4f6; color:#111827; }
+.cat-right-title { padding:12px 20px 8px; font-size:0.75rem; font-weight:600; color:#9ca3af; text-transform:uppercase; letter-spacing:0.05em; }
+.cat-right-icon { width:18px; height:18px; flex-shrink:0; color:#9ca3af; }
+.cat-right-item:hover .cat-right-icon { color:#374151; }
+
+.custom-trigger { width:100%; padding:0.625rem 0.75rem; background:#f9fafb; border:1px solid #e5e7eb; border-radius:0.5rem; font-size:0.875rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; user-select:none; }
+.custom-trigger:hover { border-color:#d1d5db; }
+
+[x-cloak] { display: none !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen">
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="cat-modal-overlay hidden">
+        <div class="cat-modal-box">
+            <div class="cat-modal-header">
+                <h3 class="font-bold text-gray-900 text-lg">{% trans "Select Category" %}</h3>
+                <button onclick="closeCategoryModal()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cat-modal-body">
+                <div class="cat-modal-left" id="catLeftList">
+                    <div class="cat-left-item" data-slug="cars" data-label="{% trans 'Cars' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25"/></svg><span>{% trans "Cars" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="vans" data-label="{% trans 'Minibuses, Buses & Campers' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h13.5v7.5H3V7.5z"/></svg><span>{% trans "Minibuses, Buses & Campers" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item active" data-slug="motorcycles" data-label="{% trans 'Motorcycles & Moto Gear' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/></svg><span>{% trans "Motorcycles & Moto Gear" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="trucks" data-label="{% trans 'Trucks & Commercial' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h13.5v7.5H3V7.5z"/></svg><span>{% trans "Trucks & Commercial" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="parts" data-label="{% trans 'Parts' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/></svg><span>{% trans "Parts" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="boats" data-label="{% trans 'Boats & Water Transport' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 17l6-12 6 12"/></svg><span>{% trans "Boats & Water Transport" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="trailers" data-label="{% trans 'Trailers & Semi-trailers' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="1" y="8" width="15" height="8" rx="1"/></svg><span>{% trans "Trailers & Semi-trailers" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="tires" data-label="{% trans 'Tyres & Wheels' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg><span>{% trans "Tyres & Wheels" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="construction" data-label="{% trans 'Construction & Warehouse Equipment' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5"/></svg><span>{% trans "Construction & Warehouse Equipment" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="agriculture" data-label="{% trans 'Agricultural & Forestry' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="17" r="3"/></svg><span>{% trans "Agricultural & Forestry" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="bicycles" data-label="{% trans 'Bicycles & Scooters' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/></svg><span>{% trans "Bicycles & Scooters" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="services" data-label="{% trans 'Services' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21"/></svg><span>{% trans "Services" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="rental" data-label="{% trans 'Car Rental' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3"/></svg><span>{% trans "Car Rental" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="planes" data-label="{% trans 'Planes & Aircraft' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125"/></svg><span>{% trans "Planes & Aircraft" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="planes-parts" data-label="{% trans 'Aircraft Parts' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21"/></svg><span>{% trans "Aircraft Parts" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                </div>
+                <div class="cat-modal-right" id="catRightPanel">
+                    <div class="cat-modal-right-empty" id="catRightEmpty"><span>{% trans "Select a category" %}</span></div>
+                    <div id="catRightContent" class="hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not request.GET.sidebar %}
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TOP BAR LAYOUT (7 fields)                -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-6">
+            <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
+            <form method="get" action="/browse/" id="topFilterForm">
+                <input type="hidden" name="sidebar" value="1">
+                <input type="hidden" name="category" value="moto-gear">
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Category" %}</label>
+                        <div class="custom-trigger" onclick="openCategoryModal()">
+                            <span>{% trans "Moto Gear" %}</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Type" %}</label>
+                        <select name="subcategory" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All" %}</option>
+                            {% for sub in gear_subcategories %}
+                            <option value="{{ sub.id }}" {% if sub.id|stringformat:"s" in selected_subcategories %}selected{% endif %}>{{ sub.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Price Range" %}</label>
+                        <div class="flex gap-2">
+                            <input type="number" name="price_min" placeholder="{% trans 'From' %}" value="{{ request.GET.price_min }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <input type="number" name="price_max" placeholder="{% trans 'To' %}" value="{{ request.GET.price_max }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Gender" %}</label>
+                        <select name="gear_gender" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All" %}</option>
+                            {% for value, label in gear_gender_choices %}
+                            <option value="{{ value }}" {% if value in selected_genders %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Material" %}</label>
+                        <select name="gear_material" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All" %}</option>
+                            {% for value, label in gear_material_choices %}
+                            <option value="{{ value }}" {% if value in selected_materials %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "State" %}</label>
+                        <select name="state_filter" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All US states" %}</option>
+                            {% for code, name in us_states %}
+                            <option value="{{ code }}" {% if selected_state == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Text Search" %}</label>
+                        <input type="text" name="search" placeholder="{% trans 'Brand, model, keyword...' %}" value="{{ request.GET.search }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-500/30">
+                        <i class="fas fa-search"></i> {% trans "Apply Filters" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if listings %}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            {% for listing in listings %}
+            <a href="{% url 'listing_detail' listing.pk %}" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow block">
+                <div class="aspect-square bg-gray-100 relative overflow-hidden">
+                    {% if listing.images.first %}
+                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover {% if listing.status == 'sold' %}opacity-50 grayscale{% endif %}">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-300">
+                        <i class="fas fa-image text-4xl"></i>
+                    </div>
+                    {% endif %}
+                    {% if listing.id in new_listing_ids %}
+                    <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "NEW" %}</span>
+                    {% endif %}
+                    {% if listing.status == 'sold' %}
+                    <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "SOLD" %}</span>
+                    {% endif %}
+                    {% if listing.id in saved_ids %}
+                    <span class="absolute bottom-2 right-2 bg-white/90 text-red-500 w-7 h-7 rounded-full flex items-center justify-center shadow">
+                        <i class="fas fa-heart text-sm"></i>
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="p-3">
+                    <h3 class="font-semibold text-gray-900 text-sm truncate">{{ listing.title|default:_("Untitled") }}</h3>
+                    <p class="text-xs text-gray-500 mt-1">
+                        {{ listing.subcategory.name|default:"-" }}
+                        {% if listing.gear_size %}• {{ listing.get_gear_size_display }}{% endif %}
+                    </p>
+                    <p class="text-lg font-bold text-gray-900 mt-2">
+                        {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                    </p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+            <i class="fas fa-search text-4xl text-gray-300 mb-4 block"></i>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No moto gear listings found" %}</h3>
+        </div>
+        {% endif %}
+    </div>
+
+    {% else %}
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SIDEBAR LAYOUT                           -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        {# ─── Header ─── #}
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">{% trans "Moto Gear & Accessories" %}</h1>
+                <p class="text-sm text-gray-600 mt-1">{% blocktrans with count=total_count %}Found {{ count }} listings{% endblocktrans %}</p>
+            </div>
+            <a href="{% url 'motogear_listing_create' %}?new=1"
+               class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
+                <i class="fas fa-plus"></i> {% trans "Sell moto gear" %}
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            {# ═══════════════════════════════════════════════════════ #}
+            {#  SIDEBAR — FILTERS                                      #}
+            {# ═══════════════════════════════════════════════════════ #}
+            <aside class="lg:col-span-1 space-y-4">
+                <form method="GET" id="filterForm" class="space-y-4">
+                    <input type="hidden" name="sidebar" value="1">
+                    <input type="hidden" name="category" value="moto-gear">
+
+                    {# Search #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">{% trans "Search" %}</label>
+                        <input type="text" name="search" value="{{ search_query|default:'' }}"
+                               placeholder="{% trans 'Brand, model, keyword...' %}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                    </div>
+
+                    {# Category checkboxes #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Category" %}</h3>
+                        <div class="space-y-2 max-h-60 overflow-y-auto">
+                            {% for sub in gear_subcategories %}
+                            <label class="flex items-center justify-between text-sm cursor-pointer">
+                                <span class="flex items-center gap-2">
+                                    <input type="checkbox" name="subcategory" value="{{ sub.id }}"
+                                           {% if sub.id|stringformat:"s" in selected_subcategories %}checked{% endif %}
+                                           class="w-4 h-4 text-primary rounded">
+                                    <span class="text-gray-700">{{ sub.name }}</span>
+                                </span>
+                                <span class="text-gray-400 text-xs">{{ sub.listings_count|default:0 }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Manufacturer dropdown #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Manufacturer" %}</h3>
+                        <select name="gear_brand" multiple size="6"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            {% for brand in gear_brands %}
+                            <option value="{{ brand.id }}"
+                                    {% if brand.id|stringformat:"s" in selected_brands %}selected{% endif %}>
+                                {{ brand.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-400 mt-1">{% trans "Hold Ctrl/Cmd for multiple" %}</p>
+                    </div>
+
+                    {# Size #}
+                    {% if gear_size_choices %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Size" %}</h3>
+                        <div class="grid grid-cols-3 gap-1">
+                            {% for value, label in gear_size_choices %}
+                            <label class="flex items-center justify-center text-xs cursor-pointer border border-gray-200 rounded px-2 py-1 hover:border-primary transition-colors {% if value in selected_sizes %}bg-primary text-white border-primary{% endif %}">
+                                <input type="checkbox" name="gear_size" value="{{ value }}"
+                                       {% if value in selected_sizes %}checked{% endif %}
+                                       class="hidden">
+                                {{ label }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# Material #}
+                    {% if gear_material_choices %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Material" %}</h3>
+                        <div class="space-y-1.5">
+                            {% for value, label in gear_material_choices %}
+                            <label class="flex items-center text-sm cursor-pointer">
+                                <input type="checkbox" name="gear_material" value="{{ value }}"
+                                       {% if value in selected_materials %}checked{% endif %}
+                                       class="w-4 h-4 mr-2 text-primary rounded">
+                                <span class="text-gray-700">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# Gender #}
+                    {% if gear_gender_choices %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Gender" %}</h3>
+                        <div class="space-y-1.5">
+                            {% for value, label in gear_gender_choices %}
+                            <label class="flex items-center text-sm cursor-pointer">
+                                <input type="checkbox" name="gear_gender" value="{{ value }}"
+                                       {% if value in selected_genders %}checked{% endif %}
+                                       class="w-4 h-4 mr-2 text-primary rounded">
+                                <span class="text-gray-700">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# Condition #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Condition" %}</h3>
+                        <div class="space-y-1.5">
+                            {% for value, label in condition_choices %}
+                            <label class="flex items-center text-sm cursor-pointer">
+                                <input type="checkbox" name="condition" value="{{ value }}"
+                                       {% if value in selected_conditions %}checked{% endif %}
+                                       class="w-4 h-4 mr-2 text-primary rounded">
+                                <span class="text-gray-700">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Price range #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Price ($)" %}</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="number" name="price_min" placeholder="{% trans 'Min' %}"
+                                   value="{{ request.GET.price_min|default:'' }}"
+                                   class="px-2 py-2 border border-gray-300 rounded-lg text-sm">
+                            <input type="number" name="price_max" placeholder="{% trans 'Max' %}"
+                                   value="{{ request.GET.price_max|default:'' }}"
+                                   class="px-2 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                    </div>
+
+                    {# Country / State #}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Location" %}</h3>
+                        <select name="country_filter"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2">
+                            <option value="">{% trans "All countries" %}</option>
+                            {% for code, name in country_choices %}
+                            <option value="{{ code }}" {% if selected_country == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="state_filter"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                            <option value="">{% trans "All US states" %}</option>
+                            {% for code, name in us_states %}
+                            <option value="{{ code }}" {% if selected_state == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit"
+                                class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark text-sm font-medium">
+                            {% trans "Apply filters" %}
+                        </button>
+                        <a href="?category=moto-gear"
+                           class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">
+                            {% trans "Reset" %}
+                        </a>
+                    </div>
+                </form>
+            </aside>
+
+            {# ═══════════════════════════════════════════════════════ #}
+            {#  LISTINGS GRID                                          #}
+            {# ═══════════════════════════════════════════════════════ #}
+            <div class="lg:col-span-3">
+                {% if listings %}
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {% for listing in listings %}
+                    <a href="{% url 'listing_detail' listing.pk %}"
+                       class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="aspect-square bg-gray-100 relative overflow-hidden">
+                            {% if listing.images.first %}
+                            <img src="{{ listing.images.first.image.url }}"
+                                 alt="{{ listing.title }}"
+                                 class="w-full h-full object-cover {% if listing.status == 'sold' %}opacity-50 grayscale{% endif %}">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                <i class="fas fa-image text-4xl"></i>
+                            </div>
+                            {% endif %}
+
+                            {% if listing.id in new_listing_ids %}
+                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "NEW" %}</span>
+                            {% endif %}
+
+                            {% if listing.status == 'sold' %}
+                            <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "SOLD" %}</span>
+                            {% endif %}
+
+                            {% if listing.id in saved_ids %}
+                            <span class="absolute bottom-2 right-2 bg-white/90 text-red-500 w-7 h-7 rounded-full flex items-center justify-center shadow">
+                                <i class="fas fa-heart text-sm"></i>
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="p-3">
+                            <h3 class="font-semibold text-gray-900 text-sm truncate">{{ listing.title|default:_("Untitled") }}</h3>
+                            <p class="text-xs text-gray-500 mt-1">
+                                {{ listing.subcategory.name|default:"-" }}
+                                {% if listing.gear_size %}• {{ listing.get_gear_size_display }}{% endif %}
+                            </p>
+                            <p class="text-lg font-bold text-gray-900 mt-2">
+                                {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-map-marker-alt"></i> {{ listing.get_display_location|default:"-" }}
+                            </p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+                    <i class="fas fa-search text-5xl text-gray-300 mb-4 block"></i>
+                    <p class="text-gray-600 mb-2">{% trans "No moto gear listings found." %}</p>
+                    <p class="text-sm text-gray-500 mb-4">{% trans "Try adjusting your filters or be the first to list something!" %}</p>
+                    <a href="{% url 'motogear_listing_create' %}?new=1"
+                       class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark text-sm font-medium">
+                        <i class="fas fa-plus"></i> {% trans "Sell moto gear" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+var subCache = {};
+
+function openCategoryModal() {
+    document.getElementById('categoryModal').classList.remove('hidden');
+    document.querySelectorAll('.cat-left-item').forEach(function(e) { e.classList.remove('active'); });
+    var el = document.querySelector('.cat-left-item[data-slug="motorcycles"]');
+    if (el) el.classList.add('active');
+    document.getElementById('catRightEmpty').classList.remove('hidden');
+    document.getElementById('catRightContent').classList.add('hidden');
+}
+function closeCategoryModal() { document.getElementById('categoryModal').classList.add('hidden'); }
+
+function loadSubs(item) {
+    var slug = item.dataset.slug;
+    var label = item.dataset.label;
+    document.querySelectorAll('.cat-left-item').forEach(function(el) { el.classList.remove('active'); });
+    item.classList.add('active');
+    if (subCache[slug] !== undefined) {
+        if (subCache[slug].length === 0) { selectCategory(slug, label); }
+        else { renderSubs(subCache[slug], label, slug); }
+        return;
+    }
+    fetch('/ajax/get-subcategories/?vehicle_type_slug=' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            subCache[slug] = data;
+            if (data.length === 0) { selectCategory(slug, label); }
+            else { renderSubs(data, label, slug); }
+        });
+}
+
+function renderSubs(subs, label, slug) {
+    var empty = document.getElementById('catRightEmpty');
+    var content = document.getElementById('catRightContent');
+    if (!subs || subs.length === 0) { content.classList.add('hidden'); empty.classList.remove('hidden'); return; }
+    empty.classList.add('hidden'); content.classList.remove('hidden');
+    content.innerHTML = '<div class="cat-right-title">' + label + '</div>' +
+        subs.map(function(s) {
+            return '<div class="cat-right-item" onclick="selectSubCategory(\'' + slug + '\',\'' + label.replace(/'/g,"\\'") + '\',' + s.id + ',\'' + s.name.replace(/'/g,"\\'") + '\')">' +
+                '<svg class="cat-right-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>' +
+                '<span>' + s.name + '</span></div>';
+        }).join('');
+}
+
+function selectCategory(slug, label) {
+    window.location.href = '/browse/?category=' + slug;
+}
+
+function selectSubCategory(catSlug, catLabel, subId, subName) {
+    window.location.href = '/browse/?category=' + catSlug + '&subcategory=' + subId;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var cm = document.getElementById('categoryModal');
+    if (cm) cm.addEventListener('click', function(e) {
+        if (e.target === this) closeCategoryModal();
+    });
+    document.querySelectorAll('.cat-left-item').forEach(function(el) {
+        el.addEventListener('click', function() { loadSubs(el); });
+    });
+
+    // Auto-submit on size button click (toggles checkbox + visual)
+    document.querySelectorAll('input[name="gear_size"]').forEach(function(input) {
+        input.addEventListener('change', function() {
+            this.closest('label').classList.toggle('bg-primary', this.checked);
+            this.closest('label').classList.toggle('text-white', this.checked);
+            this.closest('label').classList.toggle('border-primary', this.checked);
+        });
+    });
+});
+</script>
+{% endblock %}

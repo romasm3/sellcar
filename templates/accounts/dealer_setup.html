@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Dealer Setup" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-1">{% trans "Dealer Profile Setup" %}</h1>
+        <p class="text-sm text-gray-600">{% trans "All fields are optional. You can fill them now or later via Dashboard." %}</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Sekcija 1: Įmonės informacija -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{% trans "Company Information" %}</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Company Name" %}</label>
+                    <input type="text" name="dealer_company_name" value="{{ profile.dealer_company_name }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Phone" %}</label>
+                    <input type="text" name="dealer_phone" value="{{ profile.dealer_phone }}" placeholder="+370 600 00000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Address" %}</label>
+                    <input type="text" name="dealer_address" value="{{ profile.dealer_address }}" placeholder="Street, City, Country" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Website" %}</label>
+                    <input type="url" name="website" value="{{ profile.website }}" placeholder="https://" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sekcija 2: Vizualas -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{% trans "Visual Branding" %}</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Logo" %}</label>
+                    {% if profile.dealer_logo %}
+                        <div class="mb-3">
+                            <img src="{{ profile.dealer_logo.url }}" alt="Logo" class="w-24 h-24 object-contain rounded-lg border border-gray-200">
+                        </div>
+                    {% endif %}
+                    <input type="file" name="dealer_logo" accept="image/*" class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
+                    <p class="text-xs text-gray-500 mt-1">{% trans "Recommended: square, 200x200px+" %}</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Banner" %}</label>
+                    {% if profile.banner_image %}
+                        <div class="mb-3">
+                            <img src="{{ profile.banner_image.url }}" alt="Banner" class="w-full h-24 object-cover rounded-lg border border-gray-200">
+                        </div>
+                    {% endif %}
+                    <input type="file" name="banner_image" accept="image/*" class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
+                    <p class="text-xs text-gray-500 mt-1">{% trans "Recommended: 1920x400px" %}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sekcija 3: Apie mus -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{% trans "About Us" %}</h2>
+            <textarea name="dealer_description" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="{% trans 'Tell buyers about your dealership...' %}">{{ profile.dealer_description }}</textarea>
+        </div>
+
+        <!-- Sekcija 4: Darbo valandos (struktūruotos) -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">{% trans "Working Hours" %}</h2>
+            <p class="text-xs text-gray-500 mb-4">{% trans "Set opening and closing times for each day, or mark as Closed." %}</p>
+
+            <div class="space-y-2">
+                {% for day in working_hours_form %}
+                <div class="flex items-center gap-3 py-2 border-b border-gray-100 last:border-0" x-data="{ closed: {% if day.closed %}true{% else %}false{% endif %} }">
+                    <div class="w-28 font-medium text-gray-700 text-sm">{{ day.label }}</div>
+
+                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                        <input type="checkbox" name="wh_{{ day.key }}_closed" x-model="closed" {% if day.closed %}checked{% endif %} class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                        <span class="text-gray-600">{% trans "Closed" %}</span>
+                    </label>
+
+                    <div class="flex items-center gap-2 flex-1" x-show="!closed">
+                        <input type="time" name="wh_{{ day.key }}_open" value="{{ day.open }}" class="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                        <span class="text-gray-400">—</span>
+                        <input type="time" name="wh_{{ day.key }}_close" value="{{ day.close }}" class="px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex items-center justify-between gap-4 pt-2">
+            <a href="{% url 'accounts:dealer_dashboard' %}" class="px-5 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium">
+                {% trans "Skip for now" %}
+            </a>
+            <button type="submit" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold">
+                {% trans "Save profile" %}
+            </button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

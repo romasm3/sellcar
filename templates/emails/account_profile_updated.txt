@@ -1,0 +1,17 @@
+Hi {{ user_name|default:"there" }},
+
+Your profile was updated:
+
+   What changed: {{ changes_summary }}
+   Time: {{ update_time }}
+
+If this was you, no action is needed.
+
+If you didn't make these changes, please:
+  1. Change your password: {{ password_change_url }}
+  2. Review your account: {{ profile_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

@@ -1,0 +1,1 @@
+{{ saves_count }} people saved your listing!

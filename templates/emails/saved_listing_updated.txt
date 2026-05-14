@@ -1,0 +1,16 @@
+Hi ,
+
+A listing you saved has been updated:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+What changed: {{ change_summary }}
+
+View updated listing:
+{{ listing_url }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

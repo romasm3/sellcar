@@ -1,0 +1,6 @@
+{{ broadcast_message }}
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

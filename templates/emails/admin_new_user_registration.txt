@@ -1,0 +1,11 @@
+New user registered :
+
+   Username: {{ username }}
+   Email: {{ user_email }}
+   Time: {{ registration_time }}
+   IP: {{ ip_address|default:"unknown" }}
+
+Admin link:
+{{ admin_url }}
+
+Total users: {{ total_users }}

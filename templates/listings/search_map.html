@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Map Search - SellCar{% endblock %}
+{% block title %}{% trans "Map Search" %} - SellCar{% endblock %}
 
 {% block content %}
 <div class="max-w-full mx-auto px-4 py-6">
@@ -14,14 +15,14 @@
                 <!-- Filters -->
                 <div class="p-4 border-b border-gray-200">
                     <h3 class="font-semibold text-gray-900 mb-4">
-                        <i class="fas fa-filter mr-2 text-primary"></i>Filters
+                        <i class="fas fa-filter mr-2 text-primary"></i>{% trans "Filters" %}
                     </h3>
                     <form method="get" id="filterForm" class="space-y-3">
                         <!-- Make -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Make</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Make" %}</label>
                             <select name="make" id="makeSelect" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                <option value="">All makes</option>
+                                <option value="">{% trans "All makes" %}</option>
                                 {% for make in makes %}
                                     <option value="{{ make }}" {% if request.GET.make == make %}selected{% endif %}>{{ make }}</option>
                                 {% endfor %}
@@ -31,11 +32,11 @@
                         <!-- Price -->
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Price from</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Price from" %}</label>
                                 <input type="number" name="price_min" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="€" value="{{ request.GET.price_min }}">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Price to</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Price to" %}</label>
                                 <input type="number" name="price_max" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="€" value="{{ request.GET.price_max }}">
                             </div>
                         </div>
@@ -43,18 +44,18 @@
                         <!-- Year -->
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Year from</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Year from" %}</label>
                                 <select name="year_min" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                    <option value="">From</option>
+                                    <option value="">{% trans "From" %}</option>
                                     {% for year in years %}
                                         <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Year to</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Year to" %}</label>
                                 <select name="year_max" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                    <option value="">To</option>
+                                    <option value="">{% trans "To" %}</option>
                                     {% for year in years %}
                                         <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
                                     {% endfor %}
@@ -64,10 +65,10 @@
 
                         <div class="flex gap-2">
                             <button type="submit" class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
-                                <i class="fas fa-search mr-1"></i> Search
+                                <i class="fas fa-search mr-1"></i> {% trans "Search" %}
                             </button>
-                            <a href="{% url 'listings:search_map' %}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
-                                Clear
+                            <a href="{% url 'search_map' %}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                                {% trans "Clear" %}
                             </a>
                         </div>
                     </form>
@@ -75,7 +76,7 @@
 
                 <!-- Listings List -->
                 <div class="flex-1 overflow-y-auto p-4">
-                    <p class="text-sm text-gray-600 mb-3">Found {{ listings.count }} listings</p>
+                    <p class="text-sm text-gray-600 mb-3">{% blocktrans with count=listings.count %}Found {{ count }} listings{% endblocktrans %}</p>
 
                     {% if listings %}
                         <div class="space-y-3">
@@ -84,7 +85,7 @@
                                data-lat="{{ listing.latitude|default:'54.8985' }}"
                                data-lng="{{ listing.longitude|default:'23.9036' }}"
                                data-id="{{ listing.id }}"
-                               data-url="{% url 'listings:listing_detail' listing.pk %}">
+                               data-url="{% url 'listing_detail' listing.pk %}">
 
                                 <!-- Image -->
                                 <div class="relative h-32 rounded-lg overflow-hidden mb-2 bg-gray-200">
@@ -106,7 +107,7 @@
 
                                 <h4 class="font-semibold text-gray-900 text-sm mb-1">{{ listing.title }}</h4>
                                 <p class="text-xs text-gray-600 mb-1">
-                                    {{ listing.year }} • {{ listing.mileage|floatformat:0 }} km
+                                    {{ listing.year }} • {{ listing.mileage|floatformat:0 }} {% trans "km" %}
                                 </p>
                                 {% if listing.city %}
                                 <p class="text-xs text-gray-500">
@@ -119,8 +120,8 @@
                     {% else %}
                         <div class="text-center py-8 text-gray-500">
                             <i class="fas fa-search text-4xl mb-3"></i>
-                            <p>No listings found</p>
-                            <p class="text-sm">Try changing the filters</p>
+                            <p>{% trans "No listings found" %}</p>
+                            <p class="text-sm">{% trans "Try changing the filters" %}</p>
                         </div>
                     {% endif %}
                 </div>
@@ -141,6 +142,13 @@
 <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
 
 <script>
+// ─── i18n strings ───
+var I18N = {
+    noImage: "{% trans 'No image' %}",
+    km: "{% trans 'km' %}",
+    viewDetails: "{% trans 'View Details' %}"
+};
+
 let map;
 let markers = [];
 let infoWindow;
@@ -204,14 +212,14 @@ function addMarkers() {
 
         const imageHtml = listing.main_image 
             ? `<img src="${listing.main_image}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">`
-            : `<div style="width: 100%; height: 80px; background: #e5e7eb; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center;"><span style="color: #9ca3af;">No image</span></div>`;
+            : `<div style="width: 100%; height: 80px; background: #e5e7eb; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center;"><span style="color: #9ca3af;">${I18N.noImage}</span></div>`;
 
         const contentString = `
             <div style="max-width: 220px; font-family: Inter, sans-serif;">
                 ${imageHtml}
                 <h6 style="margin: 0 0 5px 0; font-size: 14px; font-weight: 600;">${listing.title}</h6>
                 <p style="margin: 0; color: #666; font-size: 12px;">
-                    ${listing.year} • ${listing.mileage.toLocaleString()} km
+                    ${listing.year} • ${listing.mileage.toLocaleString()} ${I18N.km}
                 </p>
                 <p style="margin: 5px 0; color: #7C3AED; font-weight: bold; font-size: 16px;">
                     €${listing.price.toLocaleString()}
@@ -231,7 +239,7 @@ function addMarkers() {
                 </div>
                 
                 <a href="/listings/${listing.id}/" style="display: block; background: #7C3AED; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500; text-align: center; margin-top: 8px;">
-                    View Details
+                    ${I18N.viewDetails}
                 </a>
             </div>
         `;

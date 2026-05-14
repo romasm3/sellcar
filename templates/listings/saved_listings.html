@@ -1,93 +1,75 @@
-{% extends 'base.html' %} {% block title %}Išsaugoti skelbimai - SellCar{%
-endblock %} {% block content %}
-<div class="container">
-    <h2 class="mb-4">
-        <i class="fas fa-heart text-danger"></i> Mano išsaugoti skelbimai
-    </h2>
+{% extends 'base.html' %}
+{% load i18n %}
 
+{% block title %}{% trans "Saved Listings" %} - SellCar{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        <i class="fas fa-heart text-red-500 mr-2"></i> {% trans "Saved Listings" %}
+    </h2>
     {% if saved_listings %}
-    <div class="row g-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {% for saved in saved_listings %}
-        <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm hover-shadow">
-                {% if saved.listing.get_main_image %}
-                <img
-                    src="{{ saved.listing.get_main_image }}"
-                    class="card-img-top"
-                    alt="{{ saved.listing.title }}"
-                    style="height: 200px; object-fit: cover"
-                />
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+             onclick="window.location='{% url 'listing_detail' saved.listing.pk %}'">
+            <div class="relative">
+                {% if saved.listing.images.first %}
+                <img src="{{ saved.listing.images.first.image.url }}"
+                     class="w-full h-48 object-cover"
+                     alt="{{ saved.listing.title }}">
                 {% else %}
-                <div
-                    class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
-                    style="height: 200px"
-                >
-                    <i class="fas fa-car fa-3x text-white"></i>
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-car text-gray-400 text-4xl"></i>
                 </div>
                 {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ saved.listing.title }}</h5>
-                    <p class="card-text text-muted small">
-                        <i class="fas fa-calendar"></i> {{ saved.listing.year }}
-                        | <i class="fas fa-road"></i> {{
-                        saved.listing.mileage|floatformat:0 }} km
-                    </p>
-                    <p class="card-text">
-                        <strong class="text-primary fs-5"
-                            >{{ saved.listing.price|floatformat:0 }} €</strong
-                        >
-                    </p>
-                    <p class="card-text text-muted small">
-                        <i class="fas fa-map-marker-alt"></i> {{
-                        saved.listing.city }}
-                    </p>
-                    <div class="d-grid gap-2">
-                        <a
-                            href="{% url 'listings:listing_detail' saved.listing.slug %}"
-                            class="btn btn-primary"
-                        >
-                            Peržiūrėti
-                        </a>
-                        <form
-                            method="post"
-                            action="{% url 'listings:save_listing' saved.listing.slug %}"
-                        >
-                            {% csrf_token %}
-                            <button
-                                type="submit"
-                                class="btn btn-outline-danger w-100"
-                            >
-                                <i class="fas fa-trash"></i> Pašalinti
-                            </button>
-                        </form>
-                    </div>
-                    <small class="text-muted d-block mt-2">
-                        Išsaugota: {{ saved.saved_at|date:"Y-m-d" }}
-                    </small>
-                </div>
+                <button onclick="event.stopPropagation(); unsaveListing(this, {{ saved.listing.pk }})"
+                        class="absolute top-3 left-3 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-md hover:scale-110 transition-all">
+                    <i class="fas fa-heart text-red-500"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <h5 class="font-semibold text-gray-900 mb-2">{{ saved.listing.title }}</h5>
+                <p class="text-sm text-gray-500 mb-1">
+                    <i class="fas fa-calendar mr-1"></i> {{ saved.listing.year }}
+                    | <i class="fas fa-road mr-1"></i> {{ saved.listing.mileage|floatformat:0 }} {% trans "km" %}
+                </p>
+                <p class="text-primary font-bold text-lg mb-2">€{{ saved.listing.price|floatformat:0 }}</p>
+                <p class="text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-1"></i> {{ saved.listing.city }}
+                </p>
             </div>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <div class="alert alert-info text-center">
-        <i class="fas fa-info-circle fa-2x mb-3"></i>
-        <h5>Neturite išsaugotų skelbimų</h5>
-        <p>Pradėkite naršyti skelbimuose ir išsaugokite mėgstamiausius!</p>
-        <a href="{% url 'listings:listing_list' %}" class="btn btn-primary">
-            <i class="fas fa-search"></i> Ieškoti skelbimų
+    <div class="text-center py-16 text-gray-400">
+        <i class="fas fa-heart text-5xl mb-4"></i>
+        <h5 class="text-lg font-medium text-gray-600">{% trans "No saved listings yet" %}</h5>
+        <p class="text-sm mt-1 mb-4">{% trans "Browse listings and save your favorites!" %}</p>
+        <a href="{% url 'home' %}" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors">
+            <i class="fas fa-search mr-1"></i> {% trans "Browse Cars" %}
         </a>
     </div>
     {% endif %}
 </div>
-{% endblock %} {% block extra_css %}
-<style>
-    .hover-shadow {
-        transition: all 0.3s ease;
-    }
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-    }
-</style>
+<script>
+function unsaveListing(btn, listingId) {
+    const icon = btn.querySelector('i');
+    fetch(`/${listingId}/save/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (!data.saved) {
+            icon.className = 'far fa-heart text-gray-400';
+        } else {
+            icon.className = 'fas fa-heart text-red-500';
+        }
+    });
+}
+</script>
 {% endblock %}

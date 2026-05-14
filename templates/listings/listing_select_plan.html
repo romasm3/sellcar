@@ -1,0 +1,629 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Select a plan" %} — SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+  {# ═══ Step indicator ═══ #}
+  <div class="flex items-center justify-center gap-3 mb-8 text-sm border-b border-gray-200 pb-4">
+    <span class="text-gray-400">1. {% trans "Listing info" %}</span>
+    <span class="text-gray-300">›</span>
+    <span class="text-gray-900 font-bold">2. {% trans "Service selection" %}</span>
+    <span class="text-gray-300">›</span>
+    <span class="text-gray-400">3. {% trans "Payment" %}</span>
+  </div>
+
+  <form method="post" id="planForm" action="">
+    {% csrf_token %}
+
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ LEFT LABELS + 3 SEPARATE CARDS                  ═══ #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="flex gap-3 items-stretch">
+
+      {# ─── LEFT COLUMN: row labels (no card) ─── #}
+      <div class="w-1/4 flex flex-col">
+        <div class="h-12"></div> {# spacer for banner #}
+        <div class="h-20 flex items-center px-4 text-sm font-semibold text-gray-900">
+          {% trans "Listing duration" %} <em class="text-gray-500 not-italic font-normal ml-1">SellCar</em>
+        </div>
+        <div class="h-16 flex items-center px-4 text-sm text-gray-700">
+          {% trans "Top Spot Stars" %}
+          <button type="button" onclick="openPreviewPopup('top_spot')" class="text-orange-500 hover:text-orange-600 ml-1 cursor-pointer" title="{% trans 'Preview' %}">ⓘ</button>
+        </div>
+        <div class="h-16 flex items-center px-4 text-sm text-gray-700">
+          {% trans "Featured on homepage" %}
+          <button type="button" onclick="openPreviewPopup('top_spot')" class="text-orange-500 hover:text-orange-600 ml-1 cursor-pointer" title="{% trans 'Preview' %}">ⓘ</button>
+        </div>
+        <div class="h-16 flex items-center px-4 text-sm text-gray-700">
+          {% trans "Listing highlight" %}
+          <button type="button" onclick="openPreviewPopup('highlight')" class="text-orange-500 hover:text-orange-600 ml-1 cursor-pointer" title="{% trans 'Preview' %}">ⓘ</button>
+        </div>
+        <div class="h-20 flex items-center px-4 text-sm font-semibold text-gray-900">
+          {% trans "Price" %}
+        </div>
+        <div class="h-16"></div>
+      </div>
+
+      {# ─── 3 SEPARATE PLAN CARDS ─── #}
+      {% for plan in plans %}
+        <label class="plan-card flex-1 flex flex-col cursor-pointer transition-all">
+          <input
+            type="radio"
+            name="plan_code"
+            value="{{ plan.code }}"
+            data-price="{{ plan.price_usd }}"
+            data-days="{{ plan.days }}"
+            tabindex="-1"
+            {% if plan.is_recommended %}checked{% endif %}
+            class="sr-only plan-radio"
+          >
+
+          {# ─── Banner area — shows ONLY when this card is selected AND is_recommended ─── #}
+          {% if plan.is_recommended %}
+            <div class="h-12 flex items-center justify-center plan-banner rounded-t-xl transition-all">
+              <span class="banner-text text-xs font-bold uppercase tracking-wide italic text-white opacity-0 transition-opacity">
+                {% trans "Recommended" %}
+              </span>
+            </div>
+          {% else %}
+            <div class="h-12"></div>
+          {% endif %}
+
+          {# ─── Card body (single connected card) ─── #}
+          <div class="plan-body bg-white border-2 border-gray-200 shadow-sm transition-all hover:border-gray-300 hover:shadow-md flex-1 flex flex-col
+                      {% if plan.is_recommended %}rounded-b-xl{% else %}rounded-xl{% endif %}">
+
+            {# Days big number #}
+            <div class="h-20 flex items-center justify-center plan-days transition-all">
+              <div class="text-2xl font-bold text-gray-900">{{ plan.days }} {% trans "days" %}</div>
+            </div>
+
+            {# Renew row #}
+            <div class="h-16 flex items-center justify-center border-t border-gray-100">
+              {% if plan.boost_count > 0 %}
+                <span class="inline-flex items-center gap-1 bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded">
+                  {{ plan.boost_count }} ★
+                </span>
+                <span class="text-sm text-gray-700 ml-1">× {{ plan.boost_days }} {% trans "d." %}</span>
+              {% else %}
+                <span class="text-gray-300 text-2xl">—</span>
+              {% endif %}
+            </div>
+
+            {# Featured row #}
+            <div class="h-16 flex items-center justify-center border-t border-gray-100 text-sm text-gray-700">
+              {% if plan.featured_days > 0 %}
+                {{ plan.featured_days }} {% trans "d." %}
+              {% else %}
+                <span class="text-gray-300 text-2xl">—</span>
+              {% endif %}
+            </div>
+
+            {# Highlight row #}
+            <div class="h-16 flex items-center justify-center border-t border-gray-100 text-sm text-gray-700">
+              {% if plan.highlight_days > 0 %}
+                {{ plan.highlight_days }} {% trans "d." %}
+              {% else %}
+                <span class="text-gray-300 text-2xl">—</span>
+              {% endif %}
+            </div>
+
+            {# Price row #}
+            <div class="plan-price h-20 flex items-center justify-center border-t border-gray-100 transition-all">
+              <div class="text-2xl font-bold text-gray-900 transition-all">${{ plan.price_usd }}</div>
+            </div>
+
+            {# Radio indicator row #}
+            <div class="h-16 flex items-center justify-center border-t border-gray-100">
+              <div class="plan-indicator w-7 h-7 rounded-md border-2 border-gray-400 flex items-center justify-center transition-all bg-white">
+                <svg class="plan-check w-4 h-4 text-white hidden" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </label>
+      {% endfor %}
+    </div>
+
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ POSITION + ADDONS                              ═══ #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm">
+              <span class="font-semibold text-gray-900">{% trans "Position in list" %}:</span>
+              <span class="text-green-600 font-bold">1/1</span>
+            </div>
+            <div class="text-xs text-gray-500">{% trans "Boost your listing higher to attract more interest" %}</div>
+          </div>
+        </div>
+        <div class="text-sm text-red-600 font-semibold">
+          {% trans "Want to sell faster?" %}
+        </div>
+      </div>
+
+      {# Renew addon — single row, autogidas-style #}
+      <div class="addon-row flex items-center gap-3 py-3 border-b border-gray-200 flex-wrap">
+        <button type="button" onclick="openPreviewPopup('top_spot')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Top Spot Stars" %}</button>
+        <button type="button" onclick="openPreviewPopup('top_spot')" class="inline-flex items-center justify-center w-6 h-6 rounded bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold cursor-pointer transition-colors" title="{% trans 'Preview' %}">★</button>
+
+        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+          <select id="renewCount" name="renew_count" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in renew_count_options %}<option value="{{ i }}">{{ i }} ⭐</option>{% endfor %}
+          </select>
+          <select id="renewDays" name="renew_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in renew_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+          </select>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="renewPrice">0.00</span></span></span>
+        </div>
+      </div>
+
+      {# Featured addon — single row, autogidas-style #}
+      <div class="addon-row flex items-center gap-3 py-3 flex-wrap">
+        <button type="button" onclick="openPreviewPopup('featured')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Featured on homepage" %}</button>
+
+        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+          <select id="featuredDays" name="featured_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in featured_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+          </select>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="featuredPrice">0.00</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ DISCOUNT + WALLET + TOTAL + ORDER              ═══ #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+
+        <div class="flex items-center gap-6 flex-wrap">
+          <div>
+            <label class="text-xs text-gray-500 uppercase tracking-wide font-semibold block mb-1">{% trans "Discount code" %}:</label>
+            <div class="flex items-center gap-2">
+              <input type="text" id="discountCodeInput" name="discount_code" class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-40" placeholder="{% trans 'Code' %}">
+              <button type="button" id="applyPromoBtn" class="text-sm text-gray-700 font-semibold border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-50">
+                {% trans "Apply" %}
+              </button>
+              <button type="button" id="removePromoBtn" class="hidden text-sm text-red-600 font-semibold border border-red-300 rounded-lg px-3 py-2 hover:bg-red-50">
+                ✕
+              </button>
+            </div>
+            <div id="promoMessage" class="hidden mt-2 text-sm font-semibold"></div>
+            {# Hidden inputs - persiųs server'iui submit'inus formą #}
+            <input type="hidden" id="appliedPromoCode" name="applied_promo_code" value="">
+            <input type="hidden" id="appliedDiscountAmount" name="applied_discount_amount" value="0">
+          </div>
+        </div>
+
+        <div class="flex flex-col items-end gap-1">
+          <div class="text-xs text-gray-500">
+            {% trans "Points" %}: <span class="font-semibold text-gray-700">{{ wallet_balance|default:"0"|floatformat:0 }}</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-right">
+              <div class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Total" %}</div>
+              <div class="text-2xl font-bold text-gray-900">$<span id="totalPrice">0.00</span></div>
+            </div>
+
+            <button
+              type="submit"
+              id="submitBtn"
+              class="bg-gray-800 hover:bg-gray-900 text-white font-semibold text-base px-8 py-3 rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {% trans "Order" %}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-4">
+        {% trans "By submitting your listing, you agree to SellCar" %}
+        <a href="/terms/" class="text-red-600 hover:underline">{% trans "terms" %}</a>
+        {% trans "and" %}
+        <a href="/privacy/" class="text-red-600 hover:underline">{% trans "privacy policy" %}</a>.
+      </p>
+
+      <p id="walletWarning" class="hidden mt-3 text-sm text-red-600 font-semibold">
+        ⚠ {% trans "Insufficient wallet balance. Please top up." %}
+      </p>
+    </div>
+  </form>
+
+  {# Listing preview — autogidas-style compact card #}
+  <div class="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all">
+    <div class="flex items-stretch">
+      <div class="w-48 h-32 flex-shrink-0 bg-gray-100">
+        {% if main_image %}
+          <img src="{{ main_image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center text-gray-300 text-4xl">📷</div>
+        {% endif %}
+      </div>
+
+      <div class="flex-1 p-4 flex flex-col justify-between min-w-0">
+        <div class="mb-2">
+          <h3 class="font-bold text-gray-900 text-base leading-snug truncate mb-1">{{ listing.title }}</h3>
+          {% if listing.price %}
+            <div class="text-2xl font-bold text-gray-900">${{ listing.price|floatformat:0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600">
+          {% if listing.year %}<span class="font-semibold text-gray-900">{{ listing.year }}</span>{% endif %}
+          {% if listing.fuel_type %}<span class="text-gray-300">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+          {% if listing.mileage %}<span class="text-gray-300">·</span><span>{{ listing.mileage|floatformat:0 }} {% trans "km" %}</span>{% endif %}
+          {% if listing.transmission %}<span class="text-gray-300">·</span><span>{{ listing.transmission.name }}</span>{% endif %}
+          {% if listing.engine_capacity %}<span class="text-gray-300">·</span><span>{{ listing.engine_capacity }} {% trans "L" %}</span>{% endif %}
+        </div>
+
+        {% if listing.city %}
+          <div class="mt-2 inline-flex items-center gap-1 text-xs text-emerald-600 font-semibold">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+            <span>{{ listing.city }}{% if listing.country %}, {{ listing.country }}{% endif %}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-6">
+    <a href="/create/cars/quick/?edit={{ listing.pk }}" class="text-sm text-gray-500 hover:text-gray-700">
+      ← {% trans "Back to edit listing" %}
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Selected plan card — full lift + dark border + dark elements */
+
+  /* Selected card — visual emphasis WITHOUT page jump */
+  .plan-card:has(.plan-radio:checked) {
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Prevent scroll-into-view when radio is focused */
+  .plan-radio:focus {
+    outline: none;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* Banner */
+  .plan-card:has(.plan-radio:checked) .plan-banner {
+    background-color: rgb(31 41 55);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+  }
+  .plan-card:has(.plan-radio:checked) .banner-text {
+    opacity: 1;
+  }
+
+  /* Body — thicker dark border + stronger shadow */
+  .plan-card:has(.plan-radio:checked) .plan-body {
+    border-color: rgb(31 41 55);
+    border-width: 3px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  }
+
+  /* Days row — dark bg */
+  .plan-card:has(.plan-radio:checked) .plan-days {
+    background-color: rgb(31 41 55);
+  }
+  .plan-card:has(.plan-radio:checked) .plan-days div {
+    color: white !important;
+  }
+
+  /* Price row — emphasized (bigger, darker) */
+  .plan-card:has(.plan-radio:checked) .plan-price {
+    background-color: rgb(243 244 246);
+  }
+  .plan-card:has(.plan-radio:checked) .plan-price div {
+    color: rgb(31 41 55) !important;
+    font-size: 1.875rem;
+  }
+
+  /* Indicator — filled */
+  .plan-card:has(.plan-radio:checked) .plan-indicator {
+    background-color: rgb(31 41 55);
+    border-color: rgb(31 41 55);
+  }
+  .plan-card:has(.plan-radio:checked) .plan-check {
+    display: block !important;
+  }
+</style>
+
+<script>
+(function() {
+  const form = document.getElementById('planForm');
+  const radios = document.querySelectorAll('.plan-radio');
+  const totalPrice = document.getElementById('totalPrice');
+  const submitBtn = document.getElementById('submitBtn');
+  const walletWarning = document.getElementById('walletWarning');
+  const walletBalance = parseFloat("{{ wallet_balance|default:0 }}");
+  const listingPk = "{{ listing.pk }}";
+
+  // ═══ PROMO CODE state ═══
+  let appliedPromo = null; // { code, discount_type, discount_value, discount_amount, message }
+
+  const RENEW_PRICE_PER_UNIT = parseFloat("{{ renew_price_per_unit|default:0.5 }}");
+  const FEATURED_PRICE_PER_DAY = parseFloat("{{ featured_price_per_day|default:0.3 }}");
+
+  const renewCount = document.getElementById('renewCount');
+  const renewDays = document.getElementById('renewDays');
+  const featuredDays = document.getElementById('featuredDays');
+  const renewPriceEl = document.getElementById('renewPrice');
+  const featuredPriceEl = document.getElementById('featuredPrice');
+
+  function updateTotal() {
+    const checked = document.querySelector('.plan-radio:checked');
+    let basePrice = 0;
+    let code = '';
+
+    if (checked) {
+      basePrice = parseFloat(checked.dataset.price);
+      code = checked.value;
+      form.action = `/listings/${listingPk}/pay-plan/${code}/`;
+    }
+
+    let price = basePrice;
+
+    const rc = parseInt(renewCount.value) || 0;
+    const rd = parseInt(renewDays.value) || 0;
+    const renewCost = (rc > 0 && rd > 0) ? rc * rd * RENEW_PRICE_PER_UNIT : 0;
+    renewPriceEl.textContent = renewCost.toFixed(2);
+    price += renewCost;
+
+    const fd = parseInt(featuredDays.value) || 0;
+    const featuredCost = fd > 0 ? fd * FEATURED_PRICE_PER_DAY : 0;
+    featuredPriceEl.textContent = featuredCost.toFixed(2);
+    price += featuredCost;
+
+    // ═══ Apply promo discount (jeigu yra) ═══
+    let discountAmount = 0;
+    if (appliedPromo && checked) {
+      if (appliedPromo.discount_type === 'percent') {
+        // % discount taikomas tik plan'o kainai (ne addons)
+        discountAmount = basePrice * (appliedPromo.discount_value / 100);
+      } else {
+        // Fixed discount
+        discountAmount = parseFloat(appliedPromo.discount_value);
+      }
+      if (discountAmount > price) discountAmount = price;
+      price = Math.max(price - discountAmount, 0);
+
+      // Update hidden input
+      document.getElementById('appliedDiscountAmount').value = discountAmount.toFixed(2);
+    }
+
+    totalPrice.textContent = price.toFixed(2);
+
+    if (!checked) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "{% trans 'Select a plan' %}";
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "{% trans 'Pay' %} $" + price.toFixed(2);
+    }
+  }
+
+  radios.forEach(r => {
+    r.addEventListener('change', updateTotal);
+  });
+
+  // BRUTAL scroll lock — saves scroll position before plan click and restores it
+  document.querySelectorAll('.plan-card').forEach(function(label) {
+    label.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var savedScroll = window.scrollY;
+      var radio = label.querySelector('.plan-radio');
+      if (radio && !radio.checked) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      // Force scroll restoration on next 5 frames
+      var attempts = 0;
+      function lockScroll() {
+        window.scrollTo(0, savedScroll);
+        attempts++;
+        if (attempts < 10) requestAnimationFrame(lockScroll);
+      }
+      requestAnimationFrame(lockScroll);
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════
+  // PROMO CODE handlers
+  // ═══════════════════════════════════════════════════════
+  const applyPromoBtn = document.getElementById('applyPromoBtn');
+  const removePromoBtn = document.getElementById('removePromoBtn');
+  const discountCodeInput = document.getElementById('discountCodeInput');
+  const promoMessage = document.getElementById('promoMessage');
+  const appliedPromoCodeInput = document.getElementById('appliedPromoCode');
+
+  function showPromoMessage(text, isSuccess) {
+    promoMessage.textContent = text;
+    promoMessage.className = isSuccess
+      ? 'mt-2 text-sm font-semibold text-green-600'
+      : 'mt-2 text-sm font-semibold text-red-600';
+    promoMessage.classList.remove('hidden');
+  }
+
+  function clearPromoMessage() {
+    promoMessage.classList.add('hidden');
+    promoMessage.textContent = '';
+  }
+
+  function getCsrfToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+  }
+
+  applyPromoBtn.addEventListener('click', async function() {
+    const code = (discountCodeInput.value || '').trim();
+    if (!code) {
+      showPromoMessage("{% trans 'Please enter a code' %}", false);
+      return;
+    }
+
+    const checked = document.querySelector('.plan-radio:checked');
+    if (!checked) {
+      showPromoMessage("{% trans 'Please select a plan first' %}", false);
+      return;
+    }
+
+    applyPromoBtn.disabled = true;
+    applyPromoBtn.textContent = '...';
+
+    try {
+      const response = await fetch('/ajax/validate-promo-code/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCsrfToken(),
+        },
+        body: JSON.stringify({
+          code: code,
+          listing_pk: parseInt(listingPk),
+          plan_code: checked.value,
+        }),
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        appliedPromo = data;
+        appliedPromoCodeInput.value = data.code;
+        showPromoMessage('✓ ' + data.message, true);
+
+        // Disable input + show remove button
+        discountCodeInput.disabled = true;
+        applyPromoBtn.classList.add('hidden');
+        removePromoBtn.classList.remove('hidden');
+
+        updateTotal();
+      } else {
+        showPromoMessage('✗ ' + (data.error || "{% trans 'Invalid code' %}"), false);
+      }
+    } catch (err) {
+      showPromoMessage('✗ {% trans "Error" %}: ' + err.message, false);
+    } finally {
+      applyPromoBtn.disabled = false;
+      applyPromoBtn.textContent = "{% trans 'Apply' %}";
+    }
+  });
+
+  removePromoBtn.addEventListener('click', function() {
+    appliedPromo = null;
+    appliedPromoCodeInput.value = '';
+    document.getElementById('appliedDiscountAmount').value = '0';
+    discountCodeInput.value = '';
+    discountCodeInput.disabled = false;
+    applyPromoBtn.classList.remove('hidden');
+    removePromoBtn.classList.add('hidden');
+    clearPromoMessage();
+    updateTotal();
+  });
+
+  // Re-validate promo when plan changes (kad nauja kaina su nuolaida)
+  radios.forEach(r => {
+    r.addEventListener('change', function() {
+      if (appliedPromo) {
+        // Re-validate su nauju plan'u
+        applyPromoBtn.click();
+      }
+    });
+  });
+
+  renewCount.addEventListener('change', updateTotal);
+  renewDays.addEventListener('change', updateTotal);
+  featuredDays.addEventListener('change', updateTotal);
+  updateTotal();
+})();
+</script>
+
+{# ═══ PREVIEW POPUP MODAL ═══ #}
+<div id="previewPopup" class="hidden fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4" onclick="closePreviewPopup(event)">
+  <div class="relative max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+
+    {# Header #}
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+      <h3 id="previewPopupTitle" class="text-lg font-bold text-gray-900">{% trans "Preview" %}</h3>
+      <button type="button" onclick="closePreviewPopup()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button>
+    </div>
+
+    {# Body — text + image #}
+    <div class="p-6">
+      <p id="previewPopupDesc" class="text-sm text-gray-700 mb-4 leading-relaxed"></p>
+      <img id="previewPopupImg" src="" alt="{% trans 'Preview' %}" class="w-full h-auto rounded-lg border border-gray-200">
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ Preview content for each addon type ═══
+var PREVIEW_CONTENT = {
+  'top_spot': {
+    title: "{% trans 'Top Spot Stars' %}",
+    desc: "{% trans 'Your listing will appear higher in search results than others. The more star boosts you order, the higher it will be displayed.' %}",
+    img: "{% static 'img/previews/star.png' %}"
+  },
+  'featured': {
+    title: "{% trans 'Featured on homepage' %}",
+    desc: "{% trans 'Your listing will be shown on the homepage among featured listings, attracting up to 5x more views.' %}",
+    img: "{% static 'img/previews/abartas.png' %}"
+  },
+  'highlight': {
+    title: "{% trans 'Listing highlight' %}",
+    desc: "{% trans 'Your listing will have a colored background in search results, making it stand out from other listings.' %}",
+    img: "{% static 'img/previews/abartas.png' %}"
+  }
+};
+
+function openPreviewPopup(type) {
+  var popup = document.getElementById('previewPopup');
+  var img = document.getElementById('previewPopupImg');
+  var title = document.getElementById('previewPopupTitle');
+  var desc = document.getElementById('previewPopupDesc');
+  if (!popup || !img) return;
+
+  var content = PREVIEW_CONTENT[type] || PREVIEW_CONTENT['top_spot'];
+  title.textContent = content.title;
+  desc.textContent = content.desc;
+  img.src = content.img;
+
+  popup.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closePreviewPopup(e) {
+  if (e && e.target.id !== 'previewPopup' && e.type === 'click') return;
+  var popup = document.getElementById('previewPopup');
+  if (popup) popup.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  var popup = document.getElementById('previewPopup');
+  if (popup && !popup.classList.contains('hidden') && e.key === 'Escape') {
+    closePreviewPopup();
+  }
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,1323 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Trucks Listing" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.create-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+.create-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0891b2;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* ═══ AUTOPLIUS-STYLE 4-COLUMN GRID ═══ */
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.875rem 1rem;
+}
+@media (max-width: 1024px) { .field-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .field-grid { grid-template-columns: 1fr; } }
+
+.field-grid .col-2 { grid-column: span 2; }
+.field-grid .col-3 { grid-column: span 3; }
+.field-grid .col-4 { grid-column: span 4; }
+@media (max-width: 1024px) {
+    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 2; }
+}
+@media (max-width: 640px) {
+    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 1; }
+}
+
+.field-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.35rem;
+}
+.required-star { color: #dc2626; margin-left: 2px; }
+
+.form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.45rem;
+    font-size: 0.875rem;
+    color: #111827;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.1);
+}
+.form-textarea { min-height: 100px; resize: vertical; }
+
+.form-input.has-error, .form-select.has-error, .form-textarea.has-error {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+.field-error-msg {
+    display: block;
+    color: #dc2626;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.year-month-row { display: flex; gap: 0.5rem; }
+.year-month-row > * { flex: 1; min-width: 0; }
+
+.with-suffix { position: relative; display: flex; align-items: stretch; }
+.with-suffix .form-input { border-top-right-radius: 0; border-bottom-right-radius: 0; flex: 1; }
+.with-suffix .suffix {
+    padding: 0 0.65rem;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-left: 0;
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.with-suffix .form-select.suffix-select {
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    width: 90px;
+    flex-shrink: 0;
+    background: #f9fafb;
+}
+
+.equipment-section { margin-bottom: 1.25rem; }
+.equipment-section:last-child { margin-bottom: 0; }
+.equipment-cat-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem 0.875rem;
+}
+@media (max-width: 1024px) { .equipment-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .equipment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .equipment-grid { grid-template-columns: 1fr; } }
+.equipment-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.equipment-row:hover { background: #f9fafb; }
+.equipment-row input { accent-color: #0891b2; width: 14px; height: 14px; flex-shrink: 0; }
+.equipment-row span { font-size: 0.825rem; color: #374151; }
+
+.photo-drop-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafafa;
+    margin-bottom: 1rem;
+}
+.photo-drop-zone:hover, .photo-drop-zone.drag-over {
+    border-color: #0891b2;
+    background: #ecfeff;
+}
+.photo-drop-zone .icon { font-size: 2rem; color: #d1d5db; margin-bottom: 0.5rem; }
+.photo-drop-zone:hover .icon, .photo-drop-zone.drag-over .icon { color: #0891b2; }
+.photo-drop-zone .text { color: #6b7280; font-size: 0.875rem; }
+.photo-drop-zone .text strong { color: #0891b2; }
+.photo-drop-zone .hint { color: #9ca3af; font-size: 0.75rem; margin-top: 0.4rem; }
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    cursor: move;
+    background: #f9fafb;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+.photo-item.dragging {
+    opacity: 0.4;
+    transform: scale(0.95);
+}
+.photo-item.drag-over-target {
+    box-shadow: 0 0 0 3px #0891b2;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+.photo-item .photo-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    gap: 4px;
+    z-index: 3;
+}
+.photo-item .photo-action-btn {
+    width: 22px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.photo-item .photo-action-btn:hover { background: #dc2626; }
+.photo-item .photo-action-btn.view { background: rgba(0, 0, 0, 0.7); }
+.photo-item .photo-action-btn.view:hover { background: #0891b2; }
+.photo-item.is-main::before {
+    content: 'MAIN';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    padding: 2px 6px;
+    background: #16a34a;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    border-radius: 3px;
+    z-index: 2;
+}
+
+.photo-grid-hint {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
+
+.action-bar-bottom {
+    position: sticky;
+    bottom: 1rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    z-index: 20;
+    margin-top: 1rem;
+}
+.btn-cancel {
+    padding: 0.6rem 1.5rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn-cancel:hover { background: #f9fafb; color: #111827; }
+.btn-publish {
+    padding: 0.6rem 1.75rem;
+    background: linear-gradient(to right, #0891b2, #0e7490);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-publish:hover { box-shadow: 0 6px 14px rgba(8, 145, 178, 0.35); transform: translateY(-1px); }
+
+/* ═══ ZOOM MODAL — pan + zoom ═══ */
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+}
+.lightbox-overlay.active { display: flex; }
+.lightbox-img-wrap {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+.lightbox-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transform-origin: center center;
+    transition: transform 0.15s;
+    user-select: none;
+    pointer-events: auto;
+}
+.lightbox-img-wrap.zoomed { cursor: grab; }
+.lightbox-img-wrap.zoomed.panning { cursor: grabbing; }
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10000;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.25); }
+.lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-arrow:hover { background: rgba(255, 255, 255, 0.25); }
+.lightbox-arrow.prev { left: 1.5rem; }
+.lightbox-arrow.next { right: 1.5rem; }
+.lightbox-zoom-controls {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10000;
+}
+.lightbox-zoom-controls button {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.lightbox-zoom-controls button:hover { background: rgba(255, 255, 255, 0.3); }
+
+.notify-toast {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-size: 0.78rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+.notify-toast.visible { opacity: 1; transform: translateY(0); }
+.notify-toast.saving { background: #0891b2; }
+.notify-toast.saved { background: #16a34a; }
+.notify-toast.error { background: #dc2626; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen pb-12">
+    <div class="max-w-5xl mx-auto px-4 py-6">
+
+        <div class="mb-5 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    🚛 {% trans "Edit Trucks Listing" %}
+                    <span class="text-sm font-normal text-gray-500">#{{ current_listing.pk }}</span>
+                </h1>
+                <p class="text-gray-500 text-sm mt-1">
+                    {% trans "Status:" %}
+                    <span class="font-medium {% if current_listing.status == 'active' %}text-green-600{% elif current_listing.status == 'reserved' %}text-yellow-600{% elif current_listing.status == 'sold' %}text-blue-600{% else %}text-gray-600{% endif %}">
+                        {{ current_listing.get_status_display }}
+                    </span>
+                    {% if current_listing.expires_at %}
+                        · {% blocktrans with date=current_listing.expires_at|date:"M d, Y" %}Expires {{ date }}{% endblocktrans %}
+                    {% endif %}
+                </p>
+            </div>
+            <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">
+                <i class="fas fa-eye"></i> {% trans "View public page" %}
+            </a>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" id="truckForm">
+            {% csrf_token %}
+
+            {# ════════════════════════════════════════════════ #}
+            {#  BASIC INFORMATION (autoplius 8x4 layout)        #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Basic Information" %}</div>
+
+                <div class="field-grid">
+
+                    {# ─── EILUTĖ 1: Type | First registration | Gross weight | Curb weight ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
+                        <select name="truck_type" id="id_truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_type_choices %}
+                            <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.truck_type %}<span class="field-error-msg">{{ errors.truck_type }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "First registration" %}<span class="required-star">*</span></label>
+                        <div class="year-month-row">
+                            <select name="year" id="id_year" class="form-select {% if errors.year %}has-error{% endif %}">
+                                <option value="">{% trans "Year" %}</option>
+                                {% for y in years %}
+                                <option value="{{ y }}" {% if data.year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="first_registration_month" id="id_month" class="form-select {% if errors.first_registration_month %}has-error{% endif %}">
+                                <option value="">{% trans "MM" %}</option>
+                                {% for v, l in months %}
+                                <option value="{{ v }}" {% if data.first_registration_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if errors.year %}<span class="field-error-msg">{{ errors.year }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Gross weight" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="gross_weight_kg" value="{{ data.gross_weight_kg }}" min="0" class="form-input">
+                            <span class="suffix">kg</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Curb weight" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="curb_weight" value="{{ data.curb_weight }}" min="0" class="form-input">
+                            <span class="suffix">kg</span>
+                        </div>
+                    </div>
+
+                    {# ─── EILUTĖ 2: Make | Model | Power | Mileage ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Make" %}<span class="required-star">*</span></label>
+                        <select name="truck_brand" id="id_brand" class="form-select {% if errors.truck_brand %}has-error{% endif %}">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for brand in brands %}
+                            <option value="{{ brand.id }}" {% if data.truck_brand|stringformat:'s' == brand.id|stringformat:'s' %}selected{% endif %}>{{ brand.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.truck_brand %}<span class="field-error-msg">{{ errors.truck_brand }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Model" %}<span class="required-star">*</span></label>
+                        <input type="text" name="truck_model_text" id="id_model_text"
+                               value="{{ data.truck_model_text }}"
+                               maxlength="100"
+                               placeholder="{% trans 'e.g. FH16, Actros 1845' %}"
+                               class="form-input {% if errors.truck_model_text %}has-error{% endif %}">
+                        {% if errors.truck_model_text %}<span class="field-error-msg">{{ errors.truck_model_text }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Power" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="power" value="{{ data.power }}" min="0" class="form-input">
+                            <span class="suffix">kW</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Mileage" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="mileage" value="{{ data.mileage }}" min="0" class="form-input">
+                            <span class="suffix">km</span>
+                        </div>
+                    </div>
+
+                    {# ─── EILUTĖ 3: Fuel type | Wheel formula | Length | Width ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Fuel type" %}<span class="required-star">*</span></label>
+                        <select name="fuel_type" id="id_fuel_type" class="form-select {% if errors.fuel_type %}has-error{% endif %}">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for ft in fuel_types %}
+                            <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.fuel_type %}<span class="field-error-msg">{{ errors.fuel_type }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Wheel formula" %}</label>
+                        <select name="wheel_formula" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in wheel_formula_choices %}
+                            <option value="{{ v }}" {% if data.wheel_formula == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Length" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_length_mm" value="{{ data.truck_length_mm }}" min="0" class="form-input">
+                            <span class="suffix">mm</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Width" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_width_mm" value="{{ data.truck_width_mm }}" min="0" class="form-input">
+                            <span class="suffix">mm</span>
+                        </div>
+                    </div>
+
+                    {# ─── EILUTĖ 4: Euro standard | Mass interval | Height | Volume ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Euro standard" %}</label>
+                        <select name="euro_standard" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in euro_standard_choices %}
+                            <option value="{{ v }}" {% if data.euro_standard == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Mass interval" %}</label>
+                        <select name="mass_interval" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in mass_interval_choices %}
+                            <option value="{{ v }}" {% if data.mass_interval == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Height" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_height_mm" value="{{ data.truck_height_mm }}" min="0" class="form-input">
+                            <span class="suffix">mm</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Volume" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" step="0.01" name="truck_volume_m3" value="{{ data.truck_volume_m3 }}" min="0" class="form-input">
+                            <span class="suffix">m³</span>
+                        </div>
+                    </div>
+
+                    {# ─── EILUTĖ 5: Defects | New/Used | Payload | Fuel tank ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Defects" %}</label>
+                        <select name="defects" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in defect_choices %}
+                            <option value="{{ v }}" {% if data.defects == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "New / Used" %}</label>
+                        <select name="condition" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in condition_choices %}
+                            <option value="{{ v }}" {% if data.condition == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Payload capacity" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="payload_kg" value="{{ data.payload_kg }}" min="0" class="form-input">
+                            <span class="suffix">kg</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Fuel tank capacity" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="fuel_tank_capacity_l" value="{{ data.fuel_tank_capacity_l }}" min="0" class="form-input">
+                            <span class="suffix">L</span>
+                        </div>
+                    </div>
+
+                    {# ─── EILUTĖ 6: Tech inspection | Steering | Gearbox | Sleeping seats ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Tech inspection valid until" %}</label>
+                        <div class="year-month-row">
+                            <select name="technical_inspection_year" class="form-select">
+                                <option value="">{% trans "Year" %}</option>
+                                {% for y in years %}
+                                <option value="{{ y }}" {% if data.technical_inspection_year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="technical_inspection_month" class="form-select">
+                                <option value="">{% trans "MM" %}</option>
+                                {% for v, l in months %}
+                                <option value="{{ v }}" {% if data.technical_inspection_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Steering" %}</label>
+                        <select name="steering" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in steering_choices %}
+                            <option value="{{ v }}" {% if data.steering == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Gearbox" %}</label>
+                        <select name="transmission" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for tr in transmissions %}
+                            <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Sleeping seats" %}</label>
+                        <input type="number" name="sleeping_seats" value="{{ data.sleeping_seats }}" min="0" max="20" class="form-input">
+                    </div>
+
+                    {# ─── EILUTĖ 7: Front suspension | Rear suspension | SDK | Engine capacity ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Front suspension" %}</label>
+                        <select name="front_suspension" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_suspension_choices %}
+                            <option value="{{ v }}" {% if data.front_suspension == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Rear suspension" %}</label>
+                        <select name="rear_suspension" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_suspension_choices %}
+                            <option value="{{ v }}" {% if data.rear_suspension == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "SDK number" %}</label>
+                        <input type="text" name="sdk_number" value="{{ data.sdk_number }}" maxlength="50" class="form-input">
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Engine capacity, L" %}</label>
+                        <input type="number" step="0.1" name="engine_capacity" value="{{ data.engine_capacity }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="form-input">
+                    </div>
+
+                    {# ─── EILUTĖ 8: Color | VIN ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Color" %}</label>
+                        <select name="color" class="form-select">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in color_choices %}
+                            <option value="{{ v }}" {% if data.color == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <label class="field-label">{% trans "VIN (Body number)" %}</label>
+                        <input type="text" name="vin" value="{{ data.vin }}" maxlength="17" placeholder="{% trans 'E.G. WMA17XZZ8AY123456' %}" class="form-input">
+                    </div>
+
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  EQUIPMENT / FEATURES                            #}
+            {# ════════════════════════════════════════════════ #}
+            {% if equipment_by_category %}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Features / Equipment" %}</div>
+                {% for cat in equipment_by_category %}
+                <div class="equipment-section">
+                    <div class="equipment-cat-title">{{ cat.label }}</div>
+                    <div class="equipment-grid">
+                        {% for item in cat.items %}
+                        <label class="equipment-row">
+                            <input type="checkbox" name="equipment" value="{{ item.id }}"
+                                   {% if item.id|stringformat:'s' in data.equipment %}checked{% endif %}>
+                            <span>{{ item.name }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {# ════════════════════════════════════════════════ #}
+            {#  DESCRIPTION                                     #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Description" %}</div>
+                <textarea name="description" rows="6" placeholder="{% trans 'Describe your truck...' %}" class="form-textarea">{{ data.description }}</textarea>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  PHOTOS — su drag-drop reorder + zoom modal      #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Photos" %} ({{ current_listing.images.count }} / 40)</div>
+
+                <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click()">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="text">{% blocktrans %}Drop photos here or <strong>click to upload</strong>{% endblocktrans %}</div>
+                    <div class="hint">{% trans "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder" %}</div>
+                </div>
+                <input type="file" id="photoInput" multiple accept="image/*" style="display:none;">
+
+                <div class="photo-grid" id="photoGrid">
+                    {% for img in current_listing.images.all %}
+                    <div class="photo-item {% if img.is_main %}is-main{% endif %}" data-id="{{ img.pk }}" draggable="true">
+                        <img src="{{ img.image.url }}" alt="" data-url="{{ img.image.url }}">
+                        <div class="photo-actions">
+                            <button type="button" class="photo-action-btn view" title="{% trans 'View' %}"><i class="fas fa-eye"></i></button>
+                            <button type="button" class="photo-action-btn delete" title="{% trans 'Delete' %}"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="photo-grid-hint">{% trans "No photos yet — upload some to attract buyers" %}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  VIDEO                                           #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Video (optional)" %}</div>
+                <input type="url" name="video_url" value="{{ data.video_url }}" placeholder="{% trans 'YouTube URL — e.g. https://youtube.com/watch?v=...' %}" class="form-input">
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  PRICE                                           #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Price" %}</div>
+                <div class="field-grid">
+                    <div class="col-2">
+                        <label class="field-label">{% trans "Asking price" %}<span class="required-star">*</span></label>
+                        <div class="with-suffix">
+                            <input type="number" step="0.01" name="price" value="{{ data.price }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}">
+                            <select name="currency" class="form-select suffix-select">
+                                {% for v, l in currency_choices %}
+                                <option value="{{ v }}" {% if data.currency == v %}selected{% endif %}>{{ v }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
+                    </div>
+
+                    <div class="col-2 flex items-end">
+                        <label class="equipment-row" style="padding: 0.55rem 0.75rem;">
+                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %}>
+                            <span>{% trans "Price is negotiable" %}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  LOCATION                                        #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Location" %}</div>
+                <div class="field-grid">
+                    <div>
+                        <label class="field-label">{% trans "Country" %}<span class="required-star">*</span></label>
+                        <select name="country" id="id_country" class="form-select">
+                            {% for v, l in country_choices %}
+                            <option value="{{ v }}" {% if data.country == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div id="stateWrapper">
+                        <label class="field-label">{% trans "State" %}<span class="required-star">*</span></label>
+                        <select name="state" class="form-select {% if errors.state %}has-error{% endif %}">
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in us_states %}
+                            <option value="{{ v }}" {% if data.state == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.state %}<span class="field-error-msg">{{ errors.state }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "City" %}</label>
+                        <input type="text" name="city" value="{{ data.city }}" class="form-input {% if errors.city %}has-error{% endif %}">
+                        {% if errors.city %}<span class="field-error-msg">{{ errors.city }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Postal code" %}</label>
+                        <input type="text" name="postal_code" value="{{ data.postal_code }}" class="form-input">
+                    </div>
+
+                    <div class="col-4">
+                        <label class="field-label">{% trans "Address (optional)" %}</label>
+                        <input type="text" name="address" value="{{ data.address }}" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            {# ─── Bottom action bar ─── #}
+            <div class="action-bar-bottom">
+                <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">{% trans "Cancel" %}</a>
+                <button type="submit" class="btn-publish"><i class="fas fa-save"></i> {% trans "Save Changes" %}</button>
+            </div>
+
+        </form>
+    </div>
+
+    {# ─── Toast indicator ─── #}
+    <div class="notify-toast" id="notifyToast">
+        <span id="notifyText"></span>
+    </div>
+
+    {# ─── Lightbox su zoom + pan ─── #}
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <button class="lightbox-arrow prev" onclick="lightboxPrev()"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-arrow next" onclick="lightboxNext()"><i class="fas fa-chevron-right"></i></button>
+        <div class="lightbox-img-wrap" id="lightboxWrap">
+            <img id="lightboxImg" src="" alt="">
+        </div>
+        <div class="lightbox-zoom-controls">
+            <button onclick="lightboxZoom(-0.25)" title="{% trans 'Zoom out' %}"><i class="fas fa-search-minus"></i></button>
+            <button onclick="lightboxResetZoom()" title="{% trans 'Reset' %}"><i class="fas fa-expand"></i></button>
+            <button onclick="lightboxZoom(0.25)" title="{% trans 'Zoom in' %}"><i class="fas fa-search-plus"></i></button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const LISTING_ID = {{ current_listing.pk }};
+const AJAX_UPLOAD_IMAGE = '/ajax/upload-trucks-image/';
+const AJAX_DELETE_IMAGE = '/ajax/delete-trucks-image/';
+const AJAX_REORDER_IMAGES = '/ajax/reorder-trucks-images/';
+
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+// ─── i18n strings ───
+var I18N = {
+    uploadingPhotos: "{% trans 'Uploading' %}",
+    photosCount: "{% trans 'photo(s)…' %}",
+    uploaded: "{% trans 'Uploaded' %}",
+    uploadFailed: "{% trans 'Upload failed' %}",
+    deleted: "{% trans 'Deleted' %}",
+    deleteFailed: "{% trans 'Delete failed' %}",
+    deleteConfirm: "{% trans 'Delete this photo?' %}",
+    savingOrder: "{% trans 'Saving order…' %}",
+    orderSaved: "{% trans 'Order saved' %}",
+    saveFailed: "{% trans 'Save failed' %}"
+};
+
+// ═══════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════
+function showToast(state, text) {
+    const el = document.getElementById('notifyToast');
+    const txt = document.getElementById('notifyText');
+    el.classList.remove('saving', 'saved', 'error');
+    el.classList.add(state);
+    txt.textContent = text;
+    el.classList.add('visible');
+    if (state !== 'saving') {
+        setTimeout(() => el.classList.remove('visible'), 2000);
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// LOCATION VISIBILITY
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    const country = document.getElementById('id_country');
+    const stateW = document.getElementById('stateWrapper');
+    function toggleState() {
+        stateW.style.display = (country.value === 'US') ? '' : 'none';
+    }
+    country.addEventListener('change', toggleState);
+    toggleState();
+
+    initPhotoUpload();
+    initPhotoActions();
+    initDragDrop();
+});
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO UPLOAD
+// ═══════════════════════════════════════════════════════════
+function initPhotoUpload() {
+    const input = document.getElementById('photoInput');
+    const dropZone = document.getElementById('dropZone');
+
+    input.addEventListener('change', () => {
+        if (input.files.length) {
+            const filesArr = Array.from(input.files);
+            input.value = '';
+            uploadPhotos(filesArr);
+        }
+    });
+
+    ['dragover', 'dragenter'].forEach(ev => {
+        dropZone.addEventListener(ev, e => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+    });
+    ['dragleave', 'dragend', 'drop'].forEach(ev => {
+        dropZone.addEventListener(ev, e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+    });
+    dropZone.addEventListener('drop', e => {
+        if (e.dataTransfer.files.length) {
+            uploadPhotos(Array.from(e.dataTransfer.files));
+        }
+    });
+}
+
+function uploadPhotos(files) {
+    const filesArr = Array.from(files);
+    if (filesArr.length === 0) return;
+
+    showToast('saving', `${I18N.uploadingPhotos} ${filesArr.length} ${I18N.photosCount}`);
+
+    const fd = new FormData();
+    filesArr.forEach(f => fd.append('images', f));
+    fd.append('listing_id', LISTING_ID);  // EDIT mode — siunčiam listing_id
+
+    fetch(AJAX_UPLOAD_IMAGE, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+        body: fd,
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success && json.uploaded) {
+            json.uploaded.forEach(addPhotoToGrid);
+            showToast('saved', I18N.uploaded);
+            // Cleanup tuščio "No photos yet" hint'o, jei buvo
+            const hint = document.querySelector('.photo-grid-hint');
+            if (hint) hint.remove();
+        } else {
+            showToast('error', json.error || I18N.uploadFailed);
+        }
+    })
+    .catch(e => {
+        console.error('Upload error:', e);
+        showToast('error', I18N.uploadFailed);
+    });
+}
+
+function addPhotoToGrid(img) {
+    const grid = document.getElementById('photoGrid');
+
+    if (img.is_main) {
+        grid.querySelectorAll('.photo-item.is-main').forEach(p => p.classList.remove('is-main'));
+    }
+
+    const div = document.createElement('div');
+    div.className = 'photo-item' + (img.is_main ? ' is-main' : '');
+    div.dataset.id = img.id;
+    div.draggable = true;
+    div.innerHTML = `
+        <img src="${img.url}" alt="" data-url="${img.url}">
+        <div class="photo-actions">
+            <button type="button" class="photo-action-btn view"><i class="fas fa-eye"></i></button>
+            <button type="button" class="photo-action-btn delete"><i class="fas fa-times"></i></button>
+        </div>
+    `;
+    grid.appendChild(div);
+
+    // Reattach handlers
+    attachPhotoHandlers(div);
+}
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO ACTIONS — view + delete
+// ═══════════════════════════════════════════════════════════
+function initPhotoActions() {
+    document.querySelectorAll('.photo-item').forEach(attachPhotoHandlers);
+}
+
+function attachPhotoHandlers(item) {
+    const img = item.querySelector('img');
+    const viewBtn = item.querySelector('.photo-action-btn.view');
+    const delBtn = item.querySelector('.photo-action-btn.delete');
+
+    if (img) {
+        img.addEventListener('click', e => {
+            e.stopPropagation();
+            openLightbox(img.dataset.url);
+        });
+    }
+    if (viewBtn) {
+        viewBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            openLightbox(img.dataset.url);
+        });
+    }
+    if (delBtn) {
+        delBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const id = parseInt(item.dataset.id, 10);
+            deletePhoto(id, item);
+        });
+    }
+
+    // Drag-drop
+    item.addEventListener('dragstart', onDragStart);
+    item.addEventListener('dragend', onDragEnd);
+    item.addEventListener('dragover', onDragOver);
+    item.addEventListener('dragleave', onDragLeave);
+    item.addEventListener('drop', onDropPhoto);
+}
+
+function deletePhoto(id, itemEl) {
+    if (!confirm(I18N.deleteConfirm)) return;
+
+    fetch(AJAX_DELETE_IMAGE + id + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success) {
+            itemEl.remove();
+            showToast('saved', I18N.deleted);
+
+            // Užtikrinam kad MAIN badge persikelia jei reikia
+            const grid = document.getElementById('photoGrid');
+            const hasMain = grid.querySelector('.photo-item.is-main');
+            if (!hasMain) {
+                const first = grid.querySelector('.photo-item');
+                if (first) first.classList.add('is-main');
+            }
+        } else {
+            showToast('error', json.error || I18N.deleteFailed);
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// DRAG-DROP REORDER
+// ═══════════════════════════════════════════════════════════
+let dragSrc = null;
+
+function onDragStart(e) {
+    dragSrc = this;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', this.dataset.id);
+}
+
+function onDragEnd(e) {
+    this.classList.remove('dragging');
+    document.querySelectorAll('.photo-item.drag-over-target').forEach(el => {
+        el.classList.remove('drag-over-target');
+    });
+}
+
+function onDragOver(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (this !== dragSrc) {
+        this.classList.add('drag-over-target');
+    }
+    return false;
+}
+
+function onDragLeave(e) {
+    this.classList.remove('drag-over-target');
+}
+
+function onDropPhoto(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+
+    if (dragSrc !== this) {
+        const grid = document.getElementById('photoGrid');
+        const items = Array.from(grid.querySelectorAll('.photo-item'));
+        const srcIdx = items.indexOf(dragSrc);
+        const tgtIdx = items.indexOf(this);
+
+        if (srcIdx < tgtIdx) {
+            this.parentNode.insertBefore(dragSrc, this.nextSibling);
+        } else {
+            this.parentNode.insertBefore(dragSrc, this);
+        }
+
+        // Update MAIN badge — pirma vieta visada main
+        grid.querySelectorAll('.photo-item.is-main').forEach(el => el.classList.remove('is-main'));
+        const newFirst = grid.querySelector('.photo-item');
+        if (newFirst) newFirst.classList.add('is-main');
+
+        // POST'inam į backend'ą
+        saveOrder();
+    }
+
+    this.classList.remove('drag-over-target');
+    return false;
+}
+
+function saveOrder() {
+    const ids = Array.from(document.querySelectorAll('#photoGrid .photo-item'))
+        .map(el => parseInt(el.dataset.id, 10));
+
+    showToast('saving', I18N.savingOrder);
+
+    fetch(AJAX_REORDER_IMAGES, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+        body: JSON.stringify({ image_ids: ids, listing_id: LISTING_ID }),
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success) {
+            showToast('saved', I18N.orderSaved);
+        } else {
+            showToast('error', I18N.saveFailed);
+        }
+    });
+}
+
+function initDragDrop() {
+    // Photo handlers attach jau per initPhotoActions
+}
+
+// ═══════════════════════════════════════════════════════════
+// LIGHTBOX su zoom + pan
+// ═══════════════════════════════════════════════════════════
+let lbState = {
+    images: [],
+    index: 0,
+    zoom: 1,
+    panX: 0,
+    panY: 0,
+    isPanning: false,
+    panStartX: 0,
+    panStartY: 0,
+};
+
+function getAllPhotoUrls() {
+    return Array.from(document.querySelectorAll('#photoGrid .photo-item img'))
+        .map(img => img.dataset.url);
+}
+
+function openLightbox(url) {
+    lbState.images = getAllPhotoUrls();
+    lbState.index = lbState.images.indexOf(url);
+    if (lbState.index === -1) lbState.index = 0;
+
+    const lb = document.getElementById('lightbox');
+    lb.classList.add('active');
+    lightboxLoad();
+
+    // Keyboard nav
+    document.addEventListener('keydown', lightboxKeyboard);
+
+    // Pan handlers
+    const wrap = document.getElementById('lightboxWrap');
+    wrap.addEventListener('mousedown', startPan);
+    wrap.addEventListener('mousemove', doPan);
+    wrap.addEventListener('mouseup', endPan);
+    wrap.addEventListener('mouseleave', endPan);
+    wrap.addEventListener('wheel', wheelZoom, { passive: false });
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.removeEventListener('keydown', lightboxKeyboard);
+    lightboxResetZoom();
+}
+
+function lightboxLoad() {
+    const url = lbState.images[lbState.index];
+    if (!url) return;
+    document.getElementById('lightboxImg').src = url;
+    lightboxResetZoom();
+}
+
+function lightboxPrev() {
+    if (lbState.images.length <= 1) return;
+    lbState.index = (lbState.index - 1 + lbState.images.length) % lbState.images.length;
+    lightboxLoad();
+}
+
+function lightboxNext() {
+    if (lbState.images.length <= 1) return;
+    lbState.index = (lbState.index + 1) % lbState.images.length;
+    lightboxLoad();
+}
+
+function lightboxZoom(delta) {
+    lbState.zoom = Math.max(0.5, Math.min(5, lbState.zoom + delta));
+    applyZoom();
+}
+
+function lightboxResetZoom() {
+    lbState.zoom = 1;
+    lbState.panX = 0;
+    lbState.panY = 0;
+    applyZoom();
+}
+
+function applyZoom() {
+    const img = document.getElementById('lightboxImg');
+    const wrap = document.getElementById('lightboxWrap');
+    img.style.transform = `translate(${lbState.panX}px, ${lbState.panY}px) scale(${lbState.zoom})`;
+
+    if (lbState.zoom > 1) {
+        wrap.classList.add('zoomed');
+    } else {
+        wrap.classList.remove('zoomed');
+    }
+}
+
+function startPan(e) {
+    if (lbState.zoom <= 1) return;
+    lbState.isPanning = true;
+    lbState.panStartX = e.clientX - lbState.panX;
+    lbState.panStartY = e.clientY - lbState.panY;
+    document.getElementById('lightboxWrap').classList.add('panning');
+    e.preventDefault();
+}
+
+function doPan(e) {
+    if (!lbState.isPanning) return;
+    lbState.panX = e.clientX - lbState.panStartX;
+    lbState.panY = e.clientY - lbState.panStartY;
+    applyZoom();
+}
+
+function endPan() {
+    lbState.isPanning = false;
+    document.getElementById('lightboxWrap').classList.remove('panning');
+}
+
+function wheelZoom(e) {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.15 : 0.15;
+    lightboxZoom(delta);
+}
+
+function lightboxKeyboard(e) {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lightboxPrev();
+    if (e.key === 'ArrowRight') lightboxNext();
+    if (e.key === '+' || e.key === '=') lightboxZoom(0.25);
+    if (e.key === '-' || e.key === '_') lightboxZoom(-0.25);
+    if (e.key === '0') lightboxResetZoom();
+}
+
+// Click on overlay (not image) closes
+document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target.id === 'lightbox') closeLightbox();
+});
+</script>
+{% endblock %}

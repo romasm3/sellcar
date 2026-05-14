@@ -1,0 +1,1 @@
+[ADMIN] New user registered: {{ username }}

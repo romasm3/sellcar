@@ -1,0 +1,22 @@
+Hi {{ user_name|default:"there" }},
+
+We detected a new login to your account:
+
+   Time: {{ login_time }}
+   Device: {{ device_info }}
+   Location: {{ location|default:"Unknown" }}
+   IP: {{ ip_address }}
+
+If this was you, no action is needed.
+
+If you don't recognize this login:
+  1. Change your password immediately:
+     {{ password_change_url }}
+  2. Review your account activity
+
+Stay safe!
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

@@ -72,6 +72,10 @@ class Step1BasicInfoForm(forms.Form):
 class Step2MediaForm(forms.Form):
     """Step 2: Upload Photos and Video"""
 
+    brand = forms.IntegerField(required=False)
+    model = forms.IntegerField(required=False)
+    year = forms.IntegerField(required=False)
+
     video_url = forms.URLField(
         label="Upload Video (YouTube or other URL)",
         required=False,
@@ -88,7 +92,7 @@ class Step3VehicleDataForm(forms.Form):
 
     body_type = forms.ChoiceField(
         label="Body Type",
-        choices=Listing.BODY_TYPE_CHOICES,
+        choices=[('', '---------')] + Listing.BODY_TYPE_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
@@ -112,14 +116,31 @@ class Step3VehicleDataForm(forms.Form):
 
     condition = forms.ChoiceField(
         label="Condition",
-        choices=Listing.CONDITION_CHOICES,
+        choices=[('', '---------')] + Listing.CONDITION_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    color = forms.CharField(
+    color = forms.ChoiceField(
         label="Color",
+        choices=[('', '---------')] + Listing.COLOR_CHOICES,
         required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., Black'})
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    # 13. Defects — REQUIRED, tu\u0161\u010dias default (---------), vartotojas turi pasirinkti vien\u0105 i\u0161 variant\u0173 (\u012fskaitant "No defects")
+    defects = forms.ChoiceField(
+        label="Defects",
+        choices=[('', '---------')] + list(Listing.DEFECT_CHOICES),
+        required=True,
+        initial='',
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    steering = forms.ChoiceField(
+        label="Steering",
+        choices=[('', '---------')] + Listing.STEERING_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     mileage = forms.IntegerField(
@@ -151,6 +172,116 @@ class Step3VehicleDataForm(forms.Form):
         })
     )
 
+    # Extended fields
+    drive_type = forms.ChoiceField(
+        label="Drive Type",
+        choices=[('', '---------')] + Listing.DRIVE_TYPE_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    seats = forms.ChoiceField(
+        label="Number of Seats",
+        choices=[('', '---------')] + Listing.SEATS_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    rim_size = forms.ChoiceField(
+        label="Rim Size",
+        choices=[('', '---------')] + Listing.RIM_SIZE_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    climate = forms.ChoiceField(
+        label="Climate Control",
+        choices=[('', '---------')] + Listing.CLIMATE_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    curb_weight = forms.IntegerField(
+        label="Curb Weight (kg)",
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'kg',
+            'min': '0'
+        })
+    )
+
+    euro_standard = forms.ChoiceField(
+        label="Euro Standard",
+        choices=[('', '---------')] + Listing.EURO_STANDARD_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    co2_emission = forms.IntegerField(
+        label="CO\u2082 Emission (g/km)",
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'g/km',
+            'min': '0'
+        })
+    )
+
+    fuel_consumption_city = forms.DecimalField(
+        label="Fuel Consumption City (l/100km)",
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '-',
+            'step': '0.1',
+            'min': '0'
+        })
+    )
+
+    fuel_consumption_highway = forms.DecimalField(
+        label="Fuel Consumption Highway (l/100km)",
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '-',
+            'step': '0.1',
+            'min': '0'
+        })
+    )
+
+    fuel_consumption_combined = forms.DecimalField(
+        label="Fuel Consumption Combined (l/100km)",
+        required=False,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '-',
+            'step': '0.1',
+            'min': '0'
+        })
+    )
+
+    origin_country = forms.ChoiceField(
+        label="Origin Country",
+        choices=[('', '---------')] + Listing.COUNTRY_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    technical_inspection_month = forms.ChoiceField(
+        label="Technical Inspection Month",
+        choices=[('', '-')] + [(str(m), f'{m:02d}') for m in range(1, 13)],
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    technical_inspection_year = forms.ChoiceField(
+        label="Technical Inspection Year",
+        choices=[('', '-')] + [(str(y), str(y)) for y in range(2024, 2036)],
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
 
 # STEP 4: Equipment
 class Step4EquipmentForm(forms.Form):
@@ -173,7 +304,6 @@ class Step4EquipmentForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Group equipment by category
         equipment_by_category = {}
         for equipment in Equipment.objects.all():
             category = equipment.get_category_display()
@@ -189,7 +319,7 @@ class Step5PriceForm(forms.Form):
     """Step 5: Price"""
 
     price = forms.DecimalField(
-        label="Price (€)",
+        label="Price (\u20ac)",
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Enter price',
@@ -220,10 +350,11 @@ class Step6DescriptionForm(forms.Form):
     )
 
 
-# STEP 7: Contact & Location - ENHANCED
+# STEP 7: Contact & Location
 class Step7ContactForm(forms.Form):
     """Step 7: Contact Information & Location"""
 
+    # 14. US pridetas prie country choices
     COUNTRY_CHOICES = [
         ('LT', 'Lithuania'),
         ('LV', 'Latvia'),
@@ -248,9 +379,9 @@ class Step7ContactForm(forms.Form):
         ('GB', 'United Kingdom'),
         ('IE', 'Ireland'),
         ('CH', 'Switzerland'),
+        ('US', 'United States'),
     ]
 
-    # Location fields
     country = forms.ChoiceField(
         label="Country",
         choices=COUNTRY_CHOICES,
@@ -258,8 +389,10 @@ class Step7ContactForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
+    # 14. City laukas — NEPRIVALOMAS (kai pasirenka US, naudojama valstija)
     city = forms.CharField(
         label="City",
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'e.g., Vilnius'
@@ -271,7 +404,7 @@ class Step7ContactForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'e.g., LT-01100'
+            'placeholder': 'e.g., 90210'
         })
     )
 
@@ -280,7 +413,7 @@ class Step7ContactForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'e.g., Gedimino pr. 1'
+            'placeholder': 'e.g., 123 Main St'
         })
     )
 
@@ -291,17 +424,18 @@ class Step7ContactForm(forms.Form):
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
-    # Contact fields
     phone = forms.CharField(
         label="Contact Phone",
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': '+370 600 00000'
+            'placeholder': '+1 (555) 123-4567'
         })
     )
 
     email = forms.EmailField(
         label="Email Address",
+        required=False,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'placeholder': 'email@example.com'
@@ -315,10 +449,9 @@ class Step7ContactForm(forms.Form):
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
-    # Terms
     agree_terms = forms.BooleanField(
         label="I agree to the Terms and Conditions and Privacy Policy",
-        required=True,
+        required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
@@ -327,6 +460,16 @@ class Step7ContactForm(forms.Form):
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
+
+    # 14. Custom validation: city OR (US + state) reikalinga
+    def clean(self):
+        cleaned = super().clean()
+        country = cleaned.get('country')
+        city = cleaned.get('city', '').strip()
+        # state ateina kaip POST['state'] — netrauke per form, validacija bus view'e
+        if country != 'US' and not city:
+            self.add_error('city', 'City is required.')
+        return cleaned
 
 
 # Image Upload Form

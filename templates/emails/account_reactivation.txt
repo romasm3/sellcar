@@ -1,0 +1,20 @@
+Hi {{ user_name|default:"there" }},
+
+It's been {{ days_inactive }} days since your last visit. We have great new listings since then!
+
+What's new:
+   {{ new_listings_count }} new listings added
+   {{ new_brands|default:"Many new brands and models" }}
+
+Browse the latest:
+{{ site_url }}/
+
+Have a vehicle to sell? List it free in 7 steps:
+{{ site_url }}/create/
+
+We hope to see you back soon!
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

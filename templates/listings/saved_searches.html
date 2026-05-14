@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Saved Searches" %} - SellCar{% endblock %}
+{% block content %}
+
+<!-- Toast notification -->
+<div id="toast" class="fixed top-5 right-5 z-50 hidden">
+    <div id="toast-inner" class="flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white">
+        <i id="toast-icon" class="fas fa-check-circle text-base"></i>
+        <span id="toast-msg"></span>
+    </div>
+</div>
+
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">{% trans "My Searches" %}</h1>
+            <a href="{% url 'home' %}" class="text-primary hover:text-primary-dark text-sm font-medium">
+                &larr; {% trans "Back to listings" %}
+            </a>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        {% if searches %}
+
+        <!-- Desktop Table -->
+        <div class="hidden md:block bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="grid grid-cols-12 gap-4 px-4 py-3 bg-gray-50 border-b border-gray-200 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                <div class="col-span-5">{% trans "Search" %}</div>
+                <div class="col-span-2 text-center">{% trans "Edit" %}</div>
+                <div class="col-span-2 text-center">{% trans "Email alerts" %}</div>
+                <div class="col-span-2 text-center">{% trans "Duplicate" %}</div>
+                <div class="col-span-1 text-center">{% trans "Delete" %}</div>
+            </div>
+
+            {% for search in searches %}
+            <div class="grid grid-cols-12 gap-4 px-4 py-4 border-b border-gray-100 hover:bg-gray-50 items-center last:border-b-0 cursor-pointer"
+                 data-search-pk="{{ search.pk }}"
+                 onclick="markViewed({{ search.pk }}, '{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}search_id={{ search.pk }}')">
+
+                <!-- Name -->
+                <div class="col-span-5 flex items-center gap-3">
+                    <div class="relative flex-shrink-0">
+                        <i class="{% if search.notify_email %}fas text-red-500{% else %}far text-gray-300{% endif %} fa-heart text-xl"></i>
+                        {% if search.new_count and search.new_count > 0 %}
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none search-badge">
+                            {{ search.new_count }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-900 text-sm">{{ search.name }}</p>
+                        <p class="text-xs text-gray-400 mt-0.5">
+                            {% if search.query_params.year_min %}{% blocktrans with y=search.query_params.year_min %}from {{ y }}{% endblocktrans %}{% endif %}
+                            {% if search.query_params.year_max %} {% blocktrans with y=search.query_params.year_max %}till {{ y }}{% endblocktrans %}{% endif %}
+                            {% if search.query_params.price_min or search.query_params.price_max %}
+                                , &euro;{% if search.query_params.price_min %}{{ search.query_params.price_min }}{% endif %}
+                                {% if search.query_params.price_max %} - &euro;{{ search.query_params.price_max }}{% endif %}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Edit -->
+                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
+                    <a href="{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}sidebar=1"
+                       class="px-4 py-1.5 bg-gray-100 text-gray-600 text-sm rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
+                        <i class="fas fa-pencil-alt text-xs"></i> {% trans "Edit" %}
+                    </a>
+                </div>
+
+                <!-- Email toggle -->
+                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
+                    <form method="POST" action="{% url 'toggle_search_notify' search.pk %}"
+                          onsubmit="showToast(I18N.emailAlertsUpdated, 'success')">
+                        {% csrf_token %}
+                        <button type="submit" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {% if search.notify_email %}bg-primary{% else %}bg-gray-200{% endif %}">
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform {% if search.notify_email %}translate-x-6{% else %}translate-x-1{% endif %}"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Duplicate -->
+                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
+                    <form method="POST" action="{% url 'duplicate_search' search.pk %}"
+                          onsubmit="showToast(I18N.searchDuplicated, 'success')">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Delete (AJAX, instant) -->
+                <div class="col-span-1 flex justify-center" onclick="event.stopPropagation()">
+                    <button type="button"
+                            onclick="deleteSearch({{ search.pk }})"
+                            class="p-2 text-gray-300 hover:text-red-500 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Mobile Cards -->
+        <div class="md:hidden space-y-3">
+            {% for search in searches %}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 cursor-pointer"
+                 data-search-pk="{{ search.pk }}"
+                 onclick="markViewed({{ search.pk }}, '{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}search_id={{ search.pk }}')">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex-shrink-0">
+                            <i class="{% if search.notify_email %}fas text-red-500{% else %}far text-gray-300{% endif %} fa-heart"></i>
+                            {% if search.new_count and search.new_count > 0 %}
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-0.5 leading-none search-badge">
+                                {{ search.new_count }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900 text-sm">{{ search.name }}</p>
+                            <p class="text-xs text-gray-400">
+                                {% if search.query_params.year_min %}{% blocktrans with y=search.query_params.year_min %}from {{ y }}{% endblocktrans %}{% endif %}
+                                {% if search.query_params.year_max %} {% blocktrans with y=search.query_params.year_max %}till {{ y }}{% endblocktrans %}{% endif %}
+                                {% if search.query_params.price_min or search.query_params.price_max %}
+                                    , &euro;{% if search.query_params.price_min %}{{ search.query_params.price_min }}{% endif %}
+                                    {% if search.query_params.price_max %} - &euro;{{ search.query_params.price_max }}{% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div onclick="event.stopPropagation()">
+                        <button type="button"
+                                onclick="deleteSearch({{ search.pk }})"
+                                class="text-gray-300 hover:text-red-500 transition-colors p-1">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap" onclick="event.stopPropagation()">
+                    <a href="{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}sidebar=1"
+                       class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
+                        <i class="fas fa-pencil-alt text-xs"></i> {% trans "Edit" %}
+                    </a>
+                    <form method="POST" action="{% url 'toggle_search_notify' search.pk %}"
+                          onsubmit="showToast(I18N.emailAlertsUpdated, 'success')">
+                        {% csrf_token %}
+                        <button type="submit" class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+                            <span class="relative inline-flex h-5 w-9 items-center rounded-full {% if search.notify_email %}bg-primary{% else %}bg-gray-200{% endif %}">
+                                <span class="inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform {% if search.notify_email %}translate-x-5{% else %}translate-x-1{% endif %}"></span>
+                            </span>
+                            <span>{% trans "Email" %}</span>
+                        </button>
+                    </form>
+                    <form method="POST" action="{% url 'duplicate_search' search.pk %}"
+                          onsubmit="showToast(I18N.searchDuplicated, 'success')">
+                        {% csrf_token %}
+                        <button type="submit" class="px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="bg-white rounded-xl p-12 text-center border border-gray-200">
+            <i class="fas fa-bell text-gray-300 text-5xl mb-4 block"></i>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{% trans "No saved searches" %}</h3>
+            <p class="text-gray-500 mb-6">{% trans "Save a search to quickly find listings matching your criteria" %}</p>
+            <a href="{% url 'home' %}" class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+                {% trans "Browse Listings" %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// ─── i18n strings ───
+var I18N = {
+    emailAlertsUpdated: "{% trans 'Email alerts updated' %}",
+    searchDuplicated: "{% trans 'Search duplicated' %}"
+};
+
+function deleteSearch(pk) {
+    // Instant remove from DOM
+    var rows = document.querySelectorAll('[data-search-pk="' + pk + '"]');
+    rows.forEach(function(row) {
+        row.remove();
+    });
+
+    // Async backend delete
+    fetch('/search/delete/' + pk + '/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    }).catch(function() {});
+}
+
+function markViewed(pk, url) {
+    // Vizualiai nusinulinti badge iš karto
+    var rows = document.querySelectorAll('[data-search-pk="' + pk + '"]');
+    rows.forEach(function(row) {
+        var badge = row.querySelector('.search-badge');
+        if (badge) badge.remove();
+    });
+
+    fetch(`/search/${pk}/viewed/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    }).then(function() {
+        window.location = url + '&sidebar=1';
+    }).catch(function() {
+        window.location = url + '&sidebar=1';
+    });
+}
+
+function showToast(msg, type) {
+    const toast = document.getElementById('toast');
+    const inner = document.getElementById('toast-inner');
+    const icon = document.getElementById('toast-icon');
+    const text = document.getElementById('toast-msg');
+
+    text.textContent = msg;
+
+    if (type === 'success') {
+        inner.className = 'flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white bg-green-500';
+        icon.className = 'fas fa-check-circle text-base';
+    } else {
+        inner.className = 'flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white bg-red-500';
+        icon.className = 'fas fa-times-circle text-base';
+    }
+
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 2500);
+}
+</script>
+
+{% endblock %}

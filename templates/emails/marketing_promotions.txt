@@ -1,0 +1,14 @@
+Hi {{ user_name|default:"there" }},
+
+{{ promo_message }}
+
+{% if promo_code %}Use code: {{ promo_code }}{% endif %}
+{% if expires_at %}Valid until: {{ expires_at }}{% endif %}
+
+Get started:
+{{ promo_url }}
+
+- Thank you
+
+---
+To unsubscribe from marketing: {{ site_url }}/settings/

@@ -1,0 +1,26 @@
+Hi {{ user_name|default:"there" }},
+
+Your listing was reported by another user:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+Reason given: {{ report_reason }}
+
+Our team will review this report. If everything is in order, no action is needed.
+
+To avoid issues:
+  - Make sure your title and description match the actual vehicle
+  - Use real photos of YOUR vehicle (not stock photos)
+  - Set a fair, realistic price
+  - Don't include misleading information
+
+If you'd like to update your listing:
+{{ edit_url }}
+
+If you have questions, reply to this email.
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

@@ -1,0 +1,14 @@
+Hi {{ user_name|default:"there" }},
+
+Your payment of {{ payment_amount }} could not be processed.
+
+Reason: {{ failure_reason|default:"Card declined" }}
+
+Try again or use a different payment method:
+{{ retry_url }}
+
+If this keeps happening, contact your bank or reply to this email for help.
+
+- Thank you
+
+---

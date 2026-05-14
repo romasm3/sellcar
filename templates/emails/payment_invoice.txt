@@ -1,0 +1,17 @@
+Hi {{ user_name|default:"there" }},
+
+Here is your invoice for {{ invoice_period }}:
+
+   Invoice number: {{ invoice_number }}
+   Amount: {{ payment_amount }}
+   Date: {{ invoice_date }}
+
+Download PDF:
+{{ invoice_pdf_url }}
+
+View all invoices:
+{{ invoices_url }}
+
+- Thank you
+
+---

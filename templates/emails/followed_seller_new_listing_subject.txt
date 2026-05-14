@@ -1,0 +1,1 @@
+{{ seller_name }} added a new listing

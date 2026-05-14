@@ -4,94 +4,285 @@
     padding: 0;
     box-sizing: border-box;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-    font-family: "Poppins", sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f7;
 }
 
 /* Navigation */
 .navbar-brand {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.5rem;
 }
 
 /* Cards */
 .card {
     border: none;
-    border-radius: 10px;
-}
-
-.card-header {
-    border-radius: 10px 10px 0 0 !important;
-}
-
-/* Buttons */
-.btn {
-    border-radius: 8px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    background: white;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+.card-header {
+    border-radius: 16px 16px 0 0 !important;
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 600;
+}
+.card-body {
+    padding: 1.5rem;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+/* ========================================
+   BUTTON SYSTEM - Keisk čia visas spalvas!
+   ======================================== */
+
+.btn {
+    border-radius: 10px;
+    padding: 0.65rem 1.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
 }
+
+/* PRIMARY - PILKA (buvo violetinė) */
+.btn-primary {
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(75, 85, 99, 0.35);
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(75, 85, 99, 0.4);
+    color: white !important;
+}
+
+/* DARK */
+.btn-dark {
+    background: linear-gradient(135deg, #4b5563 0%, #111827 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(31, 41, 55, 0.4);
+}
+.btn-dark:hover {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 41, 55, 0.5);
+    color: white !important;
+}
+
+/* CTA - Oranžinė */
+.btn-cta {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+}
+.btn-cta:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
+    color: white !important;
+}
+
+/* SUCCESS - Žalia */
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    color: white !important;
+}
+
+/* DANGER - Raudona */
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+}
+.btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+    color: white !important;
+}
+
+/* LIGHT */
+.btn-light {
+    background: white !important;
+    color: #6b7280 !important;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.btn-light:hover {
+    background: #f9fafb !important;
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* OUTLINE VARIANTS */
+.btn-outline-primary {
+    border: 2px solid #9ca3af !important;
+    color: #9ca3af !important;
+    background: transparent !important;
+}
+.btn-outline-primary:hover {
+    background: #9ca3af !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+/* BUTTON SIZES */
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+}
+.btn-lg {
+    padding: 0.85rem 2.25rem;
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   TAILWIND OVERRIDE - Automatiškai keičia
+   ======================================== */
+
+/* bg-primary → Pilka */
+.bg-primary,
+[class*="bg-primary"] {
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+}
+.hover\:bg-primary-dark:hover,
+.hover\:bg-primary:hover {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+}
+
+/* Emerald/Teal gradientai → Pilka */
+.from-emerald-500,
+.bg-gradient-to-r.from-emerald-500,
+[class*="from-emerald"] {
+    --tw-gradient-from: #4b5563 !important;
+    background: linear-gradient(to right, #9ca3af, #6b7280) !important;
+}
+.to-teal-600,
+[class*="to-teal"] {
+    --tw-gradient-to: #6b7280 !important;
+}
+.hover\:from-emerald-600:hover {
+    background: linear-gradient(to right, #6b7280, #4b5563) !important;
+}
+.hover\:to-teal-700:hover {
+    --tw-gradient-to: #4b5563 !important;
+}
+
+/* Violet/Purple → Pilka */
+.from-violet-500,
+.from-purple-500,
+.from-purple-600,
+[class*="from-violet"],
+[class*="from-purple"] {
+    --tw-gradient-from: #9ca3af !important;
+    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+}
+.to-purple-600,
+.to-purple-700,
+.to-purple-800,
+.to-violet-600,
+[class*="to-purple"],
+[class*="to-violet"] {
+    --tw-gradient-to: #6b7280 !important;
+}
+
+/* Shadow override */
+.shadow-emerald-500\/30,
+.shadow-violet-500\/30,
+.shadow-purple-500\/30,
+[class*="shadow-emerald"],
+[class*="shadow-violet"],
+[class*="shadow-purple"] {
+    --tw-shadow-color: rgba(75, 85, 99, 0.3) !important;
+    box-shadow: 0 10px 15px -3px rgba(75, 85, 99, 0.3) !important;
+}
+
+/* text-primary → Pilka */
+.text-primary {
+    color: #9ca3af !important;
+}
+.hover\:text-primary-dark:hover,
+.hover\:text-primary:hover {
+    color: #6b7280 !important;
+}
+
+/* ======================================== */
 
 /* Form Controls */
 .form-control,
 .form-select {
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
-    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
 }
-
 .form-control:focus,
 .form-select:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    border-color: #9ca3af;
+    box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.15);
+}
+
+/* Focus ring → Pilka */
+.focus\:ring-primary\/20:focus,
+.focus\:ring-primary:focus {
+    --tw-ring-color: rgba(75, 85, 99, 0.2) !important;
+}
+.focus\:border-primary:focus {
+    border-color: #9ca3af !important;
 }
 
 /* Shadows */
 .shadow-sm {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Hover Effects */
 .hover-shadow {
     transition: all 0.3s ease;
 }
-
 .hover-shadow:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Price */
-.text-primary {
-    color: #0d6efd !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Badges */
 .badge {
-    padding: 0.5rem 0.8rem;
-    font-weight: 500;
-    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 8px;
 }
 
 /* Footer */
 footer {
-    background-color: #212529;
+    background-color: #1a1a2e;
 }
-
 footer a {
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 footer a:hover {
-    color: #0d6efd !important;
+    color: #6b7280 !important;
 }
 
 /* Sticky Elements */
@@ -107,90 +298,23 @@ img {
     height: auto;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar → Pilka */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
-
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
-
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
+    background: #9ca3af;
+    border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #6b7280;
 }
 
 /* Animations */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .navbar-brand {
-        font-size: 1.2rem;
-    }
-
-    .btn {
-        padding: 0.4rem 1rem;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-}
-
-/* Loading Spinner */
-.spinner-border {
-    width: 3rem;
-    height: 3rem;
-}
-
-/* Alert Improvements */
-.alert {
-    border-radius: 10px;
-    border: none;
-}
-
-/* Table Improvements */
-.table {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table thead th {
-    border-bottom: 2px solid #dee2e6;
-    font-weight: 600;
-}
-
-/* Pagination */
-.pagination .page-link {
-    border-radius: 8px;
-    margin: 0 2px;
-    border: 1px solid #dee2e6;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

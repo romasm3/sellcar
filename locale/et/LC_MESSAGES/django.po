@@ -1,0 +1,5777 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 17:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\config\settings.py:100
+msgid "English"
+msgstr "English"
+
+#: .\config\settings.py:101
+msgid "Lietuvių"
+msgstr "Lietuvių"
+
+#: .\config\settings.py:102
+msgid "Latviešu"
+msgstr "Latviešu"
+
+#: .\config\settings.py:103
+msgid "Eesti"
+msgstr "Eesti"
+
+#: .\config\settings.py:104
+msgid "Polski"
+msgstr "Polski"
+
+#: .\config\settings.py:105
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: .\config\settings.py:106
+msgid "Русский"
+msgstr "Русский"
+
+#: .\config\settings.py:107
+msgid "Français"
+msgstr "Français"
+
+#: .\templates\accounts\become_dealer.html:3
+msgid "Become a Dealer"
+msgstr "Hakka edasimüüjaks"
+
+#: .\templates\accounts\become_dealer.html:10 .\templates\base.html:341
+msgid "For dealers"
+msgstr "Edasimüüjatele"
+
+#: .\templates\accounts\become_dealer.html:12
+msgid "Sell more cars on SellCar"
+msgstr "Müü rohkem autosid SellCaris"
+
+#: .\templates\accounts\become_dealer.html:13
+msgid ""
+"Reach thousands of buyers with your branded dealer page, unlimited listings "
+"and featured placement."
+msgstr ""
+"Jõua tuhandete ostjateni oma bränditud edasimüüja lehe, piiramatute "
+"kuulutuste ja esiletõstetud paigutusega."
+
+#: .\templates\accounts\become_dealer.html:19
+msgid "Basic"
+msgstr "Põhiline"
+
+#: .\templates\accounts\become_dealer.html:22
+#: .\templates\accounts\become_dealer.html:40
+#: .\templates\accounts\become_dealer.html:57
+msgid "/month"
+msgstr "/kuus"
+
+#: .\templates\accounts\become_dealer.html:24
+#: .\templates\accounts\become_dealer.html:42
+#: .\templates\accounts\become_dealer.html:59
+msgid "Subscribe"
+msgstr "Telli"
+
+#: .\templates\accounts\become_dealer.html:25
+msgid "Includes"
+msgstr "Sisaldab"
+
+#: .\templates\accounts\become_dealer.html:27
+msgid "Up to 50 listings"
+msgstr "Kuni 50 kuulutust"
+
+#: .\templates\accounts\become_dealer.html:28
+msgid "Branded dealer page"
+msgstr "Bränditud edasimüüja leht"
+
+#: .\templates\accounts\become_dealer.html:29
+msgid "Custom logo & banner"
+msgstr "Kohandatud logo ja bänner"
+
+#: .\templates\accounts\become_dealer.html:30
+msgid "Working hours display"
+msgstr "Töötundide kuvamine"
+
+#: .\templates\accounts\become_dealer.html:31
+#: .\templates\accounts\become_dealer.html:46
+msgid "Featured placement"
+msgstr "Esiletõstetud paigutus"
+
+#: .\templates\accounts\become_dealer.html:36
+#: .\templates\listings\listing_list.html:1079
+#: .\templates\listings\trucks_list.html:829
+msgid "Most popular"
+msgstr "Kõige populaarsem"
+
+#: .\templates\accounts\become_dealer.html:37
+msgid "Pro"
+msgstr "Professionaal"
+
+#: .\templates\accounts\become_dealer.html:43
+msgid "Everything in Basic, plus"
+msgstr "Kõik Basicus, lisaks veel"
+
+#: .\templates\accounts\become_dealer.html:45
+msgid "Unlimited listings"
+msgstr "Piiramatu arv kuulutusi"
+
+#: .\templates\accounts\become_dealer.html:47
+msgid "Verified dealer badge"
+msgstr "Kinnitatud edasimüüja märk"
+
+#: .\templates\accounts\become_dealer.html:48
+msgid "Analytics dashboard"
+msgstr "Analüütika armatuurlaud"
+
+#: .\templates\accounts\become_dealer.html:49
+msgid "Priority support"
+msgstr "Prioriteetne tugi"
+
+#: .\templates\accounts\become_dealer.html:54
+msgid "Enterprise"
+msgstr "Ettevõte"
+
+#: .\templates\accounts\become_dealer.html:60
+msgid "Everything in Pro, plus"
+msgstr "Kõik Pro-s ja lisaks veel"
+
+#: .\templates\accounts\become_dealer.html:62
+msgid "Top spot in search"
+msgstr "Otsingu tippkoht"
+
+#: .\templates\accounts\become_dealer.html:63
+msgid "Custom branded theme"
+msgstr "Kohandatud bränditud teema"
+
+#: .\templates\accounts\become_dealer.html:64
+msgid "Dedicated account manager"
+msgstr "Spetsiaalne kliendihaldur"
+
+#: .\templates\accounts\become_dealer.html:65
+msgid "API access"
+msgstr "API-juurdepääs"
+
+#: .\templates\accounts\become_dealer.html:66
+msgid "Multi-user team"
+msgstr "Mitme kasutaja meeskond"
+
+#: .\templates\accounts\become_dealer.html:74
+msgid "Need a custom plan?"
+msgstr "Vajad kohandatud plaani?"
+
+#: .\templates\accounts\become_dealer.html:75
+msgid "Talk to us about volume pricing or partnership opportunities."
+msgstr "Rääkige meile hulgihinnast või partnerlusvõimalustest."
+
+#: .\templates\accounts\become_dealer.html:78
+msgid "Contact us"
+msgstr "Võtke meiega ühendust"
+
+#: .\templates\accounts\become_dealer.html:82
+msgid "Stripe subscription integration coming soon."
+msgstr "Stripe'i tellimuste integratsioon on peagi saadaval."
+
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:85
+#: .\templates\base.html:210
+msgid "Login"
+msgstr "Sisselogimine"
+
+#: .\templates\accounts\login.html:14
+msgid "Welcome Back"
+msgstr "Tere tulemast tagasi"
+
+#: .\templates\accounts\login.html:15
+msgid "Login to your SellCar account"
+msgstr "Logi sisse oma SellCari kontole"
+
+#: .\templates\accounts\login.html:26
+msgid "Email Address"
+msgstr "E-posti aadress"
+
+#: .\templates\accounts\login.html:34
+msgid "Enter your email"
+msgstr "Sisesta oma e-posti aadress"
+
+#: .\templates\accounts\login.html:41
+msgid "Password"
+msgstr "Parool"
+
+#: .\templates\accounts\login.html:49
+msgid "Enter your password"
+msgstr "Sisesta oma parool"
+
+#: .\templates\accounts\login.html:73
+msgid "Remember me"
+msgstr "Pea mind meeles"
+
+#: .\templates\accounts\login.html:77
+msgid "Forgot password?"
+msgstr "Unustasid parooli?"
+
+#: .\templates\accounts\login.html:95 .\templates\accounts\register.html:122
+msgid "Or"
+msgstr "Või"
+
+#: .\templates\accounts\login.html:102
+msgid "Don't have an account?"
+msgstr "Sul pole kontot?"
+
+#: .\templates\accounts\login.html:104
+msgid "Sign up for free"
+msgstr "Registreeru tasuta"
+
+#: .\templates\accounts\login.html:114
+#: .\templates\accounts\password_reset_complete.html:34
+#: .\templates\accounts\register.html:141
+msgid "Back to Home"
+msgstr "Tagasi avalehele"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logged Out"
+msgstr "Välja logitud"
+
+#: .\templates\accounts\logout.html:7
+msgid "You have been successfully logged out."
+msgstr "Teid on edukalt välja logitud."
+
+#: .\templates\accounts\logout.html:9
+msgid "Thank you for using SellCar!"
+msgstr "Täname, et kasutasite SellCari!"
+
+#: .\templates\accounts\logout.html:11
+msgid "Login Again"
+msgstr "Logi uuesti sisse"
+
+#: .\templates\accounts\logout.html:12
+msgid "Go to Home"
+msgstr "Mine avalehele"
+
+#: .\templates\accounts\password_change.html:3
+#: .\templates\accounts\password_change.html:12
+#: .\templates\accounts\password_reset_confirm.html:59
+msgid "Change Password"
+msgstr "Parooli muutmine"
+
+#: .\templates\accounts\password_change.html:13
+msgid "Update your account password"
+msgstr "Uuenda oma konto parooli"
+
+#: .\templates\accounts\password_change.html:21
+msgid "Current password*"
+msgstr "Praegune parool*"
+
+#: .\templates\accounts\password_change.html:24
+msgid "Enter current password"
+msgstr "Sisestage praegune parool"
+
+#: .\templates\accounts\password_change.html:31
+msgid "New password*"
+msgstr "Uus parool*"
+
+#: .\templates\accounts\password_change.html:34
+msgid "Enter new password"
+msgstr "Sisesta uus parool"
+
+#: .\templates\accounts\password_change.html:41
+msgid "Confirm new password*"
+msgstr "Kinnitage uus parool*"
+
+#: .\templates\accounts\password_change.html:44
+msgid "Confirm new password"
+msgstr "Kinnitage uus parool"
+
+#: .\templates\accounts\password_change.html:51
+#: .\templates\accounts\register.html:83
+msgid "Password Requirements:"
+msgstr "Paroolinõuded:"
+
+#: .\templates\accounts\password_change.html:53
+msgid "At least 1 characters long"
+msgstr "Vähemalt 1 tähemärki pikk"
+
+#: .\templates\accounts\password_change.html:54
+msgid "Can be entirely numeric"
+msgstr "Võib olla täielikult numbriline"
+
+#: .\templates\accounts\password_change.html:55
+msgid "Can be similar to your username"
+msgstr "Võib olla sarnane teie kasutajanimega"
+
+#: .\templates\accounts\password_change.html:60
+msgid "Update Password"
+msgstr "Parooli värskendamine"
+
+#: .\templates\accounts\password_change.html:65
+msgid "Back to Settings"
+msgstr "Tagasi seadete juurde"
+
+#: .\templates\accounts\password_reset.html:6
+msgid "Forgot Password?"
+msgstr "Unustasid parooli?"
+
+#: .\templates\accounts\password_reset.html:8
+msgid ""
+"Enter your email address and we'll send you instructions to reset your "
+"password."
+msgstr ""
+"Sisesta oma e-posti aadress ja me saadame sulle juhised parooli "
+"lähtestamiseks."
+
+#: .\templates\accounts\password_reset.html:23
+msgid "Email Address:"
+msgstr "E-posti aadress:"
+
+#: .\templates\accounts\password_reset.html:33
+msgid "Send Reset Link"
+msgstr "Saada Lähtesta link"
+
+#: .\templates\accounts\password_reset.html:38
+#: .\templates\accounts\password_reset_confirm.html:82
+#: .\templates\accounts\password_reset_done.html:23
+msgid "Back to Login"
+msgstr "Tagasi sisselogimisele"
+
+#: .\templates\accounts\password_reset_complete.html:3
+msgid "Password Updated"
+msgstr "Parool uuendatud"
+
+#: .\templates\accounts\password_reset_complete.html:19
+msgid "Password Updated!"
+msgstr "Parool uuendatud!"
+
+#: .\templates\accounts\password_reset_complete.html:21
+msgid "Your password has been successfully changed."
+msgstr "Teie parool on edukalt muudetud."
+
+#: .\templates\accounts\password_reset_complete.html:22
+msgid "Your account is now more secure."
+msgstr "Teie konto on nüüd turvalisem."
+
+#: .\templates\accounts\password_reset_complete.html:29
+msgid "Go to Login"
+msgstr "Mine sisselogimisele"
+
+#: .\templates\accounts\password_reset_confirm.html:4
+msgid "New Password"
+msgstr "Uus parool"
+
+#: .\templates\accounts\password_reset_confirm.html:14
+msgid "Set New Password"
+msgstr "Määra uus parool"
+
+#: .\templates\accounts\password_reset_confirm.html:15
+msgid "Choose a strong password for your account"
+msgstr "Valige oma kontole tugev parool"
+
+#: .\templates\accounts\password_reset_confirm.html:67
+msgid "Link Invalid"
+msgstr "Link kehtetu"
+
+#: .\templates\accounts\password_reset_confirm.html:68
+msgid "This password reset link is invalid or has already been used."
+msgstr "See parooli lähtestamise link on kehtetu või on seda juba kasutatud."
+
+#: .\templates\accounts\password_reset_confirm.html:72
+msgid "Request New Link"
+msgstr "Taotle uut linki"
+
+#: .\templates\accounts\password_reset_done.html:3
+#: .\templates\accounts\password_reset_done.html:11
+msgid "Check Your Email"
+msgstr "Kontrolli oma e-posti"
+
+#: .\templates\accounts\password_reset_done.html:13
+msgid "We've sent you password reset instructions."
+msgstr "Oleme saatnud teile parooli lähtestamise juhised."
+
+#: .\templates\accounts\password_reset_done.html:14
+msgid "Check your inbox (and spam folder just in case)."
+msgstr "Kontrolli oma postkasti (ja igaks juhuks rämpsposti kausta)."
+
+#: .\templates\accounts\password_reset_done.html:17
+msgid "The link will expire in 1 hour."
+msgstr "Link aegub 1 tunni pärast."
+
+#: .\templates\accounts\password_reset_done.html:28
+msgid "Home"
+msgstr "Avaleht"
+
+#: .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:11
+msgid "Edit Profile"
+msgstr "Profiili muutmine"
+
+#: .\templates\accounts\profile_edit.html:12
+msgid "Update your personal information"
+msgstr "Värskenda oma isikuandmeid"
+
+#: .\templates\accounts\profile_edit.html:20
+msgid "Profile Picture"
+msgstr "Profiilipilt"
+
+#: .\templates\accounts\profile_edit.html:32
+msgid "JPG, PNG. Max 5MB."
+msgstr "JPG, PNG. Maks. 5 MB."
+
+#: .\templates\accounts\profile_edit.html:39
+msgid "Personal Information"
+msgstr "Isiklik teave"
+
+#: .\templates\accounts\profile_edit.html:43
+msgid "First Name"
+msgstr "Eesnimi"
+
+#: .\templates\accounts\profile_edit.html:51
+msgid "Last Name"
+msgstr "Perekonnanimi"
+
+#: .\templates\accounts\profile_edit.html:59
+#: .\templates\listings\car_for_parts_create.html:312
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\motogear_create.html:346
+#: .\templates\listings\motorcycle_create.html:500
+#: .\templates\listings\saved_searches.html:160
+msgid "Email"
+msgstr "E-post"
+
+#: .\templates\accounts\profile_edit.html:67
+msgid "Phone Number"
+msgstr "Telefoninumber"
+
+#: .\templates\accounts\profile_edit.html:75
+msgid "Secondary Phone"
+msgstr "Teisene telefon"
+
+#: .\templates\accounts\profile_edit.html:75
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create_cars_quick.html:205
+#: .\templates\listings\listing_create_cars_quick.html:227
+#: .\templates\listings\listing_create_cars_quick.html:589
+#: .\templates\listings\listing_create_cars_quick.html:632
+#: .\templates\listings\motorcycle_create.html:236
+msgid "(optional)"
+msgstr "(valikuline)"
+
+#: .\templates\accounts\profile_edit.html:87
+#: .\templates\accounts\seller_profile.html:373
+#: .\templates\listings\car_for_parts_create.html:340
+#: .\templates\listings\listing_create_cars_quick.html:631
+#: .\templates\listings\listing_detail.html:679
+#: .\templates\listings\listing_detail.html:1008
+msgid "Address"
+msgstr "Aadress"
+
+#: .\templates\accounts\profile_edit.html:91
+#: .\templates\listings\car_for_parts_create.html:317
+#: .\templates\listings\listing_create.html:656
+#: .\templates\listings\listing_create_cars_quick.html:603
+#: .\templates\listings\listing_detail.html:655
+#: .\templates\listings\listing_detail.html:984
+#: .\templates\listings\motogear_create.html:353
+#: .\templates\listings\motogear_create.html:480
+#: .\templates\listings\motorcycle_create.html:507
+#: .\templates\listings\trucks_listing_create.html:773
+msgid "Country"
+msgstr "Riik"
+
+#: .\templates\accounts\profile_edit.html:96
+#: .\templates\listings\car_for_parts_create.html:334
+#: .\templates\listings\listing_create.html:571
+#: .\templates\listings\listing_create.html:664
+#: .\templates\listings\listing_create_cars_quick.html:351
+#: .\templates\listings\listing_create_cars_quick.html:623
+#: .\templates\listings\listing_detail.html:671
+#: .\templates\listings\listing_detail.html:1000
+#: .\templates\listings\listing_edit.html:223
+#: .\templates\listings\listing_list.html:538
+#: .\templates\listings\motogear_create.html:368
+#: .\templates\listings\motogear_create.html:481
+#: .\templates\listings\motorcycle_create.html:517
+#: .\templates\listings\motorcycles_advanced_search.html:264
+#: .\templates\listings\trucks_listing_create.html:793
+msgid "City"
+msgstr "Linn"
+
+#: .\templates\accounts\profile_edit.html:101
+msgid "Street"
+msgstr "Tänav"
+
+#: .\templates\accounts\profile_edit.html:106
+msgid "House Number"
+msgstr "Maja number"
+
+#: .\templates\accounts\profile_edit.html:115
+msgid "About Me"
+msgstr "Minust"
+
+#: .\templates\accounts\profile_edit.html:123
+#: .\templates\listings\car_for_parts_create.html:350
+#: .\templates\listings\car_for_parts_create.html:360
+#: .\templates\listings\listing_create.html:725
+#: .\templates\listings\listing_create_cars_quick.html:684
+#: .\templates\listings\listing_edit.html:340
+#: .\templates\listings\motogear_create.html:420
+#: .\templates\listings\my_listings.html:673
+#: .\templates\listings\my_listings.html:707
+#: .\templates\listings\trucks_listing_create.html:813
+#: .\templates\listings\trucks_listing_create.html:816
+msgid "Cancel"
+msgstr "Tühista"
+
+#: .\templates\accounts\profile_edit.html:127
+#: .\templates\listings\car_for_parts_create.html:356
+#: .\templates\listings\listing_create_cars_quick.html:687
+#: .\templates\listings\listing_edit.html:336
+#: .\templates\listings\trucks_listing_create.html:814
+msgid "Save Changes"
+msgstr "Salvesta muudatused"
+
+#: .\templates\accounts\register.html:4 .\templates\base.html:213
+msgid "Sign Up"
+msgstr "Registreeru"
+
+#: .\templates\accounts\register.html:14
+#: .\templates\accounts\register.html:112
+msgid "Create Account"
+msgstr "Loo konto"
+
+#: .\templates\accounts\register.html:15
+msgid "Join SellCar today"
+msgstr "Liitu SellCariga juba täna"
+
+#: .\templates\accounts\register.html:26
+msgid "Email Address *"
+msgstr "E-posti aadress *"
+
+#: .\templates\accounts\register.html:42
+msgid "Password *"
+msgstr "Parool *"
+
+#: .\templates\accounts\register.html:58
+msgid "Confirm Password *"
+msgstr "Kinnita parool *"
+
+#: .\templates\accounts\register.html:87
+msgid "At least 8 characters long"
+msgstr "Vähemalt 8 tähemärki pikk"
+
+#: .\templates\accounts\register.html:91
+msgid "Cannot be entirely numeric"
+msgstr "Ei saa olla täielikult numbriline"
+
+#: .\templates\accounts\register.html:102
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"Nõustun <a href=\"#\" class=\"text-primary hover:text-primary-dark\">teenuse"
+" tingimustega</a> ja <a href=\"#\" class=\"text-primary hover:text-primary-"
+"dark\">privaatsuspoliitikaga</a>"
+
+#: .\templates\accounts\register.html:129
+msgid "Already have an account?"
+msgstr "Kas sul on juba konto?"
+
+#: .\templates\accounts\register.html:131
+msgid "Login here"
+msgstr "Logi sisse siin"
+
+#: .\templates\accounts\seller_profile.html:29
+msgid "Back to SellCar"
+msgstr "Tagasi SellCari lehele"
+
+#: .\templates\accounts\seller_profile.html:31
+msgid "Dealer page powered by SellCar"
+msgstr "Edasimüüja leht, mida haldab SellCar"
+
+#: .\templates\accounts\seller_profile.html:53
+msgid "Listings"
+msgstr "Loendid"
+
+#: .\templates\accounts\seller_profile.html:57
+#: .\templates\listings\listing_create.html:25
+#: .\templates\listings\listing_create_cars_quick.html:566
+msgid "Contacts"
+msgstr "Kontaktid"
+
+#: .\templates\accounts\seller_profile.html:62 .\templates\base.html:331
+msgid "About us"
+msgstr "Meist"
+
+#: .\templates\accounts\seller_profile.html:67
+msgid "Reviews"
+msgstr "Arvustused"
+
+#: .\templates\accounts\seller_profile.html:114
+msgid "Private seller"
+msgstr "Eraisik müüja"
+
+#: .\templates\accounts\seller_profile.html:123
+#: .\templates\accounts\seller_profile.html:370
+msgid "Contact person"
+msgstr "Kontaktisik"
+
+#: .\templates\accounts\seller_profile.html:151
+#: .\templates\accounts\seller_profile.html:374
+msgid "Working hours"
+msgstr "Tööaeg"
+
+#: .\templates\accounts\seller_profile.html:165
+#: .\templates\listings\my_listings.html:46
+#, python-format
+msgid "%(counter)s listing"
+msgid_plural "%(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\accounts\seller_profile.html:168
+#, python-format
+msgid "Member since %(year)s"
+msgstr "Liikmeks alates %(aasta)s"
+
+#: .\templates\accounts\seller_profile.html:187
+#: .\templates\listings\advanced_search.html:189
+#: .\templates\listings\advanced_search.html:479
+#: .\templates\listings\advanced_search.html:712
+#: .\templates\listings\advanced_search.html:803
+#: .\templates\listings\car_for_parts_create.html:78
+#: .\templates\listings\listing_create.html:118
+#: .\templates\listings\listing_create.html:175
+#: .\templates\listings\listing_create.html:301
+#: .\templates\listings\listing_create.html:366
+#: .\templates\listings\listing_create_cars_quick.html:44
+#: .\templates\listings\listing_edit.html:31
+#: .\templates\listings\listing_list.html:315
+#: .\templates\listings\listing_list.html:824
+#: .\templates\listings\listing_list.html:1473
+#: .\templates\listings\motorcycle_create.html:42
+#: .\templates\listings\motorcycles_advanced_search.html:149
+#: .\templates\listings\motorcycles_advanced_search.html:487
+#: .\templates\listings\motorcycles_list.html:147
+msgid "Brand"
+msgstr "Bränd"
+
+#: .\templates\accounts\seller_profile.html:190 .\templates\home.html:36
+#: .\templates\listings\home.html:24
+#: .\templates\listings\listing_list.html:1463
+#: .\templates\listings\trucks_list.html:277
+#: .\templates\listings\trucks_list.html:283
+#: .\templates\listings\trucks_list.html:563
+#: .\templates\listings\trucks_list.html:569
+#: .\templates\listings\trucks_list.html:952
+msgid "All Makes"
+msgstr "Kõik margid"
+
+#: .\templates\accounts\seller_profile.html:199 .\templates\home.html:45
+#: .\templates\listings\advanced_search.html:201
+#: .\templates\listings\advanced_search.html:488
+#: .\templates\listings\advanced_search.html:716
+#: .\templates\listings\advanced_search.html:807
+#: .\templates\listings\car_for_parts_create.html:88
+#: .\templates\listings\listing_create.html:137
+#: .\templates\listings\listing_create.html:180
+#: .\templates\listings\listing_create.html:319
+#: .\templates\listings\listing_create.html:370
+#: .\templates\listings\listing_create_cars_quick.html:64
+#: .\templates\listings\listing_detail.html:156
+#: .\templates\listings\listing_detail.html:517
+#: .\templates\listings\listing_detail.html:808
+#: .\templates\listings\listing_edit.html:36
+#: .\templates\listings\listing_list.html:339
+#: .\templates\listings\listing_list.html:847
+#: .\templates\listings\listing_list.html:1479
+#: .\templates\listings\motogear_create.html:98
+#: .\templates\listings\motorcycle_create.html:53
+#: .\templates\listings\motorcycles_advanced_search.html:158
+#: .\templates\listings\motorcycles_advanced_search.html:488
+#: .\templates\listings\motorcycles_list.html:170
+#: .\templates\listings\trucks_advanced_search.html:335
+#: .\templates\listings\trucks_list.html:298
+#: .\templates\listings\trucks_list.html:585
+#: .\templates\listings\trucks_listing_create.html:404
+msgid "Model"
+msgstr "Mudel"
+
+#: .\templates\accounts\seller_profile.html:202
+#: .\templates\accounts\seller_profile.html:449 .\templates\home.html:47
+#: .\templates\home.html:251 .\templates\listings\listing_list.html:342
+#: .\templates\listings\listing_list.html:348
+#: .\templates\listings\listing_list.html:849
+#: .\templates\listings\listing_list.html:855
+#: .\templates\listings\listing_list.html:1363
+#: .\templates\listings\listing_list.html:1364
+#: .\templates\listings\listing_list.html:1380
+#: .\templates\listings\listing_list.html:1508
+#: .\templates\listings\listing_list.html:1565
+#: .\templates\listings\listing_list.html:1566
+#: .\templates\listings\listing_list.html:1590
+#: .\templates\listings\motorcycles_list.html:172
+#: .\templates\listings\motorcycles_list.html:178
+#: .\templates\listings\motorcycles_list.html:353
+#: .\templates\listings\trucks_list.html:301
+#: .\templates\listings\trucks_list.html:307
+#: .\templates\listings\trucks_list.html:587
+#: .\templates\listings\trucks_list.html:593
+#: .\templates\listings\trucks_list.html:951
+msgid "All Models"
+msgstr "Kõik mudelid"
+
+#: .\templates\accounts\seller_profile.html:210
+#: .\templates\listings\advanced_search.html:218
+#: .\templates\listings\advanced_search.html:500
+#: .\templates\listings\car_for_parts_create.html:102
+#: .\templates\listings\listing_create.html:147
+#: .\templates\listings\listing_create.html:328
+#: .\templates\listings\listing_create.html:580
+#: .\templates\listings\listing_create_cars_quick.html:71
+#: .\templates\listings\listing_detail.html:100
+#: .\templates\listings\listing_detail.html:448
+#: .\templates\listings\listing_detail.html:533
+#: .\templates\listings\listing_detail.html:741
+#: .\templates\listings\listing_edit.html:269
+#: .\templates\listings\listing_list.html:375
+#: .\templates\listings\listing_list.html:871
+#: .\templates\listings\motorcycles_list.html:194
+#: .\templates\listings\trucks_list.html:314
+#: .\templates\listings\trucks_list.html:611
+#: .\templates\listings\trucks_listing_create.html:352
+#: .\templates\listings\trucks_listing_create.html:573
+msgid "Year"
+msgstr "Aasta"
+
+#: .\templates\accounts\seller_profile.html:212 .\templates\home.html:72
+#: .\templates\listings\advanced_search.html:220
+#: .\templates\listings\advanced_search.html:229
+#: .\templates\listings\advanced_search.html:268
+#: .\templates\listings\advanced_search.html:283
+#: .\templates\listings\advanced_search.html:298
+#: .\templates\listings\advanced_search.html:465
+#: .\templates\listings\advanced_search.html:503
+#: .\templates\listings\listing_list.html:368
+#: .\templates\listings\listing_list.html:378
+#: .\templates\listings\listing_list.html:392
+#: .\templates\listings\listing_list.html:873
+#: .\templates\listings\motorcycles_advanced_search.html:201
+#: .\templates\listings\motorcycles_advanced_search.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:223
+#: .\templates\listings\motorcycles_advanced_search.html:238
+#: .\templates\listings\motorcycles_advanced_search.html:359
+#: .\templates\listings\motorcycles_advanced_search.html:367
+#: .\templates\listings\motorcycles_list.html:196
+#: .\templates\listings\search_map.html:49
+#: .\templates\listings\trucks_advanced_search.html:364
+#: .\templates\listings\trucks_list.html:317
+#: .\templates\listings\trucks_list.html:613
+msgid "From"
+msgstr "Alates"
+
+#: .\templates\accounts\seller_profile.html:221 .\templates\home.html:83
+#: .\templates\listings\advanced_search.html:222
+#: .\templates\listings\advanced_search.html:231
+#: .\templates\listings\advanced_search.html:270
+#: .\templates\listings\advanced_search.html:285
+#: .\templates\listings\advanced_search.html:300
+#: .\templates\listings\advanced_search.html:467
+#: .\templates\listings\advanced_search.html:508
+#: .\templates\listings\listing_list.html:369
+#: .\templates\listings\listing_list.html:382
+#: .\templates\listings\listing_list.html:393
+#: .\templates\listings\listing_list.html:880
+#: .\templates\listings\motorcycles_advanced_search.html:202
+#: .\templates\listings\motorcycles_advanced_search.html:210
+#: .\templates\listings\motorcycles_advanced_search.html:224
+#: .\templates\listings\motorcycles_advanced_search.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:360
+#: .\templates\listings\motorcycles_advanced_search.html:368
+#: .\templates\listings\motorcycles_list.html:203
+#: .\templates\listings\search_map.html:58
+#: .\templates\listings\trucks_advanced_search.html:369
+#: .\templates\listings\trucks_list.html:321
+#: .\templates\listings\trucks_list.html:620
+msgid "To"
+msgstr "Kuni"
+
+#: .\templates\accounts\seller_profile.html:230
+msgid "Price from €"
+msgstr "Hind alates €"
+
+#: .\templates\accounts\seller_profile.html:231 .\templates\home.html:57
+msgid "Min €"
+msgstr "Min €"
+
+#: .\templates\accounts\seller_profile.html:236 .\templates\home.html:64
+msgid "Max €"
+msgstr "Maks €"
+
+#: .\templates\accounts\seller_profile.html:241
+#: .\templates\listings\car_for_parts_create.html:119
+#: .\templates\listings\listing_create_cars_quick.html:100
+#: .\templates\listings\listing_create_cars_quick.html:920
+#: .\templates\listings\trucks_advanced_search.html:434
+#: .\templates\listings\trucks_listing_create.html:442
+msgid "Fuel type"
+msgstr "Kütuse tüüp"
+
+#: .\templates\accounts\seller_profile.html:243
+#: .\templates\accounts\seller_profile.html:254
+#: .\templates\accounts\seller_profile.html:265 .\templates\home.html:99
+#: .\templates\home.html:109 .\templates\listings\advanced_search.html:192
+#: .\templates\listings\advanced_search.html:203
+#: .\templates\listings\advanced_search.html:238
+#: .\templates\listings\advanced_search.html:246
+#: .\templates\listings\advanced_search.html:307
+#: .\templates\listings\advanced_search.html:315
+#: .\templates\listings\advanced_search.html:323
+#: .\templates\listings\advanced_search.html:331
+#: .\templates\listings\advanced_search.html:339
+#: .\templates\listings\advanced_search.html:347
+#: .\templates\listings\advanced_search.html:355
+#: .\templates\listings\advanced_search.html:363
+#: .\templates\listings\advanced_search.html:371
+#: .\templates\listings\advanced_search.html:379
+#: .\templates\listings\advanced_search.html:456
+#: .\templates\listings\advanced_search.html:482
+#: .\templates\listings\advanced_search.html:490
+#: .\templates\listings\advanced_search.html:557
+#: .\templates\listings\advanced_search.html:672
+#: .\templates\listings\advanced_search.html:709
+#: .\templates\listings\advanced_search.html:718
+#: .\templates\listings\advanced_search.html:733
+#: .\templates\listings\advanced_search.html:766
+#: .\templates\listings\advanced_search.html:800
+#: .\templates\listings\advanced_search.html:809
+#: .\templates\listings\advanced_search.html:824
+#: .\templates\listings\advanced_search.html:887
+#: .\templates\listings\advanced_search.html:919
+#: .\templates\listings\listing_list.html:439
+#: .\templates\listings\listing_list.html:530
+#: .\templates\listings\listing_list.html:539
+#: .\templates\listings\listing_list.html:547
+#: .\templates\listings\listing_list.html:898
+#: .\templates\listings\listing_list.html:905
+#: .\templates\listings\listing_list.html:1640
+#: .\templates\listings\motorcycles_list.html:221
+#: .\templates\listings\motorcycles_list.html:549
+#: .\templates\listings\my_listings.html:93
+#: .\templates\listings\my_listings.html:95
+#: .\templates\listings\my_listings.html:107
+#: .\templates\listings\my_listings.html:142
+#: .\templates\listings\trucks_advanced_search.html:280
+#: .\templates\listings\trucks_advanced_search.html:436
+#: .\templates\listings\trucks_advanced_search.html:445
+#: .\templates\listings\trucks_advanced_search.html:454
+#: .\templates\listings\trucks_advanced_search.html:463
+#: .\templates\listings\trucks_advanced_search.html:472
+#: .\templates\listings\trucks_advanced_search.html:493
+#: .\templates\listings\trucks_advanced_search.html:502
+#: .\templates\listings\trucks_advanced_search.html:511
+#: .\templates\listings\trucks_list.html:211
+#: .\templates\listings\trucks_list.html:355
+#: .\templates\listings\trucks_list.html:366
+#: .\templates\listings\trucks_list.html:517
+#: .\templates\listings\trucks_list.html:629
+#: .\templates\listings\trucks_list.html:639
+#: .\templates\listings\trucks_list.html:660
+#: .\templates\listings\trucks_list.html:955
+msgid "All"
+msgstr "Kõik"
+
+#: .\templates\accounts\seller_profile.html:252 .\templates\home.html:107
+#: .\templates\listings\advanced_search.html:305
+#: .\templates\listings\car_for_parts_create.html:175
+#: .\templates\listings\listing_create.html:422
+#: .\templates\listings\listing_create_cars_quick.html:122
+#: .\templates\listings\listing_create_cars_quick.html:921
+#: .\templates\listings\listing_detail.html:470
+#: .\templates\listings\listing_detail.html:763
+#: .\templates\listings\listing_list.html:437
+#: .\templates\listings\motorcycle_create.html:189
+#: .\templates\listings\motorcycles_advanced_search.html:305
+#: .\templates\listings\trucks_advanced_search.html:443
+msgid "Transmission"
+msgstr "Edasikandumine"
+
+#: .\templates\accounts\seller_profile.html:263
+#: .\templates\listings\car_for_parts_create.html:185
+#: .\templates\listings\listing_create_cars_quick.html:111
+#: .\templates\listings\listing_create_cars_quick.html:919
+msgid "Body type"
+msgstr "Kehatüüp"
+
+#: .\templates\accounts\seller_profile.html:276 .\templates\home.html:129
+msgid "Clear All"
+msgstr "Tühjenda kõik"
+
+#: .\templates\accounts\seller_profile.html:281 .\templates\home.html:133
+#: .\templates\listings\home.html:59
+#: .\templates\listings\listing_list.html:418
+#: .\templates\listings\motogeat_list.html:33
+#: .\templates\listings\motorcycles_advanced_search.html:428
+#: .\templates\listings\saved_searches.html:35
+#: .\templates\listings\search_map.html:68
+msgid "Search"
+msgstr "Otsi"
+
+#: .\templates\accounts\seller_profile.html:291
+msgid "Showing"
+msgstr "Kuvatakse"
+
+#: .\templates\accounts\seller_profile.html:292
+#, python-format
+msgid "of %(total)s"
+msgstr "%(kokku)st"
+
+#: .\templates\accounts\seller_profile.html:292
+msgid "listings"
+msgstr "kuulutused"
+
+#: .\templates\accounts\seller_profile.html:300
+msgid "Newest first"
+msgstr "Uusim esimesena"
+
+#: .\templates\accounts\seller_profile.html:301
+msgid "Price ↑"
+msgstr "Hind ↑"
+
+#: .\templates\accounts\seller_profile.html:302
+msgid "Price ↓"
+msgstr "Hind ↓"
+
+#: .\templates\accounts\seller_profile.html:303
+msgid "Mileage ↑"
+msgstr "Läbisõit ↑"
+
+#: .\templates\accounts\seller_profile.html:304
+msgid "Year ↓"
+msgstr "Aasta ↓"
+
+#: .\templates\accounts\seller_profile.html:305
+msgid "Year ↑"
+msgstr "Aasta ↑"
+
+#: .\templates\accounts\seller_profile.html:346
+msgid "negotiable"
+msgstr "läbiräägitav"
+
+#: .\templates\accounts\seller_profile.html:358
+msgid "No listings found."
+msgstr "Kuulutusi ei leitud."
+
+#: .\templates\accounts\seller_profile.html:359
+#: .\templates\listings\listing_list.html:271
+#: .\templates\listings\listing_list.html:775
+#: .\templates\listings\motorcycles_advanced_search.html:426
+#: .\templates\listings\trucks_list.html:197
+#: .\templates\listings\trucks_list.html:494
+msgid "Clear filters"
+msgstr "Tühjenda filtrid"
+
+#: .\templates\accounts\seller_profile.html:367
+#: .\templates\listings\motogear_create.html:335
+msgid "Contact information"
+msgstr "Kontaktandmed"
+
+#: .\templates\accounts\seller_profile.html:369
+msgid "Company"
+msgstr "Ettevõte"
+
+#: .\templates\accounts\seller_profile.html:371
+#: .\templates\listings\car_for_parts_create.html:307
+#: .\templates\listings\listing_create.html:689
+#: .\templates\listings\listing_create_cars_quick.html:573
+#: .\templates\listings\motogear_create.html:340
+#: .\templates\listings\motorcycle_create.html:493
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\templates\accounts\seller_profile.html:372
+msgid "Phone 2"
+msgstr "Telefon 2"
+
+#: .\templates\accounts\seller_profile.html:375
+msgid "Website"
+msgstr "Veebisait"
+
+#: .\templates\accounts\seller_profile.html:383
+#, python-format
+msgid "About %(company)s"
+msgstr "Teave ettevõtte %(company)s kohta"
+
+#: .\templates\accounts\seller_profile.html:408
+msgid "No reviews yet."
+msgstr "Arvustusi pole veel."
+
+#: .\templates\accounts\seller_profile.html:414
+msgid "Leave a review"
+msgstr "Jäta arvustus"
+
+#: .\templates\accounts\seller_profile.html:423
+msgid "Share your experience..."
+msgstr "Jaga oma kogemust..."
+
+#: .\templates\accounts\seller_profile.html:425
+msgid "Submit"
+msgstr "Esita"
+
+#: .\templates\accounts\wallet.html:3 .\templates\accounts\wallet.html:9
+#: .\templates\base.html:180 .\templates\base.html:250
+msgid "Wallet"
+msgstr "Rahakott"
+
+#: .\templates\accounts\wallet.html:11
+msgid "Available balance"
+msgstr "Saadaolev saldo"
+
+#: .\templates\accounts\wallet.html:12 .\templates\accounts\wallet.html:108
+#: .\templates\accounts\wallet.html:109 .\templates\accounts\wallet.html:110
+#: .\templates\accounts\wallet.html:138 .\templates\base.html:181
+#: .\templates\base.html:250
+msgid "pts"
+msgstr "punktid"
+
+#: .\templates\accounts\wallet.html:21 .\templates\accounts\wallet.html:55
+msgid "Top up"
+msgstr "Lisa raha"
+
+#: .\templates\accounts\wallet.html:24
+msgid "Transaction history"
+msgstr "Tehingute ajalugu"
+
+#: .\templates\accounts\wallet.html:35
+msgid "Top up your account"
+msgstr "Täienda oma kontot"
+
+#: .\templates\accounts\wallet.html:37
+msgid ""
+"Points are virtual SellCar currency. Use them for boosts, featured ads, and "
+"cross-posting."
+msgstr ""
+"Punktid on virtuaalne SellCari valuuta. Kasutage neid boonuste, "
+"esiletõstetud reklaamide ja ristpostituste jaoks."
+
+#: .\templates\accounts\wallet.html:40
+msgid "1 € = 1 point"
+msgstr "1 € = 1 punkt"
+
+#: .\templates\accounts\wallet.html:45
+msgid "Enter amount"
+msgstr "Sisestage summa"
+
+#: .\templates\accounts\wallet.html:62
+msgid "Payment system is being set up. Please check back soon."
+msgstr "Maksesüsteemi seadistatakse. Palun vaadake varsti uuesti."
+
+#: .\templates\accounts\wallet.html:69
+msgid "Special offers"
+msgstr "Eripakkumised"
+
+#: .\templates\accounts\wallet.html:82
+#: .\templates\listings\listing_select_plan.html:425
+msgid "Pay"
+msgstr "Maksa"
+
+#: .\templates\accounts\wallet.html:86
+msgid "Get"
+msgstr "Hangi"
+
+#: .\templates\accounts\wallet.html:88
+#, python-format
+msgid "= %(total)s points"
+msgstr "= %(kokku)s punkti"
+
+#: .\templates\accounts\wallet.html:103
+msgid "Test mode (developer only)"
+msgstr "Testimisrežiim (ainult arendajatele)"
+
+#: .\templates\accounts\wallet.html:105
+msgid "Add points instantly without Stripe payment."
+msgstr "Lisa punkte koheselt ilma Stripe'i makseta."
+
+#: .\templates\accounts\wallet.html:124
+msgid "Date"
+msgstr "Kuupäev"
+
+#: .\templates\accounts\wallet.html:125
+#: .\templates\listings\listing_detail.html:162
+#: .\templates\listings\motogear_create.html:63
+#: .\templates\listings\motorcycles_list.html:219
+#: .\templates\listings\trucks_listing_create.html:338
+msgid "Type"
+msgstr "Tüüp"
+
+#: .\templates\accounts\wallet.html:126
+#: .\templates\listings\car_for_parts_create.html:259
+#: .\templates\listings\listing_create.html:24
+#: .\templates\listings\listing_create.html:630
+#: .\templates\listings\listing_create.html:632
+#: .\templates\listings\listing_detail.html:140
+#: .\templates\listings\listing_detail.html:503
+#: .\templates\listings\listing_detail.html:795
+#: .\templates\listings\listing_edit.html:292
+#: .\templates\listings\motogear_create.html:242
+#: .\templates\listings\motorcycle_create.html:385
+#: .\templates\listings\trucks_listing_create.html:685
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: .\templates\accounts\wallet.html:127
+msgid "Amount"
+msgstr "Summa"
+
+#: .\templates\accounts\wallet.html:128
+msgid "Status"
+msgstr "Staatus"
+
+#: .\templates\accounts\wallet.html:139
+msgid "bonus"
+msgstr "boonus"
+
+#: .\templates\accounts\wallet.html:143
+msgid "Completed"
+msgstr "Lõpetatud"
+
+#: .\templates\accounts\wallet.html:145
+msgid "Pending"
+msgstr "Ootel"
+
+#: .\templates\accounts\wallet.html:147
+msgid "Failed"
+msgstr "Ebaõnnestus"
+
+#: .\templates\accounts\wallet.html:159
+msgid "No transactions yet."
+msgstr "Tehinguid veel pole."
+
+#: .\templates\base.html:8 .\templates\listings\home.html:4
+msgid "SellCar - Buy & Sell Cars Online"
+msgstr "SellCar - osta ja müü autosid veebis"
+
+#: .\templates\base.html:50 .\templates\base.html:240
+#: .\templates\listings\search_map.html:5
+msgid "Map Search"
+msgstr "Kaardiotsing"
+
+#: .\templates\base.html:93 .\templates\base.html:236
+msgid "Create Ad"
+msgstr "Loo reklaam"
+
+#: .\templates\base.html:97 .\templates\base.html:156
+#: .\templates\listings\saved_listings.html:4
+#: .\templates\listings\saved_listings.html:8
+msgid "Saved Listings"
+msgstr "Salvestatud kuulutused"
+
+#: .\templates\base.html:107 .\templates\base.html:165
+#: .\templates\listings\saved_searches.html:18
+msgid "My Searches"
+msgstr "Minu otsingud"
+
+#: .\templates\base.html:117 .\templates\base.html:174
+#: .\templates\base.html:247
+#: .\templates\conversations\conversation_list.html:3
+#: .\templates\conversations\conversation_list.html:13
+msgid "Messages"
+msgstr "Sõnumid"
+
+#: .\templates\base.html:147 .\templates\base.html:244
+#: .\templates\listings\my_listings.html:4
+#: .\templates\listings\my_listings.html:45
+msgid "My Listings"
+msgstr "Minu kuulutused"
+
+#: .\templates\base.html:177
+msgid "Settings"
+msgstr "Seaded"
+
+#: .\templates\base.html:184 .\templates\base.html:253
+#: .\templates\listings\listing_detail.html:1125
+#: .\templates\listings\listing_list.html:532
+#: .\templates\listings\listing_upgrade.html:69
+msgid "Dealer"
+msgstr "Edasimüüja"
+
+#: .\templates\base.html:189
+msgid "Admin"
+msgstr "Administraator"
+
+#: .\templates\base.html:191 .\templates\base.html:257
+msgid "Moderate users"
+msgstr "Mõõdukad kasutajad"
+
+#: .\templates\base.html:194 .\templates\base.html:260
+msgid "Sales stats"
+msgstr "Müügistatistika"
+
+#: .\templates\base.html:197
+msgid "Django admin"
+msgstr "Django administraator"
+
+#: .\templates\base.html:203
+msgid "Logout"
+msgstr "Logi välja"
+
+#: .\templates\base.html:309
+msgid "Discover trusted vehicles and services — easier, faster, simpler."
+msgstr ""
+"Avasta usaldusväärsed sõidukid ja teenused – lihtsam, kiirem, lihtsam."
+
+#: .\templates\base.html:332
+msgid "Terms of use"
+msgstr "Kasutustingimused"
+
+#: .\templates\base.html:333
+msgid "Privacy policy"
+msgstr "Privaatsuspoliitika"
+
+#: .\templates\base.html:334
+msgid "Cookie settings"
+msgstr "Küpsiste seaded"
+
+#: .\templates\base.html:339 .\templates\listings\listing_list.html:249
+#: .\templates\listings\motorcycles_list.html:93
+#: .\templates\listings\trucks_list.html:172
+msgid "Services"
+msgstr "Teenused"
+
+#: .\templates\base.html:342
+msgid "Pricing"
+msgstr "Hinnakujundus"
+
+#: .\templates\base.html:343
+msgid "Advertising"
+msgstr "Reklaam"
+
+#: .\templates\base.html:344
+msgid "Vehicle valuation"
+msgstr "Sõiduki hindamine"
+
+#: .\templates\base.html:345
+msgid "FAQ"
+msgstr "KKK"
+
+#: .\templates\base.html:350
+msgid "Have questions?"
+msgstr "Kas teil on küsimusi?"
+
+#: .\templates\base.html:358
+msgid "Open daily"
+msgstr "Avatud iga päev"
+
+#: .\templates\base.html:359
+msgid "Mon-Fri"
+msgstr "E–R"
+
+#: .\templates\base.html:360
+msgid "Sat-Sun"
+msgstr "L-P"
+
+#: .\templates\base.html:369
+msgid "Drop us a line"
+msgstr "Kirjuta meile"
+
+#: .\templates\base.html:381
+msgid "Need help?"
+msgstr "Vajad abi?"
+
+#: .\templates\base.html:382
+msgid "Send message to support"
+msgstr "Saada sõnum toele"
+
+#: .\templates\base.html:394
+msgid "All rights reserved."
+msgstr "Kõik õigused kaitstud."
+
+#: .\templates\base.html:396
+msgid "Terms"
+msgstr "Tingimused"
+
+#: .\templates\base.html:398
+msgid "Privacy"
+msgstr "Privaatsus"
+
+#: .\templates\base.html:400
+msgid "Cookies"
+msgstr "Küpsised"
+
+#: .\templates\conversations\conversation_detail.html:3
+msgid "Chat"
+msgstr "Vestlus"
+
+#: .\templates\conversations\conversation_detail.html:38
+#: .\templates\conversations\conversation_list.html:134
+msgid "Seen"
+msgstr "Nähtud"
+
+#: .\templates\conversations\conversation_detail.html:48
+#: .\templates\conversations\conversation_list.html:141
+msgid "Start the conversation!"
+msgstr "Alusta vestlust!"
+
+#: .\templates\conversations\conversation_detail.html:55
+msgid "Type a message..."
+msgstr "Tippige sõnum..."
+
+#: .\templates\conversations\conversation_list.html:47
+#: .\templates\conversations\conversation_list.html:98
+msgid "SellCar Support"
+msgstr "SellCari tugi"
+
+#: .\templates\conversations\conversation_list.html:56
+msgid "Photo"
+msgstr "Foto"
+
+#: .\templates\conversations\conversation_list.html:75
+msgid "No messages yet"
+msgstr "Sõnumeid pole veel"
+
+#: .\templates\conversations\conversation_list.html:152
+#: .\templates\conversations\conversation_list.html:216
+msgid "TRANSLATE CONVERSATION"
+msgstr "VESTLUSE TÕLKIMISE"
+
+#: .\templates\conversations\conversation_list.html:155
+#: .\templates\conversations\conversation_list.html:219
+msgid "Showing original messages"
+msgstr "Kuvatakse algsed sõnumid"
+
+#: .\templates\conversations\conversation_list.html:180
+msgid "Type a message or paste image (Ctrl+V)..."
+msgstr "Tippige sõnum või kleebi pilt (Ctrl+V)..."
+
+#: .\templates\conversations\conversation_list.html:187
+msgid "Add a photo"
+msgstr "Lisa foto"
+
+#: .\templates\conversations\conversation_list.html:203
+msgid "Select a conversation"
+msgstr "Valige vestlus"
+
+#: .\templates\conversations\conversation_list.html:204
+msgid "Choose a conversation from the left"
+msgstr "Valige vasakult vestlus"
+
+#: .\templates\conversations\conversation_list.html:217
+msgid "SHOW ORIGINAL"
+msgstr "NÄITA ORIGINAAL"
+
+#: .\templates\conversations\conversation_list.html:218
+msgid "Translating..."
+msgstr "Tõlkimine..."
+
+#: .\templates\conversations\conversation_list.html:220
+msgid "Showing translated messages"
+msgstr "Kuvatakse tõlgitud sõnumeid"
+
+#: .\templates\conversations\conversation_list.html:221
+msgid "Translation failed. Please try again."
+msgstr "Tõlge ebaõnnestus. Palun proovige uuesti."
+
+#: .\templates\conversations\conversation_list.html:433
+msgid "Download"
+msgstr "Laadi alla"
+
+#: .\templates\faq.html:4
+msgid "Frequently Asked Questions"
+msgstr "Korduma kippuvad küsimused"
+
+#: .\templates\faq.html:10
+msgid "Frequently asked questions"
+msgstr "Korduma kippuvad küsimused"
+
+#: .\templates\faq.html:11
+msgid "Find answers to common questions about using SellCar."
+msgstr ""
+"Leidke vastused SellCari kasutamise kohta esitatud levinud küsimustele."
+
+#: .\templates\faq.html:18
+msgid "How do I create a listing?"
+msgstr "Kuidas ma saan kuulutuse luua?"
+
+#: .\templates\faq.html:22
+msgid ""
+"Click the red 'Create Ad' button at the top of any page. Choose a category "
+"(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+"your price, and publish. The listing will be live within 5-10 minutes."
+msgstr ""
+"Klõpsa mis tahes lehe ülaosas punasel nupul „Loo kuulutus“. Vali kategooria "
+"(autod, mootorrattad, veoautod jne), täida andmed, lae üles fotod, määra "
+"hind ja avalda. Kuulutus avaldatakse 5–10 minuti jooksul."
+
+#: .\templates\faq.html:28
+msgid "How do I edit or delete my listing?"
+msgstr "Kuidas ma saan oma kuulutust muuta või kustutada?"
+
+#: .\templates\faq.html:32
+msgid ""
+"Go to 'My Listings' from the user menu. Click any listing to view it, then "
+"use the Edit or Delete buttons. Edits are reflected immediately."
+msgstr ""
+"Mine kasutajamenüüst valikule „Minu kuulutused“. Kuulutuse vaatamiseks "
+"klõpsa sellel ja seejärel kasuta nuppe „Muuda“ või „Kustuta“. Muudatused "
+"kajastuvad kohe."
+
+#: .\templates\faq.html:38
+msgid "How long is my listing active?"
+msgstr "Kui kaua on minu kuulutus aktiivne?"
+
+#: .\templates\faq.html:42
+msgid ""
+"Listings are active for 30 days. You can renew them anytime. After "
+"expiration, listings are kept in your account for 160 days before being "
+"automatically deleted."
+msgstr ""
+"Kuulutused on aktiivsed 30 päeva. Saate neid igal ajal pikendada. Pärast "
+"kehtivusaja lõppu hoitakse kuulutusi teie kontol 160 päeva, enne kui need "
+"automaatselt kustutatakse."
+
+#: .\templates\faq.html:48
+msgid "How do I contact a seller?"
+msgstr "Kuidas müüjaga ühendust võtta?"
+
+#: .\templates\faq.html:52
+msgid ""
+"Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
+"seller's phone number is shown if they have enabled it."
+msgstr ""
+"Ava suvaline kuulutus ja kasuta nuppe „Saada sõnum” või „Saada e-kiri”. "
+"Müüja telefoninumber kuvatakse, kui see on lubatud."
+
+#: .\templates\faq.html:58
+msgid "How does the wallet work?"
+msgstr "Kuidas rahakott töötab?"
+
+#: .\templates\faq.html:62
+msgid ""
+"Your wallet stores credits used for boosting listings, featured ads, and "
+"cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "
+"custom amount. 1 EUR = 1 credit."
+msgstr ""
+"Sinu rahakott talletab krediite, mida kasutatakse kuulutuste reklaamimiseks,"
+" esiletõstetud reklaamide avaldamiseks ja ristpostituste tegemiseks. Lisa "
+"raha 20, 100, 500 dollari (boonuskrediitidega) või mis tahes muu kohandatud "
+"summaga. 1 euro = 1 krediit."
+
+#: .\templates\faq.html:68
+msgid "How do I become a dealer?"
+msgstr "Kuidas saada edasimüüjaks?"
+
+#: .\templates\faq.html:72
+msgid ""
+"Visit the 'Dealer' page from your account menu. Choose a plan (Basic, Pro, "
+"or Enterprise) and subscribe. You'll get unlimited listings, a branded "
+"dealer page, custom logo, and featured placement."
+msgstr ""
+"Külasta oma konto menüüst lehte „Edasimüüja“. Vali pakett (Basic, Pro või "
+"Enterprise) ja telli. Saad piiramatul hulgal kuulutusi, bränditud edasimüüja"
+" lehe, kohandatud logo ja esiletõstetud paigutuse."
+
+#: .\templates\faq.html:78
+msgid "How do I change my password?"
+msgstr "Kuidas ma saan oma parooli muuta?"
+
+#: .\templates\faq.html:82
+msgid ""
+"Go to Settings, then click 'Change Password'. Enter your current password "
+"and the new one. If you forgot your password, use 'Forgot password?' on the "
+"login page."
+msgstr ""
+"Mine menüüsse Seaded ja seejärel klõpsa nupul „Muuda parooli“. Sisesta oma "
+"praegune ja uus parool. Kui unustasid parooli, kasuta sisselogimislehel "
+"valikut „Unustasid parooli?“."
+
+#: .\templates\faq.html:88
+msgid "How do I delete my account?"
+msgstr "Kuidas ma saan oma konto kustutada?"
+
+#: .\templates\faq.html:92
+msgid ""
+"Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
+"need to enter your password to confirm. This action is permanent and cannot "
+"be undone."
+msgstr ""
+"Mine seadetesse, keri alla ja klõpsa nupul „Kustuta konto”. Kinnitamiseks "
+"pead sisestama oma parooli. See toiming on jäädav ja seda ei saa tagasi "
+"võtta."
+
+#: .\templates\faq.html:99
+msgid "Still need help?"
+msgstr "Kas vajate ikka abi?"
+
+#: .\templates\faq.html:105
+msgid "Email our support team"
+msgstr "Kirjuta meie tugimeeskonnale"
+
+#: .\templates\home.html:5 .\templates\listings\listing_detail.html:18
+#: .\templates\listings\listing_edit.html:14
+#: .\templates\listings\listing_list.html:5
+#: .\templates\listings\saved_listings.html:50
+msgid "Browse Cars"
+msgstr "Sirvi autosid"
+
+#: .\templates\home.html:13
+msgid "Find Your Perfect Vehicle"
+msgstr "Leia oma ideaalne sõiduk"
+
+#: .\templates\home.html:14
+#, python-format
+msgid "Browse %(count)s listings"
+msgstr "Sirvi %(count)s kuulutust"
+
+#: .\templates\home.html:23 .\templates\listings\listing_list.html:303
+#: .\templates\listings\listing_list.html:800
+#: .\templates\listings\motogear_create.html:48
+#: .\templates\listings\motogear_create.html:477
+#: .\templates\listings\motogeat_list.html:41
+#: .\templates\listings\motorcycles_list.html:123
+#: .\templates\listings\trucks_list.html:236
+msgid "Category"
+msgstr "Kategooria"
+
+#: .\templates\home.html:25
+msgid "All Categories"
+msgstr "Kõik kategooriad"
+
+#: .\templates\home.html:34 .\templates\listings\home.html:22
+#: .\templates\listings\listing_detail.html:152
+#: .\templates\listings\listing_detail.html:513
+#: .\templates\listings\listing_detail.html:804
+#: .\templates\listings\search_map.html:23
+#: .\templates\listings\trucks_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:274
+#: .\templates\listings\trucks_list.html:561
+#: .\templates\listings\trucks_listing_create.html:393
+msgid "Make"
+msgstr "Tee"
+
+#: .\templates\home.html:56
+msgid "Price Min"
+msgstr "Hind Min"
+
+#: .\templates\home.html:63
+msgid "Price Max"
+msgstr "Maksimaalne hind"
+
+#: .\templates\home.html:70
+msgid "Year From"
+msgstr "Aasta alates"
+
+#: .\templates\home.html:81
+msgid "Year To"
+msgstr "Aasta kuni"
+
+#: .\templates\home.html:97 .\templates\listings\advanced_search.html:236
+#: .\templates\listings\listing_create.html:404
+#: .\templates\listings\listing_list.html:455
+#: .\templates\listings\listing_list.html:896
+#: .\templates\listings\motorcycle_create.html:122
+#: .\templates\listings\motorcycles_advanced_search.html:326
+#: .\templates\listings\trucks_list.html:336
+#: .\templates\listings\trucks_list.html:627
+msgid "Fuel Type"
+msgstr "Kütuse tüüp"
+
+#: .\templates\home.html:120
+msgid "Part name / code"
+msgstr "Osa nimetus / kood"
+
+#: .\templates\home.html:121
+msgid "Search by part name or code"
+msgstr "Otsi osa nime või koodi järgi"
+
+#: .\templates\home.html:148
+msgid "Available Vehicles"
+msgstr "Saadaval olevad sõidukid"
+
+#: .\templates\home.html:149 .\templates\listings\motogeat_list.html:14
+#: .\templates\listings\search_map.html:79
+#: .\templates\listings\trucks_list.html:510
+#, python-format
+msgid "Found %(count)s listings"
+msgstr "Leitud %(count)s kuulutust"
+
+#: .\templates\home.html:155 .\templates\listings\listing_list.html:671
+#: .\templates\listings\listing_list.html:934
+#: .\templates\listings\listing_list.html:1075
+#: .\templates\listings\motorcycles_list.html:257
+#: .\templates\listings\trucks_advanced_search.html:633
+#: .\templates\listings\trucks_list.html:385
+#: .\templates\listings\trucks_list.html:690
+#: .\templates\listings\trucks_list.html:825
+msgid "Newest"
+msgstr "Uusim"
+
+#: .\templates\home.html:156 .\templates\listings\listing_list.html:673
+#: .\templates\listings\listing_list.html:936
+#: .\templates\listings\motorcycles_list.html:258
+#: .\templates\listings\trucks_advanced_search.html:634
+#: .\templates\listings\trucks_list.html:386
+#: .\templates\listings\trucks_list.html:691
+msgid "Price: Low to High"
+msgstr "Hind: madalamast kõrgemani"
+
+#: .\templates\home.html:157 .\templates\listings\listing_list.html:674
+#: .\templates\listings\listing_list.html:937
+#: .\templates\listings\motorcycles_list.html:259
+#: .\templates\listings\trucks_advanced_search.html:635
+#: .\templates\listings\trucks_list.html:387
+#: .\templates\listings\trucks_list.html:692
+msgid "Price: High to Low"
+msgstr "Hind: kõrgemast madalamani"
+
+#: .\templates\home.html:158 .\templates\listings\advanced_search.html:261
+#: .\templates\listings\car_for_parts_create.html:145
+#: .\templates\listings\listing_create.html:500
+#: .\templates\listings\listing_create_cars_quick.html:183
+#: .\templates\listings\listing_detail.html:185
+#: .\templates\listings\listing_detail.html:455
+#: .\templates\listings\listing_detail.html:571
+#: .\templates\listings\listing_detail.html:748
+#: .\templates\listings\listing_detail.html:833
+#: .\templates\listings\motorcycle_create.html:109
+#: .\templates\listings\motorcycles_list.html:260
+#: .\templates\listings\trucks_advanced_search.html:636
+#: .\templates\listings\trucks_list.html:388
+#: .\templates\listings\trucks_list.html:693
+#: .\templates\listings\trucks_listing_create.html:429
+msgid "Mileage"
+msgstr "Läbisõit"
+
+#: .\templates\home.html:164
+msgid "Map View"
+msgstr "Kaardivaade"
+
+#: .\templates\home.html:209 .\templates\listings\advanced_search.html:263
+#: .\templates\listings\listing_select_plan.html:271
+#: .\templates\listings\motorcycles_advanced_search.html:452
+#: .\templates\listings\motorcycles_list.html:321
+#: .\templates\listings\my_listings.html:233
+#: .\templates\listings\my_listings.html:507
+#: .\templates\listings\saved_listings.html:34
+#: .\templates\listings\search_map.html:110
+#: .\templates\listings\search_map.html:148
+#: .\templates\listings\trucks_advanced_search.html:717
+#: .\templates\listings\trucks_list.html:469
+#: .\templates\listings\trucks_list.html:777
+msgid "km"
+msgstr "km"
+
+#: .\templates\home.html:224 .\templates\listings\listing_list.html:763
+#: .\templates\listings\listing_list.html:1030
+#: .\templates\listings\motorcycles_advanced_search.html:457
+#: .\templates\listings\motorcycles_list.html:327
+#: .\templates\listings\trucks_advanced_search.html:734
+#: .\templates\listings\trucks_list.html:482
+#: .\templates\listings\trucks_list.html:794
+msgid "Unknown"
+msgstr "Tundmatu"
+
+#: .\templates\home.html:235 .\templates\listings\listing_list.html:773
+#: .\templates\listings\listing_list.html:1040
+#: .\templates\listings\search_map.html:123
+msgid "No listings found"
+msgstr "Kuulutusi ei leitud"
+
+#: .\templates\home.html:236 .\templates\listings\listing_list.html:774
+#: .\templates\listings\trucks_list.html:493
+msgid "Try adjusting your filters"
+msgstr "Proovige oma filtreid kohandada"
+
+#: .\templates\home.html:239 .\templates\listings\listing_list.html:1042
+#: .\templates\listings\motorcycles_list.html:339
+#: .\templates\listings\trucks_advanced_search.html:595
+#: .\templates\listings\trucks_advanced_search.html:749
+#: .\templates\listings\trucks_list.html:806
+msgid "Clear all filters"
+msgstr "Tühjenda kõik filtrid"
+
+#: .\templates\listings\advanced_search.html:5
+#: .\templates\listings\listing_list.html:914
+#: .\templates\listings\motorcycles_list.html:237
+#: .\templates\listings\trucks_list.html:669
+msgid "Advanced Search"
+msgstr "Täpsem otsing"
+
+#: .\templates\listings\advanced_search.html:182
+msgid "Vehicle search"
+msgstr "Sõiduki otsing"
+
+#: .\templates\listings\advanced_search.html:183
+#: .\templates\listings\advanced_search.html:444
+msgid "Clear search"
+msgstr "Tühjenda otsing"
+
+#: .\templates\listings\advanced_search.html:209
+#: .\templates\listings\advanced_search.html:495
+#: .\templates\listings\motorcycles_advanced_search.html:169
+msgid "Add more brands/models"
+msgstr "Lisa rohkem kaubamärke/mudeleid"
+
+#: .\templates\listings\advanced_search.html:227
+#: .\templates\listings\advanced_search.html:463
+#: .\templates\listings\motorcycles_advanced_search.html:199
+msgid "Price, $"
+msgstr "Hind, $"
+
+#: .\templates\listings\advanced_search.html:244
+#: .\templates\listings\home.html:46
+#: .\templates\listings\listing_create.html:387
+#: .\templates\listings\listing_detail.html:542
+#: .\templates\listings\listing_detail.html:812
+#: .\templates\listings\listing_list.html:492
+#: .\templates\listings\listing_list.html:903
+msgid "Body Type"
+msgstr "Kehatüüp"
+
+#: .\templates\listings\advanced_search.html:264
+msgid "mi"
+msgstr "mi"
+
+#: .\templates\listings\advanced_search.html:276
+#: .\templates\listings\listing_create_cars_quick.html:144
+msgid "Engine"
+msgstr "Mootor"
+
+#: .\templates\listings\advanced_search.html:291
+#: .\templates\listings\car_for_parts_create.html:130
+#: .\templates\listings\listing_create.html:534
+#: .\templates\listings\listing_create_cars_quick.html:296
+#: .\templates\listings\listing_detail.html:175
+#: .\templates\listings\listing_detail.html:588
+#: .\templates\listings\listing_detail.html:852
+#: .\templates\listings\motorcycle_create.html:68
+#: .\templates\listings\motorcycles_advanced_search.html:216
+#: .\templates\listings\trucks_listing_create.html:416
+msgid "Power"
+msgstr "Võimsus"
+
+#: .\templates\listings\advanced_search.html:313
+#: .\templates\listings\listing_create.html:559
+#: .\templates\listings\listing_detail.html:554
+#: .\templates\listings\listing_detail.html:868
+#: .\templates\listings\listing_edit.html:136
+msgid "Drive Type"
+msgstr "Draivi tüüp"
+
+#: .\templates\listings\advanced_search.html:321
+#: .\templates\listings\listing_create.html:468
+#: .\templates\listings\listing_create_cars_quick.html:162
+#: .\templates\listings\listing_detail.html:311
+#: .\templates\listings\listing_detail.html:862
+#: .\templates\listings\listing_edit.html:125
+#: .\templates\listings\trucks_advanced_search.html:470
+#: .\templates\listings\trucks_listing_create.html:588
+msgid "Steering"
+msgstr "Roolimine"
+
+#: .\templates\listings\advanced_search.html:329
+#: .\templates\listings\listing_create.html:489
+#: .\templates\listings\listing_create_cars_quick.html:173
+#: .\templates\listings\listing_detail.html:303
+#: .\templates\listings\listing_detail.html:828
+#: .\templates\listings\listing_edit.html:115
+#: .\templates\listings\listing_list.html:545
+#: .\templates\listings\motorcycle_create.html:152
+#: .\templates\listings\motorcycles_advanced_search.html:244
+#: .\templates\listings\trucks_advanced_search.html:509
+#: .\templates\listings\trucks_listing_create.html:523
+msgid "Defects"
+msgstr "Defektid"
+
+#: .\templates\listings\advanced_search.html:337
+#: .\templates\listings\car_for_parts_create.html:195
+#: .\templates\listings\listing_create_cars_quick.html:133
+#: .\templates\listings\listing_create_cars_quick.html:922
+#: .\templates\listings\listing_detail.html:548
+#: .\templates\listings\listing_detail.html:820
+msgid "Doors"
+msgstr "Uksed"
+
+#: .\templates\listings\advanced_search.html:345
+#: .\templates\listings\car_for_parts_create.html:215
+#: .\templates\listings\listing_create.html:485
+#: .\templates\listings\listing_create_cars_quick.html:321
+#: .\templates\listings\listing_detail.html:359
+#: .\templates\listings\listing_detail.html:560
+#: .\templates\listings\listing_detail.html:816
+#: .\templates\listings\listing_edit.html:104
+#: .\templates\listings\motogear_create.html:192
+#: .\templates\listings\motorcycle_create.html:209
+#: .\templates\listings\motorcycles_advanced_search.html:285
+#: .\templates\listings\trucks_advanced_search.html:500
+#: .\templates\listings\trucks_listing_create.html:640
+msgid "Color"
+msgstr "Värv"
+
+#: .\templates\listings\advanced_search.html:353
+#: .\templates\listings\listing_detail.html:874
+msgid "Seats"
+msgstr "Istmed"
+
+#: .\templates\listings\advanced_search.html:361
+#: .\templates\listings\listing_create.html:562
+#: .\templates\listings\listing_detail.html:886
+#: .\templates\listings\listing_edit.html:169
+msgid "Climate Control"
+msgstr "Kliimaseade"
+
+#: .\templates\listings\advanced_search.html:369
+#: .\templates\listings\advanced_search.html:454
+#: .\templates\listings\car_for_parts_create.html:68
+#: .\templates\listings\listing_create.html:456
+#: .\templates\listings\listing_detail.html:537
+#: .\templates\listings\listing_detail.html:824
+#: .\templates\listings\motogear_create.html:107
+#: .\templates\listings\motogear_create.html:478
+#: .\templates\listings\motogeat_list.html:125
+#: .\templates\listings\trucks_advanced_search.html:491
+msgid "Condition"
+msgstr "Seisund"
+
+#: .\templates\listings\advanced_search.html:377
+#: .\templates\listings\listing_create.html:564
+#: .\templates\listings\listing_detail.html:892
+#: .\templates\listings\listing_edit.html:180
+#: .\templates\listings\motorcycle_create.html:219
+#: .\templates\listings\motorcycles_advanced_search.html:373
+msgid "Euro Standard"
+msgstr "Eurostandard"
+
+#: .\templates\listings\advanced_search.html:385
+#: .\templates\listings\advanced_search.html:514
+#: .\templates\listings\motorcycles_advanced_search.html:254
+msgid "State (USA)"
+msgstr "Osariik (USA)"
+
+#: .\templates\listings\advanced_search.html:387
+#: .\templates\listings\advanced_search.html:516
+msgid "All States"
+msgstr "Kõik osariigid"
+
+#: .\templates\listings\advanced_search.html:395
+#: .\templates\listings\advanced_search.html:521
+msgid "City (USA)"
+msgstr "Linn (USA)"
+
+#: .\templates\listings\advanced_search.html:397
+#: .\templates\listings\advanced_search.html:523
+#: .\templates\listings\advanced_search.html:850
+msgid "All Cities"
+msgstr "Kõik linnad"
+
+#: .\templates\listings\advanced_search.html:405
+#: .\templates\listings\motorcycles_advanced_search.html:391
+msgid "Text Search"
+msgstr "Tekstiotsing"
+
+#: .\templates\listings\advanced_search.html:406
+msgid "e.g. BMW 320d low mileage..."
+msgstr "nt BMW 320d väikese läbisõiduga..."
+
+#: .\templates\listings\advanced_search.html:414
+#: .\templates\listings\listing_create.html:22
+#: .\templates\listings\listing_list.html:570
+msgid "Equipment"
+msgstr "Varustus"
+
+#: .\templates\listings\advanced_search.html:443
+msgid "Parts search"
+msgstr "Varuosade otsing"
+
+#: .\templates\listings\advanced_search.html:449
+msgid "Part Name or Code"
+msgstr "Osa nimetus või kood"
+
+#: .\templates\listings\advanced_search.html:450
+msgid "e.g. brake pads, 06H 145 601 H, BKD..."
+msgstr "nt piduriklotsid, 06H 145 601 H, BKD..."
+
+#: .\templates\listings\advanced_search.html:457
+#: .\templates\listings\listing_list.html:999
+#: .\templates\listings\listing_list.html:1109
+#: .\templates\listings\motorcycles_advanced_search.html:175
+#: .\templates\listings\motorcycles_advanced_search.html:445
+#: .\templates\listings\motorcycles_list.html:303
+#: .\templates\listings\trucks_advanced_search.html:699
+#: .\templates\listings\trucks_list.html:452
+#: .\templates\listings\trucks_list.html:759
+msgid "New"
+msgstr "Uus"
+
+#: .\templates\listings\advanced_search.html:458
+#: .\templates\listings\motorcycles_advanced_search.html:174
+msgid "Used"
+msgstr "Kasutatud"
+
+#: .\templates\listings\advanced_search.html:475
+msgid "Compatible With (Vehicle)"
+msgstr "Ühildub (sõidukiga)"
+
+#: .\templates\listings\advanced_search.html:528
+msgid ""
+"Specify which vehicles this part fits. Empty rows are ignored. Leave all "
+"empty = search all parts."
+msgstr ""
+"Määrake, millistele sõidukitele see osa sobib. Tühje ridu ignoreeritakse. "
+"Jätke kõik tühjaks = otsige kõigist osadest."
+
+#: .\templates\listings\advanced_search.html:535
+#, python-format
+msgid "Search (%(count)s)"
+msgstr "Otsing (%(loendus)s)"
+
+#: .\templates\listings\advanced_search.html:720
+#: .\templates\listings\advanced_search.html:811
+#: .\templates\listings\listing_list.html:1469
+#: .\templates\listings\motorcycles_advanced_search.html:486
+msgid "Remove"
+msgstr "Eemalda"
+
+#: .\templates\listings\car_for_parts_create.html:4
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+#: .\templates\listings\listing_edit.html:5
+#: .\templates\listings\listing_edit.html:24
+msgid "Edit Listing"
+msgstr "Muuda kuulutust"
+
+#: .\templates\listings\car_for_parts_create.html:4
+msgid "Sell Car For Parts"
+msgstr "Müü auto varuosadeks"
+
+#: .\templates\listings\car_for_parts_create.html:13
+msgid "Back to listing"
+msgstr "Tagasi kuulutuse juurde"
+
+#: .\templates\listings\car_for_parts_create.html:17
+#: .\templates\listings\listing_success.html:85
+msgid "Edit listing"
+msgstr "Muuda kuulutust"
+
+#: .\templates\listings\car_for_parts_create.html:18
+msgid "Update the listing details below."
+msgstr "Värskendage allpool olevaid kuulutuse andmeid."
+
+#: .\templates\listings\car_for_parts_create.html:23
+#: .\templates\listings\motogear_create.html:12
+msgid "Back to category selection"
+msgstr "Tagasi kategooria valiku juurde"
+
+#: .\templates\listings\car_for_parts_create.html:27
+msgid "Sell whole car for parts"
+msgstr "Müün terve auto varuosadeks"
+
+#: .\templates\listings\car_for_parts_create.html:28
+msgid "Fill out the listing details below."
+msgstr "Täitke allolevad kuulutuse andmed."
+
+#: .\templates\listings\car_for_parts_create.html:37
+#: .\templates\listings\car_for_parts_create.html:52
+msgid "Please fix the following:"
+msgstr "Palun parandage järgmist:"
+
+#: .\templates\listings\car_for_parts_create.html:64
+msgid "Main details"
+msgstr "Peamised detailid"
+
+#: .\templates\listings\car_for_parts_create.html:70
+#: .\templates\listings\car_for_parts_create.html:80
+#: .\templates\listings\car_for_parts_create.html:90
+#: .\templates\listings\car_for_parts_create.html:104
+#: .\templates\listings\car_for_parts_create.html:121
+#: .\templates\listings\car_for_parts_create.html:177
+#: .\templates\listings\car_for_parts_create.html:187
+#: .\templates\listings\car_for_parts_create.html:197
+#: .\templates\listings\car_for_parts_create.html:207
+#: .\templates\listings\car_for_parts_create.html:217
+#: .\templates\listings\car_for_parts_create.html:327
+#: .\templates\listings\car_for_parts_create.html:390
+#: .\templates\listings\listing_edit.html:106
+#: .\templates\listings\listing_edit.html:127
+#: .\templates\listings\listing_edit.html:138
+#: .\templates\listings\listing_edit.html:149
+#: .\templates\listings\listing_edit.html:160
+#: .\templates\listings\listing_edit.html:171
+#: .\templates\listings\listing_edit.html:182
+#: .\templates\listings\listing_edit.html:209
+msgid "— Select —"
+msgstr "— Vali —"
+
+#: .\templates\listings\car_for_parts_create.html:95
+#: .\templates\listings\listing_detail.html:522
+msgid "Modification"
+msgstr "Modifikatsioon"
+
+#: .\templates\listings\car_for_parts_create.html:96
+msgid "e.g. 2.0 TDI 140kW"
+msgstr "nt 2.0 TDI 140kW"
+
+#: .\templates\listings\car_for_parts_create.html:112
+#: .\templates\listings\listing_detail.html:528
+msgid "Version"
+msgstr "Versioon"
+
+#: .\templates\listings\car_for_parts_create.html:113
+msgid "e.g. GTD, M Sport, AMG Line"
+msgstr "nt GTD, M Sport, AMG Line"
+
+#: .\templates\listings\car_for_parts_create.html:132
+msgid "e.g. 110"
+msgstr "nt 110"
+
+#: .\templates\listings\car_for_parts_create.html:147
+#: .\templates\listings\listing_create_cars_quick.html:185
+msgid "e.g. 150000"
+msgstr "nt 150000"
+
+#: .\templates\listings\car_for_parts_create.html:160
+#: .\templates\listings\listing_detail.html:195
+#: .\templates\listings\listing_detail.html:579
+msgid "Engine capacity"
+msgstr "Mootori töömaht"
+
+#: .\templates\listings\car_for_parts_create.html:162
+#: .\templates\listings\listing_create_cars_quick.html:146
+msgid "e.g. 1.6"
+msgstr "nt 1.6"
+
+#: .\templates\listings\car_for_parts_create.html:205
+#: .\templates\listings\listing_create_cars_quick.html:329
+#: .\templates\listings\trucks_list.html:364
+msgid "Drive type"
+msgstr "Ajami tüüp"
+
+#: .\templates\listings\car_for_parts_create.html:225
+#: .\templates\listings\listing_detail.html:566
+msgid "Color code"
+msgstr "Värvikood"
+
+#: .\templates\listings\car_for_parts_create.html:226
+msgid "e.g. LY7G"
+msgstr "nt LY7G"
+
+#: .\templates\listings\car_for_parts_create.html:232
+#: .\templates\listings\listing_detail.html:597
+msgid "Engine code"
+msgstr "Mootori kood"
+
+#: .\templates\listings\car_for_parts_create.html:233
+msgid "e.g. BKD"
+msgstr "nt BKD"
+
+#: .\templates\listings\car_for_parts_create.html:239
+#: .\templates\listings\listing_detail.html:603
+msgid "Gearbox code"
+msgstr "Käigukasti kood"
+
+#: .\templates\listings\car_for_parts_create.html:240
+msgid "e.g. DSG7"
+msgstr "nt DSG7"
+
+#: .\templates\listings\car_for_parts_create.html:247
+#: .\templates\listings\listing_create.html:614
+#: .\templates\listings\listing_list.html:366
+#: .\templates\listings\motogear_create.html:310
+#: .\templates\listings\motogeat_list.html:140
+#: .\templates\listings\motorcycle_create.html:468
+#: .\templates\listings\trucks_advanced_search.html:375
+#: .\templates\listings\trucks_list.html:328
+msgid "Price ($)"
+msgstr "Hind ($)"
+
+#: .\templates\listings\car_for_parts_create.html:260
+msgid "Describe what is included, defects, parts condition, etc."
+msgstr "Kirjeldage komplekti kuuluvat, defekte, osade seisukorda jne."
+
+#: .\templates\listings\car_for_parts_create.html:267
+#: .\templates\listings\listing_create_cars_quick.html:484
+#: .\templates\listings\motogear_create.html:253
+#: .\templates\listings\motorcycle_create.html:421
+#: .\templates\listings\trucks_listing_create.html:694
+msgid "Photos"
+msgstr "Fotod"
+
+#: .\templates\listings\car_for_parts_create.html:269
+#, python-format
+msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
+msgstr "(%(count)s / 36 — lohista ümberjärjestamiseks, klõpsa suurendamiseks)"
+
+#: .\templates\listings\car_for_parts_create.html:282
+#: .\templates\listings\car_for_parts_create.html:391
+#: .\templates\listings\listing_create.html:256
+#: .\templates\listings\listing_create.html:814
+#: .\templates\listings\listing_create_cars_quick.html:500
+#: .\templates\listings\listing_create_cars_quick.html:539
+#: .\templates\listings\listing_create_cars_quick.html:1220
+#: .\templates\listings\listing_create_cars_quick.html:1393
+#: .\templates\listings\listing_create_cars_quick.html:1589
+#: .\templates\listings\motogear_create.html:277
+#: .\templates\listings\motogear_create.html:796
+msgid "MAIN"
+msgstr "PEAMINE"
+
+#: .\templates\listings\car_for_parts_create.html:295
+#: .\templates\listings\listing_create.html:273
+#: .\templates\listings\motogear_create.html:261
+#: .\templates\listings\motorcycle_create.html:427
+msgid "Click to upload or drag and drop"
+msgstr "Klõpsake üleslaadimiseks või lohistage"
+
+#: .\templates\listings\car_for_parts_create.html:296
+msgid "Max 36 photos, 20MB each"
+msgstr "Maksimaalselt 36 fotot, igaüks 20 MB"
+
+#: .\templates\listings\car_for_parts_create.html:303
+msgid "Contacts & Location"
+msgstr "Kontaktid ja asukoht"
+
+#: .\templates\listings\car_for_parts_create.html:325
+#: .\templates\listings\listing_create.html:669
+#: .\templates\listings\listing_create_cars_quick.html:613
+#: .\templates\listings\listing_detail.html:663
+#: .\templates\listings\listing_detail.html:992
+#: .\templates\listings\motogear_create.html:376
+#: .\templates\listings\motogear_create.html:482
+#: .\templates\listings\motorcycle_create.html:524
+#: .\templates\listings\trucks_listing_create.html:782
+msgid "State"
+msgstr "Riik"
+
+#: .\templates\listings\car_for_parts_create.html:366
+#: .\templates\listings\trucks_listing_create.html:817
+msgid "Publish Listing"
+msgstr "Avalda kuulutus"
+
+#: .\templates\listings\car_for_parts_create.html:392
+msgid "Maximum 36 photos. Remove some first."
+msgstr "Maksimaalselt 36 fotot. Eemaldage esmalt mõned."
+
+#: .\templates\listings\car_for_parts_create.html:393
+#, python-brace-format
+msgid "({count} / 36 — drag to reorder, click to enlarge)"
+msgstr "({count} / 36 — lohista ümberjärjestamiseks, klõpsa suurendamiseks)"
+
+#: .\templates\listings\car_for_parts_create.html:556
+#: .\templates\listings\listing_create.html:833
+msgid "Condition is required"
+msgstr "Tingimus on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:557
+#: .\templates\listings\listing_create.html:825
+#: .\templates\listings\listing_create_cars_quick.html:913
+msgid "Brand is required"
+msgstr "Bränd on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:558
+#: .\templates\listings\listing_create.html:827
+#: .\templates\listings\listing_create_cars_quick.html:915
+msgid "Year is required"
+msgstr "Aasta on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:559
+#: .\templates\listings\listing_create.html:836
+#: .\templates\listings\listing_create_cars_quick.html:945
+msgid "Price is required"
+msgstr "Hind on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:560
+#: .\templates\listings\listing_create.html:839
+#: .\templates\listings\listing_create_cars_quick.html:959
+msgid "Phone is required"
+msgstr "Telefoninumber on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:561
+#: .\templates\listings\listing_create.html:838
+#: .\templates\listings\listing_create_cars_quick.html:958
+msgid "City is required"
+msgstr "Linn on kohustuslik"
+
+#: .\templates\listings\car_for_parts_create.html:562
+#: .\templates\listings\listing_create.html:837
+#: .\templates\listings\listing_create_cars_quick.html:956
+msgid "State is required"
+msgstr "Osariik on kohustuslik"
+
+#: .\templates\listings\home.html:12
+msgid "Find Your Dream Car"
+msgstr "Leia oma unistuste auto"
+
+#: .\templates\listings\home.html:15
+msgid "Browse thousands of vehicles from trusted sellers"
+msgstr "Sirvi tuhandeid usaldusväärsete müüjate sõidukeid"
+
+#: .\templates\listings\home.html:34
+msgid "Max Price"
+msgstr "Maksimaalne hind"
+
+#: .\templates\listings\home.html:36
+msgid "Any Price"
+msgstr "Iga hinnaga"
+
+#: .\templates\listings\home.html:48
+msgid "All Types"
+msgstr "Kõik tüübid"
+
+#: .\templates\listings\home.html:49
+msgid "Sedan"
+msgstr "Sedaan"
+
+#: .\templates\listings\home.html:50
+msgid "SUV"
+msgstr "Maastur"
+
+#: .\templates\listings\home.html:51
+msgid "Hatchback"
+msgstr "Luukpära"
+
+#: .\templates\listings\home.html:52
+msgid "Coupe"
+msgstr "Kupee"
+
+#: .\templates\listings\home.html:74
+msgid "Cars Listed"
+msgstr "Autod nimekirjas"
+
+#: .\templates\listings\home.html:78
+msgid "Happy Customers"
+msgstr "Rahulolevad kliendid"
+
+#: .\templates\listings\home.html:82
+msgid "Cities Covered"
+msgstr "Kaetud linnad"
+
+#: .\templates\listings\home.html:86
+msgid "Support"
+msgstr "Tugi"
+
+#: .\templates\listings\home.html:95
+msgid "Latest Listings"
+msgstr "Viimased kuulutused"
+
+#: .\templates\listings\home.html:97
+msgid "View All"
+msgstr "Kuva kõik"
+
+#: .\templates\listings\home.html:129
+msgid "k"
+msgstr "k"
+
+#: .\templates\listings\home.html:138 .\templates\listings\search_map.html:149
+msgid "View Details"
+msgstr "Vaata üksikasju"
+
+#: .\templates\listings\home.html:145
+msgid "No listings available yet"
+msgstr "Kuulutusi pole veel saadaval"
+
+#: .\templates\listings\home.html:155
+msgid "Why Choose SellCar?"
+msgstr "Miks valida SellCar?"
+
+#: .\templates\listings\home.html:156
+msgid "The best platform to buy and sell cars"
+msgstr "Parim platvorm autode ostmiseks ja müümiseks"
+
+#: .\templates\listings\home.html:164
+msgid "Easy Search"
+msgstr "Lihtne otsing"
+
+#: .\templates\listings\home.html:165
+msgid "Find your dream car with advanced filters and map search"
+msgstr "Leia oma unistuste auto täiustatud filtrite ja kaardiotsingu abil"
+
+#: .\templates\listings\home.html:172
+msgid "Safe & Secure"
+msgstr "Turvaline ja kindel"
+
+#: .\templates\listings\home.html:173
+msgid "All listings are verified. Buy and sell with confidence"
+msgstr "Kõik kuulutused on kontrollitud. Ostke ja müüge enesekindlalt."
+
+#: .\templates\listings\home.html:180
+msgid "Fast & Easy"
+msgstr "Kiire ja lihtne"
+
+#: .\templates\listings\home.html:181
+msgid "List your car in minutes and connect with buyers instantly"
+msgstr "Lisa oma auto minutitega ja võta ostjatega kohe ühendust"
+
+#: .\templates\listings\home.html:190
+msgid "Ready to Sell Your Car?"
+msgstr "Kas olete valmis oma autot müüma?"
+
+#: .\templates\listings\home.html:192
+msgid "Join thousands of sellers who found buyers on SellCar"
+msgstr "Liitu tuhandete müüjatega, kes leidsid ostjaid SellCarist"
+
+#: .\templates\listings\home.html:197
+#: .\templates\listings\listing_create.html:4
+#: .\templates\listings\listing_create_cars_quick.html:4
+msgid "Create Listing"
+msgstr "Loo kuulutus"
+
+#: .\templates\listings\home.html:202
+msgid "Get Started"
+msgstr "Alustamine"
+
+#: .\templates\listings\listing_activation_plans.html:4
+#: .\templates\listings\listing_activation_plans.html:11
+msgid "Activate Your Listing"
+msgstr "Aktiveeri oma kuulutus"
+
+#: .\templates\listings\listing_activation_plans.html:26
+msgid "MOST POPULAR"
+msgstr "KÕIGE POPULAARSEM"
+
+#: .\templates\listings\listing_activation_plans.html:38
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s day\n"
+"                            "
+msgid_plural ""
+"\n"
+"                            %(counter)s days\n"
+"                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_activation_plans.html:75
+msgid "Selected plan:"
+msgstr "Valitud pakett:"
+
+#: .\templates\listings\listing_activation_plans.html:76
+msgid "None selected"
+msgstr "Pole valitud"
+
+#: .\templates\listings\listing_activation_plans.html:80
+msgid "Save as draft"
+msgstr "Salvesta mustandina"
+
+#: .\templates\listings\listing_activation_plans.html:84
+msgid "Activate Listing"
+msgstr "Aktiveeri kuulutus"
+
+#: .\templates\listings\listing_activation_plans.html:97
+msgid "1 day"
+msgstr "1 päev"
+
+#: .\templates\listings\listing_activation_plans.html:98
+#, python-brace-format
+msgid "{n} days"
+msgstr "{n} päeva"
+
+#: .\templates\listings\listing_create.html:14
+#: .\templates\listings\listing_create_cars_quick.html:14
+msgid "Back to listing edit"
+msgstr "Tagasi kuulutuse muutmise juurde"
+
+#: .\templates\listings\listing_create.html:20
+msgid "Photos & Video"
+msgstr "Fotod ja video"
+
+#: .\templates\listings\listing_create.html:21
+#: .\templates\listings\listing_detail.html:801
+#: .\templates\listings\listing_edit.html:81
+msgid "Vehicle Details"
+msgstr "Sõiduki andmed"
+
+#: .\templates\listings\listing_create.html:23
+#: .\templates\listings\listing_create_cars_quick.html:213
+#: .\templates\listings\listing_detail.html:129
+#: .\templates\listings\listing_detail.html:476
+#: .\templates\listings\listing_detail.html:769
+#: .\templates\listings\listing_edit.html:63
+#: .\templates\listings\listing_select_plan.html:46
+#: .\templates\listings\listing_select_plan.html:172
+#: .\templates\listings\listing_select_plan.html:185
+#: .\templates\listings\motogear_create.html:305
+#: .\templates\listings\motogear_create.html:479
+#: .\templates\listings\motorcycle_create.html:464
+#: .\templates\listings\trucks_listing_create.html:745
+msgid "Price"
+msgstr "Hind"
+
+#: .\templates\listings\listing_create.html:28
+#, python-format
+msgid "Editing: %(brand)s %(model)s"
+msgstr "Redigeerimine: %(bränd)s %(modell)s"
+
+#: .\templates\listings\listing_create.html:34
+msgid "Create New Listing"
+msgstr "Loo uus kuulutus"
+
+#: .\templates\listings\listing_create.html:35
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "Samm %(praegune)s %(kokku)s-st"
+
+#: .\templates\listings\listing_create.html:54
+#: .\templates\listings\listing_create.html:823
+msgid "Complete previous steps first"
+msgstr "Täida esmalt eelmised sammud"
+
+#: .\templates\listings\listing_create.html:69
+msgid "Select Vehicle Category"
+msgstr "Valige sõiduki kategooria"
+
+#: .\templates\listings\listing_create.html:88
+#: .\templates\listings\motorcycles_list.html:354
+#: .\templates\listings\trucks_list.html:953
+msgid "← Select a category"
+msgstr "← Vali kategooria"
+
+#: .\templates\listings\listing_create.html:104
+#: .\templates\listings\listing_create.html:291
+#: .\templates\listings\listing_create.html:605
+#: .\templates\listings\listing_create.html:644
+#: .\templates\listings\listing_create.html:713
+#: .\templates\listings\listing_create_cars_quick.html:669
+#: .\templates\listings\motogear_create.html:25
+#: .\templates\listings\motorcycle_create.html:23
+msgid "Please fix the following errors:"
+msgstr "Palun parandage järgmised vead:"
+
+#: .\templates\listings\listing_create.html:113
+msgid "Vehicle Details & Photos"
+msgstr "Sõiduki andmed ja fotod"
+
+#: .\templates\listings\listing_create.html:114
+msgid "Select your vehicle and add photos"
+msgstr "Vali oma sõiduk ja lisa fotosid"
+
+#: .\templates\listings\listing_create.html:120
+#: .\templates\listings\listing_create.html:303
+#: .\templates\listings\listing_list.html:322
+#: .\templates\listings\listing_list.html:830
+#: .\templates\listings\motorcycles_list.html:153
+msgid "Search brand..."
+msgstr "Otsi brändi..."
+
+#: .\templates\listings\listing_create.html:125
+#: .\templates\listings\listing_create.html:308
+#: .\templates\listings\listing_create.html:813
+#: .\templates\listings\listing_create_cars_quick.html:52
+msgid "-- Select brand --"
+msgstr "-- Valige bränd --"
+
+#: .\templates\listings\listing_create.html:133
+#: .\templates\listings\listing_create.html:141
+#: .\templates\listings\listing_create.html:160
+#: .\templates\listings\listing_create.html:399
+#: .\templates\listings\listing_create.html:416
+#: .\templates\listings\listing_create.html:434
+#: .\templates\listings\listing_create.html:451
+#: .\templates\listings\listing_create.html:464
+#: .\templates\listings\listing_create.html:496
+#: .\templates\listings\listing_create.html:511
+#: .\templates\listings\listing_create.html:621
+#: .\templates\listings\listing_create.html:666
+#: .\templates\listings\listing_create.html:676
+#: .\templates\listings\listing_create.html:689
+msgid "This field is required"
+msgstr "See väli on kohustuslik"
+
+#: .\templates\listings\listing_create.html:139
+#: .\templates\listings\listing_create.html:321
+#: .\templates\listings\listing_create.html:812
+#: .\templates\listings\motorcycle_create.html:617
+msgid "Select model"
+msgstr "Valige mudel"
+
+#: .\templates\listings\listing_create.html:144
+#: .\templates\listings\listing_create.html:185
+#: .\templates\listings\listing_create.html:325
+#: .\templates\listings\listing_create.html:374
+#: .\templates\listings\listing_detail.html:948
+#: .\templates\listings\listing_edit.html:41
+msgid "First Registration"
+msgstr "Esimene registreerimine"
+
+#: .\templates\listings\listing_create.html:153
+#: .\templates\listings\listing_create.html:334
+#: .\templates\listings\trucks_listing_create.html:358
+#: .\templates\listings\trucks_listing_create.html:579
+msgid "MM"
+msgstr "MM"
+
+#: .\templates\listings\listing_create.html:163
+#: .\templates\listings\listing_create.html:190
+#: .\templates\listings\listing_create.html:378
+#: .\templates\listings\listing_detail.html:365
+#: .\templates\listings\listing_detail.html:932
+#: .\templates\listings\listing_edit.html:46
+#: .\templates\listings\listing_list.html:1184
+#: .\templates\listings\listing_list.html:1220
+#: .\templates\listings\motorcycle_create.html:236
+msgid "VIN"
+msgstr "VIN-kood"
+
+#: .\templates\listings\listing_create.html:164
+#: .\templates\listings\listing_create_cars_quick.html:206
+#: .\templates\listings\listing_edit.html:48
+msgid "e.g. WBA3A5C51DF000000"
+msgstr "nt WBA3A5C51DF0000000"
+
+#: .\templates\listings\listing_create.html:200
+#: .\templates\listings\listing_create_cars_quick.html:489
+msgid "Current photos"
+msgstr "Praegused fotod"
+
+#: .\templates\listings\listing_create.html:200
+msgid "(click to enlarge, hover for options)"
+msgstr "(suurendamiseks klõpsake, valikute kuvamiseks hõljutage kursorit"
+
+#: .\templates\listings\listing_create.html:210
+#: .\templates\listings\listing_edit.html:308
+msgid "Main"
+msgstr "Peamine"
+
+#: .\templates\listings\listing_create.html:216
+#: .\templates\listings\listing_create_cars_quick.html:509
+msgid "Set as main"
+msgstr "Määra peamiseks"
+
+#: .\templates\listings\listing_create.html:227
+msgid "💡 Hover over photo to see options. Click photo to enlarge."
+msgstr ""
+"💡 Valike nägemiseks hõljutage kursorit foto kohal. Suurendamiseks klõpsake "
+"fotol."
+
+#: .\templates\listings\listing_create.html:242
+#: .\templates\listings\listing_create_cars_quick.html:525
+msgid "Already uploaded"
+msgstr "Juba üles laaditud"
+
+#: .\templates\listings\listing_create.html:243
+#, python-format
+msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
+msgstr ""
+"(%(loendus)s / 40 — suurendamiseks klõpsa, ümberjärjestamiseks lohista)"
+
+#: .\templates\listings\listing_create.html:261
+#: .\templates\listings\listing_create.html:1708
+#: .\templates\listings\listing_create_cars_quick.html:544
+#: .\templates\listings\listing_create_cars_quick.html:1594
+#: .\templates\listings\my_listings.html:268
+#: .\templates\listings\my_listings.html:541
+#: .\templates\listings\saved_searches.html:39
+#: .\templates\listings\trucks_listing_create.html:711
+#: .\templates\listings\trucks_listing_create.html:724
+msgid "Delete"
+msgstr "Kustuta"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Add more photos"
+msgstr "Lisa rohkem fotosid"
+
+#: .\templates\listings\listing_create.html:270
+msgid "Upload Photos"
+msgstr "Laadi üles fotosid"
+
+#: .\templates\listings\listing_create.html:274
+msgid "PNG, JPG up to 20MB each (Max 40 images)"
+msgstr "PNG, JPG kuni 20 MB igaüks (maksimaalselt 40 pilti)"
+
+#: .\templates\listings\listing_create.html:280
+#: .\templates\listings\listing_create_cars_quick.html:473
+msgid "Video URL (YouTube, optional)"
+msgstr "Video URL (YouTube, valikuline)"
+
+#: .\templates\listings\listing_create.html:357
+msgid "Technical Details"
+msgstr "Tehnilised andmed"
+
+#: .\templates\listings\listing_create.html:358
+msgid "Provide technical specifications"
+msgstr "Esitage tehnilised kirjeldused"
+
+#: .\templates\listings\listing_create.html:439
+msgid "Number of Doors"
+msgstr "Uste arv"
+
+#: .\templates\listings\listing_create.html:515
+#: .\templates\listings\listing_detail.html:842
+msgid "Engine Capacity"
+msgstr "Mootori töömaht"
+
+#: .\templates\listings\listing_create.html:552
+#: .\templates\listings\listing_create.html:819
+msgid "Additional details"
+msgstr "Lisateave"
+
+#: .\templates\listings\listing_create.html:554
+msgid "Drive type, seats, rim size, fuel consumption, etc."
+msgstr "Veotüüp, istmed, velje suurus, kütusekulu jne."
+
+#: .\templates\listings\listing_create.html:560
+#: .\templates\listings\listing_edit.html:147
+msgid "Number of Seats"
+msgstr "Istekohtade arv"
+
+#: .\templates\listings\listing_create.html:561
+#: .\templates\listings\listing_detail.html:880
+#: .\templates\listings\listing_edit.html:158
+msgid "Rim Size"
+msgstr "Velje suurus"
+
+#: .\templates\listings\listing_create.html:563
+#: .\templates\listings\listing_edit.html:191
+#: .\templates\listings\motorcycle_create.html:182
+msgid "Curb Weight (kg)"
+msgstr "Tühimass (kg)"
+
+#: .\templates\listings\listing_create.html:565
+#: .\templates\listings\listing_edit.html:199
+msgid "CO₂ Emission (g/km)"
+msgstr "CO₂ heitkogus (g/km)"
+
+#: .\templates\listings\listing_create.html:566
+#: .\templates\listings\listing_detail.html:920
+#: .\templates\listings\listing_edit.html:207
+msgid "Origin Country"
+msgstr "Päritoluriik"
+
+#: .\templates\listings\listing_create.html:569
+#: .\templates\listings\listing_detail.html:910
+#: .\templates\listings\listing_edit.html:220
+msgid "Fuel Consumption (l/100km)"
+msgstr "Kütusekulu (l/100km)"
+
+#: .\templates\listings\listing_create.html:572
+#: .\templates\listings\listing_create_cars_quick.html:352
+#: .\templates\listings\listing_edit.html:230
+msgid "Highway"
+msgstr "Maantee"
+
+#: .\templates\listings\listing_create.html:573
+#: .\templates\listings\listing_create_cars_quick.html:353
+#: .\templates\listings\listing_edit.html:237
+msgid "Combined"
+msgstr "Kombineeritud"
+
+#: .\templates\listings\listing_create.html:577
+#: .\templates\listings\listing_edit.html:248
+msgid "Technical Inspection Valid Until"
+msgstr "Tehniline ülevaatus kehtib kuni"
+
+#: .\templates\listings\listing_create.html:579
+#: .\templates\listings\listing_create_cars_quick.html:81
+#: .\templates\listings\listing_edit.html:251
+msgid "Month"
+msgstr "Kuu"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Additional Equipment"
+msgstr "Lisavarustus"
+
+#: .\templates\listings\listing_create.html:589
+msgid "Select features your vehicle has"
+msgstr "Valige oma sõiduki omadused"
+
+#: .\templates\listings\listing_create.html:612
+msgid "Set Your Price"
+msgstr "Määra oma hind"
+
+#: .\templates\listings\listing_create.html:612
+msgid "What's your asking price?"
+msgstr "Mis on teie küsitav hind?"
+
+#: .\templates\listings\listing_create.html:624
+#: .\templates\listings\listing_edit.html:74
+#: .\templates\listings\motogear_create.html:325
+#: .\templates\listings\motorcycle_create.html:481
+#: .\templates\listings\trucks_listing_create.html:760
+msgid "Price is negotiable"
+msgstr "Hind on läbiräägitav"
+
+#: .\templates\listings\listing_create.html:630
+msgid "Describe your vehicle in detail"
+msgstr "Kirjeldage oma sõidukit üksikasjalikult"
+
+#: .\templates\listings\listing_create.html:634
+msgid "Include condition, features, service history, etc."
+msgstr "Lisa seisukord, omadused, hooldusajalugu jne."
+
+#: .\templates\listings\listing_create.html:651
+msgid "Contact & Location"
+msgstr "Kontakt ja asukoht"
+
+#: .\templates\listings\listing_create.html:651
+msgid "Where is the vehicle and how can buyers reach you?"
+msgstr "Kus sõiduk asub ja kuidas ostjad teiega ühendust saavad?"
+
+#: .\templates\listings\listing_create.html:653
+msgid "Vehicle Location"
+msgstr "Sõiduki asukoht"
+
+#: .\templates\listings\listing_create.html:671
+#: .\templates\listings\listing_create_cars_quick.html:615
+#: .\templates\listings\motogear_create.html:380
+msgid "Select state"
+msgstr "Valige osariik"
+
+#: .\templates\listings\listing_create.html:678
+#: .\templates\listings\motorcycle_create.html:541
+msgid "Postal Code"
+msgstr "Postiindeks"
+
+#: .\templates\listings\listing_create.html:679
+#: .\templates\listings\motorcycle_create.html:548
+msgid "Street Address"
+msgstr "Tänava aadress"
+
+#: .\templates\listings\listing_create.html:682
+msgid "Hide exact address"
+msgstr "Peida täpne aadress"
+
+#: .\templates\listings\listing_create.html:687
+msgid "Contact Information"
+msgstr "Kontaktandmed"
+
+#: .\templates\listings\listing_create.html:690
+msgid "Email (optional)"
+msgstr "E-post (valikuline)"
+
+#: .\templates\listings\listing_create.html:695
+msgid "Terms & Conditions"
+msgstr "Tingimused"
+
+#: .\templates\listings\listing_create.html:699
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
+msgstr ""
+"Nõustun <a href=\"#\" class=\"text-primary "
+"hover:underline\">tingimustega</a> ja <a href=\"#\" class=\"text-primary "
+"hover:underline\">privaatsuspoliitikaga</a>"
+
+#: .\templates\listings\listing_create.html:701
+msgid "Send me newsletters and offers"
+msgstr "Saada mulle uudiskirju ja pakkumisi"
+
+#: .\templates\listings\listing_create.html:728
+#: .\templates\listings\listing_detail.html:1203
+msgid "Save"
+msgstr "Salvesta"
+
+#: .\templates\listings\listing_create.html:734
+#: .\templates\listings\listing_create.html:738
+#: .\templates\listings\motorcycle_create.html:572
+msgid "Back"
+msgstr "Tagasi"
+
+#: .\templates\listings\listing_create.html:744
+#: .\templates\listings\motogear_create.html:424
+#: .\templates\listings\motorcycle_create.html:575
+msgid "Continue"
+msgstr "Jätka"
+
+#: .\templates\listings\listing_create.html:748
+#: .\templates\listings\listing_create_cars_quick.html:691
+msgid "Submit Listing"
+msgstr "Esita kuulutus"
+
+#: .\templates\listings\listing_create.html:815
+msgid "Select type:"
+msgstr "Valige tüüp:"
+
+#: .\templates\listings\listing_create.html:816
+msgid "Select subcategory:"
+msgstr "Valige alamkategooria:"
+
+#: .\templates\listings\listing_create.html:817
+msgid "No options"
+msgstr "Valikud puuduvad"
+
+#: .\templates\listings\listing_create.html:818
+#: .\templates\listings\listing_create_cars_quick.html:809
+msgid "Hide details"
+msgstr "Peida üksikasjad"
+
+#: .\templates\listings\listing_create.html:820
+#, python-brace-format
+msgid "({count} / 40 — click to enlarge, drag to reorder)"
+msgstr "({count} / 40 — suurendamiseks klõpsa, ümberjärjestamiseks lohista)"
+
+#: .\templates\listings\listing_create.html:821
+#: .\templates\listings\listing_create_cars_quick.html:1523
+msgid "Maximum 40 photos. Remove some first."
+msgstr "Maksimaalselt 40 fotot. Eemaldage esmalt mõned."
+
+#: .\templates\listings\listing_create.html:822
+#, python-brace-format
+msgid "You picked {n} photos but only {a} fit. First {a} will be added."
+msgstr "Valisid {n} fotot, aga ainult {a} sobib. Esimesena lisatakse {a}."
+
+#: .\templates\listings\listing_create.html:826
+#: .\templates\listings\listing_create_cars_quick.html:914
+msgid "Model is required"
+msgstr "Mudel on kohustuslik"
+
+#: .\templates\listings\listing_create.html:828
+#: .\templates\listings\listing_create_cars_quick.html:916
+msgid "Month is required"
+msgstr "Kuu on kohustuslik"
+
+#: .\templates\listings\listing_create.html:829
+msgid "Body Type is required"
+msgstr "Keretüübi sisestamine on kohustuslik"
+
+#: .\templates\listings\listing_create.html:830
+msgid "Fuel Type is required"
+msgstr "Kütuse tüüp on kohustuslik"
+
+#: .\templates\listings\listing_create.html:831
+msgid "Transmission is required"
+msgstr "Edastus on vajalik"
+
+#: .\templates\listings\listing_create.html:832
+msgid "Number of Doors is required"
+msgstr "Uste arv on nõutav"
+
+#: .\templates\listings\listing_create.html:834
+#: .\templates\listings\listing_create_cars_quick.html:934
+msgid "Mileage is required"
+msgstr "Läbisõit on kohustuslik"
+
+#: .\templates\listings\listing_create.html:835
+#: .\templates\listings\listing_create_cars_quick.html:939
+msgid "Defects is required"
+msgstr "Defektid on kohustuslikud"
+
+#: .\templates\listings\listing_create.html:840
+#: .\templates\listings\listing_create_cars_quick.html:960
+msgid "You must agree to terms and conditions"
+msgstr "Te peate nõustuma tingimustega"
+
+#: .\templates\listings\listing_create_cars_quick.html:22
+#, python-format
+msgid "Edit listing: %(brand)s %(model)s"
+msgstr "Muuda kuulutust: %(bränd)s %(mudel)s"
+
+#: .\templates\listings\listing_create_cars_quick.html:24
+msgid "New listing: Cars"
+msgstr "Uus kuulutus: Autod"
+
+#: .\templates\listings\listing_create_cars_quick.html:38
+msgid "Main listing data"
+msgstr "Peamised noteerimisandmed"
+
+#: .\templates\listings\listing_create_cars_quick.html:205
+msgid "VIN code"
+msgstr "VIN-kood"
+
+#: .\templates\listings\listing_create_cars_quick.html:227
+msgid "Price for export"
+msgstr "Ekspordihind"
+
+#: .\templates\listings\listing_create_cars_quick.html:243
+#: .\templates\listings\listing_detail.html:132
+#: .\templates\listings\listing_detail.html:488
+#: .\templates\listings\listing_detail.html:781
+msgid "Negotiable"
+msgstr "Läbiräägitav"
+
+#: .\templates\listings\listing_create_cars_quick.html:250
+#: .\templates\listings\listing_detail.html:491
+#: .\templates\listings\listing_detail.html:784
+#: .\templates\listings\listing_detail.html:1096
+msgid "Interested in trade"
+msgstr "Huvitatud kaubandusest"
+
+#: .\templates\listings\listing_create_cars_quick.html:257
+#: .\templates\listings\listing_detail.html:494
+#: .\templates\listings\listing_detail.html:787
+msgid "+ Taxes"
+msgstr "+ Maksud"
+
+#: .\templates\listings\listing_create_cars_quick.html:261
+msgid ""
+"Price excludes taxes — ask the seller for details about applicable taxes."
+msgstr ""
+"Hind ei sisalda makse – küsige müüjalt lisateavet kohaldatavate maksude "
+"kohta."
+
+#: .\templates\listings\listing_create_cars_quick.html:275
+msgid "Additional data"
+msgstr "Lisaandmed"
+
+#: .\templates\listings\listing_create_cars_quick.html:278
+#: .\templates\listings\listing_create_cars_quick.html:813
+msgid "Submit more details"
+msgstr "Esitage lisateavet"
+
+#: .\templates\listings\listing_create_cars_quick.html:285
+msgid "Modification (TDI, TSI, CDI...)"
+msgstr "Modifikatsioon (TDI, TSI, CDI...)"
+
+#: .\templates\listings\listing_create_cars_quick.html:289
+msgid "Tech inspection until"
+msgstr "Tehniline kontroll kuni"
+
+#: .\templates\listings\listing_create_cars_quick.html:313
+msgid "Summer/Winter wheels"
+msgstr "Suve-/talverattad"
+
+#: .\templates\listings\listing_create_cars_quick.html:317
+msgid "CO₂ emission, g/km"
+msgstr "CO₂ heitkogus, g/km"
+
+#: .\templates\listings\listing_create_cars_quick.html:325
+msgid "First registration country"
+msgstr "Esmaregistreerimise riik"
+
+#: .\templates\listings\listing_create_cars_quick.html:333
+msgid "Number of seats"
+msgstr "Istekohtade arv"
+
+#: .\templates\listings\listing_create_cars_quick.html:337
+msgid "Climate control"
+msgstr "Kliimaseade"
+
+#: .\templates\listings\listing_create_cars_quick.html:341
+msgid "Curb weight, kg"
+msgstr "Tühimass, kg"
+
+#: .\templates\listings\listing_create_cars_quick.html:345
+#: .\templates\listings\listing_detail.html:289
+#: .\templates\listings\trucks_advanced_search.html:461
+#: .\templates\listings\trucks_list.html:353
+msgid "Euro standard"
+msgstr "Eurostandard"
+
+#: .\templates\listings\listing_create_cars_quick.html:349
+msgid "Fuel consumption (l/100km)"
+msgstr "Kütusekulu (l/100km)"
+
+#: .\templates\listings\listing_create_cars_quick.html:365
+#: .\templates\listings\listing_list.html:596
+msgid "Features"
+msgstr "Omadused"
+
+#: .\templates\listings\listing_create_cars_quick.html:372
+msgid "(Select all)"
+msgstr "(Vali kõik)"
+
+#: .\templates\listings\listing_create_cars_quick.html:373
+msgid "Select all"
+msgstr "Vali kõik"
+
+#: .\templates\listings\listing_create_cars_quick.html:395
+msgid "Special Features"
+msgstr "Erifunktsioonid"
+
+#: .\templates\listings\listing_create_cars_quick.html:401
+msgid "Warranty included"
+msgstr "Garantii on kaasas"
+
+#: .\templates\listings\listing_create_cars_quick.html:405
+msgid "Available on lease"
+msgstr "Saadaval üürilepingu alusel"
+
+#: .\templates\listings\listing_create_cars_quick.html:409
+#: .\templates\listings\listing_list.html:623
+#: .\templates\listings\motorcycle_create.html:339
+msgid "Service book"
+msgstr "Hooldusraamat"
+
+#: .\templates\listings\listing_create_cars_quick.html:413
+#: .\templates\listings\listing_list.html:627
+msgid "Imported from US"
+msgstr "Imporditud USA-st"
+
+#: .\templates\listings\listing_create_cars_quick.html:417
+#: .\templates\listings\listing_list.html:631
+msgid "Multiple key sets"
+msgstr "Mitu võtmekomplekti"
+
+#: .\templates\listings\listing_create_cars_quick.html:421
+msgid "Valid technical inspection"
+msgstr "Kehtiv tehniline ülevaatus"
+
+#: .\templates\listings\listing_create_cars_quick.html:425
+#: .\templates\listings\listing_list.html:612
+msgid "Sport-ready"
+msgstr "Sportimiseks valmis"
+
+#: .\templates\listings\listing_create_cars_quick.html:429
+#: .\templates\listings\listing_list.html:616
+msgid "Adapted for disabled"
+msgstr "Kohandatud puuetega inimestele"
+
+#: .\templates\listings\listing_create_cars_quick.html:433
+#: .\templates\listings\listing_list.html:635
+msgid "Increased engine power"
+msgstr "Suurem mootori võimsus"
+
+#: .\templates\listings\listing_create_cars_quick.html:437
+#: .\templates\listings\listing_list.html:639
+msgid "Pneumatic suspension"
+msgstr "Pneumaatiline vedrustus"
+
+#: .\templates\listings\listing_create_cars_quick.html:441
+#: .\templates\listings\listing_list.html:643
+msgid "Remote start"
+msgstr "Kaugkäivitus"
+
+#: .\templates\listings\listing_create_cars_quick.html:445
+#: .\templates\listings\listing_list.html:647
+msgid "Spare wheel"
+msgstr "Varuratas"
+
+#: .\templates\listings\listing_create_cars_quick.html:449
+msgid "From auction"
+msgstr "Oksjonilt"
+
+#: .\templates\listings\listing_create_cars_quick.html:455
+#: .\templates\listings\listing_list.html:528
+msgid "Seller type"
+msgstr "Müüja tüüp"
+
+#: .\templates\listings\listing_create_cars_quick.html:467
+msgid "Describe your offer in detail."
+msgstr "Kirjeldage oma pakkumist üksikasjalikult."
+
+#: .\templates\listings\listing_create_cars_quick.html:468
+msgid ""
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr ""
+"Mida vähem küsimusi ostjatel teie kuulutust lugedes tekib, seda kiiremini "
+"leiate ostja."
+
+#: .\templates\listings\listing_create_cars_quick.html:469
+msgid "Avoid using ALL CAPS or excessive symbols."
+msgstr "Väldi SUURTÄHTEDES või liigsete sümbolite kasutamist."
+
+#: .\templates\listings\listing_create_cars_quick.html:511
+msgid "Rotate left"
+msgstr "Pööra vasakule"
+
+#: .\templates\listings\listing_create_cars_quick.html:512
+msgid "Rotate right"
+msgstr "Pööra paremale"
+
+#: .\templates\listings\listing_create_cars_quick.html:554
+msgid "Upload photos"
+msgstr "Laadi üles fotosid"
+
+#: .\templates\listings\listing_create_cars_quick.html:555
+msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgstr "Kuni 40 fotot. Maksimaalne suurus 24 MB. JPG, GIF, PNG."
+
+#: .\templates\listings\listing_create_cars_quick.html:577
+msgid "Phone number is required so potential buyers can contact you by phone."
+msgstr ""
+"Telefoninumber on vajalik, et potentsiaalsed ostjad saaksid teiega telefoni "
+"teel ühendust võtta."
+
+#: .\templates\listings\listing_create_cars_quick.html:583
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: .\templates\listings\listing_create_cars_quick.html:593
+msgid ""
+"Email lets potential buyers reach you by email. Hidden from public listing "
+"visitors."
+msgstr ""
+"E-post võimaldab potentsiaalsetel ostjatel teiega e-posti teel ühendust "
+"võtta. Avalike kuulutuste külastajate eest varjatud."
+
+#: .\templates\listings\listing_create_cars_quick.html:599
+msgid "your@email.com"
+msgstr "sinu@email.com"
+
+#: .\templates\listings\listing_create_cars_quick.html:624
+msgid "e.g., Vilnius"
+msgstr "nt Vilnius"
+
+#: .\templates\listings\listing_create_cars_quick.html:634
+msgid "Street, house number"
+msgstr "Tänav, maja number"
+
+#: .\templates\listings\listing_create_cars_quick.html:644
+msgid ""
+"By submitting, I agree to the <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
+msgstr ""
+"Esitades nõustun <a href=\"#\" class=\"text-gray-600 underline hover:text-"
+"gray-900\">tingimustega</a> ja <a href=\"#\" class=\"text-gray-600 underline"
+" hover:text-gray-900\">privaatsuspoliitikaga</a>"
+
+#: .\templates\listings\listing_create_cars_quick.html:658
+msgid ""
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr ""
+"Kõik kohustuslikud väljad ei ole täidetud või on täidetud valesti. Need "
+"väljad on punasega märgitud."
+
+#: .\templates\listings\listing_create_cars_quick.html:696
+msgid "* Required fields"
+msgstr "* Kohustuslikud väljad"
+
+#: .\templates\listings\listing_create_cars_quick.html:928
+msgid "is required"
+msgstr "on nõutav"
+
+#: .\templates\listings\listing_create_cars_quick.html:1277
+#: .\templates\listings\motogear_create.html:469
+#: .\templates\listings\trucks_listing_create.html:843
+msgid "Delete this photo?"
+msgstr "Kas kustutada see foto?"
+
+#: .\templates\listings\listing_create_cars_quick.html:1310
+#: .\templates\listings\listing_create_cars_quick.html:1314
+msgid "Rotate failed"
+msgstr "Pööramine ebaõnnestus"
+
+#: .\templates\listings\listing_create_cars_quick.html:1526
+msgid ""
+"You picked too many photos — only the first available ones will be added."
+msgstr "Valisid liiga palju fotosid – lisatakse ainult esimesed saadaolevad."
+
+#: .\templates\listings\listing_create_cars_quick.html:1537
+msgid "Listing ID not found"
+msgstr "Kuulutuse ID-d ei leitud"
+
+#: .\templates\listings\listing_create_cars_quick.html:1552
+#: .\templates\listings\listing_create_cars_quick.html:1555
+#: .\templates\listings\trucks_listing_create.html:845
+msgid "Upload failed"
+msgstr "Üleslaadimine ebaõnnestus"
+
+#: .\templates\listings\listing_delete.html:4
+#: .\templates\listings\listing_delete.html:13
+msgid "Ištrinti skelbimą"
+msgstr "Väljaspool lehekülgi"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Dėmesio!"
+msgstr "Dėmesio!"
+
+#: .\templates\listings\listing_delete.html:19
+msgid "Šis veiksmas negrįžtamas."
+msgstr "See on väga halb tulemus."
+
+#: .\templates\listings\listing_delete.html:21
+msgid "Ar tikrai norite ištrinti šį skelbimą?"
+msgstr "Kas tõesti soovite seda kuulutust?"
+
+#: .\templates\listings\listing_delete.html:28
+msgid "Kaina:"
+msgstr "Kaina:"
+
+#: .\templates\listings\listing_delete.html:42
+msgid "Atšaukti"
+msgstr "Atsaukti"
+
+#: .\templates\listings\listing_delete.html:45
+msgid "Ištrinti"
+msgstr "Ištrinti"
+
+#: .\templates\listings\listing_detail.html:14
+msgid "Browse Trucks"
+msgstr "Sirvi veoautosid"
+
+#: .\templates\listings\listing_detail.html:16
+#: .\templates\listings\motorcycles_list.html:5
+msgid "Browse Motorcycles"
+msgstr "Sirvi mootorrattaid"
+
+#: .\templates\listings\listing_detail.html:107
+#: .\templates\listings\listing_detail.html:219
+#: .\templates\listings\trucks_listing_create.html:368
+msgid "Gross weight"
+msgstr "Brutokaal"
+
+#: .\templates\listings\listing_detail.html:116
+#: .\templates\listings\listing_detail.html:463
+#: .\templates\listings\listing_detail.html:756
+msgid "Fuel"
+msgstr "Kütus"
+
+#: .\templates\listings\listing_detail.html:123
+#: .\templates\listings\listing_detail.html:203
+#: .\templates\listings\trucks_listing_create.html:453
+msgid "Wheel formula"
+msgstr "Ratta valem"
+
+#: .\templates\listings\listing_detail.html:147
+msgid "Truck Details"
+msgstr "Veoauto üksikasjad"
+
+#: .\templates\listings\listing_detail.html:166
+#: .\templates\listings\trucks_advanced_search.html:361
+#: .\templates\listings\trucks_listing_create.html:349
+msgid "First registration"
+msgstr "Esimene registreerimine"
+
+#: .\templates\listings\listing_detail.html:211
+#: .\templates\listings\trucks_listing_create.html:488
+msgid "Mass interval"
+msgstr "Massivahemik"
+
+#: .\templates\listings\listing_detail.html:227
+#: .\templates\listings\trucks_listing_create.html:380
+msgid "Curb weight"
+msgstr "Tühimass"
+
+#: .\templates\listings\listing_detail.html:235
+#: .\templates\listings\trucks_listing_create.html:545
+msgid "Payload capacity"
+msgstr "Kandevõime"
+
+#: .\templates\listings\listing_detail.html:245
+#: .\templates\listings\trucks_listing_create.html:557
+msgid "Fuel tank capacity"
+msgstr "Kütusepaagi maht"
+
+#: .\templates\listings\listing_detail.html:255
+#: .\templates\listings\trucks_listing_create.html:463
+msgid "Length"
+msgstr "Pikkus"
+
+#: .\templates\listings\listing_detail.html:263
+#: .\templates\listings\trucks_listing_create.html:475
+msgid "Width"
+msgstr "Laius"
+
+#: .\templates\listings\listing_detail.html:271
+#: .\templates\listings\trucks_listing_create.html:498
+msgid "Height"
+msgstr "Kõrgus"
+
+#: .\templates\listings\listing_detail.html:279
+#: .\templates\listings\trucks_listing_create.html:510
+msgid "Volume"
+msgstr "Maht"
+
+#: .\templates\listings\listing_detail.html:297
+#: .\templates\listings\trucks_listing_create.html:534
+msgid "New / Used"
+msgstr "Uus / Kasutatud"
+
+#: .\templates\listings\listing_detail.html:317
+#: .\templates\listings\trucks_listing_create.html:598
+msgid "Gearbox"
+msgstr "Käigukast"
+
+#: .\templates\listings\listing_detail.html:323
+#: .\templates\listings\trucks_listing_create.html:608
+msgid "Sleeping seats"
+msgstr "Magamiskohad"
+
+#: .\templates\listings\listing_detail.html:331
+#: .\templates\listings\trucks_listing_create.html:614
+msgid "Front suspension"
+msgstr "Esivedrustus"
+
+#: .\templates\listings\listing_detail.html:337
+#: .\templates\listings\trucks_listing_create.html:624
+msgid "Rear suspension"
+msgstr "Tagumine vedrustus"
+
+#: .\templates\listings\listing_detail.html:345
+msgid "SDK number"
+msgstr "SDK number"
+
+#: .\templates\listings\listing_detail.html:351
+msgid "Tech. inspection until"
+msgstr "Tehniline kontroll kuni"
+
+#: .\templates\listings\listing_detail.html:372
+#: .\templates\listings\listing_detail.html:939
+msgid "Get vehicle history report from Carfaxreport.eu"
+msgstr "Hankige sõiduki ajalooaruanne Carfaxreport.eu-st"
+
+#: .\templates\listings\listing_detail.html:374
+#: .\templates\listings\listing_detail.html:941
+msgid "History report"
+msgstr "Ajaloo aruanne"
+
+#: .\templates\listings\listing_detail.html:385
+#: .\templates\listings\listing_detail.html:613
+#: .\templates\listings\listing_detail.html:958
+#: .\templates\listings\trucks_advanced_search.html:525
+msgid "Equipment & Features"
+msgstr "Varustus ja omadused"
+
+#: .\templates\listings\listing_detail.html:403
+#: .\templates\listings\listing_detail.html:633
+#: .\templates\listings\listing_detail.html:976
+#: .\templates\listings\listing_list.html:807
+#: .\templates\listings\motogeat_list.html:153
+#: .\templates\listings\motorcycles_list.html:130
+#: .\templates\listings\trucks_advanced_search.html:550
+#: .\templates\listings\trucks_list.html:543
+#: .\templates\listings\trucks_listing_create.html:770
+msgid "Location"
+msgstr "Asukoht"
+
+#: .\templates\listings\listing_detail.html:419
+msgid "Exact address hidden by seller"
+msgstr "Müüja peitis täpse aadressi"
+
+#: .\templates\listings\listing_detail.html:430
+#: .\templates\listings\listing_detail.html:1030
+msgid "Get Directions"
+msgstr "Juhiste hankimine"
+
+#: .\templates\listings\listing_detail.html:479
+#: .\templates\listings\listing_detail.html:772
+#: .\templates\listings\listing_detail.html:1073
+msgid "+ taxes"
+msgstr "+ maksud"
+
+#: .\templates\listings\listing_detail.html:483
+#: .\templates\listings\listing_detail.html:776
+msgid "Export price:"
+msgstr "Ekspordihind:"
+
+#: .\templates\listings\listing_detail.html:510
+msgid "Vehicle Details (for parts)"
+msgstr "Sõiduki andmed (varuosade puhul)"
+
+#: .\templates\listings\listing_detail.html:640
+msgid "Directions"
+msgstr "Juhised"
+
+#: .\templates\listings\listing_detail.html:645
+msgid "Open in Maps"
+msgstr "Ava Mapsis"
+
+#: .\templates\listings\listing_detail.html:686
+msgid "ZIP:"
+msgstr "Postiindeks:"
+
+#: .\templates\listings\listing_detail.html:690
+#: .\templates\listings\listing_detail.html:1018
+msgid "Hidden by seller"
+msgstr "Müüja poolt peidetud"
+
+#: .\templates\listings\listing_detail.html:705
+msgid "Coordinates"
+msgstr "Koordinaadid"
+
+#: .\templates\listings\listing_detail.html:712
+#: .\templates\listings\listing_detail.html:1165
+#: .\templates\listings\listing_detail.html:1298
+#: .\templates\listings\listing_success.html:185
+msgid "Copied!"
+msgstr "Kopeeritud!"
+
+#: .\templates\listings\listing_detail.html:712
+msgid "Copy coordinates"
+msgstr "Kopeeri koordinaadid"
+
+#: .\templates\listings\listing_detail.html:721
+msgid "Approximate area only"
+msgstr "Ainult ligikaudne pindala"
+
+#: .\templates\listings\listing_detail.html:829
+#: .\templates\listings\listing_list.html:548
+msgid "No defects"
+msgstr "Defektideta"
+
+#: .\templates\listings\listing_detail.html:898
+msgid "Curb Weight"
+msgstr "Tühimass"
+
+#: .\templates\listings\listing_detail.html:904
+msgid "CO₂ Emission"
+msgstr "CO₂ heitkogus"
+
+#: .\templates\listings\listing_detail.html:912
+msgid "City:"
+msgstr "Linn:"
+
+#: .\templates\listings\listing_detail.html:913
+msgid "Highway:"
+msgstr "Maantee:"
+
+#: .\templates\listings\listing_detail.html:914
+msgid "Combined:"
+msgstr "Kombineeritud:"
+
+#: .\templates\listings\listing_detail.html:926
+#: .\templates\listings\motorcycle_create.html:164
+msgid "Tech. Inspection Until"
+msgstr "Tehniline kontroll kuni"
+
+#: .\templates\listings\listing_detail.html:1077
+msgid ""
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
+msgstr ""
+"Hind ei sisalda makse – palun küsige müüjalt oma piirkonnas kehtivate "
+"maksude kohta."
+
+#: .\templates\listings\listing_detail.html:1086
+msgid "Export:"
+msgstr "Eksport:"
+
+#: .\templates\listings\listing_detail.html:1090
+msgid ""
+"Special price for export buyers — typically used when shipping the vehicle "
+"outside the seller's country. Ask the seller about export documentation and "
+"conditions."
+msgstr ""
+"Ekspordi ostjatele mõeldud erihind – tavaliselt kasutatakse sõiduki "
+"saatmisel müüja riigist väljapoole. Küsige müüjalt ekspordidokumentatsiooni "
+"ja -tingimuste kohta."
+
+#: .\templates\listings\listing_detail.html:1129
+#: .\templates\listings\listing_list.html:531
+msgid "Private"
+msgstr "Privaatne"
+
+#: .\templates\listings\listing_detail.html:1145
+msgid "View all listings →"
+msgstr "Vaata kõiki kuulutusi →"
+
+#: .\templates\listings\listing_detail.html:1160
+msgid "Click to copy"
+msgstr "Klõpsake kopeerimiseks"
+
+#: .\templates\listings\listing_detail.html:1171
+msgid "Seller has disabled phone number visibility."
+msgstr "Müüja on telefoninumbri nähtavuse keelanud."
+
+#: .\templates\listings\listing_detail.html:1178
+msgid "Send Message"
+msgstr "Saada sõnum"
+
+#: .\templates\listings\listing_detail.html:1182
+#: .\templates\listings\listing_detail.html:1368
+msgid "Send Email"
+msgstr "Saada e-kiri"
+
+#: .\templates\listings\listing_detail.html:1188
+msgid "Login to Contact"
+msgstr "Logi sisse, et ühendust võtta"
+
+#: .\templates\listings\listing_detail.html:1195
+msgid "Share"
+msgstr "Jaga"
+
+#: .\templates\listings\listing_detail.html:1201
+#: .\templates\listings\listing_detail.html:1215
+#: .\templates\listings\listing_list.html:1667
+#: .\templates\listings\listing_list.html:1683
+#: .\templates\listings\listing_stats.html:92
+#: .\templates\listings\motorcycles_list.html:360
+#: .\templates\listings\my_listings.html:307
+#: .\templates\listings\my_listings.html:418
+#: .\templates\listings\my_listings.html:570
+#: .\templates\listings\trucks_list.html:954
+msgid "Saved"
+msgstr "Salvestatud"
+
+#: .\templates\listings\listing_detail.html:1209
+msgid "Report"
+msgstr "Aruanne"
+
+#: .\templates\listings\listing_detail.html:1216
+#, python-format
+msgid "%(counter)s person"
+msgid_plural "%(counter)s people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_detail.html:1220
+#: .\templates\listings\my_listings.html:261
+msgid "Renewed"
+msgstr "Uuendatud"
+
+#: .\templates\listings\listing_detail.html:1229
+msgid "Safety Tips"
+msgstr "Ohutusnõuanded"
+
+#: .\templates\listings\listing_detail.html:1232
+msgid "Meet in a safe, public location"
+msgstr "Kohtuge turvalises ja avalikus kohas"
+
+#: .\templates\listings\listing_detail.html:1233
+msgid "Check the vehicle thoroughly"
+msgstr "Kontrollige sõidukit põhjalikult"
+
+#: .\templates\listings\listing_detail.html:1234
+msgid "Never pay in advance"
+msgstr "Ära kunagi maksa ette"
+
+#: .\templates\listings\listing_detail.html:1235
+msgid "Verify all documents"
+msgstr "Kontrollige kõiki dokumente"
+
+#: .\templates\listings\listing_detail.html:1248
+#: .\templates\listings\listing_success.html:91
+msgid "Share this listing"
+msgstr "Jaga seda kuulutust"
+
+#: .\templates\listings\listing_detail.html:1297
+msgid "Copy"
+msgstr "Kopeeri"
+
+#: .\templates\listings\listing_detail.html:1309
+msgid "Report Listing"
+msgstr "Aruande loend"
+
+#: .\templates\listings\listing_detail.html:1315
+msgid "Reason*"
+msgstr "Põhjus*"
+
+#: .\templates\listings\listing_detail.html:1317
+msgid "Incorrect price"
+msgstr "Vale hind"
+
+#: .\templates\listings\listing_detail.html:1318
+msgid "Fraudulent listing"
+msgstr "Petturlik kuulutus"
+
+#: .\templates\listings\listing_detail.html:1319
+msgid "Wrong category"
+msgstr "Vale kategooria"
+
+#: .\templates\listings\listing_detail.html:1320
+msgid "Duplicate listing"
+msgstr "Duplikaatkirje"
+
+#: .\templates\listings\listing_detail.html:1321
+msgid "Already sold"
+msgstr "Juba müüdud"
+
+#: .\templates\listings\listing_detail.html:1322
+msgid "Other"
+msgstr "Muu"
+
+#: .\templates\listings\listing_detail.html:1326
+msgid "Additional comment"
+msgstr "Lisakommentaar"
+
+#: .\templates\listings\listing_detail.html:1327
+msgid "Describe the issue..."
+msgstr "Kirjeldage probleemi..."
+
+#: .\templates\listings\listing_detail.html:1330
+msgid "Your email (optional)"
+msgstr "Teie e-posti aadress (valikuline)"
+
+#: .\templates\listings\listing_detail.html:1334
+msgid "Submit Report"
+msgstr "Esita aruanne"
+
+#: .\templates\listings\listing_detail.html:1344
+msgid "Send Email to Seller"
+msgstr "Saada müüjale e-kiri"
+
+#: .\templates\listings\listing_detail.html:1352
+msgid "Your Email*"
+msgstr "Sinu e-posti aadress*"
+
+#: .\templates\listings\listing_detail.html:1357
+msgid "Your Phone"
+msgstr "Teie telefon"
+
+#: .\templates\listings\listing_detail.html:1362
+msgid "Message*"
+msgstr "Sõnum*"
+
+#: .\templates\listings\listing_detail.html:1365
+msgid "Hello, I am interested in this listing..."
+msgstr "Tere, olen sellest kuulutusest huvitatud..."
+
+#: .\templates\listings\listing_edit.html:18
+#: .\templates\listings\my_listings.html:241
+#: .\templates\listings\my_listings.html:246
+#: .\templates\listings\my_listings.html:516
+#: .\templates\listings\my_listings.html:521
+#: .\templates\listings\my_listings.html:528
+#: .\templates\listings\my_listings.html:533
+#: .\templates\listings\saved_searches.html:36
+#: .\templates\listings\saved_searches.html:74
+#: .\templates\listings\saved_searches.html:151
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Edit"
+msgstr "Redigeeri"
+
+#: .\templates\listings\listing_edit.html:54
+msgid ""
+"Brand, Model and First Registration cannot be changed. VIN can be edited."
+msgstr ""
+"Marki, mudelit ja esmast registreerimist ei saa muuta. VIN-koodi saab muuta."
+
+#: .\templates\listings\listing_edit.html:66
+msgid "Price (€)*"
+msgstr "Hind (€)*"
+
+#: .\templates\listings\listing_edit.html:86
+msgid "Mileage*"
+msgstr "Läbisõit*"
+
+#: .\templates\listings\listing_edit.html:295
+msgid "Describe your vehicle..."
+msgstr "Kirjelda oma sõidukit..."
+
+#: .\templates\listings\listing_edit.html:301
+msgid "Current Images"
+msgstr "Praegused pildid"
+
+#: .\templates\listings\listing_edit.html:313
+msgid "Delete this image?"
+msgstr "Kas kustutada see pilt?"
+
+#: .\templates\listings\listing_edit.html:326
+msgid "Add New Images"
+msgstr "Lisa uusi pilte"
+
+#: .\templates\listings\listing_edit.html:329
+msgid "You can upload multiple images"
+msgstr "Saate üles laadida mitu pilti"
+
+#: .\templates\listings\listing_edit.html:344
+msgid "Delete Listing"
+msgstr "Kustuta kuulutus"
+
+#: .\templates\listings\listing_list.html:231
+#: .\templates\listings\motorcycles_advanced_search.html:122
+#: .\templates\listings\motorcycles_list.html:75
+#: .\templates\listings\trucks_list.html:154
+msgid "Select Category"
+msgstr "Valige kategooria"
+
+#: .\templates\listings\listing_list.html:238
+#: .\templates\listings\listing_list.html:266
+#: .\templates\listings\listing_list.html:305
+#: .\templates\listings\listing_list.html:802
+#: .\templates\listings\motorcycles_advanced_search.html:127
+#: .\templates\listings\motorcycles_list.html:82
+#: .\templates\listings\trucks_list.html:161
+msgid "Cars"
+msgstr "Autod"
+
+#: .\templates\listings\listing_list.html:239
+#: .\templates\listings\motorcycles_advanced_search.html:128
+#: .\templates\listings\motorcycles_list.html:83
+#: .\templates\listings\trucks_list.html:162
+msgid "Minibuses, Buses & Campers"
+msgstr "Minibussid, bussid ja haagissuvilad"
+
+#: .\templates\listings\listing_list.html:240
+#: .\templates\listings\motorcycles_advanced_search.html:126
+#: .\templates\listings\motorcycles_list.html:84
+#: .\templates\listings\trucks_list.html:163
+msgid "Motorcycles & Moto Gear"
+msgstr "Mootorrattad ja motovarustus"
+
+#: .\templates\listings\listing_list.html:241
+#: .\templates\listings\motorcycles_advanced_search.html:129
+#: .\templates\listings\motorcycles_list.html:85
+#: .\templates\listings\trucks_list.html:164
+#: .\templates\listings\trucks_list.html:192
+#: .\templates\listings\trucks_list.html:238
+#: .\templates\listings\trucks_list.html:509
+msgid "Trucks & Commercial"
+msgstr "Veoautod ja kaubikud"
+
+#: .\templates\listings\listing_list.html:242
+#: .\templates\listings\motorcycles_list.html:86
+#: .\templates\listings\trucks_list.html:165
+msgid "Parts"
+msgstr "Osad"
+
+#: .\templates\listings\listing_list.html:243
+#: .\templates\listings\motorcycles_advanced_search.html:130
+#: .\templates\listings\motorcycles_list.html:87
+#: .\templates\listings\trucks_list.html:166
+msgid "Boats & Water Transport"
+msgstr "Paadid ja veetransport"
+
+#: .\templates\listings\listing_list.html:244
+#: .\templates\listings\motorcycles_advanced_search.html:131
+#: .\templates\listings\motorcycles_list.html:88
+#: .\templates\listings\trucks_list.html:167
+msgid "Trailers & Semi-trailers"
+msgstr "Haagised ja poolhaagised"
+
+#: .\templates\listings\listing_list.html:245
+#: .\templates\listings\motorcycles_list.html:89
+#: .\templates\listings\trucks_list.html:168
+msgid "Tyres & Wheels"
+msgstr "Rehvid ja veljed"
+
+#: .\templates\listings\listing_list.html:246
+#: .\templates\listings\motorcycles_list.html:90
+#: .\templates\listings\trucks_list.html:169
+msgid "Construction & Warehouse Equipment"
+msgstr "Ehitus- ja laoseadmed"
+
+#: .\templates\listings\listing_list.html:247
+#: .\templates\listings\motorcycles_list.html:91
+#: .\templates\listings\trucks_list.html:170
+msgid "Agricultural & Forestry"
+msgstr "Põllumajandus ja metsandus"
+
+#: .\templates\listings\listing_list.html:248
+#: .\templates\listings\motorcycles_list.html:92
+#: .\templates\listings\trucks_list.html:171
+msgid "Bicycles & Scooters"
+msgstr "Jalgrattad ja tõukerattad"
+
+#: .\templates\listings\listing_list.html:250
+#: .\templates\listings\motorcycles_list.html:94
+#: .\templates\listings\trucks_list.html:173
+msgid "Car Rental"
+msgstr "Autorent"
+
+#: .\templates\listings\listing_list.html:251
+#: .\templates\listings\motorcycles_list.html:95
+#: .\templates\listings\trucks_list.html:174
+msgid "Planes & Aircraft"
+msgstr "Lennukid ja õhusõidukid"
+
+#: .\templates\listings\listing_list.html:252
+#: .\templates\listings\motorcycles_list.html:96
+#: .\templates\listings\trucks_list.html:175
+msgid "Aircraft Parts"
+msgstr "Lennukite osad"
+
+#: .\templates\listings\listing_list.html:255
+#: .\templates\listings\listing_list.html:1311
+#: .\templates\listings\motorcycles_list.html:99
+#: .\templates\listings\trucks_list.html:178
+msgid "Select a category"
+msgstr "Valige kategooria"
+
+#: .\templates\listings\listing_list.html:267
+#, python-format
+msgid "%(counter)s listing found"
+msgid_plural "%(counter)s listings found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:274
+#: .\templates\listings\trucks_list.html:200
+msgid "Advanced"
+msgstr "Täpsem"
+
+#: .\templates\listings\listing_list.html:277
+#: .\templates\listings\trucks_list.html:203
+msgid "Map"
+msgstr "Kaart"
+
+#: .\templates\listings\listing_list.html:296
+msgid "More filters"
+msgstr "Rohkem filtreid"
+
+#: .\templates\listings\listing_list.html:318
+#: .\templates\listings\listing_list.html:324
+#: .\templates\listings\listing_list.html:826
+#: .\templates\listings\listing_list.html:832
+#: .\templates\listings\motorcycles_list.html:149
+#: .\templates\listings\motorcycles_list.html:155
+msgid "All Brands"
+msgstr "Kõik kaubamärgid"
+
+#: .\templates\listings\listing_list.html:346
+#: .\templates\listings\listing_list.html:853
+#: .\templates\listings\motorcycles_list.html:176
+#: .\templates\listings\trucks_list.html:305
+#: .\templates\listings\trucks_list.html:591
+msgid "Search model..."
+msgstr "Otsi mudelit..."
+
+#: .\templates\listings\listing_list.html:360
+msgid "Add brand and model"
+msgstr "Lisa mark ja mudel"
+
+#: .\templates\listings\listing_list.html:390
+#: .\templates\listings\trucks_advanced_search.html:383
+msgid "Mileage (km)"
+msgstr "Läbisõit (km)"
+
+#: .\templates\listings\listing_list.html:399
+msgid "Text search"
+msgstr "Tekstiotsing"
+
+#: .\templates\listings\listing_list.html:400
+msgid "Search..."
+msgstr "Otsi..."
+
+#: .\templates\listings\listing_list.html:408
+msgid "Valid inspection"
+msgstr "Kehtiv ülevaatus"
+
+#: .\templates\listings\listing_list.html:412
+msgid "Listing with VIN"
+msgstr "Kuulutus koos VIN-koodiga"
+
+#: .\templates\listings\listing_list.html:425
+msgid "Hide from auctions"
+msgstr "Peida oksjonitelt"
+
+#: .\templates\listings\listing_list.html:447
+#: .\templates\listings\listing_list.html:888
+msgid "Name or Part Number"
+msgstr "Nimi või osanumber"
+
+#: .\templates\listings\listing_list.html:448
+msgid "e.g. 06H 145 601 H"
+msgstr "nt 06H 145 601 H"
+
+#: .\templates\listings\listing_list.html:483
+#: .\templates\listings\listing_list.html:518
+#: .\templates\listings\listing_list.html:653
+msgid "More"
+msgstr "Rohkem"
+
+#: .\templates\listings\listing_list.html:484
+#: .\templates\listings\listing_list.html:519
+#: .\templates\listings\listing_list.html:654
+msgid "Less"
+msgstr "Vähem"
+
+#: .\templates\listings\listing_list.html:549
+msgid "Minor defects"
+msgstr "Väiksemad defektid"
+
+#: .\templates\listings\listing_list.html:550
+msgid "Damaged"
+msgstr "Kahjustatud"
+
+#: .\templates\listings\listing_list.html:551
+msgid "Salvage"
+msgstr "Pääste"
+
+#: .\templates\listings\listing_list.html:557
+msgid "Show no older than"
+msgstr "Mitte näidata vanemaid kui"
+
+#: .\templates\listings\listing_list.html:559
+msgid "Any time"
+msgstr "Igal ajal"
+
+#: .\templates\listings\listing_list.html:560
+msgid "24 hours"
+msgstr "24 tundi"
+
+#: .\templates\listings\listing_list.html:561
+msgid "3 days"
+msgstr "3 päeva"
+
+#: .\templates\listings\listing_list.html:562
+msgid "7 days"
+msgstr "7 päeva"
+
+#: .\templates\listings\listing_list.html:563
+msgid "30 days"
+msgstr "30 päeva"
+
+#: .\templates\listings\listing_list.html:600
+msgid "Trade-in accepted"
+msgstr "Vahetusvõimalus aktsepteeritud"
+
+#: .\templates\listings\listing_list.html:604
+#: .\templates\listings\motorcycles_advanced_search.html:176
+msgid "Warranty"
+msgstr "Garantii"
+
+#: .\templates\listings\listing_list.html:608
+msgid "Sold on lease"
+msgstr "Müüdud liisinguga"
+
+#: .\templates\listings\listing_list.html:668
+#, python-format
+msgid "Showing %(counter)s listing"
+msgid_plural "Showing %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:672
+#: .\templates\listings\listing_list.html:935
+msgid "Newest and renewed"
+msgstr "Uusim ja uuendatud"
+
+#: .\templates\listings\listing_list.html:675
+#: .\templates\listings\listing_list.html:938
+msgid "Mileage: Low to High"
+msgstr "Läbisõit: madalaimast kõrgeimani"
+
+#: .\templates\listings\listing_list.html:676
+#: .\templates\listings\listing_list.html:939
+msgid "Mileage: High to Low"
+msgstr "Läbisõit: kõrgeimast madalaimani"
+
+#: .\templates\listings\listing_list.html:677
+#: .\templates\listings\listing_list.html:940
+msgid "Year: Newest First"
+msgstr "Aasta: Uuemad esimesena"
+
+#: .\templates\listings\listing_list.html:678
+#: .\templates\listings\listing_list.html:941
+msgid "Year: Oldest First"
+msgstr "Aasta: Vanimast esimesena"
+
+#: .\templates\listings\listing_list.html:682
+#: .\templates\listings\listing_list.html:921
+#: .\templates\listings\motorcycles_list.html:244
+#: .\templates\listings\trucks_list.html:392
+#: .\templates\listings\trucks_list.html:676
+msgid "Save Search"
+msgstr "Salvesta otsing"
+
+#: .\templates\listings\listing_list.html:717
+#: .\templates\listings\motogeat_list.html:208
+#: .\templates\listings\motorcycles_list.html:283
+#: .\templates\listings\my_listings.html:352
+#: .\templates\listings\my_listings.html:359
+#: .\templates\listings\trucks_advanced_search.html:674
+#: .\templates\listings\trucks_list.html:427
+#: .\templates\listings\trucks_list.html:733
+msgid "SOLD"
+msgstr "MÜÜDUD"
+
+#: .\templates\listings\listing_list.html:784
+#, python-format
+msgid "Found %(counter)s listing"
+msgid_plural "Found %(counter)s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\listing_list.html:809
+#: .\templates\listings\listing_list.html:815
+#: .\templates\listings\motorcycles_list.html:132
+#: .\templates\listings\motorcycles_list.html:138
+#: .\templates\listings\trucks_list.html:545
+#: .\templates\listings\trucks_list.html:551
+msgid "All Locations"
+msgstr "Kõik asukohad"
+
+#: .\templates\listings\listing_list.html:813
+#: .\templates\listings\motorcycles_list.html:136
+#: .\templates\listings\trucks_list.html:549
+msgid "Search location..."
+msgstr "Otsi asukohta..."
+
+#: .\templates\listings\listing_list.html:816
+#: .\templates\listings\motorcycles_list.html:139
+#: .\templates\listings\trucks_list.html:552
+msgid "United States"
+msgstr "Ameerika Ühendriigid"
+
+#: .\templates\listings\listing_list.html:842
+#: .\templates\listings\motorcycles_list.html:165
+msgid "Show brands with 0 listings"
+msgstr "Näita brände, millel on 0 kirjet"
+
+#: .\templates\listings\listing_list.html:861
+#: .\templates\listings\motorcycles_list.html:184
+#: .\templates\listings\trucks_list.html:600
+msgid "Price Range"
+msgstr "Hinnavahemik"
+
+#: .\templates\listings\listing_list.html:862
+#: .\templates\listings\motorcycles_list.html:185
+#: .\templates\listings\trucks_list.html:601
+msgid "Min $"
+msgstr "Min $"
+
+#: .\templates\listings\listing_list.html:866
+#: .\templates\listings\motorcycles_list.html:189
+#: .\templates\listings\trucks_list.html:605
+msgid "Max $"
+msgstr "Maks $"
+
+#: .\templates\listings\listing_list.html:889
+msgid "Search by part name or number (e.g. 06H 145 601 H)"
+msgstr "Otsi osa nime või numbri järgi (nt 06H 145 601 H)"
+
+#: .\templates\listings\listing_list.html:917
+#: .\templates\listings\motorcycles_list.html:240
+#: .\templates\listings\trucks_list.html:374
+#: .\templates\listings\trucks_list.html:672
+msgid "Apply Filters"
+msgstr "Rakenda filtreid"
+
+#: .\templates\listings\listing_list.html:930
+#, python-format
+msgid "Showing %(total_count)s of %(total_count)s"
+msgstr "Kuvatakse %(total_count)s %(total_count)s-st"
+
+#: .\templates\listings\listing_list.html:932
+#: .\templates\listings\motorcycles_list.html:255
+#: .\templates\listings\trucks_list.html:688
+msgid "Sort by:"
+msgstr "Sorteeri:"
+
+#: .\templates\listings\listing_list.html:1041
+#: .\templates\listings\motorcycles_list.html:338
+#: .\templates\listings\trucks_list.html:805
+msgid "Try adjusting your filters to find what you're looking for"
+msgstr "Proovige oma filtreid kohandada, et leida see, mida otsite"
+
+#: .\templates\listings\listing_list.html:1071
+#: .\templates\listings\trucks_list.html:821
+msgid "Day's deals"
+msgstr "Päevapakkumised"
+
+#: .\templates\listings\listing_list.html:1083
+#: .\templates\listings\trucks_list.html:833
+msgid "Most expensive"
+msgstr "Kõige kallim"
+
+#: .\templates\listings\listing_list.html:1130
+msgid "No featured listings yet."
+msgstr "Esiletõstetud kuulutusi veel pole."
+
+#: .\templates\listings\listing_list.html:1164
+#: .\templates\listings\listing_list.html:1198
+#: .\templates\listings\listing_list.html:1234
+msgid "No listings yet."
+msgstr "Kuulutusi veel pole."
+
+#: .\templates\listings\listing_list.html:1261
+#: .\templates\listings\motorcycles_list.html:355
+#: .\templates\listings\trucks_advanced_search.html:768
+#: .\templates\listings\trucks_list.html:956
+msgid "s ago"
+msgstr "s tagasi"
+
+#: .\templates\listings\listing_list.html:1263
+#: .\templates\listings\motorcycles_list.html:356
+#: .\templates\listings\trucks_advanced_search.html:769
+#: .\templates\listings\trucks_list.html:957
+msgid "min ago"
+msgstr "minut tagasi"
+
+#: .\templates\listings\listing_list.html:1265
+#: .\templates\listings\motorcycles_list.html:357
+#: .\templates\listings\trucks_advanced_search.html:770
+#: .\templates\listings\trucks_list.html:958
+msgid "h ago"
+msgstr "tund aega tagasi"
+
+#: .\templates\listings\listing_list.html:1267
+#: .\templates\listings\motorcycles_list.html:358
+#: .\templates\listings\trucks_advanced_search.html:771
+#: .\templates\listings\trucks_list.html:959
+msgid "1 day ago"
+msgstr "1 päev tagasi"
+
+#: .\templates\listings\listing_list.html:1268
+#: .\templates\listings\motorcycles_list.html:359
+#: .\templates\listings\trucks_advanced_search.html:772
+#: .\templates\listings\trucks_list.html:960
+msgid "days ago"
+msgstr "päeva tagasi"
+
+#: .\templates\listings\listing_list.html:1458
+msgid "Maximum 5 brand/model pairs"
+msgstr "Maksimaalselt 5 kaubamärgi/mudeli paari"
+
+#: .\templates\listings\listing_list.html:1481
+msgid "Select brand first"
+msgstr "Valige kõigepealt bränd"
+
+#: .\templates\listings\listing_list.html:1499
+msgid "Select make first"
+msgstr "Valige esmalt mark"
+
+#: .\templates\listings\listing_list.html:1504
+#: .\templates\listings\motogear_create.html:461
+#: .\templates\listings\motorcycle_create.html:616
+msgid "Loading..."
+msgstr "Laadimine..."
+
+#: .\templates\listings\listing_select_plan.html:5
+#: .\templates\listings\listing_select_plan.html:422
+msgid "Select a plan"
+msgstr "Valige pakett"
+
+#: .\templates\listings\listing_select_plan.html:12
+msgid "Listing info"
+msgstr "Kuulutuse teave"
+
+#: .\templates\listings\listing_select_plan.html:14
+msgid "Service selection"
+msgstr "Teenuse valik"
+
+#: .\templates\listings\listing_select_plan.html:16
+msgid "Payment"
+msgstr "Makse"
+
+#: .\templates\listings\listing_select_plan.html:31
+msgid "Listing duration"
+msgstr "Noteeringu kestus"
+
+#: .\templates\listings\listing_select_plan.html:34
+#: .\templates\listings\listing_select_plan.html:160
+#: .\templates\listings\listing_select_plan.html:584
+msgid "Top Spot Stars"
+msgstr "Tipptasemel tähed"
+
+#: .\templates\listings\listing_select_plan.html:35
+#: .\templates\listings\listing_select_plan.html:39
+#: .\templates\listings\listing_select_plan.html:43
+#: .\templates\listings\listing_select_plan.html:161
+#: .\templates\listings\listing_select_plan.html:568
+#: .\templates\listings\listing_select_plan.html:575
+msgid "Preview"
+msgstr "Eelvaade"
+
+#: .\templates\listings\listing_select_plan.html:38
+#: .\templates\listings\listing_select_plan.html:178
+#: .\templates\listings\listing_select_plan.html:589
+msgid "Featured on homepage"
+msgstr "Avalehel esile tõstetud"
+
+#: .\templates\listings\listing_select_plan.html:42
+#: .\templates\listings\listing_select_plan.html:594
+msgid "Listing highlight"
+msgstr "Kuulutuse esiletõstmine"
+
+#: .\templates\listings\listing_select_plan.html:69
+msgid "Recommended"
+msgstr "Soovitatav"
+
+#: .\templates\listings\listing_select_plan.html:82
+msgid "days"
+msgstr "päevad"
+
+#: .\templates\listings\listing_select_plan.html:91
+#: .\templates\listings\listing_select_plan.html:100
+#: .\templates\listings\listing_select_plan.html:109
+msgid "d."
+msgstr "d."
+
+#: .\templates\listings\listing_select_plan.html:147
+msgid "Position in list"
+msgstr "Positsioon nimekirjas"
+
+#: .\templates\listings\listing_select_plan.html:150
+msgid "Boost your listing higher to attract more interest"
+msgstr "Tõsta oma kuulutust kõrgemale, et rohkem huvi äratada"
+
+#: .\templates\listings\listing_select_plan.html:154
+msgid "Want to sell faster?"
+msgstr "Kas soovite kiiremini müüa?"
+
+#: .\templates\listings\listing_select_plan.html:198
+msgid "Discount code"
+msgstr "Sooduskood"
+
+#: .\templates\listings\listing_select_plan.html:200
+msgid "Code"
+msgstr "Kood"
+
+#: .\templates\listings\listing_select_plan.html:202
+#: .\templates\listings\listing_select_plan.html:529
+msgid "Apply"
+msgstr "Kandideeri"
+
+#: .\templates\listings\listing_select_plan.html:217
+msgid "Points"
+msgstr "Punktid"
+
+#: .\templates\listings\listing_select_plan.html:221
+#: .\templates\listings\listing_stats.html:125
+#: .\templates\listings\listing_stats.html:136
+msgid "Total"
+msgstr "Kokku"
+
+#: .\templates\listings\listing_select_plan.html:230
+msgid "Order"
+msgstr "Telli"
+
+#: .\templates\listings\listing_select_plan.html:237
+msgid "By submitting your listing, you agree to SellCar"
+msgstr "Kuulutuse esitamisega nõustute SellCariga"
+
+#: .\templates\listings\listing_select_plan.html:238
+msgid "terms"
+msgstr "terminid"
+
+#: .\templates\listings\listing_select_plan.html:239
+msgid "and"
+msgstr "ja"
+
+#: .\templates\listings\listing_select_plan.html:240
+msgid "privacy policy"
+msgstr "privaatsuspoliitika"
+
+#: .\templates\listings\listing_select_plan.html:244
+msgid "Insufficient wallet balance. Please top up."
+msgstr "Rahakotis pole piisavalt saldot. Palun laadige raha juurde."
+
+#: .\templates\listings\listing_select_plan.html:273
+msgid "L"
+msgstr "L"
+
+#: .\templates\listings\listing_select_plan.html:288
+msgid "Back to edit listing"
+msgstr "Tagasi kuulutuse muutmise juurde"
+
+#: .\templates\listings\listing_select_plan.html:483
+msgid "Please enter a code"
+msgstr "Palun sisesta kood"
+
+#: .\templates\listings\listing_select_plan.html:489
+msgid "Please select a plan first"
+msgstr "Palun vali esmalt pakett"
+
+#: .\templates\listings\listing_select_plan.html:523
+msgid "Invalid code"
+msgstr "Kehtetu kood"
+
+#: .\templates\listings\listing_select_plan.html:526
+msgid "Error"
+msgstr "Viga"
+
+#: .\templates\listings\listing_select_plan.html:585
+msgid ""
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr ""
+"Sinu kuulutus kuvatakse otsingutulemustes teistest kõrgemal. Mida rohkem "
+"tärniboonuseid tellid, seda kõrgemal see kuvatakse."
+
+#: .\templates\listings\listing_select_plan.html:590
+msgid ""
+"Your listing will be shown on the homepage among featured listings, "
+"attracting up to 5x more views."
+msgstr ""
+"Sinu kuulutus kuvatakse avalehel esiletõstetud kuulutuste hulgas, mis "
+"meelitab ligi kuni 5 korda rohkem vaatamisi."
+
+#: .\templates\listings\listing_select_plan.html:595
+msgid ""
+"Your listing will have a colored background in search results, making it "
+"stand out from other listings."
+msgstr ""
+"Sinu kuulutusel on otsingutulemustes värviline taust, mis eristab seda "
+"teistest kuulutustest."
+
+#: .\templates\listings\listing_stats.html:4
+#: .\templates\listings\my_listings.html:295
+#: .\templates\listings\my_listings.html:407
+#: .\templates\listings\my_listings.html:558
+msgid "Statistics"
+msgstr "Statistika"
+
+#: .\templates\listings\listing_stats.html:13
+#: .\templates\listings\listing_success.html:174
+msgid "Back to My Listings"
+msgstr "Tagasi minu kuulutuste juurde"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Listing"
+msgstr "Kuulutus"
+
+#: .\templates\listings\listing_stats.html:30
+msgid "Created"
+msgstr "Loodud"
+
+#: .\templates\listings\listing_stats.html:41
+#: .\templates\listings\listing_success.html:46
+#: .\templates\listings\my_listings.html:196
+msgid "ACTIVE"
+msgstr "AKTIIVNE"
+
+#: .\templates\listings\listing_stats.html:43
+#: .\templates\listings\my_listings.html:455
+msgid "INACTIVE"
+msgstr "MITTEAKTIIVNE"
+
+#: .\templates\listings\listing_stats.html:45
+msgid "DRAFT"
+msgstr "MUSTAND"
+
+#: .\templates\listings\listing_stats.html:49
+#: .\templates\listings\my_listings.html:318
+msgid "Valid until"
+msgstr "Kehtiv kuni"
+
+#: .\templates\listings\listing_stats.html:62
+#: .\templates\listings\my_listings.html:299
+#: .\templates\listings\my_listings.html:410
+#: .\templates\listings\my_listings.html:562
+msgid "Views"
+msgstr "Vaatamisi"
+
+#: .\templates\listings\listing_stats.html:67
+#: .\templates\listings\listing_stats.html:78
+#, python-format
+msgid "%(pct)s%% vs last week"
+msgstr "%(protsenti)%% võrreldes eelmise nädalaga"
+
+#: .\templates\listings\listing_stats.html:73
+#: .\templates\listings\my_listings.html:303
+#: .\templates\listings\my_listings.html:414
+#: .\templates\listings\my_listings.html:566
+msgid "Impressions"
+msgstr "Muljed"
+
+#: .\templates\listings\listing_stats.html:84
+msgid "CTR"
+msgstr "CTR"
+
+#: .\templates\listings\listing_stats.html:87
+msgid "views / impressions"
+msgstr "vaatamisi / näitamisi"
+
+#: .\templates\listings\listing_stats.html:95
+#, python-format
+msgid "%(rate)s%% save rate"
+msgstr "%(määr)s%% salvestusmäär"
+
+#: .\templates\listings\listing_stats.html:106
+#, python-format
+msgid "Your listing position: %(pos)s / %(total)s"
+msgstr "Teie kuulutuse positsioon: %(pos)s / %(kokku)s"
+
+#: .\templates\listings\listing_stats.html:110
+msgid ""
+"Your listing is in the top 10 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Sinu kuulutus on kõigi aktiivsete kuulutuste seas esikümnes. Tõsta seda, et "
+"kõrgemale tõusta."
+
+#: .\templates\listings\listing_stats.html:112
+msgid ""
+"Your listing is in the top 50 among all active listings. Boost it to move "
+"higher."
+msgstr ""
+"Sinu kuulutus on kõigi aktiivsete kuulutuste seas 50 parima hulgas. Tõsta "
+"seda, et kõrgemale tõusta."
+
+#: .\templates\listings\listing_stats.html:114
+msgid "Boost your listing to move higher among all active listings."
+msgstr "Tõsta oma kuulutust aktiivsete kuulutuste seas kõrgemale."
+
+#: .\templates\listings\listing_stats.html:124
+msgid "Views per day (last 30 days)"
+msgstr "Vaatamisi päevas (viimase 30 päeva)"
+
+#: .\templates\listings\listing_stats.html:135
+msgid "Impressions per day (last 30 days)"
+msgstr "Näitamisi päevas (viimase 30 päeva jooksul)"
+
+#: .\templates\listings\listing_stats.html:146
+msgid "When are buyers viewing your listing?"
+msgstr "Millal ostjad teie kuulutust vaatavad?"
+
+#: .\templates\listings\listing_stats.html:147
+msgid "Peak"
+msgstr "Tipp"
+
+#: .\templates\listings\listing_stats.html:153
+msgid "Hour of day (00:00 - 23:00)"
+msgstr "Kellaaeg (00:00 - 23:00)"
+
+#: .\templates\listings\listing_stats.html:170
+msgid "view"
+msgstr "vaade"
+
+#: .\templates\listings\listing_stats.html:171
+msgid "views"
+msgstr "vaated"
+
+#: .\templates\listings\listing_stats.html:172
+msgid "impression"
+msgstr "mulje"
+
+#: .\templates\listings\listing_stats.html:173
+msgid "impressions"
+msgstr "muljed"
+
+#: .\templates\listings\listing_success.html:5
+msgid "Listing published"
+msgstr "Kuulutus avaldatud"
+
+#: .\templates\listings\listing_success.html:60
+#, python-format
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "Kuulutus kehtib <strong class=\"text-gray-900\">%(days)s päeva</strong>"
+
+#: .\templates\listings\listing_success.html:65
+#, python-format
+msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
+msgstr "Aegub kuupäeval <strong class=\"text-gray-900\">%(date)s</strong>"
+
+#: .\templates\listings\listing_success.html:70
+msgid "Visible to buyers in 5-10 minutes"
+msgstr "Ostjatele nähtav 5–10 minuti pärast"
+
+#: .\templates\listings\listing_success.html:81
+msgid "View listing"
+msgstr "Vaata kuulutust"
+
+#: .\templates\listings\listing_success.html:139
+#: .\templates\listings\listing_success.html:184
+msgid "Copy link"
+msgstr "Kopeeri link"
+
+#: .\templates\listings\listing_success.html:148
+msgid "Tips to sell faster"
+msgstr "Näpunäited kiiremaks müümiseks"
+
+#: .\templates\listings\listing_success.html:153
+msgid "Add at least 8 high-quality photos from different angles"
+msgstr "Lisa vähemalt 8 kvaliteetset fotot erinevate nurkade alt"
+
+#: .\templates\listings\listing_success.html:157
+msgid "Write a detailed description including service history"
+msgstr "Kirjutage üksikasjalik kirjeldus koos hooldusajalooga"
+
+#: .\templates\listings\listing_success.html:161
+msgid "Set a competitive price based on similar listings"
+msgstr "Määrake sarnaste kuulutuste põhjal konkurentsivõimeline hind"
+
+#: .\templates\listings\listing_success.html:165
+msgid "Respond quickly to buyer messages"
+msgstr "Vasta ostja sõnumitele kiiresti"
+
+#: .\templates\listings\listing_success.html:186
+msgid "Link copied! Paste it into your Instagram story, DM, or bio."
+msgstr ""
+"Link kopeeritud! Kleebi see oma Instagrami loosse, otseteatesse või "
+"biograafiasse."
+
+#: .\templates\listings\listing_upgrade.html:4
+msgid "Upgrade your account"
+msgstr "Täienda oma kontot"
+
+#: .\templates\listings\listing_upgrade.html:11
+msgid "You've reached your listing limit"
+msgstr "Olete oma kuulutuste limiidini jõudnud"
+
+#: .\templates\listings\listing_upgrade.html:14
+#, python-format
+msgid ""
+"You currently have %(count)s of %(limit)s active listings. Choose an option "
+"below to add more."
+msgstr ""
+"Teil on hetkel %(count)s %(limit)s aktiivsest kuulutusest. Rohkemate "
+"lisamiseks valige allolev suvand."
+
+#: .\templates\listings\listing_upgrade.html:24
+msgid "Pay per listing"
+msgstr "Maksa kuulutuse kohta"
+
+#: .\templates\listings\listing_upgrade.html:25
+msgid "One-time payment"
+msgstr "Ühekordne makse"
+
+#: .\templates\listings\listing_upgrade.html:29
+msgid "per listing"
+msgstr "kuulutuse kohta"
+
+#: .\templates\listings\listing_upgrade.html:32
+msgid "Add 1 extra listing now"
+msgstr "Lisa kohe 1 kuulutus"
+
+#: .\templates\listings\listing_upgrade.html:33
+msgid "30 days active"
+msgstr "30 päeva aktiivne"
+
+#: .\templates\listings\listing_upgrade.html:34
+msgid "No subscription"
+msgstr "Tellimust pole"
+
+#: .\templates\listings\listing_upgrade.html:37
+#: .\templates\listings\listing_upgrade.html:61
+msgid "Coming soon (Stripe)"
+msgstr "Varsti tulekul (Stripe)"
+
+#: .\templates\listings\listing_upgrade.html:44
+msgid "POPULAR"
+msgstr "POPULAARNE"
+
+#: .\templates\listings\listing_upgrade.html:48
+msgid "Private+"
+msgstr "Privaatne+"
+
+#: .\templates\listings\listing_upgrade.html:49
+msgid "Monthly subscription"
+msgstr "Kuutellimus"
+
+#: .\templates\listings\listing_upgrade.html:53
+#: .\templates\listings\listing_upgrade.html:74
+msgid "per month"
+msgstr "kuus"
+
+#: .\templates\listings\listing_upgrade.html:56
+#: .\templates\listings\listing_upgrade.html:77
+#, python-format
+msgid "%(count)s active listings"
+msgstr "%(count)s aktiivset kuulutust"
+
+#: .\templates\listings\listing_upgrade.html:57
+msgid "Cancel anytime"
+msgstr "Tühistada igal ajal"
+
+#: .\templates\listings\listing_upgrade.html:58
+msgid "All features included"
+msgstr "Kõik funktsioonid on kaasas"
+
+#: .\templates\listings\listing_upgrade.html:70
+msgid "For businesses"
+msgstr "Ettevõtetele"
+
+#: .\templates\listings\listing_upgrade.html:78
+msgid "Dealer badge on listings"
+msgstr "Edasimüüja märk kuulutustel"
+
+#: .\templates\listings\listing_upgrade.html:79
+msgid "Public dealer page"
+msgstr "Avaliku edasimüüja leht"
+
+#: .\templates\listings\listing_upgrade.html:80
+msgid "Requires admin approval"
+msgstr "Nõuab administraatori kinnitust"
+
+#: .\templates\listings\listing_upgrade.html:83
+msgid "Coming soon (Stage 3)"
+msgstr "Varsti tulekul (3. etapp)"
+
+#: .\templates\listings\listing_upgrade.html:91
+msgid "Back to my listings"
+msgstr "Tagasi minu kuulutuste juurde"
+
+#: .\templates\listings\motogear_create.html:4
+msgid "Sell Moto Gear"
+msgstr "Müüa mootorrattavarustust"
+
+#: .\templates\listings\motogear_create.html:16
+msgid "Sell moto gear & accessories"
+msgstr "Müüa mootorrattavarustust ja tarvikuid"
+
+#: .\templates\listings\motogear_create.html:17
+msgid "Helmets, jackets, gloves, boots and other moto gear"
+msgstr "Kiivrid, jakid, kindad, saapad ja muu mootorrattavarustus"
+
+#: .\templates\listings\motogear_create.html:42
+msgid "Basic information"
+msgstr "Põhiteave"
+
+#: .\templates\listings\motogear_create.html:74
+msgid "Specify type..."
+msgstr "Määrake tüüp..."
+
+#: .\templates\listings\motogear_create.html:79
+#: .\templates\listings\motogeat_list.html:59
+msgid "Manufacturer"
+msgstr "Tootja"
+
+#: .\templates\listings\motogear_create.html:93
+msgid "Specify manufacturer..."
+msgstr "Määrake tootja..."
+
+#: .\templates\listings\motogear_create.html:101
+msgid "e.g. GT-Air II"
+msgstr "nt GT-Air II"
+
+#: .\templates\listings\motogear_create.html:119
+#: .\templates\listings\motogeat_list.html:75
+msgid "Size"
+msgstr "Suurus"
+
+#: .\templates\listings\motogear_create.html:130
+msgid "Specify size..."
+msgstr "Määrake suurus..."
+
+#: .\templates\listings\motogear_create.html:135
+msgid "Safety certification"
+msgstr "Ohutussertifikaat"
+
+#: .\templates\listings\motogear_create.html:146
+msgid "Specify certification..."
+msgstr "Täpsustage sertifikaat..."
+
+#: .\templates\listings\motogear_create.html:151
+msgid "Number of vents"
+msgstr "Ventilatsiooniavade arv"
+
+#: .\templates\listings\motogear_create.html:155
+msgid "e.g. 4"
+msgstr "nt 4"
+
+#: .\templates\listings\motogear_create.html:160
+#: .\templates\listings\motogeat_list.html:92
+msgid "Material"
+msgstr "Materjal"
+
+#: .\templates\listings\motogear_create.html:171
+msgid "Specify material..."
+msgstr "Määrake materjal..."
+
+#: .\templates\listings\motogear_create.html:176
+#: .\templates\listings\motogeat_list.html:109
+msgid "Gender"
+msgstr "Sugu"
+
+#: .\templates\listings\motogear_create.html:187
+msgid "Specify gender..."
+msgstr "Määrake sugu..."
+
+#: .\templates\listings\motogear_create.html:203
+msgid "Specify color..."
+msgstr "Määrake värv..."
+
+#: .\templates\listings\motogear_create.html:213
+#: .\templates\listings\motorcycle_create.html:246
+#: .\templates\listings\trucks_listing_create.html:662
+msgid "Features / Equipment"
+msgstr "Omadused / Varustus"
+
+#: .\templates\listings\motogear_create.html:226
+msgid "Select a category first to see available features."
+msgstr "Saadaval olevate funktsioonide nägemiseks valige esmalt kategooria."
+
+#: .\templates\listings\motogear_create.html:234
+msgid "Open to trade"
+msgstr "Avatud kauplemiseks"
+
+#: .\templates\listings\motogear_create.html:245
+msgid "Describe the item — condition, history, why you’re selling..."
+msgstr "Kirjelda eset – seisukord, ajalugu, miks sa seda müüd..."
+
+#: .\templates\listings\motogear_create.html:256
+msgid ""
+"Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
+"WEBP. First is main."
+msgstr ""
+"Kuni <strong>40 fotot</strong>. Max <strong>16 MB</strong> igaüks. JPG, PNG,"
+" WEBP. Esimene on peamine."
+
+#: .\templates\listings\motogear_create.html:262
+msgid "PNG, JPG up to 16MB each (max 40 photos)"
+msgstr "PNG, JPG kuni 16 MB igaüks (maksimaalselt 40 fotot)"
+
+#: .\templates\listings\motogear_create.html:267
+msgid "Uploading..."
+msgstr "Üleslaadimine..."
+
+#: .\templates\listings\motogear_create.html:293
+msgid "Video"
+msgstr "Video"
+
+#: .\templates\listings\motogear_create.html:387
+#: .\templates\listings\trucks_listing_create.html:799
+msgid "Postal code"
+msgstr "Postiindeks"
+
+#: .\templates\listings\motogear_create.html:399
+msgid ""
+"I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
+msgstr ""
+"Nõustun <a href=\"#\" class=\"text-primary "
+"hover:underline\">kasutustingimuste</a> ja <a href=\"#\" class=\"text-"
+"primary hover:underline\">privaatsuspoliitikaga</a>"
+
+#: .\templates\listings\motogear_create.html:407
+msgid "I am a business seller"
+msgstr "Olen ärimüüja"
+
+#: .\templates\listings\motogear_create.html:414
+msgid "Required fields are missing:"
+msgstr "Kohustuslikud väljad puuduvad:"
+
+#: .\templates\listings\motogear_create.html:460
+msgid "Select a category first."
+msgstr "Valige kõigepealt kategooria."
+
+#: .\templates\listings\motogear_create.html:462
+msgid "No features available."
+msgstr "Funktsioone pole saadaval."
+
+#: .\templates\listings\motogear_create.html:463
+msgid "Preparing draft..."
+msgstr "Mustandi ettevalmistamine..."
+
+#: .\templates\listings\motogear_create.html:464
+#, python-brace-format
+msgid "Uploading {n} photo(s)..."
+msgstr "{n} foto üleslaadimine..."
+
+#: .\templates\listings\motogear_create.html:465
+msgid "Upload failed: no response"
+msgstr "Üleslaadimine ebaõnnestus: vastust ei tulnud"
+
+#: .\templates\listings\motogear_create.html:466
+msgid "Upload failed:"
+msgstr "Üleslaadimine ebaõnnestus:"
+
+#: .\templates\listings\motogear_create.html:467
+msgid "Unknown error"
+msgstr "Tundmatu viga"
+
+#: .\templates\listings\motogear_create.html:468
+msgid "Upload error:"
+msgstr "Üleslaadimise viga:"
+
+#: .\templates\listings\motogear_create.html:470
+#: .\templates\listings\trucks_listing_create.html:846
+msgid "Delete failed"
+msgstr "Kustutamine ebaõnnestus"
+
+#: .\templates\listings\motogear_create.html:483
+msgid "Terms agreement"
+msgstr "Tingimuste leping"
+
+#: .\templates\listings\motogeat_list.html:4
+msgid "Browse Moto Gear"
+msgstr "Sirvi motovarustust"
+
+#: .\templates\listings\motogeat_list.html:13
+msgid "Moto Gear & Accessories"
+msgstr "Moto varustus ja tarvikud"
+
+#: .\templates\listings\motogeat_list.html:18
+#: .\templates\listings\motogeat_list.html:241
+msgid "Sell moto gear"
+msgstr "Müüa motovarustust"
+
+#: .\templates\listings\motogeat_list.html:35
+msgid "Brand, model, keyword..."
+msgstr "Mark, mudel, märksõna..."
+
+#: .\templates\listings\motogeat_list.html:69
+msgid "Hold Ctrl/Cmd for multiple"
+msgstr "Hoidke Ctrl/Cmd mitu korda all"
+
+#: .\templates\listings\motogeat_list.html:142
+#: .\templates\listings\motorcycles_list.html:211
+#: .\templates\listings\trucks_advanced_search.html:377
+#: .\templates\listings\trucks_advanced_search.html:385
+#: .\templates\listings\trucks_advanced_search.html:393
+#: .\templates\listings\trucks_advanced_search.html:401
+#: .\templates\listings\trucks_list.html:330
+msgid "Min"
+msgstr "Min"
+
+#: .\templates\listings\motogeat_list.html:145
+#: .\templates\listings\motorcycles_list.html:215
+#: .\templates\listings\trucks_advanced_search.html:379
+#: .\templates\listings\trucks_advanced_search.html:387
+#: .\templates\listings\trucks_advanced_search.html:395
+#: .\templates\listings\trucks_advanced_search.html:403
+#: .\templates\listings\trucks_list.html:331
+msgid "Max"
+msgstr "Maks"
+
+#: .\templates\listings\motogeat_list.html:156
+msgid "All countries"
+msgstr "Kõik riigid"
+
+#: .\templates\listings\motogeat_list.html:163
+msgid "All US states"
+msgstr "Kõik USA osariigid"
+
+#: .\templates\listings\motogeat_list.html:173
+msgid "Apply filters"
+msgstr "Rakenda filtreid"
+
+#: .\templates\listings\motogeat_list.html:177
+msgid "Reset"
+msgstr "Lähtesta"
+
+#: .\templates\listings\motogeat_list.html:204
+#: .\templates\listings\trucks_list.html:875
+msgid "NEW"
+msgstr "UUS"
+
+#: .\templates\listings\motogeat_list.html:219
+#: .\templates\listings\my_listings.html:465
+#: .\templates\listings\my_listings.html:473
+#: .\templates\listings\my_listings.html:539
+msgid "Untitled"
+msgstr "Pealkirjata"
+
+#: .\templates\listings\motogeat_list.html:237
+msgid "No moto gear listings found."
+msgstr "Motovarustuse nimekirju ei leitud."
+
+#: .\templates\listings\motogeat_list.html:238
+msgid "Try adjusting your filters or be the first to list something!"
+msgstr "Proovige oma filtreid kohandada või olge esimene, kes midagi lisab!"
+
+#: .\templates\listings\motorcycle_create.html:4
+#: .\templates\listings\motorcycle_create.html:12
+msgid "Create Motorcycle Listing"
+msgstr "Loo mootorratta kuulutus"
+
+#: .\templates\listings\motorcycle_create.html:14
+msgid "Back to categories"
+msgstr "Tagasi kategooriate juurde"
+
+#: .\templates\listings\motorcycle_create.html:38
+msgid "Main Information"
+msgstr "Põhiteave"
+
+#: .\templates\listings\motorcycle_create.html:61
+msgid "Engine Capacity (cm³)"
+msgstr "Mootori töömaht (cm³)"
+
+#: .\templates\listings\motorcycle_create.html:62
+msgid "e.g. 600"
+msgstr "nt 600"
+
+#: .\templates\listings\motorcycle_create.html:81
+msgid "Manufacture Date"
+msgstr "Tootmiskuupäev"
+
+#: .\templates\listings\motorcycle_create.html:99
+msgid "Used / New"
+msgstr "Kasutatud / Uus"
+
+#: .\templates\listings\motorcycle_create.html:115
+msgid "Km"
+msgstr "Kilomeetrit"
+
+#: .\templates\listings\motorcycle_create.html:116
+msgid "Mi"
+msgstr "Mi"
+
+#: .\templates\listings\motorcycle_create.html:132
+#: .\templates\listings\motorcycles_advanced_search.html:295
+msgid "Motorcycle Type"
+msgstr "Mootorratta tüüp"
+
+#: .\templates\listings\motorcycle_create.html:142
+#: .\templates\listings\motorcycles_advanced_search.html:336
+msgid "Cooling Type"
+msgstr "Jahutustüüp"
+
+#: .\templates\listings\motorcycle_create.html:199
+#: .\templates\listings\motorcycles_advanced_search.html:316
+msgid "Engine Type"
+msgstr "Mootori tüüp"
+
+#: .\templates\listings\motorcycle_create.html:229
+msgid "First Registration Country"
+msgstr "Esimese registreerimise riik"
+
+#: .\templates\listings\motorcycle_create.html:230
+msgid "e.g. Japan"
+msgstr "nt Jaapan"
+
+#: .\templates\listings\motorcycle_create.html:249
+msgid "Additional equipment"
+msgstr "Lisavarustus"
+
+#: .\templates\listings\motorcycle_create.html:253
+msgid "Electric starter"
+msgstr "Elektriline starter"
+
+#: .\templates\listings\motorcycle_create.html:257
+msgid "Kick starter"
+msgstr "Kickstarter"
+
+#: .\templates\listings\motorcycle_create.html:261
+msgid "Automatic transmission"
+msgstr "Automaatkäigukast"
+
+#: .\templates\listings\motorcycle_create.html:265
+msgid "Wide rear tire"
+msgstr "Lai tagumine rehv"
+
+#: .\templates\listings\motorcycle_create.html:269
+msgid "Heated seats"
+msgstr "Soojendusega istmed"
+
+#: .\templates\listings\motorcycle_create.html:273
+msgid "Heated handlebars"
+msgstr "Soojendusega lenkstang"
+
+#: .\templates\listings\motorcycle_create.html:277
+msgid "Front windshield"
+msgstr "Esiklaas"
+
+#: .\templates\listings\motorcycle_create.html:281
+msgid "Pannier cases"
+msgstr "Pakiraamide kotid"
+
+#: .\templates\listings\motorcycle_create.html:285
+msgid "Passenger seat"
+msgstr "Kaassõitja iste"
+
+#: .\templates\listings\motorcycle_create.html:289
+msgid "Top case"
+msgstr "Ülemine korpus"
+
+#: .\templates\listings\motorcycle_create.html:293
+msgid "Disc brakes"
+msgstr "Ketaspidurid"
+
+#: .\templates\listings\motorcycle_create.html:297
+msgid "Audio system"
+msgstr "Helisüsteem"
+
+#: .\templates\listings\motorcycle_create.html:301
+msgid "Cruise control"
+msgstr "Püsikiiruse hoidja"
+
+#: .\templates\listings\motorcycle_create.html:305
+msgid "Traction control"
+msgstr "Veojõukontroll"
+
+#: .\templates\listings\motorcycle_create.html:309
+msgid "Quick shifter"
+msgstr "Kiirkäiguvahetaja"
+
+#: .\templates\listings\motorcycle_create.html:313
+msgid "LED lights"
+msgstr "LED-tuled"
+
+#: .\templates\listings\motorcycle_create.html:319
+msgid "Other features"
+msgstr "Muud omadused"
+
+#: .\templates\listings\motorcycle_create.html:323
+msgid "Exchange possible"
+msgstr "Vahetus võimalik"
+
+#: .\templates\listings\motorcycle_create.html:327
+msgid "Sold on leasing"
+msgstr "Müüdud liisinguga"
+
+#: .\templates\listings\motorcycle_create.html:331
+msgid "Not operated in Lithuania"
+msgstr "Leedus ei tegutse"
+
+#: .\templates\listings\motorcycle_create.html:335
+msgid "Oldtimer"
+msgstr "Vanaaegne"
+
+#: .\templates\listings\motorcycle_create.html:343
+msgid "Maintenance history"
+msgstr "Hooldusajalugu"
+
+#: .\templates\listings\motorcycle_create.html:347
+msgid "Catalytic converter"
+msgstr "Katalüüsmuundur"
+
+#: .\templates\listings\motorcycle_create.html:351
+msgid "\\"
+msgstr "\\"
+
+#: .\templates\listings\motorcycle_create.html:357
+msgid "Security"
+msgstr "Turvalisus"
+
+#: .\templates\listings\motorcycle_create.html:361
+#: .\templates\listings\motorcycles_advanced_search.html:411
+msgid "ABS"
+msgstr "ABS-i"
+
+#: .\templates\listings\motorcycle_create.html:365
+msgid "Alarm system"
+msgstr "Häiresüsteem"
+
+#: .\templates\listings\motorcycle_create.html:369
+msgid "Brake disc lock"
+msgstr "Piduriketta lukk"
+
+#: .\templates\listings\motorcycle_create.html:373
+msgid "Immobilizer"
+msgstr "Immobilisaator"
+
+#: .\templates\listings\motorcycle_create.html:377
+msgid "Tracking device (GPS)"
+msgstr "Jälgimisseade (GPS)"
+
+#: .\templates\listings\motorcycle_create.html:389
+msgid "Describe your motorcycle in detail..."
+msgstr "Kirjelda oma mootorratast üksikasjalikult..."
+
+#: .\templates\listings\motorcycle_create.html:397
+msgid "A detailed description"
+msgstr "Üksikasjalik kirjeldus"
+
+#: .\templates\listings\motorcycle_create.html:398
+msgid "increases buyer interest in your listing."
+msgstr "suurendab ostja huvi teie kuulutuse vastu."
+
+#: .\templates\listings\motorcycle_create.html:404
+msgid "The more informative the listing,"
+msgstr "Mida informatiivsem on nimekiri,"
+
+#: .\templates\listings\motorcycle_create.html:405
+msgid "the fewer questions buyers will ask."
+msgstr "seda vähem küsimusi ostjad küsivad."
+
+#: .\templates\listings\motorcycle_create.html:411
+msgid "Creatively written listings"
+msgstr "Loovalt kirjutatud kuulutused"
+
+#: .\templates\listings\motorcycle_create.html:412
+msgid "may be featured on our social media pages."
+msgstr "võidakse kuvada meie sotsiaalmeedia lehtedel."
+
+#: .\templates\listings\motorcycle_create.html:434
+msgid ""
+"You can upload up to <strong>40 photos</strong>. Max size per photo is "
+"<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
+msgstr ""
+"Saate üles laadida kuni <strong>40 fotot</strong>. Foto maksimaalne suurus "
+"on <strong>10 MB</strong>. Toetatud vormingud: <strong>JPG, PNG, "
+"GIF</strong>."
+
+#: .\templates\listings\motorcycle_create.html:437
+msgid ""
+"To change photo order, drag and drop into desired position. The first photo "
+"will be used as the main cover image."
+msgstr ""
+"Fotode järjekorra muutmiseks lohistage need soovitud kohta. Esimest fotot "
+"kasutatakse peamise kaanepildina."
+
+#: .\templates\listings\motorcycle_create.html:440
+msgid "Shoot in good lighting, ideally outdoors"
+msgstr "Pildista heas valguses, ideaalis õues"
+
+#: .\templates\listings\motorcycle_create.html:441
+msgid "Include photos of front, side, rear, and engine"
+msgstr "Lisa fotod esiosast, küljest, tagaosast ja mootorist"
+
+#: .\templates\listings\motorcycle_create.html:442
+msgid "Show any defects honestly — builds buyer trust"
+msgstr "Näidake kõiki defekte ausalt välja – see suurendab ostja usaldust"
+
+#: .\templates\listings\motorcycle_create.html:443
+msgid "Avoid filters — buyers want to see real condition"
+msgstr "Väldi filtreid – ostjad tahavad näha tegelikku seisukorda"
+
+#: .\templates\listings\motorcycle_create.html:453
+#: .\templates\listings\trucks_listing_create.html:737
+msgid "Video (optional)"
+msgstr "Video (valikuline)"
+
+#: .\templates\listings\motorcycle_create.html:455
+msgid "YouTube URL"
+msgstr "YouTube'i URL"
+
+#: .\templates\listings\motorcycle_create.html:489
+msgid "Contact &amp; Location"
+msgstr "Kontakt ja asukoht"
+
+#: .\templates\listings\motorcycle_create.html:534
+msgid "Name"
+msgstr "Nimi"
+
+#: .\templates\listings\motorcycle_create.html:557
+msgid "Hide exact address from public"
+msgstr "Peida täpne aadress avalikkuse eest"
+
+#: .\templates\listings\motorcycle_create.html:566
+msgid "Please fill in all required fields highlighted in red."
+msgstr "Palun täitke kõik punasega esile tõstetud kohustuslikud väljad."
+
+#: .\templates\listings\motorcycle_create.html:618
+#, python-brace-format
+msgid "{n} file(s) selected"
+msgstr "{n} faili valitud"
+
+#: .\templates\listings\motorcycles_advanced_search.html:5
+msgid "Advanced Motorcycle Search"
+msgstr "Täpsem mootorrattaotsing"
+
+#: .\templates\listings\motorcycles_advanced_search.html:134
+#: .\templates\listings\motorcycles_list.html:125
+msgid "Motorcycles"
+msgstr "Mootorrattad"
+
+#: .\templates\listings\motorcycles_advanced_search.html:185
+msgid "Year from–to"
+msgstr "Aasta alates–kuni"
+
+#: .\templates\listings\motorcycles_advanced_search.html:207
+msgid "Engine, cm³ from–to"
+msgstr "Mootor, cm³ alates–kuni"
+
+#: .\templates\listings\motorcycles_advanced_search.html:231
+msgid "Mileage from–to"
+msgstr "Läbisõit kohast kuni"
+
+#: .\templates\listings\motorcycles_advanced_search.html:275
+msgid "First Reg. Country"
+msgstr "Esimese registreerimise riik"
+
+#: .\templates\listings\motorcycles_advanced_search.html:346
+msgid "Registration Type"
+msgstr "Registreerimise tüüp"
+
+#: .\templates\listings\motorcycles_advanced_search.html:357
+msgid "Battery Capacity, kWh"
+msgstr "Aku mahtuvus, kWh"
+
+#: .\templates\listings\motorcycles_advanced_search.html:365
+msgid "Electric Range, km"
+msgstr "Elektriline sõiduulatus, km"
+
+#: .\templates\listings\motorcycles_advanced_search.html:392
+msgid "e.g. Yamaha R1 low mileage..."
+msgstr "nt Yamaha R1 väikese läbisõiduga..."
+
+#: .\templates\listings\motorcycles_advanced_search.html:400
+msgid "Equipment / Features"
+msgstr "Varustus / omadused"
+
+#: .\templates\listings\motorcycles_advanced_search.html:403
+msgid "Electric Starter"
+msgstr "Elektriline starter"
+
+#: .\templates\listings\motorcycles_advanced_search.html:404
+msgid "Wide Rear Tire"
+msgstr "Lai tagumine rehv"
+
+#: .\templates\listings\motorcycles_advanced_search.html:405
+msgid "Touring Cases"
+msgstr "Touring Cases'i kohvrid"
+
+#: .\templates\listings\motorcycles_advanced_search.html:406
+msgid "Passenger Backrest"
+msgstr "Kaassõitja seljatugi"
+
+#: .\templates\listings\motorcycles_advanced_search.html:407
+msgid "Heated Seats"
+msgstr "Soojendusega istmed"
+
+#: .\templates\listings\motorcycles_advanced_search.html:408
+msgid "Automatic Transmission"
+msgstr "Automaatkäigukast"
+
+#: .\templates\listings\motorcycles_advanced_search.html:409
+msgid "Heated Grips"
+msgstr "Soojendusega käepidemed"
+
+#: .\templates\listings\motorcycles_advanced_search.html:410
+msgid "Disc Brakes"
+msgstr "Ketaspidurid"
+
+#: .\templates\listings\motorcycles_advanced_search.html:412
+msgid "Alarm"
+msgstr "Äratus"
+
+#: .\templates\listings\motorcycles_advanced_search.html:413
+msgid "Trade-in Available"
+msgstr "Vahetusvõimalus"
+
+#: .\templates\listings\motorcycles_advanced_search.html:414
+msgid "Leasing Available"
+msgstr "Liising saadaval"
+
+#: .\templates\listings\motorcycles_advanced_search.html:415
+msgid "Not Used in Lithuania"
+msgstr "Leedus ei kasutata"
+
+#: .\templates\listings\motorcycles_advanced_search.html:416
+msgid "Service Book"
+msgstr "Hooldusraamat"
+
+#: .\templates\listings\motorcycles_advanced_search.html:417
+msgid "Metallic Paint"
+msgstr "Metallikvärv"
+
+#: .\templates\listings\motorcycles_advanced_search.html:424
+msgid "Back to Motorcycles"
+msgstr "Tagasi mootorrataste juurde"
+
+#: .\templates\listings\motorcycles_advanced_search.html:427
+msgid "Found"
+msgstr "Leitud"
+
+#: .\templates\listings\motorcycles_advanced_search.html:466
+msgid "No motorcycles found"
+msgstr "Mootorrattaid ei leitud"
+
+#: .\templates\listings\motorcycles_advanced_search.html:467
+msgid "Try broadening your search criteria"
+msgstr "Proovige oma otsingukriteeriume laiendada"
+
+#: .\templates\listings\motorcycles_list.html:109
+#, python-format
+msgid "Found %(count)s motorcycle listings"
+msgstr "Leiti %(count)s mootorratta kuulutust"
+
+#: .\templates\listings\motorcycles_list.html:210
+msgid "Engine cm³"
+msgstr "Mootor cm³"
+
+#: .\templates\listings\motorcycles_list.html:253
+#: .\templates\listings\trucks_list.html:686
+#, python-format
+msgid "Showing %(shown)s of %(total)s"
+msgstr "Kuvatakse %(näidatud)s %(kokku)st"
+
+#: .\templates\listings\motorcycles_list.html:337
+msgid "No motorcycle listings found"
+msgstr "Mootorrataste kuulutusi ei leitud"
+
+#: .\templates\listings\my_listings.html:53
+#: .\templates\listings\my_listings.html:256
+msgid "Renew"
+msgstr "Uuenda"
+
+#: .\templates\listings\my_listings.html:61
+#, python-format
+msgid "Renew all %(count)s active listings to the top?"
+msgstr "Kas uuendada kõiki %(count)s aktiivseid kuulutusi ülespoole?"
+
+#: .\templates\listings\my_listings.html:63
+msgid "Renew all"
+msgstr "Uuenda kõiki"
+
+#: .\templates\listings\my_listings.html:64
+#, python-format
+msgid "%(count)s active listings jump to top of the list"
+msgstr "%(count)s aktiivset kuulutust hüppab nimekirja algusesse"
+
+#: .\templates\listings\my_listings.html:73
+msgid "Create new"
+msgstr "Loo uus"
+
+#: .\templates\listings\my_listings.html:131
+msgid "Clear filter"
+msgstr "Tühjenda filter"
+
+#: .\templates\listings\my_listings.html:146
+msgid "Active"
+msgstr "Aktiivne"
+
+#: .\templates\listings\my_listings.html:150
+msgid "Reserved"
+msgstr "Reserveeritud"
+
+#: .\templates\listings\my_listings.html:154
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+#: .\templates\listings\my_listings.html:159
+#: .\templates\listings\my_listings.html:399
+msgid "Sold"
+msgstr "Müüdud"
+
+#: .\templates\listings\my_listings.html:187
+msgid "RENEWED"
+msgstr "UUENDATUD"
+
+#: .\templates\listings\my_listings.html:198
+msgid "RESERVED"
+msgstr "RESERVEERITUD"
+
+#: .\templates\listings\my_listings.html:260
+msgid "Recently renewed - can renew again after 1 hour"
+msgstr "Hiljuti uuendatud – saab uuesti uuendada 1 tunni pärast"
+
+#: .\templates\listings\my_listings.html:280
+msgid "Extend"
+msgstr "Pikendada"
+
+#: .\templates\listings\my_listings.html:284
+#, python-format
+msgid "%(counter)s day left"
+msgid_plural "%(counter)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:312
+msgid "Position"
+msgstr "Positsioon"
+
+#: .\templates\listings\my_listings.html:326
+#: .\templates\listings\my_listings.html:582
+msgid "View detailed stats"
+msgstr "Kuva üksikasjalik statistika"
+
+#: .\templates\listings\my_listings.html:364
+#, python-format
+msgid "visible %(counter)s more day"
+msgid_plural "visible %(counter)s more days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\listings\my_listings.html:401
+#, python-format
+msgid "Auto-delete in %(days)sd"
+msgstr "Automaatne kustutamine %(päeva)sd pärast"
+
+#: .\templates\listings\my_listings.html:497
+msgid "Price not set"
+msgstr "Hind pole määratud"
+
+#: .\templates\listings\my_listings.html:549
+msgid "Listing is <strong>inactive</strong>"
+msgstr "Kuulutus on <strong>mitteaktiivne</strong>"
+
+#: .\templates\listings\my_listings.html:553
+msgid "Activate"
+msgstr "Aktiveeri"
+
+#: .\templates\listings\my_listings.html:574
+msgid "Listing is"
+msgstr "Kuulutus on"
+
+#: .\templates\listings\my_listings.html:575
+msgid "inactive"
+msgstr "passiivne"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings in this category"
+msgstr "Selles kategoorias pole ühtegi kuulutust"
+
+#: .\templates\listings\my_listings.html:596
+msgid "No listings yet"
+msgstr "Kuulutusi pole veel"
+
+#: .\templates\listings\my_listings.html:600
+msgid "Try selecting \\"
+msgstr "Proovige valida \\"
+
+#: .\templates\listings\my_listings.html:602
+msgid "Create your first listing to start selling."
+msgstr "Müügi alustamiseks loo oma esimene kuulutus."
+
+#: .\templates\listings\my_listings.html:607
+msgid "Create listing"
+msgstr "Loo kuulutus"
+
+#: .\templates\listings\my_listings.html:625
+#: .\templates\listings\my_listings.html:695
+msgid "Are you sure you want to delete this listing?"
+msgstr "Kas olete kindel, et soovite selle kuulutuse kustutada?"
+
+#: .\templates\listings\my_listings.html:635
+msgid "I sold it"
+msgstr "Ma müüsin selle maha"
+
+#: .\templates\listings\my_listings.html:654
+msgid "Mark listing with \\"
+msgstr "Märgi kirje \\-iga"
+
+#: .\templates\listings\my_listings.html:677
+#: .\templates\listings\my_listings.html:711
+msgid "Delete listing"
+msgstr "Kustuta kuulutus"
+
+#: .\templates\listings\my_listings.html:697
+msgid "This action cannot be undone."
+msgstr "Seda toimingut ei saa tagasi võtta."
+
+#: .\templates\listings\saved_listings.html:47
+msgid "No saved listings yet"
+msgstr "Salvestatud kuulutusi pole veel"
+
+#: .\templates\listings\saved_listings.html:48
+msgid "Browse listings and save your favorites!"
+msgstr "Sirvi kuulutusi ja salvesta oma lemmikud!"
+
+#: .\templates\listings\saved_searches.html:4
+msgid "Saved Searches"
+msgstr "Salvestatud otsingud"
+
+#: .\templates\listings\saved_searches.html:20
+#: .\templates\listings\trucks_advanced_search.html:273
+msgid "Back to listings"
+msgstr "Tagasi kuulutuste juurde"
+
+#: .\templates\listings\saved_searches.html:37
+msgid "Email alerts"
+msgstr "E-posti teated"
+
+#: .\templates\listings\saved_searches.html:38
+msgid "Duplicate"
+msgstr "Duplikaat"
+
+#: .\templates\listings\saved_searches.html:60
+#: .\templates\listings\saved_searches.html:131
+#, python-format
+msgid "from %(y)s"
+msgstr "alates %(y)s"
+
+#: .\templates\listings\saved_searches.html:61
+#: .\templates\listings\saved_searches.html:132
+#, python-format
+msgid "till %(y)s"
+msgstr "kuni %(a)s"
+
+#: .\templates\listings\saved_searches.html:178
+msgid "No saved searches"
+msgstr "Salvestatud otsinguid pole"
+
+#: .\templates\listings\saved_searches.html:179
+msgid "Save a search to quickly find listings matching your criteria"
+msgstr ""
+"Salvesta otsing, et leida kiiresti oma kriteeriumidele vastavaid kuulutusi"
+
+#: .\templates\listings\saved_searches.html:181
+msgid "Browse Listings"
+msgstr "Sirvi kuulutusi"
+
+#: .\templates\listings\saved_searches.html:191
+msgid "Email alerts updated"
+msgstr "Meilihoiatused on uuendatud"
+
+#: .\templates\listings\saved_searches.html:192
+msgid "Search duplicated"
+msgstr "Otsing dubleeritud"
+
+#: .\templates\listings\search_map.html:18
+msgid "Filters"
+msgstr "Filtrid"
+
+#: .\templates\listings\search_map.html:25
+msgid "All makes"
+msgstr "Kõik margid"
+
+#: .\templates\listings\search_map.html:35
+msgid "Price from"
+msgstr "Hind alates"
+
+#: .\templates\listings\search_map.html:39
+msgid "Price to"
+msgstr "Hind kuni"
+
+#: .\templates\listings\search_map.html:47
+msgid "Year from"
+msgstr "Aasta alates"
+
+#: .\templates\listings\search_map.html:56
+msgid "Year to"
+msgstr "Aasta kuni"
+
+#: .\templates\listings\search_map.html:71
+#: .\templates\listings\trucks_advanced_search.html:616
+msgid "Clear"
+msgstr "Selge"
+
+#: .\templates\listings\search_map.html:124
+msgid "Try changing the filters"
+msgstr "Proovige filtreid vahetada"
+
+#: .\templates\listings\search_map.html:147
+msgid "No image"
+msgstr "Pilti pole"
+
+#: .\templates\listings\trucks_advanced_search.html:5
+#: .\templates\listings\trucks_advanced_search.html:268
+msgid "Advanced Truck Search"
+msgstr "Täpsem veoautootsing"
+
+#: .\templates\listings\trucks_advanced_search.html:270
+msgid "Refine your search with detailed filters"
+msgstr "Täpsustage otsingut detailsete filtritega"
+
+#: .\templates\listings\trucks_advanced_search.html:306
+msgid "Make & Model"
+msgstr "Mark ja mudel"
+
+#: .\templates\listings\trucks_advanced_search.html:328
+msgid "Select Make"
+msgstr "Valige mark"
+
+#: .\templates\listings\trucks_advanced_search.html:337
+#: .\templates\listings\trucks_advanced_search.html:764
+msgid "Select Make first"
+msgstr "Valige Loo esimesena"
+
+#: .\templates\listings\trucks_advanced_search.html:342
+msgid "Add Make/Model combo"
+msgstr "Lisa margi/mudeli kombinatsioon"
+
+#: .\templates\listings\trucks_advanced_search.html:347
+msgid ""
+"Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
+msgstr ""
+"Lisa otsinguks mitu kombinatsiooni, nt <em>Volvo FH</em> JA <em>Scania "
+"R</em>."
+
+#: .\templates\listings\trucks_advanced_search.html:355
+msgid "Year, Price & Performance"
+msgstr "Aasta, hind ja jõudlus"
+
+#: .\templates\listings\trucks_advanced_search.html:391
+msgid "Power (kW)"
+msgstr "Võimsus (kW)"
+
+#: .\templates\listings\trucks_advanced_search.html:399
+msgid "Engine size (L)"
+msgstr "Mootori suurus (l)"
+
+#: .\templates\listings\trucks_advanced_search.html:413
+msgid "Truck specifics"
+msgstr "Veoauto eripärad"
+
+#: .\templates\listings\trucks_advanced_search.html:420
+#: .\templates\listings\trucks_list.html:259
+#: .\templates\listings\trucks_list.html:637
+msgid "Truck type"
+msgstr "Veoauto tüüp"
+
+#: .\templates\listings\trucks_advanced_search.html:452
+msgid "Drive type (axle)"
+msgstr "Veo tüüp (telg)"
+
+#: .\templates\listings\trucks_advanced_search.html:485
+msgid "Condition & Appearance"
+msgstr "Seisukord ja välimus"
+
+#: .\templates\listings\trucks_advanced_search.html:556
+msgid "US State"
+msgstr "USA osariik"
+
+#: .\templates\listings\trucks_advanced_search.html:558
+msgid "All states"
+msgstr "Kõik osariigid"
+
+#: .\templates\listings\trucks_advanced_search.html:571
+msgid "Keyword search"
+msgstr "Märksõnaotsing"
+
+#: .\templates\listings\trucks_advanced_search.html:575
+msgid "Search by title or description..."
+msgstr "Otsi pealkirja või kirjelduse järgi..."
+
+#: .\templates\listings\trucks_advanced_search.html:589
+msgid "listings match your filters"
+msgstr "kuulutused vastavad teie filtritele"
+
+#: .\templates\listings\trucks_advanced_search.html:592
+#, python-format
+msgid "Show %(count)s results"
+msgstr "Näita %(count)s tulemusi"
+
+#: .\templates\listings\trucks_advanced_search.html:603
+msgid "Save this search"
+msgstr "Salvesta see otsing"
+
+#: .\templates\listings\trucks_advanced_search.html:613
+#, python-format
+msgid "Found <strong>%(count)s</strong> trucks matching your filters"
+msgstr "Filtritele vastavad <strong>%(count)s</strong> veoautot"
+
+#: .\templates\listings\trucks_advanced_search.html:619
+msgid "Show results"
+msgstr "Näita tulemusi"
+
+#: .\templates\listings\trucks_advanced_search.html:631
+msgid "Results"
+msgstr "Tulemused"
+
+#: .\templates\listings\trucks_advanced_search.html:746
+msgid "No trucks match your filters"
+msgstr "Ükski veoauto ei vasta teie filtritele"
+
+#: .\templates\listings\trucks_advanced_search.html:747
+msgid "Try removing some filters or adjusting the ranges."
+msgstr "Proovige mõned filtrid eemaldada või vahemikke kohandada."
+
+#: .\templates\listings\trucks_advanced_search.html:763
+msgid "Select Model"
+msgstr "Valige mudel"
+
+#: .\templates\listings\trucks_advanced_search.html:765
+msgid "Please select a Make first"
+msgstr "Palun vali esmalt mark"
+
+#: .\templates\listings\trucks_advanced_search.html:766
+msgid "Search saved"
+msgstr "Otsing salvestatud"
+
+#: .\templates\listings\trucks_advanced_search.html:767
+msgid "Failed to save search. Please try again."
+msgstr "Otsingu salvestamine ebaõnnestus. Palun proovige uuesti."
+
+#: .\templates\listings\trucks_list.html:5
+msgid "Browse Trucks & Commercial"
+msgstr "Sirvi veoautosid ja kaubikud"
+
+#: .\templates\listings\trucks_list.html:193
+#, python-format
+msgid "%(count)s listings found"
+msgstr "Leitud %(count)s kuulutust"
+
+#: .\templates\listings\trucks_list.html:245
+msgid "Subcategory"
+msgstr "Alamkategooria"
+
+#: .\templates\listings\trucks_list.html:247
+msgid "All trucks & commercial"
+msgstr "Kõik veoautod ja kaubikud"
+
+#: .\templates\listings\trucks_list.html:281
+#: .\templates\listings\trucks_list.html:567
+msgid "Search make..."
+msgstr "Otsi mark..."
+
+#: .\templates\listings\trucks_list.html:382
+#, python-format
+msgid "Showing %(count)s listings"
+msgstr "Kuvatakse %(count)s kuulutust"
+
+#: .\templates\listings\trucks_list.html:492
+#: .\templates\listings\trucks_list.html:804
+msgid "No trucks found"
+msgstr "Veoautosid ei leitud"
+
+#: .\templates\listings\trucks_list.html:579
+msgid "Show makes with 0 listings"
+msgstr "Näita marke, millel on 0 kuulutust"
+
+#: .\templates\listings\trucks_list.html:658
+msgid "Euro"
+msgstr "Euro"
+
+#: .\templates\listings\trucks_list.html:849
+msgid "FEATURED"
+msgstr "ESITLETUD"
+
+#: .\templates\listings\trucks_list.html:863
+msgid "No featured trucks yet."
+msgstr "Esitletud veoautosid veel pole."
+
+#: .\templates\listings\trucks_list.html:888
+#: .\templates\listings\trucks_list.html:912
+#: .\templates\listings\trucks_list.html:936
+msgid "No trucks yet."
+msgstr "Veoautosid veel pole."
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Create"
+msgstr "Loo"
+
+#: .\templates\listings\trucks_listing_create.html:5
+msgid "Trucks Listing"
+msgstr "Veoautode kuulutused"
+
+#: .\templates\listings\trucks_listing_create.html:297
+msgid "Edit Trucks Listing"
+msgstr "Redigeeri veoautode kuulutust"
+
+#: .\templates\listings\trucks_listing_create.html:301
+msgid "Status:"
+msgstr "Staatus:"
+
+#: .\templates\listings\trucks_listing_create.html:306
+#, python-format
+msgid "Expires %(date)s"
+msgstr "Aegub %(kuupäev)s"
+
+#: .\templates\listings\trucks_listing_create.html:311
+msgid "View public page"
+msgstr "Kuva avalik leht"
+
+#: .\templates\listings\trucks_listing_create.html:317
+msgid "Create Trucks & Commercial Listing"
+msgstr "Loo veoautode ja kommertssõidukite kuulutus"
+
+#: .\templates\listings\trucks_listing_create.html:320
+msgid ""
+"Fill in the details below. Required fields are marked with <span "
+"class=\"text-red-600\">*</span>."
+msgstr ""
+"Täitke allolevad andmed. Kohustuslikud väljad on tähistatud tärniga <span "
+"class=\"text-red-600\">*</span>."
+
+#: .\templates\listings\trucks_listing_create.html:332
+msgid "Basic Information"
+msgstr "Põhiteave"
+
+#: .\templates\listings\trucks_listing_create.html:340
+#: .\templates\listings\trucks_listing_create.html:395
+#: .\templates\listings\trucks_listing_create.html:444
+#: .\templates\listings\trucks_listing_create.html:455
+#: .\templates\listings\trucks_listing_create.html:490
+#: .\templates\listings\trucks_listing_create.html:525
+#: .\templates\listings\trucks_listing_create.html:536
+#: .\templates\listings\trucks_listing_create.html:590
+#: .\templates\listings\trucks_listing_create.html:600
+#: .\templates\listings\trucks_listing_create.html:616
+#: .\templates\listings\trucks_listing_create.html:626
+#: .\templates\listings\trucks_listing_create.html:642
+#: .\templates\listings\trucks_listing_create.html:784
+msgid "Select"
+msgstr "Vali"
+
+#: .\templates\listings\trucks_listing_create.html:408
+msgid "e.g. FH16, Actros 1845"
+msgstr "nt FH16, Actros 1845"
+
+#: .\templates\listings\trucks_listing_create.html:570
+msgid "Tech inspection valid until"
+msgstr "Tehniline ülevaatus kehtib kuni"
+
+#: .\templates\listings\trucks_listing_create.html:634
+msgid "Engine capacity, L"
+msgstr "Mootori töömaht, l"
+
+#: .\templates\listings\trucks_listing_create.html:635
+msgid "e.g. 12.0"
+msgstr "nt 12.0"
+
+#: .\templates\listings\trucks_listing_create.html:650
+msgid "VIN (Body number)"
+msgstr "VIN (kerenumber)"
+
+#: .\templates\listings\trucks_listing_create.html:651
+msgid "E.G. WMA17XZZ8AY123456"
+msgstr "Nt WMA17XZZ8AY123456"
+
+#: .\templates\listings\trucks_listing_create.html:686
+msgid "Describe your truck..."
+msgstr "Kirjelda oma veoautot..."
+
+#: .\templates\listings\trucks_listing_create.html:699
+msgid "Drop photos here or <strong>click to upload</strong>"
+msgstr "Lohista fotod siia või <strong>klõpsa üleslaadimiseks</strong>"
+
+#: .\templates\listings\trucks_listing_create.html:700
+msgid "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder"
+msgstr ""
+"Kuni 40 fotot · JPG, PNG · max 10 MB igaüks · Lohistage fotosid "
+"ümberjärjestamiseks"
+
+#: .\templates\listings\trucks_listing_create.html:710
+#: .\templates\listings\trucks_listing_create.html:723
+msgid "View"
+msgstr "Vaade"
+
+#: .\templates\listings\trucks_listing_create.html:715
+msgid "No photos yet — upload some to attract buyers"
+msgstr "Fotosid veel pole – laadige mõned üles, et ostjaid ligi meelitada"
+
+#: .\templates\listings\trucks_listing_create.html:738
+msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
+msgstr "YouTube'i URL – nt https://youtube.com/watch?v=..."
+
+#: .\templates\listings\trucks_listing_create.html:748
+msgid "Asking price"
+msgstr "Küsitav hind"
+
+#: .\templates\listings\trucks_listing_create.html:804
+msgid "Address (optional)"
+msgstr "Aadress (valikuline)"
+
+#: .\templates\listings\trucks_listing_create.html:844
+msgid "Save failed"
+msgstr "Salvestamine ebaõnnestus"

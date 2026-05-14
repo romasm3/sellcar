@@ -1,0 +1,105 @@
+{% load humanize %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your listing is inactive</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f9fafb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb; padding:32px 16px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:12px; overflow:hidden; max-width:600px; width:100%;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color:#374151; padding:24px 32px; text-align:left;">
+                            <span style="color:#ffffff; font-size:20px; font-weight:700;">SellCar</span>
+                        </td>
+                    </tr>
+
+                    <!-- Alert strip -->
+                    <tr>
+                        <td style="background-color:#fef2f2; padding:16px 32px; border-bottom:1px solid #fecaca;">
+                            <span style="color:#b91c1c; font-size:13px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase;">
+                                ⚠ Listing inactive
+                            </span>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:32px;">
+                            <h1 style="margin:0 0 16px 0; color:#111827; font-size:22px; font-weight:700;">
+                                Your listing is no longer visible
+                            </h1>
+
+                            <p style="margin:0 0 16px 0; color:#374151; font-size:15px; line-height:1.6;">
+                                Hi,
+                            </p>
+
+                            <p style="margin:0 0 20px 0; color:#374151; font-size:15px; line-height:1.6;">
+                                Your listing <strong>{{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %}</strong>
+                                has been inactive for <strong>{{ days_since_expired }} day{{ days_since_expired|pluralize }}</strong>.
+                                Buyers cannot see or contact you about it.
+                            </p>
+
+                            <!-- Listing card -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; margin:20px 0;">
+                                <tr>
+                                    <td style="padding:16px;">
+                                        <div style="color:#6b7280; font-size:13px; margin-bottom:4px;">{{ listing.year }}</div>
+                                        <div style="color:#111827; font-size:16px; font-weight:600; margin-bottom:4px;">
+                                            {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %}
+                                        </div>
+                                        <div style="color:#111827; font-size:18px; font-weight:700; margin-bottom:8px;">
+                                            {{ listing.price|floatformat:0|intcomma }} €
+                                        </div>
+                                        <div style="color:#6b7280; font-size:13px;">
+                                            <span style="display:inline-block; padding:2px 8px; background-color:#fef2f2; color:#b91c1c; border-radius:4px; font-weight:600; font-size:11px;">
+                                                INACTIVE
+                                            </span>
+                                            <span style="margin-left:8px;">Views: {{ listing.views_count }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin:0 0 24px 0; color:#374151; font-size:15px; line-height:1.6;">
+                                Reactivate it now{% if payments_enabled %} for <strong>{{ fee }} €</strong>{% endif %} and it will be visible to buyers again for 30 days.
+                            </p>
+
+                            <!-- CTA -->
+                            <table cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+                                <tr>
+                                    <td>
+                                        <a href="{{ edit_url }}"
+                                           style="display:inline-block; background-color:#374151; color:#ffffff; padding:14px 32px; text-decoration:none; border-radius:8px; font-weight:600; font-size:15px;">
+                                            Activate listing
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin:24px 0 0 0; color:#6b7280; font-size:13px; line-height:1.5;">
+                                If the button doesn't work, copy this link into your browser:<br>
+                                <a href="{{ edit_url }}" style="color:#374151; word-break:break-all;">{{ edit_url }}</a>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#f9fafb; padding:20px 32px; border-top:1px solid #e5e7eb;">
+                            <p style="margin:0; color:#9ca3af; font-size:12px; line-height:1.5;">
+                                You are receiving this reminder because you have an inactive listing on SellCar.
+                                To stop receiving reminders, delete the listing from your dashboard.<br>
+                                &copy; {% now "Y" %} SellCar. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

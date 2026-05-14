@@ -1,0 +1,15 @@
+Hi ,
+
+Your saved search "{{ search_name }}" finally has results!
+
+{{ count }} listing{{ count|pluralize }} match your criteria.
+
+View results:
+{{ search_url }}
+
+We'll notify you when more matching listings appear.
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

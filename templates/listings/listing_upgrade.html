@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Upgrade your account" %} | SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+
+  <div class="text-center mb-10">
+    <h1 class="text-3xl font-bold text-gray-900 mb-3">
+      {% trans "You've reached your listing limit" %}
+    </h1>
+    <p class="text-lg text-gray-600">
+      {% blocktrans with count=active_count limit=current_limit %}You currently have {{ count }} of {{ limit }} active listings. Choose an option below to add more.{% endblocktrans %}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Option 1: Pay per listing -->
+    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition">
+      <div class="text-center mb-4">
+        <div class="text-4xl mb-2">🎯</div>
+        <h2 class="text-xl font-bold text-gray-900">{% trans "Pay per listing" %}</h2>
+        <p class="text-sm text-gray-500 mt-1">{% trans "One-time payment" %}</p>
+      </div>
+      <div class="text-center mb-6">
+        <div class="text-4xl font-bold text-gray-900">${{ per_listing_price }}</div>
+        <div class="text-sm text-gray-500">{% trans "per listing" %}</div>
+      </div>
+      <ul class="space-y-2 text-sm text-gray-700 mb-6">
+        <li>✅ {% trans "Add 1 extra listing now" %}</li>
+        <li>✅ {% trans "30 days active" %}</li>
+        <li>✅ {% trans "No subscription" %}</li>
+      </ul>
+      <button disabled class="w-full py-3 bg-gray-300 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
+        {% trans "Coming soon (Stripe)" %}
+      </button>
+    </div>
+
+    <!-- Option 2: Private subscription -->
+    <div class="bg-white rounded-2xl shadow-md border-2 border-blue-500 p-6 hover:shadow-xl transition relative">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+        {% trans "POPULAR" %}
+      </div>
+      <div class="text-center mb-4">
+        <div class="text-4xl mb-2">⭐</div>
+        <h2 class="text-xl font-bold text-gray-900">{% trans "Private+" %}</h2>
+        <p class="text-sm text-gray-500 mt-1">{% trans "Monthly subscription" %}</p>
+      </div>
+      <div class="text-center mb-6">
+        <div class="text-4xl font-bold text-gray-900">${{ private_sub_price }}</div>
+        <div class="text-sm text-gray-500">{% trans "per month" %}</div>
+      </div>
+      <ul class="space-y-2 text-sm text-gray-700 mb-6">
+        <li>✅ {% blocktrans with count=private_sub_limit %}{{ count }} active listings{% endblocktrans %}</li>
+        <li>✅ {% trans "Cancel anytime" %}</li>
+        <li>✅ {% trans "All features included" %}</li>
+      </ul>
+      <button disabled class="w-full py-3 bg-gray-300 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
+        {% trans "Coming soon (Stripe)" %}
+      </button>
+    </div>
+
+    <!-- Option 3: Dealer -->
+    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition">
+      <div class="text-center mb-4">
+        <div class="text-4xl mb-2">🏢</div>
+        <h2 class="text-xl font-bold text-gray-900">{% trans "Dealer" %}</h2>
+        <p class="text-sm text-gray-500 mt-1">{% trans "For businesses" %}</p>
+      </div>
+      <div class="text-center mb-6">
+        <div class="text-4xl font-bold text-gray-900">€{{ dealer_sub_price }}</div>
+        <div class="text-sm text-gray-500">{% trans "per month" %}</div>
+      </div>
+      <ul class="space-y-2 text-sm text-gray-700 mb-6">
+        <li>✅ {% blocktrans with count=dealer_limit %}{{ count }} active listings{% endblocktrans %}</li>
+        <li>✅ {% trans "Dealer badge on listings" %}</li>
+        <li>✅ {% trans "Public dealer page" %}</li>
+        <li>⏳ {% trans "Requires admin approval" %}</li>
+      </ul>
+      <button disabled class="w-full py-3 bg-gray-300 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
+        {% trans "Coming soon (Stage 3)" %}
+      </button>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-8">
+    <a href="{% url 'my_listings' %}" class="text-gray-600 hover:text-gray-900 underline">
+      ← {% trans "Back to my listings" %}
+    </a>
+  </div>
+
+</div>
+{% endblock %}

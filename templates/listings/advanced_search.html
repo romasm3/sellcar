@@ -1,0 +1,1130 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Advanced Search" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.adv-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+.adv-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 24px; margin-bottom: 12px; }
+
+.adv-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
+.adv-title { font-size: 1.05rem; font-weight: 600; color: #1f2937; }
+.adv-clear { font-size: 0.78rem; color: #2563eb; text-decoration: none; cursor: pointer; }
+.adv-clear:hover { text-decoration: underline; }
+
+.adv-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px 20px; }
+@media (max-width: 768px) { .adv-grid3 { grid-template-columns: 1fr; } }
+
+.adv-field { display: flex; flex-direction: column; gap: 4px; }
+.adv-field label { font-size: 0.72rem; color: #6b7280; font-weight: 500; }
+
+.adv-select, .adv-input {
+    padding: 0.5rem 0.65rem;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: #111827;
+    width: 100%;
+}
+.adv-select:focus, .adv-input:focus { outline: none; border-color: #6b7280; }
+.adv-select:disabled { background: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+
+.adv-range { display: flex; align-items: center; gap: 4px; }
+.adv-range span { color: #9ca3af; font-size: 0.75rem; }
+.adv-range .adv-input, .adv-range .adv-select { flex: 1; min-width: 0; }
+
+.unit-toggle {
+    display: inline-flex;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+.unit-toggle button {
+    padding: 1px 7px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #f9fafb;
+    color: #6b7280;
+}
+.unit-toggle button.active { background: #4b5563; color: #fff; }
+
+.bm-add-link {
+    color: #f97316;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding-top: 4px;
+}
+.bm-add-link:hover { color: #ea580c; }
+
+.eq-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+}
+.eq-toggle:hover { background: #f9fafb; }
+.eq-toggle-label { font-size: 0.85rem; font-weight: 600; color: #374151; }
+.eq-toggle-counter { font-size: 0.78rem; color: #6b7280; margin-left: 6px; font-weight: 400; }
+.eq-toggle-icon { color: #6b7280; font-size: 0.85rem; }
+
+.eq-section { margin-top: 12px; padding: 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; }
+.eq-category { margin-bottom: 18px; }
+.eq-category:last-child { margin-bottom: 0; }
+.eq-category-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f3f4f6;
+}
+.eq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px 16px;
+}
+@media (max-width: 768px) { .eq-grid { grid-template-columns: 1fr; } }
+.eq-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #374151;
+    cursor: pointer;
+    padding: 3px 0;
+}
+.eq-item input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: #4b5563;
+    flex-shrink: 0;
+}
+
+.adv-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 0;
+}
+.btn-search {
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.65rem 3rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+.btn-search:hover { background: #1d4ed8; }
+
+.results-card {
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+    display: block;
+    text-decoration: none;
+}
+.results-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+<div class="adv-wrap">
+
+<form method="get" action="/browse/" id="advForm" onsubmit="prepareSubmit()">
+<input type="hidden" name="category" value="{{ f.category|default:'cars' }}">
+<input type="hidden" name="sidebar" value="1">
+<div id="bmInputs"></div>
+<div id="compatVehicleInputs"></div>
+<input type="hidden" name="mileage_min" id="mileageMinKm" value="{{ f.mileage_min }}">
+<input type="hidden" name="mileage_max" id="mileageMaxKm" value="{{ f.mileage_max }}">
+<input type="hidden" name="mileage_unit" id="mileageUnitHidden" value="{{ f.mileage_unit|default:'km' }}">
+<input type="hidden" name="power_min" id="powerMinKw" value="{{ f.power_min }}">
+<input type="hidden" name="power_max" id="powerMaxKw" value="{{ f.power_max }}">
+<input type="hidden" name="power_unit" id="powerUnitHidden" value="{{ f.power_unit|default:'kw' }}">
+<input type="hidden" name="engine_min" id="engineMinL" value="{{ f.engine_min }}">
+<input type="hidden" name="engine_max" id="engineMaxL" value="{{ f.engine_max }}">
+<input type="hidden" name="engine_unit" id="engineUnitHidden" value="{{ f.engine_unit|default:'l' }}">
+
+{% if f.category != 'parts' %}
+<!-- ═══ CARS / DEFAULT — Autogidas-style 3-column layout ═══ -->
+
+<div class="adv-card">
+    <div class="adv-header">
+        <div class="adv-title">{% trans "Vehicle search" %}</div>
+        <a class="adv-clear" onclick="clearAllFilters()">{% trans "Clear search" %}</a>
+    </div>
+
+    <div class="adv-grid3">
+        <!-- Row 1: Brand + Model + Add link -->
+        <div class="adv-field">
+            <label>{% trans "Brand" %}</label>
+            <div id="bmRowsContainer">
+                <select class="adv-select bm-brand" onchange="bmLoadModels(this, 0)">
+                    <option value="">{% trans "All" %}</option>
+                    {% for brand in brands %}
+                    <option value="{{ brand.id }}" data-name="{{ brand.name }}">{{ brand.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Model" %}</label>
+            <select class="adv-select bm-model" disabled>
+                <option value="">{% trans "All" %}</option>
+            </select>
+        </div>
+
+        <div class="adv-field" style="justify-content:center; padding-top:18px;">
+            <a class="bm-add-link" onclick="bmAddRow()" style="padding-top:0;">
+                <i class="fas fa-plus" style="font-size:0.65rem;"></i> {% trans "Add more brands/models" %}
+            </a>
+        </div>
+
+        <!-- Extra brand/model rows (display:contents lets children flow into grid) -->
+        <div id="bmExtraRows" style="grid-column: 1 / -1; display: contents;"></div>
+
+        <!-- Year range — force start from column 1 to break grid auto-flow after extra brand rows -->
+        <div class="adv-field" style="grid-column-start: 1;">
+            <label>{% trans "Year" %}</label>
+            <div class="adv-range">
+                <select name="year_min" class="adv-select"><option value="">{% trans "From" %}</option>{% for year in years %}<option value="{{ year }}" {% if f.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}</select>
+                <span>–</span>
+                <select name="year_max" class="adv-select"><option value="">{% trans "To" %}</option>{% for year in years %}<option value="{{ year }}" {% if f.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}</select>
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Price, $" %}</label>
+            <div class="adv-range">
+                <input type="number" name="price_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.price_min }}">
+                <span>–</span>
+                <input type="number" name="price_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.price_max }}">
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Fuel Type" %}</label>
+            <select name="fuel_type" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field" style="position:relative;" id="advBodyTypeWrapper">
+            <label>{% trans "Body Type" %}</label>
+            <div onclick="toggleAdvBodyType(event)" class="adv-select" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                <span id="advBodyTypeLabel">{% trans "All" %}</span>
+                <i class="fas fa-chevron-down" style="font-size:0.6rem; color:#6b7280;"></i>
+            </div>
+            <div id="advBodyTypeDropdown" style="display:none; position:absolute; z-index:100; background:#fff; border:1px solid #d1d5db; border-radius:4px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:100%; max-height:220px; overflow-y:auto; top:100%; margin-top:2px;">
+                {% for val, label in body_type_choices %}
+                <label style="display:flex; align-items:center; gap:8px; padding:6px 12px; cursor:pointer; font-size:0.8rem; color:#374151;">
+                    <input type="checkbox" name="body_type" value="{{ val }}" {% if val in selected_body_types %}checked{% endif %} onchange="updateAdvBodyTypeLabel()" style="accent-color:#4b5563;">
+                    {{ label }}
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label style="display:flex; align-items:center; gap:4px;">
+                {% trans "Mileage" %}
+                <div class="unit-toggle">
+                    <button type="button" id="btnKm" onclick="setMileageUnit('km')" class="active">{% trans "km" %}</button>
+                    <button type="button" id="btnMi" onclick="setMileageUnit('mi')">{% trans "mi" %}</button>
+                </div>
+            </label>
+            <div class="adv-range">
+                <input type="number" id="mileageMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min }}">
+                <span>–</span>
+                <input type="number" id="mileageMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max }}">
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label style="display:flex; align-items:center; gap:4px;">
+                {% trans "Engine" %}
+                <div class="unit-toggle">
+                    <button type="button" id="btnL" onclick="setEngineUnit('l')" class="active">L</button>
+                    <button type="button" id="btnCm3" onclick="setEngineUnit('cm3')">cm³</button>
+                </div>
+            </label>
+            <div class="adv-range">
+                <input type="number" id="engineMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" step="0.1" value="{{ f.engine_min }}">
+                <span>–</span>
+                <input type="number" id="engineMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" step="0.1" value="{{ f.engine_max }}">
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label style="display:flex; align-items:center; gap:4px;">
+                {% trans "Power" %}
+                <div class="unit-toggle">
+                    <button type="button" id="btnKw" onclick="setPowerUnit('kw')" class="active">kW</button>
+                    <button type="button" id="btnHp" onclick="setPowerUnit('hp')">HP</button>
+                </div>
+            </label>
+            <div class="adv-range">
+                <input type="number" id="powerMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min }}">
+                <span>–</span>
+                <input type="number" id="powerMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max }}">
+            </div>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Transmission" %}</label>
+            <select name="transmission" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for tr in transmissions %}<option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Drive Type" %}</label>
+            <select name="drive_type" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in drive_type_choices %}<option value="{{ val }}" {% if f.drive_type == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Steering" %}</label>
+            <select name="steering" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in steering_choices %}<option value="{{ val }}" {% if f.steering == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Defects" %}</label>
+            <select name="defects" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in defect_choices %}<option value="{{ val }}" {% if f.defects == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Doors" %}</label>
+            <select name="doors" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in door_choices %}<option value="{{ val }}" {% if f.doors == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Color" %}</label>
+            <select name="color" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in color_choices %}<option value="{{ val }}" {% if f.color == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Seats" %}</label>
+            <select name="seats" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in seats_choices %}<option value="{{ val }}" {% if f.seats == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Climate Control" %}</label>
+            <select name="climate" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in climate_choices %}<option value="{{ val }}" {% if f.climate == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Condition" %}</label>
+            <select name="condition" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in condition_choices %}<option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Euro Standard" %}</label>
+            <select name="euro_standard" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in euro_standard_choices %}<option value="{{ val }}" {% if f.euro_standard == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "State (USA)" %}</label>
+            <select name="state_filter" id="stateFilter" class="adv-select" onchange="loadCities(this.value)">
+                <option value="">{% trans "All States" %}</option>
+                {% for code, name in us_states %}
+                <option value="{{ code }}" {% if f.state_filter == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "City (USA)" %}</label>
+            <select name="city_filter" id="cityFilter" class="adv-select" disabled>
+                <option value="">{% trans "All Cities" %}</option>
+                {% if f.city_filter %}
+                <option value="{{ f.city_filter }}" selected>{{ f.city_filter }}</option>
+                {% endif %}
+            </select>
+        </div>
+
+        <div class="adv-field" style="grid-column: 1 / -1;">
+            <label>{% trans "Text Search" %}</label>
+            <input type="text" name="search" class="adv-input" placeholder="{% trans 'e.g. BMW 320d low mileage...' %}" value="{{ f.search }}">
+        </div>
+    </div>
+
+    {% if equipment_by_category %}
+    <div style="margin-top: 20px;">
+        <div class="eq-toggle" onclick="toggleEquipment()">
+            <div>
+                <span class="eq-toggle-label">{% trans "Equipment" %}</span>
+                <span class="eq-toggle-counter" id="eqCounter">(<span id="eqSelectedCount">0</span>/<span id="eqTotalCount">0</span>)</span>
+            </div>
+            <i id="eqToggleIcon" class="fas fa-chevron-down eq-toggle-icon"></i>
+        </div>
+        <div class="eq-section" id="equipmentBody" style="display:none;">
+            {% for cat_key, cat_label, items in equipment_by_category %}
+            <div class="eq-category">
+                <div class="eq-category-title">{{ cat_label }}</div>
+                <div class="eq-grid">
+                    {% for eq in items %}
+                    <label class="eq-item">
+                        <input type="checkbox" name="equipment" value="{{ eq.id }}" {% if eq.id|stringformat:"i" in selected_equipment %}checked{% endif %} onchange="updateEqCounter()">
+                        {{ eq.name }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% else %}
+<!-- ═══ PARTS ═══ -->
+
+<div class="adv-card">
+    <div class="adv-header">
+        <div class="adv-title">{% trans "Parts search" %}</div>
+        <a class="adv-clear" onclick="clearAllFilters()">{% trans "Clear search" %}</a>
+    </div>
+
+    <div class="adv-grid3">
+        <div class="adv-field" style="grid-column: 1 / -1;">
+            <label>{% trans "Part Name or Code" %}</label>
+            <input type="text" name="part_query" class="adv-input" placeholder="{% trans 'e.g. brake pads, 06H 145 601 H, BKD...' %}" value="{{ f.part_query|default:'' }}">
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Condition" %}</label>
+            <select name="condition" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                <option value="new" {% if f.condition == 'new' %}selected{% endif %}>{% trans "New" %}</option>
+                <option value="used" {% if f.condition == 'used' %}selected{% endif %}>{% trans "Used" %}</option>
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Price, $" %}</label>
+            <div class="adv-range">
+                <input type="number" name="price_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.price_min }}">
+                <span>–</span>
+                <input type="number" name="price_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.price_max }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="adv-card">
+    <div class="adv-header">
+        <div class="adv-title">{% trans "Compatible With (Vehicle)" %}</div>
+    </div>
+    <div class="adv-grid3">
+        <div class="adv-field">
+            <label>{% trans "Brand" %}</label>
+            <div id="cvRowsContainer">
+                <select class="adv-select cv-brand" onchange="cvLoadModels(this, 0)">
+                    <option value="">{% trans "All" %}</option>
+                    {% for brand in brands %}<option value="{{ brand.id }}" data-name="{{ brand.name }}">{{ brand.name }}</option>{% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="adv-field">
+            <label>{% trans "Model" %}</label>
+            <select class="adv-select cv-model" disabled>
+                <option value="">{% trans "All" %}</option>
+            </select>
+        </div>
+        <div class="adv-field" style="justify-content:center; padding-top:18px;">
+            <a class="bm-add-link" onclick="cvAddRow()" style="padding-top:0;">
+                <i class="fas fa-plus" style="font-size:0.65rem;"></i> {% trans "Add more brands/models" %}
+            </a>
+        </div>
+        <div id="cvExtraRows" style="grid-column: 1 / -1; display: contents;"></div>
+        <div class="adv-field" style="grid-column-start: 1;">
+            <label>{% trans "Year" %}</label>
+            <div class="adv-range">
+                <select name="compat_year_min" class="adv-select">
+                    <option value="">{% trans "From" %}</option>
+                    {% for year in years %}<option value="{{ year }}" {% if f.compat_year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                </select>
+                <span>–</span>
+                <select name="compat_year_max" class="adv-select">
+                    <option value="">{% trans "To" %}</option>
+                    {% for year in years %}<option value="{{ year }}" {% if f.compat_year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="adv-field">
+            <label>{% trans "State (USA)" %}</label>
+            <select name="state_filter" id="stateFilter" class="adv-select" onchange="loadCities(this.value)">
+                <option value="">{% trans "All States" %}</option>
+                {% for code, name in us_states %}<option value="{{ code }}" {% if f.state_filter == code %}selected{% endif %}>{{ name }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="adv-field">
+            <label>{% trans "City (USA)" %}</label>
+            <select name="city_filter" id="cityFilter" class="adv-select" disabled>
+                <option value="">{% trans "All Cities" %}</option>
+                {% if f.city_filter %}<option value="{{ f.city_filter }}" selected>{{ f.city_filter }}</option>{% endif %}
+            </select>
+        </div>
+    </div>
+    <div style="font-size:0.7rem; color:#9ca3af; margin-top:10px;">{% trans "Specify which vehicles this part fits. Empty rows are ignored. Leave all empty = search all parts." %}</div>
+</div>
+
+{% endif %}
+
+<div class="adv-bottom">
+    <button type="submit" class="btn-search" id="advancedSearchBtn">
+        <i class="fas fa-search"></i> <span>{% trans "Search" %}</span> <span id="advSearchCount">({{ total_count }})</span>
+    </button>
+</div>
+</form>
+
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleAdvBodyType(e) {
+    e.stopPropagation();
+    var dd = document.getElementById('advBodyTypeDropdown');
+    if (dd) dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+
+function updateAdvBodyTypeLabel() {
+    var checked = Array.from(document.querySelectorAll('input[name="body_type"]:checked')).map(function(cb) {
+        return cb.parentElement.textContent.trim();
+    });
+    var labelEl = document.getElementById('advBodyTypeLabel');
+    if (labelEl) labelEl.textContent = checked.length ? checked.join(', ') : '{% trans "All" %}';
+}
+
+document.addEventListener('click', function(e) {
+    var w = document.getElementById('advBodyTypeWrapper');
+    if (w && !w.contains(e.target)) {
+        var dd = document.getElementById('advBodyTypeDropdown');
+        if (dd) dd.style.display = 'none';
+    }
+});
+
+function toggleEquipment() {
+    var body = document.getElementById('equipmentBody');
+    var icon = document.getElementById('eqToggleIcon');
+    if (!body) return;
+    if (body.style.display === 'none') {
+        body.style.display = 'block';
+        if (icon) icon.className = 'fas fa-chevron-up eq-toggle-icon';
+    } else {
+        body.style.display = 'none';
+        if (icon) icon.className = 'fas fa-chevron-down eq-toggle-icon';
+    }
+}
+
+function updateEqCounter() {
+    var all = document.querySelectorAll('input[name="equipment"]');
+    var checked = document.querySelectorAll('input[name="equipment"]:checked');
+    var sel = document.getElementById('eqSelectedCount');
+    var tot = document.getElementById('eqTotalCount');
+    if (sel) sel.textContent = checked.length;
+    if (tot) tot.textContent = all.length;
+}
+
+function clearAllFilters() {
+    window.location.href = '/search/advanced/{% if f.category %}?category={{ f.category }}{% endif %}';
+}
+
+var mileageInMiles = false;
+var powerInHp = false;
+var engineInCm3 = false;
+var KM_TO_MI = 0.621371, MI_TO_KM = 1.60934;
+var KW_TO_HP = 1.34102, HP_TO_KW = 0.7457;
+var L_TO_CM3 = 1000, CM3_TO_L = 0.001;
+
+function setBtn(activeId, inactiveId) {
+    var a = document.getElementById(activeId);
+    var b = document.getElementById(inactiveId);
+    if (a) a.classList.add('active');
+    if (b) b.classList.remove('active');
+}
+
+function setMileageUnit(unit) {
+    var a = document.getElementById('mileageMinDisplay'), b = document.getElementById('mileageMaxDisplay');
+    if (!a || !b) return;
+    if (unit === 'mi' && !mileageInMiles) {
+        mileageInMiles = true;
+        if (a.value) a.value = Math.round(parseFloat(a.value) * KM_TO_MI);
+        if (b.value) b.value = Math.round(parseFloat(b.value) * KM_TO_MI);
+        setBtn('btnMi', 'btnKm');
+    } else if (unit === 'km' && mileageInMiles) {
+        mileageInMiles = false;
+        if (a.value) a.value = Math.round(parseFloat(a.value) * MI_TO_KM);
+        if (b.value) b.value = Math.round(parseFloat(b.value) * MI_TO_KM);
+        setBtn('btnKm', 'btnMi');
+    }
+}
+
+function setPowerUnit(unit) {
+    var a = document.getElementById('powerMinDisplay'), b = document.getElementById('powerMaxDisplay');
+    if (!a || !b) return;
+    if (unit === 'hp' && !powerInHp) {
+        powerInHp = true;
+        if (a.value) a.value = Math.round(parseFloat(a.value) * KW_TO_HP);
+        if (b.value) b.value = Math.round(parseFloat(b.value) * KW_TO_HP);
+        setBtn('btnHp', 'btnKw');
+    } else if (unit === 'kw' && powerInHp) {
+        powerInHp = false;
+        if (a.value) a.value = Math.round(parseFloat(a.value) * HP_TO_KW);
+        if (b.value) b.value = Math.round(parseFloat(b.value) * HP_TO_KW);
+        setBtn('btnKw', 'btnHp');
+    }
+}
+
+function setEngineUnit(unit) {
+    var a = document.getElementById('engineMinDisplay'), b = document.getElementById('engineMaxDisplay');
+    if (!a || !b) return;
+    if (unit === 'cm3' && !engineInCm3) {
+        engineInCm3 = true;
+        if (a.value) a.value = Math.round(parseFloat(a.value) * L_TO_CM3);
+        if (b.value) b.value = Math.round(parseFloat(b.value) * L_TO_CM3);
+        a.removeAttribute('step'); b.removeAttribute('step');
+        setBtn('btnCm3', 'btnL');
+    } else if (unit === 'l' && engineInCm3) {
+        engineInCm3 = false;
+        if (a.value) a.value = (parseFloat(a.value) * CM3_TO_L).toFixed(1);
+        if (b.value) b.value = (parseFloat(b.value) * CM3_TO_L).toFixed(1);
+        a.setAttribute('step', '0.1'); b.setAttribute('step', '0.1');
+        setBtn('btnL', 'btnCm3');
+    }
+}
+
+// ═══ Cars Brand+Model rows ═══
+var bmRowCounter = 1;
+
+function bmLoadModels(brandSel, rowIdx) {
+    var modelSel;
+    if (rowIdx === 0 || brandSel.parentElement.id === 'bmRowsContainer') {
+        modelSel = document.querySelector('.adv-grid3 > .adv-field .bm-model');
+        if (!modelSel) modelSel = document.querySelector('.bm-model');
+    } else {
+        var pair = document.querySelector('.bm-extra-pair[data-row-idx="' + rowIdx + '"] .bm-model');
+        if (pair) modelSel = pair;
+    }
+    var brandId = brandSel.value;
+    if (!modelSel) return;
+    modelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+    if (!brandId) {
+        modelSel.disabled = true;
+        return;
+    }
+    modelSel.disabled = false;
+    fetch('/ajax/get-models/?brand_id=' + brandId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            data.forEach(function(item) {
+                if (item.type !== 'model') return;
+                var opt = document.createElement('option');
+                opt.value = item.model_id;
+                opt.textContent = item.name;
+                opt.dataset.name = item.name;
+                modelSel.appendChild(opt);
+            });
+        });
+}
+
+function bmAddRow(brandIdToSelect, modelIdToSelect) {
+    var container = document.getElementById('bmExtraRows');
+    if (!container) return;
+    var idx = bmRowCounter++;
+
+    var brandWrap = document.createElement('div');
+    brandWrap.className = 'adv-field bm-extra-pair';
+    brandWrap.dataset.rowIdx = idx;
+    brandWrap.style.gridColumnStart = '1';
+
+    var modelWrap = document.createElement('div');
+    modelWrap.className = 'adv-field bm-extra-pair';
+    modelWrap.dataset.rowIdx = idx;
+    modelWrap.style.gridColumnStart = '2';
+    modelWrap.style.position = 'relative';
+
+    var firstSelect = document.querySelector('.bm-brand');
+    var brandOptionsHtml = firstSelect ? firstSelect.innerHTML : '<option value="">{% trans "All" %}</option>';
+
+    brandWrap.innerHTML =
+        '<label>{% trans "Brand" %}</label>' +
+        '<select class="adv-select bm-brand" onchange="bmLoadModels(this, ' + idx + ')">' + brandOptionsHtml + '</select>';
+
+    modelWrap.innerHTML =
+        '<label>{% trans "Model" %}</label>' +
+        '<select class="adv-select bm-model" disabled style="padding-right:30px;">' +
+            '<option value="">{% trans "All" %}</option>' +
+        '</select>' +
+        '<button type="button" onclick="bmRemoveExtraRow(' + idx + ')" title="{% trans "Remove" %}" style="position:absolute;right:-28px;bottom:6px;background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.4rem;line-height:1;padding:0 4px;font-weight:700;">×</button>';
+
+    container.appendChild(brandWrap);
+    container.appendChild(modelWrap);
+
+    if (brandIdToSelect) {
+        var brandSel = brandWrap.querySelector('.bm-brand');
+        brandSel.value = brandIdToSelect;
+        var modelSel = modelWrap.querySelector('.bm-model');
+        modelSel.disabled = false;
+        fetch('/ajax/get-models/?brand_id=' + brandIdToSelect)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                modelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+                data.forEach(function(item) {
+                    if (item.type !== 'model') return;
+                    var opt = document.createElement('option');
+                    opt.value = item.model_id;
+                    opt.textContent = item.name;
+                    opt.dataset.name = item.name;
+                    if (modelIdToSelect && String(item.model_id) === String(modelIdToSelect)) opt.selected = true;
+                    modelSel.appendChild(opt);
+                });
+            });
+    }
+}
+
+function bmRemoveExtraRow(idx) {
+    document.querySelectorAll('.bm-extra-pair[data-row-idx="' + idx + '"]').forEach(function(el) {
+        el.remove();
+    });
+}
+
+// ═══ Parts Brand+Model rows ═══
+var cvRowCounter = 1;
+
+function cvLoadModels(brandSel, rowIdx) {
+    var modelSel;
+    if (rowIdx === 0 || brandSel.parentElement.id === 'cvRowsContainer') {
+        modelSel = document.querySelector('.cv-model');
+    } else {
+        var pair = document.querySelector('.cv-extra-pair[data-row-idx="' + rowIdx + '"] .cv-model');
+        if (pair) modelSel = pair;
+    }
+    var brandId = brandSel.value;
+    if (!modelSel) return;
+    modelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+    if (!brandId) { modelSel.disabled = true; return; }
+    modelSel.disabled = false;
+    fetch('/ajax/get-models/?brand_id=' + brandId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            data.forEach(function(item) {
+                if (item.type !== 'model') return;
+                var opt = document.createElement('option');
+                opt.value = item.model_id;
+                opt.textContent = item.name;
+                opt.dataset.name = item.name;
+                modelSel.appendChild(opt);
+            });
+        });
+}
+
+function cvAddRow(brandIdToSelect, modelIdToSelect) {
+    var container = document.getElementById('cvExtraRows');
+    if (!container) return;
+    var idx = cvRowCounter++;
+
+    var brandWrap = document.createElement('div');
+    brandWrap.className = 'adv-field cv-extra-pair';
+    brandWrap.dataset.rowIdx = idx;
+    brandWrap.style.gridColumnStart = '1';
+
+    var modelWrap = document.createElement('div');
+    modelWrap.className = 'adv-field cv-extra-pair';
+    modelWrap.dataset.rowIdx = idx;
+    modelWrap.style.gridColumnStart = '2';
+    modelWrap.style.position = 'relative';
+
+    var firstSelect = document.querySelector('.cv-brand');
+    var brandOptionsHtml = firstSelect ? firstSelect.innerHTML : '<option value="">{% trans "All" %}</option>';
+
+    brandWrap.innerHTML =
+        '<label>{% trans "Brand" %}</label>' +
+        '<select class="adv-select cv-brand" onchange="cvLoadModels(this, ' + idx + ')">' + brandOptionsHtml + '</select>';
+
+    modelWrap.innerHTML =
+        '<label>{% trans "Model" %}</label>' +
+        '<select class="adv-select cv-model" disabled style="padding-right:30px;">' +
+            '<option value="">{% trans "All" %}</option>' +
+        '</select>' +
+        '<button type="button" onclick="cvRemoveExtraRow(' + idx + ')" title="{% trans "Remove" %}" style="position:absolute;right:-28px;bottom:6px;background:none;border:none;color:#dc2626;cursor:pointer;font-size:1.4rem;line-height:1;padding:0 4px;font-weight:700;">×</button>';
+
+    container.appendChild(brandWrap);
+    container.appendChild(modelWrap);
+
+    if (brandIdToSelect) {
+        var brandSel = brandWrap.querySelector('.cv-brand');
+        brandSel.value = brandIdToSelect;
+        var modelSel = modelWrap.querySelector('.cv-model');
+        modelSel.disabled = false;
+        fetch('/ajax/get-models/?brand_id=' + brandIdToSelect)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                modelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+                data.forEach(function(item) {
+                    if (item.type !== 'model') return;
+                    var opt = document.createElement('option');
+                    opt.value = item.model_id;
+                    opt.textContent = item.name;
+                    opt.dataset.name = item.name;
+                    if (modelIdToSelect && String(item.model_id) === String(modelIdToSelect)) opt.selected = true;
+                    modelSel.appendChild(opt);
+                });
+            });
+    }
+}
+
+function cvRemoveExtraRow(idx) {
+    document.querySelectorAll('.cv-extra-pair[data-row-idx="' + idx + '"]').forEach(function(el) {
+        el.remove();
+    });
+}
+
+var US_CITIES = {"AL":["Anniston","Auburn","Birmingham","Decatur","Dothan","Florence","Gadsden","Hoover","Huntsville","Mobile","Montgomery","Tuscaloosa"],"AK":["Anchorage","Fairbanks","Juneau","Ketchikan","Sitka","Wasilla"],"AZ":["Chandler","Gilbert","Glendale","Mesa","Peoria","Phoenix","Scottsdale","Surprise","Tempe","Tucson","Yuma"],"AR":["Conway","Fayetteville","Fort Smith","Jonesboro","Little Rock","North Little Rock","Pine Bluff","Springdale"],"CA":["Anaheim","Bakersfield","Chula Vista","Fresno","Irvine","Long Beach","Los Angeles","Oakland","Riverside","Sacramento","San Diego","San Francisco","San Jose","Santa Ana","Stockton"],"CO":["Aurora","Boulder","Colorado Springs","Denver","Fort Collins","Lakewood","Pueblo","Thornton","Westminster"],"CT":["Bridgeport","Hartford","New Haven","Norwalk","Stamford","Waterbury"],"DE":["Dover","Newark","Wilmington"],"FL":["Cape Coral","Clearwater","Fort Lauderdale","Gainesville","Hialeah","Jacksonville","Miami","Orlando","Port St. Lucie","St. Petersburg","Tallahassee","Tampa"],"GA":["Albany","Athens","Atlanta","Augusta","Columbus","Macon","Roswell","Savannah","Warner Robins"],"HI":["Hilo","Honolulu","Kailua","Kaneohe","Pearl City"],"ID":["Boise","Caldwell","Idaho Falls","Meridian","Nampa","Pocatello","Twin Falls"],"IL":["Aurora","Chicago","Joliet","Naperville","Peoria","Rockford","Springfield"],"IN":["Carmel","Evansville","Fort Wayne","Gary","Hammond","Indianapolis","South Bend"],"IA":["Cedar Rapids","Davenport","Des Moines","Iowa City","Sioux City","Waterloo"],"KS":["Kansas City","Olathe","Overland Park","Topeka","Wichita"],"KY":["Bowling Green","Covington","Lexington","Louisville","Owensboro"],"LA":["Baton Rouge","Lafayette","Lake Charles","New Orleans","Shreveport"],"ME":["Auburn","Augusta","Bangor","Portland"],"MD":["Annapolis","Baltimore","Bowie","Frederick","Gaithersburg","Rockville"],"MA":["Boston","Cambridge","Lowell","New Bedford","Springfield","Worcester"],"MI":["Ann Arbor","Detroit","Flint","Grand Rapids","Lansing","Sterling Heights","Warren"],"MN":["Bloomington","Duluth","Minneapolis","Rochester","Saint Paul"],"MS":["Biloxi","Gulfport","Hattiesburg","Jackson","Meridian"],"MO":["Columbia","Independence","Kansas City","Springfield","St. Louis"],"MT":["Billings","Bozeman","Great Falls","Helena","Missoula"],"NE":["Bellevue","Lincoln","Omaha"],"NV":["Henderson","Las Vegas","North Las Vegas","Reno","Sparks"],"NH":["Concord","Manchester","Nashua"],"NJ":["Jersey City","Newark","Paterson","Trenton"],"NM":["Albuquerque","Las Cruces","Rio Rancho","Santa Fe"],"NY":["Albany","Buffalo","New York City","Rochester","Syracuse","Yonkers"],"NC":["Cary","Charlotte","Durham","Fayetteville","Greensboro","Raleigh","Winston-Salem"],"ND":["Bismarck","Fargo","Grand Forks","Minot"],"OH":["Akron","Cincinnati","Cleveland","Columbus","Dayton","Toledo"],"OK":["Broken Arrow","Edmond","Lawton","Norman","Oklahoma City","Tulsa"],"OR":["Beaverton","Eugene","Gresham","Hillsboro","Portland","Salem"],"PA":["Allentown","Erie","Philadelphia","Pittsburgh","Reading","Scranton"],"RI":["Cranston","Pawtucket","Providence","Warwick"],"SC":["Charleston","Columbia","Greenville","Mount Pleasant","Rock Hill"],"SD":["Aberdeen","Rapid City","Sioux Falls"],"TN":["Chattanooga","Clarksville","Knoxville","Memphis","Nashville"],"TX":["Arlington","Austin","Corpus Christi","Dallas","El Paso","Fort Worth","Garland","Houston","Irving","Laredo","Lubbock","Plano","San Antonio"],"UT":["Layton","Ogden","Provo","Salt Lake City","St. George","West Valley City"],"VT":["Burlington","Montpelier","Rutland"],"VA":["Alexandria","Chesapeake","Norfolk","Richmond","Roanoke","Virginia Beach"],"WA":["Bellevue","Everett","Kent","Seattle","Spokane","Tacoma","Vancouver"],"WV":["Charleston","Huntington","Morgantown","Parkersburg"],"WI":["Green Bay","Kenosha","Madison","Milwaukee","Racine"],"WY":["Casper","Cheyenne","Gillette","Laramie"]};
+
+function loadCities(state) {
+    var citySelect = document.getElementById('cityFilter');
+    if (!citySelect) return;
+    var savedCity = '{{ f.city_filter }}';
+    citySelect.innerHTML = '<option value="">{% trans "All Cities" %}</option>';
+    if (state && US_CITIES[state]) {
+        citySelect.disabled = false;
+        US_CITIES[state].forEach(function(city) {
+            var opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            if (city === savedCity) opt.selected = true;
+            citySelect.appendChild(opt);
+        });
+    } else {
+        citySelect.disabled = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var savedState = '{{ f.state_filter }}';
+    if (savedState) loadCities(savedState);
+
+    var params = new URLSearchParams(window.location.search);
+
+    var pairs = params.getAll('pair').filter(function(p) {
+        return p && p.split('|').length === 4;
+    });
+
+    // FALLBACK: jei nėra 'pair', bet yra paprastas 'brand' iš sidebar — naudoj jį
+    if (pairs.length === 0 && params.get('brand')) {
+        var simpleBrand = params.get('brand');
+        var simpleModel = params.get('model') || '';
+        pairs = [simpleBrand + '||' + simpleModel + '|'];
+    }
+
+    pairs.forEach(function(p, idx) {
+        var parts = p.split('|');
+        var brandId = parts[0];
+        var modelId = parts[2];
+        if (idx === 0) {
+            var firstBrandSel = document.querySelector('.bm-brand');
+            if (firstBrandSel) {
+                firstBrandSel.value = brandId;
+                var firstModelSel = document.querySelector('.bm-model');
+                firstModelSel.disabled = false;
+                fetch('/ajax/get-models/?brand_id=' + brandId)
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        firstModelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+                        data.forEach(function(item) {
+                            if (item.type !== 'model') return;
+                            var opt = document.createElement('option');
+                            opt.value = item.model_id;
+                            opt.textContent = item.name;
+                            if (String(item.model_id) === String(modelId)) opt.selected = true;
+                            firstModelSel.appendChild(opt);
+                        });
+                    });
+            }
+        } else {
+            bmAddRow(brandId, modelId);
+        }
+    });
+
+    var compats = params.getAll('compat').filter(function(p) {
+        return p && p.split('|').length >= 4;
+    });
+    compats.forEach(function(p, idx) {
+        var parts = p.split('|');
+        var brandId = parts[0];
+        var modelId = parts[2];
+        if (idx === 0) {
+            var firstBrandSel = document.querySelector('.cv-brand');
+            if (firstBrandSel) {
+                firstBrandSel.value = brandId;
+                var firstModelSel = document.querySelector('.cv-model');
+                firstModelSel.disabled = false;
+                fetch('/ajax/get-models/?brand_id=' + brandId)
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        firstModelSel.innerHTML = '<option value="">{% trans "All" %}</option>';
+                        data.forEach(function(item) {
+                            if (item.type !== 'model') return;
+                            var opt = document.createElement('option');
+                            opt.value = item.model_id;
+                            opt.textContent = item.name;
+                            if (String(item.model_id) === String(modelId)) opt.selected = true;
+                            firstModelSel.appendChild(opt);
+                        });
+                    });
+            }
+        } else {
+            cvAddRow(brandId, modelId);
+        }
+    });
+
+    updateEqCounter();
+
+    var equipChecked = document.querySelectorAll('input[name="equipment"]:checked');
+    if (equipChecked.length > 0) {
+        var equipBody = document.getElementById('equipmentBody');
+        var equipIcon = document.getElementById('eqToggleIcon');
+        if (equipBody) equipBody.style.display = 'block';
+        if (equipIcon) equipIcon.className = 'fas fa-chevron-up eq-toggle-icon';
+    }
+
+    updateAdvBodyTypeLabel();
+
+    if (params.get('mileage_unit') === 'mi' && document.getElementById('mileageMinDisplay')) {
+        mileageInMiles = true;
+        var minV = document.getElementById('mileageMinDisplay').value;
+        var maxV = document.getElementById('mileageMaxDisplay').value;
+        if (minV) document.getElementById('mileageMinDisplay').value = Math.round(minV * KM_TO_MI);
+        if (maxV) document.getElementById('mileageMaxDisplay').value = Math.round(maxV * KM_TO_MI);
+        setBtn('btnMi', 'btnKm');
+    }
+    if (params.get('power_unit') === 'hp' && document.getElementById('powerMinDisplay')) {
+        powerInHp = true;
+        var minV = document.getElementById('powerMinDisplay').value;
+        var maxV = document.getElementById('powerMaxDisplay').value;
+        if (minV) document.getElementById('powerMinDisplay').value = Math.round(minV * KW_TO_HP);
+        if (maxV) document.getElementById('powerMaxDisplay').value = Math.round(maxV * KW_TO_HP);
+        setBtn('btnHp', 'btnKw');
+    }
+    if (params.get('engine_unit') === 'cm3' && document.getElementById('engineMinDisplay')) {
+        engineInCm3 = true;
+        var minV = document.getElementById('engineMinDisplay').value;
+        var maxV = document.getElementById('engineMaxDisplay').value;
+        if (minV) document.getElementById('engineMinDisplay').value = Math.round(minV * L_TO_CM3);
+        if (maxV) document.getElementById('engineMaxDisplay').value = Math.round(maxV * L_TO_CM3);
+        document.getElementById('engineMinDisplay').removeAttribute('step');
+        document.getElementById('engineMaxDisplay').removeAttribute('step');
+        setBtn('btnCm3', 'btnL');
+    }
+});
+
+function prepareSubmit() {
+    var mA = document.getElementById('mileageMinDisplay'), mB = document.getElementById('mileageMaxDisplay');
+    if (mA && mB) {
+        document.getElementById('mileageMinKm').value = mA.value ? (mileageInMiles ? Math.round(parseFloat(mA.value) * MI_TO_KM) : mA.value) : '';
+        document.getElementById('mileageMaxKm').value = mB.value ? (mileageInMiles ? Math.round(parseFloat(mB.value) * MI_TO_KM) : mB.value) : '';
+        document.getElementById('mileageUnitHidden').value = mileageInMiles ? 'mi' : 'km';
+    }
+
+    var pA = document.getElementById('powerMinDisplay'), pB = document.getElementById('powerMaxDisplay');
+    if (pA && pB) {
+        document.getElementById('powerMinKw').value = pA.value ? (powerInHp ? Math.round(parseFloat(pA.value) * HP_TO_KW) : pA.value) : '';
+        document.getElementById('powerMaxKw').value = pB.value ? (powerInHp ? Math.round(parseFloat(pB.value) * HP_TO_KW) : pB.value) : '';
+        document.getElementById('powerUnitHidden').value = powerInHp ? 'hp' : 'kw';
+    }
+
+    var eA = document.getElementById('engineMinDisplay'), eB = document.getElementById('engineMaxDisplay');
+    if (eA && eB) {
+        document.getElementById('engineMinL').value = eA.value ? (engineInCm3 ? (parseFloat(eA.value) * CM3_TO_L).toFixed(1) : eA.value) : '';
+        document.getElementById('engineMaxL').value = eB.value ? (engineInCm3 ? (parseFloat(eB.value) * CM3_TO_L).toFixed(1) : eB.value) : '';
+        document.getElementById('engineUnitHidden').value = engineInCm3 ? 'cm3' : 'l';
+    }
+
+    var bmInputs = document.getElementById('bmInputs');
+    if (bmInputs) {
+        bmInputs.innerHTML = '';
+        var firstBrand = document.querySelector('#bmRowsContainer .bm-brand');
+        var firstModel = document.querySelector('.adv-grid3 > .adv-field .bm-model');
+        if (firstBrand && firstBrand.value) {
+            var brandId = firstBrand.value;
+            var brandName = firstBrand.selectedOptions[0].dataset.name || firstBrand.selectedOptions[0].textContent;
+            var modelId = (firstModel && firstModel.value) ? firstModel.value : '';
+            var modelName = modelId ? (firstModel.selectedOptions[0].dataset.name || firstModel.selectedOptions[0].textContent) : '';
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = 'pair';
+            inp.value = brandId + '|' + brandName + '|' + modelId + '|' + modelName;
+            bmInputs.appendChild(inp);
+        }
+        var extraIndices = new Set();
+        document.querySelectorAll('.bm-extra-pair').forEach(function(el) {
+            extraIndices.add(el.dataset.rowIdx);
+        });
+        extraIndices.forEach(function(idx) {
+            var brandSel = document.querySelector('.bm-extra-pair[data-row-idx="' + idx + '"] .bm-brand');
+            var modelSel = document.querySelector('.bm-extra-pair[data-row-idx="' + idx + '"] .bm-model');
+            if (!brandSel || !brandSel.value) return;
+            var brandId = brandSel.value;
+            var brandName = brandSel.selectedOptions[0].dataset.name || brandSel.selectedOptions[0].textContent;
+            var modelId = (modelSel && modelSel.value) ? modelSel.value : '';
+            var modelName = modelId ? (modelSel.selectedOptions[0].dataset.name || modelSel.selectedOptions[0].textContent) : '';
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = 'pair';
+            inp.value = brandId + '|' + brandName + '|' + modelId + '|' + modelName;
+            bmInputs.appendChild(inp);
+        });
+    }
+
+    var cvInputs = document.getElementById('compatVehicleInputs');
+    if (cvInputs) {
+        cvInputs.innerHTML = '';
+        var firstCvBrand = document.querySelector('#cvRowsContainer .cv-brand');
+        var firstCvModel = document.querySelector('.adv-grid3 > .adv-field .cv-model');
+        if (firstCvBrand && firstCvBrand.value) {
+            var brandId = firstCvBrand.value;
+            var brandName = firstCvBrand.selectedOptions[0].dataset.name || firstCvBrand.selectedOptions[0].textContent;
+            var modelId = (firstCvModel && firstCvModel.value) ? firstCvModel.value : '';
+            var modelName = modelId ? (firstCvModel.selectedOptions[0].dataset.name || firstCvModel.selectedOptions[0].textContent) : '';
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = 'compat';
+            inp.value = brandId + '|' + brandName + '|' + modelId + '|' + modelName + '||';
+            cvInputs.appendChild(inp);
+        }
+        var cvExtraIndices = new Set();
+        document.querySelectorAll('.cv-extra-pair').forEach(function(el) {
+            cvExtraIndices.add(el.dataset.rowIdx);
+        });
+        cvExtraIndices.forEach(function(idx) {
+            var brandSel = document.querySelector('.cv-extra-pair[data-row-idx="' + idx + '"] .cv-brand');
+            var modelSel = document.querySelector('.cv-extra-pair[data-row-idx="' + idx + '"] .cv-model');
+            if (!brandSel || !brandSel.value) return;
+            var brandId = brandSel.value;
+            var brandName = brandSel.selectedOptions[0].dataset.name || brandSel.selectedOptions[0].textContent;
+            var modelId = (modelSel && modelSel.value) ? modelSel.value : '';
+            var modelName = modelId ? (modelSel.selectedOptions[0].dataset.name || modelSel.selectedOptions[0].textContent) : '';
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = 'compat';
+            inp.value = brandId + '|' + brandName + '|' + modelId + '|' + modelName + '||';
+            cvInputs.appendChild(inp);
+        });
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// LIVE COUNT — atnaujina "Search (N)" mygtuką realtime
+// ═══════════════════════════════════════════════════════════
+(function() {
+    var form = document.getElementById('advForm');
+    var countEl = document.getElementById('advSearchCount');
+    if (!form || !countEl) return;
+
+    var debounceTimer = null;
+
+    function updateLiveCount() {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+            // Surenkam visus form'os parametrus BE prepareSubmit() — kad nepakeistų UI state
+            var params = new URLSearchParams();
+
+            // Visi normalūs input/select (be Brand/Model — juos pridėsim atskirai kaip 'brand' ir 'model')
+            form.querySelectorAll('input, select').forEach(function(el) {
+                if (!el.name) return;
+                if (el.classList.contains('bm-brand') || el.classList.contains('bm-model')) return;
+                if (el.classList.contains('cv-brand') || el.classList.contains('cv-model')) return;
+                if (el.type === 'checkbox' && !el.checked) return;
+                if (el.value === '' || el.value === null) return;
+                params.append(el.name, el.value);
+            });
+
+            // Brand + Model — paimam tiesiai (pirmą porą)
+            var firstBrand = document.querySelector('#bmRowsContainer .bm-brand');
+            if (firstBrand && firstBrand.value) {
+                params.append('brand', firstBrand.value);
+                var firstModel = document.querySelector('.adv-grid3 > .adv-field .bm-model');
+                if (firstModel && firstModel.value) {
+                    params.append('model', firstModel.value);
+                }
+            }
+
+            countEl.textContent = '(...)';
+
+            fetch('/ajax/advanced-search-count/?' + params.toString())
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    countEl.textContent = '(' + data.count + ')';
+                })
+                .catch(function() {
+                    countEl.textContent = '(?)';
+                });
+        }, 400);
+    }
+
+    // Klausomės visų form pakeitimų
+    form.addEventListener('change', updateLiveCount);
+    form.addEventListener('input', function(e) {
+        if (e.target.tagName === 'INPUT') updateLiveCount();
+    });
+})();
+</script>
+{% endblock %}

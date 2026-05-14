@@ -1,0 +1,1398 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% if is_edit %}{% trans "Edit" %}{% else %}{% trans "Create" %}{% endif %} {% trans "Trucks Listing" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.create-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+.create-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #0891b2;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.875rem 1rem;
+}
+@media (max-width: 1024px) { .field-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .field-grid { grid-template-columns: 1fr; } }
+
+.field-grid .col-2 { grid-column: span 2; }
+.field-grid .col-3 { grid-column: span 3; }
+.field-grid .col-4 { grid-column: span 4; }
+@media (max-width: 1024px) {
+    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 2; }
+}
+@media (max-width: 640px) {
+    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 1; }
+}
+
+.field-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.35rem;
+}
+.required-star { color: #dc2626; margin-left: 2px; }
+
+.form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.45rem;
+    font-size: 0.875rem;
+    color: #111827;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.1);
+}
+.form-textarea { min-height: 100px; resize: vertical; }
+
+.form-input.has-error, .form-select.has-error, .form-textarea.has-error {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+.field-error-msg {
+    display: block;
+    color: #dc2626;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.year-month-row { display: flex; gap: 0.5rem; }
+.year-month-row > * { flex: 1; min-width: 0; }
+
+.with-suffix { position: relative; display: flex; align-items: stretch; }
+.with-suffix .form-input { border-top-right-radius: 0; border-bottom-right-radius: 0; flex: 1; }
+.with-suffix .suffix {
+    padding: 0 0.65rem;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-left: 0;
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.with-suffix .form-select.suffix-select {
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    width: 90px;
+    flex-shrink: 0;
+    background: #f9fafb;
+}
+
+/* ═══ UNIT TOGGLE BUTTONS (kW|HP, km|mi) — cars-style ═══ */
+.unit-toggle-group {
+    display: inline-flex;
+    border: 1px solid #e5e7eb;
+    border-left: 0;
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #fff;
+}
+.unit-toggle-btn {
+    padding: 0 0.65rem;
+    background: #fff;
+    border: 0;
+    border-left: 1px solid #e5e7eb;
+    font-size: 0.78rem;
+    color: #6b7280;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s, color 0.1s;
+    min-width: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.unit-toggle-btn:first-child { border-left: 0; }
+.unit-toggle-btn:hover { background: #f9fafb; color: #111827; }
+.unit-toggle-btn.active {
+    background: #6b7280;
+    color: #fff;
+    font-weight: 600;
+}
+.unit-toggle-btn.active:hover { background: #6b7280; }
+.unit-conversion-hint {
+    display: block;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+.equipment-section { margin-bottom: 1.25rem; }
+.equipment-section:last-child { margin-bottom: 0; }
+.equipment-cat-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem 0.875rem;
+}
+@media (max-width: 1024px) { .equipment-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .equipment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .equipment-grid { grid-template-columns: 1fr; } }
+.equipment-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+.equipment-row:hover { background: #f9fafb; }
+.equipment-row input { accent-color: #0891b2; width: 14px; height: 14px; flex-shrink: 0; }
+.equipment-row span { font-size: 0.825rem; color: #374151; }
+
+.photo-drop-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafafa;
+    margin-bottom: 1rem;
+}
+.photo-drop-zone:hover, .photo-drop-zone.drag-over {
+    border-color: #0891b2;
+    background: #ecfeff;
+}
+.photo-drop-zone .icon { font-size: 2rem; color: #d1d5db; margin-bottom: 0.5rem; }
+.photo-drop-zone:hover .icon, .photo-drop-zone.drag-over .icon { color: #0891b2; }
+.photo-drop-zone .text { color: #6b7280; font-size: 0.875rem; }
+.photo-drop-zone .text strong { color: #0891b2; }
+.photo-drop-zone .hint { color: #9ca3af; font-size: 0.75rem; margin-top: 0.4rem; }
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    cursor: zoom-in;
+    background: #f9fafb;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+.photo-item.dragging { opacity: 0.4; transform: scale(0.95); }
+.photo-item.drag-over-target { box-shadow: 0 0 0 3px #0891b2; }
+.photo-item img {
+    width: 100%; height: 100%;
+    object-fit: cover; pointer-events: none;
+}
+.photo-item .photo-actions {
+    position: absolute; top: 4px; right: 4px;
+    display: flex; gap: 4px; z-index: 3;
+}
+.photo-item .photo-action-btn {
+    width: 22px; height: 22px;
+    background: rgba(0, 0, 0, 0.7); color: #fff;
+    border: none; border-radius: 4px; cursor: pointer;
+    font-size: 0.65rem;
+    display: flex; align-items: center; justify-content: center;
+}
+.photo-item .photo-action-btn:hover { background: #dc2626; }
+.photo-item .photo-action-btn.view { background: rgba(0, 0, 0, 0.7); }
+.photo-item .photo-action-btn.view:hover { background: #0891b2; }
+.photo-item.is-main::before {
+    content: 'MAIN';
+    position: absolute; top: 4px; left: 4px;
+    padding: 2px 6px; background: #16a34a; color: #fff;
+    font-size: 0.6rem; font-weight: 700;
+    border-radius: 3px; z-index: 2;
+}
+
+.photo-grid-hint {
+    grid-column: 1 / -1;
+    text-align: center; color: #9ca3af;
+    font-size: 0.75rem; padding: 0.5rem;
+}
+
+.action-bar-bottom {
+    position: sticky; bottom: 1rem;
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    display: flex; align-items: center;
+    justify-content: flex-end; gap: 0.75rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    z-index: 20; margin-top: 1rem;
+}
+.btn-cancel {
+    padding: 0.6rem 1.5rem;
+    background: #fff; border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem; color: #6b7280;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.btn-cancel:hover { background: #f9fafb; color: #111827; }
+.btn-publish {
+    padding: 0.6rem 1.75rem;
+    background: linear-gradient(to right, #0891b2, #0e7490);
+    color: #fff; border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
+    display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-publish:hover {
+    box-shadow: 0 6px 14px rgba(8, 145, 178, 0.35);
+    transform: translateY(-1px);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen pb-12">
+    <div class="max-w-5xl mx-auto px-4 py-6">
+
+        {# ═══ Header (different for create vs edit) ═══ #}
+        {% if is_edit %}
+            <div class="mb-5 flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                        🚛 {% trans "Edit Trucks Listing" %}
+                        <span class="text-sm font-normal text-gray-500">#{{ current_listing.pk }}</span>
+                    </h1>
+                    <p class="text-gray-500 text-sm mt-1">
+                        {% trans "Status:" %}
+                        <span class="font-medium {% if current_listing.status == 'active' %}text-green-600{% elif current_listing.status == 'reserved' %}text-yellow-600{% elif current_listing.status == 'sold' %}text-blue-600{% else %}text-gray-600{% endif %}">
+                            {{ current_listing.get_status_display }}
+                        </span>
+                        {% if current_listing.expires_at %}
+                            · {% blocktrans with date=current_listing.expires_at|date:"M d, Y" %}Expires {{ date }}{% endblocktrans %}
+                        {% endif %}
+                    </p>
+                </div>
+                <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">
+                    <i class="fas fa-eye"></i> {% trans "View public page" %}
+                </a>
+            </div>
+        {% else %}
+            <div class="mb-5">
+                <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    🚛 {% trans "Create Trucks & Commercial Listing" %}
+                </h1>
+                <p class="text-gray-500 text-sm mt-1">
+                    {% blocktrans %}Fill in the details below. Required fields are marked with <span class="text-red-600">*</span>.{% endblocktrans %}
+                </p>
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" id="truckForm">
+            {% csrf_token %}
+
+            {# ════════════════════════════════════════════════ #}
+            {#  BASIC INFORMATION (autoplius 8x4 layout)        #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Basic Information" %}</div>
+
+                <div class="field-grid">
+
+                    {# ─── ROW 1: Type | First registration | Gross weight | Curb weight ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
+                        <select name="truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_type_choices %}
+                            <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.truck_type %}<span class="field-error-msg">{{ errors.truck_type }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "First registration" %}<span class="required-star">*</span></label>
+                        <div class="year-month-row">
+                            <select name="year" class="form-select {% if errors.year %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">{% trans "Year" %}</option>
+                                {% for y in years %}
+                                <option value="{{ y }}" {% if data.year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="first_registration_month" class="form-select {% if errors.first_registration_month %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">{% trans "MM" %}</option>
+                                {% for v, l in months %}
+                                <option value="{{ v }}" {% if data.first_registration_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if errors.year %}<span class="field-error-msg">{{ errors.year }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Gross weight" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="gross_weight_kg" id="grossWeightInput" value="{{ data.gross_weight_kg }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="grossWeight">kg</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="grossWeight">lbs</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="grossWeightHint"></span>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Curb weight" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="curb_weight" id="curbWeightInput" value="{{ data.curb_weight }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="curbWeight">kg</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="curbWeight">lbs</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="curbWeightHint"></span>
+                    </div>
+
+                    {# ─── ROW 2: Make | Model | Power (kW↔HP) | Mileage (km↔mi) ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Make" %}<span class="required-star">*</span></label>
+                        <select name="truck_brand" class="form-select {% if errors.truck_brand %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for brand in brands %}
+                            <option value="{{ brand.id }}" {% if data.truck_brand|stringformat:'s' == brand.id|stringformat:'s' %}selected{% endif %}>{{ brand.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.truck_brand %}<span class="field-error-msg">{{ errors.truck_brand }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Model" %}<span class="required-star">*</span></label>
+                        <input type="text" name="truck_model_text"
+                               value="{{ data.truck_model_text }}"
+                               maxlength="100"
+                               placeholder="{% trans 'e.g. FH16, Actros 1845' %}"
+                               class="form-input {% if errors.truck_model_text %}has-error{% endif %}"
+                               {% if not is_edit %}data-autosave="true"{% endif %}>
+                        {% if errors.truck_model_text %}<span class="field-error-msg">{{ errors.truck_model_text }}</span>{% endif %}
+                    </div>
+
+                    {# ─── POWER — input + [kW|HP] toggle, conversion hint below ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Power" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="power" id="powerInput" value="{{ data.power }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="kW" data-target="power">kW</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="HP" data-target="power">HP</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="powerHint"></span>
+                    </div>
+
+                    {# ─── MILEAGE — input + [km|mi] toggle, conversion hint below ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Mileage" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="mileage" id="mileageInput" value="{{ data.mileage }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="km" data-target="mileage">km</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="mi" data-target="mileage">mi</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="mileageHint"></span>
+                    </div>
+
+                    {# ─── ROW 3: Fuel type | Wheel formula | Length | Width ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Fuel type" %}<span class="required-star">*</span></label>
+                        <select name="fuel_type" class="form-select {% if errors.fuel_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for ft in fuel_types %}
+                            <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.fuel_type %}<span class="field-error-msg">{{ errors.fuel_type }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Wheel formula" %}</label>
+                        <select name="wheel_formula" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in wheel_formula_choices %}
+                            <option value="{{ v }}" {% if data.wheel_formula == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Length" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_length_mm" id="lengthInput" value="{{ data.truck_length_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="length">mm</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="ft" data-target="length">ft</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="lengthHint"></span>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Width" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_width_mm" id="widthInput" value="{{ data.truck_width_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="width">mm</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="in" data-target="width">in</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="widthHint"></span>
+                    </div>
+
+                    {# ─── ROW 4: Mass interval | Height | Volume | Defects ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Mass interval" %}</label>
+                        <select name="mass_interval" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in mass_interval_choices %}
+                            <option value="{{ v }}" {% if data.mass_interval == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Height" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="truck_height_mm" id="heightInput" value="{{ data.truck_height_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="height">mm</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="in" data-target="height">in</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="heightHint"></span>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Volume" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" step="0.01" name="truck_volume_m3" id="volumeInput" value="{{ data.truck_volume_m3 }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="m³" data-target="volume">m³</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="ft³" data-target="volume">ft³</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="volumeHint"></span>
+                    </div>
+
+                    {# ─── ROW 5: Defects | New/Used | Payload | Fuel tank ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Defects" %}<span class="required-star">*</span></label>
+                        <select name="defects" class="form-select {% if errors.defects %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in defect_choices %}
+                            <option value="{{ v }}" {% if data.defects == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.defects %}<span class="field-error-msg">{{ errors.defects }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "New / Used" %}<span class="required-star">*</span></label>
+                        <select name="condition" class="form-select {% if errors.condition %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in condition_choices %}
+                            <option value="{{ v }}" {% if data.condition == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.condition %}<span class="field-error-msg">{{ errors.condition }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Payload capacity" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="payload_kg" id="payloadInput" value="{{ data.payload_kg }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="payload">kg</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="payload">lbs</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="payloadHint"></span>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Fuel tank capacity" %}</label>
+                        <div class="with-suffix">
+                            <input type="number" name="fuel_tank_capacity_l" id="fuelTankInput" value="{{ data.fuel_tank_capacity_l }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <div class="unit-toggle-group">
+                                <button type="button" class="unit-toggle-btn active" data-unit="L" data-target="fuelTank">L</button>
+                                <button type="button" class="unit-toggle-btn" data-unit="gal" data-target="fuelTank">gal</button>
+                            </div>
+                        </div>
+                        <span class="unit-conversion-hint" id="fuelTankHint"></span>
+                    </div>
+
+                    {# ─── ROW 6: Tech inspection | Steering | Gearbox | Sleeping seats ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Tech inspection valid until" %}</label>
+                        <div class="year-month-row">
+                            <select name="technical_inspection_year" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">{% trans "Year" %}</option>
+                                {% for y in years %}
+                                <option value="{{ y }}" {% if data.technical_inspection_year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="technical_inspection_month" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">{% trans "MM" %}</option>
+                                {% for v, l in months %}
+                                <option value="{{ v }}" {% if data.technical_inspection_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Steering" %}</label>
+                        <select name="steering" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in steering_choices %}
+                            <option value="{{ v }}" {% if data.steering == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Gearbox" %}</label>
+                        <select name="transmission" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for tr in transmissions %}
+                            <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Sleeping seats" %}</label>
+                        <input type="number" name="sleeping_seats" value="{{ data.sleeping_seats }}" min="0" max="20" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+
+                    {# ─── ROW 7: Front suspension | Rear suspension | Engine capacity ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Front suspension" %}</label>
+                        <select name="front_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_suspension_choices %}
+                            <option value="{{ v }}" {% if data.front_suspension == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Rear suspension" %}</label>
+                        <select name="rear_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in truck_suspension_choices %}
+                            <option value="{{ v }}" {% if data.rear_suspension == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Engine capacity, L" %}</label>
+                        <input type="number" step="0.1" name="engine_capacity" value="{{ data.engine_capacity }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+
+                    {# ─── ROW 8: Color | VIN ─── #}
+                    <div>
+                        <label class="field-label">{% trans "Color" %}</label>
+                        <select name="color" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in color_choices %}
+                            <option value="{{ v }}" {% if data.color == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <label class="field-label">{% trans "VIN (Body number)" %}</label>
+                        <input type="text" name="vin" value="{{ data.vin }}" maxlength="17" placeholder="{% trans 'E.G. WMA17XZZ8AY123456' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  EQUIPMENT / FEATURES                            #}
+            {# ════════════════════════════════════════════════ #}
+            {% if equipment_by_category %}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Features / Equipment" %}</div>
+                {% for cat in equipment_by_category %}
+                <div class="equipment-section">
+                    <div class="equipment-cat-title">{{ cat.label }}</div>
+                    <div class="equipment-grid">
+                        {% for item in cat.items %}
+                        <label class="equipment-row">
+                            <input type="checkbox" name="equipment" value="{{ item.id }}"
+                                   {% if item.id|stringformat:'s' in data.equipment %}checked{% endif %}
+                                   {% if not is_edit %}data-autosave="true" class="equipment-checkbox"{% endif %}>
+                            <span>{{ item.name }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {# ════════════════════════════════════════════════ #}
+            {#  DESCRIPTION                                     #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Description" %}</div>
+                <textarea name="description" rows="6" placeholder="{% trans 'Describe your truck...' %}" class="form-textarea" {% if not is_edit %}data-autosave="true"{% endif %}>{{ data.description }}</textarea>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  PHOTOS                                          #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">
+                    {% trans "Photos" %}{% if is_edit %} ({{ current_listing.images.count }} / 40){% endif %}
+                </div>
+
+                <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click()">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="text">{% blocktrans %}Drop photos here or <strong>click to upload</strong>{% endblocktrans %}</div>
+                    <div class="hint">{% trans "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder" %}</div>
+                </div>
+                <input type="file" id="photoInput" multiple accept="image/*" style="display:none;">
+
+                <div class="photo-grid" id="photoGrid">
+                    {% if is_edit %}
+                        {% for img in current_listing.images.all %}
+                        <div class="photo-item {% if img.is_main %}is-main{% endif %}" data-id="{{ img.pk }}" draggable="true">
+                            <img src="{{ img.image.url }}" alt="" data-url="{{ img.image.url }}">
+                            <div class="photo-actions">
+                                <button type="button" class="photo-action-btn view" title="{% trans 'View' %}"><i class="fas fa-eye"></i></button>
+                                <button type="button" class="photo-action-btn delete" title="{% trans 'Delete' %}"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="photo-grid-hint">{% trans "No photos yet — upload some to attract buyers" %}</div>
+                        {% endfor %}
+                    {% else %}
+                        {% if current_draft %}
+                            {% for img in current_draft.images.all %}
+                            <div class="photo-item {% if img.is_main %}is-main{% endif %}" data-id="{{ img.pk }}" draggable="true">
+                                <img src="{{ img.image.url }}" alt="" data-url="{{ img.image.url }}">
+                                <div class="photo-actions">
+                                    <button type="button" class="photo-action-btn view" title="{% trans 'View' %}"><i class="fas fa-eye"></i></button>
+                                    <button type="button" class="photo-action-btn delete" title="{% trans 'Delete' %}"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  VIDEO                                           #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Video (optional)" %}</div>
+                <input type="url" name="video_url" value="{{ data.video_url }}" placeholder="{% trans 'YouTube URL — e.g. https://youtube.com/watch?v=...' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  PRICE                                           #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Price" %}</div>
+                <div class="field-grid">
+                    <div class="col-2">
+                        <label class="field-label">{% trans "Asking price" %}<span class="required-star">*</span></label>
+                        <div class="with-suffix">
+                            <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <span class="suffix">$</span>
+                            <input type="hidden" name="currency" value="USD">
+                        </div>
+                        {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
+                    </div>
+
+                    <div class="col-2 flex items-end">
+                        <label class="equipment-row" style="padding: 0.55rem 0.75rem;">
+                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %} {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <span>{% trans "Price is negotiable" %}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {# ════════════════════════════════════════════════ #}
+            {#  LOCATION                                        #}
+            {# ════════════════════════════════════════════════ #}
+            <div class="create-card">
+                <div class="create-card-title">{% trans "Location" %}</div>
+                <div class="field-grid">
+                    <div>
+                        <label class="field-label">{% trans "Country" %}<span class="required-star">*</span></label>
+                        <select name="country" id="id_country" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            {% for v, l in country_choices %}
+                            <option value="{{ v }}" {% if data.country == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div id="stateWrapper">
+                        <label class="field-label">{% trans "State" %}<span class="required-star">*</span></label>
+                        <select name="state" class="form-select {% if errors.state %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in us_states %}
+                            <option value="{{ v }}" {% if data.state == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.state %}<span class="field-error-msg">{{ errors.state }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "City" %}<span class="required-star">*</span></label>
+                        <input type="text" name="city" value="{{ data.city }}" class="form-input {% if errors.city %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        {% if errors.city %}<span class="field-error-msg">{{ errors.city }}</span>{% endif %}
+                    </div>
+
+                    <div>
+                        <label class="field-label">{% trans "Postal code" %}</label>
+                        <input type="text" name="postal_code" value="{{ data.postal_code }}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+
+                    <div class="col-4">
+                        <label class="field-label">{% trans "Address (optional)" %}</label>
+                        <input type="text" name="address" value="{{ data.address }}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+                </div>
+            </div>
+
+            {# ─── Bottom action bar ─── #}
+            <div class="action-bar-bottom">
+                {% if is_edit %}
+                    <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">{% trans "Cancel" %}</a>
+                    <button type="submit" class="btn-publish"><i class="fas fa-save"></i> {% trans "Save Changes" %}</button>
+                {% else %}
+                    <a href="/?category=trucks" class="btn-cancel">{% trans "Cancel" %}</a>
+                    <button type="submit" class="btn-publish"><i class="fas fa-check"></i> {% trans "Publish Listing" %}</button>
+                {% endif %}
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════
+const IS_EDIT_MODE = {% if is_edit %}true{% else %}false{% endif %};
+const LISTING_ID = {% if is_edit %}{{ current_listing.pk }}{% else %}null{% endif %};
+
+const AJAX_SAVE_DRAFT = '/ajax/save-trucks-draft/';
+const AJAX_UPLOAD_IMAGE = '/ajax/upload-trucks-image/';
+const AJAX_DELETE_IMAGE = '/ajax/delete-trucks-image/';
+const AJAX_REORDER_IMAGES = '/ajax/reorder-trucks-images/';
+
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+// ─── i18n strings ───
+var I18N = {
+    deleteConfirm: "{% trans 'Delete this photo?' %}",
+    saveFailed: "{% trans 'Save failed' %}",
+    uploadFailed: "{% trans 'Upload failed' %}",
+    deleteFailed: "{% trans 'Delete failed' %}"
+};
+
+// ═══════════════════════════════════════════════════════════
+// TOAST — disabled (no-op). All save/upload feedback silent.
+// ═══════════════════════════════════════════════════════════
+function showToast(state, text) {
+    // No-op — toast notifications disabled per user request
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTOSAVE (only in CREATE mode)
+// ═══════════════════════════════════════════════════════════
+let autosaveTimer = null;
+let isAutosaving = false;
+
+function autoSave() {
+    if (IS_EDIT_MODE) return;  // Edit mode uses form submit, no autosave
+    if (autosaveTimer) clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(() => doAutosave(), 600);
+}
+
+function doAutosave() {
+    if (isAutosaving) return;
+    isAutosaving = true;
+    showToast('saving', 'Saving…');
+
+    const data = collectFormData();
+
+    fetch(AJAX_SAVE_DRAFT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+        body: JSON.stringify(data),
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success) showToast('saved', 'Saved');
+        else showToast('error', I18N.saveFailed);
+    })
+    .catch(() => showToast('error', I18N.saveFailed))
+    .finally(() => { isAutosaving = false; });
+}
+
+function collectFormData() {
+    const f = document.getElementById('truckForm');
+    const d = {};
+    f.querySelectorAll('[data-autosave="true"]').forEach(el => {
+        if (el.type === 'checkbox') {
+            if (el.name === 'equipment') return;
+            d[el.name] = el.checked;
+        } else if (el.name) {
+            d[el.name] = el.value;
+        }
+    });
+    d.equipment = Array.from(f.querySelectorAll('input[name="equipment"]:checked'))
+        .map(el => parseInt(el.value, 10));
+    return d;
+}
+
+// ═══════════════════════════════════════════════════════════
+// UNIT TOGGLES — generic system for all measurement fields
+// ═══════════════════════════════════════════════════════════
+// DB ALWAYS stores canonical values. Toggle is display-only.
+// Each toggle is configured below: input ID, canonical unit, alt unit, ratio.
+
+const UNIT_CONFIG = {
+    // target: { canonicalUnit, altUnit, mul (canonical→alt), inputId, decimals }
+    power:        { canonical: 'kW',  alt: 'HP',  mul: 1.35962,    inputId: 'powerInput',        decimals: 0 },
+    mileage:      { canonical: 'km',  alt: 'mi',  mul: 0.62137,    inputId: 'mileageInput',      decimals: 0 },
+    grossWeight:  { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'grossWeightInput',  decimals: 0 },
+    curbWeight:   { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'curbWeightInput',   decimals: 0 },
+    payload:      { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'payloadInput',      decimals: 0 },
+    length:       { canonical: 'mm',  alt: 'ft',  mul: 0.00328084, inputId: 'lengthInput',       decimals: 1 },
+    width:        { canonical: 'mm',  alt: 'in',  mul: 0.0393701,  inputId: 'widthInput',        decimals: 1 },
+    height:       { canonical: 'mm',  alt: 'in',  mul: 0.0393701,  inputId: 'heightInput',       decimals: 1 },
+    volume:       { canonical: 'm³',  alt: 'ft³', mul: 35.3147,    inputId: 'volumeInput',       decimals: 1 },
+    fuelTank:     { canonical: 'L',   alt: 'gal', mul: 0.264172,   inputId: 'fuelTankInput',     decimals: 1 },
+};
+
+// Per-target state: which unit currently DISPLAYED, and canonical value
+const unitState = {};
+const canonicalValues = {};
+
+// Init state from config
+Object.keys(UNIT_CONFIG).forEach(t => {
+    unitState[t] = UNIT_CONFIG[t].canonical;
+    canonicalValues[t] = null;
+});
+
+function formatNumber(n, decimals) {
+    if (n == null || isNaN(n)) return '';
+    if (decimals == null) decimals = 0;
+    const rounded = decimals === 0 ? Math.round(n) : Math.round(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: decimals }).format(rounded);
+}
+
+function setupUnitToggles() {
+    // ─── Init canonical values from each input (always stored as canonical on page load) ───
+    Object.entries(UNIT_CONFIG).forEach(([target, cfg]) => {
+        const input = document.getElementById(cfg.inputId);
+        if (input && input.value !== '') {
+            canonicalValues[target] = parseFloat(input.value);
+        }
+        updateHint(target);
+    });
+
+    // ─── Toggle button clicks (generic — works for all targets) ───
+    document.querySelectorAll('.unit-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.target;
+            const newUnit = btn.dataset.unit;
+            if (!UNIT_CONFIG[target]) return;
+            if (newUnit === unitState[target]) return;
+
+            // Update active visual state
+            document.querySelectorAll(`.unit-toggle-btn[data-target="${target}"]`).forEach(b => {
+                b.classList.toggle('active', b.dataset.unit === newUnit);
+            });
+
+            unitState[target] = newUnit;
+            renderInputForUnit(target);
+        });
+    });
+
+    // ─── Input change handlers (update canonical from displayed value) ───
+    Object.entries(UNIT_CONFIG).forEach(([target, cfg]) => {
+        const input = document.getElementById(cfg.inputId);
+        if (!input) return;
+        input.addEventListener('input', () => {
+            const v = parseFloat(input.value);
+            if (isNaN(v)) {
+                canonicalValues[target] = null;
+            } else if (unitState[target] === cfg.canonical) {
+                canonicalValues[target] = v;
+            } else {
+                canonicalValues[target] = v / cfg.mul;
+            }
+            updateHint(target);
+            syncCanonicalToInputName(target);
+            autoSave();
+        });
+    });
+}
+
+function renderInputForUnit(target) {
+    const cfg = UNIT_CONFIG[target];
+    const input = document.getElementById(cfg.inputId);
+    if (!input) return;
+
+    const canon = canonicalValues[target];
+    const unit = unitState[target];
+
+    if (canon == null) {
+        input.value = '';
+    } else if (unit === cfg.canonical) {
+        // Show as integer if decimals==0, else round to specified decimals
+        input.value = cfg.decimals === 0
+            ? Math.round(canon)
+            : Math.round(canon * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals);
+    } else {
+        const altVal = canon * cfg.mul;
+        input.value = cfg.decimals === 0
+            ? Math.round(altVal)
+            : Math.round(altVal * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals);
+    }
+    syncCanonicalToInputName(target);
+    updateHint(target);
+}
+
+// When in non-canonical unit, strip name from visible input and use hidden field
+// to ensure the form submits the canonical value.
+function syncCanonicalToInputName(target) {
+    const cfg = UNIT_CONFIG[target];
+    const input = document.getElementById(cfg.inputId);
+    if (!input) return;
+
+    // The original name attribute (e.g. 'power', 'gross_weight_kg', 'truck_length_mm')
+    // is what we need to preserve. Cache it on first call.
+    if (!input.dataset.originalName) {
+        // Read current name (initial markup has it set)
+        input.dataset.originalName = input.getAttribute('name') || target;
+    }
+    const origName = input.dataset.originalName;
+
+    const isCanonicalUnit = (unitState[target] === cfg.canonical);
+
+    if (isCanonicalUnit) {
+        input.setAttribute('name', origName);
+        const h = document.querySelector(`input[type="hidden"][data-canonical-for="${target}"]`);
+        if (h) h.remove();
+    } else {
+        input.removeAttribute('name');
+        let h = document.querySelector(`input[type="hidden"][data-canonical-for="${target}"]`);
+        if (!h) {
+            h = document.createElement('input');
+            h.type = 'hidden';
+            h.name = origName;
+            h.dataset.canonicalFor = target;
+            document.getElementById('truckForm').appendChild(h);
+        }
+        const canon = canonicalValues[target];
+        if (canon == null) {
+            h.value = '';
+        } else {
+            h.value = cfg.decimals === 0
+                ? Math.round(canon)
+                : (Math.round(canon * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals));
+        }
+    }
+}
+
+function updateHint(target) {
+    const cfg = UNIT_CONFIG[target];
+    const hint = document.getElementById(target + 'Hint');
+    if (!hint) return;
+
+    const canon = canonicalValues[target];
+    if (canon == null || isNaN(canon)) {
+        hint.textContent = '';
+        return;
+    }
+
+    const unit = unitState[target];
+    if (unit === cfg.canonical) {
+        // Showing canonical — hint shows alt
+        hint.textContent = '≈ ' + formatNumber(canon * cfg.mul, cfg.decimals) + ' ' + cfg.alt;
+    } else {
+        // Showing alt — hint shows canonical
+        hint.textContent = '≈ ' + formatNumber(canon, cfg.decimals) + ' ' + cfg.canonical;
+    }
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    // Strip ?new=1 from URL so F5 reload doesn't trigger force_new (which deletes the draft).
+    // After first render, draft already exists — refreshing should restore it, not destroy it.
+    if (!IS_EDIT_MODE && window.location.search.includes('new=1')) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('new');
+        window.history.replaceState({}, '', url.toString());
+    }
+
+    // Country/state visibility
+    const country = document.getElementById('id_country');
+    const stateW = document.getElementById('stateWrapper');
+    function toggleState() {
+        stateW.style.display = (country.value === 'US') ? '' : 'none';
+    }
+    country.addEventListener('change', toggleState);
+    toggleState();
+
+    // Autosave handlers (only create mode)
+    if (!IS_EDIT_MODE) {
+        document.querySelectorAll('[data-autosave="true"]').forEach(el => {
+            const ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
+            el.addEventListener(ev, () => autoSave());
+        });
+    }
+
+    setupUnitToggles();
+    initPhotoUpload();
+    initPhotoActions();
+});
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO UPLOAD
+// ═══════════════════════════════════════════════════════════
+function initPhotoUpload() {
+    const input = document.getElementById('photoInput');
+    const dropZone = document.getElementById('dropZone');
+
+    input.addEventListener('change', () => {
+        if (input.files.length) {
+            const filesArr = Array.from(input.files);
+            input.value = '';
+            uploadPhotos(filesArr);
+        }
+    });
+
+    ['dragover', 'dragenter'].forEach(ev => {
+        dropZone.addEventListener(ev, e => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+    });
+    ['dragleave', 'dragend', 'drop'].forEach(ev => {
+        dropZone.addEventListener(ev, e => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+    });
+    dropZone.addEventListener('drop', e => {
+        if (e.dataTransfer.files.length) {
+            uploadPhotos(Array.from(e.dataTransfer.files));
+        }
+    });
+}
+
+function uploadPhotos(files) {
+    const filesArr = Array.from(files);
+    if (filesArr.length === 0) return;
+
+    showToast('saving', `Uploading ${filesArr.length} photo(s)…`);
+
+    // Edit mode: send listing_id directly (no draft sync needed)
+    if (IS_EDIT_MODE) {
+        uploadPhotosNow(filesArr);
+        return;
+    }
+
+    // Create mode: ensure draft exists via autosave first, then upload
+    const data = collectFormData();
+    fetch(AJAX_SAVE_DRAFT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+        body: JSON.stringify(data),
+    })
+    .then(r => r.json())
+    .then(() => uploadPhotosNow(filesArr))
+    .catch(() => uploadPhotosNow(filesArr));
+}
+
+function uploadPhotosNow(files) {
+    const fd = new FormData();
+    Array.from(files).forEach(f => fd.append('images', f));
+    if (IS_EDIT_MODE && LISTING_ID) {
+        fd.append('listing_id', LISTING_ID);
+    }
+
+    fetch(AJAX_UPLOAD_IMAGE, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+        body: fd,
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success && json.uploaded) {
+            json.uploaded.forEach(addPhotoToGrid);
+            showToast('saved', 'Uploaded');
+            const hint = document.querySelector('.photo-grid-hint');
+            if (hint) hint.remove();
+        } else {
+            showToast('error', json.error || I18N.uploadFailed);
+        }
+    })
+    .catch(() => showToast('error', I18N.uploadFailed));
+}
+
+function addPhotoToGrid(img) {
+    const grid = document.getElementById('photoGrid');
+    if (img.is_main) {
+        grid.querySelectorAll('.photo-item.is-main').forEach(p => p.classList.remove('is-main'));
+    }
+    const div = document.createElement('div');
+    div.className = 'photo-item' + (img.is_main ? ' is-main' : '');
+    div.dataset.id = img.id;
+    div.draggable = true;
+    div.innerHTML = `
+        <img src="${img.url}" alt="" data-url="${img.url}">
+        <div class="photo-actions">
+            <button type="button" class="photo-action-btn view"><i class="fas fa-eye"></i></button>
+            <button type="button" class="photo-action-btn delete"><i class="fas fa-times"></i></button>
+        </div>
+    `;
+    grid.appendChild(div);
+    attachPhotoHandlers(div);
+}
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO ACTIONS — view + delete + drag-drop
+// ═══════════════════════════════════════════════════════════
+function initPhotoActions() {
+    document.querySelectorAll('.photo-item').forEach(attachPhotoHandlers);
+}
+
+function attachPhotoHandlers(item) {
+    const img = item.querySelector('img');
+    const viewBtn = item.querySelector('.photo-action-btn.view');
+    const delBtn = item.querySelector('.photo-action-btn.delete');
+
+    // Click anywhere on photo-item opens lightbox — UNLESS it was a drag.
+    // (img itself has pointer-events:none for drag-drop, so click goes to .photo-item div)
+    if (img) {
+        item.addEventListener('click', e => {
+            // Ignore clicks on action buttons (handled below)
+            if (e.target.closest('.photo-action-btn')) return;
+            if (item._suppressClick) {
+                item._suppressClick = false;
+                return;
+            }
+            openLightbox(img.dataset.url);
+        });
+    }
+    if (viewBtn && img) {
+        viewBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            openLightbox(img.dataset.url);
+        });
+    }
+    if (delBtn) {
+        delBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const id = parseInt(item.dataset.id, 10);
+            deletePhoto(id, item);
+        });
+    }
+    item.addEventListener('dragstart', onDragStart);
+    item.addEventListener('dragend', onDragEnd);
+    item.addEventListener('dragover', onDragOver);
+    item.addEventListener('dragleave', onDragLeave);
+    item.addEventListener('drop', onDropPhoto);
+}
+
+function deletePhoto(id, itemEl) {
+    if (!confirm(I18N.deleteConfirm)) return;
+    fetch(AJAX_DELETE_IMAGE + id + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success) {
+            itemEl.remove();
+            showToast('saved', 'Deleted');
+            const grid = document.getElementById('photoGrid');
+            const hasMain = grid.querySelector('.photo-item.is-main');
+            if (!hasMain) {
+                const first = grid.querySelector('.photo-item');
+                if (first) first.classList.add('is-main');
+            }
+        } else {
+            showToast('error', json.error || I18N.deleteFailed);
+        }
+    });
+}
+
+let dragSrc = null;
+function onDragStart(e) {
+    dragSrc = this;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', this.dataset.id);
+}
+function onDragEnd(e) {
+    this.classList.remove('dragging');
+    // After a drag, suppress the immediately-following click event on this item
+    // (browsers fire click after dragend if mouseup happens on same element).
+    if (dragSrc) {
+        dragSrc._suppressClick = true;
+        // Clear flag after a short delay if no click came (e.g. drag elsewhere)
+        setTimeout(() => { if (dragSrc) dragSrc._suppressClick = false; }, 300);
+    }
+    document.querySelectorAll('.photo-item.drag-over-target').forEach(el => {
+        el.classList.remove('drag-over-target');
+    });
+}
+function onDragOver(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (this !== dragSrc) this.classList.add('drag-over-target');
+    return false;
+}
+function onDragLeave(e) {
+    this.classList.remove('drag-over-target');
+}
+function onDropPhoto(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+
+    if (dragSrc !== this) {
+        const grid = document.getElementById('photoGrid');
+        const items = Array.from(grid.querySelectorAll('.photo-item'));
+        const srcIdx = items.indexOf(dragSrc);
+        const tgtIdx = items.indexOf(this);
+
+        if (srcIdx < tgtIdx) {
+            this.parentNode.insertBefore(dragSrc, this.nextSibling);
+        } else {
+            this.parentNode.insertBefore(dragSrc, this);
+        }
+
+        grid.querySelectorAll('.photo-item.is-main').forEach(el => el.classList.remove('is-main'));
+        const newFirst = grid.querySelector('.photo-item');
+        if (newFirst) newFirst.classList.add('is-main');
+
+        saveOrder();
+    }
+    this.classList.remove('drag-over-target');
+    return false;
+}
+
+function saveOrder() {
+    const ids = Array.from(document.querySelectorAll('#photoGrid .photo-item'))
+        .map(el => parseInt(el.dataset.id, 10));
+    showToast('saving', 'Saving order…');
+
+    const body = { image_ids: ids };
+    if (IS_EDIT_MODE && LISTING_ID) body.listing_id = LISTING_ID;
+
+    fetch(AJAX_REORDER_IMAGES, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+        body: JSON.stringify(body),
+    })
+    .then(r => r.json())
+    .then(json => {
+        if (json.success) showToast('saved', 'Order saved');
+        else showToast('error', I18N.saveFailed);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// LIGHTBOX — GLightbox (same library used by listing_detail)
+// ═══════════════════════════════════════════════════════════
+function getAllPhotoUrls() {
+    return Array.from(document.querySelectorAll('#photoGrid .photo-item img'))
+        .map(img => img.dataset.url);
+}
+
+function openLightbox(url) {
+    const urls = getAllPhotoUrls();
+    let startIdx = urls.indexOf(url);
+    if (startIdx === -1) startIdx = 0;
+
+    const elements = urls.map(u => ({
+        href: u,
+        type: 'image',
+    }));
+
+    const lb = GLightbox({
+        elements: elements,
+        startAt: startIdx,
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        dragToleranceX: 40,
+        dragToleranceY: 65,
+        dragAutoSnap: true,
+    });
+    lb.open();
+}
+</script>
+
+{# GLightbox CDN — same lib as listing_detail.html #}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+</script>
+{% endblock %}

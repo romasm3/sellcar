@@ -1,0 +1,1 @@
+Your listing expires in {{ days_left }} day{{ days_left|pluralize }}: {{ listing_title }}

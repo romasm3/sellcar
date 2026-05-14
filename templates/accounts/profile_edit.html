@@ -1,49 +1,155 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load i18n %}
 
-{% block title %}Edit Profile - SellCars{% endblock %}
+{% block title %}{% trans "Edit Profile" %} - SellCar{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">
-                        <i class="fas fa-user-edit"></i> Edit Profile
-                    </h3>
-                </div>
-                <div class="card-body p-4">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
+<div class="max-w-2xl mx-auto px-4 py-8">
 
-                        <div class="text-center mb-4">
-                            {% if profile.profile_picture %}
-                                <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
-                            {% else %}
-                                <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px; font-size: 2.5rem;">
-                                    {{ user.username|first|upper }}
-                                </div>
-                            {% endif %}
-                        </div>
+    <!-- Header -->
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">{% trans "Edit Profile" %}</h2>
+        <p class="text-gray-500 text-sm mt-1">{% trans "Update your personal information" %}</p>
+    </div>
 
-                        {{ user_form|crispy }}
-                        {{ profile_form|crispy }}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-                        <hr class="my-4">
-
-                        <div class="d-flex justify-content-between">
-                            <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">
-                                <i class="fas fa-times"></i> Cancel
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save"></i> Save Changes
-                            </button>
-                        </div>
-                    </form>
+        <!-- Profile Picture -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-4">
+            <h3 class="font-semibold text-gray-800 mb-4">{% trans "Profile Picture" %}</h3>
+            <div class="flex items-center gap-4">
+                {% if user.profile.profile_picture %}
+                    <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.email }}"
+                         class="w-20 h-20 rounded-full object-cover border border-gray-200">
+                {% else %}
+                    <div class="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-white text-2xl font-bold">
+                        {{ user.email|first|upper }}
+                    </div>
+                {% endif %}
+                <div>
+                    {{ p_form.profile_picture }}
+                    <p class="text-xs text-gray-400 mt-1">{% trans "JPG, PNG. Max 5MB." %}</p>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Personal Information -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-4">
+            <h3 class="font-semibold text-gray-800 mb-4">{% trans "Personal Information" %}</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "First Name" %}</label>
+                    {{ u_form.first_name }}
+                    {% if u_form.first_name.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ u_form.first_name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Last Name" %}</label>
+                    {{ u_form.last_name }}
+                    {% if u_form.last_name.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ u_form.last_name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Email" %}</label>
+                    {{ u_form.email }}
+                    {% if u_form.email.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ u_form.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Phone Number" %}</label>
+                    {{ p_form.phone_number }}
+                    {% if p_form.phone_number.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ p_form.phone_number.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Secondary Phone" %} <span class="text-gray-400 font-normal">{% trans "(optional)" %}</span></label>
+                    {{ p_form.phone_number_secondary }}
+                    {% if p_form.phone_number_secondary.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ p_form.phone_number_secondary.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-4">
+            <h3 class="font-semibold text-gray-800 mb-4">{% trans "Address" %}</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Country" %}</label>
+                    {{ p_form.country }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "City" %}</label>
+                    {{ p_form.city }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Street" %}</label>
+                    {{ p_form.street }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "House Number" %}</label>
+                    {{ p_form.house_number }}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">{% trans "About Me" %}</h3>
+            {{ p_form.bio }}
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-between gap-3">
+            <a href="{% url 'accounts:settings' %}"
+               class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit"
+                    class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium">
+                <i class="fas fa-save mr-1"></i> {% trans "Save Changes" %}
+            </button>
+        </div>
+
+    </form>
 </div>
+
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        background-color: white;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+</style>
 {% endblock %}

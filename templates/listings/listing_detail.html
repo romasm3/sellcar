@@ -1,335 +1,1253 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ listing.title }} - SellCar{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Breadcrumb -->
+
+        {# ─── Breadcrumb (category-aware) ─── #}
         <nav class="mb-6">
             <ol class="flex items-center gap-2 text-sm text-gray-600">
-                <li><a href="{% url 'listings:listing_list' %}" class="hover:text-primary">Browse Cars</a></li>
+                {% if listing.vehicle_type and listing.vehicle_type.slug == 'trucks' %}
+                    <li><a href="/?category=trucks" class="hover:text-primary">{% trans "Browse Trucks" %}</a></li>
+                {% elif listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles' %}
+                    <li><a href="/?category=motorcycles" class="hover:text-primary">{% trans "Browse Motorcycles" %}</a></li>
+                {% else %}
+                    <li><a href="{% url 'home' %}" class="hover:text-primary">{% trans "Browse Cars" %}</a></li>
+                {% endif %}
                 <li><i class="fas fa-chevron-right text-xs"></i></li>
                 <li class="text-gray-900 font-medium">{{ listing.title }}</li>
             </ol>
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Image Gallery -->
+
+                {# ─── Image Gallery (same for all) ─── #}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     {% if listing.images.all %}
-                    <div class="relative h-96 bg-gray-900" x-data="{ currentImage: 0, images: {{ listing.images.count }} }">
-                        {% for image in listing.images.all %}
-                        <img src="{{ image.image.url }}" alt="{{ listing.title }}"
-                             x-show="currentImage === {{ forloop.counter0 }}"
-                             class="w-full h-full object-contain">
-                        {% endfor %}
-
-                        <!-- Navigation Arrows -->
-                        {% if listing.images.count > 1 %}
-                        <button @click="currentImage = currentImage > 0 ? currentImage - 1 : images - 1"
-                                class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors">
-                            <i class="fas fa-chevron-left text-gray-900"></i>
-                        </button>
-                        <button @click="currentImage = currentImage < images - 1 ? currentImage + 1 : 0"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors">
-                            <i class="fas fa-chevron-right text-gray-900"></i>
-                        </button>
-
-                        <!-- Thumbnails -->
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    <div x-data="{ currentImage: 0, images: {{ listing.images.count }} }">
+                        <div class="relative overflow-hidden" style="max-height: 600px; min-height: 320px;">
                             {% for image in listing.images.all %}
-                            <button @click="currentImage = {{ forloop.counter0 }}"
-                                    :class="currentImage === {{ forloop.counter0 }} ? 'ring-2 ring-white' : ''"
-                                    class="w-16 h-16 rounded-lg overflow-hidden transition-all">
-                                <img src="{{ image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
-                            </button>
+                            <div x-show="currentImage === {{ forloop.counter0 }}"
+                                 {% if not forloop.first %}style="display:none;"{% endif %}
+                                 class="relative">
+                                <div class="absolute inset-0 bg-cover bg-center"
+                                     style="background-image: url('{{ image.image.url }}'); filter: blur(40px) brightness(0.65); transform: scale(1.15); z-index: 0;"></div>
+                                <a href="{{ image.image.url }}" class="glightbox relative flex items-center justify-center" data-gallery="listing-gallery"
+                                   style="z-index: 1; min-height: 320px; max-height: 600px;">
+                                    <img src="{{ image.image.url }}" alt="{{ listing.title }}"
+                                         class="block w-auto h-auto cursor-zoom-in"
+                                         style="max-width: 100%; max-height: 600px; min-height: 320px; object-fit: contain;">
+                                </a>
+                            </div>
                             {% endfor %}
+
+                            {% if listing.images.count > 1 %}
+                            <button @click.prevent.stop="currentImage = currentImage > 0 ? currentImage - 1 : images - 1"
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors z-10">
+                                <i class="fas fa-chevron-left text-gray-900"></i>
+                            </button>
+                            <button @click.prevent.stop="currentImage = currentImage < images - 1 ? currentImage + 1 : 0"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors z-10">
+                                <i class="fas fa-chevron-right text-gray-900"></i>
+                            </button>
+                            <div class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold rounded-full z-10">
+                                <span x-text="currentImage + 1"></span> / {{ listing.images.count }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% if listing.images.count > 1 %}
+                        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
+                            <div class="flex gap-2 overflow-x-auto" style="scrollbar-width: thin;">
+                                {% for image in listing.images.all %}
+                                <button @click.prevent.stop="currentImage = {{ forloop.counter0 }}"
+                                        :class="currentImage === {{ forloop.counter0 }} ? 'ring-2 ring-primary opacity-100' : 'opacity-70 hover:opacity-100'"
+                                        class="w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 transition-all">
+                                    <img src="{{ image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                                </button>
+                                {% endfor %}
+                            </div>
                         </div>
                         {% endif %}
                     </div>
                     {% else %}
-                    <div class="h-96 bg-gray-200 flex items-center justify-center">
-                        <i class="fas fa-car text-gray-400 text-6xl"></i>
+                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center" style="height: 400px;">
+                        {% if listing.vehicle_type.slug == 'trucks' %}
+                            <i class="fas fa-truck text-gray-400 text-6xl"></i>
+                        {% else %}
+                            <i class="fas fa-car text-gray-400 text-6xl"></i>
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>
 
-                <!-- Title & Details -->
+                {# ════════════════════════════════════════════════ #}
+                {# ─── TRUCK BRANCH — full truck specs ─── #}
+                {# ════════════════════════════════════════════════ #}
+                {% if listing.vehicle_type and listing.vehicle_type.slug == 'trucks' %}
+
+                {# Title & Quick Stats (truck-specific cards) #}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
-
-                    <!-- Quick Stats -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-calendar-alt text-primary text-xl"></i>
                             <div>
-                                <div class="text-xs text-gray-600">Year</div>
+                                <div class="text-xs text-gray-600">{% trans "Year" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-weight-hanging text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Gross weight" %}</div>
+                                <div class="font-semibold text-gray-900">
+                                    {% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-gas-pump text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"—" }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-cogs text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Wheel formula" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.wheel_formula|default:"—" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        {% if listing.negotiable %}
+                        <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Description #}
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Description" %}</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                {# Truck Details — full 26-field table #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Truck Details" %}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+
+                        {# Make / Model #}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Make" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.truck_brand.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Model" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.truck_model_text|default:"—" }}</span>
+                        </div>
+
+                        {# Type / First registration #}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_truck_type_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "First registration" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {% if listing.first_registration %}{{ listing.first_registration|date:"m/Y" }}{% else %}—{% endif %}
+                            </span>
+                        </div>
+
+                        {# POWER — kW + HP #}
+                        {% if listing.power %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Power" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.power }} kW
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1360 %} HP</span>
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {# MILEAGE — km + mi #}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Mileage" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.mileage|floatformat:0 }} km
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
+                            </span>
+                        </div>
+
+                        {# Engine capacity #}
+                        {% if listing.engine_capacity %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Engine capacity" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.engine_capacity }} L</span>
+                        </div>
+                        {% endif %}
+
+                        {# Wheel formula #}
+                        {% if listing.wheel_formula %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Wheel formula" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.wheel_formula }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Mass interval #}
+                        {% if listing.mass_interval %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Mass interval" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_mass_interval_display }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Gross weight — kg + lbs #}
+                        {% if listing.gross_weight_kg %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Gross weight" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.gross_weight_kg }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
+                                {{ listing.gross_weight_kg }} kg
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.curb_weight %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Curb weight" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.curb_weight }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
+                                {{ listing.curb_weight }} kg
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.payload_kg %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Payload capacity" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.payload_kg }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
+                                {{ listing.payload_kg }} kg
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {# Fuel tank — L + gal #}
+                        {% if listing.fuel_tank_capacity_l %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Fuel tank capacity" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.fuel_tank_capacity_l }}" data-from="L" data-to="gal" data-mul="0.264172" data-decimals="1">
+                                {{ listing.fuel_tank_capacity_l }} L
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {# Dimensions — mm + ft/in #}
+                        {% if listing.truck_length_mm %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Length" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_length_mm }}" data-from="mm" data-to="ft" data-mul="0.00328084" data-decimals="1">
+                                {{ listing.truck_length_mm }} mm
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.truck_width_mm %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Width" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_width_mm }}" data-from="mm" data-to="in" data-mul="0.0393701" data-decimals="1">
+                                {{ listing.truck_width_mm }} mm
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.truck_height_mm %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Height" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_height_mm }}" data-from="mm" data-to="in" data-mul="0.0393701" data-decimals="1">
+                                {{ listing.truck_height_mm }} mm
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.truck_volume_m3 %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Volume" %}</span>
+                            <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_volume_m3 }}" data-from="m³" data-to="ft³" data-mul="35.3147" data-decimals="1">
+                                {{ listing.truck_volume_m3 }} m³
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {# Euro standard #}
+                        {% if listing.euro_standard %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Euro standard" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_euro_standard_display }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Defects / Condition #}
+                        {% if listing.condition %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "New / Used" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_condition_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.defects %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Defects" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_defects_display }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Steering / Gearbox #}
+                        {% if listing.steering %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Steering" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_steering_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.transmission %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Gearbox" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.transmission.name }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.sleeping_seats %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Sleeping seats" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.sleeping_seats }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Suspension #}
+                        {% if listing.front_suspension %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Front suspension" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_front_suspension_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.rear_suspension %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Rear suspension" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_rear_suspension_display }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# SDK / Tech inspection #}
+                        {% if listing.sdk_number %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "SDK number" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.sdk_number }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.technical_inspection_month and listing.technical_inspection_year %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Tech. inspection until" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.technical_inspection_month|stringformat:"02d" }}/{{ listing.technical_inspection_year }}</span>
+                        </div>
+                        {% endif %}
+
+                        {# Color / VIN #}
+                        {% if listing.color %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Color" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.vin %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "VIN" %}</span>
+                            <span class="font-medium text-gray-900 inline-flex items-center gap-2 flex-wrap justify-end">
+                                {{ listing.vin }}
+                                <a href="https://carfaxreport.eu/?vin={{ listing.vin }}&ref=sellcar"
+                                   target="_blank"
+                                   rel="noopener"
+                                   class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-medium rounded-md border border-blue-200 transition-colors"
+                                   title="{% trans 'Get vehicle history report from Carfaxreport.eu' %}">
+                                    <i class="fas fa-shield-alt text-xs"></i>
+                                    {% trans "History report" %}
+                                </a>
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Equipment — autogidas style (grouped + pills) #}
+                {% if grouped_equipment %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Equipment & Features" %}</h2>
+                    <div class="space-y-5">
+                        {% for cat in grouped_equipment %}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">{{ cat.label }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {% for name in cat.items %}
+                                <span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{{ name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Location (truck) #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Location" %}</h2>
+                    <div class="flex items-start gap-3 text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
+                        <div>
+                            <p class="font-medium text-lg">
+                                {{ listing.city }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}
+                            </p>
+                            {% if not listing.hide_exact_address %}
+                                {% if listing.address %}
+                                <p class="text-gray-600 mt-1"><i class="fas fa-road text-gray-400 mr-2"></i>{{ listing.address }}</p>
+                                {% endif %}
+                                {% if listing.postal_code %}
+                                <p class="text-gray-600 mt-1"><i class="fas fa-mail-bulk text-gray-400 mr-2"></i>{{ listing.postal_code }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-sm text-gray-500 mt-1">
+                                    <i class="fas fa-eye-slash text-gray-400 mr-1"></i>{% trans "Exact address hidden by seller" %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if listing.latitude and listing.longitude %}
+                    <div class="mt-4">
+                        <div id="locationMap" class="h-48 rounded-lg border border-gray-200"></div>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ listing.latitude }},{{ listing.longitude }}"
+                           target="_blank"
+                           class="mt-3 inline-flex items-center gap-2 px-4 py-2.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all">
+                            <i class="fas fa-directions"></i> {% trans "Get Directions" %}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {# ════════════════════════════════════════════════ #}
+                {# ─── CAR FOR PARTS branch ─── #}
+                {# ════════════════════════════════════════════════ #}
+                {% elif listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts' %}
+
+                <!-- Title & Quick Stats -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Year" %}</div>
                                 <div class="font-semibold text-gray-900">{{ listing.year }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div>
-                                <div class="text-xs text-gray-600">Mileage</div>
+                                <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
                                 <div class="font-semibold text-gray-900">{{ listing.mileage|floatformat:0 }} km</div>
+                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-gas-pump text-primary text-xl"></i>
                             <div>
-                                <div class="text-xs text-gray-600">Fuel</div>
+                                <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
                                 <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"N/A" }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-cog text-primary text-xl"></i>
                             <div>
-                                <div class="text-xs text-gray-600">Transmission</div>
+                                <div class="text-xs text-gray-600">{% trans "Transmission" %}</div>
                                 <div class="font-semibold text-gray-900">{{ listing.transmission.name|default:"N/A" }}</div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Price -->
                     <div class="border-t border-gray-200 pt-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm text-gray-600 mb-1">Price</p>
-                                <p class="text-4xl font-bold text-primary">€{{ listing.price|floatformat:0 }}</p>
-                                {% if listing.negotiable %}
-                                <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
-                                    Negotiable
-                                </span>
-                                {% endif %}
-                            </div>
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
+                        <p class="text-4xl font-bold text-primary">
+                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
+                        </p>
+                        {% if listing.export_price %}
+                        <p class="text-sm text-gray-600 mt-1">
+                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span>
+                        </p>
+                        {% endif %}
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            {% if listing.negotiable %}
+                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
+                            {% endif %}
+                            {% if listing.open_to_trade %}
+                            <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">{% trans "Interested in trade" %}</span>
+                            {% endif %}
+                            {% if listing.taxes_extra %}
+                            <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">{% trans "+ Taxes" %}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
 
-                <!-- Description -->
+                {# Description PIRMA — virš Vehicle Details #}
                 {% if listing.description %}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Description</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Description" %}</h2>
                     <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
                 </div>
                 {% endif %}
 
-                <!-- Vehicle Details -->
+                {# Vehicle Details — su parts-specific laukais #}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Vehicle Details</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Vehicle Details (for parts)" %}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Make</span>
+                            <span class="text-gray-600">{% trans "Make" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.brand.name }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Model</span>
-                            <span class="font-medium text-gray-900">{{ listing.model.name }}</span>
+                            <span class="text-gray-600">{% trans "Model" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.model.name|default:"N/A" }}</span>
+                        </div>
+                        {% if listing.modification %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Modification" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.modification }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.version %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Version" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.version }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Year" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.year }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Body Type</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"N/A" }}</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Color</span>
-                            <span class="font-medium text-gray-900">{{ listing.color|default:"N/A" }}</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Doors</span>
-                            <span class="font-medium text-gray-900">{{ listing.doors|default:"N/A" }}</span>
-                        </div>
-                        <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Condition</span>
+                            <span class="text-gray-600">{% trans "Condition" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.get_condition_display }}</span>
+                        </div>
+                        {% if listing.body_type %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Body Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.doors %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Doors" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.doors }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.drive_type %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Drive Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_drive_type_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.color %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Color" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.color_code %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Color code" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.color_code }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Mileage" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.mileage|floatformat:0 }} km
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
+                            </span>
                         </div>
                         {% if listing.engine_capacity %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Engine Capacity</span>
-                            <span class="font-medium text-gray-900">{{ listing.engine_capacity }}L</span>
+                            <span class="text-gray-600">{% trans "Engine capacity" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.engine_capacity }} L
+                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
+                            </span>
                         </div>
                         {% endif %}
                         {% if listing.power %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">Power</span>
-                            <span class="font-medium text-gray-900">{{ listing.power }} kW</span>
+                            <span class="text-gray-600">{% trans "Power" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.power }} kW
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                            </span>
                         </div>
                         {% endif %}
-                        {% if listing.vin %}
+                        {% if listing.engine_code %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">VIN</span>
-                            <span class="font-medium text-gray-900">{{ listing.vin }}</span>
+                            <span class="text-gray-600">{% trans "Engine code" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.engine_code }}</span>
                         </div>
                         {% endif %}
-                        {% if listing.first_registration %}
+                        {% if listing.gearbox_code %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
-                            <span class="text-gray-600">First Registration</span>
-                            <span class="font-medium text-gray-900">{{ listing.first_registration|date:"F Y" }}</span>
+                            <span class="text-gray-600">{% trans "Gearbox code" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.gearbox_code }}</span>
                         </div>
                         {% endif %}
                     </div>
                 </div>
 
-                <!-- Equipment -->
-                {% if listing.equipment_items.all %}
+                {# Equipment — autogidas style (grouped + pills) #}
+                {% if grouped_equipment %}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Equipment & Features</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {% for item in listing.equipment_items.all %}
-                        <div class="flex items-center gap-2 text-gray-700">
-                            <i class="fas fa-check text-green-500"></i>
-                            <span>{{ item.equipment.name }}</span>
+                    <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Equipment & Features" %}</h2>
+                    <div class="space-y-5">
+                        {% for cat in grouped_equipment %}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">{{ cat.label }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {% for name in cat.items %}
+                                <span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{{ name }}</span>
+                                {% endfor %}
+                            </div>
                         </div>
                         {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
-                <!-- Location -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Location</h2>
-                    <div class="flex items-start gap-3 text-gray-700">
-                        <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
-                        <div>
-                            <!-- Always show city and country -->
-                            <p class="font-medium text-lg">
-                                {{ listing.city }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}
-                            </p>
-                            
-                            <!-- Show address details only if not hidden -->
-                            {% if not listing.hide_exact_address %}
-                                {% if listing.address %}
-                                <p class="text-gray-600 mt-1">
-                                    <i class="fas fa-road text-gray-400 mr-2"></i>{{ listing.address }}
+                {# Location — 2x2 grid + integruotas žemėlapis #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="flex items-center justify-between p-6 pb-4">
+                        <h2 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>{% trans "Location" %}
+                        </h2>
+                        {% if listing.latitude and listing.longitude %}
+                        <div class="flex items-center gap-2">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination={{ listing.latitude }},{{ listing.longitude }}"
+                               target="_blank"
+                               class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-sm font-medium rounded-lg transition-all">
+                                <i class="fas fa-directions text-xs"></i>{% trans "Directions" %}
+                            </a>
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ listing.latitude }},{{ listing.longitude }}"
+                               target="_blank"
+                               class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-all">
+                                <i class="fas fa-external-link-alt text-xs"></i>{% trans "Open in Maps" %}
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="px-6 pb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1 flex items-center gap-1.5">
+                                    <i class="fas fa-globe text-gray-400 text-xs"></i>{% trans "Country" %}
                                 </p>
+                                <p class="text-base font-semibold text-gray-900">
+                                    {% if listing.country %}{{ listing.get_country_display }}{% else %}—{% endif %}
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1 flex items-center gap-1.5">
+                                    <i class="fas fa-flag text-gray-400 text-xs"></i>{% trans "State" %}
+                                </p>
+                                <p class="text-base font-semibold text-gray-900">
+                                    {% if listing.state %}{{ listing.get_state_display }}{% else %}—{% endif %}
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1 flex items-center gap-1.5">
+                                    <i class="fas fa-city text-gray-400 text-xs"></i>{% trans "City" %}
+                                </p>
+                                <p class="text-base font-semibold text-gray-900">
+                                    {% if listing.city and listing.city != "—" %}{{ listing.city }}{% else %}—{% endif %}
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1 flex items-center gap-1.5">
+                                    <i class="fas fa-home text-gray-400 text-xs"></i>{% trans "Address" %}
+                                </p>
+                                {% if not listing.hide_exact_address %}
+                                    <p class="text-base font-semibold text-gray-900">
+                                        {% if listing.address %}{{ listing.address }}{% else %}—{% endif %}
+                                    </p>
+                                    {% if listing.postal_code %}
+                                    <p class="text-xs text-gray-500 mt-1">{% trans "ZIP:" %} {{ listing.postal_code }}</p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="text-sm text-gray-500 italic">
+                                        <i class="fas fa-eye-slash text-gray-400 mr-1"></i>{% trans "Hidden by seller" %}
+                                    </p>
                                 {% endif %}
-                                {% if listing.postal_code %}
-                                <p class="text-gray-600 mt-1">
-                                    <i class="fas fa-mail-bulk text-gray-400 mr-2"></i>{{ listing.postal_code }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if listing.latitude and listing.longitude %}
+                    <div class="relative">
+                        <div id="locationMap" class="h-72 w-full border-t border-gray-200"></div>
+                        <div class="absolute bottom-4 left-4 bg-white shadow-lg rounded-lg p-3 border border-gray-200 max-w-xs"
+                             x-data="{ copied: false }">
+                            <div class="flex items-start gap-2">
+                                <i class="fas fa-crosshairs text-primary mt-0.5"></i>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-xs text-gray-500 mb-0.5">{% trans "Coordinates" %}</p>
+                                    <p class="text-xs font-mono text-gray-900 truncate">
+                                        {{ listing.latitude|floatformat:5 }}, {{ listing.longitude|floatformat:5 }}
+                                    </p>
+                                </div>
+                                <button @click="navigator.clipboard.writeText('{{ listing.latitude }}, {{ listing.longitude }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                        class="text-gray-400 hover:text-primary transition-colors p-1"
+                                        :title="copied ? '{% trans 'Copied!' %}' : '{% trans 'Copy coordinates' %}'">
+                                    <i :class="copied ? 'fas fa-check text-green-500' : 'far fa-copy'"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {% if listing.hide_exact_address %}
+                        <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm shadow-md rounded-lg px-3 py-2 border border-gray-200">
+                            <p class="text-xs text-gray-700 flex items-center gap-1.5">
+                                <i class="fas fa-info-circle text-blue-500"></i>
+                                {% trans "Approximate area only" %}
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                {# ════════════════════════════════════════════════ #}
+                {# ─── ELSE: CARS / OTHER (original layout) ─── #}
+                {# ════════════════════════════════════════════════ #}
+                {% else %}
+
+                <!-- Title & Quick Stats -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Year" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-tachometer-alt text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.mileage|floatformat:0 }} km</div>
+                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-gas-pump text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"N/A" }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-cog text-primary text-xl"></i>
+                            <div>
+                                <div class="text-xs text-gray-600">{% trans "Transmission" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|default:"N/A" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
+                        <p class="text-4xl font-bold text-primary">
+                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
+                        </p>
+                        {% if listing.export_price %}
+                        <p class="text-sm text-gray-600 mt-1">
+                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span>
+                        </p>
+                        {% endif %}
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            {% if listing.negotiable %}
+                            <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
+                            {% endif %}
+                            {% if listing.open_to_trade %}
+                            <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">{% trans "Interested in trade" %}</span>
+                            {% endif %}
+                            {% if listing.taxes_extra %}
+                            <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">{% trans "+ Taxes" %}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Description" %}</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Vehicle Details" %}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Make" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.brand.name }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Model" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.model.name }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Body Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Color" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Doors" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.doors|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Condition" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_condition_display }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Defects" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_defects_display|default:_("No defects") }}</span>
+                        </div>
+
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Mileage" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.mileage|floatformat:0 }} km
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
+                            </span>
+                        </div>
+
+                        {% if listing.engine_capacity %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Engine Capacity" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.engine_capacity }} L
+                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if listing.power %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Power" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {{ listing.power }} kW
+                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if listing.steering %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Steering" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_steering_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.drive_type %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Drive Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_drive_type_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.seats %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Seats" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.seats }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.rim_size %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Rim Size" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.rim_size }}"</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.climate %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Climate Control" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_climate_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.euro_standard %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Euro Standard" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_euro_standard_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.curb_weight %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Curb Weight" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.curb_weight }} kg</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.co2_emission %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "CO₂ Emission" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.co2_emission }} g/km</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.fuel_consumption_city or listing.fuel_consumption_highway or listing.fuel_consumption_combined %}
+                        <div class="flex justify-between py-3 border-b border-gray-200 md:col-span-2">
+                            <span class="text-gray-600">{% trans "Fuel Consumption (l/100km)" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {% if listing.fuel_consumption_city %}{% trans "City:" %} {{ listing.fuel_consumption_city }}{% endif %}
+                                {% if listing.fuel_consumption_highway %} / {% trans "Highway:" %} {{ listing.fuel_consumption_highway }}{% endif %}
+                                {% if listing.fuel_consumption_combined %} / {% trans "Combined:" %} {{ listing.fuel_consumption_combined }}{% endif %}
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.origin_country %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Origin Country" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_origin_country_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.technical_inspection_month and listing.technical_inspection_year %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Tech. Inspection Until" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.technical_inspection_month|stringformat:"02d" }}/{{ listing.technical_inspection_year }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.vin %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "VIN" %}</span>
+                            <span class="font-medium text-gray-900 inline-flex items-center gap-2 flex-wrap justify-end">
+                                {{ listing.vin }}
+                                <a href="https://carfaxreport.eu/?vin={{ listing.vin }}&ref=sellcar"
+                                   target="_blank"
+                                   rel="noopener"
+                                   class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-medium rounded-md border border-blue-200 transition-colors"
+                                   title="{% trans 'Get vehicle history report from Carfaxreport.eu' %}">
+                                    <i class="fas fa-shield-alt text-xs"></i>
+                                    {% trans "History report" %}
+                                </a>
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if listing.first_registration %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "First Registration" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.first_registration|date:"m/Y" }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Equipment — autogidas style (grouped + pills) #}
+                {% if grouped_equipment %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Equipment & Features" %}</h2>
+                    <div class="space-y-5">
+                        {% for cat in grouped_equipment %}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">{{ cat.label }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {% for name in cat.items %}
+                                <span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{{ name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-primary"></i>{% trans "Location" %}
+                    </h2>
+
+                    {# ─── 2x2 grid (Country | State / City | Address) ─── #}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                        {# Country #}
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "Country" %}</p>
+                            <p class="text-base font-semibold text-gray-900">
+                                {% if listing.country %}{{ listing.get_country_display }}{% else %}—{% endif %}
+                            </p>
+                        </div>
+
+                        {# State #}
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "State" %}</p>
+                            <p class="text-base font-semibold text-gray-900">
+                                {% if listing.state %}{{ listing.get_state_display }}{% else %}—{% endif %}
+                            </p>
+                        </div>
+
+                        {# City #}
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "City" %}</p>
+                            <p class="text-base font-semibold text-gray-900">
+                                {% if listing.city and listing.city != "—" %}{{ listing.city }}{% else %}—{% endif %}
+                            </p>
+                        </div>
+
+                        {# Address #}
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "Address" %}</p>
+                            {% if not listing.hide_exact_address %}
+                                <p class="text-base font-semibold text-gray-900">
+                                    {% if listing.address %}{{ listing.address }}{% else %}—{% endif %}
                                 </p>
+                                {% if listing.postal_code %}
+                                <p class="text-xs text-gray-500 mt-1">{{ listing.postal_code }}</p>
                                 {% endif %}
                             {% else %}
-                                <p class="text-sm text-gray-500 mt-1">
-                                    <i class="fas fa-eye-slash text-gray-400 mr-1"></i>
-                                    Exact address hidden by seller
+                                <p class="text-sm text-gray-500 italic">
+                                    <i class="fas fa-eye-slash text-gray-400 mr-1"></i>{% trans "Hidden by seller" %}
                                 </p>
                             {% endif %}
                         </div>
                     </div>
-                    
-                    <!-- Map Preview (if coordinates available) -->
+
                     {% if listing.latitude and listing.longitude %}
                     <div class="mt-4">
                         <div id="locationMap" class="h-48 rounded-lg border border-gray-200"></div>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ listing.latitude }},{{ listing.longitude }}"
+                           target="_blank"
+                           class="mt-3 inline-flex items-center gap-2 px-4 py-2.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all">
+                            <i class="fas fa-directions"></i> {% trans "Get Directions" %}
+                        </a>
                     </div>
                     {% endif %}
                 </div>
+
+                {% endif %}{# end vehicle_type branch #}
+
             </div>
 
-            <!-- Sidebar -->
+            <!-- Sidebar (same for all categories — with kW/HP, km/mi dual display) -->
             <div class="space-y-6">
-                <!-- Seller Card -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Seller Information</h3>
 
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold">
-                            {{ listing.seller.username|slice:":1"|upper }}
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">{{ listing.seller.username }}</p>
-                            <p class="text-sm text-gray-600">Member since {{ listing.seller.date_joined|date:"Y" }}</p>
-                        </div>
+                    <div class="text-sm text-gray-500 mb-2">{{ listing.year }}</div>
+                    <h2 class="text-xl font-bold text-gray-900 mb-3">{{ listing.title }}</h2>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
+                        {% if listing.fuel_type %}<span>{{ listing.fuel_type.name }}</span>{% endif %}
+                        {% if listing.engine_capacity %}<span>{{ listing.engine_capacity }}L</span>{% endif %}
+                        {% if listing.vehicle_type and listing.vehicle_type.slug == 'trucks' %}
+                            {% if listing.get_truck_type_display %}<span>{{ listing.get_truck_type_display }}</span>{% endif %}
+                        {% else %}
+                            {% if listing.get_body_type_display %}<span>{{ listing.get_body_type_display }}</span>{% endif %}
+                        {% endif %}
                     </div>
+                    {% if listing.mileage %}
+                    <div class="text-sm text-gray-600 mb-1">
+                        {{ listing.mileage|floatformat:0 }} km
+                        <span class="text-gray-400">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
+                    </div>
+                    {% endif %}
+                    {% if listing.power %}
+                    <div class="text-sm text-gray-600 mb-3">
+                        {{ listing.power }} kW
+                        <span class="text-gray-400">/ ≈ {% widthratio listing.power 1000 1360 %} HP</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-4">
+                        <p class="text-3xl font-bold text-primary">
+                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            {% if listing.taxes_extra %}
+                            <span class="inline-flex items-center gap-1 text-sm font-normal text-gray-500 ml-1">
+                                {% trans "+ taxes" %}
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-56 shadow-lg font-normal normal-case">
+                                        {% trans "Price excludes taxes — please ask the seller about applicable taxes for your region." %}
+                                    </span>
+                                </span>
+                            </span>
+                            {% endif %}
+                            {% if listing.negotiable %}<span class="text-sm font-normal text-gray-500 ml-1">◎</span>{% endif %}
+                        </p>
+                        {% if listing.export_price %}
+                        <p class="text-sm text-gray-600 mt-1 inline-flex items-center gap-1">
+                            <span>{% trans "Export:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span></span>
+                            <span class="relative inline-flex group cursor-help">
+                                <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
+                                    {% trans "Special price for export buyers — typically used when shipping the vehicle outside the seller's country. Ask the seller about export documentation and conditions." %}
+                                </span>
+                            </span>
+                        </p>
+                        {% endif %}
+                        {% if listing.open_to_trade %}
+                        <p class="text-xs text-purple-700 mt-1"><i class="fas fa-exchange-alt mr-1"></i>{% trans "Interested in trade" %}</p>
+                        {% endif %}
+                    </div>
+
+                    <hr class="mb-4">
+
+                    {# ─── Seller info block (Dealer vs Private) ─── #}
+                    {% if listing.seller.profile.dealer_subscription_active %}
+                        {# ═══ DEALER CARD ═══ #}
+                        <div class="mb-4 bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-4">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-14 h-14 bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                    {% if listing.seller.profile.dealer_logo %}
+                                        <img src="{{ listing.seller.profile.dealer_logo.url }}"
+                                             class="w-full h-full object-contain p-1"
+                                             alt="Logo">
+                                    {% else %}
+                                        <div class="w-full h-full bg-primary flex items-center justify-center text-white text-lg font-bold">
+                                            {{ listing.seller.profile.dealer_company_name|default:listing.seller.username|first|upper }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-bold text-gray-900 text-sm truncate">
+                                        {{ listing.seller.profile.dealer_company_name|default:listing.seller.username }}
+                                    </div>
+                                    <div class="flex items-center gap-1 mt-0.5 text-xs text-blue-700 font-medium">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>{% trans "Verified Dealer" %}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5 text-xs text-gray-700 mb-3 pb-3 border-b border-blue-100">
+                                {% if listing.seller.profile.dealer_address %}
+                                <div class="flex items-start gap-2">
+                                    <i class="fas fa-map-marker-alt text-gray-400 w-3 mt-0.5"></i>
+                                    <span>{{ listing.seller.profile.dealer_address }}</span>
+                                </div>
+                                {% endif %}
+                                <div class="flex items-center gap-2 text-gray-600">
+                                    <i class="fas fa-car text-gray-400 w-3"></i>
+                                    <span><strong class="text-gray-900">{{ dealer_active_listings_count }}</strong> {% trans "cars available" %}</span>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'accounts:dealer_public_page' listing.seller.username %}"
+                               class="block w-full bg-primary hover:bg-primary-dark text-white text-center text-sm font-semibold py-2.5 rounded-lg transition-colors">
+                                <i class="fas fa-th-list mr-1"></i> {% trans "Browse all listings" %}
+                            </a>
+                        </div>
+
+                    {% else %}
+                        {# ═══ PRIVATE USER — minimalus ═══ #}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500 px-1">
+                                {% if listing.country %}{{ listing.get_country_display }}{% endif %}{% if listing.state %}, {{ listing.get_state_display }}{% endif %}{% if listing.city and listing.city != "—" %}, {{ listing.city }}{% endif %}{% if listing.postal_code %} · {{ listing.postal_code }}{% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
 
                     {% if user.is_authenticated %}
-                    <div class="space-y-3">
-                        <button onclick="showPhone()" id="phoneBtn" class="w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-phone-alt mr-2"></i>
-                            Show Phone
-                        </button>
-                        <div id="phoneNumber" class="hidden w-full bg-green-100 text-green-800 text-center py-3 rounded-lg font-medium">
-                            <i class="fas fa-phone-alt mr-2"></i>
-                            <!-- Phone would be shown here -->
-                            Contact seller
-                        </div>
-                        <a href="#" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-envelope mr-2"></i>
-                            Send Message
+                        {% if listing.seller.profile.show_phone %}
+                            {% if listing.seller.profile.phone_number %}
+                            <div class="relative inline-block mb-4 w-full" x-data="{ copied: false }">
+                                <p class="text-2xl font-bold text-gray-900 cursor-pointer"
+                                   @click="navigator.clipboard.writeText('{{ listing.seller.profile.phone_number }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                   title="{% trans 'Click to copy' %}">
+                                    {{ listing.seller.profile.phone_number }}
+                                </p>
+                                <span x-show="copied"
+                                      class="absolute -top-7 left-0 bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                                    {% trans "Copied!" %}
+                                </span>
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-sm text-gray-400 mb-4 italic">
+                                <i class="fas fa-phone-slash mr-1"></i> {% trans "Seller has disabled phone number visibility." %}
+                            </p>
+                        {% endif %}
+
+                        {% if user != listing.seller %}
+                        <a href="{% url 'conversations:start' listing.pk %}"
+                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-2">
+                            <i class="fas fa-envelope mr-2"></i>{% trans "Send Message" %}
                         </a>
-                        <button class="w-full bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 py-3 rounded-lg transition-colors font-medium">
-                            <i class="far fa-heart mr-2"></i>
-                            Save Listing
+                        {% if listing.seller.profile.dealer_subscription_active %}
+                        <button onclick="document.getElementById('emailModal').classList.remove('hidden')"
+                                class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium mb-3 w-full">
+                            <i class="fas fa-paper-plane mr-2"></i>{% trans "Send Email" %}
                         </button>
-                    </div>
+                        {% endif %}
+                        {% endif %}
                     {% else %}
-                    <div class="space-y-3">
-                        <a href="{% url 'accounts:login' %}" class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium">
-                            Login to Contact
+                        <a href="{% url 'accounts:login' %}"
+                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-3">
+                            {% trans "Login to Contact" %}
                         </a>
-                    </div>
                     {% endif %}
 
-                    <!-- Edit/Delete (for owner) -->
-                    {% if user == listing.seller %}
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-200 text-sm text-gray-500">
+                        <button onclick="document.getElementById('shareModal').classList.remove('hidden')"
+                                class="flex items-center gap-1 hover:text-primary transition-colors">
+                            <i class="fas fa-share-alt"></i> {% trans "Share" %}
+                        </button>
+                        <form method="post" action="{% url 'save_listing' listing.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="flex items-center gap-1 hover:text-red-500 transition-colors">
+                                {% if is_saved %}
+                                <i class="fas fa-heart text-red-500"></i> {% trans "Saved" %}
+                                {% else %}
+                                <i class="far fa-heart"></i> {% trans "Save" %}
+                                {% endif %}
+                            </button>
+                        </form>
+                        <button onclick="document.getElementById('reportModal').classList.remove('hidden')"
+                                class="flex items-center gap-1 hover:text-red-500 transition-colors">
+                            <i class="fas fa-flag"></i> {% trans "Report" %}
+                        </button>
+                    </div>
+
                     <div class="mt-4 pt-4 border-t border-gray-200 space-y-2">
-                        <a href="{% url 'listings:listing_edit' listing.pk %}"
-                           class="block w-full bg-yellow-500 hover:bg-yellow-600 text-white text-center py-2.5 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-edit mr-2"></i>
-                            Edit Listing
-                        </a>
-                        <a href="{% url 'listings:listing_delete' listing.pk %}"
-                           class="block w-full bg-red-500 hover:bg-red-600 text-white text-center py-2.5 rounded-lg transition-colors font-medium">
-                            <i class="fas fa-trash mr-2"></i>
-                            Delete Listing
-                        </a>
-                    </div>
-                    {% endif %}
-
-                    <!-- Stats -->
-                    <div class="mt-6 pt-6 border-t border-gray-200">
                         <div class="flex items-center justify-between text-sm">
-                            <span class="text-gray-600">
-                                <i class="far fa-eye mr-2"></i>
-                                Views
-                            </span>
+                            <span class="text-gray-600"><i class="fas fa-hashtag mr-2 text-gray-400"></i>{% trans "Listing ID" %}</span>
+                            <span class="font-mono font-medium text-gray-900">#{{ listing.pk }}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600"><i class="far fa-heart mr-2 text-gray-400"></i>{% trans "Saved" %}</span>
+                            <span class="font-medium text-gray-900">{% blocktrans count counter=listing.saved_by.count %}{{ counter }} person{% plural %}{{ counter }} people{% endblocktrans %}</span>
+                        </div>
+                        {% if listing.views_count %}
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600"><i class="far fa-eye mr-2 text-gray-400"></i>{% trans "Views" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.views_count }}</span>
                         </div>
-                        <div class="flex items-center justify-between text-sm mt-3">
-                            <span class="text-gray-600">
-                                <i class="far fa-clock mr-2"></i>
-                                Posted
-                            </span>
-                            <span class="font-medium text-gray-900">{{ listing.created_at|date:"M d, Y" }}</span>
+                        {% endif %}
+                        {% if listing.last_boosted_at and listing.show_renewed_badge %}
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600"><i class="fas fa-sync-alt mr-2 text-gray-400"></i>{% trans "Renewed" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.last_boosted_at|timesince }}</span>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 
-                <!-- Safety Tips -->
                 <div class="bg-blue-50 rounded-xl border border-blue-200 p-6">
                     <h4 class="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-                        <i class="fas fa-shield-alt"></i>
-                        Safety Tips
+                        <i class="fas fa-shield-alt"></i>{% trans "Safety Tips" %}
                     </h4>
                     <ul class="space-y-2 text-sm text-blue-900">
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
-                            <span>Meet in a safe, public location</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
-                            <span>Check the vehicle thoroughly</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
-                            <span>Never pay in advance</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fas fa-check text-blue-600 mt-0.5"></i>
-                            <span>Verify all documents</span>
-                        </li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check text-blue-600 mt-0.5"></i><span>{% trans "Meet in a safe, public location" %}</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check text-blue-600 mt-0.5"></i><span>{% trans "Check the vehicle thoroughly" %}</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check text-blue-600 mt-0.5"></i><span>{% trans "Never pay in advance" %}</span></li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check text-blue-600 mt-0.5"></i><span>{% trans "Verify all documents" %}</span></li>
                     </ul>
                 </div>
             </div>
@@ -337,24 +1255,192 @@
     </div>
 </div>
 
+<!-- Share Modal -->
+<div id="shareModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+     onclick="if(event.target===this) this.classList.add('hidden')">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4">
+        <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-gray-900">{% trans "Share this listing" %}</h3>
+            <button onclick="document.getElementById('shareModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-4 gap-3 mb-5">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" rel="noopener"
+               class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#1877F2">
+                    <i class="fab fa-facebook-f text-white text-xl"></i>
+                </div>
+                <span class="text-xs text-gray-600">Facebook</span>
+            </a>
+            <a href="https://www.facebook.com/dialog/send?link={{ request.build_absolute_uri }}&app_id=291494419107518&redirect_uri={{ request.build_absolute_uri }}" target="_blank" rel="noopener"
+               class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#00B2FF,#006AFF,#BF00FF)">
+                    <i class="fab fa-facebook-messenger text-white text-xl"></i>
+                </div>
+                <span class="text-xs text-gray-600">Messenger</span>
+            </a>
+            <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ listing.title|urlencode }}" target="_blank" rel="noopener"
+               class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#26A5E4">
+                    <i class="fab fa-telegram-plane text-white text-xl"></i>
+                </div>
+                <span class="text-xs text-gray-600">Telegram</span>
+            </a>
+            <a href="https://wa.me/?text={{ listing.title|urlencode }}%20{{ request.build_absolute_uri }}" target="_blank" rel="noopener"
+               class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#25D366">
+                    <i class="fab fa-whatsapp text-white text-xl"></i>
+                </div>
+                <span class="text-xs text-gray-600">WhatsApp</span>
+            </a>
+            <a href="viber://forward?text={{ listing.title|urlencode }}%20{{ request.build_absolute_uri }}" target="_blank" rel="noopener"
+               class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#7360F2">
+                    <i class="fab fa-viber text-white text-xl"></i>
+                </div>
+                <span class="text-xs text-gray-600">Viber</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-2 p-3 bg-gray-50 rounded-xl" x-data="{ copied: false }">
+            <i class="fas fa-link text-gray-400 shrink-0"></i>
+            <input type="text" value="{{ request.build_absolute_uri }}" readonly
+                   class="flex-1 bg-transparent text-sm text-gray-600 outline-none truncate">
+            <button @click="navigator.clipboard.writeText('{{ request.build_absolute_uri }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                    class="shrink-0 px-3 py-1.5 text-sm rounded-lg transition-colors font-medium"
+                    :class="copied ? 'bg-green-500 text-white' : 'bg-primary text-white hover:bg-primary-dark'">
+                <span x-show="!copied"><i class="fas fa-copy mr-1"></i>{% trans "Copy" %}</span>
+                <span x-show="copied"><i class="fas fa-check mr-1"></i>{% trans "Copied!" %}</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Report Modal -->
+<div id="reportModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+     onclick="if(event.target===this) this.classList.add('hidden')">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full mx-4">
+        <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-gray-900"><i class="fas fa-flag text-red-500 mr-2"></i>{% trans "Report Listing" %}</h3>
+            <button onclick="document.getElementById('reportModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
+        </div>
+        <form method="post" action="{% url 'report_listing' listing.pk %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Reason*" %}</label>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Incorrect price" required> <span class="text-sm">{% trans "Incorrect price" %}</span></label>
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Fraudulent listing"> <span class="text-sm">{% trans "Fraudulent listing" %}</span></label>
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Wrong category"> <span class="text-sm">{% trans "Wrong category" %}</span></label>
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Duplicate listing"> <span class="text-sm">{% trans "Duplicate listing" %}</span></label>
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Already sold"> <span class="text-sm">{% trans "Already sold" %}</span></label>
+                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="reason" value="Other"> <span class="text-sm">{% trans "Other" %}</span></label>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Additional comment" %}</label>
+                <textarea name="comment" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" placeholder="{% trans 'Describe the issue...' %}"></textarea>
+            </div>
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Your email (optional)" %}</label>
+                <input type="email" name="reporter_email" value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary">
+            </div>
+            <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 rounded-lg transition-colors">
+                <i class="fas fa-flag mr-2"></i>{% trans "Submit Report" %}
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Email Modal -->
+<div id="emailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full mx-4">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-900">{% trans "Send Email to Seller" %}</h3>
+            <button onclick="document.getElementById('emailModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form method="post" action="{% url 'contact_seller' listing.pk %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Your Email*" %}</label>
+                <input type="email" name="sender_email" value="{{ user.email }}" required
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Your Phone" %}</label>
+                <input type="text" name="sender_phone" value="{{ user.profile.phone_number }}"
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Message*" %}</label>
+                <textarea name="message" required rows="4"
+                          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary"
+                          placeholder="{% trans 'Hello, I am interested in this listing...' %}"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-lg transition-colors">
+                <i class="fas fa-paper-plane mr-2"></i>{% trans "Send Email" %}
+            </button>
+        </form>
+    </div>
+</div>
+
 {% if listing.latitude and listing.longitude %}
 <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}"></script>
+{% endif %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
 <script>
+const lightbox = GLightbox({
+    selector: '.glightbox',
+    touchNavigation: true,
+    loop: true,
+    zoomable: true,
+    draggable: true,
+    dragToleranceX: 40,
+    dragToleranceY: 65,
+    dragAutoSnap: true,
+});
+
+// ─── Dual-unit display: appends "≈ X unit" hint to every .dual-unit span ───
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.dual-unit').forEach(function(el) {
+        const canonical = parseFloat(el.dataset.canonical);
+        const mul = parseFloat(el.dataset.mul);
+        const toUnit = el.dataset.to;
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+
+        if (isNaN(canonical) || isNaN(mul)) return;
+
+        const converted = canonical * mul;
+        const rounded = decimals === 0
+            ? Math.round(converted)
+            : Math.round(converted * Math.pow(10, decimals)) / Math.pow(10, decimals);
+        const formatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: decimals }).format(rounded);
+
+        const hint = document.createElement('span');
+        hint.className = 'text-gray-400 text-sm';
+        hint.textContent = ' / ≈ ' + formatted + ' ' + toUnit;
+        el.appendChild(hint);
+    });
+});
+
+{% if listing.latitude and listing.longitude %}
 document.addEventListener('DOMContentLoaded', function() {
     const mapElement = document.getElementById('locationMap');
     if (mapElement) {
         const lat = {{ listing.latitude }};
         const lng = {{ listing.longitude }};
-        
         const map = new google.maps.Map(mapElement, {
             center: { lat: lat, lng: lng },
             zoom: {% if listing.hide_exact_address %}12{% else %}15{% endif %},
             disableDefaultUI: true,
             zoomControl: true
         });
-        
         {% if listing.hide_exact_address %}
-        // Show circle for hidden address
         new google.maps.Circle({
             map: map,
             center: { lat: lat, lng: lng },
@@ -366,7 +1452,6 @@ document.addEventListener('DOMContentLoaded', function() {
             strokeWeight: 2
         });
         {% else %}
-        // Show marker for exact address
         new google.maps.Marker({
             position: { lat: lat, lng: lng },
             map: map,
@@ -375,11 +1460,6 @@ document.addEventListener('DOMContentLoaded', function() {
         {% endif %}
     }
 });
-
-function showPhone() {
-    document.getElementById('phoneBtn').classList.add('hidden');
-    document.getElementById('phoneNumber').classList.remove('hidden');
-}
-</script>
 {% endif %}
+</script>
 {% endblock %}

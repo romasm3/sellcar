@@ -1,284 +1,1772 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Browse Cars - SellCar{% endblock %}
+{% block title %}{% trans "Browse Cars" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.custom-dropdown { position:absolute; z-index:100; background:#fff; border:1px solid #e5e7eb; border-radius:0.5rem; box-shadow:0 4px 16px rgba(0,0,0,0.1); width:100%; min-width:220px; margin-top:2px; }
+.custom-dropdown-list { max-height:300px; overflow-y:auto; }
+.custom-item { display:flex; align-items:center; justify-content:space-between; padding:6px 12px; cursor:pointer; font-size:0.875rem; }
+.custom-item:hover { background:#f9fafb; }
+.custom-item.selected { background:#f3f4f6; color:#111827; font-weight:500; }
+.custom-item .item-count { color:#9ca3af; font-size:0.75rem; margin-left:8px; flex-shrink:0; }
+.custom-search-input { width:100%; border:none; outline:none; padding:8px 12px; font-size:0.875rem; border-bottom:1px solid #e5e7eb; border-radius:0.5rem 0.5rem 0 0; }
+.custom-footer { padding:6px 12px; border-top:1px solid #e5e7eb; }
+.custom-footer label { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:#6b7280; cursor:pointer; }
+.custom-trigger { width:100%; padding:0.625rem 0.75rem; background:#f9fafb; border:1px solid #e5e7eb; border-radius:0.5rem; font-size:0.875rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; user-select:none; }
+.custom-trigger:hover { border-color:#d1d5db; }
+.loc-group-header { padding:6px 12px; font-size:0.7rem; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:0.05em; background:#f9fafb; border-bottom:1px solid #f3f4f6; }
+.loc-item { display:flex; align-items:center; padding:6px 12px 6px 20px; cursor:pointer; font-size:0.875rem; color:#374151; }
+.loc-item:hover { background:#f9fafb; color:#111827; }
+.loc-item.selected { background:#f3f4f6; font-weight:500; }
+.cat-modal-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; }
+.cat-modal-box { background:#fff; border-radius:1rem; box-shadow:0 8px 40px rgba(0,0,0,0.18); width:100%; max-width:720px; max-height:80vh; overflow:hidden; display:flex; flex-direction:column; }
+.cat-modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid #f3f4f6; flex-shrink:0; }
+.cat-modal-body { display:flex; flex:1; overflow:hidden; }
+.cat-modal-left { width:280px; flex-shrink:0; overflow-y:auto; border-right:1px solid #f3f4f6; }
+.cat-modal-right { flex:1; overflow-y:auto; background:#fafafa; }
+.cat-modal-right-empty { display:flex; align-items:center; justify-content:center; height:100%; color:#d1d5db; font-size:0.9rem; }
+.cat-left-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; font-size:0.9rem; color:#374151; border-bottom:1px solid #f9fafb; transition:background 0.1s; position:relative; }
+.cat-left-item:hover, .cat-left-item.active { background:#f3f4f6; color:#111827; }
+.cat-left-item.active::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:#374151; border-radius:2px 0 0 2px; }
+.cat-left-item .cat-arrow { margin-left:auto; color:#d1d5db; font-size:0.7rem; }
+.cat-left-item:hover .cat-arrow, .cat-left-item.active .cat-arrow { color:#374151; }
+.cat-modal-icon { width:20px; height:20px; flex-shrink:0; color:#9ca3af; }
+.cat-left-item:hover .cat-modal-icon, .cat-left-item.active .cat-modal-icon { color:#374151; }
+.cat-right-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:0.88rem; color:#374151; border-bottom:1px solid #f0f0f0; transition:background 0.1s; }
+.cat-right-item:hover { background:#f3f4f6; color:#111827; }
+.cat-right-title { padding:12px 20px 8px; font-size:0.75rem; font-weight:600; color:#9ca3af; text-transform:uppercase; letter-spacing:0.05em; }
+.cat-right-icon { width:18px; height:18px; flex-shrink:0; color:#9ca3af; }
+.cat-right-item:hover .cat-right-icon { color:#374151; }
+.sidebar-label { font-size:0.7rem; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.4rem; display:block; }
+.sidebar-section { padding-bottom:1rem; border-bottom:1px solid #f3f4f6; margin-bottom:1rem; }
+.sidebar-section:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+
+.card-badge-group { display:inline-flex; align-items:stretch; border-radius:5px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.3); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+.card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.2); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+.card-bottom-left { position:absolute; bottom:8px; left:8px; max-width:calc(100% - 16px); display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+
+.card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 3px rgba(0,0,0,0.15); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); line-height:1; }
+
+/* ─── Highlighted listing card (purchased highlight addon) ─── */
+.highlighted-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important; border-color: #fb923c !important; box-shadow: 0 4px 14px rgba(251,146,60,0.25) !important; }
+.h-listing-card.highlighted-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important; border-color: #fb923c !important; }
+.h-listing-card.highlighted-card .h-img-side { background: transparent !important; }
+.card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
+.mini-2star { background:rgba(0,0,0,0.35); color:#fff; border:none; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+.mini-1star { background:rgba(0,0,0,0.35); color:#fff; border:none; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+
+.sold-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:5; }
+.sold-badge-big { padding:5px 16px; background:#16a34a; color:#fff; font-size:0.85rem; font-weight:800; letter-spacing:0.08em; border-radius:5px; box-shadow:0 4px 12px rgba(0,0,0,0.3); transform:rotate(-8deg); }
+.sold-card { opacity:0.85; }
+
+.ap-title { font-weight:700; color:#111827; font-size:0.95rem; line-height:1.25; flex:1; min-width:0; word-wrap:break-word; }
+.ap-price { font-size:1.05rem; font-weight:800; color:#111827; line-height:1; white-space:nowrap; flex-shrink:0; }
+.ap-title-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+
+.ap-spec-line { display:flex; align-items:center; flex-wrap:wrap; gap:0; color:#6b7280; font-size:0.78rem; line-height:1.4; }
+.ap-spec-line .sep { margin:0 6px; color:#d1d5db; }
+
+.ap-loc { display:inline-flex; align-items:center; gap:4px; color:#10b981; font-weight:600; font-size:0.78rem; }
+.ap-loc i { font-size:0.7rem; }
+
+.ap-card-compact .ap-title { font-size:0.82rem; line-height:1.2; }
+.ap-card-compact .ap-price { font-size:0.95rem; }
+.ap-card-compact .ap-spec-line { font-size:0.72rem; }
+.ap-card-compact .ap-loc { font-size:0.72rem; }
+.ap-card-compact .ap-spec-line .sep { margin:0 4px; }
+
+.h-listing-card { display: flex; background: #fff; border: 1px solid #f3f4f6; border-radius: 0.75rem; overflow: hidden; transition: all 0.2s; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.h-listing-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); border-color: #d1fae5; }
+.h-listing-card.sold-card { opacity: 0.85; }
+
+.h-img-side { position: relative; width: 340px; height: 200px; flex-shrink: 0; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); overflow: hidden; }
+.h-img-side img { width: 100%; height: 100%; object-fit: cover; }
+.h-img-side .no-img-icon { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 3rem; }
+.h-info-side { flex: 1; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+
+.gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: rgba(255,255,255,0.92); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); color: #374151; font-size: 0.85rem; z-index: 6; opacity: 0; transition: opacity 0.15s, background 0.15s; }
+.h-listing-card:hover .gallery-arrow, .listing-card:hover .gallery-arrow { opacity: 1; }
+.gallery-arrow:hover { background: #fff; }
+.gallery-arrow.left { left: 8px; }
+.gallery-arrow.right { right: 8px; }
+
+.gallery-dots { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; z-index: 6; pointer-events: none; }
+.gallery-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.55); box-shadow: 0 0 2px rgba(0,0,0,0.4); transition: background 0.15s; }
+.gallery-dot.active { background: #fff; }
+
+.gallery-counter { position: absolute; top: 8px; right: 8px; padding: 2px 7px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.65rem; font-weight: 600; border-radius: 4px; z-index: 6; }
+
+/* ─── Home tabs section ─── */
+.home-tabs-section { background: #fff; border-top: 1px solid #f3f4f6; padding: 2.5rem 0; }
+.home-tabs-header { display: flex; gap: 1.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.5rem; overflow-x: auto; }
+.home-tab-btn { padding-bottom: 0.75rem; padding-left: 0.25rem; padding-right: 0.25rem; border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; font-size: 0.95rem; color: #6b7280; cursor: pointer; background: none; transition: all 0.2s; }
+.home-tab-btn:hover { color: #111827; }
+.home-tab-btn.active { border-bottom-color: #10b981; color: #10b981; }
+.home-tab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+@media (min-width: 640px) { .home-tab-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .home-tab-grid { grid-template-columns: repeat(6, 1fr); } }
+.home-tab-card { display: block; background: #fff; border: 1px solid #f3f4f6; border-radius: 0.5rem; overflow: hidden; transition: all 0.2s; cursor: pointer; }
+.home-tab-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #d1fae5; }
+.home-tab-img { position: relative; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
+.home-tab-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.home-tab-card:hover .home-tab-img img { transform: scale(1.05); }
+.home-tab-no-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 2rem; }
+.home-tab-info { padding: 0.6rem 0.7rem; }
+.home-tab-title { font-size: 0.82rem; font-weight: 600; color: #111827; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-tab-spec { font-size: 0.7rem; color: #6b7280; margin-top: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-tab-price { font-size: 0.95rem; font-weight: 800; color: #111827; margin-top: 0.4rem; }
+.home-tab-badge { position: absolute; top: 6px; left: 6px; padding: 2px 6px; font-size: 0.6rem; font-weight: 700; border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.badge-featured { background: #fbbf24; color: #1f2937; }
+.badge-featured-paid { background: #f97316 !important; color: #fff !important; font-weight: 800; }
+.badge-highlight { background: #fb923c !important; color: #fff !important; font-weight: 700; }
+.badge-stars { background: #fbbf24; color: #1f2937; font-weight: 700; }
+
+/* ─── Day's deals: paid featured / highlighted cards (oranžinis paryškinimas) ─── */
+.home-tab-card-orange {
+    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important;
+    border: 2px solid #fb923c !important;
+    box-shadow: 0 4px 14px rgba(251, 146, 60, 0.25) !important;
+}
+.home-tab-card-orange:hover {
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.35) !important;
+    border-color: #f97316 !important;
+}
+
+/* ─── Day's deals: badges stack (top-left, vertical) ─── */
+.home-tab-badges-left {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    z-index: 5;
+}
+.home-tab-badges-left .home-tab-badge {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+.badge-featured-paid { background: #f97316 !important; color: #fff !important; font-weight: 800; }
+.badge-stars { background: #fbbf24; color: #1f2937; font-weight: 700; }
+
+/* ─── Day's deals: paid featured cards (oranžinis paryškinimas) ─── */
+.home-tab-card-paid {
+    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important;
+    border: 2px solid #fb923c !important;
+    box-shadow: 0 4px 14px rgba(251, 146, 60, 0.25) !important;
+}
+.home-tab-card-paid:hover {
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.35) !important;
+    border-color: #f97316 !important;
+}
+
+/* ─── Day's deals: badges stack (top-left, vertical) ─── */
+.home-tab-badges-left {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    z-index: 5;
+}
+.home-tab-badges-left .home-tab-badge {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+.badge-new { background: #10b981; color: #fff; }
+.badge-popular { background: #f97316; color: #fff; }
+.badge-premium { background: #8b5cf6; color: #fff; }
+.badge-vin { position: absolute; bottom: 6px; left: 6px; padding: 2px 6px; background: #16a34a; color: #fff; font-size: 0.6rem; font-weight: 700; border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+/* ─── More filters link button (top — opens Advanced Search) ─── */
+.more-filters-btn { width:100%; padding:0.625rem 1rem; border:2px solid #4b5563; color:#374151; background:#fff; font-size:0.875rem; font-weight:600; border-radius:9999px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; text-decoration:none; }
+.more-filters-btn:hover { background:#f3f4f6; border-color:#1f2937; color:#1f2937; }
+
+/* ─── Add brand+model link ─── */
+.add-brand-link { display:flex; align-items:center; gap:0.5rem; color:#4b5563; font-size:0.85rem; font-weight:500; cursor:pointer; background:none; border:none; padding:0; transition:color 0.15s; }
+.add-brand-link:hover { color:#1f2937; }
+.add-brand-link .plus-icon { width:18px; height:18px; border:1.5px solid #6b7280; border-radius:9999px; display:inline-flex; align-items:center; justify-content:center; font-size:0.65rem; color:#6b7280; flex-shrink:0; }
+
+/* ─── Search button (dark gray, matches SellCar style) ─── */
+.btn-orange-search { width:100%; padding:0.7rem; background:#374151; color:#fff; font-size:0.9rem; font-weight:600; border-radius:0.5rem; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; box-shadow:0 4px 14px rgba(55,65,81,0.25); }
+.btn-orange-search:hover { background:#1f2937; box-shadow:0 6px 18px rgba(31,41,55,0.35); }
+
+/* ─── More features toggle (bottom) ─── */
+.more-features-link { color:#4b5563; font-size:0.85rem; font-weight:500; text-decoration:underline; cursor:pointer; background:none; border:none; padding:0; }
+.more-features-link:hover { color:#1f2937; }
+
+/* ─── Feature section title ─── */
+.feature-section-title { font-size:0.85rem; font-weight:700; color:#111827; margin-bottom:0.5rem; padding-top:0.5rem; }
+
+/* ─── Sidebar checkbox row ─── */
+.sb-check-row { display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.25rem 0; }
+.sb-check-row input[type="checkbox"] { accent-color:#374151; width:14px; height:14px; flex-shrink:0; }
+.sb-check-row span { font-size:0.85rem; color:#374151; }
+
+/* ─── Brand+Model pair (added dynamically) ─── */
+.brand-pair-extra { padding-top:0.75rem; border-top:1px dashed #e5e7eb; margin-top:0.75rem; position:relative; }
+.brand-pair-remove { position:absolute; top:0.5rem; right:0; width:20px; height:20px; border:none; background:transparent; color:#9ca3af; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
+.brand-pair-remove:hover { color:#ef4444; }
+
+[x-cloak] { display: none !important; }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col lg:flex-row gap-8">
-        
-        <!-- Filters Sidebar -->
-        <div class="lg:w-1/4">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-24">
-                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-                    <h3 class="font-semibold text-gray-900">
-                        <i class="fas fa-filter mr-2 text-primary"></i>Filters
-                    </h3>
-                    <a href="{% url 'listings:listing_list' %}" class="text-sm text-primary hover:underline">Clear All</a>
-                </div>
-                
-                <form method="get" id="filterForm" class="p-4 space-y-4">
-                    
-                    <!-- Search -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
-                        <input type="text" name="search" 
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-                               placeholder="Search by make, model..." 
-                               value="{{ search_query }}">
-                    </div>
+<div class="bg-gray-50 min-h-screen">
 
-                    <!-- Make -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Make</label>
-                        <select name="brand" id="brandSelect" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                            <option value="">All Makes</option>
-                            {% for brand in brands %}
-                                <option value="{{ brand.id }}" 
-                                        {% if request.GET.brand == brand.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ brand.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Model -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Model</label>
-                        <select name="model" id="modelSelect" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                            <option value="">All Models</option>
-                            {% for model in models %}
-                                <option value="{{ model.id }}" 
-                                        {% if request.GET.model == model.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ model.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Price Range -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Price Range</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="number" name="price_min" 
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-                                   placeholder="Min €" value="{{ request.GET.price_min }}">
-                            <input type="number" name="price_max" 
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-                                   placeholder="Max €" value="{{ request.GET.price_max }}">
-                        </div>
-                    </div>
-
-                    <!-- Year -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <select name="year_min" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                                <option value="">From</option>
-                                {% for year in years %}
-                                    <option value="{{ year }}" 
-                                            {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>
-                                        {{ year }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <select name="year_max" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                                <option value="">To</option>
-                                {% for year in years %}
-                                    <option value="{{ year }}" 
-                                            {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>
-                                        {{ year }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Fuel Type -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Fuel Type</label>
-                        <select name="fuel_type" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                            <option value="">All</option>
-                            {% for fuel in fuel_types %}
-                                <option value="{{ fuel.id }}" 
-                                        {% if request.GET.fuel_type == fuel.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ fuel.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Transmission -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Transmission</label>
-                        <select name="transmission" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white">
-                            <option value="">All</option>
-                            {% for trans in transmissions %}
-                                <option value="{{ trans.id }}" 
-                                        {% if request.GET.transmission == trans.id|stringformat:"s" %}selected{% endif %}>
-                                    {{ trans.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <button type="submit" 
-                            class="w-full bg-primary text-white py-2.5 rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                        <i class="fas fa-search mr-2"></i>Apply Filters
-                    </button>
-                </form>
+    <!-- Category Modal -->
+    <div id="categoryModal" class="cat-modal-overlay hidden">
+        <div class="cat-modal-box">
+            <div class="cat-modal-header">
+                <h3 class="font-bold text-gray-900 text-lg">{% trans "Select Category" %}</h3>
+                <button onclick="closeCategoryModal()" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </div>
-
-        <!-- Listings Grid -->
-        <div class="lg:w-3/4">
-            <!-- Header -->
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Browse Cars</h1>
-                    <p class="text-gray-600">Found {{ total_count }} listing{{ total_count|pluralize }}</p>
+            <div class="cat-modal-body">
+                <div class="cat-modal-left" id="catLeftList">
+                    <div class="cat-left-item" data-slug="cars" data-label="{% trans 'Cars' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg><span>{% trans "Cars" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    {% if user.is_staff %}<div class="cat-left-item" data-slug="vans" data-label="{% trans 'Minibuses, Buses & Campers' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0H6m12.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.5M3 7.5h13.5v7.5H3V7.5zM16.5 9l3 2.25V18h-3V9z"/></svg><span>{% trans "Minibuses, Buses & Campers" %} <small style="color:#f59e0b;">(WIP)</small></span><i class="fas fa-chevron-right cat-arrow"></i></div>{% endif %}
+                    <div class="cat-left-item" data-slug="motorcycles" data-label="{% trans 'Motorcycles & Moto Gear' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17.5h4l2-5h5l2 3h1M12 12.5l-1-5h3l3 5"/></svg><span>{% trans "Motorcycles & Moto Gear" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="trucks" data-label="{% trans 'Trucks & Commercial' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0H6m12.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.5M3 7.5h13.5v7.5H3V7.5zM16.5 9l3 2.25V18h-3V9z"/></svg><span>{% trans "Trucks & Commercial" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    {% if user.is_staff %}<div class="cat-left-item" data-slug="parts" data-label="{% trans 'Parts' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg><span>{% trans "Parts" %} <small style="color:#f59e0b;">(WIP)</small></span><i class="fas fa-chevron-right cat-arrow"></i></div>{% endif %}
+                    {% if user.is_staff %}
+                    <div class="cat-left-item" data-slug="boats" data-label="{% trans 'Boats & Water Transport' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 17l6-12 6 12M3 20h18M12 5v3"/></svg><span>{% trans "Boats & Water Transport" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="trailers" data-label="{% trans 'Trailers & Semi-trailers' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="1" y="8" width="15" height="8" rx="1"/><path stroke-linecap="round" d="M16 12h5M19 16a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 16a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg><span>{% trans "Trailers & Semi-trailers" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="tires" data-label="{% trans 'Tyres & Wheels' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span>{% trans "Tyres & Wheels" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="construction" data-label="{% trans 'Construction & Warehouse Equipment' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21"/></svg><span>{% trans "Construction & Warehouse Equipment" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="agriculture" data-label="{% trans 'Agricultural & Forestry' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 17h1m4 0h8m2 0h2M9 17V8h7l3 6M9 8H6v6"/></svg><span>{% trans "Agricultural & Forestry" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="bicycles" data-label="{% trans 'Bicycles & Scooters' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 17l4-9h4l4 9M10 8l3 9M14 8h2"/></svg><span>{% trans "Bicycles & Scooters" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="services" data-label="{% trans 'Services' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486"/></svg><span>{% trans "Services" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="rental" data-label="{% trans 'Car Rental' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg><span>{% trans "Car Rental" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="planes" data-label="{% trans 'Planes & Aircraft' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg><span>{% trans "Planes & Aircraft" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    <div class="cat-left-item" data-slug="planes-parts" data-label="{% trans 'Aircraft Parts' %}"><svg class="cat-modal-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63"/></svg><span>{% trans "Aircraft Parts" %}</span><i class="fas fa-chevron-right cat-arrow"></i></div>
+                    {% endif %}
                 </div>
-                <a href="{% url 'listings:search_map' %}" 
-                   class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors font-medium inline-flex items-center">
-                    <i class="fas fa-map-marked-alt mr-2"></i>Map View
-                </a>
-            </div>
-
-            <!-- Sort Bar -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <span class="text-gray-600 text-sm">Showing {{ listings|length }} of {{ total_count }}</span>
-                    <div class="flex items-center gap-2">
-                        <label class="text-sm text-gray-600">Sort by:</label>
-                        <select class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary bg-white"
-                                onchange="window.location.href=this.value">
-                            <option value="?ordering=-created_at">Newest</option>
-                            <option value="?ordering=price">Price: Low to High</option>
-                            <option value="?ordering=-price">Price: High to Low</option>
-                            <option value="?ordering=-year">Year: Newest</option>
-                        </select>
-                    </div>
+                <div class="cat-modal-right" id="catRightPanel">
+                    <div class="cat-modal-right-empty" id="catRightEmpty"><span>{% trans "Select a category" %}</span></div>
+                    <div id="catRightContent" class="hidden"></div>
                 </div>
             </div>
-
-            <!-- Listings -->
-            {% if listings %}
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {% for listing in listings %}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
-                        <!-- Image -->
-                        <div class="relative h-48 bg-gray-200">
-                            {% if listing.images.first %}
-                                <img src="{{ listing.images.first.image.url }}" 
-                                     class="w-full h-full object-cover"
-                                     alt="{{ listing.title }}">
-                            {% else %}
-                                <div class="w-full h-full flex items-center justify-center bg-gray-300">
-                                    <i class="fas fa-car text-5xl text-gray-400"></i>
-                                </div>
-                            {% endif %}
-                            
-                            <!-- Price Badge -->
-                            <div class="absolute top-3 right-3 bg-primary text-white px-3 py-1 rounded-lg font-semibold">
-                                €{{ listing.price|floatformat:0 }}
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="p-4">
-                            <h3 class="font-semibold text-gray-900 mb-1 truncate">{{ listing.title }}</h3>
-                            <p class="text-gray-500 text-sm mb-3">
-                                {{ listing.brand.name }} {{ listing.model.name }}
-                            </p>
-                            
-                            <!-- Specs -->
-                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
-                                <div class="flex items-center gap-1">
-                                    <i class="fas fa-calendar text-gray-400"></i>
-                                    <span>{{ listing.year }}</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="fas fa-road text-gray-400"></i>
-                                    <span>{{ listing.mileage|floatformat:0 }} km</span>
-                                </div>
-                                {% if listing.fuel_type %}
-                                <div class="flex items-center gap-1">
-                                    <i class="fas fa-gas-pump text-gray-400"></i>
-                                    <span>{{ listing.fuel_type.name }}</span>
-                                </div>
-                                {% endif %}
-                                {% if listing.transmission %}
-                                <div class="flex items-center gap-1">
-                                    <i class="fas fa-cog text-gray-400"></i>
-                                    <span>{{ listing.transmission.name }}</span>
-                                </div>
-                                {% endif %}
-                            </div>
-                            
-                            <!-- Footer -->
-                            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-                                <div class="flex items-center gap-1 text-sm text-gray-500">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ listing.city|default:"Lithuania" }}</span>
-                                </div>
-                                <a href="{% url 'listings:listing_detail' listing.pk %}" 
-                                   class="text-primary hover:text-primary-dark font-medium text-sm transition-colors">
-                                    View Details →
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <!-- No Results -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-search text-3xl text-gray-400"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No listings found</h3>
-                    <p class="text-gray-600 mb-6">Try adjusting your filters to find what you're looking for</p>
-                    <a href="{% url 'listings:listing_list' %}" 
-                       class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                        <i class="fas fa-times mr-2"></i>Clear Filters
-                    </a>
-                </div>
-            {% endif %}
         </div>
     </div>
+
+    {% if request.GET.sidebar %}
+    <div class="max-w-5xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h1 class="text-xl font-bold text-gray-900">{% trans "Cars" %}</h1>
+                <p class="text-gray-500 text-sm">{% blocktrans count counter=total_count %}{{ counter }} listing found{% plural %}{{ counter }} listings found{% endblocktrans %}</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="/browse/" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <i class="fas fa-times text-xs"></i> {% trans "Clear filters" %}
+                </a>
+                <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+                    <i class="fas fa-sliders-h"></i> {% trans "Advanced" %}
+                </a>
+                <a href="{% url 'search_map' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-lg">
+                    <i class="fas fa-map-marked-alt"></i> {% trans "Map" %}
+                </a>
+            </div>
+        </div>
+
+        <div class="flex gap-6 items-start">
+            <div class="w-64 flex-shrink-0">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-20">
+                    <form method="get" action="/browse/" id="sidebarForm">
+                        <input type="hidden" name="sidebar" value="1">
+                        <input type="hidden" name="brand" id="sidebarBrandHidden" value="{{ request.GET.brand }}">
+                        <input type="hidden" name="model" id="sidebarModelHidden" value="{{ request.GET.model }}">
+                        <input type="hidden" name="category" id="sidebarCategoryHidden" value="{{ selected_category|default:'cars' }}">
+                        <input type="hidden" name="country_filter" value="{{ selected_country }}">
+                        <input type="hidden" name="state_filter" value="{{ selected_state }}">
+
+                        {# ═══ MORE FILTERS LINK (top button — opens Advanced Search) ═══ #}
+                        <div class="mb-4">
+                            <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="more-filters-btn">
+                                <span>{% trans "More filters" %}</span>
+                                <i class="fas fa-sliders-h text-xs"></i>
+                            </a>
+                        </div>
+
+                        {# ═══ CATEGORY ═══ #}
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">{% trans "Category" %}</span>
+                            <div class="custom-trigger text-sm" onclick="openCategoryModal()">
+                                <span id="sidebarCategoryLabel">{% trans "Cars" %}</span>
+                                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        {# ═══ MAKE / MODEL PAIRS (multi-brand UI) ═══ #}
+                        <div id="brandModelPairs">
+                            {# Pirma pora — pagrindinis Make+Model #}
+                            <div class="brand-model-pair" data-pair-index="0">
+                                <div class="sidebar-section">
+                                    <span class="sidebar-label">{% trans "Brand" %}</span>
+                                    <div class="relative" id="sidebarBrandWrapper">
+                                        <div class="custom-trigger text-sm" onclick="toggleSidebarDd('sidebarBrandDd', event)">
+                                            <span id="sidebarBrandLabel" class="truncate">{% trans "All Brands" %}</span>
+                                            <i class="fas fa-chevron-down text-xs text-gray-400 flex-shrink-0"></i>
+                                        </div>
+                                        <div id="sidebarBrandDd" class="custom-dropdown hidden">
+                                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search brand...' %}" oninput="filterSidebarBrands(this.value)">
+                                            <div class="custom-dropdown-list" id="sidebarBrandList">
+                                                <div class="custom-item" onclick="chooseSidebarBrand('', '{% trans 'All Brands' %}')"><span>{% trans "All Brands" %}</span></div>
+                                                {% for brand in brands %}
+                                                <div class="custom-item {% if request.GET.brand == brand.id|stringformat:'i' %}selected{% endif %}"
+                                                     data-id="{{ brand.id }}" data-name="{{ brand.name }}" data-count="{{ brand.count }}"
+                                                     onclick="chooseSidebarBrand('{{ brand.id }}', '{{ brand.name }}')">
+                                                    <span>{{ brand.name }}</span>
+                                                    <span class="item-count">{{ brand.count }}</span>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-section">
+                                    <span class="sidebar-label">{% trans "Model" %}</span>
+                                    <div class="relative" id="sidebarModelWrapper">
+                                        <div class="custom-trigger text-sm" onclick="toggleSidebarDd('sidebarModelDd', event)">
+                                            <span id="sidebarModelLabel" class="truncate">{% trans "All Models" %}</span>
+                                            <i class="fas fa-chevron-down text-xs text-gray-400 flex-shrink-0"></i>
+                                        </div>
+                                        <div id="sidebarModelDd" class="custom-dropdown hidden">
+                                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search model...' %}" oninput="filterSidebarModels(this.value)">
+                                            <div class="custom-dropdown-list" id="sidebarModelList">
+                                                <div class="custom-item" onclick="chooseSidebarModel('', '{% trans 'All Models' %}')"><span>{% trans "All Models" %}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# ═══ + ADD BRAND AND MODEL ═══ #}
+                        <div class="sidebar-section">
+                            <button type="button" onclick="addBrandModelPair()" class="add-brand-link">
+                                <span class="plus-icon"><i class="fas fa-plus"></i></span>
+                                {% trans "Add brand and model" %}
+                            </button>
+                        </div>
+
+                        {# ═══ PRICE ═══ #}
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">{% trans "Price ($)" %}</span>
+                            <div class="flex gap-1.5">
+                                <input type="number" name="price_min" placeholder="{% trans 'From' %}" value="{{ request.GET.price_min }}" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                <input type="number" name="price_max" placeholder="{% trans 'To' %}" value="{{ request.GET.price_max }}" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                        </div>
+
+                        {# ═══ YEAR ═══ #}
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">{% trans "Year" %}</span>
+                            <div class="flex gap-1.5">
+                                <select name="year_min" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "From" %}</option>
+                                    {% for year in years %}<option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                                </select>
+                                <select name="year_max" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "To" %}</option>
+                                    {% for year in years %}<option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        {# ═══ MILEAGE ═══ #}
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">{% trans "Mileage (km)" %}</span>
+                            <div class="flex gap-1.5">
+                                <input type="number" name="mileage_min" placeholder="{% trans 'From' %}" value="{{ request.GET.mileage_min }}" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                <input type="number" name="mileage_max" placeholder="{% trans 'To' %}" value="{{ request.GET.mileage_max }}" class="flex-1 min-w-0 w-0 px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                        </div>
+
+                        {# ═══ TEXT SEARCH ═══ #}
+                        <div class="sidebar-section">
+                            <span class="sidebar-label">{% trans "Text search" %}</span>
+                            <input type="text" name="q" placeholder="{% trans 'Search...' %}" value="{{ request.GET.q }}"
+                                   class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                        </div>
+
+                        {# ═══ INSPECTION + VIN CHECKBOXES ═══ #}
+                        <div class="sidebar-section" style="border-bottom:none;padding-bottom:0.5rem;margin-bottom:0.75rem;">
+                            <label class="sb-check-row">
+                                <input type="checkbox" name="valid_inspection" value="1" {% if request.GET.valid_inspection %}checked{% endif %}>
+                                <span>{% trans "Valid inspection" %}</span>
+                            </label>
+                            <label class="sb-check-row">
+                                <input type="checkbox" name="has_vin" value="1" {% if request.GET.has_vin %}checked{% endif %}>
+                                <span>{% trans "Listing with VIN" %}</span>
+                            </label>
+                        </div>
+
+                        {# ═══ ORANGE SEARCH BUTTON ═══ #}
+                        <button type="submit" class="btn-orange-search mb-3">
+                            <i class="fas fa-search"></i> {% trans "Search" %}
+                        </button>
+
+                        {# ═══ EXTRA CHECKBOXES ═══ #}
+                        <div class="sidebar-section">
+                            <label class="sb-check-row">
+                                <input type="checkbox" name="hide_auctions" value="1" {% if request.GET.hide_auctions %}checked{% endif %}>
+                                <span>{% trans "Hide from auctions" %}</span>
+                            </label>
+                        </div>
+
+                        {# ═══════════════════════════════════════ #}
+                        {# ALWAYS-VISIBLE EXTRA FILTERS              #}
+                        {# (Specs / Location / Condition)            #}
+                        {# ═══════════════════════════════════════ #}
+                        <div>
+
+                            {# ═══ TRANSMISSION ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "Transmission" %}</span>
+                                <select name="transmission" class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "All" %}</option>
+                                    {% for tr in transmissions %}<option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>{% endfor %}
+                                </select>
+                            </div>
+
+                            {% if selected_category == 'parts' %}
+                            {# ═══ PARTS sidebar — Name or part number ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "Name or Part Number" %}</span>
+                                <input type="text" name="part_query" placeholder="{% trans 'e.g. 06H 145 601 H' %}"
+                                       value="{{ request.GET.part_query|default:'' }}"
+                                       class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                            {% else %}
+                            {# ═══ CARS sidebar — Fuel Type + Body Type ═══ #}
+                            <div class="sidebar-section" x-data="{ fuelOpen: false }">
+                                <span class="sidebar-label">{% trans "Fuel Type" %}</span>
+                                <div class="space-y-1.5 mt-1">
+                                    {% for ft in fuel_types %}
+                                    {% if forloop.counter <= 4 %}
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" name="fuel_type_chk" value="{{ ft.id }}"
+                                               {% if request.GET.fuel_type == ft.id|stringformat:"i" %}checked{% endif %}
+                                               style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;"
+                                               onchange="sidebarFuelChange(this)">
+                                        <span class="text-sm text-gray-700">{{ ft.name }}</span>
+                                    </label>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <div x-show="fuelOpen" x-cloak x-transition class="space-y-1.5">
+                                        {% for ft in fuel_types %}
+                                        {% if forloop.counter > 4 %}
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" name="fuel_type_chk" value="{{ ft.id }}"
+                                                   {% if request.GET.fuel_type == ft.id|stringformat:"i" %}checked{% endif %}
+                                                   style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;"
+                                                   onchange="sidebarFuelChange(this)">
+                                            <span class="text-sm text-gray-700">{{ ft.name }}</span>
+                                        </label>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% if fuel_types|length > 4 %}
+                                    <button type="button" @click="fuelOpen = !fuelOpen" class="more-features-link" style="margin-top:0.4rem;">
+                                        <span x-show="!fuelOpen">{% trans "More" %}</span>
+                                        <span x-show="fuelOpen" x-cloak>{% trans "Less" %}</span>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                                <input type="hidden" name="fuel_type" id="sidebarFuelHidden" value="{{ request.GET.fuel_type }}">
+                            </div>
+
+                            <div class="sidebar-section" x-data="{ bodyOpen: false }">
+                                <span class="sidebar-label">{% trans "Body Type" %}</span>
+                                <div class="space-y-1.5 mt-1">
+                                    {% for val, label in body_type_choices %}
+                                    {% if forloop.counter <= 4 %}
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" name="body_type" value="{{ val }}"
+                                               {% if val in selected_body_types %}checked{% endif %}
+                                               style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;">
+                                        <span class="text-sm text-gray-700">{{ label }}</span>
+                                    </label>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <div x-show="bodyOpen" x-cloak x-transition class="space-y-1.5">
+                                        {% for val, label in body_type_choices %}
+                                        {% if forloop.counter > 4 %}
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" name="body_type" value="{{ val }}"
+                                                   {% if val in selected_body_types %}checked{% endif %}
+                                                   style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;">
+                                            <span class="text-sm text-gray-700">{{ label }}</span>
+                                        </label>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% if body_type_choices|length > 4 %}
+                                    <button type="button" @click="bodyOpen = !bodyOpen" class="more-features-link" style="margin-top:0.4rem;">
+                                        <span x-show="!bodyOpen">{% trans "More" %}</span>
+                                        <span x-show="bodyOpen" x-cloak>{% trans "Less" %}</span>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {# ═══ SELLER TYPE ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "Seller type" %}</span>
+                                <select name="seller_type" class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "All" %}</option>
+                                    <option value="private" {% if request.GET.seller_type == 'private' %}selected{% endif %}>{% trans "Private" %}</option>
+                                    <option value="dealer" {% if request.GET.seller_type == 'dealer' %}selected{% endif %}>{% trans "Dealer" %}</option>
+                                </select>
+                            </div>
+
+                            {# ═══ CITY ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "City" %}</span>
+                                <input type="text" name="city" placeholder="{% trans 'All' %}" value="{{ request.GET.city }}"
+                                       class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            </div>
+
+                            {# ═══ DEFECTS ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "Defects" %}</span>
+                                <select name="defects" class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "All" %}</option>
+                                    <option value="none" {% if request.GET.defects == 'none' %}selected{% endif %}>{% trans "No defects" %}</option>
+                                    <option value="minor" {% if request.GET.defects == 'minor' %}selected{% endif %}>{% trans "Minor defects" %}</option>
+                                    <option value="damaged" {% if request.GET.defects == 'damaged' %}selected{% endif %}>{% trans "Damaged" %}</option>
+                                    <option value="salvage" {% if request.GET.defects == 'salvage' %}selected{% endif %}>{% trans "Salvage" %}</option>
+                                </select>
+                            </div>
+
+                            {# ═══ SHOW NO OLDER THAN ═══ #}
+                            <div class="sidebar-section">
+                                <span class="sidebar-label">{% trans "Show no older than" %}</span>
+                                <select name="posted_within" class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                    <option value="">{% trans "Any time" %}</option>
+                                    <option value="1" {% if request.GET.posted_within == '1' %}selected{% endif %}>{% trans "24 hours" %}</option>
+                                    <option value="3" {% if request.GET.posted_within == '3' %}selected{% endif %}>{% trans "3 days" %}</option>
+                                    <option value="7" {% if request.GET.posted_within == '7' %}selected{% endif %}>{% trans "7 days" %}</option>
+                                    <option value="30" {% if request.GET.posted_within == '30' %}selected{% endif %}>{% trans "30 days" %}</option>
+                                </select>
+                            </div>
+
+                            {# ═══ EQUIPMENT — autogidas-style 7 categories ═══ #}
+                            {% if equipment_by_category %}
+                            <div x-data="{ openCats: {} }">
+                                <div class="feature-section-title">{% trans "Equipment" %}</div>
+                                {% for cat_key, cat_label, items in equipment_by_category %}
+                                <div style="margin-bottom:0.5rem;">
+                                    <button type="button"
+                                            @click="openCats['{{ cat_key }}'] = !openCats['{{ cat_key }}']"
+                                            style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0;background:none;border:none;cursor:pointer;font-size:0.78rem;font-weight:600;color:#374151;">
+                                        <span>{{ cat_label }}</span>
+                                        <i class="fas fa-chevron-down" style="font-size:0.6rem;color:#9ca3af;"
+                                           :class="{ 'fa-chevron-up': openCats['{{ cat_key }}'] }"></i>
+                                    </button>
+                                    <div x-show="openCats['{{ cat_key }}']" x-cloak x-transition style="padding-left:0.25rem;">
+                                        {% for eq in items %}
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="equipment" value="{{ eq.id }}"
+                                                   {% if eq.id|stringformat:"i" in selected_equipment %}checked{% endif %}>
+                                            <span>{{ eq.name }}</span>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            {# ═══ FEATURES (with More toggle) ═══ #}
+                            <div x-data="{ featuresOpen: false }" style="margin-top:1rem;padding-top:1rem;border-top:1px solid #f3f4f6;">
+                                <div class="feature-section-title">{% trans "Features" %}</div>
+                                <div class="space-y-1">
+                                    <label class="sb-check-row">
+                                        <input type="checkbox" name="feat_trade_in" value="1" {% if request.GET.feat_trade_in %}checked{% endif %}>
+                                        <span>{% trans "Trade-in accepted" %}</span>
+                                    </label>
+                                    <label class="sb-check-row">
+                                        <input type="checkbox" name="feat_warranty" value="1" {% if request.GET.feat_warranty %}checked{% endif %}>
+                                        <span>{% trans "Warranty" %}</span>
+                                    </label>
+                                    <label class="sb-check-row">
+                                        <input type="checkbox" name="feat_lease" value="1" {% if request.GET.feat_lease %}checked{% endif %}>
+                                        <span>{% trans "Sold on lease" %}</span>
+                                    </label>
+                                    <label class="sb-check-row">
+                                        <input type="checkbox" name="feat_sport" value="1" {% if request.GET.feat_sport %}checked{% endif %}>
+                                        <span>{% trans "Sport-ready" %}</span>
+                                    </label>
+                                    <label class="sb-check-row">
+                                        <input type="checkbox" name="feat_disabled" value="1" {% if request.GET.feat_disabled %}checked{% endif %}>
+                                        <span>{% trans "Adapted for disabled" %}</span>
+                                    </label>
+
+                                    {# Daugiau (More) — collapsible #}
+                                    <div x-show="featuresOpen" x-cloak x-transition class="space-y-1">
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_service_book" value="1" {% if request.GET.feat_service_book %}checked{% endif %}>
+                                            <span>{% trans "Service book" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_us_import" value="1" {% if request.GET.feat_us_import %}checked{% endif %}>
+                                            <span>{% trans "Imported from US" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_multi_keys" value="1" {% if request.GET.feat_multi_keys %}checked{% endif %}>
+                                            <span>{% trans "Multiple key sets" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_power_boost" value="1" {% if request.GET.feat_power_boost %}checked{% endif %}>
+                                            <span>{% trans "Increased engine power" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_pneumatic" value="1" {% if request.GET.feat_pneumatic %}checked{% endif %}>
+                                            <span>{% trans "Pneumatic suspension" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_remote_start" value="1" {% if request.GET.feat_remote_start %}checked{% endif %}>
+                                            <span>{% trans "Remote start" %}</span>
+                                        </label>
+                                        <label class="sb-check-row">
+                                            <input type="checkbox" name="feat_spare_wheel" value="1" {% if request.GET.feat_spare_wheel %}checked{% endif %}>
+                                            <span>{% trans "Spare wheel" %}</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="pt-2">
+                                        <button type="button" @click="featuresOpen = !featuresOpen" class="more-features-link">
+                                            <span x-show="!featuresOpen">{% trans "More" %}</span>
+                                            <span x-show="featuresOpen" x-cloak>{% trans "Less" %}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {# ═══ END EXTRA FILTERS ═══ #}
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-500 text-sm">{% blocktrans count counter=total_count %}Showing {{ counter }} listing{% plural %}Showing {{ counter }} listings{% endblocktrans %}</span>
+                    <div class="flex items-center gap-3">
+                        <select name="sort" onchange="onSortChange(this)" class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
+                            <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Newest" %}</option>
+                            <option value="newest_renewed" {% if request.GET.sort == 'newest_renewed' %}selected{% endif %}>{% trans "Newest and renewed" %}</option>
+                            <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+                            <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
+                            <option value="mileage_asc" {% if request.GET.sort == 'mileage_asc' %}selected{% endif %}>{% trans "Mileage: Low to High" %}</option>
+                            <option value="mileage_desc" {% if request.GET.sort == 'mileage_desc' %}selected{% endif %}>{% trans "Mileage: High to Low" %}</option>
+                            <option value="year_desc" {% if request.GET.sort == 'year_desc' %}selected{% endif %}>{% trans "Year: Newest First" %}</option>
+                            <option value="year_asc" {% if request.GET.sort == 'year_asc' %}selected{% endif %}>{% trans "Year: Oldest First" %}</option>
+                        </select>
+                        {% if user.is_authenticated %}
+                        <button type="button" id="saveSidebarBtn" onclick="saveSidebarSearch(this)" class="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2 transition-all">
+                            <i class="far fa-bell" id="saveSidebarIcon"></i> <span id="saveSidebarLabel">{% trans "Save Search" %}</span>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if listings %}
+                <div class="space-y-3">
+                    {% for listing in listings %}
+                    {% with eff_level=listing.get_effective_star_level %}
+                    <div class="h-listing-card group {% if listing.status == 'sold' %}sold-card{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
+                         x-data="{ idx: 0, total: {{ listing.images.count }} }"
+                         data-created="{{ listing.created_at|date:'c' }}"
+                         {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>
+                        <div class="h-img-side">
+                            {% if listing.images.count > 0 %}
+                                {% for img in listing.images.all|slice:":8" %}
+                                <img src="{{ img.image.url }}" alt="{{ listing.title }}"
+                                     x-show="idx === {{ forloop.counter0 }}"
+                                     {% if not forloop.first %}style="display:none;"{% endif %}>
+                                {% endfor %}
+                            {% else %}
+                                <div class="no-img-icon"><i class="fas fa-car"></i></div>
+                            {% endif %}
+                            {% if listing.images.count > 1 %}
+                            <button class="gallery-arrow left" @click.stop="idx = (idx - 1 + Math.min(total, 8)) % Math.min(total, 8)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="gallery-arrow right" @click.stop="idx = (idx + 1) % Math.min(total, 8)"><i class="fas fa-chevron-right"></i></button>
+                            <div class="gallery-counter"><span x-text="idx + 1"></span>/<span x-text="Math.min(total, 8)"></span></div>
+                            <div class="gallery-dots">
+                                {% for img in listing.images.all|slice:":8" %}
+                                <span class="gallery-dot" :class="{ 'active': idx === {{ forloop.counter0 }} }"></span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if listing.status == 'sold' %}
+                            <div class="sold-overlay"><span class="sold-badge-big">{% trans "SOLD" %}</span></div>
+                            {% endif %}
+                            {% if listing.status != 'sold' %}
+                            {% if user.is_authenticated %}
+                            <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all z-10">
+                                <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
+                            </button>
+                            {% else %}
+                            <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
+                                <i class="far fa-heart text-gray-400 text-sm"></i>
+                            </a>
+                            {% endif %}
+                            {% endif %}
+                            {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-bottom-left">
+                                {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
+                                <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
+                                    <span class="card-badge-new">New</span>
+                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                                </div>
+                                {% endif %}
+                                {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 1 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
+                                {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">{% if listing.star_count > 2 %}{{ listing.star_count }} {% endif %}⭐⭐</span>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="h-info-side">
+                            <div class="ap-title-row">
+                                <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
+                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            </div>
+                            <div class="ap-spec-line">
+                                <span>{{ listing.year }}</span>
+                                {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                            </div>
+                            <div class="ap-spec-line">
+                                {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                                {% if listing.engine_capacity or listing.power %}
+                                    {% if listing.transmission %}<span class="sep">·</span>{% endif %}
+                                    <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
+                                {% endif %}
+                                {% if listing.body_type %}<span class="sep">·</span><span>{{ listing.get_body_type_display }}</span>{% endif %}
+                            </div>
+                            <div class="ap-loc mt-auto">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ listing.city|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+                    <i class="fas fa-car text-4xl text-gray-300 mb-4 block"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
+                    <p class="text-gray-500 mb-6">{% trans "Try adjusting your filters" %}</p>
+                    <a href="/browse/" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg"><i class="fas fa-undo"></i> {% trans "Clear filters" %}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-6">
+            <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
+            <form method="get" action="/browse/" id="filterForm">
+                <input type="hidden" name="sidebar" value="1">
+                <input type="hidden" name="brand" id="brandHidden" value="{{ request.GET.brand }}">
+                <input type="hidden" name="model" id="modelHidden" value="{{ request.GET.model }}">
+                <input type="hidden" name="submodel" id="submodelHidden" value="{{ request.GET.submodel }}">
+                <input type="hidden" name="category" id="categoryHidden" value="{{ selected_category|default:'cars' }}">
+                <input type="hidden" name="subcategory" id="subcategoryHidden" value="{{ request.GET.subcategory }}">
+                <input type="hidden" name="country_filter" id="countryFilterHidden" value="{{ selected_country }}">
+                <input type="hidden" name="state_filter" id="stateFilterHidden" value="{{ selected_state }}">
+
+                <div class="flex flex-wrap items-end gap-3">
+                    <div class="w-full">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Category" %}</label>
+                        <div class="custom-trigger" onclick="openCategoryModal()" style="max-width:220px;">
+                            <span id="categoryLabel">{% trans "Cars" %}</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="locationWrapper">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Location" %}</label>
+                        <div class="custom-trigger" onclick="toggleLocationDropdown(event)">
+                            <span id="locationLabel" class="truncate">{% trans "All Locations" %}</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+                        </div>
+                        <div id="locationDropdown" class="custom-dropdown hidden" style="min-width:240px;">
+                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search location...' %}" id="locationSearchInput" oninput="filterLocationItems(this.value)">
+                            <div class="custom-dropdown-list" id="locationList">
+                                <div class="loc-item {% if not selected_country and not selected_state %}selected{% endif %}" onclick="chooseLocation('', '', '{% trans 'All Locations' %}')"><span>🌍 {% trans "All Locations" %}</span></div>
+                                <div class="loc-group-header">🇺🇸 {% trans "United States" %}</div>
+                                {% for code, name in us_states %}
+                                <div class="loc-item {% if selected_state == code %}selected{% endif %}" data-search="{{ name|lower }}" onclick="chooseLocation('US', '{{ code }}', '🇺🇸 {{ name }}')"><span>{{ name }}</span></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="brandWrapper">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Brand" %}</label>
+                        <div class="custom-trigger" onclick="toggleDropdown('brand', event)">
+                            <span id="brandLabel" class="truncate">{% trans "All Brands" %}</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+                        </div>
+                        <div id="brandDropdown" class="custom-dropdown hidden">
+                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search brand...' %}" id="brandSearchInput" oninput="filterBrandItems(this.value)">
+                            <div class="custom-dropdown-list" id="brandList">
+                                <div class="custom-item" onclick="chooseBrand('', '{% trans 'All Brands' %}')"><span>{% trans "All Brands" %}</span></div>
+                                {% for brand in brands %}
+                                <div class="custom-item {% if request.GET.brand == brand.id|stringformat:'i' %}selected{% endif %}"
+                                     data-id="{{ brand.id }}" data-name="{{ brand.name }}" data-count="{{ brand.count }}"
+                                     onclick="chooseBrand('{{ brand.id }}', '{{ brand.name }}')">
+                                    <span>{{ brand.name }}</span><span class="item-count">{{ brand.count }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="custom-footer">
+                                <label><input type="checkbox" id="brandShowZero" checked onchange="filterBrandItems(document.getElementById('brandSearchInput').value)"> {% trans "Show brands with 0 listings" %}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="modelWrapper">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Model" %}</label>
+                        <div class="custom-trigger" onclick="toggleDropdown('model', event)">
+                            <span id="modelLabel" class="truncate">{% trans "All Models" %}</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+                        </div>
+                        <div id="modelDropdown" class="custom-dropdown hidden">
+                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search model...' %}" id="modelSearchInput" oninput="filterModelItems(this.value)">
+                            <div class="custom-dropdown-list" id="modelList">
+                                <div class="custom-item" onclick="chooseModel('', '', '{% trans 'All Models' %}')"><span>{% trans "All Models" %}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-auto flex gap-2">
+                        <div class="flex-1 min-w-[80px]">
+                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Price Range" %}</label>
+                            <input type="number" name="price_min" placeholder="{% trans 'Min $' %}" value="{{ request.GET.price_min }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                        </div>
+                        <div class="flex-1 min-w-[80px]">
+                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
+                            <input type="number" name="price_max" placeholder="{% trans 'Max $' %}" value="{{ request.GET.price_max }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-auto flex gap-2">
+                        <div class="flex-1 min-w-[80px]">
+                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Year" %}</label>
+                            <select name="year_min" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                <option value="">{% trans "From" %}</option>
+                                {% for year in years %}<option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                            </select>
+                        </div>
+                        <div class="flex-1 min-w-[80px]">
+                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
+                            <select name="year_max" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                                <option value="">{% trans "To" %}</option>
+                                {% for year in years %}<option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {% if selected_category == 'parts' %}
+                    {# ═══ PARTS top filter — Name or part number ═══ #}
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[280px]">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Name or Part Number" %}</label>
+                        <input type="text" name="part_query" placeholder="{% trans 'Search by part name or number (e.g. 06H 145 601 H)' %}"
+                               value="{{ request.GET.part_query|default:'' }}"
+                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                    </div>
+                    {% else %}
+                    {# ═══ CARS top filter — Fuel Type + Body Type ═══ #}
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[120px]">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Fuel Type" %}</label>
+                        <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All" %}</option>
+                            {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="w-full sm:w-auto sm:flex-1 min-w-[140px]">
+                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Body Type" %}</label>
+                        <select name="body_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in body_type_choices %}
+                            <option value="{{ val }}" {% if val in selected_body_types %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div class="w-full sm:w-auto flex gap-3 items-center">
+                        <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2">
+                            <i class="fas fa-sliders-h"></i> {% trans "Advanced Search" %}
+                        </a>
+                        <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-500/30">
+                            <i class="fas fa-search"></i> {% trans "Apply Filters" %}
+                        </button>
+                        {% if user.is_authenticated %}
+                        <button type="button" id="saveSearchBtn" onclick="saveSearch(this)" class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2 transition-all">
+                            <i class="far fa-bell" id="saveSearchIcon"></i> <span id="saveSearchLabel">{% trans "Save Search" %}</span>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <span class="text-gray-500 text-sm">{% blocktrans %}Showing {{ total_count }} of {{ total_count }}{% endblocktrans %}</span>
+            <div class="flex items-center gap-3">
+                <span class="text-gray-500 text-sm">{% trans "Sort by:" %}</span>
+                <select name="sort" onchange="onSortChange(this)" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">
+                    <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Newest" %}</option>
+                    <option value="newest_renewed" {% if request.GET.sort == 'newest_renewed' %}selected{% endif %}>{% trans "Newest and renewed" %}</option>
+                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
+                    <option value="mileage_asc" {% if request.GET.sort == 'mileage_asc' %}selected{% endif %}>{% trans "Mileage: Low to High" %}</option>
+                    <option value="mileage_desc" {% if request.GET.sort == 'mileage_desc' %}selected{% endif %}>{% trans "Mileage: High to Low" %}</option>
+                    <option value="year_desc" {% if request.GET.sort == 'year_desc' %}selected{% endif %}>{% trans "Year: Newest First" %}</option>
+                    <option value="year_asc" {% if request.GET.sort == 'year_asc' %}selected{% endif %}>{% trans "Year: Oldest First" %}</option>
+                </select>
+            </div>
+        </div>
+
+        {% if listings %}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            {% for listing in listings %}
+            {% with eff_level=listing.get_effective_star_level %}
+            <div class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer listing-card ap-card-compact {% if listing.status == 'sold' %}sold-card{% else %}hover:shadow-lg hover:border-primary/20 hover:-translate-y-0.5{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
+                 x-data="{ idx: 0, total: {{ listing.images.count }} }"
+                 data-created="{{ listing.created_at|date:'c' }}"
+                 {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>
+                <div class="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                    {% if listing.images.count > 0 %}
+                        {% for img in listing.images.all|slice:":8" %}
+                        <img src="{{ img.image.url }}" alt="{{ listing.title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             x-show="idx === {{ forloop.counter0 }}"
+                             {% if not forloop.first %}style="display:none;"{% endif %}>
+                        {% endfor %}
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                            <i class="fas fa-car text-3xl text-gray-300"></i>
+                        </div>
+                    {% endif %}
+
+                    {% if listing.images.count > 1 %}
+                    <button class="gallery-arrow left" @click.stop="idx = (idx - 1 + Math.min(total, 8)) % Math.min(total, 8)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="gallery-arrow right" @click.stop="idx = (idx + 1) % Math.min(total, 8)"><i class="fas fa-chevron-right"></i></button>
+                    <div class="gallery-counter"><span x-text="idx + 1"></span>/<span x-text="Math.min(total, 8)"></span></div>
+                    <div class="gallery-dots">
+                        {% for img in listing.images.all|slice:":8" %}
+                        <span class="gallery-dot" :class="{ 'active': idx === {{ forloop.counter0 }} }"></span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if listing.status == 'sold' %}
+                    <div class="sold-overlay"><span class="sold-badge-big">SOLD</span></div>
+                    {% endif %}
+
+                    {% if listing.status != 'sold' %}
+                    {% if user.is_authenticated %}
+                    <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all hover:scale-110 z-10">
+                        <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-xs"></i>
+                    </button>
+                    {% else %}
+                    <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md hover:scale-110 z-10">
+                        <i class="far fa-heart text-gray-400 text-xs"></i>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                    <div class="card-bottom-left">
+                        {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
+                        <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
+                            <span class="card-badge-new">{% trans "New" %}</span>
+                            <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                        </div>
+                        {% endif %}
+                        {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 1 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
+                        {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">{% if listing.star_count > 2 %}{{ listing.star_count }} {% endif %}⭐⭐</span>{% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="p-2.5 flex flex-col gap-1">
+                    <div class="ap-title-row">
+                        <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
+                        <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                    </div>
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                    </div>
+                    {% if listing.transmission or listing.engine_capacity or listing.power %}
+                    <div class="ap-spec-line">
+                        {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                        {% if listing.engine_capacity or listing.power %}
+                            {% if listing.transmission %}<span class="sep">·</span>{% endif %}
+                            <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="ap-loc">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="truncate">{{ listing.city|default:_("Unknown") }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+            <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-car text-4xl text-gray-300"></i></div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
+            <p class="text-gray-500 mb-6">{% trans "Try adjusting your filters to find what you're looking for" %}</p>
+            <a href="/browse/" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-200"><i class="fas fa-undo"></i> {% trans "Clear all filters" %}</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <script>
+// ─── Sort dropdown handler (works on both sidebar + home mode) ───
+function onSortChange(selectEl) {
+    var url = new URL(window.location.href);
+    if (selectEl.value && selectEl.value !== 'newest') {
+        url.searchParams.set('sort', selectEl.value);
+    } else {
+        url.searchParams.delete('sort');
+    }
+    window.location.href = url.toString();
+}
+</script>
+
+    {# ═══════════════════════════════════════════════════════════ #}
+    {#  HOME TABS — Day's deals / Newest / Most Popular / Most Expensive  #}
+    {# ═══════════════════════════════════════════════════════════ #}
+    <div class="home-tabs-section" x-data="{ tab: 'featured' }">
+        <div class="max-w-7xl mx-auto px-4">
+
+            <!-- Tabs Header -->
+            <div class="home-tabs-header">
+                <button type="button" @click="tab = 'featured'"
+                        :class="{ 'active': tab === 'featured' }" class="home-tab-btn">
+                    {% trans "Day's deals" %}
+                </button>
+                <button type="button" @click="tab = 'newest'"
+                        :class="{ 'active': tab === 'newest' }" class="home-tab-btn">
+                    {% trans "Newest" %}
+                </button>
+                <button type="button" @click="tab = 'popular'"
+                        :class="{ 'active': tab === 'popular' }" class="home-tab-btn">
+                    {% trans "Most popular" %}
+                </button>
+                <button type="button" @click="tab = 'expensive'"
+                        :class="{ 'active': tab === 'expensive' }" class="home-tab-btn">
+                    {% trans "Most expensive" %}
+                </button>
+            </div>
+
+            {# ─── Day's deals ─── #}
+            <div x-show="tab === 'featured'" x-cloak>
+                {% if tab_featured %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_featured %}
+                    {% with eff_level=listing.get_effective_star_level %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+
+                            {# Bottom-left badges — IDENTIŠKAS Browse cards stilius #}
+                            {% if listing.is_featured or listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-bottom-left">
+                                {% if listing.is_featured %}
+                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">FEATURED</span>
+                                {% endif %}
+                                {% if listing.pk in new_listing_ids %}
+                                <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
+                                    <span class="card-badge-new">{% trans "New" %}</span>
+                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                                </div>
+                                {% endif %}
+                                {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 1 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
+                                {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">{% if listing.star_count > 2 %}{{ listing.star_count }} {% endif %}⭐⭐</span>{% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>
+                {% endif %}
+            </div>
+
+            {# ─── Newest ─── #}
+            <div x-show="tab === 'newest'" x-cloak>
+                {% if tab_newest %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_newest %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+                            {% if listing.pk in new_listing_ids %}
+                            <span class="home-tab-badge badge-new">NEW</span>
+                            {% endif %}
+                            {% if listing.vin %}
+                            <span class="badge-vin">VIN</span>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
+                {% endif %}
+            </div>
+
+            {# ─── Most popular ─── #}
+            <div x-show="tab === 'popular'" x-cloak>
+                {% if tab_popular %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_popular %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+                            {% if listing.views_count and listing.views_count > 0 %}
+                            <span class="home-tab-badge badge-popular"><i class="fas fa-eye"></i> {{ listing.views_count }}</span>
+                            {% endif %}
+                            {% if listing.vin %}
+                            <span class="badge-vin">{% trans "VIN" %}</span>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
+                {% endif %}
+            </div>
+
+            {# ─── Most expensive ─── #}
+            <div x-show="tab === 'expensive'" x-cloak>
+                {% if tab_expensive %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_expensive %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+                            {% if listing.star_level >= 2 %}
+                            <span class="home-tab-badge badge-featured">⭐⭐</span>
+                            {% elif listing.star_level >= 1 %}
+                            <span class="home-tab-badge badge-featured">⭐</span>
+                            {% endif %}
+                            {% if listing.vin %}
+                            <span class="badge-vin">{% trans "VIN" %}</span>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-// Dynamic model dropdown based on brand selection
-document.getElementById('brandSelect').addEventListener('change', function() {
-    const brandId = this.value;
-    const modelSelect = document.getElementById('modelSelect');
-    
-    // Clear current models
-    modelSelect.innerHTML = '<option value="">All Models</option>';
-    
-    if (brandId) {
-        // Fetch models for selected brand
-        fetch(`/listings/ajax/get-models/?brand_id=${brandId}`)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(model => {
-                    const option = document.createElement('option');
-                    option.value = model.id;
-                    option.textContent = model.name;
-                    modelSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+// ═══ All available brands (for + Add brand/model dynamic dropdowns) ═══
+var ALL_BRANDS = [
+    {% for brand in brands %}
+    { id: {{ brand.id }}, name: "{{ brand.name|escapejs }}" }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+
+var subCache = {};
+
+function formatTimeAgo(isoString) {
+    if (!isoString) return '';
+    var created = new Date(isoString);
+    if (isNaN(created.getTime())) return '';
+    var now = new Date();
+    var diffSec = Math.floor((now - created) / 1000);
+    if (diffSec < 60) return Math.max(1, diffSec) + '{% trans "s ago" %}';
+    var diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return diffMin + '{% trans "min ago" %}';
+    var diffH = Math.floor(diffMin / 60);
+    if (diffH < 24) return diffH + '{% trans "h ago" %}';
+    var diffD = Math.floor(diffH / 24);
+    if (diffD === 1) return '{% trans "1 day ago" %}';
+    return diffD + ' {% trans "days ago" %}';
+}
+function refreshTimeAgo() {
+    document.querySelectorAll('.time-ago').forEach(function(el) {
+        var iso = el.dataset.created;
+        var txtEl = el.querySelector('.time-ago-text');
+        if (txtEl) txtEl.textContent = formatTimeAgo(iso);
+    });
+}
+
+function openCategoryModal() {
+    document.getElementById('categoryModal').classList.remove('hidden');
+    var cur = (document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden')).value || 'cars';
+    document.querySelectorAll('.cat-left-item').forEach(function(e) { e.classList.remove('active'); });
+    var el = document.querySelector('.cat-left-item[data-slug="' + cur + '"]');
+    if (el) el.classList.add('active');
+    document.getElementById('catRightEmpty').classList.remove('hidden');
+    document.getElementById('catRightContent').classList.add('hidden');
+}
+function closeCategoryModal() { document.getElementById('categoryModal').classList.add('hidden'); }
+
+function loadSubs(item) {
+    var slug = item.dataset.slug;
+    var label = item.dataset.label;
+    document.querySelectorAll('.cat-left-item').forEach(function(el) { el.classList.remove('active'); });
+    item.classList.add('active');
+    if (subCache[slug] !== undefined) {
+        if (subCache[slug].length === 0) { selectCategory(slug, label); }
+        else { renderSubs(subCache[slug], label, slug); }
+        return;
     }
+    fetch('/ajax/get-subcategories/?vehicle_type_slug=' + slug)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            subCache[slug] = data;
+            if (data.length === 0) { selectCategory(slug, label); }
+            else { renderSubs(data, label, slug); }
+        });
+}
+
+function renderSubs(subs, label, slug) {
+    var empty = document.getElementById('catRightEmpty');
+    var content = document.getElementById('catRightContent');
+    if (!subs || subs.length === 0) { content.classList.add('hidden'); empty.classList.remove('hidden'); empty.innerHTML = '<span>← {% trans "Select a category" %}</span>'; return; }
+    empty.classList.add('hidden'); content.classList.remove('hidden');
+    content.innerHTML = '<div class="cat-right-title">' + label + '</div>' +
+        subs.map(function(s) {
+            return '<div class="cat-right-item" onclick="selectSubCategory(\'' + slug + '\',\'' + label.replace(/'/g,"\\'") + '\',' + s.id + ',\'' + s.name.replace(/'/g,"\\'") + '\')">' +
+                '<svg class="cat-right-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>' +
+                '<span>' + s.name + '</span></div>';
+        }).join('');
+}
+
+function selectCategory(slug, label) {
+    var hiddenEl = document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden');
+    var labelEl = document.getElementById('categoryLabel') || document.getElementById('sidebarCategoryLabel');
+    var subcatEl = document.getElementById('subcategoryHidden');
+    if (hiddenEl) hiddenEl.value = slug;
+    if (labelEl) labelEl.textContent = label;
+    if (subcatEl) subcatEl.value = '';
+    closeCategoryModal();
+    var url = new URL(window.location.href);
+    url.searchParams.set('category', slug);
+    url.searchParams.delete('subcategory');
+    window.location.href = url.toString();
+}
+
+function selectSubCategory(catSlug, catLabel, subId, subName) {
+    var hiddenEl = document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden');
+    var labelEl = document.getElementById('categoryLabel') || document.getElementById('sidebarCategoryLabel');
+    var subcatEl = document.getElementById('subcategoryHidden');
+    if (hiddenEl) hiddenEl.value = catSlug;
+    if (labelEl) labelEl.textContent = catLabel + ' › ' + subName;
+    if (subcatEl) subcatEl.value = subId;
+    closeCategoryModal();
+    var url = new URL(window.location.href);
+    url.searchParams.set('category', catSlug);
+    url.searchParams.set('subcategory', subId);
+    window.location.href = url.toString();
+}
+
+function toggleSidebarDd(id, e) {
+    e.stopPropagation();
+    var dd = document.getElementById(id);
+    ['sidebarBrandDd', 'sidebarModelDd'].forEach(function(x) {
+        if (x !== id) { var el = document.getElementById(x); if (el) el.classList.add('hidden'); }
+    });
+    dd.classList.toggle('hidden');
+}
+
+function chooseSidebarBrand(id, name) {
+    document.getElementById('sidebarBrandHidden').value = id;
+    document.getElementById('sidebarBrandLabel').textContent = name;
+    document.getElementById('sidebarBrandDd').classList.add('hidden');
+    document.getElementById('sidebarModelHidden').value = '';
+    document.getElementById('sidebarModelLabel').textContent = '{% trans "All Models" %}';
+    document.getElementById('sidebarModelList').innerHTML = '<div class="custom-item" onclick="chooseSidebarModel(\'\', \'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+    if (id) {
+        fetch('/ajax/get-models/?brand_id=' + id)
+            .then(function(r) { return r.json(); })
+            .then(function(data) { buildSidebarModelList(data); });
+    }
+}
+
+function chooseSidebarModel(modelId, name) {
+    document.getElementById('sidebarModelHidden').value = modelId || '';
+    document.getElementById('sidebarModelLabel').textContent = name;
+    document.getElementById('sidebarModelDd').classList.add('hidden');
+}
+
+function buildSidebarModelList(data) {
+    var list = document.getElementById('sidebarModelList');
+    list.innerHTML = '<div class="custom-item" onclick="chooseSidebarModel(\'\', \'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+    data.forEach(function(item) {
+        if (item.type !== 'model') return;
+        var div = document.createElement('div');
+        div.className = 'custom-item';
+        div.dataset.name = item.name;
+        div.dataset.modelId = item.model_id;
+        div.innerHTML = '<span>' + item.name + '</span><span class="item-count">' + item.count + '</span>';
+        div.onclick = function() { chooseSidebarModel(item.model_id, item.name); };
+        list.appendChild(div);
+    });
+}
+
+function filterSidebarBrands(q) {
+    document.querySelectorAll('#sidebarBrandList .custom-item[data-id]').forEach(function(el) {
+        el.style.display = (el.dataset.name || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function filterSidebarModels(q) {
+    document.querySelectorAll('#sidebarModelList .custom-item[data-name]').forEach(function(el) {
+        el.style.display = (el.dataset.name || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function sidebarFuelChange(cb) {
+    document.querySelectorAll('input[name="fuel_type_chk"]').forEach(function(el) {
+        if (el !== cb) el.checked = false;
+    });
+    document.getElementById('sidebarFuelHidden').value = cb.checked ? cb.value : '';
+    document.getElementById('sidebarForm').submit();
+}
+
+// ═══ AUTO-REFRESH SIDEBAR — autogidas.lt style ═══
+// Kai pažymi checkbox / pakeiti select / įvedi reikšmę — automatiškai submit'ina form'ą
+function setupSidebarAutoRefresh() {
+    var sidebarForm = document.getElementById('sidebarForm');
+    if (!sidebarForm) return;
+
+    // Checkbox + select → momentinis submit
+    sidebarForm.querySelectorAll('input[type="checkbox"], select').forEach(function(el) {
+        // Praleisk hidden inputs ir fuel_type_chk (jis turi savo handler'į)
+        if (el.type === 'hidden') return;
+        if (el.name === 'fuel_type_chk') return;
+
+        el.addEventListener('change', function() {
+            sidebarForm.submit();
+        });
+    });
+
+    // Number/text input → submit kai user pabaigia (blur) arba paspaudžia Enter
+    sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(el) {
+        if (el.type === 'hidden') return;
+
+        // Įsiminti pradinę reikšmę, kad submit'inom tik kai pasikeičia
+        var initialValue = el.value;
+
+        el.addEventListener('blur', function() {
+            if (el.value !== initialValue) {
+                sidebarForm.submit();
+            }
+        });
+
+        el.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (el.value !== initialValue) {
+                    sidebarForm.submit();
+                }
+            }
+        });
+    });
+}
+
+// ═══ MULTI-BRAND/MODEL: Add new pair (frontend-only, backend uses 1st pair) ═══
+var brandPairCount = 1;
+function addBrandModelPair() {
+    if (brandPairCount >= 5) {
+        alert("{% trans 'Maximum 5 brand/model pairs' %}");
+        return;
+    }
+    var container = document.getElementById('brandModelPairs');
+    var pairIndex = brandPairCount++;
+    var brandOptions = "<option value=\"\">{% trans 'All Makes' %}</option>";
+    ALL_BRANDS.forEach(function(b) {
+        brandOptions += "<option value=\"" + b.id + "\">" + b.name + "</option>";
+    });
+    var pairHtml = ""
+        + "<div class=\"brand-pair-extra\" data-pair-index=\"" + pairIndex + "\">"
+        + "  <button type=\"button\" class=\"brand-pair-remove\" onclick=\"removeBrandModelPair(this)\" title=\"{% trans 'Remove' %}\">"
+        + "    <i class=\"fas fa-times\"></i>"
+        + "  </button>"
+        + "  <div class=\"sidebar-section\" style=\"padding-bottom:0.75rem;margin-bottom:0.75rem;\">"
+        + "    <span class=\"sidebar-label\">{% trans 'Brand' %}</span>"
+        + "    <select name=\"brand_extra_" + pairIndex + "\" class=\"w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm\" onchange=\"onExtraBrandChange(this, " + pairIndex + ")\">"
+        + brandOptions
+        + "    </select>"
+        + "  </div>"
+        + "  <div class=\"sidebar-section\">"
+        + "    <span class=\"sidebar-label\">{% trans 'Model' %}</span>"
+        + "    <select name=\"model_extra_" + pairIndex + "\" id=\"modelExtra" + pairIndex + "\" class=\"w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm\" disabled>"
+        + "      <option value=\"\">{% trans 'Select brand first' %}</option>"
+        + "    </select>"
+        + "  </div>"
+        + "</div>";
+    container.insertAdjacentHTML('beforeend', pairHtml);
+}
+
+function removeBrandModelPair(btn) {
+    var pair = btn.closest('.brand-pair-extra');
+    if (pair) {
+        pair.remove();
+    }
+}
+
+function onExtraBrandChange(sel, pairIndex) {
+    var modelSel = document.getElementById('modelExtra' + pairIndex);
+    if (!modelSel) return;
+    if (!sel.value) {
+        modelSel.innerHTML = "<option value=\"\">{% trans 'Select make first' %}</option>";
+        modelSel.disabled = true;
+        return;
+    }
+    modelSel.disabled = false;
+    modelSel.innerHTML = "<option value=\"\">{% trans 'Loading...' %}</option>";
+    fetch('/ajax/get-models/?brand_id=' + sel.value)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            modelSel.innerHTML = "<option value=\"\">{% trans 'All Models' %}</option>";
+            data.forEach(function(item) {
+                if (item.type !== 'model') return;
+                var opt = document.createElement('option');
+                opt.value = item.model_id;
+                opt.textContent = item.name;
+                modelSel.appendChild(opt);
+            });
+        });
+}
+
+function toggleLocationDropdown(e) {
+    e.stopPropagation();
+    var dd = document.getElementById('locationDropdown');
+    if (document.getElementById('brandDropdown')) document.getElementById('brandDropdown').classList.add('hidden');
+    if (document.getElementById('modelDropdown')) document.getElementById('modelDropdown').classList.add('hidden');
+    dd.classList.toggle('hidden');
+    if (!dd.classList.contains('hidden')) document.getElementById('locationSearchInput').focus();
+}
+
+function chooseLocation(country, state, label) {
+    document.getElementById('countryFilterHidden').value = country;
+    document.getElementById('stateFilterHidden').value = state;
+    document.getElementById('locationLabel').textContent = label;
+    document.getElementById('locationDropdown').classList.add('hidden');
+    document.querySelectorAll('#locationList .loc-item').forEach(function(el) { el.classList.remove('selected'); });
+}
+
+function filterLocationItems(q) {
+    var ql = q.toLowerCase();
+    document.querySelectorAll('#locationList .loc-item').forEach(function(el) {
+        el.style.display = (el.dataset.search || el.textContent || '').toLowerCase().includes(ql) ? '' : 'none';
+    });
+    document.querySelectorAll('#locationList .loc-group-header').forEach(function(el) {
+        el.style.display = ql ? 'none' : '';
+    });
+}
+
+function toggleDropdown(type, e) {
+    e.stopPropagation();
+    var dd = document.getElementById(type + 'Dropdown');
+    ['brand','model'].forEach(function(t) { if (t !== type) document.getElementById(t+'Dropdown').classList.add('hidden'); });
+    if (document.getElementById('locationDropdown')) document.getElementById('locationDropdown').classList.add('hidden');
+    dd.classList.toggle('hidden');
+    if (!dd.classList.contains('hidden')) {
+        document.getElementById(type + 'SearchInput').focus();
+        if (type === 'brand') filterBrandItems('');
+        else filterModelItems('');
+    }
+}
+
+function chooseBrand(id, name) {
+    document.getElementById('brandHidden').value = id;
+    document.getElementById('brandLabel').textContent = name;
+    document.getElementById('brandDropdown').classList.add('hidden');
+    document.getElementById('modelHidden').value = '';
+    document.getElementById('submodelHidden').value = '';
+    document.getElementById('modelLabel').textContent = '{% trans "All Models" %}';
+    document.getElementById('modelList').innerHTML = '<div class="custom-item" onclick="chooseModel(\'\',\'\',\'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+    document.querySelectorAll('#brandList .custom-item[data-id]').forEach(function(el) { el.classList.remove('selected'); });
+    if (id) {
+        var el = document.querySelector('#brandList .custom-item[data-id="' + id + '"]');
+        if (el) el.classList.add('selected');
+        fetch('/ajax/get-models/?brand_id=' + id)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                buildModelList(data);
+                document.getElementById('modelDropdown').classList.remove('hidden');
+                document.getElementById('modelSearchInput').focus();
+            });
+    }
+}
+
+function chooseModel(modelId, submodelId, name) {
+    document.getElementById('modelHidden').value = modelId || '';
+    document.getElementById('submodelHidden').value = submodelId || '';
+    document.getElementById('modelLabel').textContent = name;
+    document.getElementById('modelDropdown').classList.add('hidden');
+}
+
+function buildModelList(data) {
+    var modelList = document.getElementById('modelList');
+    modelList.innerHTML = '<div class="custom-item" onclick="chooseModel(\'\',\'\',\'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+    data.forEach(function(item) {
+        var div = document.createElement('div');
+        div.className = 'custom-item';
+        div.dataset.id = item.id;
+        div.dataset.name = item.name;
+        div.dataset.type = item.type;
+        div.dataset.modelId = item.model_id;
+        div.dataset.submodelId = item.submodel_id || '';
+        div.dataset.count = item.count;
+        div.innerHTML = '<span>' + item.name + '</span><span class="item-count">' + item.count + '</span>';
+        if (item.type === 'model') {
+            div.onclick = function() { chooseModel(item.model_id, '', item.name); };
+        } else {
+            div.onclick = function() { chooseModel(item.model_id, item.submodel_id, item.name); };
+        }
+        modelList.appendChild(div);
+    });
+    filterModelItems('');
+}
+
+function filterBrandItems(q) {
+    var showZero = document.getElementById('brandShowZero') ? document.getElementById('brandShowZero').checked : true;
+    document.querySelectorAll('#brandList .custom-item[data-id]').forEach(function(el) {
+        var name = (el.dataset.name || '').toLowerCase();
+        var count = parseInt(el.dataset.count || '0');
+        el.style.display = (name.includes(q.toLowerCase()) && (showZero || count > 0)) ? '' : 'none';
+    });
+}
+
+function filterModelItems(q) {
+    document.querySelectorAll('#modelList .custom-item[data-id]').forEach(function(el) {
+        el.style.display = (el.dataset.name || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function toggleBodyTypeDropdown(e) {
+    e.stopPropagation();
+    var dd = document.getElementById('bodyTypeDropdown');
+    if (document.getElementById('brandDropdown')) document.getElementById('brandDropdown').classList.add('hidden');
+    if (document.getElementById('modelDropdown')) document.getElementById('modelDropdown').classList.add('hidden');
+    if (document.getElementById('locationDropdown')) document.getElementById('locationDropdown').classList.add('hidden');
+    dd.classList.toggle('hidden');
+}
+
+function updateBodyTypeLabel() {
+    var checked = Array.from(document.querySelectorAll('input[name="body_type"]:checked')).map(function(cb) {
+        return cb.parentElement.querySelector('span').textContent.trim();
+    });
+    var lblEl = document.getElementById('bodyTypeLabel');
+    if (lblEl) lblEl.textContent = checked.length ? checked.join(', ') : '{% trans "All" %}';
+}
+
+function toggleSave(btn, listingId) {
+    var icon = btn.querySelector('i');
+    fetch('/' + listingId + '/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        icon.className = data.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+    });
+}
+
+function saveSearch(btn) {
+    var form = document.getElementById('filterForm');
+    var formData = new FormData(form);
+    fetch('/search/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: formData
+    }).then(function(r) { return r.json(); })
+      .then(function() {
+        btn.classList.remove('bg-white','hover:bg-gray-50','border-gray-300','text-gray-700');
+        btn.classList.add('bg-emerald-50','border-emerald-400','text-emerald-700');
+        document.getElementById('saveSearchIcon').className = 'fas fa-bell';
+        document.getElementById('saveSearchLabel').textContent = '{% trans "Saved" %}';
+      });
+}
+
+function saveSidebarSearch(btn) {
+    var form = document.getElementById('sidebarForm');
+    var formData = new FormData(form);
+    fetch('/search/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: formData
+    }).then(function(r) { return r.json(); })
+      .then(function() {
+        btn.classList.remove('bg-white','hover:bg-gray-50','border-gray-200','text-gray-700');
+        btn.classList.add('bg-emerald-50','border-emerald-400','text-emerald-700');
+        document.getElementById('saveSidebarIcon').className = 'fas fa-bell';
+        document.getElementById('saveSidebarLabel').textContent = '{% trans "Saved" %}';
+      });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('categoryModal').addEventListener('click', function(e) {
+        if (e.target === this) closeCategoryModal();
+    });
+    document.querySelectorAll('.cat-left-item').forEach(function(el) {
+        el.addEventListener('click', function() { loadSubs(el); });
+    });
+
+    refreshTimeAgo();
+    setInterval(refreshTimeAgo, 60000);
+
+    // Auto-refresh sidebar filters (autogidas.lt style)
+    setupSidebarAutoRefresh();
+
+    var catHidden = document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden');
+    var catLabelEl = document.getElementById('categoryLabel') || document.getElementById('sidebarCategoryLabel');
+    if (catHidden && catLabelEl) {
+        var catVal = catHidden.value || 'cars';
+        var catItem = document.querySelector('.cat-left-item[data-slug="' + catVal + '"]');
+        if (catItem) catLabelEl.textContent = catItem.dataset.label;
+    }
+
+    var selEl = document.querySelector('#locationList .loc-item.selected');
+    if (selEl) { var locLabel = document.getElementById('locationLabel'); if (locLabel) locLabel.textContent = selEl.textContent.trim(); }
+
+    var brandVal = document.getElementById('brandHidden') ? document.getElementById('brandHidden').value : '';
+    var modelVal = document.getElementById('modelHidden') ? document.getElementById('modelHidden').value : '';
+    if (brandVal) {
+        var bel = document.querySelector('#brandList .custom-item[data-id="' + brandVal + '"]');
+        if (bel) document.getElementById('brandLabel').textContent = bel.dataset.name;
+        fetch('/ajax/get-models/?brand_id=' + brandVal)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                buildModelList(data);
+                if (modelVal) {
+                    document.querySelectorAll('#modelList .custom-item').forEach(function(el) {
+                        if (el.dataset.modelId == modelVal && el.dataset.type === 'model') {
+                            el.classList.add('selected');
+                            document.getElementById('modelLabel').textContent = el.dataset.name;
+                        }
+                    });
+                }
+            });
+    }
+
+    var sbBrandVal = document.getElementById('sidebarBrandHidden') ? document.getElementById('sidebarBrandHidden').value : '';
+    var sbModelVal = document.getElementById('sidebarModelHidden') ? document.getElementById('sidebarModelHidden').value : '';
+    if (sbBrandVal) {
+        var sbBel = document.querySelector('#sidebarBrandList .custom-item[data-id="' + sbBrandVal + '"]');
+        if (sbBel) document.getElementById('sidebarBrandLabel').textContent = sbBel.dataset.name;
+        fetch('/ajax/get-models/?brand_id=' + sbBrandVal)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                buildSidebarModelList(data);
+                if (sbModelVal) {
+                    document.querySelectorAll('#sidebarModelList .custom-item').forEach(function(el) {
+                        if (el.dataset.modelId == sbModelVal) {
+                            document.getElementById('sidebarModelLabel').textContent = el.dataset.name;
+                        }
+                    });
+                }
+            });
+    }
+
+    updateBodyTypeLabel();
+    if (document.getElementById('brandSearchInput')) filterBrandItems('');
+
+    document.addEventListener('click', function(e) {
+        ['brandWrapper','modelWrapper','locationWrapper','bodyTypeWrapper'].forEach(function(id) {
+            var w = document.getElementById(id);
+            var ddId = id.replace('Wrapper','Dropdown');
+            if (w && !w.contains(e.target)) {
+                var dd = document.getElementById(ddId);
+                if (dd) dd.classList.add('hidden');
+            }
+        });
+        var sbw1 = document.getElementById('sidebarBrandWrapper');
+        var sbw2 = document.getElementById('sidebarModelWrapper');
+        if (sbw1 && !sbw1.contains(e.target)) { var d = document.getElementById('sidebarBrandDd'); if(d) d.classList.add('hidden'); }
+        if (sbw2 && !sbw2.contains(e.target)) { var d = document.getElementById('sidebarModelDd'); if(d) d.classList.add('hidden'); }
+    });
 });
 </script>
 {% endblock %}

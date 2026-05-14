@@ -1,0 +1,1 @@
+Your subscription renews in {{ days_until }} days

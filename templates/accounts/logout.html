@@ -1,21 +1,17 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container" style="max-width: 500px; margin: 50px auto; text-align: center;">
-    <h2>Logged Out</h2>
-
+    <h2>{% trans "Logged Out" %}</h2>
     <div style="background: #d4edda; padding: 20px; border-radius: 5px; margin: 20px 0;">
-        <p>✅ You have been successfully logged out.</p>
+        <p>✅ {% trans "You have been successfully logged out." %}</p>
     </div>
-
-    <p>Thank you for using SellCar!</p>
-
+    <p>{% trans "Thank you for using SellCar!" %}</p>
     <div style="margin-top: 20px;">
-        <a href="{% url 'accounts:login' %}" class="btn btn-primary">Login Again</a>
-        <a href="{% url 'accounts:home' %}" class="btn btn-secondary">Go to Home</a>
+        <a href="{% url 'accounts:login' %}" class="btn btn-primary">{% trans "Login Again" %}</a>
+        <a href="{% url 'accounts:home' %}" class="btn btn-secondary">{% trans "Go to Home" %}</a>
     </div>
 </div>
-
 <style>
     .btn {
         display: inline-block;

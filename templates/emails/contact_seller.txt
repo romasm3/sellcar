@@ -1,0 +1,22 @@
+Hi {{ user_name|default:"there" }},
+
+Someone is interested in your listing:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+
+From: {{ buyer_email }}
+{% if buyer_phone %}Phone: {{ buyer_phone }}{% endif %}
+
+Message:
+{{ buyer_message }}
+
+Reply directly to {{ buyer_email }} or view your listing:
+{{ listing_url }}
+
+Tip: respond within 1 hour to dramatically increase your chances of selling.
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

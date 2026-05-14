@@ -1,13 +1,17 @@
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}SellCar - Buy & Sell Cars Online{% endblock %}</title>
+    <title>{% block title %}{% trans "SellCar - Buy & Sell Cars Online" %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         * { font-family: 'Inter', sans-serif; }
         [x-cloak] { display: none !important; }
@@ -17,8 +21,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#7C3AED',
-                        'primary-dark': '#6D28D9',
+                      primary: '#374151',
+                      'primary-dark': '#1f2937',
                     }
                 }
             }
@@ -33,7 +37,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-8">
-                    <a href="{% url 'listings:listing_list' %}" class="flex items-center gap-2">
+                    <a href="{% url 'home' %}" class="flex items-center gap-2">
                         <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
                             SC
                         </div>
@@ -42,30 +46,101 @@
 
                     <!-- Desktop Navigation -->
                     <div class="hidden md:flex items-center gap-6">
-                        <a href="{% url 'listings:listing_list' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                            Browse Cars
+                        <a href="{% url 'search_map' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
+                            {% trans "Map Search" %}
                         </a>
-                        <a href="{% url 'listings:search_map' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                            Map Search
+
+                        <!-- ═══ NEWS & HELP LINK (paprasta nuoroda, be dropdown'o) ═══ -->
+                        <a href="{% url 'help_center' %}" class="flex items-center gap-1.5 text-gray-700 hover:text-primary font-medium transition-colors">
+                            <i class="fas fa-newspaper text-sm"></i>
+                            <span>{% trans "News & Help" %}</span>
                         </a>
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'listings:listing_create' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                            Sell Car
-                        </a>
-                        {% endif %}
                     </div>
                 </div>
 
                 <!-- Right Side -->
                 <div class="flex items-center gap-4">
+
+                    <!-- ═══ LANGUAGE SWITCHER ═══ -->
+                    {% get_current_language as CURRENT_LANG %}
+                    {% get_available_languages as LANGUAGES %}
+                    <div class="relative" x-data="{ langOpen: false }">
+                        <button @click="langOpen = !langOpen"
+                                class="flex items-center gap-1.5 px-2.5 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                            <span class="fi fi-{% if CURRENT_LANG == 'en' %}us{% elif CURRENT_LANG == 'lt' %}lt{% elif CURRENT_LANG == 'lv' %}lv{% elif CURRENT_LANG == 'et' %}ee{% elif CURRENT_LANG == 'pl' %}pl{% elif CURRENT_LANG == 'de' %}de{% elif CURRENT_LANG == 'ru' %}ru{% elif CURRENT_LANG == 'fr' %}fr{% elif CURRENT_LANG == 'es' %}es{% elif CURRENT_LANG == 'zh-hans' %}cn{% elif CURRENT_LANG == 'vi' %}vn{% elif CURRENT_LANG == 'ar' %}sa{% elif CURRENT_LANG == 'ko' %}kr{% else %}us{% endif %} fis" style="width: 22px; height: 22px; border-radius: 50%;"></span>
+                            <span class="uppercase text-xs font-semibold hidden sm:inline">{{ CURRENT_LANG }}</span>
+                            <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>
+                        </button>
+
+                        <div x-show="langOpen" @click.outside="langOpen = false" x-cloak
+                             class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden py-1">
+                            <form action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ request.path }}">
+                                {% for lang_code, lang_name in LANGUAGES %}
+                                <button type="submit" name="language" value="{{ lang_code }}"
+                                        class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-3 transition-colors {% if lang_code == CURRENT_LANG %}bg-gray-50 font-semibold{% endif %}">
+                                    <span class="fi fi-{% if lang_code == 'en' %}us{% elif lang_code == 'lt' %}lt{% elif lang_code == 'lv' %}lv{% elif lang_code == 'et' %}ee{% elif lang_code == 'pl' %}pl{% elif lang_code == 'de' %}de{% elif lang_code == 'ru' %}ru{% elif lang_code == 'fr' %}fr{% elif lang_code == 'es' %}es{% elif lang_code == 'zh-hans' %}cn{% elif lang_code == 'vi' %}vn{% elif lang_code == 'ar' %}sa{% elif lang_code == 'ko' %}kr{% else %}us{% endif %} fis" style="width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;"></span>
+                                    <span class="text-gray-700">{% if lang_code == 'en' %}English{% elif lang_code == 'lt' %}Lithuanian{% elif lang_code == 'lv' %}Latvian{% elif lang_code == 'et' %}Estonian{% elif lang_code == 'pl' %}Polish{% elif lang_code == 'de' %}German{% elif lang_code == 'ru' %}Russian{% elif lang_code == 'fr' %}French{% elif lang_code == 'es' %}Spanish{% elif lang_code == 'zh-hans' %}Chinese{% elif lang_code == 'vi' %}Vietnamese{% elif lang_code == 'ar' %}Arabic{% elif lang_code == 'ko' %}Korean{% else %}{{ lang_name }}{% endif %}</span>
+                                </button>
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+
                     {% if user.is_authenticated %}
+
+                    <!-- Create Ad button -->
+                    <a href="{% url 'listing_create' %}"
+                       class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        {% trans "Create Ad" %}
+                    </a>
+
+                    <!-- Saved Listings Icon -->
+                    <a href="{% url 'saved_listings' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'Saved Ads' %}">
+                        <i class="fas fa-heart text-xl"></i>
+                        {% if saved_listings_count > 0 %}
+                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
+                            {{ saved_listings_count }}
+                        </span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Saved Searches Icon -->
+                    <a href="{% url 'saved_searches_list' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
+                        <i class="fas fa-search text-xl"></i>
+                        {% if new_searches_count > 0 %}
+                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
+                            {{ new_searches_count }}
+                        </span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Messages Icon -->
+                    <a href="{% url 'conversations:list' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
+                        <i class="fas fa-envelope text-xl"></i>
+                        {% if unread_messages_count > 0 %}
+                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
+                            {{ unread_messages_count }}
+                        </span>
+                        {% endif %}
+                    </a>
+
                     <!-- User Menu -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                            {% if user.profile.profile_picture %}
+                            <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
+                                 class="w-8 h-8 rounded-full object-cover">
+                            {% else %}
                             <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                                {{ user.username|slice:":1"|upper }}
+                                {{ user.email|first|upper }}
                             </div>
-                            <span class="hidden sm:block font-medium text-gray-700">{{ user.username }}</span>
+                            {% endif %}
+                            <span class="hidden sm:block font-medium text-gray-700">{{ user.email }}</span>
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -73,29 +148,78 @@
 
                         <!-- Dropdown -->
                         <div x-show="open" @click.away="open = false" x-cloak
-                             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
-                            <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-user w-5"></i> Profile
+                             class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                            <a href="{% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-car w-5"></i> {% trans "My Ads" %}
                             </a>
-                            <a href="{% url 'listings:saved_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-heart w-5"></i> Saved Listings
+                            <a href="{% url 'saved_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <span class="relative inline-block w-5 mr-1">
+                                    <i class="fas fa-heart"></i>
+                                    {% if saved_listings_count > 0 %}
+                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-red-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ saved_listings_count }}</span>
+                                    {% endif %}
+                                </span>
+                                {% trans "Saved Ads" %}
+                            </a>
+                            <a href="{% url 'saved_searches_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <span class="relative inline-block w-5 mr-1">
+                                    <i class="fas fa-search"></i>
+                                    {% if new_searches_count > 0 %}
+                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ new_searches_count }}</span>
+                                    {% endif %}
+                                </span>
+                                {% trans "My Searches" %}
+                            </a>
+                            <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <span class="relative inline-block w-5 mr-1">
+                                    <i class="fas fa-envelope"></i>
+                                    {% if unread_messages_count > 0 %}
+                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-red-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ unread_messages_count }}</span>
+                                    {% endif %}
+                                </span>
+                                {% trans "Messages" %}
                             </a>
                             <a href="{% url 'accounts:settings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-cog w-5"></i> Settings
+                                <i class="fas fa-cog w-5"></i> {% trans "Settings" %}
                             </a>
+                            <a href="{% url 'accounts:wallet' %}" class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <span><i class="fas fa-wallet w-5"></i> {% trans "Wallet" %}</span>
+                                <span class="text-xs text-gray-500">{{ user.profile.wallet_balance|default:"0"|floatformat:0 }} {% trans "pts" %}</span>
+                            </a>
+                            <a href="{% url 'accounts:become_dealer' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-store w-5"></i> {% trans "Dealer" %}
+                            </a>
+
+                            {% if user.is_superuser %}
+                            <hr class="my-2">
+                            <div class="px-4 py-1 text-xs font-semibold text-red-700 uppercase tracking-wide">{% trans "Admin" %}</div>
+                            <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                                <i class="fas fa-shield-alt w-5"></i> {% trans "Moderate users" %}
+                            </a>
+                            <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                                <i class="fas fa-store w-5"></i> {% trans "Moderate dealers" %}
+                            </a>
+                            <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                                <i class="fas fa-chart-line w-5"></i> {% trans "Sales stats" %}
+                            </a>
+                            <a href="/admin/" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                                <i class="fas fa-cog w-5"></i> {% trans "Django admin" %}
+                            </a>
+                            {% endif %}
+
                             <hr class="my-2">
                             <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-sign-out-alt w-5"></i> Logout
+                                <i class="fas fa-sign-out-alt w-5"></i> {% trans "Logout" %}
                             </a>
                         </div>
                     </div>
                     {% else %}
                     <!-- Auth Buttons -->
                     <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                        Login
+                        {% trans "Login" %}
                     </a>
                     <a href="{% url 'accounts:register' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                        Sign Up
+                        {% trans "Sign Up" %}
                     </a>
                     {% endif %}
 
@@ -112,16 +236,45 @@
         <!-- Mobile Menu -->
         <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-gray-200 bg-white">
             <div class="px-4 py-4 space-y-2">
-                <a href="{% url 'listings:listing_list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    Browse Cars
+                {% if user.is_authenticated %}
+                <a href="{% url 'listing_create' %}"
+                   class="flex items-center justify-center gap-1.5 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    {% trans "Create Ad" %}
                 </a>
-                <a href="{% url 'listings:search_map' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    Map Search
+                {% endif %}
+                <a href="{% url 'search_map' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    {% trans "Map Search" %}
+                </a>
+                <a href="{% url 'help_center' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-newspaper w-5"></i> {% trans "News & Help" %}
                 </a>
                 {% if user.is_authenticated %}
-                <a href="{% url 'listings:listing_create' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    Sell Car
+                <a href="{% url 'my_listings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    {% trans "My Ads" %}
                 </a>
+                <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    {% trans "Messages" %}
+                </a>
+                <a href="{% url 'accounts:wallet' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-wallet w-5"></i> {% trans "Wallet" %} · {{ user.profile.wallet_balance|default:"0"|floatformat:0 }} {% trans "pts" %}
+                </a>
+                <a href="{% url 'accounts:become_dealer' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-store w-5"></i> {% trans "Dealer" %}
+                </a>
+                {% if user.is_superuser %}
+                <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg font-semibold">
+                    🛡 {% trans "Moderate users" %}
+                </a>
+                <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg font-semibold">
+                    🏢 {% trans "Moderate dealers" %}
+                </a>
+                <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg font-semibold">
+                    📊 {% trans "Sales stats" %}
+                </a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -152,60 +305,107 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <!-- Footer (Minimal, modern) -->
+    <footer class="relative mt-20" style="background: linear-gradient(180deg, #1f2937 0%, #111827 100%);">
+        <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-10">
+
+                <!-- Brand + Social -->
+                <div class="lg:col-span-7">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);">
                             SC
                         </div>
-                        <span class="font-bold text-xl">SellCar</span>
+                        <span class="font-bold text-2xl text-white tracking-tight">SellCar</span>
                     </div>
-                    <p class="text-gray-600 text-sm">
-                        The best marketplace for buying and selling cars online.
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6 max-w-md">
+                        {% trans "Discover trusted vehicles and services — easier, faster, simpler." %}
+                    </p>
+
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110" style="background: rgba(255,255,255,0.05);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110" style="background: rgba(255,255,255,0.05);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110" style="background: rgba(255,255,255,0.05);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110" style="background: rgba(255,255,255,0.05);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mt-6">
+                        {% trans "Looking for FAQ, dealer info, pricing? See" %}
+                        <i class="fas fa-newspaper text-gray-400 mx-1"></i>
+                        <a href="{% url 'help_center' %}" class="text-gray-300 hover:text-white transition-colors">{% trans "News & Help" %}</a>
+                        {% trans "in the menu above." %}
                     </p>
                 </div>
 
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="{% url 'listings:listing_list' %}" class="hover:text-primary transition-colors">Browse Cars</a></li>
-                        <li><a href="{% url 'listings:search_map' %}" class="hover:text-primary transition-colors">Map Search</a></li>
-                        <li><a href="{% url 'listings:listing_create' %}" class="hover:text-primary transition-colors">Sell Your Car</a></li>
-                    </ul>
+                <!-- Contact card -->
+                <div class="lg:col-span-5">
+                    <h3 class="text-sm font-bold text-white mb-4 tracking-wide">{% trans "Have questions?" %}</h3>
+
+                    <div class="rounded-2xl p-5" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(34,197,94,0.15);">
+                                <i class="far fa-clock text-green-400"></i>
+                            </div>
+                            <div class="text-sm text-gray-300">
+                                <div class="font-semibold text-white mb-1">{% trans "Open daily" %}</div>
+                                <div class="text-gray-400 text-xs">{% trans "Mon-Fri" %} 8:00 - 22:00</div>
+                                <div class="text-gray-400 text-xs">{% trans "Sat-Sun" %} 8:00 - 22:00</div>
+                            </div>
+                        </div>
+
+                        <a href="mailto:helpautoinfo@gmail.com" class="group flex items-center gap-3 p-3 rounded-xl transition-all" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px -5px rgba(239,68,68,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-white bg-opacity-20">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-xs text-white text-opacity-80 font-medium mb-0.5">{% trans "Drop us a line" %}</div>
+                                <div class="text-white font-bold text-sm" style="word-break: break-all;">helpautoinfo@gmail.com</div>
+                            </div>
+                            <i class="fas fa-arrow-right text-white text-opacity-80 group-hover:translate-x-1 transition-transform flex-shrink-0"></i>
+                        </a>
+
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'conversations:start_support' %}" class="group flex items-center gap-3 p-3 mt-2 rounded-xl transition-all" style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px -5px rgba(59,130,246,0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-white bg-opacity-20">
+                                <i class="fas fa-comments text-white"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-xs text-white text-opacity-80 font-medium mb-0.5">{% trans "Need help?" %}</div>
+                                <div class="text-white font-bold text-sm">{% trans "Send message to support" %}</div>
+                            </div>
+                            <i class="fas fa-arrow-right text-white text-opacity-80 group-hover:translate-x-1 transition-transform flex-shrink-0"></i>
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-4">Support</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="#" class="hover:text-primary transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
+            </div>
 
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-4">Connect</h3>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+            <!-- Bottom bar -->
+            <div class="pt-6" style="border-top: 1px solid rgba(255,255,255,0.08);">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-sm text-gray-500">&copy; 2025 SellCar. {% trans "All rights reserved." %}</p>
+                    <div class="flex items-center gap-6 text-xs text-gray-500">
+                        <a href="{% url 'terms' %}" class="hover:text-gray-300 transition-colors">{% trans "Terms" %}</a>
+                        <span class="text-gray-700">·</span>
+                        <a href="{% url 'privacy' %}" class="hover:text-gray-300 transition-colors">{% trans "Privacy" %}</a>
+                        <span class="text-gray-700">·</span>
+                        <a href="{% url 'cookies' %}" class="hover:text-gray-300 transition-colors">{% trans "Cookies" %}</a>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-gray-200 mt-8 pt-8 text-center text-sm text-gray-600">
-                <p>&copy; 2025 SellCar. All rights reserved.</p>
-            </div>
         </div>
     </footer>
 

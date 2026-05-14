@@ -1,0 +1,1 @@
+A similar {{ similar_brand }} {{ similar_model }} just sold

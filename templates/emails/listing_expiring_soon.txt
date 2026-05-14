@@ -1,0 +1,36 @@
+Hi ,
+
+Your listing will expire in {{ days_left }} day{{ days_left|pluralize }}:
+
+   {{ listing_title }}
+   {{ listing_price_display }}
+   {% if views_count %}{{ views_count }} view{{ views_count|pluralize }} so far{% endif %}
+
+Listing URL:
+{{ listing_url }}
+
+Last chance: your listing expires today
+Don't lose your spot - extend it with one click:
+{{ extend_url }}
+
+Or renew it to top of the list:
+{{ renew_url }}
+
+If you've already sold the vehicle, mark it as SOLD here:
+{{ site_url }}/dashboard/announcements/
+
+Tips if your listing is not getting enough attention:
+  - Add more photos (5-8 minimum)
+  - Lower the price slightly
+  - Update the description with more detail
+  - Renew it to bring it back to the top
+
+Need help? Reply to this email.
+
+- Thank you
+
+---
+
+You received this email because your listing is expiring soon.
+To change your notification settings:
+{{ site_url }}/settings/

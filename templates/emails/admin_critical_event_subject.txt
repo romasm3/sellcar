@@ -1,0 +1,1 @@
+[ADMIN] CRITICAL: {{ event_type }}

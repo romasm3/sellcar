@@ -1,0 +1,1 @@
+[ADMIN] Server error - {{ error_type }}

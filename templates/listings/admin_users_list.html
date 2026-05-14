@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin: Moderate users - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Admin banner -->
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+            <i class="fas fa-shield-alt text-red-600 text-xl"></i>
+            <div>
+                <div class="font-semibold text-red-900">🛡 Admin Moderation Panel</div>
+                <div class="text-sm text-red-700">Select a user to moderate their listings.</div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Users with listings</h1>
+            <span class="text-sm text-gray-500">{{ total_users }} user{{ total_users|pluralize }}</span>
+        </div>
+
+        <!-- Search form -->
+        <form method="get" class="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+            <div class="flex gap-3">
+                <div class="flex-1 relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text"
+                           name="search"
+                           value="{{ search_query }}"
+                           placeholder="Search by email, username or name..."
+                           class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary">
+                </div>
+                <button type="submit"
+                        class="px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-dark font-medium">
+                    Search
+                </button>
+                {% if search_query %}
+                    <a href="{% url 'admin_users_list' %}"
+                       class="px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium">
+                        Clear
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+
+        <!-- Users list -->
+        {% if users %}
+            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">User</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Email</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Total</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Active</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">🚫 Banned</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Joined</th>
+                            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for u in users %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                                        {{ u.email|first|upper }}
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-900">{{ u.username }}</div>
+                                        {% if u.first_name or u.last_name %}
+                                            <div class="text-xs text-gray-500">{{ u.first_name }} {{ u.last_name }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 text-sm text-gray-600">
+                                {{ u.email }}
+                                {% if u.is_superuser %}
+                                    <span class="ml-2 inline-block px-1.5 py-0.5 text-xs font-semibold text-red-700 bg-red-50 rounded">ADMIN</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <span class="inline-block px-2 py-0.5 text-sm font-semibold text-gray-900 bg-gray-100 rounded">
+                                    {{ u.total_listings }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                {% if u.active_listings > 0 %}
+                                    <span class="text-green-700 font-medium">{{ u.active_listings }}</span>
+                                {% else %}
+                                    <span class="text-gray-400">—</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                {% if u.shadow_banned_listings > 0 %}
+                                    <span class="inline-block px-2 py-0.5 text-sm font-bold text-red-700 bg-red-50 rounded">
+                                        🚫 {{ u.shadow_banned_listings }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-gray-400">—</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3 text-center text-xs text-gray-500">
+                                {{ u.date_joined|date:"Y-m-d" }}
+                            </td>
+                            <td class="px-4 py-3 text-right">
+                                <a href="{% url 'admin_moderate_user' u.id %}"
+                                   class="inline-flex items-center gap-1 px-3 py-1.5 bg-primary text-white rounded hover:bg-primary-dark text-sm font-medium">
+                                    <i class="fas fa-cog text-xs"></i> Moderate
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="bg-white rounded-xl border border-gray-200 p-12 text-center">
+                <i class="fas fa-users text-5xl text-gray-300 mb-4"></i>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                    {% if search_query %}
+                        No users match "{{ search_query }}"
+                    {% else %}
+                        No users with listings found
+                    {% endif %}
+                </h3>
+                {% if search_query %}
+                    <a href="{% url 'admin_users_list' %}" class="text-primary hover:underline text-sm">
+                        Clear search
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

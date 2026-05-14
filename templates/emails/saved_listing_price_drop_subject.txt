@@ -1,0 +1,1 @@
+Price drop: {{ listing_title }} — now {{ new_price_display }}

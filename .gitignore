@@ -1,3 +1,23 @@
+# ============================================
+# KRITIŠKAI SVARBU - SLAPTI DUOMENYS
+# ============================================
+.env
+.env.*
+*.env
+google-translate-key.json
+*-credentials.json
+*-key.json
+
+# ============================================
+# DATABASE
+# ============================================
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+
+# ============================================
+# PYTHON
+# ============================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -27,56 +47,86 @@ pip-delete-this-directory.txt
 .coverage
 .pytest_cache/
 htmlcov/
-.env
+
+# ============================================
+# VIRTUAL ENV
+# ============================================
 .venv
-env/
 venv/
+env/
 ENV/
 env.bak/
 venv.bak/
-.spyderproject
-.spyproject
-.ropeproject
-/site
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.DS_Store
+
+# ============================================
+# DJANGO
+# ============================================
 media/
 staticfiles/
-db.sqlite3
+locale_backup*/
 
-# Logs
+# ============================================
+# BACKUP / TEMP FILES
+# ============================================
+*.bak
+*.bak2
+*.backup
+*.zip
+
+# ============================================
+# COPY FILES (senos kopijos)
+# ============================================
+* copy.py
+* copy.html
+* copy.css
+* copy *.py
+* copy *.html
+* copy *.css
+*copy 1.py
+*copy 1.html
+*copy 1.css
+*copy.txt
+
+# ============================================
+# SCREENSHOTS
+# ============================================
+Screenshot*.png
+
+# ============================================
+# LOGS
+# ============================================
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-dev-dist
 
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
-
-/cypress/videos/
-/cypress/screenshots/
-
-# Editor directories and files
+# ============================================
+# IDE
+# ============================================
 .vscode/*
 !.vscode/extensions.json
 .idea
+.zed/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
 *.tsbuildinfo
-.vscode
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+
+# ============================================
+# CELERY
+# ============================================
 celerybeat-schedule
 celerybeat-schedule-wal
+
+# ============================================
+# NODE (jei naudosi vėliau)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*

@@ -1,0 +1,9 @@
+{% block body %}{% endblock %}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SellCar — {{ site_url }}
+You received this email because you are registered on SellCar.
+
+To unsubscribe from this type of email, click:
+{{ site_url }}/settings/emails/
+{% block unsubscribe_extra %}{% endblock %}

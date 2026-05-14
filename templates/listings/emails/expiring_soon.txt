@@ -1,0 +1,17 @@
+Your listing expires in {{ days_left }} day{{ days_left|pluralize }}
+
+Hi,
+
+Your listing {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %} ({{ listing.year }}, {{ listing.price|floatformat:0 }} €)
+will expire on {{ expires_at|date:"F j, Y" }}.
+
+After that, buyers will no longer see it.
+
+Extend the validity now to keep your listing visible{% if payments_enabled %} for just {{ fee }} €{% endif %}.
+
+Extend listing:
+{{ edit_url }}
+
+—
+SellCar
+You are receiving this because you have an active listing.

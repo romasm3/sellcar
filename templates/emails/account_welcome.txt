@@ -1,0 +1,35 @@
+Hi {{ user_name|default:"there" }},
+
+Welcome! Your account is ready.
+
+What you can do now:
+
+  1. Create your first listing
+     {{ site_url }}/create/
+
+  2. Browse cars, motorcycles, trucks and more
+     {{ site_url }}/
+
+  3. Save searches and get notified about new matches
+     {{ site_url }}/searches/
+
+  4. Save listings you like for later
+     {{ site_url }}/saved/
+
+Quick tips for sellers:
+  - Add clear, well-lit photos (5-8 minimum)
+  - Write an honest, detailed description
+  - Set a fair price to sell faster
+
+Any questions? Reply to this email or visit:
+{{ site_url }}/contact/
+
+Welcome aboard!
+
+- Thank you
+
+---
+
+You received this email because you created an account.
+To change your notification settings:
+{{ site_url }}/settings/

@@ -1,0 +1,9 @@
+Critical event :
+
+   Type: {{ event_type }}
+   Time: {{ event_time }}
+   Details: {{ event_details }}
+
+Action may be required.
+
+Admin: {{ admin_url }}
