@@ -18,7 +18,7 @@ Jei neturi šių folder'ių, juos sukurk:
 """
 
 from django.core.management.base import BaseCommand
-from django.utils import timezone
+from django.utils import from django.db.models import Count, Q, Sum, Avg
 from datetime import timedelta
 
 from apps.listings.models import Listing

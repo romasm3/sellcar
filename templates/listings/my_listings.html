@@ -262,6 +262,13 @@
                                     </span>
                                     {% endif %}
 
+                                    {% if listing.status == 'active' %}
+                                    <a href="{% url 'listing_services_order' listing.pk %}"
+                                       class="text-blue-600 hover:text-blue-700 font-medium">
+                                        ⭐ {% trans "Order services" %}
+                                    </a>
+                                    {% endif %}
+
                                     <button type="button"
                                             @click="openSoldModal('{% url 'listing_delete' listing.pk %}', '{% if listing.is_motorcycle %}{{ listing.motorcycle_brand.name }}{% if listing.motorcycle_model %} {{ listing.motorcycle_model.name }}{% endif %} {{ listing.year }}{% else %}{{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %} {{ listing.year }}{% endif %}')"
                                             class="text-gray-600 hover:text-gray-900 font-medium">

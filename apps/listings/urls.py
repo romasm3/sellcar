@@ -124,6 +124,10 @@ urlpatterns = [
     path("<int:pk>/edit/step/<int:step>/", views.listing_edit_step, name="listing_edit_step"),
     path("<int:pk>/edit-legacy/", views.listing_edit, name="listing_edit"),
     path("<int:pk>/activation-plans/", views.listing_activation_plans, name="listing_activation_plans"),
+
+    # ─── Extra services purchase (papildomai žvaigždutės/highlight/featured) ───
+    path("<int:pk>/services/", views.listing_services_order, name="listing_services_order"),
+    path("<int:pk>/services/checkout/", views.listing_services_checkout, name="listing_services_checkout"),
     path("<int:pk>/activate/", views.listing_activate, name="listing_activate"),
     path("<int:pk>/reserve/", views.listing_reserve_toggle, name="listing_reserve_toggle"),
     path("<int:pk>/vin-update/", views.listing_vin_update, name="listing_vin_update"),

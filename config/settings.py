@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "apps.listings",
     "apps.conversations",
     "apps.broadcasts",
+    "apps.payments",
     # Third party apps
     "crispy_forms",
     "crispy_bootstrap4",
@@ -179,7 +180,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 # Listing lifecycle (expire / reminders / cleanup)
 # ═══════════════════════════════════════════════════════════
 SITE_URL = config("SITE_URL", default="http://127.0.0.1:8000")
-PAYMENTS_ENABLED = False
+PAYMENTS_ENABLED = bool(STRIPE_SECRET_KEY)
 
 # ═══════════════════════════════════════════════════════════
 # File uploads (skelbimo nuotraukoms)

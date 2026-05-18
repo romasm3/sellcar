@@ -227,7 +227,7 @@
               id="submitBtn"
               class="bg-gray-800 hover:bg-gray-900 text-white font-semibold text-base px-8 py-3 rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {% trans "Order" %}
+              {% trans "Pay with card" %}
             </button>
           </div>
         </div>
@@ -240,8 +240,8 @@
         <a href="/privacy/" class="text-red-600 hover:underline">{% trans "privacy policy" %}</a>.
       </p>
 
-      <p id="walletWarning" class="hidden mt-3 text-sm text-red-600 font-semibold">
-        ⚠ {% trans "Insufficient wallet balance. Please top up." %}
+      <p class="hidden mt-3 text-sm text-gray-500">
+        {% trans "Secure payment via Stripe. You'll be redirected to a secure checkout page." %}
       </p>
     </div>
   </form>

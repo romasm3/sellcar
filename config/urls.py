@@ -16,6 +16,7 @@ urlpatterns = [
     path('', listing_views.listing_list, name='home'),
     # Listings — visi URL'ai iš apps/listings/urls.py (BE /listings/ prefikso)
     path('', include('apps.listings.urls')),
+    path('payments/', include('apps.payments.urls', namespace='payments')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

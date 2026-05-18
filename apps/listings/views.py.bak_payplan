@@ -5294,7 +5294,7 @@ def listing_pay_plan(request, pk, plan_code):
     if request.method != 'POST':
         return redirect('listing_select_plan', pk=pk)
 
-    # ─── Calculate total ─ naudojam final_price (su multiplier jei įjungtas) ───
+    # ─── Calculate total — naudojam final_price (su multiplier jei įjungtas) ───
     total_price = Decimal(str(plan['final_price_usd']))
 
     # Stars addon: count × days × price_per_unit
@@ -5314,67 +5314,92 @@ def listing_pay_plan(request, pk, plan_code):
     else:
         featured_cost = Decimal('0')
 
-    total_price = total_price.quantize(Decimal('0.01'))
+    # Highlight from plan (no separate addon yet — comes only via plan)
+    plan_highlight_days = plan.get('highlight_days', 0)
 
-    # ─── Stripe Checkout ─ planai mokami TIK kortele (wallet nedalyvauja) ───
-    stripe_secret = getattr(settings, 'STRIPE_SECRET_KEY', '')
-    if not stripe_secret:
-        messages.error(request, 'Payment system is being set up. Please try again later.')
-        return redirect('listing_select_plan', pk=pk)
+    wallet_balance = profile.wallet_balance or Decimal('0')
+
+    if wallet_balance < total_price:
+        messages.error(
+            request,
+            f'Insufficient wallet balance. Need ${total_price:.2f}, have ${wallet_balance:.2f}.'
+        )
+        return redirect('/accounts/wallet/')
+
+    # ─── Deduct + activate (atomic) ───
+    from apps.accounts.models import WalletTransaction
 
     addon_parts = []
     if renew_cost > 0:
-        addon_parts.append(f"{renew_count}* x {renew_days}d")
+        addon_parts.append(f"{renew_count}* x {renew_days}d (${renew_cost:.2f})")
     if featured_cost > 0:
-        addon_parts.append(f"featured {featured_days}d")
+        addon_parts.append(f"featured {featured_days}d (${featured_cost:.2f})")
 
-    product_name = f"{listing.title} - {plan['label']} plan ({plan['days']}d)"
+    desc = f"Listing #{listing.pk} - {plan['label']} plan"
     if addon_parts:
-        product_name += " + " + ", ".join(addon_parts)
+        desc += " + " + ", ".join(addon_parts)
 
-    try:
-        import stripe
-        stripe.api_key = stripe_secret
+    now = timezone.now()
 
-        session = stripe.checkout.Session.create(
-            mode='payment',
-            payment_method_types=['card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {'name': product_name[:250]},
-                    'unit_amount': int(total_price * 100),
-                },
-                'quantity': 1,
-            }],
-            customer_email=request.user.email,
-            success_url=request.build_absolute_uri(
-                reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
-            ),
-            cancel_url=request.build_absolute_uri(
-                reverse('listing_select_plan', kwargs={'pk': listing.pk})
-            ),
-            metadata={
-                'type': 'listing_plan',
-                'user_id': str(request.user.id),
-                'listing_id': str(listing.pk),
-                'plan_code': plan['code'],
-                'plan_days': str(plan['days']),
-                'plan_boost_days': str(plan.get('boost_days', 0)),
-                'plan_boost_count': str(plan.get('boost_count', 0)),
-                'plan_featured_days': str(plan.get('featured_days', 0)),
-                'plan_highlight_days': str(plan.get('highlight_days', 0)),
-                'renew_count': str(renew_count),
-                'renew_days': str(renew_days),
-                'addon_featured_days': str(featured_days),
-                'total_price': str(total_price),
-            },
+    with transaction.atomic():
+        profile.wallet_balance = wallet_balance - total_price
+        profile.save(update_fields=['wallet_balance'])
+
+        WalletTransaction.objects.create(
+            user=request.user,
+            amount=-total_price,
+            transaction_type='spend',
+            status='completed',
+            description=desc,
+            completed_at=now,
         )
-        return redirect(session.url)
 
-    except Exception as e:
-        messages.error(request, f'Payment error: {str(e)[:120]}')
-        return redirect('listing_select_plan', pk=pk)
+        # ─── Activate listing ───
+        listing.activate(days=plan['days'])
+    if plan['boost_days'] > 0 or renew_count > 0:
+        listing.last_boosted_at = now
+        listing.save(update_fields=['last_boosted_at'])
+
+    plan_boost_count = plan.get('boost_count', 0)
+    plan_boost_days = plan.get('boost_days', 0)
+    final_star_count = max(plan_boost_count, renew_count)
+    final_star_days = max(plan_boost_days, renew_days)
+    total_featured = plan['featured_days'] + featured_days
+
+    # Stars (žvaigždutės ant kortelių) — atskira trukmė
+    if final_star_count > 0:
+        listing.star_level = 1
+        listing.star_count = final_star_count
+        if final_star_days > 0:
+            # Pratęsiam ant viršaus jei jau yra aktyvus
+            if listing.star_expires_at and listing.star_expires_at > now:
+                listing.star_expires_at = listing.star_expires_at + timedelta(days=final_star_days)
+            else:
+                listing.star_expires_at = now + timedelta(days=final_star_days)
+        listing.save(update_fields=['star_level', 'star_count', 'star_expires_at'])
+
+    # Featured on homepage (Day's deals tab) — atskira trukmė
+    if total_featured > 0:
+        # Pratęsiam ant viršaus jei jau yra aktyvus
+        if listing.featured_until and listing.featured_until > now:
+            listing.featured_until = listing.featured_until + timedelta(days=total_featured)
+        else:
+            listing.featured_until = now + timedelta(days=total_featured)
+        listing.save(update_fields=['featured_until'])
+
+    # Highlight from plan
+    if plan_highlight_days > 0:
+        # Pratęsiam ant viršaus jei jau yra aktyvus
+        if listing.highlight_until and listing.highlight_until > now:
+            listing.highlight_until = listing.highlight_until + timedelta(days=plan_highlight_days)
+        else:
+            listing.highlight_until = now + timedelta(days=plan_highlight_days)
+        listing.save(update_fields=['highlight_until'])
+
+    _send_listing_published_email(listing, request.user)
+    messages.success(request, f"Listing activated for {plan['days']} days!")
+
+    return redirect(reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published')
 
 
 # ════════════════════════════════════════════════════════════════════

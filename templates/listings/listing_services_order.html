@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Order extra services" %} — SellCar{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+  {# ═══ Header ═══ #}
+  <div class="mb-6">
+    <a href="{% url 'my_listings' %}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-3">
+      ← {% trans "Back to my ads" %}
+    </a>
+    <h1 class="text-2xl font-bold text-gray-900 mb-1">
+      ⭐ {% trans "Order extra services" %}
+    </h1>
+    <p class="text-sm text-gray-500">
+      {% trans "Boost your active listing with stars, highlight, or featured placement." %}
+    </p>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mb-4 p-3 rounded-lg text-sm {% if message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'info' %}bg-blue-50 text-blue-800 border border-blue-200{% else %}bg-red-50 text-red-800 border border-red-200{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" id="servicesForm" action="{% url 'listing_services_checkout' pk=listing.pk %}">
+    {% csrf_token %}
+
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ POSITION + ADDONS — kopija iš Create flow         ═══ #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm">
+              <span class="font-semibold text-gray-900">{% trans "Listing is active" %}</span>
+            </div>
+            <div class="text-xs text-gray-500">{% trans "Boost your listing higher to attract more interest" %}</div>
+          </div>
+        </div>
+        <div class="text-sm text-red-600 font-semibold">
+          {% trans "Want to sell faster?" %}
+        </div>
+      </div>
+
+      {# ─── STARS addon — single row, autogidas-style ─── #}
+      <div class="addon-row flex items-center gap-3 py-3 border-b border-gray-200 flex-wrap">
+        <button type="button" onclick="openPreviewPopup('top_spot')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Top Spot Stars" %}</button>
+        <button type="button" onclick="openPreviewPopup('top_spot')" class="inline-flex items-center justify-center w-6 h-6 rounded bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold cursor-pointer transition-colors" title="{% trans 'Preview' %}">★</button>
+
+        {% if current_stars > 0 %}
+          <span class="text-xs text-gray-500">
+            ({% trans "Currently:" %} <strong>{{ current_stars }}★</strong>, {{ current_star_days_left }} {% trans "d. left" %})
+          </span>
+        {% endif %}
+
+        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+          <select id="renewCount" name="star_count" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in renew_count_options %}<option value="{{ i }}">{{ i }} ⭐</option>{% endfor %}
+          </select>
+          <select id="renewDays" name="star_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in renew_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+          </select>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="renewPrice">0.00</span></span></span>
+        </div>
+      </div>
+
+      {# ─── HIGHLIGHT addon — single row ─── #}
+      <div class="addon-row flex items-center gap-3 py-3 border-b border-gray-200 flex-wrap">
+        <button type="button" onclick="openPreviewPopup('highlight')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Listing highlight" %}</button>
+        <button type="button" onclick="openPreviewPopup('highlight')" class="text-orange-500 hover:text-orange-600 cursor-pointer" title="{% trans 'Preview' %}">ⓘ</button>
+
+        {% if current_highlight_days_left > 0 %}
+          <span class="text-xs text-gray-500">
+            ({% trans "Currently:" %} <strong>{{ current_highlight_days_left }}</strong> {% trans "d. left" %})
+          </span>
+        {% endif %}
+
+        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+          <select id="highlightDays" name="highlight_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in highlight_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+          </select>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="highlightPrice">0.00</span></span></span>
+        </div>
+      </div>
+
+      {# ─── FEATURED addon — single row, autogidas-style ─── #}
+      <div class="addon-row flex items-center gap-3 py-3 flex-wrap">
+        <button type="button" onclick="openPreviewPopup('featured')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Featured on homepage" %}</button>
+
+        {% if current_featured_days_left > 0 %}
+          <span class="text-xs text-gray-500">
+            ({% trans "Currently:" %} <strong>{{ current_featured_days_left }}</strong> {% trans "d. left" %})
+          </span>
+        {% endif %}
+
+        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+          <select id="featuredDays" name="featured_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+            <option value="0">-</option>
+            {% for i in featured_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
+          </select>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="featuredPrice">0.00</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ WALLET + TOTAL + ORDER                          ═══ #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+
+        <div class="flex flex-col gap-1">
+          <div class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Wallet balance" %}</div>
+          <div class="text-2xl font-bold text-blue-900">${{ wallet_balance|floatformat:2 }}</div>
+          <a href="/accounts/wallet/" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
+            {% trans "Top up" %} →
+          </a>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="text-right">
+            <div class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Total" %}</div>
+            <div class="text-2xl font-bold text-gray-900">$<span id="totalPrice">0.00</span></div>
+          </div>
+
+          <button
+            type="submit"
+            id="submitBtn"
+            disabled
+            class="bg-gray-800 hover:bg-gray-900 text-white font-semibold text-base px-8 py-3 rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+            {% trans "Order" %}
+          </button>
+        </div>
+      </div>
+
+      <p id="walletWarning" class="hidden mt-3 text-sm text-red-600 font-semibold">
+        ⚠ {% trans "Insufficient wallet balance. Please top up." %}
+      </p>
+
+      <p class="text-xs text-gray-500 mt-3">
+        {% trans "Cost will be deducted from your wallet balance." %}
+      </p>
+    </div>
+  </form>
+
+  {# ═══ Listing preview ═══ #}
+  <div class="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all">
+    <div class="flex items-stretch">
+      <div class="w-48 h-32 flex-shrink-0 bg-gray-100">
+        {% if main_image %}
+          <img src="{{ main_image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center text-gray-300 text-4xl">📷</div>
+        {% endif %}
+      </div>
+
+      <div class="flex-1 p-4 flex flex-col justify-between min-w-0">
+        <div class="mb-2">
+          <h3 class="font-bold text-gray-900 text-base leading-snug truncate mb-1">{{ listing.title }}</h3>
+          {% if listing.price %}
+            <div class="text-2xl font-bold text-gray-900">${{ listing.price|floatformat:0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600">
+          {% if listing.year %}<span class="font-semibold text-gray-900">{{ listing.year }}</span>{% endif %}
+          {% if listing.fuel_type %}<span class="text-gray-300">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+          {% if listing.mileage %}<span class="text-gray-300">·</span><span>{{ listing.mileage|floatformat:0 }} {% trans "km" %}</span>{% endif %}
+          {% if listing.transmission %}<span class="text-gray-300">·</span><span>{{ listing.transmission.name }}</span>{% endif %}
+        </div>
+
+        {% if listing.city %}
+          <div class="mt-2 inline-flex items-center gap-1 text-xs text-emerald-600 font-semibold">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+            <span>{{ listing.city }}{% if listing.country %}, {{ listing.country }}{% endif %}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const RENEW_PRICE_PER_UNIT = parseFloat("{{ renew_price_per_unit|default:0.5 }}");
+  const FEATURED_PRICE_PER_DAY = parseFloat("{{ featured_price_per_day|default:0.3 }}");
+  const HIGHLIGHT_PRICE_PER_DAY = parseFloat("{{ highlight_price_per_day|default:0.3 }}");
+  const WALLET_BALANCE = parseFloat("{{ wallet_balance|default:0 }}");
+
+  const renewCount = document.getElementById('renewCount');
+  const renewDays = document.getElementById('renewDays');
+  const highlightDays = document.getElementById('highlightDays');
+  const featuredDays = document.getElementById('featuredDays');
+  const renewPriceEl = document.getElementById('renewPrice');
+  const highlightPriceEl = document.getElementById('highlightPrice');
+  const featuredPriceEl = document.getElementById('featuredPrice');
+  const totalPriceEl = document.getElementById('totalPrice');
+  const submitBtn = document.getElementById('submitBtn');
+  const walletWarning = document.getElementById('walletWarning');
+
+  function updateTotal() {
+    let total = 0;
+
+    // Stars: count × days × price
+    const rc = parseInt(renewCount.value) || 0;
+    const rd = parseInt(renewDays.value) || 0;
+    const renewCost = (rc > 0 && rd > 0) ? rc * rd * RENEW_PRICE_PER_UNIT : 0;
+    renewPriceEl.textContent = renewCost.toFixed(2);
+    total += renewCost;
+
+    // Highlight: days × price
+    const hd = parseInt(highlightDays.value) || 0;
+    const highlightCost = hd > 0 ? hd * HIGHLIGHT_PRICE_PER_DAY : 0;
+    highlightPriceEl.textContent = highlightCost.toFixed(2);
+    total += highlightCost;
+
+    // Featured: days × price
+    const fd = parseInt(featuredDays.value) || 0;
+    const featuredCost = fd > 0 ? fd * FEATURED_PRICE_PER_DAY : 0;
+    featuredPriceEl.textContent = featuredCost.toFixed(2);
+    total += featuredCost;
+
+    totalPriceEl.textContent = total.toFixed(2);
+
+    if (total === 0) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "{% trans 'Order' %}";
+      walletWarning.classList.add('hidden');
+    } else if (total > WALLET_BALANCE) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "{% trans 'Insufficient balance' %}";
+      walletWarning.classList.remove('hidden');
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "{% trans 'Pay' %} $" + total.toFixed(2);
+      walletWarning.classList.add('hidden');
+    }
+  }
+
+  renewCount.addEventListener('change', updateTotal);
+  renewDays.addEventListener('change', updateTotal);
+  highlightDays.addEventListener('change', updateTotal);
+  featuredDays.addEventListener('change', updateTotal);
+  updateTotal();
+})();
+</script>
+
+{# ═══ PREVIEW POPUP MODAL — kopija iš Create flow ═══ #}
+<div id="previewPopup" class="hidden fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4" onclick="closePreviewPopup(event)">
+  <div class="relative max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+      <h3 id="previewPopupTitle" class="text-lg font-bold text-gray-900">{% trans "Preview" %}</h3>
+      <button type="button" onclick="closePreviewPopup()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button>
+    </div>
+    <div class="p-6">
+      <p id="previewPopupDesc" class="text-sm text-gray-700 mb-4 leading-relaxed"></p>
+      <img id="previewPopupImg" src="" alt="{% trans 'Preview' %}" class="w-full h-auto rounded-lg border border-gray-200">
+    </div>
+  </div>
+</div>
+
+<script>
+var PREVIEW_CONTENT = {
+  'top_spot': {
+    title: "{% trans 'Top Spot Stars' %}",
+    desc: "{% trans 'Your listing will appear higher in search results than others. The more star boosts you order, the higher it will be displayed.' %}",
+    img: "{% static 'img/previews/star.png' %}"
+  },
+  'featured': {
+    title: "{% trans 'Featured on homepage' %}",
+    desc: "{% trans 'Your listing will be shown on the homepage among featured listings, attracting up to 5x more views.' %}",
+    img: "{% static 'img/previews/abartas.png' %}"
+  },
+  'highlight': {
+    title: "{% trans 'Listing highlight' %}",
+    desc: "{% trans 'Your listing will have a colored background in search results, making it stand out from other listings.' %}",
+    img: "{% static 'img/previews/abartas.png' %}"
+  }
+};
+
+function openPreviewPopup(type) {
+  var popup = document.getElementById('previewPopup');
+  var img = document.getElementById('previewPopupImg');
+  var title = document.getElementById('previewPopupTitle');
+  var desc = document.getElementById('previewPopupDesc');
+  if (!popup || !img) return;
+  var content = PREVIEW_CONTENT[type] || PREVIEW_CONTENT['top_spot'];
+  title.textContent = content.title;
+  desc.textContent = content.desc;
+  img.src = content.img;
+  popup.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closePreviewPopup(e) {
+  if (e && e.target.id !== 'previewPopup' && e.type === 'click') return;
+  var popup = document.getElementById('previewPopup');
+  if (popup) popup.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  var popup = document.getElementById('previewPopup');
+  if (popup && !popup.classList.contains('hidden') && e.key === 'Escape') {
+    closePreviewPopup();
+  }
+});
+</script>
+
+{% endblock %}
