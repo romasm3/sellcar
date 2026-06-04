@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "Create Motorcycle Listing" %} - SellCar{% endblock %}
+{% block title %}{% if is_edit_mode %}{% trans "Edit Motorcycle Listing" %}{% else %}{% trans "Create Motorcycle Listing" %}{% endif %} - SellCar{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 min-h-screen py-5">
@@ -9,10 +9,16 @@
 
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xl font-bold text-gray-900">{% trans "Create Motorcycle Listing" %}</h1>
+            <h1 class="text-xl font-bold text-gray-900">{% if is_edit_mode %}{% trans "Edit Motorcycle Listing" %}{% else %}{% trans "Create Motorcycle Listing" %}{% endif %}</h1>
+            {% if is_edit_mode %}
+            <a href="/{{ edit_listing_id }}/" class="text-sm text-gray-600 hover:text-gray-900">
+                <i class="fas fa-arrow-left mr-1"></i> {% trans "Back to listing" %}
+            </a>
+            {% else %}
             <a href="/create/?step=1" class="text-sm text-gray-600 hover:text-gray-900">
                 <i class="fas fa-arrow-left mr-1"></i> {% trans "Back to categories" %}
             </a>
+            {% endif %}
         </div>
 
         {% if errors %}
@@ -33,7 +39,7 @@
             {% csrf_token %}
             <input type="hidden" name="draft_id" id="draftId" value="{{ draft_id|default:'' }}">
 
-            <!-- ═══ MAIN INFO ═══ -->
+            <!-- MAIN INFO -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Main Information" %}</h2>
 
@@ -158,8 +164,6 @@
                         </select>
                     </div>
 
-                    <!-- ─── OPTIONAL FIELDS (white background) ─── -->
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Tech. Inspection Until" %}</label>
                         <div class="flex gap-1">
@@ -241,184 +245,100 @@
                 </div>
             </div>
 
-            <!-- ═══ EQUIPMENT / FEATURES ═══ -->
+            <!-- EQUIPMENT / FEATURES -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Features / Equipment" %}</h2>
 
                 <div class="mb-5">
                     <h3 class="text-xs font-semibold text-gray-700 mb-3 uppercase">{% trans "Additional equipment" %}</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-2">
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="electric_starter" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Electric starter" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="kick_starter" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Kick starter" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="automatic_transmission" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Automatic transmission" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="wide_rear_tire" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Wide rear tire" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="heated_seats" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Heated seats" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="heated_handlebars" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Heated handlebars" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="front_windshield" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Front windshield" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="pannier_cases" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Pannier cases" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="passenger_seat" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Passenger seat" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="top_case" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Top case" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="disc_brakes" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Disc brakes" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="audio_system" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Audio system" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="cruise_control" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Cruise control" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="traction_control" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Traction control" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="quick_shifter" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Quick shifter" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="led_lights" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "LED lights" %}</span>
-                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="electric_starter" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Electric starter" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="kick_starter" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Kick starter" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="automatic_transmission" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Automatic transmission" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="wide_rear_tire" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Wide rear tire" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="heated_seats" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Heated seats" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="heated_handlebars" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Heated handlebars" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="front_windshield" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Front windshield" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="pannier_cases" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Pannier cases" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="passenger_seat" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Passenger seat" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="top_case" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Top case" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="disc_brakes" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Disc brakes" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="audio_system" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Audio system" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="cruise_control" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Cruise control" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="traction_control" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Traction control" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="quick_shifter" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Quick shifter" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="led_lights" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "LED lights" %}</span></label>
                     </div>
                 </div>
 
                 <div class="mb-5">
                     <h3 class="text-xs font-semibold text-gray-700 mb-3 uppercase">{% trans "Other features" %}</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-2">
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="exchange_possible" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Exchange possible" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="leasing" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Sold on leasing" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="not_operated_lt" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Not operated in Lithuania" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="oldtimer" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Oldtimer" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="service_book" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Service book" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="maintenance_history" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Maintenance history" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="catalytic_converter" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Catalytic converter" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="metallic_paint" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "\"Metallic\" paint" %}</span>
-                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="exchange_possible" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Exchange possible" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="leasing" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Sold on leasing" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="not_operated_lt" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Not operated in Lithuania" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="oldtimer" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Oldtimer" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="service_book" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Service book" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="maintenance_history" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Maintenance history" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="catalytic_converter" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Catalytic converter" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="metallic_paint" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "\"Metallic\" paint" %}</span></label>
                     </div>
                 </div>
 
                 <div>
                     <h3 class="text-xs font-semibold text-gray-700 mb-3 uppercase">{% trans "Security" %}</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-2">
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="abs" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "ABS" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="alarm" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Alarm system" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="brake_disc_lock" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Brake disc lock" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="immobilizer" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Immobilizer" %}</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded">
-                            <input type="checkbox" name="moto_features" value="gps_tracker" class="w-4 h-4 flex-shrink-0">
-                            <span class="text-sm text-gray-700">{% trans "Tracking device (GPS)" %}</span>
-                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="abs" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "ABS" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="alarm" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Alarm system" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="brake_disc_lock" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Brake disc lock" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="immobilizer" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Immobilizer" %}</span></label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 px-1 py-0.5 rounded"><input type="checkbox" name="moto_features" value="gps_tracker" class="w-4 h-4 flex-shrink-0"><span class="text-sm text-gray-700">{% trans "Tracking device (GPS)" %}</span></label>
                     </div>
                 </div>
             </div>
 
-            <!-- ═══ DESCRIPTION ═══ -->
+            <!-- DESCRIPTION -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Description" %}</h2>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2">
                         <textarea name="description" rows="8" placeholder="{% trans 'Describe your motorcycle in detail...' %}"
                                   class="w-full px-3 py-2 text-sm border border-gray-300 rounded">{{ submitted.description|default:'' }}</textarea>
                     </div>
-
                     <div class="md:col-span-1 space-y-3">
-                        <div class="flex items-start gap-2">
-                            <i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{% trans "A detailed description" %}</p>
-                                <p class="text-xs text-gray-600">{% trans "increases buyer interest in your listing." %}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{% trans "The more informative the listing," %}</p>
-                                <p class="text-xs text-gray-600">{% trans "the fewer questions buyers will ask." %}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i>
-                            <div>
-                                <p class="text-sm font-semibold text-gray-900">{% trans "Creatively written listings" %}</p>
-                                <p class="text-xs text-gray-600">{% trans "may be featured on our social media pages." %}</p>
-                            </div>
-                        </div>
+                        <div class="flex items-start gap-2"><i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i><div><p class="text-sm font-semibold text-gray-900">{% trans "A detailed description" %}</p><p class="text-xs text-gray-600">{% trans "increases buyer interest in your listing." %}</p></div></div>
+                        <div class="flex items-start gap-2"><i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i><div><p class="text-sm font-semibold text-gray-900">{% trans "The more informative the listing," %}</p><p class="text-xs text-gray-600">{% trans "the fewer questions buyers will ask." %}</p></div></div>
+                        <div class="flex items-start gap-2"><i class="fas fa-caret-right text-blue-500 mt-1 flex-shrink-0"></i><div><p class="text-sm font-semibold text-gray-900">{% trans "Creatively written listings" %}</p><p class="text-xs text-gray-600">{% trans "may be featured on our social media pages." %}</p></div></div>
                     </div>
                 </div>
             </div>
 
-            <!-- ═══ PHOTOS ═══ -->
+            <!-- PHOTOS -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Photos" %}</h2>
+
+                <div id="draft-photos-wrapper" {% if not current_draft.images.all %}style="display:none"{% endif %} class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                        {% trans "Already uploaded" %}
+                        <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count|default:0 }} / 40)</span>
+                    </label>
+                    <div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 mb-2" id="draft-photos">
+                        {% if current_draft and current_draft.images.all %}
+                            {% for img in current_draft.images.all %}
+                                <div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move"
+                                     data-img-id="{{ img.pk }}" draggable="true">
+                                    <img src="{{ img.image.url }}" class="w-full h-full object-cover pointer-events-none">
+                                    {% if img.is_main %}
+                                    <span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}</span>
+                                    {% else %}
+                                    <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>
+                                    {% endif %}
+                                    <button type="button" data-del="{{ img.pk }}" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">×</button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div class="md:col-span-1">
@@ -428,14 +348,9 @@
                             <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
                         </div>
                     </div>
-
                     <div class="md:col-span-2 text-sm text-gray-700 space-y-2">
-                        <p>
-                            {% blocktrans %}You can upload up to <strong>40 photos</strong>. Max size per photo is <strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>.{% endblocktrans %}
-                        </p>
-                        <p class="text-gray-600">
-                            {% trans "To change photo order, drag and drop into desired position. The first photo will be used as the main cover image." %}
-                        </p>
+                        <p>{% blocktrans %}You can upload up to <strong>40 photos</strong>. Max size per photo is <strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>.{% endblocktrans %}</p>
+                        <p class="text-gray-600">{% trans "To change photo order, drag and drop into desired position. The first photo will be used as the main cover image." %}</p>
                         <ul class="text-xs text-gray-500 list-disc list-inside space-y-0.5 mt-2">
                             <li>{% trans "Shoot in good lighting, ideally outdoors" %}</li>
                             <li>{% trans "Include photos of front, side, rear, and engine" %}</li>
@@ -445,10 +360,18 @@
                     </div>
                 </div>
 
-                <div id="imagePreview" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 mt-4"></div>
+                <div id="uploadProgress" class="hidden mt-4">
+                    <div class="flex items-center justify-between mb-1">
+                        <span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">{% trans "Uploading photos..." %}</span>
+                        <span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                        <div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div>
+                    </div>
+                </div>
             </div>
 
-            <!-- ═══ VIDEO ═══ -->
+            <!-- VIDEO -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Video (optional)" %}</h2>
                 <div class="max-w-xl">
@@ -459,10 +382,9 @@
                 </div>
             </div>
 
-            <!-- ═══ PRICE ═══ -->
+            <!-- PRICE -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Price" %}</h2>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Price ($)" %} <span class="text-red-500">*</span></label>
@@ -474,7 +396,6 @@
                                    class="req-field w-full pl-7 pr-2 py-1.5 text-sm border rounded">
                         </div>
                     </div>
-
                     <div class="pb-1.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="negotiable" {% if submitted.negotiable == 'on' %}checked{% endif %} class="w-4 h-4">
@@ -484,42 +405,30 @@
                 </div>
             </div>
 
-            <!-- ═══ CONTACT / LOCATION ═══ -->
+            <!-- CONTACT / LOCATION -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
                 <h2 class="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide border-b border-gray-200 pb-2">{% trans "Contact &amp; Location" %}</h2>
-
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-3">
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Phone" %} <span class="text-red-500">*</span></label>
-                        <input type="tel" name="phone" data-required="true"
-                               value="{{ submitted.phone|default:'' }}"
-                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
+                        <input type="tel" name="phone" data-required="true" value="{{ submitted.phone|default:'' }}" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Email" %} <span class="text-red-500">*</span></label>
-                        <input type="email" name="email" data-required="true"
-                               value="{{ submitted.email|default:user.email|default:'' }}"
-                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
+                        <input type="email" name="email" data-required="true" value="{{ submitted.email|default:user.email|default:'' }}" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
-                        <select name="country" id="id_country" data-required="true" onchange="onCountryChange()"
-                                class="req-field w-full px-2 py-1.5 text-sm border rounded">
+                        <select name="country" id="id_country" data-required="true" onchange="onCountryChange()" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                             {% for code, name in country_choices %}
                             <option value="{{ code }}" {% if submitted.country == code %}selected{% elif not submitted.country and code == 'US' %}selected{% endif %}>{{ name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-
                     <div id="cityFieldWrapper">
                         <label class="block text-xs text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
-                        <input type="text" name="city" data-required="true"
-                               value="{{ submitted.city|default:'' }}"
-                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
+                        <input type="text" name="city" data-required="true" value="{{ submitted.city|default:'' }}" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
-
                     <div id="stateFieldWrapper" class="hidden">
                         <label class="block text-xs text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500">*</span></label>
                         <select name="state" class="req-field w-full px-2 py-1.5 text-sm border rounded">
@@ -529,28 +438,18 @@
                             {% endfor %}
                         </select>
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Name" %} <span class="text-red-500">*</span></label>
-                        <input type="text" name="contact_name" data-required="true"
-                               value="{{ submitted.contact_name|default:user.first_name|default:user.username|default:'' }}"
-                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
+                        <input type="text" name="contact_name" data-required="true" value="{{ submitted.contact_name|default:user.first_name|default:user.username|default:'' }}" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Postal Code" %}</label>
-                        <input type="text" name="postal_code"
-                               value="{{ submitted.postal_code|default:'' }}"
-                               class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
+                        <input type="text" name="postal_code" value="{{ submitted.postal_code|default:'' }}" class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
                     </div>
-
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Street Address" %}</label>
-                        <input type="text" name="address"
-                               value="{{ submitted.address|default:'' }}"
-                               class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
+                        <input type="text" name="address" value="{{ submitted.address|default:'' }}" class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
                     </div>
-
                     <div class="md:col-span-4 pt-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="hide_exact_address" {% if submitted.hide_exact_address == 'on' %}checked{% endif %} class="w-4 h-4">
@@ -560,20 +459,21 @@
                 </div>
             </div>
 
-            <!-- ═══ ERROR BANNER ═══ -->
+            <!-- ERROR BANNER -->
             <div id="errorBanner" class="hidden mb-4 p-3 bg-red-500 text-white rounded-lg flex items-center gap-2">
                 <i class="fas fa-exclamation-circle"></i>
                 <span class="text-sm font-medium">{% trans "Please fill in all required fields highlighted in red." %}</span>
             </div>
 
-            <!-- ═══ BOTTOM BAR ═══ -->
+            <!-- BOTTOM BAR -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex items-center justify-between">
-                <a href="/create/?step=1" class="text-sm text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-arrow-left mr-1"></i> {% trans "Back" %}
-                </a>
-                <button type="submit" class="flex items-center gap-2 px-8 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm">
-                    {% trans "Continue" %} <i class="fas fa-arrow-right"></i>
-                </button>
+                {% if is_edit_mode %}
+                <a href="/{{ edit_listing_id }}/" class="text-sm text-gray-700 hover:text-gray-900"><i class="fas fa-arrow-left mr-1"></i> {% trans "Cancel" %}</a>
+                <button type="submit" class="flex items-center gap-2 px-8 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm">{% trans "Save Changes" %} <i class="fas fa-check"></i></button>
+                {% else %}
+                <a href="/create/?step=1" class="text-sm text-gray-700 hover:text-gray-900"><i class="fas fa-arrow-left mr-1"></i> {% trans "Back" %}</a>
+                <button type="submit" class="flex items-center gap-2 px-8 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm">{% trans "Continue" %} <i class="fas fa-arrow-right"></i></button>
+                {% endif %}
             </div>
 
         </form>
@@ -581,60 +481,39 @@
 </div>
 
 <style>
-    /* Required fields — DEFAULT (empty): light gray bg + blue border (autoplius.lt style) */
-    .req-field {
-        background-color: #f3f4f6;
-        border: 1px solid #6ba3d6;
-    }
-    /* Required field — FILLED: white bg + neutral gray border (NO blue) */
-    .req-field.is-filled {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-    }
-    /* Required field — ERROR (submitted while empty): light red bg + red border */
-    .req-field.is-invalid {
-        background-color: #fde2e2 !important;
-        border: 1px solid #e53e3e !important;
-    }
-    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
-        transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
-    }
-    select:focus, input:focus, textarea:focus {
-        outline: none;
-        border-color: #374151;
-        box-shadow: 0 0 0 2px rgba(55, 65, 81, 0.1);
-    }
-    .req-field.is-invalid:focus {
-        border-color: #e53e3e;
-        box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2);
-    }
+    .req-field { background-color: #f3f4f6; border: 1px solid #6ba3d6; }
+    .req-field.is-filled { background-color: #ffffff !important; border: 1px solid #d1d5db !important; }
+    .req-field.is-invalid { background-color: #fde2e2 !important; border: 1px solid #e53e3e !important; }
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea { transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s; }
+    select:focus, input:focus, textarea:focus { outline: none; border-color: #374151; box-shadow: 0 0 0 2px rgba(55, 65, 81, 0.1); }
+    .req-field.is-invalid:focus { border-color: #e53e3e; box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2); }
 </style>
 
 <script>
-// ─── i18n strings ───
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+var EDIT_LISTING_ID = {{ edit_listing_id|default:0 }};
+var SELECTED_MOTO_MODEL = "{{ submitted.motorcycle_model|default:'' }}";
+
 var I18N = {
     loading: "{% trans 'Loading...' %}",
     selectModel: "{% trans 'Select model' %}",
-    filesSelected: "{% trans '{n} file(s) selected' %}"
+    filesSelected: "{% trans '{n} file(s) selected' %}",
+    main: "{% trans 'MAIN' %}",
+    preparing: "{% trans 'Preparing photos...' %}",
+    uploading: "{% trans 'Uploading photos...' %}",
+    uploadFailed: "{% trans 'Upload failed' %}",
+    maxPhotos: "{% trans 'Maximum 40 photos. Remove some first.' %}",
+    tooMany: "{% trans 'You picked too many photos — only the first available ones will be added.' %}"
 };
 
-// ─── Required field state management ───
 function isFieldFilled(field) {
-    if (field.tagName === 'SELECT') {
-        return field.value !== '' && field.value !== null;
-    }
+    if (field.tagName === 'SELECT') return field.value !== '' && field.value !== null;
     return field.value.trim() !== '';
 }
-
 function updateFieldState(field) {
-    if (isFieldFilled(field)) {
-        field.classList.add('is-filled');
-        field.classList.remove('is-invalid');
-    } else {
-        field.classList.remove('is-filled');
-    }
+    if (isFieldFilled(field)) { field.classList.add('is-filled'); field.classList.remove('is-invalid'); }
+    else { field.classList.remove('is-filled'); }
 }
-
 function initRequiredFields() {
     document.querySelectorAll('.req-field').forEach(function(field) {
         updateFieldState(field);
@@ -644,7 +523,6 @@ function initRequiredFields() {
     });
 }
 
-// ─── Country/State toggle ───
 function onCountryChange() {
     var country = document.getElementById('id_country');
     if (!country) return;
@@ -652,129 +530,286 @@ function onCountryChange() {
     var stateWrap = document.getElementById('stateFieldWrapper');
     var cityInput = cityWrap.querySelector('input[name="city"]');
     var stateInput = stateWrap.querySelector('select[name="state"]');
-
     if (country.value === 'US') {
-        cityWrap.classList.add('hidden');
-        stateWrap.classList.remove('hidden');
+        cityWrap.classList.add('hidden'); stateWrap.classList.remove('hidden');
         if (cityInput) cityInput.removeAttribute('data-required');
         if (stateInput) stateInput.setAttribute('data-required', 'true');
     } else {
-        cityWrap.classList.remove('hidden');
-        stateWrap.classList.add('hidden');
+        cityWrap.classList.remove('hidden'); stateWrap.classList.add('hidden');
         if (cityInput) cityInput.setAttribute('data-required', 'true');
         if (stateInput) stateInput.removeAttribute('data-required');
     }
 }
 
-// ─── Brand → Model AJAX ───
-document.getElementById('motoBrand').addEventListener('change', function() {
-    var brandId = this.value;
+// ─── Brand → Model (shared loader, pre-selects saved model) ───
+function loadMotoModels(brandId, selectedId) {
     var modelSel = document.getElementById('motoModel');
-    modelSel.innerHTML = '<option value="">' + I18N.loading + '</option>';
-
     if (!brandId) {
         modelSel.innerHTML = '<option value="">--</option>';
         updateFieldState(modelSel);
         return;
     }
-
+    modelSel.innerHTML = '<option value="">' + I18N.loading + '</option>';
     fetch('/ajax/get-motorcycle-models/?brand_id=' + brandId)
         .then(function(r) { return r.json(); })
         .then(function(data) {
             modelSel.innerHTML = '<option value="">' + I18N.selectModel + '</option>';
             data.forEach(function(m) {
                 var o = document.createElement('option');
-                o.value = m.id;
-                o.textContent = m.name;
+                o.value = m.id; o.textContent = m.name;
+                if (selectedId && String(m.id) === String(selectedId)) o.selected = true;
                 modelSel.appendChild(o);
             });
             updateFieldState(modelSel);
         });
+}
+document.getElementById('motoBrand').addEventListener('change', function() {
+    loadMotoModels(this.value, '');
 });
 
-// ─── Image upload ───
-var dropZone = document.getElementById('dropZone');
-var imageInput = document.getElementById('imageInput');
-var imagePreview = document.getElementById('imagePreview');
-var dropText = document.getElementById('dropText');
+// ─── Image upload + draft panel + drag/drop reorder (cars-style) ───
+(function() {
+    var dropZone = document.getElementById('dropZone');
+    var imageInput = document.getElementById('imageInput');
+    var draftIdEl = document.getElementById('draftId');
+    var MAX_PHOTOS = 40;
+    var dragSrc = null;
 
-if (dropZone && imageInput) {
+    var UPLOAD_URL  = IS_EDIT_MODE ? '/ajax/upload-listing-images/' + EDIT_LISTING_ID + '/'  : '/ajax/upload-moto-draft-images/';
+    var REORDER_URL = IS_EDIT_MODE ? '/ajax/reorder-listing-images/' + EDIT_LISTING_ID + '/' : '/ajax/reorder-moto-draft-images/';
+    function deleteURL(imgId) {
+        return IS_EDIT_MODE ? '/ajax/delete-moto-listing-image/' + imgId + '/' : '/ajax/delete-draft-image/' + imgId + '/';
+    }
+
+    if (!dropZone || !imageInput) return;
+
     dropZone.addEventListener('click', function() { imageInput.click(); });
-    imageInput.addEventListener('change', handleFiles);
+    imageInput.addEventListener('change', function() { addFiles(imageInput.files); imageInput.value = ''; });
     dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('border-gray-500', 'bg-white'); });
     dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('border-gray-500', 'bg-white'); });
     dropZone.addEventListener('drop', function(e) {
-        e.preventDefault();
-        dropZone.classList.remove('border-gray-500', 'bg-white');
-        imageInput.files = e.dataTransfer.files;
-        handleFiles();
+        e.preventDefault(); dropZone.classList.remove('border-gray-500', 'bg-white');
+        if (e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
     });
-}
 
-function handleFiles() {
-    var files = imageInput.files;
-    imagePreview.innerHTML = '';
-    if (files.length > 0) {
-        dropText.textContent = I18N.filesSelected.replace('{n}', files.length);
-    }
-    Array.from(files).slice(0, 40).forEach(function(file, index) {
-        if (file.type.startsWith('image/')) {
+    function compressImage(file) {
+        return new Promise(function(resolve) {
+            if (file.type === 'image/gif' || file.size < 600 * 1024) { resolve(file); return; }
             var reader = new FileReader();
             reader.onload = function(e) {
-                var div = document.createElement('div');
-                div.className = 'relative aspect-square overflow-hidden rounded border border-gray-200 bg-gray-100';
-                div.innerHTML = '<img src="' + e.target.result + '" class="w-full h-full object-cover">' +
-                    '<span class="absolute top-1 left-1 bg-gray-900 text-white text-xs px-1.5 py-0.5 rounded font-semibold">' + (index + 1) + '</span>';
-                imagePreview.appendChild(div);
+                var img = new Image();
+                img.onload = function() {
+                    var MAX = 1920, w = img.width, h = img.height;
+                    if (w > MAX || h > MAX) {
+                        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+                        else { w = Math.round(w * MAX / h); h = MAX; }
+                    }
+                    var canvas = document.createElement('canvas');
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    canvas.toBlob(function(blob) {
+                        if (!blob || blob.size >= file.size) { resolve(file); return; }
+                        var newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                        resolve(new File([blob], newName, { type: 'image/jpeg' }));
+                    }, 'image/jpeg', 0.85);
+                };
+                img.onerror = function() { resolve(file); };
+                img.src = e.target.result;
             };
+            reader.onerror = function() { resolve(file); };
             reader.readAsDataURL(file);
-        }
-    });
-}
+        });
+    }
+    function compressAll(files) { return Promise.all(files.map(function(f) { return compressImage(f); })); }
+
+    function addFiles(fileList) {
+        var newFiles = Array.from(fileList).filter(function(f) { return f.type && f.type.startsWith('image/'); });
+        var existing = document.querySelectorAll('#draft-photos > div[data-img-id]').length;
+        var available = MAX_PHOTOS - existing;
+        if (available <= 0) { alert(I18N.maxPhotos); return; }
+        if (newFiles.length > available) { alert(I18N.tooMany); newFiles = newFiles.slice(0, available); }
+        if (newFiles.length) uploadFiles(newFiles);
+    }
+
+    function uploadFiles(files) {
+        showProgress(true); setProgress(0, I18N.preparing);
+        compressAll(files).then(function(compressed) {
+            var fd = new FormData();
+            compressed.forEach(function(f) { fd.append('images', f); });
+            if (!IS_EDIT_MODE) fd.append('draft_id', draftIdEl ? (draftIdEl.value || '') : '');
+            fd.append('csrfmiddlewaretoken', getCsrfToken());
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', UPLOAD_URL);
+            xhr.setRequestHeader('X-CSRFToken', getCsrfToken());
+            xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) setProgress(Math.round(e.loaded / e.total * 100), I18N.uploading);
+            };
+            xhr.onload = function() {
+                showProgress(false); setProgress(0, '');
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        if (data.success) {
+                            if (data.listing_id && draftIdEl) draftIdEl.value = data.listing_id;
+                            var wrap = document.getElementById('draft-photos-wrapper');
+                            if (wrap) wrap.style.display = '';
+                            appendPhotos(data.uploaded || []);
+                            updateCount();
+                        } else { alert(I18N.uploadFailed + ': ' + (data.error || '')); }
+                    } catch (err) { alert(I18N.uploadFailed); }
+                } else { alert(I18N.uploadFailed + ' (' + xhr.status + ')'); }
+            };
+            xhr.onerror = function() { showProgress(false); alert(I18N.uploadFailed); };
+            xhr.send(fd);
+        });
+    }
+
+    function showProgress(show) { var box = document.getElementById('uploadProgress'); if (box) box.classList.toggle('hidden', !show); }
+    function setProgress(p, label) {
+        var bar = document.getElementById('uploadProgressBar');
+        var pct = document.getElementById('uploadProgressPercent');
+        var lbl = document.getElementById('uploadProgressLabel');
+        if (bar) bar.style.width = p + '%';
+        if (pct) pct.textContent = p + '%';
+        if (lbl && label) lbl.textContent = label;
+    }
+
+    function appendPhotos(uploaded) {
+        var panel = document.getElementById('draft-photos');
+        if (!panel) return;
+        uploaded.forEach(function(img) {
+            var div = document.createElement('div');
+            div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
+                (img.is_main ? 'border-green-500' : 'border-gray-200') + ' bg-gray-100 cursor-move';
+            div.dataset.imgId = img.id;
+            div.draggable = true;
+            var count = panel.querySelectorAll('div[data-img-id]').length;
+            var badge = img.is_main
+                ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>' + I18N.main + '</span>'
+                : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">' + (count + 1) + '</span>';
+            div.innerHTML = '<img src="' + img.url + '" class="w-full h-full object-cover pointer-events-none">' + badge +
+                '<button type="button" data-del="' + img.id + '" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">×</button>';
+            attachDrag(div);
+            panel.appendChild(div);
+        });
+    }
+
+    function updateCount() {
+        var c = document.querySelectorAll('#draft-photos > div[data-img-id]').length;
+        var el = document.getElementById('draft-photos-count');
+        if (el) el.textContent = '(' + c + ' / 40)';
+    }
+
+    function attachDrag(div) {
+        div.addEventListener('dragstart', function(e) {
+            dragSrc = this; this.classList.add('opacity-50');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', this.dataset.imgId);
+        });
+        div.addEventListener('dragend', function() {
+            this.classList.remove('opacity-50');
+            document.querySelectorAll('#draft-photos > div').forEach(function(el) { el.classList.remove('ring-2', 'ring-blue-400'); });
+        });
+        div.addEventListener('dragover', function(e) {
+            e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+            if (this !== dragSrc) this.classList.add('ring-2', 'ring-blue-400');
+        });
+        div.addEventListener('dragleave', function() { this.classList.remove('ring-2', 'ring-blue-400'); });
+        div.addEventListener('drop', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            if (dragSrc !== this) {
+                var items = Array.from(document.querySelectorAll('#draft-photos > div[data-img-id]'));
+                var s = items.indexOf(dragSrc), t = items.indexOf(this);
+                if (s < t) this.parentNode.insertBefore(dragSrc, this.nextSibling);
+                else this.parentNode.insertBefore(dragSrc, this);
+                refreshBadges(); saveOrder();
+            }
+            this.classList.remove('ring-2', 'ring-blue-400');
+        });
+    }
+
+    function refreshBadges() {
+        document.querySelectorAll('#draft-photos > div[data-img-id]').forEach(function(el, idx) {
+            el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
+            el.classList.remove('border-green-500', 'border-gray-200');
+            el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
+            var badge = document.createElement('span');
+            if (idx === 0) {
+                badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
+                badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>' + I18N.main;
+            } else {
+                badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
+                badge.textContent = (idx + 1);
+            }
+            el.appendChild(badge);
+        });
+    }
+
+    function saveOrder() {
+        var ids = Array.from(document.querySelectorAll('#draft-photos > div[data-img-id]')).map(function(el) { return parseInt(el.dataset.imgId, 10); });
+        fetch(REORDER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
+            body: JSON.stringify({ image_ids: ids }),
+        });
+    }
+
+    function deleteImage(imgId) {
+        fetch(deleteURL(imgId), { method: 'POST', headers: { 'X-CSRFToken': getCsrfToken() } })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    var el = document.querySelector('#draft-photos > div[data-img-id="' + imgId + '"]');
+                    if (el) el.remove();
+                    refreshBadges(); updateCount();
+                    if (document.querySelectorAll('#draft-photos > div[data-img-id]').length === 0) {
+                        var w = document.getElementById('draft-photos-wrapper');
+                        if (w) w.style.display = 'none';
+                    }
+                }
+            });
+    }
+
+    var draftPanel = document.getElementById('draft-photos');
+    if (draftPanel) {
+        draftPanel.addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-del]');
+            if (btn) { e.stopPropagation(); deleteImage(parseInt(btn.dataset.del, 10)); }
+        });
+        draftPanel.querySelectorAll('div[data-img-id]').forEach(attachDrag);
+    }
+})();
 
 // ─── Form submit validation ───
 document.getElementById('motoForm').addEventListener('submit', function(e) {
-    var firstInvalid = null;
-    var hasErrors = false;
-
+    var firstInvalid = null, hasErrors = false;
     document.querySelectorAll('[data-required="true"]').forEach(function(field) {
-        // Skip hidden fields (e.g. city when country=US)
         var hiddenWrapper = field.closest('.hidden');
-        if (hiddenWrapper) {
-            field.classList.remove('is-invalid');
-            return;
-        }
-
+        if (hiddenWrapper) { field.classList.remove('is-invalid'); return; }
         if (!isFieldFilled(field)) {
-            field.classList.add('is-invalid');
-            field.classList.remove('is-filled');
-            hasErrors = true;
-            if (!firstInvalid) firstInvalid = field;
-        } else {
-            field.classList.remove('is-invalid');
-        }
+            field.classList.add('is-invalid'); field.classList.remove('is-filled');
+            hasErrors = true; if (!firstInvalid) firstInvalid = field;
+        } else { field.classList.remove('is-invalid'); }
     });
-
     var banner = document.getElementById('errorBanner');
     if (hasErrors) {
-        e.preventDefault();
-        banner.classList.remove('hidden');
-        if (firstInvalid) {
-            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(function() { firstInvalid.focus(); }, 400);
-        }
-    } else {
-        banner.classList.add('hidden');
-    }
+        e.preventDefault(); banner.classList.remove('hidden');
+        if (firstInvalid) { firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { firstInvalid.focus(); }, 400); }
+    } else { banner.classList.add('hidden'); }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
     onCountryChange();
     initRequiredFields();
     initAutosave();
+    // Pre-load models for the saved brand (edit + draft resume)
+    var brandSel = document.getElementById('motoBrand');
+    if (brandSel && brandSel.value) {
+        loadMotoModels(brandSel.value, SELECTED_MOTO_MODEL);
+    }
 });
 
-// ─── AUTOSAVE (silent — no UI indicator) ───
+// ─── AUTOSAVE (create/draft only — disabled in edit mode) ───
 var autosaveTimer = null;
 var draftIdInput = document.getElementById('draftId');
 
@@ -782,40 +817,27 @@ function getCsrfToken() {
     var token = document.querySelector('[name=csrfmiddlewaretoken]');
     return token ? token.value : '';
 }
-
 function triggerAutosave() {
     if (autosaveTimer) clearTimeout(autosaveTimer);
-    autosaveTimer = setTimeout(doAutosave, 1500); // debounce 1.5s
+    autosaveTimer = setTimeout(doAutosave, 1500);
 }
-
 function doAutosave() {
     var form = document.getElementById('motoForm');
     var formData = new FormData(form);
-
-    // Don't include images in autosave
     formData.delete('images');
-
     fetch('/ajax/save-motorcycle-draft/', {
         method: 'POST',
         headers: { 'X-CSRFToken': getCsrfToken() },
         body: formData,
     })
     .then(function(r) { return r.json(); })
-    .then(function(data) {
-        if (data.success && data.listing_id && draftIdInput) {
-            draftIdInput.value = data.listing_id;
-        }
-    })
-    .catch(function(err) {
-        console.error('[autosave]', err);
-    });
+    .then(function(data) { if (data.success && data.listing_id && draftIdInput) draftIdInput.value = data.listing_id; })
+    .catch(function(err) { console.error('[autosave]', err); });
 }
-
 function initAutosave() {
+    if (IS_EDIT_MODE) return;   // never autosave-create while editing a live listing
     var form = document.getElementById('motoForm');
     if (!form) return;
-
-    // Listen on all inputs/selects/textareas — but NOT file inputs
     form.querySelectorAll('input:not([type="file"]), select, textarea').forEach(function(field) {
         if (field.name === 'csrfmiddlewaretoken' || field.id === 'draftId') return;
         field.addEventListener('change', triggerAutosave);

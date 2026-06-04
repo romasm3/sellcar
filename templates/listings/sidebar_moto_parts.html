@@ -1,0 +1,203 @@
+{% load i18n %}
+{# ===================================================================
+   Single moto part — atskiras sidebar + advanced ("More filters").
+   Viršus = always-visible greiti filtrai; "More filters" = advanced.
+   Visi laukai siunčia tuos pačius GET param'us, kuriuos skaito
+   moto_parts_browse() view'as.
+   =================================================================== #}
+
+<form method="get" action="" class="moto-parts-sidebar">
+
+  {# ─── More filters toggle (kaip tavo cars sidebar) ─── #}
+  <button type="button" class="more-filters-toggle" onclick="toggleMoreFilters(this)">
+    {% trans "More filters" %} <span class="chev">⌄</span>
+  </button>
+
+  {# ─── CATEGORY (kontekstas, nekeičiamas) ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "CATEGORY" %}</label>
+    <div class="filter-static">{% trans "Single moto part" %}</div>
+  </div>
+
+  {# ─── PART TYPE ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "PART TYPE" %}</label>
+    {% for group in part_groups %}
+      <div class="part-group">
+        <span class="part-group-title">{{ group.label }}</span>
+        {% for item in group.items %}
+          <label class="checkbox-row">
+            <input type="checkbox" name="part_types" value="{{ item.id }}"
+                   {% if item.id|stringformat:"s" in sel_part_types %}checked{% endif %}>
+            <span>{{ item.name }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {# ─── BRAND ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "BRAND" %}</label>
+    <select name="motorcycle_brand" id="moto-brand-select" class="filter-select">
+      <option value="">{% trans "All Brands" %}</option>
+      {% for b in moto_brands %}
+        <option value="{{ b.id }}"
+          {% if request.GET.motorcycle_brand == b.id|stringformat:"s" %}selected{% endif %}>
+          {{ b.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {# ─── MODEL (užpildoma AJAX'u pagal brand — žr. JS apačioj) ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "MODEL" %}</label>
+    <select name="motorcycle_model" id="moto-model-select" class="filter-select"
+            data-selected="{{ request.GET.motorcycle_model }}">
+      <option value="">{% trans "All Models" %}</option>
+    </select>
+  </div>
+
+  {# ─── CONDITION ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "CONDITION" %}</label>
+    {% for val, lbl in condition_choices %}
+      <label class="checkbox-row">
+        <input type="checkbox" name="condition" value="{{ val }}"
+               {% if val in sel_conditions %}checked{% endif %}>
+        <span>{{ lbl }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  {# ─── PRICE ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "PRICE ($)" %}</label>
+    <div class="range-row">
+      <input type="number" name="price_min" step="1" min="0"
+             placeholder="{% trans 'From' %}" value="{{ request.GET.price_min }}"
+             class="filter-input">
+      <input type="number" name="price_max" step="1" min="0"
+             placeholder="{% trans 'To' %}" value="{{ request.GET.price_max }}"
+             class="filter-input">
+    </div>
+  </div>
+
+  {# ─── TEXT SEARCH (title + OEM) ─── #}
+  <div class="filter-section">
+    <label class="filter-label">{% trans "TEXT SEARCH" %}</label>
+    <input type="text" name="part_query"
+           placeholder="{% trans 'Name or OEM code...' %}"
+           value="{{ request.GET.part_query }}" class="filter-input">
+  </div>
+
+  {# ============ ADVANCED ("More filters") — paslėpta default ============ #}
+  <div class="more-filters-body" style="display:none;">
+
+    {# ─── MOTORCYCLE TYPE ─── #}
+    <div class="filter-section">
+      <label class="filter-label">{% trans "MOTORCYCLE TYPE" %}</label>
+      {% for val, lbl in motorcycle_type_choices %}
+        <label class="checkbox-row">
+          <input type="checkbox" name="motorcycle_type" value="{{ val }}"
+                 {% if val in sel_moto_types %}checked{% endif %}>
+          <span>{{ lbl }}</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    {# ─── ENGINE CAPACITY (cm³) ─── #}
+    <div class="filter-section">
+      <label class="filter-label">{% trans "ENGINE CAPACITY (cm³)" %}</label>
+      <div class="range-row">
+        <input type="number" name="engine_min" step="1" min="0"
+               placeholder="{% trans 'From' %}" value="{{ request.GET.engine_min }}"
+               class="filter-input">
+        <input type="number" name="engine_max" step="1" min="0"
+               placeholder="{% trans 'To' %}" value="{{ request.GET.engine_max }}"
+               class="filter-input">
+      </div>
+    </div>
+
+    {# ─── COUNTRY ─── #}
+    <div class="filter-section">
+      <label class="filter-label">{% trans "COUNTRY" %}</label>
+      <select name="country_filter" id="moto-country-select" class="filter-select">
+        <option value="">{% trans "All countries" %}</option>
+        {% for code, name in country_choices %}
+          <option value="{{ code }}"
+            {% if request.GET.country_filter == code %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    {# ─── STATE (tik US) ─── #}
+    <div class="filter-section">
+      <label class="filter-label">{% trans "STATE" %}</label>
+      <select name="state_filter" class="filter-select">
+        <option value="">{% trans "All states" %}</option>
+        {% for code, name in us_states %}
+          <option value="{{ code }}"
+            {% if request.GET.state_filter == code %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    {# ─── NEGOTIABLE ─── #}
+    <label class="checkbox-row">
+      <input type="checkbox" name="negotiable"
+             {% if request.GET.negotiable == 'on' %}checked{% endif %}>
+      <span>{% trans "Negotiable price" %}</span>
+    </label>
+
+  </div>
+  {# ====================== /ADVANCED ====================== #}
+
+  <button type="submit" class="btn-search">{% trans "Search" %}</button>
+</form>
+
+<script>
+// ── More filters toggle ──
+function toggleMoreFilters(btn) {
+  var body = btn.closest(".moto-parts-sidebar").querySelector(".more-filters-body");
+  var open = body.style.display === "none";
+  body.style.display = open ? "block" : "none";
+  var chev = btn.querySelector(".chev");
+  if (chev) chev.textContent = open ? "⌃" : "⌄";
+}
+
+// ── Brand → Model AJAX ──
+// PAKEISK URL į savo realų moto modelių endpoint'ą (tą patį, kurį naudoja create forma).
+(function () {
+  var MODEL_ENDPOINT = "/ajax/motorcycle-models/"; // <-- TAVO endpoint
+
+  var brandSel = document.getElementById("moto-brand-select");
+  var modelSel = document.getElementById("moto-model-select");
+  if (!brandSel || !modelSel) return;
+
+  function loadModels(brandId, preselect) {
+    modelSel.innerHTML = '<option value="">' + modelSel.options[0].text + "</option>";
+    if (!brandId) return;
+    fetch(MODEL_ENDPOINT + "?brand=" + encodeURIComponent(brandId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        // tikisi [{id, name}, ...] — pritaikyk pagal savo JSON
+        (data.models || data).forEach(function (m) {
+          var o = document.createElement("option");
+          o.value = m.id;
+          o.textContent = m.name;
+          if (preselect && String(m.id) === String(preselect)) o.selected = true;
+          modelSel.appendChild(o);
+        });
+      });
+  }
+
+  // init: jei brand jau pasirinktas (po Search) — užkraunam modelius ir atstatom pasirinkimą
+  if (brandSel.value) loadModels(brandSel.value, modelSel.dataset.selected);
+
+  brandSel.addEventListener("change", function () {
+    loadModels(this.value, null);
+  });
+})();
+</script>

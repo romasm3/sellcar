@@ -636,6 +636,39 @@ class Listing(models.Model):
         help_text='Self-Declared Conformity number (Regitra)',
     )
 
+    BOAT_TYPE_CHOICES = [
+        ('jet_ski', 'Jet Ski / Personal watercraft'),
+        ('kayak_canoe', 'Kayak / Canoe'),
+        ('surfboard', 'Surfboard / Windsurf'),
+        ('yacht', 'Yacht'),
+        ('motorboat', 'Motorboat / Cabin cruiser'),
+        ('boat', 'Boat / Ship'),
+        ('dinghy_raft', 'Dinghy / Raft'),
+        ('engine', 'Boat engine'),
+        ('other', 'Other'),
+    ]
+    boat_type = models.CharField(max_length=20, choices=BOAT_TYPE_CHOICES, blank=True, verbose_name='Boat type')
+    boat_make_text = models.CharField(max_length=120, blank=True, default='')
+    boat_model_text = models.CharField(max_length=120, blank=True, default='')
+    boat_material = models.CharField(max_length=40, blank=True, default='')
+    boat_length_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    boat_width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    boat_engine_count = models.PositiveSmallIntegerField(null=True, blank=True)
+    BOAT_ENGINE_TYPE_CHOICES = [
+        ('petrol_4stroke_outboard', 'Petrol 4-stroke outboard'),
+        ('petrol_4stroke_inboard', 'Petrol 4-stroke inboard'),
+        ('diesel_inboard', 'Diesel inboard'),
+        ('electric', 'Electric'),
+        ('none', 'No engine'),
+        ('petrol_2stroke_outboard', 'Petrol 2-stroke outboard'),
+        ('petrol_2stroke_inboard', 'Petrol 2-stroke inboard'),
+    ]
+    boat_engine_type = models.CharField(max_length=30, choices=BOAT_ENGINE_TYPE_CHOICES, blank=True, verbose_name='Boat engine type')
+    boat_fuel_tank_l = models.DecimalField(max_digits=7, decimal_places=1, null=True, blank=True, verbose_name='Fuel tank capacity (L)')
+    boat_liftable_engine = models.BooleanField(default=False, verbose_name='Liftable engine')
+    boat_propeller = models.BooleanField(default=False, verbose_name='Propeller')
+    boat_water_turbine = models.BooleanField(default=False, verbose_name='Water turbine')
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',
@@ -765,6 +798,48 @@ class Listing(models.Model):
     vin = models.CharField(max_length=17, blank=True)
     registration_number = models.CharField(max_length=20, blank=True)
 
+    # ─── PARTS-specific fields ───
+    oem_code = models.CharField(
+        max_length=50, blank=True, default='',
+        db_index=True,
+        verbose_name="OEM Code",
+        help_text="Manufacturer part number (e.g., 63217160797)"
+    )
+    part_category = models.ForeignKey(
+        'PartCategory',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='listings',
+        verbose_name="Part Category"
+    )
+
+    # ─── PARTS-specific: search by codes ───
+    engine_code = models.CharField(
+        max_length=30, blank=True, default='',
+        db_index=True,
+        verbose_name="Engine Code",
+        help_text="e.g., N52B30, M54B25"
+    )
+    transmission_code = models.CharField(
+        max_length=30, blank=True, default='',
+        db_index=True,
+        verbose_name="Gearbox Code",
+        help_text="e.g., 6HP19, ZF8HP"
+    )
+
+    # ─── PARTS-specific: search by codes ───
+    engine_code = models.CharField(
+        max_length=30, blank=True, default='',
+        db_index=True,
+        verbose_name="Engine Code",
+        help_text="e.g., N52B30, M54B25"
+    )
+    transmission_code = models.CharField(
+        max_length=30, blank=True, default='',
+        db_index=True,
+        verbose_name="Gearbox Code",
+        help_text="e.g., 6HP19, ZF8HP"
+    )
     # ═══ CAR-FOR-PARTS specific fields ═══
     version = models.CharField(
         max_length=100, blank=True,
@@ -880,6 +955,35 @@ class Listing(models.Model):
 
     def get_absolute_url(self):
         return reverse('listing_detail', kwargs={'pk': self.pk})
+
+
+
+    def get_edit_url(self):
+
+        slug = self.vehicle_type.slug if self.vehicle_type else None
+
+        if self.status == 'draft':
+
+            if slug == 'cars':
+
+                return f"{reverse('listing_create_cars_quick')}?draft={self.pk}"
+
+            if slug == 'motorcycles':
+
+                return f"{reverse('motorcycle_listing_create')}?draft_id={self.pk}"
+
+            if slug == 'trucks':
+
+                return reverse('trucks_listing_create')
+
+            return reverse('listing_create')
+
+        if slug == 'motorcycles':
+
+            return f"{reverse('motorcycle_listing_create')}?draft_id={self.pk}"
+
+        return reverse('listing_edit_hub', kwargs={'pk': self.pk})
+
 
     def get_country_display_name(self):
         return dict(self.COUNTRY_CHOICES).get(self.country, self.country)
@@ -2604,3 +2708,164 @@ class TruckSalesRecord(models.Model):
             saves_count=truck.saved_by.count(),
             marked_sold=marked_sold,
         )
+
+
+
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+
+# PART CATEGORY — Single part / parts kit srauto kategorijų medis
+
+# (Lighting → Rear Lights → Rear Light Bulb)
+
+# ═══════════════════════════════════════════════════════════════════════════
+
+
+
+
+
+class PartCategory(models.Model):
+
+    """
+
+    Self-referencing hierarchija auto dalims (Single part flow).
+
+    Trys lygiai:
+
+      0 = TOP CATEGORY  (Lighting, Engine, Brakes...)
+
+      1 = GROUP         (Rear Lights, Front Lights...)
+
+      2 = SUBCATEGORY   (Rear Light Bulb — galutinis pasirinkimas)
+
+    """
+
+
+
+    LEVEL_CATEGORY = 0
+
+    LEVEL_GROUP = 1
+
+    LEVEL_SUBCATEGORY = 2
+
+    LEVEL_CHOICES = (
+
+        (LEVEL_CATEGORY, "Category"),
+
+        (LEVEL_GROUP, "Group"),
+
+        (LEVEL_SUBCATEGORY, "Subcategory"),
+
+    )
+
+
+
+    name_en = models.CharField(max_length=120)
+
+    name_lt = models.CharField(max_length=120, blank=True)
+
+    slug = models.SlugField(max_length=140, unique=True)
+
+    parent = models.ForeignKey(
+
+        "self",
+
+        null=True,
+
+        blank=True,
+
+        related_name="children",
+
+        on_delete=models.CASCADE,
+
+    )
+
+    level = models.PositiveSmallIntegerField(
+
+        choices=LEVEL_CHOICES,
+
+        default=LEVEL_CATEGORY,
+
+    )
+
+    icon = models.CharField(max_length=50, blank=True)
+
+    order = models.PositiveIntegerField(default=0)
+
+    is_active = models.BooleanField(default=True)
+
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
+    class Meta:
+
+        ordering = ["level", "order", "name_en"]
+
+        verbose_name = "Part Category"
+
+        verbose_name_plural = "Part Categories"
+
+        indexes = [
+
+            models.Index(fields=["level", "parent"]),
+
+            models.Index(fields=["slug"]),
+
+        ]
+
+
+
+    def __str__(self):
+
+        prefix = {0: "📁", 1: "📂", 2: "📄"}.get(self.level, "")
+
+        return f"{prefix} {self.name_en}"
+
+
+
+    @property
+
+    def is_subcategory(self):
+
+        return self.level == self.LEVEL_SUBCATEGORY
+
+
+
+    def get_top_category(self):
+
+        node = self
+
+        while node.parent_id is not None:
+
+            node = node.parent
+
+        return node
+
+
+
+    def breadcrumb(self):
+
+        chain = []
+
+        node = self
+
+        while node is not None:
+
+            chain.insert(0, node)
+
+            node = node.parent
+
+        return chain
+
+
+
+    def breadcrumb_text(self, separator=" › "):
+
+        return separator.join(n.name_en for n in self.breadcrumb())
+

@@ -1,9 +1,12 @@
 """
 Motorcycle listing creation - single-page flow with AUTOSAVE (like autoplius.lt).
 
-Note: 'Other' brand and 'Other' model are always sorted FIRST in all dropdowns,
-so users can easily find the catch-all option when their specific brand/model
-is not in the list.
+Supports BOTH modes:
+  - CREATE / draft resume (session 'active_moto_draft_id', activate on submit)
+  - EDIT existing active/reserved/expired listing (?edit=<pk> or ?draft_id=<pk>,
+    pre-fills all fields, updates in place, no re-activation)
+
+Note: 'Other' brand and 'Other' model are always sorted FIRST in all dropdowns.
 """
 import os
 import json
@@ -118,7 +121,8 @@ def get_motorcycle_models_ajax(request):
 # CONTEXT BUILDER (CREATE FORM)
 # ═══════════════════════════════════════════════════════════
 
-def _build_context(request, submitted=None, errors=None, draft_id=None):
+def _build_context(request, submitted=None, errors=None, draft_id=None,
+                   current_draft=None, is_edit_mode=False, edit_listing_id=None):
     try:
         motorcycle_type_choices = Listing.MOTORCYCLE_TYPE_CHOICES
     except AttributeError:
@@ -174,11 +178,14 @@ def _build_context(request, submitted=None, errors=None, draft_id=None):
         'submitted': submitted or {},
         'errors': errors or [],
         'draft_id': draft_id,
+        'current_draft': current_draft,
+        'is_edit_mode': is_edit_mode,
+        'edit_listing_id': edit_listing_id,
     }
 
 
 # ═══════════════════════════════════════════════════════════
-# CREATE FORM VIEW
+# CREATE / EDIT FORM VIEW
 # ═══════════════════════════════════════════════════════════
 
 @login_required
@@ -186,26 +193,66 @@ def motorcycle_listing_create(request):
     if request.method == 'POST':
         return _handle_post(request)
 
-    draft_id = request.session.get('active_moto_draft_id')
-    submitted = {}
+    # ─── EDIT / DRAFT-RESUME detection (?edit or ?draft_id) ───
+    edit_pk = _int_or_none(request.GET.get('edit')) or _int_or_none(request.GET.get('draft_id'))
 
-    if draft_id:
+    submitted = {}
+    current_draft = None
+    is_edit_mode = False
+    edit_listing_id = None
+
+    if edit_pk:
         try:
-            draft = Listing.objects.get(
-                pk=draft_id,
+            obj = Listing.objects.get(
+                pk=edit_pk,
                 seller=request.user,
-                status='draft',
+                vehicle_type__slug='motorcycles',
             )
-            submitted = _draft_to_submitted(draft)
+            submitted = _draft_to_submitted(obj)
+            current_draft = obj
+            if obj.status == 'draft':
+                # Resume an unpublished draft (create flow, activate on submit)
+                request.session['active_moto_draft_id'] = obj.pk
+                request.session.modified = True
+            else:
+                # Edit an existing published listing (update in place)
+                is_edit_mode = True
+                edit_listing_id = obj.pk
         except Listing.DoesNotExist:
-            del request.session['active_moto_draft_id']
-            request.session.modified = True
-            draft_id = None
+            pass
+    else:
+        # No explicit pk — fall back to session draft
+        draft_id = request.session.get('active_moto_draft_id')
+        if draft_id:
+            try:
+                draft = Listing.objects.get(
+                    pk=draft_id,
+                    seller=request.user,
+                    status='draft',
+                )
+                submitted = _draft_to_submitted(draft)
+                current_draft = draft
+            except Listing.DoesNotExist:
+                del request.session['active_moto_draft_id']
+                request.session.modified = True
+
+    # Phone is stored on the profile, not the listing — inject for pre-fill
+    if not submitted.get('phone') and hasattr(request.user, 'profile') and request.user.profile.phone_number:
+        submitted['phone'] = request.user.profile.phone_number
+
+    draft_id_ctx = edit_listing_id if is_edit_mode else (current_draft.pk if current_draft else None)
 
     return render(
         request,
         'listings/motorcycle_create.html',
-        _build_context(request, submitted=submitted, draft_id=draft_id),
+        _build_context(
+            request,
+            submitted=submitted,
+            draft_id=draft_id_ctx,
+            current_draft=current_draft,
+            is_edit_mode=is_edit_mode,
+            edit_listing_id=edit_listing_id,
+        ),
     )
 
 
@@ -387,6 +434,8 @@ def _save_draft_fields(request, POST, draft_id):
 def save_motorcycle_draft_ajax(request):
     POST = request.POST
     draft_id = _int_or_none(POST.get('draft_id'))
+    if not draft_id:
+        draft_id = request.session.get('active_moto_draft_id')
 
     vehicle_type = VehicleType.objects.filter(slug='motorcycles').first()
     if not vehicle_type:
@@ -409,6 +458,20 @@ def save_motorcycle_draft_ajax(request):
             'success': False,
             'error': 'Failed to save draft.',
         }, status=500)
+
+    if not draft_id and not (
+        listing.images.exists()
+        or (listing.price and float(listing.price) > 0)
+        or (listing.description or '').strip()
+        or getattr(listing, 'motorcycle_brand_id', None)
+        or getattr(listing, 'motorcycle_model_id', None)
+        or getattr(listing, 'brand_id', None)
+        or (getattr(listing, 'vin', '') or '').strip()
+    ):
+        listing.delete()
+        request.session.pop('active_moto_draft_id', None)
+        request.session.modified = True
+        return JsonResponse({'success': True, 'listing_id': None, 'skipped': 'empty'})
 
     request.session['active_moto_draft_id'] = listing.pk
     request.session.modified = True
@@ -444,11 +507,180 @@ def delete_draft_ajax(request, pk):
         }, status=404)
 
 
+# ═══════════════════════════════════════════════════════════
+# DRAFT PHOTO UPLOAD + REORDER (cars-style, AJAX) — CREATE mode
+# Delete (create mode) reuses generic /ajax/delete-draft-image/<pk>/ (views.py)
+# EDIT mode uses /ajax/upload-listing-images/<pk>/, /ajax/reorder-listing-images/<pk>/
+# and delete_listing_image_ajax below.
+# ═══════════════════════════════════════════════════════════
+
+def _get_or_create_moto_draft(request, draft_id=None):
+    """Find moto draft by explicit id -> session -> create minimal one."""
+    if draft_id:
+        try:
+            return Listing.objects.get(pk=draft_id, seller=request.user, status='draft')
+        except Listing.DoesNotExist:
+            pass
+
+    sess_id = request.session.get('active_moto_draft_id')
+    if sess_id:
+        try:
+            return Listing.objects.get(pk=sess_id, seller=request.user, status='draft')
+        except Listing.DoesNotExist:
+            request.session.pop('active_moto_draft_id', None)
+
+    vt = VehicleType.objects.filter(slug='motorcycles').first()
+    if not vt:
+        return None
+
+    draft = Listing.objects.create(
+        seller=request.user,
+        vehicle_type=vt,
+        title='Untitled draft',
+        year=2024,
+        mileage=0,
+        price=0,
+        country='US',
+        city='—',
+        status='draft',
+    )
+    request.session['active_moto_draft_id'] = draft.pk
+    request.session.modified = True
+    return draft
+
+
+@login_required
+@require_POST
+def upload_moto_draft_images_ajax(request):
+    draft_id = _int_or_none(request.POST.get('draft_id'))
+    draft = _get_or_create_moto_draft(request, draft_id=draft_id)
+    if not draft:
+        return JsonResponse(
+            {'success': False, 'error': 'Motorcycles category not configured.'},
+            status=400,
+        )
+
+    request.session['active_moto_draft_id'] = draft.pk
+    request.session.modified = True
+
+    images = request.FILES.getlist('images')
+    if not images:
+        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+
+    existing_count = draft.images.count()
+    available = 40 - existing_count
+    if available <= 0:
+        return JsonResponse({'success': False, 'error': 'Maximum 40 photos reached'}, status=400)
+    images = images[:available]
+
+    uploaded = []
+    for i, image in enumerate(images):
+        try:
+            img = ListingImage.objects.create(
+                listing=draft,
+                image=image,
+                is_main=(existing_count == 0 and i == 0),
+                order=existing_count + i,
+            )
+            uploaded.append({
+                'id': img.pk,
+                'url': img.image.url,
+                'is_main': img.is_main,
+                'order': img.order,
+            })
+        except Exception as e:
+            print(f"[moto upload_draft_images] error: {e}")
+
+    return JsonResponse({
+        'success': True,
+        'listing_id': draft.pk,
+        'uploaded': uploaded,
+        'total_count': draft.images.count(),
+    })
+
+
+@login_required
+@require_POST
+def reorder_moto_draft_images_ajax(request):
+    try:
+        data = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'success': False, 'error': 'Invalid JSON'}, status=400)
+
+    image_ids = data.get('image_ids', [])
+    if not image_ids:
+        return JsonResponse({'success': False, 'error': 'No image_ids provided'}, status=400)
+
+    draft_id = request.session.get('active_moto_draft_id')
+    if not draft_id:
+        return JsonResponse({'success': False, 'error': 'No active draft'}, status=400)
+
+    for new_order, img_id in enumerate(image_ids):
+        try:
+            img = ListingImage.objects.get(
+                pk=img_id,
+                listing_id=draft_id,
+                listing__seller=request.user,
+            )
+            img.order = new_order
+            img.is_main = (new_order == 0)
+            img.save(update_fields=['order', 'is_main'])
+        except ListingImage.DoesNotExist:
+            continue
+
+    return JsonResponse({'success': True})
+
+
+@login_required
+@require_POST
+def delete_listing_image_ajax(request, pk):
+    """Delete a single image from any motorcycle listing owned by the user (EDIT mode)."""
+    try:
+        img = ListingImage.objects.get(pk=pk, listing__seller=request.user)
+    except ListingImage.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Image not found'}, status=404)
+
+    listing = img.listing
+    was_main = img.is_main
+    img.delete()
+
+    if was_main:
+        first = listing.images.order_by('order').first()
+        if first:
+            first.is_main = True
+            first.save(update_fields=['is_main'])
+
+    return JsonResponse({'success': True, 'remaining_count': listing.images.count()})
+
+
 def _handle_post(request):
     POST = request.POST
     FILES = request.FILES
 
-    draft_id = _int_or_none(POST.get('draft_id'))
+    # ─── Resolve target: EDIT existing published listing, or draft/create ───
+    target_pk = (
+        _int_or_none(POST.get('draft_id'))
+        or _int_or_none(request.GET.get('edit'))
+        or _int_or_none(request.GET.get('draft_id'))
+    )
+
+    edit_listing = None
+    if target_pk:
+        try:
+            _obj = Listing.objects.get(
+                pk=target_pk,
+                seller=request.user,
+                vehicle_type__slug='motorcycles',
+            )
+            if _obj.status != 'draft':
+                edit_listing = _obj
+        except Listing.DoesNotExist:
+            pass
+
+    is_edit_mode = edit_listing is not None
+    draft_id = None if is_edit_mode else target_pk
+    if not is_edit_mode and not draft_id:
+        draft_id = request.session.get('active_moto_draft_id')
 
     submitted = {
         'motorcycle_brand': POST.get('motorcycle_brand', ''),
@@ -482,7 +714,23 @@ def _handle_post(request):
         'postal_code': POST.get('postal_code', ''),
         'address': POST.get('address', ''),
         'hide_exact_address': POST.get('hide_exact_address', ''),
+        'phone': POST.get('phone', ''),
     }
+
+    def _rerender(errs):
+        return render(
+            request,
+            'listings/motorcycle_create.html',
+            _build_context(
+                request,
+                submitted=submitted,
+                errors=errs,
+                draft_id=target_pk,
+                current_draft=edit_listing,
+                is_edit_mode=is_edit_mode,
+                edit_listing_id=(edit_listing.pk if edit_listing else None),
+            ),
+        )
 
     errors = []
     brand_id = _int_or_none(POST.get('motorcycle_brand'))
@@ -497,29 +745,58 @@ def _handle_post(request):
         errors.append('Valid price is required.')
 
     if errors:
-        return render(
-            request,
-            'listings/motorcycle_create.html',
-            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id),
-        )
+        return _rerender(errors)
 
+    # Persist phone to profile (both modes)
+    phone_val = (POST.get('phone', '') or '').strip()
+    if phone_val and hasattr(request.user, 'profile'):
+        request.user.profile.phone_number = phone_val
+        request.user.profile.save(update_fields=['phone_number'])
+
+    # ═══════════════════════════════════════════════════════
+    # EDIT MODE — update existing listing in place, no re-activation
+    # ═══════════════════════════════════════════════════════
+    if is_edit_mode:
+        fields = _build_fields_from_post(request, POST)
+        if not fields:
+            return _rerender(['Motorcycles category not configured.'])
+
+        for key, value in fields.items():
+            if key == 'status':       # keep current status (active/reserved/expired)
+                continue
+            setattr(edit_listing, key, value)
+
+        try:
+            edit_listing.save()
+        except Exception as e:
+            return _rerender([f'Save failed: {e}'])
+
+        # Failsafe: any images that came through the form POST (usually already AJAX-uploaded)
+        existing_count = edit_listing.images.count()
+        for i, image in enumerate(FILES.getlist('images')[:40]):
+            try:
+                ListingImage.objects.create(
+                    listing=edit_listing,
+                    image=image,
+                    is_main=(existing_count == 0 and i == 0),
+                    order=existing_count + i,
+                )
+            except Exception as e:
+                print(f"[moto edit] image upload failed: {e}")
+
+        messages.success(request, 'Listing updated successfully.')
+        return redirect('listing_detail', pk=edit_listing.pk)
+
+    # ═══════════════════════════════════════════════════════
+    # CREATE / DRAFT MODE — activate on submit (free tier or plan)
+    # ═══════════════════════════════════════════════════════
     try:
         listing = _save_draft_fields(request, POST, draft_id)
     except Exception as e:
-        errors.append(f'Failed to save listing: {e}')
-        return render(
-            request,
-            'listings/motorcycle_create.html',
-            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id),
-        )
+        return _rerender([f'Failed to save listing: {e}'])
 
     if not listing:
-        errors.append('Failed to save listing.')
-        return render(
-            request,
-            'listings/motorcycle_create.html',
-            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id),
-        )
+        return _rerender(['Failed to save listing.'])
 
     images = FILES.getlist('images')
     existing_count = listing.images.count()

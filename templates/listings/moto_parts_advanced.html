@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Motorcycle Parts Search" %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.adv-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+.adv-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 24px; margin-bottom: 12px; }
+.adv-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
+.adv-title { font-size: 1.05rem; font-weight: 600; color: #1f2937; }
+.adv-clear { font-size: 0.78rem; color: #2563eb; text-decoration: none; cursor: pointer; }
+.adv-clear:hover { text-decoration: underline; }
+.adv-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px 20px; }
+@media (max-width: 768px) { .adv-grid3 { grid-template-columns: 1fr; } }
+.adv-field { display: flex; flex-direction: column; gap: 4px; }
+.adv-field label { font-size: 0.72rem; color: #6b7280; font-weight: 500; }
+.adv-select, .adv-input { padding: 0.5rem 0.65rem; background: #fff; border: 1px solid #d1d5db; border-radius: 4px; font-size: 0.82rem; color: #111827; width: 100%; }
+.adv-select:focus, .adv-input:focus { outline: none; border-color: #6b7280; }
+.adv-range { display: flex; align-items: center; gap: 4px; }
+.adv-range span { color: #9ca3af; font-size: 0.75rem; }
+.adv-range .adv-input, .adv-range .adv-select { flex: 1; min-width: 0; }
+.chk-inline { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #374151; padding-top: 22px; }
+.chk-inline input { width: 15px; height: 15px; accent-color: #4b5563; }
+.eq-toggle { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid #d1d5db; border-radius: 4px; padding: 10px 14px; cursor: pointer; user-select: none; transition: background 0.15s; }
+.eq-toggle:hover { background: #f9fafb; }
+.eq-toggle-label { font-size: 0.85rem; font-weight: 600; color: #374151; }
+.eq-toggle-counter { font-size: 0.78rem; color: #6b7280; margin-left: 6px; font-weight: 400; }
+.eq-toggle-icon { color: #6b7280; font-size: 0.85rem; }
+.eq-section { margin-top: 12px; padding: 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; }
+.eq-category { margin-bottom: 18px; }
+.eq-category:last-child { margin-bottom: 0; }
+.eq-category-title { font-size: 0.78rem; font-weight: 700; color: #374151; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #f3f4f6; }
+.eq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 16px; }
+@media (max-width: 768px) { .eq-grid { grid-template-columns: 1fr; } }
+.eq-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #374151; cursor: pointer; padding: 3px 0; }
+.eq-item input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; accent-color: #4b5563; flex-shrink: 0; }
+.adv-bottom { display: flex; align-items: center; justify-content: center; margin: 24px 0; }
+.btn-search { background: #374151; color: #fff; font-weight: 600; padding: 0.65rem 3rem; border-radius: 4px; font-size: 0.95rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.btn-search:hover { background: #1f2937; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+<div class="adv-wrap">
+
+{# Submit eina TIESIAI į sidebar (moto_parts_browse) su filtrais #}
+<form method="get" action="{% url 'moto_parts_browse' %}" id="advForm">
+
+  <div class="adv-card">
+    <div class="adv-header">
+      <div class="adv-title">{% trans "Motorcycle parts search" %}</div>
+      <a class="adv-clear" onclick="clearAllFilters()">{% trans "Clear search" %}</a>
+    </div>
+
+    <div class="adv-field" style="grid-column:1/-1; margin-bottom:16px;">
+      <label>{% trans "Part Name or Code" %}</label>
+      <input type="text" name="part_query" class="adv-input" placeholder="{% trans 'Text search / Part code' %}" value="{{ request.GET.part_query }}">
+    </div>
+
+    <div class="adv-grid3">
+      <div class="adv-field">
+        <label>{% trans "Motorcycle type" %}</label>
+        <select name="motorcycle_type" class="adv-select"><option value="">{% trans "All" %}</option>
+          {% for val, lbl in motorcycle_type_choices %}<option value="{{ val }}" {% if val in sel_moto_types %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Brand" %}</label>
+        <select name="motorcycle_brand" class="adv-select js-moto-brand" data-target="advModel"><option value="">{% trans "All" %}</option>
+          {% for b in moto_brands %}<option value="{{ b.id }}" {% if request.GET.motorcycle_brand == b.id|stringformat:"s" %}selected{% endif %}>{{ b.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Model" %}</label>
+        <select name="motorcycle_model" id="advModel" class="adv-select" data-selected="{{ request.GET.motorcycle_model }}"><option value="">{% trans "All" %}</option></select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Year" %}</label>
+        <div class="adv-range">
+          <select name="year_min" class="adv-select"><option value="">{% trans "From" %}</option>{% for y in years %}<option value="{{ y }}" {% if request.GET.year_min == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>{% endfor %}</select>
+          <span>–</span>
+          <select name="year_max" class="adv-select"><option value="">{% trans "To" %}</option>{% for y in years %}<option value="{{ y }}" {% if request.GET.year_max == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>{% endfor %}</select>
+        </div>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Engine capacity (cm³)" %}</label>
+        <div class="adv-range">
+          <input type="number" name="engine_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ request.GET.engine_min }}">
+          <span>–</span>
+          <input type="number" name="engine_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ request.GET.engine_max }}">
+        </div>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Price, $" %}</label>
+        <div class="adv-range">
+          <input type="number" name="price_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ request.GET.price_min }}">
+          <span>–</span>
+          <input type="number" name="price_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ request.GET.price_max }}">
+        </div>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Condition" %}</label>
+        <select name="condition" class="adv-select"><option value="">{% trans "All" %}</option>
+          {% for val, lbl in condition_choices %}<option value="{{ val }}" {% if val in sel_conditions %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Country" %}</label>
+        <select name="country_filter" class="adv-select"><option value="">{% trans "All" %}</option>
+          {% for code, name in country_choices %}<option value="{{ code }}" {% if request.GET.country_filter == code %}selected{% endif %}>{{ name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "City" %}</label>
+        <input type="text" name="city" class="adv-input" placeholder="{% trans 'All' %}" value="{{ request.GET.city }}">
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Show no older than" %}</label>
+        <select name="posted_within" class="adv-select"><option value="">{% trans "All" %}</option>
+          <option value="1"  {% if request.GET.posted_within == '1' %}selected{% endif %}>{% trans "24 hours" %}</option>
+          <option value="3"  {% if request.GET.posted_within == '3' %}selected{% endif %}>{% trans "3 days" %}</option>
+          <option value="7"  {% if request.GET.posted_within == '7' %}selected{% endif %}>{% trans "1 week" %}</option>
+          <option value="30" {% if request.GET.posted_within == '30' %}selected{% endif %}>{% trans "1 month" %}</option>
+        </select>
+      </div>
+      <div class="adv-field">
+        <label>{% trans "Seller type" %}</label>
+        <select name="seller_type" class="adv-select"><option value="">{% trans "All" %}</option>
+          <option value="private" {% if request.GET.seller_type == 'private' %}selected{% endif %}>{% trans "Private" %}</option>
+          <option value="dealer"  {% if request.GET.seller_type == 'dealer' %}selected{% endif %}>{% trans "Dealer" %}</option>
+        </select>
+      </div>
+      <label class="chk-inline">
+        <input type="checkbox" name="being_dismantled" {% if request.GET.being_dismantled == 'on' %}checked{% endif %}>
+        {% trans "Being dismantled for parts" %}
+      </label>
+    </div>
+
+    {% if part_groups %}
+    <div style="margin-top: 20px;">
+      <div class="eq-toggle" onclick="toggleEquipment()">
+        <div>
+          <span class="eq-toggle-label">{% trans "Features" %}</span>
+          <span class="eq-toggle-counter">(<span id="eqSelectedCount">0</span>/<span id="eqTotalCount">0</span>)</span>
+        </div>
+        <i id="eqToggleIcon" class="fas fa-chevron-down eq-toggle-icon">▾</i>
+      </div>
+      <div class="eq-section" id="equipmentBody" style="display:none;">
+        {% for group in part_groups %}
+        <div class="eq-category">
+          <div class="eq-category-title">{{ group.label }}</div>
+          <div class="eq-grid">
+            {% for item in group.items %}
+            <label class="eq-item">
+              <input type="checkbox" name="part_types" value="{{ item.id }}" {% if item.id|stringformat:"s" in sel_part_types %}checked{% endif %} onchange="updateEqCounter()">
+              {{ item.name }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="adv-bottom">
+    <button type="submit" class="btn-search"><i class="fas fa-search"></i> <span>{% trans "Search" %}</span></button>
+  </div>
+</form>
+
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function clearAllFilters() { window.location.href = "{% url 'moto_parts_advanced_search' %}"; }
+
+function toggleEquipment() {
+  var body = document.getElementById('equipmentBody');
+  var icon = document.getElementById('eqToggleIcon');
+  if (!body) return;
+  if (body.style.display === 'none') { body.style.display = 'block'; if (icon) icon.textContent = '▴'; }
+  else { body.style.display = 'none'; if (icon) icon.textContent = '▾'; }
+}
+function updateEqCounter() {
+  var all = document.querySelectorAll('input[name="part_types"]');
+  var checked = document.querySelectorAll('input[name="part_types"]:checked');
+  var s = document.getElementById('eqSelectedCount'), t = document.getElementById('eqTotalCount');
+  if (s) s.textContent = checked.length;
+  if (t) t.textContent = all.length;
+}
+
+(function () {
+  var EP = "/ajax/get-motorcycle-models/";
+  function loadModels(brandId, target, preselect) {
+    var sel = document.getElementById(target);
+    if (!sel) return;
+    sel.innerHTML = '<option value="">' + sel.options[0].text + "</option>";
+    if (!brandId) return;
+    fetch(EP + "?brand=" + encodeURIComponent(brandId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        (data.models || data).forEach(function (m) {
+          var o = document.createElement("option");
+          o.value = m.id; o.textContent = m.name;
+          if (preselect && String(m.id) === String(preselect)) o.selected = true;
+          sel.appendChild(o);
+        });
+      });
+  }
+  document.querySelectorAll(".js-moto-brand").forEach(function (b) {
+    var target = b.dataset.target;
+    var sel = document.getElementById(target);
+    if (b.value && sel) loadModels(b.value, target, sel.dataset.selected);
+    b.addEventListener("change", function () { loadModels(this.value, target, null); });
+  });
+
+  updateEqCounter();
+  if (document.querySelectorAll('input[name="part_types"]:checked').length > 0) {
+    document.getElementById('equipmentBody').style.display = 'block';
+    var ic = document.getElementById('eqToggleIcon'); if (ic) ic.textContent = '▴';
+  }
+})();
+</script>
+{% endblock %}

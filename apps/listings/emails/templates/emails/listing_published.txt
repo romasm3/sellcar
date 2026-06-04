@@ -1,6 +1,6 @@
-Hi {{ user_name|default:"there" }},
+Hi,
 
-Your listing is now live on SellCar:
+Your {{ listing_title }} is now live:
 
    {{ listing_title }}
    {{ listing_price_display }}
@@ -15,17 +15,14 @@ Tips to sell faster:
   - Add at least 5-8 good quality photos
   - Write a detailed description
   - Set a fair price (check similar listings)
-  - Respond to buyer messages quickly
+  
 
-Your listing will be active for {{ active_days|default:"30" }} days.
+
 We'll remind you 3 days before it expires.
 
-Good luck with your sale!
+Thank you -
 
-- SellCar team
-
----
-SellCar  |  {{ site_url }}
+{{ site_url }}
 
 You received this email because your listing was published.
 To change your notification settings:

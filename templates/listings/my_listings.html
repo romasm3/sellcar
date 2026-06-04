@@ -236,7 +236,7 @@
 
                                 <div class="mt-3 flex items-center gap-3 text-sm">
                                     {% if listing.is_motorcycle %}
-                                        <a href="{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}"
+                                        <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
                                            class="text-primary hover:underline font-medium">
                                             <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                         </a>
@@ -439,9 +439,9 @@
                                 {% if listing.main_image %}
                                     {% if listing.status == 'draft' %}
                                         {% if listing.is_motorcycle %}
-                                            <a href="{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}">
+                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}">
                                         {% else %}
-                                            <a href="{% url 'listing_create' %}">
+                                            <a href="{{ listing.get_edit_url }}">
                                         {% endif %}
                                     {% else %}
                                         <a href="{% url 'listing_detail' listing.pk %}">
@@ -464,7 +464,7 @@
 
                                 {% if listing.status == 'draft' %}
                                     {% if listing.is_motorcycle %}
-                                        <a href="{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}"
+                                        <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
                                            class="block text-lg font-semibold text-gray-700 hover:text-primary">
                                             {% if listing.motorcycle_brand %}{{ listing.motorcycle_brand.name }}{% endif %}
                                             {% if listing.motorcycle_model %} {{ listing.motorcycle_model.name }}{% endif %}
@@ -472,7 +472,7 @@
                                             {% if not listing.motorcycle_brand %}{% trans "Untitled" %}{% endif %}
                                         </a>
                                     {% else %}
-                                        <a href="{% url 'listing_create' %}"
+                                        <a href="{{ listing.get_edit_url }}"
                                            class="block text-lg font-semibold text-gray-700 hover:text-primary">
                                             {% if listing.brand %}{{ listing.brand.name }}{% endif %}
                                             {% if listing.model %} {{ listing.model.name }}{% endif %}
@@ -518,19 +518,19 @@
                                 <div class="mt-3 flex items-center gap-3 text-sm">
                                     {% if listing.status == 'draft' %}
                                         {% if listing.is_motorcycle %}
-                                            <a href="{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}"
+                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
                                                class="text-primary hover:underline font-medium">
                                                 <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                             </a>
                                         {% else %}
-                                            <a href="{% url 'listing_create' %}"
+                                            <a href="{{ listing.get_edit_url }}"
                                                class="text-primary hover:underline font-medium">
                                                 <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                             </a>
                                         {% endif %}
                                     {% else %}
                                         {% if listing.is_motorcycle %}
-                                            <a href="{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}"
+                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
                                                class="text-primary hover:underline font-medium">
                                                 <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                             </a>

@@ -2368,6 +2368,12 @@ def listing_edit(request, pk):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3158,6 +3164,16 @@ def listing_edit_hub(request, pk):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
+        return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
+        return redirect('truck_for_parts_edit', pk=pk)
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis (vienpuslapė forma)
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3223,6 +3239,12 @@ def listing_edit_section(request, pk, section):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3424,6 +3446,12 @@ def listing_edit_step(request, pk, step):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -4421,7 +4449,152 @@ def admin_sales_stats(request):
         status='active', views_count=0, created_at__lt=week_ago
     ).count()
 
+    # ════════════════════════════════════════════════════
+
+    # ═══ VISITOR TRAFFIC (analytics_pageview) ═══
+
+    # ════════════════════════════════════════════════════
+
+    from apps.analytics.models import PageView
+
+    from collections import defaultdict as _dd
+
+
+
+    _human_qs = PageView.objects.filter(is_bot=False)
+
+
+
+    def _unique_ips(start):
+
+        return set(_human_qs.filter(created_at__gte=start).values_list('ip_address', flat=True))
+
+
+
+    _ips_today = _unique_ips(today_start)
+
+    _ips_week = _unique_ips(week_ago)
+
+    _ips_month = _unique_ips(start_30d)
+
+
+
+    visitors_today = len(_ips_today)
+
+    visitors_week = len(_ips_week)
+
+    visitors_month = len(_ips_month)
+
+
+
+    _before_today = set(_human_qs.filter(created_at__lt=today_start).values_list('ip_address', flat=True))
+
+    _before_week = set(_human_qs.filter(created_at__lt=week_ago).values_list('ip_address', flat=True))
+
+    _before_month = set(_human_qs.filter(created_at__lt=start_30d).values_list('ip_address', flat=True))
+
+
+
+    returning_visitors_today = len(_ips_today & _before_today)
+
+    returning_visitors_week = len(_ips_week & _before_week)
+
+    returning_visitors_month = len(_ips_month & _before_month)
+
+
+
+    new_visitors_today = visitors_today - returning_visitors_today
+
+    new_visitors_week = visitors_week - returning_visitors_week
+
+    new_visitors_month = visitors_month - returning_visitors_month
+
+
+
+    _daily_ips = _dd(set)
+
+    for _ip, _ts in _human_qs.filter(created_at__gte=start_30d).values_list('ip_address', 'created_at'):
+
+        _daily_ips[_ts.date()].add(_ip)
+
+
+
+    traffic_labels_list = []
+
+    traffic_unique_list = []
+
+    _cur = start_30d.date()
+
+    _end_d = now.date()
+
+    while _cur <= _end_d:
+
+        traffic_labels_list.append(_cur.strftime('%Y-%m-%d'))
+
+        traffic_unique_list.append(len(_daily_ips.get(_cur, ())))
+
+        _cur += timedelta(days=1)
+
+
+
+    top_countries_data = list(
+
+        _human_qs.filter(created_at__gte=start_30d)
+
+        .exclude(country='')
+
+        .values('country', 'country_name')
+
+        .annotate(visitors=Count('ip_address', distinct=True))
+
+        .order_by('-visitors')[:10]
+
+    )
+
+    total_country_visitors = (
+
+        _human_qs.filter(created_at__gte=start_30d)
+
+        .exclude(country='')
+
+        .values('ip_address').distinct().count()
+
+    )
+
+    for _c in top_countries_data:
+
+        _c['percent'] = round(_c['visitors'] * 100.0 / total_country_visitors, 1) if total_country_visitors else 0
+
+
+
     context = {
+
+        'visitors_today': visitors_today,
+
+        'visitors_week': visitors_week,
+
+        'visitors_month': visitors_month,
+
+        'new_visitors_today': new_visitors_today,
+
+        'new_visitors_week': new_visitors_week,
+
+        'new_visitors_month': new_visitors_month,
+
+        'returning_visitors_today': returning_visitors_today,
+
+        'returning_visitors_week': returning_visitors_week,
+
+        'returning_visitors_month': returning_visitors_month,
+
+        'traffic_chart_labels': json.dumps(traffic_labels_list),
+
+        'traffic_chart_unique': json.dumps(traffic_unique_list),
+
+        'top_countries_data': top_countries_data,
+
+        'total_country_visitors': total_country_visitors,
+
         'total_listings': total_listings,
         'active_listings': active_listings,
         'sold_listings_displayed': sold_listings_displayed,
@@ -5671,3 +5844,4 @@ def listing_services_checkout(request, pk):
 
     messages.success(request, f'Services activated successfully! Charged ${total:.2f} from wallet.')
     return redirect('my_listings')
+COUNTRY_FLAGS = {}

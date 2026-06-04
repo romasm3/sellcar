@@ -8,7 +8,7 @@
         <div class="flex h-full">
 
             <!-- Kairė kolona — pokalbių sąrašas -->
-            <div class="w-80 border-r border-gray-200 flex flex-col flex-shrink-0">
+            <div class="{% if selected_conv %}hidden md:flex{% else %}flex{% endif %} w-full md:w-80 border-r border-gray-200 flex-col flex-shrink-0">
                 <div class="px-4 py-4 border-b border-gray-200">
                     <h2 class="font-bold text-lg text-gray-900">{% trans "Messages" %}</h2>
                 </div>
@@ -79,11 +79,12 @@
             </div>
 
             <!-- Dešinė kolona — chat -->
-            <div class="flex-1 flex flex-col">
+            <div class="{% if selected_conv %}flex{% else %}hidden md:flex{% endif %} flex-1 flex-col w-full">
                 {% if selected_conv %}
 
                 <!-- Chat header -->
                 <div class="px-6 py-4 border-b border-gray-200 flex items-center gap-4">
+                <a href="{% url 'conversations:list' %}" class="md:hidden text-gray-500 hover:text-primary -ml-2 mr-1 p-1" title="{% trans 'Back' %}"><i class="fas fa-arrow-left text-lg"></i></a>
                     {% if not selected_conv.listing %}
                     <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white shadow-sm">
                         <i class="fas fa-headset"></i>

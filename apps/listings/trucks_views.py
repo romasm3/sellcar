@@ -796,6 +796,12 @@ def save_trucks_draft_ajax(request):
         logger.error(f"[trucks autosave] {e}")
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
+    if _is_draft_empty(draft):
+        draft.delete()
+        request.session[TRUCKS_DRAFT_SESSION_KEY] = None
+        request.session.modified = True
+        return JsonResponse({'success': True, 'draft_id': None, 'skipped': 'empty'})
+
     return JsonResponse({
         'success': True,
         'draft_id': draft.pk,

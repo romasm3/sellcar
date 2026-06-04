@@ -584,6 +584,20 @@ def save_motogear_draft_ajax(request):
     if not listing:
         return JsonResponse({'success': False, 'error': 'Save failed'}, status=500)
 
+    if not draft_id and not (
+        listing.images.exists()
+        or (listing.price and float(listing.price) > 0)
+        or (listing.description or '').strip()
+        or getattr(listing, 'subcategory_id', None)
+        or getattr(listing, 'gear_brand_id', None)
+        or (getattr(listing, 'gear_model_text', '') or '').strip()
+        or (listing.condition or '').strip()
+    ):
+        listing.delete()
+        request.session.pop(MOTO_GEAR_DRAFT_SESSION_KEY, None)
+        request.session.modified = True
+        return JsonResponse({'success': True, 'listing_id': None, 'skipped': 'empty'})
+
     request.session[MOTO_GEAR_DRAFT_SESSION_KEY] = listing.pk
     request.session.modified = True
 

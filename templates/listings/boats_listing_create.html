@@ -1,0 +1,535 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if is_edit_mode %}
+        <a href="{% url 'listing_edit_hub' edit_listing_id %}"
+           class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Back to listing edit" %}</span>
+        </a>
+        {% endif %}
+
+        {# ═══ HEADER ═══ #}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
+            <h2 class="text-xl font-bold text-gray-900">
+                {% if is_edit_mode %}
+                    {% trans "Edit listing" %}: {{ listing.boat_make_text }} {{ listing.boat_model_text }}
+                {% else %}
+                    {% trans "New listing" %}: {% if subcategory_name %}{{ subcategory_name }}{% else %}{% trans "Boats & Water Transport" %}{% endif %}
+                {% endif %}
+            </h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" id="boatForm"
+              action="{% if is_edit_mode %}{% url 'boats_listing_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'boats_listing_create' %}{% endif %}">
+            {% csrf_token %}
+            <input type="hidden" name="subcategory" value="{{ subcategory_slug }}">
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: MAIN LISTING DATA                                  #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Main listing data" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                        <div data-field-wrap="condition" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Condition" %} <span class="text-red-500">*</span></label>
+                            <select name="condition" id="id_condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in condition_choices %}
+                                <option value="{{ value }}" {% if listing.condition == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="boat_type" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Type" %} <span class="text-red-500">*</span></label>
+                            <select name="boat_type" id="id_boat_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in boat_type_choices %}
+                                <option value="{{ value }}" {% if listing.boat_type == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Manufacturer" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="boat_make_text" placeholder="{% trans 'e.g. Bayliner' %}"
+                                   value="{{ listing.boat_make_text|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="boat_model_text" placeholder="{% trans 'e.g. VR5' %}"
+                                   value="{{ listing.boat_model_text|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="year" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Year" %} <span class="text-red-500">*</span></label>
+                            <select name="year" id="id_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for y in years %}
+                                <option value="{{ y }}" {% if listing.year == y %}selected{% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Material" %}</label>
+                            <select name="boat_material" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                {% for value, label in material_choices %}
+                                <option value="{{ value }}" {% if listing.boat_material == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "SDK number" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="sdk_number" maxlength="50"
+                                   value="{{ listing.sdk_number|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        {# ═══ PRICE ═══ #}
+                        <div data-field-wrap="price" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price" %} <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" name="price" id="id_price" min="0" step="1"
+                                       value="{% if listing.price %}{{ listing.price|floatformat:0 }}{% endif %}"
+                                       oninput="if(this.value) markFieldError('price', false)"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price for export" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <div class="relative">
+                                <input type="number" name="export_price" min="0" step="1"
+                                       value="{% if listing.export_price %}{{ listing.export_price|floatformat:0 }}{% endif %}"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        {# ═══ CHECKBOXAI ═══ #}
+                        <div class="md:col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="negotiable" {% if listing.negotiable %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Negotiable" %}</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="open_to_trade" {% if listing.open_to_trade %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Interested in trade" %}</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="taxes_extra" {% if listing.taxes_extra %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "+ Taxes" %}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: ADDITIONAL DATA                                    #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Additional data" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Length (m)" %}</label>
+                            <input type="number" name="boat_length_m" min="0" step="0.01" placeholder="-"
+                                   value="{% if listing.boat_length_m %}{{ listing.boat_length_m }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Width (m)" %}</label>
+                            <input type="number" name="boat_width_m" min="0" step="0.01" placeholder="-"
+                                   value="{% if listing.boat_width_m %}{{ listing.boat_width_m }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Number of seats" %}</label>
+                            <select name="seats" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in seats_choices %}
+                                <option value="{{ value }}" {% if listing.seats == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Color" %}</label>
+                            <select name="color" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in color_choices %}
+                                <option value="{{ value }}" {% if listing.color == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        {# ═══ POWER kW/HP ═══ #}
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Power" %}</label>
+                            <div style="display: flex; gap: 0.4rem; align-items: center;">
+                                <input type="number" id="power_display" min="0" placeholder="-"
+                                       value="{% if listing.power %}{{ listing.power }}{% endif %}"
+                                       style="flex: 1;"
+                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updatePower()">
+                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
+                                    <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
+                                            style="padding: 0.5rem 0.6rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">kW</button>
+                                    <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
+                                            style="padding: 0.5rem 0.6rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">HP</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="power" id="power_kw_value" value="{% if listing.power %}{{ listing.power }}{% endif %}">
+                            <p id="power_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Engine" %}</label>
+                            <select name="boat_engine_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in engine_type_choices %}
+                                <option value="{{ value }}" {% if listing.boat_engine_type == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Number of engines" %}</label>
+                            <select name="boat_engine_count" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for n in "123456"|make_list %}
+                                <option value="{{ n }}" {% if listing.boat_engine_count|stringformat:'s' == n %}selected{% endif %}>{{ n }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel tank capacity (L)" %}</label>
+                            <input type="number" name="boat_fuel_tank_l" min="0" step="0.1" placeholder="-"
+                                   value="{% if listing.boat_fuel_tank_l %}{{ listing.boat_fuel_tank_l }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+
+                    {# Special features #}
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2 mt-5 pt-4 border-t border-gray-100">
+                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                            <input type="checkbox" name="boat_liftable_engine" {% if listing.boat_liftable_engine %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Liftable engine" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                            <input type="checkbox" name="boat_propeller" {% if listing.boat_propeller %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Propeller" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                            <input type="checkbox" name="boat_water_turbine" {% if listing.boat_water_turbine %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Water turbine" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                            <input type="checkbox" name="has_warranty" {% if listing.has_warranty %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Warranty included" %}</span>
+                        </label>
+                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                            <input type="checkbox" name="available_on_lease" {% if listing.available_on_lease %}checked{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Available on lease" %}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: DESCRIPTION                                        #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Description" %}</h3>
+                </div>
+                <div class="p-6">
+                    <textarea name="description" rows="6" placeholder="{% trans 'Describe your offer in detail.' %}"
+                              class="w-full px-3 py-2 border border-gray-300 rounded text-sm">{{ listing.description|default:'' }}</textarea>
+                    <div class="mt-4">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Video URL (YouTube, optional)" %}</label>
+                        <input type="url" name="video_url" value="{{ listing.video_url|default:'' }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: PHOTOS                                             #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Photos" %}</h3>
+                </div>
+                <div class="p-6">
+                    {% if is_edit_mode and listing.images.all %}
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">{% trans "Current photos" %}</label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4">
+                            {% for img in listing.images.all %}
+                            <div class="relative aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100">
+                                <img src="{{ img.image.url }}" class="w-full h-full object-cover">
+                                {% if img.is_main %}<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold">{% trans "MAIN" %}</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <p class="text-xs text-gray-500">{% trans "New photos selected below will be added." %}</p>
+                    </div>
+                    {% endif %}
+
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-500 transition-colors cursor-pointer">
+                        <i class="fas fa-camera text-3xl text-gray-400 mb-3 block"></i>
+                        <p class="text-sm text-gray-700 font-medium mb-1">{% trans "Upload photos" %}</p>
+                        <p class="text-xs text-gray-500">{% trans "Up to 40 photos. JPG, GIF, PNG." %}</p>
+                        <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
+                    </div>
+                    <div id="photoPreview" class="grid grid-cols-3 md:grid-cols-6 gap-3 mt-4"></div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: CONTACTS                                           #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Contacts" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div data-field-wrap="phone" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Phone" %} <span class="text-red-500">*</span></label>
+                            <input type="tel" name="phone" id="id_phone" value="{{ user_phone }}"
+                                   placeholder="{% trans '+1 555 123 4567' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Email" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="email" name="email" value="{{ user.email|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div data-field-wrap="country" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
+                            <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                {% for code, name in country_choices %}
+                                <option value="{{ code }}" {% if listing.country == code %}selected{% elif not listing.country and code == 'US' %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div id="stateFieldWrapper" data-field-wrap="state" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500" id="state-required">*</span></label>
+                            <select name="state" id="id_state" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">{% trans "Select state" %}</option>
+                                {% for code, name in us_states %}
+                                <option value="{{ code }}" {% if listing.state == code %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="city" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
+                            <input type="text" name="city" id="id_city" placeholder="{% trans 'e.g., Vilnius' %}"
+                                   value="{% if listing.city and listing.city != '—' %}{{ listing.city }}{% endif %}"
+                                   oninput="if(this.value) markFieldError('city', false)"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Address" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="address" placeholder="{% trans 'Street, house number' %}"
+                                   value="{{ listing.address|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+
+                    {% if not is_edit_mode %}
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" name="agree_terms" class="w-4 h-4 rounded mt-0.5">
+                            <span class="text-sm text-gray-700">{% trans "By submitting, I agree to the Terms and Conditions and Privacy Policy" %} <span class="text-red-500">*</span></span>
+                        </label>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# ═══ ERRORS ═══ #}
+            <div id="boat-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                    <div class="text-sm">
+                        <p class="font-semibold mb-1">{% trans "Not all required fields are filled in. These fields are marked in red." %}</p>
+                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="boat-form-error-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            {% if messages %}
+            <div class="mb-5 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
+                    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {# ═══ SUBMIT ═══ #}
+            <div class="flex items-center justify-center mb-8">
+                {% if is_edit_mode %}
+                <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Cancel" %}</a>
+                <button type="button" onclick="handleBoatSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-medium text-sm">{% trans "Save Changes" %}</button>
+                {% else %}
+                <button type="button" onclick="handleBoatSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-semibold text-base shadow">{% trans "Submit Listing" %}</button>
+                {% endif %}
+            </div>
+            <p class="text-center text-xs text-gray-500 mb-8">{% trans "* Required fields" %}</p>
+        </form>
+    </div>
+</div>
+
+<style>
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
+        width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
+        font-size: 0.875rem; transition: all 0.2s;
+    }
+    select:focus, input:focus, textarea:focus {
+        outline: none; border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.15);
+    }
+    textarea { resize: vertical; }
+    input[type="checkbox"], input[type="radio"] { accent-color: #4b5563; }
+    [data-required="true"] input[type="text"],
+    [data-required="true"] input[type="number"],
+    [data-required="true"] input[type="tel"],
+    [data-required="true"] select {
+        border: 2px solid #6b7280; background-color: #f3f4f6;
+    }
+    [data-field-wrap].field-error input,
+    [data-field-wrap].field-error select {
+        border-color: #ef4444 !important; background-color: #fef2f2 !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    [data-field-wrap].field-error label { color: #dc2626 !important; }
+    .top-error-banner { background-color: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; }
+</style>
+
+<script>
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+
+function markFieldError(name, has) {
+    var w = document.querySelector('[data-field-wrap="' + name + '"]');
+    if (w) { if (has) w.classList.add('field-error'); else w.classList.remove('field-error'); }
+}
+function clearAllErrors() {
+    document.querySelectorAll('[data-field-wrap].field-error').forEach(function(el){ el.classList.remove('field-error'); });
+}
+
+// ═══ POWER kW/HP toggle ═══
+var powerUnit = 'kw';
+function setPowerUnit(unit) {
+    var d = document.getElementById('power_display'); if (!d) return;
+    var v = parseFloat(d.value) || 0;
+    if (unit === 'hp' && powerUnit === 'kw') d.value = v ? Math.round(v * 1.34102) : '';
+    else if (unit === 'kw' && powerUnit === 'hp') d.value = v ? Math.round(v / 1.34102) : '';
+    powerUnit = unit;
+    var kw = document.getElementById('btn_kw'), hp = document.getElementById('btn_hp');
+    if (unit === 'kw') { kw.style.backgroundColor='#4b5563'; kw.style.color='#fff'; hp.style.backgroundColor='#fff'; hp.style.color='#6b7280'; }
+    else { kw.style.backgroundColor='#fff'; kw.style.color='#6b7280'; hp.style.backgroundColor='#4b5563'; hp.style.color='#fff'; }
+    updatePower();
+}
+function updatePower() {
+    var d = document.getElementById('power_display'), h = document.getElementById('power_kw_value'), lbl = document.getElementById('power_converted');
+    if (!d || !h) return;
+    var v = parseFloat(d.value) || 0;
+    var kw = powerUnit === 'kw' ? v : Math.round(v / 1.34102);
+    var hp = powerUnit === 'hp' ? v : Math.round(v * 1.34102);
+    h.value = kw || '';
+    if (lbl) lbl.textContent = v ? (powerUnit === 'kw' ? '≈ ' + hp + ' HP' : '≈ ' + kw + ' kW') : '';
+}
+
+// ═══ Country → State ═══
+function onCountryChange() {
+    var c = document.getElementById('id_country'); if (!c) return;
+    var w = document.getElementById('stateFieldWrapper'), req = document.getElementById('state-required');
+    if (!w) return;
+    if (c.value === 'US') { w.style.display = ''; if (req) req.style.display = ''; }
+    else { w.style.display = 'none'; if (req) req.style.display = 'none'; }
+}
+
+// ═══ Submit validation ═══
+function handleBoatSubmit() {
+    clearAllErrors();
+    var errors = [];
+    function req(sel, name, label) {
+        var el = document.querySelector(sel);
+        if (!el || !el.value) { errors.push(label + ' is required'); markFieldError(name, true); }
+    }
+    req('#id_condition', 'condition', '{% trans "Condition" %}');
+    req('#id_boat_type', 'boat_type', '{% trans "Type" %}');
+    req('#id_year', 'year', '{% trans "Year" %}');
+    req('#id_price', 'price', '{% trans "Price" %}');
+    req('#id_phone', 'phone', '{% trans "Phone" %}');
+    req('#id_city', 'city', '{% trans "City" %}');
+    var country = document.getElementById('id_country');
+    if (country && country.value === 'US') req('#id_state', 'state', '{% trans "State" %}');
+    if (!IS_EDIT_MODE) {
+        var at = document.querySelector('[name="agree_terms"]');
+        if (at && !at.checked) errors.push('{% trans "You must agree to terms and conditions" %}');
+    }
+    if (errors.length) {
+        var box = document.getElementById('boat-form-errors'), list = document.getElementById('boat-form-error-list');
+        list.innerHTML = '';
+        errors.forEach(function(e){ var li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+        box.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    document.getElementById('boatForm').submit();
+}
+
+// ═══ Photo picker + preview ═══
+document.addEventListener('DOMContentLoaded', function() {
+    onCountryChange();
+    var dz = document.getElementById('dropZone'), inp = document.getElementById('imageInput'), prev = document.getElementById('photoPreview');
+    if (dz && inp) {
+        dz.addEventListener('click', function(){ inp.click(); });
+        dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('border-gray-500','bg-gray-50'); });
+        dz.addEventListener('dragleave', function(){ dz.classList.remove('border-gray-500','bg-gray-50'); });
+        dz.addEventListener('drop', function(e){
+            e.preventDefault(); dz.classList.remove('border-gray-500','bg-gray-50');
+            if (e.dataTransfer.files && e.dataTransfer.files.length) { inp.files = e.dataTransfer.files; showPreview(); }
+        });
+        inp.addEventListener('change', showPreview);
+    }
+    function showPreview() {
+        if (!prev) return;
+        prev.innerHTML = '';
+        Array.from(inp.files).slice(0, 40).forEach(function(f) {
+            if (!f.type.startsWith('image/')) return;
+            var url = URL.createObjectURL(f);
+            var div = document.createElement('div');
+            div.className = 'aspect-square overflow-hidden rounded-lg border-2 border-gray-200 bg-gray-100';
+            div.innerHTML = '<img src="' + url + '" class="w-full h-full object-cover">';
+            prev.appendChild(div);
+        });
+    }
+});
+</script>
+{% endblock %}

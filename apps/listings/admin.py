@@ -1666,3 +1666,91 @@ class PromoCodeUsageAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+
+# PART CATEGORY — Single part flow kategorijų medis
+
+# ═══════════════════════════════════════════════════════════════════════════
+
+
+
+from apps.listings.models import PartCategory
+
+
+
+
+
+@admin.register(PartCategory)
+
+class PartCategoryAdmin(admin.ModelAdmin):
+
+    list_display = (
+
+        'indented_name', 'level', 'parent_name',
+
+        'slug', 'icon', 'order', 'is_active',
+
+    )
+
+    list_display_links = ('indented_name',)
+
+    list_editable = ('order', 'is_active')
+
+    list_filter = ('level', 'is_active')
+
+    search_fields = ('name_en', 'name_lt', 'slug')
+
+    prepopulated_fields = {'slug': ('name_en',)}
+
+    autocomplete_fields = ('parent',)
+
+    ordering = ('level', 'order', 'name_en')
+
+    list_per_page = 100
+
+
+
+    fieldsets = (
+
+        (None, {
+
+            'fields': ('name_en', 'name_lt', 'slug'),
+
+        }),
+
+        ('Hierarchy', {
+
+            'fields': ('level', 'parent'),
+
+        }),
+
+        ('Display', {
+
+            'fields': ('icon', 'order', 'is_active'),
+
+        }),
+
+    )
+
+
+
+    def indented_name(self, obj):
+
+        prefix = {0: "📁 ", 1: "    📂 ", 2: "        📄 "}.get(obj.level, "")
+
+        return f"{prefix}{obj.name_en}"
+
+    indented_name.short_description = "Name"
+
+
+
+    def parent_name(self, obj):
+
+        return obj.parent.name_en if obj.parent else "—"
+
+    parent_name.short_description = "Parent"
+

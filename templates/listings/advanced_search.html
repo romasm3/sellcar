@@ -447,7 +447,41 @@
     <div class="adv-grid3">
         <div class="adv-field" style="grid-column: 1 / -1;">
             <label>{% trans "Part Name or Code" %}</label>
-            <input type="text" name="part_query" class="adv-input" placeholder="{% trans 'e.g. brake pads, 06H 145 601 H, BKD...' %}" value="{{ f.part_query|default:'' }}">
+            <input type="text" name="part_query" class="adv-input" placeholder="{% trans 'Text search: name, OEM, engine code, gearbox code...' %}" value="{{ f.part_query|default:'' }}">
+
+            <div style="font-size:0.7rem; color:#9ca3af; margin-top:6px;">
+
+                🔍 {% trans "Searches: Title, Description, OEM Code, Engine Code, Gearbox Code, Modification" %}
+
+            </div>
+
+        </div>
+
+
+
+        <div class="adv-grid3" style="margin-top:16px;">
+
+            <div class="adv-field">
+
+                <label>{% trans "OEM Code" %}</label>
+
+                <input type="text" name="oem_code" class="adv-input" placeholder="63217160797" value="{{ f.oem_code|default:'' }}">
+
+            </div>
+
+            <div class="adv-field">
+
+                <label>{% trans "Engine Code" %}</label>
+
+                <input type="text" name="engine_code_search" class="adv-input" placeholder="N55, M54B25" value="{{ f.engine_code_search|default:'' }}">
+
+            </div>
+
+            <div class="adv-field">
+
+                <label>{% trans "Gearbox Code" %}</label>
+
+                <input type="text" name="gearbox_code_search" class="adv-input" placeholder="6HP19, ZF8HP" value="{{ f.gearbox_code_search|default:'' }}">
         </div>
 
         <div class="adv-field">
@@ -525,7 +559,393 @@
             </select>
         </div>
     </div>
-    <div style="font-size:0.7rem; color:#9ca3af; margin-top:10px;">{% trans "Specify which vehicles this part fits. Empty rows are ignored. Leave all empty = search all parts." %}</div>
+    <div style="margin-top:20px; padding-top:16px; border-top:1px solid #f3f4f6;">
+
+            <div style="font-size:0.8rem; font-weight:600; color:#374151; margin-bottom:12px;">{% trans "Vehicle Technical Specs" %}</div>
+
+
+
+            <div class="adv-grid3" style="margin-bottom:12px;">
+
+                <div class="adv-field">
+
+                    <label>{% trans "Fuel Type" %}</label>
+
+                    <select name="fuel_type" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Gearbox" %}</label>
+
+                    <select name="transmission" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for t in transmissions %}<option value="{{ t.id }}" {% if f.transmission == t.id|stringformat:'s' %}selected{% endif %}>{{ t.name }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Body Type" %}</label>
+
+                    <select name="body_type" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for val, label in body_type_choices %}<option value="{{ val }}" {% if val in selected_body_types %}selected{% endif %}>{{ label }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="adv-grid3" style="margin-bottom:12px;">
+
+                <div class="adv-field">
+
+                    <label>{% trans "Color" %}</label>
+
+                    <select name="color" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for val, label in color_choices %}<option value="{{ val }}" {% if f.color == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Drive Wheels" %}</label>
+
+                    <select name="drive_type" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for val, label in drive_type_choices %}<option value="{{ val }}" {% if f.drive_type == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Doors" %}</label>
+
+                    <select name="doors" class="adv-select">
+
+                        <option value="">{% trans "All" %}</option>
+
+                        {% for val, label in door_choices %}<option value="{{ val }}" {% if f.doors == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="adv-grid3" style="margin-bottom:12px;">
+
+                <div class="adv-field">
+
+                    <label>{% trans "Engine Size (L)" %}</label>
+
+                    <div style="display:flex; gap:6px;">
+
+                        <input type="number" step="0.1" name="engine_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.engine_min|default:'' }}" style="flex:1;">
+
+                        <input type="number" step="0.1" name="engine_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.engine_max|default:'' }}" style="flex:1;">
+
+                    </div>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Power (kW)" %}</label>
+
+                    <div style="display:flex; gap:6px;">
+
+                        <input type="number" name="power_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min|default:'' }}" style="flex:1;">
+
+                        <input type="number" name="power_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max|default:'' }}" style="flex:1;">
+
+                    </div>
+
+                </div>
+
+                <div class="adv-field">
+
+                    <label>{% trans "Mileage (km)" %}</label>
+
+                    <div style="display:flex; gap:6px;">
+
+                        <input type="number" name="mileage_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min|default:'' }}" style="flex:1;">
+
+                        <input type="number" name="mileage_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max|default:'' }}" style="flex:1;">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div style="font-size:0.7rem; color:#9ca3af; margin-top:10px;">{% trans "Specify which vehicles this part fits. Empty rows are ignored. Leave all empty = search all parts." %}</div>
+
+    </div>
+
+
+
+    <script>
+
+(function(){
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+        var grid = document.querySelector('#partsCategoryCard > div:last-child');
+
+        if (!grid) return;
+
+
+
+        // Ištraukiam visus cat-body iš cat-card į grid'ą kaip sibling'us
+
+        var cards = Array.from(grid.querySelectorAll('.cat-card'));
+
+        cards.forEach(function(card, idx){
+
+            var body = card.querySelector('.cat-body');
+
+            if (body) {
+
+                body.dataset.ownerIdx = idx;
+
+                body.style.display = 'none';
+
+                // Įdek body į grid'o pabaigą - palaikom kortelių tvarką
+
+                grid.appendChild(body);
+
+            }
+
+            card.dataset.cardIdx = idx;
+
+        });
+
+    });
+
+
+
+    window.openPartCat = function(btn) {
+
+        var card = btn.parentElement;
+
+        var cardIdx = card.dataset.cardIdx;
+
+        var chev = btn.querySelector('.cat-chevron');
+
+
+
+        // Surask atitinkamą body grid'e
+
+        var body = document.querySelector('.cat-body[data-owner-idx="' + cardIdx + '"]');
+
+        if (!body) return;
+
+
+
+        var isOpen = body.style.display === 'block';
+
+
+
+        // Uždaryti visus
+
+        document.querySelectorAll('.cat-body').forEach(function(b){
+
+            b.style.display = 'none';
+
+            b.style.order = '9999';
+
+        });
+
+        document.querySelectorAll('.cat-chevron').forEach(function(c){
+
+            c.style.transform = 'rotate(0deg)';
+
+        });
+
+        document.querySelectorAll('.cat-card').forEach(function(c){
+
+            c.style.order = '';
+
+        });
+
+
+
+        if (isOpen) return;
+
+
+
+        // Atidarom šitą
+
+        body.style.display = 'block';
+
+        if (chev) chev.style.transform = 'rotate(180deg)';
+
+
+
+        // Skaičiuojam kiek kortelių telpa pirmoj eilutej
+
+        var allCards = Array.from(document.querySelectorAll('#partsCategoryCard .cat-card'));
+
+        if (allCards.length === 0) return;
+
+
+
+        var firstTop = allCards[0].offsetTop;
+
+        var cols = 0;
+
+        for (var i = 0; i < allCards.length; i++) {
+
+            if (Math.abs(allCards[i].offsetTop - firstTop) < 2) cols++;
+
+            else break;
+
+        }
+
+        if (cols < 1) cols = 1;
+
+
+
+        // Skaičiuojam, kurioj eilutej yra mūsų card'as
+
+        var openIdx = parseInt(cardIdx);
+
+        var rowIdx = Math.floor(openIdx / cols);
+
+        var lastInRow = Math.min((rowIdx + 1) * cols - 1, allCards.length - 1);
+
+
+
+        // CSS Grid `order` triukas:
+
+        // Visiems cards: order = i (pagal originalią poziciją)
+
+        // Atidarytas body: order = lastInRow + 0.5 (tarp eilučių)
+
+        // Reikia naudoti integers - dauginame per 2
+
+        allCards.forEach(function(c, i){
+
+            c.style.order = i * 2;
+
+        });
+
+        body.style.order = (lastInRow * 2) + 1;
+
+    };
+
+})();
+
+</script>
+
+<div class="adv-card" id="partsCategoryCard">
+
+        <div class="adv-header">
+
+            <span class="adv-title">📦 {% trans "Part Categories" %}</span>
+
+            <a href="#" class="adv-clear" onclick="event.preventDefault();document.querySelectorAll('input[name=&quot;part_subcategory&quot;]').forEach(function(cb){cb.checked=false;});var e=document.getElementById('selectedCatsCount');if(e)e.textContent='';">{% trans "Clear" %}</a>
+
+        </div>
+
+
+
+        <input type="text" id="catSearchInput" class="adv-input" placeholder="🔍 {% trans 'Search categories...' %}"
+
+               style="margin-bottom:14px;" onkeyup="var q=(this.value||'').toLowerCase().trim();document.querySelectorAll('.cat-card').forEach(function(card){var cn=(card.dataset.catName||'');var av=false;card.querySelectorAll('.cat-sub').forEach(function(s){var sn=(s.dataset.subName||'');var m=!q||sn.indexOf(q)>=0||cn.indexOf(q)>=0;s.style.display=m?'flex':'none';if(m)av=true;});card.style.display=(q&amp;&amp;!av&amp;&amp;cn.indexOf(q)&lt;0)?'none':'';if(q&amp;&amp;av){var b=card.querySelector('.cat-body');var c=card.querySelector('.cat-chevron');if(b)b.style.display='block';if(c)c.style.transform='rotate(180deg)';}});">
+
+
+
+        <div id="selectedCatsCount" style="font-size:0.78rem; color:#0d9488; font-weight:600; margin-bottom:10px;">
+
+            {% if selected_part_subcats %}{{ selected_part_subcats|length }} {% trans "categories selected" %}{% endif %}
+
+        </div>
+
+
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px;">
+
+            {% for item in parts_top_categories %}
+
+            <div class="cat-card" data-cat-name="{{ item.cat.name_en|lower }}" data-cat-idx="{{ forloop.counter0 }}" style="border:1px solid #e5e7eb; border-radius:6px; background:#fff;">
+
+                <button type="button" class="cat-header" onclick="window.openPartCat(this);"
+
+                        style="width:100%; padding:10px 14px; background:#f9fafb; border:0; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:600; font-size:0.85rem; color:#1f2937;">
+
+                    <span>📁 {{ item.cat.name_en }}</span>
+
+                    <span class="cat-chevron" style="transition:transform .2s;">▼</span>
+
+                </button>
+
+                <div class="cat-body" style="display:none; padding:20px 24px; background:#fff; border:1px solid #fed7aa; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.08); grid-column:1 / -1;">
+
+                    {% for group in item.groups %}
+
+                    <div class="cat-group-header" style="font-size:0.78rem; font-weight:700; color:#dc6803; margin:14px 0 8px 0; text-transform:uppercase; letter-spacing:0.5px;">{{ group.name }}</div>
+
+                    <div class="cat-subs-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:2px;">{% for sub in group.subs %}
+
+                    <label class="cat-sub" data-sub-name="{{ sub.name_en|lower }}" style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:0.8rem; color:#374151; cursor:pointer;">
+
+                        <input type="checkbox" name="part_subcategory" value="{{ sub.id }}"
+
+                               {% if sub.id|stringformat:'s' in selected_part_subcats %}checked{% endif %}
+
+                               onchange="var n=document.querySelectorAll('input[name=&quot;part_subcategory&quot;]:checked').length;var e=document.getElementById('selectedCatsCount');if(e)e.textContent=n>0?(n+' categories selected'):'';"
+
+                               style="cursor:pointer;">
+
+                        <span>{{ sub.name_en }}</span>
+
+                    </label>
+
+                    {% endfor %}</div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
 </div>
 
 {% endif %}

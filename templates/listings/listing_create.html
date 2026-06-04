@@ -28,7 +28,7 @@
                 <span class="text-sm text-gray-500">{% blocktrans with brand=listing.brand.name model=listing.model.name %}Editing: {{ brand }} {{ model }}{% endblocktrans %}</span>
             </div>
         </div>
-        {% else %}
+        {% elif step != 1 %}
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-gray-900">{% trans "Create New Listing" %}</h2>
@@ -67,8 +67,8 @@
                 {% if step == 1 and not is_edit_mode %}
                 <div>
                     <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans "Select Vehicle Category" %}</h3>
-                    <div class="flex gap-0 border border-gray-200 rounded-xl overflow-hidden" style="min-height: 480px;">
-                        <div class="w-1/3 border-r border-gray-200 overflow-y-auto" id="category-list">
+                    <div class="flex flex-col md:flex-row gap-0 border border-gray-200 rounded-xl overflow-hidden" style="min-height: 480px;">
+                        <div class="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto" id="category-list">
                             {% for vt in vehicle_types %}
                             <div class="category-item flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 border-b border-gray-100 transition-colors" data-vt-id="{{ vt.pk }}" data-vt-slug="{{ vt.slug }}">
                                 <span class="category-icon text-gray-400 flex-shrink-0 w-5 h-5">
@@ -84,10 +84,10 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="w-1/3 border-r border-gray-200 overflow-y-auto p-4" id="subcategory-panel">
+                        <div class="w-full md:w-1/3 hidden md:block border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto p-4" id="subcategory-panel">
                             <p class="text-gray-400 text-sm">{% trans "← Select a category" %}</p>
                         </div>
-                        <div class="w-1/3 overflow-y-auto p-4" id="subsubcategory-panel">
+                        <div class="w-full md:w-1/3 hidden md:block overflow-y-auto p-4" id="subsubcategory-panel">
                             <p class="text-gray-400 text-sm" id="subsub-placeholder">&nbsp;</p>
                         </div>
                     </div>
@@ -806,6 +806,31 @@
 var CURRENT_STEP = {{ step }};
 var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
 var CSRF_TOKEN = '{{ csrf_token }}';
+function clpIsMobile(){ return window.matchMedia('(max-width: 767px)').matches; }
+function clpBack(panel, target){
+if(panel.querySelector('.clp-back')) return;
+var bar=document.createElement('div');
+bar.className='clp-back fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 px-4 py-3 md:hidden';
+var btn=document.createElement('button');
+btn.type='button';
+btn.className='flex items-center gap-1 text-sm font-medium text-gray-700';
+btn.innerHTML='<i class="fas fa-chevron-left text-xs"></i> {% trans "Back" %}';
+btn.onclick=function(){ clpShow(target); };
+bar.appendChild(btn);
+var spacer=document.createElement('div');
+spacer.className='clp-back-spacer h-12 md:hidden';
+panel.insertBefore(spacer, panel.firstChild);
+panel.insertBefore(bar, panel.firstChild);
+}
+function clpShow(which){
+if(!clpIsMobile()) return;
+var cat=document.getElementById('category-list');
+var sub=document.getElementById('subcategory-panel');
+var subsub=document.getElementById('subsubcategory-panel');
+if(which==='sub'){ cat.classList.add('hidden'); sub.classList.remove('hidden'); subsub.classList.add('hidden'); clpBack(sub,'cat'); }
+else if(which==='subsub'){ cat.classList.add('hidden'); sub.classList.add('hidden'); subsub.classList.remove('hidden'); clpBack(subsub,'sub'); }
+else { cat.classList.remove('hidden'); sub.classList.add('hidden'); subsub.classList.add('hidden'); }
+}
 
 // I18N translated strings used in JS
 var I18N = {
@@ -1532,6 +1557,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!subsubcategoryPanel) return;
         subsubcategoryPanel.innerHTML = '<p class="text-sm font-medium text-gray-500 mb-3">' + I18N.selectType + '</p><div class="flex flex-col gap-1" id="subsub-grid"></div>';
         var grid = subsubcategoryPanel.querySelector('#subsub-grid');
+if (clpIsMobile()) clpShow('subsub');
         fetch('/ajax/get-subcategories/?vehicle_type_id=' + selectedVT.value + '&parent_id=' + parentSubId)
             .then(function(r) { return r.json(); })
             .then(function(items) {
@@ -1549,6 +1575,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         if (item.slug === 'whole-car-for-parts') {
                             window.location.href = '/create/car-for-parts/?new=1';
+                            return;
+                        }
+
+                        if (item.slug === 'whole-truck-for-parts') {
+                            window.location.href = '/create/truck-for-parts/?new=1';
                             return;
                         }
 
@@ -1583,12 +1614,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            if (vtSlug === 'boats') {
+                window.location.href = '/create/boats/?new=1';
+                return;
+            }
+
             fetch('/ajax/get-subcategories/?vehicle_type_id=' + vtId + '&top_only=1')
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (data.length === 0) { document.getElementById('mainForm').submit(); return; }
                     subcategoryPanel.innerHTML = '<p class="text-sm font-medium text-gray-500 mb-3">' + I18N.selectSubcategory + '</p><div class="flex flex-col gap-1" id="subcategory-grid"></div>';
                     var grid = subcategoryPanel.querySelector('#subcategory-grid');
+if (clpIsMobile()) clpShow('sub');
                     data.forEach(function(sub) {
                         var div = document.createElement('div');
                         div.className = 'subcategory-card flex items-center gap-2 p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all';

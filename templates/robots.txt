@@ -1,0 +1,33 @@
+
+User-agent: *
+
+Allow: /
+
+
+
+Disallow: /admin/
+
+Disallow: /admin-moderate/
+
+Disallow: /accounts/
+
+Disallow: /create/
+
+Disallow: /ajax/
+
+Disallow: /api/
+
+
+
+User-agent: Googlebot
+
+Allow: /
+
+Disallow: /admin/
+
+Disallow: /admin-moderate/
+
+
+
+Sitemap: https://autoleft.com/sitemap.xml
+

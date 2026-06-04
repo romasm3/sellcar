@@ -5,6 +5,10 @@ from . import motorcycles_views
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
+from . import parts_views
+from . import moto_part_views
+from . import truck_for_parts_views
+from apps.listings import boats_views
 from .decorators import staff_only
 
 urlpatterns = [
@@ -23,6 +27,15 @@ urlpatterns = [
     path("create/cars/quick/", views.listing_create_cars_quick, name="listing_create_cars_quick"),
     path("create/motorcycle/", motorcycles_views.motorcycle_listing_create, name="motorcycle_listing_create"),
     path("create/trucks/", trucks_views.trucks_listing_create, name="trucks_listing_create"),
+    path("create/boats/", boats_views.boats_listing_create, name="boats_listing_create"),
+
+    # ─── PARTS (Single part / parts kit) ───
+    path("create/moto-part/", moto_part_views.moto_part_create, name="moto_part_create"),
+    path("create/parts/", parts_views.parts_category_select, name="parts_category_select"),
+    path("create/parts/form/", parts_views.parts_listing_create, name="parts_listing_create"),
+    path("ajax/parts-subtree/", parts_views.parts_subtree_ajax, name="parts_subtree_ajax"),
+    path("ajax/parts-search/", parts_views.parts_search_ajax, name="parts_search_ajax"),
+    path("browse/moto-parts/", moto_part_views.moto_parts_browse, name="moto_parts_browse"),
 
     # ─── Misc ───
     path("contact/", views.contact, name="contact"),
@@ -62,6 +75,9 @@ urlpatterns = [
     path('ajax/get-motorcycle-brands/', motorcycles_views.get_motorcycle_brands_ajax, name='get_motorcycle_brands_ajax'),
     path('ajax/get-motorcycle-models/', motorcycles_views.get_motorcycle_models_ajax, name='get_motorcycle_models_ajax'),
     path('ajax/save-motorcycle-draft/', motorcycles_views.save_motorcycle_draft_ajax, name='save_motorcycle_draft_ajax'),
+    path('ajax/upload-moto-draft-images/', motorcycles_views.upload_moto_draft_images_ajax, name='upload_moto_draft_images'),
+    path('ajax/reorder-moto-draft-images/', motorcycles_views.reorder_moto_draft_images_ajax, name='reorder_moto_draft_images'),
+    path('ajax/delete-moto-listing-image/<int:pk>/', motorcycles_views.delete_listing_image_ajax, name='delete_moto_listing_image'),
     path('ajax/delete-draft/<int:pk>/', motorcycles_views.delete_draft_ajax, name='delete_draft_ajax'),
 
     # ─── AJAX (trucks) ───
@@ -83,6 +99,7 @@ urlpatterns = [
     path('search/advanced/', views.advanced_search, name='advanced_search'),
     path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
     path('search/advanced/motorcycles/', motorcycles_views.motorcycles_advanced_search, name='motorcycles_advanced_search'),
+    path('search/advanced/moto-parts/', moto_part_views.moto_parts_advanced_search, name='moto_parts_advanced_search'),
     path('search/advanced/trucks/', trucks_views.trucks_advanced_search, name='trucks_advanced_search'),
     path('search/save/', views.save_search, name='save_search'),
     path('search/delete/<int:pk>/', views.delete_search, name='delete_search'),
@@ -135,4 +152,14 @@ urlpatterns = [
     path("<int:pk>/save/", views.save_listing, name="save_listing"),
     path("<int:pk>/contact/", views.contact_seller, name="contact_seller"),
     path("<int:pk>/report/", views.report_listing, name="report_listing"),
+
+    path("create/truck-for-parts/", truck_for_parts_views.truck_for_parts_create, name="truck_for_parts_create"),
+    path('browse/truck-parts/', truck_for_parts_views.truck_parts_browse, name='truck_parts_browse'),
+    path('search/advanced/truck-parts/', truck_for_parts_views.truck_parts_advanced_search, name='truck_parts_advanced_search'),
+    path("<int:pk>/edit-truck-for-parts/", truck_for_parts_views.truck_for_parts_edit, name="truck_for_parts_edit"),
+    path('ajax/upload-truck-for-parts-image/', truck_for_parts_views.upload_truck_for_parts_image, name='upload_truck_for_parts_image'),
+    path('ajax/delete-truck-for-parts-image/<int:pk>/', truck_for_parts_views.delete_truck_for_parts_image, name='delete_truck_for_parts_image'),
+    path('ajax/reorder-truck-for-parts-images/', truck_for_parts_views.reorder_truck_for_parts_images, name='reorder_truck_for_parts_images'),
+    path('ajax/upload-truck-for-parts-edit-image/<int:pk>/', truck_for_parts_views.upload_truck_for_parts_edit_image, name='upload_truck_for_parts_edit_image'),
+    path('ajax/reorder-truck-for-parts-edit-images/<int:pk>/', truck_for_parts_views.reorder_truck_for_parts_edit_images, name='reorder_truck_for_parts_edit_images'),
 ]

@@ -28,12 +28,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django.contrib.sitemaps",
     # Local apps
     "apps.accounts",
     "apps.listings",
     "apps.conversations",
     "apps.broadcasts",
     "apps.payments",
+    "apps.analytics",
     # Third party apps
     "crispy_forms",
     "crispy_bootstrap4",
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     "apps.accounts.middleware.UserLanguageMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.analytics.middleware.VisitorTrackingMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -188,6 +191,8 @@ PAYMENTS_ENABLED = bool(STRIPE_SECRET_KEY)
 DATA_UPLOAD_MAX_NUMBER_FILES = 500                  # iki 500 failų per request
 DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024     # 200 MB total request
 FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024      # 50 MB per failas
+FILE_UPLOAD_PERMISSIONS = 0o644                     # nuotraukos skaitomos Nginx
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755           # nauji katalogai pasiekiami Nginx
 
 
 # ═══ ROSETTA SETTINGS ═══

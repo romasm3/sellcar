@@ -506,13 +506,20 @@ def stripe_webhook(request):
                 # Aktyvuojam skelbima
                 listing.activate(days=plan_days)
 
+                # EMAIL: skelbimas paskelbtas
+                try:
+                    from apps.listings.views import _send_listing_published_email
+                    _send_listing_published_email(listing, listing.seller)
+                except Exception as email_err:
+                    print(f"[webhook] listing_published email failed: {email_err}")
+
                 # Boost (renewed badge) jei planas turi boost arba pirko stars
                 if plan_boost_days > 0 or renew_count > 0:
                     listing.last_boosted_at = now
                     listing.save(update_fields=['last_boosted_at'])
 
                 # Stars — max is plano ir addon'o
-                final_star_count = max(plan_boost_count, renew_count)
+                final_star_count = plan_boost_count + renew_count
                 final_star_days = max(plan_boost_days, renew_days)
                 if final_star_count > 0:
                     listing.star_level = 1

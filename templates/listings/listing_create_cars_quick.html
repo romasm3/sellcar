@@ -555,6 +555,17 @@
                         <p class="text-xs text-gray-500">{% trans "Up to 40 photos. Max size 24MB. JPG, GIF, PNG." %}</p>
                         <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
                     </div>
+
+                    {# ═══ UPLOAD PROGRESS ═══ #}
+                    <div id="uploadProgress" class="hidden mt-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">{% trans "Uploading photos..." %}</span>
+                            <span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                            <div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1506,6 +1517,51 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        // ═══ CLIENT-SIDE IMAGE COMPRESSION ═══
+        // Sumazina nuotrauka iki ~1920px ir suspaudzia i JPEG pries siunciant.
+        // Telefono 10MB nuotrauka tampa ~400KB — daug greitesnis upload.
+        function compressImage(file) {
+            return new Promise(function(resolve) {
+                // GIF nesuspaudziam (animacija dingtu) — siunciam kaip yra
+                if (file.type === 'image/gif' || file.size < 600 * 1024) {
+                    resolve(file);
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.onload = function() {
+                        var MAX = 1920;
+                        var w = img.width, h = img.height;
+                        if (w > MAX || h > MAX) {
+                            if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+                            else { w = Math.round(w * MAX / h); h = MAX; }
+                        }
+                        var canvas = document.createElement('canvas');
+                        canvas.width = w; canvas.height = h;
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        canvas.toBlob(function(blob) {
+                            if (!blob || blob.size >= file.size) {
+                                resolve(file);  // suspaudimas nieko nedav — siunciam originala
+                                return;
+                            }
+                            var newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                            resolve(new File([blob], newName, { type: 'image/jpeg' }));
+                        }, 'image/jpeg', 0.85);
+                    };
+                    img.onerror = function() { resolve(file); };
+                    img.src = e.target.result;
+                };
+                reader.onerror = function() { resolve(file); };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function compressAll(files) {
+            return Promise.all(files.map(function(f) { return compressImage(f); }));
+        }
+
         function addFiles(fileList) {
             var newFiles = Array.from(fileList).filter(function(f) {
                 return f.type && f.type.startsWith('image/');
@@ -1537,41 +1593,114 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('{% trans "Listing ID not found" %}');
                 return;
             }
-            var fd = new FormData();
-            files.forEach(function(f) { fd.append('images', f); });
-            fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-            fetch('/ajax/upload-listing-images/' + listingId + '/', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': CSRF_TOKEN },
-                body: fd,
-            }).then(function(r) { return r.json(); })
-              .then(function(data) {
-                  if (data && data.success) {
-                      location.reload();
-                  } else {
-                      alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown error'));
-                  }
-              }).catch(function(err) {
-                  alert('{% trans "Upload failed" %}: ' + err);
-              });
+            showUploadProgress(true);
+            setUploadProgress(0, '{% trans "Preparing photos..." %}');
+
+            compressAll(files).then(function(compressed) {
+                var fd = new FormData();
+                compressed.forEach(function(f) { fd.append('images', f); });
+                fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/ajax/upload-listing-images/' + listingId + '/');
+                xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+
+                xhr.upload.onprogress = function(e) {
+                    if (e.lengthComputable) {
+                        var percent = Math.round((e.loaded / e.total) * 100);
+                        setUploadProgress(percent, '{% trans "Uploading photos..." %}');
+                    }
+                };
+
+                xhr.onload = function() {
+                    showUploadProgress(false);
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data && data.success) {
+                                location.reload();
+                            } else {
+                                alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown error'));
+                            }
+                        } catch (err) {
+                            alert('{% trans "Upload failed" %}');
+                        }
+                    } else {
+                        alert('{% trans "Upload failed" %} (' + xhr.status + ')');
+                    }
+                };
+
+                xhr.onerror = function() {
+                    showUploadProgress(false);
+                    alert('{% trans "Upload failed" %}');
+                };
+
+                xhr.send(fd);
+            });
+        }
+
+        function showUploadProgress(show) {
+            var box = document.getElementById('uploadProgress');
+            if (box) box.classList.toggle('hidden', !show);
+        }
+
+        function setUploadProgress(percent, label) {
+            var bar = document.getElementById('uploadProgressBar');
+            var pct = document.getElementById('uploadProgressPercent');
+            var lbl = document.getElementById('uploadProgressLabel');
+            if (bar) bar.style.width = percent + '%';
+            if (pct) pct.textContent = percent + '%';
+            if (lbl && label) lbl.textContent = label;
         }
 
         function uploadPhotosToDraft(files) {
-            var fd = new FormData();
-            files.forEach(function(f) { fd.append('images', f); });
-            fetch('/ajax/upload-draft-images/', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': CSRF_TOKEN },
-                body: fd,
-            }).then(function(r) { return r.json(); })
-              .then(function(data) {
-                  if (data.success) {
-                      var wrap = document.getElementById('draft-photos-wrapper');
-                      if (wrap) wrap.style.display = '';
-                      appendUploadedToDraftPanel(data.uploaded);
-                      updateDraftPhotosCount();
-                  }
-              });
+            showUploadProgress(true);
+            setUploadProgress(0, '{% trans "Preparing photos..." %}');
+
+            compressAll(files).then(function(compressed) {
+                var fd = new FormData();
+                compressed.forEach(function(f) { fd.append('images', f); });
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/ajax/upload-draft-images/');
+                xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+
+                xhr.upload.onprogress = function(e) {
+                    if (e.lengthComputable) {
+                        var percent = Math.round((e.loaded / e.total) * 100);
+                        setUploadProgress(percent, '{% trans "Uploading photos..." %}');
+                    }
+                };
+
+                xhr.onload = function() {
+                    showUploadProgress(false);
+                    setUploadProgress(0, '');
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.success) {
+                                var wrap = document.getElementById('draft-photos-wrapper');
+                                if (wrap) wrap.style.display = '';
+                                appendUploadedToDraftPanel(data.uploaded);
+                                updateDraftPhotosCount();
+                            } else {
+                                alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown'));
+                            }
+                        } catch (err) {
+                            alert('{% trans "Upload failed" %}');
+                        }
+                    } else {
+                        alert('{% trans "Upload failed" %} (' + xhr.status + ')');
+                    }
+                };
+
+                xhr.onerror = function() {
+                    showUploadProgress(false);
+                    alert('{% trans "Upload failed" %}');
+                };
+
+                xhr.send(fd);
+            });
         }
 
         function appendUploadedToDraftPanel(uploaded) {

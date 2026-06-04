@@ -290,10 +290,16 @@ def can_create_listing(user):
 
 
 def can_create_free_listing(user):
-    """LEGACY: always returns is_free=False (all listings now paid)."""
+    """Pirmi PRIVATE_FREE_LIMIT aktyvūs skelbimai — nemokami (auto-publish).
+    Nuo (PRIVATE_FREE_LIMIT + 1) — reikia mokamo plano.
+
+    Returns:
+        (is_free, active_count, free_limit)
+    """
     if not user.is_authenticated:
         return (False, 0, 0)
 
     from .models import Listing
     active_count = Listing.objects.filter(seller=user, status='active').count()
-    return (False, active_count, PRIVATE_FREE_LIMIT)
+    is_free = active_count < PRIVATE_FREE_LIMIT
+    return (is_free, active_count, PRIVATE_FREE_LIMIT)
