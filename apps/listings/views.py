@@ -984,6 +984,7 @@ def listing_list(request):
         'new_listing_ids': new_listing_ids,
         'us_states': Listing.US_STATE_CHOICES,
         'country_choices': Listing.COUNTRY_CHOICES,
+        'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
         'selected_country': country_filter,
         'selected_state': state_filter,
         'tab_featured': tab_featured,

@@ -846,7 +846,7 @@
 
 
             {% if is_edit_mode and existing_images %}
-            <div class="card mb-6"><h2 class="section-title">Current Photos</h2><div class="grid grid-cols-2 md:grid-cols-4 gap-4">{% for img in existing_images %}<div class="relative"><img src="{{ img.image.url }}" class="w-full h-32 object-cover rounded-lg border">{% if img.is_main %}<span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">Main</span>{% endif %}<form method="post" action="{% url 'image_delete' img.pk %}" class="absolute top-2 right-2">{% csrf_token %}<button type="submit" onclick="return confirm('Delete?')" class="w-7 h-7 bg-red-500 text-white rounded-full text-xs">x</button></form></div>{% endfor %}</div></div>
+            <div class="card mb-6"><h2 class="section-title">Current Photos</h2><p class="text-xs text-gray-500 mb-3">Drag to reorder. Hover for options.</p><div class="grid grid-cols-3 md:grid-cols-6 gap-3" id="existing-photos">{% for img in existing_images %}<div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move existing-photo" data-existing-img-id="{{ img.pk }}" draggable="true"><img src="{{ img.image.url }}" class="w-full h-full object-cover pointer-events-none">{% if img.is_main %}<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow pointer-events-none">&#9733; MAIN</span>{% else %}<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>{% endif %}<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">{% if not img.is_main %}<button type="button" onclick="event.stopPropagation(); mpSetMain({{ img.pk }})" title="Set as main" class="flex-1 bg-white/90 hover:bg-white text-gray-900 text-[11px] font-bold py-1 rounded">&#9733;</button>{% endif %}<button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'ccw', this)" title="Rotate left" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8634;</button><button type="button" onclick="event.stopPropagation(); mpRotate({{ img.pk }}, 'cw', this)" title="Rotate right" class="bg-white/90 hover:bg-white text-gray-900 text-[11px] py-1 px-2 rounded">&#8635;</button></div><button type="button" onclick="event.stopPropagation(); mpDelete({{ img.pk }})" title="Delete" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm shadow z-10">&times;</button></div>{% endfor %}</div></div>
             {% endif %}
             <!-- ═══ Photos ═══ -->
 
@@ -856,6 +856,7 @@
 
 
 
+                <div id="uploadProgress" class="hidden mb-4"><div class="flex items-center justify-between mb-1"><span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">Uploading photos...</span><span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span></div><div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden"><div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div></div></div>
                 <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click();">
 
                     <div class="text-3xl mb-2">📷</div>
@@ -998,7 +999,7 @@
 
                 <label class="inline-flex items-start gap-2 text-sm mb-4">
 
-                    <input type="checkbox" name="agree_terms" {% if not is_edit_mode %}required{% endif %} class="mt-0.5">
+                    <input type="checkbox" name="agree_terms" {% if not is_edit_mode %}required{% endif %} {% if is_edit_mode %}checked{% endif %} class="mt-0.5">
 
                     <span>
 
@@ -1217,6 +1218,7 @@
 
 
     photoInput.addEventListener('change', function(e) {
+        if (window.IS_EDIT_MODE) { window.partEditUpload(e.target.files); e.target.value=''; return; }
 
         const newFiles = Array.from(e.target.files);
 
@@ -1251,6 +1253,7 @@
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
 
     dropZone.addEventListener('drop', e => {
+        if (window.IS_EDIT_MODE) { e.preventDefault(); dropZone.classList.remove('dragover'); window.partEditUpload(e.dataTransfer.files); return; }
 
         e.preventDefault();
 
@@ -1267,6 +1270,36 @@
     });
 
 })();
+
+
+
+var PCSRF='{{ csrf_token }}';
+
+window.IS_EDIT_MODE={% if is_edit_mode %}true{% else %}false{% endif %};
+
+window.EDIT_LISTING_ID={% if edit_listing_id %}{{ edit_listing_id }}{% else %}0{% endif %};
+
+function mpProgress(s){var b=document.getElementById('uploadProgress');if(b)b.classList.toggle('hidden',!s);}
+
+function mpSetProgress(p,l){var bar=document.getElementById('uploadProgressBar'),pc=document.getElementById('uploadProgressPercent'),lb=document.getElementById('uploadProgressLabel');if(bar)bar.style.width=p+'%';if(pc)pc.textContent=p+'%';if(lb&&l)lb.textContent=l;}
+
+function mpCompress(file){return new Promise(function(resolve){if(file.type==='image/gif'||file.size<600*1024){resolve(file);return;}var reader=new FileReader();reader.onload=function(e){var img=new Image();img.onload=function(){var MAX=1920,w=img.width,h=img.height;if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;}}var c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);c.toBlob(function(blob){if(!blob||blob.size>=file.size){resolve(file);return;}var nn=(file.name.split('.').slice(0,-1).join('.')||file.name)+'.jpg';resolve(new File([blob],nn,{type:'image/jpeg'}));},'image/jpeg',0.85);};img.onerror=function(){resolve(file);};img.src=e.target.result;};reader.onerror=function(){resolve(file);};reader.readAsDataURL(file);});}
+
+window.partEditUpload=function(fileList){var files=Array.from(fileList).filter(function(f){return f.type&&f.type.indexOf('image/')===0;});if(!files.length||!window.EDIT_LISTING_ID)return;mpProgress(true);mpSetProgress(0,'Preparing photos...');Promise.all(files.map(mpCompress)).then(function(comp){var fd=new FormData();comp.forEach(function(f){fd.append('images',f);});fd.append('csrfmiddlewaretoken',PCSRF);var xhr=new XMLHttpRequest();xhr.open('POST','/ajax/upload-listing-images/'+window.EDIT_LISTING_ID+'/');xhr.setRequestHeader('X-CSRFToken',PCSRF);xhr.upload.onprogress=function(e){if(e.lengthComputable)mpSetProgress(Math.round(e.loaded/e.total*100),'Uploading photos...');};xhr.onload=function(){mpProgress(false);if(xhr.status>=200&&xhr.status<300){location.reload();}else{alert('Upload failed');}};xhr.onerror=function(){mpProgress(false);alert('Upload failed');};xhr.send(fd);});};
+
+function mpSetMain(id){var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/listings/image/'+id+'/set-main/',{method:'POST',headers:{'X-CSRFToken':PCSRF,'X-Requested-With':'XMLHttpRequest'},body:fd}).then(function(){location.reload();}).catch(function(){location.reload();});}
+
+function mpDelete(id){if(!confirm('Delete this photo?'))return;var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/listings/image/'+id+'/delete/',{method:'POST',headers:{'X-CSRFToken':PCSRF},body:fd}).then(function(){location.reload();});}
+
+function mpRotate(id,dir,btn){var orig=btn?btn.innerHTML:'';if(btn){btn.disabled=true;btn.innerHTML='&#8230;';}var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fd.append('direction',dir);fetch('/ajax/rotate-listing-image/'+id+'/',{method:'POST',headers:{'X-CSRFToken':PCSRF},body:fd}).then(function(r){return r.json();}).then(function(d){if(d&&d.success){var card=document.querySelector('[data-existing-img-id="'+id+'"]');if(card){var im=card.querySelector('img');if(im)im.src=d.url+'?t='+Date.now();}}else{alert('Rotate failed');}if(btn){btn.disabled=false;btn.innerHTML=orig;}}).catch(function(){alert('Rotate failed');if(btn){btn.disabled=false;btn.innerHTML=orig;}});}
+
+var mpDragSrc=null;
+
+function mpInitExistingDrag(){document.querySelectorAll('.existing-photo').forEach(function(card){if(card._d)return;card._d=true;card.addEventListener('dragstart',function(e){mpDragSrc=card;card.classList.add('opacity-50');e.dataTransfer.effectAllowed='move';});card.addEventListener('dragend',function(){card.classList.remove('opacity-50');document.querySelectorAll('.existing-photo').forEach(function(el){el.classList.remove('ring-2','ring-blue-400');});});card.addEventListener('dragover',function(e){e.preventDefault();if(card!==mpDragSrc)card.classList.add('ring-2','ring-blue-400');});card.addEventListener('dragleave',function(){card.classList.remove('ring-2','ring-blue-400');});card.addEventListener('drop',function(e){e.preventDefault();e.stopPropagation();if(mpDragSrc!==card){var panel=document.getElementById('existing-photos');var items=Array.from(panel.querySelectorAll('.existing-photo'));var si=items.indexOf(mpDragSrc),ti=items.indexOf(card);if(si<ti)card.parentNode.insertBefore(mpDragSrc,card.nextSibling);else card.parentNode.insertBefore(mpDragSrc,card);mpSaveOrder();}card.classList.remove('ring-2','ring-blue-400');});});}
+
+function mpSaveOrder(){if(!window.EDIT_LISTING_ID)return;var ids=Array.from(document.querySelectorAll('#existing-photos .existing-photo')).map(function(el){return parseInt(el.dataset.existingImgId,10);});fetch('/ajax/reorder-listing-images/'+window.EDIT_LISTING_ID+'/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':PCSRF},body:JSON.stringify({image_ids:ids})});}
+
+if(document.readyState!=='loading'){mpInitExistingDrag();}else{document.addEventListener('DOMContentLoaded',mpInitExistingDrag);}
 
 </script>
 

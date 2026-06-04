@@ -383,6 +383,7 @@ def _render_form(request, listing=None, errors=None):
 
         'selected_part_types': ([str(i) for i in listing.equipment_items.values_list('equipment_id', flat=True)] if listing else []),
 
+        'listing': listing,
         'is_edit_mode': bool(listing),
 
         'edit_listing_id': listing.pk if listing else '',
