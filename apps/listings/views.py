@@ -740,9 +740,11 @@ def listing_list(request):
     }
     brands_qs = Brand.objects.all().order_by('name')
     brands = [
-        {'id': b.id, 'name': b.name, 'count': brand_counts.get(b.id, 0)}
+        {'id': b.id, 'name': b.name, 'count': brand_counts.get(b.id, 0),
+         'listing_count': brand_counts.get(b.id, 0)}
         for b in brands_qs
     ]
+    brands.sort(key=lambda b: (-b['listing_count'], b['name']))
 
     current_year = timezone.now().year
     years = list(range(current_year + 1, 1989, -1))
