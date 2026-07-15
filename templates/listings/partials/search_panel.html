@@ -20,7 +20,7 @@
   [x-cloak] { display:none !important; }
 </style>
 
-<div class="bg-white rounded-xl shadow-sm flex max-w-[680px] overflow-hidden"
+<div class="bg-white rounded-xl shadow-sm flex max-w-[680px] overflow-visible"
      x-data="spPanel()" x-init="init()">
 
   {# ---------- KATEGORIJŲ RAIL — Alpine tab'ai, be navigacijos ---------- #}
@@ -41,10 +41,46 @@
       <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
     </button>
 
-    <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
-            @click="switchTab('wheels')" title="{% trans 'Padangos ir ratlankiai' %}">
+    <div class="relative w-full" @mouseenter="fly = true" @mouseleave="fly = false">
+
+      <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
+            @click="switchTab('wheels'); fly = false" title="{% trans 'Padangos ir ratlankiai' %}">
       <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
     </button>
+
+
+
+      <div x-show="fly" x-cloak
+
+           class="absolute left-full top-0 ml-1 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-52 z-50">
+
+        <button type="button" @click="switchTab('wheels'); setWheelType('tyre'); fly = false"
+
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+
+          <svg class="w-5 h-5 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg>
+
+          <span class="text-[14px] font-semibold">Padangos</span>
+
+          <span class="text-[13px] text-gray-400 ml-auto">({{ wheel_counts.tyre|default:0 }})</span>
+
+        </button>
+
+        <button type="button" @click="switchTab('wheels'); setWheelType('rim'); fly = false"
+
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+
+          <svg class="w-5 h-5 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5"/></svg>
+
+          <span class="text-[14px] font-semibold">Ratlankiai</span>
+
+          <span class="text-[13px] text-gray-400 ml-auto">({{ wheel_counts.rim|default:0 }})</span>
+
+        </button>
+
+      </div>
+
+    </div>
 
     {% if user.is_staff %}
     <button type="button" class="sp-rail-btn2" :class="tab === 'boats' && 'sp-on'"
@@ -412,6 +448,7 @@
 function spPanel() {
   return {
     tab: 'cars',
+    fly: false,
     counts: {},
     _timer: null,
 
@@ -436,6 +473,22 @@ function spPanel() {
 
       this.refreshCount(0);
     },
+
+    setWheelType(type) {
+
+      var panel = document.getElementById('sp-panel-wheels');
+
+      if (!panel) return;
+
+      var sel = panel.querySelector('select[name="type"]');
+
+      if (sel) { sel.value = type; }
+
+      this.refreshCount(0);
+
+    },
+
+
 
     switchTab(key) {
       this.tab = key;

@@ -980,9 +980,41 @@ def listing_list(request):
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
 
+    # Moto brands ir wheel counts — search panel
+
+    try:
+
+        from .models import MotorcycleBrand
+
+        moto_brands = list(MotorcycleBrand.objects.all().order_by('name'))
+
+    except Exception:
+
+        moto_brands = []
+
+    try:
+
+        from .models import WheelListing
+
+        wheel_counts = {
+
+            'tyre': WheelListing.objects.filter(status='active', wheel_type='tyre').count(),
+
+            'rim': WheelListing.objects.filter(status='active', wheel_type='rim').count(),
+
+        }
+
+    except Exception:
+
+        wheel_counts = {'tyre': 0, 'rim': 0}
+
+
+
     context = {
         'listings': listings_list,
         'brands': brands,
+        'moto_brands': moto_brands,
+        'wheel_counts': wheel_counts,
         'models': models,
         'years': years,
         'fuel_types': fuel_types,

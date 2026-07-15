@@ -1,9 +1,9 @@
 {% load i18n %}
 {# ================================================================ #}
 {# AutoLeft paieškos panelė — A variantas                           #}
-{# Visos kategorijų formos užkrautos iš karto, perjungimas per      #}
-{# Alpine x-show (0ms, be requestų). Count — AJAX su debounce.      #}
-{# Reikia: /paieska/count/<category>/ endpoint (search_panel_count) #}
+{# Alpine x-show tab'ai (0ms), count AJAX su debounce + count-up    #}
+{# animacija, wheels flyout su subkategorijų skaičiais.             #}
+{# Reikia: /paieska/count/<category>/ + wheel_counts context'e      #}
 {# ================================================================ #}
 
 <style>
@@ -20,7 +20,8 @@
   [x-cloak] { display:none !important; }
 </style>
 
-<div class="bg-white rounded-xl shadow-sm flex max-w-[680px] overflow-hidden"
+<div class="bg-white rounded-xl shadow-sm flex max-w-[680px] overflow-visible"
+     style="width:100%;margin:0 auto 1.5rem auto;"
      x-data="spPanel()" x-init="init()">
 
   {# ---------- KATEGORIJŲ RAIL — Alpine tab'ai, be navigacijos ---------- #}
@@ -41,10 +42,29 @@
       <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
     </button>
 
-    <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
-            @click="switchTab('wheels')" title="{% trans 'Padangos ir ratlankiai' %}">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
-    </button>
+    {# ── WHEELS su flyout (Padangos / Ratlankiai) ── #}
+    <div class="relative w-full" @mouseenter="fly = true" @mouseleave="fly = false">
+      <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
+              @click="switchTab('wheels'); fly = false" title="{% trans 'Padangos ir ratlankiai' %}">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
+      </button>
+
+      <div x-show="fly" x-cloak x-transition.opacity.duration.100ms
+           class="absolute left-full top-0 ml-1 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-52 z-50">
+        <button type="button" @click="switchTab('wheels'); setWheelType('tyre'); fly = false"
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <svg class="w-5 h-5 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg>
+          <span class="text-[14px] font-semibold">{% trans "Padangos" %}</span>
+          <span class="text-[13px] text-gray-400 ml-auto">({{ wheel_counts.tyre|default:0 }})</span>
+        </button>
+        <button type="button" @click="switchTab('wheels'); setWheelType('rim'); fly = false"
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <svg class="w-5 h-5 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
+          <span class="text-[14px] font-semibold">{% trans "Ratlankiai" %}</span>
+          <span class="text-[13px] text-gray-400 ml-auto">({{ wheel_counts.rim|default:0 }})</span>
+        </button>
+      </div>
+    </div>
 
     {% if user.is_staff %}
     <button type="button" class="sp-rail-btn2" :class="tab === 'boats' && 'sp-on'"
@@ -408,12 +428,14 @@
 </div>
 
 <script>
-// ═══ Alpine komponentas — tab state + count debounce ═══
+// ═══ Alpine komponentas — tab state + count debounce + count-up animacija ═══
 function spPanel() {
   return {
     tab: 'cars',
+    fly: false,
     counts: {},
     _timer: null,
+    _anims: {},
 
     init() {
       // Atkuriam tab iš URL (?section= arba ?category=)
@@ -443,6 +465,15 @@ function spPanel() {
       if (this.counts[key] === undefined) this.refreshCount(0);
     },
 
+    // Flyout: nustato wheels tipo select'ą ir perskaičiuoja count
+    setWheelType(type) {
+      var panel = document.getElementById('sp-panel-wheels');
+      if (!panel) return;
+      var sel = panel.querySelector('select[name="type"]');
+      if (sel) { sel.value = type; }
+      this.refreshCount(0);
+    },
+
     countLabel(cat) {
       var c = this.counts[cat];
       return (c === undefined || c === null) ? '' : c;
@@ -461,12 +492,42 @@ function spPanel() {
         fetch('/paieska/count/' + cat + '/?' + qs)
           .then(function(r) { return r.json(); })
           .then(function(data) {
-            var upd = {};
-            upd[cat] = data.count;
-            self.counts = Object.assign({}, self.counts, upd);
+            self.animateCount(cat, data.count);
           })
           .catch(function() { /* tyliai */ });
       }, delay === 0 ? 0 : 300);
+    },
+
+    // Skaičius "subėga" nuo dabartinės reikšmės (arba 0) iki target su ease-out
+    animateCount(cat, target) {
+      var self = this;
+      var start = this.counts[cat] || 0;
+      if (start === target) {
+        var upd0 = {};
+        upd0[cat] = target;
+        this.counts = Object.assign({}, this.counts, upd0);
+        return;
+      }
+
+      if (this._anims[cat]) cancelAnimationFrame(this._anims[cat]);
+
+      var duration = 500; // ms
+      var t0 = performance.now();
+
+      function tick(now) {
+        var p = Math.min((now - t0) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+        var val = Math.round(start + (target - start) * eased);
+        var upd = {};
+        upd[cat] = val;
+        self.counts = Object.assign({}, self.counts, upd);
+        if (p < 1) {
+          self._anims[cat] = requestAnimationFrame(tick);
+        } else {
+          delete self._anims[cat];
+        }
+      }
+      self._anims[cat] = requestAnimationFrame(tick);
     },
 
     saveSearch(btn) {
