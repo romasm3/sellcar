@@ -1,0 +1,75 @@
+{% load i18n %}
+{% comment %} ═══════════════════════════════════════════════════════════════
+   KATEGORIJŲ RAIL — ikonos su hover flyout'ais (autogidas style)
+   Subkategorijos traukiamos AJAX'u: /ajax/get-subcategories/
+   ═══════════════════════════════════════════════════════════════ {% endcomment %}
+
+<div class="sp-rail w-16 shrink-0 flex flex-col items-center pt-4">
+
+    {# Automobiliai — subkategorijų neturi #}
+    <div class="sp-rail-more">
+        <button type="button" onclick="selectCategory('cars', '{% trans "Cars" %}')"
+                class="sp-rail-btn {% if selected_category == 'cars' or not selected_category %}sp-rail-on{% endif %}">
+            <i class="fas fa-car"></i>
+        </button>
+    </div>
+
+    {# Motociklai #}
+    <div class="sp-rail-more" data-fly-slug="motorcycles" data-fly-label="{% trans 'Motorcycles & Moto Gear' %}">
+        <button type="button" onclick="selectCategory('motorcycles', '{% trans "Motorcycles & Moto Gear" %}')"
+                class="sp-rail-btn {% if selected_category == 'motorcycles' %}sp-rail-on{% endif %}">
+            <i class="fas fa-motorcycle"></i>
+        </button>
+        <div class="sp-flyout"></div>
+    </div>
+
+    {# Sunkvežimiai #}
+    <div class="sp-rail-more" data-fly-slug="trucks" data-fly-label="{% trans 'Trucks & Commercial' %}">
+        <button type="button" onclick="selectCategory('trucks', '{% trans "Trucks & Commercial" %}')"
+                class="sp-rail-btn {% if selected_category == 'trucks' %}sp-rail-on{% endif %}">
+            <i class="fas fa-truck"></i>
+        </button>
+        <div class="sp-flyout"></div>
+    </div>
+
+    {# Ratai — atskiras wheels view (?type=tyre / ?type=rim) #}
+    <div class="sp-rail-more">
+        <a href="{% url 'wheels_list' %}?type=tyre"
+           class="sp-rail-btn {% if selected_category == 'tires' %}sp-rail-on{% endif %}">
+            <i class="fas fa-compact-disc"></i>
+        </a>
+        <div class="sp-flyout">
+            <a href="{% url 'wheels_list' %}?type=tyre" class="sp-fly-item"><i class="fas fa-circle-notch"></i><span>{% trans "Tyres" %}</span></a>
+            <a href="{% url 'wheels_list' %}?type=rim" class="sp-fly-item"><i class="fas fa-dharmachakra"></i><span>{% trans "Rims" %}</span></a>
+        </div>
+    </div>
+
+    {# Dalys #}
+    <div class="sp-rail-more" data-fly-slug="parts" data-fly-label="{% trans 'Parts' %}">
+        <button type="button" onclick="selectCategory('parts', '{% trans "Parts" %}')"
+                class="sp-rail-btn {% if selected_category == 'parts' %}sp-rail-on{% endif %}">
+            <i class="fas fa-cog"></i>
+        </button>
+        <div class="sp-flyout"></div>
+    </div>
+
+    {# "..." — likusios kategorijos #}
+    <div class="sp-rail-more">
+        <button type="button" onclick="openCategoryModal()" class="sp-rail-btn" title="{% trans 'Select Category' %}">
+            <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <div class="sp-flyout">
+            <div class="sp-fly-item" onclick="selectCategory('boats', '{% trans "Boats & Water Transport" %}')"><i class="fas fa-ship"></i><span>{% trans "Boats & Water Transport" %}</span></div>
+            {% if user.is_staff %}
+            <div class="sp-fly-item" onclick="selectCategory('vans', '{% trans "Minibuses, Buses & Campers" %}')"><i class="fas fa-shuttle-van"></i><span>{% trans "Minibuses, Buses & Campers" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('trailers', '{% trans "Trailers & Semi-trailers" %}')"><i class="fas fa-trailer"></i><span>{% trans "Trailers & Semi-trailers" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('construction', '{% trans "Construction & Warehouse Equipment" %}')"><i class="fas fa-hard-hat"></i><span>{% trans "Construction & Warehouse Equipment" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('agriculture', '{% trans "Agricultural & Forestry" %}')"><i class="fas fa-tractor"></i><span>{% trans "Agricultural & Forestry" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('bicycles', '{% trans "Bicycles & Scooters" %}')"><i class="fas fa-bicycle"></i><span>{% trans "Bicycles & Scooters" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('services', '{% trans "Services" %}')"><i class="fas fa-tools"></i><span>{% trans "Services" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('rental', '{% trans "Car Rental" %}')"><i class="fas fa-key"></i><span>{% trans "Car Rental" %}</span></div>
+            <div class="sp-fly-item" onclick="selectCategory('planes', '{% trans "Planes & Aircraft" %}')"><i class="fas fa-plane"></i><span>{% trans "Planes & Aircraft" %}</span></div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1097,7 +1097,27 @@ def trucks_list(request):
         'tab_popular': tab_popular,
         'tab_expensive': tab_expensive,
     }
-    return render(request, 'listings/trucks_list.html', context)
+
+    # ═══ SIDEBAR režimas → senas trucks template; kitaip → bendras listing_list (rail) ═══
+    if request.GET.get('sidebar'):
+        return render(request, 'listings/trucks_list.html', context)
+
+    context.update({
+        'selected_category': 'trucks',
+        'country_choices': Listing.COUNTRY_CHOICES,
+        'location_countries': [
+            {'code': c, 'name': n, 'fi_code': c.lower()}
+            for c, n in Listing.COUNTRY_CHOICES
+        ],
+        'transmissions': [],
+        'body_type_choices': [],
+        'selected_body_types': [],
+        'equipment_by_category': [],
+        'selected_equipment': [],
+        'selected_subcategory_name': '',
+        'search_query': request.GET.get('search', ''),
+    })
+    return render(request, 'listings/listing_list.html', context)
 
 
 def trucks_advanced_search(request):

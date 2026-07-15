@@ -1,0 +1,690 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% if product_type == 'rim' %}{% trans "Browse Rims" %}{% else %}{% trans "Browse Tyres" %}{% endif %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.sidebar-label { font-size:0.72rem; font-weight:600; color:#374151; margin-bottom:0.35rem; display:block; }
+.sidebar-section { margin-bottom:0.9rem; }
+.sb-select, .sb-input { width:100%; padding:0.55rem 0.65rem; background:#fff; border:1px solid #d1d5db; border-radius:0.4rem; font-size:0.85rem; color:#111827; }
+.sb-select:focus, .sb-input:focus { outline:none; border-color:#9ca3af; }
+.sb-range { display:flex; gap:0.4rem; }
+.sb-range .sb-input { flex:1; min-width:0; width:0; }
+
+/* ─── More filters (autogidas "Daugiau filtrų" outline btn) ─── */
+.more-filters-btn { width:100%; padding:0.55rem 1rem; border:1.5px solid #4b5563; color:#374151; background:#fff; font-size:0.85rem; font-weight:600; border-radius:0.4rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; text-decoration:none; margin-bottom:1.1rem; }
+.more-filters-btn:hover { background:#f3f4f6; border-color:#1f2937; color:#1f2937; }
+
+/* ─── Season quick tabs (autogidas viršus) ─── */
+.season-tabs { display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+.season-tab { padding:0.45rem 1.1rem; border:1px solid #e5e7eb; border-radius:9999px; background:#fff; font-size:0.82rem; font-weight:600; color:#374151; text-decoration:none; transition:all 0.15s; }
+.season-tab:hover { border-color:#9ca3af; }
+.season-tab.active { background:#374151; color:#fff; border-color:#374151; }
+
+/* ─── Save search (autogidas oranžinis) ─── */
+.save-search-btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.55rem 1.2rem; background:#374151; color:#fff; font-size:0.85rem; font-weight:700; border:none; border-radius:0.4rem; cursor:pointer; transition:all 0.15s; }
+.save-search-btn:hover { background:#1f2937; }
+.save-search-btn.saved { background:#10b981; }
+
+/* ─── Filter chips ─── */
+.filter-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:9999px; font-size:0.75rem; color:#374151; }
+.filter-chip a { color:#9ca3af; text-decoration:none; font-weight:700; }
+.filter-chip a:hover { color:#ef4444; }
+
+/* ─── Cards ─── */
+.h-listing-card { display:flex; background:#fff; border:1px solid #f3f4f6; border-radius:0.75rem; overflow:hidden; transition:all 0.2s; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+.h-listing-card:hover { box-shadow:0 4px 14px rgba(0,0,0,0.08); border-color:#d1fae5; }
+.h-img-side { position:relative; width:280px; height:185px; flex-shrink:0; background:linear-gradient(135deg,#f9fafb 0%,#f3f4f6 100%); overflow:hidden; }
+.h-img-side img { width:100%; height:100%; object-fit:cover; }
+.h-img-side .no-img-icon { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#d1d5db; font-size:3rem; }
+.h-info-side { flex:1; padding:1rem 1.25rem; display:flex; flex-direction:column; gap:0.5rem; min-width:0; }
+
+.ap-title { font-weight:700; color:#111827; font-size:0.95rem; line-height:1.25; flex:1; min-width:0; word-wrap:break-word; }
+.ap-price { font-size:1.2rem; font-weight:800; color:#111827; line-height:1; white-space:nowrap; flex-shrink:0; }
+.ap-title-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+.ap-loc { display:inline-flex; align-items:center; gap:4px; color:#10b981; font-weight:600; font-size:0.78rem; }
+.ap-loc i { font-size:0.7rem; }
+
+/* ─── Spec chips (autogidas pilki chip'ai kortelėj) ─── */
+.spec-chips { display:flex; flex-wrap:wrap; gap:5px; }
+.spec-chip { display:inline-flex; align-items:center; padding:3px 9px; background:#f3f4f6; border-radius:4px; font-size:0.72rem; color:#4b5563; font-weight:500; white-space:nowrap; }
+
+.gallery-arrow { position:absolute; top:50%; transform:translateY(-50%); width:32px; height:32px; background:rgba(255,255,255,0.92); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2); color:#374151; font-size:0.85rem; z-index:6; opacity:0; transition:opacity 0.15s, background 0.15s; }
+.h-listing-card:hover .gallery-arrow { opacity:1; }
+.gallery-arrow:hover { background:#fff; }
+.gallery-arrow.left { left:8px; }
+.gallery-arrow.right { right:8px; }
+.gallery-counter { position:absolute; top:8px; right:8px; padding:2px 7px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.65rem; font-weight:600; border-radius:4px; z-index:6; }
+.gallery-dots { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:6; pointer-events:none; }
+.gallery-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.55); box-shadow:0 0 2px rgba(0,0,0,0.4); transition:background 0.15s; }
+.gallery-dot.active { background:#fff; }
+
+.card-bottom-left { position:absolute; bottom:8px; left:8px; display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; border-radius:5px; text-shadow:0 1px 2px rgba(0,0,0,0.4); box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; background:rgba(0,0,0,0.35); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.15); line-height:1; }
+
+/* ─── Pagination ─── */
+.wpag { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:1.5rem; }
+.wpag a, .wpag span { padding:0.45rem 0.85rem; border:1px solid #e5e7eb; border-radius:0.5rem; font-size:0.85rem; color:#374151; background:#fff; text-decoration:none; }
+.wpag a:hover { background:#f3f4f6; }
+.wpag span.cur { background:#374151; color:#fff; border-color:#374151; font-weight:600; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen">
+<div class="max-w-6xl mx-auto px-4 py-6">
+
+    {# ═══ SEASON QUICK TABS (tik tyres — autogidas viršus) ═══ #}
+    {% if product_type == 'tyre' %}
+    <div class="season-tabs">
+        {% for val, label in tyre_season_choices %}
+        <a href="{% url 'wheels_list' %}?type=tyre&tyre_season={{ val }}" class="season-tab {% if f.tyre_season == val %}active{% endif %}">{{ label }}</a>
+        {% endfor %}
+        <a href="{% url 'wheels_list' %}?type=tyre" class="season-tab {% if not f.tyre_season %}active{% endif %}">{% trans "All" %}</a>
+    </div>
+    {% endif %}
+
+    <h1 class="text-xl font-bold text-gray-900 mb-4">
+        {% if product_type == 'rim' %}{% trans "Rims" %}{% else %}{% trans "Tyres" %}{% endif %}
+        <span class="text-gray-400 font-normal">({{ total_count }})</span>
+    </h1>
+
+    {# ═══════════════════════════════════════════════════════════ #}
+    {#  TOP FILTER PANEL — kaip cars browse panelė,                 #}
+    {#  tik lentelės sukeistos: Location·Purpose·Diameter·Width·    #}
+    {#  Profile·Price (vietoj Brand/Model/Fuel/Body/Year)           #}
+    {# ═══════════════════════════════════════════════════════════ #}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
+        <form method="get" action="{% url 'wheels_list' %}" id="topFilterForm">
+            <input type="hidden" name="type" value="{{ product_type }}">
+
+            {# ═══ CATEGORY ═══ #}
+            <div class="mb-4">
+                <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Category" %}</label>
+                <a href="/" class="inline-flex items-center justify-between gap-3 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 hover:border-gray-300 min-w-[220px]">
+                    <span>{% trans "Tyres & Wheels" %} › {% if product_type == 'rim' %}{% trans "Rims" %}{% else %}{% trans "Tyres" %}{% endif %}</span>
+                    <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                </a>
+            </div>
+
+            {# ═══ BARAI ═══ #}
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
+
+                {# ─── LOCATION ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Location" %}</label>
+                    <div class="relative">
+                        <i class="fas fa-globe absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                        <select name="country_filter" class="w-full pl-8 pr-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none">
+                            <option value="">{% trans "All Locations" %}</option>
+                            {% for code, name in country_choices %}
+                            <option value="{{ code }}" {% if f.country_filter == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                {% if product_type == 'tyre' %}
+                {# ─── PURPOSE (tyres) ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Purpose" %}</label>
+                    <select name="purpose" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in purpose_choices %}
+                        <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                {# ─── TYPE (rims — autogidas "Tipas" = medžiaga) ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Type" %}</label>
+                    <select name="rim_material" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in rim_material_choices %}
+                        <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                {# ─── DIAMETER ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Diameter" %}</label>
+                    <select name="diameter" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in diameter_choices %}
+                        <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {% if product_type == 'tyre' %}
+                {# ─── WIDTH ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Width" %}</label>
+                    <select name="tyre_width" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in tyre_width_choices %}
+                        <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# ─── PROFILE ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Profile" %}</label>
+                    <select name="tyre_profile" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in tyre_profile_choices %}
+                        <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                {# ─── BOLT COUNT (rim — autogidas "Tvirtinimo taškai") ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Bolt count" %}</label>
+                    <select name="rim_bolt_count" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in rim_bolt_count_choices %}
+                        <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# ─── PCD (rim — autogidas "Tarpai tarp skylių") ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "PCD" %}</label>
+                    <select name="rim_pcd" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <option value="">{% trans "All" %}</option>
+                        {% for val, label in rim_pcd_choices %}
+                        <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                {# ─── PRICE RANGE ─── #}
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Price Range" %}</label>
+                    <div class="flex gap-2">
+                        <input type="number" name="price_from" placeholder="{% trans 'Min $' %}" value="{{ f.price_from }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <input type="number" name="price_to" placeholder="{% trans 'Max $' %}" value="{{ f.price_to }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                    </div>
+                </div>
+
+            </div>
+
+            {# ═══ MYGTUKAI ═══ #}
+            <div class="flex items-center justify-end gap-3 flex-wrap">
+                <a href="{% url 'wheels_advanced_search' %}?{{ querystring }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+                    <i class="fas fa-sliders-h"></i> {% trans "Advanced Search" %}
+                </a>
+                <button type="submit" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gray-500 hover:bg-gray-600 text-white text-sm font-semibold rounded-lg transition-colors">
+                    <i class="fas fa-search"></i> {% trans "Apply Filters" %}
+                </button>
+                {% if user.is_authenticated %}
+                <button type="button" onclick="saveWheelsSearchTop(this)" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+                    <i class="far fa-bell"></i> <span>{% trans "Save Search" %}</span>
+                </button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <div class="flex gap-6 items-start">
+
+        {# ═══════════════ SIDEBAR (autogidas style) ═══════════════ #}
+        <div class="w-60 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-20">
+
+                {# ═══ DAUGIAU FILTRŲ → advanced ═══ #}
+                <a href="{% url 'wheels_advanced_search' %}?{{ querystring }}" class="more-filters-btn">
+                    {% trans "More filters" %}
+                </a>
+
+                <form method="get" action="{% url 'wheels_list' %}" id="sidebarForm">
+                    <input type="hidden" name="type" value="{{ product_type }}">
+
+                    {# ═══ PURPOSE (Paskirtis) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Purpose" %}</span>
+                        <select name="purpose" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in purpose_choices %}
+                            <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {% if product_type == 'tyre' %}
+                    {# ═══ SEASON (Sezoniškumas) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Season" %}</span>
+                        <select name="tyre_season" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in tyre_season_choices %}
+                            <option value="{{ val }}" {% if f.tyre_season == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    {# ═══ CONDITION (Naudotas/Naujas) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Used / New" %}</span>
+                        <select name="condition" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in condition_choices %}
+                            <option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ DIAMETER (Skersmuo) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Diameter" %}</span>
+                        <select name="diameter" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in diameter_choices %}
+                            <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {% if product_type == 'tyre' %}
+                    {# ═══ WIDTH (Plotis) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Width" %}</span>
+                        <select name="tyre_width" class="sb-select">
+                            <option value="">——</option>
+                            {% for val, label in tyre_width_choices %}
+                            <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ PROFILE (Aukštis) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Profile" %}</span>
+                        <select name="tyre_profile" class="sb-select">
+                            <option value="">——</option>
+                            {% for val, label in tyre_profile_choices %}
+                            <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% else %}
+                    {# ═══ RIM WIDTH (Plotis) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Width" %}</span>
+                        <select name="rim_width" class="sb-select">
+                            <option value="">——</option>
+                            {% for val, label in rim_width_choices %}
+                            <option value="{{ val }}" {% if f.rim_width == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ PCD ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "PCD" %}</span>
+                        <select name="rim_pcd" class="sb-select">
+                            <option value="">——</option>
+                            {% for val, label in rim_pcd_choices %}
+                            <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ BOLT COUNT ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Bolt count" %}</span>
+                        <select name="rim_bolt_count" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in rim_bolt_count_choices %}
+                            <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ MATERIAL ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Material" %}</span>
+                        <select name="rim_material" class="sb-select">
+                            <option value="">{% trans "All" %}</option>
+                            {% for val, label in rim_material_choices %}
+                            <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+
+                    {# ═══ PRICE (Kaina) ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Price ($)" %}</span>
+                        <div class="sb-range">
+                            <input type="number" name="price_from" class="sb-input" placeholder="{% trans 'From' %}" value="{{ f.price_from }}">
+                            <input type="number" name="price_to" class="sb-input" placeholder="{% trans 'To' %}" value="{{ f.price_to }}">
+                        </div>
+                    </div>
+
+                    {# ═══ TEXT SEARCH ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Text search" %}</span>
+                        <input type="text" name="q" class="sb-input" placeholder="{% trans 'Search...' %}" value="{{ f.q }}">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {# ═══════════════ RESULTS ═══════════════ #}
+        <div class="flex-1 min-w-0">
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="font-semibold text-gray-900 text-sm">
+                        {% trans "Listings found:" %} {{ total_count }}
+                    </div>
+                    <div class="flex items-center gap-3">
+                        {% if user.is_authenticated %}
+                        <button type="button" id="saveWheelsBtn" onclick="saveWheelsSearch(this)" class="save-search-btn">
+                            <i class="far fa-bookmark" id="saveWheelsIcon"></i> <span id="saveWheelsLabel">{% trans "Save Search" %}</span>
+                        </button>
+                        {% endif %}
+                        <select name="sort" onchange="onSortChange(this)" class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
+                            <option value="" {% if not sort %}selected{% endif %}>{% trans "Recommended" %}</option>
+                            <option value="newest" {% if sort == 'newest' %}selected{% endif %}>{% trans "Newest" %}</option>
+                            <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+                            <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
+                        </select>
+                    </div>
+                </div>
+
+                {# ═══ ACTIVE FILTER CHIPS (autogidas "Paskirtis: Lengviesiems ×") ═══ #}
+                <div class="flex flex-wrap gap-2 mt-3" id="activeChips"></div>
+            </div>
+
+            {% if page_obj.object_list %}
+            <div class="space-y-3">
+                {% for listing in page_obj.object_list %}
+                <div class="h-listing-card group"
+                     x-data="{ idx: 0, total: {{ listing.images.count }} }"
+                     @click="window.location='{% url 'wheels_detail' listing.pk %}'">
+                    <div class="h-img-side">
+                        {% if listing.images.count > 0 %}
+                            {% for img in listing.images.all|slice:":8" %}
+                            <img src="{{ img.image.url }}" alt="{{ listing.title }}"
+                                 x-show="idx === {{ forloop.counter0 }}"
+                                 {% if not forloop.first %}style="display:none;"{% endif %}>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-img-icon"><i class="fas fa-circle-notch"></i></div>
+                        {% endif %}
+                        {% if listing.images.count > 1 %}
+                        <button class="gallery-arrow left" @click.stop="idx = (idx - 1 + Math.min(total, 8)) % Math.min(total, 8)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="gallery-arrow right" @click.stop="idx = (idx + 1) % Math.min(total, 8)"><i class="fas fa-chevron-right"></i></button>
+                        <div class="gallery-counter"><span x-text="idx + 1"></span>/<span x-text="Math.min(total, 8)"></span></div>
+                        <div class="gallery-dots">
+                            {% for img in listing.images.all|slice:":8" %}
+                            <span class="gallery-dot" :class="{ 'active': idx === {{ forloop.counter0 }} }"></span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                        <button @click.stop="toggleWheelSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all z-10">
+                            <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
+                        </button>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
+                            <i class="far fa-heart text-gray-400 text-sm"></i>
+                        </a>
+                        {% endif %}
+
+                        {% if listing.pk in new_ids or listing.pk in starred %}
+                        <div class="card-bottom-left">
+                            {% if listing.pk in new_ids %}
+                            <span class="card-badge-new">{% trans "New" %}</span>
+                            {% endif %}
+                            {% if listing.pk in starred %}
+                            <span class="card-mini-badge">⭐</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="h-info-side">
+                        <div class="ap-title-row">
+                            <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
+                            <div class="ap-price">${{ listing.price|floatformat:0 }}</div>
+                        </div>
+
+                        {# ═══ SPEC CHIPS (autogidas pilki chip'ai) ═══ #}
+                        <div class="spec-chips">
+                            {% if product_type == 'tyre' %}
+                                {% if listing.tyre_dot_year %}<span class="spec-chip">{{ listing.tyre_dot_year }} m.</span>{% endif %}
+                                {% if listing.diameter %}<span class="spec-chip">R{{ listing.diameter }}</span>{% endif %}
+                                {% if listing.tyre_width %}<span class="spec-chip">{% trans "Width" %} {{ listing.tyre_width }}</span>{% endif %}
+                                {% if listing.tyre_profile %}<span class="spec-chip">{% trans "Profile" %} {{ listing.tyre_profile }}</span>{% endif %}
+                                {% if listing.tyre_remaining_pct %}<span class="spec-chip">{% trans "Tread left" %} % {{ listing.tyre_remaining_pct }}</span>{% endif %}
+                                {% if listing.get_tyre_season_display %}<span class="spec-chip">{{ listing.get_tyre_season_display }}</span>{% endif %}
+                            {% else %}
+                                {% if listing.diameter %}<span class="spec-chip">R{{ listing.diameter }}</span>{% endif %}
+                                {% if listing.rim_width %}<span class="spec-chip">{% trans "Width" %} {{ listing.rim_width }}J</span>{% endif %}
+                                {% if listing.rim_pcd %}<span class="spec-chip">{{ listing.rim_pcd }}</span>{% endif %}
+                                {% if listing.get_rim_material_display %}<span class="spec-chip">{{ listing.get_rim_material_display }}</span>{% endif %}
+                            {% endif %}
+                            {% if listing.quantity %}<span class="spec-chip">{% trans "Qty" %} {{ listing.quantity }}</span>{% endif %}
+                            {% if listing.city %}<span class="spec-chip">{{ listing.city }}{% if listing.country %}, {{ listing.country }}{% endif %}</span>{% endif %}
+                        </div>
+
+                        <div class="ap-loc mt-auto">
+                            {% if listing.get_condition_display %}<span class="text-gray-500 font-normal">{{ listing.get_condition_display }}</span>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {# ═══ PAGINATION ═══ #}
+            {% if page_obj.paginator.num_pages > 1 %}
+            <div class="wpag">
+                {% if page_obj.has_previous %}
+                <a href="?{{ querystring }}&page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-left"></i></a>
+                {% endif %}
+                {% for num in page_obj.paginator.get_elided_page_range %}
+                    {% if num == page_obj.number %}
+                    <span class="cur">{{ num }}</span>
+                    {% elif num == page_obj.paginator.ELLIPSIS %}
+                    <span>…</span>
+                    {% else %}
+                    <a href="?{{ querystring }}&page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <a href="?{{ querystring }}&page={{ page_obj.next_page_number }}"><i class="fas fa-chevron-right"></i></a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+                <i class="fas fa-circle-notch text-4xl text-gray-300 mb-4 block"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
+                <p class="text-gray-500 mb-6">{% trans "Try adjusting your filters" %}</p>
+                <a href="{% url 'wheels_list' %}?type={{ product_type }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg"><i class="fas fa-undo"></i> {% trans "Clear filters" %}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function onSortChange(selectEl) {
+    var url = new URL(window.location.href);
+    if (selectEl.value) {
+        url.searchParams.set('sort', selectEl.value);
+    } else {
+        url.searchParams.delete('sort');
+    }
+    url.searchParams.delete('page');
+    window.location.href = url.toString();
+}
+
+// ═══ Save (heart) toggle ═══
+function toggleWheelSave(btn, listingId) {
+    var icon = btn.querySelector('i');
+    var wasSaved = icon.classList.contains('fas');
+    icon.className = wasSaved ? 'far fa-heart text-gray-400 text-sm' : 'fas fa-heart text-red-500 text-sm';
+    fetch('/wheels/' + listingId + '/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        icon.className = data.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+    })
+    .catch(function() {
+        icon.className = wasSaved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+    });
+}
+
+// ═══ Save Search (autogidas "Išsaugoti paiešką") ═══
+function saveWheelsSearch(btn) {
+    var form = document.getElementById('sidebarForm');
+    var formData = new FormData(form);
+    formData.append('category', 'wheels');
+    fetch('/search/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: formData
+    }).then(function(r) { return r.json(); })
+      .then(function() {
+        btn.classList.add('saved');
+        document.getElementById('saveWheelsIcon').className = 'fas fa-bookmark';
+        document.getElementById('saveWheelsLabel').textContent = '{% trans "Saved" %}';
+      });
+}
+
+// ═══ ACTIVE FILTER CHIPS (autogidas "Paskirtis: Lengviesiems ×") ═══
+function buildActiveChips() {
+    var container = document.getElementById('activeChips');
+    if (!container) return;
+    var form = document.getElementById('sidebarForm');
+    var chips = [];
+
+    form.querySelectorAll('select').forEach(function(sel) {
+        if (!sel.name || !sel.value) return;
+        var labelEl = sel.closest('.sidebar-section').querySelector('.sidebar-label');
+        var labelTxt = labelEl ? labelEl.textContent.trim() : sel.name;
+        var valTxt = sel.options[sel.selectedIndex].textContent.trim();
+        chips.push({ name: sel.name, label: labelTxt + ': ' + valTxt });
+    });
+    form.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(inp) {
+        if (!inp.name || !inp.value) return;
+        chips.push({ name: inp.name, label: inp.name.replace('_', ' ') + ': ' + inp.value });
+    });
+
+    container.innerHTML = '';
+    chips.forEach(function(c) {
+        var span = document.createElement('span');
+        span.className = 'filter-chip';
+        span.innerHTML = c.label + ' <a href="#" data-param="' + c.name + '">×</a>';
+        container.appendChild(span);
+    });
+
+    container.querySelectorAll('a[data-param]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            var url = new URL(window.location.href);
+            url.searchParams.delete(a.dataset.param);
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        });
+    });
+}
+
+// ═══ Save Search (top panelė) ═══
+function saveWheelsSearchTop(btn) {
+    var form = document.getElementById('topFilterForm');
+    var formData = new FormData(form);
+    formData.append('category', 'wheels');
+    fetch('/search/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: formData
+    }).then(function(r) { return r.json(); })
+      .then(function() {
+        btn.querySelector('i').className = 'fas fa-bell';
+        btn.querySelector('span').textContent = '{% trans "Saved" %}';
+        btn.classList.add('border-emerald-400','text-emerald-700','bg-emerald-50');
+      });
+}
+
+// ═══ LIVE COUNT — top panelės "Listings N" mygtukas (autogidas "Skelbimai 4026") ═══
+(function() {
+    var form = document.getElementById('topFilterForm');
+    var countEl = document.getElementById('wfSearchCount');
+    if (!form || !countEl) return;
+
+    var debounceTimer = null;
+
+    function updateLiveCount() {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+            var params = new URLSearchParams();
+            form.querySelectorAll('input, select').forEach(function(el) {
+                if (!el.name || el.value === '' || el.value === null) return;
+                params.append(el.name, el.value);
+            });
+
+            countEl.textContent = '...';
+
+            fetch('/ajax/wheels-search-count/?' + params.toString())
+                .then(function(r) { return r.json(); })
+                .then(function(data) { countEl.textContent = data.count; })
+                .catch(function() { countEl.textContent = '?'; });
+        }, 400);
+    }
+
+    form.addEventListener('change', updateLiveCount);
+    form.addEventListener('input', function(e) {
+        if (e.target.tagName === 'INPUT') updateLiveCount();
+    });
+})();
+
+// ═══ AUTO-REFRESH SIDEBAR (autogidas — keiti filtrą, iškart persikrauna) ═══
+document.addEventListener('DOMContentLoaded', function() {
+    buildActiveChips();
+
+    var sidebarForm = document.getElementById('sidebarForm');
+    if (!sidebarForm) return;
+
+    sidebarForm.querySelectorAll('select').forEach(function(el) {
+        el.addEventListener('change', function() {
+            sidebarForm.submit();
+        });
+    });
+
+    sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(el) {
+        var initialValue = el.value;
+        el.addEventListener('blur', function() {
+            if (el.value !== initialValue) sidebarForm.submit();
+        });
+        el.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (el.value !== initialValue) sidebarForm.submit();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

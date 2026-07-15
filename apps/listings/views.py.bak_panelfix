@@ -17,7 +17,7 @@ from decimal import Decimal
 from django.db import transaction
 from decimal import Decimal
 from django.utils import timezone
-from .constants import can_create_listing, can_create_free_listing, FREE_LISTING_DAYS
+from .constants import can_create_listing
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -698,6 +698,19 @@ def listing_list(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ TYRES & WHEELS → redirect į WheelListing browse ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'rim' in sub.name.lower() or 'ratlank' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
     _now = timezone.now()
     _three_days_ago = _now - timedelta(days=NEW_LISTING_DAYS)
 
@@ -818,29 +831,6 @@ def listing_list(request):
     q_param = request.GET.get('q', '').strip()
     if q_param:
         listings = listings.filter(title__icontains=q_param)
-
-
-
-    # PARTS search - OEM / Engine Code / Gearbox Code (partial match)
-
-    oem_search = request.GET.get('oem_code', '').strip()
-
-    if oem_search:
-
-        listings = listings.filter(oem_code__icontains=oem_search)
-
-    engine_code_search = request.GET.get('engine_code_search', '').strip()
-
-    if engine_code_search:
-
-        listings = listings.filter(engine_code__icontains=engine_code_search)
-
-    gearbox_code_search = request.GET.get('gearbox_code_search', '').strip()
-
-    if gearbox_code_search:
-
-        listings = listings.filter(gearbox_code__icontains=gearbox_code_search)
-
 
     # ═══ VIN required ═══
     if request.GET.get('has_vin'):
@@ -1007,6 +997,7 @@ def listing_list(request):
         'new_listing_ids': new_listing_ids,
         'us_states': Listing.US_STATE_CHOICES,
         'country_choices': Listing.COUNTRY_CHOICES,
+        'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
         'selected_country': country_filter,
         'selected_state': state_filter,
         'tab_featured': tab_featured,
@@ -1174,6 +1165,15 @@ def _get_or_create_cars_draft(request, vehicle_type_id=None, subcategory_id=None
     except VehicleType.DoesNotExist:
         return None
 
+    draft = Listing.objects.filter(
+        seller=request.user,
+        vehicle_type=vehicle_type,
+        status='draft',
+    ).order_by('-updated_at').first()
+    if draft is not None:
+        request.session[CARS_DRAFT_SESSION_KEY] = draft.pk
+        request.session.modified = True
+        return draft
     draft = Listing.objects.create(
         seller=request.user,
         vehicle_type=vehicle_type,
@@ -1531,17 +1531,6 @@ def save_cars_draft_ajax(request):
             draft = None
 
     if not draft:
-        recent_draft = Listing.objects.filter(
-            seller=request.user,
-            status="draft",
-            vehicle_type__slug="cars",
-        ).order_by("-created_at").first()
-        if recent_draft:
-            draft = recent_draft
-            request.session[CARS_DRAFT_SESSION_KEY] = draft.pk
-            request.session.modified = True
-
-    if not draft:
         vehicle_type_id = _int_or_none(data.get('vehicle_type'))
         if vehicle_type_id:
             draft = _get_or_create_cars_draft(request, vehicle_type_id=vehicle_type_id)
@@ -1716,6 +1705,11 @@ def listing_create(request):
     step = int(request.GET.get('step', 1))
     resume_draft_id = _int_or_none(request.GET.get('draft'))
 
+    # ─── 7-step flow pensijoj: gyvas tik Step 1 (kategorijų pikeris). ───
+    # cars → quick, moto/trucks/boats turi savo flow. Bet koks 2–7 → atgal į pikerį.
+    if step != 1 and not resume_draft_id:
+        return redirect('/create/?step=1')
+
     if step == 1 and request.method == 'GET' and not request.GET.get('flow') and not resume_draft_id:
         if CARS_DRAFT_SESSION_KEY in request.session:
             request.session[CARS_DRAFT_SESSION_KEY] = None
@@ -1799,13 +1793,11 @@ def listing_create(request):
                         f'/create/motogear/?subcategory={subcategory_slug}&new=1'
                     )
 
-                # ─── PARTS: Single part / kit → parts category picker ───
-                if subcategory_slug == 'single-part-or-kit':
-                    return redirect('parts_category_select')
-
-                # ─── PARTS: Whole car for parts → atskira forma ───
-                if subcategory_slug == 'whole-car-for-parts':
-                    return redirect('car_for_parts_create')
+                # ═══ TYRES / RIMS → atskiri wheels create puslapiai ═══
+                if subcategory_slug == 'rims':
+                    return redirect('/create/rims/')
+                if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
+                    return redirect('/create/tyres/')
 
                 draft = _get_or_create_cars_draft(
                     request,
@@ -2132,7 +2124,7 @@ def listing_create(request):
     model_name = current_draft.model.name if (current_draft and current_draft.model) else ''
     year_val = current_draft.year if current_draft else ''
 
-    country_choices = [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US']
+    country_choices = list(Listing.COUNTRY_CHOICES)
 
     completed_steps = _draft_completed_steps(current_draft)
     if step in (1, 2, 3, 4, 5, 6, 7):
@@ -2291,7 +2283,7 @@ Phone: {sender_phone}
 Message:
 {message}
 
-View listing: {settings.SITE_URL}{listing.get_absolute_url()}"""
+View listing: http://127.0.0.1:8000{listing.get_absolute_url()}"""
         send_mail(
             subject, body, sender_email, [listing.seller.email],
             fail_silently=True,
@@ -2410,6 +2402,12 @@ def listing_edit(request, pk):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -2505,6 +2503,7 @@ def image_set_main(request, pk):
 
 def get_subcategories_ajax(request):
     from .models import SubCategory
+    from django.utils.translation import gettext
 
     vehicle_type_id = request.GET.get('vehicle_type_id')
     vehicle_type_slug = request.GET.get('vehicle_type_slug')
@@ -2533,7 +2532,7 @@ def get_subcategories_ajax(request):
     data = [
         {
             'id': s.id,
-            'name': s.name,
+            'name': gettext(s.name),
             'slug': s.slug,
             'has_children': s.children.exists(),
         }
@@ -2808,6 +2807,149 @@ def advanced_search_count_ajax(request):
 
     listings = _public_listings_qs(request.user)
 
+    # ═══════════════════════════════════════════════════════════
+    # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
+    # ═══════════════════════════════════════════════════════════
+    
+    SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats'}
+    
+    
+    def filter_listings(params, user=None, category=None, base_qs=None):
+        """Pritaiko visus GET filtrus ant Listing queryset'o.
+    
+        params   — request.GET (QueryDict) arba dict
+        base_qs  — jei paduotas, filtruoja jį; kitaip ima _public_listings_qs
+        """
+        def _getlist(key):
+            if hasattr(params, 'getlist'):
+                return [v for v in params.getlist(key) if v]
+            v = params.get(key)
+            return [v] if v else []
+    
+        listings = base_qs if base_qs is not None else _public_listings_qs(user)
+    
+        category = category or params.get('category')
+        if category:
+            listings = listings.filter(vehicle_type__slug=category)
+    
+        if params.get('search'):
+            listings = listings.filter(title__icontains=params['search'])
+        q = (params.get('q') or '').strip()
+        if q:
+            listings = listings.filter(title__icontains=q)
+    
+        part_query = (params.get('part_query') or '').strip()
+        if part_query:
+            listings = listings.filter(
+                Q(title__icontains=part_query) | Q(description__icontains=part_query)
+            )
+    
+        if params.get('brand'):
+            listings = listings.filter(brand_id=params['brand'])
+        if params.get('model'):
+            listings = listings.filter(model_id=params['model'])
+        if params.get('submodel'):
+            listings = listings.filter(submodel_id=params['submodel'])
+    
+        if params.get('price_min'):
+            listings = listings.filter(price__gte=params['price_min'])
+        if params.get('price_max'):
+            listings = listings.filter(price__lte=params['price_max'])
+        if params.get('year_min'):
+            listings = listings.filter(year__gte=params['year_min'])
+        if params.get('year_max'):
+            listings = listings.filter(year__lte=params['year_max'])
+        if params.get('mileage_min'):
+            listings = listings.filter(mileage__gte=params['mileage_min'])
+        if params.get('mileage_max'):
+            listings = listings.filter(mileage__lte=params['mileage_max'])
+    
+        if params.get('fuel_type'):
+            listings = listings.filter(fuel_type_id=params['fuel_type'])
+        if params.get('transmission'):
+            listings = listings.filter(transmission_id=params['transmission'])
+    
+        body_types = _getlist('body_type')
+        if body_types:
+            listings = listings.filter(body_type__in=body_types)
+    
+        if params.get('defects'):
+            listings = listings.filter(defects=params['defects'])
+    
+        city_val = (params.get('city') or '').strip()
+        if city_val:
+            listings = listings.filter(city__icontains=city_val)
+    
+        if params.get('state_filter'):
+            listings = listings.filter(country='US', state=params['state_filter'])
+        elif params.get('country_filter'):
+            listings = listings.filter(country=params['country_filter'])
+    
+        posted_within = params.get('posted_within')
+        if posted_within:
+            try:
+                days = int(posted_within)
+                if days == 1:
+                    cutoff = timezone.now() - timedelta(hours=24)
+                else:
+                    cutoff = timezone.now() - timedelta(days=days)
+                listings = listings.filter(created_at__gte=cutoff)
+            except (ValueError, TypeError):
+                pass
+    
+        if params.get('has_vin'):
+            listings = listings.exclude(vin__isnull=True).exclude(vin='')
+        if params.get('valid_inspection'):
+            listings = listings.filter(valid_inspection=True)
+        if params.get('hide_auctions'):
+            listings = listings.filter(is_auction=False)
+        if params.get('seller_type'):
+            listings = listings.filter(seller_type=params['seller_type'])
+    
+        # Special features
+        FEATURE_FIELDS = {
+            'feat_trade_in': 'open_to_trade',
+            'feat_warranty': 'has_warranty',
+            'feat_lease': 'available_on_lease',
+            'feat_sport': 'is_sport_ready',
+            'feat_disabled': 'disabled_friendly',
+            'feat_service_book': 'has_service_book',
+            'feat_us_import': 'imported_from_us',
+            'feat_multi_keys': 'multiple_keys',
+            'feat_power_boost': 'power_boosted',
+            'feat_pneumatic': 'pneumatic_suspension',
+            'feat_remote_start': 'remote_start',
+            'feat_spare_wheel': 'spare_wheel',
+        }
+        for param_key, field in FEATURE_FIELDS.items():
+            if params.get(param_key):
+                listings = listings.filter(**{field: True})
+    
+        # Equipment
+        for eid in _getlist('equipment'):
+            listings = listings.filter(equipment_items__equipment_id=eid)
+    
+        return listings
+    
+    
+    def search_panel_count(request, category):
+        """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
+        if category in ('tires', 'wheels'):
+            try:
+                from .models import WheelListing
+                qs = WheelListing.objects.filter(status='active')
+                wtype = request.GET.get('type')
+                if wtype:
+                    qs = qs.filter(wheel_type=wtype)
+                return JsonResponse({'count': qs.count()})
+            except Exception:
+                return JsonResponse({'count': 0})
+    
+        if category not in SEARCH_PANEL_CATEGORIES:
+            raise Http404
+        qs = filter_listings(request.GET, user=request.user, category=category)
+        return JsonResponse({'count': qs.count()})
+
     f = request.GET
     category_filter = f.get('category', '')
     if category_filter:
@@ -2901,9 +3043,41 @@ def advanced_search(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ TYRES & WHEELS → atskira WheelListing lentelė ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'ratlank' in sub.name.lower() or 'rim' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
+    # ═══ TYRES & WHEELS → atskira WheelListing lentelė ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'ratlank' in sub.name.lower() or 'rim' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
     if request.GET.get('category') == 'trucks':
             from . import trucks_views
             return trucks_views.trucks_list(request)
+
+    if request.GET.get('category') in ('tires', 'wheels'):
+        return redirect('/search/wheels/advanced/')
+
+    if request.GET.get('category') in ('tires', 'wheels'):
+        return redirect('/search/wheels/advanced/')
 
     listings = _public_listings_qs(request.user).select_related(
         'brand', 'model', 'fuel_type', 'transmission', 'vehicle_type'
@@ -3179,7 +3353,7 @@ def _build_edit_context(listing, step, form):
         'step1_brand': listing.brand.name if listing.brand else '',
         'step1_model': listing.model.name if listing.model else '',
         'step1_year': listing.year,
-        'country_choices': [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US'],
+        'country_choices': list(Listing.COUNTRY_CHOICES),
         'us_states': Listing.US_STATE_CHOICES,
         'completed_steps': {step},
         'step_labels': [
@@ -3200,6 +3374,16 @@ def listing_edit_hub(request, pk):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
+        return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
+        return redirect('truck_for_parts_edit', pk=pk)
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis (vienpuslapė forma)
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3265,6 +3449,12 @@ def listing_edit_section(request, pk, section):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3407,28 +3597,25 @@ def listing_activate(request, pk):
         request.session.modified = True
         return redirect('/create/?step=2')
 
-    # ═══ FREE LIMIT GUARD — atgaivinimas = naujas skelbimas ═══
-    # Expired/inactive skelbimas grįždamas į aktyvius vėl užima vietą
-    # tarp 3 nemokamų. Jei limitas jau pasiektas — eina į planus.
-    from .constants import can_create_free_listing
+    payments_enabled = getattr(settings, 'PAYMENTS_ENABLED', False)
+    fee = listing.listing_fee
 
-    is_free, active_count, free_limit = can_create_free_listing(request.user)
-
-    if not is_free:
-        messages.info(
-            request,
-            f'You have {active_count} active listings (free limit: {free_limit}). '
-            f'Choose a plan to reactivate this listing.'
-        )
-        return redirect('listing_select_plan', pk=listing.pk)
+    if payments_enabled:
+        messages.info(request, f'Payment system not yet enabled. Fee: {fee}')
+        return redirect('listing_edit_hub', pk=listing.pk)
 
     previous_status = listing.status
     if previous_status == 'expired':
         action = 'reactivated'
+    elif previous_status == 'draft':
+        action = 'published'
     else:
         action = 'extended'
 
-    listing.activate(days=FREE_LISTING_DAYS)
+    listing.activate(days=Listing.DEFAULT_ACTIVE_DAYS)
+
+    if previous_status == 'draft':
+        _send_listing_published_email(listing, request.user)
 
     return redirect(
         reverse('listing_success', kwargs={'pk': listing.pk}) + f'?action={action}'
@@ -3469,6 +3656,12 @@ def listing_edit_step(request, pk, step):
     # ✅ Cars → Quick edit (single-page form, /create/cars/quick/?edit=<pk>)
     if listing.vehicle_type and listing.vehicle_type.slug == 'cars':
         return redirect(f'/create/cars/quick/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
+        return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
+        return redirect(f'/create/parts/form/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
+        return redirect(f'/create/motorcycle/?edit={pk}')
 
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
@@ -3989,145 +4182,6 @@ def admin_sales_stats(request):
     start_30d = now - timedelta(days=30)
     start_90d = now - timedelta(days=90)
 
-    # ═══ 🌐 VISITOR TRAFFIC (site-wide PageView) ═══
-    from apps.analytics.models import PageView
-
-    # ─── Bot filter (humans / bots / all) ───
-    view_type = request.GET.get('view', 'humans')
-    if view_type not in ('humans', 'bots', 'all'):
-        view_type = 'humans'
-
-    if view_type == 'humans':
-        pv_base = PageView.objects.filter(is_bot=False)
-    elif view_type == 'bots':
-        pv_base = PageView.objects.filter(is_bot=True)
-    else:
-        pv_base = PageView.objects.all()
-
-    # ─── Counters virš toggle (rodom abu skaičius) ───
-    total_humans_30d = PageView.objects.filter(
-        is_bot=False, created_at__gte=start_30d
-    ).count()
-    total_bots_30d = PageView.objects.filter(
-        is_bot=True, created_at__gte=start_30d
-    ).count()
-
-    # ─── Bot breakdown (rodom kai view_type=bots) ───
-    bot_breakdown = list(
-        PageView.objects.filter(is_bot=True, created_at__gte=start_30d)
-        .values('bot_reason')
-        .annotate(c=Count('id'))
-        .order_by('-c')
-    )
-
-    visitors_today = pv_base.filter(
-        created_at__gte=today_start
-    ).values('ip_address').distinct().count()
-
-    visitors_week = pv_base.filter(
-        created_at__gte=week_ago
-    ).values('ip_address').distinct().count()
-
-
-
-    visitors_month = pv_base.filter(
-
-        created_at__gte=start_30d
-
-    ).values('ip_address').distinct().count()
-
-
-
-    # NEW vs RETURNING (today)
-    ips_today = set(pv_base.filter(
-        created_at__gte=today_start
-    ).values_list('ip_address', flat=True).distinct())
-
-    ips_before_today = set(pv_base.filter(
-        created_at__lt=today_start
-    ).values_list('ip_address', flat=True).distinct())
-
-    new_visitors_today = len(ips_today - ips_before_today)
-    returning_visitors_today = len(ips_today & ips_before_today)
-
-    # NEW vs RETURNING (week)
-    ips_week = set(pv_base.filter(
-        created_at__gte=week_ago
-    ).values_list('ip_address', flat=True).distinct())
-
-    ips_before_week = set(pv_base.filter(
-        created_at__lt=week_ago
-    ).values_list('ip_address', flat=True).distinct())
-
-    new_visitors_week = len(ips_week - ips_before_week)
-    returning_visitors_week = len(ips_week & ips_before_week)
-
-    # NEW vs RETURNING (month)
-    ips_month = set(pv_base.filter(
-        created_at__gte=start_30d
-    ).values_list('ip_address', flat=True).distinct())
-
-    ips_before_month = set(pv_base.filter(
-        created_at__lt=start_30d
-    ).values_list('ip_address', flat=True).distinct())
-
-    new_visitors_month = len(ips_month - ips_before_month)
-    returning_visitors_month = len(ips_month & ips_before_month)
-
-    # Chart: visitors per day (30d)
-    traffic_chart_labels = []
-    traffic_chart_unique = []
-
-    pageviews_30d_data = pv_base.filter(
-        created_at__gte=start_30d
-    ).values('created_at', 'ip_address')
-
-    daily_ips = defaultdict(set)
-    for v in pageviews_30d_data:
-        d = v['created_at'].date()
-        daily_ips[d].add(v['ip_address'])
-
-    _tc = start_30d.date()
-    _te = now.date()
-    while _tc <= _te:
-        traffic_chart_labels.append(_tc.strftime('%m-%d'))
-        traffic_chart_unique.append(len(daily_ips.get(_tc, set())))
-        _tc += timedelta(days=1)
-    # ═══ END Visitor Traffic ═══
-
-    # ═══ 🌍 TOP COUNTRIES (last 30 days) ═══
-    top_countries_data = list(
-        pv_base.filter(created_at__gte=start_30d)
-        .exclude(country='')
-        .exclude(country='LOCAL')
-        .values('country', 'country_name')
-        .annotate(
-            visitors=Count('ip_address', distinct=True),
-            pageviews=Count('id'),
-        )
-        .order_by('-visitors')[:10]
-    )
-
-    total_country_visitors = sum(c['visitors'] for c in top_countries_data) or 1
-
-    # Flag emoji mapping (top countries)
-    COUNTRY_FLAGS = {
-        'LT': '🇱🇹', 'US': '🇺🇸', 'GB': '🇬🇧', 'DE': '🇩🇪', 'FR': '🇫🇷',
-        'PL': '🇵🇱', 'LV': '🇱🇻', 'EE': '🇪🇪', 'IT': '🇮🇹', 'ES': '🇪🇸',
-        'NL': '🇳🇱', 'BE': '🇧🇪', 'SE': '🇸🇪', 'NO': '🇳🇴', 'DK': '🇩🇰',
-        'FI': '🇫🇮', 'AT': '🇦🇹', 'CH': '🇨🇭', 'IE': '🇮🇪', 'CZ': '🇨🇿',
-        'SK': '🇸🇰', 'HU': '🇭🇺', 'RO': '🇷🇴', 'BG': '🇧🇬', 'GR': '🇬🇷',
-        'PT': '🇵🇹', 'CA': '🇨🇦', 'AU': '🇦🇺', 'JP': '🇯🇵', 'CN': '🇨🇳',
-        'KR': '🇰🇷', 'IN': '🇮🇳', 'BR': '🇧🇷', 'MX': '🇲🇽', 'RU': '🇷🇺',
-        'UA': '🇺🇦', 'BY': '🇧🇾', 'TR': '🇹🇷', 'IL': '🇮🇱', 'AE': '🇦🇪',
-        'SA': '🇸🇦', 'ZA': '🇿🇦', 'EG': '🇪🇬', 'NG': '🇳🇬',
-    }
-
-    for c in top_countries_data:
-        c['flag'] = COUNTRY_FLAGS.get(c['country'], '🌍')
-        c['percent'] = round(c['visitors'] * 100.0 / total_country_visitors, 1)
-    # ═══ END Top Countries ═══
-
     total_listings = Listing.objects.count()
     active_listings = Listing.objects.filter(status='active', is_shadow_banned=False).count()
     sold_listings_displayed = Listing.objects.filter(status='sold').count()
@@ -4605,7 +4659,152 @@ def admin_sales_stats(request):
         status='active', views_count=0, created_at__lt=week_ago
     ).count()
 
+    # ════════════════════════════════════════════════════
+
+    # ═══ VISITOR TRAFFIC (analytics_pageview) ═══
+
+    # ════════════════════════════════════════════════════
+
+    from apps.analytics.models import PageView
+
+    from collections import defaultdict as _dd
+
+
+
+    _human_qs = PageView.objects.filter(is_bot=False)
+
+
+
+    def _unique_ips(start):
+
+        return set(_human_qs.filter(created_at__gte=start).values_list('ip_address', flat=True))
+
+
+
+    _ips_today = _unique_ips(today_start)
+
+    _ips_week = _unique_ips(week_ago)
+
+    _ips_month = _unique_ips(start_30d)
+
+
+
+    visitors_today = len(_ips_today)
+
+    visitors_week = len(_ips_week)
+
+    visitors_month = len(_ips_month)
+
+
+
+    _before_today = set(_human_qs.filter(created_at__lt=today_start).values_list('ip_address', flat=True))
+
+    _before_week = set(_human_qs.filter(created_at__lt=week_ago).values_list('ip_address', flat=True))
+
+    _before_month = set(_human_qs.filter(created_at__lt=start_30d).values_list('ip_address', flat=True))
+
+
+
+    returning_visitors_today = len(_ips_today & _before_today)
+
+    returning_visitors_week = len(_ips_week & _before_week)
+
+    returning_visitors_month = len(_ips_month & _before_month)
+
+
+
+    new_visitors_today = visitors_today - returning_visitors_today
+
+    new_visitors_week = visitors_week - returning_visitors_week
+
+    new_visitors_month = visitors_month - returning_visitors_month
+
+
+
+    _daily_ips = _dd(set)
+
+    for _ip, _ts in _human_qs.filter(created_at__gte=start_30d).values_list('ip_address', 'created_at'):
+
+        _daily_ips[_ts.date()].add(_ip)
+
+
+
+    traffic_labels_list = []
+
+    traffic_unique_list = []
+
+    _cur = start_30d.date()
+
+    _end_d = now.date()
+
+    while _cur <= _end_d:
+
+        traffic_labels_list.append(_cur.strftime('%Y-%m-%d'))
+
+        traffic_unique_list.append(len(_daily_ips.get(_cur, ())))
+
+        _cur += timedelta(days=1)
+
+
+
+    top_countries_data = list(
+
+        _human_qs.filter(created_at__gte=start_30d)
+
+        .exclude(country='')
+
+        .values('country', 'country_name')
+
+        .annotate(visitors=Count('ip_address', distinct=True))
+
+        .order_by('-visitors')[:10]
+
+    )
+
+    total_country_visitors = (
+
+        _human_qs.filter(created_at__gte=start_30d)
+
+        .exclude(country='')
+
+        .values('ip_address').distinct().count()
+
+    )
+
+    for _c in top_countries_data:
+
+        _c['percent'] = round(_c['visitors'] * 100.0 / total_country_visitors, 1) if total_country_visitors else 0
+
+
+
     context = {
+
+        'visitors_today': visitors_today,
+
+        'visitors_week': visitors_week,
+
+        'visitors_month': visitors_month,
+
+        'new_visitors_today': new_visitors_today,
+
+        'new_visitors_week': new_visitors_week,
+
+        'new_visitors_month': new_visitors_month,
+
+        'returning_visitors_today': returning_visitors_today,
+
+        'returning_visitors_week': returning_visitors_week,
+
+        'returning_visitors_month': returning_visitors_month,
+
+        'traffic_chart_labels': json.dumps(traffic_labels_list),
+
+        'traffic_chart_unique': json.dumps(traffic_unique_list),
+
+        'top_countries_data': top_countries_data,
+
+        'total_country_visitors': total_country_visitors,
+
         'total_listings': total_listings,
         'active_listings': active_listings,
         'sold_listings_displayed': sold_listings_displayed,
@@ -4707,26 +4906,6 @@ def admin_sales_stats(request):
         'dead_listings': dead_listings,
         'hot_listings_count': hot_listings_count,
         'dead_listings_count': dead_listings_count,
-        # 🌐 Visitor Traffic (site-wide PageView)
-        'visitors_today': visitors_today,
-        'visitors_week': visitors_week,
-        'visitors_month': visitors_month,
-        'new_visitors_today': new_visitors_today,
-        'new_visitors_week': new_visitors_week,
-        'new_visitors_month': new_visitors_month,
-        'returning_visitors_today': returning_visitors_today,
-        'returning_visitors_week': returning_visitors_week,
-        'returning_visitors_month': returning_visitors_month,
-        'traffic_chart_labels': json.dumps(traffic_chart_labels),
-        'traffic_chart_unique': json.dumps(traffic_chart_unique),
-        # 🌍 Top Countries
-        'top_countries_data': top_countries_data,
-        'total_country_visitors': total_country_visitors,
-        # 🤖 Bot filter
-        'view_type': view_type,
-        'total_humans_30d': total_humans_30d,
-        'total_bots_30d': total_bots_30d,
-        'bot_breakdown': bot_breakdown,
     }
     return render(request, 'listings/admin_sales_stats.html', context)
 
@@ -4820,13 +4999,6 @@ def listing_create_cars_quick(request):
     # POST: PILNAS SUBMIT
     # ═══════════════════════════════════════════════════════════════
     if request.method == 'POST':
-        # CREATE: surask egzistuojanti draft jei session prarastas
-        if not is_edit_mode and not current_draft:
-            current_draft = Listing.objects.filter(
-                seller=request.user,
-                status="draft",
-                vehicle_type__slug="cars",
-            ).order_by("-created_at").first()
         # CREATE: sukuriam draft jei dar nėra
         if not is_edit_mode and not current_draft:
             current_draft = _get_or_create_cars_draft(
@@ -5232,7 +5404,7 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
     model_name = source.model.name if (source and source.model) else ''
     year_val = source.year if source else ''
 
-    country_choices = [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US']
+    country_choices = list(Listing.COUNTRY_CHOICES)
 
     # ═══ Equipment grouped by category — CARS-ONLY filter ═══
     # Excludes truck_*, gear (motorcycles), and any other categories
@@ -5361,6 +5533,35 @@ def listing_select_plan(request, pk):
     # Jeigu jau active — nukreipk į detail (nereikia mokėti dar kartą)
     if listing.status == 'active':
         return redirect('listing_detail', pk=pk)
+
+    # Completeness guard: incomplete drafts must be filled before activating
+    if listing.status == 'draft':
+        is_moto_gear = (listing.subcategory_id and listing.subcategory.slug in MOTO_GEAR_SLUGS)
+        if is_moto_gear:
+            is_complete = bool(
+                listing.subcategory_id and listing.condition
+                and listing.price and listing.price > 0
+                and listing.country and listing.city and listing.city != '—'
+            )
+        else:
+            is_complete = bool(
+                listing.year and listing.first_registration and listing.fuel_type_id
+                and listing.price and listing.price > 0
+                and listing.country and listing.city and listing.city != '—'
+            )
+            slug = listing.vehicle_type.slug if listing.vehicle_type else ''
+            if slug == 'cars':
+                is_complete = is_complete and bool(
+                    listing.brand_id and listing.body_type
+                    and listing.transmission_id and listing.doors and listing.mileage
+                )
+            elif slug == 'trucks':
+                is_complete = is_complete and bool(
+                    listing.truck_brand_id and listing.truck_model_text and listing.truck_type
+                )
+        if not is_complete:
+            messages.info(request, 'Complete the listing before activating it.')
+            return redirect(listing.get_edit_url())
 
     # ─── Plan'us paimam iš DB pagal kategoriją ───
     plans_qs = PricingPlan.objects.filter(
@@ -5882,3 +6083,4 @@ def listing_services_checkout(request, pk):
 
     messages.success(request, f'Services activated successfully! Charged ${total:.2f} from wallet.')
     return redirect('my_listings')
+COUNTRY_FLAGS = {}

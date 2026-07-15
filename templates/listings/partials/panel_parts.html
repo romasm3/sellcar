@@ -1,0 +1,74 @@
+{% load i18n %}
+{# ═══ PANELĖ: DALYS ═══ #}
+
+<input type="hidden" name="brand" id="brandHidden" value="{{ request.GET.brand }}">
+<input type="hidden" name="model" id="modelHidden" value="{{ request.GET.model }}">
+
+{# ── Prekės ženklas ── #}
+<div class="relative" id="brandWrapper">
+    <span class="sp-label">{% trans "Brand" %}</span>
+    <div class="custom-trigger" onclick="toggleDropdown('brand', event)">
+        <span id="brandLabel" class="truncate">{% trans "All Brands" %}</span>
+        <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+    </div>
+    <div id="brandDropdown" class="custom-dropdown hidden">
+        <input type="text" class="custom-search-input" placeholder="{% trans 'Search brand...' %}" id="brandSearchInput" oninput="filterBrandItems(this.value)">
+        <div class="custom-dropdown-list" id="brandList">
+            <div class="custom-item" onclick="chooseBrand('', '{% trans 'All Brands' %}')"><span>{% trans "All Brands" %}</span></div>
+            {% for brand in brands %}
+            <div class="custom-item {% if request.GET.brand == brand.id|stringformat:'i' %}selected{% endif %}"
+                 data-id="{{ brand.id }}" data-name="{{ brand.name }}" data-count="{{ brand.count|default:0 }}"
+                 onclick="chooseBrand('{{ brand.id }}', '{{ brand.name|escapejs }}')">
+                <span>{{ brand.name }}</span><span class="item-count">{{ brand.count|default:0 }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{# ── Modelis ── #}
+<div class="relative" id="modelWrapper">
+    <span class="sp-label">{% trans "Model" %}</span>
+    <div class="custom-trigger" onclick="toggleDropdown('model', event)">
+        <span id="modelLabel" class="truncate">{% trans "All Models" %}</span>
+        <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
+    </div>
+    <div id="modelDropdown" class="custom-dropdown hidden">
+        <input type="text" class="custom-search-input" placeholder="{% trans 'Search model...' %}" id="modelSearchInput" oninput="filterModelItems(this.value)">
+        <div class="custom-dropdown-list" id="modelList">
+            <div class="custom-item" onclick="chooseModel('', '', '{% trans 'All Models' %}')"><span>{% trans "All Models" %}</span></div>
+        </div>
+    </div>
+</div>
+
+{# ── Kaina ── #}
+<div>
+    <span class="sp-label">{% trans "Price Range" %}</span>
+    <div class="flex gap-2">
+        <input type="number" name="price_min" placeholder="{% trans 'Min $' %}" value="{{ request.GET.price_min }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+        <input type="number" name="price_max" placeholder="{% trans 'Max $' %}" value="{{ request.GET.price_max }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+    </div>
+</div>
+
+{# ── Metai ── #}
+<div>
+    <span class="sp-label">{% trans "Year" %}</span>
+    <div class="flex gap-2">
+        <select name="year_min" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+            <option value="">{% trans "From" %}</option>
+            {% for year in years %}<option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+        </select>
+        <select name="year_max" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+            <option value="">{% trans "To" %}</option>
+            {% for year in years %}<option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
+        </select>
+    </div>
+</div>
+
+{# ── Pavadinimas arba dalies numeris ── #}
+<div class="sm:col-span-2">
+    <span class="sp-label">{% trans "Name or Part Number" %}</span>
+    <input type="text" name="part_query" placeholder="{% trans 'Search by part name or number (e.g. 06H 145 601 H)' %}"
+           value="{{ request.GET.part_query|default:'' }}"
+           class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+</div>

@@ -217,6 +217,28 @@
 .brand-pair-remove { position:absolute; top:0.5rem; right:0; width:20px; height:20px; border:none; background:transparent; color:#9ca3af; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
 .brand-pair-remove:hover { color:#ef4444; }
 
+/* ─── Search panel icon rail (autogidas style) ─── */
+.sp-rail { border-right:1px solid #f3f4f6; }
+.sp-rail-btn { position:relative; width:100%; height:56px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:none; border:none; }
+.sp-rail-btn svg, .sp-rail-btn i { color:#6b7280; transition:color .12s; }
+.sp-rail-btn svg { width:26px; height:26px; }
+.sp-rail-btn i { font-size:21px; }
+.sp-rail-btn:hover svg, .sp-rail-btn:hover i { color:#374151; }
+.sp-rail-on svg, .sp-rail-on i { color:#374151 !important; }
+.sp-rail-on::after { content:''; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); width:32px; height:3px; background:#374151; border-radius:2px; }
+.sp-label { font-size:0.8rem; font-weight:700; color:#111827; margin-bottom:0.4rem; display:block; }
+
+/* ─── Rail flyout (hover) ─── */
+.sp-rail-more { position:relative; width:100%; }
+.sp-flyout { display:none; position:absolute; left:100%; top:0; z-index:150; min-width:290px; background:#fff; border:1px solid #e5e7eb; border-radius:0.75rem; box-shadow:0 8px 28px rgba(0,0,0,0.12); padding:0.25rem 0; }
+.sp-rail-more:hover .sp-flyout { display:block; }
+.sp-fly-item { display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:0.88rem; color:#374151; white-space:nowrap; border-bottom:1px solid #f9fafb; text-decoration:none; }
+.sp-fly-item:last-child { border-bottom:none; }
+.sp-fly-item:hover { background:#f3f4f6; color:#111827; }
+.sp-fly-item i { width:22px; text-align:center; color:#9ca3af; font-size:1rem; flex-shrink:0; }
+.sp-fly-item:hover i { color:#374151; }
+a.sp-rail-btn { text-decoration:none; }
+
 [x-cloak] { display: none !important; }
 </style>
 {% endblock %}
@@ -738,7 +760,7 @@
                                 </div>
                                 {% endif %}
                                 {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-                                
+
                             </div>
                             {% endif %}
                         </div>
@@ -786,184 +808,8 @@
             <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-            <form method="get" action="/browse/" id="filterForm">
-                <input type="hidden" name="sidebar" value="1">
-                <input type="hidden" name="brand" id="brandHidden" value="{{ request.GET.brand }}">
-                <input type="hidden" name="model" id="modelHidden" value="{{ request.GET.model }}">
-                <input type="hidden" name="submodel" id="submodelHidden" value="{{ request.GET.submodel }}">
-                <input type="hidden" name="category" id="categoryHidden" value="{{ selected_category|default:'cars' }}">
-                <input type="hidden" name="subcategory" id="subcategoryHidden" value="{{ request.GET.subcategory }}">
-                <input type="hidden" name="country_filter" id="countryFilterHidden" value="{{ selected_country }}">
-                <input type="hidden" name="state_filter" id="stateFilterHidden" value="{{ selected_state }}">
-
-                <div class="flex flex-wrap items-end gap-3">
-                    <div class="w-full">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Category" %}</label>
-                        <div class="custom-trigger" onclick="openCategoryModal()" style="max-width:220px;">
-                            <span id="categoryLabel">{% trans "Cars" %}</span>
-                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
-                        </div>
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="locationWrapper">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Location" %}</label>
-                        <div class="custom-trigger" onclick="toggleLocationDropdown(event)">
-                            <span id="locationLabel" class="truncate">{% trans "All Locations" %}</span>
-                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
-                        </div>
-                        <div id="locationDropdown" class="custom-dropdown hidden" style="min-width:240px;">
-                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search location...' %}" id="locationSearchInput" oninput="filterLocationItems(this.value)">
-                            <div class="custom-dropdown-list" id="locationList">
-                                <div class="loc-item {% if not selected_country %}selected{% endif %}" onclick="chooseLocation('', '', '{% trans "All Locations" %}')"><span><i class="fas fa-globe text-gray-400 mr-1"></i> {% trans "All Locations" %}</span></div>
-                                {% for c in location_countries %}
-                                <div class="loc-item {% if selected_country == c.code %}selected{% endif %}" data-search="{{ c.name|lower }}" onclick="chooseLocation('{{ c.code }}', '', '__FLAG__{{ c.fi_code }}__{{ c.name }}')">
-                                    <span class="fi fi-{{ c.fi_code }} mr-2" style="border-radius:2px;"></span>
-                                    <span>{{ c.name }}</span>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    {% if selected_category != 'boats' %}
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="brandWrapper">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Brand" %}</label>
-                        <div class="custom-trigger" onclick="toggleDropdown('brand', event)">
-                            <span id="brandLabel" class="truncate">{% trans "All Brands" %}</span>
-                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
-                        </div>
-                        <div id="brandDropdown" class="custom-dropdown hidden">
-                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search brand...' %}" id="brandSearchInput" oninput="filterBrandItems(this.value)">
-                            <div class="custom-dropdown-list" id="brandList">
-                                <div class="custom-item" onclick="chooseBrand('', '{% trans 'All Brands' %}')"><span>{% trans "All Brands" %}</span></div>
-                                {% for brand in brands %}
-                                <div class="custom-item {% if request.GET.brand == brand.id|stringformat:'i' %}selected{% endif %}"
-                                     data-id="{{ brand.id }}" data-name="{{ brand.name }}" data-count="{{ brand.count }}"
-                                     onclick="chooseBrand('{{ brand.id }}', '{{ brand.name }}')">
-                                    <span>{{ brand.name }}</span><span class="item-count">{{ brand.count }}</span>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="custom-footer">
-                                <label><input type="checkbox" id="brandShowZero" checked onchange="filterBrandItems(document.getElementById('brandSearchInput').value)"> {% trans "Show brands with 0 listings" %}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px] relative" id="modelWrapper">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Model" %}</label>
-                        <div class="custom-trigger" onclick="toggleDropdown('model', event)">
-                            <span id="modelLabel" class="truncate">{% trans "All Models" %}</span>
-                            <i class="fas fa-chevron-down text-xs text-gray-400 ml-2 flex-shrink-0"></i>
-                        </div>
-                        <div id="modelDropdown" class="custom-dropdown hidden">
-                            <input type="text" class="custom-search-input" placeholder="{% trans 'Search model...' %}" id="modelSearchInput" oninput="filterModelItems(this.value)">
-                            <div class="custom-dropdown-list" id="modelList">
-                                <div class="custom-item" onclick="chooseModel('', '', '{% trans 'All Models' %}')"><span>{% trans "All Models" %}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="w-full sm:w-auto flex gap-2">
-                        <div class="flex-1 min-w-[80px]">
-                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Price Range" %}</label>
-                            <input type="number" name="price_min" placeholder="{% trans 'Min $' %}" value="{{ request.GET.price_min }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                        </div>
-                        <div class="flex-1 min-w-[80px]">
-                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
-                            <input type="number" name="price_max" placeholder="{% trans 'Max $' %}" value="{{ request.GET.price_max }}" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                        </div>
-                    </div>
-                    <div class="w-full sm:w-auto flex gap-2">
-                        <div class="flex-1 min-w-[80px]">
-                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Year" %}</label>
-                            <select name="year_min" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                                <option value="">{% trans "From" %}</option>
-                                {% for year in years %}<option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
-                            </select>
-                        </div>
-                        <div class="flex-1 min-w-[80px]">
-                            <label class="block text-xs text-gray-500 mb-1.5 font-medium">&nbsp;</label>
-                            <select name="year_max" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                                <option value="">{% trans "To" %}</option>
-                                {% for year in years %}<option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"i" %}selected{% endif %}>{{ year }}</option>{% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    {% if selected_category == 'parts' %}
-                    {# ═══ PARTS top filter — Name or part number ═══ #}
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[280px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Name or Part Number" %}</label>
-                        <input type="text" name="part_query" placeholder="{% trans 'Search by part name or number (e.g. 06H 145 601 H)' %}"
-                               value="{{ request.GET.part_query|default:'' }}"
-                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                    </div>
-                    {% elif selected_category == 'boats' %}
-                    {# ═══ BOATS top filter — Type + Material + City + Text ═══ #}
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[140px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Type" %}</label>
-                        <select name="boat_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                            <option value="">{% trans "All" %}</option>
-                            {% for val, label in boat_type_choices %}
-                            <option value="{{ val }}" {% if selected_boat_type == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[140px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Material" %}</label>
-                        <select name="boat_material" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                            <option value="">{% trans "All" %}</option>
-                            <option value="aluminium" {% if request.GET.boat_material == 'aluminium' %}selected{% endif %}>{% trans "Aluminium" %}</option>
-                            <option value="steel" {% if request.GET.boat_material == 'steel' %}selected{% endif %}>{% trans "Steel" %}</option>
-                            <option value="fiberglass" {% if request.GET.boat_material == 'fiberglass' %}selected{% endif %}>{% trans "Fiberglass / Plastic" %}</option>
-                            <option value="wood" {% if request.GET.boat_material == 'wood' %}selected{% endif %}>{% trans "Wood" %}</option>
-                            <option value="pvc" {% if request.GET.boat_material == 'pvc' %}selected{% endif %}>{% trans "PVC / Rubber" %}</option>
-                            <option value="other" {% if request.GET.boat_material == 'other' %}selected{% endif %}>{% trans "Other" %}</option>
-                        </select>
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[120px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "City" %}</label>
-                        <input type="text" name="city" value="{{ request.GET.city|default:'' }}" placeholder="{% trans 'City' %}"
-                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[160px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Text search" %}</label>
-                        <input type="text" name="search" value="{{ search_query|default:'' }}" placeholder="{% trans 'Search...' %}"
-                               class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                    </div>
-                    {% else %}
-                    {# ═══ CARS top filter — Fuel Type + Body Type ═══ #}
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[120px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Fuel Type" %}</label>
-                        <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                            <option value="">{% trans "All" %}</option>
-                            {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
-                        </select>
-                    </div>
-                    <div class="w-full sm:w-auto sm:flex-1 min-w-[140px]">
-                        <label class="block text-xs text-gray-500 mb-1.5 font-medium">{% trans "Body Type" %}</label>
-                        <select name="body_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-                            <option value="">{% trans "All" %}</option>
-                            {% for val, label in body_type_choices %}
-                            <option value="{{ val }}" {% if val in selected_body_types %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {% endif %}
-                    <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-3 sm:items-center">
-                        <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2">
-                            <i class="fas fa-sliders-h"></i> {% trans "Advanced Search" %}
-                        </a>
-                        <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium rounded-lg flex items-center gap-2 shadow-lg shadow-emerald-500/30">
-                            <i class="fas fa-search"></i> {% trans "Apply Filters" %}
-                        </button>
-                        {% if user.is_authenticated %}
-                        <button type="button" id="saveSearchBtn" onclick="saveSearch(this)" class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2 transition-all">
-                            <i class="far fa-bell" id="saveSearchIcon"></i> <span id="saveSearchLabel">{% trans "Save Search" %}</span>
-                        </button>
-                        {% endif %}
-                    </div>
-                </div>
-            </form>
-        </div>
+        {# ═══ PAIEŠKOS PANELĖ (rail + kategorijos laukai) ═══ #}
+        {% include 'listings/partials/search_panel.html' %}
 
         <div class="flex items-center justify-between mb-6">
             <span class="text-gray-500 text-sm">{% blocktrans %}Showing {{ total_count }} of {{ total_count }}{% endblocktrans %}</span>
@@ -1040,7 +886,7 @@
                         </div>
                         {% endif %}
                         {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-                        
+
                     </div>
                     {% endif %}
                 </div>
@@ -1050,6 +896,32 @@
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
                         <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                     </div>
+                    {% if selected_category == 'trucks' %}
+                    {# ── TRUCKS kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                    </div>
+                    {% if listing.truck_type or listing.euro_standard %}
+                    <div class="ap-spec-line">
+                        {% if listing.truck_type %}<span>{{ listing.get_truck_type_display }}</span>{% endif %}
+                        {% if listing.euro_standard %}{% if listing.truck_type %}<span class="sep">·</span>{% endif %}<span>{{ listing.euro_standard }}</span>{% endif %}
+                    </div>
+                    {% endif %}
+                    {% elif selected_category == 'motorcycles' %}
+                    {# ── MOTO kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.engine_capacity_cc %}<span class="sep">·</span><span>{{ listing.engine_capacity_cc }} cm³</span>{% endif %}
+                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                    </div>
+                    {% if listing.motorcycle_type %}
+                    <div class="ap-spec-line">
+                        <span>{{ listing.get_motorcycle_type_display }}</span>
+                    </div>
+                    {% endif %}
+                    {% else %}
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>
                         {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
@@ -1063,6 +935,7 @@
                             <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
                         {% endif %}
                     </div>
+                    {% endif %}
                     {% endif %}
                     <div class="ap-loc">
                         <i class="fas fa-map-marker-alt"></i>
@@ -1100,6 +973,7 @@ function onSortChange(selectEl) {
     {# ═══════════════════════════════════════════════════════════ #}
     {#  HOME TABS — Day's deals / Newest / Most Popular / Most Expensive  #}
     {# ═══════════════════════════════════════════════════════════ #}
+    {% if not selected_category or selected_category == 'cars' %}
     <div class="home-tabs-section" x-data="{ tab: 'featured' }">
         <div class="max-w-7xl mx-auto px-4">
 
@@ -1150,7 +1024,7 @@ function onSortChange(selectEl) {
                                 </div>
                                 {% endif %}
                                 {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-                                
+
                             </div>
                             {% endif %}
                         </div>
@@ -1276,6 +1150,7 @@ function onSortChange(selectEl) {
 
         </div>
     </div>
+    {% endif %}
 
 </div>
 {% endblock %}
@@ -1366,6 +1241,7 @@ function selectCategory(slug, label) {
     if (labelEl) labelEl.textContent = label;
     if (subcatEl) subcatEl.value = '';
     closeCategoryModal();
+    if (slug === 'tires' || slug === 'wheels') return;
     var url = new URL(window.location.href);
     url.searchParams.set('category', slug);
     url.searchParams.delete('subcategory');
@@ -1381,6 +1257,7 @@ function selectSubCategory(catSlug, catLabel, subId, subName) {
     if (labelEl) labelEl.textContent = catLabel + ' › ' + subName;
     if (subcatEl) subcatEl.value = subId;
     closeCategoryModal();
+    if (catSlug === 'tires' || catSlug === 'wheels') return;
     var url = new URL(window.location.href);
     url.searchParams.set('category', catSlug);
     url.searchParams.set('subcategory', subId);
@@ -1713,8 +1590,7 @@ function saveSearch(btn) {
         body: formData
     }).then(function(r) { return r.json(); })
       .then(function() {
-        btn.classList.remove('bg-white','hover:bg-gray-50','border-gray-300','text-gray-700');
-        btn.classList.add('bg-emerald-50','border-emerald-400','text-emerald-700');
+        btn.classList.add('text-emerald-600');
         document.getElementById('saveSearchIcon').className = 'fas fa-bell';
         document.getElementById('saveSearchLabel').textContent = '{% trans "Saved" %}';
       });
@@ -1736,6 +1612,116 @@ function saveSidebarSearch(btn) {
       });
 }
 
+// ═══ MOTO BRAND / MODEL DROPDOWNS ═══
+function toggleMotoDd(id, e) {
+    e.stopPropagation();
+    var dd = document.getElementById(id);
+    if (!dd) return;
+    ['motoBrandDd', 'motoModelDd'].forEach(function(x) {
+        if (x !== id) { var el = document.getElementById(x); if (el) el.classList.add('hidden'); }
+    });
+    if (document.getElementById('locationDropdown')) document.getElementById('locationDropdown').classList.add('hidden');
+    dd.classList.toggle('hidden');
+}
+
+function chooseMotoBrand(id, name) {
+    document.getElementById('motoBrandHidden').value = id;
+    document.getElementById('motoBrandLabel').textContent = name;
+    document.getElementById('motoBrandDd').classList.add('hidden');
+    document.getElementById('motoModelHidden').value = '';
+    document.getElementById('motoModelLabel').textContent = '{% trans "All Models" %}';
+    document.getElementById('motoModelList').innerHTML = '<div class="custom-item" onclick="chooseMotoModel(\'\', \'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+    if (id) loadMotoModels(id, '');
+}
+
+function chooseMotoModel(id, name) {
+    document.getElementById('motoModelHidden').value = id || '';
+    document.getElementById('motoModelLabel').textContent = name;
+    document.getElementById('motoModelDd').classList.add('hidden');
+}
+
+function loadMotoModels(brandId, selectedId) {
+    fetch('/ajax/get-motorcycle-models/?brand_id=' + brandId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            var list = document.getElementById('motoModelList');
+            if (!list) return;
+            list.innerHTML = '<div class="custom-item" onclick="chooseMotoModel(\'\', \'{% trans "All Models" %}\')"><span>{% trans "All Models" %}</span></div>';
+            data.forEach(function(m) {
+                var div = document.createElement('div');
+                div.className = 'custom-item';
+                div.dataset.id = m.id;
+                div.dataset.name = m.name;
+                div.innerHTML = '<span>' + m.name + '</span>';
+                div.onclick = function() { chooseMotoModel(m.id, m.name); };
+                if (selectedId && String(m.id) === String(selectedId)) {
+                    div.classList.add('selected');
+                    document.getElementById('motoModelLabel').textContent = m.name;
+                }
+                list.appendChild(div);
+            });
+        });
+}
+
+function filterMotoBrands(q) {
+    document.querySelectorAll('#motoBrandList .custom-item[data-id]').forEach(function(el) {
+        el.style.display = (el.dataset.name || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+function filterMotoModels(q) {
+    document.querySelectorAll('#motoModelList .custom-item[data-id]').forEach(function(el) {
+        el.style.display = (el.dataset.name || '').toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+
+function initMotoDropdowns() {
+    var bh = document.getElementById('motoBrandHidden');
+    if (!bh) return;
+    var bid = bh.value;
+    if (bid) {
+        var bel = document.querySelector('#motoBrandList .custom-item[data-id="' + bid + '"]');
+        if (bel) document.getElementById('motoBrandLabel').textContent = bel.dataset.name;
+        var mid = document.getElementById('motoModelHidden').value;
+        loadMotoModels(bid, mid);
+    }
+    document.addEventListener('click', function(e) {
+        ['motoBrandWrapper', 'motoModelWrapper'].forEach(function(id) {
+            var w = document.getElementById(id);
+            if (w && !w.contains(e.target)) {
+                var dd = w.querySelector('.custom-dropdown');
+                if (dd) dd.classList.add('hidden');
+            }
+        });
+    });
+}
+
+// ═══ RAIL FLYOUT — subkategorijos hover'iu (autogidas style) ═══
+function initRailFlyouts() {
+    document.querySelectorAll('.sp-rail-more[data-fly-slug]').forEach(function(wrap) {
+        var slug = wrap.dataset.flySlug;
+        var label = wrap.dataset.flyLabel;
+        var fly = wrap.querySelector('.sp-flyout');
+        if (!fly) return;
+
+        wrap.addEventListener('mouseenter', function() {
+            if (wrap._loaded) return;
+            wrap._loaded = true;
+            fetch('/ajax/get-subcategories/?vehicle_type_slug=' + slug)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data || !data.length) { fly.style.display = 'none'; return; }
+                    fly.innerHTML = data.map(function(s) {
+                        return '<div class="sp-fly-item" onclick="selectSubCategory(\'' + slug + '\',\'' +
+                            label.replace(/'/g, "\\'") + '\',' + s.id + ',\'' +
+                            s.name.replace(/'/g, "\\'") + '\')">' +
+                            '<i class="fas fa-chevron-right" style="font-size:0.65rem;"></i>' +
+                            '<span>' + s.name + '</span></div>';
+                    }).join('');
+                });
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('categoryModal').addEventListener('click', function(e) {
         if (e.target === this) closeCategoryModal();
@@ -1749,6 +1735,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Auto-refresh sidebar filters (autogidas.lt style)
     setupSidebarAutoRefresh();
+
+    // Rail flyouts (hover subkategorijos)
+    initRailFlyouts();
+    initMotoDropdowns();
 
     var catHidden = document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden');
     var catLabelEl = document.getElementById('categoryLabel') || document.getElementById('sidebarCategoryLabel');

@@ -698,6 +698,19 @@ def listing_list(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ TYRES & WHEELS → redirect į WheelListing browse ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'rim' in sub.name.lower() or 'ratlank' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
     _now = timezone.now()
     _three_days_ago = _now - timedelta(days=NEW_LISTING_DAYS)
 
@@ -1152,6 +1165,15 @@ def _get_or_create_cars_draft(request, vehicle_type_id=None, subcategory_id=None
     except VehicleType.DoesNotExist:
         return None
 
+    draft = Listing.objects.filter(
+        seller=request.user,
+        vehicle_type=vehicle_type,
+        status='draft',
+    ).order_by('-updated_at').first()
+    if draft is not None:
+        request.session[CARS_DRAFT_SESSION_KEY] = draft.pk
+        request.session.modified = True
+        return draft
     draft = Listing.objects.create(
         seller=request.user,
         vehicle_type=vehicle_type,
@@ -1683,6 +1705,11 @@ def listing_create(request):
     step = int(request.GET.get('step', 1))
     resume_draft_id = _int_or_none(request.GET.get('draft'))
 
+    # ─── 7-step flow pensijoj: gyvas tik Step 1 (kategorijų pikeris). ───
+    # cars → quick, moto/trucks/boats turi savo flow. Bet koks 2–7 → atgal į pikerį.
+    if step != 1 and not resume_draft_id:
+        return redirect('/create/?step=1')
+
     if step == 1 and request.method == 'GET' and not request.GET.get('flow') and not resume_draft_id:
         if CARS_DRAFT_SESSION_KEY in request.session:
             request.session[CARS_DRAFT_SESSION_KEY] = None
@@ -1765,6 +1792,12 @@ def listing_create(request):
                     return redirect(
                         f'/create/motogear/?subcategory={subcategory_slug}&new=1'
                     )
+
+                # ═══ TYRES / RIMS → atskiri wheels create puslapiai ═══
+                if subcategory_slug == 'rims':
+                    return redirect('/create/rims/')
+                if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
+                    return redirect('/create/tyres/')
 
                 draft = _get_or_create_cars_draft(
                     request,
@@ -2091,7 +2124,7 @@ def listing_create(request):
     model_name = current_draft.model.name if (current_draft and current_draft.model) else ''
     year_val = current_draft.year if current_draft else ''
 
-    country_choices = [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US']
+    country_choices = list(Listing.COUNTRY_CHOICES)
 
     completed_steps = _draft_completed_steps(current_draft)
     if step in (1, 2, 3, 4, 5, 6, 7):
@@ -2470,6 +2503,7 @@ def image_set_main(request, pk):
 
 def get_subcategories_ajax(request):
     from .models import SubCategory
+    from django.utils.translation import gettext
 
     vehicle_type_id = request.GET.get('vehicle_type_id')
     vehicle_type_slug = request.GET.get('vehicle_type_slug')
@@ -2498,7 +2532,7 @@ def get_subcategories_ajax(request):
     data = [
         {
             'id': s.id,
-            'name': s.name,
+            'name': gettext(s.name),
             'slug': s.slug,
             'has_children': s.children.exists(),
         }
@@ -2773,6 +2807,7 @@ def advanced_search_count_ajax(request):
 
     listings = _public_listings_qs(request.user)
 
+
     f = request.GET
     category_filter = f.get('category', '')
     if category_filter:
@@ -2866,9 +2901,41 @@ def advanced_search(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ TYRES & WHEELS → atskira WheelListing lentelė ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'ratlank' in sub.name.lower() or 'rim' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
+    # ═══ TYRES & WHEELS → atskira WheelListing lentelė ═══
+    if request.GET.get('category') in ('tires', 'wheels'):
+        wheel_type = 'tyre'
+        subcategory_id = request.GET.get('subcategory')
+        if subcategory_id:
+            try:
+                sub = SubCategory.objects.get(id=subcategory_id)
+                if 'rim' in sub.slug.lower() or 'ratlank' in sub.name.lower() or 'rim' in sub.name.lower():
+                    wheel_type = 'rim'
+            except SubCategory.DoesNotExist:
+                pass
+        return redirect(f'/browse/wheels/?type={wheel_type}')
+
     if request.GET.get('category') == 'trucks':
             from . import trucks_views
             return trucks_views.trucks_list(request)
+
+    if request.GET.get('category') in ('tires', 'wheels'):
+        return redirect('/search/wheels/advanced/')
+
+    if request.GET.get('category') in ('tires', 'wheels'):
+        return redirect('/search/wheels/advanced/')
 
     listings = _public_listings_qs(request.user).select_related(
         'brand', 'model', 'fuel_type', 'transmission', 'vehicle_type'
@@ -3144,7 +3211,7 @@ def _build_edit_context(listing, step, form):
         'step1_brand': listing.brand.name if listing.brand else '',
         'step1_model': listing.model.name if listing.model else '',
         'step1_year': listing.year,
-        'country_choices': [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US'],
+        'country_choices': list(Listing.COUNTRY_CHOICES),
         'us_states': Listing.US_STATE_CHOICES,
         'completed_steps': {step},
         'step_labels': [
@@ -5195,7 +5262,7 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
     model_name = source.model.name if (source and source.model) else ''
     year_val = source.year if source else ''
 
-    country_choices = [c for c in Step7ContactForm.COUNTRY_CHOICES if c[0] == 'US']
+    country_choices = list(Listing.COUNTRY_CHOICES)
 
     # ═══ Equipment grouped by category — CARS-ONLY filter ═══
     # Excludes truck_*, gear (motorcycles), and any other categories
@@ -5324,6 +5391,35 @@ def listing_select_plan(request, pk):
     # Jeigu jau active — nukreipk į detail (nereikia mokėti dar kartą)
     if listing.status == 'active':
         return redirect('listing_detail', pk=pk)
+
+    # Completeness guard: incomplete drafts must be filled before activating
+    if listing.status == 'draft':
+        is_moto_gear = (listing.subcategory_id and listing.subcategory.slug in MOTO_GEAR_SLUGS)
+        if is_moto_gear:
+            is_complete = bool(
+                listing.subcategory_id and listing.condition
+                and listing.price and listing.price > 0
+                and listing.country and listing.city and listing.city != '—'
+            )
+        else:
+            is_complete = bool(
+                listing.year and listing.first_registration and listing.fuel_type_id
+                and listing.price and listing.price > 0
+                and listing.country and listing.city and listing.city != '—'
+            )
+            slug = listing.vehicle_type.slug if listing.vehicle_type else ''
+            if slug == 'cars':
+                is_complete = is_complete and bool(
+                    listing.brand_id and listing.body_type
+                    and listing.transmission_id and listing.doors and listing.mileage
+                )
+            elif slug == 'trucks':
+                is_complete = is_complete and bool(
+                    listing.truck_brand_id and listing.truck_model_text and listing.truck_type
+                )
+        if not is_complete:
+            messages.info(request, 'Complete the listing before activating it.')
+            return redirect(listing.get_edit_url())
 
     # ─── Plan'us paimam iš DB pagal kategoriją ───
     plans_qs = PricingPlan.objects.filter(
@@ -5846,3 +5942,147 @@ def listing_services_checkout(request, pk):
     messages.success(request, f'Services activated successfully! Charged ${total:.2f} from wallet.')
     return redirect('my_listings')
 COUNTRY_FLAGS = {}
+
+
+# ═══════════════════════════════════════════════════════════
+# BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
+# ═══════════════════════════════════════════════════════════
+
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats'}
+
+
+def filter_listings(params, user=None, category=None, base_qs=None):
+    """Pritaiko visus GET filtrus ant Listing queryset'o.
+
+    params   — request.GET (QueryDict) arba dict
+    base_qs  — jei paduotas, filtruoja jį; kitaip ima _public_listings_qs
+    """
+    def _getlist(key):
+        if hasattr(params, 'getlist'):
+            return [v for v in params.getlist(key) if v]
+        v = params.get(key)
+        return [v] if v else []
+
+    listings = base_qs if base_qs is not None else _public_listings_qs(user)
+
+    category = category or params.get('category')
+    if category:
+        listings = listings.filter(vehicle_type__slug=category)
+
+    if params.get('search'):
+        listings = listings.filter(title__icontains=params['search'])
+    q = (params.get('q') or '').strip()
+    if q:
+        listings = listings.filter(title__icontains=q)
+
+    part_query = (params.get('part_query') or '').strip()
+    if part_query:
+        listings = listings.filter(
+            Q(title__icontains=part_query) | Q(description__icontains=part_query)
+        )
+
+    if params.get('brand'):
+        listings = listings.filter(brand_id=params['brand'])
+    if params.get('model'):
+        listings = listings.filter(model_id=params['model'])
+    if params.get('submodel'):
+        listings = listings.filter(submodel_id=params['submodel'])
+
+    if params.get('price_min'):
+        listings = listings.filter(price__gte=params['price_min'])
+    if params.get('price_max'):
+        listings = listings.filter(price__lte=params['price_max'])
+    if params.get('year_min'):
+        listings = listings.filter(year__gte=params['year_min'])
+    if params.get('year_max'):
+        listings = listings.filter(year__lte=params['year_max'])
+    if params.get('mileage_min'):
+        listings = listings.filter(mileage__gte=params['mileage_min'])
+    if params.get('mileage_max'):
+        listings = listings.filter(mileage__lte=params['mileage_max'])
+
+    if params.get('fuel_type'):
+        listings = listings.filter(fuel_type_id=params['fuel_type'])
+    if params.get('transmission'):
+        listings = listings.filter(transmission_id=params['transmission'])
+
+    body_types = _getlist('body_type')
+    if body_types:
+        listings = listings.filter(body_type__in=body_types)
+
+    if params.get('defects'):
+        listings = listings.filter(defects=params['defects'])
+
+    city_val = (params.get('city') or '').strip()
+    if city_val:
+        listings = listings.filter(city__icontains=city_val)
+
+    if params.get('state_filter'):
+        listings = listings.filter(country='US', state=params['state_filter'])
+    elif params.get('country_filter'):
+        listings = listings.filter(country=params['country_filter'])
+
+    posted_within = params.get('posted_within')
+    if posted_within:
+        try:
+            days = int(posted_within)
+            if days == 1:
+                cutoff = timezone.now() - timedelta(hours=24)
+            else:
+                cutoff = timezone.now() - timedelta(days=days)
+            listings = listings.filter(created_at__gte=cutoff)
+        except (ValueError, TypeError):
+            pass
+
+    if params.get('has_vin'):
+        listings = listings.exclude(vin__isnull=True).exclude(vin='')
+    if params.get('valid_inspection'):
+        listings = listings.filter(valid_inspection=True)
+    if params.get('hide_auctions'):
+        listings = listings.filter(is_auction=False)
+    if params.get('seller_type'):
+        listings = listings.filter(seller_type=params['seller_type'])
+
+    # Special features
+    FEATURE_FIELDS = {
+        'feat_trade_in': 'open_to_trade',
+        'feat_warranty': 'has_warranty',
+        'feat_lease': 'available_on_lease',
+        'feat_sport': 'is_sport_ready',
+        'feat_disabled': 'disabled_friendly',
+        'feat_service_book': 'has_service_book',
+        'feat_us_import': 'imported_from_us',
+        'feat_multi_keys': 'multiple_keys',
+        'feat_power_boost': 'power_boosted',
+        'feat_pneumatic': 'pneumatic_suspension',
+        'feat_remote_start': 'remote_start',
+        'feat_spare_wheel': 'spare_wheel',
+    }
+    for param_key, field in FEATURE_FIELDS.items():
+        if params.get(param_key):
+            listings = listings.filter(**{field: True})
+
+    # Equipment
+    for eid in _getlist('equipment'):
+        listings = listings.filter(equipment_items__equipment_id=eid)
+
+    return listings
+
+
+def search_panel_count(request, category):
+    """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
+    if category in ('tires', 'wheels'):
+        try:
+            from .models import WheelListing
+            qs = WheelListing.objects.filter(status='active')
+            wtype = request.GET.get('type')
+            if wtype:
+                qs = qs.filter(wheel_type=wtype)
+            return JsonResponse({'count': qs.count()})
+        except Exception:
+            return JsonResponse({'count': 0})
+
+    if category not in SEARCH_PANEL_CATEGORIES:
+        raise Http404
+    qs = filter_listings(request.GET, user=request.user, category=category)
+    return JsonResponse({'count': qs.count()})

@@ -1,0 +1,521 @@
+{% load i18n %}
+{# ================================================================ #}
+{# AutoLeft paieškos panelė — A variantas                           #}
+{# Visos kategorijų formos užkrautos iš karto, perjungimas per      #}
+{# Alpine x-show (0ms, be requestų). Count — AJAX su debounce.      #}
+{# Reikia: /paieska/count/<category>/ endpoint (search_panel_count) #}
+{# ================================================================ #}
+
+<style>
+  .sp-fld { background:#fff; border:1px solid #DCDEE2; border-radius:8px; font-size:14px; color:#555; width:100%; padding:12px 14px; appearance:none; }
+  .sp-fld:focus { outline:none; border-color:#374151; }
+  .sp-sel { position:relative; }
+  .sp-sel::after { content:''; position:absolute; right:13px; top:50%; transform:translateY(-50%); width:11px; height:11px; pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat; }
+  .sp-rail-btn2 { position:relative; width:100%; height:56px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:none; border:none; }
+  .sp-rail-btn2 svg { color:#6B7178; transition:color .12s; }
+  .sp-rail-btn2:hover svg { color:#333; }
+  .sp-rail-btn2.sp-on svg { color:#374151; }
+  .sp-rail-btn2.sp-on::after { content:''; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); width:32px; height:3px; background:#374151; border-radius:2px; }
+  [x-cloak] { display:none !important; }
+</style>
+
+<div class="bg-white rounded-xl shadow-sm flex max-w-[680px] overflow-hidden"
+     x-data="spPanel()" x-init="init()">
+
+  {# ---------- KATEGORIJŲ RAIL — Alpine tab'ai, be navigacijos ---------- #}
+  <div class="w-16 shrink-0 flex flex-col items-center pt-5 gap-0.5 border-r border-gray-100">
+
+    <button type="button" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"
+            @click="switchTab('cars')" title="{% trans 'Automobiliai' %}">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 13l1.6-4.2A2 2 0 018 7.5h8a2 2 0 011.9 1.3L19.5 13M4.5 13h15M4.5 13v3.5a1 1 0 001 1h1a1 1 0 001-1V16h9v.5a1 1 0 001 1h1a1 1 0 001-1V13"/></svg>
+    </button>
+
+    <button type="button" class="sp-rail-btn2" :class="tab === 'motorcycles' && 'sp-on'"
+            @click="switchTab('motorcycles')" title="{% trans 'Motociklai' %}">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
+    </button>
+
+    <button type="button" class="sp-rail-btn2" :class="tab === 'trucks' && 'sp-on'"
+            @click="switchTab('trucks')" title="{% trans 'Sunkvežimiai' %}">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
+    </button>
+
+    <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
+            @click="switchTab('wheels')" title="{% trans 'Padangos ir ratlankiai' %}">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
+    </button>
+
+    {% if user.is_staff %}
+    <button type="button" class="sp-rail-btn2" :class="tab === 'boats' && 'sp-on'"
+            @click="switchTab('boats')" title="{% trans 'Vandens transportas' %}">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 15h16l-2 4H6l-2-4zM12 4v11M12 6l6 7M12 6l-5 7"/></svg>
+    </button>
+
+    <button type="button" class="sp-rail-btn2" :class="tab === 'parts' && 'sp-on'"
+            @click="switchTab('parts')" title="{% trans 'Dalys' %}">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
+    </button>
+    {% endif %}
+  </div>
+
+  {# ---------- PANELĖS ---------- #}
+  <div class="flex-1 p-6 min-w-0">
+
+    {# ═══════════ CARS ═══════════ #}
+    <div x-show="tab === 'cars'" x-cloak id="sp-panel-cars">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Paieška" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="cars">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Prekės ženklas" %}</label>
+            <div class="sp-sel">
+              <select name="brand" class="sp-fld" onchange="spLoadModels(this, '/ajax/get-models/')">
+                <option value="">{% trans "Visi prekių ženklai" %}</option>
+                {% for brand in brands %}
+                  <option value="{{ brand.id }}">{{ brand.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Modelis" %}</label>
+            <div class="sp-sel">
+              <select name="model" class="sp-fld" disabled>
+                <option value="">{% trans "Visi modeliai" %}</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel">
+                <select name="year_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="year_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kuro tipas" %}</label>
+            <div class="sp-sel">
+              <select name="fuel_type" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for ft in fuel_types %}
+                  <option value="{{ ft.id }}">{{ ft.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kėbulo tipas" %}</label>
+            <div class="sp-sel">
+              <select name="body_type" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for value, label in body_type_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Vieta" %}</label>
+            <div class="sp-sel">
+              <select name="country_filter" class="sp-fld">
+                <option value="">{% trans "Visos vietos" %}</option>
+                {% for code, name in country_choices %}
+                  <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          <a href="{% url 'advanced_search' %}?category=cars"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+
+          {% if user.is_authenticated %}
+          <button type="button" @click="saveSearch($event.currentTarget)"
+                  class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M5.6 5.6l1.4 1.4M18.4 5.6L17 7M8 17h8l1.5 4h-11L8 17zM12 7a5 5 0 015 5v5H7v-5a5 5 0 015-5z"/></svg>
+            <span class="sp-save-label">{% trans "Išsaugoti paiešką" %}</span>
+          </button>
+          {% endif %}
+
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('cars')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {# ═══════════ MOTORCYCLES ═══════════ #}
+    <div x-show="tab === 'motorcycles'" x-cloak id="sp-panel-motorcycles">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Motociklai" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="motorcycles">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Prekės ženklas" %}</label>
+            <div class="sp-sel">
+              <select name="brand" class="sp-fld" onchange="spLoadModels(this, '/ajax/get-motorcycle-models/')">
+                <option value="">{% trans "Visi prekių ženklai" %}</option>
+                {% for b in moto_brands %}
+                  <option value="{{ b.id }}">{{ b.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Modelis" %}</label>
+            <div class="sp-sel">
+              <select name="model" class="sp-fld" disabled>
+                <option value="">{% trans "Visi modeliai" %}</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel">
+                <select name="year_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="year_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          <a href="{% url 'advanced_search' %}?category=motorcycles"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('motorcycles')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {# ═══════════ TRUCKS ═══════════ #}
+    <div x-show="tab === 'trucks'" x-cloak id="sp-panel-trucks">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Sunkvežimiai" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="trucks">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel">
+                <select name="year_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="year_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Tekstinė paieška" %}</label>
+            <input type="text" name="q" placeholder="{% trans 'Ieškoti...' %}" class="sp-fld placeholder-gray-400">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          <a href="{% url 'advanced_search' %}?category=trucks"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('trucks')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {# ═══════════ WHEELS (Padangos ir ratlankiai) ═══════════ #}
+    <div x-show="tab === 'wheels'" x-cloak id="sp-panel-wheels">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Padangos ir ratlankiai" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'wheels_list' %}">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Tipas" %}</label>
+            <div class="sp-sel">
+              <select name="type" class="sp-fld">
+                <option value="tyre">{% trans "Padangos" %}</option>
+                <option value="rim">{% trans "Ratlankiai" %}</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          <a href="{% url 'wheels_advanced_search' %}"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('wheels')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {% if user.is_staff %}
+    {# ═══════════ BOATS ═══════════ #}
+    <div x-show="tab === 'boats'" x-cloak id="sp-panel-boats">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Vandens transportas" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="boats">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel">
+                <select name="year_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="year_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-6">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('boats')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {# ═══════════ PARTS ═══════════ #}
+    <div x-show="tab === 'parts'" x-cloak id="sp-panel-parts">
+      <h2 class="text-[17px] font-bold mb-5">{% trans "Dalys" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="parts">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Pavadinimas arba detalės kodas" %}</label>
+            <input type="text" name="part_query" placeholder="{% trans 'pvz. 06H 145 601 H' %}" class="sp-fld placeholder-gray-400">
+          </div>
+          <div>
+            <label class="block text-[13.5px] font-bold mb-[7px]">{% trans "Kainų diapazonas" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" placeholder="{% trans 'Maks.' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-6">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('parts')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+// ═══ Alpine komponentas — tab state + count debounce ═══
+function spPanel() {
+  return {
+    tab: 'cars',
+    counts: {},
+    _timer: null,
+
+    init() {
+      // Atkuriam tab iš URL (?section= arba ?category=)
+      var p = new URLSearchParams(location.search);
+      var s = p.get('section') || p.get('category');
+      if (s === 'tires') s = 'wheels';
+      if (s && document.getElementById('sp-panel-' + s)) {
+        this.tab = s;
+      }
+
+      // Klausom formų pakeitimų — count refresh su debounce
+      var self = this;
+      this.$el.querySelectorAll('form.sp-search-form').forEach(function(f) {
+        f.addEventListener('change', function() { self.refreshCount(); });
+        f.addEventListener('input', function(e) {
+          var t = e.target.type;
+          if (t === 'text' || t === 'search' || t === 'number') self.refreshCount();
+        });
+      });
+
+      this.refreshCount(0);
+    },
+
+    switchTab(key) {
+      this.tab = key;
+      history.replaceState({}, '', location.pathname + '?section=' + key);
+      if (this.counts[key] === undefined) this.refreshCount(0);
+    },
+
+    countLabel(cat) {
+      var c = this.counts[cat];
+      return (c === undefined || c === null) ? '' : c;
+    },
+
+    refreshCount(delay) {
+      var self = this;
+      clearTimeout(this._timer);
+      this._timer = setTimeout(function() {
+        var panel = document.getElementById('sp-panel-' + self.tab);
+        if (!panel) return;
+        var form = panel.querySelector('form');
+        if (!form) return;
+        var qs = new URLSearchParams(new FormData(form)).toString();
+        var cat = self.tab;
+        fetch('/paieska/count/' + cat + '/?' + qs)
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var upd = {};
+            upd[cat] = data.count;
+            self.counts = Object.assign({}, self.counts, upd);
+          })
+          .catch(function() { /* tyliai */ });
+      }, delay === 0 ? 0 : 300);
+    },
+
+    saveSearch(btn) {
+      var panel = document.getElementById('sp-panel-' + this.tab);
+      var form = panel ? panel.querySelector('form') : null;
+      if (!form) return;
+      fetch('{% url "save_search" %}', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        body: new FormData(form)
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        var lbl = btn.querySelector('.sp-save-label');
+        if (lbl) lbl.textContent = '{% trans "Išsaugota" %}';
+        btn.classList.add('text-emerald-600');
+      });
+    }
+  };
+}
+
+// ═══ Brand → Model cascade (cars ir moto, skiriasi tik endpoint) ═══
+function spLoadModels(brandSel, endpoint) {
+  var form = brandSel.closest('form');
+  var modelSel = form.querySelector('select[name="model"]');
+  if (!modelSel) return;
+
+  modelSel.innerHTML = '<option value="">{% trans "Visi modeliai" %}</option>';
+  if (!brandSel.value) {
+    modelSel.disabled = true;
+    return;
+  }
+  modelSel.disabled = false;
+  modelSel.innerHTML = '<option value="">{% trans "Kraunama..." %}</option>';
+
+  fetch(endpoint + '?brand_id=' + brandSel.value)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      modelSel.innerHTML = '<option value="">{% trans "Visi modeliai" %}</option>';
+      data.forEach(function(item) {
+        if (item.type && item.type !== 'model') return;
+        var opt = document.createElement('option');
+        opt.value = item.model_id || item.id;
+        opt.textContent = item.name + (item.count !== undefined ? ' (' + item.count + ')' : '');
+        modelSel.appendChild(opt);
+      });
+    })
+    .catch(function() {
+      modelSel.innerHTML = '<option value="">{% trans "Visi modeliai" %}</option>';
+    });
+}
+</script>

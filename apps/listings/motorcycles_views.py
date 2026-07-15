@@ -987,7 +987,31 @@ def motorcycles_list(request):
         'selected_country': country_filter,
         'selected_state': state_filter,
     }
-    return render(request, 'listings/motorcycles_list.html', context)
+
+    # ═══ SIDEBAR režimas → senas moto template; kitaip → bendras listing_list (rail) ═══
+    if request.GET.get('sidebar'):
+        return render(request, 'listings/motorcycles_list.html', context)
+
+    context.update({
+        'country_choices': Listing.COUNTRY_CHOICES,
+        'location_countries': [
+            {'code': c, 'name': n, 'fi_code': c.lower()}
+            for c, n in Listing.COUNTRY_CHOICES
+        ],
+        'brands': [],
+        'fuel_types': [],
+        'transmissions': [],
+        'body_type_choices': [],
+        'selected_body_types': [],
+        'equipment_by_category': [],
+        'selected_equipment': [],
+        'tab_featured': [],
+        'tab_newest': [],
+        'tab_popular': [],
+        'tab_expensive': [],
+        'selected_subcategory_name': '',
+    })
+    return render(request, 'listings/listing_list.html', context)
 
 
 # ─── motorcycles_advanced_search — advanced search page ───

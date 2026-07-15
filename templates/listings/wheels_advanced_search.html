@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Advanced Search" %} - {% if product_type == 'rim' %}{% trans "Rims" %}{% else %}{% trans "Tyres" %}{% endif %} - SellCar{% endblock %}
+
+{% block extra_css %}
+<style>
+.adv-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+.adv-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 24px; margin-bottom: 12px; }
+.adv-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
+.adv-title { font-size: 1.05rem; font-weight: 600; color: #1f2937; }
+.adv-clear { font-size: 0.78rem; color: #2563eb; text-decoration: none; cursor: pointer; }
+.adv-clear:hover { text-decoration: underline; }
+
+.adv-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px 20px; }
+@media (max-width: 768px) { .adv-grid3 { grid-template-columns: 1fr; } }
+
+.adv-field { display: flex; flex-direction: column; gap: 4px; }
+.adv-field label { font-size: 0.72rem; color: #6b7280; font-weight: 500; }
+
+.adv-select, .adv-input {
+    padding: 0.5rem 0.65rem;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: #111827;
+    width: 100%;
+}
+.adv-select:focus, .adv-input:focus { outline: none; border-color: #6b7280; }
+
+.adv-range { display: flex; align-items: center; gap: 4px; }
+.adv-range span { color: #9ca3af; font-size: 0.75rem; }
+.adv-range .adv-input, .adv-range .adv-select { flex: 1; min-width: 0; }
+
+/* ─── Type toggle ─── */
+.wtype-toggle { display:inline-flex; border:1px solid #d1d5db; border-radius:4px; overflow:hidden; }
+.wtype-toggle a { padding:0.45rem 1.4rem; font-size:0.82rem; font-weight:600; color:#6b7280; background:#f9fafb; text-decoration:none; transition:all 0.15s; }
+.wtype-toggle a.active { background:#374151; color:#fff; }
+.wtype-toggle a:not(.active):hover { background:#f3f4f6; color:#374151; }
+
+.adv-bottom { display: flex; align-items: center; justify-content: center; margin: 24px 0; }
+.btn-search {
+    background: #2563eb; color: #fff; font-weight: 600;
+    padding: 0.65rem 3rem; border-radius: 4px; font-size: 0.95rem;
+    border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+.btn-search:hover { background: #1d4ed8; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+<div class="adv-wrap">
+
+<form method="get" action="{% url 'wheels_list' %}" id="advForm">
+<input type="hidden" name="type" value="{{ product_type }}">
+
+<div class="adv-card">
+    <div class="adv-header">
+        <div class="adv-title">{% if product_type == 'rim' %}{% trans "Rims search" %}{% else %}{% trans "Tyres search" %}{% endif %}</div>
+        <a class="adv-clear" onclick="clearAllFilters()">{% trans "Clear search" %}</a>
+    </div>
+
+    <div class="adv-grid3">
+
+        {# ═══ BRAND ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Brand" %}</label>
+            <select name="brand" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% if product_type == 'rim' %}
+                    {% for b in rim_brands %}
+                    <option value="{{ b }}" {% if f.brand == b %}selected{% endif %}>{{ b }}</option>
+                    {% endfor %}
+                {% else %}
+                    {% for b in tyre_brands %}
+                    <option value="{{ b }}" {% if f.brand == b %}selected{% endif %}>{{ b }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+
+        {# ═══ DIAMETER ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Diameter" %}</label>
+            <select name="diameter" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in diameter_choices %}
+                <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {# ═══ PRICE ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Price, $" %}</label>
+            <div class="adv-range">
+                <input type="number" name="price_from" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.price_from }}">
+                <span>–</span>
+                <input type="number" name="price_to" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.price_to }}">
+            </div>
+        </div>
+
+        {% if product_type == 'tyre' %}
+        {# ═══ TYRE-SPECIFIC ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Width" %}</label>
+            <select name="tyre_width" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_width_choices %}
+                <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Profile" %}</label>
+            <select name="tyre_profile" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_profile_choices %}
+                <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Season" %}</label>
+            <select name="tyre_season" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_season_choices %}
+                <option value="{{ val }}" {% if f.tyre_season == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Speed index" %}</label>
+            <select name="tyre_speed_index" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_speed_choices %}
+                <option value="{{ val }}" {% if f.tyre_speed_index == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Tread depth" %}</label>
+            <select name="tyre_tread_mm" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_tread_choices %}
+                <option value="{{ val }}" {% if f.tyre_tread_mm == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "DOT year" %}</label>
+            <select name="tyre_dot_year" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in tyre_dot_year_choices %}
+                <option value="{{ val }}" {% if f.tyre_dot_year == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% else %}
+        {# ═══ RIM-SPECIFIC ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Rim width" %}</label>
+            <select name="rim_width" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in rim_width_choices %}
+                <option value="{{ val }}" {% if f.rim_width == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "PCD" %}</label>
+            <select name="rim_pcd" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in rim_pcd_choices %}
+                <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Bolt count" %}</label>
+            <select name="rim_bolt_count" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in rim_bolt_count_choices %}
+                <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Material" %}</label>
+            <select name="rim_material" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in rim_material_choices %}
+                <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "ET (offset)" %}</label>
+            <div class="adv-range">
+                <input type="number" name="rim_et_from" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.rim_et_from }}">
+                <span>–</span>
+                <input type="number" name="rim_et_to" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.rim_et_to }}">
+            </div>
+        </div>
+        {% endif %}
+
+        {# ═══ BENDRI ═══ #}
+        <div class="adv-field">
+            <label>{% trans "Purpose" %}</label>
+            <select name="purpose" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in purpose_choices %}
+                <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Condition" %}</label>
+            <select name="condition" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for val, label in condition_choices %}
+                <option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Min quantity" %}</label>
+            <select name="quantity_min" class="adv-select">
+                <option value="">{% trans "Any" %}</option>
+                <option value="1" {% if f.quantity_min == '1' %}selected{% endif %}>1+</option>
+                <option value="2" {% if f.quantity_min == '2' %}selected{% endif %}>2+</option>
+                <option value="4" {% if f.quantity_min == '4' %}selected{% endif %}>4+</option>
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "Country" %}</label>
+            <select name="country_filter" class="adv-select">
+                <option value="">{% trans "All" %}</option>
+                {% for code, name in country_choices %}
+                <option value="{{ code }}" {% if f.country_filter == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "State (USA)" %}</label>
+            <select name="state_filter" class="adv-select">
+                <option value="">{% trans "All States" %}</option>
+                {% for code, name in us_states %}
+                <option value="{{ code }}" {% if f.state_filter == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="adv-field">
+            <label>{% trans "City" %}</label>
+            <input type="text" name="city" class="adv-input" placeholder="{% trans 'All' %}" value="{{ f.city }}">
+        </div>
+
+        <div class="adv-field" style="grid-column: 1 / -1;">
+            <label>{% trans "Text Search" %}</label>
+            <input type="text" name="q" class="adv-input" placeholder="{% trans 'e.g. Michelin winter set...' %}" value="{{ f.q }}">
+        </div>
+    </div>
+</div>
+
+<div class="adv-bottom">
+    <button type="submit" class="btn-search" id="advancedSearchBtn">
+        <i class="fas fa-search"></i> <span>{% trans "Search" %}</span> <span id="advSearchCount">({{ total_count }})</span>
+    </button>
+</div>
+</form>
+
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function clearAllFilters() {
+    window.location.href = '{% url "wheels_advanced_search" %}?type={{ product_type }}';
+}
+
+// ═══════════════════════════════════════════════════════════
+// LIVE COUNT — atnaujina "Search (N)" mygtuką realtime
+// Naudoja /ajax/wheels-search-count/ (ta pati filter logika kaip list)
+// ═══════════════════════════════════════════════════════════
+(function() {
+    var form = document.getElementById('advForm');
+    var countEl = document.getElementById('advSearchCount');
+    if (!form || !countEl) return;
+
+    var debounceTimer = null;
+
+    function updateLiveCount() {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+            var params = new URLSearchParams();
+            form.querySelectorAll('input, select').forEach(function(el) {
+                if (!el.name) return;
+                if (el.type === 'checkbox' && !el.checked) return;
+                if (el.value === '' || el.value === null) return;
+                params.append(el.name, el.value);
+            });
+
+            countEl.textContent = '(...)';
+
+            fetch('/ajax/wheels-search-count/?' + params.toString())
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    countEl.textContent = '(' + data.count + ')';
+                })
+                .catch(function() {
+                    countEl.textContent = '(?)';
+                });
+        }, 400);
+    }
+
+    form.addEventListener('change', updateLiveCount);
+    form.addEventListener('input', function(e) {
+        if (e.target.tagName === 'INPUT') updateLiveCount();
+    });
+})();
+</script>
+{% endblock %}

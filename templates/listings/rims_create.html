@@ -1,0 +1,610 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "New listing: Rims" %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {# ═══ HEADER ═══ #}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
+            <h2 class="text-xl font-bold text-gray-900">{% trans "New listing: Rims" %}</h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" id="rimsForm" action="">
+            {% csrf_token %}
+            <input type="hidden" name="product_type" value="rim">
+
+            {# ═══ MAIN LISTING DATA ═══ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Main listing data" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                        <div data-field-wrap="brand_name" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Manufacturer" %} <span class="text-red-500">*</span></label>
+                            <div id="rimBrandWrap" class="relative">
+                                <input type="text" id="rimBrandSearch" placeholder="---------" autocomplete="off"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm cursor-pointer"
+                                       onfocus="openRimBrandDropdown()" oninput="filterRimBrands(this.value)">
+                                <div id="rimBrandDropdown" class="hidden absolute z-50 w-full bg-white border border-gray-200 rounded shadow-lg mt-1 max-h-60 overflow-y-auto">
+                                    {% for b in rim_brands %}
+                                    <div class="px-3 py-2 cursor-pointer hover:bg-gray-50 text-sm rim-brand-option"
+                                         data-name="{{ b }}" onclick="chooseRimBrand(this.dataset.name)">{{ b }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <input type="text" id="rimBrandOther" maxlength="80" placeholder="{% trans 'Enter manufacturer' %}"
+                                   class="hidden w-full px-3 py-2 border border-gray-300 rounded text-sm mt-2">
+                            <input type="hidden" name="brand_name" id="id_brand_name">
+                            <input type="hidden" name="brand_name_other" id="id_brand_name_other">
+                        </div>
+
+                        <div data-field-wrap="model_name">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="text" name="model_name" maxlength="80" placeholder="---------"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="diameter" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Diameter" %} <span class="text-red-500">*</span></label>
+                            <select name="diameter" id="id_diameter"
+                                    onchange="if(this.value) markFieldError('diameter', false)"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for val, label in diameter_choices %}
+                                <option value="{{ val }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="condition" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Condition" %} <span class="text-red-500">*</span></label>
+                            <select name="condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                {% for val, label in condition_choices %}
+                                <option value="{{ val }}" {% if val == 'used' %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="quantity" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Quantity" %} <span class="text-red-500">*</span></label>
+                            <input type="number" name="quantity" id="id_quantity" value="4" min="1" max="99" step="1"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        {# ═══ PRICE — $ DEŠINĖJE ═══ #}
+                        <div data-field-wrap="price" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price" %} <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" name="price" id="id_price" min="0" step="1"
+                                       oninput="if(this.value) markFieldError('price', false)"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-end pb-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="negotiable" class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Negotiable" %}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══ RIM DETAILS ═══ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Rim details" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                        <div data-field-wrap="rim_material" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Type" %} <span class="text-red-500">*</span></label>
+                            <select name="rim_material" id="id_rim_material"
+                                    onchange="if(this.value) markFieldError('rim_material', false)"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for val, label in rim_material_choices %}
+                                <option value="{{ val }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="rim_bolt_count" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Bolt count" %} <span class="text-red-500">*</span></label>
+                            <select name="rim_bolt_count" id="id_rim_bolt_count"
+                                    onchange="if(this.value) markFieldError('rim_bolt_count', false)"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for val, label in rim_bolt_count_choices %}
+                                <option value="{{ val }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="rim_pcd" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">PCD <span class="text-red-500">*</span></label>
+                            <select name="rim_pcd" id="id_rim_pcd"
+                                    onchange="if(this.value) markFieldError('rim_pcd', false)"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for val, label in rim_pcd_choices %}
+                                <option value="{{ val }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="rim_width" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Width (J)" %} <span class="text-red-500">*</span></label>
+                            <select name="rim_width" id="id_rim_width"
+                                    onchange="if(this.value) markFieldError('rim_width', false)"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for val, label in rim_width_choices %}
+                                <option value="{{ val }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="rim_dia">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Center bore" %} (mm) <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="number" name="rim_dia" step="0.1" min="0" max="999" placeholder="66.6"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="rim_et">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">ET <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                            <input type="number" name="rim_et" step="1" min="-50" max="120" placeholder="35"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+
+                    {# ═══ FITS CAR BRANDS ═══ #}
+                    <div class="mt-5 pt-4 border-t border-gray-100">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fits car brands" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
+                        <input type="text" name="fits_brands" maxlength="200" placeholder="{% trans 'e.g. Audi, BMW, VW' %}"
+                               class="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded text-sm">
+                    </div>
+
+                    {# ═══ RIM FEATURES ═══ #}
+                    {% if rim_feature_fields %}
+                    <div class="mt-5 pt-4 border-t border-gray-100">
+                        <h4 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Features" %}</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
+                            {% for field, label in rim_feature_fields %}
+                            <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
+                                <input type="checkbox" name="{{ field }}" class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{{ label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# ═══ DESCRIPTION ═══ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Description" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            <textarea name="description" placeholder="{% trans 'Describe condition, wear, storage, reason for selling...' %}"></textarea>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded p-4 text-xs text-gray-700">
+                            <p class="font-semibold mb-2">{% trans "Describe your offer in detail." %}</p>
+                            <p class="mb-2">{% trans "The fewer questions buyers have when reading your listing, the faster you'll find a buyer." %}</p>
+                            <p>{% trans "Avoid using ALL CAPS or excessive symbols." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══ PHOTOS ═══ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Photos" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div id="photo-preview-wrapper" style="display:none" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            {% trans "Selected photos" %}
+                            <span class="text-xs text-gray-400" id="photos-count">(0 / 20)</span>
+                        </label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="photo-preview"></div>
+                    </div>
+
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-500 transition-colors cursor-pointer">
+                        <i class="fas fa-camera text-3xl text-gray-400 mb-3 block"></i>
+                        <p class="text-sm text-gray-700 font-medium mb-1">{% trans "Upload photos" %}</p>
+                        <p class="text-xs text-gray-500">{% trans "Up to 20 photos. Max size 24MB. JPG, GIF, PNG." %}</p>
+                        <input type="file" id="imageInput" accept="image/*" multiple class="hidden">
+                    </div>
+
+                    <input type="file" name="photos" id="photosSubmitInput" multiple class="hidden">
+                </div>
+            </div>
+
+            {# ═══ CONTACTS ═══ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Contacts" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <div data-field-wrap="contact_phone" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
+                                <span>{% trans "Phone" %} <span class="text-red-500">*</span></span>
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
+                                        {% trans "Phone number is required so potential buyers can contact you by phone." %}
+                                    </span>
+                                </span>
+                            </label>
+                            <input type="tel" name="contact_phone" id="id_contact_phone"
+                                   value="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% endif %}"
+                                   placeholder="{% trans '+1 555 123 4567' %}"
+                                   oninput="if(this.value) markFieldError('contact_phone', false)"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
+                                <span>{% trans "Email" %} <span class="text-xs text-gray-400 font-normal">{% trans "(optional)" %}</span></span>
+                                <span class="relative inline-flex group cursor-help">
+                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
+                                        {% trans "Email lets potential buyers reach you by email. Hidden from public listing visitors." %}
+                                    </span>
+                                </span>
+                            </label>
+                            <input type="email" name="contact_email" id="id_contact_email"
+                                   value="{{ user.email|default:'' }}"
+                                   placeholder="{% trans 'your@email.com' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="country" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
+                            <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                {% for code, name in country_choices %}
+                                <option value="{{ code }}" {% if code == 'LT' %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div id="stateFieldWrapper" data-field-wrap="state" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500" id="state-required">*</span></label>
+                            <select name="state" id="id_state" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">{% trans "Select state" %}</option>
+                                {% for code, name in us_states %}
+                                <option value="{{ code }}">{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="city" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
+                            <input type="text" name="city" id="id_city" placeholder="{% trans 'e.g., Vilnius' %}"
+                                   oninput="if(this.value) markFieldError('city', false)"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" id="id_agree_terms" class="w-4 h-4 rounded mt-0.5">
+                            <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══ ERRORS ═══ #}
+            <div id="wheels-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                    <div class="text-sm">
+                        <p class="font-semibold mb-1">{% trans "Not all required fields are filled in or filled in incorrectly. These fields are marked in red." %}</p>
+                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="wheels-form-error-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══ SUBMIT ═══ #}
+            <div class="flex items-center justify-center mb-8">
+                <button type="button" onclick="handleRimsSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold text-base shadow">
+                    {% trans "Submit Listing" %}
+                </button>
+            </div>
+
+            <p class="text-center text-xs text-gray-500 mb-8">{% trans "* Required fields" %}</p>
+        </form>
+    </div>
+</div>
+
+<div id="preview-lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closePreviewLightbox(event)">
+    <button type="button" onclick="closePreviewLightbox()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10">×</button>
+    <img id="preview-lightbox-img" src="" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+</div>
+
+<style>
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
+        width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
+        font-size: 0.875rem; transition: all 0.2s;
+    }
+    select:focus, input:focus, textarea:focus {
+        outline: none; border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.15);
+    }
+    textarea { min-height: 140px; resize: vertical; padding: 0.75rem; }
+    input[type="checkbox"] { width: 1rem; height: 1rem; border-radius: 0.25rem; accent-color: #4b5563; }
+
+    [data-required="true"] input[type="text"],
+    [data-required="true"] input[type="number"],
+    [data-required="true"] input[type="tel"],
+    [data-required="true"] input[type="email"],
+    [data-required="true"] select,
+    [data-required="true"] textarea {
+        border: 2px solid #6b7280;
+        background-color: #f3f4f6;
+    }
+    [data-required="true"] input[type="text"]:focus,
+    [data-required="true"] input[type="number"]:focus,
+    [data-required="true"] input[type="tel"]:focus,
+    [data-required="true"] input[type="email"]:focus,
+    [data-required="true"] select:focus,
+    [data-required="true"] textarea:focus {
+        border: 2px solid #4b5563;
+        background-color: #ffffff;
+    }
+
+    [data-field-wrap].field-error input,
+    [data-field-wrap].field-error select,
+    [data-field-wrap].field-error textarea {
+        border-color: #ef4444 !important;
+        background-color: #fef2f2 !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    [data-field-wrap].field-error label { color: #dc2626 !important; }
+
+    .top-error-banner {
+        background-color: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #b91c1c;
+    }
+</style>
+
+<script>
+var CSRF_TOKEN = '{{ csrf_token }}';
+var MAX_PHOTOS = 20;
+var selectedFiles = [];
+
+function markFieldError(fieldName, hasError) {
+    var wrap = document.querySelector('[data-field-wrap="' + fieldName + '"]');
+    if (wrap) { if (hasError) wrap.classList.add('field-error'); else wrap.classList.remove('field-error'); }
+}
+function clearAllFieldErrors() {
+    document.querySelectorAll('[data-field-wrap].field-error').forEach(function(el) { el.classList.remove('field-error'); });
+}
+
+function handleRimsSubmit() {
+    clearAllFieldErrors();
+    var errors = [];
+
+    var brandName = document.getElementById('id_brand_name');
+    if (!brandName || !brandName.value.trim()) { errors.push('{% trans "Manufacturer is required" %}'); markFieldError('brand_name', true); }
+
+    var diameter = document.getElementById('id_diameter');
+    if (!diameter || !diameter.value) { errors.push('{% trans "Diameter is required" %}'); markFieldError('diameter', true); }
+
+    var price = document.getElementById('id_price');
+    if (!price || !price.value) { errors.push('{% trans "Price is required" %}'); markFieldError('price', true); }
+
+    var rm = document.getElementById('id_rim_material');
+    var rb = document.getElementById('id_rim_bolt_count');
+    var rp = document.getElementById('id_rim_pcd');
+    var rw = document.getElementById('id_rim_width');
+    if (!rm || !rm.value) { errors.push('{% trans "Type is required" %}'); markFieldError('rim_material', true); }
+    if (!rb || !rb.value) { errors.push('{% trans "Bolt count is required" %}'); markFieldError('rim_bolt_count', true); }
+    if (!rp || !rp.value) { errors.push('PCD {% trans "is required" %}'); markFieldError('rim_pcd', true); }
+    if (!rw || !rw.value) { errors.push('{% trans "Width is required" %}'); markFieldError('rim_width', true); }
+
+    var country = document.getElementById('id_country');
+    var state = document.getElementById('id_state');
+    var city = document.getElementById('id_city');
+    var phone = document.getElementById('id_contact_phone');
+    var agreeTerms = document.getElementById('id_agree_terms');
+
+    if (country && country.value === 'US') {
+        if (!state || !state.value) { errors.push('{% trans "State is required" %}'); markFieldError('state', true); }
+    }
+    if (!city || !city.value.trim()) { errors.push('{% trans "City is required" %}'); markFieldError('city', true); }
+    if (!phone || !phone.value.trim()) { errors.push('{% trans "Phone is required" %}'); markFieldError('contact_phone', true); }
+    if (agreeTerms && !agreeTerms.checked) { errors.push('{% trans "You must agree to terms and conditions" %}'); }
+
+    if (errors.length > 0) { showFormErrors(errors); return; }
+
+    var dt = new DataTransfer();
+    selectedFiles.forEach(function(f) { dt.items.add(f); });
+    document.getElementById('photosSubmitInput').files = dt.files;
+    document.getElementById('rimsForm').submit();
+}
+
+function showFormErrors(errors) {
+    var box = document.getElementById('wheels-form-errors');
+    var list = document.getElementById('wheels-form-error-list');
+    if (!box || !list) return;
+    list.innerHTML = '';
+    errors.forEach(function(e) { var li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+    box.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function() {
+        var firstError = document.querySelector('[data-field-wrap].field-error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 600);
+}
+
+function onCountryChange() {
+    var country = document.getElementById('id_country'); if (!country) return;
+    var stateWrap = document.getElementById('stateFieldWrapper');
+    var stateRequired = document.getElementById('state-required');
+    if (!stateWrap) return;
+    if (country.value === 'US') {
+        stateWrap.classList.remove('hidden');
+        if (stateRequired) stateRequired.style.display = '';
+    } else {
+        stateWrap.classList.add('hidden');
+        if (stateRequired) stateRequired.style.display = 'none';
+    }
+}
+
+function openPreviewLightbox(url) {
+    var pb = document.getElementById('preview-lightbox'); var img = document.getElementById('preview-lightbox-img');
+    if (!pb || !img) return; img.src = url; pb.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+}
+function closePreviewLightbox(e) {
+    if (e && e.target.id !== 'preview-lightbox' && e.type === 'click') return;
+    var pb = document.getElementById('preview-lightbox'); if (pb) pb.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+    var pb = document.getElementById('preview-lightbox');
+    if (pb && !pb.classList.contains('hidden') && e.key === 'Escape') closePreviewLightbox();
+});
+
+// ═══ RIM BRAND DROPDOWN ═══
+function openRimBrandDropdown() {
+    var d = document.getElementById('rimBrandDropdown'); if (d) d.classList.remove('hidden');
+}
+function filterRimBrands(q) {
+    document.getElementById('rimBrandDropdown').classList.remove('hidden');
+    document.querySelectorAll('.rim-brand-option').forEach(function(el) {
+        el.style.display = el.dataset.name.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+    });
+}
+function chooseRimBrand(name) {
+    document.getElementById('rimBrandSearch').value = name;
+    document.getElementById('id_brand_name').value = name;
+    document.getElementById('rimBrandDropdown').classList.add('hidden');
+    var other = document.getElementById('rimBrandOther');
+    other.classList.toggle('hidden', name !== 'Other');
+    if (name) markFieldError('brand_name', false);
+}
+
+function compressImage(file) {
+    return new Promise(function(resolve) {
+        if (file.type === 'image/gif' || file.size < 600 * 1024) { resolve(file); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                var MAX = 1920;
+                var w = img.width, h = img.height;
+                if (w > MAX || h > MAX) {
+                    if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+                    else { w = Math.round(w * MAX / h); h = MAX; }
+                }
+                var canvas = document.createElement('canvas');
+                canvas.width = w; canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                canvas.toBlob(function(blob) {
+                    if (!blob || blob.size >= file.size) { resolve(file); return; }
+                    var newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                    resolve(new File([blob], newName, { type: 'image/jpeg' }));
+                }, 'image/jpeg', 0.85);
+            };
+            img.onerror = function() { resolve(file); };
+            img.src = e.target.result;
+        };
+        reader.onerror = function() { resolve(file); };
+        reader.readAsDataURL(file);
+    });
+}
+
+function renderPhotoPreviews() {
+    var panel = document.getElementById('photo-preview');
+    var wrap = document.getElementById('photo-preview-wrapper');
+    var count = document.getElementById('photos-count');
+    if (!panel) return;
+    panel.innerHTML = '';
+    selectedFiles.forEach(function(file, idx) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            var div = document.createElement('div');
+            div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
+                            (idx === 0 ? 'border-green-500' : 'border-gray-200') + ' bg-gray-100';
+            var badge = idx === 0
+                ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}</span>'
+                : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">' + (idx + 1) + '</span>';
+            div.innerHTML =
+                '<img src="' + ev.target.result + '" class="w-full h-full object-cover hover:opacity-90 transition-opacity">' +
+                badge +
+                '<button type="button" data-remove-idx="' + idx + '" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">×</button>';
+            div.querySelector('img').addEventListener('click', function() { openPreviewLightbox(ev.target.result); });
+            div.querySelector('button').addEventListener('click', function(e) {
+                e.stopPropagation();
+                var i = parseInt(this.dataset.removeIdx, 10);
+                selectedFiles.splice(i, 1);
+                renderPhotoPreviews();
+            });
+            panel.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+    if (wrap) wrap.style.display = selectedFiles.length ? '' : 'none';
+    if (count) count.textContent = '(' + selectedFiles.length + ' / ' + MAX_PHOTOS + ')';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('rimBrandOther').addEventListener('input', function() {
+        document.getElementById('id_brand_name_other').value = this.value;
+    });
+    document.addEventListener('click', function(e) {
+        var w = document.getElementById('rimBrandWrap');
+        if (w && !w.contains(e.target)) {
+            var d = document.getElementById('rimBrandDropdown');
+            if (d) d.classList.add('hidden');
+        }
+    });
+    onCountryChange();
+
+    var dropZone = document.getElementById('dropZone');
+    var imageInput = document.getElementById('imageInput');
+    if (!dropZone || !imageInput) return;
+
+    function addFiles(fileList) {
+        var newFiles = Array.from(fileList).filter(function(f) { return f.type && f.type.startsWith('image/'); });
+        var available = MAX_PHOTOS - selectedFiles.length;
+        if (newFiles.length > available) {
+            if (available <= 0) { alert('{% trans "Maximum 20 photos. Remove some first." %}'); return; }
+            newFiles = newFiles.slice(0, available);
+        }
+        Promise.all(newFiles.map(function(f) { return compressImage(f); })).then(function(compressed) {
+            compressed.forEach(function(f) { selectedFiles.push(f); });
+            renderPhotoPreviews();
+        });
+    }
+
+    dropZone.addEventListener('click', function() { imageInput.click(); });
+    imageInput.addEventListener('change', function() { addFiles(imageInput.files); imageInput.value = ''; });
+    dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('border-gray-500', 'bg-gray-50'); });
+    dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('border-gray-500', 'bg-gray-50'); });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-gray-500', 'bg-gray-50');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) addFiles(e.dataTransfer.files);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% load i18n %}
+<div x-data="searchPanel()" x-init="init()" class="flex bg-white rounded-xl shadow-sm overflow-hidden">
+
+  <!-- Icon rail -->
+  <div class="flex flex-col border-r border-gray-100">
+    <template x-for="c in categories" :key="c.key">
+      <button @click="switchTab(c.key)"
+              class="w-16 h-16 flex items-center justify-center border-l-2 transition-colors"
+              :class="tab === c.key ? 'border-red-600 bg-red-50 text-red-600' : 'border-transparent text-gray-400 hover:text-gray-600'">
+        <span x-html="c.icon"></span>
+      </button>
+    </template>
+  </div>
+
+  <!-- Panels -->
+  <div class="flex-1 p-6">
+    <div x-show="tab === 'cars'" x-cloak id="panel-cars">
+      {% include 'search/_panel_cars.html' %}
+    </div>
+    <div x-show="tab === 'motorcycles'" x-cloak id="panel-motorcycles">
+      {% include 'search/_panel_motorcycles.html' %}
+    </div>
+    <div x-show="tab === 'wheels'" x-cloak id="panel-wheels">
+      {% include 'search/_panel_wheels.html' %}
+    </div>
+    <div x-show="tab === 'trucks'" x-cloak id="panel-trucks">
+      {% include 'search/_panel_trucks.html' %}
+    </div>
+    <div x-show="tab === 'parts'" x-cloak id="panel-parts">
+      {% include 'search/_panel_parts.html' %}
+    </div>
+    <div x-show="tab === 'boats'" x-cloak id="panel-boats">
+      {% include 'search/_panel_boats.html' %}
+    </div>
+  </div>
+</div>
+
+<script>
+function searchPanel() {
+  return {
+    tab: 'cars',
+    counts: {},
+    timer: null,
+    categories: [
+      { key: 'cars',        icon: '<svg><!-- car icon --></svg>' },
+      { key: 'motorcycles', icon: '<svg><!-- moto icon --></svg>' },
+      { key: 'wheels',      icon: '<svg><!-- wheel icon --></svg>' },
+      { key: 'trucks',      icon: '<svg><!-- truck icon --></svg>' },
+      { key: 'parts',       icon: '<svg><!-- parts icon --></svg>' },
+      { key: 'boats',       icon: '<svg><!-- boat icon --></svg>' },
+    ],
+    init() {
+      const s = new URLSearchParams(location.search).get('section');
+      if (s && this.categories.some(c => c.key === s)) this.tab = s;
+      this.refreshCount();
+      // klausom visų panelės formų pakeitimų
+      this.$el.querySelectorAll('form.search-form').forEach(f => {
+        f.addEventListener('change', () => this.refreshCount());
+        f.addEventListener('input', e => {
+          if (e.target.type === 'text' || e.target.type === 'search') this.refreshCount();
+        });
+      });
+    },
+    switchTab(key) {
+      this.tab = key;
+      history.replaceState({}, '', '?section=' + key);
+      if (this.counts[key] === undefined) this.refreshCount();
+    },
+    refreshCount() {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(async () => {
+        const form = document.querySelector('#panel-' + this.tab + ' form');
+        if (!form) return;
+        const qs = new URLSearchParams(new FormData(form)).toString();
+        try {
+          const r = await fetch('/paieska/count/' + this.tab + '/?' + qs);
+          const data = await r.json();
+          this.counts = { ...this.counts, [this.tab]: data.count };
+        } catch (e) { /* tyliai */ }
+      }, 300);
+    }
+  }
+}
+</script>

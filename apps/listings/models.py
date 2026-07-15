@@ -2869,3 +2869,244 @@ class PartCategory(models.Model):
 
         return separator.join(n.name_en for n in self.breadcrumb())
 
+WHEEL_PURPOSE_CHOICES = [
+    ('passenger',  'Passenger cars'),
+    ('suv',        'SUV / Off-road'),
+    ('commercial', 'Commercial / Van'),
+    ('truck',      'Trucks'),
+    ('moto',       'Motorcycles'),
+    ('industrial', 'Industrial'),
+]
+ 
+# Padangų plotis (mm) — 125..355 žingsniu 10
+TYRE_WIDTH_CHOICES = [(str(w), str(w)) for w in range(125, 356, 10)]
+ 
+# Padangų profilis / aukštis (%)
+TYRE_PROFILE_CHOICES = [
+    (str(p), str(p)) for p in
+    [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85]
+]
+ 
+# Skersmuo (R) — bendras padangoms ir ratlankiams
+WHEEL_DIAMETER_CHOICES = [(str(d), f'R{d}') for d in range(10, 25)]  # R10..R24
+ 
+TYRE_SEASON_CHOICES = [
+    ('summer',     'Summer'),
+    ('winter',     'Winter'),
+    ('all_season', 'All-season'),
+]
+ 
+TYRE_SPEED_CHOICES = [
+    (c, c) for c in ['J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
+                     'T', 'U', 'H', 'V', 'W', 'Y', 'Z']
+]
+ 
+# Protektoriaus gylis (mm) — dropdown 1..10
+TYRE_TREAD_CHOICES = [(str(x), f'{x} mm') for x in range(1, 11)]
+ 
+# Padangų likutis (%) — dropdown 10..100 žingsniu 10
+TYRE_REMAINING_CHOICES = [(str(p), f'{p}%') for p in range(10, 101, 10)]
+ 
+# Pagaminimo metai (DOT) — dropdown (paskutiniai 20 metų)
+import datetime as _dt
+_YR = _dt.date.today().year
+TYRE_DOT_YEAR_CHOICES = [(str(y), str(y)) for y in range(_YR, _YR - 21, -1)]
+ 
+# ─── Ratlankiai ─────────────────────────────────────────────
+RIM_WIDTH_CHOICES = [
+    (f'{w/2:.1f}'.rstrip('0').rstrip('.'), f'{w/2:.1f}'.rstrip('0').rstrip('.') + 'J')
+    for w in range(8, 27)  # 4.0J .. 13.0J
+]
+ 
+RIM_PCD_CHOICES = [
+    (v, v) for v in [
+        '3x98', '4x98', '4x100', '4x108', '4x114.3',
+        '5x98', '5x100', '5x108', '5x110', '5x112', '5x114.3',
+        '5x115', '5x118', '5x120', '5x127', '5x130', '5x139.7',
+        '6x114.3', '6x130', '6x139.7', '8x165.1', '8x170',
+    ]
+]
+ 
+RIM_BOLT_COUNT_CHOICES = [(str(n), str(n)) for n in [3, 4, 5, 6, 8, 10]]
+ 
+RIM_MATERIAL_CHOICES = [
+    ('alloy',   'Alloy'),
+    ('steel',   'Steel'),
+    ('forged',  'Forged'),
+    ('carbon',  'Carbon fiber'),
+]
+ 
+WHEEL_CONDITION_CHOICES = [
+    ('new',  'New'),
+    ('used', 'Used'),
+]
+ 
+WHEEL_STATUS_CHOICES = [
+    ('draft',    'Draft'),
+    ('active',   'Active'),
+    ('reserved', 'Reserved'),
+    ('sold',     'Sold'),
+    ('expired',  'Expired'),
+    ('archived', 'Archived'),
+]
+ 
+WHEEL_DEFAULT_ACTIVE_DAYS = 30
+WHEEL_SOLD_DISPLAY_DAYS = 7
+ 
+ 
+class WheelListing(models.Model):
+    """Tyres + Rims vienoje lentelėje. product_type skiria."""
+ 
+    PRODUCT_TYPE_CHOICES = [
+        ('tyre', 'Tyres'),
+        ('rim',  'Rims'),
+    ]
+ 
+    DEFAULT_ACTIVE_DAYS = WHEEL_DEFAULT_ACTIVE_DAYS
+    SOLD_DISPLAY_DAYS = WHEEL_SOLD_DISPLAY_DAYS
+ 
+    COUNTRY_CHOICES = Listing.COUNTRY_CHOICES
+    US_STATE_CHOICES = Listing.US_STATE_CHOICES
+ 
+    seller = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='wheel_listings',
+    )
+    product_type = models.CharField(max_length=8, choices=PRODUCT_TYPE_CHOICES, db_index=True)
+ 
+    # ─── Bendri ───
+    title = models.CharField(max_length=200, blank=True)
+    brand_name = models.CharField(max_length=80, blank=True)   # Manufacturer (Nokian, BBS...)
+    model_name = models.CharField(max_length=80, blank=True)
+    purpose = models.CharField(max_length=20, choices=WHEEL_PURPOSE_CHOICES, blank=True, db_index=True)
+    diameter = models.CharField(max_length=4, choices=WHEEL_DIAMETER_CHOICES, blank=True, db_index=True)  # R
+    condition = models.CharField(max_length=8, choices=WHEEL_CONDITION_CHOICES, default='used')
+    quantity = models.PositiveSmallIntegerField(default=4)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    negotiable = models.BooleanField(default=False)
+    description = models.TextField(blank=True)
+ 
+    # ─── Padangoms (product_type='tyre') ───
+    tyre_width = models.CharField(max_length=4, choices=TYRE_WIDTH_CHOICES, blank=True, db_index=True)
+    tyre_profile = models.CharField(max_length=4, choices=TYRE_PROFILE_CHOICES, blank=True, db_index=True)
+    tyre_season = models.CharField(max_length=12, choices=TYRE_SEASON_CHOICES, blank=True, db_index=True)
+    tyre_speed_index = models.CharField(max_length=2, choices=TYRE_SPEED_CHOICES, blank=True)
+    tyre_load_index = models.CharField(max_length=6, blank=True)
+    tyre_tread_mm = models.CharField(max_length=4, choices=TYRE_TREAD_CHOICES, blank=True)      # Tread depth mm
+    tyre_remaining_pct = models.CharField(max_length=4, choices=TYRE_REMAINING_CHOICES, blank=True)  # Padangų likutis %
+    tyre_dot_year = models.CharField(max_length=4, choices=TYRE_DOT_YEAR_CHOICES, blank=True)   # Production year
+ 
+    # ─── Tyre Features (autogidas "Ypatumai") ───
+    feat_spare_thin = models.BooleanField(default=False)   # Spare tyre "thin"
+    feat_sold_single = models.BooleanField(default=False)  # Sold individually
+    feat_sport = models.BooleanField(default=False)        # Sport tyres
+    feat_suv = models.BooleanField(default=False)          # SUV tyres
+    feat_rain = models.BooleanField(default=False)         # Rain tyres
+    feat_run_flat = models.BooleanField(default=False)     # Run on flat
+    feat_reinforced = models.BooleanField(default=False)   # Reinforced
+    feat_studded = models.BooleanField(default=False)      # Studded winter
+ 
+    # ─── Ratlankiams (product_type='rim') ───
+    rim_width = models.CharField(max_length=6, choices=RIM_WIDTH_CHOICES, blank=True, db_index=True)  # J
+    rim_pcd = models.CharField(max_length=12, choices=RIM_PCD_CHOICES, blank=True, db_index=True)
+    rim_bolt_count = models.CharField(max_length=2, choices=RIM_BOLT_COUNT_CHOICES, blank=True)
+    rim_et = models.IntegerField(null=True, blank=True)
+    rim_dia = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    rim_material = models.CharField(max_length=10, choices=RIM_MATERIAL_CHOICES, blank=True)
+ 
+    # ─── Lokacija + kontaktai ───
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='LT')
+    state = models.CharField(max_length=64, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    contact_phone = models.CharField(max_length=30, blank=True)
+    contact_email = models.EmailField(blank=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+ 
+    # ─── Marketplace (star / boost / expires) ───
+    status = models.CharField(max_length=12, choices=WHEEL_STATUS_CHOICES, default='draft', db_index=True)
+    star_level = models.PositiveSmallIntegerField(default=0)
+    star_count = models.PositiveSmallIntegerField(default=0)
+    star_expires_at = models.DateTimeField(null=True, blank=True)
+    last_boosted_at = models.DateTimeField(null=True, blank=True)
+    featured_until = models.DateTimeField(null=True, blank=True)
+    highlight_until = models.DateTimeField(null=True, blank=True)
+    is_shadow_banned = models.BooleanField(default=False)
+ 
+    views_count = models.PositiveIntegerField(default=0)
+    impressions_count = models.PositiveIntegerField(default=0)
+ 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    activated_at = models.DateTimeField(null=True, blank=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    sold_at = models.DateTimeField(null=True, blank=True)
+ 
+    class Meta:
+        verbose_name = "Wheel Listing"
+        verbose_name_plural = "Wheel Listings"
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['product_type', 'status']),
+            models.Index(fields=['tyre_width', 'tyre_profile', 'diameter']),
+            models.Index(fields=['rim_width', 'diameter', 'rim_pcd']),
+        ]
+ 
+    def __str__(self):
+        if self.product_type == 'tyre':
+            return f'{self.tyre_width}/{self.tyre_profile} {self.diameter} ({self.brand_name})'
+        return f'{self.diameter}x{self.rim_width} {self.rim_pcd} ({self.brand_name})'
+ 
+    def get_absolute_url(self):
+        return reverse('wheels_detail', kwargs={'pk': self.pk})
+ 
+    @property
+    def currency_symbol(self):
+        return '$' if self.country == 'US' else '€'
+ 
+    def build_title(self):
+        if self.product_type == 'tyre':
+            size = f'{self.tyre_width}/{self.tyre_profile} {self.diameter}'
+            return f'{self.brand_name} {size}'.strip()
+        size = f'{self.diameter}x{self.rim_width} {self.rim_pcd}'
+        return f'{self.brand_name} {size}'.strip()
+ 
+    def activate(self, days=None):
+        if days is None:
+            days = self.DEFAULT_ACTIVE_DAYS
+        now = timezone.now()
+        self.status = 'active'
+        self.activated_at = now
+        self.expires_at = now + timedelta(days=days)
+        if not self.title:
+            self.title = self.build_title()
+        self.save()
+        return True
+ 
+    def is_star_active(self):
+        return (self.star_level > 0 and self.star_expires_at
+                and self.star_expires_at > timezone.now())
+ 
+ 
+class WheelImage(models.Model):
+    listing = models.ForeignKey(WheelListing, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='wheels/%Y/%m/')
+    is_main = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(default=0)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+ 
+    class Meta:
+        ordering = ['order', '-is_main']
+        verbose_name = "Wheel Image"
+        verbose_name_plural = "Wheel Images"
+ 
+ 
+class SavedWheelListing(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_wheels')
+    listing = models.ForeignKey(WheelListing, on_delete=models.CASCADE, related_name='saved_by')
+    saved_at = models.DateTimeField(auto_now_add=True)
+ 
+    class Meta:
+        unique_together = ('user', 'listing')
+        ordering = ['-saved_at']
+

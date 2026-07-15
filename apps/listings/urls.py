@@ -9,6 +9,7 @@ from . import parts_views
 from . import moto_part_views
 from . import truck_for_parts_views
 from apps.listings import boats_views
+from . import wheels_views
 from .decorators import staff_only
 
 urlpatterns = [
@@ -28,6 +29,18 @@ urlpatterns = [
     path("create/motorcycle/", motorcycles_views.motorcycle_listing_create, name="motorcycle_listing_create"),
     path("create/trucks/", trucks_views.trucks_listing_create, name="trucks_listing_create"),
     path("create/boats/", boats_views.boats_listing_create, name="boats_listing_create"),
+    path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
+    path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
+    path("create/rims/", wheels_views.rims_create, name="rims_create"),
+    path("browse/wheels/", wheels_views.wheels_list, name="wheels_list"),
+    path("search/wheels/advanced/", wheels_views.wheels_advanced_search, name="wheels_advanced_search"),
+    path("ajax/wheels-search-count/", wheels_views.wheels_search_count_ajax, name="wheels_search_count_ajax"),
+    path("wheels/<int:pk>/save/", wheels_views.wheels_save_toggle, name="wheels_save_toggle"),
+    path("wheels/<int:pk>/delete/", wheels_views.wheels_delete, name="wheels_delete"),
+    path("wheels/<int:pk>/activate/", wheels_views.wheels_activate, name="wheels_activate"),
+    path("wheels/<int:pk>/delete/", wheels_views.wheels_delete, name="wheels_delete"),
+    path("wheels/<int:pk>/activate/", wheels_views.wheels_activate, name="wheels_activate"),
+    path("wheels/<int:pk>/", wheels_views.wheels_detail, name="wheels_detail"),
 
     # ─── PARTS (Single part / parts kit) ───
     path("create/moto-part/", moto_part_views.moto_part_create, name="moto_part_create"),
@@ -98,6 +111,7 @@ urlpatterns = [
     # ─── Search ───
     path('search/advanced/', views.advanced_search, name='advanced_search'),
     path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
+    path('paieska/count/<str:category>/', views.search_panel_count, name='search_panel_count'),
     path('search/advanced/motorcycles/', motorcycles_views.motorcycles_advanced_search, name='motorcycles_advanced_search'),
     path('search/advanced/moto-parts/', moto_part_views.moto_parts_advanced_search, name='moto_parts_advanced_search'),
     path('search/advanced/trucks/', trucks_views.trucks_advanced_search, name='trucks_advanced_search'),

@@ -1,0 +1,63 @@
+{% load i18n %}
+<form class="search-form" method="get" action="{% url 'listing_list' %}">
+  <input type="hidden" name="category" value="cars">
+  <h2 class="font-semibold text-lg mb-4">{% trans "Paieška" %}</h2>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="text-xs text-gray-500">{% trans "Markė" %}</label>
+      <select name="brand" class="w-full border rounded-lg px-3 py-2"
+              onchange="loadModels(this.value, this.closest('form').querySelector('[name=model]'))">
+        <option value="">{% trans "Visos" %}</option>
+        {% for b in car_brands %}<option value="{{ b.id }}">{{ b.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="text-xs text-gray-500">{% trans "Modelis" %}</label>
+      <select name="model" class="w-full border rounded-lg px-3 py-2">
+        <option value="">{% trans "Visi" %}</option>
+      </select>
+    </div>
+
+    <div class="flex gap-2">
+      <select name="year_from" class="w-full border rounded-lg px-3 py-2">
+        <option value="">{% trans "Nuo" %}</option>
+        {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+      </select>
+      <select name="year_to" class="w-full border rounded-lg px-3 py-2">
+        <option value="">{% trans "Iki" %}</option>
+        {% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="flex gap-2">
+      <input name="price_from" type="number" step="1" placeholder="{% trans 'Nuo' %}"
+             class="w-full border rounded-lg px-3 py-2">
+      <input name="price_to" type="number" step="1" placeholder="{% trans 'Iki' %}"
+             class="w-full border rounded-lg px-3 py-2">
+    </div>
+
+    <div>
+      <label class="text-xs text-gray-500">{% trans "Kuro tipas" %}</label>
+      <select name="fuel" class="w-full border rounded-lg px-3 py-2">
+        <option value="">{% trans "Visi" %}</option>
+        {% for f in fuel_types %}<option value="{{ f.0 }}">{{ f.1 }}</option>{% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="text-xs text-gray-500">{% trans "Kėbulo tipas" %}</label>
+      <select name="body" class="w-full border rounded-lg px-3 py-2">
+        <option value="">{% trans "Visi" %}</option>
+        {% for b in body_types %}<option value="{{ b.0 }}">{{ b.1 }}</option>{% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mt-5">
+    <a href="{% url 'advanced_search' %}?category=cars"
+       class="text-sm text-gray-600 hover:text-gray-900">{% trans "Detali paieška" %}</a>
+    <button type="submit"
+            class="bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-2.5 rounded-lg">
+      {% trans "Skelbimai" %} <span x-text="counts['cars'] ?? ''"></span>
+    </button>
+  </div>
+</form>

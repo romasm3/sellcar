@@ -1,6 +1,29 @@
 # Motorcycle Models - autoplius.lt
 # Formatas: BRAND|MODEL
 # Vienas iraso per eilute. Eilutes prasidedancios # yra komentarai.
+# 'Other' pridedamas pirmas kiekvienai markei (komanda jį irgi auto-prideda).
+
+# === 50A ===
+50A|Other
+50A|50E
+50A|BIGY FACTORY 190 DAYTONA MX
+50A|Factory SP1
+50A|Factory SP2
+50A|Factory SP3
+50A|Factory SP3 F190
+50A|GP 187 Daytona
+50A|Lite 125
+50A|LITE 88S
+50A|Pilot F125
+50A|Pilot F150
+50A|SM 125S
+50A|SM F150
+50A|SM F190
+50A|Start 125SE
+50A|Start F125
+50A|Start F125S
+50A|Start F88S
+50A|Start F88SE
 
 # === ABM ===
 ABM|Other
@@ -16,8 +39,22 @@ Access Motor|SHADE 850LT EPS
 Access Motor|SP400
 Access Motor|Streak
 
+# === Adiva ===
+Adiva|Other
+Adiva|AD3
+
 # === ADVENTO ===
+ADVENTO|Other
 ADVENTO|MAXI
+
+# === Aeon ===
+Aeon|Other
+Aeon|Cobra 400
+
+# === Aermacchi ===
+Aermacchi|Other
+Aermacchi|350 TV
+Aermacchi|Ala Verde Sport
 
 # === AGM ===
 AGM|Other
@@ -30,10 +67,35 @@ AJP|PR4 Enduro
 AJP|PR4 Supermotard
 AJP|PR7
 
+# === AJS ===
+AJS|Other
+AJS|AJS-10
+
 # === Alfarad ===
+Alfarad|Other
 Alfarad|AF250G
 
+# === Alfer ===
+Alfer|Other
+Alfer|VR
+
+# === Altis ===
+Altis|Other
+Altis|Sigma
+
+# === Amazonas ===
+Amazonas|Other
+Amazonas|1600
+
+# === American Eagle ===
+American Eagle|Other
+American Eagle|Falcon MS Cruiser
+American Eagle|Raptor
+American Eagle|Raven
+American Eagle|Street Fighter
+
 # === AODES ===
+AODES|Other
 AODES|850L
 AODES|850S
 AODES|1000L
@@ -57,6 +119,19 @@ AODES|TRAILCROSS 250
 AODES|TRAILCROSS 400
 AODES|WORKCROSS 650
 AODES|WORKCROSS 1000
+
+# === APG ===
+APG|Other
+APG|Adonis
+APG|Eres
+APG|Fulgur
+APG|Lupus
+APG|Nero
+APG|Nero S
+APG|Papilio
+APG|Papilio S
+APG|Retro
+APG|Roadster
 
 # === Apollo ===
 Apollo|Other
@@ -120,6 +195,335 @@ Aprilia|SXV
 Aprilia|Tuareg
 Aprilia|Tuono
 
+# === Archive Motorcycle ===
+Archive Motorcycle|Other
+Archive Motorcycle|Scrambler
+
+# === Arctic Cat ===
+Arctic Cat|Other
+Arctic Cat|1000
+Arctic Cat|1000 Thundercat
+Arctic Cat|1000i GT EFT
+Arctic Cat|1000i GT TRV EFT
+Arctic Cat|300
+Arctic Cat|300 DVX
+Arctic Cat|400
+Arctic Cat|400 2x4 EFT
+Arctic Cat|400 4x4 EFT
+Arctic Cat|450
+Arctic Cat|450 i EFT
+Arctic Cat|500
+Arctic Cat|500 TRV
+Arctic Cat|550
+Arctic Cat|550 TRV XT EPS
+Arctic Cat|550i EFT
+Arctic Cat|550i GT EFT
+Arctic Cat|550i GT TRV
+Arctic Cat|650
+Arctic Cat|650 TRV
+Arctic Cat|660
+Arctic Cat|700
+Arctic Cat|700 Diesel EGR TRV 3inl EFT
+Arctic Cat|700 Diesel TRV
+Arctic Cat|700 EFI TRV
+Arctic Cat|700 TRV XT EPS - Special
+Arctic Cat|700i GT EFT
+Arctic Cat|700i GT TRV EFT
+Arctic Cat|700i H1 4x4
+Arctic Cat|700i TBX GT T3S
+Arctic Cat|Alterra
+Arctic Cat|Alterra 300 2x4
+Arctic Cat|Alterra 400 4x4
+Arctic Cat|Alterra 450
+Arctic Cat|Alterra 550
+Arctic Cat|Alterra 550 XT EPS
+Arctic Cat|Alterra 700
+Arctic Cat|Alterra 700 XT EPS
+Arctic Cat|Alterra TRV 1000 XT EPS
+Arctic Cat|Alterra TRV 550
+Arctic Cat|Alterra TRV 550 XT EPS
+Arctic Cat|Alterra TRV 700
+Arctic Cat|Alterra TRV 700 XT EPS
+Arctic Cat|Arctic Cat 90 / DVX 90
+Arctic Cat|Bearcat
+Arctic Cat|Cheetah
+Arctic Cat|Cougar
+Arctic Cat|Cross Country Cat
+Arctic Cat|Crossfire
+Arctic Cat|El Tigre
+Arctic Cat|EXT
+Arctic Cat|F series
+Arctic Cat|Firecat
+Arctic Cat|Jag
+Arctic Cat|Jaguar
+Arctic Cat|King Cat
+Arctic Cat|Kitty Cat
+Arctic Cat|Lynx
+Arctic Cat|M series
+Arctic Cat|Mountain Cat
+Arctic Cat|Pantera
+Arctic Cat|Panther
+Arctic Cat|Powder Special
+Arctic Cat|Prowler
+Arctic Cat|Prowler 500
+Arctic Cat|Prowler 650 XT
+Arctic Cat|Prowler HDX
+Arctic Cat|Prowler HDX 700
+Arctic Cat|Prowler HDX Crew
+Arctic Cat|Puma
+Arctic Cat|Sport Cat
+Arctic Cat|T660
+Arctic Cat|Thundercat
+Arctic Cat|TRV
+Arctic Cat|Wild Cat
+Arctic Cat|Wild Cat Trail XT
+Arctic Cat|Wildcat
+Arctic Cat|Wildcat Limited
+Arctic Cat|Wildcat Sport XT
+Arctic Cat|XC
+Arctic Cat|XC 450 EFT
+Arctic Cat|XC 450i EFT
+Arctic Cat|XT
+Arctic Cat|Youth
+Arctic Cat|Z series
+Arctic Cat|ZL
+Arctic Cat|ZR
+
+# === Ardie ===
+Ardie|Other
+Ardie|Jubilaumsmodell
+
+# === Argo ===
+Argo|Other
+Argo|Avenger 8x8
+Argo|Bigfoot 6x6
+Argo|Conquest 6x6
+Argo|Conquest 8x8
+Argo|Response 8x8
+Argo|Vanguard 6x6
+Argo|Vanguard2 6x6
+
+# === Asix ===
+Asix|Other
+Asix|705
+Asix|706
+Asix|710
+Asix|Avatar
+Asix|CHALLENGER
+Asix|Commander
+Asix|Coyote
+Asix|Cyber
+Asix|Defender
+Asix|DK60
+Asix|DT
+Asix|DT140
+Asix|DT190
+Asix|E-M10/6
+Asix|E-M11
+Asix|E-M7/6
+Asix|Fourcraft
+Asix|Gladiator
+Asix|Grizzly
+Asix|Hunter
+Asix|Lizzard
+Asix|M10
+Asix|M7
+Asix|Muddy
+Asix|Ranger
+Asix|Tao
+Asix|XB-18
+Asix|XB-27
+Asix|XB-28
+Asix|XB-39
+Asix|XB-47
+Asix|XB-68
+Asix|XB-83
+Asix|XR-99
+
+# === Askoll ===
+Askoll|Other
+Askoll|esPro 70
+
+# === ATK ===
+ATK|Other
+ATK|125
+ATK|250
+ATK|260
+ATK|450
+ATK|500
+ATK|600
+ATK|605
+ATK|620
+ATK|700
+
+# === Atlant ===
+Atlant|Other
+Atlant|Dakota
+Atlant|Sprint
+Atlant|Zenith
+
+# === ATV ===
+ATV|Other
+ATV|125cc
+ATV|250cc
+ATV|50cc
+ATV|Anaconda
+ATV|BMW Style
+ATV|Cobra
+ATV|CRF 50
+ATV|CRF 70
+ATV|Cross
+ATV|Crusade
+ATV|Deuauville
+ATV|Dirt Bike
+ATV|EGL Motor
+ATV|Electric MiniMoto
+ATV|Electric Racer
+ATV|Electric Torino
+ATV|ENDURO
+ATV|Farmer
+ATV|Fighter
+ATV|FX
+ATV|Hornet
+ATV|Hummer
+ATV|Hummer II
+ATV|Hunter
+ATV|Hunter pro
+ATV|KLX Style
+ATV|KTM 250cc
+ATV|KTM Style
+ATV|MAD MAX
+ATV|MADDEX
+ATV|MADIX
+ATV|Mini KLX
+ATV|Monkey
+ATV|Panther
+ATV|Panthera
+ATV|PathCross 1000L
+ATV|PathCross 1000S
+ATV|PathCross 650L
+ATV|PathCross 650S
+ATV|PathCross 850L
+ATV|PathCross 850S
+ATV|PathCross MUD 1000L
+ATV|PathCross MUD 1000S
+ATV|Pocket Bike
+ATV|Pocket Bike II
+ATV|Pocket Bike III
+ATV|Pocket Dirt Bike
+ATV|Polaris Style
+ATV|Quad Bike
+ATV|Quad Bike Light
+ATV|Racer
+ATV|Racing
+ATV|Ranger
+ATV|Raptor Style
+ATV|S-10
+ATV|S-12
+ATV|S-14
+ATV|S-8
+ATV|Shadow
+ATV|Shineray
+ATV|Speedstar
+ATV|Sport
+ATV|Tiger
+ATV|Torino
+ATV|Trex
+ATV|Warrior
+ATV|Warrior pro
+ATV|Yeti
+
+# === Azel ===
+Azel|Other
+Azel|250 GS
+Azel|Atila 125
+Azel|Blackrose 250
+Azel|Street Bike 125cc
+Azel|Wolf 200
+
+# === BamX ===
+BamX|Other
+BamX|BX125
+BamX|BX150
+BamX|BX200
+BamX|BX50
+BamX|BX70
+
+# === Baotian ===
+Baotian|Other
+Baotian|Citibike
+Baotian|Eagle
+Baotian|Evoliution
+Baotian|Falcon
+Baotian|Monza
+Baotian|Tanco
+
+# === Barton ===
+Barton|Other
+Barton|B-Max
+Barton|Blade R
+Barton|Cafe Racer
+Barton|Classic
+Barton|Dirtman
+Barton|Discover
+Barton|E-Max
+Barton|Eagle
+Barton|Energy
+Barton|Falcon
+Barton|Fighter Eco
+Barton|FLASH
+Barton|FR
+Barton|FR50
+Barton|FRX
+Barton|GT125
+Barton|Hyper
+Barton|Naked
+Barton|NXT300
+Barton|Pentora
+Barton|Rally
+Barton|Raptor
+Barton|Sprint
+Barton|Stratos
+Barton|Street
+Barton|Street R
+Barton|T-Rex
+Barton|Terrax
+Barton|Tres
+Barton|Volcano
+Barton|Yadea E8S
+Barton|Yadea T2
+
+# === Bashan ===
+Bashan|Other
+Bashan|BS110S
+Bashan|BS110S-13B
+Bashan|BS110S-15
+Bashan|BS125S-2
+Bashan|BS150S-3A
+Bashan|BS150S-8A
+Bashan|BS150S-8B
+Bashan|BS200-6F
+Bashan|BS2000S-7
+Bashan|BS200S-5
+Bashan|BS200S-6MI
+Bashan|BS250S-10
+Bashan|BS250S-11
+Bashan|BS250S-12
+Bashan|BS300S-2
+Bashan|BS400CC
+Bashan|BS400S-7
+Bashan|BS50S
+Bashan|BS50S-4
+Bashan|BS50S-4A
+
+# === BENDA ===
+BENDA|Other
+BENDA|Chinchilla 500
+BENDA|Funbike 300
+BENDA|LFC 700
+BENDA|Napoleon 500
+BENDA|Rock 300
+
 # === Benelli ===
 Benelli|Other
 Benelli|502 C
@@ -152,6 +556,29 @@ Benelli|TRK 502X
 Benelli|TRK 702
 Benelli|TRK 702 X
 
+# === Benzhou ===
+Benzhou|Other
+Benzhou|YY125T-10
+Benzhou|YY125T-19
+Benzhou|YY125T-25
+Benzhou|YY125T-26
+Benzhou|YY125T-3B
+Benzhou|YY125T-5C
+Benzhou|YY125T-6
+Benzhou|YY150-10T
+Benzhou|YY150T-4
+Benzhou|YY150T-6
+Benzhou|YY150T-B
+Benzhou|YY50QT
+Benzhou|YY50QT-11
+Benzhou|YY50QT-15
+Benzhou|YY50QT-2
+Benzhou|YY50QT-22
+Benzhou|YY50QT-3
+Benzhou|YY50QT-5
+Benzhou|YY50QT-6
+Benzhou|YY50QT-8
+
 # === Beta ===
 Beta|Other
 Beta|Aikon
@@ -170,11 +597,56 @@ Beta|TR
 Beta|XT
 Beta|XTrainer
 
+# === Bifei ===
+Bifei|Other
+Bifei|BFD
+
+# === Big Bear Choppers ===
+Big Bear Choppers|Other
+Big Bear Choppers|Athena ProStreet
+Big Bear Choppers|G.T.X.
+Big Bear Choppers|Merc
+Big Bear Choppers|Miss Behavin
+Big Bear Choppers|Paradox
+Big Bear Choppers|ProStreet
+Big Bear Choppers|Reaper
+Big Bear Choppers|Screamin Demon
+Big Bear Choppers|Sled
+Big Bear Choppers|Venom
+
+# === Big Dog ===
+Big Dog|Other
+Big Dog|-Kitas-
+Big Dog|K-9
+Big Dog|Pitbull
+Big Dog|Ridgeback
+
+# === Bimota ===
+Bimota|Other
+Bimota|DB5
+Bimota|DB6
+Bimota|DB7
+Bimota|DB8
+Bimota|KB4
+Bimota|Mantra
+Bimota|SB6
+Bimota|SB8
+Bimota|Tesi
+Bimota|YB11
+
+# === Blata ===
+Blata|Other
+Blata|125
+Blata|Elite
+Blata|Origami B2
+
 # === Blinc ===
+Blinc|Other
 Blinc|Fantasy
 Blinc|Grace
 
 # === BLUROC ===
+BLUROC|Other
 BLUROC|Heritage
 BLUROC|Hero
 BLUROC|Hunt XC
@@ -182,6 +654,20 @@ BLUROC|Legend
 BLUROC|Spirit
 BLUROC|Tracker
 BLUROC|V-BOB
+
+# === BM ===
+BM|Other
+BM|200
+BM|EAGLE
+BM|FORCE
+BM|V-3
+BM|V-5
+
+# === BMC Choppers ===
+BMC Choppers|Other
+BMC Choppers|Big Daddy
+BMC Choppers|Bobber 88
+BMC Choppers|Hooligan 541
 
 # === BMW ===
 BMW|Other
@@ -305,6 +791,7 @@ BMW|S 1000 RR
 BMW|S 1000 XR
 
 # === Bombardier ===
+Bombardier|Other
 Bombardier|3D
 Bombardier|6900
 Bombardier|Adventure
@@ -347,11 +834,16 @@ Bombardier|XP
 Bombardier|Xtrim
 Bombardier|Yeti
 
+# === Borile ===
+Borile|Other
+Borile|B
+
 # === Boss Hoss ===
 Boss Hoss|Other
 Boss Hoss|BHC
 
 # === Brixton ===
+Brixton|Other
 Brixton|Cromwell 1200
 Brixton|Cromwell 125
 Brixton|Cromwell 250
@@ -367,6 +859,26 @@ Brixton|Felsberg 125 XC
 Brixton|Felsberg 250
 Brixton|Rayburn 125
 Brixton|Sunray 125
+
+# === BSA ===
+BSA|Other
+BSA|350 Fury
+BSA|A 50
+BSA|A 65
+BSA|A 75
+BSA|B 25
+BSA|B 44
+BSA|G 14
+BSA|M20
+BSA|SR 500 Gold
+BSA|SS 500 Gold Star
+
+# === Bucci Moto ===
+Bucci Moto|Other
+Bucci Moto|BR10-GP
+Bucci Moto|BR12-GP
+Bucci Moto|F20MX Cross
+Bucci Moto|F20SM Motard
 
 # === Buell ===
 Buell|Other
@@ -387,6 +899,16 @@ Bullit|Other
 Bullit|Hero
 Bullit|Spirit
 
+# === Bultaco ===
+Bultaco|Other
+Bultaco|Alpina
+Bultaco|Brinco
+Bultaco|Frontera
+Bultaco|Lobito
+Bultaco|Metralla
+Bultaco|Pursang
+Bultaco|Sherpa
+
 # === Cagiva ===
 Cagiva|Other
 Cagiva|Canyon
@@ -405,7 +927,13 @@ Cagiva|W 12
 Cagiva|W 16
 Cagiva|Xtra-Raptor
 
+# === Campagna ===
+Campagna|Other
+Campagna|T-Rex
+Campagna|V13R
+
 # === Can-Am ===
+Can-Am|Other
 Can-Am|Commander XT
 Can-Am|DS
 Can-Am|Maverick
@@ -417,10 +945,29 @@ Can-Am|Spyder
 Can-Am|Traxter
 Can-Am|Youth
 
+# === Cannondale ===
+Cannondale|Other
+Cannondale|C
+Cannondale|E
+Cannondale|S
+Cannondale|X
+
+# === CCM ===
+CCM|Other
+CCM|GP450
+CCM|Maverick
+CCM|Spitfire
+
+# === CECTEK ===
+CECTEK|Other
+CECTEK|GLADIATOR
+
 # === CF ===
+CF|Other
 CF|ROAR
 
 # === CFMOTO ===
+CFMOTO|Other
 CFMOTO|125 NK
 CFMOTO|150NK
 CFMOTO|250NK
@@ -470,7 +1017,664 @@ CFMOTO|CFORCE EV110
 CFMOTO|CX-2
 CFMOTO|CX-5
 
-# === Honda (is foto) ===
+# === Champ ===
+Champ|Other
+Champ|Champion
+Champ|Delta
+Champ|Montana
+
+# === Chang Jiang ===
+Chang Jiang|Other
+Chang Jiang|750
+
+# === Citycoco ===
+Citycoco|Other
+Citycoco|Monster 2000
+Citycoco|Monster 3950
+
+# === Club Car ===
+Club Car|Other
+Club Car|Carry All 1
+
+# === Cobra ===
+Cobra|Other
+Cobra|CX50
+Cobra|CX65
+
+# === Comarth ===
+Comarth|Other
+Comarth|Cross Rider
+
+# === Comfimax ===
+Comfimax|Other
+Comfimax|XL-4L
+
+# === Confederate ===
+Confederate|Other
+Confederate|B120
+
+# === Cooper ===
+Cooper|Other
+Cooper|CAP-215
+Cooper|CPA-128
+Cooper|CPA-208
+Cooper|CPA-209
+Cooper|CPA-216
+Cooper|CPA-219
+Cooper|CPA-221
+Cooper|CPA-224
+Cooper|CPA-228
+Cooper|CPA-228L
+Cooper|CPA-231
+Cooper|CPA-231L
+Cooper|CPA-KWS14
+
+# === Cpi ===
+Cpi|Other
+Cpi|Aragon
+Cpi|GTR
+Cpi|Popcorn
+Cpi|Supercross
+Cpi|SuperMoto
+
+# === CZ ===
+CZ|Other
+CZ|125
+CZ|175
+CZ|180
+CZ|250
+CZ|350
+CZ|500
+CZ|CZ
+
+# === Daelim ===
+Daelim|Other
+Daelim|Besbi
+Daelim|Daystar 125
+Daelim|Daystar 250
+Daelim|History 125
+Daelim|Roadwin 125
+Daelim|S2 125
+Daelim|S3 125
+Daelim|VJF 125
+
+# === Dandy ===
+Dandy|Other
+Dandy|125
+
+# === Defiant ===
+Defiant|Other
+Defiant|DT-200
+Defiant|DT-50
+
+# === DemonX ===
+DemonX|Other
+DemonX|DXR
+DemonX|Minipit
+DemonX|XLR
+
+# === Derbi ===
+Derbi|Other
+Derbi|Boulevard
+Derbi|Cross City 125
+Derbi|GPR 50
+Derbi|GPR 125
+Derbi|Mulhacen 125
+Derbi|Mulhacen 659
+Derbi|Senda 50
+Derbi|Senda 125
+Derbi|Terra 125
+Derbi|Variant
+
+# === Diabolini ===
+Diabolini|Other
+Diabolini|Defender
+
+# === Dinli ===
+Dinli|Other
+Dinli|Beast
+Dinli|Centhor
+Dinli|Cobia
+Dinli|Diablo
+Dinli|Diamond Back
+Dinli|Dino
+Dinli|DL 901
+Dinli|DL603
+Dinli|JP
+
+# === Dirtmax ===
+Dirtmax|Other
+Dirtmax|DTX1
+Dirtmax|DTX2
+Dirtmax|DTX3
+Dirtmax|DTX4
+Dirtmax|DTX5
+Dirtmax|DTX9
+
+# === DKW ===
+DKW|Other
+DKW|RT 125
+
+# === DM Telai ===
+DM Telai|Other
+DM Telai|Factory R
+
+# === Dniepr ===
+Dniepr|Other
+Dniepr|K 650
+Dniepr|K 750
+Dniepr|M-72
+Dniepr|MT-10
+Dniepr|MT-11
+Dniepr|MT-12
+Dniepr|MT-16
+Dniepr|MT-9
+
+# === Dodge ===
+Dodge|Other
+Dodge|Tomahawk
+
+# === Donghai ===
+Donghai|Other
+Donghai|350 F3
+Donghai|SM 750
+
+# === Doohan ===
+Doohan|Other
+Doohan|iTango
+Doohan|iTank
+
+# === Dorton ===
+Dorton|Other
+Dorton|XT250- 16
+
+# === Ducar ===
+Ducar|Other
+Ducar|DJ125
+Ducar|DJ150
+
+# === Ducati ===
+Ducati|Other
+Ducati|748
+Ducati|749
+Ducati|848
+Ducati|851
+Ducati|888
+Ducati|900 SS
+Ducati|916
+Ducati|996
+Ducati|998
+Ducati|999
+Ducati|1098
+Ducati|1198
+Ducati|1199 Panigale
+Ducati|1299 Panigale
+Ducati|DesertX
+Ducati|Diavel
+Ducati|Diavel 1260
+Ducati|Diavel V4
+Ducati|Hypermotard
+Ducati|Hypermotard 698
+Ducati|Hypermotard 796
+Ducati|Hypermotard 821
+Ducati|Hypermotard 939
+Ducati|Hypermotard 950
+Ducati|Monster
+Ducati|Monster 600
+Ducati|Monster 620
+Ducati|Monster 696
+Ducati|Monster 750
+Ducati|Monster 796
+Ducati|Monster 821
+Ducati|Monster 900
+Ducati|Monster 937
+Ducati|Monster 1100
+Ducati|Monster 1200
+Ducati|Multistrada
+Ducati|Multistrada 950
+Ducati|Multistrada 1200
+Ducati|Multistrada 1260
+Ducati|Multistrada V4
+Ducati|Panigale
+Ducati|Panigale V2
+Ducati|Panigale V4
+Ducati|Scrambler
+Ducati|Scrambler 1100
+Ducati|ST2
+Ducati|ST3
+Ducati|ST4
+Ducati|Streetfighter
+Ducati|Streetfighter 848
+Ducati|Streetfighter V2
+Ducati|Streetfighter V4
+Ducati|SuperSport
+Ducati|SuperSport 939
+Ducati|SuperSport 950
+Ducati|XDiavel
+
+# === EGL Moto ===
+EGL Moto|Other
+EGL Moto|Mad Max
+
+# === Eglmotor ===
+Eglmotor|Other
+Eglmotor|Freelander II
+Eglmotor|Madix 110
+Eglmotor|The 125
+
+# === Ekomoto ===
+Ekomoto|Other
+Ekomoto|A6
+Ekomoto|CP-3
+Ekomoto|CP-6
+Ekomoto|CP-7
+Ekomoto|Europa
+Ekomoto|J4
+Ekomoto|J4 BOX
+Ekomoto|J4 PICKUP
+Ekomoto|J7
+Ekomoto|Lanar-2
+Ekomoto|Lidia
+Ekomoto|Lunar-1
+Ekomoto|M20K
+Ekomoto|M5
+Ekomoto|Retro
+Ekomoto|SKY
+Ekomoto|Sprite-3
+Ekomoto|V28
+Ekomoto|Vista-1
+Ekomoto|Vista-2
+Ekomoto|Vista-K1
+Ekomoto|X12
+Ekomoto|X12 MAX
+Ekomoto|Z1
+
+# === Electric Motion ===
+Electric Motion|Other
+Electric Motion|Escape R
+
+# === Electron ===
+Electron|Other
+Electron|MS01
+Electron|MS02
+Electron|MS03
+Electron|MS04
+
+# === Elegant ===
+Elegant|Other
+Elegant|1500
+Elegant|800
+
+# === EMCO ===
+EMCO|Other
+EMCO|NOVA R3000
+
+# === E-MIO ===
+E-MIO|Other
+E-MIO|AGILE
+E-MIO|VENTO
+
+# === Energica ===
+Energica|Other
+Energica|Ego
+Energica|EsseEsse9
+Energica|Eva
+Energica|Experia
+
+# === Enfield ===
+Enfield|Other
+Enfield|Bullet
+Enfield|Euro
+Enfield|MIlitary
+Enfield|Taurus
+Enfield|Thunderbird
+Enfield|US
+
+# === E-RIDE ===
+E-RIDE|Other
+E-RIDE|PRO SR
+E-RIDE|PRO SS 2.0
+E-RIDE|PRO SS 2.5
+E-RIDE|PRO SS 3.0
+
+# === E.V.A. ===
+E.V.A.|Other
+E.V.A.|Track T
+
+# === eWind ===
+eWind|Other
+eWind|EGW-08
+eWind|EGW-09
+eWind|EGW-P5
+eWind|EGW-T3
+
+# === Explorer ===
+Explorer|Other
+Explorer|B58
+
+# === Fabrikat ===
+Fabrikat|Other
+Fabrikat|CPI
+
+# === Factory ===
+Factory|Other
+Factory|Chrono
+Factory|Desert
+
+# === Factory Bike ===
+Factory Bike|Other
+Factory Bike|Chrone SM
+Factory Bike|Chrono SM
+Factory Bike|Desert YR
+
+# === Fantic ===
+Fantic|Other
+Fantic|Caballero 125
+Fantic|Caballero 500
+Fantic|Caballero 700
+Fantic|Issimo
+Fantic|XEF 250
+Fantic|XEF 450
+Fantic|XMF 125
+
+# === FB mondial ===
+FB mondial|Other
+FB mondial|Flat Track
+FB mondial|HPS
+FB mondial|HPS 125
+FB mondial|HPS- 300
+FB mondial|Imola
+FB mondial|Piega
+FB mondial|SMX Enduro
+FB mondial|SMX Motard
+FB mondial|Spartan
+FB mondial|Sport Classic 125
+FB mondial|Sport Classic 300
+
+# === Fine Custom Mechanics ===
+Fine Custom Mechanics|Other
+Fine Custom Mechanics|Puncher
+
+# === Fischer ===
+Fischer|Other
+Fischer|MRX
+
+# === Flyrite Choppers ===
+Flyrite Choppers|Other
+Flyrite Choppers|Bobber
+Flyrite Choppers|High Noon
+Flyrite Choppers|Outlaws Ruin
+Flyrite Choppers|Reach For The Sky
+Flyrite Choppers|Scorcher
+
+# === FN ===
+FN|Other
+FN|Sahara
+FN|50
+FN|PB
+
+# === Forsage ===
+Forsage|Other
+Forsage|50
+Forsage|PB
+
+# === Fosti ===
+Fosti|Other
+Fosti|CK NAKED50
+Fosti|FR50
+Fosti|FXD 125
+Fosti|SUPERMOTO DB50PRO
+
+# === Futong ===
+Futong|Other
+Futong|FT100-10
+
+# === Fuxin ===
+Fuxin|Other
+Fuxin|150 cc
+Fuxin|FX 125
+Fuxin|FX 200
+Fuxin|FX 250
+
+# === G&G ===
+G&G|Other
+G&G|G
+
+# === Gas Gas ===
+Gas Gas|Other
+Gas Gas|EC 250
+Gas Gas|EC 300
+Gas Gas|EC 350F
+Gas Gas|EC 450F
+Gas Gas|ES 700
+Gas Gas|EX 250
+Gas Gas|EX 300
+Gas Gas|MC 50
+Gas Gas|MC 65
+Gas Gas|MC 85
+Gas Gas|MC 125
+Gas Gas|MC 250
+Gas Gas|MC 250F
+Gas Gas|MC 350F
+Gas Gas|MC 450F
+Gas Gas|SM 700
+Gas Gas|TXT
+
+# === Generic ===
+Generic|Other
+Generic|Ideo
+Generic|Urano
+Generic|Xor
+
+# === G-Force ===
+G-Force|Other
+G-Force|G
+
+# === Ghezzi Brian ===
+Ghezzi Brian|Other
+Ghezzi Brian|Folgore
+Ghezzi Brian|Furia
+Ghezzi Brian|Kimeria
+Ghezzi Brian|SuperTwin
+
+# === Gilera ===
+Gilera|Other
+Gilera|Fuoco 500
+Gilera|GP 800
+Gilera|Nexus 125
+Gilera|Nexus 250
+Gilera|Nexus 300
+Gilera|Nexus 500
+Gilera|Runner 50
+Gilera|Runner 125
+Gilera|Runner 180
+Gilera|Runner 200
+Gilera|Stalker 50
+
+# === G max ===
+G max|Other
+G max|Cruiser 50
+G max|Racer 50
+
+# === Goes ===
+Goes|Other
+Goes|220
+Goes|220 S
+Goes|300S
+Goes|350 S
+Goes|360
+Goes|520
+Goes|520 Max
+Goes|525i
+Goes|625
+Goes|625 UTX
+Goes|625i
+Goes|CF X8
+Goes|G725IS
+Goes|Max
+Goes|TEEROX 550L
+Goes|TERROX 1000 Premium
+Goes|TERROX 1000 Standart
+Goes|TERROX 400L
+Goes|TERROX 500L
+
+# === Govecs ===
+Govecs|Other
+Govecs|Go!
+
+# === GX moto ===
+GX moto|Other
+GX moto|QM
+
+# === Hanway ===
+Hanway|Other
+Hanway|QM
+
+# === Haojin ===
+Haojin|Other
+Haojin|JH125 E
+
+# === Harley-Davidson ===
+Harley-Davidson|Other
+Harley-Davidson|Breakout
+Harley-Davidson|CVO
+Harley-Davidson|CVO Limited
+Harley-Davidson|CVO Pro Street Breakout
+Harley-Davidson|CVO Road Glide
+Harley-Davidson|CVO Road Glide Limited
+Harley-Davidson|CVO Street Glide
+Harley-Davidson|Custom
+Harley-Davidson|Deluxe
+Harley-Davidson|Dyna
+Harley-Davidson|Dyna Fat Bob
+Harley-Davidson|Dyna Glide
+Harley-Davidson|Dyna Low Rider
+Harley-Davidson|Dyna Street Bob
+Harley-Davidson|Dyna Super Glide
+Harley-Davidson|Dyna Switchback
+Harley-Davidson|Dyna Wide Glide
+Harley-Davidson|Electra Glide
+Harley-Davidson|Electra Glide Classic
+Harley-Davidson|Electra Glide Standard
+Harley-Davidson|Electra Glide Ultra Classic
+Harley-Davidson|Electra Glide Ultra Limited
+Harley-Davidson|Fat Bob
+Harley-Davidson|Fat Boy
+Harley-Davidson|FLD Switchback
+Harley-Davidson|FLHR Road King
+Harley-Davidson|FLHRC Road King Classic
+Harley-Davidson|FLHX Street Glide
+Harley-Davidson|FLHXS Street Glide Special
+Harley-Davidson|FLHXSE CVO Street Glide
+Harley-Davidson|Forty-Eight
+Harley-Davidson|FXDR
+Harley-Davidson|Heritage Softail Classic
+Harley-Davidson|Iron 1200
+Harley-Davidson|Iron 883
+Harley-Davidson|Livewire
+Harley-Davidson|Low Rider
+Harley-Davidson|Low Rider S
+Harley-Davidson|Nightster
+Harley-Davidson|Nightster Special
+Harley-Davidson|Nightster 975
+Harley-Davidson|Pan America
+Harley-Davidson|Pan America 1250
+Harley-Davidson|Pan America 1250 Special
+Harley-Davidson|Road Glide
+Harley-Davidson|Road Glide Custom
+Harley-Davidson|Road Glide Limited
+Harley-Davidson|Road Glide Special
+Harley-Davidson|Road Glide ST
+Harley-Davidson|Road Glide Ultra
+Harley-Davidson|Road King
+Harley-Davidson|Road King Classic
+Harley-Davidson|Road King Special
+Harley-Davidson|Roadster
+Harley-Davidson|Seventy-Two
+Harley-Davidson|Softail
+Harley-Davidson|Softail Custom
+Harley-Davidson|Softail Deluxe
+Harley-Davidson|Softail Slim
+Harley-Davidson|Softail Standard
+Harley-Davidson|Sport Glide
+Harley-Davidson|Sportster
+Harley-Davidson|Sportster S
+Harley-Davidson|Sportster XL
+Harley-Davidson|Street 500
+Harley-Davidson|Street 750
+Harley-Davidson|Street Bob
+Harley-Davidson|Street Glide
+Harley-Davidson|Street Glide Special
+Harley-Davidson|Street Glide ST
+Harley-Davidson|Street Rod
+Harley-Davidson|SuperLow
+Harley-Davidson|Superlow 1200T
+Harley-Davidson|Tour Glide
+Harley-Davidson|Tri Glide Ultra
+Harley-Davidson|Ultra Classic
+Harley-Davidson|Ultra Limited
+Harley-Davidson|V-Rod
+Harley-Davidson|V-Rod Muscle
+Harley-Davidson|VRSCD Night Rod
+Harley-Davidson|VRSCDX Night Rod Special
+Harley-Davidson|VRSCF V-Rod Muscle
+Harley-Davidson|VRSCR Street Rod
+Harley-Davidson|Wide Glide
+Harley-Davidson|XG 500
+Harley-Davidson|XG 750
+Harley-Davidson|XL 1200
+Harley-Davidson|XL 883
+Harley-Davidson|XR 1200
+
+# === Hartford ===
+Hartford|Other
+Hartford|HD
+Hartford|Legion
+Hartford|VR
+
+# === Hawk ===
+Hawk|Other
+Hawk|Hawk
+
+# === Hecht ===
+Hecht|Other
+Hecht|Hawk
+
+# === Hercules ===
+Hercules|Other
+Hercules|K 105
+Hercules|K 125
+Hercules|K 180
+Hercules|W 2000
+
+# === Highland ===
+Highland|Other
+Highland|450 MX
+Highland|950 V2
+Highland|Allroad
+Highland|DesertStorm
+Highland|Outback
+Highland|SuperMotard
+Highland|SuperMotard 950
+
+# === Highper ===
+Highper|Other
+Highper|Z-350
+
+# === Himoto ===
+Himoto|Other
+Himoto|HM1000
+Himoto|HM2
+Himoto|HM3
+Himoto|HM4
+Himoto|HM4LI
+
+# === HM ===
+HM|Other
+HM|CRE
+HM|Motard
+
+# === Honda ===
 Honda|Other
 Honda|ATV
 Honda|ATV Dragon
@@ -601,7 +1805,18 @@ Honda|XRV 750 Africa Twin
 Honda|Z50
 Honda|Zoomer
 
+# === Honling ===
+Honling|Other
+Honling|Boomerang 50
+
+# === Horex ===
+Horex|Other
+Horex|1400 TI
+Horex|Columbus
+Horex|Imperator
+
 # === HORWIN ===
+HORWIN|Other
 HORWIN|CR6
 HORWIN|CR6 Pro
 HORWIN|EK1
@@ -613,6 +1828,21 @@ HORWIN|K1
 HORWIN|RANGER
 HORWIN|SK1
 HORWIN|SK3
+
+# === HUONIAO ===
+HUONIAO|Other
+HUONIAO|HN 125-8
+
+# === Husaberg ===
+Husaberg|Other
+Husaberg|FE 390
+Husaberg|FE 450
+Husaberg|FE 501
+Husaberg|FE 570
+Husaberg|FS 570
+Husaberg|FX 450
+Husaberg|TE 250
+Husaberg|TE 300
 
 # === Husqvarna ===
 Husqvarna|Other
@@ -710,6 +1940,24 @@ Hyosung|RX
 Hyosung|SF
 Hyosung|XRX
 
+# === IKUDZO ===
+IKUDZO|Other
+IKUDZO|IKUDZO
+
+# === Inca ===
+Inca|Other
+Inca|Lambros
+Inca|Rancor 800
+Inca|Spartan
+Inca|Sprint Sport
+Inca|Street
+Inca|Tribe
+Inca|Truck 500
+Inca|Truck 700
+Inca|Wiki
+Inca|Yeti 500
+Inca|Yeti 700
+
 # === Indian ===
 Indian|Other
 Indian|Challenger
@@ -740,6 +1988,21 @@ Indian|Super Chief
 Indian|Super Chief Dark Horse
 Indian|Super Chief Limited
 Indian|Vintage
+
+# === IRBIS ===
+IRBIS|Other
+IRBIS|KTA-SN01
+IRBIS|Pluton
+IRBIS|TTR
+IRBIS|Virago
+
+# === Iron Horse ===
+Iron Horse|Other
+Iron Horse|Bandera
+Iron Horse|Classic Chop
+Iron Horse|Judge
+Iron Horse|Slammer
+Iron Horse|Texas Chopper
 
 # === Italjet ===
 Italjet|Other
@@ -774,18 +2037,65 @@ Jawa|Pioner
 Jawa|Robby
 Jawa|T
 
+# === Jawa CZ ===
+Jawa CZ|Other
+Jawa CZ|125
+Jawa CZ|175
+Jawa CZ|180
+Jawa CZ|250
+
+# === Jialing ===
+Jialing|Other
+Jialing|JH125-33
+
 # === Jianshe Yamaha ===
 Jianshe Yamaha|Other
 Jianshe Yamaha|50PY
 Jianshe Yamaha|90
 Jianshe Yamaha|JS200GY
 
+# === Jincheng ===
+Jincheng|Other
+Jincheng|Custom
+Jincheng|Dax
+Jincheng|Monkey
+Jincheng|ST
+
+# === Jinlun ===
+Jinlun|Other
+Jinlun|JL
+
 # === Jinpeng ===
+Jinpeng|Other
 Jinpeng|A6
 Jinpeng|JP2300
 Jinpeng|King BOX I
 Jinpeng|King BOX II
 Jinpeng|XD
+
+# === JM ===
+JM|Other
+JM|Retro
+
+# === JMC ===
+JMC|Other
+JMC|125
+JMC|160
+
+# === John Deere ===
+John Deere|Other
+John Deere|Buck 500
+John Deere|Gator 855D
+
+# === Johnny Pag ===
+Johnny Pag|Other
+Johnny Pag|Barhog
+Johnny Pag|Elite
+Johnny Pag|FX-3
+Johnny Pag|Police Escort
+Johnny Pag|ProStreet
+Johnny Pag|Raptor
+Johnny Pag|Spyder
 
 # === Jonway ===
 Jonway|Other
@@ -793,67 +2103,32 @@ Jonway|Italia
 Jonway|UFO
 
 # === Junak ===
+Junak|Other
 Junak|901 Sport
 Junak|M12
 Junak|M16
 
-# === KAYO ===
-KAYO|A150
-KAYO|A150 EFI
-KAYO|A180
-KAYO|A200
-KAYO|A300
-KAYO|A50
-KAYO|AT110
-KAYO|AT125
-KAYO|AT125 EFI
-KAYO|AU110
-KAYO|AU125
-KAYO|AU125 EFI
-KAYO|AU150
-KAYO|AU150 CVT
-KAYO|AU150 EFI
-KAYO|AU180
-KAYO|AU200
-KAYO|AU300
-KAYO|AY70
-KAYO|eA110
-KAYO|eA50
-KAYO|eA70
-KAYO|eKMB
-KAYO|eS125
-KAYO|eS50
-KAYO|eS70
-KAYO|eT110
-KAYO|K2
-KAYO|K2 PRO
-KAYO|K4
-KAYO|K5
-KAYO|K6
-KAYO|K6-R
-KAYO|KMB
-KAYO|KT250
-KAYO|KT50
-KAYO|S110
-KAYO|S150
-KAYO|S200
-KAYO|S70
-KAYO|SX50
-KAYO|T2
-KAYO|T4
-KAYO|T4 300
-KAYO|TD110 EFI
-KAYO|TD125
-KAYO|TD125R
-KAYO|TS70
-KAYO|TS90
-KAYO|TS90 R
-KAYO|TSD110
-KAYO|TT125
-KAYO|TT125 EFI
-KAYO|TT140
-KAYO|TT160
-KAYO|TT190R
+# === Kandi ===
+Kandi|Other
+Kandi|MDL 200 AUG
+Kandi|MDL 250
+Kandi|MDL GA009-3
+
+# === Kangda ===
+Kangda|Other
+Kangda|Qingqi QM 125 GY
+Kangda|ZS 125
+
+# === Kanuni ===
+Kanuni|Other
+Kanuni|Cheetah
+Kanuni|Seyhan
+Kanuni|Tiger
+Kanuni|Tigrina
+
+# === Karpat ===
+Karpat|Other
+Karpat|50
 
 # === Kawasaki ===
 Kawasaki|Other
@@ -917,6 +2192,69 @@ Kawasaki|ZX (Ninja)
 Kawasaki|ZX-R
 Kawasaki|ZZR
 
+# === Kaxa Motos ===
+Kaxa Motos|Other
+Kaxa Motos|KXP
+
+# === KAYO ===
+KAYO|Other
+KAYO|A150
+KAYO|A150 EFI
+KAYO|A180
+KAYO|A200
+KAYO|A300
+KAYO|A50
+KAYO|AT110
+KAYO|AT125
+KAYO|AT125 EFI
+KAYO|AU110
+KAYO|AU125
+KAYO|AU125 EFI
+KAYO|AU150
+KAYO|AU150 CVT
+KAYO|AU150 EFI
+KAYO|AU180
+KAYO|AU200
+KAYO|AU300
+KAYO|AY70
+KAYO|eA110
+KAYO|eA50
+KAYO|eA70
+KAYO|eKMB
+KAYO|eS125
+KAYO|eS50
+KAYO|eS70
+KAYO|eT110
+KAYO|K2
+KAYO|K2 PRO
+KAYO|K4
+KAYO|K5
+KAYO|K6
+KAYO|K6-R
+KAYO|KMB
+KAYO|KT250
+KAYO|KT50
+KAYO|S110
+KAYO|S150
+KAYO|S200
+KAYO|S70
+KAYO|SX50
+KAYO|T2
+KAYO|T4
+KAYO|T4 300
+KAYO|TD110 EFI
+KAYO|TD125
+KAYO|TD125R
+KAYO|TS70
+KAYO|TS90
+KAYO|TS90 R
+KAYO|TSD110
+KAYO|TT125
+KAYO|TT125 EFI
+KAYO|TT140
+KAYO|TT160
+KAYO|TT190R
+
 # === Keeway ===
 Keeway|Other
 Keeway|Arn
@@ -941,6 +2279,1388 @@ Keeway|Matrix
 Keeway|Mini atv
 Keeway|Outlook
 Keeway|Partner
+
+# === Keren ===
+Keren|Other
+Keren|SRT 5
+Keren|Stardust
+
+# === Kinlon Motors ===
+Kinlon Motors|Other
+Kinlon Motors|JL125
+Kinlon Motors|JL150
+Kinlon Motors|JL200
+Kinlon Motors|JL200GY
+
+# === Kinroad ===
+Kinroad|Other
+Kinroad|XT
+
+# === KIOTI ===
+KIOTI|Other
+KIOTI|K9 2400
+
+# === KMT MOTORS ===
+KMT MOTORS|Other
+KMT MOTORS|GT300
+KMT MOTORS|GT310
+KMT MOTORS|GT320
+KMT MOTORS|GT360
+KMT MOTORS|GT500
+KMT MOTORS|iQ100
+KMT MOTORS|iQ120
+KMT MOTORS|iQ130
+KMT MOTORS|iQ140
+KMT MOTORS|iQ180
+KMT MOTORS|iQ310
+KMT MOTORS|iQ330
+KMT MOTORS|iQ350
+KMT MOTORS|Q300
+KMT MOTORS|Q310
+KMT MOTORS|Q320
+KMT MOTORS|Q330
+KMT MOTORS|Q350
+KMT MOTORS|Q500
+KMT MOTORS|RS300
+KMT MOTORS|RS310
+KMT MOTORS|RS330
+KMT MOTORS|RS500
+KMT MOTORS|RS500 T3b
+KMT MOTORS|X300A
+KMT MOTORS|X300M
+
+# === KMZ ===
+KMZ|Other
+KMZ|MT-9
+
+# === KOVE ===
+KOVE|Other
+KOVE|321R
+KOVE|321RR
+KOVE|400X
+KOVE|450 Rally
+KOVE|500F
+KOVE|525X
+KOVE|800X
+KOVE|800X Pro
+
+# === Kramit ===
+Kramit|Other
+Kramit|250 Enduro
+
+# === Kreidler ===
+Kreidler|Other
+Kreidler|Enduro
+Kreidler|Mustang
+Kreidler|Supermotard
+
+# === KSR MOTO ===
+KSR MOTO|Other
+KSR MOTO|Code 125
+
+# === KTM ===
+KTM|Other
+KTM|50 SX
+KTM|65 SX
+KTM|85 SX
+KTM|125 Duke
+KTM|125 EXC
+KTM|125 SX
+KTM|150 SX
+KTM|200 Duke
+KTM|250 Duke
+KTM|250 EXC
+KTM|250 SX
+KTM|250 SX-F
+KTM|300 EXC
+KTM|350 EXC-F
+KTM|350 SX-F
+KTM|390 Adventure
+KTM|390 Duke
+KTM|450 EXC-F
+KTM|450 SX-F
+KTM|500 EXC-F
+KTM|640 LC4
+KTM|690 Duke
+KTM|690 Enduro
+KTM|690 SMC R
+KTM|790 Adventure
+KTM|790 Duke
+KTM|890 Adventure
+KTM|890 Duke
+KTM|950 Adventure
+KTM|950 Supermoto
+KTM|990 Adventure
+KTM|990 Super Duke
+KTM|990 Supermoto
+KTM|1050 Adventure
+KTM|1090 Adventure
+KTM|1190 Adventure
+KTM|1290 Super Adventure
+KTM|1290 Super Duke GT
+KTM|1290 Super Duke R
+KTM|Freeride
+KTM|Freeride E
+KTM|RC 125
+KTM|RC 200
+KTM|RC 390
+
+# === KUBERG ===
+KUBERG|Other
+KUBERG|FREERIDER
+KUBERG|START
+KUBERG|TRIAL
+
+# === Kymco ===
+Kymco|Other
+Kymco|Agility
+Kymco|Agility 50
+Kymco|Agility 125
+Kymco|Agility 200
+Kymco|AK 550
+Kymco|Downtown
+Kymco|Downtown 125
+Kymco|Downtown 300
+Kymco|Downtown 350
+Kymco|Grand Dink
+Kymco|Like
+Kymco|Like 50
+Kymco|Like 125
+Kymco|Like 200
+Kymco|People
+Kymco|People 125
+Kymco|People 250
+Kymco|People GTi 300
+Kymco|Super 8
+Kymco|Super 9
+Kymco|Xciting
+Kymco|Xciting 400
+Kymco|Xciting 500
+Kymco|X-Town
+Kymco|X-Town 125
+Kymco|X-Town 300
+
+# === Lambretta ===
+Lambretta|Other
+Lambretta|G350
+Lambretta|GP 150
+Lambretta|V125
+Lambretta|V200
+Lambretta|X300
+
+# === Lantana ===
+Lantana|Other
+Lantana|Nevada
+Lantana|Road
+
+# === Lascari ===
+Lascari|Other
+Lascari|Mini
+Lascari|GT Chopper 250
+Lascari|Hummer
+Lascari|Hummer II
+Lascari|Mini Delta
+Lascari|Mono Cross
+Lascari|Panthera
+Lascari|Predator
+Lascari|RS Enduro
+
+# === Laverda ===
+Laverda|Other
+Laverda|650
+Laverda|668
+Laverda|750
+Laverda|1000
+Laverda|Formula
+Laverda|Ghost
+Laverda|Jota
+
+# === Legend ===
+Legend|Other
+Legend|XY400GY
+
+# === Lexmoto ===
+Lexmoto|Other
+Lexmoto|Street125
+
+# === Lifan ===
+Lifan|Other
+Lifan|APPOLO 125
+Lifan|LF125
+Lifan|LF150
+Lifan|LF200
+Lifan|LF250
+Lifan|LF400
+Lifan|ORION 125
+Lifan|TORNADO 150
+
+# === Lingben ===
+Lingben|Other
+Lingben|LB50
+
+# === Linhai ===
+Linhai|Other
+Linhai|200
+Linhai|200SE
+Linhai|300
+Linhai|300 EFI
+Linhai|300SE ATV
+Linhai|370 PROMAX EFI,T3B
+Linhai|400
+Linhai|400S
+Linhai|420 PROMAX EFI,T3B
+Linhai|500
+Linhai|500 E4
+Linhai|500 EFI T3B
+Linhai|550EFI
+Linhai|650L LANDFORCE EPS
+Linhai|650L LANDFORCE PRO EPS
+Linhai|650L PROMAX
+Linhai|700 ATV
+Linhai|80 Sport
+Linhai|ATV 110
+Linhai|ATV 570 PROMAX
+Linhai|Bighorn
+Linhai|E-ATV ELECTRIC
+Linhai|Landforce 550L
+Linhai|Landforce 550L EPS
+Linhai|LH40DA
+Linhai|LH50DU
+Linhai|M150
+Linhai|M210
+Linhai|M550
+Linhai|M550 L
+Linhai|M550 L EPS
+Linhai|M565L EPS
+Linhai|M570I L EPS
+Linhai|M570L EPS EFI E5
+Linhai|M570L EPS EFI T3B
+Linhai|T-Boss 550 EPS
+Linhai|UTV 1100 D EPS
+
+# === Lintex ===
+Lintex|Other
+Lintex|Estilo
+
+# === LIYA ===
+LIYA|Other
+LIYA|705
+LIYA|E-M7
+
+# === LIZZARD ===
+LIZZARD|Other
+LIZZARD|17/14
+
+# === Loncin ===
+Loncin|Other
+Loncin|LX125T-16
+Loncin|LX125T-CIII
+Loncin|LX50QT-15
+Loncin|XWOLF 1000
+Loncin|XWOLF 1000 MUD
+Loncin|XWOLF 1000 MUDDY
+Loncin|XWOLF 200
+Loncin|XWOLF 300
+Loncin|XWOLF 550L
+Loncin|XWOLF 700L
+Loncin|XWOLF 700L MUD PRO
+
+# === Longjia ===
+Longjia|Other
+Longjia|LJ125-A1
+Longjia|LJ125-B
+Longjia|LJ125-C
+Longjia|LJ125-D
+Longjia|LJ125-E
+Longjia|LJ125-F
+Longjia|LJ125-G
+Longjia|LJ125-K
+Longjia|LJ125-L
+Longjia|LJ150-A
+Longjia|LJ150-D
+Longjia|LJ150-T
+Longjia|LJ250
+Longjia|LJ250-2
+Longjia|LJ50QT-2L
+Longjia|LJ50QT-2L-03
+
+# === Macbor ===
+Macbor|Other
+Macbor|Montana XR1 125
+Macbor|Rockster 125 EVO
+Macbor|Rockster Flat 125 EVO
+
+# === MADEMOTO ===
+MADEMOTO|Other
+MADEMOTO|ES8004
+MADEMOTO|ES8004VII
+MADEMOTO|ES8007
+MADEMOTO|ES8008
+MADEMOTO|ES8009
+MADEMOTO|ES8018
+
+# === Magni ===
+Magni|Other
+Magni|Australia
+
+# === Magpower ===
+Magpower|Other
+Magpower|Australia
+
+# === Maico ===
+Maico|Other
+Maico|250
+Maico|320
+Maico|380
+Maico|500
+Maico|620
+Maico|685
+
+# === Malaguti ===
+Malaguti|Other
+Malaguti|Centro
+Malaguti|Ciak
+Malaguti|Drakon
+Malaguti|Dune
+Malaguti|F12
+Malaguti|F15
+Malaguti|Madison
+Malaguti|Phantom
+Malaguti|Spidermax
+
+# === Malanca ===
+Malanca|Other
+Malanca|125 E
+Malanca|125 M
+Malanca|125 Mark
+
+# === Masai ===
+Masai|Other
+Masai|A
+Masai|D
+Masai|Drift
+Masai|K
+Masai|L
+Masai|Ultimate
+
+# === Mash ===
+Mash|Other
+Mash|Black Seven 125
+Mash|Dirt Track 125
+Mash|Five Hundred 400
+Mash|Scrambler 400
+Mash|Seventy 125
+Mash|Two Fifty 250
+Mash|X-Ride 125
+
+# === Matchless ===
+Matchless|Other
+Matchless|G 80
+
+# === MBK ===
+MBK|Other
+MBK|Flipper
+MBK|Thunder
+MBK|125
+MBK|350
+MBK|Flame X
+MBK|Skyliner
+
+# === MBS ===
+MBS|Other
+MBS|656
+
+# === Metrakit ===
+Metrakit|Other
+Metrakit|MKX 50 Pro Bigfoot
+
+# === Midual ===
+Midual|Other
+Midual|Roadster
+
+# === Mikilon ===
+Mikilon|Other
+Mikilon|D10
+Mikilon|D42
+Mikilon|D52
+
+# === Minsk ===
+Minsk|Other
+Minsk|12
+Minsk|125
+Minsk|13
+Minsk|C
+Minsk|M4
+Minsk|R
+Minsk|M
+Minsk|C4
+
+# === MM ===
+MM|Other
+MM|VZ 3
+
+# === MM3 ===
+MM3|Other
+MM3|M1A
+
+# === Mondial ===
+Mondial|Other
+Mondial|Piega
+Mondial|RZ
+Mondial|HPS
+Mondial|Flat track
+Mondial|Spartan
+Mondial|SMX Motard
+Mondial|SMX Enduro
+
+# === Monkey ===
+Monkey|Other
+Monkey|HX
+
+# === Montesa ===
+Montesa|Other
+Montesa|Cota 4Ride
+Montesa|Cota 4RT
+Montesa|Cota 300RR
+Montesa|Cota 301RR
+Montesa|Enduro
+
+# === Morbidelli ===
+Morbidelli|Other
+Morbidelli|C1002V
+Morbidelli|F125
+Morbidelli|F352
+Morbidelli|N125V
+Morbidelli|SC 125
+Morbidelli|SC 125 LX
+Morbidelli|T1002VX
+Morbidelli|T125
+Morbidelli|T125X
+Morbidelli|T352X
+Morbidelli|T502X
+
+# === Mosca ===
+Mosca|Other
+Mosca|Agile
+Mosca|Capri
+Mosca|Caramella
+Mosca|Elegante
+Mosca|Fava
+Mosca|Grande
+Mosca|Pianeta
+Mosca|Rapido
+Mosca|Viva
+
+# === Moser ===
+Moser|Other
+Moser|CRE 50
+
+# === Motobi ===
+Motobi|Other
+Motobi|125
+Motobi|250
+Motobi|254
+Motobi|Tornado 650
+
+# === Moto Guzzi ===
+Moto Guzzi|Other
+Moto Guzzi|Audace
+Moto Guzzi|Bellagio
+Moto Guzzi|Breva
+Moto Guzzi|California
+Moto Guzzi|California 1400
+Moto Guzzi|Eldorado
+Moto Guzzi|Griso
+Moto Guzzi|Le Mans
+Moto Guzzi|MGX-21
+Moto Guzzi|Nevada
+Moto Guzzi|Norge
+Moto Guzzi|Stelvio
+Moto Guzzi|V100 Mandello
+Moto Guzzi|V7
+Moto Guzzi|V7 Stone
+Moto Guzzi|V9
+Moto Guzzi|V9 Bobber
+Moto Guzzi|V9 Roamer
+Moto Guzzi|V85 TT
+Moto Guzzi|1200 Sport
+
+# === Motoland ===
+Motoland|Other
+Motoland|WRX
+
+# === Motolevo ===
+Motolevo|Other
+Motolevo|125
+
+# === Moto Morini ===
+Moto Morini|Other
+Moto Morini|3 1/2
+Moto Morini|Corsaro
+Moto Morini|Corsaro 1200
+Moto Morini|Granpasso
+Moto Morini|Milano
+Moto Morini|Scrambler
+Moto Morini|Seiemmezzo
+Moto Morini|X-Cape
+
+# === Motor hispania ===
+Motor hispania|Other
+Motor hispania|Furia
+Motor hispania|RX
+
+# === Mototrans ===
+Mototrans|Other
+Mototrans|350 Vento
+
+# === Motowell ===
+Motowell|Other
+Motowell|Crogen Sport
+
+# === Motrac ===
+Motrac|Other
+Motrac|Crogen Sport
+
+# === Motron ===
+Motron|Other
+Motron|Breezy 50
+Motron|Cubertino
+Motron|Ideo 125
+Motron|Ideo 50
+Motron|Nomad 125
+Motron|Revolver 125
+Motron|Ventura 125
+Motron|Vizion
+Motron|Voltz
+Motron|Whizz
+Motron|X-Nord 125
+
+# === MTT ===
+MTT|Other
+MTT|Y2K
+
+# === Münch ===
+Münch|Other
+Münch|4-1200 TTS
+Münch|Mammut 2000
+Münch|TTS 1300
+
+# === Mutt ===
+Mutt|Other
+Mutt|Akita
+Mutt|DRK-01
+Mutt|Fat Sabbath
+Mutt|FSR
+Mutt|GT-SS
+Mutt|Hilts
+Mutt|Mastiff
+Mutt|Mongrel
+Mutt|Razorback
+Mutt|RS-13
+
+# === MuZ ===
+MuZ|Other
+MuZ|500 R
+MuZ|660 Skorpion
+MuZ|Baghira
+MuZ|ES
+MuZ|ETS
+MuZ|Kobra 850
+MuZ|Mastiff
+MuZ|Red Star 500
+MuZ|Saxon
+MuZ|Silver Star
+MuZ|Skorpion
+MuZ|TS
+
+# === MV Agusta ===
+MV Agusta|Other
+MV Agusta|Brutale
+MV Agusta|Brutale 675
+MV Agusta|Brutale 800
+MV Agusta|Brutale 990
+MV Agusta|Brutale 1000
+MV Agusta|Brutale 1090
+MV Agusta|Dragster
+MV Agusta|Dragster 800
+MV Agusta|F3
+MV Agusta|F3 675
+MV Agusta|F3 800
+MV Agusta|F4
+MV Agusta|F4 1000
+MV Agusta|Rivale
+MV Agusta|Rush
+MV Agusta|Stradale
+MV Agusta|Superveloce
+MV Agusta|Superveloce 800
+MV Agusta|Turismo Veloce
+
+# === MZ ===
+MZ|Other
+MZ|1000 S
+MZ|Baghira
+MZ|ETZ 125
+MZ|ETZ 150
+MZ|ETZ 250
+MZ|ETZ 251
+MZ|Mastiff
+MZ|RT 125
+MZ|Skorpion
+MZ|TS 125
+MZ|TS 150
+MZ|TS 250
+
+# === NCR ===
+NCR|Other
+NCR|Mike Hailwood TT
+
+# === Neander ===
+Neander|Other
+Neander|Turbo Diesel 1400
+
+# === NECO ===
+NECO|Other
+NECO|Alexone
+NECO|Azzuro GP
+NECO|Dinno
+NECO|GPX 4T
+NECO|NC-N01
+NECO|One
+
+# === Neval ===
+Neval|Other
+Neval|Planeta
+Neval|Sovjet Knight
+
+# === Nexus ===
+Nexus|Other
+Nexus|G200GS
+
+# === Nipponia ===
+Nipponia|Other
+Nipponia|NB 125E
+
+# === Nitro Motors ===
+Nitro Motors|Other
+Nitro Motors|Anaconda
+Nitro Motors|Apollo
+Nitro Motors|Bigfoot
+Nitro Motors|Buggy
+Nitro Motors|Cobra
+Nitro Motors|Dragon
+Nitro Motors|DS67
+Nitro Motors|EGL Farmer
+Nitro Motors|EGL Sport
+Nitro Motors|EGL Street Hummer
+Nitro Motors|Hobbit
+Nitro Motors|Hummer
+Nitro Motors|Jumper
+Nitro Motors|Panthera
+Nitro Motors|PS77
+Nitro Motors|Python
+Nitro Motors|Raptor
+Nitro Motors|SKY
+Nitro Motors|Speedy
+Nitro Motors|T-Rex
+Nitro Motors|Toronto
+Nitro Motors|Warrior
+
+# === NIU ===
+NIU|Other
+NIU|KQi3 Max
+NIU|KQi3 Pro
+NIU|KQi3 Sport
+NIU|MQi
+NIU|MQi GT
+NIU|MQi+
+NIU|MQi+ Sport
+NIU|NQi
+NIU|NQi Cargo
+NIU|NQi GT
+NIU|NQi GT Cargo
+NIU|NQi GTS
+NIU|NQi Sport
+NIU|UQi
+NIU|UQi GT
+NIU|UQi Sport
+
+# === Norton ===
+Norton|Other
+Norton|Atlas 650
+Norton|Commando
+Norton|Commando 961
+Norton|Dominator
+Norton|Interpol
+Norton|Manx
+Norton|V4
+Norton|V4SV
+
+# === NSU ===
+NSU|Other
+NSU|350 OSL
+
+# === Omaks Motors ===
+Omaks Motors|Other
+Omaks Motors|YG200-9
+
+# === Online ===
+Online|Other
+Online|YG200-9
+
+# === Orange County Choppers ===
+Orange County Choppers|Other
+Orange County Choppers|ORIGINAL
+
+# === Orion ===
+Orion|Other
+Orion|100
+Orion|125
+Orion|Tricycle
+
+# === Ossa ===
+Ossa|Other
+Ossa|500 Yankee
+Ossa|E-71
+
+# === Pagsta ===
+Pagsta|Other
+Pagsta|Roadsta
+
+# === Pannonia ===
+Pannonia|Other
+Pannonia|P
+Pannonia|T
+
+# === Patron ===
+Patron|Other
+Patron|Aero
+Patron|Demon
+Patron|Hobo
+Patron|Indigo
+Patron|King
+Patron|Simpler
+Patron|Sport 150
+Patron|Strike
+Patron|Taker 250
+Patron|Tribute
+
+# === Pegasus ===
+Pegasus|Other
+Pegasus|Sky 25
+Pegasus|Sky 50
+
+# === Petronas ===
+Petronas|Other
+Petronas|FP1
+
+# === Peugeot ===
+Peugeot|Other
+Peugeot|Django
+Peugeot|Jet Force
+Peugeot|Kisbee
+Peugeot|Ludix
+Peugeot|Metropolis 400
+Peugeot|Satelis
+Peugeot|Speedfight 50
+Peugeot|Speedfight 125
+Peugeot|Tweet 125
+Peugeot|Tweet 150
+Peugeot|Vivacity
+
+# === PGO ===
+PGO|Other
+PGO|Big max
+PGO|X Rider
+
+# === Piaggio ===
+Piaggio|Other
+Piaggio|Beverly
+Piaggio|Beverly 125
+Piaggio|Beverly 300
+Piaggio|Beverly 350
+Piaggio|Beverly 400
+Piaggio|Fly
+Piaggio|Fly 50
+Piaggio|Fly 125
+Piaggio|Fly 150
+Piaggio|Liberty
+Piaggio|Liberty 125
+Piaggio|Liberty 150
+Piaggio|Medley
+Piaggio|Medley 125
+Piaggio|Medley 150
+Piaggio|MP3
+Piaggio|MP3 250
+Piaggio|MP3 300
+Piaggio|MP3 400
+Piaggio|MP3 500
+Piaggio|NRG
+Piaggio|Typhoon
+Piaggio|Typhoon 125
+Piaggio|X9
+Piaggio|X10
+Piaggio|Zip
+Piaggio|Zip 50
+
+# === Pioneer ===
+Pioneer|Other
+Pioneer|Samurai
+
+# === Pitmoto ===
+Pitmoto|Other
+Pitmoto|LX-50
+Pitmoto|LX-801
+
+# === Pitsterpro ===
+Pitsterpro|Other
+Pitsterpro|LX
+Pitsterpro|LX5
+Pitsterpro|LXR
+Pitsterpro|X2
+
+# === Polaris ===
+Polaris|Other
+Polaris|50th Anniversary
+Polaris|550
+Polaris|600 HO
+Polaris|600 HO CFI
+Polaris|600 HO IQ
+Polaris|Apollo
+Polaris|Centurion
+Polaris|Charger
+Polaris|Cobra
+Polaris|Crossover
+Polaris|D-Bat
+Polaris|Deep Snow
+Polaris|Dragon
+Polaris|Electra
+Polaris|Frontier
+Polaris|FS IQ
+Polaris|FST
+Polaris|Fusion
+Polaris|Galaxy
+Polaris|General
+Polaris|Hammer
+Polaris|Indy
+Polaris|Kingpin
+Polaris|Magnum
+Polaris|Mustang
+Polaris|Performance
+Polaris|Polaris
+Polaris|Predator
+Polaris|Ranger
+Polaris|RMK
+Polaris|RXL
+Polaris|RZR
+Polaris|Scrambler
+Polaris|Sportsman
+Polaris|Touring Cruiser
+Polaris|Trail
+Polaris|Trail Blazer
+Polaris|Two-up Touring
+Polaris|Vegas
+Polaris|Wide Trak
+Polaris|Worker
+Polaris|XC
+Polaris|XLT
+Polaris|Xpedition
+Polaris|Xplorer
+Polaris|Youth
+
+# === Polini ===
+Polini|Other
+Polini|911 GP4 Reverse
+
+# === Praga ===
+Praga|Other
+Praga|CD
+Praga|ED
+Praga|SM
+
+# === Praktik ===
+Praktik|Other
+Praktik|1
+Praktik|2
+Praktik|3
+
+# === PUCH ===
+PUCH|Other
+PUCH|125
+PUCH|175
+PUCH|350 HWE
+PUCH|600 HWE
+PUCH|GS
+PUCH|M
+
+# === Qinqi ===
+Qinqi|Other
+Qinqi|B2
+Qinqi|Extreme
+Qinqi|X-star
+
+# === QJMOTOR ===
+QJMOTOR|Other
+QJMOTOR|SRG 600
+QJMOTOR|SRK 600
+QJMOTOR|SRK 700
+QJMOTOR|SRT 550
+QJMOTOR|SRT 750
+QJMOTOR|SRV 550
+
+# === Quadro ===
+Quadro|Other
+Quadro|350D
+Quadro|S350
+
+# === QWMOTO ===
+QWMOTO|Other
+QWMOTO|Appolo
+QWMOTO|BULL 125
+QWMOTO|BULL 90
+QWMOTO|CRUSADER SUPER EDITION 110
+QWMOTO|CRUSADER SUPER EDITION BRUSHLESS 500
+QWMOTO|FOX MAX 110
+QWMOTO|HUNTER SUPER EDITION 125
+QWMOTO|HUNTER SUPER EDITION 200
+QWMOTO|HUNTER SUPER EDITION 250
+QWMOTO|HUNTER SUPER EDITION 800
+QWMOTO|HUNTER SUPER EDITION BRUSHLESS 500
+QWMOTO|QWATV-01
+QWMOTO|QWATV-01C
+QWMOTO|QWATV-02
+QWMOTO|QWATV-02A
+QWMOTO|QWATV-02C
+QWMOTO|QWATV-02E
+QWMOTO|QWATV-02F
+QWMOTO|QWATV-08B
+QWMOTO|QWATV-08D
+QWMOTO|QWATV-08F
+QWMOTO|QWATV-08K
+QWMOTO|QWATY-08
+QWMOTO|QWDB-07B
+QWMOTO|QWDB-08B
+QWMOTO|QWEATV-08A
+QWMOTO|QWEATV-08B
+QWMOTO|QWMATV-01A
+QWMOTO|QWMATV-01B
+QWMOTO|QWMATV-01D
+QWMOTO|QWMATV-01E
+QWMOTO|QWMATV-01F
+QWMOTO|QWMATV-01G
+QWMOTO|QWMATV-04
+QWMOTO|QWMATV-05A
+QWMOTO|QWMATV-05B
+QWMOTO|QWMPB-02A
+QWMOTO|QWMPB-02B
+QWMOTO|RACER 1000
+QWMOTO|RACER 800
+QWMOTO|SCOUT 125
+QWMOTO|Spark
+QWMOTO|TIGER FORST 125
+QWMOTO|TIGER PRO 1200
+QWMOTO|Tornado AT
+QWMOTO|Tornado MT
+QWMOTO|TREX 125
+QWMOTO|VIPER MAX BRUSHLESS 500
+QWMOTO|WARRIOR SUPER EDITION 125
+QWMOTO|XTRAIL
+
+# === Rajdoot ===
+Rajdoot|Other
+Rajdoot|350
+
+# === Rally USA ===
+Rally USA|Other
+Rally USA|2000
+
+# === Regal Raptor ===
+Regal Raptor|Other
+Regal Raptor|DD 50
+Regal Raptor|DD150
+Regal Raptor|DD250
+Regal Raptor|DD300
+
+# === Renly ===
+Renly|Other
+Renly|RLGA-5dz
+
+# === Rerode ===
+Rerode|Other
+Rerode|RLGA-5dz
+
+# === Rewaco ===
+Rewaco|Other
+Rewaco|FX1
+
+# === REX ===
+REX|Other
+REX|SMC
+
+# === RFN ===
+RFN|Other
+RFN|SMC
+
+# === Ride ===
+Ride|Other
+Ride|Thor
+
+# === Rieju ===
+Rieju|Other
+Rieju|Aventura 500
+Rieju|Century 125
+Rieju|Marathon 125
+Rieju|Marathon 450
+Rieju|MRT 50
+Rieju|MRT 125
+Rieju|RS3 50
+Rieju|RS3 125
+Rieju|Tango 125
+
+# === Riga ===
+Riga|Other
+Riga|1
+Riga|7
+Riga|11
+Riga|13
+Riga|15
+Riga|17
+
+# === RM ===
+RM|Other
+RM|800 DUO COMFORT
+RM|800 DUO STANDART
+RM|800 DUO TROPHY
+RM|802
+
+# === Roadsign ===
+Roadsign|Other
+Roadsign|gt5-125
+
+# === ROAR ===
+ROAR|Other
+ROAR|HX500L
+
+# === Romet ===
+Romet|Other
+Romet|R250
+
+# === Rover ===
+Rover|Other
+Rover|Streetwise
+
+# === Roxon ===
+Roxon|Other
+Roxon|P-ONE 10
+Roxon|P-One 8
+Roxon|P-One12
+Roxon|P-One15
+
+# === Royal Enfield ===
+Royal Enfield|Other
+Royal Enfield|Bullet 350
+Royal Enfield|Bullet 500
+Royal Enfield|Classic 350
+Royal Enfield|Classic 500
+Royal Enfield|Continental GT 535
+Royal Enfield|Continental GT 650
+Royal Enfield|Hunter 350
+Royal Enfield|Himalayan 411
+Royal Enfield|Himalayan 450
+Royal Enfield|Interceptor 650
+Royal Enfield|Meteor 350
+Royal Enfield|Scram 411
+Royal Enfield|Shotgun 650
+Royal Enfield|Super Meteor 650
+Royal Enfield|Thunderbird 350
+Royal Enfield|Thunderbird 500
+Royal Enfield|Thunderbird X
+
+# === Sachs ===
+Sachs|Other
+Sachs|B-805
+Sachs|Bee
+Sachs|MadAss 50
+Sachs|Madass 125
+Sachs|Roadster 800
+Sachs|Speedforce
+Sachs|X-Road 125
+Sachs|ZZ 125
+
+# === Sagitta ===
+Sagitta|Other
+Sagitta|CBR150 Spitzer
+Sagitta|SNS 250 Jedi
+
+# === Samurai ===
+Samurai|Other
+Samurai|Fiery 2000
+
+# === Sanglas ===
+Sanglas|Other
+Sanglas|400
+Sanglas|500
+
+# === Saxon ===
+Saxon|Other
+Saxon|Crown
+Saxon|Henchman
+Saxon|Reaper
+Saxon|Villain
+Saxon|Warlord
+
+# === Scooterking ===
+Scooterking|Other
+Scooterking|Cruiser
+
+# === Scorpa ===
+Scorpa|Other
+Scorpa|SY
+Scorpa|T-Ride
+
+# === SCUT ===
+SCUT|Other
+SCUT|CL-20N03-2
+SCUT|CL-30ZR-60
+SCUT|CL-30ZR-60 LED
+SCUT|CL-9N09-2
+SCUT|CL-9N09-2 LED
+SCUT|CL-Q3
+SCUT|CL06Z-60
+
+# === SEAT MÓ ===
+SEAT MÓ|Other
+SEAT MÓ|Escooter 125
+
+# === Secma ===
+Secma|Other
+Secma|6x4
+Secma|Fun buggy
+Secma|Fun elec
+Secma|Fun extrem
+Secma|Fun quad
+Secma|Fun runner
+Secma|Fun tech
+
+# === Segway ===
+Segway|Other
+Segway|AT10
+Segway|AT10 WL 30’ EPS Limited ABS
+Segway|AT10 WL EPS Limited
+Segway|AT10WL MUD
+Segway|E110S
+Segway|E125S
+Segway|E300S
+Segway|Fugleman
+Segway|Snarler AT5 L
+Segway|Snarler AT5 S
+Segway|Snarler AT6 L
+Segway|Snarler AT6 S
+Segway|UT6
+Segway|Villain
+
+# === Senke ===
+Senke|Other
+Senke|SK250 X6
+
+# === Senlong ===
+Senlong|Other
+Senlong|Flash 50
+Senlong|Rubi 50
+
+# === Sherco ===
+Sherco|Other
+Sherco|SE 125
+Sherco|SE 250
+Sherco|SE 300
+Sherco|SEF 250
+Sherco|SEF 300
+Sherco|SEF 450
+Sherco|SM 125
+Sherco|ST 125
+Sherco|ST 250
+Sherco|ST 300
+
+# === Shineray ===
+Shineray|Other
+Shineray|XY250-5A
+
+# === Siamoto ===
+Siamoto|Other
+Siamoto|125
+Siamoto|Geco
+Siamoto|Supermotard
+
+# === Silence ===
+Silence|Other
+Silence|S01
+Silence|S01+
+Silence|S02
+Silence|S03
+Silence|S04
+
+# === Simson ===
+Simson|Other
+Simson|Habicht
+Simson|S50
+Simson|S51
+Simson|S53
+Simson|S70
+Simson|Schwalbe
+Simson|Spatz
+Simson|Sperber
+Simson|SR50
+Simson|SR80
+Simson|Star
+
+# === SINNIS ===
+SINNIS|Other
+SINNIS|Condor
+
+# === Ski Doo ===
+Ski Doo|Other
+Ski Doo|Citation
+Ski Doo|Elan
+Ski Doo|Everest
+Ski Doo|Formula
+Ski Doo|GrandTouring
+Ski Doo|GSX
+Ski Doo|Legend
+Ski Doo|Lynx
+Ski Doo|Mach
+Ski Doo|MX
+Ski Doo|MXZ
+Ski Doo|Olympic
+Ski Doo|Safari
+Ski Doo|Skandic
+Ski Doo|Stratos
+Ski Doo|Summit
+Ski Doo|TNT
+Ski Doo|Touring
+
+# === Skygo ===
+Skygo|Other
+Skygo|Citation
+Skygo|Elan
+Skygo|Everest
+Skygo|Formula
+Skygo|GrandTouring
+Skygo|GSX
+Skygo|Legend
+Skygo|Lynx
+Skygo|Mach
+Skygo|MX
+Skygo|MXZ
+Skygo|Olympic
+Skygo|Safari
+Skygo|Skandic
+Skygo|Stratos
+Skygo|Summit
+Skygo|TNT
+Skygo|Touring
+
+# === Skyteam ===
+Skyteam|Other
+Skyteam|ST
+
+# === SMC ===
+SMC|Other
+SMC|ST
+
+# === Sodikart ===
+Sodikart|Other
+Sodikart|ST
+
+# === Solo ===
+Solo|Other
+Solo|712 Classic
+
+# === SRT 5 ===
+SRT 5|Other
+SRT 5|Stardust
+
+# === Stark ===
+Stark|Other
+Stark|Varg
+
+# === Stels ===
+Stels|Other
+Stels|400
+Stels|Delta
+Stels|ERMAK 600L
+Stels|ERMAK 600S
+Stels|ERMAK 800L
+Stels|Flame 200
+Stels|GUEPARD
+Stels|GUEPARD 650 ST EFI
+Stels|GUEPARD 650 TROPHY EFI
+Stels|GUEPARD 650 TROPHY EFI EPS
+Stels|GUEPARD 800G ST EFI
+Stels|GUEPARD 800G TOURING EFI
+Stels|GUEPARD 800G TROPHY EFI
+Stels|GUEPARD 800G TROPHY EFI EPS
+Stels|GUEPARD 800G TROPHY PRO
+Stels|GUEPARD 800G TROPHY PRO EFI EPS
+Stels|GUEPARD 850G TROPHY EPS EFI
+Stels|GUEPARD 850G TROPHY PRO EFI EPS
+Stels|HUGO 110A
+Stels|KAPITAN S150
+Stels|LEOPARD 500 ST
+Stels|LEOPARD 500 YS
+Stels|LEOPARD 600 Y
+Stels|LEOPARD 600 YL
+Stels|LEOPARD 650 YL
+Stels|LEOPARD 650 YS
+Stels|MOROZ 600L
+Stels|MOROZ 600S
+Stels|SB 200
+Stels|Trigger
+Stels|VIKING 600 ST v2.0
+Stels|VIKING 600 v2.0
+Stels|VIKING 800 v2.0
+Stels|VITAZ SA800
+
+# === Stomp ===
+Stomp|Other
+Stomp|ACE110
+Stomp|ACE4V
+Stomp|ACE50
+Stomp|FXJ-2
+Stomp|Juicebox3
+Stomp|KZR140
+Stomp|MOTARD
+Stomp|Superstomp
+Stomp|T4 ENDURO
+Stomp|Z140
+
+# === Sunra ===
+Sunra|Other
+Sunra|Robo-S
+Sunra|Epico
+Sunra|HAWK
+Sunra|Miku MAX
+Sunra|Miku Super
+Sunra|Robo-SC CARGO
+
+# === Super Soco/Vmoto ===
+Super Soco/Vmoto|Other
+Super Soco/Vmoto|CPx
+Super Soco/Vmoto|CUx
+Super Soco/Vmoto|CUmini
+Super Soco/Vmoto|OFF-R
+Super Soco/Vmoto|ON-R
+Super Soco/Vmoto|Stash
+Super Soco/Vmoto|TC
+Super Soco/Vmoto|TC Wanderer
+Super Soco/Vmoto|TCmax
+Super Soco/Vmoto|TS
+Super Soco/Vmoto|TSx
+
+# === Sur-Ron ===
+Sur-Ron|Other
+Sur-Ron|Light Bee
+Sur-Ron|Light Bee X
+Sur-Ron|Storm Bee
+Sur-Ron|Ultra Bee
 
 # === Suzuki ===
 Suzuki|Other
@@ -1057,6 +3777,497 @@ Suzuki|VZ 1500
 Suzuki|VZ 1600
 Suzuki|VZ 800
 Suzuki|XF 650 Freewind
+
+# === SVM ===
+SVM|Other
+SVM|329 Jumbo
+SVM|S 3
+SVM|XN 506
+
+# === Swift ===
+Swift|Other
+Swift|Drifter
+Swift|ESF
+Swift|Lil Drifter
+Swift|Lucky Strike Soft Tail
+
+# === SWM ===
+SWM|Other
+SWM|Gran Milano 440
+SWM|Outlaw
+SWM|RS 125
+SWM|RS 300
+SWM|SM 125
+SWM|SM 500
+SWM|Superdual 650
+SWM|Varez
+
+# === Sym ===
+Sym|Other
+Sym|Cruisym
+Sym|Cruisym 125
+Sym|Cruisym 300
+Sym|Fiddle
+Sym|Fiddle 125
+Sym|Fiddle 150
+Sym|GTS 300
+Sym|Jet 14
+Sym|Joymax
+Sym|Joymax 300
+Sym|Maxsym
+Sym|Maxsym 400
+Sym|Maxsym 600
+Sym|Maxsym TL
+Sym|Orbit
+Sym|Orbit 125
+Sym|Symphony
+Sym|Symphony 50
+Sym|Symphony 125
+Sym|Symphony 200
+
+# === Talaria ===
+Talaria|Other
+Talaria|DRAGON
+Talaria|Komodo
+Talaria|Sting
+Talaria|Sting 60v
+Talaria|STING MX3
+Talaria|STING MX
+Talaria|Sting R
+Talaria|Sting R MX4
+Talaria|Sting R MX5
+Talaria|X3 CONCEPT
+Talaria|X3 MX
+Talaria|X3 PRO
+
+# === TAO ===
+TAO|Other
+TAO|Fourcraft
+
+# === TGB ===
+TGB|Other
+TGB|101R
+TGB|101S
+TGB|104T
+TGB|202 Classic
+TGB|303 RS
+TGB|Akros tec
+TGB|BK1 Kurier
+TGB|BLADE 1000 LTX LED MAX EPS E5
+TGB|BLADE 1000 LTX LED MAX EPS T3B
+TGB|BLADE 1000LT
+TGB|BLADE 1000LTX
+TGB|BLADE 600 LTX LED MAX EPS E5
+TGB|BLADE 600 LTX LED MAX EPS T3B
+TGB|BLADE 600i LTX
+TGB|Bullet
+TGB|CAPPUCCIO
+TGB|EXPRESS
+TGB|F409
+TGB|F507
+TGB|Flight Hawk
+TGB|Laser RS
+TGB|Mystique
+TGB|Octane
+TGB|Pegasus
+TGB|R125X
+TGB|R50X
+TGB|Tapo
+TGB|TARGET 525
+TGB|TARGET 600 EPS
+TGB|Vivo
+TGB|X MOTION
+
+# === Titan ===
+Titan|Other
+Titan|Gecko RM
+Titan|Gecko SX
+Titan|Roadrunner
+Titan|YZF
+
+# === TM Racing ===
+TM Racing|Other
+TM Racing|E
+TM Racing|EN
+TM Racing|MX
+TM Racing|SMM
+TM Racing|SMR
+TM Racing|SMX
+
+# === Tomos ===
+Tomos|Other
+Tomos|MC 36
+Tomos|MC 50
+Tomos|MC 80
+
+# === Tomoto ===
+Tomoto|Other
+Tomoto|TM110
+Tomoto|TM150
+Tomoto|TM250
+
+# === Toro ===
+Toro|Other
+Toro|TM110
+Toro|TM150
+Toro|TM250
+
+# === Torrot ===
+Torrot|Other
+Torrot|Motocross One
+Torrot|Motocross Two
+Torrot|Supermotard One
+Torrot|Supermotard Two
+Torrot|Tial Two
+Torrot|Trial One
+
+# === Travertson ===
+Travertson|Other
+Travertson|V-REX
+
+# === Trinity ===
+Trinity|Other
+Trinity|Neptun
+
+# === Tripl ===
+Tripl|Other
+Tripl|Neptun
+
+# === Triumph ===
+Triumph|Other
+Triumph|America
+Triumph|Bonneville
+Triumph|Bonneville Bobber
+Triumph|Bonneville Speedmaster
+Triumph|Bonneville T100
+Triumph|Bonneville T120
+Triumph|Daytona 600
+Triumph|Daytona 650
+Triumph|Daytona 660
+Triumph|Daytona 675
+Triumph|Daytona 765
+Triumph|Daytona 955
+Triumph|Daytona Moto2 765
+Triumph|Legend
+Triumph|Rocket 3
+Triumph|Rocket III
+Triumph|Scrambler 1200
+Triumph|Scrambler 400 X
+Triumph|Scrambler 900
+Triumph|Speed 400
+Triumph|Speed Four
+Triumph|Speed Triple
+Triumph|Speed Triple 1050
+Triumph|Speed Triple 1200 RR
+Triumph|Speed Triple 1200 RS
+Triumph|Speed Twin
+Triumph|Speed Twin 900
+Triumph|Speedmaster
+Triumph|Sprint
+Triumph|Sprint GT
+Triumph|Sprint RS
+Triumph|Sprint ST
+Triumph|Street Cup
+Triumph|Street Scrambler
+Triumph|Street Triple
+Triumph|Street Triple 660
+Triumph|Street Triple 675
+Triumph|Street Triple 765
+Triumph|Street Triple R
+Triumph|Street Triple RS
+Triumph|Street Twin
+Triumph|Thruxton
+Triumph|Thruxton 1200
+Triumph|Thruxton 900
+Triumph|Thruxton R
+Triumph|Thruxton RS
+Triumph|Thunderbird
+Triumph|Thunderbird 1600
+Triumph|Thunderbird 1700
+Triumph|Thunderbird Storm
+Triumph|Tiger
+Triumph|Tiger 1050
+Triumph|Tiger 1200
+Triumph|Tiger 660 Sport
+Triumph|Tiger 800
+Triumph|Tiger 850 Sport
+Triumph|Tiger 900
+Triumph|Tiger Explorer
+Triumph|Tiger Sport
+Triumph|Tiger Sport 660
+Triumph|Tiger Sport 800
+Triumph|Trident 660
+Triumph|Trophy
+Triumph|Trophy 1200
+Triumph|TT 600
+Triumph|Tuxedo
+
+# === Troll ===
+Troll|Other
+Troll|Supertwin
+
+# === TRRS ===
+TRRS|Other
+TRRS|GOLD EDITION
+TRRS|On-E Kids 20
+TRRS|On-E-Kids 16
+TRRS|ONE
+TRRS|ONE R
+TRRS|ONE RR
+
+# === Tula ===
+Tula|Other
+Tula|Muravey
+
+# === Turist ===
+Turist|Other
+Turist|T200M
+
+# === TVS ===
+TVS|Other
+TVS|Apache RTR 160
+
+# === UNU ===
+UNU|Other
+UNU|Basic
+UNU|Premium
+UNU|Standard
+
+# === Ural ===
+Ural|Other
+Ural|750
+Ural|cT
+Ural|Gear Up
+Ural|M70
+Ural|Patrol
+Ural|Solo sT
+Ural|Sportsman
+Ural|Tourist
+
+# === UTV ===
+UTV|Other
+UTV|WorkCross 1000
+UTV|WorkCross 650
+
+# === Vanderhall ===
+Vanderhall|Other
+Vanderhall|OCR 1000
+
+# === Van Veen ===
+Van Veen|Other
+Van Veen|OCR 1000
+
+# === VASSLA ===
+VASSLA|Other
+VASSLA|VASSLA
+
+# === Vastro ===
+Vastro|Other
+Vastro|ZN50QT
+
+# === Vento ===
+Vento|Other
+Vento|Gladiator
+Vento|Mountrack
+Vento|Rebellian
+Vento|V-Thunder
+
+# === Vertemati ===
+Vertemati|Other
+Vertemati|C450
+Vertemati|C500
+Vertemati|C750
+Vertemati|E450
+Vertemati|E501
+Vertemati|E570
+Vertemati|E750
+Vertemati|S450
+Vertemati|S501
+Vertemati|S570
+Vertemati|SR450
+Vertemati|SR600
+
+# === Vespa ===
+Vespa|Other
+Vespa|946
+Vespa|ET2
+Vespa|ET4
+Vespa|GTS 125
+Vespa|GTS 150
+Vespa|GTS 250
+Vespa|GTS 300
+Vespa|GTS Super
+Vespa|GTV 125
+Vespa|GTV 250
+Vespa|GTV 300
+Vespa|LX 125
+Vespa|LX 150
+Vespa|LX 50
+Vespa|LXV 125
+Vespa|PK 50
+Vespa|PK 80
+Vespa|Primavera
+Vespa|Primavera 125
+Vespa|Primavera 150
+Vespa|Primavera 50
+Vespa|PX 125
+Vespa|PX 150
+Vespa|PX 200
+Vespa|S 125
+Vespa|S 150
+Vespa|S 50
+Vespa|Sprint 125
+Vespa|Sprint 150
+Vespa|Sprint 50
+
+# === Viatka ===
+Viatka|Other
+Viatka|Elektron
+
+# === Victory ===
+Victory|Other
+Victory|Cross Country
+Victory|Cross Roads
+Victory|Gunner
+Victory|Hammer
+Victory|High-Ball
+Victory|Judge
+Victory|Kingpin
+Victory|Magnum
+Victory|Octane
+Victory|Vegas
+Victory|Vision
+
+# === VIMODE ===
+VIMODE|Other
+VIMODE|Airo
+VIMODE|Rocky
+
+# === Viper ===
+Viper|Other
+Viper|ZS50-F
+
+# === V-Max ===
+V-Max|Other
+V-Max|WorkCross 1000
+V-Max|WorkCross 650
+
+# === VOGE ===
+VOGE|Other
+VOGE|125 R
+VOGE|300 AC
+VOGE|300 DS
+VOGE|300 R
+VOGE|300 Rally
+VOGE|500 AC
+VOGE|500 DS
+VOGE|500 R
+VOGE|525 DSX
+VOGE|650 DS
+VOGE|650 DSX
+VOGE|900 DSX
+
+# === Von Dutch ===
+Von Dutch|Other
+Von Dutch|Flying Dutchman
+Von Dutch|Killer
+Von Dutch|Lowbrow ProCruiser
+Von Dutch|Speedball
+
+# === VOR ===
+VOR|Other
+VOR|EN
+VOR|MX
+VOR|SM
+VOR|SME
+
+# === Voschod ===
+Voschod|Other
+Voschod|EN
+Voschod|MX
+Voschod|SM
+Voschod|SME
+
+# === Voxan ===
+Voxan|Other
+Voxan|Black Magic
+Voxan|Cafe Racer
+Voxan|Charade Racing
+Voxan|Roadster
+Voxan|Scrambler
+Voxan|Street Scrambler
+Voxan|V
+Voxan|V2
+Voxan|VB1
+
+# === Vyrus ===
+Vyrus|Other
+Vyrus|984 С3
+Vyrus|985 С3
+Vyrus|987 С3
+
+# === Wangye ===
+Wangye|Other
+Wangye|Matrix 50
+Wangye|Storm 50
+Wangye|Viper
+Wangye|Wind 50
+
+# === Wayel ===
+Wayel|Other
+Wayel|Ugo
+Wayel|W1
+Wayel|W2
+Wayel|W3
+
+# === Wayscral ===
+Wayscral|Other
+Wayscral|E-Speed
+
+# === WONJAN ===
+WONJAN|Other
+WONJAN|E-Speed
+
+# === Wuyi Wusheng Electric ===
+Wuyi Wusheng Electric|Other
+Wuyi Wusheng Electric|WV-DB006
+
+# === Xingfu ===
+Xingfu|Other
+Xingfu|250 A
+Xingfu|XF 125
+
+# === X-motos ===
+X-motos|Other
+X-motos|XZ250 Cross
+
+# === Xstar ===
+Xstar|Other
+Xstar|XZ250 Cross
+
+# === XTR ===
+XTR|Other
+XTR|001/7
+XTR|006/7
+XTR|006/8
+XTR|008/8
+XTR|017/8
+XTR|018/8
+XTR|607
+XTR|616
+XTR|702
+XTR|FIRESHOT PRO+
+XTR|Forrest
+XTR|HUMMER PRO+
+XTR|M9
+
+# === YADEA ===
+YADEA|Other
+YADEA|C-LINE
+YADEA|C-UMI
+YADEA|G5
+YADEA|S1
+YADEA|Z3
 
 # === Yamaha ===
 Yamaha|Other
@@ -1176,216 +4387,136 @@ Yamaha|YZF-R6
 Yamaha|YZF-R7
 Yamaha|Zuma
 
-# === Harley-Davidson ===
-Harley-Davidson|Other
-Harley-Davidson|Breakout
-Harley-Davidson|CVO
-Harley-Davidson|CVO Limited
-Harley-Davidson|CVO Pro Street Breakout
-Harley-Davidson|CVO Road Glide
-Harley-Davidson|CVO Road Glide Limited
-Harley-Davidson|CVO Street Glide
-Harley-Davidson|Custom
-Harley-Davidson|Deluxe
-Harley-Davidson|Dyna
-Harley-Davidson|Dyna Fat Bob
-Harley-Davidson|Dyna Glide
-Harley-Davidson|Dyna Low Rider
-Harley-Davidson|Dyna Street Bob
-Harley-Davidson|Dyna Super Glide
-Harley-Davidson|Dyna Switchback
-Harley-Davidson|Dyna Wide Glide
-Harley-Davidson|Electra Glide
-Harley-Davidson|Electra Glide Classic
-Harley-Davidson|Electra Glide Standard
-Harley-Davidson|Electra Glide Ultra Classic
-Harley-Davidson|Electra Glide Ultra Limited
-Harley-Davidson|Fat Bob
-Harley-Davidson|Fat Boy
-Harley-Davidson|FLD Switchback
-Harley-Davidson|FLHR Road King
-Harley-Davidson|FLHRC Road King Classic
-Harley-Davidson|FLHX Street Glide
-Harley-Davidson|FLHXS Street Glide Special
-Harley-Davidson|FLHXSE CVO Street Glide
-Harley-Davidson|Forty-Eight
-Harley-Davidson|FXDR
-Harley-Davidson|Heritage Softail Classic
-Harley-Davidson|Iron 1200
-Harley-Davidson|Iron 883
-Harley-Davidson|Livewire
-Harley-Davidson|Low Rider
-Harley-Davidson|Low Rider S
-Harley-Davidson|Nightster
-Harley-Davidson|Nightster Special
-Harley-Davidson|Nightster 975
-Harley-Davidson|Pan America
-Harley-Davidson|Pan America 1250
-Harley-Davidson|Pan America 1250 Special
-Harley-Davidson|Road Glide
-Harley-Davidson|Road Glide Custom
-Harley-Davidson|Road Glide Limited
-Harley-Davidson|Road Glide Special
-Harley-Davidson|Road Glide ST
-Harley-Davidson|Road Glide Ultra
-Harley-Davidson|Road King
-Harley-Davidson|Road King Classic
-Harley-Davidson|Road King Special
-Harley-Davidson|Roadster
-Harley-Davidson|Seventy-Two
-Harley-Davidson|Softail
-Harley-Davidson|Softail Custom
-Harley-Davidson|Softail Deluxe
-Harley-Davidson|Softail Slim
-Harley-Davidson|Softail Standard
-Harley-Davidson|Sport Glide
-Harley-Davidson|Sportster
-Harley-Davidson|Sportster S
-Harley-Davidson|Sportster XL
-Harley-Davidson|Street 500
-Harley-Davidson|Street 750
-Harley-Davidson|Street Bob
-Harley-Davidson|Street Glide
-Harley-Davidson|Street Glide Special
-Harley-Davidson|Street Glide ST
-Harley-Davidson|Street Rod
-Harley-Davidson|SuperLow
-Harley-Davidson|Superlow 1200T
-Harley-Davidson|Tour Glide
-Harley-Davidson|Tri Glide Ultra
-Harley-Davidson|Ultra Classic
-Harley-Davidson|Ultra Limited
-Harley-Davidson|V-Rod
-Harley-Davidson|V-Rod Muscle
-Harley-Davidson|VRSCD Night Rod
-Harley-Davidson|VRSCDX Night Rod Special
-Harley-Davidson|VRSCF V-Rod Muscle
-Harley-Davidson|VRSCR Street Rod
-Harley-Davidson|Wide Glide
-Harley-Davidson|XG 500
-Harley-Davidson|XG 750
-Harley-Davidson|XL 1200
-Harley-Davidson|XL 883
-Harley-Davidson|XR 1200
+# === Yamasaki ===
+Yamasaki|Other
+Yamasaki|YZF
+Yamasaki|FMX
+Yamasaki|Scorpion
 
-# === Triumph ===
-Triumph|Other
-Triumph|America
-Triumph|Bonneville
-Triumph|Bonneville Bobber
-Triumph|Bonneville Speedmaster
-Triumph|Bonneville T100
-Triumph|Bonneville T120
-Triumph|Daytona 600
-Triumph|Daytona 650
-Triumph|Daytona 660
-Triumph|Daytona 675
-Triumph|Daytona 765
-Triumph|Daytona 955
-Triumph|Daytona Moto2 765
-Triumph|Legend
-Triumph|Rocket 3
-Triumph|Rocket III
-Triumph|Scrambler 1200
-Triumph|Scrambler 400 X
-Triumph|Scrambler 900
-Triumph|Speed 400
-Triumph|Speed Four
-Triumph|Speed Triple
-Triumph|Speed Triple 1050
-Triumph|Speed Triple 1200 RR
-Triumph|Speed Triple 1200 RS
-Triumph|Speed Twin
-Triumph|Speed Twin 900
-Triumph|Speedmaster
-Triumph|Sprint
-Triumph|Sprint GT
-Triumph|Sprint RS
-Triumph|Sprint ST
-Triumph|Street Cup
-Triumph|Street Scrambler
-Triumph|Street Triple
-Triumph|Street Triple 660
-Triumph|Street Triple 675
-Triumph|Street Triple 765
-Triumph|Street Triple R
-Triumph|Street Triple RS
-Triumph|Street Twin
-Triumph|Thruxton
-Triumph|Thruxton 1200
-Triumph|Thruxton 900
-Triumph|Thruxton R
-Triumph|Thruxton RS
-Triumph|Thunderbird
-Triumph|Thunderbird 1600
-Triumph|Thunderbird 1700
-Triumph|Thunderbird Storm
-Triumph|Tiger
-Triumph|Tiger 1050
-Triumph|Tiger 1200
-Triumph|Tiger 660 Sport
-Triumph|Tiger 800
-Triumph|Tiger 850 Sport
-Triumph|Tiger 900
-Triumph|Tiger Explorer
-Triumph|Tiger Sport
-Triumph|Tiger Sport 660
-Triumph|Tiger Sport 800
-Triumph|Trident 660
-Triumph|Trophy
-Triumph|Trophy 1200
-Triumph|TT 600
-Triumph|Tuxedo
+# === Yangtze ===
+Yangtze|Other
+Yangtze|750
 
-# === Royal Enfield ===
-Royal Enfield|Other
-Royal Enfield|Bullet 350
-Royal Enfield|Bullet 500
-Royal Enfield|Classic 350
-Royal Enfield|Classic 500
-Royal Enfield|Continental GT 535
-Royal Enfield|Continental GT 650
-Royal Enfield|Hunter 350
-Royal Enfield|Himalayan 411
-Royal Enfield|Himalayan 450
-Royal Enfield|Interceptor 650
-Royal Enfield|Meteor 350
-Royal Enfield|Scram 411
-Royal Enfield|Shotgun 650
-Royal Enfield|Super Meteor 650
-Royal Enfield|Thunderbird 350
-Royal Enfield|Thunderbird 500
-Royal Enfield|Thunderbird X
+# === Yankee ===
+Yankee|Other
+Yankee|Roadsta
 
-# === Vespa ===
-Vespa|Other
-Vespa|946
-Vespa|ET2
-Vespa|ET4
-Vespa|GTS 125
-Vespa|GTS 150
-Vespa|GTS 250
-Vespa|GTS 300
-Vespa|GTS Super
-Vespa|GTV 125
-Vespa|GTV 250
-Vespa|GTV 300
-Vespa|LX 125
-Vespa|LX 150
-Vespa|LX 50
-Vespa|LXV 125
-Vespa|PK 50
-Vespa|PK 80
-Vespa|Primavera
-Vespa|Primavera 125
-Vespa|Primavera 150
-Vespa|Primavera 50
-Vespa|PX 125
-Vespa|PX 150
-Vespa|PX 200
-Vespa|S 125
-Vespa|S 150
-Vespa|S 50
-Vespa|Sprint 125
-Vespa|Sprint 150
-Vespa|Sprint 50
+# === YCF ===
+YCF|Other
+YCF|50A
+YCF|50E
+YCF|BIGY FACTORY 190 DAYTONA MX
+YCF|Factory SP1
+YCF|Factory SP2
+YCF|Factory SP3
+YCF|Factory SP3 F190
+YCF|GP 187 Daytona
+YCF|Lite 125
+YCF|LITE 88S
+YCF|Pilot F125
+YCF|Pilot F150
+YCF|SM 125S
+YCF|SM F150
+YCF|SM F190
+YCF|Start 125SE
+YCF|Start F125
+YCF|Start F125S
+YCF|Start F88S
+YCF|Start F88SE
+
+# === Yiben ===
+Yiben|Other
+Yiben|MD150-T
+Yiben|YB125T-12
+Yiben|YB125T-23
+Yiben|YB200
+Yiben|YB250
+Yiben|YB50QT-18
+Yiben|YB50QT-3
+Yiben|YB50QT-4
+Yiben|YB50QT-9
+Yiben|YB50T-23
+
+# === Yiying ===
+Yiying|Other
+Yiying|YY50QT-5
+Yiying|YY50QT-6
+
+# === Z Bike ===
+Z Bike|Other
+Z Bike|Z2
+
+# === Zeeho ===
+Zeeho|Other
+Zeeho|AE6+
+Zeeho|AE8S+
+
+# === Zero ===
+Zero|Other
+Zero|DS
+Zero|DSR
+Zero|DSR/X
+Zero|FX
+Zero|FXE
+Zero|S
+Zero|SR
+Zero|SR/F
+Zero|SR/S
+
+# === ZEV ===
+ZEV|Other
+ZEV|10 LRC
+ZEV|2700 L
+ZEV|3600 L
+ZEV|4100
+ZEV|4100 L
+ZEV|6000 LA
+ZEV|6100
+ZEV|7100
+ZEV|7100 LR
+ZEV|T-10 LR
+ZEV|T-5100
+ZEV|T-6100
+ZEV|T-7100
+
+# === ZNEN ===
+ZNEN|Other
+ZNEN|ZN125T-15
+ZNEN|ZN125T-15B
+ZNEN|ZN125T-18
+ZNEN|ZN125T-7A
+ZNEN|ZN50QT-15A
+ZNEN|ZN50QT-15D
+ZNEN|ZN50QT-15E
+ZNEN|ZN50QT-8A
+
+# === Zongshen ===
+Zongshen|Other
+Zongshen|CQR
+Zongshen|LZX
+Zongshen|ZS
+
+# === Zontes ===
+Zontes|Other
+Zontes|125 G1
+Zontes|125 U
+Zontes|125 X
+Zontes|310 R
+Zontes|310 T
+Zontes|310 V
+Zontes|310 X
+Zontes|350 GK
+Zontes|350 R
+Zontes|350 T
+Zontes|350 X
+Zontes|703 F
+Zontes|703 RR
+
+# === Zundapp ===
+Zundapp|Other
+Zundapp|DB
+Zundapp|KS
+
+# === Zweirad Union ===
+Zweirad Union|Other
+Zweirad Union|RT
