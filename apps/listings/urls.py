@@ -19,6 +19,7 @@ urlpatterns = [
     path('ajax/validate-promo-code/', views.validate_promo_code_ajax, name='validate_promo_code_ajax'),
     # ─── Browse ───
     path("", views.listing_list, name="listing_list"),
+    path("", views.home, name="home"),
     path('browse/', views.listing_list, name='browse_listings'),
     path('v2/', views.listing_list_v2, name='listing_list_v2'),
     path("map/", views.search_map, name="search_map"),
