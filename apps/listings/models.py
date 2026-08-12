@@ -2953,6 +2953,7 @@ WHEEL_STATUS_CHOICES = [
  
 WHEEL_DEFAULT_ACTIVE_DAYS = 30
 WHEEL_SOLD_DISPLAY_DAYS = 7
+WHEEL_AUTO_DELETE_AFTER_EXPIRY_DAYS = 160
  
  
 class WheelListing(models.Model):
@@ -2965,6 +2966,7 @@ class WheelListing(models.Model):
  
     DEFAULT_ACTIVE_DAYS = WHEEL_DEFAULT_ACTIVE_DAYS
     SOLD_DISPLAY_DAYS = WHEEL_SOLD_DISPLAY_DAYS
+    AUTO_DELETE_AFTER_EXPIRY_DAYS = WHEEL_AUTO_DELETE_AFTER_EXPIRY_DAYS
  
     COUNTRY_CHOICES = Listing.COUNTRY_CHOICES
     US_STATE_CHOICES = Listing.US_STATE_CHOICES
@@ -3083,7 +3085,38 @@ class WheelListing(models.Model):
             self.title = self.build_title()
         self.save()
         return True
- 
+
+    # ─── Galiojimas (ta pati logika kaip Listing/Truck) ───
+
+    @property
+    def is_expired(self):
+        return self.expires_at and self.expires_at < timezone.now()
+
+    @property
+    def days_until_expiry(self):
+        if not self.expires_at:
+            return None
+        return max(0, (self.expires_at - timezone.now()).days)
+
+    @property
+    def days_since_expired(self):
+        if not self.expires_at or self.expires_at > timezone.now():
+            return None
+        return (timezone.now() - self.expires_at).days
+
+    def mark_expired(self):
+        # WheelListing neturi last_reminder_sent_at lauko, tad tik status.
+        self.status = 'expired'
+        self.save(update_fields=['status'])
+
+    @property
+    def should_auto_delete(self):
+        if self.status != 'expired' or not self.expires_at:
+            return False
+        return (timezone.now() - self.expires_at) >= timedelta(
+            days=self.AUTO_DELETE_AFTER_EXPIRY_DAYS
+        )
+
     def is_star_active(self):
         return (self.star_level > 0 and self.star_expires_at
                 and self.star_expires_at > timezone.now())
