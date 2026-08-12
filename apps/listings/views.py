@@ -19,6 +19,7 @@ from decimal import Decimal
 from django.utils import timezone
 from .constants import can_create_listing
 from .image_validation import ImageValidationError, split_valid_images, validate_images
+from .search_panel import COUNT_KEY_TO_SUB, parts_count_qs, parts_panel_context
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -1126,6 +1127,7 @@ def listing_list(request):
         'moto_brands': moto_brands,
         'wheel_counts': wheel_counts,
         'more_items': more_items,
+        **parts_panel_context(request.user),
         'models': models,
         'years': years,
         'fuel_types': fuel_types,
@@ -6117,6 +6119,9 @@ COUNTRY_FLAGS = {}
 
 SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats'}
 
+# DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
+PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB
+
 
 def filter_listings(params, user=None, category=None, base_qs=None):
     """Pritaiko visus GET filtrus ant Listing queryset'o.
@@ -6135,6 +6140,10 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     category = category or params.get('category')
     if category:
         listings = listings.filter(vehicle_type__slug=category)
+
+    # subcategory — listing_list tai jau darė, count endpoint'as ne
+    if params.get('subcategory'):
+        listings = listings.filter(subcategory_id=params['subcategory'])
 
     if params.get('search'):
         listings = listings.filter(title__icontains=params['search'])
@@ -6260,6 +6269,13 @@ def search_panel_count(request, category):
         _gq = (request.GET.get('search') or request.GET.get('q') or '').strip()
         if _gq:
             qs = qs.filter(title__icontains=_gq)
+        return JsonResponse({'count': qs.count()})
+
+    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u
+    if category in PARTS_COUNT_KEYS:
+        qs = parts_count_qs(
+            PARTS_COUNT_KEYS[category], request.GET, user=request.user
+        )
         return JsonResponse({'count': qs.count()})
 
     if category not in SEARCH_PANEL_CATEGORIES:

@@ -127,40 +127,24 @@
            class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-80 z-50" style="left:calc(100% - 2px)"
            @mouseenter="fly3Open()" @mouseleave="fly3Close()">
 
-        {# Automobilių, mikroautobusų dalys — atidaro „Dalys" tab'ą #}
-        <button type="button" @click="switchTab('parts'); fly3 = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-orange-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Automobilių, mikroautobusų dalys" %}</span>
+        {# Subkategorijos su live count'ais — iš parts_panel_context() #}
+        {% for sub in parts_subs %}
+        <button type="button" @click="switchTab('parts'); setPartSub('{{ sub.key }}'); fly3 = false"
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% if sub.key == 'moto' %}
+              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-orange-500' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
+            {% elif sub.key == 'truck' %}
+              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-orange-500' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
+            {% else %}
+              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-orange-500' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
+            {% endif %}
+            <span class="text-[14.5px] font-bold"
+                  :class="(tab === 'parts' && partSub === '{{ sub.key }}') && 'text-orange-600'">{{ sub.label }}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ sub.count }}</span>
         </button>
-
-        {# Motociklų dalys #}
-        <a href="{% url 'listing_list' %}?category=parts&amp;subcategory=219"
-           class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Motociklų dalys" %}</span>
-        </a>
-
-        {# Sunkiojo transporto dalys #}
-        <a href="{% url 'truck_parts_browse' %}"
-           class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Sunkiojo transporto dalys" %}</span>
-        </a>
-
-        {# Žemės ūkio, spec. dalys — TODO: kai turėsi subkat. ID, pridėk &amp;subcategory=<ID> #}
-        <a href="{% url 'listing_list' %}?category=parts"
-           class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Žemės ūkio, spec. dalys" %}</span>
-        </a>
-
-        {# Aksesuarai, Tuning — TODO: kai turėsi subkat. ID, pridėk &amp;subcategory=<ID> #}
-        <a href="{% url 'listing_list' %}?category=parts"
-           class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Aksesuarai, Tuning" %}</span>
-        </a>
+        {% endfor %}
 
       </div>
     </div>
@@ -1132,35 +1116,196 @@
       </form>
     </div>
 
-    {# ═══════════ PARTS ═══════════ #}
+    {% endif %}
+
+    {# ═══════════ PARTS — trys subkategorijos (partSub) ═══════════ #}
     <div x-show="tab === 'parts'" x-cloak id="sp-panel-parts">
-      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Dalys" %}</h2>
-      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
+        <span x-show="partSub === 'car'">{% trans "Automobilių, mikroautobusų dalys" %}</span>
+        <span x-show="partSub === 'moto'" x-cloak>{% trans "Motociklų dalys" %}</span>
+        <span x-show="partSub === 'truck'" x-cloak>{% trans "Sunkiojo transporto dalys" %}</span>
+      </h2>
+
+      {# ─────────── AUTOMOBILIŲ DALYS ─────────── #}
+      <form class="sp-search-form" data-partsub="car" x-show="partSub === 'car'"
+            method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="parts">
         <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="brand" :value="pd.car.id">
+        <input type="hidden" name="model" :value="pd.car.mid">
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+          {% include 'listings/partials/_sp_parts_brand.html' with sub='car' brands=parts_brands endpoint='/ajax/get-models/' %}
+
           <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Pavadinimas arba detalės kodas" %}</label>
-            <input type="text" name="part_query" placeholder="{% trans 'pvz. 06H 145 601 H' %}" class="sp-fld placeholder-gray-400">
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel"><select name="year_min" class="sp-fld"><option value="">{% trans "Nuo" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+              <div class="sp-sel"><select name="year_max" class="sp-fld"><option value="">{% trans "Iki" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+            </div>
+          </div>
+          {% include 'listings/partials/_sp_parts_price.html' %}
+
+          <div>
+            {# listing_list tekstui priima „search", ne „part_query" #}
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tekstinė paieška" %}</label>
+            <input type="text" name="search" placeholder="{% trans 'pvz. 06H 145 601 H' %}" class="sp-fld placeholder-gray-400">
           </div>
           <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Kaina" %}</label>
-            <div class="grid grid-cols-2 gap-3">
-              <input type="number" step="1" name="price_min" placeholder="{% trans 'Min.' %} $" class="sp-fld placeholder-gray-400">
-              <div class="sp-sel"><select name="price_max" class="sp-fld"><option value="">{% trans "Iki" %}</option><option value="1000">1 000</option><option value="2000">2 000</option><option value="3000">3 000</option><option value="5000">5 000</option><option value="7500">7 500</option><option value="10000">10 000</option><option value="15000">15 000</option><option value="20000">20 000</option><option value="30000">30 000</option><option value="50000">50 000</option></select></div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Detalės kategorija" %}</label>
+            <div class="sp-sel">
+              <select name="subcategory" class="sp-fld">
+                <option value="">{% trans "Visos" %}</option>
+                {% for s in parts_car_subcats %}
+                  <option value="{{ s.id }}">{{ s.name }}{% if s.count %} ({{ s.count }}){% endif %}</option>
+                {% endfor %}
+              </select>
             </div>
           </div>
         </div>
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+
+        <div class="flex flex-wrap items-center gap-4 mt-2">
           <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('parts')"></span>
           </button>
         </div>
       </form>
+
+      {# ─────────── MOTOCIKLŲ DALYS ─────────── #}
+      <form class="sp-search-form" data-partsub="moto" x-show="partSub === 'moto'" x-cloak
+            method="get" action="{% url 'moto_parts_browse' %}">
+        <input type="hidden" name="motorcycle_brand" :value="pd.moto.id">
+        <input type="hidden" name="motorcycle_model" :value="pd.moto.mid">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+          {% include 'listings/partials/_sp_parts_brand.html' with sub='moto' brands=parts_moto_brands endpoint='/ajax/get-motorcycle-models/' %}
+
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel"><select name="year_min" class="sp-fld"><option value="">{% trans "Nuo" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+              <div class="sp-sel"><select name="year_max" class="sp-fld"><option value="">{% trans "Iki" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+            </div>
+          </div>
+          {% include 'listings/partials/_sp_parts_price.html' %}
+
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tekstinė paieška" %}</label>
+            <input type="text" name="part_query" placeholder="{% trans 'pvz. detalės kodas' %}" class="sp-fld placeholder-gray-400">
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Dalies tipas" %}</label>
+            <div class="sp-sel">
+              <select name="part_types" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for g in parts_moto_groups %}
+                <optgroup label="{{ g.label }}">
+                  {% for item in g.items %}<option value="{{ item.id }}">{{ item.name }}</option>{% endfor %}
+                </optgroup>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-2">
+          <a href="{% url 'moto_parts_advanced_search' %}"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('moto-parts')"></span>
+          </button>
+        </div>
+      </form>
+
+      {# ─────────── SUNKIOJO TRANSPORTO DALYS ─────────── #}
+      <form class="sp-search-form" data-partsub="truck" x-show="partSub === 'truck'" x-cloak
+            method="get" action="{% url 'truck_parts_browse' %}">
+        <input type="hidden" name="truck_brand" :value="pd.truck.id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+          {# Markė — dropdown; Modelis sunkvežimiams yra laisvas tekstas (truck_model_text) #}
+          <div class="relative">
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
+            <button type="button" class="sp-fld sp-dd-btn" @click="pd.truck.bOpen = !pd.truck.bOpen; pd.truck.bQ = ''">
+              <span x-text="pd.truck.name"></span>
+            </button>
+            <div x-show="pd.truck.bOpen" x-cloak @click.outside="pd.truck.bOpen = false" class="sp-dd">
+              <div class="sp-dd-search">
+                <input type="text" x-model="pd.truck.bQ" placeholder="{% trans 'Paieška...' %}" @click.stop>
+                <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+              </div>
+              <div class="sp-dd-scroll">
+                <div class="sp-dd-item font-semibold" @click="pdPickBrand('truck', '', '{% trans "Visos" %}', 0, '')">{% trans "Visos markės" %}</div>
+                <div class="sp-dd-group" x-show="!pd.truck.bQ">{% trans "Top markės" %}</div>
+                {% for b in parts_truck_brands %}
+                <div class="sp-dd-item"
+                     x-show="(pd.truck.bAll || {{ b.listing_count|default:0 }} > 0) && (!pd.truck.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.truck.bQ.toLowerCase()) !== -1)"
+                     @click="pdPickBrand('truck', '{{ b.id }}', '{{ b.name|escapejs }}', {{ b.listing_count|default:0 }}, '')">
+                  <span>{{ b.name }}</span>
+                  <span class="sp-dd-count">{% if b.listing_count %}{{ b.listing_count }}{% endif %}</span>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="sp-dd-foot" x-show="!pd.truck.bAll">
+                {% trans "Tik markės su skelbimais." %}
+                <a @click="pd.truck.bAll = true">{% trans "Rodyti visus" %}</a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Modelis" %}</label>
+            <input type="text" name="truck_model_text" placeholder="{% trans 'Visi' %}" class="sp-fld placeholder-gray-400">
+          </div>
+
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel"><select name="year_min" class="sp-fld"><option value="">{% trans "Nuo" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+              <div class="sp-sel"><select name="year_max" class="sp-fld"><option value="">{% trans "Iki" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
+            </div>
+          </div>
+          {% include 'listings/partials/_sp_parts_price.html' %}
+
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tekstinė paieška" %}</label>
+            <input type="text" name="part_query" placeholder="{% trans 'pvz. detalės kodas' %}" class="sp-fld placeholder-gray-400">
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Dalies tipas" %}</label>
+            <div class="sp-sel">
+              <select name="part_types" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for g in parts_truck_groups %}
+                <optgroup label="{{ g.label }}">
+                  {% for item in g.items %}<option value="{{ item.id }}">{{ item.name }}</option>{% endfor %}
+                </optgroup>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 mt-2">
+          <a href="{% url 'truck_parts_advanced_search' %}"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
+          <button type="submit"
+                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('truck-parts')"></span>
+          </button>
+        </div>
+      </form>
     </div>
-    {% endif %}
 
   </div>
 </div>
@@ -1188,6 +1333,62 @@ function spPanel() {
     brandId: '', brandName: '{% trans "Visos" %}', brandTotal: 0,
     modelId: '', modelName: '{% trans "Visi" %}',
     modelList: [],
+
+    // ─── DALYS: subkategorija + markės/modelio dropdown'ai kiekvienai ───
+    partSub: 'car',
+    pd: {
+      car:   { bOpen: false, bQ: '', bAll: false, id: '', name: '{% trans "Visos" %}', total: 0,
+               mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
+      moto:  { bOpen: false, bQ: '', bAll: false, id: '', name: '{% trans "Visos" %}', total: 0,
+               mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
+      truck: { bOpen: false, bQ: '', bAll: false, id: '', name: '{% trans "Visos" %}', total: 0,
+               mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
+    },
+
+    // Kiekviena dalių subkategorija turi savo count endpoint'o raktą
+    partsCountKey(sub) {
+      var map = { car: 'parts', moto: 'moto-parts', truck: 'truck-parts' };
+      return map[sub || this.partSub] || 'parts';
+    },
+
+    setPartSub(sub) {
+      this.partSub = sub;
+      var key = this.partsCountKey(sub);
+      var upd = {};
+      upd[key] = 0;
+      this.counts = Object.assign({}, this.counts, upd);
+      this.spin();
+      this.refreshCount(0);
+    },
+
+    pdPickBrand(sub, id, name, count, endpoint) {
+      var st = this.pd[sub];
+      st.id = id;
+      st.name = name;
+      st.total = count || 0;
+      st.mid = '';
+      st.mname = '{% trans "Visi" %}';
+      st.models = [];
+      st.bOpen = false;
+      if (id && endpoint) {
+        fetch(endpoint + '?brand_id=' + id)
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            st.models = data.filter(function(i) { return !i.type || i.type === 'model'; })
+              .map(function(i) { return { id: i.model_id || i.id, name: i.name, count: i.count }; });
+          })
+          .catch(function() { /* tyliai */ });
+      }
+      this.refreshCount(0);
+    },
+
+    pdPickModel(sub, id, name) {
+      var st = this.pd[sub];
+      st.mid = id;
+      st.mname = id ? name : '{% trans "Visi" %} ' + st.name;
+      st.mOpen = false;
+      this.refreshCount(0);
+    },
 
     pickBrand(id, name, count) {
       this.brandId = id;
@@ -1317,7 +1518,7 @@ function spPanel() {
       this.tab = key;
       history.replaceState({}, '', location.pathname + '?section=' + key);
       var upd = {};
-      upd[key] = 0;
+      upd[key === 'parts' ? this.partsCountKey() : key] = 0;
       this.counts = Object.assign({}, this.counts, upd);
       this.spin();
       this.refreshCount(0);
@@ -1345,14 +1546,17 @@ function spPanel() {
         var panel = document.getElementById('sp-panel-' + self.tab);
         if (!panel) return;
         var form;
+        var cat = self.tab;
         if (self.tab === 'wheels') {
           form = panel.querySelector('form[data-wheel="' + self.wheelType + '"]');
+        } else if (self.tab === 'parts') {
+          form = panel.querySelector('form[data-partsub="' + self.partSub + '"]');
+          cat = self.partsCountKey();
         } else {
           form = panel.querySelector('form');
         }
         if (!form) return;
         var qs = new URLSearchParams(new FormData(form)).toString();
-        var cat = self.tab;
         fetch('/paieska/count/' + cat + '/?' + qs)
           .then(function(r) { return r.json(); })
           .then(function(data) {

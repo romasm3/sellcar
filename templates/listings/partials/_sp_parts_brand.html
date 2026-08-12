@@ -1,0 +1,64 @@
+{% load i18n %}
+{# ================================================================ #}
+{# Markė + Modelis DALYS tab'ui — tas pats dropdown kaip cars tab'e. #}
+{# Param'ai: sub ('car'|'moto'), brands (su listing_count),          #}
+{#           endpoint (modelių AJAX URL).                            #}
+{# Reikšmės keliauja per hidden input'us pačioje formoje.            #}
+{# ================================================================ #}
+<div class="relative">
+  <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
+  <button type="button" class="sp-fld sp-dd-btn" @click="pd.{{ sub }}.bOpen = !pd.{{ sub }}.bOpen; pd.{{ sub }}.bQ = ''">
+    <span x-text="pd.{{ sub }}.name"></span>
+  </button>
+  <div x-show="pd.{{ sub }}.bOpen" x-cloak @click.outside="pd.{{ sub }}.bOpen = false" class="sp-dd">
+    <div class="sp-dd-search">
+      <input type="text" x-model="pd.{{ sub }}.bQ" placeholder="{% trans 'Paieška...' %}" @click.stop>
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="sp-dd-scroll">
+      <div class="sp-dd-item font-semibold"
+           @click="pdPickBrand('{{ sub }}', '', '{% trans "Visos" %}', 0, '{{ endpoint }}')">{% trans "Visos markės" %}</div>
+      <div class="sp-dd-group" x-show="!pd.{{ sub }}.bQ">{% trans "Top markės" %}</div>
+      {% for b in brands %}
+      <div class="sp-dd-item"
+           x-show="(pd.{{ sub }}.bAll || {{ b.listing_count|default:0 }} > 0) && (!pd.{{ sub }}.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.{{ sub }}.bQ.toLowerCase()) !== -1)"
+           @click="pdPickBrand('{{ sub }}', '{{ b.id }}', '{{ b.name|escapejs }}', {{ b.listing_count|default:0 }}, '{{ endpoint }}')">
+        <span>{{ b.name }}</span>
+        <span class="sp-dd-count">{% if b.listing_count %}{{ b.listing_count }}{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="sp-dd-foot" x-show="!pd.{{ sub }}.bAll">
+      {% trans "Tik markės su skelbimais." %}
+      <a @click="pd.{{ sub }}.bAll = true">{% trans "Rodyti visus" %}</a>
+    </div>
+  </div>
+</div>
+
+<div class="relative">
+  <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Modelis" %}</label>
+  <button type="button" class="sp-fld sp-dd-btn" :class="!pd.{{ sub }}.id && 'opacity-60'"
+          @click="if (pd.{{ sub }}.id) { pd.{{ sub }}.mOpen = !pd.{{ sub }}.mOpen; pd.{{ sub }}.mQ = '' }">
+    <span x-text="pd.{{ sub }}.mname"></span>
+  </button>
+  <div x-show="pd.{{ sub }}.mOpen" x-cloak @click.outside="pd.{{ sub }}.mOpen = false" class="sp-dd">
+    <div class="sp-dd-search">
+      <input type="text" x-model="pd.{{ sub }}.mQ" placeholder="{% trans 'Paieška...' %}" @click.stop>
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="sp-dd-scroll">
+      <div class="sp-dd-item font-semibold" @click="pdPickModel('{{ sub }}', '', '')">
+        <span x-text="'{% trans "Visi" %} ' + pd.{{ sub }}.name"></span>
+        <span class="sp-dd-count" x-text="pd.{{ sub }}.total || ''"></span>
+      </div>
+      <template x-for="m in pd.{{ sub }}.models" :key="m.id">
+        <div class="sp-dd-item"
+             x-show="!pd.{{ sub }}.mQ || m.name.toLowerCase().indexOf(pd.{{ sub }}.mQ.toLowerCase()) !== -1"
+             @click="pdPickModel('{{ sub }}', m.id, m.name)">
+          <span x-text="m.name"></span>
+          <span class="sp-dd-count" x-text="m.count !== undefined ? m.count : ''"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>

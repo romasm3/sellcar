@@ -481,7 +481,8 @@ def truck_parts_browse(request):
 
     if part_types:
 
-        qs = qs.filter(listingequipment__equipment_id__in=part_types).distinct()
+        # related_name yra equipment_items — „listingequipment" metė FieldError (500).
+        qs = qs.filter(equipment_items__equipment_id__in=part_types).distinct()
 
 
 
