@@ -7,13 +7,43 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ═══════════════════════════════════════════════════════════
 # GOOGLE TRANSLATE API
 # ═══════════════════════════════════════════════════════════
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(
-    BASE_DIR / 'google-translate-key.json'
-)
+# Nustatom TIK jei raktas realiai yra — anksčiau env kintamasis
+# rodė į neegzistuojantį failą.
+GOOGLE_CREDENTIALS_PATH = Path(config(
+    "GOOGLE_APPLICATION_CREDENTIALS",
+    default=str(BASE_DIR / "google-translate-key.json"),
+))
+if GOOGLE_CREDENTIALS_PATH.is_file():
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(GOOGLE_CREDENTIALS_PATH)
 
-SECRET_KEY = config("SECRET_KEY", default="django-insecure-change-this-key")
-DEBUG = config("DEBUG", default=True, cast=bool)
+# Be default'o — jei .env nepasiekiamas, startas krenta garsiai,
+# o ne pakyla su viešai žinomu raktu.
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1").split(",")
+
+# ═══════════════════════════════════════════════════════════
+# HTTPS / saugūs slapukai
+# ═══════════════════════════════════════════════════════════
+# nginx terminuoja TLS ir perduoda X-Forwarded-Proto (proxy_params).
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Prod'e (DEBUG=False) įjungta, lokaliai — išjungta automatiškai.
+# Kiekvieną galima perrašyti per .env.
+_SECURE_DEFAULT = not DEBUG
+SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=_SECURE_DEFAULT, cast=bool)
+CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=_SECURE_DEFAULT, cast=bool)
+SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=_SECURE_DEFAULT, cast=bool)
+
+# HSTS — pradedam nuo 1 val. Kai įsitikinam, kad viskas per HTTPS,
+# keliam iki 31536000 ir tik tada svarstom subdomains/preload.
+SECURE_HSTS_SECONDS = config(
+    "SECURE_HSTS_SECONDS", default=3600 if _SECURE_DEFAULT else 0, cast=int
+)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+    "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False, cast=bool
+)
+SECURE_HSTS_PRELOAD = config("SECURE_HSTS_PRELOAD", default=False, cast=bool)
 
 # Stripe — leave empty until ready to enable payments
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY", default="")
@@ -91,7 +121,15 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = []
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {"min_length": 8},
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+]
 
 from django.utils.translation import gettext_lazy as _
 
