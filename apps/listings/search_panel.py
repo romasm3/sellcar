@@ -156,7 +156,6 @@ def parts_count_qs(sub_key, params, user=None):
         return [value] if value else []
 
     if sub_key == 'car':
-        # Detalės kategorija = subkategorija (single-part-or-kit / whole-car-for-parts)
         subcategory = _int_or_none(_get('subcategory'))
         if subcategory:
             qs = qs.filter(subcategory_id=subcategory)
@@ -166,6 +165,12 @@ def parts_count_qs(sub_key, params, user=None):
             qs = qs.filter(brand_id=_int_or_none(_get('brand')))
         if _int_or_none(_get('model')):
             qs = qs.filter(model_id=_int_or_none(_get('model')))
+        # Miestas ir kuro tipas — listing_list juos jau filtruoja
+        if _int_or_none(_get('fuel_type')):
+            qs = qs.filter(fuel_type_id=_int_or_none(_get('fuel_type')))
+        city = _get('city')
+        if city:
+            qs = qs.filter(city__icontains=city)
 
     elif sub_key == 'moto':
         # browse view'as ima tik status='active' — laikomės to paties

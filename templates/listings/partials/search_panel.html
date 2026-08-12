@@ -1134,6 +1134,10 @@
         <input type="hidden" name="brand" :value="pd.car.id">
         <input type="hidden" name="model" :value="pd.car.mid">
 
+        {# Tik ši subkategorija — „Single part / parts kit" #}
+        {% for s in parts_car_subcats %}{% if forloop.first %}<input type="hidden" name="subcategory" value="{{ s.id }}">{% endif %}{% endfor %}
+
+        {# Eilučių tvarka kaip autogide: Markė/Modelis → Metai/Miestas → Kuro tipas/Tekstinė #}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
           {% include 'listings/partials/_sp_parts_brand.html' with sub='car' brands=parts_brands endpoint='/ajax/get-models/' %}
 
@@ -1144,29 +1148,37 @@
               <div class="sp-sel"><select name="year_max" class="sp-fld"><option value="">{% trans "Iki" %}</option>{% for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}</select></div>
             </div>
           </div>
-          {% include 'listings/partials/_sp_parts_price.html' %}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Miestas" %}</label>
+            <input type="text" name="city" placeholder="{% trans 'Visi' %}" class="sp-fld placeholder-gray-400">
+          </div>
 
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Kuro tipas" %}</label>
+            <div class="sp-sel">
+              <select name="fuel_type" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for ft in fuel_types %}
+                  <option value="{{ ft.id }}">{{ ft.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
           <div>
             {# listing_list tekstui priima „search", ne „part_query" #}
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tekstinė paieška" %}</label>
             <input type="text" name="search" placeholder="{% trans 'pvz. 06H 145 601 H' %}" class="sp-fld placeholder-gray-400">
           </div>
-          <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Detalės kategorija" %}</label>
-            <div class="sp-sel">
-              <select name="subcategory" class="sp-fld">
-                <option value="">{% trans "Visos" %}</option>
-                {% for s in parts_car_subcats %}
-                  <option value="{{ s.id }}">{{ s.name }}{% if s.count %} ({{ s.count }}){% endif %}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-4 mt-2">
+          <a href="{% url 'advanced_search' %}?category=parts"
+             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Išplėstinė paieška" %}
+          </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-orange-500 hover:bg-orange-600 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('parts')"></span>
           </button>
