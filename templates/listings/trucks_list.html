@@ -232,13 +232,7 @@
                         <input type="hidden" name="country_filter" value="{{ selected_country }}">
                         <input type="hidden" name="state_filter" value="{{ selected_state }}">
 
-                        <div class="sidebar-section">
-                            <span class="sidebar-label">{% trans "Category" %}</span>
-                            <div class="custom-trigger text-sm" onclick="openCategoryModal()">
-                                <span id="sidebarCategoryLabel">🚛 {% trans "Trucks & Commercial" %}</span>
-                                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
-                            </div>
-                        </div>
+                        {# KATEGORIJA — pašalinta iš sidebar'o; ateina iš ?category= #}
 
                         {# ─── Subcategory dropdown (sidebar) ─── #}
                         <div class="sidebar-section">

@@ -322,14 +322,9 @@ a.sp-rail-btn { text-decoration:none; }
                             </a>
                         </div>
 
-                        {# ═══ CATEGORY ═══ #}
-                        <div class="sidebar-section">
-                            <span class="sidebar-label">{% trans "Category" %}</span>
-                            <div class="custom-trigger text-sm" onclick="openCategoryModal()">
-                                <span id="sidebarCategoryLabel">{% trans "Cars" %}</span>
-                                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
-                            </div>
-                        </div>
+                        {# ═══ KATEGORIJA — pašalinta iš sidebar'o.                    ═══ #}
+                        {# Kategorija ateina TIK iš ?category= (paieškos panelė / URL) #}
+                        {# ir keliauja toliau per sidebarCategoryHidden aukščiau.       #}
 
                         {# ═══ MAKE / MODEL PAIRS (multi-brand UI) ═══ #}
                         <div id="brandModelPairs">
