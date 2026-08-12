@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n i18n_db %}
 {% block title %}{{ profile.dealer_company_name|default:dealer_user.username }} - SellCar{% endblock %}
 
 {% block content %}
@@ -99,7 +99,7 @@
                 <select name="fuel_type" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
                     <option value="">{% trans "All" %}</option>
                     {% for ft in available_fuel_types %}
-                        <option value="{{ ft.id }}" {% if fuel_filter == ft.id|stringformat:"s" %}selected{% endif %}>{{ ft.name }}</option>
+                        <option value="{{ ft.id }}" {% if fuel_filter == ft.id|stringformat:"s" %}selected{% endif %}>{{ ft.name|tdb }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -109,7 +109,7 @@
                 <select name="transmission" class="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500">
                     <option value="">{% trans "All" %}</option>
                     {% for t in available_transmissions %}
-                        <option value="{{ t.id }}" {% if transmission_filter == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>
+                        <option value="{{ t.id }}" {% if transmission_filter == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name|tdb }}</option>
                     {% endfor %}
                 </select>
             </div>

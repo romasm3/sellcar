@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% if is_edit %}{% trans "Edit" %}{% else %}{% trans "Create" %}{% endif %} {% trans "Trucks Listing" %} - SellCar{% endblock %}
 
@@ -443,7 +443,7 @@
                         <select name="fuel_type" class="form-select {% if errors.fuel_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
                             <option value="">— {% trans "Select" %} —</option>
                             {% for ft in fuel_types %}
-                            <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>
+                            <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
                         </select>
                         {% if errors.fuel_type %}<span class="field-error-msg">{{ errors.fuel_type }}</span>{% endif %}
@@ -599,7 +599,7 @@
                         <select name="transmission" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
                             <option value="">— {% trans "Select" %} —</option>
                             {% for tr in transmissions %}
-                            <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name }}</option>
+                            <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>

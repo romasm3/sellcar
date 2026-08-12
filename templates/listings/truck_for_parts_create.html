@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Sell Truck For Parts" %}{% endif %} - SellCar{% endblock %}
 
@@ -140,7 +140,7 @@
                         <select name="fuel_type" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                             <option value="">---------</option>
                             {% for ft in fuel_types %}
-                            <option value="{{ ft.id }}" {% if draft.fuel_type_id == ft.id %}selected{% endif %}>{{ ft.name }}</option>
+                            <option value="{{ ft.id }}" {% if draft.fuel_type_id == ft.id %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>

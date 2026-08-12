@@ -1,63 +1,56 @@
-
 # apps/listings/translatable_db.py
-
-# DB reikšmės (SubCategory.name), kurias reikia versti.
-
-# Šis failas niekur neimportuojamas — egzistuoja tik tam,
-
-# kad makemessages surinktų šiuos stringus į .po failus.
-
-
+# ═══════════════════════════════════════════════════════════
+# DB reikšmės (VehicleType.name, SubCategory.name), kurias reikia versti.
+#
+# Šis failas niekur neimportuojamas — egzistuoja tik tam, kad
+# makemessages surinktų šiuos stringus į .po failus. Rodymo metu
+# jie verčiami per {{ value|tdb }} filtrą (templatetags/i18n_db.py)
+# arba gettext() view'e (pvz. get_subcategories_ajax).
+# ═══════════════════════════════════════════════════════════
 
 from django.utils.translation import gettext_lazy as _
 
 
-
-SUBCATEGORY_NAMES = [
-
-    _('Buses'), _('Campers'), _('Cargo Minibuses over 3.5t'),
-
-    _('Cargo Minibuses up to 3.5t'), _('Passenger Minibuses'),
-
-    _('Motorcycles'), _('Moto Gear, accessories'),
-
-    _('Trucks'), _('Vehicle Transporters'), _('Semi-Trucks / Tractors'), _('Vans'),
-
-    _('Car Parts'), _('Moto Parts'), _('Single moto part'), _('Truck Parts'),
-
-    _('Whole car for parts'), _('Whole moto for parts'), _('Whole truck for parts'),
-
-    _('Single part / parts kit'),
-
-    _('Tyres'), _('Rims'),
-
-    _('Boats'), _('Fishing Boats'), _('Inflatable Boats'), _('Jet Skis'),
-
-    _('Motorboats'), _('Other Watercraft'), _('Sailboats'), _('Yachts'),
-
-    _('Boat Trailers'), _('Car Trailers'), _('Caravans'), _('Curtainsider Trailers'),
-
-    _('Flatbed Trailers'), _('Other Trailers'), _('Refrigerator Trailers'),
-
-    _('Semi-trailers'), _('Tipper Trailers'),
-
-    _('Bulldozers'), _('Compactors'), _('Concrete Mixers'), _('Cranes'),
-
-    _('Excavators'), _('Forklifts'), _('Loaders'), _('Other Construction'),
-
-    _('Balers'), _('Combine Harvesters'), _('Cultivators'), _('Forestry Machines'),
-
-    _('Other Agricultural'), _('Ploughs'), _('Sprayers'), _('Tractors'),
-
-    _('Bicycles'), _('Electric Bikes'), _('Electric Scooters'),
-
-    _('Body Repair'), _('Car Service'), _('Car Wash'), _('Diagnostics'),
-
-    _('Painting'), _('Towing'),
-
-    _('Airplanes'), _('Drones'), _('Helicopters'), _('Ultralight Aircraft'),
-
-    _('Aircraft Accessories'), _('Avionics'), _('Engine Parts'),
-
+VEHICLE_TYPE_NAMES = [
+    _('Cars'), _('Minibuses, Buses & Campers'), _('Motorcycles & Moto Gear'),
+    _('Trucks & Commercial'), _('Parts'), _('Tyres & Wheels'),
+    _('Boats & Water Transport'), _('Trailers & Semi-trailers'),
+    _('Construction & Warehouse Equipment'), _('Agricultural & Forestry'),
+    _('Bicycles & Scooters'), _('Services'), _('Car Rental'), _('Planes & Aircraft'),
+    _('Aircraft Parts'), _('Vilkikai'), _('Autotraukiniai, autovežiai'),
+    _('Komunalinio ūkio transportas'), _('Krovimo ir sandėliavimo technika'),
+    _('Automobilių supirkimas'), _('Video, audio, navigacijos'), _('Miško ūkio technika'),
+    _('Turistiniai nameliai'),
 ]
 
+SUBCATEGORY_NAMES = [
+    _('Aircraft Accessories'), _('Airplanes'), _('Avionics'), _('Balers'), _('Bicycles'),
+    _('Boat Trailers'), _('Boats'), _('Body Repair'), _('Bulldozers'), _('Buses'),
+    _('Campers'), _('Car Parts'), _('Car Service'), _('Car Trailers'), _('Car Wash'),
+    _('Caravans'), _('Cargo Minibuses over 3.5t'), _('Cargo Minibuses up to 3.5t'),
+    _('Combine Harvesters'), _('Compactors'), _('Concrete Mixers'), _('Cranes'),
+    _('Cultivators'), _('Curtainsider Trailers'), _('Diagnostics'), _('Drones'),
+    _('Electric Bikes'), _('Electric Scooters'), _('Engine Parts'), _('Excavators'),
+    _('Fishing Boats'), _('Flatbed Trailers'), _('Forestry Machines'), _('Forklifts'),
+    _('Helicopters'), _('Inflatable Boats'), _('Jet Skis'),
+    _('Limuzinų, vestuvių transporto nuoma'), _('Loaders'), _('Moto Gear, accessories'),
+    _('Moto Parts'), _('Motociklų nuoma'), _('Motorboats'), _('Motorcycles'),
+    _('Other Agricultural'), _('Other Construction'), _('Other Trailers'),
+    _('Other Watercraft'), _('Painting'), _('Passenger Minibuses'), _('Ploughs'),
+    _('Refrigerator Trailers'), _('Rims'), _('Sailboats'), _('Semi-Trucks / Tractors'),
+    _('Semi-trailers'), _('Single moto part'), _('Single part / parts kit'), _('Sprayers'),
+    _('Statybinės technikos priedai'), _('Sunkiojo transporto, priekabų nuoma'),
+    _('Tipper Trailers'), _('Towing'), _('Tractors'), _('Truck Parts'), _('Trucks'),
+    _('Tyres'), _('Ultralight Aircraft'), _('Vans'), _('Vehicle Transporters'),
+    _('Whole car for parts'), _('Whole moto for parts'), _('Whole truck for parts'),
+    _('Yachts'),
+]
+
+
+FUEL_AND_TRANSMISSION_NAMES = [
+    _('Automatic'), _('CVT'), _('Diesel'), _('Diesel / Electric (Hybrid)'),
+    _('Diesel / Electric (Plug-in)'), _('Electric'), _('Ethanol'), _('LPG'), _('Manual'),
+    _('Other'), _('Petrol'), _('Petrol / CNG'), _('Petrol / Electric (Hybrid)'),
+    _('Petrol / Electric (Plug-in)'), _('Petrol / Electric / LPG'), _('Petrol / LPG'),
+    _('Semi-automatic'),
+]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -13,8 +14,8 @@ class Profile(models.Model):
     """User Profile Model"""
 
     SELLER_TYPE_CHOICES = [
-        ('private', 'Private Seller'),
-        ('dealer', 'Car Dealer / Autohouse'),
+        ('private', _('Private Seller')),
+        ('dealer', _('Car Dealer / Autohouse')),
     ]
 
     user = models.OneToOneField(
@@ -23,54 +24,54 @@ class Profile(models.Model):
         related_name='profile'
     )
     # Personal Information
-    bio = models.TextField(max_length=500, blank=True, verbose_name="Bio")
-    location = models.CharField(max_length=100, blank=True, verbose_name="Location")
-    phone_number = models.CharField(max_length=20, blank=True, verbose_name="Phone Number")
-    phone_number_secondary = models.CharField(max_length=20, blank=True, verbose_name="Secondary Phone Number")
-    street = models.CharField(max_length=200, blank=True, verbose_name="Street")
-    house_number = models.CharField(max_length=20, blank=True, verbose_name="House Number")
-    city = models.CharField(max_length=100, blank=True, verbose_name="City")
-    country = models.CharField(max_length=100, blank=True, default="Lithuania", verbose_name="Country")
-    profile_picture = models.ImageField(upload_to='profiles/', blank=True, null=True, verbose_name="Profile Picture")
+    bio = models.TextField(max_length=500, blank=True, verbose_name=_("Bio"))
+    location = models.CharField(max_length=100, blank=True, verbose_name=_("Location"))
+    phone_number = models.CharField(max_length=20, blank=True, verbose_name=_("Phone Number"))
+    phone_number_secondary = models.CharField(max_length=20, blank=True, verbose_name=_("Secondary Phone Number"))
+    street = models.CharField(max_length=200, blank=True, verbose_name=_("Street"))
+    house_number = models.CharField(max_length=20, blank=True, verbose_name=_("House Number"))
+    city = models.CharField(max_length=100, blank=True, verbose_name=_("City"))
+    country = models.CharField(max_length=100, blank=True, default="Lithuania", verbose_name=_("Country"))
+    profile_picture = models.ImageField(upload_to='profiles/', blank=True, null=True, verbose_name=_("Profile Picture"))
 
     # Seller type (LEGACY — used for Listing filters; new logic uses account_type below)
     seller_type = models.CharField(
         max_length=20,
         choices=SELLER_TYPE_CHOICES,
         default='private',
-        verbose_name="Seller Type"
+        verbose_name=_("Seller Type")
     )
-    company_name = models.CharField(max_length=200, blank=True, verbose_name="Company Name")
-    company_logo = models.ImageField(upload_to='companies/', blank=True, null=True, verbose_name="Company Logo")
-    banner_image = models.ImageField(upload_to='banners/', blank=True, null=True, verbose_name="Banner Image")
-    working_hours = models.CharField(max_length=200, blank=True, verbose_name="Working Hours")
-    contact_person = models.CharField(max_length=100, blank=True, verbose_name="Contact Person")
-    company_description = models.TextField(max_length=1000, blank=True, verbose_name="Company Description")
-    website = models.URLField(blank=True, verbose_name="Website")
+    company_name = models.CharField(max_length=200, blank=True, verbose_name=_("Company Name"))
+    company_logo = models.ImageField(upload_to='companies/', blank=True, null=True, verbose_name=_("Company Logo"))
+    banner_image = models.ImageField(upload_to='banners/', blank=True, null=True, verbose_name=_("Banner Image"))
+    working_hours = models.CharField(max_length=200, blank=True, verbose_name=_("Working Hours"))
+    contact_person = models.CharField(max_length=100, blank=True, verbose_name=_("Contact Person"))
+    company_description = models.TextField(max_length=1000, blank=True, verbose_name=_("Company Description"))
+    website = models.URLField(blank=True, verbose_name=_("Website"))
 
     # Rating (updated via signals)
-    rating = models.DecimalField(max_digits=3, decimal_places=1, default=0, verbose_name="Rating")
-    rating_count = models.IntegerField(default=0, verbose_name="Rating Count")
+    rating = models.DecimalField(max_digits=3, decimal_places=1, default=0, verbose_name=_("Rating"))
+    rating_count = models.IntegerField(default=0, verbose_name=_("Rating Count"))
 
     # Wallet
     wallet_balance = models.DecimalField(
         max_digits=10, decimal_places=2, default=0,
-        verbose_name="Wallet Balance (points)"
+        verbose_name=_("Wallet Balance (points)")
     )
 
     # Notification Settings
-    email_notifications = models.BooleanField(default=True, verbose_name="Email Notifications")
-    email_messages = models.BooleanField(default=True, verbose_name="Email Messages Notifications")
-    marketing_emails = models.BooleanField(default=False, verbose_name="Marketing Emails")
-    sms_notifications = models.BooleanField(default=False, verbose_name="SMS Notifications")
+    email_notifications = models.BooleanField(default=True, verbose_name=_("Email Notifications"))
+    email_messages = models.BooleanField(default=True, verbose_name=_("Email Messages Notifications"))
+    marketing_emails = models.BooleanField(default=False, verbose_name=_("Marketing Emails"))
+    sms_notifications = models.BooleanField(default=False, verbose_name=_("SMS Notifications"))
 
     # Privacy Settings
-    show_email = models.BooleanField(default=False, verbose_name="Show Email on Profile")
-    show_phone = models.BooleanField(default=True, verbose_name="Show Phone on Listings")
-    public_profile = models.BooleanField(default=True, verbose_name="Public Profile")
+    show_email = models.BooleanField(default=False, verbose_name=_("Show Email on Profile"))
+    show_phone = models.BooleanField(default=True, verbose_name=_("Show Phone on Listings"))
+    public_profile = models.BooleanField(default=True, verbose_name=_("Public Profile"))
     show_location_map = models.BooleanField(
         default=True,
-        verbose_name="Show Location on Map",
+        verbose_name=_("Show Location on Map"),
         help_text="Display your listing locations on Google Maps"
     )
 
@@ -81,13 +82,13 @@ class Profile(models.Model):
         max_length=10,
         choices=ACCOUNT_TYPE_CHOICES,
         default=ACCOUNT_TYPE_PRIVATE,
-        verbose_name='Account type',
+        verbose_name=_('Account type'),
     )
     dealer_status = models.CharField(
         max_length=10,
         choices=DEALER_STATUS_CHOICES,
         default=DEALER_STATUS_NONE,
-        verbose_name='Dealer status',
+        verbose_name=_('Dealer status'),
     )
 
     # ─── Dealer business info (filled via apply form) ───
@@ -112,7 +113,7 @@ class Profile(models.Model):
     # ─── Dealer working hours (JSON struktūra) ───
     dealer_working_hours = models.JSONField(
         default=dict, blank=True,
-        verbose_name='Dealer working hours',
+        verbose_name=_('Dealer working hours'),
         help_text='JSON: {"mon": {"open": "09:00", "close": "18:00", "closed": false}, ...}'
     )
 
@@ -121,21 +122,21 @@ class Profile(models.Model):
     # Auto-load user's preferred language across devices/sessions
     # ═══════════════════════════════════════════════════════════
     LANGUAGE_CHOICES = [
-        ('en', 'English'),
-        ('lt', 'Lietuvių'),
-        ('lv', 'Latviešu'),
-        ('et', 'Eesti'),
-        ('pl', 'Polski'),
-        ('de', 'Deutsch'),
-        ('ru', 'Русский'),
-        ('fr', 'Français'),
+        ('en', _('English')),
+        ('lt', _('Lietuvių')),
+        ('lv', _('Latviešu')),
+        ('et', _('Eesti')),
+        ('pl', _('Polski')),
+        ('de', _('Deutsch')),
+        ('ru', _('Русский')),
+        ('fr', _('Français')),
     ]
     language = models.CharField(
         max_length=10,
         choices=LANGUAGE_CHOICES,
         default='en',
         blank=True,
-        verbose_name='Preferred Language',
+        verbose_name=_('Preferred Language'),
     )
 
     # Timestamps
@@ -167,7 +168,7 @@ class Profile(models.Model):
         )
 
     class Meta:
-        verbose_name = "Profile"
+        verbose_name=_("Profile")
         verbose_name_plural = "Profiles"
         ordering = ['-created_at']
 
@@ -176,18 +177,18 @@ class WalletTransaction(models.Model):
     """Wallet transaction history (top-ups, spends, bonuses)."""
 
     TYPE_CHOICES = [
-        ('topup', 'Top-up'),
-        ('bonus', 'Bonus'),
-        ('spend', 'Spend'),
-        ('refund', 'Refund'),
-        ('test_topup', 'Test top-up'),
+        ('topup', _('Top-up')),
+        ('bonus', _('Bonus')),
+        ('spend', _('Spend')),
+        ('refund', _('Refund')),
+        ('test_topup', _('Test top-up')),
     ]
 
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('completed', 'Completed'),
-        ('failed', 'Failed'),
-        ('refunded', 'Refunded'),
+        ('pending', _('Pending')),
+        ('completed', _('Completed')),
+        ('failed', _('Failed')),
+        ('refunded', _('Refunded')),
     ]
 
     user = models.ForeignKey(
@@ -197,12 +198,12 @@ class WalletTransaction(models.Model):
     )
     amount = models.DecimalField(
         max_digits=10, decimal_places=2,
-        verbose_name="Amount (points)",
+        verbose_name=_("Amount (points)"),
         help_text="Positive for top-ups, negative for spends"
     )
     bonus_amount = models.DecimalField(
         max_digits=10, decimal_places=2, default=0,
-        verbose_name="Bonus points"
+        verbose_name=_("Bonus points")
     )
     transaction_type = models.CharField(
         max_length=20, choices=TYPE_CHOICES, default='topup'
@@ -221,7 +222,7 @@ class WalletTransaction(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        verbose_name = "Wallet Transaction"
+        verbose_name=_("Wallet Transaction")
         verbose_name_plural = "Wallet Transactions"
 
     def __str__(self):
@@ -238,13 +239,13 @@ class SellerReview(models.Model):
     """Seller Review / Rating"""
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_given')
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_received')
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name="Rating")
-    comment = models.TextField(max_length=500, blank=True, verbose_name="Comment")
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], verbose_name=_("Rating"))
+    comment = models.TextField(max_length=500, blank=True, verbose_name=_("Comment"))
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ['reviewer', 'seller']
-        verbose_name = "Seller Review"
+        verbose_name=_("Seller Review")
         verbose_name_plural = "Seller Reviews"
         ordering = ['-created_at']
 

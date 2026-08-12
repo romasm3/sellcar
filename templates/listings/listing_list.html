@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Browse Cars" %} - SellCar{% endblock %}
 
@@ -456,7 +456,7 @@ a.sp-rail-btn { text-decoration:none; }
                                 <span class="sidebar-label">{% trans "Transmission" %}</span>
                                 <select name="transmission" class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
                                     <option value="">{% trans "All" %}</option>
-                                    {% for tr in transmissions %}<option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>{% endfor %}
+                                    {% for tr in transmissions %}<option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name|tdb }}</option>{% endfor %}
                                 </select>
                             </div>
 
@@ -480,7 +480,7 @@ a.sp-rail-btn { text-decoration:none; }
                                                {% if request.GET.fuel_type == ft.id|stringformat:"i" %}checked{% endif %}
                                                style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;"
                                                onchange="sidebarFuelChange(this)">
-                                        <span class="text-sm text-gray-700">{{ ft.name }}</span>
+                                        <span class="text-sm text-gray-700">{{ ft.name|tdb }}</span>
                                     </label>
                                     {% endif %}
                                     {% endfor %}
@@ -492,7 +492,7 @@ a.sp-rail-btn { text-decoration:none; }
                                                    {% if request.GET.fuel_type == ft.id|stringformat:"i" %}checked{% endif %}
                                                    style="accent-color:#374151;width:14px;height:14px;flex-shrink:0;"
                                                    onchange="sidebarFuelChange(this)">
-                                            <span class="text-sm text-gray-700">{{ ft.name }}</span>
+                                            <span class="text-sm text-gray-700">{{ ft.name|tdb }}</span>
                                         </label>
                                         {% endif %}
                                         {% endfor %}

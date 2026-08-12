@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -38,12 +39,12 @@ BOATS_SUBCATEGORY_SLUGS = {
 # Medžiaga (boat_material) — 'Other' pirmas
 BOAT_MATERIAL_CHOICES = [
     ('', '---------'),
-    ('aluminium', 'Aluminium'),
-    ('steel', 'Steel'),
-    ('fiberglass', 'Fiberglass / Plastic'),
-    ('wood', 'Wood'),
-    ('pvc', 'PVC / Rubber'),
-    ('other', 'Other'),
+    ('aluminium', _('Aluminium')),
+    ('steel', _('Steel')),
+    ('fiberglass', _('Fiberglass / Plastic')),
+    ('wood', _('Wood')),
+    ('pvc', _('PVC / Rubber')),
+    ('other', _('Other')),
 ]
 
 

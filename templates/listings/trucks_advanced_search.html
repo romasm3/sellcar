@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Advanced Truck Search" %} - SellCar{% endblock %}
 
@@ -435,7 +435,7 @@
                                     <select name="fuel_type" class="filter-select">
                                         <option value="">{% trans "All" %}</option>
                                         {% for ft in fuel_types %}
-                                        <option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>
+                                        <option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name|tdb }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -444,7 +444,7 @@
                                     <select name="transmission" class="filter-select">
                                         <option value="">{% trans "All" %}</option>
                                         {% for tr in transmissions %}
-                                        <option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name }}</option>
+                                        <option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name|tdb }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

@@ -1,6 +1,7 @@
 """
 Moto Gear listing creation, browse and search.
 """
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -169,7 +170,7 @@ def upload_motogear_draft_images_ajax(request):
 
     images = request.FILES.getlist('images')
     if not images:
-        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('No images uploaded'))}, status=400)
 
     try:
         validate_images(images)
@@ -179,7 +180,7 @@ def upload_motogear_draft_images_ajax(request):
     existing_count = listing.images.count()
     available = max(0, 40 - existing_count)
     if available <= 0:
-        return JsonResponse({'success': False, 'error': 'Maximum 40 photos reached'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('Maximum 40 photos reached'))}, status=400)
 
     uploaded = []
     for i, image in enumerate(images[:available]):

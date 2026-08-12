@@ -5,6 +5,7 @@ Klonas iš car_for_parts_views.py: Brand→TruckBrand, Model→truck_model_text,
 URL: /create/truck-for-parts/
 """
 
+from django.utils.translation import gettext_lazy as _
 import json
 from datetime import date
 from django.shortcuts import render, redirect, get_object_or_404
@@ -35,13 +36,13 @@ TRUCK_FOR_PARTS_SUBCATEGORY_SLUG = 'whole-truck-for-parts'
 
 # Ypatumai grupės (truck equipment kategorijos) — rodymo tvarka + label
 TRUCK_PART_CATEGORIES = [
-    ('truck_part_body',           'Body parts'),
-    ('truck_part_chassis',        'Chassis / transmission parts'),
-    ('truck_part_cooling',        'Cooling system parts'),
-    ('truck_part_electrical',     'Electrical system parts'),
-    ('truck_part_engine',         'Engine parts'),
-    ('truck_part_interior',       'Cabin / interior parts'),
-    ('truck_part_superstructure', 'Superstructure parts'),
+    ('truck_part_body', _('Body parts')),
+    ('truck_part_chassis', _('Chassis / transmission parts')),
+    ('truck_part_cooling', _('Cooling system parts')),
+    ('truck_part_electrical', _('Electrical system parts')),
+    ('truck_part_engine', _('Engine parts')),
+    ('truck_part_interior', _('Cabin / interior parts')),
+    ('truck_part_superstructure', _('Superstructure parts')),
 ]
 
 

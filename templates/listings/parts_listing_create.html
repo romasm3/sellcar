@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 
-{% load i18n %}
+{% load i18n i18n_db %}
 
 
 
@@ -605,7 +605,7 @@
 
                             {% for f in fuel_types %}
 
-                            <option value="{{ f.id }}" {% if form_data.fuel_type == f.id|stringformat:"s" %}selected{% endif %}>{{ f.name }}</option>
+                            <option value="{{ f.id }}" {% if form_data.fuel_type == f.id|stringformat:"s" %}selected{% endif %}>{{ f.name|tdb }}</option>
 
                             {% endfor %}
 
@@ -655,7 +655,7 @@
 
                             {% for t in transmissions %}
 
-                            <option value="{{ t.id }}" {% if form_data.transmission == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>
+                            <option value="{{ t.id }}" {% if form_data.transmission == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name|tdb }}</option>
 
                             {% endfor %}
 

@@ -2,6 +2,7 @@
 trucks_views.py — Trucks & Commercial vehicle listings
 Architecture: Variant A — uses existing Listing table with truck-specific fields.
 """
+from django.utils.translation import gettext_lazy as _
 import json
 import logging
 from django.shortcuts import render, redirect, get_object_or_404
@@ -53,9 +54,9 @@ CURRENCY_CHOICES = [
 ]
 
 COUNTRY_CHOICES = [
-    ('US', 'United States'), ('LT', 'Lithuania'),
-    ('LV', 'Latvia'), ('EE', 'Estonia'), ('PL', 'Poland'),
-    ('DE', 'Germany'), ('NL', 'Netherlands'), ('GB', 'United Kingdom'),
+    ('US', _('United States')), ('LT', _('Lithuania')),
+    ('LV', _('Latvia')), ('EE', _('Estonia')), ('PL', _('Poland')),
+    ('DE', _('Germany')), ('NL', _('Netherlands')), ('GB', _('United Kingdom')),
 ]
 
 MONTHS = [
@@ -830,7 +831,7 @@ def upload_trucks_image_ajax(request):
                 seller=request.user,
             )
         except Listing.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Listing not found'}, status=404)
+            return JsonResponse({'success': False, 'error': str(_('Listing not found'))}, status=404)
     else:
         target = _get_or_create_trucks_draft(request, force_new=False)
         if not target:
@@ -838,7 +839,7 @@ def upload_trucks_image_ajax(request):
 
     images = request.FILES.getlist('images')
     if not images:
-        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('No images uploaded'))}, status=400)
 
     try:
         validate_images(images)

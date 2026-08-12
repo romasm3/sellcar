@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Browse Cars" %} - SellCar{% endblock %}
 
@@ -98,7 +98,7 @@
                         <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
                             <option value="">{% trans "All" %}</option>
                             {% for ft in fuel_types %}
-                                <option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>
+                                <option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -108,7 +108,7 @@
                         <select name="transmission" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary">
                             <option value="">{% trans "All" %}</option>
                             {% for tr in transmissions %}
-                                <option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>
+                                <option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n i18n_db %}
 {# ═══ PANELĖ: AUTOMOBILIAI ═══ #}
 
 <input type="hidden" name="brand" id="brandHidden" value="{{ request.GET.brand }}">
@@ -74,7 +74,7 @@
     <span class="sp-label">{% trans "Fuel Type" %}</span>
     <select name="fuel_type" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
         <option value="">{% trans "All" %}</option>
-        {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+        {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name|tdb }}</option>{% endfor %}
     </select>
 </div>
 

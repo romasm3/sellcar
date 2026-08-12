@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Advanced Search" %} - SellCar{% endblock %}
 
@@ -236,7 +236,7 @@
             <label>{% trans "Fuel Type" %}</label>
             <select name="fuel_type" class="adv-select">
                 <option value="">{% trans "All" %}</option>
-                {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+                {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:"i" %}selected{% endif %}>{{ ft.name|tdb }}</option>{% endfor %}
             </select>
         </div>
 
@@ -305,7 +305,7 @@
             <label>{% trans "Transmission" %}</label>
             <select name="transmission" class="adv-select">
                 <option value="">{% trans "All" %}</option>
-                {% for tr in transmissions %}<option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name }}</option>{% endfor %}
+                {% for tr in transmissions %}<option value="{{ tr.id }}" {% if f.transmission == tr.id|stringformat:"i" %}selected{% endif %}>{{ tr.name|tdb }}</option>{% endfor %}
             </select>
         </div>
 
@@ -575,7 +575,7 @@
 
                         <option value="">{% trans "All" %}</option>
 
-                        {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name }}</option>{% endfor %}
+                        {% for ft in fuel_types %}<option value="{{ ft.id }}" {% if f.fuel_type == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name|tdb }}</option>{% endfor %}
 
                     </select>
 
@@ -589,7 +589,7 @@
 
                         <option value="">{% trans "All" %}</option>
 
-                        {% for t in transmissions %}<option value="{{ t.id }}" {% if f.transmission == t.id|stringformat:'s' %}selected{% endif %}>{{ t.name }}</option>{% endfor %}
+                        {% for t in transmissions %}<option value="{{ t.id }}" {% if f.transmission == t.id|stringformat:'s' %}selected{% endif %}>{{ t.name|tdb }}</option>{% endfor %}
 
                     </select>
 

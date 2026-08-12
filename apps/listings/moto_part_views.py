@@ -3,6 +3,7 @@ Single moto part srautas — autogidas.lt "Motociklų dalys" 1:1 forma.
 URL: /create/moto-part/
 """
 
+from django.utils.translation import gettext_lazy as _
 from datetime import date, timedelta
 
 from django.contrib.auth.decorators import login_required
@@ -19,18 +20,18 @@ from apps.listings.models import (
 
 # ─── "Dalies tipas" grupės (Equipment kategorijos) — rodymo tvarka + label ───
 MOTO_PART_CATEGORIES = [
-    ('moto_trim',       'Trim / Body parts'),
-    ('moto_electrical', 'Electrical system parts'),
-    ('moto_cooling',    'Engine cooling parts'),
-    ('moto_engine',     'Engine parts'),
-    ('moto_chassis',    'Chassis & transmission parts'),
+    ('moto_trim', _('Trim / Body parts')),
+    ('moto_electrical', _('Electrical system parts')),
+    ('moto_cooling', _('Engine cooling parts')),
+    ('moto_engine', _('Engine parts')),
+    ('moto_chassis', _('Chassis & transmission parts')),
 ]
 
 CONDITION_CHOICES = [
-    ('new', 'New'),
-    ('used', 'Used'),
-    ('refurbished', 'Refurbished'),
-    ('damaged', 'Damaged'),
+    ('new', _('New')),
+    ('used', _('Used')),
+    ('refurbished', _('Refurbished')),
+    ('damaged', _('Damaged')),
 ]
 
 

@@ -1,4 +1,5 @@
 import json
+from django.utils.translation import gettext_lazy as _
 import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -55,13 +56,13 @@ RENEW_RATE_LIMIT_HOURS = 1
 # EQUIPMENT CATEGORIES — Cars-only filter (no truck_*, no gear)
 # ═══════════════════════════════════════════════════════════
 CARS_EQUIPMENT_CATEGORIES = [
-    ('interior', 'Interior'),
-    ('exterior', 'Exterior'),
-    ('electronics', 'Electronics'),
-    ('safety', 'Safety & Security'),
-    ('audio_video', 'Audio, Video & Connectivity'),
-    ('other', 'Other Features'),
-    ('electric', 'Electric vehicle features'),
+    ('interior', _('Interior')),
+    ('exterior', _('Exterior')),
+    ('electronics', _('Electronics')),
+    ('safety', _('Safety & Security')),
+    ('audio_video', _('Audio, Video & Connectivity')),
+    ('other', _('Other Features')),
+    ('electric', _('Electric vehicle features')),
 ]
 
 CATEGORY_VEHICLE_TYPES = {
@@ -1433,11 +1434,11 @@ def upload_listing_images_ajax(request, pk):
     try:
         listing = Listing.objects.get(pk=pk, seller=request.user)
     except Listing.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Listing not found'}, status=404)
+        return JsonResponse({'success': False, 'error': str(_('Listing not found'))}, status=404)
 
     images = request.FILES.getlist('images')
     if not images:
-        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('No images uploaded'))}, status=400)
 
     try:
         validate_images(images)
@@ -1449,7 +1450,7 @@ def upload_listing_images_ajax(request, pk):
         available = 40 - existing_count
         images = images[:max(0, available)]
         if not images:
-            return JsonResponse({'success': False, 'error': 'Maximum 40 photos reached'}, status=400)
+            return JsonResponse({'success': False, 'error': str(_('Maximum 40 photos reached'))}, status=400)
 
     uploaded = []
     for i, image in enumerate(images):
@@ -1483,7 +1484,7 @@ def reorder_listing_images_ajax(request, pk):
     try:
         listing = Listing.objects.get(pk=pk, seller=request.user)
     except Listing.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Listing not found'}, status=404)
+        return JsonResponse({'success': False, 'error': str(_('Listing not found'))}, status=404)
 
     try:
         data = json.loads(request.body)
@@ -1573,11 +1574,11 @@ def upload_draft_images_ajax(request):
                 status='draft',
             )
         except Listing.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Draft not found'}, status=400)
+            return JsonResponse({'success': False, 'error': str(_('Draft not found'))}, status=400)
 
     images = request.FILES.getlist('images')
     if not images:
-        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('No images uploaded'))}, status=400)
 
     try:
         validate_images(images)
@@ -5845,7 +5846,7 @@ def validate_promo_code_ajax(request):
     Response (error):
         {
             'success': False,
-            'error': 'Invalid promo code'
+            'error': str(_('Invalid promo code'))
         }
     """
     from .models import PromoCode, PricingPlan
@@ -5862,21 +5863,21 @@ def validate_promo_code_ajax(request):
     plan_code = data.get('plan_code', '')
 
     if not code_input:
-        return JsonResponse({'success': False, 'error': 'Įveskite kodą'})
+        return JsonResponse({'success': False, 'error': str(_('Įveskite kodą'))})
 
     if not listing_pk:
-        return JsonResponse({'success': False, 'error': 'Listing not found'})
+        return JsonResponse({'success': False, 'error': str(_('Listing not found'))})
 
     # ─── Surask listing ───
     try:
         listing = Listing.objects.get(pk=listing_pk, seller=request.user)
     except Listing.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Listing not found'})
+        return JsonResponse({'success': False, 'error': str(_('Listing not found'))})
 
     # ─── Surask promo kodą (case-insensitive) ───
     promo = PromoCode.objects.filter(code__iexact=code_input).first()
     if not promo:
-        return JsonResponse({'success': False, 'error': 'Toks kodas neegzistuoja'})
+        return JsonResponse({'success': False, 'error': str(_('Toks kodas neegzistuoja'))})
 
     # ─── Patikrink ar valid ───
     is_valid, error_msg = promo.is_valid(user=request.user, listing=listing, plan_code=plan_code)

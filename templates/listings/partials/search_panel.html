@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n i18n_db %}
 {# ================================================================ #}
 {# AutoLeft paieškos panelė — A variantas                           #}
 {# Alpine x-show tab'ai (0ms), count AJAX su debounce + count-up    #}
@@ -213,7 +213,7 @@
                 class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
-            <span class="text-[14.5px] font-bold text-gray-800" :class="tab === 'boats' && 'text-orange-600'">{{ item.name }}</span>
+            <span class="text-[14.5px] font-bold text-gray-800" :class="tab === 'boats' && 'text-orange-600'">{{ item.name|tdb }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
         </button>
@@ -222,7 +222,7 @@
            class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
-            <span class="text-[14.5px] font-bold text-gray-800">{{ item.name }}</span>
+            <span class="text-[14.5px] font-bold text-gray-800">{{ item.name|tdb }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
         </a>
@@ -339,7 +339,7 @@
               <select name="fuel_type" class="sp-fld">
                 <option value="">{% trans "Visi" %}</option>
                 {% for ft in fuel_types %}
-                  <option value="{{ ft.id }}">{{ ft.name }}</option>
+                  <option value="{{ ft.id }}">{{ ft.name|tdb }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -1159,7 +1159,7 @@
               <select name="fuel_type" class="sp-fld">
                 <option value="">{% trans "Visi" %}</option>
                 {% for ft in fuel_types %}
-                  <option value="{{ ft.id }}">{{ ft.name }}</option>
+                  <option value="{{ ft.id }}">{{ ft.name|tdb }}</option>
                 {% endfor %}
               </select>
             </div>

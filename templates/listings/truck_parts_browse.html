@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Truck parts" %} - SellCar{% endblock %}
 
@@ -134,7 +134,7 @@
       <div class="mpb-field">
         <label>{% trans "Fuel type" %}</label>
         <select name="fuel_type"><option value="">{% trans "All" %}</option>
-          {% for f in fuel_types %}<option value="{{ f.id }}" {% if request.GET.fuel_type == f.id|stringformat:"s" %}selected{% endif %}>{{ f.name }}</option>{% endfor %}
+          {% for f in fuel_types %}<option value="{{ f.id }}" {% if request.GET.fuel_type == f.id|stringformat:"s" %}selected{% endif %}>{{ f.name|tdb }}</option>{% endfor %}
         </select>
       </div>
       <div class="mpb-field">

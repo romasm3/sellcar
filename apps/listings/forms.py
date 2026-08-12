@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import (
     Listing,
     ListingImage,
@@ -17,36 +18,36 @@ class Step1BasicInfoForm(forms.Form):
 
     vehicle_type = forms.ModelChoiceField(
         queryset=VehicleType.objects.all(),
-        label="Vehicle Type",
+        label=_("Vehicle Type"),
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     brand = forms.ModelChoiceField(
         queryset=Brand.objects.all(),
-        label="Brand",
+        label=_("Brand"),
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_brand'})
     )
 
     model = forms.ModelChoiceField(
         queryset=Model.objects.none(),
-        label="Model",
+        label=_("Model"),
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_model'})
     )
 
     year = forms.IntegerField(
-        label="Manufacturing Year",
+        label=_("Manufacturing Year"),
         widget=forms.Select(attrs={'class': 'form-control'},
                           choices=[(y, y) for y in range(2025, 1949, -1)])
     )
 
     first_registration_month = forms.IntegerField(
-        label="Registration Month",
+        label=_("Registration Month"),
         widget=forms.Select(attrs={'class': 'form-control'},
                           choices=[(m, m) for m in range(1, 13)])
     )
 
     vin = forms.CharField(
-        label="VIN Code",
+        label=_("VIN Code"),
         max_length=17,
         required=False,
         widget=forms.TextInput(attrs={
@@ -77,7 +78,7 @@ class Step2MediaForm(forms.Form):
     year = forms.IntegerField(required=False)
 
     video_url = forms.URLField(
-        label="Upload Video (YouTube or other URL)",
+        label=_("Upload Video (YouTube or other URL)"),
         required=False,
         widget=forms.URLInput(attrs={
             'class': 'form-control',
@@ -91,37 +92,37 @@ class Step3VehicleDataForm(forms.Form):
     """Step 3: Technical Vehicle Data"""
 
     body_type = forms.ChoiceField(
-        label="Body Type",
+        label=_("Body Type"),
         choices=[('', '---------')] + Listing.BODY_TYPE_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     fuel_type = forms.ModelChoiceField(
         queryset=FuelType.objects.all(),
-        label="Fuel Type",
+        label=_("Fuel Type"),
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     transmission = forms.ModelChoiceField(
         queryset=Transmission.objects.all(),
-        label="Transmission",
+        label=_("Transmission"),
         widget=forms.RadioSelect()
     )
 
     doors = forms.ChoiceField(
-        label="Number of Doors",
+        label=_("Number of Doors"),
         choices=Listing.DOOR_CHOICES,
         widget=forms.RadioSelect()
     )
 
     condition = forms.ChoiceField(
-        label="Condition",
+        label=_("Condition"),
         choices=[('', '---------')] + Listing.CONDITION_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     color = forms.ChoiceField(
-        label="Color",
+        label=_("Color"),
         choices=[('', '---------')] + Listing.COLOR_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -129,7 +130,7 @@ class Step3VehicleDataForm(forms.Form):
 
     # 13. Defects — REQUIRED, tu\u0161\u010dias default (---------), vartotojas turi pasirinkti vien\u0105 i\u0161 variant\u0173 (\u012fskaitant "No defects")
     defects = forms.ChoiceField(
-        label="Defects",
+        label=_("Defects"),
         choices=[('', '---------')] + list(Listing.DEFECT_CHOICES),
         required=True,
         initial='',
@@ -137,14 +138,14 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     steering = forms.ChoiceField(
-        label="Steering",
+        label=_("Steering"),
         choices=[('', '---------')] + Listing.STEERING_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     mileage = forms.IntegerField(
-        label="Mileage (km)",
+        label=_("Mileage (km)"),
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': '-',
@@ -153,7 +154,7 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     engine_capacity = forms.DecimalField(
-        label="Engine Capacity (L)",
+        label=_("Engine Capacity (L)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -163,7 +164,7 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     power = forms.IntegerField(
-        label="Power (kW)",
+        label=_("Power (kW)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -174,35 +175,35 @@ class Step3VehicleDataForm(forms.Form):
 
     # Extended fields
     drive_type = forms.ChoiceField(
-        label="Drive Type",
+        label=_("Drive Type"),
         choices=[('', '---------')] + Listing.DRIVE_TYPE_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     seats = forms.ChoiceField(
-        label="Number of Seats",
+        label=_("Number of Seats"),
         choices=[('', '---------')] + Listing.SEATS_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     rim_size = forms.ChoiceField(
-        label="Rim Size",
+        label=_("Rim Size"),
         choices=[('', '---------')] + Listing.RIM_SIZE_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     climate = forms.ChoiceField(
-        label="Climate Control",
+        label=_("Climate Control"),
         choices=[('', '---------')] + Listing.CLIMATE_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     curb_weight = forms.IntegerField(
-        label="Curb Weight (kg)",
+        label=_("Curb Weight (kg)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -212,14 +213,14 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     euro_standard = forms.ChoiceField(
-        label="Euro Standard",
+        label=_("Euro Standard"),
         choices=[('', '---------')] + Listing.EURO_STANDARD_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     co2_emission = forms.IntegerField(
-        label="CO\u2082 Emission (g/km)",
+        label=_("CO\u2082 Emission (g/km)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -229,7 +230,7 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     fuel_consumption_city = forms.DecimalField(
-        label="Fuel Consumption City (l/100km)",
+        label=_("Fuel Consumption City (l/100km)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -240,7 +241,7 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     fuel_consumption_highway = forms.DecimalField(
-        label="Fuel Consumption Highway (l/100km)",
+        label=_("Fuel Consumption Highway (l/100km)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -251,7 +252,7 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     fuel_consumption_combined = forms.DecimalField(
-        label="Fuel Consumption Combined (l/100km)",
+        label=_("Fuel Consumption Combined (l/100km)"),
         required=False,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
@@ -262,21 +263,21 @@ class Step3VehicleDataForm(forms.Form):
     )
 
     origin_country = forms.ChoiceField(
-        label="Origin Country",
+        label=_("Origin Country"),
         choices=[('', '---------')] + Listing.COUNTRY_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     technical_inspection_month = forms.ChoiceField(
-        label="Technical Inspection Month",
+        label=_("Technical Inspection Month"),
         choices=[('', '-')] + [(str(m), f'{m:02d}') for m in range(1, 13)],
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     technical_inspection_year = forms.ChoiceField(
-        label="Technical Inspection Year",
+        label=_("Technical Inspection Year"),
         choices=[('', '-')] + [(str(y), str(y)) for y in range(2024, 2036)],
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -288,7 +289,7 @@ class Step4EquipmentForm(forms.Form):
     """Step 4: Additional Equipment"""
 
     features_text = forms.CharField(
-        label="Search Features",
+        label=_("Search Features"),
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -319,7 +320,7 @@ class Step5PriceForm(forms.Form):
     """Step 5: Price"""
 
     price = forms.DecimalField(
-        label="Price (\u20ac)",
+        label=_("Price (\u20ac)"),
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Enter price',
@@ -329,7 +330,7 @@ class Step5PriceForm(forms.Form):
     )
 
     negotiable = forms.BooleanField(
-        label="Price is negotiable",
+        label=_("Price is negotiable"),
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
@@ -340,7 +341,7 @@ class Step6DescriptionForm(forms.Form):
     """Step 6: Listing Description"""
 
     description = forms.CharField(
-        label="Description",
+        label=_("Description"),
         required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control',
@@ -383,7 +384,7 @@ class Step7ContactForm(forms.Form):
     ]
 
     country = forms.ChoiceField(
-        label="Country",
+        label=_("Country"),
         choices=COUNTRY_CHOICES,
         initial='LT',
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -391,7 +392,7 @@ class Step7ContactForm(forms.Form):
 
     # 14. City laukas — NEPRIVALOMAS (kai pasirenka US, naudojama valstija)
     city = forms.CharField(
-        label="City",
+        label=_("City"),
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -400,7 +401,7 @@ class Step7ContactForm(forms.Form):
     )
 
     postal_code = forms.CharField(
-        label="Postal Code",
+        label=_("Postal Code"),
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -409,7 +410,7 @@ class Step7ContactForm(forms.Form):
     )
 
     address = forms.CharField(
-        label="Street Address",
+        label=_("Street Address"),
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -418,14 +419,14 @@ class Step7ContactForm(forms.Form):
     )
 
     hide_exact_address = forms.BooleanField(
-        label="Hide exact address (show only city/area on map)",
+        label=_("Hide exact address (show only city/area on map)"),
         required=False,
         initial=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
     phone = forms.CharField(
-        label="Contact Phone",
+        label=_("Contact Phone"),
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
@@ -434,7 +435,7 @@ class Step7ContactForm(forms.Form):
     )
 
     email = forms.EmailField(
-        label="Email Address",
+        label=_("Email Address"),
         required=False,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
@@ -443,20 +444,20 @@ class Step7ContactForm(forms.Form):
     )
 
     show_phone = forms.BooleanField(
-        label="Show phone number in listing",
+        label=_("Show phone number in listing"),
         required=False,
         initial=True,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
     agree_terms = forms.BooleanField(
-        label="I agree to the Terms and Conditions and Privacy Policy",
+        label=_("I agree to the Terms and Conditions and Privacy Policy"),
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
     agree_newsletter = forms.BooleanField(
-        label="Subscribe to newsletter and special offers",
+        label=_("Subscribe to newsletter and special offers"),
         required=False,
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )

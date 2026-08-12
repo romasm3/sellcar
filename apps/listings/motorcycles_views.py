@@ -8,6 +8,7 @@ Supports BOTH modes:
 
 Note: 'Other' brand and 'Other' model are always sorted FIRST in all dropdowns.
 """
+from django.utils.translation import gettext_lazy as _
 import os
 import json
 from itertools import groupby
@@ -457,7 +458,7 @@ def save_motorcycle_draft_ajax(request):
     if not listing:
         return JsonResponse({
             'success': False,
-            'error': 'Failed to save draft.',
+            'error': str(_('Failed to save draft.')),
         }, status=500)
 
     if not draft_id and not (
@@ -504,7 +505,7 @@ def delete_draft_ajax(request, pk):
     except Listing.DoesNotExist:
         return JsonResponse({
             'success': False,
-            'error': 'Draft not found'
+            'error': str(_('Draft not found'))
         }, status=404)
 
 
@@ -566,7 +567,7 @@ def upload_moto_draft_images_ajax(request):
 
     images = request.FILES.getlist('images')
     if not images:
-        return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('No images uploaded'))}, status=400)
 
     try:
         validate_images(images)
@@ -576,7 +577,7 @@ def upload_moto_draft_images_ajax(request):
     existing_count = draft.images.count()
     available = 40 - existing_count
     if available <= 0:
-        return JsonResponse({'success': False, 'error': 'Maximum 40 photos reached'}, status=400)
+        return JsonResponse({'success': False, 'error': str(_('Maximum 40 photos reached'))}, status=400)
     images = images[:available]
 
     uploaded = []

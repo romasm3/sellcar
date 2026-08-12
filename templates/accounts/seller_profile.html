@@ -1,5 +1,5 @@
 {% load static %}
-{% load i18n %}
+{% load i18n i18n_db %}
 {% load dict_extras %}
 <!DOCTYPE html>
 <html lang="en">
@@ -243,7 +243,7 @@
                                         <option value="">{% trans "All" %}</option>
                                         {% for ft in fuel_types %}
                                         <option value="{{ ft.id }}" {% if request.GET.fuel_type == ft.id|stringformat:"s" %}selected{% endif %}>
-                                            {{ ft.name }} ({{ fuel_counts|get_item:ft.id }})
+                                            {{ ft.name|tdb }} ({{ fuel_counts|get_item:ft.id }})
                                         </option>
                                         {% endfor %}
                                     </select>
@@ -254,7 +254,7 @@
                                         <option value="">{% trans "All" %}</option>
                                         {% for tr in transmissions %}
                                         <option value="{{ tr.id }}" {% if request.GET.transmission == tr.id|stringformat:"s" %}selected{% endif %}>
-                                            {{ tr.name }} ({{ transmission_counts|get_item:tr.id }})
+                                            {{ tr.name|tdb }} ({{ transmission_counts|get_item:tr.id }})
                                         </option>
                                         {% endfor %}
                                     </select>

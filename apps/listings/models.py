@@ -8,12 +8,12 @@ from datetime import timedelta
 
 
 class VehicleType(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
-    order = models.IntegerField(default=0, verbose_name="Order")
+    order = models.IntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
-        verbose_name = "Vehicle Type"
+        verbose_name=_("Vehicle Type")
         verbose_name_plural = "Vehicle Types"
         ordering = ['order', 'name']
 
@@ -22,7 +22,7 @@ class VehicleType(models.Model):
 
 
 class SubCategory(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField()
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='subcategories')
 
@@ -30,12 +30,12 @@ class SubCategory(models.Model):
         'self', on_delete=models.CASCADE,
         null=True, blank=True,
         related_name='children',
-        verbose_name="Parent subcategory",
+        verbose_name=_("Parent subcategory"),
     )
-    order = models.IntegerField(default=0, verbose_name="Display order")
+    order = models.IntegerField(default=0, verbose_name=_("Display order"))
 
     class Meta:
-        verbose_name = "SubCategory"
+        verbose_name=_("SubCategory")
         verbose_name_plural = "SubCategories"
         ordering = ['order', 'name']
         unique_together = ['vehicle_type', 'slug']
@@ -45,12 +45,12 @@ class SubCategory(models.Model):
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='brands')
 
     class Meta:
-        verbose_name = "Brand"
+        verbose_name=_("Brand")
         verbose_name_plural = "Brands"
         ordering = ['name']
 
@@ -59,12 +59,12 @@ class Brand(models.Model):
 
 
 class Model(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField()
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='models')
 
     class Meta:
-        verbose_name = "Model"
+        verbose_name=_("Model")
         verbose_name_plural = "Models"
         ordering = ['name']
         unique_together = ['brand', 'slug']
@@ -74,12 +74,12 @@ class Model(models.Model):
 
 
 class SubModel(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField()
     model = models.ForeignKey(Model, on_delete=models.CASCADE, related_name='submodels')
 
     class Meta:
-        verbose_name = "SubModel"
+        verbose_name=_("SubModel")
         verbose_name_plural = "SubModels"
         ordering = ['name']
         unique_together = ['model', 'slug']
@@ -89,11 +89,11 @@ class SubModel(models.Model):
 
 
 class MotorcycleBrand(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
 
     class Meta:
-        verbose_name = "Motorcycle Brand"
+        verbose_name=_("Motorcycle Brand")
         verbose_name_plural = "Motorcycle Brands"
         ordering = ['name']
 
@@ -102,12 +102,12 @@ class MotorcycleBrand(models.Model):
 
 
 class MotorcycleModel(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField()
     brand = models.ForeignKey(MotorcycleBrand, on_delete=models.CASCADE, related_name='models')
 
     class Meta:
-        verbose_name = "Motorcycle Model"
+        verbose_name=_("Motorcycle Model")
         verbose_name_plural = "Motorcycle Models"
         ordering = ['name']
         unique_together = ['brand', 'slug']
@@ -121,11 +121,11 @@ class MotorcycleModel(models.Model):
 # ═══════════════════════════════════════════════════════════
 
 class TruckBrand(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
 
     class Meta:
-        verbose_name = "Truck Brand"
+        verbose_name=_("Truck Brand")
         verbose_name_plural = "Truck Brands"
         ordering = ['name']
 
@@ -134,12 +134,12 @@ class TruckBrand(models.Model):
 
 
 class TruckModel(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField()
     brand = models.ForeignKey(TruckBrand, on_delete=models.CASCADE, related_name='models')
 
     class Meta:
-        verbose_name = "Truck Model"
+        verbose_name=_("Truck Model")
         verbose_name_plural = "Truck Models"
         ordering = ['name']
         unique_together = ['brand', 'slug']
@@ -153,12 +153,12 @@ class TruckModel(models.Model):
 # ═══════════════════════════════════════════════════════════
 
 class GearBrand(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
-    order = models.IntegerField(default=0, verbose_name="Display order")
+    order = models.IntegerField(default=0, verbose_name=_("Display order"))
 
     class Meta:
-        verbose_name = "Gear Brand"
+        verbose_name=_("Gear Brand")
         verbose_name_plural = "Gear Brands"
         ordering = ['order', 'name']
 
@@ -171,10 +171,10 @@ class GearBrand(models.Model):
 
 
 class FuelType(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Name")
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
 
     class Meta:
-        verbose_name = "Fuel Type"
+        verbose_name=_("Fuel Type")
         verbose_name_plural = "Fuel Types"
         ordering = ['name']
 
@@ -183,10 +183,10 @@ class FuelType(models.Model):
 
 
 class Transmission(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Name")
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
 
     class Meta:
-        verbose_name = "Transmission"
+        verbose_name=_("Transmission")
         verbose_name_plural = "Transmissions"
         ordering = ['name']
 
@@ -196,117 +196,117 @@ class Transmission(models.Model):
 
 class Listing(models.Model):
     CONDITION_CHOICES = [
-        ('new', 'New'),
-        ('used', 'Used'),
-        ('damaged', 'Damaged'),
+        ('new', _('New')),
+        ('used', _('Used')),
+        ('damaged', _('Damaged')),
     ]
 
     STATUS_CHOICES = [
-        ('draft', 'Juodraštis'),
-        ('active', 'Aktyvus'),
-        ('reserved', 'Rezervuotas'),
-        ('expired', 'Neaktyvus'),
-        ('sold', 'Parduotas'),
-        ('archived', 'Archyvuotas'),
+        ('draft', _('Juodraštis')),
+        ('active', _('Aktyvus')),
+        ('reserved', _('Rezervuotas')),
+        ('expired', _('Neaktyvus')),
+        ('sold', _('Parduotas')),
+        ('archived', _('Archyvuotas')),
     ]
 
     BODY_TYPE_CHOICES = [
-        ('sedan', 'Sedan'), ('hatchback', 'Hatchback'),
-        ('estate', 'Estate/Wagon'), ('minivan', 'Minivan'),
-        ('suv', 'SUV/Crossover'), ('coupe', 'Coupe'),
-        ('commercial', 'Commercial'), ('convertible', 'Convertible'),
-        ('limousine', 'Limousine'), ('pickup', 'Pickup'),
-        ('minibus', 'Minibus'), ('truck', 'Truck/Van'),
-        ('other', 'Other'),
+        ('sedan', _('Sedan')), ('hatchback', _('Hatchback')),
+        ('estate', _('Estate/Wagon')), ('minivan', _('Minivan')),
+        ('suv', _('SUV/Crossover')), ('coupe', _('Coupe')),
+        ('commercial', _('Commercial')), ('convertible', _('Convertible')),
+        ('limousine', _('Limousine')), ('pickup', _('Pickup')),
+        ('minibus', _('Minibus')), ('truck', _('Truck/Van')),
+        ('other', _('Other')),
     ]
 
     # ═══ TRUCK TYPE — autoplius-style "Tipas" filter (23 types) ═══
     TRUCK_TYPE_CHOICES = [
-        ('', '— Select —'),
-        ('tankers', 'Tankers'),
-        ('car_carriers', 'Car Carriers'),
-        ('concrete_mixers', 'Concrete Mixers'),
-        ('flatbed', 'Flatbed'),
-        ('flatbed_tarpaulin', 'Flatbed with Tarpaulin'),
-        ('curtain_side', 'Curtain-Side'),
-        ('double_cab', 'Double Cab'),
-        ('livestock_carriers', 'Livestock Carriers'),
-        ('insulated_box', 'Insulated Box'),
-        ('hard_side_box', 'Hard-Side Box'),
-        ('container_carriers', 'Container Carriers'),
-        ('logging_trucks', 'Logging Trucks'),
-        ('milk_tankers', 'Milk Tankers'),
-        ('platforms', 'Platforms'),
-        ('mobile_shop', 'Mobile Shop'),
-        ('tippers', 'Tippers'),
-        ('hook_lift_tippers', 'Hook-Lift Tippers'),
-        ('crane_tippers', 'Crane Tippers'),
-        ('with_crane', 'With Crane'),
-        ('refrigerators', 'Refrigerators'),
-        ('curtain_tarpaulin', 'Curtain / Tarpaulin'),
-        ('chassis', 'Chassis'),
-        ('other', 'Other'),
+        ('', _('— Select —')),
+        ('tankers', _('Tankers')),
+        ('car_carriers', _('Car Carriers')),
+        ('concrete_mixers', _('Concrete Mixers')),
+        ('flatbed', _('Flatbed')),
+        ('flatbed_tarpaulin', _('Flatbed with Tarpaulin')),
+        ('curtain_side', _('Curtain-Side')),
+        ('double_cab', _('Double Cab')),
+        ('livestock_carriers', _('Livestock Carriers')),
+        ('insulated_box', _('Insulated Box')),
+        ('hard_side_box', _('Hard-Side Box')),
+        ('container_carriers', _('Container Carriers')),
+        ('logging_trucks', _('Logging Trucks')),
+        ('milk_tankers', _('Milk Tankers')),
+        ('platforms', _('Platforms')),
+        ('mobile_shop', _('Mobile Shop')),
+        ('tippers', _('Tippers')),
+        ('hook_lift_tippers', _('Hook-Lift Tippers')),
+        ('crane_tippers', _('Crane Tippers')),
+        ('with_crane', _('With Crane')),
+        ('refrigerators', _('Refrigerators')),
+        ('curtain_tarpaulin', _('Curtain / Tarpaulin')),
+        ('chassis', _('Chassis')),
+        ('other', _('Other')),
     ]
 
     # ═══ TRUCK WHEEL FORMULA — autoplius "Ratų formulė" ═══
     WHEEL_FORMULA_CHOICES = [
-        ('', '— Select —'),
-        ('4x2', '4x2'), ('4x4', '4x4'),
-        ('6x2', '6x2'), ('6x2/4', '6x2/4'),
-        ('6x4', '6x4'), ('6x4/2', '6x4/2'),
-        ('6x6', '6x6'),
-        ('8x2', '8x2'), ('8x2/4', '8x2/4'),
-        ('8x4', '8x4'), ('8x6', '8x6'), ('8x8', '8x8'),
-        ('10x4', '10x4'), ('10x6', '10x6'), ('10x8', '10x8'),
+        ('', _('— Select —')),
+        ('4x2', _('4x2')), ('4x4', _('4x4')),
+        ('6x2', _('6x2')), ('6x2/4', _('6x2/4')),
+        ('6x4', _('6x4')), ('6x4/2', _('6x4/2')),
+        ('6x6', _('6x6')),
+        ('8x2', _('8x2')), ('8x2/4', _('8x2/4')),
+        ('8x4', _('8x4')), ('8x6', _('8x6')), ('8x8', _('8x8')),
+        ('10x4', _('10x4')), ('10x6', _('10x6')), ('10x8', _('10x8')),
     ]
 
     # ═══ TRUCK MASS INTERVAL — autoplius "Masės intervalas" ═══
     MASS_INTERVAL_CHOICES = [
-        ('', '— Select —'),
-        ('up_to_3.5t', 'Up to 3.5 t'),
-        ('3.5_to_7.5t', '3.5 - 7.5 t'),
-        ('over_7.5t', 'Over 7.5 t'),
+        ('', _('— Select —')),
+        ('up_to_3.5t', _('Up to 3.5 t')),
+        ('3.5_to_7.5t', _('3.5 - 7.5 t')),
+        ('over_7.5t', _('Over 7.5 t')),
     ]
 
     # ═══ TRUCK SUSPENSION — autoplius "Pakaba" ═══
     TRUCK_SUSPENSION_CHOICES = [
-        ('', '— Select —'),
-        ('air', 'Air'),
-        ('spring', 'Spring'),
-        ('parabolic', 'Parabolic'),
-        ('hydraulic', 'Hydraulic'),
-        ('rubber', 'Rubber'),
+        ('', _('— Select —')),
+        ('air', _('Air')),
+        ('spring', _('Spring')),
+        ('parabolic', _('Parabolic')),
+        ('hydraulic', _('Hydraulic')),
+        ('rubber', _('Rubber')),
     ]
 
     # ═══ COLOR — 'Other' first ═══
     COLOR_CHOICES = [
-        ('other', 'Other'),
-        ('white', 'White'), ('black', 'Black'),
-        ('red', 'Red / Burgundy'), ('blue', 'Blue'),
-        ('green_khaki', 'Green / Khaki'), ('yellow_gold', 'Yellow / Gold'),
-        ('orange', 'Orange'), ('purple', 'Purple'),
-        ('brown_beige', 'Brown / Beige'),
-        ('multicolor', 'Multicolor'),
+        ('other', _('Other')),
+        ('white', _('White')), ('black', _('Black')),
+        ('red', _('Red / Burgundy')), ('blue', _('Blue')),
+        ('green_khaki', _('Green / Khaki')), ('yellow_gold', _('Yellow / Gold')),
+        ('orange', _('Orange')), ('purple', _('Purple')),
+        ('brown_beige', _('Brown / Beige')),
+        ('multicolor', _('Multicolor')),
     ]
 
     DEFECT_CHOICES = [
-        ('none', 'No defects'), ('dented', 'Dented'),
-        ('burned', 'Burned'), ('gearbox_defect', 'Gearbox defect'),
-        ('hail_damage', 'Hail damage'), ('sunken', 'Sunken'),
-        ('engine_defect', 'Engine defect'), ('major_defects', 'Major defects'),
+        ('none', _('No defects')), ('dented', _('Dented')),
+        ('burned', _('Burned')), ('gearbox_defect', _('Gearbox defect')),
+        ('hail_damage', _('Hail damage')), ('sunken', _('Sunken')),
+        ('engine_defect', _('Engine defect')), ('major_defects', _('Major defects')),
     ]
 
-    DOOR_CHOICES = [('2/3', '2/3 doors'), ('4/5', '4/5 doors')]
+    DOOR_CHOICES = [('2/3', _('2/3 doors')), ('4/5', _('4/5 doors'))]
 
     STEERING_CHOICES = [
-        ('left', 'Left-hand drive'),
-        ('right', 'Right-hand drive (UK)'),
+        ('left', _('Left-hand drive')),
+        ('right', _('Right-hand drive (UK)')),
     ]
 
     DRIVE_TYPE_CHOICES = [
-        ('fwd', 'Front-wheel drive (FWD)'),
-        ('rwd', 'Rear-wheel drive (RWD)'),
-        ('awd', 'All-wheel drive (AWD/4WD)'),
+        ('fwd', _('Front-wheel drive (FWD)')),
+        ('rwd', _('Rear-wheel drive (RWD)')),
+        ('awd', _('All-wheel drive (AWD/4WD)')),
     ]
 
     EURO_STANDARD_CHOICES = [
@@ -320,31 +320,31 @@ class Listing(models.Model):
     RIM_SIZE_CHOICES = [(str(i), f'{i}"') for i in range(13, 25)]
 
     CLIMATE_CHOICES = [
-        ('none', 'No climate control'),
-        ('ac', 'Air conditioning'),
-        ('climate', 'Climate control'),
-        ('dual_climate', 'Dual-zone climate control'),
-        ('triple_climate', 'Triple-zone climate control'),
+        ('none', _('No climate control')),
+        ('ac', _('Air conditioning')),
+        ('climate', _('Climate control')),
+        ('dual_climate', _('Dual-zone climate control')),
+        ('triple_climate', _('Triple-zone climate control')),
     ]
 
     MOTORCYCLE_TYPE_CHOICES = [
-        ('sport', 'Sport'), ('cruiser', 'Cruiser'),
-        ('touring', 'Touring'), ('enduro', 'Enduro'),
-        ('motocross', 'Motocross'), ('chopper', 'Chopper'),
-        ('naked', 'Naked'), ('scooter', 'Scooter'),
-        ('moped', 'Moped'), ('atv', 'ATV / Quad'),
-        ('trike', 'Trike'), ('other', 'Other'),
+        ('sport', _('Sport')), ('cruiser', _('Cruiser')),
+        ('touring', _('Touring')), ('enduro', _('Enduro')),
+        ('motocross', _('Motocross')), ('chopper', _('Chopper')),
+        ('naked', _('Naked')), ('scooter', _('Scooter')),
+        ('moped', _('Moped')), ('atv', _('ATV / Quad')),
+        ('trike', _('Trike')), ('other', _('Other')),
     ]
 
     COOLING_TYPE_CHOICES = [
-        ('air', 'Air-cooled'), ('water', 'Water-cooled'), ('oil', 'Oil-cooled'),
+        ('air', _('Air-cooled')), ('water', _('Water-cooled')), ('oil', _('Oil-cooled')),
     ]
 
     MOTO_ENGINE_TYPE_CHOICES = [
-        ('single', 'Single-cylinder'), ('twin', 'Twin-cylinder'),
-        ('parallel_twin', 'Parallel-twin'), ('v_twin', 'V-twin'),
-        ('triple', 'Triple (3-cylinder)'), ('inline_4', 'Inline-4'),
-        ('v4', 'V4'), ('boxer', 'Boxer'), ('other', 'Other'),
+        ('single', _('Single-cylinder')), ('twin', _('Twin-cylinder')),
+        ('parallel_twin', _('Parallel-twin')), ('v_twin', _('V-twin')),
+        ('triple', _('Triple (3-cylinder)')), ('inline_4', _('Inline-4')),
+        ('v4', _('V4')), ('boxer', _('Boxer')), ('other', _('Other')),
     ]
 
     GEAR_TYPE_CHOICES = [
@@ -362,74 +362,74 @@ class Listing(models.Model):
     # ═══ GEAR SUBTYPE — 'Other' first per gear_type ═══
     GEAR_SUBTYPE_CHOICES = [
         # Helmets
-        ('helmet:other', 'Kita'),
-        ('helmet:full_face', 'Uždaras (full face)'),
-        ('helmet:integral', 'Integralinis'),
-        ('helmet:modular', 'Atverčiamas (modular)'),
-        ('helmet:open_face', 'Atviras (jet)'),
-        ('helmet:off_road', 'Krosinis / enduro'),
-        ('helmet:dual_sport', 'Dual sport / kelioninis'),
-        ('helmet:half', 'Pusinis'),
+        ('helmet:other', _('Kita')),
+        ('helmet:full_face', _('Uždaras (full face)')),
+        ('helmet:integral', _('Integralinis')),
+        ('helmet:modular', _('Atverčiamas (modular)')),
+        ('helmet:open_face', _('Atviras (jet)')),
+        ('helmet:off_road', _('Krosinis / enduro')),
+        ('helmet:dual_sport', _('Dual sport / kelioninis')),
+        ('helmet:half', _('Pusinis')),
         # Jackets
-        ('jacket:other', 'Kita'),
-        ('jacket:sport', 'Sportinė'),
-        ('jacket:touring', 'Kelioninė'),
-        ('jacket:city', 'Miesto'),
-        ('jacket:adventure', 'Adventure'),
-        ('jacket:off_road', 'Krosinė'),
-        ('jacket:cruiser', 'Čioperistams'),
+        ('jacket:other', _('Kita')),
+        ('jacket:sport', _('Sportinė')),
+        ('jacket:touring', _('Kelioninė')),
+        ('jacket:city', _('Miesto')),
+        ('jacket:adventure', _('Adventure')),
+        ('jacket:off_road', _('Krosinė')),
+        ('jacket:cruiser', _('Čioperistams')),
         # Pants
-        ('pants:other', 'Kita'),
-        ('pants:sport', 'Sportinės'),
-        ('pants:touring', 'Kelioninės'),
-        ('pants:jeans', 'Džinsai'),
-        ('pants:off_road', 'Krosinės'),
-        ('pants:rain', 'Nuo lietaus'),
+        ('pants:other', _('Kita')),
+        ('pants:sport', _('Sportinės')),
+        ('pants:touring', _('Kelioninės')),
+        ('pants:jeans', _('Džinsai')),
+        ('pants:off_road', _('Krosinės')),
+        ('pants:rain', _('Nuo lietaus')),
         # Suits
-        ('suit:other', 'Kita'),
-        ('suit:one_piece', 'Vientisas'),
-        ('suit:two_piece', 'Dviejų dalių'),
-        ('suit:rain', 'Nuo lietaus'),
+        ('suit:other', _('Kita')),
+        ('suit:one_piece', _('Vientisas')),
+        ('suit:two_piece', _('Dviejų dalių')),
+        ('suit:rain', _('Nuo lietaus')),
         # Boots
-        ('boots:other', 'Kita'),
-        ('boots:sport', 'Sportiniai'),
-        ('boots:touring', 'Kelioniniai'),
-        ('boots:off_road', 'Krosiniai'),
-        ('boots:adventure', 'Adventure'),
-        ('boots:urban', 'Miesto'),
+        ('boots:other', _('Kita')),
+        ('boots:sport', _('Sportiniai')),
+        ('boots:touring', _('Kelioniniai')),
+        ('boots:off_road', _('Krosiniai')),
+        ('boots:adventure', _('Adventure')),
+        ('boots:urban', _('Miesto')),
         # Gloves
-        ('gloves:other', 'Kita'),
-        ('gloves:sport', 'Sportinės'),
-        ('gloves:touring', 'Kelioninės'),
-        ('gloves:off_road', 'Krosinės'),
-        ('gloves:summer', 'Vasarinės'),
-        ('gloves:winter', 'Žieminės / šildomos'),
-        ('gloves:rain', 'Nuo lietaus'),
+        ('gloves:other', _('Kita')),
+        ('gloves:sport', _('Sportinės')),
+        ('gloves:touring', _('Kelioninės')),
+        ('gloves:off_road', _('Krosinės')),
+        ('gloves:summer', _('Vasarinės')),
+        ('gloves:winter', _('Žieminės / šildomos')),
+        ('gloves:rain', _('Nuo lietaus')),
         # Bags
-        ('bag:other', 'Kita'),
-        ('bag:tank', 'Ant bako'),
-        ('bag:tail', 'Ant sėdynės'),
-        ('bag:saddle', 'Šoninės'),
-        ('bag:backpack', 'Kuprinė'),
-        ('bag:top_case', 'Bagažinė (top case)'),
-        ('bag:roll', 'Ritininis'),
+        ('bag:other', _('Kita')),
+        ('bag:tank', _('Ant bako')),
+        ('bag:tail', _('Ant sėdynės')),
+        ('bag:saddle', _('Šoninės')),
+        ('bag:backpack', _('Kuprinė')),
+        ('bag:top_case', _('Bagažinė (top case)')),
+        ('bag:roll', _('Ritininis')),
         # Protective gear
-        ('protective:other', 'Kita'),
-        ('protective:back', 'Nugaros apsauga'),
-        ('protective:chest', 'Krūtinės apsauga'),
-        ('protective:knee', 'Kelių apsaugos'),
-        ('protective:elbow', 'Alkūnių apsaugos'),
-        ('protective:neck', 'Kaklo apsauga'),
-        ('protective:airbag', 'Oro pagalvės liemenė'),
+        ('protective:other', _('Kita')),
+        ('protective:back', _('Nugaros apsauga')),
+        ('protective:chest', _('Krūtinės apsauga')),
+        ('protective:knee', _('Kelių apsaugos')),
+        ('protective:elbow', _('Alkūnių apsaugos')),
+        ('protective:neck', _('Kaklo apsauga')),
+        ('protective:airbag', _('Oro pagalvės liemenė')),
     ]
 
     # ═══ GEAR SIZE — 'Other' first ═══
     GEAR_SIZE_CHOICES = [
-        ('other', 'Other'),
-        ('XXS', 'XXS'), ('XS', 'XS'),
-        ('S', 'S'), ('M', 'M'),
-        ('L', 'L'), ('XL', 'XL'),
-        ('XXL', 'XXL'), ('XXXL', 'XXXL'),
+        ('other', _('Other')),
+        ('XXS', _('XXS')), ('XS', _('XS')),
+        ('S', _('S')), ('M', _('M')),
+        ('L', _('L')), ('XL', _('XL')),
+        ('XXL', _('XXL')), ('XXXL', _('XXXL')),
         ('one_size', _('One size / Universal')),
         ('numeric', _('Numeric')),
     ]
@@ -455,39 +455,39 @@ class Listing(models.Model):
 
     # ═══ GEAR SAFETY CERT — 'Other' first, 'None' second ═══
     GEAR_SAFETY_CERT_CHOICES = [
-        ('other', 'Other'),
-        ('none', 'No certification'),
+        ('other', _('Other')),
+        ('none', _('No certification')),
         # Helmets
-        ('ece_22_06', 'ECE 22.06'),
-        ('ece_22_05', 'ECE 22.05'),
-        ('dot', 'DOT (FMVSS 218)'),
-        ('snell_m2020', 'Snell M2020'),
-        ('snell_m2015', 'Snell M2015'),
-        ('sharp_5', 'SHARP 5 stars'),
-        ('sharp_4', 'SHARP 4 stars'),
+        ('ece_22_06', _('ECE 22.06')),
+        ('ece_22_05', _('ECE 22.05')),
+        ('dot', _('DOT (FMVSS 218)')),
+        ('snell_m2020', _('Snell M2020')),
+        ('snell_m2015', _('Snell M2015')),
+        ('sharp_5', _('SHARP 5 stars')),
+        ('sharp_4', _('SHARP 4 stars')),
         # Apparel CE
-        ('ce_aaa', 'CE AAA (highest)'),
-        ('ce_aa', 'CE AA'),
-        ('ce_a', 'CE A'),
-        ('ce_b', 'CE B'),
-        ('ce_level_1', 'CE Level 1 (impact)'),
-        ('ce_level_2', 'CE Level 2 (impact)'),
-        ('en_certified', 'EN certified'),
+        ('ce_aaa', _('CE AAA (highest)')),
+        ('ce_aa', _('CE AA')),
+        ('ce_a', _('CE A')),
+        ('ce_b', _('CE B')),
+        ('ce_level_1', _('CE Level 1 (impact)')),
+        ('ce_level_2', _('CE Level 2 (impact)')),
+        ('en_certified', _('EN certified')),
     ]
 
     COUNTRY_CHOICES = [
-        ('US', 'United States'), ('LT', 'Lithuania'),
-        ('LV', 'Latvia'), ('EE', 'Estonia'),
-        ('PL', 'Poland'), ('DE', 'Germany'),
-        ('NL', 'Netherlands'), ('BE', 'Belgium'),
-        ('FR', 'France'), ('IT', 'Italy'),
-        ('ES', 'Spain'), ('AT', 'Austria'),
-        ('CZ', 'Czech Republic'), ('SK', 'Slovakia'),
-        ('HU', 'Hungary'), ('RO', 'Romania'),
-        ('BG', 'Bulgaria'), ('SE', 'Sweden'),
-        ('DK', 'Denmark'), ('FI', 'Finland'),
-        ('NO', 'Norway'), ('GB', 'United Kingdom'),
-        ('IE', 'Ireland'), ('CH', 'Switzerland'),
+        ('US', _('United States')), ('LT', _('Lithuania')),
+        ('LV', _('Latvia')), ('EE', _('Estonia')),
+        ('PL', _('Poland')), ('DE', _('Germany')),
+        ('NL', _('Netherlands')), ('BE', _('Belgium')),
+        ('FR', _('France')), ('IT', _('Italy')),
+        ('ES', _('Spain')), ('AT', _('Austria')),
+        ('CZ', _('Czech Republic')), ('SK', _('Slovakia')),
+        ('HU', _('Hungary')), ('RO', _('Romania')),
+        ('BG', _('Bulgaria')), ('SE', _('Sweden')),
+        ('DK', _('Denmark')), ('FI', _('Finland')),
+        ('NO', _('Norway')), ('GB', _('United Kingdom')),
+        ('IE', _('Ireland')), ('CH', _('Switzerland')),
     ]
 
     US_STATE_CHOICES = [
@@ -540,35 +540,35 @@ class Listing(models.Model):
     ]
 
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listings')
-    vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, verbose_name="Vehicle Type")
+    vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, verbose_name=_("Vehicle Type"))
 
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name="Brand", null=True, blank=True)
-    model = models.ForeignKey(Model, on_delete=models.CASCADE, verbose_name="Model", null=True, blank=True)
-    submodel = models.ForeignKey(SubModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="SubModel")
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name=_("Brand"), null=True, blank=True)
+    model = models.ForeignKey(Model, on_delete=models.CASCADE, verbose_name=_("Model"), null=True, blank=True)
+    submodel = models.ForeignKey(SubModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("SubModel"))
 
     motorcycle_brand = models.ForeignKey(
         MotorcycleBrand, on_delete=models.CASCADE,
-        verbose_name="Motorcycle Brand",
+        verbose_name=_("Motorcycle Brand"),
         null=True, blank=True, related_name='listings',
     )
     motorcycle_model = models.ForeignKey(
         MotorcycleModel, on_delete=models.CASCADE,
-        verbose_name="Motorcycle Model",
+        verbose_name=_("Motorcycle Model"),
         null=True, blank=True, related_name='listings',
     )
     truck_brand = models.ForeignKey(
         TruckBrand, on_delete=models.CASCADE,
-        verbose_name="Truck Brand",
+        verbose_name=_("Truck Brand"),
         null=True, blank=True, related_name='listings',
     )
     truck_model = models.ForeignKey(
         TruckModel, on_delete=models.CASCADE,
-        verbose_name="Truck Model",
+        verbose_name=_("Truck Model"),
         null=True, blank=True, related_name='listings',
     )
     truck_model_text = models.CharField(
         max_length=100, blank=True,
-        verbose_name="Truck Model (free text)",
+        verbose_name=_("Truck Model (free text)"),
         help_text="User-typed model name (e.g. 'FH16', 'Actros 1845')",
     )
 
@@ -578,77 +578,77 @@ class Listing(models.Model):
 
     wheel_formula = models.CharField(
         max_length=10, choices=WHEEL_FORMULA_CHOICES, blank=True,
-        verbose_name='Wheel formula',
+        verbose_name=_('Wheel formula'),
     )
     mass_interval = models.CharField(
         max_length=20, choices=MASS_INTERVAL_CHOICES, blank=True,
-        verbose_name='Mass interval',
+        verbose_name=_('Mass interval'),
     )
     front_suspension = models.CharField(
         max_length=20, choices=TRUCK_SUSPENSION_CHOICES, blank=True,
-        verbose_name='Front suspension',
+        verbose_name=_('Front suspension'),
     )
     rear_suspension = models.CharField(
         max_length=20, choices=TRUCK_SUSPENSION_CHOICES, blank=True,
-        verbose_name='Rear suspension',
+        verbose_name=_('Rear suspension'),
     )
     truck_length_mm = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(99999)],
-        verbose_name='Length (mm)',
+        verbose_name=_('Length (mm)'),
     )
     truck_width_mm = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(99999)],
-        verbose_name='Width (mm)',
+        verbose_name=_('Width (mm)'),
     )
     truck_height_mm = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(99999)],
-        verbose_name='Height (mm)',
+        verbose_name=_('Height (mm)'),
     )
     truck_volume_m3 = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True,
-        verbose_name='Volume (m³)',
+        verbose_name=_('Volume (m³)'),
     )
     gross_weight_kg = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        verbose_name='Gross weight (kg)',
+        verbose_name=_('Gross weight (kg)'),
     )
     payload_kg = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        verbose_name='Payload capacity (kg)',
+        verbose_name=_('Payload capacity (kg)'),
     )
     fuel_tank_capacity_l = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(9999)],
-        verbose_name='Fuel tank capacity (L)',
+        verbose_name=_('Fuel tank capacity (L)'),
     )
     sleeping_seats = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(20)],
-        verbose_name='Sleeping seats',
+        verbose_name=_('Sleeping seats'),
     )
     sdk_number = models.CharField(
         max_length=50, blank=True,
-        verbose_name='SDK number',
+        verbose_name=_('SDK number'),
         help_text='Self-Declared Conformity number (Regitra)',
     )
 
     BOAT_TYPE_CHOICES = [
-        ('jet_ski', 'Jet Ski / Personal watercraft'),
-        ('kayak_canoe', 'Kayak / Canoe'),
-        ('surfboard', 'Surfboard / Windsurf'),
-        ('yacht', 'Yacht'),
-        ('motorboat', 'Motorboat / Cabin cruiser'),
-        ('boat', 'Boat / Ship'),
-        ('dinghy_raft', 'Dinghy / Raft'),
-        ('engine', 'Boat engine'),
-        ('other', 'Other'),
+        ('jet_ski', _('Jet Ski / Personal watercraft')),
+        ('kayak_canoe', _('Kayak / Canoe')),
+        ('surfboard', _('Surfboard / Windsurf')),
+        ('yacht', _('Yacht')),
+        ('motorboat', _('Motorboat / Cabin cruiser')),
+        ('boat', _('Boat / Ship')),
+        ('dinghy_raft', _('Dinghy / Raft')),
+        ('engine', _('Boat engine')),
+        ('other', _('Other')),
     ]
-    boat_type = models.CharField(max_length=20, choices=BOAT_TYPE_CHOICES, blank=True, verbose_name='Boat type')
+    boat_type = models.CharField(max_length=20, choices=BOAT_TYPE_CHOICES, blank=True, verbose_name=_('Boat type'))
     boat_make_text = models.CharField(max_length=120, blank=True, default='')
     boat_model_text = models.CharField(max_length=120, blank=True, default='')
     boat_material = models.CharField(max_length=40, blank=True, default='')
@@ -656,37 +656,37 @@ class Listing(models.Model):
     boat_width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     boat_engine_count = models.PositiveSmallIntegerField(null=True, blank=True)
     BOAT_ENGINE_TYPE_CHOICES = [
-        ('petrol_4stroke_outboard', 'Petrol 4-stroke outboard'),
-        ('petrol_4stroke_inboard', 'Petrol 4-stroke inboard'),
-        ('diesel_inboard', 'Diesel inboard'),
-        ('electric', 'Electric'),
-        ('none', 'No engine'),
-        ('petrol_2stroke_outboard', 'Petrol 2-stroke outboard'),
-        ('petrol_2stroke_inboard', 'Petrol 2-stroke inboard'),
+        ('petrol_4stroke_outboard', _('Petrol 4-stroke outboard')),
+        ('petrol_4stroke_inboard', _('Petrol 4-stroke inboard')),
+        ('diesel_inboard', _('Diesel inboard')),
+        ('electric', _('Electric')),
+        ('none', _('No engine')),
+        ('petrol_2stroke_outboard', _('Petrol 2-stroke outboard')),
+        ('petrol_2stroke_inboard', _('Petrol 2-stroke inboard')),
     ]
-    boat_engine_type = models.CharField(max_length=30, choices=BOAT_ENGINE_TYPE_CHOICES, blank=True, verbose_name='Boat engine type')
-    boat_fuel_tank_l = models.DecimalField(max_digits=7, decimal_places=1, null=True, blank=True, verbose_name='Fuel tank capacity (L)')
-    boat_liftable_engine = models.BooleanField(default=False, verbose_name='Liftable engine')
-    boat_propeller = models.BooleanField(default=False, verbose_name='Propeller')
-    boat_water_turbine = models.BooleanField(default=False, verbose_name='Water turbine')
+    boat_engine_type = models.CharField(max_length=30, choices=BOAT_ENGINE_TYPE_CHOICES, blank=True, verbose_name=_('Boat engine type'))
+    boat_fuel_tank_l = models.DecimalField(max_digits=7, decimal_places=1, null=True, blank=True, verbose_name=_('Fuel tank capacity (L)'))
+    boat_liftable_engine = models.BooleanField(default=False, verbose_name=_('Liftable engine'))
+    boat_propeller = models.BooleanField(default=False, verbose_name=_('Propeller'))
+    boat_water_turbine = models.BooleanField(default=False, verbose_name=_('Water turbine'))
 
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',
-        verbose_name="Sub-category",
+        verbose_name=_("Sub-category"),
     )
 
-    title = models.CharField(max_length=200, verbose_name="Title")
-    description = models.TextField(verbose_name="Description", blank=True)
+    title = models.CharField(max_length=200, verbose_name=_("Title"))
+    description = models.TextField(verbose_name=_("Description"), blank=True)
     year = models.IntegerField(
-        verbose_name="Year",
+        verbose_name=_("Year"),
         validators=[MinValueValidator(1900), MaxValueValidator(2100)]
     )
     mileage = models.IntegerField(
-        verbose_name="Mileage (km)",
+        verbose_name=_("Mileage (km)"),
         validators=[MinValueValidator(0), MaxValueValidator(9999999)]
     )
-    first_registration = models.DateField(verbose_name="First Registration Date", null=True, blank=True)
+    first_registration = models.DateField(verbose_name=_("First Registration Date"), null=True, blank=True)
 
     fuel_type = models.ForeignKey(FuelType, on_delete=models.SET_NULL, null=True, blank=True)
     transmission = models.ForeignKey(Transmission, on_delete=models.SET_NULL, null=True, blank=True)
@@ -697,7 +697,7 @@ class Listing(models.Model):
         max_length=30,
         choices=TRUCK_TYPE_CHOICES,
         blank=True,
-        verbose_name='Truck type',
+        verbose_name=_('Truck type'),
         help_text="Used when subcategory is 'Trucks' (Sunkvežimiai)",
     )
 
@@ -706,7 +706,7 @@ class Listing(models.Model):
     color = models.CharField(max_length=50, choices=COLOR_CHOICES, blank=True)
     color_other_text = models.CharField(
         max_length=50, blank=True,
-        verbose_name="Color (custom)",
+        verbose_name=_("Color (custom)"),
         help_text="Used when color='other' — free text fallback",
     )
     doors = models.CharField(max_length=10, choices=DOOR_CHOICES, blank=True)
@@ -741,14 +741,14 @@ class Listing(models.Model):
     gear_subtype = models.CharField(max_length=50, choices=GEAR_SUBTYPE_CHOICES, blank=True)
     gear_subtype_other_text = models.CharField(
         max_length=100, blank=True,
-        verbose_name="Subtype (custom)",
+        verbose_name=_("Subtype (custom)"),
         help_text="Used when subtype ends with ':other'",
     )
 
     gear_size = models.CharField(max_length=20, choices=GEAR_SIZE_CHOICES, blank=True)
     gear_size_other_text = models.CharField(
         max_length=50, blank=True,
-        verbose_name="Size (custom)",
+        verbose_name=_("Size (custom)"),
         help_text="Used when size='other' or 'numeric'",
     )
 
@@ -756,44 +756,44 @@ class Listing(models.Model):
     gear_brand = models.ForeignKey(
         'GearBrand', on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',
-        verbose_name="Manufacturer",
+        verbose_name=_("Manufacturer"),
     )
     gear_brand_other_text = models.CharField(
         max_length=100, blank=True,
-        verbose_name="Manufacturer (custom)",
+        verbose_name=_("Manufacturer (custom)"),
         help_text="Used when gear_brand=Other",
     )
 
     # Legacy free-text manufacturer (kept for migration of old data; new flow uses gear_brand FK)
-    gear_brand_text = models.CharField(max_length=100, blank=True, verbose_name="Brand (legacy)")
+    gear_brand_text = models.CharField(max_length=100, blank=True, verbose_name=_("Brand (legacy)"))
 
     gear_model_text = models.CharField(
         max_length=100, blank=True,
-        verbose_name="Model name",
+        verbose_name=_("Model name"),
     )
 
     gear_material = models.CharField(max_length=20, choices=GEAR_MATERIAL_CHOICES, blank=True)
     gear_material_other_text = models.CharField(
         max_length=50, blank=True,
-        verbose_name="Material (custom)",
+        verbose_name=_("Material (custom)"),
     )
 
     gear_gender = models.CharField(max_length=10, choices=GEAR_GENDER_CHOICES, blank=True)
     gear_gender_other_text = models.CharField(
         max_length=50, blank=True,
-        verbose_name="Gender (custom)",
+        verbose_name=_("Gender (custom)"),
     )
 
     gear_safety_cert = models.CharField(max_length=20, choices=GEAR_SAFETY_CERT_CHOICES, blank=True)
     gear_safety_cert_other_text = models.CharField(
         max_length=100, blank=True,
-        verbose_name="Safety certification (custom)",
+        verbose_name=_("Safety certification (custom)"),
     )
 
     gear_ventilation_count = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(50)],
-        verbose_name="Number of vents",
+        verbose_name=_("Number of vents"),
     )
 
     vin = models.CharField(max_length=17, blank=True)
@@ -803,7 +803,7 @@ class Listing(models.Model):
     oem_code = models.CharField(
         max_length=50, blank=True, default='',
         db_index=True,
-        verbose_name="OEM Code",
+        verbose_name=_("OEM Code"),
         help_text="Manufacturer part number (e.g., 63217160797)"
     )
     part_category = models.ForeignKey(
@@ -811,20 +811,20 @@ class Listing(models.Model):
         null=True, blank=True,
         on_delete=models.SET_NULL,
         related_name='listings',
-        verbose_name="Part Category"
+        verbose_name=_("Part Category")
     )
 
     # ─── PARTS-specific: search by codes ───
     engine_code = models.CharField(
         max_length=30, blank=True, default='',
         db_index=True,
-        verbose_name="Engine Code",
+        verbose_name=_("Engine Code"),
         help_text="e.g., N52B30, M54B25"
     )
     transmission_code = models.CharField(
         max_length=30, blank=True, default='',
         db_index=True,
-        verbose_name="Gearbox Code",
+        verbose_name=_("Gearbox Code"),
         help_text="e.g., 6HP19, ZF8HP"
     )
 
@@ -832,66 +832,66 @@ class Listing(models.Model):
     engine_code = models.CharField(
         max_length=30, blank=True, default='',
         db_index=True,
-        verbose_name="Engine Code",
+        verbose_name=_("Engine Code"),
         help_text="e.g., N52B30, M54B25"
     )
     transmission_code = models.CharField(
         max_length=30, blank=True, default='',
         db_index=True,
-        verbose_name="Gearbox Code",
+        verbose_name=_("Gearbox Code"),
         help_text="e.g., 6HP19, ZF8HP"
     )
     # ═══ CAR-FOR-PARTS specific fields ═══
     version = models.CharField(
         max_length=100, blank=True,
-        verbose_name='Version',
+        verbose_name=_('Version'),
         help_text='e.g. "TDI Sportline" — used in car-for-parts category',
     )
     modification = models.CharField(
         max_length=100, blank=True,
-        verbose_name='Modification',
+        verbose_name=_('Modification'),
         help_text='e.g. "2.0 TDI 140kW"',
     )
     color_code = models.CharField(
         max_length=30, blank=True,
-        verbose_name='Color code',
+        verbose_name=_('Color code'),
         help_text='Manufacturer color code, e.g. "LY7G"',
     )
     engine_code = models.CharField(
         max_length=30, blank=True,
-        verbose_name='Engine code',
+        verbose_name=_('Engine code'),
         help_text='e.g. "BKD"',
     )
     gearbox_code = models.CharField(
         max_length=30, blank=True,
-        verbose_name='Gearbox code',
+        verbose_name=_('Gearbox code'),
         help_text='e.g. "DSG7"',
     )
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
     export_price = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True,
-        verbose_name="Export price",
+        verbose_name=_("Export price"),
         help_text="Optional separate price for export buyers",
     )
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
     negotiable = models.BooleanField(default=False)
-    open_to_trade = models.BooleanField(default=False, verbose_name="Open to trade")
+    open_to_trade = models.BooleanField(default=False, verbose_name=_("Open to trade"))
 
     # ═══ SPECIAL FEATURES (sidebar filters) ═══
-    has_warranty = models.BooleanField(default=False, verbose_name='Warranty included')
-    available_on_lease = models.BooleanField(default=False, verbose_name='Available on lease')
-    is_sport_ready = models.BooleanField(default=False, verbose_name='Sport-ready')
-    disabled_friendly = models.BooleanField(default=False, verbose_name='Adapted for disabled')
-    has_service_book = models.BooleanField(default=False, verbose_name='Service book')
-    imported_from_us = models.BooleanField(default=False, verbose_name='Imported from US')
-    multiple_keys = models.BooleanField(default=False, verbose_name='Multiple key sets')
-    power_boosted = models.BooleanField(default=False, verbose_name='Increased engine power')
-    pneumatic_suspension = models.BooleanField(default=False, verbose_name='Pneumatic suspension')
-    remote_start = models.BooleanField(default=False, verbose_name='Remote start')
-    spare_wheel = models.BooleanField(default=False, verbose_name='Spare wheel')
-    valid_inspection = models.BooleanField(default=False, verbose_name='Valid technical inspection')
-    is_auction = models.BooleanField(default=False, verbose_name='From auction')
+    has_warranty = models.BooleanField(default=False, verbose_name=_('Warranty included'))
+    available_on_lease = models.BooleanField(default=False, verbose_name=_('Available on lease'))
+    is_sport_ready = models.BooleanField(default=False, verbose_name=_('Sport-ready'))
+    disabled_friendly = models.BooleanField(default=False, verbose_name=_('Adapted for disabled'))
+    has_service_book = models.BooleanField(default=False, verbose_name=_('Service book'))
+    imported_from_us = models.BooleanField(default=False, verbose_name=_('Imported from US'))
+    multiple_keys = models.BooleanField(default=False, verbose_name=_('Multiple key sets'))
+    power_boosted = models.BooleanField(default=False, verbose_name=_('Increased engine power'))
+    pneumatic_suspension = models.BooleanField(default=False, verbose_name=_('Pneumatic suspension'))
+    remote_start = models.BooleanField(default=False, verbose_name=_('Remote start'))
+    spare_wheel = models.BooleanField(default=False, verbose_name=_('Spare wheel'))
+    valid_inspection = models.BooleanField(default=False, verbose_name=_('Valid technical inspection'))
+    is_auction = models.BooleanField(default=False, verbose_name=_('From auction'))
     SELLER_TYPE_CHOICES_FILTER = [
         ('private', 'Private'),
         ('dealer', 'Dealer'),
@@ -899,7 +899,7 @@ class Listing(models.Model):
     seller_type = models.CharField(max_length=20, choices=SELLER_TYPE_CHOICES_FILTER, default='private', blank=True)
 
     taxes_extra = models.BooleanField(
-        default=False, verbose_name="+ Taxes",
+        default=False, verbose_name=_("+ Taxes"),
         help_text="Price excludes taxes — buyer should ask seller",
     )
 
@@ -915,7 +915,7 @@ class Listing(models.Model):
     features = models.TextField(blank=True)
     video_url = models.URLField(blank=True)
 
-    is_business_seller = models.BooleanField(default=False, verbose_name="Business seller")
+    is_business_seller = models.BooleanField(default=False, verbose_name=_("Business seller"))
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     is_shadow_banned = models.BooleanField(default=False)
@@ -947,7 +947,7 @@ class Listing(models.Model):
     sold_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Listing"
+        verbose_name=_("Listing")
         verbose_name_plural = "Listings"
         ordering = ['-created_at']
 
@@ -1439,15 +1439,15 @@ class ListingImage(models.Model):
 
 class Equipment(models.Model):
     CATEGORY_CHOICES = [
-        ('interior', 'Interior'),
-        ('electronics', 'Electronics'),
-        ('safety', 'Safety'),
-        ('audio_video', 'Audio/Video'),
-        ('exterior', 'Exterior'),
-        ('other', 'Other Features'),
-        ('motorcycle', 'Motorcycle Features'),
-        ('gear', 'Gear Features'),
-        ('truck', 'Truck Features'),
+        ('interior', _('Interior')),
+        ('electronics', _('Electronics')),
+        ('safety', _('Safety')),
+        ('audio_video', _('Audio/Video')),
+        ('exterior', _('Exterior')),
+        ('other', _('Other Features')),
+        ('motorcycle', _('Motorcycle Features')),
+        ('gear', _('Gear Features')),
+        ('truck', _('Truck Features')),
     ]
 
     name = models.CharField(max_length=100)
@@ -1520,16 +1520,16 @@ class SavedSearch(models.Model):
 
 class EmailScenario(models.Model):
     CATEGORY_CHOICES = [
-        ('Seller', 'Seller notifications'),
-        ('Buyer (Saved)', 'Buyer - saved listings'),
-        ('Saved Search', 'Saved search alerts'),
-        ('Account', 'Account / auth'),
-        ('Communication', 'Messaging'),
-        ('Payments', 'Payments / Stripe'),
-        ('Marketing', 'Marketing / newsletter'),
-        ('Admin', 'Admin notifications'),
-        ('Extra', 'Extra / experimental'),
-        ('Truck', 'Truck-specific notifications'),
+        ('Seller', _('Seller notifications')),
+        ('Buyer (Saved)', _('Buyer - saved listings')),
+        ('Saved Search', _('Saved search alerts')),
+        ('Account', _('Account / auth')),
+        ('Communication', _('Messaging')),
+        ('Payments', _('Payments / Stripe')),
+        ('Marketing', _('Marketing / newsletter')),
+        ('Admin', _('Admin notifications')),
+        ('Extra', _('Extra / experimental')),
+        ('Truck', _('Truck-specific notifications')),
     ]
     code = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=200)
@@ -1641,7 +1641,7 @@ class PricingSettings(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Pricing Settings"
+        verbose_name=_("Pricing Settings")
         verbose_name_plural = "Pricing Settings"
 
     def __str__(self):
@@ -1686,7 +1686,7 @@ class PriceMultiplierTier(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "Price Multiplier Tier"
+        verbose_name=_("Price Multiplier Tier")
         verbose_name_plural = "Price Multiplier Tiers"
         ordering = ['min_price']
 
@@ -1762,7 +1762,7 @@ class PromoCode(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Promo Code"
+        verbose_name=_("Promo Code")
         verbose_name_plural = "Promo Codes"
         ordering = ['-created_at']
 
@@ -1845,7 +1845,7 @@ class PromoCodeUsage(models.Model):
 
     class Meta:
         ordering = ['-used_at']
-        verbose_name = "Promo Code Usage"
+        verbose_name=_("Promo Code Usage")
         verbose_name_plural = "Promo Code Usages"
 
     def __str__(self):
@@ -1866,101 +1866,101 @@ class PromoCodeUsage(models.Model):
 
 class Truck(models.Model):
     SUBCATEGORY_CHOICES = [
-        ('trucks', 'Trucks (Sunkvežimiai)'),
-        ('vehicle-transporters', 'Vehicle Transporters'),
-        ('semi-trucks-tractors', 'Semi-trucks / Tractors'),
-        ('vans', 'Vans'),
+        ('trucks', _('Trucks (Sunkvežimiai)')),
+        ('vehicle-transporters', _('Vehicle Transporters')),
+        ('semi-trucks-tractors', _('Semi-trucks / Tractors')),
+        ('vans', _('Vans')),
     ]
 
     CONDITION_CHOICES = [
-        ('new', 'New'),
-        ('used', 'Used'),
+        ('new', _('New')),
+        ('used', _('Used')),
     ]
 
     STATUS_CHOICES = [
-        ('draft', 'Juodraštis'),
-        ('active', 'Aktyvus'),
-        ('reserved', 'Rezervuotas'),
-        ('expired', 'Neaktyvus'),
-        ('sold', 'Parduotas'),
-        ('archived', 'Archyvuotas'),
+        ('draft', _('Juodraštis')),
+        ('active', _('Aktyvus')),
+        ('reserved', _('Rezervuotas')),
+        ('expired', _('Neaktyvus')),
+        ('sold', _('Parduotas')),
+        ('archived', _('Archyvuotas')),
     ]
 
     # ═══ TRUCK TYPE — autoplius-style "Tipas" filter (23 types) ═══
     TRUCK_TYPE_CHOICES = [
-        ('', '— Select —'),
-        ('tankers', 'Tankers'),
-        ('car_carriers', 'Car Carriers'),
-        ('concrete_mixers', 'Concrete Mixers'),
-        ('flatbed', 'Flatbed'),
-        ('flatbed_tarpaulin', 'Flatbed with Tarpaulin'),
-        ('curtain_side', 'Curtain-Side'),
-        ('double_cab', 'Double Cab'),
-        ('livestock_carriers', 'Livestock Carriers'),
-        ('insulated_box', 'Insulated Box'),
-        ('hard_side_box', 'Hard-Side Box'),
-        ('container_carriers', 'Container Carriers'),
-        ('logging_trucks', 'Logging Trucks'),
-        ('milk_tankers', 'Milk Tankers'),
-        ('platforms', 'Platforms'),
-        ('mobile_shop', 'Mobile Shop'),
-        ('tippers', 'Tippers'),
-        ('hook_lift_tippers', 'Hook-Lift Tippers'),
-        ('crane_tippers', 'Crane Tippers'),
-        ('with_crane', 'With Crane'),
-        ('refrigerators', 'Refrigerators'),
-        ('curtain_tarpaulin', 'Curtain / Tarpaulin'),
-        ('chassis', 'Chassis'),
-        ('other', 'Other'),
+        ('', _('— Select —')),
+        ('tankers', _('Tankers')),
+        ('car_carriers', _('Car Carriers')),
+        ('concrete_mixers', _('Concrete Mixers')),
+        ('flatbed', _('Flatbed')),
+        ('flatbed_tarpaulin', _('Flatbed with Tarpaulin')),
+        ('curtain_side', _('Curtain-Side')),
+        ('double_cab', _('Double Cab')),
+        ('livestock_carriers', _('Livestock Carriers')),
+        ('insulated_box', _('Insulated Box')),
+        ('hard_side_box', _('Hard-Side Box')),
+        ('container_carriers', _('Container Carriers')),
+        ('logging_trucks', _('Logging Trucks')),
+        ('milk_tankers', _('Milk Tankers')),
+        ('platforms', _('Platforms')),
+        ('mobile_shop', _('Mobile Shop')),
+        ('tippers', _('Tippers')),
+        ('hook_lift_tippers', _('Hook-Lift Tippers')),
+        ('crane_tippers', _('Crane Tippers')),
+        ('with_crane', _('With Crane')),
+        ('refrigerators', _('Refrigerators')),
+        ('curtain_tarpaulin', _('Curtain / Tarpaulin')),
+        ('chassis', _('Chassis')),
+        ('other', _('Other')),
     ]
 
     CAB_TYPE_CHOICES = [
-        ('', 'Any'),
-        ('day', 'Day cab'),
-        ('sleeper', 'Sleeper'),
-        ('crew', 'Crew cab'),
-        ('extended', 'Extended cab'),
+        ('', _('Any')),
+        ('day', _('Day cab')),
+        ('sleeper', _('Sleeper')),
+        ('crew', _('Crew cab')),
+        ('extended', _('Extended cab')),
     ]
 
     AXLE_CONFIG_CHOICES = [
-        ('', 'Any'),
-        ('4x2', '4x2'),
-        ('4x4', '4x4'),
-        ('6x2', '6x2'),
-        ('6x4', '6x4'),
-        ('6x6', '6x6'),
-        ('8x2', '8x2'),
-        ('8x4', '8x4'),
-        ('8x6', '8x6'),
-        ('8x8', '8x8'),
+        ('', _('Any')),
+        ('4x2', _('4x2')),
+        ('4x4', _('4x4')),
+        ('6x2', _('6x2')),
+        ('6x4', _('6x4')),
+        ('6x6', _('6x6')),
+        ('8x2', _('8x2')),
+        ('8x4', _('8x4')),
+        ('8x6', _('8x6')),
+        ('8x8', _('8x8')),
     ]
 
     SUSPENSION_CHOICES = [
-        ('', 'Any'),
-        ('air_air', 'Air / Air'),
-        ('air_spring', 'Air / Spring'),
-        ('spring_air', 'Spring / Air'),
-        ('spring_spring', 'Spring / Spring'),
+        ('', _('Any')),
+        ('air_air', _('Air / Air')),
+        ('air_spring', _('Air / Spring')),
+        ('spring_air', _('Spring / Air')),
+        ('spring_spring', _('Spring / Spring')),
     ]
 
     TRANSMISSION_CHOICES = [
-        ('', 'Any'),
-        ('manual', 'Manual'),
-        ('automatic', 'Automatic'),
-        ('semi_automatic', 'Semi-automatic'),
+        ('', _('Any')),
+        ('manual', _('Manual')),
+        ('automatic', _('Automatic')),
+        ('semi_automatic', _('Semi-automatic')),
     ]
 
     FUEL_TYPE_CHOICES = [
-        ('', 'Any'),
-        ('diesel', 'Diesel'),
-        ('petrol', 'Petrol / Gasoline'),
-        ('lpg', 'LPG'),
-        ('cng', 'CNG'),
-        ('lng', 'LNG'),
-        ('electric', 'Electric'),
-        ('hybrid', 'Hybrid'),
-        ('hydrogen', 'Hydrogen'),
-        ('other', 'Other'),
+        ('', _('Any')),
+        ('diesel', _('Diesel')),
+        ('petrol', _('Petrol / Gasoline')),
+        ('lpg', _('LPG')),
+        ('cng', _('CNG')),
+        ('lng', _('LNG')),
+        ('electric', _('Electric')),
+        ('hybrid', _('Hybrid')),
+        ('hydrogen', _('Hydrogen')),
+        ('other', _('Other')),
     ]
 
     EURO_STANDARD_CHOICES = [
@@ -1972,41 +1972,41 @@ class Truck(models.Model):
     ]
 
     COLOR_CHOICES = [
-        ('other', 'Other'),
-        ('white', 'White'), ('black', 'Black'),
-        ('red', 'Red / Burgundy'), ('blue', 'Blue'),
-        ('green_khaki', 'Green / Khaki'), ('yellow_gold', 'Yellow / Gold'),
-        ('orange', 'Orange'), ('brown_beige', 'Brown / Beige'),
-        ('multicolor', 'Multicolor'),
+        ('other', _('Other')),
+        ('white', _('White')), ('black', _('Black')),
+        ('red', _('Red / Burgundy')), ('blue', _('Blue')),
+        ('green_khaki', _('Green / Khaki')), ('yellow_gold', _('Yellow / Gold')),
+        ('orange', _('Orange')), ('brown_beige', _('Brown / Beige')),
+        ('multicolor', _('Multicolor')),
     ]
 
     DEFECT_CHOICES = [
-        ('none', 'No defects'),
-        ('engine_defect', 'Engine defect'),
-        ('gearbox_defect', 'Gearbox defect'),
-        ('dented', 'Dented'),
-        ('burned', 'Burned'),
-        ('major_defects', 'Major defects'),
+        ('none', _('No defects')),
+        ('engine_defect', _('Engine defect')),
+        ('gearbox_defect', _('Gearbox defect')),
+        ('dented', _('Dented')),
+        ('burned', _('Burned')),
+        ('major_defects', _('Major defects')),
     ]
 
     STEERING_CHOICES = [
-        ('left', 'Left-hand drive'),
-        ('right', 'Right-hand drive (UK)'),
+        ('left', _('Left-hand drive')),
+        ('right', _('Right-hand drive (UK)')),
     ]
 
     COUNTRY_CHOICES = [
-        ('US', 'United States'), ('LT', 'Lithuania'),
-        ('LV', 'Latvia'), ('EE', 'Estonia'),
-        ('PL', 'Poland'), ('DE', 'Germany'),
-        ('NL', 'Netherlands'), ('BE', 'Belgium'),
-        ('FR', 'France'), ('IT', 'Italy'),
-        ('ES', 'Spain'), ('AT', 'Austria'),
-        ('CZ', 'Czech Republic'), ('SK', 'Slovakia'),
-        ('HU', 'Hungary'), ('RO', 'Romania'),
-        ('BG', 'Bulgaria'), ('SE', 'Sweden'),
-        ('DK', 'Denmark'), ('FI', 'Finland'),
-        ('NO', 'Norway'), ('GB', 'United Kingdom'),
-        ('IE', 'Ireland'), ('CH', 'Switzerland'),
+        ('US', _('United States')), ('LT', _('Lithuania')),
+        ('LV', _('Latvia')), ('EE', _('Estonia')),
+        ('PL', _('Poland')), ('DE', _('Germany')),
+        ('NL', _('Netherlands')), ('BE', _('Belgium')),
+        ('FR', _('France')), ('IT', _('Italy')),
+        ('ES', _('Spain')), ('AT', _('Austria')),
+        ('CZ', _('Czech Republic')), ('SK', _('Slovakia')),
+        ('HU', _('Hungary')), ('RO', _('Romania')),
+        ('BG', _('Bulgaria')), ('SE', _('Sweden')),
+        ('DK', _('Denmark')), ('FI', _('Finland')),
+        ('NO', _('Norway')), ('GB', _('United Kingdom')),
+        ('IE', _('Ireland')), ('CH', _('Switzerland')),
     ]
 
     US_STATE_CHOICES = [
@@ -2064,87 +2064,87 @@ class Truck(models.Model):
         max_length=30,
         choices=SUBCATEGORY_CHOICES,
         default='trucks',
-        verbose_name="Sub-category",
+        verbose_name=_("Sub-category"),
     )
 
     brand = models.ForeignKey(
         TruckBrand, on_delete=models.CASCADE,
         related_name='trucks',
-        verbose_name="Truck Brand",
+        verbose_name=_("Truck Brand"),
     )
     model = models.ForeignKey(
         TruckModel, on_delete=models.CASCADE,
         related_name='trucks',
-        verbose_name="Truck Model",
+        verbose_name=_("Truck Model"),
     )
 
-    title = models.CharField(max_length=200, verbose_name="Title")
-    description = models.TextField(verbose_name="Description", blank=True)
+    title = models.CharField(max_length=200, verbose_name=_("Title"))
+    description = models.TextField(verbose_name=_("Description"), blank=True)
 
     year = models.IntegerField(
-        verbose_name="Year",
+        verbose_name=_("Year"),
         validators=[MinValueValidator(1900), MaxValueValidator(2100)],
     )
     mileage = models.IntegerField(
-        verbose_name="Mileage (km)",
+        verbose_name=_("Mileage (km)"),
         validators=[MinValueValidator(0), MaxValueValidator(9999999)],
     )
     first_registration = models.DateField(
-        verbose_name="First Registration Date", null=True, blank=True,
+        verbose_name=_("First Registration Date"), null=True, blank=True,
     )
 
     truck_type = models.CharField(
         max_length=30, choices=TRUCK_TYPE_CHOICES, blank=True,
-        verbose_name='Truck type',
+        verbose_name=_('Truck type'),
     )
     cab_type = models.CharField(
         max_length=20, choices=CAB_TYPE_CHOICES, blank=True,
-        verbose_name='Cab type',
+        verbose_name=_('Cab type'),
     )
     axle_config = models.CharField(
         max_length=10, choices=AXLE_CONFIG_CHOICES, blank=True,
-        verbose_name='Axle configuration',
+        verbose_name=_('Axle configuration'),
     )
     suspension = models.CharField(
         max_length=20, choices=SUSPENSION_CHOICES, blank=True,
-        verbose_name='Suspension',
+        verbose_name=_('Suspension'),
     )
 
     gross_weight = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        verbose_name='Gross weight (kg)',
+        verbose_name=_('Gross weight (kg)'),
     )
     curb_weight = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        verbose_name='Curb weight (kg)',
+        verbose_name=_('Curb weight (kg)'),
     )
     payload = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        verbose_name='Payload capacity (kg)',
+        verbose_name=_('Payload capacity (kg)'),
     )
     cargo_volume = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True,
-        verbose_name='Cargo volume (m³)',
+        verbose_name=_('Cargo volume (m³)'),
     )
     cargo_length = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True,
-        verbose_name='Cargo length (m)',
+        verbose_name=_('Cargo length (m)'),
     )
     cargo_width = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True,
-        verbose_name='Cargo width (m)',
+        verbose_name=_('Cargo width (m)'),
     )
     cargo_height = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True,
-        verbose_name='Cargo height (m)',
+        verbose_name=_('Cargo height (m)'),
     )
     number_of_seats = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(1), MaxValueValidator(20)],
-        verbose_name='Number of seats',
+        verbose_name=_('Number of seats'),
     )
 
     fuel_type = models.CharField(
@@ -2155,40 +2155,40 @@ class Truck(models.Model):
     )
     engine_capacity = models.DecimalField(
         max_digits=5, decimal_places=1, null=True, blank=True,
-        verbose_name='Engine capacity (L)',
+        verbose_name=_('Engine capacity (L)'),
     )
     power = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(9999)],
-        verbose_name='Power (kW)',
+        verbose_name=_('Power (kW)'),
     )
     power_hp = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(9999)],
-        verbose_name='Power (HP)',
+        verbose_name=_('Power (HP)'),
     )
     torque = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(99999)],
-        verbose_name='Torque (Nm)',
+        verbose_name=_('Torque (Nm)'),
     )
     euro_standard = models.CharField(
         max_length=10, choices=EURO_STANDARD_CHOICES, blank=True,
     )
     fuel_consumption = models.DecimalField(
         max_digits=4, decimal_places=1, null=True, blank=True,
-        verbose_name='Fuel consumption (L/100km)',
+        verbose_name=_('Fuel consumption (L/100km)'),
     )
     fuel_tank_capacity = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(0), MaxValueValidator(9999)],
-        verbose_name='Fuel tank (L)',
+        verbose_name=_('Fuel tank (L)'),
     )
 
     color = models.CharField(max_length=50, choices=COLOR_CHOICES, blank=True)
     color_other_text = models.CharField(
         max_length=50, blank=True,
-        verbose_name="Color (custom)",
+        verbose_name=_("Color (custom)"),
     )
     condition = models.CharField(
         max_length=20, choices=CONDITION_CHOICES, default='used',
@@ -2208,9 +2208,9 @@ class Truck(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
     negotiable = models.BooleanField(default=False)
-    open_to_trade = models.BooleanField(default=False, verbose_name="Open to trade")
+    open_to_trade = models.BooleanField(default=False, verbose_name=_("Open to trade"))
     price_excludes_vat = models.BooleanField(
-        default=False, verbose_name="Price excludes VAT",
+        default=False, verbose_name=_("Price excludes VAT"),
     )
 
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='US')
@@ -2225,7 +2225,7 @@ class Truck(models.Model):
     features = models.TextField(blank=True)
     video_url = models.URLField(blank=True)
 
-    is_business_seller = models.BooleanField(default=False, verbose_name="Business seller")
+    is_business_seller = models.BooleanField(default=False, verbose_name=_("Business seller"))
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     is_shadow_banned = models.BooleanField(default=False)
@@ -2258,7 +2258,7 @@ class Truck(models.Model):
     sold_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Truck"
+        verbose_name=_("Truck")
         verbose_name_plural = "Trucks"
         ordering = ['-created_at']
         indexes = [
@@ -2570,7 +2570,7 @@ class TruckImage(models.Model):
 
     class Meta:
         ordering = ['order', '-is_main']
-        verbose_name = "Truck Image"
+        verbose_name=_("Truck Image")
         verbose_name_plural = "Truck Images"
 
     def __str__(self):
@@ -2583,7 +2583,7 @@ class TruckEquipment(models.Model):
 
     class Meta:
         unique_together = ['truck', 'equipment']
-        verbose_name = "Truck Equipment Selection"
+        verbose_name=_("Truck Equipment Selection")
         verbose_name_plural = "Truck Equipment Selections"
 
     def __str__(self):
@@ -2598,7 +2598,7 @@ class SavedTruck(models.Model):
     class Meta:
         unique_together = ['user', 'truck']
         ordering = ['-saved_at']
-        verbose_name = "Saved Truck"
+        verbose_name=_("Saved Truck")
         verbose_name_plural = "Saved Trucks"
 
 
@@ -2674,7 +2674,7 @@ class TruckSalesRecord(models.Model):
             models.Index(fields=['-sold_at']),
             models.Index(fields=['seller', '-sold_at']),
         ]
-        verbose_name = "Truck Sales Record"
+        verbose_name=_("Truck Sales Record")
         verbose_name_plural = "Truck Sales Records"
 
     def __str__(self):
@@ -2808,7 +2808,7 @@ class PartCategory(models.Model):
 
         ordering = ["level", "order", "name_en"]
 
-        verbose_name = "Part Category"
+        verbose_name=_("Part Category")
 
         verbose_name_plural = "Part Categories"
 
@@ -2871,12 +2871,12 @@ class PartCategory(models.Model):
         return separator.join(n.name_en for n in self.breadcrumb())
 
 WHEEL_PURPOSE_CHOICES = [
-    ('passenger',  'Passenger cars'),
-    ('suv',        'SUV / Off-road'),
-    ('commercial', 'Commercial / Van'),
-    ('truck',      'Trucks'),
-    ('moto',       'Motorcycles'),
-    ('industrial', 'Industrial'),
+    ('passenger', _('Passenger cars')),
+    ('suv', _('SUV / Off-road')),
+    ('commercial', _('Commercial / Van')),
+    ('truck', _('Trucks')),
+    ('moto', _('Motorcycles')),
+    ('industrial', _('Industrial')),
 ]
  
 # Padangų plotis (mm) — 125..355 žingsniu 10
@@ -2892,9 +2892,9 @@ TYRE_PROFILE_CHOICES = [
 WHEEL_DIAMETER_CHOICES = [(str(d), f'R{d}') for d in range(10, 25)]  # R10..R24
  
 TYRE_SEASON_CHOICES = [
-    ('summer',     'Summer'),
-    ('winter',     'Winter'),
-    ('all_season', 'All-season'),
+    ('summer', _('Summer')),
+    ('winter', _('Winter')),
+    ('all_season', _('All-season')),
 ]
  
 TYRE_SPEED_CHOICES = [
@@ -2931,24 +2931,24 @@ RIM_PCD_CHOICES = [
 RIM_BOLT_COUNT_CHOICES = [(str(n), str(n)) for n in [3, 4, 5, 6, 8, 10]]
  
 RIM_MATERIAL_CHOICES = [
-    ('alloy',   'Alloy'),
-    ('steel',   'Steel'),
-    ('forged',  'Forged'),
-    ('carbon',  'Carbon fiber'),
+    ('alloy', _('Alloy')),
+    ('steel', _('Steel')),
+    ('forged', _('Forged')),
+    ('carbon', _('Carbon fiber')),
 ]
  
 WHEEL_CONDITION_CHOICES = [
-    ('new',  'New'),
-    ('used', 'Used'),
+    ('new', _('New')),
+    ('used', _('Used')),
 ]
  
 WHEEL_STATUS_CHOICES = [
-    ('draft',    'Draft'),
-    ('active',   'Active'),
-    ('reserved', 'Reserved'),
-    ('sold',     'Sold'),
-    ('expired',  'Expired'),
-    ('archived', 'Archived'),
+    ('draft', _('Draft')),
+    ('active', _('Active')),
+    ('reserved', _('Reserved')),
+    ('sold', _('Sold')),
+    ('expired', _('Expired')),
+    ('archived', _('Archived')),
 ]
  
 WHEEL_DEFAULT_ACTIVE_DAYS = 30
@@ -2960,8 +2960,8 @@ class WheelListing(models.Model):
     """Tyres + Rims vienoje lentelėje. product_type skiria."""
  
     PRODUCT_TYPE_CHOICES = [
-        ('tyre', 'Tyres'),
-        ('rim',  'Rims'),
+        ('tyre', _('Tyres')),
+        ('rim', _('Rims')),
     ]
  
     DEFAULT_ACTIVE_DAYS = WHEEL_DEFAULT_ACTIVE_DAYS
@@ -3046,7 +3046,7 @@ class WheelListing(models.Model):
     sold_at = models.DateTimeField(null=True, blank=True)
  
     class Meta:
-        verbose_name = "Wheel Listing"
+        verbose_name=_("Wheel Listing")
         verbose_name_plural = "Wheel Listings"
         ordering = ['-created_at']
         indexes = [
@@ -3131,7 +3131,7 @@ class WheelImage(models.Model):
  
     class Meta:
         ordering = ['order', '-is_main']
-        verbose_name = "Wheel Image"
+        verbose_name=_("Wheel Image")
         verbose_name_plural = "Wheel Images"
  
  

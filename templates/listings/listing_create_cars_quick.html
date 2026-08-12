@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
 
@@ -101,7 +101,7 @@
                             <select id="id_fuel_type_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncFuelType(this.value)">
                                 <option value="">---------</option>
                                 {% for ft in form.fuel_type.field.queryset %}
-                                <option value="{{ ft.pk }}" {% if listing_data.step3_partial.fuel_type == ft.pk|stringformat:"s" %}selected{% endif %}>{{ ft.name }}</option>
+                                <option value="{{ ft.pk }}" {% if listing_data.step3_partial.fuel_type == ft.pk|stringformat:"s" %}selected{% endif %}>{{ ft.name|tdb }}</option>
                                 {% endfor %}
                             </select>
                             <input type="hidden" name="fuel_type" id="fuel_type_input" value="{{ listing_data.step3_partial.fuel_type|default:'' }}">
@@ -123,7 +123,7 @@
                             <select id="id_transmission_select" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" onchange="syncTransmission(this.value)">
                                 <option value="">---------</option>
                                 {% for tr in form.transmission.field.queryset %}
-                                <option value="{{ tr.pk }}" {% if listing_data.step3_partial.transmission == tr.pk|stringformat:"s" %}selected{% endif %}>{{ tr.name }}</option>
+                                <option value="{{ tr.pk }}" {% if listing_data.step3_partial.transmission == tr.pk|stringformat:"s" %}selected{% endif %}>{{ tr.name|tdb }}</option>
                                 {% endfor %}
                             </select>
                             <input type="hidden" name="transmission" id="transmission_input" value="{{ listing_data.step3_partial.transmission|default:'' }}">

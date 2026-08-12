@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Motorcycle Listing" %}{% else %}{% trans "Create Motorcycle Listing" %}{% endif %} - SellCar{% endblock %}
 
@@ -129,7 +129,7 @@
                         <select name="fuel_type" data-required="true" class="req-field w-full px-2 py-1.5 text-sm border rounded">
                             <option value="">--</option>
                             {% for ft in fuel_types %}
-                            <option value="{{ ft.id }}" {% if submitted.fuel_type == ft.id|stringformat:"s" %}selected{% endif %}>{{ ft.name }}</option>
+                            <option value="{{ ft.id }}" {% if submitted.fuel_type == ft.id|stringformat:"s" %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -194,7 +194,7 @@
                         <select name="transmission" class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
                             <option value="">--</option>
                             {% for tr in transmissions %}
-                            <option value="{{ tr.id }}" {% if submitted.transmission == tr.id|stringformat:"s" %}selected{% endif %}>{{ tr.name }}</option>
+                            <option value="{{ tr.id }}" {% if submitted.transmission == tr.id|stringformat:"s" %}selected{% endif %}>{{ tr.name|tdb }}</option>
                             {% endfor %}
                         </select>
                     </div>
