@@ -956,7 +956,7 @@ def trucks_list(request):
     if selected_subcategory:
         listings = listings.filter(subcategory__slug=selected_subcategory)
 
-    selected_truck_types = request.GET.getlist('truck_type')
+    selected_truck_types = [v for v in request.GET.getlist('truck_type') if v]
     if selected_truck_types:
         listings = listings.filter(truck_type__in=selected_truck_types)
 

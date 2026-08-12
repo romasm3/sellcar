@@ -1052,7 +1052,7 @@ def motorcycles_advanced_search(request):
     country_filter = f.get('country_filter', '')
     cond_used = f.get('cond_used', '')
     cond_new = f.get('cond_new', '')
-    moto_eq = f.getlist('moto_eq')
+    moto_eq = [v for v in f.getlist('moto_eq') if v]
     battery_min = f.get('battery_min', '')
     battery_max = f.get('battery_max', '')
     electric_range_min = f.get('electric_range_min', '')

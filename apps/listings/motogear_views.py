@@ -744,12 +744,12 @@ def motogear_list(request):
         sub.listings_count = sub_counts.get(sub.id, 0)
 
     f = request.GET
-    subcategory_filter = f.getlist('subcategory')
-    gear_size_filter = f.getlist('gear_size')
-    gear_material_filter = f.getlist('gear_material')
-    gear_gender_filter = f.getlist('gear_gender')
-    gear_brand_filter = f.getlist('gear_brand')
-    condition_filter = f.getlist('condition')
+    subcategory_filter = [v for v in f.getlist('subcategory') if v]
+    gear_size_filter = [v for v in f.getlist('gear_size') if v]
+    gear_material_filter = [v for v in f.getlist('gear_material') if v]
+    gear_gender_filter = [v for v in f.getlist('gear_gender') if v]
+    gear_brand_filter = [v for v in f.getlist('gear_brand') if v]
+    condition_filter = [v for v in f.getlist('condition') if v]
     price_min = f.get('price_min')
     price_max = f.get('price_max')
     search_query = f.get('search', '')
