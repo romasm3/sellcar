@@ -12,6 +12,7 @@ from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce
 from datetime import timedelta
 
+from .image_validation import ImageValidationError, validate_images
 from .models import (
     Listing,
     ListingImage,
@@ -169,6 +170,11 @@ def upload_motogear_draft_images_ajax(request):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
 
     existing_count = listing.images.count()
     available = max(0, 40 - existing_count)

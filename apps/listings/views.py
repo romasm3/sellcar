@@ -18,6 +18,7 @@ from django.db import transaction
 from decimal import Decimal
 from django.utils import timezone
 from .constants import can_create_listing
+from .image_validation import ImageValidationError, validate_images
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -1435,6 +1436,11 @@ def upload_listing_images_ajax(request, pk):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
 
     existing_count = listing.images.count()
     if existing_count + len(images) > 40:

@@ -15,6 +15,7 @@
 from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Case, When, IntegerField, Value, Q
@@ -23,6 +24,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from .image_validation import split_valid_images
 from .models import (
     WheelListing, WheelImage, SavedWheelListing,
     WHEEL_PURPOSE_CHOICES, WHEEL_DIAMETER_CHOICES, WHEEL_CONDITION_CHOICES,
@@ -272,7 +274,13 @@ def wheels_create(request):
         listing.save()
 
         # ─── nuotraukos ───
-        photos = request.FILES.getlist('photos')[:20]
+        # Netinkamų failų neįrašom, bet skelbimo neprarandam — apie
+        # atmestas nuotraukas pranešam per messages.
+        photos, photo_errors = split_valid_images(
+            request.FILES.getlist('photos')[:20]
+        )
+        for err in photo_errors:
+            messages.error(request, err)
         for i, photo in enumerate(photos):
             WheelImage.objects.create(
                 listing=listing,

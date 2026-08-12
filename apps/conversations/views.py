@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages as django_messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
+
+from apps.listings.image_validation import ImageValidationError, validate_image
+
 from .models import Conversation, Message
 
 
@@ -139,6 +143,14 @@ def conversation_detail(request, pk):
     if request.method == 'POST':
         content = request.POST.get('content', '').strip()
         image = request.FILES.get('image')
+        if image:
+            try:
+                validate_image(image)
+            except ImageValidationError as exc:
+                # NB: `messages` šitoje funkcijoje yra lokalus kintamasis
+                # (conversation.messages.all()), tad naudojam alias'ą.
+                django_messages.error(request, str(exc))
+                return redirect(f'/conversations/?conv={conversation.pk}')
         if content or image:
             new_msg = Message.objects.create(
                 conversation=conversation,
