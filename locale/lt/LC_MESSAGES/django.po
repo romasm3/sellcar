@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 23:02+0300\n"
+"POT-Creation-Date: 2026-07-26 13:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,93 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+#: apps/listings/models.py:351
+msgid "Helmet"
+msgstr "Šalmas"
+
+#: apps/listings/models.py:352
+msgid "Protective gear"
+msgstr "Apsaugos"
+
+#: apps/listings/models.py:353
+msgid "Boots"
+msgstr "Batai"
+
+#: apps/listings/models.py:354
+msgid "Pants"
+msgstr "Kelnės"
+
+#: apps/listings/models.py:355
+msgid "Suit / Combination"
+msgstr "Kombinezonas"
+
+#: apps/listings/models.py:356
+msgid "Bag / Backpack"
+msgstr "Krepšys / kuprinė"
+
+#: apps/listings/models.py:357
+msgid "Gloves"
+msgstr "Pirštinės"
+
+#: apps/listings/models.py:358
+msgid "Jacket"
+msgstr "Striukė"
+
+#: apps/listings/models.py:359 apps/listings/models.py:439
+#: apps/listings/models.py:449 templates/listings/listing_detail.html:1355
+#: templates/listings/partials/panel_boats.html:25
+msgid "Other"
+msgstr "Kita"
+
+#: apps/listings/models.py:433
+msgid "One size / Universal"
+msgstr "Vienas dydis / universalus"
+
+#: apps/listings/models.py:434
+msgid "Numeric"
+msgstr "Skaitinis"
+
+#: apps/listings/models.py:440
+#, fuzzy
+#| msgid "Other"
+msgid "Leather"
+msgstr "Kita"
+
+#: apps/listings/models.py:441
+msgid "Textile"
+msgstr "Tekstilė"
+
+#: apps/listings/models.py:442
+msgid "Leather + Textile"
+msgstr "Oda + tekstilė"
+
+#: apps/listings/models.py:443
+msgid "Synthetic"
+msgstr "Sintetika"
+
+#: apps/listings/models.py:444
+msgid "Mesh"
+msgstr "Tinklelis"
+
+#: apps/listings/models.py:450
+#, fuzzy
+#| msgid "Min"
+msgid "Men"
+msgstr "Min."
+
+#: apps/listings/models.py:451
+msgid "Women"
+msgstr "Moteriškas"
+
+#: apps/listings/models.py:452
+#: templates/listings/partials/search_panel.html:606
+msgid "Unisex"
+msgstr "Unisex"
+
+#: apps/listings/models.py:453
+msgid "Kids"
+msgstr "Vaikiškas"
 
 #: apps/listings/parts_views.py:72
 msgid "Car, van parts"
@@ -106,7 +193,7 @@ msgid "Single part / parts kit"
 msgstr "Atskira dalis / komplektas"
 
 #: apps/listings/translatable_db.py:32
-#: templates/listings/partials/search_rail.html:43
+#: templates/listings/partials/search_rail.html:44
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:17
 #: templates/listings/wheels_list.html:91
@@ -115,7 +202,7 @@ msgid "Tyres"
 msgstr "Padangos"
 
 #: apps/listings/translatable_db.py:32
-#: templates/listings/partials/search_rail.html:44
+#: templates/listings/partials/search_rail.html:45
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:19
 #: templates/listings/wheels_list.html:91
@@ -656,7 +743,7 @@ msgstr "skelbimai"
 #: templates/listings/listing_create_cars_quick.html:44
 #: templates/listings/listing_edit.html:31
 #: templates/listings/listing_list.html:339
-#: templates/listings/listing_list.html:1378
+#: templates/listings/listing_list.html:1391
 #: templates/listings/listing_list_v2.html:294
 #: templates/listings/moto_part_create.html:79
 #: templates/listings/moto_parts_advanced.html:71
@@ -724,7 +811,7 @@ msgstr "Markė"
 #: templates/listings/listing_list.html:554
 #: templates/listings/listing_list.html:563
 #: templates/listings/listing_list.html:571
-#: templates/listings/listing_list.html:1554
+#: templates/listings/listing_list.html:1567
 #: templates/listings/moto_parts_advanced.html:66
 #: templates/listings/moto_parts_advanced.html:72
 #: templates/listings/moto_parts_advanced.html:78
@@ -740,9 +827,9 @@ msgstr "Markė"
 #: templates/listings/moto_parts_browse.html:172
 #: templates/listings/moto_parts_browse.html:176
 #: templates/listings/moto_parts_browse.html:185
-#: templates/listings/motogeat_list.html:99
-#: templates/listings/motogeat_list.html:117
-#: templates/listings/motogeat_list.html:129
+#: templates/listings/motogear_list.html:99
+#: templates/listings/motogear_list.html:117
+#: templates/listings/motogear_list.html:129
 #: templates/listings/motorcycles_list.html:240
 #: templates/listings/motorcycles_list.html:559
 #: templates/listings/motorcycles_list.html:570
@@ -846,7 +933,7 @@ msgstr "Visi"
 #: templates/listings/listing_detail.html:826
 #: templates/listings/listing_edit.html:36
 #: templates/listings/listing_list.html:363
-#: templates/listings/listing_list.html:1384
+#: templates/listings/listing_list.html:1397
 #: templates/listings/moto_part_create.html:89
 #: templates/listings/moto_parts_advanced.html:77
 #: templates/listings/moto_parts_browse.html:125
@@ -932,7 +1019,7 @@ msgstr "Kūno tipas"
 #: templates/listings/listing_list_v2.html:329
 #: templates/listings/moto_parts_advanced.html:174
 #: templates/listings/moto_parts_browse.html:136
-#: templates/listings/motogeat_list.html:235
+#: templates/listings/motogear_list.html:235
 #: templates/listings/motorcycles_advanced_search.html:428
 #: templates/listings/motorcycles_list.html:509
 #: templates/listings/saved_searches.html:35
@@ -948,6 +1035,7 @@ msgstr "Paieška"
 #: templates/listings/advanced_search.html:880
 #: templates/listings/search_map.html:71
 #: templates/listings/trucks_advanced_search.html:616
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:457
 msgid "Clear"
 msgstr "Išvalyti"
 
@@ -1614,7 +1702,6 @@ msgid "Working hours"
 msgstr "Darbo valandos"
 
 #: templates/accounts/seller_profile.html:165
-#: templates/listings/partials/search_panel.html:78
 #, python-format
 msgid "%(counter)s listing"
 msgid_plural "%(counter)s listings"
@@ -1627,7 +1714,7 @@ msgid "Member since %(year)s"
 msgstr "Narys nuo %(metų) s"
 
 #: templates/accounts/seller_profile.html:190 templates/home.html:36
-#: templates/listings/home.html:24 templates/listings/listing_list.html:1368
+#: templates/listings/home.html:24 templates/listings/listing_list.html:1381
 #: templates/listings/trucks_list.html:277
 #: templates/listings/trucks_list.html:283
 #: templates/listings/trucks_list.html:563
@@ -1640,16 +1727,16 @@ msgstr "Visos markių"
 #: templates/accounts/seller_profile.html:449 templates/home.html:47
 #: templates/home.html:251 templates/listings/listing_list.html:366
 #: templates/listings/listing_list.html:372
-#: templates/listings/listing_list.html:1268
-#: templates/listings/listing_list.html:1269
-#: templates/listings/listing_list.html:1285
-#: templates/listings/listing_list.html:1413
-#: templates/listings/listing_list.html:1479
-#: templates/listings/listing_list.html:1480
-#: templates/listings/listing_list.html:1504
-#: templates/listings/listing_list.html:1619
-#: templates/listings/listing_list.html:1620
-#: templates/listings/listing_list.html:1636
+#: templates/listings/listing_list.html:1281
+#: templates/listings/listing_list.html:1282
+#: templates/listings/listing_list.html:1298
+#: templates/listings/listing_list.html:1426
+#: templates/listings/listing_list.html:1492
+#: templates/listings/listing_list.html:1493
+#: templates/listings/listing_list.html:1517
+#: templates/listings/listing_list.html:1632
+#: templates/listings/listing_list.html:1633
+#: templates/listings/listing_list.html:1649
 #: templates/listings/moto_parts_browse.html:126
 #: templates/listings/motorcycles_list.html:201
 #: templates/listings/motorcycles_list.html:415
@@ -1731,7 +1818,7 @@ msgstr "Metai"
 #: templates/listings/moto_parts_browse.html:131
 #: templates/listings/moto_parts_browse.html:141
 #: templates/listings/moto_parts_browse.html:148
-#: templates/listings/motogeat_list.html:109
+#: templates/listings/motogear_list.html:109
 #: templates/listings/motorcycles_advanced_search.html:201
 #: templates/listings/motorcycles_advanced_search.html:209
 #: templates/listings/motorcycles_advanced_search.html:223
@@ -1790,7 +1877,7 @@ msgstr "Nuo"
 #: templates/listings/moto_parts_browse.html:132
 #: templates/listings/moto_parts_browse.html:142
 #: templates/listings/moto_parts_browse.html:149
-#: templates/listings/motogeat_list.html:110
+#: templates/listings/motogear_list.html:110
 #: templates/listings/motorcycles_advanced_search.html:202
 #: templates/listings/motorcycles_advanced_search.html:210
 #: templates/listings/motorcycles_advanced_search.html:224
@@ -2015,7 +2102,7 @@ msgstr "Data"
 #: templates/listings/boats_listing_create.html:882
 #: templates/listings/listing_detail.html:180
 #: templates/listings/motogear_create.html:63
-#: templates/listings/motogeat_list.html:97
+#: templates/listings/motogear_list.html:97
 #: templates/listings/partials/panel_boats.html:6
 #: templates/listings/rims_create.html:109
 #: templates/listings/truck_for_parts_create.html:63
@@ -2103,6 +2190,7 @@ msgstr "Mano paieškos"
 #: templates/base.html:136 templates/base.html:193 templates/base.html:279
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:13
+#: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr "Žinutės"
 
@@ -2452,8 +2540,8 @@ msgstr "Naršyti %(count)s skelbimus"
 #: templates/home.html:23 templates/listings/listing_list.html:327
 #: templates/listings/motogear_create.html:48
 #: templates/listings/motogear_create.html:477
-#: templates/listings/motogeat_list.html:89
-#: templates/listings/motogeat_list.html:243
+#: templates/listings/motogear_list.html:89
+#: templates/listings/motogear_list.html:243
 #: templates/listings/motorcycles_list.html:181
 #: templates/listings/motorcycles_list.html:377
 #: templates/listings/trucks_list.html:236
@@ -2517,7 +2605,7 @@ msgstr "Ieškoti pagal detalės pavadinimą arba kodą"
 msgid "Available Vehicles"
 msgstr "Turimos transporto priemonės"
 
-#: templates/home.html:149 templates/listings/motogeat_list.html:215
+#: templates/home.html:149 templates/listings/motogear_list.html:215
 #: templates/listings/search_map.html:79
 #: templates/listings/trucks_list.html:510
 #, python-format
@@ -2526,7 +2614,7 @@ msgstr "Rasta %(count)s skelbimų"
 
 #: templates/home.html:155 templates/listings/listing_list.html:695
 #: templates/listings/listing_list.html:819
-#: templates/listings/listing_list.html:975
+#: templates/listings/listing_list.html:988
 #: templates/listings/listing_list_v2.html:340
 #: templates/listings/motorcycles_list.html:711
 #: templates/listings/trucks_advanced_search.html:633
@@ -2594,7 +2682,7 @@ msgid "km"
 msgstr "km"
 
 #: templates/home.html:224 templates/listings/listing_list.html:787
-#: templates/listings/listing_list.html:929
+#: templates/listings/listing_list.html:942
 #: templates/listings/moto_parts_browse.html:280
 #: templates/listings/motorcycles_advanced_search.html:457
 #: templates/listings/motorcycles_list.html:316
@@ -2603,11 +2691,12 @@ msgstr "km"
 #: templates/listings/trucks_advanced_search.html:734
 #: templates/listings/trucks_list.html:482
 #: templates/listings/trucks_list.html:794
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:796
 msgid "Unknown"
 msgstr "Nežinoma"
 
 #: templates/home.html:235 templates/listings/listing_list.html:797
-#: templates/listings/listing_list.html:939
+#: templates/listings/listing_list.html:952
 #: templates/listings/search_map.html:123
 #: templates/listings/wheels_list.html:517
 msgid "No listings found"
@@ -2620,117 +2709,14 @@ msgstr "Nerasta jokių skelbimų"
 msgid "Try adjusting your filters"
 msgstr "Pabandykite pakoreguoti filtrus"
 
-#: templates/home.html:239 templates/listings/listing_list.html:941
+#: templates/home.html:239 templates/listings/listing_list.html:954
 #: templates/listings/trucks_advanced_search.html:595
 #: templates/listings/trucks_advanced_search.html:749
 #: templates/listings/trucks_list.html:806
 msgid "Clear all filters"
 msgstr "Išvalyti visus filtrus"
 
-#: templates/includes/search_panel.html:36
-msgid "Automobiliai"
-msgstr ""
-
-#: templates/includes/search_panel.html:42
-msgid "Motociklai"
-msgstr ""
-
-#: templates/includes/search_panel.html:48
-msgid "Sunkvežimiai"
-msgstr ""
-
-#: templates/includes/search_panel.html:54
-msgid "Vandens transportas"
-msgstr ""
-
-#: templates/includes/search_panel.html:60
-msgid "Dalys"
-msgstr ""
-
-#: templates/includes/search_panel.html:68
-msgid "Padangos ir ratlankiai"
-msgstr ""
-
-#: templates/includes/search_panel.html:75
-msgid "Paieška"
-msgstr ""
-
-#: templates/includes/search_panel.html:84
-msgid "Prekės ženklas"
-msgstr ""
-
-#: templates/includes/search_panel.html:87
-msgid "Visi prekių ženklai"
-msgstr ""
-
-#: templates/includes/search_panel.html:95
-msgid "Modelis"
-msgstr "Modelis"
-
-#: templates/includes/search_panel.html:98
-#: templates/includes/search_panel.html:196
-msgid "Visi modeliai"
-msgstr ""
-
-#: templates/includes/search_panel.html:105
-msgid "Metai"
-msgstr ""
-
-#: templates/includes/search_panel.html:109
-msgid "Iš"
-msgstr ""
-
-#: templates/includes/search_panel.html:115
-msgid "Į"
-msgstr ""
-
-#: templates/includes/search_panel.html:122
-msgid "Kainų diapazonas"
-msgstr ""
-
-#: templates/includes/search_panel.html:124
-msgid "Min."
-msgstr ""
-
-#: templates/includes/search_panel.html:125
-msgid "Maks."
-msgstr ""
-
-#: templates/includes/search_panel.html:131
-msgid "Kuro tipas"
-msgstr ""
-
-#: templates/includes/search_panel.html:134
-#: templates/includes/search_panel.html:145
-msgid "Visi"
-msgstr ""
-
-#: templates/includes/search_panel.html:142
-msgid "Kūno tipas"
-msgstr ""
-
-#: templates/includes/search_panel.html:155
-msgid "Vieta"
-msgstr ""
-
-#: templates/includes/search_panel.html:158
-msgid "Visos vietos"
-msgstr ""
-
-#: templates/includes/search_panel.html:173
-msgid "Išplėstinė paieška"
-msgstr ""
-
-#: templates/includes/search_panel.html:179
-msgid "Išsaugoti paiešką"
-msgstr ""
-
-#: templates/includes/search_panel.html:185
-msgid "Skelbimai"
-msgstr ""
-
 #: templates/listings/advanced_search.html:5
-#: templates/listings/partials/search_panel.html:67
 #: templates/listings/trucks_list.html:669
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_list.html:225
@@ -2888,7 +2874,7 @@ msgstr "Klimato kontrolė"
 #: templates/listings/moto_parts_browse.html:153
 #: templates/listings/motogear_create.html:107
 #: templates/listings/motogear_create.html:478
-#: templates/listings/motogeat_list.html:327
+#: templates/listings/motogear_list.html:327
 #: templates/listings/rims_create.html:65
 #: templates/listings/truck_for_parts_create.html:91
 #: templates/listings/truck_parts_advanced.html:109
@@ -2934,7 +2920,7 @@ msgid "All Cities"
 msgstr "Visi miestai"
 
 #: templates/listings/advanced_search.html:405
-#: templates/listings/motogeat_list.html:147
+#: templates/listings/motogear_list.html:147
 #: templates/listings/motorcycles_advanced_search.html:391
 #: templates/listings/motorcycles_list.html:248
 #: templates/listings/wheels_advanced_search.html:277
@@ -2986,7 +2972,7 @@ msgstr "Pavarų dėžės kodas"
 
 #: templates/listings/advanced_search.html:491
 #: templates/listings/listing_list.html:884
-#: templates/listings/listing_list.html:1009
+#: templates/listings/listing_list.html:1022
 #: templates/listings/motorcycles_advanced_search.html:175
 #: templates/listings/motorcycles_advanced_search.html:445
 #: templates/listings/trucks_advanced_search.html:699
@@ -3060,7 +3046,7 @@ msgstr "Niekas nepasirinkta"
 
 #: templates/listings/advanced_search.html:1140
 #: templates/listings/advanced_search.html:1231
-#: templates/listings/listing_list.html:1374
+#: templates/listings/listing_list.html:1387
 #: templates/listings/motorcycles_advanced_search.html:486
 #: templates/listings/motorcycles_list.html:1031
 msgid "Remove"
@@ -3102,10 +3088,10 @@ msgstr "Peržiūrėti skelbimą"
 
 #: templates/listings/boats_listing_create.html:24
 #: templates/listings/listing_list.html:266
-#: templates/listings/motogeat_list.html:54
+#: templates/listings/motogear_list.html:54
 #: templates/listings/motorcycles_advanced_search.html:130
 #: templates/listings/motorcycles_list.html:146
-#: templates/listings/partials/search_rail.html:63
+#: templates/listings/partials/search_rail.html:64
 #: templates/listings/trucks_list.html:166
 msgid "Boats & Water Transport"
 msgstr "Valtys ir vandens transportas"
@@ -3120,7 +3106,7 @@ msgstr "Pagrindiniai sąrašo duomenys"
 
 #: templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:79
-#: templates/listings/motogeat_list.html:261
+#: templates/listings/motogear_list.html:261
 #: templates/listings/rims_create.html:28
 #: templates/listings/tyres_create.html:31
 #: templates/listings/wheels_create.html:39
@@ -3137,8 +3123,8 @@ msgstr "pvz., 4"
 
 #: templates/listings/boats_listing_create.html:89
 #: templates/listings/motogear_create.html:160
-#: templates/listings/motogeat_list.html:127
-#: templates/listings/motogeat_list.html:294
+#: templates/listings/motogear_list.html:127
+#: templates/listings/motogear_list.html:294
 #: templates/listings/partials/panel_boats.html:17
 #: templates/listings/wheels_advanced_search.html:201
 #: templates/listings/wheels_create.html:279
@@ -3384,7 +3370,7 @@ msgstr "+1 555 123 4567"
 #: templates/listings/moto_part_create.html:268
 #: templates/listings/motogear_create.html:376
 #: templates/listings/motogear_create.html:482
-#: templates/listings/motogeat_list.html:137
+#: templates/listings/motogear_list.html:137
 #: templates/listings/motorcycle_create.html:433
 #: templates/listings/rims_create.html:288
 #: templates/listings/truck_for_parts_create.html:253
@@ -3454,6 +3440,7 @@ msgstr "* Privalomi laukai"
 #: templates/listings/saved_searches.html:39
 #: templates/listings/trucks_listing_create.html:711
 #: templates/listings/trucks_listing_create.html:724
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:499
 msgid "Delete"
 msgstr "Ištrinti"
 
@@ -3682,7 +3669,7 @@ msgstr "pvz., DSG7"
 #: templates/listings/moto_part_create.html:124
 #: templates/listings/moto_parts_browse.html:146
 #: templates/listings/motogear_create.html:310
-#: templates/listings/motogeat_list.html:342
+#: templates/listings/motogear_list.html:342
 #: templates/listings/motorcycle_create.html:390
 #: templates/listings/motorcycles_list.html:439
 #: templates/listings/truck_for_parts_create.html:157
@@ -4103,8 +4090,8 @@ msgstr "MM"
 #: templates/listings/listing_detail.html:383
 #: templates/listings/listing_detail.html:950
 #: templates/listings/listing_edit.html:46
-#: templates/listings/listing_list.html:1084
-#: templates/listings/listing_list.html:1120
+#: templates/listings/listing_list.html:1097
+#: templates/listings/listing_list.html:1133
 #: templates/listings/motorcycle_create.html:240
 msgid "VIN"
 msgstr "VIN"
@@ -4786,8 +4773,7 @@ msgstr "Įranga ir funkcijos"
 #: templates/listings/listing_detail.html:421
 #: templates/listings/listing_detail.html:651
 #: templates/listings/listing_detail.html:994
-#: templates/listings/motogeat_list.html:355
-#: templates/listings/partials/search_panel.html:43
+#: templates/listings/motogear_list.html:355
 #: templates/listings/trucks_advanced_search.html:550
 #: templates/listings/trucks_list.html:543
 #: templates/listings/trucks_listing_create.html:770
@@ -4943,8 +4929,8 @@ msgstr "Bendrinti"
 
 #: templates/listings/listing_detail.html:1224
 #: templates/listings/listing_detail.html:1242
-#: templates/listings/listing_list.html:1582
-#: templates/listings/listing_list.html:1598
+#: templates/listings/listing_list.html:1595
+#: templates/listings/listing_list.html:1611
 #: templates/listings/listing_stats.html:92
 #: templates/listings/motorcycles_list.html:1103
 #: templates/listings/my_listings.html:314
@@ -5041,11 +5027,6 @@ msgstr "Pasikartojantis įrašas"
 msgid "Already sold"
 msgstr "Jau parduota"
 
-#: templates/listings/listing_detail.html:1355
-#: templates/listings/partials/panel_boats.html:25
-msgid "Other"
-msgstr "Kita"
-
 #: templates/listings/listing_detail.html:1359
 msgid "Additional comment"
 msgstr "Papildomas komentaras"
@@ -5136,10 +5117,10 @@ msgid "Delete Listing"
 msgstr "Ištrinti skelbimą"
 
 #: templates/listings/listing_list.html:253
-#: templates/listings/motogeat_list.html:42
+#: templates/listings/motogear_list.html:42
 #: templates/listings/motorcycles_advanced_search.html:122
 #: templates/listings/motorcycles_list.html:134
-#: templates/listings/partials/search_rail.html:59
+#: templates/listings/partials/search_rail.html:60
 #: templates/listings/trucks_list.html:154
 msgid "Select Category"
 msgstr "Pasirinkite kategoriją"
@@ -5147,17 +5128,16 @@ msgstr "Pasirinkite kategoriją"
 #: templates/listings/listing_list.html:260
 #: templates/listings/listing_list.html:290
 #: templates/listings/listing_list.html:329
-#: templates/listings/motogeat_list.html:49
+#: templates/listings/motogear_list.html:49
 #: templates/listings/motorcycles_advanced_search.html:127
 #: templates/listings/motorcycles_list.html:141
-#: templates/listings/partials/search_panel.html:16
-#: templates/listings/partials/search_rail.html:12
+#: templates/listings/partials/search_rail.html:13
 #: templates/listings/trucks_list.html:161
 msgid "Cars"
 msgstr "Automobiliai"
 
 #: templates/listings/listing_list.html:261
-#: templates/listings/motogeat_list.html:50
+#: templates/listings/motogear_list.html:50
 #: templates/listings/motorcycles_advanced_search.html:128
 #: templates/listings/motorcycles_list.html:142
 #: templates/listings/partials/search_rail.html:65
@@ -5166,21 +5146,21 @@ msgid "Minibuses, Buses & Campers"
 msgstr "Mikroautobusai, autobusai ir kemperiai"
 
 #: templates/listings/listing_list.html:262
-#: templates/listings/motogeat_list.html:51
+#: templates/listings/motogear_list.html:51
 #: templates/listings/motorcycles_advanced_search.html:126
 #: templates/listings/motorcycles_list.html:143
-#: templates/listings/partials/search_rail.html:19
 #: templates/listings/partials/search_rail.html:20
+#: templates/listings/partials/search_rail.html:21
 #: templates/listings/trucks_list.html:163
 msgid "Motorcycles & Moto Gear"
 msgstr "Motociklai ir motociklų įranga"
 
 #: templates/listings/listing_list.html:263
-#: templates/listings/motogeat_list.html:52
+#: templates/listings/motogear_list.html:52
 #: templates/listings/motorcycles_advanced_search.html:129
 #: templates/listings/motorcycles_list.html:144
-#: templates/listings/partials/search_rail.html:28
 #: templates/listings/partials/search_rail.html:29
+#: templates/listings/partials/search_rail.html:30
 #: templates/listings/trucks_list.html:164
 #: templates/listings/trucks_list.html:192
 #: templates/listings/trucks_list.html:238
@@ -5189,16 +5169,16 @@ msgid "Trucks & Commercial"
 msgstr "Sunkvežimiai ir komercinės paskirties transporto priemonės"
 
 #: templates/listings/listing_list.html:264
-#: templates/listings/motogeat_list.html:53
+#: templates/listings/motogear_list.html:53
 #: templates/listings/motorcycles_list.html:145
-#: templates/listings/partials/search_rail.html:49
 #: templates/listings/partials/search_rail.html:50
+#: templates/listings/partials/search_rail.html:51
 #: templates/listings/trucks_list.html:165
 msgid "Parts"
 msgstr "Dalys"
 
 #: templates/listings/listing_list.html:267
-#: templates/listings/motogeat_list.html:55
+#: templates/listings/motogear_list.html:55
 #: templates/listings/motorcycles_advanced_search.html:131
 #: templates/listings/motorcycles_list.html:147
 #: templates/listings/partials/search_rail.html:66
@@ -5207,7 +5187,7 @@ msgid "Trailers & Semi-trailers"
 msgstr "Priekabos ir puspriekabės"
 
 #: templates/listings/listing_list.html:268
-#: templates/listings/motogeat_list.html:56
+#: templates/listings/motogear_list.html:56
 #: templates/listings/motorcycles_list.html:148
 #: templates/listings/trucks_list.html:168
 #: templates/listings/wheels_list.html:108
@@ -5215,7 +5195,7 @@ msgid "Tyres & Wheels"
 msgstr "Padangos ir ratlankiai"
 
 #: templates/listings/listing_list.html:269
-#: templates/listings/motogeat_list.html:57
+#: templates/listings/motogear_list.html:57
 #: templates/listings/motorcycles_list.html:149
 #: templates/listings/partials/search_rail.html:67
 #: templates/listings/trucks_list.html:169
@@ -5223,7 +5203,7 @@ msgid "Construction & Warehouse Equipment"
 msgstr "Statybos ir sandėlių įranga"
 
 #: templates/listings/listing_list.html:270
-#: templates/listings/motogeat_list.html:58
+#: templates/listings/motogear_list.html:58
 #: templates/listings/motorcycles_list.html:150
 #: templates/listings/partials/search_rail.html:68
 #: templates/listings/trucks_list.html:170
@@ -5231,7 +5211,7 @@ msgid "Agricultural & Forestry"
 msgstr "Žemės ūkis ir miškininkystė"
 
 #: templates/listings/listing_list.html:271
-#: templates/listings/motogeat_list.html:59
+#: templates/listings/motogear_list.html:59
 #: templates/listings/motorcycles_list.html:151
 #: templates/listings/partials/search_rail.html:69
 #: templates/listings/trucks_list.html:171
@@ -5239,7 +5219,7 @@ msgid "Bicycles & Scooters"
 msgstr "Dviračiai ir paspirtukai"
 
 #: templates/listings/listing_list.html:272
-#: templates/listings/motogeat_list.html:60
+#: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/search_rail.html:70
 #: templates/listings/trucks_list.html:172
@@ -5247,7 +5227,7 @@ msgid "Services"
 msgstr "Paslaugos"
 
 #: templates/listings/listing_list.html:273
-#: templates/listings/motogeat_list.html:61
+#: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:71
 #: templates/listings/trucks_list.html:173
@@ -5255,7 +5235,7 @@ msgid "Car Rental"
 msgstr "Automobilių nuoma"
 
 #: templates/listings/listing_list.html:274
-#: templates/listings/motogeat_list.html:62
+#: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_list.html:154
 #: templates/listings/partials/search_rail.html:72
 #: templates/listings/trucks_list.html:174
@@ -5263,15 +5243,15 @@ msgid "Planes & Aircraft"
 msgstr "Lėktuvai ir orlaiviai"
 
 #: templates/listings/listing_list.html:275
-#: templates/listings/motogeat_list.html:63
+#: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_list.html:155
 #: templates/listings/trucks_list.html:175
 msgid "Aircraft Parts"
 msgstr "Orlaivių dalys"
 
 #: templates/listings/listing_list.html:279
-#: templates/listings/listing_list.html:1213
-#: templates/listings/motogeat_list.html:66
+#: templates/listings/listing_list.html:1226
+#: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/motorcycles_list.html:901
 #: templates/listings/trucks_list.html:178
@@ -5521,7 +5501,6 @@ msgstr "Metai: Nuo seniausių"
 
 #: templates/listings/listing_list.html:706
 #: templates/listings/motorcycles_list.html:722
-#: templates/listings/partials/search_panel.html:72
 #: templates/listings/trucks_list.html:392
 #: templates/listings/trucks_list.html:676
 #: templates/listings/wheels_list.html:232
@@ -5531,8 +5510,8 @@ msgstr "Išsaugoti paiešką"
 
 #: templates/listings/listing_list.html:741
 #: templates/listings/moto_parts_browse.html:235
-#: templates/listings/motogeat_list.html:176
-#: templates/listings/motogeat_list.html:410
+#: templates/listings/motogear_list.html:176
+#: templates/listings/motogear_list.html:410
 #: templates/listings/motorcycles_list.html:757
 #: templates/listings/my_listings.html:359
 #: templates/listings/my_listings.html:366
@@ -5544,7 +5523,7 @@ msgid "SOLD"
 msgstr "PARDUOTA"
 
 #: templates/listings/listing_list.html:808
-#: templates/listings/motogeat_list.html:79
+#: templates/listings/motogear_list.html:79
 #: templates/listings/motorcycles_list.html:171
 #, python-format
 msgid "Found %(counter)s listing"
@@ -5562,87 +5541,87 @@ msgstr "Rodoma %(total_count)s iš %(total_count)s"
 msgid "Sort by:"
 msgstr "Rūšiuoti pagal:"
 
-#: templates/listings/listing_list.html:940
+#: templates/listings/listing_list.html:953
 #: templates/listings/trucks_list.html:805
 msgid "Try adjusting your filters to find what you're looking for"
 msgstr "Pabandykite pakoreguoti filtrus, kad rastumėte tai, ko ieškote"
 
-#: templates/listings/listing_list.html:971
+#: templates/listings/listing_list.html:984
 #: templates/listings/trucks_list.html:821
 msgid "Day's deals"
 msgstr "Dienos pasiūlymai"
 
-#: templates/listings/listing_list.html:979
+#: templates/listings/listing_list.html:992
 #: templates/listings/trucks_list.html:829
 msgid "Most popular"
 msgstr "Populiariausi"
 
-#: templates/listings/listing_list.html:983
+#: templates/listings/listing_list.html:996
 #: templates/listings/trucks_list.html:833
 msgid "Most expensive"
 msgstr "Brangiausias"
 
-#: templates/listings/listing_list.html:1030
+#: templates/listings/listing_list.html:1043
 msgid "No featured listings yet."
 msgstr "Kol kas nėra rodomų skelbimų."
 
-#: templates/listings/listing_list.html:1064
-#: templates/listings/listing_list.html:1098
-#: templates/listings/listing_list.html:1134
+#: templates/listings/listing_list.html:1077
+#: templates/listings/listing_list.html:1111
+#: templates/listings/listing_list.html:1147
 msgid "No listings yet."
 msgstr "Kol kas nėra skelbimų."
 
-#: templates/listings/listing_list.html:1162
+#: templates/listings/listing_list.html:1175
 #: templates/listings/motorcycles_list.html:842
 #: templates/listings/trucks_advanced_search.html:768
 #: templates/listings/trucks_list.html:956
 msgid "s ago"
 msgstr "prieš s"
 
-#: templates/listings/listing_list.html:1164
+#: templates/listings/listing_list.html:1177
 #: templates/listings/motorcycles_list.html:844
 #: templates/listings/trucks_advanced_search.html:769
 #: templates/listings/trucks_list.html:957
 msgid "min ago"
 msgstr "prieš min."
 
-#: templates/listings/listing_list.html:1166
+#: templates/listings/listing_list.html:1179
 #: templates/listings/motorcycles_list.html:846
 #: templates/listings/trucks_advanced_search.html:770
 #: templates/listings/trucks_list.html:958
 msgid "h ago"
 msgstr "prieš val."
 
-#: templates/listings/listing_list.html:1168
+#: templates/listings/listing_list.html:1181
 #: templates/listings/motorcycles_list.html:848
 #: templates/listings/trucks_advanced_search.html:771
 #: templates/listings/trucks_list.html:959
 msgid "1 day ago"
 msgstr "prieš 1 dieną"
 
-#: templates/listings/listing_list.html:1169
+#: templates/listings/listing_list.html:1182
 #: templates/listings/motorcycles_list.html:849
 #: templates/listings/trucks_advanced_search.html:772
 #: templates/listings/trucks_list.html:960
 msgid "days ago"
 msgstr "prieš kelias dienas"
 
-#: templates/listings/listing_list.html:1363
+#: templates/listings/listing_list.html:1376
 #: templates/listings/motorcycles_list.html:1020
 msgid "Maximum 5 brand/model pairs"
 msgstr "Daugiausia 5 prekės ženklo / modelio poros"
 
-#: templates/listings/listing_list.html:1386
+#: templates/listings/listing_list.html:1399
 #: templates/listings/motorcycles_list.html:1043
 #: templates/listings/motorcycles_list.html:1059
 msgid "Select brand first"
 msgstr "Pirmiausia pasirinkite prekės ženklą"
 
-#: templates/listings/listing_list.html:1404
+#: templates/listings/listing_list.html:1417
 msgid "Select make first"
 msgstr "Pirmiausia pasirinkite gamintoją"
 
-#: templates/listings/listing_list.html:1409
+#: templates/listings/listing_list.html:1422
 #: templates/listings/motogear_create.html:461
 #: templates/listings/motorcycle_create.html:498
 #: templates/listings/motorcycles_list.html:1064
@@ -5820,6 +5799,8 @@ msgid "terms"
 msgstr "terminai"
 
 #: templates/listings/listing_select_plan.html:239
+#: venv/lib/python3.10/site-packages/django/db/models/base.py:1473
+#: venv/lib/python3.10/site-packages/django/forms/models.py:902
 msgid "and"
 msgstr "ir"
 
@@ -5918,6 +5899,8 @@ msgstr "Galimas likutis"
 
 #: templates/listings/listing_services_order.html:147
 #: templates/listings/listing_services_order.html:243
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:484
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:491
 msgid "Order"
 msgstr "Užsakymas"
 
@@ -6334,6 +6317,260 @@ msgstr "Nerasta jokių skelbimų"
 msgid "State (US)"
 msgstr "Valstija (JAV)"
 
+#: templates/listings/motogear_advanced.html:3
+#: templates/listings/partials/search_panel.html:73
+#: templates/listings/partials/search_panel.html:554
+msgid "Apranga, šalmai, aksesuarai"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:35
+msgid "Aprangos, šalmų, aksesuarų paieška"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:36
+msgid "Išvalyti paiešką"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:41
+#: templates/listings/partials/search_panel.html:560
+msgid "Tipas"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:43
+#: templates/listings/motogear_advanced.html:68
+#: templates/listings/motogear_advanced.html:76
+#: templates/listings/motogear_advanced.html:84
+#: templates/listings/motogear_advanced.html:92
+#: templates/listings/motogear_advanced.html:100
+#: templates/listings/motogear_advanced.html:108
+#: templates/listings/motogear_advanced.html:116
+#: templates/listings/motogear_advanced.html:148
+#: templates/listings/motogear_advanced.html:154
+#: templates/listings/partials/search_panel.html:313
+#: templates/listings/partials/search_panel.html:356
+#: templates/listings/partials/search_panel.html:367
+#: templates/listings/partials/search_panel.html:517
+#: templates/listings/partials/search_panel.html:563
+#: templates/listings/partials/search_panel.html:603
+#: templates/listings/partials/search_panel.html:614
+#: templates/listings/partials/search_panel.html:624
+#: templates/listings/partials/search_panel.html:663
+#: templates/listings/partials/search_panel.html:750
+#: templates/listings/partials/search_panel.html:889
+#: templates/listings/partials/search_panel.html:904
+#: templates/listings/partials/search_panel.html:1002
+#: templates/listings/partials/search_panel.html:1015
+#: templates/listings/partials/search_panel.html:1029
+#: templates/listings/partials/search_panel.html:1040
+#: templates/listings/partials/search_panel.html:1189
+#: templates/listings/partials/search_panel.html:1197
+#: templates/listings/partials/search_panel.html:1214
+#: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
+#: templates/search/_panel_cars.html:49
+msgid "Visi"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:44
+#: templates/listings/partials/search_panel.html:564
+msgid "Šalmai"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:45
+#: templates/listings/partials/search_panel.html:565
+msgid "Striukės"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:46
+#: templates/listings/partials/search_panel.html:566
+msgid "Kelnės"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:47
+#: templates/listings/partials/search_panel.html:567
+#, fuzzy
+#| msgid "Combined"
+msgid "Kombinezonai"
+msgstr "Kombinuotas"
+
+#: templates/listings/motogear_advanced.html:48
+#: templates/listings/partials/search_panel.html:568
+msgid "Pirštinės"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:49
+#: templates/listings/partials/search_panel.html:569
+msgid "Batai"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:50
+#: templates/listings/partials/search_panel.html:570
+msgid "Apsaugos"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:51
+msgid "Krepšiai, kuprinės"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:52
+msgid "Kita"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:57
+#, fuzzy
+#| msgid "Kaina:"
+msgid "Kaina, $"
+msgstr "Kaina:"
+
+#: templates/listings/motogear_advanced.html:59
+#: templates/listings/motogear_advanced.html:124
+#: templates/listings/partials/search_panel.html:333
+#: templates/listings/partials/search_panel.html:348
+#: templates/listings/partials/search_panel.html:447
+#: templates/listings/partials/search_panel.html:464
+#: templates/listings/partials/search_panel.html:491
+#: templates/listings/partials/search_panel.html:580
+#: templates/listings/partials/search_panel.html:704
+#: templates/listings/partials/search_panel.html:788
+#: templates/listings/partials/search_panel.html:834
+#: templates/listings/partials/search_panel.html:849
+#: templates/listings/partials/search_panel.html:953
+#: templates/listings/partials/search_panel.html:1055
+#: templates/listings/partials/search_panel.html:1105
+#: templates/listings/partials/search_panel.html:1120
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
+msgid "Nuo"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:61
+#: templates/listings/motogear_advanced.html:126
+#: templates/listings/partials/search_panel.html:339
+#: templates/listings/partials/search_panel.html:349
+#: templates/listings/partials/search_panel.html:453
+#: templates/listings/partials/search_panel.html:474
+#: templates/listings/partials/search_panel.html:501
+#: templates/listings/partials/search_panel.html:589
+#: templates/listings/partials/search_panel.html:712
+#: templates/listings/partials/search_panel.html:796
+#: templates/listings/partials/search_panel.html:840
+#: templates/listings/partials/search_panel.html:850
+#: templates/listings/partials/search_panel.html:962
+#: templates/listings/partials/search_panel.html:1063
+#: templates/listings/partials/search_panel.html:1111
+#: templates/listings/partials/search_panel.html:1150
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
+msgid "Iki"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:66
+#: templates/listings/partials/search_panel.html:600
+msgid "Vyriškas / moteriškas"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:74
+msgid "Dydis"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:82
+msgid "Gamintojas"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:90
+#: templates/listings/partials/search_panel.html:611
+msgid "Pagamintas iš"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:98
+msgid "Naudota / nauja"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:106
+#, fuzzy
+#| msgid "Rim details"
+msgid "Tipo detalė"
+msgstr "Pagrindinės detalės"
+
+#: templates/listings/motogear_advanced.html:114
+msgid "Sertifikatas"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:122
+#: templates/listings/partials/search_panel.html:329
+#: templates/listings/partials/search_panel.html:443
+#: templates/listings/partials/search_panel.html:830
+#: templates/listings/partials/search_panel.html:1101
+msgid "Metai"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:131
+msgid "Šalis"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:133
+#: templates/listings/motogear_advanced.html:141
+#: templates/listings/partials/search_panel.html:283
+#: templates/listings/partials/search_panel.html:426
+#: templates/listings/partials/search_panel.html:1188
+#: templates/search/_panel_cars.html:11
+msgid "Visos"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:139
+msgid "Valstija (JAV)"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:147
+#: templates/listings/partials/search_panel.html:621
+msgid "Miestas"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:152
+msgid "Rodyti ne senesnius nei"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:155
+msgid "24 valandos"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:156
+msgid "3 dienos"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:157
+msgid "7 dienos"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:158
+msgid "30 dienų"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:163
+#: templates/listings/partials/search_panel.html:376
+#: templates/listings/partials/search_panel.html:532
+#: templates/listings/partials/search_panel.html:630
+#: templates/listings/partials/search_panel.html:722
+#: templates/listings/partials/search_panel.html:806
+#: templates/listings/partials/search_panel.html:854
+#: templates/listings/partials/search_panel.html:972
+#: templates/listings/partials/search_panel.html:1072
+msgid "Tekstinė paieška"
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:164
+#: templates/listings/partials/search_panel.html:533
+#: templates/listings/partials/search_panel.html:855
+msgid "Ieškoti..."
+msgstr ""
+
+#: templates/listings/motogear_advanced.html:171
+#: templates/listings/partials/search_panel.html:379
+#: templates/listings/partials/search_panel.html:631
+#: templates/listings/partials/search_panel.html:723
+#: templates/listings/partials/search_panel.html:807
+#: templates/listings/partials/search_panel.html:973
+#: templates/listings/partials/search_panel.html:1073
+msgid "Ieškoti"
+msgstr ""
+
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
 msgstr "Parduodu motociklų įrangą"
@@ -6363,7 +6600,7 @@ msgid "e.g. GT-Air II"
 msgstr "pvz., GT-Air II"
 
 #: templates/listings/motogear_create.html:119
-#: templates/listings/motogeat_list.html:277
+#: templates/listings/motogear_list.html:277
 msgid "Size"
 msgstr "Dydis"
 
@@ -6392,8 +6629,8 @@ msgid "Specify material..."
 msgstr "Nurodykite medžiagą..."
 
 #: templates/listings/motogear_create.html:176
-#: templates/listings/motogeat_list.html:115
-#: templates/listings/motogeat_list.html:311
+#: templates/listings/motogear_list.html:115
+#: templates/listings/motogear_list.html:311
 msgid "Gender"
 msgstr "Lytis"
 
@@ -6508,15 +6745,15 @@ msgstr "Ištrinti nepavyko"
 msgid "Terms agreement"
 msgstr "Sąlygų sutartis"
 
-#: templates/listings/motogeat_list.html:4
+#: templates/listings/motogear_list.html:4
 msgid "Browse Moto Gear"
 msgstr "Naršyti motociklų įrangą"
 
-#: templates/listings/motogeat_list.html:91
+#: templates/listings/motogear_list.html:91
 msgid "Moto Gear"
 msgstr "Parduodu motociklų įrangą"
 
-#: templates/listings/motogeat_list.html:107
+#: templates/listings/motogear_list.html:107
 #: templates/listings/motorcycles_list.html:206
 #: templates/listings/partials/panel_boats.html:46
 #: templates/listings/partials/panel_cars.html:65
@@ -6528,17 +6765,17 @@ msgstr "Parduodu motociklų įrangą"
 msgid "Price Range"
 msgstr "Kaina"
 
-#: templates/listings/motogeat_list.html:139
-#: templates/listings/motogeat_list.html:365
+#: templates/listings/motogear_list.html:139
+#: templates/listings/motogear_list.html:365
 msgid "All US states"
 msgstr "Visos JAV valstijos"
 
-#: templates/listings/motogeat_list.html:148
-#: templates/listings/motogeat_list.html:237
+#: templates/listings/motogear_list.html:148
+#: templates/listings/motogear_list.html:237
 msgid "Brand, model, keyword..."
 msgstr "Prekės ženklas, modelis, raktinis žodis..."
 
-#: templates/listings/motogeat_list.html:154
+#: templates/listings/motogear_list.html:154
 #: templates/listings/motorcycles_list.html:255
 #: templates/listings/trucks_list.html:374
 #: templates/listings/trucks_list.html:672
@@ -6546,38 +6783,38 @@ msgstr "Prekės ženklas, modelis, raktinis žodis..."
 msgid "Apply Filters"
 msgstr "Taikyti filtrus"
 
-#: templates/listings/motogeat_list.html:173
-#: templates/listings/motogeat_list.html:406
+#: templates/listings/motogear_list.html:173
+#: templates/listings/motogear_list.html:406
 #: templates/listings/trucks_list.html:875
 msgid "NEW"
 msgstr "NAUJAS"
 
-#: templates/listings/motogeat_list.html:185
-#: templates/listings/motogeat_list.html:421
+#: templates/listings/motogear_list.html:185
+#: templates/listings/motogear_list.html:421
 #: templates/listings/my_listings.html:472
 #: templates/listings/my_listings.html:480
 #: templates/listings/my_listings.html:546
 msgid "Untitled"
 msgstr "Be pavadinimo"
 
-#: templates/listings/motogeat_list.html:200
+#: templates/listings/motogear_list.html:200
 msgid "No moto gear listings found"
 msgstr "Nerasta jokių motociklų įrangos skelbimų."
 
-#: templates/listings/motogeat_list.html:214
+#: templates/listings/motogear_list.html:214
 msgid "Moto Gear & Accessories"
 msgstr "Motociklų įranga ir priedai"
 
-#: templates/listings/motogeat_list.html:219
-#: templates/listings/motogeat_list.html:443
+#: templates/listings/motogear_list.html:219
+#: templates/listings/motogear_list.html:443
 msgid "Sell moto gear"
 msgstr "Parduodu mototechnikos įrangą"
 
-#: templates/listings/motogeat_list.html:271
+#: templates/listings/motogear_list.html:271
 msgid "Hold Ctrl/Cmd for multiple"
 msgstr "Kelis kartus palaikykite nuspaudę Ctrl/Cmd"
 
-#: templates/listings/motogeat_list.html:344
+#: templates/listings/motogear_list.html:344
 #: templates/listings/trucks_advanced_search.html:377
 #: templates/listings/trucks_advanced_search.html:385
 #: templates/listings/trucks_advanced_search.html:393
@@ -6586,7 +6823,7 @@ msgstr "Kelis kartus palaikykite nuspaudę Ctrl/Cmd"
 msgid "Min"
 msgstr "Min."
 
-#: templates/listings/motogeat_list.html:347
+#: templates/listings/motogear_list.html:347
 #: templates/listings/trucks_advanced_search.html:379
 #: templates/listings/trucks_advanced_search.html:387
 #: templates/listings/trucks_advanced_search.html:395
@@ -6595,24 +6832,24 @@ msgstr "Min."
 msgid "Max"
 msgstr "Maks."
 
-#: templates/listings/motogeat_list.html:358
+#: templates/listings/motogear_list.html:358
 #: templates/listings/sidebar_moto_parts.html:127
 msgid "All countries"
 msgstr "Visos šalys"
 
-#: templates/listings/motogeat_list.html:375
+#: templates/listings/motogear_list.html:375
 msgid "Apply filters"
 msgstr "Taikyti filtrus"
 
-#: templates/listings/motogeat_list.html:379
+#: templates/listings/motogear_list.html:379
 msgid "Reset"
 msgstr "Atstatyti"
 
-#: templates/listings/motogeat_list.html:439
+#: templates/listings/motogear_list.html:439
 msgid "No moto gear listings found."
 msgstr "Nerasta jokių motociklų įrangos skelbimų."
 
-#: templates/listings/motogeat_list.html:440
+#: templates/listings/motogear_list.html:440
 msgid "Try adjusting your filters or be the first to list something!"
 msgstr ""
 "Pabandykite pakoreguoti filtrus arba būkite pirmas, kuris ką nors paskelbs!"
@@ -7026,6 +7263,9 @@ msgid "No motorcycle listings found"
 msgstr "Nerasta jokių motociklų skelbimų"
 
 #: templates/listings/motorcycles_list.html:339
+#, fuzzy, python-format
+#| msgid "%(counter)s motorcycle listing found"
+#| msgid_plural "%(counter)s motorcycle listings found"
 msgid "%(counter)s motorcycle listing found"
 msgid_plural "%(counter)s motorcycle listings found"
 msgstr[0] "Nerasta jokių motociklų skelbimų"
@@ -7042,6 +7282,7 @@ msgid "Engine type"
 msgstr "Variklio tipas"
 
 #: templates/listings/my_listings.html:61
+#, python-format
 msgid "Renew all %(count)s active ads to the top?"
 msgstr "Pratęsti visus %(count)s aktyvius skelbimus iki viršaus?"
 
@@ -7050,6 +7291,7 @@ msgid "Renew all"
 msgstr "Atnaujinti viską"
 
 #: templates/listings/my_listings.html:64
+#, python-format
 msgid "%(count)s active ads jump to top of the list"
 msgstr "%(count)s aktyvių skelbimų pereina į sąrašo viršų"
 
@@ -7249,18 +7491,356 @@ msgstr "Ieškoti pagal detalės pavadinimą arba numerį (pvz., 06H 145 601 H)"
 msgid "Truck type"
 msgstr "Sunkvežimio tipas"
 
-#: templates/listings/partials/search_panel.html:45
-#: templates/listings/partials/search_panel.html:51
-#: templates/listings/trucks_list.html:545
-#: templates/listings/trucks_list.html:551
-#: templates/listings/wheels_list.html:122
-msgid "All Locations"
-msgstr "Visos vietos"
+#: templates/listings/partials/search_panel.html:66
+#: templates/listings/partials/search_panel.html:416
+msgid "Motociklai"
+msgstr ""
 
-#: templates/listings/partials/search_panel.html:49
-#: templates/listings/trucks_list.html:549
-msgid "Search location..."
-msgstr "Ieškoti vietos..."
+#: templates/listings/partials/search_panel.html:80
+#: templates/listings/partials/search_panel.html:652
+msgid "Padangos motociklams"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:87
+#: templates/listings/partials/search_panel.html:739
+msgid "Padangos keturračiams"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:107
+msgid "Padangos"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:113
+msgid "Ratlankiai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:134
+msgid "Automobilių, mikroautobusų dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:141
+msgid "Motociklų dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:148
+msgid "Sunkiojo transporto dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:155
+msgid "Žemės ūkio, spec. dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:162
+msgid "Aksesuarai, Tuning"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:180
+msgid "Lėktuvai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:184
+msgid "Lėktuvų dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:191
+msgid "Robotai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:195
+msgid "Robotų dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:202
+#, fuzzy
+#| msgid "Drones"
+msgid "Dronai"
+msgstr "Dronai"
+
+#: templates/listings/partials/search_panel.html:206
+msgid "Dronų dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:264
+#: templates/listings/partials/search_panel.html:876
+#: templates/search/_panel_cars.html:4
+msgid "Paieška"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:273
+#: templates/listings/partials/search_panel.html:423
+#: templates/search/_panel_cars.html:8
+msgid "Markė"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:279
+#: templates/listings/partials/search_panel.html:308
+msgid "Paieška..."
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:283
+msgid "Visos markės"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:284
+#, fuzzy
+#| msgid "Top case"
+msgid "Top markės"
+msgstr "Viršutinis dėklas"
+
+#: templates/listings/partials/search_panel.html:295
+msgid "Tik markės su skelbimais."
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:296
+msgid "Rodyti visus"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:301
+#: templates/listings/partials/search_panel.html:434
+#: templates/search/_panel_cars.html:16
+msgid "Modelis"
+msgstr "Modelis"
+
+#: templates/listings/partials/search_panel.html:346
+#: templates/listings/partials/search_panel.html:460
+#: templates/listings/partials/search_panel.html:576
+#: templates/listings/partials/search_panel.html:700
+#: templates/listings/partials/search_panel.html:784
+#: templates/listings/partials/search_panel.html:847
+#: templates/listings/partials/search_panel.html:949
+#: templates/listings/partials/search_panel.html:1051
+#: templates/listings/partials/search_panel.html:1118
+#: templates/listings/partials/search_panel.html:1147
+#, fuzzy
+#| msgid "Kaina:"
+msgid "Kaina"
+msgstr "Kaina:"
+
+#: templates/listings/partials/search_panel.html:353
+#: templates/search/_panel_cars.html:40
+msgid "Kuro tipas"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:364
+#: templates/search/_panel_cars.html:47
+msgid "Kėbulo tipas"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:385
+msgid "Skelbimas su VIN"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:394
+#: templates/listings/partials/search_panel.html:541
+#: templates/listings/partials/search_panel.html:639
+#: templates/listings/partials/search_panel.html:863
+#: templates/listings/partials/search_panel.html:981
+#: templates/listings/partials/search_panel.html:1081
+msgid "Išplėstinė paieška"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:401
+#: templates/listings/partials/search_panel.html:1410
+msgid "Išsaugoti paiešką"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:408
+#: templates/listings/partials/search_panel.html:546
+#: templates/listings/partials/search_panel.html:644
+#: templates/listings/partials/search_panel.html:731
+#: templates/listings/partials/search_panel.html:815
+#: templates/listings/partials/search_panel.html:868
+#: templates/listings/partials/search_panel.html:986
+#: templates/listings/partials/search_panel.html:1086
+#: templates/listings/partials/search_panel.html:1129
+#: templates/listings/partials/search_panel.html:1158
+#: templates/search/_panel_cars.html:60
+msgid "Skelbimai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:437
+#: templates/listings/partials/search_panel.html:1442
+#: templates/listings/partials/search_panel.html:1453
+#: templates/listings/partials/search_panel.html:1463
+msgid "Visi modeliai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:487
+msgid "Darbinis tūris cm³"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:514
+#, fuzzy
+#| msgid "Motorcycle parts"
+msgid "Motociklo tipas"
+msgstr "Motociklai"
+
+#: templates/listings/partials/search_panel.html:518
+msgid "Sportiniai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:519
+msgid "Turistiniai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:520
+msgid "Cruiser / Chopper"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:521
+#, fuzzy
+#| msgid "Street"
+msgid "Naked / Street"
+msgstr "Gatvė"
+
+#: templates/listings/partials/search_panel.html:522
+msgid "Enduro / Cross"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:523
+#, fuzzy
+#| msgid "Motorboats"
+msgid "Motoroleriai"
+msgstr "Kateriai"
+
+#: templates/listings/partials/search_panel.html:524
+msgid "Mopedai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:525
+msgid "Keturračiai (ATV)"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:571
+msgid "Aksesuarai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:604
+msgid "Vyriškas"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:605
+#, fuzzy
+#| msgid "Material"
+msgid "Moteriškas"
+msgstr "Medžiaga"
+
+#: templates/listings/partials/search_panel.html:660
+#: templates/listings/partials/search_panel.html:747
+#: templates/listings/partials/search_panel.html:901
+#: templates/listings/partials/search_panel.html:1012
+msgid "Skersmuo"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:673
+#: templates/listings/partials/search_panel.html:759
+#: templates/listings/partials/search_panel.html:917
+msgid "Plotis"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:688
+#: templates/listings/partials/search_panel.html:773
+#: templates/listings/partials/search_panel.html:934
+msgid "Aukštis"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:823
+msgid "Sunkvežimiai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:886
+#: templates/listings/partials/search_panel.html:999
+msgid "Paskirtis"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:890
+#: templates/listings/partials/search_panel.html:1003
+msgid "Lengviesiems"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:891
+#: templates/listings/partials/search_panel.html:1004
+msgid "Visureigiams (SUV)"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:892
+#: templates/listings/partials/search_panel.html:1005
+msgid "Mikroautobusams"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:893
+#: templates/listings/partials/search_panel.html:1006
+msgid "Sunkvežimiams"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:894
+#: templates/listings/partials/search_panel.html:1007
+#, fuzzy
+#| msgid "Motorcycles"
+msgid "Motociklams"
+msgstr "Motociklai"
+
+#: templates/listings/partials/search_panel.html:895
+msgid "Keturračiams"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:896
+msgid "Žemės ūkio technikai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1026
+msgid "Medžiaga"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1030
+msgid "Lengvojo lydinio"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1031
+msgid "Plieniniai"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1032
+msgid "Kalti"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1037
+msgid "Skylių išdėstymas (PCD)"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1095
+msgid "Vandens transportas"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1121
+msgid "Maks."
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1137
+msgid "Dalys"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1143
+msgid "Pavadinimas arba detalės kodas"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1144
+#, fuzzy
+#| msgid "e.g. 06H 145 601 H"
+msgid "pvz. 06H 145 601 H"
+msgstr "pvz., 06H 145 601 H"
+
+#: templates/listings/partials/search_panel.html:1149
+msgid "Min."
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1428
+msgid "Išsaugota"
+msgstr ""
+
+#: templates/listings/partials/search_panel.html:1448
+msgid "Kraunama..."
+msgstr ""
 
 #: templates/listings/parts_category_select.html:8
 msgid "Car parts — Select category"
@@ -7719,6 +8299,16 @@ msgstr "Rodomi %(count)s skelbimai"
 #: templates/listings/trucks_list.html:804
 msgid "No trucks found"
 msgstr "Nerasta jokių sunkvežimių"
+
+#: templates/listings/trucks_list.html:545
+#: templates/listings/trucks_list.html:551
+#: templates/listings/wheels_list.html:122
+msgid "All Locations"
+msgstr "Visos vietos"
+
+#: templates/listings/trucks_list.html:549
+msgid "Search location..."
+msgstr "Ieškoti vietos..."
 
 #: templates/listings/trucks_list.html:552
 msgid "United States"
@@ -8201,6 +8791,7 @@ msgid "Sedans"
 msgstr "Sedanas"
 
 #: templates/pages/help_center.html:269
+#, python-format
 msgid "42%% of all listings"
 msgstr "Iki 50 skelbimų"
 
@@ -8884,6 +9475,7 @@ msgid "Login session, security, CSRF protection"
 msgstr ""
 
 #: templates/pages/help_center.html:862
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:797
 msgid "Yes"
 msgstr ""
 
@@ -8896,6 +9488,7 @@ msgid "Language, currency, recent searches"
 msgstr ""
 
 #: templates/pages/help_center.html:867 templates/pages/help_center.html:872
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:798
 msgid "No"
 msgstr ""
 
@@ -8975,6 +9568,1302 @@ msgstr ""
 #: templates/pages/page_simple.html:86
 msgid "Back to Help Center"
 msgstr "Grįžti į „SellCar“"
+
+#: templates/search/_panel_cars.html:57
+msgid "Detali paieška"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/contrib/sitemaps/apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/contrib/staticfiles/apps.py:9
+#, fuzzy
+#| msgid "Statistics"
+msgid "Static Files"
+msgstr "Statistika"
+
+#: venv/lib/python3.10/site-packages/django/contrib/syndication/apps.py:7
+#, fuzzy
+#| msgid "Condition"
+msgid "Syndication"
+msgstr "Būklė"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:30
+msgid "…"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:104
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:760
+msgid "Enter a valid URL."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:165
+msgid "Enter a valid integer."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:176
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: venv/lib/python3.10/site-packages/django/core/validators.py:259
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:267
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:279
+#: venv/lib/python3.10/site-packages/django/core/validators.py:306
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:286
+#: venv/lib/python3.10/site-packages/django/core/validators.py:307
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:298
+#: venv/lib/python3.10/site-packages/django/core/validators.py:305
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:341
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:347
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:382
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:391
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:400
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:407
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:439
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:457
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:480
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:355
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:394
+#, fuzzy
+#| msgid "Enter manufacturer"
+msgid "Enter a number."
+msgstr "Gamintojas"
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:482
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:487
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:492
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:563
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/core/validators.py:624
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/base.py:1475
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/constraints.py:20
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:133
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:134
+#, fuzzy
+#| msgid "This action cannot be undone."
+msgid "This field cannot be null."
+msgstr "Šio veiksmo negalima atšaukti."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:135
+#, fuzzy
+#| msgid "This action cannot be undone."
+msgid "This field cannot be blank."
+msgstr "Šio veiksmo negalima atšaukti."
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:136
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:140
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:179
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1150
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1151
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1153
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1203
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1205
+msgid "String (unlimited)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1309
+msgid "Comma-separated integers"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1410
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1414
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1549
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1418
+msgid "Date (without time)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1545
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1553
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1558
+msgid "Date (with time)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1685
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1687
+#, fuzzy
+#| msgid "SDK number"
+msgid "Decimal number"
+msgstr "SDK numeris"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1848
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1852
+#, fuzzy
+#| msgid "Directions"
+msgid "Duration"
+msgstr "Nurodymai"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1904
+#, fuzzy
+#| msgid "Email Address"
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:1929
+msgid "File path"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2007
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2009
+msgid "Floating point number"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2049
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2051
+msgid "Integer"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2147
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2164
+msgid "Small integer"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2172
+#, fuzzy
+#| msgid "Address"
+msgid "IPv4 address"
+msgstr "Adresas"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2203
+#, fuzzy
+#| msgid "Address"
+msgid "IP address"
+msgstr "Adresas"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2296
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2297
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2299
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2350
+#, fuzzy
+#| msgid "Position in list"
+msgid "Positive big integer"
+msgstr "Pozicija sąraše"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2365
+#, fuzzy
+#| msgid "Position in list"
+msgid "Positive integer"
+msgstr "Pozicija sąraše"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2380
+msgid "Positive small integer"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2396
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2432
+msgid "Text"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2507
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2511
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2515
+msgid "Time"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2623
+msgid "URL"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2647
+msgid "Raw binary data"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2712
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/__init__.py:2714
+msgid "Universally unique identifier"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/files.py:232
+msgid "File"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/files.py:393
+#, fuzzy
+#| msgid "Damaged"
+msgid "Image"
+msgstr "Pažeistas"
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/json.py:26
+msgid "A JSON object"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/json.py:28
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:939
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:941
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1235
+msgid "One-to-one relationship"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1292
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1294
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/db/models/fields/related.py:1342
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: venv/lib/python3.10/site-packages/django/forms/boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:95
+#, fuzzy
+#| msgid "This field is required"
+msgid "This field is required."
+msgstr "Šis laukas privalomas"
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:304
+#, fuzzy
+#| msgid "Street, house number"
+msgid "Enter a whole number."
+msgstr "Gatvė, namo numeris"
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:475
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1252
+msgid "Enter a valid date."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:498
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1253
+msgid "Enter a valid time."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:525
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:559
+msgid "Enter a valid duration."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:560
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:629
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:630
+msgid "No file was submitted."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:631
+msgid "The submitted file is empty."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:633
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:638
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:702
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:874
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:960
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1581
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:962
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1081
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1579
+msgid "Enter a list of values."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1082
+msgid "Enter a complete value."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1321
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/fields.py:1351
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: venv/lib/python3.10/site-packages/django/forms/forms.py:94
+msgid ":"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/forms.py:231
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/forms/formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:895
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:900
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:907
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:916
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1353
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1444
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/models.py:1583
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:458
+#, fuzzy
+#| msgid "Current photos"
+msgid "Currently"
+msgstr "Dabartinės nuotraukos"
+
+#: venv/lib/python3.10/site-packages/django/forms/widgets.py:459
+#, fuzzy
+#| msgid "10. Changes"
+msgid "Change"
+msgstr "Išsaugoti pakeitimus"
+
+#. Translators: Please do not add spaces around commas.
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:875
+msgid "yes,no,maybe"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:905
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:922
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:924
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:926
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:928
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:930
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/template/defaultfilters.py:932
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:73
+msgid "p.m."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:74
+msgid "a.m."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:79
+msgid "PM"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:80
+msgid "AM"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:152
+msgid "midnight"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dateformat.py:154
+msgid "noon"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:16
+#, fuzzy
+#| msgid "Month"
+msgid "Mon"
+msgstr "Mėnuo"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:20
+#, fuzzy
+#| msgid "Mon-Fri"
+msgid "Fri"
+msgstr "Pirmadieniais–penktadieniais"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:21
+#, fuzzy
+#| msgid "Seats"
+msgid "Sat"
+msgstr "Sėdynės"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:22
+#, fuzzy
+#| msgid "Sat-Sun"
+msgid "Sun"
+msgstr "Šešt.–Sekm."
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:25
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:26
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:27
+#, fuzzy
+#| msgid "Search"
+msgid "March"
+msgstr "Paieška"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:28
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:29
+#, fuzzy
+#| msgid "Pay"
+msgid "May"
+msgstr "Mokėti"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:30
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:31
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:32
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:33
+#, fuzzy
+#| msgid "Remember me"
+msgid "September"
+msgstr "Prisiminti mane"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:34
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:35
+#, fuzzy
+#| msgid "Phone Number"
+msgid "November"
+msgstr "Telefono numeris"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:36
+#, fuzzy
+#| msgid "Remember me"
+msgid "December"
+msgstr "Prisiminti mane"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:39
+#, fuzzy
+#| msgid "and"
+msgid "jan"
+msgstr "ir"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:40
+msgid "feb"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:41
+msgid "mar"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:42
+#, fuzzy
+#| msgid "Map"
+msgid "apr"
+msgstr "Žemėlapis"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:43
+#, fuzzy
+#| msgid "Pay"
+msgid "may"
+msgstr "Mokėti"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:44
+msgid "jun"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:45
+msgid "jul"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:46
+msgid "aug"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:47
+msgid "sep"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:48
+#, fuzzy
+#| msgid "Contact"
+msgid "oct"
+msgstr "Kontaktai"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:49
+msgid "nov"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:50
+msgid "dec"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:55
+#, fuzzy
+#| msgid "Search"
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "Paieška"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:57
+#, fuzzy
+#| msgid "Pay"
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "Mokėti"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:69
+#, fuzzy
+#| msgid "Search"
+msgctxt "alt. month"
+msgid "March"
+msgstr "Paieška"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:71
+#, fuzzy
+#| msgid "Pay"
+msgctxt "alt. month"
+msgid "May"
+msgstr "Mokėti"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:75
+#, fuzzy
+#| msgid "Remember me"
+msgctxt "alt. month"
+msgid "September"
+msgstr "Prisiminti mane"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:77
+#, fuzzy
+#| msgid "Phone Number"
+msgctxt "alt. month"
+msgid "November"
+msgstr "Telefono numeris"
+
+#: venv/lib/python3.10/site-packages/django/utils/dates.py:78
+#, fuzzy
+#| msgid "Remember me"
+msgctxt "alt. month"
+msgid "December"
+msgstr "Prisiminti mane"
+
+#: venv/lib/python3.10/site-packages/django/utils/ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/text.py:70
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/text.py:270
+#, fuzzy
+#| msgid "Sort"
+msgid "or"
+msgstr "Rūšiuoti pagal:"
+
+#. Translators: This string is used as a separator between list elements
+#: venv/lib/python3.10/site-packages/django/utils/text.py:289
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:135
+msgid ", "
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:9
+#, fuzzy, python-format
+#| msgid "1 month"
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] "/mėn."
+msgstr[1] "/mėn."
+msgstr[2] "/mėn."
+msgstr[3] "/mėn."
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:64
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:115
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:349
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:380
+#, fuzzy, python-format
+#| msgid "No features available."
+msgid "No %(verbose_name_plural)s available"
+msgstr "Nėra galimų funkcijų."
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/generic/list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:48
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:50
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/static.py:67
+#: venv/lib/python3.10/site-packages/django/views/templates/directory_index.html:8
+#: venv/lib/python3.10/site-packages/django/views/templates/directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:220
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:221
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:229
+#, fuzzy
+#| msgid "Django admin"
+msgid "Django Documentation"
+msgstr "Django administratorius"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:230
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:238
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:239
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:247
+#, fuzzy
+#| msgid "Django admin"
+msgid "Django Community"
+msgstr "Django administratorius"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
+msgid "Connect, get help, or contribute"
+msgstr ""
 
 #~ msgid "Lietuvių"
 #~ msgstr "Lietuvių"

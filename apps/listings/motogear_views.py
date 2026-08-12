@@ -832,3 +832,164 @@ def motogear_list(request):
         'selected_category': 'moto-gear',
     }
     return render(request, 'listings/motogear_list.html', context)
+
+
+
+
+
+def _apply_gear_filters(qs, p):
+
+    def has(k):
+
+        return bool((p.get(k) or '').strip())
+
+    if has('gear_type'):
+
+        qs = qs.filter(gear_type=p['gear_type'])
+
+    if has('gear_subtype'):
+
+        qs = qs.filter(gear_subtype=p['gear_subtype'])
+
+    if has('gear_size'):
+
+        qs = qs.filter(gear_size=p['gear_size'])
+
+    if has('gear_material'):
+
+        qs = qs.filter(gear_material=p['gear_material'])
+
+    if has('gear_gender'):
+
+        qs = qs.filter(gear_gender=p['gear_gender'])
+
+    if has('gear_safety_cert'):
+
+        qs = qs.filter(gear_safety_cert=p['gear_safety_cert'])
+
+    if has('gear_brand'):
+
+        qs = qs.filter(gear_brand_id=p['gear_brand'])
+
+    if has('condition'):
+
+        qs = qs.filter(condition=p['condition'])
+
+    if has('color'):
+        qs = qs.filter(color=p['color'])
+    if has('price_min'):
+
+        qs = qs.filter(price__gte=p['price_min'])
+
+    if has('price_max'):
+
+        qs = qs.filter(price__lte=p['price_max'])
+
+    if has('city'):
+
+        qs = qs.filter(city__icontains=p['city'].strip())
+
+    if has('state_filter'):
+
+        qs = qs.filter(country='US', state=p['state_filter'])
+
+    elif has('country_filter'):
+
+        qs = qs.filter(country=p['country_filter'])
+
+    _eq = p.getlist('equipment') if hasattr(p, 'getlist') else []
+    for _e in _eq:
+        if _e:
+            qs = qs.filter(equipment_items__equipment_id=_e)
+    if has('posted_within'):
+
+        try:
+
+            cutoff = timezone.now() - timedelta(days=int(p['posted_within']))
+
+            qs = qs.filter(created_at__gte=cutoff)
+
+        except (ValueError, TypeError):
+
+            pass
+
+    _q = (p.get('search') or p.get('q') or '').strip()
+
+    if _q:
+
+        qs = qs.filter(
+
+            Q(title__icontains=_q) |
+
+            Q(gear_brand__name__icontains=_q) |
+
+            Q(gear_model_text__icontains=_q) |
+
+            Q(description__icontains=_q)
+
+        )
+
+    return qs
+
+
+
+
+
+def _gear_choice(name, default=None):
+
+    try:
+
+        return getattr(Listing, name)
+
+    except AttributeError:
+
+        return default or []
+
+
+
+
+
+def motogear_advanced_search(request):
+
+    qs = _apply_gear_filters(_moto_gear_public_qs(request.user), request.GET)
+
+    context = {
+
+        'f': request.GET,
+
+        'total_count': qs.count(),
+
+        'gear_type_choices': _gear_choice('GEAR_TYPE_CHOICES'),
+
+        'gear_subtype_choices': _gear_choice('GEAR_SUBTYPE_CHOICES'),
+
+        'gear_size_choices': _gear_choice('GEAR_SIZE_CHOICES'),
+
+        'gear_material_choices': _gear_choice('GEAR_MATERIAL_CHOICES'),
+
+        'gear_gender_choices': _gear_choice('GEAR_GENDER_CHOICES'),
+
+        'gear_safety_cert_choices': _gear_choice('GEAR_SAFETY_CERT_CHOICES'),
+
+        'condition_choices': _gear_choice('CONDITION_CHOICES', [('new', 'New'), ('used', 'Used')]),
+
+        'gear_brands': list(GearBrand.objects.all().order_by('order', 'name')),
+
+        'country_choices': _gear_choice('COUNTRY_CHOICES', []),
+
+        'us_states': _gear_choice('US_STATE_CHOICES'),
+
+    }
+
+    return render(request, 'listings/motogear_advanced.html', context)
+
+
+
+
+
+def motogear_count_ajax(request):
+
+    qs = _apply_gear_filters(_moto_gear_public_qs(request.user), request.GET)
+
+    return JsonResponse({'count': qs.count()})
+

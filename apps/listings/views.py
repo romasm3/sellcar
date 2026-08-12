@@ -83,6 +83,7 @@ CATEGORY_ICONS = {
     'parts': '⚙️', 'tires': '🛞', 'boats': '🚤', 'trailers': '🚚',
     'construction': '🏗️', 'agriculture': '🚜', 'bicycles': '🚲',
     'services': '🔧', 'rental': '🔑', 'planes': '✈️', 'planes-parts': '🔩',
+    'camping-houses': '🏕️',
 }
 
 CITY_COORDINATES = {
@@ -120,9 +121,21 @@ CARS_DRAFT_SESSION_KEY = 'active_cars_draft_id'
 # Kai kategorija ready — pridėk slug čia, taps live visiem
 # ═══════════════════════════════════════════════════════════
 PUBLIC_VEHICLE_TYPE_SLUGS = {
+    'camping-houses',
+    'camping-houses',
     'cars',
     'motorcycles',
     'trucks',
+    'boats',
+    'vans',
+    'trailers',
+    'construction',
+    'agriculture',
+    'bicycles',
+    'planes',
+    'planes-parts',
+    'rental',
+    'services',
 }
 
 # ═══ MOTO GEAR slugs (3rd level subcategories) — used by listing_create ═══
@@ -166,6 +179,48 @@ def _get_visible_vehicle_types(user):
     if user.is_authenticated and user.is_staff:
         return qs
     return qs.filter(slug__in=PUBLIC_VEHICLE_TYPE_SLUGS)
+
+
+    # ⋯ DAUGIAU flyout — pilnas kategorijų sąrašas.
+    # Formatas: (category_slug, pavadinimas, emoji, subcategory_id|None)
+    MORE_ITEMS_SPEC = [
+        ('agriculture',       'Žemės ūkio technika, padargai',        '🚜', None),
+        ('trucks',            'Sunkvežimiai',                         '🚚', None),
+        ('tractor-units',     'Vilkikai',                             '🚛', None),
+        ('car-carriers',      'Autotraukiniai, autovežiai',           '🛻', None),
+        ('vans',              'Autobusai',                            '🚌', 198),
+        ('municipal',         'Komunalinio ūkio transportas',         '🧹', None),
+        ('trailers',          'Priekabos / Puspriekabės',             '🛞', None),
+        ('rental',            'Automobilių nuoma',                    '🔑', None),
+        ('rental',            'Limuzinų, vestuvių transporto nuoma',  '🥂', 294),
+        ('rental',            'Motociklų nuoma',                      '🏍', 295),
+        ('rental',            'Sunkiojo transporto, priekabų nuoma',  '🚛', 296),
+        ('electronics',       'Video, audio, navigacijos',            '📻', None),
+        ('services',          'Paslaugos',                            '🔧', None),
+        ('car-buying',        'Automobilių supirkimas',               '💰', None),
+        ('loading-equipment', 'Krovimo ir sandėliavimo technika',     '📦', None),
+        ('construction',      'Statybinė technika',                   '🏗', None),
+        ('construction',      'Statybinės technikos priedai',         '⚙', 297),
+        ('forestry',          'Miško ūkio technika',                  '🌲', None),
+        ('camping-houses',    'Turistiniai nameliai',                 '🏕', None),
+        ('boats',             'Vandens transportas',                  '⛵', None),
+        ('bicycles',          'El. paspirtukai, riedžiai, dviračiai', '🛴', None),
+    ]
+    
+    
+    def build_more_items(counts=None):
+        counts = counts or {}
+        items = []
+        for slug, name, icon, sub_id in MORE_ITEMS_SPEC:
+            items.append({
+                'slug':   slug,
+                'name':   name,
+                'icon':   icon,
+                'sub_id': sub_id,
+                'is_sub': sub_id is not None,
+                'count':  counts.get((slug, sub_id)),
+            })
+        return items
 
 
 # ═══════════════════════════════════════════════════════════
@@ -767,6 +822,9 @@ def listing_list(request):
 
     if category_filter:
         listings = listings.filter(vehicle_type__slug=category_filter)
+    subcategory_filter = request.GET.get('subcategory')
+    if subcategory_filter:
+        listings = listings.filter(subcategory_id=subcategory_filter)
     if search_query:
         listings = listings.filter(title__icontains=search_query)
     if brand_filter:
@@ -1010,6 +1068,55 @@ def listing_list(request):
 
         wheel_counts = {'tyre': 0, 'rim': 0}
 
+    # ═══ MORE flyout — fiksuotas plokščias sąrašas (autogidas tvarka), be nested subų ═══
+    _vt_counts = {
+        r['vehicle_type__slug']: r['c']
+        for r in _public_listings_qs(request.user)
+            .values('vehicle_type__slug').annotate(c=Count('id'))
+    }
+    _sub_counts = {
+        r['subcategory_id']: r['c']
+        for r in _public_listings_qs(request.user)
+            .filter(subcategory__isnull=False)
+            .values('subcategory_id').annotate(c=Count('id'))
+    }
+
+    # (slug, pavadinimas, svg_path_d, subcategory_id|None)
+    MORE_ITEMS_SPEC = [
+        ('agriculture',       'Žemės ūkio technika, padargai',        'M4 17a2 2 0 104 0 2 2 0 00-4 0zM15 17a3 3 0 106 0 3 3 0 00-6 0zM6 15V8h5l3 4M9 8V5h4', None),
+        ('trucks',            'Sunkvežimiai',                         'M3 6h10v9H3zM13 9h4l3 3v3h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
+        ('tractor-units',     'Vilkikai',                             'M3 7h7v8H3zM10 10h4l3 3v2h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM14 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
+        ('car-carriers',      'Autotraukiniai, autovežiai',           'M2 8h12v7H2zM14 10h5l1 2v3h-6M5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM16 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM4 6l3 2M8 6l3 2', None),
+        ('vans',              'Autobusai',                            'M4 5h16v11H4zM4 9h16M7 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 198),
+        ('municipal',         'Komunalinio ūkio transportas',         'M4 8h8v7H4zM12 10h4l4 2v3h-8M7 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM16 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM6 8V5h4v3', None),
+        ('trailers',          'Priekabos / Puspriekabės',             'M3 7h14v8H3zM17 12h4M9 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
+        ('rental',            'Automobilių nuoma',                    'M15 7a4 4 0 11-1 3l-6 6H5v-2l6-6a4 4 0 013-1z', None),
+        ('rental',            'Limuzinų, vestuvių transporto nuoma',  'M2 12h20v4H2zM4 12l2-4h9l3 4M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 294),
+        ('rental',            'Motociklų nuoma',                      'M5 17a3 3 0 100-6 3 3 0 000 6zM19 17a3 3 0 100-6 3 3 0 000 6zM8 14h5l3-4h3M11 10h4', 295),
+        ('rental',            'Sunkiojo transporto, priekabų nuoma',  'M3 6h10v9H3zM13 9h4l3 3v3h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 296),
+        ('electronics',       'Video, audio, navigacijos',            'M3 5h18v11H3zM8 20h8M12 16v4', None),
+        ('services',          'Paslaugos',                            'M14 7a3 3 0 00-4 4l-6 6 2 2 6-6a3 3 0 004-4l-2 2-2-2z', None),
+        ('car-buying',        'Automobilių supirkimas',               'M5 11l1-4h8l2 4M4 11h14v4H4zM7 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM15 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM19 8l2 1-1 2', None),
+        ('loading-equipment', 'Krovimo ir sandėliavimo technika',     'M4 4v13h4M8 17a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM14 17a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM10 8h6v6h-6zM4 4h3', None),
+        ('construction',      'Statybinė technika',                   'M3 20h14M5 20v-6l6-3 6 3M9 11V7l4-2 4 2v4M6 20v-4h4v4', None),
+        ('construction',      'Statybinės technikos priedai',         'M12 8a4 4 0 100 8 4 4 0 000-8zM12 3v2M12 19v2M3 12h2M19 12h2M6 6l1.5 1.5M16.5 16.5L18 18', 297),
+        ('forestry',          'Miško ūkio technika',                  'M12 3l4 6h-3l3 5h-3l2 4H8l2-4H7l3-5H7l5-6zM12 18v3', None),
+        ('camping-houses',    'Turistiniai nameliai',                 'M3 8h11a2 2 0 012 2v6H3zM16 12h3l2 3v1h-5M7 19a2 2 0 100-4 2 2 0 000 4zM6 8v3h5V8', None),
+        ('boats',             'Vandens transportas',                  'M4 14h16l-2 4H6l-2-4zM6 14V8l6-3 6 3v6M12 5V3', None),
+        ('bicycles',          'El. paspirtukai, riedžiai, dviračiai', 'M5 18a3 3 0 100-6 3 3 0 000 6zM19 18a3 3 0 100-6 3 3 0 000 6zM8 15l3-6h4M10 9h4l2 6M14 9l1-3h2', None),
+    ]
+
+    more_items = []
+    for _slug, _name, _icon, _sub_id in MORE_ITEMS_SPEC:
+        more_items.append({
+            'is_sub': _sub_id is not None,
+            'slug': _slug,
+            'sub_id': _sub_id,
+            'name': _name,
+            'icon': _icon,
+            'count': _sub_counts.get(_sub_id, 0) if _sub_id else _vt_counts.get(_slug, 0),
+        })
+
 
 
     context = {
@@ -1017,6 +1124,7 @@ def listing_list(request):
         'brands': brands,
         'moto_brands': moto_brands,
         'wheel_counts': wheel_counts,
+        'more_items': more_items,
         'models': models,
         'years': years,
         'fuel_types': fuel_types,
@@ -2639,8 +2747,8 @@ def save_search(request):
 
         name = _build_search_name(params)
 
-        SavedSearch.objects.create(user=request.user, name=name, query_params=params)
-        return JsonResponse({'success': True})
+        saved = SavedSearch.objects.create(user=request.user, name=name, query_params=params)
+        return JsonResponse({'success': True, 'id': saved.pk})
     return JsonResponse({'success': False})
 
 
@@ -6115,6 +6223,19 @@ def search_panel_count(request, category):
             return JsonResponse({'count': qs.count()})
         except Exception:
             return JsonResponse({'count': 0})
+
+    if category == 'motogear':
+        qs = _public_listings_qs(request.user).filter(
+            subcategory__slug__in=MOTO_GEAR_SLUGS
+        )
+        if request.GET.get('price_min'):
+            qs = qs.filter(price__gte=request.GET['price_min'])
+        if request.GET.get('price_max'):
+            qs = qs.filter(price__lte=request.GET['price_max'])
+        _gq = (request.GET.get('search') or request.GET.get('q') or '').strip()
+        if _gq:
+            qs = qs.filter(title__icontains=_gq)
+        return JsonResponse({'count': qs.count()})
 
     if category not in SEARCH_PANEL_CATEGORIES:
         raise Http404

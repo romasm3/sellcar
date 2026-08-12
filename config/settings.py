@@ -95,7 +95,7 @@ AUTH_PASSWORD_VALIDATORS = []
 
 from django.utils.translation import gettext_lazy as _
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "lt"
 TIME_ZONE = "Europe/Vilnius"
 USE_I18N = True
 USE_L10N = True

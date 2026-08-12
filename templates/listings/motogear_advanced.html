@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Apranga, šalmai, aksesuarai" %} - AutoLeft{% endblock %}
+
+{% block extra_css %}
+<style>
+.adv-wrap { max-width:1100px; margin:0 auto; padding:24px 16px; }
+.adv-card { background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:24px; }
+.adv-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #f3f4f6; }
+.adv-title { font-size:1.05rem; font-weight:600; color:#1f2937; }
+.adv-clear { font-size:0.78rem; color:#2563eb; cursor:pointer; }
+.adv-grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px 20px; }
+@media (max-width:768px) { .adv-grid3 { grid-template-columns:1fr; } }
+.adv-field { display:flex; flex-direction:column; gap:4px; }
+.adv-field label { font-size:0.72rem; color:#6b7280; font-weight:500; }
+.adv-select, .adv-input { padding:0.5rem 0.65rem; background:#fff; border:1px solid #d1d5db; border-radius:4px; font-size:0.82rem; color:#111827; width:100%; }
+.adv-select:focus, .adv-input:focus { outline:none; border-color:#6b7280; }
+.adv-range { display:flex; align-items:center; gap:4px; }
+.adv-range span { color:#9ca3af; font-size:0.75rem; }
+.adv-range .adv-input, .adv-range .adv-select { flex:1; min-width:0; }
+.adv-bottom { display:flex; justify-content:center; margin:24px 0; }
+.btn-search { background:#374151; color:#fff; font-weight:600; padding:0.65rem 3rem; border-radius:4px; font-size:0.95rem; border:none; cursor:pointer; }
+.btn-search:hover { background:#1f2937; }
+
+.feat-toggle { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:330px; padding:10px 14px; background:#fff; border:1px solid #d1d5db; border-radius:4px; cursor:pointer; font-size:0.85rem; font-weight:600; color:#374151; }
+
+.feat-toggle:hover { background:#f9fafb; }
+
+.feat-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px 20px; margin-top:16px; }
+
+@media (max-width:768px) { .feat-grid { grid-template-columns:1fr; } }
+
+.feat-item { display:flex; align-items:center; gap:7px; font-size:0.8rem; color:#374151; cursor:pointer; padding:3px 0; }
+
+.feat-item input { width:14px; height:14px; accent-color:#4b5563; cursor:pointer; flex-shrink:0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+<div class="adv-wrap">
+<form method="get" action="{% url 'motogear_list' %}" id="gearForm">
+  <input type="hidden" name="sidebar" value="1">
+
+  <div class="adv-card">
+    <div class="adv-header">
+      <div class="adv-title">{% trans "Aprangos, šalmų, aksesuarų paieška" %}</div>
+      <a class="adv-clear" href="{% url 'motogear_advanced_search' %}">{% trans "Išvalyti paiešką" %}</a>
+    </div>
+
+    <div class="adv-grid3">
+      <div class="adv-field">
+        <label>{% trans "Tipas" %}</label>
+        <select name="gear_type" class="adv-select" id="gearTypeSel" onchange="loadGearExtras()">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="helmet" {% if f.gear_type == 'helmet' %}selected{% endif %}>{% trans "Šalmai" %}</option>
+          <option value="jacket" {% if f.gear_type == 'jacket' %}selected{% endif %}>{% trans "Striukės" %}</option>
+          <option value="pants" {% if f.gear_type == 'pants' %}selected{% endif %}>{% trans "Kelnės" %}</option>
+          <option value="suit" {% if f.gear_type == 'suit' %}selected{% endif %}>{% trans "Kombinezonai" %}</option>
+          <option value="gloves" {% if f.gear_type == 'gloves' %}selected{% endif %}>{% trans "Pirštinės" %}</option>
+          <option value="boots" {% if f.gear_type == 'boots' %}selected{% endif %}>{% trans "Batai" %}</option>
+          <option value="protective" {% if f.gear_type == 'protective' %}selected{% endif %}>{% trans "Apsaugos" %}</option>
+          <option value="bag" {% if f.gear_type == 'bag' %}selected{% endif %}>{% trans "Krepšiai, kuprinės" %}</option>
+          <option value="other" {% if f.gear_type == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Kaina, $" %}</label>
+        <div class="adv-range">
+          <input type="number" name="price_min" class="adv-input" placeholder="{% trans 'Nuo' %}" value="{{ f.price_min }}">
+          <span>–</span>
+          <input type="number" name="price_max" class="adv-input" placeholder="{% trans 'Iki' %}" value="{{ f.price_max }}">
+        </div>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Vyriškas / moteriškas" %}</label>
+        <select name="gear_gender" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="men" {% if f.gear_gender == 'men' %}selected{% endif %}>{% trans "Vyriškas" %}</option>
+          <option value="women" {% if f.gear_gender == 'women' %}selected{% endif %}>{% trans "Moteriškas" %}</option>
+          <option value="kids" {% if f.gear_gender == 'kids' %}selected{% endif %}>{% trans "Vaikiškas" %}</option>
+          <option value="unisex" {% if f.gear_gender == 'unisex' %}selected{% endif %}>{% trans "Unisex" %}</option>
+          <option value="other" {% if f.gear_gender == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Dydis" %}</label>
+        <select name="gear_size" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="XXS" {% if f.gear_size == 'XXS' %}selected{% endif %}>XXS</option>
+          <option value="XS" {% if f.gear_size == 'XS' %}selected{% endif %}>XS</option>
+          <option value="S" {% if f.gear_size == 'S' %}selected{% endif %}>S</option>
+          <option value="M" {% if f.gear_size == 'M' %}selected{% endif %}>M</option>
+          <option value="L" {% if f.gear_size == 'L' %}selected{% endif %}>L</option>
+          <option value="XL" {% if f.gear_size == 'XL' %}selected{% endif %}>XL</option>
+          <option value="XXL" {% if f.gear_size == 'XXL' %}selected{% endif %}>XXL</option>
+          <option value="XXXL" {% if f.gear_size == 'XXXL' %}selected{% endif %}>XXXL</option>
+          <option value="one_size" {% if f.gear_size == 'one_size' %}selected{% endif %}>{% trans "Vienas dydis" %}</option>
+          <option value="numeric" {% if f.gear_size == 'numeric' %}selected{% endif %}>{% trans "Skaitinis" %}</option>
+          <option value="other" {% if f.gear_size == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Gamintojas" %}</label>
+        <select name="gear_brand" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          {% for b in gear_brands %}<option value="{{ b.id }}" {% if f.gear_brand == b.id|stringformat:"i" %}selected{% endif %}>{{ b.name }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Pagamintas iš" %}</label>
+        <select name="gear_material" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="leather" {% if f.gear_material == 'leather' %}selected{% endif %}>{% trans "Odos" %}</option>
+          <option value="textile" {% if f.gear_material == 'textile' %}selected{% endif %}>{% trans "Tekstilės" %}</option>
+          <option value="mixed" {% if f.gear_material == 'mixed' %}selected{% endif %}>{% trans "Oda + tekstilė" %}</option>
+          <option value="synthetic" {% if f.gear_material == 'synthetic' %}selected{% endif %}>{% trans "Sintetikos" %}</option>
+          <option value="mesh" {% if f.gear_material == 'mesh' %}selected{% endif %}>{% trans "Tinklelio" %}</option>
+          <option value="other" {% if f.gear_material == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Naudota / nauja" %}</label>
+        <select name="condition" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="new" {% if f.condition == 'new' %}selected{% endif %}>{% trans "Nauja" %}</option>
+          <option value="used" {% if f.condition == 'used' %}selected{% endif %}>{% trans "Naudota" %}</option>
+          <option value="damaged" {% if f.condition == 'damaged' %}selected{% endif %}>{% trans "Su defektais" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label id="gearSubtypeLabel">{% trans "Tipo detalė" %}</label>
+        <select name="gear_subtype" class="adv-select" id="gearSubtypeSel">
+          <option value="">{% trans "Visi" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Spalva" %}</label>
+        <select name="color" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="black" {% if f.color == 'black' %}selected{% endif %}>{% trans "Juoda" %}</option>
+          <option value="white" {% if f.color == 'white' %}selected{% endif %}>{% trans "Balta" %}</option>
+          <option value="red" {% if f.color == 'red' %}selected{% endif %}>{% trans "Raudona" %}</option>
+          <option value="blue" {% if f.color == 'blue' %}selected{% endif %}>{% trans "Mėlyna" %}</option>
+          <option value="green_khaki" {% if f.color == 'green_khaki' %}selected{% endif %}>{% trans "Žalia / chaki" %}</option>
+          <option value="yellow_gold" {% if f.color == 'yellow_gold' %}selected{% endif %}>{% trans "Geltona / auksinė" %}</option>
+          <option value="orange" {% if f.color == 'orange' %}selected{% endif %}>{% trans "Oranžinė" %}</option>
+          <option value="purple" {% if f.color == 'purple' %}selected{% endif %}>{% trans "Violetinė" %}</option>
+          <option value="brown_beige" {% if f.color == 'brown_beige' %}selected{% endif %}>{% trans "Ruda / smėlio" %}</option>
+          <option value="multicolor" {% if f.color == 'multicolor' %}selected{% endif %}>{% trans "Marga" %}</option>
+          <option value="other" {% if f.color == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Metai" %}</label>
+        <div class="adv-range">
+          <select name="year_min" class="adv-select"><option value="">{% trans "Nuo" %}</option>{% for y in years %}<option value="{{ y }}" {% if f.year_min == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}</select>
+          <span>–</span>
+          <select name="year_max" class="adv-select"><option value="">{% trans "Iki" %}</option>{% for y in years %}<option value="{{ y }}" {% if f.year_max == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}</select>
+        </div>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Šalis" %}</label>
+        <select name="country_filter" class="adv-select">
+          <option value="">{% trans "Visos" %}</option>
+          {% for c, n in country_choices %}<option value="{{ c }}" {% if f.country_filter == c %}selected{% endif %}>{{ n }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Valstija (JAV)" %}</label>
+        <select name="state_filter" class="adv-select">
+          <option value="">{% trans "Visos" %}</option>
+          {% for c, n in us_states %}<option value="{{ c }}" {% if f.state_filter == c %}selected{% endif %}>{{ n }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Miestas" %}</label>
+        <input type="text" name="city" class="adv-input" placeholder="{% trans 'Visi' %}" value="{{ f.city }}">
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Rodyti ne senesnius nei" %}</label>
+        <select name="posted_within" class="adv-select">
+          <option value="">{% trans "Visi" %}</option>
+          <option value="1" {% if f.posted_within == '1' %}selected{% endif %}>{% trans "24 valandos" %}</option>
+          <option value="3" {% if f.posted_within == '3' %}selected{% endif %}>{% trans "3 dienos" %}</option>
+          <option value="7" {% if f.posted_within == '7' %}selected{% endif %}>{% trans "7 dienos" %}</option>
+          <option value="30" {% if f.posted_within == '30' %}selected{% endif %}>{% trans "30 dienų" %}</option>
+        </select>
+      </div>
+
+      <div class="adv-field">
+        <label>{% trans "Tekstinė paieška" %}</label>
+        <input type="text" name="search" class="adv-input" placeholder="{% trans 'Ieškoti...' %}" value="{{ f.search }}">
+      </div>
+    </div>
+    <div id="gearFeaturesWrap" style="display:none; margin-top:22px;">
+      <div class="feat-toggle" onclick="toggleFeats()">
+        <span>{% trans "Ypatumai" %} <span id="gearFeaturesCount">(0/0)</span></span>
+        <i class="fas fa-chevron-up" id="featChevron" style="font-size:0.7rem;color:#9ca3af;"></i>
+      </div>
+      <div class="feat-grid" id="gearFeaturesGrid"></div>
+    </div>
+  </div>
+
+  <div class="adv-bottom">
+    <button type="submit" class="btn-search">
+      {% trans "Ieškoti" %} <span id="gearCount">{{ total_count }}</span>
+    </button>
+  </div>
+</form>
+</div>
+</div>
+
+<script>
+
+var PRESEL_SUB = "{{ f.gear_subtype|default:'' }}";
+
+var PRESEL_EQ = [{% for e in selected_equipment %}"{{ e }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+
+var SUB_LABELS = {
+
+  helmet: "Šalmo tipas", jacket: "Striukės tipas", pants: "Kelnių tipas",
+
+  suit: "Kombinezono tipas", gloves: "Pirštinių tipas", boots: "Batų tipas",
+
+  protective: "Apsaugų tipas", bag: "Krepšio tipas"
+
+};
+
+
+
+function toggleFeats() {
+
+  var g = document.getElementById('gearFeaturesGrid');
+
+  var c = document.getElementById('featChevron');
+
+  var open = g.style.display !== 'none';
+
+  g.style.display = open ? 'none' : 'grid';
+
+  c.className = open ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+
+  c.style.cssText = 'font-size:0.7rem;color:#9ca3af;';
+
+}
+
+
+
+function updFeatCount() {
+
+  var all = document.querySelectorAll('#gearFeaturesGrid input[name="equipment"]');
+
+  var sel = document.querySelectorAll('#gearFeaturesGrid input[name="equipment"]:checked');
+
+  var el = document.getElementById('gearFeaturesCount');
+
+  if (el) el.textContent = '(' + sel.length + '/' + all.length + ')';
+
+}
+
+
+
+function loadGearExtras() {
+
+  var t = document.getElementById('gearTypeSel').value;
+
+  var sub = document.getElementById('gearSubtypeSel');
+
+  var lbl = document.getElementById('gearSubtypeLabel');
+
+  var wrap = document.getElementById('gearFeaturesWrap');
+
+  var grid = document.getElementById('gearFeaturesGrid');
+
+
+
+  sub.innerHTML = '<option value="">Visi</option>';
+
+  grid.innerHTML = '';
+
+  wrap.style.display = 'none';
+
+  lbl.textContent = SUB_LABELS[t] || 'Tipo detalė';
+
+  if (!t) return;
+
+
+
+  fetch('/ajax/get-gear-subtypes/?gear_type=' + t)
+
+    .then(function(r) { return r.json(); })
+
+    .then(function(data) {
+
+      data.forEach(function(i) {
+
+        var o = document.createElement('option');
+
+        o.value = i.code;
+
+        o.textContent = i.label;
+
+        if (i.code === PRESEL_SUB) o.selected = true;
+
+        sub.appendChild(o);
+
+      });
+
+    });
+
+
+
+  fetch('/ajax/get-gear-equipment/?gear_type=' + t)
+
+    .then(function(r) { return r.json(); })
+
+    .then(function(data) {
+
+      if (!data.length) return;
+
+      wrap.style.display = '';
+
+      data.forEach(function(i) {
+
+        var lab = document.createElement('label');
+
+        lab.className = 'feat-item';
+
+        var chk = PRESEL_EQ.indexOf(String(i.id)) !== -1 ? ' checked' : '';
+
+        lab.innerHTML = '<input type="checkbox" name="equipment" value="' + i.id + '"' + chk + '><span>' + i.name + '</span>';
+
+        grid.appendChild(lab);
+
+      });
+
+      updFeatCount();
+
+    });
+
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  if (document.getElementById('gearTypeSel').value) loadGearExtras();
+
+  document.getElementById('gearFeaturesGrid').addEventListener('change', updFeatCount);
+
+});
+
+
+
+(function() {
+  var form = document.getElementById('gearForm');
+  var el = document.getElementById('gearCount');
+  if (!form || !el) return;
+  var t = null;
+  function upd() {
+    clearTimeout(t);
+    t = setTimeout(function() {
+      var p = new URLSearchParams();
+      form.querySelectorAll('input, select').forEach(function(e) {
+        if (e.name && e.value) p.append(e.name, e.value);
+      });
+      fetch('{% url "motogear_count_ajax" %}?' + p.toString())
+        .then(function(r) { return r.json(); })
+        .then(function(d) { el.textContent = d.count; })
+        .catch(function() {});
+    }, 350);
+  }
+  form.addEventListener('change', upd);
+  form.addEventListener('input', upd);
+})();
+</script>
+{% endblock %}

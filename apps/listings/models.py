@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from datetime import timedelta
 
 
@@ -347,79 +348,79 @@ class Listing(models.Model):
     ]
 
     GEAR_TYPE_CHOICES = [
-        ('helmet', 'Helmet'),
-        ('protective', 'Protective gear'),
-        ('boots', 'Boots'),
-        ('pants', 'Pants'),
-        ('suit', 'Suit / Combination'),
-        ('bag', 'Bag / Backpack'),
-        ('gloves', 'Gloves'),
-        ('jacket', 'Jacket'),
-        ('other', 'Other'),
+        ('helmet', _('Helmet')),
+        ('protective', _('Protective gear')),
+        ('boots', _('Boots')),
+        ('pants', _('Pants')),
+        ('suit', _('Suit / Combination')),
+        ('bag', _('Bag / Backpack')),
+        ('gloves', _('Gloves')),
+        ('jacket', _('Jacket')),
+        ('other', _('Other')),
     ]
 
     # ═══ GEAR SUBTYPE — 'Other' first per gear_type ═══
     GEAR_SUBTYPE_CHOICES = [
         # Helmets
-        ('helmet:other', 'Other'),
-        ('helmet:full_face', 'Full face'),
-        ('helmet:integral', 'Integral'),
-        ('helmet:modular', 'Modular / Flip-up'),
-        ('helmet:open_face', 'Open face / Jet'),
-        ('helmet:off_road', 'Off-road / Motocross'),
-        ('helmet:dual_sport', 'Dual sport / Adventure'),
-        ('helmet:half', 'Half helmet'),
+        ('helmet:other', 'Kita'),
+        ('helmet:full_face', 'Uždaras (full face)'),
+        ('helmet:integral', 'Integralinis'),
+        ('helmet:modular', 'Atverčiamas (modular)'),
+        ('helmet:open_face', 'Atviras (jet)'),
+        ('helmet:off_road', 'Krosinis / enduro'),
+        ('helmet:dual_sport', 'Dual sport / kelioninis'),
+        ('helmet:half', 'Pusinis'),
         # Jackets
-        ('jacket:other', 'Other'),
-        ('jacket:sport', 'Sport'),
-        ('jacket:touring', 'Touring'),
-        ('jacket:city', 'City / Urban'),
+        ('jacket:other', 'Kita'),
+        ('jacket:sport', 'Sportinė'),
+        ('jacket:touring', 'Kelioninė'),
+        ('jacket:city', 'Miesto'),
         ('jacket:adventure', 'Adventure'),
-        ('jacket:off_road', 'Off-road'),
-        ('jacket:cruiser', 'Cruiser'),
+        ('jacket:off_road', 'Krosinė'),
+        ('jacket:cruiser', 'Čioperistams'),
         # Pants
-        ('pants:other', 'Other'),
-        ('pants:sport', 'Sport'),
-        ('pants:touring', 'Touring'),
-        ('pants:jeans', 'Riding jeans'),
-        ('pants:off_road', 'Off-road'),
-        ('pants:rain', 'Rain pants'),
+        ('pants:other', 'Kita'),
+        ('pants:sport', 'Sportinės'),
+        ('pants:touring', 'Kelioninės'),
+        ('pants:jeans', 'Džinsai'),
+        ('pants:off_road', 'Krosinės'),
+        ('pants:rain', 'Nuo lietaus'),
         # Suits
-        ('suit:other', 'Other'),
-        ('suit:one_piece', 'One-piece'),
-        ('suit:two_piece', 'Two-piece'),
-        ('suit:rain', 'Rain suit'),
+        ('suit:other', 'Kita'),
+        ('suit:one_piece', 'Vientisas'),
+        ('suit:two_piece', 'Dviejų dalių'),
+        ('suit:rain', 'Nuo lietaus'),
         # Boots
-        ('boots:other', 'Other'),
-        ('boots:sport', 'Sport'),
-        ('boots:touring', 'Touring'),
-        ('boots:off_road', 'Off-road / Motocross'),
+        ('boots:other', 'Kita'),
+        ('boots:sport', 'Sportiniai'),
+        ('boots:touring', 'Kelioniniai'),
+        ('boots:off_road', 'Krosiniai'),
         ('boots:adventure', 'Adventure'),
-        ('boots:urban', 'Urban / Casual'),
+        ('boots:urban', 'Miesto'),
         # Gloves
-        ('gloves:other', 'Other'),
-        ('gloves:sport', 'Sport'),
-        ('gloves:touring', 'Touring'),
-        ('gloves:off_road', 'Off-road'),
-        ('gloves:summer', 'Summer / Mesh'),
-        ('gloves:winter', 'Winter / Heated'),
-        ('gloves:rain', 'Rain'),
+        ('gloves:other', 'Kita'),
+        ('gloves:sport', 'Sportinės'),
+        ('gloves:touring', 'Kelioninės'),
+        ('gloves:off_road', 'Krosinės'),
+        ('gloves:summer', 'Vasarinės'),
+        ('gloves:winter', 'Žieminės / šildomos'),
+        ('gloves:rain', 'Nuo lietaus'),
         # Bags
-        ('bag:other', 'Other'),
-        ('bag:tank', 'Tank bag'),
-        ('bag:tail', 'Tail bag'),
-        ('bag:saddle', 'Saddle bag'),
-        ('bag:backpack', 'Backpack'),
-        ('bag:top_case', 'Top case'),
-        ('bag:roll', 'Roll bag'),
+        ('bag:other', 'Kita'),
+        ('bag:tank', 'Ant bako'),
+        ('bag:tail', 'Ant sėdynės'),
+        ('bag:saddle', 'Šoninės'),
+        ('bag:backpack', 'Kuprinė'),
+        ('bag:top_case', 'Bagažinė (top case)'),
+        ('bag:roll', 'Ritininis'),
         # Protective gear
-        ('protective:other', 'Other'),
-        ('protective:back', 'Back protector'),
-        ('protective:chest', 'Chest protector'),
-        ('protective:knee', 'Knee guards'),
-        ('protective:elbow', 'Elbow guards'),
-        ('protective:neck', 'Neck brace'),
-        ('protective:airbag', 'Airbag vest'),
+        ('protective:other', 'Kita'),
+        ('protective:back', 'Nugaros apsauga'),
+        ('protective:chest', 'Krūtinės apsauga'),
+        ('protective:knee', 'Kelių apsaugos'),
+        ('protective:elbow', 'Alkūnių apsaugos'),
+        ('protective:neck', 'Kaklo apsauga'),
+        ('protective:airbag', 'Oro pagalvės liemenė'),
     ]
 
     # ═══ GEAR SIZE — 'Other' first ═══
@@ -429,27 +430,27 @@ class Listing(models.Model):
         ('S', 'S'), ('M', 'M'),
         ('L', 'L'), ('XL', 'XL'),
         ('XXL', 'XXL'), ('XXXL', 'XXXL'),
-        ('one_size', 'One size / Universal'),
-        ('numeric', 'Numeric'),
+        ('one_size', _('One size / Universal')),
+        ('numeric', _('Numeric')),
     ]
 
     # ═══ GEAR MATERIAL — 'Other' first ═══
     GEAR_MATERIAL_CHOICES = [
-        ('other', 'Other'),
-        ('leather', 'Leather'),
-        ('textile', 'Textile'),
-        ('mixed', 'Leather + Textile'),
-        ('synthetic', 'Synthetic'),
-        ('mesh', 'Mesh'),
+        ('other', _('Other')),
+        ('leather', _('Leather')),
+        ('textile', _('Textile')),
+        ('mixed', _('Leather + Textile')),
+        ('synthetic', _('Synthetic')),
+        ('mesh', _('Mesh')),
     ]
 
     # ═══ GEAR GENDER — 'Other' first ═══
     GEAR_GENDER_CHOICES = [
-        ('other', 'Other'),
-        ('men', 'Men'),
-        ('women', 'Women'),
-        ('unisex', 'Unisex'),
-        ('kids', 'Kids'),
+        ('other', _('Other')),
+        ('men', _('Men')),
+        ('women', _('Women')),
+        ('unisex', _('Unisex')),
+        ('kids', _('Kids')),
     ]
 
     # ═══ GEAR SAFETY CERT — 'Other' first, 'None' second ═══

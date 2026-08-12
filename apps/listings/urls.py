@@ -145,6 +145,8 @@ urlpatterns = [
     path('ajax/delete-motogear-draft-image/<int:pk>/', motogear_views.delete_motogear_draft_image_ajax, name='delete_motogear_draft_image_ajax'),
     path('ajax/reorder-motogear-draft-images/', motogear_views.reorder_motogear_draft_images_ajax, name='reorder_motogear_draft_images_ajax'),
     path('browse/motogear/', motogear_views.motogear_list, name='motogear_list'),
+    path('search/motogear/advanced/', motogear_views.motogear_advanced_search, name='motogear_advanced_search'),
+    path('ajax/motogear-count/', motogear_views.motogear_count_ajax, name='motogear_count_ajax'),
 
     # ─── Listing detail + edit + lifecycle ───
     path("<int:pk>/", views.listing_detail, name="listing_detail"),
