@@ -108,6 +108,12 @@ def conversation_list(request):
     if request.method == 'POST' and selected_conv:
         content = request.POST.get('content', '').strip()
         image = request.FILES.get('image')
+        if image:
+            try:
+                validate_image(image)
+            except ImageValidationError as exc:
+                django_messages.error(request, str(exc))
+                return redirect(f'/conversations/?conv={selected_conv.pk}')
         if content or image:
             new_msg = Message.objects.create(
                 conversation=selected_conv,
