@@ -18,7 +18,7 @@ from django.db import transaction
 from decimal import Decimal
 from django.utils import timezone
 from .constants import can_create_listing
-from .image_validation import ImageValidationError, validate_images
+from .image_validation import ImageValidationError, split_valid_images, validate_images
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -1577,6 +1577,11 @@ def upload_draft_images_ajax(request):
     if not images:
         return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
 
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
+
     existing_count = draft.images.count()
     uploaded = []
 
@@ -2003,7 +2008,11 @@ def listing_create(request):
             except Exception as e:
                 messages.error(request, f'Save failed: {e}')
 
-            images = request.FILES.getlist('images')
+            images, _image_errors = split_valid_images(
+                request.FILES.getlist('images')
+            )
+            for _err in _image_errors:
+                messages.error(request, _err)
             existing_count = current_draft.images.count()
             for i, image in enumerate(images[:10]):
                 try:
@@ -2608,7 +2617,9 @@ def listing_edit(request, pk):
         except (ValueError, TypeError):
             pass
 
-        images = request.FILES.getlist('images')
+        images, _image_errors = split_valid_images(request.FILES.getlist('images'))
+        for _err in _image_errors:
+            messages.error(request, _err)
         for i, image in enumerate(images):
             ListingImage.objects.create(
                 listing=listing, image=image, is_main=False,
@@ -3743,7 +3754,11 @@ def _handle_edit_step_post(request, listing, step):
             new_vin = request.POST.get('vin', '').strip().upper()
             listing.vin = new_vin
             listing.save(update_fields=['video_url', 'vin'])
-            images = request.FILES.getlist('images')
+            images, _image_errors = split_valid_images(
+                request.FILES.getlist('images')
+            )
+            for _err in _image_errors:
+                messages.error(request, _err)
             start_order = listing.images.count()
             photos_added = 0
             for i, image in enumerate(images[:40]):
@@ -5193,6 +5208,10 @@ def listing_create_cars_quick(request):
 
         # ─── Photo upload (failsafe) ───
         new_images = request.FILES.getlist('images')
+        try:
+            validate_images(new_images)
+        except ImageValidationError as exc:
+            errors.append(str(exc))
 
         if errors:
             for e in errors:

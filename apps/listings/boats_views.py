@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.utils import timezone
 
 from .constants import can_create_listing, can_create_free_listing, FREE_LISTING_DAYS
+from .image_validation import split_valid_images
 from .models import (
     Listing,
     ListingImage,
@@ -250,7 +251,10 @@ def boats_listing_create(request):
                 title_parts.append(selected_sub.name)
         target.title = ' '.join(title_parts) or 'Boat listing'
 
-        new_images = request.FILES.getlist('images')
+        new_images, _image_errors = split_valid_images(
+            request.FILES.getlist('images')
+        )
+        errors.extend(_image_errors)
 
         if errors:
             for e in errors:

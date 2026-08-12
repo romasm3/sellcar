@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
 
+from apps.listings.image_validation import split_valid_images
 from apps.listings.models import (
     Listing, ListingImage, VehicleType, SubCategory,
     MotorcycleBrand, MotorcycleModel, Equipment, ListingEquipment,
@@ -191,7 +192,13 @@ def _handle_post(request, edit_listing=None):
 
         _existing = listing.images.count()
 
-        for i, image in enumerate(request.FILES.getlist('images')[:36]):
+        _images, _image_errors = split_valid_images(request.FILES.getlist('images')[:36])
+
+        for _err in _image_errors:
+
+            messages.error(request, _err)
+
+        for i, image in enumerate(_images):
 
             try:
 
@@ -268,7 +275,9 @@ def _handle_post(request, edit_listing=None):
             pass
 
     # ─── Nuotraukos (sinchroniškai su POST) ───
-    images = request.FILES.getlist('images')
+    images, _image_errors = split_valid_images(request.FILES.getlist('images'))
+    for _err in _image_errors:
+        messages.error(request, _err)
     for i, image in enumerate(images[:36]):
         try:
             ListingImage.objects.create(

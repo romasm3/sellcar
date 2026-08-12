@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from .image_validation import ImageValidationError, validate_images
+from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
     Brand, Model, FuelType, Transmission,
@@ -424,6 +424,11 @@ def upload_car_for_parts_edit_image(request, pk):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images'}, status=400)
+
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
 
     existing = listing.images.count()
     uploaded = []

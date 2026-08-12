@@ -16,6 +16,7 @@ from django.db.models.functions import Greatest, Coalesce
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 
+from .image_validation import ImageValidationError, validate_images
 from .models import (
     Listing,
     ListingImage,
@@ -838,6 +839,11 @@ def upload_trucks_image_ajax(request):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images uploaded'}, status=400)
+
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
 
     existing_count = target.images.count()
     uploaded = []

@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from .image_validation import ImageValidationError, validate_images
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
     TruckBrand, FuelType, Equipment, ListingEquipment,
@@ -281,6 +282,11 @@ def upload_truck_for_parts_image(request):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images'}, status=400)
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
+
     existing = draft.images.count()
     uploaded = []
     for i, img_file in enumerate(images[:36]):
@@ -346,6 +352,11 @@ def upload_truck_for_parts_edit_image(request, pk):
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images'}, status=400)
+    try:
+        validate_images(images)
+    except ImageValidationError as exc:
+        return JsonResponse({'success': False, 'error': str(exc)}, status=400)
+
     existing = listing.images.count()
     uploaded = []
     for i, img_file in enumerate(images[:36]):

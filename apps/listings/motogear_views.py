@@ -12,7 +12,7 @@ from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce
 from datetime import timedelta
 
-from .image_validation import ImageValidationError, validate_images
+from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .models import (
     Listing,
     ListingImage,
@@ -679,7 +679,9 @@ def _handle_post(request):
 
     # Final submit may also include extra images (fallback) — but normally
     # they were uploaded via AJAX during typing.
-    images = FILES.getlist('images')
+    images, _image_errors = split_valid_images(FILES.getlist('images'))
+    for _err in _image_errors:
+        messages.error(request, _err)
     existing_count = listing.images.count()
     for i, image in enumerate(images[:40 - existing_count]):
         try:

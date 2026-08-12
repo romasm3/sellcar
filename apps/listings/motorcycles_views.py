@@ -24,7 +24,7 @@ from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce, Lower
 from datetime import date, timedelta
 
-from .image_validation import ImageValidationError, validate_images
+from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .models import (
     Listing,
     ListingImage,
@@ -779,7 +779,10 @@ def _handle_post(request):
 
         # Failsafe: any images that came through the form POST (usually already AJAX-uploaded)
         existing_count = edit_listing.images.count()
-        for i, image in enumerate(FILES.getlist('images')[:40]):
+        _images, _image_errors = split_valid_images(FILES.getlist('images')[:40])
+        for _err in _image_errors:
+            messages.error(request, _err)
+        for i, image in enumerate(_images):
             try:
                 ListingImage.objects.create(
                     listing=edit_listing,
@@ -804,7 +807,9 @@ def _handle_post(request):
     if not listing:
         return _rerender(['Failed to save listing.'])
 
-    images = FILES.getlist('images')
+    images, _image_errors = split_valid_images(FILES.getlist('images'))
+    for _err in _image_errors:
+        messages.error(request, _err)
     existing_count = listing.images.count()
     for i, image in enumerate(images[:40]):
         try:

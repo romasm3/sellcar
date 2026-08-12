@@ -35,6 +35,7 @@ from django.urls import reverse
 
 
 
+from apps.listings.image_validation import split_valid_images
 from apps.listings.models import (
 
     PartCategory, Listing, ListingImage,
@@ -414,7 +415,9 @@ def parts_listing_create(request):
             return _render_parts_form(request, part_subcategory, errors=[str(e)],
                                       listing=listing, is_edit_mode=is_edit_mode)
 
-        images = request.FILES.getlist('images')
+        images, _image_errors = split_valid_images(request.FILES.getlist('images'))
+        for _err in _image_errors:
+            messages.error(request, _err)
         if is_edit_mode:
             existing_images = target.images.all()
             max_order = existing_images.aggregate(Max('order'))['order__max'] or -1

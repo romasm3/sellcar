@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+
+from apps.listings.image_validation import ImageValidationError, validate_image
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -689,6 +691,12 @@ def inline_update(request):
 @login_required
 def update_profile_picture(request):
     if request.method == "POST" and request.FILES.get('profile_picture'):
+        try:
+            validate_image(request.FILES['profile_picture'])
+        except ImageValidationError as exc:
+            messages.error(request, str(exc))
+            return redirect("accounts:settings")
+
         profile = request.user.profile
         if profile.profile_picture:
             profile.profile_picture.delete()
@@ -751,6 +759,14 @@ def delete_account(request):
 @login_required
 def update_business_profile(request):
     if request.method == 'POST':
+        for _field in ('company_logo', 'banner_image'):
+            if request.FILES.get(_field):
+                try:
+                    validate_image(request.FILES[_field])
+                except ImageValidationError as exc:
+                    messages.error(request, str(exc))
+                    return redirect('accounts:settings')
+
         profile = request.user.profile
         profile.seller_type = request.POST.get('seller_type', 'private')
         profile.company_name = request.POST.get('company_name', '')
@@ -974,6 +990,14 @@ def dealer_setup(request):
                 'close': request.POST.get(f'wh_{day}_close', '').strip() if not closed else '',
             }
         profile.dealer_working_hours = wh
+
+        for _field in ('dealer_logo', 'banner_image'):
+            if request.FILES.get(_field):
+                try:
+                    validate_image(request.FILES[_field])
+                except ImageValidationError as exc:
+                    messages.error(request, str(exc))
+                    return redirect(request.path)
 
         if request.FILES.get('dealer_logo'):
             if profile.dealer_logo:
