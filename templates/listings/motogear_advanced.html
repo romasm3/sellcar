@@ -90,17 +90,9 @@
         <label>{% trans "Dydis" %}</label>
         <select name="gear_size" class="adv-select">
           <option value="">{% trans "Visi" %}</option>
-          <option value="XXS" {% if f.gear_size == 'XXS' %}selected{% endif %}>XXS</option>
-          <option value="XS" {% if f.gear_size == 'XS' %}selected{% endif %}>XS</option>
-          <option value="S" {% if f.gear_size == 'S' %}selected{% endif %}>S</option>
-          <option value="M" {% if f.gear_size == 'M' %}selected{% endif %}>M</option>
-          <option value="L" {% if f.gear_size == 'L' %}selected{% endif %}>L</option>
-          <option value="XL" {% if f.gear_size == 'XL' %}selected{% endif %}>XL</option>
-          <option value="XXL" {% if f.gear_size == 'XXL' %}selected{% endif %}>XXL</option>
-          <option value="XXXL" {% if f.gear_size == 'XXXL' %}selected{% endif %}>XXXL</option>
-          <option value="one_size" {% if f.gear_size == 'one_size' %}selected{% endif %}>{% trans "Vienas dydis" %}</option>
-          <option value="numeric" {% if f.gear_size == 'numeric' %}selected{% endif %}>{% trans "Skaitinis" %}</option>
-          <option value="other" {% if f.gear_size == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
+          {% for value, label in gear_size_choices %}
+          <option value="{{ value }}" {% if f.gear_size == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
         </select>
       </div>
 
@@ -121,6 +113,8 @@
           <option value="mixed" {% if f.gear_material == 'mixed' %}selected{% endif %}>{% trans "Oda + tekstilė" %}</option>
           <option value="synthetic" {% if f.gear_material == 'synthetic' %}selected{% endif %}>{% trans "Sintetikos" %}</option>
           <option value="mesh" {% if f.gear_material == 'mesh' %}selected{% endif %}>{% trans "Tinklelio" %}</option>
+          <option value="plastic" {% if f.gear_material == 'plastic' %}selected{% endif %}>{% trans "Plastiko" %}</option>
+          <option value="aluminium" {% if f.gear_material == 'aluminium' %}selected{% endif %}>{% trans "Aliuminio" %}</option>
           <option value="other" {% if f.gear_material == 'other' %}selected{% endif %}>{% trans "Kita" %}</option>
         </select>
       </div>

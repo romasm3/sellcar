@@ -2574,6 +2574,10 @@ def listing_edit(request, pk):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
+    # Moto gear sits under the motorcycles vehicle type — check it first, or
+    # gear listings open the motorcycle form.
+    if listing.subcategory and listing.subcategory.slug in MOTO_GEAR_SLUGS:
+        return redirect(f'/create/motogear/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 
@@ -3410,6 +3414,10 @@ def listing_edit_hub(request, pk):
         return redirect('truck_for_parts_edit', pk=pk)
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
+    # Moto gear sits under the motorcycles vehicle type — check it first, or
+    # gear listings open the motorcycle form.
+    if listing.subcategory and listing.subcategory.slug in MOTO_GEAR_SLUGS:
+        return redirect(f'/create/motogear/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 
@@ -3481,6 +3489,10 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
+    # Moto gear sits under the motorcycles vehicle type — check it first, or
+    # gear listings open the motorcycle form.
+    if listing.subcategory and listing.subcategory.slug in MOTO_GEAR_SLUGS:
+        return redirect(f'/create/motogear/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 
@@ -3688,6 +3700,10 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
+    # Moto gear sits under the motorcycles vehicle type — check it first, or
+    # gear listings open the motorcycle form.
+    if listing.subcategory and listing.subcategory.slug in MOTO_GEAR_SLUGS:
+        return redirect(f'/create/motogear/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 

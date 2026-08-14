@@ -11928,3 +11928,55 @@ msgstr "Kelioniniai krepšiai"
 #: apps/listings/translatable_db.py
 msgid "Goggles & other gear"
 msgstr "Akiniai ir kita"
+
+#: apps/listings/motogear_views.py
+msgid "Plastic"
+msgstr "Plastikas"
+
+#: apps/listings/motogear_views.py
+msgid "Year of manufacture"
+msgstr "Pagaminimo metai"
+
+#: apps/listings/motogear_views.py
+msgid "Helmet style"
+msgstr "Šalmo stilius"
+
+#: apps/listings/motogear_views.py
+msgid "Boot type"
+msgstr "Batų tipas"
+
+#: apps/listings/motogear_views.py
+msgid "Category is required."
+msgstr "Privaloma pasirinkti kategoriją."
+
+#: apps/listings/motogear_views.py
+msgid "Gender is required."
+msgstr "Privaloma nurodyti, kam skirta."
+
+#: apps/listings/motogear_views.py
+msgid "Size is required."
+msgstr "Privaloma nurodyti dydį."
+
+#: apps/listings/motogear_views.py
+msgid "Material is required."
+msgstr "Privaloma nurodyti medžiagą."
+
+#: apps/listings/motogear_views.py
+msgid "Condition is required."
+msgstr "Privaloma nurodyti būklę."
+
+#: apps/listings/motogear_views.py
+msgid "Valid price is required."
+msgstr "Privaloma nurodyti teisingą kainą."
+
+#: apps/listings/motogear_views.py
+msgid "You must agree to terms and conditions."
+msgstr "Turite sutikti su taisyklėmis ir sąlygomis."
+
+#: apps/listings/motogear_views.py
+msgid "Plastiko"
+msgstr "Plastiko"
+
+#: apps/listings/motogear_views.py
+msgid "Aliuminio"
+msgstr "Aliuminio"

@@ -367,7 +367,10 @@ class Listing(models.Model):
         ('helmet:integral', _('Integralinis')),
         ('helmet:modular', _('Atverčiamas (modular)')),
         ('helmet:open_face', _('Atviras (jet)')),
-        ('helmet:off_road', _('Krosinis / enduro')),
+        ('helmet:off_road', _('Krosinis')),
+        ('helmet:enduro', _('Enduro')),
+        ('helmet:sport', _('Sportinis')),
+        ('helmet:cruiser', _('Čioperistams')),
         ('helmet:dual_sport', _('Dual sport / kelioninis')),
         ('helmet:half', _('Pusinis')),
         # Jackets
@@ -393,6 +396,7 @@ class Listing(models.Model):
         # Boots
         ('boots:other', _('Kita')),
         ('boots:sport', _('Sportiniai')),
+        ('boots:classic', _('Klasikiniai')),
         ('boots:touring', _('Kelioniniai')),
         ('boots:off_road', _('Krosiniai')),
         ('boots:adventure', _('Adventure')),
@@ -423,16 +427,19 @@ class Listing(models.Model):
         ('protective:airbag', _('Oro pagalvės liemenė')),
     ]
 
-    # ═══ GEAR SIZE — 'Other' first ═══
-    GEAR_SIZE_CHOICES = [
-        ('other', _('Other')),
-        ('XXS', _('XXS')), ('XS', _('XS')),
-        ('S', _('S')), ('M', _('M')),
-        ('L', _('L')), ('XL', _('XL')),
-        ('XXL', _('XXL')), ('XXXL', _('XXXL')),
-        ('one_size', _('One size / Universal')),
-        ('numeric', _('Numeric')),
-    ]
+    # ═══ GEAR SIZE — numeric first, then letters, 'Other' last ═══
+    GEAR_SIZE_CHOICES = (
+        [(str(n), str(n)) for n in range(34, 51)]
+        + [(str(n), str(n)) for n in (52, 54, 56, 58, 60)]
+        + [
+            ('XXS', _('XXS')), ('XS', _('XS')),
+            ('S', _('S')), ('M', _('M')),
+            ('L', _('L')), ('XL', _('XL')),
+            ('XXL', _('XXL')), ('XXXL', _('XXXL')),
+            ('one_size', _('One size / Universal')),
+            ('other', _('Other')),
+        ]
+    )
 
     # ═══ GEAR MATERIAL — 'Other' first ═══
     GEAR_MATERIAL_CHOICES = [
@@ -442,6 +449,8 @@ class Listing(models.Model):
         ('mixed', _('Leather + Textile')),
         ('synthetic', _('Synthetic')),
         ('mesh', _('Mesh')),
+        ('plastic', _('Plastic')),
+        ('aluminium', _('Aluminium')),
     ]
 
     # ═══ GEAR GENDER — 'Other' first ═══
@@ -749,7 +758,7 @@ class Listing(models.Model):
     gear_size_other_text = models.CharField(
         max_length=50, blank=True,
         verbose_name=_("Size (custom)"),
-        help_text="Used when size='other' or 'numeric'",
+        help_text="Used when size='other'",
     )
 
     # FK to GearBrand (autoplius-style dropdown)
@@ -1082,7 +1091,7 @@ class Listing(models.Model):
         return self.get_gear_subtype_display() if self.gear_subtype else ''
 
     def get_gear_size_display_value(self):
-        if self.gear_size in ('other', 'numeric') and self.gear_size_other_text:
+        if self.gear_size == 'other' and self.gear_size_other_text:
             return self.gear_size_other_text
         return self.get_gear_size_display() if self.gear_size else ''
 

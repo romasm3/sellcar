@@ -7,14 +7,26 @@
 <div class="bg-gray-50 min-h-screen py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
+        {% if is_edit_mode %}
+        <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Back to listing edit" %}</span>
+        </a>
+        {% else %}
         <a href="{% url 'listing_create' %}" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
             <i class="fas fa-chevron-left text-xs"></i>
             <span class="text-sm">{% trans "Back to category selection" %}</span>
         </a>
+        {% endif %}
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+            {% if is_edit_mode %}
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">{% trans "Edit moto gear listing" %}</h2>
+            <p class="text-gray-600">{{ current_draft.title }}</p>
+            {% else %}
             <h2 class="text-2xl font-bold text-gray-900 mb-2">{% trans "Sell moto gear & accessories" %}</h2>
             <p class="text-gray-600">{% trans "Helmets, jackets, gloves, boots and other moto gear" %}</p>
+            {% endif %}
         </div>
 
         {% if errors %}
@@ -34,6 +46,7 @@
         <form method="POST" enctype="multipart/form-data" id="mainForm" novalidate>
             {% csrf_token %}
             <input type="hidden" name="draft_id" id="draft_id" value="{{ draft_id|default:'' }}">
+            {% if is_edit_mode %}<input type="hidden" name="edit" value="{{ edit_listing_id }}">{% endif %}
 
             {# ═══ SECTION 1 — BASIC INFORMATION ═══ #}
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
@@ -60,7 +73,7 @@
                     </div>
 
                     <div data-show-when-gear-type="any">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Type" %}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" id="gear_subtype_label">{% trans "Type" %}</label>
                         <select name="gear_subtype" id="id_gear_subtype"
                                 onchange="toggleOtherInput('gear_subtype'); validateRequired();"
                                 class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
@@ -116,8 +129,10 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Size" %}</label>
-                        <select name="gear_size" id="id_gear_size"
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            {% trans "Size" %} <span class="text-red-500">*</span>
+                        </label>
+                        <select name="gear_size" id="id_gear_size" data-required="true"
                                 onchange="toggleOtherInput('gear_size'); validateRequired();"
                                 class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                             <option value="">--</option>
@@ -156,9 +171,11 @@
                                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                     </div>
 
-                    <div data-show-when-gear-type="jacket,pants,suit,gloves,boots,bag,protective">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Material" %}</label>
-                        <select name="gear_material" id="id_gear_material"
+                    <div data-show-when-gear-type="any">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            {% trans "Material" %} <span class="text-red-500">*</span>
+                        </label>
+                        <select name="gear_material" id="id_gear_material" data-required="true"
                                 onchange="toggleOtherInput('gear_material'); validateRequired();"
                                 class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                             <option value="">--</option>
@@ -173,8 +190,10 @@
                     </div>
 
                     <div data-show-when-gear-type="any">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Gender" %}</label>
-                        <select name="gear_gender" id="id_gear_gender"
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            {% trans "Gender" %} <span class="text-red-500">*</span>
+                        </label>
+                        <select name="gear_gender" id="id_gear_gender" data-required="true"
                                 onchange="toggleOtherInput('gear_gender'); validateRequired();"
                                 class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                             <option value="">--</option>
@@ -202,6 +221,20 @@
                                value="{{ submitted.color_other_text|default:'' }}"
                                placeholder="{% trans 'Specify color...' %}"
                                class="hidden mt-2 w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div data-show-when-gear-type="any">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            {% trans "Year of manufacture" %}
+                            <span class="text-xs text-gray-400">{% trans "(optional)" %}</span>
+                        </label>
+                        <select name="year" id="id_year"
+                                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
+                            <option value="">--</option>
+                            {% for y in years %}
+                            <option value="{{ y }}" {% if submitted.year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
@@ -267,19 +300,31 @@
                     <i class="fas fa-spinner fa-spin mr-1"></i> <span id="uploadStatusText">{% trans "Uploading..." %}</span>
                 </div>
 
-                <div id="imagePreview" class="grid grid-cols-3 md:grid-cols-5 gap-3 mt-4">
+                <p class="text-xs text-gray-500 mt-3">
+                    <i class="fas fa-arrows-alt mr-1"></i>{% trans "Drag photos to reorder. The first one is the main photo." %}
+                </p>
+
+                <div id="imagePreview" class="grid grid-cols-3 md:grid-cols-5 gap-3 mt-2">
                     {% if current_draft %}
                         {% for img in current_draft.images.all %}
-                        <div class="relative group aspect-square overflow-hidden rounded-lg border-2 bg-gray-100 {% if img.is_main %}border-primary ring-2 ring-primary/30{% else %}border-gray-200{% endif %}"
-                             data-image-id="{{ img.id }}">
-                            <img src="{{ img.image.url }}" class="w-full h-full object-cover">
+                        <div class="photo-card relative group aspect-square overflow-hidden rounded-lg border-2 bg-gray-100 cursor-move {% if img.is_main %}border-primary ring-2 ring-primary/30{% else %}border-gray-200{% endif %}"
+                             data-image-id="{{ img.id }}" draggable="true">
+                            <img src="{{ img.image.url }}" class="w-full h-full object-cover pointer-events-none">
                             {% if img.is_main %}
-                            <span class="absolute top-1 left-1 bg-primary text-white text-[10px] px-2 py-0.5 rounded font-semibold">{% trans "MAIN" %}</span>
+                            <span class="photo-badge absolute top-1 left-1 bg-primary text-white text-[10px] px-2 py-0.5 rounded font-semibold">{% trans "MAIN" %}</span>
                             {% else %}
-                            <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">{{ forloop.counter }}</span>
+                            <span class="photo-badge absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">{{ forloop.counter }}</span>
                             {% endif %}
-                            <button type="button" onclick="deleteServerPhoto({{ img.id }})"
+                            <button type="button" onclick="deleteServerPhoto({{ img.id }})" title="{% trans 'Delete' %}"
                                     class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
+                            <div class="absolute bottom-1 left-1 right-1 flex justify-center gap-1 opacity-0 group-hover:opacity-100">
+                                <button type="button" onclick="rotatePhoto({{ img.id }}, 'ccw')" title="{% trans 'Rotate left' %}"
+                                        class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-undo"></i></button>
+                                <button type="button" onclick="rotatePhoto({{ img.id }}, 'cw')" title="{% trans 'Rotate right' %}"
+                                        class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-redo"></i></button>
+                                <button type="button" onclick="setMainPhoto({{ img.id }})" title="{% trans 'Set as main' %}"
+                                        class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-star"></i></button>
+                            </div>
                         </div>
                         {% endfor %}
                     {% endif %}
@@ -393,7 +438,8 @@
 
                 <div class="mt-5 space-y-3 pt-4 border-t border-gray-100">
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" name="agree_terms" id="id_agree_terms" data-required="true"
+                        <input type="checkbox" name="agree_terms" id="id_agree_terms"
+                               {% if is_edit_mode %}checked{% else %}data-required="true"{% endif %}
                                class="mt-1 w-4 h-4 text-primary rounded">
                         <span class="text-sm text-gray-700">
                             {% blocktrans %}I agree with <a href="#" class="text-primary hover:underline">Terms of use</a> and the <a href="#" class="text-primary hover:underline">Privacy policy</a>{% endblocktrans %}
@@ -415,13 +461,14 @@
             </div>
 
             <div class="flex items-center justify-end gap-3 mt-6">
-                <a href="{% url 'listing_create' %}"
+                <a href="{% if is_edit_mode %}{% url 'listing_edit_hub' edit_listing_id %}{% else %}{% url 'listing_create' %}{% endif %}"
                    class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium">
                     {% trans "Cancel" %}
                 </a>
                 <button type="submit"
                         class="flex items-center gap-2 px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                    {% trans "Continue" %} <i class="fas fa-arrow-right"></i>
+                    {% if is_edit_mode %}{% trans "Save changes" %} <i class="fas fa-check"></i>
+                    {% else %}{% trans "Continue" %} <i class="fas fa-arrow-right"></i>{% endif %}
                 </button>
             </div>
         </form>
@@ -456,6 +503,9 @@ var CSRF_TOKEN = '{{ csrf_token }}';
 // ═══════════════════════════════════════════════════════════
 // i18n strings iš template'o
 // ═══════════════════════════════════════════════════════════
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+var EDIT_ID = "{{ edit_listing_id }}";
+
 var I18N = {
     selectCategoryFirst: "{% trans 'Select a category first.' %}",
     loading: "{% trans 'Loading...' %}",
@@ -467,7 +517,8 @@ var I18N = {
     unknownError: "{% trans 'Unknown error' %}",
     uploadError: "{% trans 'Upload error:' %}",
     deleteConfirm: "{% trans 'Delete this photo?' %}",
-    deleteFailed: "{% trans 'Delete failed' %}"
+    deleteFailed: "{% trans 'Delete failed' %}",
+    typeLabel: "{% trans 'Type' %}"
 };
 
 // ═══════════════════════════════════════════════════════════
@@ -475,6 +526,9 @@ var I18N = {
 // ═══════════════════════════════════════════════════════════
 var FIELD_LABELS = {
     'subcategory': "{% trans 'Category' %}",
+    'gear_size': "{% trans 'Size' %}",
+    'gear_material': "{% trans 'Material' %}",
+    'gear_gender': "{% trans 'Gender' %}",
     'condition': "{% trans 'Condition' %}",
     'price': "{% trans 'Price' %}",
     'country': "{% trans 'Country' %}",
@@ -486,6 +540,8 @@ var FIELD_LABELS = {
 function getRequiredFields() {
     var fields = [];
     document.querySelectorAll('[data-required="true"]').forEach(function(el) {
+        // A field the current gear type hides is not required.
+        if (el.closest('.hidden-by-gear-type')) return;
         fields.push(el);
     });
     var country = document.getElementById('id_country');
@@ -551,6 +607,9 @@ function validateRequired() {
 // ═══════════════════════════════════════════════════════════
 var autosaveTimer = null;
 function autoSave() {
+    // Editing an existing listing: changes are saved on submit, not by
+    // autosave — autosave writes drafts and would leave a stray one behind.
+    if (IS_EDIT_MODE) return;
     clearTimeout(autosaveTimer);
     autosaveTimer = setTimeout(function() {
         var form = document.getElementById('mainForm');
@@ -570,6 +629,7 @@ function autoSave() {
 }
 
 function ensureDraft() {
+    if (IS_EDIT_MODE) return Promise.resolve(EDIT_ID);
     var draft = document.getElementById('draft_id').value;
     if (draft) return Promise.resolve(draft);
     return new Promise(function(resolve) {
@@ -604,7 +664,7 @@ function isOtherValue(fieldName, value) {
         return opt && opt.dataset.slug === 'other';
     }
     if (fieldName === 'gear_subtype') return value.endsWith(':other');
-    if (fieldName === 'gear_size') return value === 'other' || value === 'numeric';
+    if (fieldName === 'gear_size') return value === 'other';
     return value === 'other';
 }
 
@@ -647,6 +707,17 @@ function getCurrentGearType() {
     var opt = sel.options[sel.selectedIndex];
     if (!opt) return '';
     return SUBCATEGORY_TO_GEAR_TYPE[opt.dataset.slug] || '';
+}
+
+// The subtype select means something different per gear type — name it so.
+var SUBTYPE_LABELS = {
+    'helmet': "{% trans 'Helmet style' %}",
+    'boots': "{% trans 'Boot type' %}",
+};
+
+function applySubtypeLabel(gearType) {
+    var lbl = document.getElementById('gear_subtype_label');
+    if (lbl) lbl.textContent = SUBTYPE_LABELS[gearType] || I18N.typeLabel;
 }
 
 function applyGearTypeVisibility(gearType) {
@@ -712,6 +783,7 @@ function loadSubtypesForGearType(gearType, currentValue) {
 function onCategoryChange() {
     var gearType = getCurrentGearType();
     applyGearTypeVisibility(gearType);
+    applySubtypeLabel(gearType);
     loadEquipmentForGearType(gearType, []);
     loadSubtypesForGearType(gearType, '');
     autoSave();
@@ -764,6 +836,7 @@ function uploadPhotosAjax(rawFiles) {
             console.log('[upload] adding file #' + i + ':', f.name, f.size);
             fd.append('images', f);
         });
+        if (IS_EDIT_MODE) fd.append('edit', EDIT_ID);
         showUploadStatus(I18N.uploadingPhotos.replace('{n}', files.length));
         return fetch('/ajax/upload-motogear-draft-images/', {
             method: 'POST',
@@ -790,24 +863,137 @@ function uploadPhotosAjax(rawFiles) {
 function appendPhotoToPreview(img) {
     var preview = document.getElementById('imagePreview');
     var div = document.createElement('div');
-    div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 bg-gray-100 ' +
+    div.className = 'photo-card relative group aspect-square overflow-hidden rounded-lg border-2 bg-gray-100 cursor-move ' +
                     (img.is_main ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200');
     div.dataset.imageId = img.id;
+    div.draggable = true;
     var mainLabel = "{% trans 'MAIN' %}";
     var badge = img.is_main
-        ? '<span class="absolute top-1 left-1 bg-primary text-white text-[10px] px-2 py-0.5 rounded font-semibold">' + mainLabel + '</span>'
-        : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">' + (img.order + 1) + '</span>';
+        ? '<span class="photo-badge absolute top-1 left-1 bg-primary text-white text-[10px] px-2 py-0.5 rounded font-semibold">' + mainLabel + '</span>'
+        : '<span class="photo-badge absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">' + (img.order + 1) + '</span>';
     div.innerHTML =
-        '<img src="' + img.url + '" class="w-full h-full object-cover">' +
+        '<img src="' + img.url + '" class="w-full h-full object-cover pointer-events-none">' +
         badge +
         '<button type="button" onclick="deleteServerPhoto(' + img.id + ')" ' +
-        'class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>';
+        'class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>' +
+        '<div class="absolute bottom-1 left-1 right-1 flex justify-center gap-1 opacity-0 group-hover:opacity-100">' +
+        '<button type="button" onclick="rotatePhoto(' + img.id + ', \'ccw\')" class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-undo"></i></button>' +
+        '<button type="button" onclick="rotatePhoto(' + img.id + ', \'cw\')" class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-redo"></i></button>' +
+        '<button type="button" onclick="setMainPhoto(' + img.id + ')" class="w-6 h-6 bg-black/70 hover:bg-black text-white rounded text-[10px] flex items-center justify-center"><i class="fas fa-star"></i></button>' +
+        '</div>';
     preview.appendChild(div);
+    initPhotoDrag();
+}
+
+// ═══════════════════════════════════════════════════════════
+// PHOTO ORDER / ROTATE / MAIN
+// ═══════════════════════════════════════════════════════════
+function refreshPhotoBadges() {
+    var mainLabel = "{% trans 'MAIN' %}";
+    document.querySelectorAll('#imagePreview .photo-card').forEach(function(card, i) {
+        var badge = card.querySelector('.photo-badge');
+        if (!badge) return;
+        if (i === 0) {
+            badge.className = 'photo-badge absolute top-1 left-1 bg-primary text-white text-[10px] px-2 py-0.5 rounded font-semibold';
+            badge.textContent = mainLabel;
+            card.classList.add('border-primary', 'ring-2', 'ring-primary/30');
+            card.classList.remove('border-gray-200');
+        } else {
+            badge.className = 'photo-badge absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold';
+            badge.textContent = i + 1;
+            card.classList.remove('border-primary', 'ring-2', 'ring-primary/30');
+            card.classList.add('border-gray-200');
+        }
+    });
+}
+
+function savePhotoOrder() {
+    var ids = Array.from(document.querySelectorAll('#imagePreview .photo-card')).map(function(el) {
+        return parseInt(el.dataset.imageId, 10);
+    });
+    if (!ids.length) return;
+    var url = '/ajax/reorder-motogear-draft-images/';
+    if (IS_EDIT_MODE) url += '?edit=' + encodeURIComponent(EDIT_ID);
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ image_ids: ids }),
+    }).then(function() { refreshPhotoBadges(); });
+}
+
+var photoDragSrc = null;
+function initPhotoDrag() {
+    document.querySelectorAll('#imagePreview .photo-card').forEach(function(card) {
+        if (card._dragBound) return;
+        card._dragBound = true;
+        card.addEventListener('dragstart', function() {
+            photoDragSrc = card;
+            card.classList.add('opacity-50');
+        });
+        card.addEventListener('dragend', function() {
+            card.classList.remove('opacity-50');
+            document.querySelectorAll('#imagePreview .photo-card').forEach(function(el) {
+                el.classList.remove('ring-2', 'ring-blue-400');
+            });
+        });
+        card.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            if (card !== photoDragSrc) card.classList.add('ring-2', 'ring-blue-400');
+        });
+        card.addEventListener('dragleave', function() {
+            card.classList.remove('ring-2', 'ring-blue-400');
+        });
+        card.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (photoDragSrc && photoDragSrc !== card) {
+                var items = Array.from(document.querySelectorAll('#imagePreview .photo-card'));
+                var si = items.indexOf(photoDragSrc), ti = items.indexOf(card);
+                if (si < ti) card.parentNode.insertBefore(photoDragSrc, card.nextSibling);
+                else card.parentNode.insertBefore(photoDragSrc, card);
+                savePhotoOrder();
+            }
+            card.classList.remove('ring-2', 'ring-blue-400');
+        });
+    });
+}
+
+function rotatePhoto(imageId, direction) {
+    var fd = new FormData();
+    fd.append('direction', direction);
+    fetch('/ajax/rotate-listing-image/' + imageId + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+        body: fd,
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (!data.success) { alert(data.error || I18N.unknownError); return; }
+          var card = document.querySelector('[data-image-id="' + imageId + '"]');
+          var im = card && card.querySelector('img');
+          if (im) im.src = data.url;
+      });
+}
+
+function setMainPhoto(imageId) {
+    fetch('/image/' + imageId + '/set-main/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' },
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (!data.success) return;
+          // Main photo is always first — move it and persist the new order.
+          var card = document.querySelector('[data-image-id="' + imageId + '"]');
+          var preview = document.getElementById('imagePreview');
+          if (card && preview) preview.insertBefore(card, preview.firstChild);
+          savePhotoOrder();
+      });
 }
 
 function deleteServerPhoto(imageId) {
     if (!confirm(I18N.deleteConfirm)) return;
-    fetch('/ajax/delete-motogear-draft-image/' + imageId + '/', {
+    var url = '/ajax/delete-motogear-draft-image/' + imageId + '/';
+    if (IS_EDIT_MODE) url += '?edit=' + encodeURIComponent(EDIT_ID);
+    fetch(url, {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF_TOKEN },
     }).then(function(r) { return r.json(); })
@@ -827,11 +1013,13 @@ function deleteServerPhoto(imageId) {
 document.addEventListener('DOMContentLoaded', function() {
     onCountryChange();
     initOtherInputs();
+    initPhotoDrag();
 
     var subSel = document.getElementById('id_subcategory');
     if (subSel) {
         subSel.addEventListener('change', onCategoryChange);
         applyGearTypeVisibility(getCurrentGearType());
+        applySubtypeLabel(getCurrentGearType());
     }
 
     document.querySelectorAll('#mainForm input, #mainForm select, #mainForm textarea').forEach(function(el) {

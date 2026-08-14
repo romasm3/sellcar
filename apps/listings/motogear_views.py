@@ -129,6 +129,36 @@ def get_gear_subtypes_ajax(request):
 # IMAGE AUTOSAVE — same pattern as cars (upload_draft_images_ajax)
 # ═══════════════════════════════════════════════════════════
 
+def _resolve_edit_listing(request):
+    """The gear listing being edited via ?edit=<pk>, or None when creating."""
+    edit_pk = _int_or_none(request.GET.get('edit') or request.POST.get('edit'))
+    if not edit_pk:
+        return None
+    return get_object_or_404(
+        Listing,
+        pk=edit_pk,
+        seller=request.user,
+        subcategory__slug__in=list(GEAR_SLUGS),
+    )
+
+
+def _get_image_target(request):
+    """Listing the photo endpoints act on — the edited listing, else the draft."""
+    edit_listing = _resolve_edit_listing(request)
+    if edit_listing:
+        return edit_listing
+    return _get_or_create_draft(request)
+
+
+def _editable_images_qs(request):
+    """Images the user may reorder/delete: their own drafts, or the edited listing."""
+    qs = ListingImage.objects.filter(listing__seller=request.user)
+    edit_listing = _resolve_edit_listing(request)
+    if edit_listing:
+        return qs.filter(listing=edit_listing)
+    return qs.filter(listing__status='draft')
+
+
 def _get_or_create_draft(request):
     """Returns active motogear draft, creating one if needed."""
     draft_id = request.session.get(MOTO_GEAR_DRAFT_SESSION_KEY)
@@ -148,7 +178,7 @@ def _get_or_create_draft(request):
         seller=request.user,
         vehicle_type=moto_vt,
         title='Moto gear draft',
-        year=2024,
+        year=timezone.now().year,
         mileage=0,
         defects='none',
         price=0,
@@ -163,8 +193,8 @@ def _get_or_create_draft(request):
 @login_required
 @require_POST
 def upload_motogear_draft_images_ajax(request):
-    """Upload one or more images to the active motogear draft."""
-    listing = _get_or_create_draft(request)
+    """Upload one or more images to the active motogear draft (or edited listing)."""
+    listing = _get_image_target(request)
     if not listing:
         return JsonResponse({'success': False, 'error': 'Cannot create draft'}, status=500)
 
@@ -211,13 +241,9 @@ def upload_motogear_draft_images_ajax(request):
 @login_required
 @require_POST
 def delete_motogear_draft_image_ajax(request, pk):
-    """Delete a single image from the active motogear draft."""
+    """Delete a single image from the active motogear draft (or edited listing)."""
     try:
-        img = ListingImage.objects.get(
-            pk=pk,
-            listing__seller=request.user,
-            listing__status='draft',
-        )
+        img = _editable_images_qs(request).get(pk=pk)
     except ListingImage.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Image not found'}, status=404)
 
@@ -249,12 +275,8 @@ def reorder_motogear_draft_images_ajax(request):
     if not image_ids:
         return JsonResponse({'success': False, 'error': 'No image_ids'}, status=400)
 
-    # Verify all belong to the same draft owned by user
-    images = list(ListingImage.objects.filter(
-        pk__in=image_ids,
-        listing__seller=request.user,
-        listing__status='draft',
-    ))
+    # Verify all belong to a listing the user may edit
+    images = list(_editable_images_qs(request).filter(pk__in=image_ids))
     if len(images) != len(image_ids):
         return JsonResponse({'success': False, 'error': 'Some images not found'}, status=404)
 
@@ -287,13 +309,33 @@ def _get_user_phone(user):
 
 @login_required
 def motogear_listing_create(request):
+    edit_listing = _resolve_edit_listing(request)
+
     if request.method == 'GET' and request.GET.get('new'):
         if MOTO_GEAR_DRAFT_SESSION_KEY in request.session:
             del request.session[MOTO_GEAR_DRAFT_SESSION_KEY]
             request.session.modified = True
 
     if request.method == 'POST':
-        return _handle_post(request)
+        return _handle_post(request, edit_listing=edit_listing)
+
+    if edit_listing:
+        return render(
+            request,
+            'listings/motogear_create.html',
+            _build_context(
+                request,
+                submitted=_draft_to_submitted(edit_listing),
+                current_draft=edit_listing,
+                selected_subcategory_slug=(
+                    edit_listing.subcategory.slug if edit_listing.subcategory else ''
+                ),
+                selected_equipment_ids=list(
+                    edit_listing.equipment_items.values_list('equipment_id', flat=True)
+                ),
+                edit_listing=edit_listing,
+            ),
+        )
 
     draft_id = request.session.get(MOTO_GEAR_DRAFT_SESSION_KEY)
     submitted = {}
@@ -333,7 +375,8 @@ def motogear_listing_create(request):
 
 
 def _build_context(request, submitted=None, errors=None, draft_id=None, current_draft=None,
-                   selected_subcategory_slug='', selected_equipment_ids=None):
+                   selected_subcategory_slug='', selected_equipment_ids=None,
+                   edit_listing=None):
     moto_vt = VehicleType.objects.filter(slug='motorcycles').first()
 
     gear_subcategories = []
@@ -368,9 +411,12 @@ def _build_context(request, submitted=None, errors=None, draft_id=None, current_
         except AttributeError:
             return default or []
 
+    current_year = timezone.now().year
+
     return {
         'gear_subcategories': gear_subcategories,
         'gear_brands': gear_brands,
+        'years': list(range(current_year, 1949, -1)),
         'gear_size_choices': _safe('GEAR_SIZE_CHOICES'),
         'gear_material_choices': _safe('GEAR_MATERIAL_CHOICES'),
         'gear_gender_choices': _safe('GEAR_GENDER_CHOICES'),
@@ -388,6 +434,8 @@ def _build_context(request, submitted=None, errors=None, draft_id=None, current_
         'initial_equipment': initial_equipment,
         'initial_subtypes': initial_subtypes,
         'selected_equipment_ids': selected_equipment_ids or [],
+        'is_edit_mode': bool(edit_listing),
+        'edit_listing_id': edit_listing.pk if edit_listing else '',
     }
 
 
@@ -408,6 +456,7 @@ def _draft_to_submitted(draft):
         'gear_safety_cert': draft.gear_safety_cert or '',
         'gear_safety_cert_other_text': draft.gear_safety_cert_other_text or '',
         'gear_ventilation_count': str(draft.gear_ventilation_count) if draft.gear_ventilation_count else '',
+        'year': str(draft.year) if draft.year else '',
         'condition': draft.condition or '',
         'color': draft.color or '',
         'color_other_text': draft.color_other_text or '',
@@ -523,13 +572,25 @@ def _build_fields_from_post(request, POST):
         'latitude': lat,
         'longitude': lng,
         'status': 'draft',
-        'year': 2024,
+        # "Pagaminimo metai" — optional; Listing.year is NOT NULL, so fall
+        # back to the current year (same as moto parts).
+        'year': _int_or_none(POST.get('year')) or timezone.now().year,
         'mileage': 0,
         'defects': 'none',
     }
     if hasattr(Listing, 'state'):
         fields['state'] = state
     return fields
+
+
+def _posted_equipment_ids(POST):
+    ids = []
+    for raw_id in POST.getlist('equipment'):
+        try:
+            ids.append(int(raw_id))
+        except (TypeError, ValueError):
+            continue
+    return ids
 
 
 def _save_equipment(listing, equipment_ids):
@@ -544,10 +605,19 @@ def _save_equipment(listing, equipment_ids):
             pass
 
 
-def _save_draft_fields(request, POST, draft_id):
+def _save_draft_fields(request, POST, draft_id, edit_listing=None):
     fields = _build_fields_from_post(request, POST)
     if not fields:
         return None
+
+    if edit_listing is not None:
+        # Editing a published listing — never reset its status.
+        fields.pop('status', None)
+        for key, value in fields.items():
+            setattr(edit_listing, key, value)
+        edit_listing.save()
+        _save_equipment(edit_listing, _posted_equipment_ids(POST))
+        return edit_listing
 
     listing = None
     if draft_id:
@@ -563,13 +633,7 @@ def _save_draft_fields(request, POST, draft_id):
         fields['seller'] = request.user
         listing = Listing.objects.create(**fields)
 
-    equipment_ids = []
-    for raw_id in POST.getlist('equipment'):
-        try:
-            equipment_ids.append(int(raw_id))
-        except (TypeError, ValueError):
-            continue
-    _save_equipment(listing, equipment_ids)
+    _save_equipment(listing, _posted_equipment_ids(POST))
     return listing
 
 
@@ -615,7 +679,7 @@ def save_motogear_draft_ajax(request):
     })
 
 
-def _handle_post(request):
+def _handle_post(request, edit_listing=None):
     POST = request.POST
     FILES = request.FILES
     draft_id = _int_or_none(POST.get('draft_id'))
@@ -627,7 +691,7 @@ def _handle_post(request):
         'gear_material', 'gear_material_other_text',
         'gear_gender', 'gear_gender_other_text',
         'gear_safety_cert', 'gear_safety_cert_other_text',
-        'gear_ventilation_count',
+        'gear_ventilation_count', 'year',
         'condition', 'color', 'color_other_text',
         'price', 'negotiable', 'open_to_trade',
         'description', 'video_url',
@@ -638,44 +702,48 @@ def _handle_post(request):
 
     errors = []
     if not POST.get('subcategory'):
-        errors.append('Category is required.')
+        errors.append(_('Category is required.'))
+    if not POST.get('gear_gender'):
+        errors.append(_('Gender is required.'))
+    if not POST.get('gear_size'):
+        errors.append(_('Size is required.'))
+    if not POST.get('gear_material'):
+        errors.append(_('Material is required.'))
     if not POST.get('condition'):
-        errors.append('Condition is required.')
+        errors.append(_('Condition is required.'))
     price = _float_or_none(POST.get('price'))
     if not price or price <= 0:
-        errors.append('Valid price is required.')
-    if not POST.get('agree_terms'):
-        errors.append('You must agree to terms and conditions.')
+        errors.append(_('Valid price is required.'))
+    # Terms are agreed to once, when the listing is first published.
+    if not edit_listing and not POST.get('agree_terms'):
+        errors.append(_('You must agree to terms and conditions.'))
 
     if errors:
-        equipment_ids = []
-        for raw_id in POST.getlist('equipment'):
-            try:
-                equipment_ids.append(int(raw_id))
-            except (TypeError, ValueError):
-                continue
         return render(
             request, 'listings/motogear_create.html',
             _build_context(
                 request, submitted=submitted, errors=errors, draft_id=draft_id,
-                selected_equipment_ids=equipment_ids,
+                selected_equipment_ids=_posted_equipment_ids(POST),
+                edit_listing=edit_listing,
             ),
         )
 
     try:
-        listing = _save_draft_fields(request, POST, draft_id)
+        listing = _save_draft_fields(request, POST, draft_id, edit_listing=edit_listing)
     except Exception as e:
         errors.append(f'Save failed: {e}')
         return render(
             request, 'listings/motogear_create.html',
-            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id),
+            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id,
+                           edit_listing=edit_listing),
         )
 
     if not listing:
         errors.append('Save failed.')
         return render(
             request, 'listings/motogear_create.html',
-            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id),
+            _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id,
+                           edit_listing=edit_listing),
         )
 
     # Final submit may also include extra images (fallback) — but normally
@@ -698,9 +766,15 @@ def _handle_post(request):
         del request.session[MOTO_GEAR_DRAFT_SESSION_KEY]
         request.session.modified = True
 
+    # Editing an existing listing — no plan/activation step, back to the hub.
+    if edit_listing:
+        messages.success(request, _('Listing updated.'))
+        return redirect('listing_edit_hub', pk=listing.pk)
+
     # ═══ Pirmi 3 nemokami (bendrai per visas kategorijas) ═══
+    # NB: do not unpack into `_` — it shadows gettext for this whole function.
     from .constants import can_create_free_listing, FREE_LISTING_DAYS
-    is_free, _, _ = can_create_free_listing(request.user)
+    is_free = can_create_free_listing(request.user)[0]
 
     if is_free:
         listing.activate(days=FREE_LISTING_DAYS)
