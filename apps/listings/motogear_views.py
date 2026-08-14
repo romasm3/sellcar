@@ -296,14 +296,11 @@ def reorder_motogear_draft_images_ajax(request):
 # ═══════════════════════════════════════════════════════════
 
 def _get_user_phone(user):
-    phone = getattr(user, 'phone', None)
-    if phone:
-        return phone
+    # The profile field is phone_number; this used to look for a `phone`
+    # attribute that exists on neither model, so it always returned ''.
     profile = getattr(user, 'profile', None)
     if profile:
-        phone = getattr(profile, 'phone', None)
-        if phone:
-            return phone
+        return getattr(profile, 'phone_number', '') or ''
     return ''
 
 
@@ -713,6 +710,12 @@ def _handle_post(request, edit_listing=None):
     # Terms are agreed to once, when the listing is first published.
     if not edit_listing and not POST.get('agree_terms'):
         errors.append(_('You must agree to terms and conditions.'))
+
+    # Phone lives on the profile, not the listing — same as every other form.
+    phone_val = (POST.get('phone', '') or '').strip()
+    if phone_val and hasattr(request.user, 'profile'):
+        request.user.profile.phone_number = phone_val
+        request.user.profile.save(update_fields=['phone_number'])
 
     if errors:
         return render(

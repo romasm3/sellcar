@@ -15,6 +15,14 @@ Django vehicle marketplace, Lithuanian-first. PRODUCTION server — be careful.
 - Frontend: Alpine.js + Tailwind
 - Single Listing table for most categories via ?category= filter; trucks have separate TruckBrand/TruckModel tables
 - Search panel partials live in templates/listings/partials/ (search_rail.html, search_panel.html, panel_*.html)
+- Contact block: every create/edit form renders it ONLY via
+  {% include 'listings/partials/contact_block.html' %} — never copy the HTML.
+  Per-category differences go through include parameters (show_postal,
+  phone_name, css_style/cls_* for non-Tailwind skins...), never a second copy.
+  Adding/removing a contact field = editing that one partial.
+  Country/state lists come from contact_block_tags — do NOT pass country_choices
+  from the view; several views used to narrow it to US-only by accident.
+  A new category form MUST use this partial and those tags.
 
 ## Workflow
 - Commit as you go: small logical commits after each meaningful step, Conventional Commits format (feat/fix/chore...), then push

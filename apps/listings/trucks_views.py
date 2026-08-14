@@ -613,6 +613,8 @@ def _validate_required(post, require_terms=False):
         errors['state'] = 'State is required'
     if not (post.get('city') or '').strip():
         errors['city'] = 'City is required'
+    if not (post.get('phone') or '').strip():
+        errors['phone'] = 'Phone is required'
     if require_terms and not post.get('agree_terms'):
         errors['agree_terms'] = 'You must agree to the terms'
     return errors
