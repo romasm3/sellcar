@@ -1,4 +1,4 @@
-{% load i18n static %}{% comment %}
+{% load i18n static contact_block_tags %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 CONTACT & LOCATION BLOCK — single source of truth for every create/edit
 form. To add or remove a contact field, edit THIS file (and nothing else;
@@ -27,8 +27,9 @@ Behaviour (matches the cars quick form, which is the reference):
   val_phone val_email val_country val_state val_city val_postal val_address
   checked_hide_address checked_business
 
-── Choices (from the view) ──────────────────────────────────────────
-  country_choices  us_states       read from the surrounding context
+── Choices ──────────────────────────────────────────────────────────
+  Country / state lists come from contact_block_tags, NOT from the view
+  context — several views used to narrow the country list to the US.
 
 ── Presentation ─────────────────────────────────────────────────────
   title            section heading; default "Contacts"
@@ -41,6 +42,9 @@ Behaviour (matches the cars quick form, which is the reference):
   errors           dict of per-field errors (trucks)
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
+
+{% contact_country_choices as all_country_choices %}
+{% contact_state_choices as all_us_states %}
 
 {% trans "Phone" as lbl_phone %}
 {% trans "Email" as lbl_email %}
@@ -81,9 +85,9 @@ Behaviour (matches the cars quick form, which is the reference):
             {% include 'listings/partials/_contact_field.html' with type='email' name=email_name|default:'email' id='id_email' label=lbl_email value=val_email required=False optional_hint=hint_optional placeholder=ph_email tooltip=tip_email wrap_attrs='' span='' error=errors.email %}
         {% endif %}
 
-        {% include 'listings/partials/_contact_select.html' with name='country' id='id_country' label=lbl_country value=val_country|default:'US' choices=country_choices required=True onchange='onCountryChange()' wrap_attrs='data-field-wrap="country" data-required="true"' span='' error=errors.country %}
+        {% include 'listings/partials/_contact_select.html' with name='country' id='id_country' label=lbl_country value=val_country|default:'US' choices=all_country_choices required=True onchange='onCountryChange()' wrap_attrs='data-field-wrap="country" data-required="true"' span='' error=errors.country %}
 
-        {% include 'listings/partials/_contact_select.html' with name='state' id='id_state' label=lbl_state value=val_state choices=us_states required=True empty_label=lbl_select_state star_id='state-required' wrap_attrs='id="stateFieldWrapper" data-field-wrap="state" data-required="true"' span='' error=errors.state %}
+        {% include 'listings/partials/_contact_select.html' with name='state' id='id_state' label=lbl_state value=val_state choices=all_us_states required=True empty_label=lbl_select_state star_id='state-required' wrap_attrs='id="stateFieldWrapper" data-field-wrap="state" data-required="true"' span='' error=errors.state %}
 
         {% include 'listings/partials/_contact_field.html' with type='text' name='city' id='id_city' label=lbl_city value=val_city required=True placeholder=ph_city wrap_attrs='id="cityFieldWrapper" data-field-wrap="city" data-required="true"' span=city_span|default:'md:col-span-2' error=errors.city %}
 

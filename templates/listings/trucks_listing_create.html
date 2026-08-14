@@ -767,8 +767,7 @@
             {#  LOCATION                                        #}
             {# ════════════════════════════════════════════════ #}
             {% if not is_edit %}{% firstof 1 as contact_autosave %}{% else %}{% firstof '' as contact_autosave %}{% endif %}
-            {% trans 'Location' as contact_title %}
-            {% include 'listings/partials/contact_block.html' with title=contact_title css_style='custom' card_class='create-card' card_title_class='create-card-title' grid_class='field-grid' cls_label='field-label' cls_star='required-star' cls_input='form-input' cls_select='form-select' autosave=contact_autosave errors=errors val_phone=user.profile.phone_number val_email=user.email val_country=data.country val_state=data.state val_city=data.city val_postal=data.postal_code val_address=data.address show_postal=True show_terms=False %}
+            {% include 'listings/partials/contact_block.html' with is_edit_mode=is_edit css_style='custom' card_class='create-card' card_title_class='create-card-title' grid_class='field-grid' cls_label='field-label' cls_star='required-star' cls_input='form-input' cls_select='form-select' autosave=contact_autosave errors=errors val_phone=user.profile.phone_number val_email=user.email val_country=data.country val_state=data.state val_city=data.city val_postal=data.postal_code val_address=data.address show_postal=True %}
 
             {# ─── Bottom action bar ─── #}
             <div class="action-bar-bottom">

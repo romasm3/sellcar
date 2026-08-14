@@ -117,6 +117,9 @@ def parse_common_listing_fields(request):
         'address': request.POST.get('address', '').strip(),
         'postal_code': request.POST.get('postal_code', '').strip(),
         'hide_exact_address': request.POST.get('hide_exact_address') in ('on', 'true', '1'),
+
+        # Sutikimas su taisyklėmis (tik CREATE)
+        'agree_terms': request.POST.get('agree_terms') in ('on', 'true', '1'),
     }
 
 
@@ -124,16 +127,21 @@ def parse_common_listing_fields(request):
 # 2. VALIDATE COMMON FIELDS — bendrų laukų validacija
 # ═══════════════════════════════════════════════════════════════════════════
 
-def validate_common_fields(common_data, require_condition=True, require_year=True):
+def validate_common_fields(common_data, require_condition=True, require_year=True,
+                           require_terms=False):
     """
     Validuoja BENDRUS required laukus. Grąžina errors list (tuščias = ok).
-    
+
     Optional flags:
     - require_condition: ar Condition required (default True)
     - require_year: ar Year required (default True)
+    - require_terms: ar sutikimas su taisyklėmis required (tik CREATE)
     """
     errors = []
-    
+
+    if require_terms and not common_data.get('agree_terms'):
+        errors.append('You must agree to the terms')
+
     if require_condition and not common_data['condition']:
         errors.append('Condition is required')
     

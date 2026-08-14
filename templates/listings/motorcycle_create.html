@@ -406,8 +406,7 @@
             </div>
 
             <!-- CONTACT / LOCATION -->
-            {% trans 'Contact & Location' as contact_title %}
-            {% include 'listings/partials/contact_block.html' with title=contact_title val_phone=submitted.phone val_email=submitted.email val_country=submitted.country val_state=submitted.state val_city=submitted.city val_postal=submitted.postal_code val_address=submitted.address show_postal=True show_hide_address=True checked_hide_address=submitted.hide_exact_address show_terms=False %}
+            {% include 'listings/partials/contact_block.html' with val_phone=submitted.phone val_email=submitted.email val_country=submitted.country val_state=submitted.state val_city=submitted.city val_postal=submitted.postal_code val_address=submitted.address show_postal=True show_hide_address=True checked_hide_address=submitted.hide_exact_address %}
 
             <!-- ERROR BANNER -->
             <div id="errorBanner" class="hidden mb-4 p-3 bg-red-500 text-white rounded-lg flex items-center gap-2">

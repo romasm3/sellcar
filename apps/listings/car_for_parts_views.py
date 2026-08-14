@@ -161,8 +161,8 @@ def _build_context(request, draft_or_listing, is_edit_mode=False):
         'door_choices': Listing.DOOR_CHOICES,
         'drive_type_choices': Listing.DRIVE_TYPE_CHOICES,
         'color_choices': Listing.COLOR_CHOICES,
-        'country_choices': [c for c in Listing.COUNTRY_CHOICES if c[0] == 'US'],
-        'us_states': Listing.US_STATE_CHOICES,
+        # Country/state lists come from contact_block_tags (this used to be
+        # narrowed to the US only, which is why the dropdown had one option).
         'user_phone': user_phone,
     }
 
@@ -210,7 +210,7 @@ def car_for_parts_create(request):
         specific = _parse_car_for_parts_specific_fields(request)
 
         # 2. Validate — BENDRUS per helper + SPECIFINIUS rankiniu būdu
-        errors = validate_common_fields(common)
+        errors = validate_common_fields(common, require_terms=True)
         if not specific['brand_id']:
             errors.append('Brand is required')
 

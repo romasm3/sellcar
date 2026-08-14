@@ -153,15 +153,6 @@ def _build_context(request, submitted=None, errors=None, draft_id=None,
         euro_standard_choices = Listing.EURO_STANDARD_CHOICES
     except AttributeError:
         euro_standard_choices = []
-    try:
-        country_choices = Listing.COUNTRY_CHOICES
-    except AttributeError:
-        country_choices = [('US', 'United States')]
-    try:
-        us_states = Listing.US_STATE_CHOICES
-    except AttributeError:
-        us_states = []
-
     return {
         'motorcycle_brands': _moto_brands_qs(),
         'fuel_types': FuelType.objects.all().order_by('name'),
@@ -175,8 +166,7 @@ def _build_context(request, submitted=None, errors=None, draft_id=None,
         'color_choices': color_choices,
         'defect_choices': defect_choices,
         'euro_standard_choices': euro_standard_choices,
-        'country_choices': country_choices,
-        'us_states': us_states,
+        # Country/state lists come from contact_block_tags.
         'submitted': submitted or {},
         'errors': errors or [],
         'draft_id': draft_id,
@@ -750,6 +740,9 @@ def _handle_post(request):
         errors.append('Year is required.')
     if not price or price <= 0:
         errors.append('Valid price is required.')
+    # Terms are agreed to once, when the listing is first published.
+    if not is_edit_mode and not POST.get('agree_terms'):
+        errors.append('You must agree to the terms.')
 
     if errors:
         return _rerender(errors)

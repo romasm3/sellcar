@@ -374,8 +374,7 @@
             </div>
 
             {# ═══ SECTION 7 — CONTACT ═══ #}
-                {% trans 'Contact information' as contact_title %}
-            {% include 'listings/partials/contact_block.html' with title=contact_title val_phone=submitted.phone val_email=submitted.email val_country=submitted.country val_state=submitted.state val_city=submitted.city val_postal=submitted.postal_code val_address=submitted.address show_postal=True show_business=True checked_business=submitted.is_business_seller %}
+            {% include 'listings/partials/contact_block.html' with val_phone=submitted.phone val_email=submitted.email val_country=submitted.country val_state=submitted.state val_city=submitted.city val_postal=submitted.postal_code val_address=submitted.address show_postal=True show_business=True checked_business=submitted.is_business_seller %}
 
             <div id="missingFieldsBanner" class="hidden mb-4 p-3 bg-red-50 border border-red-300 rounded-lg text-red-800 text-sm">
                 <i class="fas fa-exclamation-circle mr-2"></i>

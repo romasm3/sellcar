@@ -588,7 +588,7 @@ def _save_form_to_listing(post, listing):
     return listing
 
 
-def _validate_required(post):
+def _validate_required(post, require_terms=False):
     """Returns dict of {field: error_msg} for any missing required fields."""
     errors = {}
     if not post.get('truck_type'):
@@ -613,6 +613,8 @@ def _validate_required(post):
         errors['state'] = 'State is required'
     if not (post.get('city') or '').strip():
         errors['city'] = 'City is required'
+    if require_terms and not post.get('agree_terms'):
+        errors['agree_terms'] = 'You must agree to the terms'
     return errors
 
 
@@ -628,7 +630,7 @@ def trucks_listing_create(request):
         return redirect('/')
 
     if request.method == 'POST':
-        errors = _validate_required(request.POST)
+        errors = _validate_required(request.POST, require_terms=True)
         if errors:
             data = dict(request.POST)
             data['equipment'] = request.POST.getlist('equipment')

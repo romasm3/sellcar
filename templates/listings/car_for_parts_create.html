@@ -299,9 +299,8 @@
             </div>
 
             {# ═══ CONTACTS ═══ #}
-{% trans 'Contacts & Location' as contact_title %}
             {% if draft.city != '—' %}{% firstof draft.city '' as contact_city %}{% else %}{% firstof '' as contact_city %}{% endif %}
-            {% include 'listings/partials/contact_block.html' with title=contact_title val_phone=user_phone val_email=request.user.email val_country=draft.country val_state=draft.state val_city=contact_city val_address=draft.address show_terms=False %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=request.user.email val_country=draft.country val_state=draft.state val_city=contact_city val_address=draft.address %}
 
             <div class="flex items-center justify-between">
                 {% if is_edit_mode %}

@@ -159,8 +159,7 @@ def _build_context(request, draft_or_listing, is_edit_mode=False):
         'fuel_types': FuelType.objects.all().order_by('name'),
         'condition_choices': Listing.CONDITION_CHOICES,
         'color_choices': Listing.COLOR_CHOICES,
-        'country_choices': [c for c in Listing.COUNTRY_CHOICES if c[0] == 'US'],
-        'us_states': Listing.US_STATE_CHOICES,
+        # Country/state lists come from contact_block_tags (was US-only here).
         'part_groups': part_groups,
         'sel_part_types': sel_ids,
         'user_phone': user_phone,
@@ -198,7 +197,7 @@ def truck_for_parts_create(request):
         common = parse_common_listing_fields(request)
         specific = _parse_specific(request)
 
-        errors = validate_common_fields(common)
+        errors = validate_common_fields(common, require_terms=True)
         if not specific['truck_brand_id']:
             errors.append('Brand is required')
         if not specific['truck_model_text']:

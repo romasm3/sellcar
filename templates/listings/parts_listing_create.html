@@ -878,9 +878,7 @@
 
 
             <!-- ═══ Contacts ═══ -->
-
-            {% trans 'Contacts' as contact_title %}
-            {% include 'listings/partials/contact_block.html' with title=contact_title css_style='custom' card_class='section-card' card_title_class='section-title' grid_class='form-row' cls_group='form-group' cls_label='form-label' cls_star='req' cls_input='form-input' cls_select='form-select' val_phone=form_data.phone|default:user_phone val_email=user_email val_country=form_data.country val_state=form_data.state val_city=form_data.city val_postal=form_data.postal_code val_address=form_data.address show_postal=True show_terms=False %}
+            {% include 'listings/partials/contact_block.html' with css_style='custom' card_class='section-card' card_title_class='section-title' grid_class='form-row' cls_group='form-group' cls_label='form-label' cls_star='req' cls_input='form-input' cls_select='form-select' val_phone=form_data.phone|default:user_phone val_email=user_email val_country=form_data.country val_state=form_data.state val_city=form_data.city val_postal=form_data.postal_code val_address=form_data.address show_postal=True %}
 
 
 
@@ -888,25 +886,9 @@
 
             <div class="section-card">
 
-                <label class="inline-flex items-start gap-2 text-sm mb-4">
+                {# The terms checkbox lives in the shared contact block above. #}
 
-                    <input type="checkbox" name="agree_terms" {% if not is_edit_mode %}required{% endif %} {% if is_edit_mode %}checked{% endif %} class="mt-0.5">
-
-                    <span>
-
-                        I agree to the
-
-                        <a href="/terms/" target="_blank" class="hover:underline" style="color: var(--teal);">terms and conditions</a>
-
-                        and confirm the information is accurate <span class="req">*</span>
-
-                    </span>
-
-                </label>
-
-
-
-                <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                <div class="flex justify-between items-center">
 
                     <a href="{% url 'parts_category_select' %}" class="btn-secondary">
 
