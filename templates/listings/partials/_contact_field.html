@@ -1,0 +1,53 @@
+{% comment %}
+Single text-ish contact field, rendered in the caller's skin.
+Not used directly — see contact_block.html.
+
+  type      input type (tel / email / text)
+  name      POST name
+  id        element id (optional)
+  label     already-translated label
+  value     current value
+  required  bool — renders the asterisk and the required attr
+  optional_hint  already-translated "(optional)" text, shown when not required
+  placeholder    already-translated placeholder
+  tooltip   already-translated help text; omit for no tooltip
+  wrap_attrs  extra attributes for the wrapper div (data-field-wrap etc.)
+  span      grid span class (tailwind skin)
+  autosave  bool — adds data-autosave="true" (trucks)
+  error     per-field error message (custom skins)
+
+  css_style 'custom' switches to class-name-driven markup; the cls_* vars
+            below let each custom skin (parts / trucks) keep its own look.
+{% endcomment %}
+{% if css_style == 'custom' %}
+<div {{ wrap_attrs }} class="{{ cls_group }} {{ span }}">
+    <label class="{{ cls_label|default:'field-label' }}">{{ label }}{% if required %}<span class="{{ cls_star|default:'required-star' }}">*</span>{% endif %}</label>
+    <input type="{{ type }}" name="{{ name }}"{% if id %} id="{{ id }}"{% endif %}
+           value="{{ value|default:'' }}"
+           {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+           {% if required %}required{% endif %}
+           {% if autosave %}data-autosave="true"{% endif %}
+           class="{{ cls_input|default:'form-input' }}{% if error %} has-error{% endif %}">
+    {% if error %}<span class="field-error-msg">{{ error }}</span>{% endif %}
+</div>
+{% else %}
+<div {{ wrap_attrs }} class="{{ span }}">
+    <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
+        <span>{{ label }}
+            {% if required %}<span class="text-red-500">*</span>
+            {% elif optional_hint %}<span class="text-xs text-gray-400 font-normal">{{ optional_hint }}</span>{% endif %}
+        </span>
+        {% if tooltip %}
+        <span class="relative inline-flex group cursor-help">
+            <i class="fas fa-info-circle text-gray-400 text-xs"></i>
+            <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">{{ tooltip }}</span>
+        </span>
+        {% endif %}
+    </label>
+    <input type="{{ type }}" name="{{ name }}"{% if id %} id="{{ id }}"{% endif %}
+           value="{{ value|default:'' }}"
+           {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+           {% if required %}required{% endif %}
+           class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+</div>
+{% endif %}

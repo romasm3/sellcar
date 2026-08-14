@@ -766,46 +766,9 @@
             {# ════════════════════════════════════════════════ #}
             {#  LOCATION                                        #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Location" %}</div>
-                <div class="field-grid">
-                    <div>
-                        <label class="field-label">{% trans "Country" %}<span class="required-star">*</span></label>
-                        <select name="country" id="id_country" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            {% for v, l in country_choices %}
-                            <option value="{{ v }}" {% if data.country == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div id="stateWrapper">
-                        <label class="field-label">{% trans "State" %}<span class="required-star">*</span></label>
-                        <select name="state" class="form-select {% if errors.state %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in us_states %}
-                            <option value="{{ v }}" {% if data.state == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
-                        </select>
-                        {% if errors.state %}<span class="field-error-msg">{{ errors.state }}</span>{% endif %}
-                    </div>
-
-                    <div>
-                        <label class="field-label">{% trans "City" %}<span class="required-star">*</span></label>
-                        <input type="text" name="city" value="{{ data.city }}" class="form-input {% if errors.city %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                        {% if errors.city %}<span class="field-error-msg">{{ errors.city }}</span>{% endif %}
-                    </div>
-
-                    <div>
-                        <label class="field-label">{% trans "Postal code" %}</label>
-                        <input type="text" name="postal_code" value="{{ data.postal_code }}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                    </div>
-
-                    <div class="col-4">
-                        <label class="field-label">{% trans "Address (optional)" %}</label>
-                        <input type="text" name="address" value="{{ data.address }}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                    </div>
-                </div>
-            </div>
+            {% if not is_edit %}{% firstof 1 as contact_autosave %}{% else %}{% firstof '' as contact_autosave %}{% endif %}
+            {% trans 'Location' as contact_title %}
+            {% include 'listings/partials/contact_block.html' with title=contact_title css_style='custom' card_class='create-card' card_title_class='create-card-title' grid_class='field-grid' cls_label='field-label' cls_star='required-star' cls_input='form-input' cls_select='form-select' autosave=contact_autosave errors=errors val_phone=user.profile.phone_number val_email=user.email val_country=data.country val_state=data.state val_city=data.city val_postal=data.postal_code val_address=data.address show_postal=True show_terms=False %}
 
             {# ─── Bottom action bar ─── #}
             <div class="action-bar-bottom">
@@ -1087,14 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.history.replaceState({}, '', url.toString());
     }
 
-    // Country/state visibility
-    const country = document.getElementById('id_country');
-    const stateW = document.getElementById('stateWrapper');
-    function toggleState() {
-        stateW.style.display = (country.value === 'US') ? '' : 'none';
-    }
-    country.addEventListener('change', toggleState);
-    toggleState();
+    // Country/state visibility: see static/js/contact_block.js (shared).
 
     // Autosave handlers (only create mode)
     if (!IS_EDIT_MODE) {

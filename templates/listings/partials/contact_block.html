@@ -1,0 +1,142 @@
+{% load i18n static %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+CONTACT & LOCATION BLOCK — single source of truth for every create/edit
+form. To add or remove a contact field, edit THIS file (and nothing else;
+callers only pass the value to prefill).
+
+Behaviour (matches the cars quick form, which is the reference):
+  • Country defaults to US.
+  • State shows only when country == US; City is always visible.
+  • The country cascade is handled by static/js/contact_block.js, which
+    self-initialises — callers must NOT define their own onCountryChange.
+
+── Which fields render ──────────────────────────────────────────────
+  show_phone / show_email        default on
+  show_postal                    default off  (motogear, motorcycle, trucks)
+  show_address                   default on
+  show_hide_address              default off  (motorcycle — privacy toggle)
+  show_business                  default off  (motogear)
+  show_terms                     default on; auto-hidden when is_edit_mode
+
+── POST names ───────────────────────────────────────────────────────
+  phone_name / email_name        default 'phone' / 'email'
+                                 (wheels/tyres/rims: contact_phone/contact_email
+                                  — real WheelListing columns)
+
+── Values to prefill ────────────────────────────────────────────────
+  val_phone val_email val_country val_state val_city val_postal val_address
+  checked_hide_address checked_business
+
+── Choices (from the view) ──────────────────────────────────────────
+  country_choices  us_states       read from the surrounding context
+
+── Presentation ─────────────────────────────────────────────────────
+  title            section heading; default "Contacts"
+  bare             skip the card wrapper (caller supplies its own)
+  css_style        'custom' → class-driven markup for the two non-Tailwind
+                   forms; pass cls_group/cls_label/cls_star/cls_input/
+                   cls_select to match that form's stylesheet
+  grid_class       wrapper class for the field grid
+  autosave         adds data-autosave="true" (trucks)
+  errors           dict of per-field errors (trucks)
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% trans "Phone" as lbl_phone %}
+{% trans "Email" as lbl_email %}
+{% trans "Country" as lbl_country %}
+{% trans "State" as lbl_state %}
+{% trans "City" as lbl_city %}
+{% trans "Postal code" as lbl_postal %}
+{% trans "Address" as lbl_address %}
+{% trans "(optional)" as hint_optional %}
+{% trans "Select state" as lbl_select_state %}
+{% trans "+1 555 123 4567" as ph_phone %}
+{% trans "your@email.com" as ph_email %}
+{% trans "e.g., Vilnius" as ph_city %}
+{% trans "Street, house number" as ph_address %}
+{% trans "Phone number is required so potential buyers can contact you by phone." as tip_phone %}
+{% trans "Email lets potential buyers reach you by email. Hidden from public listing visitors." as tip_email %}
+
+{% if not bare %}
+{% if css_style == 'custom' %}
+<div class="{{ card_class|default:'create-card' }}">
+    <div class="{{ card_title_class|default:'create-card-title' }}">{% if title %}{{ title }}{% else %}{% trans "Contacts" %}{% endif %}</div>
+{% else %}
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+    <div class="px-6 py-3 border-b border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% if title %}{{ title }}{% else %}{% trans "Contacts" %}{% endif %}</h3>
+    </div>
+    <div class="p-6">
+{% endif %}
+{% endif %}
+
+    <div class="{{ grid_class|default:'grid grid-cols-1 md:grid-cols-3 gap-4' }}">
+
+        {% if show_phone|default_if_none:True %}
+            {% include 'listings/partials/_contact_field.html' with type='tel' name=phone_name|default:'phone' id='id_phone' label=lbl_phone value=val_phone required=True placeholder=ph_phone tooltip=tip_phone wrap_attrs='data-field-wrap="phone" data-required="true"' span='' error=errors.phone %}
+        {% endif %}
+
+        {% if show_email|default_if_none:True %}
+            {% include 'listings/partials/_contact_field.html' with type='email' name=email_name|default:'email' id='id_email' label=lbl_email value=val_email required=False optional_hint=hint_optional placeholder=ph_email tooltip=tip_email wrap_attrs='' span='' error=errors.email %}
+        {% endif %}
+
+        {% include 'listings/partials/_contact_select.html' with name='country' id='id_country' label=lbl_country value=val_country|default:'US' choices=country_choices required=True onchange='onCountryChange()' wrap_attrs='data-field-wrap="country" data-required="true"' span='' error=errors.country %}
+
+        {% include 'listings/partials/_contact_select.html' with name='state' id='id_state' label=lbl_state value=val_state choices=us_states required=True empty_label=lbl_select_state star_id='state-required' wrap_attrs='id="stateFieldWrapper" data-field-wrap="state" data-required="true"' span='' error=errors.state %}
+
+        {% include 'listings/partials/_contact_field.html' with type='text' name='city' id='id_city' label=lbl_city value=val_city required=True placeholder=ph_city wrap_attrs='id="cityFieldWrapper" data-field-wrap="city" data-required="true"' span=city_span|default:'md:col-span-2' error=errors.city %}
+
+        {% if show_postal %}
+            {% include 'listings/partials/_contact_field.html' with type='text' name='postal_code' id='id_postal_code' label=lbl_postal value=val_postal required=False wrap_attrs='' span='' error=errors.postal_code %}
+        {% endif %}
+
+        {% if show_address|default_if_none:True %}
+            {% include 'listings/partials/_contact_field.html' with type='text' name='address' id='id_address' label=lbl_address value=val_address required=False optional_hint=hint_optional placeholder=ph_address wrap_attrs='' span='md:col-span-3' error=errors.address %}
+        {% endif %}
+    </div>
+
+    {% if show_hide_address %}
+    <label class="flex items-center gap-2 mt-4 cursor-pointer">
+        <input type="checkbox" name="hide_exact_address" id="id_hide_exact_address"
+               {% if checked_hide_address %}checked{% endif %} class="w-4 h-4 rounded">
+        <span class="text-sm text-gray-700">{% trans "Hide exact address from the public listing" %}</span>
+    </label>
+    {% endif %}
+
+    {% if show_business %}
+    <label class="flex items-center gap-2 mt-3 cursor-pointer">
+        <input type="checkbox" name="is_business_seller" id="id_is_business_seller"
+               {% if checked_business %}checked{% endif %} class="w-4 h-4 rounded">
+        <span class="text-sm text-gray-700">{% trans "I am a business seller" %}</span>
+    </label>
+    {% endif %}
+
+    {% if show_newsletter and not is_edit_mode %}
+    <label class="flex items-center gap-2 mt-3 cursor-pointer">
+        <input type="checkbox" name="agree_newsletter" id="id_agree_newsletter"
+               {% if checked_newsletter %}checked{% endif %} class="w-4 h-4 rounded">
+        <span class="text-sm text-gray-700">{% trans "Send me newsletters and offers" %}</span>
+    </label>
+    {% endif %}
+
+    {% if show_terms|default_if_none:True and not is_edit_mode %}
+    <div class="mt-5 border-t border-gray-100 pt-4">
+        <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" name="agree_terms" id="id_agree_terms" class="w-4 h-4 rounded mt-0.5">
+            <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
+        </label>
+    </div>
+    {% endif %}
+
+{% if not bare %}
+{% if css_style == 'custom' %}
+</div>
+{% else %}
+    </div>
+</div>
+{% endif %}
+{% endif %}
+
+{# Country → state cascade + contact validation, shared by every form. #}
+<script src="{% static 'js/contact_block.js' %}"></script>

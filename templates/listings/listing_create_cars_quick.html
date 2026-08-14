@@ -572,92 +572,14 @@
             {# ═══════════════════════════════════════════════════════════ #}
             {# SECTION: CONTACTS                                           #}
             {# ═══════════════════════════════════════════════════════════ #}
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
-                <div class="px-6 py-3 border-b border-gray-100">
-                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Contacts" %}</h3>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        {# ═══ PHONE — su info tooltipu ═══ #}
-                        <div data-field-wrap="phone" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
-                                <span>{% trans "Phone" %} <span class="text-red-500">*</span></span>
-                                <span class="relative inline-flex group cursor-help">
-                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
-                                        {% trans "Phone number is required so potential buyers can contact you by phone." %}
-                                    </span>
-                                </span>
-                            </label>
-                            <input type="tel" name="phone" id="id_phone" required
-                                   value="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% endif %}"
-                                   placeholder="{% trans '+1 555 123 4567' %}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-                        {# ═══ EMAIL — su info tooltipu ═══ #}
-                        <div>
-                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
-                                <span>{% trans "Email" %} <span class="text-xs text-gray-400 font-normal">{% trans "(optional)" %}</span></span>
-                                <span class="relative inline-flex group cursor-help">
-                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
-                                        {% trans "Email lets potential buyers reach you by email. Hidden from public listing visitors." %}
-                                    </span>
-                                </span>
-                            </label>
-                            <input type="email" name="email" id="id_email"
-                                   value="{{ user.email|default:'' }}"
-                                   placeholder="{% trans 'your@email.com' %}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-                        <div data-field-wrap="country" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
-                            <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                                {% for code, name in country_choices %}
-                                <option value="{{ code }}" {% if listing_data.step7.country == code %}selected{% elif not listing_data.step7.country and code == 'US' %}selected{% endif %}>{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        {# State + City always visible (USA = State+City; Other = City) #}
-                        <div id="stateFieldWrapper" data-field-wrap="state" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500" id="state-required">*</span></label>
-                            <select name="state" id="id_state" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                                <option value="">{% trans "Select state" %}</option>
-                                {% for code, name in us_states %}
-                                <option value="{{ code }}" {% if listing_data.step7.state == code %}selected{% endif %}>{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div id="cityFieldWrapper" data-field-wrap="city" data-required="true" class="md:col-span-2">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
-                            <input type="text" name="city" id="id_city" placeholder="{% trans 'e.g., Vilnius' %}"
-                                   value="{% if is_edit_mode and listing %}{% if listing.city != '—' %}{{ listing.city|default:'' }}{% endif %}{% else %}{{ listing_data.step7.city|default:'' }}{% endif %}"
-                                   oninput="if(this.value) markFieldError('city', false)"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-
-                        <div class="md:col-span-3">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Address" %}
-                                <span class="text-xs text-gray-400">{% trans "(optional)" %}</span>
-                            </label>
-                            <input type="text" name="address" placeholder="{% trans 'Street, house number' %}"
-                                   value="{% if is_edit_mode and listing %}{{ listing.address|default:'' }}{% else %}{{ listing_data.step7.address|default:'' }}{% endif %}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-                    </div>
-
-                    {% if not is_edit_mode %}
-                    <div class="mt-5 border-t border-gray-100 pt-4">
-                        <label class="flex items-start gap-2 cursor-pointer">
-                            {{ form.agree_terms }}
-                            <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
-                        </label>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+            {% if is_edit_mode and listing %}
+                {% if listing.city != '—' %}{% firstof listing.city '' as contact_city %}{% else %}{% firstof '' as contact_city %}{% endif %}
+                {% firstof listing.address '' as contact_address %}
+            {% else %}
+                {% firstof listing_data.step7.city '' as contact_city %}
+                {% firstof listing_data.step7.address '' as contact_address %}
+            {% endif %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user.profile.phone_number val_email=user.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=contact_city val_address=contact_address %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ERRORS                                                     #}
@@ -882,20 +804,8 @@ function closePreviewLightbox(e) {
 // ═══════════════════════════════════════════════════════════
 // COUNTRY CHANGE — show/hide State (only for USA)
 // ═══════════════════════════════════════════════════════════
-function onCountryChange() {
-    var country = document.getElementById('id_country'); if (!country) return;
-    var val = country.value;
-    var stateWrap = document.getElementById('stateFieldWrapper');
-    var stateRequired = document.getElementById('state-required');
-    if (!stateWrap) return;
-    if (val === 'US') {
-        stateWrap.classList.remove('hidden');
-        if (stateRequired) stateRequired.style.display = '';
-    } else {
-        stateWrap.classList.add('hidden');
-        if (stateRequired) stateRequired.style.display = 'none';
-    }
-}
+// onCountryChange lives in static/js/contact_block.js (loaded by the
+// contact block partial) — shared by every create/edit form.
 
 function markFieldError(fieldName, hasError) {
     var wrap = document.querySelector('[data-field-wrap="' + fieldName + '"]');

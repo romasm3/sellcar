@@ -1,0 +1,38 @@
+{% comment %}
+Country / state select, rendered in the caller's skin.
+Not used directly — see contact_block.html.
+
+  name / id / label / required / span / autosave / error / cls_* — as _contact_field.html
+  choices     iterable of (value, label)
+  value       currently selected value
+  empty_label already-translated placeholder option; omit to render no empty option
+  onchange    inline handler (country only)
+  star_id     id for the asterisk, so JS can hide it when it stops being required
+{% endcomment %}
+{% if css_style == 'custom' %}
+<div {{ wrap_attrs }} class="{{ cls_group }} {{ span }}">
+    <label class="{{ cls_label|default:'field-label' }}">{{ label }}{% if required %}<span class="{{ cls_star|default:'required-star' }}"{% if star_id %} id="{{ star_id }}"{% endif %}>*</span>{% endif %}</label>
+    <select name="{{ name }}"{% if id %} id="{{ id }}"{% endif %}
+            {% if onchange %}onchange="{{ onchange }}"{% endif %}
+            {% if autosave %}data-autosave="true"{% endif %}
+            class="{{ cls_select|default:'form-select' }}{% if error %} has-error{% endif %}">
+        {% if empty_label %}<option value="">{{ empty_label }}</option>{% endif %}
+        {% for code, choice_label in choices %}
+        <option value="{{ code }}" {% if value == code %}selected{% endif %}>{{ choice_label }}</option>
+        {% endfor %}
+    </select>
+    {% if error %}<span class="field-error-msg">{{ error }}</span>{% endif %}
+</div>
+{% else %}
+<div {{ wrap_attrs }} class="{{ span }}">
+    <label class="block text-xs font-medium text-gray-600 mb-1">{{ label }}{% if required %} <span class="text-red-500"{% if star_id %} id="{{ star_id }}"{% endif %}>*</span>{% endif %}</label>
+    <select name="{{ name }}"{% if id %} id="{{ id }}"{% endif %}
+            {% if onchange %}onchange="{{ onchange }}"{% endif %}
+            class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+        {% if empty_label %}<option value="">{{ empty_label }}</option>{% endif %}
+        {% for code, choice_label in choices %}
+        <option value="{{ code }}" {% if value == code %}selected{% endif %}>{{ choice_label }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% endif %}

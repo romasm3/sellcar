@@ -352,81 +352,7 @@
             {# ═══════════════════════════════════════════════════════════ #}
             {# SECTION: CONTACTS                                           #}
             {# ═══════════════════════════════════════════════════════════ #}
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
-                <div class="px-6 py-3 border-b border-gray-100">
-                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Contacts" %}</h3>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                        <div data-field-wrap="contact_phone" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
-                                <span>{% trans "Phone" %} <span class="text-red-500">*</span></span>
-                                <span class="relative inline-flex group cursor-help">
-                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
-                                        {% trans "Phone number is required so potential buyers can contact you by phone." %}
-                                    </span>
-                                </span>
-                            </label>
-                            <input type="tel" name="contact_phone" id="id_contact_phone"
-                                   value="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% endif %}"
-                                   placeholder="{% trans '+1 555 123 4567' %}"
-                                   oninput="if(this.value) markFieldError('contact_phone', false)"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-medium text-gray-600 mb-1 flex items-center gap-1">
-                                <span>{% trans "Email" %} <span class="text-xs text-gray-400 font-normal">{% trans "(optional)" %}</span></span>
-                                <span class="relative inline-flex group cursor-help">
-                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
-                                        {% trans "Email lets potential buyers reach you by email. Hidden from public listing visitors." %}
-                                    </span>
-                                </span>
-                            </label>
-                            <input type="email" name="contact_email" id="id_contact_email"
-                                   value="{{ user.email|default:'' }}"
-                                   placeholder="{% trans 'your@email.com' %}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-
-                        <div data-field-wrap="country" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Country" %} <span class="text-red-500">*</span></label>
-                            <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                                {% for code, name in country_choices %}
-                                <option value="{{ code }}" {% if code == 'LT' %}selected{% endif %}>{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div id="stateFieldWrapper" data-field-wrap="state" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "State" %} <span class="text-red-500" id="state-required">*</span></label>
-                            <select name="state" id="id_state" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                                <option value="">{% trans "Select state" %}</option>
-                                {% for code, name in us_states %}
-                                <option value="{{ code }}">{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div data-field-wrap="city" data-required="true" class="md:col-span-2">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "City" %} <span class="text-red-500">*</span></label>
-                            <input type="text" name="city" id="id_city" placeholder="{% trans 'e.g., Vilnius' %}"
-                                   oninput="if(this.value) markFieldError('city', false)"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
-                        </div>
-                    </div>
-
-                    <div class="mt-5 border-t border-gray-100 pt-4">
-                        <label class="flex items-start gap-2 cursor-pointer">
-                            <input type="checkbox" id="id_agree_terms" class="w-4 h-4 rounded mt-0.5">
-                            <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+            {% include 'listings/partials/contact_block.html' with phone_name='contact_phone' email_name='contact_email' val_phone=user.profile.phone_number val_email=user.email show_address=False %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ERRORS                                                      #}
@@ -635,19 +561,7 @@ function showFormErrors(errors) {
 // ═══════════════════════════════════════════════════════════
 // COUNTRY CHANGE — State tik USA
 // ═══════════════════════════════════════════════════════════
-function onCountryChange() {
-    var country = document.getElementById('id_country'); if (!country) return;
-    var stateWrap = document.getElementById('stateFieldWrapper');
-    var stateRequired = document.getElementById('state-required');
-    if (!stateWrap) return;
-    if (country.value === 'US') {
-        stateWrap.classList.remove('hidden');
-        if (stateRequired) stateRequired.style.display = '';
-    } else {
-        stateWrap.classList.add('hidden');
-        if (stateRequired) stateRequired.style.display = 'none';
-    }
-}
+// onCountryChange: see static/js/contact_block.js (shared).
 
 // ═══════════════════════════════════════════════════════════
 // LIGHTBOX

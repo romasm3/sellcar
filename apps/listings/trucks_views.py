@@ -549,6 +549,12 @@ def _save_form_to_listing(post, listing):
     listing.postal_code = post.get('postal_code', '').strip()
     listing.address = post.get('address', '').strip()
 
+    # Phone lives on the profile, not the listing — same as every other form.
+    phone_val = (post.get('phone', '') or '').strip()
+    if phone_val and hasattr(listing.seller, 'profile'):
+        listing.seller.profile.phone_number = phone_val
+        listing.seller.profile.save(update_fields=['phone_number'])
+
     # Coords
     lat, lng = _get_coordinates(listing.city, listing.country)
     listing.latitude = Decimal(str(lat))

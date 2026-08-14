@@ -649,59 +649,8 @@
 
                 <div class="space-y-6">
                     {% if not is_edit_mode %}<div><h3 class="text-2xl font-bold text-gray-900 mb-2">{% trans "Contact & Location" %}</h3><p class="text-gray-600">{% trans "Where is the vehicle and how can buyers reach you?" %}</p></div>{% endif %}
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h4 class="font-semibold text-gray-900 mb-4"><i class="fas fa-map-marker-alt text-primary mr-2"></i>{% trans "Vehicle Location" %}</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div data-field-wrap="country">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Country" %} <span class="text-red-500">*</span></label>
-                                <select name="country" id="id_country" onchange="onCountryChange()" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
-                                    {% for code, name in country_choices %}
-                                    <option value="{{ code }}" {% if listing_data.step7.country == code %}selected{% elif not listing_data.step7.country and code == 'US' %}selected{% endif %}>{{ name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div id="cityFieldWrapper" data-field-wrap="city">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "City" %} <span class="text-red-500">*</span></label>
-                                {{ form.city }}
-                                <p class="field-error-msg hidden mt-1 text-xs text-red-600">{% trans "This field is required" %}</p>
-                            </div>
-                            <div id="stateFieldWrapper" class="hidden" data-field-wrap="state">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "State" %} <span class="text-red-500">*</span></label>
-                                <select name="state" id="id_state" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
-                                    <option value="">{% trans "Select state" %}</option>
-                                    {% for code, name in us_states %}
-                                    <option value="{{ code }}" {% if listing_data.step7.state == code %}selected{% endif %}>{{ name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <p class="field-error-msg hidden mt-1 text-xs text-red-600">{% trans "This field is required" %}</p>
-                            </div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Postal Code" %}</label>{{ form.postal_code }}</div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Street Address" %}</label>{{ form.address }}</div>
-                        </div>
-                        <div class="mt-4">
-                            <label class="flex items-center gap-3 cursor-pointer">{{ form.hide_exact_address }}<span class="text-gray-700"><i class="fas fa-eye-slash text-gray-400 mr-1"></i>{% trans "Hide exact address" %}</span></label>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h4 class="font-semibold text-gray-900 mb-4"><i class="fas fa-phone text-primary mr-2"></i>{% trans "Contact Information" %}</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div data-field-wrap="phone"><label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Phone" %} <span class="text-red-500">*</span></label>{{ form.phone }}<p class="field-error-msg hidden mt-1 text-xs text-red-600">{% trans "This field is required" %}</p></div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Email (optional)" %}</label>{{ form.email }}</div>
-                        </div>
-                    </div>
-                    {% if not is_edit_mode %}
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h4 class="font-semibold text-gray-900 mb-4"><i class="fas fa-file-contract text-primary mr-2"></i>{% trans "Terms & Conditions" %}</h4>
-                        <div class="space-y-3">
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                {{ form.agree_terms }}
-                                <span class="text-gray-700">{% blocktrans %}I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
-                            </label>
-                            <label class="flex items-center gap-3 cursor-pointer">{{ form.agree_newsletter }}<span class="text-gray-700">{% trans "Send me newsletters and offers" %}</span></label>
-                        </div>
-                    </div>
-                    {% endif %}
+                    {% trans 'Contact & Location' as contact_title %}
+                    {% include 'listings/partials/contact_block.html' with title=contact_title val_phone=listing_data.step7.phone val_email=listing_data.step7.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=listing_data.step7.city val_postal=listing_data.step7.postal_code val_address=listing_data.step7.address show_postal=True show_hide_address=True checked_hide_address=listing_data.step7.hide_exact_address show_newsletter=True %}
                 </div>
                 {% endif %}
 
@@ -989,14 +938,7 @@ function closePreviewLightbox(e) {
     document.body.style.overflow = '';
 }
 
-function onCountryChange() {
-    var country = document.getElementById('id_country'); if (!country) return;
-    var val = country.value;
-    var cityWrap = document.getElementById('cityFieldWrapper'); var stateWrap = document.getElementById('stateFieldWrapper');
-    if (!cityWrap || !stateWrap) return;
-    if (val === 'US') { cityWrap.classList.add('hidden'); stateWrap.classList.remove('hidden'); }
-    else { cityWrap.classList.remove('hidden'); stateWrap.classList.add('hidden'); }
-}
+// onCountryChange: see static/js/contact_block.js (shared).
 
 function markFieldError(fieldName, hasError) {
     var wrap = document.querySelector('[data-field-wrap="' + fieldName + '"]');

@@ -508,13 +508,9 @@ def _build_fields_from_post(request, POST):
     city = POST.get('city', '')
 
     from .views import get_coordinates_for_location
-    if country == 'US' and state:
-        state_label = dict(getattr(Listing, 'US_STATE_CHOICES', [])).get(state, state)
-        city_for_display = city if city else state_label
-    else:
-        city_for_display = city
-    if not city_for_display:
-        city_for_display = '—'
+    # City is always asked for now (shared contact block), so there is no
+    # need to fall back to the state label for US listings.
+    city_for_display = city or '—'
 
     lat, lng = get_coordinates_for_location(city_for_display, country)
 
