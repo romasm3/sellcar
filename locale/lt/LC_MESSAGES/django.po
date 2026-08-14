@@ -11908,3 +11908,23 @@ msgstr "Detali paieška"
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Rasta %(count)s motociklų skelbimų"
+
+#: apps/listings/translatable_db.py
+msgid "Helmets"
+msgstr "Šalmai"
+
+#: apps/listings/translatable_db.py
+msgid "Jackets"
+msgstr "Striukės"
+
+#: apps/listings/translatable_db.py
+msgid "Suits / Combinations"
+msgstr "Kombinezonai"
+
+#: apps/listings/translatable_db.py
+msgid "Travel bags"
+msgstr "Kelioniniai krepšiai"
+
+#: apps/listings/translatable_db.py
+msgid "Goggles & other gear"
+msgstr "Akiniai ir kita"

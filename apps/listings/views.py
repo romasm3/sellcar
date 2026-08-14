@@ -147,6 +147,9 @@ MOTO_GEAR_SLUGS = {
     'suits', 'bags', 'gloves', 'jackets', 'other-gear',
 }
 
+# Parent ("Apranga, šalmai, aksesuarai") — no gear type preselected.
+MOTO_GEAR_PARENT_SLUG = 'moto-gear'
+
 
 def get_coordinates_for_location(city, country_code):
     if city:
@@ -1948,6 +1951,11 @@ def listing_create(request):
                     return redirect(
                         f'/create/motogear/?subcategory={subcategory_slug}&new=1'
                     )
+
+                # Parent picked directly (no 3rd level chosen) — open the gear
+                # form anyway, with the type select left empty.
+                if subcategory_slug == MOTO_GEAR_PARENT_SLUG:
+                    return redirect('/create/motogear/?new=1')
 
                 # ═══ TYRES / RIMS → atskiri wheels create puslapiai ═══
                 if subcategory_slug == 'rims':

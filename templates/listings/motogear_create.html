@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n i18n_db %}
 
 {% block title %}{% trans "Sell Moto Gear" %} - SellCar{% endblock %}
 
@@ -53,7 +53,7 @@
                             {% for sub in gear_subcategories %}
                             <option value="{{ sub.id }}" data-slug="{{ sub.slug }}"
                                     {% if submitted.subcategory == sub.id|stringformat:"s" or selected_subcategory_slug == sub.slug %}selected{% endif %}>
-                                {{ sub.name }}
+                                {{ sub.name|tdb }}
                             </option>
                             {% endfor %}
                         </select>

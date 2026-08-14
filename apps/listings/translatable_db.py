@@ -35,6 +35,9 @@ SUBCATEGORY_NAMES = [
     _('Helicopters'), _('Inflatable Boats'), _('Jet Skis'),
     _('Limuzinų, vestuvių transporto nuoma'), _('Loaders'), _('Moto Gear, accessories'),
     _('Moto Parts'), _('Motociklų nuoma'), _('Motorboats'), _('Motorcycles'),
+    # Moto gear 3rd level
+    _('Helmets'), _('Jackets'), _('Pants'), _('Suits / Combinations'), _('Gloves'),
+    _('Boots'), _('Protective gear'), _('Travel bags'), _('Goggles & other gear'),
     _('Other Agricultural'), _('Other Construction'), _('Other Trailers'),
     _('Other Watercraft'), _('Painting'), _('Passenger Minibuses'), _('Ploughs'),
     _('Refrigerator Trailers'), _('Rims'), _('Sailboats'), _('Semi-Trucks / Tractors'),
