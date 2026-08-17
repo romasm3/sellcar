@@ -160,6 +160,10 @@
 <script>
 
 const FORM_URL = "{% url 'parts_listing_create' %}";
+// ?for= — kuri „Dalys“ subkategorija pasirinkta pikeryje; keliauja
+// iki pat formos, kad skelbimas patektų į teisingą šaką.
+const FOR_SUB = "{{ for_sub|escapejs }}";
+const FOR_Q = FOR_SUB ? ("&for=" + encodeURIComponent(FOR_SUB)) : "";
 
 const panel = document.getElementById('expanded-panel');
 
@@ -329,7 +333,7 @@ function renderPanel(data) {
 
         group.children.forEach(sub => {
 
-            html += '<li><a href="' + FORM_URL + '?sub=' + encodeURIComponent(sub.slug) + '" class="block text-sm text-gray-700 hover:text-orange-600 hover:underline transition-colors">' + escapeHtml(sub.name) + '</a></li>';
+            html += '<li><a href="' + FORM_URL + '?sub=' + encodeURIComponent(sub.slug) + FOR_Q + '" class="block text-sm text-gray-700 hover:text-orange-600 hover:underline transition-colors">' + escapeHtml(sub.name) + '</a></li>';
 
         });
 
@@ -417,7 +421,7 @@ function doSearch(q) {
 
             data.results.forEach(item => {
 
-                html += '<a href="' + FORM_URL + '?sub=' + encodeURIComponent(item.slug) + '" class="block px-4 py-2.5 hover:bg-orange-50 border-b border-gray-100 last:border-b-0 transition-colors">' +
+                html += '<a href="' + FORM_URL + '?sub=' + encodeURIComponent(item.slug) + FOR_Q + '" class="block px-4 py-2.5 hover:bg-orange-50 border-b border-gray-100 last:border-b-0 transition-colors">' +
 
                     '<div class="text-sm font-medium text-gray-900">' + escapeHtml(item.name) + '</div>' +
 

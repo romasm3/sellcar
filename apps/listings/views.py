@@ -172,8 +172,32 @@ IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
 UNIMPLEMENTED_SUBCATEGORY_SLUGS = {
     'whole-car-for-parts',    # staff_only → ne-staff gauna 404
     'whole-moto-for-parts',   # formos nėra
-    'agri-special-parts',     # nauja, formos dar nėra
-    'accessories-tuning',     # nauja, formos dar nėra
+}
+
+# Subkategorijos, kurias aptarnauja bendra „atskiros dalies“ forma
+# (parts_listing_create). Ji sukasi apie PartCategory medį, ne apie
+# SubCategory, todėl viena forma tinka visoms trims.
+PARTS_GENERIC_FORM_SLUGS = {
+    'single-part-or-kit',
+    'agri-special-parts',
+    'accessories-tuning',
+}
+
+# ═══════════════════════════════════════════════════════════
+# PIKERYJE NERODOMOS KATEGORIJOS (net staff'ui)
+# Nei publikavimo, nei įgyvendinimo klausimas — šitos tiesiog nėra
+# viršutinio lygio įrašai etaloniniame medyje:
+#   • tractor-units / car-carriers / municipal — sugerti į „Sunkusis
+#     transportas“ subkategorijomis (0058), bet patys VT palikti DB
+#   • planes / planes-parts — etalone jų nėra
+# DB eilutės NETRINAMOS: skelbimai, naršymas ir admin toliau veikia.
+# ═══════════════════════════════════════════════════════════
+PICKER_HIDDEN_VEHICLE_TYPE_SLUGS = {
+    'tractor-units',
+    'car-carriers',
+    'municipal',
+    'planes',
+    'planes-parts',
 }
 
 # Kategorijos BE subkategorijų — pikeris veda tiesiai į šią formą.
@@ -291,6 +315,7 @@ def _get_picker_vehicle_types(user):
         .annotate(n=Count('id'))
         .values_list('vehicle_type_id', 'n')
     )
+    vts = [v for v in vts if v.slug not in PICKER_HIDDEN_VEHICLE_TYPE_SLUGS]
     for vt in vts:
         vt.is_implemented = vt.slug in IMPLEMENTED_VEHICLE_TYPE_SLUGS
         picker_subs = _picker_subcategory_slugs(vt.slug)
@@ -300,6 +325,137 @@ def _get_picker_vehicle_types(user):
             vt.has_subs = bool(sub_counts.get(vt.pk))
         vt.create_url = CREATE_URL_BY_VEHICLE_TYPE.get(vt.slug, '')
     return vts
+
+
+def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_slug):
+    """Kategorijos pasirinkimas → redirect į tinkamą create formą.
+
+    Vienas maršrutizavimo šaltinis: naudoja ir listing_create POST šaka,
+    ir be-JS GET dispatcheris (?pick_vt= / ?pick_sub=). Grąžina redirect
+    arba None, jei nieko tinkamo nerasta.
+    """
+    vt_slug = (
+        VehicleType.objects.filter(pk=vehicle_type_id)
+        .values_list('slug', flat=True).first()
+    )
+
+    # ═══ „NETRUKUS“ GUARD ═══
+    # Pikeris tokių nebeleidžia paspausti, bet užklausa gali ateiti ir
+    # tiesiogiai. Be šito guard'o būtų sukuriamas tuščias draft'as ir
+    # vartotojas grąžinamas į pikerį — taip DB atsirado „Untitled draft“.
+    if vt_slug not in IMPLEMENTED_VEHICLE_TYPE_SLUGS:
+        messages.info(request, _('Ši kategorija dar ruošiama.'))
+        return redirect('/create/?step=1')
+    if subcategory_slug in UNIMPLEMENTED_SUBCATEGORY_SLUGS:
+        messages.info(request, _('Ši kategorija dar ruošiama.'))
+        return redirect('/create/?step=1')
+
+    # ═══ LISTING LIMIT GUARD ═══
+    can_create, active_count, limit = can_create_listing(request.user)
+    if not can_create:
+        messages.error(
+            request,
+            f'You have reached your active listings limit ({active_count}/{limit}). '
+            f'Upgrade your account to create more listings.',
+        )
+        return redirect('listing_upgrade')
+
+    # ═══ Kategorija BE subkategorijų → tiesiai į savo formą ═══
+    # cars / boats / trailers. Be šito jos nukristų į išjungtą 7 žingsnių
+    # srautą (/create/?step=2), t. y. atgal į pikerį.
+    if not subcategory_slug and vt_slug in CREATE_URL_BY_VEHICLE_TYPE:
+        return redirect(CREATE_URL_BY_VEHICLE_TYPE[vt_slug])
+
+    if subcategory_slug == 'motorcycles':
+        return redirect('/create/motorcycle/?new=1')
+
+    if subcategory_slug in MOTO_GEAR_SLUGS:
+        return redirect(f'/create/motogear/?subcategory={subcategory_slug}&new=1')
+
+    # Parent picked directly (no 3rd level chosen) — open the gear
+    # form anyway, with the type select left empty.
+    if subcategory_slug == MOTO_GEAR_PARENT_SLUG:
+        return redirect('/create/motogear/?new=1')
+
+    # ═══ TYRES / RIMS → atskiri wheels create puslapiai ═══
+    if subcategory_slug == 'rims':
+        return redirect('/create/rims/')
+    if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
+        return redirect('/create/tyres/')
+
+    # ═══ SUNKUSIS TRANSPORTAS → trucks forma ═══
+    # Subkategorija perduodama toliau (Vilkikai / Autotraukiniai / Autobusai /
+    # Komunalinis) — trucks_views ją įrašo, o ne hardcodina į 'trucks'.
+    if vt_slug == 'trucks' and subcategory_slug:
+        return redirect(f'/create/trucks/?new=1&subcategory={subcategory_slug}')
+
+    # ═══ DALYS → viena bendra „atskiros dalies“ forma ═══
+    # parts_listing_create sukasi apie PartCategory medį, todėl ta pati forma
+    # tinka ir „Žemės ūkio, spec. dalims“, ir „Aksesuarams, Tuning“ — trūko
+    # tik nukreipimo. ?for= išsaugo, KURI subkategorija buvo pasirinkta.
+    if subcategory_slug in PARTS_GENERIC_FORM_SLUGS:
+        return redirect(f"{reverse('parts_category_select')}?for={subcategory_slug}")
+    if subcategory_slug == 'single-moto-part':
+        return redirect('moto_part_create')
+    if subcategory_slug == 'whole-truck-for-parts':
+        return redirect('/create/truck-for-parts/?new=1')
+
+    # ═══ TRAILERS → atskira priekabų forma ═══
+    # Subkategorija perduodama toliau — forma ją naudoja Paskirties
+    # preselekcijai ir persiskaičiuoja išsaugant.
+    if subcategory_slug in TRAILERS_SUBCATEGORY_SLUGS:
+        return redirect(f'/create/trailers/?new=1&subcategory={subcategory_slug}')
+
+    draft = _get_or_create_cars_draft(
+        request,
+        vehicle_type_id=int(vehicle_type_id),
+        subcategory_id=subcategory_id,
+    )
+    if draft:
+        return redirect('/create/?step=2')
+    return None
+
+
+def _build_picker_tree(user):
+    """Visas pikerio medis vienu kartu — root + 2 ir 3 lygio panelės.
+
+    Anksčiau subkategorijos buvo traukiamos dviem AJAX užklausomis, todėl
+    pikeris be JS neveikė. Dabar viskas atiduodama iš karto: JS tik
+    perjungia paneles, o be JS naršoma ?vt= / ?sub= nuorodomis.
+    """
+    vts = _get_picker_vehicle_types(user)
+
+    subs_by_vt = {}
+    for s in (SubCategory.objects
+              .filter(parent__isnull=True, vehicle_type__in=vts)
+              .order_by('order', 'name')):
+        subs_by_vt.setdefault(s.vehicle_type_id, []).append(s)
+
+    children_by_parent = {}
+    for c in (SubCategory.objects
+              .filter(parent__isnull=False, vehicle_type__in=vts)
+              .order_by('order', 'name')):
+        children_by_parent.setdefault(c.parent_id, []).append(c)
+
+    def decorate(sub):
+        sub.is_implemented = sub.slug not in UNIMPLEMENTED_SUBCATEGORY_SLUGS
+        sub.kids = children_by_parent.get(sub.pk, [])
+        for k in sub.kids:
+            k.is_implemented = k.slug not in UNIMPLEMENTED_SUBCATEGORY_SLUGS
+            k.kids = []
+        return sub
+
+    tree = []
+    for vt in vts:
+        allowed = _picker_subcategory_slugs(vt.slug)
+        rows = subs_by_vt.get(vt.pk, [])
+        if allowed is not None:
+            by_slug = {s.slug: s for s in rows}
+            rows = [by_slug[sl] for sl in allowed if sl in by_slug]
+        vt.subs = [decorate(s) for s in rows]
+        vt.has_subs = bool(vt.subs)
+        tree.append(vt)
+    return tree
 
 
     # ⋯ DAUGIAU flyout — pilnas kategorijų sąrašas.
@@ -1984,6 +2140,25 @@ def listing_create(request):
     if step != 1 and not resume_draft_id:
         return redirect('/create/?step=1')
 
+    # ─── BE-JS pasirinkimas ───
+    # Pikerio nuorodos yra tikri <a href>, todėl išjungus JS galutinis
+    # pasirinkimas ateina GET'u. Maršrutizavimas tas pats kaip POST šakoje.
+    if request.method == 'GET' and request.user.is_authenticated:
+        pick_sub_id = _int_or_none(request.GET.get('pick_sub'))
+        pick_vt_id = _int_or_none(request.GET.get('pick_vt'))
+        if pick_sub_id:
+            sub = SubCategory.objects.filter(pk=pick_sub_id).first()
+            if sub:
+                routed = _route_category_pick(
+                    request, sub.vehicle_type_id, str(sub.pk), sub.slug
+                )
+                if routed:
+                    return routed
+        elif pick_vt_id:
+            routed = _route_category_pick(request, pick_vt_id, '', '')
+            if routed:
+                return routed
+
     if step == 1 and request.method == 'GET' and not request.GET.get('flow') and not resume_draft_id:
         if CARS_DRAFT_SESSION_KEY in request.session:
             request.session[CARS_DRAFT_SESSION_KEY] = None
@@ -2049,85 +2224,11 @@ def listing_create(request):
                     pass
 
             if vehicle_type_id:
-                # ═══ „NETRUKUS“ GUARD ═══
-                # Pikeris tokių kategorijų nebeleidžia paspausti, bet POST'as
-                # gali ateiti ir tiesiogiai. Be šito guard'o būtų sukuriamas
-                # tuščias draft'as ir vartotojas grąžinamas į pikerį — būtent
-                # taip DB atsirado 6 „Untitled draft“ artefaktai.
-                vt_slug = (
-                    VehicleType.objects.filter(pk=vehicle_type_id)
-                    .values_list('slug', flat=True).first()
+                routed = _route_category_pick(
+                    request, vehicle_type_id, subcategory_id, subcategory_slug
                 )
-                if vt_slug not in IMPLEMENTED_VEHICLE_TYPE_SLUGS:
-                    messages.info(request, _('Ši kategorija dar ruošiama.'))
-                    return redirect('/create/?step=1')
-                if subcategory_slug in UNIMPLEMENTED_SUBCATEGORY_SLUGS:
-                    messages.info(request, _('Ši kategorija dar ruošiama.'))
-                    return redirect('/create/?step=1')
-
-                # ═══ LISTING LIMIT GUARD ═══
-                can_create, active_count, limit = can_create_listing(request.user)
-                if not can_create:
-                    messages.error(
-                        request,
-                        f'You have reached your active listings limit ({active_count}/{limit}). '
-                        f'Upgrade your account to create more listings.',
-                    )
-                    return redirect('listing_upgrade')
-
-                if subcategory_slug == 'motorcycles':
-                    return redirect('/create/motorcycle/?new=1')
-
-                if subcategory_slug in MOTO_GEAR_SLUGS:
-                    return redirect(
-                        f'/create/motogear/?subcategory={subcategory_slug}&new=1'
-                    )
-
-                # Parent picked directly (no 3rd level chosen) — open the gear
-                # form anyway, with the type select left empty.
-                if subcategory_slug == MOTO_GEAR_PARENT_SLUG:
-                    return redirect('/create/motogear/?new=1')
-
-                # ═══ TYRES / RIMS → atskiri wheels create puslapiai ═══
-                if subcategory_slug == 'rims':
-                    return redirect('/create/rims/')
-                if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
-                    return redirect('/create/tyres/')
-
-                # ═══ SUNKUSIS TRANSPORTAS → trucks forma ═══
-                # Subkategorija perduodama toliau (Vilkikai / Autotraukiniai /
-                # Autobusai / Komunalinis) — trucks_views ją įrašo, o ne
-                # hardcodina į 'trucks'.
-                if vt_slug == 'trucks' and subcategory_slug:
-                    return redirect(
-                        f'/create/trucks/?new=1&subcategory={subcategory_slug}'
-                    )
-
-                # ═══ DALYS → dedikuotos formos ═══
-                # Šitos dvi formos egzistavo seniai, bet pikeris į jas nevedė
-                # (skelbimas patekdavo į išjungtą 7 žingsnių srautą).
-                if subcategory_slug == 'single-part-or-kit':
-                    return redirect('parts_category_select')
-                if subcategory_slug == 'single-moto-part':
-                    return redirect('moto_part_create')
-                if subcategory_slug == 'whole-truck-for-parts':
-                    return redirect('/create/truck-for-parts/?new=1')
-
-                # ═══ TRAILERS → atskira priekabų forma ═══
-                # Subkategorija perduodama toliau — forma ją naudoja Paskirties
-                # preselekcijai ir persiskaičiuoja išsaugant.
-                if subcategory_slug in TRAILERS_SUBCATEGORY_SLUGS:
-                    return redirect(
-                        f'/create/trailers/?new=1&subcategory={subcategory_slug}'
-                    )
-
-                draft = _get_or_create_cars_draft(
-                    request,
-                    vehicle_type_id=int(vehicle_type_id),
-                    subcategory_id=subcategory_id,
-                )
-                if draft:
-                    return redirect('/create/?step=2')
+                if routed:
+                    return routed
 
             form = Step1BasicInfoForm()
 
@@ -2469,6 +2570,9 @@ def listing_create(request):
         'listing_data': listing_data,
         'temp_images_count': current_draft.images.count() if current_draft else 0,
         'vehicle_types': _get_picker_vehicle_types(request.user),
+        'picker_tree': _build_picker_tree(request.user),
+        'picker_active_vt': request.GET.get('vt', ''),
+        'picker_active_sub': request.GET.get('sub', ''),
         'brands': Brand.objects.all().order_by('name'),
         'years': list(range(timezone.now().year + 1, 1949, -1)),
         'step1_brand': brand_name,

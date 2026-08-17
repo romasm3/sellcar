@@ -50,6 +50,19 @@ from apps.listings.models import (
 
 
 
+# „Dalys“ subkategorijos, kurias aptarnauja ši viena forma. Ji sukasi apie
+# PartCategory medį (19 kategorijų / 294 subkategorijos), o ne apie
+# SubCategory, todėl tinka visoms trims. Turi sutapti su
+# views.PARTS_GENERIC_FORM_SLUGS (ten — pikerio maršrutizavimas).
+PARTS_SUBCATEGORY_SLUGS = {
+    'single-part-or-kit',
+    'agri-special-parts',
+    'accessories-tuning',
+}
+
+DEFAULT_PARTS_SUBCATEGORY = 'single-part-or-kit'
+
+
 @login_required
 
 def parts_category_select(request):
@@ -66,11 +79,18 @@ def parts_category_select(request):
 
 
 
+    # ?for=<subcategory slug> — kuri „Dalys“ subkategorija buvo pasirinkta
+    # pikeryje. Perduodama toliau į formą, kad skelbimas neatsidurtų
+    # „Atskira dalis / komplektas“, kai iš tikrųjų rinktasi „Aksesuarai, Tuning“.
+    for_sub = (request.GET.get('for', '') or '').strip()
+
     context = {
 
         'categories': categories,
 
         'page_title': _("Car, van parts"),
+
+        'for_sub': for_sub if for_sub in PARTS_SUBCATEGORY_SLUGS else '',
 
     }
 
@@ -325,13 +345,18 @@ def parts_listing_create(request):
                 messages.error(request, 'Parts vehicle type not configured.')
                 return redirect('parts_category_select')
 
-            try:
-                single_part_sub = SubCategory.objects.get(
-                    vehicle_type=parts_vt,
-                    slug='single-part-or-kit',
-                )
-            except SubCategory.DoesNotExist:
-                single_part_sub = None
+            # Kuri „Dalys“ subkategorija buvo pasirinkta pikeryje. Anksčiau
+            # čia buvo hardcodinta 'single-part-or-kit', todėl „Žemės ūkio,
+            # spec. dalys“ ir „Aksesuarai, Tuning“ būtų sukritusios į vieną
+            # (ta pati klaida kaip trucks_views subcategory).
+            for_slug = (
+                request.POST.get('for', '') or request.GET.get('for', '')
+            ).strip()
+            if for_slug not in PARTS_SUBCATEGORY_SLUGS:
+                for_slug = DEFAULT_PARTS_SUBCATEGORY
+            single_part_sub = SubCategory.objects.filter(
+                vehicle_type=parts_vt, slug=for_slug,
+            ).first()
 
             target = Listing(
                 seller=request.user,
@@ -510,6 +535,9 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
         'group_name': part_subcategory.parent.name_en if part_subcategory.parent else '',
         'sub_name': part_subcategory.name_en,
         'sub_slug': part_subcategory.slug,
+        'for_sub': (
+            request.POST.get('for', '') or request.GET.get('for', '')
+        ).strip(),
         'brands': brands,
         'fuel_types': fuel_types,
         'transmissions': transmissions,

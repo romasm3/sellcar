@@ -4,8 +4,9 @@
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+{% if step == 1 and not is_edit_mode %}{% firstof 1 as clp_mode %}{% endif %}
+<div class="min-h-screen {% if clp_mode %}clp-page{% else %}bg-gray-50 py-8{% endif %}">
+    <div class="{% if clp_mode %}clp-wrap{% else %}max-w-4xl mx-auto px-4 sm:px-6 lg:px-8{% endif %}">
 
         {% if is_edit_mode %}
         <a href="{% url 'listing_edit_hub' edit_listing_id %}"
@@ -59,45 +60,125 @@
         </div>
         {% endif %}
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div class="{% if not clp_mode %}bg-white rounded-xl shadow-sm border border-gray-200 p-8{% endif %}">
             <form method="POST" enctype="multipart/form-data" id="mainForm"
                   {% if is_edit_mode %}action="{% url 'listing_edit_step' edit_listing_id step %}"{% endif %}>
                 {% csrf_token %}
 
                 {% if step == 1 and not is_edit_mode %}
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans "Select Vehicle Category" %}</h3>
-                    <div class="flex flex-col md:flex-row gap-0 border border-gray-200 rounded-xl overflow-hidden" style="min-height: 480px;">
-                        <div class="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto" id="category-list">
-                            {% for vt in vehicle_types %}
-                            <div class="category-item flex items-center gap-3 px-4 py-3 border-b border-gray-100 transition-colors {% if vt.is_implemented %}cursor-pointer hover:bg-gray-50{% else %}category-soon cursor-not-allowed opacity-60{% endif %}"
-                                 data-vt-id="{{ vt.pk }}" data-vt-slug="{{ vt.slug }}"
-                                 data-has-subs="{% if vt.has_subs %}1{% else %}0{% endif %}"
-                                 data-create-url="{{ vt.create_url }}"
-                                 data-implemented="{% if vt.is_implemented %}1{% else %}0{% endif %}"
-                                 {% if not vt.is_implemented %}aria-disabled="true" title="{% trans "Ši kategorija dar ruošiama" %}"{% endif %}>
-                                <span class="category-icon {% if vt.is_implemented %}text-gray-400{% else %}text-gray-300{% endif %} flex-shrink-0 w-5 h-5">
-                                    {% include 'listings/partials/category_icon.html' with slug=vt.slug %}
-                                </span>
-                                <span class="category-label text-sm {% if vt.is_implemented %}text-gray-700{% else %}text-gray-400{% endif %}">{{ vt.name|tdb }}</span>
-                                {% if vt.is_implemented %}
-                                <i class="fas fa-chevron-right text-xs text-gray-400 ml-auto category-arrow"></i>
+                {# ═══════════════════════════════════════════════════════════ #}
+                {# KATEGORIJŲ PIKERIS — vienas siauras sąrašas su drill-in.    #}
+                {# Visas medis atiduodamas iš karto (picker_tree), todėl       #}
+                {# veikia ir be JS: nuorodos ?vt= / ?sub= parenka aktyvią      #}
+                {# panelę serveryje, o ?pick_vt= / ?pick_sub= atlieka galutinį #}
+                {# pasirinkimą. JS tik perjungia paneles be užklausos.         #}
+                {# ═══════════════════════════════════════════════════════════ #}
+                <div class="clp">
+
+                    {# ─── 1 VAIZDAS: šaknis ─── #}
+                    <section class="clp-panel{% if not picker_active_vt %} is-active{% endif %}"
+                             id="clp-root" data-panel="root">
+                        <h1 class="clp-h1">{% trans "Pasirinkite transporto priemonės kategoriją" %}</h1>
+                        <p class="clp-sub">{% trans "Pasirinkite, kokią transporto priemonę norite parduoti" %}</p>
+
+                        <div class="clp-list">
+                            {% for vt in picker_tree %}
+                                {% if not vt.is_implemented %}
+                                    <span class="clp-item is-soon" aria-disabled="true">
+                                        <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                        <span class="clp-name">{{ vt.name|tdb }}</span>
+                                        <span class="clp-soon">{% trans "NETRUKUS" %}</span>
+                                    </span>
+                                {% elif vt.has_subs %}
+                                    <a class="clp-item" href="?step=1&amp;vt={{ vt.slug }}"
+                                       data-open="vt-{{ vt.slug }}">
+                                        <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                        <span class="clp-name">{{ vt.name|tdb }}</span>
+                                        <span class="clp-chev" aria-hidden="true">›</span>
+                                    </a>
                                 {% else %}
-                                <span class="ml-auto text-[10px] font-semibold uppercase tracking-wide text-gray-400 bg-gray-100 border border-gray-200 rounded px-1.5 py-0.5 whitespace-nowrap">{% trans "Netrukus" %}</span>
+                                    <a class="clp-item" href="?step=1&amp;pick_vt={{ vt.pk }}">
+                                        <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                        <span class="clp-name">{{ vt.name|tdb }}</span>
+                                    </a>
                                 {% endif %}
-                            </div>
                             {% endfor %}
                         </div>
-                        <div class="w-full md:w-1/3 hidden md:block border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto p-4" id="subcategory-panel">
-                            <p class="text-gray-400 text-sm">{% trans "← Select a category" %}</p>
-                        </div>
-                        <div class="w-full md:w-1/3 hidden md:block overflow-y-auto p-4" id="subsubcategory-panel">
-                            <p class="text-gray-400 text-sm" id="subsub-placeholder">&nbsp;</p>
-                        </div>
-                    </div>
-                    <input type="hidden" name="vehicle_type" id="selected_vehicle_type">
-                    <input type="hidden" name="subcategory" id="selected_subcategory">
+                    </section>
+
+                    {# ─── 2 VAIZDAS: subkategorijos (pakeičia šaknį) ─── #}
+                    {% for vt in picker_tree %}
+                        {% if vt.has_subs and vt.is_implemented %}
+                        <section class="clp-panel{% if picker_active_vt == vt.slug and not picker_active_sub %} is-active{% endif %}"
+                                 id="clp-vt-{{ vt.slug }}" data-panel="vt-{{ vt.slug }}">
+                            <div class="clp-head">
+                                <a class="clp-back" href="?step=1" data-open="root"
+                                   aria-label="{% trans 'Atgal' %}">‹</a>
+                                <h1 class="clp-h1">{{ vt.name|tdb }}</h1>
+                            </div>
+
+                            <div class="clp-list">
+                                {% for sub in vt.subs %}
+                                    {% if not sub.is_implemented %}
+                                        <span class="clp-item is-soon" aria-disabled="true">
+                                            <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                            <span class="clp-name">{{ sub.name|tdb }}</span>
+                                            <span class="clp-soon">{% trans "NETRUKUS" %}</span>
+                                        </span>
+                                    {% elif sub.kids %}
+                                        <a class="clp-item" href="?step=1&amp;vt={{ vt.slug }}&amp;sub={{ sub.slug }}"
+                                           data-open="sub-{{ vt.slug }}-{{ sub.slug }}">
+                                            <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                            <span class="clp-name">{{ sub.name|tdb }}</span>
+                                            <span class="clp-chev" aria-hidden="true">›</span>
+                                        </a>
+                                    {% else %}
+                                        <a class="clp-item" href="?step=1&amp;pick_sub={{ sub.pk }}">
+                                            <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                            <span class="clp-name">{{ sub.name|tdb }}</span>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </section>
+
+                        {# ─── 3 VAIZDAS: trečias lygis (Dalys) ─── #}
+                        {% for sub in vt.subs %}
+                            {% if sub.kids %}
+                            <section class="clp-panel{% if picker_active_vt == vt.slug and picker_active_sub == sub.slug %} is-active{% endif %}"
+                                     id="clp-sub-{{ vt.slug }}-{{ sub.slug }}"
+                                     data-panel="sub-{{ vt.slug }}-{{ sub.slug }}">
+                                <div class="clp-head">
+                                    <a class="clp-back" href="?step=1&amp;vt={{ vt.slug }}"
+                                       data-open="vt-{{ vt.slug }}" aria-label="{% trans 'Atgal' %}">‹</a>
+                                    <h1 class="clp-h1">{{ sub.name|tdb }}</h1>
+                                </div>
+
+                                <div class="clp-list">
+                                    {% for kid in sub.kids %}
+                                        {% if kid.is_implemented %}
+                                        <a class="clp-item" href="?step=1&amp;pick_sub={{ kid.pk }}">
+                                            <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                            <span class="clp-name">{{ kid.name|tdb }}</span>
+                                        </a>
+                                        {% else %}
+                                        <span class="clp-item is-soon" aria-disabled="true">
+                                            <span class="clp-ico">{% include 'listings/partials/category_icon.html' with slug=vt.slug %}</span>
+                                            <span class="clp-name">{{ kid.name|tdb }}</span>
+                                            <span class="clp-soon">{% trans "NETRUKUS" %}</span>
+                                        </span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </section>
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
+
+                <input type="hidden" name="vehicle_type" id="selected_vehicle_type">
+                <input type="hidden" name="subcategory" id="selected_subcategory">
                 {% endif %}
 
                 {% if step == 2 %}
@@ -713,6 +794,76 @@
 </div>
 
 <style>
+    /* ═══════════════════════════════════════════════════════════
+       KATEGORIJŲ PIKERIS (.clp-*) — vienas siauras sąrašas, antracitas.
+       Naujo CSS failo nekuriama; gyvena čia, kaip ir kituose create
+       šablonuose (boats/trailers).
+       ═══════════════════════════════════════════════════════════ */
+    .clp-page {
+        --accent:      #343a40;
+        --accent-soft: #eceef0;
+        --ink:         #1f2126;
+        --ink-3:       #9aa1ad;
+        --line:        #e8e9ec;
+        --bg:          #f4f5f7;
+        background: var(--bg);
+    }
+    .clp-wrap { max-width: 380px; margin: 0 auto; padding: 22px 0 40px; }
+
+    .clp-panel { display: none; }
+    .clp-panel.is-active { display: block; }
+
+    .clp-h1 { font-size: 19px; font-weight: 700; color: var(--ink); margin: 0; line-height: 1.25; }
+    .clp-sub { font-size: 12px; color: var(--ink-3); margin: 6px 0 16px; }
+
+    .clp-head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .clp-back {
+        font-size: 24px; line-height: 1; color: var(--accent);
+        background: none; border: 0; padding: 0 4px 0 0; cursor: pointer;
+        text-decoration: none; flex-shrink: 0;
+    }
+    .clp-back:hover { opacity: .7; }
+
+    .clp-list { display: flex; flex-direction: column; gap: 9px; }
+
+    .clp-item {
+        display: flex; align-items: center; gap: 14px;
+        background: #fff; border: 1px solid var(--line); border-radius: 8px;
+        padding: 12px 14px; font-size: 14px; width: 100%;
+        text-align: left; cursor: pointer; color: var(--ink);
+        text-decoration: none; transition: background .15s, border-color .15s;
+    }
+    a.clp-item:hover { background: #f7f8f9; border-color: #dcdee2; }
+
+    .clp-ico {
+        width: 30px; height: 30px; border-radius: 7px; background: var(--accent-soft);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; color: var(--accent);
+    }
+    .clp-ico svg { width: 17px; height: 17px; stroke-width: 1.7; }
+
+    .clp-name { flex: 1; min-width: 0; }
+    .clp-chev { font-size: 16px; color: var(--ink-3); flex-shrink: 0; line-height: 1; }
+
+    /* „NETRUKUS“ — nepaspaudžiama */
+    .clp-item.is-soon {
+        background: #fafafb; color: var(--ink-3);
+        border-style: dashed; cursor: default; pointer-events: none;
+    }
+    .clp-item.is-soon .clp-ico { background: #f0f1f3; }
+    .clp-soon {
+        margin-left: auto; flex-shrink: 0;
+        font-size: 9.5px; font-weight: 700; letter-spacing: .04em;
+        background: #eceef1; color: var(--ink-3);
+        border-radius: 4px; padding: 3px 6px; white-space: nowrap;
+    }
+
+    /* Ilgi pavadinimai: mažinam horizontalų padding'ą, o ne konteinerį. */
+    @media (max-width: 400px) {
+        .clp-wrap { padding-left: 12px; padding-right: 12px; }
+        .clp-item { padding-left: 10px; padding-right: 10px; gap: 10px; }
+    }
+
     select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
         width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; transition: all 0.2s;
     }
@@ -758,31 +909,6 @@
 var CURRENT_STEP = {{ step }};
 var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
 var CSRF_TOKEN = '{{ csrf_token }}';
-function clpIsMobile(){ return window.matchMedia('(max-width: 767px)').matches; }
-function clpBack(panel, target){
-if(panel.querySelector('.clp-back')) return;
-var bar=document.createElement('div');
-bar.className='clp-back fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 px-4 py-3 md:hidden';
-var btn=document.createElement('button');
-btn.type='button';
-btn.className='flex items-center gap-1 text-sm font-medium text-gray-700';
-btn.innerHTML='<i class="fas fa-chevron-left text-xs"></i> {% trans "Back" %}';
-btn.onclick=function(){ clpShow(target); };
-bar.appendChild(btn);
-var spacer=document.createElement('div');
-spacer.className='clp-back-spacer h-12 md:hidden';
-panel.insertBefore(spacer, panel.firstChild);
-panel.insertBefore(bar, panel.firstChild);
-}
-function clpShow(which){
-if(!clpIsMobile()) return;
-var cat=document.getElementById('category-list');
-var sub=document.getElementById('subcategory-panel');
-var subsub=document.getElementById('subsubcategory-panel');
-if(which==='sub'){ cat.classList.add('hidden'); sub.classList.remove('hidden'); subsub.classList.add('hidden'); clpBack(sub,'cat'); }
-else if(which==='subsub'){ cat.classList.add('hidden'); sub.classList.add('hidden'); subsub.classList.remove('hidden'); clpBack(subsub,'sub'); }
-else { cat.classList.remove('hidden'); sub.classList.add('hidden'); subsub.classList.add('hidden'); }
-}
 
 // I18N translated strings used in JS
 var I18N = {
@@ -1489,153 +1615,42 @@ document.addEventListener('DOMContentLoaded', function() {
         if (el) el.addEventListener('change', function() { autoSave(name, this.value); });
     });
 
-    var categoryItems = document.querySelectorAll('.category-item');
-    var subcategoryPanel = document.getElementById('subcategory-panel');
-    var subsubcategoryPanel = document.getElementById('subsubcategory-panel');
-    var selectedVT = document.getElementById('selected_vehicle_type');
+// ═══════════════════════════════════════════════════════════
+// KATEGORIJŲ PIKERIS — panelių perjungimas.
+// Visas medis jau atiduotas serverio, todėl jokių fetch'ų: JS tik
+// keičia aktyvią panelę. Be JS tos pačios nuorodos veikia kaip
+// įprasti ?vt= / ?sub= perkrovimai.
+// ═══════════════════════════════════════════════════════════
+(function initCategoryPicker() {
+    var root = document.querySelector('.clp');
+    if (!root) return;
 
-    function clearSubsubPanel() {
-        if (subsubcategoryPanel) {
-            subsubcategoryPanel.innerHTML = '<p class="text-gray-400 text-sm">&nbsp;</p>';
-        }
-    }
-
-    // Subkategorijos, turinčios savo dedikuotą formą. Anksčiau
-    // 'single-part-or-kit' ir 'single-moto-part' formas turėjo, bet
-    // pikeris į jas nevedė — skelbimas patekdavo į išjungtą 7 žingsnių
-    // srautą ir vartotojas grįždavo atgal į pikerį.
-    var SUBCATEGORY_CREATE_URL = {
-        'whole-car-for-parts':   '/create/car-for-parts/?new=1',
-        'whole-truck-for-parts': '/create/truck-for-parts/?new=1',
-        'single-part-or-kit':    '/create/parts/',
-        'single-moto-part':      '/create/moto-part/',
-    };
-
-    // Vienoda kortelė sub- ir subsub-panelėms. implemented === false →
-    // pilka, be hover, be click handlerio.
-    function buildSubCard(item) {
-        var div = document.createElement('div');
-        var soon = item.implemented === false;
-        div.className = 'subcategory-card flex items-center gap-2 p-3 border rounded-lg transition-all ' +
-            (soon ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
-                  : 'border-gray-200 cursor-pointer hover:border-gray-400 hover:bg-gray-50');
-        div.innerHTML =
-            '<svg class="w-4 h-4 flex-shrink-0 ' + (soon ? 'text-gray-300' : 'text-gray-400') + '" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>' +
-            '<span class="text-sm font-medium ' + (soon ? 'text-gray-400' : 'text-gray-700') + '"></span>' +
-            (soon ? '<span class="ml-auto text-[10px] font-semibold uppercase tracking-wide text-gray-400 bg-gray-100 border border-gray-200 rounded px-1.5 py-0.5 whitespace-nowrap">' + I18N.comingSoon + '</span>' : '');
-        div.querySelector('span').textContent = item.name;
-        if (soon) div.title = I18N.comingSoonHint;
-        return div;
-    }
-
-    function renderSubsubPanel(parentSubId) {
-        if (!subsubcategoryPanel) return;
-        subsubcategoryPanel.innerHTML = '<p class="text-sm font-medium text-gray-500 mb-3">' + I18N.selectType + '</p><div class="flex flex-col gap-1" id="subsub-grid"></div>';
-        var grid = subsubcategoryPanel.querySelector('#subsub-grid');
-if (clpIsMobile()) clpShow('subsub');
-        fetch('/ajax/get-subcategories/?vehicle_type_id=' + selectedVT.value + '&parent_id=' + parentSubId)
-            .then(function(r) { return r.json(); })
-            .then(function(items) {
-                if (!items || items.length === 0) {
-                    subsubcategoryPanel.innerHTML = '<p class="text-gray-400 text-sm">' + I18N.noOptions + '</p>';
-                    return;
-                }
-                items.forEach(function(item) {
-                    var div = buildSubCard(item);
-                    div.classList.add('subsubcategory-card');
-                    if (item.implemented === false) { grid.appendChild(div); return; }
-                    div.addEventListener('click', function() {
-                        grid.querySelectorAll('.subsubcategory-card').forEach(function(c) { c.classList.remove('border-gray-700', 'bg-gray-100'); });
-                        div.classList.add('border-gray-700', 'bg-gray-100');
-
-                        if (SUBCATEGORY_CREATE_URL[item.slug]) {
-                            window.location.href = SUBCATEGORY_CREATE_URL[item.slug];
-                            return;
-                        }
-
-                        document.getElementById('selected_subcategory').value = item.id;
-                        setTimeout(function() { document.getElementById('mainForm').submit(); }, 150);
-                    });
-                    grid.appendChild(div);
-                });
-            });
-    }
-
-    // „Netrukus“ eilutės neturi .category-arrow, todėl visos žymėjimo
-    // operacijos daromos pro null-guard'ą.
-    function paintCategory(el, active) {
-        el.classList.toggle('bg-primary', active);
-        var label = el.querySelector('.category-label');
-        var icon  = el.querySelector('.category-icon');
-        var arrow = el.querySelector('.category-arrow');
-        if (label) { label.classList.toggle('text-white', active); label.classList.toggle('text-gray-700', !active); }
-        if (icon)  { icon.classList.toggle('text-white', active);  icon.classList.toggle('text-gray-400', !active); }
-        if (arrow) { arrow.classList.toggle('text-white', active); arrow.classList.toggle('text-gray-400', !active); }
-    }
-
-    categoryItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            // Neįgyvendinta kategorija — nieko nedaro (jokio dead-end'o).
-            if (this.dataset.implemented !== '1') return;
-
-            categoryItems.forEach(function(i) { paintCategory(i, false); });
-            paintCategory(this, true);
-
-            clearSubsubPanel();
-
-            var vtId = this.dataset.vtId; var vtSlug = this.dataset.vtSlug;
-            selectedVT.value = vtId;
-
-            // Be subkategorijų → tiesiai į formą. Su subkategorijomis →
-            // sąrašas (mobiliajame su „atgal“ mygtuku, žr. clpShow/clpBack).
-            if (this.dataset.hasSubs !== '1') {
-                if (this.dataset.createUrl) {
-                    window.location.href = this.dataset.createUrl;
-                } else {
-                    document.getElementById('mainForm').submit();
-                }
-                return;
-            }
-
-            fetch('/ajax/get-subcategories/?picker=1&vehicle_type_id=' + vtId + '&top_only=1')
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.length === 0) { document.getElementById('mainForm').submit(); return; }
-                    subcategoryPanel.innerHTML = '<p class="text-sm font-medium text-gray-500 mb-3">' + I18N.selectSubcategory + '</p><div class="flex flex-col gap-1" id="subcategory-grid"></div>';
-                    var grid = subcategoryPanel.querySelector('#subcategory-grid');
-if (clpIsMobile()) clpShow('sub');
-                    data.forEach(function(sub) {
-                        var div = buildSubCard(sub);
-                        if (sub.implemented === false) { grid.appendChild(div); return; }
-                        div.addEventListener('click', function() {
-                            grid.querySelectorAll('.subcategory-card').forEach(function(c) { c.classList.remove('border-gray-700', 'bg-gray-100'); });
-                            div.classList.add('border-gray-700', 'bg-gray-100');
-
-                            if (vtSlug === 'trucks') {
-                                window.location.href = '/create/trucks/?new=1&subcategory=' + encodeURIComponent(sub.slug);
-                                return;
-                            }
-
-                            if (sub.has_children) {
-                                document.getElementById('selected_subcategory').value = '';
-                                renderSubsubPanel(sub.id);
-                                return;
-                            }
-
-                            if (SUBCATEGORY_CREATE_URL[sub.slug]) {
-                                window.location.href = SUBCATEGORY_CREATE_URL[sub.slug];
-                                return;
-                            }
-
-                            clearSubsubPanel();
-                            document.getElementById('selected_subcategory').value = sub.id;
-                            setTimeout(function() { document.getElementById('mainForm').submit(); }, 150);
-                        });
-                        grid.appendChild(div);
-                    });
-                });
+    function show(name) {
+        var target = root.querySelector('[data-panel="' + name + '"]');
+        if (!target) return false;
+        root.querySelectorAll('.clp-panel').forEach(function (p) {
+            p.classList.toggle('is-active', p === target);
         });
+        window.scrollTo(0, 0);
+        return true;
+    }
+
+    root.addEventListener('click', function (e) {
+        var link = e.target.closest('[data-open]');
+        if (!link || !root.contains(link)) return;
+        // Ctrl/Cmd/Shift — leidžiam atidaryti naujame tabe.
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        if (show(link.dataset.open)) {
+            e.preventDefault();
+            history.pushState({ clp: link.dataset.open }, '', link.getAttribute('href'));
+        }
     });
+
+    // Naršyklės „atgal“ — grįžtam į atitinkamą panelę, o ne iš puslapio.
+    window.addEventListener('popstate', function (e) {
+        show((e.state && e.state.clp) || 'root');
+    });
+})();
 
     var dropZone = document.getElementById('dropZone');
     var imageInput = document.getElementById('imageInput');
