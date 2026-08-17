@@ -119,6 +119,26 @@ def _is_draft_empty(draft):
     )
 
 
+def _resolve_trucks_subcategory(slug):
+    """Pikerio ?subcategory= slug → trucks SubCategory (fallback 'trucks').
+
+    Anksčiau subkategorija buvo hardcodinta į 'trucks', o ?subcategory=
+    ignoruojamas — visi Vilkikai / Autotraukiniai / Autobusai /
+    Komunalinis transportas patekdavo į „Sunkvežimius“.
+    """
+    trucks_vt = VehicleType.objects.filter(slug='trucks').first()
+    if not trucks_vt:
+        return None
+    sub = None
+    if slug:
+        sub = SubCategory.objects.filter(
+            vehicle_type=trucks_vt, slug=slug, parent__isnull=True
+        ).first()
+    return sub or SubCategory.objects.filter(
+        vehicle_type=trucks_vt, slug='trucks'
+    ).first()
+
+
 def _get_or_create_trucks_draft(request, force_new=False):
     """
     Get existing trucks draft from session, or create new one.
@@ -161,10 +181,7 @@ def _get_or_create_trucks_draft(request, force_new=False):
     if not trucks_vt:
         return None
 
-    trucks_subcat = SubCategory.objects.filter(
-        vehicle_type=trucks_vt,
-        slug='trucks',
-    ).first()
+    trucks_subcat = _resolve_trucks_subcategory(request.GET.get('subcategory'))
 
     draft = Listing.objects.create(
         seller=request.user,

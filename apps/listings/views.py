@@ -124,21 +124,95 @@ CARS_DRAFT_SESSION_KEY = 'active_cars_draft_id'
 # Kai kategorija ready — pridėk slug čia, taps live visiem
 # ═══════════════════════════════════════════════════════════
 PUBLIC_VEHICLE_TYPE_SLUGS = {
-    'camping-houses',
-    'camping-houses',
     'cars',
     'motorcycles',
-    'trucks',
-    'boats',
-    'vans',
-    'trailers',
-    'construction',
+    'tires',
+    'parts',
     'agriculture',
+    'vans',
+    'trucks',
+    'trailers',
+    'rental',
+    'electronics',
+    'services',
+    'car-buying',
+    'loading-equipment',
+    'construction',
+    'forestry',
+    'camping-houses',
+    'boats',
     'bicycles',
+    # Etaloniniame medyje šitų nėra, bet paliktos matomos su „Netrukus“ žyma.
     'planes',
     'planes-parts',
-    'rental',
-    'services',
+}
+
+# ═══════════════════════════════════════════════════════════
+# KURIOS KATEGORIJOS TURI VEIKIANČIĄ CREATE FORMĄ
+# Publikuota (matoma) ≠ įgyvendinta (galima pildyti). Kategorijos, kurių
+# čia nėra, pikeryje rodomos pilkos su „Netrukus“ ir nepaspaudžiamos —
+# anksčiau jos vesdavo į aklavietę (7 žingsnių srautas išjungtas,
+# žr. listing_create), palikdamos DB tuščią „Untitled draft“.
+# Parašius naują formą — įrašyk slug čia.
+# ═══════════════════════════════════════════════════════════
+IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
+    'cars',
+    'motorcycles',
+    'tires',
+    'parts',
+    'trucks',
+    'trailers',
+    'boats',
+}
+
+# Subkategorijos ĮGYVENDINTOSE kategorijose, kurios formos vis dar neturi.
+# Pikeryje rodomos pilkos su „Netrukus“ — kitaip publikavus „Dalis“
+# vartotojas gautų 404 (whole-car-for-parts yra staff_only) arba
+# aklavietę (whole-moto-for-parts formos neturi visai).
+UNIMPLEMENTED_SUBCATEGORY_SLUGS = {
+    'whole-car-for-parts',    # staff_only → ne-staff gauna 404
+    'whole-moto-for-parts',   # formos nėra
+    'agri-special-parts',     # nauja, formos dar nėra
+    'accessories-tuning',     # nauja, formos dar nėra
+}
+
+# Kategorijos BE subkategorijų — pikeris veda tiesiai į šią formą.
+# Kategorijos SU subkategorijomis čia nefigūruoja: jos pirma atidaro
+# subkategorijų sąrašą, o nukreipimą daro listing_create POST šaka.
+CREATE_URL_BY_VEHICLE_TYPE = {
+    'cars':     '/create/cars/quick/',
+    'boats':    '/create/boats/?new=1',
+    'trailers': '/create/trailers/?new=1',
+}
+
+# ═══════════════════════════════════════════════════════════
+# PIKERIO SUBKATEGORIJŲ MEDIS (etaloninis sąrašas ir tvarka)
+# Kategorijos, kurių čia nėra, pikeryje rodomos BE subkategorijų.
+# DB eilutės neliečiamos — jos tebenaudojamos naršyme ir formų viduje
+# (pvz. boats 8 potipiai), tik pikeryje nerodomos.
+# ═══════════════════════════════════════════════════════════
+PICKER_SUBCATEGORY_SLUGS = {
+    # ─── Su subkategorijomis ───
+    'motorcycles': ['motorcycles', 'moto-gear'],
+    'tires':       ['tyres', 'rims'],
+    'parts':       ['car-parts', 'moto-parts', 'truck-parts',
+                    'agri-special-parts', 'accessories-tuning'],
+    'trucks':      ['trucks', 'semi-trucks-tractors', 'vehicle-transporters',
+                    'buses', 'municipal-transport'],
+    'rental':      ['car-rental', 'limo-wedding-rental', 'motorcycle-rental',
+                    'minibus-touring-water-rental', 'heavy-trailer-rental'],
+    'construction': ['construction-machinery', 'construction-attachments'],
+
+    # ─── Etalone be subkategorijų, nors DB jų turi ───
+    # Eilutės DB paliekamos (naršymas, formų vidus), tik pikeryje neberodomos.
+    'vans':         [],
+    'agriculture':  [],
+    'trailers':     [],
+    'boats':        [],
+    'bicycles':     [],
+    'services':     [],
+    'planes':       [],
+    'planes-parts': [],
 }
 
 # ═══ MOTO GEAR slugs (3rd level subcategories) — used by listing_create ═══
@@ -194,6 +268,38 @@ def _get_visible_vehicle_types(user):
     if user.is_authenticated and user.is_staff:
         return qs
     return qs.filter(slug__in=PUBLIC_VEHICLE_TYPE_SLUGS)
+
+
+def _picker_subcategory_slugs(vt_slug):
+    """Pikeryje rodomos subkategorijos šitam VT (arba None = rodyti visas)."""
+    return PICKER_SUBCATEGORY_SLUGS.get(vt_slug)
+
+
+def _get_picker_vehicle_types(user):
+    """VT sąrašas create pikeriui, papildytas dviem vėliavėlėmis.
+
+    is_implemented   — ar yra veikianti create forma (jei ne, rodoma pilka
+                       su „Netrukus“ ir nepaspaudžiama)
+    has_subs         — ar atidaryti subkategorijų sąrašą, ar vesti tiesiai
+                       į formą. Anksčiau tai buvo hardcodinta pagal slug
+                       ('cars'/'boats'), dabar išvedama iš medžio.
+    """
+    vts = list(_get_visible_vehicle_types(user))
+    sub_counts = dict(
+        SubCategory.objects.filter(parent__isnull=True)
+        .values_list('vehicle_type_id')
+        .annotate(n=Count('id'))
+        .values_list('vehicle_type_id', 'n')
+    )
+    for vt in vts:
+        vt.is_implemented = vt.slug in IMPLEMENTED_VEHICLE_TYPE_SLUGS
+        picker_subs = _picker_subcategory_slugs(vt.slug)
+        if picker_subs is not None:
+            vt.has_subs = bool(picker_subs)
+        else:
+            vt.has_subs = bool(sub_counts.get(vt.pk))
+        vt.create_url = CREATE_URL_BY_VEHICLE_TYPE.get(vt.slug, '')
+    return vts
 
 
     # ⋯ DAUGIAU flyout — pilnas kategorijų sąrašas.
@@ -1943,6 +2049,22 @@ def listing_create(request):
                     pass
 
             if vehicle_type_id:
+                # ═══ „NETRUKUS“ GUARD ═══
+                # Pikeris tokių kategorijų nebeleidžia paspausti, bet POST'as
+                # gali ateiti ir tiesiogiai. Be šito guard'o būtų sukuriamas
+                # tuščias draft'as ir vartotojas grąžinamas į pikerį — būtent
+                # taip DB atsirado 6 „Untitled draft“ artefaktai.
+                vt_slug = (
+                    VehicleType.objects.filter(pk=vehicle_type_id)
+                    .values_list('slug', flat=True).first()
+                )
+                if vt_slug not in IMPLEMENTED_VEHICLE_TYPE_SLUGS:
+                    messages.info(request, _('Ši kategorija dar ruošiama.'))
+                    return redirect('/create/?step=1')
+                if subcategory_slug in UNIMPLEMENTED_SUBCATEGORY_SLUGS:
+                    messages.info(request, _('Ši kategorija dar ruošiama.'))
+                    return redirect('/create/?step=1')
+
                 # ═══ LISTING LIMIT GUARD ═══
                 can_create, active_count, limit = can_create_listing(request.user)
                 if not can_create:
@@ -1971,6 +2093,25 @@ def listing_create(request):
                     return redirect('/create/rims/')
                 if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
                     return redirect('/create/tyres/')
+
+                # ═══ SUNKUSIS TRANSPORTAS → trucks forma ═══
+                # Subkategorija perduodama toliau (Vilkikai / Autotraukiniai /
+                # Autobusai / Komunalinis) — trucks_views ją įrašo, o ne
+                # hardcodina į 'trucks'.
+                if vt_slug == 'trucks' and subcategory_slug:
+                    return redirect(
+                        f'/create/trucks/?new=1&subcategory={subcategory_slug}'
+                    )
+
+                # ═══ DALYS → dedikuotos formos ═══
+                # Šitos dvi formos egzistavo seniai, bet pikeris į jas nevedė
+                # (skelbimas patekdavo į išjungtą 7 žingsnių srautą).
+                if subcategory_slug == 'single-part-or-kit':
+                    return redirect('parts_category_select')
+                if subcategory_slug == 'single-moto-part':
+                    return redirect('moto_part_create')
+                if subcategory_slug == 'whole-truck-for-parts':
+                    return redirect('/create/truck-for-parts/?new=1')
 
                 # ═══ TRAILERS → atskira priekabų forma ═══
                 # Subkategorija perduodama toliau — forma ją naudoja Paskirties
@@ -2327,7 +2468,7 @@ def listing_create(request):
         'progress_percent': progress_percent,
         'listing_data': listing_data,
         'temp_images_count': current_draft.images.count() if current_draft else 0,
-        'vehicle_types': _get_visible_vehicle_types(request.user),
+        'vehicle_types': _get_picker_vehicle_types(request.user),
         'brands': Brand.objects.all().order_by('name'),
         'years': list(range(timezone.now().year + 1, 1949, -1)),
         'step1_brand': brand_name,
@@ -2722,12 +2863,28 @@ def get_subcategories_ajax(request):
 
     qs = qs.order_by('order', 'name')
 
+    # ?picker=1 — tik create pikeriui: apkarpo iki etaloninio medžio ir
+    # išrikiuoja PICKER_SUBCATEGORY_SLUGS tvarka. Naršymo/paieškos puslapiai
+    # šito parametro nesiunčia ir toliau gauna VISAS subkategorijas.
+    if request.GET.get('picker') in ('1', 'true', 'yes') and top_only:
+        vt_slug = vehicle_type_slug
+        if not vt_slug and vehicle_type_id:
+            vt_slug = (
+                VehicleType.objects.filter(pk=vehicle_type_id)
+                .values_list('slug', flat=True).first()
+            )
+        allowed = _picker_subcategory_slugs(vt_slug)
+        if allowed is not None:
+            by_slug = {s.slug: s for s in qs}
+            qs = [by_slug[slug] for slug in allowed if slug in by_slug]
+
     data = [
         {
             'id': s.id,
             'name': gettext(s.name),
             'slug': s.slug,
             'has_children': s.children.exists(),
+            'implemented': s.slug not in UNIMPLEMENTED_SUBCATEGORY_SLUGS,
         }
         for s in qs
     ]

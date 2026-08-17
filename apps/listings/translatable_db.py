@@ -23,6 +23,17 @@ VEHICLE_TYPE_NAMES = [
     _('Turistiniai nameliai'),
 ]
 
+# Kategorijų medžio suvienodinimas — naujos subkategorijos (0058 migracija).
+# LT yra šaltinio kalba, todėl msgid = rodomas tekstas.
+CATEGORY_TREE_NAMES = [
+    _('Komunalinio ūkio transportas'),
+    _('Žemės ūkio, spec. dalys'),
+    _('Aksesuarai, Tuning'),
+    _('Automobilių nuoma'),
+    _('Mikroautobusų, turistinio, vandens tr. nuoma'),
+    _('Statybinė technika'),
+]
+
 SUBCATEGORY_NAMES = [
     _('Aircraft Accessories'), _('Airplanes'), _('Avionics'), _('Balers'), _('Bicycles'),
     _('Boat Trailers'), _('Boats'), _('Body Repair'), _('Bulldozers'), _('Buses'),

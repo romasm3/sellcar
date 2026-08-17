@@ -2272,7 +2272,7 @@ msgstr "Trucks (Sunkvežimiai)"
 
 #: apps/listings/models.py:1870 apps/listings/translatable_db.py:44
 msgid "Vehicle Transporters"
-msgstr "Autovežiai"
+msgstr "Autotraukiniai, autovežiai"
 
 #: apps/listings/models.py:1871
 msgid "Semi-trucks / Tractors"
@@ -2630,7 +2630,7 @@ msgstr "Automobiliai"
 #: templates/listings/partials/search_rail.html:65
 #: templates/listings/trucks_list.html:162
 msgid "Minibuses, Buses & Campers"
-msgstr "Mikroautobusai, autobusai ir kemperiai"
+msgstr "Mikroautobusai"
 
 #: apps/listings/translatable_db.py:15
 #: templates/listings/listing_list.html:262
@@ -2641,7 +2641,7 @@ msgstr "Mikroautobusai, autobusai ir kemperiai"
 #: templates/listings/partials/search_rail.html:21
 #: templates/listings/trucks_list.html:163
 msgid "Motorcycles & Moto Gear"
-msgstr "Motociklai ir motociklų įranga"
+msgstr "Motociklai, apranga"
 
 #: apps/listings/translatable_db.py:16
 #: templates/listings/listing_list.html:263
@@ -2654,7 +2654,7 @@ msgstr "Motociklai ir motociklų įranga"
 #: templates/listings/trucks_list.html:192
 #: templates/listings/trucks_list.html:503
 msgid "Trucks & Commercial"
-msgstr "Sunkvežimiai ir komercinės paskirties transporto priemonės"
+msgstr "Sunkusis transportas"
 
 #: apps/listings/translatable_db.py:16
 #: templates/listings/listing_list.html:264
@@ -2673,7 +2673,7 @@ msgstr "Dalys"
 #: templates/listings/trucks_list.html:168
 #: templates/listings/wheels_list.html:108
 msgid "Tyres & Wheels"
-msgstr "Padangos ir ratlankiai"
+msgstr "Ratlankiai / padangos"
 
 #: apps/listings/translatable_db.py:17
 #: templates/listings/boats_listing_create.html:24
@@ -2684,7 +2684,7 @@ msgstr "Padangos ir ratlankiai"
 #: templates/listings/partials/search_rail.html:64
 #: templates/listings/trucks_list.html:166
 msgid "Boats & Water Transport"
-msgstr "Valtys ir vandens transportas"
+msgstr "Vandens transportas"
 
 #: apps/listings/translatable_db.py:17
 #: templates/listings/listing_list.html:267
@@ -2694,7 +2694,7 @@ msgstr "Valtys ir vandens transportas"
 #: templates/listings/partials/search_rail.html:66
 #: templates/listings/trucks_list.html:167
 msgid "Trailers & Semi-trailers"
-msgstr "Priekabos ir puspriekabės"
+msgstr "Priekabos / Puspriekabės"
 
 #: apps/listings/translatable_db.py:18
 #: templates/listings/listing_list.html:269
@@ -2703,7 +2703,7 @@ msgstr "Priekabos ir puspriekabės"
 #: templates/listings/partials/search_rail.html:67
 #: templates/listings/trucks_list.html:169
 msgid "Construction & Warehouse Equipment"
-msgstr "Statybos ir sandėlių įranga"
+msgstr "Statybinė technika"
 
 #: apps/listings/translatable_db.py:18
 #: templates/listings/listing_list.html:270
@@ -2712,7 +2712,7 @@ msgstr "Statybos ir sandėlių įranga"
 #: templates/listings/partials/search_rail.html:68
 #: templates/listings/trucks_list.html:170
 msgid "Agricultural & Forestry"
-msgstr "Žemės ūkis ir miškininkystė"
+msgstr "Žemės ūkio technika, padargai"
 
 #: apps/listings/translatable_db.py:19
 #: templates/listings/listing_list.html:271
@@ -2721,7 +2721,7 @@ msgstr "Žemės ūkis ir miškininkystė"
 #: templates/listings/partials/search_rail.html:69
 #: templates/listings/trucks_list.html:171
 msgid "Bicycles & Scooters"
-msgstr "Dviračiai ir paspirtukai"
+msgstr "El. paspirtukai, riedžiai, dviračiai"
 
 #: apps/listings/translatable_db.py:19
 #: templates/listings/listing_list.html:272
@@ -2739,7 +2739,7 @@ msgstr "Paslaugos"
 #: templates/listings/partials/search_rail.html:71
 #: templates/listings/trucks_list.html:173
 msgid "Car Rental"
-msgstr "Automobilių nuoma"
+msgstr "Transporto nuoma"
 
 #: apps/listings/translatable_db.py:19
 #: templates/listings/listing_list.html:274
@@ -2836,7 +2836,7 @@ msgstr "Kemperiai"
 
 #: apps/listings/translatable_db.py:29
 msgid "Car Parts"
-msgstr "Automobilių dalys"
+msgstr "Automobilių, mikroautobusų dalys"
 
 #: apps/listings/translatable_db.py:29
 msgid "Car Service"
@@ -3037,7 +3037,7 @@ msgstr "Traktoriai"
 
 #: apps/listings/translatable_db.py:43
 msgid "Truck Parts"
-msgstr "Sunkvežimių dalys"
+msgstr "Sunkiojo transporto dalys"
 
 #: apps/listings/translatable_db.py:44
 msgid "Ultralight Aircraft"
@@ -11672,6 +11672,106 @@ msgstr "Grįžti į „SellCar“"
 msgid "Detali paieška"
 msgstr "Detali paieška"
 
+#: apps/listings/translatable_db.py
+msgid "Helmets"
+msgstr "Šalmai"
+
+#: apps/listings/translatable_db.py
+msgid "Jackets"
+msgstr "Striukės"
+
+#: apps/listings/translatable_db.py
+msgid "Suits / Combinations"
+msgstr "Kombinezonai"
+
+#: apps/listings/translatable_db.py
+msgid "Travel bags"
+msgstr "Kelioniniai krepšiai"
+
+#: apps/listings/translatable_db.py
+msgid "Goggles & other gear"
+msgstr "Akiniai ir kita"
+
+#: apps/listings/motogear_views.py
+msgid "Plastic"
+msgstr "Plastikas"
+
+#: apps/listings/motogear_views.py
+msgid "Year of manufacture"
+msgstr "Pagaminimo metai"
+
+#: apps/listings/motogear_views.py
+msgid "Helmet style"
+msgstr "Šalmo stilius"
+
+#: apps/listings/motogear_views.py
+msgid "Boot type"
+msgstr "Batų tipas"
+
+#: apps/listings/motogear_views.py
+msgid "Category is required."
+msgstr "Privaloma pasirinkti kategoriją."
+
+#: apps/listings/motogear_views.py
+msgid "Gender is required."
+msgstr "Privaloma nurodyti, kam skirta."
+
+#: apps/listings/motogear_views.py
+msgid "Size is required."
+msgstr "Privaloma nurodyti dydį."
+
+#: apps/listings/motogear_views.py
+msgid "Material is required."
+msgstr "Privaloma nurodyti medžiagą."
+
+#: apps/listings/motogear_views.py
+msgid "Condition is required."
+msgstr "Privaloma nurodyti būklę."
+
+#: apps/listings/motogear_views.py
+msgid "Valid price is required."
+msgstr "Privaloma nurodyti teisingą kainą."
+
+#: apps/listings/motogear_views.py
+msgid "You must agree to terms and conditions."
+msgstr "Turite sutikti su taisyklėmis ir sąlygomis."
+
+#: apps/listings/motogear_views.py
+msgid "Plastiko"
+msgstr "Plastiko"
+
+#: apps/listings/motogear_views.py
+msgid "Aliuminio"
+msgstr "Aliuminio"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Netrukus"
+msgstr "Netrukus"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Ši kategorija dar ruošiama"
+msgstr "Ši kategorija dar ruošiama"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Statybinė technika"
+msgstr "Statybinė technika"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Žemės ūkio, spec. dalys"
+msgstr "Žemės ūkio, spec. dalys"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Aksesuarai, Tuning"
+msgstr "Aksesuarai, Tuning"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Mikroautobusų, turistinio, vandens tr. nuoma"
+msgstr "Mikroautobusų, turistinio, vandens tr. nuoma"
+
+#. kategorijų medis (LT = šaltinio kalba)
+msgid "Automobilių nuoma"
+msgstr "Automobilių nuoma"
+
 #, fuzzy
 #~ msgid "Static Files"
 #~ msgstr "Statistika"
@@ -11908,75 +12008,3 @@ msgstr "Detali paieška"
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Rasta %(count)s motociklų skelbimų"
-
-#: apps/listings/translatable_db.py
-msgid "Helmets"
-msgstr "Šalmai"
-
-#: apps/listings/translatable_db.py
-msgid "Jackets"
-msgstr "Striukės"
-
-#: apps/listings/translatable_db.py
-msgid "Suits / Combinations"
-msgstr "Kombinezonai"
-
-#: apps/listings/translatable_db.py
-msgid "Travel bags"
-msgstr "Kelioniniai krepšiai"
-
-#: apps/listings/translatable_db.py
-msgid "Goggles & other gear"
-msgstr "Akiniai ir kita"
-
-#: apps/listings/motogear_views.py
-msgid "Plastic"
-msgstr "Plastikas"
-
-#: apps/listings/motogear_views.py
-msgid "Year of manufacture"
-msgstr "Pagaminimo metai"
-
-#: apps/listings/motogear_views.py
-msgid "Helmet style"
-msgstr "Šalmo stilius"
-
-#: apps/listings/motogear_views.py
-msgid "Boot type"
-msgstr "Batų tipas"
-
-#: apps/listings/motogear_views.py
-msgid "Category is required."
-msgstr "Privaloma pasirinkti kategoriją."
-
-#: apps/listings/motogear_views.py
-msgid "Gender is required."
-msgstr "Privaloma nurodyti, kam skirta."
-
-#: apps/listings/motogear_views.py
-msgid "Size is required."
-msgstr "Privaloma nurodyti dydį."
-
-#: apps/listings/motogear_views.py
-msgid "Material is required."
-msgstr "Privaloma nurodyti medžiagą."
-
-#: apps/listings/motogear_views.py
-msgid "Condition is required."
-msgstr "Privaloma nurodyti būklę."
-
-#: apps/listings/motogear_views.py
-msgid "Valid price is required."
-msgstr "Privaloma nurodyti teisingą kainą."
-
-#: apps/listings/motogear_views.py
-msgid "You must agree to terms and conditions."
-msgstr "Turite sutikti su taisyklėmis ir sąlygomis."
-
-#: apps/listings/motogear_views.py
-msgid "Plastiko"
-msgstr "Plastiko"
-
-#: apps/listings/motogear_views.py
-msgid "Aliuminio"
-msgstr "Aliuminio"
