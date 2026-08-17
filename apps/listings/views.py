@@ -150,6 +150,15 @@ MOTO_GEAR_SLUGS = {
 # Parent ("Apranga, šalmai, aksesuarai") — no gear type preselected.
 MOTO_GEAR_PARENT_SLUG = 'moto-gear'
 
+# ═══ TRAILERS subcategory slugs — used by listing_create ═══
+# Gyvena čia, o ne trailers_views.py, nes trailers_views importuoja iš views.py
+# (ciklinis importas). trailers_views persiima šitą aibę.
+TRAILERS_SUBCATEGORY_SLUGS = {
+    'semi-trailers', 'car-trailers', 'boat-trailers', 'curtainsider-trailers',
+    'tipper-trailers', 'refrigerator-trailers', 'flatbed-trailers',
+    'caravans', 'other-trailers',
+}
+
 
 def get_coordinates_for_location(city, country_code):
     if city:
@@ -1963,6 +1972,14 @@ def listing_create(request):
                 if 'tyre' in subcategory_slug or 'tire' in subcategory_slug:
                     return redirect('/create/tyres/')
 
+                # ═══ TRAILERS → atskira priekabų forma ═══
+                # Subkategorija perduodama toliau — forma ją naudoja Paskirties
+                # preselekcijai ir persiskaičiuoja išsaugant.
+                if subcategory_slug in TRAILERS_SUBCATEGORY_SLUGS:
+                    return redirect(
+                        f'/create/trailers/?new=1&subcategory={subcategory_slug}'
+                    )
+
                 draft = _get_or_create_cars_draft(
                     request,
                     vehicle_type_id=int(vehicle_type_id),
@@ -2572,6 +2589,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/cars/quick/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
         return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
+        return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -3408,6 +3427,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/cars/quick/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
         return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
+        return redirect(f'/create/trailers/?edit={pk}')
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
@@ -3487,6 +3508,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/cars/quick/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
         return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
+        return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -3698,6 +3721,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/cars/quick/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'boats':
         return redirect(f'/create/boats/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
+        return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or

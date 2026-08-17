@@ -314,6 +314,9 @@ class Listing(models.Model):
         ('euro3', 'Euro 3'), ('euro4', 'Euro 4'),
         ('euro5', 'Euro 5'), ('euro6', 'Euro 6'),
         ('euro6d', 'Euro 6d'),
+        # Priekaboms reikia 'Kitas'; laikom bendrame sąraše, kad
+        # get_euro_standard_display() rodytų etiketę, o ne žalią 'other'.
+        ('other', _('Kitas')),
     ]
 
     SEATS_CHOICES = [(str(i), str(i)) for i in range(1, 10)] + [('9+', '9+')]
@@ -678,6 +681,98 @@ class Listing(models.Model):
     boat_liftable_engine = models.BooleanField(default=False, verbose_name=_('Liftable engine'))
     boat_propeller = models.BooleanField(default=False, verbose_name=_('Propeller'))
     boat_water_turbine = models.BooleanField(default=False, verbose_name=_('Water turbine'))
+
+    # ═══════════════════════════════════════════════════════════
+    # TRAILERS — Priekabos / Puspriekabės (vehicle_type slug='trailers')
+    # Matmenys, masės, tūris, TA, spalva, VIN, SDK, Euro — imami iš
+    # bendrų / truck_* laukų aukščiau; čia tik tai, ko niekur nėra.
+    # Ypatumai (25) saugomi kaip Equipment eilutės, kategorija 'trailer_*'.
+    # ═══════════════════════════════════════════════════════════
+    TRAILER_KIND_CHOICES = [
+        ('trailer', _('Priekaba')),
+        ('semi_trailer', _('Puspriekabė')),
+    ]
+
+    # Paskirtis — 22 reikšmės (autogidas.lt). subcategory išvedama iš šito,
+    # žr. TRAILER_PURPOSE_TO_SUBCATEGORY (trailers_views.py).
+    TRAILER_PURPOSE_CHOICES = [
+        ('car_trailer', _('Automobilinė priekaba')),
+        ('for_car_transport', _('Automobiliui vežti')),
+        ('car_carrier', _('Automobilvežio')),
+        ('concrete_mixer', _('Betonvežio')),
+        ('flatbed', _('Bortinė')),
+        ('flatbed_tarpaulin', _('Bortinė su tentu')),
+        ('tanker', _('Cisterninė')),
+        ('livestock', _('Gyvuliams vežti')),
+        ('insulated_body', _('Izoterminis kėbulas')),
+        ('swap_body', _('Keičiamas kėbulas')),
+        ('container_chassis', _('Konteinerių važiuoklė')),
+        ('cargo', _('Krovininė')),
+        ('logging', _('Miškavežio')),
+        ('motorcycle_trailer', _('Motociklų priekabos')),
+        ('platform', _('Platforma')),
+        ('refrigerator', _('Šaldytuvas')),
+        ('tipper', _('Savivartė')),
+        ('tarpaulin', _('Tentinė')),
+        ('tractor_trailer', _('Traktoriaus priekaba')),
+        ('touring', _('Turistinė')),
+        ('watercraft', _('Vandens transporto')),
+        ('other', _('Kita')),
+    ]
+
+    TRAILER_AXLE_COUNT_CHOICES = [
+        ('1', _('1 ašis')),
+        ('2', _('2 ašys')),
+        ('3', _('3 ašys')),
+        ('3plus', _('>3 ašių')),
+        ('other', _('Kitas')),
+    ]
+
+    TRAILER_SUSPENSION_CHOICES = [
+        ('mechanical', _('Mechaninė')),
+        ('pneumatic', _('Pneumatinė')),
+        ('pneumatic_liftable', _('Pneumatinė (pakeliama)')),
+    ]
+
+    trailer_kind = models.CharField(
+        max_length=20, choices=TRAILER_KIND_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    trailer_purpose = models.CharField(
+        max_length=40, choices=TRAILER_PURPOSE_CHOICES, blank=True, default='',
+        verbose_name=_('Paskirtis'),
+    )
+    trailer_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    trailer_model_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Modelis'),
+    )
+    trailer_wheel_count = models.CharField(
+        max_length=8, blank=True, default='',
+        verbose_name=_('Bendras ratų skaičius'),
+        help_text="'2'-'13' arba '13plus'",
+    )
+    trailer_axle_make = models.CharField(
+        max_length=40, blank=True, default='', verbose_name=_('Ašys (gamintojas)'),
+    )
+    trailer_axle_count = models.CharField(
+        max_length=12, choices=TRAILER_AXLE_COUNT_CHOICES, blank=True, default='',
+        verbose_name=_('Ašių skaičius'),
+    )
+
+    # ─── Pakaba ir padangos — po bloką kiekvienai iš 3 ašių ───
+    trailer_susp_1 = models.CharField(max_length=20, choices=TRAILER_SUSPENSION_CHOICES, blank=True, default='', verbose_name=_('1 ašies pakabos tipas'))
+    trailer_tyre_pct_1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name=_('1 ašies padangų likutis %'))
+    trailer_tyre_size_1 = models.CharField(max_length=40, blank=True, default='', verbose_name=_('1 ašies padangų išmatavimai'))
+
+    trailer_susp_2 = models.CharField(max_length=20, choices=TRAILER_SUSPENSION_CHOICES, blank=True, default='', verbose_name=_('2 ašies pakabos tipas'))
+    trailer_tyre_pct_2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name=_('2 ašies padangų likutis %'))
+    trailer_tyre_size_2 = models.CharField(max_length=40, blank=True, default='', verbose_name=_('2 ašies padangų išmatavimai'))
+
+    trailer_susp_3 = models.CharField(max_length=20, choices=TRAILER_SUSPENSION_CHOICES, blank=True, default='', verbose_name=_('3 ašies pakabos tipas'))
+    trailer_tyre_pct_3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name=_('3 ašies padangų likutis %'))
+    trailer_tyre_size_3 = models.CharField(max_length=40, blank=True, default='', verbose_name=_('3 ašies padangų išmatavimai'))
 
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
