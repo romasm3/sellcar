@@ -37902,10 +37902,10 @@
       "Vibro mašina",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_type",
+     "param": "constr_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Markė",
@@ -38314,10 +38314,10 @@
       "В-120",
       "В-150"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_brand_text",
+     "param": "constr_brand_text",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -38375,10 +38375,12 @@
       "7500",
       "10000"
      ],
-     "db_field": null,
+     "db_field": "engine_hours",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_hours_min",
+     "param_max": "engine_hours_max"
     },
     {
      "label": "Ratų formulė",
@@ -38400,10 +38402,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -38431,10 +38433,12 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Metai",
@@ -38510,10 +38514,10 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -38689,20 +38693,20 @@
      "label": "Tipas",
      "type": "select",
      "name": "f_80",
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_attach_type",
+     "param": "constr_attach_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Modelis",
      "type": "text",
      "name": "f_14",
      "depends_on": "Markė",
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_model_text",
+     "param": "constr_model_text",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -38724,46 +38728,54 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Ilgis m",
-     "type": "text",
+     "type": "range",
      "name": "f_377",
-     "db_field": null,
+     "db_field": "length_m",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "length_m_min",
+     "param_max": "length_m_max"
     },
     {
      "label": "Plotis m",
-     "type": "text",
+     "type": "range",
      "name": "f_378",
-     "db_field": null,
+     "db_field": "width_m",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "width_m_min",
+     "param_max": "width_m_max"
     },
     {
      "label": "Nuosavas svoris",
-     "type": "text",
+     "type": "range",
      "name": "f_163",
-     "db_field": null,
+     "db_field": "curb_weight",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "curb_weight_min",
+     "param_max": "curb_weight_max"
     },
     {
      "label": "Aukštis m",
-     "type": "text",
+     "type": "range",
      "name": "f_400",
-     "db_field": null,
+     "db_field": "height_m",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "height_m_min",
+     "param_max": "height_m_max"
     },
     {
      "label": "Šalis",
@@ -38927,7 +38939,8 @@
    ],
    "results_url": "/skelbimai/statybines-technikos-priedai/",
    "url_params_raw": "Tipas: f_80; Modelis: f_14; Kaina: f_44; Kaina: f_45; Naudota/Nauja: f_434; Ilgis m: f_377; Plotis m: f_378; Nuosavas svoris: f_163; Aukštis m: f_400; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "construction"
+   "vt_slug": "construction",
+   "subcategory_slug": "construction-attachments"
   },
   {
    "name": "Miško ūkio technika",

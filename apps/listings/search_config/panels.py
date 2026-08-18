@@ -31,12 +31,12 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 # Kategorijos, kurių paiešką aptarnauja Listing + listing_list.
 # tires/wheels sukasi apie WheelListing, o parts/motogear tab'ai turi savo
 # browse view'us — jiems šis variklis netinka be daug didesnio refaktoringo.
-LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture'}
+LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction'}
 
 # 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
 # cars/motorcycles kol kas lieka su savo blokais search_panel.html.
 # Įtraukus kaskadą — pridėk juos čia.
-ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture'}
+ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON
@@ -47,6 +47,10 @@ CHOICES_BY_DB_FIELD = {
     'trailer_axle_count': 'TRAILER_AXLE_COUNT_CHOICES',
     'agri_type': 'AGRI_TYPE_CHOICES',
     'agri_kind': 'AGRI_KIND_CHOICES',
+    'constr_type': 'CONSTR_TYPE_CHOICES',
+    'constr_attach_type': 'CONSTR_ATTACH_TYPE_CHOICES',
+    'constr_drive_type': 'CONSTR_DRIVE_TYPE_CHOICES',
+    'wheel_formula': 'WHEEL_FORMULA_CHOICES',
     'color':           'COLOR_CHOICES',
     'truck_type':      'TRUCK_TYPE_CHOICES',
     'boat_type':       'BOAT_TYPE_CHOICES',
@@ -58,7 +62,7 @@ CHOICES_BY_DB_FIELD = {
 
 # db_field, kurių reikšmės — laisvas tekstas iš skelbimų (ne choices).
 # Rodomos su skelbimų kiekiais, Top N + likusios abėcėle.
-TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text'}
+TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text'}
 
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
@@ -93,9 +97,17 @@ _RAW = _load()
 # rodyti į tą patį VT (pvz. Vilkikai ir Autobusai → trucks); imame pirmą,
 # t. y. pagrindinę sekciją.
 PANELS = {}
+# Subkategorijų konfigūracijos: vienam VT gali būti kelios sekcijos
+# (construction: technika sec 24 + priedai sec 16). Raktas — subcategory slug.
+PANELS_BY_SUB = {}
 for _cat in _RAW['categories']:
     _vt = _cat.get('vt_slug')
-    if _vt and _vt not in PANELS:
+    if not _vt:
+        continue
+    _sub = _cat.get('subcategory_slug')
+    if _sub:
+        PANELS_BY_SUB[_sub] = _cat
+    elif _vt not in PANELS:
         PANELS[_vt] = _cat
 
 with open(ADVANCED_PATH, encoding='utf-8') as _fh:
@@ -103,13 +115,19 @@ with open(ADVANCED_PATH, encoding='utf-8') as _fh:
 
 # Išplėstinė paieška — tas pats mechanizmas, tik platesnis laukų rinkinys.
 ADVANCED = {}
+ADVANCED_BY_SUB = {}
 for _cat in _RAW_ADV['categories']:
     _vt = _cat.get('vt_slug')
-    if _vt and _vt not in ADVANCED:
+    if not _vt:
+        continue
+    _sub = _cat.get('subcategory_slug')
+    if _sub:
+        ADVANCED_BY_SUB[_sub] = _cat
+    elif _vt not in ADVANCED:
         ADVANCED[_vt] = _cat
 
 # Kategorijos, kurių išplėstinė paieška įjungta (kaip ENGINE_ENABLED panelėms)
-ADVANCED_ENABLED = {'trailers', 'agriculture'}
+ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -124,6 +142,24 @@ def advanced_is_active(vt_slug):
 
 def advanced_categories():
     return sorted(s for s in ADVANCED if advanced_is_active(s))
+
+
+def _panel_cfg(vt_slug, sub_slug=None):
+    """Konfigūracija VT arba jo subkategorijai.
+
+    Vienam VT gali būti kelios etalono sekcijos: construction turi
+    technikos (sec 24) ir priedų (sec 16) formas su skirtingais laukais.
+    Priedų sekcija pažymėta `subcategory_slug`.
+    """
+    if sub_slug and sub_slug in PANELS_BY_SUB:
+        return PANELS_BY_SUB[sub_slug]
+    return PANELS.get(vt_slug)
+
+
+def _advanced_cfg(vt_slug, sub_slug=None):
+    if sub_slug and sub_slug in ADVANCED_BY_SUB:
+        return ADVANCED_BY_SUB[sub_slug]
+    return ADVANCED.get(vt_slug)
 
 
 def is_active(vt_slug):
@@ -171,6 +207,8 @@ def _brand_rows(vt_slug, db_field, user=None):
     else:
         if db_field == 'agri_brand_text':
             from apps.listings.agriculture_views import AGRI_BRANDS as ALL_NAMES
+        elif db_field == 'constr_brand_text':
+            from apps.listings.construction_views import CONSTR_BRANDS as ALL_NAMES
         else:
             from apps.listings.trailers_views import TRAILER_BRANDS as ALL_NAMES
         counts = {
@@ -198,7 +236,7 @@ def _distinct_options(vt_slug, db_field, user=None):
     return [(r[db_field], f"{r[db_field]} ({r['c']})") for r in rows]
 
 
-def build_panel(vt_slug, user=None):
+def build_panel(vt_slug, user=None, sub_slug=None):
     """Konfigūracija → šablonui paruoštas panelės aprašas.
 
     Grąžina None, jei kategorija neaktyvi (tada panelė nerenderinama).
@@ -208,7 +246,7 @@ def build_panel(vt_slug, user=None):
 
     from apps.listings.models import Listing
 
-    cat = PANELS[vt_slug]
+    cat = _panel_cfg(vt_slug, sub_slug) or PANELS[vt_slug]
     # ui_order leidžia išlaikyti dabartinę laukų tvarką ten, kur ji
     # skiriasi nuo etalono (trucks/boats: Metai prieš Kainą).
     cat_fields = sorted(cat['fields'], key=lambda f: f.get('ui_order', 0))
@@ -265,14 +303,14 @@ def build_panel(vt_slug, user=None):
     }
 
 
-def build_advanced(vt_slug, user=None):
+def build_advanced(vt_slug, user=None, sub_slug=None):
     """Išplėstinės paieškos aprašas šablonui (arba None, jei neaktyvi)."""
     if not advanced_is_active(vt_slug):
         return None
 
     from apps.listings.models import Listing
 
-    cat = ADVANCED[vt_slug]
+    cat = _advanced_cfg(vt_slug, sub_slug) or ADVANCED[vt_slug]
     price_min, price_max = _price_tiers()
     years = _years()
     fields, equipment, eq_section = [], [], ''
@@ -388,7 +426,8 @@ def owns_text_search(vt_slug):
                for f in panel['fields'])
 
 
-def apply_panel_filters(listings, vt_slug, params, source='panel'):
+def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', sub_slug=None):
+    source = 'panel' if source == 'advanced_or_panel' else source
     """Pritaiko kategorijos filtrus pagal konfigūraciją.
 
     source='panel'    — greitoji panelė (paneles-config.json)
@@ -400,11 +439,11 @@ def apply_panel_filters(listings, vt_slug, params, source='panel'):
     if source == 'advanced':
         if not advanced_is_active(vt_slug):
             return listings
-        cfg_fields = ADVANCED[vt_slug]['fields']
+        cfg_fields = (_advanced_cfg(vt_slug, sub_slug) or ADVANCED[vt_slug])['fields']
     else:
         if not is_active(vt_slug):
             return listings
-        cfg_fields = PANELS[vt_slug]['fields']
+        cfg_fields = (_panel_cfg(vt_slug, sub_slug) or PANELS[vt_slug])['fields']
 
     for f in cfg_fields:
         if not f.get('active', True):
@@ -431,12 +470,19 @@ def apply_panel_filters(listings, vt_slug, params, source='panel'):
                 listings = listings.filter(**{f'{db}__lte': hi})
 
         elif ftype == 'text':
-            # ?q, o jei tuščias — legacy ?search, kad senos nuorodos veiktų
-            q = _get(params, f.get('param')) or _get(params, 'search')
-            if q:
-                listings = listings.filter(
-                    Q(title__icontains=q) | Q(description__icontains=q)
-                )
+            if db == '__text__':
+                # ?q, o jei tuščias — legacy ?search, kad senos nuorodos veiktų
+                q = _get(params, f.get('param')) or _get(params, 'search')
+                if q:
+                    listings = listings.filter(
+                        Q(title__icontains=q) | Q(description__icontains=q)
+                    )
+            else:
+                # Tekstinis laukas su savo stulpeliu (pvz. Modelis) —
+                # icontains TAME lauke, ne bendra paieška pavadinime.
+                val = _get(params, f.get('param'))
+                if val:
+                    listings = listings.filter(**{f'{db}__icontains': val})
 
         elif ftype == 'multiselect':
             vals = _getlist(params, f.get('param'))

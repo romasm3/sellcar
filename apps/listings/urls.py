@@ -11,6 +11,7 @@ from . import truck_for_parts_views
 from apps.listings import boats_views
 from . import trailers_views
 from . import agriculture_views
+from . import construction_views
 from . import wheels_views
 from .decorators import staff_only
 
@@ -34,6 +35,8 @@ urlpatterns = [
     path("create/boats/", boats_views.boats_listing_create, name="boats_listing_create"),
     path("create/trailers/", trailers_views.trailers_listing_create, name="trailers_listing_create"),
     path("create/agriculture/", agriculture_views.agriculture_listing_create, name="agriculture_listing_create"),
+    path("create/construction/", construction_views.construction_listing_create, name="construction_listing_create"),
+    path("create/construction/attachment/", construction_views.construction_attachment_create, name="construction_attachment_create"),
     path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
     path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
     path("create/rims/", wheels_views.rims_create, name="rims_create"),

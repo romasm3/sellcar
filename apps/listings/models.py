@@ -854,6 +854,118 @@ class Listing(models.Model):
         verbose_name=_('Darbinis plotis (m)'),
     )
 
+    # ═══════════════════════════════════════════════════════════
+    # STATYBINĖ TECHNIKA (vehicle_type slug='construction')
+    # Dvi subkategorijos = dvi skirtingos formos:
+    #   construction-machinery   → constr_type (39)
+    #   construction-attachments → constr_attach_type (23), be markės
+    # Galia, rida, kuro tipas, ratų formulė, bakas, svoriai, motovalandos —
+    # imami iš esamų laukų. Matmenys metrais (length_m/width_m/height_m)
+    # nauji: truck_*_mm yra milimetrai, sumaišius vienetus diapazono
+    # filtrai lygintų metrus su milimetrais.
+    # Ypatumų ši kategorija neturi (0 checkbox'ų).
+    # ═══════════════════════════════════════════════════════════
+    CONSTR_TYPE_CHOICES = [
+        ('akmens_smulkinimo_masina', _('Akmens smulkinimo mašina')),
+        ('asenizacine_masina', _('Asenizacinė mašina')),
+        ('asfaloto_klojimo_masinos', _('Asfaloto klojimo mašinos')),
+        ('automobilinis_bokstelis', _('Automobilinis bokštelis')),
+        ('automobilinis_kranas', _('Automobilinis kranas')),
+        ('automobilinis_krautuvas', _('Automobilinis krautuvas')),
+        ('betono_gamybos_irenginys', _('Betono gamybos įrenginys')),
+        ('betonvezis', _('Betonvežis')),
+        ('buldozeris', _('Buldozeris')),
+        ('dumperis_savivartis', _('Dumperis (savivartis)')),
+        ('ekskavatorius_krautuvas', _('Ekskavatorius krautuvas')),
+        ('ekskavatorius_griovimo', _('Ekskavatorius griovimo')),
+        ('ekskavatorius_ratinis', _('Ekskavatorius ratinis')),
+        ('ekskavatorius_viksrinis', _('Ekskavatorius vikšrinis')),
+        ('frontalinis_krautuvas', _('Frontalinis krautuvas')),
+        ('greideris', _('Greideris')),
+        ('griebtuvas', _('Griebtuvas')),
+        ('hidraulines_zirkles', _('Hidraulinės žirklės')),
+        ('hidraulinis_graztas', _('Hidraulinis grąžtas')),
+        ('hidraulinis_kujis', _('Hidraulinis kūjis')),
+        ('kausinis_krautuvas', _('Kaušinis krautuvas')),
+        ('kelkrasciu_prieziuros_masinos', _('Kelkraščių priežiūros mašinos')),
+        ('keliu_tiesimo_masina', _('Kelių tiesimo mašina')),
+        ('kompresorius', _('Kompresorius')),
+        ('kranas', _('Kranas')),
+        ('manipuliatorius', _('Manipuliatorius')),
+        ('mini_ekskavatorius', _('Mini ekskavatorius')),
+        ('mini_krautuvas', _('Mini krautuvas')),
+        ('poliakales', _('Poliakalės')),
+        ('skaldykle', _('Skaldyklė')),
+        ('skaldos_rusiavimo_masina', _('Skaldos rūšiavimo mašina')),
+        ('tankinimo_technika', _('Tankinimo technika')),
+        ('vibracines_plokstes', _('Vibracinės plokštės')),
+        ('vibrovolai', _('Vibrovolai')),
+        ('volai', _('Volai')),
+        ('zirklinis_keltuvas', _('Žirklinis keltuvas')),
+        ('zirklinis_krautuvas', _('Žirklinis krautuvas')),
+        ('vibro_masina', _('Vibro mašina')),
+        ('kitas', _('Kitas')),
+    ]
+
+    CONSTR_ATTACH_TYPE_CHOICES = [
+        ('a_barstytuvai', _('Barstytuvai')),
+        ('a_betono_maisykles', _('Betono maišyklės')),
+        ('a_asfalto_frezos', _('Asfalto frezos')),
+        ('a_gerves_kabliai', _('Gervės / kabliai')),
+        ('a_greideriai', _('Greideriai')),
+        ('a_griebtuvai', _('Griebtuvai')),
+        ('a_hidraulines_zirkles', _('Hidraulinės žirklės')),
+        ('a_hidrauliniai_kujai', _('Hidrauliniai kūjai')),
+        ('a_hidrauliniai_graztai', _('Hidrauliniai gražtai')),
+        ('a_kausai', _('Kaušai')),
+        ('a_kelimo_platformos', _('Kėlimo platformos')),
+        ('a_kranai_manipuliatoriai', _('Kranai / manipuliatoriai')),
+        ('a_paleciu_sakes', _('Palečių šakės')),
+        ('a_sniego_buldozerio_peiliai', _('Sniego (buldozerio) peiliai')),
+        ('a_sniego_putikai', _('Sniego pūtikai')),
+        ('a_pjuklai', _('Pjūklai')),
+        ('a_sijotuvai', _('Sijotuvai')),
+        ('a_streles', _('Strėlės')),
+        ('a_sluotos_sepeciai', _('Šluotos / šepečiai')),
+        ('a_trupintuvai_smulkintuvai', _('Trupintuvai / smulkintuvai')),
+        ('a_viksrai', _('Vikšrai')),
+        ('a_volai', _('Volai')),
+        ('a_kita', _('Kita')),
+    ]
+
+    CONSTR_DRIVE_TYPE_CHOICES = [
+        ('d_mechanine', _('Mechaninė')),
+        ('d_automatine', _('Automatinė')),
+        ('d_elektromechanine', _('Elektromechaninė')),
+        ('d_hidrodinamine', _('Hidrodinaminė')),
+        ('d_hidrostatine', _('Hidrostatinė')),
+        ('d_kita', _('Kita')),
+    ]
+
+    constr_type = models.CharField(
+        max_length=48, choices=CONSTR_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    constr_attach_type = models.CharField(
+        max_length=48, choices=CONSTR_ATTACH_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Priedo tipas'),
+    )
+    constr_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    constr_model_text = models.CharField(
+        max_length=32, blank=True, default='', verbose_name=_('Modelis'),
+    )
+    constr_drive_type = models.CharField(
+        max_length=24, choices=CONSTR_DRIVE_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Pavaros tipas'),
+    )
+
+    # Generiniai matmenys metrais — tinka ir kitoms kategorijoms
+    length_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Ilgis (m)'))
+    width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Plotis (m)'))
+    height_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Aukštis (m)'))
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',

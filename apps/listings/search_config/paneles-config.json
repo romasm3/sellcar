@@ -12607,8 +12607,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_type",
+     "param": "constr_type",
      "active": true
     },
     {
@@ -13020,8 +13020,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_brand_text",
+     "param": "constr_brand_text",
      "active": true
     },
     {
@@ -13193,7 +13193,24 @@
    "advanced_url": "/paieska/statybine-technika/",
    "slug": "statybine-technika",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
-   "vt_slug": "construction"
+   "vt_slug": "construction",
+   "card_fields": [
+    {
+     "db_field": "constr_type",
+     "display": true
+    },
+    {
+     "db_field": "power",
+     "unit": "kW"
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "engine_hours",
+     "unit": "val."
+    }
+   ]
   },
   {
    "name": "Statybinės technikos priedai",
@@ -13229,8 +13246,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_attach_type",
+     "param": "constr_attach_type",
      "active": true
     },
     {
@@ -13260,7 +13277,17 @@
    "advanced_url": "/paieska/statybines-technikos-priedai/",
    "slug": "statybines-technikos-priedai",
    "url_params_raw": "Tipas: f_80; Kaina: f_44; Kaina: f_45; Tekstinė paieška: f_376",
-   "vt_slug": "construction"
+   "vt_slug": "construction",
+   "subcategory_slug": "construction-attachments",
+   "card_fields": [
+    {
+     "db_field": "constr_attach_type",
+     "display": true
+    },
+    {
+     "db_field": "year"
+    }
+   ]
   },
   {
    "name": "Miško ūkio technika",

@@ -161,6 +161,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 # ═══════════════════════════════════════════════════════════
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
+    'construction',
     'agriculture',
     'motorcycles',
     'tires',
@@ -252,6 +253,14 @@ MOTO_GEAR_SLUGS = {
 
 # Parent ("Apranga, šalmai, aksesuarai") — no gear type preselected.
 MOTO_GEAR_PARENT_SLUG = 'moto-gear'
+
+# ═══ CONSTRUCTION subcategory slugs — used by listing_create ═══
+# Priedai turi savo formą; technikos tipai — bendrą.
+CONSTRUCTION_ATTACHMENT_SUB = 'construction-attachments'
+CONSTRUCTION_SUBCATEGORY_SLUGS = {
+    'bulldozers', 'compactors', 'concrete-mixers', 'cranes', 'excavators',
+    'forklifts', 'loaders', 'other-construction', 'construction-machinery',
+}
 
 # ═══ AGRICULTURE subcategory slugs — used by listing_create ═══
 AGRICULTURE_SUBCATEGORY_SLUGS = {
@@ -410,6 +419,14 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
         return redirect('moto_part_create')
     if subcategory_slug == 'whole-truck-for-parts':
         return redirect('/create/truck-for-parts/?new=1')
+
+    # ═══ STATYBINĖ TECHNIKA → dvi skirtingos formos ═══
+    if subcategory_slug == CONSTRUCTION_ATTACHMENT_SUB:
+        return redirect('/create/construction/attachment/?new=1')
+    if subcategory_slug in CONSTRUCTION_SUBCATEGORY_SLUGS:
+        return redirect(
+            f'/create/construction/?new=1&subcategory={subcategory_slug}'
+        )
 
     # ═══ ŽEMĖS ŪKIO TECHNIKA → atskira forma ═══
     # Subkategorija perduodama tik Tipo preselekcijai; įrašant ji
@@ -1145,12 +1162,11 @@ def listing_list(request):
         listings = apply_trailer_filters(listings, request.GET)
 
     # ═══ DEKLARATYVUS SLUOKSNIS ═══
+    _sub_slug = _subcategory_slug_from(request.GET)
     listings = panel_config.apply_panel_filters(
-        listings, category_filter, request.GET
-    )
+        listings, category_filter, request.GET, sub_slug=_sub_slug)
     listings = panel_config.apply_panel_filters(
-        listings, category_filter, request.GET, source='advanced'
-    )
+        listings, category_filter, request.GET, source='advanced', sub_slug=_sub_slug)
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
@@ -1458,6 +1474,11 @@ def listing_list(request):
         'config_panels': {
             slug: panel_config.build_panel(slug, request.user)
             for slug in panel_config.active_categories()
+        },
+        'config_panels_sub': {
+            sub: panel_config.build_panel(
+                cfg['vt_slug'], request.user, sub_slug=sub)
+            for sub, cfg in panel_config.PANELS_BY_SUB.items()
         },
         'models': models,
         'years': years,
@@ -2894,6 +2915,11 @@ def listing_edit(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
+        if listing.constr_attach_type or (
+                listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
+            return redirect(f'/create/construction/attachment/?edit={pk}')
+        return redirect(f'/create/construction/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -3750,6 +3776,11 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
+        if listing.constr_attach_type or (
+                listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
+            return redirect(f'/create/construction/attachment/?edit={pk}')
+        return redirect(f'/create/construction/?edit={pk}')
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
@@ -3833,6 +3864,11 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
+        if listing.constr_attach_type or (
+                listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
+            return redirect(f'/create/construction/attachment/?edit={pk}')
+        return redirect(f'/create/construction/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -4048,6 +4084,11 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
+        if listing.constr_attach_type or (
+                listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
+            return redirect(f'/create/construction/attachment/?edit={pk}')
+        return redirect(f'/create/construction/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -6492,10 +6533,22 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB
+
+
+def _subcategory_slug_from(params):
+    """?subcategory= (id arba slug) → slug; reikalinga kategorijoms su
+    dviem formomis (construction technika vs priedai)."""
+    val = params.get('subcategory')
+    if not val:
+        return params.get('sub') or None
+    if str(val).isdigit():
+        return (SubCategory.objects.filter(pk=val)
+                .values_list('slug', flat=True).first())
+    return str(val)
 
 
 def filter_listings(params, user=None, category=None, base_qs=None):
@@ -6518,7 +6571,13 @@ def filter_listings(params, user=None, category=None, base_qs=None):
 
     # subcategory — listing_list tai jau darė, count endpoint'as ne
     if params.get('subcategory'):
-        listings = listings.filter(subcategory_id=params['subcategory'])
+        # Priima ir id, ir slug — kategorijoms su dviem formomis
+        # (construction) subkategorija URL'e patogesnė kaip slug.
+        _sub = str(params['subcategory'])
+        if _sub.isdigit():
+            listings = listings.filter(subcategory_id=_sub)
+        else:
+            listings = listings.filter(subcategory__slug=_sub)
 
     # Bendri ?search / ?q taiko TIK pavadinimą. Kai kategorijos tekstinę
     # paiešką valdo deklaratyvus variklis (ieško ir aprašyme), šituos
@@ -6629,10 +6688,11 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     # Tas pats variklis kaip listing_list — kad skaičiukas ir rezultatai
     # niekada neišsiskirtų (šitos dvi vietos turi atskiras filtrų šakas).
     if category:
-        listings = panel_config.apply_panel_filters(listings, category, params)
+        _sub_slug = _subcategory_slug_from(params)
         listings = panel_config.apply_panel_filters(
-            listings, category, params, source='advanced'
-        )
+            listings, category, params, sub_slug=_sub_slug)
+        listings = panel_config.apply_panel_filters(
+            listings, category, params, source='advanced', sub_slug=_sub_slug)
 
     return listings
 
@@ -6643,7 +6703,8 @@ def advanced_search_generic(request, category):
     Renderina isplestine-config.json aprašą; filtravimas eina per tą patį
     filter_listings kelią, todėl rezultatai ir skaičiukas visada sutampa.
     """
-    adv = panel_config.build_advanced(category, request.user)
+    sub_slug = request.GET.get('sub') or None
+    adv = panel_config.build_advanced(category, request.user, sub_slug=sub_slug)
     if adv is None:
         raise Http404
 
