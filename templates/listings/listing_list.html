@@ -764,6 +764,20 @@ a.sp-rail-btn { text-decoration:none; }
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
                                 <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                             </div>
+                            {% if listing.vehicle_type.slug == 'trailers' %}
+                            {# Priekaboms kuro tipas / pavarų dėžė neaktualūs #}
+                            <div class="ap-spec-line">
+                                {% if listing.trailer_purpose %}<span>{{ listing.get_trailer_purpose_display }}</span>{% endif %}
+                                {% if listing.trailer_axle_count %}
+                                    {% if listing.trailer_purpose %}<span class="sep">·</span>{% endif %}
+                                    <span>{{ listing.get_trailer_axle_count_display }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                {% if listing.gross_weight_kg %}<span>{{ listing.gross_weight_kg }} kg</span><span class="sep">·</span>{% endif %}
+                                <span>{{ listing.year }}</span>
+                            </div>
+                            {% else %}
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
                                 {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
@@ -777,6 +791,7 @@ a.sp-rail-btn { text-decoration:none; }
                                 {% endif %}
                                 {% if listing.body_type %}<span class="sep">·</span><span>{{ listing.get_body_type_display }}</span>{% endif %}
                             </div>
+                            {% endif %}
                             <div class="ap-loc mt-auto">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>{{ listing.city|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
@@ -891,7 +906,20 @@ a.sp-rail-btn { text-decoration:none; }
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
                         <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                     </div>
-                    {% if selected_category == 'trucks' %}
+                    {% if listing.vehicle_type.slug == 'trailers' %}
+                    {# ── PRIEKABŲ kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.trailer_purpose %}<span>{{ listing.get_trailer_purpose_display }}</span>{% endif %}
+                        {% if listing.trailer_axle_count %}
+                            {% if listing.trailer_purpose %}<span class="sep">·</span>{% endif %}
+                            <span>{{ listing.get_trailer_axle_count_display }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        {% if listing.gross_weight_kg %}<span>{{ listing.gross_weight_kg }} kg</span><span class="sep">·</span>{% endif %}
+                        <span>{{ listing.year }}</span>
+                    </div>
+                    {% elif selected_category == 'trucks' %}
                     {# ── TRUCKS kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>

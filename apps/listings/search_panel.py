@@ -225,3 +225,155 @@ def parts_count_qs(sub_key, params, user=None):
             )
 
     return qs
+
+
+# ═══════════════════════════════════════════════════════════
+# PRIEKABOS / PUSPRIEKABĖS — paieškos panelė + filtrai
+#
+# apply_trailer_filters() yra VIENINTELIS filtrų šaltinis: jį kviečia ir
+# listing_list (rezultatai), ir filter_listings (AJAX skaičiukas). Šitos
+# dvi vietos projekte turi atskiras filtrų implementacijas, todėl be
+# bendro helperio mygtuko skaičius nesutaptų su sąrašu.
+# ═══════════════════════════════════════════════════════════
+
+TRAILERS_VT_SLUG = 'trailers'
+
+# Ypatumai, rodomi panelėje (Equipment.name reikšmės iš trailers_views
+# TRAILER_EQUIPMENT_DEFINITION). Rikiuojasi šia tvarka.
+TRAILER_PANEL_EQUIPMENT = [
+    'ABS',
+    'EBS',
+    'Pneumatinė pakaba',
+    'Pakeliama ašis',
+    'Su tentu',
+    'Termografas',
+    'Hidraulika',
+    'Su hidrauliniu kranu',
+    'Liftas gale',
+    'TIR',
+]
+
+TRAILER_EQUIPMENT_CATEGORIES = (
+    'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
+)
+
+
+def _trailers_base_qs(user=None):
+    from .views import _public_listings_qs
+    return _public_listings_qs(user).filter(vehicle_type__slug=TRAILERS_VT_SLUG)
+
+
+def apply_trailer_filters(listings, params):
+    """Priekabų filtrai ant Listing queryset'o.
+
+    Tušti parametrai nieko nesiaurina. Visi filtrai jungiami IR logika
+    (kiekvienas .filter() — papildoma sąlyga).
+    """
+    def _get(key):
+        val = params.get(key)
+        return val.strip() if isinstance(val, str) else val
+
+    def _getlist(key):
+        if hasattr(params, 'getlist'):
+            return [v for v in params.getlist(key) if v]
+        v = params.get(key)
+        return [v] if v else []
+
+    # ─── Tekstiniai / choice laukai ───
+    exact_fields = {
+        'trailer_brand_text': 'trailer_brand_text',
+        'trailer_kind': 'trailer_kind',
+        'trailer_purpose': 'trailer_purpose',
+        'trailer_axle_count': 'trailer_axle_count',
+        'trailer_axle_make': 'trailer_axle_make',
+        'condition': 'condition',
+        'euro_standard': 'euro_standard',
+        'color': 'color',
+    }
+    for param, field in exact_fields.items():
+        val = _get(param)
+        if val:
+            listings = listings.filter(**{field: val})
+
+    model_q = _get('trailer_model_text')
+    if model_q:
+        listings = listings.filter(trailer_model_text__icontains=model_q)
+
+    # ─── Diapazonai (nuo / iki) ───
+    ranges = {
+        'gross_weight': 'gross_weight_kg',
+        'payload': 'payload_kg',
+        'length': 'truck_length_mm',
+    }
+    for param, field in ranges.items():
+        lo, hi = _int_or_none(params.get(param + '_min')), _int_or_none(params.get(param + '_max'))
+        if lo is not None:
+            listings = listings.filter(**{field + '__gte': lo})
+        if hi is not None:
+            listings = listings.filter(**{field + '__lte': hi})
+
+    # ─── TA galioja iki (metai >=) ───
+    ta = _int_or_none(params.get('technical_inspection_year'))
+    if ta is not None:
+        listings = listings.filter(technical_inspection_year__gte=ta)
+
+    # ─── Ypatumai — kiekvienas atskiru .filter(), kad veiktų kaip IR ───
+    for eid in _getlist('trailer_equipment'):
+        eid_int = _int_or_none(eid)
+        if eid_int is not None:
+            listings = listings.filter(equipment_items__equipment_id=eid_int)
+
+    return listings
+
+
+def trailers_panel_context(user=None):
+    """Priekabų panelės kontekstas: markės, choices, ypatumai."""
+    from .models import Listing
+
+    base = _trailers_base_qs(user)
+
+    # Markės — TIK tos, kurios realiai yra skelbimuose (ne visos 192),
+    # su kiekiais, populiariausios viršuje.
+    brand_counts = {
+        row['trailer_brand_text']: row['c']
+        for row in base.exclude(trailer_brand_text='')
+                       .values('trailer_brand_text')
+                       .annotate(c=Count('id'))
+    }
+    trailer_brands = sorted(
+        ({'name': n, 'count': c} for n, c in brand_counts.items()),
+        key=lambda b: (-b['count'], b['name']),
+    )
+
+    # Ypatumai — tik tie, kurie tikrai egzistuoja Equipment lentelėje
+    eq_by_name = {
+        e.name: e
+        for e in Equipment.objects.filter(category__in=TRAILER_EQUIPMENT_CATEGORIES)
+    }
+    trailer_equipment = [
+        {'id': eq_by_name[n].id, 'name': n}
+        for n in TRAILER_PANEL_EQUIPMENT if n in eq_by_name
+    ]
+
+    return {
+        'trailer_brands': trailer_brands,
+        'trailer_kind_choices': Listing.TRAILER_KIND_CHOICES,
+        'trailer_purpose_choices': Listing.TRAILER_PURPOSE_CHOICES,
+        'trailer_axle_count_choices': Listing.TRAILER_AXLE_COUNT_CHOICES,
+        'trailer_axle_makes': _trailer_axle_makes(),
+        'trailer_condition_choices': [
+            (v, l) for v, l in Listing.CONDITION_CHOICES if v in ('used', 'new')
+        ],
+        'trailer_euro_choices': [
+            (v, l) for v, l in Listing.EURO_STANDARD_CHOICES
+            if v in ('euro1', 'euro2', 'euro3', 'euro4', 'euro5', 'euro6', 'other')
+        ],
+        'trailer_color_choices': Listing.COLOR_CHOICES,
+        'trailer_equipment': trailer_equipment,
+        'trailer_ta_years': list(range(2025, 2031)),
+    }
+
+
+def _trailer_axle_makes():
+    from .trailers_views import TRAILER_AXLE_MAKES
+    return TRAILER_AXLE_MAKES

@@ -20,7 +20,10 @@ from decimal import Decimal
 from django.utils import timezone
 from .constants import can_create_listing
 from .image_validation import ImageValidationError, split_valid_images, validate_images
-from .search_panel import COUNT_KEY_TO_SUB, parts_count_qs, parts_panel_context
+from .search_panel import (
+    COUNT_KEY_TO_SUB, parts_count_qs, parts_panel_context,
+    apply_trailer_filters, trailers_panel_context,
+)
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -519,6 +522,10 @@ EQUIPMENT_CATEGORY_LABELS = {
     'truck_safety': 'Safety',
     'truck_audio_video': 'Audio/Video',
     'truck_other': 'Other',
+    'trailer_body': 'Kėbulas ir įranga',
+    'trailer_chassis': 'Važiuoklė',
+    'trailer_safety': 'Sauga',
+    'trailer_other': 'Kita',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -526,6 +533,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'audio_video', 'other', 'electric',
     'truck_cabin', 'truck_body', 'truck_electronics',
     'truck_safety', 'truck_audio_video', 'truck_other',
+    'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'gear',
 ]
 
@@ -567,6 +575,10 @@ EQUIPMENT_CATEGORY_LABELS = {
     'truck_safety': 'Safety',
     'truck_audio_video': 'Audio/Video',
     'truck_other': 'Other',
+    'trailer_body': 'Kėbulas ir įranga',
+    'trailer_chassis': 'Važiuoklė',
+    'trailer_safety': 'Sauga',
+    'trailer_other': 'Kita',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -574,6 +586,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'audio_video', 'other', 'electric',
     'truck_cabin', 'truck_body', 'truck_electronics',
     'truck_safety', 'truck_audio_video', 'truck_other',
+    'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'gear',
 ]
 
@@ -1102,6 +1115,13 @@ def listing_list(request):
     subcategory_filter = request.GET.get('subcategory')
     if subcategory_filter:
         listings = listings.filter(subcategory_id=subcategory_filter)
+
+    # ═══ PRIEKABOS — trailer_* filtrai ═══
+    # Bendras helperis su filter_listings (AJAX skaičiukas), kad abu
+    # keliai visada duotų tą patį rezultatą.
+    if category_filter == 'trailers':
+        listings = apply_trailer_filters(listings, request.GET)
+
     if search_query:
         listings = listings.filter(title__icontains=search_query)
     if brand_filter:
@@ -1403,6 +1423,8 @@ def listing_list(request):
         'wheel_counts': wheel_counts,
         'more_items': more_items,
         **parts_panel_context(request.user),
+        **trailers_panel_context(request.user),
+        'selected_trailer_equipment': request.GET.getlist('trailer_equipment'),
         'models': models,
         'years': years,
         'fuel_types': fuel_types,
@@ -6428,7 +6450,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB
@@ -6552,6 +6574,12 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     # Equipment
     for eid in _getlist('equipment'):
         listings = listings.filter(equipment_items__equipment_id=eid)
+
+    # ═══ PRIEKABOS ═══
+    # Tas pats helperis kaip listing_list — kad skaičiukas ir rezultatai
+    # niekada neišsiskirtų (šitos dvi vietos turi atskiras filtrų šakas).
+    if category == 'trailers':
+        listings = apply_trailer_filters(listings, params)
 
     return listings
 

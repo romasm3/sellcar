@@ -1118,6 +1118,223 @@
 
     {% endif %}
 
+
+    {# ═══════════ PRIEKABOS / PUSPRIEKABĖS ═══════════ #}
+    <div x-show="tab === 'trailers'" x-cloak id="sp-panel-trailers">
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Priekabos / Puspriekabės" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="trailers">
+        <input type="hidden" name="sidebar" value="1">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+
+          {# ── Markė (tik realiai esančios skelbimuose) ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
+            <div class="sp-sel">
+              <select name="trailer_brand_text" class="sp-fld">
+                <option value="">{% trans "Visos" %}</option>
+                {% for b in trailer_brands %}
+                <option value="{{ b.name }}" {% if request.GET.trailer_brand_text == b.name %}selected{% endif %}>{{ b.name }} ({{ b.count }})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          {# ── Modelis ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Modelis" %}</label>
+            <input type="text" name="trailer_model_text" value="{{ request.GET.trailer_model_text|default:'' }}"
+                   placeholder="{% trans 'Įveskite modelį' %}" class="sp-fld placeholder-gray-400">
+          </div>
+
+          {# ── Tipas ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tipas" %}</label>
+            <div class="sp-sel">
+              <select name="trailer_kind" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                {% for val, label in trailer_kind_choices %}
+                <option value="{{ val }}" {% if request.GET.trailer_kind == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          {# ── Paskirtis ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Paskirtis" %}</label>
+            <div class="sp-sel">
+              <select name="trailer_purpose" class="sp-fld">
+                <option value="">{% trans "Visos" %}</option>
+                {% for val, label in trailer_purpose_choices %}
+                <option value="{{ val }}" {% if request.GET.trailer_purpose == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          {# ── Metai ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Metai" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="sp-sel">
+                <select name="year_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for y in years %}<option value="{{ y }}" {% if request.GET.year_min == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="year_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for y in years %}<option value="{{ y }}" {% if request.GET.year_max == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {# ── Kaina ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Kaina" %}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="number" step="1" name="price_min" value="{{ request.GET.price_min|default:'' }}" placeholder="{% trans 'Nuo' %} $" class="sp-fld placeholder-gray-400">
+              <input type="number" step="1" name="price_max" value="{{ request.GET.price_max|default:'' }}" placeholder="{% trans 'Iki' %} $" class="sp-fld placeholder-gray-400">
+            </div>
+          </div>
+        </div>
+
+        {# ═══ IŠPLĖSTINIAI ═══ #}
+        <div x-data="{ adv: false }" class="mt-3">
+          <button type="button" @click="adv = !adv"
+                  class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
+            <span x-text="adv ? '−' : '+'"></span>
+            {% trans "Išplėstinė paieška" %}
+          </button>
+
+          <div x-show="adv" x-cloak class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-3">
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Būklė" %}</label>
+              <div class="sp-sel">
+                <select name="condition" class="sp-fld">
+                  <option value="">{% trans "Visos" %}</option>
+                  {% for val, label in trailer_condition_choices %}
+                  <option value="{{ val }}" {% if request.GET.condition == val %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Ašių skaičius" %}</label>
+              <div class="sp-sel">
+                <select name="trailer_axle_count" class="sp-fld">
+                  <option value="">{% trans "Visi" %}</option>
+                  {% for val, label in trailer_axle_count_choices %}
+                  <option value="{{ val }}" {% if request.GET.trailer_axle_count == val %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Ašių gamintojas" %}</label>
+              <div class="sp-sel">
+                <select name="trailer_axle_make" class="sp-fld">
+                  <option value="">{% trans "Visi" %}</option>
+                  {% for name in trailer_axle_makes %}
+                  <option value="{{ name }}" {% if request.GET.trailer_axle_make == name %}selected{% endif %}>{{ name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Euro standartas" %}</label>
+              <div class="sp-sel">
+                <select name="euro_standard" class="sp-fld">
+                  <option value="">{% trans "Visi" %}</option>
+                  {% for val, label in trailer_euro_choices %}
+                  <option value="{{ val }}" {% if request.GET.euro_standard == val %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Bendroji masė (kg)" %}</label>
+              <div class="grid grid-cols-2 gap-3">
+                <input type="number" step="1" name="gross_weight_min" value="{{ request.GET.gross_weight_min|default:'' }}" placeholder="{% trans 'Nuo' %}" class="sp-fld placeholder-gray-400">
+                <input type="number" step="1" name="gross_weight_max" value="{{ request.GET.gross_weight_max|default:'' }}" placeholder="{% trans 'Iki' %}" class="sp-fld placeholder-gray-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Keliamoji galia (kg)" %}</label>
+              <div class="grid grid-cols-2 gap-3">
+                <input type="number" step="1" name="payload_min" value="{{ request.GET.payload_min|default:'' }}" placeholder="{% trans 'Nuo' %}" class="sp-fld placeholder-gray-400">
+                <input type="number" step="1" name="payload_max" value="{{ request.GET.payload_max|default:'' }}" placeholder="{% trans 'Iki' %}" class="sp-fld placeholder-gray-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Ilgis (mm)" %}</label>
+              <div class="grid grid-cols-2 gap-3">
+                <input type="number" step="1" name="length_min" value="{{ request.GET.length_min|default:'' }}" placeholder="{% trans 'Nuo' %}" class="sp-fld placeholder-gray-400">
+                <input type="number" step="1" name="length_max" value="{{ request.GET.length_max|default:'' }}" placeholder="{% trans 'Iki' %}" class="sp-fld placeholder-gray-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Spalva" %}</label>
+              <div class="sp-sel">
+                <select name="color" class="sp-fld">
+                  <option value="">{% trans "Visos" %}</option>
+                  {% for val, label in trailer_color_choices %}
+                  <option value="{{ val }}" {% if request.GET.color == val %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "TA galioja iki" %}</label>
+              <div class="sp-sel">
+                <select name="technical_inspection_year" class="sp-fld">
+                  <option value="">{% trans "Nesvarbu" %}</option>
+                  {% for y in trailer_ta_years %}
+                  <option value="{{ y }}" {% if request.GET.technical_inspection_year == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            {# ── Ypatumai (ListingEquipment) ── #}
+            <div class="sm:col-span-2">
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Ypatumai" %}</label>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5">
+                {% for eq in trailer_equipment %}
+                <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+                  <input type="checkbox" name="trailer_equipment" value="{{ eq.id }}"
+                         {% if eq.id|stringformat:'s' in selected_trailer_equipment %}checked{% endif %}
+                         class="w-4 h-4 rounded">
+                  <span>{{ eq.name }}</span>
+                </label>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('trailers')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
     {# ═══════════ PARTS — trys subkategorijos (partSub) ═══════════ #}
     <div x-show="tab === 'parts'" x-cloak id="sp-panel-parts">
       <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
