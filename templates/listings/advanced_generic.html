@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load i18n dict_extras %}
+{% block title %}{{ adv.label }} — {% trans "Detali paieška" %} - SellCar{% endblock %}
+
+{% block content %}
+{# ═══ IŠPLĖSTINĖ PAIEŠKA — renderinama iš isplestine-config.json ═══ #}
+<div class="bg-gray-50 min-h-screen py-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4 mb-5">
+      <h1 class="text-xl font-bold text-gray-900">{% trans "Detali paieška" %}: {{ adv.label }}</h1>
+    </div>
+
+    <form method="get" action="{% url 'listing_list' %}" id="advForm"
+          x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }} }">
+      <input type="hidden" name="category" value="{{ adv.slug }}">
+
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+          {% for f in adv.fields %}
+
+            {% if f.type == 'range' %}
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}</label>
+              <div class="grid grid-cols-2 gap-3">
+                {% if f.free_input %}
+                {# Diapazonas su laisvu įvedimu — sąrašas datalist'e, bet priimam bet kokį skaičių #}
+                <input type="number" step="1" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
+                       value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
+                       class="sp-fld placeholder-gray-400">
+                <input type="number" step="1" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
+                       value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
+                       class="sp-fld placeholder-gray-400">
+                <datalist id="dl-{{ f.param_min }}">{% for v, l in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>
+                <datalist id="dl-{{ f.param_max }}">{% for v, l in f.options_max %}<option value="{{ v }}">{% endfor %}</datalist>
+                {% else %}
+                <div class="sp-sel">
+                  <select name="{{ f.param_min }}" class="sp-fld">
+                    <option value="">{% trans "Nuo" %}</option>
+                    {% for v, l in f.options_min %}<option value="{{ v }}" {% if request.GET|get_param:f.param_min == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
+                  </select>
+                </div>
+                <div class="sp-sel">
+                  <select name="{{ f.param_max }}" class="sp-fld">
+                    <option value="">{% trans "Iki" %}</option>
+                    {% for v, l in f.options_max %}<option value="{{ v }}" {% if request.GET|get_param:f.param_max == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+            {% elif f.type == 'text' %}
+            <div class="sm:col-span-2">
+              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+              <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
+                     placeholder="{% trans 'Ieškoti pavadinime ir aprašyme' %}" class="sp-fld placeholder-gray-400">
+            </div>
+
+            {% elif f.multi %}
+            {# Kelios markės vienu metu — kiekviena nauja eilutė siunčia tą patį param'ą #}
+            <div class="sm:col-span-2" x-data="{ rows: {{ selected_brands|length|default:1 }} }">
+              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+              <template x-for="i in rows" :key="i">
+                <div class="sp-sel mb-2">
+                  <select name="{{ f.param }}" class="sp-fld">
+                    <option value="">{% trans "Visos markės" %}</option>
+                    {% for b in f.brands_top %}<option value="{{ b.value }}" {% if b.value|stringformat:"s" in selected_brands %}selected{% endif %}>{{ b.name }} ({{ b.count }})</option>{% endfor %}
+                    {% for b in f.brands_rest %}<option value="{{ b.value }}" {% if b.value|stringformat:"s" in selected_brands %}selected{% endif %}>{{ b.name }}{% if b.count %} ({{ b.count }}){% endif %}</option>{% endfor %}
+                  </select>
+                </div>
+              </template>
+              <button type="button" @click="rows++" class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900">
+                + {% trans "Pridėti daugiau markių" %}
+              </button>
+            </div>
+
+            {% else %}
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+              <div class="sp-sel">
+                <select name="{{ f.param }}" class="sp-fld">
+                  <option value="">{% trans "Visi" %}</option>
+                  {% for v, l in f.options %}<option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
+                </select>
+              </div>
+            </div>
+            {% endif %}
+
+          {% endfor %}
+
+          {# ── Rūšiavimas ── #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Rūšiavimas" %}</label>
+            <div class="sp-sel">
+              <select name="sort" class="sp-fld">
+                {% for v, l in adv.sort_options %}<option value="{{ v }}" {% if request.GET.sort == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {# ═══ YPATUMAI — suskleidžiama sekcija su skaitikliu ═══ #}
+      {% if adv.equipment %}
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-5">
+        <button type="button" @click="eqOpen = !eqOpen"
+                class="w-full flex items-center justify-between px-6 py-4 text-left">
+          <span class="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            {% trans "Ypatumai" %} (<span x-text="eqCount"></span>/{{ adv.equipment_total }})
+          </span>
+          <span class="text-gray-400 text-lg" x-text="eqOpen ? '−' : '+'"></span>
+        </button>
+        <div x-show="eqOpen" x-cloak class="px-6 pb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-2">
+            {% for eq in adv.equipment %}
+            <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+              <input type="checkbox" name="equipment" value="{{ eq.id }}"
+                     {% if eq.id|stringformat:"s" in selected_equipment %}checked{% endif %}
+                     @change="eqCount += $event.target.checked ? 1 : -1"
+                     class="w-4 h-4 rounded">
+              <span>{{ eq.name }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <a href="{% url 'listing_list' %}?category={{ adv.slug }}"
+           class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Išvalyti" %}</a>
+        <button type="submit" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-semibold text-sm">
+          {% trans "Ieškoti" %} <span id="advCount">{{ result_count }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// Rezultatų skaičius perskaičiuojamas keičiant filtrus
+(function () {
+  var form = document.getElementById('advForm');
+  var out = document.getElementById('advCount');
+  if (!form || !out) return;
+  var t;
+  function refresh() {
+    clearTimeout(t);
+    t = setTimeout(function () {
+      var qs = new URLSearchParams(new FormData(form)).toString();
+      fetch('/paieska/count/{{ adv.slug }}/?' + qs)
+        .then(function (r) { return r.json(); })
+        .then(function (d) { out.textContent = d.count; })
+        .catch(function () {});
+    }, 300);
+  }
+  form.addEventListener('change', refresh);
+  form.addEventListener('input', function (e) {
+    if (['text', 'number', 'search'].indexOf(e.target.type) !== -1) refresh();
+  });
+})();
+</script>
+{% endblock %}

@@ -115,6 +115,7 @@ urlpatterns = [
     path('search/advanced/', views.advanced_search, name='advanced_search'),
     path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
     path('paieska/count/<str:category>/', views.search_panel_count, name='search_panel_count'),
+    path('paieska/<str:category>/', views.advanced_search_generic, name='advanced_search_generic'),
     path('search/advanced/motorcycles/', motorcycles_views.motorcycles_advanced_search, name='motorcycles_advanced_search'),
     path('search/advanced/moto-parts/', moto_part_views.moto_parts_advanced_search, name='moto_parts_advanced_search'),
     path('search/advanced/trucks/', trucks_views.trucks_advanced_search, name='trucks_advanced_search'),

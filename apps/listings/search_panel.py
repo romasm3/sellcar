@@ -295,16 +295,14 @@ def apply_trailer_filters(listings, params):
         v = params.get(key)
         return [v] if v else []
 
-    # ─── Tekstiniai / choice laukai ───
+    # ─── Laukai, kurių NĖRA deklaratyvioje konfigūracijoje ───
+    # Viską, kas aprašyta paneles-/isplestine-config.json (tipas, markė,
+    # paskirtis, spalva, būklė, ašių skaičius, masės, metai, kaina,
+    # tekstinė paieška), filtruoja search_config.panels variklis. Čia liko
+    # tik išplėstinio bloko likutis, kurio etalone dar nėra.
     exact_fields = {
-        'trailer_brand_text': 'trailer_brand_text',
-        'trailer_kind': 'trailer_kind',
-        'trailer_purpose': 'trailer_purpose',
-        'trailer_axle_count': 'trailer_axle_count',
         'trailer_axle_make': 'trailer_axle_make',
-        'condition': 'condition',
         'euro_standard': 'euro_standard',
-        'color': 'color',
     }
     for param, field in exact_fields.items():
         val = _get(param)
@@ -315,27 +313,12 @@ def apply_trailer_filters(listings, params):
     if model_q:
         listings = listings.filter(trailer_model_text__icontains=model_q)
 
-    # ─── Tekstinė paieška — pavadinimas + aprašymas ───
-    # Atskiras param'as (ne bendras ?q / ?search), nes tie jau taikomi
-    # aukščiau ir tik pavadinimui — susidėję duotų tik title atitikmenis.
-    text_q = _get('trailer_q')
-    if text_q:
-        listings = listings.filter(
-            Q(title__icontains=text_q) | Q(description__icontains=text_q)
-        )
-
     # ─── Diapazonai (nuo / iki) ───
-    ranges = {
-        'gross_weight': 'gross_weight_kg',
-        'payload': 'payload_kg',
-        'length': 'truck_length_mm',
-    }
-    for param, field in ranges.items():
-        lo, hi = _int_or_none(params.get(param + '_min')), _int_or_none(params.get(param + '_max'))
-        if lo is not None:
-            listings = listings.filter(**{field + '__gte': lo})
-        if hi is not None:
-            listings = listings.filter(**{field + '__lte': hi})
+    lo, hi = _int_or_none(params.get('length_min')), _int_or_none(params.get('length_max'))
+    if lo is not None:
+        listings = listings.filter(truck_length_mm__gte=lo)
+    if hi is not None:
+        listings = listings.filter(truck_length_mm__lte=hi)
 
     # ─── TA galioja iki (metai >=) ───
     ta = _int_or_none(params.get('technical_inspection_year'))

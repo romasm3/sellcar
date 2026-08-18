@@ -1125,6 +1125,9 @@ def listing_list(request):
     listings = panel_config.apply_panel_filters(
         listings, category_filter, request.GET
     )
+    listings = panel_config.apply_panel_filters(
+        listings, category_filter, request.GET, source='advanced'
+    )
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
@@ -6596,8 +6599,30 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     # niekada neišsiskirtų (šitos dvi vietos turi atskiras filtrų šakas).
     if category:
         listings = panel_config.apply_panel_filters(listings, category, params)
+        listings = panel_config.apply_panel_filters(
+            listings, category, params, source='advanced'
+        )
 
     return listings
+
+
+def advanced_search_generic(request, category):
+    """Išplėstinė paieška iš konfigūracijos — /paieska/<kategorija>/.
+
+    Renderina isplestine-config.json aprašą; filtravimas eina per tą patį
+    filter_listings kelią, todėl rezultatai ir skaičiukas visada sutampa.
+    """
+    adv = panel_config.build_advanced(category, request.user)
+    if adv is None:
+        raise Http404
+
+    qs = filter_listings(request.GET, user=request.user, category=category)
+    return render(request, 'listings/advanced_generic.html', {
+        'adv': adv,
+        'result_count': qs.count(),
+        'selected_equipment': request.GET.getlist('equipment'),
+        'selected_brands': request.GET.getlist('trailer_brand_text'),
+    })
 
 
 def search_panel_count(request, category):
@@ -6633,7 +6658,8 @@ def search_panel_count(request, category):
         )
         return JsonResponse({'count': qs.count()})
 
-    if category not in SEARCH_PANEL_CATEGORIES:
+    if (category not in SEARCH_PANEL_CATEGORIES
+            and not panel_config.advanced_is_active(category)):
         raise Http404
     qs = filter_listings(request.GET, user=request.user, category=category)
     return JsonResponse({'count': qs.count()})
