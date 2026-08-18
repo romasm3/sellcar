@@ -6436,7 +6436,24 @@
    "advanced_url": "/paieska/zemes-ukio-padargai-savaeige/",
    "slug": "zemes-ukio-padargai-savaeige",
    "url_params_raw": "text: qt_f_376; Padargas / Savaeigė: f_402; Tipas: f_80; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Markė: f_1",
-   "vt_slug": "agriculture"
+   "vt_slug": "agriculture",
+   "card_fields": [
+    {
+     "db_field": "agri_type",
+     "display": true
+    },
+    {
+     "db_field": "power",
+     "unit": "kW"
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "engine_hours",
+     "unit": "val."
+    }
+   ]
   },
   {
    "name": "Sunkvežimiai",

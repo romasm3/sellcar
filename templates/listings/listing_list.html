@@ -764,7 +764,20 @@ a.sp-rail-btn { text-decoration:none; }
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
                                 <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                             </div>
-                            {% if listing.vehicle_type.slug == 'trailers' %}
+                            {% if listing.vehicle_type.slug == 'agriculture' %}
+                            {# Žemės ūkio technikai kuro tipas / rida neaktualūs #}
+                            <div class="ap-spec-line">
+                                {% if listing.agri_type %}<span>{{ listing.get_agri_type_display }}</span>{% endif %}
+                                {% if listing.power %}
+                                    {% if listing.agri_type %}<span class="sep">·</span>{% endif %}
+                                    <span>{{ listing.power }} kW</span>
+                                {% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                <span>{{ listing.year }}</span>
+                                {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
+                            </div>
+                            {% elif listing.vehicle_type.slug == 'trailers' %}
                             {# Priekaboms kuro tipas / pavarų dėžė neaktualūs #}
                             <div class="ap-spec-line">
                                 {% if listing.trailer_purpose %}<span>{{ listing.get_trailer_purpose_display }}</span>{% endif %}
@@ -906,7 +919,20 @@ a.sp-rail-btn { text-decoration:none; }
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
                         <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                     </div>
-                    {% if listing.vehicle_type.slug == 'trailers' %}
+                    {% if listing.vehicle_type.slug == 'agriculture' %}
+                    {# ── ŽEMĖS ŪKIO kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.agri_type %}<span>{{ listing.get_agri_type_display }}</span>{% endif %}
+                        {% if listing.power %}
+                            {% if listing.agri_type %}<span class="sep">·</span>{% endif %}
+                            <span>{{ listing.power }} kW</span>
+                        {% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
+                    </div>
+                    {% elif listing.vehicle_type.slug == 'trailers' %}
                     {# ── PRIEKABŲ kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         {% if listing.trailer_purpose %}<span>{{ listing.get_trailer_purpose_display }}</span>{% endif %}
