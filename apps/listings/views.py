@@ -161,6 +161,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 # ═══════════════════════════════════════════════════════════
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
+    'loading-equipment',
     'construction',
     'agriculture',
     'motorcycles',
@@ -211,6 +212,7 @@ PICKER_HIDDEN_VEHICLE_TYPE_SLUGS = {
 # subkategorijų sąrašą, o nukreipimą daro listing_create POST šaka.
 CREATE_URL_BY_VEHICLE_TYPE = {
     'cars':     '/create/cars/quick/',
+    'loading-equipment': '/create/loading-equipment/?new=1',
     'boats':    '/create/boats/?new=1',
     'trailers': '/create/trailers/?new=1',
 }
@@ -562,6 +564,10 @@ EQUIPMENT_CATEGORY_LABELS = {
     'agri_drivetrain': 'Pavaros ir važiuoklė',
     'agri_mount': 'Prikabinimas',
     'agri_other': 'Kita',
+    'load_cabin': 'Kabina ir apsauga',
+    'load_hydraulics': 'Hidraulika ir mechanizmai',
+    'load_platform': 'Platforma ir atramos',
+    'load_surface': 'Važiuoklė ir paviršius',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -571,6 +577,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'truck_safety', 'truck_audio_video', 'truck_other',
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'agri_drivetrain', 'agri_mount', 'agri_other',
+    'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
     'gear',
 ]
 
@@ -619,6 +626,10 @@ EQUIPMENT_CATEGORY_LABELS = {
     'agri_drivetrain': 'Pavaros ir važiuoklė',
     'agri_mount': 'Prikabinimas',
     'agri_other': 'Kita',
+    'load_cabin': 'Kabina ir apsauga',
+    'load_hydraulics': 'Hidraulika ir mechanizmai',
+    'load_platform': 'Platforma ir atramos',
+    'load_surface': 'Važiuoklė ir paviršius',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -628,6 +639,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'truck_safety', 'truck_audio_video', 'truck_other',
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'agri_drivetrain', 'agri_mount', 'agri_other',
+    'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
     'gear',
 ]
 
@@ -2915,6 +2927,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
+        return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
         if listing.constr_attach_type or (
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
@@ -3776,6 +3790,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
+        return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
         if listing.constr_attach_type or (
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
@@ -3864,6 +3880,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
+        return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
         if listing.constr_attach_type or (
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
@@ -4084,6 +4102,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
+        return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
         if listing.constr_attach_type or (
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
@@ -6533,7 +6553,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB

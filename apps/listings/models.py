@@ -933,7 +933,12 @@ class Listing(models.Model):
         ('a_kita', _('Kita')),
     ]
 
+    # Bendras pavaros laukas statybinei ir krovimo technikai.
+    # Krovimo technika prideda dvi hidraulines pavaras; jos prasmingos ir
+    # statybinėje (mini krautuvai, ekskavatoriai).
     CONSTR_DRIVE_TYPE_CHOICES = [
+        ('d_hidrauline_2_ratu', _('Hidraulinė–2 ratų')),
+        ('d_hidrauline_4x4', _('Hidraulinė–4x4')),
         ('d_mechanine', _('Mechaninė')),
         ('d_automatine', _('Automatinė')),
         ('d_elektromechanine', _('Elektromechaninė')),
@@ -965,6 +970,68 @@ class Listing(models.Model):
     length_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Ilgis (m)'))
     width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Plotis (m)'))
     height_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, verbose_name=_('Aukštis (m)'))
+
+    # ═══════════════════════════════════════════════════════════
+    # KROVIMO IR SANDĖLIAVIMO TECHNIKA (slug='loading-equipment')
+    # Kategorija subkategorijų NETURI (etalone plokščias punktas), todėl
+    # subcategory lieka NULL — subkategorijos išvedimo logikos nėra.
+    # Matmenys — truck_*_mm (MILIMETRAI), skirtingai nei statybinėje,
+    # kur length_m/width_m/height_m yra metrai.
+    # Max keliamoji galia = payload_kg. Pavara = bendras constr_drive_type.
+    # Ypatumai (15) — Equipment su 'load_*' prefiksu: „Hidraulika" ir
+    # „Kabina" jau egzistuoja agri_other / trailer_body.
+    # ═══════════════════════════════════════════════════════════
+    LOAD_TYPE_CHOICES = [
+        ('l_konteineriai', _('Konteineriai')),
+        ('l_alkuninis_keltuvas', _('Alkūninis keltuvas')),
+        ('l_ekskavatorinis_krautuvas', _('Ekskavatorinis krautuvas')),
+        ('l_elektriniai_vezimeliai', _('Elektriniai vežimėliai')),
+        ('l_krautuvas', _('Krautuvas')),
+        ('l_paleciu_vyniotuvai', _('Palečių vyniotuvai')),
+        ('l_sandeliavimo_technika', _('Sandėliavimo technika')),
+        ('l_savaeigis_stiebinis_keltuvas', _('Savaeigis stiebinis keltuvas')),
+        ('l_savaeigis_zirklinis_keltuvas', _('Savaeigis žirklinis keltuvas')),
+        ('l_sakinis_krautuvas', _('Šakinis krautuvas')),
+        ('l_teleskopinis_krautuvas', _('Teleskopinis krautuvas')),
+        ('l_universalus_krautuvas', _('Universalus krautuvas')),
+        ('l_kita', _('Kita')),
+    ]
+
+    LOAD_ENERGY_CHOICES = [
+        ('e_akumuliatorinis_elektrinis', _('Akumuliatorinis/elektrinis')),
+        ('e_benzininis_dujinis', _('Benzininis/dujinis')),
+        ('e_benzininis', _('Benzininis')),
+        ('e_dyzelininis_elektrinis', _('Dyzelininis/elektrinis')),
+        ('e_dyzelininis', _('Dyzelininis')),
+        ('e_dujinis', _('Dujinis')),
+        ('e_rankinis_hidraulinis', _('Rankinis/hidraulinis')),
+        ('e_rankinis', _('Rankinis')),
+        ('e_kita', _('Kita')),
+    ]
+
+    load_type = models.CharField(
+        max_length=40, choices=LOAD_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    load_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    load_energy_source = models.CharField(
+        max_length=32, choices=LOAD_ENERGY_CHOICES, blank=True, default='',
+        verbose_name=_('Energijos šaltinis'),
+    )
+    lift_height_m = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True,
+        verbose_name=_('Max kėlimo aukštis (m)'),
+    )
+    aisle_width_m2 = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True,
+        verbose_name=_('Kelplotis (m²)'),
+    )
+    fork_length_m = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True,
+        verbose_name=_('Šakių / strėlės ilgis (m)'),
+    )
 
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,

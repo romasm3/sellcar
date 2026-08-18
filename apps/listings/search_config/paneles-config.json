@@ -12051,8 +12051,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "load_type",
+     "param": "load_type",
      "active": true
     },
     {
@@ -12382,8 +12382,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "load_brand_text",
+     "param": "load_brand_text",
      "active": true
     },
     {
@@ -12555,7 +12555,24 @@
    "advanced_url": "/paieska/krovimo-ir-sandeliavimo-technika/",
    "slug": "krovimo-ir-sandeliavimo-technika",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
-   "vt_slug": "loading-equipment"
+   "vt_slug": "loading-equipment",
+   "card_fields": [
+    {
+     "db_field": "load_type",
+     "display": true
+    },
+    {
+     "db_field": "payload_kg",
+     "unit": "kg"
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "engine_hours",
+     "unit": "val."
+    }
+   ]
   },
   {
    "name": "Statybinė technika",

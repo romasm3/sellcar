@@ -1,4 +1,4 @@
-{% load i18n i18n_db %}
+{% load dict_extras i18n i18n_db %}
 {# ================================================================ #}
 {# AutoLeft paieškos panelė — A variantas                           #}
 {# Alpine x-show tab'ai (0ms), count AJAX su debounce + count-up    #}
@@ -1226,6 +1226,24 @@
                   class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('construction')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+    {# ═══════════ KROVIMO IR SANDĖLIAVIMO TECHNIKA ═══════════ #}
+    <div x-show="tab === 'loading-equipment'" x-cloak id="sp-panel-loading-equipment">
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Krovimo ir sandėliavimo technika" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="loading-equipment">
+        <input type="hidden" name="sidebar" value="1">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'loading-equipment' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('loading-equipment')"></span>
           </button>
         </div>
       </form>

@@ -1,0 +1,838 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% if is_edit_mode %}{% trans "Redaguoti skelbimą" %}{% else %}{% trans "Naujas skelbimas" %}{% endif %} - SellCar{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if is_edit_mode %}
+        <a href="{% url 'listing_edit_hub' edit_listing_id %}"
+           class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Grįžti į skelbimo redagavimą" %}</span>
+        </a>
+        {% endif %}
+
+        {# ═══ HEADER ═══ #}
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
+            <h2 class="text-xl font-bold text-gray-900">
+                {% if is_edit_mode %}
+                    {% trans "Redaguoti skelbimą" %}: {{ listing.load_brand_text }} {{ listing.constr_model_text }}
+                {% else %}
+                    {% trans "Naujas skelbimas" %}: {% if subcategory_name %}{{ subcategory_name }}{% else %}{% trans "Krovimo ir sandėliavimo technika" %}{% endif %}
+                {% endif %}
+            </h2>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" id="loadForm"
+              action="{% if is_edit_mode %}{% url 'loading_listing_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'loading_listing_create' %}{% endif %}">
+            {% csrf_token %}
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: PAGRINDINIAI DUOMENYS                              #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Pagrindiniai duomenys" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+                        <div data-field-wrap="condition" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Būklė" %} <span class="text-red-500">*</span></label>
+                            <select name="condition" id="id_condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in condition_choices %}
+                                <option value="{{ value }}" {% if listing.condition == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="load_type" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Tipas" %} <span class="text-red-500">*</span></label>
+                            <select name="load_type" id="id_load_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in type_choices %}
+                                <option value="{{ value }}" {% if listing.load_type == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="load_brand_text" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Markė" %} <span class="text-red-500">*</span></label>
+                            <select name="load_brand_text" id="id_load_brand_text" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for name in brand_choices %}
+                                <option value="{{ name }}" {% if listing.load_brand_text == name %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modelis" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <input type="text" name="constr_model_text" maxlength="32"
+                                   value="{{ listing.constr_model_text|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="year" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Metai" %} <span class="text-red-500">*</span></label>
+                            <select name="year" id="id_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for y in years %}<option value="{{ y }}" {% if listing.year == y %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="month" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mėnuo" %} <span class="text-red-500">*</span></label>
+                            <select name="month" id="id_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for m in months %}<option value="{{ m }}" {% if selected_month == m|stringformat:'s' %}selected{% endif %}>{{ m|stringformat:'02d' }}</option>{% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Max kėlimo aukštis (m)" %}</label>
+                            <input type="number" name="lift_height_m" min="0" step="0.01" placeholder="-"
+                                   value="{% if listing.lift_height_m %}{{ listing.lift_height_m }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Max keliamoji galia (kg)" %}</label>
+                            <input type="number" name="payload_kg" min="0" step="1" placeholder="-"
+                                   value="{% if listing.payload_kg %}{{ listing.payload_kg }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Galia (kW)" %}</label>
+                            <input type="number" name="power" min="0" step="1" maxlength="3" placeholder="-"
+                                   value="{% if listing.power %}{{ listing.power }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "SDK kodas" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <input type="text" name="sdk_number" maxlength="8" placeholder="{% trans 'SDK kodas, pvz.: 12345678' %}"
+                                   value="{{ listing.sdk_number|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div data-field-wrap="price" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Kaina" %} <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" name="price" id="id_price" min="0" step="1"
+                                       value="{% if listing.price %}{{ listing.price|floatformat:0 }}{% endif %}"
+                                       oninput="if(this.value) markFieldError('price', false)"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Kaina eksportui" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <div class="relative">
+                                <input type="number" name="export_price" min="0" step="1"
+                                       value="{% if listing.export_price %}{{ listing.export_price|floatformat:0 }}{% endif %}"
+                                       placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
+                                <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="taxes_extra" {% if listing.taxes_extra %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "+ Mokesčiai" %}</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="negotiable" {% if listing.negotiable %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Kaina derinama" %}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: PAPILDOMI DUOMENYS                                 #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Papildomi duomenys" %}</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Motovalandos (val.)" %}</label>
+                            <input type="number" name="engine_hours" min="0" step="1" placeholder="-"
+                                   value="{% if listing.engine_hours %}{{ listing.engine_hours }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Pavara" %}</label>
+                            <select name="constr_drive_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in drive_type_choices %}
+                                <option value="{{ value }}" {% if listing.constr_drive_type == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Energijos šaltinis" %}</label>
+                            <select name="load_energy_source" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in energy_choices %}
+                                <option value="{{ value }}" {% if listing.load_energy_source == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Kelplotis (m²)" %}</label>
+                            <input type="number" name="aisle_width_m2" min="0" step="0.01" placeholder="-"
+                                   value="{% if listing.aisle_width_m2 %}{{ listing.aisle_width_m2 }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Ilgis (mm)" %}</label>
+                            <input type="number" name="truck_length_mm" min="0" step="1" placeholder="-"
+                                   value="{% if listing.truck_length_mm %}{{ listing.truck_length_mm }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Plotis (mm)" %}</label>
+                            <input type="number" name="truck_width_mm" min="0" step="1" placeholder="-"
+                                   value="{% if listing.truck_width_mm %}{{ listing.truck_width_mm }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Aukštis (mm)" %}</label>
+                            <input type="number" name="truck_height_mm" min="0" step="1" placeholder="-"
+                                   value="{% if listing.truck_height_mm %}{{ listing.truck_height_mm }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Šakių / strėlės ilgis (m)" %}</label>
+                            <input type="number" name="fork_length_m" min="0" step="0.01" placeholder="-"
+                                   value="{% if listing.fork_length_m %}{{ listing.fork_length_m }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "VIN kodas" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <input type="text" name="vin" maxlength="17"
+                                   value="{{ listing.vin|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {# SECTION: YPATUMAI                                           #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Ypatumai" %}</h3>
+                </div>
+                <div class="p-6 space-y-5">
+                    {% for group in equipment_by_category %}
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{{ group.label }}</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
+                            {% for item in group.items %}
+                            <label class="flex items-center gap-2 py-1 cursor-pointer">
+                                <input type="checkbox" name="equipment" value="{{ item.id }}"
+                                       {% if item.id|stringformat:'s' in selected_equipment %}checked{% endif %}
+                                       class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{{ item.name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: KOMENTARAI                                         #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Komentarai" %}</h3>
+                </div>
+                <div class="p-6">
+                    <textarea name="description" rows="6" placeholder="{% trans 'Aprašykite savo pasiūlymą išsamiai.' %}"
+                              class="w-full px-3 py-2 border border-gray-300 rounded text-sm">{{ listing.description|default:'' }}</textarea>
+                    <div class="mt-4">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Video nuoroda (YouTube, nebūtina)" %}</label>
+                        <input type="url" name="video_url" value="{{ listing.video_url|default:'' }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: NUOTRAUKOS                                         #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Nuotraukos" %}</h3>
+                </div>
+                <div class="p-6">
+
+                    {# ─── EDIT MODE: esamos nuotraukos ─── #}
+                    {% if is_edit_mode and listing.images.all %}
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">{% trans "Dabartinės nuotraukos" %}</label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="existing-photos">
+                            {% for img in listing.images.all %}
+                                <div class="relative group aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100 cursor-move existing-photo"
+                                     data-existing-img-id="{{ img.pk }}"
+                                     draggable="true">
+                                    <img src="{{ img.image.url }}"
+                                         class="w-full h-full object-cover hover:opacity-90 transition-opacity pointer-events-none"
+                                         data-lightbox-url="{{ img.image.url }}">
+                                    {% if img.is_main %}
+                                    <span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none">
+                                        <i class="fas fa-star text-[8px]"></i>{% trans "PAGRINDINĖ" %}
+                                    </span>
+                                    {% else %}
+                                    <span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">{{ forloop.counter }}</span>
+                                    {% endif %}
+
+                                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                        {% if not img.is_main %}
+                                        <button type="button" onclick="event.stopPropagation(); setExistingImageMain({{ img.pk }})" class="flex-1 bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 rounded" title="{% trans 'Nustatyti pagrindine' %}">★</button>
+                                        {% endif %}
+                                        <button type="button" onclick="event.stopPropagation(); rotateExistingImage({{ img.pk }}, 'ccw', this)" class="bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 px-1.5 rounded" title="{% trans 'Sukti kairėn' %}"><i class="fas fa-undo"></i></button>
+                                        <button type="button" onclick="event.stopPropagation(); rotateExistingImage({{ img.pk }}, 'cw', this)" class="bg-white/90 hover:bg-white text-gray-900 text-[10px] font-semibold py-1 px-1.5 rounded" title="{% trans 'Sukti dešinėn' %}"><i class="fas fa-redo"></i></button>
+                                    </div>
+
+                                    <button type="button" onclick="event.stopPropagation(); deleteExistingImage({{ img.pk }})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-sm shadow z-10">×</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# ─── CREATE MODE: kliento pusėje valdomas sąrašas ─── #}
+                    {% if not is_edit_mode %}
+                    <div id="create-photos-wrapper" style="display:none" class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            {% trans "Pasirinktos nuotraukos" %}
+                            <span class="text-xs text-gray-400" id="create-photos-count">(0 / 36)</span>
+                        </label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="create-photos"></div>
+                        <p class="text-xs text-gray-400">{% trans "Tempkite, kad pertvarkytumėte. Pirmoji nuotrauka — pagrindinė." %}</p>
+                    </div>
+                    {% endif %}
+
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-500 transition-colors cursor-pointer">
+                        <i class="fas fa-camera text-3xl text-gray-400 mb-3 block"></i>
+                        <p id="dropText" class="text-sm text-gray-700 font-medium mb-1">{% trans "Įkelti nuotraukas" %}</p>
+                        <p class="text-xs text-gray-500">{% trans "Iki 36 nuotraukų. Maks. dydis 24MB. JPG, GIF, PNG." %}</p>
+                        <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
+                    </div>
+
+                    <div id="uploadProgress" class="hidden mt-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <span id="uploadProgressLabel" class="text-xs font-medium text-gray-600">{% trans "Keliamos nuotraukos..." %}</span>
+                            <span id="uploadProgressPercent" class="text-xs font-semibold text-gray-700">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                            <div id="uploadProgressBar" class="bg-orange-500 h-2.5 rounded-full transition-all duration-200" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ═══════════════════════════════════════════════════════════ #}
+            {# SECTION: KONTAKTAI                                          #}
+            {# ═══════════════════════════════════════════════════════════ #}
+            {% if listing.city and listing.city != '—' %}{% firstof listing.city '' as contact_city %}{% else %}{% firstof '' as contact_city %}{% endif %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=user.email val_country=listing.country val_state=listing.state val_city=contact_city val_address=listing.address %}
+
+            {# ═══ ERRORS ═══ #}
+            <div id="load-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                    <div class="text-sm">
+                        <p class="font-semibold mb-1">{% trans "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai." %}</p>
+                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="load-form-error-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            {% if messages %}
+            <div class="mb-5 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
+                    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {# ═══ SUBMIT ═══ #}
+            <div class="flex items-center justify-center mb-8">
+                {% if is_edit_mode %}
+                <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Atšaukti" %}</a>
+                <button type="button" onclick="handleLoadSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-medium text-sm">{% trans "Išsaugoti pakeitimus" %}</button>
+                {% else %}
+                <button type="button" onclick="handleLoadSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-semibold text-base shadow">{% trans "Pateikti skelbimą" %}</button>
+                {% endif %}
+            </div>
+            <p class="text-center text-xs text-gray-500 mb-8">{% trans "* Privalomi laukai" %}</p>
+        </form>
+    </div>
+</div>
+
+{# ═══ LIGHTBOX (peržiūra) ═══ #}
+<div id="preview-lightbox" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closePreviewLightbox(event)">
+    <button type="button" onclick="closePreviewLightbox()" class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 z-10">×</button>
+    <img id="preview-lightbox-img" src="" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+</div>
+
+<style>
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
+        width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
+        font-size: 0.875rem; transition: all 0.2s;
+    }
+    select:focus, input:focus, textarea:focus {
+        outline: none; border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.15);
+    }
+    textarea { resize: vertical; }
+    input[type="checkbox"], input[type="radio"] { accent-color: #4b5563; }
+    [data-required="true"] input[type="text"],
+    [data-required="true"] input[type="number"],
+    [data-required="true"] input[type="tel"],
+    [data-required="true"] select {
+        border: 2px solid #6b7280; background-color: #f3f4f6;
+    }
+    [data-field-wrap].field-error input,
+    [data-field-wrap].field-error select {
+        border-color: #ef4444 !important; background-color: #fef2f2 !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    [data-field-wrap].field-error label { color: #dc2626 !important; }
+    .top-error-banner { background-color: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; }
+</style>
+
+<script>
+var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
+var CSRF_TOKEN = '{{ csrf_token }}';
+var EDIT_LISTING_ID = {% if edit_listing_id %}{{ edit_listing_id }}{% else %}0{% endif %};
+var MAX_PHOTOS = 36;
+
+function markFieldError(name, has) {
+    var w = document.querySelector('[data-field-wrap="' + name + '"]');
+    if (w) { if (has) w.classList.add('field-error'); else w.classList.remove('field-error'); }
+}
+function clearAllErrors() {
+    document.querySelectorAll('[data-field-wrap].field-error').forEach(function(el){ el.classList.remove('field-error'); });
+}
+
+// ═══════════════════════════════════════════════════════════
+// PREVIEW LIGHTBOX
+// ═══════════════════════════════════════════════════════════
+function openPreviewLightbox(url) {
+    var pb = document.getElementById('preview-lightbox'); var img = document.getElementById('preview-lightbox-img');
+    if (!pb || !img) return; img.src = url; pb.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+}
+function closePreviewLightbox(e) {
+    if (e && e.target.id !== 'preview-lightbox' && e.type === 'click') return;
+    var pb = document.getElementById('preview-lightbox'); if (pb) pb.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+    var pb = document.getElementById('preview-lightbox');
+    if (pb && !pb.classList.contains('hidden') && e.key === 'Escape') closePreviewLightbox();
+});
+
+// ═══════════════════════════════════════════════════════════
+// CLIENT-SIDE IMAGE COMPRESSION (telefono 10MB → ~400KB)
+// ═══════════════════════════════════════════════════════════
+function compressImage(file) {
+    return new Promise(function(resolve) {
+        if (file.type === 'image/gif' || file.size < 600 * 1024) { resolve(file); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                var MAX = 1920;
+                var w = img.width, h = img.height;
+                if (w > MAX || h > MAX) {
+                    if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+                    else { w = Math.round(w * MAX / h); h = MAX; }
+                }
+                var canvas = document.createElement('canvas');
+                canvas.width = w; canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                canvas.toBlob(function(blob) {
+                    if (!blob || blob.size >= file.size) { resolve(file); return; }
+                    var newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                    resolve(new File([blob], newName, { type: 'image/jpeg' }));
+                }, 'image/jpeg', 0.85);
+            };
+            img.onerror = function() { resolve(file); };
+            img.src = e.target.result;
+        };
+        reader.onerror = function() { resolve(file); };
+        reader.readAsDataURL(file);
+    });
+}
+function compressAll(files) {
+    return Promise.all(files.map(function(f) { return compressImage(f); }));
+}
+
+// ═══════════════════════════════════════════════════════════
+// CREATE MODE — kliento pusėje valdomas failų sąrašas
+// ═══════════════════════════════════════════════════════════
+var createFiles = [];      // [{file, url}]
+var createDragIdx = null;
+
+function syncCreateInput() {
+    var inp = document.getElementById('imageInput');
+    if (!inp) return;
+    var dt = new DataTransfer();
+    createFiles.forEach(function(item) { dt.items.add(item.file); });
+    inp.files = dt.files;
+}
+
+function updateCreateCount() {
+    var el = document.getElementById('create-photos-count');
+    if (el) el.textContent = '(' + createFiles.length + ' / ' + MAX_PHOTOS + ')';
+}
+
+function renderCreatePhotos() {
+    var panel = document.getElementById('create-photos');
+    var wrap = document.getElementById('create-photos-wrapper');
+    if (!panel) return;
+    panel.innerHTML = '';
+    createFiles.forEach(function(item, idx) {
+        var div = document.createElement('div');
+        div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
+                        (idx === 0 ? 'border-green-500' : 'border-gray-200') +
+                        ' bg-gray-100 cursor-move';
+        div.dataset.idx = idx;
+        div.draggable = true;
+        var badge = idx === 0
+            ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>{% trans "PAGRINDINĖ" %}</span>'
+            : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">' + (idx + 1) + '</span>';
+        div.innerHTML =
+            '<img src="' + item.url + '" class="w-full h-full object-cover hover:opacity-90 transition-opacity pointer-events-none">' +
+            badge +
+            '<button type="button" onclick="event.stopPropagation(); deleteCreatePhoto(' + idx + ')" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10" title="{% trans 'Ištrinti' %}">×</button>';
+        attachCreateDragHandlers(div);
+        panel.appendChild(div);
+    });
+    if (wrap) wrap.style.display = createFiles.length ? '' : 'none';
+    updateCreateCount();
+    syncCreateInput();
+}
+
+function deleteCreatePhoto(idx) {
+    if (createFiles[idx] && createFiles[idx].url) {
+        try { URL.revokeObjectURL(createFiles[idx].url); } catch (e) {}
+    }
+    createFiles.splice(idx, 1);
+    renderCreatePhotos();
+}
+
+function attachCreateDragHandlers(div) {
+    div.addEventListener('click', function(e) {
+        if (e.target.closest('button')) return;
+        if (div._suppressClick) { div._suppressClick = false; return; }
+        var img = div.querySelector('img');
+        if (img) openPreviewLightbox(img.src);
+    });
+    div.addEventListener('dragstart', function(e) {
+        createDragIdx = parseInt(div.dataset.idx, 10);
+        div.classList.add('opacity-50');
+        e.dataTransfer.effectAllowed = 'move';
+    });
+    div.addEventListener('dragend', function() {
+        div.classList.remove('opacity-50');
+        div._suppressClick = true;
+        setTimeout(function() { div._suppressClick = false; }, 300);
+        document.querySelectorAll('#create-photos > div').forEach(function(el) {
+            el.classList.remove('ring-2', 'ring-blue-400');
+        });
+    });
+    div.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        var tgt = parseInt(div.dataset.idx, 10);
+        if (tgt !== createDragIdx) div.classList.add('ring-2', 'ring-blue-400');
+    });
+    div.addEventListener('dragleave', function() {
+        div.classList.remove('ring-2', 'ring-blue-400');
+    });
+    div.addEventListener('drop', function(e) {
+        e.preventDefault(); e.stopPropagation();
+        var tgt = parseInt(div.dataset.idx, 10);
+        if (createDragIdx !== null && createDragIdx !== tgt) {
+            var moved = createFiles.splice(createDragIdx, 1)[0];
+            createFiles.splice(tgt, 0, moved);
+            renderCreatePhotos();
+        }
+        createDragIdx = null;
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// EDIT MODE — esamos nuotraukos (bendri listing-image AJAX endpointai)
+// ═══════════════════════════════════════════════════════════
+window.setExistingImageMain = function(imgId) {
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fetch('/listings/image/' + imgId + '/set-main/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd,
+    }).then(function(r) { return r.json(); })
+      .then(function(data) { if (data && data.success) location.reload(); })
+      .catch(function() { location.reload(); });
+};
+
+window.deleteExistingImage = function(imgId) {
+    if (!confirm('{% trans "Ištrinti šią nuotrauką?" %}')) return;
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fetch('/listings/image/' + imgId + '/delete/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+        body: fd,
+    }).then(function() { location.reload(); });
+};
+
+window.rotateExistingImage = function(imgId, direction, btn) {
+    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; }
+    var fd = new FormData();
+    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+    fd.append('direction', direction);
+    fetch('/ajax/rotate-listing-image/' + imgId + '/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_TOKEN },
+        body: fd,
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+          if (data && data.success) {
+              var card = document.querySelector('[data-existing-img-id="' + imgId + '"]');
+              if (card) { var imgEl = card.querySelector('img'); if (imgEl) imgEl.src = data.url; }
+              if (btn) { btn.disabled = false; btn.innerHTML = direction === 'ccw' ? '<i class="fas fa-undo"></i>' : '<i class="fas fa-redo"></i>'; }
+          } else {
+              alert('{% trans "Nepavyko pasukti" %}: ' + (data && data.error || 'unknown'));
+              if (btn) btn.disabled = false;
+          }
+      }).catch(function(err) {
+          alert('{% trans "Nepavyko pasukti" %}: ' + err);
+          if (btn) btn.disabled = false;
+      });
+};
+
+var existingDragSrc = null;
+function attachExistingPhotoDragHandlers() {
+    document.querySelectorAll('.existing-photo').forEach(function(card) {
+        if (card._dragAttached) return;
+        card._dragAttached = true;
+
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('button')) return;
+            var imgEl = card.querySelector('img');
+            if (imgEl) openPreviewLightbox(imgEl.dataset.lightboxUrl || imgEl.src);
+        });
+        card.addEventListener('dragstart', function(e) {
+            existingDragSrc = card;
+            card.classList.add('opacity-50');
+            e.dataTransfer.effectAllowed = 'move';
+        });
+        card.addEventListener('dragend', function() {
+            card.classList.remove('opacity-50');
+            document.querySelectorAll('.existing-photo').forEach(function(el) { el.classList.remove('ring-2', 'ring-blue-400'); });
+        });
+        card.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            if (card !== existingDragSrc) card.classList.add('ring-2', 'ring-blue-400');
+        });
+        card.addEventListener('dragleave', function() { card.classList.remove('ring-2', 'ring-blue-400'); });
+        card.addEventListener('drop', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            if (existingDragSrc !== card) {
+                var panel = document.getElementById('existing-photos');
+                var items = Array.from(panel.querySelectorAll('.existing-photo'));
+                var srcIdx = items.indexOf(existingDragSrc);
+                var tgtIdx = items.indexOf(card);
+                if (srcIdx < tgtIdx) card.parentNode.insertBefore(existingDragSrc, card.nextSibling);
+                else card.parentNode.insertBefore(existingDragSrc, card);
+                refreshExistingPhotoBadges();
+                saveExistingPhotoOrder();
+            }
+            card.classList.remove('ring-2', 'ring-blue-400');
+        });
+    });
+}
+
+function refreshExistingPhotoBadges() {
+    var items = document.querySelectorAll('#existing-photos .existing-photo');
+    items.forEach(function(el, idx) {
+        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
+        el.classList.remove('border-green-500', 'border-gray-200');
+        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
+        var badge = document.createElement('span');
+        if (idx === 0) {
+            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
+            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "PAGRINDINĖ" %}';
+        } else {
+            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
+            badge.textContent = (idx + 1);
+        }
+        el.appendChild(badge);
+    });
+}
+
+function saveExistingPhotoOrder() {
+    if (!EDIT_LISTING_ID) return;
+    var ids = Array.from(document.querySelectorAll('#existing-photos .existing-photo'))
+                  .map(function(el) { return parseInt(el.dataset.existingImgId, 10); });
+    fetch('/ajax/reorder-listing-images/' + EDIT_LISTING_ID + '/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF_TOKEN },
+        body: JSON.stringify({ image_ids: ids }),
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// EDIT MODE — naujos nuotraukos: AJAX upload
+// ═══════════════════════════════════════════════════════════
+function showUploadProgress(show) {
+    var box = document.getElementById('uploadProgress');
+    if (box) box.classList.toggle('hidden', !show);
+}
+function setUploadProgress(percent, label) {
+    var bar = document.getElementById('uploadProgressBar');
+    var pct = document.getElementById('uploadProgressPercent');
+    var lbl = document.getElementById('uploadProgressLabel');
+    if (bar) bar.style.width = percent + '%';
+    if (pct) pct.textContent = percent + '%';
+    if (lbl && label) lbl.textContent = label;
+}
+
+function uploadPhotosToEditListing(files) {
+    if (!EDIT_LISTING_ID) { alert('{% trans "Skelbimo ID nerastas" %}'); return; }
+    showUploadProgress(true);
+    setUploadProgress(0, '{% trans "Ruošiamos nuotraukos..." %}');
+    compressAll(files).then(function(compressed) {
+        var fd = new FormData();
+        compressed.forEach(function(f) { fd.append('images', f); });
+        fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/ajax/upload-listing-images/' + EDIT_LISTING_ID + '/');
+        xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) setUploadProgress(Math.round((e.loaded / e.total) * 100), '{% trans "Keliamos nuotraukos..." %}');
+        };
+        xhr.onload = function() {
+            showUploadProgress(false);
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data && data.success) location.reload();
+                    else alert('{% trans "Nepavyko įkelti" %}: ' + (data.error || 'unknown error'));
+                } catch (err) { alert('{% trans "Nepavyko įkelti" %}'); }
+            } else { alert('{% trans "Nepavyko įkelti" %} (' + xhr.status + ')'); }
+        };
+        xhr.onerror = function() { showUploadProgress(false); alert('{% trans "Nepavyko įkelti" %}'); };
+        xhr.send(fd);
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// SHARED: add files (CREATE vs EDIT)
+// ═══════════════════════════════════════════════════════════
+function addFiles(fileList) {
+    var newFiles = Array.from(fileList).filter(function(f) { return f.type && f.type.startsWith('image/'); });
+    if (!newFiles.length) return;
+
+    if (IS_EDIT_MODE) {
+        uploadPhotosToEditListing(newFiles);
+        return;
+    }
+
+    var available = MAX_PHOTOS - createFiles.length;
+    if (newFiles.length > available) {
+        if (available <= 0) { alert('{% trans "Daugiausia 36 nuotraukos. Pirma pašalinkite kelias." %}'); return; }
+        alert('{% trans "Pasirinkote per daug nuotraukų — bus pridėtos tik telpančios." %}');
+        newFiles = newFiles.slice(0, available);
+    }
+    compressAll(newFiles).then(function(compressed) {
+        compressed.forEach(function(f) {
+            createFiles.push({ file: f, url: URL.createObjectURL(f) });
+        });
+        renderCreatePhotos();
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+// Submit validation
+// ═══════════════════════════════════════════════════════════
+function handleLoadSubmit() {
+    clearAllErrors();
+    var errors = [];
+    function req(sel, name, label) {
+        var el = document.querySelector(sel);
+        if (!el || !el.value) { errors.push(label); markFieldError(name, true); }
+    }
+    req('#id_condition', 'condition', '{% trans "Būklė yra privaloma" %}');
+    req('#id_load_type', 'load_type', '{% trans "Tipas yra privalomas" %}');
+    req('#id_load_brand_text', 'load_brand_text', '{% trans "Markė yra privaloma" %}');
+    req('#id_year', 'year', '{% trans "Metai yra privalomi" %}');
+    req('#id_month', 'month', '{% trans "Mėnuo yra privalomas" %}');
+    req('#id_price', 'price', '{% trans "Kaina yra privaloma" %}');
+    req('#id_phone', 'phone', '{% trans "Telefonas yra privalomas" %}');
+    req('#id_city', 'city', '{% trans "Miestas yra privalomas" %}');
+    var country = document.getElementById('id_country');
+    if (country && country.value === 'US') req('#id_state', 'state', '{% trans "Valstija yra privaloma" %}');
+    if (!IS_EDIT_MODE) {
+        var at = document.querySelector('[name="agree_terms"]');
+        if (at && !at.checked) errors.push('{% trans "Turite sutikti su taisyklėmis" %}');
+    }
+    if (errors.length) {
+        var box = document.getElementById('load-form-errors'), list = document.getElementById('load-form-error-list');
+        list.innerHTML = '';
+        errors.forEach(function(e){ var li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
+        box.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    if (!IS_EDIT_MODE) syncCreateInput();
+    document.getElementById('loadForm').submit();
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+    onCountryChange();
+
+    if (IS_EDIT_MODE) attachExistingPhotoDragHandlers();
+
+    var dz = document.getElementById('dropZone'), inp = document.getElementById('imageInput');
+    if (dz && inp) {
+        dz.addEventListener('click', function(){ inp.click(); });
+        inp.addEventListener('change', function() {
+            addFiles(inp.files);
+            inp.value = '';
+        });
+        dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('border-gray-500','bg-gray-50'); });
+        dz.addEventListener('dragleave', function(){ dz.classList.remove('border-gray-500','bg-gray-50'); });
+        dz.addEventListener('drop', function(e){
+            e.preventDefault(); dz.classList.remove('border-gray-500','bg-gray-50');
+            if (e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+        });
+    }
+});
+</script>
+{% endblock %}

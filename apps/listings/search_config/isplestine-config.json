@@ -36955,10 +36955,10 @@
       "Universalus krautuvas",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "load_type",
+     "param": "load_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Markė",
@@ -37285,10 +37285,10 @@
       "Zil",
       "Zremb"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "load_brand_text",
+     "param": "load_brand_text",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -37343,10 +37343,12 @@
       "4000",
       "5000"
      ],
-     "db_field": null,
+     "db_field": "payload_kg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "payload_min",
+     "param_max": "payload_max"
     },
     {
      "label": "Max kėlimo aukštis m",
@@ -37371,10 +37373,12 @@
       "15",
       ">15"
      ],
-     "db_field": null,
+     "db_field": "lift_height_m",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "lift_height_min",
+     "param_max": "lift_height_max"
     },
     {
      "label": "Motovalandos",
@@ -37394,10 +37398,12 @@
       "7500",
       "10000"
      ],
-     "db_field": null,
+     "db_field": "engine_hours",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_hours_min",
+     "param_max": "engine_hours_max"
     },
     {
      "label": "Metai",
@@ -37475,10 +37481,10 @@
       "Elektrinis- hidraulinis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "constr_drive_type",
+     "param": "constr_drive_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Energijos šaltinis",
@@ -37495,10 +37501,10 @@
       "Rankinis",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "load_energy_source",
+     "param": "load_energy_source",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -37526,10 +37532,12 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Naudota/Nauja",
@@ -37539,10 +37547,10 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
