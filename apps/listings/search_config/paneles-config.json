@@ -6702,9 +6702,8 @@
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
      "db_field": "truck_brand",
-     "param": "brand",
-     "active": false,
-     "ui_order": 9
+     "param": "truck_brand",
+     "active": true
     },
     {
      "label": "Tipas",
@@ -6743,8 +6742,7 @@
      "placeholder": "Visi",
      "db_field": "truck_type",
      "param": "truck_type",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Kaina",
@@ -6781,8 +6779,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -6900,8 +6897,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -6910,8 +6906,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": true,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/sunkvezimiai/",
@@ -7019,9 +7014,8 @@
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
      "db_field": "truck_brand",
-     "param": "brand",
-     "active": false,
-     "ui_order": 9
+     "param": "truck_brand",
+     "active": true
     },
     {
      "label": "Kaina",
@@ -7058,8 +7052,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -7177,8 +7170,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Ratų formulė",
@@ -7202,8 +7194,7 @@
      "name": "f_205",
      "db_field": null,
      "param": null,
-     "active": true,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -7212,8 +7203,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": true,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/vilkikai/",
@@ -7321,9 +7311,8 @@
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
      "db_field": "truck_brand",
-     "param": "brand",
-     "active": false,
-     "ui_order": 9
+     "param": "truck_brand",
+     "active": true
     },
     {
      "label": "Kaina",
@@ -7360,8 +7349,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -7479,8 +7467,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Tipas",
@@ -7514,8 +7501,7 @@
      "placeholder": "Visi",
      "db_field": "truck_type",
      "param": "truck_type",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -7524,8 +7510,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": true,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/autotraukiniai-autoveziai/",
@@ -7590,9 +7575,8 @@
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
      "db_field": "truck_brand",
-     "param": "brand",
-     "active": false,
-     "ui_order": 9
+     "param": "truck_brand",
+     "active": true
     },
     {
      "label": "Kaina",
@@ -7629,8 +7613,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -7748,8 +7731,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Autobuso tipas",
@@ -7766,8 +7748,7 @@
      "name": "f_26",
      "db_field": null,
      "param": null,
-     "active": true,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -7776,8 +7757,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": true,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/autobusai/",
@@ -8050,9 +8030,8 @@
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
      "db_field": "truck_brand",
-     "param": "brand",
-     "active": false,
-     "ui_order": 9
+     "param": "truck_brand",
+     "active": true
     },
     {
      "label": "Tipas",
@@ -8091,8 +8070,7 @@
      "placeholder": "Visi",
      "db_field": "truck_type",
      "param": "truck_type",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Kaina",
@@ -8129,8 +8107,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -8248,8 +8225,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -8258,8 +8234,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": true,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/komunalinio-ukio-technika/",
@@ -13988,8 +13963,7 @@
      "name": "f_80",
      "db_field": "boat_type",
      "param": "boat_type",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Medžiaga",
@@ -14007,8 +13981,7 @@
      "name": "f_154",
      "db_field": "boat_material",
      "param": "boat_material",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Kaina",
@@ -14045,8 +14018,7 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true,
-     "ui_order": 2
+     "active": true
     },
     {
      "label": "Metai",
@@ -14164,8 +14136,7 @@
      "param_min": "year_min",
      "param_max": "year_max",
      "param": null,
-     "active": true,
-     "ui_order": 1
+     "active": true
     },
     {
      "label": "Miestas",
@@ -14242,8 +14213,7 @@
      "placeholder": "Visi",
      "db_field": "city",
      "param": "city",
-     "active": false,
-     "ui_order": 9
+     "active": true
     },
     {
      "label": "Tekstinė paieška",
@@ -14252,8 +14222,7 @@
      "placeholder": "Ieškoti",
      "db_field": "__text__",
      "param": "q",
-     "active": false,
-     "ui_order": 3
+     "active": true
     }
    ],
    "results_url": "/skelbimai/vandens-transportas/",

@@ -56,6 +56,13 @@ CHOICES_BY_DB_FIELD = {
 # Rodomos su skelbimų kiekiais, Top N + likusios abėcėle.
 TEXT_BRAND_FIELDS = {'trailer_brand_text'}
 
+# FK markės — reikšmė yra id, etiketė iš susieto modelio.
+# db_field → (modelio vardas apps.listings.models, susiejimo laukas)
+FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand'}
+
+# Laukai, kurių reikšmės — laisvas tekstas iš skelbimų (Miestas).
+DISTINCT_VALUE_FIELDS = {'city'}
+
 TOP_BRANDS = 10
 
 # Kainos pakopos — tos pačios, kurias naudoja automobilių panelė.
@@ -106,22 +113,50 @@ def _years():
 
 
 def _brand_rows(vt_slug, db_field, user=None):
-    """Markės su skelbimų kiekiais — VIENA agregacija, be N+1."""
+    """Markės su skelbimų kiekiais — VIENA agregacija, be N+1.
+
+    Grąžina (top, rest); kiekvienas įrašas: {'value', 'name', 'count'}.
+    Tekstinėms markėms value == name, FK markėms value == id.
+    """
     from apps.listings.views import _public_listings_qs
-    from apps.listings.trailers_views import TRAILER_BRANDS
 
     qs = _public_listings_qs(user).filter(vehicle_type__slug=vt_slug)
-    counts = {
-        r[db_field]: r['c']
-        for r in qs.exclude(**{db_field: ''}).values(db_field).annotate(c=Count('id'))
-    }
-    all_names = TRAILER_BRANDS if db_field == 'trailer_brand_text' else sorted(counts)
-    with_ads = sorted((n for n in all_names if counts.get(n)),
-                      key=lambda n: (-counts[n], n.lower()))
+
+    if db_field in FK_BRAND_FIELDS:
+        from apps.listings import models as m
+        model = getattr(m, FK_BRAND_FIELDS[db_field])
+        counts = {
+            r[f'{db_field}_id']: r['c']
+            for r in qs.exclude(**{f'{db_field}__isnull': True})
+                       .values(f'{db_field}_id').annotate(c=Count('id'))
+        }
+        rows = [{'value': o.pk, 'name': o.name, 'count': counts.get(o.pk, 0)}
+                for o in model.objects.all()]
+    else:
+        from apps.listings.trailers_views import TRAILER_BRANDS
+        counts = {
+            r[db_field]: r['c']
+            for r in qs.exclude(**{db_field: ''}).values(db_field).annotate(c=Count('id'))
+        }
+        names = TRAILER_BRANDS if db_field == 'trailer_brand_text' else sorted(counts)
+        rows = [{'value': n, 'name': n, 'count': counts.get(n, 0)} for n in names]
+
+    with_ads = sorted((r for r in rows if r['count']),
+                      key=lambda r: (-r['count'], r['name'].lower()))
     top = with_ads[:TOP_BRANDS]
-    rest = sorted((n for n in all_names if n not in top), key=lambda n: n.lower())
-    return ([{'name': n, 'count': counts.get(n, 0)} for n in top],
-            [{'name': n, 'count': counts.get(n, 0)} for n in rest])
+    top_vals = {r['value'] for r in top}
+    rest = sorted((r for r in rows if r['value'] not in top_vals),
+                  key=lambda r: r['name'].lower())
+    return top, rest
+
+
+def _distinct_options(vt_slug, db_field, user=None):
+    """Reikšmės, realiai esančios skelbimuose (Miestas) — viena agregacija."""
+    from apps.listings.views import _public_listings_qs
+    qs = _public_listings_qs(user).filter(vehicle_type__slug=vt_slug)
+    rows = (qs.exclude(**{db_field: ''}).exclude(**{db_field: '—'})
+              .values(db_field).annotate(c=Count('id')).order_by('-c', db_field))
+    return [(r[db_field], f"{r[db_field]} ({r['c']})") for r in rows]
 
 
 def build_panel(vt_slug, user=None):
@@ -167,7 +202,12 @@ def build_panel(vt_slug, user=None):
                 item['options_min'] = item['options_max'] = None  # laisvas įvedimas
 
         elif f['type'] in ('select', 'multiselect'):
-            if db in TEXT_BRAND_FIELDS:
+            if db in DISTINCT_VALUE_FIELDS:
+                item['options'] = _distinct_options(vt_slug, db, user)
+            elif db == 'boat_material':
+                from apps.listings.boats_views import BOAT_MATERIAL_CHOICES
+                item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
+            elif db in TEXT_BRAND_FIELDS or db in FK_BRAND_FIELDS:
                 item['widget'] = 'brand'
                 item['brands_top'], item['brands_rest'] = _brand_rows(vt_slug, db, user)
                 item['only_with_ads_toggle'] = bool(f.get('only_with_ads_toggle'))
@@ -243,7 +283,8 @@ def apply_panel_filters(listings, vt_slug, params):
                 listings = listings.filter(**{f'{db}__lte': hi})
 
         elif ftype == 'text':
-            q = _get(params, f.get('param'))
+            # ?q, o jei tuščias — legacy ?search, kad senos nuorodos veiktų
+            q = _get(params, f.get('param')) or _get(params, 'search')
             if q:
                 listings = listings.filter(
                     Q(title__icontains=q) | Q(description__icontains=q)
@@ -266,6 +307,9 @@ def apply_panel_filters(listings, vt_slug, params):
         else:  # select
             val = _get(params, f.get('param'))
             if val:
-                listings = listings.filter(**{db: val})
+                # Miestui — icontains, kaip daro bendrasis filtras; kitaip
+                # senos dalinės nuorodos (?city=vil) nustotų veikti.
+                lookup = f'{db}__icontains' if db in DISTINCT_VALUE_FIELDS else db
+                listings = listings.filter(**{lookup: val})
 
     return listings

@@ -90,7 +90,7 @@ automobilių panelė.
           {% for b in f.brands_top %}
           <div class="sp-dd-item"
                x-show="!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1"
-               @click="pickGenericBrand('{{ b.name|escapejs }}', '{{ b.name|escapejs }}')">
+               @click="pickGenericBrand('{{ b.value }}', '{{ b.name|escapejs }}')">
             <span>{{ b.name }}</span><span class="sp-dd-count">{{ b.count }}</span>
           </div>
           {% endfor %}
@@ -98,7 +98,7 @@ automobilių panelė.
           {% for b in f.brands_rest %}
           <div class="sp-dd-item"
                x-show="(gp.bAll || {{ b.count }} > 0) && (!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1)"
-               @click="pickGenericBrand('{{ b.name|escapejs }}', '{{ b.name|escapejs }}')">
+               @click="pickGenericBrand('{{ b.value }}', '{{ b.name|escapejs }}')">
             <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
           </div>
           {% endfor %}
