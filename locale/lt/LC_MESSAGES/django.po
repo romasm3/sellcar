@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 13:55+0300\n"
+"POT-Creation-Date: 2026-08-18 14:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2052,7 +2052,7 @@ msgstr ""
 #: apps/listings/models.py:739 templates/listings/listing_detail.html:173
 #: templates/listings/motogear_advanced.html:53
 #: templates/listings/partials/search_panel.html:544
-#: templates/listings/partials/search_panel.html:1153
+#: templates/listings/partials/search_panel.html:1136
 #: templates/listings/trailers_listing_create.html:54
 msgid "Tipas"
 msgstr "Tipas"
@@ -2061,7 +2061,7 @@ msgstr "Tipas"
 #: templates/listings/listing_detail.html:177
 #: templates/listings/partials/search_panel.html:870
 #: templates/listings/partials/search_panel.html:983
-#: templates/listings/partials/search_panel.html:1166
+#: templates/listings/partials/search_panel.html:1191
 #: templates/listings/trailers_listing_create.html:101
 msgid "Paskirtis"
 msgstr "Paskirtis"
@@ -2070,8 +2070,8 @@ msgstr "Paskirtis"
 #: templates/listings/partials/_sp_parts_brand.html:9
 #: templates/listings/partials/search_panel.html:257
 #: templates/listings/partials/search_panel.html:407
-#: templates/listings/partials/search_panel.html:1133
-#: templates/listings/partials/search_panel.html:1464
+#: templates/listings/partials/search_panel.html:1149
+#: templates/listings/partials/search_panel.html:1507
 #: templates/listings/trailers_listing_create.html:64
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
@@ -2081,8 +2081,7 @@ msgstr "Markė"
 #: templates/listings/partials/_sp_parts_brand.html:39
 #: templates/listings/partials/search_panel.html:285
 #: templates/listings/partials/search_panel.html:418
-#: templates/listings/partials/search_panel.html:1146
-#: templates/listings/partials/search_panel.html:1492
+#: templates/listings/partials/search_panel.html:1535
 #: templates/listings/trailers_listing_create.html:74
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
@@ -2102,7 +2101,7 @@ msgstr "Gamintojas"
 
 #: apps/listings/models.py:761 templates/listings/listing_detail.html:140
 #: templates/listings/listing_detail.html:189
-#: templates/listings/partials/search_panel.html:1229
+#: templates/listings/partials/search_panel.html:1284
 #: templates/listings/trailers_listing_create.html:131
 msgid "Ašių skaičius"
 msgstr ""
@@ -2859,18 +2858,18 @@ msgstr "Juodraštis nerastas"
 msgid "Car, van parts"
 msgstr "Automobilių, mikroautobusų dalys"
 
-#: apps/listings/search_panel.py:31
-#: templates/listings/partials/search_panel.html:1341
+#: apps/listings/search_panel.py:32
+#: templates/listings/partials/search_panel.html:1384
 msgid "Automobilių, mikroautobusų dalys"
 msgstr "Automobilių, mikroautobusų dalys"
 
-#: apps/listings/search_panel.py:32
-#: templates/listings/partials/search_panel.html:1342
+#: apps/listings/search_panel.py:33
+#: templates/listings/partials/search_panel.html:1385
 msgid "Motociklų dalys"
 msgstr "Motociklų dalys"
 
-#: apps/listings/search_panel.py:33
-#: templates/listings/partials/search_panel.html:1343
+#: apps/listings/search_panel.py:34
+#: templates/listings/partials/search_panel.html:1386
 msgid "Sunkiojo transporto dalys"
 msgstr "Sunkiojo transporto dalys"
 
@@ -7007,10 +7006,10 @@ msgstr "Naršyti motociklus"
 #: templates/listings/partials/search_panel.html:427
 #: templates/listings/partials/search_panel.html:814
 #: templates/listings/partials/search_panel.html:1085
-#: templates/listings/partials/search_panel.html:1179
-#: templates/listings/partials/search_panel.html:1362
-#: templates/listings/partials/search_panel.html:1415
-#: templates/listings/partials/search_panel.html:1497
+#: templates/listings/partials/search_panel.html:1204
+#: templates/listings/partials/search_panel.html:1405
+#: templates/listings/partials/search_panel.html:1458
+#: templates/listings/partials/search_panel.html:1540
 #: templates/listings/trailers_listing_create.html:81
 #: templates/listings/trailers_listing_create.html:241
 msgid "Metai"
@@ -7032,7 +7031,7 @@ msgstr "Bendroji masė"
 #: templates/listings/partials/search_panel.html:933
 #: templates/listings/partials/search_panel.html:1035
 #: templates/listings/partials/search_panel.html:1102
-#: templates/listings/partials/search_panel.html:1198
+#: templates/listings/partials/search_panel.html:1223
 #: templates/listings/trailers_listing_create.html:159
 msgid "Kaina"
 msgstr "Kaina"
@@ -7052,7 +7051,7 @@ msgid "Priekabos duomenys"
 msgstr "Priekabos duomenys"
 
 #: templates/listings/listing_detail.html:181
-#: templates/listings/partials/search_panel.html:1217
+#: templates/listings/partials/search_panel.html:1272
 #: templates/listings/trailers_listing_create.html:44
 msgid "Būklė"
 msgstr ""
@@ -7064,14 +7063,14 @@ msgid "Pirmoji registracija"
 msgstr "Pirmoji registracija"
 
 #: templates/listings/listing_detail.html:193
-#: templates/listings/partials/search_panel.html:1241
+#: templates/listings/partials/search_panel.html:1296
 #, fuzzy
 #| msgid "Gamintojas"
 msgid "Ašių gamintojas"
 msgstr "Gamintojas"
 
 #: templates/listings/listing_detail.html:201
-#: templates/listings/partials/search_panel.html:1253
+#: templates/listings/partials/search_panel.html:1308
 #: templates/listings/trailers_listing_create.html:141
 #, fuzzy
 #| msgid "Euro standard"
@@ -7098,7 +7097,7 @@ msgstr "Matmenys (I × P × A)"
 
 #: templates/listings/listing_detail.html:225
 #: templates/listings/motogear_advanced.html:140
-#: templates/listings/partials/search_panel.html:1289
+#: templates/listings/partials/search_panel.html:1242
 #: templates/listings/trailers_listing_create.html:227
 msgid "Spalva"
 msgstr "Spalva"
@@ -7149,7 +7148,7 @@ msgstr "Padangų išmatavimai"
 
 #: templates/listings/listing_detail.html:293
 #: templates/listings/motogear_advanced.html:205
-#: templates/listings/partials/search_panel.html:1314
+#: templates/listings/partials/search_panel.html:1357
 #: templates/listings/trailers_listing_create.html:342
 msgid "Ypatumai"
 msgstr "Ypatumai"
@@ -8674,23 +8673,23 @@ msgstr "Išvalyti paiešką"
 #: templates/listings/partials/search_panel.html:999
 #: templates/listings/partials/search_panel.html:1013
 #: templates/listings/partials/search_panel.html:1024
-#: templates/listings/partials/search_panel.html:1156
-#: templates/listings/partials/search_panel.html:1232
-#: templates/listings/partials/search_panel.html:1244
-#: templates/listings/partials/search_panel.html:1256
-#: templates/listings/partials/search_panel.html:1370
-#: templates/listings/partials/search_panel.html:1377
-#: templates/listings/partials/search_panel.html:1431
-#: templates/listings/partials/search_panel.html:1493
-#: templates/listings/partials/search_panel.html:1513
-#: templates/listings/partials/search_panel.html:1563
-#: templates/listings/partials/search_panel.html:1570
-#: templates/listings/partials/search_panel.html:1572
-#: templates/listings/partials/search_panel.html:1574
-#: templates/listings/partials/search_panel.html:1599
+#: templates/listings/partials/search_panel.html:1139
+#: templates/listings/partials/search_panel.html:1287
+#: templates/listings/partials/search_panel.html:1299
+#: templates/listings/partials/search_panel.html:1311
+#: templates/listings/partials/search_panel.html:1413
+#: templates/listings/partials/search_panel.html:1420
+#: templates/listings/partials/search_panel.html:1474
+#: templates/listings/partials/search_panel.html:1536
+#: templates/listings/partials/search_panel.html:1556
+#: templates/listings/partials/search_panel.html:1606
+#: templates/listings/partials/search_panel.html:1613
+#: templates/listings/partials/search_panel.html:1615
 #: templates/listings/partials/search_panel.html:1617
-#: templates/listings/partials/search_panel.html:1627
-#: templates/listings/partials/search_panel.html:1644
+#: templates/listings/partials/search_panel.html:1652
+#: templates/listings/partials/search_panel.html:1670
+#: templates/listings/partials/search_panel.html:1680
+#: templates/listings/partials/search_panel.html:1697
 #: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
 #: templates/search/_panel_cars.html:49
 msgid "Visi"
@@ -8756,14 +8755,14 @@ msgstr "Kaina, $"
 #: templates/listings/partials/search_panel.html:1039
 #: templates/listings/partials/search_panel.html:1089
 #: templates/listings/partials/search_panel.html:1104
-#: templates/listings/partials/search_panel.html:1183
-#: templates/listings/partials/search_panel.html:1200
-#: templates/listings/partials/search_panel.html:1267
-#: templates/listings/partials/search_panel.html:1275
-#: templates/listings/partials/search_panel.html:1283
-#: templates/listings/partials/search_panel.html:1364
-#: templates/listings/partials/search_panel.html:1417
-#: templates/listings/partials/search_panel.html:1499
+#: templates/listings/partials/search_panel.html:1208
+#: templates/listings/partials/search_panel.html:1227
+#: templates/listings/partials/search_panel.html:1322
+#: templates/listings/partials/search_panel.html:1330
+#: templates/listings/partials/search_panel.html:1338
+#: templates/listings/partials/search_panel.html:1407
+#: templates/listings/partials/search_panel.html:1460
+#: templates/listings/partials/search_panel.html:1542
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
 msgstr "Nuo"
@@ -8784,14 +8783,14 @@ msgstr "Nuo"
 #: templates/listings/partials/search_panel.html:946
 #: templates/listings/partials/search_panel.html:1047
 #: templates/listings/partials/search_panel.html:1095
-#: templates/listings/partials/search_panel.html:1189
-#: templates/listings/partials/search_panel.html:1201
-#: templates/listings/partials/search_panel.html:1268
-#: templates/listings/partials/search_panel.html:1276
-#: templates/listings/partials/search_panel.html:1284
-#: templates/listings/partials/search_panel.html:1365
-#: templates/listings/partials/search_panel.html:1418
-#: templates/listings/partials/search_panel.html:1500
+#: templates/listings/partials/search_panel.html:1214
+#: templates/listings/partials/search_panel.html:1233
+#: templates/listings/partials/search_panel.html:1323
+#: templates/listings/partials/search_panel.html:1331
+#: templates/listings/partials/search_panel.html:1339
+#: templates/listings/partials/search_panel.html:1408
+#: templates/listings/partials/search_panel.html:1461
+#: templates/listings/partials/search_panel.html:1543
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
 msgstr "Iki"
@@ -8925,15 +8924,14 @@ msgstr "Šalis"
 #: templates/listings/partials/_sp_parts_brand.html:20
 #: templates/listings/partials/search_panel.html:267
 #: templates/listings/partials/search_panel.html:410
-#: templates/listings/partials/search_panel.html:1136
-#: templates/listings/partials/search_panel.html:1169
-#: templates/listings/partials/search_panel.html:1220
-#: templates/listings/partials/search_panel.html:1292
-#: templates/listings/partials/search_panel.html:1474
-#: templates/listings/partials/search_panel.html:1562
-#: templates/listings/partials/search_panel.html:1569
-#: templates/listings/partials/search_panel.html:1571
-#: templates/listings/partials/search_panel.html:1573
+#: templates/listings/partials/search_panel.html:1194
+#: templates/listings/partials/search_panel.html:1245
+#: templates/listings/partials/search_panel.html:1275
+#: templates/listings/partials/search_panel.html:1517
+#: templates/listings/partials/search_panel.html:1605
+#: templates/listings/partials/search_panel.html:1612
+#: templates/listings/partials/search_panel.html:1614
+#: templates/listings/partials/search_panel.html:1616
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
 msgstr "Visos"
@@ -8944,7 +8942,7 @@ msgstr "Valstija (JAV)"
 
 #: templates/listings/motogear_advanced.html:183
 #: templates/listings/partials/search_panel.html:605
-#: templates/listings/partials/search_panel.html:1369
+#: templates/listings/partials/search_panel.html:1412
 msgid "Miestas"
 msgstr "Miestas"
 
@@ -8977,9 +8975,10 @@ msgstr "30 dienų"
 #: templates/listings/partials/search_panel.html:838
 #: templates/listings/partials/search_panel.html:956
 #: templates/listings/partials/search_panel.html:1056
-#: templates/listings/partials/search_panel.html:1386
-#: templates/listings/partials/search_panel.html:1424
-#: templates/listings/partials/search_panel.html:1506
+#: templates/listings/partials/search_panel.html:1255
+#: templates/listings/partials/search_panel.html:1429
+#: templates/listings/partials/search_panel.html:1467
+#: templates/listings/partials/search_panel.html:1549
 msgid "Tekstinė paieška"
 msgstr "Tekstinė paieška"
 
@@ -9851,31 +9850,37 @@ msgstr "Ištrinti įrašą"
 #: templates/listings/partials/_sp_parts_brand.html:46
 #: templates/listings/partials/search_panel.html:263
 #: templates/listings/partials/search_panel.html:292
-#: templates/listings/partials/search_panel.html:1470
+#: templates/listings/partials/search_panel.html:1155
+#: templates/listings/partials/search_panel.html:1513
 msgid "Paieška..."
 msgstr "Paieška..."
 
 #: templates/listings/partials/_sp_parts_brand.html:20
 #: templates/listings/partials/search_panel.html:267
-#: templates/listings/partials/search_panel.html:1474
+#: templates/listings/partials/search_panel.html:1160
+#: templates/listings/partials/search_panel.html:1517
+#: templates/listings/partials/search_panel.html:1621
 msgid "Visos markės"
 msgstr "Visos markės"
 
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/search_panel.html:268
-#: templates/listings/partials/search_panel.html:1475
+#: templates/listings/partials/search_panel.html:1162
+#: templates/listings/partials/search_panel.html:1518
 msgid "Top markės"
 msgstr "Top markės"
 
 #: templates/listings/partials/_sp_parts_brand.html:32
 #: templates/listings/partials/search_panel.html:279
-#: templates/listings/partials/search_panel.html:1486
+#: templates/listings/partials/search_panel.html:1183
+#: templates/listings/partials/search_panel.html:1529
 msgid "Tik markės su skelbimais."
 msgstr "Tik markės su skelbimais."
 
 #: templates/listings/partials/_sp_parts_brand.html:33
 #: templates/listings/partials/search_panel.html:280
-#: templates/listings/partials/search_panel.html:1487
+#: templates/listings/partials/search_panel.html:1184
+#: templates/listings/partials/search_panel.html:1530
 msgid "Rodyti visus"
 msgstr "Rodyti visus"
 
@@ -10023,7 +10028,7 @@ msgid "Paieška"
 msgstr "Paieška"
 
 #: templates/listings/partials/search_panel.html:337
-#: templates/listings/partials/search_panel.html:1374
+#: templates/listings/partials/search_panel.html:1417
 #: templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
 msgstr "Kuro tipas"
@@ -10043,15 +10048,15 @@ msgstr "Skelbimas su VIN"
 #: templates/listings/partials/search_panel.html:847
 #: templates/listings/partials/search_panel.html:965
 #: templates/listings/partials/search_panel.html:1065
-#: templates/listings/partials/search_panel.html:1211
-#: templates/listings/partials/search_panel.html:1395
-#: templates/listings/partials/search_panel.html:1446
-#: templates/listings/partials/search_panel.html:1528
+#: templates/listings/partials/search_panel.html:1266
+#: templates/listings/partials/search_panel.html:1438
+#: templates/listings/partials/search_panel.html:1489
+#: templates/listings/partials/search_panel.html:1571
 msgid "Išplėstinė paieška"
 msgstr "Išplėstinė paieška"
 
 #: templates/listings/partials/search_panel.html:385
-#: templates/listings/partials/search_panel.html:1843
+#: templates/listings/partials/search_panel.html:1896
 msgid "Išsaugoti paiešką"
 msgstr "Išsaugoti paiešką"
 
@@ -10064,18 +10069,18 @@ msgstr "Išsaugoti paiešką"
 #: templates/listings/partials/search_panel.html:970
 #: templates/listings/partials/search_panel.html:1070
 #: templates/listings/partials/search_panel.html:1113
-#: templates/listings/partials/search_panel.html:1333
-#: templates/listings/partials/search_panel.html:1400
-#: templates/listings/partials/search_panel.html:1451
-#: templates/listings/partials/search_panel.html:1533
+#: templates/listings/partials/search_panel.html:1376
+#: templates/listings/partials/search_panel.html:1443
+#: templates/listings/partials/search_panel.html:1494
+#: templates/listings/partials/search_panel.html:1576
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
 msgstr "Skelbimai"
 
 #: templates/listings/partials/search_panel.html:421
-#: templates/listings/partials/search_panel.html:1875
-#: templates/listings/partials/search_panel.html:1886
-#: templates/listings/partials/search_panel.html:1896
+#: templates/listings/partials/search_panel.html:1928
+#: templates/listings/partials/search_panel.html:1939
+#: templates/listings/partials/search_panel.html:1949
 msgid "Visi modeliai"
 msgstr "Visi modeliai"
 
@@ -10208,56 +10213,60 @@ msgstr "Maks."
 msgid "Priekabos / Puspriekabės"
 msgstr ""
 
-#: templates/listings/partials/search_panel.html:1148
+#: templates/listings/partials/search_panel.html:1172
 #, fuzzy
-#| msgid "Įveskite kodą"
-msgid "Įveskite modelį"
-msgstr "Įveskite kodą"
+#| msgid "Visos markės"
+msgid "Kitos markės"
+msgstr "Visos markės"
 
-#: templates/listings/partials/search_panel.html:1265
+#: templates/listings/partials/search_panel.html:1257
+msgid "Ieškoti pavadinime ir aprašyme"
+msgstr "Ieškoti pavadinime ir aprašyme"
+
+#: templates/listings/partials/search_panel.html:1320
 #: templates/listings/trailers_listing_create.html:256
 msgid "Bendroji masė (kg)"
 msgstr "Bendroji masė (kg)"
 
-#: templates/listings/partials/search_panel.html:1273
+#: templates/listings/partials/search_panel.html:1328
 #: templates/listings/trailers_listing_create.html:274
 msgid "Keliamoji galia (kg)"
 msgstr "Keliamoji galia (kg)"
 
-#: templates/listings/partials/search_panel.html:1281
+#: templates/listings/partials/search_panel.html:1336
 #: templates/listings/trailers_listing_create.html:215
 #, fuzzy
 #| msgid "Width (mm)"
 msgid "Ilgis (mm)"
 msgstr "Plotis"
 
-#: templates/listings/partials/search_panel.html:1301
+#: templates/listings/partials/search_panel.html:1344
 msgid "TA galioja iki"
 msgstr "TA galioja iki"
 
-#: templates/listings/partials/search_panel.html:1304
+#: templates/listings/partials/search_panel.html:1347
 msgid "Nesvarbu"
 msgstr "Nesvarbu"
 
-#: templates/listings/partials/search_panel.html:1387
+#: templates/listings/partials/search_panel.html:1430
 msgid "pvz. 06H 145 601 H"
 msgstr "pvz. 06H 145 601 H"
 
-#: templates/listings/partials/search_panel.html:1425
-#: templates/listings/partials/search_panel.html:1507
+#: templates/listings/partials/search_panel.html:1468
+#: templates/listings/partials/search_panel.html:1550
 msgid "pvz. detalės kodas"
 msgstr "pvz. detalės kodas"
 
-#: templates/listings/partials/search_panel.html:1428
-#: templates/listings/partials/search_panel.html:1510
+#: templates/listings/partials/search_panel.html:1471
+#: templates/listings/partials/search_panel.html:1553
 msgid "Dalies tipas"
 msgstr "Dalies tipas"
 
-#: templates/listings/partials/search_panel.html:1861
+#: templates/listings/partials/search_panel.html:1914
 msgid "Išsaugota"
 msgstr "Išsaugota"
 
-#: templates/listings/partials/search_panel.html:1881
+#: templates/listings/partials/search_panel.html:1934
 msgid "Kraunama..."
 msgstr "Kraunama..."
 

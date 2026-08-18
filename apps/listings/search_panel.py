@@ -11,7 +11,8 @@
 # browse view'ai jau priima — naujų filtrų čia nekuriam.
 # ═══════════════════════════════════════════════════════════
 
-from django.db.models import Count
+from django.db.models import Count, Q
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
@@ -238,6 +239,21 @@ def parts_count_qs(sub_key, params, user=None):
 
 TRAILERS_VT_SLUG = 'trailers'
 
+# Kiek markių rodoma „Top markės“ grupėje (autogidas rodo 10)
+TRAILER_TOP_BRANDS = 10
+
+# Kainos pakopos — tos pačios kaip automobilių panelėje (search_panel.html)
+TRAILER_PRICE_MIN_TIERS = [
+    (500, '500'), (1000, '1 000'), (2000, '2 000'), (3000, '3 000'),
+    (5000, '5 000'), (7500, '7 500'), (10000, '10 000'), (15000, '15 000'),
+    (20000, '20 000'), (30000, '30 000'),
+]
+TRAILER_PRICE_MAX_TIERS = [
+    (1000, '1 000'), (2000, '2 000'), (3000, '3 000'), (5000, '5 000'),
+    (7500, '7 500'), (10000, '10 000'), (15000, '15 000'), (20000, '20 000'),
+    (30000, '30 000'), (50000, '50 000'),
+]
+
 # Ypatumai, rodomi panelėje (Equipment.name reikšmės iš trailers_views
 # TRAILER_EQUIPMENT_DEFINITION). Rikiuojasi šia tvarka.
 TRAILER_PANEL_EQUIPMENT = [
@@ -299,6 +315,15 @@ def apply_trailer_filters(listings, params):
     if model_q:
         listings = listings.filter(trailer_model_text__icontains=model_q)
 
+    # ─── Tekstinė paieška — pavadinimas + aprašymas ───
+    # Atskiras param'as (ne bendras ?q / ?search), nes tie jau taikomi
+    # aukščiau ir tik pavadinimui — susidėję duotų tik title atitikmenis.
+    text_q = _get('trailer_q')
+    if text_q:
+        listings = listings.filter(
+            Q(title__icontains=text_q) | Q(description__icontains=text_q)
+        )
+
     # ─── Diapazonai (nuo / iki) ───
     ranges = {
         'gross_weight': 'gross_weight_kg',
@@ -327,25 +352,41 @@ def apply_trailer_filters(listings, params):
 
 
 def trailers_panel_context(user=None):
-    """Priekabų panelės kontekstas: markės, choices, ypatumai."""
+    """Priekabų greitosios panelės kontekstas (autogidas section=17)."""
     from .models import Listing
+    from .trailers_views import TRAILER_BRANDS
 
     base = _trailers_base_qs(user)
 
-    # Markės — TIK tos, kurios realiai yra skelbimuose (ne visos 192),
-    # su kiekiais, populiariausios viršuje.
-    brand_counts = {
+    # ─── Markės su skelbimų kiekiais ───
+    # VIENA agregacija; likusios markės sulipdomos Python'e iš konstantos,
+    # todėl N+1 nėra net turint visas 192.
+    counts = {
         row['trailer_brand_text']: row['c']
         for row in base.exclude(trailer_brand_text='')
                        .values('trailer_brand_text')
                        .annotate(c=Count('id'))
     }
-    trailer_brands = sorted(
-        ({'name': n, 'count': c} for n, c in brand_counts.items()),
-        key=lambda b: (-b['count'], b['name']),
+    with_listings = sorted(
+        (n for n in TRAILER_BRANDS if counts.get(n)),
+        key=lambda n: (-counts[n], n.lower()),
+    )
+    top_names = with_listings[:TRAILER_TOP_BRANDS]
+    rest_names = sorted(
+        (n for n in TRAILER_BRANDS if n not in top_names),
+        key=lambda n: n.lower(),
+    )
+    trailer_brands_top = [{'name': n, 'count': counts.get(n, 0)} for n in top_names]
+    trailer_brands_rest = [{'name': n, 'count': counts.get(n, 0)} for n in rest_names]
+
+    # ─── Metai: kas metus iki 1985, toliau retėjant (autogidas) ───
+    this_year = timezone.now().year
+    trailer_years = (
+        list(range(this_year, 1984, -1))
+        + [1980, 1975, 1970, 1965, 1960, 1950, 1940, 1930, 1927, 1925]
     )
 
-    # Ypatumai — tik tie, kurie tikrai egzistuoja Equipment lentelėje
+    # ─── Ypatumai (išplėstiniam rinkiniui) ───
     eq_by_name = {
         e.name: e
         for e in Equipment.objects.filter(category__in=TRAILER_EQUIPMENT_CATEGORIES)
@@ -356,9 +397,12 @@ def trailers_panel_context(user=None):
     ]
 
     return {
-        'trailer_brands': trailer_brands,
+        'trailer_brands_top': trailer_brands_top,
+        'trailer_brands_rest': trailer_brands_rest,
+        'trailer_years': trailer_years,
         'trailer_kind_choices': Listing.TRAILER_KIND_CHOICES,
         'trailer_purpose_choices': Listing.TRAILER_PURPOSE_CHOICES,
+        'trailer_color_choices': Listing.COLOR_CHOICES,
         'trailer_axle_count_choices': Listing.TRAILER_AXLE_COUNT_CHOICES,
         'trailer_axle_makes': _trailer_axle_makes(),
         'trailer_condition_choices': [
@@ -368,9 +412,10 @@ def trailers_panel_context(user=None):
             (v, l) for v, l in Listing.EURO_STANDARD_CHOICES
             if v in ('euro1', 'euro2', 'euro3', 'euro4', 'euro5', 'euro6', 'other')
         ],
-        'trailer_color_choices': Listing.COLOR_CHOICES,
         'trailer_equipment': trailer_equipment,
         'trailer_ta_years': list(range(2025, 2031)),
+        'trailer_price_min_tiers': TRAILER_PRICE_MIN_TIERS,
+        'trailer_price_max_tiers': TRAILER_PRICE_MAX_TIERS,
     }
 
 

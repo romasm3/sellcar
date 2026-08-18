@@ -1126,29 +1126,12 @@
         <input type="hidden" name="category" value="trailers">
         <input type="hidden" name="sidebar" value="1">
 
+        {# ═══ GREITOJI PAIEŠKA — 7 laukai, autogidas section=17 tvarka ═══ #}
+        <input type="hidden" name="trailer_brand_text" :value="tr.brand">
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
 
-          {# ── Markė (tik realiai esančios skelbimuose) ── #}
-          <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
-            <div class="sp-sel">
-              <select name="trailer_brand_text" class="sp-fld">
-                <option value="">{% trans "Visos" %}</option>
-                {% for b in trailer_brands %}
-                <option value="{{ b.name }}" {% if request.GET.trailer_brand_text == b.name %}selected{% endif %}>{{ b.name }} ({{ b.count }})</option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-
-          {# ── Modelis ── #}
-          <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Modelis" %}</label>
-            <input type="text" name="trailer_model_text" value="{{ request.GET.trailer_model_text|default:'' }}"
-                   placeholder="{% trans 'Įveskite modelį' %}" class="sp-fld placeholder-gray-400">
-          </div>
-
-          {# ── Tipas ── #}
+          {# 1. Tipas #}
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tipas" %}</label>
             <div class="sp-sel">
@@ -1161,7 +1144,49 @@
             </div>
           </div>
 
-          {# ── Paskirtis ── #}
+          {# 2. Markė — dropdown su paieška, Top / Kitos, skaičiukai, „Rodyti visus“ #}
+          <div class="relative">
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
+            <button type="button" class="sp-fld sp-dd-btn" @click="tr.bOpen = !tr.bOpen; tr.bQ = ''">
+              <span x-text="tr.brandName"></span>
+            </button>
+            <div x-show="tr.bOpen" x-cloak @click.outside="tr.bOpen = false" class="sp-dd">
+              <div class="sp-dd-search">
+                <input type="text" x-model="tr.bQ" placeholder="{% trans 'Paieška...' %}" @click.stop>
+                <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+              </div>
+              <div class="sp-dd-scroll">
+                <div class="sp-dd-item font-semibold"
+                     @click="pickTrailerBrand('', '{% trans "Visos markės" %}')">{% trans "Visos markės" %}</div>
+
+                <div class="sp-dd-group" x-show="!tr.bQ">{% trans "Top markės" %}</div>
+                {% for b in trailer_brands_top %}
+                <div class="sp-dd-item"
+                     x-show="!tr.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(tr.bQ.toLowerCase()) !== -1"
+                     @click="pickTrailerBrand('{{ b.name|escapejs }}', '{{ b.name|escapejs }}')">
+                  <span>{{ b.name }}</span>
+                  <span class="sp-dd-count">{{ b.count }}</span>
+                </div>
+                {% endfor %}
+
+                <div class="sp-dd-group" x-show="!tr.bQ">{% trans "Kitos markės" %}</div>
+                {% for b in trailer_brands_rest %}
+                <div class="sp-dd-item"
+                     x-show="(tr.bAll || {{ b.count }} > 0) && (!tr.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(tr.bQ.toLowerCase()) !== -1)"
+                     @click="pickTrailerBrand('{{ b.name|escapejs }}', '{{ b.name|escapejs }}')">
+                  <span>{{ b.name }}</span>
+                  <span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="sp-dd-foot" x-show="!tr.bAll">
+                {% trans "Tik markės su skelbimais." %}
+                <a @click="tr.bAll = true">{% trans "Rodyti visus" %}</a>
+              </div>
+            </div>
+          </div>
+
+          {# 3. Paskirtis #}
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Paskirtis" %}</label>
             <div class="sp-sel">
@@ -1174,32 +1199,62 @@
             </div>
           </div>
 
-          {# ── Metai ── #}
+          {# 4. Metai #}
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Metai" %}</label>
             <div class="grid grid-cols-2 gap-3">
               <div class="sp-sel">
                 <select name="year_min" class="sp-fld">
                   <option value="">{% trans "Nuo" %}</option>
-                  {% for y in years %}<option value="{{ y }}" {% if request.GET.year_min == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                  {% for y in trailer_years %}<option value="{{ y }}" {% if request.GET.year_min == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
                 </select>
               </div>
               <div class="sp-sel">
                 <select name="year_max" class="sp-fld">
                   <option value="">{% trans "Iki" %}</option>
-                  {% for y in years %}<option value="{{ y }}" {% if request.GET.year_max == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
+                  {% for y in trailer_years %}<option value="{{ y }}" {% if request.GET.year_max == y|stringformat:"i" %}selected{% endif %}>{{ y }}</option>{% endfor %}
                 </select>
               </div>
             </div>
           </div>
 
-          {# ── Kaina ── #}
+          {# 5. Kaina — tos pačios pakopos kaip automobiliams #}
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Kaina" %}</label>
             <div class="grid grid-cols-2 gap-3">
-              <input type="number" step="1" name="price_min" value="{{ request.GET.price_min|default:'' }}" placeholder="{% trans 'Nuo' %} $" class="sp-fld placeholder-gray-400">
-              <input type="number" step="1" name="price_max" value="{{ request.GET.price_max|default:'' }}" placeholder="{% trans 'Iki' %} $" class="sp-fld placeholder-gray-400">
+              <div class="sp-sel">
+                <select name="price_min" class="sp-fld">
+                  <option value="">{% trans "Nuo" %}</option>
+                  {% for v, lbl in trailer_price_min_tiers %}<option value="{{ v }}" {% if request.GET.price_min == v|stringformat:"i" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="sp-sel">
+                <select name="price_max" class="sp-fld">
+                  <option value="">{% trans "Iki" %}</option>
+                  {% for v, lbl in trailer_price_max_tiers %}<option value="{{ v }}" {% if request.GET.price_max == v|stringformat:"i" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+                </select>
+              </div>
             </div>
+          </div>
+
+          {# 6. Spalva #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Spalva" %}</label>
+            <div class="sp-sel">
+              <select name="color" class="sp-fld">
+                <option value="">{% trans "Visos" %}</option>
+                {% for val, label in trailer_color_choices %}
+                <option value="{{ val }}" {% if request.GET.color == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          {# 7. Tekstinė paieška — pavadinime ir aprašyme #}
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tekstinė paieška" %}</label>
+            <input type="text" name="trailer_q" value="{{ request.GET.trailer_q|default:'' }}"
+                   placeholder="{% trans 'Ieškoti pavadinime ir aprašyme' %}" class="sp-fld placeholder-gray-400">
           </div>
         </div>
 
@@ -1282,18 +1337,6 @@
               <div class="grid grid-cols-2 gap-3">
                 <input type="number" step="1" name="length_min" value="{{ request.GET.length_min|default:'' }}" placeholder="{% trans 'Nuo' %}" class="sp-fld placeholder-gray-400">
                 <input type="number" step="1" name="length_max" value="{{ request.GET.length_max|default:'' }}" placeholder="{% trans 'Iki' %}" class="sp-fld placeholder-gray-400">
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Spalva" %}</label>
-              <div class="sp-sel">
-                <select name="color" class="sp-fld">
-                  <option value="">{% trans "Visos" %}</option>
-                  {% for val, label in trailer_color_choices %}
-                  <option value="{{ val }}" {% if request.GET.color == val %}selected{% endif %}>{{ label }}</option>
-                  {% endfor %}
-                </select>
               </div>
             </div>
 
@@ -1572,6 +1615,16 @@ function spPanel() {
                mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
       truck: { bOpen: false, bQ: '', bAll: false, id: '', name: '{% trans "Visos" %}', total: 0,
                mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
+    },
+
+    // Priekabų markė — tekstinė reikšmė (trailer_brand_text), ne FK id
+    tr: { bOpen: false, bQ: '', bAll: false, brand: '', brandName: '{% trans "Visos markės" %}' },
+
+    pickTrailerBrand(name, label) {
+      this.tr.brand = name;
+      this.tr.brandName = label;
+      this.tr.bOpen = false;
+      this.refreshCount(0);
     },
 
     // Kiekviena dalių subkategorija turi savo count endpoint'o raktą
