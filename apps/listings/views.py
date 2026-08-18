@@ -161,6 +161,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 # ═══════════════════════════════════════════════════════════
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
+    'agriculture',
     'motorcycles',
     'tires',
     'parts',
@@ -251,6 +252,12 @@ MOTO_GEAR_SLUGS = {
 
 # Parent ("Apranga, šalmai, aksesuarai") — no gear type preselected.
 MOTO_GEAR_PARENT_SLUG = 'moto-gear'
+
+# ═══ AGRICULTURE subcategory slugs — used by listing_create ═══
+AGRICULTURE_SUBCATEGORY_SLUGS = {
+    'tractors', 'combines', 'sprayers', 'ploughs', 'cultivators',
+    'balers', 'forestry-machines', 'other-agricultural',
+}
 
 # ═══ TRAILERS subcategory slugs — used by listing_create ═══
 # Gyvena čia, o ne trailers_views.py, nes trailers_views importuoja iš views.py
@@ -404,6 +411,14 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     if subcategory_slug == 'whole-truck-for-parts':
         return redirect('/create/truck-for-parts/?new=1')
 
+    # ═══ ŽEMĖS ŪKIO TECHNIKA → atskira forma ═══
+    # Subkategorija perduodama tik Tipo preselekcijai; įrašant ji
+    # persiskaičiuoja iš formos lauko.
+    if subcategory_slug in AGRICULTURE_SUBCATEGORY_SLUGS:
+        return redirect(
+            f'/create/agriculture/?new=1&subcategory={subcategory_slug}'
+        )
+
     # ═══ TRAILERS → atskira priekabų forma ═══
     # Subkategorija perduodama toliau — forma ją naudoja Paskirties
     # preselekcijai ir persiskaičiuoja išsaugant.
@@ -527,6 +542,9 @@ EQUIPMENT_CATEGORY_LABELS = {
     'trailer_chassis': 'Važiuoklė',
     'trailer_safety': 'Sauga',
     'trailer_other': 'Kita',
+    'agri_drivetrain': 'Pavaros ir važiuoklė',
+    'agri_mount': 'Prikabinimas',
+    'agri_other': 'Kita',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -535,6 +553,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'truck_cabin', 'truck_body', 'truck_electronics',
     'truck_safety', 'truck_audio_video', 'truck_other',
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
+    'agri_drivetrain', 'agri_mount', 'agri_other',
     'gear',
 ]
 
@@ -580,6 +599,9 @@ EQUIPMENT_CATEGORY_LABELS = {
     'trailer_chassis': 'Važiuoklė',
     'trailer_safety': 'Sauga',
     'trailer_other': 'Kita',
+    'agri_drivetrain': 'Pavaros ir važiuoklė',
+    'agri_mount': 'Prikabinimas',
+    'agri_other': 'Kita',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -588,6 +610,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'truck_cabin', 'truck_body', 'truck_electronics',
     'truck_safety', 'truck_audio_video', 'truck_other',
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
+    'agri_drivetrain', 'agri_mount', 'agri_other',
     'gear',
 ]
 
@@ -2869,6 +2892,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
         return redirect(f'/create/trailers/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
+        return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -3723,6 +3748,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
         return redirect(f'/create/trailers/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
+        return redirect(f'/create/agriculture/?edit={pk}')
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
@@ -3804,6 +3831,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
         return redirect(f'/create/trailers/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
+        return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -4017,6 +4046,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/boats/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'trailers':
         return redirect(f'/create/trailers/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
+        return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -6461,7 +6492,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB

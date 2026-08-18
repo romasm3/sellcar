@@ -774,6 +774,86 @@ class Listing(models.Model):
     trailer_tyre_pct_3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name=_('3 ašies padangų likutis %'))
     trailer_tyre_size_3 = models.CharField(max_length=40, blank=True, default='', verbose_name=_('3 ašies padangų išmatavimai'))
 
+    # ═══════════════════════════════════════════════════════════
+    # ŽEMĖS ŪKIO TECHNIKA (vehicle_type slug='agriculture')
+    # Metai/mėnuo, kaina, SDK, galia (kW), masės, tūris, komentarai —
+    # imami iš bendrų / truck_* laukų aukščiau. Čia tik tai, ko niekur nėra.
+    # Ypatumai (9) saugomi kaip Equipment eilutės, kategorija 'agri_*'.
+    # ═══════════════════════════════════════════════════════════
+    AGRI_TYPE_CHOICES = [
+        ('akecios', _('Akėčios')),
+        ('bulviu_kasamosios', _('Bulvių kasamosios')),
+        ('buldozeris', _('Buldozeris')),
+        ('ekskavatorius', _('Ekskavatorius')),
+        ('greideris', _('Greideris')),
+        ('grudu_valymo_iranga', _('Grūdų valymo įranga')),
+        ('grudu_dziovinimo_iranga', _('Grūdų džiovinimo įranga')),
+        ('grudu_sandeliavimo_iranga', _('Grūdų sandėliavimo įranga')),
+        ('grudu_transportavimo_iranga', _('Grūdų transportavimo įranga')),
+        ('kombainas', _('Kombainas')),
+        ('krautuvas', _('Krautuvas')),
+        ('kultivatorius', _('Kultivatorius')),
+        ('manipuliatorius', _('Manipuliatorius')),
+        ('mini_ekskavatorius', _('Mini ekskavatorius')),
+        ('motoblokas', _('Motoblokas')),
+        ('traktorius', _('Traktorius')),
+        ('zoliapjove', _('Žoliapjovė')),
+        ('grebliai', _('Grėbliai')),
+        ('lekstiniai_skutikai', _('Lėkštiniai skutikai')),
+        ('meslo_kratytuvai', _('Mėšlo kratytuvai')),
+        ('pasaru_dalytuvai', _('Pašarų dalytuvai')),
+        ('pienininkystes_ir_fermu_irengimai', _('Pienininkystės ir fermų įrengimai')),
+        ('pjaunamosios', _('Pjaunamosios')),
+        ('plugai', _('Plūgai')),
+        ('presai', _('Presai')),
+        ('purkstuvai_pakabinami', _('Purkštuvai pakabinami')),
+        ('purkstuvai_prikabinami', _('Purkštuvai prikabinami')),
+        ('razieniniai_skutikai', _('Ražieniniai skutikai')),
+        ('rinktuvai', _('Rinktuvai')),
+        ('savaeiges_pjaunamosios_smulkintuvai', _('Savaeigės pjaunamosios-smulkintuvai')),
+        ('sejamosios', _('Sėjamosios')),
+        ('sejos_agregatai', _('Sėjos agregatai')),
+        ('smulkintuvai_pjaunamosios', _('Smulkintuvai-pjaunamosios')),
+        ('sniego_peilis', _('Sniego peilis')),
+        ('sodo_ir_parko_technika', _('Sodo ir parko technika')),
+        ('srutu_laistytuvai', _('Srutų laistytuvai')),
+        ('srutu_siurbliai', _('Srutų siurbliai')),
+        ('trasu_barstytuvai', _('Trąšų barstytuvai')),
+        ('vartytuvai', _('Vartytuvai')),
+        ('volai', _('Volai')),
+        ('vyniotuvai', _('Vyniotuvai')),
+        ('kita', _('Kita')),
+    ]
+
+    AGRI_KIND_CHOICES = [
+        ('implement', _('Padargas')),
+        ('self_propelled', _('Savaeigė')),
+    ]
+
+    agri_type = models.CharField(
+        max_length=40, choices=AGRI_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    agri_kind = models.CharField(
+        max_length=20, choices=AGRI_KIND_CHOICES, blank=True, default='',
+        verbose_name=_('Padargas / Savaeigė'),
+    )
+    agri_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    agri_model_text = models.CharField(
+        max_length=20, blank=True, default='', verbose_name=_('Modelis'),
+    )
+    engine_hours = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(999999)],
+        verbose_name=_('Motovalandos'),
+    )
+    working_width_m = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True,
+        verbose_name=_('Darbinis plotis (m)'),
+    )
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',

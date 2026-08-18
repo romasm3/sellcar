@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 16:04+0300\n"
+"POT-Creation-Date: 2026-08-18 21:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -284,12 +284,95 @@ msgstr "Komentaras"
 msgid "Seller Review"
 msgstr "Pardavėjo atsiliepimas"
 
+#: apps/listings/agriculture_views.py:187
+#, fuzzy
+#| msgid "Priekabų kategorija nesukonfigūruota."
+msgid "Žemės ūkio technikos kategorija nesukonfigūruota."
+msgstr "Priekabų kategorija nesukonfigūruota."
+
+#: apps/listings/agriculture_views.py:197
+#, fuzzy
+#| msgid "Ši forma skirta tik priekabų skelbimams."
+msgid "Ši forma skirta tik žemės ūkio technikos skelbimams."
+msgstr "Ši forma skirta tik priekabų skelbimams."
+
+#: apps/listings/agriculture_views.py:232 apps/listings/trailers_views.py:316
+#: templates/listings/agriculture_listing_create.html:769
+#: templates/listings/trailers_listing_create.html:912
+msgid "Būklė yra privaloma"
+msgstr "Būklė yra privaloma"
+
+#: apps/listings/agriculture_views.py:238 apps/listings/trailers_views.py:323
+#: templates/listings/agriculture_listing_create.html:770
+#: templates/listings/trailers_listing_create.html:913
+msgid "Tipas yra privalomas"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:243
+#: templates/listings/agriculture_listing_create.html:771
+#, fuzzy
+#| msgid "Markė yra privaloma"
+msgid "Padargas / Savaeigė yra privalomas"
+msgstr "Markė yra privaloma"
+
+#: apps/listings/agriculture_views.py:248 apps/listings/trailers_views.py:329
+#: templates/listings/agriculture_listing_create.html:772
+#: templates/listings/trailers_listing_create.html:914
+msgid "Markė yra privaloma"
+msgstr "Markė yra privaloma"
+
+#: apps/listings/agriculture_views.py:255 apps/listings/trailers_views.py:337
+#: templates/listings/agriculture_listing_create.html:773
+#: templates/listings/trailers_listing_create.html:915
+msgid "Metai yra privalomi"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:259 apps/listings/trailers_views.py:341
+#: templates/listings/agriculture_listing_create.html:774
+#: templates/listings/trailers_listing_create.html:916
+msgid "Mėnuo yra privalomas"
+msgstr "Mėnuo yra privalomas"
+
+#: apps/listings/agriculture_views.py:287 apps/listings/trailers_views.py:408
+#: templates/listings/agriculture_listing_create.html:775
+#: templates/listings/trailers_listing_create.html:918
+msgid "Kaina yra privaloma"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:302 apps/listings/trailers_views.py:426
+#: templates/listings/agriculture_listing_create.html:779
+#: templates/listings/trailers_listing_create.html:922
+msgid "Valstija yra privaloma"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:308 apps/listings/trailers_views.py:432
+#: templates/listings/agriculture_listing_create.html:777
+#: templates/listings/trailers_listing_create.html:920
+msgid "Miestas yra privalomas"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:316 apps/listings/trailers_views.py:440
+#: templates/listings/agriculture_listing_create.html:776
+#: templates/listings/trailers_listing_create.html:919
+msgid "Telefonas yra privalomas"
+msgstr ""
+
+#: apps/listings/agriculture_views.py:322 apps/listings/trailers_views.py:446
+#: templates/listings/agriculture_listing_create.html:782
+#: templates/listings/trailers_listing_create.html:925
+msgid "Turite sutikti su taisyklėmis"
+msgstr "Turite sutikti su taisyklėmis"
+
+#: apps/listings/agriculture_views.py:383 apps/listings/trailers_views.py:527
+msgid "Skelbimas atnaujintas."
+msgstr ""
+
 #: apps/listings/boats_views.py:42 apps/listings/models.py:456
 #: templates/listings/partials/panel_boats.html:20
 msgid "Aluminium"
 msgstr "Aliuminis"
 
-#: apps/listings/boats_views.py:43 apps/listings/models.py:3039
+#: apps/listings/boats_views.py:43 apps/listings/models.py:3119
 #: templates/listings/partials/panel_boats.html:21
 msgid "Steel"
 msgstr "Vairavimas"
@@ -315,8 +398,8 @@ msgstr "PVC / guma"
 #: apps/listings/models.py:362 apps/listings/models.py:443
 #: apps/listings/models.py:449 apps/listings/models.py:461
 #: apps/listings/models.py:470 apps/listings/models.py:661
-#: apps/listings/models.py:2018 apps/listings/models.py:2067
-#: apps/listings/models.py:2079 apps/listings/translatable_db.py:67
+#: apps/listings/models.py:2098 apps/listings/models.py:2147
+#: apps/listings/models.py:2159 apps/listings/translatable_db.py:67
 #: templates/listings/listing_detail.html:1567
 #: templates/listings/partials/panel_boats.html:25
 msgid "Other"
@@ -540,8 +623,8 @@ msgstr "Defektai"
 msgid "Steering"
 msgstr "Vairavimas"
 
-#: apps/listings/forms.py:148 apps/listings/models.py:790
-#: apps/listings/models.py:2193 templates/listings/advanced_search.html:696
+#: apps/listings/forms.py:148 apps/listings/models.py:870
+#: apps/listings/models.py:2273 templates/listings/advanced_search.html:696
 #: templates/listings/listing_list.html:409
 #: templates/listings/motorcycles_list.html:456
 #: templates/listings/trucks_advanced_search.html:383
@@ -552,7 +635,7 @@ msgstr "Rida (km)"
 msgid "Engine Capacity (L)"
 msgstr "Variklio darbinis tūris (l)"
 
-#: apps/listings/forms.py:167 apps/listings/models.py:2267
+#: apps/listings/forms.py:167 apps/listings/models.py:2347
 #: templates/listings/advanced_search.html:682
 #: templates/listings/motorcycles_list.html:474
 #: templates/listings/truck_parts_advanced.html:92
@@ -648,8 +731,8 @@ msgstr "Kaina (\\u20ac)"
 msgid "Price is negotiable"
 msgstr "Kaina derinama"
 
-#: apps/listings/forms.py:344 apps/listings/models.py:784
-#: apps/listings/models.py:2186 templates/accounts/wallet.html:126
+#: apps/listings/forms.py:344 apps/listings/models.py:864
+#: apps/listings/models.py:2266 templates/accounts/wallet.html:126
 #: templates/listings/boats_listing_create.html:261
 #: templates/listings/car_for_parts_create.html:259
 #: templates/listings/listing_create.html:25
@@ -768,12 +851,12 @@ msgid "Motorcycle Model"
 msgstr "Motociklo modelis"
 
 #: apps/listings/models.py:128 apps/listings/models.py:573
-#: apps/listings/models.py:2177
+#: apps/listings/models.py:2257
 msgid "Truck Brand"
 msgstr "Sunkvežimio markė"
 
 #: apps/listings/models.py:142 apps/listings/models.py:578
-#: apps/listings/models.py:2182
+#: apps/listings/models.py:2262
 msgid "Truck Model"
 msgstr "Sunkvežimio modelis"
 
@@ -781,8 +864,8 @@ msgstr "Sunkvežimio modelis"
 msgid "Gear Brand"
 msgstr "Aprangos markė"
 
-#: apps/listings/models.py:199 apps/listings/models.py:1980
-#: apps/listings/models.py:3045 apps/listings/moto_part_views.py:31
+#: apps/listings/models.py:199 apps/listings/models.py:2060
+#: apps/listings/models.py:3125 apps/listings/moto_part_views.py:31
 #: templates/listings/advanced_search.html:491
 #: templates/listings/listing_list.html:894
 #: templates/listings/listing_list.html:1045
@@ -795,8 +878,8 @@ msgstr "Aprangos markė"
 msgid "New"
 msgstr "Naujas"
 
-#: apps/listings/models.py:200 apps/listings/models.py:1981
-#: apps/listings/models.py:3046 apps/listings/moto_part_views.py:32
+#: apps/listings/models.py:200 apps/listings/models.py:2061
+#: apps/listings/models.py:3126 apps/listings/moto_part_views.py:32
 #: templates/listings/advanced_search.html:492
 #: templates/listings/motorcycles_advanced_search.html:174
 msgid "Used"
@@ -808,27 +891,27 @@ msgstr "Naudotas"
 msgid "Damaged"
 msgstr "Pažeistas"
 
-#: apps/listings/models.py:205 apps/listings/models.py:1985
+#: apps/listings/models.py:205 apps/listings/models.py:2065
 msgid "Juodraštis"
 msgstr "Juodraštis"
 
-#: apps/listings/models.py:206 apps/listings/models.py:1986
+#: apps/listings/models.py:206 apps/listings/models.py:2066
 msgid "Aktyvus"
 msgstr "Aktyvus"
 
-#: apps/listings/models.py:207 apps/listings/models.py:1987
+#: apps/listings/models.py:207 apps/listings/models.py:2067
 msgid "Rezervuotas"
 msgstr "Rezervuotas"
 
-#: apps/listings/models.py:208 apps/listings/models.py:1988
+#: apps/listings/models.py:208 apps/listings/models.py:2068
 msgid "Neaktyvus"
 msgstr "Neaktyvus"
 
-#: apps/listings/models.py:209 apps/listings/models.py:1989
+#: apps/listings/models.py:209 apps/listings/models.py:2069
 msgid "Parduotas"
 msgstr "Parduotas"
 
-#: apps/listings/models.py:210 apps/listings/models.py:1990
+#: apps/listings/models.py:210 apps/listings/models.py:2070
 msgid "Archyvuotas"
 msgstr "Archyvuotas"
 
@@ -882,7 +965,7 @@ msgstr "Sunkvežimis / furgonas"
 
 #: apps/listings/models.py:225 apps/listings/models.py:253
 #: apps/listings/models.py:265 apps/listings/models.py:273
-#: apps/listings/models.py:1995
+#: apps/listings/models.py:2075
 #: templates/listings/car_for_parts_create.html:70
 #: templates/listings/car_for_parts_create.html:80
 #: templates/listings/car_for_parts_create.html:90
@@ -911,104 +994,104 @@ msgstr "Sunkvežimis / furgonas"
 msgid "— Select —"
 msgstr "— Pasirinkite —"
 
-#: apps/listings/models.py:226 apps/listings/models.py:1996
+#: apps/listings/models.py:226 apps/listings/models.py:2076
 msgid "Tankers"
 msgstr "Cisternos"
 
-#: apps/listings/models.py:227 apps/listings/models.py:1997
+#: apps/listings/models.py:227 apps/listings/models.py:2077
 msgid "Car Carriers"
 msgstr "Autovežiai"
 
-#: apps/listings/models.py:228 apps/listings/models.py:1998
+#: apps/listings/models.py:228 apps/listings/models.py:2078
 #: apps/listings/translatable_db.py:42
 msgid "Concrete Mixers"
 msgstr "Betonvežiai"
 
-#: apps/listings/models.py:229 apps/listings/models.py:1999
+#: apps/listings/models.py:229 apps/listings/models.py:2079
 msgid "Flatbed"
 msgstr "Atviras kėbulas"
 
-#: apps/listings/models.py:230 apps/listings/models.py:2000
+#: apps/listings/models.py:230 apps/listings/models.py:2080
 msgid "Flatbed with Tarpaulin"
 msgstr "Atviras kėbulas su tentu"
 
-#: apps/listings/models.py:231 apps/listings/models.py:2001
+#: apps/listings/models.py:231 apps/listings/models.py:2081
 msgid "Curtain-Side"
 msgstr "Užuolaidinis"
 
-#: apps/listings/models.py:232 apps/listings/models.py:2002
+#: apps/listings/models.py:232 apps/listings/models.py:2082
 msgid "Double Cab"
 msgstr "Dviguba kabina"
 
-#: apps/listings/models.py:233 apps/listings/models.py:2003
+#: apps/listings/models.py:233 apps/listings/models.py:2083
 msgid "Livestock Carriers"
 msgstr "Gyvulių vežimui"
 
-#: apps/listings/models.py:234 apps/listings/models.py:2004
+#: apps/listings/models.py:234 apps/listings/models.py:2084
 msgid "Insulated Box"
 msgstr "Izoterminis furgonas"
 
-#: apps/listings/models.py:235 apps/listings/models.py:2005
+#: apps/listings/models.py:235 apps/listings/models.py:2085
 msgid "Hard-Side Box"
 msgstr "Kietasienis furgonas"
 
-#: apps/listings/models.py:236 apps/listings/models.py:2006
+#: apps/listings/models.py:236 apps/listings/models.py:2086
 msgid "Container Carriers"
 msgstr "Konteinerių vežimui"
 
-#: apps/listings/models.py:237 apps/listings/models.py:2007
+#: apps/listings/models.py:237 apps/listings/models.py:2087
 msgid "Logging Trucks"
 msgstr "Miškovežiai"
 
-#: apps/listings/models.py:238 apps/listings/models.py:2008
+#: apps/listings/models.py:238 apps/listings/models.py:2088
 msgid "Milk Tankers"
 msgstr "Pieno cisternos"
 
-#: apps/listings/models.py:239 apps/listings/models.py:2009
+#: apps/listings/models.py:239 apps/listings/models.py:2089
 msgid "Platforms"
 msgstr "Platformos"
 
-#: apps/listings/models.py:240 apps/listings/models.py:2010
+#: apps/listings/models.py:240 apps/listings/models.py:2090
 msgid "Mobile Shop"
 msgstr "Mobili parduotuvė"
 
-#: apps/listings/models.py:241 apps/listings/models.py:2011
+#: apps/listings/models.py:241 apps/listings/models.py:2091
 msgid "Tippers"
 msgstr "Savivarčiai"
 
-#: apps/listings/models.py:242 apps/listings/models.py:2012
+#: apps/listings/models.py:242 apps/listings/models.py:2092
 msgid "Hook-Lift Tippers"
 msgstr "Kabliniai savivarčiai"
 
-#: apps/listings/models.py:243 apps/listings/models.py:2013
+#: apps/listings/models.py:243 apps/listings/models.py:2093
 msgid "Crane Tippers"
 msgstr "Savivarčiai su kranu"
 
-#: apps/listings/models.py:244 apps/listings/models.py:2014
+#: apps/listings/models.py:244 apps/listings/models.py:2094
 msgid "With Crane"
 msgstr "Su kranu"
 
-#: apps/listings/models.py:245 apps/listings/models.py:2015
+#: apps/listings/models.py:245 apps/listings/models.py:2095
 msgid "Refrigerators"
 msgstr "Šaldytuvai"
 
-#: apps/listings/models.py:246 apps/listings/models.py:2016
+#: apps/listings/models.py:246 apps/listings/models.py:2096
 msgid "Curtain / Tarpaulin"
 msgstr "Užuolaidinis / tentinis"
 
-#: apps/listings/models.py:247 apps/listings/models.py:2017
+#: apps/listings/models.py:247 apps/listings/models.py:2097
 msgid "Chassis"
 msgstr "Važiuoklė"
 
-#: apps/listings/models.py:254 apps/listings/models.py:2031
+#: apps/listings/models.py:254 apps/listings/models.py:2111
 msgid "4x2"
 msgstr "4x2"
 
-#: apps/listings/models.py:254 apps/listings/models.py:2032
+#: apps/listings/models.py:254 apps/listings/models.py:2112
 msgid "4x4"
 msgstr "4x4"
 
-#: apps/listings/models.py:255 apps/listings/models.py:2033
+#: apps/listings/models.py:255 apps/listings/models.py:2113
 msgid "6x2"
 msgstr "6x2"
 
@@ -1016,7 +1099,7 @@ msgstr "6x2"
 msgid "6x2/4"
 msgstr "6x2/4"
 
-#: apps/listings/models.py:256 apps/listings/models.py:2034
+#: apps/listings/models.py:256 apps/listings/models.py:2114
 msgid "6x4"
 msgstr "6x4"
 
@@ -1024,11 +1107,11 @@ msgstr "6x4"
 msgid "6x4/2"
 msgstr "6x4/2"
 
-#: apps/listings/models.py:257 apps/listings/models.py:2035
+#: apps/listings/models.py:257 apps/listings/models.py:2115
 msgid "6x6"
 msgstr "6x6"
 
-#: apps/listings/models.py:258 apps/listings/models.py:2036
+#: apps/listings/models.py:258 apps/listings/models.py:2116
 msgid "8x2"
 msgstr "8x2"
 
@@ -1036,15 +1119,15 @@ msgstr "8x2"
 msgid "8x2/4"
 msgstr "8x2/4"
 
-#: apps/listings/models.py:259 apps/listings/models.py:2037
+#: apps/listings/models.py:259 apps/listings/models.py:2117
 msgid "8x4"
 msgstr "8x4"
 
-#: apps/listings/models.py:259 apps/listings/models.py:2038
+#: apps/listings/models.py:259 apps/listings/models.py:2118
 msgid "8x6"
 msgstr "8x6"
 
-#: apps/listings/models.py:259 apps/listings/models.py:2039
+#: apps/listings/models.py:259 apps/listings/models.py:2119
 msgid "8x8"
 msgstr "8x8"
 
@@ -1092,31 +1175,31 @@ msgstr "Hidraulinė"
 msgid "Rubber"
 msgstr "Guminė"
 
-#: apps/listings/models.py:284 apps/listings/models.py:2080
+#: apps/listings/models.py:284 apps/listings/models.py:2160
 msgid "White"
 msgstr "Balta"
 
-#: apps/listings/models.py:284 apps/listings/models.py:2080
+#: apps/listings/models.py:284 apps/listings/models.py:2160
 msgid "Black"
 msgstr "Juoda"
 
-#: apps/listings/models.py:285 apps/listings/models.py:2081
+#: apps/listings/models.py:285 apps/listings/models.py:2161
 msgid "Red / Burgundy"
 msgstr "Raudona / bordo"
 
-#: apps/listings/models.py:285 apps/listings/models.py:2081
+#: apps/listings/models.py:285 apps/listings/models.py:2161
 msgid "Blue"
 msgstr "Mėlyna"
 
-#: apps/listings/models.py:286 apps/listings/models.py:2082
+#: apps/listings/models.py:286 apps/listings/models.py:2162
 msgid "Green / Khaki"
 msgstr "Žalia / chaki"
 
-#: apps/listings/models.py:286 apps/listings/models.py:2082
+#: apps/listings/models.py:286 apps/listings/models.py:2162
 msgid "Yellow / Gold"
 msgstr "Geltona / auksinė"
 
-#: apps/listings/models.py:287 apps/listings/models.py:2083
+#: apps/listings/models.py:287 apps/listings/models.py:2163
 msgid "Orange"
 msgstr "Oranžinė"
 
@@ -1124,30 +1207,30 @@ msgstr "Oranžinė"
 msgid "Purple"
 msgstr "Violetinė"
 
-#: apps/listings/models.py:288 apps/listings/models.py:2083
+#: apps/listings/models.py:288 apps/listings/models.py:2163
 msgid "Brown / Beige"
 msgstr "Ruda / smėlinė"
 
-#: apps/listings/models.py:289 apps/listings/models.py:2084
+#: apps/listings/models.py:289 apps/listings/models.py:2164
 msgid "Multicolor"
 msgstr "Marga"
 
-#: apps/listings/models.py:293 apps/listings/models.py:2088
+#: apps/listings/models.py:293 apps/listings/models.py:2168
 #: templates/listings/listing_detail.html:1059
 #: templates/listings/listing_list.html:567
 #: templates/listings/motorcycles_list.html:603
 msgid "No defects"
 msgstr "Be defektų"
 
-#: apps/listings/models.py:293 apps/listings/models.py:2091
+#: apps/listings/models.py:293 apps/listings/models.py:2171
 msgid "Dented"
 msgstr "Daužtas"
 
-#: apps/listings/models.py:294 apps/listings/models.py:2092
+#: apps/listings/models.py:294 apps/listings/models.py:2172
 msgid "Burned"
 msgstr "Degęs"
 
-#: apps/listings/models.py:294 apps/listings/models.py:2090
+#: apps/listings/models.py:294 apps/listings/models.py:2170
 msgid "Gearbox defect"
 msgstr "Pavarų dėžės defektas"
 
@@ -1159,11 +1242,11 @@ msgstr "Krušos pažeidimai"
 msgid "Sunken"
 msgstr "Skendęs"
 
-#: apps/listings/models.py:296 apps/listings/models.py:2089
+#: apps/listings/models.py:296 apps/listings/models.py:2169
 msgid "Engine defect"
 msgstr "Variklio defektas"
 
-#: apps/listings/models.py:296 apps/listings/models.py:2093
+#: apps/listings/models.py:296 apps/listings/models.py:2173
 msgid "Major defects"
 msgstr "Dideli defektai"
 
@@ -1175,11 +1258,11 @@ msgstr "2/3 durų"
 msgid "4/5 doors"
 msgstr "4/5 durų"
 
-#: apps/listings/models.py:302 apps/listings/models.py:2097
+#: apps/listings/models.py:302 apps/listings/models.py:2177
 msgid "Left-hand drive"
 msgstr "Kairinis vairas"
 
-#: apps/listings/models.py:303 apps/listings/models.py:2098
+#: apps/listings/models.py:303 apps/listings/models.py:2178
 msgid "Right-hand drive (UK)"
 msgstr "Dešininis vairas (UK)"
 
@@ -1346,7 +1429,8 @@ msgstr "Striukė"
 #: apps/listings/models.py:388 apps/listings/models.py:395
 #: apps/listings/models.py:400 apps/listings/models.py:408
 #: apps/listings/models.py:416 apps/listings/models.py:424
-#: apps/listings/models.py:720 templates/listings/motogear_advanced.html:64
+#: apps/listings/models.py:720 apps/listings/models.py:825
+#: templates/listings/motogear_advanced.html:64
 #: templates/listings/motogear_advanced.html:85
 #: templates/listings/motogear_advanced.html:118
 #: templates/listings/motogear_advanced.html:153
@@ -1654,107 +1738,107 @@ msgstr "CE 2 lygis (smūgiui)"
 msgid "EN certified"
 msgstr "EN sertifikuota"
 
-#: apps/listings/models.py:491 apps/listings/models.py:2102
+#: apps/listings/models.py:491 apps/listings/models.py:2182
 #: apps/listings/trucks_views.py:57 templates/listings/trucks_list.html:546
 msgid "United States"
 msgstr "Jungtinės Valstijos"
 
-#: apps/listings/models.py:491 apps/listings/models.py:2102
+#: apps/listings/models.py:491 apps/listings/models.py:2182
 #: apps/listings/trucks_views.py:57
 msgid "Lithuania"
 msgstr "Lietuva"
 
-#: apps/listings/models.py:492 apps/listings/models.py:2103
+#: apps/listings/models.py:492 apps/listings/models.py:2183
 #: apps/listings/trucks_views.py:58
 msgid "Latvia"
 msgstr "Latvija"
 
-#: apps/listings/models.py:492 apps/listings/models.py:2103
+#: apps/listings/models.py:492 apps/listings/models.py:2183
 #: apps/listings/trucks_views.py:58
 msgid "Estonia"
 msgstr "Estija"
 
-#: apps/listings/models.py:493 apps/listings/models.py:2104
+#: apps/listings/models.py:493 apps/listings/models.py:2184
 #: apps/listings/trucks_views.py:58
 msgid "Poland"
 msgstr "Lenkija"
 
-#: apps/listings/models.py:493 apps/listings/models.py:2104
+#: apps/listings/models.py:493 apps/listings/models.py:2184
 #: apps/listings/trucks_views.py:59
 msgid "Germany"
 msgstr "Vokietija"
 
-#: apps/listings/models.py:494 apps/listings/models.py:2105
+#: apps/listings/models.py:494 apps/listings/models.py:2185
 #: apps/listings/trucks_views.py:59
 msgid "Netherlands"
 msgstr "Nyderlandai"
 
-#: apps/listings/models.py:494 apps/listings/models.py:2105
+#: apps/listings/models.py:494 apps/listings/models.py:2185
 msgid "Belgium"
 msgstr "Belgija"
 
-#: apps/listings/models.py:495 apps/listings/models.py:2106
+#: apps/listings/models.py:495 apps/listings/models.py:2186
 msgid "France"
 msgstr "Prancūzija"
 
-#: apps/listings/models.py:495 apps/listings/models.py:2106
+#: apps/listings/models.py:495 apps/listings/models.py:2186
 msgid "Italy"
 msgstr "Italija"
 
-#: apps/listings/models.py:496 apps/listings/models.py:2107
+#: apps/listings/models.py:496 apps/listings/models.py:2187
 msgid "Spain"
 msgstr "Ispanija"
 
-#: apps/listings/models.py:496 apps/listings/models.py:2107
+#: apps/listings/models.py:496 apps/listings/models.py:2187
 msgid "Austria"
 msgstr "Austrija"
 
-#: apps/listings/models.py:497 apps/listings/models.py:2108
+#: apps/listings/models.py:497 apps/listings/models.py:2188
 msgid "Czech Republic"
 msgstr "Čekija"
 
-#: apps/listings/models.py:497 apps/listings/models.py:2108
+#: apps/listings/models.py:497 apps/listings/models.py:2188
 msgid "Slovakia"
 msgstr "Slovakija"
 
-#: apps/listings/models.py:498 apps/listings/models.py:2109
+#: apps/listings/models.py:498 apps/listings/models.py:2189
 msgid "Hungary"
 msgstr "Vengrija"
 
-#: apps/listings/models.py:498 apps/listings/models.py:2109
+#: apps/listings/models.py:498 apps/listings/models.py:2189
 msgid "Romania"
 msgstr "Rumunija"
 
-#: apps/listings/models.py:499 apps/listings/models.py:2110
+#: apps/listings/models.py:499 apps/listings/models.py:2190
 msgid "Bulgaria"
 msgstr "Bulgarija"
 
-#: apps/listings/models.py:499 apps/listings/models.py:2110
+#: apps/listings/models.py:499 apps/listings/models.py:2190
 msgid "Sweden"
 msgstr "Švedija"
 
-#: apps/listings/models.py:500 apps/listings/models.py:2111
+#: apps/listings/models.py:500 apps/listings/models.py:2191
 msgid "Denmark"
 msgstr "Danija"
 
-#: apps/listings/models.py:500 apps/listings/models.py:2111
+#: apps/listings/models.py:500 apps/listings/models.py:2191
 msgid "Finland"
 msgstr "Suomija"
 
-#: apps/listings/models.py:501 apps/listings/models.py:2112
+#: apps/listings/models.py:501 apps/listings/models.py:2192
 msgid "Norway"
 msgstr "Norvegija"
 
-#: apps/listings/models.py:501 apps/listings/models.py:2112
+#: apps/listings/models.py:501 apps/listings/models.py:2192
 #: apps/listings/trucks_views.py:59
 msgid "United Kingdom"
 msgstr "Jungtinė Karalystė"
 
-#: apps/listings/models.py:502 apps/listings/models.py:2113
+#: apps/listings/models.py:502 apps/listings/models.py:2193
 msgid "Ireland"
 msgstr "Airija"
 
-#: apps/listings/models.py:502 apps/listings/models.py:2113
+#: apps/listings/models.py:502 apps/listings/models.py:2193
 msgid "Switzerland"
 msgstr "Šveicarija"
 
@@ -1800,11 +1884,11 @@ msgstr "Aukštis (mm)"
 msgid "Volume (m³)"
 msgstr "Tūris (m³)"
 
-#: apps/listings/models.py:629 apps/listings/models.py:2220
+#: apps/listings/models.py:629 apps/listings/models.py:2300
 msgid "Gross weight (kg)"
 msgstr "Bendroji masė (kg)"
 
-#: apps/listings/models.py:634 apps/listings/models.py:2230
+#: apps/listings/models.py:634 apps/listings/models.py:2310
 msgid "Payload capacity (kg)"
 msgstr "Naudingoji apkrova (kg)"
 
@@ -1871,7 +1955,7 @@ msgstr "Benzininis 4 taktų stacionarus"
 msgid "Diesel inboard"
 msgstr "Dyzelinis stacionarus"
 
-#: apps/listings/models.py:674 apps/listings/models.py:2064
+#: apps/listings/models.py:674 apps/listings/models.py:2144
 #: apps/listings/translatable_db.py:66
 msgid "Electric"
 msgstr "Elektra"
@@ -2049,7 +2133,9 @@ msgstr "Pneumatinė"
 msgid "Pneumatinė (pakeliama)"
 msgstr "Pneumatinė (pakeliama)"
 
-#: apps/listings/models.py:739 templates/listings/listing_detail.html:173
+#: apps/listings/models.py:739 apps/listings/models.py:835
+#: templates/listings/agriculture_listing_create.html:71
+#: templates/listings/listing_detail.html:173
 #: templates/listings/motogear_advanced.html:53
 #: templates/listings/partials/search_panel.html:544
 #: templates/listings/trailers_listing_create.html:54
@@ -2064,21 +2150,25 @@ msgstr "Tipas"
 msgid "Paskirtis"
 msgstr "Paskirtis"
 
-#: apps/listings/models.py:746 templates/listings/listing_detail.html:165
+#: apps/listings/models.py:746 apps/listings/models.py:842
+#: templates/listings/agriculture_listing_create.html:81
+#: templates/listings/listing_detail.html:165
 #: templates/listings/partials/_sp_parts_brand.html:9
 #: templates/listings/partials/search_panel.html:257
 #: templates/listings/partials/search_panel.html:407
-#: templates/listings/partials/search_panel.html:1324
+#: templates/listings/partials/search_panel.html:1342
 #: templates/listings/trailers_listing_create.html:64
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
 msgstr "Markė"
 
-#: apps/listings/models.py:749 templates/listings/listing_detail.html:169
+#: apps/listings/models.py:749 apps/listings/models.py:845
+#: templates/listings/agriculture_listing_create.html:91
+#: templates/listings/listing_detail.html:169
 #: templates/listings/partials/_sp_parts_brand.html:39
 #: templates/listings/partials/search_panel.html:285
 #: templates/listings/partials/search_panel.html:418
-#: templates/listings/partials/search_panel.html:1352
+#: templates/listings/partials/search_panel.html:1370
 #: templates/listings/trailers_listing_create.html:74
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
@@ -2139,15 +2229,225 @@ msgstr "3 ašies padangų likutis %"
 msgid "3 ašies padangų išmatavimai"
 msgstr "3 ašies padangų išmatavimai"
 
-#: apps/listings/models.py:780 apps/listings/models.py:2171
+#: apps/listings/models.py:784
+msgid "Akėčios"
+msgstr "Akėčios"
+
+#: apps/listings/models.py:785
+msgid "Bulvių kasamosios"
+msgstr "Bulvių kasamosios"
+
+#: apps/listings/models.py:786
+#, fuzzy
+#| msgid "Bulldozers"
+msgid "Buldozeris"
+msgstr "Buldozeriai"
+
+#: apps/listings/models.py:787
+#, fuzzy
+#| msgid "Excavators"
+msgid "Ekskavatorius"
+msgstr "Ekskavatoriai"
+
+#: apps/listings/models.py:788
+msgid "Greideris"
+msgstr ""
+
+#: apps/listings/models.py:789
+msgid "Grūdų valymo įranga"
+msgstr "Grūdų valymo įranga"
+
+#: apps/listings/models.py:790
+msgid "Grūdų džiovinimo įranga"
+msgstr "Grūdų džiovinimo įranga"
+
+#: apps/listings/models.py:791
+msgid "Grūdų sandėliavimo įranga"
+msgstr "Grūdų sandėliavimo įranga"
+
+#: apps/listings/models.py:792
+msgid "Grūdų transportavimo įranga"
+msgstr "Grūdų transportavimo įranga"
+
+#: apps/listings/models.py:793
+#, fuzzy
+#| msgid "Kaina"
+msgid "Kombainas"
+msgstr "Kaina"
+
+#: apps/listings/models.py:794
+#, fuzzy
+#| msgid "Šaldytuvas"
+msgid "Krautuvas"
+msgstr "Šaldytuvas"
+
+#: apps/listings/models.py:795
+#, fuzzy
+#| msgid "Cultivators"
+msgid "Kultivatorius"
+msgstr "Kultivatoriai"
+
+#: apps/listings/models.py:796
+#, fuzzy
+#| msgid "Cultivators"
+msgid "Manipuliatorius"
+msgstr "Kultivatoriai"
+
+#: apps/listings/models.py:797
+msgid "Mini ekskavatorius"
+msgstr ""
+
+#: apps/listings/models.py:798
+#, fuzzy
+#| msgid "Motorboats"
+msgid "Motoblokas"
+msgstr "Kateriai"
+
+#: apps/listings/models.py:799
+msgid "Traktorius"
+msgstr ""
+
+#: apps/listings/models.py:800
+msgid "Žoliapjovė"
+msgstr "Žoliapjovė"
+
+#: apps/listings/models.py:801
+msgid "Grėbliai"
+msgstr "Grėbliai"
+
+#: apps/listings/models.py:802
+msgid "Lėkštiniai skutikai"
+msgstr "Lėkštiniai skutikai"
+
+#: apps/listings/models.py:803
+msgid "Mėšlo kratytuvai"
+msgstr "Mėšlo kratytuvai"
+
+#: apps/listings/models.py:804
+msgid "Pašarų dalytuvai"
+msgstr "Pašarų dalytuvai"
+
+#: apps/listings/models.py:805
+msgid "Pienininkystės ir fermų įrengimai"
+msgstr "Pienininkystės ir fermų įrengimai"
+
+#: apps/listings/models.py:806
+msgid "Pjaunamosios"
+msgstr ""
+
+#: apps/listings/models.py:807
+msgid "Plūgai"
+msgstr "Plūgai"
+
+#: apps/listings/models.py:808
+msgid "Presai"
+msgstr ""
+
+#: apps/listings/models.py:809
+msgid "Purkštuvai pakabinami"
+msgstr "Purkštuvai pakabinami"
+
+#: apps/listings/models.py:810
+msgid "Purkštuvai prikabinami"
+msgstr "Purkštuvai prikabinami"
+
+#: apps/listings/models.py:811
+msgid "Ražieniniai skutikai"
+msgstr "Ražieniniai skutikai"
+
+#: apps/listings/models.py:812
+#, fuzzy
+#| msgid "Lėktuvai"
+msgid "Rinktuvai"
+msgstr "Lėktuvai"
+
+#: apps/listings/models.py:813
+msgid "Savaeigės pjaunamosios-smulkintuvai"
+msgstr "Savaeigės pjaunamosios-smulkintuvai"
+
+#: apps/listings/models.py:814
+msgid "Sėjamosios"
+msgstr "Sėjamosios"
+
+#: apps/listings/models.py:815
+msgid "Sėjos agregatai"
+msgstr "Sėjos agregatai"
+
+#: apps/listings/models.py:816
+msgid "Smulkintuvai-pjaunamosios"
+msgstr ""
+
+#: apps/listings/models.py:817
+msgid "Sniego peilis"
+msgstr ""
+
+#: apps/listings/models.py:818
+#, fuzzy
+#| msgid "Krovimo ir sandėliavimo technika"
+msgid "Sodo ir parko technika"
+msgstr "Krovimo ir sandėliavimo technika"
+
+#: apps/listings/models.py:819
+msgid "Srutų laistytuvai"
+msgstr "Srutų laistytuvai"
+
+#: apps/listings/models.py:820
+msgid "Srutų siurbliai"
+msgstr "Srutų siurbliai"
+
+#: apps/listings/models.py:821
+msgid "Trąšų barstytuvai"
+msgstr "Trąšų barstytuvai"
+
+#: apps/listings/models.py:822
+msgid "Vartytuvai"
+msgstr ""
+
+#: apps/listings/models.py:823
+msgid "Volai"
+msgstr ""
+
+#: apps/listings/models.py:824
+msgid "Vyniotuvai"
+msgstr ""
+
+#: apps/listings/models.py:829
+#, fuzzy
+#| msgid "Padangos"
+msgid "Padargas"
+msgstr "Padangos"
+
+#: apps/listings/models.py:830
+msgid "Savaeigė"
+msgstr "Savaeigė"
+
+#: apps/listings/models.py:839
+#: templates/listings/agriculture_listing_create.html:61
+msgid "Padargas / Savaeigė"
+msgstr "Padargas / Savaeigė"
+
+#: apps/listings/models.py:850
+#, fuzzy
+#| msgid "24 valandos"
+msgid "Motovalandos"
+msgstr "24 valandos"
+
+#: apps/listings/models.py:854
+#: templates/listings/agriculture_listing_create.html:182
+#, fuzzy
+#| msgid "Darbinis tūris cm³"
+msgid "Darbinis plotis (m)"
+msgstr "Darbinis tūris cm³"
+
+#: apps/listings/models.py:860 apps/listings/models.py:2251
 msgid "Sub-category"
 msgstr "Subkategorija"
 
-#: apps/listings/models.py:783 apps/listings/models.py:2185
+#: apps/listings/models.py:863 apps/listings/models.py:2265
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: apps/listings/models.py:786 apps/listings/models.py:2189
+#: apps/listings/models.py:866 apps/listings/models.py:2269
 #: templates/accounts/seller_profile.html:210
 #: templates/listings/advanced_search.html:218
 #: templates/listings/advanced_search.html:534
@@ -2184,11 +2484,11 @@ msgstr "Pavadinimas"
 msgid "Year"
 msgstr "Metai"
 
-#: apps/listings/models.py:793 apps/listings/models.py:2197
+#: apps/listings/models.py:873 apps/listings/models.py:2277
 msgid "First Registration Date"
 msgstr "Pirmosios registracijos data"
 
-#: apps/listings/models.py:804 apps/listings/models.py:2202
+#: apps/listings/models.py:884 apps/listings/models.py:2282
 #: templates/listings/partials/panel_trucks.html:70
 #: templates/listings/trucks_advanced_search.html:420
 #: templates/listings/trucks_list.html:253
@@ -2196,19 +2496,19 @@ msgstr "Pirmosios registracijos data"
 msgid "Truck type"
 msgstr "Sunkvežimio tipas"
 
-#: apps/listings/models.py:813 apps/listings/models.py:2295
+#: apps/listings/models.py:893 apps/listings/models.py:2375
 msgid "Color (custom)"
 msgstr "Spalva (kita)"
 
-#: apps/listings/models.py:848
+#: apps/listings/models.py:928
 msgid "Subtype (custom)"
 msgstr "Potipis (kitas)"
 
-#: apps/listings/models.py:855
+#: apps/listings/models.py:935
 msgid "Size (custom)"
 msgstr "Dydis (kitas)"
 
-#: apps/listings/models.py:863 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:943 templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:92
 #: templates/listings/motogear_list.html:261
 #: templates/listings/rims_create.html:28
@@ -2217,115 +2517,116 @@ msgstr "Dydis (kitas)"
 msgid "Manufacturer"
 msgstr "Gamintojas"
 
-#: apps/listings/models.py:867
+#: apps/listings/models.py:947
 msgid "Manufacturer (custom)"
 msgstr "Gamintojas (kitas)"
 
-#: apps/listings/models.py:872
+#: apps/listings/models.py:952
 msgid "Brand (legacy)"
 msgstr "Markė (senoji)"
 
-#: apps/listings/models.py:876
+#: apps/listings/models.py:956
 msgid "Model name"
 msgstr "Modelio pavadinimas"
 
-#: apps/listings/models.py:882
+#: apps/listings/models.py:962
 msgid "Material (custom)"
 msgstr "Medžiaga (kita)"
 
-#: apps/listings/models.py:888
+#: apps/listings/models.py:968
 msgid "Gender (custom)"
 msgstr "Lytis (kita)"
 
-#: apps/listings/models.py:894
+#: apps/listings/models.py:974
 msgid "Safety certification (custom)"
 msgstr "Saugos sertifikatas (kitas)"
 
-#: apps/listings/models.py:900 templates/listings/motogear_create.html:166
+#: apps/listings/models.py:980 templates/listings/motogear_create.html:166
 msgid "Number of vents"
 msgstr "Ventiliacijos angų skaičius"
 
-#: apps/listings/models.py:910 templates/listings/advanced_search.html:466
+#: apps/listings/models.py:990 templates/listings/advanced_search.html:466
 msgid "OEM Code"
 msgstr "Kodas"
 
-#: apps/listings/models.py:918 apps/listings/models.py:2915
+#: apps/listings/models.py:998 apps/listings/models.py:2995
 msgid "Part Category"
 msgstr "Detalės kategorija"
 
-#: apps/listings/models.py:925 apps/listings/models.py:939
+#: apps/listings/models.py:1005 apps/listings/models.py:1019
 #: templates/listings/advanced_search.html:474
 msgid "Engine Code"
 msgstr "Variklio kodas"
 
-#: apps/listings/models.py:931 apps/listings/models.py:945
+#: apps/listings/models.py:1011 apps/listings/models.py:1025
 #: templates/listings/advanced_search.html:482
 msgid "Gearbox Code"
 msgstr "Pavarų dėžės kodas"
 
-#: apps/listings/models.py:951
+#: apps/listings/models.py:1031
 #: templates/listings/car_for_parts_create.html:112
 #: templates/listings/listing_detail.html:758
 msgid "Version"
 msgstr "Versija"
 
-#: apps/listings/models.py:956 templates/listings/car_for_parts_create.html:95
+#: apps/listings/models.py:1036
+#: templates/listings/car_for_parts_create.html:95
 #: templates/listings/listing_detail.html:752
 msgid "Modification"
 msgstr "Modifikacija"
 
-#: apps/listings/models.py:961
+#: apps/listings/models.py:1041
 #: templates/listings/car_for_parts_create.html:225
 #: templates/listings/listing_detail.html:796
 msgid "Color code"
 msgstr "Spalvos kodas"
 
-#: apps/listings/models.py:966
+#: apps/listings/models.py:1046
 #: templates/listings/car_for_parts_create.html:232
 #: templates/listings/listing_detail.html:827
 msgid "Engine code"
 msgstr "Variklio kodas"
 
-#: apps/listings/models.py:971
+#: apps/listings/models.py:1051
 #: templates/listings/car_for_parts_create.html:239
 #: templates/listings/listing_detail.html:833
 msgid "Gearbox code"
 msgstr "Pavarų dėžės kodas"
 
-#: apps/listings/models.py:978
+#: apps/listings/models.py:1058
 msgid "Export price"
 msgstr "Eksporto kaina"
 
-#: apps/listings/models.py:983 apps/listings/models.py:2315
+#: apps/listings/models.py:1063 apps/listings/models.py:2395
 #: templates/listings/motogear_create.html:267
 msgid "Open to trade"
 msgstr "Atvira prekybai"
 
-#: apps/listings/models.py:986
+#: apps/listings/models.py:1066
 #: templates/listings/boats_listing_create.html:246
 #: templates/listings/listing_create_cars_quick.html:401
 msgid "Warranty included"
 msgstr "Garantija įtraukta"
 
-#: apps/listings/models.py:987
+#: apps/listings/models.py:1067
 #: templates/listings/boats_listing_create.html:250
 #: templates/listings/listing_create_cars_quick.html:405
 msgid "Available on lease"
 msgstr "Galima išsinuomoti"
 
-#: apps/listings/models.py:988
+#: apps/listings/models.py:1068
 #: templates/listings/listing_create_cars_quick.html:425
 #: templates/listings/listing_list.html:631
 msgid "Sport-ready"
 msgstr "Paruošta sportui"
 
-#: apps/listings/models.py:989
+#: apps/listings/models.py:1069
 #: templates/listings/listing_create_cars_quick.html:429
 #: templates/listings/listing_list.html:635
 msgid "Adapted for disabled"
 msgstr "Pritaikyta neįgaliesiems"
 
-#: apps/listings/models.py:990
+#: apps/listings/models.py:1070
 #: templates/listings/listing_create_cars_quick.html:409
 #: templates/listings/listing_list.html:642
 #: templates/listings/motorcycle_create.html:281
@@ -2333,56 +2634,56 @@ msgstr "Pritaikyta neįgaliesiems"
 msgid "Service book"
 msgstr "Serviso knygelė"
 
-#: apps/listings/models.py:991
+#: apps/listings/models.py:1071
 #: templates/listings/listing_create_cars_quick.html:413
 #: templates/listings/listing_list.html:646
 #: templates/listings/motorcycles_list.html:671
 msgid "Imported from US"
 msgstr "Importuota iš JAV"
 
-#: apps/listings/models.py:992
+#: apps/listings/models.py:1072
 #: templates/listings/listing_create_cars_quick.html:417
 #: templates/listings/listing_list.html:650
 #: templates/listings/motorcycles_list.html:677
 msgid "Multiple key sets"
 msgstr "Keli raktų rinkiniai"
 
-#: apps/listings/models.py:993
+#: apps/listings/models.py:1073
 #: templates/listings/listing_create_cars_quick.html:433
 #: templates/listings/listing_list.html:654
 msgid "Increased engine power"
 msgstr "Padidinta variklio galia"
 
-#: apps/listings/models.py:994
+#: apps/listings/models.py:1074
 #: templates/listings/listing_create_cars_quick.html:437
 #: templates/listings/listing_list.html:658
 msgid "Pneumatic suspension"
 msgstr "Pneumatinė pakaba"
 
-#: apps/listings/models.py:995
+#: apps/listings/models.py:1075
 #: templates/listings/listing_create_cars_quick.html:441
 #: templates/listings/listing_list.html:662
 #: templates/listings/motorcycles_list.html:681
 msgid "Remote start"
 msgstr "Nuotolinis paleidimas"
 
-#: apps/listings/models.py:996
+#: apps/listings/models.py:1076
 #: templates/listings/listing_create_cars_quick.html:445
 #: templates/listings/listing_list.html:666
 msgid "Spare wheel"
 msgstr "Atsarginis ratas"
 
-#: apps/listings/models.py:997
+#: apps/listings/models.py:1077
 #: templates/listings/listing_create_cars_quick.html:421
 msgid "Valid technical inspection"
 msgstr "Galiojanti techninė apžiūra"
 
-#: apps/listings/models.py:998
+#: apps/listings/models.py:1078
 #: templates/listings/listing_create_cars_quick.html:449
 msgid "From auction"
 msgstr "Iš aukciono"
 
-#: apps/listings/models.py:1006
+#: apps/listings/models.py:1086
 #: templates/listings/boats_listing_create.html:138
 #: templates/listings/listing_create_cars_quick.html:257
 #: templates/listings/listing_detail.html:724
@@ -2390,363 +2691,363 @@ msgstr "Iš aukciono"
 msgid "+ Taxes"
 msgstr "+ Mokesčiai"
 
-#: apps/listings/models.py:1022 apps/listings/models.py:2332
+#: apps/listings/models.py:1102 apps/listings/models.py:2412
 msgid "Business seller"
 msgstr "Verslo pardavėjas"
 
-#: apps/listings/models.py:1054 templates/listings/listing_detail.html:10
+#: apps/listings/models.py:1134 templates/listings/listing_detail.html:10
 #: templates/listings/listing_stats.html:30
 msgid "Listing"
 msgstr "Skelbimas"
 
-#: apps/listings/models.py:1546 apps/listings/views.py:63
+#: apps/listings/models.py:1626 apps/listings/views.py:63
 msgid "Interior"
 msgstr "Salonas"
 
-#: apps/listings/models.py:1547 apps/listings/views.py:65
+#: apps/listings/models.py:1627 apps/listings/views.py:65
 msgid "Electronics"
 msgstr "Elektronika"
 
-#: apps/listings/models.py:1548
+#: apps/listings/models.py:1628
 msgid "Safety"
 msgstr "Sauga"
 
-#: apps/listings/models.py:1549
+#: apps/listings/models.py:1629
 msgid "Audio/Video"
 msgstr "Garsas / vaizdas"
 
-#: apps/listings/models.py:1550 apps/listings/views.py:64
+#: apps/listings/models.py:1630 apps/listings/views.py:64
 msgid "Exterior"
 msgstr "Išorė"
 
-#: apps/listings/models.py:1551 apps/listings/views.py:68
+#: apps/listings/models.py:1631 apps/listings/views.py:68
 msgid "Other Features"
 msgstr "Kitos savybės"
 
-#: apps/listings/models.py:1552
+#: apps/listings/models.py:1632
 msgid "Motorcycle Features"
 msgstr "Motociklo savybės"
 
-#: apps/listings/models.py:1553
+#: apps/listings/models.py:1633
 msgid "Gear Features"
 msgstr "Aprangos savybės"
 
-#: apps/listings/models.py:1554
+#: apps/listings/models.py:1634
 msgid "Truck Features"
 msgstr "Sunkvežimio savybės"
 
-#: apps/listings/models.py:1627
+#: apps/listings/models.py:1707
 msgid "Seller notifications"
 msgstr "Pardavėjo pranešimai"
 
-#: apps/listings/models.py:1628
+#: apps/listings/models.py:1708
 msgid "Buyer - saved listings"
 msgstr "Pirkėjo išsaugoti skelbimai"
 
-#: apps/listings/models.py:1629
+#: apps/listings/models.py:1709
 msgid "Saved search alerts"
 msgstr "Išsaugotų paieškų pranešimai"
 
-#: apps/listings/models.py:1630
+#: apps/listings/models.py:1710
 msgid "Account / auth"
 msgstr "Paskyra / prisijungimas"
 
-#: apps/listings/models.py:1631
+#: apps/listings/models.py:1711
 msgid "Messaging"
 msgstr "Žinutės"
 
-#: apps/listings/models.py:1632
+#: apps/listings/models.py:1712
 msgid "Payments / Stripe"
 msgstr "Mokėjimai / Stripe"
 
-#: apps/listings/models.py:1633
+#: apps/listings/models.py:1713
 msgid "Marketing / newsletter"
 msgstr "Rinkodara / naujienlaiškis"
 
-#: apps/listings/models.py:1634
+#: apps/listings/models.py:1714
 msgid "Admin notifications"
 msgstr "Administratoriaus pranešimai"
 
-#: apps/listings/models.py:1635
+#: apps/listings/models.py:1715
 msgid "Extra / experimental"
 msgstr "Papildomi / eksperimentiniai"
 
-#: apps/listings/models.py:1636
+#: apps/listings/models.py:1716
 msgid "Truck-specific notifications"
 msgstr "Sunkvežimių pranešimai"
 
-#: apps/listings/models.py:1748
+#: apps/listings/models.py:1828
 msgid "Pricing Settings"
 msgstr "Kainodaros nustatymai"
 
-#: apps/listings/models.py:1793
+#: apps/listings/models.py:1873
 msgid "Price Multiplier Tier"
 msgstr "Kainos daugiklio pakopa"
 
-#: apps/listings/models.py:1869
+#: apps/listings/models.py:1949
 msgid "Promo Code"
 msgstr "Nuolaidos kodas"
 
-#: apps/listings/models.py:1952
+#: apps/listings/models.py:2032
 msgid "Promo Code Usage"
 msgstr "Nuolaidos kodo panaudojimas"
 
-#: apps/listings/models.py:1973
+#: apps/listings/models.py:2053
 msgid "Trucks (Sunkvežimiai)"
 msgstr "Trucks (Sunkvežimiai)"
 
-#: apps/listings/models.py:1974 apps/listings/translatable_db.py:58
+#: apps/listings/models.py:2054 apps/listings/translatable_db.py:58
 msgid "Vehicle Transporters"
 msgstr "Autotraukiniai, autovežiai"
 
-#: apps/listings/models.py:1975
+#: apps/listings/models.py:2055
 msgid "Semi-trucks / Tractors"
 msgstr "Vilkikai"
 
-#: apps/listings/models.py:1976 apps/listings/translatable_db.py:58
+#: apps/listings/models.py:2056 apps/listings/translatable_db.py:58
 msgid "Vans"
 msgstr "Furgonai"
 
-#: apps/listings/models.py:2022 apps/listings/models.py:2030
-#: apps/listings/models.py:2043 apps/listings/models.py:2051
-#: apps/listings/models.py:2058 templates/listings/listing_list_v2.html:296
+#: apps/listings/models.py:2102 apps/listings/models.py:2110
+#: apps/listings/models.py:2123 apps/listings/models.py:2131
+#: apps/listings/models.py:2138 templates/listings/listing_list_v2.html:296
 #: templates/listings/listing_list_v2.html:311
 #: templates/listings/listing_list_v2.html:321
 #: templates/listings/wheels_advanced_search.html:244
 msgid "Any"
 msgstr "Bet koks"
 
-#: apps/listings/models.py:2023
+#: apps/listings/models.py:2103
 msgid "Day cab"
 msgstr "Trumpa kabina"
 
-#: apps/listings/models.py:2024
+#: apps/listings/models.py:2104
 msgid "Sleeper"
 msgstr "Kabina su miegamąja vieta"
 
-#: apps/listings/models.py:2025
+#: apps/listings/models.py:2105
 msgid "Crew cab"
 msgstr "Įgulos kabina"
 
-#: apps/listings/models.py:2026
+#: apps/listings/models.py:2106
 msgid "Extended cab"
 msgstr "Pailginta kabina"
 
-#: apps/listings/models.py:2044
+#: apps/listings/models.py:2124
 msgid "Air / Air"
 msgstr "Pneumatinė / pneumatinė"
 
-#: apps/listings/models.py:2045
+#: apps/listings/models.py:2125
 msgid "Air / Spring"
 msgstr "Pneumatinė / lingynė"
 
-#: apps/listings/models.py:2046
+#: apps/listings/models.py:2126
 msgid "Spring / Air"
 msgstr "Lingynė / pneumatinė"
 
-#: apps/listings/models.py:2047
+#: apps/listings/models.py:2127
 msgid "Spring / Spring"
 msgstr "Lingynė / lingynė"
 
-#: apps/listings/models.py:2052 apps/listings/translatable_db.py:66
+#: apps/listings/models.py:2132 apps/listings/translatable_db.py:66
 msgid "Manual"
 msgstr "Mechaninė"
 
-#: apps/listings/models.py:2053 apps/listings/translatable_db.py:65
+#: apps/listings/models.py:2133 apps/listings/translatable_db.py:65
 msgid "Automatic"
 msgstr "Automatinė"
 
-#: apps/listings/models.py:2054 apps/listings/translatable_db.py:69
+#: apps/listings/models.py:2134 apps/listings/translatable_db.py:69
 msgid "Semi-automatic"
 msgstr "Pusiau automatinė"
 
-#: apps/listings/models.py:2059 apps/listings/translatable_db.py:65
+#: apps/listings/models.py:2139 apps/listings/translatable_db.py:65
 msgid "Diesel"
 msgstr "Dyzelinas"
 
-#: apps/listings/models.py:2060
+#: apps/listings/models.py:2140
 msgid "Petrol / Gasoline"
 msgstr "Benzinas"
 
-#: apps/listings/models.py:2061 apps/listings/translatable_db.py:66
+#: apps/listings/models.py:2141 apps/listings/translatable_db.py:66
 msgid "LPG"
 msgstr "Dujos (LPG)"
 
-#: apps/listings/models.py:2062
+#: apps/listings/models.py:2142
 msgid "CNG"
 msgstr "Suslėgtos dujos (CNG)"
 
-#: apps/listings/models.py:2063
+#: apps/listings/models.py:2143
 msgid "LNG"
 msgstr "Suskystintos dujos (LNG)"
 
-#: apps/listings/models.py:2065
+#: apps/listings/models.py:2145
 msgid "Hybrid"
 msgstr "Hibridas"
 
-#: apps/listings/models.py:2066
+#: apps/listings/models.py:2146
 msgid "Hydrogen"
 msgstr "Vandenilis"
 
-#: apps/listings/models.py:2206
+#: apps/listings/models.py:2286
 msgid "Cab type"
 msgstr "Kabinos tipas"
 
-#: apps/listings/models.py:2210
+#: apps/listings/models.py:2290
 msgid "Axle configuration"
 msgstr "Ašių konfigūracija"
 
-#: apps/listings/models.py:2214
+#: apps/listings/models.py:2294
 msgid "Suspension"
 msgstr "Pakaba"
 
-#: apps/listings/models.py:2225
+#: apps/listings/models.py:2305
 msgid "Curb weight (kg)"
 msgstr "Savasis svoris (kg)"
 
-#: apps/listings/models.py:2234
+#: apps/listings/models.py:2314
 msgid "Cargo volume (m³)"
 msgstr "Krovinio tūris (m³)"
 
-#: apps/listings/models.py:2238
+#: apps/listings/models.py:2318
 msgid "Cargo length (m)"
 msgstr "Krovinio ilgis (m)"
 
-#: apps/listings/models.py:2242
+#: apps/listings/models.py:2322
 msgid "Cargo width (m)"
 msgstr "Krovinio plotis (m)"
 
-#: apps/listings/models.py:2246
+#: apps/listings/models.py:2326
 msgid "Cargo height (m)"
 msgstr "Krovinio aukštis (m)"
 
-#: apps/listings/models.py:2251
+#: apps/listings/models.py:2331
 #: templates/listings/boats_listing_create.html:167
 #: templates/listings/listing_create_cars_quick.html:333
 msgid "Number of seats"
 msgstr "Vietų skaičius"
 
-#: apps/listings/models.py:2262
+#: apps/listings/models.py:2342
 msgid "Engine capacity (L)"
 msgstr "Variklio darbinis tūris (l)"
 
-#: apps/listings/models.py:2272
+#: apps/listings/models.py:2352
 msgid "Power (HP)"
 msgstr "Galia (AG)"
 
-#: apps/listings/models.py:2277
+#: apps/listings/models.py:2357
 msgid "Torque (Nm)"
 msgstr "Sukimo momentas (Nm)"
 
-#: apps/listings/models.py:2284
+#: apps/listings/models.py:2364
 msgid "Fuel consumption (L/100km)"
 msgstr "Degalų sąnaudos (l/100 km)"
 
-#: apps/listings/models.py:2289
+#: apps/listings/models.py:2369
 msgid "Fuel tank (L)"
 msgstr "Degalų bako talpa (l)"
 
-#: apps/listings/models.py:2317
+#: apps/listings/models.py:2397
 msgid "Price excludes VAT"
 msgstr "Kaina be PVM"
 
-#: apps/listings/models.py:2365
+#: apps/listings/models.py:2445
 msgid "Truck"
 msgstr "Sunkvežimis"
 
-#: apps/listings/models.py:2677
+#: apps/listings/models.py:2757
 msgid "Truck Image"
 msgstr "Sunkvežimio nuotrauka"
 
-#: apps/listings/models.py:2690
+#: apps/listings/models.py:2770
 msgid "Truck Equipment Selection"
 msgstr "Sunkvežimio įrangos pasirinkimas"
 
-#: apps/listings/models.py:2705
+#: apps/listings/models.py:2785
 msgid "Saved Truck"
 msgstr "Išsaugotas sunkvežimis"
 
-#: apps/listings/models.py:2781
+#: apps/listings/models.py:2861
 msgid "Truck Sales Record"
 msgstr "Sunkvežimių pardavimų įrašas"
 
-#: apps/listings/models.py:2978
+#: apps/listings/models.py:3058
 msgid "Passenger cars"
 msgstr "Lengvieji automobiliai"
 
-#: apps/listings/models.py:2979
+#: apps/listings/models.py:3059
 msgid "SUV / Off-road"
 msgstr "Visureigiams"
 
-#: apps/listings/models.py:2980
+#: apps/listings/models.py:3060
 msgid "Commercial / Van"
 msgstr "Komerciniams / mikroautobusams"
 
-#: apps/listings/models.py:2981 apps/listings/translatable_db.py:57
+#: apps/listings/models.py:3061 apps/listings/translatable_db.py:57
 msgid "Trucks"
 msgstr "Sunkvežimiai"
 
-#: apps/listings/models.py:2982 apps/listings/translatable_db.py:48
+#: apps/listings/models.py:3062 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:134
 #: templates/listings/motorcycles_list.html:183
 #: templates/listings/motorcycles_list.html:338
 msgid "Motorcycles"
 msgstr "Motociklai"
 
-#: apps/listings/models.py:2983
+#: apps/listings/models.py:3063
 msgid "Industrial"
 msgstr "Pramoniniai"
 
-#: apps/listings/models.py:2999
+#: apps/listings/models.py:3079
 msgid "Summer"
 msgstr "Vasarinės"
 
-#: apps/listings/models.py:3000
+#: apps/listings/models.py:3080
 msgid "Winter"
 msgstr "Žieminės"
 
-#: apps/listings/models.py:3001
+#: apps/listings/models.py:3081
 msgid "All-season"
 msgstr "Universalios"
 
-#: apps/listings/models.py:3038
+#: apps/listings/models.py:3118
 msgid "Alloy"
 msgstr "Lengvojo lydinio"
 
-#: apps/listings/models.py:3040
+#: apps/listings/models.py:3120
 msgid "Forged"
 msgstr "Kalti"
 
-#: apps/listings/models.py:3041
+#: apps/listings/models.py:3121
 msgid "Carbon fiber"
 msgstr "Anglies pluošto"
 
-#: apps/listings/models.py:3050
+#: apps/listings/models.py:3130
 msgid "Draft"
 msgstr "Juodraštis"
 
-#: apps/listings/models.py:3051 templates/listings/my_listings.html:146
+#: apps/listings/models.py:3131 templates/listings/my_listings.html:146
 msgid "Active"
 msgstr "Aktyvus"
 
-#: apps/listings/models.py:3052 templates/listings/my_listings.html:150
+#: apps/listings/models.py:3132 templates/listings/my_listings.html:150
 msgid "Reserved"
 msgstr "Rezervuota"
 
-#: apps/listings/models.py:3053 templates/listings/my_listings.html:159
+#: apps/listings/models.py:3133 templates/listings/my_listings.html:159
 #: templates/listings/my_listings.html:406
 msgid "Sold"
 msgstr "Parduota"
 
-#: apps/listings/models.py:3054
+#: apps/listings/models.py:3134
 msgid "Expired"
 msgstr "Nebegalioja"
 
-#: apps/listings/models.py:3055
+#: apps/listings/models.py:3135
 msgid "Archived"
 msgstr "Archyvuotas"
 
-#: apps/listings/models.py:3067 apps/listings/translatable_db.py:58
+#: apps/listings/models.py:3147 apps/listings/translatable_db.py:58
 #: templates/listings/partials/search_rail.html:44
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:17
@@ -2755,7 +3056,7 @@ msgstr "Archyvuotas"
 msgid "Tyres"
 msgstr "Padangos"
 
-#: apps/listings/models.py:3068 apps/listings/translatable_db.py:54
+#: apps/listings/models.py:3148 apps/listings/translatable_db.py:54
 #: templates/listings/partials/search_rail.html:45
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:19
@@ -2764,11 +3065,11 @@ msgstr "Padangos"
 msgid "Rims"
 msgstr "Ratlankiai"
 
-#: apps/listings/models.py:3153
+#: apps/listings/models.py:3233
 msgid "Wheel Listing"
 msgstr "Padangų / ratlankių skelbimas"
 
-#: apps/listings/models.py:3238
+#: apps/listings/models.py:3318
 msgid "Wheel Image"
 msgstr "Padangos / ratlankio nuotrauka"
 
@@ -2799,13 +3100,13 @@ msgid "Refurbished"
 msgstr "Atnaujinta"
 
 #: apps/listings/motogear_views.py:203 apps/listings/motorcycles_views.py:560
-#: apps/listings/trucks_views.py:869 apps/listings/views.py:1745
-#: apps/listings/views.py:1885
+#: apps/listings/trucks_views.py:869 apps/listings/views.py:1771
+#: apps/listings/views.py:1911
 msgid "No images uploaded"
 msgstr "Neįkelta nė vienos nuotraukos"
 
 #: apps/listings/motogear_views.py:213 apps/listings/motorcycles_views.py:570
-#: apps/listings/views.py:1757
+#: apps/listings/views.py:1783
 msgid "Maximum 40 photos reached"
 msgstr "Pasiektas 40 nuotraukų limitas"
 
@@ -2847,7 +3148,7 @@ msgstr "Skelbimo trukmė"
 msgid "Failed to save draft."
 msgstr "Nepavyko išsaugoti juodraščio."
 
-#: apps/listings/motorcycles_views.py:498 apps/listings/views.py:1881
+#: apps/listings/motorcycles_views.py:498 apps/listings/views.py:1907
 msgid "Draft not found"
 msgstr "Juodraštis nerastas"
 
@@ -2855,18 +3156,62 @@ msgstr "Juodraštis nerastas"
 msgid "Car, van parts"
 msgstr "Automobilių, mikroautobusų dalys"
 
+#: apps/listings/search_config/panels.py:115
+msgid "Nauji ir atnaujinti viršuje"
+msgstr "Nauji ir atnaujinti viršuje"
+
+#: apps/listings/search_config/panels.py:116
+msgid "Pigiausi viršuje"
+msgstr "Pigiausi viršuje"
+
+#: apps/listings/search_config/panels.py:117
+msgid "Brangiausi viršuje"
+msgstr "Brangiausi viršuje"
+
+#: apps/listings/search_config/panels.py:322
+#, fuzzy
+#| msgid "3 dienos"
+msgid "Vienos dienos"
+msgstr "3 dienos"
+
+#: apps/listings/search_config/panels.py:322
+#, fuzzy
+#| msgid "Dviejų dalių"
+msgid "Trijų dienų"
+msgstr "Dviejų dalių"
+
+#: apps/listings/search_config/panels.py:323
+msgid "Savaitės"
+msgstr "Savaitės"
+
+#: apps/listings/search_config/panels.py:323
+#, fuzzy
+#| msgid "Dviejų dalių"
+msgid "Dviejų savaičių"
+msgstr "Dviejų dalių"
+
+#: apps/listings/search_config/panels.py:325
+#, fuzzy
+#| msgid "Private"
+msgid "Privatus"
+msgstr "Privatus"
+
+#: apps/listings/search_config/panels.py:325
+msgid "Verslas"
+msgstr ""
+
 #: apps/listings/search_panel.py:32
-#: templates/listings/partials/search_panel.html:1201
+#: templates/listings/partials/search_panel.html:1219
 msgid "Automobilių, mikroautobusų dalys"
 msgstr "Automobilių, mikroautobusų dalys"
 
 #: apps/listings/search_panel.py:33
-#: templates/listings/partials/search_panel.html:1202
+#: templates/listings/partials/search_panel.html:1220
 msgid "Motociklų dalys"
 msgstr "Motociklų dalys"
 
 #: apps/listings/search_panel.py:34
-#: templates/listings/partials/search_panel.html:1203
+#: templates/listings/partials/search_panel.html:1221
 msgid "Sunkiojo transporto dalys"
 msgstr "Sunkiojo transporto dalys"
 
@@ -2878,63 +3223,9 @@ msgstr "Priekabų kategorija nesukonfigūruota."
 msgid "Ši forma skirta tik priekabų skelbimams."
 msgstr "Ši forma skirta tik priekabų skelbimams."
 
-#: apps/listings/trailers_views.py:316
-#: templates/listings/trailers_listing_create.html:912
-msgid "Būklė yra privaloma"
-msgstr "Būklė yra privaloma"
-
-#: apps/listings/trailers_views.py:323
-#: templates/listings/trailers_listing_create.html:913
-msgid "Tipas yra privalomas"
-msgstr ""
-
-#: apps/listings/trailers_views.py:329
-#: templates/listings/trailers_listing_create.html:914
-msgid "Markė yra privaloma"
-msgstr "Markė yra privaloma"
-
-#: apps/listings/trailers_views.py:337
-#: templates/listings/trailers_listing_create.html:915
-msgid "Metai yra privalomi"
-msgstr ""
-
-#: apps/listings/trailers_views.py:341
-#: templates/listings/trailers_listing_create.html:916
-msgid "Mėnuo yra privalomas"
-msgstr "Mėnuo yra privalomas"
-
 #: apps/listings/trailers_views.py:351
 #: templates/listings/trailers_listing_create.html:917
 msgid "Paskirtis yra privaloma"
-msgstr ""
-
-#: apps/listings/trailers_views.py:408
-#: templates/listings/trailers_listing_create.html:918
-msgid "Kaina yra privaloma"
-msgstr ""
-
-#: apps/listings/trailers_views.py:426
-#: templates/listings/trailers_listing_create.html:922
-msgid "Valstija yra privaloma"
-msgstr ""
-
-#: apps/listings/trailers_views.py:432
-#: templates/listings/trailers_listing_create.html:920
-msgid "Miestas yra privalomas"
-msgstr ""
-
-#: apps/listings/trailers_views.py:440
-#: templates/listings/trailers_listing_create.html:919
-msgid "Telefonas yra privalomas"
-msgstr ""
-
-#: apps/listings/trailers_views.py:446
-#: templates/listings/trailers_listing_create.html:925
-msgid "Turite sutikti su taisyklėmis"
-msgstr "Turite sutikti su taisyklėmis"
-
-#: apps/listings/trailers_views.py:527
-msgid "Skelbimas atnaujintas."
 msgstr ""
 
 #: apps/listings/translatable_db.py:15
@@ -3485,9 +3776,9 @@ msgstr "Kabinos / salono detalės"
 msgid "Superstructure parts"
 msgstr "Antstato detalės"
 
-#: apps/listings/trucks_views.py:861 apps/listings/views.py:1741
-#: apps/listings/views.py:1791 apps/listings/views.py:6209
-#: apps/listings/views.py:6215
+#: apps/listings/trucks_views.py:861 apps/listings/views.py:1767
+#: apps/listings/views.py:1817 apps/listings/views.py:6243
+#: apps/listings/views.py:6249
 msgid "Listing not found"
 msgstr "Skelbimas nerastas"
 
@@ -3503,17 +3794,17 @@ msgstr "Garsas, vaizdas ir ryšys"
 msgid "Electric vehicle features"
 msgstr "Elektromobilio savybės"
 
-#: apps/listings/views.py:351 apps/listings/views.py:354
+#: apps/listings/views.py:358 apps/listings/views.py:361
 #, fuzzy
 #| msgid "Ši kategorija dar ruošiama"
 msgid "Ši kategorija dar ruošiama."
 msgstr "Ši kategorija dar ruošiama"
 
-#: apps/listings/views.py:6206
+#: apps/listings/views.py:6240
 msgid "Įveskite kodą"
 msgstr "Įveskite kodą"
 
-#: apps/listings/views.py:6220
+#: apps/listings/views.py:6254
 msgid "Toks kodas neegzistuoja"
 msgstr "Toks kodas neegzistuoja"
 
@@ -5529,6 +5820,165 @@ msgstr "Pabandykite pakoreguoti filtrus"
 msgid "Clear all filters"
 msgstr "Išvalyti visus filtrus"
 
+#: templates/listings/advanced_generic.html:3
+#: templates/listings/advanced_generic.html:11
+#: templates/listings/partials/panel_generic.html:137
+#: templates/search/_panel_cars.html:57
+msgid "Detali paieška"
+msgstr "Detali paieška"
+
+#: templates/listings/advanced_generic.html:29
+#: templates/listings/advanced_generic.html:39
+#: templates/listings/motogear_advanced.html:71
+#: templates/listings/motogear_advanced.html:160
+#: templates/listings/partials/_sp_parts_price.html:8
+#: templates/listings/partials/panel_generic.html:25
+#: templates/listings/partials/panel_generic.html:36
+#: templates/listings/partials/search_panel.html:317
+#: templates/listings/partials/search_panel.html:332
+#: templates/listings/partials/search_panel.html:431
+#: templates/listings/partials/search_panel.html:448
+#: templates/listings/partials/search_panel.html:475
+#: templates/listings/partials/search_panel.html:564
+#: templates/listings/partials/search_panel.html:688
+#: templates/listings/partials/search_panel.html:772
+#: templates/listings/partials/search_panel.html:908
+#: templates/listings/partials/search_panel.html:1010
+#: templates/listings/partials/search_panel.html:1139
+#: templates/listings/partials/search_panel.html:1147
+#: templates/listings/partials/search_panel.html:1155
+#: templates/listings/partials/search_panel.html:1242
+#: templates/listings/partials/search_panel.html:1295
+#: templates/listings/partials/search_panel.html:1377
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
+msgid "Nuo"
+msgstr "Nuo"
+
+#: templates/listings/advanced_generic.html:32
+#: templates/listings/advanced_generic.html:45
+#: templates/listings/motogear_advanced.html:73
+#: templates/listings/motogear_advanced.html:162
+#: templates/listings/partials/_sp_parts_price.html:18
+#: templates/listings/partials/panel_generic.html:31
+#: templates/listings/partials/panel_generic.html:37
+#: templates/listings/partials/search_panel.html:323
+#: templates/listings/partials/search_panel.html:333
+#: templates/listings/partials/search_panel.html:437
+#: templates/listings/partials/search_panel.html:458
+#: templates/listings/partials/search_panel.html:485
+#: templates/listings/partials/search_panel.html:573
+#: templates/listings/partials/search_panel.html:696
+#: templates/listings/partials/search_panel.html:780
+#: templates/listings/partials/search_panel.html:917
+#: templates/listings/partials/search_panel.html:1018
+#: templates/listings/partials/search_panel.html:1140
+#: templates/listings/partials/search_panel.html:1148
+#: templates/listings/partials/search_panel.html:1156
+#: templates/listings/partials/search_panel.html:1243
+#: templates/listings/partials/search_panel.html:1296
+#: templates/listings/partials/search_panel.html:1378
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
+msgid "Iki"
+msgstr "Iki"
+
+#: templates/listings/advanced_generic.html:57
+msgid "Ieškoti pavadinime ir aprašyme"
+msgstr "Ieškoti pavadinime ir aprašyme"
+
+#: templates/listings/advanced_generic.html:67
+#: templates/listings/partials/_sp_parts_brand.html:20
+#: templates/listings/partials/panel_generic.html:88
+#: templates/listings/partials/search_panel.html:267
+#: templates/listings/partials/search_panel.html:1352
+#: templates/listings/partials/search_panel.html:1456
+msgid "Visos markės"
+msgstr "Visos markės"
+
+#: templates/listings/advanced_generic.html:74
+msgid "Pridėti daugiau markių"
+msgstr "Pridėti daugiau markių"
+
+#: templates/listings/advanced_generic.html:83
+#: templates/listings/motogear_advanced.html:55
+#: templates/listings/motogear_advanced.html:80
+#: templates/listings/motogear_advanced.html:92
+#: templates/listings/motogear_advanced.html:102
+#: templates/listings/motogear_advanced.html:110
+#: templates/listings/motogear_advanced.html:125
+#: templates/listings/motogear_advanced.html:135
+#: templates/listings/motogear_advanced.html:142
+#: templates/listings/motogear_advanced.html:184
+#: templates/listings/motogear_advanced.html:190
+#: templates/listings/partials/_sp_parts_brand.html:51
+#: templates/listings/partials/panel_generic.html:121
+#: templates/listings/partials/search_panel.html:297
+#: templates/listings/partials/search_panel.html:340
+#: templates/listings/partials/search_panel.html:351
+#: templates/listings/partials/search_panel.html:501
+#: templates/listings/partials/search_panel.html:547
+#: templates/listings/partials/search_panel.html:587
+#: templates/listings/partials/search_panel.html:598
+#: templates/listings/partials/search_panel.html:608
+#: templates/listings/partials/search_panel.html:647
+#: templates/listings/partials/search_panel.html:734
+#: templates/listings/partials/search_panel.html:844
+#: templates/listings/partials/search_panel.html:859
+#: templates/listings/partials/search_panel.html:957
+#: templates/listings/partials/search_panel.html:970
+#: templates/listings/partials/search_panel.html:984
+#: templates/listings/partials/search_panel.html:995
+#: templates/listings/partials/search_panel.html:1104
+#: templates/listings/partials/search_panel.html:1116
+#: templates/listings/partials/search_panel.html:1128
+#: templates/listings/partials/search_panel.html:1248
+#: templates/listings/partials/search_panel.html:1255
+#: templates/listings/partials/search_panel.html:1309
+#: templates/listings/partials/search_panel.html:1371
+#: templates/listings/partials/search_panel.html:1391
+#: templates/listings/partials/search_panel.html:1441
+#: templates/listings/partials/search_panel.html:1448
+#: templates/listings/partials/search_panel.html:1450
+#: templates/listings/partials/search_panel.html:1452
+#: templates/listings/partials/search_panel.html:1487
+#: templates/listings/partials/search_panel.html:1505
+#: templates/listings/partials/search_panel.html:1515
+#: templates/listings/partials/search_panel.html:1532
+#: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
+#: templates/search/_panel_cars.html:49
+msgid "Visi"
+msgstr "Visi"
+
+#: templates/listings/advanced_generic.html:94
+msgid "Rūšiavimas"
+msgstr "Rūšiavimas"
+
+#: templates/listings/advanced_generic.html:110
+#: templates/listings/agriculture_listing_create.html:219
+#: templates/listings/listing_detail.html:293
+#: templates/listings/motogear_advanced.html:205
+#: templates/listings/partials/search_panel.html:1174
+#: templates/listings/trailers_listing_create.html:342
+msgid "Ypatumai"
+msgstr "Ypatumai"
+
+#: templates/listings/advanced_generic.html:132
+#, fuzzy
+#| msgid "Išvalyti paiešką"
+msgid "Išvalyti"
+msgstr "Išvalyti paiešką"
+
+#: templates/listings/advanced_generic.html:134
+#: templates/listings/motogear_advanced.html:214
+#: templates/listings/partials/panel_generic.html:46
+#: templates/listings/partials/search_panel.html:363
+#: templates/listings/partials/search_panel.html:615
+#: templates/listings/partials/search_panel.html:707
+#: templates/listings/partials/search_panel.html:791
+#: templates/listings/partials/search_panel.html:928
+#: templates/listings/partials/search_panel.html:1028
+msgid "Ieškoti"
+msgstr "Ieškoti"
+
 #: templates/listings/advanced_search.html:5
 #: templates/listings/trucks_list.html:663
 #: templates/listings/wheels_advanced_search.html:5
@@ -5718,6 +6168,317 @@ msgstr "Niekas nepasirinkta"
 #: templates/listings/motorcycles_list.html:1024
 msgid "Remove"
 msgstr "Pašalinti"
+
+#: templates/listings/agriculture_listing_create.html:4
+#: templates/listings/agriculture_listing_create.html:22
+#: templates/listings/trailers_listing_create.html:4
+#: templates/listings/trailers_listing_create.html:22
+#, fuzzy
+#| msgid "Ištrinti skelbimą"
+msgid "Redaguoti skelbimą"
+msgstr "Ištrinti skelbimą"
+
+#: templates/listings/agriculture_listing_create.html:4
+#: templates/listings/agriculture_listing_create.html:24
+#: templates/listings/trailers_listing_create.html:4
+#: templates/listings/trailers_listing_create.html:24
+msgid "Naujas skelbimas"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:14
+#: templates/listings/trailers_listing_create.html:14
+msgid "Grįžti į skelbimo redagavimą"
+msgstr "Grįžti į skelbimo redagavimą"
+
+#: templates/listings/agriculture_listing_create.html:24
+#: templates/listings/partials/search_panel.html:1201
+#, fuzzy
+#| msgid "Žemės ūkio technikai"
+msgid "Žemės ūkio technika, padargai"
+msgstr "Žemės ūkio technikai"
+
+#: templates/listings/agriculture_listing_create.html:39
+#: templates/listings/trailers_listing_create.html:38
+msgid "Pagrindiniai duomenys"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:45
+msgid "Pavadinimas"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:45
+#: templates/listings/agriculture_listing_create.html:91
+#: templates/listings/agriculture_listing_create.html:118
+#: templates/listings/agriculture_listing_create.html:137
+#: templates/listings/trailers_listing_create.html:74
+#: templates/listings/trailers_listing_create.html:151
+#: templates/listings/trailers_listing_create.html:170
+#: templates/listings/trailers_listing_create.html:280
+msgid "(nebūtina)"
+msgstr "(nebūtina)"
+
+#: templates/listings/agriculture_listing_create.html:51
+#: templates/listings/listing_detail.html:181
+#: templates/listings/partials/search_panel.html:1089
+#: templates/listings/trailers_listing_create.html:44
+msgid "Būklė"
+msgstr "Būklė"
+
+#: templates/listings/agriculture_listing_create.html:98
+#: templates/listings/listing_detail.html:119
+#: templates/listings/motogear_advanced.html:158
+#: templates/listings/partials/search_panel.html:313
+#: templates/listings/partials/search_panel.html:427
+#: templates/listings/partials/search_panel.html:1240
+#: templates/listings/partials/search_panel.html:1293
+#: templates/listings/partials/search_panel.html:1375
+#: templates/listings/trailers_listing_create.html:81
+#: templates/listings/trailers_listing_create.html:241
+msgid "Metai"
+msgstr "Metai"
+
+#: templates/listings/agriculture_listing_create.html:108
+#: templates/listings/trailers_listing_create.html:91
+#: templates/listings/trailers_listing_create.html:247
+msgid "Mėnuo"
+msgstr "Mėnuo"
+
+#: templates/listings/agriculture_listing_create.html:118
+#: templates/listings/listing_detail.html:238
+#: templates/listings/trailers_listing_create.html:151
+msgid "SDK kodas"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:119
+#: templates/listings/trailers_listing_create.html:152
+msgid "SDK kodas, pvz.: 12345678"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:126
+#: templates/listings/listing_detail.html:146
+#: templates/listings/partials/_sp_parts_price.html:4
+#: templates/listings/partials/search_panel.html:330
+#: templates/listings/partials/search_panel.html:444
+#: templates/listings/partials/search_panel.html:560
+#: templates/listings/partials/search_panel.html:684
+#: templates/listings/partials/search_panel.html:768
+#: templates/listings/partials/search_panel.html:904
+#: templates/listings/partials/search_panel.html:1006
+#: templates/listings/trailers_listing_create.html:159
+msgid "Kaina"
+msgstr "Kaina"
+
+#: templates/listings/agriculture_listing_create.html:137
+#: templates/listings/trailers_listing_create.html:170
+msgid "Kaina eksportui"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:149
+#: templates/listings/trailers_listing_create.html:183
+msgid "+ Mokesčiai"
+msgstr "+ Mokesčiai"
+
+#: templates/listings/agriculture_listing_create.html:153
+#: templates/listings/listing_detail.html:149
+#: templates/listings/trailers_listing_create.html:187
+msgid "Kaina derinama"
+msgstr "Kaina derinama"
+
+#: templates/listings/agriculture_listing_create.html:165
+#: templates/listings/trailers_listing_create.html:203
+msgid "Papildomi duomenys"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:170
+msgid "Motovalandos (val.)"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:176
+msgid "Galia (kW)"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:188
+#: templates/listings/trailers_listing_create.html:262
+msgid "Nuosavas svoris (kg)"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:194
+#: templates/listings/partials/search_panel.html:1137
+#: templates/listings/trailers_listing_create.html:256
+msgid "Bendroji masė (kg)"
+msgstr "Bendroji masė (kg)"
+
+#: templates/listings/agriculture_listing_create.html:200
+#: templates/listings/partials/search_panel.html:1145
+#: templates/listings/trailers_listing_create.html:274
+msgid "Keliamoji galia (kg)"
+msgstr "Keliamoji galia (kg)"
+
+#: templates/listings/agriculture_listing_create.html:206
+#, fuzzy
+#| msgid "Volume (m³)"
+msgid "Talpa (m³)"
+msgstr "Tūris (m³)"
+
+#: templates/listings/agriculture_listing_create.html:245
+#: templates/listings/listing_detail.html:156
+#: templates/listings/trailers_listing_create.html:368
+msgid "Komentarai"
+msgstr "Komentarai"
+
+#: templates/listings/agriculture_listing_create.html:248
+#: templates/listings/trailers_listing_create.html:371
+msgid "Aprašykite savo pasiūlymą išsamiai."
+msgstr "Aprašykite savo pasiūlymą išsamiai."
+
+#: templates/listings/agriculture_listing_create.html:251
+#: templates/listings/trailers_listing_create.html:374
+#, fuzzy
+#| msgid "Video URL (YouTube, optional)"
+msgid "Video nuoroda (YouTube, nebūtina)"
+msgstr "Vaizdo įrašo URL (YouTube, nebūtina)"
+
+#: templates/listings/agriculture_listing_create.html:263
+#: templates/listings/trailers_listing_create.html:386
+msgid "Nuotraukos"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:270
+#: templates/listings/trailers_listing_create.html:393
+msgid "Dabartinės nuotraukos"
+msgstr "Dabartinės nuotraukos"
+
+#: templates/listings/agriculture_listing_create.html:281
+#: templates/listings/agriculture_listing_create.html:502
+#: templates/listings/agriculture_listing_create.html:668
+#: templates/listings/trailers_listing_create.html:404
+#: templates/listings/trailers_listing_create.html:645
+#: templates/listings/trailers_listing_create.html:811
+msgid "PAGRINDINĖ"
+msgstr "PAGRINDINĖ"
+
+#: templates/listings/agriculture_listing_create.html:289
+#: templates/listings/trailers_listing_create.html:412
+msgid "Nustatyti pagrindine"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:291
+#: templates/listings/trailers_listing_create.html:414
+msgid "Sukti kairėn"
+msgstr "Sukti kairėn"
+
+#: templates/listings/agriculture_listing_create.html:292
+#: templates/listings/trailers_listing_create.html:415
+msgid "Sukti dešinėn"
+msgstr "Sukti dešinėn"
+
+#: templates/listings/agriculture_listing_create.html:306
+#: templates/listings/trailers_listing_create.html:429
+msgid "Pasirinktos nuotraukos"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:310
+#: templates/listings/trailers_listing_create.html:433
+msgid "Tempkite, kad pertvarkytumėte. Pirmoji nuotrauka — pagrindinė."
+msgstr "Tempkite, kad pertvarkytumėte. Pirmoji nuotrauka — pagrindinė."
+
+#: templates/listings/agriculture_listing_create.html:316
+#: templates/listings/trailers_listing_create.html:439
+msgid "Įkelti nuotraukas"
+msgstr "Įkelti nuotraukas"
+
+#: templates/listings/agriculture_listing_create.html:317
+#: templates/listings/trailers_listing_create.html:440
+#, fuzzy
+#| msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
+msgid "Iki 36 nuotraukų. Maks. dydis 24MB. JPG, GIF, PNG."
+msgstr "Iki 40 nuotraukų. Maks. dydis 24 MB. JPG, GIF, PNG formatai."
+
+#: templates/listings/agriculture_listing_create.html:323
+#: templates/listings/agriculture_listing_create.html:716
+#: templates/listings/trailers_listing_create.html:446
+#: templates/listings/trailers_listing_create.html:859
+msgid "Keliamos nuotraukos..."
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:344
+#: templates/listings/trailers_listing_create.html:467
+msgid "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
+msgstr "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
+
+#: templates/listings/agriculture_listing_create.html:361
+#: templates/listings/listing_delete.html:42
+#: templates/listings/trailers_listing_create.html:484
+msgid "Atšaukti"
+msgstr "Atšaukti"
+
+#: templates/listings/agriculture_listing_create.html:362
+#: templates/listings/trailers_listing_create.html:485
+#, fuzzy
+#| msgid "Išsaugoti paiešką"
+msgid "Išsaugoti pakeitimus"
+msgstr "Išsaugoti paiešką"
+
+#: templates/listings/agriculture_listing_create.html:364
+#: templates/listings/trailers_listing_create.html:487
+#, fuzzy
+#| msgid "Ištrinti skelbimą"
+msgid "Pateikti skelbimą"
+msgstr "Ištrinti skelbimą"
+
+#: templates/listings/agriculture_listing_create.html:367
+#: templates/listings/trailers_listing_create.html:490
+msgid "* Privalomi laukai"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:507
+#: templates/listings/listing_delete.html:45
+#: templates/listings/trailers_listing_create.html:650
+msgid "Ištrinti"
+msgstr "Ištrinti"
+
+#: templates/listings/agriculture_listing_create.html:581
+#: templates/listings/trailers_listing_create.html:724
+msgid "Ištrinti šią nuotrauką?"
+msgstr "Ištrinti šią nuotrauką?"
+
+#: templates/listings/agriculture_listing_create.html:607
+#: templates/listings/agriculture_listing_create.html:611
+#: templates/listings/trailers_listing_create.html:750
+#: templates/listings/trailers_listing_create.html:754
+msgid "Nepavyko pasukti"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:705
+#: templates/listings/trailers_listing_create.html:848
+msgid "Skelbimo ID nerastas"
+msgstr ""
+
+#: templates/listings/agriculture_listing_create.html:707
+#: templates/listings/trailers_listing_create.html:850
+msgid "Ruošiamos nuotraukos..."
+msgstr "Ruošiamos nuotraukos..."
+
+#: templates/listings/agriculture_listing_create.html:724
+#: templates/listings/agriculture_listing_create.html:725
+#: templates/listings/agriculture_listing_create.html:726
+#: templates/listings/agriculture_listing_create.html:728
+#: templates/listings/trailers_listing_create.html:867
+#: templates/listings/trailers_listing_create.html:868
+#: templates/listings/trailers_listing_create.html:869
+#: templates/listings/trailers_listing_create.html:871
+msgid "Nepavyko įkelti"
+msgstr "Nepavyko įkelti"
+
+#: templates/listings/agriculture_listing_create.html:747
+#: templates/listings/trailers_listing_create.html:890
+msgid "Daugiausia 36 nuotraukos. Pirma pašalinkite kelias."
+msgstr "Daugiausia 36 nuotraukos. Pirma pašalinkite kelias."
+
+#: templates/listings/agriculture_listing_create.html:748
+#: templates/listings/trailers_listing_create.html:891
+msgid "Pasirinkote per daug nuotraukų — bus pridėtos tik telpančios."
+msgstr "Pasirinkote per daug nuotraukų — bus pridėtos tik telpančios."
 
 #: templates/listings/boats_listing_create.html:4
 #: templates/listings/car_for_parts_create.html:4
@@ -6978,16 +7739,6 @@ msgstr "Ar tikrai norite matyti šį skelbimą?"
 msgid "Kaina:"
 msgstr "Kaina:"
 
-#: templates/listings/listing_delete.html:42
-#: templates/listings/trailers_listing_create.html:484
-msgid "Atšaukti"
-msgstr "Atšaukti"
-
-#: templates/listings/listing_delete.html:45
-#: templates/listings/trailers_listing_create.html:650
-msgid "Ištrinti"
-msgstr "Ištrinti"
-
 #: templates/listings/listing_detail.html:32
 msgid "Browse Trucks"
 msgstr "Naršyti sunkvežimius"
@@ -6997,55 +7748,14 @@ msgstr "Naršyti sunkvežimius"
 msgid "Browse Motorcycles"
 msgstr "Naršyti motociklus"
 
-#: templates/listings/listing_detail.html:119
-#: templates/listings/motogear_advanced.html:158
-#: templates/listings/partials/search_panel.html:313
-#: templates/listings/partials/search_panel.html:427
-#: templates/listings/partials/search_panel.html:1222
-#: templates/listings/partials/search_panel.html:1275
-#: templates/listings/partials/search_panel.html:1357
-#: templates/listings/trailers_listing_create.html:81
-#: templates/listings/trailers_listing_create.html:241
-msgid "Metai"
-msgstr "Metai"
-
 #: templates/listings/listing_detail.html:133
 #: templates/listings/listing_detail.html:205
 msgid "Bendroji masė"
 msgstr "Bendroji masė"
 
-#: templates/listings/listing_detail.html:146
-#: templates/listings/partials/_sp_parts_price.html:4
-#: templates/listings/partials/search_panel.html:330
-#: templates/listings/partials/search_panel.html:444
-#: templates/listings/partials/search_panel.html:560
-#: templates/listings/partials/search_panel.html:684
-#: templates/listings/partials/search_panel.html:768
-#: templates/listings/partials/search_panel.html:904
-#: templates/listings/partials/search_panel.html:1006
-#: templates/listings/trailers_listing_create.html:159
-msgid "Kaina"
-msgstr "Kaina"
-
-#: templates/listings/listing_detail.html:149
-#: templates/listings/trailers_listing_create.html:187
-msgid "Kaina derinama"
-msgstr "Kaina derinama"
-
-#: templates/listings/listing_detail.html:156
-#: templates/listings/trailers_listing_create.html:368
-msgid "Komentarai"
-msgstr "Komentarai"
-
 #: templates/listings/listing_detail.html:162
 msgid "Priekabos duomenys"
 msgstr "Priekabos duomenys"
-
-#: templates/listings/listing_detail.html:181
-#: templates/listings/partials/search_panel.html:1089
-#: templates/listings/trailers_listing_create.html:44
-msgid "Būklė"
-msgstr "Būklė"
 
 #: templates/listings/listing_detail.html:185
 #, fuzzy
@@ -7104,11 +7814,6 @@ msgstr ""
 msgid "VIN kodas"
 msgstr "VIN kodas"
 
-#: templates/listings/listing_detail.html:238
-#: templates/listings/trailers_listing_create.html:151
-msgid "SDK kodas"
-msgstr ""
-
 #: templates/listings/listing_detail.html:248
 #: templates/listings/trailers_listing_create.html:294
 #, fuzzy
@@ -7135,13 +7840,6 @@ msgstr "Padangų likutis"
 #: templates/listings/trailers_listing_create.html:326
 msgid "Padangų išmatavimai"
 msgstr "Padangų išmatavimai"
-
-#: templates/listings/listing_detail.html:293
-#: templates/listings/motogear_advanced.html:205
-#: templates/listings/partials/search_panel.html:1174
-#: templates/listings/trailers_listing_create.html:342
-msgid "Ypatumai"
-msgstr "Ypatumai"
 
 #: templates/listings/listing_detail.html:311
 #, fuzzy
@@ -8636,55 +9334,6 @@ msgstr "Aprangos, šalmų, aksesuarų paieška"
 msgid "Išvalyti paiešką"
 msgstr "Išvalyti paiešką"
 
-#: templates/listings/motogear_advanced.html:55
-#: templates/listings/motogear_advanced.html:80
-#: templates/listings/motogear_advanced.html:92
-#: templates/listings/motogear_advanced.html:102
-#: templates/listings/motogear_advanced.html:110
-#: templates/listings/motogear_advanced.html:125
-#: templates/listings/motogear_advanced.html:135
-#: templates/listings/motogear_advanced.html:142
-#: templates/listings/motogear_advanced.html:184
-#: templates/listings/motogear_advanced.html:190
-#: templates/listings/partials/_sp_parts_brand.html:51
-#: templates/listings/partials/panel_generic.html:121
-#: templates/listings/partials/search_panel.html:297
-#: templates/listings/partials/search_panel.html:340
-#: templates/listings/partials/search_panel.html:351
-#: templates/listings/partials/search_panel.html:501
-#: templates/listings/partials/search_panel.html:547
-#: templates/listings/partials/search_panel.html:587
-#: templates/listings/partials/search_panel.html:598
-#: templates/listings/partials/search_panel.html:608
-#: templates/listings/partials/search_panel.html:647
-#: templates/listings/partials/search_panel.html:734
-#: templates/listings/partials/search_panel.html:844
-#: templates/listings/partials/search_panel.html:859
-#: templates/listings/partials/search_panel.html:957
-#: templates/listings/partials/search_panel.html:970
-#: templates/listings/partials/search_panel.html:984
-#: templates/listings/partials/search_panel.html:995
-#: templates/listings/partials/search_panel.html:1104
-#: templates/listings/partials/search_panel.html:1116
-#: templates/listings/partials/search_panel.html:1128
-#: templates/listings/partials/search_panel.html:1230
-#: templates/listings/partials/search_panel.html:1237
-#: templates/listings/partials/search_panel.html:1291
-#: templates/listings/partials/search_panel.html:1353
-#: templates/listings/partials/search_panel.html:1373
-#: templates/listings/partials/search_panel.html:1423
-#: templates/listings/partials/search_panel.html:1430
-#: templates/listings/partials/search_panel.html:1432
-#: templates/listings/partials/search_panel.html:1434
-#: templates/listings/partials/search_panel.html:1469
-#: templates/listings/partials/search_panel.html:1487
-#: templates/listings/partials/search_panel.html:1497
-#: templates/listings/partials/search_panel.html:1514
-#: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
-#: templates/search/_panel_cars.html:49
-msgid "Visi"
-msgstr "Visi"
-
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
 msgid "Šalmai"
@@ -8727,56 +9376,6 @@ msgstr "Krepšiai, kuprinės"
 #: templates/listings/motogear_advanced.html:69
 msgid "Kaina, $"
 msgstr "Kaina, $"
-
-#: templates/listings/motogear_advanced.html:71
-#: templates/listings/motogear_advanced.html:160
-#: templates/listings/partials/_sp_parts_price.html:8
-#: templates/listings/partials/panel_generic.html:25
-#: templates/listings/partials/panel_generic.html:36
-#: templates/listings/partials/search_panel.html:317
-#: templates/listings/partials/search_panel.html:332
-#: templates/listings/partials/search_panel.html:431
-#: templates/listings/partials/search_panel.html:448
-#: templates/listings/partials/search_panel.html:475
-#: templates/listings/partials/search_panel.html:564
-#: templates/listings/partials/search_panel.html:688
-#: templates/listings/partials/search_panel.html:772
-#: templates/listings/partials/search_panel.html:908
-#: templates/listings/partials/search_panel.html:1010
-#: templates/listings/partials/search_panel.html:1139
-#: templates/listings/partials/search_panel.html:1147
-#: templates/listings/partials/search_panel.html:1155
-#: templates/listings/partials/search_panel.html:1224
-#: templates/listings/partials/search_panel.html:1277
-#: templates/listings/partials/search_panel.html:1359
-#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
-msgid "Nuo"
-msgstr "Nuo"
-
-#: templates/listings/motogear_advanced.html:73
-#: templates/listings/motogear_advanced.html:162
-#: templates/listings/partials/_sp_parts_price.html:18
-#: templates/listings/partials/panel_generic.html:31
-#: templates/listings/partials/panel_generic.html:37
-#: templates/listings/partials/search_panel.html:323
-#: templates/listings/partials/search_panel.html:333
-#: templates/listings/partials/search_panel.html:437
-#: templates/listings/partials/search_panel.html:458
-#: templates/listings/partials/search_panel.html:485
-#: templates/listings/partials/search_panel.html:573
-#: templates/listings/partials/search_panel.html:696
-#: templates/listings/partials/search_panel.html:780
-#: templates/listings/partials/search_panel.html:917
-#: templates/listings/partials/search_panel.html:1018
-#: templates/listings/partials/search_panel.html:1140
-#: templates/listings/partials/search_panel.html:1148
-#: templates/listings/partials/search_panel.html:1156
-#: templates/listings/partials/search_panel.html:1225
-#: templates/listings/partials/search_panel.html:1278
-#: templates/listings/partials/search_panel.html:1360
-#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
-msgid "Iki"
-msgstr "Iki"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
@@ -8908,11 +9507,11 @@ msgstr "Šalis"
 #: templates/listings/partials/search_panel.html:267
 #: templates/listings/partials/search_panel.html:410
 #: templates/listings/partials/search_panel.html:1092
-#: templates/listings/partials/search_panel.html:1334
-#: templates/listings/partials/search_panel.html:1422
-#: templates/listings/partials/search_panel.html:1429
-#: templates/listings/partials/search_panel.html:1431
-#: templates/listings/partials/search_panel.html:1433
+#: templates/listings/partials/search_panel.html:1352
+#: templates/listings/partials/search_panel.html:1440
+#: templates/listings/partials/search_panel.html:1447
+#: templates/listings/partials/search_panel.html:1449
+#: templates/listings/partials/search_panel.html:1451
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
 msgstr "Visos"
@@ -8923,7 +9522,7 @@ msgstr "Valstija (JAV)"
 
 #: templates/listings/motogear_advanced.html:183
 #: templates/listings/partials/search_panel.html:605
-#: templates/listings/partials/search_panel.html:1229
+#: templates/listings/partials/search_panel.html:1247
 msgid "Miestas"
 msgstr "Miestas"
 
@@ -8955,9 +9554,9 @@ msgstr "30 dienų"
 #: templates/listings/partials/search_panel.html:790
 #: templates/listings/partials/search_panel.html:927
 #: templates/listings/partials/search_panel.html:1027
-#: templates/listings/partials/search_panel.html:1246
-#: templates/listings/partials/search_panel.html:1284
-#: templates/listings/partials/search_panel.html:1366
+#: templates/listings/partials/search_panel.html:1264
+#: templates/listings/partials/search_panel.html:1302
+#: templates/listings/partials/search_panel.html:1384
 msgid "Tekstinė paieška"
 msgstr "Tekstinė paieška"
 
@@ -8965,17 +9564,6 @@ msgstr "Tekstinė paieška"
 #: templates/listings/partials/search_panel.html:517
 msgid "Ieškoti..."
 msgstr "Ieškoti..."
-
-#: templates/listings/motogear_advanced.html:214
-#: templates/listings/partials/panel_generic.html:46
-#: templates/listings/partials/search_panel.html:363
-#: templates/listings/partials/search_panel.html:615
-#: templates/listings/partials/search_panel.html:707
-#: templates/listings/partials/search_panel.html:791
-#: templates/listings/partials/search_panel.html:928
-#: templates/listings/partials/search_panel.html:1028
-msgid "Ieškoti"
-msgstr "Ieškoti"
 
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
@@ -9830,36 +10418,28 @@ msgstr "Ištrinti įrašą"
 #: templates/listings/partials/panel_generic.html:84
 #: templates/listings/partials/search_panel.html:263
 #: templates/listings/partials/search_panel.html:292
-#: templates/listings/partials/search_panel.html:1330
+#: templates/listings/partials/search_panel.html:1348
 msgid "Paieška..."
 msgstr "Paieška..."
-
-#: templates/listings/partials/_sp_parts_brand.html:20
-#: templates/listings/partials/panel_generic.html:88
-#: templates/listings/partials/search_panel.html:267
-#: templates/listings/partials/search_panel.html:1334
-#: templates/listings/partials/search_panel.html:1438
-msgid "Visos markės"
-msgstr "Visos markės"
 
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/panel_generic.html:89
 #: templates/listings/partials/search_panel.html:268
-#: templates/listings/partials/search_panel.html:1335
+#: templates/listings/partials/search_panel.html:1353
 msgid "Top markės"
 msgstr "Top markės"
 
 #: templates/listings/partials/_sp_parts_brand.html:32
 #: templates/listings/partials/panel_generic.html:108
 #: templates/listings/partials/search_panel.html:279
-#: templates/listings/partials/search_panel.html:1346
+#: templates/listings/partials/search_panel.html:1364
 msgid "Tik markės su skelbimais."
 msgstr "Tik markės su skelbimais."
 
 #: templates/listings/partials/_sp_parts_brand.html:33
 #: templates/listings/partials/panel_generic.html:109
 #: templates/listings/partials/search_panel.html:280
-#: templates/listings/partials/search_panel.html:1347
+#: templates/listings/partials/search_panel.html:1365
 msgid "Rodyti visus"
 msgstr "Rodyti visus"
 
@@ -10013,7 +10593,7 @@ msgid "Paieška"
 msgstr "Paieška"
 
 #: templates/listings/partials/search_panel.html:337
-#: templates/listings/partials/search_panel.html:1234
+#: templates/listings/partials/search_panel.html:1252
 #: templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
 msgstr "Kuro tipas"
@@ -10034,14 +10614,14 @@ msgstr "Skelbimas su VIN"
 #: templates/listings/partials/search_panel.html:936
 #: templates/listings/partials/search_panel.html:1036
 #: templates/listings/partials/search_panel.html:1083
-#: templates/listings/partials/search_panel.html:1255
-#: templates/listings/partials/search_panel.html:1306
-#: templates/listings/partials/search_panel.html:1388
+#: templates/listings/partials/search_panel.html:1273
+#: templates/listings/partials/search_panel.html:1324
+#: templates/listings/partials/search_panel.html:1406
 msgid "Išplėstinė paieška"
 msgstr "Išplėstinė paieška"
 
 #: templates/listings/partials/search_panel.html:385
-#: templates/listings/partials/search_panel.html:1713
+#: templates/listings/partials/search_panel.html:1731
 msgid "Išsaugoti paiešką"
 msgstr "Išsaugoti paiešką"
 
@@ -10055,17 +10635,18 @@ msgstr "Išsaugoti paiešką"
 #: templates/listings/partials/search_panel.html:1041
 #: templates/listings/partials/search_panel.html:1059
 #: templates/listings/partials/search_panel.html:1193
-#: templates/listings/partials/search_panel.html:1260
-#: templates/listings/partials/search_panel.html:1311
-#: templates/listings/partials/search_panel.html:1393
+#: templates/listings/partials/search_panel.html:1210
+#: templates/listings/partials/search_panel.html:1278
+#: templates/listings/partials/search_panel.html:1329
+#: templates/listings/partials/search_panel.html:1411
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
 msgstr "Skelbimai"
 
 #: templates/listings/partials/search_panel.html:421
-#: templates/listings/partials/search_panel.html:1745
-#: templates/listings/partials/search_panel.html:1756
-#: templates/listings/partials/search_panel.html:1766
+#: templates/listings/partials/search_panel.html:1763
+#: templates/listings/partials/search_panel.html:1774
+#: templates/listings/partials/search_panel.html:1784
 msgid "Visi modeliai"
 msgstr "Visi modeliai"
 
@@ -10194,16 +10775,6 @@ msgstr "Vandens transportas"
 msgid "Priekabos / Puspriekabės"
 msgstr "Priekabos / Puspriekabės"
 
-#: templates/listings/partials/search_panel.html:1137
-#: templates/listings/trailers_listing_create.html:256
-msgid "Bendroji masė (kg)"
-msgstr "Bendroji masė (kg)"
-
-#: templates/listings/partials/search_panel.html:1145
-#: templates/listings/trailers_listing_create.html:274
-msgid "Keliamoji galia (kg)"
-msgstr "Keliamoji galia (kg)"
-
 #: templates/listings/partials/search_panel.html:1153
 #: templates/listings/trailers_listing_create.html:215
 #, fuzzy
@@ -10219,25 +10790,25 @@ msgstr "TA galioja iki"
 msgid "Nesvarbu"
 msgstr "Nesvarbu"
 
-#: templates/listings/partials/search_panel.html:1247
+#: templates/listings/partials/search_panel.html:1265
 msgid "pvz. 06H 145 601 H"
 msgstr "pvz. 06H 145 601 H"
 
-#: templates/listings/partials/search_panel.html:1285
-#: templates/listings/partials/search_panel.html:1367
+#: templates/listings/partials/search_panel.html:1303
+#: templates/listings/partials/search_panel.html:1385
 msgid "pvz. detalės kodas"
 msgstr "pvz. detalės kodas"
 
-#: templates/listings/partials/search_panel.html:1288
-#: templates/listings/partials/search_panel.html:1370
+#: templates/listings/partials/search_panel.html:1306
+#: templates/listings/partials/search_panel.html:1388
 msgid "Dalies tipas"
 msgstr "Dalies tipas"
 
-#: templates/listings/partials/search_panel.html:1731
+#: templates/listings/partials/search_panel.html:1749
 msgid "Išsaugota"
 msgstr "Išsaugota"
 
-#: templates/listings/partials/search_panel.html:1751
+#: templates/listings/partials/search_panel.html:1769
 msgid "Kraunama..."
 msgstr "Kraunama..."
 
@@ -10509,56 +11080,8 @@ msgstr "Visos valstijos"
 msgid "Negotiable price"
 msgstr "Derybų objektas"
 
-#: templates/listings/trailers_listing_create.html:4
-#: templates/listings/trailers_listing_create.html:22
-#, fuzzy
-#| msgid "Ištrinti skelbimą"
-msgid "Redaguoti skelbimą"
-msgstr "Ištrinti skelbimą"
-
-#: templates/listings/trailers_listing_create.html:4
-#: templates/listings/trailers_listing_create.html:24
-msgid "Naujas skelbimas"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:14
-msgid "Grįžti į skelbimo redagavimą"
-msgstr "Grįžti į skelbimo redagavimą"
-
-#: templates/listings/trailers_listing_create.html:38
-msgid "Pagrindiniai duomenys"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:74
-#: templates/listings/trailers_listing_create.html:151
-#: templates/listings/trailers_listing_create.html:170
-#: templates/listings/trailers_listing_create.html:280
-msgid "(nebūtina)"
-msgstr "(nebūtina)"
-
-#: templates/listings/trailers_listing_create.html:91
-#: templates/listings/trailers_listing_create.html:247
-msgid "Mėnuo"
-msgstr "Mėnuo"
-
-#: templates/listings/trailers_listing_create.html:152
-msgid "SDK kodas, pvz.: 12345678"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:170
-msgid "Kaina eksportui"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:183
-msgid "+ Mokesčiai"
-msgstr "+ Mokesčiai"
-
 #: templates/listings/trailers_listing_create.html:191
 msgid "Domina keitimas"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:203
-msgid "Papildomi duomenys"
 msgstr ""
 
 #: templates/listings/trailers_listing_create.html:209
@@ -10572,10 +11095,6 @@ msgstr "Aukštis"
 #| msgid "Plotis"
 msgid "Plotis (mm)"
 msgstr "Plotis"
-
-#: templates/listings/trailers_listing_create.html:262
-msgid "Nuosavas svoris (kg)"
-msgstr ""
 
 #: templates/listings/trailers_listing_create.html:268
 msgid "Tūris (m³)"
@@ -10594,117 +11113,6 @@ msgstr "Padangų likutis %%"
 #: templates/listings/trailers_listing_create.html:327
 msgid "pvz.: 385/65 R22.5"
 msgstr ""
-
-#: templates/listings/trailers_listing_create.html:371
-msgid "Aprašykite savo pasiūlymą išsamiai."
-msgstr "Aprašykite savo pasiūlymą išsamiai."
-
-#: templates/listings/trailers_listing_create.html:374
-#, fuzzy
-#| msgid "Video URL (YouTube, optional)"
-msgid "Video nuoroda (YouTube, nebūtina)"
-msgstr "Vaizdo įrašo URL (YouTube, nebūtina)"
-
-#: templates/listings/trailers_listing_create.html:386
-msgid "Nuotraukos"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:393
-msgid "Dabartinės nuotraukos"
-msgstr "Dabartinės nuotraukos"
-
-#: templates/listings/trailers_listing_create.html:404
-#: templates/listings/trailers_listing_create.html:645
-#: templates/listings/trailers_listing_create.html:811
-msgid "PAGRINDINĖ"
-msgstr "PAGRINDINĖ"
-
-#: templates/listings/trailers_listing_create.html:412
-msgid "Nustatyti pagrindine"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:414
-msgid "Sukti kairėn"
-msgstr "Sukti kairėn"
-
-#: templates/listings/trailers_listing_create.html:415
-msgid "Sukti dešinėn"
-msgstr "Sukti dešinėn"
-
-#: templates/listings/trailers_listing_create.html:429
-msgid "Pasirinktos nuotraukos"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:433
-msgid "Tempkite, kad pertvarkytumėte. Pirmoji nuotrauka — pagrindinė."
-msgstr "Tempkite, kad pertvarkytumėte. Pirmoji nuotrauka — pagrindinė."
-
-#: templates/listings/trailers_listing_create.html:439
-msgid "Įkelti nuotraukas"
-msgstr "Įkelti nuotraukas"
-
-#: templates/listings/trailers_listing_create.html:440
-#, fuzzy
-#| msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
-msgid "Iki 36 nuotraukų. Maks. dydis 24MB. JPG, GIF, PNG."
-msgstr "Iki 40 nuotraukų. Maks. dydis 24 MB. JPG, GIF, PNG formatai."
-
-#: templates/listings/trailers_listing_create.html:446
-#: templates/listings/trailers_listing_create.html:859
-msgid "Keliamos nuotraukos..."
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:467
-msgid "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
-msgstr "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
-
-#: templates/listings/trailers_listing_create.html:485
-#, fuzzy
-#| msgid "Išsaugoti paiešką"
-msgid "Išsaugoti pakeitimus"
-msgstr "Išsaugoti paiešką"
-
-#: templates/listings/trailers_listing_create.html:487
-#, fuzzy
-#| msgid "Ištrinti skelbimą"
-msgid "Pateikti skelbimą"
-msgstr "Ištrinti skelbimą"
-
-#: templates/listings/trailers_listing_create.html:490
-msgid "* Privalomi laukai"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:724
-msgid "Ištrinti šią nuotrauką?"
-msgstr "Ištrinti šią nuotrauką?"
-
-#: templates/listings/trailers_listing_create.html:750
-#: templates/listings/trailers_listing_create.html:754
-msgid "Nepavyko pasukti"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:848
-msgid "Skelbimo ID nerastas"
-msgstr ""
-
-#: templates/listings/trailers_listing_create.html:850
-msgid "Ruošiamos nuotraukos..."
-msgstr "Ruošiamos nuotraukos..."
-
-#: templates/listings/trailers_listing_create.html:867
-#: templates/listings/trailers_listing_create.html:868
-#: templates/listings/trailers_listing_create.html:869
-#: templates/listings/trailers_listing_create.html:871
-msgid "Nepavyko įkelti"
-msgstr "Nepavyko įkelti"
-
-#: templates/listings/trailers_listing_create.html:890
-msgid "Daugiausia 36 nuotraukos. Pirma pašalinkite kelias."
-msgstr "Daugiausia 36 nuotraukos. Pirma pašalinkite kelias."
-
-#: templates/listings/trailers_listing_create.html:891
-msgid "Pasirinkote per daug nuotraukų — bus pridėtos tik telpančios."
-msgstr "Pasirinkote per daug nuotraukų — bus pridėtos tik telpančios."
 
 #: templates/listings/truck_for_parts_create.html:4
 msgid "Sell Truck For Parts"
@@ -12307,10 +12715,6 @@ msgstr "Reikia informacijos dabar? Susisiekite su mumis:"
 #: templates/pages/page_simple.html:86
 msgid "Back to Help Center"
 msgstr "Grįžti į „SellCar“"
-
-#: templates/search/_panel_cars.html:57
-msgid "Detali paieška"
-msgstr "Detali paieška"
 
 #: venv/lib/python3.10/site-packages/django/contrib/sitemaps/apps.py:8
 msgid "Site Maps"

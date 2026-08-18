@@ -5465,11 +5465,11 @@
    "section": "22",
    "fields": [
     {
-     "label": "(be label)",
+     "label": "Tekstinė paieška",
      "type": "text",
      "placeholder": "Ieškoti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__text__",
+     "param": "q",
      "active": true
     },
     {
@@ -5481,8 +5481,8 @@
      "type": "select",
      "name": "f_402",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_kind",
+     "param": "agri_kind",
      "active": true
     },
     {
@@ -5534,8 +5534,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_type",
+     "param": "agri_type",
      "active": true
     },
     {
@@ -6427,8 +6427,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_brand_text",
+     "param": "agri_brand_text",
      "active": true
     }
    ],

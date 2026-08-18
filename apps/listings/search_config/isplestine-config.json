@@ -27484,12 +27484,12 @@
    "slug": "zemes-ukio-padargai-savaeige",
    "fields": [
     {
-     "label": "(be label)",
+     "label": "Tekstinė paieška",
      "type": "text",
-     "db_field": null,
-     "param": null,
+     "db_field": "__text__",
+     "param": "q",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "(be label)",
@@ -27508,10 +27508,10 @@
       "Padargas",
       "Savaeigė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_kind",
+     "param": "agri_kind",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Tipas",
@@ -27561,10 +27561,10 @@
       "Vyniotuvai",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_type",
+     "param": "agri_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Markė",
@@ -28298,10 +28298,10 @@
       "Zocon",
       "ZOOMLION"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "agri_brand_text",
+     "param": "agri_brand_text",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Metai",
@@ -28419,10 +28419,12 @@
       "12000",
       "20000"
      ],
-     "db_field": null,
+     "db_field": "gross_weight_kg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "gross_weight_min",
+     "param_max": "gross_weight_max"
     },
     {
      "label": "Galia, kW",
@@ -28450,10 +28452,12 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Naudota/Nauja",
@@ -28463,10 +28467,10 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
