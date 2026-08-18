@@ -24,6 +24,7 @@ from .search_panel import (
     COUNT_KEY_TO_SUB, parts_count_qs, parts_panel_context,
     apply_trailer_filters, trailers_panel_context,
 )
+from .search_config import panels as panel_config
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -1116,11 +1117,14 @@ def listing_list(request):
     if subcategory_filter:
         listings = listings.filter(subcategory_id=subcategory_filter)
 
-    # ═══ PRIEKABOS — trailer_* filtrai ═══
-    # Bendras helperis su filter_listings (AJAX skaičiukas), kad abu
-    # keliai visada duotų tą patį rezultatą.
+    # ═══ PRIEKABOS — išplėstiniai laukai (dar ne konfigūracijoje) ═══
     if category_filter == 'trailers':
         listings = apply_trailer_filters(listings, request.GET)
+
+    # ═══ DEKLARATYVUS SLUOKSNIS ═══
+    listings = panel_config.apply_panel_filters(
+        listings, category_filter, request.GET
+    )
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
@@ -1425,6 +1429,10 @@ def listing_list(request):
         **parts_panel_context(request.user),
         **trailers_panel_context(request.user),
         'selected_trailer_equipment': request.GET.getlist('trailer_equipment'),
+        'config_panels': {
+            slug: panel_config.build_panel(slug, request.user)
+            for slug in panel_config.active_categories()
+        },
         'models': models,
         'years': years,
         'fuel_types': fuel_types,
@@ -6478,10 +6486,14 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     if params.get('subcategory'):
         listings = listings.filter(subcategory_id=params['subcategory'])
 
-    if params.get('search'):
+    # Bendri ?search / ?q taiko TIK pavadinimą. Kai kategorijos tekstinę
+    # paiešką valdo deklaratyvus variklis (ieško ir aprašyme), šituos
+    # praleidžiam — kitaip susidėję duotų tik title atitikmenis.
+    _engine_text = panel_config.owns_text_search(category)
+    if params.get('search') and not _engine_text:
         listings = listings.filter(title__icontains=params['search'])
     q = (params.get('q') or '').strip()
-    if q:
+    if q and not _engine_text:
         listings = listings.filter(title__icontains=q)
 
     part_query = (params.get('part_query') or '').strip()
@@ -6575,11 +6587,15 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     for eid in _getlist('equipment'):
         listings = listings.filter(equipment_items__equipment_id=eid)
 
-    # ═══ PRIEKABOS ═══
-    # Tas pats helperis kaip listing_list — kad skaičiukas ir rezultatai
-    # niekada neišsiskirtų (šitos dvi vietos turi atskiras filtrų šakas).
+    # ═══ PRIEKABOS — išplėstiniai laukai (dar ne konfigūracijoje) ═══
     if category == 'trailers':
         listings = apply_trailer_filters(listings, params)
+
+    # ═══ DEKLARATYVUS SLUOKSNIS ═══
+    # Tas pats variklis kaip listing_list — kad skaičiukas ir rezultatai
+    # niekada neišsiskirtų (šitos dvi vietos turi atskiras filtrų šakas).
+    if category:
+        listings = panel_config.apply_panel_filters(listings, category, params)
 
     return listings
 
