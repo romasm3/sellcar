@@ -106,23 +106,9 @@ AGRI_DEFAULT_SUBCATEGORY = 'other-agricultural'
 # ─── Ypatumai (9) — Equipment eilutės su 'agri_*' prefiksu ───
 # Pavadinimai TIKSLIAI sutampa su paieškos konfigūracijomis; nesutapus
 # checkbox'ai tyliai nebūtų rodomi paieškoje.
-AGRI_EQUIPMENT_DEFINITION = [
-    ('agri_drivetrain', 'Pavaros ir važiuoklė', [
-        'Lėtintos pavaros',
-        'Greičio variatorius',
-        'Dvigubi ratai',
-        'Vikšrinis',
-    ]),
-    ('agri_mount', 'Prikabinimas', [
-        'Prikabinamas',
-        'Pakabinamas',
-    ]),
-    ('agri_other', 'Kita', [
-        'ABS',
-        'Hidraulika',
-        'Kabina',
-    ]),
-]
+# Apibrėžimai gyvena equipment_registry — juos turi matyti ir
+# `seed_equipment` komanda, ir 0063 migracija.
+from .equipment_registry import AGRI_EQUIPMENT_DEFINITION  # noqa: E402
 
 
 def get_agri_equipment():

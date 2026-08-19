@@ -74,31 +74,9 @@ LOAD_BRANDS = _load_brands()
 # ─── Ypatumai (15) — 'load_*' prefiksas ───
 # „Hidraulika" ir „Kabina" jau egzistuoja agri_other / trailer_body,
 # todėl prefiksas būtinas: be jo paieška griebtų svetimas Equipment eilutes.
-LOAD_EQUIPMENT_DEFINITION = [
-    ('load_cabin', 'Kabina ir apsauga', [
-        'Kabina',
-        'Pusiau kabina',
-        'Apšildoma kabina',
-        'Apsauginis stogelis',
-    ]),
-    ('load_hydraulics', 'Hidraulika ir mechanizmai', [
-        'Hidraulika',
-        'Papildomas hidraulikos vožtuvas',
-        'Šoninio poslinkio mechanizmas',
-        'Pasukamas griebtuvas',
-    ]),
-    ('load_platform', 'Platforma ir atramos', [
-        'Platforma stumiasi į vieną pusę',
-        'Platforma stumiasi į abi puses',
-        'Sulankstomos atramos',
-        'Lingės',
-    ]),
-    ('load_surface', 'Važiuoklė ir paviršius', [
-        'Skirtas tvirtam paviršiui',
-        'Skirtas bet kokiam paviršiui',
-        'Žemintos pavaros',
-    ]),
-]
+# Apibrėžimai gyvena equipment_registry — juos turi matyti ir
+# `seed_equipment` komanda, ir 0063 migracija.
+from .equipment_registry import LOAD_EQUIPMENT_DEFINITION  # noqa: E402
 
 
 def get_load_equipment():

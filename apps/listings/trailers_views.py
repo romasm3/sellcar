@@ -143,41 +143,9 @@ TRAILER_BRANDS = [
 # trucks_views.py:361) — jokios migracijos nereikia, o item.id lieka stabilus.
 # Cars/moto/truck equipment neliečiamas.
 # ═══════════════════════════════════════════════════════════
-TRAILER_EQUIPMENT_DEFINITION = [
-    ('trailer_body', 'Kėbulas ir įranga', [
-        'EDSCHA stogas',
-        'Su kietu stogu',
-        'Atitraukiamas stogas',
-        'Su palapine',
-        'Atitraukiami šonai',
-        'Su tentu',
-        'Durys gale',
-        'Durys šone',
-        'Žaliuzės',
-        'Liftas gale',
-        'Su hidrauliniu kranu',
-        'Su gerve',
-        'Hidraulika',
-        'Įrankių dėžė',
-    ]),
-    ('trailer_chassis', 'Važiuoklė', [
-        'Pakeliama ašis',
-        'Pneumatinė pakaba',
-        'Diskiniai stabdžiai',
-    ]),
-    ('trailer_safety', 'Sauga', [
-        'ABS',
-        'EBS',
-        'Priekabos stabdys',
-        'Krovinio diržai',
-        'TIR',
-        'Termografas',
-    ]),
-    ('trailer_other', 'Kita', [
-        'Garantija',
-        'Parduodama lizingu',
-    ]),
-]
+# Apibrėžimai gyvena equipment_registry — juos turi matyti ir
+# `seed_equipment` komanda, ir 0063 migracija.
+from .equipment_registry import TRAILER_EQUIPMENT_DEFINITION  # noqa: E402
 
 
 def _get_trailer_equipment():

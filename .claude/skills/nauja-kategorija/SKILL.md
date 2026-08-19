@@ -9,8 +9,18 @@ Tikslas: **sukurti · rasti · peržiūrėti**. Kategorija nelaikoma padaryta, k
 veikia visi penki sluoksniai: create forma, greitoji panelė, išplėstinė
 paieška, naršymo kortelės ir detalės puslapis.
 
-Etalonai, iš kurių paimtas šis procesas: `trailers` (0f84e02, 50b75a2) ir
-`agriculture` (431842c).
+Etalonai, iš kurių paimtas šis procesas: `trailers` (0f84e02, 50b75a2),
+`agriculture` (431842c), `construction` (40a5ed7), `loading-equipment`
+(be266df) ir `forestry` (208486a).
+
+Greitas orientyras, kurį etaloną kopijuoti:
+
+| Kategorija panaši į… | Imk bazę |
+|---|---|
+| viena forma, subkategorijos, ypatumai | `trailers` / `agriculture` |
+| viena forma, BE subkategorijų | `loading-equipment` |
+| viena forma, BE ypatumų ir BE mėnesio | `forestry` |
+| DVI formos vienam VT | `construction` |
 
 ---
 
@@ -94,6 +104,39 @@ venv/bin/python manage.py migrate listings && systemctl restart gunicorn
 Failai: `apps/listings/<kategorija>_views.py` +
 `templates/listings/<kategorija>_listing_create.html`.
 
+### Subkategorijos: pirma nustatyk, KURIS iš trijų atvejų
+
+```bash
+venv/bin/python -c "
+import django,os,sys; sys.path.insert(0,'/root/autoleft')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings'); django.setup()
+from apps.listings.models import SubCategory
+print(list(SubCategory.objects.filter(vehicle_type__slug='<slug>').values_list('slug',flat=True)))"
+```
+
+| Atvejis | Ką daryti | Pavyzdys |
+|---|---|---|
+| **Turi subkategorijų** | mapping iš formos lauko, redirect per `<KAT>_SUBCATEGORY_SLUGS` | `trailers`, `agriculture` |
+| **NETURI nė vienos** | `subcategory` lieka `NULL`, mapping'o logikos NĖRA, pikeris veda tiesiai į formą per **`CREATE_URL_BY_VEHICLE_TYPE`** | `loading-equipment`, `forestry` |
+| **Dvi formos vienam VT** | žr. „Kategorija su dviem formomis" žemiau | `construction` |
+
+**SPĄSTAS: kategorijai be subkategorijų `<KAT>_SUBCATEGORY_SLUGS` redirect
+neveiks** — `_route_category_pick()` gauna tuščią `subcategory_slug` ir
+nukris į išjungtą 7 žingsnių srautą. Reikia įrašo `CREATE_URL_BY_VEHICLE_TYPE`:
+
+```python
+CREATE_URL_BY_VEHICLE_TYPE = {
+    ...
+    '<slug>': '/create/<slug>/?new=1',
+}
+```
+
+Nekurk subkategorijų vien tam, kad būtų — jei etaloniniame medyje
+kategorija plokščia, subkategorijos pridėtų nereikalingą drill-in žingsnį
+pikeryje. Ir atvirkščiai: tuščios subkategorijos, likusios be atitikmens
+(`construction/forklifts`, `agriculture/forestry-machines`), paliekamos
+kaip yra — 0 skelbimų, pikeryje nerodomos, trynimas CASCADE ir neatstatomas.
+
 ### Subkategorija — iš FORMOS, ne iš URL
 
 Tai dažniausia klaida projekte (buvo `trucks` ir `parts`).
@@ -133,17 +176,82 @@ AGRI_EQUIPMENT_DEFINITION = [
 ]
 ```
 
-**SPĄSTAS: tie patys pavadinimai kartojasi tarp kategorijų.** `ABS` ir
-`Hidraulika` egzistuoja ir priekaboms (`trailer_safety`, `trailer_body`), ir
-žemės ūkiui (`agri_other`). Ieškant vien pagal `name`, paimama svetima
-eilutė — išplėstinė paieška rodė 2 ypatumus iš 9. Todėl **visada ribok pagal
-kategorijos prefiksą** (`panels.py` → `EQUIPMENT_PREFIX`).
+Apibrėžimai gyvena **`apps/listings/equipment_registry.py`**, ne view'e —
+juos turi matyti trys vartotojai: kategorijos view'as, `seed_equipment`
+komanda ir seed migracija. Registre nėra Django importų, todėl migracija
+jį gali saugiai importuoti.
+
+Pridėjus naują kategoriją:
+
+```python
+# equipment_registry.py
+CATEGORY_EQUIPMENT['<slug>'] = <SLUG>_EQUIPMENT_DEFINITION
+```
+```bash
+venv/bin/python manage.py seed_equipment          # sukuria trūkstamas
+venv/bin/python manage.py seed_equipment --check  # tik parodo
+```
+
+**SPĄSTAS 1: eilutės privalo egzistuoti PRIEŠ paiešką.** `build_advanced()`
+ieško jau esančių `Equipment` eilučių. Jei jos kuriamos tingiai (tik
+renderinant create formą), išplėstinė paieška rodo **0 ypatumų**, kol
+niekas neatidarė formos — o naujoje aplinkoje ar po DB atstatymo varnelių
+nebūtų iš viso. Todėl kiekviena kategorija su ypatumais **privalo** būti
+`CATEGORY_EQUIPMENT` registre; migracija juos užsėja automatiškai.
+
+**SPĄSTAS 2: tie patys pavadinimai kartojasi tarp kategorijų.**
+„Hidraulika" egzistuoja **trijose** kategorijose (`trailer_body`,
+`agri_other`, `load_hydraulics`), „Kabina" — dviejose. Ieškant vien pagal
+`name`, paimama svetima eilutė — išplėstinė paieška rodė 2 ypatumus iš 9.
+Todėl **visada ribok pagal kategorijos prefiksą** (`panels.py` →
+`EQUIPMENT_PREFIX`). Testas, kuris tai gaudo: filtruok pagal SVETIMOS
+kategorijos ypatumo ID ir tikrink, kad rezultatų nėra.
 
 ### Kontaktai
 
 TIK `{% include 'listings/partials/contact_block.html' %}`. Savo telefono /
 el. pašto / miesto laukų nekurk. `country_choices` iš view'o neperduok —
 jie ateina iš `contact_block_tags`.
+
+### Matmenų vienetai — NIEKADA nemaišyk viename lauke
+
+Projekte yra **dvi atskiros matmenų aibės**, ir tai sąmoninga:
+
+| Laukai | Vienetai | Kas naudoja |
+|---|---|---|
+| `length_m` · `width_m` · `height_m` | **metrai** (Decimal) | `construction`, `forestry` |
+| `truck_length_mm` · `truck_width_mm` · `truck_height_mm` | **milimetrai** (Integer) | `trailers`, `loading-equipment` |
+
+Etalone matmenys vienoms kategorijoms pateikti metrais, kitoms —
+milimetrais. Perpanaudojus tą patį stulpelį abiem, **diapazono filtras
+lygintų metrus su milimetrais** ir tyliai grąžintų nesąmonę: „Ilgis nuo 2
+iki 5 m" atrinktų ir 3800 mm įrašą. Generinis variklis vienetų neverčia.
+
+Todėl: pažiūrėk, kokiais vienetais etalonas prašo lauko, ir imk atitinkamą
+aibę. Jei reikia trečios (pvz. cm) — kurk naujus stulpelius, o ne konvertuok
+išsaugant.
+
+Tas pats principas ir kitiems „to paties dalyko" laukams: `payload_kg`
+tinka ir „Keliamoji galia", ir „Max keliamoji galia"; `engine_hours` —
+visoms motovalandoms; `constr_drive_type` — pavaros tipui statybinėje,
+krovimo ir miško technikoje (išplėstas iki 8 reikšmių).
+
+### Kategorija su dviem formomis
+
+Kai vienas VT turi dvi realiai skirtingas formas (`construction`:
+technika sec 24 + priedai sec 16):
+
+- **Vienas modulis, DU view'ai, DU šablonai.** Bendra (subkategorijos,
+  markės, kontaktai, nuotraukos, išsaugojimo pabaiga) — bendrose
+  funkcijose. `wheels_views.py` daro lygiai taip pat su `tyres`/`rims`.
+  Vienas šablonas su `{% if %}` aplink pusę laukų būtų neskaitomas.
+- **Konfigūracijoje** antrajai formai pridėk `"subcategory_slug": "<slug>"` —
+  `panels.py` registruoja ją `PANELS_BY_SUB` / `ADVANCED_BY_SUB`, o
+  `build_panel` / `build_advanced` / `apply_panel_filters` priima `sub_slug`.
+  Be to vienam VT variklis paimtų tik PIRMĄ sekciją.
+- **Išplėstinė paieška:** `/paieska/<slug>/?sub=<subcategory-slug>`.
+- **Edit dispatch privalo atskirti**, kuri forma: `_guard()` tikrina, ar
+  įrašas yra priedas, ir persiadresuoja į teisingą formą.
 
 ### Kiti niuansai
 
@@ -183,6 +291,24 @@ Kiekvienam laukui: `db_field`, `param` (arba `param_min`/`param_max`),
 
 **Reikšmės imamos iš modelio `choices`, ne iš JSON `options`** — JSON laiko
 etalono etiketes, o mūsų `choices` su jomis sutampa 1:1.
+
+**SPĄSTAS: `text` tipo laukas turi DVI reikšmes.**
+
+| `db_field` | Ką daro variklis |
+|---|---|
+| `"__text__"` | bendra paieška: `Q(title) \| Q(description)`, param `q` |
+| tikras stulpelis (pvz. `constr_model_text`) | `<stulpelis>__icontains` TAME lauke |
+
+Anksčiau variklis visus `text` laukus traktavo kaip bendrą paiešką, todėl
+priedų „Modelis" filtras negrąžindavo nieko — ieškojo pavadinime, o ne
+`constr_model_text`. Rašydamas konfigūraciją įsitikink, kad tekstiniam
+laukui su savo stulpeliu `db_field` NĖRA `__text__`.
+
+**SPĄSTAS: tas pats `param` keliuose laukuose.** `select` laukas su viena
+reikšme ir kelių reikšmių paieška (`multi: true`) ant to paties param'o
+susikerta — vienos reikšmės filtras susiaurina `__in` rezultatą iki
+paskutinės. Variklis tai sprendžia (`len(vals) > 1 → __in`), bet jei rašai
+savo helperį — **perkėlęs lauką į konfigūraciją, IŠIMK jį iš seno helperio**.
 
 ### Įjunk variklyje (`panels.py`)
 
@@ -248,6 +374,9 @@ except RuntimeError: pass
 - [ ] `/paieska/<slug>/` rodo išplėstinę + ypatumų skaitiklį
 - [ ] Kiekvienas filtras atskirai; diapazonai su viena užpildyta puse
 - [ ] Ypatumų IR logika: pažymėjus du, rodomi tik turintys abu
+- [ ] Ypatumai užsėti: `manage.py seed_equipment --check` rodo OK visoms
+- [ ] Ypatumų prefiksas izoliuoja: filtras pagal SVETIMOS kategorijos
+      ypatumo ID grąžina 0 rezultatų
 - [ ] Tušti filtrai nesiaurina
 - [ ] Mygtuko skaičius = realus rezultatų kiekis
 - [ ] Kortelėse kategorijos laukai (abu išdėstymai)
@@ -298,5 +427,8 @@ Ataskaitos gale išvardink:
 - **Pre-existing problemos, pastebėtos pakeliui** — pvz. `ListingImage`
   COUNT N+1 bendrame kortelės šablone (paliečia visas kategorijas),
   `EQUIPMENT_CATEGORY_LABELS` dublikatas, negyvi `panel_*.html` partialai
+- **Ar ypatumai užsėti** — jei pridėjai kategoriją į `CATEGORY_EQUIPMENT`,
+  bet nepaleidai `seed_equipment` ir nepridėjai seed migracijos, filtruose
+  varnelių nebus
 - **Jei testuodamas sukūrei skelbimų** — pasakyk `pk` ir pasiūlyk išvalyti;
   trynimo be leidimo nedaryk
