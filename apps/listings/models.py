@@ -294,6 +294,9 @@ class Listing(models.Model):
         ('burned', _('Burned')), ('gearbox_defect', _('Gearbox defect')),
         ('hail_damage', _('Hail damage')), ('sunken', _('Sunken')),
         ('engine_defect', _('Engine defect')), ('major_defects', _('Major defects')),
+        # Turistiniams nameliams reikėjo „Kiti smulkūs defektai"; tinka ir
+        # automobiliams, todėl laikom bendrame sąraše.
+        ('minor_defects', _('Kiti smulkūs defektai')),
     ]
 
     DOOR_CHOICES = [('2/3', _('2/3 doors')), ('4/5', _('4/5 doors'))]
@@ -1065,6 +1068,45 @@ class Listing(models.Model):
     )
     forest_brand_text = models.CharField(
         max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+
+    # ═══════════════════════════════════════════════════════════
+    # TURISTINIAI NAMELIAI (vehicle_type slug='camping-houses')
+    # Ši kategorija artimesnė AUTOMOBILIAMS nei technikai: rida, spalva,
+    # pavarų dėžė, varantieji ratai, darbinis tūris, defektai, ratlankiai,
+    # sėdimos/miegamos vietos — visa tai jau egzistuoja ir perpanaudojama.
+    # Nauji tik penki laukai.
+    #
+    # „Tinka su B kat. teisėmis" yra LAUKAS, ne ypatumas — jis filtruojamas
+    # ir greitojoje panelėje, ir išplėstinėje.
+    # ═══════════════════════════════════════════════════════════
+    CAMP_TYPE_CHOICES = [
+        ('touring_car', _('Turistinis automobilis')),
+        ('towed_house', _('Prikabinamas namelis')),
+        ('other', _('Kita')),
+    ]
+
+    camp_type = models.CharField(
+        max_length=20, choices=CAMP_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    camp_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    b_licence_ok = models.BooleanField(
+        default=False, verbose_name=_('Tinka su B kat. teisėmis'),
+    )
+    # `gear_*` prefiksas jau užimtas motociklų aprangos (gear_type, gear_size...)
+    gearbox_speeds = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(20)],
+        verbose_name=_('Pavarų skaičius'),
+    )
+    # Bendras padangų likutis; trailer_tyre_pct_1..3 yra priekabų ašims
+    tyre_condition_pct = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_('Padangų likutis %'),
     )
 
     subcategory = models.ForeignKey(

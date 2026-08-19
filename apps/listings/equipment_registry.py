@@ -103,11 +103,84 @@ LOAD_EQUIPMENT_DEFINITION = [
 ]
 
 
+# ─── Turistiniai nameliai ───
+# Savi 52 su 'camp_' prefiksu, NE automobilių eilutės: automobilių
+# ypatumai suvesti angliškai (Cruise control, Airbags), o šie —
+# lietuviškai, tad sutampa tik akronimas „ESP". Be prefikso
+# build_advanced() paimtų automobilių ESP eilutę, o nameliai turėtų
+# savo — filtras grąžintų 0 rezultatų.
+CAMP_EQUIPMENT_DEFINITION = [
+    ('camp_electronics', 'Elektronika', [
+        '360° vaizdo kamera',
+        'Audio grotuvas',
+        'Automatinio parkavimo sistema',
+        'Kelio ženklų atpažinimo sistema',
+        'Kritulių jutiklis',
+        'Laisvų rankų įranga',
+        'Navigacija / GPS',
+        'Nuovargio įspėjimo sistema',
+        'Start-Stop sistema',
+        'Atstumo jutiklių sistema',
+        'Beraktė užvedimo sistema',
+        'Galinio vaizdo kamera',
+        'Kruizo kontrolė',
+    ]),
+    ('camp_assist', 'Pagalbos sistemos', [
+        'ASR',
+        'Borto kompiuteris',
+        'Centrinis užraktas',
+        'ESP',
+        'Vairo stiprintuvas',
+    ]),
+    ('camp_safety', 'Saugumas ir apsauga', [
+        'Aklosios zonos stebėjimo sistema',
+        'Atstumo palaikymo sistema',
+        'Avarinio stabdymo sistema',
+        'Juostos palaikymo sistema',
+        'Traukos kontrolės sistema',
+        'Oro pagalvės',
+        'Signalizacija / Imobilaizeris',
+        'Stabilumo kontrolės sistema',
+    ]),
+    ('camp_interior', 'Salonas', [
+        'Autonominis šildymas (webasto)',
+        'CD grotuvas',
+        'Dujinė viryklė',
+        'Dušas',
+        'El. langai',
+        'El. sėdynės',
+        'El. veidrodėliai',
+        'Elektroninė klimato kontrolė',
+        'Garso aparatūra',
+        'Gido mikrofonas',
+        'Karštas vanduo',
+        'Kavos aparatas',
+        'Oro kondicionierius',
+        'Šildomas priekinis stiklas',
+        'Šildomos sėdynės',
+        'Tamsinti stiklai',
+        'Tualetas',
+        'Video įranga',
+    ]),
+    ('camp_other', 'Kiti privalumai', [
+        'Aukštas',
+        'CD keitiklis',
+        'Dviračių laikikliai',
+        'Geros būklės',
+        'Lauko baldai',
+        'Skaidraus stiklo priekiniai žibintai',
+        'Su prieangiu',
+        'Tentas',
+    ]),
+]
+
+
 # vehicle_type slug → definicijų sąrašas
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
     'loading-equipment': LOAD_EQUIPMENT_DEFINITION,
+    'camping-houses': CAMP_EQUIPMENT_DEFINITION,
 }
 
 

@@ -161,6 +161,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 # ═══════════════════════════════════════════════════════════
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
+    'camping-houses',
     'forestry',
     'loading-equipment',
     'construction',
@@ -215,6 +216,7 @@ CREATE_URL_BY_VEHICLE_TYPE = {
     'cars':     '/create/cars/quick/',
     'loading-equipment': '/create/loading-equipment/?new=1',
     'forestry': '/create/forestry/?new=1',
+    'camping-houses': '/create/camping-houses/?new=1',
     'boats':    '/create/boats/?new=1',
     'trailers': '/create/trailers/?new=1',
 }
@@ -570,6 +572,11 @@ EQUIPMENT_CATEGORY_LABELS = {
     'load_hydraulics': 'Hidraulika ir mechanizmai',
     'load_platform': 'Platforma ir atramos',
     'load_surface': 'Važiuoklė ir paviršius',
+    'camp_electronics': 'Elektronika ir multimedija',
+    'camp_assist': 'Vairavimo pagalba',
+    'camp_safety': 'Sauga',
+    'camp_interior': 'Interjeras ir buitis',
+    'camp_other': 'Kita įranga',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -580,6 +587,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'agri_drivetrain', 'agri_mount', 'agri_other',
     'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
+    'camp_electronics', 'camp_assist', 'camp_safety', 'camp_interior', 'camp_other',
     'gear',
 ]
 
@@ -632,6 +640,11 @@ EQUIPMENT_CATEGORY_LABELS = {
     'load_hydraulics': 'Hidraulika ir mechanizmai',
     'load_platform': 'Platforma ir atramos',
     'load_surface': 'Važiuoklė ir paviršius',
+    'camp_electronics': 'Elektronika ir multimedija',
+    'camp_assist': 'Vairavimo pagalba',
+    'camp_safety': 'Sauga',
+    'camp_interior': 'Interjeras ir buitis',
+    'camp_other': 'Kita įranga',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -642,6 +655,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'trailer_body', 'trailer_chassis', 'trailer_safety', 'trailer_other',
     'agri_drivetrain', 'agri_mount', 'agri_other',
     'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
+    'camp_electronics', 'camp_assist', 'camp_safety', 'camp_interior', 'camp_other',
     'gear',
 ]
 
@@ -2931,6 +2945,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
         return redirect(f'/create/forestry/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
+        return redirect(f'/create/camping-houses/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3796,6 +3812,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
         return redirect(f'/create/forestry/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
+        return redirect(f'/create/camping-houses/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3888,6 +3906,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
         return redirect(f'/create/forestry/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
+        return redirect(f'/create/camping-houses/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -4112,6 +4132,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/agriculture/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
         return redirect(f'/create/forestry/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
+        return redirect(f'/create/camping-houses/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -6563,7 +6585,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB
@@ -6739,11 +6761,22 @@ def advanced_search_generic(request, category):
         raise Http404
 
     qs = filter_listings(request.GET, user=request.user, category=category)
+
+    # Markės parametras kiekvienoje kategorijoje savas (trailer_brand_text,
+    # agri_brand_text, camp_brand_text...) — imam jį iš konfigūracijos, kad
+    # perkrovus puslapį pažymėtos markės išliktų visoms kategorijoms.
+    brand_param = next(
+        (f.get('param') for f in adv['fields']
+         if f.get('db_field') in panel_config.TEXT_BRAND_FIELDS
+         or f.get('db_field') in panel_config.FK_BRAND_FIELDS),
+        'trailer_brand_text',
+    )
+
     return render(request, 'listings/advanced_generic.html', {
         'adv': adv,
         'result_count': qs.count(),
         'selected_equipment': request.GET.getlist('equipment'),
-        'selected_brands': request.GET.getlist('trailer_brand_text'),
+        'selected_brands': request.GET.getlist(brand_param),
     })
 
 

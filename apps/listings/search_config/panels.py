@@ -31,12 +31,12 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 # Kategorijos, kurių paiešką aptarnauja Listing + listing_list.
 # tires/wheels sukasi apie WheelListing, o parts/motogear tab'ai turi savo
 # browse view'us — jiems šis variklis netinka be daug didesnio refaktoringo.
-LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry'}
+LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
 
 # 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
 # cars/motorcycles kol kas lieka su savo blokais search_panel.html.
 # Įtraukus kaskadą — pridėk juos čia.
-ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry'}
+ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON
@@ -52,6 +52,8 @@ CHOICES_BY_DB_FIELD = {
     'constr_drive_type': 'CONSTR_DRIVE_TYPE_CHOICES',
     'load_type': 'LOAD_TYPE_CHOICES',
     'forest_type': 'FOREST_TYPE_CHOICES',
+    'camp_type': 'CAMP_TYPE_CHOICES',
+    'defects': 'DEFECT_CHOICES',
     'load_energy_source': 'LOAD_ENERGY_CHOICES',
     'wheel_formula': 'WHEEL_FORMULA_CHOICES',
     'color':           'COLOR_CHOICES',
@@ -65,7 +67,8 @@ CHOICES_BY_DB_FIELD = {
 
 # db_field, kurių reikšmės — laisvas tekstas iš skelbimų (ne choices).
 # Rodomos su skelbimų kiekiais, Top N + likusios abėcėle.
-TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text', 'load_brand_text', 'forest_brand_text'}
+TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text', 'load_brand_text', 'forest_brand_text',
+                     'camp_brand_text'}
 
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
@@ -80,7 +83,7 @@ TOP_BRANDS = 10
 # tie patys pavadinimai (ABS, Hidraulika) egzistuoja kelioms kategorijoms —
 # ieškant vien pagal name būtų paimta svetima eilutė.
 EQUIPMENT_PREFIX = {'trailers': 'trailer_', 'agriculture': 'agri_',
-                    'loading-equipment': 'load_'}
+                    'loading-equipment': 'load_', 'camping-houses': 'camp_'}
 
 # Kainos pakopos — tos pačios, kurias naudoja automobilių panelė.
 PRICE_MIN_TIERS = [500, 1000, 2000, 3000, 5000, 7500, 10000, 15000, 20000, 30000]
@@ -131,7 +134,7 @@ for _cat in _RAW_ADV['categories']:
         ADVANCED[_vt] = _cat
 
 # Kategorijos, kurių išplėstinė paieška įjungta (kaip ENGINE_ENABLED panelėms)
-ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry'}
+ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -217,6 +220,8 @@ def _brand_rows(vt_slug, db_field, user=None):
             from apps.listings.loading_views import LOAD_BRANDS as ALL_NAMES
         elif db_field == 'forest_brand_text':
             from apps.listings.forestry_views import FOREST_BRANDS as ALL_NAMES
+        elif db_field == 'camp_brand_text':
+            from apps.listings.camping_views import CAMP_BRANDS as ALL_NAMES
         else:
             from apps.listings.trailers_views import TRAILER_BRANDS as ALL_NAMES
         counts = {

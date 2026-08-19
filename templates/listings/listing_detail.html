@@ -110,8 +110,168 @@
                 {# ─── AGRICULTURE BRANCH — žemės ūkio technikos specs ─── #}
                 {# ─── CONSTRUCTION BRANCH — statybinė technika ir priedai ─── #}
                 {# ─── LOADING EQUIPMENT BRANCH — krovimo ir sandėliavimo technika ─── #}
+                {# ─── CAMPING BRANCH — turistiniai nameliai ─── #}
+                {% if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses' %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Metai" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-caravan text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Tipas" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.get_camp_type_display|default:"—" }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-bed text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Miegamos vietos" %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.sleeping_seats %}{{ listing.sleeping_seats }}{% else %}—{% endif %}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-road text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}{{ listing.mileage }} km{% else %}—{% endif %}</div></div>
+                        </div>
+                    </div>
+                    {% if listing.b_licence_ok %}
+                    <span class="inline-block mb-4 px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
+                        <i class="fas fa-id-card mr-1"></i>{% trans "Tinka su B kat. teisėmis" %}
+                    </span>
+                    {% endif %}
+                    <div class="border-t border-gray-200 pt-6">
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
+                    </div>
+                </div>
+
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Komentarai" %}</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Techninė informacija" %}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Markė" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.camp_brand_text|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Modelis" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.constr_model_text|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Būklė" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_condition_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Pirmoji registracija" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.first_registration %}{{ listing.first_registration|date:"m/Y" }}{% else %}{{ listing.year }}{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Sėdimos vietos" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_seats_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Degalų bako talpa" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.fuel_tank_capacity_l %}{{ listing.fuel_tank_capacity_l }} l{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Modifikacija" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.modification|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Variklio darbinis tūris" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.engine_capacity %}{{ listing.engine_capacity }} l{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Galia" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Pavarų dėžė" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.transmission.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Pavarų skaičius" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.gearbox_speeds|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Varantieji ratai" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_drive_type_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Spalva" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Ratlankiai" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.rim_size|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Padangų likutis" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.tyre_condition_pct %}{{ listing.tyre_condition_pct }}%{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Defektai" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_defects_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "TA iki" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.technical_inspection_year %}{% if listing.technical_inspection_month %}{{ listing.technical_inspection_month|stringformat:"02d" }}/{% endif %}{{ listing.technical_inspection_year }}{% else %}—{% endif %}</span>
+                        </div>
+                        {% if listing.sdk_number %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "SDK kodas" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.sdk_number }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Ypatumai — tas pats chip stilius kaip kitose kategorijose #}
+                {% if grouped_equipment %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Ypatumai" %}</h2>
+                    <div class="space-y-5">
+                        {% for cat in grouped_equipment %}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">{{ cat.label }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {% for name in cat.items %}
+                                <span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{{ name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Vieta" %}</h2>
+                    <div class="flex items-start gap-3 text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
+                        <div>
+                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
+                        </div>
+                    </div>
+                </div>
+
                 {# ─── FORESTRY BRANCH — miško ūkio technika ─── #}
-                {% if listing.vehicle_type and listing.vehicle_type.slug == 'forestry' %}
+                {% elif listing.vehicle_type and listing.vehicle_type.slug == 'forestry' %}
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>

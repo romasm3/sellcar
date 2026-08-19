@@ -310,6 +310,17 @@ susikerta — vienos reikšmės filtras susiaurina `__in` rezultatą iki
 paskutinės. Variklis tai sprendžia (`len(vals) > 1 → __in`), bet jei rašai
 savo helperį — **perkėlęs lauką į konfigūraciją, IŠIMK jį iš seno helperio**.
 
+**SPĄSTAS: brūkšnelis slug'e sulaužo `config_panels.<slug>`.** Django
+šablone `config_panels.camping-houses` neveikia (brūkšnelis — minusas);
+naudok `config_panels|get_item:'camping-houses'`, kaip daro
+`loading-equipment` blokas `search_panel.html`.
+
+**SPĄSTAS: markės parametras išplėstinėje buvo hardkodintas.**
+`advanced_search_generic` skaitydavo `request.GET.getlist('trailer_brand_text')`,
+todėl perkrovus puslapį pažymėtos markės išlikdavo TIK priekaboms. Dabar
+param imamas iš konfigūracijos (`TEXT_BRAND_FIELDS` / `FK_BRAND_FIELDS`) —
+jei pridedi naują markės lauką, užtenka jį įrašyti į tuos rinkinius.
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python
@@ -430,5 +441,8 @@ Ataskaitos gale išvardink:
 - **Ar ypatumai užsėti** — jei pridėjai kategoriją į `CATEGORY_EQUIPMENT`,
   bet nepaleidai `seed_equipment` ir nepridėjai seed migracijos, filtruose
   varnelių nebus
+- **Laukai, kuriuos palikai `active: false`** ir kodėl (pvz. FK `fuel_type`
+  multiselect: etalono etiketės lietuviškos, o `FuelType.name` DB — angliški;
+  `range` ant `CharField` choices — leksikografinis palyginimas)
 - **Jei testuodamas sukūrei skelbimų** — pasakyk `pk` ir pasiūlyk išvalyti;
   trynimo be leidimo nedaryk

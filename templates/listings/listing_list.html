@@ -764,7 +764,17 @@ a.sp-rail-btn { text-decoration:none; }
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
                                 <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                             </div>
-                            {% if listing.vehicle_type.slug == 'forestry' %}
+                            {% if listing.vehicle_type.slug == 'camping-houses' %}
+                            <div class="ap-spec-line">
+                                {% if listing.camp_type %}<span>{{ listing.get_camp_type_display }}</span>{% endif %}
+                                {% if listing.sleeping_seats %}<span class="sep">·</span><span>{{ listing.sleeping_seats }} {% trans "miegamos v." %}</span>{% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                <span>{{ listing.year }}</span>
+                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                                {% if listing.b_licence_ok %}<span class="sep">·</span><span>{% trans "B kat." %}</span>{% endif %}
+                            </div>
+                            {% elif listing.vehicle_type.slug == 'forestry' %}
                             <div class="ap-spec-line">
                                 {% if listing.forest_type %}<span>{{ listing.get_forest_type_display }}</span>{% endif %}
                                 {% if listing.power %}<span class="sep">·</span><span>{{ listing.power }} kW</span>{% endif %}
@@ -947,7 +957,18 @@ a.sp-rail-btn { text-decoration:none; }
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
                         <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
                     </div>
-                    {% if listing.vehicle_type.slug == 'forestry' %}
+                    {% if listing.vehicle_type.slug == 'camping-houses' %}
+                    {# ── TURISTINIŲ NAMELIŲ kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.camp_type %}<span>{{ listing.get_camp_type_display }}</span>{% endif %}
+                        {% if listing.sleeping_seats %}<span class="sep">·</span><span>{{ listing.sleeping_seats }} {% trans "miegamos v." %}</span>{% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                        {% if listing.b_licence_ok %}<span class="sep">·</span><span>{% trans "B kat." %}</span>{% endif %}
+                    </div>
+                    {% elif listing.vehicle_type.slug == 'forestry' %}
                     {# ── MIŠKO ŪKIO kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         {% if listing.forest_type %}<span>{{ listing.get_forest_type_display }}</span>{% endif %}
