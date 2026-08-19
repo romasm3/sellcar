@@ -38977,10 +38977,10 @@
       "Savikrovė Miško priekaba",
       "Medienos smulkintuvas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "forest_type",
+     "param": "forest_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Markė",
@@ -39079,10 +39079,10 @@
       "WF-Trac",
       "WOPROL"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "forest_brand_text",
+     "param": "forest_brand_text",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -39206,10 +39206,12 @@
       "7500",
       "10000"
      ],
-     "db_field": null,
+     "db_field": "engine_hours",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_hours_min",
+     "param_max": "engine_hours_max"
     },
     {
      "label": "Ratų formulė",
@@ -39231,10 +39233,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -39262,10 +39264,12 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Naudota/Nauja",
@@ -39275,10 +39279,10 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",

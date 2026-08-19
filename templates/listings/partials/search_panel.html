@@ -1249,6 +1249,24 @@
       </form>
     </div>
 
+
+    {# ═══════════ MIŠKO ŪKIO TECHNIKA ═══════════ #}
+    <div x-show="tab === 'forestry'" x-cloak id="sp-panel-forestry">
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Miško ūkio technika" %}</h2>
+      <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="forestry">
+        <input type="hidden" name="sidebar" value="1">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.forestry %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('forestry')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
     {# ═══════════ PARTS — trys subkategorijos (partSub) ═══════════ #}
     <div x-show="tab === 'parts'" x-cloak id="sp-panel-parts">
       <h2 class="text-[15.5px] font-bold mb-4 -mt-3">

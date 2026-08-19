@@ -161,6 +161,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 # ═══════════════════════════════════════════════════════════
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
+    'forestry',
     'loading-equipment',
     'construction',
     'agriculture',
@@ -213,6 +214,7 @@ PICKER_HIDDEN_VEHICLE_TYPE_SLUGS = {
 CREATE_URL_BY_VEHICLE_TYPE = {
     'cars':     '/create/cars/quick/',
     'loading-equipment': '/create/loading-equipment/?new=1',
+    'forestry': '/create/forestry/?new=1',
     'boats':    '/create/boats/?new=1',
     'trailers': '/create/trailers/?new=1',
 }
@@ -2927,6 +2929,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
+        return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3790,6 +3794,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
+        return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3880,6 +3886,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
+        return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -4102,6 +4110,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/trailers/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'agriculture':
         return redirect(f'/create/agriculture/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'forestry':
+        return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -6553,7 +6563,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB

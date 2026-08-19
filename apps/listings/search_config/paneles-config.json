@@ -13332,8 +13332,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "forest_type",
+     "param": "forest_type",
      "active": true
     },
     {
@@ -13435,8 +13435,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "forest_brand_text",
+     "param": "forest_brand_text",
      "active": true
     },
     {
@@ -13608,7 +13608,24 @@
    "advanced_url": "/paieska/misko-ukio-technika/",
    "slug": "misko-ukio-technika",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
-   "vt_slug": "forestry"
+   "vt_slug": "forestry",
+   "card_fields": [
+    {
+     "db_field": "forest_type",
+     "display": true
+    },
+    {
+     "db_field": "power",
+     "unit": "kW"
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "engine_hours",
+     "unit": "val."
+    }
+   ]
   },
   {
    "name": "Turistiniai nameliai",

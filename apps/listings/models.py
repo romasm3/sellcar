@@ -1033,6 +1033,40 @@ class Listing(models.Model):
         verbose_name=_('Šakių / strėlės ilgis (m)'),
     )
 
+    # ═══════════════════════════════════════════════════════════
+    # MIŠKO ŪKIO TECHNIKA (vehicle_type slug='forestry')
+    # Nauji tik du laukai — visa kita perpanaudota: pavaros tipas
+    # (constr_drive_type), modelis (constr_model_text), matmenys metrais
+    # (length_m/width_m/height_m), ratų formulė, kuro tipas, galia,
+    # motovalandos, masės, TA, VIN.
+    # Kategorija NETURI nei subkategorijų, nei ypatumų, nei mėnesio lauko.
+    # ═══════════════════════════════════════════════════════════
+    FOREST_TYPE_CHOICES = [
+        ('f_kitas', _('Kitas')),
+        ('f_gerve', _('Gervė')),
+        ('f_kapokle', _('Kapoklė')),
+        ('f_krumapjove', _('Krūmapjovė')),
+        ('f_manipuliatorius', _('Manipuliatorius')),
+        ('f_medkirte', _('Medkirtė')),
+        ('f_medveze', _('Medvežė')),
+        ('f_misko_traktorius', _('Miško traktorius')),
+        ('f_miskovezio_priekaba', _('Miškovežio priekaba')),
+        ('f_miskovezio_puspriekabe', _('Miškovežio puspriekabė')),
+        ('f_miskovezis', _('Miškovežis')),
+        ('f_motorinis_pjuklas', _('Motorinis pjūklas')),
+        ('f_pjovimo_galvute', _('Pjovimo galvutė')),
+        ('f_savikrove_misko_priekaba', _('Savikrovė Miško priekaba')),
+        ('f_medienos_smulkintuvas', _('Medienos smulkintuvas')),
+    ]
+
+    forest_type = models.CharField(
+        max_length=40, choices=FOREST_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    forest_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',
