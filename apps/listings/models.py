@@ -1167,6 +1167,50 @@ class Listing(models.Model):
     )
     metallic = models.BooleanField(default=False, verbose_name=_('Metalikas'))
 
+    # ═══════════════════════════════════════════════════════════
+    # PASLAUGOS (vehicle_type slug='services')
+    #
+    # Plokščia kategorija: etalone subkategorijų nėra, todėl subcategory
+    # lieka NULL, o pikeris veda tiesiai į formą (CREATE_URL_BY_VEHICLE_TYPE).
+    #
+    # Pavadinimą čia rašo pats vartotojas (kitose kategorijose jis
+    # generuojamas iš markės + modelio + metų), o kaina NEPRIVALOMA —
+    # tuščia išsaugoma kaip 0 ir rodoma „Sutartinė kaina".
+    #
+    # 18 paslaugų varnelių saugomos kaip Equipment eilutės ('svc_*').
+    # Etalono filtruose jų nėra, todėl į paieškos konfigūraciją neįtrauktos.
+    # ═══════════════════════════════════════════════════════════
+    SERVICE_TYPE_CHOICES = [
+        ('alarm_install', _('Apsaugos sistemų montavimas')),
+        ('car_buying', _('Automobilių supirkimas')),
+        ('service_equipment', _('Autoservisų įrangos aptarnavimas')),
+        ('parts_buying', _('Dalių supirkimas')),
+        ('lpg_install', _('Dujų įrangos montavimas')),
+        ('audio_install', _('Garso aparatūros montavimas')),
+        ('catalyst_buying', _('Katalizatorių supirkimas')),
+        ('passenger_transport', _('Keleivių vežimas')),
+        ('other_services', _('Kitos paslaugos')),
+        ('cargo_transport', _('Krovinių gabenimas')),
+        ('car_repair', _('Lengvųjų automobilių remontas')),
+        ('moto_repair', _('Motociklų motorolerių remontas')),
+        ('moto_buying', _('Motociklų supirkimas')),
+        ('tyre_buying', _('Padangų supirkimas')),
+        ('roadside_assistance', _('Pagalba kelyje')),
+        ('washing', _('Plovimo paslaugos')),
+        ('rim_buying', _('Ratlankių supirkimas')),
+        ('tyre_service', _('Ratų montavimas, padangų remontas')),
+        ('glass_tinting', _('Stiklų tonavimas, keitimas')),
+        ('heavy_repair', _('Sunkiosios technikos remontas')),
+        ('truck_buying', _('Sunkvežimių supirkimas')),
+        ('tuning', _('Tiuning')),
+        ('agri_buying', _('Žemės ūkio technikos supirkimas')),
+        ('agri_repair', _('Žemės ūkio technikos remontas')),
+    ]
+    service_type = models.CharField(
+        max_length=25, choices=SERVICE_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Paslaugos tipas'),
+    )
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',

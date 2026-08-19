@@ -12012,8 +12012,8 @@
      "type": "select",
      "name": "f_129",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "service_type",
+     "param": "service_type",
      "active": true
     },
     {
@@ -12107,7 +12107,16 @@
    "advanced_url": "/paieska/paslaugos/",
    "slug": "paslaugos",
    "url_params_raw": "Paslaugos tipas: f_129; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "services"
+   "vt_slug": "services",
+   "card_fields": [
+    {
+     "db_field": "service_type",
+     "display": true
+    },
+    {
+     "db_field": "city"
+    }
+   ]
   },
   {
    "name": "Krovimo ir sandėliavimo technika",

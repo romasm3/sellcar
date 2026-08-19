@@ -36817,10 +36817,10 @@
       "Žemės ūkio technikos supirkimas",
       "Žemės ūkio technikos remontas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "service_type",
+     "param": "service_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",

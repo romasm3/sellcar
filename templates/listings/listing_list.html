@@ -762,9 +762,16 @@ a.sp-rail-btn { text-decoration:none; }
                         <div class="h-info-side">
                             <div class="ap-title-row">
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
-                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}</div>
+                                <div class="ap-price" style="font-size:1.2rem;">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                             </div>
-                            {% if listing.vehicle_type.slug == 'rental' %}
+                            {% if listing.vehicle_type.slug == 'services' %}
+                            <div class="ap-spec-line">
+                                {% if listing.service_type %}<span>{{ listing.get_service_type_display }}</span>{% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                <span>{{ listing.city }}</span>
+                            </div>
+                            {% elif listing.vehicle_type.slug == 'rental' %}
                             <div class="ap-spec-line">
                                 {% if listing.rent_type %}<span>{{ listing.get_rent_type_display }}</span>
                                 {% elif listing.motorcycle_type %}<span>{{ listing.get_motorcycle_type_display }}</span>
@@ -967,9 +974,17 @@ a.sp-rail-btn { text-decoration:none; }
                 <div class="p-2.5 flex flex-col gap-1">
                     <div class="ap-title-row">
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
-                        <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}</div>
+                        <div class="ap-price">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                     </div>
-                    {% if listing.vehicle_type.slug == 'rental' %}
+                    {% if listing.vehicle_type.slug == 'services' %}
+                    {# ── PASLAUGŲ kortelės specifikacijos (metų ir ridos čia nėra) ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.service_type %}<span>{{ listing.get_service_type_display }}</span>{% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        <span>{{ listing.city }}</span>
+                    </div>
+                    {% elif listing.vehicle_type.slug == 'rental' %}
                     {# ── TRANSPORTO NUOMOS kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         {% if listing.rent_type %}<span>{{ listing.get_rent_type_display }}</span>

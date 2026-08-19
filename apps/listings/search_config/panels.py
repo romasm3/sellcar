@@ -32,13 +32,13 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 # tires/wheels sukasi apie WheelListing, o parts/motogear tab'ai turi savo
 # browse view'us — jiems šis variklis netinka be daug didesnio refaktoringo.
 LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                  'rental'}
+                  'rental', 'services'}
 
 # 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
 # cars/motorcycles kol kas lieka su savo blokais search_panel.html.
 # Įtraukus kaskadą — pridėk juos čia.
 ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                  'rental'}
+                  'rental', 'services'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON
@@ -56,6 +56,7 @@ CHOICES_BY_DB_FIELD = {
     'forest_type': 'FOREST_TYPE_CHOICES',
     'camp_type': 'CAMP_TYPE_CHOICES',
     'rent_type': 'RENT_TYPE_CHOICES',
+    'service_type': 'SERVICE_TYPE_CHOICES',
     'doors': 'DOOR_CHOICES',
     'cooling_type': 'COOLING_TYPE_CHOICES',
     'trailer_kind': 'TRAILER_KIND_CHOICES',
@@ -111,7 +112,7 @@ TOP_BRANDS = 10
 # ieškant vien pagal name būtų paimta svetima eilutė.
 EQUIPMENT_PREFIX = {'trailers': 'trailer_', 'agriculture': 'agri_',
                     'loading-equipment': 'load_', 'camping-houses': 'camp_',
-                    'rental': 'rent_'}
+                    'rental': 'rent_', 'services': 'svc_'}
 
 # Kainos pakopos — tos pačios, kurias naudoja automobilių panelė.
 PRICE_MIN_TIERS = [500, 1000, 2000, 3000, 5000, 7500, 10000, 15000, 20000, 30000]
@@ -163,7 +164,7 @@ for _cat in _RAW_ADV['categories']:
 
 # Kategorijos, kurių išplėstinė paieška įjungta (kaip ENGINE_ENABLED panelėms)
 ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                    'rental'}
+                    'rental', 'services'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),

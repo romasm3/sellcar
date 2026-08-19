@@ -193,12 +193,47 @@ RENT_EQUIPMENT_DEFINITION = [
 ]
 
 
+# ═══════════════════════════════════════════════════════════
+# PASLAUGOS — 18 varnelių iš etalono „Papildomi duomenys" bloko.
+#
+# Etalono paieškoje jų nėra (sec 18 filtruoja tik tipą, miestą ir tekstą),
+# bet skelbime jos rodomos, todėl saugom kaip Equipment eilutes.
+# Prefiksas 'svc_' — „Ratų remontas" ir „Kita" pavadinimai lengvai
+# susikirstų su kitomis kategorijomis (žr. panels.EQUIPMENT_PREFIX).
+# ═══════════════════════════════════════════════════════════
+SVC_EQUIPMENT_DEFINITION = [
+    ('svc_repair', 'Remontas ir diagnostika', [
+        'Bamperių remontas',
+        'Dažymo paslaugos',
+        'Duslintuvų remontas',
+        'Elektronikos diagnostika',
+        'Hidraulikos diagnostika',
+        'Kėbulo remontas',
+        'Pavarų dėžių remontas',
+        'Turbinų diagnostika',
+        'Ratų remontas',
+        'Salono remontas',
+        'Starterių, generatorių remontas',
+        'Ratų montavimas, balansavimas',
+        'Variklių diagnostika',
+        'Važiuoklės remontas',
+        'Autobusų, sunkvežimių remontas',
+        'Motociklų, motorolerių remontas',
+    ]),
+    ('svc_other', 'Kita', [
+        'Vežame į užsienį',
+        'Kita',
+    ]),
+]
+
+
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
     'loading-equipment': LOAD_EQUIPMENT_DEFINITION,
     'camping-houses': CAMP_EQUIPMENT_DEFINITION,
     'rental': RENT_EQUIPMENT_DEFINITION,
+    'services': SVC_EQUIPMENT_DEFINITION,
 }
 
 
