@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
+from .search_config import panels as panel_config
 from django.views.decorators.http import require_POST
 from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce, Lower
@@ -1014,6 +1015,17 @@ def motorcycles_list(request):
         'tab_newest': [],
         'tab_popular': [],
         'tab_expensive': [],
+        # Deklaratyvios panelės (priekabos, žemės ūkis, nuoma...) — rail'as
+        # leidžia į jas persijungti ir iš šio puslapio, todėl kontekstas
+        # turi būti toks pat kaip listing_list; kitaip panelės būtų tuščios.
+        'config_panels': {
+            slug: panel_config.build_panel(slug, request.user)
+            for slug in panel_config.active_categories()
+        },
+        'config_panels_sub': {
+            sub: panel_config.build_panel(cfg['vt_slug'], request.user, sub_slug=sub)
+            for sub, cfg in panel_config.PANELS_BY_SUB.items()
+        },
         'selected_subcategory_name': '',
     })
     return render(request, 'listings/listing_list.html', context)

@@ -31,12 +31,14 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 # Kategorijos, kurių paiešką aptarnauja Listing + listing_list.
 # tires/wheels sukasi apie WheelListing, o parts/motogear tab'ai turi savo
 # browse view'us — jiems šis variklis netinka be daug didesnio refaktoringo.
-LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
+LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
+                  'rental'}
 
 # 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
 # cars/motorcycles kol kas lieka su savo blokais search_panel.html.
 # Įtraukus kaskadą — pridėk juos čia.
-ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
+ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
+                  'rental'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON
@@ -53,6 +55,10 @@ CHOICES_BY_DB_FIELD = {
     'load_type': 'LOAD_TYPE_CHOICES',
     'forest_type': 'FOREST_TYPE_CHOICES',
     'camp_type': 'CAMP_TYPE_CHOICES',
+    'rent_type': 'RENT_TYPE_CHOICES',
+    'doors': 'DOOR_CHOICES',
+    'cooling_type': 'COOLING_TYPE_CHOICES',
+    'trailer_kind': 'TRAILER_KIND_CHOICES',
     'defects': 'DEFECT_CHOICES',
     'load_energy_source': 'LOAD_ENERGY_CHOICES',
     'wheel_formula': 'WHEEL_FORMULA_CHOICES',
@@ -68,7 +74,7 @@ CHOICES_BY_DB_FIELD = {
 # db_field, kurių reikšmės — laisvas tekstas iš skelbimų (ne choices).
 # Rodomos su skelbimų kiekiais, Top N + likusios abėcėle.
 TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text', 'load_brand_text', 'forest_brand_text',
-                     'camp_brand_text'}
+                     'camp_brand_text', 'rent_brand_text'}
 
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
@@ -77,13 +83,35 @@ FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand'}
 # Laukai, kurių reikšmės — laisvas tekstas iš skelbimų (Miestas).
 DISTINCT_VALUE_FIELDS = {'city'}
 
+# FK laukai, kurių reikšmių sąrašas — atskira lentelė (ne choices).
+# Reikšmė filtre yra id, todėl bendra .filter(<laukas>=id) logika tinka
+# be pakeitimų; čia tik pasiimam etiketes. Etalono `options` lietuviški,
+# o lentelėse vardai angliški — sutapdinam per gettext (vertimai jau yra,
+# žr. translatable_db.FUEL_AND_TRANSMISSION_NAMES), kad kategorija rodytų
+# būtent etalono poaibį (pvz. motociklų nuomai — tik Benzinas / Elektra).
+FK_CHOICE_FIELDS = {'fuel_type': 'FuelType', 'transmission': 'Transmission'}
+
+
+def _fk_options(db_field, config_options=None):
+    from apps.listings import models as m
+    from django.utils.translation import gettext
+    model = getattr(m, FK_CHOICE_FIELDS[db_field])
+    rows = [(o.pk, gettext(o.name)) for o in model.objects.all()]
+    if config_options:
+        wanted = {str(o).strip() for o in config_options}
+        subset = [r for r in rows if r[1] in wanted]
+        if subset:
+            rows = subset
+    return sorted(rows, key=lambda r: r[1])
+
 TOP_BRANDS = 10
 
 # Ypatumų Equipment kategorijų prefiksas pagal kategoriją. Reikalingas, nes
 # tie patys pavadinimai (ABS, Hidraulika) egzistuoja kelioms kategorijoms —
 # ieškant vien pagal name būtų paimta svetima eilutė.
 EQUIPMENT_PREFIX = {'trailers': 'trailer_', 'agriculture': 'agri_',
-                    'loading-equipment': 'load_', 'camping-houses': 'camp_'}
+                    'loading-equipment': 'load_', 'camping-houses': 'camp_',
+                    'rental': 'rent_'}
 
 # Kainos pakopos — tos pačios, kurias naudoja automobilių panelė.
 PRICE_MIN_TIERS = [500, 1000, 2000, 3000, 5000, 7500, 10000, 15000, 20000, 30000]
@@ -134,7 +162,8 @@ for _cat in _RAW_ADV['categories']:
         ADVANCED[_vt] = _cat
 
 # Kategorijos, kurių išplėstinė paieška įjungta (kaip ENGINE_ENABLED panelėms)
-ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
+ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
+                    'rental'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -191,7 +220,7 @@ def _years():
     return list(range(timezone.now().year, 1984, -1)) + YEAR_TAIL
 
 
-def _brand_rows(vt_slug, db_field, user=None):
+def _brand_rows(vt_slug, db_field, user=None, sub_slug=None):
     """Markės su skelbimų kiekiais — VIENA agregacija, be N+1.
 
     Grąžina (top, rest); kiekvienas įrašas: {'value', 'name', 'count'}.
@@ -200,6 +229,8 @@ def _brand_rows(vt_slug, db_field, user=None):
     from apps.listings.views import _public_listings_qs
 
     qs = _public_listings_qs(user).filter(vehicle_type__slug=vt_slug)
+    if sub_slug:
+        qs = qs.filter(subcategory__slug=sub_slug)
 
     if db_field in FK_BRAND_FIELDS:
         from apps.listings import models as m
@@ -222,6 +253,11 @@ def _brand_rows(vt_slug, db_field, user=None):
             from apps.listings.forestry_views import FOREST_BRANDS as ALL_NAMES
         elif db_field == 'camp_brand_text':
             from apps.listings.camping_views import CAMP_BRANDS as ALL_NAMES
+        elif db_field == 'rent_brand_text':
+            # Nuomoje markių sąrašas skiriasi pagal subkategoriją
+            # (automobiliai 229, motociklai 514, sunkusis 251...).
+            from apps.listings.rental_views import SUB_TO_FORM, brands_for
+            ALL_NAMES = brands_for(SUB_TO_FORM.get(sub_slug, 'car'))
         else:
             from apps.listings.trailers_views import TRAILER_BRANDS as ALL_NAMES
         counts = {
@@ -282,7 +318,15 @@ def build_panel(vt_slug, user=None, sub_slug=None):
         }
 
         if f['type'] == 'range':
-            if db == 'year':
+            # own_options: kategorija turi savas pakopas ir bendrosios
+            # netinka — nuomos kaina parai prasideda nuo 5, o pardavimo
+            # pakopos nuo 500, todėl visas sąrašas būtų bevertis.
+            _own_src = f.get('options') or f.get('options_from') or []
+            own = [(o, o) for o in _own_src] if f.get('own_options') else None
+            if own:
+                item['options_min'] = item['options_max'] = own
+                item['free_input'] = True
+            elif db == 'year':
                 item['options_min'] = [(y, y) for y in years]
                 item['options_max'] = [(y, y) for y in years]
             elif db == 'price':
@@ -299,11 +343,21 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
             elif db in TEXT_BRAND_FIELDS or db in FK_BRAND_FIELDS:
                 item['widget'] = 'brand'
-                item['brands_top'], item['brands_rest'] = _brand_rows(vt_slug, db, user)
+                item['brands_top'], item['brands_rest'] = _brand_rows(
+                    vt_slug, db, user, sub_slug)
                 item['only_with_ads_toggle'] = bool(f.get('only_with_ads_toggle'))
+            elif db in FK_CHOICE_FIELDS:
+                item['options'] = _fk_options(db, f.get('options'))
             else:
                 attr = CHOICES_BY_DB_FIELD.get(db)
                 item['options'] = list(getattr(Listing, attr)) if attr else []
+                # Viena kategorija gali rodyti tik dalį bendrų choices —
+                # nuomos „Tipas" sec 33 turi 7 reikšmes, sec 34 kitas 6,
+                # o modelyje jos laikomos viename sąraše.
+                if f.get('limit_to_options') and f.get('options'):
+                    _want = {str(o).strip() for o in f['options']}
+                    item['options'] = [(v, l) for v, l in item['options']
+                                       if str(l) in _want]
 
         fields.append(item)
 
@@ -352,7 +406,12 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         }
 
         if f['type'] == 'range':
-            if db == 'year':
+            _own_src = f.get('options') or f.get('options_from') or []
+            own = [(o, o) for o in _own_src] if f.get('own_options') else None
+            if own:
+                item['options_min'] = item['options_max'] = own
+                item['free_input'] = True
+            elif db == 'year':
                 item['options_min'] = item['options_max'] = [(y, y) for y in years]
             elif db == 'price':
                 item['options_min'], item['options_max'] = price_min, price_max
@@ -363,8 +422,11 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         elif f['type'] in ('select', 'multiselect'):
             if db in TEXT_BRAND_FIELDS or db in FK_BRAND_FIELDS:
                 item['widget'] = 'brand'
-                item['brands_top'], item['brands_rest'] = _brand_rows(vt_slug, db, user)
+                item['brands_top'], item['brands_rest'] = _brand_rows(
+                    vt_slug, db, user, sub_slug)
                 item['only_with_ads_toggle'] = True
+            elif db in FK_CHOICE_FIELDS:
+                item['options'] = _fk_options(db, f.get('options'))
             elif db in DISTINCT_VALUE_FIELDS:
                 item['options'] = _distinct_options(vt_slug, db, user)
             elif db == 'country':
@@ -380,6 +442,13 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
             else:
                 attr = CHOICES_BY_DB_FIELD.get(db)
                 item['options'] = list(getattr(Listing, attr)) if attr else []
+                # Viena kategorija gali rodyti tik dalį bendrų choices —
+                # nuomos „Tipas" sec 33 turi 7 reikšmes, sec 34 kitas 6,
+                # o modelyje jos laikomos viename sąraše.
+                if f.get('limit_to_options') and f.get('options'):
+                    _want = {str(o).strip() for o in f['options']}
+                    item['options'] = [(v, l) for v, l in item['options']
+                                       if str(l) in _want]
 
         fields.append(item)
 

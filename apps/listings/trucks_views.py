@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+from .search_config import panels as panel_config
 from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce
 from datetime import date, timedelta
@@ -1148,6 +1149,17 @@ def trucks_list(request):
         'selected_body_types': [],
         'equipment_by_category': [],
         'selected_equipment': [],
+        # Deklaratyvios panelės (priekabos, žemės ūkis, nuoma...) — rail'as
+        # leidžia į jas persijungti ir iš šio puslapio, todėl kontekstas
+        # turi būti toks pat kaip listing_list; kitaip panelės būtų tuščios.
+        'config_panels': {
+            slug: panel_config.build_panel(slug, request.user)
+            for slug in panel_config.active_categories()
+        },
+        'config_panels_sub': {
+            sub: panel_config.build_panel(cfg['vt_slug'], request.user, sub_slug=sub)
+            for sub, cfg in panel_config.PANELS_BY_SUB.items()
+        },
         'selected_subcategory_name': '',
         'search_query': request.GET.get('search', ''),
     })

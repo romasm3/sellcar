@@ -176,11 +176,29 @@ CAMP_EQUIPMENT_DEFINITION = [
 
 
 # vehicle_type slug → definicijų sąrašas
+# ═══════════════════════════════════════════════════════════
+# TRANSPORTO NUOMA — 3 ypatumai, bendri keturioms subkategorijoms
+# (motociklų nuoma etalone ypatumų neturi).
+#
+# Prefiksas 'rent_' privalomas: „Kaina su vairuotoju" ir kiti nuomos
+# sąlygų punktai kitose kategorijose neegzistuoja, bet prefiksas laiko
+# juos izoliuotus ir ateičiai — žr. panels.EQUIPMENT_PREFIX.
+# ═══════════════════════════════════════════════════════════
+RENT_EQUIPMENT_DEFINITION = [
+    ('rent_terms', 'Nuomos sąlygos', [
+        'Kaina su vairuotoju',
+        'Nuolaidos ilgesniam laikotarpiui',
+        'Nuomojamas tik su vairuotoju',
+    ]),
+]
+
+
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
     'loading-equipment': LOAD_EQUIPMENT_DEFINITION,
     'camping-houses': CAMP_EQUIPMENT_DEFINITION,
+    'rental': RENT_EQUIPMENT_DEFINITION,
 }
 
 

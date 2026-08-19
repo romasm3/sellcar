@@ -33216,10 +33216,10 @@
       "Zuk",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Modelis",
@@ -33240,10 +33240,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Nuomos kaina parai",
@@ -33272,10 +33272,13 @@
       "250",
       "300"
      ],
-     "db_field": null,
+     "db_field": "price",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "price_min",
+     "param_max": "price_max",
+     "own_options": true
     },
     {
      "label": "Nuomos kaina valandai",
@@ -33303,10 +33306,13 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Sėdimų vietų skaičius",
@@ -33324,10 +33330,12 @@
       "8",
       "9"
      ],
-     "db_field": null,
+     "db_field": "seats_count",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Kuro tipas",
@@ -33348,10 +33356,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Metai",
@@ -33438,10 +33446,10 @@
       "Pikapas",
       "Limuzinas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "body_type",
+     "param": "body_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Darbinis tūris (litrai)",
@@ -33476,10 +33484,12 @@
       "5.0",
       "8.0"
      ],
-     "db_field": null,
+     "db_field": "engine_capacity",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_min",
+     "param_max": "engine_max"
     },
     {
      "label": "Galia, kW",
@@ -33489,25 +33499,27 @@
      "free_input": true,
      "unit": "kW",
      "options": [
-      "1 kW (1.34 AG)",
-      "25 kW (34 AG)",
-      "35 kW (48 AG)",
-      "44 kW (60 AG)",
-      "55 kW (75 AG)",
-      "66 kW (90 AG)",
-      "74 kW (100 AG)",
-      "85 kW (116 AG)",
-      "96 kW (130 AG)",
-      "110 kW (150 AG)",
-      "147 kW (200 AG)",
-      "184 kW (250 AG)",
-      "235 kW (320 AG)",
-      "279 kW (379 AG)"
+      "1",
+      "25",
+      "35",
+      "44",
+      "55",
+      "66",
+      "74",
+      "85",
+      "96",
+      "110",
+      "147",
+      "184",
+      "235",
+      "279"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Durų skaičius",
@@ -33518,10 +33530,10 @@
       "4/5",
       "6/7"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "doors",
+     "param": "doors",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -33963,10 +33975,10 @@
       "Zuk",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Modelis",
@@ -34006,10 +34018,12 @@
       "19",
       "20"
      ],
-     "db_field": null,
+     "db_field": "seats_count",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Pavarų dėžė",
@@ -34019,10 +34033,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Nuomos kaina parai",
@@ -34051,10 +34065,13 @@
       "400",
       "500"
      ],
-     "db_field": null,
+     "db_field": "price",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "price_min",
+     "param_max": "price_max",
+     "own_options": true
     },
     {
      "label": "Nuomos kaina valandai",
@@ -34079,10 +34096,13 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Kuro tipas",
@@ -34103,10 +34123,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Metai",
@@ -34371,7 +34391,8 @@
    ],
    "results_url": "/skelbimai/limuzinu-vestuviu-transporto-nuoma/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Pavarų dėžė: f_10; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Metai: f_41; Metai: f_42; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1063; Nuolaidos ilgesniam laikotarpiui: a_1060; Nuomojamas tik su vairuotoju: a_1057; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "limo-wedding-rental"
   },
   {
    "name": "Motociklų nuoma",
@@ -34383,10 +34404,10 @@
      "label": "Markė",
      "type": "select",
      "name": "f_1[]",
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Modelis",
@@ -34417,10 +34438,10 @@
       "Sportinis / Superbike",
       "Triratis"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "motorcycle_type",
+     "param": "motorcycle_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Nuomos kaina parai",
@@ -34449,10 +34470,13 @@
       "250",
       "300"
      ],
-     "db_field": null,
+     "db_field": "price",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "price_min",
+     "param_max": "price_max",
+     "own_options": true
     },
     {
      "label": "Nuomos kaina valandai",
@@ -34480,10 +34504,13 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -34590,10 +34617,12 @@
       "2200",
       "2500"
      ],
-     "db_field": null,
+     "db_field": "engine_capacity_cc",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_cc_min",
+     "param_max": "engine_cc_max"
     },
     {
      "label": "Galia, kW",
@@ -34603,22 +34632,24 @@
      "free_input": true,
      "unit": "kW",
      "options": [
-      "1 KW (1.34 AG)",
-      "10 KW (14 AG)",
-      "15 KW (20 AG)",
-      "20 KW (27 AG)",
-      "25 KW (34 AG)",
-      "35 KW (47 AG)",
-      "44 KW (59 AG)",
-      "55 KW (74 AG)",
-      "66 KW (89 AG)",
-      "85 KW (114 AG)",
-      "96 KW (131 AG)"
+      "1",
+      "10",
+      "15",
+      "20",
+      "25",
+      "35",
+      "44",
+      "55",
+      "66",
+      "85",
+      "96"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Kuro tipas",
@@ -34628,10 +34659,10 @@
       "Benzinas",
       "Elektra"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Aušinimas",
@@ -34642,10 +34673,10 @@
       "Skysčiu",
       "Mišrus"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "cooling_type",
+     "param": "cooling_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Spalva",
@@ -34835,7 +34866,8 @@
    ],
    "results_url": "/skelbimai/motociklu-nuoma/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Motociklo tipas: f_24[1]…f_24[12] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Metai: f_41; Metai: f_42; Darbinis tūris cm³: f_133; Darbinis tūris cm³: f_134; Galia, kW: f_135; Galia, kW: f_136; Kuro tipas: f_137; Aušinimas: f_55; Spalva: f_5; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "motorcycle-rental"
   },
   {
    "name": "Mikroautobusų, turistinio, vandens tr. nuoma",
@@ -34856,10 +34888,11 @@
       "Prikabinamas namelis",
       "Turistinis automobilis"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_type",
+     "param": "rent_type",
      "multi": false,
-     "active": false
+     "active": true,
+     "limit_to_options": true
     },
     {
      "label": "Markė",
@@ -35096,10 +35129,10 @@
       "Zuk",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Kuro tipas",
@@ -35120,10 +35153,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Miegamų vietų skaičius",
@@ -35142,10 +35175,12 @@
       "9",
       "10"
      ],
-     "db_field": null,
+     "db_field": "sleeping_seats",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "sleeping_min",
+     "param_max": "sleeping_max"
     },
     {
      "label": "Sėdimų vietų skaičius",
@@ -35168,10 +35203,12 @@
       "40",
       "50"
      ],
-     "db_field": null,
+     "db_field": "seats_count",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Metai",
@@ -35266,10 +35303,13 @@
       "250",
       "300"
      ],
-     "db_field": null,
+     "db_field": "price",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "price_min",
+     "param_max": "price_max",
+     "own_options": true
     },
     {
      "label": "Nuomos kaina valandai",
@@ -35297,10 +35337,13 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Šalis",
@@ -35499,7 +35542,8 @@
    ],
    "results_url": "/skelbimai/mikroautobusu-turistinio-transporto-nuoma/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Miegamų vietų skaičius: f_355; Miegamų vietų skaičius: f_356; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Metai: f_41; Metai: f_42; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1072; Nuolaidos ilgesniam laikotarpiui: a_1069; Nuomojamas tik su vairuotoju: a_1066; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "minibus-touring-water-rental"
   },
   {
    "name": "Sunkiojo transporto, priekabų nuoma",
@@ -35519,10 +35563,11 @@
       "Sandėliavimo, krovimo technika",
       "Priekaba"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_type",
+     "param": "rent_type",
      "multi": false,
-     "active": false
+     "active": true,
+     "limit_to_options": true
     },
     {
      "label": "Markė",
@@ -35781,10 +35826,10 @@
       "Zremb",
       "Zuk"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Kuro tipas",
@@ -35805,10 +35850,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Bendroji masė kg",
@@ -35822,10 +35867,12 @@
       "12000",
       "20000"
      ],
-     "db_field": null,
+     "db_field": "gross_weight_kg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "gross_weight_min",
+     "param_max": "gross_weight_max"
     },
     {
      "label": "Keliamoji galia kg",
@@ -35839,10 +35886,12 @@
       "10000",
       "20000"
      ],
-     "db_field": null,
+     "db_field": "payload_kg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "payload_min",
+     "param_max": "payload_max"
     },
     {
      "label": "Metai",
@@ -35937,10 +35986,13 @@
       "250",
       "300"
      ],
-     "db_field": null,
+     "db_field": "price",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "price_min",
+     "param_max": "price_max",
+     "own_options": true
     },
     {
      "label": "Nuomos kaina valandai",
@@ -35968,10 +36020,13 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Šalis",
@@ -36170,7 +36225,8 @@
    ],
    "results_url": "/skelbimai/sunkiojo-transporto-priekabu-nuoma/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Bendroji masė kg: f_127; Bendroji masė kg: f_128; Keliamoji galia kg: f_125; Keliamoji galia kg: f_126; Metai: f_41; Metai: f_42; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1081; Nuolaidos ilgesniam laikotarpiui: a_1078; Nuomojamas tik su vairuotoju: a_1075; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "heavy-trailer-rental"
   },
   {
    "name": "Video, audio, navigacijos",

@@ -3,6 +3,15 @@ register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
+    """Reikšmė iš žodyno pagal kintamą raktą.
+
+    Kai kintamojo kontekste nėra, Django jį paverčia į '' (string_if_invalid),
+    todėl be šio patikrinimo `''|get_item:'x'` mestų AttributeError ir
+    nugriautų visą puslapį — taip nutiko nuomos panelėje puslapiuose,
+    kurie search_panel.html renderina be config_panels_sub.
+    """
+    if not hasattr(dictionary, 'get'):
+        return ''
     return dictionary.get(key, '')
 
 @register.filter

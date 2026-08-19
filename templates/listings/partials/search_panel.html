@@ -1267,6 +1267,112 @@
       </form>
     </div>
 
+    {# ═══════════ TRANSPORTO NUOMA — penkios subkategorijos (rentSub) ═══════════ #}
+    {# Kiekviena subkategorija turi savo etalono sekciją (31/32/35/33/34),   #}
+    {# todėl ir savo laukų rinkinį — imamas iš config_panels_sub.            #}
+    <div x-show="tab === 'rental'" x-cloak id="sp-panel-rental">
+      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Transporto nuoma" %}</h2>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button type="button" @click="setRentSub('car-rental')"
+                :class="rentSub === 'car-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Automobilių nuoma" %}</button>
+        <button type="button" @click="setRentSub('limo-wedding-rental')"
+                :class="rentSub === 'limo-wedding-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Limuzinų, vestuvių" %}</button>
+        <button type="button" @click="setRentSub('motorcycle-rental')"
+                :class="rentSub === 'motorcycle-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Motociklų nuoma" %}</button>
+        <button type="button" @click="setRentSub('minibus-touring-water-rental')"
+                :class="rentSub === 'minibus-touring-water-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Mikroautobusų, turistinio, vandens tr." %}</button>
+        <button type="button" @click="setRentSub('heavy-trailer-rental')"
+                :class="rentSub === 'heavy-trailer-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Sunkiojo transporto, priekabų" %}</button>
+      </div>
+
+      {# ─────────── AUTOMOBILIŲ NUOMA ─────────── #}
+      <form class="sp-search-form" data-rentsub="car-rental" x-show="rentSub === 'car-rental'" 
+            method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="rental">
+        <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="subcategory" value="car-rental">
+        {# car-rental yra numatytoji nuomos sekcija (31), todėl ji gyvena config_panels, ne _sub #}
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'rental' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
+          </button>
+        </div>
+      </form>
+
+      {# ─────────── LIMUZINŲ, VESTUVIŲ ─────────── #}
+      <form class="sp-search-form" data-rentsub="limo-wedding-rental" x-show="rentSub === 'limo-wedding-rental'" x-cloak 
+            method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="rental">
+        <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="subcategory" value="limo-wedding-rental">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'limo-wedding-rental' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
+          </button>
+        </div>
+      </form>
+
+      {# ─────────── MOTOCIKLŲ NUOMA ─────────── #}
+      <form class="sp-search-form" data-rentsub="motorcycle-rental" x-show="rentSub === 'motorcycle-rental'" x-cloak 
+            method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="rental">
+        <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="subcategory" value="motorcycle-rental">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'motorcycle-rental' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
+          </button>
+        </div>
+      </form>
+
+      {# ─────────── MIKROAUTOBUSŲ, TURISTINIO, VANDENS TR. ─────────── #}
+      <form class="sp-search-form" data-rentsub="minibus-touring-water-rental" x-show="rentSub === 'minibus-touring-water-rental'" x-cloak 
+            method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="rental">
+        <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="subcategory" value="minibus-touring-water-rental">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'minibus-touring-water-rental' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
+          </button>
+        </div>
+      </form>
+
+      {# ─────────── SUNKIOJO TRANSPORTO, PRIEKABŲ ─────────── #}
+      <form class="sp-search-form" data-rentsub="heavy-trailer-rental" x-show="rentSub === 'heavy-trailer-rental'" x-cloak 
+            method="get" action="{% url 'listing_list' %}">
+        <input type="hidden" name="category" value="rental">
+        <input type="hidden" name="sidebar" value="1">
+        <input type="hidden" name="subcategory" value="heavy-trailer-rental">
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'heavy-trailer-rental' %}
+        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+          <button type="submit"
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
     {# ═══════════ TURISTINIAI NAMELIAI ═══════════ #}
     {# Pirma kategorija, kurios greitojoje panelėje yra Miestas #}
     <div x-show="tab === 'camping-houses'" x-cloak id="sp-panel-camping-houses">
@@ -1515,6 +1621,7 @@ function spPanel() {
 
     // ─── DALYS: subkategorija + markės/modelio dropdown'ai kiekvienai ───
     partSub: 'car',
+    rentSub: 'car-rental',
     pd: {
       car:   { bOpen: false, bQ: '', bAll: false, id: '', name: '{% trans "Visos" %}', total: 0,
                mOpen: false, mQ: '', mid: '', mname: '{% trans "Visi" %}', models: [] },
@@ -1538,6 +1645,13 @@ function spPanel() {
     partsCountKey(sub) {
       var map = { car: 'parts', moto: 'moto-parts', truck: 'truck-parts' };
       return map[sub || this.partSub] || 'parts';
+    },
+
+    setRentSub(sub) {
+      this.rentSub = sub;
+      this.counts = Object.assign({}, this.counts, { rental: 0 });
+      this.spin();
+      this.refreshCount(0);
     },
 
     setPartSub(sub) {
@@ -1681,6 +1795,14 @@ function spPanel() {
         this.tab = s;
       }
 
+      // Nuomoje subkategorija turi savo laukų rinkinį — atkuriam ir ją,
+      // kad „daugiau" sąrašo nuoroda atidarytų teisingą formą
+      var sub = p.get('subcategory');
+      if (this.tab === 'rental' && sub &&
+          document.querySelector('form[data-rentsub="' + sub + '"]')) {
+        this.rentSub = sub;
+      }
+
       // Klausom formų pakeitimų — count refresh su debounce
       var self = this;
       this.$el.querySelectorAll('form.sp-search-form').forEach(function(f) {
@@ -1741,6 +1863,10 @@ function spPanel() {
         } else if (self.tab === 'parts') {
           form = panel.querySelector('form[data-partsub="' + self.partSub + '"]');
           cat = self.partsCountKey();
+        } else if (self.tab === 'rental') {
+          // Subkategorija keliauja formos hidden lauku, todėl count
+          // endpoint'as lieka /paieska/count/rental/
+          form = panel.querySelector('form[data-rentsub="' + self.rentSub + '"]');
         } else {
           form = panel.querySelector('form');
         }

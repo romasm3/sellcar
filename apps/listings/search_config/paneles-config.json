@@ -8970,8 +8970,8 @@
      "name": "f_1[0]",
      "placeholder": "Visos",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
      "active": true
     },
     {
@@ -8983,7 +8983,7 @@
      "source": "DB (AJAX pagal markę)",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Nuomos kaina parai",
@@ -9037,7 +9037,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Kuro tipas",
@@ -9156,7 +9157,24 @@
    "advanced_url": "/paieska/automobiliu-nuoma/",
    "slug": "automobiliu-nuoma",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Pavarų dėžė: f_10; Miestas: f_13",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "card_fields": [
+    {
+     "db_field": "body_type",
+     "display": true
+    },
+    {
+     "db_field": "seats_count",
+     "unit": "viet."
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "mileage",
+     "unit": "km"
+    }
+   ]
   },
   {
    "name": "Limuzinų, vestuvių transporto nuoma",
@@ -9399,8 +9417,8 @@
      "name": "f_1[0]",
      "placeholder": "Visos",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
      "active": true
     },
     {
@@ -9412,7 +9430,7 @@
      "source": "DB (AJAX pagal markę)",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Nuomos kaina valandai",
@@ -9437,9 +9455,12 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "rent_price_hour",
      "param": null,
-     "active": true
+     "active": true,
+     "param_min": "rent_hour_min",
+     "param_max": "rent_hour_max",
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -9662,7 +9683,21 @@
    "advanced_url": "/paieska/limuzinu-vestuviu-transporto-nuoma/",
    "slug": "limuzinu-vestuviu-transporto-nuoma",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Metai: f_41; Metai: f_42; Pavarų dėžė: f_10; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "limo-wedding-rental",
+   "card_fields": [
+    {
+     "db_field": "seats_count",
+     "unit": "viet."
+    },
+    {
+     "db_field": "year"
+    },
+    {
+     "db_field": "mileage",
+     "unit": "km"
+    }
+   ]
   },
   {
    "name": "Motociklų nuoma",
@@ -10190,8 +10225,8 @@
      "name": "f_1[0]",
      "placeholder": "Visos",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
      "active": true
     },
     {
@@ -10203,7 +10238,7 @@
      "source": "DB (AJAX pagal markę)",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Nuomos kaina parai",
@@ -10257,7 +10292,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -10395,8 +10431,8 @@
      ],
      "type": "multiselect",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "motorcycle_type",
+     "param": "motorcycle_type",
      "active": true
     },
     {
@@ -10481,7 +10517,21 @@
    "advanced_url": "/paieska/motociklu-nuoma/",
    "slug": "motociklu-nuoma",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Metai: f_41; Metai: f_42; Motociklo tipas: f_24[1]…f_24[12] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Miestas: f_13",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "motorcycle-rental",
+   "card_fields": [
+    {
+     "db_field": "motorcycle_type",
+     "display": true
+    },
+    {
+     "db_field": "engine_capacity_cc",
+     "unit": "cm³"
+    },
+    {
+     "db_field": "year"
+    }
+   ]
   },
   {
    "name": "Mikroautobusų, turistinio, vandens tr. nuoma",
@@ -10501,9 +10551,10 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
-     "active": true
+     "db_field": "rent_type",
+     "param": "rent_type",
+     "active": true,
+     "limit_to_options": true
     },
     {
      "label": "Markė",
@@ -10742,8 +10793,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
      "active": true
     },
     {
@@ -10793,7 +10844,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -11018,7 +11070,21 @@
    "advanced_url": "/paieska/mikroautobusu-turistinio-transporto-nuoma/",
    "slug": "mikroautobusu-turistinio-transporto-nuoma",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Metai: f_41; Metai: f_42; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Miestas: f_13",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "minibus-touring-water-rental",
+   "card_fields": [
+    {
+     "db_field": "rent_type",
+     "display": true
+    },
+    {
+     "db_field": "seats_count",
+     "unit": "viet."
+    },
+    {
+     "db_field": "year"
+    }
+   ]
   },
   {
    "name": "Sunkiojo transporto, priekabų nuoma",
@@ -11037,9 +11103,10 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
-     "active": true
+     "db_field": "rent_type",
+     "param": "rent_type",
+     "active": true,
+     "limit_to_options": true
     },
     {
      "label": "Markė",
@@ -11300,8 +11367,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "rent_brand_text",
+     "param": "rent_brand_text",
      "active": true
     },
     {
@@ -11355,7 +11422,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -11580,7 +11648,21 @@
    "advanced_url": "/paieska/sunkiojo-transporto-priekabu-nuoma/",
    "slug": "sunkiojo-transporto-priekabu-nuoma",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Metai: f_41; Metai: f_42; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Miestas: f_13",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "subcategory_slug": "heavy-trailer-rental",
+   "card_fields": [
+    {
+     "db_field": "rent_type",
+     "display": true
+    },
+    {
+     "db_field": "payload_kg",
+     "unit": "kg"
+    },
+    {
+     "db_field": "year"
+    }
+   ]
   },
   {
    "name": "Video, audio, navigacijos",

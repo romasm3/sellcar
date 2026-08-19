@@ -279,14 +279,18 @@ class Listing(models.Model):
     ]
 
     # ═══ COLOR — 'Other' first ═══
+    # 15 reikšmių pagal autogidas etaloną. Sidabrinė / Pilka / Smėlio /
+    # Auksinė pridėtos nuomos vertikalėje; senų raktų NEKEIČIAM, kad esami
+    # skelbimai liktų galioję — tik lt vertimai sutrumpinti iki pagrindinio
+    # atspalvio („Žalia / chaki" → „Žalia"), nes dabar atspalviai atskiri.
     COLOR_CHOICES = [
-        ('other', _('Other')),
-        ('white', _('White')), ('black', _('Black')),
-        ('red', _('Red / Burgundy')), ('blue', _('Blue')),
-        ('green_khaki', _('Green / Khaki')), ('yellow_gold', _('Yellow / Gold')),
-        ('orange', _('Orange')), ('purple', _('Purple')),
-        ('brown_beige', _('Brown / Beige')),
-        ('multicolor', _('Multicolor')),
+        ('black', _('Black')), ('silver', _('Silver')), ('grey', _('Grey')),
+        ('blue', _('Blue')), ('white', _('White')),
+        ('red', _('Red / Burgundy')), ('green_khaki', _('Green / Khaki')),
+        ('beige', _('Beige')), ('brown_beige', _('Brown / Beige')),
+        ('gold', _('Gold')), ('yellow_gold', _('Yellow / Gold')),
+        ('purple', _('Purple')), ('orange', _('Orange')),
+        ('multicolor', _('Multicolor')), ('other', _('Other')),
     ]
 
     DEFECT_CHOICES = [
@@ -299,7 +303,8 @@ class Listing(models.Model):
         ('minor_defects', _('Kiti smulkūs defektai')),
     ]
 
-    DOOR_CHOICES = [('2/3', _('2/3 doors')), ('4/5', _('4/5 doors'))]
+    DOOR_CHOICES = [('2/3', _('2/3 doors')), ('4/5', _('4/5 doors')),
+                    ('6/7', _('6/7 doors'))]
 
     STEERING_CHOICES = [
         ('left', _('Left-hand drive')),
@@ -339,11 +344,16 @@ class Listing(models.Model):
         ('motocross', _('Motocross')), ('chopper', _('Chopper')),
         ('naked', _('Naked')), ('scooter', _('Scooter')),
         ('moped', _('Moped')), ('atv', _('ATV / Quad')),
-        ('trike', _('Trike')), ('other', _('Other')),
+        ('trike', _('Trike')),
+        # Nuomos vertikalė: etalone yra ir šitie trys
+        ('kart', _('Kart')), ('mini_bike', _('Mini bike')),
+        ('snowmobile', _('Snowmobile')),
+        ('other', _('Other')),
     ]
 
     COOLING_TYPE_CHOICES = [
         ('air', _('Air-cooled')), ('water', _('Water-cooled')), ('oil', _('Oil-cooled')),
+        ('mixed', _('Mixed cooling')),
     ]
 
     MOTO_ENGINE_TYPE_CHOICES = [
@@ -694,6 +704,7 @@ class Listing(models.Model):
     TRAILER_KIND_CHOICES = [
         ('trailer', _('Priekaba')),
         ('semi_trailer', _('Puspriekabė')),
+        ('light_car_trailer', _('Lengvojo automobilio priekaba')),
     ]
 
     # Paskirtis — 22 reikšmės (autogidas.lt). subcategory išvedama iš šito,
@@ -1108,6 +1119,53 @@ class Listing(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name=_('Padangų likutis %'),
     )
+
+    # ═══════════════════════════════════════════════════════════
+    # TRANSPORTO NUOMA (vehicle_type slug='rental', 5 subkategorijos)
+    #
+    # „Nuomos kaina parai" saugoma bendrame `price` lauke — ji privaloma
+    # visose penkiose etalono sekcijose, todėl kortelės, rikiavimas ir
+    # kainos diapazono filtras veikia be atskiro stulpelio. Valandinė
+    # kaina neprivaloma, todėl jai reikia savo lauko.
+    #
+    # Sėdimoms vietoms NEUŽTENKA `seats` (CharField, choices iki „9+"):
+    # etalone tai diapazono filtras iki 25, o diapazonas ant CharField
+    # lygintų leksikografiškai („10" < „9").
+    # ═══════════════════════════════════════════════════════════
+    RENT_TYPE_CHOICES = [
+        # sec 33 — Mikroautobusų, turistinio, vandens transporto nuoma
+        ('bus', _('Autobusas')),
+        ('water', _('Vandens transportas')),
+        ('moto_rental', _('Motociklų nuoma')),
+        ('passenger_minibus', _('Keleivinis mikroautobusas')),
+        ('cargo_minibus', _('Krovininis mikroautobusas')),
+        ('towed_house', _('Prikabinamas namelis')),
+        ('touring_car', _('Turistinis automobilis')),
+        # sec 34 — Sunkiojo transporto, priekabų nuoma
+        ('road_train', _('Autotraukinys')),
+        ('agri_constr', _('Žemės ūkio, statybos transportas')),
+        ('truck', _('Sunkvežimis')),
+        ('tractor_unit', _('Vilkikas')),
+        ('warehouse', _('Sandėliavimo, krovimo technika')),
+        ('trailer', _('Priekaba')),
+    ]
+    rent_type = models.CharField(
+        max_length=20, choices=RENT_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    rent_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Markė'),
+    )
+    rent_price_hour = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True,
+        verbose_name=_('Nuomos kaina valandai'),
+    )
+    seats_count = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(99)],
+        verbose_name=_('Sėdimų vietų skaičius'),
+    )
+    metallic = models.BooleanField(default=False, verbose_name=_('Metalikas'))
 
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,

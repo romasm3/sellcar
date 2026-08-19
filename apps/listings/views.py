@@ -162,6 +162,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
     'camping-houses',
+    'rental',
     'forestry',
     'loading-equipment',
     'construction',
@@ -219,6 +220,17 @@ CREATE_URL_BY_VEHICLE_TYPE = {
     'camping-houses': '/create/camping-houses/?new=1',
     'boats':    '/create/boats/?new=1',
     'trailers': '/create/trailers/?new=1',
+}
+
+# Nuomos subkategorija → kuri iš keturių formų ją aptarnauja.
+# Šaltinis — rental_views.SUB_TO_FORM (čia pakartota, kad views.py
+# neimportuotų rental_views ir neatsirastų ciklinis importas).
+RENTAL_SUB_TO_FORM = {
+    'car-rental': 'car',
+    'limo-wedding-rental': 'car',
+    'motorcycle-rental': 'moto',
+    'minibus-touring-water-rental': 'minibus',
+    'heavy-trailer-rental': 'heavy',
 }
 
 # ═══════════════════════════════════════════════════════════
@@ -392,6 +404,16 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     if not subcategory_slug and vt_slug in CREATE_URL_BY_VEHICLE_TYPE:
         return redirect(CREATE_URL_BY_VEHICLE_TYPE[vt_slug])
 
+    # ═══ TRANSPORTO NUOMA → keturios formos penkioms subkategorijoms ═══
+    # Automobilių ir limuzinų nuoma dalinasi viena forma; subkategorija
+    # ten renkama formos lauke, URL ?sub= tik preselekcijai.
+    if vt_slug == 'rental':
+        _form = RENTAL_SUB_TO_FORM.get(subcategory_slug or 'car-rental', 'car')
+        _url = f'/create/rental/{_form}/?new=1'
+        if _form == 'car' and subcategory_slug:
+            _url += f'&sub={subcategory_slug}'
+        return redirect(_url)
+
     if subcategory_slug == 'motorcycles':
         return redirect('/create/motorcycle/?new=1')
 
@@ -513,6 +535,7 @@ def _build_picker_tree(user):
         ('rental',            'Automobilių nuoma',                    '🔑', None),
         ('rental',            'Limuzinų, vestuvių transporto nuoma',  '🥂', 294),
         ('rental',            'Motociklų nuoma',                      '🏍', 295),
+        ('rental',            'Mikroautobusų, turistinio, vandens tr. nuoma', '🚐', 317),
         ('rental',            'Sunkiojo transporto, priekabų nuoma',  '🚛', 296),
         ('electronics',       'Video, audio, navigacijos',            '📻', None),
         ('services',          'Paslaugos',                            '🔧', None),
@@ -577,6 +600,7 @@ EQUIPMENT_CATEGORY_LABELS = {
     'camp_safety': 'Sauga',
     'camp_interior': 'Interjeras ir buitis',
     'camp_other': 'Kita įranga',
+    'rent_terms': 'Nuomos sąlygos',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -588,6 +612,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'agri_drivetrain', 'agri_mount', 'agri_other',
     'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
     'camp_electronics', 'camp_assist', 'camp_safety', 'camp_interior', 'camp_other',
+    'rent_terms',
     'gear',
 ]
 
@@ -645,6 +670,7 @@ EQUIPMENT_CATEGORY_LABELS = {
     'camp_safety': 'Sauga',
     'camp_interior': 'Interjeras ir buitis',
     'camp_other': 'Kita įranga',
+    'rent_terms': 'Nuomos sąlygos',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -656,6 +682,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'agri_drivetrain', 'agri_mount', 'agri_other',
     'load_cabin', 'load_hydraulics', 'load_platform', 'load_surface',
     'camp_electronics', 'camp_assist', 'camp_safety', 'camp_interior', 'camp_other',
+    'rent_terms',
     'gear',
 ]
 
@@ -1183,7 +1210,13 @@ def listing_list(request):
         listings = listings.filter(vehicle_type__slug=category_filter)
     subcategory_filter = request.GET.get('subcategory')
     if subcategory_filter:
-        listings = listings.filter(subcategory_id=subcategory_filter)
+        # Priima ir id, ir slug'ą — kaip filter_listings. Nuomos panelė
+        # siunčia slug'ą (jis skaitomas URL'e ir stabilus), o be šito
+        # šaka mestų ValueError: Field 'id' expected a number.
+        if str(subcategory_filter).isdigit():
+            listings = listings.filter(subcategory_id=subcategory_filter)
+        else:
+            listings = listings.filter(subcategory__slug=subcategory_filter)
 
     # ═══ PRIEKABOS — išplėstiniai laukai (dar ne konfigūracijoje) ═══
     if category_filter == 'trailers':
@@ -1464,6 +1497,7 @@ def listing_list(request):
         ('rental',            'Automobilių nuoma',                    'M15 7a4 4 0 11-1 3l-6 6H5v-2l6-6a4 4 0 013-1z', None),
         ('rental',            'Limuzinų, vestuvių transporto nuoma',  'M2 12h20v4H2zM4 12l2-4h9l3 4M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 294),
         ('rental',            'Motociklų nuoma',                      'M5 17a3 3 0 100-6 3 3 0 000 6zM19 17a3 3 0 100-6 3 3 0 000 6zM8 14h5l3-4h3M11 10h4', 295),
+        ('rental',            'Mikroautobusų, turistinio, vandens tr. nuoma', 'M3 8h13v8H3zM16 11h3l2 3v2h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM15 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM6 8v8M10 8v8', 317),
         ('rental',            'Sunkiojo transporto, priekabų nuoma',  'M3 6h10v9H3zM13 9h4l3 3v3h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 296),
         ('electronics',       'Video, audio, navigacijos',            'M3 5h18v11H3zM8 20h8M12 16v4', None),
         ('services',          'Paslaugos',                            'M14 7a3 3 0 00-4 4l-6 6 2 2 6-6a3 3 0 004-4l-2 2-2-2z', None),
@@ -2947,6 +2981,10 @@ def listing_edit(request, pk):
         return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
         return redirect(f'/create/camping-houses/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
+        _sub = listing.subcategory.slug if listing.subcategory else ''
+        return redirect(
+            f'/create/rental/{RENTAL_SUB_TO_FORM.get(_sub, "car")}/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3814,6 +3852,10 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
         return redirect(f'/create/camping-houses/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
+        _sub = listing.subcategory.slug if listing.subcategory else ''
+        return redirect(
+            f'/create/rental/{RENTAL_SUB_TO_FORM.get(_sub, "car")}/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -3908,6 +3950,10 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
         return redirect(f'/create/camping-houses/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
+        _sub = listing.subcategory.slug if listing.subcategory else ''
+        return redirect(
+            f'/create/rental/{RENTAL_SUB_TO_FORM.get(_sub, "car")}/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -4134,6 +4180,10 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/forestry/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'camping-houses':
         return redirect(f'/create/camping-houses/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
+        _sub = listing.subcategory.slug if listing.subcategory else ''
+        return redirect(
+            f'/create/rental/{RENTAL_SUB_TO_FORM.get(_sub, "car")}/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'loading-equipment':
         return redirect(f'/create/loading-equipment/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'construction':
@@ -6585,7 +6635,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses', 'rental'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB

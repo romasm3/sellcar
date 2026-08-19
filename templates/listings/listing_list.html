@@ -762,9 +762,21 @@ a.sp-rail-btn { text-decoration:none; }
                         <div class="h-info-side">
                             <div class="ap-title-row">
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
-                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}</div>
                             </div>
-                            {% if listing.vehicle_type.slug == 'camping-houses' %}
+                            {% if listing.vehicle_type.slug == 'rental' %}
+                            <div class="ap-spec-line">
+                                {% if listing.rent_type %}<span>{{ listing.get_rent_type_display }}</span>
+                                {% elif listing.motorcycle_type %}<span>{{ listing.get_motorcycle_type_display }}</span>
+                                {% elif listing.body_type %}<span>{{ listing.get_body_type_display }}</span>{% endif %}
+                                {% if listing.seats_count %}<span class="sep">·</span><span>{{ listing.seats_count }} {% trans "viet." %}</span>{% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                <span>{{ listing.year }}</span>
+                                {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.currency_symbol }}{{ listing.rent_price_hour|floatformat:0 }}/{% trans "val." %}</span>{% endif %}
+                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                            </div>
+                            {% elif listing.vehicle_type.slug == 'camping-houses' %}
                             <div class="ap-spec-line">
                                 {% if listing.camp_type %}<span>{{ listing.get_camp_type_display }}</span>{% endif %}
                                 {% if listing.sleeping_seats %}<span class="sep">·</span><span>{{ listing.sleeping_seats }} {% trans "miegamos v." %}</span>{% endif %}
@@ -955,9 +967,22 @@ a.sp-rail-btn { text-decoration:none; }
                 <div class="p-2.5 flex flex-col gap-1">
                     <div class="ap-title-row">
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
-                        <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}</div>
                     </div>
-                    {% if listing.vehicle_type.slug == 'camping-houses' %}
+                    {% if listing.vehicle_type.slug == 'rental' %}
+                    {# ── TRANSPORTO NUOMOS kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.rent_type %}<span>{{ listing.get_rent_type_display }}</span>
+                        {% elif listing.motorcycle_type %}<span>{{ listing.get_motorcycle_type_display }}</span>
+                        {% elif listing.body_type %}<span>{{ listing.get_body_type_display }}</span>{% endif %}
+                        {% if listing.seats_count %}<span class="sep">·</span><span>{{ listing.seats_count }} {% trans "viet." %}</span>{% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        <span>{{ listing.year }}</span>
+                        {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.currency_symbol }}{{ listing.rent_price_hour|floatformat:0 }}/{% trans "val." %}</span>{% endif %}
+                        {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                    </div>
+                    {% elif listing.vehicle_type.slug == 'camping-houses' %}
                     {# ── TURISTINIŲ NAMELIŲ kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         {% if listing.camp_type %}<span>{{ listing.get_camp_type_display }}</span>{% endif %}

@@ -15,6 +15,7 @@ from . import construction_views
 from . import loading_views
 from . import forestry_views
 from . import camping_views
+from . import rental_views
 from . import wheels_views
 from .decorators import staff_only
 
@@ -43,6 +44,10 @@ urlpatterns = [
     path("create/loading-equipment/", loading_views.loading_listing_create, name="loading_listing_create"),
     path("create/forestry/", forestry_views.forestry_listing_create, name="forestry_listing_create"),
     path("create/camping-houses/", camping_views.camping_listing_create, name="camping_listing_create"),
+    path("create/rental/car/", rental_views.rental_car_create, name="rental_car_create"),
+    path("create/rental/moto/", rental_views.rental_moto_create, name="rental_moto_create"),
+    path("create/rental/minibus/", rental_views.rental_minibus_create, name="rental_minibus_create"),
+    path("create/rental/heavy/", rental_views.rental_heavy_create, name="rental_heavy_create"),
     path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
     path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
     path("create/rims/", wheels_views.rims_create, name="rims_create"),

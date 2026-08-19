@@ -1279,7 +1279,7 @@ msgstr "Juoda"
 
 #: apps/listings/models.py:285 apps/listings/models.py:2374
 msgid "Red / Burgundy"
-msgstr "Raudona / bordo"
+msgstr "Raudona"
 
 #: apps/listings/models.py:285 apps/listings/models.py:2374
 msgid "Blue"
@@ -1287,11 +1287,11 @@ msgstr "Mėlyna"
 
 #: apps/listings/models.py:286 apps/listings/models.py:2375
 msgid "Green / Khaki"
-msgstr "Žalia / chaki"
+msgstr "Žalia"
 
 #: apps/listings/models.py:286 apps/listings/models.py:2375
 msgid "Yellow / Gold"
-msgstr "Geltona / auksinė"
+msgstr "Geltona"
 
 #: apps/listings/models.py:287 apps/listings/models.py:2376
 msgid "Orange"
@@ -1303,7 +1303,7 @@ msgstr "Violetinė"
 
 #: apps/listings/models.py:288 apps/listings/models.py:2376
 msgid "Brown / Beige"
-msgstr "Ruda / smėlinė"
+msgstr "Ruda"
 
 #: apps/listings/models.py:289 apps/listings/models.py:2377
 msgid "Multicolor"
@@ -15050,3 +15050,39 @@ msgstr "Django administratorius"
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#: apps/listings/models.py
+msgid "Silver"
+msgstr "Sidabrinė"
+
+#: apps/listings/models.py
+msgid "Grey"
+msgstr "Pilka"
+
+#: apps/listings/models.py
+msgid "Beige"
+msgstr "Smėlio"
+
+#: apps/listings/models.py
+msgid "Gold"
+msgstr "Auksinė"
+
+#: apps/listings/models.py
+msgid "6/7 doors"
+msgstr "6/7 durų"
+
+#: apps/listings/models.py
+msgid "Kart"
+msgstr "Kartingas"
+
+#: apps/listings/models.py
+msgid "Mini bike"
+msgstr "Mini motociklas"
+
+#: apps/listings/models.py
+msgid "Snowmobile"
+msgstr "Sniego motociklas"
+
+#: apps/listings/models.py
+msgid "Mixed cooling"
+msgstr "Mišrus aušinimas"
