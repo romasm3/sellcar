@@ -19,21 +19,21 @@
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
             <h2 class="text-xl font-bold text-gray-900">
                 {% if is_edit_mode %}
-                    {% trans "Redaguoti skelbimą" %}: {{ listing.title }}
+                    {% trans "Redaguoti skelbimą" %}: {{ listing.elec_brand_text }} {{ listing.constr_model_text }}
                 {% else %}
-                    {% trans "Naujas skelbimas" %}: {% if subcategory_name %}{{ subcategory_name }}{% else %}{% trans "Paslaugos" %}{% endif %}
+                    {% trans "Naujas skelbimas" %}: {% if subcategory_name %}{{ subcategory_name }}{% else %}{% trans "Video, audio, navigacijos" %}{% endif %}
                 {% endif %}
             </h2>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" id="svcForm"
-              action="{% if is_edit_mode %}{% url 'services_listing_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'services_listing_create' %}{% endif %}">
+        <form x-data="{ elecType: '{{ current_type }}', get powerRequired() { return {{ power_required_types|safe }}.includes(this.elecType) } }" method="POST" enctype="multipart/form-data" id="elecForm"
+              action="{% if is_edit_mode %}{% url 'electronics_listing_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'electronics_listing_create' %}{% endif %}">
             {% csrf_token %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ═══════════════════════════════════════════════════════════ #}
             {# SECTION: PAGRINDINIAI DUOMENYS                              #}
-            {# Pavadinimą rašo vartotojas, kaina neprivaloma                #}
+            {# „Galingumas W" privalomas tik garsiakalbiams (etalonas)      #}
             {# ═══════════════════════════════════════════════════════════ #}
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
                 <div class="px-6 py-3 border-b border-gray-100">
@@ -42,18 +42,20 @@
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-                        <div data-field-wrap="title" data-required="true" class="md:col-span-2">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Pavadinimas" %} <span class="text-red-500">*</span></label>
-                            <input type="text" name="title" id="id_title" maxlength="{{ title_max }}"
-                                   placeholder="{% trans 'Pvz.: Kėbulo remontas ir dažymas' %}"
-                                   value="{{ listing.title|default:'' }}"
-                                   oninput="if(this.value) markFieldError('title', false)"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        <div data-field-wrap="condition" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Būklė" %} <span class="text-red-500">*</span></label>
+                            <select name="condition" id="id_condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in condition_choices %}
+                                <option value="{{ value }}" {% if listing.condition == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
-                        <div data-field-wrap="service_type" data-required="true" class="md:col-span-2">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Paslaugos tipas" %} <span class="text-red-500">*</span></label>
-                            <select name="service_type" id="id_service_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        <div data-field-wrap="elec_type" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Tipas" %} <span class="text-red-500">*</span></label>
+                            <select name="elec_type" id="id_elec_type" x-model="elecType"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for value, label in type_choices %}
                                 <option value="{{ value }}" {% if current_type == value %}selected{% endif %}>{{ label }}</option>
@@ -61,19 +63,79 @@
                             </select>
                         </div>
 
-                        <div class="md:col-span-2">
+                        <div data-field-wrap="elec_brand_text" data-required="true">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Gamintojas" %} <span class="text-red-500">*</span></label>
+                            <select name="elec_brand_text" id="id_elec_brand_text" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for name in brand_choices %}
+                                <option value="{{ name }}" {% if listing.elec_brand_text == name %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modelis" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <input type="text" name="constr_model_text" maxlength="20"
+                                   value="{{ listing.constr_model_text|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        {# Žvaigždutė atsiranda tik pasirinkus garsiakalbį #}
+                        <div data-field-wrap="power_w" :data-required="powerRequired ? 'true' : null">
                             <label class="block text-xs font-medium text-gray-600 mb-1">
-                                {% trans "Kaina" %} <span class="text-xs text-gray-400">{% trans "(nebūtina — paliekant tuščią, rodoma „Sutartinė kaina“)" %}</span>
+                                {% trans "Galingumas W" %}
+                                <span class="text-red-500" x-show="powerRequired" x-cloak>*</span>
+                                <span class="text-xs text-gray-400" x-show="!powerRequired">{% trans "(nebūtina)" %}</span>
                             </label>
+                            <input type="number" name="power_w" id="id_power_w" min="0" step="1" placeholder="-"
+                                   value="{% if listing.power_w %}{{ listing.power_w }}{% endif %}"
+                                   oninput="if(this.value) markFieldError('power_w', false)"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Metai" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
+                            <input type="number" name="year" min="1900" max="2100" step="1" placeholder="-"
+                                   value="{% if listing.year %}{{ listing.year }}{% endif %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Kanalų skaičius" %}</label>
+                            <select name="elec_channels" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for n in channel_choices %}
+                                <option value="{{ n }}" {% if listing.elec_channels == n %}selected{% endif %}>{{ n }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Spalva" %}</label>
+                            <select name="color" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                                <option value="">---------</option>
+                                {% for value, label in color_choices %}
+                                <option value="{{ value }}" {% if listing.color == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div data-field-wrap="price" data-required="true" class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Kaina" %} <span class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="number" name="price" id="id_price" min="0" step="1"
                                        value="{% if listing.price %}{{ listing.price|floatformat:0 }}{% endif %}"
+                                       oninput="if(this.value) markFieldError('price', false)"
                                        placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
                                 <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
                             </div>
                         </div>
 
-                        <div class="md:col-span-2 flex items-end pb-2">
+                        <div class="md:col-span-4 flex flex-wrap items-center gap-x-6 gap-y-2 pt-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="open_to_trade" {% if listing.open_to_trade %}checked{% endif %} class="w-4 h-4 rounded">
+                                <span class="text-sm text-gray-700">{% trans "Domina keitimas" %}</span>
+                            </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" name="negotiable" {% if listing.negotiable %}checked{% endif %} class="w-4 h-4 rounded">
                                 <span class="text-sm text-gray-700">{% trans "Kaina derinama" %}</span>
@@ -84,17 +146,16 @@
             </div>
 
             {# ═══════════════════════════════════════════════════════════ #}
-            {# SECTION: PAPILDOMI DUOMENYS (18 varnelių, prefiksas svc_)   #}
+            {# SECTION: YPATUMAI (16, prefiksas elec_)                     #}
             {# ═══════════════════════════════════════════════════════════ #}
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
                 <div class="px-6 py-3 border-b border-gray-100">
-                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Papildomi duomenys" %}</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Ypatumai" %}</h3>
                 </div>
                 <div class="p-6 space-y-6">
                     {% for group in equipment_by_category %}
                     <div>
-                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{{ group.label }}</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
                             {% for item in group.items %}
                             <label class="flex items-center gap-2 py-1 cursor-pointer">
                                 <input type="checkbox" name="equipment" value="{{ item.id }}"
@@ -209,12 +270,12 @@
             {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=user.email val_country=listing.country val_state=listing.state val_city=contact_city val_address=listing.address %}
 
             {# ═══ ERRORS ═══ #}
-            <div id="svc-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
+            <div id="elec-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
                 <div class="flex items-start gap-3">
                     <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
                     <div class="text-sm">
                         <p class="font-semibold mb-1">{% trans "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai." %}</p>
-                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="svc-form-error-list"></ul>
+                        <ul class="list-disc list-inside space-y-1 mt-2 text-xs" id="elec-form-error-list"></ul>
                     </div>
                 </div>
             </div>
@@ -231,9 +292,9 @@
             <div class="flex items-center justify-center mb-8">
                 {% if is_edit_mode %}
                 <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Atšaukti" %}</a>
-                <button type="button" onclick="handleSvcSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-medium text-sm">{% trans "Išsaugoti pakeitimus" %}</button>
+                <button type="button" onclick="handleElecSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-medium text-sm">{% trans "Išsaugoti pakeitimus" %}</button>
                 {% else %}
-                <button type="button" onclick="handleSvcSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-semibold text-base shadow">{% trans "Pateikti skelbimą" %}</button>
+                <button type="button" onclick="handleElecSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-semibold text-base shadow">{% trans "Pateikti skelbimą" %}</button>
                 {% endif %}
             </div>
             <p class="text-center text-xs text-gray-500 mb-8">{% trans "* Privalomi laukai" %}</p>
@@ -631,15 +692,20 @@ function addFiles(fileList) {
 // ═══════════════════════════════════════════════════════════
 // Submit validation
 // ═══════════════════════════════════════════════════════════
-function handleSvcSubmit() {
+function handleElecSubmit() {
     clearAllErrors();
     var errors = [];
     function req(sel, name, label) {
         var el = document.querySelector(sel);
         if (!el || !el.value) { errors.push(label); markFieldError(name, true); }
     }
-    req('#id_title', 'title', '{% trans "Pavadinimas yra privalomas" %}');
-    req('#id_service_type', 'service_type', '{% trans "Paslaugos tipas yra privalomas" %}');
+    req('#id_condition', 'condition', '{% trans "Būklė yra privaloma" %}');
+    req('#id_elec_type', 'elec_type', '{% trans "Tipas yra privalomas" %}');
+    req('#id_elec_brand_text', 'elec_brand_text', '{% trans "Gamintojas yra privalomas" %}');
+    req('#id_price', 'price', '{% trans "Kaina yra privaloma" %}');
+    // Etalone galingumas privalomas tik garsiakalbiams
+    if ({{ power_required_types|safe }}.includes(document.getElementById('id_elec_type').value))
+        req('#id_power_w', 'power_w', '{% trans "Galingumas W yra privalomas garsiakalbiams" %}');
     req('#id_phone', 'phone', '{% trans "Telefonas yra privalomas" %}');
     req('#id_city', 'city', '{% trans "Miestas yra privalomas" %}');
     var country = document.getElementById('id_country');
@@ -649,7 +715,7 @@ function handleSvcSubmit() {
         if (at && !at.checked) errors.push('{% trans "Turite sutikti su taisyklėmis" %}');
     }
     if (errors.length) {
-        var box = document.getElementById('svc-form-errors'), list = document.getElementById('svc-form-error-list');
+        var box = document.getElementById('elec-form-errors'), list = document.getElementById('elec-form-error-list');
         list.innerHTML = '';
         errors.forEach(function(e){ var li = document.createElement('li'); li.textContent = e; list.appendChild(li); });
         box.classList.remove('hidden');
@@ -657,7 +723,7 @@ function handleSvcSubmit() {
         return;
     }
     if (!IS_EDIT_MODE) syncCreateInput();
-    document.getElementById('svcForm').submit();
+    document.getElementById('elecForm').submit();
 }
 
 // ═══════════════════════════════════════════════════════════

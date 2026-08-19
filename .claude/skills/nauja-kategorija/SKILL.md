@@ -365,6 +365,19 @@ o kaina neprivaloma), juos vis tiek reikia užpildyti: `year` = einamieji
 metai, `mileage` = 0, `price` = 0. Ir tada **šablonuose parodyk, kad tai
 ne nulinė kaina** („Sutartinė"), kitaip kortelė rodo „0 $".
 
+**SPĄSTAS: prefiksas be pabraukimo pagautų svetimą kategoriją.**
+Automobilių ypatumų kategorija vadinasi `electronics`; naujai video/audio
+vertikalei prefiksas `elec_` saugus tik todėl, kad
+`'electronics'.startswith('elec_')` yra `False`. Rinkdamas prefiksą
+patikrink jį prieš VISUS esamus `Equipment.category` raktus, ne tik prieš
+pavadinimus.
+
+**Sąlyginai privalomi laukai.** Etalone pasitaiko, kad laukas privalomas
+tik prie tam tikros reikšmės („Galingumas W" — tik kai Tipas =
+Garsiakalbis). Tikrink abiejose pusėse: Alpine `x-show` žvaigždutei ir JS
+`req()` sąlygoje, IR view'e prieš `save()`. Vien kliento tikrinimo
+neužtenka — POST ateina ir be JS.
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python

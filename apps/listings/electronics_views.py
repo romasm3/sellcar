@@ -1,4 +1,5 @@
-from datetime import date
+import os
+import unicodedata
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
@@ -8,7 +9,7 @@ from django.contrib import messages
 from django.utils import timezone
 
 from .constants import can_create_listing, can_create_free_listing, FREE_LISTING_DAYS
-from .equipment_registry import SVC_EQUIPMENT_DEFINITION
+from .equipment_registry import ELEC_EQUIPMENT_DEFINITION
 from .image_validation import split_valid_images
 from .models import (
     Listing, ListingImage, VehicleType, Equipment, ListingEquipment,
@@ -25,29 +26,58 @@ from .views import (
 
 
 # ═══════════════════════════════════════════════════════════
-# PASLAUGOS (vehicle_type slug='services')
+# VIDEO, AUDIO, NAVIGACIJOS (vehicle_type slug='electronics')
 #
-# Plokščia kategorija (loading-equipment / forestry patternas): etalone
-# subkategorijų nėra, todėl subcategory lieka NULL, o pikeris veda tiesiai
-# į šią formą per CREATE_URL_BY_VEHICLE_TYPE.
+# Plokščia kategorija (loading-equipment / services patternas):
+# subkategorijų nėra, subcategory lieka NULL, pikeris veda tiesiai čia.
 #
-# Du skirtumai nuo visų kitų kategorijų:
-#   1. Pavadinimą rašo pats vartotojas (niekur negeneruojam iš markės).
-#   2. Kaina NEPRIVALOMA — tuščia virsta 0 ir rodoma „Sutartinė kaina".
+# Etalono ypatybė: „Galingumas W" privalomas TIK kai tipas yra
+# „Garsiakalbis" (patikrinta autogide — daugiau laukų nuo tipo
+# nepriklauso). Tikrinam ir kliente (Alpine), ir serveryje.
 #
-# Listing.year / mileage yra NOT NULL be default, o paslaugose jų nėra,
-# todėl užpildom techniškai (einamieji metai / 0) ir niekur nerodom.
+# Pavadinimo lauko formoje nėra — generuojam iš gamintojo + modelio + tipo.
 # ═══════════════════════════════════════════════════════════
 
-SVC_VT_SLUG = 'services'
+ELEC_VT_SLUG = 'electronics'
 
-TITLE_MAX = 50          # etalone f_99 maxlength=50
+BRANDS_PATH = os.path.join(
+    os.path.dirname(__file__), 'management', 'commands', 'elektronikos-markes.txt')
+
+# Tipas, kuriam etalonas reikalauja galingumo
+POWER_REQUIRED_TYPES = ('speaker',)
+
+ELEC_CHANNELS = list(range(1, 7))       # etalone 1..6
 
 
-def get_svc_equipment():
-    """18 paslaugų varnelių, sugrupuotų šablonui (idempotentiškai kuriamos)."""
+def _norm(value):
+    value = unicodedata.normalize('NFKD', value.casefold())
+    return ''.join(c for c in value if not unicodedata.combining(c))
+
+
+def _load_brands():
+    seen, out = set(), []
+    try:
+        with open(BRANDS_PATH, encoding='utf-8') as fh:
+            for line in fh:
+                name = line.strip()
+                if not name or _norm(name) in seen:
+                    continue
+                seen.add(_norm(name))
+                out.append(name)
+    except OSError:
+        return []
+    rest = [n for n in out if _norm(n) not in ('kita', 'kitas')]
+    other = [n for n in out if _norm(n) in ('kita', 'kitas')]
+    return rest + other
+
+
+ELEC_BRANDS = _load_brands()
+
+
+def get_elec_equipment():
+    """16 ypatumų, sugrupuotų šablonui (idempotentiškai kuriamos)."""
     grouped = []
-    for cat_key, cat_label, names in SVC_EQUIPMENT_DEFINITION:
+    for cat_key, cat_label, names in ELEC_EQUIPMENT_DEFINITION:
         items = [Equipment.objects.get_or_create(category=cat_key, name=n)[0]
                  for n in names]
         grouped.append({'key': cat_key, 'label': cat_label, 'items': items})
@@ -63,11 +93,11 @@ def _country_choices():
 
 
 @login_required
-def services_listing_create(request):
-    """URL: /create/services/?new=1  |  ?edit=<pk>"""
-    vt = VehicleType.objects.filter(slug=SVC_VT_SLUG).first()
+def electronics_listing_create(request):
+    """URL: /create/electronics/?new=1  |  ?edit=<pk>"""
+    vt = VehicleType.objects.filter(slug=ELEC_VT_SLUG).first()
     if not vt:
-        messages.error(request, _('Paslaugų kategorija nesukonfigūruota.'))
+        messages.error(request, _('Video, audio, navigacijų kategorija nesukonfigūruota.'))
         return redirect('listing_list')
 
     edit_pk = _int_or_none(request.GET.get('edit')) or _int_or_none(request.POST.get('edit'))
@@ -76,8 +106,8 @@ def services_listing_create(request):
 
     if is_edit_mode:
         listing = get_object_or_404(Listing, pk=edit_pk, seller=request.user)
-        if not listing.vehicle_type or listing.vehicle_type.slug != SVC_VT_SLUG:
-            messages.error(request, _('Ši forma skirta tik paslaugų skelbimams.'))
+        if not listing.vehicle_type or listing.vehicle_type.slug != ELEC_VT_SLUG:
+            messages.error(request, _('Ši forma skirta tik video, audio, navigacijų skelbimams.'))
             return redirect('listing_edit_hub', pk=edit_pk)
     else:
         can_create, active_count, limit = can_create_listing(request.user)
@@ -95,27 +125,47 @@ def services_listing_create(request):
         old_price = float(target.price) if (is_edit_mode and target.price) else 0
         errors = []
 
-        title = (request.POST.get('title', '') or '').strip()
-        if not title:
-            errors.append(_('Pavadinimas yra privalomas'))
-        target.title = title[:TITLE_MAX]
+        condition = request.POST.get('condition', '')
+        if not condition:
+            errors.append(_('Būklė yra privaloma'))
+        else:
+            target.condition = condition
 
-        service_type = request.POST.get('service_type', '')
-        if not service_type:
-            errors.append(_('Paslaugos tipas yra privalomas'))
-        target.service_type = service_type
+        elec_type = request.POST.get('elec_type', '')
+        if not elec_type:
+            errors.append(_('Tipas yra privalomas'))
+        target.elec_type = elec_type
 
-        # Kaina neprivaloma: tuščia = 0 → šablonuose „Sutartinė kaina"
+        brand = (request.POST.get('elec_brand_text', '') or '').strip()
+        if not brand:
+            errors.append(_('Gamintojas yra privalomas'))
+        target.elec_brand_text = brand[:80]
+
+        target.constr_model_text = (request.POST.get('constr_model_text', '') or '').strip()[:20]
+
+        # Galingumas privalomas tik garsiakalbiams (etalonas)
+        power_w = _int_or_none(request.POST.get('power_w'))
+        if elec_type in POWER_REQUIRED_TYPES and not power_w:
+            errors.append(_('Galingumas W yra privalomas garsiakalbiams'))
+        target.power_w = power_w
+
+        target.elec_channels = _int_or_none(request.POST.get('elec_channels'))
+        target.color = request.POST.get('color', '') or ''
+
         price = _float_or_none(request.POST.get('price'))
-        target.price = price if (price and price > 0) else 0
+        if price is None or price <= 0:
+            errors.append(_('Kaina yra privaloma'))
+        else:
+            target.price = price
+        target.open_to_trade = request.POST.get('open_to_trade') == 'on'
         target.negotiable = request.POST.get('negotiable') == 'on'
 
         target.description = request.POST.get('description', '') or ''
         target.video_url = request.POST.get('video_url', '') or ''
 
-        # Techniniai NOT NULL laukai — paslaugose neturi prasmės, nerodomi
-        if not target.year:
-            target.year = timezone.now().year
+        # Metai neprivalomi; `year` yra NOT NULL, todėl tuščią keičiam einamaisiais
+        year = _int_or_none(request.POST.get('year'))
+        target.year = year or timezone.now().year
         target.mileage = 0
 
         country = request.POST.get('country', 'US')
@@ -143,6 +193,13 @@ def services_listing_create(request):
 
         if not is_edit_mode and not request.POST.get('agree_terms'):
             errors.append(_('Turite sutikti su taisyklėmis'))
+
+        # Pavadinimo lauko etalone nėra — generuojam
+        parts = [p for p in (target.elec_brand_text, target.constr_model_text) if p]
+        type_label = dict(Listing.ELEC_TYPE_CHOICES).get(elec_type, '')
+        if type_label:
+            parts.append(str(type_label))
+        target.title = ' '.join(str(p) for p in parts)[:200] or 'Elektronika'
 
         new_images, img_errors = split_valid_images(request.FILES.getlist('images'))
         errors.extend(img_errors)
@@ -176,7 +233,7 @@ def services_listing_create(request):
                     is_main=(existing == 0 and i == 0), order=existing + i,
                 )
             except Exception as e:
-                print(f"[services] image upload failed: {e}")
+                print(f"[electronics] image upload failed: {e}")
 
         if is_edit_mode:
             try:
@@ -216,26 +273,25 @@ def _render_form(request, listing, is_edit_mode, posted):
     elif posted:
         selected_equipment = posted.getlist('equipment')
 
-    # ?type= — preselekcija iš pikerio („Automobilių supirkimas" veda čia
-    # su type=car_buying, nes etalone tai paslaugos tipas, ne kategorija)
     current_type = ''
     if posted:
-        current_type = posted.get('service_type', '')
+        current_type = posted.get('elec_type', '')
     elif listing:
-        current_type = listing.service_type or ''
-    if not current_type:
-        _url_type = request.GET.get('type', '')
-        if _url_type in dict(Listing.SERVICE_TYPE_CHOICES):
-            current_type = _url_type
+        current_type = listing.elec_type or ''
 
-    return render(request, 'listings/services_listing_create.html', {
+    return render(request, 'listings/electronics_listing_create.html', {
         'is_edit_mode': is_edit_mode,
         'listing': listing,
-        'current_type': current_type,
         'edit_listing_id': listing.pk if (listing and listing.pk) else None,
-        'type_choices': Listing.SERVICE_TYPE_CHOICES,
-        'title_max': TITLE_MAX,
-        'equipment_by_category': get_svc_equipment(),
+        'type_choices': Listing.ELEC_TYPE_CHOICES,
+        'current_type': current_type,
+        'power_required_types': list(POWER_REQUIRED_TYPES),
+        'brand_choices': ELEC_BRANDS,
+        'condition_choices': [(v, l) for v, l in Listing.CONDITION_CHOICES
+                              if v in ('used', 'new')],
+        'color_choices': Listing.COLOR_CHOICES,
+        'channel_choices': ELEC_CHANNELS,
+        'equipment_by_category': get_elec_equipment(),
         'selected_equipment': selected_equipment,
         'country_choices': _country_choices(),
         'us_states': Listing.US_STATE_CHOICES,

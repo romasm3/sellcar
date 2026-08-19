@@ -36261,10 +36261,10 @@
       "Žemų dažnių garsiakalbis",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "elec_type",
+     "param": "elec_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Gamintojas",
@@ -36386,10 +36386,10 @@
       "Zenec",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "elec_brand_text",
+     "param": "elec_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Kaina",
@@ -36424,7 +36424,8 @@
      "param_max": "price_max",
      "param": null,
      "multi": false,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Naudota/Nauja",
@@ -36434,10 +36435,10 @@
       "Naudota",
       "Nauja"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Spalva",

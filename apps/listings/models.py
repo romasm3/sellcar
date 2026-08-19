@@ -1211,6 +1211,62 @@ class Listing(models.Model):
         verbose_name=_('Paslaugos tipas'),
     )
 
+    # ═══════════════════════════════════════════════════════════
+    # VIDEO, AUDIO, NAVIGACIJOS (vehicle_type slug='electronics')
+    #
+    # Plokščia kategorija, subcategory lieka NULL. Pavadinimo lauko
+    # etalone nėra — generuojam iš gamintojo, modelio ir tipo.
+    #
+    # `power_w` atskiras nuo `power` SĄMONINGAI: `power` visose kitose
+    # kategorijose yra kW, o čia — vatai. Sudėjus į vieną stulpelį
+    # diapazono filtras lygintų 50 W su 50 kW (ta pati klaida kaip
+    # metrai vs milimetrai, žr. SKILL.md).
+    #
+    # Ypatumai (16) — Equipment eilutės su 'elec_' prefiksu. Dėmesio:
+    # 'electronics' jau yra AUTOMOBILIŲ ypatumų kategorija, bet
+    # startswith('elec_') jos nepagauna, todėl izoliacija veikia.
+    # ═══════════════════════════════════════════════════════════
+    ELEC_TYPE_CHOICES = [
+        ('car_alarm', _('Automobilių signalizacija')),
+        ('cd_player', _('CD grotuvas')),
+        ('cd_changer', _('CD keitiklis')),
+        ('cd_mp3_player', _('CD/MP3 grotuvas')),
+        ('dvd_player', _('DVD grotuvas')),
+        ('speaker', _('Garsiakalbis')),
+        ('amplifier', _('Garso stiprintuvas')),
+        ('player_with_nav', _('Grotuvas su navigacija')),
+        ('capacitors', _('Kondensatoriai')),
+        ('cables', _('Laidai/Laidų komplektai')),
+        ('monitors', _('Monitoriai')),
+        ('mc_radio', _('MC automagnetola')),
+        ('moto_alarm', _('Motociklų signalizacija')),
+        ('multimedia', _('Multimedia')),
+        ('agri_navigation', _('Navigacija žemės ūkio technikai')),
+        ('navigation_gps', _('Navigacija, GPS')),
+        ('parking_system', _('Parkavimo sistema')),
+        ('cb_radio', _('Radijas/CB radijo stotelės')),
+        ('dashcam', _('Video registratorius')),
+        ('subwoofer', _('Žemų dažnių garsiakalbis')),
+        ('other', _('Kita')),
+    ]
+    elec_type = models.CharField(
+        max_length=20, choices=ELEC_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    elec_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Gamintojas'),
+    )
+    elec_channels = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(6)],
+        verbose_name=_('Kanalų skaičius'),
+    )
+    # Vatai — NE kilovatai; žr. komentarą aukščiau
+    power_w = models.IntegerField(
+        null=True, blank=True, validators=[MinValueValidator(0)],
+        verbose_name=_('Galingumas W'),
+    )
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',

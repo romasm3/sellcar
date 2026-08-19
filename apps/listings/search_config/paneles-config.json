@@ -11696,8 +11696,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "elec_type",
+     "param": "elec_type",
      "active": true
     },
     {
@@ -11821,8 +11821,8 @@
      "type": "select",
      "name": "f_69",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "elec_brand_text",
+     "param": "elec_brand_text",
      "active": true
     },
     {
@@ -11856,7 +11856,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Spalva",
@@ -11975,7 +11976,21 @@
    "advanced_url": "/paieska/video-audio-navigacijos/",
    "slug": "video-audio-navigacijos",
    "url_params_raw": "Tipas: f_80; Gamintojas: f_69; Kaina: f_215; Kaina: f_216; Spalva: f_5; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "electronics"
+   "vt_slug": "electronics",
+   "card_fields": [
+    {
+     "db_field": "elec_type",
+     "display": true
+    },
+    {
+     "db_field": "power_w",
+     "unit": "W"
+    },
+    {
+     "db_field": "elec_channels",
+     "unit": "kan."
+    }
+   ]
   },
   {
    "name": "Paslaugos",

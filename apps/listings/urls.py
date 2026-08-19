@@ -17,6 +17,7 @@ from . import forestry_views
 from . import camping_views
 from . import rental_views
 from . import services_views
+from . import electronics_views
 from . import wheels_views
 from .decorators import staff_only
 
@@ -50,6 +51,7 @@ urlpatterns = [
     path("create/rental/minibus/", rental_views.rental_minibus_create, name="rental_minibus_create"),
     path("create/rental/heavy/", rental_views.rental_heavy_create, name="rental_heavy_create"),
     path("create/services/", services_views.services_listing_create, name="services_listing_create"),
+    path("create/electronics/", electronics_views.electronics_listing_create, name="electronics_listing_create"),
     path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
     path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
     path("create/rims/", wheels_views.rims_create, name="rims_create"),

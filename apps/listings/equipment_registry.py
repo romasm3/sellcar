@@ -227,6 +227,35 @@ SVC_EQUIPMENT_DEFINITION = [
 ]
 
 
+# ═══════════════════════════════════════════════════════════
+# VIDEO, AUDIO, NAVIGACIJOS — 16 ypatumų (etalonas sec 15).
+#
+# Prefiksas 'elec_'. Automobilių ypatumų kategorija vadinasi
+# 'electronics' — be pabraukimo prefikse ji irgi pakliūtų į
+# startswith() filtrą, todėl pabraukimas čia būtinas.
+# ═══════════════════════════════════════════════════════════
+ELEC_EQUIPMENT_DEFINITION = [
+    ('elec_features', 'Ypatumai', [
+        '“Subwoofer” valdymas',
+        'AUX jungtis',
+        'Ekvalaizeris',
+        'Galinė dalis',
+        'Korteliu skaitytuvas',
+        'LCD ekranas',
+        'Liečiamas ekranas',
+        'Linijiniai išėjimai',
+        'Multifunkcinis valdymas nuo vairo',
+        'Neveikiantis',
+        'Nuotolinio valdymo pultas',
+        'Priekinis skydelis',
+        'Spalvotas ekranas',
+        'USB jungtis',
+        'Valdymas ratuku',
+        'Vidinė atmintis',
+    ]),
+]
+
+
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
@@ -234,6 +263,7 @@ CATEGORY_EQUIPMENT = {
     'camping-houses': CAMP_EQUIPMENT_DEFINITION,
     'rental': RENT_EQUIPMENT_DEFINITION,
     'services': SVC_EQUIPMENT_DEFINITION,
+    'electronics': ELEC_EQUIPMENT_DEFINITION,
 }
 
 
