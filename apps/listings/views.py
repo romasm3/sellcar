@@ -1159,6 +1159,17 @@ def listing_list(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ AUTOMOBILIŲ SUPIRKIMAS → paslaugos su pritaikytu tipo filtru ═══
+    # Autogide tai ne kategorija, o vienas iš 24 paslaugų tipų, todėl
+    # skelbimai gyvena `services` VT su service_type='car_buying'.
+    # Atskiras car-buying VT DB lieka, bet nebenaudojamas — visos senos
+    # nuorodos ir navigacijos punktas persiadresuoja čia.
+    if request.GET.get('category') == 'car-buying':
+        _params = request.GET.copy()
+        _params['category'] = 'services'
+        _params.setdefault('service_type', 'car_buying')
+        return redirect(f"{reverse('listing_list')}?{_params.urlencode()}")
+
     # ═══ TYRES & WHEELS → redirect į WheelListing browse ═══
     if request.GET.get('category') in ('tires', 'wheels'):
         wheel_type = 'tyre'
@@ -1505,6 +1516,9 @@ def listing_list(request):
             .values('subcategory_id').annotate(c=Count('id'))
     }
 
+    _car_buying_count = _public_listings_qs(request.user).filter(
+        vehicle_type__slug='services', service_type='car_buying').count()
+
     # (slug, pavadinimas, svg_path_d, subcategory_id|None)
     MORE_ITEMS_SPEC = [
         ('agriculture',       'Žemės ūkio technika, padargai',        'M4 17a2 2 0 104 0 2 2 0 00-4 0zM15 17a3 3 0 106 0 3 3 0 00-6 0zM6 15V8h5l3 4M9 8V5h4', None),
@@ -1539,7 +1553,11 @@ def listing_list(request):
             'sub_id': _sub_id,
             'name': _name,
             'icon': _icon,
-            'count': _sub_counts.get(_sub_id, 0) if _sub_id else _vt_counts.get(_slug, 0),
+            # car-buying skelbimų neturi ir neturės — rodom, kiek yra
+            # paslaugų su tipu „Automobilių supirkimas"
+            'count': (_car_buying_count if _slug == 'car-buying'
+                      else _sub_counts.get(_sub_id, 0) if _sub_id
+                      else _vt_counts.get(_slug, 0)),
         })
 
 
