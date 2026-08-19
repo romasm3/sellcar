@@ -321,6 +321,39 @@ todėl perkrovus puslapį pažymėtos markės išlikdavo TIK priekaboms. Dabar
 param imamas iš konfigūracijos (`TEXT_BRAND_FIELDS` / `FK_BRAND_FIELDS`) —
 jei pridedi naują markės lauką, užtenka jį įrašyti į tuos rinkinius.
 
+**Kai vienam VT tenka KELIOS etalono sekcijos** (nuoma — penkios):
+pirmoji lieka numatytoji (**be** `subcategory_slug`), nes `is_active()` ir
+`build_panel()` krenta į `PANELS[vt_slug]`; visos kitos gauna
+`subcategory_slug`. Panelėje daryk subkategorijų perjungiklį pagal `parts`
+pavyzdį (`partSub` → `rentSub`): kiekviena forma su `data-rentsub=`,
+`hidden name="subcategory"`, o `refreshCount()` pasirenka formą pagal
+aktyvią subkategoriją. Count endpoint'as lieka `/paieska/count/<vt>/` —
+subkategorija keliauja formos lauku.
+
+**Trys konfigūracijos raktai, atsiradę nuomos vertikalėje:**
+
+| Raktas | Kam |
+|---|---|
+| `own_options: true` | kategorija turi savas diapazono pakopas, o bendrosios netinka (nuomos kaina prasideda nuo 5, pardavimo — nuo 500). Skaito ir `options`, ir `options_from` |
+| `limit_to_options: true` | sekcija rodo tik dalį bendrų `choices` (nuomos „Tipas": sec 33 septynios, sec 34 kitos šešios, o modelyje vienas sąrašas). Filtruoja pagal etiketes, todėl jos turi sutapti 1:1 |
+| `FK_CHOICE_FIELDS` | FK laukas kaip select (kuro tipas, pavarų dėžė). Reikšmė yra id, todėl bendra filtro logika tinka; etiketės imamos per `gettext`, nes lentelėse vardai angliški |
+
+**SPĄSTAS: `price` ne visada yra pardavimo kaina.** Nuomoje į jį rašoma
+„Nuomos kaina parai" — taip veikia rikiavimas, kainos filtras ir kortelės
+be naujo stulpelio. Bet tada kortelėje ir detalėje **privalai parodyti
+vienetą** („45 $/parai"), kitaip skelbimas atrodo absurdiškai pigus.
+
+**SPĄSTAS: `?subcategory=` slug'as griaudavo rezultatų puslapį.**
+`filter_listings` (skaičiukas) seniai priima ir id, ir slug'ą, o
+`listing_list` (rezultatai) priimdavo tik id — panelė su slug'u mesdavo
+`ValueError: Field 'id' expected a number`. Dvi filtrų šakos = du taisymai.
+
+**SPĄSTAS: `config_panels` nėra visuose sąrašo puslapiuose.**
+`motorcycles_views` ir `trucks_views` renderina tą patį
+`listing_list.html`, bet savo kontekstą — deklaratyvios panelės ten buvo
+tuščios, o `|get_item` ant `''` metė `AttributeError` ir nugriovė puslapį.
+Pridėjus naują panelę patikrink VISUS tris `listing_list.html` render'us.
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python
