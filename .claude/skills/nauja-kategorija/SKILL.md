@@ -354,6 +354,17 @@ vienetą** („45 $/parai"), kitaip skelbimas atrodo absurdiškai pigus.
 tuščios, o `|get_item` ant `''` metė `AttributeError` ir nugriovė puslapį.
 Pridėjus naują panelę patikrink VISUS tris `listing_list.html` render'us.
 
+**Ne visos varnelės privalo tapti filtrais.** Paslaugose etalono forma turi
+18 varnelių, bet jo paieška filtruoja tik tipą, miestą ir tekstą. Tokios
+varnelės vis tiek eina į `equipment_registry` (jos rodomos skelbime), bet
+į `isplestine-config.json` — ne. Konfigūracija = filtrai, registras = duomenys.
+
+**SPĄSTAS: `title`, `year`, `mileage`, `price` yra NOT NULL be default.**
+Kategorijoje, kuriai jie neturi prasmės (paslaugos: nei metų, nei ridos,
+o kaina neprivaloma), juos vis tiek reikia užpildyti: `year` = einamieji
+metai, `mileage` = 0, `price` = 0. Ir tada **šablonuose parodyk, kad tai
+ne nulinė kaina** („Sutartinė"), kitaip kortelė rodo „0 $".
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python
