@@ -166,6 +166,7 @@ IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'services',
     'electronics',
     'car-buying',
+    'bicycles',
     'forestry',
     'loading-equipment',
     'construction',
@@ -223,6 +224,7 @@ CREATE_URL_BY_VEHICLE_TYPE = {
     'camping-houses': '/create/camping-houses/?new=1',
     'services': '/create/services/?new=1',
     'electronics': '/create/electronics/?new=1',
+    'bicycles': '/create/bicycles/?new=1',
     # Autogide „Automobilių supirkimas" nėra atskira kategorija, o paslaugos
     # tipas. Pikerio eilutę paliekam (vartotojai jos ieško), bet vedam į
     # paslaugų formą su iš anksto parinktu tipu — skelbimas atsiduria ten,
@@ -614,6 +616,7 @@ EQUIPMENT_CATEGORY_LABELS = {
     'svc_repair': 'Remontas ir diagnostika',
     'svc_other': 'Kita',
     'elec_features': 'Ypatumai',
+    'bike_features': 'Ypatumai',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -628,6 +631,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'rent_terms',
     'svc_repair', 'svc_other',
     'elec_features',
+    'bike_features',
     'gear',
 ]
 
@@ -689,6 +693,7 @@ EQUIPMENT_CATEGORY_LABELS = {
     'svc_repair': 'Remontas ir diagnostika',
     'svc_other': 'Kita',
     'elec_features': 'Ypatumai',
+    'bike_features': 'Ypatumai',
 }
 
 EQUIPMENT_CATEGORY_ORDER = [
@@ -703,6 +708,7 @@ EQUIPMENT_CATEGORY_ORDER = [
     'rent_terms',
     'svc_repair', 'svc_other',
     'elec_features',
+    'bike_features',
     'gear',
 ]
 
@@ -3023,6 +3029,8 @@ def listing_edit(request, pk):
         return redirect(f'/create/services/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'electronics':
         return redirect(f'/create/electronics/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'bicycles':
+        return redirect(f'/create/bicycles/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
         _sub = listing.subcategory.slug if listing.subcategory else ''
         return redirect(
@@ -3898,6 +3906,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/services/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'electronics':
         return redirect(f'/create/electronics/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'bicycles':
+        return redirect(f'/create/bicycles/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
         _sub = listing.subcategory.slug if listing.subcategory else ''
         return redirect(
@@ -4000,6 +4010,8 @@ def listing_edit_section(request, pk, section):
         return redirect(f'/create/services/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'electronics':
         return redirect(f'/create/electronics/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'bicycles':
+        return redirect(f'/create/bicycles/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
         _sub = listing.subcategory.slug if listing.subcategory else ''
         return redirect(
@@ -4234,6 +4246,8 @@ def listing_edit_step(request, pk, step):
         return redirect(f'/create/services/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'electronics':
         return redirect(f'/create/electronics/?edit={pk}')
+    if listing.vehicle_type and listing.vehicle_type.slug == 'bicycles':
+        return redirect(f'/create/bicycles/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'rental':
         _sub = listing.subcategory.slug if listing.subcategory else ''
         return redirect(
@@ -6689,7 +6703,7 @@ COUNTRY_FLAGS = {}
 # BENDRA FILTRAVIMO LOGIKA — naudoja listing_list IR search_panel_count
 # ═══════════════════════════════════════════════════════════
 
-SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses', 'rental', 'services', 'electronics'}
+SEARCH_PANEL_CATEGORIES = {'cars', 'motorcycles', 'trucks', 'parts', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses', 'rental', 'services', 'electronics', 'bicycles'}
 
 # DALYS subkategorijų count raktai (žr. search_panel.COUNT_KEY_TO_SUB)
 PARTS_COUNT_KEYS = COUNT_KEY_TO_SUB

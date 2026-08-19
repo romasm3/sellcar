@@ -41056,10 +41056,10 @@
       "Elektrinis riedis",
       "Elektrinis dviratis"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "bike_type",
+     "param": "bike_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Gamintojas",
@@ -41215,10 +41215,10 @@
       "Yuneec",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "bike_brand_text",
+     "param": "bike_brand_text",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Metai",
@@ -41294,10 +41294,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -41329,7 +41329,8 @@
      "param_max": "price_max",
      "param": null,
      "multi": false,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Galia, W",
@@ -41353,10 +41354,12 @@
       "1500",
       "2000"
      ],
-     "db_field": null,
+     "db_field": "power_w",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_w_min",
+     "param_max": "power_w_max"
     },
     {
      "label": "Maksimalus greitis, km/h",
@@ -41376,10 +41379,12 @@
       "55",
       "60"
      ],
-     "db_field": null,
+     "db_field": "max_speed_kmh",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "speed_min",
+     "param_max": "speed_max"
     },
     {
      "label": "Svoris, kg",
@@ -41394,10 +41399,12 @@
       "25",
       "30"
      ],
-     "db_field": null,
+     "db_field": "curb_weight",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "weight_min",
+     "param_max": "weight_max"
     },
     {
      "label": "Maksimali apkrova, kg",
@@ -41415,10 +41422,12 @@
       "150",
       "40"
      ],
-     "db_field": null,
+     "db_field": "payload_kg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "payload_min",
+     "param_max": "payload_max"
     },
     {
      "label": "Rida su vienu įkrovimu, km",
@@ -41442,10 +41451,12 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "range_km",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "range_min",
+     "param_max": "range_max"
     },
     {
      "label": "Spalva",
@@ -41493,10 +41504,12 @@
       "15",
       "20"
      ],
-     "db_field": null,
+     "db_field": "battery_ah",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "battery_min",
+     "param_max": "battery_max"
     },
     {
      "label": "Baterijos talpos likutis, %",
@@ -41515,10 +41528,12 @@
       "90",
       "100"
      ],
-     "db_field": null,
+     "db_field": "battery_pct",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "battery_pct_min",
+     "param_max": "battery_pct_max"
     },
     {
      "label": "Įkrovimo laikas, val.",
@@ -41537,10 +41552,12 @@
       "9",
       "10"
      ],
-     "db_field": null,
+     "db_field": "charge_time_h",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "charge_min",
+     "param_max": "charge_max"
     },
     {
      "label": "Padangų tipas",
@@ -41550,10 +41567,10 @@
       "Pilnavidurės",
       "Pripučiamos"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "tyre_kind",
+     "param": "tyre_kind",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Ratų skersmuo, coliais",
@@ -41579,10 +41596,12 @@
       "19",
       "20"
      ],
-     "db_field": null,
+     "db_field": "wheel_diameter_in",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "wheel_min",
+     "param_max": "wheel_max"
     },
     {
      "label": "Įveikiama įkalnė °",
@@ -41600,10 +41619,12 @@
       "18",
       "20"
      ],
-     "db_field": null,
+     "db_field": "max_incline_deg",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "incline_min",
+     "param_max": "incline_max"
     },
     {
      "label": "Šalis",

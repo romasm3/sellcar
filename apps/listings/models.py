@@ -1267,6 +1267,73 @@ class Listing(models.Model):
         verbose_name=_('Galingumas W'),
     )
 
+    # ═══════════════════════════════════════════════════════════
+    # EL. PASPIRTUKAI, RIEDŽIAI, DVIRAČIAI (vehicle_type slug='bicycles')
+    #
+    # Pikeris veda tiesiai į formą (etalone subkategorijų žingsnio nėra),
+    # bet subkategorija IŠVEDAMA IŠ FORMOS lauko `bike_type`:
+    # paspirtukas → electric-scooters, dviratis → electric-bikes.
+    # „Elektrinis riedis" atitikmens DB neturi, todėl jam lieka NULL.
+    #
+    # Perpanaudota, nes vienetai sutampa: Galia W → power_w (tas pats
+    # stulpelis kaip video/audio kategorijoje), Svoris kg → curb_weight,
+    # Maks. apkrova kg → payload_kg.
+    # ═══════════════════════════════════════════════════════════
+    BIKE_TYPE_CHOICES = [
+        ('e_scooter', _('Elektrinis paspirtukas')),
+        ('e_board', _('Elektrinis riedis')),
+        ('e_bike', _('Elektrinis dviratis')),
+    ]
+    TYRE_KIND_CHOICES = [
+        ('solid', _('Pilnavidurės')),
+        ('pneumatic', _('Pripučiamos')),
+    ]
+    bike_type = models.CharField(
+        max_length=15, choices=BIKE_TYPE_CHOICES, blank=True, default='',
+        verbose_name=_('Tipas'),
+    )
+    bike_brand_text = models.CharField(
+        max_length=80, blank=True, default='', verbose_name=_('Gamintojas'),
+    )
+    max_speed_kmh = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(200)],
+        verbose_name=_('Maksimalus greitis, km/h'),
+    )
+    range_km = models.IntegerField(
+        null=True, blank=True, validators=[MinValueValidator(0)],
+        verbose_name=_('Rida su vienu įkrovimu, km'),
+    )
+    battery_ah = models.DecimalField(
+        max_digits=6, decimal_places=1, null=True, blank=True,
+        validators=[MinValueValidator(0)],
+        verbose_name=_('Baterijos talpa, Ah'),
+    )
+    battery_pct = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_('Baterijos talpos likutis, %'),
+    )
+    charge_time_h = models.DecimalField(
+        max_digits=5, decimal_places=1, null=True, blank=True,
+        validators=[MinValueValidator(0)],
+        verbose_name=_('Įkrovimo laikas, val.'),
+    )
+    tyre_kind = models.CharField(
+        max_length=10, choices=TYRE_KIND_CHOICES, blank=True, default='',
+        verbose_name=_('Padangų tipas'),
+    )
+    wheel_diameter_in = models.DecimalField(
+        max_digits=4, decimal_places=1, null=True, blank=True,
+        validators=[MinValueValidator(0)],
+        verbose_name=_('Ratų skersmuo, coliais'),
+    )
+    max_incline_deg = models.IntegerField(
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(90)],
+        verbose_name=_('Įveikiama įkalnė, °'),
+    )
+
     subcategory = models.ForeignKey(
         SubCategory, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='listings',

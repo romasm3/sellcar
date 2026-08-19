@@ -378,6 +378,21 @@ Garsiakalbis). Tikrink abiejose pusėse: Alpine `x-show` žvaigždutei ir JS
 `req()` sąlygoje, IR view'e prieš `save()`. Vien kliento tikrinimo
 neužtenka — POST ateina ir be JS.
 
+**Plokščias pikeris ir subkategorija iš formos — suderinama.** Paspirtukų
+etalone subkategorijų žingsnio nėra (einam tiesiai į formą per
+`CREATE_URL_BY_VEHICLE_TYPE`), bet DB subkategorijos egzistuoja ir yra
+prasmingos, todėl `subcategory` išvedama iš formos lauko `bike_type` ir
+persiskaičiuoja kas išsaugojimą. Vienas iš trijų tipų („Elektrinis
+riedis") atitikmens neturi — jam paliekam `NULL`, o ne kišam į artimiausią.
+Testas, kuris tai gaudo: pakeisk tipą redaguodamas ir tikrink, kad
+subkategorija pasikeitė kartu.
+
+**Vienodi vienetai — vienas stulpelis.** `power_w` (vatai) aptarnauja ir
+video/audio garsiakalbius, ir paspirtukų variklius; `curb_weight` —
+„Svoris kg"; `payload_kg` — „Maksimali apkrova kg". Tai NE tas pats, kas
+maišyti vienetus: tikrink, ar etalonas prašo to paties mato, ir tik tada
+perpanaudok.
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python

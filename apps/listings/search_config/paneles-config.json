@@ -14446,8 +14446,8 @@
      "type": "select",
      "name": "f_80",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "bike_type",
+     "param": "bike_type",
      "active": true
     },
     {
@@ -14605,8 +14605,8 @@
      "type": "select",
      "name": "f_69",
      "placeholder": "Visi",
-     "db_field": null,
-     "param": null,
+     "db_field": "bike_brand_text",
+     "param": "bike_brand_text",
      "active": true
     },
     {
@@ -14638,7 +14638,8 @@
      "param_min": "price_min",
      "param_max": "price_max",
      "param": null,
-     "active": true
+     "active": true,
+     "own_options": true
     },
     {
      "label": "Metai",
@@ -14798,7 +14799,24 @@
    "advanced_url": "/paieska/paspirtukai/",
    "slug": "paspirtukai",
    "url_params_raw": "Tipas: f_80; Gamintojas: f_69; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Spalva: f_5; Tekstinė paieška: f_376",
-   "vt_slug": "bicycles"
+   "vt_slug": "bicycles",
+   "card_fields": [
+    {
+     "db_field": "bike_type",
+     "display": true
+    },
+    {
+     "db_field": "power_w",
+     "unit": "W"
+    },
+    {
+     "db_field": "range_km",
+     "unit": "km"
+    },
+    {
+     "db_field": "year"
+    }
+   ]
   }
  ],
  "note": "Modelių sąrašai pašalinti — jie priklauso nuo markės ir imami iš projekto DB."

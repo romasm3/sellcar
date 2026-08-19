@@ -764,7 +764,16 @@ a.sp-rail-btn { text-decoration:none; }
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
                                 <div class="ap-price" style="font-size:1.2rem;">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                             </div>
-                            {% if listing.vehicle_type.slug == 'electronics' %}
+                            {% if listing.vehicle_type.slug == 'bicycles' %}
+                            <div class="ap-spec-line">
+                                {% if listing.bike_type %}<span>{{ listing.get_bike_type_display }}</span>{% endif %}
+                                {% if listing.power_w %}<span class="sep">·</span><span>{{ listing.power_w }} W</span>{% endif %}
+                            </div>
+                            <div class="ap-spec-line">
+                                {% if listing.range_km %}<span>{{ listing.range_km }} {% trans "km su įkrovimu" %}</span>{% endif %}
+                                {% if listing.max_speed_kmh %}<span class="sep">·</span><span>{{ listing.max_speed_kmh }} km/h</span>{% endif %}
+                            </div>
+                            {% elif listing.vehicle_type.slug == 'electronics' %}
                             <div class="ap-spec-line">
                                 {% if listing.elec_type %}<span>{{ listing.get_elec_type_display }}</span>{% endif %}
                                 {% if listing.power_w %}<span class="sep">·</span><span>{{ listing.power_w }} W</span>{% endif %}
@@ -986,7 +995,17 @@ a.sp-rail-btn { text-decoration:none; }
                         <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
                         <div class="ap-price">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                     </div>
-                    {% if listing.vehicle_type.slug == 'electronics' %}
+                    {% if listing.vehicle_type.slug == 'bicycles' %}
+                    {# ── PASPIRTUKŲ / DVIRAČIŲ kortelės specifikacijos ── #}
+                    <div class="ap-spec-line">
+                        {% if listing.bike_type %}<span>{{ listing.get_bike_type_display }}</span>{% endif %}
+                        {% if listing.power_w %}<span class="sep">·</span><span>{{ listing.power_w }} W</span>{% endif %}
+                    </div>
+                    <div class="ap-spec-line">
+                        {% if listing.range_km %}<span>{{ listing.range_km }} km</span>{% endif %}
+                        {% if listing.max_speed_kmh %}<span class="sep">·</span><span>{{ listing.max_speed_kmh }} km/h</span>{% endif %}
+                    </div>
+                    {% elif listing.vehicle_type.slug == 'electronics' %}
                     {# ── VIDEO / AUDIO kortelės specifikacijos ── #}
                     <div class="ap-spec-line">
                         {% if listing.elec_type %}<span>{{ listing.get_elec_type_display }}</span>{% endif %}

@@ -256,6 +256,28 @@ ELEC_EQUIPMENT_DEFINITION = [
 ]
 
 
+# ═══════════════════════════════════════════════════════════
+# EL. PASPIRTUKAI, RIEDŽIAI, DVIRAČIAI — 12 ypatumų (etalonas sec 09).
+# Prefiksas 'bike_'.
+# ═══════════════════════════════════════════════════════════
+BIKE_EQUIPMENT_DEFINITION = [
+    ('bike_features', 'Ypatumai', [
+        'Amortizatoriai',
+        'Diskiniai stabdžiai',
+        'Galimybė prijungti papildomą bateriją',
+        'Garantija',
+        'Greičio palaikymo sistema',
+        'Integruotas ekranas',
+        'Parkavimo kojelė',
+        'Pritaikytas bekelei',
+        'Savęs balansavimas',
+        'Sėdynė',
+        'Sulankstomas rėmas',
+        'Žibintai',
+    ]),
+]
+
+
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
@@ -264,6 +286,7 @@ CATEGORY_EQUIPMENT = {
     'rental': RENT_EQUIPMENT_DEFINITION,
     'services': SVC_EQUIPMENT_DEFINITION,
     'electronics': ELEC_EQUIPMENT_DEFINITION,
+    'bicycles': BIKE_EQUIPMENT_DEFINITION,
 }
 
 
