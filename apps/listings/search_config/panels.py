@@ -186,8 +186,11 @@ for _cat in _RAW_ADV['categories']:
         ADVANCED[_vt] = _cat
 
 # Kategorijos, kurių išplėstinė paieška įjungta (kaip ENGINE_ENABLED panelėms)
+# Automobiliai, motociklai ir dalys dar ne čia: jų etalono sekcijos turi
+# markė→modelis kaskadą ir šimtus ypatumų checkbox'ų be db_field —
+# įjungus dabar pusė laukų būtų dekoracija.
 ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                    'rental', 'services', 'electronics', 'bicycles'}
+                    'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -365,7 +368,10 @@ def build_panel(vt_slug, user=None, sub_slug=None):
 
         elif f['type'] in ('select', 'multiselect'):
             if db in DISTINCT_VALUE_FIELDS:
-                item['options'] = _distinct_options(vt_slug, db, user)
+                # Kol skelbimų nėra, distinct grąžina tuščią sąrašą —
+                # tada rodom etalono reikšmes iš konfigūracijos.
+                item['options'] = (_distinct_options(vt_slug, db, user)
+                                   or [(o, o) for o in (f.get('options') or [])])
             elif db == 'boat_material':
                 from apps.listings.boats_views import BOAT_MATERIAL_CHOICES
                 item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
@@ -457,7 +463,10 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
             elif db in FK_CHOICE_FIELDS:
                 item['options'] = _fk_options(db, f.get('options'))
             elif db in DISTINCT_VALUE_FIELDS:
-                item['options'] = _distinct_options(vt_slug, db, user)
+                # Miestai iš realių skelbimų; kol jų nėra, sąrašas būtų
+                # tuščias — tada imam etalono reikšmes iš konfigūracijos.
+                item['options'] = (_distinct_options(vt_slug, db, user)
+                                   or [(o, o) for o in (f.get('options') or [])])
             elif db == 'country':
                 item['options'] = list(Listing.COUNTRY_CHOICES)
             elif db == 'created_at':

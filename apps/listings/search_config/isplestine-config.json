@@ -39781,10 +39781,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "fuel_type",
+     "param": "fuel_type",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Sėdimų vietų skaičius",
@@ -39807,10 +39807,11 @@
       "40",
       "50"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "seats_count",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Miegamų vietų skaičius",

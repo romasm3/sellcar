@@ -715,6 +715,59 @@ TRUCK_PARTS_EQUIPMENT_DEFINITION = [
 ]
 
 
+# Etalono sec 04 ypatumai, kurių mūsų sąraše nebuvo — be jų išplėstinė
+# paieška rodė 5 iš 16 (2026-08-20 auditas).
+TRUCK_ADVANCED_EQUIPMENT = [
+    ('truck_advanced', 'Papildoma įranga', [
+        '„Webasto“',
+        'ADR',
+        'Autopilotas',
+        'Blokuojamas diferencialas',
+        'CB radio įranga',
+        'Kalnų stabdis',
+        'Liftas',
+        'Šaldymo įranga',
+        'Su priekaba',
+        'Tachografas',
+        'Galiojanti techninė apžiūra (TA)',
+    ]),
+]
+
+# Etalono sec 02 ypatumai (motociklai)
+MOTO_ADVANCED_EQUIPMENT = [
+    ('moto_advanced', 'Papildoma įranga', [
+        '4x4 varantys ratai',
+        'Audio aparatūra',
+        'Automatinė pavarų dėžė',
+        'Dempferis',
+        'El. starteris',
+        'Keleivio atlošas',
+        'LED dienos žibintai',
+        'Lietuvoje neeksploatuotas',
+        'Lopšys',
+        'Platus galinis ratas',
+        'Priekinis stiklas',
+        'Su dokumentais',
+        'Kelioniniai krepsiai',
+        'Šildomos rankenos',
+        'Galiojanti techninė apžiūra (TA)',
+    ]),
+]
+
+# Etalono sec 05 ypatumai (vandens transportas)
+BOAT_EQUIPMENT_DEFINITION = [
+    ('boat_features', 'Ypatumai', [
+        'Elektrinis starteris',
+        'Kuro žarna',
+        'Papildomas kuro bakas',
+        'Rankinis užvedimas',
+        'Sraigtas',
+        'Su auto priekaba',
+        'Variklio defektas',
+    ]),
+]
+
+
 CATEGORY_EQUIPMENT = {
     'trailers': TRAILER_EQUIPMENT_DEFINITION,
     'agriculture': AGRI_EQUIPMENT_DEFINITION,
@@ -726,10 +779,11 @@ CATEGORY_EQUIPMENT = {
     'bicycles': BIKE_EQUIPMENT_DEFINITION,
     # ─── senosios kategorijos (turinys perkeltas iš DB) ───
     'cars': CARS_EQUIPMENT_DEFINITION,
-    'motorcycles': MOTO_EQUIPMENT_DEFINITION,
+    'motorcycles': MOTO_EQUIPMENT_DEFINITION + MOTO_ADVANCED_EQUIPMENT,
     'motogear': GEAR_EQUIPMENT_DEFINITION,
-    'trucks': TRUCK_EQUIPMENT_DEFINITION,
+    'trucks': TRUCK_EQUIPMENT_DEFINITION + TRUCK_ADVANCED_EQUIPMENT,
     'truck-parts': TRUCK_PARTS_EQUIPMENT_DEFINITION,
+    'boats': BOAT_EQUIPMENT_DEFINITION,
 }
 
 

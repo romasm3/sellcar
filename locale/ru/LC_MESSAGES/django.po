@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 14:44+0300\n"
+"POT-Creation-Date: 2026-08-20 14:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4624,39 +4624,39 @@ msgstr ""
 msgid "Motociklo tipas yra privalomas"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:193
+#: apps/listings/search_config/panels.py:196
 msgid "Nauji ir atnaujinti viršuje"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:194
+#: apps/listings/search_config/panels.py:197
 msgid "Pigiausi viršuje"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:195
+#: apps/listings/search_config/panels.py:198
 msgid "Brangiausi viršuje"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:464
+#: apps/listings/search_config/panels.py:473
 msgid "Vienos dienos"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:464
+#: apps/listings/search_config/panels.py:473
 msgid "Trijų dienų"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:465
+#: apps/listings/search_config/panels.py:474
 msgid "Savaitės"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:465
+#: apps/listings/search_config/panels.py:474
 msgid "Dviejų savaičių"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:467
+#: apps/listings/search_config/panels.py:476
 msgid "Privatus"
 msgstr ""
 
-#: apps/listings/search_config/panels.py:467
+#: apps/listings/search_config/panels.py:476
 msgid "Verslas"
 msgstr ""
 
