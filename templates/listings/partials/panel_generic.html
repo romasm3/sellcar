@@ -8,12 +8,23 @@ Naudojimas:
 `panel` ateina iš search_config.panels.build_panel(). Jei None —
 kategorija neaktyvi ir čia neįtraukiama (tuščia panelė nerodoma).
 
+Tinklelis perimtas iš etalono (išmatuota 2026-08-20, žr. paneles-config.json
+„panel_layout"): du stulpeliai po 241 px, tarpai 24 px horizontaliai ir
+12 px vertikaliai, o paskutinė eilutė — [Detali paieška][Ieškoti], abu kaip
+įprasti tinklelio langeliai, ne atskiras blokas apačioje.
+
+Parametrai:
+    count_key — kurios kategorijos skaičiuką rodyti mygtuke
+    adv_url   — „Detali paieška" nuoroda (jei kategorija ją turi)
+
 Naujo CSS nėra: sp-fld, sp-sel, sp-dd* klasės tos pačios, kurias naudoja
 automobilių panelė.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-  {% for f in panel.fields %}
+<div class="flex flex-col gap-y-3">
+  {% for row in panel.rows %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+  {% for f in row %}{% if f %}
 
     {% if f.type == 'range' %}
     <div>
@@ -131,13 +142,33 @@ automobilių panelė.
     </div>
     {% endif %}
 
+  {% else %}
+    <div class="hidden sm:block"></div>
+  {% endif %}{% endfor %}
+  </div>
   {% endfor %}
-</div>
 
-{% if panel.has_advanced %}
-{# Nuoroda į išplėstinę paiešką (isplestine-config.json) #}
-<div class="mt-2">
-  <a href="{% url 'advanced_search_generic' panel.slug %}"
-     class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900">{% trans "Detali paieška" %} →</a>
+  {% comment %} Kategorijos, kurios po konfigūracijos laukų dar turi savo blokų
+     (priekabos), footer'į renderina pačios — footer='no'.
+{% endcomment %}
+  {% if footer != 'no' %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+
+  {% if adv_url %}
+  <a href="{{ adv_url }}"
+     class="sp-fld flex items-center justify-center gap-2 font-semibold text-[#333] hover:text-black hover:border-gray-400 no-underline">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+    {% trans "Detali paieška" %}
+  </a>
+  {% else %}
+  <div class="hidden sm:block"></div>
+  {% endif %}
+
+  <button type="submit"
+          class="bg-gray-700 hover:bg-gray-800 text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    {% trans "Skelbimai" %}{% if count_key %} <span x-text="countLabel('{{ count_key }}')"></span>{% endif %}
+  </button>
+  </div>
+  {% endif %}
 </div>
-{% endif %}

@@ -15,11 +15,12 @@
           x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }} }">
       <input type="hidden" name="category" value="{{ adv.slug }}">
 
-      {# ═══ LAUKŲ TINKLELIS ═══
+      {% comment %} ═══ LAUKŲ TINKLELIS ═══
          Struktūra perimta iš etalono: form-grid > row > fields.
          Eilutė — trys vienodo pločio stulpeliai, tarpai 24 px horizontaliai
          ir 12 px vertikaliai (gap-x-6 / gap-y-3). Laukų vietos ateina iš
-         isplestine-config.json „layout" — nuskaitytos iš autogidas. #}
+         isplestine-config.json „layout" — nuskaitytos iš autogidas.
+{% endcomment %}
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-5">
         <div class="flex flex-col gap-y-3">
           {% for row in adv.rows %}

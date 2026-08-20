@@ -499,7 +499,33 @@
    "advanced_url": "/paieska/automobiliai/",
    "slug": "automobiliai",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Metai: f_41; Metai: f_42; Kaina: f_215; Kaina: f_216; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Kėbulo tipas: f_3[1]…f_3[14] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Tekstinė paieška: f_376; Tik Lietuvoje: ac_4; Skelbimas su VIN: ac_3",
-   "vt_slug": "cars"
+   "vt_slug": "cars",
+   "layout": [
+    [
+     "Markė",
+     "Modelis"
+    ],
+    [
+     "Metai",
+     "Kaina"
+    ],
+    [
+     "Kuro tipas",
+     "Kėbulo tipas"
+    ],
+    [
+     "Tekstinė paieška",
+     "Tik Lietuvoje"
+    ],
+    [
+     "Skelbimas su VIN",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Motociklai",
@@ -1338,7 +1364,29 @@
    "advanced_url": "/paieska/motociklai/",
    "slug": "motociklai",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Kaina: f_215; Kaina: f_216; Metai: f_41; Metai: f_42; Darbinis tūris cm³: f_133; Darbinis tūris cm³: f_134; Motociklo tipas: f_24[1]…f_24[12] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Tekstinė paieška: f_376",
-   "vt_slug": "motorcycles"
+   "vt_slug": "motorcycles",
+   "layout": [
+    [
+     "Markė",
+     "Modelis"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Darbinis tūris cm³",
+     "Motociklo tipas"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Apranga, šalmai, aksesuarai",
@@ -1522,7 +1570,25 @@
    "advanced_url": "/paieska/apranga-salmai-aksesuarai/",
    "slug": "apranga-salmai-aksesuarai",
    "url_params_raw": "Tipas: f_91; Kaina: f_215; Kaina: f_216; Vyriškas/moteriškas: f_92; Pagamintas iš: f_93; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "motogear"
+   "vt_slug": "motogear",
+   "layout": [
+    [
+     "Tipas",
+     "Kaina"
+    ],
+    [
+     "Vyriškas/moteriškas",
+     "Pagamintas iš"
+    ],
+    [
+     "Miestas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Padangos",
@@ -2310,7 +2376,29 @@
    "advanced_url": "/paieska/padangos/",
    "slug": "padangos",
    "url_params_raw": "Paskirtis: f_433; Skersmuo: f_76; Plotis: f_77; Dydis: f_445; Aukštis: f_78; Kaina: f_44; Kaina: f_45; Tekstinė paieška: f_376",
-   "vt_slug": "tires"
+   "vt_slug": "tires",
+   "layout": [
+    [
+     "Paskirtis",
+     "Skersmuo"
+    ],
+    [
+     "Plotis",
+     "Dydis"
+    ],
+    [
+     "Aukštis",
+     "Kaina"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Ratlankiai",
@@ -2521,7 +2609,25 @@
    "advanced_url": "/paieska/ratlankiai/",
    "slug": "ratlankiai",
    "url_params_raw": "Tipas: f_67; Skersmuo: f_68; Tvirtinimo taškai: f_71; Tarpai tarp skylių: f_73; Kaina: f_44; Kaina: f_45; Tekstinė paieška: f_376",
-   "vt_slug": "tires"
+   "vt_slug": "tires",
+   "layout": [
+    [
+     "Tipas",
+     "Skersmuo"
+    ],
+    [
+     "Tvirtinimo taškai",
+     "Tarpai tarp skylių"
+    ],
+    [
+     "Kaina",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Automobilių, mikroautobusų dalys",
@@ -3011,7 +3117,25 @@
    "advanced_url": "/paieska/automobiliu-mikroautobusu-dalys/",
    "slug": "automobiliu-mikroautobusu-dalys",
    "url_params_raw": "Markė: f_1[0]; Modelis: f_model_14[0]; Metai: f_41; Metai: f_42; Miestas: f_13; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Tekstinė paieška: f_376",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "layout": [
+    [
+     "Markė",
+     "Modelis"
+    ],
+    [
+     "Metai",
+     "Miestas"
+    ],
+    [
+     "Kuro tipas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Motociklų dalys",
@@ -3748,7 +3872,25 @@
    "advanced_url": "/paieska/motociklu-dalys/",
    "slug": "motociklu-dalys",
    "url_params_raw": "Markė: f_1; Modelis: f_model_14; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Motociklo tipas: f_24[1]…f_24[12] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Tekstinė paieška: f_376",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "layout": [
+    [
+     "Markė",
+     "Modelis"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Motociklo tipas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Sunkiojo transporto dalys",
@@ -4289,7 +4431,25 @@
    "advanced_url": "/paieska/sunkiojo-transporto-dalys/",
    "slug": "sunkiojo-transporto-dalys",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Miestas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Žemės ūkio, spec. dalys",
@@ -5293,7 +5453,25 @@
    "slug": "zemes-ukio-spec-dalys",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Miestas: f_13; Tekstinė paieška: f_376",
    "vt_slug": "parts",
-   "subcategory_slug": "agri-special-parts"
+   "subcategory_slug": "agri-special-parts",
+   "layout": [
+    [
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Miestas"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Aksesuarai, Tuning",
@@ -5460,7 +5638,21 @@
    "slug": "aksesuarai-akumuliatoriai-tuning",
    "url_params_raw": "Tipas: f_80; Kaina: f_44; Kaina: f_45; Tekstinė paieška: f_376; Miestas: f_13",
    "vt_slug": "parts",
-   "subcategory_slug": "accessories-tuning"
+   "subcategory_slug": "accessories-tuning",
+   "layout": [
+    [
+     "Kaina",
+     "Tekstinė paieška"
+    ],
+    [
+     "Miestas",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Žemės ūkio technika, padargai",
@@ -6455,6 +6647,24 @@
      "db_field": "engine_hours",
      "unit": "val."
     }
+   ],
+   "layout": [
+    [
+     "Tekstinė paieška",
+     "Padargas / Savaeigė"
+    ],
+    [
+     "Tipas",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Markė"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -6932,7 +7142,25 @@
    "advanced_url": "/paieska/sunkvezimiai/",
    "slug": "sunkvezimiai",
    "url_params_raw": "Markė: f_1; Tipas: f_80; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "layout": [
+    [
+     "Markė",
+     "Tipas"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Vilkikai",
@@ -7230,7 +7458,25 @@
    "slug": "vilkikai",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Tekstinė paieška: f_376",
    "vt_slug": "trucks",
-   "subcategory_slug": "semi-trucks-tractors"
+   "subcategory_slug": "semi-trucks-tractors",
+   "layout": [
+    [
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Ratų formulė"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Autotraukiniai, autovežiai",
@@ -7538,7 +7784,25 @@
    "slug": "autotraukiniai-autoveziai",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tipas: f_80; Tekstinė paieška: f_376",
    "vt_slug": "trucks",
-   "subcategory_slug": "vehicle-transporters"
+   "subcategory_slug": "vehicle-transporters",
+   "layout": [
+    [
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Tipas"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Autobusai",
@@ -7786,7 +8050,21 @@
    "slug": "autobusai",
    "url_params_raw": "Markė: f_1; Kaina: f_215; Kaina: f_216; Metai: f_41; Metai: f_42; Autobuso tipas: f_26; Tekstinė paieška: f_376",
    "vt_slug": "trucks",
-   "subcategory_slug": "buses"
+   "subcategory_slug": "buses",
+   "layout": [
+    [
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Komunalinio ūkio transportas",
@@ -8264,7 +8542,25 @@
    "slug": "komunalinio-ukio-technika",
    "url_params_raw": "Markė: f_1; Tipas: f_80; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
    "vt_slug": "trucks",
-   "subcategory_slug": "municipal-transport"
+   "subcategory_slug": "municipal-transport",
+   "layout": [
+    [
+     "Markė",
+     "Tipas"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "Priekabos / Puspriekabės",
@@ -8733,6 +9029,28 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Paskirtis",
+     "Metai"
+    ],
+    [
+     "Kaina",
+     "Spalva"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -9180,6 +9498,24 @@
      "db_field": "mileage",
      "unit": "km"
     }
+   ],
+   "layout": [
+    [
+     "Markė",
+     "Nuomos kaina parai"
+    ],
+    [
+     "Kuro tipas",
+     "Pavarų dėžė"
+    ],
+    [
+     "Miestas",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -9703,6 +10039,24 @@
      "db_field": "mileage",
      "unit": "km"
     }
+   ],
+   "layout": [
+    [
+     "Markė",
+     "Nuomos kaina valandai"
+    ],
+    [
+     "Metai",
+     "Pavarų dėžė"
+    ],
+    [
+     "Miestas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -10537,6 +10891,24 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Markė",
+     "Nuomos kaina parai"
+    ],
+    [
+     "Metai",
+     "Motociklo tipas"
+    ],
+    [
+     "Miestas",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -11090,6 +11462,24 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Metai"
+    ],
+    [
+     "Kuro tipas",
+     "Miestas"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -11668,6 +12058,24 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Metai"
+    ],
+    [
+     "Kuro tipas",
+     "Miestas"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -11996,6 +12404,24 @@
      "db_field": "elec_channels",
      "unit": "kan."
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Gamintojas"
+    ],
+    [
+     "Kaina",
+     "Spalva"
+    ],
+    [
+     "Miestas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -12137,6 +12563,20 @@
     {
      "db_field": "city"
     }
+   ],
+   "layout": [
+    [
+     "Paslaugos tipas",
+     "Miestas"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -12684,6 +13124,24 @@
      "db_field": "engine_hours",
      "unit": "val."
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -13339,6 +13797,24 @@
      "db_field": "engine_hours",
      "unit": "val."
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -13416,6 +13892,20 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Kaina"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -13737,6 +14227,24 @@
      "db_field": "engine_hours",
      "unit": "val."
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -14147,6 +14655,28 @@
      "db_field": "mileage",
      "unit": "km"
     }
+   ],
+   "layout": [
+    [
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Tipas"
+    ],
+    [
+     "Miestas",
+     "Tinka su B kat. teisėmis"
+    ],
+    [
+     "Tekstinė paieška",
+     ""
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   },
   {
@@ -14436,7 +14966,25 @@
    "advanced_url": "/paieska/vandens-transportas/",
    "slug": "vandens-transportas",
    "url_params_raw": "Tipas: f_80; Medžiaga: f_154; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "boats"
+   "vt_slug": "boats",
+   "layout": [
+    [
+     "Tipas",
+     "Medžiaga"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Miestas",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
+   ]
   },
   {
    "name": "El. paspirtukai, riedžiai, dviračiai",
@@ -14822,8 +15370,41 @@
     {
      "db_field": "year"
     }
+   ],
+   "layout": [
+    [
+     "Tipas",
+     "Gamintojas"
+    ],
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Spalva",
+     "Tekstinė paieška"
+    ],
+    [
+     "[detali paieška]",
+     "[ieškoti]"
+    ]
    ]
   }
  ],
- "note": "Modelių sąrašai pašalinti — jie priklauso nuo markės ir imami iš projekto DB."
+ "note": "Modelių sąrašai pašalinti — jie priklauso nuo markės ir imami iš projekto DB.",
+ "panel_layout": {
+  "source": "autogidas.lt greitoji panelė (išmatuota 2026-08-20)",
+  "columns": 2,
+  "field_width_px": 241,
+  "form_width_px": 506,
+  "rail_width_px": 82,
+  "gap_x_px": 24,
+  "gap_y_px": 12,
+  "field_height_px": 40,
+  "footer_row": [
+   "advanced_link",
+   "submit_button"
+  ],
+  "note": "Laukai eina konfigūracijos tvarka po du; nelyginį skaičių užpildo tuščias langelis, kad paskutinė eilutė liktų [Detali paieška][Ieškoti]."
+ }
 }

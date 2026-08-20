@@ -341,6 +341,7 @@ def build_panel(vt_slug, user=None, sub_slug=None):
         db = f['db_field']
         item = {
             'label': _(f['label']),
+            'raw_label': f['label'],     # tinklelio dėliojimui (layout)
             'type': f['type'],
             'db_field': db,
             'param': f.get('param'),
@@ -401,6 +402,9 @@ def build_panel(vt_slug, user=None, sub_slug=None):
         'slug': vt_slug,
         'label': _(cat['name']),
         'fields': fields,
+        # Eilutės iš konfigūracijos „layout" — etalono tinklelis
+        # (du stulpeliai, paskutinė eilutė skirta nuorodai ir mygtukui).
+        'rows': _panel_rows(cat, fields),
         'card_fields': cat.get('card_fields', []),
         'has_advanced': advanced_is_active(vt_slug),
     }
@@ -439,6 +443,41 @@ def _layout_rows(cat, fields):
         rows.append(rest[start:start + 3])
     return rows
 
+
+
+
+def _panel_rows(cat, fields):
+    """Greitosios panelės eilutės pagal konfigūracijos „layout".
+
+    Etalone panelė yra dviejų stulpelių tinklelis, o paskutinė eilutė —
+    [Detali paieška][Ieškoti]. Ją renderina šablonas, todėl čia grąžinam
+    tik laukų eilutes; tuščias langelis lieka None.
+    """
+    by_label = {}
+    for item in fields:
+        by_label.setdefault(_norm_label(item.get('raw_label')), item)
+
+    rows, used = [], set()
+    for row in cat.get('layout') or []:
+        if any(str(c).startswith('[') for c in row):
+            continue                      # footer eilutė — šablono reikalas
+        cells = []
+        for label in row:
+            key = _norm_label(label)
+            item = by_label.get(key)
+            if item is not None and key not in used:
+                used.add(key)
+                cells.append(item)
+            else:
+                cells.append(None)
+        if any(cells):
+            rows.append(cells)
+
+    rest = [i for i in fields if _norm_label(i.get('raw_label')) not in used]
+    for start in range(0, len(rest), 2):
+        pair = rest[start:start + 2]
+        rows.append(pair + [None] * (2 - len(pair)))
+    return rows
 
 def build_advanced(vt_slug, user=None, sub_slug=None):
     """Išplėstinės paieškos aprašas šablonui (arba None, jei neaktyvi)."""

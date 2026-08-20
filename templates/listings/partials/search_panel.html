@@ -38,7 +38,7 @@
   [x-cloak] { display:none !important; }
 </style>
 
-<div class="bg-white rounded-xl shadow-sm flex max-w-[700px] overflow-visible{% if layout == 'side' %} sp-side{% endif %}"
+<div class="bg-white rounded-xl shadow-sm flex max-w-[610px] overflow-visible{% if layout == 'side' %} sp-side{% endif %}"
      style="width:100%;margin:0 auto 1.5rem auto;"
      x-data="spPanel()" x-init="init()">
 
@@ -827,14 +827,7 @@
         <input type="hidden" name="category" value="trucks">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="{{ key }}">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:key %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('trucks')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:key count_key='trucks' adv_url='/paieska/trucks/' %}
       </form>
       {% endif %}{% endfor %}
 
@@ -843,20 +836,7 @@
         <input type="hidden" name="category" value="trucks">
         <input type="hidden" name="sidebar" value="1">
 
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.trucks %}
-
-        <div class="flex flex-wrap items-center gap-4 mt-2">
-          <a href="{% url 'advanced_search' %}?category=trucks"
-             class="flex items-center gap-2 text-[14.5px] font-medium text-[#333] hover:text-black">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
-            {% trans "Išplėstinė paieška" %}
-          </a>
-          <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('trucks')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.trucks count_key='trucks' adv_url='/paieska/trucks/' %}
       </form>
     </div>
 
@@ -1084,14 +1064,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="boats">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.boats %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('boats')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.boats count_key='boats' adv_url='/paieska/boats/' %}
       </form>
     </div>
 
@@ -1104,7 +1077,7 @@
         <input type="hidden" name="sidebar" value="1">
 
         {# ═══ GREITOJI PAIEŠKA — iš konfigūracijos ═══ #}
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.trailers %}
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.trailers count_key='trailers' footer='no' %}
 
         {# ═══ IŠPLĖSTINIAI ═══ #}
         <div x-data="{ adv: false }" class="mt-3">
@@ -1217,10 +1190,18 @@
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
+        {% comment %} Priekabų panelė po konfigūracijos laukų turi savo blokų, todėl
+           paskutinę eilutę renderina pati — bet tokią pat kaip etalone.
+{% endcomment %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-3">
+          <a href="/paieska/trailers/"
+             class="sp-fld flex items-center justify-center gap-2 font-semibold text-[#333] hover:text-black hover:border-gray-400 no-underline">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+            {% trans "Detali paieška" %}
+          </a>
           <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+                  class="bg-gray-700 hover:bg-gray-800 text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('trailers')"></span>
           </button>
         </div>
@@ -1233,14 +1214,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="agriculture">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.agriculture %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('agriculture')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.agriculture count_key='agriculture' adv_url='/paieska/agriculture/' %}
       </form>
     </div>
 
@@ -1264,28 +1238,14 @@
         <input type="hidden" name="category" value="construction">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="construction-attachments">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'construction-attachments' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('construction')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'construction-attachments' count_key='construction' adv_url='/paieska/construction/' %}
       </form>
 
       <form class="sp-search-form" data-subtab="main" x-show="subTab.construction === 'main'"
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="construction">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.construction %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('construction')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.construction count_key='construction' adv_url='/paieska/construction/' %}
       </form>
     </div>
 
@@ -1296,14 +1256,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="loading-equipment">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'loading-equipment' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('loading-equipment')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'loading-equipment' count_key='loading-equipment' adv_url='/paieska/loading-equipment/' %}
       </form>
     </div>
 
@@ -1314,14 +1267,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="forestry">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels.forestry %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('forestry')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels.forestry count_key='forestry' adv_url='/paieska/forestry/' %}
       </form>
     </div>
 
@@ -1331,14 +1277,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="bicycles">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'bicycles' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('bicycles')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'bicycles' count_key='bicycles' adv_url='/paieska/bicycles/' %}
       </form>
     </div>
 
@@ -1348,14 +1287,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="electronics">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'electronics' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('electronics')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'electronics' count_key='electronics' adv_url='/paieska/electronics/' %}
       </form>
     </div>
 
@@ -1365,14 +1297,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="services">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'services' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('services')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'services' count_key='services' adv_url='/paieska/services/' %}
       </form>
     </div>
 
@@ -1407,14 +1332,7 @@
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="car-rental">
         {# car-rental yra numatytoji nuomos sekcija (31), todėl ji gyvena config_panels, ne _sub #}
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'rental' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
 
       {# ─────────── LIMUZINŲ, VESTUVIŲ ─────────── #}
@@ -1423,14 +1341,7 @@
         <input type="hidden" name="category" value="rental">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="limo-wedding-rental">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'limo-wedding-rental' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'limo-wedding-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
 
       {# ─────────── MOTOCIKLŲ NUOMA ─────────── #}
@@ -1439,14 +1350,7 @@
         <input type="hidden" name="category" value="rental">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="motorcycle-rental">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'motorcycle-rental' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'motorcycle-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
 
       {# ─────────── MIKROAUTOBUSŲ, TURISTINIO, VANDENS TR. ─────────── #}
@@ -1455,14 +1359,7 @@
         <input type="hidden" name="category" value="rental">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="minibus-touring-water-rental">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'minibus-touring-water-rental' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'minibus-touring-water-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
 
       {# ─────────── SUNKIOJO TRANSPORTO, PRIEKABŲ ─────────── #}
@@ -1471,14 +1368,7 @@
         <input type="hidden" name="category" value="rental">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="heavy-trailer-rental">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'heavy-trailer-rental' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('rental')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'heavy-trailer-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
     </div>
 
@@ -1489,14 +1379,7 @@
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="camping-houses">
         <input type="hidden" name="sidebar" value="1">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'camping-houses' %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('camping-houses')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'camping-houses' count_key='camping-houses' adv_url='/paieska/camping-houses/' %}
       </form>
     </div>
 
@@ -1510,23 +1393,17 @@
         <span x-show="partSub === 'accessories'" x-cloak>{% trans "Aksesuarai, Tuning" %}</span>
       </h2>
 
-      {# ─────────── ŽEMĖS ŪKIO, SPEC. DALYS (28) ir AKSESUARAI (14) ───────────
+      {% comment %} ─────────── ŽEMĖS ŪKIO, SPEC. DALYS (28) ir AKSESUARAI (14) ───────────
          Deklaratyvios panelės iš config_panels_sub — anksčiau šios dvi šakos
-         panelės neturėjo visai. #}
+         panelės neturėjo visai.
+{% endcomment %}
       {% for key, slug in parts_config_subs %}
       <form class="sp-search-form" data-partsub="{{ key }}" x-show="partSub === '{{ key }}'" x-cloak
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="parts">
         <input type="hidden" name="sidebar" value="1">
         <input type="hidden" name="subcategory" value="{{ slug }}">
-        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:slug %}
-        <div class="flex flex-wrap items-center justify-end gap-4 mt-2">
-          <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-            {% trans "Skelbimai" %} <span x-text="countLabel('parts')"></span>
-          </button>
-        </div>
+        {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:slug count_key='parts' %}
       </form>
       {% endfor %}
 
