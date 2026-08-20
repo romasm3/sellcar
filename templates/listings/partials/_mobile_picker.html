@@ -1,0 +1,59 @@
+{% load i18n i18n_db static %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+MOBILUS KATEGORIJŲ PIKERIS — atsidaro paspaudus „…" ikonų juostoje.
+
+Etalonas: antraštė pilkame fone su „Pasirinkite" ir juodu × ; pirmos
+keturios kategorijos — 2×2 didelių kortelių tinklelis; likusios — per
+visą plotį eilutėmis su maža ikona dešinėje; apačioje prilipęs paieškos
+laukas.
+
+Kategorijos ir jų tvarka — TAS PATS šaltinis kaip ikonų juostos ir
+„daugiau" sąrašo (picker_primary + more_items + coming_soon_categories).
+Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="sp-picker lg:hidden" x-show="picker" x-cloak @keydown.escape.window="picker = false">
+  <div class="sp-picker-hdr">
+    <span>{% trans "Pasirinkite" %}</span>
+    <button type="button" @click="picker = false" aria-label="{% trans 'Uždaryti' %}">
+      <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="sp-picker-body">
+    <div class="sp-picker-grid">
+      {% for slug, label in picker_primary %}
+      <button type="button" class="sp-picker-card"
+              x-show="pmatch('{{ label|escapejs }}')"
+              @click="switchTab('{{ slug }}'); picker = false">
+        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug %}</span>
+        <span>{{ label }}</span>
+      </button>
+      {% endfor %}
+    </div>
+
+    {% for item in more_items %}
+    <a class="sp-picker-row" x-show="pmatch('{{ item.name|tdb|escapejs }}')"
+       href="{% url 'listing_list' %}?category={{ item.slug }}{% if item.sub_id %}&amp;subcategory={{ item.sub_id }}{% endif %}">
+      <span>{{ item.name|tdb }}</span>
+      <span class="sp-picker-ico-sm">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
+      </span>
+    </a>
+    {% endfor %}
+
+    {% for slug, name in coming_soon_categories %}
+    <div class="sp-picker-row is-soon" x-show="pmatch('{{ name|escapejs }}')">
+      <span>{{ name }}</span>
+      <span class="sp-picker-soon">{% trans "Netrukus" %}</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="sp-picker-foot">
+    <span class="sp-picker-search">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" x-model="pq" placeholder="{% trans 'Paieška...' %}">
+    </span>
+  </div>
+</div>

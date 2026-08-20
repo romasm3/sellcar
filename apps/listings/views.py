@@ -1658,6 +1658,15 @@ def listing_list(request):
         'moto_brands': moto_brands,
         'wheel_counts': wheel_counts,
         'more_items': more_items,
+        # Mobilus kategorijų pikeris (trys taškiukai ikonų juostoje) —
+        # tas pats šaltinis kaip juostos ir „daugiau" sąrašo: pirmos
+        # keturios yra juostos ikonos, likusios — more_items eilės tvarka.
+        'picker_primary': [
+            ('cars', _('Automobiliai')),
+            ('motorcycles', _('Motociklai, apranga')),
+            ('tires', _('Ratlankiai / padangos')),
+            ('parts', _('Dalys')),
+        ],
         **parts_panel_context(request.user),
         **trailers_panel_context(request.user),
         'selected_trailer_equipment': request.GET.getlist('trailer_equipment'),
