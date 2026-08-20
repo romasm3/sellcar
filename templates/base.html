@@ -74,7 +74,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <div class="flex items-center gap-8">
+                <div class="flex items-center gap-8 min-w-0">
                     <a href="{% url 'home' %}" class="flex items-center gap-2">
                         <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
                             AL
@@ -83,7 +83,7 @@
                     </a>
 
                     <!-- Desktop Navigation -->
-                    <div class="hidden md:flex items-center gap-6">
+                    <div class="hidden lg:flex items-center gap-6">
                         <a href="{% url 'search_map' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
                             {% trans "Map Search" %}
                         </a>
@@ -149,8 +149,26 @@
                         </svg>
                     </a>
 
+                    {% comment %}
+                    Etalono antraštėje trys ikonos: žymė (Mano paieškos su žaliu
+                    naujų skelbimų skaitikliu), širdis (Įsiminti skelbimai) ir
+                    meniu. Ta pati tvarka ir pas mus — abi ikonos matomos ir
+                    telefone, vokas telefone lieka paslėptas (netilptų).
+                    Didinamasis stiklas čia buvo klaidinantis: jis reiškia
+                    paiešką, o ne IŠSAUGOTAS paieškas.
+                    {% endcomment %}
+                    <!-- Saved Searches Icon -->
+                    <a href="{% url 'saved_searches_list' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
+                        <i class="fas fa-bookmark text-xl"></i>
+                        {% if new_searches_count > 0 %}
+                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
+                            {{ new_searches_count }}
+                        </span>
+                        {% endif %}
+                    </a>
+
                     <!-- Saved Listings Icon -->
-                    <a href="{% url 'saved_listings' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'Saved Ads' %}">
+                    <a href="{% url 'saved_listings' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'Saved Ads' %}">
                         <i class="fas fa-heart text-xl"></i>
                         {% if saved_listings_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
@@ -159,18 +177,8 @@
                         {% endif %}
                     </a>
 
-                    <!-- Saved Searches Icon -->
-                    <a href="{% url 'saved_searches_list' %}" class="relative hidden md:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
-                        <i class="fas fa-search text-xl"></i>
-                        {% if new_searches_count > 0 %}
-                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
-                            {{ new_searches_count }}
-                        </span>
-                        {% endif %}
-                    </a>
-
                     <!-- Messages Icon -->
-                    <a href="{% url 'conversations:list' %}" class="relative hidden md:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
+                    <a href="{% url 'conversations:list' %}" class="relative hidden lg:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
                         <i class="fas fa-envelope text-xl"></i>
                         {% if unread_messages_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
@@ -180,7 +188,7 @@
                     </a>
 
                     <!-- User Menu (desktop tik — mobile'e per hamburger) -->
-                    <div class="relative hidden md:block" x-data="{ open: false }">
+                    <div class="relative hidden lg:block shrink-0" x-data="{ open: false }">
                         <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
                             {% if user.profile.profile_picture %}
                             <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
@@ -190,7 +198,9 @@
                                 {{ user.email|first|upper }}
                             </div>
                             {% endif %}
-                            <span class="hidden sm:block font-medium text-gray-700">{{ user.email }}</span>
+                            {% comment %}El. pašto antraštėje nerodom — etalone jo nėra, o ilgas
+                            adresas (155 px) plėtė antraštę už ekrano ties 768 ir 1024 px.
+                            Jis rodomas iškrentančio meniu viršuje.{% endcomment %}
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -199,6 +209,7 @@
                         <!-- Dropdown -->
                         <div x-show="open" @click.away="open = false" x-cloak
                              class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                            <div class="px-4 pb-2 mb-1 border-b border-gray-100 text-xs text-gray-500 truncate">{{ user.email }}</div>
                             <a href="{% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-car w-5"></i> {% trans "My Ads" %}
                             </a>
@@ -213,7 +224,7 @@
                             </a>
                             <a href="{% url 'saved_searches_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <span class="relative inline-block w-5 mr-1">
-                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-bookmark"></i>
                                     {% if new_searches_count > 0 %}
                                     <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ new_searches_count }}</span>
                                     {% endif %}
@@ -274,7 +285,7 @@
                     {% endif %}
 
                     <!-- Mobile Menu Button -->
-                    <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2">
+                    <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -284,7 +295,7 @@
         </div>
 
         <!-- Mobile Menu (vienas pilnas meniu — pakeičia avataro dropdown) -->
-        <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-gray-200 bg-white">
+        <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-gray-200 bg-white">
             <div class="px-4 py-4 space-y-1">
                 {% if user.is_authenticated %}
                 <a href="{% url 'listing_create' %}"
@@ -309,8 +320,11 @@
                 <a href="{% url 'saved_listings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-heart w-5"></i> {% trans "Saved Ads" %}
                 </a>
-                <a href="{% url 'saved_searches_list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-search w-5"></i> {% trans "My Searches" %}
+                <a href="{% url 'saved_searches_list' %}" class="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <span><i class="fas fa-bookmark w-5"></i> {% trans "My Searches" %}</span>
+                    {% if new_searches_count > 0 %}
+                    <span class="min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full inline-flex items-center justify-center font-bold leading-none">{{ new_searches_count }}</span>
+                    {% endif %}
                 </a>
                 <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-envelope w-5"></i> {% trans "Messages" %}

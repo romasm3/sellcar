@@ -2,7 +2,11 @@ def saved_searches_count(request):
     if not request.user.is_authenticated:
         return {'new_searches_count': 0}
     from .models import SavedSearch, Listing
-    total_new = 0
+    # Skaitiklis rodo, KIEK NAUJŲ SKELBIMŲ atsirado pagal išsaugotas paieškas.
+    # Skaičiuojami skirtingi skelbimai: dvi persidengiančios paieškos (o jų
+    # pasitaiko — vartotojai išsaugo tą patį kelis kartus) to paties skelbimo
+    # du kartus nebeskaičiuoja.
+    new_ids = set()
     searches = SavedSearch.objects.filter(user=request.user)
     for search in searches:
         params = search.query_params
@@ -30,10 +34,9 @@ def saved_searches_count(request):
         elif params.get('country_filter'):
             qs = qs.filter(country=params['country_filter'])
         if search.last_viewed_at:
-            total_new += qs.filter(created_at__gt=search.last_viewed_at).count()
-        else:
-            total_new += qs.count()
-    return {'new_searches_count': total_new}
+            qs = qs.filter(created_at__gt=search.last_viewed_at)
+        new_ids.update(qs.values_list('id', flat=True))
+    return {'new_searches_count': len(new_ids)}
 
 
 def saved_listings_count(request):
