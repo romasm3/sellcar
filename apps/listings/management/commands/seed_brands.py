@@ -72,9 +72,16 @@ def collect():
                 .values_list('name', flat=True) if add(scope_key, name))
         log.append(f'  {model_name + " (DB)":<34} {n:>4} → {scope_key}')
 
-    n = sum(1 for name in Brand.objects.values_list('name', flat=True)
-            if add('cars', name))
-    log.append(f'  {"Brand (DB, automobiliai)":<34} {n:>4} → cars')
+    # SVARBU: „cars" krepšelis renkamas TIK iš .txt šaltinio.
+    #
+    # Anksčiau čia buvo pridedamos ir visos esamos Brand eilutės. Pirmą
+    # kartą tai buvo nekenksminga (lentelėje gulėjo tik 200 automobilių
+    # markių), bet antrą kartą paleidus komandą lentelėje jau buvo visos
+    # 2583 markės — ir kiekvienai buvo priskirtas cars scope. Automobilių
+    # formos ėmė rodyti traktorius ir kranus.
+    #
+    # Esamos eilutės vis tiek atpažįstamos: _seed() jas randa pagal
+    # pavadinimą (by_name) ir dublikatų nekuria.
     return data, log
 
 
