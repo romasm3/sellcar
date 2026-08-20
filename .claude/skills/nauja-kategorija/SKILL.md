@@ -325,6 +325,43 @@ tik 3 markes buvo galima pridėti per admin — likusios reikalavo deploy'o.
 (arba prijungi kategoriją prie esamos) ir forma su filtru markes gauna
 automatiškai.
 
+### Laukų CSS turi pasiekti KIEKVIENĄ paviršių
+
+**Klasė ant elemento ≠ stilius puslapyje.** `sp-fld`, `sp-sel`, `sp-dd*`
+apibrėžti `partials/_sp_field_styles.html`. Kiekvienas naujas paviršius,
+kuris renderina paieškos laukus, privalo jį įtraukti:
+
+```django
+{% include 'listings/partials/_sp_field_styles.html' %}
+```
+
+Patikrinimas — vienas curl. Turi grąžinti **1**, ne 0:
+
+```bash
+curl -s https://autoleft.com/paieska/camping-houses/ | grep -c 'sp-fld {'
+```
+
+Nuliui reiškia, kad laukai puslapyje bus be baltos dėžutės, be rėmelio ir
+be apvalintų kampų, o „Nuo/Iki" poros kabos ore.
+
+**Kodėl tai pasitaikė du kartus.** Iš pradžių stiliai gyveno `<style>`
+bloke pačiame `search_panel.html`. Kol egzistavo tik greitoji panelė, viskas
+veikė. Detali paieška to partial'o neįtraukė — laukai be rėmelių (1 kartas).
+Iškėlus stilius į atskirą partial'ą, ta pati klaida pasikartojo su
+rezultatų puslapio šonine juosta, nes ir jis įtraukimo neturėjo (2 kartas).
+
+Klaida klastinga tuo, kad HTML atrodo teisingai: klasės vietoje, markup'as
+toks pat kaip veikiančiame puslapyje. Todėl tikrinama ne akimis, o šitaip:
+
+```bash
+for u in "/" "/paieska/camping-houses/" "/?category=camping-houses&sidebar=1"; do
+  printf "%-46s %s\n" "$u" "$(curl -s "https://autoleft.com$u" | grep -c 'sp-fld {')"
+done
+```
+
+Visose eilutėse turi būti 1. Tą patį principą taikyk bet kuriam bendram
+`<style>` ar `<script>`: naujas paviršius — patikrink, ar jis jį gauna.
+
 ### Komentarai šablonuose
 
 **Kelių eilučių komentarai — TIK `{% comment %}...{% endcomment %}`.**
