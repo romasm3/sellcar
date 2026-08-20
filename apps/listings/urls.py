@@ -5,6 +5,7 @@ from . import motorcycles_views
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
+from . import moto_for_parts_views
 from . import parts_views
 from . import moto_part_views
 from . import truck_for_parts_views
@@ -20,7 +21,6 @@ from . import services_views
 from . import electronics_views
 from . import bicycles_views
 from . import wheels_views
-from .decorators import staff_only
 
 urlpatterns = [
     path('upgrade/', views.listing_upgrade, name='listing_upgrade'),
@@ -126,7 +126,14 @@ urlpatterns = [
     path('ajax/reorder-trucks-images/', trucks_views.reorder_trucks_images_ajax, name='reorder_trucks_images_ajax'),
 
     # ─── CAR FOR PARTS (WIP — tik staff'ui) ───
-    path('create/car-for-parts/', staff_only(car_for_parts_views.car_for_parts_create), name='car_for_parts_create'),
+    path('create/car-for-parts/', car_for_parts_views.car_for_parts_create, name='car_for_parts_create'),
+    path('create/moto-for-parts/', moto_for_parts_views.moto_for_parts_create, name='moto_for_parts_create'),
+    path('<int:pk>/edit-moto-for-parts/', moto_for_parts_views.moto_for_parts_edit, name='moto_for_parts_edit'),
+    path('ajax/upload-moto-for-parts-image/', moto_for_parts_views.upload_moto_for_parts_image, name='upload_moto_for_parts_image'),
+    path('ajax/delete-moto-for-parts-image/<int:pk>/', moto_for_parts_views.delete_moto_for_parts_image, name='delete_moto_for_parts_image'),
+    path('ajax/reorder-moto-for-parts-images/', moto_for_parts_views.reorder_moto_for_parts_images, name='reorder_moto_for_parts_images'),
+    path('ajax/upload-moto-for-parts-edit-image/<int:pk>/', moto_for_parts_views.upload_moto_for_parts_edit_image, name='upload_moto_for_parts_edit_image'),
+    path('ajax/reorder-moto-for-parts-edit-images/<int:pk>/', moto_for_parts_views.reorder_moto_for_parts_edit_images, name='reorder_moto_for_parts_edit_images'),
     path('<int:pk>/edit-car-for-parts/', car_for_parts_views.car_for_parts_edit, name='car_for_parts_edit'),
     path('ajax/upload-car-for-parts-image/', car_for_parts_views.upload_car_for_parts_image, name='upload_car_for_parts_image'),
     path('ajax/delete-car-for-parts-image/<int:pk>/', car_for_parts_views.delete_car_for_parts_image, name='delete_car_for_parts_image'),

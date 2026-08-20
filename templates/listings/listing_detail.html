@@ -1870,6 +1870,115 @@
                 </div>
 
                 {# ════════════════════════════════════════════════ #}
+                {# ─── MOTO FOR PARTS branch ─── #}
+                {# Motociklas, parduodamas dalimis — automobilio šakos    #}
+                {# dvynys, tik su motociklo laukais                       #}
+                {# ════════════════════════════════════════════════ #}
+                {% elif listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts' %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Metai" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.year }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-motorcycle text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Motociklo tipas" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.get_motorcycle_type_display|default:"—" }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-gears text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Darbinis tūris" %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }} cm³{% else %}—{% endif %}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-tachometer-alt text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}{{ listing.mileage|floatformat:0 }} km{% else %}—{% endif %}</div></div>
+                        </div>
+                    </div>
+                    <span class="inline-block mb-4 px-3 py-1 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">
+                        <i class="fas fa-screwdriver-wrench mr-1"></i>{% trans "Parduodamas dalimis" %}
+                    </span>
+                    <div class="border-t border-gray-200 pt-6">
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
+                    </div>
+                </div>
+
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Komentarai" %}</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Techninė informacija" %}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Markė" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.motorcycle_brand.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Modelis" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.motorcycle_model.name|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Motociklo tipas" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_motorcycle_type_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Metai" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.year }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Būklė" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_condition_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Darbinis tūris" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }} cm³{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Variklio tipas" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_moto_engine_type_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Aušinimas" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_cooling_type_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Galia" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Rida" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}{{ listing.mileage|floatformat:0 }} km{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Spalva" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"—" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Vieta" %}</h2>
+                    <div class="flex items-start gap-3 text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
+                        <div>
+                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {# ════════════════════════════════════════════════ #}
                 {# ─── CAR FOR PARTS branch ─── #}
                 {# ════════════════════════════════════════════════ #}
                 {% elif listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts' %}

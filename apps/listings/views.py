@@ -181,13 +181,11 @@ IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
 }
 
 # Subkategorijos ĮGYVENDINTOSE kategorijose, kurios formos vis dar neturi.
-# Pikeryje rodomos pilkos su „Netrukus“ — kitaip publikavus „Dalis“
-# vartotojas gautų 404 (whole-car-for-parts yra staff_only) arba
-# aklavietę (whole-moto-for-parts formos neturi visai).
-UNIMPLEMENTED_SUBCATEGORY_SLUGS = {
-    'whole-car-for-parts',    # staff_only → ne-staff gauna 404
-    'whole-moto-for-parts',   # formos nėra
-}
+# Pikeryje tokios rodomos pilkos su „Netrukus“, kad vartotojas neatsidurtų
+# 404 puslapyje ar aklavietėje. Šiuo metu tuščias: „Automobilis dalimis“
+# atidarytas visiems (buvo staff_only), o „Motociklas dalimis“ gavo savo
+# formą (moto_for_parts_views).
+UNIMPLEMENTED_SUBCATEGORY_SLUGS = set()
 
 # Subkategorijos, kurias aptarnauja bendra „atskiros dalies“ forma
 # (parts_listing_create). Ji sukasi apie PartCategory medį, ne apie
@@ -462,6 +460,10 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
         return redirect(f"{reverse('parts_category_select')}?for={subcategory_slug}")
     if subcategory_slug == 'single-moto-part':
         return redirect('moto_part_create')
+    if subcategory_slug == 'whole-car-for-parts':
+        return redirect('/create/car-for-parts/?new=1')
+    if subcategory_slug == 'whole-moto-for-parts':
+        return redirect('/create/moto-for-parts/?new=1')
     if subcategory_slug == 'whole-truck-for-parts':
         return redirect('/create/truck-for-parts/?new=1')
 
@@ -3102,6 +3104,15 @@ def listing_edit(request, pk):
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
             return redirect(f'/create/construction/attachment/?edit={pk}')
         return redirect(f'/create/construction/?edit={pk}')
+    # „Visas X dalimis" turi savo vienpuslapes formas ir TURI būti tikrinamos
+    # PRIEŠ bendrą parts šaką — kitaip jos atsidarydavo bendroje dalies
+    # formoje, kuri tų laukų nemoka.
+    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
+        return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
+        return redirect('truck_for_parts_edit', pk=pk)
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -3110,10 +3121,6 @@ def listing_edit(request, pk):
         return redirect(f'/create/motogear/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
-
-    # ✅ Whole car for parts → atskiras edit puslapis
-    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
-        return redirect('car_for_parts_edit', pk=pk)
 
     if request.method == 'POST':
         _old_price = listing.price
@@ -3981,6 +3988,8 @@ def listing_edit_hub(request, pk):
         return redirect(f'/create/construction/?edit={pk}')
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
         return redirect('truck_for_parts_edit', pk=pk)
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
@@ -3995,6 +4004,8 @@ def listing_edit_hub(request, pk):
     # ✅ Whole car for parts → atskiras edit puslapis (vienpuslapė forma)
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
 
     total_equipment = Equipment.objects.count()
     filled_equipment = listing.equipment_items.count()
@@ -4095,6 +4106,8 @@ def listing_edit_section(request, pk, section):
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
 
     section_to_step = {
         'vehicle': 3, 'equipment': 4, 'price': 5,
@@ -4331,6 +4344,8 @@ def listing_edit_step(request, pk, step):
     # ✅ Whole car for parts → atskiras edit puslapis
     if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
         return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
 
     step = int(step)
     if step not in range(1, 8):
