@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static dict_extras %}
 {% load i18n i18n_db %}
 
 {% block title %}{% trans "Browse Cars" %} - SellCar{% endblock %}
@@ -694,8 +694,39 @@ a.sp-rail-btn { text-decoration:none; }
             {% endif %}
 
             <div class="flex-1 min-w-0">
+                {% comment %}
+                Telefone — etalono rezultatų antraštė: „Rasta: N" kairėje,
+                vaizdo režimai viduryje, rūšiavimas dešinėje su rodykle
+                (docs/mobilus-etalonas.md, „Rezultatų antraštė").
+                {% endcomment %}
+                <div class="sp-items-header lg:hidden">
+                  <div class="ads-count">{% trans "Rasta:" %} <span>{{ total_count }}</span></div>
+                  <div class="filter-controls">
+                    <div class="list-type">
+                      {% with mode=request.GET.vaizdas|default:'thumb' %}
+                      <a href="?{{ request.GET|drop_param:'vaizdas' }}&amp;vaizdas=thumb"
+                         class="{% if mode == 'thumb' %}is-on{% endif %}" aria-label="{% trans 'Tinklelis' %}">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+                      </a>
+                      <a href="?{{ request.GET|drop_param:'vaizdas' }}&amp;vaizdas=line"
+                         class="{% if mode == 'line' %}is-on{% endif %}" aria-label="{% trans 'Sąrašas' %}">
+                        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                      </a>
+                      {% endwith %}
+                    </div>
+                    <label class="sorting">
+                      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/></svg>
+                      <select name="sort" onchange="onSortChange(this)">
+                        <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Nauji ir atnaujinti" %}</option>
+                        <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Pigiausi viršuje" %}</option>
+                        <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Brangiausi viršuje" %}</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
                 {% comment %}Skaičius rodomas vieną kartą — viršuje („Rasta N skelbimų"){% endcomment %}
-                <div class="flex items-center justify-end mb-4">
+                <div class="hidden lg:flex items-center justify-end mb-4">
                     <div class="flex items-center gap-3">
                         <select name="sort" onchange="onSortChange(this)" class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
                             <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Newest" %}</option>

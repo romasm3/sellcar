@@ -54,11 +54,20 @@ vidinės paraštės 9px/12px, aukštis 40px.
      (pas juos /select/?step=…, pas mus – sluoksnis toje pačioje formoje). */
   @media (max-width: 1023px) {
     .sp-shell { flex-direction: column; }
-    .sp-rail { width: 100%; flex-direction: row; overflow-x: auto; gap: 0;
+    /* Juosta: slenka tik ikonos, o „…" stovi vietoje dešinėje (etalonas).
+       Todėl slenkama sritis ir „…" yra du atskiri flex elementai. */
+    .sp-rail { width: 100%; flex-direction: row; align-items: stretch; gap: 0;
                border-right: none; border-bottom: 1px solid var(--accent-soft);
-               padding: 0 4px; -webkit-overflow-scrolling: touch; }
-    .sp-rail::-webkit-scrollbar { display: none; }
-    .sp-rail > * { flex: 0 0 auto; width: 72px; }
+               padding: 0; overflow: visible; }
+    .sp-rail-scroll { flex: 1 1 auto; min-width: 0; display: flex;
+                      overflow-x: auto; scroll-padding-left: 0;
+                      -webkit-overflow-scrolling: touch; }
+    .sp-rail-scroll::-webkit-scrollbar { display: none; }
+    .sp-rail-scroll > * { flex: 0 0 auto; width: 72px; }
+    .sp-rail-fixed { flex: 0 0 auto; width: 60px; display: flex;
+                     align-items: center; justify-content: center;
+                     background: #fff; box-shadow: -8px 0 10px -6px rgba(0,0,0,.08); }
+    .sp-rail-fixed .sp-rail-btn2 { width: 60px; }
     .sp-rail-btn2 { height: 54px; }
     .sp-rail-btn2 svg { width: 30px; height: 30px; }
     .sp-rail-btn2.sp-on::after { bottom: 0; width: 100%; height: 3px; border-radius: 0; }
@@ -98,6 +107,10 @@ vidinės paraštės 9px/12px, aukštis 40px.
   }
   @media (min-width: 1024px) {
     .sp-mrow, .sp-sheet { display: none !important; }
+    /* Darbalaukyje juosta vėl vertikali, be atskiros slenkamos srities */
+    .sp-rail-scroll { display: flex; flex-direction: column; align-items: center;
+                      width: 100%; gap: 2px; }
+    .sp-rail-fixed { width: 100%; }
   }
   /* Pasirinkta reikšmė — žyma su ×; eilutė su „›" tada nerodoma.
      Etalone žyma oranžinė, pas mus akcentas tamsiai pilkas (var(--accent)). */
@@ -156,6 +169,27 @@ vidinės paraštės 9px/12px, aukštis 40px.
                     border-bottom: 1px solid #F3F4F6; text-decoration: none; }
   .sp-select-page .sp-sheet-item.is-sel { font-weight: 700; color: var(--accent); }
   .sp-select-page .cnt { color: #9AA0A6; font-size: 15px; }
+
+  /* Rezultatų antraštė telefone (etalono .items-header) */
+  @media (max-width: 1023px) {
+    .sp-items-header { display: flex; align-items: center; justify-content: space-between;
+                       gap: 12px; padding: 10px 0 12px; }
+    .sp-items-header .ads-count { font-size: 15px; color: #1F2328; }
+    .sp-items-header .ads-count span { font-weight: 700; }
+    .sp-items-header .filter-controls { display: flex; align-items: center; gap: 14px; }
+    .sp-items-header .list-type { display: flex; align-items: center; gap: 6px; }
+    .sp-items-header .list-type a { width: 30px; height: 30px; display: flex;
+                                    align-items: center; justify-content: center;
+                                    color: #9AA0A6; border-radius: 6px; }
+    .sp-items-header .list-type a svg { width: 20px; height: 20px; }
+    .sp-items-header .list-type a.is-on { color: var(--accent); background: var(--accent-soft); }
+    .sp-items-header .sorting { display: flex; align-items: center; gap: 6px;
+                                font-size: 15px; color: #1F2328; }
+    .sp-items-header .sorting svg { width: 16px; height: 16px; color: #9AA0A6; }
+    .sp-items-header .sorting select { border: none; background: none; font-size: 15px;
+                                       color: #1F2328; outline: none; max-width: 150px; }
+  }
+  @media (min-width: 1024px) { .sp-items-header { display: none; } }
 
   /* ── MOBILUS KATEGORIJŲ PIKERIS ─────────────────────────────────── */
   @media (max-width: 1023px) {
