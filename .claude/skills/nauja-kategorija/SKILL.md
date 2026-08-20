@@ -314,6 +314,36 @@ tik 3 markes buvo galima pridėti per admin — likusios reikalavo deploy'o.
 (arba prijungi kategoriją prie esamos) ir forma su filtru markes gauna
 automatiškai.
 
+### Komentarai šablonuose
+
+**Kelių eilučių komentarai — TIK `{% comment %}...{% endcomment %}`.**
+`{# ... #}` galioja tik vienoje eilutėje.
+
+Django `{# #}` yra vienos eilutės sintaksė. Užrašius jį per kelias eilutes,
+teksto niekas neišfiltruoja — jis atsiduria HTML'e ir vartotojas mato
+komentarą puslapyje.
+
+```django
+{# Gerai: viena eilutė #}
+
+{% comment %}
+Gerai: kelios eilutės.
+{% endcomment %}
+
+{# BLOGAI: kelios eilutės —
+   šis tekstas bus matomas puslapyje #}
+```
+
+Klaida pasitaikė bent keturis kartus (`sidebar_moto_parts.html`,
+`advanced_generic.html`, `panel_generic.html`, `search_panel.html`) ir
+kaskart grįždavo su nauju komentaru. Radus lengva patikrinti:
+
+```bash
+curl -s https://autoleft.com/ | grep -c '{#'
+```
+
+Turi būti 0.
+
 ### Kiti niuansai
 
 - `Listing.mileage` yra NOT NULL — jei kategorija jo nenaudoja: `target.mileage = 0`

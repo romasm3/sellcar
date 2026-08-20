@@ -1,0 +1,42 @@
+{% load i18n dict_extras %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+MULTISELECT LAUKAS — išskleidžiamas sąrašas su paieška ir žymimais
+langeliais, kaip etalone (autogidas .form-multiple).
+
+Uždaryta būsena rodo „Visi" arba pasirinktų reikšmių sąrašą.
+Žymimieji langeliai yra tikri <input type="checkbox"> su lauko vardu,
+todėl forma juos siunčia ir tada, kai sąrašas suskleistas.
+
+Naudojimas:
+    {% include 'listings/partials/field_multiselect.html' with f=f %}
+
+CSS — esamos sp-dd* klasės, tos pačios kaip markių sąraše.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% with sel=request.GET|get_list:f.param %}
+<div class="relative" data-ms
+     x-data="{ open: false, q: '', title: '{% trans "Visi" %}' }"
+     x-init="title = msTitle($el, '{% trans "Visi" %}')">
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+  <button type="button" class="sp-fld sp-dd-btn truncate" @click="open = !open; q = ''">
+    <span x-text="title"></span>
+  </button>
+  <div x-show="open" x-cloak @click.outside="open = false" class="sp-dd">
+    <div class="sp-dd-search">
+      <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}" @click.stop>
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="sp-dd-scroll">
+      {% for v, lbl in f.options %}
+      <label class="sp-dd-item flex items-center gap-2 cursor-pointer"
+             x-show="!q || '{{ lbl|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1">
+        <input type="checkbox" name="{{ f.param }}" value="{{ v }}" data-label="{{ lbl }}"
+               {% if v|stringformat:"s" in sel %}checked{% endif %}
+               class="w-4 h-4 rounded"
+               @change="title = msTitle($el.closest('[data-ms]'), '{% trans "Visi" %}')">
+        <span>{{ lbl }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endwith %}

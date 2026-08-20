@@ -1669,6 +1669,16 @@ def listing_list(request):
             ('agri', 'agri-special-parts'),
             ('accessories', 'accessories-tuning'),
         ],
+        # Būsimos kategorijos — rodomos „daugiau" sąraše, bet
+        # nepaspaudžiamos. Formos ir skelbimų neturi; duomenys DB lieka.
+        'coming_soon_categories': [
+            ('planes', _('Lėktuvai')),
+            ('planes-parts', _('Lėktuvų dalys')),
+            ('robots', _('Robotai')),
+            ('robots-parts', _('Robotų dalys')),
+            ('drones', _('Dronai')),
+            ('drones-parts', _('Dronų dalys')),
+        ],
         'truck_subtabs': [
             ('main', _('Sunkvežimiai')),
             ('semi-trucks-tractors', _('Vilkikai')),

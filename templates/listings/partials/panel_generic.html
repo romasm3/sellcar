@@ -68,19 +68,8 @@ automobilių panelė.
     </div>
 
     {% elif f.type == 'multiselect' %}
-    <div>
-      <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-      <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
-        {% for v, lbl in f.options %}
-        <label class="flex items-center gap-2 cursor-pointer text-[13px]">
-          <input type="checkbox" name="{{ f.param }}" value="{{ v }}"
-                 {% if v|stringformat:"s" in request.GET|get_list:f.param %}checked{% endif %}
-                 class="w-4 h-4 rounded">
-          <span>{{ lbl }}</span>
-        </label>
-        {% endfor %}
-      </div>
-    </div>
+    {# Išskleidžiamas sąrašas su paieška ir žymimais langeliais — kaip etalone #}
+    {% include 'listings/partials/field_multiselect.html' with f=f %}
 
     {% elif f.widget == 'brand' %}
     {# Markė — dropdown su paieška; Top grupė ir „Rodyti visus" tik kai įjungta #}

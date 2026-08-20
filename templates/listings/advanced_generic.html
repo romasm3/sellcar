@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-{% load i18n dict_extras %}
+{% load i18n dict_extras static %}
 {% block title %}{{ adv.label }} — {% trans "Detali paieška" %} - SellCar{% endblock %}
 
 {% block content %}
+<script src="{% static 'js/multiselect.js' %}"></script>
 {# ═══ IŠPLĖSTINĖ PAIEŠKA — renderinama iš isplestine-config.json ═══ #}
 <div class="bg-gray-50 min-h-screen py-8">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,12 +93,16 @@
               </button>
             </div>
 
+            {% elif f.type == 'multiselect' %}
+            {# Išskleidžiamas sąrašas su paieška ir žymimais langeliais — kaip etalone #}
+            {% include 'listings/partials/field_multiselect.html' with f=f %}
+
             {% else %}
             <div>
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
               <div class="sp-sel">
-                <select name="{{ f.param }}" {% if f.type == 'multiselect' %}multiple size="4"{% endif %} class="sp-fld">
-                  {% if f.type != 'multiselect' %}<option value="">{% trans "Visi" %}</option>{% endif %}
+                <select name="{{ f.param }}" class="sp-fld">
+                  <option value="">{% trans "Visi" %}</option>
                   {% for v, l in f.options %}<option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
                 </select>
               </div>

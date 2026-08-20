@@ -1,4 +1,6 @@
 {% load dict_extras i18n i18n_db brand_tags %}
+{% load static %}
+<script src="{% static 'js/multiselect.js' %}"></script>
 {% top_brands_enabled as top_on %}
 {# ================================================================ #}
 {# AutoLeft paieškos panelė — A variantas                           #}
@@ -150,51 +152,6 @@
       </div>
     </div>
 
-    {% if user.is_staff %}
-    {# ── LĖKTUVAS su flyout (visos naujos kategorijos vienoje ikonoje) ── #}
-    <div class="relative w-full" @mouseenter="fly5Open()" @mouseleave="fly5Close()">
-      <a href="{% url 'listing_list' %}?category=planes" class="sp-rail-btn2">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
-      </a>
-      <div x-show="fly5" x-cloak x-transition.opacity.duration.100ms
-           class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-64 z-50" style="left:calc(100% - 2px)"
-           @mouseenter="fly5Open()" @mouseleave="fly5Close()">
-
-        <a href="{% url 'listing_list' %}?category=planes" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-orange-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Lėktuvai" %}</span>
-        </a>
-        <a href="{% url 'listing_list' %}?category=planes-parts" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Lėktuvų dalys" %}</span>
-        </a>
-
-        <div class="border-t border-gray-100 my-1"></div>
-
-        <a href="{% url 'listing_list' %}?category=robots" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="10" rx="2"/><path stroke-linecap="round" d="M12 8V4.8"/><circle cx="12" cy="4" r="1"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path stroke-linecap="round" d="M10 15.5h4"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Robotai" %}</span>
-        </a>
-        <a href="{% url 'listing_list' %}?category=robots-parts" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Robotų dalys" %}</span>
-        </a>
-
-        <div class="border-t border-gray-100 my-1"></div>
-
-        <a href="{% url 'listing_list' %}?category=drones" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="6.5" cy="6.5" r="2.2"/><circle cx="17.5" cy="6.5" r="2.2"/><circle cx="6.5" cy="17.5" r="2.2"/><circle cx="17.5" cy="17.5" r="2.2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path stroke-linecap="round" d="M8 8l1.6 1.6M16 8l-1.6 1.6M8 16l1.6-1.6M16 16l-1.6-1.6"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Dronai" %}</span>
-        </a>
-        <a href="{% url 'listing_list' %}?category=drones-parts" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-          <span class="text-[14.5px] font-bold">{% trans "Dronų dalys" %}</span>
-        </a>
-
-      </div>
-    </div>
-    {% endif %}
-
     {# ── ⋯ DAUGIAU su flyout (dinamiškas iš DB: more_categories) ── #}
     <div class="relative w-full" @mouseenter="fly2Open()" @mouseleave="fly2Close()">
       <button type="button" class="sp-rail-btn2"
@@ -228,6 +185,26 @@
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
         </a>
         {% endif %}
+        {% endfor %}
+
+        {% comment %}
+        Būsimos kategorijos — matomos, bet nepaspaudžiamos („Netrukus").
+        Jos neturi nei formos, nei skelbimų; anksčiau lėktuvai kabojo
+        atskira ikona juostoje ir tik admin'ui, todėl juosta skyrėsi nuo
+        etalono (4 ikonos + „daugiau").
+        {% endcomment %}
+        <div class="border-t border-gray-100 my-1"></div>
+        {% for slug, name in coming_soon_categories %}
+        <div class="w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left opacity-50 cursor-default select-none"
+             title="{% trans 'Netrukus' %}">
+          <span class="flex items-center gap-3">
+            <span class="w-6 h-6 text-gray-400 shrink-0">
+              {% include 'listings/partials/category_icon.html' with slug=slug %}
+            </span>
+            <span class="text-[14.5px] font-bold text-gray-500">{{ name }}</span>
+          </span>
+          <span class="text-[11.5px] font-semibold text-gray-400 uppercase tracking-wide">{% trans "Netrukus" %}</span>
+        </div>
         {% endfor %}
 
       </div>
