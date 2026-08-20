@@ -45,7 +45,11 @@ vidinės paraštės 9px/12px, aukštis 40px.
      laukai vienu stulpeliu, šoninės paraštės 16 px, veiksmų blokas
      apačioje. Lūžio taškas — 1024 px (lg). */
   .sp-body-h { height: auto; }
-  @media (min-width: 1024px) { .sp-body-h { height: 410px; } }
+  /* Etalono panelės aukštis — 410 px; laikom jį kaip MINIMALŲ, o ne fiksuotą.
+     Fiksuotas aukštis kategorijose su papildomomis eilutėmis (automobiliai:
+     tekstinė paieška, „Tik Lietuvoje", VIN) išstumdavo apatinę eilutę su
+     „Detali paieška" ir „Skelbimai" už kortelės apačios. */
+  @media (min-width: 1024px) { .sp-body-h { min-height: 410px; } }
 
   /* ── TELEFONO VAIZDAS (< 1024 px) ─────────────────────────────────
      Etalonas (Playwright, iPhone 390×844): kategorijų ikonos horizontalia
