@@ -288,13 +288,31 @@ kategorijose („Mercedes-Benz" — 12 sąrašų), o 81 pavadinimas turėjo skir
 rašybą skirtinguose failuose (`SKODA` / `Skoda` / `Škoda`). Iš 19 kategorijų
 tik 3 markes buvo galima pridėti per admin — likusios reikalavo deploy'o.
 
-**Pereinamuoju laikotarpiu**, kol ne visos kategorijos perkeltos į bendrą
-lentelę, laikykis dviejų dalykų:
+**Kaip tai atrodo kode** (įgyvendinta 2026-08-20):
 
-- naujai kategorijai **nekurk naujo sąrašo** — jei markės jau kur nors yra,
-  imk tą patį šaltinį (pvz. nuomos mikroautobusai naudoja namelių sąrašą);
-- `*_brand_text` stulpelis lieka tik laisvam tekstui („Kita"), o ne kaip
-  antras markių šaltinis.
+- `Brand` + `BrandScope` (M2M) — viena lentelė, 12 šeimų;
+  `apps/listings/brand_registry.py` sako, kuri kategorija, subkategorija ar
+  nuomos tipas kuriai šeimai priklauso;
+- **visi paviršiai kviečia tik `apps/listings/brands.py`** —
+  `brands_qs(scope)`, `brand_rows`, `find`, `posted_brand`. Jokių
+  `Brand.objects.filter(vehicle_type=...)` create formose ir jokių
+  `X_BRANDS` konstantų;
+- `has_models` šeimoje sako, ar rodoma modelių kaskada. Autogide kaskada
+  yra tik ten, kur yra modelių duomenų (automobiliai, motociklai); kitur
+  modelis — laisvas tekstas. Nekurk kaskados ten, kur duomenų nėra;
+- **dalys ir nuoma sąrašo NEturi** — jos ima transporto priemonės šeimą.
+  Patikrinta autogide: sec 10 = sec 01, sec 27 = sec 02, sec 23 = sec 04,
+  sec 28 = sec 22 (identiška iki baito);
+- markių pavadinimai **nekeičiami ir nejungiami** — kaip šaltinyje. Rašybos
+  skirtumus sprendžia paieška (`brands.normalize`), o ne pervadinimas;
+- `*_brand_text` stulpelis lieka laisvam tekstui („Kita"), o ne kaip antras
+  markių šaltinis. „Kita" įvedimai keliauja į `BrandSuggestion` ir admin'e
+  vienu veiksmu virsta tikra marke — taip sąrašas pildosi pagal realų
+  poreikį, o ne pagal spėjimus.
+
+**Naujai kategorijai** nereikia nieko sėti: pridedi šeimą į `SCOPES`
+(arba prijungi kategoriją prie esamos) ir forma su filtru markes gauna
+automatiškai.
 
 ### Kiti niuansai
 
