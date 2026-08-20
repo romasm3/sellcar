@@ -1971,7 +1971,7 @@ msgstr "Ilgis (mm)"
 #: apps/listings/models.py:615 templates/listings/tyres_create.html:125
 #: templates/listings/wheels_create.html:136
 msgid "Width (mm)"
-msgstr "Plotis"
+msgstr "Plotis (mm)"
 
 #: apps/listings/models.py:620
 msgid "Height (mm)"
@@ -1992,7 +1992,7 @@ msgstr "Naudingoji apkrova (kg)"
 #: apps/listings/models.py:639 apps/listings/models.py:680
 #: templates/listings/boats_listing_create.html:223
 msgid "Fuel tank capacity (L)"
-msgstr "Degalų bako talpa"
+msgstr "Degalų bako talpa (l)"
 
 #: apps/listings/models.py:644 templates/listings/listing_detail.html:1097
 #: templates/listings/trucks_listing_create.html:608
@@ -2081,7 +2081,7 @@ msgstr "Pakeliamas variklis"
 #: apps/listings/models.py:682
 #: templates/listings/boats_listing_create.html:238
 msgid "Propeller"
-msgstr "Privatus pardavėjas"
+msgstr "Sraigtas"
 
 #: apps/listings/models.py:683
 #: templates/listings/boats_listing_create.html:242
@@ -4473,7 +4473,7 @@ msgstr "Parduodama po vieną"
 
 #: apps/listings/wheels_views.py:58
 msgid "Sport tyres"
-msgstr "Paruošta sportui"
+msgstr "Sportinės padangos"
 
 #: apps/listings/wheels_views.py:59
 msgid "SUV tyres"
@@ -7505,11 +7505,11 @@ msgstr "Papildomi duomenys"
 
 #: templates/listings/boats_listing_create.html:155
 msgid "Length (m)"
-msgstr "Ilgis"
+msgstr "Ilgis (m)"
 
 #: templates/listings/boats_listing_create.html:161
 msgid "Width (m)"
-msgstr "Plotis"
+msgstr "Plotis (m)"
 
 #: templates/listings/boats_listing_create.html:214
 msgid "Number of engines"
@@ -10282,11 +10282,11 @@ msgstr "Parduodu motociklų įrangą"
 
 #: templates/listings/moto_part_create.html:16
 msgid "Edit motorcycle part"
-msgstr "Motociklo tipas"
+msgstr "Redaguoti motociklo dalį"
 
 #: templates/listings/moto_part_create.html:16
 msgid "Motorcycle part"
-msgstr "Motociklo tipas"
+msgstr "Motociklo dalis"
 
 #: templates/listings/moto_part_create.html:55
 msgid "Part name"
@@ -10314,7 +10314,7 @@ msgstr "pvz., 110"
 
 #: templates/listings/moto_part_create.html:140
 msgid "Part type"
-msgstr "Pavaros tipas"
+msgstr "Dalies tipas"
 
 #: templates/listings/moto_part_create.html:155
 msgid "No part types configured yet."
@@ -11909,7 +11909,7 @@ msgstr "Motociklų nerasta"
 #: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Rims"
-msgstr "Naujas skelbimas: Automobiliai"
+msgstr "Naujas skelbimas: Ratlankiai"
 
 #: templates/listings/rims_create.html:40
 #: templates/listings/tyres_create.html:43
@@ -11943,12 +11943,12 @@ msgstr "Pagrindinės detalės"
 #: templates/listings/wheels_list.html:190
 #: templates/listings/wheels_list.html:346
 msgid "Bolt count"
-msgstr "Visos šalys"
+msgstr "Tvirtinimo taškai"
 
 #: templates/listings/rims_create.html:145
 #: templates/listings/wheels_create.html:245
 msgid "Width (J)"
-msgstr "Plotis"
+msgstr "Plotis (J)"
 
 #: templates/listings/rims_create.html:157
 msgid "Center bore"
@@ -12520,7 +12520,7 @@ msgstr "Išsaugoti nepavyko"
 #: templates/listings/tyres_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Tyres"
-msgstr "Naujas skelbimas: Automobiliai"
+msgstr "Naujas skelbimas: Padangos"
 
 #: templates/listings/tyres_create.html:56
 #: templates/listings/wheels_advanced_search.html:222
@@ -12547,7 +12547,7 @@ msgstr "Profilis (%%)"
 #: templates/listings/wheels_create.html:160
 #: templates/listings/wheels_list.html:267
 msgid "Season"
-msgstr "Priežastis*"
+msgstr "Sezoniškumas"
 
 #: templates/listings/tyres_create.html:161
 #: templates/listings/wheels_advanced_search.html:140
@@ -12558,7 +12558,7 @@ msgstr "Greičio indeksas"
 #: templates/listings/tyres_create.html:171
 #: templates/listings/wheels_create.html:182
 msgid "Load index"
-msgstr "Kraunama..."
+msgstr "Apkrovos indeksas"
 
 #: templates/listings/tyres_create.html:177
 #: templates/listings/wheels_advanced_search.html:150
@@ -12623,7 +12623,7 @@ msgstr "pvz., Michelin žieminių komplektas..."
 
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Tyres & Rims"
-msgstr "Naujas skelbimas: Automobiliai"
+msgstr "Naujas skelbimas: Padangos ir ratlankiai"
 
 #: templates/listings/wheels_list.html:5
 msgid "Browse Rims"
