@@ -220,6 +220,7 @@ PICKER_HIDDEN_VEHICLE_TYPE_SLUGS = {
 CREATE_URL_BY_VEHICLE_TYPE = {
     'cars':     '/create/cars/quick/',
     'loading-equipment': '/create/loading-equipment/?new=1',
+    'agriculture': '/create/agriculture/?new=1',
     'forestry': '/create/forestry/?new=1',
     'camping-houses': '/create/camping-houses/?new=1',
     'services': '/create/services/?new=1',
@@ -489,6 +490,16 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     # preselekcijai ir persiskaičiuoja išsaugant.
     if subcategory_slug in TRAILERS_SUBCATEGORY_SLUGS:
         return redirect(f'/create/trailers/?new=1&subcategory={subcategory_slug}')
+
+    # ═══ TĖVINĖ SUBKATEGORIJA → gilyn į pikerį, ne į formą ═══
+    # „Automobilių dalys" ir kitos tėvinės eilutės formos neturi — jos
+    # atidaro trečio lygio sąrašą. Be JS pasirinkimas ateina GET'u.
+    if subcategory_slug:
+        _sub = SubCategory.objects.filter(
+            pk=subcategory_id, children__isnull=False).first() if subcategory_id else None
+        if _sub:
+            return redirect(
+                f'/create/?step=1&vt={vt_slug}&sub={subcategory_slug}')
 
     # ═══ ATSARGINĖ ŠAKA ═══
     # Anksčiau čia buvo sukuriamas cars draft'as ir vartotojas siunčiamas
