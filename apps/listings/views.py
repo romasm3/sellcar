@@ -1210,6 +1210,13 @@ def listing_list(request):
     # kitaip .filter() mestų ValueError ir puslapis grąžintų 500.
     request.GET = sanitize_search_params(request.GET)
 
+    # Pagrindiniame puslapyje skelbimų sąrašo nebėra — jį pakeitė skirtukai.
+    # Todėl pasirinkus kategoriją einam į rezultatų puslapį su šonine juosta.
+    if request.GET.get('category') and not request.GET.get('sidebar'):
+        _p = request.GET.copy()
+        _p['sidebar'] = '1'
+        return redirect(f"{request.path}?{_p.urlencode()}")
+
     if request.GET.get('category') == 'motorcycles':
         # Auto-redirect to moto-gear if subcategory is gear-related
         subcategory_id = request.GET.get('subcategory')
@@ -1561,6 +1568,9 @@ def listing_list(request):
     else:
         tab_featured = featured_paid
 
+    # „Pasiūlymai" — visų transporto priemonių skelbimai viename sąraše
+    # (_tabs_base kategorijos nefiltruoja), pakeitė ištrintą viršutinį bloką.
+    tab_offers = list(_tabs_base.order_by('-created_at')[:12])
     tab_newest = list(_tabs_base.order_by('-created_at')[:6])
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
@@ -1725,6 +1735,7 @@ def listing_list(request):
         'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
         'selected_country': country_filter,
         'selected_state': state_filter,
+        'tab_offers': tab_offers,
         'tab_featured': tab_featured,
         'tab_newest': tab_newest,
         'tab_popular': tab_popular,

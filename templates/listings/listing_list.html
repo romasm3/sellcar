@@ -102,7 +102,14 @@
 
 /* ─── Home tabs section ─── */
 .home-tabs-section { background: #fff; border-top: 1px solid #f3f4f6; padding: 2.5rem 0; }
-.home-tabs-header { display: flex; gap: 1.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.5rem; overflow-x: auto; }
+.home-tabs-header { display: flex; gap: 1.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.5rem; }
+/* Telefone penki skirtukai turi tilpti be slinkimo: mažinam šriftą ir
+   tarpus, o jei vis tiek netelpa — laužiam į antrą eilutę, bet nestumiam
+   į šoną (žr. taisyklę docs/mobilus-etalonas.md). */
+@media (max-width: 1023px) {
+  .home-tabs-header { flex-wrap: wrap; gap: 0.35rem 0.85rem; overflow-x: visible; }
+  .home-tab-btn { font-size: 0.78rem; padding-bottom: 0.5rem; }
+}
 .home-tab-btn { padding-bottom: 0.75rem; padding-left: 0.25rem; padding-right: 0.25rem; border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; font-size: 0.95rem; color: #6b7280; cursor: pointer; background: none; transition: all 0.2s; }
 .home-tab-btn:hover { color: #111827; }
 .home-tab-btn.active { border-bottom-color: #10b981; color: #10b981; }
@@ -931,273 +938,12 @@ a.sp-rail-btn { text-decoration:none; }
         {# ═══ PAIEŠKOS PANELĖ (rail + kategorijos laukai) ═══ #}
         <div style="display:flex;justify-content:center;width:100%;">{% include 'listings/partials/search_panel.html' %}</div>
 
-        {% comment %} Skelbimų skaičius rodomas vieną kartą — viršuje („Rasta N skelbimų"),
-           kaip etalone („Rasta skelbimų: N"). Čia lieka tik rūšiavimas.
-{% endcomment %}
-        {% include 'listings/partials/_results_header_mobile.html' %}
-
         {% comment %}
-        Darbalaukio eilutė: justify-end su per plačiu turiniu telefone
-        išsikišdavo į kairę (left −24 px), todėl iki 1024 px ji slepiama,
-        o rūšiavimas rodomas mobilioje antraštėje aukščiau.
+        Skelbimų sąrašo čia nebėra: pagrindiniame puslapyje jį pakeitė
+        skirtukai apačioje („Pasiūlymai" · „Dienos pasiūlymai" · …).
+        Filtruoti rezultatai rodomi rezultatų puslapyje su šonine juosta
+        (?sidebar=1), į kurį listing_list peradresuoja, kai yra kategorija.
         {% endcomment %}
-        <div class="hidden lg:flex items-center justify-end mb-6">
-            <div class="flex items-center gap-3">
-                <span class="text-gray-500 text-sm">{% trans "Sort by:" %}</span>
-                <select name="sort" onchange="onSortChange(this)" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">
-                    <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Newest" %}</option>
-                    <option value="newest_renewed" {% if request.GET.sort == 'newest_renewed' %}selected{% endif %}>{% trans "Newest and renewed" %}</option>
-                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
-                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
-                    <option value="mileage_asc" {% if request.GET.sort == 'mileage_asc' %}selected{% endif %}>{% trans "Mileage: Low to High" %}</option>
-                    <option value="mileage_desc" {% if request.GET.sort == 'mileage_desc' %}selected{% endif %}>{% trans "Mileage: High to Low" %}</option>
-                    <option value="year_desc" {% if request.GET.sort == 'year_desc' %}selected{% endif %}>{% trans "Year: Newest First" %}</option>
-                    <option value="year_asc" {% if request.GET.sort == 'year_asc' %}selected{% endif %}>{% trans "Year: Oldest First" %}</option>
-                </select>
-            </div>
-        </div>
-
-        {% if listings %}
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-            {% for listing in listings %}
-            {% with eff_level=listing.get_effective_star_level %}
-            <div class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer listing-card ap-card-compact {% if listing.status == 'sold' %}sold-card{% else %}hover:shadow-lg hover:border-primary/20 hover:-translate-y-0.5{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
-                 x-data="{ idx: 0, total: {{ listing.images.count }} }"
-                 data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}"
-                 {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>
-                <div class="relative aspect-[4/3] bg-gray-100 overflow-hidden">
-                    {% if listing.images.count > 0 %}
-                        {% for img in listing.images.all|slice:":8" %}
-                        <img src="{{ img.image.url }}" alt="{{ listing.title }}"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                             x-show="idx === {{ forloop.counter0 }}"
-                             {% if not forloop.first %}style="display:none;"{% endif %}>
-                        {% endfor %}
-                    {% else %}
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-                            <span class="block w-10 h-10 text-gray-300">
-                              {% include 'listings/partials/category_icon.html' with slug=selected_category %}
-                            </span>
-                        </div>
-                    {% endif %}
-
-                    {% if listing.images.count > 1 %}
-                    <button class="gallery-arrow left" @click.stop="idx = (idx - 1 + Math.min(total, 8)) % Math.min(total, 8)"><i class="fas fa-chevron-left"></i></button>
-                    <button class="gallery-arrow right" @click.stop="idx = (idx + 1) % Math.min(total, 8)"><i class="fas fa-chevron-right"></i></button>
-                    <div class="gallery-counter"><span x-text="idx + 1"></span>/<span x-text="Math.min(total, 8)"></span></div>
-                    <div class="gallery-dots">
-                        {% for img in listing.images.all|slice:":8" %}
-                        <span class="gallery-dot" :class="{ 'active': idx === {{ forloop.counter0 }} }"></span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    {% if listing.status == 'sold' %}
-                    <div class="sold-overlay"><span class="sold-badge-big">SOLD</span></div>
-                    {% endif %}
-
-                    {% if listing.status != 'sold' %}
-                    {% if user.is_authenticated %}
-                    <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all hover:scale-110 z-10">
-                        <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-xs"></i>
-                    </button>
-                    {% else %}
-                    <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md hover:scale-110 z-10">
-                        <i class="far fa-heart text-gray-400 text-xs"></i>
-                    </a>
-                    {% endif %}
-                    {% endif %}
-
-                    {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
-                    <div class="card-bottom-left">
-                        {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                        <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
-                            <span class="card-badge-new">{% trans "New" %}</span>
-                            <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                        </div>
-                        {% endif %}
-                        {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-
-                    </div>
-                    {% endif %}
-                </div>
-
-                <div class="p-2.5 flex flex-col gap-1">
-                    <div class="ap-title-row">
-                        <h3 class="ap-title group-hover:text-primary transition-colors truncate">{{ listing.title }}</h3>
-                        <div class="ap-price">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
-                    </div>
-                    {% if listing.vehicle_type.slug == 'bicycles' %}
-                    {# ── PASPIRTUKŲ / DVIRAČIŲ kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.bike_type %}<span>{{ listing.get_bike_type_display }}</span>{% endif %}
-                        {% if listing.power_w %}<span class="sep">·</span><span>{{ listing.power_w }} W</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        {% if listing.range_km %}<span>{{ listing.range_km }} km</span>{% endif %}
-                        {% if listing.max_speed_kmh %}<span class="sep">·</span><span>{{ listing.max_speed_kmh }} km/h</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'electronics' %}
-                    {# ── VIDEO / AUDIO kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.elec_type %}<span>{{ listing.get_elec_type_display }}</span>{% endif %}
-                        {% if listing.power_w %}<span class="sep">·</span><span>{{ listing.power_w }} W</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        {% if listing.elec_brand_text %}<span>{{ listing.elec_brand_text }}</span>{% endif %}
-                        {% if listing.elec_channels %}<span class="sep">·</span><span>{{ listing.elec_channels }} {% trans "kan." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'services' %}
-                    {# ── PASLAUGŲ kortelės specifikacijos (metų ir ridos čia nėra) ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.service_type %}<span>{{ listing.get_service_type_display }}</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.city }}</span>
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'rental' %}
-                    {# ── TRANSPORTO NUOMOS kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.rent_type %}<span>{{ listing.get_rent_type_display }}</span>
-                        {% elif listing.motorcycle_type %}<span>{{ listing.get_motorcycle_type_display }}</span>
-                        {% elif listing.body_type %}<span>{{ listing.get_body_type_display }}</span>{% endif %}
-                        {% if listing.seats_count %}<span class="sep">·</span><span>{{ listing.seats_count }} {% trans "viet." %}</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.currency_symbol }}{{ listing.rent_price_hour|floatformat:0 }}/{% trans "val." %}</span>{% endif %}
-                        {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'camping-houses' %}
-                    {# ── TURISTINIŲ NAMELIŲ kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.camp_type %}<span>{{ listing.get_camp_type_display }}</span>{% endif %}
-                        {% if listing.sleeping_seats %}<span class="sep">·</span><span>{{ listing.sleeping_seats }} {% trans "miegamos v." %}</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
-                        {% if listing.b_licence_ok %}<span class="sep">·</span><span>{% trans "B kat." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'forestry' %}
-                    {# ── MIŠKO ŪKIO kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.forest_type %}<span>{{ listing.get_forest_type_display }}</span>{% endif %}
-                        {% if listing.power %}<span class="sep">·</span><span>{{ listing.power }} kW</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'loading-equipment' %}
-                    {# ── KROVIMO TECHNIKOS kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.load_type %}<span>{{ listing.get_load_type_display }}</span>{% endif %}
-                        {% if listing.payload_kg %}<span class="sep">·</span><span>{{ listing.payload_kg }} kg</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'construction' %}
-                    {# ── STATYBINĖS kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.constr_attach_type %}<span>{{ listing.get_constr_attach_type_display }}</span>
-                        {% elif listing.constr_type %}<span>{{ listing.get_constr_type_display }}</span>{% endif %}
-                        {% if listing.power %}<span class="sep">·</span><span>{{ listing.power }} kW</span>{% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'agriculture' %}
-                    {# ── ŽEMĖS ŪKIO kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.agri_type %}<span>{{ listing.get_agri_type_display }}</span>{% endif %}
-                        {% if listing.power %}
-                            {% if listing.agri_type %}<span class="sep">·</span>{% endif %}
-                            <span>{{ listing.power }} kW</span>
-                        {% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.engine_hours %}<span class="sep">·</span><span>{{ listing.engine_hours }} {% trans "val." %}</span>{% endif %}
-                    </div>
-                    {% elif listing.vehicle_type.slug == 'trailers' %}
-                    {# ── PRIEKABŲ kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        {% if listing.trailer_purpose %}<span>{{ listing.get_trailer_purpose_display }}</span>{% endif %}
-                        {% if listing.trailer_axle_count %}
-                            {% if listing.trailer_purpose %}<span class="sep">·</span>{% endif %}
-                            <span>{{ listing.get_trailer_axle_count_display }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="ap-spec-line">
-                        {% if listing.gross_weight_kg %}<span>{{ listing.gross_weight_kg }} kg</span><span class="sep">·</span>{% endif %}
-                        <span>{{ listing.year }}</span>
-                    </div>
-                    {% elif selected_category == 'trucks' %}
-                    {# ── TRUCKS kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
-                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
-                    </div>
-                    {% if listing.truck_type or listing.euro_standard %}
-                    <div class="ap-spec-line">
-                        {% if listing.truck_type %}<span>{{ listing.get_truck_type_display }}</span>{% endif %}
-                        {% if listing.euro_standard %}{% if listing.truck_type %}<span class="sep">·</span>{% endif %}<span>{{ listing.euro_standard }}</span>{% endif %}
-                    </div>
-                    {% endif %}
-                    {% elif selected_category == 'motorcycles' %}
-                    {# ── MOTO kortelės specifikacijos ── #}
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.engine_capacity_cc %}<span class="sep">·</span><span>{{ listing.engine_capacity_cc }} cm³</span>{% endif %}
-                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
-                    </div>
-                    {% if listing.motorcycle_type %}
-                    <div class="ap-spec-line">
-                        <span>{{ listing.get_motorcycle_type_display }}</span>
-                    </div>
-                    {% endif %}
-                    {% else %}
-                    <div class="ap-spec-line">
-                        <span>{{ listing.year }}</span>
-                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
-                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
-                    </div>
-                    {% if listing.transmission or listing.engine_capacity or listing.power %}
-                    <div class="ap-spec-line">
-                        {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
-                        {% if listing.engine_capacity or listing.power %}
-                            {% if listing.transmission %}<span class="sep">·</span>{% endif %}
-                            <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                    {% endif %}
-                    <div class="ap-loc">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span class="truncate">{{ listing.city|default:_("Unknown") }}</span>
-                    </div>
-                </div>
-            </div>
-            {% endwith %}
-            {% endfor %}
-        </div>
-        {% else %}
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
-            <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <span class="block w-11 h-11 text-gray-300">
-                {% include 'listings/partials/category_icon.html' with slug=selected_category %}
-              </span>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
-            <p class="text-gray-500 mb-6">{% trans "Try adjusting your filters to find what you're looking for" %}</p>
-            <a href="/browse/" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-all duration-200"><i class="fas fa-undo"></i> {% trans "Clear all filters" %}</a>
-        </div>
-        {% endif %}
     </div>
     {% endif %}
 
@@ -1218,11 +964,16 @@ function onSortChange(selectEl) {
     {#  HOME TABS — Day's deals / Newest / Most Popular / Most Expensive  #}
     {# ═══════════════════════════════════════════════════════════ #}
     {% if not selected_category or selected_category == 'cars' %}
-    <div class="home-tabs-section" x-data="{ tab: 'featured' }">
+    <div class="home-tabs-section" x-data="{ tab: 'offers' }">
         <div class="max-w-7xl mx-auto px-4">
 
             <!-- Tabs Header -->
             <div class="home-tabs-header">
+                {% comment %}„Pasiūlymai" — visų kategorijų skelbimai, pirmas ir aktyvus{% endcomment %}
+                <button type="button" @click="tab = 'offers'"
+                        :class="{ 'active': tab === 'offers' }" class="home-tab-btn">
+                    {% trans "Pasiūlymai" %}
+                </button>
                 <button type="button" @click="tab = 'featured'"
                         :class="{ 'active': tab === 'featured' }" class="home-tab-btn">
                     {% trans "Day's deals" %}
@@ -1239,6 +990,53 @@ function onSortChange(selectEl) {
                         :class="{ 'active': tab === 'expensive' }" class="home-tab-btn">
                     {% trans "Most expensive" %}
                 </button>
+            </div>
+
+            {# ─── Pasiūlymai: visų kategorijų skelbimai, ta pati kortelė ─── #}
+            <div x-show="tab === 'offers'" x-cloak>
+                {% if tab_offers %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_offers %}
+                    {% with eff_level=listing.get_effective_star_level %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+
+                            {# Bottom-left badges — IDENTIŠKAS Browse cards stilius #}
+                            {% if listing.is_featured or listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-bottom-left">
+                                {% if listing.is_featured %}
+                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">FEATURED</span>
+                                {% endif %}
+                                {% if listing.pk in new_listing_ids %}
+                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
+                                    <span class="card-badge-new">{% trans "New" %}</span>
+                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                                </div>
+                                {% endif %}
+                                {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
+
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>
+                {% endif %}
             </div>
 
             {# ─── Day's deals ─── #}
