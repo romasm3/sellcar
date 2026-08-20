@@ -1,5 +1,4 @@
-import os
-import unicodedata
+import json
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
@@ -7,6 +6,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+
+from apps.listings import brands as brand_source
 
 from .constants import can_create_listing, can_create_free_listing, FREE_LISTING_DAYS
 from .equipment_registry import RENT_EQUIPMENT_DEFINITION
@@ -43,7 +44,6 @@ from .views import (
 
 RENT_VT_SLUG = 'rental'
 
-CMD_DIR = os.path.join(os.path.dirname(__file__), 'management', 'commands')
 
 # Formos raktas → (subkategorijos slug'as, markių failas, šablonas)
 FORM_SPEC = {
@@ -74,36 +74,47 @@ MOTO_FUEL_NAMES = ('Petrol', 'Diesel', 'Electric')
 RENT_TRANSMISSION_NAMES = ('Manual', 'Automatic')
 
 
-def _norm(value):
-    value = unicodedata.normalize('NFKD', value.casefold())
-    return ''.join(c for c in value if not unicodedata.combining(c))
+def _form_rent_types(form_key):
+    if form_key == 'minibus':
+        return MINIBUS_RENT_TYPES
+    if form_key == 'heavy':
+        return HEAVY_RENT_TYPES
+    return ()
 
 
-def _load_brands(filename):
-    seen, out = set(), []
-    try:
-        with open(os.path.join(CMD_DIR, filename), encoding='utf-8') as fh:
-            for line in fh:
-                name = line.strip()
-                if not name or _norm(name) in seen:
-                    continue
-                seen.add(_norm(name))
-                out.append(name)
-    except OSError:
-        return []
-    rest = [n for n in out if _norm(n) not in ('kita', 'kitas')]
-    other = [n for n in out if _norm(n) in ('kita', 'kitas')]
-    return rest + other
+# Nuomos forma savo markių sąrašo neturi — kaip autogide, markės imamos
+# iš atitinkamos pardavimo kategorijos šeimos. Automobilių ir motociklų
+# nuoma turi po vieną šeimą, mikroautobusų ir sunkiojo — po kelias,
+# priklausomai nuo pasirinkto „Tipo".
+FORM_FIXED_SCOPE = {'car': 'cars', 'moto': 'motorcycles'}
 
 
-_BRAND_CACHE = {}
+def brands_by_type(form_key):
+    """{rent_type: [markių pavadinimai]} — sąrašas persijungia pagal Tipą."""
+    out = {}
+    for rent_type in _form_rent_types(form_key):
+        scope = brand_source.scope_for(rent_type=rent_type)
+        if not scope:
+            continue
+        out[rent_type] = list(
+            brand_source.brands_qs(scope).values_list('name', flat=True))
+    return out
 
 
-def brands_for(form_key):
-    """Markių sąrašas formai (kešuojamas — failas nekinta gyvavimo metu)."""
-    if form_key not in _BRAND_CACHE:
-        _BRAND_CACHE[form_key] = _load_brands(FORM_SPEC[form_key][1])
-    return _BRAND_CACHE[form_key]
+def brands_for(form_key, rent_type=''):
+    """Markės formai. Be pasirinkto Tipo — visų tos formos šeimų sąjunga,
+    kad nė viena markė nebūtų nepasiekiama (autogide tokiu atveju
+    parodomas automobilių sąrašas — akivaizdi jų klaida)."""
+    scope = FORM_FIXED_SCOPE.get(form_key)
+    if scope:
+        return list(brand_source.brands_qs(scope).values_list('name', flat=True))
+    by_type = brands_by_type(form_key)
+    if rent_type and rent_type in by_type:
+        return by_type[rent_type]
+    names = set()
+    for values in by_type.values():
+        names.update(values)
+    return sorted(names, key=lambda n: n.lower())
 
 
 def get_rent_equipment():
@@ -340,7 +351,10 @@ def _render(request, form_key, listing, is_edit_mode, posted):
             ('car-rental', _('Automobilių nuoma')),
             ('limo-wedding-rental', _('Limuzinų, vestuvių transporto nuoma')),
         ],
-        'brand_choices': brands_for(form_key),
+        'brand_choices': brands_for(
+            form_key, getattr(listing, 'rent_type', '') or ''),
+        'brands_by_type_json': json.dumps(brands_by_type(form_key),
+                                          ensure_ascii=False),
         'type_choices': [(v, l) for v, l in Listing.RENT_TYPE_CHOICES
                          if v in rent_type_values],
         'body_type_choices': Listing.BODY_TYPE_CHOICES,

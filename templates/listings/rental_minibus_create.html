@@ -791,4 +791,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+{# ── Markės pagal Tipą ─────────────────────────────────────────
+   Kaip autogide: pasirinkus „Tipą" užsikrauna atitinkamos pardavimo
+   kategorijos markių sąrašas (Sunkvežimis → sunkvežimių markės,
+   Priekaba → priekabų). Sąrašas ateina iš tos pačios Brand lentelės. #}
+<script>
+(function () {
+    const byType = {{ brands_by_type_json|safe }};
+    const typeSel = document.getElementById('id_rent_type');
+    const brandSel = document.getElementById('id_rent_brand_text');
+    if (!typeSel || !brandSel) { return; }
+
+    const allNames = Array.from(brandSel.options)
+        .map(o => o.value).filter(Boolean);
+
+    function repaint() {
+        const names = byType[typeSel.value] || allNames;
+        const current = brandSel.value;
+        let html = '<option value="">---------</option>';
+        names.forEach(function (name) {
+            const sel = name === current ? ' selected' : '';
+            html += '<option value="' + name.replace(/"/g, '&quot;') + '"'
+                 + sel + '>' + name + '</option>';
+        });
+        brandSel.innerHTML = html;
+    }
+
+    typeSel.addEventListener('change', repaint);
+    if (typeSel.value) { repaint(); }
+})();
+</script>
+
 {% endblock %}
