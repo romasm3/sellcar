@@ -12,7 +12,8 @@ class ListingFilter(django_filters.FilterSet):
     )
 
     brand = django_filters.ModelChoiceFilter(
-        queryset=Brand.objects.all(), empty_label="Visos markės", label="Markė"
+        queryset=Brand.objects.filter(vehicle_type__slug='cars'),
+        empty_label="Visos markės", label="Markė"
     )
 
     model = django_filters.ModelChoiceFilter(

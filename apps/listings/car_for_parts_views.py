@@ -171,7 +171,7 @@ def _build_context(request, draft_or_listing, is_edit_mode=False):
 
     context = {
         'draft': draft_or_listing,
-        'brands': Brand.objects.all().order_by('name'),
+        'brands': Brand.objects.filter(vehicle_type__slug='cars').order_by('name'),
         'years': list(range(2026, 1949, -1)),
         'fuel_types': FuelType.objects.all().order_by('name'),
         'transmissions': Transmission.objects.all().order_by('name'),

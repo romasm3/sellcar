@@ -1292,7 +1292,7 @@ def listing_list(request):
         item['brand_id']: item['count']
         for item in _public_listings_qs(request.user).values('brand_id').annotate(count=Count('id'))
     }
-    brands_qs = Brand.objects.all().order_by('name')
+    brands_qs = Brand.objects.filter(vehicle_type__slug='cars').order_by('name')
     brands = [
         {'id': b.id, 'name': b.name, 'count': brand_counts.get(b.id, 0),
          'listing_count': brand_counts.get(b.id, 0)}
@@ -1719,7 +1719,7 @@ def listing_list_v2(request):
 
     listings_list = list(listings[:60])
 
-    brands = Brand.objects.all().order_by('name')
+    brands = Brand.objects.filter(vehicle_type__slug='cars').order_by('name')
     fuel_types = FuelType.objects.all().order_by('name')
     current_year = timezone.now().year
     years = list(range(current_year + 1, 1989, -1))
@@ -2832,7 +2832,7 @@ def listing_create(request):
         'picker_tree': _build_picker_tree(request.user),
         'picker_active_vt': request.GET.get('vt', ''),
         'picker_active_sub': request.GET.get('sub', ''),
-        'brands': Brand.objects.all().order_by('name'),
+        'brands': Brand.objects.filter(vehicle_type__slug='cars').order_by('name'),
         'years': list(range(timezone.now().year + 1, 1949, -1)),
         'step1_brand': brand_name,
         'step1_model': model_name,
@@ -3006,7 +3006,8 @@ Seller: {listing.seller.email}
 
 def search_map(request):
     listings = _public_listings_qs(request.user).select_related('brand', 'model')
-    makes = Brand.objects.values_list('name', flat=True).distinct().order_by('name')
+    makes = (Brand.objects.filter(vehicle_type__slug='cars')
+             .values_list('name', flat=True).distinct().order_by('name'))
     models_list = Model.objects.values_list('name', flat=True).distinct().order_by('name')
     current_year = timezone.now().year
     years = list(range(current_year + 1, 1989, -1))
@@ -3686,7 +3687,7 @@ def advanced_search(request):
     years = list(range(current_year + 1, 1949, -1))
     fuel_types = FuelType.objects.all().order_by('name')
     transmissions = Transmission.objects.all().order_by('name')
-    brands = Brand.objects.all().order_by('name')
+    brands = Brand.objects.filter(vehicle_type__slug='cars').order_by('name')
 
     if request.GET.get('brand') and not request.GET.getlist('pair'):
         try:
@@ -3922,7 +3923,7 @@ def _build_edit_context(listing, step, form):
         'is_edit_mode': True, 'edit_listing_id': listing.pk,
         'total_steps': 7,
         'vehicle_types': VehicleType.objects.all().order_by('order'),
-        'brands': Brand.objects.all().order_by('name'),
+        'brands': Brand.objects.filter(vehicle_type__slug='cars').order_by('name'),
         'years': list(range(timezone.now().year + 1, 1949, -1)),
         'progress_percent': 100,
         'listing_data': {
@@ -6150,7 +6151,7 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
         'step1_brand': brand_name,
         'step1_model': model_name,
         'step1_year': year_val,
-        'brands': Brand.objects.all().order_by('name'),
+        'brands': Brand.objects.filter(vehicle_type__slug='cars').order_by('name'),
         'years': list(range(timezone.now().year + 1, 1949, -1)),
         'country_choices': country_choices,
         'us_states': Listing.US_STATE_CHOICES,

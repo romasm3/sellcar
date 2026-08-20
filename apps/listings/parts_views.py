@@ -497,7 +497,7 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
     if cars_vt:
         brands = Brand.objects.filter(vehicle_type=cars_vt).order_by('name')
     else:
-        brands = Brand.objects.all().order_by('name')
+        brands = Brand.objects.filter(vehicle_type__slug='cars').order_by('name')
 
     fuel_types = FuelType.objects.all().order_by('name')
     transmissions = Transmission.objects.all().order_by('name')

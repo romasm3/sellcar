@@ -23,7 +23,7 @@ class Step1BasicInfoForm(forms.Form):
     )
 
     brand = forms.ModelChoiceField(
-        queryset=Brand.objects.all(),
+        queryset=Brand.objects.filter(vehicle_type__slug='cars'),
         label=_("Brand"),
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_brand'})
     )

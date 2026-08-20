@@ -10,12 +10,16 @@ Idempotentiška. Šaltiniai:
     kad kiekviena esamų skelbimų markė turėtų Brand eilutę ir
     legacy_* nuorodą
 
-Rašyba: variantai, kurie skiriasi tik registru, diakritikais ar
-skyrikliais, jungiami į vieną eilutę. Laimi variantas su diakritikais
-(Kässbohrer > Kassbohrer), po to — ne vien didžiosiomis (Kogel >
-KOGEL), po to — dažniausiai pasitaikantis.
+RAŠYBA NEKEIČIAMA. Pavadinimai sėjami lygiai tokie, kokie yra
+šaltinyje: „SKODA", „Skoda" ir „Škoda" lieka trys atskiros eilutės,
+jei tokios yra autogide. Esamos Brand eilutės niekada nepervadinamos.
+Ta pati markė kelioms šeimoms sujungiama tik tada, kai pavadinimas
+sutampa RAIDĖ Į RAIDĘ (Volvo automobiliuose ir sunkvežimiuose — viena
+eilutė su dviem šeimomis).
+
+Vartotojų per „Kita" įvesti pavadinimai čia nesėjami — jie kaupiami
+kaip BrandSuggestion ir tvirtinami admin'e.
 """
-import unicodedata
 from pathlib import Path
 
 from django.core.management.base import BaseCommand
@@ -35,105 +39,43 @@ LEGACY_MODELS = {
     'GearBrand': GearBrand,
 }
 
-# Nejungiam, nors normalizavimas juos sulygina — tai skirtingos markės
-# (patvirtinta rankomis).
-NEVER_MERGE = {
-    frozenset({'В-100', '100'}),
-    frozenset({'CF', 'C&F'}),
-}
-
-# Reikšmės, kurios nėra markės
-SKIP_NAMES = {'kita', 'kita marke', 'kita markė', 'other', '--------', ''}
-
-
-def norm(name):
-    """Rašybos raktas: be diakritikų, be skyriklių, mažosiomis."""
-    s = unicodedata.normalize('NFKD', name)
-    s = ''.join(c for c in s if not unicodedata.combining(c))
-    s = s.replace('ß', 'ss').replace('ł', 'l').replace('Ł', 'L')
-    return ''.join(c for c in s.lower() if c.isalnum())
-
-
-def _diacritics(name):
-    return sum(1 for c in name if ord(c) > 127)
-
-
-def pick_winner(variants):
-    """Kuris rašybos variantas lieka. variants: {pavadinimas: kiek kartų}"""
-    def key(item):
-        name, count = item
-        all_caps = name.isupper() and len(name) > 3
-        return (
-            -_diacritics(name),   # diakritikai laimi
-            all_caps,             # ne vien didžiosiomis laimi
-            -count,               # dažnesnis laimi
-            name,                 # stabilumui
-        )
-    return sorted(variants.items(), key=key)[0][0]
+# „Kita" nėra markė — tai laisvo teksto išeitis. Autogide ji irgi
+# rodoma atskirai, sąrašo apačioje.
+SKIP_NAMES = {'kita', 'kita marke', 'kita markė', '--------', ''}
 
 
 def collect():
-    """Grąžina {scope_key: {norm_key: {raw_name: count}}} ir šaltinių žurnalą."""
+    """Grąžina {scope_key: {pavadinimas: šaltinių_kiekis}} ir žurnalą."""
     data = {}
     log = []
-    for scope_key, files in reg.SCOPE_SEED_FILES.items():
+
+    def add(scope_key, name):
+        name = (name or '').strip()
+        if not name or name.lower() in SKIP_NAMES:
+            return False
         bucket = data.setdefault(scope_key, {})
+        bucket[name] = bucket.get(name, 0) + 1
+        return True
+
+    for scope_key, files in reg.SCOPE_SEED_FILES.items():
         for fname in files:
             path = CMD_DIR / fname
             if not path.exists():
                 log.append(f'  ! nerastas {fname} ({scope_key})')
                 continue
-            n = 0
-            for line in path.read_text(encoding='utf-8').splitlines():
-                name = line.strip()
-                if not name or name.lower() in SKIP_NAMES:
-                    continue
-                bucket.setdefault(norm(name), {}).setdefault(name, 0)
-                bucket[norm(name)][name] += 1
-                n += 1
+            n = sum(1 for line in path.read_text(encoding='utf-8').splitlines()
+                    if add(scope_key, line))
             log.append(f'  {fname:<34} {n:>4} → {scope_key}')
 
     for scope_key, model_name in reg.SCOPE_LEGACY_MODEL.items():
-        bucket = data.setdefault(scope_key, {})
-        n = 0
-        for name in LEGACY_MODELS[model_name].objects.values_list('name', flat=True):
-            name = (name or '').strip()
-            if not name or name.lower() in SKIP_NAMES:
-                continue
-            bucket.setdefault(norm(name), {}).setdefault(name, 0)
-            bucket[norm(name)][name] += 1
-            n += 1
+        n = sum(1 for name in LEGACY_MODELS[model_name].objects
+                .values_list('name', flat=True) if add(scope_key, name))
         log.append(f'  {model_name + " (DB)":<34} {n:>4} → {scope_key}')
 
-    # esamos Brand eilutės (automobiliai) — kad nesukurtume dublikato
-    bucket = data.setdefault('cars', {})
-    for name in Brand.objects.values_list('name', flat=True):
-        name = (name or '').strip()
-        if not name or name.lower() in SKIP_NAMES:
-            continue
-        bucket.setdefault(norm(name), {}).setdefault(name, 0)
-        bucket[norm(name)][name] += 1
-    log.append(f'  {"Brand (DB, automobiliai)":<34} {Brand.objects.count():>4} → cars')
+    n = sum(1 for name in Brand.objects.values_list('name', flat=True)
+            if add('cars', name))
+    log.append(f'  {"Brand (DB, automobiliai)":<34} {n:>4} → cars')
     return data, log
-
-
-def merge_groups(data):
-    """Visų šeimų rašybos grupės, kuriose daugiau nei vienas variantas."""
-    merged = {}
-    for scope_key, bucket in data.items():
-        for key, variants in bucket.items():
-            tgt = merged.setdefault(key, {})
-            for name, count in variants.items():
-                tgt[name] = tgt.get(name, 0) + count
-    groups = []
-    for key, variants in merged.items():
-        if len(variants) < 2:
-            continue
-        if frozenset(variants) in NEVER_MERGE:
-            continue
-        groups.append((key, variants, pick_winner(variants)))
-    groups.sort(key=lambda g: pick_winner(g[1]).lower())
-    return groups
 
 
 class Command(BaseCommand):
@@ -154,22 +96,6 @@ class Command(BaseCommand):
         for line in log:
             self.stdout.write(line)
 
-        groups = merge_groups(data)
-        self.stdout.write(self.style.MIGRATE_HEADING(
-            f'\nRašybos sujungimas: {len(groups)} grupių'))
-        for _key, variants, winner in groups:
-            losers = ', '.join(sorted(n for n in variants if n != winner))
-            self.stdout.write(f'  {winner:<28} ← {losers}')
-
-        # kanoninis pavadinimas kiekvienam normalizuotam raktui
-        canon = {}
-        for scope_key, bucket in data.items():
-            for key, variants in bucket.items():
-                canon.setdefault(key, {})
-                for name, count in variants.items():
-                    canon[key][name] = canon[key].get(name, 0) + count
-        canon = {k: pick_winner(v) for k, v in canon.items()}
-
         self.stdout.write(self.style.MIGRATE_HEADING('\nŠeimos:'))
         total = 0
         for scope_key, _name, _hm, _o in reg.SCOPES:
@@ -177,42 +103,26 @@ class Command(BaseCommand):
                 continue
             n = len(data[scope_key])
             total += n
-            self.stdout.write(f'  {scope_key:<14} {n:>4} unikalių markių')
-        self.stdout.write(f'  {"IŠ VISO eilučių":<14} {len(canon):>4} '
-                          f'(be sujungimo būtų {total})')
+            self.stdout.write(f'  {scope_key:<14} {n:>4} markių')
 
-        renames = []
-        for b in Brand.objects.all():
-            want = canon.get(norm(b.name))
-            if want and want != b.name:
-                renames.append((b.name, want))
-        self.stdout.write(self.style.MIGRATE_HEADING(
-            f'\nEsamos Brand eilutės, kurios būtų pervadintos: {len(renames)}'))
-        for old_name, new_name in sorted(renames):
-            self.stdout.write(f'  {old_name:<28} → {new_name}')
-
-        shared = {}
-        for scope_key, bucket in data.items():
-            for key in bucket:
-                shared.setdefault(key, []).append(scope_key)
-        multi = sorted(
-            (canon[k], v) for k, v in shared.items() if len(v) > 1
-        )
-        self.stdout.write(self.style.MIGRATE_HEADING(
-            f'\nMarkės, priklausančios kelioms šeimoms: {len(multi)}'))
-        for name, scope_keys in multi[:15]:
-            self.stdout.write(f'  {name:<28} {", ".join(sorted(scope_keys))}')
-        if len(multi) > 15:
-            self.stdout.write(f'  ... ir dar {len(multi) - 15}')
+        all_names = set()
+        for bucket in data.values():
+            all_names |= set(bucket)
+        existing = set(Brand.objects.values_list('name', flat=True))
+        self.stdout.write(
+            f'  {"IŠ VISO eilučių":<14} {len(all_names):>4} '
+            f'(šeimų sumoje {total}; skirtumą duoda ta pati markė keliose '
+            f'šeimose)')
+        self.stdout.write(f'  {"naujų":<14} {len(all_names - existing):>4}')
 
         if options['plan']:
             self.stdout.write(self.style.WARNING('\n--plan: nieko nekeista'))
             return
 
-        self._seed(data, canon)
+        self._seed(data)
 
     @transaction.atomic
-    def _seed(self, data, canon):
+    def _seed(self, data):
         scopes = {}
         for key, name, has_models, order in reg.SCOPES:
             obj, _ = BrandScope.objects.update_or_create(
@@ -221,40 +131,35 @@ class Command(BaseCommand):
             )
             scopes[key] = obj
 
-        # esamos Brand eilutės pagal normalizuotą raktą
-        by_key = {}
-        for b in Brand.objects.all():
-            by_key.setdefault(norm(b.name), b)
+        by_name = {b.name: b for b in Brand.objects.all()}
+        used_slugs = set(Brand.objects.values_list('slug', flat=True))
 
         created = 0
         for scope_key, bucket in data.items():
             scope = scopes.get(scope_key)
             if scope is None:
                 continue
-            for key in bucket:
-                brand = by_key.get(key)
-                if brand is not None and brand.name != canon[key]:
-                    brand.name = canon[key]
-                    brand.save(update_fields=['name'])
+            for name in bucket:
+                brand = by_name.get(name)
                 if brand is None:
-                    name = canon[key]
-                    slug = slugify(name) or key
+                    slug = slugify(name) or 'brand'
                     base, i = slug, 2
-                    while Brand.objects.filter(slug=slug).exists():
+                    while slug in used_slugs:
                         slug = f'{base}-{i}'
                         i += 1
+                    used_slugs.add(slug)
                     brand = Brand.objects.create(name=name, slug=slug)
-                    by_key[key] = brand
+                    by_name[name] = brand
                     created += 1
                 brand.scopes.add(scope)
 
-        linked = self._link_legacy(by_key)
-
+        linked = self._link_legacy(by_name)
         self.stdout.write(self.style.SUCCESS(
             f'\nSukurta {created} naujų Brand eilučių, iš viso '
             f'{Brand.objects.count()}. Susieta su senosiomis lentelėmis: {linked}'))
 
-    def _link_legacy(self, by_key):
+    def _link_legacy(self, by_name):
+        """Brand → senoji eilutė pagal tikslų pavadinimą."""
         linked = 0
         field_by_model = {
             'MotorcycleBrand': 'legacy_moto',
@@ -263,12 +168,9 @@ class Command(BaseCommand):
         }
         for model_name, field in field_by_model.items():
             for row in LEGACY_MODELS[model_name].objects.all():
-                brand = by_key.get(norm(row.name or ''))
-                if brand is None:
+                brand = by_name.get((row.name or '').strip())
+                if brand is None or getattr(brand, f'{field}_id') == row.id:
                     continue
-                if getattr(brand, f'{field}_id') == row.id:
-                    continue
-                # OneToOne — jei eilutė jau užimta kito Brand, praleidžiam
                 if Brand.objects.filter(**{f'{field}_id': row.id}).exclude(pk=brand.pk).exists():
                     continue
                 setattr(brand, field, row)
