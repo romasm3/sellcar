@@ -3,6 +3,7 @@
 {% block title %}{{ adv.label }} — {% trans "Detali paieška" %} - SellCar{% endblock %}
 
 {% block content %}
+{% include 'listings/partials/_sp_field_styles.html' %}
 <script src="{% static 'js/multiselect.js' %}"></script>
 {# ═══ IŠPLĖSTINĖ PAIEŠKA — renderinama iš isplestine-config.json ═══ #}
 <div class="bg-gray-50 min-h-screen py-8">

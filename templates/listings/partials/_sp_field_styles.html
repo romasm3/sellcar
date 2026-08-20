@@ -1,0 +1,42 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PAIEŠKOS LAUKŲ STILIAI — vienas šaltinis greitajai panelei ir detaliai
+paieškai.
+
+Anksčiau šis blokas gyveno search_panel.html viduje, todėl
+/paieska/<slug>/ puslapyje klasės buvo uždėtos, bet neapibrėžtos —
+laukai rodėsi be rėmelių ir be baltos dėžutės.
+
+Matmenys sutampa su etalonu: rėmelis 1px #DCDEE2, kampai 8px,
+vidinės paraštės 9px/12px, aukštis 40px.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<style>
+  .sp-fld { background:#fff; border:1px solid #DCDEE2; border-radius:8px; font-size:13.5px; color:#555; width:100%; padding:9px 12px; appearance:none; }
+  .sp-fld:focus { outline:none; border-color:#374151; }
+  .sp-sel { position:relative; }
+  .sp-sel::after { content:''; position:absolute; right:13px; top:50%; transform:translateY(-50%); width:11px; height:11px; pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat; }
+  .sp-rail-btn2 { position:relative; width:100%; height:56px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:none; border:none; }
+  .sp-rail-btn2 svg { color:#6B7178; transition:color .12s; }
+  .sp-rail-btn2:hover svg { color:#333; }
+  .sp-rail-btn2.sp-on svg { color:#374151; }
+  .sp-rail-btn2.sp-on::after { content:''; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); width:32px; height:3px; background:#374151; border-radius:2px; }
+  .sp-wtoggle { display:inline-flex; border:1px solid #DCDEE2; border-radius:8px; overflow:hidden; }
+  .sp-wtoggle button { padding:8px 18px; font-size:13.5px; font-weight:700; background:#fff; color:#555; border:none; cursor:pointer; }
+  .sp-wtoggle button.sp-won { background:#374151; color:#fff; }
+  .sp-dd { position:absolute; top:calc(100% + 4px); left:0; width:100%; min-width:250px; background:#fff; border:1px solid #DCDEE2; border-radius:8px; box-shadow:0 10px 28px rgba(0,0,0,.14); z-index:60; }
+  .sp-dd-search { padding:8px; border-bottom:1px solid #EEE; position:relative; }
+  .sp-dd-search input { width:100%; border:1px solid #DCDEE2; border-radius:6px; font-size:14px; padding:9px 36px 9px 12px; outline:none; }
+  .sp-dd-search input:focus { border-color:#374151; }
+  .sp-dd-search svg { position:absolute; right:18px; top:50%; transform:translateY(-50%); width:17px; height:17px; color:#9AA0A6; pointer-events:none; }
+  .sp-dd-scroll { max-height:280px; overflow-y:auto; }
+  .sp-dd-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-size:14px; color:#333; cursor:pointer; }
+  .sp-dd-item:hover { background:#F6F7F8; }
+  .sp-dd-count { color:#9AA0A6; font-size:13px; }
+  .sp-dd-group { padding:9px 14px 4px; font-weight:700; font-size:14px; color:#111; }
+  .sp-dd-foot { padding:9px 14px; text-align:center; font-size:13px; color:#777; border-top:1px solid #EEE; }
+  .sp-dd-foot a { display:block; color:#374151; font-weight:600; cursor:pointer; margin-top:2px; }
+  .sp-dd-btn { text-align:left; cursor:pointer; }
+  [x-cloak] { display:none !important; }
+</style>
