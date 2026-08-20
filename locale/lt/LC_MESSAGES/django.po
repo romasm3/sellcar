@@ -4095,7 +4095,7 @@ msgstr "Avionika"
 
 #: apps/listings/translatable_db.py:38
 msgid "Balers"
-msgstr "Pardavėjas"
+msgstr "Presai"
 
 #: apps/listings/translatable_db.py:38
 msgid "Bicycles"
@@ -4103,7 +4103,7 @@ msgstr "Dviračiai"
 
 #: apps/listings/translatable_db.py:39
 msgid "Boat Trailers"
-msgstr "Vidutiniai vartotojai"
+msgstr "Valčių priekabos"
 
 #: apps/listings/translatable_db.py:39
 msgid "Boats"
@@ -4191,7 +4191,7 @@ msgstr "Elektriniai paspirtukai"
 
 #: apps/listings/translatable_db.py:44
 msgid "Engine Parts"
-msgstr "Variklio tipas"
+msgstr "Variklio dalys"
 
 #: apps/listings/translatable_db.py:44
 msgid "Excavators"
@@ -4279,11 +4279,11 @@ msgstr "Kita statybinė technika"
 
 #: apps/listings/translatable_db.py:52
 msgid "Other Trailers"
-msgstr "Kitos funkcijos"
+msgstr "Kitos priekabos"
 
 #: apps/listings/translatable_db.py:53
 msgid "Other Watercraft"
-msgstr "Kitos funkcijos"
+msgstr "Kitas vandens transportas"
 
 #: apps/listings/translatable_db.py:53
 msgid "Painting"
@@ -4525,7 +4525,7 @@ msgstr "Estų"
 
 #: config/settings.py:147
 msgid "Polish"
-msgstr "English"
+msgstr "Lenkų"
 
 #: config/settings.py:148
 msgid "German"
@@ -4586,7 +4586,7 @@ msgstr "Jūs esate aktyvus prekiautojas"
 
 #: templates/accounts/become_dealer.html:22
 msgid "Subscription active until"
-msgstr "Techninė apžiūra galioja iki"
+msgstr "Prenumerata galioja iki"
 
 #: templates/accounts/become_dealer.html:26
 msgid "Go to Dashboard"
@@ -4607,7 +4607,7 @@ msgstr "Atšaukti bet kuriuo metu"
 
 #: templates/accounts/become_dealer.html:46
 msgid "Extend subscription"
-msgstr "Be prenumeratos"
+msgstr "Pratęsti prenumeratą"
 
 #: templates/accounts/become_dealer.html:48
 msgid "Subscribe"
@@ -4633,7 +4633,7 @@ msgstr "Atgal į skelbimus"
 
 #: templates/accounts/become_dealer.html:60
 msgid "across all categories"
-msgstr "Atgal į kategorijas"
+msgstr "visose kategorijose"
 
 #: templates/accounts/become_dealer.html:64
 msgid "Branded dealer page"
@@ -4662,7 +4662,7 @@ msgstr "Prioritetinė parama"
 
 #: templates/accounts/become_dealer.html:92
 msgid "Need more listings?"
-msgstr "Ištrinti įrašą"
+msgstr "Reikia daugiau skelbimų?"
 
 #: templates/accounts/become_dealer.html:93
 msgid "Talk to us about volume pricing or partnership opportunities."
@@ -4685,7 +4685,7 @@ msgstr ""
 #: templates/accounts/dealer_dashboard.html:3
 #: templates/accounts/dealer_dashboard.html:10
 msgid "Dealer Dashboard"
-msgstr "Analizės prietaisų skydelis"
+msgstr "Pardavėjo skydelis"
 
 #: templates/accounts/dealer_dashboard.html:15
 msgid "Welcome, Dealer"
@@ -4703,7 +4703,7 @@ msgstr "Peržiūrėti viešą puslapį"
 
 #: templates/accounts/dealer_dashboard.html:34
 msgid "Dealer subscription active"
-msgstr "Be prenumeratos"
+msgstr "Pardavėjo prenumerata aktyvi"
 
 #: templates/accounts/dealer_dashboard.html:36
 msgid "Expires"
@@ -4721,7 +4721,7 @@ msgstr "Atnaujinti"
 
 #: templates/accounts/dealer_dashboard.html:49
 msgid "Active listings"
-msgstr "Aktyvuoti skelbimą"
+msgstr "Aktyvūs skelbimai"
 
 #: templates/accounts/dealer_dashboard.html:53
 msgid "Total views"
@@ -4764,7 +4764,7 @@ msgstr "Likutis ir papildymas"
 
 #: templates/accounts/dealer_dashboard.html:100
 msgid "Top viewed listings"
-msgstr "Peržiūrėti skelbimą"
+msgstr "Daugiausiai peržiūrėti skelbimai"
 
 #: templates/accounts/dealer_dashboard.html:128
 msgid "No listings yet"
@@ -5079,7 +5079,7 @@ msgstr ""
 
 #: templates/accounts/dealer_setup.html:18
 msgid "Company Information"
-msgstr "Pagrindinė informacija"
+msgstr "Įmonės informacija"
 
 #: templates/accounts/dealer_setup.html:26
 #: templates/accounts/seller_profile.html:371
@@ -5103,7 +5103,7 @@ msgstr "Vizualinis ženklinimas"
 
 #: templates/accounts/dealer_setup.html:46
 msgid "Logo"
-msgstr "Atsijungti"
+msgstr "Logotipas"
 
 #: templates/accounts/dealer_setup.html:53
 msgid "Recommended: square, 200x200px+"
@@ -5115,7 +5115,7 @@ msgstr "Reklamjuostė"
 
 #: templates/accounts/dealer_setup.html:63
 msgid "Recommended: 1920x400px"
-msgstr "Rekomenduojama"
+msgstr "Rekomenduojama: 1920x400px"
 
 #: templates/accounts/dealer_setup.html:70
 #: templates/pages/help_center.html:655
@@ -9709,7 +9709,7 @@ msgstr "Subkategorija"
 
 #: templates/listings/listing_list_v2.html:284
 msgid "No subcategories"
-msgstr "Atgal į kategorijas"
+msgstr "Subkategorijų nėra"
 
 #: templates/listings/listing_list_v2.html:304
 msgid "Price max"
@@ -10382,7 +10382,7 @@ msgstr "Ardoma dalimis"
 #: templates/listings/moto_parts_browse.html:5
 #: templates/listings/moto_parts_browse.html:97
 msgid "Motorcycle parts"
-msgstr "Motociklai"
+msgstr "Motociklų dalys"
 
 #: templates/listings/moto_parts_browse.html:98
 #: templates/listings/truck_parts_browse.html:98
@@ -11895,7 +11895,7 @@ msgstr "Kraunama..."
 
 #: templates/listings/parts_category_select.html:294
 msgid "Error loading."
-msgstr "Įkeliama..."
+msgstr "Klaida įkeliant."
 
 #: templates/listings/parts_category_select.html:316
 msgid "No parts available"
@@ -12199,11 +12199,11 @@ msgstr "Pažymėkite, kokios detalės yra iš šio sunkvežimio."
 
 #: templates/listings/truck_parts_advanced.html:5
 msgid "Truck Parts Search"
-msgstr "Dalių paieška"
+msgstr "Sunkiojo transporto dalių paieška"
 
 #: templates/listings/truck_parts_advanced.html:54
 msgid "Truck parts search"
-msgstr "Dalių paieška"
+msgstr "Sunkiojo transporto dalių paieška"
 
 #: templates/listings/truck_parts_browse.html:5
 #: templates/listings/truck_parts_browse.html:97
@@ -12589,11 +12589,11 @@ msgstr "Būtina nurodyti metus"
 
 #: templates/listings/wheels_advanced_search.html:63
 msgid "Rims search"
-msgstr "Dalių paieška"
+msgstr "Ratlankių paieška"
 
 #: templates/listings/wheels_advanced_search.html:63
 msgid "Tyres search"
-msgstr "Teksto paieška"
+msgstr "Padangų paieška"
 
 #: templates/listings/wheels_advanced_search.html:160
 msgid "DOT year"
@@ -12660,7 +12660,7 @@ msgstr "Greita navigacija"
 
 #: templates/pages/help_center.html:47
 msgid "Overview"
-msgstr "Atsiliepimai"
+msgstr "Apžvalga"
 
 #: templates/pages/help_center.html:52
 msgid "News & Updates"
@@ -12697,7 +12697,7 @@ msgstr "Reklama"
 
 #: templates/pages/help_center.html:102
 msgid "Partners"
-msgstr "Dalys"
+msgstr "Partneriai"
 
 #: templates/pages/help_center.html:107
 msgid "Partners & resources"
@@ -12778,7 +12778,7 @@ msgstr "Siųsti žinutę palaikymo komandai"
 
 #: templates/pages/help_center.html:194
 msgid "Login to message support"
-msgstr "Siųsti žinutę palaikymo komandai"
+msgstr "Prisijunkite, kad parašytumėte palaikymo komandai"
 
 #: templates/pages/help_center.html:201
 msgid "Instagram"
@@ -12794,7 +12794,7 @@ msgstr "Kas naujo"
 
 #: templates/pages/help_center.html:229 templates/pages/help_center.html:245
 msgid "New Feature"
-msgstr "Savybės"
+msgstr "Nauja funkcija"
 
 #: templates/pages/help_center.html:231
 msgid "Dealer Subscriptions Launched"
@@ -12812,7 +12812,7 @@ msgstr "Atnaujinimas"
 
 #: templates/pages/help_center.html:239
 msgid "New Vehicle Categories: Trucks"
-msgstr "Pasirinkite transporto priemonės kategoriją"
+msgstr "Naujos transporto kategorijos: sunkvežimiai"
 
 #: templates/pages/help_center.html:240
 msgid "You can now buy and sell heavy commercial vehicles."
@@ -12846,7 +12846,7 @@ msgstr "Populiariausi"
 
 #: templates/pages/help_center.html:268
 msgid "Sedans"
-msgstr "Sedanas"
+msgstr "Sedanai"
 
 #: templates/pages/help_center.html:269
 #, python-format
@@ -12859,7 +12859,7 @@ msgstr "Vidutinis pardavimo laikas"
 
 #: templates/pages/help_center.html:273
 msgid "18 days"
-msgstr "1 diena"
+msgstr "18 dienų"
 
 #: templates/pages/help_center.html:274
 msgid "Across all categories"
@@ -13140,7 +13140,7 @@ msgstr "Privatiems pardavėjams — papildomi skelbimai"
 
 #: templates/pages/help_center.html:507
 msgid "First 3 listings"
-msgstr "Redaguoti įrašą"
+msgstr "Pirmi 3 skelbimai"
 
 #: templates/pages/help_center.html:508
 msgid "FREE"
@@ -13172,7 +13172,7 @@ msgstr "Pardavėjas"
 
 #: templates/pages/help_center.html:531
 msgid "Dealer Subscription"
-msgstr "Aprašymas"
+msgstr "Pardavėjo prenumerata"
 
 #: templates/pages/help_center.html:535
 msgid "Up to 30 active listings"
@@ -13198,11 +13198,11 @@ msgstr "WhatsApp"
 
 #: templates/pages/help_center.html:574 templates/pages/help_center.html:580
 msgid "Live support"
-msgstr "Prioritetinė parama"
+msgstr "Tiesioginė pagalba"
 
 #: templates/pages/help_center.html:575
 msgid "Chat with support"
-msgstr "Prioritetinė parama"
+msgstr "Rašyti palaikymo komandai"
 
 #: templates/pages/help_center.html:581
 msgid "Login to chat"
@@ -13254,7 +13254,7 @@ msgstr "Žiūrėti reklamos galimybes"
 
 #: templates/pages/help_center.html:641
 msgid "Write to us"
-msgstr "Kaina iki"
+msgstr "Rašykite mums"
 
 #: templates/pages/help_center.html:659
 msgid ""
@@ -13295,7 +13295,7 @@ msgstr "Aktyvus"
 
 #: templates/pages/help_center.html:677
 msgid "Vehicles listed"
-msgstr "Transporto priemonių paieška"
+msgstr "Paskelbta transporto priemonių"
 
 #: templates/pages/help_center.html:681
 msgid "Middleman fees"
@@ -13339,7 +13339,7 @@ msgstr ""
 
 #: templates/pages/help_center.html:709
 msgid "3. User Accounts"
-msgstr "Sukurti paskyrą"
+msgstr "3. Vartotojų paskyros"
 
 #: templates/pages/help_center.html:710
 msgid ""
@@ -13353,7 +13353,7 @@ msgstr ""
 
 #: templates/pages/help_center.html:714
 msgid "4. Listings Content"
-msgstr "Kol kas nėra skelbimų"
+msgstr "4. Skelbimų turinys"
 
 #: templates/pages/help_center.html:715
 msgid ""
@@ -13656,7 +13656,7 @@ msgstr "Slapukai"
 
 #: templates/pages/help_center.html:855
 msgid "Required?"
-msgstr "yra privaloma"
+msgstr "Privaloma?"
 
 #: templates/pages/help_center.html:860
 msgid "Essential"
@@ -13686,7 +13686,7 @@ msgstr "Ne"
 
 #: templates/pages/help_center.html:870
 msgid "Analytics"
-msgstr "Analizės prietaisų skydelis"
+msgstr "Analitika"
 
 #: templates/pages/help_center.html:871
 msgid "Anonymous usage statistics (page views, errors)"
