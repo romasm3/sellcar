@@ -28,8 +28,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for slug, definition in sorted(CATEGORY_EQUIPMENT.items()):
             expected = sum(len(names) for _k, _l, names in definition)
-            prefix = definition[0][0].split('_')[0] + '_'
-            have = Equipment.objects.filter(category__startswith=prefix).count()
+            # Skaičiuojam TIKSLIAI aprašytas (kategorija, pavadinimas) poras.
+            # Anksčiau buvo spėjamas prefiksas iš pirmos grupės rakto —
+            # tai griūdavo ten, kur raktai neturi bendro prefikso
+            # (automobiliai: 'interior', 'safety'...) arba kur dvi
+            # kategorijos dalinasi prefiksu (trucks / truck-parts).
+            have = sum(
+                Equipment.objects.filter(category=key, name__in=names).count()
+                for key, _label, names in definition
+            )
             mark = 'OK' if have >= expected else 'TRŪKSTA'
             self.stdout.write(f'  {slug:<20} DB {have:>3} / {expected:<3} {mark}')
 
