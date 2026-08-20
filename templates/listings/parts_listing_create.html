@@ -538,13 +538,20 @@
 
                     <div class="form-group">
 
-                        <label class="form-label">Model</label>
+                        <label class="form-label">{% trans 'Modelis' %}</label>
 
+                        {% if scope_has_models %}
                         <select name="model" class="form-select" id="modelSelect">
 
                             <option value="">--------</option>
 
                         </select>
+                        {% else %}
+                        {# Šeimoms be modelių kaskados (sunkusis transportas,
+                           žemės ūkis) modelis yra laisvas tekstas — kaip autogide. #}
+                        <input type="text" name="model_text" class="form-input"
+                               maxlength="100" value="{{ form_data.model_text|default:'' }}">
+                        {% endif %}
 
                     </div>
 
@@ -990,6 +997,9 @@
 
 
     function loadModels() {
+
+        // Šeimoms be kaskados modelio select'o nėra — laukas laisvo teksto.
+        if (!modelSel) { return; }
 
         const brandId = brandSel.value;
 

@@ -25,6 +25,8 @@ from django.utils.translation import gettext as _
 
 from django.utils import timezone
 
+from apps.listings import brands as brand_source
+
 from django.contrib import messages
 
 from django.http import JsonResponse
@@ -71,6 +73,28 @@ PARTS_PAGE_TITLES = {
 }
 
 DEFAULT_PARTS_SUBCATEGORY = 'single-part-or-kit'
+
+
+# Kuri markių šeima kuriai dalių šakai. Autogide dalių sąrašas sutampa su
+# transporto priemonės sąrašu, todėl šeima imama iš brand_registry.
+# Šeimoms be modelių kaskados modelis rašomas į laisvo teksto lauką.
+MODEL_TEXT_FIELD_BY_SCOPE = {
+    'trucks': 'truck_model_text',
+    'agriculture': 'agri_model_text',
+}
+
+
+def _parts_scope(request, part_subcategory=None, listing=None):
+    """Šeimos raktas pagal pasirinktą „Dalys" šaką."""
+    sub_slug = (
+        request.POST.get('for', '') or request.GET.get('for', '')
+    ).strip()
+    if sub_slug not in PARTS_SUBCATEGORY_SLUGS and listing is not None:
+        sub_slug = getattr(listing.subcategory, 'slug', '') or ''
+    if sub_slug not in PARTS_SUBCATEGORY_SLUGS:
+        sub_slug = DEFAULT_PARTS_SUBCATEGORY
+    return brand_source.scope_for(subcategory_slug=sub_slug) or 'cars'
+
 
 
 @login_required
@@ -400,7 +424,14 @@ def parts_listing_create(request):
             except Brand.DoesNotExist:
                 pass
 
-        if model_id:
+        post_scope = _parts_scope(request, part_subcategory, listing)
+        text_field = MODEL_TEXT_FIELD_BY_SCOPE.get(post_scope)
+        if text_field:
+            # Autogide šioms šeimoms modelis yra laisvas tekstas — kaskados
+            # duomenų nėra nei pas juos, nei pas mus.
+            setattr(target, text_field,
+                    (request.POST.get('model_text', '') or '').strip()[:100])
+        elif model_id:
             try:
                 target.model = VehicleModel.objects.get(pk=model_id)
             except VehicleModel.DoesNotExist:
@@ -493,11 +524,12 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
     if hasattr(request.user, 'profile') and request.user.profile.phone_number:
         user_phone = request.user.profile.phone_number
 
-    cars_vt = VehicleType.objects.filter(slug='cars').first()
-    if cars_vt:
-        brands = Brand.objects.filter(vehicle_type=cars_vt).order_by('name')
-    else:
-        brands = Brand.objects.filter(vehicle_type__slug='cars').order_by('name')
+    # Markės — iš bendro šaltinio pagal šeimą. Anksčiau čia visada buvo
+    # automobilių markės, todėl „Sunkiojo transporto dalis", „Žemės ūkio,
+    # spec. dalys" ir „Aksesuarai, Tuning" rodė 200 automobilių markių.
+    scope = _parts_scope(request, part_subcategory, listing)
+    brands = brand_source.brands_qs(scope)
+    scope_has_models = brand_source.has_models(scope)
 
     fuel_types = FuelType.objects.all().order_by('name')
     transmissions = Transmission.objects.all().order_by('name')
@@ -522,6 +554,8 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
             'address': listing.address or '',
             'brand': str(listing.brand_id) if listing.brand_id else '',
             'model': str(listing.model_id) if listing.model_id else '',
+            'model_text': getattr(
+                listing, MODEL_TEXT_FIELD_BY_SCOPE.get(scope, ''), '') or '',
             'year_from': str(listing.year) if listing.year else '',
             'fuel_type': str(listing.fuel_type_id) if listing.fuel_type_id else '',
             'transmission': str(listing.transmission_id) if listing.transmission_id else '',
@@ -552,6 +586,8 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
             request.POST.get('for', '') or request.GET.get('for', '')
         ).strip(),
         'brands': brands,
+        'brand_scope': scope,
+        'scope_has_models': scope_has_models,
         'fuel_types': fuel_types,
         'transmissions': transmissions,
         'years': years,
