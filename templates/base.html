@@ -150,16 +150,14 @@
                     </a>
 
                     {% comment %}
-                    Etalono antraštėje trys ikonos: žymė (Mano paieškos su žaliu
-                    naujų skelbimų skaitikliu), širdis (Įsiminti skelbimai) ir
-                    meniu. Ta pati tvarka ir pas mus — abi ikonos matomos ir
-                    telefone, vokas telefone lieka paslėptas (netilptų).
-                    Didinamasis stiklas čia buvo klaidinantis: jis reiškia
-                    paiešką, o ne IŠSAUGOTAS paieškas.
+                    „Mano paieškos" — didinamojo stiklo ikona su žaliu naujų
+                    skelbimų skaitikliu. Ikonos nekeisti (vartotojo sprendimas
+                    2026-08-20): ji sena, atpažįstama, žymė buvo atmesta.
+                    Matoma ir telefone; vokas telefone lieka paslėptas.
                     {% endcomment %}
                     <!-- Saved Searches Icon -->
                     <a href="{% url 'saved_searches_list' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
-                        <i class="fas fa-bookmark text-xl"></i>
+                        <i class="fas fa-search text-xl"></i>
                         {% if new_searches_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
                             {{ new_searches_count }}
@@ -224,7 +222,7 @@
                             </a>
                             <a href="{% url 'saved_searches_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <span class="relative inline-block w-5 mr-1">
-                                    <i class="fas fa-bookmark"></i>
+                                    <i class="fas fa-search"></i>
                                     {% if new_searches_count > 0 %}
                                     <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ new_searches_count }}</span>
                                     {% endif %}
@@ -321,7 +319,7 @@
                     <i class="fas fa-heart w-5"></i> {% trans "Saved Ads" %}
                 </a>
                 <a href="{% url 'saved_searches_list' %}" class="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <span><i class="fas fa-bookmark w-5"></i> {% trans "My Searches" %}</span>
+                    <span><i class="fas fa-search w-5"></i> {% trans "My Searches" %}</span>
                     {% if new_searches_count > 0 %}
                     <span class="min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full inline-flex items-center justify-center font-bold leading-none">{{ new_searches_count }}</span>
                     {% endif %}
