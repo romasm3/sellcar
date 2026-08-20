@@ -48,6 +48,25 @@ TRUCK_PART_CATEGORIES = [
 
 # ─────────────────────── HELPERS ───────────────────────
 
+def _get_draft(request):
+    """Sesijos draft'as, jei jis JAU yra. Nekuria naujo.
+
+    GET užklausa naujo draft'o nebekuria: anksčiau vien atidarius formą
+    DB atsirasdavo „Untitled draft" eilutė, net jei vartotojas nieko
+    neįvedė. Eilutė sukuriama tik tada, kai vartotojas ką nors realiai
+    padaro — įkelia nuotrauką (AJAX) arba pateikia formą (POST).
+    """
+    draft_id = request.session.get(TRUCK_FOR_PARTS_DRAFT_SESSION_KEY)
+    if not draft_id:
+        return None
+    try:
+        return Listing.objects.get(
+            pk=draft_id, seller=request.user, status='draft')
+    except Listing.DoesNotExist:
+        request.session[TRUCK_FOR_PARTS_DRAFT_SESSION_KEY] = None
+        return None
+
+
 def _get_or_create_draft(request):
     draft_id = request.session.get(TRUCK_FOR_PARTS_DRAFT_SESSION_KEY)
     if draft_id:
@@ -145,10 +164,11 @@ def _build_context(request, draft_or_listing, is_edit_mode=False):
     if hasattr(request.user, 'profile') and request.user.profile.phone_number:
         user_phone = request.user.profile.phone_number
 
-    if is_edit_mode:
+    # draft_or_listing gali būti None: GET nebekuria draft'o eilutės
+    if draft_or_listing is not None:
         sel = list(draft_or_listing.equipment_items.values_list('equipment_id', flat=True))
     else:
-        sel = list(draft_or_listing.equipment_items.values_list('equipment_id', flat=True))
+        sel = []
     part_groups, sel_ids = _part_groups(sel)
 
     context = {
@@ -188,12 +208,16 @@ def truck_for_parts_create(request):
             messages.error(request, 'Draft not found.')
             return redirect('truck_for_parts_create')
 
-    draft = _get_or_create_draft(request)
-    if not draft:
-        messages.error(request, "Parts category not configured.")
-        return redirect('listing_list')
+    # GET tik atidaro formą — eilutės DB nekuriam (žr. _get_draft).
+    draft = _get_draft(request)
 
     if request.method == 'POST':
+        if draft is None:
+            draft = _get_or_create_draft(request)
+        if not draft:
+            messages.error(request, "Parts category not configured.")
+            return redirect('listing_list')
+
         common = parse_common_listing_fields(request)
         specific = _parse_specific(request)
 
@@ -276,12 +300,13 @@ def truck_for_parts_edit(request, pk):
 @login_required
 @require_POST
 def upload_truck_for_parts_image(request):
-    draft = _get_or_create_draft(request)
-    if not draft:
-        return JsonResponse({'success': False, 'error': 'No draft'}, status=400)
+    # Tikrinam PRIEŠ kurdami draft'ą — tuščia užklausa eilutės DB nepalieka
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images'}, status=400)
+    draft = _get_or_create_draft(request)
+    if not draft:
+        return JsonResponse({'success': False, 'error': 'No draft'}, status=400)
     try:
         validate_images(images)
     except ImageValidationError as exc:

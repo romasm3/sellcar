@@ -32,6 +32,25 @@ CAR_FOR_PARTS_SUBCATEGORY_SLUG = 'whole-car-for-parts'
 # HELPER funkcijos vidaus naudojimui
 # ═══════════════════════════════════════════════════════════
 
+def _get_draft(request):
+    """Sesijos draft'as, jei jis JAU yra. Nekuria naujo.
+
+    GET užklausa naujo draft'o nebekuria: anksčiau vien atidarius formą
+    DB atsirasdavo „Untitled draft" eilutė, net jei vartotojas nieko
+    neįvedė. Eilutė sukuriama tik tada, kai vartotojas ką nors realiai
+    padaro — įkelia nuotrauką (AJAX) arba pateikia formą (POST).
+    """
+    draft_id = request.session.get(CAR_FOR_PARTS_DRAFT_SESSION_KEY)
+    if not draft_id:
+        return None
+    try:
+        return Listing.objects.get(
+            pk=draft_id, seller=request.user, status='draft')
+    except Listing.DoesNotExist:
+        request.session[CAR_FOR_PARTS_DRAFT_SESSION_KEY] = None
+        return None
+
+
 def _get_or_create_draft(request):
     """Get session draft or create new car-for-parts draft."""
     draft_id = request.session.get(CAR_FOR_PARTS_DRAFT_SESSION_KEY)
@@ -199,12 +218,16 @@ def car_for_parts_create(request):
             messages.error(request, 'Draft not found.')
             return redirect('car_for_parts_create')
 
-    draft = _get_or_create_draft(request)
-    if not draft:
-        messages.error(request, "Parts category not configured.")
-        return redirect('listing_list')
+    # GET tik atidaro formą — eilutės DB nekuriam (žr. _get_draft).
+    draft = _get_draft(request)
 
     if request.method == 'POST':
+        if draft is None:
+            draft = _get_or_create_draft(request)
+        if not draft:
+            messages.error(request, "Parts category not configured.")
+            return redirect('listing_list')
+
         # 1. Parse fields — BENDRUS per helper, SPECIFINIUS atskirai
         common = parse_common_listing_fields(request)
         specific = _parse_car_for_parts_specific_fields(request)
@@ -313,13 +336,14 @@ def car_for_parts_edit(request, pk):
 @require_POST
 def upload_car_for_parts_image(request):
     """AJAX upload image to draft."""
-    draft = _get_or_create_draft(request)
-    if not draft:
-        return JsonResponse({'success': False, 'error': 'No draft'}, status=400)
-
+    # Tikrinam PRIEŠ kurdami draft'ą — tuščia užklausa eilutės DB nepalieka
     images = request.FILES.getlist('images')
     if not images:
         return JsonResponse({'success': False, 'error': 'No images'}, status=400)
+
+    draft = _get_or_create_draft(request)
+    if not draft:
+        return JsonResponse({'success': False, 'error': 'No draft'}, status=400)
 
     try:
         validate_images(images)

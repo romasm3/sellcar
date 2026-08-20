@@ -140,6 +140,43 @@ def _resolve_trucks_subcategory(slug):
     ).first()
 
 
+def _get_trucks_draft(request, force_new=False):
+    """Sesijos draft'as, jei jis JAU yra. Nekuria naujo.
+
+    GET užklausa eilutės DB nebekuria — anksčiau vien atidarius formą
+    atsirasdavo „Untitled truck draft". Draft'as sukuriamas tik tada, kai
+    vartotojas ką nors realiai padaro: autosave (įvedė lauką), nuotraukos
+    įkėlimas arba formos pateikimas.
+    """
+    if force_new:
+        _drop_empty_trucks_draft(request)
+    draft_id = request.session.get(TRUCKS_DRAFT_SESSION_KEY)
+    if not draft_id:
+        return None
+    try:
+        return Listing.objects.get(
+            pk=draft_id, seller=request.user, status='draft')
+    except Listing.DoesNotExist:
+        request.session[TRUCKS_DRAFT_SESSION_KEY] = None
+        return None
+
+
+def _drop_empty_trucks_draft(request):
+    """?new=1 — senas tuščias draft'as išmetamas (ANTI-ZOMBIE-DRAFT)."""
+    old_id = request.session.get(TRUCKS_DRAFT_SESSION_KEY)
+    if old_id:
+        try:
+            old = Listing.objects.get(
+                pk=old_id, seller=request.user, status='draft')
+            if _is_draft_empty(old):
+                logger.info(f"[trucks] Deleting empty draft #{old.pk}")
+                old.delete()
+        except Listing.DoesNotExist:
+            pass
+        request.session[TRUCKS_DRAFT_SESSION_KEY] = None
+        request.session.modified = True
+
+
 def _get_or_create_trucks_draft(request, force_new=False):
     """
     Get existing trucks draft from session, or create new one.
@@ -148,22 +185,7 @@ def _get_or_create_trucks_draft(request, force_new=False):
     and creates fresh. This is the ANTI-ZOMBIE-DRAFT logic.
     """
     if force_new:
-        # Cleanup any empty existing draft from session
-        old_id = request.session.get(TRUCKS_DRAFT_SESSION_KEY)
-        if old_id:
-            try:
-                old = Listing.objects.get(
-                    pk=old_id,
-                    seller=request.user,
-                    status='draft',
-                )
-                if _is_draft_empty(old):
-                    logger.info(f"[trucks] Deleting empty draft #{old.pk}")
-                    old.delete()
-            except Listing.DoesNotExist:
-                pass
-            request.session[TRUCKS_DRAFT_SESSION_KEY] = None
-            request.session.modified = True
+        _drop_empty_trucks_draft(request)
 
     # Try existing
     draft_id = request.session.get(TRUCKS_DRAFT_SESSION_KEY)
@@ -644,12 +666,14 @@ def _validate_required(post, require_terms=False):
 @login_required
 def trucks_listing_create(request):
     force_new = request.GET.get('new') == '1'
-    draft = _get_or_create_trucks_draft(request, force_new=force_new)
-
-    if not draft:
-        return redirect('/')
+    draft = _get_trucks_draft(request, force_new=force_new)
 
     if request.method == 'POST':
+        if draft is None:
+            draft = _get_or_create_trucks_draft(request, force_new=False)
+        if not draft:
+            return redirect('/')
+
         errors = _validate_required(request.POST, require_terms=True)
         if errors:
             data = dict(request.POST)
