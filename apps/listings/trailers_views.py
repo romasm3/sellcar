@@ -103,38 +103,33 @@ TRAILER_INSPECTION_YEARS = list(range(2025, 2031))
 # ─── Markės — 195 (autogidas.lt tvarka, 'Kita' pabaigoje) ───
 # Laisvas tekstas, ne FK: skirtingai nuo trucks, "Modelis" čia yra laisvas
 # tekstas, todėl brand→model kaskados nereikia (kaip boats boat_make_text).
-TRAILER_BRANDS = [
-    'AAK', 'Acerbi-Viberti', 'Ackermann-Fruehauf', 'AGADOS', 'ALF', 'ALKOM',
-    'Ammann', 'ANNABURGER', 'Anssems', 'Ardor', 'Asnes', 'ATC', 'AUWARTER',
-    'Baltic trailer', 'Barthau', 'Bazaltas', 'Benalu', 'Berger',
-    'BERGERecotrail', 'Bicchi', 'BLOMENROHR', 'Blyss', 'BOCKMANN', 'Bodex',
-    'Boeckmann', 'BORO', 'Brenderup', 'BRENTEX-TRAILER', 'BROSHUIS', 'BSS',
-    'Bunge', 'Burg', 'Carmosino', 'Carnehl', 'Caterpillar', 'Chereau',
-    'CHEVAL', 'Chimpekas', 'Christ', 'Cmt', 'DAF', 'Dapa', 'Dinkel', 'DOLL',
-    'Eduard', 'EMTECH', 'F.C.', 'Fahrzeugbau', 'Faro', 'FB', 'Feber-InterCars',
-    'FISCHER', 'Fliegl', 'Ford', 'Fracht', 'Fruehauf', 'Gaz', 'General', 'GM',
-    'GMF', 'Goldhofer', 'Granalu', 'Grappar', 'Gras', 'Gray&Adams', 'Hapert',
-    'Heinemann', 'Hendricks', 'Hermanns', 'HFR', 'HNH Engineering', 'Hobur',
-    'Hoffmann', 'Hubiere', 'Hüffermann', 'Humbaur', 'Ifor', 'ISI', 'Iveco',
-    'Janmil', 'Kaiser', 'Karo', 'Kässbohrer', 'Kel-berg', 'King', 'KMZ',
-    'Knapen', 'Koch', 'Kogel', 'Kotschenreuther', 'Kraker Trailers', 'KROGER',
-    'Krone', 'KTS', 'Lafaro', 'Lamberet', 'Langendorf', 'Lansing', 'Leci',
-    'LIBERTE', 'Lohr', 'MAC', 'MaDo', 'Magyar', 'MAN', 'Martz', 'MAX Trailer',
-    'Mazda', 'Mega', 'Meiller', 'MENCI', 'Mercedes-Benz', 'Meusburger',
-    'Meyer', 'Mistrall', 'Mitsubishi', 'Molgjer', 'Montracon', 'Narko',
-    'Neptun', 'Niewiadow', 'Nopa', 'Noteboom', 'Nova', 'OFFICINE BS',
-    'Orthaus', 'Ovibos', 'Pacton', 'Panav', 'PNO', 'Pongratz', 'Reisch',
-    'Renault', 'Renders', 'REPO', 'RESPO', 'Ried', 'RMG', 'Rydwan', 'Samro',
-    'Saurida', 'Savos gamybos', 'Sawo', 'Schmidt', 'Schmitz',
-    'Schmitz Cargobull', 'Schwarzmuller', 'SDC', 'Silvergreen', 'Skif',
-    'Sommer', 'Spitzer', 'SST', 'Stas', 'Stema', 'Stopexim', 'Suski',
-    'Świdnik', 'Syland', 'System Trailers', 'Tauras', 'Techau', 'TEMARED',
-    'Tiki Treiler', 'Tisvol', 'Trailer', 'Trailor', 'Trouillet', 'UAZ',
-    'Umega', 'Van Hool', 'Varig', 'Vesta', 'Viberti', 'Vocol', 'Volkswagen',
-    'Wackenhut', 'WEKA', 'Wena', 'Westfalia', 'Wielton', 'Wilex', 'Wilk',
-    'Williams', 'Wiola', 'WM', 'WNP-suski', 'Zasław', 'Zorzi', 'Zremb',
-    'Zubrionok', 'Kita',
-]
+# Markės — iš bendros Brand lentelės (šeima „trailers", 192).
+# Anksčiau sąrašas gyveno čia, Python konstantoje.
+def _trailer_brand_names():
+    from apps.listings import brands as brand_source
+    return list(brand_source.brands_qs('trailers').values_list('name', flat=True))
+
+
+class _BrandList:
+    """Tingus sąrašas — DB neliečiama importo metu."""
+
+    def _names(self):
+        return _trailer_brand_names()
+
+    def __iter__(self):
+        return iter(self._names())
+
+    def __len__(self):
+        return len(self._names())
+
+    def __contains__(self, item):
+        return item in self._names()
+
+    def __getitem__(self, idx):
+        return self._names()[idx]
+
+
+TRAILER_BRANDS = _BrandList()
 
 
 # ═══════════════════════════════════════════════════════════

@@ -45,41 +45,36 @@ from .views import (
 
 AGRI_VT_SLUG = 'agriculture'
 
-# ─── Markės ───
-# 700 reikšmių iš management/commands/zemes-ukio-markes.txt (ten jau guli
-# brands.txt, models.txt — projekto įprotis). Skaitoma kartą importo metu.
-BRANDS_PATH = os.path.join(
-    os.path.dirname(__file__), 'management', 'commands', 'zemes-ukio-markes.txt'
-)
 
 
-def _load_brands():
-    """Markės iš failo; dublikatai (Pöttinger/Pottinger) sujungiami."""
-    def norm(s):
-        s = unicodedata.normalize('NFKD', s.casefold())
-        return ''.join(c for c in s if not unicodedata.combining(c))
-
-    seen, out = set(), []
-    try:
-        with open(BRANDS_PATH, encoding='utf-8') as fh:
-            for line in fh:
-                name = line.strip()
-                if not name:
-                    continue
-                key = norm(name)
-                if key in seen:
-                    continue
-                seen.add(key)
-                out.append(name)
-    except OSError:
-        return []
-    # „Kita" visada pabaigoje
-    rest = [n for n in out if n.casefold() != 'kita']
-    other = [n for n in out if n.casefold() == 'kita']
-    return rest + other
+# Markės — iš bendros Brand lentelės (šeima „agriculture"). Anksčiau čia
+# buvo skaitomas atskiras .txt failas; failas lieka repozitorijoje
+# kaip seed'as, bet formos ir filtrai ima iš DB.
+def _brand_names():
+    from apps.listings import brands as brand_source
+    return list(brand_source.brands_qs('agriculture').values_list('name', flat=True))
 
 
-AGRI_BRANDS = _load_brands()
+class _BrandList:
+    """Tingus sąrašas — DB neliečiama importo metu."""
+
+    def _names(self):
+        return _brand_names()
+
+    def __iter__(self):
+        return iter(self._names())
+
+    def __len__(self):
+        return len(self._names())
+
+    def __contains__(self, item):
+        return item in self._names()
+
+    def __getitem__(self, idx):
+        return self._names()[idx]
+
+
+AGRI_BRANDS = _BrandList()
 
 
 def _slug(name):

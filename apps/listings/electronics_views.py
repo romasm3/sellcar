@@ -40,9 +40,6 @@ from .views import (
 
 ELEC_VT_SLUG = 'electronics'
 
-BRANDS_PATH = os.path.join(
-    os.path.dirname(__file__), 'management', 'commands', 'elektronikos-markes.txt')
-
 # Tipas, kuriam etalonas reikalauja galingumo
 POWER_REQUIRED_TYPES = ('speaker',)
 
@@ -54,24 +51,34 @@ def _norm(value):
     return ''.join(c for c in value if not unicodedata.combining(c))
 
 
-def _load_brands():
-    seen, out = set(), []
-    try:
-        with open(BRANDS_PATH, encoding='utf-8') as fh:
-            for line in fh:
-                name = line.strip()
-                if not name or _norm(name) in seen:
-                    continue
-                seen.add(_norm(name))
-                out.append(name)
-    except OSError:
-        return []
-    rest = [n for n in out if _norm(n) not in ('kita', 'kitas')]
-    other = [n for n in out if _norm(n) in ('kita', 'kitas')]
-    return rest + other
+# Markės — iš bendros Brand lentelės (šeima „electronics"). Anksčiau čia
+# buvo skaitomas atskiras .txt failas; failas lieka repozitorijoje
+# kaip seed'as, bet formos ir filtrai ima iš DB.
+def _brand_names():
+    from apps.listings import brands as brand_source
+    return list(brand_source.brands_qs('electronics').values_list('name', flat=True))
 
 
-ELEC_BRANDS = _load_brands()
+class _BrandList:
+    """Tingus sąrašas — DB neliečiama importo metu."""
+
+    def _names(self):
+        return _brand_names()
+
+    def __iter__(self):
+        return iter(self._names())
+
+    def __len__(self):
+        return len(self._names())
+
+    def __contains__(self, item):
+        return item in self._names()
+
+    def __getitem__(self, idx):
+        return self._names()[idx]
+
+
+ELEC_BRANDS = _BrandList()
 
 
 def get_elec_equipment():

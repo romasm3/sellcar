@@ -81,6 +81,20 @@ TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text
                      'camp_brand_text', 'rent_brand_text', 'elec_brand_text',
                      'bike_brand_text'}
 
+# db_field → markių šeima (BrandScope.key). Vienas šaltinis visiems
+# paviršiams: create forma, greitoji panelė, šoninė juosta, išplėstinė.
+BRAND_FIELD_SCOPE = {
+    'trailer_brand_text': 'trailers',
+    'agri_brand_text':    'agriculture',
+    'constr_brand_text':  'construction',
+    'load_brand_text':    'loading',
+    'forest_brand_text':  'forestry',
+    'camp_brand_text':    'campers',
+    'elec_brand_text':    'electronics',
+    'bike_brand_text':    'bicycles',
+    'truck_brand':        'trucks',
+}
+
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
 FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand'}
@@ -249,27 +263,20 @@ def _brand_rows(vt_slug, db_field, user=None, sub_slug=None):
         rows = [{'value': o.pk, 'name': o.name, 'count': counts.get(o.pk, 0)}
                 for o in model.objects.all()]
     else:
-        if db_field == 'agri_brand_text':
-            from apps.listings.agriculture_views import AGRI_BRANDS as ALL_NAMES
-        elif db_field == 'constr_brand_text':
-            from apps.listings.construction_views import CONSTR_BRANDS as ALL_NAMES
-        elif db_field == 'load_brand_text':
-            from apps.listings.loading_views import LOAD_BRANDS as ALL_NAMES
-        elif db_field == 'forest_brand_text':
-            from apps.listings.forestry_views import FOREST_BRANDS as ALL_NAMES
-        elif db_field == 'camp_brand_text':
-            from apps.listings.camping_views import CAMP_BRANDS as ALL_NAMES
-        elif db_field == 'bike_brand_text':
-            from apps.listings.bicycles_views import BIKE_BRANDS as ALL_NAMES
-        elif db_field == 'elec_brand_text':
-            from apps.listings.electronics_views import ELEC_BRANDS as ALL_NAMES
-        elif db_field == 'rent_brand_text':
-            # Nuomoje markių sąrašas skiriasi pagal subkategoriją
-            # (automobiliai 229, motociklai 514, sunkusis 251...).
+        # Markių sąrašas — iš bendros Brand lentelės pagal šeimą.
+        # Anksčiau čia buvo importuojamos kiekvieno view'o Python
+        # konstantos (AGRI_BRANDS, CONSTR_BRANDS...), t. y. atskiras
+        # sąrašas kiekvienai kategorijai.
+        from apps.listings import brands as brand_source
+
+        if db_field == 'rent_brand_text':
+            # Nuomoje šeima priklauso nuo subkategorijos ir Tipo.
             from apps.listings.rental_views import SUB_TO_FORM, brands_for
             ALL_NAMES = brands_for(SUB_TO_FORM.get(sub_slug, 'car'))
         else:
-            from apps.listings.trailers_views import TRAILER_BRANDS as ALL_NAMES
+            scope = BRAND_FIELD_SCOPE.get(db_field)
+            ALL_NAMES = list(
+                brand_source.brands_qs(scope).values_list('name', flat=True))
         counts = {
             r[db_field]: r['c']
             for r in qs.exclude(**{db_field: ''}).values(db_field).annotate(c=Count('id'))

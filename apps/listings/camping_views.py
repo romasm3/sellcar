@@ -49,9 +49,6 @@ from .views import (
 
 CAMP_VT_SLUG = 'camping-houses'
 
-BRANDS_PATH = os.path.join(
-    os.path.dirname(__file__), 'management', 'commands', 'nameliu-markes.txt'
-)
 
 # Pavarų dėžė — etalonas siūlo tik dvi; Transmission turi ir CVT/Semi-automatic
 CAMP_TRANSMISSION_NAMES = ('Manual', 'Automatic')
@@ -63,31 +60,34 @@ CAMP_TYRE_PCT_CHOICES = [(p, f'{p}%') for p in range(5, 101, 5)]
 CAMP_GEARBOX_SPEEDS = list(range(3, 13))
 
 
-def _load_brands():
-    def norm(s):
-        s = unicodedata.normalize('NFKD', s.casefold())
-        return ''.join(c for c in s if not unicodedata.combining(c))
-
-    seen, out = set(), []
-    try:
-        with open(BRANDS_PATH, encoding='utf-8') as fh:
-            for line in fh:
-                name = line.strip()
-                if not name:
-                    continue
-                key = norm(name)
-                if key in seen:
-                    continue
-                seen.add(key)
-                out.append(name)
-    except OSError:
-        return []
-    rest = [n for n in out if n.casefold() not in ('kita', 'kitas')]
-    other = [n for n in out if n.casefold() in ('kita', 'kitas')]
-    return rest + other
+# Markės — iš bendros Brand lentelės (šeima „campers"). Anksčiau čia
+# buvo skaitomas atskiras .txt failas; failas lieka repozitorijoje
+# kaip seed'as, bet formos ir filtrai ima iš DB.
+def _brand_names():
+    from apps.listings import brands as brand_source
+    return list(brand_source.brands_qs('campers').values_list('name', flat=True))
 
 
-CAMP_BRANDS = _load_brands()
+class _BrandList:
+    """Tingus sąrašas — DB neliečiama importo metu."""
+
+    def _names(self):
+        return _brand_names()
+
+    def __iter__(self):
+        return iter(self._names())
+
+    def __len__(self):
+        return len(self._names())
+
+    def __contains__(self, item):
+        return item in self._names()
+
+    def __getitem__(self, idx):
+        return self._names()[idx]
+
+
+CAMP_BRANDS = _BrandList()
 
 
 def get_camp_equipment():

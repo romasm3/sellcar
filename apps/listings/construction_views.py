@@ -42,36 +42,36 @@ CONSTR_VT_SLUG = 'construction'
 MACHINERY_SUB = 'construction-machinery'
 ATTACHMENTS_SUB = 'construction-attachments'
 
-BRANDS_PATH = os.path.join(
-    os.path.dirname(__file__), 'management', 'commands', 'statybines-markes.txt'
-)
 
 
-def _load_brands():
-    def norm(s):
-        s = unicodedata.normalize('NFKD', s.casefold())
-        return ''.join(c for c in s if not unicodedata.combining(c))
-
-    seen, out = set(), []
-    try:
-        with open(BRANDS_PATH, encoding='utf-8') as fh:
-            for line in fh:
-                name = line.strip()
-                if not name:
-                    continue
-                key = norm(name)
-                if key in seen:
-                    continue
-                seen.add(key)
-                out.append(name)
-    except OSError:
-        return []
-    rest = [n for n in out if n.casefold() != 'kita']
-    other = [n for n in out if n.casefold() == 'kita']
-    return rest + other
+# Markės — iš bendros Brand lentelės (šeima „construction"). Anksčiau čia
+# buvo skaitomas atskiras .txt failas; failas lieka repozitorijoje
+# kaip seed'as, bet formos ir filtrai ima iš DB.
+def _brand_names():
+    from apps.listings import brands as brand_source
+    return list(brand_source.brands_qs('construction').values_list('name', flat=True))
 
 
-CONSTR_BRANDS = _load_brands()
+class _BrandList:
+    """Tingus sąrašas — DB neliečiama importo metu."""
+
+    def _names(self):
+        return _brand_names()
+
+    def __iter__(self):
+        return iter(self._names())
+
+    def __len__(self):
+        return len(self._names())
+
+    def __contains__(self, item):
+        return item in self._names()
+
+    def __getitem__(self, idx):
+        return self._names()[idx]
+
+
+CONSTR_BRANDS = _BrandList()
 
 
 # ─── Tipas → naršymo subkategorija ───

@@ -153,10 +153,45 @@ class Command(BaseCommand):
                     created += 1
                 brand.scopes.add(scope)
 
+        mirrored = self._mirror_to_legacy(by_name)
         linked = self._link_legacy(by_name)
+        if mirrored:
+            self.stdout.write(self.style.SUCCESS(
+                f'Senosiose lentelėse sukurta {mirrored} trūkstamų eilučių '
+                f'(kad FK paviršiai rodytų visą šeimą)'))
         self.stdout.write(self.style.SUCCESS(
             f'\nSukurta {created} naujų Brand eilučių, iš viso '
             f'{Brand.objects.count()}. Susieta su senosiomis lentelėmis: {linked}'))
+
+
+    def _mirror_to_legacy(self, by_name):
+        """Šeimos markės, kurių dar nėra senojoje lentelėje, sukuriamos ten.
+
+        Kol skelbimai rodo į MotorcycleBrand / TruckBrand / GearBrand,
+        tų lentelių sąrašas yra tai, ką mato create forma ir filtrai.
+        Be šio žingsnio sunkvežimių šeima turėtų 301 markę, o forma
+        rodytų 97 — t. y. du skirtingi sąrašai, kurių kaip tik ir
+        atsisakom. Antrame etape FK persuksim į Brand ir šios lentelės
+        nebereikės.
+        """
+        created = 0
+        for scope_key, model_name in reg.SCOPE_LEGACY_MODEL.items():
+            model = LEGACY_MODELS[model_name]
+            existing = {(r.name or '').strip() for r in model.objects.all()}
+            used_slugs = set(model.objects.values_list('slug', flat=True))
+            for brand in Brand.objects.filter(scopes__key=scope_key):
+                if brand.name in existing:
+                    continue
+                slug = slugify(brand.name) or 'brand'
+                base, i = slug, 2
+                while slug in used_slugs:
+                    slug = f'{base}-{i}'
+                    i += 1
+                used_slugs.add(slug)
+                model.objects.create(name=brand.name, slug=slug)
+                existing.add(brand.name)
+                created += 1
+        return created
 
     def _link_legacy(self, by_name):
         """Brand → senoji eilutė pagal tikslų pavadinimą."""
