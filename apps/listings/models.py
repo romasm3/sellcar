@@ -44,10 +44,68 @@ class SubCategory(models.Model):
         return f"{self.vehicle_type.name} - {self.name}"
 
 
+class BrandScope(models.Model):
+    """Markių šeima — vienas sąrašas visoms tos pačios transporto priemonės
+    kategorijoms.
+
+    Autogide sąrašas yra vienas: motociklų (sec 02), motociklų dalių (sec 27)
+    ir motociklų nuomos (sec 35) formose jis identiškas iki baito. Tą pačią
+    logiką perimam: „motorcycles" šeima — viena, ją mato ir create forma, ir
+    greitoji panelė, ir šoninė juosta, ir išplėstinė paieška.
+
+    ``has_models`` — ar rodoma modelių kaskada. Autogide kaskada yra tik ten,
+    kur jie turi modelių duomenų (automobiliai, motociklai); sunkvežimiams,
+    priekaboms, žemės ūkiui modelis yra laisvas tekstas.
+    """
+    key = models.SlugField(unique=True, verbose_name=_("Raktas"))
+    name = models.CharField(max_length=100, verbose_name=_("Pavadinimas"))
+    has_models = models.BooleanField(default=False, verbose_name=_("Turi modelių kaskadą"))
+    order = models.IntegerField(default=0, verbose_name=_("Eiliškumas"))
+
+    class Meta:
+        verbose_name = _("Markių šeima")
+        verbose_name_plural = "Markių šeimos"
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return self.name
+
+
 class Brand(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
-    vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='brands')
+    # Paliktas dėl suderinamumo su automobilių kodu; naujas šaltinis yra
+    # ``scopes``. Vienas Brand gali priklausyti kelioms šeimoms (Volvo —
+    # ir automobiliai, ir sunkvežimiai), todėl vieno VT nepakanka.
+    vehicle_type = models.ForeignKey(
+        VehicleType, on_delete=models.CASCADE, related_name='brands',
+        null=True, blank=True,
+    )
+    scopes = models.ManyToManyField(
+        BrandScope, related_name='brands', blank=True,
+        verbose_name=_("Šeimos"),
+    )
+    logo = models.ImageField(
+        upload_to='brand_logos/', null=True, blank=True,
+        verbose_name=_("Logotipas"),
+    )
+    is_top = models.BooleanField(default=False, verbose_name=_("Top markė"))
+    order = models.IntegerField(default=0, verbose_name=_("Eiliškumas"))
+
+    # Kol senosios lentelės gyvos, formos rodo Brand, o saugo į senąjį FK.
+    # Šios nuorodos leidžia tai padaryti be spėliojimo pagal pavadinimą.
+    legacy_moto = models.OneToOneField(
+        'MotorcycleBrand', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='unified',
+    )
+    legacy_truck = models.OneToOneField(
+        'TruckBrand', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='unified',
+    )
+    legacy_gear = models.OneToOneField(
+        'GearBrand', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='unified',
+    )
 
     class Meta:
         verbose_name=_("Brand")
