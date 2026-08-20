@@ -35,11 +35,13 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
                   'rental', 'services', 'electronics', 'bicycles', 'parts'}
 
-# 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
-# cars/motorcycles kol kas lieka su savo blokais search_panel.html.
+# Markė→modelis kaskadą variklis jau turi (fields/_brand_model.html
+# darbalaukyje, /pasirinkti/?zingsnis=1|2 telefone), todėl automobiliai
+# ir motociklai perkelti į bendrą kelią.
 # Įtraukus kaskadą — pridėk juos čia.
 ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                  'rental', 'services', 'electronics', 'bicycles', 'parts'}
+                  'rental', 'services', 'electronics', 'bicycles', 'parts',
+                  'cars', 'motorcycles'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON
@@ -98,11 +100,14 @@ BRAND_FIELD_SCOPE = {
     'elec_brand_text':    'electronics',
     'bike_brand_text':    'bicycles',
     'truck_brand':        'trucks',
+    'brand':              'cars',
+    'motorcycle_brand':   'motorcycles',
 }
 
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
-FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand'}
+FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand', 'brand': 'Brand',
+                   'motorcycle_brand': 'MotorcycleBrand'}
 
 # Laukai, kurių reikšmės — laisvas tekstas iš skelbimų (Miestas).
 DISTINCT_VALUE_FIELDS = {'city'}
@@ -191,7 +196,8 @@ for _cat in _RAW_ADV['categories']:
 # markė→modelis kaskadą ir šimtus ypatumų checkbox'ų be db_field —
 # įjungus dabar pusė laukų būtų dekoracija.
 ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                    'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats'}
+                    'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats',
+                    'cars', 'motorcycles'}
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -268,8 +274,16 @@ def _brand_rows(vt_slug, db_field, user=None, sub_slug=None):
             for r in qs.exclude(**{f'{db_field}__isnull': True})
                        .values(f'{db_field}_id').annotate(c=Count('id'))
         }
+        # Sąrašas — iš markių šeimos, ne visa lentelė: „brand" lentelėje
+        # guli visų kategorijų markės (2583), automobiliams reikia 239.
+        scope = BRAND_FIELD_SCOPE.get(db_field)
+        if scope and model.__name__ == 'Brand':
+            from apps.listings import brands as brand_source
+            source = brand_source.brands_qs(scope)
+        else:
+            source = model.objects.all()
         rows = [{'value': o.pk, 'name': o.name, 'count': counts.get(o.pk, 0)}
-                for o in model.objects.all()]
+                for o in source]
     else:
         # Markių sąrašas — iš bendros Brand lentelės pagal šeimą.
         # Anksčiau čia buvo importuojamos kiekvieno view'o Python
@@ -379,6 +393,10 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
             elif db in TEXT_BRAND_FIELDS or db in FK_BRAND_FIELDS:
                 item['widget'] = 'brand'
+                # Šeima — kad drill-in žinotų, ar po markės eina modelių
+                # žingsnis (kaskada rodoma tik ten, kur modelių yra).
+                item['scope'] = BRAND_FIELD_SCOPE.get(db) or (
+                    'cars' if db == 'brand' else None)
                 item['brands_top'], item['brands_rest'] = _brand_rows(
                     vt_slug, db, user, sub_slug)
                 item['only_with_ads_toggle'] = (
@@ -532,6 +550,10 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         elif f['type'] in ('select', 'multiselect'):
             if db in TEXT_BRAND_FIELDS or db in FK_BRAND_FIELDS:
                 item['widget'] = 'brand'
+                # Šeima — kad drill-in žinotų, ar po markės eina modelių
+                # žingsnis (kaskada rodoma tik ten, kur modelių yra).
+                item['scope'] = BRAND_FIELD_SCOPE.get(db) or (
+                    'cars' if db == 'brand' else None)
                 item['brands_top'], item['brands_rest'] = _brand_rows(
                     vt_slug, db, user, sub_slug)
                 item['only_with_ads_toggle'] = TOP_BRANDS_ON

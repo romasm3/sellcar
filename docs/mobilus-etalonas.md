@@ -252,3 +252,12 @@ Mano skelbimai (N), Žinutės, Piniginė, Nustatymai, App Store / Google Play my
 | „Detali paieška" | Po mygtuku, per visą plotį | Taip pat |
 | Kortelės parametrai | 3 stulpeliai, ikona + etiketė + reikšmė | Taip pat |
 | Nuotraukos | Atskiras srcset telefonui | Įsivesti |
+
+
+---
+
+## 6. Žinomi defektai
+
+| Defektas | Kur | Būsena |
+|---|---|---|
+| Skelbimo kortelė telefone išsikiša už ekrano — 465 px vietoj 390 (`.ap-price` ir kainos elementai) | rezultatų puslapis, visos kategorijos | Taisoma kartu su rezultatų puslapiu ir `mobile_results_header` bloku po kaskados |

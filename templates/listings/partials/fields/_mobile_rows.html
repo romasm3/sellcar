@@ -19,21 +19,33 @@ Parametrai:
 {% endcomment %}
 <div class="sp-mlist lg:hidden" id="sp-target">
   {% for row in rows %}{% for f in row %}{% if f %}
-  {% if f.type != 'text' and f.type != 'checkbox' %}
-  {% with key=f.param|default:f.param_min cur=request.GET|get_param:f.param %}
+  {% comment %}
+  Modelis telefone atskiros eilutės neturi: etalone „Markė, modelis" yra
+  viena eilutė, o modelis renkamas antru drill-in žingsniu ir rodomas
+  toje pačioje žymoje.
+  {% endcomment %}
+  {% if f.type != 'text' and f.type != 'checkbox' and f.db_field != 'model' %}
+  {% with key=f.param|default:f.param_min chosen=request.GET|get_list_param:f.param %}
 
-  {% if cur %}
+  {% if chosen %}
   <div class="sp-chips">
+    {% comment %}
+    Po žymą kiekvienai reikšmei. Kelios markės kaupiamos tuo pačiu
+    parametro vardu, todėl numeracijos nėra — × šalina tik savo reikšmę,
+    kitos lieka nepaliestos.
+    {% endcomment %}
+    {% for value in chosen %}
     <span class="sp-chip">
-      <span>{{ cur }}</span>
-      <a href="?{{ request.GET|drop_param:f.param }}#sp-target" aria-label="{% trans 'Pašalinti' %}">
+      <span>{{ f|option_label:value|default:value }}{% if f.widget == 'brand' and f.scope %}{% for m in request.GET|get_list_param:'model' %} {{ m|model_name }}{% endfor %}{% endif %}</span>
+      <a href="?{% drop_value request.GET f.param value %}#sp-target" aria-label="{% trans 'Pašalinti' %}">
         <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
       </a>
     </span>
+    {% endfor %}
     <a class="sp-chip-add"
        href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}&amp;grizti={{ back|urlencode }}"
-       aria-label="{% trans 'Keisti' %}">
-      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+       aria-label="{% trans 'Pridėti' %}">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v8M8 12h8"/></svg>
     </a>
   </div>
   {% else %}

@@ -11,7 +11,7 @@ konfigūracijos, o grįžimo kelias — iš ?grizti (tikrinamas, kad būtų sava
 {% endcomment %}
 <div class="sp-select-page" x-data="{ q: '' }">
   <div class="sp-sheet-hdr">
-    <a href="{{ back }}#sp-target" aria-label="{% trans 'Atgal' %}">
+    <a href="{{ back_link|default:back }}" aria-label="{% trans 'Atgal' %}">
       <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
     </a>
     <span>{{ title }}</span>
@@ -23,12 +23,12 @@ konfigūracijos, o grįžimo kelias — iš ?grizti (tikrinamas, kad būtų sava
 
   <div class="sp-sheet-list">
     <a class="sp-sheet-item{% if not current %} is-sel{% endif %}" href="{{ clear_url }}">
-      {% trans "Visi" %}
+      {{ clear_label|default:_("Visi") }}
     </a>
     {% for value, label, count in options %}
     <a class="sp-sheet-item{% if current == value|stringformat:'s' %} is-sel{% endif %}"
        x-show="!q || '{{ label|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
-       href="?laukas={{ param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}&amp;reiksme={{ value|urlencode }}">
+       href="?laukas={{ param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}{% if step %}&amp;zingsnis={{ step }}{% endif %}{% if chosen_brand %}&amp;marke={{ chosen_brand|urlencode }}{% endif %}&amp;reiksme={{ value|urlencode }}">
       <span>{{ label }}</span>
       {% if count %}<span class="cnt">{{ count }}</span>{% endif %}
     </a>

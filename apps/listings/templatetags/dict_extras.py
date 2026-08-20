@@ -47,3 +47,58 @@ def drop_param(querydict, key):
     params = querydict.copy()
     params.pop(key, None)
     return params.urlencode()
+
+
+@register.filter
+def get_list_param(querydict, key):
+    """Visos to paties parametro reikšmės — kelioms markėms ar modeliams."""
+    try:
+        return querydict.getlist(key)
+    except AttributeError:
+        return []
+
+
+@register.simple_tag
+def drop_value(querydict, key, value):
+    """GET parametrai be VIENOS to lauko reikšmės.
+
+    × ant vienos poros šalina tik ją: kitos poros lieka, o kadangi
+    reikšmės kaupiamos tuo pačiu vardu (ne brand_2, brand_3), numeracijos
+    nėra ir jai nėra kaip sugriūti.
+    """
+    params = querydict.copy()
+    values = [v for v in params.getlist(key) if str(v) != str(value)]
+    if values:
+        params.setlist(key, values)
+    else:
+        params.pop(key, None)
+    return params.urlencode()
+
+
+@register.filter
+def option_label(field, value):
+    """Reikšmės pavadinimas žymai (markė → „Audi", ne „95")."""
+    value = str(value)
+    for key in ('brands_top', 'brands_rest'):
+        for row in field.get(key) or []:
+            if str(row.get('value')) == value:
+                return row.get('name')
+    for opt_value, label in field.get('options') or []:
+        if str(opt_value) == value:
+            return label
+    return value
+
+
+@register.filter
+def model_name(value):
+    """Modelio pavadinimas pagal id — žymai telefone.
+
+    Modelio laukas reikšmių sąrašo neturi (jos ateina kaskada), todėl
+    pavadinimas paimamas tiesiai iš lentelės.
+    """
+    from apps.listings.models import Model
+
+    try:
+        return Model.objects.filter(pk=int(value)).values_list('name', flat=True).first() or value
+    except (TypeError, ValueError):
+        return value

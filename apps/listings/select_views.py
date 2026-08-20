@@ -48,15 +48,43 @@ def _find_field(category, param, sub_slug=None):
     return None
 
 
-def _with_params(path, changes):
-    """Grąžina tą patį kelią su pakeistais/pridėtais parametrais."""
+def _with_params(path, changes, append=False):
+    """Tas pats kelias su pakeistais (arba pridėtais) parametrais.
+
+    ``append=True`` palieka esamas to paties vardo reikšmes — taip
+    kaupiamos kelios markės ar modeliai (variklis jas ima per getlist).
+    """
     parts = urlparse(path)
-    params = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
-              if k not in changes]
+    existing = parse_qsl(parts.query, keep_blank_values=True)
+    params = existing if append else [(k, v) for k, v in existing if k not in changes]
     for key, value in changes.items():
         if value not in ('', None):
             params.append((key, value))
     return urlunparse(parts._replace(query=urlencode(params)))
+
+
+def _model_param(category, sub_slug=None):
+    """Kurio lauko vardu saugomas modelis šioje kategorijoje."""
+    for builder in (panel_config.build_panel, panel_config.build_advanced):
+        cfg = builder(category, None, sub_slug=sub_slug)
+        if not cfg:
+            continue
+        for row in cfg.get('rows') or []:
+            for f in row:
+                if f and f.get('db_field') == 'model':
+                    return f.get('param')
+    return None
+
+
+def _brand_has_models(field):
+    """Ar markei rodoma modelių kaskada (kaip autogide — tik ten, kur
+    modelių duomenų yra)."""
+    from apps.listings import brands as brand_source
+
+    scope = field.get('scope')
+    if scope:
+        return brand_source.has_models(scope)
+    return False
 
 
 def select_value(request):
@@ -70,9 +98,48 @@ def select_value(request):
     if not field:
         raise Http404('Nežinomas laukas')
 
-    # Pasirinkta reikšmė — grįžtam į tą pačią vietą su pakeistu parametru
+    cascade = field.get('widget') == 'brand' and _brand_has_models(field)
+    step = request.GET.get('zingsnis') or '1'
+    chosen_brand = request.GET.get('marke') or ''
+
+    # ── Pasirinkta reikšmė ────────────────────────────────────────────
     if 'reiksme' in request.GET:
-        return redirect(_with_params(back, {param: request.GET['reiksme']}) + '#sp-target')
+        value = request.GET['reiksme']
+
+        # Markė kaskadoje — dar ne pabaiga: einam į modelių žingsnį
+        if cascade and step == '1':
+            return redirect(_with_params(request.get_full_path(), {
+                'zingsnis': '2', 'marke': value, 'reiksme': None,
+            }))
+
+        if cascade and step == '2':
+            # Pora kaupiama: markė + modelis pridedami prie esamų
+            changes = {param: chosen_brand}
+            model_param = _model_param(category, sub_slug)
+            if model_param and value:
+                changes[model_param] = value
+            return redirect(_with_params(back, changes, append=True) + '#sp-target')
+
+        return redirect(_with_params(back, {param: value}) + '#sp-target')
+
+    # ── Modelių žingsnis ──────────────────────────────────────────────
+    if cascade and step == '2' and chosen_brand:
+        from apps.listings.models import Brand, Model
+
+        brand = Brand.objects.filter(pk=chosen_brand).first() if str(chosen_brand).isdigit() else None
+        models = (Model.objects.filter(brand=brand).order_by('name')
+                  if brand else Model.objects.none())
+        return render(request, 'listings/select_value.html', {
+            'field': field, 'param': param, 'category': category, 'sub_slug': sub_slug,
+            'back': back, 'current': '', 'step': '2', 'chosen_brand': chosen_brand,
+            'options': [(m.id, m.name, 0) for m in models],
+            'title': brand.name if brand else field['label'],
+            # „Visi modeliai" — grįžtam tik su marke
+            'clear_url': _with_params(back, {param: chosen_brand}, append=True) + '#sp-target',
+            'clear_label': _('Visi modeliai'),
+            'back_link': _with_params(request.get_full_path(),
+                                      {'zingsnis': None, 'marke': None}),
+        })
 
     current = dict(parse_qsl(urlparse(back).query, keep_blank_values=True)).get(param, '')
 
@@ -94,6 +161,10 @@ def select_value(request):
         'back': back,
         'current': current,
         'options': options,
-        'title': field['label'],
+        'title': _('Markė, modelis') if cascade else field['label'],
+        'step': '1',
         'clear_url': _with_params(back, {param: ''}) + '#sp-target',
+        'clear_label': _('Visi'),
+        'back_link': back + '#sp-target',
+        'cascade': cascade,
     })
