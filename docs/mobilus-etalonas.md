@@ -293,7 +293,10 @@ sąlygas:
    pirštu.
 
 Pas mus taip veikia pagrindinio puslapio „Pasiūlymai" skirtukas
-(`.hc-track` šablone `listings/listing_list.html`).
+(`.hc-track`) ir pati skirtukų juosta (`.home-tabs-header`) — abi
+šablone `listings/listing_list.html`. Skirtukai telefone lieka vienoje
+eilutėje ir stumiami pirštu; paspaustas skirtukas prisitraukia į vidurį
+(`scrollIntoView({ inline: 'center' })`), kad matytųsi kaimynai.
 
 **Pavyzdys (2026-08-20).** Antraštės dešinė pusė buvo 340 px ir plėtė visą
 puslapį iki 396 px. Atrodė kaip trys atskiros klaidos — „slenkanti" ikonų

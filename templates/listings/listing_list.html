@@ -103,12 +103,22 @@
 /* ─── Home tabs section ─── */
 .home-tabs-section { background: #fff; border-top: 1px solid #f3f4f6; padding: 2.5rem 0; }
 .home-tabs-header { display: flex; gap: 1.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.5rem; }
-/* Telefone penki skirtukai turi tilpti be slinkimo: mažinam šriftą ir
-   tarpus, o jei vis tiek netelpa — laužiam į antrą eilutę, bet nestumiam
-   į šoną (žr. taisyklę docs/mobilus-etalonas.md). */
+/* Telefone skirtukai lieka VIENOJE eilutėje ir stumiami į šoną — tai
+   sąmoninga slenkama juosta savo konteineryje, ne netyčinė persipilda
+   (žr. išimtį docs/mobilus-etalonas.md). Puslapio ji neplečia: slinkimas
+   vyksta .home-tabs-header viduje, docW lieka lygus innerWidth. */
 @media (max-width: 1023px) {
-  .home-tabs-header { flex-wrap: wrap; gap: 0.35rem 0.85rem; overflow-x: visible; }
-  .home-tab-btn { font-size: 0.78rem; padding-bottom: 0.5rem; }
+  .home-tabs-header {
+    flex-wrap: nowrap;
+    gap: 1.1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .home-tabs-header::-webkit-scrollbar { display: none; }
+  .home-tab-btn { font-size: 0.85rem; padding-bottom: 0.55rem; flex: 0 0 auto; scroll-snap-align: center; }
 }
 .home-tab-btn { padding-bottom: 0.75rem; padding-left: 0.25rem; padding-right: 0.25rem; border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; font-size: 0.95rem; color: #6b7280; cursor: pointer; background: none; transition: all 0.2s; }
 .home-tab-btn:hover { color: #111827; }
@@ -1002,7 +1012,14 @@ function onSortChange(selectEl) {
         <div class="max-w-7xl mx-auto px-4">
 
             <!-- Tabs Header -->
-            <div class="home-tabs-header">
+            {% comment %}
+            Telefone juosta stumiama į šoną; paspaustas skirtukas
+            prisitraukia į vidurį, kad matytųsi ir kaimynai iš abiejų pusių.
+            {% endcomment %}
+            <div class="home-tabs-header"
+                 @click="$event.target.closest('.home-tab-btn') &&
+                         $event.target.closest('.home-tab-btn').scrollIntoView(
+                           { behavior: 'smooth', block: 'nearest', inline: 'center' })">
                 {% comment %}„Pasiūlymai" — visų kategorijų skelbimai, pirmas ir aktyvus{% endcomment %}
                 <button type="button" @click="tab = 'offers'"
                         :class="{ 'active': tab === 'offers' }" class="home-tab-btn">
