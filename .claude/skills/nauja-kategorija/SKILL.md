@@ -253,6 +253,49 @@ technika sec 24 + priedai sec 16):
 - **Edit dispatch privalo atskirti**, kuri forma: `_guard()` tikrina, ar
   įrašas yra priedas, ir persiadresuoja į teisingą formą.
 
+### Markė — vienas šaltinis, viena būsena
+
+**Kiekviena markė projekte egzistuoja VIENĄ kartą** — vienoje lentelėje,
+susieta su kategorijomis per M2M. Iš tos pačios eilutės ima visos keturios
+vietos:
+
+1. Create forma
+2. Greitoji paieškos panelė
+3. Rezultatų šoninė filtrų juosta
+4. Išplėstinė paieška
+
+„Yamaha" yra viena eilutė, susieta su motociklais ir motociklų nuoma. Prie
+jos kabo jos modeliai. Vartotojas ją mato vienodai visose keturiose vietose,
+o pridėjus naują markę admin'e ji atsiranda visur iš karto — be deploy'o.
+
+**Būsena taip pat viena.** Pasirinkta markė laikoma URL parametruose ir
+išlieka pereinant tarp ekranų: pasirinkus panelėje, šoninėje juostoje ji jau
+pažymėta, o modelių sąrašas susiaurėja iki tos markės modelių. Nekurk
+atskiros būsenos kiekvienam ekranui — vienas parametras, viena tiesa.
+
+**Tas pats galioja modeliams:** modelis kabo prie markės, ne prie
+kategorijos, ir kaskada visur veikia vienodai.
+
+> **DRAUDŽIAMA:** kurti atskirą markių sąrašą kategorijai, jei tos pačios
+> markės jau egzistuoja kitoje. Vietoj to — **pridėti kategoriją prie esamos
+> markės**. Naujas `.txt` failas ar `BRANDS = [...]` konstanta view'e yra
+> ženklas, kad taisyklė laužoma.
+
+**Kodėl tai taisyklė.** 2026-08-20 audite rasta 19 atskirų markių šaltinių:
+4 FK lentelės, 3 Python konstantos ir 11 `.txt` failų — **5076 įrašai, iš
+kurių tik 3140 unikalūs (37 % dublikatai)**. 1149 markės kartojosi 2+
+kategorijose („Mercedes-Benz" — 12 sąrašų), o 81 pavadinimas turėjo skirtingą
+rašybą skirtinguose failuose (`SKODA` / `Skoda` / `Škoda`). Iš 19 kategorijų
+tik 3 markes buvo galima pridėti per admin — likusios reikalavo deploy'o.
+
+**Pereinamuoju laikotarpiu**, kol ne visos kategorijos perkeltos į bendrą
+lentelę, laikykis dviejų dalykų:
+
+- naujai kategorijai **nekurk naujo sąrašo** — jei markės jau kur nors yra,
+  imk tą patį šaltinį (pvz. nuomos mikroautobusai naudoja namelių sąrašą);
+- `*_brand_text` stulpelis lieka tik laisvam tekstui („Kita"), o ne kaip
+  antras markių šaltinis.
+
 ### Kiti niuansai
 
 - `Listing.mileage` yra NOT NULL — jei kategorija jo nenaudoja: `target.mileage = 0`
