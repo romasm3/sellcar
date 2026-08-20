@@ -56,8 +56,18 @@ from apps.listings.models import (
 # views.PARTS_GENERIC_FORM_SLUGS (ten — pikerio maršrutizavimas).
 PARTS_SUBCATEGORY_SLUGS = {
     'single-part-or-kit',
+    'single-truck-part',
     'agri-special-parts',
     'accessories-tuning',
+}
+
+# Puslapio antraštė pagal pasirinktą šaką — anksčiau visoms buvo
+# užrašyta „Car, van parts", nors formą dalinasi keturios.
+PARTS_PAGE_TITLES = {
+    'single-part-or-kit': _('Car, van parts'),
+    'single-truck-part': _('Sunkiojo transporto dalys'),
+    'agri-special-parts': _('Žemės ūkio, spec. dalys'),
+    'accessories-tuning': _('Aksesuarai, Tuning'),
 }
 
 DEFAULT_PARTS_SUBCATEGORY = 'single-part-or-kit'
@@ -88,7 +98,10 @@ def parts_category_select(request):
 
         'categories': categories,
 
-        'page_title': _("Car, van parts"),
+        'page_title': PARTS_PAGE_TITLES.get(
+            for_sub if for_sub in PARTS_SUBCATEGORY_SLUGS else DEFAULT_PARTS_SUBCATEGORY,
+            _("Car, van parts"),
+        ),
 
         'for_sub': for_sub if for_sub in PARTS_SUBCATEGORY_SLUGS else '',
 

@@ -192,6 +192,7 @@ UNIMPLEMENTED_SUBCATEGORY_SLUGS = set()
 # SubCategory, todėl viena forma tinka visoms trims.
 PARTS_GENERIC_FORM_SLUGS = {
     'single-part-or-kit',
+    'single-truck-part',
     'agri-special-parts',
     'accessories-tuning',
 }

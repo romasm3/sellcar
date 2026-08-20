@@ -15102,3 +15102,7 @@ msgstr "Ratų gaubtai"
 #: apps/listings/models.py
 msgid "Centre caps"
 msgstr "Ratlankių dangteliai"
+
+#: apps/listings/parts_views.py
+msgid "Single truck part"
+msgstr "Sunkiojo transporto dalis"
