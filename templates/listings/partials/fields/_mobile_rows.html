@@ -1,0 +1,94 @@
+{% load i18n dict_extras %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+TELEFONO VAIZDAS — laukų eilutės su drill-in ekranais.
+
+Etalone (autogidas, iPhone) kiekvienas filtras yra 56 px eilutė su
+rodykle, o paspaudus atsidaro atskiras ekranas su reikšmių sąrašu.
+Pas juos tai atskiras puslapis (/select/?step=…), pas mus — sluoksnis
+toje pačioje formoje, todėl pasirinkimai lieka formoje ir nereikia
+grąžinimo parametrų.
+
+Reikšmes rašo į TUOS PAČIUS laukus, kuriuos renderina fields/_*.html
+(jie lieka DOM'e, tik paslėpti telefone) — dublikatų su tais pačiais
+vardais nėra.
+
+Naudojimas:
+    {% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows %}
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="lg:hidden" x-data="mobileFilters()">
+  {% for row in rows %}{% for f in row %}{% if f %}
+  {% with key=f.param|default:f.param_min %}
+  <button type="button" class="sp-mrow" @click="openSheet('{{ key }}')">
+    <span>{{ f.label }}</span>
+    <span class="sp-mrow-val" x-text="label('{{ key }}')"></span>
+    <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </button>
+  {% endwith %}
+  {% endif %}{% endfor %}{% endfor %}
+
+  {% for row in rows %}{% for f in row %}{% if f %}
+  {% with key=f.param|default:f.param_min %}
+  <div class="sp-sheet" x-show="sheet === '{{ key }}'" x-cloak>
+    <div class="sp-sheet-hdr">
+      <button type="button" @click="closeSheet()">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <span>{{ f.label }}</span>
+    </div>
+
+    {% if f.type == 'range' %}
+    {% comment %}Diapazonas — du sąrašai viename ekrane{% endcomment %}
+    <div class="sp-sheet-list">
+      <div class="sp-sheet-item font-bold">{% trans "Nuo" %}</div>
+      {% for v, lbl in f.options_min %}
+      <div class="sp-sheet-item" @click="pick('{{ f.param_min }}', '{{ v|escapejs }}', '{{ lbl|escapejs }}')">{{ lbl }}</div>
+      {% endfor %}
+      <div class="sp-sheet-item font-bold">{% trans "Iki" %}</div>
+      {% for v, lbl in f.options_max %}
+      <div class="sp-sheet-item" @click="pick('{{ f.param_max }}', '{{ v|escapejs }}', '{{ lbl|escapejs }}')">{{ lbl }}</div>
+      {% endfor %}
+    </div>
+
+    {% elif f.type == 'text' %}
+    <div class="sp-sheet-search">
+      <input type="text" :value="value('{{ f.param }}')"
+             @input="pick('{{ f.param }}', $event.target.value, $event.target.value)"
+             placeholder="{% trans 'Ieškoti' %}">
+    </div>
+    <div class="sp-sheet-foot">
+      <button type="button" class="w-full bg-gray-700 text-white font-bold rounded-lg py-3"
+              @click="closeSheet()">{% trans "Pasirinkti" %}</button>
+    </div>
+
+    {% else %}
+    <div class="sp-sheet-search">
+      <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}">
+    </div>
+    <div class="sp-sheet-list">
+      <div class="sp-sheet-item" @click="pick('{{ key }}', '', '')">{% trans "Visi" %}</div>
+      {% if f.widget == 'brand' %}
+        {% for b in f.brands_top %}
+        <div class="sp-sheet-item" x-show="match('{{ b.name|escapejs }}')"
+             @click="pick('{{ key }}', '{{ b.value|escapejs }}', '{{ b.name|escapejs }}')">
+          <span>{{ b.name }}</span>{% if b.count %}<span class="cnt">{{ b.count }}</span>{% endif %}
+        </div>
+        {% endfor %}
+        {% for b in f.brands_rest %}
+        <div class="sp-sheet-item" x-show="match('{{ b.name|escapejs }}')"
+             @click="pick('{{ key }}', '{{ b.value|escapejs }}', '{{ b.name|escapejs }}')">
+          <span>{{ b.name }}</span>{% if b.count %}<span class="cnt">{{ b.count }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      {% else %}
+        {% for v, lbl in f.options %}
+        <div class="sp-sheet-item" x-show="match('{{ lbl|escapejs }}')"
+             @click="pick('{{ key }}', '{{ v|escapejs }}', '{{ lbl|escapejs }}')">{{ lbl }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endwith %}
+  {% endif %}{% endfor %}{% endfor %}
+</div>

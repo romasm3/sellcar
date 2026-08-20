@@ -11,7 +11,7 @@ viskas per bendrus partials/fields/*.
 Matmenys — isplestine-config.json „sidebar_layout".
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}{% if sidebar %}
-<aside class="w-[230px] shrink-0 hidden lg:block no-print">
+<aside class="w-full lg:w-[230px] shrink-0 basis-full lg:basis-auto no-print">
   <form method="get" action="{% url 'listing_list' %}" id="sidebarForm" class="pr-[34px]">
     <input type="hidden" name="category" value="{{ sidebar.slug }}">
     {% if request.GET.subcategory %}<input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">{% endif %}
@@ -23,9 +23,12 @@ Matmenys — isplestine-config.json „sidebar_layout".
       {% trans "Daugiau filtrų" %}
     </a>
 
-    <div class="flex flex-col gap-y-3">
+    {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows %}
+
+    <div class="hidden lg:flex flex-col gap-y-3">
       {% for row in sidebar.rows %}{% for f in row %}
 
+        <div class="sp-ctl">
         {% if f.type == 'range' %}
         {% include 'listings/partials/fields/_range.html' with f=f %}
 
@@ -44,6 +47,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
         {% else %}
         {% include 'listings/partials/fields/_select.html' with f=f %}
         {% endif %}
+        </div>
 
       {% endfor %}{% endfor %}
 
@@ -73,12 +77,4 @@ Matmenys — isplestine-config.json „sidebar_layout".
   </form>
 </aside>
 
-{% comment %}Siauruose ekranuose (<1024 px) juosta virsta mygtuku{% endcomment %}
-<div class="lg:hidden mb-4 basis-full w-full">
-  <a href="/paieska/{{ sidebar.slug }}/?{{ request.GET.urlencode }}"
-     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-[13.5px] font-bold text-gray-700 hover:bg-gray-50 no-underline">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
-    {% trans "Filtrai" %}
-  </a>
-</div>
 {% endif %}

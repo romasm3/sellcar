@@ -21,7 +21,9 @@ Naujo CSS nėra: sp-fld, sp-sel, sp-dd* klasės tos pačios, kurias naudoja
 automobilių panelė.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-<div class="flex flex-col gap-y-3">
+{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows %}
+
+<div class="hidden lg:flex flex-col gap-y-3">
   {% for row in panel.rows %}
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
   {% for f in row %}{% if f %}
@@ -31,11 +33,7 @@ automobilių panelė.
     atsidaro vietoje (etalonas). Nuo 1024 px eilutė paslepiama ir lieka
     įprastas tinklelio langelis; laukų šablonas tas pats.
     {% endcomment %}
-    <div class="sp-field" x-data="{ o: false }" :class="o && 'is-open'">
-      <button type="button" class="sp-mrow" @click="o = !o">
-        <span>{{ f.label }}</span>
-        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-      </button>
+    <div class="sp-field">
       <div class="sp-ctl">
         {% if f.type == 'range' %}
         {% include 'listings/partials/fields/_range.html' with f=f %}
