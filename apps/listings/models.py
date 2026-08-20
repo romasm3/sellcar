@@ -71,6 +71,49 @@ class BrandScope(models.Model):
         return self.name
 
 
+class BrandSuggestion(models.Model):
+    """Vartotojo per „Kita" įvestas markės pavadinimas.
+
+    Sąrašas pildosi pagal realų poreikį, o ne pagal spėjimus: jei penki
+    žmonės įvedė „Jaecoo", admin'e tai matosi kaip pasiūlymas su
+    skaitikliu ir vienu veiksmu virsta tikra marke.
+    """
+    STATUS_NEW = 'new'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CHOICES = [
+        (STATUS_NEW, _('Naujas')),
+        (STATUS_APPROVED, _('Patvirtinta')),
+        (STATUS_REJECTED, _('Atmesta')),
+    ]
+
+    name = models.CharField(max_length=100, verbose_name=_("Pavadinimas"))
+    scope = models.ForeignKey(
+        'BrandScope', on_delete=models.CASCADE, related_name='suggestions',
+        verbose_name=_("Šeima"),
+    )
+    times_used = models.PositiveIntegerField(default=1, verbose_name=_("Kiek kartų įvesta"))
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default=STATUS_NEW,
+        verbose_name=_("Būsena"),
+    )
+    approved_brand = models.ForeignKey(
+        'Brand', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='from_suggestions', verbose_name=_("Sukurta markė"),
+    )
+    first_seen = models.DateTimeField(auto_now_add=True)
+    last_seen = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Markės pasiūlymas")
+        verbose_name_plural = "Markių pasiūlymai"
+        ordering = ['-times_used', 'name']
+        unique_together = ['scope', 'name']
+
+    def __str__(self):
+        return f'{self.name} ({self.scope.name}) ×{self.times_used}'
+
+
 class Brand(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)

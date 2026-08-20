@@ -21,6 +21,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -125,7 +126,7 @@ def forestry_listing_create(request):
             errors.append(_('Tipas yra privalomas'))
         target.forest_type = forest_type
 
-        brand = (request.POST.get('forest_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'forest_brand_text', 'forestry')
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.forest_brand_text = brand[:80]

@@ -23,6 +23,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -155,7 +156,7 @@ def bicycles_listing_create(request):
         # Subkategorija — iš formos, kas išsaugojimą
         target.subcategory = _subcategory_for(bike_type)
 
-        brand = (request.POST.get('bike_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'bike_brand_text', 'bicycles')
         if not brand:
             errors.append(_('Gamintojas yra privalomas'))
         target.bike_brand_text = brand[:80]

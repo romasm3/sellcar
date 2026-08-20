@@ -23,6 +23,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -143,7 +144,7 @@ def electronics_listing_create(request):
             errors.append(_('Tipas yra privalomas'))
         target.elec_type = elec_type
 
-        brand = (request.POST.get('elec_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'elec_brand_text', 'electronics')
         if not brand:
             errors.append(_('Gamintojas yra privalomas'))
         target.elec_brand_text = brand[:80]

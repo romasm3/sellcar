@@ -183,7 +183,11 @@ def _handle(request, form_key, parse_fields):
         errors = []
 
         # ─── bendri visoms nuomos formoms ───
-        brand = (request.POST.get('rent_brand_text', '') or '').strip()
+        rent_type_posted = (request.POST.get('rent_type', '') or '').strip()
+        brand_scope = (brand_source.scope_for(rent_type=rent_type_posted)
+                       or FORM_FIXED_SCOPE.get(form_key, ''))
+        brand = brand_source.posted_brand(
+            request, 'rent_brand_text', brand_scope)
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.rent_brand_text = brand[:80]

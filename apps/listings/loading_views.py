@@ -21,6 +21,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -146,7 +147,7 @@ def loading_listing_create(request):
             errors.append(_('Tipas yra privalomas'))
         target.load_type = load_type
 
-        brand = (request.POST.get('load_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'load_brand_text', 'loading')
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.load_brand_text = brand[:80]

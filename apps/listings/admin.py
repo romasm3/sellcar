@@ -8,6 +8,8 @@ from .models import (
     VehicleType,
     SubCategory,
     Brand,
+    BrandScope,
+    BrandSuggestion,
     Model,
     MotorcycleBrand,
     MotorcycleModel,
@@ -63,13 +65,69 @@ class SubCategoryAdmin(admin.ModelAdmin):
     autocomplete_fields = ['vehicle_type']
 
 
+@admin.register(BrandScope)
+class BrandScopeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'key', 'has_models', 'order', 'brands_count']
+    ordering = ['order', 'name']
+    search_fields = ['name', 'key']
+
+    def brands_count(self, obj):
+        return obj.brands.count()
+    brands_count.short_description = 'Markių'
+
+
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ['name', 'vehicle_type', 'slug', 'listings_count']
-    list_filter = ['vehicle_type']
+    list_display = ['name', 'scopes_list', 'slug', 'is_top', 'listings_count']
+    list_filter = ['scopes', 'is_top']
+    filter_horizontal = ['scopes']
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
     ordering = ['name']
+
+    def scopes_list(self, obj):
+        return ', '.join(s.name for s in obj.scopes.all()) or '—'
+    scopes_list.short_description = 'Šeimos'
+
+    def listings_count(self, obj):
+        count = Listing.objects.filter(brand=obj).count()
+        if count == 0:
+            return '—'
+        return format_html('<strong>{}</strong>', count)
+    listings_count.short_description = 'Listings'
+
+
+@admin.register(BrandSuggestion)
+class BrandSuggestionAdmin(admin.ModelAdmin):
+    """Vartotojų per „Kita" įvestos markės.
+
+    Sąrašas pildosi pagal realų poreikį: matai, kad penki žmonės įvedė
+    „Jaecoo", ir vienu veiksmu paverti ją tikra marke.
+    """
+    list_display = ['name', 'scope', 'times_used', 'status',
+                    'approved_brand', 'last_seen']
+    list_filter = ['status', 'scope']
+    search_fields = ['name']
+    ordering = ['-times_used', 'name']
+    actions = ['approve_selected', 'reject_selected']
+    readonly_fields = ['times_used', 'first_seen', 'last_seen', 'approved_brand']
+
+    @admin.action(description='Patvirtinti į tikras markes')
+    def approve_selected(self, request, queryset):
+        from apps.listings import brands as brand_source
+
+        done = 0
+        for suggestion in queryset:
+            brand_source.approve_suggestion(suggestion)
+            done += 1
+        self.message_user(
+            request, f'Patvirtinta {done}; markės iškart matomos formose '
+                     f'ir filtruose.')
+
+    @admin.action(description='Atmesti')
+    def reject_selected(self, request, queryset):
+        n = queryset.update(status=BrandSuggestion.STATUS_REJECTED)
+        self.message_user(request, f'Atmesta {n}')
 
     def listings_count(self, obj):
         count = Listing.objects.filter(brand=obj).count()

@@ -27,6 +27,7 @@ from .views import (
     COUNTRY_FLAGS,
     TRAILERS_SUBCATEGORY_SLUGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -287,7 +288,7 @@ def trailers_listing_create(request):
         target.trailer_kind = trailer_kind
 
         # ─── Markė (required) / Modelis ───
-        brand_text = (request.POST.get('trailer_brand_text', '') or '').strip()
+        brand_text = brand_source.posted_brand(request, 'trailer_brand_text', 'trailers')
         if not brand_text:
             errors.append(_('Markė yra privaloma'))
         target.trailer_brand_text = brand_text[:80]

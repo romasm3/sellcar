@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Redaguoti skelbimą" %}{% else %}{% trans "Naujas skelbimas" %}{% endif %} - SellCar{% endblock %}
@@ -57,8 +58,18 @@
                                 {% for name in brand_choices %}
                                 <option value="{{ name }}" {% if listing.rent_brand_text == name %}selected{% endif %}>{{ name }}</option>
                                 {% endfor %}
-                            </select>
-                        </div>
+                            {# „Kita" — kai markės sąraše nėra; įvestas pavadinimas
+                                   patenka į admin'ą kaip pasiūlymas #}
+                                <option value="__other__" {% if listing.rent_brand_text and listing.rent_brand_text not in brand_choices %}selected{% endif %}>{% trans "Kita" %}</option>
+                                </select>
+                        
+                            <input type="text" name="rent_brand_text_other"
+                                   id="id_rent_brand_text_other"
+                                   maxlength="100" value="{% if listing.rent_brand_text and listing.rent_brand_text not in brand_choices %}{{ listing.rent_brand_text }}{% endif %}"
+                                   style="{% if listing.rent_brand_text and listing.rent_brand_text not in brand_choices %}{% else %}display:none{% endif %}"
+                                   placeholder="{% trans 'Įrašykite markę' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm mt-2">
+</div>
                         <div data-field-wrap="constr_model_text" data-required="true">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modelis" %} <span class='text-red-500'>*</span></label>
                             <input type="text" name="constr_model_text" id="id_constr_model_text" maxlength="32"
@@ -823,4 +834,5 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+<script src="{% static 'js/brand_other.js' %}"></script>
 {% endblock %}

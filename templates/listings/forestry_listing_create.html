@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Redaguoti skelbimą" %}{% else %}{% trans "Naujas skelbimas" %}{% endif %} - SellCar{% endblock %}
@@ -69,8 +70,18 @@
                                 {% for name in brand_choices %}
                                 <option value="{{ name }}" {% if listing.forest_brand_text == name %}selected{% endif %}>{{ name }}</option>
                                 {% endfor %}
-                            </select>
-                        </div>
+                            {# „Kita" — kai markės sąraše nėra; įvestas pavadinimas
+                                   patenka į admin'ą kaip pasiūlymas #}
+                                <option value="__other__" {% if listing.forest_brand_text and listing.forest_brand_text not in brand_choices %}selected{% endif %}>{% trans "Kita" %}</option>
+                                </select>
+                        
+                            <input type="text" name="forest_brand_text_other"
+                                   id="id_forest_brand_text_other"
+                                   maxlength="100" value="{% if listing.forest_brand_text and listing.forest_brand_text not in brand_choices %}{{ listing.forest_brand_text }}{% endif %}"
+                                   style="{% if listing.forest_brand_text and listing.forest_brand_text not in brand_choices %}{% else %}display:none{% endif %}"
+                                   placeholder="{% trans 'Įrašykite markę' %}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm mt-2">
+</div>
 
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modelis" %} <span class="text-xs text-gray-400">{% trans "(nebūtina)" %}</span></label>
@@ -822,4 +833,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+<script src="{% static 'js/brand_other.js' %}"></script>
 {% endblock %}

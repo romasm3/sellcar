@@ -22,6 +22,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -327,7 +328,7 @@ def construction_listing_create(request):
         target.constr_type = constr_type
         target.constr_attach_type = ''
 
-        brand = (request.POST.get('constr_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'constr_brand_text', 'construction')
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.constr_brand_text = brand[:80]

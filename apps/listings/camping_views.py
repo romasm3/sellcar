@@ -25,6 +25,7 @@ from .views import (
     _send_saved_listing_price_drop_emails,
     COUNTRY_FLAGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -158,7 +159,7 @@ def camping_listing_create(request):
             errors.append(_('Tipas yra privalomas'))
         target.camp_type = camp_type
 
-        brand = (request.POST.get('camp_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'camp_brand_text', 'campers')
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.camp_brand_text = brand[:80]

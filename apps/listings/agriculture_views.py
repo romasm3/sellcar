@@ -30,6 +30,7 @@ from .views import (
     COUNTRY_FLAGS,
     AGRICULTURE_SUBCATEGORY_SLUGS,
 )
+from apps.listings import brands as brand_source
 
 
 # ═══════════════════════════════════════════════════════════
@@ -224,7 +225,7 @@ def agriculture_listing_create(request):
             errors.append(_('Padargas / Savaeigė yra privalomas'))
         target.agri_kind = agri_kind
 
-        brand = (request.POST.get('agri_brand_text', '') or '').strip()
+        brand = brand_source.posted_brand(request, 'agri_brand_text', 'agriculture')
         if not brand:
             errors.append(_('Markė yra privaloma'))
         target.agri_brand_text = brand[:80]
