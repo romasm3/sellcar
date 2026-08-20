@@ -58,12 +58,12 @@ body {
 
 /* PRIMARY - PILKA (buvo violetinė) */
 .btn-primary {
-    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-from) 0%, var(--accent-grad-to) 100%) !important;
     color: white !important;
     box-shadow: 0 4px 14px rgba(75, 85, 99, 0.35);
 }
 .btn-primary:hover {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-to) 0%, var(--accent-grad-to-hover) 100%) !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(75, 85, 99, 0.4);
     color: white !important;
@@ -71,12 +71,12 @@ body {
 
 /* DARK */
 .btn-dark {
-    background: linear-gradient(135deg, #4b5563 0%, #111827 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-to-hover) 0%, #111827 100%) !important;
     color: white !important;
     box-shadow: 0 4px 14px rgba(31, 41, 55, 0.4);
 }
 .btn-dark:hover {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-to) 0%, var(--accent-grad-to-hover) 100%) !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(31, 41, 55, 0.5);
     color: white !important;
@@ -124,7 +124,7 @@ body {
 /* LIGHT */
 .btn-light {
     background: white !important;
-    color: #6b7280 !important;
+    color: var(--accent-grad-to) !important;
     border: 2px solid #e5e7eb;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -137,12 +137,12 @@ body {
 
 /* OUTLINE VARIANTS */
 .btn-outline-primary {
-    border: 2px solid #9ca3af !important;
-    color: #9ca3af !important;
+    border: 2px solid var(--accent-grad-from) !important;
+    color: var(--accent-grad-from) !important;
     background: transparent !important;
 }
 .btn-outline-primary:hover {
-    background: #9ca3af !important;
+    background: var(--accent-grad-from) !important;
     color: white !important;
     transform: translateY(-2px);
 }
@@ -158,35 +158,38 @@ body {
 }
 
 /* ========================================
-   TAILWIND OVERRIDE - Automatiškai keičia
+   TAILWIND OVERRIDE
+   Spalvos NErašomos čia — imamos iš kintamųjų, kurie apibrėžti
+   base.html :root bloke (--accent, --accent-grad-*). Norint pakeisti
+   akcentą, keičiamos tik tos eilutės, ne šis failas.
    ======================================== */
 
 /* bg-primary → Pilka */
 .bg-primary,
 [class*="bg-primary"] {
-    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-from) 0%, var(--accent-grad-to) 100%) !important;
 }
 .hover\:bg-primary-dark:hover,
 .hover\:bg-primary:hover {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    background: linear-gradient(135deg, var(--accent-grad-to) 0%, var(--accent-grad-to-hover) 100%) !important;
 }
 
 /* Emerald/Teal gradientai → Pilka */
 .from-emerald-500,
 .bg-gradient-to-r.from-emerald-500,
 [class*="from-emerald"] {
-    --tw-gradient-from: #4b5563 !important;
-    background: linear-gradient(to right, #9ca3af, #6b7280) !important;
+    --tw-gradient-from: var(--accent-grad-to-hover) !important;
+    background: linear-gradient(to right, var(--accent-grad-from), var(--accent-grad-to)) !important;
 }
 .to-teal-600,
 [class*="to-teal"] {
-    --tw-gradient-to: #6b7280 !important;
+    --tw-gradient-to: var(--accent-grad-to) !important;
 }
 .hover\:from-emerald-600:hover {
-    background: linear-gradient(to right, #6b7280, #4b5563) !important;
+    background: linear-gradient(to right, var(--accent-grad-to), var(--accent-grad-to-hover)) !important;
 }
 .hover\:to-teal-700:hover {
-    --tw-gradient-to: #4b5563 !important;
+    --tw-gradient-to: var(--accent-grad-to-hover) !important;
 }
 
 /* Violet/Purple → Pilka */
@@ -195,8 +198,8 @@ body {
 .from-purple-600,
 [class*="from-violet"],
 [class*="from-purple"] {
-    --tw-gradient-from: #9ca3af !important;
-    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+    --tw-gradient-from: var(--accent-grad-from) !important;
+    background: linear-gradient(135deg, var(--accent-grad-from), var(--accent-grad-to)) !important;
 }
 .to-purple-600,
 .to-purple-700,
@@ -204,7 +207,7 @@ body {
 .to-violet-600,
 [class*="to-purple"],
 [class*="to-violet"] {
-    --tw-gradient-to: #6b7280 !important;
+    --tw-gradient-to: var(--accent-grad-to) !important;
 }
 
 /* Shadow override */
@@ -220,11 +223,11 @@ body {
 
 /* text-primary → Pilka */
 .text-primary {
-    color: #9ca3af !important;
+    color: var(--accent-grad-from) !important;
 }
 .hover\:text-primary-dark:hover,
 .hover\:text-primary:hover {
-    color: #6b7280 !important;
+    color: var(--accent-grad-to) !important;
 }
 
 /* ======================================== */
@@ -239,7 +242,7 @@ body {
 }
 .form-control:focus,
 .form-select:focus {
-    border-color: #9ca3af;
+    border-color: var(--accent-grad-from);
     box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.15);
 }
 
@@ -249,7 +252,7 @@ body {
     --tw-ring-color: rgba(75, 85, 99, 0.2) !important;
 }
 .focus\:border-primary:focus {
-    border-color: #9ca3af !important;
+    border-color: var(--accent-grad-from) !important;
 }
 
 /* Shadows */
@@ -282,7 +285,7 @@ footer a {
     transition: color 0.3s ease;
 }
 footer a:hover {
-    color: #6b7280 !important;
+    color: var(--accent-grad-to) !important;
 }
 
 /* Sticky Elements */
@@ -306,11 +309,11 @@ img {
     background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-    background: #9ca3af;
+    background: var(--accent-grad-from);
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
+    background: var(--accent-grad-to);
 }
 
 /* Animations */

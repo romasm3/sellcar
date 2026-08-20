@@ -152,7 +152,7 @@
 }
 .equipment-row:hover { background: #f9fafb; }
 .equipment-row input { accent-color: #0891b2; width: 14px; height: 14px; flex-shrink: 0; }
-.equipment-row span { font-size: 0.825rem; color: #374151; }
+.equipment-row span { font-size: 0.825rem; color: var(--accent); }
 
 /* ─── Multi-select checkbox grid (truck_type, body_type, etc.) ─── */
 .multiselect-grid {
@@ -165,7 +165,7 @@
 
 /* ─── Subcategory pills ─── */
 .subcat-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1rem; }
-.subcat-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#fff; border:1px solid #e5e7eb; border-radius:999px; font-size:0.85rem; color:#374151; cursor:pointer; transition:all 0.15s; text-decoration:none; }
+.subcat-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#fff; border:1px solid #e5e7eb; border-radius:999px; font-size:0.85rem; color:var(--accent); cursor:pointer; transition:all 0.15s; text-decoration:none; }
 .subcat-pill:hover { background:#f9fafb; border-color:#d1d5db; color:#111827; }
 .subcat-pill.active { background:#0891b2; border-color:#0891b2; color:#fff; font-weight:600; }
 .subcat-pill .pill-count { font-size:0.7rem; opacity:0.8; padding:0 5px; background:rgba(0,0,0,0.06); border-radius:10px; }
@@ -243,7 +243,7 @@
 .ap-loc { display:inline-flex; align-items:center; gap:4px; color:#10b981; font-weight:600; font-size:0.72rem; }
 .ap-loc i { font-size:0.7rem; }
 
-.gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: rgba(255,255,255,0.92); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); color: #374151; font-size: 0.75rem; z-index: 6; opacity: 0; transition: opacity 0.15s, background 0.15s; }
+.gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: rgba(255,255,255,0.92); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); color: var(--accent); font-size: 0.75rem; z-index: 6; opacity: 0; transition: opacity 0.15s, background 0.15s; }
 .listing-card:hover .gallery-arrow { opacity: 1; }
 .gallery-arrow:hover { background: #fff; }
 .gallery-arrow.left { left: 8px; }

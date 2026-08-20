@@ -346,7 +346,7 @@
           {% endif %}
 
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('cars')"></span>
           </button>
@@ -484,7 +484,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('motorcycles')"></span>
           </button>
@@ -582,7 +582,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('motogear')"></span>
           </button>
@@ -669,7 +669,7 @@
 
         <div class="flex flex-wrap items-center gap-4 mt-2">
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('moto-tyres')"></span>
           </button>
@@ -753,7 +753,7 @@
 
         <div class="flex flex-wrap items-center gap-4 mt-2">
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('quad-tyres')"></span>
           </button>
@@ -770,7 +770,7 @@
       <div class="flex flex-wrap gap-2 mb-4">
         {% for key, label in truck_subtabs %}
         <button type="button" @click="setSubTab('trucks', '{{ key }}')"
-                :class="subTab.trucks === '{{ key }}' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="subTab.trucks === '{{ key }}' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{{ label }}</button>
         {% endfor %}
       </div>
@@ -904,7 +904,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('wheels')"></span>
           </button>
@@ -1004,7 +1004,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('wheels')"></span>
           </button>
@@ -1154,7 +1154,7 @@
             {% trans "Detali paieška" %}
           </a>
           <button type="submit"
-                  class="bg-gray-700 hover:bg-gray-800 text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+                  class="bg-primary hover:bg-primary-dark text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('trailers')"></span>
           </button>
@@ -1179,10 +1179,10 @@
 
       <div class="flex flex-wrap gap-2 mb-4">
         <button type="button" @click="setSubTab('construction', 'main')"
-                :class="subTab.construction === 'main' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="subTab.construction === 'main' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Statybinė technika" %}</button>
         <button type="button" @click="setSubTab('construction', 'construction-attachments')"
-                :class="subTab.construction === 'construction-attachments' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="subTab.construction === 'construction-attachments' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Statybinės technikos priedai" %}</button>
       </div>
 
@@ -1263,19 +1263,19 @@
 
       <div class="flex flex-wrap gap-2 mb-4">
         <button type="button" @click="setRentSub('car-rental')"
-                :class="rentSub === 'car-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="rentSub === 'car-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Automobilių nuoma" %}</button>
         <button type="button" @click="setRentSub('limo-wedding-rental')"
-                :class="rentSub === 'limo-wedding-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="rentSub === 'limo-wedding-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Limuzinų, vestuvių" %}</button>
         <button type="button" @click="setRentSub('motorcycle-rental')"
-                :class="rentSub === 'motorcycle-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="rentSub === 'motorcycle-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Motociklų nuoma" %}</button>
         <button type="button" @click="setRentSub('minibus-touring-water-rental')"
-                :class="rentSub === 'minibus-touring-water-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="rentSub === 'minibus-touring-water-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Mikroautobusų, turistinio, vandens tr." %}</button>
         <button type="button" @click="setRentSub('heavy-trailer-rental')"
-                :class="rentSub === 'heavy-trailer-rental' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                :class="rentSub === 'heavy-trailer-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
                 class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Sunkiojo transporto, priekabų" %}</button>
       </div>
 
@@ -1464,7 +1464,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('moto-parts')"></span>
           </button>
@@ -1550,7 +1550,7 @@
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-gray-700 hover:bg-gray-800 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('truck-parts')"></span>
           </button>

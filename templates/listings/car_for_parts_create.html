@@ -134,7 +134,7 @@
                                    style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
                                    oninput="updatePower()">
                             <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
-                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">kW</button>
+                                    style="padding:0 1.25rem;background:var(--accent);color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">kW</button>
                             <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
                                     style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">HP</button>
                         </div>
@@ -149,7 +149,7 @@
                                    style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
                                    oninput="updateMileage()">
                             <button type="button" id="btn_km" onclick="setMileageUnit('km')"
-                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">km</button>
+                                    style="padding:0 1.25rem;background:var(--accent);color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">km</button>
                             <button type="button" id="btn_mi" onclick="setMileageUnit('mi')"
                                     style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">mi</button>
                         </div>
@@ -164,7 +164,7 @@
                                    style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;"
                                    oninput="updateEngine()">
                             <button type="button" id="btn_l" onclick="setEngineUnit('l')"
-                                    style="padding:0 1.25rem;background:#374151;color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">L</button>
+                                    style="padding:0 1.25rem;background:var(--accent);color:#fff;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">L</button>
                             <button type="button" id="btn_cc" onclick="setEngineUnit('cc')"
                                     style="padding:0 1.25rem;background:#fff;color:#6b7280;font-size:0.875rem;font-weight:500;cursor:pointer;border:none;">cm³</button>
                         </div>
@@ -309,9 +309,9 @@
                     <i class="fas fa-arrow-left mr-2"></i>{% trans "Cancel" %}
                 </a>
                 <button type="submit"
-                        style="background:#374151;color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
-                        onmouseover="this.style.background='#1f2937'"
-                        onmouseout="this.style.background='#374151'">
+                        style="background:var(--accent);color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
+                        onmouseover="this.style.background='var(--accent-hover)'"
+                        onmouseout="this.style.background='var(--accent)'">
                     <i class="fas fa-save mr-2"></i>{% trans "Save Changes" %}
                 </button>
                 {% else %}
@@ -319,9 +319,9 @@
                     <i class="fas fa-arrow-left mr-2"></i>{% trans "Cancel" %}
                 </a>
                 <button type="submit"
-                        style="background:#374151;color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
-                        onmouseover="this.style.background='#1f2937'"
-                        onmouseout="this.style.background='#374151'">
+                        style="background:var(--accent);color:#fff;padding:0.75rem 2rem;border-radius:0.5rem;font-weight:500;border:none;cursor:pointer;"
+                        onmouseover="this.style.background='var(--accent-hover)'"
+                        onmouseout="this.style.background='var(--accent)'">
                     <i class="fas fa-check mr-2"></i>{% trans "Publish Listing" %}
                 </button>
                 {% endif %}
@@ -360,7 +360,7 @@ var I18N = {
 // ═══════════════════════════════════════════════════════════
 
 function _setToggleStyle(btnActive, btnInactive) {
-    btnActive.style.background = '#374151';
+    btnActive.style.background = 'var(--accent)';
     btnActive.style.color = '#ffffff';
     btnInactive.style.background = '#ffffff';
     btnInactive.style.color = '#6b7280';
@@ -828,7 +828,7 @@ select, textarea {
 }
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: #374151;
+    border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
 }
 [data-field-wrap].field-error input,

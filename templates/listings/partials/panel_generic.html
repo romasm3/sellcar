@@ -21,7 +21,7 @@ Naujo CSS nėra: sp-fld, sp-sel, sp-dd* klasės tos pačios, kurias naudoja
 automobilių panelė.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows %}
+{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key %}
 
 <div class="hidden lg:flex flex-col gap-y-3">
   {% for row in panel.rows %}
@@ -79,7 +79,7 @@ automobilių panelė.
   {% endif %}
 
   <button type="submit"
-          class="bg-gray-700 hover:bg-gray-800 text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+          class="bg-primary hover:bg-primary-dark text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
     {% trans "Skelbimai" %}{% if count_key %} <span x-text="countLabel('{{ count_key }}')"></span>{% endif %}
   </button>

@@ -17,7 +17,7 @@
             Hi {{ seller_name }},
         </h2>
 
-        <p style="color:#374151; font-size:15px; line-height:1.6; margin:0 0 16px 0;">
+        <p style="color:var(--accent); font-size:15px; line-height:1.6; margin:0 0 16px 0;">
             Your listing <strong>{{ display_title }}</strong> has been waiting
             {% if age_days >= 1 %}
                 for <strong>{{ age_days }} day{{ age_days|pluralize }}</strong>
@@ -27,7 +27,7 @@
             but it's still not activated.
         </p>
 
-        <p style="color:#374151; font-size:15px; line-height:1.6; margin:0 0 16px 0;">
+        <p style="color:var(--accent); font-size:15px; line-height:1.6; margin:0 0 16px 0;">
             Every day without activation means missed opportunities to reach buyers.
             Take a minute to activate now and start getting responses.
         </p>

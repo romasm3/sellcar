@@ -12,18 +12,18 @@
 .cat-modal-left { width:280px; flex-shrink:0; overflow-y:auto; border-right:1px solid #f3f4f6; }
 .cat-modal-right { flex:1; overflow-y:auto; background:#fafafa; }
 .cat-modal-right-empty { display:flex; align-items:center; justify-content:center; height:100%; color:#d1d5db; font-size:0.9rem; }
-.cat-left-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; font-size:0.9rem; color:#374151; border-bottom:1px solid #f9fafb; transition:background 0.1s; position:relative; }
+.cat-left-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; font-size:0.9rem; color:var(--accent); border-bottom:1px solid #f9fafb; transition:background 0.1s; position:relative; }
 .cat-left-item:hover, .cat-left-item.active { background:#f3f4f6; color:#111827; }
-.cat-left-item.active::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:#374151; border-radius:2px 0 0 2px; }
+.cat-left-item.active::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:var(--accent); border-radius:2px 0 0 2px; }
 .cat-left-item .cat-arrow { margin-left:auto; color:#d1d5db; font-size:0.7rem; }
-.cat-left-item:hover .cat-arrow, .cat-left-item.active .cat-arrow { color:#374151; }
+.cat-left-item:hover .cat-arrow, .cat-left-item.active .cat-arrow { color:var(--accent); }
 .cat-modal-icon { width:20px; height:20px; flex-shrink:0; color:#9ca3af; }
-.cat-left-item:hover .cat-modal-icon, .cat-left-item.active .cat-modal-icon { color:#374151; }
-.cat-right-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:0.88rem; color:#374151; border-bottom:1px solid #f0f0f0; transition:background 0.1s; }
+.cat-left-item:hover .cat-modal-icon, .cat-left-item.active .cat-modal-icon { color:var(--accent); }
+.cat-right-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:0.88rem; color:var(--accent); border-bottom:1px solid #f0f0f0; transition:background 0.1s; }
 .cat-right-item:hover { background:#f3f4f6; color:#111827; }
 .cat-right-title { padding:12px 20px 8px; font-size:0.75rem; font-weight:600; color:#9ca3af; text-transform:uppercase; letter-spacing:0.05em; }
 .cat-right-icon { width:18px; height:18px; flex-shrink:0; color:#9ca3af; }
-.cat-right-item:hover .cat-right-icon { color:#374151; }
+.cat-right-item:hover .cat-right-icon { color:var(--accent); }
 
 .custom-trigger { width:100%; padding:0.625rem 0.75rem; background:#f9fafb; border:1px solid #e5e7eb; border-radius:0.5rem; font-size:0.875rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; user-select:none; }
 .custom-trigger:hover { border-color:#d1d5db; }

@@ -340,7 +340,7 @@
             <div class="flex items-center justify-center mb-8">
                 {% if is_edit_mode %}
                 <a href="{% url 'listing_edit_hub' edit_listing_id %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Atšaukti" %}</a>
-                <button type="button" onclick="handleRentSubmit()" class="px-12 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 font-medium text-sm">{% trans "Išsaugoti pakeitimus" %}</button>
+                <button type="button" onclick="handleRentSubmit()" class="px-12 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark font-medium text-sm">{% trans "Išsaugoti pakeitimus" %}</button>
                 {% else %}
                 <button type="button" onclick="handleRentSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 font-semibold text-base shadow">{% trans "Pateikti skelbimą" %}</button>
                 {% endif %}

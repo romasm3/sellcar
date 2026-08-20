@@ -12,7 +12,7 @@
 
                     <!-- Header -->
                     <tr>
-                        <td style="background-color:#374151; padding:24px 32px; text-align:left;">
+                        <td style="background-color:var(--accent); padding:24px 32px; text-align:left;">
                             <span style="color:#ffffff; font-size:20px; font-weight:700;">SellCar</span>
                         </td>
                     </tr>
@@ -33,11 +33,11 @@
                                 Your listing is no longer visible
                             </h1>
 
-                            <p style="margin:0 0 16px 0; color:#374151; font-size:15px; line-height:1.6;">
+                            <p style="margin:0 0 16px 0; color:var(--accent); font-size:15px; line-height:1.6;">
                                 Hi,
                             </p>
 
-                            <p style="margin:0 0 20px 0; color:#374151; font-size:15px; line-height:1.6;">
+                            <p style="margin:0 0 20px 0; color:var(--accent); font-size:15px; line-height:1.6;">
                                 Your listing <strong>{{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %}</strong>
                                 has been inactive for <strong>{{ days_since_expired }} day{{ days_since_expired|pluralize }}</strong>.
                                 Buyers cannot see or contact you about it.
@@ -64,7 +64,7 @@
                                 </tr>
                             </table>
 
-                            <p style="margin:0 0 24px 0; color:#374151; font-size:15px; line-height:1.6;">
+                            <p style="margin:0 0 24px 0; color:var(--accent); font-size:15px; line-height:1.6;">
                                 Reactivate it now{% if payments_enabled %} for <strong>{{ fee }} €</strong>{% endif %} and it will be visible to buyers again for 30 days.
                             </p>
 
@@ -73,7 +73,7 @@
                                 <tr>
                                     <td>
                                         <a href="{{ edit_url }}"
-                                           style="display:inline-block; background-color:#374151; color:#ffffff; padding:14px 32px; text-decoration:none; border-radius:8px; font-weight:600; font-size:15px;">
+                                           style="display:inline-block; background-color:var(--accent); color:#ffffff; padding:14px 32px; text-decoration:none; border-radius:8px; font-weight:600; font-size:15px;">
                                             Activate listing
                                         </a>
                                     </td>
@@ -82,7 +82,7 @@
 
                             <p style="margin:24px 0 0 0; color:#6b7280; font-size:13px; line-height:1.5;">
                                 If the button doesn't work, copy this link into your browser:<br>
-                                <a href="{{ edit_url }}" style="color:#374151; word-break:break-all;">{{ edit_url }}</a>
+                                <a href="{{ edit_url }}" style="color:var(--accent); word-break:break-all;">{{ edit_url }}</a>
                             </p>
                         </td>
                     </tr>

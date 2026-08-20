@@ -22,14 +22,45 @@
     <style>
         * { font-family: 'Inter', sans-serif; }
         [x-cloak] { display: none !important; }
+
+        /* ═══ AKCENTO SPALVOS — VIENINTELĖ VIETA ═══
+           Norint pakeisti projekto akcentą, keičiamos tik šios eilutės:
+           pasikeičia mygtukai, aktyvūs skirtukai, žymos ir fokusas —
+           ir telefone, ir darbalaukyje. Šablonuose konkrečių spalvų
+           nerašom: naudojam bg-primary / hover:bg-primary-dark klases
+           arba var(--accent) CSS blokuose. */
+        :root {
+            /* Keičiam TIK šiuos tris kanalų rinkinius — pasikeičia viskas.
+               RGB kanalais, nes Tailwind spalvai reikia <alpha-value>
+               vietos (var(--accent) formato jis nepriima ir klasė tampa
+               permatoma). */
+            --accent-rgb: 55 65 81;          /* #374151 */
+            --accent-hover-rgb: 31 41 55;    /* #1f2937 */
+            --accent-soft-rgb: 238 240 242;  /* #EEF0F2 */
+
+            --accent: rgb(var(--accent-rgb));
+            --accent-hover: rgb(var(--accent-hover-rgb));
+            --accent-soft: rgb(var(--accent-soft-rgb));
+            --accent-contrast: #ffffff;
+
+            /* Gradientas, kurį naudoja senasis style.css „TAILWIND OVERRIDE"
+               blokas (bg-primary ir pan.). Laikom čia pat, kad spalvų
+               apibrėžimas liktų vienoje vietoje. */
+            --accent-grad-from: #9ca3af;
+            --accent-grad-to: #6b7280;
+            --accent-grad-from-hover: #6b7280;
+            --accent-grad-to-hover: #4b5563;
+        }
     </style>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                      primary: '#374151',
-                      'primary-dark': '#1f2937',
+                      /* Rodo į tuos pačius kintamuosius — vienas šaltinis */
+                      primary: 'rgb(var(--accent-rgb) / <alpha-value>)',
+                      'primary-dark': 'rgb(var(--accent-hover-rgb) / <alpha-value>)',
+                      'primary-soft': 'rgb(var(--accent-soft-rgb) / <alpha-value>)',
                     }
                 }
             }
@@ -338,7 +369,7 @@
     </main>
 
     <!-- Footer (Minimal, modern) -->
-    <footer class="relative mt-20" style="background: linear-gradient(180deg, #1f2937 0%, #111827 100%);">
+    <footer class="relative mt-20" style="background: linear-gradient(180deg, var(--accent-hover) 0%, #111827 100%);">
         <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
