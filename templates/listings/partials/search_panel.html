@@ -127,13 +127,15 @@
 
     {# ── ⋯ DAUGIAU su flyout (dinamiškas iš DB: more_categories) ── #}
     <div class="relative w-full" @mouseenter="fly2Open()" @mouseleave="fly2Close()">
-      {% comment %}Telefone „…" atidaro kategorijų pikerį, plačiam ekranui lieka flyout{% endcomment %}
-      <button type="button" class="sp-rail-btn2 lg:hidden" @click="picker = true">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
-      </button>
-      <button type="button" class="sp-rail-btn2 hidden lg:flex"
+      {% comment %}
+      Vienas mygtukas abiem vaizdams: telefone atidaro kategorijų pikerį,
+      plačiam ekranui lieka hover flyout. Du atskiri mygtukai kabojo vienas
+      ant kito, nes .sp-rail-btn2 turi display:flex ir Tailwind „hidden"
+      jo neperrašo.
+      {% endcomment %}
+      <button type="button" class="sp-rail-btn2"
               :class="tab === 'boats' && 'sp-on'"
-              @click="fly2 = !fly2">
+              @click="window.innerWidth < 1024 ? picker = true : fly2 = !fly2">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
       </button>
 

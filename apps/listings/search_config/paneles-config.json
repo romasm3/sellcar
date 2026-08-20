@@ -15406,5 +15406,80 @@
    "submit_button"
   ],
   "note": "Laukai eina konfigūracijos tvarka po du; nelyginį skaičių užpildo tuščias langelis, kad paskutinė eilutė liktų [Detali paieška][Ieškoti]."
+ },
+ "mobile_results_header": {
+  "source": "autogidas.lt /skelbimai/automobiliai/ telefone (Playwright, iPhone 390×844, DPR 3, 2026-08-20)",
+  "status": "aprašyta, dar neįgyvendinta — daroma kartu su rezultatų kortele po kaskados",
+  "blocks": [
+   {
+    "key": "topbar",
+    "items": [
+     "back",
+     "logo",
+     "create_button",
+     "saved_with_count",
+     "menu"
+    ],
+    "note": "Įkėlimo mygtukas etalone žalias; pas mus akcentas iš --accent"
+   },
+   {
+    "key": "breadcrumbs",
+    "font_px": 14,
+    "pattern": "🏠 › Skelbimai › <Kategorija>"
+   },
+   {
+    "key": "seo_title",
+    "font_px": 16,
+    "height_px": 18,
+    "white_space": "nowrap",
+    "text_overflow": "ellipsis",
+    "trailing": "filtrų ikona dešinėje"
+   },
+   {
+    "key": "description",
+    "font_px": 16,
+    "lines": 2,
+    "more_link": "Skaityti daugiau"
+   },
+   {
+    "key": "brand_strip",
+    "width_px": 358,
+    "height_px": 48,
+    "scroll": "horizontal",
+    "padding": "8px 0",
+    "chip": {
+     "size_px": "101×32",
+     "bg": "#E3E3E3",
+     "radius_px": 8,
+     "padding": "6px 12px",
+     "font_px": 14
+    },
+    "items_example": [
+     "Volkswagen",
+     "BMW",
+     "Audi",
+     "Mercedes-Benz",
+     "Opel",
+     "Toyota"
+    ]
+   },
+   {
+    "key": "alerts_bar",
+    "items": [
+     "Gauti ekrane (jungiklis)",
+     "Gauti el. paštu (ikona)"
+    ],
+    "note": "Šiame renderyje nematyta — greičiausiai tik prisijungusiems; paimta iš vartotojo ekrano"
+   },
+   {
+    "key": "toolbar",
+    "items": [
+     "Rasta: N",
+     "vaizdo režimai (tinklelis / sąrašas)",
+     "rūšiavimas"
+    ],
+    "found_example": "Rasta: 28620"
+   }
+  ]
  }
 }
