@@ -589,6 +589,47 @@ venv/bin/python manage.py makemessages -l lt --no-obsolete
 venv/bin/python manage.py compilemessages -l lt
 ```
 
+### Ko NEVERSTI
+
+**Markių ir modelių pavadinimai NIEKADA neverčiami.** Tai tikriniai
+pavadinimai, vienodi visomis kalbomis: `Yamaha`, `Mercedes-Benz`,
+`Schmitz Cargobull`, `MT-07`, `Sprinter`. Jie:
+
+- neapvyniojami `{% trans %}` ar `_()`,
+- nepatenka į `.po` failus,
+- neturi vertimo variantų nė vienai kalbai.
+
+**Verčiami tik sąsajos tekstai:** laukų etiketės („Markė", „Modelis"),
+mygtukai, pranešimai, kategorijų ir tipų pavadinimai.
+
+**Ta pati taisyklė galioja DB:** markė saugoma originaliu užrašymu, be
+lokalizuotų variantų. Viena eilutė — vienas užrašymas.
+
+**Paiešką palengvina normalizavimas, ne vertimas.** Markių paieškos
+laukas turi rasti markę nepaisant:
+
+| Kas nepaisoma | Pavyzdys |
+|---|---|
+| raidžių dydžio | `skoda` = `Skoda` = `SKODA` |
+| diakritikos | `skoda` = `Škoda`, `kassbohrer` = `Kässbohrer` |
+| tarpų ir brūkšnelių | `alfaromeo` = `Alfa Romeo` = `Alfa-Romeo` |
+
+Rodomas ir saugomas **visada originalus** pavadinimas — normalizuota forma
+naudojama tik palyginimui.
+
+> Kodėl tai svarbu: išvertus markę ji taptų nerandama. Vartotojas, ieškantis
+> „Mercedes", nerastų „Mercedesas", o filtro reikšmė URL'e skirtųsi
+> priklausomai nuo kalbos — ta pati nuoroda dviem vartotojams duotų skirtingus
+> rezultatus.
+
+2026-08-20 patikra rado vieną pažeidimą — `{% trans "Toyota" %}` pagalbos
+centre; išimta. Kiti 37 sutapimai tarp `.po` ir markių sąrašų pasirodė esą
+atsitiktiniai (`Other`, `White`, `Chopper`, `Diesel`, `XXL` — sąsajos
+reikšmės, sutampančios su markės vardu). Tikrinant tai kartoti verta:
+lygink `.po` msgid su markių ir modelių sąrašais, bet **sprendimą priimk
+pagal `#:` nuorodą** — jei ji rodo į `choices` ar šabloną, tai sąsajos
+tekstas, ne markė.
+
 **SPĄSTAS: tas pats msgid dviejuose kontekstuose.** `Steel` yra ir laivų
 korpuso medžiaga, ir ratlankių tipas — vienas .po įrašas, vienas
 vertimas. Jei reikšmės skiriasi, imk ATSKIRĄ msgid (`Stamped steel`), o

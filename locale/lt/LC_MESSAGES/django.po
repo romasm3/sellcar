@@ -14386,10 +14386,6 @@ msgstr "Visos kategorijos"
 msgid "Top selling brand"
 msgstr "Perkamiausia markė"
 
-#: templates/pages/help_center.html:278
-msgid "Toyota"
-msgstr "Toyota"
-
 #: templates/pages/help_center.html:279
 msgid "By volume"
 msgstr "Tūris"
