@@ -12,7 +12,7 @@
             <h2 class="text-xl font-bold text-gray-900">{% trans "New listing: Rims" %}</h2>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" id="rimsForm" action="">
+        <form method="POST" enctype="multipart/form-data" id="rimsForm" action="{% if is_edit_mode %}{% url 'wheels_edit' listing.pk %}{% else %}{% endif %}">
             {% csrf_token %}
             <input type="hidden" name="product_type" value="rim">
 
@@ -27,7 +27,7 @@
                         <div data-field-wrap="brand_name" data-required="true">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Manufacturer" %} <span class="text-red-500">*</span></label>
                             <div id="rimBrandWrap" class="relative">
-                                <input type="text" id="rimBrandSearch" placeholder="---------" autocomplete="off"
+                                <input type="text" id="rimBrandSearch" placeholder="---------" value="{{ listing.brand_name|default:'' }}" autocomplete="off"
                                        class="w-full px-3 py-2 border border-gray-300 rounded text-sm cursor-pointer"
                                        onfocus="openRimBrandDropdown()" oninput="filterRimBrands(this.value)">
                                 <div id="rimBrandDropdown" class="hidden absolute z-50 w-full bg-white border border-gray-200 rounded shadow-lg mt-1 max-h-60 overflow-y-auto">
@@ -39,13 +39,13 @@
                             </div>
                             <input type="text" id="rimBrandOther" maxlength="80" placeholder="{% trans 'Enter manufacturer' %}"
                                    class="hidden w-full px-3 py-2 border border-gray-300 rounded text-sm mt-2">
-                            <input type="hidden" name="brand_name" id="id_brand_name">
+                            <input type="hidden" name="brand_name" id="id_brand_name" value="{{ listing.brand_name|default:'' }}">
                             <input type="hidden" name="brand_name_other" id="id_brand_name_other">
                         </div>
 
                         <div data-field-wrap="model_name">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
-                            <input type="text" name="model_name" maxlength="80" placeholder="---------"
+                            <input type="text" name="model_name" value="{{ listing.model_name|default:'' }}" maxlength="80" placeholder="---------"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
 
@@ -56,7 +56,7 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for val, label in diameter_choices %}
-                                <option value="{{ val }}">{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.diameter == val %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Condition" %} <span class="text-red-500">*</span></label>
                             <select name="condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 {% for val, label in condition_choices %}
-                                <option value="{{ val }}" {% if val == 'used' %}selected{% endif %}>{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.condition == val or not is_edit_mode and val == 'used' %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -80,7 +80,7 @@
                         <div data-field-wrap="price" data-required="true">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price" %} <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <input type="number" name="price" id="id_price" min="0" step="1"
+                                <input type="number" name="price" value="{{ listing.price|default:'' }}" id="id_price" min="0" step="1"
                                        oninput="if(this.value) markFieldError('price', false)"
                                        placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
                                 <span class="absolute right-3 top-2 text-gray-500 text-sm">$</span>
@@ -89,7 +89,7 @@
 
                         <div class="flex items-end pb-2">
                             <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" name="negotiable" class="w-4 h-4 rounded">
+                                <input type="checkbox" name="negotiable" {% if listing.negotiable %}checked{% endif %} class="w-4 h-4 rounded">
                                 <span class="text-sm text-gray-700">{% trans "Negotiable" %}</span>
                             </label>
                         </div>
@@ -112,7 +112,7 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for val, label in rim_material_choices %}
-                                <option value="{{ val }}">{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.rim_material == val %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -124,7 +124,7 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for val, label in rim_bolt_count_choices %}
-                                <option value="{{ val }}">{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -136,7 +136,7 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for val, label in rim_pcd_choices %}
-                                <option value="{{ val }}">{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -148,20 +148,20 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                                 <option value="">---------</option>
                                 {% for val, label in rim_width_choices %}
-                                <option value="{{ val }}">{{ label }}</option>
+                                <option value="{{ val }}" {% if listing.rim_width == val %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
 
                         <div data-field-wrap="rim_dia">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Center bore" %} (mm) <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
-                            <input type="number" name="rim_dia" step="0.1" min="0" max="999" placeholder="66.6"
+                            <input type="number" name="rim_dia" value="{{ listing.rim_dia|default:'' }}" step="0.1" min="0" max="999" placeholder="66.6"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
 
                         <div data-field-wrap="rim_et">
                             <label class="block text-xs font-medium text-gray-600 mb-1">ET <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
-                            <input type="number" name="rim_et" step="1" min="-50" max="120" placeholder="35"
+                            <input type="number" name="rim_et" value="{{ listing.rim_et|default:'' }}" step="1" min="-50" max="120" placeholder="35"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                     {# ═══ FITS CAR BRANDS ═══ #}
                     <div class="mt-5 pt-4 border-t border-gray-100">
                         <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fits car brands" %} <span class="text-xs text-gray-400">{% trans "(optional)" %}</span></label>
-                        <input type="text" name="fits_brands" maxlength="200" placeholder="{% trans 'e.g. Audi, BMW, VW' %}"
+                        <input type="text" name="fits_brands" value="{{ listing.fits_brands|default:'' }}" maxlength="200" placeholder="{% trans 'e.g. Audi, BMW, VW' %}"
                                class="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded text-sm">
                     </div>
 
@@ -178,9 +178,9 @@
                     <div class="mt-5 pt-4 border-t border-gray-100">
                         <h4 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Features" %}</h4>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
-                            {% for field, label in rim_feature_fields %}
+                            {% for field, label, checked in rim_feature_fields %}
                             <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
-                                <input type="checkbox" name="{{ field }}" class="w-4 h-4 rounded">
+                                <input type="checkbox" name="{{ field }}" {% if checked %}checked{% endif %} class="w-4 h-4 rounded">
                                 <span class="text-sm text-gray-700">{{ label }}</span>
                             </label>
                             {% endfor %}
@@ -198,7 +198,7 @@
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="md:col-span-2">
-                            <textarea name="description" placeholder="{% trans 'Describe condition, wear, storage, reason for selling...' %}"></textarea>
+                            <textarea name="description" placeholder="{% trans 'Describe condition, wear, storage, reason for selling...' %}">{{ listing.description|default:'' }}</textarea>
                         </div>
                         <div class="bg-yellow-50 border border-yellow-200 rounded p-4 text-xs text-gray-700">
                             <p class="font-semibold mb-2">{% trans "Describe your offer in detail." %}</p>
@@ -230,12 +230,27 @@
                         <input type="file" id="imageInput" accept="image/*" multiple class="hidden">
                     </div>
 
+
+                    {% if is_edit_mode and listing.images.all %}
+                    {# Redaguojant senų nuotraukų netrinam — naujos pridedamos prie jų #}
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-600 mb-2">{% trans "Current photos" %}</label>
+                        <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                            {% for img in listing.images.all %}
+                            <div class="relative aspect-square overflow-hidden rounded-lg border-2 {% if img.is_main %}border-green-500{% else %}border-gray-200{% endif %} bg-gray-100">
+                                <img src="{{ img.image.url }}" class="w-full h-full object-cover">
+                                {% if img.is_main %}<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold">{% trans "MAIN" %}</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     <input type="file" name="photos" id="photosSubmitInput" multiple class="hidden">
                 </div>
             </div>
 
             {# ═══ CONTACTS ═══ #}
-            {% include 'listings/partials/contact_block.html' with phone_name='contact_phone' email_name='contact_email' val_phone=user.profile.phone_number val_email=user.email show_address=False %}
+            {% include 'listings/partials/contact_block.html' with phone_name='contact_phone' email_name='contact_email' val_phone=listing.contact_phone|default:user.profile.phone_number val_email=listing.contact_email|default:user.email val_country=listing.country val_state=listing.state val_city=listing.city val_postal=listing.postal_code show_address=False %}
 
             {# ═══ ERRORS ═══ #}
             <div id="wheels-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">
@@ -251,7 +266,7 @@
             {# ═══ SUBMIT ═══ #}
             <div class="flex items-center justify-center mb-8">
                 <button type="button" onclick="handleRimsSubmit()" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold text-base shadow">
-                    {% trans "Submit Listing" %}
+                    {% if is_edit_mode %}{% trans "Save changes" %}{% else %}{% trans "Submit Listing" %}{% endif %}
                 </button>
             </div>
 

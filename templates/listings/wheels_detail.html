@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ listing.title }} - SellCar{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════════════════════ #}
+{# Padangų / ratlankių skelbimo detalė. WheelListing yra atskiras #}
+{# modelis, todėl bendra listing_detail.html čia netinka.        #}
+{# ═══════════════════════════════════════════════════════════ #}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <a href="{% url 'wheels_list' %}?type={{ listing.product_type }}"
+           class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% if listing.product_type == 'rim' %}{% trans "Back to rims" %}{% else %}{% trans "Back to tyres" %}{% endif %}</span>
+        </a>
+
+        {% if messages %}
+        <div class="mb-4 space-y-2">
+            {% for message in messages %}
+            <div class="p-3 rounded-lg text-sm bg-white border border-gray-200 text-gray-800">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-6">
+
+                {# ─── NUOTRAUKOS ─── #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    {% if images %}
+                    <img src="{{ images.0.image.url }}" alt="{{ listing.title }}"
+                         class="w-full max-h-[420px] object-cover">
+                    {% if images|length > 1 %}
+                    <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 p-3">
+                        {% for img in images %}
+                        <a href="{{ img.image.url }}" target="_blank"
+                           class="aspect-square overflow-hidden rounded border border-gray-200">
+                            <img src="{{ img.image.url }}" class="w-full h-full object-cover hover:opacity-90 transition">
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="h-56 flex items-center justify-center text-gray-300">
+                        <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {# ─── PAGRINDINIS ─── #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ listing.title }}</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-industry text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Manufacturer" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.brand_name|default:"—" }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-circle-notch text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Diameter" %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.diameter %}R{{ listing.diameter }}{% else %}—{% endif %}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-layer-group text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Quantity" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.quantity }}</div></div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                            <i class="fas fa-tag text-primary text-xl"></i>
+                            <div><div class="text-xs text-gray-600">{% trans "Condition" %}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.get_condition_display }}</div></div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <p class="text-sm text-gray-600 mb-1">{% trans "Price per unit" %}</p>
+                        <p class="text-4xl font-bold text-primary">${{ listing.price|floatformat:0 }}</p>
+                        {% if listing.negotiable %}
+                        <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if listing.description %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Description" %}</h2>
+                    <p class="text-gray-700 whitespace-pre-line">{{ listing.description }}</p>
+                </div>
+                {% endif %}
+
+                {# ─── SPECIFIKACIJOS ─── #}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Specifications" %}</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Model" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.model_name|default:"—" }}</span>
+                        </div>
+
+                        {% if listing.product_type == 'tyre' %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Purpose" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_purpose_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Size" %}</span>
+                            <span class="font-medium text-gray-900">
+                                {% if listing.tyre_width %}{{ listing.tyre_width }}/{{ listing.tyre_profile }} R{{ listing.diameter }}{% else %}—{% endif %}
+                            </span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Season" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.tyre_season|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Speed index" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.tyre_speed_index|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Load index" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.tyre_load_index|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Tread depth" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.tyre_tread_mm %}{{ listing.tyre_tread_mm }} mm{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Remaining" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.tyre_remaining_pct %}{{ listing.tyre_remaining_pct }}%{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Production year" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.tyre_dot_year|default:"—" }}</span>
+                        </div>
+
+                        {% else %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Type" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_rim_material_display|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Width" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.rim_width %}{{ listing.rim_width }}J{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Bolt count" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.rim_bolt_count|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "PCD" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.rim_pcd|default:"—" }}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "ET" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.rim_et is not None %}{{ listing.rim_et }}{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Center bore" %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.rim_dia %}{{ listing.rim_dia }}{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Fits car brands" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fits_brands|default:"—" }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# ─── YPATUMAI ─── #}
+                {% if listing.product_type == 'tyre' %}
+                    {% if listing.feat_spare_thin or listing.feat_sold_single or listing.feat_sport or listing.feat_suv or listing.feat_rain or listing.feat_run_flat or listing.feat_reinforced or listing.feat_studded %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Features" %}</h2>
+                        <div class="flex flex-wrap gap-2">
+                            {% if listing.feat_spare_thin %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Spare tyre (thin)" %}</span>{% endif %}
+                            {% if listing.feat_sold_single %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Sold individually" %}</span>{% endif %}
+                            {% if listing.feat_sport %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Sport tyres" %}</span>{% endif %}
+                            {% if listing.feat_suv %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "SUV tyres" %}</span>{% endif %}
+                            {% if listing.feat_rain %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Rain tyres" %}</span>{% endif %}
+                            {% if listing.feat_run_flat %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Run-flat" %}</span>{% endif %}
+                            {% if listing.feat_reinforced %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Reinforced" %}</span>{% endif %}
+                            {% if listing.feat_studded %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Studded (winter)" %}</span>{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    {% if listing.rim_feat_bent or listing.rim_feat_original or listing.feat_sold_single or listing.rim_feat_with_tyres or listing.rim_feat_chromed %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-5">{% trans "Features" %}</h2>
+                        <div class="flex flex-wrap gap-2">
+                            {% if listing.rim_feat_bent %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Bent rims" %}</span>{% endif %}
+                            {% if listing.rim_feat_original %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Original rims" %}</span>{% endif %}
+                            {% if listing.feat_sold_single %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Sold individually" %}</span>{% endif %}
+                            {% if listing.rim_feat_with_tyres %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "With tyres" %}</span>{% endif %}
+                            {% if listing.rim_feat_chromed %}<span class="inline-block px-3 py-1.5 bg-gray-100 border border-gray-200 text-gray-700 text-xs font-medium rounded-md">{% trans "Chromed" %}</span>{% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            {# ─── ŠONINIS STULPELIS ─── #}
+            <div class="space-y-6">
+                {% if is_owner %}
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">{% trans "Your listing" %}</h2>
+                    <a href="{% url 'wheels_edit' listing.pk %}"
+                       class="block w-full text-center px-4 py-2.5 bg-gray-700 text-white rounded-lg hover:bg-gray-800 text-sm font-medium mb-2">
+                        <i class="fas fa-pen mr-1"></i>{% trans "Edit listing" %}
+                    </a>
+                    <p class="text-xs text-gray-500">
+                        {% trans "Status" %}: <span class="font-medium text-gray-700">{{ listing.get_status_display }}</span>
+                        · {% trans "Views" %}: {{ listing.views_count }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">{% trans "Contacts" %}</h2>
+                    {% if listing.contact_phone %}
+                    <p class="text-gray-800 font-semibold text-lg mb-1">
+                        <i class="fas fa-phone text-primary mr-2"></i>{{ listing.contact_phone }}
+                    </p>
+                    {% endif %}
+                    {% if listing.contact_email %}
+                    <p class="text-gray-600 text-sm mb-3">
+                        <i class="fas fa-envelope text-primary mr-2"></i>{{ listing.contact_email }}
+                    </p>
+                    {% endif %}
+                    <div class="border-t border-gray-200 pt-3 mt-3 text-sm text-gray-700">
+                        <i class="fas fa-map-marker-alt text-primary mr-2"></i>
+                        {{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}
+                        <div class="text-xs text-gray-500 mt-0.5">{{ listing.get_country_display }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

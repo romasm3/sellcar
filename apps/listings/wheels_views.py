@@ -204,6 +204,82 @@ RIM_BRANDS = [
 ]
 
 
+def _apply_wheel_post(listing, request):
+    """Užpildo WheelListing laukus iš POST. Bendra create ir edit srautams.
+
+    product_type keičiamas tik kuriant — jau paskelbtam skelbimui tipo
+    perjungimas paliktų svetimos šakos laukus užpildytus.
+    """
+    if not listing.pk:
+        product_type = request.POST.get('product_type', 'tyre')
+        if product_type not in ('tyre', 'rim'):
+            product_type = 'tyre'
+        listing.product_type = product_type
+
+    # ─── bendri ───
+    listing.brand_name = _resolve_brand_name(request)
+    listing.model_name = request.POST.get('model_name', '').strip()[:80]
+    listing.purpose = request.POST.get('purpose', '')
+    listing.diameter = request.POST.get('diameter', '')
+    listing.condition = request.POST.get('condition', 'used')
+    listing.quantity = _to_int(request.POST.get('quantity')) or 4
+    listing.price = _to_decimal(request.POST.get('price')) or Decimal('0')
+    listing.negotiable = request.POST.get('negotiable') == 'on'
+    listing.description = request.POST.get('description', '').strip()
+
+    # ─── lokacija / kontaktai ───
+    listing.country = request.POST.get('country', 'LT')
+    listing.state = request.POST.get('state', '').strip()[:64]
+    listing.city = request.POST.get('city', '').strip()[:100]
+    listing.postal_code = request.POST.get('postal_code', '').strip()[:20]
+    listing.contact_phone = request.POST.get('contact_phone', '').strip()[:30]
+    listing.contact_email = request.POST.get('contact_email', '').strip()
+
+    if listing.product_type == 'tyre':
+        listing.tyre_width = request.POST.get('tyre_width', '')
+        listing.tyre_profile = request.POST.get('tyre_profile', '')
+        listing.tyre_season = request.POST.get('tyre_season', '')
+        listing.tyre_speed_index = request.POST.get('tyre_speed_index', '')
+        listing.tyre_load_index = request.POST.get('tyre_load_index', '').strip()[:6]
+        listing.tyre_tread_mm = request.POST.get('tyre_tread_mm', '')
+        listing.tyre_remaining_pct = request.POST.get('tyre_remaining_pct', '')
+        listing.tyre_dot_year = request.POST.get('tyre_dot_year', '')
+        for field, _label in TYRE_FEATURE_FIELDS:
+            setattr(listing, field, request.POST.get(field) == 'on')
+    else:
+        listing.rim_width = request.POST.get('rim_width', '')
+        listing.rim_pcd = request.POST.get('rim_pcd', '')
+        listing.rim_bolt_count = request.POST.get('rim_bolt_count', '')
+        listing.rim_et = _to_int(request.POST.get('rim_et'))
+        listing.rim_dia = _to_decimal(request.POST.get('rim_dia'))
+        listing.rim_material = request.POST.get('rim_material', '')
+        listing.fits_brands = request.POST.get('fits_brands', '').strip()[:200]
+        for field, _label in RIM_FEATURE_FIELDS:
+            setattr(listing, field, request.POST.get(field) == 'on')
+    return listing
+
+
+def _save_wheel_photos(listing, request):
+    """Naujos nuotraukos pridedamos prie esamų (redaguojant senų netrinam).
+
+    Netinkamų failų neįrašom, bet skelbimo neprarandam — apie atmestas
+    nuotraukas pranešam per messages.
+    """
+    existing = listing.images.count()
+    photos, photo_errors = split_valid_images(
+        request.FILES.getlist('photos')[:20]
+    )
+    for err in photo_errors:
+        messages.error(request, err)
+    for i, photo in enumerate(photos):
+        WheelImage.objects.create(
+            listing=listing,
+            image=photo,
+            is_main=(existing == 0 and i == 0),
+            order=existing + i,
+        )
+
+
 @login_required
 def wheels_create(request):
     """Create form — Tyres arba Rims (?type=tyre / ?type=rim).
@@ -216,87 +292,42 @@ def wheels_create(request):
     """
 
     if request.method == 'POST':
-        product_type = request.POST.get('product_type', 'tyre')
-        if product_type not in ('tyre', 'rim'):
-            product_type = 'tyre'
-
-        listing = WheelListing(
-            seller=request.user,
-            product_type=product_type,
-            # ─── bendri ───
-            brand_name=_resolve_brand_name(request),
-            model_name=request.POST.get('model_name', '').strip()[:80],
-            purpose=request.POST.get('purpose', ''),
-            diameter=request.POST.get('diameter', ''),
-            condition=request.POST.get('condition', 'used'),
-            quantity=_to_int(request.POST.get('quantity')) or 4,
-            price=_to_decimal(request.POST.get('price')) or Decimal('0'),
-            negotiable=request.POST.get('negotiable') == 'on',
-            description=request.POST.get('description', '').strip(),
-            # ─── lokacija / kontaktai ───
-            country=request.POST.get('country', 'LT'),
-            state=request.POST.get('state', '').strip()[:64],
-            city=request.POST.get('city', '').strip()[:100],
-            postal_code=request.POST.get('postal_code', '').strip()[:20],
-            contact_phone=request.POST.get('contact_phone', '').strip()[:30],
-            contact_email=request.POST.get('contact_email', '').strip(),
-        )
-
-        if product_type == 'tyre':
-            listing.tyre_width = request.POST.get('tyre_width', '')
-            listing.tyre_profile = request.POST.get('tyre_profile', '')
-            listing.tyre_season = request.POST.get('tyre_season', '')
-            listing.tyre_speed_index = request.POST.get('tyre_speed_index', '')
-            listing.tyre_load_index = request.POST.get('tyre_load_index', '').strip()[:6]
-            listing.tyre_tread_mm = request.POST.get('tyre_tread_mm', '')
-            listing.tyre_remaining_pct = request.POST.get('tyre_remaining_pct', '')
-            listing.tyre_dot_year = request.POST.get('tyre_dot_year', '')
-            for field, _label in TYRE_FEATURE_FIELDS:
-                setattr(listing, field, request.POST.get(field) == 'on')
-        else:
-            # ─── RIMS ───
-            listing.rim_width = request.POST.get('rim_width', '')
-            listing.rim_pcd = request.POST.get('rim_pcd', '')
-            listing.rim_bolt_count = request.POST.get('rim_bolt_count', '')
-            listing.rim_et = _to_int(request.POST.get('rim_et'))
-            listing.rim_dia = _to_decimal(request.POST.get('rim_dia'))
-            listing.rim_material = request.POST.get('rim_material', '')
-            listing.fits_brands = request.POST.get('fits_brands', '').strip()[:200]
-            for field, _label in RIM_FEATURE_FIELDS:
-                setattr(listing, field, request.POST.get(field) == 'on')
-
+        listing = _apply_wheel_post(WheelListing(seller=request.user), request)
         listing.title = listing.build_title()
         listing.save()
-
-        # ─── nuotraukos ───
-        # Netinkamų failų neįrašom, bet skelbimo neprarandam — apie
-        # atmestas nuotraukas pranešam per messages.
-        photos, photo_errors = split_valid_images(
-            request.FILES.getlist('photos')[:20]
-        )
-        for err in photo_errors:
-            messages.error(request, err)
-        for i, photo in enumerate(photos):
-            WheelImage.objects.create(
-                listing=listing,
-                image=photo,
-                is_main=(i == 0),
-                order=i,
-            )
-
+        _save_wheel_photos(listing, request)
         listing.activate()
         return redirect('wheels_detail', pk=listing.pk)
 
     # ─── GET ───
-    initial_type = request.GET.get('type', 'tyre')
-    if initial_type not in ('tyre', 'rim'):
-        initial_type = 'tyre'
+    return render(request, *_wheel_form(request, None))
+
+
+def _wheel_form(request, listing):
+    """(template, context) create ir edit srautams.
+
+    Ypatumų sąrašai atiduodami kaip trejetai (laukas, etiketė, pažymėta),
+    kad šablonui nereikėtų kviesti atributo pagal kintamą vardą.
+    """
+    if listing is not None:
+        initial_type = listing.product_type
+    else:
+        initial_type = request.GET.get('type', 'tyre')
+        if initial_type not in ('tyre', 'rim'):
+            initial_type = 'tyre'
 
     url_name = request.resolver_match.url_name if request.resolver_match else ''
 
+    def feats(fields):
+        return [(f, lbl, bool(getattr(listing, f, False))) for f, lbl in fields]
+
     context = {
+        'listing': listing,
+        'is_edit_mode': listing is not None,
         'initial_type': initial_type,
-        'type_locked': url_name in ('tyres_create', 'rims_create'),
+        # Redaguojant tipas visada užrakintas: perjungimas paliktų
+        # svetimos šakos laukus užpildytus.
+        'type_locked': listing is not None or url_name in ('tyres_create', 'rims_create'),
         # bendri
         'purpose_choices': WHEEL_PURPOSE_CHOICES,
         'diameter_choices': WHEEL_DIAMETER_CHOICES,
@@ -311,26 +342,45 @@ def wheels_create(request):
         'tyre_tread_choices': TYRE_TREAD_CHOICES,
         'tyre_remaining_choices': TYRE_REMAINING_CHOICES,
         'tyre_dot_year_choices': TYRE_DOT_YEAR_CHOICES,
-        'tyre_feature_fields': TYRE_FEATURE_FIELDS,
+        'tyre_feature_fields': feats(TYRE_FEATURE_FIELDS),
         'tyre_brands': TYRE_BRANDS,
         # rims
         'rim_width_choices': RIM_WIDTH_CHOICES,
         'rim_pcd_choices': RIM_PCD_CHOICES,
         'rim_bolt_count_choices': RIM_BOLT_COUNT_CHOICES,
         'rim_material_choices': RIM_MATERIAL_CHOICES,
-        'rim_feature_fields': RIM_FEATURE_FIELDS,
+        'rim_feature_fields': feats(RIM_FEATURE_FIELDS),
         'rim_brands': RIM_BRANDS,
     }
 
-    # ─── template pagal URL ───
-    if url_name == 'tyres_create':
+    if initial_type == 'tyre' and (listing is not None or url_name == 'tyres_create'):
         template = 'listings/tyres_create.html'
-    elif url_name == 'rims_create':
+    elif initial_type == 'rim' and (listing is not None or url_name == 'rims_create'):
         template = 'listings/rims_create.html'
     else:
         template = 'listings/wheels_create.html'
 
-    return render(request, template, context)
+    return template, context
+
+
+@login_required
+def wheels_edit(request, pk):
+    """Padangų / ratlankių redagavimas — iki šiol jo nebuvo visai.
+
+    Skelbimą sukūrus vienintelis būdas ištaisyti raidę buvo ištrinti ir
+    kurti iš naujo. Naudoja tuos pačius šablonus kaip create.
+    """
+    listing = get_object_or_404(WheelListing, pk=pk, seller=request.user)
+
+    if request.method == 'POST':
+        _apply_wheel_post(listing, request)
+        listing.title = listing.build_title()
+        listing.save()
+        _save_wheel_photos(listing, request)
+        messages.success(request, _('Skelbimas atnaujintas.'))
+        return redirect('wheels_detail', pk=listing.pk)
+
+    return render(request, *_wheel_form(request, listing))
 
 
 @login_required
