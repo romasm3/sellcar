@@ -256,6 +256,30 @@ Mano skelbimai (N), Žinutės, Piniginė, Nustatymai, App Store / Google Play my
 
 ---
 
+## 7. Taisyklė: mobiliame vaizde nėra horizontalaus slinkimo
+
+Viskas telpa į ekrano plotį. Jokių slenkamų juostų, nukirptų elementų ar
+pastumtų sričių. Netelpa — mažinam, laužom į eilutes arba slepiam po
+mygtuku, bet nestumiam į šoną.
+
+Patikrinimas prie 360, 390 ir 768 px:
+
+```javascript
+document.documentElement.scrollWidth === document.documentElement.clientWidth
+```
+
+Tai galioja ir etalonui: jų mobiliame puslapyje `scrollWidth` visada lygus
+`innerWidth`. Vienintelė slenkama sritis pas juos — markių nuorodų juosta
+rezultatų puslapyje, ir ji yra turinys, ne valdymas.
+
+**Pavyzdys (2026-08-20).** Antraštės dešinė pusė buvo 340 px ir plėtė visą
+puslapį iki 396 px. Atrodė kaip trys atskiros klaidos — „slenkanti" ikonų
+juosta, nukirptas kategorijų pikeris ir nematomas rūšiavimas — bet
+priežastis buvo viena. Sutvarkyta paslepiant telefone tai, kas etalone
+irgi paslėpta: kalbų jungiklį, paieškos ir žinučių ikonas.
+
+---
+
 ## 6. Žinomi defektai
 
 | Defektas | Kur | Būsena |

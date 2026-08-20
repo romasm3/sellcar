@@ -358,6 +358,37 @@ unique_together = [['brand', 'slug'], ['brand', 'name']]
 Tai pigiausias saugiklis: nesvarbu, kiek kartų kas paleis komandą ar
 migraciją, antras toks pat įrašas paprasčiausiai nepraeis.
 
+### Mobiliame vaizde nėra horizontalaus slinkimo
+
+**Viskas telpa į ekrano plotį.** Jokių slenkamų juostų, jokių nukirptų
+elementų, jokių „pastumtų" sričių. Jei kažkas netelpa — mažinam, laužom į
+eilutes arba slepiam po mygtuku, bet **nestumiam į šoną**.
+
+Patikrinimas — vienas skaičius:
+
+```javascript
+document.documentElement.scrollWidth === document.documentElement.clientWidth
+```
+
+Turi galioti prie 360, 390 ir 768 px. Jei `scrollWidth` didesnis — klaida.
+
+```python
+# Playwright, visiems puslapiams iš karto
+PROBE = "() => ({s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth})"
+```
+
+**Kodėl to neužtenka tikrinti akimis.** Vienas netelpantis elementas
+išplečia VISĄ puslapį, o naršyklė jį sumažina — atrodo, kad tiesiog
+„šriftas mažesnis". 2026-08-20 antraštės dešinė pusė (kalbų jungiklis,
+paieškos ir žinučių ikonos, meniu) buvo 340 px pločio ir plėtė puslapį iki
+396 px. Pasekmės atrodė kaip trys atskiros klaidos: ikonų juosta „slinko",
+kategorijų pikeris buvo „nukirptas", o rūšiavimas telefone „nesimatė".
+Priežastis buvo viena.
+
+**Todėl ieškant kaltininko tikrinama ne akimis, o taip:** surenkam visus
+elementus, kurių `getBoundingClientRect().right > clientWidth`, ir
+atmetam tuos, kurių tėvas turi `overflow-x: auto/scroll/hidden`.
+
 ### Laukų CSS turi pasiekti KIEKVIENĄ paviršių
 
 **Klasė ant elemento ≠ stilius puslapyje.** `sp-fld`, `sp-sel`, `sp-dd*`

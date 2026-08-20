@@ -96,12 +96,18 @@
                 </div>
 
                 <!-- Right Side -->
-                <div class="flex items-center gap-4">
+                {% comment %}
+                Telefone antraštėje lieka tik logotipas, „Sukurti skelbimą",
+                įsiminti ir meniu — kaip etalone. Kalbos jungiklis, paieškos
+                ir žinučių ikonos slepiamos, nes jos yra meniu viduje, o
+                netilpusi eilutė plėtė visą puslapį iki 396 px.
+                {% endcomment %}
+                <div class="flex items-center gap-2 md:gap-4 min-w-0">
 
                     <!-- ═══ LANGUAGE SWITCHER ═══ -->
                     {% get_current_language as CURRENT_LANG %}
                     {% get_available_languages as LANGUAGES %}
-                    <div class="relative" x-data="{ langOpen: false }">
+                    <div class="relative hidden lg:block" x-data="{ langOpen: false }">
                         <button @click="langOpen = !langOpen"
                                 class="flex items-center gap-1.5 px-2.5 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                             <span class="fi fi-{% if CURRENT_LANG == 'en' %}us{% elif CURRENT_LANG == 'lt' %}lt{% elif CURRENT_LANG == 'lv' %}lv{% elif CURRENT_LANG == 'et' %}ee{% elif CURRENT_LANG == 'pl' %}pl{% elif CURRENT_LANG == 'de' %}de{% elif CURRENT_LANG == 'ru' %}ru{% elif CURRENT_LANG == 'fr' %}fr{% elif CURRENT_LANG == 'es' %}es{% elif CURRENT_LANG == 'zh-hans' %}cn{% elif CURRENT_LANG == 'vi' %}vn{% elif CURRENT_LANG == 'ar' %}sa{% elif CURRENT_LANG == 'ko' %}kr{% else %}us{% endif %} fis" style="width: 22px; height: 22px; border-radius: 50%;"></span>
@@ -129,7 +135,7 @@
 
                     <!-- Create Ad button (desktop: tekstas, mobile: + ikona) -->
                     <a href="{% url 'listing_create' %}"
-                       class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm">
+                       class="hidden sm:inline-flex items-center gap-1.5 px-3 lg:px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shrink-0 whitespace-nowrap">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                         </svg>
@@ -154,7 +160,7 @@
                     </a>
 
                     <!-- Saved Searches Icon -->
-                    <a href="{% url 'saved_searches_list' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
+                    <a href="{% url 'saved_searches_list' %}" class="relative hidden md:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
                         <i class="fas fa-search text-xl"></i>
                         {% if new_searches_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
@@ -164,7 +170,7 @@
                     </a>
 
                     <!-- Messages Icon -->
-                    <a href="{% url 'conversations:list' %}" class="relative text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
+                    <a href="{% url 'conversations:list' %}" class="relative hidden md:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
                         <i class="fas fa-envelope text-xl"></i>
                         {% if unread_messages_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
