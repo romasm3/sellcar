@@ -123,6 +123,10 @@
 .home-tab-btn { padding-bottom: 0.75rem; padding-left: 0.25rem; padding-right: 0.25rem; border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; font-size: 0.95rem; color: #6b7280; cursor: pointer; background: none; transition: all 0.2s; }
 .home-tab-btn:hover { color: #111827; }
 .home-tab-btn.active { border-bottom-color: #10b981; color: #10b981; }
+.home-tab-btn-hot { color: #dc2626; font-weight: 600; }
+.home-tab-btn-hot:hover { color: #b91c1c; }
+.home-tab-btn-hot.active { border-bottom-color: #dc2626; color: #dc2626; }
+.home-tab-badge.badge-daily { background: #dc2626; color: #fff; }
 .home-tab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 @media (min-width: 640px) { .home-tab-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .home-tab-grid { grid-template-columns: repeat(6, 1fr); } }
@@ -992,6 +996,13 @@ function onSortChange(selectEl) {
                         :class="{ 'active': tab === 'offers' }" class="home-tab-btn">
                     {% trans "Pasiūlymai" %}
                 </button>
+                {% comment %}„Dienos pasiūlymai" — šiandien įkelti skelbimai, kurie
+                juose išsilaiko 7 paras (created_at >= dabar − 7 d.). Raudonas,
+                kad išsiskirtų iš kitų skirtukų.{% endcomment %}
+                <button type="button" @click="tab = 'daily'"
+                        :class="{ 'active': tab === 'daily' }" class="home-tab-btn home-tab-btn-hot">
+                    {% trans "Dienos pasiūlymai" %}
+                </button>
                 <button type="button" @click="tab = 'newest'"
                         :class="{ 'active': tab === 'newest' }" class="home-tab-btn">
                     {% trans "Newest" %}
@@ -1004,6 +1015,48 @@ function onSortChange(selectEl) {
                         :class="{ 'active': tab === 'expensive' }" class="home-tab-btn">
                     {% trans "Most expensive" %}
                 </button>
+            </div>
+
+            {% comment %}
+            „Dienos pasiūlymai" — kortelė ta pati kaip kituose skirtukuose;
+            sąrašas tab_daily ateina iš views.py (paskutinės 7 paros).
+            {% endcomment %}
+            <div x-show="tab === 'daily'" x-cloak>
+                {% if tab_daily %}
+                <div class="home-tab-grid">
+                    {% for listing in tab_daily %}
+                    {% with eff_level=listing.get_effective_star_level %}
+                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                        <div class="home-tab-img">
+                            {% if listing.images.first %}
+                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                            {% else %}
+                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
+                            {% endif %}
+                            <span class="home-tab-badge badge-daily">{% trans "Dienos pasiūlymas" %}</span>
+                            {% if listing.pk in new_listing_ids %}
+                            <div class="card-bottom-left">
+                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
+                                    <span class="card-badge-new">{% trans "New" %}</span>
+                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="home-tab-info">
+                            <div class="home-tab-title">{{ listing.title }}</div>
+                            <div class="home-tab-spec">
+                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                            </div>
+                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        </div>
+                    </a>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "Šiandien naujų skelbimų dar nėra." %}</p>
+                {% endif %}
             </div>
 
             {% comment %}

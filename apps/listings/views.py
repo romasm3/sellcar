@@ -1576,6 +1576,13 @@ def listing_list(request):
         l for l in _tabs_base.order_by('-created_at')[:24]
         if l.pk not in _offer_ids
     ][:18 - len(tab_featured)]
+    # „Dienos pasiūlymai" — šiandien įkelti skelbimai, kurie skirtuke
+    # išsilaiko 7 paras. Todėl riba ne „šiandien", o paskutinės 7 paros:
+    # šiandien įkeltas skelbimas iškris po 7 dienų.
+    tab_daily = list(
+        _tabs_base.filter(created_at__gte=_now_tabs - timedelta(days=7))
+        .order_by('-created_at')[:12]
+    )
     tab_newest = list(_tabs_base.order_by('-created_at')[:6])
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
@@ -1741,6 +1748,7 @@ def listing_list(request):
         'selected_country': country_filter,
         'selected_state': state_filter,
         'tab_offers': tab_offers,
+        'tab_daily': tab_daily,
         'tab_featured': tab_featured,
         'tab_newest': tab_newest,
         'tab_popular': tab_popular,
