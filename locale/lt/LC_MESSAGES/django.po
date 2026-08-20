@@ -8736,7 +8736,7 @@ msgstr "Įkelti nuotraukas"
 #: templates/listings/boats_listing_create.html:333
 #: templates/listings/listing_create_cars_quick.html:555
 msgid "Up to 40 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr ""
+msgstr "Iki 40 nuotraukų. Maks. dydis 20MB. JPG, GIF, PNG."
 
 #: templates/listings/boats_listing_create.html:340
 #: templates/listings/boats_listing_create.html:761
@@ -12099,10 +12099,8 @@ msgid "Sell Moto Gear"
 msgstr "Parduodu motociklų įrangą"
 
 #: templates/listings/motogear_create.html:24
-#, fuzzy
-#| msgid "No moto gear listings found"
 msgid "Edit moto gear listing"
-msgstr "Nerasta jokių motociklų įrangos skelbimų."
+msgstr "Redaguoti moto aprangos skelbimą"
 
 #: templates/listings/motogear_create.html:27
 msgid "Sell moto gear & accessories"
@@ -12205,10 +12203,8 @@ msgid "Uploading..."
 msgstr "Įkeliama..."
 
 #: templates/listings/motogear_create.html:304
-#, fuzzy
-#| msgid "Drag to reorder. The first photo is the main one."
 msgid "Drag photos to reorder. The first one is the main photo."
-msgstr "Vilkite, kad pertvarkytumėte. Pirma nuotrauka — pagrindinė."
+msgstr "Tempkite nuotraukas, kad pertvarkytumėte. Pirmoji — pagrindinė."
 
 #: templates/listings/motogear_create.html:338
 msgid "Video"
@@ -12221,8 +12217,6 @@ msgstr "Trūksta privalomų laukų:"
 #: templates/listings/motogear_create.html:391
 #: templates/listings/rims_create.html:269
 #: templates/listings/tyres_create.html:305
-#, fuzzy
-#| msgid "Save Changes"
 msgid "Save changes"
 msgstr "Išsaugoti pakeitimus"
 
@@ -13009,10 +13003,8 @@ msgstr ""
 "Slepiama nuo viešų skelbimų lankytojų."
 
 #: templates/listings/partials/contact_block.html:107
-#, fuzzy
-#| msgid "Hide exact address from public"
 msgid "Hide exact address from the public listing"
-msgstr "Slėpti tikslų adresą nuo visuomenės"
+msgstr "Nerodyti tikslaus adreso skelbime"
 
 #: templates/listings/partials/contact_block.html:115
 msgid "I am a business seller"
@@ -13459,7 +13451,7 @@ msgstr "Apibūdinkite prekę – būklę, istoriją, kodėl ją parduodate..."
 #: templates/listings/tyres_create.html:262
 #: templates/listings/wheels_create.html:343
 msgid "Up to 20 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr ""
+msgstr "Iki 20 nuotraukų. Maks. dydis 20MB. JPG, GIF, PNG."
 
 #: templates/listings/rims_create.html:347
 #: templates/listings/tyres_create.html:384
@@ -13981,7 +13973,7 @@ msgstr ""
 
 #: templates/listings/trucks_listing_create.html:701
 msgid "Up to 40 photos · JPG, PNG · max 20 MB each · Drag photos to reorder"
-msgstr ""
+msgstr "Iki 40 nuotraukų · JPG, PNG · po 20 MB · tempkite, kad pertvarkytumėte"
 
 #: templates/listings/trucks_listing_create.html:711
 #: templates/listings/trucks_listing_create.html:724
@@ -14120,15 +14112,15 @@ msgstr "Naujas skelbimas: Padangos ir ratlankiai"
 
 #: templates/listings/wheels_detail.html:17
 msgid "Back to rims"
-msgstr ""
+msgstr "Atgal į ratlankius"
 
 #: templates/listings/wheels_detail.html:17
 msgid "Back to tyres"
-msgstr ""
+msgstr "Atgal į padangas"
 
 #: templates/listings/wheels_detail.html:79
 msgid "Price per unit"
-msgstr ""
+msgstr "Vieneto kaina"
 
 #: templates/listings/wheels_detail.html:96
 msgid "Specifications"
@@ -14148,7 +14140,7 @@ msgstr ""
 
 #: templates/listings/wheels_detail.html:210
 msgid "Your listing"
-msgstr ""
+msgstr "Jūsų skelbimas"
 
 #: templates/listings/wheels_list.html:5
 msgid "Browse Rims"
