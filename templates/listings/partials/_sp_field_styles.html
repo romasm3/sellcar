@@ -199,49 +199,59 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-picker { position: fixed; inset: 0; z-index: 95; background: #fff;
                  display: flex; flex-direction: column; }
     .sp-picker-hdr { display: flex; align-items: center; justify-content: space-between;
-                     height: 48px; padding: 0 14px; background: #F4F5F6;
-                     font-size: 17px; font-weight: 600; color: #1F2328; }
+                     height: clamp(40px, 5.5vh, 56px); padding: 0 14px; background: #F4F5F6;
+                     font-size: clamp(14px, 2vh, 17px); font-weight: 600; color: #1F2328; }
     .sp-picker-hdr button { width: 32px; height: 32px; border-radius: 50%;
                             background: #1F2328; color: #fff; border: none;
                             display: flex; align-items: center; justify-content: center; }
     .sp-picker-hdr svg { width: 18px; height: 18px; }
-    /* Visos 32 kategorijos turi tilpti į vieną ekraną — be slinkimo.
-       Todėl visos plytelės vienodos ir dedamos dviem stulpeliais, o jų
-       aukštis skaičiuojamas nuo ekrano (clamp): 390×844 reikia ~652 px
-       iš 721 laisvų, 360×780 — ~609 iš 657. overflow-y palieku auto tik
-       kaip saugiklį labai žemiems ekranams. */
-    .sp-picker-body { flex: 1; overflow-y: auto; padding: 10px 12px 6px;
-                      display: flex; flex-direction: column; gap: 6px; }
-    .sp-picker-grid, .sp-picker-list {
-                      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-                      grid-auto-rows: clamp(28px, 4.4vh, 42px); }
-    .sp-picker-card, .sp-picker-row {
-                      display: flex; align-items: center; gap: 8px;
-                      min-height: 0; padding: 0 10px; margin: 0;
-                      background: #fff; border: 1px solid #E6E8EB; border-radius: 10px;
-                      font-size: clamp(11.5px, 3.2vw, 13.5px); line-height: 1.15;
-                      color: #1F2328; text-align: left; text-decoration: none;
-                      cursor: pointer; overflow: hidden; }
-    {% comment %}Ilgi pavadinimai („Žemės ūkio technika, padargai") laužiami į
-       dvi eilutes, o ne kerpami — plytelė nuo to nepaauga.{% endcomment %}
-    .sp-picker-card > span:last-child, .sp-picker-row > span:first-child {
-                      flex: 1 1 auto; min-width: 0; overflow: hidden;
-                      display: -webkit-box; -webkit-box-orient: vertical;
-                      -webkit-line-clamp: 2; line-clamp: 2; }
-    /* Pirmos keturios — tos pačios plytelės, tik paryškintos. */
-    .sp-picker-card { border-color: #D8DBDF; font-weight: 600; }
-    .sp-picker-ico { width: 20px; height: 20px; color: #6B7075; flex: 0 0 auto; display: block; }
+    {% comment %}
+    Išdėstymas kaip etalone: pirmos keturios kategorijos — 2×2 didelių
+    kortelių tinklelis, likusios — eilutėmis per VISĄ plotį. Ir viskas
+    telpa į ekraną be slinkimo, nesvarbu, koks jo aukštis: eilutės
+    nesikreipia į fiksuotus taškus, o pasidalija likusią vietą
+    (flex: 1 1 0). Aukštame lange (446×1288) eilutė išeina ~34 px, 390×844
+    telefone — ~19 px; abiem atvejais nieko nereikia stumdyti.
+    {% endcomment %}
+    .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow: hidden;
+                      padding: 8px 10px 6px; display: flex; flex-direction: column; gap: 5px; }
+    .sp-picker-grid { flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr;
+                      gap: 6px; grid-auto-rows: clamp(46px, 8.4vh, 116px); }
+    .sp-picker-card { display: flex; flex-direction: column; align-items: center;
+                      justify-content: center; gap: clamp(2px, 1vh, 10px);
+                      min-height: 0; padding: 4px 6px; overflow: hidden;
+                      background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
+                      font-size: clamp(11.5px, 1.6vh, 15px); font-weight: 600;
+                      color: #1F2328; text-align: center; cursor: pointer; }
+    .sp-picker-ico { width: clamp(18px, 3.2vh, 40px); height: clamp(18px, 3.2vh, 40px);
+                     color: #9AA0A6; flex: 0 0 auto; display: block; }
     .sp-picker-ico svg { width: 100%; height: 100%; }
-    .sp-picker-ico-sm { width: 18px; height: 18px; color: #9AA0A6; flex: 0 0 auto; order: -1; }
+    /* Likusios — per visą plotį, viena po kitos, be slinkimo. */
+    .sp-picker-list { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column;
+                      gap: 3px; }
+    .sp-picker-row { flex: 1 1 0; min-height: 20px; display: flex; align-items: center;
+                     justify-content: space-between; gap: 10px; padding: 0 12px;
+                     background: #fff; border: 1px solid #E6E8EB; border-radius: 9px;
+                     font-size: clamp(11px, 1.55vh, 16px); line-height: 1.1;
+                     color: #1F2328; text-decoration: none; overflow: hidden; }
+    .sp-picker-row > span:first-child { flex: 1 1 auto; min-width: 0; overflow: hidden;
+                                        text-overflow: ellipsis; white-space: nowrap; }
+    .sp-picker-ico-sm { width: clamp(14px, 2.2vh, 24px); height: clamp(14px, 2.2vh, 24px);
+                        color: #9AA0A6; flex: 0 0 auto; }
     .sp-picker-ico-sm svg { width: 100%; height: 100%; }
-    .sp-picker-row.is-soon { color: #9AA0A6; background: #FAFAFB; cursor: default; }
-    .sp-picker-soon { font-size: 9px; font-weight: 700; text-transform: uppercase;
-                      letter-spacing: .04em; color: #9AA0A6; flex: 0 0 auto; }
+    .sp-picker-soonbar { flex: 0 0 auto; display: flex; flex-wrap: wrap; align-items: center;
+                         gap: 4px; padding-top: 2px; }
+    .sp-picker-chip { font-size: clamp(9.5px, 1.3vh, 12px); color: #9AA0A6;
+                      background: #F4F5F6; border-radius: 999px; padding: 2px 8px;
+                      white-space: nowrap; }
+    .sp-picker-soon { font-size: clamp(8.5px, 1.15vh, 11.5px); font-weight: 700;
+                      text-transform: uppercase; letter-spacing: .04em; color: #9AA0A6;
+                      flex: 0 0 auto; }
     .sp-picker-foot { padding: 8px 12px; border-top: 1px solid var(--accent-soft); background: #fff; }
     .sp-picker-search { position: relative; display: block; }
     .sp-picker-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
                             width: 18px; height: 18px; color: #9AA0A6; pointer-events: none; }
-    .sp-picker-search input { width: 100%; height: 40px; border: 1px solid #DCDEE2;
+    .sp-picker-search input { width: 100%; height: clamp(34px, 4.8vh, 46px); border: 1px solid #DCDEE2;
                               border-radius: 10px; padding: 0 12px 0 38px; font-size: 16px;
                               outline: none; }
   }

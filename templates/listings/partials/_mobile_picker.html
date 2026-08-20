@@ -45,12 +45,16 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
     </a>
     {% endfor %}
 
-    {% for slug, name in coming_soon_categories %}
-    <div class="sp-picker-row is-soon" x-show="pmatch('{{ name|escapejs }}')">
-      <span>{{ name }}</span>
-      <span class="sp-picker-soon">{% trans "Netrukus" %}</span>
     </div>
-    {% endfor %}
+
+    {% comment %}Būsimos kategorijos — mažos žymos, o ne pilno pločio eilutės:
+    jos neveikia (nepaspaudžiamos), o šešios eilutės suėsdavo ~120 px, dėl
+    kurių likusioms tekdavo mažesnis aukštis.{% endcomment %}
+    <div class="sp-picker-soonbar">
+      {% for slug, name in coming_soon_categories %}
+      <span class="sp-picker-chip" x-show="pmatch('{{ name|escapejs }}')">{{ name }}</span>
+      {% endfor %}
+      <span class="sp-picker-soon">{% trans "Netrukus" %}</span>
     </div>
   </div>
 
