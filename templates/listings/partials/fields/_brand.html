@@ -29,7 +29,7 @@ pasirinkimas jį iškviečia per Alpine scope grandinę.
       <div class="sp-dd-item"
            x-show="!q || '{{ b.name|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
            @click="val = '{{ b.value|escapejs }}'; name = '{{ b.name|escapejs }}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
-        <span>{{ b.name }}</span><span class="sp-dd-count">{{ b.count }}</span>
+        <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
       </div>
       {% endfor %}
       {% if f.brands_top %}

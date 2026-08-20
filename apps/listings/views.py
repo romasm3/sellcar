@@ -1320,7 +1320,10 @@ def listing_list(request):
     year_max = request.GET.get('year_max')
     fuel_type_filter = request.GET.get('fuel_type')
     transmission_filter = request.GET.get('transmission')
-    search_query = request.GET.get('search', '')
+    # Vienas tekstinės paieškos parametras trims paviršiams: kanoninis
+    # yra ?q (taip vadina konfigūracija), ?search priimamas dėl senų
+    # nuorodų ir rankomis darytų panelių.
+    search_query = request.GET.get('q') or request.GET.get('search', '')
     country_filter = request.GET.get('country_filter', '')
     state_filter = request.GET.get('state_filter', '')
 
@@ -1701,6 +1704,11 @@ def listing_list(request):
         'total_count': listings.count(),
         'categories': categories,
         'selected_category': category_filter,
+        # Šoninė filtrų juosta rezultatų puslapyje — tie patys laukai kaip
+        # detalioje paieškoje, tik vienu stulpeliu (žr. build_sidebar).
+        'sidebar': panel_config.build_sidebar(
+            category_filter, request.user,
+            sub_slug=_subcategory_slug_from(request.GET)),
         'saved_ids': saved_ids,
         'new_listing_ids': new_listing_ids,
         'us_states': Listing.US_STATE_CHOICES,
@@ -3584,7 +3592,7 @@ def advanced_search_count_ajax(request):
     if category_filter:
         listings = listings.filter(vehicle_type__slug=category_filter)
 
-    search_query = f.get('search', '')
+    search_query = f.get('q') or f.get('search', '')
     if search_query:
         listings = listings.filter(title__icontains=search_query)
 
@@ -3758,7 +3766,7 @@ def advanced_search(request):
     defects_filter = f.get('defects', '')
     state_filter = f.get('state_filter', '')
     country_filter = f.get('country_filter', '')
-    search_query = f.get('search', '')
+    search_query = f.get('q') or f.get('search', '')
     equipment_ids = f.getlist('equipment')
 
     if category_filter:

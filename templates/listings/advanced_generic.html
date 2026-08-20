@@ -16,6 +16,9 @@
     <form method="get" action="{% url 'listing_list' %}" id="advForm"
           x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }} }">
       <input type="hidden" name="category" value="{{ adv.slug }}">
+      {% comment %}sidebar=1 — rezultatai atsidaro su šonine juosta, kaip iš panelės{% endcomment %}
+      <input type="hidden" name="sidebar" value="1">
+      {% if request.GET.sub %}<input type="hidden" name="subcategory" value="{{ request.GET.sub }}">{% endif %}
 
       {% comment %} ═══ LAUKŲ TINKLELIS ═══
          Struktūra perimta iš etalono: form-grid > row > fields.

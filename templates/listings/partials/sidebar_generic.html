@@ -16,7 +16,8 @@ Matmenys — isplestine-config.json „sidebar_layout".
     <input type="hidden" name="category" value="{{ sidebar.slug }}">
     {% if request.GET.subcategory %}<input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">{% endif %}
 
-    <a href="/paieska/{{ sidebar.slug }}/{% if request.GET.subcategory %}?sub={{ request.GET.subcategory }}{% endif %}"
+    {% comment %}Parametrai keliauja kartu, kad detali paieška atsidarytų su tais pačiais filtrais{% endcomment %}
+    <a href="/paieska/{{ sidebar.slug }}/?{{ request.GET.urlencode }}{% if request.GET.subcategory %}&sub={{ request.GET.subcategory }}{% endif %}"
        class="sp-fld flex items-center justify-center gap-2 font-semibold text-[#333] hover:text-black hover:border-gray-400 no-underline mb-3">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
       {% trans "Daugiau filtrų" %}
@@ -74,7 +75,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
 
 {% comment %}Siauruose ekranuose (<1024 px) juosta virsta mygtuku{% endcomment %}
 <div class="lg:hidden mb-4">
-  <a href="/paieska/{{ sidebar.slug }}/"
+  <a href="/paieska/{{ sidebar.slug }}/?{{ request.GET.urlencode }}"
      class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-[13.5px] font-bold text-gray-700 hover:bg-gray-50 no-underline">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
     {% trans "Filtrai" %}

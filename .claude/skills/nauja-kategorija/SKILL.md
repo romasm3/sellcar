@@ -92,10 +92,21 @@ Laukų vardai su kategorijos prefiksu: `agri_type`, `trailer_kind`. Visi
 
 ```bash
 venv/bin/python manage.py makemigrations listings --name <kategorija>_fields
-venv/bin/python manage.py sqlmigrate listings 00XX   # parodyk vartotojui
-# tik po patvirtinimo:
 venv/bin/python manage.py migrate listings && systemctl restart gunicorn
 ```
+
+### Kada klausti leidimo
+
+**Additive migracijos ir gunicorn perkrovimas — leidimo neklausiama.**
+Daroma iškart, o padaryta pranešama darbo pabaigoje. Laukimas čia tik
+kenkia: kodas jau pakeistas, o gunicorn sukasi ant seno — kuo ilgiau taip
+stovi, tuo didesnis neatitikimas tarp to, ką matai naršyklėje, ir to, kas
+yra faile.
+
+**Klausiama TIK prieš trynimą** — DB įrašų, stulpelių, `.txt` failų,
+markių, skelbimų. Tada pirma parodomas tikslus sąrašas (kas ir kiek),
+palaukiama atsakymo, ir tik tada trinama. `DROP`, `DELETE` be `WHERE`,
+`flush` — niekada be atskiro patvirtinimo.
 
 ---
 

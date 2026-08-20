@@ -304,6 +304,15 @@ a.sp-rail-btn { text-decoration:none; }
         </div>
 
         <div class="flex gap-6 items-start">
+            {% if sidebar %}
+            {% comment %}
+            Deklaratyvios kategorijos gauna bendrą juostą — tuos pačius
+            detalios paieškos laukus vienu stulpeliu (žr. build_sidebar).
+            Rankomis daryta juosta žemiau lieka toms kategorijoms, kurių
+            variklis dar neaptarnauja (automobiliai, dalys, ratlankiai).
+            {% endcomment %}
+            {% include 'listings/partials/sidebar_generic.html' %}
+            {% else %}
             <div class="w-64 flex-shrink-0">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-20">
                     <form method="get" action="/browse/" id="sidebarForm">
@@ -681,6 +690,7 @@ a.sp-rail-btn { text-decoration:none; }
                     </form>
                 </div>
             </div>
+            {% endif %}
 
             <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between mb-4">
