@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 17:07+0300\n"
+"POT-Creation-Date: 2026-08-20 18:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -503,7 +503,7 @@ msgstr ""
 msgid "Gamintojas yra privalomas"
 msgstr ""
 
-#: apps/listings/boats_views.py:42 apps/listings/models.py:570
+#: apps/listings/boats_views.py:42 apps/listings/models.py:573
 #: templates/listings/partials/panel_boats.html:20
 msgid "Aluminium"
 msgstr ""
@@ -528,14 +528,14 @@ msgstr ""
 msgid "PVC / Rubber"
 msgstr ""
 
-#: apps/listings/boats_views.py:47 apps/listings/models.py:321
-#: apps/listings/models.py:349 apps/listings/models.py:394
-#: apps/listings/models.py:452 apps/listings/models.py:464
-#: apps/listings/models.py:476 apps/listings/models.py:557
-#: apps/listings/models.py:563 apps/listings/models.py:575
-#: apps/listings/models.py:584 apps/listings/models.py:775
-#: apps/listings/models.py:2679 apps/listings/models.py:2728
-#: apps/listings/models.py:2740 apps/listings/translatable_db.py:68
+#: apps/listings/boats_views.py:47 apps/listings/models.py:324
+#: apps/listings/models.py:352 apps/listings/models.py:397
+#: apps/listings/models.py:455 apps/listings/models.py:467
+#: apps/listings/models.py:479 apps/listings/models.py:560
+#: apps/listings/models.py:566 apps/listings/models.py:578
+#: apps/listings/models.py:587 apps/listings/models.py:778
+#: apps/listings/models.py:2682 apps/listings/models.py:2731
+#: apps/listings/models.py:2743 apps/listings/translatable_db.py:68
 #: templates/listings/listing_detail.html:2882
 #: templates/listings/partials/panel_boats.html:25
 msgid "Other"
@@ -589,12 +589,12 @@ msgid "Ši forma skirta tik miško ūkio technikos skelbimams."
 msgstr ""
 
 #: apps/listings/forms.py:21 apps/listings/models.py:16
-#: apps/listings/models.py:669
+#: apps/listings/models.py:672
 msgid "Vehicle Type"
 msgstr ""
 
 #: apps/listings/forms.py:27 apps/listings/models.py:154
-#: apps/listings/models.py:671 templates/accounts/dealer_public_page.html:48
+#: apps/listings/models.py:674 templates/accounts/dealer_public_page.html:48
 #: templates/accounts/seller_profile.html:187
 #: templates/listings/advanced_search.html:189
 #: templates/listings/advanced_search.html:513
@@ -631,7 +631,7 @@ msgid "Brand"
 msgstr ""
 
 #: apps/listings/forms.py:33 apps/listings/models.py:168
-#: apps/listings/models.py:672 templates/accounts/dealer_public_page.html:58
+#: apps/listings/models.py:675 templates/accounts/dealer_public_page.html:58
 #: templates/accounts/seller_profile.html:199 templates/home.html:45
 #: templates/listings/advanced_search.html:201
 #: templates/listings/advanced_search.html:522
@@ -702,7 +702,7 @@ msgstr ""
 msgid "Body Type"
 msgstr ""
 
-#: apps/listings/forms.py:102 apps/listings/models.py:278
+#: apps/listings/forms.py:102 apps/listings/models.py:281
 #: templates/home.html:97 templates/listings/advanced_search.html:236
 #: templates/listings/advanced_search.html:572
 #: templates/listings/listing_create.html:489
@@ -715,7 +715,7 @@ msgstr ""
 msgid "Fuel Type"
 msgstr ""
 
-#: apps/listings/forms.py:108 apps/listings/models.py:290
+#: apps/listings/forms.py:108 apps/listings/models.py:293
 #: templates/accounts/dealer_public_page.html:108
 #: templates/accounts/seller_profile.html:252 templates/home.html:107
 #: templates/listings/advanced_search.html:305
@@ -809,8 +809,8 @@ msgstr ""
 msgid "Steering"
 msgstr ""
 
-#: apps/listings/forms.py:148 apps/listings/models.py:1451
-#: apps/listings/models.py:2854 templates/listings/advanced_search.html:696
+#: apps/listings/forms.py:148 apps/listings/models.py:1454
+#: apps/listings/models.py:2857 templates/listings/advanced_search.html:696
 #: templates/listings/listing_list.html:420
 #: templates/listings/motorcycles_list.html:456
 #: templates/listings/trucks_advanced_search.html:383
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Engine Capacity (L)"
 msgstr ""
 
-#: apps/listings/forms.py:167 apps/listings/models.py:2928
+#: apps/listings/forms.py:167 apps/listings/models.py:2931
 #: templates/listings/advanced_search.html:682
 #: templates/listings/motorcycles_list.html:474
 #: templates/listings/truck_parts_advanced.html:92
@@ -917,8 +917,8 @@ msgstr ""
 msgid "Price is negotiable"
 msgstr ""
 
-#: apps/listings/forms.py:344 apps/listings/models.py:1445
-#: apps/listings/models.py:2847 templates/accounts/wallet.html:126
+#: apps/listings/forms.py:344 apps/listings/models.py:1448
+#: apps/listings/models.py:2850 templates/accounts/wallet.html:126
 #: templates/listings/boats_listing_create.html:261
 #: templates/listings/car_for_parts_create.html:260
 #: templates/listings/listing_create.html:25
@@ -1003,10 +1003,10 @@ msgstr ""
 
 #: apps/listings/models.py:11 apps/listings/models.py:25
 #: apps/listings/models.py:118 apps/listings/models.py:163
-#: apps/listings/models.py:178 apps/listings/models.py:193
-#: apps/listings/models.py:206 apps/listings/models.py:225
-#: apps/listings/models.py:238 apps/listings/models.py:257
-#: apps/listings/models.py:275 apps/listings/models.py:287
+#: apps/listings/models.py:181 apps/listings/models.py:196
+#: apps/listings/models.py:209 apps/listings/models.py:228
+#: apps/listings/models.py:241 apps/listings/models.py:260
+#: apps/listings/models.py:278 apps/listings/models.py:290
 msgid "Name"
 msgstr ""
 
@@ -1022,7 +1022,7 @@ msgstr ""
 msgid "Parent subcategory"
 msgstr ""
 
-#: apps/listings/models.py:35 apps/listings/models.py:259
+#: apps/listings/models.py:35 apps/listings/models.py:262
 msgid "Display order"
 msgstr ""
 
@@ -1096,36 +1096,36 @@ msgstr ""
 msgid "Top markė"
 msgstr ""
 
-#: apps/listings/models.py:183 apps/listings/models.py:673
+#: apps/listings/models.py:186 apps/listings/models.py:676
 #, fuzzy
 #| msgid "Modelis"
 msgid "SubModel"
 msgstr "Model"
 
-#: apps/listings/models.py:197 apps/listings/models.py:677
+#: apps/listings/models.py:200 apps/listings/models.py:680
 msgid "Motorcycle Brand"
 msgstr ""
 
-#: apps/listings/models.py:211 apps/listings/models.py:682
+#: apps/listings/models.py:214 apps/listings/models.py:685
 msgid "Motorcycle Model"
 msgstr ""
 
-#: apps/listings/models.py:229 apps/listings/models.py:687
-#: apps/listings/models.py:2838
+#: apps/listings/models.py:232 apps/listings/models.py:690
+#: apps/listings/models.py:2841
 msgid "Truck Brand"
 msgstr ""
 
-#: apps/listings/models.py:243 apps/listings/models.py:692
-#: apps/listings/models.py:2843
+#: apps/listings/models.py:246 apps/listings/models.py:695
+#: apps/listings/models.py:2846
 msgid "Truck Model"
 msgstr ""
 
-#: apps/listings/models.py:262
+#: apps/listings/models.py:265
 msgid "Gear Brand"
 msgstr ""
 
-#: apps/listings/models.py:300 apps/listings/models.py:2641
-#: apps/listings/models.py:3716 apps/listings/moto_part_views.py:32
+#: apps/listings/models.py:303 apps/listings/models.py:2644
+#: apps/listings/models.py:3719 apps/listings/moto_part_views.py:32
 #: templates/listings/advanced_search.html:491
 #: templates/listings/listing_list.html:1003
 #: templates/listings/listing_list.html:1254
@@ -1138,96 +1138,96 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: apps/listings/models.py:301 apps/listings/models.py:2642
-#: apps/listings/models.py:3717 apps/listings/moto_part_views.py:33
+#: apps/listings/models.py:304 apps/listings/models.py:2645
+#: apps/listings/models.py:3720 apps/listings/moto_part_views.py:33
 #: templates/listings/advanced_search.html:492
 #: templates/listings/motorcycles_advanced_search.html:174
 msgid "Used"
 msgstr ""
 
-#: apps/listings/models.py:302 apps/listings/moto_part_views.py:35
+#: apps/listings/models.py:305 apps/listings/moto_part_views.py:35
 #: templates/listings/listing_list.html:580
 #: templates/listings/motorcycles_list.html:605
 msgid "Damaged"
 msgstr ""
 
-#: apps/listings/models.py:306 apps/listings/models.py:2646
+#: apps/listings/models.py:309 apps/listings/models.py:2649
 #, fuzzy
 #| msgid "Aukštis"
 msgid "Juodraštis"
 msgstr "Profile"
 
-#: apps/listings/models.py:307 apps/listings/models.py:2647
+#: apps/listings/models.py:310 apps/listings/models.py:2650
 msgid "Aktyvus"
 msgstr ""
 
-#: apps/listings/models.py:308 apps/listings/models.py:2648
+#: apps/listings/models.py:311 apps/listings/models.py:2651
 msgid "Rezervuotas"
 msgstr ""
 
-#: apps/listings/models.py:309 apps/listings/models.py:2649
+#: apps/listings/models.py:312 apps/listings/models.py:2652
 msgid "Neaktyvus"
 msgstr ""
 
-#: apps/listings/models.py:310 apps/listings/models.py:2650
+#: apps/listings/models.py:313 apps/listings/models.py:2653
 msgid "Parduotas"
 msgstr ""
 
-#: apps/listings/models.py:311 apps/listings/models.py:2651
+#: apps/listings/models.py:314 apps/listings/models.py:2654
 msgid "Archyvuotas"
 msgstr ""
 
-#: apps/listings/models.py:315 templates/listings/home.html:49
+#: apps/listings/models.py:318 templates/listings/home.html:49
 msgid "Sedan"
 msgstr ""
 
-#: apps/listings/models.py:315 templates/listings/home.html:51
+#: apps/listings/models.py:318 templates/listings/home.html:51
 msgid "Hatchback"
 msgstr ""
 
-#: apps/listings/models.py:316
+#: apps/listings/models.py:319
 msgid "Estate/Wagon"
 msgstr ""
 
-#: apps/listings/models.py:316
+#: apps/listings/models.py:319
 msgid "Minivan"
 msgstr ""
 
-#: apps/listings/models.py:317
+#: apps/listings/models.py:320
 msgid "SUV/Crossover"
 msgstr ""
 
-#: apps/listings/models.py:317 templates/listings/home.html:52
+#: apps/listings/models.py:320 templates/listings/home.html:52
 msgid "Coupe"
 msgstr ""
 
-#: apps/listings/models.py:318
+#: apps/listings/models.py:321
 msgid "Commercial"
 msgstr ""
 
-#: apps/listings/models.py:318
+#: apps/listings/models.py:321
 msgid "Convertible"
 msgstr ""
 
-#: apps/listings/models.py:319
+#: apps/listings/models.py:322
 msgid "Limousine"
 msgstr ""
 
-#: apps/listings/models.py:319
+#: apps/listings/models.py:322
 msgid "Pickup"
 msgstr ""
 
-#: apps/listings/models.py:320
+#: apps/listings/models.py:323
 msgid "Minibus"
 msgstr ""
 
-#: apps/listings/models.py:320
+#: apps/listings/models.py:323
 msgid "Truck/Van"
 msgstr ""
 
-#: apps/listings/models.py:326 apps/listings/models.py:354
-#: apps/listings/models.py:366 apps/listings/models.py:374
-#: apps/listings/models.py:2656 templates/listings/car_for_parts_create.html:71
+#: apps/listings/models.py:329 apps/listings/models.py:357
+#: apps/listings/models.py:369 apps/listings/models.py:377
+#: apps/listings/models.py:2659 templates/listings/car_for_parts_create.html:71
 #: templates/listings/car_for_parts_create.html:81
 #: templates/listings/car_for_parts_create.html:91
 #: templates/listings/car_for_parts_create.html:105
@@ -1264,484 +1264,484 @@ msgstr ""
 msgid "— Select —"
 msgstr ""
 
-#: apps/listings/models.py:327 apps/listings/models.py:2657
+#: apps/listings/models.py:330 apps/listings/models.py:2660
 msgid "Tankers"
 msgstr ""
 
-#: apps/listings/models.py:328 apps/listings/models.py:2658
+#: apps/listings/models.py:331 apps/listings/models.py:2661
 msgid "Car Carriers"
 msgstr ""
 
-#: apps/listings/models.py:329 apps/listings/models.py:2659
+#: apps/listings/models.py:332 apps/listings/models.py:2662
 #: apps/listings/translatable_db.py:42
 msgid "Concrete Mixers"
 msgstr ""
 
-#: apps/listings/models.py:330 apps/listings/models.py:2660
+#: apps/listings/models.py:333 apps/listings/models.py:2663
 msgid "Flatbed"
 msgstr ""
 
-#: apps/listings/models.py:331 apps/listings/models.py:2661
+#: apps/listings/models.py:334 apps/listings/models.py:2664
 msgid "Flatbed with Tarpaulin"
 msgstr ""
 
-#: apps/listings/models.py:332 apps/listings/models.py:2662
+#: apps/listings/models.py:335 apps/listings/models.py:2665
 msgid "Curtain-Side"
 msgstr ""
 
-#: apps/listings/models.py:333 apps/listings/models.py:2663
+#: apps/listings/models.py:336 apps/listings/models.py:2666
 msgid "Double Cab"
 msgstr ""
 
-#: apps/listings/models.py:334 apps/listings/models.py:2664
+#: apps/listings/models.py:337 apps/listings/models.py:2667
 msgid "Livestock Carriers"
 msgstr ""
 
-#: apps/listings/models.py:335 apps/listings/models.py:2665
+#: apps/listings/models.py:338 apps/listings/models.py:2668
 msgid "Insulated Box"
 msgstr ""
 
-#: apps/listings/models.py:336 apps/listings/models.py:2666
+#: apps/listings/models.py:339 apps/listings/models.py:2669
 msgid "Hard-Side Box"
 msgstr ""
 
-#: apps/listings/models.py:337 apps/listings/models.py:2667
+#: apps/listings/models.py:340 apps/listings/models.py:2670
 msgid "Container Carriers"
 msgstr ""
 
-#: apps/listings/models.py:338 apps/listings/models.py:2668
+#: apps/listings/models.py:341 apps/listings/models.py:2671
 msgid "Logging Trucks"
 msgstr ""
 
-#: apps/listings/models.py:339 apps/listings/models.py:2669
+#: apps/listings/models.py:342 apps/listings/models.py:2672
 msgid "Milk Tankers"
 msgstr ""
 
-#: apps/listings/models.py:340 apps/listings/models.py:2670
+#: apps/listings/models.py:343 apps/listings/models.py:2673
 msgid "Platforms"
 msgstr ""
 
-#: apps/listings/models.py:341 apps/listings/models.py:2671
+#: apps/listings/models.py:344 apps/listings/models.py:2674
 msgid "Mobile Shop"
 msgstr ""
 
-#: apps/listings/models.py:342 apps/listings/models.py:2672
+#: apps/listings/models.py:345 apps/listings/models.py:2675
 msgid "Tippers"
 msgstr ""
 
-#: apps/listings/models.py:343 apps/listings/models.py:2673
+#: apps/listings/models.py:346 apps/listings/models.py:2676
 msgid "Hook-Lift Tippers"
 msgstr ""
 
-#: apps/listings/models.py:344 apps/listings/models.py:2674
+#: apps/listings/models.py:347 apps/listings/models.py:2677
 msgid "Crane Tippers"
 msgstr ""
 
-#: apps/listings/models.py:345 apps/listings/models.py:2675
+#: apps/listings/models.py:348 apps/listings/models.py:2678
 msgid "With Crane"
 msgstr ""
 
-#: apps/listings/models.py:346 apps/listings/models.py:2676
+#: apps/listings/models.py:349 apps/listings/models.py:2679
 msgid "Refrigerators"
 msgstr ""
 
-#: apps/listings/models.py:347 apps/listings/models.py:2677
+#: apps/listings/models.py:350 apps/listings/models.py:2680
 msgid "Curtain / Tarpaulin"
 msgstr ""
 
-#: apps/listings/models.py:348 apps/listings/models.py:2678
+#: apps/listings/models.py:351 apps/listings/models.py:2681
 msgid "Chassis"
 msgstr ""
 
-#: apps/listings/models.py:355 apps/listings/models.py:2692
+#: apps/listings/models.py:358 apps/listings/models.py:2695
 msgid "4x2"
 msgstr ""
 
-#: apps/listings/models.py:355 apps/listings/models.py:2693
+#: apps/listings/models.py:358 apps/listings/models.py:2696
 msgid "4x4"
 msgstr ""
 
-#: apps/listings/models.py:356 apps/listings/models.py:2694
+#: apps/listings/models.py:359 apps/listings/models.py:2697
 msgid "6x2"
 msgstr ""
 
-#: apps/listings/models.py:356
+#: apps/listings/models.py:359
 msgid "6x2/4"
 msgstr ""
 
-#: apps/listings/models.py:357 apps/listings/models.py:2695
+#: apps/listings/models.py:360 apps/listings/models.py:2698
 msgid "6x4"
 msgstr ""
 
-#: apps/listings/models.py:357
+#: apps/listings/models.py:360
 msgid "6x4/2"
 msgstr ""
 
-#: apps/listings/models.py:358 apps/listings/models.py:2696
+#: apps/listings/models.py:361 apps/listings/models.py:2699
 msgid "6x6"
 msgstr ""
 
-#: apps/listings/models.py:359 apps/listings/models.py:2697
+#: apps/listings/models.py:362 apps/listings/models.py:2700
 msgid "8x2"
 msgstr ""
 
-#: apps/listings/models.py:359
+#: apps/listings/models.py:362
 msgid "8x2/4"
 msgstr ""
 
-#: apps/listings/models.py:360 apps/listings/models.py:2698
+#: apps/listings/models.py:363 apps/listings/models.py:2701
 msgid "8x4"
 msgstr ""
 
-#: apps/listings/models.py:360 apps/listings/models.py:2699
+#: apps/listings/models.py:363 apps/listings/models.py:2702
 msgid "8x6"
 msgstr ""
 
-#: apps/listings/models.py:360 apps/listings/models.py:2700
+#: apps/listings/models.py:363 apps/listings/models.py:2703
 msgid "8x8"
 msgstr ""
 
-#: apps/listings/models.py:361
+#: apps/listings/models.py:364
 msgid "10x4"
 msgstr ""
 
-#: apps/listings/models.py:361
+#: apps/listings/models.py:364
 msgid "10x6"
 msgstr ""
 
-#: apps/listings/models.py:361
+#: apps/listings/models.py:364
 msgid "10x8"
 msgstr ""
 
-#: apps/listings/models.py:367
+#: apps/listings/models.py:370
 msgid "Up to 3.5 t"
 msgstr ""
 
-#: apps/listings/models.py:368
+#: apps/listings/models.py:371
 msgid "3.5 - 7.5 t"
 msgstr ""
 
-#: apps/listings/models.py:369
+#: apps/listings/models.py:372
 msgid "Over 7.5 t"
 msgstr ""
 
-#: apps/listings/models.py:375
+#: apps/listings/models.py:378
 msgid "Air"
 msgstr ""
 
-#: apps/listings/models.py:376
+#: apps/listings/models.py:379
 msgid "Spring"
 msgstr ""
 
-#: apps/listings/models.py:377
+#: apps/listings/models.py:380
 msgid "Parabolic"
 msgstr ""
 
-#: apps/listings/models.py:378
+#: apps/listings/models.py:381
 msgid "Hydraulic"
 msgstr ""
 
-#: apps/listings/models.py:379
+#: apps/listings/models.py:382
 msgid "Rubber"
 msgstr ""
 
-#: apps/listings/models.py:388 apps/listings/models.py:2741
+#: apps/listings/models.py:391 apps/listings/models.py:2744
 msgid "Black"
 msgstr ""
 
-#: apps/listings/models.py:388
+#: apps/listings/models.py:391
 msgid "Silver"
 msgstr ""
 
-#: apps/listings/models.py:388
+#: apps/listings/models.py:391
 msgid "Grey"
 msgstr ""
 
-#: apps/listings/models.py:389 apps/listings/models.py:2742
+#: apps/listings/models.py:392 apps/listings/models.py:2745
 msgid "Blue"
 msgstr ""
 
-#: apps/listings/models.py:389 apps/listings/models.py:2741
+#: apps/listings/models.py:392 apps/listings/models.py:2744
 msgid "White"
 msgstr ""
 
-#: apps/listings/models.py:390 apps/listings/models.py:2742
+#: apps/listings/models.py:393 apps/listings/models.py:2745
 msgid "Red / Burgundy"
 msgstr ""
 
-#: apps/listings/models.py:390 apps/listings/models.py:2743
+#: apps/listings/models.py:393 apps/listings/models.py:2746
 msgid "Green / Khaki"
 msgstr ""
 
-#: apps/listings/models.py:391
+#: apps/listings/models.py:394
 msgid "Beige"
 msgstr ""
 
-#: apps/listings/models.py:391 apps/listings/models.py:2744
+#: apps/listings/models.py:394 apps/listings/models.py:2747
 msgid "Brown / Beige"
 msgstr ""
 
-#: apps/listings/models.py:392
+#: apps/listings/models.py:395
 msgid "Gold"
 msgstr ""
 
-#: apps/listings/models.py:392 apps/listings/models.py:2743
+#: apps/listings/models.py:395 apps/listings/models.py:2746
 msgid "Yellow / Gold"
 msgstr ""
 
-#: apps/listings/models.py:393
+#: apps/listings/models.py:396
 msgid "Purple"
 msgstr ""
 
-#: apps/listings/models.py:393 apps/listings/models.py:2744
+#: apps/listings/models.py:396 apps/listings/models.py:2747
 msgid "Orange"
 msgstr ""
 
-#: apps/listings/models.py:394 apps/listings/models.py:2745
+#: apps/listings/models.py:397 apps/listings/models.py:2748
 msgid "Multicolor"
 msgstr ""
 
-#: apps/listings/models.py:398 apps/listings/models.py:2749
+#: apps/listings/models.py:401 apps/listings/models.py:2752
 #: templates/listings/listing_detail.html:2374
 #: templates/listings/listing_list.html:578
 #: templates/listings/motorcycles_list.html:603
 msgid "No defects"
 msgstr ""
 
-#: apps/listings/models.py:398 apps/listings/models.py:2752
+#: apps/listings/models.py:401 apps/listings/models.py:2755
 msgid "Dented"
 msgstr ""
 
-#: apps/listings/models.py:399 apps/listings/models.py:2753
+#: apps/listings/models.py:402 apps/listings/models.py:2756
 msgid "Burned"
 msgstr ""
 
-#: apps/listings/models.py:399 apps/listings/models.py:2751
+#: apps/listings/models.py:402 apps/listings/models.py:2754
 msgid "Gearbox defect"
 msgstr ""
 
-#: apps/listings/models.py:400
+#: apps/listings/models.py:403
 msgid "Hail damage"
 msgstr ""
 
-#: apps/listings/models.py:400
+#: apps/listings/models.py:403
 msgid "Sunken"
 msgstr ""
 
-#: apps/listings/models.py:401 apps/listings/models.py:2750
+#: apps/listings/models.py:404 apps/listings/models.py:2753
 msgid "Engine defect"
 msgstr ""
 
-#: apps/listings/models.py:401 apps/listings/models.py:2754
+#: apps/listings/models.py:404 apps/listings/models.py:2757
 msgid "Major defects"
 msgstr ""
 
-#: apps/listings/models.py:404
+#: apps/listings/models.py:407
 msgid "Kiti smulkūs defektai"
 msgstr ""
 
-#: apps/listings/models.py:407
+#: apps/listings/models.py:410
 msgid "2/3 doors"
 msgstr ""
 
-#: apps/listings/models.py:407
+#: apps/listings/models.py:410
 msgid "4/5 doors"
 msgstr ""
 
-#: apps/listings/models.py:408
+#: apps/listings/models.py:411
 msgid "6/7 doors"
 msgstr ""
 
-#: apps/listings/models.py:411 apps/listings/models.py:2758
+#: apps/listings/models.py:414 apps/listings/models.py:2761
 msgid "Left-hand drive"
 msgstr ""
 
-#: apps/listings/models.py:412 apps/listings/models.py:2759
+#: apps/listings/models.py:415 apps/listings/models.py:2762
 msgid "Right-hand drive (UK)"
 msgstr ""
 
-#: apps/listings/models.py:416
+#: apps/listings/models.py:419
 msgid "Front-wheel drive (FWD)"
 msgstr ""
 
-#: apps/listings/models.py:417
+#: apps/listings/models.py:420
 msgid "Rear-wheel drive (RWD)"
 msgstr ""
 
-#: apps/listings/models.py:418
+#: apps/listings/models.py:421
 msgid "All-wheel drive (AWD/4WD)"
 msgstr ""
 
-#: apps/listings/models.py:428 apps/listings/models.py:843
-#: apps/listings/models.py:1022 apps/listings/models.py:1160
+#: apps/listings/models.py:431 apps/listings/models.py:846
+#: apps/listings/models.py:1025 apps/listings/models.py:1163
 msgid "Kitas"
 msgstr ""
 
-#: apps/listings/models.py:435
+#: apps/listings/models.py:438
 msgid "No climate control"
 msgstr ""
 
-#: apps/listings/models.py:436
+#: apps/listings/models.py:439
 msgid "Air conditioning"
 msgstr ""
 
-#: apps/listings/models.py:437
+#: apps/listings/models.py:440
 #: templates/listings/listing_create_cars_quick.html:337
 msgid "Climate control"
 msgstr ""
 
-#: apps/listings/models.py:438
+#: apps/listings/models.py:441
 msgid "Dual-zone climate control"
 msgstr ""
 
-#: apps/listings/models.py:439
+#: apps/listings/models.py:442
 msgid "Triple-zone climate control"
 msgstr ""
 
-#: apps/listings/models.py:443
+#: apps/listings/models.py:446
 msgid "Sport"
 msgstr ""
 
-#: apps/listings/models.py:443
+#: apps/listings/models.py:446
 msgid "Cruiser"
 msgstr ""
 
-#: apps/listings/models.py:444
+#: apps/listings/models.py:447
 msgid "Touring"
 msgstr ""
 
-#: apps/listings/models.py:444 apps/listings/models.py:488
+#: apps/listings/models.py:447 apps/listings/models.py:491
 msgid "Enduro"
 msgstr ""
 
-#: apps/listings/models.py:445
+#: apps/listings/models.py:448
 msgid "Motocross"
 msgstr ""
 
-#: apps/listings/models.py:445
+#: apps/listings/models.py:448
 msgid "Chopper"
 msgstr ""
 
-#: apps/listings/models.py:446
+#: apps/listings/models.py:449
 msgid "Naked"
 msgstr ""
 
-#: apps/listings/models.py:446
+#: apps/listings/models.py:449
 msgid "Scooter"
 msgstr ""
 
-#: apps/listings/models.py:447
+#: apps/listings/models.py:450
 msgid "Moped"
 msgstr ""
 
-#: apps/listings/models.py:447
+#: apps/listings/models.py:450
 msgid "ATV / Quad"
 msgstr ""
 
-#: apps/listings/models.py:448
+#: apps/listings/models.py:451
 msgid "Trike"
 msgstr ""
 
-#: apps/listings/models.py:450
+#: apps/listings/models.py:453
 msgid "Kart"
 msgstr ""
 
-#: apps/listings/models.py:450
+#: apps/listings/models.py:453
 msgid "Mini bike"
 msgstr ""
 
-#: apps/listings/models.py:451
+#: apps/listings/models.py:454
 msgid "Snowmobile"
 msgstr ""
 
-#: apps/listings/models.py:456
+#: apps/listings/models.py:459
 msgid "Air-cooled"
 msgstr ""
 
-#: apps/listings/models.py:456
+#: apps/listings/models.py:459
 msgid "Water-cooled"
 msgstr ""
 
-#: apps/listings/models.py:456
+#: apps/listings/models.py:459
 msgid "Oil-cooled"
 msgstr ""
 
-#: apps/listings/models.py:457
+#: apps/listings/models.py:460
 msgid "Mixed cooling"
 msgstr ""
 
-#: apps/listings/models.py:461
+#: apps/listings/models.py:464
 msgid "Single-cylinder"
 msgstr ""
 
-#: apps/listings/models.py:461
+#: apps/listings/models.py:464
 msgid "Twin-cylinder"
 msgstr ""
 
-#: apps/listings/models.py:462
+#: apps/listings/models.py:465
 msgid "Parallel-twin"
 msgstr ""
 
-#: apps/listings/models.py:462
+#: apps/listings/models.py:465
 msgid "V-twin"
 msgstr ""
 
-#: apps/listings/models.py:463
+#: apps/listings/models.py:466
 msgid "Triple (3-cylinder)"
 msgstr ""
 
-#: apps/listings/models.py:463
+#: apps/listings/models.py:466
 msgid "Inline-4"
 msgstr ""
 
-#: apps/listings/models.py:464
+#: apps/listings/models.py:467
 msgid "V4"
 msgstr ""
 
-#: apps/listings/models.py:464
+#: apps/listings/models.py:467
 msgid "Boxer"
 msgstr ""
 
-#: apps/listings/models.py:468
+#: apps/listings/models.py:471
 msgid "Helmet"
 msgstr ""
 
-#: apps/listings/models.py:469 apps/listings/translatable_db.py:51
+#: apps/listings/models.py:472 apps/listings/translatable_db.py:51
 msgid "Protective gear"
 msgstr ""
 
-#: apps/listings/models.py:470 apps/listings/translatable_db.py:51
+#: apps/listings/models.py:473 apps/listings/translatable_db.py:51
 msgid "Boots"
 msgstr ""
 
-#: apps/listings/models.py:471 apps/listings/translatable_db.py:50
+#: apps/listings/models.py:474 apps/listings/translatable_db.py:50
 msgid "Pants"
 msgstr ""
 
-#: apps/listings/models.py:472
+#: apps/listings/models.py:475
 msgid "Suit / Combination"
 msgstr ""
 
-#: apps/listings/models.py:473
+#: apps/listings/models.py:476
 msgid "Bag / Backpack"
 msgstr ""
 
-#: apps/listings/models.py:474 apps/listings/translatable_db.py:50
+#: apps/listings/models.py:477 apps/listings/translatable_db.py:50
 msgid "Gloves"
 msgstr ""
 
-#: apps/listings/models.py:475
+#: apps/listings/models.py:478
 msgid "Jacket"
 msgstr ""
 
-#: apps/listings/models.py:482 apps/listings/models.py:494
-#: apps/listings/models.py:502 apps/listings/models.py:509
-#: apps/listings/models.py:514 apps/listings/models.py:522
-#: apps/listings/models.py:530 apps/listings/models.py:538
-#: apps/listings/models.py:835 apps/listings/models.py:940
-#: apps/listings/models.py:1048 apps/listings/models.py:1062
-#: apps/listings/models.py:1112 apps/listings/models.py:1124
-#: apps/listings/models.py:1198 apps/listings/models.py:1351
+#: apps/listings/models.py:485 apps/listings/models.py:497
+#: apps/listings/models.py:505 apps/listings/models.py:512
+#: apps/listings/models.py:517 apps/listings/models.py:525
+#: apps/listings/models.py:533 apps/listings/models.py:541
+#: apps/listings/models.py:838 apps/listings/models.py:943
+#: apps/listings/models.py:1051 apps/listings/models.py:1065
+#: apps/listings/models.py:1115 apps/listings/models.py:1127
+#: apps/listings/models.py:1201 apps/listings/models.py:1354
 #: templates/listings/agriculture_listing_create.html:91
 #: templates/listings/bicycles_listing_create.html:74
 #: templates/listings/camping_listing_create.html:76
@@ -1761,682 +1761,682 @@ msgstr ""
 msgid "Kita"
 msgstr ""
 
-#: apps/listings/models.py:483
+#: apps/listings/models.py:486
 msgid "Uždaras (full face)"
 msgstr ""
 
-#: apps/listings/models.py:484
+#: apps/listings/models.py:487
 msgid "Integralinis"
 msgstr ""
 
-#: apps/listings/models.py:485
+#: apps/listings/models.py:488
 msgid "Atverčiamas (modular)"
 msgstr ""
 
-#: apps/listings/models.py:486
+#: apps/listings/models.py:489
 msgid "Atviras (jet)"
 msgstr ""
 
-#: apps/listings/models.py:487
+#: apps/listings/models.py:490
 msgid "Krosinis"
 msgstr ""
 
-#: apps/listings/models.py:489
+#: apps/listings/models.py:492
 msgid "Sportinis"
 msgstr ""
 
-#: apps/listings/models.py:490 apps/listings/models.py:500
+#: apps/listings/models.py:493 apps/listings/models.py:503
 msgid "Čioperistams"
 msgstr ""
 
-#: apps/listings/models.py:491
+#: apps/listings/models.py:494
 msgid "Dual sport / kelioninis"
 msgstr ""
 
-#: apps/listings/models.py:492
+#: apps/listings/models.py:495
 msgid "Pusinis"
 msgstr ""
 
-#: apps/listings/models.py:495
+#: apps/listings/models.py:498
 msgid "Sportinė"
 msgstr ""
 
-#: apps/listings/models.py:496
+#: apps/listings/models.py:499
 msgid "Kelioninė"
 msgstr ""
 
-#: apps/listings/models.py:497 apps/listings/models.py:520
+#: apps/listings/models.py:500 apps/listings/models.py:523
 #, fuzzy
 #| msgid "Miestas"
 msgid "Miesto"
 msgstr "City"
 
-#: apps/listings/models.py:498 apps/listings/models.py:519
+#: apps/listings/models.py:501 apps/listings/models.py:522
 msgid "Adventure"
 msgstr ""
 
-#: apps/listings/models.py:499
+#: apps/listings/models.py:502
 msgid "Krosinė"
 msgstr ""
 
-#: apps/listings/models.py:503 apps/listings/models.py:523
+#: apps/listings/models.py:506 apps/listings/models.py:526
 msgid "Sportinės"
 msgstr ""
 
-#: apps/listings/models.py:504 apps/listings/models.py:524
+#: apps/listings/models.py:507 apps/listings/models.py:527
 msgid "Kelioninės"
 msgstr ""
 
-#: apps/listings/models.py:505
+#: apps/listings/models.py:508
 msgid "Džinsai"
 msgstr ""
 
-#: apps/listings/models.py:506 apps/listings/models.py:525
+#: apps/listings/models.py:509 apps/listings/models.py:528
 msgid "Krosinės"
 msgstr ""
 
-#: apps/listings/models.py:507 apps/listings/models.py:512
-#: apps/listings/models.py:528
+#: apps/listings/models.py:510 apps/listings/models.py:515
+#: apps/listings/models.py:531
 msgid "Nuo lietaus"
 msgstr ""
 
-#: apps/listings/models.py:510
+#: apps/listings/models.py:513
 msgid "Vientisas"
 msgstr ""
 
-#: apps/listings/models.py:511
+#: apps/listings/models.py:514
 msgid "Dviejų dalių"
 msgstr ""
 
-#: apps/listings/models.py:515
+#: apps/listings/models.py:518
 #: templates/listings/partials/search_panel.html:457
 msgid "Sportiniai"
 msgstr ""
 
-#: apps/listings/models.py:516
+#: apps/listings/models.py:519
 msgid "Klasikiniai"
 msgstr ""
 
-#: apps/listings/models.py:517
+#: apps/listings/models.py:520
 msgid "Kelioniniai"
 msgstr ""
 
-#: apps/listings/models.py:518
+#: apps/listings/models.py:521
 msgid "Krosiniai"
 msgstr ""
 
-#: apps/listings/models.py:526
+#: apps/listings/models.py:529
 msgid "Vasarinės"
 msgstr ""
 
-#: apps/listings/models.py:527
+#: apps/listings/models.py:530
 msgid "Žieminės / šildomos"
 msgstr ""
 
-#: apps/listings/models.py:531
+#: apps/listings/models.py:534
 msgid "Ant bako"
 msgstr ""
 
-#: apps/listings/models.py:532
+#: apps/listings/models.py:535
 msgid "Ant sėdynės"
 msgstr ""
 
-#: apps/listings/models.py:533
+#: apps/listings/models.py:536
 msgid "Šoninės"
 msgstr ""
 
-#: apps/listings/models.py:534
+#: apps/listings/models.py:537
 msgid "Kuprinė"
 msgstr ""
 
-#: apps/listings/models.py:535
+#: apps/listings/models.py:538
 msgid "Bagažinė (top case)"
 msgstr ""
 
-#: apps/listings/models.py:536
+#: apps/listings/models.py:539
 msgid "Ritininis"
 msgstr ""
 
-#: apps/listings/models.py:539
+#: apps/listings/models.py:542
 msgid "Nugaros apsauga"
 msgstr ""
 
-#: apps/listings/models.py:540
+#: apps/listings/models.py:543
 msgid "Krūtinės apsauga"
 msgstr ""
 
-#: apps/listings/models.py:541
+#: apps/listings/models.py:544
 msgid "Kelių apsaugos"
 msgstr ""
 
-#: apps/listings/models.py:542
+#: apps/listings/models.py:545
 msgid "Alkūnių apsaugos"
 msgstr ""
 
-#: apps/listings/models.py:543
+#: apps/listings/models.py:546
 msgid "Kaklo apsauga"
 msgstr ""
 
-#: apps/listings/models.py:544
+#: apps/listings/models.py:547
 msgid "Oro pagalvės liemenė"
 msgstr ""
 
-#: apps/listings/models.py:552
+#: apps/listings/models.py:555
 msgid "XXS"
 msgstr ""
 
-#: apps/listings/models.py:552
+#: apps/listings/models.py:555
 msgid "XS"
 msgstr ""
 
-#: apps/listings/models.py:553
+#: apps/listings/models.py:556
 msgid "S"
 msgstr ""
 
-#: apps/listings/models.py:553
+#: apps/listings/models.py:556
 msgid "M"
 msgstr ""
 
-#: apps/listings/models.py:554 templates/listings/listing_select_plan.html:273
+#: apps/listings/models.py:557 templates/listings/listing_select_plan.html:273
 msgid "L"
 msgstr ""
 
-#: apps/listings/models.py:554
+#: apps/listings/models.py:557
 msgid "XL"
 msgstr ""
 
-#: apps/listings/models.py:555
+#: apps/listings/models.py:558
 msgid "XXL"
 msgstr ""
 
-#: apps/listings/models.py:555
+#: apps/listings/models.py:558
 msgid "XXXL"
 msgstr ""
 
-#: apps/listings/models.py:556
+#: apps/listings/models.py:559
 msgid "One size / Universal"
 msgstr ""
 
-#: apps/listings/models.py:564
+#: apps/listings/models.py:567
 msgid "Leather"
 msgstr ""
 
-#: apps/listings/models.py:565
+#: apps/listings/models.py:568
 msgid "Textile"
 msgstr ""
 
-#: apps/listings/models.py:566
+#: apps/listings/models.py:569
 msgid "Leather + Textile"
 msgstr ""
 
-#: apps/listings/models.py:567
+#: apps/listings/models.py:570
 msgid "Synthetic"
 msgstr ""
 
-#: apps/listings/models.py:568
+#: apps/listings/models.py:571
 msgid "Mesh"
 msgstr ""
 
-#: apps/listings/models.py:569
+#: apps/listings/models.py:572
 msgid "Plastic"
 msgstr ""
 
-#: apps/listings/models.py:576
+#: apps/listings/models.py:579
 msgid "Men"
 msgstr ""
 
-#: apps/listings/models.py:577
+#: apps/listings/models.py:580
 msgid "Women"
 msgstr ""
 
-#: apps/listings/models.py:578 templates/listings/motogear_advanced.html:84
+#: apps/listings/models.py:581 templates/listings/motogear_advanced.html:84
 #: templates/listings/partials/search_panel.html:545
 msgid "Unisex"
 msgstr ""
 
-#: apps/listings/models.py:579
+#: apps/listings/models.py:582
 msgid "Kids"
 msgstr ""
 
-#: apps/listings/models.py:585
+#: apps/listings/models.py:588
 msgid "No certification"
 msgstr ""
 
-#: apps/listings/models.py:587
+#: apps/listings/models.py:590
 msgid "ECE 22.06"
 msgstr ""
 
-#: apps/listings/models.py:588
+#: apps/listings/models.py:591
 msgid "ECE 22.05"
 msgstr ""
 
-#: apps/listings/models.py:589
+#: apps/listings/models.py:592
 msgid "DOT (FMVSS 218)"
 msgstr ""
 
-#: apps/listings/models.py:590
+#: apps/listings/models.py:593
 msgid "Snell M2020"
 msgstr ""
 
-#: apps/listings/models.py:591
+#: apps/listings/models.py:594
 msgid "Snell M2015"
 msgstr ""
 
-#: apps/listings/models.py:592
+#: apps/listings/models.py:595
 msgid "SHARP 5 stars"
 msgstr ""
 
-#: apps/listings/models.py:593
+#: apps/listings/models.py:596
 msgid "SHARP 4 stars"
 msgstr ""
 
-#: apps/listings/models.py:595
+#: apps/listings/models.py:598
 msgid "CE AAA (highest)"
 msgstr ""
 
-#: apps/listings/models.py:596
+#: apps/listings/models.py:599
 msgid "CE AA"
 msgstr ""
 
-#: apps/listings/models.py:597
+#: apps/listings/models.py:600
 msgid "CE A"
 msgstr ""
 
-#: apps/listings/models.py:598
+#: apps/listings/models.py:601
 msgid "CE B"
 msgstr ""
 
-#: apps/listings/models.py:599
+#: apps/listings/models.py:602
 msgid "CE Level 1 (impact)"
 msgstr ""
 
-#: apps/listings/models.py:600
+#: apps/listings/models.py:603
 msgid "CE Level 2 (impact)"
 msgstr ""
 
-#: apps/listings/models.py:601
+#: apps/listings/models.py:604
 msgid "EN certified"
 msgstr ""
 
-#: apps/listings/models.py:605 apps/listings/models.py:2763
+#: apps/listings/models.py:608 apps/listings/models.py:2766
 #: apps/listings/trucks_views.py:59 templates/listings/trucks_list.html:546
 msgid "United States"
 msgstr ""
 
-#: apps/listings/models.py:605 apps/listings/models.py:2763
+#: apps/listings/models.py:608 apps/listings/models.py:2766
 #: apps/listings/trucks_views.py:59
 msgid "Lithuania"
 msgstr ""
 
-#: apps/listings/models.py:606 apps/listings/models.py:2764
+#: apps/listings/models.py:609 apps/listings/models.py:2767
 #: apps/listings/trucks_views.py:60
 msgid "Latvia"
 msgstr ""
 
-#: apps/listings/models.py:606 apps/listings/models.py:2764
+#: apps/listings/models.py:609 apps/listings/models.py:2767
 #: apps/listings/trucks_views.py:60
 msgid "Estonia"
 msgstr ""
 
-#: apps/listings/models.py:607 apps/listings/models.py:2765
+#: apps/listings/models.py:610 apps/listings/models.py:2768
 #: apps/listings/trucks_views.py:60
 msgid "Poland"
 msgstr ""
 
-#: apps/listings/models.py:607 apps/listings/models.py:2765
+#: apps/listings/models.py:610 apps/listings/models.py:2768
 #: apps/listings/trucks_views.py:61
 msgid "Germany"
 msgstr ""
 
-#: apps/listings/models.py:608 apps/listings/models.py:2766
+#: apps/listings/models.py:611 apps/listings/models.py:2769
 #: apps/listings/trucks_views.py:61
 msgid "Netherlands"
 msgstr ""
 
-#: apps/listings/models.py:608 apps/listings/models.py:2766
+#: apps/listings/models.py:611 apps/listings/models.py:2769
 msgid "Belgium"
 msgstr ""
 
-#: apps/listings/models.py:609 apps/listings/models.py:2767
+#: apps/listings/models.py:612 apps/listings/models.py:2770
 msgid "France"
 msgstr ""
 
-#: apps/listings/models.py:609 apps/listings/models.py:2767
+#: apps/listings/models.py:612 apps/listings/models.py:2770
 msgid "Italy"
 msgstr ""
 
-#: apps/listings/models.py:610 apps/listings/models.py:2768
+#: apps/listings/models.py:613 apps/listings/models.py:2771
 msgid "Spain"
 msgstr ""
 
-#: apps/listings/models.py:610 apps/listings/models.py:2768
+#: apps/listings/models.py:613 apps/listings/models.py:2771
 msgid "Austria"
 msgstr ""
 
-#: apps/listings/models.py:611 apps/listings/models.py:2769
+#: apps/listings/models.py:614 apps/listings/models.py:2772
 msgid "Czech Republic"
 msgstr ""
 
-#: apps/listings/models.py:611 apps/listings/models.py:2769
+#: apps/listings/models.py:614 apps/listings/models.py:2772
 msgid "Slovakia"
 msgstr ""
 
-#: apps/listings/models.py:612 apps/listings/models.py:2770
+#: apps/listings/models.py:615 apps/listings/models.py:2773
 msgid "Hungary"
 msgstr ""
 
-#: apps/listings/models.py:612 apps/listings/models.py:2770
+#: apps/listings/models.py:615 apps/listings/models.py:2773
 msgid "Romania"
 msgstr ""
 
-#: apps/listings/models.py:613 apps/listings/models.py:2771
+#: apps/listings/models.py:616 apps/listings/models.py:2774
 msgid "Bulgaria"
 msgstr ""
 
-#: apps/listings/models.py:613 apps/listings/models.py:2771
+#: apps/listings/models.py:616 apps/listings/models.py:2774
 msgid "Sweden"
 msgstr ""
 
-#: apps/listings/models.py:614 apps/listings/models.py:2772
+#: apps/listings/models.py:617 apps/listings/models.py:2775
 msgid "Denmark"
 msgstr ""
 
-#: apps/listings/models.py:614 apps/listings/models.py:2772
+#: apps/listings/models.py:617 apps/listings/models.py:2775
 msgid "Finland"
 msgstr ""
 
-#: apps/listings/models.py:615 apps/listings/models.py:2773
+#: apps/listings/models.py:618 apps/listings/models.py:2776
 msgid "Norway"
 msgstr ""
 
-#: apps/listings/models.py:615 apps/listings/models.py:2773
+#: apps/listings/models.py:618 apps/listings/models.py:2776
 #: apps/listings/trucks_views.py:61
 msgid "United Kingdom"
 msgstr ""
 
-#: apps/listings/models.py:616 apps/listings/models.py:2774
+#: apps/listings/models.py:619 apps/listings/models.py:2777
 msgid "Ireland"
 msgstr ""
 
-#: apps/listings/models.py:616 apps/listings/models.py:2774
+#: apps/listings/models.py:619 apps/listings/models.py:2777
 msgid "Switzerland"
 msgstr ""
 
-#: apps/listings/models.py:697
+#: apps/listings/models.py:700
 msgid "Truck Model (free text)"
 msgstr ""
 
-#: apps/listings/models.py:707 templates/listings/listing_detail.html:1559
+#: apps/listings/models.py:710 templates/listings/listing_detail.html:1559
 #: templates/listings/listing_detail.html:1639
 #: templates/listings/trucks_listing_create.html:454
 msgid "Wheel formula"
 msgstr ""
 
-#: apps/listings/models.py:711 templates/listings/listing_detail.html:1647
+#: apps/listings/models.py:714 templates/listings/listing_detail.html:1647
 #: templates/listings/trucks_listing_create.html:489
 msgid "Mass interval"
 msgstr ""
 
-#: apps/listings/models.py:715 templates/listings/listing_detail.html:1767
+#: apps/listings/models.py:718 templates/listings/listing_detail.html:1767
 #: templates/listings/trucks_listing_create.html:615
 msgid "Front suspension"
 msgstr ""
 
-#: apps/listings/models.py:719 templates/listings/listing_detail.html:1773
+#: apps/listings/models.py:722 templates/listings/listing_detail.html:1773
 #: templates/listings/trucks_listing_create.html:625
 msgid "Rear suspension"
 msgstr ""
 
-#: apps/listings/models.py:724
+#: apps/listings/models.py:727
 msgid "Length (mm)"
 msgstr ""
 
-#: apps/listings/models.py:729 templates/listings/tyres_create.html:125
+#: apps/listings/models.py:732 templates/listings/tyres_create.html:125
 #: templates/listings/wheels_create.html:136
 msgid "Width (mm)"
 msgstr ""
 
-#: apps/listings/models.py:734
+#: apps/listings/models.py:737
 msgid "Height (mm)"
 msgstr ""
 
-#: apps/listings/models.py:738
+#: apps/listings/models.py:741
 msgid "Volume (m³)"
 msgstr ""
 
-#: apps/listings/models.py:743 apps/listings/models.py:2881
+#: apps/listings/models.py:746 apps/listings/models.py:2884
 msgid "Gross weight (kg)"
 msgstr ""
 
-#: apps/listings/models.py:748 apps/listings/models.py:2891
+#: apps/listings/models.py:751 apps/listings/models.py:2894
 msgid "Payload capacity (kg)"
 msgstr ""
 
-#: apps/listings/models.py:753 apps/listings/models.py:794
+#: apps/listings/models.py:756 apps/listings/models.py:797
 #: templates/listings/boats_listing_create.html:223
 msgid "Fuel tank capacity (L)"
 msgstr ""
 
-#: apps/listings/models.py:758 templates/listings/listing_detail.html:1759
+#: apps/listings/models.py:761 templates/listings/listing_detail.html:1759
 #: templates/listings/trucks_listing_create.html:609
 msgid "Sleeping seats"
 msgstr ""
 
-#: apps/listings/models.py:762 templates/listings/boats_listing_create.html:98
+#: apps/listings/models.py:765 templates/listings/boats_listing_create.html:98
 #: templates/listings/listing_detail.html:1781
 msgid "SDK number"
 msgstr ""
 
-#: apps/listings/models.py:767
+#: apps/listings/models.py:770
 msgid "Jet Ski / Personal watercraft"
 msgstr ""
 
-#: apps/listings/models.py:768
+#: apps/listings/models.py:771
 msgid "Kayak / Canoe"
 msgstr ""
 
-#: apps/listings/models.py:769
+#: apps/listings/models.py:772
 msgid "Surfboard / Windsurf"
 msgstr ""
 
-#: apps/listings/models.py:770
+#: apps/listings/models.py:773
 msgid "Yacht"
 msgstr ""
 
-#: apps/listings/models.py:771
+#: apps/listings/models.py:774
 msgid "Motorboat / Cabin cruiser"
 msgstr ""
 
-#: apps/listings/models.py:772
+#: apps/listings/models.py:775
 msgid "Boat / Ship"
 msgstr ""
 
-#: apps/listings/models.py:773
+#: apps/listings/models.py:776
 msgid "Dinghy / Raft"
 msgstr ""
 
-#: apps/listings/models.py:774
+#: apps/listings/models.py:777
 msgid "Boat engine"
 msgstr ""
 
-#: apps/listings/models.py:777
+#: apps/listings/models.py:780
 msgid "Boat type"
 msgstr ""
 
-#: apps/listings/models.py:785
+#: apps/listings/models.py:788
 msgid "Petrol 4-stroke outboard"
 msgstr ""
 
-#: apps/listings/models.py:786
+#: apps/listings/models.py:789
 msgid "Petrol 4-stroke inboard"
 msgstr ""
 
-#: apps/listings/models.py:787
+#: apps/listings/models.py:790
 msgid "Diesel inboard"
 msgstr ""
 
-#: apps/listings/models.py:788 apps/listings/models.py:2725
+#: apps/listings/models.py:791 apps/listings/models.py:2728
 #: apps/listings/translatable_db.py:67
 msgid "Electric"
 msgstr ""
 
-#: apps/listings/models.py:789
+#: apps/listings/models.py:792
 msgid "No engine"
 msgstr ""
 
-#: apps/listings/models.py:790
+#: apps/listings/models.py:793
 msgid "Petrol 2-stroke outboard"
 msgstr ""
 
-#: apps/listings/models.py:791
+#: apps/listings/models.py:794
 msgid "Petrol 2-stroke inboard"
 msgstr ""
 
-#: apps/listings/models.py:793
+#: apps/listings/models.py:796
 msgid "Boat engine type"
 msgstr ""
 
-#: apps/listings/models.py:795 templates/listings/boats_listing_create.html:234
+#: apps/listings/models.py:798 templates/listings/boats_listing_create.html:234
 msgid "Liftable engine"
 msgstr ""
 
-#: apps/listings/models.py:796 templates/listings/boats_listing_create.html:238
+#: apps/listings/models.py:799 templates/listings/boats_listing_create.html:238
 msgid "Propeller"
 msgstr ""
 
-#: apps/listings/models.py:797 templates/listings/boats_listing_create.html:242
+#: apps/listings/models.py:800 templates/listings/boats_listing_create.html:242
 msgid "Water turbine"
 msgstr ""
 
-#: apps/listings/models.py:806 apps/listings/models.py:1251
+#: apps/listings/models.py:809 apps/listings/models.py:1254
 msgid "Priekaba"
 msgstr ""
 
-#: apps/listings/models.py:807
+#: apps/listings/models.py:810
 msgid "Puspriekabė"
 msgstr ""
 
-#: apps/listings/models.py:808
+#: apps/listings/models.py:811
 msgid "Lengvojo automobilio priekaba"
 msgstr ""
 
-#: apps/listings/models.py:814
+#: apps/listings/models.py:817
 msgid "Automobilinė priekaba"
 msgstr ""
 
-#: apps/listings/models.py:815
+#: apps/listings/models.py:818
 msgid "Automobiliui vežti"
 msgstr ""
 
-#: apps/listings/models.py:816
+#: apps/listings/models.py:819
 msgid "Automobilvežio"
 msgstr ""
 
-#: apps/listings/models.py:817
+#: apps/listings/models.py:820
 msgid "Betonvežio"
 msgstr ""
 
-#: apps/listings/models.py:818
+#: apps/listings/models.py:821
 msgid "Bortinė"
 msgstr ""
 
-#: apps/listings/models.py:819
+#: apps/listings/models.py:822
 msgid "Bortinė su tentu"
 msgstr ""
 
-#: apps/listings/models.py:820
+#: apps/listings/models.py:823
 msgid "Cisterninė"
 msgstr ""
 
-#: apps/listings/models.py:821
+#: apps/listings/models.py:824
 msgid "Gyvuliams vežti"
 msgstr ""
 
-#: apps/listings/models.py:822
+#: apps/listings/models.py:825
 msgid "Izoterminis kėbulas"
 msgstr ""
 
-#: apps/listings/models.py:823
+#: apps/listings/models.py:826
 msgid "Keičiamas kėbulas"
 msgstr ""
 
-#: apps/listings/models.py:824
+#: apps/listings/models.py:827
 msgid "Konteinerių važiuoklė"
 msgstr ""
 
-#: apps/listings/models.py:825
+#: apps/listings/models.py:828
 msgid "Krovininė"
 msgstr ""
 
-#: apps/listings/models.py:826
+#: apps/listings/models.py:829
 msgid "Miškavežio"
 msgstr ""
 
-#: apps/listings/models.py:827
+#: apps/listings/models.py:830
 msgid "Motociklų priekabos"
 msgstr ""
 
-#: apps/listings/models.py:828
+#: apps/listings/models.py:831
 msgid "Platforma"
 msgstr ""
 
-#: apps/listings/models.py:829
+#: apps/listings/models.py:832
 msgid "Šaldytuvas"
 msgstr ""
 
-#: apps/listings/models.py:830
+#: apps/listings/models.py:833
 msgid "Savivartė"
 msgstr ""
 
-#: apps/listings/models.py:831
+#: apps/listings/models.py:834
 msgid "Tentinė"
 msgstr ""
 
-#: apps/listings/models.py:832
+#: apps/listings/models.py:835
 msgid "Traktoriaus priekaba"
 msgstr ""
 
-#: apps/listings/models.py:833
+#: apps/listings/models.py:836
 msgid "Turistinė"
 msgstr ""
 
-#: apps/listings/models.py:834
+#: apps/listings/models.py:837
 msgid "Vandens transporto"
 msgstr ""
 
-#: apps/listings/models.py:839
+#: apps/listings/models.py:842
 msgid "1 ašis"
 msgstr ""
 
-#: apps/listings/models.py:840
+#: apps/listings/models.py:843
 msgid "2 ašys"
 msgstr ""
 
-#: apps/listings/models.py:841
+#: apps/listings/models.py:844
 msgid "3 ašys"
 msgstr ""
 
-#: apps/listings/models.py:842
+#: apps/listings/models.py:845
 msgid ">3 ašių"
 msgstr ""
 
-#: apps/listings/models.py:847 apps/listings/models.py:1057
+#: apps/listings/models.py:850 apps/listings/models.py:1060
 msgid "Mechaninė"
 msgstr ""
 
-#: apps/listings/models.py:848
+#: apps/listings/models.py:851
 msgid "Pneumatinė"
 msgstr ""
 
-#: apps/listings/models.py:849
+#: apps/listings/models.py:852
 msgid "Pneumatinė (pakeliama)"
 msgstr ""
 
-#: apps/listings/models.py:854 apps/listings/models.py:950
-#: apps/listings/models.py:1067 apps/listings/models.py:1129
-#: apps/listings/models.py:1179 apps/listings/models.py:1203
-#: apps/listings/models.py:1255 apps/listings/models.py:1355
-#: apps/listings/models.py:1394
+#: apps/listings/models.py:857 apps/listings/models.py:953
+#: apps/listings/models.py:1070 apps/listings/models.py:1132
+#: apps/listings/models.py:1182 apps/listings/models.py:1206
+#: apps/listings/models.py:1258 apps/listings/models.py:1358
+#: apps/listings/models.py:1397
 #: templates/listings/agriculture_listing_create.html:72
 #: templates/listings/bicycles_listing_create.html:56
 #: templates/listings/camping_listing_create.html:57
@@ -2467,7 +2467,7 @@ msgstr ""
 msgid "Tipas"
 msgstr "Type"
 
-#: apps/listings/models.py:858 templates/listings/listing_detail.html:1332
+#: apps/listings/models.py:861 templates/listings/listing_detail.html:1332
 #: templates/listings/listing_detail.html:1383
 #: templates/listings/partials/search_panel.html:805
 #: templates/listings/partials/search_panel.html:918
@@ -2475,10 +2475,10 @@ msgstr "Type"
 msgid "Paskirtis"
 msgstr "Purpose"
 
-#: apps/listings/models.py:861 apps/listings/models.py:957
-#: apps/listings/models.py:1074 apps/listings/models.py:1132
-#: apps/listings/models.py:1182 apps/listings/models.py:1206
-#: apps/listings/models.py:1258
+#: apps/listings/models.py:864 apps/listings/models.py:960
+#: apps/listings/models.py:1077 apps/listings/models.py:1135
+#: apps/listings/models.py:1185 apps/listings/models.py:1209
+#: apps/listings/models.py:1261
 #: templates/listings/agriculture_listing_create.html:82
 #: templates/listings/camping_listing_create.html:67
 #: templates/listings/construction_listing_create.html:66
@@ -2506,8 +2506,8 @@ msgstr "Purpose"
 msgid "Markė"
 msgstr "Brand"
 
-#: apps/listings/models.py:864 apps/listings/models.py:960
-#: apps/listings/models.py:1077
+#: apps/listings/models.py:867 apps/listings/models.py:963
+#: apps/listings/models.py:1080
 #: templates/listings/agriculture_listing_create.html:103
 #: templates/listings/bicycles_listing_create.html:85
 #: templates/listings/camping_listing_create.html:88
@@ -2541,240 +2541,240 @@ msgstr "Brand"
 msgid "Modelis"
 msgstr "Model"
 
-#: apps/listings/models.py:868 templates/listings/listing_detail.html:1403
+#: apps/listings/models.py:871 templates/listings/listing_detail.html:1403
 #: templates/listings/trailers_listing_create.html:123
 msgid "Bendras ratų skaičius"
 msgstr ""
 
-#: apps/listings/models.py:872
+#: apps/listings/models.py:875
 #: templates/listings/trailers_listing_create.html:133
 msgid "Ašys (gamintojas)"
 msgstr ""
 
-#: apps/listings/models.py:876 templates/listings/listing_detail.html:1346
+#: apps/listings/models.py:879 templates/listings/listing_detail.html:1346
 #: templates/listings/listing_detail.html:1395
 #: templates/listings/partials/search_panel.html:1055
 #: templates/listings/trailers_listing_create.html:143
 msgid "Ašių skaičius"
 msgstr ""
 
-#: apps/listings/models.py:880
+#: apps/listings/models.py:883
 msgid "1 ašies pakabos tipas"
 msgstr ""
 
-#: apps/listings/models.py:881
+#: apps/listings/models.py:884
 msgid "1 ašies padangų likutis %"
 msgstr ""
 
-#: apps/listings/models.py:882
+#: apps/listings/models.py:885
 msgid "1 ašies padangų išmatavimai"
 msgstr ""
 
-#: apps/listings/models.py:884
+#: apps/listings/models.py:887
 msgid "2 ašies pakabos tipas"
 msgstr ""
 
-#: apps/listings/models.py:885
+#: apps/listings/models.py:888
 msgid "2 ašies padangų likutis %"
 msgstr ""
 
-#: apps/listings/models.py:886
+#: apps/listings/models.py:889
 msgid "2 ašies padangų išmatavimai"
 msgstr ""
 
-#: apps/listings/models.py:888
+#: apps/listings/models.py:891
 msgid "3 ašies pakabos tipas"
 msgstr ""
 
-#: apps/listings/models.py:889
+#: apps/listings/models.py:892
 msgid "3 ašies padangų likutis %"
 msgstr ""
 
-#: apps/listings/models.py:890
+#: apps/listings/models.py:893
 msgid "3 ašies padangų išmatavimai"
 msgstr ""
 
-#: apps/listings/models.py:899
+#: apps/listings/models.py:902
 msgid "Akėčios"
 msgstr ""
 
-#: apps/listings/models.py:900
+#: apps/listings/models.py:903
 msgid "Bulvių kasamosios"
 msgstr ""
 
-#: apps/listings/models.py:901 apps/listings/models.py:992
+#: apps/listings/models.py:904 apps/listings/models.py:995
 msgid "Buldozeris"
 msgstr ""
 
-#: apps/listings/models.py:902
+#: apps/listings/models.py:905
 msgid "Ekskavatorius"
 msgstr ""
 
-#: apps/listings/models.py:903 apps/listings/models.py:999
+#: apps/listings/models.py:906 apps/listings/models.py:1002
 msgid "Greideris"
 msgstr ""
 
-#: apps/listings/models.py:904
+#: apps/listings/models.py:907
 msgid "Grūdų valymo įranga"
 msgstr ""
 
-#: apps/listings/models.py:905
+#: apps/listings/models.py:908
 msgid "Grūdų džiovinimo įranga"
 msgstr ""
 
-#: apps/listings/models.py:906
+#: apps/listings/models.py:909
 msgid "Grūdų sandėliavimo įranga"
 msgstr ""
 
-#: apps/listings/models.py:907
+#: apps/listings/models.py:910
 msgid "Grūdų transportavimo įranga"
 msgstr ""
 
-#: apps/listings/models.py:908
+#: apps/listings/models.py:911
 msgid "Kombainas"
 msgstr ""
 
-#: apps/listings/models.py:909 apps/listings/models.py:1104
+#: apps/listings/models.py:912 apps/listings/models.py:1107
 msgid "Krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:910
+#: apps/listings/models.py:913
 msgid "Kultivatorius"
 msgstr ""
 
-#: apps/listings/models.py:911 apps/listings/models.py:1009
-#: apps/listings/models.py:1164
+#: apps/listings/models.py:914 apps/listings/models.py:1012
+#: apps/listings/models.py:1167
 msgid "Manipuliatorius"
 msgstr ""
 
-#: apps/listings/models.py:912 apps/listings/models.py:1010
+#: apps/listings/models.py:915 apps/listings/models.py:1013
 msgid "Mini ekskavatorius"
 msgstr ""
 
-#: apps/listings/models.py:913
+#: apps/listings/models.py:916
 msgid "Motoblokas"
 msgstr ""
 
-#: apps/listings/models.py:914
+#: apps/listings/models.py:917
 msgid "Traktorius"
 msgstr ""
 
-#: apps/listings/models.py:915
+#: apps/listings/models.py:918
 msgid "Žoliapjovė"
 msgstr ""
 
-#: apps/listings/models.py:916
+#: apps/listings/models.py:919
 msgid "Grėbliai"
 msgstr ""
 
-#: apps/listings/models.py:917
+#: apps/listings/models.py:920
 msgid "Lėkštiniai skutikai"
 msgstr ""
 
-#: apps/listings/models.py:918
+#: apps/listings/models.py:921
 msgid "Mėšlo kratytuvai"
 msgstr ""
 
-#: apps/listings/models.py:919
+#: apps/listings/models.py:922
 msgid "Pašarų dalytuvai"
 msgstr ""
 
-#: apps/listings/models.py:920
+#: apps/listings/models.py:923
 msgid "Pienininkystės ir fermų įrengimai"
 msgstr ""
 
-#: apps/listings/models.py:921
+#: apps/listings/models.py:924
 msgid "Pjaunamosios"
 msgstr ""
 
-#: apps/listings/models.py:922
+#: apps/listings/models.py:925
 msgid "Plūgai"
 msgstr ""
 
-#: apps/listings/models.py:923
+#: apps/listings/models.py:926
 msgid "Presai"
 msgstr ""
 
-#: apps/listings/models.py:924
+#: apps/listings/models.py:927
 msgid "Purkštuvai pakabinami"
 msgstr ""
 
-#: apps/listings/models.py:925
+#: apps/listings/models.py:928
 msgid "Purkštuvai prikabinami"
 msgstr ""
 
-#: apps/listings/models.py:926
+#: apps/listings/models.py:929
 msgid "Ražieniniai skutikai"
 msgstr ""
 
-#: apps/listings/models.py:927
+#: apps/listings/models.py:930
 msgid "Rinktuvai"
 msgstr ""
 
-#: apps/listings/models.py:928
+#: apps/listings/models.py:931
 msgid "Savaeigės pjaunamosios-smulkintuvai"
 msgstr ""
 
-#: apps/listings/models.py:929
+#: apps/listings/models.py:932
 msgid "Sėjamosios"
 msgstr ""
 
-#: apps/listings/models.py:930
+#: apps/listings/models.py:933
 msgid "Sėjos agregatai"
 msgstr ""
 
-#: apps/listings/models.py:931
+#: apps/listings/models.py:934
 msgid "Smulkintuvai-pjaunamosios"
 msgstr ""
 
-#: apps/listings/models.py:932
+#: apps/listings/models.py:935
 msgid "Sniego peilis"
 msgstr ""
 
-#: apps/listings/models.py:933
+#: apps/listings/models.py:936
 msgid "Sodo ir parko technika"
 msgstr ""
 
-#: apps/listings/models.py:934
+#: apps/listings/models.py:937
 msgid "Srutų laistytuvai"
 msgstr ""
 
-#: apps/listings/models.py:935
+#: apps/listings/models.py:938
 msgid "Srutų siurbliai"
 msgstr ""
 
-#: apps/listings/models.py:936
+#: apps/listings/models.py:939
 msgid "Trąšų barstytuvai"
 msgstr ""
 
-#: apps/listings/models.py:937
+#: apps/listings/models.py:940
 msgid "Vartytuvai"
 msgstr ""
 
-#: apps/listings/models.py:938 apps/listings/models.py:1018
-#: apps/listings/models.py:1047
+#: apps/listings/models.py:941 apps/listings/models.py:1021
+#: apps/listings/models.py:1050
 msgid "Volai"
 msgstr ""
 
-#: apps/listings/models.py:939
+#: apps/listings/models.py:942
 msgid "Vyniotuvai"
 msgstr ""
 
-#: apps/listings/models.py:944
+#: apps/listings/models.py:947
 msgid "Padargas"
 msgstr ""
 
-#: apps/listings/models.py:945
+#: apps/listings/models.py:948
 msgid "Savaeigė"
 msgstr ""
 
-#: apps/listings/models.py:954
+#: apps/listings/models.py:957
 #: templates/listings/agriculture_listing_create.html:62
 #: templates/listings/listing_detail.html:1238
 msgid "Padargas / Savaeigė"
 msgstr ""
 
-#: apps/listings/models.py:965 templates/listings/listing_detail.html:798
+#: apps/listings/models.py:968 templates/listings/listing_detail.html:798
 #: templates/listings/listing_detail.html:848
 #: templates/listings/listing_detail.html:963
 #: templates/listings/listing_detail.html:1056
@@ -2784,252 +2784,252 @@ msgstr ""
 msgid "Motovalandos"
 msgstr ""
 
-#: apps/listings/models.py:969
+#: apps/listings/models.py:972
 #: templates/listings/agriculture_listing_create.html:194
 msgid "Darbinis plotis (m)"
 msgstr ""
 
-#: apps/listings/models.py:984
+#: apps/listings/models.py:987
 msgid "Akmens smulkinimo mašina"
 msgstr ""
 
-#: apps/listings/models.py:985
+#: apps/listings/models.py:988
 msgid "Asenizacinė mašina"
 msgstr ""
 
-#: apps/listings/models.py:986
+#: apps/listings/models.py:989
 msgid "Asfaloto klojimo mašinos"
 msgstr ""
 
-#: apps/listings/models.py:987
+#: apps/listings/models.py:990
 msgid "Automobilinis bokštelis"
 msgstr ""
 
-#: apps/listings/models.py:988
+#: apps/listings/models.py:991
 msgid "Automobilinis kranas"
 msgstr ""
 
-#: apps/listings/models.py:989
+#: apps/listings/models.py:992
 msgid "Automobilinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:990
+#: apps/listings/models.py:993
 msgid "Betono gamybos įrenginys"
 msgstr ""
 
-#: apps/listings/models.py:991
+#: apps/listings/models.py:994
 msgid "Betonvežis"
 msgstr ""
 
-#: apps/listings/models.py:993
+#: apps/listings/models.py:996
 msgid "Dumperis (savivartis)"
 msgstr ""
 
-#: apps/listings/models.py:994
+#: apps/listings/models.py:997
 msgid "Ekskavatorius krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:995
+#: apps/listings/models.py:998
 msgid "Ekskavatorius griovimo"
 msgstr ""
 
-#: apps/listings/models.py:996
+#: apps/listings/models.py:999
 msgid "Ekskavatorius ratinis"
 msgstr ""
 
-#: apps/listings/models.py:997
+#: apps/listings/models.py:1000
 msgid "Ekskavatorius vikšrinis"
 msgstr ""
 
-#: apps/listings/models.py:998
+#: apps/listings/models.py:1001
 msgid "Frontalinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1000
+#: apps/listings/models.py:1003
 msgid "Griebtuvas"
 msgstr ""
 
-#: apps/listings/models.py:1001 apps/listings/models.py:1032
+#: apps/listings/models.py:1004 apps/listings/models.py:1035
 msgid "Hidraulinės žirklės"
 msgstr ""
 
-#: apps/listings/models.py:1002
+#: apps/listings/models.py:1005
 msgid "Hidraulinis grąžtas"
 msgstr ""
 
-#: apps/listings/models.py:1003
+#: apps/listings/models.py:1006
 msgid "Hidraulinis kūjis"
 msgstr ""
 
-#: apps/listings/models.py:1004
+#: apps/listings/models.py:1007
 msgid "Kaušinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1005
+#: apps/listings/models.py:1008
 msgid "Kelkraščių priežiūros mašinos"
 msgstr ""
 
-#: apps/listings/models.py:1006
+#: apps/listings/models.py:1009
 msgid "Kelių tiesimo mašina"
 msgstr ""
 
-#: apps/listings/models.py:1007
+#: apps/listings/models.py:1010
 msgid "Kompresorius"
 msgstr ""
 
-#: apps/listings/models.py:1008
+#: apps/listings/models.py:1011
 msgid "Kranas"
 msgstr ""
 
-#: apps/listings/models.py:1011
+#: apps/listings/models.py:1014
 msgid "Mini krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1012
+#: apps/listings/models.py:1015
 msgid "Poliakalės"
 msgstr ""
 
-#: apps/listings/models.py:1013
+#: apps/listings/models.py:1016
 msgid "Skaldyklė"
 msgstr ""
 
-#: apps/listings/models.py:1014
+#: apps/listings/models.py:1017
 msgid "Skaldos rūšiavimo mašina"
 msgstr ""
 
-#: apps/listings/models.py:1015
+#: apps/listings/models.py:1018
 msgid "Tankinimo technika"
 msgstr ""
 
-#: apps/listings/models.py:1016
+#: apps/listings/models.py:1019
 msgid "Vibracinės plokštės"
 msgstr ""
 
-#: apps/listings/models.py:1017
+#: apps/listings/models.py:1020
 msgid "Vibrovolai"
 msgstr ""
 
-#: apps/listings/models.py:1019
+#: apps/listings/models.py:1022
 msgid "Žirklinis keltuvas"
 msgstr ""
 
-#: apps/listings/models.py:1020
+#: apps/listings/models.py:1023
 msgid "Žirklinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1021
+#: apps/listings/models.py:1024
 msgid "Vibro mašina"
 msgstr ""
 
-#: apps/listings/models.py:1026
+#: apps/listings/models.py:1029
 msgid "Barstytuvai"
 msgstr ""
 
-#: apps/listings/models.py:1027
+#: apps/listings/models.py:1030
 msgid "Betono maišyklės"
 msgstr ""
 
-#: apps/listings/models.py:1028
+#: apps/listings/models.py:1031
 msgid "Asfalto frezos"
 msgstr ""
 
-#: apps/listings/models.py:1029
+#: apps/listings/models.py:1032
 msgid "Gervės / kabliai"
 msgstr ""
 
-#: apps/listings/models.py:1030
+#: apps/listings/models.py:1033
 msgid "Greideriai"
 msgstr ""
 
-#: apps/listings/models.py:1031
+#: apps/listings/models.py:1034
 msgid "Griebtuvai"
 msgstr ""
 
-#: apps/listings/models.py:1033
+#: apps/listings/models.py:1036
 msgid "Hidrauliniai kūjai"
 msgstr ""
 
-#: apps/listings/models.py:1034
+#: apps/listings/models.py:1037
 msgid "Hidrauliniai gražtai"
 msgstr ""
 
-#: apps/listings/models.py:1035
+#: apps/listings/models.py:1038
 msgid "Kaušai"
 msgstr ""
 
-#: apps/listings/models.py:1036
+#: apps/listings/models.py:1039
 msgid "Kėlimo platformos"
 msgstr ""
 
-#: apps/listings/models.py:1037
+#: apps/listings/models.py:1040
 msgid "Kranai / manipuliatoriai"
 msgstr ""
 
-#: apps/listings/models.py:1038
+#: apps/listings/models.py:1041
 msgid "Palečių šakės"
 msgstr ""
 
-#: apps/listings/models.py:1039
+#: apps/listings/models.py:1042
 msgid "Sniego (buldozerio) peiliai"
 msgstr ""
 
-#: apps/listings/models.py:1040
+#: apps/listings/models.py:1043
 msgid "Sniego pūtikai"
 msgstr ""
 
-#: apps/listings/models.py:1041
+#: apps/listings/models.py:1044
 msgid "Pjūklai"
 msgstr ""
 
-#: apps/listings/models.py:1042
+#: apps/listings/models.py:1045
 msgid "Sijotuvai"
 msgstr ""
 
-#: apps/listings/models.py:1043
+#: apps/listings/models.py:1046
 msgid "Strėlės"
 msgstr ""
 
-#: apps/listings/models.py:1044
+#: apps/listings/models.py:1047
 msgid "Šluotos / šepečiai"
 msgstr ""
 
-#: apps/listings/models.py:1045
+#: apps/listings/models.py:1048
 msgid "Trupintuvai / smulkintuvai"
 msgstr ""
 
-#: apps/listings/models.py:1046
+#: apps/listings/models.py:1049
 msgid "Vikšrai"
 msgstr ""
 
-#: apps/listings/models.py:1055
+#: apps/listings/models.py:1058
 msgid "Hidraulinė–2 ratų"
 msgstr ""
 
-#: apps/listings/models.py:1056
+#: apps/listings/models.py:1059
 msgid "Hidraulinė–4x4"
 msgstr ""
 
-#: apps/listings/models.py:1058
+#: apps/listings/models.py:1061
 msgid "Automatinė"
 msgstr ""
 
-#: apps/listings/models.py:1059
+#: apps/listings/models.py:1062
 msgid "Elektromechaninė"
 msgstr ""
 
-#: apps/listings/models.py:1060
+#: apps/listings/models.py:1063
 msgid "Hidrodinaminė"
 msgstr ""
 
-#: apps/listings/models.py:1061
+#: apps/listings/models.py:1064
 msgid "Hidrostatinė"
 msgstr ""
 
-#: apps/listings/models.py:1071
+#: apps/listings/models.py:1074
 msgid "Priedo tipas"
 msgstr ""
 
-#: apps/listings/models.py:1081
+#: apps/listings/models.py:1084
 #: templates/listings/construction_listing_create.html:101
 #: templates/listings/forestry_listing_create.html:102
 #: templates/listings/listing_detail.html:832
@@ -3037,210 +3037,210 @@ msgstr ""
 msgid "Pavaros tipas"
 msgstr ""
 
-#: apps/listings/models.py:1085
+#: apps/listings/models.py:1088
 #: templates/listings/construction_attachment_create.html:124
 #: templates/listings/construction_listing_create.html:208
 #: templates/listings/forestry_listing_create.html:201
 msgid "Ilgis (m)"
 msgstr ""
 
-#: apps/listings/models.py:1086
+#: apps/listings/models.py:1089
 #: templates/listings/construction_attachment_create.html:130
 #: templates/listings/construction_listing_create.html:214
 #: templates/listings/forestry_listing_create.html:207
 msgid "Plotis (m)"
 msgstr ""
 
-#: apps/listings/models.py:1087
+#: apps/listings/models.py:1090
 #: templates/listings/construction_attachment_create.html:136
 #: templates/listings/construction_listing_create.html:220
 #: templates/listings/forestry_listing_create.html:213
 msgid "Aukštis (m)"
 msgstr ""
 
-#: apps/listings/models.py:1100
+#: apps/listings/models.py:1103
 msgid "Konteineriai"
 msgstr ""
 
-#: apps/listings/models.py:1101
+#: apps/listings/models.py:1104
 msgid "Alkūninis keltuvas"
 msgstr ""
 
-#: apps/listings/models.py:1102
+#: apps/listings/models.py:1105
 msgid "Ekskavatorinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1103
+#: apps/listings/models.py:1106
 msgid "Elektriniai vežimėliai"
 msgstr ""
 
-#: apps/listings/models.py:1105
+#: apps/listings/models.py:1108
 msgid "Palečių vyniotuvai"
 msgstr ""
 
-#: apps/listings/models.py:1106
+#: apps/listings/models.py:1109
 msgid "Sandėliavimo technika"
 msgstr ""
 
-#: apps/listings/models.py:1107
+#: apps/listings/models.py:1110
 msgid "Savaeigis stiebinis keltuvas"
 msgstr ""
 
-#: apps/listings/models.py:1108
+#: apps/listings/models.py:1111
 msgid "Savaeigis žirklinis keltuvas"
 msgstr ""
 
-#: apps/listings/models.py:1109
+#: apps/listings/models.py:1112
 msgid "Šakinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1110
+#: apps/listings/models.py:1113
 msgid "Teleskopinis krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1111
+#: apps/listings/models.py:1114
 msgid "Universalus krautuvas"
 msgstr ""
 
-#: apps/listings/models.py:1116
+#: apps/listings/models.py:1119
 msgid "Akumuliatorinis/elektrinis"
 msgstr ""
 
-#: apps/listings/models.py:1117
+#: apps/listings/models.py:1120
 msgid "Benzininis/dujinis"
 msgstr ""
 
-#: apps/listings/models.py:1118
+#: apps/listings/models.py:1121
 msgid "Benzininis"
 msgstr ""
 
-#: apps/listings/models.py:1119
+#: apps/listings/models.py:1122
 msgid "Dyzelininis/elektrinis"
 msgstr ""
 
-#: apps/listings/models.py:1120
+#: apps/listings/models.py:1123
 msgid "Dyzelininis"
 msgstr ""
 
-#: apps/listings/models.py:1121
+#: apps/listings/models.py:1124
 msgid "Dujinis"
 msgstr ""
 
-#: apps/listings/models.py:1122
+#: apps/listings/models.py:1125
 msgid "Rankinis/hidraulinis"
 msgstr ""
 
-#: apps/listings/models.py:1123
+#: apps/listings/models.py:1126
 msgid "Rankinis"
 msgstr ""
 
-#: apps/listings/models.py:1136 templates/listings/listing_detail.html:971
+#: apps/listings/models.py:1139 templates/listings/listing_detail.html:971
 #: templates/listings/loading_equipment_create.html:197
 msgid "Energijos šaltinis"
 msgstr ""
 
-#: apps/listings/models.py:1140
+#: apps/listings/models.py:1143
 #: templates/listings/loading_equipment_create.html:110
 msgid "Max kėlimo aukštis (m)"
 msgstr ""
 
-#: apps/listings/models.py:1144
+#: apps/listings/models.py:1147
 #: templates/listings/loading_equipment_create.html:206
 msgid "Kelplotis (m²)"
 msgstr ""
 
-#: apps/listings/models.py:1148
+#: apps/listings/models.py:1151
 #: templates/listings/loading_equipment_create.html:230
 #: templates/listings/rental_heavy_create.html:159
 msgid "Šakių / strėlės ilgis (m)"
 msgstr ""
 
-#: apps/listings/models.py:1161
+#: apps/listings/models.py:1164
 msgid "Gervė"
 msgstr ""
 
-#: apps/listings/models.py:1162
+#: apps/listings/models.py:1165
 msgid "Kapoklė"
 msgstr ""
 
-#: apps/listings/models.py:1163
+#: apps/listings/models.py:1166
 msgid "Krūmapjovė"
 msgstr ""
 
-#: apps/listings/models.py:1165
+#: apps/listings/models.py:1168
 msgid "Medkirtė"
 msgstr ""
 
-#: apps/listings/models.py:1166
+#: apps/listings/models.py:1169
 msgid "Medvežė"
 msgstr ""
 
-#: apps/listings/models.py:1167
+#: apps/listings/models.py:1170
 msgid "Miško traktorius"
 msgstr ""
 
-#: apps/listings/models.py:1168
+#: apps/listings/models.py:1171
 msgid "Miškovežio priekaba"
 msgstr ""
 
-#: apps/listings/models.py:1169
+#: apps/listings/models.py:1172
 msgid "Miškovežio puspriekabė"
 msgstr ""
 
-#: apps/listings/models.py:1170
+#: apps/listings/models.py:1173
 msgid "Miškovežis"
 msgstr ""
 
-#: apps/listings/models.py:1171
+#: apps/listings/models.py:1174
 msgid "Motorinis pjūklas"
 msgstr ""
 
-#: apps/listings/models.py:1172
+#: apps/listings/models.py:1175
 msgid "Pjovimo galvutė"
 msgstr ""
 
-#: apps/listings/models.py:1173
+#: apps/listings/models.py:1176
 msgid "Savikrovė Miško priekaba"
 msgstr ""
 
-#: apps/listings/models.py:1174
+#: apps/listings/models.py:1177
 msgid "Medienos smulkintuvas"
 msgstr ""
 
-#: apps/listings/models.py:1196 apps/listings/models.py:1244
+#: apps/listings/models.py:1199 apps/listings/models.py:1247
 msgid "Turistinis automobilis"
 msgstr ""
 
-#: apps/listings/models.py:1197 apps/listings/models.py:1243
+#: apps/listings/models.py:1200 apps/listings/models.py:1246
 msgid "Prikabinamas namelis"
 msgstr ""
 
-#: apps/listings/models.py:1209
+#: apps/listings/models.py:1212
 #: templates/listings/camping_listing_create.html:138
 #: templates/listings/listing_detail.html:644
 msgid "Tinka su B kat. teisėmis"
 msgstr ""
 
-#: apps/listings/models.py:1215
+#: apps/listings/models.py:1218
 #: templates/listings/camping_listing_create.html:271
 #: templates/listings/listing_detail.html:709
 msgid "Pavarų skaičius"
 msgstr ""
 
-#: apps/listings/models.py:1221
+#: apps/listings/models.py:1224
 msgid "Padangų likutis %"
 msgstr ""
 
-#: apps/listings/models.py:1238 apps/listings/views.py:543
+#: apps/listings/models.py:1241 apps/listings/views.py:543
 msgid "Autobusas"
 msgstr ""
 
-#: apps/listings/models.py:1239
+#: apps/listings/models.py:1242
 #: templates/listings/partials/search_panel.html:1013
 msgid "Vandens transportas"
 msgstr "Watercraft"
 
-#: apps/listings/models.py:1240 apps/listings/translatable_db.py:48
+#: apps/listings/models.py:1243 apps/listings/translatable_db.py:48
 #: templates/listings/partials/search_panel.html:1269
 #: templates/listings/rental_moto_create.html:25
 #, fuzzy
@@ -3248,35 +3248,35 @@ msgstr "Watercraft"
 msgid "Motociklų nuoma"
 msgstr "Motorcycles"
 
-#: apps/listings/models.py:1241
+#: apps/listings/models.py:1244
 msgid "Keleivinis mikroautobusas"
 msgstr ""
 
-#: apps/listings/models.py:1242
+#: apps/listings/models.py:1245
 msgid "Krovininis mikroautobusas"
 msgstr ""
 
-#: apps/listings/models.py:1246
+#: apps/listings/models.py:1249
 msgid "Autotraukinys"
 msgstr ""
 
-#: apps/listings/models.py:1247
+#: apps/listings/models.py:1250
 msgid "Žemės ūkio, statybos transportas"
 msgstr ""
 
-#: apps/listings/models.py:1248
+#: apps/listings/models.py:1251
 msgid "Sunkvežimis"
 msgstr ""
 
-#: apps/listings/models.py:1249
+#: apps/listings/models.py:1252
 msgid "Vilkikas"
 msgstr ""
 
-#: apps/listings/models.py:1250
+#: apps/listings/models.py:1253
 msgid "Sandėliavimo, krovimo technika"
 msgstr ""
 
-#: apps/listings/models.py:1262 templates/listings/listing_detail.html:468
+#: apps/listings/models.py:1265 templates/listings/listing_detail.html:468
 #: templates/listings/rental_car_create.html:158
 #: templates/listings/rental_heavy_create.html:108
 #: templates/listings/rental_minibus_create.html:120
@@ -3284,198 +3284,198 @@ msgstr ""
 msgid "Nuomos kaina valandai"
 msgstr ""
 
-#: apps/listings/models.py:1267 templates/listings/rental_car_create.html:141
+#: apps/listings/models.py:1270 templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
 msgstr ""
 
-#: apps/listings/models.py:1269 templates/listings/rental_car_create.html:224
+#: apps/listings/models.py:1272 templates/listings/rental_car_create.html:224
 #: templates/listings/rental_moto_create.html:177
 msgid "Metalikas"
 msgstr ""
 
-#: apps/listings/models.py:1285
+#: apps/listings/models.py:1288
 msgid "Apsaugos sistemų montavimas"
 msgstr ""
 
-#: apps/listings/models.py:1286 apps/listings/translatable_db.py:22
+#: apps/listings/models.py:1289 apps/listings/translatable_db.py:22
 msgid "Automobilių supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1287
+#: apps/listings/models.py:1290
 msgid "Autoservisų įrangos aptarnavimas"
 msgstr ""
 
-#: apps/listings/models.py:1288
+#: apps/listings/models.py:1291
 msgid "Dalių supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1289
+#: apps/listings/models.py:1292
 msgid "Dujų įrangos montavimas"
 msgstr ""
 
-#: apps/listings/models.py:1290
+#: apps/listings/models.py:1293
 msgid "Garso aparatūros montavimas"
 msgstr ""
 
-#: apps/listings/models.py:1291
+#: apps/listings/models.py:1294
 msgid "Katalizatorių supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1292
+#: apps/listings/models.py:1295
 msgid "Keleivių vežimas"
 msgstr ""
 
-#: apps/listings/models.py:1293
+#: apps/listings/models.py:1296
 msgid "Kitos paslaugos"
 msgstr ""
 
-#: apps/listings/models.py:1294
+#: apps/listings/models.py:1297
 msgid "Krovinių gabenimas"
 msgstr ""
 
-#: apps/listings/models.py:1295
+#: apps/listings/models.py:1298
 msgid "Lengvųjų automobilių remontas"
 msgstr ""
 
-#: apps/listings/models.py:1296
+#: apps/listings/models.py:1299
 msgid "Motociklų motorolerių remontas"
 msgstr ""
 
-#: apps/listings/models.py:1297
+#: apps/listings/models.py:1300
 msgid "Motociklų supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1298
+#: apps/listings/models.py:1301
 msgid "Padangų supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1299
+#: apps/listings/models.py:1302
 msgid "Pagalba kelyje"
 msgstr ""
 
-#: apps/listings/models.py:1300
+#: apps/listings/models.py:1303
 msgid "Plovimo paslaugos"
 msgstr ""
 
-#: apps/listings/models.py:1301
+#: apps/listings/models.py:1304
 msgid "Ratlankių supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1302
+#: apps/listings/models.py:1305
 msgid "Ratų montavimas, padangų remontas"
 msgstr ""
 
-#: apps/listings/models.py:1303
+#: apps/listings/models.py:1306
 msgid "Stiklų tonavimas, keitimas"
 msgstr ""
 
-#: apps/listings/models.py:1304
+#: apps/listings/models.py:1307
 msgid "Sunkiosios technikos remontas"
 msgstr ""
 
-#: apps/listings/models.py:1305
+#: apps/listings/models.py:1308
 msgid "Sunkvežimių supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1306
+#: apps/listings/models.py:1309
 msgid "Tiuning"
 msgstr ""
 
-#: apps/listings/models.py:1307
+#: apps/listings/models.py:1310
 msgid "Žemės ūkio technikos supirkimas"
 msgstr ""
 
-#: apps/listings/models.py:1308
+#: apps/listings/models.py:1311
 msgid "Žemės ūkio technikos remontas"
 msgstr ""
 
-#: apps/listings/models.py:1312 templates/listings/listing_detail.html:374
+#: apps/listings/models.py:1315 templates/listings/listing_detail.html:374
 #: templates/listings/services_listing_create.html:55
 msgid "Paslaugos tipas"
 msgstr ""
 
-#: apps/listings/models.py:1331
+#: apps/listings/models.py:1334
 msgid "Automobilių signalizacija"
 msgstr ""
 
-#: apps/listings/models.py:1332
+#: apps/listings/models.py:1335
 msgid "CD grotuvas"
 msgstr ""
 
-#: apps/listings/models.py:1333
+#: apps/listings/models.py:1336
 msgid "CD keitiklis"
 msgstr ""
 
-#: apps/listings/models.py:1334
+#: apps/listings/models.py:1337
 msgid "CD/MP3 grotuvas"
 msgstr ""
 
-#: apps/listings/models.py:1335
+#: apps/listings/models.py:1338
 msgid "DVD grotuvas"
 msgstr ""
 
-#: apps/listings/models.py:1336
+#: apps/listings/models.py:1339
 msgid "Garsiakalbis"
 msgstr ""
 
-#: apps/listings/models.py:1337
+#: apps/listings/models.py:1340
 msgid "Garso stiprintuvas"
 msgstr ""
 
-#: apps/listings/models.py:1338
+#: apps/listings/models.py:1341
 msgid "Grotuvas su navigacija"
 msgstr ""
 
-#: apps/listings/models.py:1339
+#: apps/listings/models.py:1342
 msgid "Kondensatoriai"
 msgstr ""
 
-#: apps/listings/models.py:1340
+#: apps/listings/models.py:1343
 msgid "Laidai/Laidų komplektai"
 msgstr ""
 
-#: apps/listings/models.py:1341
+#: apps/listings/models.py:1344
 msgid "Monitoriai"
 msgstr ""
 
-#: apps/listings/models.py:1342
+#: apps/listings/models.py:1345
 msgid "MC automagnetola"
 msgstr ""
 
-#: apps/listings/models.py:1343
+#: apps/listings/models.py:1346
 msgid "Motociklų signalizacija"
 msgstr ""
 
-#: apps/listings/models.py:1344
+#: apps/listings/models.py:1347
 msgid "Multimedia"
 msgstr ""
 
-#: apps/listings/models.py:1345
+#: apps/listings/models.py:1348
 msgid "Navigacija žemės ūkio technikai"
 msgstr ""
 
-#: apps/listings/models.py:1346
+#: apps/listings/models.py:1349
 msgid "Navigacija, GPS"
 msgstr ""
 
-#: apps/listings/models.py:1347
+#: apps/listings/models.py:1350
 msgid "Parkavimo sistema"
 msgstr ""
 
-#: apps/listings/models.py:1348
+#: apps/listings/models.py:1351
 msgid "Radijas/CB radijo stotelės"
 msgstr ""
 
-#: apps/listings/models.py:1349
+#: apps/listings/models.py:1352
 msgid "Video registratorius"
 msgstr ""
 
-#: apps/listings/models.py:1350
+#: apps/listings/models.py:1353
 msgid "Žemų dažnių garsiakalbis"
 msgstr ""
 
-#: apps/listings/models.py:1358 apps/listings/models.py:1397
+#: apps/listings/models.py:1361 apps/listings/models.py:1400
 #: templates/listings/bicycles_listing_create.html:65
 #: templates/listings/electronics_listing_create.html:68
 #: templates/listings/listing_detail.html:158
@@ -3485,87 +3485,87 @@ msgstr ""
 msgid "Gamintojas"
 msgstr "Manufacturer"
 
-#: apps/listings/models.py:1363
+#: apps/listings/models.py:1366
 #: templates/listings/electronics_listing_create.html:116
 #: templates/listings/listing_detail.html:276
 #: templates/listings/listing_detail.html:323
 msgid "Kanalų skaičius"
 msgstr ""
 
-#: apps/listings/models.py:1368
+#: apps/listings/models.py:1371
 #: templates/listings/electronics_listing_create.html:98
 msgid "Galingumas W"
 msgstr ""
 
-#: apps/listings/models.py:1384
+#: apps/listings/models.py:1387
 msgid "Elektrinis paspirtukas"
 msgstr ""
 
-#: apps/listings/models.py:1385
+#: apps/listings/models.py:1388
 msgid "Elektrinis riedis"
 msgstr ""
 
-#: apps/listings/models.py:1386
+#: apps/listings/models.py:1389
 msgid "Elektrinis dviratis"
 msgstr ""
 
-#: apps/listings/models.py:1389
+#: apps/listings/models.py:1392
 msgid "Pilnavidurės"
 msgstr ""
 
-#: apps/listings/models.py:1390
+#: apps/listings/models.py:1393
 msgid "Pripučiamos"
 msgstr ""
 
-#: apps/listings/models.py:1402
+#: apps/listings/models.py:1405
 #: templates/listings/bicycles_listing_create.html:114
 msgid "Maksimalus greitis, km/h"
 msgstr ""
 
-#: apps/listings/models.py:1406
+#: apps/listings/models.py:1409
 #: templates/listings/bicycles_listing_create.html:132
 msgid "Rida su vienu įkrovimu, km"
 msgstr ""
 
-#: apps/listings/models.py:1411
+#: apps/listings/models.py:1414
 #: templates/listings/bicycles_listing_create.html:167
 msgid "Baterijos talpa, Ah"
 msgstr ""
 
-#: apps/listings/models.py:1416
+#: apps/listings/models.py:1419
 msgid "Baterijos talpos likutis, %"
 msgstr ""
 
-#: apps/listings/models.py:1421
+#: apps/listings/models.py:1424
 #: templates/listings/bicycles_listing_create.html:179
 msgid "Įkrovimo laikas, val."
 msgstr ""
 
-#: apps/listings/models.py:1425
+#: apps/listings/models.py:1428
 #: templates/listings/bicycles_listing_create.html:185
 #: templates/listings/listing_detail.html:206
 msgid "Padangų tipas"
 msgstr ""
 
-#: apps/listings/models.py:1430
+#: apps/listings/models.py:1433
 #: templates/listings/bicycles_listing_create.html:194
 msgid "Ratų skersmuo, coliais"
 msgstr ""
 
-#: apps/listings/models.py:1435
+#: apps/listings/models.py:1438
 #: templates/listings/bicycles_listing_create.html:200
 msgid "Įveikiama įkalnė, °"
 msgstr ""
 
-#: apps/listings/models.py:1441 apps/listings/models.py:2832
+#: apps/listings/models.py:1444 apps/listings/models.py:2835
 msgid "Sub-category"
 msgstr ""
 
-#: apps/listings/models.py:1444 apps/listings/models.py:2846
+#: apps/listings/models.py:1447 apps/listings/models.py:2849
 msgid "Title"
 msgstr ""
 
-#: apps/listings/models.py:1447 apps/listings/models.py:2850
+#: apps/listings/models.py:1450 apps/listings/models.py:2853
 #: templates/accounts/seller_profile.html:210
 #: templates/listings/advanced_search.html:218
 #: templates/listings/advanced_search.html:534
@@ -3602,11 +3602,11 @@ msgstr ""
 msgid "Year"
 msgstr ""
 
-#: apps/listings/models.py:1454 apps/listings/models.py:2858
+#: apps/listings/models.py:1457 apps/listings/models.py:2861
 msgid "First Registration Date"
 msgstr ""
 
-#: apps/listings/models.py:1465 apps/listings/models.py:2863
+#: apps/listings/models.py:1468 apps/listings/models.py:2866
 #: templates/listings/partials/panel_trucks.html:70
 #: templates/listings/trucks_advanced_search.html:420
 #: templates/listings/trucks_list.html:253
@@ -3614,19 +3614,19 @@ msgstr ""
 msgid "Truck type"
 msgstr ""
 
-#: apps/listings/models.py:1474 apps/listings/models.py:2956
+#: apps/listings/models.py:1477 apps/listings/models.py:2959
 msgid "Color (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1509
+#: apps/listings/models.py:1512
 msgid "Subtype (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1516
+#: apps/listings/models.py:1519
 msgid "Size (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1524 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:1527 templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:92
 #: templates/listings/motogear_list.html:261
 #: templates/listings/rims_create.html:28
@@ -3636,115 +3636,115 @@ msgstr ""
 msgid "Manufacturer"
 msgstr ""
 
-#: apps/listings/models.py:1528
+#: apps/listings/models.py:1531
 msgid "Manufacturer (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1533
+#: apps/listings/models.py:1536
 msgid "Brand (legacy)"
 msgstr ""
 
-#: apps/listings/models.py:1537
+#: apps/listings/models.py:1540
 msgid "Model name"
 msgstr ""
 
-#: apps/listings/models.py:1543
+#: apps/listings/models.py:1546
 msgid "Material (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1549
+#: apps/listings/models.py:1552
 msgid "Gender (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1555
+#: apps/listings/models.py:1558
 msgid "Safety certification (custom)"
 msgstr ""
 
-#: apps/listings/models.py:1561 templates/listings/motogear_create.html:166
+#: apps/listings/models.py:1564 templates/listings/motogear_create.html:166
 msgid "Number of vents"
 msgstr ""
 
-#: apps/listings/models.py:1571 templates/listings/advanced_search.html:466
+#: apps/listings/models.py:1574 templates/listings/advanced_search.html:466
 msgid "OEM Code"
 msgstr ""
 
-#: apps/listings/models.py:1579 apps/listings/models.py:3576
+#: apps/listings/models.py:1582 apps/listings/models.py:3579
 msgid "Part Category"
 msgstr ""
 
-#: apps/listings/models.py:1586 apps/listings/models.py:1600
+#: apps/listings/models.py:1589 apps/listings/models.py:1603
 #: templates/listings/advanced_search.html:474
 msgid "Engine Code"
 msgstr ""
 
-#: apps/listings/models.py:1592 apps/listings/models.py:1606
+#: apps/listings/models.py:1595 apps/listings/models.py:1609
 #: templates/listings/advanced_search.html:482
 msgid "Gearbox Code"
 msgstr ""
 
-#: apps/listings/models.py:1612
+#: apps/listings/models.py:1615
 #: templates/listings/car_for_parts_create.html:113
 #: templates/listings/listing_detail.html:2073
 msgid "Version"
 msgstr ""
 
-#: apps/listings/models.py:1617 templates/listings/car_for_parts_create.html:96
+#: apps/listings/models.py:1620 templates/listings/car_for_parts_create.html:96
 #: templates/listings/listing_detail.html:2067
 msgid "Modification"
 msgstr ""
 
-#: apps/listings/models.py:1622
+#: apps/listings/models.py:1625
 #: templates/listings/car_for_parts_create.html:226
 #: templates/listings/listing_detail.html:2111
 msgid "Color code"
 msgstr ""
 
-#: apps/listings/models.py:1627
+#: apps/listings/models.py:1630
 #: templates/listings/car_for_parts_create.html:233
 #: templates/listings/listing_detail.html:2142
 msgid "Engine code"
 msgstr ""
 
-#: apps/listings/models.py:1632
+#: apps/listings/models.py:1635
 #: templates/listings/car_for_parts_create.html:240
 #: templates/listings/listing_detail.html:2148
 msgid "Gearbox code"
 msgstr ""
 
-#: apps/listings/models.py:1639
+#: apps/listings/models.py:1642
 msgid "Export price"
 msgstr ""
 
-#: apps/listings/models.py:1644 apps/listings/models.py:2976
+#: apps/listings/models.py:1647 apps/listings/models.py:2979
 #: templates/listings/motogear_create.html:267
 msgid "Open to trade"
 msgstr ""
 
-#: apps/listings/models.py:1647
+#: apps/listings/models.py:1650
 #: templates/listings/boats_listing_create.html:246
 #: templates/listings/listing_create_cars_quick.html:401
 msgid "Warranty included"
 msgstr ""
 
-#: apps/listings/models.py:1648
+#: apps/listings/models.py:1651
 #: templates/listings/boats_listing_create.html:250
 #: templates/listings/listing_create_cars_quick.html:405
 msgid "Available on lease"
 msgstr ""
 
-#: apps/listings/models.py:1649
+#: apps/listings/models.py:1652
 #: templates/listings/listing_create_cars_quick.html:425
 #: templates/listings/listing_list.html:642
 msgid "Sport-ready"
 msgstr ""
 
-#: apps/listings/models.py:1650
+#: apps/listings/models.py:1653
 #: templates/listings/listing_create_cars_quick.html:429
 #: templates/listings/listing_list.html:646
 msgid "Adapted for disabled"
 msgstr ""
 
-#: apps/listings/models.py:1651
+#: apps/listings/models.py:1654
 #: templates/listings/listing_create_cars_quick.html:409
 #: templates/listings/listing_list.html:653
 #: templates/listings/motorcycle_create.html:281
@@ -3752,56 +3752,56 @@ msgstr ""
 msgid "Service book"
 msgstr ""
 
-#: apps/listings/models.py:1652
+#: apps/listings/models.py:1655
 #: templates/listings/listing_create_cars_quick.html:413
 #: templates/listings/listing_list.html:657
 #: templates/listings/motorcycles_list.html:671
 msgid "Imported from US"
 msgstr ""
 
-#: apps/listings/models.py:1653
+#: apps/listings/models.py:1656
 #: templates/listings/listing_create_cars_quick.html:417
 #: templates/listings/listing_list.html:661
 #: templates/listings/motorcycles_list.html:677
 msgid "Multiple key sets"
 msgstr ""
 
-#: apps/listings/models.py:1654
+#: apps/listings/models.py:1657
 #: templates/listings/listing_create_cars_quick.html:433
 #: templates/listings/listing_list.html:665
 msgid "Increased engine power"
 msgstr ""
 
-#: apps/listings/models.py:1655
+#: apps/listings/models.py:1658
 #: templates/listings/listing_create_cars_quick.html:437
 #: templates/listings/listing_list.html:669
 msgid "Pneumatic suspension"
 msgstr ""
 
-#: apps/listings/models.py:1656
+#: apps/listings/models.py:1659
 #: templates/listings/listing_create_cars_quick.html:441
 #: templates/listings/listing_list.html:673
 #: templates/listings/motorcycles_list.html:681
 msgid "Remote start"
 msgstr ""
 
-#: apps/listings/models.py:1657 apps/listings/models.py:3710
+#: apps/listings/models.py:1660 apps/listings/models.py:3713
 #: templates/listings/listing_create_cars_quick.html:445
 #: templates/listings/listing_list.html:677
 msgid "Spare wheel"
 msgstr ""
 
-#: apps/listings/models.py:1658
+#: apps/listings/models.py:1661
 #: templates/listings/listing_create_cars_quick.html:421
 msgid "Valid technical inspection"
 msgstr ""
 
-#: apps/listings/models.py:1659
+#: apps/listings/models.py:1662
 #: templates/listings/listing_create_cars_quick.html:449
 msgid "From auction"
 msgstr ""
 
-#: apps/listings/models.py:1667
+#: apps/listings/models.py:1670
 #: templates/listings/boats_listing_create.html:138
 #: templates/listings/listing_create_cars_quick.html:257
 #: templates/listings/listing_detail.html:2039
@@ -3809,377 +3809,377 @@ msgstr ""
 msgid "+ Taxes"
 msgstr ""
 
-#: apps/listings/models.py:1683 apps/listings/models.py:2993
+#: apps/listings/models.py:1686 apps/listings/models.py:2996
 msgid "Business seller"
 msgstr ""
 
-#: apps/listings/models.py:1715 templates/listings/listing_detail.html:10
+#: apps/listings/models.py:1718 templates/listings/listing_detail.html:10
 #: templates/listings/listing_stats.html:30
 msgid "Listing"
 msgstr ""
 
-#: apps/listings/models.py:2207 apps/listings/views.py:64
+#: apps/listings/models.py:2210 apps/listings/views.py:64
 msgid "Interior"
 msgstr ""
 
-#: apps/listings/models.py:2208 apps/listings/views.py:66
+#: apps/listings/models.py:2211 apps/listings/views.py:66
 msgid "Electronics"
 msgstr ""
 
-#: apps/listings/models.py:2209
+#: apps/listings/models.py:2212
 msgid "Safety"
 msgstr ""
 
-#: apps/listings/models.py:2210
+#: apps/listings/models.py:2213
 msgid "Audio/Video"
 msgstr ""
 
-#: apps/listings/models.py:2211 apps/listings/views.py:65
+#: apps/listings/models.py:2214 apps/listings/views.py:65
 msgid "Exterior"
 msgstr ""
 
-#: apps/listings/models.py:2212 apps/listings/views.py:69
+#: apps/listings/models.py:2215 apps/listings/views.py:69
 msgid "Other Features"
 msgstr ""
 
-#: apps/listings/models.py:2213
+#: apps/listings/models.py:2216
 msgid "Motorcycle Features"
 msgstr ""
 
-#: apps/listings/models.py:2214
+#: apps/listings/models.py:2217
 msgid "Gear Features"
 msgstr ""
 
-#: apps/listings/models.py:2215
+#: apps/listings/models.py:2218
 msgid "Truck Features"
 msgstr ""
 
-#: apps/listings/models.py:2288
+#: apps/listings/models.py:2291
 msgid "Seller notifications"
 msgstr ""
 
-#: apps/listings/models.py:2289
+#: apps/listings/models.py:2292
 msgid "Buyer - saved listings"
 msgstr ""
 
-#: apps/listings/models.py:2290
+#: apps/listings/models.py:2293
 msgid "Saved search alerts"
 msgstr ""
 
-#: apps/listings/models.py:2291
+#: apps/listings/models.py:2294
 msgid "Account / auth"
 msgstr ""
 
-#: apps/listings/models.py:2292
+#: apps/listings/models.py:2295
 msgid "Messaging"
 msgstr ""
 
-#: apps/listings/models.py:2293
+#: apps/listings/models.py:2296
 msgid "Payments / Stripe"
 msgstr ""
 
-#: apps/listings/models.py:2294
+#: apps/listings/models.py:2297
 msgid "Marketing / newsletter"
 msgstr ""
 
-#: apps/listings/models.py:2295
+#: apps/listings/models.py:2298
 msgid "Admin notifications"
 msgstr ""
 
-#: apps/listings/models.py:2296
+#: apps/listings/models.py:2299
 msgid "Extra / experimental"
 msgstr ""
 
-#: apps/listings/models.py:2297
+#: apps/listings/models.py:2300
 msgid "Truck-specific notifications"
 msgstr ""
 
-#: apps/listings/models.py:2409
+#: apps/listings/models.py:2412
 msgid "Pricing Settings"
 msgstr ""
 
-#: apps/listings/models.py:2454
+#: apps/listings/models.py:2457
 msgid "Price Multiplier Tier"
 msgstr ""
 
-#: apps/listings/models.py:2530
+#: apps/listings/models.py:2533
 msgid "Promo Code"
 msgstr ""
 
-#: apps/listings/models.py:2613
+#: apps/listings/models.py:2616
 msgid "Promo Code Usage"
 msgstr ""
 
-#: apps/listings/models.py:2634
+#: apps/listings/models.py:2637
 #, fuzzy
 #| msgid "Sunkvežimiai"
 msgid "Trucks (Sunkvežimiai)"
 msgstr "Trucks"
 
-#: apps/listings/models.py:2635 apps/listings/translatable_db.py:59
+#: apps/listings/models.py:2638 apps/listings/translatable_db.py:59
 msgid "Vehicle Transporters"
 msgstr ""
 
-#: apps/listings/models.py:2636
+#: apps/listings/models.py:2639
 msgid "Semi-trucks / Tractors"
 msgstr ""
 
-#: apps/listings/models.py:2637 apps/listings/translatable_db.py:59
+#: apps/listings/models.py:2640 apps/listings/translatable_db.py:59
 msgid "Vans"
 msgstr ""
 
-#: apps/listings/models.py:2683 apps/listings/models.py:2691
-#: apps/listings/models.py:2704 apps/listings/models.py:2712
-#: apps/listings/models.py:2719 templates/listings/listing_list_v2.html:296
+#: apps/listings/models.py:2686 apps/listings/models.py:2694
+#: apps/listings/models.py:2707 apps/listings/models.py:2715
+#: apps/listings/models.py:2722 templates/listings/listing_list_v2.html:296
 #: templates/listings/listing_list_v2.html:311
 #: templates/listings/listing_list_v2.html:321
 #: templates/listings/wheels_advanced_search.html:244
 msgid "Any"
 msgstr ""
 
-#: apps/listings/models.py:2684
+#: apps/listings/models.py:2687
 msgid "Day cab"
 msgstr ""
 
-#: apps/listings/models.py:2685
+#: apps/listings/models.py:2688
 msgid "Sleeper"
 msgstr ""
 
-#: apps/listings/models.py:2686
+#: apps/listings/models.py:2689
 msgid "Crew cab"
 msgstr ""
 
-#: apps/listings/models.py:2687
+#: apps/listings/models.py:2690
 msgid "Extended cab"
 msgstr ""
 
-#: apps/listings/models.py:2705
+#: apps/listings/models.py:2708
 msgid "Air / Air"
 msgstr ""
 
-#: apps/listings/models.py:2706
+#: apps/listings/models.py:2709
 msgid "Air / Spring"
 msgstr ""
 
-#: apps/listings/models.py:2707
+#: apps/listings/models.py:2710
 msgid "Spring / Air"
 msgstr ""
 
-#: apps/listings/models.py:2708
+#: apps/listings/models.py:2711
 msgid "Spring / Spring"
 msgstr ""
 
-#: apps/listings/models.py:2713 apps/listings/translatable_db.py:67
+#: apps/listings/models.py:2716 apps/listings/translatable_db.py:67
 msgid "Manual"
 msgstr ""
 
-#: apps/listings/models.py:2714 apps/listings/translatable_db.py:66
+#: apps/listings/models.py:2717 apps/listings/translatable_db.py:66
 msgid "Automatic"
 msgstr ""
 
-#: apps/listings/models.py:2715 apps/listings/translatable_db.py:70
+#: apps/listings/models.py:2718 apps/listings/translatable_db.py:70
 msgid "Semi-automatic"
 msgstr ""
 
-#: apps/listings/models.py:2720 apps/listings/translatable_db.py:66
+#: apps/listings/models.py:2723 apps/listings/translatable_db.py:66
 msgid "Diesel"
 msgstr ""
 
-#: apps/listings/models.py:2721
+#: apps/listings/models.py:2724
 msgid "Petrol / Gasoline"
 msgstr ""
 
-#: apps/listings/models.py:2722 apps/listings/translatable_db.py:67
+#: apps/listings/models.py:2725 apps/listings/translatable_db.py:67
 msgid "LPG"
 msgstr ""
 
-#: apps/listings/models.py:2723
+#: apps/listings/models.py:2726
 msgid "CNG"
 msgstr ""
 
-#: apps/listings/models.py:2724
+#: apps/listings/models.py:2727
 msgid "LNG"
 msgstr ""
 
-#: apps/listings/models.py:2726
+#: apps/listings/models.py:2729
 msgid "Hybrid"
 msgstr ""
 
-#: apps/listings/models.py:2727
+#: apps/listings/models.py:2730
 msgid "Hydrogen"
 msgstr ""
 
-#: apps/listings/models.py:2867
+#: apps/listings/models.py:2870
 msgid "Cab type"
 msgstr ""
 
-#: apps/listings/models.py:2871
+#: apps/listings/models.py:2874
 msgid "Axle configuration"
 msgstr ""
 
-#: apps/listings/models.py:2875
+#: apps/listings/models.py:2878
 msgid "Suspension"
 msgstr ""
 
-#: apps/listings/models.py:2886
+#: apps/listings/models.py:2889
 msgid "Curb weight (kg)"
 msgstr ""
 
-#: apps/listings/models.py:2895
+#: apps/listings/models.py:2898
 msgid "Cargo volume (m³)"
 msgstr ""
 
-#: apps/listings/models.py:2899
+#: apps/listings/models.py:2902
 msgid "Cargo length (m)"
 msgstr ""
 
-#: apps/listings/models.py:2903
+#: apps/listings/models.py:2906
 msgid "Cargo width (m)"
 msgstr ""
 
-#: apps/listings/models.py:2907
+#: apps/listings/models.py:2910
 msgid "Cargo height (m)"
 msgstr ""
 
-#: apps/listings/models.py:2912
+#: apps/listings/models.py:2915
 #: templates/listings/boats_listing_create.html:167
 #: templates/listings/listing_create_cars_quick.html:333
 msgid "Number of seats"
 msgstr ""
 
-#: apps/listings/models.py:2923
+#: apps/listings/models.py:2926
 msgid "Engine capacity (L)"
 msgstr ""
 
-#: apps/listings/models.py:2933
+#: apps/listings/models.py:2936
 msgid "Power (HP)"
 msgstr ""
 
-#: apps/listings/models.py:2938
+#: apps/listings/models.py:2941
 msgid "Torque (Nm)"
 msgstr ""
 
-#: apps/listings/models.py:2945
+#: apps/listings/models.py:2948
 msgid "Fuel consumption (L/100km)"
 msgstr ""
 
-#: apps/listings/models.py:2950
+#: apps/listings/models.py:2953
 msgid "Fuel tank (L)"
 msgstr ""
 
-#: apps/listings/models.py:2978
+#: apps/listings/models.py:2981
 msgid "Price excludes VAT"
 msgstr ""
 
-#: apps/listings/models.py:3026
+#: apps/listings/models.py:3029
 msgid "Truck"
 msgstr ""
 
-#: apps/listings/models.py:3338
+#: apps/listings/models.py:3341
 msgid "Truck Image"
 msgstr ""
 
-#: apps/listings/models.py:3351
+#: apps/listings/models.py:3354
 msgid "Truck Equipment Selection"
 msgstr ""
 
-#: apps/listings/models.py:3366
+#: apps/listings/models.py:3369
 msgid "Saved Truck"
 msgstr ""
 
-#: apps/listings/models.py:3442
+#: apps/listings/models.py:3445
 msgid "Truck Sales Record"
 msgstr ""
 
-#: apps/listings/models.py:3639
+#: apps/listings/models.py:3642
 msgid "Passenger cars"
 msgstr ""
 
-#: apps/listings/models.py:3640
+#: apps/listings/models.py:3643
 msgid "SUV / Off-road"
 msgstr ""
 
-#: apps/listings/models.py:3641
+#: apps/listings/models.py:3644
 msgid "Commercial / Van"
 msgstr ""
 
-#: apps/listings/models.py:3642 apps/listings/translatable_db.py:58
+#: apps/listings/models.py:3645 apps/listings/translatable_db.py:58
 msgid "Trucks"
 msgstr ""
 
-#: apps/listings/models.py:3643 apps/listings/translatable_db.py:48
+#: apps/listings/models.py:3646 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:134
 #: templates/listings/motorcycles_list.html:183
 #: templates/listings/motorcycles_list.html:338
 msgid "Motorcycles"
 msgstr ""
 
-#: apps/listings/models.py:3644
+#: apps/listings/models.py:3647
 msgid "Industrial"
 msgstr ""
 
-#: apps/listings/models.py:3660
+#: apps/listings/models.py:3663
 msgid "Summer"
 msgstr ""
 
-#: apps/listings/models.py:3661
+#: apps/listings/models.py:3664
 msgid "Winter"
 msgstr ""
 
-#: apps/listings/models.py:3662
+#: apps/listings/models.py:3665
 msgid "All-season"
 msgstr ""
 
-#: apps/listings/models.py:3706
+#: apps/listings/models.py:3709
 msgid "Accessories"
 msgstr ""
 
-#: apps/listings/models.py:3707
+#: apps/listings/models.py:3710
 msgid "Alloy"
 msgstr ""
 
-#: apps/listings/models.py:3708
+#: apps/listings/models.py:3711
 msgid "Stamped steel"
 msgstr ""
 
-#: apps/listings/models.py:3709
+#: apps/listings/models.py:3712
 msgid "Forged"
 msgstr ""
 
-#: apps/listings/models.py:3711
+#: apps/listings/models.py:3714
 msgid "Wheel covers"
 msgstr ""
 
-#: apps/listings/models.py:3712
+#: apps/listings/models.py:3715
 msgid "Centre caps"
 msgstr ""
 
-#: apps/listings/models.py:3721
+#: apps/listings/models.py:3724
 msgid "Draft"
 msgstr ""
 
-#: apps/listings/models.py:3722 templates/listings/my_listings.html:146
+#: apps/listings/models.py:3725 templates/listings/my_listings.html:146
 msgid "Active"
 msgstr ""
 
-#: apps/listings/models.py:3723 templates/listings/my_listings.html:150
+#: apps/listings/models.py:3726 templates/listings/my_listings.html:150
 msgid "Reserved"
 msgstr ""
 
-#: apps/listings/models.py:3724 templates/listings/my_listings.html:159
+#: apps/listings/models.py:3727 templates/listings/my_listings.html:159
 #: templates/listings/my_listings.html:406
 msgid "Sold"
 msgstr ""
 
-#: apps/listings/models.py:3725
+#: apps/listings/models.py:3728
 msgid "Expired"
 msgstr ""
 
-#: apps/listings/models.py:3726
+#: apps/listings/models.py:3729
 msgid "Archived"
 msgstr ""
 
-#: apps/listings/models.py:3738 apps/listings/translatable_db.py:59
+#: apps/listings/models.py:3741 apps/listings/translatable_db.py:59
 #: templates/listings/partials/search_rail.html:44
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:17
@@ -4188,7 +4188,7 @@ msgstr ""
 msgid "Tyres"
 msgstr ""
 
-#: apps/listings/models.py:3739 apps/listings/translatable_db.py:54
+#: apps/listings/models.py:3742 apps/listings/translatable_db.py:54
 #: templates/listings/partials/search_rail.html:45
 #: templates/listings/wheels_advanced_search.html:5
 #: templates/listings/wheels_create.html:19
@@ -4197,11 +4197,11 @@ msgstr ""
 msgid "Rims"
 msgstr ""
 
-#: apps/listings/models.py:3837
+#: apps/listings/models.py:3840
 msgid "Wheel Listing"
 msgstr ""
 
-#: apps/listings/models.py:3922
+#: apps/listings/models.py:3925
 msgid "Wheel Image"
 msgstr ""
 

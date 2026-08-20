@@ -39,4 +39,11 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-dd-foot a { display:block; color:#374151; font-weight:600; cursor:pointer; margin-top:2px; }
   .sp-dd-btn { text-align:left; cursor:pointer; }
   [x-cloak] { display:none !important; }
+
+  /* ── MOBILUS VAIZDAS ─────────────────────────────────────────────
+     Etalone (išmatuota Playwright, iPhone 390×844): ikonų juostos nėra,
+     laukai vienu stulpeliu, šoninės paraštės 16 px, veiksmų blokas
+     apačioje. Lūžio taškas — 1024 px (lg). */
+  .sp-body-h { height: auto; }
+  @media (min-width: 1024px) { .sp-body-h { height: 410px; } }
 </style>
