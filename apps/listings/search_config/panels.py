@@ -19,6 +19,7 @@
 # ═══════════════════════════════════════════════════════════
 
 import json
+import re
 import os
 
 from django.db.models import Count, Q
@@ -405,6 +406,40 @@ def build_panel(vt_slug, user=None, sub_slug=None):
     }
 
 
+
+def _norm_label(text):
+    return re.sub(r'\s+', ' ', str(text or '')).strip().lower()
+
+
+def _layout_rows(cat, fields):
+    """Laukai, sudėlioti į etalono tinklelį (form-grid > row > fields).
+
+    Konfigūracijos `layout` yra nuskaitytas iš autogidas: kiekviena eilutė
+    — iki trijų laukų. Ko tinklelyje nėra (naujesni mūsų laukai), keliauja
+    į galą po tris, kad nė vienas nedingtų.
+    """
+    by_label = {}
+    for item in fields:
+        by_label.setdefault(_norm_label(item.get('raw_label')), item)
+
+    rows, used = [], set()
+    for row in cat.get('layout') or []:
+        cells = []
+        for label in row:
+            key = _norm_label(label)
+            item = by_label.get(key)
+            if item is not None and key not in used:
+                used.add(key)
+                cells.append(item)
+        if cells:
+            rows.append(cells)
+
+    rest = [i for i in fields if _norm_label(i.get('raw_label')) not in used]
+    for start in range(0, len(rest), 3):
+        rows.append(rest[start:start + 3])
+    return rows
+
+
 def build_advanced(vt_slug, user=None, sub_slug=None):
     """Išplėstinės paieškos aprašas šablonui (arba None, jei neaktyvi)."""
     if not advanced_is_active(vt_slug):
@@ -430,6 +465,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
 
         item = {
             'label': _(f['label']),
+            'raw_label': f['label'],     # tinklelio dėliojimui (layout)
             'type': f['type'],
             'db_field': db,
             'param': f.get('param'),
@@ -503,6 +539,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         'slug': vt_slug,
         'label': _(cat['name']),
         'fields': fields,
+        'rows': _layout_rows(cat, fields),
         'equipment': eq_items,
         'equipment_label': eq_section,
         'equipment_total': len(eq_items),

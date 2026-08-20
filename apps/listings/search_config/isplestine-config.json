@@ -26972,7 +26972,23 @@
    "results_url": "/skelbimai/zemes-ukio-spec-dalys/",
    "url_params_raw": "text: f_376; Tipas: f_80; Markė: f_1; Metai: f_41; Metai: f_42; Galia, kW: f_63; Galia, kW: f_64; Kaina: f_44; Kaina: f_45; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "parts",
-   "subcategory_slug": "agri-special-parts"
+   "subcategory_slug": "agri-special-parts",
+   "layout": [
+    [
+     "Metai"
+    ],
+    [
+     "Kaina"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas"
+    ]
+   ]
   },
   {
    "name": "Aksesuarai, Tuning",
@@ -27477,7 +27493,21 @@
    "results_url": "/skelbimai/aksesuarai-akumuliatoriai-tuning/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Modelis: f_model_14; Kaina: f_44; Kaina: f_45; Naudoti/Nauji: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "parts",
-   "subcategory_slug": "accessories-tuning"
+   "subcategory_slug": "accessories-tuning",
+   "layout": [
+    [
+     "Kaina",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Žemės ūkio technika, padargai",
@@ -28716,7 +28746,32 @@
    ],
    "results_url": "/skelbimai/zemes-ukio-padargai-savaeige/",
    "url_params_raw": "text: qt_f_376; select: f_376; Padargas / Savaeigė: f_402; Tipas: f_80; Markė: f_1; Metai: f_41; Metai: f_42; Kaina: f_44; Kaina: f_45; Bendroji masė kg: f_127; Bendroji masė kg: f_128; Galia, kW: f_63; Galia, kW: f_64; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Ypatumai (0/9): expandAddons; ABS: a_1; Dvigubi ratai: a_99; Greičio variatorius: a_497; Hidraulika: a_458; Kabina: a_370; Lėtintos pavaros: a_494; Pakabinamas: a_496; Prikabinamas: a_495; Vikšrinis: a_375; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "agriculture"
+   "vt_slug": "agriculture",
+   "layout": [
+    [
+     "Padargas / Savaeigė",
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Metai",
+     "Kaina",
+     "Bendroji masė kg"
+    ],
+    [
+     "Galia, kW",
+     "Naudota/Nauja",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Sunkvežimiai",
@@ -29155,10 +29210,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Euro standartas",
@@ -29173,10 +29228,10 @@
       "Euro 6",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "euro_standard",
+     "param": "euro_standard",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rida",
@@ -29195,10 +29250,11 @@
       "500000",
       "600000"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "mileage",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Ratų formulė",
@@ -29220,10 +29276,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kuro tipas",
@@ -29244,10 +29300,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -29272,10 +29328,11 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "power",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Daužtas",
@@ -29298,10 +29355,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -29617,7 +29674,35 @@
    ],
    "results_url": "/skelbimai/sunkvezimiai/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Bendroji masė kg: f_127; Bendroji masė kg: f_128; Pavarų dėžė: f_10; Euro standartas: f_106; Rida: f_65; Rida: f_66; Ratų formulė: f_205; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Galia, kW: f_63; Galia, kW: f_64; Daužtas: f_401; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; „Webasto“: a_540; ABS: a_555; ADR: a_549; Autopilotas: a_539; Blokuojamas diferencialas: a_547; CB radio įranga: a_546; EBS: a_545; Kalnų stabdis: a_543; Liftas: a_548; Oro kondicionierius: a_541; Pneumatinė pakaba: a_544; Šaldymo įranga: a_550; Signalizacija / Imobilaizeris: a_554; Su priekaba: a_557; Tachografas: a_542; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "layout": [
+    [
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Pavarų dėžė"
+    ],
+    [
+     "Euro standartas",
+     "Rida",
+     "Ratų formulė"
+    ],
+    [
+     "Kuro tipas",
+     "Galia, kW"
+    ],
+    [
+     "Naudotas/Naujas",
+     "Šalis",
+     "Miestas"
+    ],
+    [
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Vilkikai",
@@ -29846,10 +29931,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Ašių skaičius",
@@ -29862,10 +29947,10 @@
       ">3 ašių",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "trailer_axle_count",
+     "param": "trailer_axle_count",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rida",
@@ -29884,10 +29969,11 @@
       "500000",
       "600000"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "mileage",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Euro standartas",
@@ -29902,10 +29988,10 @@
       "Euro 6",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "euro_standard",
+     "param": "euro_standard",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -29918,10 +30004,11 @@
       "350 kW (469 AG)",
       "400 kW (536 AG)"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "power",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Daužtas",
@@ -29945,10 +30032,10 @@
       "2",
       "3"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "sleeping_seats",
+     "param": "sleeping_seats",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pavarų dėžė",
@@ -29959,10 +30046,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Naudotas/Naujas",
@@ -29972,10 +30059,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -30292,7 +30379,36 @@
    "results_url": "/skelbimai/vilkikai/",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Ašių skaičius: f_110; Rida: f_65; Rida: f_66; Euro standartas: f_106; Galia, kW: f_208; Galia, kW: f_209; Daužtas: f_401; Miegamų vietų skaičius: f_389; Pavarų dėžė: f_10; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; „Webasto“: a_559; ABS: a_572; ADR: a_568; Aukšta kabina: a_347; Autopilotas: a_558; Blokuojamas diferencialas: a_566; CB radio įranga: a_565; EBS: a_564; Kalnų stabdis: a_562; Oro kondicionierius: a_560; Pneumatinė pakaba: a_563; Signalizacija / Imobilaizeris: a_571; Su priekaba: a_569; Tachografas: a_561; Žema kabina: a_348; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "trucks",
-   "subcategory_slug": "semi-trucks-tractors"
+   "subcategory_slug": "semi-trucks-tractors",
+   "layout": [
+    [
+     "Kaina",
+     "Metai"
+    ],
+    [
+     "Ratų formulė",
+     "Ašių skaičius",
+     "Rida"
+    ],
+    [
+     "Euro standartas",
+     "Galia, kW"
+    ],
+    [
+     "Miegamų vietų skaičius",
+     "Pavarų dėžė",
+     "Naudotas/Naujas"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Autotraukiniai, autovežiai",
@@ -30555,10 +30671,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Ašių skaičius",
@@ -30571,10 +30687,10 @@
       "Kitas",
       ">4 ašių"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "trailer_axle_count",
+     "param": "trailer_axle_count",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pavarų dėžė",
@@ -30585,10 +30701,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Euro standartas",
@@ -30603,10 +30719,10 @@
       "Euro 6",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "euro_standard",
+     "param": "euro_standard",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rida",
@@ -30625,10 +30741,11 @@
       "500000",
       "600000"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "mileage",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Galia, kW",
@@ -30641,10 +30758,11 @@
       "350 kW (469 AG)",
       "400 kW (536 AG)"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "power",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Daužtas",
@@ -30667,10 +30785,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -30987,7 +31105,35 @@
    "results_url": "/skelbimai/autotraukiniai-autoveziai/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Ašių skaičius: f_110; Pavarų dėžė: f_10; Euro standartas: f_106; Rida: f_65; Rida: f_66; Galia, kW: f_208; Galia, kW: f_209; Daužtas: f_401; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; „Webasto“: a_576; ABS: a_587; ADR: a_584; Aukšta kabina: a_573; Autopilotas: a_575; Blokuojamas diferencialas: a_583; CB radio įranga: a_582; EBS: a_581; Kalnų stabdis: a_579; Oro kondicionierius: a_577; Pneumatinė pakaba: a_580; Signalizacija / Imobilaizeris: a_586; Su priekaba: a_585; Tachografas: a_578; Žema kabina: a_574; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "trucks",
-   "subcategory_slug": "vehicle-transporters"
+   "subcategory_slug": "vehicle-transporters",
+   "layout": [
+    [
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Ratų formulė",
+     "Ašių skaičius"
+    ],
+    [
+     "Pavarų dėžė",
+     "Euro standartas",
+     "Rida"
+    ],
+    [
+     "Galia, kW",
+     "Naudotas/Naujas"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Autobusai",
@@ -31193,10 +31339,11 @@
       "40",
       "50"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "seats_count",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Darbinis tūris (litrai)",
@@ -31259,10 +31406,11 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "power",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Kuro tipas",
@@ -31283,10 +31431,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rida",
@@ -31308,10 +31456,11 @@
       "500000",
       "600000"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "mileage",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Pavarų dėžė",
@@ -31321,10 +31470,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Daužtas",
@@ -31373,10 +31522,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -31684,7 +31833,35 @@
    "results_url": "/skelbimai/autobusai/",
    "url_params_raw": "Autobuso tipas: f_26; Markė: f_1; Kaina: f_215; Kaina: f_216; Metai: f_41; Metai: f_42; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Darbinis tūris (litrai): f_61; Darbinis tūris (litrai): f_62; Galia, kW: f_63; Galia, kW: f_64; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Rida: f_65; Rida: f_66; Pavarų dėžė: f_10; Daužtas: f_401; Spalva: f_5; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/15): expandAddons; „Webasto“: a_589; ABS: a_588; ADR: a_593; Atlenkiamos sėdynės: a_489; Bagažo skyrius: a_110; EBS: a_592; Kalnų stabdis: a_591; Miegama vieta vairuotojams: a_492; Oro kondicionierius: a_590; Personalinis apšvietimas: a_491; Šaldytuvas: a_105; TV: a_109; Virtuvėlė: a_490; WC: a_108; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "trucks",
-   "subcategory_slug": "buses"
+   "subcategory_slug": "buses",
+   "layout": [
+    [
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Sėdimų vietų skaičius"
+    ],
+    [
+     "Galia, kW",
+     "Kuro tipas",
+     "Rida"
+    ],
+    [
+     "Pavarų dėžė",
+     "Spalva"
+    ],
+    [
+     "Naudotas/Naujas",
+     "Šalis",
+     "Miestas"
+    ],
+    [
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Komunalinio ūkio transportas",
@@ -31827,10 +32004,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Euro standartas",
@@ -31845,10 +32022,10 @@
       "Euro 6",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "euro_standard",
+     "param": "euro_standard",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rida",
@@ -31867,10 +32044,11 @@
       "500000",
       "600000"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "mileage",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Ratų formulė",
@@ -31892,10 +32070,10 @@
       "8x6",
       "8x8"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kuro tipas",
@@ -31916,10 +32094,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "fuel_type",
+     "param": "fuel_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galia, kW",
@@ -31944,10 +32122,11 @@
       "235 kW (320 AG)",
       "279 kW (379 AG)"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "power",
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Daužtas",
@@ -31970,10 +32149,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -32155,7 +32334,35 @@
    "results_url": "/skelbimai/komunalinio-ukio-technika/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Bendroji masė kg: f_127; Bendroji masė kg: f_128; Pavarų dėžė: f_10; Euro standartas: f_106; Rida: f_65; Rida: f_66; Ratų formulė: f_205; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Galia, kW: f_63; Galia, kW: f_64; Daužtas: f_401; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/1): expandAddons; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "trucks",
-   "subcategory_slug": "municipal-transport"
+   "subcategory_slug": "municipal-transport",
+   "layout": [
+    [
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Pavarų dėžė"
+    ],
+    [
+     "Euro standartas",
+     "Rida",
+     "Ratų formulė"
+    ],
+    [
+     "Kuro tipas",
+     "Galia, kW"
+    ],
+    [
+     "Naudotas/Naujas",
+     "Šalis",
+     "Miestas"
+    ],
+    [
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Priekabos / Puspriekabės",
@@ -32979,7 +33186,33 @@
    ],
    "results_url": "/skelbimai/priekabos-puspriekabes/",
    "url_params_raw": "Paskirtis: f_105; Tipas: f_80; Markė: f_1; Keliamoji galia kg: f_125; Keliamoji galia kg: f_126; Bendroji masė kg: f_127; Bendroji masė kg: f_128; Ašių skaičius: f_110; Metai: f_41; Metai: f_42; Kaina: f_44; Kaina: f_45; Naudotos/Naujos: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/25): expandAddons; ABS: a_595; Atitraukiamas stogas: a_456; Atitraukiami šonai: a_457; Diskiniai stabdžiai: a_599; Durys gale: a_124; Durys šone: a_133; EBS: a_598; EDSCHA stogas: a_310; Garantija: a_596; Hidraulika: a_601; Įrankių dėžė: a_314; Krovinio diržai: a_132; Liftas gale: a_307; Pakeliama ašis: a_130; Parduodama lizingu: a_600; Pneumatinė pakaba: a_597; Priekabos stabdys: a_127; Su gerve: a_315; Su hidrauliniu kranu: a_114; Su kietu stogu: a_318; Su palapine: a_323; Su tentu: a_317; Termografas: a_123; TIR: a_309; Žaliuzės: a_308; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trailers"
+   "vt_slug": "trailers",
+   "layout": [
+    [
+     "Paskirtis",
+     "Tipas",
+     "Markė"
+    ],
+    [
+     "Keliamoji galia kg",
+     "Bendroji masė kg",
+     "Ašių skaičius"
+    ],
+    [
+     "Metai",
+     "Kaina",
+     "Naudotos/Naujos"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Automobilių nuoma",
@@ -33738,7 +33971,37 @@
    ],
    "results_url": "/skelbimai/automobiliu-nuoma/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Pavarų dėžė: f_10; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Metai: f_41; Metai: f_42; Kėbulo tipas: f_3[1]…f_3[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Darbinis tūris (litrai): f_61; Darbinis tūris (litrai): f_62; Galia, kW: f_63; Galia, kW: f_64; Durų skaičius: f_4; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1056; Nuolaidos ilgesniam laikotarpiui: a_1055; Nuomojamas tik su vairuotoju: a_1054; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "rental"
+   "vt_slug": "rental",
+   "layout": [
+    [
+     "Markė",
+     "Pavarų dėžė"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Nuomos kaina valandai",
+     "Sėdimų vietų skaičius"
+    ],
+    [
+     "Kuro tipas",
+     "Metai",
+     "Kėbulo tipas"
+    ],
+    [
+     "Darbinis tūris (litrai)",
+     "Galia, kW",
+     "Durų skaičius"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Limuzinų, vestuvių transporto nuoma",
@@ -34398,7 +34661,31 @@
    "results_url": "/skelbimai/limuzinu-vestuviu-transporto-nuoma/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Pavarų dėžė: f_10; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Metai: f_41; Metai: f_42; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1063; Nuolaidos ilgesniam laikotarpiui: a_1060; Nuomojamas tik su vairuotoju: a_1057; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "rental",
-   "subcategory_slug": "limo-wedding-rental"
+   "subcategory_slug": "limo-wedding-rental",
+   "layout": [
+    [
+     "Markė",
+     "Sėdimų vietų skaičius"
+    ],
+    [
+     "Pavarų dėžė",
+     "Nuomos kaina parai",
+     "Nuomos kaina valandai"
+    ],
+    [
+     "Kuro tipas",
+     "Metai",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Motociklų nuoma",
@@ -34873,7 +35160,36 @@
    "results_url": "/skelbimai/motociklu-nuoma/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Motociklo tipas: f_24[1]…f_24[12] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Metai: f_41; Metai: f_42; Darbinis tūris cm³: f_133; Darbinis tūris cm³: f_134; Galia, kW: f_135; Galia, kW: f_136; Kuro tipas: f_137; Aušinimas: f_55; Spalva: f_5; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "rental",
-   "subcategory_slug": "motorcycle-rental"
+   "subcategory_slug": "motorcycle-rental",
+   "layout": [
+    [
+     "Markė",
+     "Motociklo tipas"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Nuomos kaina valandai",
+     "Metai"
+    ],
+    [
+     "Darbinis tūris cm³",
+     "Galia, kW",
+     "Kuro tipas"
+    ],
+    [
+     "Aušinimas",
+     "Spalva",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Mikroautobusų, turistinio, vandens tr. nuoma",
@@ -35549,7 +35865,32 @@
    "results_url": "/skelbimai/mikroautobusu-turistinio-transporto-nuoma/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Miegamų vietų skaičius: f_355; Miegamų vietų skaičius: f_356; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Metai: f_41; Metai: f_42; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1072; Nuolaidos ilgesniam laikotarpiui: a_1069; Nuomojamas tik su vairuotoju: a_1066; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "rental",
-   "subcategory_slug": "minibus-touring-water-rental"
+   "subcategory_slug": "minibus-touring-water-rental",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kuro tipas"
+    ],
+    [
+     "Miegamų vietų skaičius",
+     "Sėdimų vietų skaičius",
+     "Metai"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Nuomos kaina valandai",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Sunkiojo transporto, priekabų nuoma",
@@ -36232,7 +36573,32 @@
    "results_url": "/skelbimai/sunkiojo-transporto-priekabu-nuoma/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Bendroji masė kg: f_127; Bendroji masė kg: f_128; Keliamoji galia kg: f_125; Keliamoji galia kg: f_126; Metai: f_41; Metai: f_42; Nuomos kaina parai: f_351; Nuomos kaina parai: f_352; Nuomos kaina valandai: f_353; Nuomos kaina valandai: f_354; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/3): expandAddons; Kaina su vairuotoju: a_1081; Nuolaidos ilgesniam laikotarpiui: a_1078; Nuomojamas tik su vairuotoju: a_1075; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "rental",
-   "subcategory_slug": "heavy-trailer-rental"
+   "subcategory_slug": "heavy-trailer-rental",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kuro tipas"
+    ],
+    [
+     "Bendroji masė kg",
+     "Keliamoji galia kg",
+     "Metai"
+    ],
+    [
+     "Nuomos kaina parai",
+     "Nuomos kaina valandai",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Video, audio, navigacijos",
@@ -36786,7 +37152,27 @@
    ],
    "results_url": "/skelbimai/video-audio-navigacijos/",
    "url_params_raw": "Tipas: f_80; Gamintojas: f_69; Kaina: f_215; Kaina: f_216; Naudota/Nauja: f_434; Spalva: f_5; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; “Subwoofer” valdymas: a_288; AUX jungtis: a_503; Ekvalaizeris: a_296; Galinė dalis: a_300; Korteliu skaitytuvas: a_301; LCD ekranas: a_291; Liečiamas ekranas: a_504; Linijiniai išėjimai: a_287; Multifunkcinis valdymas nuo vairo: a_295; Neveikiantis: a_286; Nuotolinio valdymo pultas: a_298; Priekinis skydelis: a_299; Spalvotas ekranas: a_289; USB jungtis: a_302; Valdymas ratuku: a_294; Vidinė atmintis: a_440; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "electronics"
+   "vt_slug": "electronics",
+   "layout": [
+    [
+     "Tipas",
+     "Gamintojas",
+     "Kaina"
+    ],
+    [
+     "Naudota/Nauja",
+     "Spalva",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Paslaugos",
@@ -36991,7 +37377,19 @@
    ],
    "results_url": "/skelbimai/paslaugos/",
    "url_params_raw": "Paslaugos tipas: f_129; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "services"
+   "vt_slug": "services",
+   "layout": [
+    [
+     "Paslaugos tipas",
+     "Šalis",
+     "Miestas"
+    ],
+    [
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Krovimo ir sandėliavimo technika",
@@ -37920,7 +38318,37 @@
    ],
    "results_url": "/skelbimai/krovimo-ir-sandeliavimo-technika/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Max keliamoji galia kg: f_194; Max keliamoji galia kg: f_195; Max kėlimo aukštis m: f_192; Max kėlimo aukštis m: f_193; Motovalandos: f_201; Motovalandos: f_202; Metai: f_41; Metai: f_42; Pavaros tipas: f_175; Energijos šaltinis: f_178; Galia, kW: f_63; Galia, kW: f_64; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/15): expandAddons; Apsauginis stogelis: a_369; Apšildoma kabina: a_372; Hidraulika: a_603; Kabina: a_602; Lingės: a_134; Papildomas hidraulikos vožtuvas: a_366; Pasukamas griebtuvas: a_368; Platforma stumiasi į abi puses: a_364; Platforma stumiasi į vieną pusę: a_365; Pusiau kabina: a_371; Skirtas bet kokiam paviršiui: a_363; Skirtas tvirtam paviršiui: a_362; Šoninio poslinkio mechanizmas: a_373; Sulankstomos atramos: a_361; Žemintos pavaros: a_498; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "loading-equipment"
+   "vt_slug": "loading-equipment",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Max keliamoji galia kg",
+     "Max kėlimo aukštis m",
+     "Motovalandos"
+    ],
+    [
+     "Metai",
+     "Pavaros tipas",
+     "Energijos šaltinis"
+    ],
+    [
+     "Galia, kW",
+     "Naudota/Nauja",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Statybinė technika",
@@ -38752,7 +39180,32 @@
    ],
    "results_url": "/skelbimai/statybine-technika/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Motovalandos: f_201; Motovalandos: f_202; Ratų formulė: f_205; Galia, kW: f_63; Galia, kW: f_64; Metai: f_41; Metai: f_42; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "construction"
+   "vt_slug": "construction",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Motovalandos",
+     "Ratų formulė",
+     "Galia, kW"
+    ],
+    [
+     "Metai",
+     "Naudota/Nauja",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Statybinės technikos priedai",
@@ -39011,7 +39464,32 @@
    "results_url": "/skelbimai/statybines-technikos-priedai/",
    "url_params_raw": "Tipas: f_80; Modelis: f_14; Kaina: f_44; Kaina: f_45; Naudota/Nauja: f_434; Ilgis m: f_377; Plotis m: f_378; Nuosavas svoris: f_163; Aukštis m: f_400; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
    "vt_slug": "construction",
-   "subcategory_slug": "construction-attachments"
+   "subcategory_slug": "construction-attachments",
+   "layout": [
+    [
+     "Tipas",
+     "Modelis",
+     "Kaina"
+    ],
+    [
+     "Naudota/Nauja",
+     "Ilgis m",
+     "Plotis m"
+    ],
+    [
+     "Nuosavas svoris",
+     "Aukštis m",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Miško ūkio technika",
@@ -39509,7 +39987,32 @@
    ],
    "results_url": "/skelbimai/misko-ukio-technika/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Motovalandos: f_201; Motovalandos: f_202; Ratų formulė: f_205; Galia, kW: f_63; Galia, kW: f_64; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "forestry"
+   "vt_slug": "forestry",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Motovalandos",
+     "Ratų formulė"
+    ],
+    [
+     "Galia, kW",
+     "Naudota/Nauja",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Turistiniai nameliai",
@@ -39783,7 +40286,7 @@
      ],
      "db_field": "fuel_type",
      "param": "fuel_type",
-     "multi": true,
+     "multi": false,
      "active": true
     },
     {
@@ -40613,7 +41116,38 @@
    ],
    "results_url": "/skelbimai/turistiniai-nameliai/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tinka su B kat. teisėmis: f_461; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Miegamų vietų skaičius: f_355; Miegamų vietų skaičius: f_356; Rida: f_65; Rida: f_66; Defektai: f_336; Spalva: f_5; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/52): expandAddons; 360° vaizdo kamera: a_691; Audio grotuvas: a_685; Automatinio parkavimo sistema: a_655; Kelio ženklų atpažinimo sistema: a_664; Kritulių jutiklis: a_667; Laisvų rankų įranga: a_688; Navigacija / GPS: a_676; Nuovargio įspėjimo sistema: a_673; Start-Stop sistema: a_670; Atstumo jutiklių sistema: a_679; Beraktė užvedimo sistema: a_658; Galinio vaizdo kamera: a_661; Kruizo kontrolė: a_682; Aklosios zonos stebėjimo sistema: a_649; Atstumo palaikymo sistema: a_652; Avarinio stabdymo sistema: a_631; Juostos palaikymo sistema: a_634; Traukos kontrolės sistema: a_646; Oro pagalvės: a_637; Signalizacija / Imobilaizeris: a_640; Stabilumo kontrolės sistema: a_643; ASR: a_119; Borto kompiuteris: a_48; Centrinis užraktas: a_10; ESP: a_453; Vairo stiprintuvas: a_13; Aukštas: a_95; CD keitiklis: a_26; Dviračių laikikliai: a_79; Geros būklės: a_61; Lauko baldai: a_459; Skaidraus stiklo priekiniai žibintai: a_55; Su prieangiu: a_460; Tentas: a_304; Autonominis šildymas (webasto): a_700; CD grotuvas: a_7; Dujinė viryklė: a_107; Dušas: a_103; El. langai: a_703; El. sėdynės: a_706; El. veidrodėliai: a_3; Elektroninė klimato kontrolė: a_19; Garso aparatūra: a_45; Gido mikrofonas: a_102; Karštas vanduo: a_104; Kavos aparatas: a_106; Oro kondicionierius: a_709; Šildomas priekinis stiklas: a_712; Šildomos sėdynės: a_715; Tamsinti stiklai: a_44; Tualetas: a_697; Video įranga: a_694; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "camping-houses"
+   "vt_slug": "camping-houses",
+   "layout": [
+    [
+     "Tipas",
+     "Markė",
+     "Kaina"
+    ],
+    [
+     "Metai",
+     "Tinka su B kat. teisėmis",
+     "Kuro tipas"
+    ],
+    [
+     "Sėdimų vietų skaičius",
+     "Miegamų vietų skaičius",
+     "Rida"
+    ],
+    [
+     "Defektai",
+     "Spalva",
+     "Naudotas/Naujas"
+    ],
+    [
+     "Šalis",
+     "Miestas",
+     "Rodyti ne senesnius nei"
+    ],
+    [
+     "Pardavėjo tipas",
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "Vandens transportas",
@@ -40772,10 +41306,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šalis",
@@ -41046,7 +41580,25 @@
    ],
    "results_url": "/skelbimai/vandens-transportas/",
    "url_params_raw": "Tipas: f_80; Medžiaga: f_154; Metai: f_41; Metai: f_42; Kaina: f_44; Kaina: f_45; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/11): expandAddons; Elektrinis starteris: a_979; Garantija: a_606; Garso aparatūra: a_607; Kuro žarna: a_973; Navigacija / GPS: a_608; Papildomas kuro bakas: a_970; Parduodama lizingu: a_609; Rankinis užvedimas: a_982; Sraigtas: a_976; Su auto priekaba: a_326; Variklio defektas: a_605; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "boats"
+   "vt_slug": "boats",
+   "layout": [
+    [
+     "Metai"
+    ],
+    [
+     "Kaina",
+     "Naudotas/Naujas",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   },
   {
    "name": "El. paspirtukai, riedžiai, dviračiai",
@@ -41911,7 +42463,47 @@
    ],
    "results_url": "/skelbimai/paspirtukai/",
    "url_params_raw": "Tipas: f_80; Gamintojas: f_69; Metai: f_41; Metai: f_42; Naudotas/Naujas: f_434; Kaina: f_44; Kaina: f_45; Galia, W: f_481; Galia, W: f_482; Maksimalus greitis, km/h: f_483; Maksimalus greitis, km/h: f_484; Svoris, kg: f_485; Svoris, kg: f_486; Maksimali apkrova, kg: f_477; Maksimali apkrova, kg: f_478; Rida su vienu įkrovimu, km: f_457; Rida su vienu įkrovimu, km: f_458; Spalva: f_5; Baterijos talpa, Ah: f_499; Baterijos talpa, Ah: f_500; Baterijos talpos likutis, %: f_489; Baterijos talpos likutis, %: f_490; Įkrovimo laikas, val.: f_491; Įkrovimo laikas, val.: f_492; Padangų tipas: f_474; Ratų skersmuo, coliais: f_493; Ratų skersmuo, coliais: f_494; Įveikiama įkalnė °: f_495; Įveikiama įkalnė °: f_496; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/12): expandAddons; Amortizatoriai: a_1219; Diskiniai stabdžiai: a_1222; Galimybė prijungti papildomą bateriją: a_1213; Garantija: a_1231; Greičio palaikymo sistema: a_1225; Integruotas ekranas: a_1216; Parkavimo kojelė: a_1210; Pritaikytas bekelei: a_1228; Savęs balansavimas: a_1207; Sėdynė: a_1237; Sulankstomas rėmas: a_1240; Žibintai: a_1234; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "bicycles"
+   "vt_slug": "bicycles",
+   "layout": [
+    [
+     "Tipas",
+     "Gamintojas",
+     "Metai"
+    ],
+    [
+     "Naudotas/Naujas",
+     "Kaina",
+     "Galia, W"
+    ],
+    [
+     "Maksimalus greitis, km/h",
+     "Svoris, kg",
+     "Maksimali apkrova, kg"
+    ],
+    [
+     "Rida su vienu įkrovimu, km",
+     "Spalva",
+     "Baterijos talpa, Ah"
+    ],
+    [
+     "Baterijos talpos likutis, %",
+     "Įkrovimo laikas, val.",
+     "Padangų tipas"
+    ],
+    [
+     "Ratų skersmuo, coliais",
+     "Įveikiama įkalnė °",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška"
+    ]
+   ]
   }
  ]
 }

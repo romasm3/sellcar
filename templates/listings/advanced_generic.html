@@ -15,16 +15,22 @@
           x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }} }">
       <input type="hidden" name="category" value="{{ adv.slug }}">
 
+      {# ═══ LAUKŲ TINKLELIS ═══
+         Struktūra perimta iš etalono: form-grid > row > fields.
+         Eilutė — trys vienodo pločio stulpeliai, tarpai 24 px horizontaliai
+         ir 12 px vertikaliai (gap-x-6 / gap-y-3). Laukų vietos ateina iš
+         isplestine-config.json „layout" — nuskaitytos iš autogidas. #}
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-          {% for f in adv.fields %}
-
+        <div class="flex flex-col gap-y-3">
+          {% for row in adv.rows %}
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
+            {% for f in row %}
             {% if f.type == 'range' %}
             <div>
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}</label>
+              {# Diapazonas — du laukai vienoje ląstelėje, kaip etalone #}
               <div class="grid grid-cols-2 gap-3">
                 {% if f.free_input %}
-                {# Diapazonas su laisvu įvedimu — sąrašas datalist'e, bet priimam bet kokį skaičių #}
                 <input type="number" step="1" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
                        value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
                        class="sp-fld placeholder-gray-400">
@@ -51,15 +57,25 @@
             </div>
 
             {% elif f.type == 'text' %}
-            <div class="sm:col-span-2">
+            <div>
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
               <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
                      placeholder="{% trans 'Ieškoti pavadinime ir aprašyme' %}" class="sp-fld placeholder-gray-400">
             </div>
 
+            {% elif f.type == 'checkbox' %}
+            {# Žymimasis langelis — etalone jis be antraštės, pačioje ląstelėje #}
+            <div class="flex items-end pb-[7px]">
+              <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+                <input type="checkbox" name="{{ f.param }}" value="1"
+                       {% if request.GET|get_param:f.param %}checked{% endif %} class="w-4 h-4 rounded">
+                <span class="font-bold text-[12.5px]">{{ f.label }}</span>
+              </label>
+            </div>
+
             {% elif f.multi %}
             {# Kelios markės vienu metu — kiekviena nauja eilutė siunčia tą patį param'ą #}
-            <div class="sm:col-span-2" x-data="{ rows: {{ selected_brands|length|default:1 }} }">
+            <div x-data="{ rows: {{ selected_brands|length|default:1 }} }">
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
               <template x-for="i in rows" :key="i">
                 <div class="sp-sel mb-2">
@@ -79,23 +95,26 @@
             <div>
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
               <div class="sp-sel">
-                <select name="{{ f.param }}" class="sp-fld">
-                  <option value="">{% trans "Visi" %}</option>
+                <select name="{{ f.param }}" {% if f.type == 'multiselect' %}multiple size="4"{% endif %} class="sp-fld">
+                  {% if f.type != 'multiselect' %}<option value="">{% trans "Visi" %}</option>{% endif %}
                   {% for v, l in f.options %}<option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
                 </select>
               </div>
             </div>
             {% endif %}
-
+            {% endfor %}
+          </div>
           {% endfor %}
 
-          {# ── Rūšiavimas ── #}
-          <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Rūšiavimas" %}</label>
-            <div class="sp-sel">
-              <select name="sort" class="sp-fld">
-                {% for v, l in adv.sort_options %}<option value="{{ v }}" {% if request.GET.sort == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
-              </select>
+          {# ── Rūšiavimas — savo eilutėje, pirmame stulpelyje ── #}
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
+            <div>
+              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Rūšiavimas" %}</label>
+              <div class="sp-sel">
+                <select name="sort" class="sp-fld">
+                  {% for v, l in adv.sort_options %}<option value="{{ v }}" {% if request.GET.sort == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+                </select>
+              </div>
             </div>
           </div>
         </div>
