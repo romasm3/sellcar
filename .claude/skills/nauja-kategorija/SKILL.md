@@ -515,6 +515,48 @@ ieško ir aprašyme. `owns_text_search()` bendruosius praleidžia. Nenaudok
 
 ---
 
+## 7b. Vertimai — kaip atnaujinti nesugadinant
+
+`manage.py makemessages` projekte **perrašyta** (`apps/listings/management/
+commands/makemessages.py`): msgmerge visada leidžiamas su
+`--no-fuzzy-matching`. Nekeisk to ir nekviesk `msgmerge` ranka be šios
+vėliavos.
+
+**Kodėl.** Be jos msgmerge naujam ar pasikeitusiam msgid priskiria
+„panašiausio" seno įrašo vertimą. Dalis tokių priskyrimų lieka BE
+`#, fuzzy` žymos ir tampa gyvais, klaidingais vertimais. 2026-08-20
+audite tokių rasta **57**:
+
+| msgid | ką rodė |
+|---|---|
+| `Steel` | „Vairavimas" |
+| `Fits car brands` | „Diskiniai stabdžiai" |
+| `Bolt count` | „Visos šalys" |
+| `Polish` | „English" |
+| `Subscription active until` | „Techninė apžiūra galioja iki" |
+
+Su `--no-fuzzy-matching` naujas msgid lieka `msgstr ""` — tai matoma iš
+karto ir nepadaro žalos.
+
+**Tvarka:**
+
+```bash
+venv/bin/python manage.py makemessages -l lt --no-obsolete
+# užpildyti TIK lietuviškus msgid; angliškų nepildyti msgid reikšme
+venv/bin/python manage.py compilemessages -l lt
+```
+
+**SPĄSTAS: tas pats msgid dviejuose kontekstuose.** `Steel` yra ir laivų
+korpuso medžiaga, ir ratlankių tipas — vienas .po įrašas, vienas
+vertimas. Jei reikšmės skiriasi, imk ATSKIRĄ msgid (`Stamped steel`), o
+ne perrašyk bendrą.
+
+**SPĄSTAS: vienetai dingsta vertime.** `Width (mm)`, `Width (m)` ir
+`Width (J)` visi turėjo vertimą „Plotis" — vartotojas nematė, kuo įvesti.
+Vienetą palik ir vertime.
+
+---
+
 ## 8. Ką visada paminėti kaip neišspręsta
 
 Ataskaitos gale išvardink:
