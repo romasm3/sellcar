@@ -46,4 +46,33 @@ vidinės paraštės 9px/12px, aukštis 40px.
      apačioje. Lūžio taškas — 1024 px (lg). */
   .sp-body-h { height: auto; }
   @media (min-width: 1024px) { .sp-body-h { height: 410px; } }
+
+  /* Iki 1024 px — telefono vaizdas, kaip etalone:
+     kategorijų ikonos horizontalia juosta virš laukų, o kiekvienas
+     laukas — spaudžiama eilutė su rodykle, atsidaranti vietoje. */
+  @media (max-width: 1023px) {
+    .sp-shell { flex-direction: column; }
+    .sp-rail { width: 100%; flex-direction: row; overflow-x: auto; gap: 0;
+               border-right: none; border-bottom: 1px solid #EEF0F2;
+               padding: 0 4px; -webkit-overflow-scrolling: touch; }
+    .sp-rail::-webkit-scrollbar { display: none; }
+    .sp-rail > * { flex: 0 0 auto; width: 72px; }
+    .sp-rail-btn2 { height: 54px; }
+    .sp-rail-btn2 svg { width: 30px; height: 30px; }
+    .sp-rail-btn2.sp-on::after { bottom: 0; width: 100%; height: 3px; border-radius: 0; }
+
+    .sp-mrow { display: flex; align-items: center; justify-content: space-between;
+               width: 100%; padding: 14px 2px; font-size: 16px; color: #1F2328;
+               background: none; border: none; text-align: left; cursor: pointer; }
+    .sp-mrow svg { width: 18px; height: 18px; color: #9AA0A6; transition: transform .15s; }
+    .sp-field { border-bottom: 1px solid #EEF0F2; }
+    .sp-field > .sp-ctl { display: none; padding-bottom: 12px; }
+    .sp-field.is-open > .sp-ctl { display: block; }
+    .sp-field.is-open .sp-mrow svg { transform: rotate(90deg); }
+    /* Antraštė jau matoma eilutėje — lauko viduje jos nekartojam */
+    .sp-field > .sp-ctl label.block { display: none; }
+  }
+  @media (min-width: 1024px) {
+    .sp-mrow { display: none; }
+  }
 </style>

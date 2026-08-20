@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 18:03+0300\n"
+"POT-Creation-Date: 2026-08-20 18:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7499,7 +7499,7 @@ msgstr "Очистить все фильтры"
 
 #: templates/listings/advanced_generic.html:3
 #: templates/listings/advanced_generic.html:13
-#: templates/listings/partials/panel_generic.html:64
+#: templates/listings/partials/panel_generic.html:78
 #: templates/listings/partials/search_panel.html:1150
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
@@ -13502,7 +13502,7 @@ msgstr "Макс. $"
 msgid "Show brands with 0 listings"
 msgstr "Показать бренды с 0 объявлениями"
 
-#: templates/listings/partials/panel_generic.html:73
+#: templates/listings/partials/panel_generic.html:87
 #: templates/listings/partials/search_panel.html:347
 #: templates/listings/partials/search_panel.html:485
 #: templates/listings/partials/search_panel.html:583

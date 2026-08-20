@@ -12,12 +12,12 @@
 
 {% include 'listings/partials/_sp_field_styles.html' %}
 
-<div class="bg-white rounded-xl shadow-sm flex max-w-[610px] overflow-visible{% if layout == 'side' %} sp-side{% endif %}"
+<div class="sp-shell bg-white rounded-xl shadow-sm flex max-w-[610px] overflow-visible{% if layout == 'side' %} sp-side{% endif %}"
      style="width:100%;margin:0 auto 1.5rem auto;"
      x-data="spPanel()" x-init="init()">
 
 {# ---------- KATEGORIJŲ RAIL — Alpine tab'ai, be navigacijos ---------- #}
-  <div class="w-14 shrink-0 hidden lg:flex flex-col items-center pt-4 gap-0.5 border-r border-gray-100">
+  <div class="sp-rail w-14 shrink-0 flex flex-col items-center pt-4 lg:pt-4 gap-0.5 border-r border-gray-100">
 
     <button type="button" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"
             @click="switchTab('cars')">

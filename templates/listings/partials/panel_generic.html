@@ -26,24 +26,37 @@ automobilių panelė.
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
   {% for f in row %}{% if f %}
 
-    {% if f.type == 'range' %}
-    {% include 'listings/partials/fields/_range.html' with f=f %}
+    {% comment %}
+    Telefone kiekvienas laukas — spaudžiama eilutė su rodykle, kuri
+    atsidaro vietoje (etalonas). Nuo 1024 px eilutė paslepiama ir lieka
+    įprastas tinklelio langelis; laukų šablonas tas pats.
+    {% endcomment %}
+    <div class="sp-field" x-data="{ o: false }" :class="o && 'is-open'">
+      <button type="button" class="sp-mrow" @click="o = !o">
+        <span>{{ f.label }}</span>
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <div class="sp-ctl">
+        {% if f.type == 'range' %}
+        {% include 'listings/partials/fields/_range.html' with f=f %}
 
-    {% elif f.type == 'text' %}
-    {% include 'listings/partials/fields/_text.html' with f=f %}
+        {% elif f.type == 'text' %}
+        {% include 'listings/partials/fields/_text.html' with f=f %}
 
-    {% elif f.type == 'checkbox' %}
-    {% include 'listings/partials/fields/_checkbox.html' with f=f %}
+        {% elif f.type == 'checkbox' %}
+        {% include 'listings/partials/fields/_checkbox.html' with f=f %}
 
-    {% elif f.type == 'multiselect' %}
-    {% include 'listings/partials/fields/_multiselect.html' with f=f %}
+        {% elif f.type == 'multiselect' %}
+        {% include 'listings/partials/fields/_multiselect.html' with f=f %}
 
-    {% elif f.widget == 'brand' %}
-    {% include 'listings/partials/fields/_brand.html' with f=f %}
+        {% elif f.widget == 'brand' %}
+        {% include 'listings/partials/fields/_brand.html' with f=f %}
 
-    {% else %}
-    {% include 'listings/partials/fields/_select.html' with f=f %}
-    {% endif %}
+        {% else %}
+        {% include 'listings/partials/fields/_select.html' with f=f %}
+        {% endif %}
+      </div>
+    </div>
 
   {% else %}
     <div class="hidden sm:block"></div>
