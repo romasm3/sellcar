@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 21:44+0300\n"
+"POT-Creation-Date: 2026-08-20 22:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -608,7 +608,7 @@ msgstr ""
 #: templates/listings/listing_create_cars_quick.html:44
 #: templates/listings/listing_edit.html:31
 #: templates/listings/listing_list.html:345
-#: templates/listings/listing_list.html:1655
+#: templates/listings/listing_list.html:1639
 #: templates/listings/listing_list_v2.html:294
 #: templates/listings/moto_part_create.html:79
 #: templates/listings/moto_parts_advanced.html:71
@@ -649,7 +649,7 @@ msgstr ""
 #: templates/listings/listing_detail.html:2353
 #: templates/listings/listing_edit.html:36
 #: templates/listings/listing_list.html:369
-#: templates/listings/listing_list.html:1661
+#: templates/listings/listing_list.html:1645
 #: templates/listings/moto_part_create.html:89
 #: templates/listings/moto_parts_advanced.html:77
 #: templates/listings/moto_parts_browse.html:125
@@ -1127,8 +1127,8 @@ msgstr ""
 #: apps/listings/models.py:303 apps/listings/models.py:2644
 #: apps/listings/models.py:3719 apps/listings/moto_part_views.py:32
 #: templates/listings/advanced_search.html:491
-#: templates/listings/listing_list.html:1035
-#: templates/listings/listing_list.html:1286
+#: templates/listings/listing_list.html:1019
+#: templates/listings/listing_list.html:1270
 #: templates/listings/motorcycles_advanced_search.html:175
 #: templates/listings/motorcycles_advanced_search.html:445
 #: templates/listings/trucks_advanced_search.html:699
@@ -4346,12 +4346,12 @@ msgid "Nauji ir atnaujinti viršuje"
 msgstr ""
 
 #: apps/listings/search_config/panels.py:204
-#: templates/listings/listing_list.html:723
+#: templates/listings/partials/_results_header_mobile.html:30
 msgid "Pigiausi viršuje"
 msgstr ""
 
 #: apps/listings/search_config/panels.py:205
-#: templates/listings/listing_list.html:724
+#: templates/listings/partials/_results_header_mobile.html:31
 msgid "Brangiausi viršuje"
 msgstr ""
 
@@ -5483,7 +5483,7 @@ msgstr ""
 #: templates/listings/listing_list.html:560
 #: templates/listings/listing_list.html:569
 #: templates/listings/listing_list.html:577
-#: templates/listings/listing_list.html:1831
+#: templates/listings/listing_list.html:1815
 #: templates/listings/moto_parts_advanced.html:66
 #: templates/listings/moto_parts_advanced.html:72
 #: templates/listings/moto_parts_advanced.html:78
@@ -6203,7 +6203,7 @@ msgid "Member since %(year)s"
 msgstr ""
 
 #: templates/accounts/seller_profile.html:190 templates/home.html:36
-#: templates/listings/home.html:24 templates/listings/listing_list.html:1645
+#: templates/listings/home.html:24 templates/listings/listing_list.html:1629
 #: templates/listings/trucks_list.html:271
 #: templates/listings/trucks_list.html:277
 #: templates/listings/trucks_list.html:557
@@ -6216,16 +6216,16 @@ msgstr ""
 #: templates/accounts/seller_profile.html:449 templates/home.html:47
 #: templates/home.html:251 templates/listings/listing_list.html:372
 #: templates/listings/listing_list.html:378
-#: templates/listings/listing_list.html:1545
+#: templates/listings/listing_list.html:1529
+#: templates/listings/listing_list.html:1530
 #: templates/listings/listing_list.html:1546
-#: templates/listings/listing_list.html:1562
-#: templates/listings/listing_list.html:1690
-#: templates/listings/listing_list.html:1756
-#: templates/listings/listing_list.html:1757
-#: templates/listings/listing_list.html:1781
-#: templates/listings/listing_list.html:1896
+#: templates/listings/listing_list.html:1674
+#: templates/listings/listing_list.html:1740
+#: templates/listings/listing_list.html:1741
+#: templates/listings/listing_list.html:1765
+#: templates/listings/listing_list.html:1880
+#: templates/listings/listing_list.html:1881
 #: templates/listings/listing_list.html:1897
-#: templates/listings/listing_list.html:1913
 #: templates/listings/moto_parts_browse.html:126
 #: templates/listings/motorcycles_list.html:201
 #: templates/listings/motorcycles_list.html:408
@@ -6436,7 +6436,7 @@ msgstr ""
 
 #: templates/accounts/seller_profile.html:359
 #: templates/listings/listing_list.html:296
-#: templates/listings/listing_list.html:946
+#: templates/listings/listing_list.html:922
 #: templates/listings/motorcycles_advanced_search.html:426
 #: templates/listings/motorcycles_list.html:343
 #: templates/listings/motorcycles_list.html:808
@@ -6985,9 +6985,9 @@ msgstr ""
 msgid "Found %(count)s listings"
 msgstr ""
 
-#: templates/home.html:155 templates/listings/listing_list.html:735
-#: templates/listings/listing_list.html:968
-#: templates/listings/listing_list.html:1252
+#: templates/home.html:155 templates/listings/listing_list.html:711
+#: templates/listings/listing_list.html:952
+#: templates/listings/listing_list.html:1236
 #: templates/listings/listing_list_v2.html:340
 #: templates/listings/motorcycles_list.html:704
 #: templates/listings/trucks_advanced_search.html:633
@@ -6998,8 +6998,8 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
-#: templates/home.html:156 templates/listings/listing_list.html:737
-#: templates/listings/listing_list.html:970
+#: templates/home.html:156 templates/listings/listing_list.html:713
+#: templates/listings/listing_list.html:954
 #: templates/listings/motorcycles_list.html:706
 #: templates/listings/trucks_advanced_search.html:634
 #: templates/listings/trucks_list.html:380
@@ -7008,8 +7008,8 @@ msgstr ""
 msgid "Price: Low to High"
 msgstr ""
 
-#: templates/home.html:157 templates/listings/listing_list.html:738
-#: templates/listings/listing_list.html:971
+#: templates/home.html:157 templates/listings/listing_list.html:714
+#: templates/listings/listing_list.html:955
 #: templates/listings/motorcycles_list.html:707
 #: templates/listings/trucks_advanced_search.html:635
 #: templates/listings/trucks_list.html:381
@@ -7041,10 +7041,10 @@ msgid "Map View"
 msgstr ""
 
 #: templates/home.html:209 templates/listings/advanced_search.html:263
-#: templates/listings/listing_list.html:848
-#: templates/listings/listing_list.html:857
-#: templates/listings/listing_list.html:1089
-#: templates/listings/listing_list.html:1099
+#: templates/listings/listing_list.html:824
+#: templates/listings/listing_list.html:833
+#: templates/listings/listing_list.html:1073
+#: templates/listings/listing_list.html:1083
 #: templates/listings/listing_select_plan.html:271
 #: templates/listings/listing_services_order.html:184
 #: templates/listings/motorcycles_advanced_search.html:452
@@ -7059,8 +7059,8 @@ msgstr ""
 msgid "km"
 msgstr ""
 
-#: templates/home.html:224 templates/listings/listing_list.html:931
-#: templates/listings/listing_list.html:1202
+#: templates/home.html:224 templates/listings/listing_list.html:907
+#: templates/listings/listing_list.html:1186
 #: templates/listings/moto_parts_browse.html:280
 #: templates/listings/motorcycles_advanced_search.html:457
 #: templates/listings/motorcycles_list.html:316
@@ -7073,21 +7073,21 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: templates/home.html:235 templates/listings/listing_list.html:944
-#: templates/listings/listing_list.html:1216
+#: templates/home.html:235 templates/listings/listing_list.html:920
+#: templates/listings/listing_list.html:1200
 #: templates/listings/search_map.html:123
 #: templates/listings/wheels_list.html:517
 msgid "No listings found"
 msgstr ""
 
-#: templates/home.html:236 templates/listings/listing_list.html:945
+#: templates/home.html:236 templates/listings/listing_list.html:921
 #: templates/listings/motorcycles_list.html:807
 #: templates/listings/trucks_list.html:487
 #: templates/listings/wheels_list.html:518
 msgid "Try adjusting your filters"
 msgstr ""
 
-#: templates/home.html:239 templates/listings/listing_list.html:1218
+#: templates/home.html:239 templates/listings/listing_list.html:1202
 #: templates/listings/trucks_advanced_search.html:595
 #: templates/listings/trucks_advanced_search.html:749
 #: templates/listings/trucks_list.html:800
@@ -7344,7 +7344,7 @@ msgstr ""
 
 #: templates/listings/advanced_search.html:1140
 #: templates/listings/advanced_search.html:1231
-#: templates/listings/listing_list.html:1651
+#: templates/listings/listing_list.html:1635
 #: templates/listings/motorcycles_advanced_search.html:486
 #: templates/listings/motorcycles_list.html:1024
 msgid "Remove"
@@ -9371,8 +9371,8 @@ msgstr ""
 #: templates/listings/listing_detail.html:1801
 #: templates/listings/listing_detail.html:2477
 #: templates/listings/listing_edit.html:46
-#: templates/listings/listing_list.html:1361
-#: templates/listings/listing_list.html:1397
+#: templates/listings/listing_list.html:1345
+#: templates/listings/listing_list.html:1381
 #: templates/listings/motorcycle_create.html:240
 msgid "VIN"
 msgstr ""
@@ -9808,16 +9808,16 @@ msgstr ""
 #: templates/listings/listing_detail.html:964
 #: templates/listings/listing_detail.html:1133
 #: templates/listings/listing_detail.html:1251
-#: templates/listings/listing_list.html:847
-#: templates/listings/listing_list.html:867
-#: templates/listings/listing_list.html:876
-#: templates/listings/listing_list.html:886
-#: templates/listings/listing_list.html:899
-#: templates/listings/listing_list.html:1088
-#: templates/listings/listing_list.html:1110
-#: templates/listings/listing_list.html:1120
-#: templates/listings/listing_list.html:1131
-#: templates/listings/listing_list.html:1144
+#: templates/listings/listing_list.html:823
+#: templates/listings/listing_list.html:843
+#: templates/listings/listing_list.html:852
+#: templates/listings/listing_list.html:862
+#: templates/listings/listing_list.html:875
+#: templates/listings/listing_list.html:1072
+#: templates/listings/listing_list.html:1094
+#: templates/listings/listing_list.html:1104
+#: templates/listings/listing_list.html:1115
+#: templates/listings/listing_list.html:1128
 msgid "val."
 msgstr ""
 
@@ -10003,8 +10003,8 @@ msgid "Kelplotis"
 msgstr ""
 
 #: templates/listings/listing_detail.html:1069
-#: templates/listings/listing_list.html:810
-#: templates/listings/listing_list.html:1048
+#: templates/listings/listing_list.html:786
+#: templates/listings/listing_list.html:1032
 msgid "Sutartinė"
 msgstr ""
 
@@ -10291,8 +10291,8 @@ msgstr ""
 
 #: templates/listings/listing_detail.html:2751
 #: templates/listings/listing_detail.html:2769
+#: templates/listings/listing_list.html:1843
 #: templates/listings/listing_list.html:1859
-#: templates/listings/listing_list.html:1875
 #: templates/listings/listing_stats.html:92
 #: templates/listings/motorcycles_list.html:1096
 #: templates/listings/my_listings.html:314
@@ -10487,7 +10487,7 @@ msgid "Select Category"
 msgstr ""
 
 #: templates/listings/listing_list.html:279
-#: templates/listings/listing_list.html:1490
+#: templates/listings/listing_list.html:1474
 #: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/motorcycles_list.html:894
@@ -10693,53 +10693,37 @@ msgstr ""
 msgid "Sold on lease"
 msgstr ""
 
-#: templates/listings/listing_list.html:705
-msgid "Rasta:"
-msgstr ""
-
-#: templates/listings/listing_list.html:710
-msgid "Tinklelis"
-msgstr ""
-
-#: templates/listings/listing_list.html:714
-msgid "Sąrašas"
-msgstr ""
-
-#: templates/listings/listing_list.html:722
-msgid "Nauji ir atnaujinti"
-msgstr ""
-
-#: templates/listings/listing_list.html:736
-#: templates/listings/listing_list.html:969
+#: templates/listings/listing_list.html:712
+#: templates/listings/listing_list.html:953
 #: templates/listings/motorcycles_list.html:705
 msgid "Newest and renewed"
 msgstr ""
 
-#: templates/listings/listing_list.html:739
-#: templates/listings/listing_list.html:972
+#: templates/listings/listing_list.html:715
+#: templates/listings/listing_list.html:956
 #: templates/listings/motorcycles_list.html:708
 msgid "Mileage: Low to High"
 msgstr ""
 
-#: templates/listings/listing_list.html:740
-#: templates/listings/listing_list.html:973
+#: templates/listings/listing_list.html:716
+#: templates/listings/listing_list.html:957
 #: templates/listings/motorcycles_list.html:709
 msgid "Mileage: High to Low"
 msgstr ""
 
-#: templates/listings/listing_list.html:741
-#: templates/listings/listing_list.html:974
+#: templates/listings/listing_list.html:717
+#: templates/listings/listing_list.html:958
 #: templates/listings/motorcycles_list.html:710
 msgid "Year: Newest First"
 msgstr ""
 
-#: templates/listings/listing_list.html:742
-#: templates/listings/listing_list.html:975
+#: templates/listings/listing_list.html:718
+#: templates/listings/listing_list.html:959
 #: templates/listings/motorcycles_list.html:711
 msgid "Year: Oldest First"
 msgstr ""
 
-#: templates/listings/listing_list.html:746
+#: templates/listings/listing_list.html:722
 #: templates/listings/motorcycles_list.html:715
 #: templates/listings/trucks_list.html:386
 #: templates/listings/trucks_list.html:670
@@ -10748,7 +10732,7 @@ msgstr ""
 msgid "Save Search"
 msgstr ""
 
-#: templates/listings/listing_list.html:781
+#: templates/listings/listing_list.html:757
 #: templates/listings/moto_parts_browse.html:235
 #: templates/listings/motogear_list.html:176
 #: templates/listings/motogear_list.html:410
@@ -10762,40 +10746,40 @@ msgstr ""
 msgid "SOLD"
 msgstr ""
 
-#: templates/listings/listing_list.html:810
-#: templates/listings/listing_list.html:1048
+#: templates/listings/listing_list.html:786
+#: templates/listings/listing_list.html:1032
 msgid "parai"
 msgstr ""
 
-#: templates/listings/listing_list.html:818
+#: templates/listings/listing_list.html:794
 msgid "km su įkrovimu"
 msgstr ""
 
-#: templates/listings/listing_list.html:828
-#: templates/listings/listing_list.html:1068
+#: templates/listings/listing_list.html:804
+#: templates/listings/listing_list.html:1052
 msgid "kan."
 msgstr ""
 
-#: templates/listings/listing_list.html:829
+#: templates/listings/listing_list.html:805
 msgid "keitimas"
 msgstr ""
 
-#: templates/listings/listing_list.html:843
-#: templates/listings/listing_list.html:1084
+#: templates/listings/listing_list.html:819
+#: templates/listings/listing_list.html:1068
 msgid "viet."
 msgstr ""
 
-#: templates/listings/listing_list.html:853
-#: templates/listings/listing_list.html:1095
+#: templates/listings/listing_list.html:829
+#: templates/listings/listing_list.html:1079
 msgid "miegamos v."
 msgstr ""
 
-#: templates/listings/listing_list.html:858
-#: templates/listings/listing_list.html:1100
+#: templates/listings/listing_list.html:834
+#: templates/listings/listing_list.html:1084
 msgid "B kat."
 msgstr ""
 
-#: templates/listings/listing_list.html:955
+#: templates/listings/listing_list.html:931
 #: templates/listings/motogear_list.html:79
 #: templates/listings/motorcycles_list.html:171
 #, python-format
@@ -10804,92 +10788,92 @@ msgid_plural "Found %(counter)s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/listings/listing_list.html:966
+#: templates/listings/listing_list.html:950
 #: templates/listings/trucks_list.html:682
 msgid "Sort by:"
 msgstr ""
 
-#: templates/listings/listing_list.html:1217
+#: templates/listings/listing_list.html:1201
 #: templates/listings/trucks_list.html:799
 msgid "Try adjusting your filters to find what you're looking for"
 msgstr ""
 
-#: templates/listings/listing_list.html:1248
+#: templates/listings/listing_list.html:1232
 #: templates/listings/trucks_list.html:815
 msgid "Day's deals"
 msgstr ""
 
-#: templates/listings/listing_list.html:1256
+#: templates/listings/listing_list.html:1240
 #: templates/listings/trucks_list.html:823
 msgid "Most popular"
 msgstr ""
 
-#: templates/listings/listing_list.html:1260
+#: templates/listings/listing_list.html:1244
 #: templates/listings/trucks_list.html:827
 msgid "Most expensive"
 msgstr ""
 
-#: templates/listings/listing_list.html:1307
+#: templates/listings/listing_list.html:1291
 msgid "No featured listings yet."
 msgstr ""
 
-#: templates/listings/listing_list.html:1341
-#: templates/listings/listing_list.html:1375
-#: templates/listings/listing_list.html:1411
+#: templates/listings/listing_list.html:1325
+#: templates/listings/listing_list.html:1359
+#: templates/listings/listing_list.html:1395
 msgid "No listings yet."
 msgstr ""
 
-#: templates/listings/listing_list.html:1439
+#: templates/listings/listing_list.html:1423
 #: templates/listings/motorcycles_list.html:835
 #: templates/listings/trucks_advanced_search.html:768
 #: templates/listings/trucks_list.html:950
 msgid "s ago"
 msgstr ""
 
-#: templates/listings/listing_list.html:1441
+#: templates/listings/listing_list.html:1425
 #: templates/listings/motorcycles_list.html:837
 #: templates/listings/trucks_advanced_search.html:769
 #: templates/listings/trucks_list.html:951
 msgid "min ago"
 msgstr ""
 
-#: templates/listings/listing_list.html:1443
+#: templates/listings/listing_list.html:1427
 #: templates/listings/motorcycles_list.html:839
 #: templates/listings/trucks_advanced_search.html:770
 #: templates/listings/trucks_list.html:952
 msgid "h ago"
 msgstr ""
 
-#: templates/listings/listing_list.html:1445
+#: templates/listings/listing_list.html:1429
 #: templates/listings/motorcycles_list.html:841
 #: templates/listings/trucks_advanced_search.html:771
 #: templates/listings/trucks_list.html:953
 msgid "1 day ago"
 msgstr ""
 
-#: templates/listings/listing_list.html:1446
+#: templates/listings/listing_list.html:1430
 #: templates/listings/motorcycles_list.html:842
 #: templates/listings/trucks_advanced_search.html:772
 #: templates/listings/trucks_list.html:954
 msgid "days ago"
 msgstr ""
 
-#: templates/listings/listing_list.html:1640
+#: templates/listings/listing_list.html:1624
 #: templates/listings/motorcycles_list.html:1013
 msgid "Maximum 5 brand/model pairs"
 msgstr ""
 
-#: templates/listings/listing_list.html:1663
+#: templates/listings/listing_list.html:1647
 #: templates/listings/motorcycles_list.html:1036
 #: templates/listings/motorcycles_list.html:1052
 msgid "Select brand first"
 msgstr ""
 
-#: templates/listings/listing_list.html:1681
+#: templates/listings/listing_list.html:1665
 msgid "Select make first"
 msgstr ""
 
-#: templates/listings/listing_list.html:1686
+#: templates/listings/listing_list.html:1670
 #: templates/listings/motogear_create.html:432
 #: templates/listings/motorcycle_create.html:447
 #: templates/listings/motorcycles_list.html:1057
@@ -12726,6 +12710,22 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1221
 #: templates/listings/select_value.html:21
 msgid "Paieška..."
+msgstr ""
+
+#: templates/listings/partials/_results_header_mobile.html:12
+msgid "Rasta:"
+msgstr ""
+
+#: templates/listings/partials/_results_header_mobile.html:17
+msgid "Tinklelis"
+msgstr ""
+
+#: templates/listings/partials/_results_header_mobile.html:21
+msgid "Sąrašas"
+msgstr ""
+
+#: templates/listings/partials/_results_header_mobile.html:29
+msgid "Nauji ir atnaujinti"
 msgstr ""
 
 #: templates/listings/partials/_sp_parts_brand.html:23

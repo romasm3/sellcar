@@ -372,6 +372,31 @@ document.documentElement.scrollWidth === document.documentElement.clientWidth
 
 Turi galioti prie 360, 390 ir 768 px. Jei `scrollWidth` didesnis — klaida.
 
+**Bet šito NEUŽTENKA.** Elementas gali išsikišti į KAIRĘ — tada `left`
+neigiamas, o `scrollWidth` nepasikeičia, nes naršyklė kairėn išsikišusio
+turinio į slinkimo plotį neįskaičiuoja. Todėl tikrinamos ABI pusės:
+
+```javascript
+[...document.querySelectorAll('*')]
+  .filter(e => { const r = e.getBoundingClientRect();
+                 return r.left < -1 || r.right > window.innerWidth + 1; })
+  .map(e => [e.className, Math.round(e.getBoundingClientRect().left),
+                          Math.round(e.getBoundingClientRect().right)]);
+```
+
+**Neigiamas `left` beveik visada reiškia vieną iš trijų:**
+
+1. `position: absolute` su `right: 0` tėve, kuris siauresnis už elementą;
+2. neigiamas `margin-left` arba `transform: translateX(-…)`;
+3. **flex konteineris su `justify-content: flex-end` ir per plačiu turiniu** —
+   perteklius eina į kairę, ne į dešinę.
+
+**Pavyzdys (2026-08-20).** „Rūšiuoti pagal" eilutė buvo
+`flex justify-end`, turinys 368 px, konteineris 344 px — elementas
+atsidūrė ties `left: −24`. Vienpusis patikrinimas (`right > innerWidth`)
+jo nerado, ir po dviejų taisymo bandymų vartotojas vis dar nematė
+rūšiavimo telefone. `scrollWidth` visą laiką rodė „viskas gerai".
+
 ```python
 # Playwright, visiems puslapiams iš karto
 PROBE = "() => ({s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth})"

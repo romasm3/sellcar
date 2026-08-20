@@ -268,6 +268,13 @@ Patikrinimas prie 360, 390 ir 768 px:
 document.documentElement.scrollWidth === document.documentElement.clientWidth
 ```
 
+Ir abiejų pusių patikra — `scrollWidth` kairėn išsikišusio turinio nemato:
+
+```javascript
+[...document.querySelectorAll('*')].filter(e => { const r = e.getBoundingClientRect();
+  return r.left < -1 || r.right > window.innerWidth + 1; })
+```
+
 Tai galioja ir etalonui: jų mobiliame puslapyje `scrollWidth` visada lygus
 `innerWidth`. Vienintelė slenkama sritis pas juos — markių nuorodų juosta
 rezultatų puslapyje, ir ji yra turinys, ne valdymas.
