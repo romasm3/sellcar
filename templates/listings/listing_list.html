@@ -127,39 +127,6 @@
 @media (min-width: 640px) { .home-tab-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .home-tab-grid { grid-template-columns: repeat(6, 1fr); } }
 
-/* ─── „Pasiūlymai" karuselė ───────────────────────────────────────────────
-   Sąmoninga slenkama juosta: slinkimas gyvena .hc-track viduje, todėl
-   body scrollWidth lieka lygus innerWidth (žr. mobilaus vaizdo taisyklę —
-   draudžiama netyčinė persipilda, ne ši juosta).
-   Kortelių plotis atkartoja .home-tab-grid stulpelius: 2 / 3 / 6. */
-.home-carousel { position: relative; }
-.hc-track {
-  display: flex; gap: 1rem;
-  overflow-x: auto; overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory; scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; -ms-overflow-style: none;
-  padding-bottom: 2px;
-}
-.hc-track::-webkit-scrollbar { display: none; }
-.hc-track > .home-tab-card { flex: 0 0 auto; scroll-snap-align: start; width: calc((100% - 1rem) / 2); }
-@media (min-width: 640px)  { .hc-track > .home-tab-card { width: calc((100% - 2rem) / 3); } }
-@media (min-width: 1024px) { .hc-track > .home-tab-card { width: calc((100% - 5rem) / 6); } }
-.hc-arrow {
-  display: none;
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
-  width: 36px; height: 36px; border-radius: 9999px;
-  background: #fff; border: 1px solid #e5e7eb; color: #374151;
-  box-shadow: 0 2px 8px rgba(0,0,0,.16);
-  align-items: center; justify-content: center; cursor: pointer;
-}
-.hc-arrow svg { width: 18px; height: 18px; }
-.hc-arrow:hover { background: #f9fafb; }
-.hc-prev { left: -14px; }
-.hc-next { right: -14px; }
-/* Rodyklės — tik pelei; jutikliniame ekrane stumiama pirštu.
-   Sprendžia rodyklės tipas, ne plotis: 768 px langas su pele rodykles turi. */
-@media (hover: hover) and (pointer: fine) { .hc-arrow { display: flex; } }
 .home-tab-card { display: block; background: #fff; border: 1px solid #f3f4f6; border-radius: 0.5rem; overflow: hidden; transition: all 0.2s; cursor: pointer; }
 .home-tab-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #d1fae5; }
 .home-tab-img { position: relative; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
@@ -1040,38 +1007,14 @@ function onSortChange(selectEl) {
             </div>
 
             {% comment %}
-            „Pasiūlymai" — sujungtas skirtukas (buvę „Dienos pasiūlymai" + naujausi),
-            visos kategorijos kartu. Kortelės ne tinklelyje, o horizontalioje
-            karuselėje su scroll-snap: telefone stumiama pirštu, darbalaukyje —
-            ‹ › mygtukais. Rodyklės rodomos tik kai yra ką slinkti (canPrev/canNext).
-            Slinkimas vyksta TIK .hc-track viduje, puslapio jis neišplečia.
+            „Pasiūlymai" — sujungtas skirtukas (buvę „Dienos pasiūlymai" +
+            naujausi), visos kategorijos kartu. Kortelės — įprastame
+            tinklelyje, sudėtos į apačią; į šoną slankioja tik skirtukų
+            pavadinimų juosta.
             {% endcomment %}
             <div x-show="tab === 'offers'" x-cloak>
                 {% if tab_offers %}
-                <div class="home-carousel"
-                     x-data="{
-                        prev: false, next: false,
-                        upd() {
-                            const t = $refs.track;
-                            if (!t) return;
-                            this.prev = t.scrollLeft > 4;
-                            this.next = t.scrollLeft + t.clientWidth < t.scrollWidth - 4;
-                        },
-                        go(d) {
-                            const t = $refs.track;
-                            t.scrollBy({ left: d * t.clientWidth * 0.9, behavior: 'smooth' });
-                        }
-                     }"
-                     x-init="$nextTick(() => upd()); window.addEventListener('resize', () => upd())">
-                  <button type="button" class="hc-arrow hc-prev" x-show="prev" x-cloak
-                          @click="go(-1)" aria-label="{% trans 'Atgal' %}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
-                  </button>
-                  <button type="button" class="hc-arrow hc-next" x-show="next" x-cloak
-                          @click="go(1)" aria-label="{% trans 'Pirmyn' %}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                  </button>
-                <div class="hc-track" x-ref="track" @scroll.passive="upd()">
+                <div class="home-tab-grid">
                     {% for listing in tab_offers %}
                     {% with eff_level=listing.get_effective_star_level %}
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
@@ -1109,7 +1052,6 @@ function onSortChange(selectEl) {
                     </a>
                     {% endwith %}
                     {% endfor %}
-                </div>
                 </div>
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>

@@ -292,11 +292,12 @@ sąlygas:
 3. rodyklės rodomos tik kai yra ką slinkti, o telefone jų nėra — stumiama
    pirštu.
 
-Pas mus taip veikia pagrindinio puslapio „Pasiūlymai" skirtukas
-(`.hc-track`) ir pati skirtukų juosta (`.home-tabs-header`) — abi
-šablone `listings/listing_list.html`. Skirtukai telefone lieka vienoje
-eilutėje ir stumiami pirštu; paspaustas skirtukas prisitraukia į vidurį
-(`scrollIntoView({ inline: 'center' })`), kad matytųsi kaimynai.
+Pas mus taip veikia tik skirtukų pavadinimų juosta (`.home-tabs-header`
+šablone `listings/listing_list.html`): telefone ji lieka vienoje eilutėje
+ir stumiama pirštu, o paspaustas skirtukas prisitraukia į vidurį
+(`scrollIntoView({ inline: 'center' })`). SKELBIMŲ kortelės NIEKUR
+neslankioja į šoną — jos dedamos į tinklelį ir keliauja žemyn
+(vartotojo sprendimas 2026-08-20).
 
 **Pavyzdys (2026-08-20).** Antraštės dešinė pusė buvo 340 px ir plėtė visą
 puslapį iki 396 px. Atrodė kaip trys atskiros klaidos — „slenkanti" ikonų

@@ -371,7 +371,7 @@ dalykai:
 |---|---|---|
 | Kas | netyčinė persipilda — elementas išlipa už ekrano | sąmoninga slenkama juosta (karuselė) savo konteineryje |
 | Požymis | `body.scrollWidth > innerWidth` arba `left < -1` | konteineris su `overflow-x: auto` + `scroll-snap-type` |
-| Pavyzdys | per plati antraštė, `justify-end` eilutė | „Pasiūlymai" kortelių karuselė, etalono „Mano paieškos" |
+| Pavyzdys | per plati antraštė, `justify-end` eilutė | skirtukų pavadinimų juosta (`.home-tabs-header`) |
 
 Karuselė teisinga tik tada, kai slinkimas gyvena JOS viduje: puslapis
 nejuda, `document.documentElement.scrollWidth` lieka lygus `innerWidth`,
@@ -380,8 +380,13 @@ vietoje) ir rodykles, kurios rodomos tik kai yra ką slinkti. Persipildymo
 patikroje tokio konteinerio vidus praleidžiamas:
 
 ```javascript
-if (el.closest('.hc-track')) return;   // sąmoninga juosta — ne persipilda
+if (el.closest('.home-tabs-header')) return;   // sąmoninga juosta — ne persipilda
 ```
+
+**Turinys į šoną neslankioja.** Slenkama juosta tinka trumpiems
+pavadinimams (skirtukai, žymos), bet ne skelbimų kortelėms: jos dedamos
+į tinklelį ir keliauja žemyn. 2026-08-20 kortelių karuselė buvo padaryta
+ir tą pačią dieną atmesta — vartotojas nori matyti viską iš karto.
 
 Patikrinimas — vienas skaičius:
 
