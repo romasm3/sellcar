@@ -3594,11 +3594,21 @@ RIM_PCD_CHOICES = [
  
 RIM_BOLT_COUNT_CHOICES = [(str(n), str(n)) for n in [3, 4, 5, 6, 8, 10]]
  
+# Ratlankių „Tipas" — 7 reikšmės pagal autogidas etaloną (sec 11).
+# Stulpelis istoriškai vadinasi `rim_material`, nors etalone laukas yra
+# „Tipas": jis maišo medžiagą (lydinio / štampuoti / kalti) su gaminio
+# rūšimi (priedai / atsarginis ratas / gaubtai / dangteliai). Stulpelio
+# nepervadinam — jis minimas 7 gyvuose failuose (naršymas, išplėstinė
+# paieška, panelė), o pervadinimas nieko vartotojui neduotų.
+# „Steel" msgid nenaudojam: jis bendras su laivų korpuso medžiaga.
 RIM_MATERIAL_CHOICES = [
+    ('accessory', _('Accessories')),
     ('alloy', _('Alloy')),
-    ('steel', _('Steel')),
+    ('steel', _('Stamped steel')),
     ('forged', _('Forged')),
-    ('carbon', _('Carbon fiber')),
+    ('spare', _('Spare wheel')),
+    ('hubcap', _('Wheel covers')),
+    ('centercap', _('Centre caps')),
 ]
  
 WHEEL_CONDITION_CHOICES = [
@@ -3678,7 +3688,20 @@ class WheelListing(models.Model):
     rim_bolt_count = models.CharField(max_length=2, choices=RIM_BOLT_COUNT_CHOICES, blank=True)
     rim_et = models.IntegerField(null=True, blank=True)
     rim_dia = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
-    rim_material = models.CharField(max_length=10, choices=RIM_MATERIAL_CHOICES, blank=True)
+    rim_material = models.CharField(max_length=16, choices=RIM_MATERIAL_CHOICES, blank=True)
+
+    # Ypatumai (etalonas sec 11) — iki šiol formoje buvo rodomi, bet
+    # modelyje neegzistavo, todėl view'as juos praleisdavo per hasattr()
+    # ir vartotojo pažymėtos varnelės tyliai dingdavo.
+    # feat_sold_single („Parduodu po vieną") jau yra aukščiau — bendras su padangomis.
+    rim_feat_bent = models.BooleanField(default=False)      # Aplankstyti ratlankiai
+    rim_feat_original = models.BooleanField(default=False)  # Originalūs ratlankiai
+    rim_feat_with_tyres = models.BooleanField(default=False)  # Su padangom
+    rim_feat_chromed = models.BooleanField(default=False)   # Chromuoti
+
+    # „Ratlankiai tinkami markei" — etalone atskira sekcija; pas mus
+    # laisvas tekstas (formoje maxlength=200). Irgi nebuvo saugomas.
+    fits_brands = models.CharField(max_length=200, blank=True, default='')
  
     # ─── Lokacija + kontaktai ───
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='LT')

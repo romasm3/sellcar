@@ -125,9 +125,8 @@ TYRE_BRANDS = [
 
 
 # ═══ RIM FEATURES — autogidas Ratlankiai „Ypatumai" ═══
-# NOTE: šitiems reikia laukų WheelListing modelyje + migracijos, kad saugotųsi.
-# feat_sold_single jau egzistuoja (bendras su tyre). Kiti 4 — nauji.
-# Kol nepridėti model laukai — template rodo checkbox'us, bet POST ignoruoja.
+# Visi penki turi laukus WheelListing modelyje (0074 migracija).
+# feat_sold_single bendras su padangomis, kiti keturi — tik ratlankiams.
 RIM_FEATURE_FIELDS = [
     ('rim_feat_bent', _('Bent rims')),
     ('rim_feat_original', _('Original rims')),
@@ -262,13 +261,9 @@ def wheels_create(request):
             listing.rim_et = _to_int(request.POST.get('rim_et'))
             listing.rim_dia = _to_decimal(request.POST.get('rim_dia'))
             listing.rim_material = request.POST.get('rim_material', '')
-            # ─── RIM features (saugosis tik jei modelyje yra šitie laukai) ───
+            listing.fits_brands = request.POST.get('fits_brands', '').strip()[:200]
             for field, _label in RIM_FEATURE_FIELDS:
-                if hasattr(listing, field):
-                    setattr(listing, field, request.POST.get(field) == 'on')
-            # ─── fits_brands (saugosis tik jei modelyje yra laukas) ───
-            if hasattr(listing, 'fits_brands'):
-                listing.fits_brands = request.POST.get('fits_brands', '').strip()[:200]
+                setattr(listing, field, request.POST.get(field) == 'on')
 
         listing.title = listing.build_title()
         listing.save()

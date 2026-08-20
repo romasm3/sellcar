@@ -432,7 +432,7 @@ msgstr "Aliuminis"
 #: apps/listings/boats_views.py:43 apps/listings/models.py:3332
 #: templates/listings/partials/panel_boats.html:21
 msgid "Steel"
-msgstr "Vairavimas"
+msgstr "Plieninis"
 
 #: apps/listings/boats_views.py:44
 #: templates/listings/partials/panel_boats.html:22
@@ -11956,7 +11956,7 @@ msgstr "Centrinė skylė"
 
 #: templates/listings/rims_create.html:171
 msgid "Fits car brands"
-msgstr "Diskiniai stabdžiai"
+msgstr "Tinka markėms"
 
 #: templates/listings/rims_create.html:172
 msgid "e.g. Audi, BMW, VW"
@@ -15086,3 +15086,19 @@ msgstr "Sniego motociklas"
 #: apps/listings/models.py
 msgid "Mixed cooling"
 msgstr "Mišrus aušinimas"
+
+#: apps/listings/models.py
+msgid "Accessories"
+msgstr "Priedai"
+
+#: apps/listings/models.py
+msgid "Stamped steel"
+msgstr "Plieniniai štampuoti"
+
+#: apps/listings/models.py
+msgid "Wheel covers"
+msgstr "Ratų gaubtai"
+
+#: apps/listings/models.py
+msgid "Centre caps"
+msgstr "Ratlankių dangteliai"

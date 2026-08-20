@@ -4094,6 +4094,14 @@ def listing_edit_section(request, pk, section):
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
             return redirect(f'/create/construction/attachment/?edit={pk}')
         return redirect(f'/create/construction/?edit={pk}')
+    # „Visas X dalimis" — PRIEŠ bendrą parts šaką, kitaip šie skelbimai
+    # atsidaro bendroje dalies formoje, kuri jų laukų nemoka.
+    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
+        return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
+        return redirect('truck_for_parts_edit', pk=pk)
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -4103,11 +4111,6 @@ def listing_edit_section(request, pk, section):
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 
-    # ✅ Whole car for parts → atskiras edit puslapis
-    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
-        return redirect('car_for_parts_edit', pk=pk)
-    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
-        return redirect('moto_for_parts_edit', pk=pk)
 
     section_to_step = {
         'vehicle': 3, 'equipment': 4, 'price': 5,
@@ -4332,6 +4335,14 @@ def listing_edit_step(request, pk, step):
                 listing.subcategory and listing.subcategory.slug == 'construction-attachments'):
             return redirect(f'/create/construction/attachment/?edit={pk}')
         return redirect(f'/create/construction/?edit={pk}')
+    # „Visas X dalimis" — PRIEŠ bendrą parts šaką, kitaip šie skelbimai
+    # atsidaro bendroje dalies formoje, kuri jų laukų nemoka.
+    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
+        return redirect('car_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
+        return redirect('moto_for_parts_edit', pk=pk)
+    if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
+        return redirect('truck_for_parts_edit', pk=pk)
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -4341,11 +4352,6 @@ def listing_edit_step(request, pk, step):
     if listing.vehicle_type and listing.vehicle_type.slug == 'motorcycles':
         return redirect(f'/create/motorcycle/?edit={pk}')
 
-    # ✅ Whole car for parts → atskiras edit puslapis
-    if listing.subcategory and listing.subcategory.slug == 'whole-car-for-parts':
-        return redirect('car_for_parts_edit', pk=pk)
-    if listing.subcategory and listing.subcategory.slug == 'whole-moto-for-parts':
-        return redirect('moto_for_parts_edit', pk=pk)
 
     step = int(step)
     if step not in range(1, 8):
