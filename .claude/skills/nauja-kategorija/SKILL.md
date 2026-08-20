@@ -393,6 +393,25 @@ video/audio garsiakalbius, ir paspirtukų variklius; `curb_weight` —
 maišyti vienetus: tikrink, ar etalonas prašo to paties mato, ir tik tada
 perpanaudok.
 
+**Ne kiekviena pikerio eilutė virsta vertikale.** Etalone pasitaiko
+kategorijų, kurios neturi nei savos formos, nei paieškos sekcijos —
+mikroautobusai ten yra **nukreipimo puslapis** į automobilius arba sunkųjį
+transportą (riba 3,5 t = B kategorija). Prieš kuriant laukus patikrink:
+jei `search_config` nė vienoje sekcijoje kategorijos nėra, greičiausiai
+etalonas jos taip pat neturi kaip kategorijos. Tada:
+
+- `CREATE_URL_BY_VEHICLE_TYPE['<slug>'] = '/create/<pasirinkimo-puslapis>/'`
+- VT lieka DB, bet be formos, be panelės, be konfigūracijos sekcijos
+- naršyme `?category=<slug>` **persiadresuoja** ten, kur skelbimai
+  iš tikrųjų gyvena; nukreipimas turi būti subkategorijai jautrus, kitaip
+  senos nuorodos praranda prasmę
+
+**Patikrink navigacijos eilučių porų nuoseklumą.** `MORE_ITEMS_SPEC`
+eilutė yra `(vt_slug, pavadinimas, ikona, subcategory_id)`. Radau eilutę,
+kur `vt_slug='vans'`, o `subcategory_id=198` priklausė `trucks` —
+tokia nuoroda tyliai grąžina 0 rezultatų, nes filtras reikalauja abiejų.
+Pridėdamas eilutę patikrink, kad subkategorija tikrai priklauso tam VT.
+
 ### Įjunk variklyje (`panels.py`)
 
 ```python

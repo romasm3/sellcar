@@ -54,6 +54,7 @@ urlpatterns = [
     path("create/services/", services_views.services_listing_create, name="services_listing_create"),
     path("create/electronics/", electronics_views.electronics_listing_create, name="electronics_listing_create"),
     path("create/bicycles/", bicycles_views.bicycles_listing_create, name="bicycles_listing_create"),
+    path("create/minibuses/", views.minibus_category_choice, name="minibus_category_choice"),
     path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
     path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
     path("create/rims/", wheels_views.rims_create, name="rims_create"),

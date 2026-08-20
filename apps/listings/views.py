@@ -162,6 +162,7 @@ PUBLIC_VEHICLE_TYPE_SLUGS = {
 IMPLEMENTED_VEHICLE_TYPE_SLUGS = {
     'cars',
     'camping-houses',
+    'vans',
     'rental',
     'services',
     'electronics',
@@ -225,6 +226,10 @@ CREATE_URL_BY_VEHICLE_TYPE = {
     'services': '/create/services/?new=1',
     'electronics': '/create/electronics/?new=1',
     'bicycles': '/create/bicycles/?new=1',
+    # Mikroautobusai savos formos NETURI — kaip ir etalone. Pikerio punktas
+    # atidaro nukreipimo puslapį, iš kurio einama į automobilių arba
+    # sunkiojo transporto formą (žr. minibus_category_choice).
+    'vans': '/create/minibuses/',
     # Autogide „Automobilių supirkimas" nėra atskira kategorija, o paslaugos
     # tipas. Pikerio eilutę paliekam (vartotojai jos ieško), bet vedam į
     # paslaugų formą su iš anksto parinktu tipu — skelbimas atsiduria ten,
@@ -492,6 +497,42 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     return None
 
 
+@login_required
+def minibus_category_choice(request):
+    """/create/minibuses/ — nukreipimo puslapis, kaip autogidas.
+
+    Mikroautobusai nėra atskira kategorija nei etalono pikeryje, nei jo
+    paieškoje: lengvieji (iki 3,5 t, B kat.) dedami į automobilius,
+    sunkesni — į sunkvežimius, autobusai — į autobusus. Savos formos
+    nekuriam, tik parodom tuos pačius tris kelius.
+    """
+    return render(request, 'listings/minibus_choice.html', {
+        'options': [
+            {
+                'title': _('Mikroautobusas, kuriam vairuoti pakanka B kategorijos'),
+                'hint': _('iki 3,5 t — keleivinis arba krovininis'),
+                'target': _('Automobiliai'),
+                'url': '/create/cars/quick/',
+                'icon': 'cars',
+            },
+            {
+                'title': _('Mikroautobusas, kuriam nepakanka B kategorijos'),
+                'hint': _('virš 3,5 t'),
+                'target': _('Sunkusis transportas → Sunkvežimiai'),
+                'url': '/create/trucks/?new=1&subcategory=trucks',
+                'icon': 'trucks',
+            },
+            {
+                'title': _('Autobusas'),
+                'hint': _('keleiviams vežti'),
+                'target': _('Sunkusis transportas → Autobusai'),
+                'url': '/create/trucks/?new=1&subcategory=buses',
+                'icon': 'vans',
+            },
+        ],
+    })
+
+
 def _build_picker_tree(user):
     """Visas pikerio medis vienu kartu — root + 2 ir 3 lygio panelės.
 
@@ -541,7 +582,7 @@ def _build_picker_tree(user):
         ('trucks',            'Sunkvežimiai',                         '🚚', None),
         ('tractor-units',     'Vilkikai',                             '🚛', None),
         ('car-carriers',      'Autotraukiniai, autovežiai',           '🛻', None),
-        ('vans',              'Autobusai',                            '🚌', 198),
+        ('trucks',            'Autobusai',                            '🚌', 198),
         ('municipal',         'Komunalinio ūkio transportas',         '🧹', None),
         ('trailers',          'Priekabos / Puspriekabės',             '🛞', None),
         ('rental',            'Automobilių nuoma',                    '🔑', None),
@@ -1165,6 +1206,25 @@ def listing_list(request):
         from . import motogear_views
         return motogear_views.motogear_list(request)
 
+    # ═══ MIKROAUTOBUSAI → ten, kur skelbimai iš tikrųjų gyvena ═══
+    # VT `vans` nebenaudojamas (etalone tokios kategorijos nėra), bet DB
+    # lieka. Nukreipiam pagal subkategoriją, kad senos nuorodos neprarastų
+    # prasmės: keleiviniai ir iki 3,5 t → automobiliai su kėbulo filtru,
+    # virš 3,5 t → sunkvežimiai, kemperiai → turistiniai nameliai.
+    if request.GET.get('category') == 'vans':
+        _sub = _subcategory_slug_from(request.GET) or ''
+        _params = request.GET.copy()
+        _params.pop('subcategory', None)
+        if _sub in ('cargo-minibuses-over-3-5t',):
+            _params['category'] = 'trucks'
+            _params['subcategory'] = 'trucks'
+        elif _sub == 'campers':
+            _params['category'] = 'camping-houses'
+        else:
+            _params['category'] = 'cars'
+            _params.setdefault('body_type', 'minibus')
+        return redirect(f"{reverse('listing_list')}?{_params.urlencode()}")
+
     # ═══ AUTOMOBILIŲ SUPIRKIMAS → paslaugos su pritaikytu tipo filtru ═══
     # Autogide tai ne kategorija, o vienas iš 24 paslaugų tipų, todėl
     # skelbimai gyvena `services` VT su service_type='car_buying'.
@@ -1531,7 +1591,7 @@ def listing_list(request):
         ('trucks',            'Sunkvežimiai',                         'M3 6h10v9H3zM13 9h4l3 3v3h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
         ('tractor-units',     'Vilkikai',                             'M3 7h7v8H3zM10 10h4l3 3v2h-7M6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM14 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
         ('car-carriers',      'Autotraukiniai, autovežiai',           'M2 8h12v7H2zM14 10h5l1 2v3h-6M5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM16 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM4 6l3 2M8 6l3 2', None),
-        ('vans',              'Autobusai',                            'M4 5h16v11H4zM4 9h16M7 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 198),
+        ('trucks',            'Autobusai',                            'M4 5h16v11H4zM4 9h16M7 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', 198),
         ('municipal',         'Komunalinio ūkio transportas',         'M4 8h8v7H4zM12 10h4l4 2v3h-8M7 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM16 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM6 8V5h4v3', None),
         ('trailers',          'Priekabos / Puspriekabės',             'M3 7h14v8H3zM17 12h4M9 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z', None),
         ('rental',            'Automobilių nuoma',                    'M15 7a4 4 0 11-1 3l-6 6H5v-2l6-6a4 4 0 013-1z', None),

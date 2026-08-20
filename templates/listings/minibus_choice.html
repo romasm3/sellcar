@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Mikroautobusai" %} - SellCar{% endblock %}
+
+{% block content %}
+{# ═══════════════════════════════════════════════════════════ #}
+{# NUKREIPIMO PUSLAPIS — mikroautobusai savos formos neturi.    #}
+{# Tas pats sprendimas kaip etalone: lengvieji eina į           #}
+{# automobilius, sunkesni ir autobusai — į sunkųjį transportą.  #}
+{# Stiliai — esamos projekto Tailwind klasės, naujo CSS nėra.   #}
+{# ═══════════════════════════════════════════════════════════ #}
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <a href="{% url 'listing_create' %}?step=1"
+           class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4">
+            <i class="fas fa-chevron-left text-xs"></i>
+            <span class="text-sm">{% trans "Grįžti į kategorijų sąrašą" %}</span>
+        </a>
+
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-5 mb-5">
+            <h1 class="text-xl font-bold text-gray-900 mb-1">{% trans "Mikroautobusai" %}</h1>
+            <p class="text-sm text-gray-600">
+                {% trans "Mikroautobusai neturi atskiros kategorijos — pasirinkite, kur dėti skelbimą." %}
+            </p>
+        </div>
+
+        <div class="space-y-3">
+            {% for opt in options %}
+            <a href="{{ opt.url }}"
+               class="flex items-center gap-4 bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 hover:border-gray-400 hover:shadow transition group">
+                <span class="w-11 h-11 shrink-0 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center">
+                    {% include 'listings/partials/category_icon.html' with slug=opt.icon %}
+                </span>
+                <span class="min-w-0 flex-1">
+                    <span class="block text-sm font-semibold text-gray-900 group-hover:text-primary">{{ opt.title }}</span>
+                    <span class="block text-xs text-gray-500 mt-0.5">{{ opt.hint }}</span>
+                    <span class="block text-xs text-gray-700 mt-1.5">
+                        <i class="fas fa-arrow-right text-[10px] mr-1 text-gray-400"></i>{{ opt.target }}
+                    </span>
+                </span>
+                <span class="text-gray-300 text-xl group-hover:text-gray-500">›</span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <p class="text-xs text-gray-500 mt-5">
+            {% trans "Riba — 3,5 t bendrosios masės: iki jos pakanka B kategorijos vairuotojo pažymėjimo." %}
+        </p>
+    </div>
+</div>
+{% endblock %}
