@@ -130,7 +130,32 @@ vidinės paraštės 9px/12px, aukštis 40px.
                     display: flex; align-items: center; justify-content: center; gap: 10px;
                     cursor: pointer; }
     .sp-mfoot-btn svg { width: 19px; height: 19px; }
+    /* Etalone apačia column-reverse: mygtukas viršuje, nuoroda po juo */
+    .sp-mfoot-link { display: flex; align-items: center; justify-content: center; gap: 8px;
+                     width: 100%; height: 48px; margin-top: 8px; color: #686868;
+                     font-weight: 500; text-decoration: none; font-size: 16px; }
+    .sp-mfoot-link svg { width: 18px; height: 18px; }
+    .sp-mlist { display: block; }
   }
+
+  /* Drill-in puslapis (/pasirinkti/) — tas pats vaizdas kaip sluoksnio,
+     bet su savo URL, todėl veikia naršyklės „atgal". */
+  .sp-select-page { display: flex; flex-direction: column; min-height: 100vh;
+                    background: #fff; margin: 0 auto; max-width: 640px; }
+  .sp-select-page .sp-sheet-hdr { display: flex; align-items: center; gap: 10px;
+                    height: 56px; padding: 0 12px; border-bottom: 1px solid var(--accent-soft);
+                    font-size: 17px; font-weight: 600; }
+  .sp-select-page .sp-sheet-hdr a { color: var(--accent); display: flex; align-items: center; }
+  .sp-select-page .sp-sheet-hdr svg { width: 22px; height: 22px; }
+  .sp-select-page .sp-sheet-search { padding: 8px 12px; border-bottom: 1px solid var(--accent-soft); }
+  .sp-select-page .sp-sheet-search input { width: 100%; height: 44px; border: 1px solid #DCDEE2;
+                    border-radius: 8px; padding: 0 12px; font-size: 16px; outline: none; }
+  .sp-select-page .sp-sheet-list { flex: 1; }
+  .sp-select-page .sp-sheet-item { display: flex; align-items: center; justify-content: space-between;
+                    min-height: 52px; padding: 0 14px; font-size: 17px; color: #1F2328;
+                    border-bottom: 1px solid #F3F4F6; text-decoration: none; }
+  .sp-select-page .sp-sheet-item.is-sel { font-weight: 700; color: var(--accent); }
+  .sp-select-page .cnt { color: #9AA0A6; font-size: 15px; }
 
   /* ── MOBILUS KATEGORIJŲ PIKERIS ─────────────────────────────────── */
   @media (max-width: 1023px) {

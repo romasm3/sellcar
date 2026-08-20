@@ -35,3 +35,15 @@ def get_list(querydict, key):
         return querydict.getlist(key)
     val = querydict.get(key)
     return [val] if val else []
+
+
+@register.filter
+def drop_param(querydict, key):
+    """GET parametrai be vieno lauko — telefono žymos × nuorodai.
+
+    × šalina TIK tą filtrą: likę parametrai (kategorija, kiti filtrai,
+    rūšiavimas) lieka URL'e.
+    """
+    params = querydict.copy()
+    params.pop(key, None)
+    return params.urlencode()

@@ -14,6 +14,7 @@ from . import trailers_views
 from . import agriculture_views
 from . import construction_views
 from . import loading_views
+from . import select_views
 from . import forestry_views
 from . import camping_views
 from . import rental_views
@@ -145,6 +146,8 @@ urlpatterns = [
     path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
     path('paieska/count/<str:category>/', views.search_panel_count, name='search_panel_count'),
     path('paieska/<str:category>/', views.advanced_search_generic, name='advanced_search_generic'),
+    # Telefono drill-in: reikšmės pasirinkimas atskirame puslapyje
+    path('pasirinkti/', select_views.select_value, name='select_value'),
     path('search/advanced/motorcycles/', motorcycles_views.motorcycles_advanced_search, name='motorcycles_advanced_search'),
     path('search/advanced/moto-parts/', moto_part_views.moto_parts_advanced_search, name='moto_parts_advanced_search'),
     path('search/advanced/trucks/', trucks_views.trucks_advanced_search, name='trucks_advanced_search'),

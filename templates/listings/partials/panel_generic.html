@@ -21,7 +21,7 @@ Naujo CSS nėra: sp-fld, sp-sel, sp-dd* klasės tos pačios, kurias naudoja
 automobilių panelė.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key %}
+{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key category=panel.slug adv_url=adv_url back='/?category='|add:panel.slug %}
 
 <div class="hidden lg:flex flex-col gap-y-3">
   {% for row in panel.rows %}

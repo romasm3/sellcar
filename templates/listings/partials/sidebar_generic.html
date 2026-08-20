@@ -23,7 +23,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
       {% trans "Daugiau filtrų" %}
     </a>
 
-    {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows %}
+    {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows category=sidebar.slug back=request.get_full_path adv_url=adv_url %}
 
     <div class="hidden lg:flex flex-col gap-y-3">
       {% for row in sidebar.rows %}{% for f in row %}

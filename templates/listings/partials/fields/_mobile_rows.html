@@ -1,133 +1,86 @@
 {% load i18n dict_extras %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
-TELEFONO VAIZDAS — laukų eilutės, reikšmių ekranai ir apačios blokas.
+TELEFONO FILTRŲ SĄRAŠAS
 
-Etalono elgesys:
-  · nepasirinktas laukas — 56 px eilutė su pavadinimu ir rodykle „›"
-  · paspaudus — pilno ekrano reikšmių sąrašas su paieška
-  · pasirinkus — eilutė virsta žyma su ×; „›" eilutė dingsta
-  · × šalina TIK tą filtrą: eilutė grįžta, skaičius perskaičiuojamas,
-    kiti parametrai lieka
-  · šalia žymos — ⊕ antrai to paties lauko reikšmei
-  · apačioje: paieškos laukas, žymimieji langeliai, pagrindinis mygtukas
+Kiekvienas laukas — eilutė su rodykle, vedanti į /pasirinkti/ (tikras
+puslapis su savo URL, todėl veikia naršyklės „atgal", kaip etalone).
+Pasirinkta reikšmė rodoma kaip žyma su ×; × yra nuoroda be to vieno
+parametro — likę filtrai lieka URL'e.
 
-Spalva mūsų: akcentas var(--accent) (etalone oranžinė — jos neperimam).
-Reikšmės rašomos į tuos pačius formos laukus, kuriuos renderina
-fields/_*.html; papildomos to paties lauko reikšmės — paslėpti įvedimai
-tuo pačiu vardu (variklis juos ima per getlist).
+Tekstinė paieška ir žymimieji langeliai — inline, ne drill-in (etalonas).
+
+Parametrai:
+    rows       — laukų eilutės iš konfigūracijos
+    category   — kategorijos slug'as
+    back       — kelias, į kurį grįžtama pasirinkus
+    count_key  — kurios kategorijos skaičiuką rodyti mygtuke
+    adv_url    — „Detali paieška" nuoroda
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-<div class="lg:hidden" x-data="mobileFilters()" x-init="init()">
+<div class="sp-mlist lg:hidden" id="sp-target">
   {% for row in rows %}{% for f in row %}{% if f %}
   {% if f.type != 'text' and f.type != 'checkbox' %}
-  {% with key=f.param|default:f.param_min %}
+  {% with key=f.param|default:f.param_min cur=request.GET|get_param:f.param %}
 
-  <div class="sp-chips" x-show="has('{{ key }}')" x-cloak>
-    <template x-for="(item, i) in picked['{{ key }}'] || []" :key="i">
-      <span class="sp-chip">
-        <span x-text="item.l"></span>
-        <button type="button" @click="clear('{{ key }}', i)" aria-label="{% trans 'Pašalinti' %}">
-          <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-      </span>
-    </template>
-    {% if f.widget == 'brand' or f.type == 'multiselect' %}
-    <button type="button" class="sp-chip-add" @click="openSheet('{{ key }}')" aria-label="{% trans 'Pridėti' %}">
-      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v8M8 12h8"/></svg>
-    </button>
-    {% endif %}
+  {% if cur %}
+  <div class="sp-chips">
+    <span class="sp-chip">
+      <span>{{ cur }}</span>
+      <a href="?{{ request.GET|drop_param:f.param }}#sp-target" aria-label="{% trans 'Pašalinti' %}">
+        <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </a>
+    </span>
+    <a class="sp-chip-add"
+       href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}&amp;grizti={{ back|urlencode }}"
+       aria-label="{% trans 'Keisti' %}">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </a>
   </div>
-
-  <button type="button" class="sp-mrow" x-show="!has('{{ key }}')" @click="openSheet('{{ key }}')">
+  {% else %}
+  <a class="sp-mrow"
+     href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}&amp;grizti={{ back|urlencode }}">
     <span>{{ f.label }}</span>
     <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-  </button>
+  </a>
+  {% endif %}
+
   {% endwith %}
   {% endif %}
   {% endif %}{% endfor %}{% endfor %}
 
-  {% comment %}Reikšmių ekranai{% endcomment %}
-  {% for row in rows %}{% for f in row %}{% if f %}
-  {% if f.type != 'text' and f.type != 'checkbox' %}
-  {% with key=f.param|default:f.param_min %}
-  <div class="sp-sheet" x-show="sheet === '{{ key }}'" x-cloak>
-    <div class="sp-sheet-hdr">
-      <button type="button" @click="closeSheet()">
-        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-      </button>
+  {% comment %}Tekstinė paieška — inline, kaip etalone{% endcomment %}
+  {% for row in rows %}{% for f in row %}{% if f and f.type == 'text' %}
+  <label class="sp-mfoot-search">
+    <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
+           placeholder="{% trans 'Ieškoti' %}">
+  </label>
+  {% endif %}{% endfor %}{% endfor %}
+
+  <div class="sp-mfoot-checks">
+    {% for row in rows %}{% for f in row %}{% if f and f.type == 'checkbox' %}
+    <label>
+      <input type="checkbox" name="{{ f.param }}" value="1" class="w-4 h-4 rounded"
+             {% if request.GET|get_param:f.param %}checked{% endif %}>
       <span>{{ f.label }}</span>
-    </div>
-
-    {% if f.type == 'range' %}
-    <div class="sp-sheet-list">
-      <div class="sp-sheet-item font-bold">{% trans "Nuo" %}</div>
-      {% for v, lbl in f.options_min %}
-      <div class="sp-sheet-item" @click="pick('{{ f.param_min }}', '{{ v|escapejs }}', '{{ f.label|escapejs }}: {% trans 'nuo' %} {{ lbl|escapejs }}')">{{ lbl }}</div>
-      {% endfor %}
-      <div class="sp-sheet-item font-bold">{% trans "Iki" %}</div>
-      {% for v, lbl in f.options_max %}
-      <div class="sp-sheet-item" @click="pick('{{ f.param_max }}', '{{ v|escapejs }}', '{{ f.label|escapejs }}: {% trans 'iki' %} {{ lbl|escapejs }}')">{{ lbl }}</div>
-      {% endfor %}
-    </div>
-
-    {% else %}
-    <div class="sp-sheet-search">
-      <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}">
-    </div>
-    <div class="sp-sheet-list">
-      {% if f.widget == 'brand' %}
-        {% for b in f.brands_top %}
-        <div class="sp-sheet-item" x-show="match('{{ b.name|escapejs }}')"
-             @click="pick('{{ key }}', '{{ b.value|escapejs }}', '{{ b.name|escapejs }}')">
-          <span>{{ b.name }}</span>{% if b.count %}<span class="cnt">{{ b.count }}</span>{% endif %}
-        </div>
-        {% endfor %}
-        {% for b in f.brands_rest %}
-        <div class="sp-sheet-item" x-show="match('{{ b.name|escapejs }}')"
-             @click="pick('{{ key }}', '{{ b.value|escapejs }}', '{{ b.name|escapejs }}')">
-          <span>{{ b.name }}</span>{% if b.count %}<span class="cnt">{{ b.count }}</span>{% endif %}
-        </div>
-        {% endfor %}
-      {% else %}
-        {% for v, lbl in f.options %}
-        <div class="sp-sheet-item" x-show="match('{{ lbl|escapejs }}')"
-             @click="pick('{{ key }}', '{{ v|escapejs }}', '{{ lbl|escapejs }}')">{{ lbl }}</div>
-        {% endfor %}
-      {% endif %}
-    </div>
-    {% endif %}
-  </div>
-  {% endwith %}
-  {% endif %}
-  {% endif %}{% endfor %}{% endfor %}
-
-  {% comment %}Apačia: paieška · žymimieji langeliai · pagrindinis mygtukas{% endcomment %}
-  <div class="sp-mfoot">
-    {% for row in rows %}{% for f in row %}{% if f and f.type == 'text' %}
-    <label class="sp-mfoot-search">
-      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" :value="value('{{ f.param }}')"
-             @input="write('{{ f.param }}', $event.target.value)"
-             placeholder="{% trans 'Ieškoti' %}">
     </label>
     {% endif %}{% endfor %}{% endfor %}
+  </div>
 
-    {% with checks=rows %}
-    <div class="sp-mfoot-checks">
-      {% for row in checks %}{% for f in row %}{% if f and f.type == 'checkbox' %}
-      <label>
-        <input type="checkbox" class="w-4 h-4 rounded"
-               :checked="value('{{ f.param }}')"
-               @change="write('{{ f.param }}', $event.target.checked ? '1' : '')">
-        <span>{{ f.label }}</span>
-      </label>
-      {% endif %}{% endfor %}{% endfor %}
-    </div>
-    {% endwith %}
-
+  {% comment %}
+  Apačia: etalone column-reverse — mygtukas viršuje, „Detali paieška" po juo,
+  abu per visą plotį.
+  {% endcomment %}
+  <div class="sp-mfoot">
     <button type="submit" class="sp-mfoot-btn">
       <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
       {% trans "Skelbimai" %}{% if count_key %} <span x-text="countLabel('{{ count_key }}')"></span>{% endif %}
     </button>
+    {% if adv_url %}
+    <a href="{{ adv_url }}" class="sp-mfoot-link">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+      {% trans "Detali paieška" %}
+    </a>
+    {% endif %}
   </div>
 </div>
