@@ -364,6 +364,25 @@ migraciją, antras toks pat įrašas paprasčiausiai nepraeis.
 elementų, jokių „pastumtų" sričių. Jei kažkas netelpa — mažinam, laužom į
 eilutes arba slepiam po mygtuku, bet **nestumiam į šoną**.
 
+**Taisyklė galioja IŠDĖSTYMUI, ne sąmoningam komponentui.** Skiriasi du
+dalykai:
+
+| | Draudžiama | Leidžiama |
+|---|---|---|
+| Kas | netyčinė persipilda — elementas išlipa už ekrano | sąmoninga slenkama juosta (karuselė) savo konteineryje |
+| Požymis | `body.scrollWidth > innerWidth` arba `left < -1` | konteineris su `overflow-x: auto` + `scroll-snap-type` |
+| Pavyzdys | per plati antraštė, `justify-end` eilutė | „Pasiūlymai" kortelių karuselė, etalono „Mano paieškos" |
+
+Karuselė teisinga tik tada, kai slinkimas gyvena JOS viduje: puslapis
+nejuda, `document.documentElement.scrollWidth` lieka lygus `innerWidth`,
+o pati juosta turi `scroll-snap-type: x mandatory` (kad kortelė sustotų
+vietoje) ir rodykles, kurios rodomos tik kai yra ką slinkti. Persipildymo
+patikroje tokio konteinerio vidus praleidžiamas:
+
+```javascript
+if (el.closest('.hc-track')) return;   // sąmoninga juosta — ne persipilda
+```
+
 Patikrinimas — vienas skaičius:
 
 ```javascript

@@ -279,6 +279,22 @@ Tai galioja ir etalonui: jų mobiliame puslapyje `scrollWidth` visada lygus
 `innerWidth`. Vienintelė slenkama sritis pas juos — markių nuorodų juosta
 rezultatų puslapyje, ir ji yra turinys, ne valdymas.
 
+### Išimtis: sąmoninga karuselė
+
+Taisyklė kalba apie IŠDĖSTYMĄ — kai elementas netyčia išlipa už ekrano.
+Sąmoningai slenkama juosta (kortelių karuselė, kaip etalono „Mano
+paieškos" ir „Populiarios paieškos") yra išimtis, jei tenkina tris
+sąlygas:
+
+1. slinkimas vyksta juostos konteineryje (`overflow-x: auto`), o puslapio
+   `scrollWidth` lieka lygus `innerWidth`;
+2. `scroll-snap-type: x mandatory` — kortelė sustoja vietoje, ne pusiau;
+3. rodyklės rodomos tik kai yra ką slinkti, o telefone jų nėra — stumiama
+   pirštu.
+
+Pas mus taip veikia pagrindinio puslapio „Pasiūlymai" skirtukas
+(`.hc-track` šablone `listings/listing_list.html`).
+
 **Pavyzdys (2026-08-20).** Antraštės dešinė pusė buvo 340 px ir plėtė visą
 puslapį iki 396 px. Atrodė kaip trys atskiros klaidos — „slenkanti" ikonų
 juosta, nukirptas kategorijų pikeris ir nematomas rūšiavimas — bet

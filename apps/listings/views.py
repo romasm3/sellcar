@@ -1568,9 +1568,14 @@ def listing_list(request):
     else:
         tab_featured = featured_paid
 
-    # „Pasiūlymai" — visų transporto priemonių skelbimai viename sąraše
-    # (_tabs_base kategorijos nefiltruoja), pakeitė ištrintą viršutinį bloką.
-    tab_offers = list(_tabs_base.order_by('-created_at')[:12])
+    # „Pasiūlymai" — sujungtas skirtukas: buvę „Dienos pasiūlymai" (mokami
+    # featured + žvaigždutiniai) eina pirmi, po jų — naujausi likusieji.
+    # Visos kategorijos kartu, nes _tabs_base kategorijos nefiltruoja.
+    _offer_ids = {l.pk for l in tab_featured}
+    tab_offers = tab_featured + [
+        l for l in _tabs_base.order_by('-created_at')[:24]
+        if l.pk not in _offer_ids
+    ][:18 - len(tab_featured)]
     tab_newest = list(_tabs_base.order_by('-created_at')[:6])
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])

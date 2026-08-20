@@ -116,6 +116,40 @@
 .home-tab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 @media (min-width: 640px) { .home-tab-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .home-tab-grid { grid-template-columns: repeat(6, 1fr); } }
+
+/* ─── „Pasiūlymai" karuselė ───────────────────────────────────────────────
+   Sąmoninga slenkama juosta: slinkimas gyvena .hc-track viduje, todėl
+   body scrollWidth lieka lygus innerWidth (žr. mobilaus vaizdo taisyklę —
+   draudžiama netyčinė persipilda, ne ši juosta).
+   Kortelių plotis atkartoja .home-tab-grid stulpelius: 2 / 3 / 6. */
+.home-carousel { position: relative; }
+.hc-track {
+  display: flex; gap: 1rem;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; -ms-overflow-style: none;
+  padding-bottom: 2px;
+}
+.hc-track::-webkit-scrollbar { display: none; }
+.hc-track > .home-tab-card { flex: 0 0 auto; scroll-snap-align: start; width: calc((100% - 1rem) / 2); }
+@media (min-width: 640px)  { .hc-track > .home-tab-card { width: calc((100% - 2rem) / 3); } }
+@media (min-width: 1024px) { .hc-track > .home-tab-card { width: calc((100% - 5rem) / 6); } }
+.hc-arrow {
+  display: none;
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+  width: 36px; height: 36px; border-radius: 9999px;
+  background: #fff; border: 1px solid #e5e7eb; color: #374151;
+  box-shadow: 0 2px 8px rgba(0,0,0,.16);
+  align-items: center; justify-content: center; cursor: pointer;
+}
+.hc-arrow svg { width: 18px; height: 18px; }
+.hc-arrow:hover { background: #f9fafb; }
+.hc-prev { left: -14px; }
+.hc-next { right: -14px; }
+/* Rodyklės — tik pelei; jutikliniame ekrane stumiama pirštu.
+   Sprendžia rodyklės tipas, ne plotis: 768 px langas su pele rodykles turi. */
+@media (hover: hover) and (pointer: fine) { .hc-arrow { display: flex; } }
 .home-tab-card { display: block; background: #fff; border: 1px solid #f3f4f6; border-radius: 0.5rem; overflow: hidden; transition: all 0.2s; cursor: pointer; }
 .home-tab-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #d1fae5; }
 .home-tab-img { position: relative; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
@@ -974,10 +1008,6 @@ function onSortChange(selectEl) {
                         :class="{ 'active': tab === 'offers' }" class="home-tab-btn">
                     {% trans "Pasiūlymai" %}
                 </button>
-                <button type="button" @click="tab = 'featured'"
-                        :class="{ 'active': tab === 'featured' }" class="home-tab-btn">
-                    {% trans "Day's deals" %}
-                </button>
                 <button type="button" @click="tab = 'newest'"
                         :class="{ 'active': tab === 'newest' }" class="home-tab-btn">
                     {% trans "Newest" %}
@@ -992,10 +1022,39 @@ function onSortChange(selectEl) {
                 </button>
             </div>
 
-            {# ─── Pasiūlymai: visų kategorijų skelbimai, ta pati kortelė ─── #}
+            {% comment %}
+            „Pasiūlymai" — sujungtas skirtukas (buvę „Dienos pasiūlymai" + naujausi),
+            visos kategorijos kartu. Kortelės ne tinklelyje, o horizontalioje
+            karuselėje su scroll-snap: telefone stumiama pirštu, darbalaukyje —
+            ‹ › mygtukais. Rodyklės rodomos tik kai yra ką slinkti (canPrev/canNext).
+            Slinkimas vyksta TIK .hc-track viduje, puslapio jis neišplečia.
+            {% endcomment %}
             <div x-show="tab === 'offers'" x-cloak>
                 {% if tab_offers %}
-                <div class="home-tab-grid">
+                <div class="home-carousel"
+                     x-data="{
+                        prev: false, next: false,
+                        upd() {
+                            const t = $refs.track;
+                            if (!t) return;
+                            this.prev = t.scrollLeft > 4;
+                            this.next = t.scrollLeft + t.clientWidth < t.scrollWidth - 4;
+                        },
+                        go(d) {
+                            const t = $refs.track;
+                            t.scrollBy({ left: d * t.clientWidth * 0.9, behavior: 'smooth' });
+                        }
+                     }"
+                     x-init="$nextTick(() => upd()); window.addEventListener('resize', () => upd())">
+                  <button type="button" class="hc-arrow hc-prev" x-show="prev" x-cloak
+                          @click="go(-1)" aria-label="{% trans 'Atgal' %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
+                  </button>
+                  <button type="button" class="hc-arrow hc-next" x-show="next" x-cloak
+                          @click="go(1)" aria-label="{% trans 'Pirmyn' %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                <div class="hc-track" x-ref="track" @scroll.passive="upd()">
                     {% for listing in tab_offers %}
                     {% with eff_level=listing.get_effective_star_level %}
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
@@ -1034,52 +1093,6 @@ function onSortChange(selectEl) {
                     {% endwith %}
                     {% endfor %}
                 </div>
-                {% else %}
-                <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>
-                {% endif %}
-            </div>
-
-            {# ─── Day's deals ─── #}
-            <div x-show="tab === 'featured'" x-cloak>
-                {% if tab_featured %}
-                <div class="home-tab-grid">
-                    {% for listing in tab_featured %}
-                    {% with eff_level=listing.get_effective_star_level %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
-                        <div class="home-tab-img">
-                            {% if listing.images.first %}
-                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
-                            {% else %}
-                                <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
-                            {% endif %}
-
-                            {# Bottom-left badges — IDENTIŠKAS Browse cards stilius #}
-                            {% if listing.is_featured or listing.pk in new_listing_ids or eff_level > 0 %}
-                            <div class="card-bottom-left">
-                                {% if listing.is_featured %}
-                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">FEATURED</span>
-                                {% endif %}
-                                {% if listing.pk in new_listing_ids %}
-                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">{% trans "New" %}</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
-                                {% endif %}
-                                {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="home-tab-info">
-                            <div class="home-tab-title">{{ listing.title }}</div>
-                            <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
-                            </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
-                        </div>
-                    </a>
-                    {% endwith %}
-                    {% endfor %}
                 </div>
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>
