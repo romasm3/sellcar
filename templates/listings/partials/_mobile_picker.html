@@ -32,6 +32,9 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
       {% endfor %}
     </div>
 
+    {% comment %}Likusios kategorijos — tas pats dviejų stulpelių tinklelis
+    kaip ir pirmos keturios, kad viskas tilptų į ekraną be slinkimo.{% endcomment %}
+    <div class="sp-picker-list">
     {% for item in more_items %}
     <a class="sp-picker-row" x-show="pmatch('{{ item.name|tdb|escapejs }}')"
        href="{% url 'listing_list' %}?category={{ item.slug }}{% if item.sub_id %}&amp;subcategory={{ item.sub_id }}{% endif %}">
@@ -48,6 +51,7 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
       <span class="sp-picker-soon">{% trans "Netrukus" %}</span>
     </div>
     {% endfor %}
+    </div>
   </div>
 
   <div class="sp-picker-foot">
