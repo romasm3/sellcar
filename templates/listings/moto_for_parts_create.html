@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n i18n_db %}
+{% load static %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Sell Car For Parts" %}{% endif %} - SellCar{% endblock %}
 
@@ -275,6 +276,7 @@
     <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/60 px-3 py-1 rounded-full"></div>
 </div>
 
+<script src="{% static 'js/photo_compress.js' %}"></script>
 <script>
 var CSRF_TOKEN = '{{ csrf_token }}';
 var IS_EDIT_MODE = {% if is_edit_mode %}true{% else %}false{% endif %};
@@ -660,6 +662,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var arr = Array.from(files).filter(function(f) { return f.type.startsWith('image/'); }).slice(0, available);
         if (!arr.length) return;
 
+        // Suspaudžiam prieš siuntimą (static/js/photo_compress.js)
+        compressAll(arr).then(function(arr) {
         var fd = new FormData();
         arr.forEach(function(f) { fd.append('images', f); });
 
@@ -675,6 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(function(data) {
               if (data.success) appendPhotos(data.uploaded);
           });
+        });   // compressAll
     }
 
     function appendPhotos(items) {

@@ -758,7 +758,7 @@
                 <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click()">
                     <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <div class="text">{% blocktrans %}Drop photos here or <strong>click to upload</strong>{% endblocktrans %}</div>
-                    <div class="hint">{% trans "Up to 40 photos · JPG, PNG · max 10 MB each · Drag photos to reorder" %}</div>
+                    <div class="hint">{% trans "Up to 40 photos · JPG, PNG · max 20 MB each · Drag photos to reorder" %}</div>
                 </div>
                 <input type="file" id="photoInput" multiple accept="image/*" style="display:none;">
 
