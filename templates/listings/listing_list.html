@@ -284,10 +284,11 @@ a.sp-rail-btn { text-decoration:none; }
     </div>
 
     {% if request.GET.sidebar %}
+    {% include 'listings/partials/_sp_field_styles.html' %}
     <div class="max-w-5xl mx-auto px-4 py-6">
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h1 class="text-xl font-bold text-gray-900">{% trans "Cars" %}</h1>
+                <h1 class="text-xl font-bold text-gray-900">{% if sidebar %}{{ sidebar.label }}{% else %}{% trans "Cars" %}{% endif %}</h1>
                 <p class="text-gray-500 text-sm">{% blocktrans count counter=total_count %}{{ counter }} listing found{% plural %}{{ counter }} listings found{% endblocktrans %}</p>
             </div>
             <div class="flex items-center gap-2">
@@ -693,8 +694,8 @@ a.sp-rail-btn { text-decoration:none; }
             {% endif %}
 
             <div class="flex-1 min-w-0">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-gray-500 text-sm">{% blocktrans count counter=total_count %}Showing {{ counter }} listing{% plural %}Showing {{ counter }} listings{% endblocktrans %}</span>
+                {% comment %}Skaičius rodomas vieną kartą — viršuje („Rasta N skelbimų"){% endcomment %}
+                <div class="flex items-center justify-end mb-4">
                     <div class="flex items-center gap-3">
                         <select name="sort" onchange="onSortChange(this)" class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
                             <option value="newest" {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>{% trans "Newest" %}</option>

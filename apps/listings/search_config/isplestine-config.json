@@ -28813,10 +28813,10 @@
       "Tentas",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "truck_type",
+     "param": "truck_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Markė",
@@ -29075,10 +29075,10 @@
       "Zuk",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "truck_brand",
+     "param": "truck_brand",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kaina",
@@ -29677,6 +29677,8 @@
    "vt_slug": "trucks",
    "layout": [
     [
+     "Tipas",
+     "Markė",
      "Kaina"
     ],
     [
@@ -32951,6 +32953,14 @@
      "active": true
     },
     {
+     "label": "Spalva",
+     "type": "select",
+     "db_field": "color",
+     "param": "color",
+     "multi": false,
+     "active": true
+    },
+    {
      "label": "Ypatumai (0/25)",
      "type": "checkbox",
      "db_field": null,
@@ -33211,6 +33221,9 @@
     [
      "Pardavėjo tipas",
      "Tekstinė paieška"
+    ],
+    [
+     "Spalva"
     ]
    ]
   },
@@ -41170,10 +41183,10 @@
       "Variklis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "boat_type",
+     "param": "boat_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Medžiaga",
@@ -41189,10 +41202,10 @@
       "Stiklo pluoštas",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "boat_material",
+     "param": "boat_material",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Metai",
@@ -41583,6 +41596,8 @@
    "vt_slug": "boats",
    "layout": [
     [
+     "Tipas",
+     "Medžiaga",
      "Metai"
     ],
     [
