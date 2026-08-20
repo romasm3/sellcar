@@ -592,6 +592,28 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
 # šakos; be bendro variklio mygtuko skaičius nesutaptų su sąrašu.
 # ═══════════════════════════════════════════════════════════
 
+
+def build_sidebar(vt_slug, user=None, sub_slug=None):
+    """Šoninė filtrų juosta rezultatų puslapyje.
+
+    Etalone tai nėra atskira struktūra: tie patys detalios paieškos
+    laukai ta pačia tvarka, tik sudėti į vieną 196 px stulpelį (patikrinta
+    6 kategorijose — laukai sutampa iki vieneto). Todėl konfigūracijoje
+    per kategoriją nieko nekartojam: imam build_advanced rezultatą ir
+    perdėliojam eilutes po vieną.
+    """
+    adv = build_advanced(vt_slug, user, sub_slug=sub_slug)
+    if adv is None:
+        return None
+
+    cfg = _RAW_ADV.get('sidebar_layout') or {}
+    return dict(
+        adv,
+        rows=[[f] for row in adv['rows'] for f in row if f],
+        sidebar=cfg,
+    )
+
+
 def _get(params, key):
     if not key:
         return None
@@ -623,6 +645,11 @@ def owns_text_search(vt_slug):
 
 
 def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', sub_slug=None):
+    # Juosta rodo tuos pačius laukus kaip detali paieška, todėl ir
+    # filtruoja tuo pačiu keliu — vienas parametrų rinkinys trims
+    # paviršiams.
+    if source == 'sidebar':
+        source = 'advanced'
     source = 'panel' if source == 'advanced_or_panel' else source
     """Pritaiko kategorijos filtrus pagal konfigūraciją.
 

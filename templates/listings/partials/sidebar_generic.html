@@ -1,0 +1,83 @@
+{% load i18n dict_extras %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ŠONINĖ FILTRŲ JUOSTA rezultatų puslapyje.
+
+Etalone tai nėra atskira struktūra: tie patys detalios paieškos laukai
+ta pačia tvarka, tik vienu 196 px stulpeliu (patikrinta 6 kategorijose —
+laukai sutampa iki vieneto). Todėl čia nėra nė vieno lauko šablono —
+viskas per bendrus partials/fields/*.
+
+`sidebar` ateina iš search_config.panels.build_sidebar().
+Matmenys — isplestine-config.json „sidebar_layout".
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% if sidebar %}
+<aside class="w-[230px] shrink-0 hidden lg:block no-print">
+  <form method="get" action="{% url 'listing_list' %}" id="sidebarForm" class="pr-[34px]">
+    <input type="hidden" name="category" value="{{ sidebar.slug }}">
+    {% if request.GET.subcategory %}<input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">{% endif %}
+
+    <a href="/paieska/{{ sidebar.slug }}/{% if request.GET.subcategory %}?sub={{ request.GET.subcategory }}{% endif %}"
+       class="sp-fld flex items-center justify-center gap-2 font-semibold text-[#333] hover:text-black hover:border-gray-400 no-underline mb-3">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+      {% trans "Daugiau filtrų" %}
+    </a>
+
+    <div class="flex flex-col gap-y-3">
+      {% for row in sidebar.rows %}{% for f in row %}
+
+        {% if f.type == 'range' %}
+        {% include 'listings/partials/fields/_range.html' with f=f %}
+
+        {% elif f.type == 'text' %}
+        {% include 'listings/partials/fields/_text.html' with f=f %}
+
+        {% elif f.type == 'checkbox' %}
+        {% include 'listings/partials/fields/_checkbox.html' with f=f %}
+
+        {% elif f.type == 'multiselect' %}
+        {% include 'listings/partials/fields/_multiselect.html' with f=f %}
+
+        {% elif f.widget == 'brand' %}
+        {% include 'listings/partials/fields/_brand.html' with f=f %}
+
+        {% else %}
+        {% include 'listings/partials/fields/_select.html' with f=f %}
+        {% endif %}
+
+      {% endfor %}{% endfor %}
+
+      {% if sidebar.equipment %}
+      {% comment %}Ypatumai — etalone juostoje išskleisti, be „+" mygtuko{% endcomment %}
+      <div>
+        <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Ypatumai" %}</label>
+        <div class="flex flex-col gap-y-1.5">
+          {% for eq in sidebar.equipment %}
+          <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+            <input type="checkbox" name="equipment" value="{{ eq.id }}"
+                   {% if eq.id|stringformat:"s" in selected_equipment %}checked{% endif %}
+                   class="w-4 h-4 rounded">
+            <span>{{ eq.name }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <button type="submit"
+              class="bg-gray-700 hover:bg-gray-800 text-white text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+        {% trans "Filtruoti" %}
+      </button>
+    </div>
+  </form>
+</aside>
+
+{% comment %}Siauruose ekranuose (<1024 px) juosta virsta mygtuku{% endcomment %}
+<div class="lg:hidden mb-4">
+  <a href="/paieska/{{ sidebar.slug }}/"
+     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-[13.5px] font-bold text-gray-700 hover:bg-gray-50 no-underline">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+    {% trans "Filtrai" %}
+  </a>
+</div>
+{% endif %}

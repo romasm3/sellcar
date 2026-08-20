@@ -1,0 +1,48 @@
+{% load i18n dict_extras %}{% comment %}
+Markių laukas — iškrentantis sąrašas su paieška ir skelbimų skaičiais.
+
+Savarankiškas Alpine komponentas, todėl tinka ir puslapiams be spPanel()
+(šoninė juosta). Ten, kur tėvinis komponentas turi refreshCount(),
+pasirinkimas jį iškviečia per Alpine scope grandinę.
+{% endcomment %}{% with cur=request.GET|get_param:f.param %}
+<div class="relative"
+     x-data="{ open: false, q: '', bAll: false, val: '{{ cur|escapejs }}', name: '{{ cur|default:_("Visos markės")|escapejs }}' }">
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+  <input type="hidden" name="{{ f.param }}" :value="val">
+  <button type="button" class="sp-fld sp-dd-btn truncate" @click="open = !open; q = ''">
+    <span x-text="name"></span>
+  </button>
+  <div x-show="open" x-cloak @click.outside="open = false" class="sp-dd">
+    <div class="sp-dd-search">
+      <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}" @click.stop>
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="sp-dd-scroll">
+      <div class="sp-dd-item font-semibold"
+           @click="val = ''; name = '{% trans "Visos markės" %}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
+        {% trans "Visos markės" %}
+      </div>
+      {% if f.brands_top %}
+      <div class="sp-dd-group" x-show="!q">{% trans "Top markės" %}</div>
+      {% endif %}
+      {% for b in f.brands_top %}
+      <div class="sp-dd-item"
+           x-show="!q || '{{ b.name|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
+           @click="val = '{{ b.value|escapejs }}'; name = '{{ b.name|escapejs }}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
+        <span>{{ b.name }}</span><span class="sp-dd-count">{{ b.count }}</span>
+      </div>
+      {% endfor %}
+      {% if f.brands_top %}
+      <div class="sp-dd-group" x-show="!q">{% trans "Kitos markės" %}</div>
+      {% endif %}
+      {% for b in f.brands_rest %}
+      <div class="sp-dd-item"
+           x-show="({% if f.only_with_ads_toggle %}bAll || {{ b.count }} > 0{% else %}true{% endif %}) && (!q || '{{ b.name|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1)"
+           @click="val = '{{ b.value|escapejs }}'; name = '{{ b.name|escapejs }}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
+        <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endwith %}

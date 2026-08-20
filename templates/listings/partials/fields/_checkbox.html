@@ -1,0 +1,10 @@
+{% load i18n dict_extras %}{% comment %}
+Žymimasis langelis — etalone be atskiros antraštės, tekstas šalia langelio.
+{% endcomment %}
+<div class="flex items-end pb-[7px]">
+  <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+    <input type="checkbox" name="{{ f.param }}" value="1"
+           {% if request.GET|get_param:f.param %}checked{% endif %} class="w-4 h-4 rounded">
+    <span class="font-bold text-[12.5px]">{{ f.label }}</span>
+  </label>
+</div>

@@ -27,108 +27,22 @@ automobilių panelė.
   {% for f in row %}{% if f %}
 
     {% if f.type == 'range' %}
-    <div>
-      <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-      <div class="grid grid-cols-2 gap-3">
-        {% if f.options_min %}
-        <div class="sp-sel">
-          <select name="{{ f.param_min }}" class="sp-fld">
-            <option value="">{% trans "Nuo" %}</option>
-            {% for v, lbl in f.options_min %}<option value="{{ v }}" {% if request.GET|get_param:f.param_min == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
-          </select>
-        </div>
-        <div class="sp-sel">
-          <select name="{{ f.param_max }}" class="sp-fld">
-            <option value="">{% trans "Iki" %}</option>
-            {% for v, lbl in f.options_max %}<option value="{{ v }}" {% if request.GET|get_param:f.param_max == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
-          </select>
-        </div>
-        {% else %}
-        <input type="number" step="1" name="{{ f.param_min }}" value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}" class="sp-fld placeholder-gray-400">
-        <input type="number" step="1" name="{{ f.param_max }}" value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}" class="sp-fld placeholder-gray-400">
-        {% endif %}
-      </div>
-    </div>
+    {% include 'listings/partials/fields/_range.html' with f=f %}
 
     {% elif f.type == 'text' %}
-    <div>
-      <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-      <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
-             placeholder="{% if f.placeholder %}{{ f.placeholder }}{% else %}{% trans 'Ieškoti' %}{% endif %}"
-             class="sp-fld placeholder-gray-400">
-    </div>
+    {% include 'listings/partials/fields/_text.html' with f=f %}
 
     {% elif f.type == 'checkbox' %}
-    <div class="flex items-end">
-      <label class="flex items-center gap-2 cursor-pointer text-[13px] pb-2">
-        <input type="checkbox" name="{{ f.param }}" value="1"
-               {% if request.GET|get_param:f.param %}checked{% endif %} class="w-4 h-4 rounded">
-        <span>{{ f.label }}</span>
-      </label>
-    </div>
+    {% include 'listings/partials/fields/_checkbox.html' with f=f %}
 
     {% elif f.type == 'multiselect' %}
-    {# Išskleidžiamas sąrašas su paieška ir žymimais langeliais — kaip etalone #}
-    {% include 'listings/partials/field_multiselect.html' with f=f %}
+    {% include 'listings/partials/fields/_multiselect.html' with f=f %}
 
     {% elif f.widget == 'brand' %}
-    {# Markė — dropdown su paieška; Top grupė ir „Rodyti visus" tik kai įjungta #}
-    <input type="hidden" name="{{ f.param }}" :value="gp.brand">
-    <div class="relative">
-      <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-      <button type="button" class="sp-fld sp-dd-btn" @click="gp.bOpen = !gp.bOpen; gp.bQ = ''">
-        <span x-text="gp.brandName"></span>
-      </button>
-      <div x-show="gp.bOpen" x-cloak @click.outside="gp.bOpen = false" class="sp-dd">
-        <div class="sp-dd-search">
-          <input type="text" x-model="gp.bQ" placeholder="{% trans 'Paieška...' %}" @click.stop>
-          <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-        </div>
-        <div class="sp-dd-scroll">
-          <div class="sp-dd-item font-semibold" @click="pickGenericBrand('', '{% trans "Visos markės" %}')">{% trans "Visos markės" %}</div>
-          {% if f.brands_top %}
-          <div class="sp-dd-group" x-show="!gp.bQ">{% trans "Top markės" %}</div>
-          {% endif %}
-          {% for b in f.brands_top %}
-          <div class="sp-dd-item"
-               x-show="!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1"
-               @click="pickGenericBrand('{{ b.value }}', '{{ b.name|escapejs }}')">
-            <span>{{ b.name }}</span><span class="sp-dd-count">{{ b.count }}</span>
-          </div>
-          {% endfor %}
-          {% if f.brands_top %}
-          <div class="sp-dd-group" x-show="!gp.bQ">{% trans "Kitos markės" %}</div>
-          {% endif %}
-          {% for b in f.brands_rest %}
-          <div class="sp-dd-item"
-               x-show="({% if f.only_with_ads_toggle %}gp.bAll || {{ b.count }} > 0{% else %}true{% endif %}) && (!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1)"
-               @click="pickGenericBrand('{{ b.value }}', '{{ b.name|escapejs }}')">
-            <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
-          </div>
-          {% endfor %}
-        </div>
-        {% if f.only_with_ads_toggle %}
-        <div class="sp-dd-foot" x-show="!gp.bAll">
-          {% trans "Tik markės su skelbimais." %}
-          <a @click="gp.bAll = true">{% trans "Rodyti visus" %}</a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
+    {% include 'listings/partials/fields/_brand.html' with f=f %}
 
     {% else %}
-    {# select #}
-    <div>
-      <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-      <div class="sp-sel">
-        <select name="{{ f.param }}" class="sp-fld">
-          <option value="">{% if f.placeholder %}{{ f.placeholder }}{% else %}{% trans "Visi" %}{% endif %}</option>
-          {% for v, lbl in f.options %}
-          <option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
+    {% include 'listings/partials/fields/_select.html' with f=f %}
     {% endif %}
 
   {% else %}

@@ -29,55 +29,19 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
             {% for f in row %}
             {% if f.type == 'range' %}
-            <div>
-              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}</label>
-              {# Diapazonas — du laukai vienoje ląstelėje, kaip etalone #}
-              <div class="grid grid-cols-2 gap-3">
-                {% if f.free_input %}
-                <input type="number" step="1" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
-                       value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
-                       class="sp-fld placeholder-gray-400">
-                <input type="number" step="1" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
-                       value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
-                       class="sp-fld placeholder-gray-400">
-                <datalist id="dl-{{ f.param_min }}">{% for v, l in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>
-                <datalist id="dl-{{ f.param_max }}">{% for v, l in f.options_max %}<option value="{{ v }}">{% endfor %}</datalist>
-                {% else %}
-                <div class="sp-sel">
-                  <select name="{{ f.param_min }}" class="sp-fld">
-                    <option value="">{% trans "Nuo" %}</option>
-                    {% for v, l in f.options_min %}<option value="{{ v }}" {% if request.GET|get_param:f.param_min == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
-                  </select>
-                </div>
-                <div class="sp-sel">
-                  <select name="{{ f.param_max }}" class="sp-fld">
-                    <option value="">{% trans "Iki" %}</option>
-                    {% for v, l in f.options_max %}<option value="{{ v }}" {% if request.GET|get_param:f.param_max == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
-                  </select>
-                </div>
-                {% endif %}
-              </div>
-            </div>
+            {% include 'listings/partials/fields/_range.html' with f=f %}
 
             {% elif f.type == 'text' %}
-            <div>
-              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-              <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
-                     placeholder="{% trans 'Ieškoti pavadinime ir aprašyme' %}" class="sp-fld placeholder-gray-400">
-            </div>
+            {% include 'listings/partials/fields/_text.html' with f=f placeholder=_('Ieškoti pavadinime ir aprašyme') %}
 
             {% elif f.type == 'checkbox' %}
-            {# Žymimasis langelis — etalone jis be antraštės, pačioje ląstelėje #}
-            <div class="flex items-end pb-[7px]">
-              <label class="flex items-center gap-2 cursor-pointer text-[13px]">
-                <input type="checkbox" name="{{ f.param }}" value="1"
-                       {% if request.GET|get_param:f.param %}checked{% endif %} class="w-4 h-4 rounded">
-                <span class="font-bold text-[12.5px]">{{ f.label }}</span>
-              </label>
-            </div>
+            {% include 'listings/partials/fields/_checkbox.html' with f=f %}
+
+            {% elif f.type == 'multiselect' %}
+            {% include 'listings/partials/fields/_multiselect.html' with f=f %}
 
             {% elif f.multi %}
-            {# Kelios markės vienu metu — kiekviena nauja eilutė siunčia tą patį param'ą #}
+            {% comment %}Kelios markės vienu metu — savas widget'as su „+ Pridėti daugiau markių"{% endcomment %}
             <div x-data="{ rows: {{ selected_brands|length|default:1 }} }">
               <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
               <template x-for="i in rows" :key="i">
@@ -94,20 +58,11 @@
               </button>
             </div>
 
-            {% elif f.type == 'multiselect' %}
-            {# Išskleidžiamas sąrašas su paieška ir žymimais langeliais — kaip etalone #}
-            {% include 'listings/partials/field_multiselect.html' with f=f %}
+            {% elif f.widget == 'brand' %}
+            {% include 'listings/partials/fields/_brand.html' with f=f %}
 
             {% else %}
-            <div>
-              <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
-              <div class="sp-sel">
-                <select name="{{ f.param }}" class="sp-fld">
-                  <option value="">{% trans "Visi" %}</option>
-                  {% for v, l in f.options %}<option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ l }}</option>{% endfor %}
-                </select>
-              </div>
-            </div>
+            {% include 'listings/partials/fields/_select.html' with f=f %}
             {% endif %}
             {% endfor %}
           </div>

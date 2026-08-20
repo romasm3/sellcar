@@ -1,0 +1,33 @@
+{% load i18n dict_extras %}{% comment %}
+Diapazonas „Nuo–Iki" — du atskiri rėmeliuoti laukeliai VIENAME langelyje,
+kaip etalone. Su reikšmių sąrašu renderinami select'ai, be jo — skaičių
+laukeliai su datalist pasiūlymais.
+{% endcomment %}
+<div>
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}</label>
+  <div class="grid grid-cols-2 gap-3">
+    {% if f.options_min and not f.free_input %}
+    <div class="sp-sel">
+      <select name="{{ f.param_min }}" class="sp-fld">
+        <option value="">{% trans "Nuo" %}</option>
+        {% for v, lbl in f.options_min %}<option value="{{ v }}" {% if request.GET|get_param:f.param_min == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="sp-sel">
+      <select name="{{ f.param_max }}" class="sp-fld">
+        <option value="">{% trans "Iki" %}</option>
+        {% for v, lbl in f.options_max %}<option value="{{ v }}" {% if request.GET|get_param:f.param_max == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+      </select>
+    </div>
+    {% else %}
+    <input type="number" step="1" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
+           value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
+           class="sp-fld placeholder-gray-400">
+    <input type="number" step="1" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
+           value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
+           class="sp-fld placeholder-gray-400">
+    <datalist id="dl-{{ f.param_min }}">{% for v, lbl in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>
+    <datalist id="dl-{{ f.param_max }}">{% for v, lbl in f.options_max %}<option value="{{ v }}">{% endfor %}</datalist>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,6 @@
+{% load i18n dict_extras %}{% comment %}Tekstinis laukas.{% endcomment %}
+<div>
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+  <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
+         placeholder="{% if placeholder %}{{ placeholder }}{% elif f.placeholder %}{{ f.placeholder }}{% else %}{% trans 'Ieškoti' %}{% endif %}" class="sp-fld placeholder-gray-400">
+</div>

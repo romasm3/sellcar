@@ -1,0 +1,15 @@
+{% load i18n dict_extras %}{% comment %}
+Vienas <select> laukas — balta dėžutė su rėmeliu ir rodykle.
+Naudoja greitoji panelė, detali paieška ir šoninė juosta.
+{% endcomment %}
+<div>
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+  <div class="sp-sel">
+    <select name="{{ f.param }}" class="sp-fld">
+      <option value="">{% if f.placeholder %}{{ f.placeholder }}{% else %}{% trans "Visi" %}{% endif %}</option>
+      {% for v, lbl in f.options %}
+      <option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>

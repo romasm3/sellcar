@@ -42505,5 +42505,25 @@
     ]
    ]
   }
- ]
+ ],
+ "sidebar_layout": {
+  "source": "autogidas.lt rezultatų puslapio juosta (išmatuota 2026-08-20)",
+  "columns": 1,
+  "aside_width_px": 230,
+  "field_width_px": 196,
+  "gap_y_px": 12,
+  "position": "static",
+  "fields": "same_as_advanced",
+  "groups": false,
+  "collapsed_blocks": false,
+  "equipment": "expanded",
+  "counts_for": [
+   "brand"
+  ],
+  "header_link": "advanced",
+  "active_filter_chips": true,
+  "mobile_breakpoint_px": 1024,
+  "mobile": "button",
+  "note": "Juosta nėra atskira struktūra: tie patys detalios paieškos laukai, sudėti į vieną 196 px stulpelį. Po 1024 px virsta mygtuku „Filtrai\" (etalono mobilios versijos patikrinti nepavyko — grąžina 403)."
+ }
 }
