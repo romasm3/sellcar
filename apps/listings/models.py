@@ -168,7 +168,10 @@ class Model(models.Model):
         verbose_name=_("Model")
         verbose_name_plural = "Models"
         ordering = ['name']
-        unique_together = ['brand', 'slug']
+        # (brand, name) unikalumą saugo bazė: 2026-08-20 tas pats
+        # perkėlimas buvo paleistas ir komanda, ir migracija — 3732
+        # dublikatai. Dabar bazė tokio įrašo tiesiog nepriims.
+        unique_together = [['brand', 'slug'], ['brand', 'name']]
 
     def __str__(self):
         return f"{self.brand.name} {self.name}"

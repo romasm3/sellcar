@@ -325,6 +325,39 @@ tik 3 markes buvo galima pridėti per admin — likusios reikalavo deploy'o.
 (arba prijungi kategoriją prie esamos) ir forma su filtru markes gauna
 automatiškai.
 
+### Duomenų perkėlimas — VIENA vieta
+
+Jei tą patį darbą gali padaryti ir management komanda, ir migracija —
+**pasirink vieną**. Dvi vietos vienu metu yra klaida iš principo, ne
+neatidumas: kiekviena atskirai teisinga, o kartu jos padaro darbą du kartus.
+
+Taisyklė paprasta:
+
+- **Perkėlimą daro migracija** — ji paleidžiama automatiškai, vieną kartą,
+  ir turi savo įrašą `django_migrations` lentelėje.
+- **Komanda lieka tik patikrinimui** (`--plan`) arba pakartotiniam
+  sėjimui ten, kur migracija jau pritaikyta be duomenų. Jos docstring'e
+  turi būti parašyta, kad perkėlimą daro migracija.
+
+Nesvarbu, kuri vieta pasirinkta — **abi turi būti idempotentiškos** ir
+sutapimą tikrinti pagal tą patį raktą kaip bazės apribojimas.
+
+**Pavyzdys (2026-08-20).** `MotorcycleModel` → `Model` perkėlimas buvo
+parašytas ir kaip `unify_models` komanda, ir kaip `0080` migracija. Paleisti
+abu — `Model` lentelėje atsirado 3732 dublikatai. Blogiau: komanda
+sutapimą tikrino pagal `(brand, slug)`, todėl esamam pavadinimui tiesiog
+sugeneruodavo `slug-2` ir kurdavo antrą įrašą — dublikatas atrodė kaip
+naujas modelis.
+
+Tvarkant pridėtas ir bazės apribojimas:
+
+```python
+unique_together = [['brand', 'slug'], ['brand', 'name']]
+```
+
+Tai pigiausias saugiklis: nesvarbu, kiek kartų kas paleis komandą ar
+migraciją, antras toks pat įrašas paprasčiausiai nepraeis.
+
 ### Laukų CSS turi pasiekti KIEKVIENĄ paviršių
 
 **Klasė ant elemento ≠ stilius puslapyje.** `sp-fld`, `sp-sel`, `sp-dd*`
