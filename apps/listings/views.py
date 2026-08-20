@@ -490,14 +490,16 @@ def _route_category_pick(request, vehicle_type_id, subcategory_id, subcategory_s
     if subcategory_slug in TRAILERS_SUBCATEGORY_SLUGS:
         return redirect(f'/create/trailers/?new=1&subcategory={subcategory_slug}')
 
-    draft = _get_or_create_cars_draft(
-        request,
-        vehicle_type_id=int(vehicle_type_id),
-        subcategory_id=subcategory_id,
-    )
-    if draft:
-        return redirect('/create/?step=2')
-    return None
+    # ═══ ATSARGINĖ ŠAKA ═══
+    # Anksčiau čia buvo sukuriamas cars draft'as ir vartotojas siunčiamas
+    # į /create/?step=2 — išjungtą 7 žingsnių srautą, kuris iškart grąžina
+    # atgal į pikerį. Rezultatas: tuščias „Untitled draft" DB ir niekur
+    # nevedantis paspaudimas. Dabar eilutės nekuriam.
+    #
+    # Kiekviena įgyvendinta kategorija turi savo šaką aukščiau arba įrašą
+    # CREATE_URL_BY_VEHICLE_TYPE; jei atsidūrėm čia — formos tam VT dar nėra.
+    messages.info(request, _('Ši kategorija dar ruošiama.'))
+    return redirect('/create/?step=1')
 
 
 @login_required
