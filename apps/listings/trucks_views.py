@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 """
 trucks_views.py — Trucks & Commercial vehicle listings
 Architecture: Variant A — uses existing Listing table with truck-specific fields.
@@ -1006,6 +1007,8 @@ def _public_trucks_qs(request_user=None):
 
 def trucks_list(request):
     """Browse Trucks page."""
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+    request.GET = sanitize_search_params(request.GET)
     listings = _public_trucks_qs(request.user).select_related(
         'truck_brand', 'fuel_type', 'transmission', 'subcategory', 'vehicle_type',
     ).prefetch_related('images')

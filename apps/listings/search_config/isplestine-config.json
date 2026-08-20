@@ -26971,7 +26971,8 @@
    ],
    "results_url": "/skelbimai/zemes-ukio-spec-dalys/",
    "url_params_raw": "text: f_376; Tipas: f_80; Markė: f_1; Metai: f_41; Metai: f_42; Galia, kW: f_63; Galia, kW: f_64; Kaina: f_44; Kaina: f_45; Naudota/Nauja: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "subcategory_slug": "agri-special-parts"
   },
   {
    "name": "Aksesuarai, Tuning",
@@ -27475,7 +27476,8 @@
    ],
    "results_url": "/skelbimai/aksesuarai-akumuliatoriai-tuning/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Modelis: f_model_14; Kaina: f_44; Kaina: f_45; Naudoti/Nauji: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "subcategory_slug": "accessories-tuning"
   },
   {
    "name": "Žemės ūkio technika, padargai",
@@ -30289,7 +30291,8 @@
    ],
    "results_url": "/skelbimai/vilkikai/",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Ašių skaičius: f_110; Rida: f_65; Rida: f_66; Euro standartas: f_106; Galia, kW: f_208; Galia, kW: f_209; Daužtas: f_401; Miegamų vietų skaičius: f_389; Pavarų dėžė: f_10; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; „Webasto“: a_559; ABS: a_572; ADR: a_568; Aukšta kabina: a_347; Autopilotas: a_558; Blokuojamas diferencialas: a_566; CB radio įranga: a_565; EBS: a_564; Kalnų stabdis: a_562; Oro kondicionierius: a_560; Pneumatinė pakaba: a_563; Signalizacija / Imobilaizeris: a_571; Su priekaba: a_569; Tachografas: a_561; Žema kabina: a_348; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "semi-trucks-tractors"
   },
   {
    "name": "Autotraukiniai, autovežiai",
@@ -30983,7 +30986,8 @@
    ],
    "results_url": "/skelbimai/autotraukiniai-autoveziai/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Ašių skaičius: f_110; Pavarų dėžė: f_10; Euro standartas: f_106; Rida: f_65; Rida: f_66; Galia, kW: f_208; Galia, kW: f_209; Daužtas: f_401; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/16): expandAddons; „Webasto“: a_576; ABS: a_587; ADR: a_584; Aukšta kabina: a_573; Autopilotas: a_575; Blokuojamas diferencialas: a_583; CB radio įranga: a_582; EBS: a_581; Kalnų stabdis: a_579; Oro kondicionierius: a_577; Pneumatinė pakaba: a_580; Signalizacija / Imobilaizeris: a_586; Su priekaba: a_585; Tachografas: a_578; Žema kabina: a_574; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "vehicle-transporters"
   },
   {
    "name": "Autobusai",
@@ -31679,7 +31683,8 @@
    ],
    "results_url": "/skelbimai/autobusai/",
    "url_params_raw": "Autobuso tipas: f_26; Markė: f_1; Kaina: f_215; Kaina: f_216; Metai: f_41; Metai: f_42; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Darbinis tūris (litrai): f_61; Darbinis tūris (litrai): f_62; Galia, kW: f_63; Galia, kW: f_64; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Rida: f_65; Rida: f_66; Pavarų dėžė: f_10; Daužtas: f_401; Spalva: f_5; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/15): expandAddons; „Webasto“: a_589; ABS: a_588; ADR: a_593; Atlenkiamos sėdynės: a_489; Bagažo skyrius: a_110; EBS: a_592; Kalnų stabdis: a_591; Miegama vieta vairuotojams: a_492; Oro kondicionierius: a_590; Personalinis apšvietimas: a_491; Šaldytuvas: a_105; TV: a_109; Virtuvėlė: a_490; WC: a_108; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "buses"
   },
   {
    "name": "Komunalinio ūkio transportas",
@@ -32149,7 +32154,8 @@
    ],
    "results_url": "/skelbimai/komunalinio-ukio-technika/",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Bendroji masė kg: f_127; Bendroji masė kg: f_128; Pavarų dėžė: f_10; Euro standartas: f_106; Rida: f_65; Rida: f_66; Ratų formulė: f_205; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Galia, kW: f_63; Galia, kW: f_64; Daužtas: f_401; Naudotas/Naujas: f_434; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Ypatumai (0/1): expandAddons; Galiojanti techninė apžiūra (TA): ac_1; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "municipal-transport"
   },
   {
    "name": "Priekabos / Puspriekabės",

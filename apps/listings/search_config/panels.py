@@ -32,13 +32,13 @@ ADVANCED_PATH = os.path.join(os.path.dirname(__file__), 'isplestine-config.json'
 # tires/wheels sukasi apie WheelListing, o parts/motogear tab'ai turi savo
 # browse view'us — jiems šis variklis netinka be daug didesnio refaktoringo.
 LISTING_BACKED = {'cars', 'motorcycles', 'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                  'rental', 'services', 'electronics', 'bicycles'}
+                  'rental', 'services', 'electronics', 'bicycles', 'parts'}
 
 # 1 ETAPAS: markė→modelis AJAX kaskados variklis dar nepalaiko, todėl
 # cars/motorcycles kol kas lieka su savo blokais search_panel.html.
 # Įtraukus kaskadą — pridėk juos čia.
 ENGINE_ENABLED = {'trucks', 'boats', 'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
-                  'rental', 'services', 'electronics', 'bicycles'}
+                  'rental', 'services', 'electronics', 'bicycles', 'parts'}
 
 # db_field → iš kur imti reikšmių sąrašą (choices). Etiketės mūsų modelyje
 # jau sutampa su etalonu 1:1 (Tipas 2/2, Paskirtis 22/22), todėl JSON

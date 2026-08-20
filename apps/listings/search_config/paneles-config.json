@@ -2764,8 +2764,8 @@
      "name": "f_1[0]",
      "placeholder": "Visos",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "brand",
+     "param": "brand",
      "active": true
     },
     {
@@ -2775,8 +2775,8 @@
      "placeholder": "Visi",
      "depends_on": "Markė",
      "source": "DB (AJAX pagal markę)",
-     "db_field": null,
-     "param": null,
+     "db_field": "model",
+     "param": "model",
      "active": true
     },
     {
@@ -4310,7 +4310,7 @@
      "placeholder": "Visi",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Markė",
@@ -5046,8 +5046,8 @@
      "name": "f_1",
      "placeholder": "Visi",
      "only_with_ads_toggle": true,
-     "db_field": null,
-     "param": null,
+     "db_field": "brand",
+     "param": "brand",
      "active": true
     },
     {
@@ -5292,7 +5292,8 @@
    "advanced_url": "/paieska/zemes-ukio-spec-dalys/",
    "slug": "zemes-ukio-spec-dalys",
    "url_params_raw": "Tipas: f_80; Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Miestas: f_13; Tekstinė paieška: f_376",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "subcategory_slug": "agri-special-parts"
   },
   {
    "name": "Aksesuarai, Tuning",
@@ -5325,7 +5326,7 @@
      "placeholder": "Visi",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Kaina",
@@ -5458,7 +5459,8 @@
    "advanced_url": "/paieska/aksesuarai-akumuliatoriai-tuning/",
    "slug": "aksesuarai-akumuliatoriai-tuning",
    "url_params_raw": "Tipas: f_80; Kaina: f_44; Kaina: f_45; Tekstinė paieška: f_376; Miestas: f_13",
-   "vt_slug": "parts"
+   "vt_slug": "parts",
+   "subcategory_slug": "accessories-tuning"
   },
   {
    "name": "Žemės ūkio technika, padargai",
@@ -7209,8 +7211,8 @@
      ],
      "type": "select",
      "name": "f_205",
-     "db_field": null,
-     "param": null,
+     "db_field": "wheel_formula",
+     "param": "wheel_formula",
      "active": true
     },
     {
@@ -7227,7 +7229,8 @@
    "advanced_url": "/paieska/vilkikai/",
    "slug": "vilkikai",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Ratų formulė: f_205; Tekstinė paieška: f_376",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "semi-trucks-tractors"
   },
   {
    "name": "Autotraukiniai, autovežiai",
@@ -7534,7 +7537,8 @@
    "advanced_url": "/paieska/autotraukiniai-autoveziai/",
    "slug": "autotraukiniai-autoveziai",
    "url_params_raw": "Markė: f_1; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tipas: f_80; Tekstinė paieška: f_376",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "vehicle-transporters"
   },
   {
    "name": "Autobusai",
@@ -7765,7 +7769,7 @@
      "name": "f_26",
      "db_field": null,
      "param": null,
-     "active": true
+     "active": false
     },
     {
      "label": "Tekstinė paieška",
@@ -7781,7 +7785,8 @@
    "advanced_url": "/paieska/autobusai/",
    "slug": "autobusai",
    "url_params_raw": "Markė: f_1; Kaina: f_215; Kaina: f_216; Metai: f_41; Metai: f_42; Autobuso tipas: f_26; Tekstinė paieška: f_376",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "buses"
   },
   {
    "name": "Komunalinio ūkio transportas",
@@ -8258,7 +8263,8 @@
    "advanced_url": "/paieska/komunalinio-ukio-technika/",
    "slug": "komunalinio-ukio-technika",
    "url_params_raw": "Markė: f_1; Tipas: f_80; Kaina: f_44; Kaina: f_45; Metai: f_41; Metai: f_42; Tekstinė paieška: f_376",
-   "vt_slug": "trucks"
+   "vt_slug": "trucks",
+   "subcategory_slug": "municipal-transport"
   },
   {
    "name": "Priekabos / Puspriekabės",

@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 """
 Moto Gear listing creation, browse and search.
 """
@@ -791,6 +792,8 @@ def _handle_post(request, edit_listing=None):
 # ═══════════════════════════════════════════════════════════
 
 def motogear_list(request):
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+    request.GET = sanitize_search_params(request.GET)
     _now = timezone.now()
     _three_days_ago = _now - timedelta(days=NEW_LISTING_DAYS)
 

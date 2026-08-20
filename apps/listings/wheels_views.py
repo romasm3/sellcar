@@ -34,6 +34,7 @@ from .models import (
     RIM_WIDTH_CHOICES, RIM_PCD_CHOICES, RIM_BOLT_COUNT_CHOICES,
     RIM_MATERIAL_CHOICES,
 )
+from .search_params import sanitize as sanitize_search_params
 
 NEW_WHEEL_DAYS = 3
 
@@ -544,6 +545,7 @@ def _wheels_choices_context():
 
 def wheels_list(request):
     """Tyres/Rims paieška — sidebar layout (klonas cars listing_list ?sidebar=1)."""
+    request.GET = sanitize_search_params(request.GET)
 
     qs, product_type, f = _apply_wheels_filters(request)
     qs = qs.prefetch_related('images')
@@ -624,6 +626,7 @@ def wheels_list(request):
 
 def wheels_advanced_search(request):
     """Advanced search puslapis Tyres/Rims. Form submit'ina į /browse/wheels/."""
+    request.GET = sanitize_search_params(request.GET)
     qs, product_type, f = _apply_wheels_filters(request)
 
     context = {
@@ -638,6 +641,7 @@ def wheels_advanced_search(request):
 def wheels_search_count_ajax(request):
     """AJAX live count — grąžina filtruotų wheels skaičių.
     Naudoja TĄ PAČIĄ _apply_wheels_filters logiką kaip wheels_list."""
+    request.GET = sanitize_search_params(request.GET)
     try:
         qs, _pt, _f = _apply_wheels_filters(request)
         return JsonResponse({'count': qs.count()})

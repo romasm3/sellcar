@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 """
 Whole truck for parts — autogidas "Sunkiojo transporto dalys" 1:1.
 Klonas iš car_for_parts_views.py: Brand→TruckBrand, Model→truck_model_text,
@@ -469,6 +470,10 @@ def _tp_clean_list(values):
 
 
 def truck_parts_browse(request):
+
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+
+    request.GET = sanitize_search_params(request.GET)
 
     from django.db.models import Q
 

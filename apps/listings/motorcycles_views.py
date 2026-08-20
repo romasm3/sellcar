@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 """
 Motorcycle listing creation - single-page flow with AUTOSAVE (like autoplius.lt).
 
@@ -875,6 +876,8 @@ def motorcycles_list(request):
     Called from views.listing_list() when ?category=motorcycles.
     Renders 'listings/motorcycles_list.html' with motorcycle-specific filters.
     """
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+    request.GET = sanitize_search_params(request.GET)
     _now = timezone.now()
     _three_days_ago = _now - timedelta(days=NEW_LISTING_DAYS)
 

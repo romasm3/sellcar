@@ -25,6 +25,7 @@ from .search_panel import (
     apply_trailer_filters, trailers_panel_context,
 )
 from .search_config import panels as panel_config
+from .search_params import sanitize as sanitize_search_params
 from .forms import (
     Step1BasicInfoForm,
     Step2MediaForm,
@@ -1205,6 +1206,10 @@ def listing_list(request):
     from django.db.models import Count, Case, When, IntegerField, Value
     from itertools import groupby
 
+    # Sugadintos skaitinės reikšmės (?year_min=abc) tyliai išmetamos —
+    # kitaip .filter() mestų ValueError ir puslapis grąžintų 500.
+    request.GET = sanitize_search_params(request.GET)
+
     if request.GET.get('category') == 'motorcycles':
         # Auto-redirect to moto-gear if subcategory is gear-related
         subcategory_id = request.GET.get('subcategory')
@@ -1657,6 +1662,20 @@ def listing_list(request):
             slug: panel_config.build_panel(slug, request.user)
             for slug in panel_config.active_categories()
         },
+        # Sunkiojo transporto sekcijos etalone (04/06/03/08/21) — mygtukai
+        # panelėje; 'main' yra sec 04 be subkategorijos.
+        # Dalių šakos, kurių panelė renderinama iš konfigūracijos (sec 28, 14)
+        'parts_config_subs': [
+            ('agri', 'agri-special-parts'),
+            ('accessories', 'accessories-tuning'),
+        ],
+        'truck_subtabs': [
+            ('main', _('Sunkvežimiai')),
+            ('semi-trucks-tractors', _('Vilkikai')),
+            ('buses', _('Autobusai')),
+            ('vehicle-transporters', _('Autotraukiniai, autovežiai')),
+            ('municipal-transport', _('Komunalinio ūkio transportas')),
+        ],
         'config_panels_sub': {
             sub: panel_config.build_panel(
                 cfg['vt_slug'], request.user, sub_slug=sub)
@@ -6969,6 +6988,7 @@ def advanced_search_generic(request, category):
     Renderina isplestine-config.json aprašą; filtravimas eina per tą patį
     filter_listings kelią, todėl rezultatai ir skaičiukas visada sutampa.
     """
+    request.GET = sanitize_search_params(request.GET)
     sub_slug = request.GET.get('sub') or None
     adv = panel_config.build_advanced(category, request.user, sub_slug=sub_slug)
     if adv is None:
@@ -6996,6 +7016,7 @@ def advanced_search_generic(request, category):
 
 def search_panel_count(request, category):
     """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
+    request.GET = sanitize_search_params(request.GET)
     if category in ('tires', 'wheels'):
         try:
             from .models import WheelListing

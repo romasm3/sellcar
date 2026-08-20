@@ -32,6 +32,10 @@ PARTS_PANEL_SUBS = (
     ('car', 'single-part-or-kit', _('Automobilių, mikroautobusų dalys')),
     ('moto', 'single-moto-part', _('Motociklų dalys')),
     ('truck', 'whole-truck-for-parts', _('Sunkiojo transporto dalys')),
+    # Etalono sekcijos 28 ir 14 — anksčiau panelės neturėjo visai,
+    # nors subkategorijos ir formos veikė.
+    ('agri', 'agri-special-parts', _('Žemės ūkio, spec. dalys')),
+    ('accessories', 'accessories-tuning', _('Aksesuarai, Tuning')),
 )
 
 # Kurios subkategorijos rodomos „Detalės kategorija" select'e (car tab)

@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 # ═══════════════════════ BROWSE + ADVANCED SEARCH ═══════════════════════
 # Pridėti prie truck_for_parts_views.py GALO.
 # Naudoja modulio TRUCK_PART_CATEGORIES → dalių grupės sutampa su create forma.
@@ -25,6 +26,8 @@ def _tp_clean_list(values):
 
 
 def truck_parts_browse(request):
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+    request.GET = sanitize_search_params(request.GET)
     from django.db.models import Q
     from django.utils import timezone
     from datetime import timedelta

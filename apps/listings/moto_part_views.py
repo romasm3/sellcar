@@ -1,3 +1,4 @@
+from .search_params import sanitize as sanitize_search_params
 """
 Single moto part srautas — autogidas.lt "Motociklų dalys" 1:1 forma.
 URL: /create/moto-part/
@@ -405,6 +406,8 @@ def _render_form(request, listing=None, errors=None):
 # ═══════════════════ BROWSE + ADVANCED (/browse/moto-parts/) ═══════════════════
 
 def moto_parts_browse(request):
+    # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
+    request.GET = sanitize_search_params(request.GET)
     def _clean(vs):
         return [v for v in vs if v not in (None, '')]
 
