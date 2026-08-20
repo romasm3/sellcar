@@ -68,8 +68,9 @@
                                 {% for name in brand_choices %}
                                 <option value="{{ name }}" {% if listing.bike_brand_text == name %}selected{% endif %}>{{ name }}</option>
                                 {% endfor %}
-                            {# „Kita" — kai markės sąraše nėra; įvestas pavadinimas
-                                   patenka į admin'ą kaip pasiūlymas #}
+                            {% comment %} „Kita" — kai markės sąraše nėra; įvestas pavadinimas
+                                   patenka į admin'ą kaip pasiūlymas
+{% endcomment %}
                                 <option value="__other__" {% if listing.bike_brand_text and listing.bike_brand_text not in brand_choices %}selected{% endif %}>{% trans "Kita" %}</option>
                                 </select>
                         

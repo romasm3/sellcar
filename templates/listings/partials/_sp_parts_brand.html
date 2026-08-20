@@ -1,4 +1,5 @@
-{% load i18n %}
+{% load i18n brand_tags %}
+{% top_brands_enabled as top_on %}
 {# ================================================================ #}
 {# Markė + Modelis DALYS tab'ui — tas pats dropdown kaip cars tab'e. #}
 {# Param'ai: sub ('car'|'moto'), brands (su listing_count),          #}
@@ -18,20 +19,24 @@
     <div class="sp-dd-scroll">
       <div class="sp-dd-item font-semibold"
            @click="pdPickBrand('{{ sub }}', '', '{% trans "Visos" %}', 0, '{{ endpoint }}')">{% trans "Visos markės" %}</div>
+      {% if top_on %}
       <div class="sp-dd-group" x-show="!pd.{{ sub }}.bQ">{% trans "Top markės" %}</div>
+      {% endif %}
       {% for b in brands %}
       <div class="sp-dd-item"
-           x-show="(pd.{{ sub }}.bAll || {{ b.listing_count|default:0 }} > 0) && (!pd.{{ sub }}.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.{{ sub }}.bQ.toLowerCase()) !== -1)"
+           x-show="({% if top_on %}pd.{{ sub }}.bAll || {{ b.listing_count|default:0 }} > 0{% else %}true{% endif %}) && (!pd.{{ sub }}.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.{{ sub }}.bQ.toLowerCase()) !== -1)"
            @click="pdPickBrand('{{ sub }}', '{{ b.id }}', '{{ b.name|escapejs }}', {{ b.listing_count|default:0 }}, '{{ endpoint }}')">
         <span>{{ b.name }}</span>
         <span class="sp-dd-count">{% if b.listing_count %}{{ b.listing_count }}{% endif %}</span>
       </div>
       {% endfor %}
     </div>
+    {% if top_on %}
     <div class="sp-dd-foot" x-show="!pd.{{ sub }}.bAll">
       {% trans "Tik markės su skelbimais." %}
       <a @click="pd.{{ sub }}.bAll = true">{% trans "Rodyti visus" %}</a>
     </div>
+    {% endif %}
   </div>
 </div>
 

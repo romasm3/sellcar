@@ -81,6 +81,10 @@ TEXT_BRAND_FIELDS = {'trailer_brand_text', 'agri_brand_text', 'constr_brand_text
                      'camp_brand_text', 'rent_brand_text', 'elec_brand_text',
                      'bike_brand_text'}
 
+# „Top markės" / „Rodyti visus" jungiklis — viena vieta, žr.
+# brands.TOP_BRANDS_ENABLED.
+from apps.listings.brands import TOP_BRANDS_ENABLED as TOP_BRANDS_ON
+
 # db_field → markių šeima (BrandScope.key). Vienas šaltinis visiems
 # paviršiams: create forma, greitoji panelė, šoninė juosta, išplėstinė.
 BRAND_FIELD_SCOPE = {
@@ -284,6 +288,13 @@ def _brand_rows(vt_slug, db_field, user=None, sub_slug=None):
         names = ALL_NAMES or sorted(counts)
         rows = [{'value': n, 'name': n, 'count': counts.get(n, 0)} for n in names]
 
+    from apps.listings.brands import TOP_BRANDS_ENABLED
+
+    if not TOP_BRANDS_ENABLED:
+        # Kol skelbimų nėra, „Top markės" lieka tuščios — rodom pilną
+        # sąrašą abėcėle. Žr. brands.TOP_BRANDS_ENABLED.
+        return [], sorted(rows, key=lambda r: r['name'].lower())
+
     with_ads = sorted((r for r in rows if r['count']),
                       key=lambda r: (-r['count'], r['name'].lower()))
     top = with_ads[:TOP_BRANDS]
@@ -362,7 +373,8 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 item['widget'] = 'brand'
                 item['brands_top'], item['brands_rest'] = _brand_rows(
                     vt_slug, db, user, sub_slug)
-                item['only_with_ads_toggle'] = bool(f.get('only_with_ads_toggle'))
+                item['only_with_ads_toggle'] = (
+                    bool(f.get('only_with_ads_toggle')) and TOP_BRANDS_ON)
             elif db in FK_CHOICE_FIELDS:
                 item['options'] = _fk_options(db, f.get('options'))
             else:
@@ -441,7 +453,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 item['widget'] = 'brand'
                 item['brands_top'], item['brands_rest'] = _brand_rows(
                     vt_slug, db, user, sub_slug)
-                item['only_with_ads_toggle'] = True
+                item['only_with_ads_toggle'] = TOP_BRANDS_ON
             elif db in FK_CHOICE_FIELDS:
                 item['options'] = _fk_options(db, f.get('options'))
             elif db in DISTINCT_VALUE_FIELDS:

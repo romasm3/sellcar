@@ -58,8 +58,9 @@
                                 {% for name in brand_choices %}
                                 <option value="{{ name }}" {% if listing.rent_brand_text == name %}selected{% endif %}>{{ name }}</option>
                                 {% endfor %}
-                            {# „Kita" — kai markės sąraše nėra; įvestas pavadinimas
-                                   patenka į admin'ą kaip pasiūlymas #}
+                            {% comment %} „Kita" — kai markės sąraše nėra; įvestas pavadinimas
+                                   patenka į admin'ą kaip pasiūlymas
+{% endcomment %}
                                 <option value="__other__" {% if listing.rent_brand_text and listing.rent_brand_text not in brand_choices %}selected{% endif %}>{% trans "Kita" %}</option>
                                 </select>
                         
@@ -803,10 +804,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-{# ── Markės pagal Tipą ─────────────────────────────────────────
+{% comment %} ── Markės pagal Tipą ─────────────────────────────────────────
    Kaip autogide: pasirinkus „Tipą" užsikrauna atitinkamos pardavimo
    kategorijos markių sąrašas (Sunkvežimis → sunkvežimių markės,
-   Priekaba → priekabų). Sąrašas ateina iš tos pačios Brand lentelės. #}
+   Priekaba → priekabų). Sąrašas ateina iš tos pačios Brand lentelės.
+{% endcomment %}
 <script>
 (function () {
     const byType = {{ brands_by_type_json|safe }};

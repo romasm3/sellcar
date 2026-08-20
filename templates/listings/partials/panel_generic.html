@@ -72,7 +72,7 @@ automobilių panelė.
     </div>
 
     {% elif f.widget == 'brand' %}
-    {# Markė — dropdown su paieška, Top / Kitos, skaičiukai, „Rodyti visus" #}
+    {# Markė — dropdown su paieška; Top grupė ir „Rodyti visus" tik kai įjungta #}
     <input type="hidden" name="{{ f.param }}" :value="gp.brand">
     <div class="relative">
       <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
@@ -86,7 +86,9 @@ automobilių panelė.
         </div>
         <div class="sp-dd-scroll">
           <div class="sp-dd-item font-semibold" @click="pickGenericBrand('', '{% trans "Visos markės" %}')">{% trans "Visos markės" %}</div>
+          {% if f.brands_top %}
           <div class="sp-dd-group" x-show="!gp.bQ">{% trans "Top markės" %}</div>
+          {% endif %}
           {% for b in f.brands_top %}
           <div class="sp-dd-item"
                x-show="!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1"
@@ -94,10 +96,12 @@ automobilių panelė.
             <span>{{ b.name }}</span><span class="sp-dd-count">{{ b.count }}</span>
           </div>
           {% endfor %}
+          {% if f.brands_top %}
           <div class="sp-dd-group" x-show="!gp.bQ">{% trans "Kitos markės" %}</div>
+          {% endif %}
           {% for b in f.brands_rest %}
           <div class="sp-dd-item"
-               x-show="(gp.bAll || {{ b.count }} > 0) && (!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1)"
+               x-show="({% if f.only_with_ads_toggle %}gp.bAll || {{ b.count }} > 0{% else %}true{% endif %}) && (!gp.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(gp.bQ.toLowerCase()) !== -1)"
                @click="pickGenericBrand('{{ b.value }}', '{{ b.name|escapejs }}')">
             <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
           </div>

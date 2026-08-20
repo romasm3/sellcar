@@ -16,6 +16,15 @@ from apps.listings.models import Brand, BrandScope
 
 TOP_LIMIT = 12
 
+# „Top markės" + „Rodyti visus" mechanizmas.
+#
+# Kol skelbimų beveik nėra, „Top markės" grupė lieka tuščia, o „Kitos
+# markės" pagal nutylėjimą rodomos tik su skelbimais — t. y. sąrašas
+# atrodo tuščias ir sugadintas. Todėl kol kas IŠJUNGTA: rodom pilną
+# sąrašą abėcėle su paieška. Kodas lieka vietoje — įjungiama pakeitus
+# šią reikšmę į True, kai atsiras skelbimų.
+TOP_BRANDS_ENABLED = False
+
 
 def normalize(text):
     """Paieškos raktas: be diakritikų, be skyriklių, mažosiomis.
@@ -67,6 +76,8 @@ def brand_rows(scope_key, counts=None):
 
 def split_top(rows, limit=TOP_LIMIT):
     """(top, visos) — top pagal skelbimų kiekį, kaip autogide."""
+    if not TOP_BRANDS_ENABLED:
+        return [], sorted(rows, key=lambda r: r['name'].lower())
     with_counts = [r for r in rows if r['count']]
     if with_counts:
         top = sorted(with_counts, key=lambda r: (-r['count'], r['name']))[:limit]

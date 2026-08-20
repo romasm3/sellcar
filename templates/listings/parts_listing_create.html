@@ -547,8 +547,9 @@
 
                         </select>
                         {% else %}
-                        {# Šeimoms be modelių kaskados (sunkusis transportas,
-                           žemės ūkis) modelis yra laisvas tekstas — kaip autogide. #}
+                        {% comment %} Šeimoms be modelių kaskados (sunkusis transportas,
+                           žemės ūkis) modelis yra laisvas tekstas — kaip autogide.
+{% endcomment %}
                         <input type="text" name="model_text" class="form-input"
                                maxlength="100" value="{{ form_data.model_text|default:'' }}">
                         {% endif %}

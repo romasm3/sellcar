@@ -1,4 +1,5 @@
-{% load dict_extras i18n i18n_db %}
+{% load dict_extras i18n i18n_db brand_tags %}
+{% top_brands_enabled as top_on %}
 {# ================================================================ #}
 {# AutoLeft paieškos panelė — A variantas                           #}
 {# Alpine x-show tab'ai (0ms), count AJAX su debounce + count-up    #}
@@ -265,20 +266,24 @@
               </div>
               <div class="sp-dd-scroll">
                 <div class="sp-dd-item font-semibold" @click="pickBrand('', '{% trans "Visos" %}', 0)">{% trans "Visos markės" %}</div>
+                {% if top_on %}
                 <div class="sp-dd-group" x-show="!bQ">{% trans "Top markės" %}</div>
+                {% endif %}
                 {% for brand in brands %}
                 <div class="sp-dd-item"
-                     x-show="(bAll || {{ brand.listing_count|default:0 }} > 0) && (!bQ || '{{ brand.name|escapejs }}'.toLowerCase().indexOf(bQ.toLowerCase()) !== -1)"
+                     x-show="({% if top_on %}bAll || {{ brand.listing_count|default:0 }} > 0{% else %}true{% endif %}) && (!bQ || '{{ brand.name|escapejs }}'.toLowerCase().indexOf(bQ.toLowerCase()) !== -1)"
                      @click="pickBrand('{{ brand.id }}', '{{ brand.name|escapejs }}', {{ brand.listing_count|default:0 }})">
                   <span>{{ brand.name }}</span>
                   <span class="sp-dd-count">{% if brand.listing_count %}{{ brand.listing_count }}{% endif %}</span>
                 </div>
                 {% endfor %}
               </div>
+              {% if top_on %}
               <div class="sp-dd-foot" x-show="!bAll">
                 {% trans "Tik markės su skelbimais." %}
                 <a @click="bAll = true">{% trans "Rodyti visus" %}</a>
               </div>
+              {% endif %}
             </div>
           </div>
           <div class="relative">
@@ -1579,20 +1584,24 @@
               </div>
               <div class="sp-dd-scroll">
                 <div class="sp-dd-item font-semibold" @click="pdPickBrand('truck', '', '{% trans "Visos" %}', 0, '')">{% trans "Visos markės" %}</div>
+                {% if top_on %}
                 <div class="sp-dd-group" x-show="!pd.truck.bQ">{% trans "Top markės" %}</div>
+                {% endif %}
                 {% for b in parts_truck_brands %}
                 <div class="sp-dd-item"
-                     x-show="(pd.truck.bAll || {{ b.listing_count|default:0 }} > 0) && (!pd.truck.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.truck.bQ.toLowerCase()) !== -1)"
+                     x-show="({% if top_on %}pd.truck.bAll || {{ b.listing_count|default:0 }} > 0{% else %}true{% endif %}) && (!pd.truck.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.truck.bQ.toLowerCase()) !== -1)"
                      @click="pdPickBrand('truck', '{{ b.id }}', '{{ b.name|escapejs }}', {{ b.listing_count|default:0 }}, '')">
                   <span>{{ b.name }}</span>
                   <span class="sp-dd-count">{% if b.listing_count %}{{ b.listing_count }}{% endif %}</span>
                 </div>
                 {% endfor %}
               </div>
+              {% if top_on %}
               <div class="sp-dd-foot" x-show="!pd.truck.bAll">
                 {% trans "Tik markės su skelbimais." %}
                 <a @click="pd.truck.bAll = true">{% trans "Rodyti visus" %}</a>
               </div>
+              {% endif %}
             </div>
           </div>
           <div>
