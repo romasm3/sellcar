@@ -166,6 +166,32 @@
                    font-size: var(--fs-sm); font-weight: var(--fw-medium); color: var(--text-muted);
                    transition: border-color var(--dur), color var(--dur); }
         .mm-lang.is-on { border-color: var(--accent); color: var(--accent); }
+
+        /* Neprisijungusio meniu viršus, veiksmų pora ir vėliavėlės */
+        .mm-head { display: flex; align-items: center; justify-content: space-between;
+                   padding-bottom: var(--sp-3); }
+        .mm-hello { font-size: var(--fs-xl); font-weight: var(--fw-bold); color: var(--text); }
+        .mm-close { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-full);
+                    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+                    display: inline-flex; align-items: center; justify-content: center;
+                    transition: border-color var(--dur); }
+        .mm-close:hover { border-color: var(--border-hover); }
+        .mm-close svg { width: 16px; height: 16px; }
+        /* Du dideli mygtukai vienoje eilėje (Autoplius karkasas) */
+        .mm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2);
+                      border-top: 1px solid var(--border); padding-top: var(--sp-3); }
+        .mm-actions .mm-btn { font-size: var(--fs-sm); padding: 0 var(--sp-2); }
+        .mm-flags { border-top: 1px solid var(--border); padding-top: var(--sp-3); margin-top: var(--sp-2); }
+        .mm-flags form { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+        .mm-flag { display: inline-flex; align-items: center; gap: var(--sp-1);
+                   height: var(--btn-h-sm); padding: 0 var(--sp-2);
+                   border: 1px solid var(--border); border-radius: var(--r-md);
+                   background: var(--surface); transition: border-color var(--dur), background-color var(--dur); }
+        .mm-flag em { font-style: normal; font-size: var(--fs-xs); font-weight: var(--fw-medium);
+                      color: var(--text-muted); }
+        .mm-flag .fi { width: 18px; height: 18px; border-radius: var(--r-full); }
+        .mm-flag.is-on { border-color: var(--accent); background: var(--accent-soft); }
+        .mm-flag.is-on em { color: var(--text); font-weight: var(--fw-semibold); }
         .btn-sell svg { width: 18px; height: 18px; flex: 0 0 auto; }
         /* Tekstas slepiamas tik labai siauruose ekranuose — 390 px jis telpa. */
         @media (max-width: 340px) { .btn-sell span { display: none; } .btn-sell { padding: 0 var(--sp-2); } }
@@ -499,42 +525,80 @@
             </div>
         {% else %}
             {% comment %}
-            Neprisijungusio meniu — mūsų dizainas (vartotojo sprendimas
-            2026-08-21). Kalbos jungiklio čia nėra: jis lieka antraštėje.
+            Neprisijungusio meniu. Karkasas — Autoplius (× ir „Sveiki"
+            viršuje, du dideli mygtukai vienoje eilėje, trys punktai su
+            skaičiais, bendros nuorodos, kalbos apačioje), bet punktai
+            TIK mūsų — jokių „Naujų automobilių", „Paskolos" ar
+            „Apžvalgų". Matmenys ir spalvos — docs/dizaino-sistema.md.
+
+            „Peržiūrėti skelbimai" veda tiesiai į /browse/, ne į
+            prisijungimą: naršymui paskyros nereikia, o kitaip mygtukas
+            atrodytų sugedęs. Kiti du — į prisijungimą su ?next=.
             {% endcomment %}
             <div class="mm-panel">
-                <a href="{% url 'accounts:login' %}?next={% url 'listing_create' %}" class="mm-btn mm-btn-filled">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                    {% trans "Įkelti skelbimą" %}
-                </a>
-                <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="mm-btn mm-btn-outlined">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" d="M4.5 20a7.5 7.5 0 0115 0"/></svg>
-                    {% trans "Registruotis" %} | {% trans "Prisijungti" %}
-                </a>
+                <div class="mm-head">
+                    <span class="mm-hello">{% trans "Sveiki" %}</span>
+                    <button type="button" class="mm-close" @click="mobileMenu = false"
+                            aria-label="{% trans 'Uždaryti' %}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+                    </button>
+                </div>
+
+                <div class="mm-actions">
+                    <a href="{% url 'accounts:login' %}?next={% url 'listing_create' %}" class="mm-btn mm-btn-filled">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                        {% trans "Sukurti skelbimą" %}
+                    </a>
+                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="mm-btn mm-btn-outlined">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" d="M4.5 20a7.5 7.5 0 0115 0"/></svg>
+                        {% trans "Prisijungti" %}
+                    </a>
+                </div>
 
                 <nav class="mm-group">
-                    <a href="{% url 'saved_listings' %}" class="mm-row">
+                    <a href="{% url 'accounts:login' %}?next={% url 'saved_searches_list' %}" class="mm-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M7 4h10a1 1 0 011 1v15l-6-4-6 4V5a1 1 0 011-1z"/></svg>
+                        <span>{% trans "Mano paieškos" %}</span>
+                        <b class="mm-count">0</b>
+                    </a>
+                    <a href="{% url 'accounts:login' %}?next={% url 'saved_listings' %}" class="mm-row">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 20s-7-4.6-7-9.4A3.9 3.9 0 0112 8a3.9 3.9 0 017 2.6c0 4.8-7 9.4-7 9.4z"/></svg>
                         <span>{% trans "Įsiminti skelbimai" %}</span>
-                    </a>
-                    <a href="{% url 'saved_searches_list' %}" class="mm-row">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-                        <span>{% trans "Mano paieškos" %}</span>
+                        <b class="mm-count">0</b>
                     </a>
                     <a href="{% url 'browse_listings' %}" class="mm-row">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
-                        <span>{% trans "Žiūrėti skelbimai" %}</span>
+                        <span>{% trans "Peržiūrėti skelbimai" %}</span>
                     </a>
                 </nav>
 
-                <nav class="mm-group mm-group-text">
-                    <a href="{% url 'accounts:become_dealer' %}" class="mm-row mm-row-text">
-                        <span>{% trans "PRO pardavimas" %}</span>
-                        <em class="mm-tag">{% trans "NAUJA" %}</em>
+                <nav class="mm-group">
+                    <a href="{% url 'search_map' %}" class="mm-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                        <span>{% trans "Žemėlapio paieška" %}</span>
                     </a>
-                    <a href="{% url 'search_map' %}" class="mm-row mm-row-text"><span>{% trans "Žemėlapio paieška" %}</span></a>
-                    <a href="{% url 'help_center' %}" class="mm-row mm-row-text"><span>{% trans "Naujienos ir pagalba" %}</span></a>
+                    <a href="{% url 'help_center' %}" class="mm-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h13v14H6a2 2 0 01-2-2zM17 8h3v9a2 2 0 01-2 2M7 9h7M7 12h7M7 15h4"/></svg>
+                        <span>{% trans "Naujienos ir pagalba" %}</span>
+                    </a>
                 </nav>
+
+                {% comment %}Kalbos — tas pats vėliavėlių sąrašas kaip antraštėje,
+                visos kalbos, aktyvi paryškinta.{% endcomment %}
+                <div class="mm-flags">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        {% for lang_code, lang_name in LANGUAGES %}
+                        <button type="submit" name="language" value="{{ lang_code }}"
+                                class="mm-flag{% if lang_code == CURRENT_LANG %} is-on{% endif %}"
+                                title="{{ lang_name }}">
+                            <span class="fi fi-{% if lang_code == 'en' %}us{% elif lang_code == 'lt' %}lt{% elif lang_code == 'lv' %}lv{% elif lang_code == 'et' %}ee{% elif lang_code == 'pl' %}pl{% elif lang_code == 'de' %}de{% elif lang_code == 'ru' %}ru{% elif lang_code == 'fr' %}fr{% elif lang_code == 'es' %}es{% elif lang_code == 'zh-hans' %}cn{% elif lang_code == 'vi' %}vn{% elif lang_code == 'ar' %}sa{% elif lang_code == 'ko' %}kr{% else %}us{% endif %} fis"></span>
+                            <em>{{ lang_code|upper }}</em>
+                        </button>
+                        {% endfor %}
+                    </form>
+                </div>
             </div>
         {% endif %}
         </div>

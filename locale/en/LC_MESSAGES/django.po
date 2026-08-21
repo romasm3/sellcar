@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 11:05+0300\n"
+"POT-Creation-Date: 2026-08-21 11:13+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5420,8 +5420,8 @@ msgid "Manage your inventory"
 msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:91 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:378
-#: templates/base.html:481
+#: templates/accounts/wallet.html:9 templates/base.html:404
+#: templates/base.html:507
 msgid "Wallet"
 msgstr ""
 
@@ -5803,7 +5803,7 @@ msgid "Save profile"
 msgstr ""
 
 #: templates/accounts/login.html:4 templates/accounts/login.html:86
-#: templates/base.html:414
+#: templates/base.html:440
 msgid "Login"
 msgstr ""
 
@@ -6500,8 +6500,8 @@ msgstr ""
 
 #: templates/accounts/wallet.html:12 templates/accounts/wallet.html:108
 #: templates/accounts/wallet.html:109 templates/accounts/wallet.html:110
-#: templates/accounts/wallet.html:138 templates/base.html:379
-#: templates/base.html:481
+#: templates/accounts/wallet.html:138 templates/base.html:405
+#: templates/base.html:507
 msgid "pts"
 msgstr ""
 
@@ -6600,45 +6600,45 @@ msgstr ""
 msgid "AutoLeft - Buy & Sell Cars Online"
 msgstr ""
 
-#: templates/base.html:206 templates/base.html:456
+#: templates/base.html:232 templates/base.html:482
 #: templates/listings/search_map.html:5
 msgid "Map Search"
 msgstr ""
 
-#: templates/base.html:211 templates/base.html:459 templates/base.html:614
+#: templates/base.html:237 templates/base.html:485 templates/base.html:679
 msgid "News & Help"
 msgstr ""
 
-#: templates/base.html:278
+#: templates/base.html:304
 msgid "Įkelti"
 msgstr ""
 
-#: templates/base.html:289 templates/base.html:363 templates/base.html:469
+#: templates/base.html:315 templates/base.html:389 templates/base.html:495
 #: templates/listings/saved_searches.html:18
 msgid "My Searches"
 msgstr ""
 
-#: templates/base.html:301 templates/base.html:354 templates/base.html:466
+#: templates/base.html:327 templates/base.html:380 templates/base.html:492
 msgid "Saved Ads"
 msgstr ""
 
-#: templates/base.html:311 templates/base.html:372 templates/base.html:475
+#: templates/base.html:337 templates/base.html:398 templates/base.html:501
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:13
 #: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr ""
 
-#: templates/base.html:345 templates/base.html:463
+#: templates/base.html:371 templates/base.html:489
 #: templates/listings/my_listings.html:4 templates/listings/my_listings.html:45
 msgid "My Ads"
 msgstr ""
 
-#: templates/base.html:375 templates/base.html:478
+#: templates/base.html:401 templates/base.html:504
 msgid "Settings"
 msgstr ""
 
-#: templates/base.html:382 templates/base.html:484
+#: templates/base.html:408 templates/base.html:510
 #: templates/listings/listing_list.html:619
 #: templates/listings/listing_upgrade.html:69
 #: templates/listings/moto_parts_advanced.html:136
@@ -6649,131 +6649,127 @@ msgstr ""
 msgid "Dealer"
 msgstr ""
 
-#: templates/base.html:387 templates/base.html:488
+#: templates/base.html:413 templates/base.html:514
 msgid "Admin"
 msgstr ""
 
-#: templates/base.html:389 templates/base.html:490
+#: templates/base.html:415 templates/base.html:516
 msgid "Moderate users"
 msgstr ""
 
-#: templates/base.html:392 templates/base.html:493
+#: templates/base.html:418 templates/base.html:519
 msgid "Moderate dealers"
 msgstr ""
 
-#: templates/base.html:395 templates/base.html:496
+#: templates/base.html:421 templates/base.html:522
 msgid "Sales stats"
 msgstr ""
 
-#: templates/base.html:398 templates/base.html:499
+#: templates/base.html:424 templates/base.html:525
 msgid "Django admin"
 msgstr ""
 
-#: templates/base.html:404 templates/base.html:504
+#: templates/base.html:430 templates/base.html:530
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:417
+#: templates/base.html:443
 msgid "Register"
 msgstr ""
 
-#: templates/base.html:453
+#: templates/base.html:479
 msgid "Create Ad"
 msgstr ""
 
-#: templates/base.html:516
-msgid "Įkelti skelbimą"
+#: templates/base.html:548
+msgid "Sveiki"
 msgstr ""
 
-#: templates/base.html:520
-msgid "Registruotis"
+#: templates/base.html:550 templates/listings/partials/_mobile_picker.html:18
+msgid "Uždaryti"
 msgstr ""
 
-#: templates/base.html:520
+#: templates/base.html:558
+msgid "Sukurti skelbimą"
+msgstr ""
+
+#: templates/base.html:562
 msgid "Prisijungti"
 msgstr ""
 
-#: templates/base.html:526
-msgid "Įsiminti skelbimai"
-msgstr ""
-
-#: templates/base.html:530
+#: templates/base.html:569
 msgid "Mano paieškos"
 msgstr ""
 
-#: templates/base.html:534
-msgid "Žiūrėti skelbimai"
+#: templates/base.html:574
+msgid "Įsiminti skelbimai"
 msgstr ""
 
-#: templates/base.html:540
-msgid "PRO pardavimas"
+#: templates/base.html:579
+msgid "Peržiūrėti skelbimai"
 msgstr ""
 
-#: templates/base.html:541
-msgid "NAUJA"
-msgstr ""
-
-#: templates/base.html:543
+#: templates/base.html:586
 msgid "Žemėlapio paieška"
 msgstr ""
 
-#: templates/base.html:544
+#: templates/base.html:590
 msgid "Naujienos ir pagalba"
 msgstr ""
 
-#: templates/base.html:593
+#: templates/base.html:658
 msgid "Discover trusted vehicles and services — easier, faster, simpler."
 msgstr ""
 
-#: templates/base.html:612
+#: templates/base.html:677
 msgid "Looking for FAQ, dealer info, pricing? See"
 msgstr ""
 
-#: templates/base.html:615
+#: templates/base.html:680
 msgid "in the menu above."
 msgstr ""
 
-#: templates/base.html:621
+#: templates/base.html:686
 msgid "Have questions?"
 msgstr ""
 
-#: templates/base.html:629
+#: templates/base.html:694
 msgid "Open daily"
 msgstr ""
 
-#: templates/base.html:630
+#: templates/base.html:695
 msgid "Mon-Fri"
 msgstr ""
 
-#: templates/base.html:631
+#: templates/base.html:696
 msgid "Sat-Sun"
 msgstr ""
 
-#: templates/base.html:640
+#: templates/base.html:705
 msgid "Drop us a line"
 msgstr ""
 
-#: templates/base.html:652
+#: templates/base.html:717
 msgid "Need help?"
 msgstr ""
 
-#: templates/base.html:653
+#: templates/base.html:718
 msgid "Send message to support"
 msgstr ""
 
-#: templates/base.html:666
+#: templates/base.html:731
 msgid "All rights reserved."
 msgstr ""
 
-#: templates/base.html:668
+#: templates/base.html:733
 msgid "Terms"
 msgstr ""
 
-#: templates/base.html:670
+#: templates/base.html:735
 msgid "Privacy"
 msgstr ""
 
-#: templates/base.html:672 templates/pages/help_center.html:132
+#: templates/base.html:737 templates/pages/help_center.html:132
 msgid "Cookies"
 msgstr ""
 
@@ -12741,10 +12737,6 @@ msgstr ""
 
 #: templates/listings/partials/_mobile_picker.html:17
 msgid "Pasirinkite"
-msgstr ""
-
-#: templates/listings/partials/_mobile_picker.html:18
-msgid "Uždaryti"
 msgstr ""
 
 #: templates/listings/partials/_mobile_picker.html:67

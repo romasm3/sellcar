@@ -923,10 +923,13 @@ Po darbo paleidžiami trys patikrinimai iš dokumento pabaigos:
 [...document.querySelectorAll('input,select,.sp-fld')]
   .filter(e => Math.round(e.getBoundingClientRect().height) !== 40)
 
-// 3. Akcento spalva — vienas elementas ekrane
+// 3. Akcento spalva — vienas elementas ekrane.
+// Kanalus normalizuojam: --accent yra „rgb(55 65 81)", o computed style
+// grąžina „rgb(55, 65, 81)" — tiesioginis lyginimas visada duoda 0.
+const norm = c => c.replace(/[^0-9]+/g, ' ').trim();
+const acc = norm(getComputedStyle(document.documentElement).getPropertyValue('--accent'));
 [...document.querySelectorAll('*')]
-  .filter(e => getComputedStyle(e).backgroundColor === getComputedStyle(document.documentElement)
-                 .getPropertyValue('--accent').trim()).length
+  .filter(e => e.offsetParent !== null && norm(getComputedStyle(e).backgroundColor) === acc).length
 ```
 
 Pirmi du turi būti 0 ir tuščias, trečias — 1. Jei ne — taisom prieš
