@@ -1257,7 +1257,14 @@ def _track_listing_impressions(request, listings):
 # (context_processors.device_kind), todel atsakymas priklauso nuo
 # User-Agent ir tai turi buti pasakyta kesams.
 @vary_on_headers('User-Agent')
-def listing_list(request):
+def listing_list(request, panel_fragment=False, category=None):
+    """Rezultatų/pagrindinis puslapis.
+
+    `panel_fragment=True` (maršrutas /panele/<kategorija>/) grąžina TIK
+    panelės HTML — tą patį _panel_bodies.html, kurį įdeda puslapis.
+    Antros kopijos nėra: kategorijos perjungimas naršyklėje gauna lygiai
+    tą patį turinį, kurį būtų gavęs perkrovęs puslapį.
+    """
     from django.db.models import Count, Case, When, IntegerField, Value
     from itertools import groupby
 
@@ -1849,6 +1856,14 @@ def listing_list(request):
         'equipment_by_category': equipment_by_category,
         'selected_equipment': equipment_ids_selected,
     }
+    if panel_fragment:
+        # sp_tab iš kelio, kad /panele/trucks/ veiktų ir be ?section=
+        from apps.listings.context_processors import PANEL_SLUGS, resolve_section
+        _tab = category if category in PANEL_SLUGS else context.get('sp_tab')
+        context['sp_tab'] = _tab
+        context['sp_sekcija'] = resolve_section(_tab, request.GET)
+        return render(request, 'listings/partials/_panel_bodies.html', context)
+
     return render(request, 'listings/listing_list.html', context)
 
 

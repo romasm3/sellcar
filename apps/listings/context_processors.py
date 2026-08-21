@@ -70,13 +70,22 @@ def search_panel_tab(request):
     # Sekcija kategorijos viduje (nuoma, sunkusis, statybinė). Pasirinkimas
     # ateina iš kategorijų sąrašo, ne iš mygtukų juostos panelėje, todėl
     # serveris renderina tik vienos sekcijos laukus.
-    sek = (request.GET.get('sekcija') or '').strip()
+    return {'sp_tab': tab, 'sp_sekcija': resolve_section(tab, request.GET)}
+
+
+def resolve_section(tab, params):
+    """Kuri sekcija kategorijos viduje — vienas skaičiavimas.
+
+    Naudoja ir puslapio kontekstas, ir /panele/<kategorija>/ fragmentas,
+    kad perjungus kategoriją gautum lygiai tą patį, ką ir perkrovus.
+    """
+    sek = (params.get('sekcija') or '').strip()
     if not sek:
-        legacy = (request.GET.get('subcategory') or '').strip()
+        legacy = (params.get('subcategory') or '').strip()
         sek = LEGACY_SUBCAT_SECTION.get(legacy, legacy)
     if sek not in SECTIONS.get(tab, ()):
         sek = SECTION_DEFAULT.get(tab, '')
-    return {'sp_tab': tab, 'sp_sekcija': sek}
+    return sek
 
 
 def saved_searches_count(request):

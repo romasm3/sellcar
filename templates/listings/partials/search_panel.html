@@ -21,48 +21,48 @@
   <div class="sp-rail w-14 shrink-0 flex flex-col items-center pt-4 lg:pt-4 gap-0.5 border-r border-gray-100">
   <div class="sp-rail-scroll">
 
-    <button type="button" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"
-            @click="switchTab('cars')">
+    <a href="/?section=cars" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"
+            @click.prevent="goTab('cars')">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 13l1.6-4.2A2 2 0 018 7.5h8a2 2 0 011.9 1.3L19.5 13M4.5 13h15M4.5 13v3.5a1 1 0 001 1h1a1 1 0 001-1V16h9v.5a1 1 0 001 1h1a1 1 0 001-1V13"/></svg>
-    </button>
+    </a>
 
     {# ── MOTO su flyout (Motociklai / Moto apranga) ── #}
     <div class="relative w-full" @mouseenter="fly4Open()" @mouseleave="fly4Close()">
-      <button type="button" class="sp-rail-btn2" :class="['motorcycles','motogear','moto-tyres','quad-tyres'].includes(tab) && 'sp-on'"
-              @click="switchTab('motorcycles'); fly4 = false">
+      <a href="/?section=motorcycles" class="sp-rail-btn2" :class="['motorcycles','motogear','moto-tyres','quad-tyres'].includes(tab) && 'sp-on'"
+              @click.prevent="goTab('motorcycles'); fly4 = false">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
-      </button>
+      </a>
 
       <div x-show="fly4" x-cloak x-transition.opacity.duration.100ms
            class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-64 z-50" style="left:calc(100% - 2px)"
            @mouseenter="fly4Open()" @mouseleave="fly4Close()">
 
-        <button type="button" @click="switchTab('motorcycles'); fly4 = false"
+        <a href="/?section=motorcycles" @click.prevent="goTab('motorcycles'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-orange-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
           <span class="text-[14.5px] font-bold" :class="tab === 'motorcycles' && 'text-orange-600'">{% trans "Motociklai" %}</span>
-        </button>
+        </a>
 
         {# Apranga, šalmai — atidaro motogear formą panelėje #}
-        <button type="button" @click="switchTab('motogear'); fly4 = false"
+        <a href="/?section=motogear" @click.prevent="goTab('motogear'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3a7 7 0 00-7 7v4a7 7 0 0014 0v-4a7 7 0 00-7-7zM5 12h14M12 12v9"/></svg>
           <span class="text-[14.5px] font-bold" :class="tab === 'motogear' && 'text-orange-600'">{% trans "Apranga, šalmai, aksesuarai" %}</span>
-        </button>
+        </a>
 
         {# Padangos motociklams — atskira kategorija (moto-tyres) #}
-        <button type="button" @click="switchTab('moto-tyres'); fly4 = false"
+        <a href="/?section=moto-tyres" @click.prevent="goTab('moto-tyres'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
           <span class="text-[14.5px] font-bold" :class="tab === 'moto-tyres' && 'text-orange-600'">{% trans "Padangos motociklams" %}</span>
-        </button>
+        </a>
 
         {# Padangos keturračiams — atskira kategorija (quad-tyres) #}
-        <button type="button" @click="switchTab('quad-tyres'); fly4 = false"
+        <a href="/?section=quad-tyres" @click.prevent="goTab('quad-tyres'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
           <span class="text-[14.5px] font-bold" :class="tab === 'quad-tyres' && 'text-orange-600'">{% trans "Padangos keturračiams" %}</span>
-        </button>
+        </a>
 
       </div>
     </div>
@@ -70,35 +70,35 @@
 
     {# ── WHEELS su flyout (Padangos / Ratlankiai) ── #}
     <div class="relative w-full" @mouseenter="flyOpen()" @mouseleave="flyClose()">
-      <button type="button" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
-              @click="switchTab('wheels'); fly = false">
+      <a href="/?section=wheels" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
+              @click.prevent="goTab('wheels'); fly = false">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
-      </button>
+      </a>
 
       <div x-show="fly" x-cloak x-transition.opacity.duration.100ms
            class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-56 z-50" style="left:calc(100% - 2px)"
            @mouseenter="flyOpen()" @mouseleave="flyClose()">
-        <button type="button" @click="switchTab('wheels'); setWheelType('tyre'); fly = false"
+        <a href="/?section=wheels&amp;sekcija=tyre" @click.prevent="goTab('wheels', 'tyre'); fly = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-orange-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
           <span class="text-[14.5px] font-bold" :class="wheelType === 'tyre' && 'text-orange-600'">{% trans "Padangos" %}</span>
           <span class="text-[13.5px] text-gray-400">({{ wheel_counts.tyre|default:0 }})</span>
-        </button>
-        <button type="button" @click="switchTab('wheels'); setWheelType('rim'); fly = false"
+        </a>
+        <a href="/?section=wheels&amp;sekcija=rim" @click.prevent="goTab('wheels', 'rim'); fly = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3.5v5.5M12 15v5.5M3.9 8.8l5.2 1.9M14.9 13.3l5.2 1.9M3.9 15.2l5.2-1.9M14.9 10.7l5.2-1.9"/></svg>
           <span class="text-[14.5px] font-bold" :class="wheelType === 'rim' && 'text-orange-600'">{% trans "Ratlankiai" %}</span>
           <span class="text-[13.5px] text-gray-400">({{ wheel_counts.rim|default:0 }})</span>
-        </button>
+        </a>
       </div>
     </div>
 
     {# ── DALYS su flyout (subkategorijos kaip autogide) ── #}
     <div class="relative w-full" @mouseenter="fly3Open()" @mouseleave="fly3Close()">
-      <button type="button" class="sp-rail-btn2" :class="tab === 'parts' && 'sp-on'"
-              @click="switchTab('parts'); fly3 = false">
+      <a href="/?section=parts" class="sp-rail-btn2" :class="tab === 'parts' && 'sp-on'"
+              @click.prevent="goTab('parts'); fly3 = false">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
-      </button>
+      </a>
 
       <div x-show="fly3" x-cloak x-transition.opacity.duration.100ms
            class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-80 z-50" style="left:calc(100% - 2px)"
@@ -106,7 +106,7 @@
 
         {# Subkategorijos su live count'ais — iš parts_panel_context() #}
         {% for sub in parts_subs %}
-        <button type="button" @click="switchTab('parts'); setPartSub('{{ sub.key }}'); fly3 = false"
+        <a href="/?section=parts&amp;sekcija={{ sub.key }}" @click.prevent="goTab('parts', '{{ sub.key }}'); fly3 = false"
                 class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             {% if sub.key == 'moto' %}
@@ -120,7 +120,7 @@
                   :class="(tab === 'parts' && partSub === '{{ sub.key }}') && 'text-orange-600'">{{ sub.label }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{{ sub.count }}</span>
-        </button>
+        </a>
         {% endfor %}
 
       </div>
@@ -149,14 +149,14 @@
         {% for item in more_items %}
         {% if item.slug == 'boats' and not item.is_sub %}
         {# Vandens transportas — Alpine tab (turi savo formą panelėje) #}
-        <button type="button" @click="switchTab('boats'); fly2 = false"
+        <a href="/?section=boats" @click.prevent="goTab('boats'); fly2 = false"
                 class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
             <span class="text-[14.5px] font-bold text-gray-800" :class="tab === 'boats' && 'text-orange-600'">{{ item.name|tdb }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
-        </button>
+        </a>
         {% else %}
         <a href="{% url 'listing_list' %}{{ item.url }}"
            class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
@@ -203,7 +203,11 @@
     </div>
 
 
+    {% comment %}Kategorijos perjungimas keičia TIK šio konteinerio turinį
+    (fetch /panele/<kategorija>/). Tas pats šablonas, tas pats view'as.{% endcomment %}
+    <div id="sp-bodies">
     {% include 'listings/partials/_panel_bodies.html' %}
+    </div>
   </div>
 {% include 'listings/partials/_mobile_picker.html' %}
 </div>
@@ -501,6 +505,14 @@ function spPanel() {
         });
       });
 
+      var me = this;
+      window.addEventListener('popstate', function () {
+        var pp = new URLSearchParams(location.search);
+        var k = pp.get('section') || pp.get('category') || 'cars';
+        if (k === me.tab && document.getElementById('sp-panel-' + k)) { return; }
+        me.goTab(k, pp.get('sekcija') || '');
+      });
+
       this.switchTab(this.tab);
     },
 
@@ -510,6 +522,66 @@ function spPanel() {
       clearTimeout(this._loadTimer);
       var self = this;
       this._loadTimer = setTimeout(function() { self.loading = false; }, 350);
+    },
+
+    // ── Sklandus kategorijos perjungimas ──────────────────────────────
+    // Vietoj pilno perkrovimo atsiunčiam TIK panelės HTML iš
+    // /panele/<kategorija>/ (tas pats šablonas, kurį renderina puslapis)
+    // ir įstatom į #sp-bodies. Adresą atnaujinam pushState, todėl „atgal"
+    // veikia ir nuoroda lieka dalinama. Jau matytos panelės guli Map'e —
+    // grįžus į tą pačią kategoriją užklausos nebėra.
+    _panelCache: null,
+
+    goTab(key, sek) {
+      var qs = new URLSearchParams(location.search);
+      qs.delete('category');
+      qs.delete('subcategory');
+      qs.set('section', key);
+      if (sek) { qs.set('sekcija', sek); } else { qs.delete('sekcija'); }
+      var target = location.pathname + '?' + qs.toString();
+
+      var host = document.getElementById('sp-bodies');
+      if (!host || !window.fetch) { location.href = target; return; }   // be JS — įprasta nuoroda
+
+      var cacheKey = key + '|' + (sek || '');
+      if (!this._panelCache) { this._panelCache = new Map(); }
+      var self = this;
+
+      // Aukštį fiksuojam iš anksto, kad puslapis nešoktų (CLS 0)
+      host.style.minHeight = host.offsetHeight + 'px';
+
+      var apply = function (html) {
+        host.innerHTML = html;
+        host.style.minHeight = '';
+        self.tab = key;
+        if (sek) { self.applySection(key, sek); }
+        history.pushState({ tab: key, sek: sek || '' }, '', target);
+        self.spin();
+        self.refreshCount(0);
+      };
+
+      if (this._panelCache.has(cacheKey)) { apply(this._panelCache.get(cacheKey)); return; }
+
+      host.innerHTML = this.skeleton();
+      fetch('/panele/' + key + '/?' + qs.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.text(); })
+        .then(function (html) { self._panelCache.set(cacheKey, html); apply(html); })
+        .catch(function () { location.href = target; });   // nepavyko — perkraunam
+    },
+
+    // Sekcijos būsena po įstatymo (nuoma, dalys, ratai, sunkusis)
+    applySection(key, sek) {
+      if (key === 'rental') { this.rentSub = sek; }
+      else if (key === 'parts') { this.partSub = sek; }
+      else if (key === 'wheels') { this.wheelType = sek; }
+      else if (this.subTab[key] !== undefined) { this.subTab[key] = sek; }
+    },
+
+    // Skeletas vietoj suktuko: pilkos juostelės ten, kur bus laukai
+    skeleton() {
+      var row = '<div class="sk-row"><span class="sk-bar sk-lbl"></span><span class="sk-bar sk-fld"></span></div>';
+      return '<div class="sk-panel">' + '<span class="sk-bar sk-title"></span>' +
+             '<div class="sk-grid">' + row + row + row + row + row + row + '</div></div>';
     },
 
     // Perjungus kategoriją — count VISADA nuo 0 subėga iki N

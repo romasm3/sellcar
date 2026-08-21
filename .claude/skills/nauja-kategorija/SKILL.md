@@ -872,3 +872,32 @@ Ataskaitos gale išvardink:
   `range` ant `CharField` choices — leksikografinis palyginimas)
 - **Jei testuodamas sukūrei skelbimų** — pasakyk `pk` ir pasiūlyk išvalyti;
   trynimo be leidimo nedaryk
+
+
+### Kortelės patikra: ar turinys tikrai matomas
+
+Po BET KOKIO kortelės ar išdėstymo pakeitimo. 2026-08-21 rezultatų kortelė
+telefone atrodė tuščia: tekstas buvo, bet informacijos stulpeliui liko
+40 px iš 358 (kortelė `display:flex`, nuotrauka fiksuoti 340 px, mobilaus
+varianto nebuvo). Nei HTTP kodas, nei DOM mazgų skaičius, nei persipildymo
+patikra to nerodo — visi rodikliai buvo „gerai".
+
+```javascript
+[...document.querySelectorAll('.h-listing-card *, .home-tab-card *')]
+  .filter(e => e.children.length === 0 && e.offsetParent !== null
+               && e.textContent.trim().length > 6)
+  .map(e => { const r = e.getBoundingClientRect(); const cs = getComputedStyle(e);
+      return {t: e.textContent.trim().slice(0, 24),
+              w: Math.round(r.width), h: Math.round(r.height),
+              kirpta: e.scrollWidth > e.clientWidth + 1 && cs.textOverflow !== 'ellipsis'}; })
+  .filter(x => (x.w < 120 && x.h > 40) || x.h < 10 || x.kirpta);   // TUŠČIA = gerai
+```
+
+Trys požymiai: **siauras ir aukštas** (tekstas suspaustas į skiltelę),
+**beveik nulinio aukščio**, **nukirptas be `ellipsis`**. Filtrai
+`offsetParent !== null` ir `length > 6` išmeta paslėptus skirtukus ir
+vienženklius skaitiklius — be jų patikra duoda 200+ netikrų pranešimų.
+
+Tikrinti 360 ir 390 px, abiem vaizdo režimais (`?vaizdas=thumb` ir `line`).
+Patikra patikrinta atgal: grąžinus seną CSS ji randa 32 suspaustus blokus,
+su dabartiniu — 0.

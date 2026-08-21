@@ -312,3 +312,22 @@ irgi paslėpta: kalbų jungiklį, paieškos ir žinučių ikonas.
 | Defektas | Kur | Būsena |
 |---|---|---|
 | Skelbimo kortelė telefone išsikiša už ekrano — 465 px vietoj 390 (`.ap-price` ir kainos elementai) | rezultatų puslapis, visos kategorijos | Taisoma kartu su rezultatų puslapiu ir `mobile_results_header` bloku po kaskados |
+
+
+---
+
+## 8. Vary: User-Agent ir CDN (2026-08-21)
+
+Rezultatų puslapis (`listing_list`) serveryje sprendžia, ar renderinti
+šoninę filtrų juostą (`context_processors.device_kind`), todėl atsakymas
+siunčiamas su `Vary: User-Agent`.
+
+Šiandien tai nekenkia: prieš Django nėra jokio bendro kešo — nginx
+`proxy_cache` nekonfigūruotas, CDN nėra, HTML neturi `Cache-Control:
+public`.
+
+**Kai dėsim Cloudflare:** CF `Vary` ignoruoja (išskyrus `Accept-Encoding`),
+todėl įjungus HTML kešavimą telefonas gali gauti darbalaukio variantą su
+juosta. Tam maršrutui reikės **Cache Level: bypass** (arba Cache Rule,
+kuri HTML nekešuoja). Alternatyva — grįžti prie CSS sprendimo ir atsisakyti
+serverio šakos.

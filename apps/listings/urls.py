@@ -149,6 +149,10 @@ urlpatterns = [
     # Markių sąrašai — vienas šaltinis visiems keturiems paviršiams
     # (greitoji panelė, detali paieška, šoninė juosta, /pasirinkti/).
     path('ajax/markes/', brand_api.brand_options, name='brand_options'),
+    # Panelės fragmentas — kategorijos perjungimui be pilno perkrovimo.
+    # Tas pats view'as ir tas pats šablonas kaip puslapyje.
+    path('panele/<str:category>/', views.listing_list,
+         {'panel_fragment': True}, name='panel_fragment'),
     path('paieska/<str:category>/', views.advanced_search_generic, name='advanced_search_generic'),
     # Telefono drill-in: reikšmės pasirinkimas atskirame puslapyje
     path('pasirinkti/', select_views.select_value, name='select_value'),
