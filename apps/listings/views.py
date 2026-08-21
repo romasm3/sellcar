@@ -54,6 +54,7 @@ from .models import (
 )
 from collections.abc import Mapping
 from django.views.decorators.vary import vary_on_headers
+from django.views.decorators.http import require_GET
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
@@ -1969,6 +1970,11 @@ def listing_list_v2(request):
 
 
 def listing_detail(request, pk):
+    # Neprisijungęs paspaudė „Rašyti žinutę" → prisijungimas → grįžta čia
+    # su ?rasyti=1 ir iškart patenka į pokalbį (žr. listing_detail.html).
+    if request.GET.get('rasyti') and request.user.is_authenticated:
+        return redirect('conversations:start', listing_id=pk)
+
     listing = get_object_or_404(Listing, pk=pk)
 
     if listing.is_shadow_banned:
@@ -7234,3 +7240,19 @@ def search_panel_count(request, category):
         raise Http404
     qs = filter_listings(request.GET, user=request.user, category=category)
     return JsonResponse({'count': qs.count()})
+
+
+@require_GET
+def listing_phone(request, pk):
+    """Pilnas pardavėjo numeris — atskleidžiamas paspaudus.
+
+    Kaip etalone: HTML'e guli tik sutrumpinta versija („+370 653..."),
+    o pilnas numeris ateina atskira užklausa. Prisijungti NEREIKIA —
+    etalonas jo irgi neprašo; tai tik apsauga nuo numerių nusiurbimo iš
+    puslapio šaltinio.
+    """
+    listing = get_object_or_404(_public_listings_qs(request.user), pk=pk)
+    prof = getattr(listing.seller, 'profile', None)
+    if not prof or not prof.show_phone or not prof.phone_number:
+        return JsonResponse({'telefonas': None}, status=404)
+    return JsonResponse({'telefonas': prof.phone_number})

@@ -2707,44 +2707,49 @@
                         </div>
                     {% endif %}
 
-                    {% if user.is_authenticated %}
-                        {% if listing.seller.profile.show_phone %}
-                            {% if listing.seller.profile.phone_number %}
-                            <div class="relative inline-block mb-4 w-full" x-data="{ copied: false }">
-                                <p class="text-2xl font-bold text-gray-900 cursor-pointer"
-                                   @click="navigator.clipboard.writeText('{{ listing.seller.profile.phone_number }}'); copied = true; setTimeout(() => copied = false, 2000)"
-                                   title="{% trans 'Click to copy' %}">
-                                    {{ listing.seller.profile.phone_number }}
-                                </p>
-                                <span x-show="copied"
-                                      class="absolute -top-7 left-0 bg-gray-800 text-white text-xs px-2 py-1 rounded">
-                                    {% trans "Copied!" %}
-                                </span>
-                            </div>
-                            {% endif %}
-                        {% else %}
-                            <p class="text-sm text-gray-400 mb-4 italic">
-                                <i class="fas fa-phone-slash mr-1"></i> {% trans "Seller has disabled phone number visibility." %}
-                            </p>
-                        {% endif %}
+                    {% comment %}
+                    KONTAKTAI MATOMI VISIEMS — kaip etalone (patikrinta
+                    2026-08-21 neprisijungus: pardavėjo blokas matomas,
+                    telefonas rodomas sutrumpintas „+370 653...", paspaudus
+                    atsiskleidžia visas, jokio prisijungimo neprašoma).
+                    Prisijungti reikia tik žinutei — ten etalonas irgi prašo.
 
-                        {% if user != listing.seller %}
-                        <a href="{% url 'conversations:start' listing.pk %}"
-                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-2">
-                            <i class="fas fa-envelope mr-2"></i>{% trans "Send Message" %}
-                        </a>
-                        {% if listing.seller.profile.dealer_subscription_active %}
-                        <button onclick="document.getElementById('emailModal').classList.remove('hidden')"
-                                class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium mb-3 w-full">
-                            <i class="fas fa-paper-plane mr-2"></i>{% trans "Send Email" %}
+                    Numeris atskleidžiamas paspaudus (kaip etalone): taip
+                    robotai jo nenusirenka iš HTML — pilnas numeris ateina
+                    tik iš /skelbimas/<id>/telefonas/.
+                    {% endcomment %}
+                    {% if listing.seller.profile.show_phone and listing.seller.profile.phone_number %}
+                    <div class="mb-4" x-data="phoneReveal({{ listing.pk }}, '{{ listing.seller.profile.phone_number|slice:':8' }}...')">
+                        <button type="button" class="ap-phone" @click="reveal()" x-show="!full">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+                            <span x-text="masked"></span>
+                            <em>{% trans "Rodyti numerį" %}</em>
                         </button>
-                        {% endif %}
-                        {% endif %}
-                    {% else %}
-                        <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}"
-                           class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-3">
-                            {% trans "Login to Contact" %}
+                        <a class="ap-phone is-full" x-show="full" x-cloak :href="'tel:' + full">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+                            <span x-text="full"></span>
                         </a>
+                    </div>
+                    {% elif not listing.seller.profile.show_phone %}
+                    <p class="text-sm text-gray-400 mb-4 italic">
+                        <i class="fas fa-phone-slash mr-1"></i> {% trans "Seller has disabled phone number visibility." %}
+                    </p>
+                    {% endif %}
+
+                    {% if user != listing.seller %}
+                    {% comment %}Žinutė — visiems matoma; neprisijungusį veda į
+                    prisijungimą ir grąžina atgal į šį skelbimą su ?rasyti=1,
+                    kad langas atsidarytų iškart.{% endcomment %}
+                    <a href="{% if user.is_authenticated %}{% url 'conversations:start' listing.pk %}{% else %}{% url 'accounts:login' %}?next={{ request.path|add:'?rasyti=1'|urlencode }}{% endif %}"
+                       class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-2">
+                        <i class="fas fa-envelope mr-2"></i>{% trans "Send Message" %}
+                    </a>
+                    {% if user.is_authenticated and listing.seller.profile.dealer_subscription_active %}
+                    <button onclick="document.getElementById('emailModal').classList.remove('hidden')"
+                            class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-900 text-center py-3 rounded-lg transition-colors font-medium mb-3 w-full">
+                        <i class="fas fa-paper-plane mr-2"></i>{% trans "Send Email" %}
+                    </button>
+                    {% endif %}
                     {% endif %}
 
                     <div class="flex items-center justify-between pt-3 border-t border-gray-200 text-sm text-gray-500">
@@ -3015,4 +3020,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 {% endif %}
 </script>
+
+{% comment %}Telefono atskleidimas — vienas komponentas visiems skelbimams.{% endcomment %}
+<script>
+function phoneReveal(pk, masked) {
+  return {
+    masked: masked, full: '', kraunama: false,
+    reveal() {
+      if (this.full || this.kraunama) { return; }
+      this.kraunama = true;
+      var self = this;
+      fetch('/' + pk + '/telefonas/', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { self.full = d.telefonas || ''; })
+        .catch(function () { self.full = ''; })
+        .then(function () { self.kraunama = false; });
+    }
+  };
+}
+</script>
+<style>
+  .ap-phone { display: flex; align-items: center; gap: var(--sp-2); width: 100%;
+              height: var(--btn-h); padding: 0 var(--sp-3);
+              border: 1px solid var(--border); border-radius: var(--r-md);
+              background: var(--surface); color: var(--text);
+              font-size: var(--fs-lg); font-weight: var(--fw-semibold);
+              text-decoration: none; transition: border-color var(--dur); }
+  .ap-phone:hover { border-color: var(--border-hover); }
+  .ap-phone svg { width: 20px; height: 20px; color: var(--text-muted); flex: 0 0 auto; }
+  .ap-phone em { margin-left: auto; font-style: normal; font-size: var(--fs-xs);
+                 font-weight: var(--fw-medium); color: var(--text-muted); }
+  .ap-phone.is-full { color: var(--text); }
+</style>
+
 {% endblock %}
