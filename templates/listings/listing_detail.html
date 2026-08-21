@@ -54,7 +54,10 @@
                                  class="relative">
                                 <div class="absolute inset-0 bg-cover bg-center"
                                      style="background-image: url('{{ image.url_sm }}'); filter: blur(40px) brightness(0.65); transform: scale(1.15); z-index: 0;"></div>
-                                <a href="{{ image.image.url }}" class="glightbox relative flex items-center justify-center" data-gallery="listing-gallery"
+                                {% comment %}Paspaudus atsidaro sluoksnis virš skelbimo, ne failas.
+                                href lieka kaip atsarga be JS.{% endcomment %}
+                                <a href="{{ image.image.url }}" class="relative flex items-center justify-center"
+                                   @click.prevent="window.lb && window.lb.open({{ forloop.counter0 }})"
                                    style="z-index: 1; min-height: 320px; max-height: 600px;">
                                     {% comment %}Rodom 1600 px versiją; originalas lieka lightbox nuorodoje.{% endcomment %}
                                     <picture>
@@ -89,7 +92,7 @@
                         <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
                             <div class="flex gap-2 overflow-x-auto" style="scrollbar-width: thin;">
                                 {% for image in listing.images.all %}
-                                <button @click.prevent.stop="currentImage = {{ forloop.counter0 }}"
+                                <button @click.prevent.stop="currentImage = {{ forloop.counter0 }}; window.lb && window.lb.open({{ forloop.counter0 }})"
                                         :class="currentImage === {{ forloop.counter0 }} ? 'ring-2 ring-primary opacity-100' : 'opacity-70 hover:opacity-100'"
                                         class="w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 transition-all">
                                     <img src="{{ image.url_sm }}" alt="{{ listing.title }}" width="80" height="64"
@@ -2948,20 +2951,21 @@
 <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}"></script>
 {% endif %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+{% comment %}
+Nuotraukų sluoksnis. GLightbox iš CDN atsisakyta: jis nustojo perimti
+paspaudimą (atsidarydavo pats failas), o mums reikia priartinimo pirštais,
+dvigubo paspaudimo, miniatiūrų ir blur-up — tai jau savas elgesys.
+{% endcomment %}
+<script>
+window.__lbImages = [
+  {% for image in listing.images.all %}{ full: "{{ image.url_lg }}", sm: "{{ image.url_sm }}" }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+];
+window.__lbAlt = "{{ listing.title|escapejs }}";
+</script>
+{% include 'listings/partials/_lightbox.html' %}
 
 <script>
-const lightbox = GLightbox({
-    selector: '.glightbox',
-    touchNavigation: true,
-    loop: true,
-    zoomable: true,
-    draggable: true,
-    dragToleranceX: 40,
-    dragToleranceY: 65,
-    dragAutoSnap: true,
-});
 
 // ─── Dual-unit display: appends "≈ X unit" hint to every .dual-unit span ───
 document.addEventListener('DOMContentLoaded', function() {

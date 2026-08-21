@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 18:56+0300\n"
+"POT-Creation-Date: 2026-08-21 19:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,9 +30,9 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
-#: apps/accounts/models.py:28 templates/listings/listing_detail.html:1848
-#: templates/listings/listing_detail.html:2187
-#: templates/listings/listing_detail.html:2530
+#: apps/accounts/models.py:28 templates/listings/listing_detail.html:1852
+#: templates/listings/listing_detail.html:2191
+#: templates/listings/listing_detail.html:2534
 #: templates/listings/motogear_list.html:355
 #: templates/listings/trucks_advanced_search.html:550
 #: templates/listings/trucks_list.html:537
@@ -61,8 +61,8 @@ msgstr ""
 #: templates/listings/boats_listing_create.html:820
 #: templates/listings/listing_create.html:656
 #: templates/listings/listing_create_cars_quick.html:351
-#: templates/listings/listing_detail.html:2225
-#: templates/listings/listing_detail.html:2554
+#: templates/listings/listing_detail.html:2229
+#: templates/listings/listing_detail.html:2558
 #: templates/listings/listing_edit.html:223
 #: templates/listings/listing_list.html:628
 #: templates/listings/moto_parts_advanced.html:119
@@ -79,8 +79,8 @@ msgstr ""
 
 #: apps/accounts/models.py:34 apps/listings/forms.py:387
 #: templates/accounts/profile_edit.html:91
-#: templates/listings/listing_detail.html:2209
-#: templates/listings/listing_detail.html:2538
+#: templates/listings/listing_detail.html:2213
+#: templates/listings/listing_detail.html:2542
 #: templates/listings/moto_parts_advanced.html:113
 #: templates/listings/moto_parts_browse.html:159
 #: templates/listings/motogear_create.html:455
@@ -536,7 +536,7 @@ msgstr ""
 #: apps/listings/models.py:587 apps/listings/models.py:778
 #: apps/listings/models.py:2736 apps/listings/models.py:2785
 #: apps/listings/models.py:2797 apps/listings/translatable_db.py:68
-#: templates/listings/listing_detail.html:2898
+#: templates/listings/listing_detail.html:2902
 #: templates/listings/partials/panel_boats.html:25
 msgid "Other"
 msgstr ""
@@ -644,9 +644,9 @@ msgstr ""
 #: templates/listings/listing_create.html:404
 #: templates/listings/listing_create.html:455
 #: templates/listings/listing_create_cars_quick.html:64
-#: templates/listings/listing_detail.html:1601
-#: templates/listings/listing_detail.html:2071
-#: templates/listings/listing_detail.html:2362
+#: templates/listings/listing_detail.html:1605
+#: templates/listings/listing_detail.html:2075
+#: templates/listings/listing_detail.html:2366
 #: templates/listings/listing_edit.html:36
 #: templates/listings/listing_list.html:429
 #: templates/listings/listing_list.html:1524
@@ -695,8 +695,8 @@ msgstr ""
 #: apps/listings/forms.py:95 templates/listings/advanced_search.html:244
 #: templates/listings/advanced_search.html:600 templates/listings/home.html:46
 #: templates/listings/listing_create.html:472
-#: templates/listings/listing_detail.html:2096
-#: templates/listings/listing_detail.html:2366
+#: templates/listings/listing_detail.html:2100
+#: templates/listings/listing_detail.html:2370
 #: templates/listings/listing_list.html:582
 #: templates/listings/partials/panel_cars.html:83
 msgid "Body Type"
@@ -723,8 +723,8 @@ msgstr ""
 #: templates/listings/listing_create.html:507
 #: templates/listings/listing_create_cars_quick.html:122
 #: templates/listings/listing_create_cars_quick.html:842
-#: templates/listings/listing_detail.html:2024
-#: templates/listings/listing_detail.html:2317
+#: templates/listings/listing_detail.html:2028
+#: templates/listings/listing_detail.html:2321
 #: templates/listings/listing_list.html:527
 #: templates/listings/motorcycle_create.html:181
 #: templates/listings/motorcycles_advanced_search.html:305
@@ -742,8 +742,8 @@ msgstr ""
 #: templates/listings/boats_listing_create.html:815
 #: templates/listings/car_for_parts_create.html:69
 #: templates/listings/listing_create.html:541
-#: templates/listings/listing_detail.html:2091
-#: templates/listings/listing_detail.html:2378
+#: templates/listings/listing_detail.html:2095
+#: templates/listings/listing_detail.html:2382
 #: templates/listings/moto_for_parts_create.html:69
 #: templates/listings/moto_part_create.html:69
 #: templates/listings/moto_parts_advanced.html:107
@@ -769,9 +769,9 @@ msgstr ""
 #: templates/listings/car_for_parts_create.html:216
 #: templates/listings/listing_create.html:570
 #: templates/listings/listing_create_cars_quick.html:321
-#: templates/listings/listing_detail.html:1804
-#: templates/listings/listing_detail.html:2114
-#: templates/listings/listing_detail.html:2370
+#: templates/listings/listing_detail.html:1808
+#: templates/listings/listing_detail.html:2118
+#: templates/listings/listing_detail.html:2374
 #: templates/listings/listing_edit.html:104
 #: templates/listings/motogear_create.html:211
 #: templates/listings/motorcycle_create.html:201
@@ -786,8 +786,8 @@ msgstr ""
 #: apps/listings/forms.py:133 templates/listings/advanced_search.html:329
 #: templates/listings/listing_create.html:574
 #: templates/listings/listing_create_cars_quick.html:173
-#: templates/listings/listing_detail.html:1748
-#: templates/listings/listing_detail.html:2382
+#: templates/listings/listing_detail.html:1752
+#: templates/listings/listing_detail.html:2386
 #: templates/listings/listing_edit.html:115
 #: templates/listings/listing_list.html:635
 #: templates/listings/motorcycle_create.html:146
@@ -801,8 +801,8 @@ msgstr ""
 #: apps/listings/forms.py:141 templates/listings/advanced_search.html:321
 #: templates/listings/listing_create.html:553
 #: templates/listings/listing_create_cars_quick.html:162
-#: templates/listings/listing_detail.html:1756
-#: templates/listings/listing_detail.html:2416
+#: templates/listings/listing_detail.html:1760
+#: templates/listings/listing_detail.html:2420
 #: templates/listings/listing_edit.html:125
 #: templates/listings/trucks_advanced_search.html:470
 #: templates/listings/trucks_listing_create.html:589
@@ -832,8 +832,8 @@ msgstr ""
 
 #: apps/listings/forms.py:178 templates/listings/advanced_search.html:313
 #: templates/listings/listing_create.html:644
-#: templates/listings/listing_detail.html:2108
-#: templates/listings/listing_detail.html:2422
+#: templates/listings/listing_detail.html:2112
+#: templates/listings/listing_detail.html:2426
 #: templates/listings/listing_edit.html:136
 msgid "Drive Type"
 msgstr ""
@@ -844,14 +844,14 @@ msgid "Number of Seats"
 msgstr ""
 
 #: apps/listings/forms.py:192 templates/listings/listing_create.html:646
-#: templates/listings/listing_detail.html:2434
+#: templates/listings/listing_detail.html:2438
 #: templates/listings/listing_edit.html:158
 msgid "Rim Size"
 msgstr ""
 
 #: apps/listings/forms.py:199 templates/listings/advanced_search.html:361
 #: templates/listings/listing_create.html:647
-#: templates/listings/listing_detail.html:2440
+#: templates/listings/listing_detail.html:2444
 #: templates/listings/listing_edit.html:169
 msgid "Climate Control"
 msgstr ""
@@ -864,7 +864,7 @@ msgstr ""
 
 #: apps/listings/forms.py:216 templates/listings/advanced_search.html:377
 #: templates/listings/listing_create.html:649
-#: templates/listings/listing_detail.html:2446
+#: templates/listings/listing_detail.html:2450
 #: templates/listings/listing_edit.html:180
 #: templates/listings/motorcycle_create.html:211
 #: templates/listings/motorcycles_advanced_search.html:373
@@ -888,7 +888,7 @@ msgid "Fuel Consumption Combined (l/100km)"
 msgstr ""
 
 #: apps/listings/forms.py:266 templates/listings/listing_create.html:651
-#: templates/listings/listing_detail.html:2474
+#: templates/listings/listing_detail.html:2478
 #: templates/listings/listing_edit.html:207
 msgid "Origin Country"
 msgstr ""
@@ -924,9 +924,9 @@ msgstr ""
 #: templates/listings/listing_create.html:25
 #: templates/listings/listing_create.html:715
 #: templates/listings/listing_create.html:717
-#: templates/listings/listing_detail.html:1585
-#: templates/listings/listing_detail.html:2057
-#: templates/listings/listing_detail.html:2349
+#: templates/listings/listing_detail.html:1589
+#: templates/listings/listing_detail.html:2061
+#: templates/listings/listing_detail.html:2353
 #: templates/listings/listing_edit.html:292
 #: templates/listings/moto_for_parts_create.html:197
 #: templates/listings/motogear_create.html:275
@@ -1502,7 +1502,7 @@ msgid "Multicolor"
 msgstr ""
 
 #: apps/listings/models.py:401 apps/listings/models.py:2806
-#: templates/listings/listing_detail.html:2383
+#: templates/listings/listing_detail.html:2387
 #: templates/listings/listing_list.html:638
 #: templates/listings/motorcycles_list.html:603
 msgid "No defects"
@@ -1753,6 +1753,7 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:85
 #: templates/listings/motogear_advanced.html:118
 #: templates/listings/motogear_advanced.html:153
+#: templates/listings/partials/_lightbox.html:61
 #: templates/listings/rental_car_create.html:65
 #: templates/listings/rental_heavy_create.html:64
 #: templates/listings/rental_minibus_create.html:64
@@ -2165,23 +2166,23 @@ msgstr ""
 msgid "Truck Model (free text)"
 msgstr ""
 
-#: apps/listings/models.py:710 templates/listings/listing_detail.html:1568
-#: templates/listings/listing_detail.html:1648
+#: apps/listings/models.py:710 templates/listings/listing_detail.html:1572
+#: templates/listings/listing_detail.html:1652
 #: templates/listings/trucks_listing_create.html:454
 msgid "Wheel formula"
 msgstr ""
 
-#: apps/listings/models.py:714 templates/listings/listing_detail.html:1656
+#: apps/listings/models.py:714 templates/listings/listing_detail.html:1660
 #: templates/listings/trucks_listing_create.html:489
 msgid "Mass interval"
 msgstr ""
 
-#: apps/listings/models.py:718 templates/listings/listing_detail.html:1776
+#: apps/listings/models.py:718 templates/listings/listing_detail.html:1780
 #: templates/listings/trucks_listing_create.html:615
 msgid "Front suspension"
 msgstr ""
 
-#: apps/listings/models.py:722 templates/listings/listing_detail.html:1782
+#: apps/listings/models.py:722 templates/listings/listing_detail.html:1786
 #: templates/listings/trucks_listing_create.html:625
 msgid "Rear suspension"
 msgstr ""
@@ -2216,13 +2217,13 @@ msgstr ""
 msgid "Fuel tank capacity (L)"
 msgstr ""
 
-#: apps/listings/models.py:761 templates/listings/listing_detail.html:1768
+#: apps/listings/models.py:761 templates/listings/listing_detail.html:1772
 #: templates/listings/trucks_listing_create.html:609
 msgid "Sleeping seats"
 msgstr ""
 
 #: apps/listings/models.py:765 templates/listings/boats_listing_create.html:98
-#: templates/listings/listing_detail.html:1790
+#: templates/listings/listing_detail.html:1794
 msgid "SDK number"
 msgstr ""
 
@@ -2443,20 +2444,20 @@ msgstr ""
 #: templates/listings/construction_listing_create.html:56
 #: templates/listings/electronics_listing_create.html:57
 #: templates/listings/forestry_listing_create.html:57
-#: templates/listings/listing_detail.html:130
-#: templates/listings/listing_detail.html:175
-#: templates/listings/listing_detail.html:270
-#: templates/listings/listing_detail.html:320
-#: templates/listings/listing_detail.html:454
-#: templates/listings/listing_detail.html:512
-#: templates/listings/listing_detail.html:637
-#: templates/listings/listing_detail.html:797
-#: templates/listings/listing_detail.html:920
-#: templates/listings/listing_detail.html:1054
-#: templates/listings/listing_detail.html:1094
-#: templates/listings/listing_detail.html:1196
-#: templates/listings/listing_detail.html:1243
-#: templates/listings/listing_detail.html:1388
+#: templates/listings/listing_detail.html:134
+#: templates/listings/listing_detail.html:179
+#: templates/listings/listing_detail.html:274
+#: templates/listings/listing_detail.html:324
+#: templates/listings/listing_detail.html:458
+#: templates/listings/listing_detail.html:516
+#: templates/listings/listing_detail.html:641
+#: templates/listings/listing_detail.html:801
+#: templates/listings/listing_detail.html:924
+#: templates/listings/listing_detail.html:1058
+#: templates/listings/listing_detail.html:1098
+#: templates/listings/listing_detail.html:1200
+#: templates/listings/listing_detail.html:1247
+#: templates/listings/listing_detail.html:1392
 #: templates/listings/loading_equipment_create.html:56
 #: templates/listings/motogear_advanced.html:53
 #: templates/listings/partials/_panel_bodies.html:44
@@ -2466,8 +2467,8 @@ msgstr ""
 msgid "Tipas"
 msgstr "Type"
 
-#: apps/listings/models.py:861 templates/listings/listing_detail.html:1341
-#: templates/listings/listing_detail.html:1392
+#: apps/listings/models.py:861 templates/listings/listing_detail.html:1345
+#: templates/listings/listing_detail.html:1396
 #: templates/listings/partials/_panel_bodies.html:357
 #: templates/listings/partials/_panel_bodies.html:472
 #: templates/listings/trailers_listing_create.html:113
@@ -2482,14 +2483,14 @@ msgstr "Purpose"
 #: templates/listings/camping_listing_create.html:67
 #: templates/listings/construction_listing_create.html:66
 #: templates/listings/forestry_listing_create.html:67
-#: templates/listings/listing_detail.html:496
-#: templates/listings/listing_detail.html:674
-#: templates/listings/listing_detail.html:829
-#: templates/listings/listing_detail.html:952
-#: templates/listings/listing_detail.html:1099
-#: templates/listings/listing_detail.html:1235
-#: templates/listings/listing_detail.html:1380
-#: templates/listings/listing_detail.html:1933
+#: templates/listings/listing_detail.html:500
+#: templates/listings/listing_detail.html:678
+#: templates/listings/listing_detail.html:833
+#: templates/listings/listing_detail.html:956
+#: templates/listings/listing_detail.html:1103
+#: templates/listings/listing_detail.html:1239
+#: templates/listings/listing_detail.html:1384
+#: templates/listings/listing_detail.html:1937
 #: templates/listings/loading_equipment_create.html:66
 #: templates/listings/moto_for_parts_create.html:79
 #: templates/listings/partials/_panel_bodies.html:1062
@@ -2512,16 +2513,16 @@ msgstr "Brand"
 #: templates/listings/construction_listing_create.html:87
 #: templates/listings/electronics_listing_create.html:89
 #: templates/listings/forestry_listing_create.html:88
-#: templates/listings/listing_detail.html:171
-#: templates/listings/listing_detail.html:316
-#: templates/listings/listing_detail.html:500
-#: templates/listings/listing_detail.html:678
-#: templates/listings/listing_detail.html:833
-#: templates/listings/listing_detail.html:956
-#: templates/listings/listing_detail.html:1104
-#: templates/listings/listing_detail.html:1239
-#: templates/listings/listing_detail.html:1384
-#: templates/listings/listing_detail.html:1937
+#: templates/listings/listing_detail.html:175
+#: templates/listings/listing_detail.html:320
+#: templates/listings/listing_detail.html:504
+#: templates/listings/listing_detail.html:682
+#: templates/listings/listing_detail.html:837
+#: templates/listings/listing_detail.html:960
+#: templates/listings/listing_detail.html:1108
+#: templates/listings/listing_detail.html:1243
+#: templates/listings/listing_detail.html:1388
+#: templates/listings/listing_detail.html:1941
 #: templates/listings/loading_equipment_create.html:87
 #: templates/listings/moto_for_parts_create.html:89
 #: templates/listings/partials/_panel_bodies.html:1090
@@ -2536,7 +2537,7 @@ msgstr "Brand"
 msgid "Modelis"
 msgstr "Model"
 
-#: apps/listings/models.py:871 templates/listings/listing_detail.html:1412
+#: apps/listings/models.py:871 templates/listings/listing_detail.html:1416
 #: templates/listings/trailers_listing_create.html:123
 msgid "Bendras ratų skaičius"
 msgstr ""
@@ -2546,8 +2547,8 @@ msgstr ""
 msgid "Ašys (gamintojas)"
 msgstr ""
 
-#: apps/listings/models.py:879 templates/listings/listing_detail.html:1355
-#: templates/listings/listing_detail.html:1404
+#: apps/listings/models.py:879 templates/listings/listing_detail.html:1359
+#: templates/listings/listing_detail.html:1408
 #: templates/listings/partials/_panel_bodies.html:614
 #: templates/listings/trailers_listing_create.html:143
 msgid "Ašių skaičius"
@@ -2765,17 +2766,17 @@ msgstr ""
 
 #: apps/listings/models.py:957
 #: templates/listings/agriculture_listing_create.html:62
-#: templates/listings/listing_detail.html:1247
+#: templates/listings/listing_detail.html:1251
 msgid "Padargas / Savaeigė"
 msgstr ""
 
-#: apps/listings/models.py:968 templates/listings/listing_detail.html:807
-#: templates/listings/listing_detail.html:857
-#: templates/listings/listing_detail.html:972
-#: templates/listings/listing_detail.html:1065
-#: templates/listings/listing_detail.html:1141
-#: templates/listings/listing_detail.html:1210
-#: templates/listings/listing_detail.html:1259
+#: apps/listings/models.py:968 templates/listings/listing_detail.html:811
+#: templates/listings/listing_detail.html:861
+#: templates/listings/listing_detail.html:976
+#: templates/listings/listing_detail.html:1069
+#: templates/listings/listing_detail.html:1145
+#: templates/listings/listing_detail.html:1214
+#: templates/listings/listing_detail.html:1263
 msgid "Motovalandos"
 msgstr ""
 
@@ -3027,8 +3028,8 @@ msgstr ""
 #: apps/listings/models.py:1084
 #: templates/listings/construction_listing_create.html:101
 #: templates/listings/forestry_listing_create.html:102
-#: templates/listings/listing_detail.html:841
-#: templates/listings/listing_detail.html:1121
+#: templates/listings/listing_detail.html:845
+#: templates/listings/listing_detail.html:1125
 msgid "Pavaros tipas"
 msgstr ""
 
@@ -3129,7 +3130,7 @@ msgstr ""
 msgid "Rankinis"
 msgstr ""
 
-#: apps/listings/models.py:1139 templates/listings/listing_detail.html:980
+#: apps/listings/models.py:1139 templates/listings/listing_detail.html:984
 #: templates/listings/loading_equipment_create.html:197
 msgid "Energijos šaltinis"
 msgstr ""
@@ -3212,13 +3213,13 @@ msgstr ""
 
 #: apps/listings/models.py:1212
 #: templates/listings/camping_listing_create.html:138
-#: templates/listings/listing_detail.html:653
+#: templates/listings/listing_detail.html:657
 msgid "Tinka su B kat. teisėmis"
 msgstr ""
 
 #: apps/listings/models.py:1218
 #: templates/listings/camping_listing_create.html:271
-#: templates/listings/listing_detail.html:718
+#: templates/listings/listing_detail.html:722
 msgid "Pavarų skaičius"
 msgstr ""
 
@@ -3270,7 +3271,7 @@ msgstr ""
 msgid "Sandėliavimo, krovimo technika"
 msgstr ""
 
-#: apps/listings/models.py:1265 templates/listings/listing_detail.html:477
+#: apps/listings/models.py:1265 templates/listings/listing_detail.html:481
 #: templates/listings/rental_car_create.html:158
 #: templates/listings/rental_heavy_create.html:108
 #: templates/listings/rental_minibus_create.html:120
@@ -3384,7 +3385,7 @@ msgstr ""
 msgid "Žemės ūkio technikos remontas"
 msgstr ""
 
-#: apps/listings/models.py:1315 templates/listings/listing_detail.html:383
+#: apps/listings/models.py:1315 templates/listings/listing_detail.html:387
 #: templates/listings/services_listing_create.html:55
 msgid "Paslaugos tipas"
 msgstr ""
@@ -3472,17 +3473,17 @@ msgstr ""
 #: apps/listings/models.py:1361 apps/listings/models.py:1400
 #: templates/listings/bicycles_listing_create.html:65
 #: templates/listings/electronics_listing_create.html:68
-#: templates/listings/listing_detail.html:167
-#: templates/listings/listing_detail.html:275
-#: templates/listings/listing_detail.html:312
+#: templates/listings/listing_detail.html:171
+#: templates/listings/listing_detail.html:279
+#: templates/listings/listing_detail.html:316
 #: templates/listings/motogear_advanced.html:100
 msgid "Gamintojas"
 msgstr "Manufacturer"
 
 #: apps/listings/models.py:1366
 #: templates/listings/electronics_listing_create.html:116
-#: templates/listings/listing_detail.html:285
-#: templates/listings/listing_detail.html:332
+#: templates/listings/listing_detail.html:289
+#: templates/listings/listing_detail.html:336
 msgid "Kanalų skaičius"
 msgstr ""
 
@@ -3537,7 +3538,7 @@ msgstr ""
 
 #: apps/listings/models.py:1428
 #: templates/listings/bicycles_listing_create.html:185
-#: templates/listings/listing_detail.html:215
+#: templates/listings/listing_detail.html:219
 msgid "Padangų tipas"
 msgstr ""
 
@@ -3570,10 +3571,10 @@ msgstr ""
 #: templates/listings/listing_create.html:413
 #: templates/listings/listing_create.html:665
 #: templates/listings/listing_create_cars_quick.html:71
-#: templates/listings/listing_detail.html:1545
-#: templates/listings/listing_detail.html:2002
-#: templates/listings/listing_detail.html:2087
-#: templates/listings/listing_detail.html:2295
+#: templates/listings/listing_detail.html:1549
+#: templates/listings/listing_detail.html:2006
+#: templates/listings/listing_detail.html:2091
+#: templates/listings/listing_detail.html:2299
 #: templates/listings/listing_edit.html:269
 #: templates/listings/listing_list.html:465
 #: templates/listings/moto_part_create.html:106
@@ -3678,30 +3679,30 @@ msgstr ""
 
 #: apps/listings/models.py:1615
 #: templates/listings/car_for_parts_create.html:113
-#: templates/listings/listing_detail.html:2082
+#: templates/listings/listing_detail.html:2086
 msgid "Version"
 msgstr ""
 
 #: apps/listings/models.py:1620 templates/listings/car_for_parts_create.html:96
-#: templates/listings/listing_detail.html:2076
+#: templates/listings/listing_detail.html:2080
 msgid "Modification"
 msgstr ""
 
 #: apps/listings/models.py:1625
 #: templates/listings/car_for_parts_create.html:226
-#: templates/listings/listing_detail.html:2120
+#: templates/listings/listing_detail.html:2124
 msgid "Color code"
 msgstr ""
 
 #: apps/listings/models.py:1630
 #: templates/listings/car_for_parts_create.html:233
-#: templates/listings/listing_detail.html:2151
+#: templates/listings/listing_detail.html:2155
 msgid "Engine code"
 msgstr ""
 
 #: apps/listings/models.py:1635
 #: templates/listings/car_for_parts_create.html:240
-#: templates/listings/listing_detail.html:2157
+#: templates/listings/listing_detail.html:2161
 msgid "Gearbox code"
 msgstr ""
 
@@ -3798,8 +3799,8 @@ msgstr ""
 #: apps/listings/models.py:1670
 #: templates/listings/boats_listing_create.html:138
 #: templates/listings/listing_create_cars_quick.html:257
-#: templates/listings/listing_detail.html:2048
-#: templates/listings/listing_detail.html:2341
+#: templates/listings/listing_detail.html:2052
+#: templates/listings/listing_detail.html:2345
 msgid "+ Taxes"
 msgstr ""
 
@@ -5442,7 +5443,7 @@ msgid "Create your first listing to get started"
 msgstr ""
 
 #: templates/accounts/dealer_public_page.html:32
-#: templates/listings/listing_detail.html:2678
+#: templates/listings/listing_detail.html:2682
 msgid "Verified Dealer"
 msgstr ""
 
@@ -5624,9 +5625,9 @@ msgid "Price to"
 msgstr ""
 
 #: templates/accounts/dealer_public_page.html:98
-#: templates/listings/listing_detail.html:1561
-#: templates/listings/listing_detail.html:2017
-#: templates/listings/listing_detail.html:2310
+#: templates/listings/listing_detail.html:1565
+#: templates/listings/listing_detail.html:2021
+#: templates/listings/listing_detail.html:2314
 #: templates/listings/listing_list_v2.html:319
 msgid "Fuel"
 msgstr ""
@@ -5756,8 +5757,8 @@ msgstr ""
 #: templates/accounts/dealer_setup.html:30
 #: templates/accounts/profile_edit.html:87
 #: templates/accounts/seller_profile.html:373
-#: templates/listings/listing_detail.html:2233
-#: templates/listings/listing_detail.html:2562
+#: templates/listings/listing_detail.html:2237
+#: templates/listings/listing_detail.html:2566
 #: templates/listings/partials/contact_block.html:55
 msgid "Address"
 msgstr ""
@@ -6565,7 +6566,7 @@ msgstr ""
 #: templates/accounts/wallet.html:125
 #: templates/listings/boats_listing_create.html:55
 #: templates/listings/boats_listing_create.html:816
-#: templates/listings/listing_detail.html:1607
+#: templates/listings/listing_detail.html:1611
 #: templates/listings/motogear_create.html:76
 #: templates/listings/motogear_create.html:442
 #: templates/listings/motogear_list.html:97
@@ -6685,7 +6686,8 @@ msgstr ""
 msgid "Sveiki"
 msgstr ""
 
-#: templates/base.html:550 templates/listings/partials/_mobile_picker.html:18
+#: templates/base.html:550 templates/listings/partials/_lightbox.html:28
+#: templates/listings/partials/_mobile_picker.html:18
 msgid "Uždaryti"
 msgstr ""
 
@@ -6994,9 +6996,9 @@ msgid "All Categories"
 msgstr ""
 
 #: templates/home.html:34 templates/listings/home.html:22
-#: templates/listings/listing_detail.html:1597
-#: templates/listings/listing_detail.html:2067
-#: templates/listings/listing_detail.html:2358
+#: templates/listings/listing_detail.html:1601
+#: templates/listings/listing_detail.html:2071
+#: templates/listings/listing_detail.html:2362
 #: templates/listings/search_map.html:23
 #: templates/listings/trucks_advanced_search.html:326
 #: templates/listings/trucks_list.html:268
@@ -7074,11 +7076,11 @@ msgstr ""
 #: templates/listings/car_for_parts_create.html:146
 #: templates/listings/listing_create.html:585
 #: templates/listings/listing_create_cars_quick.html:183
-#: templates/listings/listing_detail.html:1630
-#: templates/listings/listing_detail.html:2009
-#: templates/listings/listing_detail.html:2125
-#: templates/listings/listing_detail.html:2302
-#: templates/listings/listing_detail.html:2387
+#: templates/listings/listing_detail.html:1634
+#: templates/listings/listing_detail.html:2013
+#: templates/listings/listing_detail.html:2129
+#: templates/listings/listing_detail.html:2306
+#: templates/listings/listing_detail.html:2391
 #: templates/listings/moto_for_parts_create.html:169
 #: templates/listings/motorcycle_create.html:109
 #: templates/listings/trucks_advanced_search.html:636
@@ -7177,13 +7179,13 @@ msgstr ""
 #: templates/listings/bicycles_listing_create.html:214
 #: templates/listings/camping_listing_create.html:324
 #: templates/listings/electronics_listing_create.html:165
-#: templates/listings/listing_detail.html:235
-#: templates/listings/listing_detail.html:348
-#: templates/listings/listing_detail.html:597
-#: templates/listings/listing_detail.html:757
-#: templates/listings/listing_detail.html:1014
-#: templates/listings/listing_detail.html:1298
-#: templates/listings/listing_detail.html:1508
+#: templates/listings/listing_detail.html:239
+#: templates/listings/listing_detail.html:352
+#: templates/listings/listing_detail.html:601
+#: templates/listings/listing_detail.html:761
+#: templates/listings/listing_detail.html:1018
+#: templates/listings/listing_detail.html:1302
+#: templates/listings/listing_detail.html:1512
 #: templates/listings/loading_equipment_create.html:250
 #: templates/listings/motogear_advanced.html:205
 #: templates/listings/partials/_panel_bodies.html:687
@@ -7260,9 +7262,9 @@ msgstr ""
 #: templates/listings/car_for_parts_create.html:131
 #: templates/listings/listing_create.html:619
 #: templates/listings/listing_create_cars_quick.html:296
-#: templates/listings/listing_detail.html:1620
-#: templates/listings/listing_detail.html:2142
-#: templates/listings/listing_detail.html:2406
+#: templates/listings/listing_detail.html:1624
+#: templates/listings/listing_detail.html:2146
+#: templates/listings/listing_detail.html:2410
 #: templates/listings/moto_for_parts_create.html:154
 #: templates/listings/motorcycle_create.html:74
 #: templates/listings/motorcycles_advanced_search.html:216
@@ -7276,13 +7278,13 @@ msgstr ""
 #: templates/listings/car_for_parts_create.html:196
 #: templates/listings/listing_create_cars_quick.html:133
 #: templates/listings/listing_create_cars_quick.html:843
-#: templates/listings/listing_detail.html:2102
-#: templates/listings/listing_detail.html:2374
+#: templates/listings/listing_detail.html:2106
+#: templates/listings/listing_detail.html:2378
 msgid "Doors"
 msgstr ""
 
 #: templates/listings/advanced_search.html:353
-#: templates/listings/listing_detail.html:2428
+#: templates/listings/listing_detail.html:2432
 msgid "Seats"
 msgstr ""
 
@@ -7358,7 +7360,7 @@ msgid "Vehicle Technical Specs"
 msgstr ""
 
 #: templates/listings/advanced_search.html:586
-#: templates/listings/listing_detail.html:1762
+#: templates/listings/listing_detail.html:1766
 #: templates/listings/trucks_listing_create.html:599
 msgid "Gearbox"
 msgstr ""
@@ -7539,15 +7541,15 @@ msgstr ""
 #: templates/listings/construction_listing_create.html:46
 #: templates/listings/electronics_listing_create.html:47
 #: templates/listings/forestry_listing_create.html:47
-#: templates/listings/listing_detail.html:179
-#: templates/listings/listing_detail.html:324
-#: templates/listings/listing_detail.html:682
-#: templates/listings/listing_detail.html:837
-#: templates/listings/listing_detail.html:960
-#: templates/listings/listing_detail.html:1108
-#: templates/listings/listing_detail.html:1251
-#: templates/listings/listing_detail.html:1396
-#: templates/listings/listing_detail.html:1949
+#: templates/listings/listing_detail.html:183
+#: templates/listings/listing_detail.html:328
+#: templates/listings/listing_detail.html:686
+#: templates/listings/listing_detail.html:841
+#: templates/listings/listing_detail.html:964
+#: templates/listings/listing_detail.html:1112
+#: templates/listings/listing_detail.html:1255
+#: templates/listings/listing_detail.html:1400
+#: templates/listings/listing_detail.html:1953
 #: templates/listings/loading_equipment_create.html:46
 #: templates/listings/partials/_panel_bodies.html:602
 #: templates/listings/trailers_listing_create.html:45
@@ -7578,16 +7580,16 @@ msgstr ""
 #: templates/listings/electronics_listing_create.html:109
 #: templates/listings/forestry_listing_create.html:112
 #: templates/listings/forestry_listing_create.html:235
-#: templates/listings/listing_detail.html:449
-#: templates/listings/listing_detail.html:504
-#: templates/listings/listing_detail.html:632
-#: templates/listings/listing_detail.html:792
-#: templates/listings/listing_detail.html:915
-#: templates/listings/listing_detail.html:1049
-#: templates/listings/listing_detail.html:1189
-#: templates/listings/listing_detail.html:1334
-#: templates/listings/listing_detail.html:1893
-#: templates/listings/listing_detail.html:1945
+#: templates/listings/listing_detail.html:453
+#: templates/listings/listing_detail.html:508
+#: templates/listings/listing_detail.html:636
+#: templates/listings/listing_detail.html:796
+#: templates/listings/listing_detail.html:919
+#: templates/listings/listing_detail.html:1053
+#: templates/listings/listing_detail.html:1193
+#: templates/listings/listing_detail.html:1338
+#: templates/listings/listing_detail.html:1897
+#: templates/listings/listing_detail.html:1949
 #: templates/listings/loading_equipment_create.html:94
 #: templates/listings/moto_for_parts_create.html:106
 #: templates/listings/motogear_advanced.html:158
@@ -7619,12 +7621,12 @@ msgstr ""
 #: templates/listings/camping_listing_create.html:128
 #: templates/listings/construction_listing_create.html:127
 #: templates/listings/forestry_listing_create.html:120
-#: templates/listings/listing_detail.html:747
-#: templates/listings/listing_detail.html:890
-#: templates/listings/listing_detail.html:1005
-#: templates/listings/listing_detail.html:1150
-#: templates/listings/listing_detail.html:1288
-#: templates/listings/listing_detail.html:1453
+#: templates/listings/listing_detail.html:751
+#: templates/listings/listing_detail.html:894
+#: templates/listings/listing_detail.html:1009
+#: templates/listings/listing_detail.html:1154
+#: templates/listings/listing_detail.html:1292
+#: templates/listings/listing_detail.html:1457
 #: templates/listings/loading_equipment_create.html:131
 #: templates/listings/trailers_listing_create.html:163
 msgid "SDK kodas"
@@ -7646,16 +7648,16 @@ msgstr ""
 #: templates/listings/construction_listing_create.html:135
 #: templates/listings/electronics_listing_create.html:136
 #: templates/listings/forestry_listing_create.html:127
-#: templates/listings/listing_detail.html:150
-#: templates/listings/listing_detail.html:295
-#: templates/listings/listing_detail.html:393
-#: templates/listings/listing_detail.html:657
-#: templates/listings/listing_detail.html:812
-#: templates/listings/listing_detail.html:935
-#: templates/listings/listing_detail.html:1077
-#: templates/listings/listing_detail.html:1216
-#: templates/listings/listing_detail.html:1361
-#: templates/listings/listing_detail.html:1916
+#: templates/listings/listing_detail.html:154
+#: templates/listings/listing_detail.html:299
+#: templates/listings/listing_detail.html:397
+#: templates/listings/listing_detail.html:661
+#: templates/listings/listing_detail.html:816
+#: templates/listings/listing_detail.html:939
+#: templates/listings/listing_detail.html:1081
+#: templates/listings/listing_detail.html:1220
+#: templates/listings/listing_detail.html:1365
+#: templates/listings/listing_detail.html:1920
 #: templates/listings/loading_equipment_create.html:138
 #: templates/listings/partials/_panel_bodies.html:60
 #: templates/listings/partials/_panel_bodies.html:186
@@ -7695,17 +7697,17 @@ msgstr ""
 #: templates/listings/construction_listing_create.html:161
 #: templates/listings/electronics_listing_create.html:153
 #: templates/listings/forestry_listing_create.html:154
-#: templates/listings/listing_detail.html:152
-#: templates/listings/listing_detail.html:297
-#: templates/listings/listing_detail.html:399
-#: templates/listings/listing_detail.html:481
-#: templates/listings/listing_detail.html:659
-#: templates/listings/listing_detail.html:814
-#: templates/listings/listing_detail.html:937
-#: templates/listings/listing_detail.html:1079
-#: templates/listings/listing_detail.html:1219
-#: templates/listings/listing_detail.html:1364
-#: templates/listings/listing_detail.html:1918
+#: templates/listings/listing_detail.html:156
+#: templates/listings/listing_detail.html:301
+#: templates/listings/listing_detail.html:403
+#: templates/listings/listing_detail.html:485
+#: templates/listings/listing_detail.html:663
+#: templates/listings/listing_detail.html:818
+#: templates/listings/listing_detail.html:941
+#: templates/listings/listing_detail.html:1083
+#: templates/listings/listing_detail.html:1223
+#: templates/listings/listing_detail.html:1368
+#: templates/listings/listing_detail.html:1922
 #: templates/listings/loading_equipment_create.html:165
 #: templates/listings/rental_car_create.html:170
 #: templates/listings/rental_heavy_create.html:120
@@ -7781,17 +7783,17 @@ msgstr ""
 #: templates/listings/construction_listing_create.html:252
 #: templates/listings/electronics_listing_create.html:190
 #: templates/listings/forestry_listing_create.html:264
-#: templates/listings/listing_detail.html:158
-#: templates/listings/listing_detail.html:303
-#: templates/listings/listing_detail.html:405
-#: templates/listings/listing_detail.html:487
-#: templates/listings/listing_detail.html:665
-#: templates/listings/listing_detail.html:820
-#: templates/listings/listing_detail.html:943
-#: templates/listings/listing_detail.html:1085
-#: templates/listings/listing_detail.html:1226
-#: templates/listings/listing_detail.html:1371
-#: templates/listings/listing_detail.html:1924
+#: templates/listings/listing_detail.html:162
+#: templates/listings/listing_detail.html:307
+#: templates/listings/listing_detail.html:409
+#: templates/listings/listing_detail.html:491
+#: templates/listings/listing_detail.html:669
+#: templates/listings/listing_detail.html:824
+#: templates/listings/listing_detail.html:947
+#: templates/listings/listing_detail.html:1089
+#: templates/listings/listing_detail.html:1230
+#: templates/listings/listing_detail.html:1375
+#: templates/listings/listing_detail.html:1928
 #: templates/listings/loading_equipment_create.html:276
 #: templates/listings/rental_car_create.html:263
 #: templates/listings/rental_heavy_create.html:226
@@ -8372,12 +8374,12 @@ msgstr ""
 #: templates/listings/bicycles_listing_create.html:138
 #: templates/listings/camping_listing_create.html:244
 #: templates/listings/electronics_listing_create.html:126
-#: templates/listings/listing_detail.html:227
-#: templates/listings/listing_detail.html:336
-#: templates/listings/listing_detail.html:564
-#: templates/listings/listing_detail.html:726
-#: templates/listings/listing_detail.html:1440
-#: templates/listings/listing_detail.html:1973
+#: templates/listings/listing_detail.html:231
+#: templates/listings/listing_detail.html:340
+#: templates/listings/listing_detail.html:568
+#: templates/listings/listing_detail.html:730
+#: templates/listings/listing_detail.html:1444
+#: templates/listings/listing_detail.html:1977
 #: templates/listings/moto_for_parts_create.html:144
 #: templates/listings/motogear_advanced.html:140
 #: templates/listings/rental_car_create.html:200
@@ -8470,9 +8472,9 @@ msgstr ""
 #: templates/listings/boats_listing_create.html:818
 #: templates/listings/listing_create.html:24
 #: templates/listings/listing_create_cars_quick.html:213
-#: templates/listings/listing_detail.html:1574
-#: templates/listings/listing_detail.html:2030
-#: templates/listings/listing_detail.html:2323
+#: templates/listings/listing_detail.html:1578
+#: templates/listings/listing_detail.html:2034
+#: templates/listings/listing_detail.html:2327
 #: templates/listings/listing_edit.html:63
 #: templates/listings/listing_select_plan.html:46
 #: templates/listings/listing_select_plan.html:172
@@ -8497,9 +8499,9 @@ msgstr ""
 
 #: templates/listings/boats_listing_create.html:130
 #: templates/listings/listing_create_cars_quick.html:243
-#: templates/listings/listing_detail.html:1577
-#: templates/listings/listing_detail.html:2042
-#: templates/listings/listing_detail.html:2335
+#: templates/listings/listing_detail.html:1581
+#: templates/listings/listing_detail.html:2046
+#: templates/listings/listing_detail.html:2339
 #: templates/listings/moto_part_create.html:135
 #: templates/listings/rims_create.html:93
 #: templates/listings/tyres_create.html:106
@@ -8510,9 +8512,9 @@ msgstr ""
 
 #: templates/listings/boats_listing_create.html:134
 #: templates/listings/listing_create_cars_quick.html:250
-#: templates/listings/listing_detail.html:2045
-#: templates/listings/listing_detail.html:2338
-#: templates/listings/listing_detail.html:2650
+#: templates/listings/listing_detail.html:2049
+#: templates/listings/listing_detail.html:2342
+#: templates/listings/listing_detail.html:2654
 msgid "Interested in trade"
 msgstr ""
 
@@ -8752,8 +8754,8 @@ msgid ""
 msgstr ""
 
 #: templates/listings/boats_listing_create.html:822
-#: templates/listings/listing_detail.html:2217
-#: templates/listings/listing_detail.html:2546
+#: templates/listings/listing_detail.html:2221
+#: templates/listings/listing_detail.html:2550
 #: templates/listings/motogear_create.html:457
 #: templates/listings/motogear_list.html:137
 #: templates/listings/partials/contact_block.html:52
@@ -8770,15 +8772,15 @@ msgid "You must agree to terms and conditions"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:95
-#: templates/listings/listing_detail.html:528
-#: templates/listings/listing_detail.html:642
+#: templates/listings/listing_detail.html:532
+#: templates/listings/listing_detail.html:646
 msgid "Miegamos vietos"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:102
-#: templates/listings/listing_detail.html:463
-#: templates/listings/listing_detail.html:524
-#: templates/listings/listing_detail.html:690
+#: templates/listings/listing_detail.html:467
+#: templates/listings/listing_detail.html:528
+#: templates/listings/listing_detail.html:694
 msgid "Sėdimos vietos"
 msgstr ""
 
@@ -8789,10 +8791,10 @@ msgstr ""
 #: templates/listings/camping_listing_create.html:188
 #: templates/listings/construction_listing_create.html:193
 #: templates/listings/forestry_listing_create.html:180
-#: templates/listings/listing_detail.html:532
-#: templates/listings/listing_detail.html:694
-#: templates/listings/listing_detail.html:849
-#: templates/listings/listing_detail.html:1133
+#: templates/listings/listing_detail.html:536
+#: templates/listings/listing_detail.html:698
+#: templates/listings/listing_detail.html:853
+#: templates/listings/listing_detail.html:1137
 #: templates/listings/partials/_card_params.html:20
 #: templates/listings/partials/_panel_bodies.html:968
 #: templates/listings/rental_car_create.html:117
@@ -8812,7 +8814,7 @@ msgid "Degalų bako talpa (l)"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:205
-#: templates/listings/listing_detail.html:702
+#: templates/listings/listing_detail.html:706
 msgid "Modifikacija"
 msgstr ""
 
@@ -8822,9 +8824,9 @@ msgstr ""
 
 #: templates/listings/camping_listing_create.html:219
 #: templates/listings/forestry_listing_create.html:232
-#: templates/listings/listing_detail.html:742
-#: templates/listings/listing_detail.html:877
-#: templates/listings/listing_detail.html:1444
+#: templates/listings/listing_detail.html:746
+#: templates/listings/listing_detail.html:881
+#: templates/listings/listing_detail.html:1448
 #: templates/listings/trailers_listing_create.html:250
 msgid "TA iki"
 msgstr ""
@@ -8839,25 +8841,25 @@ msgid "Rida (km)"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:254
-#: templates/listings/listing_detail.html:730
+#: templates/listings/listing_detail.html:734
 #: templates/listings/partials/search_panel.html:90
 msgid "Ratlankiai"
 msgstr "Rims"
 
 #: templates/listings/camping_listing_create.html:261
-#: templates/listings/listing_detail.html:734
-#: templates/listings/listing_detail.html:1470
+#: templates/listings/listing_detail.html:738
+#: templates/listings/listing_detail.html:1474
 msgid "Padangų likutis"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:281
-#: templates/listings/listing_detail.html:722
+#: templates/listings/listing_detail.html:726
 msgid "Varantieji ratai"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:291
-#: templates/listings/listing_detail.html:552
-#: templates/listings/listing_detail.html:714
+#: templates/listings/listing_detail.html:556
+#: templates/listings/listing_detail.html:718
 #: templates/listings/partials/_card_params.html:32
 #: templates/listings/rental_car_create.html:132
 #: templates/listings/rental_minibus_create.html:183
@@ -8865,7 +8867,7 @@ msgid "Pavarų dėžė"
 msgstr ""
 
 #: templates/listings/camping_listing_create.html:308
-#: templates/listings/listing_detail.html:738
+#: templates/listings/listing_detail.html:742
 msgid "Defektai"
 msgstr ""
 
@@ -8942,8 +8944,8 @@ msgid "e.g. 150000"
 msgstr ""
 
 #: templates/listings/car_for_parts_create.html:161
-#: templates/listings/listing_detail.html:1640
-#: templates/listings/listing_detail.html:2133
+#: templates/listings/listing_detail.html:1644
+#: templates/listings/listing_detail.html:2137
 #: templates/listings/truck_for_parts_create.html:123
 msgid "Engine capacity"
 msgstr ""
@@ -9114,24 +9116,24 @@ msgstr ""
 
 #: templates/listings/construction_listing_create.html:178
 #: templates/listings/forestry_listing_create.html:171
-#: templates/listings/listing_detail.html:572
-#: templates/listings/listing_detail.html:845
-#: templates/listings/listing_detail.html:1125
+#: templates/listings/listing_detail.html:576
+#: templates/listings/listing_detail.html:849
+#: templates/listings/listing_detail.html:1129
 #: templates/listings/rental_heavy_create.html:138
 msgid "Ratų formulė"
 msgstr ""
 
 #: templates/listings/electronics_listing_create.html:149
-#: templates/listings/listing_detail.html:291
-#: templates/listings/listing_detail.html:340
+#: templates/listings/listing_detail.html:295
+#: templates/listings/listing_detail.html:344
 #: templates/listings/trailers_listing_create.html:203
 msgid "Domina keitimas"
 msgstr ""
 
 #: templates/listings/forestry_listing_create.html:250
-#: templates/listings/listing_detail.html:885
-#: templates/listings/listing_detail.html:1000
-#: templates/listings/listing_detail.html:1448
+#: templates/listings/listing_detail.html:889
+#: templates/listings/listing_detail.html:1004
+#: templates/listings/listing_detail.html:1452
 #: templates/listings/loading_equipment_create.html:236
 #: templates/listings/trailers_listing_create.html:292
 msgid "VIN kodas"
@@ -9297,7 +9299,7 @@ msgid "Photos & Video"
 msgstr ""
 
 #: templates/listings/listing_create.html:22
-#: templates/listings/listing_detail.html:2355
+#: templates/listings/listing_detail.html:2359
 #: templates/listings/listing_edit.html:81
 msgid "Vehicle Details"
 msgstr ""
@@ -9403,7 +9405,7 @@ msgstr ""
 #: templates/listings/listing_create.html:270
 #: templates/listings/listing_create.html:410
 #: templates/listings/listing_create.html:459
-#: templates/listings/listing_detail.html:2502
+#: templates/listings/listing_detail.html:2506
 #: templates/listings/listing_edit.html:41
 msgid "First Registration"
 msgstr ""
@@ -9418,8 +9420,8 @@ msgstr ""
 #: templates/listings/listing_create.html:248
 #: templates/listings/listing_create.html:275
 #: templates/listings/listing_create.html:463
-#: templates/listings/listing_detail.html:1810
-#: templates/listings/listing_detail.html:2486
+#: templates/listings/listing_detail.html:1814
+#: templates/listings/listing_detail.html:2490
 #: templates/listings/listing_edit.html:46
 #: templates/listings/listing_list.html:1224
 #: templates/listings/listing_list.html:1260
@@ -9478,7 +9480,7 @@ msgid "Provide technical specifications"
 msgstr ""
 
 #: templates/listings/listing_create.html:600
-#: templates/listings/listing_detail.html:2396
+#: templates/listings/listing_detail.html:2400
 msgid "Engine Capacity"
 msgstr ""
 
@@ -9497,7 +9499,7 @@ msgid "CO₂ Emission (g/km)"
 msgstr ""
 
 #: templates/listings/listing_create.html:654
-#: templates/listings/listing_detail.html:2464
+#: templates/listings/listing_detail.html:2468
 #: templates/listings/listing_edit.html:220
 msgid "Fuel Consumption (l/100km)"
 msgstr ""
@@ -9558,7 +9560,7 @@ msgid "Where is the vehicle and how can buyers reach you?"
 msgstr ""
 
 #: templates/listings/listing_create.html:761
-#: templates/listings/listing_detail.html:2769
+#: templates/listings/listing_detail.html:2773
 msgid "Save"
 msgstr ""
 
@@ -9690,7 +9692,7 @@ msgid "Curb weight, kg"
 msgstr ""
 
 #: templates/listings/listing_create_cars_quick.html:345
-#: templates/listings/listing_detail.html:1734
+#: templates/listings/listing_detail.html:1738
 #: templates/listings/partials/panel_trucks.html:81
 #: templates/listings/trucks_advanced_search.html:461
 #: templates/listings/trucks_list.html:347
@@ -9797,67 +9799,67 @@ msgstr ""
 msgid "Browse Motorcycles"
 msgstr ""
 
-#: templates/listings/listing_detail.html:135
-#: templates/listings/listing_detail.html:183
-#: templates/listings/listing_detail.html:548
-#: templates/listings/listing_detail.html:710
-#: templates/listings/listing_detail.html:802
-#: templates/listings/listing_detail.html:968
-#: templates/listings/listing_detail.html:1060
-#: templates/listings/listing_detail.html:1117
-#: templates/listings/listing_detail.html:1203
-#: templates/listings/listing_detail.html:1263
-#: templates/listings/listing_detail.html:1965
+#: templates/listings/listing_detail.html:139
+#: templates/listings/listing_detail.html:187
+#: templates/listings/listing_detail.html:552
+#: templates/listings/listing_detail.html:714
+#: templates/listings/listing_detail.html:806
+#: templates/listings/listing_detail.html:972
+#: templates/listings/listing_detail.html:1064
+#: templates/listings/listing_detail.html:1121
+#: templates/listings/listing_detail.html:1207
+#: templates/listings/listing_detail.html:1267
+#: templates/listings/listing_detail.html:1969
 msgid "Galia"
 msgstr ""
 
-#: templates/listings/listing_detail.html:140
-#: templates/listings/listing_detail.html:199
+#: templates/listings/listing_detail.html:144
+#: templates/listings/listing_detail.html:203
 msgid "Rida su vienu įkrovimu"
 msgstr ""
 
-#: templates/listings/listing_detail.html:145
-#: templates/listings/listing_detail.html:187
+#: templates/listings/listing_detail.html:149
+#: templates/listings/listing_detail.html:191
 msgid "Maksimalus greitis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:164
-#: templates/listings/listing_detail.html:309
-#: templates/listings/listing_detail.html:493
-#: templates/listings/listing_detail.html:671
-#: templates/listings/listing_detail.html:826
-#: templates/listings/listing_detail.html:949
-#: templates/listings/listing_detail.html:1091
-#: templates/listings/listing_detail.html:1232
-#: templates/listings/listing_detail.html:1930
+#: templates/listings/listing_detail.html:168
+#: templates/listings/listing_detail.html:313
+#: templates/listings/listing_detail.html:497
+#: templates/listings/listing_detail.html:675
+#: templates/listings/listing_detail.html:830
+#: templates/listings/listing_detail.html:953
+#: templates/listings/listing_detail.html:1095
+#: templates/listings/listing_detail.html:1236
+#: templates/listings/listing_detail.html:1934
 msgid "Techninė informacija"
 msgstr ""
 
-#: templates/listings/listing_detail.html:191
+#: templates/listings/listing_detail.html:195
 msgid "Svoris"
 msgstr ""
 
-#: templates/listings/listing_detail.html:195
+#: templates/listings/listing_detail.html:199
 msgid "Maksimali apkrova"
 msgstr ""
 
-#: templates/listings/listing_detail.html:203
+#: templates/listings/listing_detail.html:207
 msgid "Baterijos talpa"
 msgstr ""
 
-#: templates/listings/listing_detail.html:207
+#: templates/listings/listing_detail.html:211
 msgid "Baterijos talpos likutis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:211
+#: templates/listings/listing_detail.html:215
 msgid "Įkrovimo laikas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:212
-#: templates/listings/listing_detail.html:858
-#: templates/listings/listing_detail.html:973
-#: templates/listings/listing_detail.html:1142
-#: templates/listings/listing_detail.html:1260
+#: templates/listings/listing_detail.html:216
+#: templates/listings/listing_detail.html:862
+#: templates/listings/listing_detail.html:977
+#: templates/listings/listing_detail.html:1146
+#: templates/listings/listing_detail.html:1264
 #: templates/listings/listing_list.html:896
 #: templates/listings/listing_list.html:916
 #: templates/listings/listing_list.html:925
@@ -9866,42 +9868,42 @@ msgstr ""
 msgid "val."
 msgstr ""
 
-#: templates/listings/listing_detail.html:219
+#: templates/listings/listing_detail.html:223
 msgid "Ratų skersmuo"
 msgstr ""
 
-#: templates/listings/listing_detail.html:223
+#: templates/listings/listing_detail.html:227
 msgid "Įveikiama įkalnė"
 msgstr ""
 
-#: templates/listings/listing_detail.html:251
-#: templates/listings/listing_detail.html:364
-#: templates/listings/listing_detail.html:430
-#: templates/listings/listing_detail.html:614
-#: templates/listings/listing_detail.html:774
-#: templates/listings/listing_detail.html:898
-#: templates/listings/listing_detail.html:1031
-#: templates/listings/listing_detail.html:1171
-#: templates/listings/listing_detail.html:1315
-#: templates/listings/listing_detail.html:1526
-#: templates/listings/listing_detail.html:1980
+#: templates/listings/listing_detail.html:255
+#: templates/listings/listing_detail.html:368
+#: templates/listings/listing_detail.html:434
+#: templates/listings/listing_detail.html:618
+#: templates/listings/listing_detail.html:778
+#: templates/listings/listing_detail.html:902
+#: templates/listings/listing_detail.html:1035
+#: templates/listings/listing_detail.html:1175
+#: templates/listings/listing_detail.html:1319
+#: templates/listings/listing_detail.html:1530
+#: templates/listings/listing_detail.html:1984
 msgid "Vieta"
 msgstr ""
 
-#: templates/listings/listing_detail.html:280
-#: templates/listings/listing_detail.html:328
+#: templates/listings/listing_detail.html:284
+#: templates/listings/listing_detail.html:332
 msgid "Galingumas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:341
+#: templates/listings/listing_detail.html:345
 msgid "Taip"
 msgstr ""
 
-#: templates/listings/listing_detail.html:341
+#: templates/listings/listing_detail.html:345
 msgid "Ne"
 msgstr ""
 
-#: templates/listings/listing_detail.html:388
+#: templates/listings/listing_detail.html:392
 #: templates/listings/motogear_advanced.html:183
 #: templates/listings/partials/_card_params.html:44
 #: templates/listings/partials/_panel_bodies.html:105
@@ -9909,25 +9911,25 @@ msgstr ""
 msgid "Miestas"
 msgstr "City"
 
-#: templates/listings/listing_detail.html:397
+#: templates/listings/listing_detail.html:401
 msgid "Sutartinė kaina"
 msgstr ""
 
-#: templates/listings/listing_detail.html:413
+#: templates/listings/listing_detail.html:417
 msgid "Teikiamos paslaugos"
 msgstr ""
 
-#: templates/listings/listing_detail.html:468
-#: templates/listings/listing_detail.html:560
-#: templates/listings/listing_detail.html:647
-#: templates/listings/listing_detail.html:1129
-#: templates/listings/listing_detail.html:1908
-#: templates/listings/listing_detail.html:1969
+#: templates/listings/listing_detail.html:472
+#: templates/listings/listing_detail.html:564
+#: templates/listings/listing_detail.html:651
+#: templates/listings/listing_detail.html:1133
+#: templates/listings/listing_detail.html:1912
+#: templates/listings/listing_detail.html:1973
 #: templates/listings/partials/_card_params.html:26
 msgid "Rida"
 msgstr ""
 
-#: templates/listings/listing_detail.html:473
+#: templates/listings/listing_detail.html:477
 #: templates/listings/rental_car_create.html:147
 #: templates/listings/rental_heavy_create.html:97
 #: templates/listings/rental_minibus_create.html:109
@@ -9935,208 +9937,208 @@ msgstr ""
 msgid "Nuomos kaina parai"
 msgstr ""
 
-#: templates/listings/listing_detail.html:508
+#: templates/listings/listing_detail.html:512
 #: templates/listings/rental_car_create.html:89
 msgid "Versija"
 msgstr ""
 
-#: templates/listings/listing_detail.html:516
+#: templates/listings/listing_detail.html:520
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
 msgstr "Body type"
 
-#: templates/listings/listing_detail.html:520
+#: templates/listings/listing_detail.html:524
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
 msgstr ""
 
-#: templates/listings/listing_detail.html:536
-#: templates/listings/listing_detail.html:698
-#: templates/listings/listing_detail.html:853
-#: templates/listings/listing_detail.html:1137
+#: templates/listings/listing_detail.html:540
+#: templates/listings/listing_detail.html:702
+#: templates/listings/listing_detail.html:857
+#: templates/listings/listing_detail.html:1141
 msgid "Degalų bako talpa"
 msgstr ""
 
-#: templates/listings/listing_detail.html:540
+#: templates/listings/listing_detail.html:544
 msgid "Kuro sąnaudos"
 msgstr ""
 
-#: templates/listings/listing_detail.html:544
-#: templates/listings/listing_detail.html:1903
-#: templates/listings/listing_detail.html:1953
+#: templates/listings/listing_detail.html:548
+#: templates/listings/listing_detail.html:1907
+#: templates/listings/listing_detail.html:1957
 msgid "Darbinis tūris"
 msgstr ""
 
-#: templates/listings/listing_detail.html:556
-#: templates/listings/listing_detail.html:1961
+#: templates/listings/listing_detail.html:560
+#: templates/listings/listing_detail.html:1965
 #: templates/listings/moto_for_parts_create.html:134
 #: templates/listings/rental_moto_create.html:157
 msgid "Aušinimas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:565
+#: templates/listings/listing_detail.html:569
 msgid "metalikas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:568
+#: templates/listings/listing_detail.html:572
 #: templates/listings/rental_heavy_create.html:81
 msgid "Priekabos tipas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:576
-#: templates/listings/listing_detail.html:1145
-#: templates/listings/listing_detail.html:1279
-#: templates/listings/listing_detail.html:1428
+#: templates/listings/listing_detail.html:580
+#: templates/listings/listing_detail.html:1149
+#: templates/listings/listing_detail.html:1283
+#: templates/listings/listing_detail.html:1432
 msgid "Keliamoji galia"
 msgstr ""
 
-#: templates/listings/listing_detail.html:580
-#: templates/listings/listing_detail.html:988
-msgid "Šakių / strėlės ilgis"
-msgstr ""
-
 #: templates/listings/listing_detail.html:584
-#: templates/listings/listing_detail.html:869
-#: templates/listings/listing_detail.html:1071
-#: templates/listings/listing_detail.html:1164
-#: templates/listings/listing_detail.html:1271
-#: templates/listings/listing_detail.html:1424
-msgid "Nuosavas svoris"
+#: templates/listings/listing_detail.html:992
+msgid "Šakių / strėlės ilgis"
 msgstr ""
 
 #: templates/listings/listing_detail.html:588
 #: templates/listings/listing_detail.html:873
+#: templates/listings/listing_detail.html:1075
+#: templates/listings/listing_detail.html:1168
 #: templates/listings/listing_detail.html:1275
-#: templates/listings/listing_detail.html:1348
-#: templates/listings/listing_detail.html:1420
+#: templates/listings/listing_detail.html:1428
+msgid "Nuosavas svoris"
+msgstr ""
+
+#: templates/listings/listing_detail.html:592
+#: templates/listings/listing_detail.html:877
+#: templates/listings/listing_detail.html:1279
+#: templates/listings/listing_detail.html:1352
+#: templates/listings/listing_detail.html:1424
 msgid "Bendroji masė"
 msgstr ""
 
-#: templates/listings/listing_detail.html:686
-#: templates/listings/listing_detail.html:964
-#: templates/listings/listing_detail.html:1113
-#: templates/listings/listing_detail.html:1255
-#: templates/listings/listing_detail.html:1400
+#: templates/listings/listing_detail.html:690
+#: templates/listings/listing_detail.html:968
+#: templates/listings/listing_detail.html:1117
+#: templates/listings/listing_detail.html:1259
+#: templates/listings/listing_detail.html:1404
 msgid "Pirmoji registracija"
 msgstr ""
 
-#: templates/listings/listing_detail.html:706
+#: templates/listings/listing_detail.html:710
 msgid "Variklio darbinis tūris"
 msgstr ""
 
-#: templates/listings/listing_detail.html:861
-#: templates/listings/listing_detail.html:992
-#: templates/listings/listing_detail.html:1156
-#: templates/listings/listing_detail.html:1436
+#: templates/listings/listing_detail.html:865
+#: templates/listings/listing_detail.html:996
+#: templates/listings/listing_detail.html:1160
+#: templates/listings/listing_detail.html:1440
 msgid "Matmenys (I × P × A)"
 msgstr ""
 
-#: templates/listings/listing_detail.html:925
+#: templates/listings/listing_detail.html:929
 msgid "Max keliamoji galia"
 msgstr ""
 
-#: templates/listings/listing_detail.html:930
+#: templates/listings/listing_detail.html:934
 msgid "Max kėlimo aukštis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:976
+#: templates/listings/listing_detail.html:980
 #: templates/listings/loading_equipment_create.html:188
 msgid "Pavara"
 msgstr ""
 
-#: templates/listings/listing_detail.html:984
+#: templates/listings/listing_detail.html:988
 msgid "Kelplotis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1078
+#: templates/listings/listing_detail.html:1082
 #: templates/listings/listing_list.html:855
 msgid "Sutartinė"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1267
+#: templates/listings/listing_detail.html:1271
 msgid "Darbinis plotis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1283
+#: templates/listings/listing_detail.html:1287
 msgid "Talpa"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1377
+#: templates/listings/listing_detail.html:1381
 msgid "Priekabos duomenys"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1408
+#: templates/listings/listing_detail.html:1412
 #: templates/listings/partials/_panel_bodies.html:626
 msgid "Ašių gamintojas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1416
+#: templates/listings/listing_detail.html:1420
 #: templates/listings/partials/_panel_bodies.html:638
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1432
+#: templates/listings/listing_detail.html:1436
 msgid "Tūris"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1463
+#: templates/listings/listing_detail.html:1467
 #: templates/listings/trailers_listing_create.html:306
 msgid "Pakaba ir padangos"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1468
+#: templates/listings/listing_detail.html:1472
 msgid "Ašis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1469
+#: templates/listings/listing_detail.html:1473
 #: templates/listings/trailers_listing_create.html:314
 msgid "Pakabos tipas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1471
+#: templates/listings/listing_detail.html:1475
 #: templates/listings/trailers_listing_create.html:338
 msgid "Padangų išmatavimai"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1552
-#: templates/listings/listing_detail.html:1664
+#: templates/listings/listing_detail.html:1556
+#: templates/listings/listing_detail.html:1668
 #: templates/listings/trucks_listing_create.html:369
 msgid "Gross weight"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1592
+#: templates/listings/listing_detail.html:1596
 msgid "Truck Details"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1611
+#: templates/listings/listing_detail.html:1615
 #: templates/listings/trucks_advanced_search.html:361
 #: templates/listings/trucks_listing_create.html:349
 msgid "First registration"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1672
+#: templates/listings/listing_detail.html:1676
 #: templates/listings/trucks_listing_create.html:381
 msgid "Curb weight"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1680
+#: templates/listings/listing_detail.html:1684
 #: templates/listings/trucks_listing_create.html:546
 msgid "Payload capacity"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1690
+#: templates/listings/listing_detail.html:1694
 #: templates/listings/trucks_listing_create.html:558
 msgid "Fuel tank capacity"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1700
+#: templates/listings/listing_detail.html:1704
 #: templates/listings/trucks_listing_create.html:464
 msgid "Length"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1708
+#: templates/listings/listing_detail.html:1712
 #: templates/listings/trucks_listing_create.html:476
 #: templates/listings/wheels_advanced_search.html:110
 #: templates/listings/wheels_detail.html:146
@@ -10148,190 +10150,190 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1716
+#: templates/listings/listing_detail.html:1720
 #: templates/listings/trucks_listing_create.html:499
 msgid "Height"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1724
+#: templates/listings/listing_detail.html:1728
 #: templates/listings/trucks_listing_create.html:511
 msgid "Volume"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1742
+#: templates/listings/listing_detail.html:1746
 #: templates/listings/trucks_listing_create.html:535
 msgid "New / Used"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1796
+#: templates/listings/listing_detail.html:1800
 msgid "Tech. inspection until"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1817
-#: templates/listings/listing_detail.html:2493
+#: templates/listings/listing_detail.html:1821
+#: templates/listings/listing_detail.html:2497
 msgid "Get vehicle history report from Carfaxreport.eu"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1819
-#: templates/listings/listing_detail.html:2495
+#: templates/listings/listing_detail.html:1823
+#: templates/listings/listing_detail.html:2499
 msgid "History report"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1830
-#: templates/listings/listing_detail.html:2167
-#: templates/listings/listing_detail.html:2512
+#: templates/listings/listing_detail.html:1834
+#: templates/listings/listing_detail.html:2171
+#: templates/listings/listing_detail.html:2516
 #: templates/listings/trucks_advanced_search.html:525
 msgid "Equipment & Features"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1864
+#: templates/listings/listing_detail.html:1868
 msgid "Exact address hidden by seller"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1875
-#: templates/listings/listing_detail.html:2584
+#: templates/listings/listing_detail.html:1879
+#: templates/listings/listing_detail.html:2588
 msgid "Get Directions"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1898
-#: templates/listings/listing_detail.html:1941
+#: templates/listings/listing_detail.html:1902
+#: templates/listings/listing_detail.html:1945
 #: templates/listings/moto_for_parts_create.html:96
 #: templates/listings/rental_moto_create.html:47
 msgid "Motociklo tipas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1913
+#: templates/listings/listing_detail.html:1917
 msgid "Parduodamas dalimis"
 msgstr ""
 
-#: templates/listings/listing_detail.html:1957
+#: templates/listings/listing_detail.html:1961
 #: templates/listings/moto_for_parts_create.html:124
 msgid "Variklio tipas"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2033
-#: templates/listings/listing_detail.html:2326
-#: templates/listings/listing_detail.html:2627
+#: templates/listings/listing_detail.html:2037
+#: templates/listings/listing_detail.html:2330
+#: templates/listings/listing_detail.html:2631
 msgid "+ taxes"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2037
-#: templates/listings/listing_detail.html:2330
+#: templates/listings/listing_detail.html:2041
+#: templates/listings/listing_detail.html:2334
 msgid "Export price:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2064
+#: templates/listings/listing_detail.html:2068
 msgid "Vehicle Details (for parts)"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2194
+#: templates/listings/listing_detail.html:2198
 msgid "Directions"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2199
+#: templates/listings/listing_detail.html:2203
 msgid "Open in Maps"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2240
+#: templates/listings/listing_detail.html:2244
 msgid "ZIP:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2244
-#: templates/listings/listing_detail.html:2572
+#: templates/listings/listing_detail.html:2248
+#: templates/listings/listing_detail.html:2576
 msgid "Hidden by seller"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2259
+#: templates/listings/listing_detail.html:2263
 msgid "Coordinates"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2266
-#: templates/listings/listing_detail.html:2874
+#: templates/listings/listing_detail.html:2270
+#: templates/listings/listing_detail.html:2878
 #: templates/listings/listing_success.html:185
 msgid "Copied!"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2266
+#: templates/listings/listing_detail.html:2270
 msgid "Copy coordinates"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2275
+#: templates/listings/listing_detail.html:2279
 msgid "Approximate area only"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2452
+#: templates/listings/listing_detail.html:2456
 msgid "Curb Weight"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2458
+#: templates/listings/listing_detail.html:2462
 msgid "CO₂ Emission"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2466
+#: templates/listings/listing_detail.html:2470
 msgid "City:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2467
+#: templates/listings/listing_detail.html:2471
 msgid "Highway:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2468
+#: templates/listings/listing_detail.html:2472
 msgid "Combined:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2480
+#: templates/listings/listing_detail.html:2484
 #: templates/listings/motorcycle_create.html:156
 msgid "Tech. Inspection Until"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2631
+#: templates/listings/listing_detail.html:2635
 msgid ""
 "Price excludes taxes — please ask the seller about applicable taxes for your "
 "region."
 msgstr ""
 
-#: templates/listings/listing_detail.html:2640
+#: templates/listings/listing_detail.html:2644
 msgid "Export:"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2644
+#: templates/listings/listing_detail.html:2648
 msgid ""
 "Special price for export buyers — typically used when shipping the vehicle "
 "outside the seller's country. Ask the seller about export documentation and "
 "conditions."
 msgstr ""
 
-#: templates/listings/listing_detail.html:2692
+#: templates/listings/listing_detail.html:2696
 msgid "cars available"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2698
+#: templates/listings/listing_detail.html:2702
 msgid "Browse all listings"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2728
+#: templates/listings/listing_detail.html:2732
 msgid "Rodyti numerį"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2737
+#: templates/listings/listing_detail.html:2741
 msgid "Seller has disabled phone number visibility."
 msgstr ""
 
-#: templates/listings/listing_detail.html:2748
+#: templates/listings/listing_detail.html:2752
 msgid "Send Message"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2753
-#: templates/listings/listing_detail.html:2944
+#: templates/listings/listing_detail.html:2757
+#: templates/listings/listing_detail.html:2948
 msgid "Send Email"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2761
+#: templates/listings/listing_detail.html:2765
 msgid "Share"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2767
-#: templates/listings/listing_detail.html:2785
+#: templates/listings/listing_detail.html:2771
+#: templates/listings/listing_detail.html:2789
 #: templates/listings/listing_list.html:1724
 #: templates/listings/listing_list.html:1740
 #: templates/listings/listing_stats.html:92
@@ -10345,22 +10347,22 @@ msgstr ""
 msgid "Saved"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2775
+#: templates/listings/listing_detail.html:2779
 msgid "Report"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2781
+#: templates/listings/listing_detail.html:2785
 msgid "Listing ID"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2786
+#: templates/listings/listing_detail.html:2790
 #, python-format
 msgid "%(counter)s person"
 msgid_plural "%(counter)s people"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/listings/listing_detail.html:2790
+#: templates/listings/listing_detail.html:2794
 #: templates/listings/listing_stats.html:62
 #: templates/listings/my_listings.html:306
 #: templates/listings/my_listings.html:417
@@ -10369,101 +10371,101 @@ msgstr[1] ""
 msgid "Views"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2796
+#: templates/listings/listing_detail.html:2800
 #: templates/listings/my_listings.html:261
 msgid "Renewed"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2805
+#: templates/listings/listing_detail.html:2809
 msgid "Safety Tips"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2808
+#: templates/listings/listing_detail.html:2812
 msgid "Meet in a safe, public location"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2809
+#: templates/listings/listing_detail.html:2813
 msgid "Check the vehicle thoroughly"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2810
+#: templates/listings/listing_detail.html:2814
 msgid "Never pay in advance"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2811
+#: templates/listings/listing_detail.html:2815
 msgid "Verify all documents"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2824
+#: templates/listings/listing_detail.html:2828
 #: templates/listings/listing_success.html:91
 msgid "Share this listing"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2873
+#: templates/listings/listing_detail.html:2877
 msgid "Copy"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2885
+#: templates/listings/listing_detail.html:2889
 msgid "Report Listing"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2891
+#: templates/listings/listing_detail.html:2895
 msgid "Reason*"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2893
+#: templates/listings/listing_detail.html:2897
 msgid "Incorrect price"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2894
+#: templates/listings/listing_detail.html:2898
 msgid "Fraudulent listing"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2895
+#: templates/listings/listing_detail.html:2899
 msgid "Wrong category"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2896
+#: templates/listings/listing_detail.html:2900
 msgid "Duplicate listing"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2897
+#: templates/listings/listing_detail.html:2901
 msgid "Already sold"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2902
+#: templates/listings/listing_detail.html:2906
 msgid "Additional comment"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2903
+#: templates/listings/listing_detail.html:2907
 msgid "Describe the issue..."
 msgstr ""
 
-#: templates/listings/listing_detail.html:2906
+#: templates/listings/listing_detail.html:2910
 msgid "Your email (optional)"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2910
+#: templates/listings/listing_detail.html:2914
 msgid "Submit Report"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2920
+#: templates/listings/listing_detail.html:2924
 msgid "Send Email to Seller"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2928
+#: templates/listings/listing_detail.html:2932
 msgid "Your Email*"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2933
+#: templates/listings/listing_detail.html:2937
 msgid "Your Phone"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2938
+#: templates/listings/listing_detail.html:2942
 msgid "Message*"
 msgstr ""
 
-#: templates/listings/listing_detail.html:2941
+#: templates/listings/listing_detail.html:2945
 msgid "Hello, I am interested in this listing..."
 msgstr ""
 
@@ -12720,6 +12722,18 @@ msgstr ""
 
 #: templates/listings/partials/_card_params.html:38
 msgid "Variklis"
+msgstr ""
+
+#: templates/listings/partials/_lightbox.html:22
+msgid "Tolinti"
+msgstr ""
+
+#: templates/listings/partials/_lightbox.html:25
+msgid "Artinti"
+msgstr ""
+
+#: templates/listings/partials/_lightbox.html:46
+msgid "Ankstesnė"
 msgstr ""
 
 #: templates/listings/partials/_mobile_picker.html:17

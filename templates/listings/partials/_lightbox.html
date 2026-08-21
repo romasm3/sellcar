@@ -1,0 +1,218 @@
+{% load i18n %}{% comment %}
+NUOTRAUKŲ PERŽIŪRA (lightbox) — vienas komponentas telefonui ir
+darbalaukiui, be išorinių bibliotekų.
+
+Kodėl savas: GLightbox iš CDN nebeperėmė paspaudimo (nuoroda atidarydavo
+patį failą /media/...jpg ir žmogus išeidavo iš skelbimo), o mums vis tiek
+reikia priartinimo pirštais, dvigubo paspaudimo, miniatiūrų ir blur-up —
+tai jau ne „prijungti biblioteką", o savas elgesys.
+
+Naudojimas:
+    {% include 'listings/partials/_lightbox.html' with images=listing.images.all %}
+    o nuotraukos atidaromos per @click="lb.open(indeksas)".
+
+Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
+{% endcomment %}
+<div id="lb" x-data="lightbox()" x-init="init()"
+     x-show="on" x-cloak class="lb" @keydown.window="key($event)">
+
+  <div class="lb-bar">
+    <span class="lb-count" x-text="(idx + 1) + ' / ' + items.length"></span>
+    <span class="lb-tools">
+      <button type="button" @click="zoom(-0.4)" aria-label="{% trans 'Tolinti' %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M5 12h14"/></svg>
+      </button>
+      <button type="button" @click="zoom(0.4)" aria-label="{% trans 'Artinti' %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button type="button" @click="close()" aria-label="{% trans 'Uždaryti' %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </span>
+  </div>
+
+  {% comment %}Tamsi sritis — paspaudus už nuotraukos ribų uždaro.{% endcomment %}
+  {% comment %}Nuotraukos elementas užima visą sritį (object-fit: contain),
+  todėl paspaudimą „už nuotraukos" skaičiuojam pagal tikrą piešinio plotą.{% endcomment %}
+  <div class="lb-stage" @click="stageClick($event)"
+       @wheel.prevent="onWheel($event)"
+       @pointerdown="down($event)" @pointermove="move($event)"
+       @pointerup="up($event)" @pointercancel="up($event)"
+       @dblclick.prevent="toggleZoom($event)">
+
+    <button type="button" class="lb-arrow lb-prev" x-show="items.length > 1"
+            @click.stop="go(-1)" aria-label="{% trans 'Ankstesnė' %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
+    </button>
+
+    <div class="lb-frame">
+      {% comment %}Blur-up: kol didelė kraunasi, rodom išplėstą mažąją.{% endcomment %}
+      <img class="lb-blur" :src="items[idx] && items[idx].sm" alt="" x-show="!loaded" aria-hidden="true">
+      <img class="lb-img" :src="items[idx] && items[idx].full" :alt="alt"
+           :style="'transform: translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'"
+           :class="scale > 1 && 'is-zoomed'"
+           @load="loaded = true" @dragstart.prevent>
+    </div>
+
+    <button type="button" class="lb-arrow lb-next" x-show="items.length > 1"
+            @click.stop="go(1)" aria-label="{% trans 'Kita' %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <div class="lb-thumbs" x-show="items.length > 1">
+    <template x-for="(im, i) in items" :key="i">
+      <button type="button" class="lb-thumb" :class="i === idx && 'is-on'"
+              @click="show(i)"><img :src="im.sm" alt="" loading="lazy"></button>
+    </template>
+  </div>
+</div>
+
+<style>
+  .lb { position: fixed; inset: 0; z-index: 120; display: flex; flex-direction: column;
+        background: rgba(17, 24, 39, .94); }
+  .lb-bar { display: flex; align-items: center; justify-content: space-between;
+            padding: var(--sp-2) var(--sp-3); color: #fff; flex: 0 0 auto; }
+  .lb-count { font-size: var(--fs-sm); font-weight: var(--fw-medium); opacity: .85; }
+  .lb-tools { display: flex; gap: var(--sp-2); }
+  .lb-tools button, .lb-arrow {
+        width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-full);
+        border: 1px solid rgba(255, 255, 255, .25); background: rgba(255, 255, 255, .08);
+        color: #fff; display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: background-color var(--dur); }
+  .lb-tools button:hover, .lb-arrow:hover { background: rgba(255, 255, 255, .2); }
+  .lb-tools svg, .lb-arrow svg { width: 18px; height: 18px; }
+  .lb-stage { flex: 1 1 auto; min-height: 0; position: relative; display: flex;
+              align-items: center; justify-content: center; overflow: hidden;
+              touch-action: none; }
+  .lb-frame { position: relative; max-width: 100%; max-height: 100%;
+              display: flex; align-items: center; justify-content: center; }
+  .lb-img, .lb-blur { max-width: 96vw; max-height: 100%; object-fit: contain;
+                      user-select: none; -webkit-user-drag: none; }
+  .lb-img { transition: transform .18s ease-out; cursor: zoom-in; }
+  .lb-img.is-zoomed { cursor: grab; transition: none; }
+  .lb-blur { position: absolute; inset: 0; margin: auto; filter: blur(18px); transform: scale(1.04); }
+  .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
+  .lb-prev { left: var(--sp-3); }
+  .lb-next { right: var(--sp-3); }
+  .lb-thumbs { flex: 0 0 auto; display: flex; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3);
+               overflow-x: auto; overscroll-behavior-x: contain;
+               scrollbar-width: none; -ms-overflow-style: none; }
+  .lb-thumbs::-webkit-scrollbar { display: none; }
+  .lb-thumb { flex: 0 0 auto; width: 88px; height: 66px; padding: 0; border-radius: var(--r-sm);
+              border: 2px solid transparent; overflow: hidden; background: none; cursor: pointer;
+              opacity: .6; transition: opacity var(--dur), border-color var(--dur); }
+  .lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lb-thumb.is-on { opacity: 1; border-color: #fff; }
+  @media (max-width: 1023px) {
+    .lb-thumb { width: 64px; height: 48px; }
+    .lb-prev { left: var(--sp-1); }
+    .lb-next { right: var(--sp-1); }
+  }
+</style>
+
+<script>
+function lightbox() {
+  return {
+    on: false, idx: 0, items: [], alt: '',
+    scale: 1, tx: 0, ty: 0, loaded: false,
+    _p: {}, _start: null, _pinch: null, _scrollY: 0,
+
+    init() {
+      // Duomenys ateina iš puslapio — vienas sąrašas visoms nuotraukoms
+      this.items = window.__lbImages || [];
+      this.alt = window.__lbAlt || '';
+      window.lb = this;
+    },
+
+    open(i) {
+      this.idx = i || 0; this.reset(); this.on = true;
+      // Fonas nejuda, bet padėtis išsaugoma — uždarius grįžtam tiksliai ten
+      this._scrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+    },
+    close() {
+      this.on = false;
+      document.body.style.overflow = '';
+      window.scrollTo(0, this._scrollY);
+    },
+    show(i) { this.idx = i; this.reset(); },
+    go(d) {
+      if (!this.items.length) { return; }
+      this.idx = (this.idx + d + this.items.length) % this.items.length;
+      this.reset();
+    },
+    reset() { this.scale = 1; this.tx = 0; this.ty = 0; this.loaded = false; },
+
+    // Uždarom tik tada, kai paspausta TAMSIOJE srityje, o ne ant piešinio
+    stageClick(e) {
+      if (this.scale > 1) { return; }                 // priartinus — tempiam, neuždarom
+      var img = this.$el.querySelector('.lb-img');
+      if (!img || !img.naturalWidth) { this.close(); return; }
+      var r = img.getBoundingClientRect();
+      var k = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight);
+      var w = img.naturalWidth * k, h = img.naturalHeight * k;
+      var x0 = r.left + (r.width - w) / 2, y0 = r.top + (r.height - h) / 2;
+      var inside = e.clientX >= x0 && e.clientX <= x0 + w && e.clientY >= y0 && e.clientY <= y0 + h;
+      if (!inside) { this.close(); }
+    },
+
+    key(e) {
+      if (!this.on) { return; }
+      if (e.key === 'Escape') { this.close(); }
+      else if (e.key === 'ArrowLeft') { this.go(-1); }
+      else if (e.key === 'ArrowRight') { this.go(1); }
+      else if (e.key === '+' || e.key === '=') { this.zoom(0.4); }
+      else if (e.key === '-') { this.zoom(-0.4); }
+    },
+
+    zoom(d) {
+      var s = Math.min(4, Math.max(1, this.scale + d));
+      if (s === 1) { this.tx = 0; this.ty = 0; }
+      this.scale = s;
+    },
+    onWheel(e) { this.zoom(e.deltaY < 0 ? 0.3 : -0.3); },
+    toggleZoom() { this.scale > 1 ? this.zoom(-4) : this.zoom(1); },
+
+    // Vienas pirštas — tempimas (priartinus) arba braukimas (nepriartinus).
+    // Du pirštai — priartinimas.
+    down(e) {
+      this._p[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var ids = Object.keys(this._p);
+      if (ids.length === 2) {
+        this._pinch = { d: this._dist(), s: this.scale };
+      } else {
+        this._start = { x: e.clientX, y: e.clientY, tx: this.tx, ty: this.ty, t: Date.now() };
+      }
+      if (e.target.setPointerCapture) { try { e.target.setPointerCapture(e.pointerId); } catch (x) {} }
+    },
+    move(e) {
+      if (!this._p[e.pointerId]) { return; }
+      this._p[e.pointerId] = { x: e.clientX, y: e.clientY };
+      if (this._pinch && Object.keys(this._p).length === 2) {
+        var k = this._dist() / this._pinch.d;
+        this.scale = Math.min(4, Math.max(1, this._pinch.s * k));
+        return;
+      }
+      if (this.scale > 1 && this._start) {
+        this.tx = this._start.tx + (e.clientX - this._start.x);
+        this.ty = this._start.ty + (e.clientY - this._start.y);
+      }
+    },
+    up(e) {
+      var s = this._start;
+      delete this._p[e.pointerId];
+      if (Object.keys(this._p).length < 2) { this._pinch = null; }
+      if (s && this.scale === 1) {
+        var dx = e.clientX - s.x, dy = e.clientY - s.y;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { this.go(dx < 0 ? 1 : -1); }
+      }
+      this._start = null;
+    },
+    _dist() {
+      var v = Object.values(this._p);
+      return Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1;
+    }
+  };
+}
+</script>
