@@ -35,6 +35,18 @@ SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=_SECURE_DEFAULT,
 CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=_SECURE_DEFAULT, cast=bool)
 SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=_SECURE_DEFAULT, cast=bool)
 
+# CSRF patikimi šaltiniai. Django 4+ per HTTPS lygina Origin antraštę su
+# host'u, todėl POST iš www.autoleft.com į autoleft.com (arba atvirkščiai,
+# per nginx 301) baigiasi „CSRF verification failed". Sąrašą sudedam iš
+# ALLOWED_HOSTS, kad nereikėtų prižiūrėti dviejose vietose.
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{h}" for h in ALLOWED_HOSTS if h not in ("*",)
+] + [f"http://{h}" for h in ALLOWED_HOSTS if h in ("localhost", "127.0.0.1")]
+
+# Nepavykusio CSRF priežastis į žurnalą — kitą kartą nereikės spėlioti,
+# kuri forma ir kodėl.
+CSRF_FAILURE_VIEW = "apps.accounts.views.csrf_failure"
+
 # HSTS — pradedam nuo 1 val. Kai įsitikinam, kad viskas per HTTPS,
 # keliam iki 31536000 ir tik tada svarstom subdomains/preload.
 SECURE_HSTS_SECONDS = config(

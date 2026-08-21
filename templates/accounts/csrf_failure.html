@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Sesija pasibaigė" %}{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto my-16 text-center px-4">
+    <h1 class="text-xl font-bold mb-3">{% trans "Sesija pasibaigė" %}</h1>
+    <p class="text-gray-600 mb-6">
+        {% trans "Formos saugumo raktas nebegalioja — taip nutinka, kai puslapis ilgai buvo atidarytas. Grįžkite atgal ir bandykite dar kartą." %}
+    </p>
+    <a href="{{ back }}" class="mm-btn mm-btn-filled" style="display:inline-flex; padding: 0 var(--sp-4);">
+        {% trans "Bandyti dar kartą" %}
+    </a>
+</div>
+{% endblock %}

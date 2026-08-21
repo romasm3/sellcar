@@ -1470,3 +1470,24 @@ def dealer_public_page(request, username):
         'has_any_hours': has_any_hours,
     }
     return render(request, 'accounts/dealer_public_page.html', context)
+
+def csrf_failure(request, reason=""):
+    """CSRF klaidos puslapis su įrašu žurnale.
+
+    Django numatytasis puslapis vartotojui nieko nesako ir niekur nepalieka
+    pėdsako. Čia užrašom priežastį, adresą ir Origin/Referer — tiek užtenka
+    suprasti, ar tai www↔ne-www, ar pasenęs slapukas, — o žmogui rodom
+    paprastą pranešimą su nuoroda bandyti dar kartą.
+    """
+    import logging
+    log = logging.getLogger("csrf")
+    log.warning(
+        "CSRF nepavyko: %s | kelias=%s | origin=%s | referer=%s | turi_slapuką=%s",
+        reason, request.path,
+        request.META.get("HTTP_ORIGIN"), request.META.get("HTTP_REFERER"),
+        bool(request.COOKIES.get("csrftoken")),
+    )
+    from django.shortcuts import render
+    return render(request, "accounts/csrf_failure.html",
+                  {"reason": reason, "back": request.META.get("HTTP_REFERER") or "/"},
+                  status=403)
