@@ -12,7 +12,14 @@ Matmenys — isplestine-config.json „sidebar_layout".
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}{% if sidebar %}
 <aside class="w-full lg:w-[230px] shrink-0 basis-full lg:basis-auto no-print">
-  <form method="get" action="{% url 'listing_list' %}" id="sidebarForm" class="pr-[34px]">
+  {% comment %}
+  Juosta gyvena baltoje kortelėje — kaip etalone (išmatuota 2026-08-21:
+  aside.filter-section pats permatomas ir be paraščių, o jo viduje esanti
+  <form> yra balta, 1 px #E7E7E7 rėmelis, 8 px apvalinimas, 16 px vidus,
+  be šešėlio; tarpas iki rezultatų — 16 px).
+  Reikšmės imamos iš docs/dizaino-sistema.md kintamųjų, ne iš etalono CSS.
+  {% endcomment %}
+  <form method="get" action="{% url 'listing_list' %}" id="sidebarForm" class="sp-side-card">
     <input type="hidden" name="category" value="{{ sidebar.slug }}">
     {% if request.GET.subcategory %}<input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">{% endif %}
 
@@ -22,6 +29,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
       {% trans "Daugiau filtrų" %}
     </a>
+    <div class="sp-side-line hidden lg:block"></div>
 
     {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows category=sidebar.slug back=request.get_full_path adv_url=adv_url %}
 

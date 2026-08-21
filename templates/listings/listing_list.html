@@ -352,7 +352,9 @@ a.sp-rail-btn { text-decoration:none; }
             </div>
         </div>
 
-        <div class="flex flex-wrap lg:flex-nowrap gap-6 items-start">
+        {% comment %}Tarpas tarp juostos ir rezultatų — 16 px, kaip etalone
+        (išmatuota 2026-08-21). Telefone juostos nėra, tad lieka gap-4.{% endcomment %}
+        <div class="flex flex-wrap lg:flex-nowrap gap-4 items-start">
             {% comment %}
             TELEFONE ŠONINĖS JUOSTOS NĖRA VISAI — ne paslėpta CSS, o
             neįtraukta į HTML (patikrinta etalono mobiliame HTML: nė vieno

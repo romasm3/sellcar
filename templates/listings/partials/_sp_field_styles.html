@@ -40,6 +40,23 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-dd-btn { text-align:left; cursor:pointer; }
   [x-cloak] { display:none !important; }
 
+  /* ── ŠONINĖS JUOSTOS KORTELĖ ─────────────────────────────────────
+     Etalone (išmatuota 2026-08-21) juostos <form> yra balta kortelė:
+     1 px #E7E7E7, 8 px apvalinimas, 16 px vidus, be šešėlio. Telefone
+     juostos nėra visai, todėl kortelė apibrėžiama tik nuo 1024 px. */
+  @media (min-width: 1024px) {
+    .sp-side-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: var(--card-pad);
+    }
+    /* Skirtukas po „Daugiau filtrų", kaip etalono .line */
+    .sp-side-card > a:first-of-type { margin-bottom: var(--sp-3); }
+    .sp-side-line { height: 1px; background: var(--border); margin: 0 0 var(--sp-3); }
+  }
+
   /* ── MOBILUS VAIZDAS ─────────────────────────────────────────────
      Etalone (išmatuota Playwright, iPhone 390×844): ikonų juostos nėra,
      laukai vienu stulpeliu, šoninės paraštės 16 px, veiksmų blokas
