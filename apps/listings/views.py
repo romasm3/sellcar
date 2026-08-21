@@ -1749,12 +1749,20 @@ def listing_list(request, panel_fragment=False, category=None):
             _q = f"?category={_slug}"
             if _sub_id:
                 _q += f"&subcategory={_sub_id}"
+        # `section`/`sekcija` — kad sąrašas galėtų perjungti panelę vietoje
+        # (goTab), o `url` liktų veikianti nuoroda be JS.
+        _section = ('trucks' if _slug in TRUCK_SECTIONS
+                    else _slug if _has_panel else '')
+        _sekcija = (TRUCK_SECTIONS.get(_slug)
+                    or (SUB_ID_SECTION.get(_sub_id) if _has_panel else '') or '')
         more_items.append({
             'is_sub': _sub_id is not None,
             'slug': _slug,
             'sub_id': _sub_id,
             'name': _name,
             'icon': _icon,
+            'section': _section,
+            'sekcija': _sekcija,
             'url': _q + ('#sp-target' if _has_panel else ''),
             # car-buying skelbimų neturi ir neturės — rodom, kiek yra
             # paslaugų su tipu „Automobilių supirkimas"
@@ -1859,6 +1867,8 @@ def listing_list(request, panel_fragment=False, category=None):
     if panel_fragment:
         # sp_tab iš kelio, kad /panele/trucks/ veiktų ir be ?section=
         from apps.listings.context_processors import PANEL_SLUGS, resolve_section
+        if category == 'tires':          # senas pavadinimas — ta pati panelė
+            category = 'wheels'
         _tab = category if category in PANEL_SLUGS else context.get('sp_tab')
         context['sp_tab'] = _tab
         context['sp_sekcija'] = resolve_section(_tab, request.GET)

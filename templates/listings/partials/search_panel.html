@@ -138,7 +138,7 @@
       {% endcomment %}
       <button type="button" class="sp-rail-btn2"
               :class="tab === 'boats' && 'sp-on'"
-              @click="window.innerWidth < 1024 ? picker = true : fly2 = !fly2">
+              @click="window.innerWidth < 1024 ? (pickerScroll = window.scrollY, picker = true) : fly2 = !fly2">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
       </button>
 
@@ -158,7 +158,11 @@
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
         </a>
         {% else %}
+        {% comment %}Turinčioms panelę — perjungiam vietoje (goTab), slinkimo
+        padėtis nekinta. Kitoms (pvz. „Automobilių supirkimas") lieka įprasta
+        nuoroda į rezultatus. Abiem atvejais tai <a href>, todėl veikia ir be JS.{% endcomment %}
         <a href="{% url 'listing_list' %}{{ item.url }}"
+           {% if item.section %}@click.prevent="goTab('{{ item.section }}', '{{ item.sekcija }}'); fly2 = false"{% endif %}
            class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
@@ -532,7 +536,10 @@ function spPanel() {
     // grįžus į tą pačią kategoriją užklausos nebėra.
     _panelCache: null,
 
-    goTab(key, sek) {
+    // Pikerio atidarymo slinkimo padėtis — po pasirinkimo grįžtam į ją
+    pickerScroll: null,
+
+    goTab(key, sek, restoreScroll) {
       var qs = new URLSearchParams(location.search);
       qs.delete('category');
       qs.delete('subcategory');
@@ -555,7 +562,20 @@ function spPanel() {
         host.style.minHeight = '';
         self.tab = key;
         if (sek) { self.applySection(key, sek); }
+        // Adresas be #sp-target — jokio šuolio prie panelės.
         history.pushState({ tab: key, sek: sek || '' }, '', target);
+        if (restoreScroll !== null && restoreScroll !== undefined) {
+          // Pikeris buvo pilno ekrano sluoksnis: grįžtam tiksliai ten, kur
+          // vartotojas buvo jį atidaręs, ir daugiau nieko neslenkam.
+          // Po įstatymo išdėstymas dar keičiasi, todėl grąžinam padėtį
+          // kitame kadre — kitaip naršyklė ją apkarpo pagal seną aukštį.
+          window.scrollTo(0, restoreScroll);
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { window.scrollTo(0, restoreScroll); });
+          });
+        } else {
+          self.keepInView();
+        }
         self.spin();
         self.refreshCount(0);
       };
@@ -575,6 +595,19 @@ function spPanel() {
       else if (key === 'parts') { this.partSub = sek; }
       else if (key === 'wheels') { this.wheelType = sek; }
       else if (this.subTab[key] !== undefined) { this.subTab[key] = sek; }
+    },
+
+    // Panelė lieka ten, kur buvo. Jei vartotojas nuslinkęs taip, kad jos
+    // nesimato — švelniai prislenkam; jei matoma, nedarom nieko.
+    keepInView() {
+      var shell = document.querySelector('.sp-shell');
+      if (!shell) { return; }
+      var r = shell.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var matoma = r.bottom > 60 && r.top < vh - 60;
+      if (!matoma) {
+        shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     },
 
     // Skeletas vietoj suktuko: pilkos juostelės ten, kur bus laukai

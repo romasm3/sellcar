@@ -23,12 +23,12 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
   <div class="sp-picker-body">
     <div class="sp-picker-grid">
       {% for slug, label in picker_primary %}
-      <button type="button" class="sp-picker-card"
-              x-show="pmatch('{{ label|escapejs }}')"
-              @click="switchTab('{{ slug }}'); picker = false">
+      <a class="sp-picker-card" href="{% url 'listing_list' %}?section={% if slug == 'tires' %}wheels{% else %}{{ slug }}{% endif %}"
+         x-show="pmatch('{{ label|escapejs }}')"
+         @click.prevent="picker = false; goTab('{% if slug == 'tires' %}wheels{% else %}{{ slug }}{% endif %}', '', pickerScroll)">
         <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug %}</span>
         <span>{{ label }}</span>
-      </button>
+      </a>
       {% endfor %}
     </div>
 
@@ -37,7 +37,8 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
     <div class="sp-picker-list">
     {% for item in more_items %}
     <a class="sp-picker-row" x-show="pmatch('{{ item.name|tdb|escapejs }}')"
-       href="{% url 'listing_list' %}{{ item.url }}">
+       href="{% url 'listing_list' %}{{ item.url }}"
+       {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
       <span>{{ item.name|tdb }}</span>
       <span class="sp-picker-ico-sm">
         <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
