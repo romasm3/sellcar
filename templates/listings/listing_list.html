@@ -88,6 +88,32 @@
 .h-img-side .no-img-icon { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 3rem; }
 .h-info-side { flex: 1; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
 
+/* ─── Skelbimo kortelė TELEFONE (etalonas: docs/mobilus-etalonas.md) ──────
+   Kortelė buvo sudėta į eilutę su fiksuota 340 px nuotrauka ir be jokio
+   mobilaus varianto: 358 px ekrane informacijai likdavo 40 px, todėl
+   atrodė, kad kortelė tuščia. Telefone dedam stulpeliu, nuotrauka per visą
+   plotį (aukštis pagal proporciją, ne fiksuotas), o parametrai — trimis
+   stulpeliais su ikonomis, kaip etalone. */
+.card-params { display: none; }
+@media (max-width: 1023px) {
+  .h-listing-card { flex-direction: column; }
+  .h-img-side { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+  .h-img-side picture, .h-img-side picture > img { display: block; width: 100%; height: 100%; }
+  .h-info-side { padding: 10px 12px 12px; gap: 6px; }
+  .ap-title-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .ap-title { font-size: 15px; }
+  .ap-price { font-size: 17px; order: 2; }
+  .ap-spec-line { display: none; }          /* pakeičia .card-params */
+  .card-params { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .cp-item { display: flex; align-items: center; gap: 8px;
+             width: calc(33.3333% - 10.6667px); min-width: 0; }
+  .cp-item svg { width: 22px; height: 22px; flex: 0 0 auto; color: #9AA0A6; }
+  .cp-item div { min-width: 0; }
+  .cp-item i { display: block; font-style: normal; font-size: 10.5px; color: #9AA0A6; line-height: 1.2; }
+  .cp-item b { display: block; font-size: 12px; font-weight: 600; color: #111827;
+               line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
 .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: rgba(255,255,255,0.92); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); color: var(--accent); font-size: 0.85rem; z-index: 6; opacity: 0; transition: opacity 0.15s, background 0.15s; }
 .h-listing-card:hover .gallery-arrow, .listing-card:hover .gallery-arrow { opacity: 1; }
 .gallery-arrow:hover { background: #fff; }
@@ -820,6 +846,9 @@ a.sp-rail-btn { text-decoration:none; }
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
                                 <div class="ap-price" style="font-size:1.2rem;">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                             </div>
+                            {% comment %}Telefone — etalono parametrų tinklelis (trys stulpeliai su
+                            ikonomis). Darbalaukyje jis paslėptas, ten lieka ap-spec-line eilutės.{% endcomment %}
+                            {% include 'listings/partials/_card_params.html' with listing=listing %}
                             {% if listing.vehicle_type.slug == 'bicycles' %}
                             <div class="ap-spec-line">
                                 {% if listing.bike_type %}<span>{{ listing.get_bike_type_display }}</span>{% endif %}
