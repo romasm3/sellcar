@@ -901,3 +901,33 @@ vienženklius skaitiklius — be jų patikra duoda 200+ netikrų pranešimų.
 Tikrinti 360 ir 390 px, abiem vaizdo režimais (`?vaizdas=thumb` ir `line`).
 Patikra patikrinta atgal: grąžinus seną CSS ji randa 32 suspaustus blokus,
 su dabartiniu — 0.
+
+
+### docs/dizaino-sistema.md — privalomas šaltinis
+
+Bet kokiam išdėstymo ar stiliaus darbui reikšmės imamos IŠ TEN, ne iš
+akies ir ne iš etalono CSS tiesiogiai. Tarpai, šriftai, svoriai,
+apvalinimas, laukų ir mygtukų aukščiai, spalvų vaidmenys — visi
+apibrėžti `base.html` `:root` kaip kintamieji (`--sp-*`, `--fs-*`,
+`--fw-*`, `--r-*`, `--field-h`, `--btn-h`, `--text`, `--border`…).
+Šablone rašom `var(--sp-4)`, ne `16px`.
+
+Po darbo paleidžiami trys patikrinimai iš dokumento pabaigos:
+
+```javascript
+// 1. Šriftai — tik iš skalės
+[...document.querySelectorAll('*')].map(e => getComputedStyle(e))
+  .filter(s => s.fontSize && ![12,14,16,17,18,20,24].includes(parseFloat(s.fontSize))).length
+
+// 2. Laukai — visi 40 px
+[...document.querySelectorAll('input,select,.sp-fld')]
+  .filter(e => Math.round(e.getBoundingClientRect().height) !== 40)
+
+// 3. Akcento spalva — vienas elementas ekrane
+[...document.querySelectorAll('*')]
+  .filter(e => getComputedStyle(e).backgroundColor === getComputedStyle(document.documentElement)
+                 .getPropertyValue('--accent').trim()).length
+```
+
+Pirmi du turi būti 0 ir tuščias, trečias — 1. Jei ne — taisom prieš
+commit'ą arba pasakom, kodėl ta vieta yra išimtis.

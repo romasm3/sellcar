@@ -166,3 +166,9 @@ def model_label(value, item):
         return obj.name if obj else value
     except Exception:
         return value
+
+
+@register.filter
+def split_csv(value):
+    """„lt,ru,en" → ['lt', 'ru', 'en'] — kad tvarka būtų šablone, ne atsitiktinė."""
+    return [x.strip() for x in str(value).split(',') if x.strip()]

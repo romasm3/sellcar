@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load dict_extras %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}" class="h-full">
 <head>
@@ -50,7 +51,124 @@
             --accent-grad-to: #6b7280;
             --accent-grad-from-hover: #6b7280;
             --accent-grad-to-hover: #4b5563;
+
+            /* ── DIZAINO SISTEMA (docs/dizaino-sistema.md) ──────────────
+               Visos reikšmės išmatuotos iš etalono CSS. Šablonuose
+               konkrečių px ar hex reikšmių nerašom — imam iš čia. */
+
+            /* 1. Tarpai */
+            --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+            --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px; --sp-16: 64px;
+
+            /* Laukų tinklelis — visur vienodas */
+            --grid-gap-y: var(--sp-3);
+            --grid-gap-x: var(--sp-6);
+
+            /* 2. Tipografija */
+            --fs-xs: 12px;  --fs-sm: 14px;  --fs-base: 16px; --fs-md: 17px;
+            --fs-lg: 18px;  --fs-xl: 20px;  --fs-2xl: 24px;
+            --fw-normal: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+
+            /* 3. Apvalinimas (numatytasis — 8px) */
+            --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-pill: 999px; --r-full: 50%;
+
+            /* 4. Laukai */
+            --field-h: 40px;
+            --field-pad: 0 var(--sp-3);
+            --field-line: 38px;
+
+            /* 5. Mygtukai */
+            --btn-h: 48px;
+            --btn-h-sm: 34px;
+            --btn-h-big: 46px;
+            --btn-pad: 6px var(--sp-4);
+            --btn-gap: var(--sp-2);
+
+            /* 6. Spalvos ir vaidmenys */
+            --text: #111827;
+            --text-muted: #6B7280;
+            --text-disabled: #9CA3AF;
+            --border: #E7E7E7;
+            --border-hover: #B0B0B0;
+            --surface: #FFFFFF;
+            --surface-muted: #F9FAFB;
+            --success: #067647;
+            --success-bg: #ECFDF3;
+            --success-border: #ABEFC6;
+            --danger: #FF5151;
+
+            /* 7-10. Kortelės, žymos, perėjimai */
+            --card-pad: var(--sp-4);
+            --card-shadow-hover: 0 0 8px rgba(0, 0, 0, .2);
+            --badge-r: var(--sp-3);
+            --badge-pad: 2px var(--sp-2);
+            --dur: .2s;
         }
+
+        /* Antraštės „+ Įkelti" mygtukas. Struktūra iš etalono
+           (aukštis 34, apvalinimas 8, 16/600, paraštės 0 12, tarpas 8),
+           reikšmės — iš dizaino sistemos kintamųjų. */
+        .btn-sell {
+            display: inline-flex; align-items: center; gap: var(--btn-gap);
+            height: var(--btn-h-sm); padding: 0 var(--sp-3);
+            border-radius: var(--r-md);
+            background: var(--accent); color: var(--accent-contrast);
+            font-size: var(--fs-base); font-weight: var(--fw-semibold);
+            line-height: 1; white-space: nowrap; text-decoration: none;
+            transition: background-color var(--dur);
+        }
+        .btn-sell:hover { background: var(--accent-hover); }
+
+        /* Hamburgerio meniu. Visos reikšmės — iš dizaino sistemos. */
+        .mm-panel { border-top: 1px solid var(--border); background: var(--surface);
+                    padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); }
+        .mm-user { display: flex; align-items: center; gap: var(--sp-3); padding-bottom: var(--sp-3); }
+        .mm-avatar { width: 40px; height: 40px; border-radius: var(--r-full); object-fit: cover;
+                     flex: 0 0 auto; background: var(--accent); color: var(--accent-contrast);
+                     display: inline-flex; align-items: center; justify-content: center;
+                     font-size: var(--fs-base); font-weight: var(--fw-semibold); }
+        .mm-user-mail { font-size: var(--fs-sm); color: var(--text-muted);
+                        overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .mm-btn { display: flex; align-items: center; justify-content: center; gap: var(--btn-gap);
+                  height: var(--btn-h); border-radius: var(--r-md);
+                  font-size: var(--fs-base); font-weight: var(--fw-semibold);
+                  text-decoration: none; transition: background-color var(--dur), border-color var(--dur); }
+        .mm-btn svg { width: 20px; height: 20px; }
+        .mm-btn-filled { background: var(--accent); color: var(--accent-contrast); }
+        .mm-btn-filled:hover { background: var(--accent-hover); }
+        .mm-btn-outlined { background: var(--surface); color: var(--accent);
+                           border: 1px solid var(--accent); }
+        .mm-btn-outlined:hover { border-color: var(--accent-hover); color: var(--accent-hover); }
+        .mm-group { display: flex; flex-direction: column;
+                    border-top: 1px solid var(--border); padding-top: var(--sp-2); margin-top: var(--sp-2); }
+        .mm-row { display: flex; align-items: center; gap: var(--sp-3);
+                  min-height: var(--btn-h); padding: 0 var(--sp-1);
+                  font-size: var(--fs-base); font-weight: var(--fw-medium);
+                  color: var(--text); text-decoration: none; transition: color var(--dur); }
+        .mm-row:hover { color: var(--accent); }
+        .mm-row svg { width: 22px; height: 22px; flex: 0 0 auto; color: var(--text-muted); }
+        .mm-row span { flex: 1 1 auto; min-width: 0; }
+        .mm-row-text { font-weight: var(--fw-normal); min-height: 40px; }
+        .mm-row-danger { color: var(--danger); }
+        .mm-count { font-size: var(--fs-xs); font-weight: var(--fw-medium);
+                    color: var(--text-muted); }
+        .mm-count.is-new { color: var(--success); background: var(--success-bg);
+                           border: 1px solid var(--success-border);
+                           border-radius: var(--badge-r); padding: var(--badge-pad); line-height: 1.5; }
+        .mm-tag { font-size: var(--fs-xs); font-weight: var(--fw-medium); font-style: normal;
+                  color: var(--success); background: var(--success-bg);
+                  border: 1px solid var(--success-border);
+                  border-radius: var(--badge-r); padding: var(--badge-pad); }
+        .mm-langs { border-top: 1px solid var(--border); padding-top: var(--sp-3); margin-top: var(--sp-2); }
+        .mm-langs form { display: flex; gap: var(--sp-2); }
+        .mm-lang { min-width: 40px; height: var(--btn-h-sm); border-radius: var(--r-md);
+                   border: 1px solid var(--border); background: var(--surface);
+                   font-size: var(--fs-sm); font-weight: var(--fw-medium); color: var(--text-muted);
+                   transition: border-color var(--dur), color var(--dur); }
+        .mm-lang.is-on { border-color: var(--accent); color: var(--accent); }
+        .btn-sell svg { width: 18px; height: 18px; flex: 0 0 auto; }
+        /* Tekstas slepiamas tik labai siauruose ekranuose — 390 px jis telpa. */
+        @media (max-width: 340px) { .btn-sell span { display: none; } .btn-sell { padding: 0 var(--sp-2); } }
     </style>
     <script>
         tailwind.config = {
@@ -141,23 +259,22 @@
                     {% else %}{% url 'accounts:login' as login_url %}{% url 'listing_create' as create_target %}
                     {% endif %}
 
-                    <!-- Create Ad button (desktop: tekstas, mobile: + ikona) -->
+                    {% comment %}
+                    Etalono antraštėje telefone yra keturi elementai:
+                    logotipas · „+ Įkelti" · žymė su skaitikliu · ☰.
+                    Širdis, vokas ir avataras — meniu viduje (etalone širdis
+                    pažymėta klase md-tablet, t. y. telefone paslėpta).
+                    Matmenys iš docs/dizaino-sistema.md (--btn-h-sm ir kt.),
+                    ne iš etalono CSS.
+                    {% endcomment %}
                     <a href="{% if user.is_authenticated %}{{ create_url }}{% else %}{{ login_url }}?next={{ create_target|urlencode }}{% endif %}"
-                       class="hidden sm:inline-flex items-center gap-1.5 px-3 lg:px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shrink-0 whitespace-nowrap">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       class="btn-sell shrink-0">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                         </svg>
-                        {% trans "Create Ad" %}
-                    </a>
-                    <a href="{% if user.is_authenticated %}{{ create_url }}{% else %}{{ login_url }}?next={{ create_target|urlencode }}{% endif %}"
-                       class="sm:hidden inline-flex items-center justify-center w-9 h-9 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-sm"
-                       title="{% trans 'Create Ad' %}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                        </svg>
+                        <span>{% trans "Įkelti" %}</span>
                     </a>
 
-                    {% if user.is_authenticated %}
                     {% comment %}
                     „Mano paieškos" — didinamojo stiklo ikona su žaliu naujų
                     skelbimų skaitikliu. Ikonos nekeisti (vartotojo sprendimas
@@ -174,8 +291,10 @@
                         {% endif %}
                     </a>
 
+                    {% if user.is_authenticated %}
+
                     <!-- Saved Listings Icon -->
-                    <a href="{% url 'saved_listings' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'Saved Ads' %}">
+                    <a href="{% url 'saved_listings' %}" class="relative hidden lg:inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'Saved Ads' %}">
                         <i class="fas fa-heart text-xl"></i>
                         {% if saved_listings_count > 0 %}
                         <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
@@ -285,10 +404,10 @@
                     {% comment %}Prisijungimas ir registracija grąžina ten, kur žmogus
                     buvo — ne į pagrindinį puslapį.{% endcomment %}
                     <!-- Auth Buttons -->
-                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="text-gray-700 hover:text-primary font-medium transition-colors">
+                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex text-gray-700 hover:text-primary font-medium transition-colors">
                         {% trans "Login" %}
                     </a>
-                    <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium">
+                    <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium">
                         {% trans "Register" %}
                     </a>
                     {% endif %}
@@ -304,70 +423,103 @@
         </div>
 
         <!-- Mobile Menu (vienas pilnas meniu — pakeičia avataro dropdown) -->
-        <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-gray-200 bg-white">
-            <div class="px-4 py-4 space-y-1">
+        {% comment %}
+        HAMBURGERIO MENIU — struktūra ir tvarka iš etalono, matmenys ir
+        spalvos iš docs/dizaino-sistema.md.
+
+        Viršuje veiksmai su ikonomis, žemiau — tekstiniai punktai, apačioje
+        kalbos jungiklis. Skiriamosios linijos tik tarp šių trijų grupių.
+        Čia gyvena tai, ko antraštėje telefone nebėra: širdis, žinutės,
+        paskyra.
+        {% endcomment %}
+        <div x-show="mobileMenu" x-cloak class="lg:hidden mm-panel">
+
+            {% if user.is_authenticated %}
+            <div class="mm-user">
+                {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="" class="mm-avatar">
+                {% else %}
+                <span class="mm-avatar mm-avatar-letter">{{ user.email|first|upper }}</span>
+                {% endif %}
+                <span class="mm-user-mail">{{ user.email }}</span>
+            </div>
+            {% endif %}
+
+            <a href="{% if user.is_authenticated %}{% url 'listing_create' %}{% else %}{% url 'accounts:login' %}?next={% url 'listing_create'|urlencode %}{% endif %}"
+               class="mm-btn mm-btn-filled">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                {% trans "Įkelti skelbimą" %}
+            </a>
+
+            {% if not user.is_authenticated %}
+            <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="mm-btn mm-btn-outlined">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" d="M4.5 20a7.5 7.5 0 0115 0"/></svg>
+                {% trans "Registruotis" %} | {% trans "Prisijungti" %}
+            </a>
+            {% endif %}
+
+            <nav class="mm-group">
+                <a href="{% url 'saved_listings' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 20s-7-4.6-7-9.4A3.9 3.9 0 0112 8a3.9 3.9 0 017 2.6c0 4.8-7 9.4-7 9.4z"/></svg>
+                    <span>{% trans "Įsiminti skelbimai" %}</span>
+                    <b class="mm-count">{{ saved_listings_count|default:0 }}</b>
+                </a>
+                <a href="{% url 'saved_searches_list' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M7 4h10a1 1 0 011 1v15l-6-4-6 4V5a1 1 0 011-1z"/></svg>
+                    <span>{% trans "Mano paieškos" %}</span>
+                    <b class="mm-count{% if new_searches_count %} is-new{% endif %}">{{ new_searches_count|default:0 }}</b>
+                </a>
+                <a href="{% url 'browse_listings' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span>{% trans "Žiūrėti skelbimai" %}</span>
+                </a>
                 {% if user.is_authenticated %}
-                <a href="{% url 'listing_create' %}"
-                   class="flex items-center justify-center gap-1.5 px-4 py-2.5 mb-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    {% trans "Create Ad" %}
+                <a href="{% url 'my_listings' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M4.5 13l1.6-4.2A2 2 0 018 7.5h8a2 2 0 011.9 1.3L19.5 13M4.5 13h15v4.5h-15z"/></svg>
+                    <span>{% trans "Mano skelbimai" %}</span>
+                </a>
+                <a href="{% url 'conversations:list' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+                    <span>{% trans "Žinutės" %}</span>
+                    {% if unread_messages_count %}<b class="mm-count is-new">{{ unread_messages_count }}</b>{% endif %}
+                </a>
+                <a href="{% url 'accounts:wallet' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M3 7h14a2 2 0 012 2v7a2 2 0 01-2 2H3zM3 7V5h12"/><circle cx="16" cy="12.5" r="1.2"/></svg>
+                    <span>{% trans "Piniginė" %}</span>
+                    <b class="mm-count">{{ user.profile.wallet_balance|default:"0"|floatformat:0 }}</b>
+                </a>
+                <a href="{% url 'accounts:settings' %}" class="mm-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+                    <span>{% trans "Nustatymai" %}</span>
                 </a>
                 {% endif %}
-                <a href="{% url 'search_map' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-map-marker-alt w-5"></i> {% trans "Map Search" %}
+            </nav>
+
+            <nav class="mm-group mm-group-text">
+                <a href="{% url 'accounts:become_dealer' %}" class="mm-row mm-row-text">
+                    <span>{% trans "PRO pardavimas" %}</span>
+                    <em class="mm-tag">{% trans "NAUJA" %}</em>
                 </a>
-                <a href="{% url 'help_center' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-newspaper w-5"></i> {% trans "News & Help" %}
-                </a>
-                {% if user.is_authenticated %}
-                <hr class="my-2">
-                <a href="{% url 'my_listings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-car w-5"></i> {% trans "My Ads" %}
-                </a>
-                <a href="{% url 'saved_listings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-heart w-5"></i> {% trans "Saved Ads" %}
-                </a>
-                <a href="{% url 'saved_searches_list' %}" class="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <span><i class="fas fa-search w-5"></i> {% trans "My Searches" %}</span>
-                    {% if new_searches_count > 0 %}
-                    <span class="min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full inline-flex items-center justify-center font-bold leading-none">{{ new_searches_count }}</span>
-                    {% endif %}
-                </a>
-                <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-envelope w-5"></i> {% trans "Messages" %}
-                </a>
-                <a href="{% url 'accounts:settings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-cog w-5"></i> {% trans "Settings" %}
-                </a>
-                <a href="{% url 'accounts:wallet' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-wallet w-5"></i> {% trans "Wallet" %} · {{ user.profile.wallet_balance|default:"0"|floatformat:0 }} {% trans "pts" %}
-                </a>
-                <a href="{% url 'accounts:become_dealer' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-store w-5"></i> {% trans "Dealer" %}
-                </a>
+                <a href="{% url 'search_map' %}" class="mm-row mm-row-text"><span>{% trans "Žemėlapio paieška" %}</span></a>
+                <a href="{% url 'help_center' %}" class="mm-row mm-row-text"><span>{% trans "Naujienos ir pagalba" %}</span></a>
                 {% if user.is_superuser %}
-                <hr class="my-2">
-                <div class="px-4 py-1 text-xs font-semibold text-red-700 uppercase tracking-wide">{% trans "Admin" %}</div>
-                <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
-                    <i class="fas fa-shield-alt w-5"></i> {% trans "Moderate users" %}
-                </a>
-                <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
-                    <i class="fas fa-store w-5"></i> {% trans "Moderate dealers" %}
-                </a>
-                <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
-                    <i class="fas fa-chart-line w-5"></i> {% trans "Sales stats" %}
-                </a>
-                <a href="/admin/" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
-                    <i class="fas fa-cog w-5"></i> {% trans "Django admin" %}
-                </a>
+                <a href="{% url 'admin_users_list' %}" class="mm-row mm-row-text"><span>{% trans "Admin" %}</span></a>
                 {% endif %}
-                <hr class="my-2">
-                <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-sign-out-alt w-5"></i> {% trans "Logout" %}
-                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'accounts:logout' %}" class="mm-row mm-row-text mm-row-danger"><span>{% trans "Atsijungti" %}</span></a>
                 {% endif %}
+            </nav>
+
+            <div class="mm-langs">
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    {% comment %}Etalone pirma LT, po jos RU ir EN.{% endcomment %}
+                    {% for lang_code in 'lt,ru,en,pl,de'|split_csv %}
+                    <button type="submit" name="language" value="{{ lang_code }}"
+                            class="mm-lang{% if lang_code == CURRENT_LANG %} is-on{% endif %}">{{ lang_code|upper }}</button>
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </nav>
