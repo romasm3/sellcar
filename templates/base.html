@@ -733,6 +733,9 @@
         </div>
     </footer>
 
+    {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field #}
+    <script src="{% static 'js/unit_toggle.js' %}" defer></script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>
