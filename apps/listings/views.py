@@ -1707,14 +1707,36 @@ def listing_list(request):
         ('bicycles',          'El. paspirtukai, riedžiai, dviračiai', 'M5 18a3 3 0 100-6 3 3 0 000 6zM19 18a3 3 0 100-6 3 3 0 000 6zM8 15l3-6h4M10 9h4l2 6M14 9l1-3h2', None),
     ]
 
+    # Kategorijos pasirinkimas VISUR veda į paieškos panelę (?section=),
+    # o ne į rezultatus. Kategorijoms, kurios panelės neturi (pvz.
+    # „Automobilių supirkimas"), lieka senas kelias į rezultatus —
+    # kitaip vartotojas atsidurtų automobilių panelėje.
+    from apps.listings.context_processors import PANEL_SLUGS
+
     more_items = []
     for _slug, _name, _icon, _sub_id in MORE_ITEMS_SPEC:
+        # Vilkikai / autovežiai / komunalinis — sunkiojo transporto sekcijos,
+        # ne atskiros kategorijos (žr. PICKER_HIDDEN_VEHICLE_TYPE_SLUGS).
+        # Jos atidaro tą pačią panelę su pasirinkta sekcija.
+        TRUCK_SECTIONS = {'tractor-units': 'semi-trucks-tractors',
+                          'car-carriers': 'vehicle-transporters',
+                          'municipal': 'municipal-transport'}
+        _has_panel = _slug in PANEL_SLUGS or _slug in TRUCK_SECTIONS
+        if _slug in TRUCK_SECTIONS:
+            _q = f"?section=trucks&sekcija={TRUCK_SECTIONS[_slug]}"
+        elif _has_panel:
+            _q = f"?section={_slug}"
+        else:
+            _q = f"?category={_slug}"
+        if _sub_id:
+            _q += f"&subcategory={_sub_id}"
         more_items.append({
             'is_sub': _sub_id is not None,
             'slug': _slug,
             'sub_id': _sub_id,
             'name': _name,
             'icon': _icon,
+            'url': _q + ('#sp-target' if _has_panel else ''),
             # car-buying skelbimų neturi ir neturės — rodom, kiek yra
             # paslaugų su tipu „Automobilių supirkimas"
             'count': (_car_buying_count if _slug == 'car-buying'

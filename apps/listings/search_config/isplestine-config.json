@@ -251,10 +251,10 @@
       "Zuk",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "brand",
+     "param": "brand",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Modelis",

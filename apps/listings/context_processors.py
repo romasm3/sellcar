@@ -1,4 +1,33 @@
+import re
+
+_PHONE_UA = re.compile(
+    r'iphone|ipod|android.+mobile|windows phone|blackberry|bb10|opera mini|'
+    r'mobile.+firefox|silk|iemobile', re.I)
+_TABLET_UA = re.compile(r'ipad|android(?!.*mobile)|tablet|kindle|playbook', re.I)
+
+
+def device_kind(request):
+    """Ar tai telefonas/planšetė — sprendžiama SERVERYJE.
+
+    Rezultatų puslapyje šoninė filtrų juosta telefone neturi būti ne
+    paslėpta, o visai neatiduota (taip elgiasi ir etalonas). Tam reikia
+    žinoti įrenginį prieš renderinant, o CSS lūžio taškas čia nepadeda.
+    Riba ta pati kaip visur — telefonas ir planšetė iki 1024 px.
+    """
+    ua = request.META.get('HTTP_USER_AGENT', '')
+    phone = bool(_PHONE_UA.search(ua)) or bool(_TABLET_UA.search(ua))
+    return {'is_phone': phone}
+
+
 from apps.listings.search_config.panels import is_active
+
+
+# Kategorijos, turinčios paieškos panelę. Vienas sąrašas: pagal jį
+# sprendžiama ir kurią panelę renderinti, ir kur veda kategorijos nuoroda.
+PANEL_SLUGS = {'cars', 'motorcycles', 'motogear', 'moto-tyres', 'quad-tyres',
+               'trucks', 'wheels', 'boats', 'trailers', 'agriculture',
+               'construction', 'loading-equipment', 'forestry', 'bicycles',
+               'electronics', 'services', 'rental', 'camping-houses', 'parts'}
 
 
 def search_panel_tab(request):
@@ -11,11 +40,7 @@ def search_panel_tab(request):
     tab = (request.GET.get('section') or request.GET.get('category') or '').strip()
     if tab == 'tires':
         tab = 'wheels'
-    KNOWN = {'cars', 'motorcycles', 'motogear', 'moto-tyres', 'quad-tyres',
-             'trucks', 'wheels', 'boats', 'trailers', 'agriculture',
-             'construction', 'loading-equipment', 'forestry', 'bicycles',
-             'electronics', 'services', 'rental', 'camping-houses', 'parts'}
-    return {'sp_tab': tab if tab in KNOWN else 'cars'}
+    return {'sp_tab': tab if tab in PANEL_SLUGS else 'cars'}
 
 
 def saved_searches_count(request):

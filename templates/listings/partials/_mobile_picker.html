@@ -37,7 +37,7 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
     <div class="sp-picker-list">
     {% for item in more_items %}
     <a class="sp-picker-row" x-show="pmatch('{{ item.name|tdb|escapejs }}')"
-       href="{% url 'listing_list' %}?category={{ item.slug }}{% if item.sub_id %}&amp;subcategory={{ item.sub_id }}{% endif %}">
+       href="{% url 'listing_list' %}{{ item.url }}">
       <span>{{ item.name|tdb }}</span>
       <span class="sp-picker-ico-sm">
         <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>

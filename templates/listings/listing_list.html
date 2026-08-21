@@ -327,6 +327,14 @@ a.sp-rail-btn { text-decoration:none; }
         </div>
 
         <div class="flex flex-wrap lg:flex-nowrap gap-6 items-start">
+            {% comment %}
+            TELEFONE ŠONINĖS JUOSTOS NĖRA VISAI — ne paslėpta CSS, o
+            neįtraukta į HTML (patikrinta etalono mobiliame HTML: nė vieno
+            <aside>, nė vieno lauko). Vietoj jos rezultatų antraštėje yra
+            filtrų ikona, vedanti į /paieska/<kategorija>/ su tais pačiais
+            parametrais. Darbalaukyje viskas kaip buvo.
+            {% endcomment %}
+            {% if not is_phone %}
             {% if sidebar %}
             {% comment %}
             Deklaratyvios kategorijos gauna bendrą juostą — tuos pačius
@@ -714,6 +722,7 @@ a.sp-rail-btn { text-decoration:none; }
                 </div>
             </div>
             {% endif %}
+            {% endif %}{# is_phone — telefone juostos nėra #}
 
             <div class="flex-1 min-w-0">
                 {% comment %}

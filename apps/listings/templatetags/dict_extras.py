@@ -79,6 +79,15 @@ def drop_value(querydict, key, value):
 def option_label(field, value):
     """Reikšmės pavadinimas žymai (markė → „Audi", ne „95")."""
     value = str(value)
+    # Markių sąrašo lauke nebėra (kraunamas per /ajax/markes/), todėl
+    # pavadinimą imam iš to paties kešuoto šaltinio.
+    if field.get('widget') == 'brand':
+        try:
+            from apps.listings.brand_api import brand_name
+            return brand_name(field.get('brand_vt'), value,
+                              field.get('brand_sub') or None) or value
+        except Exception:
+            return value
     for key in ('brands_top', 'brands_rest'):
         for row in field.get(key) or []:
             if str(row.get('value')) == value:

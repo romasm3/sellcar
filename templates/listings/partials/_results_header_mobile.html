@@ -10,6 +10,14 @@ todėl išsikišdavo į KAIRĘ (neigiamas left).
 {% endcomment %}
   <div class="sp-items-header lg:hidden">
     <div class="ads-count">{% trans "Rasta:" %} <span>{{ total_count }}</span></div>
+    {% comment %}Etalone telefone šoninės juostos nėra — vietoj jos viena
+    ikona, vedanti į detalią paiešką su tais pačiais parametrais
+    (<a class="icon icon-filter change-search" href="/paieska/…">).{% endcomment %}
+    <a class="sp-filter-icon" href="/paieska/{{ selected_category|default:'cars' }}/?{{ request.GET.urlencode }}#sp-target"
+       aria-label="{% trans 'Keisti paiešką' %}" title="{% trans 'Keisti paiešką' %}">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
+      <span>{% trans "Keisti paiešką" %}</span>
+    </a>
     <div class="filter-controls">
       <div class="list-type">
         {% with mode=request.GET.vaizdas|default:'thumb' %}

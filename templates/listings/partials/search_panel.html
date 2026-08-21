@@ -158,7 +158,7 @@
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
         </button>
         {% else %}
-        <a href="{% url 'listing_list' %}?category={{ item.slug }}{% if item.sub_id %}&amp;subcategory={{ item.sub_id }}{% endif %}"
+        <a href="{% url 'listing_list' %}{{ item.url }}"
            class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
@@ -455,6 +455,13 @@ function spPanel() {
 
       // Nuomoje subkategorija turi savo laukų rinkinį — atkuriam ir ją,
       // kad „daugiau" sąrašo nuoroda atidarytų teisingą formą
+      // Sunkiojo transporto sekcija iš adreso (?sekcija=) — „…" sąrašo
+      // nuorodos „Vilkikai", „Autovežiai", „Komunalinis" veda čia.
+      var sek = p.get('sekcija');
+      if (sek && this.subTab[this.tab] !== undefined) {
+        this.subTab[this.tab] = sek;
+      }
+
       var sub = p.get('subcategory');
       if (this.tab === 'rental' && sub &&
           document.querySelector('form[data-rentsub="' + sub + '"]')) {

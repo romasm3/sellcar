@@ -104,6 +104,7 @@ TEMPLATES = [
                 "apps.listings.context_processors.saved_searches_count",
                 "apps.listings.context_processors.saved_listings_count",
                 "apps.listings.context_processors.search_panel_tab",
+                "apps.listings.context_processors.device_kind",
             ],
         },
     },
