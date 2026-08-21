@@ -298,6 +298,15 @@ function spPanel() {
     },
 
     setRentSub(sub) {
+      // Puslapyje yra tik pasirinktos rūšies forma, todėl kita atkeliauja
+      // su nauja užklausa (kaip ir kategorijos perjungimas).
+      if (!document.querySelector('form[data-rentsub="' + sub + '"]')) {
+        var q = new URLSearchParams(location.search);
+        q.delete('category'); q.delete('subcategory');
+        q.set('section', 'rental'); q.set('sekcija', sub);
+        location.href = location.pathname + '?' + q.toString();
+        return;
+      }
       this.rentSub = sub;
       this.counts = Object.assign({}, this.counts, { rental: 0 });
       this.spin();
@@ -305,6 +314,13 @@ function spPanel() {
     },
 
     setSubTab(tab, value) {
+      if (!document.querySelector('form[data-subtab="' + value + '"]')) {
+        var q = new URLSearchParams(location.search);
+        q.delete('category'); q.delete('subcategory');
+        q.set('section', tab); q.set('sekcija', value);
+        location.href = location.pathname + '?' + q.toString();
+        return;
+      }
       this.subTab[tab] = value;
       var upd = {}; upd[tab] = 0;
       this.counts = Object.assign({}, this.counts, upd);
@@ -313,6 +329,13 @@ function spPanel() {
     },
 
     setPartSub(sub) {
+      if (!document.querySelector('form[data-partsub="' + sub + '"]')) {
+        var q = new URLSearchParams(location.search);
+        q.delete('category'); q.delete('subcategory');
+        q.set('section', 'parts'); q.set('sekcija', sub);
+        location.href = location.pathname + '?' + q.toString();
+        return;
+      }
       this.partSub = sub;
       var key = this.partsCountKey(sub);
       var upd = {};
@@ -515,6 +538,13 @@ function spPanel() {
 
     // Flyout / toggle: perjungia tyres↔rims formą ir perskaičiuoja nuo 0
     setWheelType(type) {
+      if (!document.querySelector('form[data-wheel="' + type + '"]')) {
+        var q = new URLSearchParams(location.search);
+        q.delete('category'); q.delete('subcategory');
+        q.set('section', 'wheels'); q.set('sekcija', type);
+        location.href = location.pathname + '?' + q.toString();
+        return;
+      }
       this.wheelType = type;
       var upd = {};
       upd['wheels'] = 0;

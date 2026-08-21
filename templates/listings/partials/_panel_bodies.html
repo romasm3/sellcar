@@ -314,15 +314,10 @@ Filtrų parametrai adrese išsaugomi.
     <div x-show="tab === 'trucks'" x-cloak id="sp-panel-trucks">
       <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Sunkusis transportas" %}</h2>
 
-      <div class="flex flex-wrap gap-2 mb-4">
-        {% for key, label in truck_subtabs %}
-        <button type="button" @click="setSubTab('trucks', '{{ key }}')"
-                :class="subTab.trucks === '{{ key }}' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{{ label }}</button>
-        {% endfor %}
-      </div>
+      {% comment %}Sekcijų mygtukų juostos nebėra — sekcija pasirenkama „…"
+      kategorijų sąraše (?section=trucks&sekcija=<slug>). Renderinama tik ji.{% endcomment %}
 
-      {% for key, label in truck_subtabs %}{% if key != 'main' %}
+      {% for key, label in truck_subtabs %}{% if key != 'main' and sp_sekcija == key %}
       <form class="sp-search-form" data-subtab="{{ key }}" x-show="subTab.trucks === '{{ key }}'" x-cloak
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="trucks">
@@ -332,6 +327,7 @@ Filtrų parametrai adrese išsaugomi.
       </form>
       {% endif %}{% endfor %}
 
+      {% if sp_sekcija == 'main' %}
       <form class="sp-search-form" data-subtab="main" x-show="subTab.trucks === 'main'"
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="trucks">
@@ -339,6 +335,7 @@ Filtrų parametrai adrese išsaugomi.
 
         {% include 'listings/partials/panel_generic.html' with panel=config_panels.trucks count_key='trucks' adv_url='/paieska/trucks/' %}
       </form>
+      {% endif %}
     </div>
 
     {# ═══════════ WHEELS (Padangos ir ratlankiai) ═══════════ #}
@@ -348,6 +345,7 @@ Filtrų parametrai adrese išsaugomi.
       <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Paieška" %}</h2>
 
       {# ── PADANGOS forma ── #}
+{% if sp_sekcija == 'tyre' %}
       <form class="sp-search-form" data-wheel="tyre" x-show="wheelType === 'tyre'"
             method="get" action="{% url 'wheels_list' %}">
         <input type="hidden" name="type" value="tyre">
@@ -459,8 +457,10 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
+{% endif %}
 
       {# ── RATLANKIAI forma ── #}
+{% if sp_sekcija == 'rim' %}
       <form class="sp-search-form" data-wheel="rim" x-show="wheelType === 'rim'" x-cloak
             method="get" action="{% url 'wheels_list' %}">
         <input type="hidden" name="type" value="rim">
@@ -559,6 +559,7 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
+{% endif %}
     </div>
 
     {# ═══════════ BOATS ═══════════ #}
@@ -735,15 +736,9 @@ Filtrų parametrai adrese išsaugomi.
     <div x-show="tab === 'construction'" x-cloak id="sp-panel-construction">
       <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Statybinė technika" %}</h2>
 
-      <div class="flex flex-wrap gap-2 mb-4">
-        <button type="button" @click="setSubTab('construction', 'main')"
-                :class="subTab.construction === 'main' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Statybinė technika" %}</button>
-        <button type="button" @click="setSubTab('construction', 'construction-attachments')"
-                :class="subTab.construction === 'construction-attachments' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Statybinės technikos priedai" %}</button>
-      </div>
+      {% comment %}Sekcija pasirenkama „…" sąraše, ne mygtuku panelėje.{% endcomment %}
 
+{% if sp_sekcija == 'construction-attachments' %}
       <form class="sp-search-form" data-subtab="construction-attachments" x-cloak
             x-show="subTab.construction === 'construction-attachments'"
             method="get" action="{% url 'listing_list' %}">
@@ -752,13 +747,16 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="construction-attachments">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'construction-attachments' count_key='construction' adv_url='/paieska/construction/' %}
       </form>
+{% endif %}
 
+{% if sp_sekcija == 'main' %}
       <form class="sp-search-form" data-subtab="main" x-show="subTab.construction === 'main'"
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="construction">
         <input type="hidden" name="sidebar" value="1">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels.construction count_key='construction' adv_url='/paieska/construction/' %}
       </form>
+{% endif %}
     </div>
 
 
@@ -831,25 +829,13 @@ Filtrų parametrai adrese išsaugomi.
     <div x-show="tab === 'rental'" x-cloak id="sp-panel-rental">
       <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Transporto nuoma" %}</h2>
 
-      <div class="flex flex-wrap gap-2 mb-4">
-        <button type="button" @click="setRentSub('car-rental')"
-                :class="rentSub === 'car-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Automobilių nuoma" %}</button>
-        <button type="button" @click="setRentSub('limo-wedding-rental')"
-                :class="rentSub === 'limo-wedding-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Limuzinų, vestuvių" %}</button>
-        <button type="button" @click="setRentSub('motorcycle-rental')"
-                :class="rentSub === 'motorcycle-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Motociklų nuoma" %}</button>
-        <button type="button" @click="setRentSub('minibus-touring-water-rental')"
-                :class="rentSub === 'minibus-touring-water-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Mikroautobusų, turistinio, vandens tr." %}</button>
-        <button type="button" @click="setRentSub('heavy-trailer-rental')"
-                :class="rentSub === 'heavy-trailer-rental' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-                class="px-3 py-1.5 rounded text-[12.5px] font-bold transition">{% trans "Sunkiojo transporto, priekabų" %}</button>
-      </div>
+      {% comment %}Subkategorijų mygtukų juostos čia nebėra — nuomos rūšis
+      pasirenkama „…" kategorijų sąraše (?section=rental&sekcija=<slug>),
+      kaip vilkikams ir komunaliniam transportui. Puslapyje renderinama tik
+      pasirinktos rūšies forma, ne visos penkios.{% endcomment %}
 
       {# ─────────── AUTOMOBILIŲ NUOMA ─────────── #}
+{% if sp_sekcija == 'car-rental' %}
       <form class="sp-search-form" data-rentsub="car-rental" x-show="rentSub === 'car-rental'" 
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="rental">
@@ -858,8 +844,10 @@ Filtrų parametrai adrese išsaugomi.
         {# car-rental yra numatytoji nuomos sekcija (31), todėl ji gyvena config_panels, ne _sub #}
         {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
+{% endif %}
 
       {# ─────────── LIMUZINŲ, VESTUVIŲ ─────────── #}
+{% if sp_sekcija == 'limo-wedding-rental' %}
       <form class="sp-search-form" data-rentsub="limo-wedding-rental" x-show="rentSub === 'limo-wedding-rental'" x-cloak 
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="rental">
@@ -867,8 +855,10 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="limo-wedding-rental">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'limo-wedding-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
+{% endif %}
 
       {# ─────────── MOTOCIKLŲ NUOMA ─────────── #}
+{% if sp_sekcija == 'motorcycle-rental' %}
       <form class="sp-search-form" data-rentsub="motorcycle-rental" x-show="rentSub === 'motorcycle-rental'" x-cloak 
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="rental">
@@ -876,8 +866,10 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="motorcycle-rental">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'motorcycle-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
+{% endif %}
 
       {# ─────────── MIKROAUTOBUSŲ, TURISTINIO, VANDENS TR. ─────────── #}
+{% if sp_sekcija == 'minibus-touring-water-rental' %}
       <form class="sp-search-form" data-rentsub="minibus-touring-water-rental" x-show="rentSub === 'minibus-touring-water-rental'" x-cloak 
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="rental">
@@ -885,8 +877,10 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="minibus-touring-water-rental">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'minibus-touring-water-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
+{% endif %}
 
       {# ─────────── SUNKIOJO TRANSPORTO, PRIEKABŲ ─────────── #}
+{% if sp_sekcija == 'heavy-trailer-rental' %}
       <form class="sp-search-form" data-rentsub="heavy-trailer-rental" x-show="rentSub === 'heavy-trailer-rental'" x-cloak 
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="rental">
@@ -894,6 +888,7 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="heavy-trailer-rental">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:'heavy-trailer-rental' count_key='rental' adv_url='/paieska/rental/' %}
       </form>
+{% endif %}
     </div>
 
     {# ═══════════ TURISTINIAI NAMELIAI ═══════════ #}
@@ -926,6 +921,7 @@ Filtrų parametrai adrese išsaugomi.
          panelės neturėjo visai.
 {% endcomment %}
       {% for key, slug in parts_config_subs %}
+      {% if sp_sekcija == key %}
       <form class="sp-search-form" data-partsub="{{ key }}" x-show="partSub === '{{ key }}'" x-cloak
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="parts">
@@ -933,9 +929,11 @@ Filtrų parametrai adrese išsaugomi.
         <input type="hidden" name="subcategory" value="{{ slug }}">
         {% include 'listings/partials/panel_generic.html' with panel=config_panels_sub|get_item:slug count_key='parts' %}
       </form>
+      {% endif %}
       {% endfor %}
 
       {# ─────────── AUTOMOBILIŲ DALYS ─────────── #}
+{% if sp_sekcija == 'car' %}
       <form class="sp-search-form" data-partsub="car" x-show="partSub === 'car'"
             method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="parts">
@@ -993,8 +991,10 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
+{% endif %}
 
       {# ─────────── MOTOCIKLŲ DALYS ─────────── #}
+{% if sp_sekcija == 'moto' %}
       <form class="sp-search-form" data-partsub="moto" x-show="partSub === 'moto'" x-cloak
             method="get" action="{% url 'moto_parts_browse' %}">
         <input type="hidden" name="motorcycle_brand" :value="pd.moto.id">
@@ -1044,8 +1044,10 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
+{% endif %}
 
       {# ─────────── SUNKIOJO TRANSPORTO DALYS ─────────── #}
+{% if sp_sekcija == 'truck' %}
       <form class="sp-search-form" data-partsub="truck" x-show="partSub === 'truck'" x-cloak
             method="get" action="{% url 'truck_parts_browse' %}">
         <input type="hidden" name="truck_brand" :value="pd.truck.id">
@@ -1126,5 +1128,6 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
+{% endif %}
     </div>
 {% endif %}

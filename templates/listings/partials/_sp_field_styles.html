@@ -247,6 +247,10 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-picker-soon { font-size: clamp(8.5px, 1.15vh, 11.5px); font-weight: 700;
                       text-transform: uppercase; letter-spacing: .04em; color: #9AA0A6;
                       flex: 0 0 auto; }
+    /* Sonine juosta telefone neatiduodama (zr. device_kind), bet jei UA
+       nebudingas (darbalaukio narsykle siaurame lange) - paslepiam ir CSS,
+       kad neliktu dvieju skirtingu filtru vienu metu. */
+    aside.no-print, #sidebarForm { display: none !important; }
     /* „Keisti paiešką" — telefone pakeičia visą šoninę juostą. */
     .sp-filter-icon { display: inline-flex; align-items: center; gap: 5px;
                       padding: 5px 9px; border: 1px solid #DCDEE2; border-radius: 8px;
@@ -302,4 +306,24 @@ if (!window.brandField) {
     };
   };
 }
+</script>
+
+{% comment %}
+Paieškos formose tas pats laukas yra du kartus: mobilioje eilutėje ir
+darbalaukio tinklelyje (vienas šablonas abiem vaizdams). Siunčiant matėsi
+`?q=&q=` — du vienodo vardo parametrai, skirtingi kešo raktai tam pačiam
+rezultatui ir netvarkinga bendrinama nuoroda. Prieš siuntimą išjungiam
+tuos laukus, kurių vartotojas nemato — lieka po vieną kiekvieno vardo.
+{% endcomment %}
+<script>
+document.addEventListener('submit', function (e) {
+  var f = e.target;
+  // Visos paieškos formos yra GET; kalbos jungiklis ir kitos POST formos
+  // nepaliečiamos.
+  if (!f || !f.method || f.method.toLowerCase() !== 'get') return;
+  f.querySelectorAll('input[name], select[name], textarea[name]').forEach(function (el) {
+    if (el.type === 'hidden') return;
+    if (el.offsetParent === null) el.disabled = true;
+  });
+}, true);
 </script>

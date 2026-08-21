@@ -53,6 +53,7 @@ from .models import (
     SavedListing,
 )
 from collections.abc import Mapping
+from django.views.decorators.vary import vary_on_headers
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
@@ -1252,6 +1253,10 @@ def _track_listing_impressions(request, listings):
     Listing.objects.filter(pk__in=ids).update(impressions_count=F('impressions_count') + 1)
 
 
+# Rezultatu puslapis renderina sonine juosta tik ne telefonams
+# (context_processors.device_kind), todel atsakymas priklauso nuo
+# User-Agent ir tai turi buti pasakyta kesams.
+@vary_on_headers('User-Agent')
 def listing_list(request):
     from django.db.models import Count, Case, When, IntegerField, Value
     from itertools import groupby
@@ -1721,15 +1726,22 @@ def listing_list(request):
         TRUCK_SECTIONS = {'tractor-units': 'semi-trucks-tractors',
                           'car-carriers': 'vehicle-transporters',
                           'municipal': 'municipal-transport'}
+        # Nuomos rūšys ir autobusai — irgi sekcijos, ne atskiros kategorijos.
+        # Raktas — senas subcategory id, kurį sąrašas jau turi.
+        SUB_ID_SECTION = {294: 'limo-wedding-rental', 295: 'motorcycle-rental',
+                          296: 'heavy-trailer-rental',
+                          317: 'minibus-touring-water-rental', 198: 'buses'}
         _has_panel = _slug in PANEL_SLUGS or _slug in TRUCK_SECTIONS
         if _slug in TRUCK_SECTIONS:
             _q = f"?section=trucks&sekcija={TRUCK_SECTIONS[_slug]}"
+        elif _has_panel and _sub_id in SUB_ID_SECTION:
+            _q = f"?section={_slug}&sekcija={SUB_ID_SECTION[_sub_id]}"
         elif _has_panel:
             _q = f"?section={_slug}"
         else:
             _q = f"?category={_slug}"
-        if _sub_id:
-            _q += f"&subcategory={_sub_id}"
+            if _sub_id:
+                _q += f"&subcategory={_sub_id}"
         more_items.append({
             'is_sub': _sub_id is not None,
             'slug': _slug,

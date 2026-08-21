@@ -30,6 +30,31 @@ PANEL_SLUGS = {'cars', 'motorcycles', 'motogear', 'moto-tyres', 'quad-tyres',
                'electronics', 'services', 'rental', 'camping-houses', 'parts'}
 
 
+# Sekcijos kategorijos viduje. Etalone jos yra atskiri „…" sąrašo punktai,
+# ne mygtukai panelėje, todėl ir pas mus pasirinkimas ateina adresu
+# ?section=<kategorija>&sekcija=<sekcija>.
+SECTIONS = {
+    'rental': ('car-rental', 'limo-wedding-rental', 'motorcycle-rental',
+               'minibus-touring-water-rental', 'heavy-trailer-rental'),
+    'trucks': ('main', 'semi-trucks-tractors', 'buses',
+               'vehicle-transporters', 'municipal-transport'),
+    'construction': ('main', 'construction-attachments'),
+    'parts': ('car', 'moto', 'truck', 'agri-special-parts', 'accessories-tuning'),
+    'wheels': ('tyre', 'rim'),
+}
+SECTION_DEFAULT = {'rental': 'car-rental', 'trucks': 'main', 'construction': 'main',
+                   'parts': 'car', 'wheels': 'tyre'}
+
+# Senos nuorodos su ?subcategory=<id> turi veikti toliau.
+LEGACY_SUBCAT_SECTION = {
+    '294': 'limo-wedding-rental',
+    '295': 'motorcycle-rental',
+    '296': 'heavy-trailer-rental',
+    '317': 'minibus-touring-water-rental',
+    '198': 'buses',
+}
+
+
 def search_panel_tab(request):
     """Kuri kategorijos panelė renderinama — viena, ne visos 19.
 
@@ -40,7 +65,18 @@ def search_panel_tab(request):
     tab = (request.GET.get('section') or request.GET.get('category') or '').strip()
     if tab == 'tires':
         tab = 'wheels'
-    return {'sp_tab': tab if tab in PANEL_SLUGS else 'cars'}
+    tab = tab if tab in PANEL_SLUGS else 'cars'
+
+    # Sekcija kategorijos viduje (nuoma, sunkusis, statybinė). Pasirinkimas
+    # ateina iš kategorijų sąrašo, ne iš mygtukų juostos panelėje, todėl
+    # serveris renderina tik vienos sekcijos laukus.
+    sek = (request.GET.get('sekcija') or '').strip()
+    if not sek:
+        legacy = (request.GET.get('subcategory') or '').strip()
+        sek = LEGACY_SUBCAT_SECTION.get(legacy, legacy)
+    if sek not in SECTIONS.get(tab, ()):
+        sek = SECTION_DEFAULT.get(tab, '')
+    return {'sp_tab': tab, 'sp_sekcija': sek}
 
 
 def saved_searches_count(request):
