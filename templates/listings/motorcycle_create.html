@@ -65,22 +65,16 @@
 
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Engine Capacity (cm³)" %} <span class="text-red-500">*</span></label>
-                        <input type="number" name="engine_capacity_cc" min="0" placeholder="{% trans 'e.g. 600' %}" data-required="true"
+                        <input type="number" name="engine_capacity_cc" data-unit-field="engine_capacity_cc" min="0" placeholder="{% trans 'e.g. 600' %}" data-required="true"
                                value="{{ submitted.engine_capacity_cc|default:'' }}"
                                class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
 
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Power" %} <span class="text-red-500">*</span></label>
-                        <div class="flex gap-1">
-                            <input type="number" name="power" min="0" data-required="true"
-                                   value="{{ submitted.power|default:'' }}"
-                                   class="req-field flex-1 px-2 py-1.5 text-sm border rounded">
-                            <select name="power_unit" class="req-field w-16 px-1 py-1.5 text-sm border rounded">
-                                <option value="kW" selected>kW</option>
-                                <option value="hp">hp</option>
-                            </select>
-                        </div>
+                        <input type="number" name="power" data-unit-field="power" min="0" data-required="true"
+                               value="{{ submitted.power|default:'' }}"
+                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
 
                     <div>
@@ -113,15 +107,9 @@
 
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Mileage" %} <span class="text-red-500">*</span></label>
-                        <div class="flex gap-1">
-                            <input type="number" name="mileage" min="0" data-required="true"
-                                   value="{{ submitted.mileage|default:'' }}"
-                                   class="req-field flex-1 px-2 py-1.5 text-sm border rounded">
-                            <select name="mileage_unit" class="req-field w-16 px-1 py-1.5 text-sm border rounded">
-                                <option value="km" selected>{% trans "Km" %}</option>
-                                <option value="mi">{% trans "Mi" %}</option>
-                            </select>
-                        </div>
+                        <input type="number" name="mileage" data-unit-field="mileage" min="0" data-required="true"
+                               value="{{ submitted.mileage|default:'' }}"
+                               class="req-field w-full px-2 py-1.5 text-sm border rounded">
                     </div>
 
                     <div>
@@ -184,7 +172,7 @@
 
                     <div>
                         <label class="block text-xs text-gray-600 mb-1">{% trans "Curb Weight (kg)" %}</label>
-                        <input type="number" name="curb_weight" min="0"
+                        <input type="number" name="curb_weight" data-unit-field="curb_weight" min="0"
                                value="{{ submitted.curb_weight|default:'' }}"
                                class="w-full px-2 py-1.5 text-sm border border-gray-300 rounded">
                     </div>
