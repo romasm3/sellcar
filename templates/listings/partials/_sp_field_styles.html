@@ -258,3 +258,41 @@ vidinės paraštės 9px/12px, aukštis 40px.
   @media (min-width: 1024px) { .sp-picker { display: none !important; } }
 
 </style>
+
+{% comment %}
+Markių lauko komponentas — sąrašas kraunamas iš /ajax/markes/ tik atidarius.
+Vienas kešas visam puslapiui (window.__brandCache), todėl tos pačios
+kategorijos laukas panelėje, juostoje ir detalioje paieškoje siunčia
+vieną užklausą. Registruojamas prieš Alpine (jis kraunamas su defer).
+{% endcomment %}
+<script>
+if (!window.brandField) {
+  window.brandField = function (cfg) {
+    return {
+      open: false, q: '', loading: false, items: [], bAll: false,
+      val: cfg.val || '', name: cfg.name || '',
+      toggle() { this.open = !this.open; this.q = ''; if (this.open) this.load(); },
+      load() {
+        if (this.items.length || !cfg.url) return;
+        var cache = (window.__brandCache = window.__brandCache || {});
+        if (cache[cfg.url]) { this.items = cache[cfg.url]; return; }
+        var self = this;
+        self.loading = true;
+        fetch(cfg.url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { self.items = cache[cfg.url] = (d.markes || []); })
+          .catch(function () { self.items = []; })
+          .then(function () { self.loading = false; });
+      },
+      visible() {
+        var q = (this.q || '').trim().toLowerCase();
+        var list = this.items;
+        if (cfg.onlyWithAds && !this.bAll && !q) list = list.filter(function (b) { return b.c > 0; });
+        if (q) list = list.filter(function (b) { return b.n.toLowerCase().indexOf(q) !== -1; });
+        return list;
+      },
+      pick(v, n) { this.val = v; this.name = n; this.open = false; }
+    };
+  };
+}
+</script>

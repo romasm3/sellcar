@@ -102,3 +102,20 @@ def model_name(value):
         return Model.objects.filter(pk=int(value)).values_list('name', flat=True).first() or value
     except (TypeError, ValueError):
         return value
+
+
+@register.filter
+def brand_label(value, item):
+    """Pasirinktos markės pavadinimas iš kešuoto sąrašo.
+
+    FK markėms request.GET turi id ('961'), o mygtuke reikia „BMW".
+    Sąrašas jau kešuotas brand_api.brand_items(), todėl tai nekainuoja
+    papildomos užklausos.
+    """
+    if not value:
+        return ''
+    try:
+        from apps.listings.brand_api import brand_name
+        return brand_name(item.get('brand_vt'), value, item.get('brand_sub') or None) or value
+    except Exception:
+        return value

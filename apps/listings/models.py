@@ -2190,6 +2190,18 @@ class SalesRecord(models.Model):
         )
 
 
+    @property
+    def first_image(self):
+        """Pirma nuotrauka per prefetch kešą.
+
+        `listing.images.first()` kešo NENAUDOJA — Django jam kuria naują
+        užklausą su LIMIT 1, todėl 12 kortelių duodavo 12 užklausų (per
+        pagrindinį puslapį — 73). `images.all()` prefetch'ą naudoja.
+        """
+        imgs = list(self.images.all())
+        return imgs[0] if imgs else None
+
+
 class ListingImage(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='listings/%Y/%m/')

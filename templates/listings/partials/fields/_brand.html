@@ -1,17 +1,40 @@
 {% load i18n dict_extras %}{% comment %}
 Markių laukas — iškrentantis sąrašas su paieška ir skelbimų skaičiais.
 
+Sąrašas NEDEDAMAS į HTML. Jis parsisiunčiamas iš /ajax/markes/ tik tada,
+kai vartotojas pirmą kartą atidaro lauką, ir lieka atmintyje visam
+puslapio gyvavimui. Iki 2026-08-21 visų kategorijų sąrašai gulėjo
+puslapyje iš karto — 11 295 eilutės, 3,4 MB HTML ir 6,4 s Alpine darbo.
+
+Paieška filtruoja jau parsisiųstą sąrašą naršyklėje (ilgiausias — žemės
+ūkio, 700 markių — sveria ~6 KB), todėl raidė po raidės į serverį
+nelakstoma. Serverinė paieška tame pačiame endpoint'e yra (`?q=`) ir ja
+naudojasi mobilus /pasirinkti/ puslapis.
+
+Be JS laukas lieka veikiantis: <noscript> rodo tekstinį įvedimą tuo pačiu
+parametru, o filtrų variklis nenumeriniam markės parametrui ieško pagal
+pavadinimą.
+
 Savarankiškas Alpine komponentas, todėl tinka ir puslapiams be spPanel()
 (šoninė juosta). Ten, kur tėvinis komponentas turi refreshCount(),
 pasirinkimas jį iškviečia per Alpine scope grandinę.
 {% endcomment %}{% with cur=request.GET|get_param:f.param %}
 <div class="relative"
-     x-data="{ open: false, q: '', bAll: false, val: '{{ cur|escapejs }}', name: '{{ cur|default:_("Visos markės")|escapejs }}' }">
+     x-data="brandField({
+        url: '{{ f.brand_url|escapejs }}',
+        val: '{{ cur|escapejs }}',
+        name: '{{ cur|brand_label:f|default:_("Visos markės")|escapejs }}',
+        onlyWithAds: {% if f.only_with_ads_toggle %}true{% else %}false{% endif %}
+     })">
   <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
   <input type="hidden" name="{{ f.param }}" :value="val">
-  <button type="button" class="sp-fld sp-dd-btn truncate" @click="open = !open; q = ''">
+  <button type="button" class="sp-fld sp-dd-btn truncate" @click="toggle()">
     <span x-text="name"></span>
   </button>
+  <noscript>
+    <input type="text" name="{{ f.param }}" value="{{ cur|default:'' }}"
+           class="sp-fld" placeholder="{{ f.label }}">
+  </noscript>
   <div x-show="open" x-cloak @click.outside="open = false" class="sp-dd">
     <div class="sp-dd-search">
       <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}" @click.stop>
@@ -19,29 +42,20 @@ pasirinkimas jį iškviečia per Alpine scope grandinę.
     </div>
     <div class="sp-dd-scroll">
       <div class="sp-dd-item font-semibold"
-           @click="val = ''; name = '{% trans "Visos markės" %}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
+           @click="pick('', '{% trans "Visos markės" %}'); if (typeof refreshCount === 'function') refreshCount(0)">
         {% trans "Visos markės" %}
       </div>
-      {% if f.brands_top %}
-      <div class="sp-dd-group" x-show="!q">{% trans "Top markės" %}</div>
-      {% endif %}
-      {% for b in f.brands_top %}
-      <div class="sp-dd-item"
-           x-show="!q || '{{ b.name|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
-           @click="val = '{{ b.value|escapejs }}'; name = '{{ b.name|escapejs }}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
-        <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
+      <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
+      <template x-for="b in visible()" :key="b.v">
+        <div class="sp-dd-item"
+             @click="pick(b.v, b.n); if (typeof refreshCount === 'function') refreshCount(0)">
+          <span x-text="b.n"></span>
+          <span class="sp-dd-count" x-text="b.c ? b.c : ''"></span>
+        </div>
+      </template>
+      <div class="sp-dd-foot" x-show="!loading && visible().length === 0">
+        {% trans "Nieko nerasta" %}
       </div>
-      {% endfor %}
-      {% if f.brands_top %}
-      <div class="sp-dd-group" x-show="!q">{% trans "Kitos markės" %}</div>
-      {% endif %}
-      {% for b in f.brands_rest %}
-      <div class="sp-dd-item"
-           x-show="({% if f.only_with_ads_toggle %}bAll || {{ b.count }} > 0{% else %}true{% endif %}) && (!q || '{{ b.name|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1)"
-           @click="val = '{{ b.value|escapejs }}'; name = '{{ b.name|escapejs }}'; open = false; if (typeof refreshCount === 'function') refreshCount(0)">
-        <span>{{ b.name }}</span><span class="sp-dd-count">{% if b.count %}{{ b.count }}{% endif %}</span>
-      </div>
-      {% endfor %}
     </div>
   </div>
 </div>

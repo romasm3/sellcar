@@ -103,6 +103,7 @@ TEMPLATES = [
                 "apps.conversations.context_processors.unread_messages",
                 "apps.listings.context_processors.saved_searches_count",
                 "apps.listings.context_processors.saved_listings_count",
+                "apps.listings.context_processors.search_panel_tab",
             ],
         },
     },

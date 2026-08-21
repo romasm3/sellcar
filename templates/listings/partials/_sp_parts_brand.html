@@ -8,7 +8,7 @@
 {# ================================================================ #}
 <div class="relative">
   <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Markė" %}</label>
-  <button type="button" class="sp-fld sp-dd-btn" @click="pd.{{ sub }}.bOpen = !pd.{{ sub }}.bOpen; pd.{{ sub }}.bQ = ''">
+  <button type="button" class="sp-fld sp-dd-btn" @click="pdOpenBrands('{{ sub }}', '{{ brand_url }}')">
     <span x-text="pd.{{ sub }}.name"></span>
   </button>
   <div x-show="pd.{{ sub }}.bOpen" x-cloak @click.outside="pd.{{ sub }}.bOpen = false" class="sp-dd">
@@ -19,17 +19,14 @@
     <div class="sp-dd-scroll">
       <div class="sp-dd-item font-semibold"
            @click="pdPickBrand('{{ sub }}', '', '{% trans "Visos" %}', 0, '{{ endpoint }}')">{% trans "Visos markės" %}</div>
-      {% if top_on %}
-      <div class="sp-dd-group" x-show="!pd.{{ sub }}.bQ">{% trans "Top markės" %}</div>
-      {% endif %}
-      {% for b in brands %}
-      <div class="sp-dd-item"
-           x-show="({% if top_on %}pd.{{ sub }}.bAll || {{ b.listing_count|default:0 }} > 0{% else %}true{% endif %}) && (!pd.{{ sub }}.bQ || '{{ b.name|escapejs }}'.toLowerCase().indexOf(pd.{{ sub }}.bQ.toLowerCase()) !== -1)"
-           @click="pdPickBrand('{{ sub }}', '{{ b.id }}', '{{ b.name|escapejs }}', {{ b.listing_count|default:0 }}, '{{ endpoint }}')">
-        <span>{{ b.name }}</span>
-        <span class="sp-dd-count">{% if b.listing_count %}{{ b.listing_count }}{% endif %}</span>
-      </div>
-      {% endfor %}
+      <div class="sp-dd-foot" x-show="pd.{{ sub }}.bLoading">{% trans "Kraunama..." %}</div>
+      <template x-for="b in pdBrandList('{{ sub }}')" :key="b.v">
+        <div class="sp-dd-item"
+             @click="pdPickBrand('{{ sub }}', b.v, b.n, b.c || 0, '{{ endpoint }}')">
+          <span x-text="b.n"></span>
+          <span class="sp-dd-count" x-text="b.c ? b.c : ''"></span>
+        </div>
+      </template>
     </div>
     {% if top_on %}
     <div class="sp-dd-foot" x-show="!pd.{{ sub }}.bAll">

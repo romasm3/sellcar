@@ -144,8 +144,15 @@ def select_value(request):
     current = dict(parse_qsl(urlparse(back).query, keep_blank_values=True)).get(param, '')
 
     if field.get('widget') == 'brand':
-        options = ([(b['value'], b['name'], b['count']) for b in field.get('brands_top', [])]
-                   + [(b['value'], b['name'], b['count']) for b in field.get('brands_rest', [])])
+        # Tas pats šaltinis kaip /ajax/markes/ — sąrašas kešuotas, o į
+        # HTML jis nebededamas iš anksto (žr. brand_api.py). Šis puslapis
+        # renderinamas serveryje, todėl paiešką filtruoja irgi serveris.
+        from apps.listings.brand_api import brand_items
+        q = (request.GET.get('q') or '').strip().lower()
+        items = brand_items(category, sub_slug) or []
+        if q:
+            items = [it for it in items if q in it['n'].lower()]
+        options = [(it['v'], it['n'], it['c']) for it in items]
     elif field['type'] == 'range':
         source = (field.get('options_min') if param == field.get('param_min')
                   else field.get('options_max')) or []

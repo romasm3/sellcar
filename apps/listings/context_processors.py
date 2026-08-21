@@ -1,3 +1,23 @@
+from apps.listings.search_config.panels import is_active
+
+
+def search_panel_tab(request):
+    """Kuri kategorijos panelė renderinama — viena, ne visos 19.
+
+    Šaltinis tas pats, kurį jau naudojo Alpine init(): ?section= arba
+    ?category=. Nežinomas slug'as krinta į „cars", kad puslapis niekada
+    neliktų be panelės.
+    """
+    tab = (request.GET.get('section') or request.GET.get('category') or '').strip()
+    if tab == 'tires':
+        tab = 'wheels'
+    KNOWN = {'cars', 'motorcycles', 'motogear', 'moto-tyres', 'quad-tyres',
+             'trucks', 'wheels', 'boats', 'trailers', 'agriculture',
+             'construction', 'loading-equipment', 'forestry', 'bicycles',
+             'electronics', 'services', 'rental', 'camping-houses', 'parts'}
+    return {'sp_tab': tab if tab in KNOWN else 'cars'}
+
+
 def saved_searches_count(request):
     if not request.user.is_authenticated:
         return {'new_searches_count': 0}

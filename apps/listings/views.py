@@ -52,6 +52,7 @@ from .models import (
     Transmission,
     SavedListing,
 )
+from collections.abc import Mapping
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
@@ -1100,6 +1101,55 @@ def _build_category_breakdown(user):
 # SHADOW BAN / PUBLIC LISTINGS helper
 # ═══════════════════════════════════════════════════════════
 
+
+
+def _lazy_ctx(builder, keys):
+    """Konteksto raktai, kurių reikšmės skaičiuojamos tik panaudotos.
+
+    parts_panel_context() vien įrangos grupėms daro 12 užklausų, o dalių
+    panelė renderinama tik tada, kai ji ir yra aktyvi kategorija. Kiti
+    puslapio krovimai jos nebemoka.
+    """
+    from django.utils.functional import SimpleLazyObject
+    box = {}
+
+    def value(key):
+        if 'data' not in box:
+            box['data'] = builder()
+        return box['data'][key]
+
+    return {k: SimpleLazyObject(lambda k=k: value(k)) for k in keys}
+
+
+class _LazyPanelMap(Mapping):
+    """Panelės statomos tik tada, kai šablonas jų paprašo.
+
+    Puslapis renderina VIENĄ kategoriją (žr. _panel_bodies.html), o
+    build_panel kiekvienai daro po kelias užklausas (įranga, miestai,
+    kuro tipai). Anksčiau buvo statomos visos 19 — 14 užklausų vien
+    įrangai. Django šablonas `dict.raktas` pirma bando __getitem__,
+    todėl Mapping čia veikia kaip įprastas žodynas.
+    """
+
+    def __init__(self, keys, builder):
+        self._keys = list(keys)
+        self._builder = builder
+        self._cache = {}
+
+    def __getitem__(self, key):
+        if key not in self._cache:
+            if key not in self._keys:
+                raise KeyError(key)
+            self._cache[key] = self._builder(key)
+        return self._cache[key]
+
+    def __iter__(self):
+        return iter(self._keys)
+
+    def __len__(self):
+        return len(self._keys)
+
+
 def _public_listings_qs(request_user=None):
     now = timezone.now()
     sold_cutoff = now - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
@@ -1285,7 +1335,7 @@ def listing_list(request):
 
     listings = _public_listings_qs(request.user).select_related(
         'brand', 'model', 'submodel', 'fuel_type', 'transmission', 'vehicle_type'
-    ).annotate(
+    ).prefetch_related('images').annotate(
         effective_date=Greatest(
             'created_at',
             Coalesce('last_boosted_at', 'created_at'),
@@ -1544,7 +1594,7 @@ def listing_list(request):
     _now_tabs = timezone.now()
     _tabs_base = _public_listings_qs(request.user).select_related(
         'brand', 'model', 'fuel_type', 'transmission'
-    )
+    ).prefetch_related('images')
 
     # 1. Pirmiausia: mokami featured listings (rodomi viršuje)
     featured_paid = list(
@@ -1689,13 +1739,22 @@ def listing_list(request):
             ('tires', _('Ratlankiai / padangos')),
             ('parts', _('Dalys')),
         ],
-        **parts_panel_context(request.user),
-        **trailers_panel_context(request.user),
+        **_lazy_ctx(lambda: parts_panel_context(request.user),
+                    ('parts_subs', 'parts_car_subcats', 'parts_brands',
+                     'parts_moto_brands', 'parts_truck_brands',
+                     'parts_moto_groups', 'parts_truck_groups')),
+        **_lazy_ctx(lambda: trailers_panel_context(request.user),
+                    ('trailer_brands_top', 'trailer_brands_rest', 'trailer_years',
+                     'trailer_ta_years', 'trailer_price_min_tiers',
+                     'trailer_price_max_tiers', 'trailer_kind_choices',
+                     'trailer_purpose_choices', 'trailer_axle_count_choices',
+                     'trailer_axle_makes', 'trailer_color_choices',
+                     'trailer_condition_choices', 'trailer_euro_choices',
+                     'trailer_equipment')),
         'selected_trailer_equipment': request.GET.getlist('trailer_equipment'),
-        'config_panels': {
-            slug: panel_config.build_panel(slug, request.user)
-            for slug in panel_config.active_categories()
-        },
+        'config_panels': _LazyPanelMap(
+            panel_config.active_categories(),
+            lambda slug: panel_config.build_panel(slug, request.user)),
         # Sunkiojo transporto sekcijos etalone (04/06/03/08/21) — mygtukai
         # panelėje; 'main' yra sec 04 be subkategorijos.
         # Dalių šakos, kurių panelė renderinama iš konfigūracijos (sec 28, 14)
@@ -1720,11 +1779,11 @@ def listing_list(request):
             ('vehicle-transporters', _('Autotraukiniai, autovežiai')),
             ('municipal-transport', _('Komunalinio ūkio transportas')),
         ],
-        'config_panels_sub': {
-            sub: panel_config.build_panel(
-                cfg['vt_slug'], request.user, sub_slug=sub)
-            for sub, cfg in panel_config.PANELS_BY_SUB.items()
-        },
+        'config_panels_sub': _LazyPanelMap(
+            panel_config.PANELS_BY_SUB.keys(),
+            lambda sub: panel_config.build_panel(
+                panel_config.PANELS_BY_SUB[sub]['vt_slug'],
+                request.user, sub_slug=sub)),
         'models': models,
         'years': years,
         'fuel_types': fuel_types,

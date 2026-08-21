@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from apps.listings import brand_api
 from . import views_help
 from . import motorcycles_views
 from . import motogear_views
@@ -145,6 +146,9 @@ urlpatterns = [
     path('search/advanced/', views.advanced_search, name='advanced_search'),
     path('ajax/advanced-search-count/', views.advanced_search_count_ajax, name='advanced_search_count_ajax'),
     path('paieska/count/<str:category>/', views.search_panel_count, name='search_panel_count'),
+    # Markių sąrašai — vienas šaltinis visiems keturiems paviršiams
+    # (greitoji panelė, detali paieška, šoninė juosta, /pasirinkti/).
+    path('ajax/markes/', brand_api.brand_options, name='brand_options'),
     path('paieska/<str:category>/', views.advanced_search_generic, name='advanced_search_generic'),
     # Telefono drill-in: reikšmės pasirinkimas atskirame puslapyje
     path('pasirinkti/', select_views.select_value, name='select_value'),

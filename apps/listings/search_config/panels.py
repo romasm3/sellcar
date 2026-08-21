@@ -322,13 +322,35 @@ def _brand_rows(vt_slug, db_field, user=None, sub_slug=None):
     return top, rest
 
 
+def _brand_url(vt_slug, sub_slug=None):
+    """Nuoroda į markių sąrašą — vienas endpoint'as visiems paviršiams."""
+    from django.urls import reverse
+    from urllib.parse import urlencode
+    q = {'kategorija': vt_slug}
+    if sub_slug:
+        q['subkategorija'] = sub_slug
+    return f"{reverse('brand_options')}?{urlencode(q)}"
+
+
 def _distinct_options(vt_slug, db_field, user=None):
-    """Reikšmės, realiai esančios skelbimuose (Miestas) — viena agregacija."""
+    """Reikšmės, realiai esančios skelbimuose (Miestas) — viena agregacija.
+
+    Kešuojama 10 min: pagrindinis puslapis renderina 13 kategorijų panelių
+    ir be kešo kiekviena darydavo atskirą GROUP BY city užklausą.
+    """
+    from django.core.cache import cache
+    key = f'distinct:v1:{vt_slug}:{db_field}'
+    hit = cache.get(key)
+    if hit is not None:
+        return hit
+
     from apps.listings.views import _public_listings_qs
     qs = _public_listings_qs(user).filter(vehicle_type__slug=vt_slug)
     rows = (qs.exclude(**{db_field: ''}).exclude(**{db_field: '—'})
               .values(db_field).annotate(c=Count('id')).order_by('-c', db_field))
-    return [(r[db_field], f"{r[db_field]} ({r['c']})") for r in rows]
+    out = [(r[db_field], f"{r[db_field]} ({r['c']})") for r in rows]
+    cache.set(key, out, 600)
+    return out
 
 
 def build_panel(vt_slug, user=None, sub_slug=None):
@@ -397,8 +419,11 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 # žingsnis (kaskada rodoma tik ten, kur modelių yra).
                 item['scope'] = BRAND_FIELD_SCOPE.get(db) or (
                     'cars' if db == 'brand' else None)
-                item['brands_top'], item['brands_rest'] = _brand_rows(
-                    vt_slug, db, user, sub_slug)
+                # Markių sąrašas NEBEDEDAMAS į HTML — laukas jį pasiima iš
+                # /ajax/markes/ tik atidarytas. Žr. brand_api.py.
+                item['brand_vt'] = vt_slug
+                item['brand_sub'] = sub_slug or ''
+                item['brand_url'] = _brand_url(vt_slug, sub_slug)
                 item['only_with_ads_toggle'] = (
                     bool(f.get('only_with_ads_toggle')) and TOP_BRANDS_ON)
             elif db in FK_CHOICE_FIELDS:
@@ -554,8 +579,11 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 # žingsnis (kaskada rodoma tik ten, kur modelių yra).
                 item['scope'] = BRAND_FIELD_SCOPE.get(db) or (
                     'cars' if db == 'brand' else None)
-                item['brands_top'], item['brands_rest'] = _brand_rows(
-                    vt_slug, db, user, sub_slug)
+                # Markių sąrašas NEBEDEDAMAS į HTML — laukas jį pasiima iš
+                # /ajax/markes/ tik atidarytas. Žr. brand_api.py.
+                item['brand_vt'] = vt_slug
+                item['brand_sub'] = sub_slug or ''
+                item['brand_url'] = _brand_url(vt_slug, sub_slug)
                 item['only_with_ads_toggle'] = TOP_BRANDS_ON
             elif db in FK_CHOICE_FIELDS:
                 item['options'] = _fk_options(db, f.get('options'))
