@@ -131,17 +131,25 @@
                         </div>
                     </div>
 
-                    {% if user.is_authenticated %}
+                    {% comment %}
+                    „Sukurti skelbimą" rodomas VISADA — ir neprisijungusiam,
+                    kaip etalone. Neprisijungusį veda į prisijungimą su
+                    ?next=/create/, o po prisijungimo jis patenka tiesiai į
+                    skelbimo kūrimą (accounts.views.safe_next).
+                    {% endcomment %}
+                    {% if user.is_authenticated %}{% url 'listing_create' as create_url %}
+                    {% else %}{% url 'accounts:login' as login_url %}{% url 'listing_create' as create_target %}
+                    {% endif %}
 
                     <!-- Create Ad button (desktop: tekstas, mobile: + ikona) -->
-                    <a href="{% url 'listing_create' %}"
+                    <a href="{% if user.is_authenticated %}{{ create_url }}{% else %}{{ login_url }}?next={{ create_target|urlencode }}{% endif %}"
                        class="hidden sm:inline-flex items-center gap-1.5 px-3 lg:px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shrink-0 whitespace-nowrap">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                         </svg>
                         {% trans "Create Ad" %}
                     </a>
-                    <a href="{% url 'listing_create' %}"
+                    <a href="{% if user.is_authenticated %}{{ create_url }}{% else %}{{ login_url }}?next={{ create_target|urlencode }}{% endif %}"
                        class="sm:hidden inline-flex items-center justify-center w-9 h-9 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-sm"
                        title="{% trans 'Create Ad' %}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,6 +157,7 @@
                         </svg>
                     </a>
 
+                    {% if user.is_authenticated %}
                     {% comment %}
                     „Mano paieškos" — didinamojo stiklo ikona su žaliu naujų
                     skelbimų skaitikliu. Ikonos nekeisti (vartotojo sprendimas
@@ -273,11 +282,13 @@
                         </div>
                     </div>
                     {% else %}
+                    {% comment %}Prisijungimas ir registracija grąžina ten, kur žmogus
+                    buvo — ne į pagrindinį puslapį.{% endcomment %}
                     <!-- Auth Buttons -->
-                    <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
+                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="text-gray-700 hover:text-primary font-medium transition-colors">
                         {% trans "Login" %}
                     </a>
-                    <a href="{% url 'accounts:register' %}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium">
+                    <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium">
                         {% trans "Register" %}
                     </a>
                     {% endif %}

@@ -29,6 +29,23 @@ def home(request):
     return redirect("/")
 
 
+def safe_next(request, default=None):
+    """Kur grąžinti žmogų po prisijungimo ar registracijos.
+
+    Priimam `next` (Django tradicija) ir `return` (taip vadina etalonas),
+    iš GET arba POST. Adresas visada tikrinamas
+    url_has_allowed_host_and_scheme — kitaip būtų atviras peradresavimas
+    į svetimą svetainę (anksčiau login_view redirect'ino be jokios patikros).
+    """
+    from django.utils.http import url_has_allowed_host_and_scheme
+
+    cand = (request.POST.get('next') or request.POST.get('return')
+            or request.GET.get('next') or request.GET.get('return') or '')
+    if cand and url_has_allowed_host_and_scheme(
+            cand, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
+        return cand
+    return default
+
 def register(request):
     if request.user.is_authenticated:
         return redirect("accounts:home")
@@ -52,12 +69,13 @@ def register(request):
                 print(f"[email] account_welcome failed: {e}")
 
             login(request, user)
-            return redirect("accounts:home")
+            return redirect(safe_next(request) or "accounts:home")
         else:
             messages.error(request, "Please fix the errors.")
     else:
         form = UserRegisterForm()
-    return render(request, "accounts/register.html", {"form": form})
+    return render(request, "accounts/register.html",
+                  {"form": form, "next": safe_next(request, '')})
 
 
 def login_view(request):
@@ -73,14 +91,12 @@ def login_view(request):
             user = None
         if user is not None:
             login(request, user)
-            next_page = request.GET.get("next")
-            if next_page:
-                return redirect(next_page)
-            return redirect("accounts:home")
+            return redirect(safe_next(request) or "accounts:home")
         else:
             messages.error(request, "Invalid email or password.")
-            return render(request, "accounts/login.html", {"email": email})
-    return render(request, "accounts/login.html", {})
+            return render(request, "accounts/login.html",
+                          {"email": email, "next": safe_next(request, '')})
+    return render(request, "accounts/login.html", {"next": safe_next(request, '')})
 
 
 def logout_view(request):

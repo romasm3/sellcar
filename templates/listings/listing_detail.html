@@ -2741,7 +2741,7 @@
                         {% endif %}
                         {% endif %}
                     {% else %}
-                        <a href="{% url 'accounts:login' %}"
+                        <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}"
                            class="block w-full bg-primary hover:bg-primary-dark text-white text-center py-3 rounded-lg transition-colors font-medium mb-3">
                             {% trans "Login to Contact" %}
                         </a>

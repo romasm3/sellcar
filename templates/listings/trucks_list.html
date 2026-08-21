@@ -426,7 +426,7 @@
                                 <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
                             </button>
                             {% else %}
-                            <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
+                            <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
                                 <i class="far fa-heart text-gray-400 text-sm"></i>
                             </a>
                             {% endif %}
@@ -733,7 +733,7 @@
                         <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-xs"></i>
                     </button>
                     {% else %}
-                    <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md hover:scale-110 z-10">
+                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" @click.stop class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md hover:scale-110 z-10">
                         <i class="far fa-heart text-gray-400 text-xs"></i>
                     </a>
                     {% endif %}

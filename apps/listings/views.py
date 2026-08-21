@@ -3114,9 +3114,19 @@ def saved_listings(request):
 
 def save_listing(request, pk):
     if not request.user.is_authenticated:
+        # Grąžinam žmogų ten, kur jis buvo: AJAX gauna adresą ir nusiveda
+        # pats, paprastas paspaudimas peradresuojamas iš karto.
+        from urllib.parse import urlencode
+        from django.urls import reverse
+        back = request.META.get('HTTP_REFERER') or '/'
+        from django.utils.http import url_has_allowed_host_and_scheme
+        if not url_has_allowed_host_and_scheme(
+                back, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
+            back = '/'
+        login_url = reverse('accounts:login') + '?' + urlencode({'next': back})
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({'error': 'login_required'}, status=401)
-        return redirect('accounts:login')
+            return JsonResponse({'error': 'login_required', 'login_url': login_url}, status=401)
+        return redirect(login_url)
 
     listing = get_object_or_404(Listing, pk=pk)
     saved, created = SavedListing.objects.get_or_create(

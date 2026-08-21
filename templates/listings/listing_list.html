@@ -823,7 +823,7 @@ a.sp-rail-btn { text-decoration:none; }
                                 <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
                             </button>
                             {% else %}
-                            <a href="{% url 'accounts:login' %}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
+                            <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
                                 <i class="far fa-heart text-gray-400 text-sm"></i>
                             </a>
                             {% endif %}
@@ -1687,9 +1687,11 @@ function toggleSave(btn, listingId) {
         method: 'POST',
         headers: { 'X-CSRFToken': '{{ csrf_token }}', 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        icon.className = data.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+    .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+    .then(function(res) {
+        // Neprisijungęs — vedam į prisijungimą ir grąžinam į šį puslapį
+        if (!res.ok && res.d && res.d.login_url) { window.location = res.d.login_url; return; }
+        icon.className = res.d.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
     });
 }
 

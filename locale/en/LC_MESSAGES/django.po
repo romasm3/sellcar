@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 10:20+0300\n"
+"POT-Creation-Date: 2026-08-21 10:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -956,7 +956,7 @@ msgstr ""
 msgid "Contact Phone"
 msgstr ""
 
-#: apps/listings/forms.py:438 templates/accounts/login.html:26
+#: apps/listings/forms.py:438 templates/accounts/login.html:27
 msgid "Email Address"
 msgstr ""
 
@@ -4226,13 +4226,13 @@ msgid "Refurbished"
 msgstr ""
 
 #: apps/listings/motogear_views.py:204 apps/listings/motorcycles_views.py:562
-#: apps/listings/trucks_views.py:895 apps/listings/views.py:2152
-#: apps/listings/views.py:2292
+#: apps/listings/trucks_views.py:895 apps/listings/views.py:2162
+#: apps/listings/views.py:2302
 msgid "No images uploaded"
 msgstr ""
 
 #: apps/listings/motogear_views.py:214 apps/listings/motorcycles_views.py:572
-#: apps/listings/views.py:2164
+#: apps/listings/views.py:2174
 msgid "Maximum 40 photos reached"
 msgstr ""
 
@@ -4272,7 +4272,7 @@ msgstr ""
 msgid "Failed to save draft."
 msgstr ""
 
-#: apps/listings/motorcycles_views.py:500 apps/listings/views.py:2288
+#: apps/listings/motorcycles_views.py:500 apps/listings/views.py:2298
 msgid "Draft not found"
 msgstr ""
 
@@ -4388,9 +4388,9 @@ msgid "Motociklų dalys"
 msgstr ""
 
 #: apps/listings/select_views.py:139
-#: templates/listings/partials/search_panel.html:747
-#: templates/listings/partials/search_panel.html:758
-#: templates/listings/partials/search_panel.html:768
+#: templates/listings/partials/search_panel.html:781
+#: templates/listings/partials/search_panel.html:792
+#: templates/listings/partials/search_panel.html:802
 msgid "Visi modeliai"
 msgstr "All models"
 
@@ -4434,14 +4434,14 @@ msgstr ""
 #: templates/listings/partials/fields/_multiselect.html:18
 #: templates/listings/partials/fields/_multiselect.html:35
 #: templates/listings/partials/fields/_select.html:9
-#: templates/listings/partials/search_panel.html:239
-#: templates/listings/partials/search_panel.html:258
-#: templates/listings/partials/search_panel.html:261
-#: templates/listings/partials/search_panel.html:264
-#: templates/listings/partials/search_panel.html:361
-#: templates/listings/partials/search_panel.html:379
-#: templates/listings/partials/search_panel.html:389
-#: templates/listings/partials/search_panel.html:406
+#: templates/listings/partials/search_panel.html:244
+#: templates/listings/partials/search_panel.html:263
+#: templates/listings/partials/search_panel.html:266
+#: templates/listings/partials/search_panel.html:269
+#: templates/listings/partials/search_panel.html:366
+#: templates/listings/partials/search_panel.html:384
+#: templates/listings/partials/search_panel.html:394
+#: templates/listings/partials/search_panel.html:411
 #: templates/listings/select_value.html:26 templates/search/_panel_cars.html:18
 #: templates/search/_panel_cars.html:42 templates/search/_panel_cars.html:49
 msgid "Visi"
@@ -4611,16 +4611,16 @@ msgstr ""
 msgid "Aircraft Parts"
 msgstr ""
 
-#: apps/listings/translatable_db.py:20 apps/listings/views.py:1818
+#: apps/listings/translatable_db.py:20 apps/listings/views.py:1826
 msgid "Vilkikai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:20 apps/listings/views.py:1820
+#: apps/listings/translatable_db.py:20 apps/listings/views.py:1828
 msgid "Autotraukiniai, autovežiai"
 msgstr ""
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
-#: apps/listings/views.py:1821
+#: apps/listings/views.py:1829
 msgid "Komunalinio ūkio transportas"
 msgstr ""
 
@@ -5008,9 +5008,9 @@ msgstr ""
 msgid "Superstructure parts"
 msgstr ""
 
-#: apps/listings/trucks_views.py:887 apps/listings/views.py:2148
-#: apps/listings/views.py:2198 apps/listings/views.py:6730
-#: apps/listings/views.py:6736
+#: apps/listings/trucks_views.py:887 apps/listings/views.py:2158
+#: apps/listings/views.py:2208 apps/listings/views.py:6750
+#: apps/listings/views.py:6756
 msgid "Listing not found"
 msgstr ""
 
@@ -5039,7 +5039,7 @@ msgstr ""
 msgid "iki 3,5 t — keleivinis arba krovininis"
 msgstr ""
 
-#: apps/listings/views.py:533 apps/listings/views.py:1778
+#: apps/listings/views.py:533 apps/listings/views.py:1786
 #: templates/listings/partials/_panel_bodies.html:18
 msgid "Automobiliai"
 msgstr ""
@@ -5064,55 +5064,55 @@ msgstr ""
 msgid "Sunkusis transportas → Autobusai"
 msgstr ""
 
-#: apps/listings/views.py:1779
+#: apps/listings/views.py:1787
 msgid "Motociklai, apranga"
 msgstr ""
 
-#: apps/listings/views.py:1780
+#: apps/listings/views.py:1788
 msgid "Ratlankiai / padangos"
 msgstr ""
 
-#: apps/listings/views.py:1781
+#: apps/listings/views.py:1789
 msgid "Dalys"
 msgstr "Parts"
 
-#: apps/listings/views.py:1809
+#: apps/listings/views.py:1817
 msgid "Lėktuvai"
 msgstr ""
 
-#: apps/listings/views.py:1810
+#: apps/listings/views.py:1818
 msgid "Lėktuvų dalys"
 msgstr ""
 
-#: apps/listings/views.py:1811
+#: apps/listings/views.py:1819
 msgid "Robotai"
 msgstr ""
 
-#: apps/listings/views.py:1812
+#: apps/listings/views.py:1820
 msgid "Robotų dalys"
 msgstr ""
 
-#: apps/listings/views.py:1813
+#: apps/listings/views.py:1821
 msgid "Dronai"
 msgstr ""
 
-#: apps/listings/views.py:1814
+#: apps/listings/views.py:1822
 msgid "Dronų dalys"
 msgstr ""
 
-#: apps/listings/views.py:1817
+#: apps/listings/views.py:1825
 msgid "Sunkvežimiai"
 msgstr "Trucks"
 
-#: apps/listings/views.py:1819
+#: apps/listings/views.py:1827
 msgid "Autobusai"
 msgstr ""
 
-#: apps/listings/views.py:6727
+#: apps/listings/views.py:6747
 msgid "Įveskite kodą"
 msgstr ""
 
-#: apps/listings/views.py:6741
+#: apps/listings/views.py:6761
 msgid "Toks kodas neegzistuoja"
 msgstr ""
 
@@ -5401,8 +5401,8 @@ msgid "Manage your inventory"
 msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:91 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:248
-#: templates/base.html:337
+#: templates/accounts/wallet.html:9 templates/base.html:258
+#: templates/base.html:350
 msgid "Wallet"
 msgstr ""
 
@@ -5783,8 +5783,8 @@ msgstr ""
 msgid "Save profile"
 msgstr ""
 
-#: templates/accounts/login.html:4 templates/accounts/login.html:85
-#: templates/base.html:281
+#: templates/accounts/login.html:4 templates/accounts/login.html:86
+#: templates/base.html:294
 msgid "Login"
 msgstr ""
 
@@ -5796,41 +5796,41 @@ msgstr ""
 msgid "Login to your SellCar account"
 msgstr ""
 
-#: templates/accounts/login.html:34
+#: templates/accounts/login.html:35
 msgid "Enter your email"
 msgstr ""
 
-#: templates/accounts/login.html:41
+#: templates/accounts/login.html:42
 msgid "Password"
 msgstr ""
 
-#: templates/accounts/login.html:49
+#: templates/accounts/login.html:50
 msgid "Enter your password"
 msgstr ""
 
-#: templates/accounts/login.html:73
+#: templates/accounts/login.html:74
 msgid "Remember me"
 msgstr ""
 
-#: templates/accounts/login.html:77
+#: templates/accounts/login.html:78
 msgid "Forgot password?"
 msgstr ""
 
-#: templates/accounts/login.html:95 templates/accounts/register.html:122
+#: templates/accounts/login.html:96 templates/accounts/register.html:123
 msgid "Or"
 msgstr ""
 
-#: templates/accounts/login.html:102
+#: templates/accounts/login.html:103
 msgid "Don't have an account?"
 msgstr ""
 
-#: templates/accounts/login.html:104
+#: templates/accounts/login.html:105
 msgid "Sign up for free"
 msgstr ""
 
-#: templates/accounts/login.html:114
+#: templates/accounts/login.html:115
 #: templates/accounts/password_reset_complete.html:34
-#: templates/accounts/register.html:141
+#: templates/accounts/register.html:142
 msgid "Back to Home"
 msgstr ""
 
@@ -5889,7 +5889,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: templates/accounts/password_change.html:51
-#: templates/accounts/register.html:83
+#: templates/accounts/register.html:84
 msgid "Password Requirements:"
 msgstr ""
 
@@ -6098,7 +6098,7 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: templates/accounts/register.html:14 templates/accounts/register.html:112
+#: templates/accounts/register.html:14 templates/accounts/register.html:113
 msgid "Create Account"
 msgstr ""
 
@@ -6106,27 +6106,27 @@ msgstr ""
 msgid "Join SellCar today"
 msgstr ""
 
-#: templates/accounts/register.html:26
+#: templates/accounts/register.html:27
 msgid "Email Address *"
 msgstr ""
 
-#: templates/accounts/register.html:42
+#: templates/accounts/register.html:43
 msgid "Password *"
 msgstr ""
 
-#: templates/accounts/register.html:58
+#: templates/accounts/register.html:59
 msgid "Confirm Password *"
 msgstr ""
 
-#: templates/accounts/register.html:87
+#: templates/accounts/register.html:88
 msgid "At least 8 characters long"
 msgstr ""
 
-#: templates/accounts/register.html:91
+#: templates/accounts/register.html:92
 msgid "Cannot be entirely numeric"
 msgstr ""
 
-#: templates/accounts/register.html:102
+#: templates/accounts/register.html:103
 msgid ""
 "I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
 "dark\">Terms of Service</a>\n"
@@ -6134,11 +6134,11 @@ msgid ""
 "text-primary-dark\">Privacy Policy</a>"
 msgstr ""
 
-#: templates/accounts/register.html:129
+#: templates/accounts/register.html:130
 msgid "Already have an account?"
 msgstr ""
 
-#: templates/accounts/register.html:131
+#: templates/accounts/register.html:132
 msgid "Login here"
 msgstr ""
 
@@ -6219,9 +6219,9 @@ msgstr ""
 #: templates/listings/listing_list.html:1616
 #: templates/listings/listing_list.html:1617
 #: templates/listings/listing_list.html:1641
-#: templates/listings/listing_list.html:1756
-#: templates/listings/listing_list.html:1757
-#: templates/listings/listing_list.html:1773
+#: templates/listings/listing_list.html:1758
+#: templates/listings/listing_list.html:1759
+#: templates/listings/listing_list.html:1775
 #: templates/listings/moto_parts_browse.html:126
 #: templates/listings/motorcycles_list.html:201
 #: templates/listings/motorcycles_list.html:408
@@ -6481,8 +6481,8 @@ msgstr ""
 
 #: templates/accounts/wallet.html:12 templates/accounts/wallet.html:108
 #: templates/accounts/wallet.html:109 templates/accounts/wallet.html:110
-#: templates/accounts/wallet.html:138 templates/base.html:249
-#: templates/base.html:337
+#: templates/accounts/wallet.html:138 templates/base.html:259
+#: templates/base.html:350
 msgid "pts"
 msgstr ""
 
@@ -6581,45 +6581,45 @@ msgstr ""
 msgid "AutoLeft - Buy & Sell Cars Online"
 msgstr ""
 
-#: templates/base.html:88 templates/base.html:311
+#: templates/base.html:88 templates/base.html:324
 #: templates/listings/search_map.html:5
 msgid "Map Search"
 msgstr ""
 
-#: templates/base.html:93 templates/base.html:314 templates/base.html:430
+#: templates/base.html:93 templates/base.html:327 templates/base.html:443
 msgid "News & Help"
 msgstr ""
 
-#: templates/base.html:143 templates/base.html:147 templates/base.html:307
+#: templates/base.html:152 templates/base.html:156 templates/base.html:320
 msgid "Create Ad"
 msgstr ""
 
-#: templates/base.html:161 templates/base.html:233 templates/base.html:325
+#: templates/base.html:171 templates/base.html:243 templates/base.html:338
 #: templates/listings/saved_searches.html:18
 msgid "My Searches"
 msgstr ""
 
-#: templates/base.html:171 templates/base.html:224 templates/base.html:322
+#: templates/base.html:181 templates/base.html:234 templates/base.html:335
 msgid "Saved Ads"
 msgstr ""
 
-#: templates/base.html:181 templates/base.html:242 templates/base.html:331
+#: templates/base.html:191 templates/base.html:252 templates/base.html:344
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:13
 #: venv/lib/python3.10/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr ""
 
-#: templates/base.html:215 templates/base.html:319
+#: templates/base.html:225 templates/base.html:332
 #: templates/listings/my_listings.html:4 templates/listings/my_listings.html:45
 msgid "My Ads"
 msgstr ""
 
-#: templates/base.html:245 templates/base.html:334
+#: templates/base.html:255 templates/base.html:347
 msgid "Settings"
 msgstr ""
 
-#: templates/base.html:252 templates/base.html:340
+#: templates/base.html:262 templates/base.html:353
 #: templates/listings/listing_list.html:619
 #: templates/listings/listing_upgrade.html:69
 #: templates/listings/moto_parts_advanced.html:136
@@ -6630,87 +6630,87 @@ msgstr ""
 msgid "Dealer"
 msgstr ""
 
-#: templates/base.html:257 templates/base.html:344
+#: templates/base.html:267 templates/base.html:357
 msgid "Admin"
 msgstr ""
 
-#: templates/base.html:259 templates/base.html:346
+#: templates/base.html:269 templates/base.html:359
 msgid "Moderate users"
 msgstr ""
 
-#: templates/base.html:262 templates/base.html:349
+#: templates/base.html:272 templates/base.html:362
 msgid "Moderate dealers"
 msgstr ""
 
-#: templates/base.html:265 templates/base.html:352
+#: templates/base.html:275 templates/base.html:365
 msgid "Sales stats"
 msgstr ""
 
-#: templates/base.html:268 templates/base.html:355
+#: templates/base.html:278 templates/base.html:368
 msgid "Django admin"
 msgstr ""
 
-#: templates/base.html:274 templates/base.html:360
+#: templates/base.html:284 templates/base.html:373
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:284
+#: templates/base.html:297
 msgid "Register"
 msgstr ""
 
-#: templates/base.html:409
+#: templates/base.html:422
 msgid "Discover trusted vehicles and services — easier, faster, simpler."
 msgstr ""
 
-#: templates/base.html:428
+#: templates/base.html:441
 msgid "Looking for FAQ, dealer info, pricing? See"
 msgstr ""
 
-#: templates/base.html:431
+#: templates/base.html:444
 msgid "in the menu above."
 msgstr ""
 
-#: templates/base.html:437
+#: templates/base.html:450
 msgid "Have questions?"
 msgstr ""
 
-#: templates/base.html:445
+#: templates/base.html:458
 msgid "Open daily"
 msgstr ""
 
-#: templates/base.html:446
+#: templates/base.html:459
 msgid "Mon-Fri"
 msgstr ""
 
-#: templates/base.html:447
+#: templates/base.html:460
 msgid "Sat-Sun"
 msgstr ""
 
-#: templates/base.html:456
+#: templates/base.html:469
 msgid "Drop us a line"
 msgstr ""
 
-#: templates/base.html:468
+#: templates/base.html:481
 msgid "Need help?"
 msgstr ""
 
-#: templates/base.html:469
+#: templates/base.html:482
 msgid "Send message to support"
 msgstr ""
 
-#: templates/base.html:482
+#: templates/base.html:495
 msgid "All rights reserved."
 msgstr ""
 
-#: templates/base.html:484
+#: templates/base.html:497
 msgid "Terms"
 msgstr ""
 
-#: templates/base.html:486
+#: templates/base.html:499
 msgid "Privacy"
 msgstr ""
 
-#: templates/base.html:488 templates/pages/help_center.html:132
+#: templates/base.html:501 templates/pages/help_center.html:132
 msgid "Cookies"
 msgstr ""
 
@@ -7101,7 +7101,7 @@ msgstr ""
 #: templates/listings/partials/fields/_brand.html:26
 #: templates/listings/partials/fields/_brand.html:45
 #: templates/listings/partials/fields/_brand.html:46
-#: templates/listings/partials/search_panel.html:291
+#: templates/listings/partials/search_panel.html:296
 msgid "Visos markės"
 msgstr "All brands"
 
@@ -9523,9 +9523,9 @@ msgid "No options"
 msgstr ""
 
 #: templates/listings/listing_create.html:921
-#: templates/listings/partials/_mobile_picker.html:59
-#: templates/listings/partials/search_panel.html:183
-#: templates/listings/partials/search_panel.html:190
+#: templates/listings/partials/_mobile_picker.html:60
+#: templates/listings/partials/search_panel.html:188
+#: templates/listings/partials/search_panel.html:195
 msgid "Netrukus"
 msgstr ""
 
@@ -10278,8 +10278,8 @@ msgstr ""
 
 #: templates/listings/listing_detail.html:2760
 #: templates/listings/listing_detail.html:2778
-#: templates/listings/listing_list.html:1719
-#: templates/listings/listing_list.html:1735
+#: templates/listings/listing_list.html:1721
+#: templates/listings/listing_list.html:1737
 #: templates/listings/listing_stats.html:92
 #: templates/listings/motorcycles_list.html:1096
 #: templates/listings/my_listings.html:314
@@ -11793,10 +11793,10 @@ msgstr "Country"
 #: templates/listings/partials/_panel_bodies.html:605
 #: templates/listings/partials/_panel_bodies.html:1072
 #: templates/listings/partials/_sp_parts_brand.html:21
-#: templates/listings/partials/search_panel.html:238
-#: templates/listings/partials/search_panel.html:256
-#: templates/listings/partials/search_panel.html:259
-#: templates/listings/partials/search_panel.html:262
+#: templates/listings/partials/search_panel.html:243
+#: templates/listings/partials/search_panel.html:261
+#: templates/listings/partials/search_panel.html:264
+#: templates/listings/partials/search_panel.html:267
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
 msgstr "All"
@@ -12684,7 +12684,7 @@ msgstr ""
 msgid "Uždaryti"
 msgstr ""
 
-#: templates/listings/partials/_mobile_picker.html:66
+#: templates/listings/partials/_mobile_picker.html:67
 #: templates/listings/partials/_panel_bodies.html:1068
 #: templates/listings/partials/_sp_parts_brand.html:16
 #: templates/listings/partials/_sp_parts_brand.html:48
@@ -12858,7 +12858,7 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:1073
 #: templates/listings/partials/_sp_parts_brand.html:22
 #: templates/listings/partials/fields/_brand.html:48
-#: templates/listings/partials/search_panel.html:753
+#: templates/listings/partials/search_panel.html:787
 msgid "Kraunama..."
 msgstr ""
 
@@ -12990,11 +12990,11 @@ msgstr ""
 msgid "Padangos"
 msgstr "Tyres"
 
-#: templates/listings/partials/search_panel.html:715
+#: templates/listings/partials/search_panel.html:749
 msgid "Išsaugoti paiešką"
 msgstr "Save search"
 
-#: templates/listings/partials/search_panel.html:733
+#: templates/listings/partials/search_panel.html:767
 msgid "Išsaugota"
 msgstr ""
 
