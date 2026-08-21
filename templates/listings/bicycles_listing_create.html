@@ -112,25 +112,25 @@
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Maksimalus greitis, km/h" %}</label>
-                            <input type="number" name="max_speed_kmh" min="0" step="1" placeholder="-"
+                            <input type="number" name="max_speed_kmh" data-unit-field="max_speed_kmh" min="0" step="1" placeholder="-"
                                    value="{% if listing.max_speed_kmh %}{{ listing.max_speed_kmh }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Svoris, kg" %}</label>
-                            <input type="number" name="curb_weight" min="0" step="1" placeholder="-"
+                            <input type="number" name="curb_weight" data-unit-field="curb_weight" min="0" step="1" placeholder="-"
                                    value="{% if listing.curb_weight %}{{ listing.curb_weight }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Maksimali apkrova, kg" %}</label>
-                            <input type="number" name="payload_kg" min="0" step="1" placeholder="-"
+                            <input type="number" name="payload_kg" data-unit-field="payload_kg" min="0" step="1" placeholder="-"
                                    value="{% if listing.payload_kg %}{{ listing.payload_kg }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Rida su vienu įkrovimu, km" %}</label>
-                            <input type="number" name="range_km" min="0" step="1" placeholder="-"
+                            <input type="number" name="range_km" data-unit-field="range_km" min="0" step="1" placeholder="-"
                                    value="{% if listing.range_km %}{{ listing.range_km }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>

@@ -132,6 +132,21 @@
     // "Galia (kW)" → "Galia"; "Rida su vienu įkrovimu, km" → "Rida su ..."
     // Keičiam tik paskutinį teksto mazgą, kad išliktų <span>*</span> ir pan.
     // ───────────────────────────────────────────────────────────────────
+    // Etiketės paieška: pirma – ankstesnis brolis, tik po to tėvinis mazgas
+    // (ir tik jei jame yra vienintelis input — kitaip pagriebtume svetimą).
+    function findLabel(input) {
+        var n = input.previousElementSibling;
+        while (n) {
+            if (n.tagName === 'LABEL') return n;
+            if (n.tagName === 'INPUT' || n.tagName === 'SELECT') return null;
+            n = n.previousElementSibling;
+        }
+        var p = input.parentNode;
+        if (!p) return null;
+        if (p.querySelectorAll('input, select, textarea').length > 1) return null;
+        return p.querySelector('label');
+    }
+
     function stripUnitFromLabel(label, spec) {
         if (!label) return;
         var units = [spec.canonical, spec.alt];
@@ -143,7 +158,10 @@
         if (!node) return;
         var t = node.nodeValue.replace(/\s+$/, '');
         for (var j = 0; j < units.length; j++) {
-            var u = units[j].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            // Tarpai vienete lankstūs: "l/100km" turi sutapti su "(l/100 km)"
+            var u = units[j].split('').map(function (c) {
+                return c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }).join('\\s*');
             var paren = new RegExp('\\s*\\(\\s*' + u + '\\s*\\)$', 'i');
             var comma = new RegExp('\\s*,\\s*' + u + '$', 'i');
             if (paren.test(t)) { node.nodeValue = t.replace(paren, ''); return; }
@@ -207,7 +225,11 @@
         wrap.appendChild(f.btnCanon);
         wrap.appendChild(f.btnAlt);
 
-        var label = input.parentNode ? input.parentNode.querySelector('label') : null;
+        // Įsimenam, kur dėti užuominą, PRIEŠ galimą input'o perkėlimą
+        var hintParent = input.parentNode;
+        var hintRef = input.nextSibling;
+
+        var label = findLabel(input);
         if (label) {
             stripUnitFromLabel(label, spec);
             var ls = label.getAttribute('style') || '';
@@ -228,7 +250,7 @@
         f.hint = document.createElement('span');
         f.hint.className = 'unit-hint';
         f.hint.setAttribute('style', 'display:block;font-size:.68rem;color:#9ca3af;margin-top:.15rem;min-height:.9rem;');
-        if (input.parentNode) input.parentNode.insertBefore(f.hint, input.nextSibling);
+        if (hintParent) hintParent.insertBefore(f.hint, hintRef);
 
         f.btnCanon.addEventListener('click', function () { switchFamily(spec.family, spec.canonical, f); });
         f.btnAlt.addEventListener('click', function () { switchFamily(spec.family, spec.alt, f); });

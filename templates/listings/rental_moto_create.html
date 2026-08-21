@@ -87,7 +87,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Darbinis tūris (cm³)" %}</label>
-                            <input type="number" name="engine_capacity_cc" id="id_engine_capacity_cc" min="0" step="1" placeholder="-"
+                            <input type="number" name="engine_capacity_cc" data-unit-field="engine_capacity_cc" id="id_engine_capacity_cc" min="0" step="1" placeholder="-"
                                    value="{% if listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
@@ -134,13 +134,13 @@
 
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Rida (km)" %}</label>
-                            <input type="number" name="mileage" id="id_mileage" min="0" step="1" placeholder="-"
+                            <input type="number" name="mileage" data-unit-field="mileage" id="id_mileage" min="0" step="1" placeholder="-"
                                    value="{% if listing.mileage %}{{ listing.mileage }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Galia (kW)" %}</label>
-                            <input type="number" name="power" id="id_power" min="0" step="1" placeholder="-"
+                            <input type="number" name="power" data-unit-field="power" id="id_power" min="0" step="1" placeholder="-"
                                    value="{% if listing.power %}{{ listing.power }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>

@@ -145,25 +145,25 @@
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Rida (km)" %}</label>
-                            <input type="number" name="mileage" id="id_mileage" min="0" step="1" placeholder="-"
+                            <input type="number" name="mileage" data-unit-field="mileage" id="id_mileage" min="0" step="1" placeholder="-"
                                    value="{% if listing.mileage %}{{ listing.mileage }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Keliamoji galia (kg)" %}</label>
-                            <input type="number" name="payload_kg" id="id_payload_kg" min="0" step="1" placeholder="-"
+                            <input type="number" name="payload_kg" data-unit-field="payload_kg" id="id_payload_kg" min="0" step="1" placeholder="-"
                                    value="{% if listing.payload_kg %}{{ listing.payload_kg }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Šakių / strėlės ilgis (m)" %}</label>
-                            <input type="number" name="fork_length_m" id="id_fork_length_m" min="0" step="0.01" placeholder="-"
+                            <input type="number" name="fork_length_m" data-unit-field="fork_length_m" id="id_fork_length_m" min="0" step="0.01" placeholder="-"
                                    value="{% if listing.fork_length_m %}{{ listing.fork_length_m }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Galia (kW)" %}</label>
-                            <input type="number" name="power" id="id_power" min="0" step="1" placeholder="-"
+                            <input type="number" name="power" data-unit-field="power" id="id_power" min="0" step="1" placeholder="-"
                                    value="{% if listing.power %}{{ listing.power }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
@@ -178,13 +178,13 @@
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Nuosavas svoris (kg)" %}</label>
-                            <input type="number" name="curb_weight" id="id_curb_weight" min="0" step="1" placeholder="-"
+                            <input type="number" name="curb_weight" data-unit-field="curb_weight" id="id_curb_weight" min="0" step="1" placeholder="-"
                                    value="{% if listing.curb_weight %}{{ listing.curb_weight }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Bendroji masė (kg)" %}</label>
-                            <input type="number" name="gross_weight_kg" id="id_gross_weight_kg" min="0" step="1" placeholder="-"
+                            <input type="number" name="gross_weight_kg" data-unit-field="gross_weight_kg" id="id_gross_weight_kg" min="0" step="1" placeholder="-"
                                    value="{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }}{% endif %}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
