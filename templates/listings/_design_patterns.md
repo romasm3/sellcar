@@ -148,50 +148,91 @@ context = {
 
 ---
 
-## 1. UNIT TOGGLE INPUTS (km/mi, kW/HP, L/cc, kg/lbs)
+## 1. MATAVIMO VIENETŲ PERJUNGIKLIAI (km/mi, kW/HP, L/cm³, kg/lbs, m/ft…)
 
-**Šaltinis:** `templates/listings/listing_create.html` (Cars wizard, step 3)
+**Šaltinis:** `static/js/unit_toggle.js` (įtrauktas globaliai per `base.html`).
 
-Vienas matomas input + paslėptas hidden + 2 kompaktiški mygtukai šalia.
-
-### 1.1 Mileage (km ↔ mi toggle)
-
-**HTML — naudoti INLINE STYLES** (ne Tailwind class'es, kad veiktų be CSS rebuild'o):
+Naujose formose JS rašyti **NEREIKIA**. Užtenka vieno atributo ant įprasto
+skaitinio input'o:
 
 ```html
-<div data-field-wrap="mileage">
-    <label class="block text-sm font-medium text-gray-700 mb-2">Mileage</label>
-    <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <input type="number" id="mileage_display" min="0" placeholder="e.g. 150000"
-               style="flex: 1;"
-               class="px-3 py-2.5 border border-gray-300 rounded-lg" oninput="updateMileage()">
-        <button type="button" id="btn_km" onclick="setMileageUnit('km')"
-                style="padding: 0.625rem 1rem; border: 1px solid #374151; border-radius: 0.5rem; background-color: #374151; color: #ffffff; font-size: 0.875rem; font-weight: 500; cursor: pointer; min-width: 50px;">km</button>
-        <button type="button" id="btn_mi" onclick="setMileageUnit('mi')"
-                style="padding: 0.625rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; background-color: #ffffff; color: #6b7280; font-size: 0.875rem; font-weight: 500; cursor: pointer; min-width: 50px;">mi</button>
-    </div>
-    <input type="hidden" name="mileage_km" id="id_mileage_km" value="{% if draft.mileage %}{{ draft.mileage }}{% endif %}">
-    <p id="mileage_converted" class="text-xs text-gray-400 mt-1 h-4"></p>
+<div>
+    <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Galia (kW)" %}</label>
+    <input type="number" name="power" data-unit-field="power" min="0" step="1" placeholder="-"
+           value="{% if listing.power %}{{ listing.power }}{% endif %}"
+           class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
 </div>
 ```
 
-**Konvertavimas:** `1 mi = 1.60934 km`. Į DB visada km.
+Skriptas pats:
 
-### 1.2 Power (kW ↔ HP toggle)
+* prideda `kW | HP` mygtukus į etiketės eilutę (input'o plotis nesikeičia);
+* nuima vienetą iš etiketės teksto — `Galia (kW)` → `Galia`, `Svoris, kg` → `Svoris`
+  (`<span>*</span>` privalomumo žymė lieka);
+* po lauku rodo užuominą `≈ 201 HP`;
+* perjungiant perkelia `name` į sugeneruotą `<input type="hidden">`, todėl
+  **serveris VISADA gauna kanoninę (metrinę) reikšmę** tuo pačiu lauko vardu;
+* įsimena pasirinkimą `localStorage`'e — kitą kartą JAV pirkėjui iš karto
+  atsidaro `mi`/`lbs`/`ft`.
 
-ID's: `power_display` / `id_power_kw`. Toggle: `btn_kw`/`btn_hp`. **Konvertavimas:** `1 kW = 1.34102 HP`. Į DB visada kW.
+### 1.1 Taisyklės
 
-### 1.3 Engine Capacity (L ↔ cm³ toggle)
+* **Vienetas į DB nesaugomas niekada.** Nėra jokių `power_unit` / `mileage_unit`
+  laukų — perjungiklis yra tik atvaizdavimui.
+* `dec` reikšmė spec'e **privalo** atitikti modelio lauko tipą:
+  `IntegerField` → `dec: 0`, `DecimalField` → `dec: decimal_places`.
+  Kitaip į sveikaskaitį lauką nukeliaus trupmena ir POST'as luš.
+* Vienos `family` laukai persijungia kartu (visi svoriai, visi matmenys…).
+* Perjungiklis nededamas ten, kur alternatyvos nėra arba ji beprasmė:
+  `engine_hours` (motovalandos), `rim_size` / `tyre_width` (coliai jau yra
+  pramonės standartas), `power_w` (buitinė galia vatais).
 
-ID's: `engine_display` / `id_engine_l`. Toggle: `btn_l`/`btn_cc`. **Konvertavimas:** `1 L = 1000 cm³`. Į DB visada L (`toFixed(1)`).
+### 1.2 Naujas laukas
 
-### 1.4 Weight (kg ↔ lbs toggle)
+Viena eilutė `UNIT_SPECS` lentelėje `static/js/unit_toggle.js` + `data-unit-field`
+šablone. Raktas paprastai sutampa su lauko `name`, bet neprivalo — `name` imamas
+iš paties atributo, todėl galima ir taip:
 
-**Konvertavimas:** `1 kg = 2.20462 lbs`. Į DB visada kg.
+```html
+{# engine_capacity šioje formoje saugomas cm³, ne litrais #}
+<input type="number" name="engine_capacity" data-unit-field="engine_capacity_cc" ...>
+```
+
+### 1.3 Konversijos (visos vienoje vietoje)
+
+| Kanoninis | Alt | Santykis |
+|---|---|---|
+| kW | HP | `× 1.34102` |
+| km, km/h | mi, mph | `× 0.62137` |
+| kg | lbs | `× 2.20462` |
+| L | cm³ | `× 1000` |
+| cm³ | ci | `× 0.0610237` |
+| m | ft | `× 3.28084` |
+| mm | in | `× 0.0393701` |
+| m² | ft² | `× 10.7639` |
+| m³ | ft³ | `× 35.3147` |
+| L | gal (US) | `× 0.264172` |
+| l/100km | mpg | `235.215 /` (atvirkštinė) |
+
+`1 kW = 1.34102 HP` naudojamas **visame projekte** — formose, paieškoje ir
+skelbimo peržiūroje. Nemaišyti su `1.35962` (PS/AG).
+
+### 1.4 Senoji rankinė sistema
+
+`listing_create.html`, `listing_create_cars_quick.html`, `car_for_parts_create.html`,
+`moto_for_parts_create.html`, `truck_for_parts_create.html`, `boats_listing_create.html`
+ir `trucks_listing_create.html` dar turi savo `setPowerUnit()` / `UNIT_CONFIG` kodą.
+Jis veikia, bet **naujose formose nekartoti** — naudoti `data-unit-field`.
+
+### 1.5 Testai
+
+`node docs/unit_toggle_tests.js` (reikia `npm i jsdom`).
 
 ### ⚠️ KODĖL INLINE STYLES?
 
-Tailwind `bg-primary` class'ė nesirenderina jei nepadarei `npm run start` (PostCSS rebuild). Inline `style="background-color: #374151"` veikia VISADA, be CSS build'o.
+Mygtukus skriptas piešia inline stiliais, nes Tailwind `bg-primary` klasė
+nesirenderina be `npm run start` (PostCSS rebuild). Inline
+`style="background-color: #374151"` veikia VISADA, be CSS build'o.
 
 ---
 

@@ -114,7 +114,9 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Engine displacement (cm³)" %}</label>
-                        <input type="number" name="engine_capacity" min="0" step="1" placeholder="{% trans 'e.g. 1300' %}"
+                        {# Šioje formoje engine_capacity saugomas cm³ (žr. moto_part_views.py), #}
+                        {# ne litrais kaip kitur — todėl spec'as imamas cm³ porai. #}
+                        <input type="number" name="engine_capacity" data-unit-field="engine_capacity_cc" min="0" step="1" placeholder="{% trans 'e.g. 1300' %}"
                                value="{{ form_data.engine_capacity|default:'' }}"
                                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                     </div>
