@@ -1,0 +1,24 @@
+[Unit]
+Description=AutoLeft — deploy iš git, kai master gauna naujų commit'ų
+Documentation=file:///root/autoleft/deploy/README.md
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/autoleft
+ExecStart=/root/autoleft/deploy-from-git.sh
+
+# Deploy'as gali trukti (migrate + collectstatic + health check su pakartojimais)
+TimeoutStartSec=900
+
+# Klaidos atveju NIEKO nekartojam automatiškai — timeris vis tiek ateis po 5 min,
+# o kartojimas ant blogo commit'o tik kartotų tą pačią klaidą.
+Restart=no
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=autoleft-deploy
+
+[Install]
+WantedBy=multi-user.target

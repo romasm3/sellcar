@@ -35,6 +35,7 @@ EXCLUDES=(
   --exclude '.git/'        --exclude '__pycache__/'
   --exclude '*.pyc'        --exclude '*.log'
   --exclude '*.swp'        --exclude 'deploy-agent.sh'
+  --exclude 'deploy-from-git.sh'    --exclude 'deploy/'
 )
 
 restart_service() { log "Restartinam $SERVICE"; systemctl restart "$SERVICE"; }
