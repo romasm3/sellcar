@@ -40,6 +40,12 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-dd-btn { text-align:left; cursor:pointer; }
   [x-cloak] { display:none !important; }
 
+  /* Antrinis mygtukas: rezultatų puslapyje akcento nėra visai
+     (docs/dizaino-sistema.md, hierarchijos lentelė). */
+  .sp-btn-secondary { background: var(--surface); color: var(--accent);
+                      border: 1px solid var(--accent); transition: background-color var(--dur); }
+  .sp-btn-secondary:hover { background: var(--accent-soft); }
+
   /* ── ŠONINĖS JUOSTOS KORTELĖ ─────────────────────────────────────
      Etalone (išmatuota 2026-08-21) juostos <form> yra balta kortelė:
      1 px #E7E7E7, 8 px apvalinimas, 16 px vidus, be šešėlio. Telefone

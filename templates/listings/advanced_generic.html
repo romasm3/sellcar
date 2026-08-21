@@ -117,7 +117,10 @@
       </div>
       {% endif %}
 
-      <div class="flex items-center justify-center gap-3 mb-8">
+      {% comment %}Telefone ieškoma per apatinės juostos mygtuką („Skelbimai"),
+      todėl šis darbalaukio blokas ten slepiamas — kitaip ekrane būtų du
+      akcento spalvos mygtukai (docs/dizaino-sistema.md, hierarchija).{% endcomment %}
+      <div class="hidden lg:flex items-center justify-center gap-3 mb-8">
         <a href="{% url 'listing_list' %}?category={{ adv.slug }}"
            class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Išvalyti" %}</a>
         <button type="submit" class="px-12 py-3 bg-primary text-white rounded-lg hover:bg-gray-800 font-semibold text-sm">

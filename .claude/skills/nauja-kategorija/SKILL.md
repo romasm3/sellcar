@@ -915,22 +915,39 @@ apibrėžti `base.html` `:root` kaip kintamieji (`--sp-*`, `--fs-*`,
 Po darbo paleidžiami trys patikrinimai iš dokumento pabaigos:
 
 ```javascript
-// 1. Šriftai — tik iš skalės
-[...document.querySelectorAll('*')].map(e => getComputedStyle(e))
-  .filter(s => s.fontSize && ![12,14,16,17,18,20,24].includes(parseFloat(s.fontSize))).length
+// Bendras filtras: skaičiuojam tik tai, ką vartotojas mato.
+const matomas = e => { const r = e.getBoundingClientRect(); const s = getComputedStyle(e);
+                       return r.width > 2 && r.height > 2 && s.visibility !== 'hidden'; };
 
-// 2. Laukai — visi 40 px
-[...document.querySelectorAll('input,select,.sp-fld')]
-  .filter(e => Math.round(e.getBoundingClientRect().height) !== 40)
+// 1. Šriftai — tik iš skalės. Imam tik lapinius elementus su tekstu:
+// kitaip skaičiuojami ir paveldėti dydžiai, ir paslėpti skirtukai
+// (be filtro pagrindinis puslapis rodo 390 „klaidų" vietoj 61 tikros).
+const skalė = [12, 14, 16, 17, 18, 20, 24];
+[...document.querySelectorAll('body *')].filter(matomas)
+  .filter(e => e.children.length === 0 && (e.textContent || '').trim())
+  .map(e => ({ t: e.textContent.trim().slice(0, 14), fs: parseFloat(getComputedStyle(e).fontSize) }))
+  .filter(x => !skalė.includes(x.fs));          // turi būti tuščias
+
+// 2. Laukai — visi 40 px. Be `:not([type=hidden])` ir be `matomas`
+// patikra VISADA nurodo klaidą (paslėpti input'ai yra 0 px aukščio) —
+// pagrindiniame puslapyje ji „rasdavo" 44 problemas, iš kurių tikrų 0.
+[...document.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]), select, .sp-fld')]
+  .filter(matomas)
+  .filter(e => Math.round(e.getBoundingClientRect().height) !== 40);   // turi būti tuščias
 
 // 3. Akcento spalva — vienas elementas ekrane.
 // Kanalus normalizuojam: --accent yra „rgb(55 65 81)", o computed style
-// grąžina „rgb(55, 65, 81)" — tiesioginis lyginimas visada duoda 0.
+// grąžina „rgb(55, 55, 81)" — tiesioginis lyginimas visada duoda 0.
 const norm = c => c.replace(/[^0-9]+/g, ' ').trim();
 const acc = norm(getComputedStyle(document.documentElement).getPropertyValue('--accent'));
-[...document.querySelectorAll('*')]
-  .filter(e => e.offsetParent !== null && norm(getComputedStyle(e).backgroundColor) === acc).length
+[...document.querySelectorAll('*')].filter(matomas)
+  .filter(e => norm(getComputedStyle(e).backgroundColor) === acc).length;   // 1 (rezultatuose 0)
 ```
 
-Pirmi du turi būti 0 ir tuščias, trečias — 1. Jei ne — taisom prieš
-commit'ą arba pasakom, kodėl ta vieta yra išimtis.
+**Visos trys patikros patikrintos atgal** (2026-08-21): sena Nr. 1 rodė 390
+„klaidų", sena Nr. 2 — 44, nors tikrų buvo 61 ir 0; sena Nr. 3 visada
+grąžindavo 0. Patikra, kuri niekada nesuveikia, yra blogesnė už jokią.
+
+Pirmi du turi grąžinti tuščią sąrašą, trečias — 1 (rezultatų puslapyje 0,
+nes ten pagrindinio veiksmo nėra). Jei ne — taisom prieš commit'ą arba
+pasakom, kodėl ta vieta yra išimtis.

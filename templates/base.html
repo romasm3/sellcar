@@ -112,12 +112,16 @@
             display: inline-flex; align-items: center; gap: var(--btn-gap);
             height: var(--btn-h-sm); padding: 0 var(--sp-3);
             border-radius: var(--r-md);
-            background: var(--accent); color: var(--accent-contrast);
+            background: var(--surface); color: var(--accent);
+            border: 1px solid var(--accent);
             font-size: var(--fs-base); font-weight: var(--fw-semibold);
             line-height: 1; white-space: nowrap; text-decoration: none;
-            transition: background-color var(--dur);
+            transition: background-color var(--dur), border-color var(--dur);
         }
-        .btn-sell:hover { background: var(--accent-hover); }
+        .btn-sell:hover { background: var(--accent-soft); border-color: var(--accent-hover); }
+        {% comment %}Logotipas nėra veiksmas — jis nedalyvauja akcento
+        hierarchijoje, todėl turi savo tamsų toną.{% endcomment %}
+        .al-logo { background: var(--text); }
 
         /* Hamburgerio meniu. Visos reikšmės — iš dizaino sistemos. */
         .mm-panel { border-top: 1px solid var(--border); background: var(--surface);
@@ -134,8 +138,12 @@
                   font-size: var(--fs-base); font-weight: var(--fw-semibold);
                   text-decoration: none; transition: background-color var(--dur), border-color var(--dur); }
         .mm-btn svg { width: 20px; height: 20px; }
-        .mm-btn-filled { background: var(--accent); color: var(--accent-contrast); }
-        .mm-btn-filled:hover { background: var(--accent-hover); }
+        {% comment %}Hierarchija: akcentas ekrane vienas — „Skelbimai N"
+        paieškos panelėje. „Sukurti skelbimą" ir „Įkelti" — antriniai
+        (baltas fonas, akcento rėmelis ir tekstas).{% endcomment %}
+        .mm-btn-filled { background: var(--surface); color: var(--accent);
+                         border: 1px solid var(--accent); }
+        .mm-btn-filled:hover { background: var(--accent-soft); }
         .mm-btn-outlined { background: var(--surface); color: var(--accent);
                            border: 1px solid var(--accent); }
         .mm-btn-outlined:hover { border-color: var(--accent-hover); color: var(--accent-hover); }
@@ -220,7 +228,7 @@
                 <!-- Logo -->
                 <div class="flex items-center gap-8 min-w-0">
                     <a href="{% url 'home' %}" class="flex items-center gap-2">
-                        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                        <div class="w-10 h-10 al-logo rounded-xl flex items-center justify-center text-white font-bold text-lg">
                             AL
                         </div>
                         <span class="font-bold text-xl hidden sm:block">AutoLeft</span>
@@ -433,7 +441,7 @@
                     <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex text-gray-700 hover:text-primary font-medium transition-colors">
                         {% trans "Login" %}
                     </a>
-                    <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium">
+                    <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex btn-sell" style="height: var(--btn-h-sm);">
                         {% trans "Register" %}
                     </a>
                     {% endif %}

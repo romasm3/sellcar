@@ -164,14 +164,17 @@ body {
    akcentą, keičiamos tik tos eilutės, ne šis failas.
    ======================================== */
 
-/* bg-primary → Pilka */
+/* bg-primary → akcento spalva (VIENAS tonas, ne gradientas).
+   Gradientas buvo iš senos temos ir dėl jo pagrindinis paieškos mygtukas
+   nesutapdavo su akcentu — patikra „vienas akcentas ekrane" jo nematydavo.
+   Žr. docs/dizaino-sistema.md, 6 skyrius. */
 .bg-primary,
 [class*="bg-primary"] {
-    background: linear-gradient(135deg, var(--accent-grad-from) 0%, var(--accent-grad-to) 100%) !important;
+    background: var(--accent) !important;
 }
 .hover\:bg-primary-dark:hover,
 .hover\:bg-primary:hover {
-    background: linear-gradient(135deg, var(--accent-grad-to) 0%, var(--accent-grad-to-hover) 100%) !important;
+    background: var(--accent-hover) !important;
 }
 
 /* Emerald/Teal gradientai → Pilka */
