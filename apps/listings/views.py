@@ -3192,7 +3192,9 @@ def search_map(request):
             'longitude': lng,
             'main_image': main_image,
             'city': listing.city,
-            'country': listing.get_country_display_name() if hasattr(listing, 'get_country_display_name') else listing.country,
+            # str() — get_country_display_name() grąžina lazy vertimą, o
+            # json.dumps jo nemoka (žemėlapis dėl to metė 500).
+            'country': str(listing.get_country_display_name()) if hasattr(listing, 'get_country_display_name') else str(listing.country),
         })
 
     context = {

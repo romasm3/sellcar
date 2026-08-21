@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 
 {% block title %}{% trans "Saved Listings" %} - SellCar{% endblock %}
 {% block content %}
@@ -14,7 +14,7 @@
              onclick="window.location='{% url 'listing_detail' saved.listing.pk %}'">
             <div class="relative">
                 {% if saved.listing.images.first %}
-                <img src="{{ saved.listing.images.first.image.url }}"
+                <img loading="lazy" decoding="async" src="{{ saved.listing.images.first|img_sm }}"
                      class="w-full h-48 object-cover"
                      alt="{{ saved.listing.title }}">
                 {% else %}

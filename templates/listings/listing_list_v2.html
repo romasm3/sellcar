@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static dict_extras %}
 {% load i18n i18n_db %}
 
 {% block title %}{% trans "Browse Cars" %} (v2) - SellCar{% endblock %}
@@ -351,7 +351,7 @@
             <a href="{% url 'listing_detail' listing.pk %}" class="v2-card">
                 <div class="v2-card-img">
                     {% if listing.images.first %}
-                        <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">
                     {% else %}
                         <div class="v2-card-no-img"><i class="fas fa-car"></i></div>
                     {% endif %}

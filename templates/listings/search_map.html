@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static dict_extras %}
 {% load i18n %}
 
 {% block title %}{% trans "Map Search" %} - SellCar{% endblock %}
@@ -90,7 +90,7 @@
                                 <!-- Image -->
                                 <div class="relative h-32 rounded-lg overflow-hidden mb-2 bg-gray-200">
                                     {% if listing.images.first %}
-                                        <img src="{{ listing.images.first.image.url }}" 
+                                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" 
                                              alt="{{ listing.title }}" 
                                              class="w-full h-full object-cover">
                                     {% else %}

@@ -119,3 +119,21 @@ def brand_label(value, item):
         return brand_name(item.get('brand_vt'), value, item.get('brand_sub') or None) or value
     except Exception:
         return value
+
+
+@register.filter
+def img_sm(image):
+    """Kortelės dydžio nuotrauka (668 px) su atsarga.
+
+    Jei objektas neturi perdirbtų versijų (kitas modelis arba dar
+    neperdirbta), grąžinam originalą — puslapis nesugriūva.
+    """
+    if not image:
+        return ''
+    url = getattr(image, 'url_sm', None)
+    if url:
+        return url
+    try:
+        return image.image.url
+    except Exception:
+        return ''

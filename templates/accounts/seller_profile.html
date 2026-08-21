@@ -314,7 +314,7 @@
                             <a href="{{ listing.get_absolute_url }}" class="flex">
                                 <div class="w-48 h-32 flex-shrink-0 bg-gray-100 relative">
                                     {% if listing.images.first %}
-                                        <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
                                     {% else %}
                                         <div class="w-full h-full flex items-center justify-center">
                                             <i class="fas fa-car text-gray-300 text-3xl"></i>

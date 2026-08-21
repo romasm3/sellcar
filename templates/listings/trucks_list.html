@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static dict_extras %}
 {% load i18n i18n_db %}
 
 {% block title %}{% trans "Browse Trucks & Commercial" %} - SellCar{% endblock %}
@@ -836,7 +836,7 @@
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.images.first %}
-                                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">
+                                <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-truck"></i></div>
                             {% endif %}
@@ -865,7 +865,7 @@
                     {% for listing in tab_newest %}
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
-                            {% if listing.images.first %}<img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
+                            {% if listing.images.first %}<img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
                             {% if listing.pk in new_listing_ids %}<span class="home-tab-badge badge-new">{% trans "NEW" %}</span>{% endif %}
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>
@@ -889,7 +889,7 @@
                     {% for listing in tab_popular %}
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
-                            {% if listing.images.first %}<img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
+                            {% if listing.images.first %}<img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
                             {% if listing.views_count and listing.views_count > 0 %}<span class="home-tab-badge badge-popular"><i class="fas fa-eye"></i> {{ listing.views_count }}</span>{% endif %}
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>
@@ -913,7 +913,7 @@
                     {% for listing in tab_expensive %}
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
-                            {% if listing.images.first %}<img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
+                            {% if listing.images.first %}<img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
                             {% if listing.star_level >= 2 %}<span class="home-tab-badge badge-featured">⭐⭐</span>{% elif listing.star_level >= 1 %}<span class="home-tab-badge badge-featured">⭐</span>{% endif %}
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>

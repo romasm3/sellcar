@@ -1719,6 +1719,18 @@ class Listing(models.Model):
         verbose_name_plural = "Listings"
         ordering = ['-created_at']
 
+    @property
+    def first_image(self):
+        """Pirma nuotrauka per prefetch kešą.
+
+        `listing.images.first()` kešo NENAUDOJA — Django jam kuria naują
+        užklausą su LIMIT 1, todėl 12 kortelių duodavo 12 užklausų (per
+        pagrindinį puslapį — 73). `images.all()` prefetch'ą naudoja.
+        """
+        imgs = list(self.images.all())
+        return imgs[0] if imgs else None
+
+
     def __str__(self):
         return self.title
 
@@ -2190,21 +2202,20 @@ class SalesRecord(models.Model):
         )
 
 
-    @property
-    def first_image(self):
-        """Pirma nuotrauka per prefetch kešą.
-
-        `listing.images.first()` kešo NENAUDOJA — Django jam kuria naują
-        užklausą su LIMIT 1, todėl 12 kortelių duodavo 12 užklausų (per
-        pagrindinį puslapį — 73). `images.all()` prefetch'ą naudoja.
-        """
-        imgs = list(self.images.all())
-        return imgs[0] if imgs else None
-
-
 class ListingImage(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='images')
+    # ORIGINALAS — nekeičiamas ir netrinamas. Puslapiuose nerodomas.
     image = models.ImageField(upload_to='listings/%Y/%m/')
+    # Išvestinės: 1600 px (lg) ir 668 px (sm), WebP + JPEG atsarga.
+    # Žr. apps/listings/imaging.py — ten viena vieta, kur jos gaminamos.
+    image_lg = models.ImageField(upload_to='listings/derived/%Y/%m/', blank=True, null=True)
+    image_lg_webp = models.ImageField(upload_to='listings/derived/%Y/%m/', blank=True, null=True)
+    image_sm = models.ImageField(upload_to='listings/derived/%Y/%m/', blank=True, null=True)
+    image_sm_webp = models.ImageField(upload_to='listings/derived/%Y/%m/', blank=True, null=True)
+    # lg matmenys — kad <img> turėtų width/height ir puslapis nešokinėtų
+    # (CLS 0,119 buvo būtent dėl jų nebuvimo).
+    w_lg = models.PositiveIntegerField(null=True, blank=True)
+    h_lg = models.PositiveIntegerField(null=True, blank=True)
     caption = models.CharField(max_length=200, blank=True)
     is_main = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
@@ -2215,6 +2226,37 @@ class ListingImage(models.Model):
 
     def __str__(self):
         return f"{self.listing.title} - {self.order}"
+
+    def save(self, *args, **kwargs):
+        """Įkėlus naują failą — iškart pasigaminam išvestines.
+
+        Taip problema nebegrįžta: nesvarbu, per kurią formą ar AJAX
+        įkelta, rodomos versijos atsiranda kartu su originalu.
+        """
+        super().save(*args, **kwargs)
+        if self.image and not self.image_lg:
+            from apps.listings.imaging import build_derivatives
+            try:
+                build_derivatives(self)
+            except Exception:
+                pass          # originalas jau išsaugotas — rodysim jį
+
+    # ── Ką rodyti šablonuose ────────────────────────────────────────
+    @property
+    def url_lg(self):
+        return (self.image_lg or self.image).url
+
+    @property
+    def url_lg_webp(self):
+        return self.image_lg_webp.url if self.image_lg_webp else None
+
+    @property
+    def url_sm(self):
+        return (self.image_sm or self.image_lg or self.image).url
+
+    @property
+    def url_sm_webp(self):
+        return self.image_sm_webp.url if self.image_sm_webp else None
 
 
 class Equipment(models.Model):

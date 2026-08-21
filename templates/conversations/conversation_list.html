@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 {% block title %}{% trans "Messages" %} - SellCar{% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
                                 <i class="fas fa-headset"></i>
                             </div>
                             {% elif item.conversation.listing and item.conversation.listing.images.first %}
-                            <img src="{{ item.conversation.listing.images.first.image.url }}"
+                            <img loading="lazy" decoding="async" src="{{ item.conversation.listing.images.first|img_sm }}"
                                  class="w-12 h-12 rounded-lg object-cover border border-gray-200">
                             {% else %}
                             <div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-lg">
@@ -90,7 +90,7 @@
                         <i class="fas fa-headset"></i>
                     </div>
                     {% elif selected_conv.listing.images.first %}
-                    <img src="{{ selected_conv.listing.images.first.image.url }}"
+                    <img loading="lazy" decoding="async" src="{{ selected_conv.listing.images.first|img_sm }}"
                          class="w-10 h-10 rounded-lg object-cover border border-gray-200">
                     {% endif %}
                     <div>

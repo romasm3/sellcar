@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 
 {% block title %}{% trans "SellCar - Buy & Sell Cars Online" %}{% endblock %}
 
@@ -104,7 +104,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-shadow overflow-hidden group">
             <div class="relative h-48 overflow-hidden">
                 {% if listing.images.first %}
-                <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                 {% else %}
                 <div class="w-full h-full bg-gray-200 flex items-center justify-center">

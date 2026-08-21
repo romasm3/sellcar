@@ -1,0 +1,31 @@
+{% comment %}
+Skelbimo nuotrauka — viena vieta visoms kortelėms ir sąrašams.
+
+Parametrai:
+    img      — ListingImage (arba nieko; tada nieko nerodoma)
+    alt      — tekstas
+    cls      — CSS klasės <img> elementui
+    sizes    — CSS „sizes" (nebūtina)
+    eager    — 'yes', jei tai pirmas ekrano paveikslėlis (LCP);
+               visais kitais atvejais loading="lazy"
+
+Kodėl <picture>: WebP sveria ~40 % mažiau už JPEG, bet senesnės
+naršyklės jo nemoka — <source> joms tiesiog nepritaikomas ir lieka
+JPEG iš <img src>. Telefonui (≤668 px) atskiras mažesnis failas, kaip
+etalone.
+
+width/height būtini: be jų naršyklė nežino vietos ir puslapis šokinėja
+(CLS 0,119 → 0). Realūs matmenys saugomi w_lg/h_lg.
+{% endcomment %}{% if img %}
+<picture>
+  {% if img.url_sm_webp %}<source media="(max-width: 668px)" srcset="{{ img.url_sm_webp }}" type="image/webp">{% endif %}
+  {% if img.image_sm %}<source media="(max-width: 668px)" srcset="{{ img.url_sm }}">{% endif %}
+  {% if img.url_lg_webp %}<source srcset="{{ img.url_lg_webp }}" type="image/webp">{% endif %}
+  <img src="{{ img.url_lg }}" alt="{{ alt|default:'' }}"
+       class="{{ cls|default:'' }}"
+       {% if img.w_lg %}width="{{ img.w_lg }}" height="{{ img.h_lg }}"{% endif %}
+       {% if sizes %}sizes="{{ sizes }}"{% endif %}
+       loading="{% if eager == 'yes' %}eager{% else %}lazy{% endif %}"
+       decoding="async">
+</picture>
+{% endif %}

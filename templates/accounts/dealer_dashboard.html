@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 {% block title %}{% trans "Dealer Dashboard" %} - SellCar{% endblock %}
 
 {% block content %}
@@ -103,7 +103,7 @@
             <a href="{% url 'listing_detail' pk=listing.pk %}" class="flex items-center justify-between p-3 border border-gray-100 hover:border-red-200 hover:bg-red-50/30 rounded-lg transition">
                 <div class="flex items-center gap-3">
                     {% if listing.images.first %}
-                        <img src="{{ listing.images.first.image.url }}" alt="" class="w-14 h-14 object-cover rounded-lg">
+                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="" class="w-14 h-14 object-cover rounded-lg">
                     {% else %}
                         <div class="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
                             <i class="fas fa-car"></i>

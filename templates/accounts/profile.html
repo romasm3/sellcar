@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load dict_extras %}
 
 {% block title %}{{ user.username }}'s Profile - SellCar{% endblock %}
 
@@ -120,7 +121,7 @@
                             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
                                 <div class="relative h-40 overflow-hidden">
                                     {% if listing.images.first %}
-                                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                                    <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}"
                                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                                     {% else %}
                                     <div class="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -174,7 +175,7 @@
                             <div class="bg-white border border-gray-200 rounded-xl overflow-hidden opacity-75">
                                 <div class="relative h-40 overflow-hidden">
                                     {% if listing.images.first %}
-                                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}"
+                                    <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}"
                                          class="w-full h-full object-cover grayscale">
                                     {% else %}
                                     <div class="w-full h-full bg-gray-200 flex items-center justify-center">

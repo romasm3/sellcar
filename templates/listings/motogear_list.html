@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 
 {% block title %}{% trans "Browse Moto Gear" %} - SellCar{% endblock %}
 
@@ -163,7 +163,7 @@
             <a href="{% url 'listing_detail' listing.pk %}" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow block">
                 <div class="aspect-square bg-gray-100 relative overflow-hidden">
                     {% if listing.images.first %}
-                    <img src="{{ listing.images.first.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover {% if listing.status == 'sold' %}opacity-50 grayscale{% endif %}">
+                    <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}" class="w-full h-full object-cover {% if listing.status == 'sold' %}opacity-50 grayscale{% endif %}">
                     {% else %}
                     <div class="w-full h-full flex items-center justify-center text-gray-300">
                         <i class="fas fa-image text-4xl"></i>
@@ -393,7 +393,7 @@
                        class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
                         <div class="aspect-square bg-gray-100 relative overflow-hidden">
                             {% if listing.images.first %}
-                            <img src="{{ listing.images.first.image.url }}"
+                            <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}"
                                  alt="{{ listing.title }}"
                                  class="w-full h-full object-cover {% if listing.status == 'sold' %}opacity-50 grayscale{% endif %}">
                             {% else %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n dict_extras %}
 
 {% block title %}{{ dealer_user.username }} - Dealer Detail{% endblock %}
 
@@ -153,7 +153,7 @@
                 <a href="{% url 'listing_detail' pk=listing.pk %}" target="_blank"
                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
                     {% if listing.images.first %}
-                        <img src="{{ listing.images.first.image.url }}" class="w-12 h-12 object-cover rounded-md flex-shrink-0">
+                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" class="w-12 h-12 object-cover rounded-md flex-shrink-0">
                     {% else %}
                         <div class="w-12 h-12 bg-gray-100 rounded-md flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-car text-gray-400"></i>
