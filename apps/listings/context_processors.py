@@ -39,11 +39,15 @@ SECTIONS = {
     'trucks': ('main', 'semi-trucks-tractors', 'buses',
                'vehicle-transporters', 'municipal-transport'),
     'construction': ('main', 'construction-attachments'),
-    'parts': ('car', 'moto', 'truck', 'agri-special-parts', 'accessories-tuning'),
+    # Raktai TRUMPI — tokie pat kaip parts_subs ir parts_config_subs
+    # (anksčiau čia buvo subkategorijų slug'ai, todėl „Žemės ūkio, spec.
+    # dalys" ir „Aksesuarai, Tuning" panelės likdavo tuščios).
+    'parts': ('car', 'moto', 'truck', 'agri', 'accessories'),
     'wheels': ('tyre', 'rim'),
+    'services': ('main', 'car-buying'),
 }
 SECTION_DEFAULT = {'rental': 'car-rental', 'trucks': 'main', 'construction': 'main',
-                   'parts': 'car', 'wheels': 'tyre'}
+                   'parts': 'car', 'wheels': 'tyre', 'services': 'main'}
 
 # Senos nuorodos su ?subcategory=<id> turi veikti toliau.
 LEGACY_SUBCAT_SECTION = {

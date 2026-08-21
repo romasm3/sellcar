@@ -1738,9 +1738,16 @@ def listing_list(request, panel_fragment=False, category=None):
         # Raktas — senas subcategory id, kurį sąrašas jau turi.
         SUB_ID_SECTION = {294: 'limo-wedding-rental', 295: 'motorcycle-rental',
                           296: 'heavy-trailer-rental',
-                          317: 'minibus-touring-water-rental', 198: 'buses'}
+                          317: 'minibus-touring-water-rental', 198: 'buses',
+                          297: 'construction-attachments'}
+        # „Automobilių supirkimas" — paslaugų sekcija, ne atskira kategorija
+        SLUG_SECTION = {'car-buying': ('services', 'car-buying')}
         _has_panel = _slug in PANEL_SLUGS or _slug in TRUCK_SECTIONS
-        if _slug in TRUCK_SECTIONS:
+        if _slug in SLUG_SECTION:
+            _sec, _sk = SLUG_SECTION[_slug]
+            _has_panel = True
+            _q = f"?section={_sec}&sekcija={_sk}"
+        elif _slug in TRUCK_SECTIONS:
             _q = f"?section=trucks&sekcija={TRUCK_SECTIONS[_slug]}"
         elif _has_panel and _sub_id in SUB_ID_SECTION:
             _q = f"?section={_slug}&sekcija={SUB_ID_SECTION[_sub_id]}"
@@ -1752,9 +1759,11 @@ def listing_list(request, panel_fragment=False, category=None):
                 _q += f"&subcategory={_sub_id}"
         # `section`/`sekcija` — kad sąrašas galėtų perjungti panelę vietoje
         # (goTab), o `url` liktų veikianti nuoroda be JS.
-        _section = ('trucks' if _slug in TRUCK_SECTIONS
+        _section = (SLUG_SECTION[_slug][0] if _slug in SLUG_SECTION
+                    else 'trucks' if _slug in TRUCK_SECTIONS
                     else _slug if _has_panel else '')
-        _sekcija = (TRUCK_SECTIONS.get(_slug)
+        _sekcija = (SLUG_SECTION[_slug][1] if _slug in SLUG_SECTION
+                    else TRUCK_SECTIONS.get(_slug)
                     or (SUB_ID_SECTION.get(_sub_id) if _has_panel else '') or '')
         more_items.append({
             'is_sub': _sub_id is not None,

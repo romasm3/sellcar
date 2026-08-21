@@ -231,7 +231,10 @@ function spPanel() {
     _fly4Timer: null,
     fly5: false,
     _fly5Timer: null,
-    wheelType: 'tyre',
+    {% comment %}Pradinė sekcijos būsena ateina iš serverio (sp_sekcija):
+    puslapyje yra tik vienos sekcijos forma, o jei Alpine manytų kitaip,
+    ta vienintelė forma liktų paslėpta.{% endcomment %}
+    wheelType: '{{ sp_sekcija|default:"tyre" }}',
     loading: false,
     _loadTimer: null,
     bOpen: false, bQ: '', bAll: false,
@@ -241,7 +244,7 @@ function spPanel() {
     modelList: [],
 
     // ─── DALYS: subkategorija + markės/modelio dropdown'ai kiekvienai ───
-    partSub: 'car',
+    partSub: '{{ sp_sekcija|default:"car" }}',
     picker: false,
     pq: '',
 
@@ -249,8 +252,8 @@ function spPanel() {
 
     // Kategorijos, kurios etalone turi kelias sekcijas (sunkusis 04/06/03/08/21,
     // statybinė 24/16). 'main' — pagrindinė sekcija be subkategorijos.
-    subTab: { trucks: 'main', construction: 'main' },
-    rentSub: 'car-rental',
+    subTab: { trucks: '{{ sp_sekcija|default:"main" }}', construction: '{{ sp_sekcija|default:"main" }}' },
+    rentSub: '{{ sp_sekcija|default:"car-rental" }}',
     // Dalių markės — sąrašas (`brands`) tuščias, kol laukas neatidarytas;
     // tada pdLoadBrands() paima jį iš /ajax/markes/ (žr. brand_api.py).
     pd: {

@@ -312,7 +312,13 @@ Filtrų parametrai adrese išsaugomi.
 {% endif %}
 {% if sp_tab == 'trucks' %}
     <div x-show="tab === 'trucks'" x-cloak id="sp-panel-trucks">
-      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Sunkusis transportas" %}</h2>
+      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">
+        {% if sp_sekcija == 'buses' %}{% trans "Autobusai" %}
+        {% elif sp_sekcija == 'semi-trucks-tractors' %}{% trans "Vilkikai" %}
+        {% elif sp_sekcija == 'vehicle-transporters' %}{% trans "Autotraukiniai, autovežiai" %}
+        {% elif sp_sekcija == 'municipal-transport' %}{% trans "Komunalinio ūkio transportas" %}
+        {% else %}{% trans "Sunkvežimiai" %}{% endif %}
+      </h2>
 
       {% comment %}Sekcijų mygtukų juostos nebėra — sekcija pasirenkama „…"
       kategorijų sąraše (?section=trucks&sekcija=<slug>). Renderinama tik ji.{% endcomment %}
@@ -342,7 +348,11 @@ Filtrų parametrai adrese išsaugomi.
 {% endif %}
 {% if sp_tab == 'wheels' %}
     <div x-show="tab === 'wheels'" x-cloak id="sp-panel-wheels">
-      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Paieška" %}</h2>
+      {% comment %}Antraštė rodo, kurioje kategorijoje esi — ne bendrą „Paieška".{% endcomment %}
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
+        <span x-show="wheelType === 'tyre'">{% trans "Padangos" %}</span>
+        <span x-show="wheelType === 'rim'" x-cloak>{% trans "Ratlankiai" %}</span>
+      </h2>
 
       {# ── PADANGOS forma ── #}
 {% if sp_sekcija == 'tyre' %}
@@ -734,7 +744,9 @@ Filtrų parametrai adrese išsaugomi.
 {% endif %}
 {% if sp_tab == 'construction' %}
     <div x-show="tab === 'construction'" x-cloak id="sp-panel-construction">
-      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Statybinė technika" %}</h2>
+      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">
+        {% if sp_sekcija == 'construction-attachments' %}{% trans "Statybinės technikos priedai" %}{% else %}{% trans "Statybinė technika" %}{% endif %}
+      </h2>
 
       {% comment %}Sekcija pasirenkama „…" sąraše, ne mygtuku panelėje.{% endcomment %}
 
@@ -812,11 +824,18 @@ Filtrų parametrai adrese išsaugomi.
     {# ═══════════ PASLAUGOS ═══════════ #}
 {% endif %}
 {% if sp_tab == 'services' %}
+    {% comment %}Paslaugos turi dvi sekcijas: bendra ir „Automobilių supirkimas".
+    Antroji anksčiau iš „…" sąrašo mesdavo tiesiai į rezultatus — dabar ji,
+    kaip ir visos kitos, lieka paieškos panelėje, tik su iš anksto parinktu
+    paslaugos tipu.{% endcomment %}
     <div x-show="tab === 'services'" x-cloak id="sp-panel-services">
-      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Paslaugos" %}</h2>
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
+        {% if sp_sekcija == 'car-buying' %}{% trans "Automobilių supirkimas" %}{% else %}{% trans "Paslaugos" %}{% endif %}
+      </h2>
       <form class="sp-search-form" method="get" action="{% url 'listing_list' %}">
         <input type="hidden" name="category" value="services">
         <input type="hidden" name="sidebar" value="1">
+        {% if sp_sekcija == 'car-buying' %}<input type="hidden" name="service_type" value="car_buying">{% endif %}
         {% include 'listings/partials/panel_generic.html' with panel=config_panels|get_item:'services' count_key='services' adv_url='/paieska/services/' %}
       </form>
     </div>
@@ -827,7 +846,13 @@ Filtrų parametrai adrese išsaugomi.
 {% endif %}
 {% if sp_tab == 'rental' %}
     <div x-show="tab === 'rental'" x-cloak id="sp-panel-rental">
-      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Transporto nuoma" %}</h2>
+      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">
+        {% if sp_sekcija == 'limo-wedding-rental' %}{% trans "Limuzinų, vestuvių transporto nuoma" %}
+        {% elif sp_sekcija == 'motorcycle-rental' %}{% trans "Motociklų nuoma" %}
+        {% elif sp_sekcija == 'minibus-touring-water-rental' %}{% trans "Mikroautobusų, turistinio, vandens transporto nuoma" %}
+        {% elif sp_sekcija == 'heavy-trailer-rental' %}{% trans "Sunkiojo transporto, priekabų nuoma" %}
+        {% else %}{% trans "Automobilių nuoma" %}{% endif %}
+      </h2>
 
       {% comment %}Subkategorijų mygtukų juostos čia nebėra — nuomos rūšis
       pasirenkama „…" kategorijų sąraše (?section=rental&sekcija=<slug>),
@@ -985,7 +1010,7 @@ Filtrų parametrai adrese išsaugomi.
             {% trans "Išplėstinė paieška" %}
           </a>
           <button type="submit"
-                  class="ml-auto bg-orange-500 hover:bg-orange-600 text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
+                  class="ml-auto bg-primary hover:bg-primary-dark text-white text-[15.5px] font-bold px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
             {% trans "Skelbimai" %} <span x-text="countLabel('parts')"></span>
           </button>
