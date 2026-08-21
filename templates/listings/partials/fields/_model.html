@@ -1,0 +1,59 @@
+{% load i18n dict_extras %}{% comment %}
+Modelio laukas — kaskada po markės.
+
+Iki 2026-08-21 darbalaukyje jis buvo tuščias `<select>` su viena reikšme
+„Visi": modelių sąrašas priklauso nuo markės, o markė renkama Alpine
+komponente, tad serveris jo iš anksto žinoti negali. Telefone kaskada
+veikė per /pasirinkti/?zingsnis=2 — dabar abu paviršiai ima iš to paties
+šaltinio (/ajax/modeliai/, žr. brand_api.py).
+
+Kaip veikia: klausosi to paties formos markės lauko (`input[name=<markės
+param>]`), o pasikeitus jai parsisiunčia modelius. Kol markė nepasirinkta
+— laukas neaktyvus, kaip etalone.
+
+Be JS lieka tekstinis įvedimas tuo pačiu parametru (filtrų variklis
+nenumerinę reikšmę suranda pagal pavadinimą).
+{% endcomment %}{% with cur=request.GET|get_param:f.param %}
+<div class="relative"
+     x-data="modelField({
+        url: '{% url "model_options" %}?kategorija={{ f.model_vt|escapejs }}',
+        brandParam: '{{ f.brand_param|default:"brand"|escapejs }}',
+        val: '{{ cur|escapejs }}',
+        name: '{{ cur|model_label:f|default:_("Visi")|escapejs }}'
+     })" x-init="init()">
+  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}</label>
+  <input type="hidden" name="{{ f.param }}" :value="val">
+  <button type="button" class="sp-fld sp-dd-btn truncate"
+          :class="!brand && 'opacity-60'"
+          @click="toggle()">
+    <span x-text="name"></span>
+  </button>
+  <noscript>
+    <input type="text" name="{{ f.param }}" value="{{ cur|default:'' }}"
+           class="sp-fld" placeholder="{{ f.label }}">
+  </noscript>
+  <div x-show="open" x-cloak @click.outside="open = false" class="sp-dd">
+    <div class="sp-dd-search">
+      <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}" @click.stop>
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="sp-dd-scroll">
+      <div class="sp-dd-item font-semibold"
+           @click="pick('', '{% trans "Visi" %}'); if (typeof refreshCount === 'function') refreshCount(0)">
+        {% trans "Visi" %}
+      </div>
+      <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
+      <template x-for="m in visible()" :key="m.v">
+        <div class="sp-dd-item"
+             @click="pick(m.v, m.n); if (typeof refreshCount === 'function') refreshCount(0)">
+          <span x-text="m.n"></span>
+          <span class="sp-dd-count" x-text="m.c ? m.c : ''"></span>
+        </div>
+      </template>
+      <div class="sp-dd-foot" x-show="!loading && visible().length === 0">
+        {% trans "Pirma pasirinkite markę" %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endwith %}

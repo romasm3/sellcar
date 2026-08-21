@@ -67,6 +67,9 @@
             {% elif f.widget == 'brand' %}
             {% include 'listings/partials/fields/_brand.html' with f=f %}
 
+            {% elif f.widget == 'model' %}
+            {% include 'listings/partials/fields/_model.html' with f=f %}
+
             {% else %}
             {% include 'listings/partials/fields/_select.html' with f=f %}
             {% endif %}

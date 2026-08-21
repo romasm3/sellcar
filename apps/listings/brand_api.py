@@ -113,3 +113,65 @@ def brand_options(request):
     resp = JsonResponse(payload, json_dumps_params={'ensure_ascii': False})
     resp['ETag'] = etag
     return resp
+
+
+# ── Modeliai ────────────────────────────────────────────────────────
+# Ta pati logika kaip markėms: sąrašas HTML'e negulėjo ir negulės, o
+# darbalaukyje jis iki 2026-08-21 apskritai neatsirasdavo — modelio
+# laukas likdavo tuščias („Visi"). Telefone kaskada jau veikė per
+# /pasirinkti/?zingsnis=2; dabar abu paviršiai ima iš vieno šaltinio.
+
+MODEL_SOURCES = {
+    'cars': ('Model', 'brand'),
+    'motorcycles': ('MotorcycleModel', 'brand'),
+}
+
+
+def model_items(vt_slug, brand_id):
+    """[{v, n, c}] modeliai pagal markę. Kešuojama 10 min."""
+    src = MODEL_SOURCES.get(vt_slug)
+    if not src or not str(brand_id).isdigit():
+        return None
+
+    key = f'modellist:v1:{vt_slug}:{brand_id}'
+    hit = cache.get(key)
+    if hit is not None:
+        return hit
+
+    from django.db.models import Count
+    from django.db.models.functions import Lower
+    from apps.listings import models as m
+    from apps.listings.views import _public_listings_qs
+
+    model_cls = getattr(m, src[0])
+    rows = model_cls.objects.filter(**{src[1] + '_id': brand_id}).order_by(Lower('name'))
+
+    field = 'model' if vt_slug == 'cars' else 'motorcycle_model'
+    counts = {
+        r[f'{field}_id']: r['c']
+        for r in _public_listings_qs(None)
+        .filter(vehicle_type__slug=vt_slug)
+        .exclude(**{f'{field}__isnull': True})
+        .values(f'{field}_id').annotate(c=Count('id'))
+    }
+    items = [{'v': str(o.pk), 'n': o.name, 'c': counts.get(o.pk, 0)} for o in rows]
+    cache.set(key, items, CACHE_SECONDS)
+    return items
+
+
+@require_GET
+@cache_control(public=True, max_age=CACHE_SECONDS)
+def model_options(request):
+    """GET /ajax/modeliai/?kategorija=<slug>&marke=<id>&q=<tekstas>"""
+    vt_slug = request.GET.get('kategorija') or ''
+    brand_id = request.GET.get('marke') or ''
+    q = (request.GET.get('q') or '').strip().lower()
+
+    items = model_items(vt_slug, brand_id)
+    if items is None:
+        return JsonResponse({'kategorija': vt_slug, 'modeliai': [], 'viso': 0})
+    if q:
+        items = [it for it in items if q in it['n'].lower()]
+    return JsonResponse({'kategorija': vt_slug, 'marke': brand_id,
+                         'modeliai': items, 'viso': len(items)},
+                        json_dumps_params={'ensure_ascii': False})

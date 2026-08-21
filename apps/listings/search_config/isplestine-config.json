@@ -262,10 +262,10 @@
      "name": "f_model_14[]",
      "disabled_until_parent": true,
      "depends_on": "Markė",
-     "db_field": null,
-     "param": null,
+     "db_field": "model",
+     "param": "model",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Metai",
@@ -2600,10 +2600,10 @@
       "Zweirad Union",
       "Kita"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "motorcycle_brand",
+     "param": "brand",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Modelis",
@@ -2611,10 +2611,10 @@
      "name": "f_model_14[]",
      "disabled_until_parent": true,
      "depends_on": "Markė",
-     "db_field": null,
-     "param": null,
+     "db_field": "motorcycle_model",
+     "param": "model",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Motociklo tipas",

@@ -106,6 +106,9 @@ BRAND_FIELD_SCOPE = {
 
 # FK markės — reikšmė yra id, etiketė iš susieto modelio.
 # db_field → (modelio vardas apps.listings.models, susiejimo laukas)
+# db_field, kurie yra modelis (kaskada po markės)
+MODEL_FIELDS = {'model', 'motorcycle_model'}
+
 FK_BRAND_FIELDS = {'truck_brand': 'TruckBrand', 'brand': 'Brand',
                    'motorcycle_brand': 'MotorcycleBrand'}
 
@@ -424,6 +427,12 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 item['brand_vt'] = vt_slug
                 item['brand_sub'] = sub_slug or ''
                 item['brand_url'] = _brand_url(vt_slug, sub_slug)
+            elif db in MODEL_FIELDS:
+                # Modelis — kaskada po markės (žr. fields/_model.html).
+                # Rodoma tik ten, kur modelių duomenų yra.
+                item['widget'] = 'model'
+                item['model_vt'] = vt_slug
+                item['brand_param'] = 'brand'
                 item['only_with_ads_toggle'] = (
                     bool(f.get('only_with_ads_toggle')) and TOP_BRANDS_ON)
             elif db in FK_CHOICE_FIELDS:
@@ -584,6 +593,12 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 item['brand_vt'] = vt_slug
                 item['brand_sub'] = sub_slug or ''
                 item['brand_url'] = _brand_url(vt_slug, sub_slug)
+            elif db in MODEL_FIELDS:
+                # Modelis — kaskada po markės (žr. fields/_model.html).
+                # Rodoma tik ten, kur modelių duomenų yra.
+                item['widget'] = 'model'
+                item['model_vt'] = vt_slug
+                item['brand_param'] = 'brand'
                 item['only_with_ads_toggle'] = TOP_BRANDS_ON
             elif db in FK_CHOICE_FIELDS:
                 item['options'] = _fk_options(db, f.get('options'))

@@ -146,3 +146,23 @@ def img_sm(image):
         return image.image.url
     except Exception:
         return ''
+
+
+@register.filter
+def model_label(value, item):
+    """Pasirinkto modelio pavadinimas iš to paties kešuoto šaltinio."""
+    if not value:
+        return ''
+    try:
+        from apps.listings.brand_api import model_items
+        vt = item.get('model_vt')
+        brand = None
+        from django.http import QueryDict   # markė ateina iš to paties GET
+        items = None
+        # modelio pavadinimą randam nepriklausomai nuo markės — per lentelę
+        from apps.listings import models as m
+        cls = m.Model if vt == 'cars' else m.MotorcycleModel
+        obj = cls.objects.filter(pk=value).first()
+        return obj.name if obj else value
+    except Exception:
+        return value

@@ -346,3 +346,66 @@ document.addEventListener('submit', function (e) {
 }
 @keyframes sk { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
 </style>
+
+{% comment %}
+Modelio laukas — kaskada po markės. Klausosi savo formos markės lauko
+(hidden input), todėl veikia visuose trijuose paviršiuose vienodai ir
+nepriklauso nuo to, kuris komponentas markę pakeitė.
+{% endcomment %}
+<script>
+if (!window.modelField) {
+  window.modelField = function (cfg) {
+    return {
+      open: false, q: '', loading: false, items: [], brand: '',
+      val: cfg.val || '', name: cfg.name || '',
+
+      init() {
+        var self = this;
+        var form = this.$el.closest('form');
+        var input = form && form.querySelector('input[name="' + cfg.brandParam + '"]');
+        if (!input) { return; }
+        this.brand = input.value || '';
+        // Alpine markės lauką keičia per :value, todėl sekam reikšmę,
+        // o ne 'change' įvykį — jo hidden input nekelia.
+        setInterval(function () {
+          var v = input.value || '';
+          if (v !== self.brand) {
+            self.brand = v;
+            self.items = [];
+            self.val = ''; self.name = '{{ _("Visi")|escapejs }}';
+            if (self.open) { self.load(); }
+          }
+        }, 250);
+      },
+
+      toggle() {
+        if (!this.brand) { return; }          // be markės modelių nėra
+        this.open = !this.open; this.q = '';
+        if (this.open) { this.load(); }
+      },
+
+      load() {
+        if (this.items.length || !this.brand) { return; }
+        var url = cfg.url + '&marke=' + encodeURIComponent(this.brand);
+        var cache = (window.__modelCache = window.__modelCache || {});
+        if (cache[url]) { this.items = cache[url]; return; }
+        var self = this;
+        self.loading = true;
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { self.items = cache[url] = (d.modeliai || []); })
+          .catch(function () { self.items = []; })
+          .then(function () { self.loading = false; });
+      },
+
+      visible() {
+        var q = (this.q || '').trim().toLowerCase();
+        if (!q) { return this.items; }
+        return this.items.filter(function (m) { return m.n.toLowerCase().indexOf(q) !== -1; });
+      },
+
+      pick(v, n) { this.val = v; this.name = n; this.open = false; }
+    };
+  };
+}
+</script>
