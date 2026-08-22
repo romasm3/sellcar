@@ -38,12 +38,33 @@ visos kitos kortelės. Etalono reklamjuostės nedarom.
           <span class="ms-count">{{ s.viso }} {% trans "skelb." %}</span>
           {% if s.nauji %}<span class="ms-new">+{{ s.nauji }} {% trans "nauji" %}</span>{% endif %}
         </a>
-        <form method="post" action="{% url 'delete_search' s.id %}" class="ms-row-act">
-          {% csrf_token %}
-          <button type="submit" class="ms-icon" aria-label="{% trans 'Ištrinti' %}" title="{% trans 'Ištrinti' %}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-          </button>
-        </form>
+        {% comment %}Visi veiksmai, kurie yra /searches/ puslapyje: redaguoti,
+        el. laiškų priminimai, dublikuoti, ištrinti. Nieko nauja — tie patys
+        maršrutai, tik sudėti į eilutę.{% endcomment %}
+        <div class="ms-row-act">
+          <a class="ms-icon" href="{{ s.redaguoti }}" title="{% trans 'Redaguoti' %}" aria-label="{% trans 'Redaguoti' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20h4l10-10-4-4L4 16zM14 6l4 4"/></svg>
+          </a>
+          <form method="post" action="{% url 'toggle_search_notify' s.id %}">
+            {% csrf_token %}
+            <button type="submit" class="ms-icon{% if s.notify %} is-on{% endif %}"
+                    title="{% trans 'El. laiškų priminimai' %}" aria-label="{% trans 'El. laiškų priminimai' %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+            </button>
+          </form>
+          <form method="post" action="{% url 'duplicate_search' s.id %}">
+            {% csrf_token %}
+            <button type="submit" class="ms-icon" title="{% trans 'Dublikuoti' %}" aria-label="{% trans 'Dublikuoti' %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path stroke-linecap="round" d="M5 15V6a1 1 0 011-1h9"/></svg>
+            </button>
+          </form>
+          <form method="post" action="{% url 'delete_search' s.id %}">
+            {% csrf_token %}
+            <button type="submit" class="ms-icon" title="{% trans 'Ištrinti' %}" aria-label="{% trans 'Ištrinti' %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+            </button>
+          </form>
+        </div>
       </li>
       {% endfor %}
     </ul>
@@ -117,7 +138,8 @@ visos kitos kortelės. Etalono reklamjuostės nedarom.
             color: var(--success); background: var(--success-bg);
             border: 1px solid var(--success-border); border-radius: var(--badge-r);
             padding: var(--badge-pad); line-height: 1.5; }
-  .ms-row-act { display: flex; align-items: center; padding-right: var(--sp-2); }
+  .ms-row-act { display: flex; align-items: center; gap: var(--sp-1); padding-right: var(--sp-2); }
+  .ms-icon.is-on { color: var(--success); border-color: var(--success-border); background: var(--success-bg); }
   .ms-icon { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-md);
              border: 1px solid transparent; background: none; color: var(--text-muted);
              display: inline-flex; align-items: center; justify-content: center;

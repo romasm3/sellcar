@@ -1157,6 +1157,21 @@ class _LazyPanelMap(Mapping):
         return len(self._keys)
 
 
+def _atgal(request, numatytas='saved_searches_list'):
+    """Grąžina ten, iš kur veiksmas buvo paspaustas.
+
+    Paieškų veiksmai (redaguoti, priminimai, dublikuoti, trinti) dabar yra
+    ir pagrindinio puslapio bloke, todėl visada mesti į /searches/ būtų
+    klaidinga — žmogus prarastų vietą.
+    """
+    from django.utils.http import url_has_allowed_host_and_scheme
+    back = request.META.get('HTTP_REFERER') or ''
+    if back and url_has_allowed_host_and_scheme(
+            back, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
+        return redirect(back)
+    return redirect(numatytas)
+
+
 def _mano_paieskos(request, limit=5):
     """Išsaugotos ir paskutinės paieškos pagrindinio puslapio blokui."""
     from apps.listings import search_history
@@ -1182,12 +1197,21 @@ def _mano_paieskos(request, limit=5):
             nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
                      if s.last_viewed_at else viso)
             from urllib.parse import urlencode
+            # sidebar/search_id pridedam patys, todėl iš įrašytų parametrų
+            # juos išmetam — kitaip adrese kartotųsi „sidebar=1&sidebar=1"
+            _qs = urlencode({k: v for k, v in params.items()
+                             if v and k not in ('sidebar', 'search_id')})
             issaugotos.append({
                 'id': s.pk,
                 'pavadinimas': s.name or _('Paieška'),
                 'viso': viso,
                 'nauji': nauji,
-                'url': '/?' + urlencode({k: v for k, v in params.items() if v}) + '&sidebar=1',
+                # Atidarymas pažymi peržiūrėtą (search_id), redagavimas veda
+                # į tą pačią paiešką su šonine juosta — visi veiksmai tokie
+                # patys kaip /searches/ puslapyje, nieko naujo nesugalvota.
+                'url': '/?' + _qs + '&sidebar=1&search_id=' + str(s.pk),
+                'redaguoti': '/?' + _qs + '&sidebar=1',
+                'notify': bool(getattr(s, 'notify_email', False)),
             })
 
     return {
@@ -3729,7 +3753,7 @@ def delete_search(request, pk):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({'success': True})
 
-    return redirect('saved_searches_list')
+    return _atgal(request)
 
 
 def home(request):
@@ -3742,7 +3766,7 @@ def toggle_search_notify(request, pk):
     search = get_object_or_404(SavedSearch, pk=pk, user=request.user)
     search.notify_email = not search.notify_email
     search.save()
-    return redirect('saved_searches_list')
+    return _atgal(request)
 
 
 @login_required
@@ -3762,7 +3786,7 @@ def duplicate_search(request, pk):
         user=request.user, name=f"{search.name} (copy)",
         query_params=search.query_params, notify_email=False
     )
-    return redirect('saved_searches_list')
+    return _atgal(request)
 
 
 @login_required
