@@ -219,10 +219,15 @@ skelbimo peržiūroje. Nemaišyti su `1.35962` (PS/AG).
 
 ### 1.4 Senoji rankinė sistema
 
-`listing_create.html`, `listing_create_cars_quick.html`, `car_for_parts_create.html`,
-`moto_for_parts_create.html`, `truck_for_parts_create.html`, `boats_listing_create.html`
-ir `trucks_listing_create.html` dar turi savo `setPowerUnit()` / `UNIT_CONFIG` kodą.
-Jis veikia, bet **naujose formose nekartoti** — naudoti `data-unit-field`.
+Liko dvi vietos su savo kodu:
+
+* `listing_create.html` ir `listing_create_cars_quick.html` — automobilių vedlys.
+  Perjungikliai ten susipynę su autosave, `step3_partial` atkūrimu ir privalomų
+  laukų validacija, todėl perkelti reikia atskiro, atidaus praėjimo.
+* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų). Veikia gerai;
+  perkėlimas būtų tvarkymasis, ne taisymas.
+
+**Naujose formose šio kodo nekartoti** — naudoti `data-unit-field`.
 
 ### 1.5 Testai
 
