@@ -69,7 +69,9 @@ printf '  pritaikyta: %s\n' "$LAUKIA"
 zingsnis "Statika ir vertimai"
 STAT="$($PY manage.py collectstatic --noinput 2>&1 | tail -1)"
 printf '  %s\n' "$STAT"
-$PY manage.py compilemessages >/tmp/deploy_msg.log 2>&1 \
+# Tik mūsų locale/ — kitaip Django eina per visų bibliotekų katalogus ir
+# grąžina klaidos kodą vien dėl „already compiled and up to date"
+$PY manage.py compilemessages --ignore=venv >/tmp/deploy_msg.log 2>&1 \
     && printf '  vertimai sukompiliuoti\n' \
     || printf '  vertimai: klaidų (žr. /tmp/deploy_msg.log) — diegimas tęsiamas\n'
 
