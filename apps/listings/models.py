@@ -1778,10 +1778,12 @@ class Listing(models.Model):
         if self.city:
             parts.append(self.city)
         if self.country == 'US' and self.state:
-            parts.append(self.get_state_display_name())
+            # str() būtinas: šalių ir valstijų pavadinimai yra gettext_lazy
+            # proxy objektai, o ', '.join() jų nepriima („expected str").
+            parts.append(str(self.get_state_display_name()))
         if self.country:
-            parts.append(self.get_country_display_name())
-        return ', '.join(parts)
+            parts.append(str(self.get_country_display_name()))
+        return ', '.join(str(x) for x in parts)
 
     def get_full_address(self):
         parts = []
@@ -1792,10 +1794,12 @@ class Listing(models.Model):
         if self.city:
             parts.append(self.city)
         if self.country == 'US' and self.state:
-            parts.append(self.get_state_display_name())
+            # str() būtinas: šalių ir valstijų pavadinimai yra gettext_lazy
+            # proxy objektai, o ', '.join() jų nepriima („expected str").
+            parts.append(str(self.get_state_display_name()))
         if self.country:
-            parts.append(self.get_country_display_name())
-        return ', '.join(parts)
+            parts.append(str(self.get_country_display_name()))
+        return ', '.join(str(x) for x in parts)
 
     @property
     def is_motorcycle(self):
@@ -3121,10 +3125,12 @@ class Truck(models.Model):
         if self.city:
             parts.append(self.city)
         if self.country == 'US' and self.state:
-            parts.append(self.get_state_display_name())
+            # str() būtinas: šalių ir valstijų pavadinimai yra gettext_lazy
+            # proxy objektai, o ', '.join() jų nepriima („expected str").
+            parts.append(str(self.get_state_display_name()))
         if self.country:
-            parts.append(self.get_country_display_name())
-        return ', '.join(parts)
+            parts.append(str(self.get_country_display_name()))
+        return ', '.join(str(x) for x in parts)
 
     def get_full_address(self):
         parts = []
@@ -3135,10 +3141,12 @@ class Truck(models.Model):
         if self.city:
             parts.append(self.city)
         if self.country == 'US' and self.state:
-            parts.append(self.get_state_display_name())
+            # str() būtinas: šalių ir valstijų pavadinimai yra gettext_lazy
+            # proxy objektai, o ', '.join() jų nepriima („expected str").
+            parts.append(str(self.get_state_display_name()))
         if self.country:
-            parts.append(self.get_country_display_name())
-        return ', '.join(parts)
+            parts.append(str(self.get_country_display_name()))
+        return ', '.join(str(x) for x in parts)
 
     def get_color_display_value(self):
         if self.color == 'other' and self.color_other_text:

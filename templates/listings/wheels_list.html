@@ -14,7 +14,20 @@
 .sb-range .sb-input { flex:1; min-width:0; width:0; }
 
 /* ─── More filters (autogidas "Daugiau filtrų" outline btn) ─── */
-.more-filters-btn { width:100%; padding:0.55rem 1rem; border:1.5px solid #4b5563; color:var(--accent); background:#fff; font-size:0.85rem; font-weight:600; border-radius:0.4rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; text-decoration:none; margin-bottom:1.1rem; }
+/* Trupinių takas ir tipo perjungimas — dizaino sistemos kintamieji */
+.wl-crumbs { display:flex; align-items:center; gap:var(--sp-2); margin-bottom:var(--sp-3);
+             font-size:var(--fs-sm); color:var(--text-muted); }
+.wl-crumbs a { color:var(--text-muted); text-decoration:none; }
+.wl-crumbs a:hover { color:var(--text); text-decoration:underline; }
+.wl-crumb-on { color:var(--text); }
+.wl-type { display:flex; gap:var(--sp-2); }
+.wl-type-btn { flex:1; display:inline-flex; align-items:center; justify-content:center;
+               height:var(--btn-h-sm); border:1px solid var(--border); border-radius:var(--r-md);
+               background:var(--surface); font-size:var(--fs-sm); font-weight:var(--fw-medium);
+               color:var(--text-muted); text-decoration:none; transition:border-color var(--dur), color var(--dur); }
+.wl-type-btn:hover { border-color:var(--border-hover); color:var(--text); }
+.wl-type-btn.is-on { border-color:var(--accent); color:var(--text); font-weight:var(--fw-semibold); }
+.more-filters-btn { margin-top:var(--sp-2); width:100%; padding:0.55rem 1rem; border:1.5px solid #4b5563; color:var(--accent); background:#fff; font-size:0.85rem; font-weight:600; border-radius:0.4rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; text-decoration:none; }
 .more-filters-btn:hover { background:#f3f4f6; border-color:var(--accent-hover); color:var(--accent-hover); }
 
 /* ─── Season quick tabs (autogidas viršus) ─── */
@@ -77,184 +90,56 @@
 <div class="bg-gray-50 min-h-screen">
 <div class="max-w-6xl mx-auto px-4 py-6">
 
-    {# ═══ SEASON QUICK TABS (tik tyres — autogidas viršus) ═══ #}
-    {% if product_type == 'tyre' %}
-    <div class="season-tabs">
-        {% for val, label in tyre_season_choices %}
-        <a href="{% url 'wheels_list' %}?type=tyre&tyre_season={{ val }}" class="season-tab {% if f.tyre_season == val %}active{% endif %}">{{ label }}</a>
-        {% endfor %}
-        <a href="{% url 'wheels_list' %}?type=tyre" class="season-tab {% if not f.tyre_season %}active{% endif %}">{% trans "All" %}</a>
-    </div>
-    {% endif %}
+    {% comment %}Struktūra kaip cars sidebar režime: trupinių takas,
+    antraštė su skaičiumi, tada juosta ir dvi skiltys. Viršutinės filtrų
+    panelės nebėra — visi filtrai gyvena šoninėje juostoje, po vieną kartą
+    (etalone taip pat).{% endcomment %}
+    <nav class="wl-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+      <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+      <span>›</span>
+      <a href="{% url 'wheels_list' %}">{% trans "Ratlankiai / padangos" %}</a>
+      <span>›</span>
+      <span class="wl-crumb-on">{% if product_type == 'rim' %}{% trans "Ratlankiai" %}{% else %}{% trans "Padangos" %}{% endif %}</span>
+    </nav>
 
-    <h1 class="text-xl font-bold text-gray-900 mb-4">
-        {% if product_type == 'rim' %}{% trans "Rims" %}{% else %}{% trans "Tyres" %}{% endif %}
-        <span class="text-gray-400 font-normal">({{ total_count }})</span>
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">
+        {% if product_type == 'rim' %}{% trans "Ratlankiai" %}{% else %}{% trans "Padangos" %}{% endif %}
+        <span class="text-red-600">({{ total_count }})</span>
     </h1>
 
-    {# ═══════════════════════════════════════════════════════════ #}
-    {#  TOP FILTER PANEL — kaip cars browse panelė,                 #}
-    {#  tik lentelės sukeistos: Location·Purpose·Diameter·Width·    #}
-    {#  Profile·Price (vietoj Brand/Model/Fuel/Body/Year)           #}
-    {# ═══════════════════════════════════════════════════════════ #}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-        <form method="get" action="{% url 'wheels_list' %}" id="topFilterForm">
-            <input type="hidden" name="type" value="{{ product_type }}">
-
-            {# ═══ CATEGORY ═══ #}
-            <div class="mb-4">
-                <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Category" %}</label>
-                <a href="/" class="inline-flex items-center justify-between gap-3 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 hover:border-gray-300 min-w-[220px]">
-                    <span>{% trans "Tyres & Wheels" %} › {% if product_type == 'rim' %}{% trans "Rims" %}{% else %}{% trans "Tyres" %}{% endif %}</span>
-                    <i class="fas fa-chevron-down text-xs text-gray-400"></i>
-                </a>
-            </div>
-
-            {# ═══ BARAI ═══ #}
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
-
-                {# ─── LOCATION ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Location" %}</label>
-                    <div class="relative">
-                        <i class="fas fa-globe absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                        <select name="country_filter" class="w-full pl-8 pr-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm appearance-none">
-                            <option value="">{% trans "All Locations" %}</option>
-                            {% for code, name in country_choices %}
-                            <option value="{{ code }}" {% if f.country_filter == code %}selected{% endif %}>{{ name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-
-                {% if product_type == 'tyre' %}
-                {# ─── PURPOSE (tyres) ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Purpose" %}</label>
-                    <select name="purpose" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in purpose_choices %}
-                        <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% else %}
-                {# ─── TYPE (rims — autogidas "Tipas" = medžiaga) ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Type" %}</label>
-                    <select name="rim_material" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in rim_material_choices %}
-                        <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% endif %}
-
-                {# ─── DIAMETER ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Diameter" %}</label>
-                    <select name="diameter" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in diameter_choices %}
-                        <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                {% if product_type == 'tyre' %}
-                {# ─── WIDTH ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Width" %}</label>
-                    <select name="tyre_width" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in tyre_width_choices %}
-                        <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                {# ─── PROFILE ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Profile" %}</label>
-                    <select name="tyre_profile" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in tyre_profile_choices %}
-                        <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% else %}
-                {# ─── BOLT COUNT (rim — autogidas "Tvirtinimo taškai") ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Bolt count" %}</label>
-                    <select name="rim_bolt_count" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in rim_bolt_count_choices %}
-                        <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                {# ─── PCD (rim — autogidas "Tarpai tarp skylių") ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "PCD" %}</label>
-                    <select name="rim_pcd" class="w-full px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <option value="">{% trans "All" %}</option>
-                        {% for val, label in rim_pcd_choices %}
-                        <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% endif %}
-
-                {# ─── PRICE RANGE ─── #}
-                <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Price Range" %}</label>
-                    <div class="flex gap-2">
-                        <input type="number" name="price_from" placeholder="{% trans 'Min €' %}" value="{{ f.price_from }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <input type="number" name="price_to" placeholder="{% trans 'Max €' %}" value="{{ f.price_to }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                    </div>
-                </div>
-
-            </div>
-
-            {# ═══ MYGTUKAI ═══ #}
-            <div class="flex items-center justify-end gap-3 flex-wrap">
-                <a href="{% url 'wheels_advanced_search' %}?{{ querystring }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
-                    <i class="fas fa-sliders-h"></i> {% trans "Advanced Search" %}
-                </a>
-                <button type="submit" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gray-500 hover:bg-gray-600 text-white text-sm font-semibold rounded-lg transition-colors">
-                    <i class="fas fa-search"></i> {% trans "Apply Filters" %}
-                </button>
-                {% if user.is_authenticated %}
-                <button type="button" onclick="saveWheelsSearchTop(this)" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
-                    <i class="far fa-bell"></i> <span>{% trans "Save Search" %}</span>
-                </button>
-                {% endif %}
-            </div>
-        </form>
-    </div>
-
-    <div class="flex gap-6 items-start">
+    {% comment %}Telefone skiltys dedasi viena po kitos — anksčiau 240 px
+    juosta ir sąrašas liko šalia ir puslapis slinkdavo į šoną (docW 592 > 390).{% endcomment %}
+    <div class="flex flex-col lg:flex-row gap-6 items-start">
 
         {# ═══════════════ SIDEBAR (autogidas style) ═══════════════ #}
-        <div class="w-60 flex-shrink-0">
+        <div class="w-full lg:w-60 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-20">
 
-                {# ═══ DAUGIAU FILTRŲ → advanced ═══ #}
-                <a href="{% url 'wheels_advanced_search' %}?{{ querystring }}" class="more-filters-btn">
-                    {% trans "More filters" %}
-                </a>
+                {% comment %}Tipo perjungimas — anksčiau buvo tik viršutinėje
+                panelėje; be jo iš šoninės juostos nebūtų kaip pereiti tarp
+                ratlankių ir padangų.{% endcomment %}
+                <div class="sidebar-section">
+                    <span class="sidebar-label">{% trans "Tipas" %}</span>
+                    <div class="wl-type">
+                        <a href="{% url 'wheels_list' %}?type=rim"
+                           class="wl-type-btn{% if product_type == 'rim' %} is-on{% endif %}">{% trans "Ratlankiai" %}</a>
+                        <a href="{% url 'wheels_list' %}?type=tyre"
+                           class="wl-type-btn{% if product_type != 'rim' %} is-on{% endif %}">{% trans "Padangos" %}</a>
+                    </div>
+                </div>
 
                 <form method="get" action="{% url 'wheels_list' %}" id="sidebarForm">
                     <input type="hidden" name="type" value="{{ product_type }}">
 
-                    {# ═══ PURPOSE (Paskirtis) ═══ #}
+                    {% comment %}Eiliškumas kaip etalone: paskirtis (ir sezonas
+                    padangoms), skersmuo, plotis, PCD, tvirtinimo taškai,
+                    būklė, kaina, vieta. Kiekvienas filtras — po VIENĄ kartą:
+                    viršutinės panelės nebėra, tad dublių nelieka.{% endcomment %}
+
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Purpose" %}</span>
+                        <span class="sidebar-label">{% trans "Paskirtis" %}</span>
                         <select name="purpose" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
+                            <option value="">{% trans "Visos" %}</option>
                             {% for val, label in purpose_choices %}
                             <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
@@ -262,34 +147,22 @@
                     </div>
 
                     {% if product_type == 'tyre' %}
-                    {# ═══ SEASON (Sezoniškumas) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Season" %}</span>
+                        <span class="sidebar-label">{% trans "Sezonas" %}</span>
                         <select name="tyre_season" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in tyre_season_choices %}
                             <option value="{{ val }}" {% if f.tyre_season == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
+
                     {% endif %}
 
-                    {# ═══ CONDITION (Naudotas/Naujas) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Used / New" %}</span>
-                        <select name="condition" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
-                            {% for val, label in condition_choices %}
-                            <option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {# ═══ DIAMETER (Skersmuo) ═══ #}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Diameter" %}</span>
+                        <span class="sidebar-label">{% trans "Skersmuo" %}</span>
                         <select name="diameter" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in diameter_choices %}
                             <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
@@ -297,88 +170,112 @@
                     </div>
 
                     {% if product_type == 'tyre' %}
-                    {# ═══ WIDTH (Plotis) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Width" %}</span>
+                        <span class="sidebar-label">{% trans "Plotis" %}</span>
                         <select name="tyre_width" class="sb-select">
-                            <option value="">——</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in tyre_width_choices %}
                             <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    {# ═══ PROFILE (Aukštis) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Profile" %}</span>
+                        <span class="sidebar-label">{% trans "Aukštis (profilis)" %}</span>
                         <select name="tyre_profile" class="sb-select">
-                            <option value="">——</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in tyre_profile_choices %}
                             <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
+
                     {% else %}
-                    {# ═══ RIM WIDTH (Plotis) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Width" %}</span>
+                        <span class="sidebar-label">{% trans "Plotis" %}</span>
                         <select name="rim_width" class="sb-select">
-                            <option value="">——</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in rim_width_choices %}
                             <option value="{{ val }}" {% if f.rim_width == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    {# ═══ PCD ═══ #}
                     <div class="sidebar-section">
                         <span class="sidebar-label">{% trans "PCD" %}</span>
                         <select name="rim_pcd" class="sb-select">
-                            <option value="">——</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in rim_pcd_choices %}
                             <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    {# ═══ BOLT COUNT ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Bolt count" %}</span>
+                        <span class="sidebar-label">{% trans "Tvirtinimo taškai" %}</span>
                         <select name="rim_bolt_count" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
+                            <option value="">{% trans "Visi" %}</option>
                             {% for val, label in rim_bolt_count_choices %}
                             <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    {# ═══ MATERIAL ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Material" %}</span>
+                        <span class="sidebar-label">{% trans "Medžiaga" %}</span>
                         <select name="rim_material" class="sb-select">
-                            <option value="">{% trans "All" %}</option>
+                            <option value="">{% trans "Visos" %}</option>
                             {% for val, label in rim_material_choices %}
                             <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                     </div>
+
                     {% endif %}
 
-                    {# ═══ PRICE (Kaina) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Price (€)" %}</span>
+                        <span class="sidebar-label">{% trans "Būklė" %}</span>
+                        <select name="condition" class="sb-select">
+                            <option value="">{% trans "Visos" %}</option>
+                            {% for val, label in condition_choices %}
+                            <option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ KAINA ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Kaina (€)" %}</span>
                         <div class="sb-range">
-                            <input type="number" name="price_from" class="sb-input" placeholder="{% trans 'From' %}" value="{{ f.price_from }}">
-                            <input type="number" name="price_to" class="sb-input" placeholder="{% trans 'To' %}" value="{{ f.price_to }}">
+                            <input type="number" name="price_from" class="sb-input" placeholder="{% trans 'Nuo' %}" value="{{ f.price_from }}">
+                            <input type="number" name="price_to" class="sb-input" placeholder="{% trans 'Iki' %}" value="{{ f.price_to }}">
                         </div>
                     </div>
 
-                    {# ═══ TEXT SEARCH ═══ #}
+                    {% comment %}Vieta — perkelta iš pašalintos viršutinės panelės,
+                    kitaip šalies filtro nebūtų iš viso.{% endcomment %}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Text search" %}</span>
-                        <input type="text" name="q" class="sb-input" placeholder="{% trans 'Search...' %}" value="{{ f.q }}">
+                        <span class="sidebar-label">{% trans "Vieta" %}</span>
+                        <select name="country_filter" class="sb-select">
+                            <option value="">{% trans "Visos šalys" %}</option>
+                            {% for code, name in country_choices %}
+                            <option value="{{ code }}" {% if f.country_filter == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    {# ═══ TEKSTINĖ PAIEŠKA ═══ #}
+                    <div class="sidebar-section">
+                        <span class="sidebar-label">{% trans "Paieška tekste" %}</span>
+                        <input type="text" name="q" class="sb-input" placeholder="{% trans 'Ieškoti...' %}" value="{{ f.q }}">
                     </div>
                 </form>
+
+                {% comment %}„Išplėstinė paieška" — juostos apačioje, kaip etalone
+                (anksčiau buvo viršuje kaip „More filters").{% endcomment %}
+                <a href="{% url 'wheels_advanced_search' %}?{{ querystring }}" class="more-filters-btn">
+                    {% trans "Išplėstinė paieška" %}
+                </a>
             </div>
         </div>
 
@@ -615,79 +512,5 @@ function buildActiveChips() {
 }
 
 // ═══ Save Search (top panelė) ═══
-function saveWheelsSearchTop(btn) {
-    var form = document.getElementById('topFilterForm');
-    var formData = new FormData(form);
-    formData.append('category', 'wheels');
-    fetch('/search/save/', {
-        method: 'POST',
-        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-        body: formData
-    }).then(function(r) { return r.json(); })
-      .then(function() {
-        btn.querySelector('i').className = 'fas fa-bell';
-        btn.querySelector('span').textContent = '{% trans "Saved" %}';
-        btn.classList.add('border-emerald-400','text-emerald-700','bg-emerald-50');
-      });
-}
-
-// ═══ LIVE COUNT — top panelės "Listings N" mygtukas (autogidas "Skelbimai 4026") ═══
-(function() {
-    var form = document.getElementById('topFilterForm');
-    var countEl = document.getElementById('wfSearchCount');
-    if (!form || !countEl) return;
-
-    var debounceTimer = null;
-
-    function updateLiveCount() {
-        if (debounceTimer) clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function() {
-            var params = new URLSearchParams();
-            form.querySelectorAll('input, select').forEach(function(el) {
-                if (!el.name || el.value === '' || el.value === null) return;
-                params.append(el.name, el.value);
-            });
-
-            countEl.textContent = '...';
-
-            fetch('/ajax/wheels-search-count/?' + params.toString())
-                .then(function(r) { return r.json(); })
-                .then(function(data) { countEl.textContent = data.count; })
-                .catch(function() { countEl.textContent = '?'; });
-        }, 400);
-    }
-
-    form.addEventListener('change', updateLiveCount);
-    form.addEventListener('input', function(e) {
-        if (e.target.tagName === 'INPUT') updateLiveCount();
-    });
-})();
-
-// ═══ AUTO-REFRESH SIDEBAR (autogidas — keiti filtrą, iškart persikrauna) ═══
-document.addEventListener('DOMContentLoaded', function() {
-    buildActiveChips();
-
-    var sidebarForm = document.getElementById('sidebarForm');
-    if (!sidebarForm) return;
-
-    sidebarForm.querySelectorAll('select').forEach(function(el) {
-        el.addEventListener('change', function() {
-            sidebarForm.submit();
-        });
-    });
-
-    sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(el) {
-        var initialValue = el.value;
-        el.addEventListener('blur', function() {
-            if (el.value !== initialValue) sidebarForm.submit();
-        });
-        el.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                if (el.value !== initialValue) sidebarForm.submit();
-            }
-        });
-    });
-});
 </script>
 {% endblock %}
