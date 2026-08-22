@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-22 10:22+0300\n"
+"POT-Creation-Date: 2026-08-22 10:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7166,11 +7166,11 @@ msgstr ""
 msgid "Detali paieška"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:42
+#: templates/listings/advanced_generic.html:53
 msgid "Ieškoti pavadinime ir aprašyme"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:58
+#: templates/listings/advanced_generic.html:69
 #: templates/listings/partials/_panel_bodies.html:1099
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/fields/_brand.html:26
@@ -7180,15 +7180,15 @@ msgstr ""
 msgid "Visos markės"
 msgstr "All brands"
 
-#: templates/listings/advanced_generic.html:65
+#: templates/listings/advanced_generic.html:76
 msgid "Pridėti daugiau markių"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:85
+#: templates/listings/advanced_generic.html:96
 msgid "Rūšiavimas"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:102
+#: templates/listings/advanced_generic.html:113
 #: templates/listings/agriculture_listing_create.html:231
 #: templates/listings/bicycles_listing_create.html:214
 #: templates/listings/camping_listing_create.html:324
@@ -7211,11 +7211,11 @@ msgstr ""
 msgid "Ypatumai"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:128
+#: templates/listings/advanced_generic.html:139
 msgid "Išvalyti"
 msgstr ""
 
-#: templates/listings/advanced_generic.html:130
+#: templates/listings/advanced_generic.html:141
 #: templates/listings/motogear_advanced.html:214
 #: templates/listings/partials/_panel_bodies.html:115
 #: templates/listings/partials/_panel_bodies.html:209

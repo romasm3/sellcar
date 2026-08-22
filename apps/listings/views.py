@@ -7198,6 +7198,16 @@ def advanced_search_generic(request, category):
     if adv is None:
         raise Http404
 
+    # Kategorijų juosta viršuje — kaip etalone (Auto, Motociklai, Ratai,
+    # Dalys, Ž. ūkio…): iš tos pačios detalios paieškos kategorijų aibės,
+    # kad sąrašas negalėtų prasilenkti su tuo, kas iš tikrųjų veikia.
+    adv_cats = []
+    for _slug in sorted(panel_config.advanced_categories()):
+        _cfg = panel_config.build_advanced(_slug, None)
+        if _cfg:
+            adv_cats.append({'slug': _slug, 'label': _cfg['label'],
+                             'active': _slug == category})
+
     qs = filter_listings(request.GET, user=request.user, category=category)
 
     # Markės parametras kiekvienoje kategorijoje savas (trailer_brand_text,
@@ -7211,6 +7221,7 @@ def advanced_search_generic(request, category):
     )
 
     return render(request, 'listings/advanced_generic.html', {
+        'adv_categories': adv_cats,
         'adv': adv,
         'result_count': qs.count(),
         'selected_equipment': request.GET.getlist('equipment'),

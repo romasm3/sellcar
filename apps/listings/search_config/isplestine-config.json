@@ -400,10 +400,10 @@
       "Etanolis",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "fuel_type",
+     "param": "fuel_type",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Rida su vienu įkrovimu, km",
@@ -423,10 +423,12 @@
       "500",
       "600"
      ],
-     "db_field": null,
+     "db_field": "range_km",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "range_min",
+     "param_max": "range_max"
     },
     {
      "label": "Baterijos talpa, kWh",
@@ -453,10 +455,11 @@
      "label": "Yra greitojo įkrovimo jungtis",
      "type": "checkbox",
      "name": "f_453",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true,
+     "section": "Ypatumai"
     },
     {
      "label": "Kėbulo tipas",
@@ -478,10 +481,10 @@
       "Limuzinas",
       "Savadarbis auto"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "body_type",
+     "param": "body_type",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Pavarų dėžė",
@@ -491,10 +494,10 @@
       "Mechaninė",
       "Automatinė"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "transmission",
+     "param": "transmission",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Darbinis tūris (litrai)",
@@ -529,10 +532,12 @@
       "5.0",
       "8.0"
      ],
-     "db_field": null,
+     "db_field": "engine_capacity",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "engine_min",
+     "param_max": "engine_max"
     },
     {
      "label": "Galia, kW",
@@ -561,10 +566,12 @@
       "296 kW (402 AG)",
       "334 kW (454 AG)"
      ],
-     "db_field": null,
+     "db_field": "power",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "power_min",
+     "param_max": "power_max"
     },
     {
      "label": "Rida",
@@ -598,10 +605,12 @@
       "450000",
       "500000"
      ],
-     "db_field": null,
+     "db_field": "mileage",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "mileage_min",
+     "param_max": "mileage_max"
     },
     {
      "label": "Varantieji ratai",
@@ -612,10 +621,10 @@
       "Galiniai varantys ratai",
       "Visi varantys ratai"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "drive_type",
+     "param": "drive_type",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Vairo padėtis",
@@ -625,10 +634,10 @@
       "Kairėje",
       "Dešinėje"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "steering",
+     "param": "steering",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Defektai",
@@ -659,10 +668,10 @@
       "4/5",
       "6/7"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "doors",
+     "param": "doors",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Sėdimų vietų skaičius",
@@ -680,10 +689,12 @@
       "8",
       "9"
      ],
-     "db_field": null,
+     "db_field": "seats_count",
      "param": null,
      "multi": false,
-     "active": false
+     "active": true,
+     "param_min": "seats_min",
+     "param_max": "seats_max"
     },
     {
      "label": "Spalva",
@@ -719,10 +730,10 @@
       "Naudotas",
       "Naujas"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "condition",
+     "param": "condition",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Euro standartas",
@@ -737,10 +748,10 @@
       "Euro 6",
       "Kitas"
      ],
-     "db_field": null,
-     "param": null,
-     "multi": false,
-     "active": false
+     "db_field": "euro_standard",
+     "param": "euro_standard",
+     "multi": true,
+     "active": true
     },
     {
      "label": "Pirmosios registracijos šalis",
@@ -941,55 +952,58 @@
      "label": "Domina keitimas",
      "type": "checkbox",
      "name": "f_412",
-     "db_field": null,
-     "param": null,
+     "db_field": "open_to_trade",
+     "param": "open_to_trade",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galiojanti TA",
      "type": "checkbox",
      "name": "ac_1",
-     "db_field": null,
-     "param": null,
+     "db_field": "valid_inspection",
+     "param": "valid_inspection",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Automobilis ne iš JAV",
      "type": "checkbox",
      "name": "ac_2",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true,
+     "section": "Ypatumai"
     },
     {
      "label": "Skelbimas su VIN",
      "type": "checkbox",
      "name": "ac_3",
-     "db_field": null,
-     "param": null,
+     "db_field": "vin",
+     "param": "has_vin",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Tik Lietuvoje",
      "type": "checkbox",
      "name": "ac_4",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true,
+     "section": "Ypatumai"
     },
     {
      "label": "Slėpti iš aukcionų",
      "type": "checkbox",
      "name": "ac_5",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true,
+     "section": "Ypatumai"
     },
     {
      "label": "Ypatumai (0/107)",
@@ -1004,1070 +1018,1070 @@
      "type": "checkbox",
      "name": "a_513",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Bagažinės uždangalas",
      "type": "checkbox",
      "name": "a_1324",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Daugiafunkcinis vairas",
      "type": "checkbox",
      "name": "a_1318",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Elektra valdomos sėdynės su atmintimi",
      "type": "checkbox",
      "name": "a_1321",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Masažinės sėdynės",
      "type": "checkbox",
      "name": "a_1327",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šildomas vairas",
      "type": "checkbox",
      "name": "a_530",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Sportinės sėdynės",
      "type": "checkbox",
      "name": "a_1312",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Tamsinti stiklai",
      "type": "checkbox",
      "name": "a_1315",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Veliūro salonas",
      "type": "checkbox",
      "name": "a_17",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Elektra valdomos sėdynės",
      "type": "checkbox",
      "name": "a_31",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Klimato kontrolė",
      "type": "checkbox",
      "name": "a_5",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Odinis salonas",
      "type": "checkbox",
      "name": "a_18",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Oro kondicionierius",
      "type": "checkbox",
      "name": "a_4",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šildomos sėdynės",
      "type": "checkbox",
      "name": "a_69",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Ventiliuojamos sėdynės",
      "type": "checkbox",
      "name": "a_532",
      "section": "Interjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Automatiškai užsilenkiantys veidrodėliai",
      "type": "checkbox",
      "name": "a_1294",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Durelių pritraukimas",
      "type": "checkbox",
      "name": "a_1291",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kablys",
      "type": "checkbox",
      "name": "a_20",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "LED dienos žibintai",
      "type": "checkbox",
      "name": "a_522",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "LED žibintai",
      "type": "checkbox",
      "name": "a_1309",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Lengvo lydinio ratlankiai",
      "type": "checkbox",
      "name": "a_12",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Matriciniai žibintai",
      "type": "checkbox",
      "name": "a_1306",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Panoraminis stogas",
      "type": "checkbox",
      "name": "a_523",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Priekinių žibintų plovimo įtaisas",
      "type": "checkbox",
      "name": "a_1303",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Rūko žibintai",
      "type": "checkbox",
      "name": "a_1300",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Stogo bagažinės laikikliai",
      "type": "checkbox",
      "name": "a_65",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Vasarinių padangų komplektas",
      "type": "checkbox",
      "name": "a_1456",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Žibintai „Xenon“",
      "type": "checkbox",
      "name": "a_533",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Žieminių padangų komplektas",
      "type": "checkbox",
      "name": "a_1297",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Stoglangis",
      "type": "checkbox",
      "name": "a_6",
      "section": "Eksterjeras",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Automatiškai įsijungiantys žibintai",
      "type": "checkbox",
      "name": "a_1333",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Bevielis telefono krovimas",
      "type": "checkbox",
      "name": "a_1360",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "El. reguliuojami veidrodėliai",
      "type": "checkbox",
      "name": "a_1330",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Elektra reguliuojama vairo padėtis",
      "type": "checkbox",
      "name": "a_1336",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Elektra šildomas priekinis stiklas",
      "type": "checkbox",
      "name": "a_529",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Elektra valdomas bagažinės dangtis",
      "type": "checkbox",
      "name": "a_516",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kritulių jutiklis",
      "type": "checkbox",
      "name": "a_521",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "LCD ekranas",
      "type": "checkbox",
      "name": "a_1351",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Liečiamas ekranas",
      "type": "checkbox",
      "name": "a_1366",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Navigacija/GPS",
      "type": "checkbox",
      "name": "a_68",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pavarų perjungimas prie vairo",
      "type": "checkbox",
      "name": "a_1348",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pritemstantis veidrodėlis",
      "type": "checkbox",
      "name": "a_1342",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Projekcinis ekranas ant stiklo (HUD)",
      "type": "checkbox",
      "name": "a_1354",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šildomi veidrodėliai",
      "type": "checkbox",
      "name": "a_1339",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Skaitmeninis prietaisų skydelis",
      "type": "checkbox",
      "name": "a_1357",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Start-Stop sistema",
      "type": "checkbox",
      "name": "a_528",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Valdymas balsu",
      "type": "checkbox",
      "name": "a_1345",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Virtualūs veidrodėliai",
      "type": "checkbox",
      "name": "a_1468",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Atstumo jutiklių sistema",
      "type": "checkbox",
      "name": "a_231",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Beraktė užvedimo sistema",
      "type": "checkbox",
      "name": "a_515",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Autopilotas (kruizo kontrolė)",
      "type": "checkbox",
      "name": "a_500",
      "section": "Elektronika",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "360° vaizdo kamera",
      "type": "checkbox",
      "name": "a_509",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Aklosios zonos stebėjimo sistema",
      "type": "checkbox",
      "name": "a_510",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Atstumo palaikymo sistema",
      "type": "checkbox",
      "name": "a_511",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Automatinio parkavimo sistema",
      "type": "checkbox",
      "name": "a_512",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Avarinio stabdymo sistema",
      "type": "checkbox",
      "name": "a_514",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Dinaminis posūkių apšvietimas",
      "type": "checkbox",
      "name": "a_1429",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Įkalnės stabdis",
      "type": "checkbox",
      "name": "a_1411",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "ISOFIX (Vaiko kėdutės tvirtinimo taškai)",
      "type": "checkbox",
      "name": "a_1420",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Juostos palaikymo sistema",
      "type": "checkbox",
      "name": "a_519",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Kelio ženklų atpažinimo sistema",
      "type": "checkbox",
      "name": "a_520",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Naktinio matymo asistentas",
      "type": "checkbox",
      "name": "a_1414",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Nuovargio įspėjimo sistema",
      "type": "checkbox",
      "name": "a_531",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Padangų slėgio stebėjimo sistema",
      "type": "checkbox",
      "name": "a_1441",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pagalbos iškvietimo sistema (eCall)",
      "type": "checkbox",
      "name": "a_1438",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Palydovinė sekimo sistema",
      "type": "checkbox",
      "name": "a_1435",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Priekinio vaizdo kamera",
      "type": "checkbox",
      "name": "a_1432",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Susidūrimo prevencijos sistema",
      "type": "checkbox",
      "name": "a_1423",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Tolimųjų šviesų asistentas",
      "type": "checkbox",
      "name": "a_1426",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Traukos kontrolės sistema",
      "type": "checkbox",
      "name": "a_29",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Galinio vaizdo kamera",
      "type": "checkbox",
      "name": "a_517",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Oro pagalvės",
      "type": "checkbox",
      "name": "a_9",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Signalizacija/Imobilaizeris",
      "type": "checkbox",
      "name": "a_11",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "ESP (Stabilumo kontrolės sistema)",
      "type": "checkbox",
      "name": "a_527",
      "section": "Saugumas ir apsauga",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Apple CarPlay / Android Auto",
      "type": "checkbox",
      "name": "a_1393",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Audio grotuvas",
      "type": "checkbox",
      "name": "a_502",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "AUX jungtis",
      "type": "checkbox",
      "name": "a_1381",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Bluetooth",
      "type": "checkbox",
      "name": "a_1405",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "CD grotuvas",
      "type": "checkbox",
      "name": "a_1372",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "CD keitiklis",
      "type": "checkbox",
      "name": "a_1378",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "DVD grotuvas",
      "type": "checkbox",
      "name": "a_1390",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "HiFi audio sistema",
      "type": "checkbox",
      "name": "a_1387",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Laisvų rankų įranga",
      "type": "checkbox",
      "name": "a_508",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "MP3 grotuvas",
      "type": "checkbox",
      "name": "a_1369",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Papildoma audio įranga",
      "type": "checkbox",
      "name": "a_1375",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "TV ekranas",
      "type": "checkbox",
      "name": "a_1402",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "USB jungtis",
      "type": "checkbox",
      "name": "a_1396",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "USB Type-C jungtis",
      "type": "checkbox",
      "name": "a_1399",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Žemų dažnių garsiakalbis",
      "type": "checkbox",
      "name": "a_1384",
      "section": "Audio, video įranga ir sąsajos",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Atsarginis ratas",
      "type": "checkbox",
      "name": "a_1471",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Automobilis iš Amerikos",
      "type": "checkbox",
      "name": "a_1444",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Garantija",
      "type": "checkbox",
      "name": "a_518",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Keli raktų komplektai",
      "type": "checkbox",
      "name": "a_1447",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Nuotolinis užvedimas",
      "type": "checkbox",
      "name": "a_1465",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Padidinta variklio galia",
      "type": "checkbox",
      "name": "a_1450",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Parduodama lizingu",
      "type": "checkbox",
      "name": "a_524",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Paruoštas autosportui",
      "type": "checkbox",
      "name": "a_525",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pneumatinė pakaba",
      "type": "checkbox",
      "name": "a_1462",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Pritaikytas neįgaliems",
      "type": "checkbox",
      "name": "a_526",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Serviso knygelė",
      "type": "checkbox",
      "name": "a_613",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Lietuvoje neeksploatuotas",
      "type": "checkbox",
      "name": "a_14",
      "section": "Kiti",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "APVA kompensacija nepanaudota",
      "type": "checkbox",
      "name": "a_1486",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Baterijos garantija",
      "type": "checkbox",
      "name": "a_1477",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Dvipusis energijos perdavimas",
      "type": "checkbox",
      "name": "a_1489",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Greitasis krovimas",
      "type": "checkbox",
      "name": "a_1474",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Šilumos siurblys",
      "type": "checkbox",
      "name": "a_1483",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     },
     {
      "label": "Trifazis krovimas",
      "type": "checkbox",
      "name": "a_1480",
      "section": "Elektromobilių ypatybės",
-     "db_field": null,
-     "param": null,
+     "db_field": "__equipment__",
+     "param": "equipment",
      "multi": false,
-     "active": false
+     "active": true
     }
    ],
    "results_url": "/skelbimai/automobiliai/",

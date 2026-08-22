@@ -12,6 +12,16 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4 mb-5">
       <h1 class="text-xl font-bold text-gray-900">{% trans "Detali paieška" %}: {{ adv.label }}</h1>
+
+      {% comment %}Kategorijų juosta — kaip etalone (Auto, Motociklai, Ratai,
+      Dalys…). Sąrašas iš advanced_categories(), todėl jame yra tik tos
+      kategorijos, kurių detali paieška iš tikrųjų veikia.{% endcomment %}
+      <nav class="adv-cats">
+        {% for c in adv_categories %}
+        <a href="{% url 'advanced_search_generic' c.slug %}"
+           class="adv-cat{% if c.active %} is-on{% endif %}">{{ c.label }}</a>
+        {% endfor %}
+      </nav>
     </div>
 
     <form method="get" action="{% url 'listing_list' %}" id="advForm"
@@ -154,4 +164,17 @@
   });
 })();
 </script>
+
+<style>
+  /* Kategorijų juosta detalios paieškos viršuje. Matmenys iš dizaino sistemos. */
+  .adv-cats { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+  .adv-cat { display: inline-flex; align-items: center; height: var(--btn-h-sm);
+             padding: 0 var(--sp-3); border: 1px solid var(--border);
+             border-radius: var(--r-md); background: var(--surface);
+             font-size: var(--fs-sm); font-weight: var(--fw-medium);
+             color: var(--text-muted); text-decoration: none;
+             transition: border-color var(--dur), color var(--dur); }
+  .adv-cat:hover { border-color: var(--border-hover); color: var(--text); }
+  .adv-cat.is-on { border-color: var(--accent); color: var(--text); font-weight: var(--fw-semibold); }
+</style>
 {% endblock %}
