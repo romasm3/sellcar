@@ -80,10 +80,10 @@ new Promise(res => {
   chk('suma', doc.getElementById('totalPrice').textContent, '39.99');
   chk('„įeina" blokas', [...mincl].find(b => !b.classList.contains('hidden')).dataset.mincl, '0');
 
-  console.log('\n── Darbalaukio lentelė telefone paslėpta ──');
-  const desk = doc.querySelector('.hidden.md\\:flex');
-  chk('lentelė turi hidden md:flex', !!desk, 'true');
-  chk('mobilus blokas turi md:hidden', mcards[0].closest('.md\\:hidden') !== null, 'true');
+  console.log('\n── Darbalaukio lentelė telefone ir planšetėje paslėpta ──');
+  const desk = doc.querySelector('.hidden.lg\\:flex');
+  chk('lentelė turi hidden lg:flex', !!desk, 'true');
+  chk('mobilus blokas turi lg:hidden', mcards[0].closest('.lg\\:hidden') !== null, 'true');
 
   console.log(bad ? `\n✗ ${bad} nesėkmė(s)` : '\n✓ visi testai praėjo');
   process.exit(bad ? 1 : 0);
