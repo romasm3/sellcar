@@ -310,3 +310,79 @@ def build_listing_title(brand_name='', model_name='', year=None, suffix=''):
     if suffix:
         parts.append(str(suffix))
     return ' '.join(parts)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# APMOKĖTO PLANO PRITAIKYMAS
+# ═══════════════════════════════════════════════════════════════════════════
+
+def pritaikyti_apmoketa_plana(
+    listing, *, plan_days,
+    plan_boost_days=0, plan_boost_count=0,
+    plan_featured_days=0, plan_highlight_days=0,
+    renew_count=0, renew_days=0, addon_featured_days=0,
+    send_email=True,
+):
+    """Aktyvuoja skelbimą ir uždeda visas apmokėto plano paslaugas.
+
+    VIENINTELĖ vieta, kur tai daroma. Kviečia du keliai:
+      • Stripe webhook'as (apps/accounts/views.py), kai apmokėta kortele;
+      • listing_pay_plan, kai po nuolaidos suma tapo 0 ir Stripe nedalyvauja.
+
+    Anksčiau ši logika gulėjo tik webhook'e, todėl 100 % nuolaidos atveju
+    skelbimas nebūtų aktyvuotas iš viso.
+
+    Nieko nedaro, jei skelbimas jau aktyvus — webhook'as gali ateiti du kartus.
+    Grąžina True, jei aktyvavo.
+    """
+    from datetime import timedelta
+    from django.utils import timezone
+
+    if listing.status == 'active':
+        return False
+
+    now = timezone.now()
+    listing.activate(days=plan_days)
+
+    if send_email:
+        try:
+            from .views import _send_listing_published_email
+            _send_listing_published_email(listing, listing.seller)
+        except Exception as email_err:          # el. laiškas nekliudo aktyvavimui
+            print(f'[planas] listing_published email failed: {email_err}')
+
+    # „Atnaujinta" žymė, jei planas turi boost'ą arba pirkta žvaigždučių
+    if plan_boost_days > 0 or renew_count > 0:
+        listing.last_boosted_at = now
+        listing.save(update_fields=['last_boosted_at'])
+
+    # Žvaigždutės — plano ir priedo suma; trukmė ilgesnioji iš dviejų
+    final_star_count = plan_boost_count + renew_count
+    final_star_days = max(plan_boost_days, renew_days)
+    if final_star_count > 0:
+        listing.star_level = 1
+        listing.star_count = final_star_count
+        if final_star_days > 0:
+            if listing.star_expires_at and listing.star_expires_at > now:
+                listing.star_expires_at += timedelta(days=final_star_days)
+            else:
+                listing.star_expires_at = now + timedelta(days=final_star_days)
+        listing.save(update_fields=['star_level', 'star_count', 'star_expires_at'])
+
+    # Reklama pagrindiniame — planas + priedas
+    total_featured = plan_featured_days + addon_featured_days
+    if total_featured > 0:
+        if listing.featured_until and listing.featured_until > now:
+            listing.featured_until += timedelta(days=total_featured)
+        else:
+            listing.featured_until = now + timedelta(days=total_featured)
+        listing.save(update_fields=['featured_until'])
+
+    # Paryškinimas — tik iš plano
+    if plan_highlight_days > 0:
+        if listing.highlight_until and listing.highlight_until > now:
+            listing.highlight_until += timedelta(days=plan_highlight_days)
+        else:
+            listing.highlight_until = now + timedelta(days=plan_highlight_days)
+        listing.save(update_fields=['highlight_until'])
+
+    return True

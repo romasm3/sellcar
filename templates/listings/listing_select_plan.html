@@ -66,28 +66,38 @@
         <div class="text-sm font-semibold text-gray-900 mb-2">{% trans "Į planą įeina" %}:</div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span class="flex-1 text-gray-800">{% trans "Top Spot Stars" %}</span>
             {% if plan.boost_count > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Top Spot Stars" %}</span>
               <span class="inline-flex items-center gap-0.5 bg-gray-700 text-white text-[11px] font-bold px-1.5 py-0.5 rounded">{{ plan.boost_count }} ★</span>
               <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.boost_days }} {% trans "d." %}</span>
             {% else %}
-              <span class="text-gray-400">—</span>
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Top Spot Stars" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
             {% endif %}
           </li>
           <li class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span class="flex-1 text-gray-800">{% trans "Featured on homepage" %}</span>
             {% if plan.featured_days > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Featured on homepage" %}</span>
               <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.featured_days }} {% trans "d." %}</span>
-            {% else %}<span class="text-gray-400">—</span>{% endif %}
+            {% else %}
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Featured on homepage" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
+            {% endif %}
           </li>
           <li class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span class="flex-1 text-gray-800">{% trans "Listing highlight" %}</span>
             {% if plan.highlight_days > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Listing highlight" %}</span>
               <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.highlight_days }} {% trans "d." %}</span>
-            {% else %}<span class="text-gray-400">—</span>{% endif %}
+            {% else %}
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Listing highlight" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
+            {% endif %}
           </li>
         </ul>
       </div>

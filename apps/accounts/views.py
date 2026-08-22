@@ -521,50 +521,38 @@ def stripe_webhook(request):
 
                 now = timezone.now()
 
-                # Aktyvuojam skelbima
-                listing.activate(days=plan_days)
+                # Aktyvavimas ir visos plano paslaugos — bendra funkcija.
+                # Tą pačią kviečia ir nulinės sumos kelias (100 % nuolaida),
+                # kur Stripe apskritai nedalyvauja.
+                from apps.listings.listing_helpers import pritaikyti_apmoketa_plana
+                pritaikyti_apmoketa_plana(
+                    listing,
+                    plan_days=plan_days,
+                    plan_boost_days=plan_boost_days,
+                    plan_boost_count=plan_boost_count,
+                    plan_featured_days=plan_featured_days,
+                    plan_highlight_days=plan_highlight_days,
+                    renew_count=renew_count,
+                    renew_days=renew_days,
+                    addon_featured_days=addon_featured_days,
+                )
 
-                # EMAIL: skelbimas paskelbtas
-                try:
-                    from apps.listings.views import _send_listing_published_email
-                    _send_listing_published_email(listing, listing.seller)
-                except Exception as email_err:
-                    print(f"[webhook] listing_published email failed: {email_err}")
-
-                # Boost (renewed badge) jei planas turi boost arba pirko stars
-                if plan_boost_days > 0 or renew_count > 0:
-                    listing.last_boosted_at = now
-                    listing.save(update_fields=['last_boosted_at'])
-
-                # Stars — max is plano ir addon'o
-                final_star_count = plan_boost_count + renew_count
-                final_star_days = max(plan_boost_days, renew_days)
-                if final_star_count > 0:
-                    listing.star_level = 1
-                    listing.star_count = final_star_count
-                    if final_star_days > 0:
-                        if listing.star_expires_at and listing.star_expires_at > now:
-                            listing.star_expires_at = listing.star_expires_at + timedelta(days=final_star_days)
-                        else:
-                            listing.star_expires_at = now + timedelta(days=final_star_days)
-                    listing.save(update_fields=['star_level', 'star_count', 'star_expires_at'])
-
-                # Featured on homepage — planas + addon
-                total_featured = plan_featured_days + addon_featured_days
-                if total_featured > 0:
-                    if listing.featured_until and listing.featured_until > now:
-                        listing.featured_until = listing.featured_until + timedelta(days=total_featured)
-                    else:
-                        listing.featured_until = now + timedelta(days=total_featured)
-                    listing.save(update_fields=['featured_until'])
-
-                # Highlight — tik is plano
-                if plan_highlight_days > 0:
-                    if listing.highlight_until and listing.highlight_until > now:
-                        listing.highlight_until = listing.highlight_until + timedelta(days=plan_highlight_days)
-                    else:
-                        listing.highlight_until = now + timedelta(days=plan_highlight_days)
-                    listing.save(update_fields=['highlight_until'])
+                # Promo kodo panaudojimas — įrašom tik po sėkmingo apmokėjimo
+                promo_code = _md('promo_code', '')
+                if promo_code:
+                    try:
+                        from django.db.models import F
+                        from apps.listings.models import PromoCode, PromoCodeUsage
+                        promo = PromoCode.objects.filter(code__iexact=promo_code).first()
+                        if promo:
+                            PromoCodeUsage.objects.create(
+                                promo_code=promo, user=listing.seller, listing=listing,
+                                discount_amount=Decimal(str(_md('promo_discount', '0') or '0')),
+                            )
+                            PromoCode.objects.filter(pk=promo.pk).update(
+                                used_count=F('used_count') + 1)
+                    except Exception as promo_err:
+                        print(f'[webhook] promo usage log failed: {promo_err}')
 
                 # Tranzakcijos logas (idempotency markeris + istorija)
                 try:
