@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-22 22:36:58 CEST
+Sugeneruota: 2026-08-22 22:38:03 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001063s
+HTTP 301, 0.001011s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:42 vmi3306453 autoleft-deploy[4015738]:     033a472 fix(mob): zvaigzduciu zenkliukas atgal oranzinis
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:42 vmi3306453 autoleft-deploy[4015738]:     d379d56 merge: salygu sakinys mokejimo puslapyje lietuviskai
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:42 vmi3306453 autoleft-deploy[4015738]:     bfb0691 fix(mokejimai): salygu sakinys mokejimo puslapyje buvo pusiau angliskas
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:42 vmi3306453 autoleft-deploy[4015726]: [2026-08-22 22:34:42] Kodas atnaujintas iki 143fa15
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:48 vmi3306453 autoleft-deploy[4015726]: [2026-08-22 22:34:48] Patikra praėjo
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:48 vmi3306453 autoleft-deploy[4015766]: [22:34:48] === Deploy pradžia (20260822_223448) ===
@@ -82,4 +79,7 @@ Aug 22 22:35:51 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 22 22:35:53 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 22 22:35:53 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 22 22:36:58 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 22 22:36:59 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 22 22:36:59 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 22 22:38:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
