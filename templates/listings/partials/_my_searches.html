@@ -1,0 +1,134 @@
+{% load i18n %}{% comment %}
+„MANO PAIEŠKOS" — pagrindinio puslapio blokas.
+
+Iš etalono paimta TIK struktūra: du skirtukai (išsaugotos / paskutinės),
+eilutės sandara, „+N nauji" logika, veiksmų mygtukai ir tai, kad
+paskutinės veikia ir neprisijungusiam.
+
+Dizainas — mūsų (docs/dizaino-sistema.md): jokios oranžinės, aktyvus
+skirtukas žymimas akcento spalva, „+N nauji" — --success ant šviesaus
+fono, „Ištrinti viską" — antrinis mygtukas, eilutės su rėmeliu kaip
+visos kitos kortelės. Etalono reklamjuostės nedarom.
+{% endcomment %}
+{% with issaug=mano_paieskos.issaugotos pask=mano_paieskos.paskutines %}
+<section class="ms-block" x-data="{ tab: '{% if issaug %}issaugotos{% else %}paskutines{% endif %}' }">
+  <div class="ms-head">
+    <h2 class="ms-title">{% trans "Mano paieškos" %}</h2>
+    <div class="ms-tabs">
+      <button type="button" class="ms-tab" :class="tab === 'issaugotos' && 'is-on'"
+              @click="tab = 'issaugotos'">
+        {% trans "Išsaugotos" %} <em>{{ issaug|length }}</em>
+      </button>
+      <button type="button" class="ms-tab" :class="tab === 'paskutines' && 'is-on'"
+              @click="tab = 'paskutines'">
+        {% trans "Paskutinės" %} <em>{{ pask|length }}</em>
+      </button>
+    </div>
+  </div>
+
+  {# ── Išsaugotos ── #}
+  <div x-show="tab === 'issaugotos'" x-cloak>
+    {% if issaug %}
+    <ul class="ms-list">
+      {% for s in issaug %}
+      <li class="ms-row">
+        <a class="ms-row-main" href="{{ s.url }}">
+          <span class="ms-name">{{ s.pavadinimas }}</span>
+          {% if s.nauji %}<span class="ms-new">+{{ s.nauji }} {% trans "nauji" %}</span>{% endif %}
+        </a>
+        <form method="post" action="{% url 'delete_search' s.id %}" class="ms-row-act">
+          {% csrf_token %}
+          <button type="submit" class="ms-icon" aria-label="{% trans 'Ištrinti' %}" title="{% trans 'Ištrinti' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+          </button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="ms-foot">
+      <a class="ms-btn" href="{% url 'saved_searches_list' %}">{% trans "Visos paieškos" %}</a>
+    </div>
+    {% else %}
+    <p class="ms-empty">
+      {% if user.is_authenticated %}
+        {% trans "Šiuo metu neturite jokių išsaugotų paieškų." %}
+      {% else %}
+        {% trans "Prisijunkite, kad išsaugotumėte paieškas ir matytumėte naujus skelbimus." %}
+      {% endif %}
+    </p>
+    {% endif %}
+  </div>
+
+  {# ── Paskutinės (sesijoje — veikia ir svečiui) ── #}
+  <div x-show="tab === 'paskutines'" x-cloak>
+    {% if pask %}
+    <ul class="ms-list">
+      {% for s in pask %}
+      <li class="ms-row">
+        <a class="ms-row-main" href="/?{{ s.params }}&amp;sidebar=1">
+          <span class="ms-name">{{ s.pavadinimas|default:_("Paieška") }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="ms-foot">
+      <form method="post" action="{% url 'clear_recent_searches' %}">
+        {% csrf_token %}
+        <button type="submit" class="ms-btn">{% trans "Ištrinti viską" %}</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="ms-empty">{% trans "Paskutinių paieškų dar nėra — susiraskite ką nors, ir jos atsiras čia." %}</p>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .ms-block { background: var(--surface); border: 1px solid var(--border);
+              border-radius: var(--r-md); padding: var(--card-pad); }
+  .ms-head { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-3); }
+  .ms-title { font-size: var(--fs-xl); font-weight: var(--fw-bold); color: var(--text); }
+  .ms-tabs { display: flex; gap: var(--sp-2); }
+  .ms-tab { display: inline-flex; align-items: center; gap: var(--sp-1);
+            height: var(--btn-h-sm); padding: 0 var(--sp-3);
+            border: 1px solid var(--border); border-radius: var(--r-md);
+            background: var(--surface); font-size: var(--fs-sm);
+            font-weight: var(--fw-medium); color: var(--text-muted); cursor: pointer;
+            transition: border-color var(--dur), color var(--dur); }
+  .ms-tab em { font-style: normal; font-size: var(--fs-xs); color: var(--text-disabled); }
+  .ms-tab:hover { border-color: var(--border-hover); color: var(--text); }
+  .ms-tab.is-on { border-color: var(--accent); color: var(--accent); font-weight: var(--fw-semibold); }
+  .ms-tab.is-on em { color: var(--accent); }
+  .ms-list { display: flex; flex-direction: column; gap: var(--sp-2); }
+  .ms-row { display: flex; align-items: stretch; gap: var(--sp-2);
+            border: 1px solid var(--border); border-radius: var(--r-md);
+            background: var(--surface); transition: border-color var(--dur); }
+  .ms-row:hover { border-color: var(--border-hover); }
+  .ms-row-main { flex: 1 1 auto; min-width: 0; display: flex; align-items: center;
+                 gap: var(--sp-2); padding: 0 var(--sp-3); min-height: var(--btn-h);
+                 color: var(--text); text-decoration: none; font-size: var(--fs-base); }
+  .ms-name { flex: 1 1 auto; min-width: 0; overflow: hidden;
+             text-overflow: ellipsis; white-space: nowrap; }
+  .ms-new { flex: 0 0 auto; font-size: var(--fs-xs); font-weight: var(--fw-medium);
+            color: var(--success); background: var(--success-bg);
+            border: 1px solid var(--success-border); border-radius: var(--badge-r);
+            padding: var(--badge-pad); line-height: 1.5; }
+  .ms-row-act { display: flex; align-items: center; padding-right: var(--sp-2); }
+  .ms-icon { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-md);
+             border: 1px solid transparent; background: none; color: var(--text-muted);
+             display: inline-flex; align-items: center; justify-content: center;
+             cursor: pointer; transition: color var(--dur), border-color var(--dur); }
+  .ms-icon:hover { color: var(--text); border-color: var(--border); }
+  .ms-icon svg { width: 18px; height: 18px; }
+  .ms-foot { margin-top: var(--sp-3); display: flex; justify-content: flex-end; }
+  .ms-btn { display: inline-flex; align-items: center; height: var(--btn-h-sm);
+            padding: 0 var(--sp-3); border: 1px solid var(--accent);
+            border-radius: var(--r-md); background: var(--surface); color: var(--accent);
+            font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+            text-decoration: none; cursor: pointer;
+            transition: background-color var(--dur); }
+  .ms-btn:hover { background: var(--accent-soft); }
+  .ms-empty { font-size: var(--fs-sm); color: var(--text-muted); padding: var(--sp-2) 0; }
+</style>
+{% endwith %}

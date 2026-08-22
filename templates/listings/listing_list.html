@@ -1065,6 +1065,15 @@ function onSortChange(selectEl) {
 }
 </script>
 
+    {% comment %}„Mano paieškos" — po paieškos panele, kaip etalone.
+    Rodom visiems: prisijungusiam — išsaugotos, svečiui — paskutinės iš
+    sesijos.{% endcomment %}
+    {% if not selected_category or selected_category == 'cars' %}
+    <div class="max-w-7xl mx-auto px-4 mt-6">
+      {% include 'listings/partials/_my_searches.html' %}
+    </div>
+    {% endif %}
+
     {# ═══════════════════════════════════════════════════════════ #}
     {#  HOME TABS — Day's deals / Newest / Most Popular / Most Expensive  #}
     {# ═══════════════════════════════════════════════════════════ #}

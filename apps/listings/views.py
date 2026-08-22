@@ -54,7 +54,7 @@ from .models import (
 )
 from collections.abc import Mapping
 from django.views.decorators.vary import vary_on_headers
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_POST
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
@@ -1157,6 +1157,40 @@ class _LazyPanelMap(Mapping):
         return len(self._keys)
 
 
+def _mano_paieskos(request, limit=5):
+    """Išsaugotos ir paskutinės paieškos pagrindinio puslapio blokui."""
+    from apps.listings import search_history
+
+    issaugotos = []
+    if request.user.is_authenticated:
+        from .models import SavedSearch
+        from apps.listings.context_processors import saved_searches_count  # noqa
+
+        for s in SavedSearch.objects.filter(user=request.user).order_by('-created_at')[:limit]:
+            params = s.query_params or {}
+            qs = _public_listings_qs(request.user)
+            if params.get('category'):
+                qs = qs.filter(vehicle_type__slug=params['category'])
+            if params.get('brand'):
+                qs = qs.filter(brand_id=params['brand'])
+            if params.get('price_max'):
+                qs = qs.filter(price__lte=params['price_max'])
+            nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
+                     if s.last_viewed_at else qs.count())
+            from urllib.parse import urlencode
+            issaugotos.append({
+                'id': s.pk,
+                'pavadinimas': s.name or _('Paieška'),
+                'nauji': nauji,
+                'url': '/?' + urlencode({k: v for k, v in params.items() if v}) + '&sidebar=1',
+            })
+
+    return {
+        'issaugotos': issaugotos,
+        'paskutines': search_history.sarasas(request)[:limit],
+    }
+
+
 def _public_listings_qs(request_user=None):
     now = timezone.now()
     sold_cutoff = now - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
@@ -1873,6 +1907,10 @@ def listing_list(request, panel_fragment=False, category=None):
         'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
         'selected_country': country_filter,
         'selected_state': state_filter,
+        # „Mano paieškos" blokas: išsaugotos (prisijungusiam) ir paskutinės
+        # (sesijoje, veikia ir svečiui). Skaičiukai — iš to paties šaltinio
+        # kaip antraštės žymė.
+        'mano_paieskos': _mano_paieskos(request),
         'tab_offers': tab_offers,
         'tab_daily': tab_daily,
         'tab_featured': tab_featured,
@@ -1882,6 +1920,16 @@ def listing_list(request, panel_fragment=False, category=None):
         'equipment_by_category': equipment_by_category,
         'selected_equipment': equipment_ids_selected,
     }
+    # Paskutinės paieškos — įsimenam, kai žmogus tikrai filtravo
+    if not panel_fragment and request.GET.get('sidebar'):
+        try:
+            from apps.listings import search_history
+            _p = {k: v for k, v in request.GET.items()}
+            search_history.irasyti(request, category_filter or 'cars', _p,
+                                   _build_search_name(_p))
+        except Exception:
+            pass
+
     if panel_fragment:
         # sp_tab iš kelio, kad /panele/trucks/ veiktų ir be ?section=
         from apps.listings.context_processors import PANEL_SLUGS, resolve_section
@@ -7284,3 +7332,11 @@ def listing_phone(request, pk):
     if not prof or not prof.show_phone or not prof.phone_number:
         return JsonResponse({'telefonas': None}, status=404)
     return JsonResponse({'telefonas': prof.phone_number})
+
+
+@require_POST
+def clear_recent_searches(request):
+    """Išvalo paskutinių paieškų sąrašą (sesijoje). Paskyros nereikia."""
+    from apps.listings import search_history
+    search_history.isvalyti(request)
+    return redirect(request.META.get('HTTP_REFERER') or '/')
