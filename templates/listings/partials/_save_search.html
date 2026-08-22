@@ -1,0 +1,46 @@
+{% load i18n %}{% comment %}
+„IŠSAUGOTI PAIEŠKĄ" MYGTUKAS — jungiklis.
+
+Būsenos: antrinė (rėmelis) ir išsaugota (--success spalvos). Būsena ateina
+iš serverio (`paieska_issaugota`), todėl perkrovus puslapį ji išlieka.
+
+Neprisijungusiam — nuoroda į prisijungimą su ?next=…&issaugoti=1: grįžus
+paieška išsaugoma automatiškai (apps/listings/views.listing_list).
+
+Elgesys — static/js/issaugoti_paieska.js (vienas failas visiems sąrašams).
+{% endcomment %}
+{% if user.is_authenticated %}
+<button type="button" class="ip-btn{% if paieska_issaugota %} is-on{% endif %}"
+        data-issaugoti
+        data-tekstas-issaugoti="{% trans 'Išsaugoti paiešką' %}"
+        data-tekstas-issaugota="{% trans 'Paieška išsaugota' %}"
+        aria-pressed="{% if paieska_issaugota %}true{% else %}false{% endif %}">
+  <svg class="ip-ikona-varpas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 13 6 9zM10 18.5a2 2 0 0 0 4 0"/></svg>
+  <svg class="ip-ikona-varnele" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+  <span class="ip-tekstas">{% if paieska_issaugota %}{% trans "Paieška išsaugota" %}{% else %}{% trans "Išsaugoti paiešką" %}{% endif %}</span>
+</button>
+{% else %}
+<a class="ip-btn" href="{{ issaugoti_login_url }}">
+  <svg class="ip-ikona-varpas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 13 6 9zM10 18.5a2 2 0 0 0 4 0"/></svg>
+  <span class="ip-tekstas">{% trans "Išsaugoti paiešką" %}</span>
+</a>
+{% endif %}
+
+<style>
+  .ip-btn { display: inline-flex; align-items: center; gap: var(--sp-2);
+            height: var(--btn-h-sm); padding: 0 var(--sp-3);
+            border: 1px solid var(--border); border-radius: var(--r-md);
+            background: var(--surface); color: var(--text-muted);
+            font-size: var(--fs-sm); font-weight: var(--fw-medium);
+            text-decoration: none; cursor: pointer; white-space: nowrap;
+            transition: border-color var(--dur), color var(--dur), background-color var(--dur); }
+  .ip-btn:hover { border-color: var(--border-hover); color: var(--text); }
+  .ip-btn svg { width: 16px; height: 16px; flex: none; }
+  .ip-ikona-varnele { display: none; }
+  /* Išsaugota — dizaino sistemos „success" trijulė */
+  .ip-btn.is-on { color: var(--success); background: var(--success-bg);
+                  border-color: var(--success-border); }
+  .ip-btn.is-on .ip-ikona-varpas { display: none; }
+  .ip-btn.is-on .ip-ikona-varnele { display: inline; }
+  .ip-btn[disabled] { opacity: .6; cursor: default; }
+</style>

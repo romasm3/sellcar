@@ -168,6 +168,7 @@ urlpatterns = [
     path('search/toggle/<int:pk>/', views.toggle_search_notify, name='toggle_search_notify'),
     path('search/toggle-ekrane/<int:pk>/', views.toggle_search_onsite, name='toggle_search_onsite'),
     path('search/delete-all/', views.delete_all_searches, name='delete_all_searches'),
+    path('search/toggle-save/', views.toggle_save_search, name='toggle_save_search'),
     path('search/duplicate/<int:pk>/', views.duplicate_search, name='duplicate_search'),
     path('search/<int:pk>/viewed/', views.mark_search_viewed, name='mark_search_viewed'),
 

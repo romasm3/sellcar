@@ -797,11 +797,9 @@ a.sp-rail-btn { text-decoration:none; }
                             <option value="year_desc" {% if request.GET.sort == 'year_desc' %}selected{% endif %}>{% trans "Year: Newest First" %}</option>
                             <option value="year_asc" {% if request.GET.sort == 'year_asc' %}selected{% endif %}>{% trans "Year: Oldest First" %}</option>
                         </select>
-                        {% if user.is_authenticated %}
-                        <button type="button" id="saveSidebarBtn" onclick="saveSidebarSearch(this)" class="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg flex items-center gap-2 transition-all">
-                            <i class="far fa-bell" id="saveSidebarIcon"></i> <span id="saveSidebarLabel">{% trans "Save Search" %}</span>
-                        </button>
-                        {% endif %}
+                        {% comment %}Jungiklis su būsena ir pranešimu — vienas
+                        komponentas visiems sąrašams.{% endcomment %}
+                        {% include 'listings/partials/_save_search.html' %}
                     </div>
                 </div>
 
@@ -1763,36 +1761,8 @@ function toggleSave(btn, listingId) {
     });
 }
 
-function saveSearch(btn) {
-    var form = document.getElementById('filterForm');
-    var formData = new FormData(form);
-    fetch('/search/save/', {
-        method: 'POST',
-        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-        body: formData
-    }).then(function(r) { return r.json(); })
-      .then(function() {
-        btn.classList.add('text-emerald-600');
-        document.getElementById('saveSearchIcon').className = 'fas fa-bell';
-        document.getElementById('saveSearchLabel').textContent = '{% trans "Saved" %}';
-      });
-}
-
-function saveSidebarSearch(btn) {
-    var form = document.getElementById('sidebarForm');
-    var formData = new FormData(form);
-    fetch('/search/save/', {
-        method: 'POST',
-        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-        body: formData
-    }).then(function(r) { return r.json(); })
-      .then(function() {
-        btn.classList.remove('bg-white','hover:bg-gray-50','border-gray-200','text-gray-700');
-        btn.classList.add('bg-emerald-50','border-emerald-400','text-emerald-700');
-        document.getElementById('saveSidebarIcon').className = 'fas fa-bell';
-        document.getElementById('saveSidebarLabel').textContent = '{% trans "Saved" %}';
-      });
-}
+// „Išsaugoti paiešką" gyvena atskirai: partials/_save_search.html +
+// static/js/issaugoti_paieska.js (jungiklis, pranešimas, skaitikliai).
 
 // ═══ MOTO BRAND / MODEL DROPDOWNS ═══
 function toggleMotoDd(id, e) {

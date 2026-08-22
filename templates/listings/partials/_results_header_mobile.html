@@ -41,3 +41,14 @@ todėl išsikišdavo į KAIRĘ (neigiamas left).
       </label>
     </div>
   </div>
+
+  {% comment %}„Išsaugoti paiešką" telefone — po antrašte per visą plotį
+  (darbalaukyje jis rūšiavimo eilutėje, čia tai eilutei vietos nėra).{% endcomment %}
+  <div class="sp-save-row lg:hidden">
+    {% include 'listings/partials/_save_search.html' %}
+  </div>
+
+<style>
+  .sp-save-row { display: flex; margin: 0 0 var(--sp-3); }
+  .sp-save-row .ip-btn { width: 100%; justify-content: center; height: var(--btn-h); }
+</style>

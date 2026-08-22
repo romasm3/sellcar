@@ -161,6 +161,26 @@
         .mm-row span { flex: 1 1 auto; min-width: 0; }
         .mm-row-text { font-weight: var(--fw-normal); min-height: 40px; }
         .mm-row-danger { color: var(--danger); }
+
+        /* Trumpas pranešimas po veiksmo („Paieška išsaugota") */
+        .ip-toast { position: fixed; left: 50%; bottom: 24px; z-index: 130;
+                    transform: translate(-50%, 12px); opacity: 0;
+                    display: flex; align-items: center; gap: var(--sp-3);
+                    max-width: min(560px, calc(100vw - 32px));
+                    padding: var(--sp-3) var(--sp-4);
+                    background: var(--text); color: #fff;
+                    border-radius: var(--r-md); box-shadow: 0 8px 24px rgba(0,0,0,.18);
+                    font-size: var(--fs-sm); line-height: 1.4;
+                    transition: opacity var(--dur), transform var(--dur); }
+        .ip-toast.is-matomas { opacity: 1; transform: translate(-50%, 0); }
+        .ip-toast a { color: #fff; font-weight: var(--fw-semibold);
+                      text-decoration: underline; white-space: nowrap; }
+        .ip-toast.is-klaida { background: var(--danger); }
+        @media (max-width: 1023px) {
+            .ip-toast { left: var(--sp-4); right: var(--sp-4); bottom: 88px;
+                        transform: translateY(12px); max-width: none; }
+            .ip-toast.is-matomas { transform: translateY(0); }
+        }
         .mm-count { font-size: var(--fs-xs); font-weight: var(--fw-medium);
                     color: var(--text-muted); }
         .mm-count.is-new { color: var(--success); background: var(--success-bg);
@@ -321,11 +341,11 @@
                     <!-- Saved Searches Icon -->
                     <a href="{% url 'saved_searches_list' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
                         <i class="fas fa-search text-xl"></i>
-                        {% if new_searches_count > 0 %}
-                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
-                            {{ new_searches_count }}
-                        </span>
-                        {% endif %}
+                        {% comment %}Skaitiklis renderinamas visada (nulinis — paslėptas),
+                        kad išsaugojus paiešką atsinaujintų be perkrovimo.{% endcomment %}
+                        <span data-nauju-skaitiklis
+                              class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none"
+                              {% if not new_searches_count %}style="display:none"{% endif %}>{{ new_searches_count|default:0 }}</span>
                     </a>
 
                     {% if user.is_authenticated %}
@@ -388,9 +408,9 @@
                             <a href="{% url 'saved_searches_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <span class="relative inline-block w-5 mr-1">
                                     <i class="fas fa-search"></i>
-                                    {% if new_searches_count > 0 %}
-                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ new_searches_count }}</span>
-                                    {% endif %}
+                                    <span data-nauju-skaitiklis
+                                          class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5"
+                                          {% if not new_searches_count %}style="display:none"{% endif %}>{{ new_searches_count|default:0 }}</span>
                                 </span>
                                 {% trans "My Searches" %}
                             </a>
@@ -497,9 +517,9 @@
                 </a>
                 <a href="{% url 'saved_searches_list' %}" class="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <span><i class="fas fa-search w-5"></i> {% trans "My Searches" %}</span>
-                    {% if new_searches_count > 0 %}
-                    <span class="min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full inline-flex items-center justify-center font-bold leading-none">{{ new_searches_count }}</span>
-                    {% endif %}
+                    <span data-nauju-skaitiklis
+                          class="min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full inline-flex items-center justify-center font-bold leading-none"
+                          {% if not new_searches_count %}style="display:none"{% endif %}>{{ new_searches_count|default:0 }}</span>
                 </a>
                 <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-envelope w-5"></i> {% trans "Messages" %}
@@ -747,6 +767,8 @@
     {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
     <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';</script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
+    {# „Išsaugoti paiešką" jungiklis ir pranešimas #}
+    <script src="{% static 'js/issaugoti_paieska.js' %}" defer></script>
     {# Vienas laukų variantas siunčiamas — be „?q=&q=" dublikatų #}
     <script src="{% static 'js/vienas_variantas.js' %}" defer></script>
 

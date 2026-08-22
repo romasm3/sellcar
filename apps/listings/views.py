@@ -2,6 +2,9 @@ import json
 from django.utils.translation import gettext_lazy as _
 import os
 from django.shortcuts import render, redirect, get_object_or_404
+import logging
+from urllib.parse import quote
+
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
@@ -321,6 +324,9 @@ TRAILERS_SUBCATEGORY_SLUGS = {
     'caravans', 'other-trailers',
 }
 
+
+
+logger = logging.getLogger(__name__)
 
 def get_coordinates_for_location(city, country_code):
     if city:
@@ -1399,6 +1405,38 @@ def _konfig_etiketes():
     return etiketes
 
 
+def _paieskos_params(request):
+    """Filtrai iš adreso — tokia pat forma, kokia keliauja į SavedSearch."""
+    params = {}
+    for raktas in request.GET.keys():
+        if raktas in ('sidebar', 'search_id', 'page', 'sort', 'issaugoti',
+                      'csrfmiddlewaretoken', 'ajax'):
+            continue
+        reiksmes = [v for v in request.GET.getlist(raktas) if v]
+        if not reiksmes:
+            continue
+        params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
+    return params
+
+
+def _rasti_issaugota(user, params):
+    """Ta pati paieška vartotojo sąraše (arba None)."""
+    from .models import SavedSearch
+    if not user.is_authenticated:
+        return None
+    raktas = _paieskos_raktas(params)
+    for s in SavedSearch.objects.filter(user=user):
+        if _paieskos_raktas(s.query_params) == raktas:
+            return s
+    return None
+
+
+def _nauju_skaitiklis(request):
+    """Antraštės žymės skaitiklis — tas pats skaičius kaip context processor'e."""
+    from .context_processors import saved_searches_count
+    return saved_searches_count(request).get('new_searches_count', 0)
+
+
 def _paieskos_raktas(params):
     """Dvi paieškos vienodos, jei sutampa kategorija ir visi filtrai.
 
@@ -1651,6 +1689,22 @@ def listing_list(request, panel_fragment=False, category=None):
     # Sugadintos skaitinės reikšmės (?year_min=abc) tyliai išmetamos —
     # kitaip .filter() mestų ValueError ir puslapis grąžintų 500.
     request.GET = sanitize_search_params(request.GET)
+
+    # ?issaugoti=1 — grįžta žmogus, kuris prieš prisijungimą paspaudė
+    # „Išsaugoti paiešką". Išsaugom už jį ir nusivalom adresą, kad
+    # perkrovus puslapį antrą kartą nesikurtų.
+    if request.GET.get('issaugoti') and request.user.is_authenticated:
+        from .models import SavedSearch
+        _params = _paieskos_params(request)
+        if _params and not _rasti_issaugota(request.user, _params):
+            SavedSearch.objects.create(
+                user=request.user,
+                name=_paieskos_pavadinimas(_params),
+                query_params=_params,
+            )
+        _svarus = request.GET.copy()
+        _svarus.pop('issaugoti', None)
+        return redirect(request.path + ('?' + _svarus.urlencode() if _svarus else ''))
 
     # Pagrindiniame puslapyje skelbimų sąrašo nebėra — jį pakeitė skirtukai.
     # Todėl pasirinkus kategoriją einam į rezultatų puslapį su šonine juosta.
@@ -2235,6 +2289,17 @@ def listing_list(request, panel_fragment=False, category=None):
         'total_count': listings.count(),
         'categories': categories,
         'selected_category': category_filter,
+        # „Išsaugoti paiešką" mygtuko būsena — kad perkrovus puslapį jau
+        # išsaugota paieška iškart rodytų išsaugotą būseną.
+        'paieska_issaugota': bool(_rasti_issaugota(request.user,
+                                                   _paieskos_params(request))),
+        # Neprisijungusiam: prisijungimas ir grįžimas į TĄ PAČIĄ paiešką,
+        # kuri iškart išsaugoma (?issaugoti=1) — antrą kartą spausti nereikia.
+        'issaugoti_login_url': '%s?next=%s' % (
+            reverse('accounts:login'),
+            quote(request.get_full_path()
+                  + ('&' if '?' in request.get_full_path() else '?')
+                  + 'issaugoti=1')),
         # Šoninė filtrų juosta rezultatų puslapyje — tie patys laukai kaip
         # detalioje paieškoje, tik vienu stulpeliu (žr. build_sidebar).
         'sidebar': panel_config.build_sidebar(
@@ -4012,6 +4077,64 @@ def toggle_search_notify(request, pk):
     search.notify_email = not search.notify_email
     search.save()
     return _atgal(request)
+
+
+def toggle_save_search(request):
+    """„Išsaugoti paiešką" jungiklis: nėra — išsaugom, yra — pašalinam.
+
+    Grąžina JSON su nauja būsena ir atnaujintais skaitikliais, kad
+    antraštės žymė persipieštų be puslapio perkrovimo.
+    """
+    from .models import SavedSearch
+
+    if request.method != 'POST':
+        return JsonResponse({'ok': False, 'klaida': str(_('Netinkama užklausa'))}, status=405)
+
+    if not request.user.is_authenticated:
+        # Neprisijungęs — po prisijungimo grįžtam ir išsaugom automatiškai
+        grizti = request.POST.get('grizti') or request.META.get('HTTP_REFERER') or '/'
+        skyriklis = '&' if '?' in grizti else '?'
+        return JsonResponse({
+            'ok': False,
+            'login_url': '%s?next=%s' % (reverse('accounts:login'),
+                                         quote(grizti + skyriklis + 'issaugoti=1')),
+        }, status=401)
+
+    params = {}
+    for raktas, reiksmes in request.POST.lists():
+        if raktas in ('csrfmiddlewaretoken', 'grizti', 'sidebar', 'search_id',
+                      'page', 'sort', 'issaugoti'):
+            continue
+        reiksmes = [v for v in reiksmes if v]
+        if not reiksmes:
+            continue
+        params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
+
+    try:
+        esama = _rasti_issaugota(request.user, params)
+        if esama:
+            esama.delete()
+            issaugota = False
+            pk = None
+        else:
+            nauja = SavedSearch.objects.create(
+                user=request.user,
+                name=_paieskos_pavadinimas(params),
+                query_params=params,
+            )
+            issaugota, pk = True, nauja.pk
+    except Exception as klaida:                      # noqa: BLE001 — rodom žmogui
+        logger.exception('Nepavyko perjungti išsaugotos paieškos')
+        return JsonResponse({'ok': False, 'klaida': str(klaida)[:200]}, status=500)
+
+    return JsonResponse({
+        'ok': True,
+        'issaugota': issaugota,
+        'id': pk,
+        'nauju': _nauju_skaitiklis(request),
+        'viso': SavedSearch.objects.filter(user=request.user).count(),
+        'pavadinimas': _paieskos_pavadinimas(params),
+    })
 
 
 def delete_recent_search(request):
