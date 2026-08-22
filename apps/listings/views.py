@@ -1172,48 +1172,179 @@ def _atgal(request, numatytas='saved_searches_list'):
     return redirect(numatytas)
 
 
-def _filtru_santrauka(params, riba=4):
-    """Filtrų santrauka viena eilute: „Audi · 2015–2020 · iki 15 000 $".
+# Anglų kalba DB likusios reikšmės (FuelType.name ir pan.) — kol duomenys
+# neišversti, sąrašuose rodom lietuviškai per šį žodyną.
+_LT_REIKSMES = {
+    'Petrol': 'Benzinas', 'Diesel': 'Dyzelinas', 'Electric': 'Elektra',
+    'LPG': 'Dujos', 'Ethanol': 'Etanolis', 'Other': 'Kita',
+    'Diesel / Electric (Hybrid)': 'Dyzelinas / elektra (hibridas)',
+    'Diesel / Electric (Plug-in)': 'Dyzelinas / elektra (įkraunamas)',
+    'Petrol / Electric (Hybrid)': 'Benzinas / elektra (hibridas)',
+    'Petrol / Electric (Plug-in)': 'Benzinas / elektra (įkraunamas)',
+    'Automatic': 'Automatinė', 'Manual': 'Mechaninė',
+    'Semi-automatic': 'Pusiau automatinė', 'CVT': 'Bepakopė (CVT)',
+}
 
-    Rodoma ir puslapyje, ir pagrindinio puslapio kortelėje, todėl gyvena
-    vienoje vietoje.
+
+def _lt(reiksme):
+    return _LT_REIKSMES.get(str(reiksme), str(reiksme))
+
+
+def _kategorijos_vardas(kat):
+    """Kategorijos pavadinimas lietuviškai.
+
+    Šaltinis — paieškos panelių konfigūracija (ten vardai jau lietuviški),
+    o ne VehicleType.name, kuris DB dar angliškas.
+    """
+    if not kat:
+        return None
+    from .search_config import panels as panel_mod
+    p = panel_mod.PANELS.get(kat)
+    if p and p.get('name'):
+        return p['name']
+    from .models import VehicleType
+    vt = VehicleType.objects.filter(slug=kat).first()
+    return vt.name if vt else str(kat)
+
+
+def _sarasu(reiksme):
+    """Parametro reikšmė -> sąrašas (kelios markės ateina sąrašu)."""
+    if reiksme in (None, ''):
+        return []
+    if isinstance(reiksme, (list, tuple)):
+        return [str(v) for v in reiksme if v not in (None, '')]
+    return [str(reiksme)]
+
+
+def _paieskos_pavadinimas(params):
+    """Paieškos pavadinimas iš to, ką žmogus pasirinko.
+
+        kategorija be filtrų  -> „Automobiliai"
+        viena markė           -> „BMW (Automobiliai)"
+        markė + modelis       -> „BMW 320d (Automobiliai)"
+        kelios markės         -> „Audi, BMW (Automobiliai)"
+        daugiau nei trys      -> „Audi, BMW, Mercedes-Benz +2 (Automobiliai)"
+        be kategorijos        -> „Visi skelbimai"
     """
     from apps.listings.brand_api import brand_name
 
-    kat = params.get('category') or 'cars'
+    kat = params.get('category')
+    kat_vardas = _kategorijos_vardas(kat)
+    markes = _sarasu(params.get('brand'))
+
+    if not markes:
+        return kat_vardas or str(_('Visi skelbimai'))
+
+    vardai = []
+    for m in markes:
+        v = brand_name(kat or 'cars', m) or m
+        if str(v) == str(m):
+            # Sąraše nerasta (sena paieška, kita kategorija) — ieškom lentelėje
+            from .models import Brand
+            b = Brand.objects.filter(pk=m).first() if str(m).isdigit() else None
+            if b:
+                v = b.name
+            elif str(v).isdigit():
+                continue          # markės nebėra — geriau kategorija nei ID
+        vardai.append(v)
+    if not vardai:
+        return kat_vardas or str(_('Visi skelbimai'))
+
+    if len(vardai) == 1:
+        # Modelis rodomas tik prie vienos markės — kitaip neaišku, kieno jis
+        modelis = params.get('model')
+        if modelis:
+            from .models import Model as CarModel
+            m = CarModel.objects.filter(pk=modelis).first()
+            if m:
+                vardai[0] = '%s %s' % (vardai[0], m.name)
+        priekis = vardai[0]
+    elif len(vardai) <= 3:
+        priekis = ', '.join(vardai)
+    else:
+        priekis = '%s +%d' % (', '.join(vardai[:3]), len(vardai) - 3)
+
+    return '%s (%s)' % (priekis, kat_vardas) if kat_vardas else priekis
+
+
+def _filtru_santrauka(params, riba=4):
+    """Filtrų santrauka viena eilute: „Benzinas · iki 8 000 $ · nuo 2006 m.".
+
+    Markės ir modelio čia NĖRA — jie jau pavadinime, kartoti nereikia.
+    Rodoma ir /searches/ puslapyje, ir pagrindinio puslapio kortelėje,
+    todėl gyvena vienoje vietoje.
+    """
     dalys = []
 
-    marke = params.get('brand')
-    if marke:
-        dalys.append(brand_name(kat, marke) or str(marke))
-
-    metai = (params.get('year_min'), params.get('year_max'))
-    if any(metai):
-        dalys.append('%s–%s' % (metai[0] or '…', metai[1] or '…'))
+    if params.get('fuel_type'):
+        try:
+            from .models import FuelType
+            ft = FuelType.objects.filter(pk=params['fuel_type']).first()
+            if ft:
+                dalys.append(_lt(ft.name))
+        except Exception:
+            pass
 
     kaina = (params.get('price_min'), params.get('price_max'))
     if any(kaina):
         if kaina[0] and kaina[1]:
             dalys.append('%s–%s $' % (kaina[0], kaina[1]))
         elif kaina[1]:
-            dalys.append(str(_('iki')) + ' %s $' % kaina[1])
+            dalys.append('%s %s $' % (_('iki'), kaina[1]))
         else:
-            dalys.append(str(_('nuo')) + ' %s $' % kaina[0])
+            dalys.append('%s %s $' % (_('nuo'), kaina[0]))
 
-    if params.get('city'):
-        dalys.append(params['city'])
-    if params.get('fuel_type'):
+    metai = (params.get('year_min'), params.get('year_max'))
+    if any(metai):
+        if metai[0] and metai[1]:
+            dalys.append('%s–%s %s' % (metai[0], metai[1], _('m.')))
+        elif metai[1]:
+            dalys.append('%s %s %s' % (_('iki'), metai[1], _('m.')))
+        else:
+            dalys.append('%s %s %s' % (_('nuo'), metai[0], _('m.')))
+
+    if params.get('transmission'):
         try:
-            from .models import FuelType
-            ft = FuelType.objects.filter(pk=params['fuel_type']).first()
-            if ft:
-                dalys.append(ft.name)
+            from .models import Transmission
+            tr = Transmission.objects.filter(pk=params['transmission']).first()
+            if tr:
+                dalys.append(_lt(tr.name))
         except Exception:
             pass
 
+    if params.get('body_type'):
+        dalys.append(_lt(str(params['body_type']).replace('-', ' ').capitalize()))
+    if params.get('mileage_max'):
+        dalys.append('%s %s km' % (_('iki'), params['mileage_max']))
+    if params.get('city'):
+        dalys.append(str(params['city']))
+
     if not dalys:
+        # Be filtrų — santrauka nekartoja pavadinimo, o sako, kas neapribota
+        if _sarasu(params.get('brand')) and not params.get('model'):
+            return str(_('Visi modeliai'))
+        if params.get('category'):
+            return str(_('Visos markės'))
         return str(_('Visi skelbimai'))
     return ' · '.join(dalys[:riba])
+
+
+def _paieskos_raktas(params):
+    """Dvi paieškos vienodos, jei sutampa kategorija ir visi filtrai.
+
+    Techniniai parametrai (sidebar, puslapis, paieškos id) į raktą neįeina —
+    jie nekeičia rezultatų, tik adresą.
+    """
+    nesvarbu = {'sidebar', 'search_id', 'page', 'csrfmiddlewaretoken', 'ajax'}
+    poros = []
+    for k, v in (params or {}).items():
+        if k in nesvarbu or v in (None, '', []):
+            continue
+        if isinstance(v, (list, tuple)):
+            poros.append((k, ','.join(sorted(str(x) for x in v))))
+        else:
+            poros.append((k, str(v)))
+    return repr(sorted(poros))
 
 
 def _paieskos_eilutes(request, limit=None):
@@ -1234,8 +1365,11 @@ def _paieskos_eilutes(request, limit=None):
         qs = _public_listings_qs(request.user)
         if params.get('category'):
             qs = qs.filter(vehicle_type__slug=params['category'])
-        if params.get('brand'):
-            qs = qs.filter(brand_id=params['brand'])
+        _markes = _sarasu(params.get('brand'))
+        if len(_markes) == 1:
+            qs = qs.filter(brand_id=_markes[0])
+        elif _markes:
+            qs = qs.filter(brand_id__in=_markes)
         if params.get('price_min'):
             qs = qs.filter(price__gte=params['price_min'])
         if params.get('price_max'):
@@ -1249,10 +1383,12 @@ def _paieskos_eilutes(request, limit=None):
         nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
                  if s.last_viewed_at else viso)
         _qs = urlencode({k: v for k, v in params.items()
-                         if v and k not in ('sidebar', 'search_id')})
+                         if v and k not in ('sidebar', 'search_id')}, doseq=True)
         eilutes.append({
             'id': s.pk,
-            'pavadinimas': s.name or str(_('Paieška')),
+            # Pavadinimas sudaromas iš parametrų, o ne imamas iš DB: seni
+            # įrašai turi angliškus automatinius vardus („All listings").
+            'pavadinimas': _paieskos_pavadinimas(params),
             'santrauka': _filtru_santrauka(params),
             'viso': viso,
             'nauji': nauji,
@@ -3697,9 +3833,27 @@ def faq(request):
 def save_search(request):
     if request.method == 'POST':
         from .models import SavedSearch
-        params = {k: v for k, v in request.POST.items() if k != 'csrfmiddlewaretoken' and v}
+
+        # request.POST.lists() — kad kelios markės neprarastų reikšmių
+        params = {}
+        for k, v in request.POST.lists():
+            if k == 'csrfmiddlewaretoken':
+                continue
+            v = [x for x in v if x]
+            if not v:
+                continue
+            params[k] = v[0] if len(v) == 1 else v
 
         name = _build_search_name(params)
+
+        # Ta pati paieška antrą kartą nesikuria — atnaujinam esamą.
+        raktas = _paieskos_raktas(params)
+        for s in SavedSearch.objects.filter(user=request.user):
+            if _paieskos_raktas(s.query_params) == raktas:
+                s.name = name
+                s.created_at = timezone.now()
+                s.save(update_fields=['name', 'created_at'])
+                return JsonResponse({'success': True, 'id': s.pk, 'esama': True})
 
         saved = SavedSearch.objects.create(user=request.user, name=name, query_params=params)
         return JsonResponse({'success': True, 'id': saved.pk})
@@ -3707,96 +3861,8 @@ def save_search(request):
 
 
 def _build_search_name(params):
-    """Auto-generate human-readable name from search filters."""
-    parts = []
-
-    # Category
-    cat = params.get('category')
-    if cat and cat != 'cars':
-        parts.append(cat.replace('-', ' ').title())
-
-    # Brand + Model
-    brand_id = params.get('brand')
-    if brand_id:
-        try:
-            brand = Brand.objects.get(id=brand_id)
-            parts.append(brand.name)
-        except Brand.DoesNotExist:
-            pass
-
-    model_id = params.get('model')
-    if model_id:
-        try:
-            model = Model.objects.get(id=model_id)
-            parts.append(model.name)
-        except Model.DoesNotExist:
-            pass
-
-    # Year range
-    year_min = params.get('year_min')
-    year_max = params.get('year_max')
-    if year_min and year_max:
-        parts.append(f"{year_min}-{year_max}")
-    elif year_min:
-        parts.append(f"from {year_min}")
-    elif year_max:
-        parts.append(f"till {year_max}")
-
-    # Price range
-    price_min = params.get('price_min')
-    price_max = params.get('price_max')
-    if price_min and price_max:
-        parts.append(f"${price_min}-${price_max}")
-    elif price_max:
-        parts.append(f"up to ${price_max}")
-    elif price_min:
-        parts.append(f"from ${price_min}")
-
-    # Fuel type
-    fuel_id = params.get('fuel_type')
-    if fuel_id:
-        try:
-            ft = FuelType.objects.get(id=fuel_id)
-            parts.append(ft.name)
-        except FuelType.DoesNotExist:
-            pass
-
-    # Transmission
-    tr_id = params.get('transmission')
-    if tr_id:
-        try:
-            tr = Transmission.objects.get(id=tr_id)
-            parts.append(tr.name)
-        except Transmission.DoesNotExist:
-            pass
-
-    # Body type
-    body = params.get('body_type')
-    if body:
-        parts.append(body.replace('-', ' ').title())
-
-    # Mileage max
-    mileage_max = params.get('mileage_max')
-    if mileage_max:
-        parts.append(f"max {mileage_max} mi")
-
-    # Location
-    state = params.get('state_filter')
-    country = params.get('country_filter')
-    city = params.get('city')
-    if state:
-        parts.append(state)
-    elif country and country != 'US':
-        parts.append(country)
-    if city:
-        parts.append(city)
-
-    # Free text
-    search_q = params.get('search') or params.get('q')
-    if search_q:
-        parts.append(f'"{search_q}"')
-
-    return ', '.join(parts) if parts else 'All listings'
+    """Paieškos vardas — vienas šaltinis su sąrašais (_paieskos_pavadinimas)."""
+    return _paieskos_pavadinimas(params)
 
 
 @login_required

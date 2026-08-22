@@ -81,8 +81,10 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
               <button type="submit" class="sw{% if e.ekrane %} on{% endif %}"
                       aria-label="{% trans 'Gauti ekrane' %}"></button>
             </form>
-            <span>{% trans "Gauti ekrane" %}</span>
-            <span class="info" title="{% trans 'Naujus skelbimus žymėsime žalia žyma šiame sąraše' %}">i</span>
+            {% comment %}Trumpas užrašas, kad tilptų į vieną eilutę;
+            pilnas paaiškinimas — ⓘ patarime.{% endcomment %}
+            <span>{% trans "Ekrane" %}</span>
+            <span class="info" title="{% trans 'Gauti ekrane: naujus skelbimus pažymėsime žalia žyma šiame sąraše ir pagrindiniame puslapyje' %}">i</span>
           </div>
 
           <div class="opt">
@@ -91,7 +93,8 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
               <button type="submit" class="sw{% if e.notify %} on{% endif %}"
                       aria-label="{% trans 'Gauti el. paštu' %}"></button>
             </form>
-            <span>{% trans "Gauti el. paštu" %}</span>
+            <span>{% trans "El. paštu" %}</span>
+            <span class="info" title="{% trans 'Gauti el. paštu: atsiradus naujiems skelbimams atsiųsime laišką' %}">i</span>
           </div>
 
           <div>
@@ -201,7 +204,8 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
     background:var(--success-bg);border:1px solid var(--success-border)}
   .total{font-size:14px;color:var(--text-muted);font-weight:500}
 
-  .opt{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted)}
+  .opt{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted);
+    white-space:nowrap}
   .sw{width:34px;height:20px;border-radius:999px;background:#D1D5DB;position:relative;
     flex:none;cursor:pointer;transition:.2s;border:0}
   .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;
