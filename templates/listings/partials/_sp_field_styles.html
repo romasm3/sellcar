@@ -236,19 +236,20 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-picker-hdr svg { width: 18px; height: 18px; }
     {% comment %}
     Išdėstymas kaip etalone: pirmos keturios kategorijos — 2×2 didelių
-    kortelių tinklelis, likusios — eilutėmis per VISĄ plotį. Ir viskas
+    kortelių tinklelis, likusios — eilutėmis per VISĄ plotį (vienas
+    stulpelis; anksčiau čia buvo `1fr 1fr` ir eilutės lįsdavo už ekrano). Ir viskas
     telpa į ekraną be slinkimo, nesvarbu, koks jo aukštis: eilutės
     nesikreipia į fiksuotus taškus, o pasidalija likusią vietą
     (flex: 1 1 0). Aukštame lange (446×1288) eilutė išeina ~34 px, 390×844
     telefone — ~19 px; abiem atvejais nieko nereikia stumdyti.
     {% endcomment %}
-    .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
                       -webkit-overflow-scrolling: touch;
                       padding: 10px 12px 8px; display: flex; flex-direction: column; gap: 4px; }
 
     /* Keturios pagrindinės — didelės kortelės 2×2 */
     .sp-picker-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-                       margin-bottom: 2px; }
+                       margin-bottom: 2px; max-width: 100%; }
     .sp-picker-card { display: flex; flex-direction: column; align-items: center;
                       justify-content: center; gap: 3px; padding: 10px 8px;
                       background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
@@ -272,7 +273,8 @@ vidinės paraštės 9px/12px, aukštis 40px.
                       padding: 2px 7px; }
 
     /* Likusios — kompaktiškas dviejų stulpelių sąrašas */
-    .sp-picker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .sp-picker-grid { display: grid; grid-template-columns: 1fr; gap: 5px;
+                      max-width: 100%; }
     .sp-picker-cell { display: flex; align-items: center; gap: 8px; min-width: 0;
                       padding: 9px 10px; background: #fff;
                       border: 1px solid #E6E8EB; border-radius: 10px;
