@@ -183,8 +183,9 @@
 .home-tab-spec { font-size: 0.7rem; color: #6b7280; margin-top: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .home-tab-price { font-size: 0.95rem; font-weight: 800; color: #111827; margin-top: 0.4rem; }
 .home-tab-badge { position: absolute; top: 6px; left: 6px; padding: 2px 6px; font-size: 0.6rem; font-weight: 700; border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-.badge-featured { background: #fbbf24; color: var(--accent-hover); }
-.badge-featured-paid { background: #f97316 !important; color: #fff !important; font-weight: 800; }
+/* Žymos — dizaino sistemos spalvos, be oranžinės (6 skyrius). */
+.badge-featured { background: var(--accent-soft); color: var(--accent); }
+.badge-featured-paid { background: var(--accent) !important; color: var(--accent-contrast) !important; font-weight: 700; }
 .badge-highlight { background: #fb923c !important; color: #fff !important; font-weight: 700; }
 .badge-stars { background: #fbbf24; color: var(--accent-hover); font-weight: 700; }
 
@@ -215,7 +216,7 @@
     align-items: center;
     width: fit-content;
 }
-.badge-featured-paid { background: #f97316 !important; color: #fff !important; font-weight: 800; }
+.badge-featured-paid { background: var(--accent) !important; color: var(--accent-contrast) !important; font-weight: 700; }
 .badge-stars { background: #fbbf24; color: var(--accent-hover); font-weight: 700; }
 
 /* ─── Day's deals: paid featured cards (oranžinis paryškinimas) ─── */
@@ -246,7 +247,7 @@
     width: fit-content;
 }
 .badge-new { background: #10b981; color: #fff; }
-.badge-popular { background: #f97316; color: #fff; }
+.badge-popular { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
 .badge-premium { background: #8b5cf6; color: #fff; }
 .badge-vin { position: absolute; bottom: 6px; left: 6px; padding: 2px 6px; background: #16a34a; color: #fff; font-size: 0.6rem; font-weight: 700; border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
