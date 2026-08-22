@@ -475,7 +475,31 @@ done
 Visose eilutėse turi būti 1. Tą patį principą taikyk bet kuriam bendram
 `<style>` ar `<script>`: naujas paviršius — patikrink, ar jis jį gauna.
 
+### DIEGIMAS: „ĮDIEK"
+
+Kai Thomas parašo **„ĮDIEK"** — paleidi
+
+```bash
+./deploy.sh
+```
+
+ir parodai **tik jo išvestį**. Nieko neaiškini, nekartoji, nekomentuoji.
+
+Jei krenta — pasakai, **kuriame žingsnyje** (Kodas / Priklausomybės /
+Migracijos / Statika / Patikra / Perkrovimas / Smoke) ir **ką siūlai**.
+Nieko netaisai savavališkai, kol jis neatsako.
+
+`deploy.sh` pats: parsisiunčia kodą (o dirbant šakoje — sulydo ją į
+master), įdiegia priklausomybes tik jei pasikeitė `requirements.txt`,
+paleidžia migracijas, `collectstatic`, `compilemessages`, patikrina
+šablonų nuotėkį ir testus (**krenta — sustoja ir nieko nediegia**),
+perkrauna gunicorn, paleidžia smoke testą (`/`, `/?section=cars`,
+`/searches/`, naujausio skelbimo puslapis), o jei bent vienas ne 200 —
+grąžina ankstesnį commit'ą ir perkrauna atgal.
+
 ### PRIVALOMA PATIKRA PRIEŠ KIEKVIENĄ DIEGIMĄ
+
+Rankinis variantas (tą patį daro `deploy.sh` viduje):
 
 ```bash
 ./scripts/patikra.sh
