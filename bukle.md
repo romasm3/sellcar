@@ -1,16 +1,14 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-22 14:46:18 CEST
+Sugeneruota: 2026-08-22 14:47:29 CEST
 
 ## Kodas
 
 ```
-sukasi:      9ee9b07 fix(deploy): compilemessages tik mūsų locale, be venv bibliotekų
-origin/master: 9ee9b07 fix(deploy): compilemessages tik mūsų locale, be venv bibliotekų
+sukasi:      0b62625 feat(deploy): autodiegimas tikrina testus prieš liesdamas produkciją
+origin/master: 0b62625 feat(deploy): autodiegimas tikrina testus prieš liesdamas produkciją
 šaka:        master
-DĖMESIO: darbo katalogas nešvarus —
-   M .gitignore
-   M deploy-from-git.sh
+darbo katalogas: švarus
 ```
 
 ## Servisai
@@ -25,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001149s
+HTTP 301, 0.001252s
 ```
 
 ## Skelbimų būsenos
@@ -60,4 +58,8 @@ Filesystem      Size  Used Avail Use% Mounted on
 
 ```
 Aug 22 14:46:17 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 22 14:46:20 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 22 14:46:20 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 22 14:46:20 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.111s CPU time.
+Aug 22 14:47:29 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
