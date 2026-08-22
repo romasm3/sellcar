@@ -24,10 +24,10 @@ else
 fi
 
 echo "── 2/2  Puslapių testai "
-if ! venv/bin/python manage.py test apps.listings \
-        --testrunner=config.test_runner.BeDuombazes 2>&1 | tail -12; then
-    KLAIDU=1
-fi
+# PIPESTATUS — kitaip tikrintume „tail" būseną, o ne testų (krito nepastebėtai)
+venv/bin/python manage.py test apps.listings \
+    --testrunner=config.test_runner.BeDuombazes 2>&1 | tail -14
+[ "${PIPESTATUS[0]}" -ne 0 ] && KLAIDU=1
 
 if [ "$KLAIDU" -ne 0 ]; then
     echo
