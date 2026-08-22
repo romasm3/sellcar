@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static l10n %}
 {% load i18n i18n_db %}
 
 {% block title %}{% if is_edit %}{% trans "Edit" %}{% else %}{% trans "Create" %}{% endif %} {% trans "Trucks Listing" %} - SellCar{% endblock %}
@@ -106,46 +106,6 @@
     background: #f9fafb;
 }
 
-/* ═══ UNIT TOGGLE BUTTONS (kW|HP, km|mi) — cars-style ═══ */
-.unit-toggle-group {
-    display: inline-flex;
-    border: 1px solid #e5e7eb;
-    border-left: 0;
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #fff;
-}
-.unit-toggle-btn {
-    padding: 0 0.65rem;
-    background: #fff;
-    border: 0;
-    border-left: 1px solid #e5e7eb;
-    font-size: 0.78rem;
-    color: #6b7280;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.1s, color 0.1s;
-    min-width: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.unit-toggle-btn:first-child { border-left: 0; }
-.unit-toggle-btn:hover { background: #f9fafb; color: #111827; }
-.unit-toggle-btn.active {
-    background: #6b7280;
-    color: #fff;
-    font-weight: 600;
-}
-.unit-toggle-btn.active:hover { background: #6b7280; }
-.unit-conversion-hint {
-    display: block;
-    font-size: 0.7rem;
-    color: #9ca3af;
-    margin-top: 0.25rem;
-}
 
 .equipment-section { margin-bottom: 1.25rem; }
 .equipment-section:last-child { margin-bottom: 0; }
@@ -367,26 +327,12 @@
 
                     <div>
                         <label class="field-label">{% trans "Gross weight" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="gross_weight_kg" id="grossWeightInput" value="{{ data.gross_weight_kg }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="grossWeight">kg</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="grossWeight">lbs</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="grossWeightHint"></span>
+                        <input type="number" name="gross_weight_kg" data-unit-field="gross_weight_kg" value="{{ data.gross_weight_kg|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
                         <label class="field-label">{% trans "Curb weight" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="curb_weight" id="curbWeightInput" value="{{ data.curb_weight }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="curbWeight">kg</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="curbWeight">lbs</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="curbWeightHint"></span>
+                        <input type="number" name="curb_weight" data-unit-field="curb_weight" value="{{ data.curb_weight|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 2: Make | Model | Power (kW↔HP) | Mileage (km↔mi) ─── #}
@@ -415,27 +361,13 @@
                     {# ─── POWER — input + [kW|HP] toggle, conversion hint below ─── #}
                     <div>
                         <label class="field-label">{% trans "Power" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="power" id="powerInput" value="{{ data.power }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="kW" data-target="power">kW</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="HP" data-target="power">HP</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="powerHint"></span>
+                        <input type="number" name="power" data-unit-field="power" value="{{ data.power|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── MILEAGE — input + [km|mi] toggle, conversion hint below ─── #}
                     <div>
                         <label class="field-label">{% trans "Mileage" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="mileage" id="mileageInput" value="{{ data.mileage }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="km" data-target="mileage">km</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="mi" data-target="mileage">mi</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="mileageHint"></span>
+                        <input type="number" name="mileage" data-unit-field="mileage" value="{{ data.mileage|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 3: Fuel type | Wheel formula | Length | Width ─── #}
@@ -462,26 +394,12 @@
 
                     <div>
                         <label class="field-label">{% trans "Length" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="truck_length_mm" id="lengthInput" value="{{ data.truck_length_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="length">mm</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="ft" data-target="length">ft</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="lengthHint"></span>
+                        <input type="number" name="truck_length_mm" data-unit-field="truck_length_mm" value="{{ data.truck_length_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
                         <label class="field-label">{% trans "Width" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="truck_width_mm" id="widthInput" value="{{ data.truck_width_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="width">mm</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="in" data-target="width">in</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="widthHint"></span>
+                        <input type="number" name="truck_width_mm" data-unit-field="truck_width_mm" value="{{ data.truck_width_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 4: Mass interval | Height | Volume | Defects ─── #}
@@ -497,26 +415,12 @@
 
                     <div>
                         <label class="field-label">{% trans "Height" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="truck_height_mm" id="heightInput" value="{{ data.truck_height_mm }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="mm" data-target="height">mm</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="in" data-target="height">in</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="heightHint"></span>
+                        <input type="number" name="truck_height_mm" data-unit-field="truck_height_mm" value="{{ data.truck_height_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
                         <label class="field-label">{% trans "Volume" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" step="0.01" name="truck_volume_m3" id="volumeInput" value="{{ data.truck_volume_m3 }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="m³" data-target="volume">m³</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="ft³" data-target="volume">ft³</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="volumeHint"></span>
+                        <input type="number" step="0.01" name="truck_volume_m3" data-unit-field="truck_volume_m3" value="{{ data.truck_volume_m3|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 5: Defects | New/Used | Payload | Fuel tank ─── #}
@@ -544,26 +448,12 @@
 
                     <div>
                         <label class="field-label">{% trans "Payload capacity" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="payload_kg" id="payloadInput" value="{{ data.payload_kg }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="kg" data-target="payload">kg</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="lbs" data-target="payload">lbs</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="payloadHint"></span>
+                        <input type="number" name="payload_kg" data-unit-field="payload_kg" value="{{ data.payload_kg|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
                         <label class="field-label">{% trans "Fuel tank capacity" %}</label>
-                        <div class="with-suffix">
-                            <input type="number" name="fuel_tank_capacity_l" id="fuelTankInput" value="{{ data.fuel_tank_capacity_l }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <div class="unit-toggle-group">
-                                <button type="button" class="unit-toggle-btn active" data-unit="L" data-target="fuelTank">L</button>
-                                <button type="button" class="unit-toggle-btn" data-unit="gal" data-target="fuelTank">gal</button>
-                            </div>
-                        </div>
-                        <span class="unit-conversion-hint" id="fuelTankHint"></span>
+                        <input type="number" name="fuel_tank_capacity_l" data-unit-field="fuel_tank_capacity_l" value="{{ data.fuel_tank_capacity_l|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 6: Tech inspection | Steering | Gearbox | Sleeping seats ─── #}
@@ -633,7 +523,7 @@
 
                     <div>
                         <label class="field-label">{% trans "Engine capacity, L" %}</label>
-                        <input type="number" step="0.1" name="engine_capacity" value="{{ data.engine_capacity }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <input type="number" step="0.1" name="engine_capacity" data-unit-field="engine_capacity" value="{{ data.engine_capacity|unlocalize }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 8: Color | VIN ─── #}
@@ -865,178 +755,7 @@ function collectFormData() {
     return d;
 }
 
-// ═══════════════════════════════════════════════════════════
-// UNIT TOGGLES — generic system for all measurement fields
-// ═══════════════════════════════════════════════════════════
-// DB ALWAYS stores canonical values. Toggle is display-only.
-// Each toggle is configured below: input ID, canonical unit, alt unit, ratio.
-
-const UNIT_CONFIG = {
-    // target: { canonicalUnit, altUnit, mul (canonical→alt), inputId, decimals }
-    power:        { canonical: 'kW',  alt: 'HP',  mul: 1.34102,    inputId: 'powerInput',        decimals: 0 },
-    mileage:      { canonical: 'km',  alt: 'mi',  mul: 0.62137,    inputId: 'mileageInput',      decimals: 0 },
-    grossWeight:  { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'grossWeightInput',  decimals: 0 },
-    curbWeight:   { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'curbWeightInput',   decimals: 0 },
-    payload:      { canonical: 'kg',  alt: 'lbs', mul: 2.20462,    inputId: 'payloadInput',      decimals: 0 },
-    length:       { canonical: 'mm',  alt: 'ft',  mul: 0.00328084, inputId: 'lengthInput',       decimals: 1 },
-    width:        { canonical: 'mm',  alt: 'in',  mul: 0.0393701,  inputId: 'widthInput',        decimals: 1 },
-    height:       { canonical: 'mm',  alt: 'in',  mul: 0.0393701,  inputId: 'heightInput',       decimals: 1 },
-    volume:       { canonical: 'm³',  alt: 'ft³', mul: 35.3147,    inputId: 'volumeInput',       decimals: 1 },
-    fuelTank:     { canonical: 'L',   alt: 'gal', mul: 0.264172,   inputId: 'fuelTankInput',     decimals: 1 },
-};
-
-// Per-target state: which unit currently DISPLAYED, and canonical value
-const unitState = {};
-const canonicalValues = {};
-
-// Init state from config
-Object.keys(UNIT_CONFIG).forEach(t => {
-    unitState[t] = UNIT_CONFIG[t].canonical;
-    canonicalValues[t] = null;
-});
-
-function formatNumber(n, decimals) {
-    if (n == null || isNaN(n)) return '';
-    if (decimals == null) decimals = 0;
-    const rounded = decimals === 0 ? Math.round(n) : Math.round(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
-    return new Intl.NumberFormat('en-US', { maximumFractionDigits: decimals }).format(rounded);
-}
-
-function setupUnitToggles() {
-    // ─── Init canonical values from each input (always stored as canonical on page load) ───
-    Object.entries(UNIT_CONFIG).forEach(([target, cfg]) => {
-        const input = document.getElementById(cfg.inputId);
-        if (input && input.value !== '') {
-            canonicalValues[target] = parseFloat(input.value);
-        }
-        updateHint(target);
-    });
-
-    // ─── Toggle button clicks (generic — works for all targets) ───
-    document.querySelectorAll('.unit-toggle-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.target;
-            const newUnit = btn.dataset.unit;
-            if (!UNIT_CONFIG[target]) return;
-            if (newUnit === unitState[target]) return;
-
-            // Update active visual state
-            document.querySelectorAll(`.unit-toggle-btn[data-target="${target}"]`).forEach(b => {
-                b.classList.toggle('active', b.dataset.unit === newUnit);
-            });
-
-            unitState[target] = newUnit;
-            renderInputForUnit(target);
-        });
-    });
-
-    // ─── Input change handlers (update canonical from displayed value) ───
-    Object.entries(UNIT_CONFIG).forEach(([target, cfg]) => {
-        const input = document.getElementById(cfg.inputId);
-        if (!input) return;
-        input.addEventListener('input', () => {
-            const v = parseFloat(input.value);
-            if (isNaN(v)) {
-                canonicalValues[target] = null;
-            } else if (unitState[target] === cfg.canonical) {
-                canonicalValues[target] = v;
-            } else {
-                canonicalValues[target] = v / cfg.mul;
-            }
-            updateHint(target);
-            syncCanonicalToInputName(target);
-            autoSave();
-        });
-    });
-}
-
-function renderInputForUnit(target) {
-    const cfg = UNIT_CONFIG[target];
-    const input = document.getElementById(cfg.inputId);
-    if (!input) return;
-
-    const canon = canonicalValues[target];
-    const unit = unitState[target];
-
-    if (canon == null) {
-        input.value = '';
-    } else if (unit === cfg.canonical) {
-        // Show as integer if decimals==0, else round to specified decimals
-        input.value = cfg.decimals === 0
-            ? Math.round(canon)
-            : Math.round(canon * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals);
-    } else {
-        const altVal = canon * cfg.mul;
-        input.value = cfg.decimals === 0
-            ? Math.round(altVal)
-            : Math.round(altVal * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals);
-    }
-    syncCanonicalToInputName(target);
-    updateHint(target);
-}
-
-// When in non-canonical unit, strip name from visible input and use hidden field
-// to ensure the form submits the canonical value.
-function syncCanonicalToInputName(target) {
-    const cfg = UNIT_CONFIG[target];
-    const input = document.getElementById(cfg.inputId);
-    if (!input) return;
-
-    // The original name attribute (e.g. 'power', 'gross_weight_kg', 'truck_length_mm')
-    // is what we need to preserve. Cache it on first call.
-    if (!input.dataset.originalName) {
-        // Read current name (initial markup has it set)
-        input.dataset.originalName = input.getAttribute('name') || target;
-    }
-    const origName = input.dataset.originalName;
-
-    const isCanonicalUnit = (unitState[target] === cfg.canonical);
-
-    if (isCanonicalUnit) {
-        input.setAttribute('name', origName);
-        const h = document.querySelector(`input[type="hidden"][data-canonical-for="${target}"]`);
-        if (h) h.remove();
-    } else {
-        input.removeAttribute('name');
-        let h = document.querySelector(`input[type="hidden"][data-canonical-for="${target}"]`);
-        if (!h) {
-            h = document.createElement('input');
-            h.type = 'hidden';
-            h.name = origName;
-            h.dataset.canonicalFor = target;
-            document.getElementById('truckForm').appendChild(h);
-        }
-        const canon = canonicalValues[target];
-        if (canon == null) {
-            h.value = '';
-        } else {
-            h.value = cfg.decimals === 0
-                ? Math.round(canon)
-                : (Math.round(canon * Math.pow(10, cfg.decimals)) / Math.pow(10, cfg.decimals));
-        }
-    }
-}
-
-function updateHint(target) {
-    const cfg = UNIT_CONFIG[target];
-    const hint = document.getElementById(target + 'Hint');
-    if (!hint) return;
-
-    const canon = canonicalValues[target];
-    if (canon == null || isNaN(canon)) {
-        hint.textContent = '';
-        return;
-    }
-
-    const unit = unitState[target];
-    if (unit === cfg.canonical) {
-        // Showing canonical — hint shows alt
-        hint.textContent = '≈ ' + formatNumber(canon * cfg.mul, cfg.decimals) + ' ' + cfg.alt;
-    } else {
-        // Showing alt — hint shows canonical
-        hint.textContent = '≈ ' + formatNumber(canon, cfg.decimals) + ' ' + cfg.canonical;
-    }
-}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras)
 
 // ═══════════════════════════════════════════════════════════
 // INIT
@@ -1060,7 +779,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    setupUnitToggles();
     initPhotoUpload();
     initPhotoActions();
 });

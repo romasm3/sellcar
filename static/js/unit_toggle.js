@@ -402,6 +402,12 @@
             f.hidden.type = 'hidden';
             f.hidden.name = f.origName;
             f.hidden.setAttribute('data-canonical-for', f.key);
+            // Kai kurios formos renka juodraštį pagal [data-autosave="true"],
+            // ne pagal visą formą. Be šito laukas dingtų iš juodraščio, kol
+            // vartotojas žiūri alternatyviais vienetais.
+            if (f.input.hasAttribute('data-autosave')) {
+                f.hidden.setAttribute('data-autosave', f.input.getAttribute('data-autosave'));
+            }
             (f.form || f.input.parentNode).appendChild(f.hidden);
         }
         f.hidden.value = (f.canon === null) ? '' : forInput(f.canon, f.spec.dec);
