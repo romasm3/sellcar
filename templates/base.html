@@ -15,8 +15,8 @@
     <meta property="og:url" content="https://autoleft.com{{ request.path }}">
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
-    {# msTitle turi būti apibrėžta anksčiau nei Alpine paleidžia x-init,
-       todėl be defer ir prieš Alpine (multiselect antraštės visose panelėse) #}
+    {% comment %}msTitle turi būti apibrėžta anksčiau nei Alpine paleidžia
+    x-init, todėl be defer ir prieš Alpine (multiselect antraštės panelėse).{% endcomment %}
     <script src="{% static 'js/multiselect.js' %}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Neįleidžiam į commit'ą šablono, kuriame yra daugiaeilis {# #} komentaras —
+# jis nutekėtų į puslapį (buvo penkis kartus). Pilną patikrą daro
+# scripts/patikra.sh, čia — greitoji dalis, kad commit'as neužtruktų.
+set -u
+cd "$(git rev-parse --show-toplevel)"
+
+FAILAI=$(git diff --cached --name-only --diff-filter=ACM | grep '^templates/.*\.html$' || true)
+[ -z "$FAILAI" ] && exit 0
+
+RADINIAI=""
+for f in $FAILAI; do
+    [ -f "$f" ] || continue
+    R=$(grep -n '{#' "$f" | grep -v '#}' || true)
+    [ -n "$R" ] && RADINIAI="$RADINIAI\n$f:\n$R"
+done
+
+if [ -n "$RADINIAI" ]; then
+    echo "COMMIT SUSTABDYTAS: daugiaeilis {# #} komentaras šablone."
+    echo "Django tokį komentarą išspausdina į puslapį. Naudok {% comment %}…{% endcomment %}."
+    printf "%b\n" "$RADINIAI"
+    exit 1
+fi
+exit 0

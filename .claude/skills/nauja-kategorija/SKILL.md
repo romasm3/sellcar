@@ -475,6 +475,36 @@ done
 Visose eilutėse turi būti 1. Tą patį principą taikyk bet kuriam bendram
 `<style>` ar `<script>`: naujas paviršius — patikrink, ar jis jį gauna.
 
+### PRIVALOMA PATIKRA PRIEŠ KIEKVIENĄ DIEGIMĄ
+
+```bash
+./scripts/patikra.sh
+```
+
+Praeina — galima merge'inti į master (o master per 5 min. iškeliauja į
+produkciją). Nepraeina — netaisyk „greitai ir taip", pirma sutvarkyk.
+
+Patikra daro du dalykus:
+
+1. **Šablonų skenavimas** — ar nėra `{#` be `#}` toje pačioje eilutėje.
+2. **Django testai** (`apps/listings/tests.py`, ~3 s, testinės DB nekuria —
+   `config/test_runner.BeDuombazes`, tik skaito):
+   - `SablonuKomentaraiTestas` — visi `templates/**/*.html`;
+   - `PuslapiuTestas.test_nera_sablono_komentaru_puslapiuose` — atidaro
+     `/`, `/?section=cars`, `/?category=cars&sidebar=1`, `/paieska/cars/`,
+     `/browse/`, `/searches/` ir skelbimo puslapį; jei atsakyme yra `{#`
+     ar `#}`, testas krenta ir parodo puslapį, eilutę ir iškarpą;
+   - `PuslapiuTestas.test_tuscios_busenos_ikona_atitinka_kategorija` — visoms
+     kategorijoms atidaro tuščią rezultatų būseną ir lygina ikoną su
+     `listings/partials/category_icon.html` tos kategorijos ikona (pagauna
+     „automobiliams rodomas sunkvežimis").
+
+Be to, `git commit` sustabdo commit'ą, jei į `templates/` patenka daugiaeilis
+`{# #}` (`.githooks/pre-commit`, įjungta per `git config core.hooksPath`).
+
+**Naują puslapį ar tuščią būseną pridėjai — įrašyk jį į `_puslapiai()`
+sąrašą** `apps/listings/tests.py`. Patikra saugo tik tai, ką mato.
+
 ### Komentarai šablonuose
 
 **Kelių eilučių komentarai — TIK `{% comment %}...{% endcomment %}`.**
@@ -495,15 +525,11 @@ Gerai: kelios eilutės.
    šis tekstas bus matomas puslapyje #}
 ```
 
-Klaida pasitaikė bent keturis kartus (`sidebar_moto_parts.html`,
-`advanced_generic.html`, `panel_generic.html`, `search_panel.html`) ir
-kaskart grįždavo su nauju komentaru. Radus lengva patikrinti:
-
-```bash
-curl -s https://autoleft.com/ | grep -c '{#'
-```
-
-Turi būti 0.
+Klaida pasitaikė PENKIS kartus (`sidebar_moto_parts.html`,
+`advanced_generic.html`, `panel_generic.html`, `search_panel.html`,
+`fields/_range.html`, `base.html`) — todėl taisyklės nebeužtenka ir ją
+pakeitė patikra aukščiau. Taisyklė pasako, kaip rašyti; patikra neleidžia
+išleisti, kai parašyta ne taip.
 
 ### Kiti niuansai
 
