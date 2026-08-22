@@ -3054,4 +3054,56 @@ function phoneReveal(pk, masked) {
   .ap-phone.is-full { color: var(--text); }
 </style>
 
+
+{% comment %}
+PRILIPĘS KONTAKTŲ BLOKAS TELEFONE — kaip etalone (patikrinta 2026-08-21:
+jų skelbime apačioje visą laiką matomas „Rašyti +370 653…", 78 px).
+Pas mus kontaktai buvo tik puslapio viduje — telefone tai reiškė 2 236 px
+slinkimo iki numerio.
+
+Tas pats šaltinis kaip ir viduje: telefonas atskleidžiamas paspaudus
+(/<id>/telefonas/), žinutė svečiui veda į prisijungimą su grįžimu.
+Darbalaukyje bloko nėra — ten kontaktai matomi šone.
+{% endcomment %}
+{% if listing.status != 'sold' and user != listing.seller %}
+<div class="ap-sticky lg:hidden"
+     x-data="phoneReveal({{ listing.pk }}, '{{ listing.seller.profile.phone_number|slice:":8" }}...')">
+  <a class="ap-sticky-btn is-msg"
+     href="{% if user.is_authenticated %}{% url 'conversations:start' listing.pk %}{% else %}{% url 'accounts:login' %}?next={{ request.path|add:'?rasyti=1'|urlencode }}{% endif %}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+    <span>{% trans "Rašyti" %}</span>
+  </a>
+  {% if listing.seller.profile.show_phone and listing.seller.profile.phone_number %}
+  <button type="button" class="ap-sticky-btn" @click="reveal()" x-show="!full">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+    <span x-text="masked"></span>
+  </button>
+  <a class="ap-sticky-btn" x-show="full" x-cloak :href="'tel:' + full">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+    <span x-text="full"></span>
+  </a>
+  {% endif %}
+</div>
+
+<style>
+  @media (max-width: 1023px) {
+    .ap-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+                 display: flex; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3);
+                 background: var(--surface); border-top: 1px solid var(--border); }
+    .ap-sticky-btn { flex: 1 1 0; min-width: 0; display: inline-flex; align-items: center;
+                     justify-content: center; gap: var(--sp-2);
+                     height: var(--btn-h); border-radius: var(--r-md);
+                     border: 1px solid var(--accent); background: var(--surface);
+                     color: var(--accent); font-size: var(--fs-base);
+                     font-weight: var(--fw-semibold); text-decoration: none;
+                     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                     transition: background-color var(--dur); }
+    .ap-sticky-btn.is-msg { background: var(--accent); color: var(--accent-contrast); }
+    .ap-sticky-btn svg { width: 18px; height: 18px; flex: 0 0 auto; }
+    /* Kad juosta neuždengtų puslapio pabaigos */
+    body { padding-bottom: calc(var(--btn-h) + var(--sp-4)); }
+  }
+</style>
+{% endif %}
+
 {% endblock %}
