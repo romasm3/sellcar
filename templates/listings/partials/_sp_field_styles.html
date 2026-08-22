@@ -34,6 +34,9 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-dd-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-size:14px; color:#333; cursor:pointer; }
   .sp-dd-item:hover { background:#F6F7F8; }
   .sp-dd-count { color:#9AA0A6; font-size:13px; }
+  /* Markė be skelbimų — rodoma, bet blankesnė (katalogas dar pildosi) */
+  .sp-dd-item.is-tuscia { color:#9AA0A6; }
+  .sp-dd-item.is-tuscia .sp-dd-count { color:#C4C8CC; }
   .sp-dd-group { padding:9px 14px 4px; font-weight:700; font-size:14px; color:#111; }
   .sp-dd-foot { padding:9px 14px; text-align:center; font-size:13px; color:#777; border-top:1px solid #EEE; }
   .sp-dd-foot a { display:block; color:var(--accent); font-weight:600; cursor:pointer; margin-top:2px; }
@@ -129,6 +132,9 @@ vidinės paraštės 9px/12px, aukštis 40px.
                      border-bottom: 1px solid #F3F4F6; cursor: pointer; }
     .sp-sheet-item.is-sel { color: var(--accent); font-weight: 700; }
     .sp-sheet-item .cnt { color: #9AA0A6; font-size: 15px; }
+    /* Markė be skelbimų — matoma, tik blankesnė */
+    .sp-sheet-item.is-tuscia { color: #9AA0A6; }
+    .sp-sheet-item.is-tuscia .cnt { color: #C4C8CC; }
     .sp-sheet-foot { padding: 10px 12px; border-top: 1px solid var(--accent-soft); }
   }
   @media (min-width: 1024px) {

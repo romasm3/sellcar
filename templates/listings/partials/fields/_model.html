@@ -44,10 +44,10 @@ nenumerinę reikšmę suranda pagal pavadinimą).
       </div>
       <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
       <template x-for="m in visible()" :key="m.v">
-        <div class="sp-dd-item"
+        <div class="sp-dd-item" :class="!m.c && 'is-tuscia'"
              @click="pick(m.v, m.n); if (typeof refreshCount === 'function') refreshCount(0)">
           <span x-text="m.n"></span>
-          <span class="sp-dd-count" x-text="m.c ? m.c : ''"></span>
+          <span class="sp-dd-count" x-text="'(' + (m.c || 0) + ')'"></span>
         </div>
       </template>
       <div class="sp-dd-foot" x-show="!loading && visible().length === 0">

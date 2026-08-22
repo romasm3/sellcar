@@ -65,7 +65,7 @@
                   <select name="{{ f.param }}" class="sp-fld">
                     <option value="">{% trans "Visos markės" %}</option>
                     {% for b in f.brands_top %}<option value="{{ b.value }}" {% if b.value|stringformat:"s" in selected_brands %}selected{% endif %}>{{ b.name }} ({{ b.count }})</option>{% endfor %}
-                    {% for b in f.brands_rest %}<option value="{{ b.value }}" {% if b.value|stringformat:"s" in selected_brands %}selected{% endif %}>{{ b.name }}{% if b.count %} ({{ b.count }}){% endif %}</option>{% endfor %}
+                    {% for b in f.brands_rest %}<option value="{{ b.value }}" {% if b.value|stringformat:"s" in selected_brands %}selected{% endif %}>{{ b.name }} ({{ b.count|default:0 }})</option>{% endfor %}
                   </select>
                 </div>
               </template>

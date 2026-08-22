@@ -1,0 +1,59 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ANTRINĖ NAVIGACIJOS JUOSTA (po antrašte) — etalono stilius.
+
+Balta juosta su 1 px rėmeliais viršuje ir apačioje, plotis toks pat kaip
+antraštės (max-w-7xl). Užvedus — akcento spalvos tekstas ir 2 px
+pabraukimas apačioje.
+
+Telefone juosta slenkama į šoną (overflow-x:auto, slankiklis paslėptas) —
+sąmoninga išimtis iš „be horizontalaus slinkimo" taisyklės: slenka pati
+juosta savo konteineryje, puslapio ji neišplečia (SKILL.md).
+
+Nuorodos: kur puslapis JAU yra — tikras {% url %}; kur dar nėra — „#"
+su TODO, kad nebūtų mirusių 404.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<nav class="sec-nav no-print" aria-label="{% trans 'Papildoma navigacija' %}">
+  <div class="sec-nav-in">
+    {# TODO: finansavimo puslapio dar nėra — įdėti {% url %}, kai atsiras #}
+    <a href="#" class="sec-nav-item">{% trans "Finansavimas" %}</a>
+
+    {% comment %}„Reklama / pasiūlymai verslui" — esamas help puslapis{% endcomment %}
+    <a href="{% url 'advertise' %}" class="sec-nav-item">{% trans "Pasiūlymai verslui" %}</a>
+
+    {# TODO: autokatalogo (markių/modelių žinyno) puslapio dar nėra #}
+    <a href="#" class="sec-nav-item">{% trans "Autokatalogas" %}</a>
+
+    {% comment %}Straipsniai kol kas veda į „Patarimai ir gidai" — kito
+    straipsnių puslapio nėra.{% endcomment %}
+    <a href="{% url 'tips_guides' %}" class="sec-nav-item">{% trans "Straipsniai" %}</a>
+
+    <a href="{% url 'help_center' %}" class="sec-nav-item">{% trans "Pagalba" %}</a>
+    <a href="{% url 'about_us' %}" class="sec-nav-item">{% trans "Apie mus" %}</a>
+
+    {% comment %}Paskutinis — akcentuotas; veda į pardavėjo (dealer) planą.{% endcomment %}
+    <a href="{% url 'accounts:become_dealer' %}" class="sec-nav-item is-pro">{% trans "PRO pardavimas" %}</a>
+  </div>
+</nav>
+
+<style>
+  .sec-nav { background: var(--surface);
+             border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
+  .sec-nav-in { max-width: 80rem; margin: 0 auto; padding: 0 var(--sp-4);
+                display: flex; align-items: stretch; gap: var(--sp-6);
+                overflow-x: auto; overscroll-behavior-x: contain;
+                scrollbar-width: none; -ms-overflow-style: none; }
+  .sec-nav-in::-webkit-scrollbar { display: none; }
+  .sec-nav-item { display: inline-flex; align-items: center; white-space: nowrap;
+                  padding: 12px 0; font-size: var(--fs-sm);
+                  font-weight: var(--fw-medium); color: var(--text-muted);
+                  text-decoration: none;
+                  border-bottom: 2px solid transparent; margin-bottom: -1px;
+                  transition: color var(--dur), border-color var(--dur); }
+  .sec-nav-item:hover { color: var(--danger); border-bottom-color: var(--danger); }
+  .sec-nav-item.is-pro { color: var(--danger); font-weight: var(--fw-semibold); }
+  @media (max-width: 1023px) {
+    .sec-nav-in { gap: var(--sp-4); padding: 0 var(--sp-3); }
+  }
+</style>

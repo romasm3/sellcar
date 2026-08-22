@@ -635,6 +635,10 @@
         </div>
     </nav>
 
+    {% comment %}Antrinė navigacija — iškart po antrašte, visuose base.html
+    puslapiuose (templates/partials/secondary_nav.html).{% endcomment %}
+    {% include 'partials/secondary_nav.html' %}
+
     <!-- Messages -->
     {% if messages %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">

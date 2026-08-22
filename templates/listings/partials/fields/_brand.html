@@ -47,10 +47,13 @@ pasirinkimas jį iškviečia per Alpine scope grandinę.
       </div>
       <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
       <template x-for="b in visible()" :key="b.v">
-        <div class="sp-dd-item"
+        {% comment %}Skaičius rodomas VISADA, taip pat ir „(0)" — katalogas
+        dar mažas, o slepiant tuščias markes sąrašas atrodytų nykus. Eilutė
+        be skelbimų – blankesnė (.is-tuscia).{% endcomment %}
+        <div class="sp-dd-item" :class="!b.c && 'is-tuscia'"
              @click="pick(b.v, b.n); if (typeof refreshCount === 'function') refreshCount(0)">
           <span x-text="b.n"></span>
-          <span class="sp-dd-count" x-text="b.c ? b.c : ''"></span>
+          <span class="sp-dd-count" x-text="'(' + (b.c || 0) + ')'"></span>
         </div>
       </template>
       <div class="sp-dd-foot" x-show="!loading && visible().length === 0">

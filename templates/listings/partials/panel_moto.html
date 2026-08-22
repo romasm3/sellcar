@@ -19,7 +19,7 @@
             <div class="custom-item {% if request.GET.motorcycle_brand == b.id|stringformat:'i' %}selected{% endif %}"
                  data-id="{{ b.id }}" data-name="{{ b.name }}" data-count="{{ b.count }}"
                  onclick="chooseMotoBrand('{{ b.id }}', '{{ b.name|escapejs }}')">
-                <span>{{ b.name }}</span><span class="item-count">{{ b.count }}</span>
+                <span>{{ b.name }}</span><span class="item-count">({{ b.count|default:0 }})</span>
             </div>
             {% endfor %}
         </div>
