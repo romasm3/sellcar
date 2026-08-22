@@ -1175,12 +1175,17 @@ def _mano_paieskos(request, limit=5):
                 qs = qs.filter(brand_id=params['brand'])
             if params.get('price_max'):
                 qs = qs.filter(price__lte=params['price_max'])
+            # Rodom du skaičius: kiek skelbimų paieška randa DABAR ir kiek
+            # iš jų nauji nuo paskutinės peržiūros. Vien „+7 nauji" nesako,
+            # ar sąraše 7 skelbimai, ar 700.
+            viso = qs.count()
             nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
-                     if s.last_viewed_at else qs.count())
+                     if s.last_viewed_at else viso)
             from urllib.parse import urlencode
             issaugotos.append({
                 'id': s.pk,
                 'pavadinimas': s.name or _('Paieška'),
+                'viso': viso,
                 'nauji': nauji,
                 'url': '/?' + urlencode({k: v for k, v in params.items() if v}) + '&sidebar=1',
             })

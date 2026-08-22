@@ -34,6 +34,8 @@ visos kitos kortelės. Etalono reklamjuostės nedarom.
       <li class="ms-row">
         <a class="ms-row-main" href="{{ s.url }}">
           <span class="ms-name">{{ s.pavadinimas }}</span>
+          {% comment %}Du skaičiai: kiek skelbimų yra iš viso ir kiek naujų.{% endcomment %}
+          <span class="ms-count">{{ s.viso }} {% trans "skelb." %}</span>
           {% if s.nauji %}<span class="ms-new">+{{ s.nauji }} {% trans "nauji" %}</span>{% endif %}
         </a>
         <form method="post" action="{% url 'delete_search' s.id %}" class="ms-row-act">
@@ -110,6 +112,7 @@ visos kitos kortelės. Etalono reklamjuostės nedarom.
                  color: var(--text); text-decoration: none; font-size: var(--fs-base); }
   .ms-name { flex: 1 1 auto; min-width: 0; overflow: hidden;
              text-overflow: ellipsis; white-space: nowrap; }
+  .ms-count { flex: 0 0 auto; font-size: var(--fs-xs); color: var(--text-muted); }
   .ms-new { flex: 0 0 auto; font-size: var(--fs-xs); font-weight: var(--fw-medium);
             color: var(--success); background: var(--success-bg);
             border: 1px solid var(--success-border); border-radius: var(--badge-r);
