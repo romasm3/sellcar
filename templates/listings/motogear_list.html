@@ -6,6 +6,10 @@
 {% block extra_css %}
 <style>
 .cat-modal-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; }
+/* Tailwind .hidden ir šis .display:flex turi vienodą specifiškumą — kas laimės,
+   priklauso nuo stilių eiliškumo, o CDN jį gali pakeisti. Todėl paslėpimą
+   fiksuojam čia: kitaip modalas atsidaro pats įėjus į puslapį. */
+.cat-modal-overlay.hidden { display:none !important; }
 .cat-modal-box { background:#fff; border-radius:1rem; box-shadow:0 8px 40px rgba(0,0,0,0.18); width:100%; max-width:720px; max-height:80vh; overflow:hidden; display:flex; flex-direction:column; }
 .cat-modal-header { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid #f3f4f6; flex-shrink:0; }
 .cat-modal-body { display:flex; flex:1; overflow:hidden; }
