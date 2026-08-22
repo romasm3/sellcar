@@ -26,4 +26,11 @@ Django vehicle marketplace, Lithuanian-first. PRODUCTION server — be careful.
 
 ## Workflow
 - Commit as you go: small logical commits after each meaningful step, Conventional Commits format (feat/fix/chore...), then push
+- Merge to master yourself when the work is done — do NOT ask each time.
+  Before every merge: fetch master, check it hasn't moved under you, check
+  your files don't overlap with what another session pushed, and re-run the
+  checks ON THE MERGED TREE, not just on the branch. Merge only green work.
+  Note that master auto-deploys to production within 5 min (deploy/README.md),
+  so a merge is a deploy. Still stop and ask before anything irreversible
+  (destructive DB commands, data-losing migrations).
 - Test accounts: admin romasm3@gmail.com, buyer romasm333@gmail.com
