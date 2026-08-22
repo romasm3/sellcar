@@ -125,3 +125,15 @@ git remote -v
   reikės GitHub Actions prieš merge.
 * **Neliečia `.env`, `media/`, `venv/`, `staticfiles/`** — jie neįtraukti į
   snapshot'ą, tad rollback jų nesugadins.
+
+## Patikra prieš diegimą
+
+Nuo 2026-08-22 `deploy-from-git.sh` prieš liesdamas produkciją paleidžia
+`scripts/patikra.sh` (šablonų nuotėkio skenavimas + Django testai). Kritus:
+
+* migracijos, `collectstatic` ir perkrovimas net nepradedami;
+* kodas grąžinamas į ankstesnį commit'ą;
+* blogas commit'as įrašomas į `deploy/.blogas-commitas`, kad timeris jo
+  nekartotų kas minutę — žymė nusivalo, kai `master` gauna naują commit'ą.
+
+Žurnalas: `journalctl -u autoleft-deploy -n 50`
