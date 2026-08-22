@@ -4,7 +4,9 @@ kaip etalone. Su reikšmių sąrašu renderinami select'ai, be jo — skaičių
 laukeliai su datalist pasiūlymais.
 {% endcomment %}
 <div>
-  <label class="block text-[12.5px] font-bold mb-[5px]">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}</label>
+  {% comment %}Kai prašoma vienetų perjungiklio, etiketėje paliekam jam
+  vietą — kitaip skriptas mygtukus deda šalia įvesties ir tas susispaudžia.{% endcomment %}
+  <label class="block text-[12.5px] font-bold mb-[5px]{% if vienetai %} flex items-center gap-2{% endif %}">{{ f.label }}{% if f.unit %} ({{ f.unit }}){% endif %}{% if vienetai %}<span class="unit-slot" data-unit-slot="{{ f.param_min }}"></span>{% endif %}</label>
   <div class="grid grid-cols-2 gap-3">
     {% if f.options_min and not f.free_input %}
     <div class="sp-sel">
@@ -20,15 +22,19 @@ laukeliai su datalist pasiūlymais.
       </select>
     </div>
     {% else %}
-    {% comment %}Matavimo laukams — bendras vienetų perjungiklis (static/js/unit_toggle.js).
-    Mygtukai piešiami tik prie „Nuo": vienai porai užtenka vieno.
+    {% comment %}Matavimo vienetų perjungiklis (static/js/unit_toggle.js) —
+    TIK ten, kur šablonas jo paprašo (vienetai=1): detalioje paieškoje ir
+    skelbimo formose. Šoninėje juostoje ir greitojoje panelėje jo nėra:
+    230 px stulpelyje mygtukai suspausdavo įvesties laukelį iki ~26 px ir
+    nesimatydavo, ką renkiesi. Kaip vienetus rodyti filtruose (pagal šalį
+    ar profilį) — dar neišspręsta.
     step='any', nes alternatyvūs vienetai (mylios, colių dalys) yra trupmeniniai.{% endcomment %}
     {% with uspec=f.param_min|unit_spec %}
-    <input type="number" step="{% if uspec %}any{% else %}1{% endif %}" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
-           {% if uspec %}data-unit-field="{{ uspec }}" {% endif %}value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
+    <input type="number" step="{% if uspec and vienetai %}any{% else %}1{% endif %}" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
+           {% if uspec and vienetai %}data-unit-field="{{ uspec }}" {% endif %}value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
            class="sp-fld placeholder-gray-400">
-    <input type="number" step="{% if uspec %}any{% else %}1{% endif %}" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
-           {% if uspec %}data-unit-field="{{ uspec }}" data-unit-quiet {% endif %}value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
+    <input type="number" step="{% if uspec and vienetai %}any{% else %}1{% endif %}" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
+           {% if uspec and vienetai %}data-unit-field="{{ uspec }}" data-unit-quiet {% endif %}value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
            class="sp-fld placeholder-gray-400">
     {% endwith %}
     <datalist id="dl-{{ f.param_min }}">{% for v, lbl in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>

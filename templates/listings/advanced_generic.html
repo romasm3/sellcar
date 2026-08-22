@@ -45,7 +45,8 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
             {% for f in row %}
             {% if f.type == 'range' %}
-            {% include 'listings/partials/fields/_range.html' with f=f %}
+            {% comment %}vienetai=1 — čia laukai platūs, perjungiklis telpa{% endcomment %}
+            {% include 'listings/partials/fields/_range.html' with f=f vienetai=1 %}
 
             {% elif f.type == 'text' %}
             {% include 'listings/partials/fields/_text.html' with f=f placeholder=_('Ieškoti pavadinime ir aprašyme') %}

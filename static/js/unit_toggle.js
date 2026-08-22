@@ -305,8 +305,15 @@
             hintParent = hintParent.parentNode;
         }
 
-        var label = findLabel(input);
-        if (label) {
+        // Šablonas gali nurodyti tikslią vietą mygtukams:
+        //     <span class="unit-slot" data-unit-slot="mileage_min"></span>
+        // Tada nespėliojam — dedam ten ir input'o neliečiam.
+        var slot = document.querySelector('[data-unit-slot="' + f.origName + '"]');
+        var label = slot ? (slot.closest('label') || findLabel(input)) : findLabel(input);
+        if (slot) {
+            stripUnitFromLabel(label, spec);
+            slot.appendChild(wrap);
+        } else if (label) {
             stripUnitFromLabel(label, spec);
             var ls = label.getAttribute('style') || '';
             label.setAttribute('style', ls + ';display:flex;align-items:center;gap:.4rem;');
