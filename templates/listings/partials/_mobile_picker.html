@@ -1,15 +1,18 @@
-{% load i18n i18n_db static %}{% comment %}
+{% load i18n i18n_db dict_extras static %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 MOBILUS KATEGORIJŲ PIKERIS — atsidaro paspaudus „…" ikonų juostoje.
 
-Etalonas: antraštė pilkame fone su „Pasirinkite" ir juodu × ; pirmos
-keturios kategorijos — 2×2 didelių kortelių tinklelis; likusios — per
-visą plotį eilutėmis su maža ikona dešinėje; apačioje prilipęs paieškos
-laukas.
+Vienas kompaktiškas dviejų stulpelių tinklelis: maža ikona ir pavadinimas
+vienoje eilutėje. Didelių 2×2 kortelių nebėra — su jomis likusios
+kategorijos nusitęsdavo į ilgą vienos kolonos sąrašą ir netilpdavo į
+ekraną (~390–446 px pločio telefone reikėdavo ilgai slinkti).
+
+Ilgi pavadinimai trumpinami filtru `trumpas`; pilnas tekstas — title.
 
 Kategorijos ir jų tvarka — TAS PATS šaltinis kaip ikonų juostos ir
 „daugiau" sąrašo (picker_primary + more_items + coming_soon_categories).
-Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
+Tik telefonui: nuo 1024 px šis blokas paslėptas, darbalaukyje lieka
+ikonų juosta su fly2 iškrentančiu sąrašu.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 <div class="sp-picker lg:hidden" x-show="picker" x-cloak @keydown.escape.window="picker = false">
@@ -22,38 +25,35 @@ Ikonos — category_icon.html, tas pats failas kaip tuščios būsenos vaizde.
 
   <div class="sp-picker-body">
     <div class="sp-picker-grid">
+
       {% for slug, label in picker_primary %}
-      <a class="sp-picker-card" href="{% url 'listing_list' %}?section={% if slug == 'tires' %}wheels{% else %}{{ slug }}{% endif %}"
+      <a class="sp-picker-cell" title="{{ label }}"
+         href="{% url 'listing_list' %}?section={% if slug == 'tires' %}wheels{% else %}{{ slug }}{% endif %}"
          x-show="pmatch('{{ label|escapejs }}')"
          @click.prevent="picker = false; goTab('{% if slug == 'tires' %}wheels{% else %}{{ slug }}{% endif %}', '', pickerScroll)">
         <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug %}</span>
-        <span>{{ label }}</span>
+        <span class="sp-picker-txt">{{ label|trumpas }}</span>
       </a>
       {% endfor %}
-    </div>
 
-    {% comment %}Likusios kategorijos — tas pats dviejų stulpelių tinklelis
-    kaip ir pirmos keturios, kad viskas tilptų į ekraną be slinkimo.{% endcomment %}
-    <div class="sp-picker-list">
-    {% for item in more_items %}
-    <a class="sp-picker-row" x-show="pmatch('{{ item.name|tdb|escapejs }}')"
-       href="{% url 'listing_list' %}{{ item.url }}"
-       {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
-      <span>{{ item.name|tdb }}</span>
-      <span class="sp-picker-ico-sm">
-        <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
-      </span>
-    </a>
-    {% endfor %}
+      {% for item in more_items %}
+      <a class="sp-picker-cell" title="{{ item.name|tdb }}"
+         x-show="pmatch('{{ item.name|tdb|escapejs }}')"
+         href="{% url 'listing_list' %}{{ item.url }}"
+         {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
+        <span class="sp-picker-ico">
+          <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
+        </span>
+        <span class="sp-picker-txt">{{ item.name|tdb|trumpas }}</span>
+      </a>
+      {% endfor %}
 
     </div>
 
-    {% comment %}Būsimos kategorijos — mažos žymos, o ne pilno pločio eilutės:
-    jos neveikia (nepaspaudžiamos), o šešios eilutės suėsdavo ~120 px, dėl
-    kurių likusioms tekdavo mažesnis aukštis.{% endcomment %}
+    {% comment %}Būsimos kategorijos — mažos žymos, nepaspaudžiamos.{% endcomment %}
     <div class="sp-picker-soonbar">
       {% for slug, name in coming_soon_categories %}
-      <span class="sp-picker-chip" x-show="pmatch('{{ name|escapejs }}')">{{ name }}</span>
+      <span class="sp-picker-chip" x-show="pmatch('{{ name|escapejs }}')">{{ name|trumpas }}</span>
       {% endfor %}
       <span class="sp-picker-soon">{% trans "Netrukus" %}</span>
     </div>

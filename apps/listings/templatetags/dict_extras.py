@@ -189,3 +189,42 @@ def skyrikliai(tekstas):
     # o ne tik ties kableliais.
     dalys = [escape(d) for d in str(tekstas).split(' | ')]
     return mark_safe(' <span class="sep">|</span> '.join(dalys))
+
+
+# Ilgi kategorijų pavadinimai telefono pikeryje netelpa į vieną eilutę.
+# Trumpiname TIK rodymui — pilnas tekstas lieka title patarime.
+TRUMPINIAI = {
+    'Limuzinų, vestuvių transporto nuoma': 'Limuzinų nuoma',
+    'Mikroautobusų, turistinio, vandens tr. nuoma': 'Mikroautobusų nuoma',
+    'Sunkiojo transporto, priekabų nuoma': 'Sunkiojo transp. nuoma',
+    'Automobilių, mikroautobusų dalys': 'Automobilių dalys',
+    'Sunkiojo transporto dalys': 'Sunkiojo transp. dalys',
+    'Žemės ūkio, spec. dalys': 'Žemės ūkio dalys',
+    'Žemės ūkio technika, padargai': 'Žemės ūkio technika',
+    'Krovimo ir sandėliavimo technika': 'Krovimo technika',
+    'Komunalinio ūkio transportas': 'Komunalinis transp.',
+    'Autotraukiniai, autovežiai': 'Autovežiai',
+    'Priekabos / Puspriekabės': 'Priekabos',
+    'Apranga, šalmai, aksesuarai': 'Moto apranga',
+    'Aksesuarai, Tuning': 'Aksesuarai, tuning',
+    'Video, audio, navigacijos': 'Video, audio, navi',
+    'El. paspirtukai, riedžiai, dviračiai': 'Paspirtukai, dviračiai',
+    'Turistiniai nameliai': 'Turistiniai nameliai',
+    'Miško ūkio technika': 'Miško technika',
+    'Ratlankiai / padangos': 'Ratlankiai',
+    'Motociklai, apranga': 'Motociklai',
+    'Statybinės technikos priedai': 'Statybos priedai',
+    'Vandens transportas': 'Vandens transp.',
+    'Automobilių supirkimas': 'Auto supirkimas',
+    'Mikroautobusų, turistinio, vandens tr. nuoma': 'Mikroautob. nuoma',
+    'Sunkiojo transporto, priekabų nuoma': 'Sunkiojo nuoma',
+    'El. paspirtukai, riedžiai, dviračiai': 'Paspirtukai',
+    'Žemės ūkio technika, padargai': 'Žemės ūkio techn.',
+}
+
+
+@register.filter
+def trumpas(vardas):
+    """Ilgą kategorijos pavadinimą sutrumpina telefono pikeriui."""
+    tekstas = str(vardas).strip()
+    return TRUMPINIAI.get(tekstas, tekstas)

@@ -242,32 +242,22 @@ vidinės paraštės 9px/12px, aukštis 40px.
     (flex: 1 1 0). Aukštame lange (446×1288) eilutė išeina ~34 px, 390×844
     telefone — ~19 px; abiem atvejais nieko nereikia stumdyti.
     {% endcomment %}
-    .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow: hidden;
-                      padding: 8px 10px 6px; display: flex; flex-direction: column; gap: 5px; }
-    .sp-picker-grid { flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr;
-                      gap: 6px; grid-auto-rows: clamp(46px, 8.4vh, 116px); }
-    .sp-picker-card { display: flex; flex-direction: column; align-items: center;
-                      justify-content: center; gap: clamp(2px, 1vh, 10px);
-                      min-height: 0; padding: 4px 6px; overflow: hidden;
-                      background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
-                      font-size: clamp(11.5px, 1.6vh, 15px); font-weight: 600;
-                      color: #1F2328; text-align: center; cursor: pointer; }
-    .sp-picker-ico { width: clamp(18px, 3.2vh, 40px); height: clamp(18px, 3.2vh, 40px);
-                     color: #9AA0A6; flex: 0 0 auto; display: block; }
+    .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+                      -webkit-overflow-scrolling: touch;
+                      padding: 8px 10px 6px; display: flex; flex-direction: column; gap: 6px; }
+    /* Vienas kompaktiškas tinklelis: du stulpeliai ir siauriausiuose
+       ekranuose (ne 1), maža ikona + pavadinimas vienoje eilutėje. */
+    .sp-picker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .sp-picker-cell { display: flex; align-items: center; gap: 8px; min-width: 0;
+                      padding: 9px 10px; background: #fff;
+                      border: 1px solid #E6E8EB; border-radius: 10px;
+                      font-size: 14px; line-height: 1.2; color: #1F2328;
+                      text-decoration: none; }
+    .sp-picker-cell:active { background: #F4F5F6; }
+    .sp-picker-ico { width: 20px; height: 20px; color: #9AA0A6; flex: 0 0 auto; display: block; }
     .sp-picker-ico svg { width: 100%; height: 100%; }
-    /* Likusios — per visą plotį, viena po kitos, be slinkimo. */
-    .sp-picker-list { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column;
-                      gap: 3px; }
-    .sp-picker-row { flex: 1 1 0; min-height: 20px; display: flex; align-items: center;
-                     justify-content: space-between; gap: 10px; padding: 0 12px;
-                     background: #fff; border: 1px solid #E6E8EB; border-radius: 9px;
-                     font-size: clamp(11px, 1.55vh, 16px); line-height: 1.1;
-                     color: #1F2328; text-decoration: none; overflow: hidden; }
-    .sp-picker-row > span:first-child { flex: 1 1 auto; min-width: 0; overflow: hidden;
-                                        text-overflow: ellipsis; white-space: nowrap; }
-    .sp-picker-ico-sm { width: clamp(14px, 2.2vh, 24px); height: clamp(14px, 2.2vh, 24px);
-                        color: #9AA0A6; flex: 0 0 auto; }
-    .sp-picker-ico-sm svg { width: 100%; height: 100%; }
+    .sp-picker-txt { flex: 1 1 auto; min-width: 0; overflow: hidden;
+                     text-overflow: ellipsis; white-space: nowrap; }
     .sp-picker-soonbar { flex: 0 0 auto; display: flex; flex-wrap: wrap; align-items: center;
                          gap: 4px; padding-top: 2px; }
     .sp-picker-chip { font-size: clamp(9.5px, 1.3vh, 12px); color: #9AA0A6;
