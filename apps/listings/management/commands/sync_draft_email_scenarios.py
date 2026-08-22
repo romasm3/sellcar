@@ -16,6 +16,9 @@ SCENARIOS = [
         'trigger': 'Cron: 1 hour after draft creation',
     },
     {
+        # Savo šablono NETURI ir jam nereikia: send_draft_reminders renderina
+        # bendrą 'emails/draft_reminder_daily.html', o temą nurodo kode.
+        # Per send_scenario šis kodas nesiunčiamas (jo nėra EMAIL_SCENARIOS).
         'code': 'draft_reminder_24h',
         'name': 'Draft - 24h reminder',
         'description': 'Sent 24 hours after draft creation if still not activated.',

@@ -1,0 +1,29 @@
+{% extends 'emails/base_email.html' %}
+{% comment %}Sveikinimo laiškas. Turinys tas pats kaip account_welcome.txt,
+tik rėmas iš base_email.html ir mygtukas vietoj plikų adresų.{% endcomment %}
+{% block title %}Welcome to AutoLeft{% endblock %}
+{% block body %}
+<p style="margin:0 0 16px 0;">Hi {{ user_name|default:"there" }},</p>
+<p style="margin:0 0 16px 0;">Welcome! Your account is ready.</p>
+
+{% include 'emails/_mygtukas.html' with url=site_url|add:"/create/" tekstas="Create your first listing" %}
+
+<p style="margin:0 0 8px 0;font-weight:700;">What you can do now:</p>
+<ul style="margin:0 0 20px 0;padding-left:20px;color:#374151;">
+  <li style="margin-bottom:6px;"><a href="{{ site_url }}/" style="color:#111;">Browse cars, motorcycles, trucks and more</a></li>
+  <li style="margin-bottom:6px;"><a href="{{ site_url }}/searches/" style="color:#111;">Save searches</a> and get notified about new matches</li>
+  <li style="margin-bottom:6px;"><a href="{{ site_url }}/saved/" style="color:#111;">Save listings</a> you like for later</li>
+</ul>
+
+<p style="margin:0 0 8px 0;font-weight:700;">Quick tips for sellers:</p>
+<ul style="margin:0 0 20px 0;padding-left:20px;color:#374151;">
+  <li style="margin-bottom:6px;">Add clear, well-lit photos (5–8 minimum)</li>
+  <li style="margin-bottom:6px;">Write an honest, detailed description</li>
+  <li style="margin-bottom:6px;">Set a fair price to sell faster</li>
+</ul>
+
+<p style="margin:0;color:#6b7280;font-size:14px;">
+  Any questions? Reply to this email or visit
+  <a href="{{ site_url }}/contact/" style="color:#111;">{{ site_url }}/contact/</a>
+</p>
+{% endblock %}

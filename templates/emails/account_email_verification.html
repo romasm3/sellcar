@@ -1,0 +1,16 @@
+{% extends 'emails/base_email.html' %}
+{% block title %}Verify your email address{% endblock %}
+{% block body %}
+<p style="margin:0 0 16px 0;">Hi {{ user_name|default:"there" }},</p>
+<p style="margin:0 0 16px 0;">Welcome! Please confirm your email address:</p>
+
+{% include 'emails/_mygtukas.html' with url=verification_url tekstas="Confirm email address" %}
+
+<p style="margin:0 0 16px 0;color:#6b7280;font-size:14px;">
+  This link will expire in 24 hours. If the button doesn't work, copy this address into your browser:<br>
+  <a href="{{ verification_url }}" style="color:#111;word-break:break-all;">{{ verification_url }}</a>
+</p>
+<p style="margin:0;color:#6b7280;font-size:14px;">
+  If you didn't create an account, you can safely ignore this email.
+</p>
+{% endblock %}

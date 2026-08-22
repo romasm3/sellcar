@@ -1,0 +1,34 @@
+{% extends 'emails/base_email.html' %}
+{% block title %}Your listing is live{% endblock %}
+{% block body %}
+<p style="margin:0 0 16px 0;">Hi {{ user_name|default:"there" }},</p>
+<p style="margin:0 0 16px 0;">Your listing is now live:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="border:1px solid #e7e7e7;border-radius:8px;margin:0 0 4px 0;">
+  <tr>
+    <td style="padding:16px;">
+      <div style="font-size:15px;font-weight:700;color:#111;">{{ listing_title }}</div>
+      <div style="margin-top:6px;font-size:16px;font-weight:700;color:#111;">{{ listing_price_display }}</div>
+    </td>
+  </tr>
+</table>
+
+{% include 'emails/_mygtukas.html' with url=listing_url tekstas="View your listing" %}
+
+<p style="margin:0 0 8px 0;font-weight:700;">Tips to sell faster:</p>
+<ul style="margin:0 0 20px 0;padding-left:20px;color:#374151;">
+  <li style="margin-bottom:6px;">Add at least 5–8 good quality photos</li>
+  <li style="margin-bottom:6px;">Write a detailed description</li>
+  <li style="margin-bottom:6px;">Set a fair price (check similar listings)</li>
+  <li style="margin-bottom:6px;">Respond to buyer messages quickly</li>
+</ul>
+
+<p style="margin:0 0 16px 0;color:#6b7280;font-size:14px;">
+  Your listing will be active for {{ active_days|default:"30" }} days.
+  We'll remind you 3 days before it expires.
+</p>
+<p style="margin:0;">
+  <a href="{{ site_url }}/dashboard/announcements/" style="color:#111;font-weight:700;">Manage your listings →</a>
+</p>
+{% endblock %}

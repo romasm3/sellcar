@@ -1,0 +1,19 @@
+Hi {{ user_name|default:"there" }},
+
+Your listing is still inactive{% if days_expired %} — it expired {{ days_expired }} day{{ days_expired|pluralize }} ago{% endif %}:
+
+   {{ listing_title }}
+
+Nobody can find it while it's expired. Reactivate it with one click:
+{{ activate_url }}
+
+Or see the listing itself:
+{{ listing_url }}
+
+Already sold it? Mark it as SOLD so we stop reminding you:
+{{ site_url }}/dashboard/announcements/
+
+- Thank you
+
+---
+To change notification settings: {{ site_url }}/settings/

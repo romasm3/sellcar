@@ -1,0 +1,29 @@
+{% extends 'emails/base_email.html' %}
+{% block title %}Price drop on a saved listing{% endblock %}
+{% block body %}
+<p style="margin:0 0 16px 0;">Hi,</p>
+<p style="margin:0 0 16px 0;">Good news — a listing you saved just got cheaper:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="border:1px solid #e7e7e7;border-radius:8px;margin:0 0 4px 0;">
+  <tr>
+    <td style="padding:16px;">
+      <div style="font-size:15px;font-weight:700;color:#111;">{{ listing_title }}</div>
+      <div style="margin-top:8px;font-size:14px;color:#6b7280;">
+        Was <span style="text-decoration:line-through;">{{ old_price_display }}</span>
+      </div>
+      <div style="margin-top:2px;font-size:20px;font-weight:700;color:#111;">{{ new_price_display }}</div>
+      <div style="margin-top:8px;display:inline-block;font-size:12px;color:#067647;background:#ECFDF3;border:1px solid #ABEFC6;border-radius:16px;padding:2px 8px;">
+        −{{ drop_amount_display }} ({{ drop_percent }}%)
+      </div>
+    </td>
+  </tr>
+</table>
+
+{% include 'emails/_mygtukas.html' with url=listing_url tekstas="View the listing" %}
+
+<p style="margin:0;color:#6b7280;font-size:14px;">
+  You get this email because you saved the listing and turned on price-drop emails:
+  <a href="{{ site_url }}/saved/" style="color:#111;">{{ site_url }}/saved/</a>
+</p>
+{% endblock %}
