@@ -88,6 +88,21 @@
 .h-img-side .no-img-icon { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 3rem; }
 .h-info-side { flex: 1; padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
 
+/* Kortelės miniatiūros ir pardavėjo eilutė — tik darbalaukyje.
+   Matmenys iš etalono (88×66 px), spalvos iš dizaino sistemos. */
+.h-thumbs { position: absolute; left: var(--sp-2); bottom: var(--sp-2); display: flex; gap: var(--sp-1); z-index: 6; }
+.h-thumb { width: 56px; height: 42px; padding: 0; border: 2px solid transparent; border-radius: var(--r-sm);
+           overflow: hidden; background: none; cursor: pointer; opacity: .85;
+           transition: opacity var(--dur), border-color var(--dur); }
+.h-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.h-thumb:hover { opacity: 1; }
+.h-thumb.is-on { opacity: 1; border-color: #fff; }
+.h-seller { display: flex; align-items: center; gap: var(--sp-1); margin-top: auto;
+            font-size: var(--fs-xs); color: var(--text-muted); }
+.h-seller svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.h-seller-sep { color: var(--border-hover); }
+@media (max-width: 1023px) { .h-thumbs { display: none; } }
+
 /* ─── Skelbimo kortelė TELEFONE (etalonas: docs/mobilus-etalonas.md) ──────
    Kortelė buvo sudėta į eilutę su fiksuota 340 px nuotrauka ir be jokio
    mobilaus varianto: 358 px ekrane informacijai likdavo 40 px, todėl
@@ -819,6 +834,20 @@ a.sp-rail-btn { text-decoration:none; }
                             {% if listing.status == 'sold' %}
                             <div class="sold-overlay"><span class="sold-badge-big">{% trans "SOLD" %}</span></div>
                             {% endif %}
+
+                            {% comment %}Trys miniatiūros — kaip etalono kortelėje
+                            (.image.has-thumbs). Telefone jų nėra: ten kortelė
+                            stulpeliu ir nuotrauka per visą plotį.{% endcomment %}
+                            {% if listing.images.count > 1 %}
+                            <div class="h-thumbs">
+                              {% for img in listing.images.all|slice:"1:4" %}
+                              <button type="button" class="h-thumb" :class="idx === {{ forloop.counter }} && 'is-on'"
+                                      @click.stop="idx = {{ forloop.counter }}">
+                                <img src="{{ img.url_sm }}" alt="" width="88" height="66" loading="lazy" decoding="async">
+                              </button>
+                              {% endfor %}
+                            </div>
+                            {% endif %}
                             {% if listing.status != 'sold' %}
                             {% if user.is_authenticated %}
                             <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all z-10">
@@ -851,6 +880,16 @@ a.sp-rail-btn { text-decoration:none; }
                             {% comment %}Telefone — etalono parametrų tinklelis (trys stulpeliai su
                             ikonomis). Darbalaukyje jis paslėptas, ten lieka ap-spec-line eilutės.{% endcomment %}
                             {% include 'listings/partials/_card_params.html' with listing=listing %}
+
+                            {% comment %}Pardavėjo eilutė — etalone kortelėje yra
+                            .seller-item su tipu ir vieta.{% endcomment %}
+                            <div class="h-seller">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" d="M4.5 20a7.5 7.5 0 0115 0"/></svg>
+                              {% comment %}Miesto čia nekartojam — kortelėje jau yra
+                              vietos eilutė žemiau.{% endcomment %}
+                              <span>{% if listing.seller.profile.seller_type == 'business' or listing.seller.profile.dealer_subscription_active %}{% trans "Pardavėjas" %}{% else %}{% trans "Privatus asmuo" %}{% endif %}</span>
+                              {% if listing.seller.profile.dealer_subscription_active %}<span class="h-seller-sep">·</span><span>{% trans "Patvirtintas" %}</span>{% endif %}
+                            </div>
                             {% if listing.vehicle_type.slug == 'bicycles' %}
                             <div class="ap-spec-line">
                                 {% if listing.bike_type %}<span>{{ listing.get_bike_type_display }}</span>{% endif %}
