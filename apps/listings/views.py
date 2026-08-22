@@ -1285,10 +1285,18 @@ def _paieskos_pavadinimas(params):
     return '%s (%s)' % (priekis, kat_vardas) if kat_vardas else priekis
 
 
-def _filtru_santrauka(params, riba=4):
-    """Filtrų santrauka viena eilute: „Benzinas · iki 8 000 € · nuo 2006 m.".
+def _filtru_santrauka(params, riba=None):
+    """Filtrų santrauka: „Benzinas, Dyzelinas · Automatinė · nuo 5 000 €".
+
+    To paties lauko reikšmės — kableliu, skirtingi laukai — „ · ".
+    Laukų tvarka PASTOVI (kaip panelėje): kuras, pavarų dėžė, kėbulas,
+    kaina, metai, rida, miestas, po jų — likę filtrai konfigūracijos
+    tvarka. Iš adreso atėjusi tvarka nesvarbi.
 
     Markės ir modelio čia NĖRA — jie jau pavadinime, kartoti nereikia.
+    Nekerpam: teksto kiekį riboja šablonas (2–3 eilutės), ne serveris.
+    `riba` palikta tam atvejui, kai reikia trumpos versijos.
+
     Rodoma ir /searches/ puslapyje, ir pagrindinio puslapio kortelėje,
     todėl gyvena vienoje vietoje.
     """
@@ -1304,6 +1312,8 @@ def _filtru_santrauka(params, riba=4):
                         key=lambda o: eile.get(str(o.pk), 0))
         return ', '.join(_lt(o.name) for o in vardai) or None
 
+    # Tvarka pastovi, kaip panelėje: kuras, pavarų dėžė, kėbulas,
+    # kaina, metai, rida, miestas.
     if params.get('fuel_type'):
         try:
             from .models import FuelType
@@ -1312,6 +1322,21 @@ def _filtru_santrauka(params, riba=4):
                 dalys.append(kuras)
         except Exception:
             pass
+
+    if params.get('transmission'):
+        try:
+            from .models import Transmission
+            pavaros = _fk_vardai(Transmission, params['transmission'])
+            if pavaros:
+                dalys.append(pavaros)
+        except Exception:
+            pass
+
+    if params.get('body_type'):
+        # Kelios to paties lauko reikšmės — per kablelį, kaip ir kuro tipai
+        dalys.append(', '.join(
+            _lt(str(v).replace('-', ' ').capitalize())
+            for v in _sarasu(params['body_type'])))
 
     kaina = (_viena(params.get('price_min')), _viena(params.get('price_max')))
     if any(kaina):
@@ -1331,20 +1356,6 @@ def _filtru_santrauka(params, riba=4):
         else:
             dalys.append('%s %s %s' % (_('nuo'), metai[0], _('m.')))
 
-    if params.get('transmission'):
-        try:
-            from .models import Transmission
-            pavaros = _fk_vardai(Transmission, params['transmission'])
-            if pavaros:
-                dalys.append(pavaros)
-        except Exception:
-            pass
-
-    if params.get('body_type'):
-        # Kelios to paties lauko reikšmės — per kablelį, kaip ir kuro tipai
-        dalys.append(', '.join(
-            _lt(str(v).replace('-', ' ').capitalize())
-            for v in _sarasu(params['body_type'])))
     if params.get('mileage_max'):
         dalys.append('%s %s km' % (_('iki'), _skaicius(_viena(params['mileage_max']))))
     if params.get('city'):
@@ -1358,19 +1369,21 @@ def _filtru_santrauka(params, riba=4):
     nesvarbu = {'sidebar', 'search_id', 'page', 'sort', 'q', 'section',
                 'sekcija', 'vaizdas', 'subcategory', 'csrfmiddlewaretoken'}
     etiketes = _konfig_etiketes()
+    likę = []
     for k, v in (params or {}).items():
         if k in apdoroti or k in nesvarbu or v in (None, '', []):
             continue
-        lbl, rusis = etiketes.get(k, (None, 'val'))
-        reiksmes = ', '.join(_sarasu(v))
+        lbl, rusis, eile = etiketes.get(k, (None, 'val', 9999))
         if not lbl:
             continue
+        reiksmes = ', '.join(_sarasu(v))
         if rusis == 'min':
-            dalys.append('%s %s %s' % (lbl, _('nuo'), reiksmes))
+            likę.append((eile, '%s %s %s' % (lbl, _('nuo'), reiksmes)))
         elif rusis == 'max':
-            dalys.append('%s %s %s' % (lbl, _('iki'), reiksmes))
+            likę.append((eile, '%s %s %s' % (lbl, _('iki'), reiksmes)))
         else:
-            dalys.append('%s: %s' % (lbl, reiksmes))
+            likę.append((eile, '%s: %s' % (lbl, reiksmes)))
+    dalys.extend(tekstas for _eile, tekstas in sorted(likę, key=lambda x: x[0]))
 
     if not dalys:
         # Be filtrų — santrauka nekartoja pavadinimo, o sako, kas neapribota
@@ -1379,7 +1392,7 @@ def _filtru_santrauka(params, riba=4):
         if params.get('category'):
             return str(_('Visos markės'))
         return str(_('Visi skelbimai'))
-    return ' · '.join(dalys[:riba])
+    return ' · '.join(dalys[:riba] if riba else dalys)
 
 
 _KONFIG_ETIKETES = None
@@ -1409,12 +1422,16 @@ def _konfig_etiketes():
                 lbl = f.get('label')
                 if not lbl:
                     continue
+                # Trečias elementas — vieta konfigūracijoje: santraukos
+                # laukų tvarka turi būti tokia pat kaip panelėje, o ne tokia,
+                # kokia atsitiktinai atėjo iš adreso.
+                eile = len(etiketes)
                 if f.get('param'):
-                    etiketes.setdefault(f['param'], (lbl, 'val'))
+                    etiketes.setdefault(f['param'], (lbl, 'val', eile))
                 if f.get('param_min'):
-                    etiketes.setdefault(f['param_min'], (lbl, 'min'))
+                    etiketes.setdefault(f['param_min'], (lbl, 'min', eile))
                 if f.get('param_max'):
-                    etiketes.setdefault(f['param_max'], (lbl, 'max'))
+                    etiketes.setdefault(f['param_max'], (lbl, 'max', eile))
     _KONFIG_ETIKETES = etiketes
     return etiketes
 
