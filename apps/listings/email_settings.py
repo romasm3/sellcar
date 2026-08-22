@@ -1,6 +1,6 @@
 """
 ═══════════════════════════════════════════════════════════════════
-SellCar Email Scenarios - MASTER LIST
+AutoLeft Email Scenarios - MASTER LIST
 ═══════════════════════════════════════════════════════════════════
 
 Čia yra visų email'u SĄRAŠAS ir GLOBAL ON/OFF jungtukai.

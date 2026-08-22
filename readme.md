@@ -1,4 +1,4 @@
-# SellCar - Automobilių pardavimo platforma
+# AutoLeft - Automobilių pardavimo platforma
 
 Django projektas automobilių, motociklų ir kitos technikos pardavimui.
 

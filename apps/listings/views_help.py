@@ -95,7 +95,7 @@ def valuation(request):
 def advertise(request):
     return render(request, 'pages/page_simple.html', {
         'page_title': 'Advertising',
-        'page_subtitle': "Promote your business to SellCar's audience",
+        'page_subtitle': "Promote your business to AutoLeft's audience",
         'page_icon': 'fa-bullhorn',
         'page_color': 'orange',
         'coming_soon': True,
@@ -125,7 +125,7 @@ def contact_page(request):
 def terms(request):
     return render(request, 'pages/page_simple.html', {
         'page_title': 'Terms of Use',
-        'page_subtitle': 'Terms and conditions for using SellCar',
+        'page_subtitle': 'Terms and conditions for using AutoLeft',
         'page_icon': 'fa-file-contract',
         'page_color': 'gray',
         'coming_soon': True,

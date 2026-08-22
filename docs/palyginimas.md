@@ -158,13 +158,13 @@ Etalonas: `volvo-s60-…0139757312`. Mūsų: `/725/` (testinis).
 | 1 | Puslapio pavadinimas | „Mano gidas" | „Sveiki sugrįžę" | **skiriasi** |
 | 2 | Prisijungimas ir registracija | vienas puslapis, du skirtukai | du atskiri puslapiai | **skiriasi** |
 | 3 | Laukai | el. paštas, slaptažodis, „Prisiminti mane", „Priminti slaptažodį" | tie patys keturi | **sutampa** |
-| 4 | Prekės ženklas puslapyje | Autogidas | **„SellCar" ir „SC" logotipas** | **defektas** — likutis nuo pervadinimo |
+| 4 | Prekės ženklas puslapyje | Autogidas | AutoLeft | **sutampa** (buvo likęs „SellCar" ir „SC" — ištaisyta 2026-08-21) |
 | 5 | Poraštė | 426 px | 395 px | **skiriasi** |
 
-**Rastas defektas:** prisijungimo ir registracijos puslapiuose (ir dar 114
-vietų šablonuose) likęs senas pavadinimas **SellCar**, o prisijungimo
-kortelėje — „SC" logotipas vietoj „AL". Iš viso `SellCar` minimas
-**116 kartų** 91 šablone.
+**Rastas ir ištaisytas defektas (2026-08-21):** prisijungimo ir
+registracijos puslapiuose (ir dar 109 failuose) buvo likęs senas
+pavadinimas **SellCar**, o prisijungimo kortelėje — „SC" logotipas.
+Pakeista 111 failų; patikra `grep -r SellCar` dabar grąžina 0.
 
 ---
 
@@ -205,7 +205,7 @@ poveikį vartotojui):
 2. Nėra **„Panašūs skelbimai"** bloko — praranda perėjimus tarp skelbimų.
 3. Detalioje paieškoje nėra **kategorijų juostos** ir trūksta ypatybių
    laukų (2 976 px vs 418 px).
-4. Prisijungimo puslapiuose likęs **SellCar** pavadinimas (116 vietų).
+4. ~~Prisijungimo puslapiuose likęs **SellCar** pavadinimas~~ — ištaisyta 2026-08-21 (111 failų).
 5. Skelbimo puslapyje nėra **trupinių tako** (Skelbimai › Automobiliai › BMW).
 6. Registracija ir prisijungimas atskiruose puslapiuose, o ne viename.
 

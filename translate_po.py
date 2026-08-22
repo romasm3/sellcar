@@ -67,7 +67,7 @@ SKIP_STRINGS = {
     'English', 'Lietuvių', 'Latviešu', 'Eesti', 'Polski',
     'Deutsch', 'Русский', 'Français', 'Español', '中文',
     'Tiếng Việt', 'العربية', '한국어',
-    'SellCar',  # brand name
+    'AutoLeft',  # brand name
 }
 
 

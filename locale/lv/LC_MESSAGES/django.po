@@ -3581,7 +3581,7 @@ msgstr "Dīleriem"
 
 #: templates/accounts/become_dealer.html:12
 msgid "Sell more cars on SellCar"
-msgstr "Pārdodiet vairāk automašīnu vietnē SellCar"
+msgstr "Pārdodiet vairāk automašīnu vietnē AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
 #, fuzzy
@@ -4242,7 +4242,7 @@ msgstr "Laipni lūgti atpakaļ"
 
 #: templates/accounts/login.html:15
 msgid "Login to your SellCar account"
-msgstr "Piesakieties savā SellCar kontā"
+msgstr "Piesakieties savā AutoLeft kontā"
 
 #: templates/accounts/login.html:34
 msgid "Enter your email"
@@ -4292,7 +4292,7 @@ msgstr "Jūs esat veiksmīgi izrakstījies."
 
 #: templates/accounts/logout.html:9
 msgid "Thank you for using SellCar!"
-msgstr "Paldies, ka izmantojāt SellCar!"
+msgstr "Paldies, ka izmantojāt AutoLeft!"
 
 #: templates/accounts/logout.html:11
 msgid "Login Again"
@@ -4568,7 +4568,7 @@ msgstr "Izveidot kontu"
 
 #: templates/accounts/register.html:15
 msgid "Join SellCar today"
-msgstr "Pievienojieties SellCar jau šodien"
+msgstr "Pievienojieties AutoLeft jau šodien"
 
 #: templates/accounts/register.html:26
 msgid "Email Address *"
@@ -4611,11 +4611,11 @@ msgstr "Pieslēgties šeit"
 
 #: templates/accounts/seller_profile.html:29
 msgid "Back to SellCar"
-msgstr "Atpakaļ uz SellCar"
+msgstr "Atpakaļ uz AutoLeft"
 
 #: templates/accounts/seller_profile.html:31
 msgid "Dealer page powered by SellCar"
-msgstr "Dīlera lapa, ko nodrošina SellCar"
+msgstr "Dīlera lapa, ko nodrošina AutoLeft"
 
 #: templates/accounts/seller_profile.html:53
 msgid "Listings"
@@ -5051,7 +5051,7 @@ msgstr "Vēl nav darījumu."
 #, fuzzy
 #| msgid "SellCar - Buy & Sell Cars Online"
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr "SellCar — pērciet un pārdodiet automašīnas tiešsaistē"
+msgstr "AutoLeft — pērciet un pārdodiet automašīnas tiešsaistē"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -5212,7 +5212,7 @@ msgstr "Ierakstiet ziņojumu..."
 #: templates/conversations/conversation_list.html:47
 #: templates/conversations/conversation_list.html:99
 msgid "SellCar Support"
-msgstr "SellCar atbalsts"
+msgstr "AutoLeft atbalsts"
 
 #: templates/conversations/conversation_list.html:56
 msgid "Photo"
@@ -5286,7 +5286,7 @@ msgstr "Bieži uzdotie jautājumi"
 
 #: templates/faq.html:11
 msgid "Find answers to common questions about using SellCar."
-msgstr "Atrodiet atbildes uz bieži uzdotiem jautājumiem par SellCar lietošanu."
+msgstr "Atrodiet atbildes uz bieži uzdotiem jautājumiem par AutoLeft lietošanu."
 
 #: templates/faq.html:18
 msgid "How do I create a listing?"
@@ -6436,7 +6436,7 @@ msgstr "Obligāti jānorāda štats"
 
 #: templates/listings/home.html:4
 msgid "SellCar - Buy & Sell Cars Online"
-msgstr "SellCar — pērciet un pārdodiet automašīnas tiešsaistē"
+msgstr "AutoLeft — pērciet un pārdodiet automašīnas tiešsaistē"
 
 #: templates/listings/home.html:12
 msgid "Find Your Dream Car"
@@ -6500,7 +6500,7 @@ msgstr "Vēl nav pieejams neviens sludinājums"
 
 #: templates/listings/home.html:155
 msgid "Why Choose SellCar?"
-msgstr "Kāpēc izvēlēties SellCar?"
+msgstr "Kāpēc izvēlēties AutoLeft?"
 
 #: templates/listings/home.html:156
 msgid "The best platform to buy and sell cars"
@@ -8139,7 +8139,7 @@ msgstr ""
 
 #: templates/listings/listing_select_plan.html:237
 msgid "By submitting your listing, you agree to SellCar"
-msgstr "Iesniedzot savu sludinājumu, jūs piekrītat SellCar."
+msgstr "Iesniedzot savu sludinājumu, jūs piekrītat AutoLeft."
 
 #: templates/listings/listing_select_plan.html:238
 msgid "terms"
@@ -11188,7 +11188,7 @@ msgstr ""
 #, fuzzy
 #| msgid "SellCar Support"
 msgid "Help & Support"
-msgstr "SellCar atbalsts"
+msgstr "AutoLeft atbalsts"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -12224,7 +12224,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Back to SellCar"
 msgid "Back to Help Center"
-msgstr "Atpakaļ uz SellCar"
+msgstr "Atpakaļ uz AutoLeft"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"

@@ -52,7 +52,7 @@ def _send_new_message_email(conversation, sender, recipient, content, new_messag
                 listing_url = f'{site_url}/listings/{conversation.listing.pk}/'
         else:
             # Support pokalbis (be listing'o) — pažymim email'e
-            listing_title = '🎧 SellCar Support'
+            listing_title = '🎧 AutoLeft Support'
 
         # Jei žinutė tik su foto (be teksto) — rodom emoji email'e
         display_content = content if content else '📎 [Photo attachment]'
@@ -212,7 +212,7 @@ def start_conversation(request, listing_id):
 
 @login_required
 def start_support_conversation(request):
-    """Pradėk arba tęsk pokalbį su SellCar support'u"""
+    """Pradėk arba tęsk pokalbį su AutoLeft support'u"""
     SUPPORT_EMAIL = 'romasm3@gmail.com'
 
     support_user = User.objects.filter(email=SUPPORT_EMAIL).first()

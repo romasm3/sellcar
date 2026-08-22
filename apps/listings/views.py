@@ -3209,7 +3209,7 @@ def report_listing(request, pk):
         reporter_email = request.POST.get('reporter_email', '')
         listing_url = request.build_absolute_uri(f'/listings/{listing.pk}/')
         subject = f'[REPORT] Listing #{listing.pk}: {listing.title}'
-        body = f"""A listing has been reported on SellCar.
+        body = f"""A listing has been reported on AutoLeft.
 
 Listing: {listing.title}
 Listing ID: #{listing.pk}
@@ -3549,7 +3549,7 @@ def contact(request):
         subject = request.POST.get('subject', '')
         message = request.POST.get('message', '')
         send_mail(
-            f'[SellCar Contact] {subject}',
+            f'[AutoLeft Contact] {subject}',
             f'From: {name} <{email}>\n\n{message}',
             email, ['helpautoinfo@gmail.com'], fail_silently=True,
         )

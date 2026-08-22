@@ -18,8 +18,8 @@ def create_wallet_topup_session(user, amount_usd: Decimal, success_url: str, can
             'price_data': {
                 'currency': 'usd',
                 'product_data': {
-                    'name': 'SellCar Wallet Top-Up',
-                    'description': f'${amount_usd} credit to your SellCar wallet',
+                    'name': 'AutoLeft Wallet Top-Up',
+                    'description': f'${amount_usd} credit to your AutoLeft wallet',
                 },
                 'unit_amount': amount_cents,
             },

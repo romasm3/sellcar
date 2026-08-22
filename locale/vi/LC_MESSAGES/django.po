@@ -3580,7 +3580,7 @@ msgstr "Dành cho các đại lý"
 
 #: templates/accounts/become_dealer.html:12
 msgid "Sell more cars on SellCar"
-msgstr "Bán được nhiều xe hơn trên SellCar"
+msgstr "Bán được nhiều xe hơn trên AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
 #, fuzzy
@@ -4242,7 +4242,7 @@ msgstr "Chào mừng trở lại!"
 
 #: templates/accounts/login.html:15
 msgid "Login to your SellCar account"
-msgstr "Đăng nhập vào tài khoản SellCar của bạn"
+msgstr "Đăng nhập vào tài khoản AutoLeft của bạn"
 
 #: templates/accounts/login.html:34
 msgid "Enter your email"
@@ -4292,7 +4292,7 @@ msgstr "Bạn đã đăng xuất thành công."
 
 #: templates/accounts/logout.html:9
 msgid "Thank you for using SellCar!"
-msgstr "Cảm ơn bạn đã sử dụng SellCar!"
+msgstr "Cảm ơn bạn đã sử dụng AutoLeft!"
 
 #: templates/accounts/logout.html:11
 msgid "Login Again"
@@ -4568,7 +4568,7 @@ msgstr "Tạo tài khoản"
 
 #: templates/accounts/register.html:15
 msgid "Join SellCar today"
-msgstr "Hãy tham gia SellCar ngay hôm nay!"
+msgstr "Hãy tham gia AutoLeft ngay hôm nay!"
 
 #: templates/accounts/register.html:26
 msgid "Email Address *"
@@ -4616,7 +4616,7 @@ msgstr "Trở lại trang Bán xe"
 
 #: templates/accounts/seller_profile.html:31
 msgid "Dealer page powered by SellCar"
-msgstr "Trang đại lý được cung cấp bởi SellCar"
+msgstr "Trang đại lý được cung cấp bởi AutoLeft"
 
 #: templates/accounts/seller_profile.html:53
 msgid "Listings"
@@ -5052,7 +5052,7 @@ msgstr "Chưa có giao dịch nào."
 #, fuzzy
 #| msgid "SellCar - Buy & Sell Cars Online"
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr "SellCar - Mua & Bán Xe Ô Tô Trực Tuyến"
+msgstr "AutoLeft - Mua & Bán Xe Ô Tô Trực Tuyến"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -5213,7 +5213,7 @@ msgstr "Nhập tin nhắn..."
 #: templates/conversations/conversation_list.html:47
 #: templates/conversations/conversation_list.html:99
 msgid "SellCar Support"
-msgstr "Hỗ trợ SellCar"
+msgstr "Hỗ trợ AutoLeft"
 
 #: templates/conversations/conversation_list.html:56
 msgid "Photo"
@@ -5287,7 +5287,7 @@ msgstr "Câu hỏi thường gặp"
 
 #: templates/faq.html:11
 msgid "Find answers to common questions about using SellCar."
-msgstr "Tìm câu trả lời cho những câu hỏi thường gặp về việc sử dụng SellCar."
+msgstr "Tìm câu trả lời cho những câu hỏi thường gặp về việc sử dụng AutoLeft."
 
 #: templates/faq.html:18
 msgid "How do I create a listing?"
@@ -6435,7 +6435,7 @@ msgstr "Tiểu bang yêu cầu"
 
 #: templates/listings/home.html:4
 msgid "SellCar - Buy & Sell Cars Online"
-msgstr "SellCar - Mua & Bán Xe Ô Tô Trực Tuyến"
+msgstr "AutoLeft - Mua & Bán Xe Ô Tô Trực Tuyến"
 
 #: templates/listings/home.html:12
 msgid "Find Your Dream Car"
@@ -6499,7 +6499,7 @@ msgstr "Hiện chưa có tin đăng nào."
 
 #: templates/listings/home.html:155
 msgid "Why Choose SellCar?"
-msgstr "Tại sao nên chọn SellCar?"
+msgstr "Tại sao nên chọn AutoLeft?"
 
 #: templates/listings/home.html:156
 msgid "The best platform to buy and sell cars"
@@ -11184,7 +11184,7 @@ msgstr ""
 #, fuzzy
 #| msgid "SellCar Support"
 msgid "Help & Support"
-msgstr "Hỗ trợ SellCar"
+msgstr "Hỗ trợ AutoLeft"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"

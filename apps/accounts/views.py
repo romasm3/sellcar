@@ -1035,9 +1035,9 @@ def dealer_setup(request):
             admin_email = 'helpautoinfo@gmail.com'
             site_url = getattr(dj_settings, 'SITE_URL', 'http://127.0.0.1:8000')
 
-            subject = f'[SellCar] Dealer profile updated: {profile.dealer_company_name or request.user.username}'
+            subject = f'[AutoLeft] Dealer profile updated: {profile.dealer_company_name or request.user.username}'
             message = f"""
-Dealer profile updated on SellCar.
+Dealer profile updated on AutoLeft.
 
 User: {request.user.username} ({request.user.email})
 Company: {profile.dealer_company_name or '—'}

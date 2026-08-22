@@ -1,6 +1,6 @@
 """
 ═══════════════════════════════════════════════════════════════════════════════
-SellCar — Listing Helper Functions
+AutoLeft — Listing Helper Functions
 ═══════════════════════════════════════════════════════════════════════════════
 
 Bendros funkcijos VISOMS kategorijų (Cars, Motorcycles, Trucks, Car-for-parts,

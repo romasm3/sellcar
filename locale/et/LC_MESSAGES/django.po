@@ -3580,7 +3580,7 @@ msgstr "Edasimüüjatele"
 
 #: templates/accounts/become_dealer.html:12
 msgid "Sell more cars on SellCar"
-msgstr "Müü rohkem autosid SellCaris"
+msgstr "Müü rohkem autosid AutoLeftis"
 
 #: templates/accounts/become_dealer.html:13
 #, fuzzy
@@ -4241,7 +4241,7 @@ msgstr "Tere tulemast tagasi"
 
 #: templates/accounts/login.html:15
 msgid "Login to your SellCar account"
-msgstr "Logi sisse oma SellCari kontole"
+msgstr "Logi sisse oma AutoLefti kontole"
 
 #: templates/accounts/login.html:34
 msgid "Enter your email"
@@ -4291,7 +4291,7 @@ msgstr "Teid on edukalt välja logitud."
 
 #: templates/accounts/logout.html:9
 msgid "Thank you for using SellCar!"
-msgstr "Täname, et kasutasite SellCari!"
+msgstr "Täname, et kasutasite AutoLefti!"
 
 #: templates/accounts/logout.html:11
 msgid "Login Again"
@@ -4567,7 +4567,7 @@ msgstr "Loo konto"
 
 #: templates/accounts/register.html:15
 msgid "Join SellCar today"
-msgstr "Liitu SellCariga juba täna"
+msgstr "Liitu AutoLeftiga juba täna"
 
 #: templates/accounts/register.html:26
 msgid "Email Address *"
@@ -4610,11 +4610,11 @@ msgstr "Logi sisse siin"
 
 #: templates/accounts/seller_profile.html:29
 msgid "Back to SellCar"
-msgstr "Tagasi SellCari lehele"
+msgstr "Tagasi AutoLefti lehele"
 
 #: templates/accounts/seller_profile.html:31
 msgid "Dealer page powered by SellCar"
-msgstr "Edasimüüja leht, mida haldab SellCar"
+msgstr "Edasimüüja leht, mida haldab AutoLeft"
 
 #: templates/accounts/seller_profile.html:53
 msgid "Listings"
@@ -5050,7 +5050,7 @@ msgstr "Tehinguid veel pole."
 #, fuzzy
 #| msgid "SellCar - Buy & Sell Cars Online"
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr "SellCar - osta ja müü autosid veebis"
+msgstr "AutoLeft - osta ja müü autosid veebis"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -5209,7 +5209,7 @@ msgstr "Tippige sõnum..."
 #: templates/conversations/conversation_list.html:47
 #: templates/conversations/conversation_list.html:99
 msgid "SellCar Support"
-msgstr "SellCari tugi"
+msgstr "AutoLefti tugi"
 
 #: templates/conversations/conversation_list.html:56
 msgid "Photo"
@@ -6428,7 +6428,7 @@ msgstr "Osariik on kohustuslik"
 
 #: templates/listings/home.html:4
 msgid "SellCar - Buy & Sell Cars Online"
-msgstr "SellCar - osta ja müü autosid veebis"
+msgstr "AutoLeft - osta ja müü autosid veebis"
 
 #: templates/listings/home.html:12
 msgid "Find Your Dream Car"
@@ -6492,7 +6492,7 @@ msgstr "Kuulutusi pole veel saadaval"
 
 #: templates/listings/home.html:155
 msgid "Why Choose SellCar?"
-msgstr "Miks valida SellCar?"
+msgstr "Miks valida AutoLeft?"
 
 #: templates/listings/home.html:156
 msgid "The best platform to buy and sell cars"
@@ -6528,7 +6528,7 @@ msgstr "Kas olete valmis oma autot müüma?"
 
 #: templates/listings/home.html:192
 msgid "Join thousands of sellers who found buyers on SellCar"
-msgstr "Liitu tuhandete müüjatega, kes leidsid ostjaid SellCarist"
+msgstr "Liitu tuhandete müüjatega, kes leidsid ostjaid AutoLeftist"
 
 #: templates/listings/home.html:202
 msgid "Get Started"
@@ -8120,7 +8120,7 @@ msgstr ""
 
 #: templates/listings/listing_select_plan.html:237
 msgid "By submitting your listing, you agree to SellCar"
-msgstr "Kuulutuse esitamisega nõustute SellCariga"
+msgstr "Kuulutuse esitamisega nõustute AutoLeftiga"
 
 #: templates/listings/listing_select_plan.html:238
 msgid "terms"
@@ -11158,7 +11158,7 @@ msgstr ""
 #, fuzzy
 #| msgid "SellCar Support"
 msgid "Help & Support"
-msgstr "SellCari tugi"
+msgstr "AutoLefti tugi"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -12193,7 +12193,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Back to SellCar"
 msgid "Back to Help Center"
-msgstr "Tagasi SellCari lehele"
+msgstr "Tagasi AutoLefti lehele"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"

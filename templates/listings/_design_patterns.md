@@ -1,4 +1,4 @@
-# SellCar Design Patterns
+# AutoLeft Design Patterns
 
 > **Tikslas:** Surašytos standartinės UI/UX taisyklės naudojamos VISOSE kategorijose (Cars, Motorcycles, Trucks, Car-for-parts, Moto Gear, ir t.t.).
 >
@@ -985,7 +985,7 @@ function prepareSubmit() {
 
 > **Tikslas:** Listing detail puslapyje šalia VIN rodyti mygtuką "History report" — užveda į carfaxreport.eu su pre-filled VIN.
 >
-> **Cross-promotion:** SellCar lankytojai → carfaxreport.eu SaaS. Pajamų šaltinis + trust signal pirkėjams.
+> **Cross-promotion:** AutoLeft lankytojai → carfaxreport.eu SaaS. Pajamų šaltinis + trust signal pirkėjams.
 
 ### 19.1 Naudoti VISOSE kategorijose
 

@@ -3580,7 +3580,7 @@ msgstr "Für Händler"
 
 #: templates/accounts/become_dealer.html:12
 msgid "Sell more cars on SellCar"
-msgstr "Verkaufe mehr Autos auf SellCar"
+msgstr "Verkaufe mehr Autos auf AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
 #, fuzzy
@@ -4242,7 +4242,7 @@ msgstr "Willkommen zurück"
 
 #: templates/accounts/login.html:15
 msgid "Login to your SellCar account"
-msgstr "Melden Sie sich in Ihrem SellCar-Konto an."
+msgstr "Melden Sie sich in Ihrem AutoLeft-Konto an."
 
 #: templates/accounts/login.html:34
 msgid "Enter your email"
@@ -4292,7 +4292,7 @@ msgstr "Sie wurden erfolgreich abgemeldet."
 
 #: templates/accounts/logout.html:9
 msgid "Thank you for using SellCar!"
-msgstr "Vielen Dank, dass Sie SellCar genutzt haben!"
+msgstr "Vielen Dank, dass Sie AutoLeft genutzt haben!"
 
 #: templates/accounts/logout.html:11
 msgid "Login Again"
@@ -4572,7 +4572,7 @@ msgstr "Benutzerkonto erstellen"
 
 #: templates/accounts/register.html:15
 msgid "Join SellCar today"
-msgstr "Jetzt bei SellCar anmelden"
+msgstr "Jetzt bei AutoLeft anmelden"
 
 #: templates/accounts/register.html:26
 msgid "Email Address *"
@@ -4617,11 +4617,11 @@ msgstr "Hier einloggen"
 
 #: templates/accounts/seller_profile.html:29
 msgid "Back to SellCar"
-msgstr "Zurück zu SellCar"
+msgstr "Zurück zu AutoLeft"
 
 #: templates/accounts/seller_profile.html:31
 msgid "Dealer page powered by SellCar"
-msgstr "Händlerseite bereitgestellt von SellCar"
+msgstr "Händlerseite bereitgestellt von AutoLeft"
 
 #: templates/accounts/seller_profile.html:53
 msgid "Listings"
@@ -5058,7 +5058,7 @@ msgstr "Bisher keine Transaktionen."
 #, fuzzy
 #| msgid "SellCar - Buy & Sell Cars Online"
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr "SellCar – Autos online kaufen und verkaufen"
+msgstr "AutoLeft – Autos online kaufen und verkaufen"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -5219,7 +5219,7 @@ msgstr "Geben Sie eine Nachricht ein..."
 #: templates/conversations/conversation_list.html:47
 #: templates/conversations/conversation_list.html:99
 msgid "SellCar Support"
-msgstr "SellCar-Support"
+msgstr "AutoLeft-Support"
 
 #: templates/conversations/conversation_list.html:56
 msgid "Photo"
@@ -6448,7 +6448,7 @@ msgstr "Der Staat ist erforderlich"
 
 #: templates/listings/home.html:4
 msgid "SellCar - Buy & Sell Cars Online"
-msgstr "SellCar – Autos online kaufen und verkaufen"
+msgstr "AutoLeft – Autos online kaufen und verkaufen"
 
 #: templates/listings/home.html:12
 msgid "Find Your Dream Car"
@@ -6513,7 +6513,7 @@ msgstr "Noch sind keine Einträge verfügbar."
 
 #: templates/listings/home.html:155
 msgid "Why Choose SellCar?"
-msgstr "Warum SellCar wählen?"
+msgstr "Warum AutoLeft wählen?"
 
 #: templates/listings/home.html:156
 msgid "The best platform to buy and sell cars"
@@ -8153,7 +8153,7 @@ msgstr ""
 
 #: templates/listings/listing_select_plan.html:237
 msgid "By submitting your listing, you agree to SellCar"
-msgstr "Mit dem Absenden Ihres Angebots stimmen Sie SellCar zu."
+msgstr "Mit dem Absenden Ihres Angebots stimmen Sie AutoLeft zu."
 
 #: templates/listings/listing_select_plan.html:238
 msgid "terms"
@@ -11211,7 +11211,7 @@ msgstr ""
 #, fuzzy
 #| msgid "SellCar Support"
 msgid "Help & Support"
-msgstr "SellCar-Support"
+msgstr "AutoLeft-Support"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -12248,7 +12248,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Back to SellCar"
 msgid "Back to Help Center"
-msgstr "Zurück zu SellCar"
+msgstr "Zurück zu AutoLeft"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"

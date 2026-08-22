@@ -7,7 +7,7 @@ Skirtumas nuo v1: ieško NE viso teksto bloko, o vienos unikalios eilutes
 ('return HttpResponse(status=200)' su 8 tarpais) FUNKCIJOS RIBOSE.
 Naują saką įterpia tiksliai PRIES ta eilute.
 
-Paleisti SellCar projekto saknyje:
+Paleisti AutoLeft projekto saknyje:
     python fix_webhook2.py
 """
 import io

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ seller.profile.display_name }} - SellCar</title>
+    <title>{{ seller.profile.display_name }} - AutoLeft</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,12 +23,12 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
 
-    <!-- Back to SellCar -->
+    <!-- Back to AutoLeft -->
     <div class="bg-primary text-white text-xs py-1.5 px-4 flex items-center justify-between">
         <a href="{% url 'home' %}" class="flex items-center gap-1.5 hover:underline font-medium">
-            <i class="fas fa-arrow-left text-xs"></i> {% trans "Back to SellCar" %}
+            <i class="fas fa-arrow-left text-xs"></i> {% trans "Back to AutoLeft" %}
         </a>
-        <span class="text-purple-200 text-xs">{% trans "Dealer page powered by SellCar" %}</span>
+        <span class="text-purple-200 text-xs">{% trans "Dealer page powered by AutoLeft" %}</span>
     </div>
 
     {% if seller.profile.is_dealer %}

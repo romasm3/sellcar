@@ -92,7 +92,7 @@ def send_scenario(
 
     full_context = {
         'site_url': settings.SITE_URL,
-        'site_name': 'SellCar',
+        'site_name': 'AutoLeft',
         **context,
     }
 

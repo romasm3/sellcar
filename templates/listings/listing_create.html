@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n i18n_db l10n %}
 
-{% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
+{% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - AutoLeft{% endblock %}
 
 {% block content %}
 {% if step == 1 and not is_edit_mode %}{% firstof 1 as clp_mode %}{% endif %}

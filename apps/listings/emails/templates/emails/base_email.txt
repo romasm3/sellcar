@@ -1,8 +1,8 @@
 {% block body %}{% endblock %}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SellCar — {{ site_url }}
-You received this email because you are registered on SellCar.
+AutoLeft — {{ site_url }}
+You received this email because you are registered on AutoLeft.
 
 To unsubscribe from this type of email, click:
 {{ site_url }}/settings/emails/

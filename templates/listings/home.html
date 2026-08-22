@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n dict_extras %}
 
-{% block title %}{% trans "SellCar - Buy & Sell Cars Online" %}{% endblock %}
+{% block title %}{% trans "AutoLeft - Buy & Sell Cars Online" %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -152,7 +152,7 @@
 <div class="bg-gray-100 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Why Choose SellCar?" %}</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Why Choose AutoLeft?" %}</h2>
             <p class="text-gray-600 text-lg">{% trans "The best platform to buy and sell cars" %}</p>
         </div>
 
@@ -189,7 +189,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">{% trans "Ready to Sell Your Car?" %}</h2>
         <p class="text-xl text-purple-100 mb-8">
-            {% trans "Join thousands of sellers who found buyers on SellCar" %}
+            {% trans "Join thousands of sellers who found buyers on AutoLeft" %}
         </p>
         {% if user.is_authenticated %}
         <a href="{% url 'listing_create' %}"

@@ -41,11 +41,11 @@ class Command(BaseCommand):
             ))
             self.stdout.write("")
 
-        subject = "✅ SellCar SMTP Test"
+        subject = "✅ AutoLeft SMTP Test"
         body = (
             "Sveikas!\n\n"
-            "Jei matai šį email, reiškia SellCar SMTP konfigūracija veikia.\n\n"
-            "- Projektas: SellCar\n"
+            "Jei matai šį email, reiškia AutoLeft SMTP konfigūracija veikia.\n\n"
+            "- Projektas: AutoLeft\n"
             f"- Serveris: {settings.SITE_URL}\n"
             f"- Backend: {settings.EMAIL_BACKEND}\n\n"
             "Sėkmės!\n"

@@ -13,5 +13,5 @@ Extend listing:
 {{ edit_url }}
 
 —
-SellCar
+AutoLeft
 You are receiving this because you have an active listing.

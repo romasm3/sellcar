@@ -13,5 +13,5 @@ Activate listing:
 {{ edit_url }}
 
 —
-SellCar
+AutoLeft
 To stop receiving reminders, delete the listing from your dashboard.

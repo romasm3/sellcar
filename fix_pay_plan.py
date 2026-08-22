@@ -4,7 +4,7 @@ fix_pay_plan.py
 Pakeičia listing_pay_plan funkcijos POST dalį — vietoj wallet nuskaitymo
 sukuria Stripe Checkout sesiją. Aktyvavimo logika perkeliama į webhook'ą.
 
-Paleisti SellCar projekto šaknyje:
+Paleisti AutoLeft projekto šaknyje:
     python fix_pay_plan.py
 """
 import io
