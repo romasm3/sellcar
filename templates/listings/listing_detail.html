@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load l10n %}
 
 {% block title %}{{ listing.title }} - SellCar{% endblock %}
 
@@ -140,12 +141,12 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-route text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida su vienu įkrovimu" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.range_km %}{{ listing.range_km }} km{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.range_km %}<span data-unit-show="range_km" data-unit-raw="{{ listing.range_km|default_if_none:''|unlocalize }}">{{ listing.range_km }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-gauge-high text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Maksimalus greitis" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.max_speed_kmh %}{{ listing.max_speed_kmh }} km/h{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.max_speed_kmh %}<span data-unit-show="max_speed_kmh" data-unit-raw="{{ listing.max_speed_kmh|default_if_none:''|unlocalize }}">{{ listing.max_speed_kmh }} km/h</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
@@ -187,19 +188,19 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Maksimalus greitis" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.max_speed_kmh %}{{ listing.max_speed_kmh }} km/h{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.max_speed_kmh %}<span data-unit-show="max_speed_kmh" data-unit-raw="{{ listing.max_speed_kmh|default_if_none:''|unlocalize }}">{{ listing.max_speed_kmh }} km/h</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Maksimali apkrova" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida su vienu įkrovimu" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.range_km %}{{ listing.range_km }} km{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.range_km %}<span data-unit-show="range_km" data-unit-raw="{{ listing.range_km|default_if_none:''|unlocalize }}">{{ listing.range_km }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Baterijos talpa" %}</span>
@@ -468,7 +469,7 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-road text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}{{ listing.mileage }} km{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
@@ -540,15 +541,15 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro sąnaudos" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.fuel_consumption_combined %}{{ listing.fuel_consumption_combined }} l/100 km{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.fuel_consumption_combined %}<span data-unit-show="fuel_consumption_combined" data-unit-raw="{{ listing.fuel_consumption_combined|default_if_none:''|unlocalize }}">{{ listing.fuel_consumption_combined }} l/100 km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Darbinis tūris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.engine_capacity %}{{ listing.engine_capacity }} l{% elif listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }} cm³{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.engine_capacity %}{{ listing.engine_capacity }} l{% elif listing.engine_capacity_cc %}<span data-unit-show="engine_capacity_cc" data-unit-raw="{{ listing.engine_capacity_cc|default_if_none:''|unlocalize }}">{{ listing.engine_capacity_cc }} cm³</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavarų dėžė" %}</span>
@@ -560,7 +561,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}{{ listing.mileage }} km{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Spalva" %}</span>
@@ -576,19 +577,19 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Keliamoji galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Šakių / strėlės ilgis" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.fork_length_m %}{{ listing.fork_length_m }} m{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.fork_length_m %}<span data-unit-show="fork_length_m" data-unit-raw="{{ listing.fork_length_m|default_if_none:''|unlocalize }}">{{ listing.fork_length_m }} m</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Nuosavas svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Bendroji masė" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                     </div>
                 </div>
@@ -647,7 +648,7 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-road text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}{{ listing.mileage }} km{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     {% if listing.b_licence_ok %}
@@ -710,7 +711,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavarų dėžė" %}</span>
@@ -802,7 +803,7 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-bolt text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Galia" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-clock text-primary text-xl"></i>
@@ -863,17 +864,17 @@
                             <span class="text-gray-600">{% trans "Matmenys (I × P × A)" %}</span>
                             <span class="font-medium text-gray-900">
                                 {% if listing.length_m or listing.width_m or listing.height_m %}
-                                    {{ listing.length_m|default:"—" }} × {{ listing.width_m|default:"—" }} × {{ listing.height_m|default:"—" }} m
+                                    <span data-unit-show="length_m" data-unit-raw="{{ listing.length_m|default_if_none:''|unlocalize }}|{{ listing.width_m|default_if_none:''|unlocalize }}|{{ listing.height_m|default_if_none:''|unlocalize }}">{{ listing.length_m|default:"—" }} × {{ listing.width_m|default:"—" }} × {{ listing.height_m|default:"—" }} m</span>
                                 {% else %}—{% endif %}
                             </span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Nuosavas svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Bendroji masė" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "TA iki" %}</span>
@@ -925,12 +926,12 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-weight-hanging text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Max keliamoji galia" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-arrows-alt-v text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Max kėlimo aukštis" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.lift_height_m %}{{ listing.lift_height_m }} m{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.lift_height_m %}<span data-unit-show="lift_height_m" data-unit-raw="{{ listing.lift_height_m|default_if_none:''|unlocalize }}">{{ listing.lift_height_m }} m</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
@@ -968,7 +969,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Motovalandos" %}</span>
@@ -984,17 +985,17 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kelplotis" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.aisle_width_m2 %}{{ listing.aisle_width_m2 }} m²{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.aisle_width_m2 %}<span data-unit-show="aisle_width_m2" data-unit-raw="{{ listing.aisle_width_m2|default_if_none:''|unlocalize }}">{{ listing.aisle_width_m2 }} m²</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Šakių / strėlės ilgis" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.fork_length_m %}{{ listing.fork_length_m }} m{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.fork_length_m %}<span data-unit-show="fork_length_m" data-unit-raw="{{ listing.fork_length_m|default_if_none:''|unlocalize }}">{{ listing.fork_length_m }} m</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Matmenys (I × P × A)" %}</span>
                             <span class="font-medium text-gray-900">
                                 {% if listing.truck_length_mm or listing.truck_width_mm or listing.truck_height_mm %}
-                                    {{ listing.truck_length_mm|default:"—" }} × {{ listing.truck_width_mm|default:"—" }} × {{ listing.truck_height_mm|default:"—" }} mm
+                                    <span data-unit-show="truck_length_mm" data-unit-raw="{{ listing.truck_length_mm|default_if_none:''|unlocalize }}|{{ listing.truck_width_mm|default_if_none:''|unlocalize }}|{{ listing.truck_height_mm|default_if_none:''|unlocalize }}">{{ listing.truck_length_mm|default:"—" }} × {{ listing.truck_width_mm|default:"—" }} × {{ listing.truck_height_mm|default:"—" }} mm</span>
                                 {% else %}—{% endif %}
                             </span>
                         </div>
@@ -1060,7 +1061,7 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-bolt text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Galia" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-clock text-primary text-xl"></i>
@@ -1071,7 +1072,7 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-weight-hanging text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Nuosavas svoris" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</div></div>
                         </div>
                         {% endif %}
                     </div>
@@ -1117,7 +1118,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavaros tipas" %}</span>
@@ -1129,7 +1130,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}{{ listing.mileage }} km{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
@@ -1145,7 +1146,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Keliamoji galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         {% if listing.sdk_number %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
@@ -1158,13 +1159,13 @@
                             <span class="text-gray-600">{% trans "Matmenys (I × P × A)" %}</span>
                             <span class="font-medium text-gray-900">
                                 {% if listing.length_m or listing.width_m or listing.height_m %}
-                                    {{ listing.length_m|default:"—" }} × {{ listing.width_m|default:"—" }} × {{ listing.height_m|default:"—" }} m
+                                    <span data-unit-show="length_m" data-unit-raw="{{ listing.length_m|default_if_none:''|unlocalize }}|{{ listing.width_m|default_if_none:''|unlocalize }}|{{ listing.height_m|default_if_none:''|unlocalize }}">{{ listing.length_m|default:"—" }} × {{ listing.width_m|default:"—" }} × {{ listing.height_m|default:"—" }} m</span>
                                 {% else %}—{% endif %}
                             </span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Nuosavas svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                     </div>
                 </div>
@@ -1203,7 +1204,7 @@
                             <i class="fas fa-bolt text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Galia" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -1263,27 +1264,27 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Darbinis plotis" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.working_width_m %}{{ listing.working_width_m }} m{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.working_width_m %}<span data-unit-show="working_width_m" data-unit-raw="{{ listing.working_width_m|default_if_none:''|unlocalize }}">{{ listing.working_width_m }} m</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Nuosavas svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Bendroji masė" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Keliamoji galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Talpa" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.truck_volume_m3 %}{{ listing.truck_volume_m3 }} m³{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.truck_volume_m3 %}<span data-unit-show="truck_volume_m3" data-unit-raw="{{ listing.truck_volume_m3|default_if_none:''|unlocalize }}">{{ listing.truck_volume_m3 }} m³</span>{% else %}—{% endif %}</span>
                         </div>
                         {% if listing.sdk_number %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
@@ -1348,7 +1349,7 @@
                             <i class="fas fa-weight-hanging text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Bendroji masė" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}</div>
+                                <div class="font-semibold text-gray-900">{% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -1420,23 +1421,23 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Bendroji masė" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Nuosavas svoris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}{{ listing.curb_weight }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.curb_weight %}<span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Keliamoji galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}{{ listing.payload_kg }} kg{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.payload_kg %}<span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Tūris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.truck_volume_m3 %}{{ listing.truck_volume_m3 }} m³{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.truck_volume_m3 %}<span data-unit-show="truck_volume_m3" data-unit-raw="{{ listing.truck_volume_m3|default_if_none:''|unlocalize }}">{{ listing.truck_volume_m3 }} m³</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Matmenys (I × P × A)" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.truck_length_mm or listing.truck_width_mm or listing.truck_height_mm %}{{ listing.truck_length_mm|default:"—" }} × {{ listing.truck_width_mm|default:"—" }} × {{ listing.truck_height_mm|default:"—" }} mm{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.truck_length_mm or listing.truck_width_mm or listing.truck_height_mm %}<span data-unit-show="truck_length_mm" data-unit-raw="{{ listing.truck_length_mm|default_if_none:''|unlocalize }}|{{ listing.truck_width_mm|default_if_none:''|unlocalize }}|{{ listing.truck_height_mm|default_if_none:''|unlocalize }}">{{ listing.truck_length_mm|default:"—" }} × {{ listing.truck_width_mm|default:"—" }} × {{ listing.truck_height_mm|default:"—" }} mm</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Spalva" %}</span>
@@ -1553,7 +1554,7 @@
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Gross weight" %}</div>
                                 <div class="font-semibold text-gray-900">
-                                    {% if listing.gross_weight_kg %}{{ listing.gross_weight_kg }} kg{% else %}—{% endif %}
+                                    {% if listing.gross_weight_kg %}<span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>{% else %}—{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -1621,8 +1622,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Power" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.power }} kW
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                                <span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1631,7 +1631,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.mileage|floatformat:0 }} km
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
                                 <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                             </span>
                         </div>
@@ -1640,7 +1640,7 @@
                         {% if listing.engine_capacity %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Engine capacity" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.engine_capacity }} L</span>
+                            <span class="font-medium text-gray-900"><span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span></span>
                         </div>
                         {% endif %}
 
@@ -1665,7 +1665,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Gross weight" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.gross_weight_kg }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
-                                {{ listing.gross_weight_kg }} kg
+                                <span data-unit-show="gross_weight_kg" data-unit-raw="{{ listing.gross_weight_kg|default_if_none:''|unlocalize }}">{{ listing.gross_weight_kg }} kg</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1673,7 +1673,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Curb weight" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.curb_weight }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
-                                {{ listing.curb_weight }} kg
+                                <span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1681,7 +1681,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Payload capacity" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.payload_kg }}" data-from="kg" data-to="lbs" data-mul="2.20462" data-decimals="0">
-                                {{ listing.payload_kg }} kg
+                                <span data-unit-show="payload_kg" data-unit-raw="{{ listing.payload_kg|default_if_none:''|unlocalize }}">{{ listing.payload_kg }} kg</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1691,7 +1691,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Fuel tank capacity" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.fuel_tank_capacity_l }}" data-from="L" data-to="gal" data-mul="0.264172" data-decimals="1">
-                                {{ listing.fuel_tank_capacity_l }} L
+                                <span data-unit-show="fuel_tank_capacity_l" data-unit-raw="{{ listing.fuel_tank_capacity_l|default_if_none:''|unlocalize }}">{{ listing.fuel_tank_capacity_l }} L</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1701,7 +1701,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Length" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_length_mm }}" data-from="mm" data-to="ft" data-mul="0.00328084" data-decimals="1">
-                                {{ listing.truck_length_mm }} mm
+                                <span data-unit-show="truck_length_mm" data-unit-raw="{{ listing.truck_length_mm|default_if_none:''|unlocalize }}">{{ listing.truck_length_mm }} mm</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1709,7 +1709,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Width" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_width_mm }}" data-from="mm" data-to="in" data-mul="0.0393701" data-decimals="1">
-                                {{ listing.truck_width_mm }} mm
+                                <span data-unit-show="truck_width_mm" data-unit-raw="{{ listing.truck_width_mm|default_if_none:''|unlocalize }}">{{ listing.truck_width_mm }} mm</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1717,7 +1717,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Height" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_height_mm }}" data-from="mm" data-to="in" data-mul="0.0393701" data-decimals="1">
-                                {{ listing.truck_height_mm }} mm
+                                <span data-unit-show="truck_height_mm" data-unit-raw="{{ listing.truck_height_mm|default_if_none:''|unlocalize }}">{{ listing.truck_height_mm }} mm</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1725,7 +1725,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Volume" %}</span>
                             <span class="font-medium text-gray-900 dual-unit" data-canonical="{{ listing.truck_volume_m3 }}" data-from="m³" data-to="ft³" data-mul="35.3147" data-decimals="1">
-                                {{ listing.truck_volume_m3 }} m³
+                                <span data-unit-show="truck_volume_m3" data-unit-raw="{{ listing.truck_volume_m3|default_if_none:''|unlocalize }}">{{ listing.truck_volume_m3 }} m³</span>
                             </span>
                         </div>
                         {% endif %}
@@ -1903,12 +1903,12 @@
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-gears text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Darbinis tūris" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }} cm³{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.engine_capacity_cc %}<span data-unit-show="engine_capacity_cc" data-unit-raw="{{ listing.engine_capacity_cc|default_if_none:''|unlocalize }}">{{ listing.engine_capacity_cc }} cm³</span>{% else %}—{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}{{ listing.mileage|floatformat:0 }} km{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <span class="inline-block mb-4 px-3 py-1 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">
@@ -1953,7 +1953,7 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Darbinis tūris" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.engine_capacity_cc %}{{ listing.engine_capacity_cc }} cm³{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.engine_capacity_cc %}<span data-unit-show="engine_capacity_cc" data-unit-raw="{{ listing.engine_capacity_cc|default_if_none:''|unlocalize }}">{{ listing.engine_capacity_cc }} cm³</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Variklio tipas" %}</span>
@@ -1965,11 +1965,11 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Galia" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.power %}{{ listing.power }} kW{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.power %}<span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}{{ listing.mileage|floatformat:0 }} km{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Spalva" %}</span>
@@ -2009,7 +2009,7 @@
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.mileage|floatformat:0 }} km</div>
+                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
                                 <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
@@ -2126,7 +2126,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.mileage|floatformat:0 }} km
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
                                 <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
@@ -2134,7 +2134,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Engine capacity" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.engine_capacity }} L
+                                <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
                                 <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
@@ -2143,8 +2143,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Power" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.power }} kW
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                                <span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2302,7 +2301,7 @@
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.mileage|floatformat:0 }} km</div>
+                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
                                 <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
@@ -2388,7 +2387,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.mileage|floatformat:0 }} km
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
                                 <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
@@ -2397,7 +2396,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Engine Capacity" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.engine_capacity }} L
+                                <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
                                 <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
@@ -2407,8 +2406,7 @@
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Power" %}</span>
                             <span class="font-medium text-gray-900">
-                                {{ listing.power }} kW
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                                <span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2452,7 +2450,7 @@
                         {% if listing.curb_weight %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Curb Weight" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.curb_weight }} kg</span>
+                            <span class="font-medium text-gray-900"><span data-unit-show="curb_weight" data-unit-raw="{{ listing.curb_weight|default_if_none:''|unlocalize }}">{{ listing.curb_weight }} kg</span></span>
                         </div>
                         {% endif %}
                         {% if listing.co2_emission %}
@@ -2610,14 +2608,13 @@
                     </div>
                     {% if listing.mileage %}
                     <div class="text-sm text-gray-600 mb-1">
-                        {{ listing.mileage|floatformat:0 }} km
+                        <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
                         <span class="text-gray-400">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                     </div>
                     {% endif %}
                     {% if listing.power %}
                     <div class="text-sm text-gray-600 mb-3">
-                        {{ listing.power }} kW
-                        <span class="text-gray-400">/ ≈ {% widthratio listing.power 1000 1341 %} HP</span>
+                        <span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
                     </div>
                     {% endif %}
 
