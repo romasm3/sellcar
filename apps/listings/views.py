@@ -7141,6 +7141,62 @@ def listing_pay_plan(request, pk, plan_code):
 
     total_price = total_price.quantize(Decimal('0.01'))
 
+    # ─── Nuolaidos kodas ────────────────────────────────────────────────
+    # Naršyklė atsiunčia ir kodą, ir jos pačios suskaičiuotą sumą, bet
+    # PASITIKIME TIK KODU: reikšmę perskaičiuojam patys. Kitaip užtektų
+    # POST'e atsiųsti applied_discount_amount ir susimokėti 0.
+    #
+    # Anksčiau serveris promo kodo neskaitė iš viso — vartotojas matydavo
+    # €0.00, o Stripe imdavo pilną kainą.
+    from django.db.models import F
+    from .models import PromoCode, PromoCodeUsage
+    promo = None
+    discount_amount = Decimal('0')
+    promo_code_input = (request.POST.get('applied_promo_code') or '').strip()
+
+    if promo_code_input:
+        promo = PromoCode.objects.filter(code__iexact=promo_code_input).first()
+        if promo:
+            ok, why = promo.is_valid(user=request.user, listing=listing, plan_code=plan_code)
+            if not ok:
+                messages.error(request, why)
+                return redirect('listing_select_plan', pk=pk)
+            # Procentinė nuolaida taikoma TIK plano kainai (be priedų) —
+            # lygiai taip, kaip rodo forma ir validate_promo_code_ajax.
+            discount_amount = promo.calculate_discount(Decimal(str(plan['price_usd'])))
+            if discount_amount > total_price:
+                discount_amount = total_price
+            total_price = (total_price - discount_amount).quantize(Decimal('0.01'))
+        else:
+            messages.error(request, str(_('Toks kodas neegzistuoja')))
+            return redirect('listing_select_plan', pk=pk)
+
+    # ─── Suma 0 (pvz. -100 %) — Stripe nedalyvauja ──────────────────────
+    # Stripe tokios sesijos nepriimtų (minimali suma), o skelbimas liktų
+    # neaktyvuotas. Aktyvuojam tiesiogiai ta pačia funkcija kaip webhook'as.
+    if total_price <= 0:
+        from .listing_helpers import pritaikyti_apmoketa_plana
+        pritaikyti_apmoketa_plana(
+            listing,
+            plan_days=plan['days'],
+            plan_boost_days=plan.get('boost_days', 0),
+            plan_boost_count=plan.get('boost_count', 0),
+            plan_featured_days=plan.get('featured_days', 0),
+            plan_highlight_days=plan.get('highlight_days', 0),
+            renew_count=renew_count,
+            renew_days=renew_days,
+            addon_featured_days=featured_days,
+        )
+        if promo:
+            PromoCodeUsage.objects.create(
+                promo_code=promo, user=request.user, listing=listing,
+                discount_amount=discount_amount,
+            )
+            PromoCode.objects.filter(pk=promo.pk).update(used_count=F('used_count') + 1)
+        return redirect(
+            reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
+        )
+
     # ─── Stripe Checkout ─ planai mokami TIK kortele (wallet nedalyvauja) ───
     stripe_secret = getattr(settings, 'STRIPE_SECRET_KEY', '')
     if not stripe_secret:
@@ -7193,6 +7249,8 @@ def listing_pay_plan(request, pk, plan_code):
                 'renew_days': str(renew_days),
                 'addon_featured_days': str(featured_days),
                 'total_price': str(total_price),
+                'promo_code': promo.code if promo else '',
+                'promo_discount': str(discount_amount),
             },
         )
         return redirect(session.url)

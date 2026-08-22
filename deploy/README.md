@@ -1,6 +1,6 @@
 # Auto-deploy
 
-Serveryje sukasi systemd timeris, kuris kas 5 min pasitikrina `master` šaką ir,
+Serveryje sukasi systemd timeris, kuris kas minutę pasitikrina `master` šaką ir,
 radęs naujų commit'ų, pats juos parsisiunčia ir paleidžia deploy'ą.
 
 ```
@@ -38,7 +38,11 @@ journalctl -u autoleft-deploy -n 50       # ką darė
 
 ## Kasdienis naudojimas
 
-Nieko daryti nereikia. Sumergini į `master` → per ≤5 min pasirodo svetainėje.
+Nieko daryti nereikia. Sumergini į `master` → per ~1–2 min pasirodo svetainėje.
+
+Iš tų dviejų minučių pati apklausa užima iki minutės, o likusį laiką —
+`deploy-agent.sh`: migracijos, `collectstatic`, gunicorn restartas ir
+health check'as. Momentinio nebūna ir negali būti.
 
 Nenori laukti:
 
@@ -63,9 +67,44 @@ Rankinis paleidimas su matomu žurnalu:
 | Fast-forward negalimas | Sustoja (niekada neperrašo istorijos) |
 | Health check po deploy'o nepraeina | `deploy-agent.sh` grąžina kodą iš `last_good`, tada `git reset --hard` atsuka istoriją — failai ir git vėl sutampa |
 
+## Serverio būklė atgal į repo
+
+Pokalbis su Claude sukasi debesyje ir šio serverio **nemato**. Vienintelis
+kanalas atgal — GitHub. Todėl `deploy-from-git.sh` po kiekvieno ciklo
+paleidžia `deploy/bukle.sh`, kuris surenka trumpą būklę ir įkelia ją į
+atskirą šaką **`serverio-bukle`**, failą `bukle.md`.
+
+Kas ten patenka:
+
+* koks commit'as sukasi ir koks yra `origin/master`;
+* ar darbo katalogas švarus;
+* `gunicorn`, `nginx`, `postgresql`, `autoleft-deploy.timer` būsenos;
+* ar svetainė atsako per gunicorn socket'ą (HTTP kodas ir laikas);
+* skelbimų kiekiai pagal būseną (`skelbimu_bukle` **be** `--user`, tad
+  jokių asmens duomenų);
+* vietos diske;
+* paskutinės 25 auto-deploy žurnalo eilutės.
+
+**Vienpusis kanalas:** serveris rašo, kiti skaito. Iš repo nevykdoma jokia
+komanda — kitaip bet kas, gavęs prieigą prie repo, gautų root'ą produkcijoje.
+
+Keliama tik tada, kai kas nors realiai pasikeitė (laiko žymė lyginant
+praleidžiama), todėl commit'ų kas 5 min nebūna.
+
+Rankomis:
+
+```bash
+/root/autoleft/deploy/bukle.sh
+```
+
+Perskaityti galima ir be prieigos prie serverio — GitHub'e, šakoje
+`serverio-bukle`, failas `bukle.md`.
+
 ## Prieiga prie GitHub
 
 `git fetch` turi veikti be interaktyvaus klausimo, kitaip timeris kabės.
+Būklės skelbimui reikia ir **push** teisės (į šaką `serverio-bukle`); jei jos
+nėra, deploy'as veiks, o būklė tiesiog nebus įkelta.
 Patikrink kaip sukonfigūruotas remote:
 
 ```bash

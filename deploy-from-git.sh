@@ -43,7 +43,10 @@ LOCAL="$(git rev-parse HEAD)"
 UPSTREAM="$(git rev-parse "${REMOTE}/${BRANCH}")"
 
 if [[ "$LOCAL" == "$UPSTREAM" ]]; then
-    exit 0                      # tyliai: nieko naujo
+    # Naujo kodo nėra, bet būklę paskelbiam — taip ją matyti ir tada,
+    # kai niekas nediegiama. Skriptas pats nieko nekelia, jei nepasikeitė.
+    if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
+    exit 0
 fi
 
 # ── Nuo šios vietos jau turim ką pranešti ──────────────────────────────
@@ -71,10 +74,12 @@ log "Kodas atnaujintas iki ${UPSTREAM:0:7}"
 # ── Deploy per esamą agentą (migrate + collectstatic + restart + health) ──
 if ./deploy-agent.sh; then
     log "✅ Deploy OK — gyvai veikia ${UPSTREAM:0:7}"
+    if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh || true; fi
     exit 0
 fi
 
 # deploy-agent.sh jau grąžino FAILUS iš last_good; suderinam ir git istoriją.
 log "deploy-agent.sh grąžino klaidą — atsukam git į ${LOCAL:0:7}, kad failai ir istorija sutaptų."
 git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko — reikia rankinio įsikišimo."
+if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh || true; fi
 die "Deploy nepavyko. Žr. aukščiau esantį health check'o žurnalą."

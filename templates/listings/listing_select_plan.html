@@ -8,7 +8,7 @@
 <div class="max-w-5xl mx-auto px-4 py-8">
 
   {# ═══ Step indicator ═══ #}
-  <div class="flex items-center justify-center gap-3 mb-8 text-sm border-b border-gray-200 pb-4">
+  <div class="hidden lg:flex items-center justify-center gap-3 mb-8 text-sm border-b border-gray-200 pb-4">
     <span class="text-gray-400">1. {% trans "Listing info" %}</span>
     <span class="text-gray-300">›</span>
     <span class="text-gray-900 font-bold">2. {% trans "Service selection" %}</span>
@@ -22,7 +22,89 @@
     {# ═══════════════════════════════════════════════════════ #}
     {# ═══ LEFT LABELS + 3 SEPARATE CARDS                  ═══ #}
     {# ═══════════════════════════════════════════════════════ #}
-    <div class="flex gap-3 items-stretch">
+    {# ═══════════════════════════════════════════════════════ #}
+    {# ═══ MOBILUS PLANŲ PASIRINKIMAS (etalonas: Autogidas) ═══ #}
+    {# Radio mygtukai TIE PATYS kaip darbalaukyje — mobili kortelė #}
+    {# juos pažymi per <label for>, todėl formoje jokių dublikatų. #}
+    {# ═══════════════════════════════════════════════════════ #}
+    <div class="lg:hidden">
+
+      {# Pilka juosta su skelbimo pavadinimu ir „Redaguoti" — kaip etalone #}
+      <div class="-mx-4 mb-4 bg-gray-100 px-4 py-3 flex items-center justify-between gap-3">
+        <span class="text-sm text-gray-800 truncate">{{ listing.title }}</span>
+        <a href="/create/cars/quick/?edit={{ listing.pk }}"
+           class="text-sm text-gray-700 underline whitespace-nowrap">{% trans "Redaguoti" %}</a>
+      </div>
+
+      <h2 class="text-xl font-extrabold text-gray-900 mb-3">{% trans "Pasirink aktyvavimo planą" %}</h2>
+
+      <div class="grid grid-cols-3 gap-2 items-stretch">
+        {% for plan in plans %}
+        <label for="plan_{{ forloop.counter0 }}" data-mplan="{{ forloop.counter0 }}"
+               class="m-plan relative flex flex-col items-center rounded-lg border-2 border-gray-200 bg-white
+                      {% if plan.is_recommended %}pt-7{% else %}pt-4{% endif %} pb-3 px-1 cursor-pointer">
+          {% if plan.is_recommended %}
+          <span class="absolute top-0 inset-x-0 rounded-t-md bg-gray-700 text-white text-[10px] font-bold text-center py-1">
+            {% trans "Recommended" %}
+          </span>
+          {% endif %}
+          <span class="text-base font-extrabold text-gray-900 leading-tight">{{ plan.days }} {% trans "d." %}</span>
+          <span class="mt-1 text-base font-bold text-gray-900">€{{ plan.price_usd }}</span>
+          <span class="m-plan-box mt-2 w-6 h-6 rounded border-2 border-gray-300 bg-white flex items-center justify-center">
+            <svg class="m-plan-check w-4 h-4 text-white hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+          </span>
+        </label>
+        {% endfor %}
+      </div>
+
+      {# „Į planą įeina" — parodomas tik pasirinkto plano blokas #}
+      {% for plan in plans %}
+      <div data-mincl="{{ forloop.counter0 }}"
+           class="mt-3 rounded-lg border-2 border-gray-700 bg-gray-50 p-3 {% if not plan.is_recommended %}hidden{% endif %}">
+        <div class="text-sm font-semibold text-gray-900 mb-2">{% trans "Į planą įeina" %}:</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            {% if plan.boost_count > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Top Spot Stars" %}</span>
+              <span class="inline-flex items-center gap-0.5 bg-gray-700 text-white text-[11px] font-bold px-1.5 py-0.5 rounded">{{ plan.boost_count }} ★</span>
+              <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.boost_days }} {% trans "d." %}</span>
+            {% else %}
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Top Spot Stars" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
+            {% endif %}
+          </li>
+          <li class="flex items-center gap-2">
+            {% if plan.featured_days > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Featured on homepage" %}</span>
+              <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.featured_days }} {% trans "d." %}</span>
+            {% else %}
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Featured on homepage" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
+            {% endif %}
+          </li>
+          <li class="flex items-center gap-2">
+            {% if plan.highlight_days > 0 %}
+              <svg class="w-4 h-4 text-gray-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-800">{% trans "Listing highlight" %}</span>
+              <span class="font-semibold text-gray-900 whitespace-nowrap">{{ plan.highlight_days }} {% trans "d." %}</span>
+            {% else %}
+              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+              <span class="flex-1 text-gray-400">{% trans "Listing highlight" %}</span>
+              <span class="text-gray-400 whitespace-nowrap">{% trans "neįtraukta" %}</span>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="hidden lg:flex gap-3 items-stretch">
 
       {# ─── LEFT COLUMN: row labels (no card) ─── #}
       <div class="w-1/4 flex flex-col">
@@ -54,6 +136,8 @@
           <input
             type="radio"
             name="plan_code"
+            id="plan_{{ forloop.counter0 }}"
+            data-idx="{{ forloop.counter0 }}"
             value="{{ plan.code }}"
             data-price="{{ plan.price_usd }}"
             data-days="{{ plan.days }}"
@@ -114,7 +198,7 @@
 
             {# Price row #}
             <div class="plan-price h-20 flex items-center justify-center border-t border-gray-100 transition-all">
-              <div class="text-2xl font-bold text-gray-900 transition-all">${{ plan.price_usd }}</div>
+              <div class="text-2xl font-bold text-gray-900 transition-all">€{{ plan.price_usd }}</div>
             </div>
 
             {# Radio indicator row #}
@@ -133,9 +217,11 @@
     {# ═══════════════════════════════════════════════════════ #}
     {# ═══ POSITION + ADDONS                              ═══ #}
     {# ═══════════════════════════════════════════════════════ #}
-    <div class="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+    <h2 class="lg:hidden text-xl font-extrabold text-gray-900 mt-6 mb-3">{% trans "Pasirink papildomas paslaugas" %}</h2>
 
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+    <div class="mt-4 lg:mt-8 bg-white border border-gray-200 rounded-xl shadow-sm p-4 lg:p-6">
+
+      <div class="flex items-start lg:items-center justify-between gap-3 pb-4 border-b border-gray-200 mb-4">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
             <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -150,17 +236,17 @@
             <div class="text-xs text-gray-500">{% trans "Boost your listing higher to attract more interest" %}</div>
           </div>
         </div>
-        <div class="text-sm text-red-600 font-semibold">
+        <div class="text-xs lg:text-sm text-red-600 font-semibold text-right flex-shrink-0">
           {% trans "Want to sell faster?" %}
         </div>
       </div>
 
       {# Renew addon — single row, autogidas-style #}
-      <div class="addon-row flex items-center gap-3 py-3 border-b border-gray-200 flex-wrap">
+      <div class="addon-row flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-3 py-3 border-b border-gray-200">
         <button type="button" onclick="openPreviewPopup('top_spot')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Top Spot Stars" %}</button>
         <button type="button" onclick="openPreviewPopup('top_spot')" class="inline-flex items-center justify-center w-6 h-6 rounded bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold cursor-pointer transition-colors" title="{% trans 'Preview' %}">★</button>
 
-        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+        <div class="w-full lg:w-auto lg:ml-auto flex items-center justify-between lg:justify-end gap-3 text-sm">
           <select id="renewCount" name="renew_count" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
             <option value="0">-</option>
             {% for i in renew_count_options %}<option value="{{ i }}">{{ i }} ⭐</option>{% endfor %}
@@ -174,10 +260,10 @@
       </div>
 
       {# Featured addon — single row, autogidas-style #}
-      <div class="addon-row flex items-center gap-3 py-3 flex-wrap">
+      <div class="addon-row flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-3 py-3">
         <button type="button" onclick="openPreviewPopup('featured')" class="text-sm font-semibold text-gray-900 hover:text-orange-600 cursor-pointer hover:underline transition-colors">{% trans "Featured on homepage" %}</button>
 
-        <div class="ml-auto flex items-center gap-3 flex-wrap text-sm">
+        <div class="w-full lg:w-auto lg:ml-auto flex items-center justify-between lg:justify-end gap-3 text-sm">
           <select id="featuredDays" name="featured_days" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
             <option value="0">-</option>
             {% for i in featured_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
@@ -190,14 +276,14 @@
     {# ═══════════════════════════════════════════════════════ #}
     {# ═══ DISCOUNT + WALLET + TOTAL + ORDER              ═══ #}
     {# ═══════════════════════════════════════════════════════ #}
-    <div class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between flex-wrap gap-4">
+    <div class="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-4 lg:p-6">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
 
-        <div class="flex items-center gap-6 flex-wrap">
-          <div>
+        <div class="w-full lg:w-auto flex items-center gap-6 flex-wrap">
+          <div class="w-full lg:w-auto">
             <label class="text-xs text-gray-500 uppercase tracking-wide font-semibold block mb-1">{% trans "Discount code" %}:</label>
             <div class="flex items-center gap-2">
-              <input type="text" id="discountCodeInput" name="discount_code" class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-40" placeholder="{% trans 'Code' %}">
+              <input type="text" id="discountCodeInput" name="discount_code" class="border border-gray-300 rounded-lg px-3 py-2 text-sm flex-1 lg:flex-none lg:w-40 min-w-0" placeholder="{% trans 'Code' %}">
               <button type="button" id="applyPromoBtn" class="text-sm text-gray-700 font-semibold border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-50">
                 {% trans "Apply" %}
               </button>
@@ -212,20 +298,20 @@
           </div>
         </div>
 
-        <div class="flex flex-col items-end gap-1">
+        <div class="w-full lg:w-auto flex flex-col lg:items-end gap-1">
           <div class="text-xs text-gray-500">
             {% trans "Points" %}: <span class="font-semibold text-gray-700">{{ wallet_balance|default:"0"|floatformat:0 }}</span>
           </div>
-          <div class="flex items-center gap-4">
-            <div class="text-right">
-              <div class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Total" %}</div>
-              <div class="text-2xl font-bold text-gray-900">€<span id="totalPrice">0.00</span></div>
+          <div class="w-full lg:w-auto flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4">
+            <div class="flex items-baseline justify-between lg:block lg:text-right">
+              <div class="text-sm lg:text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Total" %}</div>
+              <div class="text-3xl lg:text-2xl font-bold text-gray-900">€<span id="totalPrice">0.00</span></div>
             </div>
 
             <button
               type="submit"
               id="submitBtn"
-              class="bg-gray-800 hover:bg-gray-900 text-white font-semibold text-base px-8 py-3 rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full lg:w-auto bg-gray-800 hover:bg-gray-900 text-white font-semibold text-base px-8 py-3.5 lg:py-3 rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {% trans "Pay with card" %}
             </button>
@@ -248,8 +334,8 @@
 
   {# Listing preview — autogidas-style compact card #}
   <div class="mt-8 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all">
-    <div class="flex items-stretch">
-      <div class="w-48 h-32 flex-shrink-0 bg-gray-100">
+    <div class="flex flex-col lg:flex-row lg:items-stretch">
+      <div class="w-full h-48 lg:w-48 lg:h-32 flex-shrink-0 bg-gray-100">
         {% if main_image %}
           <img src="{{ main_image.image.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
         {% else %}
@@ -261,7 +347,7 @@
         <div class="mb-2">
           <h3 class="font-bold text-gray-900 text-base leading-snug truncate mb-1">{{ listing.title }}</h3>
           {% if listing.price %}
-            <div class="text-2xl font-bold text-gray-900">${{ listing.price|floatformat:0 }}</div>
+            <div class="text-2xl font-bold text-gray-900">€{{ listing.price|floatformat:0 }}</div>
           {% endif %}
         </div>
 
@@ -426,8 +512,34 @@
     }
   }
 
+  // ═══ Mobilios planų kortelės ═══
+  // Radio guli darbalaukio kortelėje, o mobili jį pažymi per <label for>.
+  // Todėl CSS :has() čia netinka — pažymėjimą ir „Į planą įeina" bloką
+  // perjungiam ranka.
+  function syncMobilePlans() {
+    const checked = document.querySelector('.plan-radio:checked');
+    const idx = checked ? checked.dataset.idx : null;
+    document.querySelectorAll('[data-mplan]').forEach(function(el) {
+      const on = el.dataset.mplan === idx;
+      el.classList.toggle('border-gray-800', on);
+      el.classList.toggle('bg-gray-50', on);
+      el.classList.toggle('border-gray-200', !on);
+      const box = el.querySelector('.m-plan-box');
+      if (box) {
+        box.classList.toggle('bg-gray-800', on);
+        box.classList.toggle('border-gray-800', on);
+        box.classList.toggle('border-gray-300', !on);
+      }
+      const chk = el.querySelector('.m-plan-check');
+      if (chk) chk.classList.toggle('hidden', !on);
+    });
+    document.querySelectorAll('[data-mincl]').forEach(function(el) {
+      el.classList.toggle('hidden', el.dataset.mincl !== idx);
+    });
+  }
+
   radios.forEach(r => {
-    r.addEventListener('change', updateTotal);
+    r.addEventListener('change', function() { updateTotal(); syncMobilePlans(); });
   });
 
   // BRUTAL scroll lock — saves scroll position before plan click and restores it
@@ -556,6 +668,7 @@
   renewDays.addEventListener('change', updateTotal);
   featuredDays.addEventListener('change', updateTotal);
   updateTotal();
+  syncMobilePlans();
 })();
 </script>
 
