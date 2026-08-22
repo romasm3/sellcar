@@ -23,7 +23,10 @@ def irasyti(request, category, params, pavadinimas):
         return
     from urllib.parse import urlencode
 
-    qs = urlencode({k: v for k, v in params.items() if v and k != 'sidebar'})
+    # doseq — kelios to paties lauko reikšmės (Benzinas IR Dyzelinas) turi
+    # išlikti atskiromis poromis, kitaip adrese atsidurtų „['7', '8']"
+    qs = urlencode({k: v for k, v in params.items() if v and k != 'sidebar'},
+                   doseq=True)
     irasas = {'kategorija': category, 'params': qs, 'pavadinimas': pavadinimas}
 
     sarasas = [x for x in request.session.get(RAKTAS, []) if x.get('params') != qs]

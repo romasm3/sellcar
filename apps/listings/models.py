@@ -1642,7 +1642,8 @@ class Listing(models.Model):
         verbose_name=_("Export price"),
         help_text="Optional separate price for export buyers",
     )
-    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
+    # Rinka — Lietuva, todėl numatytoji valiuta EUR (žr. CLAUDE.md konvencijas)
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='EUR')
     negotiable = models.BooleanField(default=False)
     open_to_trade = models.BooleanField(default=False, verbose_name=_("Open to trade"))
 
@@ -1842,7 +1843,7 @@ class Listing(models.Model):
 
     @property
     def currency_symbol(self):
-        return self.CURRENCY_SYMBOLS.get(self.currency, '$')
+        return self.CURRENCY_SYMBOLS.get(self.currency, '€')
 
     # ═══ Helpers for resolving 'Other' fallback values ═══
     def get_color_display_value(self):
@@ -2148,7 +2149,7 @@ class SalesRecord(models.Model):
     title = models.CharField(max_length=200)
     year = models.IntegerField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    currency = models.CharField(max_length=3, default='USD')
+    currency = models.CharField(max_length=3, default='EUR')
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=2, blank=True)
     listing_created_at = models.DateTimeField(null=True, blank=True)
@@ -2171,7 +2172,7 @@ class SalesRecord(models.Model):
 
     @property
     def currency_symbol(self):
-        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '$')
+        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '€')
 
     @classmethod
     def create_from_listing(cls, listing, marked_sold=False):
@@ -2591,7 +2592,7 @@ class PromoCode(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.code} ({self.discount_value}{'%' if self.discount_type == 'percent' else '$'})"
+        return f"{self.code} ({self.discount_value}{'%' if self.discount_type == 'percent' else '€'})"
 
     def is_valid(self, user=None, listing=None, plan_code=None):
         """Patikrina ar kodas dabar veikia tomis sąlygomis.
@@ -3151,7 +3152,7 @@ class Truck(models.Model):
 
     @property
     def currency_symbol(self):
-        return self.CURRENCY_SYMBOLS.get(self.currency, '$')
+        return self.CURRENCY_SYMBOLS.get(self.currency, '€')
 
     def is_star_active(self):
         if self.star_level == 0 or not self.star_expires_at:
@@ -3506,7 +3507,7 @@ class TruckSalesRecord(models.Model):
 
     @property
     def currency_symbol(self):
-        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '$')
+        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '€')
 
     @classmethod
     def create_from_truck(cls, truck, marked_sold=False):

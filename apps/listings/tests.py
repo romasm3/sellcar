@@ -132,3 +132,58 @@ class PuslapiuTestas(SimpleTestCase):
                                f'      puslapyje: {puslapyje[:110]}\n'
                                f'      laukiama : {laukiama[:110]}')
         self.assertEqual(klaidos, [], 'Tuščios būsenos ikonos:\n  ' + '\n  '.join(klaidos))
+
+    def test_kainos_rodomos_eurais(self):
+        """Rinka lietuviška: kainos su €, dolerio ženklo niekur.
+
+        Tikrinam ne tik „$" simbolį — jis pasitaiko JS'e ($el, $refs) —
+        o būtent valiutos vartoseną: skaičius šalia ženklo.
+        """
+        valiuta = re.compile(r'\$\s?\d|\d\s?\$')
+        if self.vartotojas:
+            self.c.force_login(self.vartotojas)
+        adresai = [
+            ('pagrindinis', '/'),
+            ('rezultatai', '/?category=cars&sidebar=1'),
+            ('naršyti', '/browse/'),
+            ('detali paieška', '/paieska/cars/'),
+            ('mano paieškos', '/searches/'),
+            ('skelbimo kūrimas', '/create/cars/quick/'),
+        ]
+        if self.skelbimas:
+            adresai.append(('skelbimas', f'/{self.skelbimas.pk}/'))
+
+        klaidos = []
+        for pavadinimas, adresas in adresai:
+            atsakymas = self.c.get(adresas, secure=True, follow=True)
+            if atsakymas.status_code != 200:
+                continue                      # pvz. kūrimo forma be teisių
+            turinys = atsakymas.content.decode('utf-8', 'ignore')
+            radinys = valiuta.search(turinys)
+            if radinys:
+                vieta = radinys.start()
+                iskarpa = turinys[max(0, vieta - 60):vieta + 60].replace('\n', ' ')
+                klaidos.append(f'{pavadinimas} ({adresas}): …{iskarpa}…')
+        self.assertEqual(klaidos, [], 'Kainos rodomos doleriais, turi būti €:\n  '
+                                      + '\n  '.join(klaidos))
+
+    def test_jungikliu_patarimai_visose_eilutese(self):
+        """/searches/ eilutėse abu jungikliai ir abu ⓘ patarimai — vienodi."""
+        if not self.vartotojas:
+            self.skipTest('nėra vartotojo')
+        self.c.force_login(self.vartotojas)
+        turinys = self.c.get('/searches/', secure=True).content.decode('utf-8', 'ignore')
+        eilutes = re.findall(r'<div class="row">(.*?)\n        </div>', turinys, re.S)
+        if not eilutes:
+            self.skipTest('vartotojas neturi išsaugotų paieškų')
+        blogos = []
+        patarimai = set()
+        for nr, eilute in enumerate(eilutes, 1):
+            jungikliai = len(re.findall(r'class="sw', eilute))
+            info = re.findall(r'class="info" title="([^"]+)"', eilute)
+            if jungikliai != 2 or len(info) != 2:
+                blogos.append(f'{nr} eilutė: jungiklių {jungikliai}, patarimų {len(info)}')
+            patarimai.add(tuple(info))
+        self.assertEqual(blogos, [], 'Eilutės be jungiklių ar patarimų:\n  ' + '\n  '.join(blogos))
+        self.assertEqual(len(patarimai), 1,
+                         'ⓘ patarimų tekstai skiriasi tarp eilučių: %s' % (patarimai,))

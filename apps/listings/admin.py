@@ -514,7 +514,7 @@ class ListingAdmin(admin.ModelAdmin):
     vehicle_kind.short_description = 'Type'
 
     def price_display(self, obj):
-        symbol = obj.currency_symbol if hasattr(obj, 'currency_symbol') else '$'
+        symbol = obj.currency_symbol if hasattr(obj, 'currency_symbol') else '€'
         return format_html(
             '<strong style="font-size: 13px;">{}{}</strong>',
             symbol, int(obj.price) if obj.price else 0
@@ -1678,7 +1678,7 @@ class PromoCodeAdmin(admin.ModelAdmin):
             'fields': ('discount_type', 'discount_value'),
             'description': (
                 '<b>Percent</b>: discount_value=25 reiškia -25% nuo kainos. '
-                '<b>Fixed</b>: discount_value=5 reiškia -$5.'
+                '<b>Fixed</b>: discount_value=5 reiškia -5 €.'
             ),
         }),
         ('Validity Period', {

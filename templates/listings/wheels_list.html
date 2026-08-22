@@ -212,8 +212,8 @@
                 <div>
                     <label class="block text-xs font-medium text-gray-500 mb-1.5">{% trans "Price Range" %}</label>
                     <div class="flex gap-2">
-                        <input type="number" name="price_from" placeholder="{% trans 'Min $' %}" value="{{ f.price_from }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
-                        <input type="number" name="price_to" placeholder="{% trans 'Max $' %}" value="{{ f.price_to }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <input type="number" name="price_from" placeholder="{% trans 'Min €' %}" value="{{ f.price_from }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
+                        <input type="number" name="price_to" placeholder="{% trans 'Max €' %}" value="{{ f.price_to }}" class="flex-1 min-w-0 w-0 px-3 py-2.5 bg-white border border-gray-200 rounded-lg text-sm">
                     </div>
                 </div>
 
@@ -366,7 +366,7 @@
 
                     {# ═══ PRICE (Kaina) ═══ #}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Price ($)" %}</span>
+                        <span class="sidebar-label">{% trans "Price (€)" %}</span>
                         <div class="sb-range">
                             <input type="number" name="price_from" class="sb-input" placeholder="{% trans 'From' %}" value="{{ f.price_from }}">
                             <input type="number" name="price_to" class="sb-input" placeholder="{% trans 'To' %}" value="{{ f.price_to }}">

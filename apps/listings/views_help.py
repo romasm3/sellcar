@@ -16,7 +16,7 @@ def whats_new(request):
         {
             'date': '2026-05-13',
             'title': 'Dealer Subscriptions Launched',
-            'description': 'Become a verified dealer for $100/month and list up to 30 vehicles.',
+            'description': 'Become a verified dealer for €100/month and list up to 30 vehicles.',
             'tag': 'New Feature',
             'tag_color': 'red',
         },

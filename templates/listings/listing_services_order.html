@@ -75,7 +75,7 @@
             <option value="0">-</option>
             {% for i in renew_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
           </select>
-          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="renewPrice">0.00</span></span></span>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">€<span id="renewPrice">0.00</span></span></span>
         </div>
       </div>
 
@@ -95,7 +95,7 @@
             <option value="0">-</option>
             {% for i in highlight_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
           </select>
-          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="highlightPrice">0.00</span></span></span>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">€<span id="highlightPrice">0.00</span></span></span>
         </div>
       </div>
 
@@ -114,7 +114,7 @@
             <option value="0">-</option>
             {% for i in featured_days_options %}<option value="{{ i }}">{{ i }}</option>{% endfor %}
           </select>
-          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">$<span id="featuredPrice">0.00</span></span></span>
+          <span class="text-gray-700">{% trans "Price" %}: <span class="font-bold">€<span id="featuredPrice">0.00</span></span></span>
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@
         <div class="flex items-center gap-4">
           <div class="text-right">
             <div class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{% trans "Total" %}</div>
-            <div class="text-2xl font-bold text-gray-900">$<span id="totalPrice">0.00</span></div>
+            <div class="text-2xl font-bold text-gray-900">€<span id="totalPrice">0.00</span></div>
           </div>
 
           <button
@@ -248,7 +248,7 @@
       walletWarning.classList.remove('hidden');
     } else {
       submitBtn.disabled = false;
-      submitBtn.textContent = "{% trans 'Pay' %} $" + total.toFixed(2);
+      submitBtn.textContent = "{% trans 'Pay' %} €" + total.toFixed(2);
       walletWarning.classList.add('hidden');
     }
   }

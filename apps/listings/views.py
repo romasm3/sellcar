@@ -1190,10 +1190,11 @@ _LT_REIKSMES = {
     'Automatic': 'Automatinė', 'Manual': 'Mechaninė',
     'Semi-automatic': 'Pusiau automatinė', 'CVT': 'Bepakopė (CVT)',
     # kėbulai (URL reikšmės — slug'ai)
-    'Sedan': 'Sedanas', 'Hatchback': 'Hečbekas', 'Wagon': 'Universalas',
-    'Suv': 'Visureigis / krosoveris', 'Coupe': 'Kupė', 'Convertible': 'Kabrioletas',
-    'Minivan': 'Vienatūris', 'Pickup': 'Pikapas', 'Van': 'Mikroautobusas',
-    'Limousine': 'Limuzinas', 'Other body': 'Kita',
+    'Sedan': 'Sedanas', 'Hatchback': 'Hečbekas', 'Estate': 'Universalas',
+    'Wagon': 'Universalas', 'Minivan': 'Vienatūris', 'Suv': 'Visureigis / krosoveris',
+    'Coupe': 'Kupė', 'Commercial': 'Komercinis', 'Convertible': 'Kabrioletas',
+    'Limousine': 'Limuzinas', 'Pickup': 'Pikapas', 'Minibus': 'Mikroautobusas',
+    'Van': 'Mikroautobusas', 'Truck': 'Sunkvežimis', 'Other': 'Kita',
 }
 
 
@@ -1285,7 +1286,7 @@ def _paieskos_pavadinimas(params):
 
 
 def _filtru_santrauka(params, riba=4):
-    """Filtrų santrauka viena eilute: „Benzinas · iki 8 000 $ · nuo 2006 m.".
+    """Filtrų santrauka viena eilute: „Benzinas · iki 8 000 € · nuo 2006 m.".
 
     Markės ir modelio čia NĖRA — jie jau pavadinime, kartoti nereikia.
     Rodoma ir /searches/ puslapyje, ir pagrindinio puslapio kortelėje,
@@ -1293,23 +1294,33 @@ def _filtru_santrauka(params, riba=4):
     """
     dalys = []
 
+    def _fk_vardai(modelis, reiksme):
+        """VISOS pasirinktos reikšmės, ne pirmoji: „Benzinas, Dyzelinas"."""
+        ids = [v for v in _sarasu(reiksme) if str(v).isdigit()]
+        if not ids:
+            return None
+        eile = {str(v): i for i, v in enumerate(ids)}          # išlaikom tvarką
+        vardai = sorted(modelis.objects.filter(pk__in=ids),
+                        key=lambda o: eile.get(str(o.pk), 0))
+        return ', '.join(_lt(o.name) for o in vardai) or None
+
     if params.get('fuel_type'):
         try:
             from .models import FuelType
-            ft = FuelType.objects.filter(pk=_viena(params['fuel_type'])).first()
-            if ft:
-                dalys.append(_lt(ft.name))
+            kuras = _fk_vardai(FuelType, params['fuel_type'])
+            if kuras:
+                dalys.append(kuras)
         except Exception:
             pass
 
     kaina = (_viena(params.get('price_min')), _viena(params.get('price_max')))
     if any(kaina):
         if kaina[0] and kaina[1]:
-            dalys.append('%s–%s $' % (_skaicius(kaina[0]), _skaicius(kaina[1])))
+            dalys.append('%s–%s €' % (_skaicius(kaina[0]), _skaicius(kaina[1])))
         elif kaina[1]:
-            dalys.append('%s %s $' % (_('iki'), _skaicius(kaina[1])))
+            dalys.append('%s %s €' % (_('iki'), _skaicius(kaina[1])))
         else:
-            dalys.append('%s %s $' % (_('nuo'), _skaicius(kaina[0])))
+            dalys.append('%s %s €' % (_('nuo'), _skaicius(kaina[0])))
 
     metai = (_viena(params.get('year_min')), _viena(params.get('year_max')))
     if any(metai):
@@ -1323,14 +1334,17 @@ def _filtru_santrauka(params, riba=4):
     if params.get('transmission'):
         try:
             from .models import Transmission
-            tr = Transmission.objects.filter(pk=_viena(params['transmission'])).first()
-            if tr:
-                dalys.append(_lt(tr.name))
+            pavaros = _fk_vardai(Transmission, params['transmission'])
+            if pavaros:
+                dalys.append(pavaros)
         except Exception:
             pass
 
     if params.get('body_type'):
-        dalys.append(_lt(str(_viena(params['body_type'])).replace('-', ' ').capitalize()))
+        # Kelios to paties lauko reikšmės — per kablelį, kaip ir kuro tipai
+        dalys.append(', '.join(
+            _lt(str(v).replace('-', ' ').capitalize())
+            for v in _sarasu(params['body_type'])))
     if params.get('mileage_max'):
         dalys.append('%s %s km' % (_('iki'), _skaicius(_viena(params['mileage_max']))))
     if params.get('city'):
@@ -2329,7 +2343,10 @@ def listing_list(request, panel_fragment=False, category=None):
     if not panel_fragment and request.GET.get('sidebar'):
         try:
             from apps.listings import search_history
-            _p = {k: v for k, v in request.GET.items()}
+            # request.GET.items() palieka tik PASKUTINĘ kiekvieno lauko
+            # reikšmę — kelios markės ar kuro tipai dingdavo. _paieskos_params
+            # grąžina visą aibę, kaip ir išsaugant paiešką.
+            _p = _paieskos_params(request)
             search_history.irasyti(request, category_filter or 'cars', _p,
                                    _build_search_name(_p))
         except Exception:
@@ -4704,7 +4721,7 @@ def listing_edit_hub(request, pk):
         {'key': 'equipment', 'icon': '🔧', 'title': 'Equipment',
          'url': reverse('listing_edit_section', kwargs={'pk': listing.pk, 'section': 'equipment'}),
          'progress': f'{filled_equipment} / {total_equipment}'},
-        {'key': 'price', 'icon': '$', 'title': 'Price',
+        {'key': 'price', 'icon': '€', 'title': 'Price',
          'url': reverse('listing_edit_section', kwargs={'pk': listing.pk, 'section': 'price'}),
          'progress': f'{listing.currency_symbol}{int(listing.price)}'},
         {'key': 'description', 'icon': '📝', 'title': 'Description, Technical Condition',
@@ -5828,13 +5845,13 @@ def admin_sales_stats(request):
     median_price = round(float(median_price), 0)
 
     price_buckets = [
-        ('< $1k',       0,      1000),
-        ('$1k–5k',      1000,   5000),
-        ('$5k–10k',     5000,   10000),
-        ('$10k–25k',    10000,  25000),
-        ('$25k–50k',    25000,  50000),
-        ('$50k–100k',   50000,  100000),
-        ('$100k+',      100000, 999999999),
+        ('< 1 tūkst. €',       0,      1000),
+        ('1–5 tūkst. €',      1000,   5000),
+        ('5–10 tūkst. €',     5000,   10000),
+        ('10–25 tūkst. €', 10000,  25000),
+        ('25–50 tūkst. €', 25000,  50000),
+        ('50–100 tūkst. €', 50000, 100000),
+        ('100 tūkst. € +', 100000, 999999999),
     ]
     price_distribution = []
     for label, lo, hi in price_buckets:

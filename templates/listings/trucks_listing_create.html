@@ -639,7 +639,7 @@
                         <label class="field-label">{% trans "Asking price" %}<span class="required-star">*</span></label>
                         <div class="with-suffix">
                             <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <span class="suffix">$</span>
+                            <span class="suffix">€</span>
                             <input type="hidden" name="currency" value="USD">
                         </div>
                         {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
