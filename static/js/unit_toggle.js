@@ -30,6 +30,12 @@
    data-unit-raw gali turėti kelias reikšmes per „|" — tada rodoma
    „1200 × 800 × 600 mm" (matmenys viena eilute).
 
+   ── DIAPAZONAI „nuo–iki" ──
+
+   Antram poros laukui dedam data-unit-quiet: jis konvertuojasi kartu,
+   bet mygtukų ir užuominos nekartoja — vienai porai užtenka vieno
+   perjungiklio prie bendros etiketės.
+
    SVARBU: data-unit-raw reikšmė TURI būti nelokalizuota (|unlocalize),
    nes LT lokalėje {{ 12.5 }} atsiduoda kaip „12,5" ir parseFloat luš.
 
@@ -157,14 +163,25 @@
     // "Galia (kW)" → "Galia"; "Rida su vienu įkrovimu, km" → "Rida su ..."
     // Keičiam tik paskutinį teksto mazgą, kad išliktų <span>*</span> ir pan.
     // ───────────────────────────────────────────────────────────────────
-    // Etiketės paieška: pirma – ankstesnis brolis, tik po to tėvinis mazgas
-    // (ir tik jei jame yra vienintelis input — kitaip pagriebtume svetimą).
+    // Etiketė gali būti <label> arba <span class="sp-label"> / .field-label /
+    // .form-label — projekte naudojami visi trys.
+    function isLabelish(n) {
+        if (n.tagName === 'LABEL') return true;
+        var c = (typeof n.className === 'string') ? n.className : '';
+        return /(^|\s|-)label(\s|$|-)/i.test(c);
+    }
+
+    // Paieškos tvarka: ankstesni broliai, tada tas pats vienu lygiu aukščiau
+    // (diapazonuose „nuo–iki" abu input'ai guli atskirame flex konteineryje),
+    // ir tik tada tėvinis mazgas — jei jame vienintelis input.
     function findLabel(input) {
-        var n = input.previousElementSibling;
-        while (n) {
-            if (n.tagName === 'LABEL') return n;
-            if (n.tagName === 'INPUT' || n.tagName === 'SELECT') return null;
-            n = n.previousElementSibling;
+        for (var el = input, up = 0; el && up < 2; el = el.parentNode, up++) {
+            var n = el.previousElementSibling;
+            while (n) {
+                if (isLabelish(n)) return n;
+                if (n.tagName === 'INPUT' || n.tagName === 'SELECT') break;
+                n = n.previousElementSibling;
+            }
         }
         var p = input.parentNode;
         if (!p) return null;
@@ -189,8 +206,11 @@
             }).join('\\s*');
             var paren = new RegExp('\\s*\\(\\s*' + u + '\\s*\\)$', 'i');
             var comma = new RegExp('\\s*,\\s*' + u + '$', 'i');
+            // „Bendroji masė kg" — vienetas be skliaustų ir be kablelio
+            var bare = new RegExp('\\s+' + u + '$', 'i');
             if (paren.test(t)) { node.nodeValue = t.replace(paren, ''); return; }
             if (comma.test(t)) { node.nodeValue = t.replace(comma, ''); return; }
+            if (bare.test(t)) { node.nodeValue = t.replace(bare, ''); return; }
         }
     }
 
@@ -210,6 +230,21 @@
 
     // ───────────────────────────────────────────────────────────────────
     var fields = [];
+
+    function onUserInput(f) {
+        return function () {
+            var v = parseFloat(f.input.value);
+            if (isNaN(v)) {
+                f.canon = null;
+            } else if (isAlt(f.spec)) {
+                f.canon = toCanon(f.spec, v);
+            } else {
+                f.canon = v;
+            }
+            syncName(f);
+            updateHint(f);
+        };
+    }
 
     function build(input) {
         var key = input.dataset.unitField;
@@ -238,6 +273,7 @@
         // ── Mygtukai — dedami į etiketės eilutę, kad input'o plotis nesikeistų
         var wrap = document.createElement('span');
         wrap.className = 'unit-switch';
+        wrap.dataset.unitFor = f.origName;      // kuriam laukui priklauso
         wrap.setAttribute('style', 'display:inline-flex;flex:0 0 auto;margin-left:auto;');
 
         f.btnCanon = document.createElement('button');
@@ -249,9 +285,25 @@
         wrap.appendChild(f.btnCanon);
         wrap.appendChild(f.btnAlt);
 
-        // Įsimenam, kur dėti užuominą, PRIEŠ galimą input'o perkėlimą
+        // Diapazono antras laukas („iki") — jokių savo mygtukų ir užuominos
+        f.quiet = input.hasAttribute('data-unit-quiet');
+        if (f.quiet) {
+            input.addEventListener('input', onUserInput(f));
+            fields.push(f);
+            return f;
+        }
+
+        // Įsimenam, kur dėti užuominą, PRIEŠ galimą input'o perkėlimą.
+        // Diapazonuose („nuo" ir „iki" viename grid-cols-2 konteineryje)
+        // užuomina turi atsidurti PO visu konteineriu — kitaip ji užimtų
+        // tinklelio langelį ir nustumtų „iki" į kitą eilutę.
         var hintParent = input.parentNode;
         var hintRef = input.nextSibling;
+        if (hintParent && hintParent.querySelectorAll('[data-unit-field]').length > 1
+                && hintParent.parentNode) {
+            hintRef = hintParent.nextSibling;
+            hintParent = hintParent.parentNode;
+        }
 
         var label = findLabel(input);
         if (label) {
@@ -279,18 +331,7 @@
         f.btnCanon.addEventListener('click', function () { setFamilyMode(spec.family, 'canonical'); });
         f.btnAlt.addEventListener('click', function () { setFamilyMode(spec.family, 'alt'); });
 
-        input.addEventListener('input', function () {
-            var v = parseFloat(input.value);
-            if (isNaN(v)) {
-                f.canon = null;
-            } else if (isAlt(spec)) {
-                f.canon = toCanon(spec, v);
-            } else {
-                f.canon = v;
-            }
-            syncName(f);
-            updateHint(f);
-        });
+        input.addEventListener('input', onUserInput(f));
 
         fields.push(f);
         paintBtn(f.btnCanon, !isAlt(spec), true);
@@ -339,8 +380,10 @@
             }
         }
 
-        paintBtn(f.btnCanon, isCanon, true);
-        paintBtn(f.btnAlt, !isCanon, false);
+        if (!f.quiet) {
+            paintBtn(f.btnCanon, isCanon, true);
+            paintBtn(f.btnAlt, !isCanon, false);
+        }
         syncName(f);
         updateHint(f);
     }
@@ -366,6 +409,7 @@
 
     function updateHint(f) {
         var spec = f.spec;
+        if (f.quiet || !f.hint) return;
         if (f.canon === null || isNaN(f.canon)) { f.hint.textContent = ''; return; }
         if (!isAlt(spec)) {
             var a = toAlt(spec, f.canon);

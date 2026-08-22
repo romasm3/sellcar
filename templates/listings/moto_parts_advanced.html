@@ -89,9 +89,9 @@
       <div class="adv-field">
         <label>{% trans "Engine capacity (cm³)" %}</label>
         <div class="adv-range">
-          <input type="number" name="engine_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ request.GET.engine_min }}">
+          <input type="number" name="engine_min" data-unit-field="engine_capacity_cc" class="adv-input" placeholder="{% trans 'From' %}" value="{{ request.GET.engine_min }}">
           <span>–</span>
-          <input type="number" name="engine_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ request.GET.engine_max }}">
+          <input type="number" name="engine_max" data-unit-field="engine_capacity_cc" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ request.GET.engine_max }}">
         </div>
       </div>
       <div class="adv-field">

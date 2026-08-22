@@ -34,6 +34,11 @@ const HTML = `<!doctype html><html><body><form id="f">
  <p>Rida: <span id="v-mileage" data-unit-show="mileage" data-unit-raw="150000">150 000 km</span></p>
  <p>Matmenys: <span id="v-dims" data-unit-show="truck_length_mm" data-unit-raw="1200|800|600">1200 × 800 × 600 mm</span></p>
  <p>Nėra: <span id="v-empty" data-unit-show="payload_kg" data-unit-raw="">—</span></p>
+ <div><label class="l">Bendroji masė kg</label>
+   <div class="row">
+     <input type="number" name="gw_min" data-unit-field="gross_weight_kg" step="any" value="1000">
+     <input type="number" name="gw_max" data-unit-field="gross_weight_kg" data-unit-quiet step="any" value="3000">
+   </div></div>
 </form></body></html>`;
 
 let failures = 0;
@@ -237,6 +242,28 @@ console.log('\n── 14. Forma ir peržiūra dalijasi ta pačia nuostata ──
   // atgal per formos mygtuka → persijungia ir rodinys
   btns(d,'mileage')[0].click();
   chk('rodinys grizo i km', nb(main(V('v-mileage'))), '150,000 km');
+}
+
+console.log('\n── 15. Paieškos diapazonas: vienas perjungiklis dviem laukams ──');
+{
+  const d = await boot();
+  const doc = d.window.document;
+  const gwMin = doc.querySelector('[name="gw_min"]');
+  const gwMax = doc.querySelector('[data-unit-quiet]');
+  const sw = doc.querySelectorAll('.unit-switch[data-unit-for="gw_min"]');
+  chk('vienas perjungiklis porai', sw.length, 1);
+  chk('„iki" savo mygtuku neturi', doc.querySelectorAll('.unit-switch[data-unit-for="gw_max"]').length, 0);
+  chk('eiluteje uzuominos nera', gwMax.parentNode.querySelectorAll('.unit-hint').length, 0);
+  chk('uzuomina po visa eilute', gwMax.parentNode.nextElementSibling.className, 'unit-hint');
+  sw[0].querySelectorAll('button')[1].click();
+  chk('nuo -> lbs', gwMin.value, '2205');
+  chk('iki -> lbs', gwMax.value, '6614');
+  chk('POST nuo metrinis', doc.querySelector('#f [name="gw_min"]').value, '1000');
+  chk('POST iki metrinis', doc.querySelector('#f [name="gw_max"]').value, '3000');
+  // rankomis ivesta reiksme alternatyviais vienetais taip pat virsta metrine
+  gwMax.value = '10000';
+  gwMax.dispatchEvent(new d.window.Event('input'));
+  chk('ivedus 10000 lbs -> kg', doc.querySelector('#f [name="gw_max"]').value, String(Math.round(10000 / 2.20462)));
 }
 
 console.log(failures ? `\n✗ ${failures} nesėkmė(s)\n` : '\n✓ visi testai praėjo\n');

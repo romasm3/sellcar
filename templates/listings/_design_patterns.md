@@ -248,14 +248,42 @@ window.AutoLeftUnits.get('mileage')        // '150000' arba ''
 window.AutoLeftUnits.set('mileage', 150000) // atkuriant juodraštį
 ```
 
-### 1.6 Senoji rankinė sistema
+### 1.6 Paieškos diapazonai (nuo–iki)
 
-Liko viena vieta: `trucks_listing_create.html` su savo `UNIT_CONFIG` (10 laukų).
-Veikia gerai; perkėlimas būtų tvarkymasis, ne taisymas.
+Diapazonui reikia VIENO perjungiklio dviem laukams. Antras poros laukas
+gauna `data-unit-quiet` — konvertuojasi kartu, bet mygtukų ir užuominos
+nekartoja:
+
+```html
+<input type="number" step="any" name="mileage_min" data-unit-field="mileage" ...>
+<input type="number" step="any" name="mileage_max" data-unit-field="mileage" data-unit-quiet ...>
+```
+
+Deklaratyviose panelėse to daryti ranka nereikia — `partials/fields/_range.html`
+pats pažymi laukus pagal `apps/listings/templatetags/unit_tags.py` lentelę.
+**Naujas matuojamas diapazonas = viena eilutė `RANGE_UNIT_SPECS`.**
+
+`step="any"` matavimo laukams būtinas: mylios ir colių dalys yra trupmeninės,
+o su `step="1"` naršyklė tokios įvesties nepriimtų.
+
+Į serverį visada keliauja metrinė reikšmė, o pasirinktas vienetas įsimenamas
+`localStorage`'e — todėl po paieškos rezultatų perkrovimo laukai vėl parodomi
+tuo pačiu vienetu. URL parametrų tam nereikia.
+
+### 1.7 Senoji rankinė sistema
+
+Liko dvi vietos:
+
+* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų);
+* `advanced_search.html` automobilių šaka — savas kodas su `mileage_unit` /
+  `power_unit` / `engine_unit` URL parametrais (nuostata keliauja nuorodoje,
+  ne `localStorage`'e). „Parts" šaka toje pačioje formoje jau perkelta.
+
+Abi veikia; perkėlimas būtų tvarkymasis, ne taisymas.
 
 **Naujose formose šio kodo nekartoti** — naudoti `data-unit-field`.
 
-### 1.7 Testai
+### 1.8 Testai
 
 `node docs/unit_toggle_tests.js` (reikia `npm i jsdom`) — 14 grupių:
 konversijos abiem kryptimis, name-swap, sveikaskaičiai laukai, `max`
