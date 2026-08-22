@@ -58,6 +58,11 @@ from django.views.decorators.http import require_GET
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
+
+# „Pasiūlymai" skirtuke rodomi VISI vieši skelbimai. Riba palikta tik kaip
+# apsauga nuo begalinio puslapio — jei skelbimų daugiau, reikės puslapiavimo
+# arba lazy-load, o ne didesnio skaičiaus.
+HOME_OFFERS_MAX = 500
 RENEW_RATE_LIMIT_HOURS = 1
 
 # ═══════════════════════════════════════════════════════════
@@ -1631,14 +1636,17 @@ def listing_list(request, panel_fragment=False, category=None):
     else:
         tab_featured = featured_paid
 
-    # „Pasiūlymai" — sujungtas skirtukas: buvę „Dienos pasiūlymai" (mokami
-    # featured + žvaigždutiniai) eina pirmi, po jų — naujausi likusieji.
-    # Visos kategorijos kartu, nes _tabs_base kategorijos nefiltruoja.
+    # „Pasiūlymai" — sujungtas skirtukas: mokami featured ir žvaigždutiniai
+    # eina pirmi, po jų VISI likusieji nuo naujausio. Visos kategorijos kartu,
+    # nes _tabs_base kategorijos nefiltruoja.
+    #
+    # Anksčiau čia buvo imami tik 24 naujausi ir apkarpoma iki 18 kortelių.
+    # Todėl užtekdavo per parą atsirasti keliolikai naujų skelbimų, kad visi
+    # senesni iškristų iš skirtuko — o tai ir yra „mano skelbimų nesimato".
     _offer_ids = {l.pk for l in tab_featured}
-    tab_offers = tab_featured + [
-        l for l in _tabs_base.order_by('-created_at')[:24]
-        if l.pk not in _offer_ids
-    ][:18 - len(tab_featured)]
+    tab_offers = tab_featured + list(
+        _tabs_base.exclude(pk__in=_offer_ids).order_by('-created_at')[:HOME_OFFERS_MAX]
+    )
     # „Dienos pasiūlymai" — šiandien įkelti skelbimai, kurie skirtuke
     # išsilaiko 7 paras. Todėl riba ne „šiandien", o paskutinės 7 paros:
     # šiandien įkeltas skelbimas iškris po 7 dienų.
