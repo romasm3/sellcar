@@ -1,1 +1,1 @@
-{{ milestone }} views on your listing!
+{{ views_count|default:milestone }} views on your listing!

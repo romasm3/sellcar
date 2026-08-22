@@ -267,12 +267,15 @@ class Command(BaseCommand):
             if not milestone:
                 continue
 
-            self.stdout.write(f'    -> {user.email} | {listing.title} | {milestone}+ views')
+            self.stdout.write(f'    -> {user.email} | {listing.title} | {listing.views_count} views')
 
             success = self._send('listing_views_milestone', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
                 'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                # Laiške rodom TIKSLŲ skaičių (154), o ne pakopą (100) —
+                # pakopa lieka tik tam, kad žinotume, kada verta siųsti.
+                'views_count': listing.views_count,
                 'milestone': milestone,
                 'stats_url': f'{settings.SITE_URL}/{listing.pk}/stats/',
             })

@@ -46,6 +46,7 @@ EMAIL_SCENARIOS = {
     # ═══════════════════════════════════════════════════════════
     # BUYER NOTIFICATIONS (apie išsaugotus skelbimus)
     # ═══════════════════════════════════════════════════════════
+    'saved_listings_list':            True,   # Sąrašas paties žmogaus prašymu (/saved/)
     'saved_listing_price_drop':       True,   # #9  Kaina nukrito
     'saved_listing_sold':             True,   # #10 Išsaugotas parduotas
     'saved_listing_updated':          True,   # #11 Pardavėjas atnaujino
@@ -196,6 +197,12 @@ SCENARIO_METADATA = {
     },
 
     # BUYER
+    'saved_listings_list': {
+        'category': 'Buyer (Saved)',
+        'name': 'Saved Listings — List',
+        'description': 'Įsimintų skelbimų sąrašas, išsiųstas paties žmogaus prašymu.',
+        'trigger': 'Mygtukas /saved/ puslapyje',
+    },
     'saved_listing_price_drop': {
         'category': 'Buyer (Saved)',
         'name': 'Saved Listing - Price Drop',

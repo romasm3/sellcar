@@ -1,0 +1,14 @@
+{% load i18n %}{% blocktrans %}Sveiki, {{ vardas }},{% endblocktrans %}
+
+{% blocktrans count kiek=kiek %}Štai jūsų įsimintas skelbimas:{% plural %}Štai jūsų įsiminti skelbimai ({{ kiek }}):{% endblocktrans %}
+{% for e in skelbimai %}
+   {{ e.pavadinimas }}
+   {{ e.kaina }}{% if e.metai %} · {{ e.metai }} {% trans "m." %}{% endif %}{% if e.rida %} · {{ e.rida }} km{% endif %}
+   {{ e.nuoroda }}
+{% endfor %}
+{% trans "Visi įsiminti skelbimai:" %} {{ site_url }}/saved/
+
+{% trans "Ačiū, kad naudojatės AutoLeft." %}
+
+---
+{% trans "Pranešimų nustatymai:" %} {{ site_url }}/settings/

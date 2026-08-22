@@ -3691,17 +3691,79 @@ def toggle_price_drop(request, kanalas):
     return _atgal(request, numatytas='saved_listings')
 
 
+ISIMINTU_LAISKO_PERTRAUKA = 60      # sekundės tarp dviejų laiškų vienam žmogui
+
+
 @login_required
 @require_POST
 def email_saved_listings(request):
-    """Išsiunčia įsimintų skelbimų sąrašą vartotojo el. paštu."""
-    from django.core.mail import send_mail
+    """Išsiunčia įsimintų skelbimų sąrašą į paskyros el. paštą.
+
+    Laiškas eina per tą patį scenarijų variklį kaip visi kiti
+    (apps/listings/emails/sender.send_scenario), todėl gauna vieną rėmą,
+    poraštę su atsisakymo nuoroda ir statistiką admin'e.
+
+    Dažnis ribojamas: ne dažniau kaip kartą per minutę vienam žmogui —
+    mygtukas yra puslapyje, o ne cron'e, tad be to jį galima būtų spausti
+    be perstojo.
+    """
+    from apps.listings.emails.sender import send_scenario
+
+    if not request.user.email:
+        messages.error(request, _('Paskyroje nenurodytas el. pašto adresas.'))
+        return redirect('saved_listings')
+
+    paskutinis = request.session.get('isiminti_laisko_laikas')
+    dabar = timezone.now().timestamp()
+    if paskutinis and dabar - paskutinis < ISIMINTU_LAISKO_PERTRAUKA:
+        liko = int(ISIMINTU_LAISKO_PERTRAUKA - (dabar - paskutinis)) or 1
+        messages.error(request, _('Laiškas ką tik išsiųstas. Bandykite po %(sek)s s.')
+                       % {'sek': liko})
+        return redirect('saved_listings')
 
     saved = (SavedListing.objects.filter(user=request.user)
-             .select_related('listing').order_by('-saved_at'))
-    if not saved or not request.user.email:
-        messages.error(request, _('Nėra ko siųsti arba paskyroje nenurodytas el. paštas.'))
+             .select_related('listing').prefetch_related('listing__images')
+             .order_by('-saved_at'))
+    if not saved:
+        messages.error(request, _('Įsimintų skelbimų nėra — nėra ko siųsti.'))
         return redirect('saved_listings')
+
+    skelbimai = []
+    for s in saved:
+        l = s.listing
+        nuotrauka = l.first_image
+        krito = s.kaina_krito
+        skelbimai.append({
+            'pavadinimas': l.title,
+            'kaina': '%s%s' % (l.currency_symbol, int(l.price or 0)),
+            'metai': l.year,
+            'rida': '{:,}'.format(l.mileage).replace(',', '\u00a0') if l.mileage else '',
+            'miestas': l.city,
+            'nuotrauka': ('%s%s' % (settings.SITE_URL, nuotrauka.url_sm)
+                          if nuotrauka and getattr(nuotrauka, 'url_sm', None) else ''),
+            'nuoroda': '%s%s' % (settings.SITE_URL, l.get_absolute_url()),
+            'kaina_krito': ('%s%s' % (l.currency_symbol, int(krito))) if krito else '',
+        })
+
+    pavyko = send_scenario(
+        code='saved_listings_list',
+        to_email=request.user.email,
+        to_user=request.user,
+        context={
+            'vardas': request.user.first_name or request.user.username,
+            'kiek': len(skelbimai),
+            'skelbimai': skelbimai,
+        },
+    )
+
+    if pavyko:
+        request.session['isiminti_laisko_laikas'] = dabar
+        messages.success(request, _('Sąrašas išsiųstas į %(pastas)s')
+                         % {'pastas': request.user.email})
+    else:
+        # send_scenario klaidą jau įrašė į žurnalą ir EmailScenario statistiką
+        messages.error(request, _('Laiško išsiųsti nepavyko. Pabandykite vėliau.'))
+    return redirect('saved_listings')
 
     eilutes = []
     for s in saved:

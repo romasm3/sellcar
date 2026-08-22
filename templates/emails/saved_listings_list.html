@@ -1,0 +1,48 @@
+{% extends 'emails/base_email.html' %}{% load i18n %}
+{% comment %}
+Įsimintų skelbimų sąrašas — tas pats rėmas kaip kituose laiškuose
+(base_email.html), todėl antraštė, poraštė ir atsisakymo nuoroda vienodos.
+Laiškams — tik inline stiliai ir lentelės: Gmail/Outlook kitko nepalaiko.
+{% endcomment %}
+
+{% block title %}{% trans "Jūsų įsiminti skelbimai" %} — AutoLeft{% endblock %}
+
+{% block body %}
+<p style="margin:0 0 16px 0;">{% blocktrans %}Sveiki, {{ vardas }},{% endblocktrans %}</p>
+
+<p style="margin:0 0 20px 0;">
+  {% blocktrans count kiek=kiek %}Štai jūsų įsimintas skelbimas:{% plural %}Štai jūsų įsiminti skelbimai ({{ kiek }}):{% endblocktrans %}
+</p>
+
+{% for e in skelbimai %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="border:1px solid #e7e7e7;border-radius:8px;margin:0 0 12px 0;">
+  <tr>
+    {% if e.nuotrauka %}
+    <td width="140" valign="top" style="padding:12px 0 12px 12px;">
+      <a href="{{ e.nuoroda }}">
+        <img src="{{ e.nuotrauka }}" alt="{{ e.pavadinimas }}" width="128"
+             style="width:128px;height:96px;object-fit:cover;border-radius:6px;display:block;border:0;">
+      </a>
+    </td>
+    {% endif %}
+    <td valign="top" style="padding:12px;">
+      <a href="{{ e.nuoroda }}" style="color:#111;text-decoration:none;font-size:15px;font-weight:700;">{{ e.pavadinimas }}</a>
+      <div style="margin:6px 0 0 0;font-size:16px;font-weight:700;color:#111;">{{ e.kaina }}</div>
+      <div style="margin:4px 0 0 0;font-size:13px;color:#6b7280;">
+        {% if e.metai %}{{ e.metai }} {% trans "m." %}{% endif %}{% if e.metai and e.rida %} · {% endif %}{% if e.rida %}{{ e.rida }} km{% endif %}{% if e.miestas %} · {{ e.miestas }}{% endif %}
+      </div>
+      {% if e.kaina_krito %}
+      <div style="margin:8px 0 0 0;display:inline-block;font-size:12px;color:#067647;background:#ECFDF3;border:1px solid #ABEFC6;border-radius:16px;padding:2px 8px;">
+        {% trans "Kaina sumažėjo" %} −{{ e.kaina_krito }}
+      </div>
+      {% endif %}
+    </td>
+  </tr>
+</table>
+{% endfor %}
+
+<p style="margin:20px 0 0 0;">
+  <a href="{{ site_url }}/saved/" style="color:#111;font-weight:700;">{% trans "Visi įsiminti skelbimai" %} →</a>
+</p>
+{% endblock %}

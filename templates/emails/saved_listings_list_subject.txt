@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans count kiek=kiek %}Jūsų įsimintas skelbimas ({{ kiek }}){% plural %}Jūsų įsiminti skelbimai ({{ kiek }}){% endblocktrans %}
