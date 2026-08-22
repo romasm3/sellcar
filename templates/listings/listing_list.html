@@ -1361,13 +1361,22 @@ function refreshTimeAgo() {
 }
 
 function openCategoryModal() {
-    document.getElementById('categoryModal').classList.remove('hidden');
-    var cur = (document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden')).value || 'cars';
+    var modal = document.getElementById('categoryModal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    // Paslėptas kategorijos laukas yra ne visuose maketuose (rezultatai be
+    // šoninės juostos jo neturi) — tada imam iš adreso.
+    var hid = document.getElementById('categoryHidden') || document.getElementById('sidebarCategoryHidden');
+    var cur = (hid && hid.value)
+              || new URLSearchParams(location.search).get('category')
+              || 'cars';
     document.querySelectorAll('.cat-left-item').forEach(function(e) { e.classList.remove('active'); });
     var el = document.querySelector('.cat-left-item[data-slug="' + cur + '"]');
     if (el) el.classList.add('active');
-    document.getElementById('catRightEmpty').classList.remove('hidden');
-    document.getElementById('catRightContent').classList.add('hidden');
+    var tuscia = document.getElementById('catRightEmpty');
+    var turinys = document.getElementById('catRightContent');
+    if (tuscia) tuscia.classList.remove('hidden');
+    if (turinys) turinys.classList.add('hidden');
 }
 function closeCategoryModal() { document.getElementById('categoryModal').classList.add('hidden'); }
 
