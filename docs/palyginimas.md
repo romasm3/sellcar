@@ -86,7 +86,89 @@ Etalone 51 blokas, pas mus 36.
 
 ---
 
-## 3. Rasti ir jau ištaisyti defektai (2026-08-21)
+## 3. Detali paieška
+
+Nuskaityta 2026-08-21: etalonas `/paieska/automobiliai/`, mūsų `/paieska/cars/`.
+
+### 3.1 Darbalaukis
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Puslapio antraštė | „Skelbimų paieška · Automobiliai", 52 px | „Detali paieška: Automobiliai", 62 px | **sutampa** |
+| 2 | Kategorijų juosta po antrašte | **yra** — Auto, Motociklai, Ratai, Dalys, Ž. ūkio, Sunkusis tr., Priekabos, Nuoma… | nėra | **trūksta** |
+| 3 | Laukų sritis | 2 976 px (visi laukai + ypatybių sąrašas) | 418 px | **skiriasi** — pas mus gerokai mažiau laukų |
+| 4 | Veiksmų mygtukai | apačioje | „Išvalyti" + „Ieškoti N" | **sutampa** |
+| 5 | Poraštė | 426 + 73 px | 395 px | **skiriasi** |
+
+Puslapio aukštis: etalone ~3 500 px, pas mus ~1 400 px. Pagrindinis
+skirtumas — ypatybių (equipment) sąrašas ir kategorijų juosta.
+
+### 3.2 Telefonas
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Laukai eilutėmis su „›" | taip | taip | **sutampa** |
+| 2 | Kategorijų juosta | yra | nėra | **trūksta** |
+| 3 | Apatinė veiksmų juosta | „Rodyti N" prilipusi apačioje | „Skelbimai N" prilipusi apačioje | **sutampa** |
+
+---
+
+## 4. Skelbimo puslapis
+
+Etalonas: `volvo-s60-…0139757312`. Mūsų: `/725/` (testinis).
+
+### 4.1 Darbalaukis
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Trupinių takas | „Atgal · Skelbimai · Automobiliai · Volvo · S60", 60 px | „Naršyti automobilius" (viena nuoroda) | **skiriasi** |
+| 2 | Nuotraukų galerija su žymomis | „PRIEŠ 1 D.", „+10" ant nuotraukos | žymės yra (New, VIN, ⭐) | **sutampa** |
+| 3 | Nuotraukų peržiūra | sluoksnis su miniatiūromis | sluoksnis su miniatiūromis | **sutampa** (2026-08-21) |
+| 4 | Kaina | 950 € + „Mėnesio įmoka nuo 15 €/mėn." | $15 900 | **skiriasi** — nėra finansavimo eilutės (sąmoningai) |
+| 5 | Pagrindinė informacija | Metai, Kuro tipas, Rida, Pavarų dėžė, Variklis + „Tech. detalės" blokas | Metai, Rida, Kuras, … | **sutampa** |
+| 6 | Kontaktai | pardavėjas, sutrumpintas telefonas, „Rašyti" | pardavėjas, sutrumpintas telefonas, „Siųsti žinutę" | **sutampa** (2026-08-21) |
+| 7 | Draudimo / finansavimo blokai | 2 partnerių blokai turinyje | nėra | **trūksta** (sąmoningai) |
+| 8 | „Panašūs skelbimai" | 411 px, 3–4 kortelės | **nėra** | **trūksta** |
+| 9 | Poraštė | 474 + 73 px | 395 px | **skiriasi** |
+
+### 4.2 Telefonas
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Turinio aukštis | 4 197 px | 2 063 px | **skiriasi** — trūksta panašių skelbimų ir partnerių blokų |
+| 2 | Prilipęs kontaktų blokas apačioje | **taip** — „Rašyti +370 653…" 78 px visada matomas | nėra — kontaktai tik puslapio viduje | **trūksta** |
+
+---
+
+## 5. Skelbimo kūrimo forma
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Ar reikia prisijungti | **taip** — svečiui rodomas „Mano gidas" prisijungimo puslapis | taip — nukreipia į prisijungimą | **sutampa** |
+| 2 | Prisijungimas + registracija viename | taip (du skirtukai) | ne — atskiri puslapiai | **skiriasi** |
+| 3 | „Redaguoti skelbimą su redagavimo kodu" | **yra** (493 px kortelė) — leidžia tvarkyti skelbimą be paskyros | nėra | **trūksta** |
+| 4 | Grįžimas po prisijungimo | į skelbimo kūrimą | į skelbimo kūrimą (`?next=/create/`) | **sutampa** (2026-08-21) |
+
+---
+
+## 6. Prisijungimas / registracija
+
+| # | Elementas | Etalone | Pas mus | Būsena |
+|---|---|---|---|---|
+| 1 | Puslapio pavadinimas | „Mano gidas" | „Sveiki sugrįžę" | **skiriasi** |
+| 2 | Prisijungimas ir registracija | vienas puslapis, du skirtukai | du atskiri puslapiai | **skiriasi** |
+| 3 | Laukai | el. paštas, slaptažodis, „Prisiminti mane", „Priminti slaptažodį" | tie patys keturi | **sutampa** |
+| 4 | Prekės ženklas puslapyje | Autogidas | **„SellCar" ir „SC" logotipas** | **defektas** — likutis nuo pervadinimo |
+| 5 | Poraštė | 426 px | 395 px | **skiriasi** |
+
+**Rastas defektas:** prisijungimo ir registracijos puslapiuose (ir dar 114
+vietų šablonuose) likęs senas pavadinimas **SellCar**, o prisijungimo
+kortelėje — „SC" logotipas vietoj „AL". Iš viso `SellCar` minimas
+**116 kartų** 91 šablone.
+
+---
+
+## 7. Rasti ir jau ištaisyti defektai (2026-08-21)
 
 | # | Kas buvo | Būsena |
 |---|---|---|
@@ -103,14 +185,34 @@ Etalone 51 blokas, pas mus 36.
 
 ---
 
-## 4. Ką dar reikia nuskaityti
+## 8. Suvestinė: kas skiriasi labiausiai
 
-Šis dokumentas apima 1 ir 2 puslapius. Liko:
+| Sritis | Trūkstamų blokų | Iš jų sąmoningai praleista |
+|---|---|---|
+| Pagrindinis | 6 | 3 (baneriai, partnerių pasiūlymai, vertinimas) |
+| Rezultatai | 3 | 1 (reklamos tarp kortelių) |
+| Detali paieška | 2 | 0 |
+| Skelbimo puslapis | 4 | 2 (draudimas, finansavimas) |
+| Kūrimo forma | 2 | 0 |
+| Prisijungimas | 2 + 1 defektas | 0 |
 
-- 3. Detali paieška
-- 4. Skelbimo puslapis (dalis jau padaryta — kontaktai ir nuotraukos)
-- 5. Skelbimo kūrimo forma
-- 6. Prisijungimas / registracija
+**Nesąmoningi skirtumai, kuriuos verta spręsti** (eilės tvarka pagal
+poveikį vartotojui):
 
-Nuskaitymo įrankis: `scratchpad/pal/skanuoti.py` (funkcija `run()` priima
-sąrašą (pavadinimas, url, ar telefonas, ar praleisti TLS klaidas)).
+1. Skelbimo puslapyje nėra **prilipusio kontaktų bloko telefone** — etalone
+   „Rašyti / telefonas" matomas visą laiką slenkant.
+2. Nėra **„Panašūs skelbimai"** bloko — praranda perėjimus tarp skelbimų.
+3. Detalioje paieškoje nėra **kategorijų juostos** ir trūksta ypatybių
+   laukų (2 976 px vs 418 px).
+4. Prisijungimo puslapiuose likęs **SellCar** pavadinimas (116 vietų).
+5. Skelbimo puslapyje nėra **trupinių tako** (Skelbimai › Automobiliai › BMW).
+6. Registracija ir prisijungimas atskiruose puslapiuose, o ne viename.
+
+---
+
+## 9. Įrankis
+
+`docs/palyginimas-skaneris.py` — funkcija `run()` priima sąrašą
+(pavadinimas, url, ar telefonas, ar praleisti TLS klaidas) ir surašo
+visus matomus elementus į JSON. Ta pati funkcija naudota abiem pusėms,
+todėl skaičiai palyginami tiesiogiai.
