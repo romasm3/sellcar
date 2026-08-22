@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-22 15:08:12 CEST
+Sugeneruota: 2026-08-22 15:09:30 CEST
 
 ## Kodas
 
 ```
 sukasi:      7067ca6 docs(deploy): patikros vartai prieš diegimą
-origin/master: 7067ca6 docs(deploy): patikros vartai prieš diegimą
+origin/master: d379d56 merge: salygu sakinys mokejimo puslapyje lietuviskai
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001149s
+HTTP 301, 0.001147s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 22 14:59:06 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 14:59:06 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:00:18 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:00:19 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:00:19 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:01:24 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:01:25 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:01:25 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:02:29 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:02:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:02:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:02:31 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.100s CPU time.
-Aug 22 15:03:40 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:03:41 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:03:41 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:04:49 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:04:50 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:04:50 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:05:54 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:05:56 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:05:56 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:06:57 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 22 15:06:59 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 22 15:06:59 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 22 15:08:12 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 22 15:08:13 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 22 15:09:25 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 22 15:09:25 vmi3306453 autoleft-deploy[3956083]: [2026-08-22 15:09:25] === Naujų commit'ų rasta: 7067ca6 → d379d56 ===
+Aug 22 15:09:25 vmi3306453 autoleft-deploy[3956100]:     d379d56 merge: salygu sakinys mokejimo puslapyje lietuviskai
+Aug 22 15:09:25 vmi3306453 autoleft-deploy[3956100]:     bfb0691 fix(mokejimai): salygu sakinys mokejimo puslapyje buvo pusiau angliskas
+Aug 22 15:09:25 vmi3306453 autoleft-deploy[3956083]: [2026-08-22 15:09:25] Kodas atnaujintas iki d379d56
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     ── 1/2  Šablonai: neuždarytas {# …
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:             švaru
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     ── 2/2  Puslapių testai
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     First list contains 4 additional elements.
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     First extra element 0:
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     'pagrindinis (/): …iv>                             <div class="home-tab-price">$39</div>                         </div>                    …'
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     Diff is 659 characters long. Set self.maxDiff to None to see it. : Kainos rodomos doleriais, turi būti €:
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:       pagrindinis (/): …iv>                             <div class="home-tab-price">$39</div>                         </div>                    …
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:       rezultatai (/?category=cars&sidebar=1): …            <div class="ap-price" style="font-size:1.2rem;">$15900</div>                             </div>             …
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:       naršyti (/browse/): …iv>                             <div class="home-tab-price">$39</div>                         </div>                    …
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:       skelbimas (/740/): …Skelbimas | #740"> <meta property="og:description" content="$39 · TESTINIS SKELBIMAS. Sukurtas apžiūrai — realių duomenų…
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     ----------------------------------------------------------------------
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     Ran 5 tests in 4.354s
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     FAILED (failures=1)
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     
+Aug 22 15:09:30 vmi3306453 autoleft-deploy[3956165]:     PATIKRA NEPRAĖJO — nediegti.
 ```
