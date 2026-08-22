@@ -60,6 +60,11 @@ class Profile(models.Model):
     )
 
     # Notification Settings
+    # Kainos kritimo pranešimai įsimintiems skelbimams. Du atskiri jungikliai,
+    # kaip išsaugotose paieškose (SavedSearch.notify_onsite / notify_email):
+    # „ekrane" — tik žyma sąraše, „el. paštu" — tikras laiškas.
+    price_drop_onsite = models.BooleanField(default=True)
+    price_drop_email = models.BooleanField(default=False)
     email_notifications = models.BooleanField(default=True, verbose_name=_("Email Notifications"))
     email_messages = models.BooleanField(default=True, verbose_name=_("Email Messages Notifications"))
     marketing_emails = models.BooleanField(default=False, verbose_name=_("Marketing Emails"))

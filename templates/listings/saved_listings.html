@@ -4,11 +4,93 @@
 {% block title %}{% trans "Saved Listings" %} - AutoLeft{% endblock %}
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">
-        <i class="fas fa-heart text-red-500 mr-2"></i> {% trans "Saved Listings" %}
-    </h2>
+    {% comment %}
+    VALDYMO JUOSTA — kaip etalone („Įsiminti skelbimai"): antraštė su
+    skaičiumi ir trynimo mygtukais, pranešimų blokas, veiksmų eilutė su
+    rikiavimu. Kortelių tinklelis ir širdutės elgesys nepaliesti.
+    {% endcomment %}
+    <div class="si-juosta no-print">
+
+      {# ── 1. Antraštė ── #}
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">
+          {% trans "Įsiminti skelbimai" %}
+          <span class="text-red-600">({{ isiminta_viso }})</span>
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          <form method="post" action="{% url 'delete_all_saved' %}"
+                onsubmit="return confirm('{% trans "Ištrinti visus įsimintus skelbimus?" %}')">
+            {% csrf_token %}
+            <button type="submit" class="si-btn-raudonas">{% trans "Ištrinti viską" %}</button>
+          </form>
+          <form method="post" action="{% url 'delete_inactive_saved' %}"
+                onsubmit="return confirm('{% trans "Ištrinti nebeaktyvius skelbimus iš sąrašo?" %}')">
+            {% csrf_token %}
+            <button type="submit" class="si-btn-raudonas">
+              {% trans "Trinti neaktyvius" %}{% if neaktyviu %} ({{ neaktyviu }}){% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {# ── 2. Pranešimai apie sumažintą kainą ── #}
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div class="flex items-center gap-2 font-semibold text-gray-800 text-sm">
+            <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 13 6 9zM10 18.5a2 2 0 0 0 4 0"/></svg>
+            {% trans "Pranešimai apie sumažintą kainą" %}
+          </div>
+
+          {% comment %}Jungikliai — formos, todėl veikia ir be JS; Alpine tik
+          perpiešia jungiklį iškart, nelaukiant atsakymo.{% endcomment %}
+          <form method="post" action="{% url 'toggle_price_drop' 'ekrane' %}"
+                class="flex items-center gap-2" x-data="{ on: {{ kainos_ekrane|yesno:'true,false' }} }">
+            {% csrf_token %}
+            <button type="submit" class="si-sw" :class="on && 'is-on'" @click="on = !on"
+                    aria-label="{% trans 'Gauti ekrane' %}"></button>
+            <span class="text-sm text-gray-600">{% trans "Gauti ekrane" %}</span>
+            <span class="si-info" title="{% trans 'Kritusią kainą pažymėsime žalia žyma šiame sąraše' %}">i</span>
+          </form>
+
+          <form method="post" action="{% url 'toggle_price_drop' 'pastu' %}"
+                class="flex items-center gap-2" x-data="{ on: {{ kainos_pastu|yesno:'true,false' }} }">
+            {% csrf_token %}
+            <button type="submit" class="si-sw" :class="on && 'is-on'" @click="on = !on"
+                    aria-label="{% trans 'Gauti el. paštu' %}"></button>
+            <span class="text-sm text-gray-600">{% trans "Gauti el. paštu" %}</span>
+            <span class="si-info" title="{% trans 'Sumažėjus įsiminto skelbimo kainai atsiųsime laišką' %}">i</span>
+          </form>
+        </div>
+      </div>
+
+      {# ── 3. Veiksmai ir rikiavimas ── #}
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="flex flex-wrap items-center gap-2">
+          <form method="post" action="{% url 'email_saved_listings' %}">
+            {% csrf_token %}
+            <button type="submit" class="si-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>
+              {% trans "Siųsti el. paštu" %}
+            </button>
+          </form>
+          <button type="button" class="si-btn" onclick="window.print()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7 9V4h10v5M7 19h10v-5H7zM5 9h14a2 2 0 0 1 2 2v4h-4M5 15H3v-4a2 2 0 0 1 2-2z"/></svg>
+            {% trans "Spausdinti" %}
+          </button>
+        </div>
+
+        <form method="get" class="flex items-center gap-2">
+          <label for="si-sort" class="text-sm text-gray-500">{% trans "Rikiuoti" %}</label>
+          <select id="si-sort" name="sort" onchange="this.form.submit()" class="si-sel">
+            {% for reiksme, pavadinimas in rikiavimo_variantai %}
+            <option value="{{ reiksme }}" {% if rikiavimas == reiksme %}selected{% endif %}>{{ pavadinimas }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+    </div>
     {% if saved_listings %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="si-sarasas">
         {% for saved in saved_listings %}
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
              onclick="window.location='{% url 'listing_detail' saved.listing.pk %}'">
@@ -28,6 +110,11 @@
                 </button>
             </div>
             <div class="p-4">
+                {% if kainos_ekrane and saved.kaina_krito %}
+                <div class="si-krito">
+                  {% trans "Kaina sumažėjo" %} −{{ saved.kaina_krito|floatformat:0 }} {{ saved.listing.currency_symbol }}
+                </div>
+                {% endif %}
                 <h5 class="font-semibold text-gray-900 mb-2">{{ saved.listing.title }}</h5>
                 <p class="text-sm text-gray-500 mb-1">
                     <i class="fas fa-calendar mr-1"></i> {{ saved.listing.year }}
@@ -52,6 +139,56 @@
     </div>
     {% endif %}
 </div>
+<style>
+  /* Juostos mygtukai — matmenys ir spalvos iš dizaino sistemos */
+  .si-btn, .si-btn-raudonas {
+      display: inline-flex; align-items: center; gap: var(--sp-2);
+      height: var(--btn-h-sm); padding: 0 var(--sp-3);
+      border: 1px solid var(--border); border-radius: var(--r-md);
+      background: var(--surface); color: var(--text-muted);
+      font-size: var(--fs-sm); font-weight: var(--fw-medium);
+      cursor: pointer; white-space: nowrap;
+      transition: border-color var(--dur), color var(--dur); }
+  .si-btn:hover { border-color: var(--border-hover); color: var(--text); }
+  .si-btn svg { width: 16px; height: 16px; flex: none; }
+  .si-btn-raudonas { border-color: var(--danger); color: var(--danger); }
+  .si-btn-raudonas:hover { background: #FFF5F5; }
+
+  .si-sel { height: var(--btn-h-sm); padding: 0 var(--sp-2);
+            border: 1px solid var(--border); border-radius: var(--r-md);
+            background: var(--surface); font-size: var(--fs-sm); color: var(--text); }
+
+  /* Jungiklis — toks pat kaip „Mano paieškų" eilutėse */
+  .si-sw { width: 34px; height: 20px; border-radius: 999px; background: #D1D5DB;
+           position: relative; flex: none; cursor: pointer; border: 0; transition: .2s; }
+  .si-sw::after { content: ""; position: absolute; top: 2px; left: 2px;
+                  width: 16px; height: 16px; border-radius: 50%; background: #fff;
+                  box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: .2s; }
+  .si-sw.is-on { background: var(--accent); }
+  .si-sw.is-on::after { transform: translateX(14px); }
+  .si-info { width: 14px; height: 14px; border-radius: 50%;
+             border: 1px solid var(--border-hover); color: var(--text-disabled);
+             font-size: 10px; display: inline-flex; align-items: center;
+             justify-content: center; flex: none; }
+
+  .si-krito { display: inline-block; margin-bottom: var(--sp-2);
+              font-size: var(--fs-xs); font-weight: var(--fw-medium);
+              color: var(--success); background: var(--success-bg);
+              border: 1px solid var(--success-border);
+              border-radius: var(--badge-r); padding: var(--badge-pad); }
+
+  /* Spausdinam tik sąrašą */
+  @media print {
+      header, footer, nav, .no-print, .si-juosta { display: none !important; }
+      body { background: #fff; }
+      #si-sarasas { display: block !important; }
+      #si-sarasas > div { break-inside: avoid; border: 1px solid #ddd;
+                          margin-bottom: 8mm; box-shadow: none; cursor: auto; }
+      #si-sarasas img { max-height: 45mm; }
+      #si-sarasas button { display: none !important; }
+  }
+</style>
+
 <script>
 function unsaveListing(btn, listingId) {
     const icon = btn.querySelector('i');

@@ -934,6 +934,10 @@ def _send_saved_listing_price_drop_emails(listing, old_price, new_price):
                 continue
             if user == listing.seller:
                 continue
+            # Jungiklis įsimintų skelbimų puslapyje: laiško nesiunčiam,
+            # jei žmogus jo neįsijungė (numatytai — išjungta).
+            if not getattr(getattr(user, 'profile', None), 'price_drop_email', False):
+                continue
 
             send_scenario(
                 code='saved_listing_price_drop',
@@ -3616,11 +3620,110 @@ def listing_boost_all(request):
     return redirect('my_listings')
 
 
+RIKIAVIMAS_ISIMINTI = {
+    'newest': ('-saved_at', _('Naujausi viršuje')),
+    'oldest': ('saved_at', _('Seniausi viršuje')),
+    'price_asc': ('listing__price', _('Kaina: nuo mažiausios')),
+    'price_desc': ('-listing__price', _('Kaina: nuo didžiausios')),
+}
+
+
+def _isiminti_neaktyvus(user):
+    """Įsiminti skelbimai, kurių nebeverta laikyti: nebeaktyvūs arba pasibaigę."""
+    return SavedListing.objects.filter(user=user).filter(
+        Q(listing__status__in=['expired', 'sold', 'archived', 'draft'])
+        | Q(listing__expires_at__lt=timezone.now())
+    )
+
+
 @login_required
 def saved_listings(request):
-    saved = SavedListing.objects.filter(user=request.user).select_related('listing')
-    context = {'saved_listings': saved}
+    rikiavimas = request.GET.get('sort') or 'newest'
+    if rikiavimas not in RIKIAVIMAS_ISIMINTI:
+        rikiavimas = 'newest'
+
+    saved = (SavedListing.objects.filter(user=request.user)
+             .select_related('listing', 'listing__vehicle_type')
+             .prefetch_related('listing__images')
+             .order_by(RIKIAVIMAS_ISIMINTI[rikiavimas][0]))
+
+    profilis = getattr(request.user, 'profile', None)
+    context = {
+        'saved_listings': saved,
+        'isiminta_viso': saved.count(),
+        'neaktyviu': _isiminti_neaktyvus(request.user).count(),
+        'rikiavimas': rikiavimas,
+        'rikiavimo_variantai': [(k, v[1]) for k, v in RIKIAVIMAS_ISIMINTI.items()],
+        'kainos_ekrane': bool(getattr(profilis, 'price_drop_onsite', True)),
+        'kainos_pastu': bool(getattr(profilis, 'price_drop_email', False)),
+    }
     return render(request, 'listings/saved_listings.html', context)
+
+
+@login_required
+@require_POST
+def delete_all_saved(request):
+    """„Ištrinti viską" — visi įsiminti skelbimai (patvirtinimas naršyklėje)."""
+    SavedListing.objects.filter(user=request.user).delete()
+    return redirect('saved_listings')
+
+
+@login_required
+@require_POST
+def delete_inactive_saved(request):
+    """„Trinti neaktyvius" — nebeaktyvūs arba pasibaigę skelbimai."""
+    _isiminti_neaktyvus(request.user).delete()
+    return redirect('saved_listings')
+
+
+@login_required
+@require_POST
+def toggle_price_drop(request, kanalas):
+    """Kainos kritimo pranešimai: „ekrane" arba „el. paštu"."""
+    profilis = getattr(request.user, 'profile', None)
+    if profilis:
+        if kanalas == 'pastu':
+            profilis.price_drop_email = not profilis.price_drop_email
+            profilis.save(update_fields=['price_drop_email'])
+        else:
+            profilis.price_drop_onsite = not profilis.price_drop_onsite
+            profilis.save(update_fields=['price_drop_onsite'])
+    return _atgal(request, numatytas='saved_listings')
+
+
+@login_required
+@require_POST
+def email_saved_listings(request):
+    """Išsiunčia įsimintų skelbimų sąrašą vartotojo el. paštu."""
+    from django.core.mail import send_mail
+
+    saved = (SavedListing.objects.filter(user=request.user)
+             .select_related('listing').order_by('-saved_at'))
+    if not saved or not request.user.email:
+        messages.error(request, _('Nėra ko siųsti arba paskyroje nenurodytas el. paštas.'))
+        return redirect('saved_listings')
+
+    eilutes = []
+    for s in saved:
+        l = s.listing
+        eilutes.append('%s — %s%s\n%s%s' % (
+            l.title, l.currency_symbol, int(l.price or 0),
+            settings.SITE_URL, l.get_absolute_url()))
+    tekstas = '%s\n\n%s' % (_('Jūsų įsiminti skelbimai:'), '\n\n'.join(eilutes))
+
+    try:
+        send_mail(
+            subject=str(_('Jūsų įsiminti skelbimai — AutoLeft')),
+            message=tekstas,
+            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', None),
+            recipient_list=[request.user.email],
+            fail_silently=False,
+        )
+        messages.success(request, _('Sąrašas išsiųstas į %(pastas)s') % {'pastas': request.user.email})
+    except Exception as klaida:                       # noqa: BLE001 — parodom žmogui
+        logger.exception('Įsimintų skelbimų laiškas neišsiųstas')
+        messages.error(request, _('Laiško išsiųsti nepavyko: %(klaida)s') % {'klaida': str(klaida)[:120]})
+    return redirect('saved_listings')
 
 
 def save_listing(request, pk):

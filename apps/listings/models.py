@@ -2308,6 +2308,18 @@ class SavedListing(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_listings')
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='saved_by')
     saved_at = models.DateTimeField(auto_now_add=True)
+    # Kaina įsiminimo metu — iš jos matom, ar kaina nuo tada krito
+    # („Gauti ekrane" žyma sąraše). Seniems įrašams užpildoma migracijoje.
+    price_at_save = models.DecimalField(max_digits=10, decimal_places=2,
+                                        null=True, blank=True)
+
+    @property
+    def kaina_krito(self):
+        """Ar kaina nuo įsiminimo sumažėjo (ir kiek)."""
+        if self.price_at_save is None or self.listing.price is None:
+            return None
+        skirtumas = self.price_at_save - self.listing.price
+        return skirtumas if skirtumas > 0 else None
 
     class Meta:
         unique_together = ['user', 'listing']

@@ -81,6 +81,10 @@ urlpatterns = [
     path("contact/", views.contact, name="contact"),
     path("faq/", views.faq, name="faq"),
     path("saved/", views.saved_listings, name="saved_listings"),
+    path("saved/delete-all/", views.delete_all_saved, name="delete_all_saved"),
+    path("saved/delete-inactive/", views.delete_inactive_saved, name="delete_inactive_saved"),
+    path("saved/toggle/<str:kanalas>/", views.toggle_price_drop, name="toggle_price_drop"),
+    path("saved/email/", views.email_saved_listings, name="email_saved_listings"),
     path('searches/', views.saved_searches_list, name='saved_searches_list'),
 
     # ─── HELP CENTER ───
