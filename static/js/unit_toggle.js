@@ -453,5 +453,38 @@
         init();
     }
 
-    window.AutoLeftUnits = { specs: SPECS, fields: fields, views: views, setFamilyMode: setFamilyMode };
+    // ═══════════════════════════════════════════════════════════════
+    // VIEŠAS API — formoms, kurios turi savo autosave / validaciją.
+    // Visada dirba KANONINĖMIS reikšmėmis, nesvarbu ką mato vartotojas.
+    // ═══════════════════════════════════════════════════════════════
+    function byName(name) {
+        for (var i = 0; i < fields.length; i++) {
+            if (fields[i].origName === name) return fields[i];
+        }
+        return null;
+    }
+
+    // Kanoninė reikšmė kaip eilutė ('' jei tuščia) — tinka tiesiai į JSON/POST
+    function getCanonical(name) {
+        var f = byName(name);
+        if (!f || f.canon === null || isNaN(f.canon)) return '';
+        return forInput(f.canon, f.spec.dec);
+    }
+
+    // Įrašom kanoninę reikšmę (pvz. atkuriant juodraštį) ir perpiešiam
+    function setCanonical(name, value) {
+        var f = byName(name);
+        if (!f) return false;
+        var v = parseFloat(value);
+        f.canon = isNaN(v) ? null : v;
+        render(f);
+        return true;
+    }
+
+    window.AutoLeftUnits = {
+        specs: SPECS, fields: fields, views: views,
+        setFamilyMode: setFamilyMode,
+        get: getCanonical,
+        set: setCanonical
+    };
 })();

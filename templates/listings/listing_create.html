@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n i18n_db %}
+{% load i18n i18n_db l10n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
 
@@ -583,16 +583,8 @@
 
                         <div data-field-wrap="mileage">
                             <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Mileage" %} <span class="text-red-500">*</span></label>
-                            <div class="flex gap-2 items-center">
-                                <input type="number" id="mileage_display" min="0" placeholder="-"
-                                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg" oninput="updateMileage()">
-                                <div class="flex border border-gray-300 rounded-lg overflow-hidden text-sm font-medium flex-shrink-0">
-                                    <button type="button" id="btn_km" onclick="setUnit('km')" class="px-3 py-2 bg-primary text-white transition-all">km</button>
-                                    <button type="button" id="btn_mi" onclick="setUnit('mi')" class="px-3 py-2 bg-white text-gray-600 transition-all">mi</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="mileage" id="mileage_km_value">
-                            <p id="mileage_converted" class="text-xs text-gray-400 mt-1 h-4"></p>
+                            <input type="number" name="mileage" data-unit-field="mileage" min="0" step="1" placeholder="-"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg">
                             <p class="field-error-msg hidden mt-1 text-xs text-red-600">{% trans "This field is required" %}</p>
                         </div>
 
@@ -602,31 +594,15 @@
                                 <input type="text" value="{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% else %}—{% endif %}" disabled class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed">
                                 <input type="hidden" name="engine_capacity" value="{{ listing.engine_capacity|default:'' }}">
                             {% else %}
-                                <div class="flex gap-2 items-center">
-                                    <input type="number" id="engine_display" min="0" step="0.1" placeholder="-"
-                                           class="flex-1 px-4 py-3 border border-gray-300 rounded-lg" oninput="updateEngine()">
-                                    <div class="flex border border-gray-300 rounded-lg overflow-hidden text-sm font-medium flex-shrink-0">
-                                        <button type="button" id="btn_l" onclick="setEngineUnit('l')" class="px-3 py-2 bg-primary text-white transition-all">L</button>
-                                        <button type="button" id="btn_cc" onclick="setEngineUnit('cc')" class="px-3 py-2 bg-white text-gray-600 transition-all">cm³</button>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="engine_capacity" id="engine_l_value">
-                                <p id="engine_converted" class="text-xs text-gray-400 mt-1 h-4"></p>
+                                <input type="number" name="engine_capacity" data-unit-field="engine_capacity" min="0" step="0.1" placeholder="-"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg">
                             {% endif %}
                         </div>
 
                         <div class="md:col-span-2" data-field-wrap="power">
                             <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Power" %}</label>
-                            <div class="flex gap-2 items-center">
-                                <input type="number" id="power_display" min="0" placeholder="-"
-                                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg" oninput="updatePower()">
-                                <div class="flex border border-gray-300 rounded-lg overflow-hidden text-sm font-medium flex-shrink-0">
-                                    <button type="button" id="btn_kw" onclick="setPowerUnit('kw')" class="px-3 py-2 bg-primary text-white transition-all">kW</button>
-                                    <button type="button" id="btn_hp" onclick="setPowerUnit('hp')" class="px-3 py-2 bg-white text-gray-600 transition-all">HP</button>
-                                </div>
-                            </div>
-                            <p id="power_converted" class="text-xs text-gray-400 mt-1 h-4"></p>
-                            <input type="hidden" name="power" id="power_kw_value">
+                            <input type="number" name="power" data-unit-field="power" min="0" step="1" placeholder="-"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg">
                         </div>
                     </div>
 
@@ -882,7 +858,6 @@
     }
     #step3_model, [name="step3_year"] { width: 100% !important; padding: 0.5rem 0.75rem !important; }
     [name="step3_month"], [name="month"] { width: 70px !important; padding: 0.5rem 0.2rem !important; }
-    #mileage_display, #engine_display, #power_display { width: 100% !important; }
     #brandSearch2, #brandSearch3 { width: 100% !important; padding: 0.625rem 0.75rem !important; cursor: pointer; }
 
     .field-error,
@@ -968,14 +943,17 @@ function autoSaveAll(obj) {
 function collectAllStep3Fields() {
     var fields = {};
     var ids = ['body_type_input', 'fuel_type_input', 'transmission_input', 'doors_input',
-               'condition_input', 'steering_input', 'mileage_km_value', 'engine_l_value',
-               'power_kw_value', 'id_defects'];
+               'condition_input', 'steering_input', 'id_defects'];
     ids.forEach(function(id) {
         var el = document.getElementById(id);
         if (el) {
-            var key = id.replace('_input', '').replace('_km_value', '').replace('_l_value', '').replace('_kw_value', '').replace('id_', '');
+            var key = id.replace('_input', '').replace('id_', '');
             fields[key] = el.value || '';
         }
+    });
+    // Matavimo laukai — visada kanonine reikšme, nesvarbu ką mato vartotojas
+    ['mileage', 'engine_capacity', 'power'].forEach(function(name) {
+        fields[name] = window.AutoLeftUnits ? window.AutoLeftUnits.get(name) : '';
     });
     var color = document.querySelector('[name="color"]');
     if (color) fields.color = color.value || '';
@@ -1119,9 +1097,14 @@ function handleContinue() {
         ];
         requiredFields.forEach(function(pair) {
             var fname = pair[0], errMsg = pair[1];
-            var input = document.getElementById(fname + '_input') || document.getElementById('mileage_km_value');
-            if (fname === 'mileage') input = document.getElementById('mileage_km_value');
-            if (!input || !input.value) {
+            var value;
+            if (fname === 'mileage') {
+                value = window.AutoLeftUnits ? window.AutoLeftUnits.get('mileage') : '';
+            } else {
+                var input = document.getElementById(fname + '_input');
+                value = input ? input.value : '';
+            }
+            if (!value) {
                 errors.push(errMsg);
                 markFieldError(fname, true);
             }
@@ -1280,78 +1263,17 @@ function selectBtn(btn, field, value) {
     autoSave(field, value);
 }
 
-var mileageUnit = 'km';
-function setUnit(unit) {
-    var display = document.getElementById('mileage_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'mi' && mileageUnit === 'km') display.value = val ? Math.round(val / 1.60934) : '';
-    else if (unit === 'km' && mileageUnit === 'mi') display.value = val ? Math.round(val * 1.60934) : '';
-    mileageUnit = unit;
-    document.getElementById('btn_km').className = unit === 'km' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    document.getElementById('btn_mi').className = unit === 'mi' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    updateMileage();
-}
-function updateMileage() {
-    var display = document.getElementById('mileage_display');
-    var hidden = document.getElementById('mileage_km_value');
-    var label = document.getElementById('mileage_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var km = mileageUnit === 'km' ? val : Math.round(val * 1.60934);
-    var mi = mileageUnit === 'mi' ? val : Math.round(val / 1.60934);
-    hidden.value = km || '';
-    if (label) label.textContent = val ? (mileageUnit === 'km' ? '≈ ' + mi.toLocaleString() + ' mi' : '≈ ' + km.toLocaleString() + ' km') : '';
-    if (val) markFieldError('mileage', false);
-    autoSave('mileage', hidden.value);
-}
-
-var engineUnit = 'l';
-function setEngineUnit(unit) {
-    var display = document.getElementById('engine_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'cc' && engineUnit === 'l') display.value = val ? Math.round(val * 1000) : '';
-    else if (unit === 'l' && engineUnit === 'cc') display.value = val ? (val / 1000).toFixed(1) : '';
-    engineUnit = unit;
-    document.getElementById('btn_l').className = unit === 'l' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    document.getElementById('btn_cc').className = unit === 'cc' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    updateEngine();
-}
-function updateEngine() {
-    var display = document.getElementById('engine_display');
-    var hidden = document.getElementById('engine_l_value');
-    var label = document.getElementById('engine_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var liters = engineUnit === 'l' ? val : (val / 1000);
-    var cc = engineUnit === 'cc' ? val : Math.round(val * 1000);
-    hidden.value = liters ? liters.toFixed(1) : '';
-    if (label) label.textContent = val ? (engineUnit === 'l' ? '≈ ' + cc + ' cm³' : '≈ ' + (val / 1000).toFixed(1) + ' L') : '';
-    autoSave('engine_capacity', hidden.value);
-}
-
-var powerUnit = 'kw';
-function setPowerUnit(unit) {
-    var display = document.getElementById('power_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'hp' && powerUnit === 'kw') display.value = val ? Math.round(val * 1.34102) : '';
-    else if (unit === 'kw' && powerUnit === 'hp') display.value = val ? Math.round(val / 1.34102) : '';
-    powerUnit = unit;
-    document.getElementById('btn_kw').className = unit === 'kw' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    document.getElementById('btn_hp').className = unit === 'hp' ? 'px-3 py-2 bg-primary text-white transition-all' : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    updatePower();
-}
-function updatePower() {
-    var display = document.getElementById('power_display');
-    var hidden = document.getElementById('power_kw_value');
-    var label = document.getElementById('power_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var kw = powerUnit === 'kw' ? val : Math.round(val / 1.34102);
-    var hp = powerUnit === 'hp' ? val : Math.round(val * 1.34102);
-    hidden.value = kw || '';
-    if (label) label.textContent = val ? (powerUnit === 'kw' ? '≈ ' + hp + ' HP' : '≈ ' + kw + ' kW') : '';
-    autoSave('power', hidden.value);
-}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras).
+// Čia lieka tik juodraščio išsaugojimas: bendrasis skriptas nežino apie
+// šio vedlio autoSave(), todėl prikabinam jį patys — visada kanonine reikšme.
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[data-unit-field]').forEach(function(el) {
+        var name = el.getAttribute('name') || el.dataset.unitField;
+        el.addEventListener('input', function() {
+            if (window.AutoLeftUnits) autoSave(name, window.AutoLeftUnits.get(name));
+        });
+    });
+});
 
 var draftDragSrc = null;
 
@@ -1551,27 +1473,19 @@ document.addEventListener('DOMContentLoaded', function() {
         defects: "{{ listing_data.step3_partial.defects|default:'' }}",
         steering: "{{ listing_data.step3_partial.steering|default:'' }}",
         color: "{{ listing_data.step3_partial.color|default:'' }}",
-        mileage: "{{ listing_data.step3_partial.mileage|default:'' }}",
-        engine_capacity: "{{ listing_data.step3_partial.engine_capacity|default:'' }}",
-        power: "{{ listing_data.step3_partial.power|default:'' }}",
+        mileage: "{{ listing_data.step3_partial.mileage|default:''|unlocalize }}",
+        engine_capacity: "{{ listing_data.step3_partial.engine_capacity|default:''|unlocalize }}",
+        power: "{{ listing_data.step3_partial.power|default:''|unlocalize }}",
         drive_type: "{{ listing_data.step3_partial.drive_type|default:'' }}",
         seats: "{{ listing_data.step3_partial.seats|default:'' }}",
         rim_size: "{{ listing_data.step3_partial.rim_size|default:'' }}",
         climate: "{{ listing_data.step3_partial.climate|default:'' }}",
     };
 
-    if (s3p.mileage) {
-        var d = document.getElementById('mileage_display'); var h = document.getElementById('mileage_km_value');
-        if (d) d.value = s3p.mileage; if (h) h.value = s3p.mileage;
-    }
-    if (s3p.engine_capacity) {
-        var d = document.getElementById('engine_display'); var h = document.getElementById('engine_l_value');
-        if (d) d.value = s3p.engine_capacity; if (h) h.value = s3p.engine_capacity;
-    }
-    if (s3p.power) {
-        var d = document.getElementById('power_display'); var h = document.getElementById('power_kw_value');
-        if (d) d.value = s3p.power; if (h) h.value = s3p.power; updatePower();
-    }
+    // Juodraštyje guli kanoninės reikšmės — API pats parodys jas pasirinktu vienetu
+    ['mileage', 'engine_capacity', 'power'].forEach(function(name) {
+        if (s3p[name] && window.AutoLeftUnits) window.AutoLeftUnits.set(name, s3p[name]);
+    });
     if (s3p.defects) {
         var defEl = document.getElementById('id_defects');
         if (defEl) defEl.value = s3p.defects;

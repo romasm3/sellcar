@@ -217,21 +217,49 @@ iš paties atributo, todėl galima ir taip:
 `1 kW = 1.34102 HP` naudojamas **visame projekte** — formose, paieškoje ir
 skelbimo peržiūroje. Nemaišyti su `1.35962` (PS/AG).
 
-### 1.4 Senoji rankinė sistema
+### 1.4 Rodymo pusė (skelbimo peržiūra)
 
-Liko dvi vietos su savo kodu:
+Ta pati sistema veikia ir ten, kur reikšmė tik rodoma:
 
-* `listing_create.html` ir `listing_create_cars_quick.html` — automobilių vedlys.
-  Perjungikliai ten susipynę su autosave, `step3_partial` atkūrimu ir privalomų
-  laukų validacija, todėl perkelti reikia atskiro, atidaus praėjimo.
-* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų). Veikia gerai;
-  perkėlimas būtų tvarkymasis, ne taisymas.
+```html
+<span data-unit-show="power"
+      data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
+```
+
+Serveris atiduoda metrinę reikšmę tekste (puslapis teisingas ir be JS), o
+skriptas prirašo užuominą `≈ 201 HP` ir padaro reikšmę paspaudžiamą.
+
+* **`|unlocalize` yra būtinas.** `USE_L10N=True` + LT lokalė paverstų
+  `{{ 1.6 }}` į `1,6`, ir `parseFloat` grąžintų `1`. Tas pats galioja
+  `value="…"` atributams formose ir skaičiams, perduodamiems į JS eilutes.
+* Matmenys viena eilute — kelios reikšmės per `|`:
+  `data-unit-raw="1200|800|600"` → `1200 × 800 × 600 mm`. Taip persijungia
+  visi trys skaičiai, o ne tik paskutinis.
+* Nuostata bendra su formomis: pardavėjas, perjungęs formą į mylias,
+  ir skelbimuose matys mylias.
+
+### 1.5 Formos su savo autosave / validacija
+
+Jei formai reikia kanoninės reikšmės savo logikai, imk ją per API — niekada
+neskaityk `input.value`, nes ten gali gulėti mylios:
+
+```js
+window.AutoLeftUnits.get('mileage')        // '150000' arba ''
+window.AutoLeftUnits.set('mileage', 150000) // atkuriant juodraštį
+```
+
+### 1.6 Senoji rankinė sistema
+
+Liko viena vieta: `trucks_listing_create.html` su savo `UNIT_CONFIG` (10 laukų).
+Veikia gerai; perkėlimas būtų tvarkymasis, ne taisymas.
 
 **Naujose formose šio kodo nekartoti** — naudoti `data-unit-field`.
 
-### 1.5 Testai
+### 1.7 Testai
 
-`node docs/unit_toggle_tests.js` (reikia `npm i jsdom`).
+`node docs/unit_toggle_tests.js` (reikia `npm i jsdom`) — 14 grupių:
+konversijos abiem kryptimis, name-swap, sveikaskaičiai laukai, `max`
+perskaičiavimas, įsiminta nuostata, rodymo pusė ir matmenys.
 
 ### ⚠️ KODĖL INLINE STYLES?
 

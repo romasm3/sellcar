@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load listing_filters %}
+{% load l10n %}
 
 {% block title %}{% trans "Edit Listing" %} - {{ listing.title }}{% endblock %}
 
@@ -81,22 +82,11 @@
                     <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">{% trans "Vehicle Details" %}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                        <!-- Mileage su km/mi toggle -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Mileage*" %}</label>
-                            <div class="flex gap-2 items-center">
-                                <input type="number" id="mileage_display" min="0"
-                                       value="{{ listing.mileage }}"
-                                       class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary"
-                                       oninput="updateMileage()">
-                                <div class="flex border border-gray-300 rounded-lg overflow-hidden text-sm font-medium flex-shrink-0">
-                                    <button type="button" id="btn_km" onclick="setUnit('km')"
-                                            class="px-3 py-2 bg-primary text-white transition-all">km</button>
-                                    <button type="button" id="btn_mi" onclick="setUnit('mi')"
-                                            class="px-3 py-2 bg-white text-gray-600 transition-all">mi</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="mileage" id="mileage_km_value" value="{{ listing.mileage }}">
+                            <input type="number" name="mileage" data-unit-field="mileage" min="0" step="1"
+                                   value="{{ listing.mileage|default_if_none:''|unlocalize }}"
+                                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary">
                         </div>
 
                         <!-- Color dropdown -->
@@ -189,9 +179,9 @@
                         <!-- Curb Weight -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Curb Weight (kg)" %}</label>
-                            <input type="number" name="curb_weight" value="{{ listing.curb_weight|default:'' }}" min="0"
-                                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary"
-                                   placeholder="kg">
+                            <input type="number" name="curb_weight" data-unit-field="curb_weight" min="0" step="1"
+                                   value="{{ listing.curb_weight|default_if_none:''|unlocalize }}"
+                                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary">
                         </div>
 
                         <!-- CO2 -->
@@ -350,33 +340,4 @@
     </div>
 </div>
 
-<script>
-let mileageUnit = 'km';
-
-function setUnit(unit) {
-    const display = document.getElementById('mileage_display');
-    const val = parseFloat(display.value) || 0;
-    if (unit === 'mi' && mileageUnit === 'km') {
-        display.value = val ? Math.round(val / 1.60934) : '';
-    } else if (unit === 'km' && mileageUnit === 'mi') {
-        display.value = val ? Math.round(val * 1.60934) : '';
-    }
-    mileageUnit = unit;
-    document.getElementById('btn_km').className = unit === 'km'
-        ? 'px-3 py-2 bg-primary text-white transition-all'
-        : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    document.getElementById('btn_mi').className = unit === 'mi'
-        ? 'px-3 py-2 bg-primary text-white transition-all'
-        : 'px-3 py-2 bg-white text-gray-600 transition-all';
-    updateMileage();
-}
-
-function updateMileage() {
-    const display = document.getElementById('mileage_display');
-    const hidden = document.getElementById('mileage_km_value');
-    const val = parseFloat(display.value) || 0;
-    const km = mileageUnit === 'km' ? val : Math.round(val * 1.60934);
-    hidden.value = km || '';
-}
-</script>
 {% endblock %}
