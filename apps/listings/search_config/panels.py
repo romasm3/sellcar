@@ -247,6 +247,29 @@ def active_categories():
     return sorted(s for s in PANELS if is_active(s))
 
 
+def _daugybinis(item):
+    """Pasirinkimų laukas leidžia rinktis po kelis — kaip etalone.
+
+    Autogide beveik visi sąrašo laukai (kuro tipas, kėbulas, pavarų dėžė,
+    spalva, defektai...) yra daugybiniai: uždarytas laukas rodo pasirinktas
+    reikšmes per kablelį. Užklausų variklis kelias reikšmes moka seniai
+    (`__in`), trūko tik valdiklio, todėl paprastą „select" čia paverčiam
+    „multiselect" — visur vienodai: panelėje, šoninėje juostoje ir
+    detalioje paieškoje.
+
+    Neverčiam: markės/modelio kaskados (jos turi savo valdiklius) ir laukų
+    be reikšmių sąrašo.
+    """
+    if item.get('type') != 'select':
+        return item
+    if item.get('widget') in ('brand', 'model') or item.get('multi'):
+        return item
+    if not item.get('options'):
+        return item
+    item['type'] = 'multiselect'
+    return item
+
+
 def _price_tiers():
     fmt = lambda v: f'{v:,}'.replace(',', ' ')
     return ([(v, fmt(v)) for v in PRICE_MIN_TIERS],
@@ -448,7 +471,7 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                     item['options'] = [(v, l) for v, l in item['options']
                                        if str(l) in _want]
 
-        fields.append(item)
+        fields.append(_daugybinis(item))
 
     return {
         'slug': vt_slug,
@@ -628,7 +651,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                     item['options'] = [(v, l) for v, l in item['options']
                                        if str(l) in _want]
 
-        fields.append(item)
+        fields.append(_daugybinis(item))
 
     # Ypatumų Equipment eilutės — viena užklausa, be N+1
     from apps.listings.models import Equipment

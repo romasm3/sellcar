@@ -4,7 +4,6 @@
 
 {% block content %}
 {% include 'listings/partials/_sp_field_styles.html' %}
-<script src="{% static 'js/multiselect.js' %}"></script>
 <script src="{% static 'js/mobile_filters.js' %}"></script>
 {# ═══ IŠPLĖSTINĖ PAIEŠKA — renderinama iš isplestine-config.json ═══ #}
 <div class="bg-gray-50 min-h-screen py-8">
@@ -40,7 +39,7 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
         {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug back=request.get_full_path %}
 
-        <div class="hidden lg:flex flex-col gap-y-3">
+        <div class="hidden lg:flex flex-col gap-y-3" data-laukai="darbalaukis">
           {% for row in adv.rows %}
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
             {% for f in row %}

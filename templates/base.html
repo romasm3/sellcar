@@ -15,6 +15,9 @@
     <meta property="og:url" content="https://autoleft.com{{ request.path }}">
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
+    {# msTitle turi būti apibrėžta anksčiau nei Alpine paleidžia x-init,
+       todėl be defer ir prieš Alpine (multiselect antraštės visose panelėse) #}
+    <script src="{% static 'js/multiselect.js' %}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -744,6 +747,8 @@
     {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
     <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';</script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
+    {# Vienas laukų variantas siunčiamas — be „?q=&q=" dublikatų #}
+    <script src="{% static 'js/vienas_variantas.js' %}" defer></script>
 
     {% block extra_js %}{% endblock %}
 </body>
