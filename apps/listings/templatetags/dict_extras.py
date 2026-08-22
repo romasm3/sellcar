@@ -228,3 +228,23 @@ def trumpas(vardas):
     """Ilgą kategorijos pavadinimą sutrumpina telefono pikeriui."""
     tekstas = str(vardas).strip()
     return TRUMPINIAI.get(tekstas, tekstas)
+
+
+@register.filter
+def skelbimu(kiek):
+    """Lietuviška daugiskaita: 1 skelbimas · 2–9 skelbimai · 0, 10–20 skelbimų.
+
+    Django `pluralize` moka tik dvi formas, o lietuvių kalboje jų trys,
+    todėl skaičiuojam patys (kaip ir kitur sąrašuose).
+    """
+    try:
+        n = int(kiek)
+    except (TypeError, ValueError):
+        return 'skelbimų'
+    šimtai = n % 100
+    vienetai = n % 10
+    if vienetai == 1 and šimtai != 11:
+        return 'skelbimas'
+    if 2 <= vienetai <= 9 and not 11 <= šimtai <= 19:
+        return 'skelbimai'
+    return 'skelbimų'

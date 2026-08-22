@@ -2264,12 +2264,25 @@ def listing_list(request, panel_fragment=False, category=None):
         # Mobilus kategorijų pikeris (trys taškiukai ikonų juostoje) —
         # tas pats šaltinis kaip juostos ir „daugiau" sąrašo: pirmos
         # keturios yra juostos ikonos, likusios — more_items eilės tvarka.
+        # Keturios pagrindinės — didelės kortelės telefono pikeryje.
+        # Skaičiai tikri: iš tos pačios agregacijos kaip „daugiau" sąrašas
+        # (ratlankiai/padangos gyvena atskiroje lentelėje, todėl atskirai).
         'picker_primary': [
-            ('cars', _('Automobiliai')),
-            ('motorcycles', _('Motociklai, apranga')),
-            ('tires', _('Ratlankiai / padangos')),
-            ('parts', _('Dalys')),
+            {'slug': 'cars', 'label': _('Automobiliai'),
+             'count': _vt_counts.get('cars', 0)},
+            {'slug': 'motorcycles', 'label': _('Motociklai, apranga'),
+             'count': _vt_counts.get('motorcycles', 0)},
+            {'slug': 'tires', 'label': _('Ratlankiai / padangos'),
+             'count': wheel_counts.get('tyre', 0) + wheel_counts.get('rim', 0)},
+            {'slug': 'parts', 'label': _('Dalys'),
+             'count': _vt_counts.get('parts', 0)},
         ],
+        # Pikerio sekcijos: nuoma ir paslaugos atskirai nuo technikos —
+        # taip sąrašas skaitomas be ilgo slinkimo (demo maketas).
+        'picker_nuoma': [i for i in more_items
+                         if i['slug'] in ('rental', 'services', 'car-buying')],
+        'picker_kitos': [i for i in more_items
+                         if i['slug'] not in ('rental', 'services', 'car-buying')],
         **_lazy_ctx(lambda: parts_panel_context(request.user),
                     ('parts_subs', 'parts_car_subcats', 'parts_brands',
                      'parts_moto_brands', 'parts_truck_brands',
