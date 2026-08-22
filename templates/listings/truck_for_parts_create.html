@@ -108,29 +108,15 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Power" %}</label>
-                        <div style="display:flex;align-items:stretch;width:100%;border:1px solid #d1d5db;border-radius:0.5rem;overflow:hidden;">
-                            <input type="number" id="power_display" min="0" placeholder="{% trans 'e.g. 320' %}"
-                                   style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;" oninput="updatePower()">
-                            <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
-                                    style="padding:0 1rem;background:var(--accent);color:#fff;font-size:0.8125rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">kW</button>
-                            <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
-                                    style="padding:0 1rem;background:#fff;color:#6b7280;font-size:0.8125rem;font-weight:500;cursor:pointer;border:none;">HP</button>
-                        </div>
-                        <input type="hidden" name="power" id="id_power_kw" value="{{ draft.power|default:'' }}">
-                        <p id="power_converted" class="text-xs text-gray-400 mt-1" style="min-height:1rem;"></p>
+                        <input type="number" name="power" data-unit-field="power" min="0" placeholder="{% trans 'e.g. 320' %}"
+                               value="{{ draft.power|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Engine capacity" %}</label>
-                        <div style="display:flex;align-items:stretch;width:100%;border:1px solid #d1d5db;border-radius:0.5rem;overflow:hidden;">
-                            <input type="number" id="engine_display" step="0.1" min="0" placeholder="{% trans 'e.g. 12.8' %}"
-                                   style="flex:1;min-width:0;border:none;outline:none;padding:0.625rem 0.875rem;font-size:0.875rem;" oninput="updateEngine()">
-                            <button type="button" id="btn_l" onclick="setEngineUnit('l')"
-                                    style="padding:0 1rem;background:var(--accent);color:#fff;font-size:0.8125rem;font-weight:500;cursor:pointer;border:none;border-left:1px solid #d1d5db;">L</button>
-                            <button type="button" id="btn_cc" onclick="setEngineUnit('cc')"
-                                    style="padding:0 1rem;background:#fff;color:#6b7280;font-size:0.8125rem;font-weight:500;cursor:pointer;border:none;">cm³</button>
-                        </div>
-                        <input type="hidden" name="engine_capacity" id="id_engine_l" value="{{ draft.engine_capacity|default:'' }}">
-                        <p id="engine_converted" class="text-xs text-gray-400 mt-1" style="min-height:1rem;"></p>
+                        <input type="number" name="engine_capacity" data-unit-field="engine_capacity" step="0.1" min="0" placeholder="{% trans 'e.g. 12.8' %}"
+                               value="{{ draft.engine_capacity|default:'' }}"
+                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg">
                     </div>
                 </div>
 
@@ -270,24 +256,7 @@ var I18N = {
     photosCountTpl: '{% trans "({count} / 36 — drag to reorder, click to enlarge)" %}'
 };
 
-// onCountryChange: see static/js/contact_block.js (shared).
-
-function _setToggleStyle(a, b) { a.style.background='var(--accent)'; a.style.color='#fff'; b.style.background='#fff'; b.style.color='#6b7280'; }
-
-var mileageUnit = 'km';
-function setMileageUnit(u){var d=document.getElementById('mileage_display');if(!d)return;var v=parseFloat(d.value)||0;if(u==='mi'&&mileageUnit==='km')d.value=v?Math.round(v/1.60934):'';else if(u==='km'&&mileageUnit==='mi')d.value=v?Math.round(v*1.60934):'';mileageUnit=u;var k=document.getElementById('btn_km'),m=document.getElementById('btn_mi');if(u==='km')_setToggleStyle(k,m);else _setToggleStyle(m,k);updateMileage();}
-function updateMileage(){var d=document.getElementById('mileage_display'),h=document.getElementById('id_mileage_km'),l=document.getElementById('mileage_converted');if(!d||!h)return;var v=parseFloat(d.value)||0;var km=mileageUnit==='km'?v:Math.round(v*1.60934);var mi=mileageUnit==='mi'?v:Math.round(v/1.60934);h.value=km||'';if(l)l.textContent=v?(mileageUnit==='km'?'≈ '+mi.toLocaleString()+' mi':'≈ '+km.toLocaleString()+' km'):'';}
-function initMileage(){var h=document.getElementById('id_mileage_km'),d=document.getElementById('mileage_display');if(!h||!d)return;var km=parseFloat(h.value)||0;if(km>0){d.value=km;updateMileage();}}
-
-var powerUnit='kw';
-function setPowerUnit(u){var d=document.getElementById('power_display');if(!d)return;var v=parseFloat(d.value)||0;if(u==='hp'&&powerUnit==='kw')d.value=v?Math.round(v*1.34102):'';else if(u==='kw'&&powerUnit==='hp')d.value=v?Math.round(v/1.34102):'';powerUnit=u;var k=document.getElementById('btn_kw'),h=document.getElementById('btn_hp');if(u==='kw')_setToggleStyle(k,h);else _setToggleStyle(h,k);updatePower();}
-function updatePower(){var d=document.getElementById('power_display'),h=document.getElementById('id_power_kw'),l=document.getElementById('power_converted');if(!d||!h)return;var v=parseFloat(d.value)||0;var kw=powerUnit==='kw'?v:Math.round(v/1.34102);var hp=powerUnit==='hp'?v:Math.round(v*1.34102);h.value=kw||'';if(l)l.textContent=v?(powerUnit==='kw'?'≈ '+hp+' HP':'≈ '+kw+' kW'):'';}
-function initPower(){var h=document.getElementById('id_power_kw'),d=document.getElementById('power_display');if(!h||!d)return;var kw=parseFloat(h.value)||0;if(kw>0){d.value=kw;updatePower();}}
-
-var engineUnit='l';
-function setEngineUnit(u){var d=document.getElementById('engine_display');if(!d)return;var v=parseFloat(d.value)||0;if(u==='cc'&&engineUnit==='l')d.value=v?Math.round(v*1000):'';else if(u==='l'&&engineUnit==='cc')d.value=v?(v/1000).toFixed(1):'';engineUnit=u;var L=document.getElementById('btn_l'),c=document.getElementById('btn_cc');if(u==='l')_setToggleStyle(L,c);else _setToggleStyle(c,L);updateEngine();}
-function updateEngine(){var d=document.getElementById('engine_display'),h=document.getElementById('id_engine_l'),l=document.getElementById('engine_converted');if(!d||!h)return;var v=parseFloat(d.value)||0;var li=engineUnit==='l'?v:(v/1000);var cc=engineUnit==='cc'?v:Math.round(v*1000);h.value=li?li.toFixed(1):'';if(l)l.textContent=v?(engineUnit==='l'?'≈ '+cc+' cm³':'≈ '+(v/1000).toFixed(1)+' L'):'';}
-function initEngine(){var h=document.getElementById('id_engine_l'),d=document.getElementById('engine_display');if(!h||!d)return;var L=parseFloat(h.value)||0;if(L>0){d.value=L;updateEngine();}}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras)
 
 function markErr(f,h){var w=document.querySelector('[data-field-wrap="'+f+'"]');if(w)w.classList.toggle('field-error',h);}
 function clearAllErrs(){document.querySelectorAll('[data-field-wrap]').forEach(function(e){e.classList.remove('field-error');});var b=document.getElementById('js-errors');if(b)b.classList.add('hidden');}
@@ -352,7 +321,7 @@ function savePhotoOrder(){var ids=Array.from(document.querySelectorAll('#photos-
 function updatePhotosCount(){var count=document.querySelectorAll('#photos-grid > div[data-img-id]').length;var el=document.getElementById('photos-count');if(el)el.textContent=I18N.photosCountTpl.replace('{count}',count);}
 
 document.addEventListener('DOMContentLoaded',function(){
-    onCountryChange();initMileage();initPower();initEngine();
+    onCountryChange();
     document.querySelectorAll('#photos-grid > div[data-img-id]').forEach(function(el){attachPhotoHandlers(el);});
 
     var dropZone=document.getElementById('dropZone'),imageInput=document.getElementById('imageInput');
