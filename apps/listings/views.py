@@ -1183,7 +1183,22 @@ _LT_REIKSMES = {
     'Petrol / Electric (Plug-in)': 'Benzinas / elektra (įkraunamas)',
     'Automatic': 'Automatinė', 'Manual': 'Mechaninė',
     'Semi-automatic': 'Pusiau automatinė', 'CVT': 'Bepakopė (CVT)',
+    # kėbulai (URL reikšmės — slug'ai)
+    'Sedan': 'Sedanas', 'Hatchback': 'Hečbekas', 'Wagon': 'Universalas',
+    'Suv': 'Visureigis / krosoveris', 'Coupe': 'Kupė', 'Convertible': 'Kabrioletas',
+    'Minivan': 'Vienatūris', 'Pickup': 'Pikapas', 'Van': 'Mikroautobusas',
+    'Limousine': 'Limuzinas', 'Other body': 'Kita',
 }
+
+
+def _skaicius(reiksme):
+    """„8000" -> „8 000" (tarpas kas tris skaitmenis)."""
+    tekstas = str(reiksme).strip()
+    if not tekstas.replace('.', '', 1).isdigit():
+        return tekstas
+    sveika, _tsk, trupmena = tekstas.partition('.')
+    sveika = '{:,}'.format(int(sveika)).replace(',', '\u00a0')
+    return sveika + (',' + trupmena if trupmena else '')
 
 
 def _lt(reiksme):
@@ -1288,11 +1303,11 @@ def _filtru_santrauka(params, riba=4):
     kaina = (params.get('price_min'), params.get('price_max'))
     if any(kaina):
         if kaina[0] and kaina[1]:
-            dalys.append('%s–%s $' % (kaina[0], kaina[1]))
+            dalys.append('%s–%s $' % (_skaicius(kaina[0]), _skaicius(kaina[1])))
         elif kaina[1]:
-            dalys.append('%s %s $' % (_('iki'), kaina[1]))
+            dalys.append('%s %s $' % (_('iki'), _skaicius(kaina[1])))
         else:
-            dalys.append('%s %s $' % (_('nuo'), kaina[0]))
+            dalys.append('%s %s $' % (_('nuo'), _skaicius(kaina[0])))
 
     metai = (params.get('year_min'), params.get('year_max'))
     if any(metai):
@@ -1315,9 +1330,31 @@ def _filtru_santrauka(params, riba=4):
     if params.get('body_type'):
         dalys.append(_lt(str(params['body_type']).replace('-', ' ').capitalize()))
     if params.get('mileage_max'):
-        dalys.append('%s %s km' % (_('iki'), params['mileage_max']))
+        dalys.append('%s %s km' % (_('iki'), _skaicius(params['mileage_max'])))
     if params.get('city'):
         dalys.append(str(params['city']))
+
+    # Likę filtrai (galia, tūris, durys...) — etiketė iš konfigūracijos,
+    # kad santrauka rodytų viską, ką žmogus pasirinko.
+    apdoroti = {'category', 'brand', 'model', 'fuel_type', 'transmission',
+                'body_type', 'mileage_max', 'city', 'price_min', 'price_max',
+                'year_min', 'year_max'}
+    nesvarbu = {'sidebar', 'search_id', 'page', 'sort', 'q', 'section',
+                'sekcija', 'vaizdas', 'subcategory', 'csrfmiddlewaretoken'}
+    etiketes = _konfig_etiketes()
+    for k, v in (params or {}).items():
+        if k in apdoroti or k in nesvarbu or v in (None, '', []):
+            continue
+        lbl, rusis = etiketes.get(k, (None, 'val'))
+        reiksmes = ', '.join(_sarasu(v))
+        if not lbl:
+            continue
+        if rusis == 'min':
+            dalys.append('%s %s %s' % (lbl, _('nuo'), reiksmes))
+        elif rusis == 'max':
+            dalys.append('%s %s %s' % (lbl, _('iki'), reiksmes))
+        else:
+            dalys.append('%s: %s' % (lbl, reiksmes))
 
     if not dalys:
         # Be filtrų — santrauka nekartoja pavadinimo, o sako, kas neapribota
@@ -1327,6 +1364,43 @@ def _filtru_santrauka(params, riba=4):
             return str(_('Visos markės'))
         return str(_('Visi skelbimai'))
     return ' · '.join(dalys[:riba])
+
+
+_KONFIG_ETIKETES = None
+
+
+def _konfig_etiketes():
+    """param -> (etiketė, rūšis) iš paieškos konfigūracijų.
+
+    Kad santrauka rodytų ir tuos filtrus, kurių nėra rankiniame sąraše
+    (galia, variklio tūris, durys, defektai...), o ne tylėtų.
+    """
+    global _KONFIG_ETIKETES
+    if _KONFIG_ETIKETES is not None:
+        return _KONFIG_ETIKETES
+
+    import json as _json
+    from pathlib import Path as _Path
+    baze = _Path(__file__).resolve().parent / 'search_config'
+    etiketes = {}
+    for failas in ('paneles-config.json', 'isplestine-config.json'):
+        try:
+            duom = _json.loads((baze / failas).read_text(encoding='utf-8'))
+        except Exception:
+            continue
+        for kat in duom.get('categories', []):
+            for f in kat.get('fields', []):
+                lbl = f.get('label')
+                if not lbl:
+                    continue
+                if f.get('param'):
+                    etiketes.setdefault(f['param'], (lbl, 'val'))
+                if f.get('param_min'):
+                    etiketes.setdefault(f['param_min'], (lbl, 'min'))
+                if f.get('param_max'):
+                    etiketes.setdefault(f['param_max'], (lbl, 'max'))
+    _KONFIG_ETIKETES = etiketes
+    return etiketes
 
 
 def _paieskos_raktas(params):
@@ -1347,6 +1421,62 @@ def _paieskos_raktas(params):
     return repr(sorted(poros))
 
 
+def _paieskos_qs(request, params):
+    """Skelbimų užklausa pagal išsaugotos paieškos parametrus.
+
+    Naudoja ir „Išsaugotos", ir „Paskutinės" — skaičiai abiejuose
+    skirtukuose skaičiuojami vienodai.
+    """
+    qs = _public_listings_qs(request.user)
+    if params.get('category'):
+        qs = qs.filter(vehicle_type__slug=params['category'])
+    markes = _sarasu(params.get('brand'))
+    if len(markes) == 1:
+        qs = qs.filter(brand_id=markes[0])
+    elif markes:
+        qs = qs.filter(brand_id__in=markes)
+    if params.get('model'):
+        qs = qs.filter(model_id=params['model'])
+    if params.get('price_min'):
+        qs = qs.filter(price__gte=params['price_min'])
+    if params.get('price_max'):
+        qs = qs.filter(price__lte=params['price_max'])
+    if params.get('year_min'):
+        qs = qs.filter(year__gte=params['year_min'])
+    if params.get('year_max'):
+        qs = qs.filter(year__lte=params['year_max'])
+    return qs
+
+
+def _paskutiniu_eilutes(request):
+    """Paskutinės paieškos — tokia pat eilutė kaip išsaugotose.
+
+    Pavadinimas ir santrauka sudaromi iš tų pačių funkcijų, todėl abu
+    skirtukai atrodo ir skamba vienodai (sesijoje saugom tik parametrus).
+    """
+    from urllib.parse import parse_qsl
+    from apps.listings import search_history
+
+    eilutes = []
+    for irasas in search_history.sarasas(request):
+        qs_str = irasas.get('params') or ''
+        params = {}
+        for k, v in parse_qsl(qs_str, keep_blank_values=False):
+            if k in params:
+                params[k] = _sarasu(params[k]) + [v]
+            else:
+                params[k] = v
+        eilutes.append({
+            'params': qs_str,
+            'pavadinimas': _paieskos_pavadinimas(params),
+            'santrauka': _filtru_santrauka(params),
+            'viso': _paieskos_qs(request, params).count(),
+            'url': '/?' + qs_str + '&sidebar=1',
+            'laukai': [(k, v) for k, v in params.items() if k != 'sidebar'],
+        })
+    return eilutes
+
+
 def _paieskos_eilutes(request, limit=None):
     """Išsaugotos paieškos su skaičiais, santrauka ir veiksmų adresais."""
     from urllib.parse import urlencode
@@ -1362,22 +1492,7 @@ def _paieskos_eilutes(request, limit=None):
     eilutes = []
     for s in qs_all:
         params = s.query_params or {}
-        qs = _public_listings_qs(request.user)
-        if params.get('category'):
-            qs = qs.filter(vehicle_type__slug=params['category'])
-        _markes = _sarasu(params.get('brand'))
-        if len(_markes) == 1:
-            qs = qs.filter(brand_id=_markes[0])
-        elif _markes:
-            qs = qs.filter(brand_id__in=_markes)
-        if params.get('price_min'):
-            qs = qs.filter(price__gte=params['price_min'])
-        if params.get('price_max'):
-            qs = qs.filter(price__lte=params['price_max'])
-        if params.get('year_min'):
-            qs = qs.filter(year__gte=params['year_min'])
-        if params.get('year_max'):
-            qs = qs.filter(year__lte=params['year_max'])
+        qs = _paieskos_qs(request, params)
 
         viso = qs.count()
         nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
@@ -3853,9 +3968,13 @@ def save_search(request):
                 s.name = name
                 s.created_at = timezone.now()
                 s.save(update_fields=['name', 'created_at'])
+                if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+                    return _atgal(request)
                 return JsonResponse({'success': True, 'id': s.pk, 'esama': True})
 
         saved = SavedSearch.objects.create(user=request.user, name=name, query_params=params)
+        if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+            return _atgal(request)
         return JsonResponse({'success': True, 'id': saved.pk})
     return JsonResponse({'success': False})
 
@@ -3886,6 +4005,14 @@ def toggle_search_notify(request, pk):
     search = get_object_or_404(SavedSearch, pk=pk, user=request.user)
     search.notify_email = not search.notify_email
     search.save()
+    return _atgal(request)
+
+
+def delete_recent_search(request):
+    """Viena paskutinė paieška iš sesijos (eilutės šiukšliadėžė)."""
+    from apps.listings import search_history
+    if request.method == 'POST':
+        search_history.salinti(request, request.POST.get('params') or '')
     return _atgal(request)
 
 
@@ -3941,11 +4068,9 @@ def saved_searches_list(request):
     juosta (_paieskos_eilutes), todėl skaičiai ir santraukos ten ir čia
     negali prasilenkti.
     """
-    from apps.listings import search_history
-
     return render(request, 'listings/saved_searches.html', {
         'eilutes': _paieskos_eilutes(request),
-        'paskutines': search_history.sarasas(request),
+        'paskutines': _paskutiniu_eilutes(request),
     })
 
 

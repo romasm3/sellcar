@@ -132,10 +132,46 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
       {% if paskutines %}
       <div class="card">
         {% for e in paskutines %}
+        {% comment %}Ta pati eilutė kaip išsaugotose: pavadinimas, santrauka,
+        skelbimų skaičius. Vietoj jungiklių — „Išsaugoti", nes paskutinės
+        gyvena tik sesijoje.{% endcomment %}
         <div class="row row-recent">
           <div class="cell-q">
-            <a class="q-title" href="/?{{ e.params }}&amp;sidebar=1">{{ e.pavadinimas|default:_("Paieška") }}</a>
-            <div class="q-sum">{{ e.kategorija }}</div>
+            <a class="q-title" href="{{ e.url }}">{{ e.pavadinimas }}</a>
+            <div class="q-sum">{{ e.santrauka }}</div>
+          </div>
+
+          <div class="counts">
+            <span class="total">{{ e.viso }}</span>
+          </div>
+
+          <div>
+            <form method="post" action="{% url 'save_search' %}">
+              {% csrf_token %}
+              {% for k, v in e.laukai %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+              <button type="submit" class="act">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h12a1 1 0 011 1v15l-7-4-7 4V5a1 1 0 011-1z"/></svg>
+                {% trans "Išsaugoti" %}
+              </button>
+            </form>
+          </div>
+
+          <div>
+            <a class="act" href="{{ e.url }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12h14M13 6l6 6-6 6"/></svg>
+              {% trans "Atidaryti" %}
+            </a>
+          </div>
+
+          <div>
+            <form method="post" action="{% url 'delete_recent_search' %}">
+              {% csrf_token %}
+              <input type="hidden" name="params" value="{{ e.params }}">
+              <button type="submit" class="act danger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                {% trans "Trinti" %}
+              </button>
+            </form>
           </div>
         </div>
         {% endfor %}
@@ -190,8 +226,8 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
   .row > * + *::before{content:"";position:absolute;left:0;top:50%;
     transform:translateY(-50%);width:1px;height:32px;background:var(--border)}
   .row > .cell-q{display:block}
-  /* Paskutinės — tik pavadinimas, todėl viena skiltis */
-  .row-recent{grid-template-columns:minmax(0,1fr)}
+  /* Paskutinės — ta pati eilutė, tik vietoj dviejų jungiklių vienas veiksmas */
+  .row-recent{grid-template-columns:minmax(0,1fr) 120px 304px 124px 92px}
 
   .q-title{font-size:16px;font-weight:600;color:var(--text);text-decoration:none}
   .q-title:hover{color:var(--accent);text-decoration:underline}
@@ -247,7 +283,9 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
     .row > *:nth-child(5), .row > *:nth-child(6){grid-row:5;padding-top:10px;padding-bottom:10px}
     .row > *:nth-child(5){grid-column:1;border-top:1px solid var(--border);justify-content:flex-start}
     .row > *:nth-child(6){grid-column:2;border-top:1px solid var(--border);justify-content:flex-end}
-    .row-recent{grid-template-columns:minmax(0,1fr)}
+    .row-recent > *:nth-child(3){grid-column:1 / -1}
+    .row-recent > *:nth-child(4){grid-row:5;grid-column:1;border-top:1px solid var(--border)}
+    .row-recent > *:nth-child(5){grid-row:5;grid-column:2;border-top:1px solid var(--border);justify-content:flex-end}
 
     .ms-bar{flex-wrap:wrap}
     .ms-tabs{gap:var(--sp-4)}

@@ -36,6 +36,13 @@ def sarasas(request):
     return request.session.get(RAKTAS, [])
 
 
+def salinti(request, qs):
+    """Išima vieną įrašą pagal jo parametrų eilutę."""
+    request.session[RAKTAS] = [x for x in request.session.get(RAKTAS, [])
+                               if x.get('params') != qs]
+    request.session.modified = True
+
+
 def isvalyti(request):
     request.session[RAKTAS] = []
     request.session.modified = True
