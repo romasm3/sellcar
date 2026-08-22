@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-22 22:38:03 CEST
+Sugeneruota: 2026-08-22 22:39:08 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001011s
+HTTP 301, 0.000910s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:42 vmi3306453 autoleft-deploy[4015726]: [2026-08-22 22:34:42] Kodas atnaujintas iki 143fa15
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:48 vmi3306453 autoleft-deploy[4015726]: [2026-08-22 22:34:48] Patikra praėjo
-Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:48 vmi3306453 autoleft-deploy[4015766]: [22:34:48] === Deploy pradžia (20260822_223448) ===
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:49 vmi3306453 autoleft-deploy[4015766]: [22:34:49] DB dumpas: /root/autoleft_backups/db_20260822_223448.sql
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:50 vmi3306453 autoleft-deploy[4015783]: Operations to perform:
 Aug 22 22:34:53 vmi3306453 autoleft-deploy[4015859]: Aug 22 22:34:50 vmi3306453 autoleft-deploy[4015783]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, listings, payments, sessions
@@ -82,4 +79,7 @@ Aug 22 22:36:58 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 22 22:36:59 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 22 22:36:59 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 22 22:38:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 22 22:38:04 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 22 22:38:04 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 22 22:39:08 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
