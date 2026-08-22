@@ -17,6 +17,8 @@ Paleidimas:
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+
+from apps.listings import param_utils
 from django.utils import timezone
 
 from apps.listings.models import Listing, SavedSearch, EmailScenario
@@ -139,25 +141,17 @@ class Command(BaseCommand):
             is_shadow_banned=False,
         )
 
-        if params.get('brand'):
-            qs = qs.filter(brand_id=params['brand'])
-        if params.get('model'):
-            qs = qs.filter(model_id=params['model'])
-        if params.get('price_min'):
-            qs = qs.filter(price__gte=params['price_min'])
-        if params.get('price_max'):
-            qs = qs.filter(price__lte=params['price_max'])
-        if params.get('year_min'):
-            qs = qs.filter(year__gte=params['year_min'])
-        if params.get('year_max'):
-            qs = qs.filter(year__lte=params['year_max'])
-        if params.get('fuel_type'):
-            qs = qs.filter(fuel_type_id=params['fuel_type'])
-        if params.get('transmission'):
-            qs = qs.filter(transmission_id=params['transmission'])
+        qs = param_utils.filtruoti_id(qs, 'brand_id', params.get('brand'))
+        qs = param_utils.filtruoti_id(qs, 'model_id', params.get('model'))
+        qs = param_utils.filtruoti_reziu(qs, 'price__gte', params.get('price_min'))
+        qs = param_utils.filtruoti_reziu(qs, 'price__lte', params.get('price_max'))
+        qs = param_utils.filtruoti_reziu(qs, 'year__gte', params.get('year_min'))
+        qs = param_utils.filtruoti_reziu(qs, 'year__lte', params.get('year_max'))
+        qs = param_utils.filtruoti_id(qs, 'fuel_type_id', params.get('fuel_type'))
+        qs = param_utils.filtruoti_id(qs, 'transmission_id', params.get('transmission'))
         if params.get('state_filter'):
-            qs = qs.filter(country='US', state=params['state_filter'])
+            qs = qs.filter(country='US', state=param_utils.viena(params['state_filter']))
         elif params.get('country_filter'):
-            qs = qs.filter(country=params['country_filter'])
+            qs = qs.filter(country=param_utils.viena(params['country_filter']))
 
         return qs

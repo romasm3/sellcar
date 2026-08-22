@@ -20,6 +20,8 @@ WINDOWS TASK SCHEDULER (kasdien 9:00):
 """
 
 from django.core.management.base import BaseCommand
+
+from apps.listings import param_utils
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
@@ -462,20 +464,13 @@ class Command(BaseCommand):
             params = search.query_params
             qs = Listing.objects.filter(status='active', is_shadow_banned=False)
 
-            if params.get('brand'):
-                qs = qs.filter(brand_id=params['brand'])
-            if params.get('model'):
-                qs = qs.filter(model_id=params['model'])
-            if params.get('price_min'):
-                qs = qs.filter(price__gte=params['price_min'])
-            if params.get('price_max'):
-                qs = qs.filter(price__lte=params['price_max'])
-            if params.get('year_min'):
-                qs = qs.filter(year__gte=params['year_min'])
-            if params.get('year_max'):
-                qs = qs.filter(year__lte=params['year_max'])
-            if params.get('fuel_type'):
-                qs = qs.filter(fuel_type_id=params['fuel_type'])
+            qs = param_utils.filtruoti_id(qs, 'brand_id', params.get('brand'))
+            qs = param_utils.filtruoti_id(qs, 'model_id', params.get('model'))
+            qs = param_utils.filtruoti_reziu(qs, 'price__gte', params.get('price_min'))
+            qs = param_utils.filtruoti_reziu(qs, 'price__lte', params.get('price_max'))
+            qs = param_utils.filtruoti_reziu(qs, 'year__gte', params.get('year_min'))
+            qs = param_utils.filtruoti_reziu(qs, 'year__lte', params.get('year_max'))
+            qs = param_utils.filtruoti_id(qs, 'fuel_type_id', params.get('fuel_type'))
 
             # Tik nauji po paskutinio peržiūrėjimo
             if search.last_viewed_at:

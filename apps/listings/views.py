@@ -1222,13 +1222,9 @@ def _kategorijos_vardas(kat):
     return vt.name if vt else str(kat)
 
 
-def _sarasu(reiksme):
-    """Parametro reikšmė -> sąrašas (kelios markės ateina sąrašu)."""
-    if reiksme in (None, ''):
-        return []
-    if isinstance(reiksme, (list, tuple)):
-        return [str(v) for v in reiksme if v not in (None, '')]
-    return [str(reiksme)]
+# Sąrašinių reikšmių tvarkymas gyvena viename modulyje — juo naudojasi ir
+# el. laiškų komandos, ir antraštės skaitiklis (apps/listings/param_utils.py).
+from apps.listings.param_utils import sarasas as _sarasu, viena as _viena
 
 
 def _paieskos_pavadinimas(params):
@@ -1267,8 +1263,8 @@ def _paieskos_pavadinimas(params):
 
     if len(vardai) == 1:
         # Modelis rodomas tik prie vienos markės — kitaip neaišku, kieno jis
-        modelis = params.get('model')
-        if modelis:
+        modelis = _viena(params.get('model'))
+        if modelis and str(modelis).isdigit():
             from .models import Model as CarModel
             m = CarModel.objects.filter(pk=modelis).first()
             if m:
@@ -1294,13 +1290,13 @@ def _filtru_santrauka(params, riba=4):
     if params.get('fuel_type'):
         try:
             from .models import FuelType
-            ft = FuelType.objects.filter(pk=params['fuel_type']).first()
+            ft = FuelType.objects.filter(pk=_viena(params['fuel_type'])).first()
             if ft:
                 dalys.append(_lt(ft.name))
         except Exception:
             pass
 
-    kaina = (params.get('price_min'), params.get('price_max'))
+    kaina = (_viena(params.get('price_min')), _viena(params.get('price_max')))
     if any(kaina):
         if kaina[0] and kaina[1]:
             dalys.append('%s–%s $' % (_skaicius(kaina[0]), _skaicius(kaina[1])))
@@ -1309,7 +1305,7 @@ def _filtru_santrauka(params, riba=4):
         else:
             dalys.append('%s %s $' % (_('nuo'), _skaicius(kaina[0])))
 
-    metai = (params.get('year_min'), params.get('year_max'))
+    metai = (_viena(params.get('year_min')), _viena(params.get('year_max')))
     if any(metai):
         if metai[0] and metai[1]:
             dalys.append('%s–%s %s' % (metai[0], metai[1], _('m.')))
@@ -1321,18 +1317,18 @@ def _filtru_santrauka(params, riba=4):
     if params.get('transmission'):
         try:
             from .models import Transmission
-            tr = Transmission.objects.filter(pk=params['transmission']).first()
+            tr = Transmission.objects.filter(pk=_viena(params['transmission'])).first()
             if tr:
                 dalys.append(_lt(tr.name))
         except Exception:
             pass
 
     if params.get('body_type'):
-        dalys.append(_lt(str(params['body_type']).replace('-', ' ').capitalize()))
+        dalys.append(_lt(str(_viena(params['body_type'])).replace('-', ' ').capitalize()))
     if params.get('mileage_max'):
-        dalys.append('%s %s km' % (_('iki'), _skaicius(params['mileage_max'])))
+        dalys.append('%s %s km' % (_('iki'), _skaicius(_viena(params['mileage_max']))))
     if params.get('city'):
-        dalys.append(str(params['city']))
+        dalys.append(str(_viena(params['city'])))
 
     # Likę filtrai (galia, tūris, durys...) — etiketė iš konfigūracijos,
     # kad santrauka rodytų viską, ką žmogus pasirinko.
@@ -1427,24 +1423,34 @@ def _paieskos_qs(request, params):
     Naudoja ir „Išsaugotos", ir „Paskutinės" — skaičiai abiejuose
     skirtukuose skaičiuojami vienodai.
     """
+    # Reikšmė gali būti ir sąrašas (kelios markės ar modeliai vienoje
+    # formoje), todėl kiekvieną filtrą imam per _sarasu / _viena.
     qs = _public_listings_qs(request.user)
-    if params.get('category'):
-        qs = qs.filter(vehicle_type__slug=params['category'])
+
+    kat = _viena(params.get('category'))
+    if kat:
+        qs = qs.filter(vehicle_type__slug=kat)
+
     markes = _sarasu(params.get('brand'))
     if len(markes) == 1:
         qs = qs.filter(brand_id=markes[0])
     elif markes:
         qs = qs.filter(brand_id__in=markes)
-    if params.get('model'):
-        qs = qs.filter(model_id=params['model'])
-    if params.get('price_min'):
-        qs = qs.filter(price__gte=params['price_min'])
-    if params.get('price_max'):
-        qs = qs.filter(price__lte=params['price_max'])
-    if params.get('year_min'):
-        qs = qs.filter(year__gte=params['year_min'])
-    if params.get('year_max'):
-        qs = qs.filter(year__lte=params['year_max'])
+
+    modeliai = [m for m in _sarasu(params.get('model')) if str(m).isdigit()]
+    if len(modeliai) == 1:
+        qs = qs.filter(model_id=modeliai[0])
+    elif modeliai:
+        qs = qs.filter(model_id__in=modeliai)
+
+    for raktas, filtras in (('price_min', 'price__gte'), ('price_max', 'price__lte'),
+                            ('year_min', 'year__gte'), ('year_max', 'year__lte')):
+        reiksme = _viena(params.get(raktas))
+        if reiksme not in (None, ''):
+            try:
+                qs = qs.filter(**{filtras: reiksme})
+            except (ValueError, TypeError):
+                pass
     return qs
 
 
