@@ -355,13 +355,17 @@ a.sp-rail-btn { text-decoration:none; }
                 <p class="text-gray-500 text-sm">{% blocktrans count counter=total_count %}{{ counter }} listing found{% plural %}{{ counter }} listings found{% endblocktrans %}</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-                <a href="/browse/" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+                {% comment %}Išvalymas nuima FILTRUS, bet palieka kategoriją —
+                anksčiau vedė į /browse/ ir žmogus netekdavo ir kategorijos.{% endcomment %}
+                <a href="?category={{ selected_category|default:'cars' }}&sidebar=1" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
                     <i class="fas fa-times text-xs"></i> {% trans "Clear filters" %}
                 </a>
                 <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
                     <i class="fas fa-sliders-h"></i> {% trans "Advanced" %}
                 </a>
-                <a href="{% url 'search_map' %}" class="inline-flex items-center gap-2 px-4 py-2 sp-btn-secondary text-sm font-medium rounded-lg">
+                {% comment %}Žemėlapis pasiima esamus filtrus — anksčiau vedė į tuščią
+                žemėlapį ir paieška prapuldavo.{% endcomment %}
+                <a href="{% url 'search_map' %}?{{ request.GET.urlencode }}" class="inline-flex items-center gap-2 px-4 py-2 sp-btn-secondary text-sm font-medium rounded-lg">
                     <i class="fas fa-map-marked-alt"></i> {% trans "Map" %}
                 </a>
             </div>

@@ -68,7 +68,7 @@ Etalone 51 blokas, pas mus 36.
 | 3 | Šoninė filtrų juosta | balta kortelė 230 px, „Daugiau filtrų" viršuje, 2 749 px turinio | balta kortelė 230 px, „Daugiau filtrų" viršuje, 900 px | **sutampa** (kortelė pataisyta 2026-08-21) |
 | 4 | Tarpas juosta ↔ rezultatai | 16 px | 16 px | **sutampa** |
 | 5 | Rezultatų antraštė | „Rasta skelbimų: 28703", rūšiavimas | „Rasti 7 skelbimai", „Išvalyti filtrus", „Išplėstinis", „Žemėlapis", rūšiavimas | **skiriasi** — pas mus 3 papildomi mygtukai |
-| 6 | Kortelė | nuotrauka + 3 miniatiūros, pavadinimas, 6 parametrai su ikonomis, kaina, pardavėjas | nuotrauka, pavadinimas, kaina, 2 parametrų eilutės | **skiriasi** — nėra miniatiūrų ir pardavėjo bloko |
+| 6 | Kortelė | nuotrauka + 3 miniatiūros, pavadinimas, 6 parametrai su ikonomis, kaina, pardavėjas | nuotrauka + 3 miniatiūros, pavadinimas, kaina, parametrai, pardavėjo eilutė | **sutampa** (miniatiūros ir pardavėjas pridėti 2026-08-21) |
 | 7 | Tekstas po rezultatais (SEO) | 512 px | nėra | **trūksta** |
 | 8 | Skelbimų skirtukai po rezultatais | nėra | „Pasiūlymai / Dienos…" 814 px | **perteklinis** |
 | 9 | Poraštė | 426 + 73 px | 395 px | **skiriasi** |
@@ -182,6 +182,7 @@ kortelėje — „SC" logotipas vietoj „AL". Iš viso `SellCar` minimas
 | 8 | Nuotrauka atidarydavo failą, ne peržiūrą | ✅ `9d88053` |
 | 9 | Penkios konkuruojančios spalvos viename ekrane | ✅ `4fef8ab` |
 | 10 | Rezultatų kortelė telefone be turinio | ✅ `81763c0` |
+| 11 | Kortelėje darbalaukyje nebuvo miniatiūrų ir pardavėjo | ✅ `b5105e1` |
 
 ---
 
