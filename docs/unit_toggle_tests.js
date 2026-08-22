@@ -30,6 +30,15 @@ const HTML = `<!doctype html><html><body><form id="f">
    <input type="number" name="engine_capacity" data-unit-field="engine_capacity_cc" step="1" value="1300"></div>
  <div><label class="l">Bendra masė (kg)</label>
    <input type="number" name="gross_weight_kg" data-unit-field="gross_weight_kg" max="40000" step="1" value="18000"></div>
+ <p>Galia: <span id="v-power" data-unit-show="power" data-unit-raw="150">150 kW</span></p>
+ <p>Rida: <span id="v-mileage" data-unit-show="mileage" data-unit-raw="150000">150 000 km</span></p>
+ <p>Matmenys: <span id="v-dims" data-unit-show="truck_length_mm" data-unit-raw="1200|800|600">1200 × 800 × 600 mm</span></p>
+ <p>Nėra: <span id="v-empty" data-unit-show="payload_kg" data-unit-raw="">—</span></p>
+ <div><label class="l">Bendroji masė kg</label>
+   <div class="row">
+     <input type="number" name="gw_min" data-unit-field="gross_weight_kg" step="any" value="1000">
+     <input type="number" name="gw_max" data-unit-field="gross_weight_kg" data-unit-quiet step="any" value="3000">
+   </div></div>
 </form></body></html>`;
 
 let failures = 0;
@@ -193,6 +202,68 @@ console.log('\n── 11. max atributas perskaiciuojamas ──');
   btns(d,'gross_weight_kg')[0].click();
   chk('max atstatytas', F(d,'gross_weight_kg').getAttribute('max'), '40000');
   chk('reiksme atstatyta', F(d,'gross_weight_kg').value, '18000');
+}
+
+console.log('\n── 12. Peržiūra: užuomina ir paspaudimas ──');
+{
+  const d = await boot();
+  const V = id => d.window.document.getElementById(id);
+  const main = el => [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.nodeValue).join('').trim();
+  chk('pagrindine reiksme', nb(main(V('v-power'))), '150 kW');
+  chk('uzuomina', V('v-power').querySelector('.unit-hint').textContent, '≈ 201 HP');
+  chk('paspaudziamas', V('v-power').style.cursor, 'pointer');
+  V('v-power').click();
+  chk('po paspaudimo rodo HP', nb(main(V('v-power'))), '201 HP');
+  chk('uzuomina apsivertė', V('v-power').querySelector('.unit-hint').textContent, '≈ 150 kW');
+}
+
+console.log('\n── 13. Peržiūra: matmenys viena eilute ir tuščios reikšmės ──');
+{
+  const d = await boot();
+  const V = id => d.window.document.getElementById(id);
+  const main = el => [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.nodeValue).join('').trim();
+  chk('metrais', nb(main(V('v-dims'))), '1,200 × 800 × 600 mm');
+  V('v-dims').click();
+  chk('coliais', nb(main(V('v-dims'))), '47.2 × 31.5 × 23.6 in');
+  chk('tuscias neliestas', V('v-empty').textContent, '—');
+  chk('tuscias nepaspaudziamas', V('v-empty').style.cursor || '(nėra)', '(nėra)');
+}
+
+console.log('\n── 14. Forma ir peržiūra dalijasi ta pačia nuostata ──');
+{
+  const d = await boot();
+  const V = id => d.window.document.getElementById(id);
+  const main = el => [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.nodeValue).join('').trim();
+  // paspaudžiam peržiūros reikšmę → turi persijungti ir formos laukas
+  V('v-mileage').click();
+  chk('formos laukas persijunge i mi', F(d,'mileage').value, '93206');
+  chk('formos POST vis tiek km', posted(d).mileage, '150000');
+  chk('kitos seimos rodinys nepajudejo', nb(main(V('v-power'))), '150 kW');
+  // atgal per formos mygtuka → persijungia ir rodinys
+  btns(d,'mileage')[0].click();
+  chk('rodinys grizo i km', nb(main(V('v-mileage'))), '150,000 km');
+}
+
+console.log('\n── 15. Paieškos diapazonas: vienas perjungiklis dviem laukams ──');
+{
+  const d = await boot();
+  const doc = d.window.document;
+  const gwMin = doc.querySelector('[name="gw_min"]');
+  const gwMax = doc.querySelector('[data-unit-quiet]');
+  const sw = doc.querySelectorAll('.unit-switch[data-unit-for="gw_min"]');
+  chk('vienas perjungiklis porai', sw.length, 1);
+  chk('„iki" savo mygtuku neturi', doc.querySelectorAll('.unit-switch[data-unit-for="gw_max"]').length, 0);
+  chk('eiluteje uzuominos nera', gwMax.parentNode.querySelectorAll('.unit-hint').length, 0);
+  chk('uzuomina po visa eilute', gwMax.parentNode.nextElementSibling.className, 'unit-hint');
+  sw[0].querySelectorAll('button')[1].click();
+  chk('nuo -> lbs', gwMin.value, '2205');
+  chk('iki -> lbs', gwMax.value, '6614');
+  chk('POST nuo metrinis', doc.querySelector('#f [name="gw_min"]').value, '1000');
+  chk('POST iki metrinis', doc.querySelector('#f [name="gw_max"]').value, '3000');
+  // rankomis ivesta reiksme alternatyviais vienetais taip pat virsta metrine
+  gwMax.value = '10000';
+  gwMax.dispatchEvent(new d.window.Event('input'));
+  chk('ivedus 10000 lbs -> kg', doc.querySelector('#f [name="gw_max"]').value, String(Math.round(10000 / 2.20462)));
 }
 
 console.log(failures ? `\n✗ ${failures} nesėkmė(s)\n` : '\n✓ visi testai praėjo\n');

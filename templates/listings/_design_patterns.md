@@ -217,21 +217,77 @@ iš paties atributo, todėl galima ir taip:
 `1 kW = 1.34102 HP` naudojamas **visame projekte** — formose, paieškoje ir
 skelbimo peržiūroje. Nemaišyti su `1.35962` (PS/AG).
 
-### 1.4 Senoji rankinė sistema
+### 1.4 Rodymo pusė (skelbimo peržiūra)
 
-Liko dvi vietos su savo kodu:
+Ta pati sistema veikia ir ten, kur reikšmė tik rodoma:
 
-* `listing_create.html` ir `listing_create_cars_quick.html` — automobilių vedlys.
-  Perjungikliai ten susipynę su autosave, `step3_partial` atkūrimu ir privalomų
-  laukų validacija, todėl perkelti reikia atskiro, atidaus praėjimo.
-* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų). Veikia gerai;
-  perkėlimas būtų tvarkymasis, ne taisymas.
+```html
+<span data-unit-show="power"
+      data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
+```
+
+Serveris atiduoda metrinę reikšmę tekste (puslapis teisingas ir be JS), o
+skriptas prirašo užuominą `≈ 201 HP` ir padaro reikšmę paspaudžiamą.
+
+* **`|unlocalize` yra būtinas.** `USE_L10N=True` + LT lokalė paverstų
+  `{{ 1.6 }}` į `1,6`, ir `parseFloat` grąžintų `1`. Tas pats galioja
+  `value="…"` atributams formose ir skaičiams, perduodamiems į JS eilutes.
+* Matmenys viena eilute — kelios reikšmės per `|`:
+  `data-unit-raw="1200|800|600"` → `1200 × 800 × 600 mm`. Taip persijungia
+  visi trys skaičiai, o ne tik paskutinis.
+* Nuostata bendra su formomis: pardavėjas, perjungęs formą į mylias,
+  ir skelbimuose matys mylias.
+
+### 1.5 Formos su savo autosave / validacija
+
+Jei formai reikia kanoninės reikšmės savo logikai, imk ją per API — niekada
+neskaityk `input.value`, nes ten gali gulėti mylios:
+
+```js
+window.AutoLeftUnits.get('mileage')        // '150000' arba ''
+window.AutoLeftUnits.set('mileage', 150000) // atkuriant juodraštį
+```
+
+### 1.6 Paieškos diapazonai (nuo–iki)
+
+Diapazonui reikia VIENO perjungiklio dviem laukams. Antras poros laukas
+gauna `data-unit-quiet` — konvertuojasi kartu, bet mygtukų ir užuominos
+nekartoja:
+
+```html
+<input type="number" step="any" name="mileage_min" data-unit-field="mileage" ...>
+<input type="number" step="any" name="mileage_max" data-unit-field="mileage" data-unit-quiet ...>
+```
+
+Deklaratyviose panelėse to daryti ranka nereikia — `partials/fields/_range.html`
+pats pažymi laukus pagal `apps/listings/templatetags/unit_tags.py` lentelę.
+**Naujas matuojamas diapazonas = viena eilutė `RANGE_UNIT_SPECS`.**
+
+`step="any"` matavimo laukams būtinas: mylios ir colių dalys yra trupmeninės,
+o su `step="1"` naršyklė tokios įvesties nepriimtų.
+
+Į serverį visada keliauja metrinė reikšmė, o pasirinktas vienetas įsimenamas
+`localStorage`'e — todėl po paieškos rezultatų perkrovimo laukai vėl parodomi
+tuo pačiu vienetu. URL parametrų tam nereikia.
+
+### 1.7 Senoji rankinė sistema
+
+Liko dvi vietos:
+
+* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų);
+* `advanced_search.html` automobilių šaka — savas kodas su `mileage_unit` /
+  `power_unit` / `engine_unit` URL parametrais (nuostata keliauja nuorodoje,
+  ne `localStorage`'e). „Parts" šaka toje pačioje formoje jau perkelta.
+
+Abi veikia; perkėlimas būtų tvarkymasis, ne taisymas.
 
 **Naujose formose šio kodo nekartoti** — naudoti `data-unit-field`.
 
-### 1.5 Testai
+### 1.8 Testai
 
-`node docs/unit_toggle_tests.js` (reikia `npm i jsdom`).
+`node docs/unit_toggle_tests.js` (reikia `npm i jsdom`) — 14 grupių:
+konversijos abiem kryptimis, name-swap, sveikaskaičiai laukai, `max`
+perskaičiavimas, įsiminta nuostata, rodymo pusė ir matmenys.
 
 ### ⚠️ KODĖL INLINE STYLES?
 

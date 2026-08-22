@@ -741,7 +741,8 @@
         </div>
     </footer>
 
-    {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field #}
+    {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
+    <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';</script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
 
     {% block extra_js %}{% endblock %}

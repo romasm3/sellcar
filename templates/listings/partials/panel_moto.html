@@ -69,8 +69,8 @@
 <div>
     <span class="sp-label">{% trans "Engine cm³" %}</span>
     <div class="flex gap-2">
-        <input type="number" name="engine_cc_min" placeholder="{% trans 'From' %}" value="{{ request.GET.engine_cc_min }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
-        <input type="number" name="engine_cc_max" placeholder="{% trans 'To' %}" value="{{ request.GET.engine_cc_max }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+        <input type="number" name="engine_cc_min" data-unit-field="engine_capacity_cc" placeholder="{% trans 'From' %}" value="{{ request.GET.engine_cc_min }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
+        <input type="number" name="engine_cc_max" data-unit-field="engine_capacity_cc" data-unit-quiet placeholder="{% trans 'To' %}" value="{{ request.GET.engine_cc_max }}" class="flex-1 min-w-0 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm">
     </div>
 </div>
 

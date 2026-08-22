@@ -1,4 +1,4 @@
-{% load i18n dict_extras %}{% comment %}
+{% load i18n dict_extras unit_tags %}{% comment %}
 Diapazonas „Nuo–Iki" — du atskiri rėmeliuoti laukeliai VIENAME langelyje,
 kaip etalone. Su reikšmių sąrašu renderinami select'ai, be jo — skaičių
 laukeliai su datalist pasiūlymais.
@@ -20,12 +20,17 @@ laukeliai su datalist pasiūlymais.
       </select>
     </div>
     {% else %}
-    <input type="number" step="1" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
-           value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
+    {# Matavimo laukams — bendras vienetų perjungiklis (static/js/unit_toggle.js).
+       Mygtukai piešiami tik prie „Nuo": vienai porai užtenka vieno.
+       step='any', nes alternatyvūs vienetai (mylios, colių dalys) yra trupmeniniai. #}
+    {% with uspec=f.param_min|unit_spec %}
+    <input type="number" step="{% if uspec %}any{% else %}1{% endif %}" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
+           {% if uspec %}data-unit-field="{{ uspec }}" {% endif %}value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
            class="sp-fld placeholder-gray-400">
-    <input type="number" step="1" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
-           value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
+    <input type="number" step="{% if uspec %}any{% else %}1{% endif %}" name="{{ f.param_max }}" list="dl-{{ f.param_max }}"
+           {% if uspec %}data-unit-field="{{ uspec }}" data-unit-quiet {% endif %}value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
            class="sp-fld placeholder-gray-400">
+    {% endwith %}
     <datalist id="dl-{{ f.param_min }}">{% for v, lbl in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>
     <datalist id="dl-{{ f.param_max }}">{% for v, lbl in f.options_max %}<option value="{{ v }}">{% endfor %}</datalist>
     {% endif %}

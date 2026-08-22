@@ -669,9 +669,9 @@
 
                     <div style="display:flex; gap:6px;">
 
-                        <input type="number" step="0.1" name="engine_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.engine_min|default:'' }}" style="flex:1;">
+                        <input type="number" step="0.1" name="engine_min" data-unit-field="engine_capacity" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.engine_min|default:'' }}" style="flex:1;">
 
-                        <input type="number" step="0.1" name="engine_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.engine_max|default:'' }}" style="flex:1;">
+                        <input type="number" step="0.1" name="engine_max" data-unit-field="engine_capacity" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.engine_max|default:'' }}" style="flex:1;">
 
                     </div>
 
@@ -683,9 +683,9 @@
 
                     <div style="display:flex; gap:6px;">
 
-                        <input type="number" name="power_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min|default:'' }}" style="flex:1;">
+                        <input type="number" name="power_min" data-unit-field="power" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min|default:'' }}" style="flex:1;">
 
-                        <input type="number" name="power_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max|default:'' }}" style="flex:1;">
+                        <input type="number" name="power_max" data-unit-field="power" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max|default:'' }}" style="flex:1;">
 
                     </div>
 
@@ -697,9 +697,9 @@
 
                     <div style="display:flex; gap:6px;">
 
-                        <input type="number" name="mileage_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min|default:'' }}" style="flex:1;">
+                        <input type="number" name="mileage_min" data-unit-field="mileage" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min|default:'' }}" style="flex:1;">
 
-                        <input type="number" name="mileage_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max|default:'' }}" style="flex:1;">
+                        <input type="number" name="mileage_max" data-unit-field="mileage" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max|default:'' }}" style="flex:1;">
 
                     </div>
 

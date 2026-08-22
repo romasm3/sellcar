@@ -19,7 +19,30 @@
        kanoninė reikšmė.
    Todėl serveris visada gauna tą patį lauko vardą su metrine reikšme.
 
-   Naujas laukas = viena eilutė SPECS lentelėje + data-unit-field šablone.
+   ── RODYMO PUSĖ (skelbimo peržiūra) ──
+
+       <span data-unit-show="power" data-unit-raw="150">150 kW</span>
+
+   Serveris atiduoda metrinę reikšmę tekste (veikia ir be JS), o skriptas
+   prirašo užuominą „≈ 201 HP" ir padaro elementą paspaudžiamą. Paspaudus
+   pagrindinė ir antrinė reikšmės susikeičia vietomis.
+
+   data-unit-raw gali turėti kelias reikšmes per „|" — tada rodoma
+   „1200 × 800 × 600 mm" (matmenys viena eilute).
+
+   ── DIAPAZONAI „nuo–iki" ──
+
+   Antram poros laukui dedam data-unit-quiet: jis konvertuojasi kartu,
+   bet mygtukų ir užuominos nekartoja — vienai porai užtenka vieno
+   perjungiklio prie bendros etiketės.
+
+   SVARBU: data-unit-raw reikšmė TURI būti nelokalizuota (|unlocalize),
+   nes LT lokalėje {{ 12.5 }} atsiduoda kaip „12,5" ir parseFloat luš.
+
+   Rodymo ir įvedimo pusės dalijasi ta pačia įsiminta nuostata: pardavėjas,
+   perjungęs formą į mylias, ir skelbimuose matys mylias.
+
+   Naujas laukas = viena eilutė SPECS lentelėje + data-unit-field / -show.
    ═══════════════════════════════════════════════════════════════════════ */
 (function () {
     'use strict';
@@ -87,13 +110,21 @@
         try { return JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}') || {}; }
         catch (e) { return {}; }
     }
-    function savePref(family, unit) {
+    function savePref(family, mode) {
         try {
             var p = loadPrefs();
-            p[family] = unit;
+            p[family] = mode;
             window.localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
         } catch (e) { /* private mode — tiesiog neįsimename */ }
     }
+
+    // Kurį vienetą šiuo metu rodo kiekviena šeima: 'canonical' | 'alt'.
+    // Vienintelis tiesos šaltinis ir įvedimo laukams, ir rodymo elementams.
+    var familyMode = {};
+    function modeOf(spec) { return familyMode[spec.family] === 'alt' ? 'alt' : 'canonical'; }
+    function isAlt(spec) { return modeOf(spec) === 'alt'; }
+    function unitOf(spec) { return isAlt(spec) ? spec.alt : spec.canonical; }
+    function decOf(spec) { return isAlt(spec) ? spec.altDec : spec.dec; }
 
     // ───────────────────────────────────────────────────────────────────
     // SKAIČIAI
@@ -132,14 +163,25 @@
     // "Galia (kW)" → "Galia"; "Rida su vienu įkrovimu, km" → "Rida su ..."
     // Keičiam tik paskutinį teksto mazgą, kad išliktų <span>*</span> ir pan.
     // ───────────────────────────────────────────────────────────────────
-    // Etiketės paieška: pirma – ankstesnis brolis, tik po to tėvinis mazgas
-    // (ir tik jei jame yra vienintelis input — kitaip pagriebtume svetimą).
+    // Etiketė gali būti <label> arba <span class="sp-label"> / .field-label /
+    // .form-label — projekte naudojami visi trys.
+    function isLabelish(n) {
+        if (n.tagName === 'LABEL') return true;
+        var c = (typeof n.className === 'string') ? n.className : '';
+        return /(^|\s|-)label(\s|$|-)/i.test(c);
+    }
+
+    // Paieškos tvarka: ankstesni broliai, tada tas pats vienu lygiu aukščiau
+    // (diapazonuose „nuo–iki" abu input'ai guli atskirame flex konteineryje),
+    // ir tik tada tėvinis mazgas — jei jame vienintelis input.
     function findLabel(input) {
-        var n = input.previousElementSibling;
-        while (n) {
-            if (n.tagName === 'LABEL') return n;
-            if (n.tagName === 'INPUT' || n.tagName === 'SELECT') return null;
-            n = n.previousElementSibling;
+        for (var el = input, up = 0; el && up < 2; el = el.parentNode, up++) {
+            var n = el.previousElementSibling;
+            while (n) {
+                if (isLabelish(n)) return n;
+                if (n.tagName === 'INPUT' || n.tagName === 'SELECT') break;
+                n = n.previousElementSibling;
+            }
         }
         var p = input.parentNode;
         if (!p) return null;
@@ -164,8 +206,11 @@
             }).join('\\s*');
             var paren = new RegExp('\\s*\\(\\s*' + u + '\\s*\\)$', 'i');
             var comma = new RegExp('\\s*,\\s*' + u + '$', 'i');
+            // „Bendroji masė kg" — vienetas be skliaustų ir be kablelio
+            var bare = new RegExp('\\s+' + u + '$', 'i');
             if (paren.test(t)) { node.nodeValue = t.replace(paren, ''); return; }
             if (comma.test(t)) { node.nodeValue = t.replace(comma, ''); return; }
+            if (bare.test(t)) { node.nodeValue = t.replace(bare, ''); return; }
         }
     }
 
@@ -186,6 +231,21 @@
     // ───────────────────────────────────────────────────────────────────
     var fields = [];
 
+    function onUserInput(f) {
+        return function () {
+            var v = parseFloat(f.input.value);
+            if (isNaN(v)) {
+                f.canon = null;
+            } else if (isAlt(f.spec)) {
+                f.canon = toCanon(f.spec, v);
+            } else {
+                f.canon = v;
+            }
+            syncName(f);
+            updateHint(f);
+        };
+    }
+
     function build(input) {
         var key = input.dataset.unitField;
         var spec = SPECS[key];
@@ -202,7 +262,6 @@
             origName: input.getAttribute('name') || key,
             origStep: input.getAttribute('step'),
             origMax: input.getAttribute('max'),
-            unit: spec.canonical,
             canon: null,
             hidden: null
         };
@@ -214,6 +273,7 @@
         // ── Mygtukai — dedami į etiketės eilutę, kad input'o plotis nesikeistų
         var wrap = document.createElement('span');
         wrap.className = 'unit-switch';
+        wrap.dataset.unitFor = f.origName;      // kuriam laukui priklauso
         wrap.setAttribute('style', 'display:inline-flex;flex:0 0 auto;margin-left:auto;');
 
         f.btnCanon = document.createElement('button');
@@ -225,9 +285,25 @@
         wrap.appendChild(f.btnCanon);
         wrap.appendChild(f.btnAlt);
 
-        // Įsimenam, kur dėti užuominą, PRIEŠ galimą input'o perkėlimą
+        // Diapazono antras laukas („iki") — jokių savo mygtukų ir užuominos
+        f.quiet = input.hasAttribute('data-unit-quiet');
+        if (f.quiet) {
+            input.addEventListener('input', onUserInput(f));
+            fields.push(f);
+            return f;
+        }
+
+        // Įsimenam, kur dėti užuominą, PRIEŠ galimą input'o perkėlimą.
+        // Diapazonuose („nuo" ir „iki" viename grid-cols-2 konteineryje)
+        // užuomina turi atsidurti PO visu konteineriu — kitaip ji užimtų
+        // tinklelio langelį ir nustumtų „iki" į kitą eilutę.
         var hintParent = input.parentNode;
         var hintRef = input.nextSibling;
+        if (hintParent && hintParent.querySelectorAll('[data-unit-field]').length > 1
+                && hintParent.parentNode) {
+            hintRef = hintParent.nextSibling;
+            hintParent = hintParent.parentNode;
+        }
 
         var label = findLabel(input);
         if (label) {
@@ -252,50 +328,41 @@
         f.hint.setAttribute('style', 'display:block;font-size:.68rem;color:#9ca3af;margin-top:.15rem;min-height:.9rem;');
         if (hintParent) hintParent.insertBefore(f.hint, hintRef);
 
-        f.btnCanon.addEventListener('click', function () { switchFamily(spec.family, spec.canonical, f); });
-        f.btnAlt.addEventListener('click', function () { switchFamily(spec.family, spec.alt, f); });
+        f.btnCanon.addEventListener('click', function () { setFamilyMode(spec.family, 'canonical'); });
+        f.btnAlt.addEventListener('click', function () { setFamilyMode(spec.family, 'alt'); });
 
-        input.addEventListener('input', function () {
-            var v = parseFloat(input.value);
-            if (isNaN(v)) {
-                f.canon = null;
-            } else if (f.unit === spec.canonical) {
-                f.canon = v;
-            } else {
-                f.canon = toCanon(spec, v);
-            }
-            syncName(f);
-            updateHint(f);
-        });
+        input.addEventListener('input', onUserInput(f));
 
         fields.push(f);
-        paintBtn(f.btnCanon, true, true);
-        paintBtn(f.btnAlt, false, false);
+        paintBtn(f.btnCanon, !isAlt(spec), true);
+        paintBtn(f.btnAlt, isAlt(spec), false);
         updateHint(f);
         return f;
     }
 
-    // Perjungiam visus tos pačios šeimos laukus puslapyje + įsimenam
-    function switchFamily(family, unit, origin) {
-        var changed = false;
-        for (var i = 0; i < fields.length; i++) {
-            var f = fields[i];
-            if (f.spec.family !== family) continue;
-            // Šeimoje gali būti skirtingų vienetų porų (mm/in ir m/ft) —
-            // renkamės pagal tai, ar prašoma kanoninio, ar alternatyvaus.
-            var target = (unit === origin.spec.canonical) ? f.spec.canonical : f.spec.alt;
-            if (f.unit === target) continue;
-            f.unit = target;
-            render(f);
-            changed = true;
+    // Perjungiam VISĄ šeimą — ir įvedimo laukus, ir peržiūros reikšmes.
+    // Visi svoriai persijungia kartu; kitos šeimos nepajuda.
+    function setFamilyMode(family, mode) {
+        if (modeOf({ family: family }) === mode) return;
+        familyMode[family] = mode;
+        savePref(family, mode);
+        repaintFamily(family);
+    }
+
+    function repaintFamily(family) {
+        var i;
+        for (i = 0; i < fields.length; i++) {
+            if (fields[i].spec.family === family) render(fields[i]);
         }
-        if (changed) savePref(family, (unit === origin.spec.canonical) ? 'canonical' : 'alt');
+        for (i = 0; i < views.length; i++) {
+            if (views[i].spec.family === family) renderView(views[i]);
+        }
     }
 
     function render(f) {
         var spec = f.spec, input = f.input;
-        var isCanon = (f.unit === spec.canonical);
-        var dec = isCanon ? spec.dec : spec.altDec;
+        var isCanon = !isAlt(spec);
+        var dec = decOf(spec);
 
         input.value = (f.canon === null)
             ? ''
@@ -313,15 +380,17 @@
             }
         }
 
-        paintBtn(f.btnCanon, isCanon, true);
-        paintBtn(f.btnAlt, !isCanon, false);
+        if (!f.quiet) {
+            paintBtn(f.btnCanon, isCanon, true);
+            paintBtn(f.btnAlt, !isCanon, false);
+        }
         syncName(f);
         updateHint(f);
     }
 
     // name visada ten, kur kanoninė reikšmė
     function syncName(f) {
-        var isCanon = (f.unit === f.spec.canonical);
+        var isCanon = !isAlt(f.spec);
         if (isCanon) {
             f.input.setAttribute('name', f.origName);
             if (f.hidden) { f.hidden.parentNode.removeChild(f.hidden); f.hidden = null; }
@@ -340,8 +409,9 @@
 
     function updateHint(f) {
         var spec = f.spec;
+        if (f.quiet || !f.hint) return;
         if (f.canon === null || isNaN(f.canon)) { f.hint.textContent = ''; return; }
-        if (f.unit === spec.canonical) {
+        if (!isAlt(spec)) {
             var a = toAlt(spec, f.canon);
             f.hint.textContent = (a === null) ? '' : '≈ ' + forHint(a, spec.altDec) + ' ' + spec.alt;
         } else {
@@ -349,20 +419,76 @@
         }
     }
 
-    function init() {
-        var inputs = document.querySelectorAll('input[data-unit-field]');
-        if (!inputs.length) return;
-        for (var i = 0; i < inputs.length; i++) build(inputs[i]);
+    // ═══════════════════════════════════════════════════════════════
+    // RODYMO PUSĖ — skelbimo peržiūros reikšmės
+    // ═══════════════════════════════════════════════════════════════
+    var views = [];
 
-        // Pritaikom įsimintus pasirinkimus
-        var prefs = loadPrefs();
-        for (var j = 0; j < fields.length; j++) {
-            var f = fields[j];
-            if (prefs[f.spec.family] === 'alt' && f.unit !== f.spec.alt) {
-                f.unit = f.spec.alt;
-                render(f);
-            }
+    var HINT_STYLE = 'color:#9ca3af;font-size:.85em;margin-left:.35rem;white-space:nowrap;' +
+                     'border-bottom:1px dashed #d1d5db;';
+
+    function buildView(el) {
+        var key = el.dataset.unitShow;
+        var spec = SPECS[key];
+        if (!spec) {
+            if (window.console) console.warn('[unit_toggle] nežinomas data-unit-show:', key);
+            return;
         }
+        // Kelios reikšmės per „|" = matmenys vienoje eilutėje (1200 × 800 × 600 mm)
+        var raw = String(el.dataset.unitRaw || '').split('|').map(function (x) {
+            var n = parseFloat(x);
+            return isNaN(n) ? null : n;
+        });
+        if (!raw.some(function (n) { return n !== null; })) return;   // nėra ką rodyti
+
+        var v = { el: el, spec: spec, raw: raw, hint: null };
+        v.hint = document.createElement('span');
+        v.hint.className = 'unit-hint';
+        v.hint.setAttribute('style', HINT_STYLE);
+
+        el.style.cursor = 'pointer';
+        if (window.UNIT_TOGGLE_TITLE) el.title = window.UNIT_TOGGLE_TITLE;
+        el.addEventListener('click', function () {
+            setFamilyMode(spec.family, isAlt(spec) ? 'canonical' : 'alt');
+        });
+
+        views.push(v);
+        renderView(v);
+    }
+
+    function joinValues(spec, values, toUnit) {
+        var dec = (toUnit === 'alt') ? spec.altDec : spec.dec;
+        return values.map(function (n) {
+            if (n === null) return '—';
+            var out = (toUnit === 'alt') ? toAlt(spec, n) : n;
+            return (out === null) ? '—' : forHint(out, dec);
+        }).join(' × ');
+    }
+
+    function renderView(v) {
+        var spec = v.spec, alt = isAlt(spec);
+        v.el.textContent = joinValues(spec, v.raw, alt ? 'alt' : 'canon') + ' ' + unitOf(spec);
+        v.hint.textContent = '≈ ' + joinValues(spec, v.raw, alt ? 'canon' : 'alt') + ' ' +
+                             (alt ? spec.canonical : spec.alt);
+        v.el.appendChild(v.hint);
+    }
+
+    function init() {
+        var prefs = loadPrefs();
+        Object.keys(prefs).forEach(function (fam) {
+            if (prefs[fam] === 'alt') familyMode[fam] = 'alt';
+        });
+
+        var inputs = document.querySelectorAll('input[data-unit-field]');
+        var i;
+        for (i = 0; i < inputs.length; i++) build(inputs[i]);
+        // Pirmas piešimas jau įvertina įsimintą nuostatą
+        for (i = 0; i < fields.length; i++) {
+            if (isAlt(fields[i].spec)) render(fields[i]);
+        }
+
+        var shows = document.querySelectorAll('[data-unit-show]');
+        for (i = 0; i < shows.length; i++) buildView(shows[i]);
     }
 
     if (document.readyState === 'loading') {
@@ -371,5 +497,38 @@
         init();
     }
 
-    window.AutoLeftUnits = { specs: SPECS, fields: fields };
+    // ═══════════════════════════════════════════════════════════════
+    // VIEŠAS API — formoms, kurios turi savo autosave / validaciją.
+    // Visada dirba KANONINĖMIS reikšmėmis, nesvarbu ką mato vartotojas.
+    // ═══════════════════════════════════════════════════════════════
+    function byName(name) {
+        for (var i = 0; i < fields.length; i++) {
+            if (fields[i].origName === name) return fields[i];
+        }
+        return null;
+    }
+
+    // Kanoninė reikšmė kaip eilutė ('' jei tuščia) — tinka tiesiai į JSON/POST
+    function getCanonical(name) {
+        var f = byName(name);
+        if (!f || f.canon === null || isNaN(f.canon)) return '';
+        return forInput(f.canon, f.spec.dec);
+    }
+
+    // Įrašom kanoninę reikšmę (pvz. atkuriant juodraštį) ir perpiešiam
+    function setCanonical(name, value) {
+        var f = byName(name);
+        if (!f) return false;
+        var v = parseFloat(value);
+        f.canon = isNaN(v) ? null : v;
+        render(f);
+        return true;
+    }
+
+    window.AutoLeftUnits = {
+        specs: SPECS, fields: fields, views: views,
+        setFamilyMode: setFamilyMode,
+        get: getCanonical,
+        set: setCanonical
+    };
 })();

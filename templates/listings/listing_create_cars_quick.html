@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n i18n_db %}
+{% load i18n i18n_db l10n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - SellCar{% endblock %}
 
@@ -142,20 +142,9 @@
 
                         <div data-field-wrap="engine_capacity">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Engine" %}</label>
-                            <div style="display: flex; gap: 0.4rem; align-items: center;">
-                                <input type="number" id="engine_display" min="0" step="0.1" placeholder="{% trans 'e.g. 1.6' %}"
-                                       value="{{ listing_data.step3_partial.engine_capacity|default:'' }}"
-                                       style="flex: 1;"
-                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updateEngine()">
-                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
-                                    <button type="button" id="btn_l" onclick="setEngineUnit('l')"
-                                            style="padding: 0.5rem 0.6rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 32px;">L</button>
-                                    <button type="button" id="btn_cc" onclick="setEngineUnit('cc')"
-                                            style="padding: 0.5rem 0.5rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.7rem; font-weight: 500; cursor: pointer; min-width: 38px;">cm³</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="engine_capacity" id="engine_l_value" value="{{ listing_data.step3_partial.engine_capacity|default:'' }}">
-                            <p id="engine_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                            <input type="number" name="engine_capacity" data-unit-field="engine_capacity" min="0" step="0.1" placeholder="{% trans 'e.g. 1.6' %}"
+                                   value="{{ listing_data.step3_partial.engine_capacity|default:''|unlocalize }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
 
                         <div data-field-wrap="steering">
@@ -181,20 +170,9 @@
 
                         <div data-field-wrap="mileage" data-required="true">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mileage" %} <span class="text-red-500">*</span></label>
-                            <div style="display: flex; gap: 0.4rem; align-items: center;">
-                                <input type="number" id="mileage_display" min="0" placeholder="{% trans 'e.g. 150000' %}"
-                                       value="{{ listing_data.step3_partial.mileage|default:'' }}"
-                                       style="flex: 1;"
-                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updateMileage()">
-                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
-                                    <button type="button" id="btn_km" onclick="setMileageUnit('km')"
-                                            style="padding: 0.5rem 0.75rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">km</button>
-                                    <button type="button" id="btn_mi" onclick="setMileageUnit('mi')"
-                                            style="padding: 0.5rem 0.75rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">mi</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="mileage" id="mileage_km_value" value="{{ listing_data.step3_partial.mileage|default:'' }}">
-                            <p id="mileage_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                            <input type="number" name="mileage" data-unit-field="mileage" min="0" step="1" placeholder="{% trans 'e.g. 150000' %}"
+                                   value="{{ listing_data.step3_partial.mileage|default:''|unlocalize }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
 
                         <div data-field-wrap="condition" style="display:none">
@@ -294,20 +272,9 @@
                         </div>
                         <div data-field-wrap="power">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Power" %}</label>
-                            <div style="display: flex; gap: 0.4rem; align-items: center;">
-                                <input type="number" id="power_display" min="0" placeholder="-"
-                                       value="{{ listing_data.step3_partial.power|default:'' }}"
-                                       style="flex: 1;"
-                                       class="px-3 py-2 border border-gray-300 rounded text-sm" oninput="updatePower()">
-                                <div style="display: inline-flex; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden;">
-                                    <button type="button" id="btn_kw" onclick="setPowerUnit('kw')"
-                                            style="padding: 0.5rem 0.6rem; border: none; background-color: #4b5563; color: #ffffff; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">kW</button>
-                                    <button type="button" id="btn_hp" onclick="setPowerUnit('hp')"
-                                            style="padding: 0.5rem 0.6rem; border: none; border-left: 1px solid #d1d5db; background-color: #ffffff; color: #6b7280; font-size: 0.75rem; font-weight: 500; cursor: pointer; min-width: 38px;">HP</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="power" id="power_kw_value" value="{{ listing_data.step3_partial.power|default:'' }}">
-                            <p id="power_converted" class="text-xs text-gray-400 mt-1 h-3"></p>
+                            <input type="number" name="power" data-unit-field="power" min="0" step="1" placeholder="-"
+                                   value="{{ listing_data.step3_partial.power|default:''|unlocalize }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Summer/Winter wheels" %}</label>
@@ -850,8 +817,8 @@ function handleQuickSubmit() {
                 markFieldError(fname, true);
             }
         });
-        var mileageHidden = document.getElementById('mileage_km_value');
-        if (!mileageHidden || !mileageHidden.value) {
+        var mileageValue = window.AutoLeftUnits ? window.AutoLeftUnits.get('mileage') : '';
+        if (!mileageValue) {
             errors.push('Mileage is required');
             markFieldError('mileage', true);
         }
@@ -956,111 +923,20 @@ function selectBtn(btn, field, value) {
 // ═══════════════════════════════════════════════════════════
 // UNIT TOGGLES: Mileage / Engine / Power
 // ═══════════════════════════════════════════════════════════
-var mileageUnit = 'km';
-var engineUnit = 'l';
-var powerUnit = 'kw';
-
-function setMileageUnit(unit) {
-    var display = document.getElementById('mileage_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'mi' && mileageUnit === 'km')
-        display.value = val ? Math.round(val / 1.60934) : '';
-    else if (unit === 'km' && mileageUnit === 'mi')
-        display.value = val ? Math.round(val * 1.60934) : '';
-    mileageUnit = unit;
-    var btnKm = document.getElementById('btn_km');
-    var btnMi = document.getElementById('btn_mi');
-    if (unit === 'km') {
-        btnKm.style.backgroundColor = '#4b5563'; btnKm.style.color = '#ffffff';
-        btnMi.style.backgroundColor = '#ffffff'; btnMi.style.color = '#6b7280';
-    } else {
-        btnKm.style.backgroundColor = '#ffffff'; btnKm.style.color = '#6b7280';
-        btnMi.style.backgroundColor = '#4b5563'; btnMi.style.color = '#ffffff';
-    }
-    updateMileage();
-}
-
-function updateMileage() {
-    var display = document.getElementById('mileage_display');
-    var hidden = document.getElementById('mileage_km_value');
-    var label = document.getElementById('mileage_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var km = mileageUnit === 'km' ? val : Math.round(val * 1.60934);
-    var mi = mileageUnit === 'mi' ? val : Math.round(val / 1.60934);
-    hidden.value = km || '';
-    if (label) label.textContent = val
-        ? (mileageUnit === 'km' ? '≈ ' + mi.toLocaleString() + ' mi' : '≈ ' + km.toLocaleString() + ' km')
-        : '';
-    if (val) markFieldError('mileage', false);
-    autoSave('mileage', hidden.value);
-}
-
-function setEngineUnit(unit) {
-    var display = document.getElementById('engine_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'cc' && engineUnit === 'l') display.value = val ? Math.round(val * 1000) : '';
-    else if (unit === 'l' && engineUnit === 'cc') display.value = val ? (val / 1000).toFixed(1) : '';
-    engineUnit = unit;
-    var btnL = document.getElementById('btn_l');
-    var btnCc = document.getElementById('btn_cc');
-    if (unit === 'l') {
-        btnL.style.backgroundColor = '#4b5563'; btnL.style.color = '#ffffff';
-        btnCc.style.backgroundColor = '#ffffff'; btnCc.style.color = '#6b7280';
-    } else {
-        btnL.style.backgroundColor = '#ffffff'; btnL.style.color = '#6b7280';
-        btnCc.style.backgroundColor = '#4b5563'; btnCc.style.color = '#ffffff';
-    }
-    updateEngine();
-}
-
-function updateEngine() {
-    var display = document.getElementById('engine_display');
-    var hidden = document.getElementById('engine_l_value');
-    var label = document.getElementById('engine_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var liters = engineUnit === 'l' ? val : (val / 1000);
-    var cc = engineUnit === 'cc' ? val : Math.round(val * 1000);
-    hidden.value = liters ? liters.toFixed(1) : '';
-    if (label) label.textContent = val
-        ? (engineUnit === 'l' ? '≈ ' + cc + ' cm³' : '≈ ' + (val / 1000).toFixed(1) + ' L')
-        : '';
-    autoSave('engine_capacity', hidden.value);
-}
-
-function setPowerUnit(unit) {
-    var display = document.getElementById('power_display'); if (!display) return;
-    var val = parseFloat(display.value) || 0;
-    if (unit === 'hp' && powerUnit === 'kw') display.value = val ? Math.round(val * 1.34102) : '';
-    else if (unit === 'kw' && powerUnit === 'hp') display.value = val ? Math.round(val / 1.34102) : '';
-    powerUnit = unit;
-    var btnKw = document.getElementById('btn_kw');
-    var btnHp = document.getElementById('btn_hp');
-    if (unit === 'kw') {
-        btnKw.style.backgroundColor = '#4b5563'; btnKw.style.color = '#ffffff';
-        btnHp.style.backgroundColor = '#ffffff'; btnHp.style.color = '#6b7280';
-    } else {
-        btnKw.style.backgroundColor = '#ffffff'; btnKw.style.color = '#6b7280';
-        btnHp.style.backgroundColor = '#4b5563'; btnHp.style.color = '#ffffff';
-    }
-    updatePower();
-}
-
-function updatePower() {
-    var display = document.getElementById('power_display');
-    var hidden = document.getElementById('power_kw_value');
-    var label = document.getElementById('power_converted');
-    if (!display || !hidden) return;
-    var val = parseFloat(display.value) || 0;
-    var kw = powerUnit === 'kw' ? val : Math.round(val / 1.34102);
-    var hp = powerUnit === 'hp' ? val : Math.round(val * 1.34102);
-    hidden.value = kw || '';
-    if (label) label.textContent = val
-        ? (powerUnit === 'kw' ? '≈ ' + hp + ' HP' : '≈ ' + kw + ' kW')
-        : '';
-    autoSave('power', hidden.value);
-}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras).
+// Lieka tik juodraščio išsaugojimas ir klaidos žymės nuėmimas — bendrasis
+// skriptas apie šios formos autoSave() nežino.
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[data-unit-field]').forEach(function(el) {
+        var name = el.getAttribute('name') || el.dataset.unitField;
+        el.addEventListener('input', function() {
+            if (!window.AutoLeftUnits) return;
+            var canon = window.AutoLeftUnits.get(name);
+            if (canon) markFieldError(name, false);
+            autoSave(name, canon);
+        });
+    });
+});
 
 var draftDragSrc = null;
 
