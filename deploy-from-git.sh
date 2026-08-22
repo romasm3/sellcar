@@ -42,6 +42,13 @@ git fetch --quiet "$REMOTE" "$BRANCH" || die "git fetch nepavyko (patikrink prie
 LOCAL="$(git rev-parse HEAD)"
 UPSTREAM="$(git rev-parse "${REMOTE}/${BRANCH}")"
 
+# Commit'as, kuris jau krito per patikrą — nekartojam jo kas minutę.
+# Naujas commit'as žymę nuvalo (upstream pajudėjo).
+BLOGAS_FAILAS="${APP_DIR}/deploy/.blogas-commitas"
+if [[ -f "$BLOGAS_FAILAS" ]] && [[ "$(cat "$BLOGAS_FAILAS")" == "$UPSTREAM" ]]; then
+    exit 0
+fi
+
 if [[ "$LOCAL" == "$UPSTREAM" ]]; then
     # Naujo kodo nėra, bet būklę paskelbiam — taip ją matyti ir tada,
     # kai niekas nediegiama. Skriptas pats nieko nekelia, jei nepasikeitė.
@@ -70,6 +77,24 @@ if ! git merge --ff-only "${REMOTE}/${BRANCH}" --quiet; then
     die "Fast-forward negalimas — serverio šaka nuklydusi nuo ${REMOTE}/${BRANCH}. Sutvarkyk ranka."
 fi
 log "Kodas atnaujintas iki ${UPSTREAM:0:7}"
+
+# ── Patikra PRIEŠ liečiant produkciją ──────────────────────────────────
+# Šablonų nuotėkis ir testai tikrinami dar prieš migracijas ir perkrovimą:
+# jei krenta, produkcija net nesujudinama, o kodas atsukamas atgal.
+if [[ -x ./scripts/patikra.sh ]]; then
+    if PATIKRA="$(./scripts/patikra.sh 2>&1)"; then
+        log "Patikra praėjo"
+    else
+        echo "$PATIKRA" | tail -20 | sed 's/^/    /'
+        echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+        git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
+        if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
+        die "Patikra krito — grąžinta į ${LOCAL:0:7}, produkcija nepaliesta. Kito bandymo su tuo pačiu commit'u nebus."
+    fi
+else
+    log "DĖMESIO: scripts/patikra.sh nerastas — diegiam be testų"
+fi
+rm -f "$BLOGAS_FAILAS"
 
 # ── Deploy per esamą agentą (migrate + collectstatic + restart + health) ──
 if ./deploy-agent.sh; then

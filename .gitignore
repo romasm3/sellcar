@@ -130,3 +130,6 @@ celerybeat-schedule-wal
 node_modules/
 npm-debug.log*
 yarn-debug.log*
+
+# Kritusio commit'o žymė — kad autodiegimas jo nekartotų kas minutę
+deploy/.blogas-commitas
