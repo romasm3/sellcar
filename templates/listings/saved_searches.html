@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dict_extras %}
 
 {% block title %}{% trans "Mano paieškos" %} - AutoLeft{% endblock %}
 
@@ -64,7 +64,7 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
         <div class="row">
           <div class="cell-q">
             <a class="q-title" href="{{ e.url }}">{{ e.pavadinimas }}</a>
-            <div class="q-sum" title="{{ e.santrauka }}">{{ e.santrauka }}</div>
+            <div class="q-sum" title="{{ e.santrauka }}">{{ e.santrauka|skyrikliai }}</div>
           </div>
 
           <div class="counts">
@@ -138,7 +138,7 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
         <div class="row row-recent">
           <div class="cell-q">
             <a class="q-title" href="{{ e.url }}">{{ e.pavadinimas }}</a>
-            <div class="q-sum" title="{{ e.santrauka }}">{{ e.santrauka }}</div>
+            <div class="q-sum" title="{{ e.santrauka }}">{{ e.santrauka|skyrikliai }}</div>
           </div>
 
           <div class="counts">
@@ -235,6 +235,7 @@ puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
   .q-title:hover{color:var(--accent);text-decoration:underline}
   /* Santrauka rodoma visa ir laužiasi; riba — 3 eilutės, tik tada
      nukerpama (pilnas tekstas lieka title patarime). Eilutė auga kartu. */
+  .q-sum .sep{color:var(--text-disabled)}
   .q-sum{margin-top:2px;font-size:14px;color:var(--text-muted);line-height:1.35;
     display:-webkit-box;-webkit-box-orient:vertical;
     -webkit-line-clamp:3;line-clamp:3;overflow:hidden;

@@ -172,3 +172,20 @@ def model_label(value, item):
 def split_csv(value):
     """„lt,ru,en" → ['lt', 'ru', 'en'] — kad tvarka būtų šablone, ne atsitiktinė."""
     return [x.strip() for x in str(value).split(',') if x.strip()]
+
+
+@register.filter
+def skyrikliai(tekstas):
+    """„A | B" → „A <span class=\"sep\">|</span> B".
+
+    Santrauka lieka paprastu tekstu (jį naudoja title patarimas), o
+    brūkšnys šablone gauna savo spalvą — šviesesnę už tekstą, kad
+    neblaškytų (docs/dizaino-sistema.md).
+    """
+    from django.utils.html import escape
+    from django.utils.safestring import mark_safe
+
+    # Tarpai aplink brūkšnį lieka tikri — kad tekstas galėtų lūžti prie jų,
+    # o ne tik ties kableliais.
+    dalys = [escape(d) for d in str(tekstas).split(' | ')]
+    return mark_safe(' <span class="sep">|</span> '.join(dalys))

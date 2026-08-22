@@ -1286,9 +1286,10 @@ def _paieskos_pavadinimas(params):
 
 
 def _filtru_santrauka(params, riba=None):
-    """Filtrų santrauka: „Benzinas, Dyzelinas · Automatinė · nuo 5 000 €".
+    """Filtrų santrauka: „Benzinas, Dyzelinas | Automatinė | nuo 5 000 €".
 
-    To paties lauko reikšmės — kableliu, skirtingi laukai — „ · ".
+    To paties lauko reikšmės — kableliu, skirtingi laukai — „ | "
+    (šablone brūkšnys nuspalvinamas šviesiau, filtras `skyrikliai`).
     Laukų tvarka PASTOVI (kaip panelėje): kuras, pavarų dėžė, kėbulas,
     kaina, metai, rida, miestas, po jų — likę filtrai konfigūracijos
     tvarka. Iš adreso atėjusi tvarka nesvarbi.
@@ -1392,7 +1393,7 @@ def _filtru_santrauka(params, riba=None):
         if params.get('category'):
             return str(_('Visos markės'))
         return str(_('Visi skelbimai'))
-    return ' · '.join(dalys[:riba] if riba else dalys)
+    return ' | '.join(dalys[:riba] if riba else dalys)
 
 
 _KONFIG_ETIKETES = None

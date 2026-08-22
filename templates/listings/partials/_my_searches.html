@@ -1,4 +1,4 @@
-{% load i18n %}{% comment %}
+{% load i18n dict_extras %}{% comment %}
 „MANO PAIEŠKOS" JUOSTA — pagrindiniame puslapyje, po paieškos panele
 (etalone būtent ten).
 
@@ -47,7 +47,7 @@ Spalvos ir matmenys — docs/dizaino-sistema.md. Jokios oranžinės.
           {% if s.nauji %}<span class="mp-new">+{{ s.nauji }}</span>{% endif %}
           <span class="mp-name">{{ s.pavadinimas }}</span>
         </span>
-        <span class="mp-sum" title="{{ s.santrauka }}">{{ s.santrauka }}</span>
+        <span class="mp-sum" title="{{ s.santrauka }}">{{ s.santrauka|skyrikliai }}</span>
       </a>
       <form method="post" action="{% url 'delete_search' s.id %}" class="mp-x">
         {% csrf_token %}
@@ -106,6 +106,7 @@ Spalvos ir matmenys — docs/dizaino-sistema.md. Jokios oranžinės.
              overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* Santrauka — dvi eilutės su daugtaškiu */
   /* Kortelėje telpa dvi eilutės; ilgesnė nukerpama, pilnas tekstas — title */
+  .mp-sum .sep { color: var(--text-disabled); }
   .mp-sum { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.35;
             display: -webkit-box; -webkit-box-orient: vertical;
             -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
