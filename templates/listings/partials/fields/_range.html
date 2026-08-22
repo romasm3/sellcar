@@ -20,9 +20,9 @@ laukeliai su datalist pasiūlymais.
       </select>
     </div>
     {% else %}
-    {# Matavimo laukams — bendras vienetų perjungiklis (static/js/unit_toggle.js).
-       Mygtukai piešiami tik prie „Nuo": vienai porai užtenka vieno.
-       step='any', nes alternatyvūs vienetai (mylios, colių dalys) yra trupmeniniai. #}
+    {% comment %}Matavimo laukams — bendras vienetų perjungiklis (static/js/unit_toggle.js).
+    Mygtukai piešiami tik prie „Nuo": vienai porai užtenka vieno.
+    step='any', nes alternatyvūs vienetai (mylios, colių dalys) yra trupmeniniai.{% endcomment %}
     {% with uspec=f.param_min|unit_spec %}
     <input type="number" step="{% if uspec %}any{% else %}1{% endif %}" name="{{ f.param_min }}" list="dl-{{ f.param_min }}"
            {% if uspec %}data-unit-field="{{ uspec }}" {% endif %}value="{{ request.GET|get_param:f.param_min }}" placeholder="{% trans 'Nuo' %}"
