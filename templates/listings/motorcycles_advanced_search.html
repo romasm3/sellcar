@@ -112,10 +112,6 @@
 <input type="hidden" name="category" value="motorcycles">
 <div id="selectedModelInputs"></div>
 
-<input type="hidden" name="mileage_min" id="mileageMinKm" value="{{ f.mileage_min }}">
-<input type="hidden" name="mileage_max" id="mileageMaxKm" value="{{ f.mileage_max }}">
-<input type="hidden" name="power_min" id="powerMinKw" value="{{ f.power_min }}">
-<input type="hidden" name="power_max" id="powerMaxKw" value="{{ f.power_max }}">
 
 <!-- ═══ SELECT CATEGORY ═══ -->
 <div class="adv-section">
@@ -206,22 +202,18 @@
             <div class="adv-field">
                 <label>{% trans "Engine, cm³ from–to" %}</label>
                 <div class="adv-range">
-                    <input type="number" name="engine_cc_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.engine_cc_min }}">
-                    <input type="number" name="engine_cc_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.engine_cc_max }}">
+                    <input type="number" name="engine_cc_min" data-unit-field="engine_capacity_cc" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.engine_cc_min }}">
+                    <input type="number" name="engine_cc_max" data-unit-field="engine_capacity_cc" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.engine_cc_max }}">
                 </div>
             </div>
 
             <div class="adv-field">
                 <label style="display:flex;align-items:center;gap:6px;">
                     {% trans "Power" %}
-                    <div style="display:flex;border:1px solid #d1d5db;border-radius:3px;overflow:hidden;">
-                        <button type="button" id="btnKw" onclick="setPowerUnit('kw')" style="padding:1px 6px;font-size:0.65rem;font-weight:600;border:none;cursor:pointer;background:var(--accent);color:#fff;">kW</button>
-                        <button type="button" id="btnHp" onclick="setPowerUnit('hp')" style="padding:1px 6px;font-size:0.65rem;font-weight:600;border:none;cursor:pointer;background:#f9fafb;color:#6b7280;">HP</button>
-                    </div>
                 </label>
                 <div class="adv-range">
-                    <input type="number" id="powerMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min }}">
-                    <input type="number" id="powerMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max }}">
+                    <input type="number" name="power_min" data-unit-field="power" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min }}">
+                    <input type="number" name="power_max" data-unit-field="power" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max }}">
                 </div>
             </div>
 
@@ -229,14 +221,10 @@
             <div class="adv-field">
                 <label style="display:flex;align-items:center;gap:6px;">
                     {% trans "Mileage from–to" %}
-                    <div style="display:flex;border:1px solid #d1d5db;border-radius:3px;overflow:hidden;">
-                        <button type="button" id="btnKm" onclick="setMileageUnit('km')" style="padding:1px 6px;font-size:0.65rem;font-weight:600;border:none;cursor:pointer;background:var(--accent);color:#fff;">km</button>
-                        <button type="button" id="btnMi" onclick="setMileageUnit('mi')" style="padding:1px 6px;font-size:0.65rem;font-weight:600;border:none;cursor:pointer;background:#f9fafb;color:#6b7280;">mi</button>
-                    </div>
                 </label>
                 <div class="adv-range">
-                    <input type="number" id="mileageMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min }}">
-                    <input type="number" id="mileageMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max }}">
+                    <input type="number" name="mileage_min" data-unit-field="mileage" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min }}">
+                    <input type="number" name="mileage_max" data-unit-field="mileage" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max }}">
                 </div>
             </div>
 
@@ -364,8 +352,8 @@
             <div class="adv-field">
                 <label>{% trans "Electric Range, km" %}</label>
                 <div class="adv-range">
-                    <input type="number" name="electric_range_min" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.electric_range_min }}">
-                    <input type="number" name="electric_range_max" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.electric_range_max }}">
+                    <input type="number" name="electric_range_min" data-unit-field="range_km" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.electric_range_min }}">
+                    <input type="number" name="electric_range_max" data-unit-field="range_km" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.electric_range_max }}">
                 </div>
             </div>
 
@@ -476,12 +464,6 @@
 <script>
 var pairs = [];  // [{ brandId, brandName, modelId, modelName }, ...]
 var allBrandsHTML = ''; // cached HTML for brand options
-var mileageInMiles = false;
-var powerInHp = false;
-var KM_TO_MI = 0.621371, MI_TO_KM = 1.60934;
-var KW_TO_HP = 1.34102, HP_TO_KW = 0.7457;
-
-// ─── i18n strings ───
 var I18N = {
     removeTitle: "{% trans 'Remove' %}",
     brandLabel: "{% trans 'Brand' %}",
@@ -540,22 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (params.get('mileage_unit') === 'mi') {
-        mileageInMiles = true;
-        var minV = document.getElementById('mileageMinDisplay').value;
-        var maxV = document.getElementById('mileageMaxDisplay').value;
-        if (minV) document.getElementById('mileageMinDisplay').value = Math.round(minV * KM_TO_MI);
-        if (maxV) document.getElementById('mileageMaxDisplay').value = Math.round(maxV * KM_TO_MI);
-        setBtn('btnMi', 'btnKm');
-    }
-    if (params.get('power_unit') === 'hp') {
-        powerInHp = true;
-        var minV = document.getElementById('powerMinDisplay').value;
-        var maxV = document.getElementById('powerMaxDisplay').value;
-        if (minV) document.getElementById('powerMinDisplay').value = Math.round(minV * KW_TO_HP);
-        if (maxV) document.getElementById('powerMaxDisplay').value = Math.round(maxV * KW_TO_HP);
-        setBtn('btnHp', 'btnKw');
-    }
 });
 
 // Load models for a specific brand-model pair
@@ -623,50 +589,9 @@ function addBrandModelPair(savedBrandId, savedModelId) {
     }
 }
 
-function setBtn(activeId, inactiveId) {
-    document.getElementById(activeId).style.background = 'var(--accent)'; document.getElementById(activeId).style.color = '#fff';
-    document.getElementById(inactiveId).style.background = '#f9fafb'; document.getElementById(inactiveId).style.color = '#6b7280';
-}
-
-function setMileageUnit(unit) {
-    var a = document.getElementById('mileageMinDisplay'), b = document.getElementById('mileageMaxDisplay');
-    if (unit === 'mi' && !mileageInMiles) {
-        mileageInMiles = true;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * KM_TO_MI);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * KM_TO_MI);
-        setBtn('btnMi', 'btnKm');
-    } else if (unit === 'km' && mileageInMiles) {
-        mileageInMiles = false;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * MI_TO_KM);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * MI_TO_KM);
-        setBtn('btnKm', 'btnMi');
-    }
-}
-
-function setPowerUnit(unit) {
-    var a = document.getElementById('powerMinDisplay'), b = document.getElementById('powerMaxDisplay');
-    if (unit === 'hp' && !powerInHp) {
-        powerInHp = true;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * KW_TO_HP);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * KW_TO_HP);
-        setBtn('btnHp', 'btnKw');
-    } else if (unit === 'kw' && powerInHp) {
-        powerInHp = false;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * HP_TO_KW);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * HP_TO_KW);
-        setBtn('btnKw', 'btnHp');
-    }
-}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras)
 
 function prepareSubmit() {
-    var mA = document.getElementById('mileageMinDisplay'), mB = document.getElementById('mileageMaxDisplay');
-    document.getElementById('mileageMinKm').value = mA.value ? (mileageInMiles ? Math.round(parseFloat(mA.value) * MI_TO_KM) : mA.value) : '';
-    document.getElementById('mileageMaxKm').value = mB.value ? (mileageInMiles ? Math.round(parseFloat(mB.value) * MI_TO_KM) : mB.value) : '';
-
-    var pA = document.getElementById('powerMinDisplay'), pB = document.getElementById('powerMaxDisplay');
-    document.getElementById('powerMinKw').value = pA.value ? (powerInHp ? Math.round(parseFloat(pA.value) * HP_TO_KW) : pA.value) : '';
-    document.getElementById('powerMaxKw').value = pB.value ? (powerInHp ? Math.round(parseFloat(pB.value) * HP_TO_KW) : pB.value) : '';
-
     // Build pair[] params from brand-model pairs
     var container = document.getElementById('selectedModelInputs');
     container.innerHTML = '';

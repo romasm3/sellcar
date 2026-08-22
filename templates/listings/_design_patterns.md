@@ -272,16 +272,10 @@ tuo pačiu vienetu. URL parametrų tam nereikia.
 
 ### 1.7 Senoji rankinė sistema
 
-Liko dvi vietos:
-
-* `trucks_listing_create.html` — savas `UNIT_CONFIG` (10 laukų);
-* `advanced_search.html` automobilių šaka — savas kodas su `mileage_unit` /
-  `power_unit` / `engine_unit` URL parametrais (nuostata keliauja nuorodoje,
-  ne `localStorage`'e). „Parts" šaka toje pačioje formoje jau perkelta.
-
-Abi veikia; perkėlimas būtų tvarkymasis, ne taisymas.
-
-**Naujose formose šio kodo nekartoti** — naudoti `data-unit-field`.
+**Nebeliko nė vienos.** Visos formos, paieškos panelės ir skelbimo peržiūra
+naudoja `static/js/unit_toggle.js`. Jei kur nors pamatysi `setPowerUnit()`,
+`UNIT_CONFIG`, `_display` + `hidden` laukų porą ar `*_unit` URL parametrą —
+tai grįžęs senas kodas, ne veikianti sistema.
 
 ### 1.8 Testai
 

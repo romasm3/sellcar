@@ -37,24 +37,6 @@
 .adv-range span { color: #9ca3af; font-size: 0.75rem; }
 .adv-range .adv-input, .adv-range .adv-select { flex: 1; min-width: 0; }
 
-.unit-toggle {
-    display: inline-flex;
-    border: 1px solid #d1d5db;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-left: 4px;
-    vertical-align: middle;
-}
-.unit-toggle button {
-    padding: 1px 7px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    background: #f9fafb;
-    color: #6b7280;
-}
-.unit-toggle button.active { background: #4b5563; color: #fff; }
 
 .bm-add-link {
     color: #f97316;
@@ -164,15 +146,6 @@
 <input type="hidden" name="sidebar" value="1">
 <div id="bmInputs"></div>
 <div id="compatVehicleInputs"></div>
-<input type="hidden" name="mileage_min" id="mileageMinKm" value="{{ f.mileage_min }}">
-<input type="hidden" name="mileage_max" id="mileageMaxKm" value="{{ f.mileage_max }}">
-<input type="hidden" name="mileage_unit" id="mileageUnitHidden" value="{{ f.mileage_unit|default:'km' }}">
-<input type="hidden" name="power_min" id="powerMinKw" value="{{ f.power_min }}">
-<input type="hidden" name="power_max" id="powerMaxKw" value="{{ f.power_max }}">
-<input type="hidden" name="power_unit" id="powerUnitHidden" value="{{ f.power_unit|default:'kw' }}">
-<input type="hidden" name="engine_min" id="engineMinL" value="{{ f.engine_min }}">
-<input type="hidden" name="engine_max" id="engineMaxL" value="{{ f.engine_max }}">
-<input type="hidden" name="engine_unit" id="engineUnitHidden" value="{{ f.engine_unit|default:'l' }}">
 
 {% if f.category != 'parts' %}
 <!-- ═══ CARS / DEFAULT — Autogidas-style 3-column layout ═══ -->
@@ -259,45 +232,33 @@
         <div class="adv-field">
             <label style="display:flex; align-items:center; gap:4px;">
                 {% trans "Mileage" %}
-                <div class="unit-toggle">
-                    <button type="button" id="btnKm" onclick="setMileageUnit('km')" class="active">{% trans "km" %}</button>
-                    <button type="button" id="btnMi" onclick="setMileageUnit('mi')">{% trans "mi" %}</button>
-                </div>
             </label>
             <div class="adv-range">
-                <input type="number" id="mileageMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min }}">
+                <input type="number" name="mileage_min" data-unit-field="mileage" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.mileage_min }}">
                 <span>–</span>
-                <input type="number" id="mileageMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max }}">
+                <input type="number" name="mileage_max" data-unit-field="mileage" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.mileage_max }}">
             </div>
         </div>
 
         <div class="adv-field">
             <label style="display:flex; align-items:center; gap:4px;">
                 {% trans "Engine" %}
-                <div class="unit-toggle">
-                    <button type="button" id="btnL" onclick="setEngineUnit('l')" class="active">L</button>
-                    <button type="button" id="btnCm3" onclick="setEngineUnit('cm3')">cm³</button>
-                </div>
             </label>
             <div class="adv-range">
-                <input type="number" id="engineMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" step="0.1" value="{{ f.engine_min }}">
+                <input type="number" name="engine_min" data-unit-field="engine_capacity" class="adv-input" placeholder="{% trans 'From' %}" step="0.1" value="{{ f.engine_min }}">
                 <span>–</span>
-                <input type="number" id="engineMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" step="0.1" value="{{ f.engine_max }}">
+                <input type="number" name="engine_max" data-unit-field="engine_capacity" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" step="0.1" value="{{ f.engine_max }}">
             </div>
         </div>
 
         <div class="adv-field">
             <label style="display:flex; align-items:center; gap:4px;">
                 {% trans "Power" %}
-                <div class="unit-toggle">
-                    <button type="button" id="btnKw" onclick="setPowerUnit('kw')" class="active">kW</button>
-                    <button type="button" id="btnHp" onclick="setPowerUnit('hp')">HP</button>
-                </div>
             </label>
             <div class="adv-range">
-                <input type="number" id="powerMinDisplay" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min }}">
+                <input type="number" name="power_min" data-unit-field="power" class="adv-input" placeholder="{% trans 'From' %}" value="{{ f.power_min }}">
                 <span>–</span>
-                <input type="number" id="powerMaxDisplay" class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max }}">
+                <input type="number" name="power_max" data-unit-field="power" data-unit-quiet class="adv-input" placeholder="{% trans 'To' %}" value="{{ f.power_max }}">
             </div>
         </div>
 
@@ -1011,69 +972,7 @@ function clearAllFilters() {
     window.location.href = '/search/advanced/{% if f.category %}?category={{ f.category }}{% endif %}';
 }
 
-var mileageInMiles = false;
-var powerInHp = false;
-var engineInCm3 = false;
-var KM_TO_MI = 0.621371, MI_TO_KM = 1.60934;
-var KW_TO_HP = 1.34102, HP_TO_KW = 0.7457;
-var L_TO_CM3 = 1000, CM3_TO_L = 0.001;
-
-function setBtn(activeId, inactiveId) {
-    var a = document.getElementById(activeId);
-    var b = document.getElementById(inactiveId);
-    if (a) a.classList.add('active');
-    if (b) b.classList.remove('active');
-}
-
-function setMileageUnit(unit) {
-    var a = document.getElementById('mileageMinDisplay'), b = document.getElementById('mileageMaxDisplay');
-    if (!a || !b) return;
-    if (unit === 'mi' && !mileageInMiles) {
-        mileageInMiles = true;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * KM_TO_MI);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * KM_TO_MI);
-        setBtn('btnMi', 'btnKm');
-    } else if (unit === 'km' && mileageInMiles) {
-        mileageInMiles = false;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * MI_TO_KM);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * MI_TO_KM);
-        setBtn('btnKm', 'btnMi');
-    }
-}
-
-function setPowerUnit(unit) {
-    var a = document.getElementById('powerMinDisplay'), b = document.getElementById('powerMaxDisplay');
-    if (!a || !b) return;
-    if (unit === 'hp' && !powerInHp) {
-        powerInHp = true;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * KW_TO_HP);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * KW_TO_HP);
-        setBtn('btnHp', 'btnKw');
-    } else if (unit === 'kw' && powerInHp) {
-        powerInHp = false;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * HP_TO_KW);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * HP_TO_KW);
-        setBtn('btnKw', 'btnHp');
-    }
-}
-
-function setEngineUnit(unit) {
-    var a = document.getElementById('engineMinDisplay'), b = document.getElementById('engineMaxDisplay');
-    if (!a || !b) return;
-    if (unit === 'cm3' && !engineInCm3) {
-        engineInCm3 = true;
-        if (a.value) a.value = Math.round(parseFloat(a.value) * L_TO_CM3);
-        if (b.value) b.value = Math.round(parseFloat(b.value) * L_TO_CM3);
-        a.removeAttribute('step'); b.removeAttribute('step');
-        setBtn('btnCm3', 'btnL');
-    } else if (unit === 'l' && engineInCm3) {
-        engineInCm3 = false;
-        if (a.value) a.value = (parseFloat(a.value) * CM3_TO_L).toFixed(1);
-        if (b.value) b.value = (parseFloat(b.value) * CM3_TO_L).toFixed(1);
-        a.setAttribute('step', '0.1'); b.setAttribute('step', '0.1');
-        setBtn('btnL', 'btnCm3');
-    }
-}
+// Matavimo vienetų perjungikliai — static/js/unit_toggle.js (bendras)
 
 // ═══ Cars Brand+Model rows ═══
 var bmRowCounter = 1;
@@ -1372,56 +1271,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateAdvBodyTypeLabel();
 
-    if (params.get('mileage_unit') === 'mi' && document.getElementById('mileageMinDisplay')) {
-        mileageInMiles = true;
-        var minV = document.getElementById('mileageMinDisplay').value;
-        var maxV = document.getElementById('mileageMaxDisplay').value;
-        if (minV) document.getElementById('mileageMinDisplay').value = Math.round(minV * KM_TO_MI);
-        if (maxV) document.getElementById('mileageMaxDisplay').value = Math.round(maxV * KM_TO_MI);
-        setBtn('btnMi', 'btnKm');
-    }
-    if (params.get('power_unit') === 'hp' && document.getElementById('powerMinDisplay')) {
-        powerInHp = true;
-        var minV = document.getElementById('powerMinDisplay').value;
-        var maxV = document.getElementById('powerMaxDisplay').value;
-        if (minV) document.getElementById('powerMinDisplay').value = Math.round(minV * KW_TO_HP);
-        if (maxV) document.getElementById('powerMaxDisplay').value = Math.round(maxV * KW_TO_HP);
-        setBtn('btnHp', 'btnKw');
-    }
-    if (params.get('engine_unit') === 'cm3' && document.getElementById('engineMinDisplay')) {
-        engineInCm3 = true;
-        var minV = document.getElementById('engineMinDisplay').value;
-        var maxV = document.getElementById('engineMaxDisplay').value;
-        if (minV) document.getElementById('engineMinDisplay').value = Math.round(minV * L_TO_CM3);
-        if (maxV) document.getElementById('engineMaxDisplay').value = Math.round(maxV * L_TO_CM3);
-        document.getElementById('engineMinDisplay').removeAttribute('step');
-        document.getElementById('engineMaxDisplay').removeAttribute('step');
-        setBtn('btnCm3', 'btnL');
-    }
 });
 
 function prepareSubmit() {
-    var mA = document.getElementById('mileageMinDisplay'), mB = document.getElementById('mileageMaxDisplay');
-    if (mA && mB) {
-        document.getElementById('mileageMinKm').value = mA.value ? (mileageInMiles ? Math.round(parseFloat(mA.value) * MI_TO_KM) : mA.value) : '';
-        document.getElementById('mileageMaxKm').value = mB.value ? (mileageInMiles ? Math.round(parseFloat(mB.value) * MI_TO_KM) : mB.value) : '';
-        document.getElementById('mileageUnitHidden').value = mileageInMiles ? 'mi' : 'km';
-    }
-
-    var pA = document.getElementById('powerMinDisplay'), pB = document.getElementById('powerMaxDisplay');
-    if (pA && pB) {
-        document.getElementById('powerMinKw').value = pA.value ? (powerInHp ? Math.round(parseFloat(pA.value) * HP_TO_KW) : pA.value) : '';
-        document.getElementById('powerMaxKw').value = pB.value ? (powerInHp ? Math.round(parseFloat(pB.value) * HP_TO_KW) : pB.value) : '';
-        document.getElementById('powerUnitHidden').value = powerInHp ? 'hp' : 'kw';
-    }
-
-    var eA = document.getElementById('engineMinDisplay'), eB = document.getElementById('engineMaxDisplay');
-    if (eA && eB) {
-        document.getElementById('engineMinL').value = eA.value ? (engineInCm3 ? (parseFloat(eA.value) * CM3_TO_L).toFixed(1) : eA.value) : '';
-        document.getElementById('engineMaxL').value = eB.value ? (engineInCm3 ? (parseFloat(eB.value) * CM3_TO_L).toFixed(1) : eB.value) : '';
-        document.getElementById('engineUnitHidden').value = engineInCm3 ? 'cm3' : 'l';
-    }
-
     var bmInputs = document.getElementById('bmInputs');
     if (bmInputs) {
         bmInputs.innerHTML = '';
