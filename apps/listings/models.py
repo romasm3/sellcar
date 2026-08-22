@@ -2329,6 +2329,8 @@ class SavedSearch(models.Model):
     query_params = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     notify_email = models.BooleanField(default=False)
+    # „Gauti ekrane" — ar rodyti „+N nauji" žymą sąraše ir juostoje
+    notify_onsite = models.BooleanField(default=True)
     last_viewed_at = models.DateTimeField(null=True, blank=True)
     track_price_drop = models.BooleanField(default=False)
     last_checked_at = models.DateTimeField(null=True, blank=True)

@@ -1257,6 +1257,7 @@ def _paieskos_eilutes(request, limit=None):
             'viso': viso,
             'nauji': nauji,
             'notify': bool(getattr(s, 'notify_email', False)),
+            'ekrane': bool(getattr(s, 'notify_onsite', True)),
             'url': '/?' + _qs + '&sidebar=1&search_id=' + str(s.pk),
             'redaguoti': '/?' + _qs + '&sidebar=1',
         })
@@ -3819,6 +3820,25 @@ def toggle_search_notify(request, pk):
     search = get_object_or_404(SavedSearch, pk=pk, user=request.user)
     search.notify_email = not search.notify_email
     search.save()
+    return _atgal(request)
+
+
+@login_required
+def toggle_search_onsite(request, pk):
+    """„Gauti ekrane" — ar rodom „+N nauji" žymą šiai paieškai."""
+    from .models import SavedSearch
+    search = get_object_or_404(SavedSearch, pk=pk, user=request.user)
+    search.notify_onsite = not search.notify_onsite
+    search.save(update_fields=['notify_onsite'])
+    return _atgal(request)
+
+
+@login_required
+def delete_all_searches(request):
+    """„Ištrinti viską" išsaugotų paieškų skirtuke — tik POST."""
+    from .models import SavedSearch
+    if request.method == 'POST':
+        SavedSearch.objects.filter(user=request.user).delete()
     return _atgal(request)
 
 

@@ -4,76 +4,109 @@
 {% block title %}{% trans "Mano paieškos" %} - AutoLeft{% endblock %}
 
 {% comment %}
-„MANO PAIEŠKOS" PUSLAPIS.
+„MANO PAIEŠKOS" (/searches/).
 
-Iš etalono: du skirtukai, eilutės sandara, „+N nauji" logika, veiksmai,
-paskutinės įrašomos automatiškai atlikus paiešką su bent vienu filtru
-(apps/listings/search_history.py).
+CSS ir eilutės sandara — iš patvirtinto demo (šeši langeliai tinklelyje,
+32 px skiriamosios linijos tarp jų, „+N nauji" virš bendro skaičiaus).
+Viena vienintelė pataisa demo tekste: --success-br mūsų dizaino sistemoje
+vadinasi --success-border (docs/dizaino-sistema.md), spalva ta pati.
 
-Iš demo: ištisa 72 px eilutė, trumpos 32 px skiriamosios linijos centre,
-„+N nauji" žyma VIRŠ skaičiaus (abu centruoti), filtrų santrauka viena
-eilute su daugtaškiu, „Ištrinti viską" antrinis mygtukas, tuščia būsena
-su paaiškinimu, telefone eilutė virsta bloku. Reklamjuostės nėra.
-
-Spalvos ir matmenys — tik iš docs/dizaino-sistema.md kintamųjų.
+Duomenys — _paieskos_eilutes(): tas pats šaltinis kaip pagrindinio
+puslapio juosta, todėl skaičiai ten ir čia negali prasilenkti.
 {% endcomment %}
 
 {% block content %}
-<div class="sp-page">
-  <div class="sp-wrap" x-data="{ tab: '{% if eilutes %}issaugotos{% else %}paskutines{% endif %}' }">
+<div class="ms-page">
+  <div class="ms-wrap" x-data="{ tab: '{% if not eilutes and paskutines %}paskutines{% else %}issaugotos{% endif %}' }">
 
-    <div class="sp-top">
-      <h1 class="sp-h1">{% trans "Mano paieškos" %}</h1>
-      <div class="sp-tabs">
-        <button type="button" class="sp-tab" :class="tab === 'issaugotos' && 'is-on'"
-                @click="tab = 'issaugotos'">
-          {% trans "Išsaugotos" %} ({{ eilutes|length }})
-        </button>
-        <button type="button" class="sp-tab" :class="tab === 'paskutines' && 'is-on'"
-                @click="tab = 'paskutines'">
-          {% trans "Paskutinės" %} ({{ paskutines|length }})
-        </button>
+    <nav class="ms-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+      <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+      <span>/</span>
+      <span class="ms-crumb-on">{% trans "Mano paieškos" %}</span>
+    </nav>
+
+    <h1 class="ms-h1">
+      {% trans "Mano paieškos" %}
+      <span class="ms-h1-num">({{ eilutes|length }})</span>
+    </h1>
+
+    <div class="ms-bar">
+      <div class="ms-tabs">
+        <button type="button" class="tab" :class="tab === 'issaugotos' && 'is-active'"
+                @click="tab = 'issaugotos'">{% trans "Išsaugotos" %} ({{ eilutes|length }})</button>
+        <button type="button" class="tab" :class="tab === 'paskutines' && 'is-active'"
+                @click="tab = 'paskutines'">{% trans "Paskutinės" %} ({{ paskutines|length }})</button>
+      </div>
+
+      {% comment %}„Ištrinti viską" — antrinis mygtukas, veikia tą skirtuką,
+      kuris atidarytas.{% endcomment %}
+      <div class="ms-clear">
+        {% if eilutes %}
+        <form method="post" action="{% url 'delete_all_searches' %}" x-show="tab === 'issaugotos'" x-cloak>
+          {% csrf_token %}
+          <button type="submit" class="btn2">{% trans "Ištrinti viską" %}</button>
+        </form>
+        {% endif %}
+        {% if paskutines %}
+        <form method="post" action="{% url 'clear_recent_searches' %}" x-show="tab === 'paskutines'" x-cloak>
+          {% csrf_token %}
+          <button type="submit" class="btn2">{% trans "Ištrinti viską" %}</button>
+        </form>
+        {% endif %}
       </div>
     </div>
 
-    {# ══════════ IŠSAUGOTOS ══════════ #}
+    {# ═══════════ IŠSAUGOTOS ═══════════ #}
     <div x-show="tab === 'issaugotos'" x-cloak>
       {% if eilutes %}
-      <div class="sp-card">
+      <div class="card">
         {% for e in eilutes %}
-        {% if not forloop.first %}<div class="sp-div"><span></span></div>{% endif %}
-        <div class="sp-row">
-          <a class="sp-row-txt" href="{{ e.url }}">
-            <span class="sp-row-name">{{ e.pavadinimas }}</span>
-            <span class="sp-row-sum">{{ e.santrauka }}</span>
-          </a>
-
-          {% comment %}Skaičiai: žyma virš skaičiaus, abu centruoti.{% endcomment %}
-          <div class="sp-row-num">
-            {% if e.nauji %}<span class="sp-new">+{{ e.nauji }} {% trans "nauji" %}</span>{% endif %}
-            <span class="sp-total">{{ e.viso }}</span>
+        <div class="row">
+          <div class="cell-q">
+            <a class="q-title" href="{{ e.url }}">{{ e.pavadinimas }}</a>
+            <div class="q-sum">{{ e.santrauka }}</div>
           </div>
 
-          <div class="sp-row-act">
-            <a class="sp-ico" href="{{ e.redaguoti }}" title="{% trans 'Redaguoti' %}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20h4l10-10-4-4L4 16zM14 6l4 4"/></svg>
-            </a>
+          <div class="counts">
+            {% comment %}Žyma tik kai naujų iš tikrųjų yra — niekada su nuliu.{% endcomment %}
+            {% if e.ekrane and e.nauji %}
+            <span class="badge">+{{ e.nauji }} {% trans "nauji" %}</span>
+            {% endif %}
+            <span class="total">{{ e.viso }}</span>
+          </div>
+
+          <div class="opt">
+            <form method="post" action="{% url 'toggle_search_onsite' e.id %}">
+              {% csrf_token %}
+              <button type="submit" class="sw{% if e.ekrane %} on{% endif %}"
+                      aria-label="{% trans 'Gauti ekrane' %}"></button>
+            </form>
+            <span>{% trans "Gauti ekrane" %}</span>
+            <span class="info" title="{% trans 'Naujus skelbimus žymėsime žalia žyma šiame sąraše' %}">i</span>
+          </div>
+
+          <div class="opt">
             <form method="post" action="{% url 'toggle_search_notify' e.id %}">
               {% csrf_token %}
-              <button type="submit" class="sp-ico{% if e.notify %} is-on{% endif %}" title="{% trans 'El. laiškų priminimai' %}">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
-              </button>
+              <button type="submit" class="sw{% if e.notify %} on{% endif %}"
+                      aria-label="{% trans 'Gauti el. paštu' %}"></button>
             </form>
-            <form method="post" action="{% url 'duplicate_search' e.id %}">
-              {% csrf_token %}
-              <button type="submit" class="sp-ico" title="{% trans 'Dublikuoti' %}">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path stroke-linecap="round" d="M5 15V6a1 1 0 011-1h9"/></svg>
-              </button>
-            </form>
+            <span>{% trans "Gauti el. paštu" %}</span>
+          </div>
+
+          <div>
+            <a class="act" href="{{ e.redaguoti }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20h4l10-10-4-4L4 16zM14 6l4 4"/></svg>
+              {% trans "Redaguoti" %}
+            </a>
+          </div>
+
+          <div>
             <form method="post" action="{% url 'delete_search' e.id %}">
               {% csrf_token %}
-              <button type="submit" class="sp-ico" title="{% trans 'Ištrinti' %}">
+              <button type="submit" class="act danger">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                {% trans "Trinti" %}
               </button>
             </form>
           </div>
@@ -81,39 +114,36 @@ Spalvos ir matmenys — tik iš docs/dizaino-sistema.md kintamųjų.
         {% endfor %}
       </div>
       {% else %}
-      <div class="sp-card sp-empty">
-        <h2>{% trans "Išsaugotų paieškų dar nėra" %}</h2>
-        <p>{% trans "Atlikite paiešką ir paspauskite mygtuką „Išsaugoti paiešką“ — tada čia matysite, kiek naujų skelbimų atsirado nuo paskutinio karto." %}</p>
-        <a class="sp-btn2" href="{% url 'home' %}">{% trans "Ieškoti skelbimų" %}</a>
+      <div class="card">
+        <div class="empty">
+          <svg class="empty-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h12a1 1 0 011 1v15l-7-4-7 4V5a1 1 0 011-1z"/></svg>
+          <h2>{% trans "Išsaugotų paieškų nėra" %}</h2>
+          <p>{% trans "Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras naujų skelbimų." %}</p>
+        </div>
       </div>
       {% endif %}
     </div>
 
-    {# ══════════ PASKUTINĖS ══════════ #}
+    {# ═══════════ PASKUTINĖS ═══════════ #}
     <div x-show="tab === 'paskutines'" x-cloak>
       {% if paskutines %}
-      <div class="sp-card">
+      <div class="card">
         {% for e in paskutines %}
-        {% if not forloop.first %}<div class="sp-div"><span></span></div>{% endif %}
-        <div class="sp-row">
-          <a class="sp-row-txt" href="/?{{ e.params }}&amp;sidebar=1">
-            <span class="sp-row-name">{{ e.pavadinimas|default:_("Paieška") }}</span>
-            <span class="sp-row-sum">{{ e.kategorija }}</span>
-          </a>
+        <div class="row row-recent">
+          <div class="cell-q">
+            <a class="q-title" href="/?{{ e.params }}&amp;sidebar=1">{{ e.pavadinimas|default:_("Paieška") }}</a>
+            <div class="q-sum">{{ e.kategorija }}</div>
+          </div>
         </div>
         {% endfor %}
       </div>
-      <div class="sp-foot">
-        <form method="post" action="{% url 'clear_recent_searches' %}">
-          {% csrf_token %}
-          <button type="submit" class="sp-btn2">{% trans "Ištrinti viską" %}</button>
-        </form>
-      </div>
       {% else %}
-      <div class="sp-card sp-empty">
-        <h2>{% trans "Paskutinių paieškų nėra" %}</h2>
-        <p>{% trans "Kai atliksite paiešką su bent vienu filtru, ji atsiras čia — prisijungti nebūtina." %}</p>
-        <a class="sp-btn2" href="{% url 'home' %}">{% trans "Ieškoti skelbimų" %}</a>
+      <div class="card">
+        <div class="empty">
+          <svg class="empty-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2M21 12a9 9 0 11-9-9 9 9 0 019 9z"/></svg>
+          <h2>{% trans "Paskutinių paieškų nėra" %}</h2>
+          <p>{% trans "Kai atliksite paiešką su bent vienu filtru, ji atsiras čia — prisijungti nebūtina." %}</p>
+        </div>
       </div>
       {% endif %}
     </div>
@@ -121,75 +151,106 @@ Spalvos ir matmenys — tik iš docs/dizaino-sistema.md kintamųjų.
 </div>
 
 <style>
-  .sp-page { background: var(--surface-muted); min-height: 60vh; padding: var(--sp-8) 0 var(--sp-16); }
-  .sp-wrap { max-width: 960px; margin: 0 auto; padding: 0 var(--sp-4); }
-  .sp-top { display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: var(--sp-3); margin-bottom: var(--sp-4); }
-  .sp-h1 { font-size: var(--fs-2xl); font-weight: var(--fw-bold); color: var(--text); }
-  .sp-tabs { display: flex; gap: var(--sp-2); }
-  .sp-tab { height: var(--btn-h-sm); padding: 0 var(--sp-3);
-            border: 1px solid var(--border); border-radius: var(--r-md);
-            background: var(--surface); font-size: var(--fs-sm);
-            font-weight: var(--fw-medium); color: var(--text-muted); cursor: pointer;
-            transition: border-color var(--dur), color var(--dur); }
-  .sp-tab:hover { border-color: var(--border-hover); color: var(--text); }
-  .sp-tab.is-on { border-color: var(--accent); color: var(--accent); font-weight: var(--fw-semibold); }
+  .ms-page { background: var(--surface-muted); min-height: 60vh; padding: var(--sp-6) 0 var(--sp-16); }
+  .ms-wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--sp-4); }
+  .ms-crumbs { display: flex; align-items: center; gap: var(--sp-2);
+               font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-3); }
+  .ms-crumbs a { color: var(--text-muted); text-decoration: none; }
+  .ms-crumbs a:hover { color: var(--text); text-decoration: underline; }
+  .ms-crumb-on { color: var(--text); }
+  .ms-h1 { font-size: var(--fs-2xl); font-weight: var(--fw-bold); color: var(--text);
+           margin-bottom: var(--sp-4); }
+  .ms-h1-num { color: var(--text-muted); font-weight: var(--fw-medium); }
+  .ms-bar { display: flex; align-items: center; justify-content: space-between;
+            gap: var(--sp-4); margin-bottom: var(--sp-3);
+            border-bottom: 1px solid var(--border); }
+  .ms-tabs { display: flex; gap: var(--sp-6); }
+  .ms-clear { padding-bottom: var(--sp-2); }
+  .btn2 { display: inline-flex; align-items: center; height: var(--btn-h-sm);
+          padding: 0 var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-md);
+          background: var(--surface); color: var(--text-muted);
+          font-size: var(--fs-sm); font-weight: var(--fw-medium); cursor: pointer;
+          transition: border-color var(--dur), color var(--dur); }
+  .btn2:hover { border-color: var(--border-hover); color: var(--text); }
 
-  .sp-card { background: var(--surface); border: 1px solid var(--border);
-             border-radius: var(--r-md); overflow: hidden; }
-  /* Eilutė — ištisa, 72 px */
-  .sp-row { display: flex; align-items: center; gap: var(--sp-4);
-            height: 72px; padding: 0 var(--sp-4); }
-  .sp-row-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column;
-                gap: 2px; text-decoration: none; }
-  .sp-row-name { font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--text);
-                 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  /* Santrauka — viena eilutė su daugtaškiu */
-  .sp-row-sum { font-size: var(--fs-sm); color: var(--text-muted);
-                overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .sp-row-num { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center;
-                gap: var(--sp-1); min-width: 96px; }
-  .sp-new { font-size: var(--fs-xs); font-weight: var(--fw-medium); color: var(--success);
-            background: var(--success-bg); border: 1px solid var(--success-border);
-            border-radius: var(--badge-r); padding: var(--badge-pad); line-height: 1.5;
-            white-space: nowrap; }
-  .sp-total { font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--text); }
-  .sp-row-act { flex: 0 0 auto; display: flex; align-items: center; gap: var(--sp-1); }
-  .sp-ico { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-md);
-            border: 1px solid transparent; background: none; color: var(--text-muted);
-            display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
-            transition: color var(--dur), border-color var(--dur); }
-  .sp-ico:hover { color: var(--text); border-color: var(--border); }
-  .sp-ico.is-on { color: var(--success); border-color: var(--success-border); background: var(--success-bg); }
-  .sp-ico svg { width: 18px; height: 18px; }
+  /* ─── demo CSS ─── */
+  .card{background:var(--surface);border:1px solid var(--border);
+    border-radius:8px;overflow:hidden}
 
-  /* Trumpa skiriamoji linija — 32 px, centre */
-  .sp-div { display: flex; justify-content: center; }
-  .sp-div span { display: block; width: 32px; height: 1px; background: var(--border); }
+  .row{display:grid;
+    grid-template-columns:minmax(0,1fr) 120px 152px 152px 124px 92px;
+    align-items:center;padding:0;border-top:1px solid var(--border);
+    min-height:72px}
+  .row:first-child{border-top:0}
+  .row:hover{background:var(--surface-muted)}
+  .row > *{padding:12px 16px;display:flex;align-items:center;position:relative}
+  .row > * + *::before{content:"";position:absolute;left:0;top:50%;
+    transform:translateY(-50%);width:1px;height:32px;background:var(--border)}
+  .row > .cell-q{display:block}
+  /* Paskutinės — tik pavadinimas, todėl viena skiltis */
+  .row-recent{grid-template-columns:minmax(0,1fr)}
 
-  .sp-foot { display: flex; justify-content: flex-end; margin-top: var(--sp-3); }
-  .sp-btn2 { display: inline-flex; align-items: center; height: var(--btn-h-sm);
-             padding: 0 var(--sp-4); border: 1px solid var(--accent); border-radius: var(--r-md);
-             background: var(--surface); color: var(--accent);
-             font-size: var(--fs-sm); font-weight: var(--fw-semibold);
-             text-decoration: none; cursor: pointer; transition: background-color var(--dur); }
-  .sp-btn2:hover { background: var(--accent-soft); }
+  .q-title{font-size:16px;font-weight:600;color:var(--text);text-decoration:none}
+  .q-title:hover{color:var(--accent);text-decoration:underline}
+  .q-sum{margin-top:2px;font-size:14px;color:var(--text-muted);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-  .sp-empty { padding: var(--sp-8) var(--sp-4); text-align: center; }
-  .sp-empty h2 { font-size: var(--fs-lg); font-weight: var(--fw-semibold);
-                 color: var(--text); margin-bottom: var(--sp-2); }
-  .sp-empty p { font-size: var(--fs-sm); color: var(--text-muted);
-                max-width: 460px; margin: 0 auto var(--sp-4); }
+  .counts{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}
+  .badge{display:inline-flex;align-items:center;border-radius:16px;font-size:12px;
+    font-weight:500;line-height:1.5;padding:2px 8px;color:var(--success);
+    background:var(--success-bg);border:1px solid var(--success-border)}
+  .total{font-size:14px;color:var(--text-muted);font-weight:500}
 
-  /* Telefone eilutė virsta bloku */
-  @media (max-width: 1023px) {
-    .sp-row { height: auto; flex-wrap: wrap; align-items: flex-start;
-              gap: var(--sp-2); padding: var(--sp-3) var(--sp-3) var(--sp-4); }
-    .sp-row-txt { flex: 1 1 100%; }
-    /* Skaičius ir žyma lieka stulpeliu ir centruoti, kaip demo — keičiasi
-       tik eilutės kryptis, ne skaičių blokas. */
-    .sp-row-num { align-items: center; min-width: 0; }
-    .sp-row-act { margin-left: auto; }
+  .opt{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-muted)}
+  .sw{width:34px;height:20px;border-radius:999px;background:#D1D5DB;position:relative;
+    flex:none;cursor:pointer;transition:.2s;border:0}
+  .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;
+    border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .sw.on{background:var(--accent)}
+  .sw.on::after{transform:translateX(14px)}
+  .info{width:14px;height:14px;border-radius:50%;border:1px solid var(--border-hover);
+    color:var(--text-disabled);font-size:10px;display:inline-flex;
+    align-items:center;justify-content:center;flex:none}
+
+  .act{display:inline-flex;align-items:center;gap:8px;font-size:14px;
+    color:var(--text-muted);background:none;border:0;cursor:pointer;padding:0;transition:.2s;
+    text-decoration:none}
+  .act:hover{color:var(--text)}
+  .act.danger:hover{color:var(--danger)}
+  .act svg{width:16px;height:16px;flex:none}
+
+  .tab{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:16px;
+    font-weight:500;color:var(--text-muted);border-bottom:2px solid transparent;
+    background:none;border-top:0;border-left:0;border-right:0;cursor:pointer;transition:.2s}
+  .tab:hover{color:var(--text)}
+  .tab.is-active{color:var(--text);font-weight:600;border-bottom-color:var(--accent)}
+
+  .empty{padding:40px 16px;text-align:center;color:var(--text-muted);font-size:14px}
+  .empty-ico{width:40px;height:40px;color:var(--text-disabled);margin:0 auto var(--sp-3)}
+  .empty h2{font-size:var(--fs-lg);font-weight:var(--fw-semibold);color:var(--text);
+    margin-bottom:var(--sp-2)}
+  .empty p{max-width:460px;margin:0 auto}
+
+  @media (max-width:900px){
+    /* Eilutė virsta bloku: viršuje pavadinimas ir skaičiai (skaičiai
+       dešinėje), po jais jungikliai, apačioje už linijos — veiksmai. */
+    .row{grid-template-columns:minmax(0,1fr) auto;min-height:0;padding:var(--sp-1) 0 0}
+    .row > * + *::before{display:none}
+    .row > *{padding:8px 16px}
+    .row > .cell-q{grid-column:1}
+    .counts{grid-column:2;align-items:flex-end;width:auto}
+    .row > .opt{grid-column:1 / -1;padding-top:4px;padding-bottom:4px}
+    .row > *:nth-child(5), .row > *:nth-child(6){grid-row:5;padding-top:10px;padding-bottom:10px}
+    .row > *:nth-child(5){grid-column:1;border-top:1px solid var(--border);justify-content:flex-start}
+    .row > *:nth-child(6){grid-column:2;border-top:1px solid var(--border);justify-content:flex-end}
+    .row-recent{grid-template-columns:minmax(0,1fr)}
+
+    .ms-bar{flex-wrap:wrap}
+    .ms-tabs{gap:var(--sp-4)}
+    /* „Ištrinti viską" — per visą plotį pačioje apačioje */
+    .ms-clear{order:3;width:100%;padding-bottom:var(--sp-3)}
+    .ms-clear form{width:100%}
+    .ms-clear .btn2{width:100%;justify-content:center}
   }
 </style>
 {% endblock %}
