@@ -1,254 +1,195 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "Saved Searches" %} - AutoLeft{% endblock %}
+{% block title %}{% trans "Mano paieškos" %} - AutoLeft{% endblock %}
+
+{% comment %}
+„MANO PAIEŠKOS" PUSLAPIS.
+
+Iš etalono: du skirtukai, eilutės sandara, „+N nauji" logika, veiksmai,
+paskutinės įrašomos automatiškai atlikus paiešką su bent vienu filtru
+(apps/listings/search_history.py).
+
+Iš demo: ištisa 72 px eilutė, trumpos 32 px skiriamosios linijos centre,
+„+N nauji" žyma VIRŠ skaičiaus (abu centruoti), filtrų santrauka viena
+eilute su daugtaškiu, „Ištrinti viską" antrinis mygtukas, tuščia būsena
+su paaiškinimu, telefone eilutė virsta bloku. Reklamjuostės nėra.
+
+Spalvos ir matmenys — tik iš docs/dizaino-sistema.md kintamųjų.
+{% endcomment %}
+
 {% block content %}
+<div class="sp-page">
+  <div class="sp-wrap" x-data="{ tab: '{% if eilutes %}issaugotos{% else %}paskutines{% endif %}' }">
 
-<!-- Toast notification -->
-<div id="toast" class="fixed top-5 right-5 z-50 hidden">
-    <div id="toast-inner" class="flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white">
-        <i id="toast-icon" class="fas fa-check-circle text-base"></i>
-        <span id="toast-msg"></span>
+    <div class="sp-top">
+      <h1 class="sp-h1">{% trans "Mano paieškos" %}</h1>
+      <div class="sp-tabs">
+        <button type="button" class="sp-tab" :class="tab === 'issaugotos' && 'is-on'"
+                @click="tab = 'issaugotos'">
+          {% trans "Išsaugotos" %} ({{ eilutes|length }})
+        </button>
+        <button type="button" class="sp-tab" :class="tab === 'paskutines' && 'is-on'"
+                @click="tab = 'paskutines'">
+          {% trans "Paskutinės" %} ({{ paskutines|length }})
+        </button>
+      </div>
     </div>
-</div>
 
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-4xl mx-auto px-4">
-        <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">{% trans "My Searches" %}</h1>
-            <a href="{% url 'home' %}" class="text-primary hover:text-primary-dark text-sm font-medium">
-                &larr; {% trans "Back to listings" %}
+    {# ══════════ IŠSAUGOTOS ══════════ #}
+    <div x-show="tab === 'issaugotos'" x-cloak>
+      {% if eilutes %}
+      <div class="sp-card">
+        {% for e in eilutes %}
+        {% if not forloop.first %}<div class="sp-div"><span></span></div>{% endif %}
+        <div class="sp-row">
+          <a class="sp-row-txt" href="{{ e.url }}">
+            <span class="sp-row-name">{{ e.pavadinimas }}</span>
+            <span class="sp-row-sum">{{ e.santrauka }}</span>
+          </a>
+
+          {% comment %}Skaičiai: žyma virš skaičiaus, abu centruoti.{% endcomment %}
+          <div class="sp-row-num">
+            {% if e.nauji %}<span class="sp-new">+{{ e.nauji }} {% trans "nauji" %}</span>{% endif %}
+            <span class="sp-total">{{ e.viso }}</span>
+          </div>
+
+          <div class="sp-row-act">
+            <a class="sp-ico" href="{{ e.redaguoti }}" title="{% trans 'Redaguoti' %}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20h4l10-10-4-4L4 16zM14 6l4 4"/></svg>
             </a>
+            <form method="post" action="{% url 'toggle_search_notify' e.id %}">
+              {% csrf_token %}
+              <button type="submit" class="sp-ico{% if e.notify %} is-on{% endif %}" title="{% trans 'El. laiškų priminimai' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+              </button>
+            </form>
+            <form method="post" action="{% url 'duplicate_search' e.id %}">
+              {% csrf_token %}
+              <button type="submit" class="sp-ico" title="{% trans 'Dublikuoti' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path stroke-linecap="round" d="M5 15V6a1 1 0 011-1h9"/></svg>
+              </button>
+            </form>
+            <form method="post" action="{% url 'delete_search' e.id %}">
+              {% csrf_token %}
+              <button type="submit" class="sp-ico" title="{% trans 'Ištrinti' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+              </button>
+            </form>
+          </div>
         </div>
-
-        {% if messages %}
-        {% for message in messages %}
-        <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">{{ message }}</div>
         {% endfor %}
-        {% endif %}
-
-        {% if searches %}
-
-        <!-- Desktop Table -->
-        <div class="hidden md:block bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="grid grid-cols-12 gap-4 px-4 py-3 bg-gray-50 border-b border-gray-200 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                <div class="col-span-5">{% trans "Search" %}</div>
-                <div class="col-span-2 text-center">{% trans "Edit" %}</div>
-                <div class="col-span-2 text-center">{% trans "Email alerts" %}</div>
-                <div class="col-span-2 text-center">{% trans "Duplicate" %}</div>
-                <div class="col-span-1 text-center">{% trans "Delete" %}</div>
-            </div>
-
-            {% for search in searches %}
-            <div class="grid grid-cols-12 gap-4 px-4 py-4 border-b border-gray-100 hover:bg-gray-50 items-center last:border-b-0 cursor-pointer"
-                 data-search-pk="{{ search.pk }}"
-                 onclick="markViewed({{ search.pk }}, '{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}search_id={{ search.pk }}')">
-
-                <!-- Name -->
-                <div class="col-span-5 flex items-center gap-3">
-                    <div class="relative flex-shrink-0">
-                        <i class="{% if search.notify_email %}fas text-red-500{% else %}far text-gray-300{% endif %} fa-heart text-xl"></i>
-                        {% if search.new_count and search.new_count > 0 %}
-                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none search-badge">
-                            {{ search.new_count }}
-                        </span>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-900 text-sm">{{ search.name }}</p>
-                        <p class="text-xs text-gray-400 mt-0.5">
-                            {% if search.query_params.year_min %}{% blocktrans with y=search.query_params.year_min %}from {{ y }}{% endblocktrans %}{% endif %}
-                            {% if search.query_params.year_max %} {% blocktrans with y=search.query_params.year_max %}till {{ y }}{% endblocktrans %}{% endif %}
-                            {% if search.query_params.price_min or search.query_params.price_max %}
-                                , &euro;{% if search.query_params.price_min %}{{ search.query_params.price_min }}{% endif %}
-                                {% if search.query_params.price_max %} - &euro;{{ search.query_params.price_max }}{% endif %}
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Edit -->
-                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
-                    <a href="{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}sidebar=1"
-                       class="px-4 py-1.5 bg-gray-100 text-gray-600 text-sm rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
-                        <i class="fas fa-pencil-alt text-xs"></i> {% trans "Edit" %}
-                    </a>
-                </div>
-
-                <!-- Email toggle -->
-                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
-                    <form method="POST" action="{% url 'toggle_search_notify' search.pk %}"
-                          onsubmit="showToast(I18N.emailAlertsUpdated, 'success')">
-                        {% csrf_token %}
-                        <button type="submit" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {% if search.notify_email %}bg-primary{% else %}bg-gray-200{% endif %}">
-                            <span class="inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform {% if search.notify_email %}translate-x-6{% else %}translate-x-1{% endif %}"></span>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Duplicate -->
-                <div class="col-span-2 flex justify-center" onclick="event.stopPropagation()">
-                    <form method="POST" action="{% url 'duplicate_search' search.pk %}"
-                          onsubmit="showToast(I18N.searchDuplicated, 'success')">
-                        {% csrf_token %}
-                        <button type="submit" class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Delete (AJAX, instant) -->
-                <div class="col-span-1 flex justify-center" onclick="event.stopPropagation()">
-                    <button type="button"
-                            onclick="deleteSearch({{ search.pk }})"
-                            class="p-2 text-gray-300 hover:text-red-500 transition-colors">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <!-- Mobile Cards -->
-        <div class="md:hidden space-y-3">
-            {% for search in searches %}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 cursor-pointer"
-                 data-search-pk="{{ search.pk }}"
-                 onclick="markViewed({{ search.pk }}, '{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}search_id={{ search.pk }}')">
-                <div class="flex items-start justify-between mb-3">
-                    <div class="flex items-center gap-2">
-                        <div class="relative flex-shrink-0">
-                            <i class="{% if search.notify_email %}fas text-red-500{% else %}far text-gray-300{% endif %} fa-heart"></i>
-                            {% if search.new_count and search.new_count > 0 %}
-                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-0.5 leading-none search-badge">
-                                {{ search.new_count }}
-                            </span>
-                            {% endif %}
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900 text-sm">{{ search.name }}</p>
-                            <p class="text-xs text-gray-400">
-                                {% if search.query_params.year_min %}{% blocktrans with y=search.query_params.year_min %}from {{ y }}{% endblocktrans %}{% endif %}
-                                {% if search.query_params.year_max %} {% blocktrans with y=search.query_params.year_max %}till {{ y }}{% endblocktrans %}{% endif %}
-                                {% if search.query_params.price_min or search.query_params.price_max %}
-                                    , &euro;{% if search.query_params.price_min %}{{ search.query_params.price_min }}{% endif %}
-                                    {% if search.query_params.price_max %} - &euro;{{ search.query_params.price_max }}{% endif %}
-                                {% endif %}
-                            </p>
-                        </div>
-                    </div>
-                    <div onclick="event.stopPropagation()">
-                        <button type="button"
-                                onclick="deleteSearch({{ search.pk }})"
-                                class="text-gray-300 hover:text-red-500 transition-colors p-1">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 flex-wrap" onclick="event.stopPropagation()">
-                    <a href="{% url 'home' %}?{% for k, v in search.query_params.items %}{{ k }}={{ v }}&{% endfor %}sidebar=1"
-                       class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1">
-                        <i class="fas fa-pencil-alt text-xs"></i> {% trans "Edit" %}
-                    </a>
-                    <form method="POST" action="{% url 'toggle_search_notify' search.pk %}"
-                          onsubmit="showToast(I18N.emailAlertsUpdated, 'success')">
-                        {% csrf_token %}
-                        <button type="submit" class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
-                            <span class="relative inline-flex h-5 w-9 items-center rounded-full {% if search.notify_email %}bg-primary{% else %}bg-gray-200{% endif %}">
-                                <span class="inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform {% if search.notify_email %}translate-x-5{% else %}translate-x-1{% endif %}"></span>
-                            </span>
-                            <span>{% trans "Email" %}</span>
-                        </button>
-                    </form>
-                    <form method="POST" action="{% url 'duplicate_search' search.pk %}"
-                          onsubmit="showToast(I18N.searchDuplicated, 'success')">
-                        {% csrf_token %}
-                        <button type="submit" class="px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        {% else %}
-        <div class="bg-white rounded-xl p-12 text-center border border-gray-200">
-            <i class="fas fa-bell text-gray-300 text-5xl mb-4 block"></i>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{% trans "No saved searches" %}</h3>
-            <p class="text-gray-500 mb-6">{% trans "Save a search to quickly find listings matching your criteria" %}</p>
-            <a href="{% url 'home' %}" class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
-                {% trans "Browse Listings" %}
-            </a>
-        </div>
-        {% endif %}
+      </div>
+      {% else %}
+      <div class="sp-card sp-empty">
+        <h2>{% trans "Išsaugotų paieškų dar nėra" %}</h2>
+        <p>{% trans "Atlikite paiešką ir paspauskite mygtuką „Išsaugoti paiešką“ — tada čia matysite, kiek naujų skelbimų atsirado nuo paskutinio karto." %}</p>
+        <a class="sp-btn2" href="{% url 'home' %}">{% trans "Ieškoti skelbimų" %}</a>
+      </div>
+      {% endif %}
     </div>
+
+    {# ══════════ PASKUTINĖS ══════════ #}
+    <div x-show="tab === 'paskutines'" x-cloak>
+      {% if paskutines %}
+      <div class="sp-card">
+        {% for e in paskutines %}
+        {% if not forloop.first %}<div class="sp-div"><span></span></div>{% endif %}
+        <div class="sp-row">
+          <a class="sp-row-txt" href="/?{{ e.params }}&amp;sidebar=1">
+            <span class="sp-row-name">{{ e.pavadinimas|default:_("Paieška") }}</span>
+            <span class="sp-row-sum">{{ e.kategorija }}</span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="sp-foot">
+        <form method="post" action="{% url 'clear_recent_searches' %}">
+          {% csrf_token %}
+          <button type="submit" class="sp-btn2">{% trans "Ištrinti viską" %}</button>
+        </form>
+      </div>
+      {% else %}
+      <div class="sp-card sp-empty">
+        <h2>{% trans "Paskutinių paieškų nėra" %}</h2>
+        <p>{% trans "Kai atliksite paiešką su bent vienu filtru, ji atsiras čia — prisijungti nebūtina." %}</p>
+        <a class="sp-btn2" href="{% url 'home' %}">{% trans "Ieškoti skelbimų" %}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 </div>
 
-<script>
-// ─── i18n strings ───
-var I18N = {
-    emailAlertsUpdated: "{% trans 'Email alerts updated' %}",
-    searchDuplicated: "{% trans 'Search duplicated' %}"
-};
+<style>
+  .sp-page { background: var(--surface-muted); min-height: 60vh; padding: var(--sp-8) 0 var(--sp-16); }
+  .sp-wrap { max-width: 960px; margin: 0 auto; padding: 0 var(--sp-4); }
+  .sp-top { display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: var(--sp-3); margin-bottom: var(--sp-4); }
+  .sp-h1 { font-size: var(--fs-2xl); font-weight: var(--fw-bold); color: var(--text); }
+  .sp-tabs { display: flex; gap: var(--sp-2); }
+  .sp-tab { height: var(--btn-h-sm); padding: 0 var(--sp-3);
+            border: 1px solid var(--border); border-radius: var(--r-md);
+            background: var(--surface); font-size: var(--fs-sm);
+            font-weight: var(--fw-medium); color: var(--text-muted); cursor: pointer;
+            transition: border-color var(--dur), color var(--dur); }
+  .sp-tab:hover { border-color: var(--border-hover); color: var(--text); }
+  .sp-tab.is-on { border-color: var(--accent); color: var(--accent); font-weight: var(--fw-semibold); }
 
-function deleteSearch(pk) {
-    // Instant remove from DOM
-    var rows = document.querySelectorAll('[data-search-pk="' + pk + '"]');
-    rows.forEach(function(row) {
-        row.remove();
-    });
+  .sp-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: var(--r-md); overflow: hidden; }
+  /* Eilutė — ištisa, 72 px */
+  .sp-row { display: flex; align-items: center; gap: var(--sp-4);
+            height: 72px; padding: 0 var(--sp-4); }
+  .sp-row-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column;
+                gap: 2px; text-decoration: none; }
+  .sp-row-name { font-size: var(--fs-base); font-weight: var(--fw-semibold); color: var(--text);
+                 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* Santrauka — viena eilutė su daugtaškiu */
+  .sp-row-sum { font-size: var(--fs-sm); color: var(--text-muted);
+                overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sp-row-num { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center;
+                gap: var(--sp-1); min-width: 96px; }
+  .sp-new { font-size: var(--fs-xs); font-weight: var(--fw-medium); color: var(--success);
+            background: var(--success-bg); border: 1px solid var(--success-border);
+            border-radius: var(--badge-r); padding: var(--badge-pad); line-height: 1.5;
+            white-space: nowrap; }
+  .sp-total { font-size: var(--fs-lg); font-weight: var(--fw-bold); color: var(--text); }
+  .sp-row-act { flex: 0 0 auto; display: flex; align-items: center; gap: var(--sp-1); }
+  .sp-ico { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-md);
+            border: 1px solid transparent; background: none; color: var(--text-muted);
+            display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: color var(--dur), border-color var(--dur); }
+  .sp-ico:hover { color: var(--text); border-color: var(--border); }
+  .sp-ico.is-on { color: var(--success); border-color: var(--success-border); background: var(--success-bg); }
+  .sp-ico svg { width: 18px; height: 18px; }
 
-    // Async backend delete
-    fetch('/search/delete/' + pk + '/', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    }).catch(function() {});
-}
+  /* Trumpa skiriamoji linija — 32 px, centre */
+  .sp-div { display: flex; justify-content: center; }
+  .sp-div span { display: block; width: 32px; height: 1px; background: var(--border); }
 
-function markViewed(pk, url) {
-    // Vizualiai nusinulinti badge iš karto
-    var rows = document.querySelectorAll('[data-search-pk="' + pk + '"]');
-    rows.forEach(function(row) {
-        var badge = row.querySelector('.search-badge');
-        if (badge) badge.remove();
-    });
+  .sp-foot { display: flex; justify-content: flex-end; margin-top: var(--sp-3); }
+  .sp-btn2 { display: inline-flex; align-items: center; height: var(--btn-h-sm);
+             padding: 0 var(--sp-4); border: 1px solid var(--accent); border-radius: var(--r-md);
+             background: var(--surface); color: var(--accent);
+             font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+             text-decoration: none; cursor: pointer; transition: background-color var(--dur); }
+  .sp-btn2:hover { background: var(--accent-soft); }
 
-    fetch(`/search/${pk}/viewed/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest',
-        }
-    }).then(function() {
-        window.location = url + '&sidebar=1';
-    }).catch(function() {
-        window.location = url + '&sidebar=1';
-    });
-}
+  .sp-empty { padding: var(--sp-8) var(--sp-4); text-align: center; }
+  .sp-empty h2 { font-size: var(--fs-lg); font-weight: var(--fw-semibold);
+                 color: var(--text); margin-bottom: var(--sp-2); }
+  .sp-empty p { font-size: var(--fs-sm); color: var(--text-muted);
+                max-width: 460px; margin: 0 auto var(--sp-4); }
 
-function showToast(msg, type) {
-    const toast = document.getElementById('toast');
-    const inner = document.getElementById('toast-inner');
-    const icon = document.getElementById('toast-icon');
-    const text = document.getElementById('toast-msg');
-
-    text.textContent = msg;
-
-    if (type === 'success') {
-        inner.className = 'flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white bg-green-500';
-        icon.className = 'fas fa-check-circle text-base';
-    } else {
-        inner.className = 'flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium text-white bg-red-500';
-        icon.className = 'fas fa-times-circle text-base';
-    }
-
-    toast.classList.remove('hidden');
-    setTimeout(() => toast.classList.add('hidden'), 2500);
-}
-</script>
-
+  /* Telefone eilutė virsta bloku */
+  @media (max-width: 1023px) {
+    .sp-row { height: auto; flex-wrap: wrap; align-items: flex-start;
+              gap: var(--sp-2); padding: var(--sp-3) var(--sp-3) var(--sp-4); }
+    .sp-row-txt { flex: 1 1 100%; }
+    /* Skaičius ir žyma lieka stulpeliu ir centruoti, kaip demo — keičiasi
+       tik eilutės kryptis, ne skaičių blokas. */
+    .sp-row-num { align-items: flex-start; min-width: 0; }
+    .sp-row-act { margin-left: auto; }
+  }
+</style>
 {% endblock %}

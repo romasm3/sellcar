@@ -1,159 +1,127 @@
 {% load i18n %}{% comment %}
-„MANO PAIEŠKOS" — pagrindinio puslapio blokas.
+„MANO PAIEŠKOS" JUOSTA — pagrindiniame puslapyje, po paieškos panele
+(etalone būtent ten).
 
-Iš etalono paimta TIK struktūra: du skirtukai (išsaugotos / paskutinės),
-eilutės sandara, „+N nauji" logika, veiksmų mygtukai ir tai, kad
-paskutinės veikia ir neprisijungusiam.
+Kortelės slenkamos į šoną (scroll-snap), ‹ › mygtukai rodomi tik kai yra
+ką slinkti. Tai sąmoninga juosta savo konteineryje — puslapio ji
+neišplečia (SKILL.md išimtis).
 
-Dizainas — mūsų (docs/dizaino-sistema.md): jokios oranžinės, aktyvus
-skirtukas žymimas akcento spalva, „+N nauji" — --success ant šviesaus
-fono, „Ištrinti viską" — antrinis mygtukas, eilutės su rėmeliu kaip
-visos kitos kortelės. Etalono reklamjuostės nedarom.
+Neprisijungusiam ir kai paieškų nėra — sekcijos nerodom visai, ne
+tuščios. Duomenys iš _paieskos_eilutes(): tas pats šaltinis kaip
+/searches/ puslapyje.
+
+Spalvos ir matmenys — docs/dizaino-sistema.md. Jokios oranžinės.
 {% endcomment %}
-{% with issaug=mano_paieskos.issaugotos pask=mano_paieskos.paskutines %}
-<section class="ms-block" x-data="{ tab: '{% if issaug %}issaugotos{% else %}paskutines{% endif %}' }">
-  <div class="ms-head">
-    <h2 class="ms-title">{% trans "Mano paieškos" %}</h2>
-    <div class="ms-tabs">
-      <button type="button" class="ms-tab" :class="tab === 'issaugotos' && 'is-on'"
-              @click="tab = 'issaugotos'">
-        {% trans "Išsaugotos" %} <em>{{ issaug|length }}</em>
+{% with sar=mano_paieskos.issaugotos %}
+{% if user.is_authenticated and sar %}
+<section class="mp"
+         x-data="{
+            prev: false, next: false,
+            upd() { const t = $refs.juosta; if (!t) return;
+                    this.prev = t.scrollLeft > 4;
+                    this.next = t.scrollLeft + t.clientWidth < t.scrollWidth - 4; },
+            go(d) { const t = $refs.juosta; t.scrollBy({ left: d * (t.clientWidth * 0.9), behavior: 'smooth' }); }
+         }"
+         x-init="$nextTick(() => upd()); window.addEventListener('resize', () => upd())">
+
+  <div class="mp-head">
+    <h2 class="mp-title">{% trans "Mano paieškos" %}</h2>
+    <div class="mp-nav">
+      <button type="button" class="mp-arrow" @click="go(-1)" :disabled="!prev"
+              aria-label="{% trans 'Atgal' %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
       </button>
-      <button type="button" class="ms-tab" :class="tab === 'paskutines' && 'is-on'"
-              @click="tab = 'paskutines'">
-        {% trans "Paskutinės" %} <em>{{ pask|length }}</em>
+      <button type="button" class="mp-arrow" @click="go(1)" :disabled="!next"
+              aria-label="{% trans 'Pirmyn' %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </button>
     </div>
   </div>
 
-  {# ── Išsaugotos ── #}
-  <div x-show="tab === 'issaugotos'" x-cloak>
-    {% if issaug %}
-    <ul class="ms-list">
-      {% for s in issaug %}
-      <li class="ms-row">
-        <a class="ms-row-main" href="{{ s.url }}">
-          <span class="ms-name">{{ s.pavadinimas }}</span>
-          {% comment %}Du skaičiai: kiek skelbimų yra iš viso ir kiek naujų.{% endcomment %}
-          <span class="ms-count">{{ s.viso }} {% trans "skelb." %}</span>
-          {% if s.nauji %}<span class="ms-new">+{{ s.nauji }} {% trans "nauji" %}</span>{% endif %}
-        </a>
-        {% comment %}Visi veiksmai, kurie yra /searches/ puslapyje: redaguoti,
-        el. laiškų priminimai, dublikuoti, ištrinti. Nieko nauja — tie patys
-        maršrutai, tik sudėti į eilutę.{% endcomment %}
-        <div class="ms-row-act">
-          <a class="ms-icon" href="{{ s.redaguoti }}" title="{% trans 'Redaguoti' %}" aria-label="{% trans 'Redaguoti' %}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20h4l10-10-4-4L4 16zM14 6l4 4"/></svg>
-          </a>
-          <form method="post" action="{% url 'toggle_search_notify' s.id %}">
-            {% csrf_token %}
-            <button type="submit" class="ms-icon{% if s.notify %} is-on{% endif %}"
-                    title="{% trans 'El. laiškų priminimai' %}" aria-label="{% trans 'El. laiškų priminimai' %}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
-            </button>
-          </form>
-          <form method="post" action="{% url 'duplicate_search' s.id %}">
-            {% csrf_token %}
-            <button type="submit" class="ms-icon" title="{% trans 'Dublikuoti' %}" aria-label="{% trans 'Dublikuoti' %}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path stroke-linecap="round" d="M5 15V6a1 1 0 011-1h9"/></svg>
-            </button>
-          </form>
-          <form method="post" action="{% url 'delete_search' s.id %}">
-            {% csrf_token %}
-            <button type="submit" class="ms-icon" title="{% trans 'Ištrinti' %}" aria-label="{% trans 'Ištrinti' %}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-            </button>
-          </form>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-    <div class="ms-foot">
-      <a class="ms-btn" href="{% url 'saved_searches_list' %}">{% trans "Visos paieškos" %}</a>
-    </div>
-    {% else %}
-    <p class="ms-empty">
-      {% if user.is_authenticated %}
-        {% trans "Šiuo metu neturite jokių išsaugotų paieškų." %}
-      {% else %}
-        {% trans "Prisijunkite, kad išsaugotumėte paieškas ir matytumėte naujus skelbimus." %}
-      {% endif %}
-    </p>
-    {% endif %}
-  </div>
-
-  {# ── Paskutinės (sesijoje — veikia ir svečiui) ── #}
-  <div x-show="tab === 'paskutines'" x-cloak>
-    {% if pask %}
-    <ul class="ms-list">
-      {% for s in pask %}
-      <li class="ms-row">
-        <a class="ms-row-main" href="/?{{ s.params }}&amp;sidebar=1">
-          <span class="ms-name">{{ s.pavadinimas|default:_("Paieška") }}</span>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-    <div class="ms-foot">
-      <form method="post" action="{% url 'clear_recent_searches' %}">
+  <div class="mp-track" x-ref="juosta" @scroll.passive="upd()">
+    {% for s in sar %}
+    <div class="mp-card">
+      {% comment %}Visa kortelė paspaudžiama — atidaro tą paiešką su jos filtrais.{% endcomment %}
+      <a class="mp-card-link" href="{{ s.url }}">
+        <span class="mp-card-top">
+          {% if s.nauji %}<span class="mp-new">+{{ s.nauji }}</span>{% endif %}
+          <span class="mp-name">{{ s.pavadinimas }}</span>
+        </span>
+        <span class="mp-sum">{{ s.santrauka }}</span>
+      </a>
+      <form method="post" action="{% url 'delete_search' s.id %}" class="mp-x">
         {% csrf_token %}
-        <button type="submit" class="ms-btn">{% trans "Ištrinti viską" %}</button>
+        <button type="submit" aria-label="{% trans 'Pašalinti' %}" title="{% trans 'Pašalinti' %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </form>
     </div>
-    {% else %}
-    <p class="ms-empty">{% trans "Paskutinių paieškų dar nėra — susiraskite ką nors, ir jos atsiras čia." %}</p>
-    {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="mp-foot">
+    <a class="mp-manage" href="{% url 'saved_searches_list' %}">
+      {% trans "Valdyti mano paieškas" %}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </a>
   </div>
 </section>
 
 <style>
-  .ms-block { background: var(--surface); border: 1px solid var(--border);
-              border-radius: var(--r-md); padding: var(--card-pad); }
-  .ms-head { display: flex; align-items: center; justify-content: space-between;
-             gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-3); }
-  .ms-title { font-size: var(--fs-xl); font-weight: var(--fw-bold); color: var(--text); }
-  .ms-tabs { display: flex; gap: var(--sp-2); }
-  .ms-tab { display: inline-flex; align-items: center; gap: var(--sp-1);
-            height: var(--btn-h-sm); padding: 0 var(--sp-3);
-            border: 1px solid var(--border); border-radius: var(--r-md);
-            background: var(--surface); font-size: var(--fs-sm);
-            font-weight: var(--fw-medium); color: var(--text-muted); cursor: pointer;
-            transition: border-color var(--dur), color var(--dur); }
-  .ms-tab em { font-style: normal; font-size: var(--fs-xs); color: var(--text-disabled); }
-  .ms-tab:hover { border-color: var(--border-hover); color: var(--text); }
-  .ms-tab.is-on { border-color: var(--accent); color: var(--accent); font-weight: var(--fw-semibold); }
-  .ms-tab.is-on em { color: var(--accent); }
-  .ms-list { display: flex; flex-direction: column; gap: var(--sp-2); }
-  .ms-row { display: flex; align-items: stretch; gap: var(--sp-2);
-            border: 1px solid var(--border); border-radius: var(--r-md);
-            background: var(--surface); transition: border-color var(--dur); }
-  .ms-row:hover { border-color: var(--border-hover); }
-  .ms-row-main { flex: 1 1 auto; min-width: 0; display: flex; align-items: center;
-                 gap: var(--sp-2); padding: 0 var(--sp-3); min-height: var(--btn-h);
-                 color: var(--text); text-decoration: none; font-size: var(--fs-base); }
-  .ms-name { flex: 1 1 auto; min-width: 0; overflow: hidden;
-             text-overflow: ellipsis; white-space: nowrap; }
-  .ms-count { flex: 0 0 auto; font-size: var(--fs-xs); color: var(--text-muted); }
-  .ms-new { flex: 0 0 auto; font-size: var(--fs-xs); font-weight: var(--fw-medium);
+  .mp { margin-top: var(--sp-6); }
+  .mp-head { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--sp-3); margin-bottom: var(--sp-3); }
+  .mp-title { font-size: var(--fs-xl); font-weight: var(--fw-bold); color: var(--text); }
+  .mp-nav { display: flex; gap: var(--sp-2); }
+  .mp-arrow { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-full);
+              border: 1px solid var(--border); background: var(--surface);
+              color: var(--text); display: inline-flex; align-items: center;
+              justify-content: center; cursor: pointer;
+              transition: border-color var(--dur), opacity var(--dur); }
+  .mp-arrow:hover:not([disabled]) { border-color: var(--border-hover); }
+  .mp-arrow[disabled] { opacity: .35; cursor: default; }
+  .mp-arrow svg { width: 16px; height: 16px; }
+
+  /* Sąmoninga slenkama juosta: slinkimas gyvena .mp-track viduje. */
+  .mp-track { display: flex; gap: var(--sp-3); overflow-x: auto;
+              overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+              scroll-behavior: smooth; padding-bottom: 2px;
+              scrollbar-width: none; -ms-overflow-style: none; }
+  .mp-track::-webkit-scrollbar { display: none; }
+
+  .mp-card { position: relative; flex: 0 0 auto; width: 283px; scroll-snap-align: start;
+             background: var(--surface); border: 1px solid var(--border);
+             border-radius: var(--r-md); transition: border-color var(--dur); }
+  .mp-card:hover { border-color: var(--border-hover); }
+  .mp-card-link { display: flex; flex-direction: column; gap: var(--sp-1);
+                  padding: var(--sp-3) var(--sp-8) var(--sp-3) var(--sp-3);
+                  text-decoration: none; min-height: 84px; }
+  .mp-card-top { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+  .mp-new { flex: 0 0 auto; font-size: var(--fs-xs); font-weight: var(--fw-semibold);
             color: var(--success); background: var(--success-bg);
             border: 1px solid var(--success-border); border-radius: var(--badge-r);
             padding: var(--badge-pad); line-height: 1.5; }
-  .ms-row-act { display: flex; align-items: center; gap: var(--sp-1); padding-right: var(--sp-2); }
-  .ms-icon.is-on { color: var(--success); border-color: var(--success-border); background: var(--success-bg); }
-  .ms-icon { width: var(--btn-h-sm); height: var(--btn-h-sm); border-radius: var(--r-md);
-             border: 1px solid transparent; background: none; color: var(--text-muted);
-             display: inline-flex; align-items: center; justify-content: center;
-             cursor: pointer; transition: color var(--dur), border-color var(--dur); }
-  .ms-icon:hover { color: var(--text); border-color: var(--border); }
-  .ms-icon svg { width: 18px; height: 18px; }
-  .ms-foot { margin-top: var(--sp-3); display: flex; justify-content: flex-end; }
-  .ms-btn { display: inline-flex; align-items: center; height: var(--btn-h-sm);
-            padding: 0 var(--sp-3); border: 1px solid var(--accent);
-            border-radius: var(--r-md); background: var(--surface); color: var(--accent);
-            font-size: var(--fs-sm); font-weight: var(--fw-semibold);
-            text-decoration: none; cursor: pointer;
-            transition: background-color var(--dur); }
-  .ms-btn:hover { background: var(--accent-soft); }
-  .ms-empty { font-size: var(--fs-sm); color: var(--text-muted); padding: var(--sp-2) 0; }
+  .mp-name { flex: 1 1 auto; min-width: 0; font-size: var(--fs-base);
+             font-weight: var(--fw-semibold); color: var(--text);
+             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* Santrauka — dvi eilutės su daugtaškiu */
+  .mp-sum { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.35;
+            display: -webkit-box; -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  .mp-x { position: absolute; top: var(--sp-2); right: var(--sp-2); }
+  .mp-x button { width: 24px; height: 24px; border-radius: var(--r-full);
+                 border: 1px solid transparent; background: none; color: var(--text-disabled);
+                 display: inline-flex; align-items: center; justify-content: center;
+                 cursor: pointer; transition: color var(--dur), border-color var(--dur); }
+  .mp-x button:hover { color: var(--text); border-color: var(--border); }
+  .mp-x svg { width: 13px; height: 13px; }
+
+  .mp-foot { display: flex; justify-content: flex-end; margin-top: var(--sp-2); }
+  .mp-manage { display: inline-flex; align-items: center; gap: var(--sp-1);
+               font-size: var(--fs-sm); font-weight: var(--fw-medium);
+               color: var(--accent); text-decoration: none; }
+  .mp-manage:hover { text-decoration: underline; }
+  .mp-manage svg { width: 14px; height: 14px; }
 </style>
+{% endif %}
 {% endwith %}

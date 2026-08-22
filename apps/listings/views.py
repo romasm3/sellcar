@@ -1172,50 +1172,103 @@ def _atgal(request, numatytas='saved_searches_list'):
     return redirect(numatytas)
 
 
-def _mano_paieskos(request, limit=5):
-    """Išsaugotos ir paskutinės paieškos pagrindinio puslapio blokui."""
+def _filtru_santrauka(params, riba=4):
+    """Filtrų santrauka viena eilute: „Audi · 2015–2020 · iki 15 000 $".
+
+    Rodoma ir puslapyje, ir pagrindinio puslapio kortelėje, todėl gyvena
+    vienoje vietoje.
+    """
+    from apps.listings.brand_api import brand_name
+
+    kat = params.get('category') or 'cars'
+    dalys = []
+
+    marke = params.get('brand')
+    if marke:
+        dalys.append(brand_name(kat, marke) or str(marke))
+
+    metai = (params.get('year_min'), params.get('year_max'))
+    if any(metai):
+        dalys.append('%s–%s' % (metai[0] or '…', metai[1] or '…'))
+
+    kaina = (params.get('price_min'), params.get('price_max'))
+    if any(kaina):
+        if kaina[0] and kaina[1]:
+            dalys.append('%s–%s $' % (kaina[0], kaina[1]))
+        elif kaina[1]:
+            dalys.append(str(_('iki')) + ' %s $' % kaina[1])
+        else:
+            dalys.append(str(_('nuo')) + ' %s $' % kaina[0])
+
+    if params.get('city'):
+        dalys.append(params['city'])
+    if params.get('fuel_type'):
+        try:
+            from .models import FuelType
+            ft = FuelType.objects.filter(pk=params['fuel_type']).first()
+            if ft:
+                dalys.append(ft.name)
+        except Exception:
+            pass
+
+    if not dalys:
+        return str(_('Visi skelbimai'))
+    return ' · '.join(dalys[:riba])
+
+
+def _paieskos_eilutes(request, limit=None):
+    """Išsaugotos paieškos su skaičiais, santrauka ir veiksmų adresais."""
+    from urllib.parse import urlencode
+    from .models import SavedSearch
+
+    if not request.user.is_authenticated:
+        return []
+
+    qs_all = SavedSearch.objects.filter(user=request.user).order_by('-created_at')
+    if limit:
+        qs_all = qs_all[:limit]
+
+    eilutes = []
+    for s in qs_all:
+        params = s.query_params or {}
+        qs = _public_listings_qs(request.user)
+        if params.get('category'):
+            qs = qs.filter(vehicle_type__slug=params['category'])
+        if params.get('brand'):
+            qs = qs.filter(brand_id=params['brand'])
+        if params.get('price_min'):
+            qs = qs.filter(price__gte=params['price_min'])
+        if params.get('price_max'):
+            qs = qs.filter(price__lte=params['price_max'])
+        if params.get('year_min'):
+            qs = qs.filter(year__gte=params['year_min'])
+        if params.get('year_max'):
+            qs = qs.filter(year__lte=params['year_max'])
+
+        viso = qs.count()
+        nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
+                 if s.last_viewed_at else viso)
+        _qs = urlencode({k: v for k, v in params.items()
+                         if v and k not in ('sidebar', 'search_id')})
+        eilutes.append({
+            'id': s.pk,
+            'pavadinimas': s.name or str(_('Paieška')),
+            'santrauka': _filtru_santrauka(params),
+            'viso': viso,
+            'nauji': nauji,
+            'notify': bool(getattr(s, 'notify_email', False)),
+            'url': '/?' + _qs + '&sidebar=1&search_id=' + str(s.pk),
+            'redaguoti': '/?' + _qs + '&sidebar=1',
+        })
+    return eilutes
+
+
+def _mano_paieskos(request, limit=6):
+    """Pagrindinio puslapio juostai: išsaugotos ir paskutinės paieškos."""
     from apps.listings import search_history
 
-    issaugotos = []
-    if request.user.is_authenticated:
-        from .models import SavedSearch
-        from apps.listings.context_processors import saved_searches_count  # noqa
-
-        for s in SavedSearch.objects.filter(user=request.user).order_by('-created_at')[:limit]:
-            params = s.query_params or {}
-            qs = _public_listings_qs(request.user)
-            if params.get('category'):
-                qs = qs.filter(vehicle_type__slug=params['category'])
-            if params.get('brand'):
-                qs = qs.filter(brand_id=params['brand'])
-            if params.get('price_max'):
-                qs = qs.filter(price__lte=params['price_max'])
-            # Rodom du skaičius: kiek skelbimų paieška randa DABAR ir kiek
-            # iš jų nauji nuo paskutinės peržiūros. Vien „+7 nauji" nesako,
-            # ar sąraše 7 skelbimai, ar 700.
-            viso = qs.count()
-            nauji = (qs.filter(created_at__gt=s.last_viewed_at).count()
-                     if s.last_viewed_at else viso)
-            from urllib.parse import urlencode
-            # sidebar/search_id pridedam patys, todėl iš įrašytų parametrų
-            # juos išmetam — kitaip adrese kartotųsi „sidebar=1&sidebar=1"
-            _qs = urlencode({k: v for k, v in params.items()
-                             if v and k not in ('sidebar', 'search_id')})
-            issaugotos.append({
-                'id': s.pk,
-                'pavadinimas': s.name or _('Paieška'),
-                'viso': viso,
-                'nauji': nauji,
-                # Atidarymas pažymi peržiūrėtą (search_id), redagavimas veda
-                # į tą pačią paiešką su šonine juosta — visi veiksmai tokie
-                # patys kaip /searches/ puslapyje, nieko naujo nesugalvota.
-                'url': '/?' + _qs + '&sidebar=1&search_id=' + str(s.pk),
-                'redaguoti': '/?' + _qs + '&sidebar=1',
-                'notify': bool(getattr(s, 'notify_email', False)),
-            })
-
     return {
-        'issaugotos': issaugotos,
+        'issaugotos': _paieskos_eilutes(request, limit=limit),
         'paskutines': search_history.sarasas(request)[:limit],
     }
 
@@ -3796,42 +3849,18 @@ def save_step3_data(request):
 
 @login_required
 def saved_searches_list(request):
-    from .models import SavedSearch
+    """/searches/ — du skirtukai: išsaugotos ir paskutinės.
 
-    searches = SavedSearch.objects.filter(user=request.user)
+    Eilučių duomenys iš to paties šaltinio kaip pagrindinio puslapio
+    juosta (_paieskos_eilutes), todėl skaičiai ir santraukos ten ir čia
+    negali prasilenkti.
+    """
+    from apps.listings import search_history
 
-    searches_with_counts = []
-    for search in searches:
-        params = search.query_params
-        qs = Listing.objects.filter(status='active', is_shadow_banned=False)
-        if params.get('brand'):
-            qs = qs.filter(brand_id=params['brand'])
-        if params.get('model'):
-            qs = qs.filter(model_id=params['model'])
-        if params.get('price_min'):
-            qs = qs.filter(price__gte=params['price_min'])
-        if params.get('price_max'):
-            qs = qs.filter(price__lte=params['price_max'])
-        if params.get('year_min'):
-            qs = qs.filter(year__gte=params['year_min'])
-        if params.get('year_max'):
-            qs = qs.filter(year__lte=params['year_max'])
-        if params.get('fuel_type'):
-            qs = qs.filter(fuel_type_id=params['fuel_type'])
-        if params.get('state_filter'):
-            qs = qs.filter(country='US', state=params['state_filter'])
-        elif params.get('country_filter'):
-            qs = qs.filter(country=params['country_filter'])
-
-        if search.last_viewed_at:
-            new_count = qs.filter(created_at__gt=search.last_viewed_at).count()
-        else:
-            new_count = qs.count()
-
-        search.new_count = new_count
-        searches_with_counts.append(search)
-
-    return render(request, 'listings/saved_searches.html', {'searches': searches_with_counts})
+    return render(request, 'listings/saved_searches.html', {
+        'eilutes': _paieskos_eilutes(request),
+        'paskutines': search_history.sarasas(request),
+    })
 
 
 def advanced_search_count_ajax(request):
