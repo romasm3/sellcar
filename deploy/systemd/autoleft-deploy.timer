@@ -1,14 +1,15 @@
 [Unit]
-Description=AutoLeft — tikrina master šaką kas 5 min ir diegia naujus commit'us
+Description=AutoLeft — tikrina master šaką kas minutę ir diegia naujus commit'us
 Documentation=file:///root/autoleft/deploy/README.md
 
 [Timer]
 # Po perkrovimo palaukiam, kol pakils tinklas ir DB
 OnBootSec=3min
-# Kas 5 min nuo paskutinio paleidimo pabaigos
-OnUnitActiveSec=5min
-# Išsklaidom, kad neišsirikiuotų tiksliai ant apvalios minutės
-RandomizedDelaySec=30s
+# Kas minutę nuo paskutinio paleidimo pabaigos. Kai naujo kodo nėra,
+# ciklas yra vienas „git fetch" ir tylus išėjimas — pigu.
+OnUnitActiveSec=1min
+# Nedidelis išsklaidymas, kad nesikirstų su kitais darbais
+RandomizedDelaySec=10s
 # Praleistą (pvz. serveris buvo išjungtas) paleidžiam iškart po starto
 Persistent=true
 Unit=autoleft-deploy.service

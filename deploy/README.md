@@ -1,6 +1,6 @@
 # Auto-deploy
 
-Serveryje sukasi systemd timeris, kuris kas 5 min pasitikrina `master` šaką ir,
+Serveryje sukasi systemd timeris, kuris kas minutę pasitikrina `master` šaką ir,
 radęs naujų commit'ų, pats juos parsisiunčia ir paleidžia deploy'ą.
 
 ```
@@ -38,7 +38,11 @@ journalctl -u autoleft-deploy -n 50       # ką darė
 
 ## Kasdienis naudojimas
 
-Nieko daryti nereikia. Sumergini į `master` → per ≤5 min pasirodo svetainėje.
+Nieko daryti nereikia. Sumergini į `master` → per ~1–2 min pasirodo svetainėje.
+
+Iš tų dviejų minučių pati apklausa užima iki minutės, o likusį laiką —
+`deploy-agent.sh`: migracijos, `collectstatic`, gunicorn restartas ir
+health check'as. Momentinio nebūna ir negali būti.
 
 Nenori laukti:
 
