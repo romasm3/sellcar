@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 17:11:20 CEST
+Sugeneruota: 2026-08-23 17:12:31 CEST
 
 ## Kodas
 
@@ -12,6 +12,7 @@ DĖMESIO: darbo katalogas nešvarus —
    M apps/listings/search_config/isplestine-config.json
    M apps/listings/search_config/panels.py
    M apps/listings/views.py
+   M templates/listings/advanced_generic.html
 ```
 
 ## Servisai
@@ -26,7 +27,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001023s
+HTTP 301, 0.001385s
 ```
 
 ## Skelbimų būsenos
@@ -60,9 +61,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 17:02:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 23 17:03:00 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 23 17:03:00 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 17:04:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 17:04:04 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 17:04:04 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -85,4 +83,7 @@ Aug 23 17:10:09 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 17:10:11 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 17:10:11 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 17:11:19 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 17:11:21 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 17:11:21 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 17:12:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
