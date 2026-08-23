@@ -272,6 +272,18 @@ ADVANCED_RAIL = [
     ('services', _('Paslaugos'), 'services'),
 ]
 
+# Punktai, po kuriais yra kelios paieškos — iškrentantis sąrašas su
+# skelbimų skaičiais (etalonas: autogidas). Vaiko raktas naudojamas ir
+# nuorodai (views._rail_url), ir skaičiukui.
+ADVANCED_RAIL_CHILDREN = {
+    'tires': [('rims', _('Ratlankiai')), ('tyres', _('Padangos'))],
+    'motorcycles': [('motorcycles', _('Motociklai')),
+                    ('motogear', _('Apranga, šalmai, aksesuarai'))],
+    'parts': [('parts', _('Automobilių dalys')),
+              ('moto-parts', _('Motociklų dalys')),
+              ('truck-parts', _('Sunkiojo transporto dalys'))],
+}
+
 # „Daugiau" sąrašas — likusios kategorijos, kurių detali paieška veikia.
 ADVANCED_RAIL_MORE = ['construction', 'loading-equipment', 'forestry',
                       'camping-houses', 'boats', 'bicycles']

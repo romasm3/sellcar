@@ -762,7 +762,7 @@ def wheels_advanced_search(request):
     # Viršaus blokas — ta pati ikonų juosta kaip kitų kategorijų detaliose
     # paieškose (aktyvus „Ratai").
     from .views import _advanced_rail
-    adv_rail, adv_more = _advanced_rail('tires')
+    adv_rail, adv_more = _advanced_rail('rims' if product_type == 'rim' else 'tyres')
 
     context = {
         'product_type': product_type,

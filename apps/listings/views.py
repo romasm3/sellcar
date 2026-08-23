@@ -8079,37 +8079,97 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     return listings
 
 
-def _advanced_rail(active_slug):
-    """Ikonų juostos punktai detalios paieškos viršuje.
+def _rail_counts():
+    """Aktyvių skelbimų skaičiai juostos sąrašams (5 min. talpykloje).
 
-    Ratai ir Dalys turi savo detalios paieškos puslapius (ne iš
-    isplestine-config.json), todėl jų nuorodos atskiros.
+    Skaičiuojama viena vieta visiems iškrentantiems sąrašams — ir
+    „Daugiau", ir kategorijų subkategorijoms.
     """
-    def _nuoroda(slug):
-        if slug == 'tires':
-            return reverse('wheels_advanced_search') + '?type=rim'
-        if slug == 'parts':
-            return reverse('advanced_search_generic', kwargs={'category': 'parts'})
-        return reverse('advanced_search_generic', kwargs={'category': slug})
+    from django.core.cache import cache
+    kiekiai = cache.get('adv_rail_counts')
+    if kiekiai is not None:
+        return kiekiai
 
-    juosta = [
-        {'slug': slug, 'label': label, 'key': key, 'url': _nuoroda(slug),
-         'active': slug == active_slug}
-        for slug, label, key in panel_config.ADVANCED_RAIL
-    ]
-    # „Daugiau" sąraše — skelbimų skaičiai, kaip etalone. Viena užklausa
-    # visoms kategorijoms, ne po vieną.
+    from .models import WheelListing
+    from . import motogear_views
+    from .search_panel import parts_count_qs
+
     kiekiai = dict(
         _public_listings_qs(None)
         .values_list('vehicle_type__slug')
         .annotate(n=Count('id'))
     )
+    # Motociklai be aprangos — ji juostoje rodoma atskiru punktu
+    kiekiai['motogear'] = motogear_views._moto_gear_public_qs(None).count()
+    kiekiai['motorcycles'] = max(
+        0, kiekiai.get('motorcycles', 0) - kiekiai['motogear'])
+
+    ratai = dict(
+        WheelListing.objects.filter(status='active', is_shadow_banned=False)
+        .values_list('product_type').annotate(n=Count('id'))
+    )
+    kiekiai['rims'] = ratai.get('rim', 0)
+    kiekiai['tyres'] = ratai.get('tyre', 0)
+
+    for raktas, sub in (('parts', 'car'), ('moto-parts', 'moto'),
+                        ('truck-parts', 'truck')):
+        try:
+            kiekiai[raktas] = parts_count_qs(sub, {}).count()
+        except Exception:      # skaičius neturi griauti puslapio
+            kiekiai[raktas] = 0
+
+    cache.set('adv_rail_counts', kiekiai, 300)
+    return kiekiai
+
+
+def _rail_url(slug):
+    """Kur veda juostos punktas — kiekviena kategorija turi savo paiešką."""
+    if slug == 'rims':
+        return reverse('wheels_advanced_search') + '?type=rim'
+    if slug == 'tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre'
+    if slug == 'motogear':
+        return reverse('motogear_advanced_search')
+    if slug == 'moto-parts':
+        return reverse('moto_parts_advanced_search')
+    if slug == 'truck-parts':
+        return reverse('truck_parts_advanced_search')
+    return reverse('advanced_search_generic', kwargs={'category': slug})
+
+
+def _advanced_rail(active_slug):
+    """Ikonų juostos punktai detalios paieškos viršuje.
+
+    Punktai, po kuriais yra kelios paieškos (Ratai, Motociklai, Dalys),
+    gauna iškrentantį sąrašą su skelbimų skaičiais — kaip etalone.
+    Aktyvus žymimas ir tada, kai esi vaikinėje kategorijoje (padangų
+    paieškoje pažymėta „Ratai").
+    """
+    kiekiai = _rail_counts()
+
+    def _vaikai(slug):
+        return [
+            {'slug': v, 'label': label, 'url': _rail_url(v),
+             'count': kiekiai.get(v, 0), 'active': v == active_slug}
+            for v, label in panel_config.ADVANCED_RAIL_CHILDREN.get(slug, ())
+        ]
+
+    juosta = []
+    for slug, label, key in panel_config.ADVANCED_RAIL:
+        vaikai = _vaikai(slug)
+        aktyvus = slug == active_slug or any(v['active'] for v in vaikai)
+        juosta.append({
+            'slug': slug, 'label': label, 'key': key,
+            'url': vaikai[0]['url'] if vaikai else _rail_url(slug),
+            'children': vaikai, 'active': aktyvus,
+        })
+
     daugiau = []
     for slug in panel_config.ADVANCED_RAIL_MORE:
         cfg = panel_config.build_advanced(slug, None)
         if cfg:
             daugiau.append({'slug': slug, 'label': cfg['label'],
-                            'url': _nuoroda(slug),
+                            'url': _rail_url(slug),
                             'count': kiekiai.get(slug, 0),
                             'active': slug == active_slug})
     return juosta, daugiau

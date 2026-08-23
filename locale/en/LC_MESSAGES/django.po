@@ -23063,3 +23063,7 @@ msgstr "Rim ad search"
 #: apps/listings/wheels_views.py
 msgid "Padangų skelbimų paieška"
 msgstr "Tyre ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių dalys"
+msgstr "Car parts"
