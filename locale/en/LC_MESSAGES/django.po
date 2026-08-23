@@ -22939,3 +22939,23 @@ msgstr "Load capacity, kg"
 #: apps/listings/search_config/panels.py
 msgid "Max keliamoji galia kg"
 msgstr "Max load capacity, kg"
+
+#: apps/listings/search_config/panels.py
+msgid "Auto"
+msgstr "Cars"
+
+#: apps/listings/search_config/panels.py
+msgid "Ž. ūkio"
+msgstr "Agri"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkusis tr."
+msgstr "Heavy"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio"
+msgstr "Audio"
+
+#: templates/listings/partials/_adv_rail.html
+msgid "Daugiau"
+msgstr "More"

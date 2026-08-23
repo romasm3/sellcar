@@ -198,28 +198,54 @@
   .adv-crumbs a:hover { color: var(--text); text-decoration: underline; }
   .adv-crumb-on { color: var(--text); }
 
-  .adv-rail { display: flex; align-items: flex-start; gap: var(--sp-1);
-              overflow-x: auto; scrollbar-width: none; }
-  .adv-rail::-webkit-scrollbar { display: none; }
-  .adv-rail-item { flex: 0 0 auto; width: 78px; display: flex; flex-direction: column;
-                   align-items: center; gap: 4px; padding: var(--sp-2) 2px;
-                   border: 1px solid transparent; border-radius: var(--r-md);
+  /* ═══ Kategorijų juosta ═══
+     Etalonas: ikonos ~40 px virš teksto, JOKIŲ rėmelių aplink punktus
+     (ne kortelės), vienodi tarpai per visą turinio plotį. Pažymėta tik
+     aktyvi kategorija: ikona ir tekstas akcento spalva + plona linija
+     apačioje. Spalvos mūsų — antracitas vietoj etalono oranžinės. */
+  /* overflow: visible — kitaip juosta nukirstų „Daugiau" iškrentantį
+     sąrašą; telefone juosta slenkama į šoną. */
+  .adv-rail { display: flex; align-items: stretch; gap: 0; overflow: visible; }
+  @media (max-width: 640px) {
+    .adv-rail { overflow-x: auto; scrollbar-width: none; }
+    .adv-rail::-webkit-scrollbar { display: none; }
+    .adv-rail-item { min-width: 72px; }
+  }
+  .adv-rail-item { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column;
+                   align-items: center; justify-content: flex-start; gap: 6px;
+                   padding: 6px 4px 10px; border: 0; border-bottom: 2px solid transparent;
                    background: none; color: var(--text-muted); text-decoration: none;
-                   cursor: pointer; transition: color var(--dur), border-color var(--dur); }
-  .adv-rail-item:hover { color: var(--text); border-color: var(--border); }
-  .adv-rail-item.is-on { color: var(--text); border-color: var(--accent); font-weight: var(--fw-semibold); }
-  .adv-rail-ico svg { width: 26px; height: 26px; display: block; }
-  .adv-rail-txt { font-size: 11px; line-height: 1.2; text-align: center; }
+                   cursor: pointer; transition: color var(--dur); }
+  .adv-rail-item:hover { color: var(--text); }
+  .adv-rail-item.is-on { color: var(--accent); border-bottom-color: var(--accent);
+                         font-weight: var(--fw-semibold); }
+  .adv-rail-ico { display: block; height: 40px; }
+  .adv-rail-ico svg { width: 40px; height: 40px; display: block; }
+  .adv-rail-txt { font-size: 12.5px; line-height: 1.2; text-align: center;
+                  min-height: 30px; display: block; }
 
-  .adv-rail-more { position: relative; flex: 0 0 auto; }
-  .adv-rail-fly { position: absolute; top: 100%; left: 0; z-index: 40; min-width: 220px;
-                  background: var(--surface); border: 1px solid var(--border);
-                  border-radius: var(--r-md); box-shadow: 0 8px 24px rgba(0,0,0,.08);
-                  padding: var(--sp-1) 0; }
-  .adv-rail-fly-item { display: block; padding: 8px 14px; font-size: var(--fs-sm);
-                       color: var(--text-muted); text-decoration: none; white-space: nowrap; }
-  .adv-rail-fly-item:hover { background: #f3f4f6; color: var(--text); }
-  .adv-rail-fly-item.is-on { color: var(--text); font-weight: var(--fw-semibold); }
+  /* ═══ „Daugiau" popover ═══
+     Baltas, su šešėliu ir apvaliais kampais, atsidaro po punktu; eilutė —
+     ikona kairėje, pavadinimas, pilkas skaičius skliaustuose dešinėje;
+     tarp eilučių plonas skirtukas, hover — pavadinimas akcento spalva. */
+  .adv-rail-more { position: relative; flex: 1 1 0; min-width: 0; display: flex; }
+  .adv-rail-more > .adv-rail-item { width: 100%; }
+  .adv-rail-fly { position: absolute; top: calc(100% + 6px); right: 0; z-index: 40;
+                  min-width: 288px; background: var(--surface);
+                  border: 1px solid var(--border); border-radius: 8px;
+                  box-shadow: 0 12px 32px rgba(17, 24, 39, .14); padding: 4px 0; }
+  .adv-rail-fly-item { display: flex; align-items: center; gap: 12px;
+                       padding: 10px 16px; font-size: var(--fs-sm);
+                       color: var(--text); text-decoration: none; white-space: nowrap;
+                       border-bottom: 1px solid #F1F1F1; }
+  .adv-rail-fly-item:last-child { border-bottom: 0; }
+  .adv-rail-fly-item:hover { color: var(--accent); }
+  .adv-rail-fly-ico { flex: 0 0 auto; color: var(--text-muted); }
+  .adv-rail-fly-ico svg { width: 24px; height: 24px; display: block; }
+  .adv-rail-fly-item:hover .adv-rail-fly-ico { color: var(--accent); }
+  .adv-rail-fly-txt { flex: 1 1 auto; }
+  .adv-rail-fly-num { flex: 0 0 auto; color: var(--text-muted); font-size: 13px; }
+  .adv-rail-fly-item.is-on { color: var(--accent); font-weight: var(--fw-semibold); }
 
   /* „Ieškoti N" lieka matomas slenkant — etalone jis lipnus. */
   .adv-submit { position: sticky; bottom: 0; z-index: 30;

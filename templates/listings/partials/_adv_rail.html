@@ -51,7 +51,27 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
     </button>
     <div x-show="open" x-cloak class="adv-rail-fly">
       {% for m in adv_more %}
-      <a href="{{ m.url }}" class="adv-rail-fly-item{% if m.active %} is-on{% endif %}">{{ m.label }}</a>
+      <a href="{{ m.url }}" class="adv-rail-fly-item{% if m.active %} is-on{% endif %}">
+        <span class="adv-rail-fly-ico">
+          {% if m.slug == 'construction' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 20h18M5 20V9h7v11M12 12h4l3 4v4"/><circle cx="8" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+          {% elif m.slug == 'loading-equipment' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 17V6h7v11M11 9h3l3 4M17 4v13M17 17h4"/><circle cx="7" cy="19" r="1.6"/><circle cx="14" cy="19" r="1.6"/></svg>
+          {% elif m.slug == 'forestry' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3 7 11h3l-3 5h10l-3-5h3z M12 16v5"/></svg>
+          {% elif m.slug == 'camping-houses' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15V8a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1h2.5L21 12v3h-3"/><path stroke-linecap="round" d="M3 15h12"/><circle cx="17" cy="16" r="2"/></svg>
+          {% elif m.slug == 'boats' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 15h16l-2.5 4.5H6.5zM12 4v11M12 4 6 13h12z"/></svg>
+          {% elif m.slug == 'bicycles' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="17" r="3.2"/><circle cx="18" cy="17" r="3.2"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 17l4-8h4l4 8M10 9l3 8M14 9h2.5"/></svg>
+          {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/></svg>
+          {% endif %}
+        </span>
+        <span class="adv-rail-fly-txt">{{ m.label }}</span>
+        <span class="adv-rail-fly-num">({{ m.count }})</span>
+      </a>
       {% endfor %}
     </div>
   </div>

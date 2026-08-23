@@ -8045,12 +8045,20 @@ def _advanced_rail(active_slug):
          'active': slug == active_slug}
         for slug, label, key in panel_config.ADVANCED_RAIL
     ]
+    # „Daugiau" sąraše — skelbimų skaičiai, kaip etalone. Viena užklausa
+    # visoms kategorijoms, ne po vieną.
+    kiekiai = dict(
+        _public_listings_qs(None)
+        .values_list('vehicle_type__slug')
+        .annotate(n=Count('id'))
+    )
     daugiau = []
     for slug in panel_config.ADVANCED_RAIL_MORE:
         cfg = panel_config.build_advanced(slug, None)
         if cfg:
             daugiau.append({'slug': slug, 'label': cfg['label'],
                             'url': _nuoroda(slug),
+                            'count': kiekiai.get(slug, 0),
                             'active': slug == active_slug})
     return juosta, daugiau
 

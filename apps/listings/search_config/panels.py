@@ -232,16 +232,17 @@ ADVANCED_TITLES = {
 
 # Ikonų juosta detalios paieškos viršuje — ta pati tvarka kaip etalone.
 # `key` naudojamas ikonai šablone, `url_name`/`url` — nuorodai.
+# Užrašai trumpi — kaip etalone, kad tilptų į vieną-dvi eilutes.
 ADVANCED_RAIL = [
-    ('cars', _('Automobiliai'), 'cars'),
+    ('cars', _('Auto'), 'cars'),
     ('motorcycles', _('Motociklai'), 'motorcycles'),
     ('tires', _('Ratai'), 'tires'),
     ('parts', _('Dalys'), 'parts'),
-    ('agriculture', _('Žemės ūkio technika'), 'agriculture'),
-    ('trucks', _('Sunkusis transportas'), 'trucks'),
+    ('agriculture', _('Ž. ūkio'), 'agriculture'),
+    ('trucks', _('Sunkusis tr.'), 'trucks'),
     ('trailers', _('Priekabos'), 'trailers'),
     ('rental', _('Nuoma'), 'rental'),
-    ('electronics', _('Audio, navigacija'), 'electronics'),
+    ('electronics', _('Audio'), 'electronics'),
     ('services', _('Paslaugos'), 'services'),
 ]
 
