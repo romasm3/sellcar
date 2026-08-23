@@ -52,14 +52,19 @@ def _with_params(path, changes, append=False):
     """Tas pats kelias su pakeistais (arba pridėtais) parametrais.
 
     ``append=True`` palieka esamas to paties vardo reikšmes — taip
-    kaupiamos kelios markės ar modeliai (variklis jas ima per getlist).
+    kaupiamos kelios markės, modeliai ar kuro tipai (variklis jas ima per
+    getlist). Ta pati reikšmė antrą kartą nepridedama: kitaip du kartus
+    pasirinkta „Audi" atsirastų adrese dukart ir žymų būtų dvi.
     """
     parts = urlparse(path)
     existing = parse_qsl(parts.query, keep_blank_values=True)
     params = existing if append else [(k, v) for k, v in existing if k not in changes]
     for key, value in changes.items():
-        if value not in ('', None):
-            params.append((key, value))
+        if value in ('', None):
+            continue
+        if append and (key, str(value)) in [(k, str(v)) for k, v in params]:
+            continue
+        params.append((key, value))
     return urlunparse(parts._replace(query=urlencode(params)))
 
 
@@ -120,7 +125,13 @@ def select_value(request):
                 changes[model_param] = value
             return redirect(_with_params(back, changes, append=True) + '#sp-target')
 
-        return redirect(_with_params(back, {param: value}) + '#sp-target')
+        # Daugybiniai laukai (kuro tipas, kėbulas, markė be modelių...)
+        # kaupia reikšmes — telefone jas rodo atskiros žymos, o „+" šalia
+        # jų kviečia būtent šį ekraną. Vienareikšmiai (kaina, metai,
+        # rida) — perrašo.
+        daugybinis = field.get('type') == 'multiselect' or field.get('widget') == 'brand'
+        return redirect(_with_params(back, {param: value}, append=daugybinis)
+                        + '#sp-target')
 
     # ── Modelių žingsnis ──────────────────────────────────────────────
     if cascade and step == '2' and chosen_brand:
