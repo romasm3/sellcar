@@ -321,6 +321,9 @@ class Listing(models.Model):
         ('commercial', _('Commercial')), ('convertible', _('Convertible')),
         ('limousine', _('Limousine')), ('pickup', _('Pickup')),
         ('minibus', _('Minibus')), ('truck', _('Truck/Van')),
+        # Etalono papildymai (docs/autogidas-laukai.md)
+        ('kombi_minibus', _('Kombi mikroautobusas')),
+        ('homemade', _('Savadarbis auto')),
         ('other', _('Other')),
     ]
 
@@ -410,6 +413,10 @@ class Listing(models.Model):
     DOOR_CHOICES = [('2/3', _('2/3 doors')), ('4/5', _('4/5 doors')),
                     ('6/7', _('6/7 doors'))]
 
+    # ── Etalono laukai (Autogidas skelbimo forma) ──
+    CYLINDER_CHOICES = [(str(n), str(n)) for n in (2, 3, 4, 5, 6, 8, 10, 12, 16)]
+    GEAR_COUNT_CHOICES = [(str(n), str(n)) for n in range(4, 11)]
+
     STEERING_CHOICES = [
         ('left', _('Left-hand drive')),
         ('right', _('Right-hand drive (UK)')),
@@ -432,7 +439,10 @@ class Listing(models.Model):
     ]
 
     SEATS_CHOICES = [(str(i), str(i)) for i in range(1, 10)] + [('9+', '9+')]
-    RIM_SIZE_CHOICES = [(str(i), f'{i}"') for i in range(13, 25)]
+    # Etalone ratlankiai žymimi R13–R23. Reikšmės lieka skaičiai (seni
+    # įrašai galioja), keičiasi tik užrašas; R24 paliktas, kad jau įvesti
+    # duomenys neliktų be pavadinimo.
+    RIM_SIZE_CHOICES = [(str(i), f'R{i}') for i in range(13, 25)]
 
     CLIMATE_CHOICES = [
         ('none', _('No climate control')),
@@ -1482,13 +1492,22 @@ class Listing(models.Model):
     )
     doors = models.CharField(max_length=10, choices=DOOR_CHOICES, blank=True,
                              verbose_name=_('Durų skaičius'))
+    # Etalono laukai. Visi neprivalomi (blank/null) — seni skelbimai lieka
+    # galioti, migracija nieko neperrašo.
+    cylinders = models.CharField(max_length=2, choices=CYLINDER_CHOICES, blank=True,
+                                 verbose_name=_('Cilindrų skaičius'))
+    gear_count = models.CharField(max_length=2, choices=GEAR_COUNT_CHOICES, blank=True,
+                                  verbose_name=_('Pavarų skaičius'))
+    manufacturer_warranty = models.BooleanField(default=False,
+                                                verbose_name=_('Gamintojo garantija'))
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='used')
     defects = models.CharField(max_length=50, choices=DEFECT_CHOICES, default='none')
     steering = models.CharField(max_length=10, choices=STEERING_CHOICES, blank=True)
 
     drive_type = models.CharField(max_length=10, choices=DRIVE_TYPE_CHOICES, blank=True)
     seats = models.CharField(max_length=5, choices=SEATS_CHOICES, blank=True)
-    rim_size = models.CharField(max_length=5, choices=RIM_SIZE_CHOICES, blank=True)
+    rim_size = models.CharField(max_length=5, choices=RIM_SIZE_CHOICES, blank=True,
+                                verbose_name=_('Ratlankiai'))
     climate = models.CharField(max_length=20, choices=CLIMATE_CHOICES, blank=True)
     curb_weight = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(99999)])
     euro_standard = models.CharField(max_length=10, choices=EURO_STANDARD_CHOICES, blank=True)

@@ -298,6 +298,31 @@
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "First registration country" %}</label>
                             {{ form.origin_country }}
                         </div>
+                        {% comment %}Etalono laukai (docs/autogidas-laukai.md,
+                        „Papildomi duomenys"). Visi neprivalomi.{% endcomment %}
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Cilindrų skaičius" %}</label>
+                            {{ form.cylinders }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Pavarų skaičius" %}</label>
+                            {{ form.gear_count }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Ratlankiai" %}</label>
+                            {{ form.rim_size }}
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "SDK kodas" %}</label>
+                            {{ form.sdk_number }}
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="manufacturer_warranty" class="w-4 h-4 rounded"
+                                       {% if listing.manufacturer_warranty %}checked{% endif %}>
+                                <span class="text-sm text-gray-700">{% trans "Gamintojo garantija" %}</span>
+                            </label>
+                        </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Drive type" %}</label>
                             {{ form.drive_type }}
@@ -321,7 +346,7 @@
                         <div class="md:col-span-4">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel consumption (l/100km)" %}</label>
                             <div class="grid grid-cols-3 gap-3">
-                                <div><label class="block text-xs text-gray-500 mb-1">{% trans "City" %}</label>{{ form.fuel_consumption_city }}</div>
+                                <div><label class="block text-xs text-gray-500 mb-1">{% trans "Mieste" %}</label>{{ form.fuel_consumption_city }}</div>
                                 <div><label class="block text-xs text-gray-500 mb-1">{% trans "Highway" %}</label>{{ form.fuel_consumption_highway }}</div>
                                 <div><label class="block text-xs text-gray-500 mb-1">{% trans "Combined" %}</label>{{ form.fuel_consumption_combined }}</div>
                             </div>

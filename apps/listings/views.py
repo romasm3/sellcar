@@ -6688,6 +6688,11 @@ def listing_create_cars_quick(request):
         target.steering = request.POST.get('steering', '')
         target.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
         target.power = _int_or_none(request.POST.get('power'))
+        # Etalono laukai (docs/autogidas-laukai.md „Papildomi duomenys")
+        target.cylinders = request.POST.get('cylinders', '')
+        target.gear_count = request.POST.get('gear_count', '')
+        target.manufacturer_warranty = request.POST.get('manufacturer_warranty') == 'on'
+        target.sdk_number = request.POST.get('sdk_number', target.sdk_number or '').strip()
         target.drive_type = request.POST.get('drive_type', '')
         target.seats = request.POST.get('seats', '')
         target.rim_size = request.POST.get('rim_size', '')

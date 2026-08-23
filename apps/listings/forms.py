@@ -188,8 +188,36 @@ class Step3VehicleDataForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
+    cylinders = forms.ChoiceField(
+        label=_("Cilindrų skaičius"),
+        choices=[('', '---------')] + Listing.CYLINDER_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    gear_count = forms.ChoiceField(
+        label=_("Pavarų skaičius"),
+        choices=[('', '---------')] + Listing.GEAR_COUNT_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    manufacturer_warranty = forms.BooleanField(
+        label=_("Gamintojo garantija"),
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'w-4 h-4 rounded'})
+    )
+
+    sdk_number = forms.CharField(
+        label=_("SDK kodas"),
+        required=False,
+        max_length=20,
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'placeholder': _('VĮ Regitra')})
+    )
+
     rim_size = forms.ChoiceField(
-        label=_("Rim Size"),
+        label=_("Ratlankiai"),
         choices=[('', '---------')] + Listing.RIM_SIZE_CHOICES,
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
