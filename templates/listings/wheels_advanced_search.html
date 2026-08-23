@@ -55,7 +55,7 @@
 <div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
 <div class="adv-wrap">
 
-<form method="get" action="{% url 'wheels_list' %}" id="advForm">
+<form method="get" action="{% if product_type == 'rim' %}{% url 'rims_list' %}{% else %}{% url 'tyres_list' %}{% endif %}" id="advForm">
 <input type="hidden" name="type" value="{{ product_type }}">
 
 <div class="adv-card">
@@ -69,15 +69,15 @@
         {# ═══ BRAND ═══ #}
         <div class="adv-field">
             <label>{% trans "Brand" %}</label>
-            <select name="brand" class="adv-select">
+            <select name="manufacturer" class="adv-select">
                 <option value="">{% trans "All" %}</option>
                 {% if product_type == 'rim' %}
                     {% for b in rim_brands %}
-                    <option value="{{ b }}" {% if f.brand == b %}selected{% endif %}>{{ b }}</option>
+                    <option value="{{ b }}" {% if f.manufacturer == b %}selected{% endif %}>{{ b }}</option>
                     {% endfor %}
                 {% else %}
                     {% for b in tyre_brands %}
-                    <option value="{{ b }}" {% if f.brand == b %}selected{% endif %}>{{ b }}</option>
+                    <option value="{{ b }}" {% if f.manufacturer == b %}selected{% endif %}>{{ b }}</option>
                     {% endfor %}
                 {% endif %}
             </select>

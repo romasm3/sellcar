@@ -136,8 +136,7 @@ Filtrų parametrai adrese išsaugomi.
 {% if sp_tab == 'moto-tyres' %}
     <div x-show="tab === 'moto-tyres'" x-cloak id="sp-panel-moto-tyres">
       <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Padangos motociklams" %}</h2>
-      <form class="sp-search-form" method="get" action="{% url 'wheels_list' %}">
-        <input type="hidden" name="type" value="tyre">
+      <form class="sp-search-form" method="get" action="{% url 'tyres_list' %}">
         <input type="hidden" name="purpose" value="moto">
         <input type="hidden" name="sidebar" value="1">
 
@@ -225,8 +224,7 @@ Filtrų parametrai adrese išsaugomi.
 {% if sp_tab == 'quad-tyres' %}
     <div x-show="tab === 'quad-tyres'" x-cloak id="sp-panel-quad-tyres">
       <h2 class="text-[15.5px] font-bold mb-4 -mt-3">{% trans "Padangos keturračiams" %}</h2>
-      <form class="sp-search-form" method="get" action="{% url 'wheels_list' %}">
-        <input type="hidden" name="type" value="tyre">
+      <form class="sp-search-form" method="get" action="{% url 'tyres_list' %}">
         <input type="hidden" name="purpose" value="quad">
         <input type="hidden" name="sidebar" value="1">
 
@@ -357,8 +355,7 @@ Filtrų parametrai adrese išsaugomi.
       {# ── PADANGOS forma ── #}
 {% if sp_sekcija == 'tyre' %}
       <form class="sp-search-form" data-wheel="tyre" x-show="wheelType === 'tyre'"
-            method="get" action="{% url 'wheels_list' %}">
-        <input type="hidden" name="type" value="tyre">
+            method="get" action="{% url 'tyres_list' %}">
         <input type="hidden" name="sidebar" value="1">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
@@ -472,8 +469,7 @@ Filtrų parametrai adrese išsaugomi.
       {# ── RATLANKIAI forma ── #}
 {% if sp_sekcija == 'rim' %}
       <form class="sp-search-form" data-wheel="rim" x-show="wheelType === 'rim'" x-cloak
-            method="get" action="{% url 'wheels_list' %}">
-        <input type="hidden" name="type" value="rim">
+            method="get" action="{% url 'rims_list' %}">
         <input type="hidden" name="sidebar" value="1">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">

@@ -1910,7 +1910,7 @@ msgstr ""
 
 #: apps/listings/models.py:539 apps/listings/translatable_db.py:1826
 msgid "Vasarinės"
-msgstr ""
+msgstr "Summer"
 
 #: apps/listings/models.py:540
 msgid "Žieminės / šildomos"
@@ -4475,11 +4475,11 @@ msgstr "Two weeks"
 
 #: apps/listings/search_config/panels.py:639
 msgid "Privatus"
-msgstr ""
+msgstr "Private"
 
 #: apps/listings/search_config/panels.py:639
 msgid "Verslas"
-msgstr ""
+msgstr "Business"
 
 #: apps/listings/search_panel.py:32
 #: templates/listings/partials/_panel_bodies.html:943
@@ -6211,7 +6211,7 @@ msgstr "CB radio"
 
 #: apps/listings/translatable_db.py:353
 msgid "Centr. skylės diametras"
-msgstr ""
+msgstr "Centre bore"
 
 #: apps/listings/translatable_db.py:354
 msgid "Centrinio garsiakalbio rėmelis"
@@ -8270,11 +8270,11 @@ msgstr "Seller type"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
-msgstr ""
+msgstr "Sold individually"
 
 #: apps/listings/translatable_db.py:896
 msgid "Parduodu po vieną"
-msgstr ""
+msgstr "Sold individually"
 
 #: apps/listings/translatable_db.py:897
 msgid "Parkavimo (PDC) daviklių ekranas/ displėjus"
@@ -9668,7 +9668,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1254
 msgid "Sezoniškumas"
-msgstr ""
+msgstr "Season"
 
 #: apps/listings/translatable_db.py:1255
 msgid "Signalizacijos rėlė"
@@ -9824,7 +9824,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1294
 msgid "Sportinės padangos"
-msgstr "Performance tyres"
+msgstr "Sport tyres"
 
 #: apps/listings/translatable_db.py:1296
 msgid "Spyna galinio dangčio"
@@ -10177,7 +10177,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1386
 msgid "Tr. priem. markė"
-msgstr ""
+msgstr "Vehicle brand"
 
 #: apps/listings/translatable_db.py:1387
 msgid "Transmisijos tepalo aušintuvas"
@@ -10222,7 +10222,7 @@ msgstr ""
 #: apps/listings/translatable_db.py:1398
 #: templates/listings/wheels_list.html:219
 msgid "Tvirtinimo taškai"
-msgstr "Bolt pattern"
+msgstr "Bolt count"
 
 #: apps/listings/translatable_db.py:1399
 msgid "Tvirtinimo varžtas (atsarginio rato)"
@@ -10626,7 +10626,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1503
 msgid "Visureigių padangos"
-msgstr "Off-road tyres"
+msgstr "SUV tyres"
 
 #: apps/listings/translatable_db.py:1504
 msgid "Vožtuvas (-ai)"
@@ -10951,7 +10951,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1594
 msgid "Žieminės dygliuotos"
-msgstr ""
+msgstr "Studded winter"
 
 #: apps/listings/translatable_db.py:1595
 msgid "Žvaigždutės"
@@ -11248,7 +11248,7 @@ msgstr "Gloves"
 
 #: apps/listings/translatable_db.py:1761
 msgid "Plieniniai štampuoti"
-msgstr ""
+msgstr "Steel stamped"
 
 #: apps/listings/translatable_db.py:1762
 msgid "Plungė"
@@ -11268,11 +11268,11 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1773
 msgid "Ratlankių dangteliai"
-msgstr ""
+msgstr "Hub caps"
 
 #: apps/listings/translatable_db.py:1775
 msgid "Ratų gaubtai"
-msgstr ""
+msgstr "Wheel covers"
 
 #: apps/listings/translatable_db.py:1778
 msgid "Rokiškis"
@@ -11324,7 +11324,7 @@ msgstr "Jacket"
 
 #: apps/listings/translatable_db.py:1805
 msgid "Sunkvežimiams ir autobusams"
-msgstr ""
+msgstr "Trucks and buses"
 
 #: apps/listings/translatable_db.py:1807
 msgid "Sunkvežimis virš 7,5t."
@@ -11485,7 +11485,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1864
 msgid "Žieminės"
-msgstr ""
+msgstr "Winter"
 
 #: apps/listings/translatable_db.py:1874
 msgid "4x4 varantys ratai"
@@ -20570,7 +20570,7 @@ msgstr "Tyres"
 #: templates/listings/partials/_panel_bodies.html:372
 #: templates/listings/partials/_panel_bodies.html:487
 msgid "Lengviesiems"
-msgstr "For cars"
+msgstr "Cars"
 
 #: templates/listings/partials/_panel_bodies.html:373
 #: templates/listings/partials/_panel_bodies.html:488
@@ -20580,7 +20580,7 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:374
 #: templates/listings/partials/_panel_bodies.html:489
 msgid "Mikroautobusams"
-msgstr "For vans"
+msgstr "Vans"
 
 #: templates/listings/partials/_panel_bodies.html:375
 #: templates/listings/partials/_panel_bodies.html:490
@@ -20590,7 +20590,7 @@ msgstr "For trucks"
 #: templates/listings/partials/_panel_bodies.html:376
 #: templates/listings/partials/_panel_bodies.html:491
 msgid "Motociklams"
-msgstr "For motorcycles"
+msgstr "Motorcycles"
 
 #: templates/listings/partials/_panel_bodies.html:378
 msgid "Žemės ūkio technikai"
@@ -20598,7 +20598,7 @@ msgstr "For agricultural machinery"
 
 #: templates/listings/partials/_panel_bodies.html:514
 msgid "Lengvojo lydinio"
-msgstr ""
+msgstr "Alloy"
 
 #: templates/listings/partials/_panel_bodies.html:515
 msgid "Plieniniai"
@@ -20606,7 +20606,7 @@ msgstr ""
 
 #: templates/listings/partials/_panel_bodies.html:516
 msgid "Kalti"
-msgstr ""
+msgstr "Forged"
 
 #: templates/listings/partials/_panel_bodies.html:521
 msgid "Skylių išdėstymas (PCD)"
@@ -21679,7 +21679,7 @@ msgstr "Season"
 
 #: templates/listings/wheels_list.html:188
 msgid "Aukštis (profilis)"
-msgstr "Profile height"
+msgstr "Profile"
 
 #: templates/listings/wheels_list.html:252
 msgid "Kaina (€)"
@@ -22723,3 +22723,103 @@ msgstr "Done"
 #: apps/listings/motogear_views.py
 msgid "Markė, modelis, raktažodis..."
 msgstr "Brand, model, keyword..."
+
+#: apps/listings/wheels_filters.py
+msgid "Tarpai tarp skylių (mm)"
+msgstr "PCD (mm)"
+
+#: apps/listings/wheels_filters.py
+msgid "Plotis (coliais)"
+msgstr "Width (inches)"
+
+#: apps/listings/wheels_filters.py
+msgid "Kiekis"
+msgstr "Quantity"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudoti/Nauji"
+msgstr "Condition"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudoti"
+msgstr "Used"
+
+#: apps/listings/wheels_filters.py
+msgid "Nauji"
+msgstr "New"
+
+#: apps/listings/wheels_filters.py
+msgid "Priedai"
+msgstr "Accessories"
+
+#: apps/listings/wheels_filters.py
+msgid "Su padangom"
+msgstr "With tyres"
+
+#: apps/listings/wheels_filters.py
+msgid "Chromuoti"
+msgstr "Chrome"
+
+#: apps/listings/wheels_filters.py
+msgid "Aplankstyti ratlankiai"
+msgstr "Bent rims"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudotas/Naujas"
+msgstr "Condition"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudotos"
+msgstr "Used"
+
+#: apps/listings/wheels_filters.py
+msgid "Naujos"
+msgstr "New"
+
+#: apps/listings/wheels_filters.py
+msgid "Universalios"
+msgstr "All-season"
+
+#: apps/listings/wheels_filters.py
+msgid "Protektoriaus gylis"
+msgstr "Tread depth"
+
+#: apps/listings/wheels_filters.py
+msgid "Traktoriams ir spec technikai"
+msgstr "Tractors and machinery"
+
+#: apps/listings/wheels_filters.py
+msgid "Visureigiams"
+msgstr "SUV"
+
+#: apps/listings/wheels_filters.py
+msgid "Sustiprintos"
+msgstr "Reinforced"
+
+#: apps/listings/wheels_filters.py
+msgid "Run on flat"
+msgstr "Run flat"
+
+#: apps/listings/wheels_filters.py
+msgid "Atsarginė padanga „plona“"
+msgstr "Space-saver spare"
+
+#: apps/listings/wheels_filters.py
+msgid "Lietaus padangos"
+msgstr "Rain tyres"
+
+#: apps/listings/wheels_filters.py
+msgid "Visi miestai"
+msgstr "All cities"
+
+#: apps/listings/wheels_filters.py
+msgid "Visi gamintojai"
+msgstr "All manufacturers"
+
+#: apps/listings/wheels_filters.py
+msgid "5 ir daugiau"
+msgstr "5 and more"
+
+#: apps/listings/wheels_filters.py
+msgid "Vienos dienos (tik nauji)"
+msgstr "One day (new only)"
