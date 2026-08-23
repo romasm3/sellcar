@@ -67,21 +67,30 @@
     </div>
 
 
-    {# ── RATLANKIAI ── atskira kategorija (etalonas: autogidas) ── #}
-    <a href="/?section=wheels&amp;sekcija=rim" class="sp-rail-btn2"
-       title="{% trans 'Ratlankiai' %}"
-       :class="(tab === 'wheels' && wheelType === 'rim') && 'sp-on'"
-       @click.prevent="goTab('wheels', 'rim')">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3.5v5.5M12 15v5.5M3.9 8.8l5.2 1.9M14.9 13.3l5.2 1.9M3.9 15.2l5.2-1.9M14.9 10.7l5.2-1.9"/></svg>
-    </a>
+    {# ── WHEELS su flyout (Padangos / Ratlankiai) ── #}
+    <div class="relative w-full" @mouseenter="flyOpen()" @mouseleave="flyClose()">
+      <a href="/?section=wheels" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
+              @click.prevent="goTab('wheels'); fly = false">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
+      </a>
 
-    {# ── PADANGOS ── atskira kategorija ── #}
-    <a href="/?section=wheels&amp;sekcija=tyre" class="sp-rail-btn2"
-       title="{% trans 'Padangos' %}"
-       :class="(tab === 'wheels' && wheelType === 'tyre') && 'sp-on'"
-       @click.prevent="goTab('wheels', 'tyre')">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
-    </a>
+      <div x-show="fly" x-cloak x-transition.opacity.duration.100ms
+           class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-56 z-50" style="left:calc(100% - 2px)"
+           @mouseenter="flyOpen()" @mouseleave="flyClose()">
+        <a href="/?section=wheels&amp;sekcija=tyre" @click.prevent="goTab('wheels', 'tyre'); fly = false"
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <svg class="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
+          <span class="text-[14.5px] font-bold" :class="wheelType === 'tyre' && 'text-primary'">{% trans "Padangos" %}</span>
+          <span class="text-[13.5px] text-gray-400">({{ wheel_counts.tyre|default:0 }})</span>
+        </a>
+        <a href="/?section=wheels&amp;sekcija=rim" @click.prevent="goTab('wheels', 'rim'); fly = false"
+                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3.5v5.5M12 15v5.5M3.9 8.8l5.2 1.9M14.9 13.3l5.2 1.9M3.9 15.2l5.2-1.9M14.9 10.7l5.2-1.9"/></svg>
+          <span class="text-[14.5px] font-bold" :class="wheelType === 'rim' && 'text-primary'">{% trans "Ratlankiai" %}</span>
+          <span class="text-[13.5px] text-gray-400">({{ wheel_counts.rim|default:0 }})</span>
+        </a>
+      </div>
+    </div>
 
     {# ── DALYS su flyout (subkategorijos kaip autogide) ── #}
     <div class="relative w-full" @mouseenter="fly3Open()" @mouseleave="fly3Close()">

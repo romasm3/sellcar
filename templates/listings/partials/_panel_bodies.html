@@ -347,13 +347,20 @@ Filtrų parametrai adrese išsaugomi.
 {% if sp_tab == 'wheels' %}
     <div x-show="tab === 'wheels'" x-cloak id="sp-panel-wheels">
       {% comment %}Antraštė rodo, kurioje kategorijoje esi — ne bendrą „Paieška".{% endcomment %}
-      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
-        <span x-show="wheelType === 'tyre'">{% trans "Padangos" %}</span>
-        <span x-show="wheelType === 'rim'" x-cloak>{% trans "Ratlankiai" %}</span>
-      </h2>
+      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Ratlankiai / padangos" %}</h2>
+
+      {% comment %}Perjungimas ratlankiai↔padangos — viena panelės sekcija su
+      dviem filtrų rinkiniais. Abi formos yra puslapyje, todėl perjungiama be
+      perkrovimo (setWheelType). Mygtukų stilius — kaip vienetų perjungiklio
+      (static/js/unit_toggle.js).{% endcomment %}
+      <div class="sp-wheel-switch mb-4">
+        <button type="button" @click="setWheelType('rim')"
+                :class="wheelType === 'rim' && 'is-on'">{% trans "Ratlankiai" %}</button>
+        <button type="button" @click="setWheelType('tyre')"
+                :class="wheelType === 'tyre' && 'is-on'">{% trans "Padangos" %}</button>
+      </div>
 
       {# ── PADANGOS forma ── #}
-{% if sp_sekcija == 'tyre' %}
       <form class="sp-search-form" data-wheel="tyre" x-show="wheelType === 'tyre'"
             method="get" action="{% url 'tyres_list' %}">
         <input type="hidden" name="sidebar" value="1">
@@ -374,6 +381,18 @@ Filtrų parametrai adrese išsaugomi.
               </select>
             </div>
           </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Sezoniškumas" %}</label>
+            <div class="sp-sel">
+              <select name="tyre_season" class="sp-fld">
+                <option value="">{% trans "Visi" %}</option>
+                <option value="summer">{% trans "Vasarinės" %}</option>
+                <option value="all_season">{% trans "Universalios" %}</option>
+                <option value="winter">{% trans "Žieminės" %}</option>
+              </select>
+            </div>
+          </div>
+
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Skersmuo" %}</label>
             <div class="sp-sel">
@@ -464,28 +483,29 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
-{% endif %}
 
       {# ── RATLANKIAI forma ── #}
-{% if sp_sekcija == 'rim' %}
       <form class="sp-search-form" data-wheel="rim" x-show="wheelType === 'rim'" x-cloak
             method="get" action="{% url 'rims_list' %}">
         <input type="hidden" name="sidebar" value="1">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
           <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Paskirtis" %}</label>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Tipas" %}</label>
             <div class="sp-sel">
-              <select name="purpose" class="sp-fld">
+              <select name="rim_material" class="sp-fld">
                 <option value="">{% trans "Visi" %}</option>
-                <option value="car">{% trans "Lengviesiems" %}</option>
-                <option value="suv">{% trans "Visureigiams (SUV)" %}</option>
-                <option value="van">{% trans "Mikroautobusams" %}</option>
-                <option value="truck">{% trans "Sunkvežimiams" %}</option>
-                <option value="moto">{% trans "Motociklams" %}</option>
+                <option value="accessory">{% trans "Priedai" %}</option>
+                <option value="alloy">{% trans "Lengvojo lydinio" %}</option>
+                <option value="steel">{% trans "Plieniniai štampuoti" %}</option>
+                <option value="forged">{% trans "Kalti" %}</option>
+                <option value="spare">{% trans "Atsarginis ratas" %}</option>
+                <option value="hubcap">{% trans "Ratų gaubtai" %}</option>
+                <option value="centercap">{% trans "Ratlankių dangteliai" %}</option>
               </select>
             </div>
           </div>
+
           <div>
             <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Skersmuo" %}</label>
             <div class="sp-sel">
@@ -501,26 +521,17 @@ Filtrų parametrai adrese išsaugomi.
           </div>
 
           <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Medžiaga" %}</label>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Plotis (coliais)" %}</label>
             <div class="sp-sel">
-              <select name="rim_material" class="sp-fld">
+              <select name="rim_width" class="sp-fld">
                 <option value="">{% trans "Visi" %}</option>
-                <option value="alloy">{% trans "Lengvojo lydinio" %}</option>
-                <option value="steel">{% trans "Plieniniai" %}</option>
-                <option value="forged">{% trans "Kalti" %}</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Skylių išdėstymas (PCD)" %}</label>
-            <div class="sp-sel">
-              <select name="rim_pcd" class="sp-fld">
-                <option value="">{% trans "Visi" %}</option>
-                <option value="4x100">4x100</option><option value="4x108">4x108</option>
-                <option value="5x100">5x100</option><option value="5x108">5x108</option>
-                <option value="5x110">5x110</option><option value="5x112">5x112</option>
-                <option value="5x114.3">5x114.3</option><option value="5x120">5x120</option>
-                <option value="5x130">5x130</option><option value="6x139.7">6x139.7</option>
+                <option value="5">5</option><option value="5.5">5.5</option>
+                <option value="6">6</option><option value="6.5">6.5</option>
+                <option value="7">7</option><option value="7.5">7.5</option>
+                <option value="8">8</option><option value="8.5">8.5</option>
+                <option value="9">9</option><option value="9.5">9.5</option>
+                <option value="10">10</option><option value="11">11</option>
+                <option value="gt11">&gt;11</option>
               </select>
             </div>
           </div>
@@ -565,7 +576,6 @@ Filtrų parametrai adrese išsaugomi.
           </button>
         </div>
       </form>
-{% endif %}
     </div>
 
     {# ═══════════ BOATS ═══════════ #}
