@@ -21,7 +21,12 @@ Naujo CSS nėra: sp-fld, sp-sel, sp-dd* klasės tos pačios, kurias naudoja
 automobilių panelė.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key category=panel.slug adv_url=adv_url back='/?category='|add:panel.slug %}
+{% comment %}`back` — kur grįžtama iš /pasirinkti/. Ne '/?category=<slug>':
+tokį adresą listing_list peradresuoja į rezultatus su ?sidebar=1, todėl
+pirmas pat pasirinkimas paleisdavo paiešką. `sp_back` (context_processors)
+veda į tą pačią panelę per ?section= ir neša jau pasirinktus filtrus.
+{% endcomment %}
+{% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key category=panel.slug sub=panel.sub_slug adv_url=adv_url back=sp_back %}
 
 <div class="hidden lg:flex flex-col gap-y-3">
   {% for row in panel.rows %}

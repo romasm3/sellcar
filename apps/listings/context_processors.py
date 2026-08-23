@@ -74,7 +74,37 @@ def search_panel_tab(request):
     # Sekcija kategorijos viduje (nuoma, sunkusis, statybinė). Pasirinkimas
     # ateina iš kategorijų sąrašo, ne iš mygtukų juostos panelėje, todėl
     # serveris renderina tik vienos sekcijos laukus.
-    return {'sp_tab': tab, 'sp_sekcija': resolve_section(tab, request.GET)}
+    sekcija = resolve_section(tab, request.GET)
+    return {'sp_tab': tab, 'sp_sekcija': sekcija,
+            'sp_back': _panel_back(request, tab, sekcija)}
+
+
+# Į grįžimo adresą nekeliauja puslapiavimas, rikiavimas ir vidiniai
+# jungikliai — tik patys filtrai.
+_BACK_DROP = ('category', 'subcategory', 'sidebar', 'page', 'sort',
+              'search_id', 'issaugoti', 'section', 'sekcija')
+
+
+def _panel_back(request, tab, sekcija):
+    """Kur grįžtama iš telefono filtro reikšmės ekrano (/pasirinkti/).
+
+    Turi vesti atgal Į PANELĘ, ne į rezultatus. Su `?category=` to
+    padaryti negalima: listing_list mato kategoriją ir peradresuoja į
+    rezultatų puslapį (?sidebar=1), todėl pasirinkus vieną reikšmę
+    paieška startuodavo nespaudus „Skelbimai". Kategorija todėl
+    perduodama `?section=` — jį panelė supranta, o rezultatų
+    peradresavimo jis neįjungia.
+
+    Jau pasirinkti filtrai lieka adrese: kitaip antras pasirinkimas
+    ištrintų pirmą (adresas buvo pastovus, be esamų parametrų).
+    """
+    params = request.GET.copy()
+    for key in _BACK_DROP:
+        params.pop(key, None)
+    params['section'] = tab
+    if sekcija:
+        params['sekcija'] = sekcija
+    return '/?' + params.urlencode()
 
 
 def resolve_section(tab, params):
