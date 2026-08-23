@@ -849,6 +849,9 @@ def wheels_detail(request, pk):
         'listing': listing,
         'images': listing.images.all(),
         'is_owner': listing.seller_id == request.user.id,
+        # Galerijos „Įsiminti" būsena — kaip skelbimų puslapyje
+        'is_saved': (request.user.is_authenticated and SavedWheelListing.objects.filter(
+            user=request.user, listing=listing).exists()),
     }
     return render(request, 'listings/wheels_detail.html', context)
 

@@ -23095,3 +23095,23 @@ msgstr "This email is already registered."
 #: apps/accounts/antispam.py
 msgid "Svetainė"
 msgstr "Website"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Įsiminti"
+msgstr "Save"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Įsiminta"
+msgstr "Saved"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Dalintis"
+msgstr "Share"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Kopijuoti"
+msgstr "Copy"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Nukopijuota"
+msgstr "Copied"

@@ -31,15 +31,20 @@
                 {# ─── NUOTRAUKOS ─── #}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     {% if images %}
+                    {% comment %}Nuotraukos atidaromos bendroje galerijoje
+                    (partials/_lightbox.html) — ta pati kaip visų kitų
+                    kategorijų skelbimuose; anksčiau atsidarydavo failas
+                    naujoje kortelėje ir žmogus išeidavo iš skelbimo.{% endcomment %}
                     <img src="{{ images.0.image.url }}" alt="{{ listing.title }}"
-                         class="w-full max-h-[420px] object-cover">
+                         class="w-full max-h-[420px] object-cover cursor-zoom-in"
+                         onclick="window.lb && window.lb.open(0)">
                     {% if images|length > 1 %}
                     <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 p-3">
                         {% for img in images %}
-                        <a href="{{ img.image.url }}" target="_blank"
-                           class="aspect-square overflow-hidden rounded border border-gray-200">
+                        <button type="button" onclick="window.lb && window.lb.open({{ forloop.counter0 }})"
+                                class="aspect-square overflow-hidden rounded border border-gray-200">
                             <img src="{{ img.image.url }}" class="w-full h-full object-cover hover:opacity-90 transition">
-                        </a>
+                        </button>
                         {% endfor %}
                     </div>
                     {% endif %}
@@ -241,4 +246,19 @@
         </div>
     </div>
 </div>
+
+{% comment %}Bendra nuotraukų galerija — ta pati komponentė kaip skelbimų
+puslapyje (partials/_lightbox.html).{% endcomment %}
+<script>
+window.__lbImages = [
+  {% for img in images %}{ full: "{{ img.image.url }}", sm: "{{ img.image.url }}" }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+];
+window.__lbAlt = "{{ listing.title|escapejs }}";
+window.__lbTitle = "{{ listing.title|escapejs }}";
+window.__lbSaveUrl = "{% url 'wheels_save_toggle' listing.pk %}";
+window.__lbSaved = {% if is_saved %}true{% else %}false{% endif %};
+window.__lbShareUrl = "{{ request.scheme }}://{{ request.get_host }}{{ request.path }}";
+</script>
+{% include 'listings/partials/_lightbox.html' %}
 {% endblock %}

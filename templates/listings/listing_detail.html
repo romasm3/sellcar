@@ -2985,6 +2985,12 @@ window.__lbImages = [
   {% endfor %}
 ];
 window.__lbAlt = "{{ listing.title|escapejs }}";
+{% comment %}Galerijos apatinei juostai: pavadinimas, „Įsiminti" ir dalinimosi
+nuoroda. Ta pati komponentė naudojama visose kategorijose.{% endcomment %}
+window.__lbTitle = "{{ listing.title|escapejs }}{% if listing.year %}, {{ listing.year }}{% endif %}";
+window.__lbSaveUrl = "{% url 'save_listing' listing.pk %}";
+window.__lbSaved = {% if is_saved %}true{% else %}false{% endif %};
+window.__lbShareUrl = "{{ request.scheme }}://{{ request.get_host }}{{ listing.get_absolute_url }}";
 </script>
 {% include 'listings/partials/_lightbox.html' %}
 
