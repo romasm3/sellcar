@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load i18n_db static %}
 {% load i18n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Redaguoti skelbimą" %}{% else %}{% trans "Naujas skelbimas" %}{% endif %} - AutoLeft{% endblock %}
@@ -222,7 +222,7 @@
                                 <input type="checkbox" name="equipment" value="{{ item.id }}"
                                        {% if item.id|stringformat:'s' in selected_equipment %}checked{% endif %}
                                        class="w-4 h-4 rounded">
-                                <span class="text-sm text-gray-700">{{ item.name }}</span>
+                                <span class="text-sm text-gray-700">{{ item.name|tdb }}</span>
                             </label>
                             {% endfor %}
                         </div>

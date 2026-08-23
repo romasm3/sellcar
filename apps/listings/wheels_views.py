@@ -22,7 +22,10 @@ from django.db.models import Case, When, IntegerField, Value, Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-from django.utils.translation import gettext as _
+# gettext_lazy, o ne gettext: modulio lygio sąrašai (TYRE_FEATURE_FIELDS ir kt.)
+# įvertinami importo metu, kai aktyvi numatytoji kalba — su „gettext" jie
+# amžiams užšaldavo lietuviškai ir angliškoje versijoje likdavo LT.
+from django.utils.translation import gettext_lazy as _
 
 from .image_validation import split_valid_images
 from .models import (

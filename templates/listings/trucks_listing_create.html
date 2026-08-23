@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static l10n %}
+{% load i18n_db static l10n %}
 {% load i18n i18n_db %}
 
 {% block title %}{% if is_edit %}{% trans "Edit" %}{% else %}{% trans "Create" %}{% endif %} {% trans "Trucks Listing" %} - AutoLeft{% endblock %}
@@ -560,7 +560,7 @@
                             <input type="checkbox" name="equipment" value="{{ item.id }}"
                                    {% if item.id|stringformat:'s' in data.equipment %}checked{% endif %}
                                    {% if not is_edit %}data-autosave="true" class="equipment-checkbox"{% endif %}>
-                            <span>{{ item.name }}</span>
+                            <span>{{ item.name|tdb }}</span>
                         </label>
                         {% endfor %}
                     </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 14:09+0300\n"
+"POT-Creation-Date: 2026-08-23 14:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -991,7 +991,7 @@ msgstr "Kaina derinama"
 #: templates/listings/truck_for_parts_create.html:179
 #: templates/listings/trucks_listing_create.html:576
 #: templates/listings/tyres_create.html:227
-#: templates/listings/wheels_create.html:308
+#: templates/listings/wheels_create.html:310
 #: templates/listings/wheels_detail.html:89
 msgid "Description"
 msgstr "Aprašymas"
@@ -12838,6 +12838,58 @@ msgstr ""
 msgid "„Webasto“"
 msgstr ""
 
+#: apps/listings/translatable_db.py:2336
+msgid "Antstato detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2337
+msgid "Aušinimo detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2338
+msgid "Elektros detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2339
+msgid "Kėbulas ir įranga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2340
+msgid "Kėbulo detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2341
+msgid "Nuomos sąlygos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2342
+msgid "Papildoma įranga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2343
+msgid "Pavaros ir važiuoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2344
+msgid "Salono detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2345
+msgid "Variklio detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2346
+msgid "Važiuoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2347
+msgid "Važiuoklė ir paviršius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2348
+msgid "Važiuoklės detalės"
+msgstr ""
+
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
 msgstr "Kėbulo detalės"
@@ -14030,8 +14082,8 @@ msgstr "Antrinis telefonas"
 #: templates/listings/rims_create.html:171
 #: templates/listings/tyres_create.html:50
 #: templates/listings/wheels_create.html:61
-#: templates/listings/wheels_create.html:289
-#: templates/listings/wheels_create.html:295
+#: templates/listings/wheels_create.html:291
+#: templates/listings/wheels_create.html:297
 msgid "(optional)"
 msgstr "(neprivaloma)"
 
@@ -16463,7 +16515,7 @@ msgstr "pvz., 4"
 #: templates/listings/motogear_list.html:298
 #: templates/listings/partials/panel_boats.html:17
 #: templates/listings/wheels_advanced_search.html:201
-#: templates/listings/wheels_create.html:279
+#: templates/listings/wheels_create.html:281
 msgid "Material"
 msgstr "Medžiaga"
 
@@ -16538,7 +16590,7 @@ msgstr "Ventiliacijos angų skaičius"
 #: templates/listings/listing_create_cars_quick.html:478
 #: templates/listings/rims_create.html:204
 #: templates/listings/tyres_create.html:235
-#: templates/listings/wheels_create.html:316
+#: templates/listings/wheels_create.html:318
 msgid "Describe your offer in detail."
 msgstr "Išsamiai aprašykite savo pasiūlymą."
 
@@ -16559,7 +16611,7 @@ msgstr "Vaizdo įrašo URL (YouTube, nebūtina)"
 #: templates/listings/truck_for_parts_create.html:187
 #: templates/listings/trucks_listing_create.html:585
 #: templates/listings/tyres_create.html:248
-#: templates/listings/wheels_create.html:329
+#: templates/listings/wheels_create.html:331
 msgid "Photos"
 msgstr "Nuotraukos"
 
@@ -16597,7 +16649,7 @@ msgstr "Dabartinės nuotraukos"
 #: templates/listings/truck_for_parts_create.html:254
 #: templates/listings/tyres_create.html:276
 #: templates/listings/tyres_create.html:515
-#: templates/listings/wheels_create.html:633
+#: templates/listings/wheels_create.html:635
 msgid "MAIN"
 msgstr "PAGRINDINIS"
 
@@ -16623,7 +16675,7 @@ msgstr "Pasukti į dešinę"
 #: templates/listings/boats_listing_create.html:310
 #: templates/listings/rims_create.html:220
 #: templates/listings/tyres_create.html:253
-#: templates/listings/wheels_create.html:334
+#: templates/listings/wheels_create.html:336
 msgid "Selected photos"
 msgstr "Pasirinktas planas:"
 
@@ -16635,7 +16687,7 @@ msgstr "Vilkite, kad pertvarkytumėte. Pirma nuotrauka — pagrindinė."
 #: templates/listings/listing_create_cars_quick.html:565
 #: templates/listings/rims_create.html:228
 #: templates/listings/tyres_create.html:261
-#: templates/listings/wheels_create.html:342
+#: templates/listings/wheels_create.html:344
 msgid "Upload photos"
 msgstr "Įkelti nuotraukas"
 
@@ -16665,7 +16717,7 @@ msgstr "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
 #: templates/listings/listing_create_cars_quick.html:635
 #: templates/listings/rims_create.html:269
 #: templates/listings/tyres_create.html:305
-#: templates/listings/wheels_create.html:375
+#: templates/listings/wheels_create.html:377
 msgid "Submit Listing"
 msgstr "Pateikti skelbimą"
 
@@ -16673,7 +16725,7 @@ msgstr "Pateikti skelbimą"
 #: templates/listings/listing_create_cars_quick.html:640
 #: templates/listings/rims_create.html:273
 #: templates/listings/tyres_create.html:309
-#: templates/listings/wheels_create.html:379
+#: templates/listings/wheels_create.html:381
 msgid "* Required fields"
 msgstr "* Privalomi laukai"
 
@@ -16764,7 +16816,7 @@ msgstr "Valstija"
 #: templates/listings/listing_create_cars_quick.html:892
 #: templates/listings/rims_create.html:375
 #: templates/listings/tyres_create.html:410
-#: templates/listings/wheels_create.html:532
+#: templates/listings/wheels_create.html:534
 msgid "You must agree to terms and conditions"
 msgstr "Turite sutikti su sąlygomis ir nuostatomis"
 
@@ -17043,7 +17095,7 @@ msgstr "Būtina nurodyti metus"
 #: templates/listings/rims_create.html:353
 #: templates/listings/truck_for_parts_create.html:284
 #: templates/listings/tyres_create.html:390
-#: templates/listings/wheels_create.html:505
+#: templates/listings/wheels_create.html:507
 msgid "Price is required"
 msgstr "Būtina nurodyti kainą"
 
@@ -17055,7 +17107,7 @@ msgstr "Būtina nurodyti kainą"
 #: templates/listings/rims_create.html:374
 #: templates/listings/truck_for_parts_create.html:285
 #: templates/listings/tyres_create.html:409
-#: templates/listings/wheels_create.html:531
+#: templates/listings/wheels_create.html:533
 msgid "Phone is required"
 msgstr "Būtinas telefono numeris"
 
@@ -17066,7 +17118,7 @@ msgstr "Būtinas telefono numeris"
 #: templates/listings/rims_create.html:373
 #: templates/listings/truck_for_parts_create.html:286
 #: templates/listings/tyres_create.html:408
-#: templates/listings/wheels_create.html:530
+#: templates/listings/wheels_create.html:532
 msgid "City is required"
 msgstr "Būtina nurodyti miestą"
 
@@ -17077,7 +17129,7 @@ msgstr "Būtina nurodyti miestą"
 #: templates/listings/rims_create.html:371
 #: templates/listings/truck_for_parts_create.html:287
 #: templates/listings/tyres_create.html:406
-#: templates/listings/wheels_create.html:528
+#: templates/listings/wheels_create.html:530
 msgid "State is required"
 msgstr "Būtina nurodyti valstiją"
 
@@ -17742,7 +17794,7 @@ msgstr "Pardavėjo tipas"
 #: templates/listings/listing_create_cars_quick.html:479
 #: templates/listings/rims_create.html:205
 #: templates/listings/tyres_create.html:236
-#: templates/listings/wheels_create.html:317
+#: templates/listings/wheels_create.html:319
 msgid ""
 "The fewer questions buyers have when reading your listing, the faster you'll "
 "find a buyer."
@@ -17753,14 +17805,14 @@ msgstr ""
 #: templates/listings/listing_create_cars_quick.html:480
 #: templates/listings/rims_create.html:206
 #: templates/listings/tyres_create.html:237
-#: templates/listings/wheels_create.html:318
+#: templates/listings/wheels_create.html:320
 msgid "Avoid using ALL CAPS or excessive symbols."
 msgstr "Venkite naudoti VISAS DIDŽIĄSIAS RAIDES arba per daug simbolių."
 
 #: templates/listings/listing_create_cars_quick.html:602
 #: templates/listings/rims_create.html:260
 #: templates/listings/tyres_create.html:296
-#: templates/listings/wheels_create.html:364
+#: templates/listings/wheels_create.html:366
 msgid ""
 "Not all required fields are filled in or filled in incorrectly. These fields "
 "are marked in red."
@@ -17770,7 +17822,7 @@ msgstr ""
 
 #: templates/listings/listing_create_cars_quick.html:860
 #: templates/listings/rims_create.html:361
-#: templates/listings/wheels_create.html:518
+#: templates/listings/wheels_create.html:520
 msgid "is required"
 msgstr "yra privaloma"
 
@@ -21181,19 +21233,19 @@ msgid "Quantity"
 msgstr "Kiekis"
 
 #: templates/listings/rims_create.html:103
-#: templates/listings/wheels_create.html:238
+#: templates/listings/wheels_create.html:240
 msgid "Rim details"
 msgstr "Pagrindinės detalės"
 
 #: templates/listings/rims_create.html:121
 #: templates/listings/wheels_advanced_search.html:191
-#: templates/listings/wheels_create.html:269
+#: templates/listings/wheels_create.html:271
 #: templates/listings/wheels_detail.html:150
 msgid "Bolt count"
 msgstr "Tvirtinimo taškai"
 
 #: templates/listings/rims_create.html:145
-#: templates/listings/wheels_create.html:245
+#: templates/listings/wheels_create.html:247
 msgid "Width (J)"
 msgstr "Plotis (J)"
 
@@ -21213,25 +21265,25 @@ msgstr "pvz., Audi, BMW, VW"
 
 #: templates/listings/rims_create.html:201
 #: templates/listings/tyres_create.html:232
-#: templates/listings/wheels_create.html:313
+#: templates/listings/wheels_create.html:315
 msgid "Describe condition, wear, storage, reason for selling..."
 msgstr "Apibūdinkite prekę – būklę, istoriją, kodėl ją parduodate..."
 
 #: templates/listings/rims_create.html:229
 #: templates/listings/tyres_create.html:262
-#: templates/listings/wheels_create.html:343
+#: templates/listings/wheels_create.html:345
 msgid "Up to 20 photos. Max size 20MB. JPG, GIF, PNG."
 msgstr "Iki 20 nuotraukų. Maks. dydis 20MB. JPG, GIF, PNG."
 
 #: templates/listings/rims_create.html:347
 #: templates/listings/tyres_create.html:384
-#: templates/listings/wheels_create.html:499
+#: templates/listings/wheels_create.html:501
 msgid "Manufacturer is required"
 msgstr "Būtina nurodyti valstiją"
 
 #: templates/listings/rims_create.html:350
 #: templates/listings/tyres_create.html:387
-#: templates/listings/wheels_create.html:502
+#: templates/listings/wheels_create.html:504
 msgid "Diameter is required"
 msgstr "Būtina nurodyti valstiją"
 
@@ -21246,14 +21298,14 @@ msgstr "Būtina nurodyti mėnesį"
 
 #: templates/listings/rims_create.html:362
 #: templates/listings/tyres_create.html:395
-#: templates/listings/wheels_create.html:511
-#: templates/listings/wheels_create.html:517
+#: templates/listings/wheels_create.html:513
+#: templates/listings/wheels_create.html:519
 msgid "Width is required"
 msgstr "Būtina nurodyti miestą"
 
 #: templates/listings/rims_create.html:519
 #: templates/listings/tyres_create.html:557
-#: templates/listings/wheels_create.html:718
+#: templates/listings/wheels_create.html:720
 msgid "Maximum 20 photos. Remove some first."
 msgstr "Daugiausia 40 nuotraukų. Pirmiausia pašalinkite kelias."
 
@@ -21920,12 +21972,12 @@ msgid "Production year (DOT)"
 msgstr "Pagaminimo metai (DOT)"
 
 #: templates/listings/tyres_create.html:396
-#: templates/listings/wheels_create.html:512
+#: templates/listings/wheels_create.html:514
 msgid "Profile is required"
 msgstr "Būtina nurodyti kainą"
 
 #: templates/listings/tyres_create.html:397
-#: templates/listings/wheels_create.html:513
+#: templates/listings/wheels_create.html:515
 msgid "Season is required"
 msgstr "Būtina nurodyti metus"
 

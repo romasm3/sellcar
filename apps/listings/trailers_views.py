@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages

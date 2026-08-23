@@ -2329,3 +2329,21 @@ ALL_EQUIPMENT_NAMES = [
     _('“Subwoofer” valdymas'),
     _('„Webasto“'),
 ]
+
+# Įrangos registro (equipment_registry) etiketės bei punktai ir
+# ratlankių/padangų reikšmės — rodomos formose.
+EXTRA_UI_VALUES = [
+    _('Antstato detalės'),
+    _('Aušinimo detalės'),
+    _('Elektros detalės'),
+    _('Kėbulas ir įranga'),
+    _('Kėbulo detalės'),
+    _('Nuomos sąlygos'),
+    _('Papildoma įranga'),
+    _('Pavaros ir važiuoklė'),
+    _('Salono detalės'),
+    _('Variklio detalės'),
+    _('Važiuoklė'),
+    _('Važiuoklė ir paviršius'),
+    _('Važiuoklės detalės'),
+]

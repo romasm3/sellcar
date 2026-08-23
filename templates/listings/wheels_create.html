@@ -219,9 +219,10 @@
                     <div class="mt-5 pt-4 border-t border-gray-100">
                         <h4 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Features" %}</h4>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
-                            {% for field, label in tyre_feature_fields %}
+                            {% comment %}Trejetas: laukas, etiketė, pažymėta (žr. wheels_views._wheel_form).{% endcomment %}
+                            {% for field, label, checked in tyre_feature_fields %}
                             <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
-                                <input type="checkbox" name="{{ field }}" class="w-4 h-4 rounded">
+                                <input type="checkbox" name="{{ field }}" {% if checked %}checked{% endif %} class="w-4 h-4 rounded">
                                 <span class="text-sm text-gray-700">{{ label }}</span>
                             </label>
                             {% endfor %}

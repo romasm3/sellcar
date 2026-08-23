@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n i18n_db %}
-{% load static %}
+{% load i18n_db static %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Sell Truck For Parts" %}{% endif %} - AutoLeft{% endblock %}
 
@@ -159,14 +159,14 @@
 
                 {% for group in part_groups %}
                 <div class="mb-5">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-2">{{ group.label }}</h3>
+                    <h3 class="text-sm font-semibold text-gray-800 mb-2">{{ group.label|tdb }}</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2">
                         {% for item in group.items %}
                         <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
                             <input type="checkbox" name="part_types" value="{{ item.id }}"
                                    {% if item.id|stringformat:"s" in sel_part_types %}checked{% endif %}
                                    class="rounded border-gray-300 text-gray-700 focus:ring-gray-400">
-                            <span>{{ item.name }}</span>
+                            <span>{{ item.name|tdb }}</span>
                         </label>
                         {% endfor %}
                     </div>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n_db i18n %}
 
 {% block title %}{% trans "Sell Moto Part" %} - AutoLeft{% endblock %}
 
@@ -143,12 +143,12 @@
                 <div class="space-y-6">
                     {% for group in part_groups %}
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-800 mb-3">{{ group.label }}</h3>
+                        <h3 class="text-sm font-semibold text-gray-800 mb-3">{{ group.label|tdb }}</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2">
                             {% for item in group.items %}
                             <label class="inline-flex items-center gap-2 text-sm text-gray-700">
                                 <input type="checkbox" name="part_types" value="{{ item.id }}" {% if item.id|stringformat:'s' in selected_part_types %}checked{% endif %}>
-                                {{ item.name }}
+                                {{ item.name|tdb }}
                             </label>
                             {% endfor %}
                         </div>
