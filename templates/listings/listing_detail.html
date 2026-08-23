@@ -1654,7 +1654,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                             </span>
                         </div>
 
@@ -2032,7 +2031,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
                                 <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
-                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -2149,7 +2147,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
                         {% if listing.engine_capacity %}
@@ -2157,7 +2154,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Engine capacity" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2324,7 +2320,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
                                 <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
-                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -2410,7 +2405,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
 
@@ -2419,7 +2413,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Engine Capacity" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2631,7 +2624,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% if listing.mileage %}
                     <div class="text-sm text-gray-600 mb-1">
                         <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                        <span class="text-gray-400">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                     </div>
                     {% endif %}
                     {% if listing.power %}
