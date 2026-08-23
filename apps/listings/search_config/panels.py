@@ -211,6 +211,44 @@ ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipmen
                     'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats',
                     'cars', 'motorcycles'}
 
+# Detalios paieškos antraštės — etalone kategorija eina kilmininku
+# („Automobilių skelbimų paieška"), todėl vardo iš `name` nepakanka.
+ADVANCED_TITLES = {
+    'cars': _('Automobilių skelbimų paieška'),
+    'motorcycles': _('Motociklų skelbimų paieška'),
+    'trucks': _('Sunkiojo transporto skelbimų paieška'),
+    'trailers': _('Priekabų skelbimų paieška'),
+    'agriculture': _('Žemės ūkio technikos skelbimų paieška'),
+    'construction': _('Statybinės technikos skelbimų paieška'),
+    'loading-equipment': _('Krovimo technikos skelbimų paieška'),
+    'forestry': _('Miško ūkio technikos skelbimų paieška'),
+    'camping-houses': _('Turistinių namelių skelbimų paieška'),
+    'boats': _('Vandens transporto skelbimų paieška'),
+    'bicycles': _('Dviračių ir paspirtukų skelbimų paieška'),
+    'rental': _('Nuomos skelbimų paieška'),
+    'electronics': _('Audio ir navigacijos skelbimų paieška'),
+    'services': _('Paslaugų skelbimų paieška'),
+}
+
+# Ikonų juosta detalios paieškos viršuje — ta pati tvarka kaip etalone.
+# `key` naudojamas ikonai šablone, `url_name`/`url` — nuorodai.
+ADVANCED_RAIL = [
+    ('cars', _('Automobiliai'), 'cars'),
+    ('motorcycles', _('Motociklai'), 'motorcycles'),
+    ('tires', _('Ratai'), 'tires'),
+    ('parts', _('Dalys'), 'parts'),
+    ('agriculture', _('Žemės ūkio technika'), 'agriculture'),
+    ('trucks', _('Sunkusis transportas'), 'trucks'),
+    ('trailers', _('Priekabos'), 'trailers'),
+    ('rental', _('Nuoma'), 'rental'),
+    ('electronics', _('Audio, navigacija'), 'electronics'),
+    ('services', _('Paslaugos'), 'services'),
+]
+
+# „Daugiau" sąrašas — likusios kategorijos, kurių detali paieška veikia.
+ADVANCED_RAIL_MORE = ['construction', 'loading-equipment', 'forestry',
+                      'camping-houses', 'boats', 'bicycles']
+
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
     ('price_asc',  _('Pigiausi viršuje')),
@@ -644,7 +682,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 # tuščias — tada imam etalono reikšmes iš konfigūracijos.
                 item['options'] = (_distinct_options(vt_slug, db, user)
                                    or [(o, _(o)) for o in (f.get('options') or [])])
-            elif db == 'country':
+            elif db in ('country', 'origin_country'):
                 item['options'] = list(Listing.COUNTRY_CHOICES)
             elif db == 'created_at':
                 item['options'] = [(1, _('Vienos dienos')), (3, _('Trijų dienų')),
@@ -778,7 +816,10 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
 
         # Ypatumus ir bendrus laukus (šalis/miestas/senumas/pardavėjas)
         # jau tvarko filter_listings — čia jų nekartojam, kad nedubliuotume.
-        if db in ('__equipment__', 'country', 'city', 'created_at', 'seller_type'):
+        # Išimtis — žymimasis langelis „Tik Lietuvoje": jis irgi remiasi
+        # `country` stulpeliu, bet bendrasis filtras jo neapdoroja.
+        if (db in ('__equipment__', 'country', 'city', 'created_at', 'seller_type')
+                and not (db == 'country' and ftype == 'checkbox')):
             continue
 
         # Kelios markės vienu metu — reikšmės masyvas
@@ -817,7 +858,12 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
 
         elif ftype == 'checkbox':
             if _get(params, f.get('param')):
-                if db == 'vin':
+                if f.get('negate'):
+                    # Etalone yra ir neigiami langeliai: „Automobilis ne iš
+                    # JAV", „Slėpti iš aukcionų" — pažymėtas langelis reiškia
+                    # lauko reikšmę False.
+                    listings = listings.filter(**{db: False})
+                elif db == 'vin':
                     listings = listings.exclude(vin__isnull=True).exclude(vin='')
                 elif db == 'country':
                     listings = listings.filter(country='LT')

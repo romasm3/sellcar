@@ -268,3 +268,16 @@ def skelbimu(kiek):
     if 2 <= vienetai <= 9 and not 11 <= šimtai <= 19:
         return 'skelbimai'
     return 'skelbimų'
+
+
+@register.filter
+def index(sequence, i):
+    """Sąrašo elementas pagal numerį; nėra — tuščia.
+
+    Reikalinga detaliai paieškai: papildomiems markių laukams reikia
+    pasiimti antrą, trečią… jau pasirinktą reikšmę.
+    """
+    try:
+        return sequence[int(i)]
+    except (IndexError, TypeError, ValueError):
+        return ''

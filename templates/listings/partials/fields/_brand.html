@@ -18,7 +18,11 @@ pavadinimą.
 Savarankiškas Alpine komponentas, todėl tinka ir puslapiams be spPanel()
 (šoninė juosta). Ten, kur tėvinis komponentas turi refreshCount(),
 pasirinkimas jį iškviečia per Alpine scope grandinę.
-{% endcomment %}{% with cur=request.GET|get_param:f.param %}
+{% endcomment %}{% comment %}`cur_val` — pradinė reikšmė, kai laukas
+renderinamas ne vieną kartą (kelios markės detalioje paieškoje).
+{% endcomment %}{% comment %}`cur_fixed` — reikšmę duoda kviečiantis šablonas
+(detalioje paieškoje markių laukų yra keli). Be jos imam pirmą GET reikšmę,
+kaip visur kitur.{% endcomment %}{% if cur_fixed %}{% firstof cur_val '' as cur %}{% else %}{% firstof request.GET|get_param:f.param '' as cur %}{% endif %}
 <div class="relative"
      x-data="brandField({
         url: '{{ f.brand_url|escapejs }}',
@@ -62,4 +66,4 @@ pasirinkimas jį iškviečia per Alpine scope grandinę.
     </div>
   </div>
 </div>
-{% endwith %}
+

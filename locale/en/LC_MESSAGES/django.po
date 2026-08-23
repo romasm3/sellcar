@@ -2826,7 +2826,7 @@ msgstr "Implement / self-propelled"
 #: templates/listings/listing_detail.html:1235
 #: templates/listings/listing_detail.html:1284
 msgid "Motovalandos"
-msgstr ""
+msgstr "Engine hours"
 
 #: apps/listings/models.py:982
 #: templates/listings/agriculture_listing_create.html:194
@@ -3080,7 +3080,7 @@ msgstr ""
 #: templates/listings/listing_detail.html:866
 #: templates/listings/listing_detail.html:1146
 msgid "Pavaros tipas"
-msgstr ""
+msgstr "Drive type"
 
 #: apps/listings/models.py:1098
 #: templates/listings/construction_attachment_create.html:124
@@ -3321,7 +3321,7 @@ msgstr ""
 #: templates/listings/rental_minibus_create.html:120
 #: templates/listings/rental_moto_create.html:106
 msgid "Nuomos kaina valandai"
-msgstr ""
+msgstr "Rental price per hour"
 
 #: apps/listings/models.py:1280 apps/listings/translatable_db.py:1349
 #: templates/listings/rental_car_create.html:141
@@ -3435,7 +3435,7 @@ msgstr "Agricultural machinery repair"
 #: apps/listings/models.py:1325 templates/listings/listing_detail.html:408
 #: templates/listings/services_listing_create.html:55
 msgid "Paslaugos tipas"
-msgstr ""
+msgstr "Service type"
 
 #: apps/listings/models.py:1344 apps/listings/translatable_db.py:1628
 msgid "Automobilių signalizacija"
@@ -3567,7 +3567,7 @@ msgstr "Pneumatic tyres"
 #: apps/listings/models.py:1415
 #: templates/listings/bicycles_listing_create.html:114
 msgid "Maksimalus greitis, km/h"
-msgstr ""
+msgstr "Top speed, km/h"
 
 #: apps/listings/models.py:1419 apps/listings/translatable_db.py:1213
 #: templates/listings/bicycles_listing_create.html:132
@@ -3577,11 +3577,11 @@ msgstr "Range on one charge, km"
 #: apps/listings/models.py:1424
 #: templates/listings/bicycles_listing_create.html:167
 msgid "Baterijos talpa, Ah"
-msgstr ""
+msgstr "Battery capacity, Ah"
 
 #: apps/listings/models.py:1429
 msgid "Baterijos talpos likutis, %"
-msgstr ""
+msgstr "Remaining battery capacity, %"
 
 #: apps/listings/models.py:1434 apps/listings/translatable_db.py:1514
 #: templates/listings/bicycles_listing_create.html:179
@@ -5951,7 +5951,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:284
 msgid "Automobilis ne iš JAV"
-msgstr ""
+msgstr "Not imported from the USA"
 
 #: apps/listings/translatable_db.py:285
 msgid "Autonominio šildytuvo (Webastos) dugno apsauga"
@@ -7921,7 +7921,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:800
 msgid "Max kėlimo aukštis m"
-msgstr ""
+msgstr "Max lift height, m"
 
 #: apps/listings/translatable_db.py:801
 msgid "Mažasis \"A\" galinių durų stiklas"
@@ -7984,7 +7984,7 @@ msgstr "Material"
 #: apps/listings/translatable_db.py:815
 #: templates/listings/rental_minibus_create.html:87
 msgid "Miegamų vietų skaičius"
-msgstr ""
+msgstr "Number of berths"
 
 #: apps/listings/translatable_db.py:816
 msgid "Modelio raidės"
@@ -8546,7 +8546,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:967
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "Country of first registration"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -9788,7 +9788,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1285
 msgid "Slėpti iš aukcionų"
-msgstr ""
+msgstr "Hide auction listings"
 
 #: apps/listings/translatable_db.py:1286
 msgid "Smagratis (plaukiojantis/ dviejų masių)"
@@ -10706,7 +10706,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1525
 msgid "Įveikiama įkalnė °"
-msgstr ""
+msgstr "Climbable gradient, °"
 
 #: apps/listings/translatable_db.py:1526
 msgid "Šakės"
@@ -16163,7 +16163,7 @@ msgstr ""
 
 #: templates/listings/bicycles_listing_create.html:108
 msgid "Galia, W"
-msgstr ""
+msgstr "Power, W"
 
 #: templates/listings/bicycles_listing_create.html:120
 msgid "Svoris, kg"
@@ -16171,7 +16171,7 @@ msgstr "Weight (kg)"
 
 #: templates/listings/bicycles_listing_create.html:126
 msgid "Maksimali apkrova, kg"
-msgstr ""
+msgstr "Maximum load, kg"
 
 #: templates/listings/bicycles_listing_create.html:138
 #: templates/listings/camping_listing_create.html:244
@@ -17721,7 +17721,7 @@ msgstr "Mileage"
 #: templates/listings/rental_minibus_create.html:109
 #: templates/listings/rental_moto_create.html:95
 msgid "Nuomos kaina parai"
-msgstr ""
+msgstr "Rental price per day"
 
 #: templates/listings/listing_detail.html:533
 #: templates/listings/rental_car_create.html:89
@@ -19438,7 +19438,7 @@ msgstr ""
 
 #: templates/listings/motogear_advanced.html:48
 msgid "Išvalyti paiešką"
-msgstr ""
+msgstr "Clear search"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/_panel_bodies.html:48
@@ -22823,3 +22823,119 @@ msgstr "5 and more"
 #: apps/listings/wheels_filters.py
 msgid "Vienos dienos (tik nauji)"
 msgstr "One day (new only)"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių skelbimų paieška"
+msgstr "Car ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Motociklų skelbimų paieška"
+msgstr "Motorcycle ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkiojo transporto skelbimų paieška"
+msgstr "Heavy vehicle ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekabų skelbimų paieška"
+msgstr "Trailer ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Žemės ūkio technikos skelbimų paieška"
+msgstr "Agricultural machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Statybinės technikos skelbimų paieška"
+msgstr "Construction machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Krovimo technikos skelbimų paieška"
+msgstr "Loading equipment ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Miško ūkio technikos skelbimų paieška"
+msgstr "Forestry machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Turistinių namelių skelbimų paieška"
+msgstr "Caravan and camper ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Vandens transporto skelbimų paieška"
+msgstr "Boat ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Dviračių ir paspirtukų skelbimų paieška"
+msgstr "Bicycle and scooter ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Nuomos skelbimų paieška"
+msgstr "Rental ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio ir navigacijos skelbimų paieška"
+msgstr "Audio and navigation ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Paslaugų skelbimų paieška"
+msgstr "Service ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Skelbimų paieška"
+msgstr "Ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Kategorijos"
+msgstr "Categories"
+
+#: apps/listings/search_config/panels.py
+msgid "Ratai"
+msgstr "Wheels"
+
+#: apps/listings/search_config/panels.py
+msgid "Žemės ūkio technika"
+msgstr "Agricultural machinery"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkusis transportas"
+msgstr "Heavy vehicles"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekabos"
+msgstr "Trailers"
+
+#: apps/listings/search_config/panels.py
+msgid "Nuoma"
+msgstr "Rental"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio, navigacija"
+msgstr "Audio, navigation"
+
+#: apps/listings/search_config/panels.py
+msgid "Galia, kW"
+msgstr "Power, kW"
+
+#: apps/listings/search_config/panels.py
+msgid "Galiojanti TA"
+msgstr "Valid MOT"
+
+#: apps/listings/search_config/panels.py
+msgid "Tik Lietuvoje"
+msgstr "In Lithuania only"
+
+#: apps/listings/search_config/panels.py
+msgid "Naudota/Nauja"
+msgstr "Used/New"
+
+#: apps/listings/search_config/panels.py
+msgid "Naudotos/Naujos"
+msgstr "Used/New"
+
+#: apps/listings/search_config/panels.py
+msgid "Keliamoji galia kg"
+msgstr "Load capacity, kg"
+
+#: apps/listings/search_config/panels.py
+msgid "Max keliamoji galia kg"
+msgstr "Max load capacity, kg"

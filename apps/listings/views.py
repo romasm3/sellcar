@@ -1910,9 +1910,17 @@ def listing_list(request, panel_fragment=False, category=None):
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
-    if brand_filter:
+    # Kelios markės/modeliai — detali paieška leidžia pridėti daugiau markių,
+    # tada reikšmės jungiamos „arba" (kaip skaičiuoja ir count endpoint'as).
+    _brand_list = [v for v in request.GET.getlist('brand') if v]
+    _model_list = [v for v in request.GET.getlist('model') if v]
+    if len(_brand_list) > 1:
+        listings = listings.filter(brand_id__in=_brand_list)
+    elif brand_filter:
         listings = listings.filter(brand_id=brand_filter)
-    if model_filter:
+    if len(_model_list) > 1:
+        listings = listings.filter(model_id__in=_model_list)
+    elif model_filter:
         listings = listings.filter(model_id=model_filter)
     if submodel_filter:
         listings = listings.filter(submodel_id=submodel_filter)
@@ -7910,9 +7918,16 @@ def filter_listings(params, user=None, category=None, base_qs=None):
             Q(title__icontains=part_query) | Q(description__icontains=part_query)
         )
 
-    if params.get('brand'):
+    # Kelios markės/modeliai (detali paieška leidžia pridėti daugiau) — „arba".
+    _brands = _getlist('brand')
+    if len(_brands) > 1:
+        listings = listings.filter(brand_id__in=_brands)
+    elif params.get('brand'):
         listings = listings.filter(brand_id=params['brand'])
-    if params.get('model'):
+    _models = _getlist('model')
+    if len(_models) > 1:
+        listings = listings.filter(model_id__in=_models)
+    elif params.get('model'):
         listings = listings.filter(model_id=params['model'])
     if params.get('submodel'):
         listings = listings.filter(submodel_id=params['submodel'])
@@ -8012,6 +8027,34 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     return listings
 
 
+def _advanced_rail(active_slug):
+    """Ikonų juostos punktai detalios paieškos viršuje.
+
+    Ratai ir Dalys turi savo detalios paieškos puslapius (ne iš
+    isplestine-config.json), todėl jų nuorodos atskiros.
+    """
+    def _nuoroda(slug):
+        if slug == 'tires':
+            return reverse('wheels_advanced_search') + '?type=rim'
+        if slug == 'parts':
+            return reverse('advanced_search') + '?category=parts'
+        return reverse('advanced_search_generic', kwargs={'category': slug})
+
+    juosta = [
+        {'slug': slug, 'label': label, 'key': key, 'url': _nuoroda(slug),
+         'active': slug == active_slug}
+        for slug, label, key in panel_config.ADVANCED_RAIL
+    ]
+    daugiau = []
+    for slug in panel_config.ADVANCED_RAIL_MORE:
+        cfg = panel_config.build_advanced(slug, None)
+        if cfg:
+            daugiau.append({'slug': slug, 'label': cfg['label'],
+                            'url': _nuoroda(slug),
+                            'active': slug == active_slug})
+    return juosta, daugiau
+
+
 def advanced_search_generic(request, category):
     """Išplėstinė paieška iš konfigūracijos — /paieska/<kategorija>/.
 
@@ -8024,15 +8067,10 @@ def advanced_search_generic(request, category):
     if adv is None:
         raise Http404
 
-    # Kategorijų juosta viršuje — kaip etalone (Auto, Motociklai, Ratai,
-    # Dalys, Ž. ūkio…): iš tos pačios detalios paieškos kategorijų aibės,
-    # kad sąrašas negalėtų prasilenkti su tuo, kas iš tikrųjų veikia.
-    adv_cats = []
-    for _slug in sorted(panel_config.advanced_categories()):
-        _cfg = panel_config.build_advanced(_slug, None)
-        if _cfg:
-            adv_cats.append({'slug': _slug, 'label': _cfg['label'],
-                             'active': _slug == category})
+    # Ikonų juosta viršuje — kaip pagrindiniame puslapyje (Auto, Motociklai,
+    # Ratai, Dalys, Ž. ūkio…). Tvarka iš panels.ADVANCED_RAIL, o „Daugiau"
+    # sąraše — likusios kategorijos, kurių detali paieška veikia.
+    adv_rail, adv_more = _advanced_rail(category)
 
     qs = filter_listings(request.GET, user=request.user, category=category)
 
@@ -8046,8 +8084,14 @@ def advanced_search_generic(request, category):
         'trailer_brand_text',
     )
 
+    # Papildomų markių laukų vietos („+ Pridėti daugiau markių") — etalone
+    # markių galima nurodyti kelias.
+    adv['brand_extra_slots'] = list(range(3))
+
     return render(request, 'listings/advanced_generic.html', {
-        'adv_categories': adv_cats,
+        'adv_rail': adv_rail,
+        'adv_more': adv_more,
+        'adv_title': panel_config.ADVANCED_TITLES.get(category) or adv['label'],
         'adv': adv,
         'result_count': qs.count(),
         'selected_equipment': request.GET.getlist('equipment'),

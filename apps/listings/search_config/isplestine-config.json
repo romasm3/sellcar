@@ -654,10 +654,11 @@
       "Kiti smulkūs defektai",
       "Kiti stambūs defektai"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "defects",
+     "param": "defects",
      "multi": false,
-     "active": false
+     "active": true,
+     "placeholder": "Visi"
     },
     {
      "label": "Durų skaičius",
@@ -784,10 +785,11 @@
       "Švedija",
       "Šveicarija"
      ],
-     "db_field": null,
-     "param": null,
+     "db_field": "origin_country",
+     "param": "origin_country",
      "multi": false,
-     "active": false
+     "active": true,
+     "placeholder": "Visos"
     },
     {
      "label": "Šalis",
@@ -970,11 +972,12 @@
      "label": "Automobilis ne iš JAV",
      "type": "checkbox",
      "name": "ac_2",
-     "db_field": "__equipment__",
-     "param": "equipment",
+     "db_field": "imported_from_us",
+     "param": "not_from_us",
      "multi": false,
      "active": true,
-     "section": "Ypatumai"
+     "section": "Ypatumai",
+     "negate": true
     },
     {
      "label": "Skelbimas su VIN",
@@ -989,8 +992,8 @@
      "label": "Tik Lietuvoje",
      "type": "checkbox",
      "name": "ac_4",
-     "db_field": "__equipment__",
-     "param": "equipment",
+     "db_field": "country",
+     "param": "only_lt",
      "multi": false,
      "active": true,
      "section": "Ypatumai"
@@ -999,11 +1002,12 @@
      "label": "Slėpti iš aukcionų",
      "type": "checkbox",
      "name": "ac_5",
-     "db_field": "__equipment__",
-     "param": "equipment",
+     "db_field": "is_auction",
+     "param": "hide_auctions",
      "multi": false,
      "active": true,
-     "section": "Ypatumai"
+     "section": "Ypatumai",
+     "negate": true
     },
     {
      "label": "Ypatumai (0/107)",
@@ -2086,7 +2090,62 @@
    ],
    "results_url": "/skelbimai/automobiliai/",
    "url_params_raw": "Markė: f_1[]; Modelis: f_model_14[]; Metai: f_41; Metai: f_42; Kaina: f_215; Kaina: f_216; Kuro tipas: f_2[1]…f_2[13] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Rida su vienu įkrovimu, km: f_457; Rida su vienu įkrovimu, km: f_458; Baterijos talpa, kWh: f_459; Baterijos talpa, kWh: f_460; Yra greitojo įkrovimo jungtis: f_453; Kėbulo tipas: f_3[1]…f_3[14] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Pavarų dėžė: f_10; Darbinis tūris (litrai): f_61; Darbinis tūris (litrai): f_62; Galia, kW: f_63; Galia, kW: f_64; Rida: f_65; Rida: f_66; Varantieji ratai: f_12; Vairo padėtis: f_265; Defektai: f_46; Durų skaičius: f_4; Sėdimų vietų skaičius: f_103; Sėdimų vietų skaičius: f_102; Spalva: f_5; Naudotas/Naujas: f_434; Euro standartas: f_106[1]…f_106[7] (po vieną parametrą kiekvienai pažymėtai reikšmei, reikšmė = pavadinimas); Pirmosios registracijos šalis: f_430; Šalis: f_245; Miestas: f_13; Rodyti ne senesnius nei: f_60; Pardavėjo tipas: f_521; Tekstinė paieška: f_376; Domina keitimas: f_412; Galiojanti TA: ac_1; Automobilis ne iš JAV: ac_2; Skelbimas su VIN: ac_3; Tik Lietuvoje: ac_4; Slėpti iš aukcionų: ac_5; Ypatumai (0/107): expandAddons; Autonominis šildymas: a_513; Bagažinės uždangalas: a_1324; Daugiafunkcinis vairas: a_1318; Elektra valdomos sėdynės su atmintimi: a_1321; Masažinės sėdynės: a_1327; Šildomas vairas: a_530; Sportinės sėdynės: a_1312; Tamsinti stiklai: a_1315; Veliūro salonas: a_17; Elektra valdomos sėdynės: a_31; Klimato kontrolė: a_5; Odinis salonas: a_18; Oro kondicionierius: a_4; Šildomos sėdynės: a_69; Ventiliuojamos sėdynės: a_532; Automatiškai užsilenkiantys veidrodėliai: a_1294; Durelių pritraukimas: a_1291; Kablys: a_20; LED dienos žibintai: a_522; LED žibintai: a_1309; Lengvo lydinio ratlankiai: a_12; Matriciniai žibintai: a_1306; Panoraminis stogas: a_523; Priekinių žibintų plovimo įtaisas: a_1303; Rūko žibintai: a_1300; Stogo bagažinės laikikliai: a_65; Vasarinių padangų komplektas: a_1456; Žibintai „Xenon“: a_533; Žieminių padangų komplektas: a_1297; Stoglangis: a_6; Automatiškai įsijungiantys žibintai: a_1333; Bevielis telefono krovimas: a_1360; El. reguliuojami veidrodėliai: a_1330; Elektra reguliuojama vairo padėtis: a_1336; Elektra šildomas priekinis stiklas: a_529; Elektra valdomas bagažinės dangtis: a_516; Kritulių jutiklis: a_521; LCD ekranas: a_1351; Liečiamas ekranas: a_1366; Navigacija/GPS: a_68; Pavarų perjungimas prie vairo: a_1348; Pritemstantis veidrodėlis: a_1342; Projekcinis ekranas ant stiklo (HUD): a_1354; Šildomi veidrodėliai: a_1339; Skaitmeninis prietaisų skydelis: a_1357; Start-Stop sistema: a_528; Valdymas balsu: a_1345; Virtualūs veidrodėliai: a_1468; Atstumo jutiklių sistema: a_231; Beraktė užvedimo sistema: a_515; Autopilotas (kruizo kontrolė): a_500; 360° vaizdo kamera: a_509; Aklosios zonos stebėjimo sistema: a_510; Atstumo palaikymo sistema: a_511; Automatinio parkavimo sistema: a_512; Avarinio stabdymo sistema: a_514; Dinaminis posūkių apšvietimas: a_1429; Įkalnės stabdis: a_1411; ISOFIX (Vaiko kėdutės tvirtinimo taškai): a_1420; Juostos palaikymo sistema: a_519; Kelio ženklų atpažinimo sistema: a_520; Naktinio matymo asistentas: a_1414; Nuovargio įspėjimo sistema: a_531; Padangų slėgio stebėjimo sistema: a_1441; Pagalbos iškvietimo sistema (eCall): a_1438; Palydovinė sekimo sistema: a_1435; Priekinio vaizdo kamera: a_1432; Susidūrimo prevencijos sistema: a_1423; Tolimųjų šviesų asistentas: a_1426; Traukos kontrolės sistema: a_29; Galinio vaizdo kamera: a_517; Oro pagalvės: a_9; Signalizacija/Imobilaizeris: a_11; ESP (Stabilumo kontrolės sistema): a_527; Apple CarPlay / Android Auto: a_1393; Audio grotuvas: a_502; AUX jungtis: a_1381; Bluetooth: a_1405; CD grotuvas: a_1372; CD keitiklis: a_1378; DVD grotuvas: a_1390; HiFi audio sistema: a_1387; Laisvų rankų įranga: a_508; MP3 grotuvas: a_1369; Papildoma audio įranga: a_1375; TV ekranas: a_1402; USB jungtis: a_1396; USB Type-C jungtis: a_1399; Žemų dažnių garsiakalbis: a_1384; Atsarginis ratas: a_1471; Automobilis iš Amerikos: a_1444; Garantija: a_518; Keli raktų komplektai: a_1447; Nuotolinis užvedimas: a_1465; Padidinta variklio galia: a_1450; Parduodama lizingu: a_524; Paruoštas autosportui: a_525; Pneumatinė pakaba: a_1462; Pritaikytas neįgaliems: a_526; Serviso knygelė: a_613; Lietuvoje neeksploatuotas: a_14; APVA kompensacija nepanaudota: a_1486; Baterijos garantija: a_1477; Dvipusis energijos perdavimas: a_1489; Greitasis krovimas: a_1474; Šilumos siurblys: a_1483; Trifazis krovimas: a_1480; hidden: s; rūšiavimas: f_50; puslapis: page",
-   "vt_slug": "cars"
+   "vt_slug": "cars",
+   "layout": [
+    [
+     "Markė",
+     "Modelis"
+    ],
+    [
+     "Metai",
+     "Kaina",
+     "Kuro tipas"
+    ],
+    [
+     "Kėbulo tipas",
+     "Pavarų dėžė",
+     "Darbinis tūris (litrai)"
+    ],
+    [
+     "Galia, kW",
+     "Rida",
+     "Varantieji ratai"
+    ],
+    [
+     "Vairo padėtis",
+     "Defektai",
+     "Durų skaičius"
+    ],
+    [
+     "Sėdimų vietų skaičius",
+     "Spalva",
+     "Naudotas/Naujas"
+    ],
+    [
+     "Euro standartas",
+     "Pirmosios registracijos šalis",
+     "Šalis"
+    ],
+    [
+     "Miestas",
+     "Rodyti ne senesnius nei",
+     "Pardavėjo tipas"
+    ],
+    [
+     "Tekstinė paieška",
+     "Rida su vienu įkrovimu, km"
+    ],
+    [
+     "Domina keitimas",
+     "Galiojanti TA",
+     "Automobilis ne iš JAV"
+    ],
+    [
+     "Skelbimas su VIN",
+     "Tik Lietuvoje",
+     "Slėpti iš aukcionų"
+    ]
+   ]
   },
   {
    "name": "Motociklai",

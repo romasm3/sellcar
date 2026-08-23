@@ -9,18 +9,24 @@
 <div class="bg-gray-50 min-h-screen py-8">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4 mb-5">
-      <h1 class="text-xl font-bold text-gray-900">{% trans "Detali paieška" %}: {{ adv.label }}</h1>
+    {% comment %}Trupinių takas — kaip etalone: Pagrindinis › Skelbimų
+    paieška › <Kategorija>.{% endcomment %}
+    <nav class="adv-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+      <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+      <span>›</span>
+      <span>{% trans "Skelbimų paieška" %}</span>
+      <span>›</span>
+      <span class="adv-crumb-on">{{ adv.label }}</span>
+    </nav>
 
-      {% comment %}Kategorijų juosta — kaip etalone (Auto, Motociklai, Ratai,
-      Dalys…). Sąrašas iš advanced_categories(), todėl jame yra tik tos
-      kategorijos, kurių detali paieška iš tikrųjų veikia.{% endcomment %}
-      <nav class="adv-cats">
-        {% for c in adv_categories %}
-        <a href="{% url 'advanced_search_generic' c.slug %}"
-           class="adv-cat{% if c.active %} is-on{% endif %}">{{ c.label }}</a>
-        {% endfor %}
-      </nav>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4 mb-5">
+      {% include 'listings/partials/_adv_rail.html' %}
+
+      <div class="flex items-center justify-between gap-3 flex-wrap mt-4 pt-4 border-t border-gray-100">
+        <h1 class="text-xl font-bold text-gray-900">{{ adv_title }}</h1>
+        <a href="{% url 'advanced_search_generic' adv.slug %}"
+           class="text-sm text-gray-500 hover:text-gray-900 underline">{% trans "Išvalyti paiešką" %}</a>
+      </div>
     </div>
 
     <form method="get" action="{% url 'listing_list' %}" id="advForm"
@@ -75,7 +81,23 @@
             </div>
 
             {% elif f.widget == 'brand' %}
-            {% include 'listings/partials/fields/_brand.html' with f=f %}
+            {% comment %}Kelios markės vienu metu — kaip etalone: pirmas laukas
+            matomas visada, papildomi atsiveria mygtuku. Visi siunčia tą patį
+            parametrą, todėl variklis juos sujungia per „arba" (filter_listings).
+            {% endcomment %}
+            <div x-data="{ rows: {{ selected_brands|length|default:1 }} }">
+              {% include 'listings/partials/fields/_brand.html' with f=f cur_fixed=1 cur_val=selected_brands|index:0 %}
+              {% for extra in adv.brand_extra_slots %}
+              <div x-show="rows > {{ forloop.counter }}" x-cloak class="mt-2">
+                {% include 'listings/partials/fields/_brand.html' with f=f cur_fixed=1 cur_val=selected_brands|index:forloop.counter %}
+              </div>
+              {% endfor %}
+              <button type="button" x-show="rows <= {{ adv.brand_extra_slots|length }}"
+                      @click="rows++"
+                      class="mt-1 text-[12.5px] font-bold text-gray-600 hover:text-gray-900">
+                + {% trans "Pridėti daugiau markių" %}
+              </button>
+            </div>
 
             {% elif f.widget == 'model' %}
             {% include 'listings/partials/fields/_model.html' with f=f %}
@@ -130,7 +152,10 @@
       {% comment %}Telefone ieškoma per apatinės juostos mygtuką („Skelbimai"),
       todėl šis darbalaukio blokas ten slepiamas — kitaip ekrane būtų du
       akcento spalvos mygtukai (docs/dizaino-sistema.md, hierarchija).{% endcomment %}
-      <div class="hidden lg:flex items-center justify-center gap-3 mb-8">
+      {% comment %}Lipnus mygtukas su gyvu skaičiumi — kaip etalone
+      („Ieškoti 28645"). Telefone ieškoma per apatinę juostą, todėl ten šis
+      blokas slepiamas (docs/dizaino-sistema.md, hierarchija).{% endcomment %}
+      <div class="adv-submit hidden lg:flex items-center justify-center gap-3">
         <a href="{% url 'listing_list' %}?category={{ adv.slug }}"
            class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Išvalyti" %}</a>
         <button type="submit" class="px-12 py-3 bg-primary text-white rounded-lg hover:bg-gray-800 font-semibold text-sm">
@@ -166,15 +191,39 @@
 </script>
 
 <style>
-  /* Kategorijų juosta detalios paieškos viršuje. Matmenys iš dizaino sistemos. */
-  .adv-cats { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
-  .adv-cat { display: inline-flex; align-items: center; height: var(--btn-h-sm);
-             padding: 0 var(--sp-3); border: 1px solid var(--border);
-             border-radius: var(--r-md); background: var(--surface);
-             font-size: var(--fs-sm); font-weight: var(--fw-medium);
-             color: var(--text-muted); text-decoration: none;
-             transition: border-color var(--dur), color var(--dur); }
-  .adv-cat:hover { border-color: var(--border-hover); color: var(--text); }
-  .adv-cat.is-on { border-color: var(--accent); color: var(--text); font-weight: var(--fw-semibold); }
+  /* Trupinių takas ir ikonų juosta. Matmenys — iš dizaino sistemos. */
+  .adv-crumbs { display: flex; align-items: center; gap: var(--sp-2);
+                font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-3); }
+  .adv-crumbs a { color: var(--text-muted); text-decoration: none; }
+  .adv-crumbs a:hover { color: var(--text); text-decoration: underline; }
+  .adv-crumb-on { color: var(--text); }
+
+  .adv-rail { display: flex; align-items: flex-start; gap: var(--sp-1);
+              overflow-x: auto; scrollbar-width: none; }
+  .adv-rail::-webkit-scrollbar { display: none; }
+  .adv-rail-item { flex: 0 0 auto; width: 78px; display: flex; flex-direction: column;
+                   align-items: center; gap: 4px; padding: var(--sp-2) 2px;
+                   border: 1px solid transparent; border-radius: var(--r-md);
+                   background: none; color: var(--text-muted); text-decoration: none;
+                   cursor: pointer; transition: color var(--dur), border-color var(--dur); }
+  .adv-rail-item:hover { color: var(--text); border-color: var(--border); }
+  .adv-rail-item.is-on { color: var(--text); border-color: var(--accent); font-weight: var(--fw-semibold); }
+  .adv-rail-ico svg { width: 26px; height: 26px; display: block; }
+  .adv-rail-txt { font-size: 11px; line-height: 1.2; text-align: center; }
+
+  .adv-rail-more { position: relative; flex: 0 0 auto; }
+  .adv-rail-fly { position: absolute; top: 100%; left: 0; z-index: 40; min-width: 220px;
+                  background: var(--surface); border: 1px solid var(--border);
+                  border-radius: var(--r-md); box-shadow: 0 8px 24px rgba(0,0,0,.08);
+                  padding: var(--sp-1) 0; }
+  .adv-rail-fly-item { display: block; padding: 8px 14px; font-size: var(--fs-sm);
+                       color: var(--text-muted); text-decoration: none; white-space: nowrap; }
+  .adv-rail-fly-item:hover { background: #f3f4f6; color: var(--text); }
+  .adv-rail-fly-item.is-on { color: var(--text); font-weight: var(--fw-semibold); }
+
+  /* „Ieškoti N" lieka matomas slenkant — etalone jis lipnus. */
+  .adv-submit { position: sticky; bottom: 0; z-index: 30;
+                padding: var(--sp-3) 0 var(--sp-4);
+                background: linear-gradient(to bottom, rgba(249,250,251,0), #f9fafb 35%); }
 </style>
 {% endblock %}
