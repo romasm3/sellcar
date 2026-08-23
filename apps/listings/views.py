@@ -1922,6 +1922,29 @@ def listing_list(request, panel_fragment=False, category=None):
         listings = listings.filter(model_id__in=_model_list)
     elif model_filter:
         listings = listings.filter(model_id=model_filter)
+
+    # Dalių paieška: tekstas, kodai ir dalies kategorija — tie patys filtrai
+    # kaip filter_listings, kad „Ieškoti N" ir sąrašas sutaptų.
+    _dal_tekstas = (request.GET.get('part_query') or '').strip()
+    if _dal_tekstas:
+        listings = listings.filter(
+            Q(title__icontains=_dal_tekstas) | Q(description__icontains=_dal_tekstas)
+        )
+    if (request.GET.get('oem_code') or '').strip():
+        listings = listings.filter(oem_code__icontains=request.GET['oem_code'].strip())
+    _vk = (request.GET.get('engine_code_search') or request.GET.get('engine_code') or '').strip()
+    if _vk:
+        listings = listings.filter(engine_code__icontains=_vk)
+    _gk = (request.GET.get('gearbox_code_search') or request.GET.get('gearbox_code') or '').strip()
+    if _gk:
+        listings = listings.filter(gearbox_code__icontains=_gk)
+    _dk = [v for v in request.GET.getlist('part_cat') if v]
+    if _dk:
+        listings = listings.filter(
+            Q(part_category__slug__in=_dk)
+            | Q(part_category__parent__slug__in=_dk)
+            | Q(part_category__parent__parent__slug__in=_dk)
+        )
     if submodel_filter:
         listings = listings.filter(submodel_id=submodel_filter)
     if price_min:
@@ -4614,6 +4637,15 @@ def advanced_search_count_ajax(request):
 def advanced_search(request):
     from django.db.models import Q
     from itertools import groupby
+
+    # Dalys turi savo detalią paiešką (deklaratyvi, su ikonų juosta) —
+    # sena nuoroda veda ten, kad neliktų dviejų skirtingų formų.
+    if request.GET.get('category') == 'parts':
+        params = request.GET.copy()
+        params.pop('category', None)
+        likutis = params.urlencode()
+        adresas = reverse('advanced_search_generic', kwargs={'category': 'parts'})
+        return redirect(adresas + (f'?{likutis}' if likutis else ''))
 
     if request.GET.get('category') == 'motorcycles':
         from . import motorcycles_views
@@ -7918,6 +7950,26 @@ def filter_listings(params, user=None, category=None, base_qs=None):
             Q(title__icontains=part_query) | Q(description__icontains=part_query)
         )
 
+    # Dalių kodai — mūsų priedas prie etalono (Autogidas kodų paieškos neturi)
+    if (params.get('oem_code') or '').strip():
+        listings = listings.filter(oem_code__icontains=params['oem_code'].strip())
+    _var_kodas = (params.get('engine_code_search') or params.get('engine_code') or '').strip()
+    if _var_kodas:
+        listings = listings.filter(engine_code__icontains=_var_kodas)
+    _dez_kodas = (params.get('gearbox_code_search') or params.get('gearbox_code') or '').strip()
+    if _dez_kodas:
+        listings = listings.filter(gearbox_code__icontains=_dez_kodas)
+
+    # Dalies kategorija — pažymima viršutinio lygio, o skelbimai kabo ant
+    # trečio lygio, todėl imam ir visus palikuonis.
+    _dal_kat = [v for v in _getlist('part_cat') if v]
+    if _dal_kat:
+        listings = listings.filter(
+            Q(part_category__slug__in=_dal_kat)
+            | Q(part_category__parent__slug__in=_dal_kat)
+            | Q(part_category__parent__parent__slug__in=_dal_kat)
+        )
+
     # Kelios markės/modeliai (detali paieška leidžia pridėti daugiau) — „arba".
     _brands = _getlist('brand')
     if len(_brands) > 1:
@@ -8037,7 +8089,7 @@ def _advanced_rail(active_slug):
         if slug == 'tires':
             return reverse('wheels_advanced_search') + '?type=rim'
         if slug == 'parts':
-            return reverse('advanced_search') + '?category=parts'
+            return reverse('advanced_search_generic', kwargs={'category': 'parts'})
         return reverse('advanced_search_generic', kwargs={'category': slug})
 
     juosta = [
@@ -8096,7 +8148,18 @@ def advanced_search_generic(request, category):
     # markių galima nurodyti kelias.
     adv['brand_extra_slots'] = list(range(3))
 
+    # Dalių kategorijos — 19 viršutinio lygio PartCategory eilučių.
+    dalies_kategorijos, pasirinktos_dalys = [], []
+    if category == 'parts':
+        pasirinktos_dalys = request.GET.getlist('part_cat')
+        dalies_kategorijos = [
+            {'slug': slug, 'label': label, 'checked': slug in pasirinktos_dalys}
+            for slug, label in panel_config.PARTS_CATEGORIES
+        ]
+
     return render(request, 'listings/advanced_generic.html', {
+        'part_categories': dalies_kategorijos,
+        'selected_part_categories': pasirinktos_dalys,
         'adv_rail': adv_rail,
         'adv_more': adv_more,
         'adv_title': panel_config.ADVANCED_TITLES.get(category) or adv['label'],
@@ -8134,8 +8197,10 @@ def search_panel_count(request, category):
             qs = qs.filter(title__icontains=_gq)
         return JsonResponse({'count': qs.count()})
 
-    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u
-    if category in PARTS_COUNT_KEYS:
+    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u.
+    # Detali paieška (advanced=1) skaičiuoja bendru filtru, kad mygtuko
+    # skaičius sutaptų su rezultatų sąrašu.
+    if category in PARTS_COUNT_KEYS and not request.GET.get('advanced'):
         qs = parts_count_qs(
             PARTS_COUNT_KEYS[category], request.GET, user=request.user
         )

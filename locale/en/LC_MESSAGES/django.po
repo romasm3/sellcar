@@ -7769,7 +7769,7 @@ msgstr "Fuel hose"
 
 #: apps/listings/translatable_db.py:754
 msgid "Kėbulas"
-msgstr ""
+msgstr "Body"
 
 #: apps/listings/translatable_db.py:755
 msgid "Kėbulo modulis"
@@ -20448,7 +20448,7 @@ msgstr ""
 
 #: templates/listings/partials/_card_params.html:38
 msgid "Variklis"
-msgstr ""
+msgstr "Engine"
 
 #: templates/listings/partials/_lightbox.html:22
 msgid "Tolinti"
@@ -22959,3 +22959,99 @@ msgstr "Audio"
 #: templates/listings/partials/_adv_rail.html
 msgid "Daugiau"
 msgstr "More"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių dalių skelbimų paieška"
+msgstr "Car parts ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavadinimas ar aprašymas"
+msgstr "Title or description"
+
+#: apps/listings/search_config/panels.py
+msgid "pvz. stabdžių diskas"
+msgstr "e.g. brake disc"
+
+#: apps/listings/search_config/panels.py
+msgid "OEM kodas"
+msgstr "OEM code"
+
+#: apps/listings/search_config/panels.py
+msgid "Variklio kodas"
+msgstr "Engine code"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavarų dėžės kodas"
+msgstr "Gearbox code"
+
+#: apps/listings/search_config/panels.py
+msgid "Detalės kategorija"
+msgstr "Part category"
+
+#: apps/listings/search_config/panels.py
+msgid "Apšvietimas"
+msgstr "Lighting"
+
+#: apps/listings/search_config/panels.py
+msgid "Dujų išmetimo sistema"
+msgstr "Exhaust system"
+
+#: apps/listings/search_config/panels.py
+msgid "Durys"
+msgstr "Doors"
+
+#: apps/listings/search_config/panels.py
+msgid "El. sistemos"
+msgstr "Electrical systems"
+
+#: apps/listings/search_config/panels.py
+msgid "Galinė ašis"
+msgstr "Rear axle"
+
+#: apps/listings/search_config/panels.py
+msgid "Galinės išorės detalės"
+msgstr "Rear exterior parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Kitos detalės"
+msgstr "Other parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Kondicionierius/ šildymas/ radiatoriai"
+msgstr "A/C / heating / radiators"
+
+#: apps/listings/search_config/panels.py
+msgid "Kuro sistema"
+msgstr "Fuel system"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavarų dėžė/ sankaba/ transmisija"
+msgstr "Gearbox / clutch / transmission"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekinė ašis"
+msgstr "Front axle"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekinės išorės detalės"
+msgstr "Front exterior parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Ratai/ padangos"
+msgstr "Wheels / tyres"
+
+#: apps/listings/search_config/panels.py
+msgid "Salonas/ interjeras"
+msgstr "Interior"
+
+#: apps/listings/search_config/panels.py
+msgid "Stabdžiai"
+msgstr "Brakes"
+
+#: apps/listings/search_config/panels.py
+msgid "Stiklai"
+msgstr "Glass"
+
+#: apps/listings/search_config/panels.py
+msgid "Stiklų žibintų apiplovimo/ valymo sistema"
+msgstr "Windscreen washer / wiper system"

@@ -42,6 +42,37 @@
          ir 12 px vertikaliai (gap-x-6 / gap-y-3). Laukų vietos ateina iš
          isplestine-config.json „layout" — nuskaitytos iš autogidas.
 {% endcomment %}
+      {% if adv.slug == 'parts' %}
+      {% comment %}Tekstinės ir kodų paieškos eilė — mūsų priedas prie etalono
+      (Autogidas kodų paieškos neturi). Laikom formos viršuje, virš markės.
+      {% endcomment %}
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3">
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Pavadinimas ar aprašymas" %}</label>
+            <input type="text" name="part_query" class="sp-fld placeholder-gray-400"
+                   value="{{ request.GET.part_query|default:'' }}"
+                   placeholder="{% trans 'pvz. stabdžių diskas' %}">
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "OEM kodas" %}</label>
+            <input type="text" name="oem_code" class="sp-fld placeholder-gray-400"
+                   value="{{ request.GET.oem_code|default:'' }}" placeholder="63217160797">
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Variklio kodas" %}</label>
+            <input type="text" name="engine_code_search" class="sp-fld placeholder-gray-400"
+                   value="{{ request.GET.engine_code_search|default:'' }}" placeholder="N55, M54B25">
+          </div>
+          <div>
+            <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Pavarų dėžės kodas" %}</label>
+            <input type="text" name="gearbox_code_search" class="sp-fld placeholder-gray-400"
+                   value="{{ request.GET.gearbox_code_search|default:'' }}" placeholder="6HP19, ZF8HP">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
         {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug sub=adv.sub_slug back=request.get_full_path %}
 
@@ -123,6 +154,35 @@
         </div>
       </div>
 
+      {% if part_categories %}
+      {% comment %}Detalių kategorijos — 19 etalono kategorijų. Pažymėta
+      viršutinio lygio kategorija apima ir visas jos subkategorijas.
+      {% endcomment %}
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-5"
+           x-data="{ pcOpen: true, pcCount: {{ selected_part_categories|length }} }">
+        <button type="button" @click="pcOpen = !pcOpen"
+                class="w-full flex items-center justify-between px-6 py-4 text-left">
+          <span class="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            {% trans "Detalės kategorija" %} (<span x-text="pcCount"></span>/{{ part_categories|length }})
+          </span>
+          <span class="text-gray-400 text-lg" x-text="pcOpen ? '−' : '+'"></span>
+        </button>
+        <div x-show="pcOpen" x-cloak class="px-6 pb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2">
+            {% for pc in part_categories %}
+            <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+              <input type="checkbox" name="part_cat" value="{{ pc.slug }}"
+                     {% if pc.checked %}checked{% endif %}
+                     @change="pcCount += $event.target.checked ? 1 : -1"
+                     class="w-4 h-4 rounded">
+              <span>{{ pc.label }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
       {# ═══ YPATUMAI — suskleidžiama sekcija su skaitikliu ═══ #}
       {% if adv.equipment %}
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-5">
@@ -177,7 +237,7 @@
     clearTimeout(t);
     t = setTimeout(function () {
       var qs = new URLSearchParams(new FormData(form)).toString();
-      fetch('/paieska/count/{{ adv.slug }}/?' + qs)
+      fetch('/paieska/count/{{ adv.slug }}/?advanced=1&' + qs)
         .then(function (r) { return r.json(); })
         .then(function (d) { out.textContent = d.count; })
         .catch(function () {});

@@ -209,7 +209,7 @@ for _cat in _RAW_ADV['categories']:
 # įjungus dabar pusė laukų būtų dekoracija.
 ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
                     'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats',
-                    'cars', 'motorcycles'}
+                    'cars', 'motorcycles', 'parts'}
 
 # Detalios paieškos antraštės — etalone kategorija eina kilmininku
 # („Automobilių skelbimų paieška"), todėl vardo iš `name` nepakanka.
@@ -228,7 +228,33 @@ ADVANCED_TITLES = {
     'rental': _('Nuomos skelbimų paieška'),
     'electronics': _('Audio ir navigacijos skelbimų paieška'),
     'services': _('Paslaugų skelbimų paieška'),
+    'parts': _('Automobilių dalių skelbimų paieška'),
 }
+
+# Detalių kategorijos — 19 viršutinio lygio PartCategory eilučių etalono
+# tvarka (lietuviška abėcėlė). DB `name_lt` tuščias, todėl užrašai gyvena
+# čia; `name_en` DB sutampa su vertimais.
+PARTS_CATEGORIES = [
+    ('lighting', _('Apšvietimas')),
+    ('exhaust-system', _('Dujų išmetimo sistema')),
+    ('doors', _('Durys')),
+    ('electrical-systems', _('El. sistemos')),
+    ('rear-axle', _('Galinė ašis')),
+    ('rear-exterior-parts', _('Galinės išorės detalės')),
+    ('body', _('Kėbulas')),
+    ('other-parts', _('Kitos detalės')),
+    ('ac-heating-radiators', _('Kondicionierius/ šildymas/ radiatoriai')),
+    ('fuel-system', _('Kuro sistema')),
+    ('gearbox-clutch-transmission', _('Pavarų dėžė/ sankaba/ transmisija')),
+    ('front-axle', _('Priekinė ašis')),
+    ('front-exterior-parts', _('Priekinės išorės detalės')),
+    ('wheels-tyres', _('Ratai/ padangos')),
+    ('interior', _('Salonas/ interjeras')),
+    ('brakes', _('Stabdžiai')),
+    ('glass', _('Stiklai')),
+    ('window-light-wash-system', _('Stiklų žibintų apiplovimo/ valymo sistema')),
+    ('engine', _('Variklis')),
+]
 
 # Ikonų juosta detalios paieškos viršuje — ta pati tvarka kaip etalone.
 # `key` naudojamas ikonai šablone, `url_name`/`url` — nuorodai.
