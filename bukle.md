@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 15:51:22 CEST
+Sugeneruota: 2026-08-23 15:52:43 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001064s
+HTTP 301, 0.001910s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:44 vmi3306453 autoleft-deploy[4172284]: 0 static files copied to '/root/autoleft/staticfiles', 140 unmodified.
-Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:44 vmi3306453 autoleft-deploy[4172260]: [15:45:44] Restartinam gunicorn.service
-Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:45 vmi3306453 autoleft-deploy[4172260]: [15:45:45] Health OK (1/10)
 Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:45 vmi3306453 autoleft-deploy[4172260]: [15:45:45] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
 Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:45 vmi3306453 autoleft-deploy[4172260]: [15:45:45] === Deploy OK ===
 Aug 23 15:45:47 vmi3306453 autoleft-deploy[4172378]: Aug 23 15:45:45 vmi3306453 autoleft-deploy[4172153]: [2026-08-23 15:45:45] ✅ Deploy OK — gyvai veikia 7e04dd8
@@ -82,4 +79,7 @@ Aug 23 15:50:09 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 23 15:50:09 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 15:50:09 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.072s CPU time.
 Aug 23 15:51:22 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 15:51:23 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 15:51:23 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 15:52:43 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
