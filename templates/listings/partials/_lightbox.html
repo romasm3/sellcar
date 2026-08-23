@@ -157,15 +157,21 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
   .lb-stage { flex: 1 1 auto; min-height: 0; position: relative; display: flex;
               align-items: center; justify-content: center; overflow: hidden;
               touch-action: none; }
-  .lb-frame { position: relative; max-width: 100%; max-height: 100%;
-              display: flex; align-items: center; justify-content: center; }
-  .lb-img, .lb-blur { max-width: 96vw; max-height: 100%; object-fit: contain;
-                      user-select: none; -webkit-user-drag: none; }
+  /* Kadras užima visą sceną, todėl max-height:100% turi į ką atsiremti —
+     anksčiau jis buvo skaičiuojamas nuo susitraukusio kadro, nuotrauka
+     likdavo natūralaus aukščio ir viršus su apačia būdavo nukerpami. */
+  .lb-frame { position: absolute; inset: 0; display: flex;
+              align-items: center; justify-content: center;
+              padding: var(--sp-2) 64px; box-sizing: border-box; }
+  .lb-img, .lb-blur { max-width: 100%; max-height: 100%; width: auto; height: auto;
+                      object-fit: contain; user-select: none; -webkit-user-drag: none; }
+  @media (max-width: 640px) { .lb-frame { padding: var(--sp-2); } }
   .lb-img { transition: transform .18s ease-out; cursor: zoom-in; }
   .lb-img { cursor: zoom-in; }
   .lb-img.is-zoomed { cursor: grab; transition: none; }
   .lb-img.is-grabbing { cursor: grabbing; }
-  .lb-blur { position: absolute; inset: 0; margin: auto; filter: blur(18px); transform: scale(1.04); }
+  .lb-blur { position: absolute; inset: var(--sp-2) 64px; margin: auto;
+             filter: blur(18px); transform: scale(1.04); }
   .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
   .lb-prev { left: var(--sp-3); }
   .lb-next { right: var(--sp-3); }
