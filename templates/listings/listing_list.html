@@ -365,7 +365,14 @@ a.sp-rail-btn { text-decoration:none; }
                 <a href="?category={{ selected_category|default:'cars' }}&sidebar=1" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
                     <i class="fas fa-times text-xs"></i> {% trans "Clear filters" %}
                 </a>
-                <a href="{% url 'advanced_search' %}?{{ request.GET.urlencode }}" class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
+                {% comment %}„Detali paieška": deklaratyvios kategorijos eina į
+                /paieska/<kategorija>/ — ten telefone laukai yra spaudžiamos
+                eilutės su reikšmių ekranu (kaina, metai...). Senasis
+                /search/advanced/ yra darbalaukio tinklelis be jų, todėl
+                telefone paspaudus „Kaina" nieko neatsidarydavo. Nemigruotoms
+                kategorijoms (dalys, ratai) jis kol kas lieka.{% endcomment %}
+                <a href="{% if sidebar %}/paieska/{{ selected_category|default:'cars' }}/?{{ request.GET.urlencode }}#sp-target{% else %}{% url 'advanced_search' %}?{{ request.GET.urlencode }}{% endif %}"
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50">
                     <i class="fas fa-sliders-h"></i> {% trans "Advanced" %}
                 </a>
                 {% comment %}Žemėlapis pasiima esamus filtrus — anksčiau vedė į tuščią

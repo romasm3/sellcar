@@ -388,6 +388,39 @@ for laukas in ('price_min', 'fuel_type'):
     tikrink('class="cnt"' not in p, '%s: sąraše nebėra „(0)"' % laukas)
 
 
+# ═══ 10. Detali paieška telefone — su reikšmių ekranais ══════════════
+antraste('10. „Detali paieška" veda į puslapį su drill-in eilutėmis')
+
+# Senasis /search/advanced/ telefone yra darbalaukio tinklelis: paspaudus
+# „Kaina" nieko neatsidarydavo. Migruotos kategorijos siunčiamos į
+# /paieska/<kategorija>/, kur laukai yra spaudžiamos eilutės.
+for kat, migruota in (('cars', True), ('trucks', True), ('boats', True),
+                      ('parts', False)):
+    b = klientas.get('/', {'category': kat, 'sidebar': '1'}).content.decode()
+    m = _re.search(r'<a href="([^"]*)"\s*\n?\s*class="inline-flex[^"]*"[^>]*>\s*'
+                   r'<i class="fas fa-sliders-h"', b)
+    nuoroda = m.group(1) if m else ''
+    tikrink(('/paieska/' in nuoroda) == migruota,
+            '%s: „Detali paieška" → %s' % (kat, nuoroda[:60]))
+
+for kat in ('cars', 'trucks', 'boats'):
+    atsakymas = klientas.get('/paieska/%s/' % kat, {'price_min': '5000'})
+    turinys = atsakymas.content.decode()
+    tikrink(atsakymas.status_code == 200, '/paieska/%s/ atsidaro' % kat)
+    tikrink(len(_re.findall(r'<a class="sp-mrow"', turinys)) > 3,
+            '/paieska/%s/ turi drill-in eilutes' % kat)
+    tikrink('/pasirinkti/?laukas=price_min' in turinys.replace('&amp;', '&'),
+            '/paieska/%s/ kainos eilutė veda į reikšmių ekraną' % kat)
+
+# ir iš ten grįžtama atgal į detalią paiešką, ne į rezultatus
+atsakymas = klientas.get('/pasirinkti/', {
+    'laukas': 'price_min', 'kategorija': 'cars', 'grizti': '/paieska/cars/',
+    'reiksme': '5000'})
+grizti = dict(parse_qsl(urlparse(atsakymas['Location']).query)).get('grizti', '')
+tikrink(grizti.startswith('/paieska/cars/') and 'price_min=5000' in grizti,
+        'iš detalios paieškos grįžtama į ją pačią: %s' % grizti)
+
+
 print('\n' + '═' * 64)
 print('gerai: %d, nepavyko: %d' % (gerai, nesekmes))
 sys.exit(1 if nesekmes else 0)
