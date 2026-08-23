@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 16:55:35 CEST
+Sugeneruota: 2026-08-23 16:56:43 CEST
 
 ## Kodas
 
@@ -9,7 +9,9 @@ sukasi:      3991e6a fix(paieska): vienodi filtrai LT ir EN — motogear šonin�
 origin/master: 3991e6a fix(paieska): vienodi filtrai LT ir EN — motogear šoninė juosta ir FK reikšmės
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
+   M apps/listings/urls.py
    M apps/listings/wheels_views.py
+   M templates/listings/wheels_list.html
 ```
 
 ## Servisai
@@ -24,7 +26,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001441s
+HTTP 301, 0.000933s
 ```
 
 ## Skelbimų būsenos
@@ -58,9 +60,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 16:46:48 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 23 16:46:48 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 23 16:48:00 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 16:48:02 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 16:48:02 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 16:48:02 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.190s CPU time.
@@ -83,4 +82,7 @@ Aug 23 16:54:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 16:54:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 16:54:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 16:55:35 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 16:55:36 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 16:55:36 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 16:56:42 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
