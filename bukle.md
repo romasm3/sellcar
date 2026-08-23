@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 15:15:01 CEST
+Sugeneruota: 2026-08-23 15:16:08 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.007407s
+HTTP 301, 0.001183s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167082]: [2026-08-23 15:13:37] === Naujų commit'ų rasta: af5681b → 9b99d3e ===
-Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167096]:     9b99d3e test(paieska): telefono filtro pasirinkimo ekrano testai (705 patikros)
-Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167096]:     9a1f91d fix(paieska): daugybiniai filtrai telefone kaupiami, o ne perrašomi
-Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167096]:     dac2503 fix(paieska): telefono filtrų sąrašas — ?sub= sekcijoms ir kelios reikšmės
 Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167096]:     9fd7760 fix(paieska): telefone pasirinkus filtrą nebešokama į rezultatus
 Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167096]:     fecac1b fix(templates): /contact/ metė 500 — {% load %} prieš {% extends %}
 Aug 23 15:13:48 vmi3306453 autoleft-deploy[4167299]: Aug 23 15:13:37 vmi3306453 autoleft-deploy[4167082]: [2026-08-23 15:13:37] Kodas atnaujintas iki 9b99d3e
@@ -82,4 +78,8 @@ Aug 23 15:13:48 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 23 15:13:48 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 15:13:48 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 8.407s CPU time.
 Aug 23 15:15:00 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 15:15:03 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 15:15:03 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 15:15:03 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.836s CPU time.
+Aug 23 15:16:08 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
