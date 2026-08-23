@@ -4,6 +4,7 @@
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - AutoLeft{% endblock %}
 
 {% block content %}
+{% get_current_language as KALBA %}
 <div class="bg-gray-50 min-h-screen py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -312,10 +313,14 @@
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Ratlankiai" %}</label>
                             {{ form.rim_size }}
                         </div>
+                        {% comment %}SDK kodas — VĮ Regitra duomuo, angliškoje
+                        versijoje beprasmis, todėl rodomas tik ne EN kalbose.{% endcomment %}
+                        {% if KALBA != 'en' %}
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "SDK kodas" %}</label>
                             {{ form.sdk_number }}
                         </div>
+                        {% endif %}
                         <div class="flex items-end">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" name="manufacturer_warranty" class="w-4 h-4 rounded"
@@ -371,13 +376,17 @@
                             <button type="button" onclick="toggleCategoryFeatures('{{ cat.key }}')" class="text-xs text-gray-500 hover:text-gray-700 underline">{% trans "Select all" %}</button>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2" data-category="{{ cat.key }}">
+                            {% comment %}APVA kompensacija — LT valstybės subsidija,
+                            angliškoje versijoje jos nerodom.{% endcomment %}
                             {% for eq in cat.items %}
+                            {% if KALBA != 'en' or 'APVA' not in eq.name %}
                             <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
                                 <input type="checkbox" name="equipment" value="{{ eq.pk }}"
                                        {% if eq.pk in selected_equipment_ids %}checked{% endif %}
                                        class="w-4 h-4 rounded">
-                                <span class="text-sm text-gray-700">{{ eq.name }}</span>
+                                <span class="text-sm text-gray-700">{{ eq.name|tdb }}</span>
                             </label>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
