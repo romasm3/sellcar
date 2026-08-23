@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 20:39:03 CEST
+Sugeneruota: 2026-08-23 20:40:13 CEST
 
 ## Kodas
 
@@ -9,7 +9,9 @@ sukasi:      c8349dd feat(saugumas): apsauga nuo botų registracijos ir slaptaž
 origin/master: c8349dd feat(saugumas): apsauga nuo botų registracijos ir slaptažodžių spėliojimo
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
+   M templates/listings/listing_detail.html
    M templates/listings/partials/_lightbox.html
+   M templates/listings/wheels_detail.html
 ```
 
 ## Servisai
@@ -24,7 +26,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001493s
+HTTP 301, 0.001179s
 ```
 
 ## Skelbimų būsenos
@@ -58,10 +60,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 20:30:05 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.135s CPU time.
-Aug 23 20:31:08 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 23 20:31:09 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 23 20:31:09 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 20:32:19 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 20:32:21 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 20:32:21 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -83,4 +81,8 @@ Aug 23 20:37:56 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 20:37:58 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 20:37:58 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 20:39:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 20:39:05 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 20:39:05 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 20:39:05 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.362s CPU time.
+Aug 23 20:40:12 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
