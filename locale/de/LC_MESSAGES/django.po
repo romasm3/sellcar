@@ -8782,7 +8782,7 @@ msgstr ""
 #: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
 #: templates/search/_panel_cars.html:49
 msgid "Visi"
-msgstr ""
+msgstr "Alle"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
@@ -8853,7 +8853,7 @@ msgstr "Kaina:"
 #: templates/listings/partials/search_panel.html:1282
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
-msgstr ""
+msgstr "Von"
 
 #: templates/listings/motogear_advanced.html:73
 #: templates/listings/motogear_advanced.html:168
@@ -8876,7 +8876,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1283
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
-msgstr ""
+msgstr "Bis"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
@@ -9100,7 +9100,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:957
 #: templates/listings/partials/search_panel.html:1057
 msgid "Ieškoti"
-msgstr ""
+msgstr "Suchen"
 
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
@@ -9988,7 +9988,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:292
 #: templates/listings/partials/search_panel.html:1253
 msgid "Paieška..."
-msgstr ""
+msgstr "Suche..."
 
 #: templates/listings/partials/_sp_parts_brand.html:20
 #: templates/listings/partials/search_panel.html:267
@@ -10168,14 +10168,14 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1316
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr ""
+msgstr "Anzeigen"
 
 #: templates/listings/partials/search_panel.html:421
 #: templates/listings/partials/search_panel.html:1658
 #: templates/listings/partials/search_panel.html:1669
 #: templates/listings/partials/search_panel.html:1679
 msgid "Visi modeliai"
-msgstr ""
+msgstr "Alle Modelle"
 
 #: templates/listings/partials/search_panel.html:471
 msgid "Darbinis tūris cm³"
@@ -10334,7 +10334,7 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:1664
 msgid "Kraunama..."
-msgstr ""
+msgstr "Wird geladen..."
 
 #: templates/listings/parts_category_select.html:8
 #, fuzzy
@@ -12252,7 +12252,7 @@ msgstr "Zurück zu AutoLeft"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
-msgstr ""
+msgstr "Detailsuche"
 
 #~ msgid "Basic"
 #~ msgstr "Basic"
@@ -12315,3 +12315,35 @@ msgstr ""
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "%(count)s Motorradangebote gefunden"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Fertig"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "ab"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "bis"
+
+#: templates/listings/select_value.html
+msgid "Atgal"
+msgstr "Zurück"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "Nichts gefunden"
+
+#: templates/listings/select_value.html
+msgid "Markė, modelis"
+msgstr "Marke, Modell"
+
+#: templates/listings/select_value.html
+msgid "Pašalinti"
+msgstr "Entfernen"
+
+#: templates/listings/select_value.html
+msgid "Pridėti"
+msgstr "Hinzufügen"

@@ -8760,7 +8760,7 @@ msgstr ""
 #: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
 #: templates/search/_panel_cars.html:49
 msgid "Visi"
-msgstr ""
+msgstr "Tất cả"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
@@ -8831,7 +8831,7 @@ msgstr "Kaina:"
 #: templates/listings/partials/search_panel.html:1282
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
-msgstr ""
+msgstr "Từ"
 
 #: templates/listings/motogear_advanced.html:73
 #: templates/listings/motogear_advanced.html:168
@@ -8854,7 +8854,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1283
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
-msgstr ""
+msgstr "Đến"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
@@ -9078,7 +9078,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:957
 #: templates/listings/partials/search_panel.html:1057
 msgid "Ieškoti"
-msgstr ""
+msgstr "Tìm kiếm"
 
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
@@ -9966,7 +9966,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:292
 #: templates/listings/partials/search_panel.html:1253
 msgid "Paieška..."
-msgstr ""
+msgstr "Tìm kiếm..."
 
 #: templates/listings/partials/_sp_parts_brand.html:20
 #: templates/listings/partials/search_panel.html:267
@@ -10146,14 +10146,14 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1316
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr ""
+msgstr "Tin đăng"
 
 #: templates/listings/partials/search_panel.html:421
 #: templates/listings/partials/search_panel.html:1658
 #: templates/listings/partials/search_panel.html:1669
 #: templates/listings/partials/search_panel.html:1679
 msgid "Visi modeliai"
-msgstr ""
+msgstr "Tất cả mẫu xe"
 
 #: templates/listings/partials/search_panel.html:471
 msgid "Darbinis tūris cm³"
@@ -10312,7 +10312,7 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:1664
 msgid "Kraunama..."
-msgstr ""
+msgstr "Đang tải..."
 
 #: templates/listings/parts_category_select.html:8
 #, fuzzy
@@ -12223,7 +12223,7 @@ msgstr "Trở lại trang Bán xe"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
-msgstr ""
+msgstr "Tìm kiếm nâng cao"
 
 #~ msgid "Español"
 #~ msgstr "Español"
@@ -12301,3 +12301,35 @@ msgstr ""
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Đã tìm thấy %(count) danh sách xe máy"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Xong"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "từ"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "đến"
+
+#: templates/listings/select_value.html
+msgid "Atgal"
+msgstr "Quay lại"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "Không tìm thấy gì"
+
+#: templates/listings/select_value.html
+msgid "Markė, modelis"
+msgstr "Hãng, mẫu xe"
+
+#: templates/listings/select_value.html
+msgid "Pašalinti"
+msgstr "Xóa"
+
+#: templates/listings/select_value.html
+msgid "Pridėti"
+msgstr "Thêm"

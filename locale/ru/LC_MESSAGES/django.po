@@ -4672,11 +4672,11 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1698
 #: templates/listings/partials/search_panel.html:1708
 msgid "Visi modeliai"
-msgstr ""
+msgstr "Все модели"
 
 #: apps/listings/select_views.py:164
 msgid "Markė, modelis"
-msgstr ""
+msgstr "Марка, модель"
 
 #: apps/listings/select_views.py:167
 #: templates/listings/motogear_advanced.html:55
@@ -4725,7 +4725,7 @@ msgstr ""
 #: templates/listings/select_value.html:26 templates/search/_panel_cars.html:18
 #: templates/search/_panel_cars.html:42 templates/search/_panel_cars.html:49
 msgid "Visi"
-msgstr ""
+msgstr "Все"
 
 #: apps/listings/services_views.py:70
 msgid "Paslaugų kategorija nesukonfigūruota."
@@ -7566,7 +7566,7 @@ msgstr "Очистить все фильтры"
 #: templates/listings/partials/search_panel.html:887
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
-msgstr ""
+msgstr "Расширенный поиск"
 
 #: templates/listings/advanced_generic.html:42
 msgid "Ieškoti pavadinime ir aprašyme"
@@ -7627,7 +7627,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:627
 #: templates/listings/partials/search_panel.html:727
 msgid "Ieškoti"
-msgstr ""
+msgstr "Искать"
 
 #: templates/listings/advanced_search.html:5
 #: templates/listings/trucks_list.html:663
@@ -9806,7 +9806,7 @@ msgstr ""
 #: templates/listings/listing_create.html:153
 #: templates/listings/select_value.html:14
 msgid "Atgal"
-msgstr ""
+msgstr "Назад"
 
 #: templates/listings/listing_create.html:189
 #: templates/listings/listing_create.html:376
@@ -12274,7 +12274,7 @@ msgstr "Кайна:"
 #: templates/listings/partials/search_panel.html:1254
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
-msgstr ""
+msgstr "От"
 
 #: templates/listings/motogear_advanced.html:73
 #: templates/listings/motogear_advanced.html:162
@@ -12294,7 +12294,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1255
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
-msgstr ""
+msgstr "До"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:274
@@ -13366,7 +13366,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1221
 #: templates/listings/select_value.html:21
 msgid "Paieška..."
-msgstr ""
+msgstr "Поиск..."
 
 #: templates/listings/partials/_results_header_mobile.html:12
 msgid "Rasta:"
@@ -13470,11 +13470,11 @@ msgstr ""
 
 #: templates/listings/partials/fields/_mobile_rows.html:42
 msgid "Pašalinti"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/listings/partials/fields/_mobile_rows.html:49
 msgid "Pridėti"
-msgstr ""
+msgstr "Добавить"
 
 #: templates/listings/partials/fields/_mobile_rows.html:93
 #: templates/listings/partials/panel_generic.html:85
@@ -13489,7 +13489,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1288
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr ""
+msgstr "Объявления"
 
 #: templates/listings/partials/panel_boats.html:48
 #: templates/listings/partials/panel_cars.html:67
@@ -13695,7 +13695,7 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:1693
 msgid "Kraunama..."
-msgstr ""
+msgstr "Загрузка..."
 
 #: templates/listings/partials/sidebar_generic.html:24
 msgid "Daugiau filtrų"
@@ -17056,3 +17056,19 @@ msgstr ""
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Найдено %(количество) объявлений о мотоциклах"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Готово"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "от"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "до"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "Ничего не найдено"

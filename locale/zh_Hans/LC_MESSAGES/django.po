@@ -8696,7 +8696,7 @@ msgstr ""
 #: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
 #: templates/search/_panel_cars.html:49
 msgid "Visi"
-msgstr ""
+msgstr "全部"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
@@ -8767,7 +8767,7 @@ msgstr "凯娜："
 #: templates/listings/partials/search_panel.html:1282
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
-msgstr ""
+msgstr "从"
 
 #: templates/listings/motogear_advanced.html:73
 #: templates/listings/motogear_advanced.html:168
@@ -8790,7 +8790,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1283
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
-msgstr ""
+msgstr "至"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
@@ -9014,7 +9014,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:957
 #: templates/listings/partials/search_panel.html:1057
 msgid "Ieškoti"
-msgstr ""
+msgstr "搜索"
 
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
@@ -9889,7 +9889,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:292
 #: templates/listings/partials/search_panel.html:1253
 msgid "Paieška..."
-msgstr ""
+msgstr "搜索..."
 
 #: templates/listings/partials/_sp_parts_brand.html:20
 #: templates/listings/partials/search_panel.html:267
@@ -10069,14 +10069,14 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1316
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr ""
+msgstr "广告"
 
 #: templates/listings/partials/search_panel.html:421
 #: templates/listings/partials/search_panel.html:1658
 #: templates/listings/partials/search_panel.html:1669
 #: templates/listings/partials/search_panel.html:1679
 msgid "Visi modeliai"
-msgstr ""
+msgstr "全部车型"
 
 #: templates/listings/partials/search_panel.html:471
 msgid "Darbinis tūris cm³"
@@ -10235,7 +10235,7 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:1664
 msgid "Kraunama..."
-msgstr ""
+msgstr "加载中..."
 
 #: templates/listings/parts_category_select.html:8
 #, fuzzy
@@ -12141,7 +12141,7 @@ msgstr "返回 AutoLeft"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
-msgstr ""
+msgstr "高级搜索"
 
 #~ msgid "Español"
 #~ msgstr "Español"
@@ -12219,3 +12219,35 @@ msgstr ""
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "找到 %(count)s 条摩托车信息"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "完成"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "从"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "至"
+
+#: templates/listings/select_value.html
+msgid "Atgal"
+msgstr "返回"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "未找到结果"
+
+#: templates/listings/select_value.html
+msgid "Markė, modelis"
+msgstr "品牌、车型"
+
+#: templates/listings/select_value.html
+msgid "Pašalinti"
+msgstr "移除"
+
+#: templates/listings/select_value.html
+msgid "Pridėti"
+msgstr "添加"

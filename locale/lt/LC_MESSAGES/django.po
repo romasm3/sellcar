@@ -23726,3 +23726,7 @@ msgstr "Paieška"
 
 #~ msgid "Keturračiai (ATV)"
 #~ msgstr "Keturračiai (ATV)"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr ""

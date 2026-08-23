@@ -4672,11 +4672,11 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1698
 #: templates/listings/partials/search_panel.html:1708
 msgid "Visi modeliai"
-msgstr ""
+msgstr "Wszystkie modele"
 
 #: apps/listings/select_views.py:164
 msgid "Markė, modelis"
-msgstr ""
+msgstr "Marka, model"
 
 #: apps/listings/select_views.py:167
 #: templates/listings/motogear_advanced.html:55
@@ -4725,7 +4725,7 @@ msgstr ""
 #: templates/listings/select_value.html:26 templates/search/_panel_cars.html:18
 #: templates/search/_panel_cars.html:42 templates/search/_panel_cars.html:49
 msgid "Visi"
-msgstr ""
+msgstr "Wszystkie"
 
 #: apps/listings/services_views.py:70
 msgid "Paslaugų kategorija nesukonfigūruota."
@@ -7559,7 +7559,7 @@ msgstr "Wyczyść wszystkie filtry"
 #: templates/listings/partials/search_panel.html:887
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
-msgstr ""
+msgstr "Wyszukiwanie zaawansowane"
 
 #: templates/listings/advanced_generic.html:42
 msgid "Ieškoti pavadinime ir aprašyme"
@@ -7620,7 +7620,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:627
 #: templates/listings/partials/search_panel.html:727
 msgid "Ieškoti"
-msgstr ""
+msgstr "Szukaj"
 
 #: templates/listings/advanced_search.html:5
 #: templates/listings/trucks_list.html:663
@@ -9797,7 +9797,7 @@ msgstr ""
 #: templates/listings/listing_create.html:153
 #: templates/listings/select_value.html:14
 msgid "Atgal"
-msgstr ""
+msgstr "Wstecz"
 
 #: templates/listings/listing_create.html:189
 #: templates/listings/listing_create.html:376
@@ -12262,7 +12262,7 @@ msgstr "Kaina:"
 #: templates/listings/partials/search_panel.html:1254
 #: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
-msgstr ""
+msgstr "Od"
 
 #: templates/listings/motogear_advanced.html:73
 #: templates/listings/motogear_advanced.html:162
@@ -12282,7 +12282,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1255
 #: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
-msgstr ""
+msgstr "Do"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:274
@@ -13348,7 +13348,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1221
 #: templates/listings/select_value.html:21
 msgid "Paieška..."
-msgstr ""
+msgstr "Szukaj..."
 
 #: templates/listings/partials/_results_header_mobile.html:12
 msgid "Rasta:"
@@ -13451,11 +13451,11 @@ msgstr ""
 
 #: templates/listings/partials/fields/_mobile_rows.html:42
 msgid "Pašalinti"
-msgstr ""
+msgstr "Usuń"
 
 #: templates/listings/partials/fields/_mobile_rows.html:49
 msgid "Pridėti"
-msgstr ""
+msgstr "Dodaj"
 
 #: templates/listings/partials/fields/_mobile_rows.html:93
 #: templates/listings/partials/panel_generic.html:85
@@ -13470,7 +13470,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1288
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr ""
+msgstr "Ogłoszenia"
 
 #: templates/listings/partials/panel_boats.html:48
 #: templates/listings/partials/panel_cars.html:67
@@ -13676,7 +13676,7 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:1693
 msgid "Kraunama..."
-msgstr ""
+msgstr "Ładowanie..."
 
 #: templates/listings/partials/sidebar_generic.html:24
 msgid "Daugiau filtrų"
@@ -17034,3 +17034,19 @@ msgstr ""
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Znaleziono %(count)s ofert motocykli"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Gotowe"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "od"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "do"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "Nic nie znaleziono"

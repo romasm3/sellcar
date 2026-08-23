@@ -4500,7 +4500,7 @@ msgstr "All models"
 
 #: apps/listings/select_views.py:171
 msgid "Markė, modelis"
-msgstr ""
+msgstr "Make, model"
 
 #: apps/listings/select_views.py:174
 #: templates/listings/motogear_advanced.html:55
@@ -20654,7 +20654,7 @@ msgstr "Part type"
 #: templates/listings/partials/fields/_model.html:45
 #: templates/listings/partials/search_panel.html:790
 msgid "Kraunama..."
-msgstr ""
+msgstr "Loading..."
 
 #: templates/listings/partials/_panel_bodies.html:1110
 #: templates/listings/partials/_sp_parts_brand.html:33
@@ -20754,11 +20754,11 @@ msgstr ""
 
 #: templates/listings/partials/fields/_brand.html:61
 msgid "Nieko nerasta"
-msgstr ""
+msgstr "Nothing found"
 
 #: templates/listings/partials/fields/_mobile_rows.html:49
 msgid "Pridėti"
-msgstr ""
+msgstr "Add"
 
 #: templates/listings/partials/fields/_model.html:54
 msgid "Pirma pasirinkite markę"
@@ -22715,3 +22715,7 @@ msgstr "The days you choose are added to the time left."
 #: templates/listings/listing_select_plan.html
 msgid "Pasirink pratęsimo planą"
 msgstr "Choose an extension plan"
+
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Done"
