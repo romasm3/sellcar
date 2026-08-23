@@ -8111,6 +8111,15 @@ def _rail_counts():
     kiekiai['rims'] = ratai.get('rim', 0)
     kiekiai['tyres'] = ratai.get('tyre', 0)
 
+    # Padangos pagal paskirtį — atskiri juostos punktai po „Motociklai"
+    pagal_paskirti = dict(
+        WheelListing.objects.filter(status='active', is_shadow_banned=False,
+                                    product_type='tyre')
+        .values_list('purpose').annotate(n=Count('id'))
+    )
+    kiekiai['moto-tyres'] = pagal_paskirti.get('moto', 0)
+    kiekiai['quad-tyres'] = pagal_paskirti.get('quad', 0)
+
     for raktas, sub in (('parts', 'car'), ('moto-parts', 'moto'),
                         ('truck-parts', 'truck')):
         try:
@@ -8128,6 +8137,10 @@ def _rail_url(slug):
         return reverse('wheels_advanced_search') + '?type=rim'
     if slug == 'tyres':
         return reverse('wheels_advanced_search') + '?type=tyre'
+    if slug == 'moto-tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre&purpose=moto'
+    if slug == 'quad-tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre&purpose=quad'
     if slug == 'motogear':
         return reverse('motogear_advanced_search')
     if slug == 'moto-parts':

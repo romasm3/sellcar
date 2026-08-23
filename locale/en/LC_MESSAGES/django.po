@@ -11134,7 +11134,7 @@ msgstr "Trousers"
 #: apps/listings/translatable_db.py:1700
 #: templates/listings/partials/_panel_bodies.html:377
 msgid "Keturračiams"
-msgstr "For ATVs"
+msgstr "Quad bikes"
 
 #: apps/listings/translatable_db.py:1702
 msgid "Kiti stambūs defektai"
@@ -20536,7 +20536,7 @@ msgstr "Search"
 #: templates/listings/partials/_panel_bodies.html:138
 #: templates/listings/partials/search_panel.html:56
 msgid "Padangos motociklams"
-msgstr ""
+msgstr "Motorcycle tyres"
 
 #: templates/listings/partials/_panel_bodies.html:146
 #: templates/listings/partials/_panel_bodies.html:235
@@ -20557,7 +20557,7 @@ msgstr "Width"
 #: templates/listings/partials/_panel_bodies.html:227
 #: templates/listings/partials/search_panel.html:63
 msgid "Padangos keturračiams"
-msgstr "ATV tyres"
+msgstr "Quad bike tyres"
 
 #: templates/listings/partials/_panel_bodies.html:355
 #: templates/listings/partials/search_panel.html:83

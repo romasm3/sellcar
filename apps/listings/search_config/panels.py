@@ -278,7 +278,9 @@ ADVANCED_RAIL = [
 ADVANCED_RAIL_CHILDREN = {
     'tires': [('rims', _('Ratlankiai')), ('tyres', _('Padangos'))],
     'motorcycles': [('motorcycles', _('Motociklai')),
-                    ('motogear', _('Apranga, šalmai, aksesuarai'))],
+                    ('motogear', _('Apranga, šalmai, aksesuarai')),
+                    ('moto-tyres', _('Padangos motociklams')),
+                    ('quad-tyres', _('Padangos keturračiams'))],
     'parts': [('parts', _('Automobilių dalys')),
               ('moto-parts', _('Motociklų dalys')),
               ('truck-parts', _('Sunkiojo transporto dalys'))],

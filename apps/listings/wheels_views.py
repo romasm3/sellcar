@@ -607,9 +607,14 @@ def _wheels_vehicle_brands():
 
 
 def _wheels_choices_context():
-    """Bendri choices — list + advanced search template'ams."""
+    """Bendri choices — list + advanced search template'ams.
+
+    „Keturračiams" yra tik PAIEŠKOJE: etalone toks punktas yra (juostoje —
+    „Padangos keturračiams"), o skelbimo formoje jo nėra ir modelio
+    WHEEL_PURPOSE_CHOICES nekeičiam — create forma lieka tokia pati.
+    """
     return {
-        'purpose_choices': WHEEL_PURPOSE_CHOICES,
+        'purpose_choices': list(WHEEL_PURPOSE_CHOICES) + [('quad', _('Keturračiams'))],
         'diameter_choices': WHEEL_DIAMETER_CHOICES,
         'condition_choices': WHEEL_CONDITION_CHOICES,
         'tyre_width_choices': TYRE_WIDTH_CHOICES,
@@ -762,7 +767,17 @@ def wheels_advanced_search(request):
     # Viršaus blokas — ta pati ikonų juosta kaip kitų kategorijų detaliose
     # paieškose (aktyvus „Ratai").
     from .views import _advanced_rail
-    adv_rail, adv_more = _advanced_rail('rims' if product_type == 'rim' else 'tyres')
+    # Padangos motociklams/keturračiams juostoje yra atskiri punktai po
+    # „Motociklai", todėl aktyvų punktą renkam ir pagal paskirtį.
+    if product_type == 'rim':
+        _aktyvus = 'rims'
+    elif f.get('purpose') == 'moto':
+        _aktyvus = 'moto-tyres'
+    elif f.get('purpose') == 'quad':
+        _aktyvus = 'quad-tyres'
+    else:
+        _aktyvus = 'tyres'
+    adv_rail, adv_more = _advanced_rail(_aktyvus)
 
     context = {
         'product_type': product_type,
