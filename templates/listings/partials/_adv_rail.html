@@ -18,9 +18,12 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
        @mouseleave="if (hoverIsBusi()) uzdarykVeliau()"
        @click.outside="uzdarykDabar()"
        @keydown.escape.window="uzdarykDabar()">
+    {% comment %}Paspaudus ikoną einam tiesiai į pagrindinę subkategoriją
+    (etalone taip pat), o sąrašas atsiveria užvedus. Jutikliniuose ekranuose
+    hover'io nėra, todėl pirmas bakstelėjimas atidaro sąrašą.{% endcomment %}
     <a href="{{ r.url }}" class="adv-rail-item{% if r.active %} is-on{% endif %}"
        title="{{ r.label }}" :aria-expanded="open" aria-haspopup="true"
-       @click.prevent="clearTimeout(t); open = hoverIsBusi() ? true : !open">
+       @click="if (!hoverIsBusi()) { $event.preventDefault(); clearTimeout(t); open = !open; }">
       <span class="adv-rail-ico">{% include 'listings/partials/_adv_rail_ico.html' with key=r.key %}</span>
       <span class="adv-rail-txt">{{ r.label }}</span>
     </a>
