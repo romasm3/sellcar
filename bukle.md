@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 15:37:22 CEST
+Sugeneruota: 2026-08-23 15:38:31 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.002321s
+HTTP 301, 0.001169s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:42 vmi3306453 autoleft-deploy[4170240]: [2026-08-23 15:33:42] Patikra praėjo
-Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:42 vmi3306453 autoleft-deploy[4170340]: [15:33:42] === Deploy pradžia (20260823_153342) ===
-Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:43 vmi3306453 autoleft-deploy[4170340]: [15:33:43] DB dumpas: /root/autoleft_backups/db_20260823_153342.sql
 Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:44 vmi3306453 autoleft-deploy[4170356]: Operations to perform:
 Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:44 vmi3306453 autoleft-deploy[4170356]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, listings, payments, sessions
 Aug 23 15:33:47 vmi3306453 autoleft-deploy[4170456]: Aug 23 15:33:44 vmi3306453 autoleft-deploy[4170356]: Running migrations:
@@ -82,4 +79,7 @@ Aug 23 15:36:16 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 23 15:36:16 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 15:36:16 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.105s CPU time.
 Aug 23 15:37:21 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 15:37:23 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 15:37:23 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 15:38:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
