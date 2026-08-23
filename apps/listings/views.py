@@ -2499,15 +2499,25 @@ def listing_detail(request, pk):
 
     listing = get_object_or_404(Listing, pk=pk)
 
-    if listing.is_shadow_banned:
-        is_owner = request.user.is_authenticated and listing.seller == request.user
-        is_admin = request.user.is_authenticated and request.user.is_superuser
-        if not (is_owner or is_admin):
-            raise Http404("Listing not found")
+    is_owner = request.user.is_authenticated and listing.seller == request.user
+    is_staff = request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser)
+
+    if listing.is_shadow_banned and not (is_owner or is_staff):
+        raise Http404("Listing not found")
+
+    # Neaktyvūs skelbimai (juodraščiai, pasibaigę, archyvuoti) svetimiems
+    # nerodomi, bet savininkas ir personalas juos mato — pranešimai apie
+    # skelbimus dažnai ateina jau nuimtiems, o moderuoti reikia matant.
+    # Parduoti rodomi visiems dar SOLD_DISPLAY_DAYS dienų (kaip sąrašuose).
+    _vieši = {'active'}
+    _neaktyvus = listing.status not in _vieši
+    if listing.status == 'sold' and listing.sold_at:
+        _neaktyvus = listing.sold_at < timezone.now() - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
+    if _neaktyvus and not (is_owner or is_staff):
+        raise Http404("Listing not found")
 
     _track_listing_view(request, listing)
 
-    is_owner = request.user.is_authenticated and listing.seller == request.user
     is_saved = request.user.is_authenticated and SavedListing.objects.filter(
         user=request.user, listing=listing
     ).exists()
@@ -2527,6 +2537,9 @@ def listing_detail(request, pk):
     context = {
         'listing': listing,
         'is_owner': is_owner,
+        # Juosta „Skelbimas neaktyvus" — rodoma tik tiems, kas jį apskritai mato
+        'rodyti_neaktyvu': _neaktyvus or listing.is_shadow_banned,
+        'is_staff_view': is_staff,
         'is_saved': is_saved,
         'grouped_equipment': grouped_equipment,
         'dealer_active_listings_count': dealer_active_listings_count,
@@ -3867,27 +3880,85 @@ View listing: http://127.0.0.1:8000{listing.get_absolute_url()}"""
     return redirect('listing_detail', pk=listing.pk)
 
 
+def senas_skelbimo_adresas(request, pk):
+    """Senos nuorodos „/listings/<id>/" (buvo pranešimų laiškuose) → „/<id>/"."""
+    return redirect('listing_detail', pk=pk, permanent=True)
+
+
+REPORT_LIMIT_PER_HOUR = 3
+
+
 def report_listing(request, pk):
+    """Pranešimas apie skelbimą.
+
+    Kas pasikeitė:
+      • adresas laiške buvo užkoduotas kaip „/listings/<id>/", o tikrasis
+        skelbimo kelias yra „/<id>/" — laiškai vedė į 404;
+      • pranešimas dabar įrašomas į DB (ListingReport), todėl lieka istorija
+        ir yra iš ko skaičiuoti dažnio ribą;
+      • laiškas eina per scenarijų variklį (admin_new_listing_report), su
+        nuoroda į skelbimą IR į admin'ą;
+      • botams — paslėptas laukas (honeypot) ir 3 pranešimai per valandą iš
+        vieno IP.
+    """
+    from datetime import timedelta
+    from django.urls import reverse
+    from apps.listings.emails.sender import send_admin_scenario
+    from .models import ListingReport
+
     listing = get_object_or_404(Listing, pk=pk)
-    if request.method == 'POST':
-        reason = request.POST.get('reason', '')
-        comment = request.POST.get('comment', '')
-        reporter_email = request.POST.get('reporter_email', '')
-        listing_url = request.build_absolute_uri(f'/listings/{listing.pk}/')
-        subject = f'[REPORT] Listing #{listing.pk}: {listing.title}'
-        body = f"""A listing has been reported on AutoLeft.
 
-Listing: {listing.title}
-Listing ID: #{listing.pk}
-URL: {listing_url}
+    if request.method != 'POST':
+        return redirect('listing_detail', pk=listing.pk)
 
-Reason: {reason}
-Comment: {comment}
-Reporter email: {reporter_email if reporter_email else 'Not provided'}
-Seller: {listing.seller.email}
-"""
-        send_mail(subject, body, 'noreply@sellcar.com',
-                  ['helpautoinfo@gmail.com'], fail_silently=True)
+    # ── Botų gaudyklė: laukas paslėptas CSS, žmogus jo neužpildo ──
+    if (request.POST.get('website') or '').strip():
+        logger.info('report_listing: honeypot užpildytas, praleidžiam (%s)', pk)
+        messages.success(request, _('Ačiū, pranešimas gautas.'))
+        return redirect('listing_detail', pk=listing.pk)
+
+    ip = _get_client_ip(request)
+    nuo = timezone.now() - timedelta(hours=1)
+    if ip and ListingReport.objects.filter(ip_address=ip, created_at__gte=nuo).count() >= REPORT_LIMIT_PER_HOUR:
+        messages.error(request, _('Per valandą galima siųsti ne daugiau kaip %(kiek)s pranešimus. Bandykite vėliau.')
+                       % {'kiek': REPORT_LIMIT_PER_HOUR})
+        return redirect('listing_detail', pk=listing.pk)
+
+    reason = (request.POST.get('reason') or '').strip()[:ListingReport.REASON_MAX]
+    comment = (request.POST.get('comment') or '').strip()
+    reporter_email = (request.POST.get('reporter_email') or '').strip()
+    if not reason:
+        messages.error(request, _('Pasirinkite pranešimo priežastį.'))
+        return redirect('listing_detail', pk=listing.pk)
+
+    ListingReport.objects.create(
+        listing=listing, reason=reason, comment=comment,
+        reporter_email=reporter_email, ip_address=ip,
+    )
+
+    # Tikras skelbimo adresas — iš paties modelio, ne rankomis surinktas
+    listing_url = '%s%s' % (settings.SITE_URL, listing.get_absolute_url())
+    try:
+        admin_url = '%s%s' % (settings.SITE_URL,
+                              reverse('admin:listings_listing_change', args=[listing.pk]))
+    except Exception:                                  # noqa: BLE001
+        admin_url = '%s/admin/listings/listing/%s/change/' % (settings.SITE_URL, listing.pk)
+
+    send_admin_scenario(
+        code='admin_new_listing_report',
+        context={
+            'listing_title': listing.title,
+            'listing_id': listing.pk,
+            'listing_url': listing_url,
+            'admin_url': admin_url,
+            'seller_email': listing.seller.email if listing.seller else '',
+            'report_reason': reason,
+            'report_comment': comment,
+            'reporter_email': reporter_email,
+            'report_time': timezone.now().strftime('%Y-%m-%d %H:%M'),
+        },
+    )
+    messages.success(request, _('Ačiū, pranešimas gautas.'))
     return redirect('listing_detail', pk=listing.pk)
 
 

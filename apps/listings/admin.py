@@ -31,7 +31,7 @@ from .models import (
     SavedTruckNotification,
     TruckView,
     TruckImpression,
-    TruckSalesRecord,
+    TruckSalesRecord, ListingReport,
 )
 
 
@@ -1812,3 +1812,12 @@ class PartCategoryAdmin(admin.ModelAdmin):
 
     parent_name.short_description = "Parent"
 
+
+@admin.register(ListingReport)
+class ListingReportAdmin(admin.ModelAdmin):
+    """Pranešimai apie skelbimus — istorija ir dažnio ribos pagrindas."""
+    list_display = ('created_at', 'listing', 'reason', 'reporter_email', 'ip_address')
+    list_filter = ('reason', 'created_at')
+    search_fields = ('listing__title', 'reporter_email', 'comment', 'ip_address')
+    readonly_fields = ('listing', 'reason', 'comment', 'reporter_email',
+                       'ip_address', 'created_at')

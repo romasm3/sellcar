@@ -122,7 +122,8 @@ class Command(BaseCommand):
             context = {
                 'user_name': seller.email.split('@')[0] if seller.email else 'there',
                 'listing_title': str(listing),
-                'listing_url': f"{site_url}/listings/{listing.pk}/",
+                # Kelias iš paties modelio — „/listings/<id>/" maršruto nėra
+                'listing_url': f"{site_url}{listing.get_absolute_url()}",
                 'activate_url': f"{site_url}/my-listings/",
                 'days_expired': days_expired,
                 'site_url': site_url,

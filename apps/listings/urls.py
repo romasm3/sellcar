@@ -223,6 +223,10 @@ urlpatterns = [
     path("<int:pk>/save/", views.save_listing, name="save_listing"),
     path("<int:pk>/contact/", views.contact_seller, name="contact_seller"),
     path("<int:pk>/report/", views.report_listing, name="report_listing"),
+    # Jau išsiųstuose laiškuose figūruoja senas kelias „/listings/<id>/",
+    # kurio niekada nebuvo maršrutuose — permetam į tikrą skelbimo puslapį,
+    # kad senos nuorodos nustotų rodyti 404.
+    path("listings/<int:pk>/", views.senas_skelbimo_adresas),
 
     path("create/truck-for-parts/", truck_for_parts_views.truck_for_parts_create, name="truck_for_parts_create"),
     path('browse/truck-parts/', truck_for_parts_views.truck_parts_browse, name='truck_parts_browse'),

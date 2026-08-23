@@ -2331,6 +2331,31 @@ class ListingEquipment(models.Model):
         return f"{self.listing.title} - {self.equipment.name}"
 
 
+class ListingReport(models.Model):
+    """Pranešimas apie skelbimą.
+
+    Iki šiol pranešimai keliaudavo tik laišku ir niekur nenusėsdavo, todėl
+    nebuvo nei istorijos, nei iš ko skaičiuoti dažnio ribojimą. IP saugom
+    tam, kad botai negalėtų siųsti be galo (3 per valandą).
+    """
+    REASON_MAX = 100
+
+    listing = models.ForeignKey('Listing', on_delete=models.CASCADE,
+                                related_name='reports')
+    reason = models.CharField(max_length=REASON_MAX)
+    comment = models.TextField(blank=True)
+    reporter_email = models.EmailField(blank=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [models.Index(fields=['ip_address', 'created_at'])]
+
+    def __str__(self):
+        return f'#{self.listing_id} — {self.reason}'
+
+
 class SavedListing(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_listings')
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='saved_by')

@@ -23,6 +23,25 @@
 {% endblock %}
 
 {% block content %}
+{% if rodyti_neaktyvu %}
+{% comment %}Neaktyvų skelbimą mato tik savininkas ir personalas — juosta
+paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
+<div class="ld-neaktyvus no-print">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v5M12 16h.01"/></svg>
+  <span>
+    <strong>{% trans "Skelbimas neaktyvus" %}</strong>
+    — {% if listing.is_shadow_banned %}{% trans "paslėptas moderavimo" %}{% else %}{{ listing.get_status_display }}{% endif %}.
+    {% if is_staff_view %}{% trans "Matote jį kaip administratorius." %}{% else %}{% trans "Viešai jo nesimato." %}{% endif %}
+  </span>
+</div>
+<style>
+  .ld-neaktyvus { display:flex; align-items:center; gap:var(--sp-2);
+                  max-width:80rem; margin:var(--sp-3) auto 0; padding:var(--sp-3) var(--sp-4);
+                  background:#FFF7ED; border:1px solid #FED7AA; border-radius:var(--r-md);
+                  color:#9A3412; font-size:var(--fs-sm); }
+  .ld-neaktyvus svg { width:18px; height:18px; flex:none; }
+</style>
+{% endif %}
 <div class="bg-gray-50 min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -2883,6 +2902,13 @@
             <button onclick="document.getElementById('reportModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
         </div>
         <form method="post" action="{% url 'report_listing' listing.pk %}">
+            {% comment %}Botų gaudyklė: laukas paslėptas, žmogus jo neužpildo.
+            Užpildytas — pranešimas tyliai atmetamas (views.report_listing).{% endcomment %}
+            <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+                <label>{% trans "Nepildykite šio lauko" %}
+                    <input type="text" name="website" tabindex="-1" autocomplete="off">
+                </label>
+            </div>
             {% csrf_token %}
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Reason*" %}</label>
