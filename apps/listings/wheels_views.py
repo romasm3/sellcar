@@ -759,10 +759,19 @@ def wheels_advanced_search(request):
     request.GET = sanitize_search_params(request.GET)
     qs, product_type, f = _apply_wheels_filters(request)
 
+    # Viršaus blokas — ta pati ikonų juosta kaip kitų kategorijų detaliose
+    # paieškose (aktyvus „Ratai").
+    from .views import _advanced_rail
+    adv_rail, adv_more = _advanced_rail('tires')
+
     context = {
         'product_type': product_type,
         'f': f,
         'total_count': qs.count(),
+        'adv_rail': adv_rail,
+        'adv_more': adv_more,
+        'adv_title': (_('Ratlankių skelbimų paieška') if product_type == 'rim'
+                      else _('Padangų skelbimų paieška')),
     }
     context.update(_wheels_choices_context())
     return render(request, 'listings/wheels_advanced_search.html', context)

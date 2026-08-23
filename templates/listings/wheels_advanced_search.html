@@ -55,14 +55,29 @@
 <div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
 <div class="adv-wrap">
 
+{% comment %}Viršus — toks pat kaip kitų kategorijų detaliose paieškose:
+trupinių takas, ikonų juosta su aktyviu „Ratai", antraštė ir „Išvalyti
+paiešką".{% endcomment %}
+<nav class="adv-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+  <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+  <span>›</span>
+  <span>{% trans "Skelbimų paieška" %}</span>
+  <span>›</span>
+  <span class="adv-crumb-on">{% if product_type == 'rim' %}{% trans "Ratlankiai" %}{% else %}{% trans "Padangos" %}{% endif %}</span>
+</nav>
+
+<div class="adv-card" style="margin-bottom:20px;">
+  {% include 'listings/partials/_adv_rail.html' %}
+  <div class="adv-header" style="margin-top:16px; padding-top:16px; border-top:1px solid #f1f1f1;">
+    <div class="adv-title">{{ adv_title }}</div>
+    <a class="adv-clear" href="{% url 'wheels_advanced_search' %}?type={{ product_type }}">{% trans "Išvalyti paiešką" %}</a>
+  </div>
+</div>
+
 <form method="get" action="{% if product_type == 'rim' %}{% url 'rims_list' %}{% else %}{% url 'tyres_list' %}{% endif %}" id="advForm">
 <input type="hidden" name="type" value="{{ product_type }}">
 
 <div class="adv-card">
-    <div class="adv-header">
-        <div class="adv-title">{% if product_type == 'rim' %}{% trans "Rims search" %}{% else %}{% trans "Tyres search" %}{% endif %}</div>
-        <a class="adv-clear" onclick="clearAllFilters()">{% trans "Clear search" %}</a>
-    </div>
 
     <div class="adv-grid3">
 

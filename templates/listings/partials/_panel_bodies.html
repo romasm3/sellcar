@@ -347,18 +347,14 @@ Filtrų parametrai adrese išsaugomi.
 {% if sp_tab == 'wheels' %}
     <div x-show="tab === 'wheels'" x-cloak id="sp-panel-wheels">
       {% comment %}Antraštė rodo, kurioje kategorijoje esi — ne bendrą „Paieška".{% endcomment %}
-      <h2 class="text-[15.5px] font-bold mb-3 -mt-3">{% trans "Ratlankiai / padangos" %}</h2>
-
-      {% comment %}Perjungimas ratlankiai↔padangos — viena panelės sekcija su
-      dviem filtrų rinkiniais. Abi formos yra puslapyje, todėl perjungiama be
-      perkrovimo (setWheelType). Mygtukų stilius — kaip vienetų perjungiklio
-      (static/js/unit_toggle.js).{% endcomment %}
-      <div class="sp-wheel-switch mb-4">
-        <button type="button" @click="setWheelType('rim')"
-                :class="wheelType === 'rim' && 'is-on'">{% trans "Ratlankiai" %}</button>
-        <button type="button" @click="setWheelType('tyre')"
-                :class="wheelType === 'tyre' && 'is-on'">{% trans "Padangos" %}</button>
-      </div>
+      {% comment %}Antraštė rodo, kurioje kategorijoje esi. Perjungiama tik
+      per šonines juostos ikonas (Ratlankiai / Padangos) — panelės viduje
+      perjungiklio nėra. Abi formos renderinamos kartu, todėl perjungimas
+      vyksta be perkrovimo.{% endcomment %}
+      <h2 class="text-[15.5px] font-bold mb-4 -mt-3">
+        <span x-show="wheelType === 'rim'">{% trans "Ratlankiai" %}</span>
+        <span x-show="wheelType === 'tyre'" x-cloak>{% trans "Padangos" %}</span>
+      </h2>
 
       {# ── PADANGOS forma ── #}
       <form class="sp-search-form" data-wheel="tyre" x-show="wheelType === 'tyre'"

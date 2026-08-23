@@ -23055,3 +23055,11 @@ msgstr "Glass"
 #: apps/listings/search_config/panels.py
 msgid "Stiklų žibintų apiplovimo/ valymo sistema"
 msgstr "Windscreen washer / wiper system"
+
+#: apps/listings/wheels_views.py
+msgid "Ratlankių skelbimų paieška"
+msgstr "Rim ad search"
+
+#: apps/listings/wheels_views.py
+msgid "Padangų skelbimų paieška"
+msgstr "Tyre ad search"

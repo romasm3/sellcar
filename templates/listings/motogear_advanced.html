@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load adv_rail %}
 {% block title %}{% trans "Apranga, šalmai, aksesuarai" %} - AutoLeft{% endblock %}
 
 {% block extra_css %}
@@ -38,6 +39,19 @@
 
 {% block content %}
 <div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+
+{% comment %}Kategorijų juosta ir trupinių takas — toks pat viršus kaip
+visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
+<div class="adv-top-bar">
+  <nav class="adv-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+    <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+    <span>›</span>
+    <span>{% trans "Skelbimų paieška" %}</span>
+    <span>›</span>
+    <span class="adv-crumb-on">{% trans "Apranga, šalmai, aksesuarai" %}</span>
+  </nav>
+  <div class="adv-top-card">{% adv_rail 'motorcycles' %}</div>
+</div>
 <div class="adv-wrap">
 <form method="get" action="{% url 'motogear_list' %}" id="gearForm">
   <input type="hidden" name="sidebar" value="1">
