@@ -12,6 +12,9 @@ Tekstinė paieška ir žymimieji langeliai — inline, ne drill-in (etalonas).
 Parametrai:
     rows       — laukų eilutės iš konfigūracijos
     category   — kategorijos slug'as
+    sub        — sekcija kategorijos viduje (vilkikai, priedai, moto
+                 nuoma...). Be jos /pasirinkti/ tos sekcijos laukų
+                 nerastų ir grąžintų 404.
     back       — kelias, į kurį grįžtama pasirinkus
     count_key  — kurios kategorijos skaičiuką rodyti mygtuke
     adv_url    — „Detali paieška" nuoroda
@@ -43,14 +46,14 @@ Parametrai:
     </span>
     {% endfor %}
     <a class="sp-chip-add"
-       href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}&amp;grizti={{ back|urlencode }}"
+       href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub %}&amp;sub={{ sub|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}"
        aria-label="{% trans 'Pridėti' %}">
       <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v8M8 12h8"/></svg>
     </a>
   </div>
   {% else %}
   <a class="sp-mrow"
-     href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}&amp;grizti={{ back|urlencode }}">
+     href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub %}&amp;sub={{ sub|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}">
     <span>{{ f.label }}</span>
     <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
   </a>
@@ -58,6 +61,24 @@ Parametrai:
 
   {% endwith %}
   {% endif %}
+  {% endif %}{% endfor %}{% endfor %}
+
+  {% comment %}
+  ANTROS IR TOLESNĖS TO PATIES LAUKO REIKŠMĖS.
+
+  Žyma rodo visas (pvz. dvi markes), bet darbalaukio valdiklis — vienas
+  <select>/<input> — nešasi tik paskutinę, tad spaudžiant „Skelbimai"
+  ankstesnės dingdavo. Likusios keliauja paslėptais įvedimais tuo pačiu
+  vardu; variklis jas ima per getlist ir filtruoja kaip „arba".
+
+  Diapazonai, žymimieji langeliai, tekstas ir multiselect čia neįeina:
+  pirmieji trys vienareikšmiai, o multiselect savo reikšmes jau siunčia
+  pats (getlist), tad jos dubliuotųsi.
+  {% endcomment %}
+  {% for row in rows %}{% for f in row %}{% if f and f.param and f.type != 'range' and f.type != 'multiselect' and f.type != 'checkbox' and f.type != 'text' %}
+  {% with chosen=request.GET|get_list_param:f.param %}{% if chosen|length > 1 %}
+  {% for value in chosen %}{% if not forloop.last %}<input type="hidden" name="{{ f.param }}" value="{{ value }}">{% endif %}{% endfor %}
+  {% endif %}{% endwith %}
   {% endif %}{% endfor %}{% endfor %}
 
   {% comment %}Tekstinė paieška — inline, kaip etalone{% endcomment %}

@@ -475,6 +475,11 @@ def build_panel(vt_slug, user=None, sub_slug=None):
 
     return {
         'slug': vt_slug,
+        # Sekcija kategorijos viduje (vilkikai, priedai, moto nuoma...).
+        # Reikalinga telefono /pasirinkti/ nuorodai: tos sekcijos laukų
+        # (constr_attach_type, rent_type...) pagrindinės kategorijos
+        # konfigūracijoje nėra, ir be `sub` ekranas grąžindavo 404.
+        'sub_slug': sub_slug,
         'label': _(cat['name']),
         'fields': fields,
         # Eilutės iš konfigūracijos „layout" — etalono tinklelis
@@ -664,6 +669,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
 
     return {
         'slug': vt_slug,
+        'sub_slug': sub_slug,
         'label': _(cat['name']),
         'fields': fields,
         'rows': _layout_rows(cat, fields),

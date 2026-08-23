@@ -31,7 +31,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
     </a>
     <div class="sp-side-line hidden lg:block"></div>
 
-    {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows category=sidebar.slug back=request.get_full_path adv_url=adv_url %}
+    {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows category=sidebar.slug sub=sidebar.sub_slug back=request.get_full_path adv_url=adv_url %}
 
     <div class="hidden lg:flex flex-col gap-y-3" data-laukai="darbalaukis">
       {% for row in sidebar.rows %}{% for f in row %}

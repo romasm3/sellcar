@@ -37,7 +37,7 @@
          isplestine-config.json „layout" — nuskaitytos iš autogidas.
 {% endcomment %}
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
-        {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug back=request.get_full_path %}
+        {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug sub=adv.sub_slug back=request.get_full_path %}
 
         <div class="hidden lg:flex flex-col gap-y-3" data-laukai="darbalaukis">
           {% for row in adv.rows %}
