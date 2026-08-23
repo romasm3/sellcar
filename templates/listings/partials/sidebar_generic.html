@@ -1,4 +1,4 @@
-{% load i18n dict_extras %}{% comment %}
+{% load i18n_db i18n dict_extras %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 ŠONINĖ FILTRŲ JUOSTA rezultatų puslapyje.
 
@@ -72,7 +72,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
             <input type="checkbox" name="equipment" value="{{ eq.id }}"
                    {% if eq.id|stringformat:"s" in selected_equipment %}checked{% endif %}
                    class="w-4 h-4 rounded">
-            <span>{{ eq.name }}</span>
+            <span>{{ eq.name|tdb }}</span>
           </label>
           {% endfor %}
         </div>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n dict_extras static %}
+{% load i18n_db i18n dict_extras static %}
 {% block title %}{{ adv.label }} — {% trans "Detali paieška" %} - AutoLeft{% endblock %}
 
 {% block content %}
@@ -119,7 +119,7 @@
                      {% if eq.id|stringformat:"s" in selected_equipment %}checked{% endif %}
                      @change="eqCount += $event.target.checked ? 1 : -1"
                      class="w-4 h-4 rounded">
-              <span>{{ eq.name }}</span>
+              <span>{{ eq.name|tdb }}</span>
             </label>
             {% endfor %}
           </div>

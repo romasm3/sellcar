@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 13:58+0300\n"
+"POT-Creation-Date: 2026-08-23 14:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,8 +108,9 @@ msgid "Banner Image"
 msgstr ""
 
 #: apps/accounts/models.py:47 templates/accounts/dealer_setup.html:76
+#: templates/listings/contact.html:52
 msgid "Working Hours"
-msgstr ""
+msgstr "Working hours"
 
 #: apps/accounts/models.py:48
 msgid "Contact Person"
@@ -1399,6 +1400,7 @@ msgid "4x2"
 msgstr ""
 
 #: apps/listings/models.py:361 apps/listings/models.py:2817
+#: apps/listings/translatable_db.py:1873
 msgid "4x4"
 msgstr ""
 
@@ -1622,11 +1624,11 @@ msgstr ""
 msgid "No climate control"
 msgstr ""
 
-#: apps/listings/models.py:449
+#: apps/listings/models.py:449 apps/listings/translatable_db.py:1884
 msgid "Air conditioning"
 msgstr ""
 
-#: apps/listings/models.py:450
+#: apps/listings/models.py:450 apps/listings/translatable_db.py:1955
 #: templates/listings/listing_create_cars_quick.html:343
 msgid "Climate control"
 msgstr "Climate control"
@@ -1783,6 +1785,7 @@ msgstr ""
 #: apps/listings/models.py:1061 apps/listings/models.py:1075
 #: apps/listings/models.py:1125 apps/listings/models.py:1137
 #: apps/listings/models.py:1211 apps/listings/models.py:1364
+#: apps/listings/translatable_db.py:2077
 #: templates/listings/agriculture_listing_create.html:91
 #: templates/listings/bicycles_listing_create.html:74
 #: templates/listings/camping_listing_create.html:76
@@ -2354,7 +2357,7 @@ msgstr ""
 
 #: apps/listings/models.py:820 apps/listings/translatable_db.py:1770
 msgid "Puspriekabė"
-msgstr ""
+msgstr "Semi-trailer"
 
 #: apps/listings/models.py:821
 msgid "Lengvojo automobilio priekaba"
@@ -2362,59 +2365,59 @@ msgstr ""
 
 #: apps/listings/models.py:827 apps/listings/translatable_db.py:1626
 msgid "Automobilinė priekaba"
-msgstr ""
+msgstr "Car trailer"
 
 #: apps/listings/models.py:828 apps/listings/translatable_db.py:1627
 msgid "Automobiliui vežti"
-msgstr ""
+msgstr "For car transport"
 
 #: apps/listings/models.py:829 apps/listings/translatable_db.py:1631
 msgid "Automobilvežio"
-msgstr ""
+msgstr "Car transporter"
 
 #: apps/listings/models.py:830 apps/listings/translatable_db.py:1641
 msgid "Betonvežio"
-msgstr ""
+msgstr "Concrete mixer"
 
 #: apps/listings/models.py:831 apps/listings/translatable_db.py:1645
 msgid "Bortinė"
-msgstr ""
+msgstr "Flatbed"
 
 #: apps/listings/models.py:832 apps/listings/translatable_db.py:1646
 msgid "Bortinė su tentu"
-msgstr ""
+msgstr "Curtainside flatbed"
 
 #: apps/listings/models.py:833 apps/listings/translatable_db.py:1649
 msgid "Cisterninė"
-msgstr ""
+msgstr "Tanker"
 
 #: apps/listings/models.py:834 apps/listings/translatable_db.py:1673
 msgid "Gyvuliams vežti"
-msgstr ""
+msgstr "For livestock transport"
 
 #: apps/listings/models.py:835 apps/listings/translatable_db.py:1681
 msgid "Izoterminis kėbulas"
-msgstr ""
+msgstr "Insulated body"
 
 #: apps/listings/models.py:836 apps/listings/translatable_db.py:1693
 msgid "Keičiamas kėbulas"
-msgstr ""
+msgstr "Swap body"
 
 #: apps/listings/models.py:837 apps/listings/translatable_db.py:1706
 msgid "Konteinerių važiuoklė"
-msgstr ""
+msgstr "Container chassis"
 
 #: apps/listings/models.py:838 apps/listings/translatable_db.py:1708
 msgid "Krovininė"
-msgstr ""
+msgstr "Cargo"
 
 #: apps/listings/models.py:839 apps/listings/translatable_db.py:1726
 msgid "Miškavežio"
-msgstr ""
+msgstr "Timber transport"
 
 #: apps/listings/models.py:840 apps/listings/translatable_db.py:1737
 msgid "Motociklų priekabos"
-msgstr ""
+msgstr "Motorcycle trailers"
 
 #: apps/listings/models.py:841
 msgid "Platforma"
@@ -2427,11 +2430,11 @@ msgstr ""
 
 #: apps/listings/models.py:843 apps/listings/translatable_db.py:1786
 msgid "Savivartė"
-msgstr ""
+msgstr "Tipper"
 
 #: apps/listings/models.py:844 apps/listings/translatable_db.py:1816
 msgid "Tentinė"
-msgstr ""
+msgstr "Curtainside"
 
 #: apps/listings/models.py:845
 msgid "Traktoriaus priekaba"
@@ -2439,7 +2442,7 @@ msgstr ""
 
 #: apps/listings/models.py:846 apps/listings/translatable_db.py:1819
 msgid "Turistinė"
-msgstr ""
+msgstr "Touring"
 
 #: apps/listings/models.py:847
 msgid "Vandens transporto"
@@ -2637,11 +2640,11 @@ msgstr ""
 
 #: apps/listings/models.py:912 apps/listings/translatable_db.py:1612
 msgid "Akėčios"
-msgstr ""
+msgstr "Harrows"
 
 #: apps/listings/models.py:913 apps/listings/translatable_db.py:1647
 msgid "Bulvių kasamosios"
-msgstr ""
+msgstr "Potato harvesters"
 
 #: apps/listings/models.py:914 apps/listings/models.py:1005
 msgid "Buldozeris"
@@ -2657,19 +2660,19 @@ msgstr ""
 
 #: apps/listings/models.py:917 apps/listings/translatable_db.py:1672
 msgid "Grūdų valymo įranga"
-msgstr ""
+msgstr "Grain cleaning equipment"
 
 #: apps/listings/models.py:918 apps/listings/translatable_db.py:1669
 msgid "Grūdų džiovinimo įranga"
-msgstr ""
+msgstr "Grain drying equipment"
 
 #: apps/listings/models.py:919 apps/listings/translatable_db.py:1670
 msgid "Grūdų sandėliavimo įranga"
-msgstr ""
+msgstr "Grain storage equipment"
 
 #: apps/listings/models.py:920 apps/listings/translatable_db.py:1671
 msgid "Grūdų transportavimo įranga"
-msgstr ""
+msgstr "Grain conveying equipment"
 
 #: apps/listings/models.py:921
 msgid "Kombainas"
@@ -2702,27 +2705,27 @@ msgstr ""
 
 #: apps/listings/models.py:928 apps/listings/translatable_db.py:1867
 msgid "Žoliapjovė"
-msgstr ""
+msgstr "Mower"
 
 #: apps/listings/models.py:929 apps/listings/translatable_db.py:1668
 msgid "Grėbliai"
-msgstr ""
+msgstr "Rakes"
 
 #: apps/listings/models.py:930 apps/listings/translatable_db.py:1718
 msgid "Lėkštiniai skutikai"
-msgstr ""
+msgstr "Disc cultivators"
 
 #: apps/listings/models.py:931 apps/listings/translatable_db.py:1742
 msgid "Mėšlo kratytuvai"
-msgstr ""
+msgstr "Manure spreaders"
 
 #: apps/listings/models.py:932 apps/listings/translatable_db.py:1753
 msgid "Pašarų dalytuvai"
-msgstr ""
+msgstr "Feed mixers"
 
 #: apps/listings/models.py:933 apps/listings/translatable_db.py:1755
 msgid "Pienininkystės ir fermų įrengimai"
-msgstr ""
+msgstr "Dairy and farm equipment"
 
 #: apps/listings/models.py:934
 msgid "Pjaunamosios"
@@ -2730,7 +2733,7 @@ msgstr ""
 
 #: apps/listings/models.py:935 apps/listings/translatable_db.py:1763
 msgid "Plūgai"
-msgstr ""
+msgstr "Ploughs"
 
 #: apps/listings/models.py:936
 msgid "Presai"
@@ -2738,15 +2741,15 @@ msgstr ""
 
 #: apps/listings/models.py:937 apps/listings/translatable_db.py:1768
 msgid "Purkštuvai pakabinami"
-msgstr ""
+msgstr "Mounted sprayers"
 
 #: apps/listings/models.py:938 apps/listings/translatable_db.py:1769
 msgid "Purkštuvai prikabinami"
-msgstr ""
+msgstr "Trailed sprayers"
 
 #: apps/listings/models.py:939 apps/listings/translatable_db.py:1777
 msgid "Ražieniniai skutikai"
-msgstr ""
+msgstr "Stubble cultivators"
 
 #: apps/listings/models.py:940
 msgid "Rinktuvai"
@@ -2754,15 +2757,15 @@ msgstr ""
 
 #: apps/listings/models.py:941 apps/listings/translatable_db.py:1783
 msgid "Savaeigės pjaunamosios-smulkintuvai"
-msgstr ""
+msgstr "Self-propelled forage harvesters"
 
 #: apps/listings/models.py:942 apps/listings/translatable_db.py:1809
 msgid "Sėjamosios"
-msgstr ""
+msgstr "Seed drills"
 
 #: apps/listings/models.py:943 apps/listings/translatable_db.py:1810
 msgid "Sėjos agregatai"
-msgstr ""
+msgstr "Seeding combinations"
 
 #: apps/listings/models.py:944
 msgid "Smulkintuvai-pjaunamosios"
@@ -2778,15 +2781,15 @@ msgstr ""
 
 #: apps/listings/models.py:947 apps/listings/translatable_db.py:1798
 msgid "Srutų laistytuvai"
-msgstr ""
+msgstr "Slurry tankers"
 
 #: apps/listings/models.py:948 apps/listings/translatable_db.py:1799
 msgid "Srutų siurbliai"
-msgstr ""
+msgstr "Slurry pumps"
 
 #: apps/listings/models.py:949 apps/listings/translatable_db.py:1818
 msgid "Trąšų barstytuvai"
-msgstr ""
+msgstr "Fertiliser spreaders"
 
 #: apps/listings/models.py:950
 msgid "Vartytuvai"
@@ -2807,13 +2810,13 @@ msgstr ""
 
 #: apps/listings/models.py:958 apps/listings/translatable_db.py:1782
 msgid "Savaeigė"
-msgstr ""
+msgstr "Self-propelled"
 
 #: apps/listings/models.py:967 apps/listings/translatable_db.py:867
 #: templates/listings/agriculture_listing_create.html:62
 #: templates/listings/listing_detail.html:1272
 msgid "Padargas / Savaeigė"
-msgstr ""
+msgstr "Implement / self-propelled"
 
 #: apps/listings/models.py:978 templates/listings/listing_detail.html:832
 #: templates/listings/listing_detail.html:882
@@ -2832,19 +2835,19 @@ msgstr ""
 
 #: apps/listings/models.py:997 apps/listings/translatable_db.py:1610
 msgid "Akmens smulkinimo mašina"
-msgstr ""
+msgstr "Stone crusher"
 
 #: apps/listings/models.py:998 apps/listings/translatable_db.py:1617
 msgid "Asenizacinė mašina"
-msgstr ""
+msgstr "Sewage truck"
 
 #: apps/listings/models.py:999 apps/listings/translatable_db.py:1619
 msgid "Asfaloto klojimo mašinos"
-msgstr ""
+msgstr "Asphalt pavers"
 
 #: apps/listings/models.py:1000 apps/listings/translatable_db.py:1625
 msgid "Automobilinis bokštelis"
-msgstr ""
+msgstr "Truck-mounted platform"
 
 #: apps/listings/models.py:1001
 msgid "Automobilinis kranas"
@@ -2856,11 +2859,11 @@ msgstr ""
 
 #: apps/listings/models.py:1003 apps/listings/translatable_db.py:1639
 msgid "Betono gamybos įrenginys"
-msgstr ""
+msgstr "Concrete plant"
 
 #: apps/listings/models.py:1004 apps/listings/translatable_db.py:1642
 msgid "Betonvežis"
-msgstr ""
+msgstr "Concrete mixer truck"
 
 #: apps/listings/models.py:1006
 msgid "Dumperis (savivartis)"
@@ -2880,7 +2883,7 @@ msgstr ""
 
 #: apps/listings/models.py:1010 apps/listings/translatable_db.py:1660
 msgid "Ekskavatorius vikšrinis"
-msgstr ""
+msgstr "Tracked excavator"
 
 #: apps/listings/models.py:1011
 msgid "Frontalinis krautuvas"
@@ -2893,27 +2896,27 @@ msgstr ""
 #: apps/listings/models.py:1014 apps/listings/models.py:1045
 #: apps/listings/translatable_db.py:1680
 msgid "Hidraulinės žirklės"
-msgstr ""
+msgstr "Hydraulic shears"
 
 #: apps/listings/models.py:1015 apps/listings/translatable_db.py:1678
 msgid "Hidraulinis grąžtas"
-msgstr ""
+msgstr "Hydraulic auger"
 
 #: apps/listings/models.py:1016 apps/listings/translatable_db.py:1679
 msgid "Hidraulinis kūjis"
-msgstr ""
+msgstr "Hydraulic hammer"
 
 #: apps/listings/models.py:1017 apps/listings/translatable_db.py:1691
 msgid "Kaušinis krautuvas"
-msgstr ""
+msgstr "Bucket loader"
 
 #: apps/listings/models.py:1018 apps/listings/translatable_db.py:1697
 msgid "Kelkraščių priežiūros mašinos"
-msgstr ""
+msgstr "Verge maintenance machines"
 
 #: apps/listings/models.py:1019 apps/listings/translatable_db.py:1696
 msgid "Kelių tiesimo mašina"
-msgstr ""
+msgstr "Road construction machine"
 
 #: apps/listings/models.py:1020
 msgid "Kompresorius"
@@ -2929,15 +2932,15 @@ msgstr ""
 
 #: apps/listings/models.py:1025 apps/listings/translatable_db.py:1764
 msgid "Poliakalės"
-msgstr ""
+msgstr "Pile drivers"
 
 #: apps/listings/models.py:1026 apps/listings/translatable_db.py:1792
 msgid "Skaldyklė"
-msgstr ""
+msgstr "Crusher"
 
 #: apps/listings/models.py:1027 apps/listings/translatable_db.py:1791
 msgid "Skaldos rūšiavimo mašina"
-msgstr ""
+msgstr "Aggregate screening machine"
 
 #: apps/listings/models.py:1028
 msgid "Tankinimo technika"
@@ -2945,7 +2948,7 @@ msgstr ""
 
 #: apps/listings/models.py:1029 apps/listings/translatable_db.py:1828
 msgid "Vibracinės plokštės"
-msgstr ""
+msgstr "Vibrating plates"
 
 #: apps/listings/models.py:1030
 msgid "Vibrovolai"
@@ -2961,7 +2964,7 @@ msgstr ""
 
 #: apps/listings/models.py:1034 apps/listings/translatable_db.py:1829
 msgid "Vibro mašina"
-msgstr ""
+msgstr "Vibratory machine"
 
 #: apps/listings/models.py:1039
 msgid "Barstytuvai"
@@ -3439,10 +3442,12 @@ msgid "Automobilių signalizacija"
 msgstr ""
 
 #: apps/listings/models.py:1345 apps/listings/translatable_db.py:97
+#: apps/listings/translatable_db.py:1939
 msgid "CD grotuvas"
 msgstr "CD player"
 
 #: apps/listings/models.py:1346 apps/listings/translatable_db.py:98
+#: apps/listings/translatable_db.py:1940
 msgid "CD keitiklis"
 msgstr "CD changer"
 
@@ -3451,6 +3456,7 @@ msgid "CD/MP3 grotuvas"
 msgstr ""
 
 #: apps/listings/models.py:1348 apps/listings/translatable_db.py:99
+#: apps/listings/translatable_db.py:1966
 msgid "DVD grotuvas"
 msgstr "DVD player"
 
@@ -3512,6 +3518,7 @@ msgstr ""
 
 #: apps/listings/models.py:1363 apps/listings/translatable_db.py:182
 #: apps/listings/translatable_db.py:1574 apps/listings/translatable_db.py:1863
+#: apps/listings/translatable_db.py:2325
 msgid "Žemų dažnių garsiakalbis"
 msgstr "Subwoofer"
 
@@ -3806,6 +3813,7 @@ msgid "Export price"
 msgstr ""
 
 #: apps/listings/models.py:1671 apps/listings/models.py:3100
+#: apps/listings/translatable_db.py:2142
 #: templates/listings/motogear_create.html:267
 msgid "Open to trade"
 msgstr ""
@@ -3834,7 +3842,7 @@ msgstr "Prepared for motorsport"
 msgid "Adapted for disabled"
 msgstr "Adapted for disabled drivers"
 
-#: apps/listings/models.py:1678
+#: apps/listings/models.py:1678 apps/listings/translatable_db.py:2208
 #: templates/listings/listing_create_cars_quick.html:420
 #: templates/listings/listing_list.html:739
 #: templates/listings/motorcycle_create.html:269
@@ -3876,6 +3884,7 @@ msgid "Remote start"
 msgstr "Remote start"
 
 #: apps/listings/models.py:1684 apps/listings/models.py:3838
+#: apps/listings/translatable_db.py:2224
 #: templates/listings/listing_create_cars_quick.html:456
 #: templates/listings/listing_list.html:763
 msgid "Spare wheel"
@@ -4433,36 +4442,36 @@ msgstr ""
 
 #: apps/listings/search_config/panels.py:206
 msgid "Nauji ir atnaujinti viršuje"
-msgstr ""
+msgstr "New and renewed first"
 
 #: apps/listings/search_config/panels.py:207
 #: templates/listings/partials/_results_header_mobile.html:39
 msgid "Pigiausi viršuje"
-msgstr ""
+msgstr "Cheapest first"
 
 #: apps/listings/search_config/panels.py:208
 #: templates/listings/partials/_results_header_mobile.html:40
 msgid "Brangiausi viršuje"
-msgstr ""
+msgstr "Most expensive first"
 
 #: apps/listings/search_config/panels.py:636
 msgid "Vienos dienos"
-msgstr ""
+msgstr "One day"
 
 #: apps/listings/search_config/panels.py:636
 #: apps/listings/translatable_db.py:1817
 msgid "Trijų dienų"
-msgstr ""
+msgstr "Three days"
 
 #: apps/listings/search_config/panels.py:637
 #: apps/listings/translatable_db.py:1784
 msgid "Savaitės"
-msgstr ""
+msgstr "One week"
 
 #: apps/listings/search_config/panels.py:637
 #: apps/listings/translatable_db.py:1658
 msgid "Dviejų savaičių"
-msgstr ""
+msgstr "Two weeks"
 
 #: apps/listings/search_config/panels.py:639
 msgid "Privatus"
@@ -5102,423 +5111,482 @@ msgstr "Petrol/Electric/LPG"
 msgid "Petrol / LPG"
 msgstr "Petrol/LPG"
 
-#: apps/listings/translatable_db.py:76
+#: apps/listings/translatable_db.py:76 apps/listings/translatable_db.py:1872
 msgid "360° vaizdo kamera"
 msgstr "360° camera"
 
-#: apps/listings/translatable_db.py:77
+#: apps/listings/translatable_db.py:77 apps/listings/translatable_db.py:1879
 msgid "APVA kompensacija nepanaudota"
 msgstr ""
 
-#: apps/listings/translatable_db.py:78
+#: apps/listings/translatable_db.py:78 apps/listings/translatable_db.py:1881
 msgid "AUX jungtis"
 msgstr "AUX input"
 
 #: apps/listings/translatable_db.py:79 apps/listings/translatable_db.py:206
+#: apps/listings/translatable_db.py:1889
 msgid "Aklosios zonos stebėjimo sistema"
 msgstr "Blind spot monitoring"
 
-#: apps/listings/translatable_db.py:80
+#: apps/listings/translatable_db.py:80 apps/listings/translatable_db.py:1899
 msgid "Apple CarPlay / Android Auto"
 msgstr ""
 
-#: apps/listings/translatable_db.py:81
+#: apps/listings/translatable_db.py:81 apps/listings/translatable_db.py:1904
 msgid "Atsarginis ratas"
 msgstr "Spare wheel"
 
 #: apps/listings/translatable_db.py:82 apps/listings/translatable_db.py:264
+#: apps/listings/translatable_db.py:1905
 msgid "Atstumo jutiklių sistema"
 msgstr "Parking sensors"
 
-#: apps/listings/translatable_db.py:83
+#: apps/listings/translatable_db.py:83 apps/listings/translatable_db.py:1906
 msgid "Atstumo palaikymo sistema"
 msgstr "Adaptive cruise control"
 
-#: apps/listings/translatable_db.py:84
+#: apps/listings/translatable_db.py:84 apps/listings/translatable_db.py:1908
 msgid "Audio grotuvas"
 msgstr "Audio player"
 
-#: apps/listings/translatable_db.py:85
+#: apps/listings/translatable_db.py:85 apps/listings/translatable_db.py:1912
 msgid "Automatinio parkavimo sistema"
 msgstr "Automatic parking"
 
 #: apps/listings/translatable_db.py:86 apps/listings/translatable_db.py:279
+#: apps/listings/translatable_db.py:1914
 msgid "Automatiškai užsilenkiantys veidrodėliai"
 msgstr "Auto-folding mirrors"
 
 #: apps/listings/translatable_db.py:87 apps/listings/translatable_db.py:280
+#: apps/listings/translatable_db.py:1915
 msgid "Automatiškai įsijungiantys žibintai"
 msgstr "Automatic headlights"
 
 #: apps/listings/translatable_db.py:88 apps/listings/translatable_db.py:283
+#: apps/listings/translatable_db.py:1916
 msgid "Automobilis iš Amerikos"
 msgstr "Imported from USA"
 
 #: apps/listings/translatable_db.py:89 apps/listings/translatable_db.py:294
+#: apps/listings/translatable_db.py:1917
 msgid "Autonominis šildymas"
 msgstr "Auxiliary heating"
 
 #: apps/listings/translatable_db.py:90 apps/listings/translatable_db.py:297
+#: apps/listings/translatable_db.py:1920
 msgid "Autopilotas (kruizo kontrolė)"
 msgstr "Cruise control"
 
-#: apps/listings/translatable_db.py:91
+#: apps/listings/translatable_db.py:91 apps/listings/translatable_db.py:1922
 msgid "Avarinio stabdymo sistema"
 msgstr "Emergency braking system"
 
 #: apps/listings/translatable_db.py:92 apps/listings/translatable_db.py:338
+#: apps/listings/translatable_db.py:1924
 msgid "Bagažinės uždangalas"
 msgstr "Boot cover"
 
-#: apps/listings/translatable_db.py:93
+#: apps/listings/translatable_db.py:93 apps/listings/translatable_db.py:1926
 msgid "Baterijos garantija"
 msgstr "Battery warranty"
 
 #: apps/listings/translatable_db.py:94 apps/listings/translatable_db.py:348
+#: apps/listings/translatable_db.py:1927
 msgid "Beraktė užvedimo sistema"
 msgstr "Keyless start"
 
-#: apps/listings/translatable_db.py:95
+#: apps/listings/translatable_db.py:95 apps/listings/translatable_db.py:1928
 msgid "Bevielis telefono krovimas"
 msgstr "Wireless phone charging"
 
-#: apps/listings/translatable_db.py:96
+#: apps/listings/translatable_db.py:96 apps/listings/translatable_db.py:1931
 msgid "Bluetooth"
 msgstr ""
 
-#: apps/listings/translatable_db.py:100
+#: apps/listings/translatable_db.py:100 apps/listings/translatable_db.py:1968
 msgid "Daugiafunkcinis vairas"
 msgstr "Multifunction steering wheel"
 
 #: apps/listings/translatable_db.py:101 apps/listings/translatable_db.py:444
+#: apps/listings/translatable_db.py:1971
 msgid "Dinaminis posūkių apšvietimas"
 msgstr "Dynamic cornering lights"
 
 #: apps/listings/translatable_db.py:102 apps/listings/translatable_db.py:456
+#: apps/listings/translatable_db.py:1980
 msgid "Durelių pritraukimas"
 msgstr "Soft-close doors"
 
-#: apps/listings/translatable_db.py:103
+#: apps/listings/translatable_db.py:103 apps/listings/translatable_db.py:1986
 msgid "Dvipusis energijos perdavimas"
 msgstr "Bidirectional charging (V2G)"
 
-#: apps/listings/translatable_db.py:104
+#: apps/listings/translatable_db.py:104 apps/listings/translatable_db.py:1992
 msgid "ESP (stabilumo kontrolės sistema)"
 msgstr "ESP (electronic stability programme)"
 
-#: apps/listings/translatable_db.py:105
+#: apps/listings/translatable_db.py:105 apps/listings/translatable_db.py:1994
 msgid "El. langai"
 msgstr "Electric windows"
 
 #: apps/listings/translatable_db.py:106 apps/listings/translatable_db.py:483
+#: apps/listings/translatable_db.py:1995
 msgid "El. reguliuojami veidrodėliai"
 msgstr "Electric mirrors"
 
 #: apps/listings/translatable_db.py:107 apps/listings/translatable_db.py:486
+#: apps/listings/translatable_db.py:2002
 msgid "Elektra reguliuojama vairo padėtis"
 msgstr "Electrically adjustable steering wheel"
 
 #: apps/listings/translatable_db.py:108 apps/listings/translatable_db.py:487
+#: apps/listings/translatable_db.py:2003
 msgid "Elektra valdomas bagažinės dangtis"
 msgstr "Electric boot lid"
 
 #: apps/listings/translatable_db.py:109 apps/listings/translatable_db.py:488
+#: apps/listings/translatable_db.py:2004
 msgid "Elektra valdomos sėdynės"
 msgstr "Electric seats"
 
 #: apps/listings/translatable_db.py:110 apps/listings/translatable_db.py:489
+#: apps/listings/translatable_db.py:2005
 msgid "Elektra valdomos sėdynės su atmintimi"
 msgstr "Electric seats with memory"
 
 #: apps/listings/translatable_db.py:111 apps/listings/translatable_db.py:490
+#: apps/listings/translatable_db.py:2006
 msgid "Elektra šildomas priekinis stiklas"
 msgstr "Heated windscreen"
 
-#: apps/listings/translatable_db.py:112
+#: apps/listings/translatable_db.py:112 apps/listings/translatable_db.py:2029
 msgid "Galinio vaizdo kamera"
 msgstr "Rear view camera"
 
-#: apps/listings/translatable_db.py:113
+#: apps/listings/translatable_db.py:113 apps/listings/translatable_db.py:2032
 msgid "Garantija"
 msgstr "Warranty"
 
-#: apps/listings/translatable_db.py:114
+#: apps/listings/translatable_db.py:114 apps/listings/translatable_db.py:2039
 msgid "Greitasis krovimas"
 msgstr "Fast charging"
 
-#: apps/listings/translatable_db.py:115
+#: apps/listings/translatable_db.py:115 apps/listings/translatable_db.py:2049
 msgid "HiFi audio sistema"
 msgstr "HiFi audio system"
 
-#: apps/listings/translatable_db.py:116
+#: apps/listings/translatable_db.py:116 apps/listings/translatable_db.py:2058
 msgid "ISOFIX (vaiko kėdutės tvirtinimo taškai)"
 msgstr "ISOFIX (child seat anchor points)"
 
-#: apps/listings/translatable_db.py:117
+#: apps/listings/translatable_db.py:117 apps/listings/translatable_db.py:2065
 msgid "Juostos palaikymo sistema"
 msgstr "Lane keep assist"
 
-#: apps/listings/translatable_db.py:118
+#: apps/listings/translatable_db.py:118 apps/listings/translatable_db.py:2067
 msgid "Kablys"
 msgstr "Tow bar"
 
 #: apps/listings/translatable_db.py:119 apps/listings/translatable_db.py:697
+#: apps/listings/translatable_db.py:2074
 msgid "Keli raktų komplektai"
 msgstr "Multiple key sets"
 
 #: apps/listings/translatable_db.py:120 apps/listings/translatable_db.py:698
+#: apps/listings/translatable_db.py:2075
 msgid "Kelio ženklų atpažinimo sistema"
 msgstr "Road sign recognition"
 
 #: apps/listings/translatable_db.py:121 apps/listings/translatable_db.py:732
+#: apps/listings/translatable_db.py:2078
 msgid "Klimato kontrolė"
 msgstr "Climate control"
 
 #: apps/listings/translatable_db.py:122 apps/listings/translatable_db.py:743
+#: apps/listings/translatable_db.py:2081
 msgid "Kritulių jutiklis"
 msgstr "Rain sensor"
 
-#: apps/listings/translatable_db.py:123
+#: apps/listings/translatable_db.py:123 apps/listings/translatable_db.py:2087
 msgid "LCD ekranas"
 msgstr "LCD screen"
 
 #: apps/listings/translatable_db.py:124 apps/listings/translatable_db.py:758
+#: apps/listings/translatable_db.py:2088
 msgid "LED dienos žibintai"
 msgstr "LED daytime running lights"
 
 #: apps/listings/translatable_db.py:125 apps/listings/translatable_db.py:761
+#: apps/listings/translatable_db.py:2090
 msgid "LED žibintai"
 msgstr "LED headlights"
 
 #: apps/listings/translatable_db.py:126 apps/listings/translatable_db.py:770
+#: apps/listings/translatable_db.py:2091
 msgid "Laisvų rankų įranga"
 msgstr "Handsfree kit"
 
-#: apps/listings/translatable_db.py:127
+#: apps/listings/translatable_db.py:127 apps/listings/translatable_db.py:2096
 msgid "Lengvo lydinio ratlankiai"
 msgstr "Alloy wheels"
 
-#: apps/listings/translatable_db.py:128
+#: apps/listings/translatable_db.py:128 apps/listings/translatable_db.py:2098
 msgid "Lietuvoje neeksploatuotas"
 msgstr "Not previously used in Lithuania"
 
 #: apps/listings/translatable_db.py:129 apps/listings/translatable_db.py:789
+#: apps/listings/translatable_db.py:2099
 msgid "Liečiamas ekranas"
 msgstr "Touchscreen"
 
-#: apps/listings/translatable_db.py:130
+#: apps/listings/translatable_db.py:130 apps/listings/translatable_db.py:2112
 msgid "MP3 grotuvas"
 msgstr "MP3 player"
 
 #: apps/listings/translatable_db.py:131 apps/listings/translatable_db.py:798
+#: apps/listings/translatable_db.py:2114
 msgid "Masažinės sėdynės"
 msgstr "Massage seats"
 
 #: apps/listings/translatable_db.py:132 apps/listings/translatable_db.py:799
+#: apps/listings/translatable_db.py:2115
 msgid "Matriciniai žibintai"
 msgstr "Matrix headlights"
 
-#: apps/listings/translatable_db.py:133
+#: apps/listings/translatable_db.py:133 apps/listings/translatable_db.py:2123
 msgid "Naktinio matymo asistentas"
 msgstr "Night vision assist"
 
-#: apps/listings/translatable_db.py:134
+#: apps/listings/translatable_db.py:134 apps/listings/translatable_db.py:2125
 msgid "Navigacija/GPS"
 msgstr "Navigation/GPS"
 
 #: apps/listings/translatable_db.py:135 apps/listings/translatable_db.py:826
+#: apps/listings/translatable_db.py:2137
 msgid "Nuotolinis užvedimas"
 msgstr "Remote start"
 
 #: apps/listings/translatable_db.py:136 apps/listings/translatable_db.py:827
+#: apps/listings/translatable_db.py:2138
 msgid "Nuovargio įspėjimo sistema"
 msgstr "Driver fatigue detection"
 
-#: apps/listings/translatable_db.py:137
+#: apps/listings/translatable_db.py:137 apps/listings/translatable_db.py:2139
 msgid "Odinis salonas"
 msgstr "Leather interior"
 
-#: apps/listings/translatable_db.py:138
+#: apps/listings/translatable_db.py:138 apps/listings/translatable_db.py:2143
 msgid "Oro kondicionierius"
 msgstr "Air conditioning"
 
 #: apps/listings/translatable_db.py:139 apps/listings/translatable_db.py:854
+#: apps/listings/translatable_db.py:2144
 msgid "Oro pagalvės"
 msgstr "Airbags"
 
 #: apps/listings/translatable_db.py:140 apps/listings/translatable_db.py:864
+#: apps/listings/translatable_db.py:2145
 msgid "Padangų slėgio stebėjimo sistema"
 msgstr "Tyre pressure monitoring"
 
-#: apps/listings/translatable_db.py:141
+#: apps/listings/translatable_db.py:141 apps/listings/translatable_db.py:2146
 msgid "Padidinta variklio galia"
 msgstr "Increased engine power"
 
 #: apps/listings/translatable_db.py:142 apps/listings/translatable_db.py:868
+#: apps/listings/translatable_db.py:2147
 msgid "Pagalbos iškvietimo sistema (eCall)"
 msgstr "Emergency call system (eCall)"
 
 #: apps/listings/translatable_db.py:143 apps/listings/translatable_db.py:882
+#: apps/listings/translatable_db.py:2151
 msgid "Palydovinė sekimo sistema"
 msgstr "Satellite tracking system"
 
-#: apps/listings/translatable_db.py:144
+#: apps/listings/translatable_db.py:144 apps/listings/translatable_db.py:2152
 msgid "Panoraminis stogas"
 msgstr "Panoramic roof"
 
 #: apps/listings/translatable_db.py:145 apps/listings/translatable_db.py:891
+#: apps/listings/translatable_db.py:2153
 msgid "Papildoma audio įranga"
 msgstr "Additional audio equipment"
 
-#: apps/listings/translatable_db.py:146
+#: apps/listings/translatable_db.py:146 apps/listings/translatable_db.py:2156
 msgid "Parduodama lizingu"
 msgstr "Available for leasing"
 
 #: apps/listings/translatable_db.py:147 apps/listings/translatable_db.py:903
+#: apps/listings/translatable_db.py:2158
 msgid "Paruoštas autosportui"
 msgstr "Prepared for motorsport"
 
 #: apps/listings/translatable_db.py:148 apps/listings/translatable_db.py:940
+#: apps/listings/translatable_db.py:2161
 msgid "Pavarų perjungimas prie vairo"
 msgstr "Paddle shifters"
 
 #: apps/listings/translatable_db.py:149 apps/listings/translatable_db.py:971
+#: apps/listings/translatable_db.py:2169
 msgid "Pneumatinė pakaba"
 msgstr "Air suspension"
 
-#: apps/listings/translatable_db.py:150
+#: apps/listings/translatable_db.py:150 apps/listings/translatable_db.py:2173
 msgid "Priekinio vaizdo kamera"
 msgstr "Front view camera"
 
 #: apps/listings/translatable_db.py:151 apps/listings/translatable_db.py:1037
+#: apps/listings/translatable_db.py:2176
 msgid "Priekinių žibintų plovimo įtaisas"
 msgstr "Headlight washers"
 
 #: apps/listings/translatable_db.py:152 apps/listings/translatable_db.py:1092
+#: apps/listings/translatable_db.py:2181
 msgid "Pritaikytas neįgaliems"
 msgstr "Adapted for disabled drivers"
 
 #: apps/listings/translatable_db.py:153 apps/listings/translatable_db.py:1093
+#: apps/listings/translatable_db.py:2183
 msgid "Pritemstantis veidrodėlis"
 msgstr "Auto-dimming mirror"
 
-#: apps/listings/translatable_db.py:154
+#: apps/listings/translatable_db.py:154 apps/listings/translatable_db.py:2184
 msgid "Projekcinis ekranas ant stiklo (HUD)"
 msgstr "Head-up display (HUD)"
 
 #: apps/listings/translatable_db.py:155 apps/listings/translatable_db.py:1222
+#: apps/listings/translatable_db.py:2202
 msgid "Rūko žibintai"
 msgstr "Fog lights"
 
 #: apps/listings/translatable_db.py:156 apps/listings/translatable_db.py:1253
+#: apps/listings/translatable_db.py:2209
 msgid "Serviso knygelė"
 msgstr "Full service history"
 
-#: apps/listings/translatable_db.py:157
+#: apps/listings/translatable_db.py:157 apps/listings/translatable_db.py:2216
 msgid "Signalizacija/Imobilaizeris"
 msgstr "Alarm/Immobiliser"
 
 #: apps/listings/translatable_db.py:158 apps/listings/translatable_db.py:1257
+#: apps/listings/translatable_db.py:2219
 msgid "Skaitmeninis prietaisų skydelis"
 msgstr "Digital instrument cluster"
 
-#: apps/listings/translatable_db.py:159
+#: apps/listings/translatable_db.py:159 apps/listings/translatable_db.py:2220
 msgid "Skelbimas su VIN"
 msgstr "Ad with VIN"
 
 #: apps/listings/translatable_db.py:160 apps/listings/translatable_db.py:1295
+#: apps/listings/translatable_db.py:2226
 msgid "Sportinės sėdynės"
 msgstr "Sports seats"
 
-#: apps/listings/translatable_db.py:161
+#: apps/listings/translatable_db.py:161 apps/listings/translatable_db.py:2231
 msgid "Start-Stop sistema"
 msgstr "Start-stop system"
 
-#: apps/listings/translatable_db.py:162
+#: apps/listings/translatable_db.py:162 apps/listings/translatable_db.py:2235
 msgid "Stoglangis"
 msgstr "Sunroof"
 
 #: apps/listings/translatable_db.py:163 apps/listings/translatable_db.py:1339
+#: apps/listings/translatable_db.py:2236
 msgid "Stogo bagažinės laikikliai"
 msgstr "Roof rails"
 
 #: apps/listings/translatable_db.py:164 apps/listings/translatable_db.py:1348
+#: apps/listings/translatable_db.py:2250
 msgid "Susidūrimo prevencijos sistema"
 msgstr "Collision prevention assist"
 
-#: apps/listings/translatable_db.py:165
+#: apps/listings/translatable_db.py:165 apps/listings/translatable_db.py:2254
 msgid "TV ekranas"
 msgstr "TV screen"
 
-#: apps/listings/translatable_db.py:166
+#: apps/listings/translatable_db.py:166 apps/listings/translatable_db.py:2258
 msgid "Tamsinti stiklai"
 msgstr "Tinted windows"
 
 #: apps/listings/translatable_db.py:167 apps/listings/translatable_db.py:1385
+#: apps/listings/translatable_db.py:2270
 msgid "Tolimųjų šviesų asistentas"
 msgstr "High beam assist"
 
 #: apps/listings/translatable_db.py:168 apps/listings/translatable_db.py:1388
+#: apps/listings/translatable_db.py:2275
 msgid "Traukos kontrolės sistema"
 msgstr "Traction control"
 
-#: apps/listings/translatable_db.py:169
+#: apps/listings/translatable_db.py:169 apps/listings/translatable_db.py:2276
 msgid "Trifazis krovimas"
 msgstr "Three-phase charging"
 
-#: apps/listings/translatable_db.py:170
+#: apps/listings/translatable_db.py:170 apps/listings/translatable_db.py:2284
 msgid "USB Type-C jungtis"
 msgstr "USB Type-C input"
 
-#: apps/listings/translatable_db.py:171
+#: apps/listings/translatable_db.py:171 apps/listings/translatable_db.py:2285
 msgid "USB jungtis"
 msgstr "USB input"
 
-#: apps/listings/translatable_db.py:172
+#: apps/listings/translatable_db.py:172 apps/listings/translatable_db.py:2288
 msgid "Valdymas balsu"
 msgstr "Voice control"
 
 #: apps/listings/translatable_db.py:173 apps/listings/translatable_db.py:1467
+#: apps/listings/translatable_db.py:2292
 msgid "Vasarinių padangų komplektas"
 msgstr "Set of summer tyres"
 
 #: apps/listings/translatable_db.py:174 apps/listings/translatable_db.py:1484
+#: apps/listings/translatable_db.py:2294
 msgid "Veliūro salonas"
 msgstr "Velour interior"
 
 #: apps/listings/translatable_db.py:175 apps/listings/translatable_db.py:1490
+#: apps/listings/translatable_db.py:2296
 msgid "Ventiliuojamos sėdynės"
 msgstr "Ventilated seats"
 
 #: apps/listings/translatable_db.py:176 apps/listings/translatable_db.py:1498
+#: apps/listings/translatable_db.py:2303
 msgid "Virtualūs veidrodėliai"
 msgstr "Virtual mirrors"
 
 #: apps/listings/translatable_db.py:177 apps/listings/translatable_db.py:1513
+#: apps/listings/translatable_db.py:2312
 msgid "Įkalnės stabdis"
 msgstr "Hill-start assist"
 
 #: apps/listings/translatable_db.py:178 apps/listings/translatable_db.py:1535
+#: apps/listings/translatable_db.py:2317
 msgid "Šildomas vairas"
 msgstr "Heated steering wheel"
 
 #: apps/listings/translatable_db.py:179 apps/listings/translatable_db.py:1536
+#: apps/listings/translatable_db.py:2318
 msgid "Šildomi veidrodėliai"
 msgstr "Heated mirrors"
 
 #: apps/listings/translatable_db.py:180 apps/listings/translatable_db.py:1538
+#: apps/listings/translatable_db.py:2320
 msgid "Šildomos sėdynės"
 msgstr "Heated seats"
 
 #: apps/listings/translatable_db.py:181 apps/listings/translatable_db.py:1541
+#: apps/listings/translatable_db.py:2321
 msgid "Šilumos siurblys"
 msgstr "Heat pump"
 
 #: apps/listings/translatable_db.py:183 apps/listings/translatable_db.py:1576
+#: apps/listings/translatable_db.py:2327
 msgid "Žibintai „Xenon“"
 msgstr "Xenon headlights"
 
 #: apps/listings/translatable_db.py:184 apps/listings/translatable_db.py:1593
+#: apps/listings/translatable_db.py:2328
 msgid "Žieminių padangų komplektas"
 msgstr "Set of winter tyres"
 
@@ -5766,7 +5834,7 @@ msgstr ""
 msgid "Apsaugos nuo vaikų jungtukas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:252
+#: apps/listings/translatable_db.py:252 apps/listings/translatable_db.py:1901
 msgid "Apšildoma kabina"
 msgstr ""
 
@@ -5794,9 +5862,9 @@ msgstr ""
 msgid "Atidarymo rankenėlė slankiojančių durų (vidinė)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:259
+#: apps/listings/translatable_db.py:259 apps/listings/translatable_db.py:1903
 msgid "Atitraukiami šonai"
-msgstr ""
+msgstr "Sliding sides"
 
 #: apps/listings/translatable_db.py:260
 msgid "Atlenkiamos sėdynės"
@@ -5822,15 +5890,15 @@ msgstr ""
 msgid "Atvėrimo rankenėlė galinio borto"
 msgstr ""
 
-#: apps/listings/translatable_db.py:267
+#: apps/listings/translatable_db.py:267 apps/listings/translatable_db.py:1907
 msgid "Audio aparatūra"
-msgstr ""
+msgstr "Audio equipment"
 
 #: apps/listings/translatable_db.py:268
 msgid "Aukšta kabina"
 msgstr ""
 
-#: apps/listings/translatable_db.py:269
+#: apps/listings/translatable_db.py:269 apps/listings/translatable_db.py:1910
 msgid "Aukštas"
 msgstr ""
 
@@ -5869,9 +5937,9 @@ msgstr ""
 msgid "Aukščio daviklis (priekinių žibintų)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:278
+#: apps/listings/translatable_db.py:278 apps/listings/translatable_db.py:1913
 msgid "Automatinė pavarų dėžė"
-msgstr ""
+msgstr "Automatic gearbox"
 
 #: apps/listings/translatable_db.py:281
 msgid "Automobilio pašildymo laikmatis"
@@ -5921,7 +5989,7 @@ msgstr ""
 msgid "Autonominio šildytuvo (webastos) valdymo blokas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:295
+#: apps/listings/translatable_db.py:295 apps/listings/translatable_db.py:1918
 msgid "Autonominis šildymas (webasto)"
 msgstr ""
 
@@ -6123,7 +6191,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:347
 msgid "Bendroji masė kg"
-msgstr ""
+msgstr "Gross weight kg"
 
 #: apps/listings/translatable_db.py:349
 msgid "Beraktės sistemos KESSY valdymo blokas/ modulis"
@@ -6137,9 +6205,9 @@ msgstr ""
 msgid "Bortinė platforma"
 msgstr ""
 
-#: apps/listings/translatable_db.py:352
+#: apps/listings/translatable_db.py:352 apps/listings/translatable_db.py:1938
 msgid "CB radio įranga"
-msgstr ""
+msgstr "CB radio"
 
 #: apps/listings/translatable_db.py:353
 msgid "Centr. skylės diametras"
@@ -6169,7 +6237,7 @@ msgstr ""
 msgid "Centrinio užrakto varikliukas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:360
+#: apps/listings/translatable_db.py:360 apps/listings/translatable_db.py:1953
 msgid "Centrinis užraktas"
 msgstr ""
 
@@ -6307,7 +6375,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:394
 msgid "Darbinis tūris (litrai)"
-msgstr ""
+msgstr "Engine size (litres)"
 
 #: apps/listings/translatable_db.py:395
 msgid "Darbinis tūris cm³"
@@ -6513,9 +6581,9 @@ msgstr ""
 msgid "Diržo įtempėjo skriemulys"
 msgstr ""
 
-#: apps/listings/translatable_db.py:447
+#: apps/listings/translatable_db.py:447 apps/listings/translatable_db.py:1972
 msgid "Diskiniai stabdžiai"
-msgstr ""
+msgstr "Disc brakes"
 
 #: apps/listings/translatable_db.py:448
 msgid "Droselinė sklendė"
@@ -6525,7 +6593,7 @@ msgstr ""
 msgid "Dugno apsauga galinės važiuoklės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:450
+#: apps/listings/translatable_db.py:450 apps/listings/translatable_db.py:1979
 msgid "Dujinė viryklė"
 msgstr ""
 
@@ -6549,9 +6617,9 @@ msgstr ""
 msgid "Dujų įrangos vamzdelis (-ai)/ žarna (-os)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:457
+#: apps/listings/translatable_db.py:457 apps/listings/translatable_db.py:1982
 msgid "Durys šone"
-msgstr ""
+msgstr "Side doors"
 
 #: apps/listings/translatable_db.py:458
 msgid "Durų apdailų komplektas"
@@ -6589,7 +6657,7 @@ msgstr ""
 msgid "Durų stiklo rėmas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:468
+#: apps/listings/translatable_db.py:468 apps/listings/translatable_db.py:1984
 msgid "Dušas"
 msgstr ""
 
@@ -6598,6 +6666,7 @@ msgid "Dvidurio galinių vietų šoninis apdailos skydas"
 msgstr ""
 
 #: apps/listings/translatable_db.py:470 apps/listings/translatable_db.py:1659
+#: apps/listings/translatable_db.py:1987
 msgid "Dviračių laikikliai"
 msgstr ""
 
@@ -6649,11 +6718,11 @@ msgstr ""
 msgid "El. oro padavimo sklendė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:484
+#: apps/listings/translatable_db.py:484 apps/listings/translatable_db.py:1997
 msgid "El. sėdynės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:485
+#: apps/listings/translatable_db.py:485 apps/listings/translatable_db.py:1998
 msgid "El. veidrodėliai"
 msgstr ""
 
@@ -6697,11 +6766,11 @@ msgstr ""
 msgid "Elektromobilio įkrovimo laidas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:501
+#: apps/listings/translatable_db.py:501 apps/listings/translatable_db.py:2009
 msgid "Elektroninė klimato kontrolė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:503
+#: apps/listings/translatable_db.py:503 apps/listings/translatable_db.py:2028
 msgid "Galimybė prijungti papildomą bateriją"
 msgstr ""
 
@@ -6969,7 +7038,7 @@ msgstr ""
 msgid "Galinė atidarymo rankenėlė vidinė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:570
+#: apps/listings/translatable_db.py:570 apps/listings/translatable_db.py:2030
 msgid "Galinė dalis"
 msgstr ""
 
@@ -7089,9 +7158,9 @@ msgstr ""
 msgid "Galinės važiuoklės komplektas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:600
+#: apps/listings/translatable_db.py:600 apps/listings/translatable_db.py:2031
 msgid "Galiojanti techninė apžiūra (TA)"
-msgstr ""
+msgstr "Valid MOT"
 
 #: apps/listings/translatable_db.py:601
 msgid "Galvutė"
@@ -7141,9 +7210,9 @@ msgstr ""
 msgid "Garsiakalbis panelėje"
 msgstr ""
 
-#: apps/listings/translatable_db.py:613
+#: apps/listings/translatable_db.py:613 apps/listings/translatable_db.py:2033
 msgid "Garso aparatūra"
-msgstr ""
+msgstr "Audio equipment"
 
 #: apps/listings/translatable_db.py:614
 msgid "Garso izoliacija variklio dangčio"
@@ -7173,7 +7242,7 @@ msgstr ""
 msgid "Generatoriaus kronšteinas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:621
+#: apps/listings/translatable_db.py:621 apps/listings/translatable_db.py:2036
 msgid "Geros būklės"
 msgstr ""
 
@@ -7193,7 +7262,7 @@ msgstr ""
 msgid "Greičio daviklis (spidometro daviklis)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:626
+#: apps/listings/translatable_db.py:626 apps/listings/translatable_db.py:2041
 msgid "Greičio palaikymo sistema"
 msgstr ""
 
@@ -7201,9 +7270,9 @@ msgstr ""
 msgid "Greičio palaikymo siurbliukas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:628
+#: apps/listings/translatable_db.py:628 apps/listings/translatable_db.py:2042
 msgid "Greičio variatorius"
-msgstr ""
+msgstr "Variable speed drive"
 
 #: apps/listings/translatable_db.py:629
 msgid "Greičių dėžės karteris"
@@ -7442,9 +7511,9 @@ msgstr ""
 msgid "Jungiklių komplektas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:686
+#: apps/listings/translatable_db.py:686 apps/listings/translatable_db.py:2069
 msgid "Kalnų stabdis"
-msgstr ""
+msgstr "Exhaust brake"
 
 #: apps/listings/translatable_db.py:687
 msgid "Kampinė galinio bamperio dalis"
@@ -7466,7 +7535,7 @@ msgstr ""
 msgid "Kardano kryžminė jungtis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:692
+#: apps/listings/translatable_db.py:692 apps/listings/translatable_db.py:2070
 msgid "Karštas vanduo"
 msgstr ""
 
@@ -7474,9 +7543,9 @@ msgstr ""
 msgid "Katalizatorius/ FAP/DPF kietųjų dalelių filtras"
 msgstr ""
 
-#: apps/listings/translatable_db.py:694
+#: apps/listings/translatable_db.py:694 apps/listings/translatable_db.py:2073
 msgid "Keleivio atlošas"
-msgstr ""
+msgstr "Passenger backrest"
 
 #: apps/listings/translatable_db.py:695
 msgid "Keleivio oro pagalvė"
@@ -7674,9 +7743,9 @@ msgstr ""
 msgid "Krovininių durų stiklo apdaila"
 msgstr ""
 
-#: apps/listings/translatable_db.py:748
+#: apps/listings/translatable_db.py:748 apps/listings/translatable_db.py:2082
 msgid "Krovinio diržai"
-msgstr ""
+msgstr "Cargo straps"
 
 #: apps/listings/translatable_db.py:749
 msgid "Krovinių (bagažinės) durys"
@@ -7690,13 +7759,13 @@ msgstr ""
 msgid "Krovinių (bagažinės) durų stiklas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:752
+#: apps/listings/translatable_db.py:752 apps/listings/translatable_db.py:2083
 msgid "Kruizo kontrolė"
-msgstr ""
+msgstr "Cruise control"
 
-#: apps/listings/translatable_db.py:753
+#: apps/listings/translatable_db.py:753 apps/listings/translatable_db.py:2084
 msgid "Kuro žarna"
-msgstr ""
+msgstr "Fuel hose"
 
 #: apps/listings/translatable_db.py:754
 msgid "Kėbulas"
@@ -7822,11 +7891,11 @@ msgstr ""
 msgid "Lemputė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:790
+#: apps/listings/translatable_db.py:790 apps/listings/translatable_db.py:2104
 msgid "Lingės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:791
+#: apps/listings/translatable_db.py:791 apps/listings/translatable_db.py:2105
 msgid "Linijiniai išėjimai"
 msgstr ""
 
@@ -7834,17 +7903,17 @@ msgstr ""
 msgid "Lonžeronai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:793
+#: apps/listings/translatable_db.py:793 apps/listings/translatable_db.py:2109
 msgid "Lopšys"
-msgstr ""
+msgstr "Crash bars"
 
 #: apps/listings/translatable_db.py:794
 msgid "Lubų komplektas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:795
+#: apps/listings/translatable_db.py:795 apps/listings/translatable_db.py:2111
 msgid "Lėtintos pavaros"
-msgstr ""
+msgstr "Creeper gears"
 
 #: apps/listings/translatable_db.py:796
 msgid "MONO įpurškimas"
@@ -8135,9 +8204,9 @@ msgstr ""
 msgid "Pakaitinimo žvakė (-ės)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:877
+#: apps/listings/translatable_db.py:877 apps/listings/translatable_db.py:2149
 msgid "Pakeliama ašis"
-msgstr ""
+msgstr "Lift axle"
 
 #: apps/listings/translatable_db.py:878
 msgid "Pakrovėjas akumuliatorius (papildomas)"
@@ -8187,7 +8256,7 @@ msgstr ""
 msgid "Panelės stalčiuko/lentinėlės paklotėlis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:892
+#: apps/listings/translatable_db.py:892 apps/listings/translatable_db.py:2154
 msgid "Papildomas hidraulikos vožtuvas"
 msgstr ""
 
@@ -8227,7 +8296,7 @@ msgstr ""
 msgid "Parkavimo (PDC) daviklių valdymo blokas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:902
+#: apps/listings/translatable_db.py:902 apps/listings/translatable_db.py:2157
 msgid "Parkavimo kojelė"
 msgstr ""
 
@@ -8479,11 +8548,11 @@ msgstr ""
 msgid "Pirmosios registracijos šalis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:968
+#: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
 msgstr ""
 
-#: apps/listings/translatable_db.py:969
+#: apps/listings/translatable_db.py:969 apps/listings/translatable_db.py:2167
 msgid "Platforma stumiasi į vieną pusę"
 msgstr ""
 
@@ -9391,9 +9460,9 @@ msgstr ""
 msgid "Rankinio tvirtinimo kronšteinas (salone)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1200
+#: apps/listings/translatable_db.py:1200 apps/listings/translatable_db.py:2189
 msgid "Rankinis užvedimas"
-msgstr ""
+msgstr "Kick start"
 
 #: apps/listings/translatable_db.py:1201
 #: templates/listings/construction_listing_create.html:178
@@ -9403,7 +9472,7 @@ msgstr ""
 #: templates/listings/listing_detail.html:1150
 #: templates/listings/rental_heavy_create.html:138
 msgid "Ratų formulė"
-msgstr ""
+msgstr "Wheel configuration"
 
 #: apps/listings/translatable_db.py:1202
 msgid "Ratų išnešimo keitikliai (rastafkės)"
@@ -9573,7 +9642,7 @@ msgstr ""
 msgid "Saulės šviesos daviklis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1247
+#: apps/listings/translatable_db.py:1247 apps/listings/translatable_db.py:2205
 msgid "Savęs balansavimas"
 msgstr ""
 
@@ -9605,7 +9674,7 @@ msgstr ""
 msgid "Signalizacijos rėlė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1256
+#: apps/listings/translatable_db.py:1256 apps/listings/translatable_db.py:2218
 msgid "Skaidraus stiklo priekiniai žibintai"
 msgstr ""
 
@@ -9613,11 +9682,11 @@ msgstr ""
 msgid "Skersinė (reaktyvinė) traukė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1259
+#: apps/listings/translatable_db.py:1259 apps/listings/translatable_db.py:2221
 msgid "Skirtas bet kokiam paviršiui"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1260
+#: apps/listings/translatable_db.py:1260 apps/listings/translatable_db.py:2222
 msgid "Skirtas tvirtam paviršiui"
 msgstr ""
 
@@ -9881,7 +9950,7 @@ msgstr ""
 msgid "Stabdžių vamzdelis (-iai)/ žarna (-os)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1327
+#: apps/listings/translatable_db.py:1327 apps/listings/translatable_db.py:2230
 msgid "Stabilumo kontrolės sistema"
 msgstr ""
 
@@ -9957,7 +10026,7 @@ msgstr ""
 msgid "Sudedamo stogo vamzdelis (-ai)/ žarna (-os)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1347
+#: apps/listings/translatable_db.py:1347 apps/listings/translatable_db.py:2247
 msgid "Sulankstomas rėmas"
 msgstr ""
 
@@ -9985,7 +10054,7 @@ msgstr ""
 msgid "Sėdynių šildymo rėlė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1356
+#: apps/listings/translatable_db.py:1356 apps/listings/translatable_db.py:2252
 msgid "Sėdynė"
 msgstr ""
 
@@ -10511,7 +10580,7 @@ msgstr ""
 msgid "Ventiliatorių komplektas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1491
+#: apps/listings/translatable_db.py:1491 apps/listings/translatable_db.py:2299
 msgid "Video įranga"
 msgstr ""
 
@@ -10523,7 +10592,7 @@ msgstr ""
 msgid "Vidinis pusašio šarnyras (granata)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1494
+#: apps/listings/translatable_db.py:1494 apps/listings/translatable_db.py:2301
 msgid "Vidinė atmintis"
 msgstr ""
 
@@ -10535,9 +10604,9 @@ msgstr ""
 msgid "Vidurinė pūslė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1497
+#: apps/listings/translatable_db.py:1497 apps/listings/translatable_db.py:2302
 msgid "Vikšrinis"
-msgstr ""
+msgstr "Tracked"
 
 #: apps/listings/translatable_db.py:1499
 msgid "Virtuvėlė"
@@ -10615,9 +10684,9 @@ msgstr ""
 msgid "Įrankių daiktadėžė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1520
+#: apps/listings/translatable_db.py:1520 apps/listings/translatable_db.py:2313
 msgid "Įrankių dėžė"
-msgstr ""
+msgstr "Tool box"
 
 #: apps/listings/translatable_db.py:1521
 msgid "Įrankių komplektas"
@@ -10643,9 +10712,9 @@ msgstr ""
 msgid "Šakės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1527
+#: apps/listings/translatable_db.py:1527 apps/listings/translatable_db.py:2314
 msgid "Šaldymo įranga"
-msgstr ""
+msgstr "Refrigeration unit"
 
 #: apps/listings/translatable_db.py:1528
 msgid "Šaldymo įranga (krovininis automobilis)"
@@ -10668,13 +10737,13 @@ msgstr ""
 msgid "Šerdesas (kaištis)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1534
+#: apps/listings/translatable_db.py:1534 apps/listings/translatable_db.py:2315
 msgid "Šildomas priekinis stiklas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1537
+#: apps/listings/translatable_db.py:1537 apps/listings/translatable_db.py:2319
 msgid "Šildomos rankenos"
-msgstr ""
+msgstr "Heated grips"
 
 #: apps/listings/translatable_db.py:1539
 msgid "Šildymo radiatoriaus vožtuvas (-ai) (kiaušiniai)"
@@ -10692,7 +10761,7 @@ msgstr ""
 msgid "Šoninio garsiakalbio rėmelis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1544
+#: apps/listings/translatable_db.py:1544 apps/listings/translatable_db.py:2322
 msgid "Šoninio poslinkio mechanizmas"
 msgstr ""
 
@@ -10784,9 +10853,9 @@ msgstr ""
 msgid "Žaliuzė kuzavo"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1567
+#: apps/listings/translatable_db.py:1567 apps/listings/translatable_db.py:2323
 msgid "Žaliuzės"
-msgstr ""
+msgstr "Blinds"
 
 #: apps/listings/translatable_db.py:1568
 msgid "Žarna (-os)/ vamzdis (-džiai)"
@@ -10800,7 +10869,7 @@ msgstr ""
 msgid "Žema kabina"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1571
+#: apps/listings/translatable_db.py:1571 apps/listings/translatable_db.py:2324
 msgid "Žemintos pavaros"
 msgstr ""
 
@@ -10812,7 +10881,7 @@ msgstr ""
 msgid "Žemo dažnio garsiakalbis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1575
+#: apps/listings/translatable_db.py:1575 apps/listings/translatable_db.py:2326
 msgid "Žibintai"
 msgstr ""
 
@@ -11418,6 +11487,1171 @@ msgstr ""
 msgid "Žieminės"
 msgstr ""
 
+#: apps/listings/translatable_db.py:1874
+msgid "4x4 varantys ratai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1875
+msgid "A/C radiator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1876
+#: templates/listings/motorcycle_create.html:279
+#: templates/listings/motorcycles_advanced_search.html:399
+msgid "ABS"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1877
+msgid "ADR"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1878
+msgid "ADR (hazmat)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1880
+msgid "ASR"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1882
+msgid "AWD"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1883
+msgid "Additional fuel tank"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1885
+msgid "Air suspension"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1886
+msgid "Airbag (driver)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1887
+msgid "Airbag (passenger)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1888
+msgid "Airbags"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1890
+#: templates/listings/motorcycles_advanced_search.html:400
+msgid "Alarm"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1891
+msgid "Alternator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1892
+msgid "Aluminum floor"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1893
+msgid "Aluminum side panels"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1894
+msgid "Amortizatoriai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1895
+msgid "Android Auto"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1896
+msgid "Ankle protection"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1897
+msgid "Antialerginis pamušalas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1898
+msgid "Apple CarPlay"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1900
+msgid "Apsauginis stogelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1902
+msgid "Atitraukiamas stogas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1909
+#: templates/listings/motorcycle_create.html:254
+msgid "Audio system"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1911
+msgid "Autobusų, sunkvežimių remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1919
+msgid "Autopilotas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1921
+msgid "Auxiliary heater"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1923
+msgid "Axles"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1925
+msgid "Bamperių remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1929
+msgid "Blind-spot monitoring"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1930
+msgid "Blokuojamas diferencialas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1932
+msgid "Borto kompiuteris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1933
+msgid "Brake calipers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1934
+msgid "Brake discs"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1935
+msgid "Bucket / grapple"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1936
+msgid "Bumper reinforcements"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1937
+msgid "Bumpers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1941
+msgid "CE armor — back"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1942
+msgid "CE armor — chest"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1943
+msgid "CE armor — elbows"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1944
+msgid "CE armor — hips"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1945
+msgid "CE armor — knees"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1946
+msgid "CE armor — shoulders"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1947
+msgid "Cabin heater"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1948
+msgid "Camshafts"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1949
+msgid "Car carrier body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1950
+msgid "Carburetor"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1951
+msgid "Cargo straps"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1952
+msgid "Central lubrication"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1954
+msgid "Chains"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1956
+msgid "Computer"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1957
+msgid "Concrete mixer body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1958
+msgid "Connection zipper (jacket↔pants)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1959
+msgid "Container carrier"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1960
+msgid "Crane"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1961
+msgid "Crane / manipulator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1962
+msgid "Crankshaft"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1963
+#: templates/listings/motorcycle_create.html:255
+msgid "Cruise control"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1964
+msgid "Cylinder head"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1965
+msgid "Cylinders"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1967
+msgid "Dashboard"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1969
+msgid "Dažymo paslaugos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1970
+msgid "Dempferis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1973
+msgid "Door panels"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1974
+#: templates/listings/advanced_search.html:298
+#: templates/listings/advanced_search.html:609
+#: templates/listings/car_for_parts_create.html:171
+#: templates/listings/listing_create_cars_quick.html:141
+#: templates/listings/listing_create_cars_quick.html:854
+#: templates/listings/listing_detail.html:2126
+#: templates/listings/listing_detail.html:2397
+msgid "Doors"
+msgstr "Doors"
+
+#: apps/listings/translatable_db.py:1975
+msgid "Double D-ring užsegimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1976
+msgid "Double cabin"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1977
+msgid "Driveshaft"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1978
+msgid "Drėgmę sugerianti vidinė danga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1981
+msgid "Durys gale"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1983
+msgid "Duslintuvų remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1985
+msgid "Dvigubi ratai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1988
+msgid "EBS"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1989
+msgid "ECU / Computer"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1990
+msgid "EDSCHA stogas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1991
+msgid "ESP"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1993
+msgid "Ekvalaizeris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1996
+msgid "El. starteris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1999
+msgid "Electric mirrors"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2000
+msgid "Electric steering adjustment"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2001
+msgid "Electric windows"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2007
+msgid "Elektrinis starteris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2008
+msgid "Elektronikos diagnostika"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2010
+#: templates/listings/advanced_search.html:245
+#: templates/listings/boats_listing_create.html:193
+#: templates/listings/listing_create_cars_quick.html:152
+msgid "Engine"
+msgstr "Engine size"
+
+#: apps/listings/translatable_db.py:2011
+msgid "Engine block"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2012
+msgid "Engine bracket"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2013
+msgid "Engine brake / retarder"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2014
+msgid "Engine cradle"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2015
+msgid "Exhaust manifold"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2016
+msgid "Expandable"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2017
+msgid "Fan"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2018
+msgid "Fender flares"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2019
+msgid "Fenders"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2020
+msgid "Final drive"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2021
+msgid "Flatbed platform"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2022
+msgid "Follow assist"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2023
+msgid "For bulk cargo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2024
+msgid "For sale on lease"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2025
+msgid "Forks"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2026
+msgid "Frame"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2027
+msgid "Frame rails"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2034
+#: templates/listings/advanced_search.html:547
+#: templates/listings/listing_detail.html:1786
+#: templates/listings/trucks_listing_create.html:489
+msgid "Gearbox"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2035
+msgid "Generator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2037
+msgid "Gido mikrofonas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2038
+msgid "Glass"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2040
+msgid "Greito atsegimo dirželis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2043
+msgid "Half-shafts"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2044
+msgid "Handlebar"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2045
+msgid "Hard-side body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2046
+msgid "Headliner"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2047
+msgid "Heated seat"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2048
+msgid "Heel protection"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2050
+msgid "Hidraulika"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2051
+msgid "Hidraulikos diagnostika"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2052
+msgid "Hill-start assist"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2053
+msgid "Hood"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2054
+msgid "Hook / winch"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2055
+msgid "Hubs"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2056
+msgid "Hump (aerodynamic)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2057
+msgid "Hydraulics"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2059
+msgid "Injection system"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2060
+msgid "Instrument cluster"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2061
+msgid "Insulated body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2062
+msgid "Intake manifold"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2063
+msgid "Integruotas ekranas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2064
+msgid "Išsegamas ir skalbiamas pamušalas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2066
+msgid "Kabina"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2068
+msgid "Kaina su vairuotoju"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2071
+msgid "Kavos aparatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2072
+msgid "Keičiama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2076
+msgid "Kelioniniai krepsiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2079
+msgid "Knuckle protector"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2080
+msgid "Korteliu skaitytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2085
+msgid "Kvėpuojantis pamušalas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2086
+msgid "Kėbulo remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2089
+#: templates/listings/motorcycle_create.html:258
+msgid "LED lights"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2092
+msgid "Lane assist"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2093
+msgid "Laptop compartment"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2094
+msgid "Lauko baldai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2095
+msgid "Leather seats"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2097
+msgid "Levers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2100
+msgid "Lift axle"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2101
+msgid "Liftas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2102
+msgid "Liftas gale"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2103
+msgid "Lights"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2106
+msgid "Livestock carrier body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2107
+msgid "Locking differential"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2108
+msgid "Long cuff"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2110
+msgid "Low cabin"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2113
+msgid "Magnetic mount"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2116
+msgid "Metallic paint"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2117
+msgid "Micrometric užsegimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2118
+msgid "Mini kitchen"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2119
+msgid "Mirrors"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2120
+msgid "Motociklų, motorolerių remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2121
+msgid "Mufflers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2122
+msgid "Multifunkcinis valdymas nuo vairo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2124
+msgid "Navigacija / GPS"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2126
+msgid "Navigation"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2127
+msgid "Navigation / GPS"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2128
+msgid "Nerasojantis stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2129
+msgid "Nesibraižantis stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2130
+msgid "Neveikiantis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2131
+msgid "Not used as taxi"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2132
+msgid "Not used in Lithuania"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2133
+msgid "Nuimami skruostų pagalvėliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2134
+msgid "Nuolaidos ilgesniam laikotarpiui"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2135
+msgid "Nuomojamas tik su vairuotoju"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2136
+msgid "Nuotolinio valdymo pultas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2140
+msgid "Oil cooler"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2141
+msgid "Onboard computer"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2148
+msgid "Pakabinamas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2150
+msgid "Palm slider"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2155
+msgid "Papildomas kuro bakas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2159
+msgid "Pasukamas griebtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2160
+msgid "Pavarų dėžių remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2162
+msgid "Personal lighting"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2163
+msgid "Personal ventilation"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2164
+msgid "Pistons"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2165
+msgid "Platform body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2168
+msgid "Platus galinis ratas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2170
+msgid "Power steering"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2171
+msgid "Premium sound system"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2172
+msgid "Priekabos stabdys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2174
+msgid "Priekinis skydelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2175
+msgid "Priekinis stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2177
+msgid "Prikabinamas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2178
+msgid "Pritaikytas Bluetooth"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2179
+msgid "Pritaikytas Pinlock"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2180
+msgid "Pritaikytas bekelei"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2182
+msgid "Pritaikytas nešiojantiems akinius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2185
+msgid "Pusiau kabina"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2186
+msgid "Radiator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2187
+msgid "Radiator grille"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2188
+msgid "Rain cover"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2190
+msgid "Ratų montavimas, balansavimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2191
+msgid "Ratų remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2192
+msgid "Rear axle beam"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2193
+msgid "Rear doors"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2194
+msgid "Reducer / differential"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2195
+msgid "Reflective elements"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2196
+msgid "Refrigeration unit"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2197
+msgid "Refrigerator body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2198
+msgid "Reinforced impact zones"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2199
+msgid "Reinforced sole"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2200
+msgid "Removable liner"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2201
+msgid "Roof"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2203
+msgid "SRS airbags"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2204
+msgid "Salono remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2206
+#: templates/listings/advanced_search.html:314
+#: templates/listings/listing_detail.html:2450
+msgid "Seats"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2207
+msgid "Seats / Backrests"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2210
+msgid "Shin protection"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2211
+msgid "Shock absorber"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2212
+msgid "Short cuff"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2213
+msgid "Side airbags"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2214
+msgid "Side doors"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2215
+msgid "Signalizacija / Imobilaizeris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2217
+msgid "Sills"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2223
+msgid "Spalvotas ekranas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2225
+msgid "Spoilers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2227
+msgid "Springs"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2228
+msgid "Sprockets"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2229
+msgid "Sraigtas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2232
+msgid "Start/Stop"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2233
+msgid "Starter"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2234
+msgid "Starterių, generatorių remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2237
+msgid "Strap mount"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2238
+msgid "Su auto priekaba"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2239
+msgid "Su dokumentais"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2240
+msgid "Su gerve"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2241
+msgid "Su hidrauliniu kranu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2242
+msgid "Su kietu stogu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2243
+msgid "Su palapine"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2244
+msgid "Su prieangiu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2245
+msgid "Su priekaba"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2246
+msgid "Su tentu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2248
+msgid "Sulankstomos atramos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2249
+msgid "Sunroof"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2251
+msgid "Swingarm"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2253
+msgid "TIR"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2255
+msgid "Tachografas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2256
+msgid "Tachograph"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2257
+msgid "Tail lift"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2259
+msgid "Tank"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2260
+msgid "Tarpaulins"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2261
+msgid "Tentas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2262
+msgid "Termografas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2263
+msgid "Thermal liner"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2264
+msgid "Thermostat"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2265
+msgid "Three-way tipper"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2266
+msgid "Tilt cabin"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2267
+msgid "Timber carrier body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2268
+msgid "Tipper body"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2269
+msgid "Toe slider"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2271
+msgid "Touchscreen-compatible"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2272
+msgid "Tow hook"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2273
+msgid "Trailer brake"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2274
+msgid "Trailer hitch"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2277
+msgid "Trim parts"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2278
+msgid "Trim strips"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2279
+msgid "Tualetas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2280
+msgid "Turbinų diagnostika"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2281
+msgid "Turn signals"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2282
+msgid "Two-way tipper"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2283
+msgid "USB"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2286
+msgid "Ultravioletinių spindulių apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2287
+msgid "Vairo stiprintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2289
+msgid "Valdymas ratuku"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2290
+msgid "Variklio defektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2291
+msgid "Variklių diagnostika"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2293
+msgid "Važiuoklės remontas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2295
+msgid "Ventilation zippers"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2297
+msgid "Vežame į užsienį"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2298
+msgid "Video system"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2300
+msgid "Vidinis saulės skydelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2304
+msgid "Viscous fan coupling"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2305
+msgid "Water pump"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2306
+msgid "Water radiator"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2307
+msgid "Waterproof"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2308
+msgid "Windproof"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2309
+msgid "Wiring"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2310
+msgid "Wiring / Electrical"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2311
+msgid "Xenon lights"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2316
+msgid "Šildomas stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2329
+msgid "“Subwoofer” valdymas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:2330
+msgid "„Webasto“"
+msgstr ""
+
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
 msgstr ""
@@ -11573,19 +12807,19 @@ msgstr "Buses"
 
 #: apps/listings/views.py:3650
 msgid "Naujausi viršuje"
-msgstr ""
+msgstr "Newest first"
 
 #: apps/listings/views.py:3651
 msgid "Seniausi viršuje"
-msgstr ""
+msgstr "Oldest first"
 
 #: apps/listings/views.py:3652
 msgid "Kaina: nuo mažiausios"
-msgstr ""
+msgstr "Price: low to high"
 
 #: apps/listings/views.py:3653
 msgid "Kaina: nuo didžiausios"
-msgstr ""
+msgstr "Price: high to low"
 
 #: apps/listings/views.py:3739
 msgid "Paskyroje nenurodytas el. pašto adresas."
@@ -13738,15 +14972,15 @@ msgstr "Advanced search"
 
 #: templates/listings/advanced_generic.html:54
 msgid "Ieškoti pavadinime ir aprašyme"
-msgstr ""
+msgstr "Search in title and description"
 
 #: templates/listings/advanced_generic.html:77
 msgid "Pridėti daugiau markių"
-msgstr ""
+msgstr "Add another brand"
 
 #: templates/listings/advanced_generic.html:97
 msgid "Rūšiavimas"
-msgstr ""
+msgstr "Sorting"
 
 #: templates/listings/advanced_generic.html:114
 #: templates/listings/agriculture_listing_create.html:231
@@ -13808,12 +15042,6 @@ msgstr ""
 msgid "Price, €"
 msgstr ""
 
-#: templates/listings/advanced_search.html:245
-#: templates/listings/boats_listing_create.html:193
-#: templates/listings/listing_create_cars_quick.html:152
-msgid "Engine"
-msgstr "Engine size"
-
 #: templates/listings/advanced_search.html:256
 #: templates/listings/boats_listing_create.html:186
 #: templates/listings/car_for_parts_create.html:130
@@ -13829,21 +15057,6 @@ msgstr "Engine size"
 #: templates/listings/trucks_listing_create.html:363
 msgid "Power"
 msgstr "Power (kW)"
-
-#: templates/listings/advanced_search.html:298
-#: templates/listings/advanced_search.html:609
-#: templates/listings/car_for_parts_create.html:171
-#: templates/listings/listing_create_cars_quick.html:141
-#: templates/listings/listing_create_cars_quick.html:854
-#: templates/listings/listing_detail.html:2126
-#: templates/listings/listing_detail.html:2397
-msgid "Doors"
-msgstr "Doors"
-
-#: templates/listings/advanced_search.html:314
-#: templates/listings/listing_detail.html:2450
-msgid "Seats"
-msgstr ""
 
 #: templates/listings/advanced_search.html:346
 #: templates/listings/advanced_search.html:509
@@ -13914,12 +15127,6 @@ msgstr ""
 
 #: templates/listings/advanced_search.html:525
 msgid "Vehicle Technical Specs"
-msgstr ""
-
-#: templates/listings/advanced_search.html:547
-#: templates/listings/listing_detail.html:1786
-#: templates/listings/trucks_listing_create.html:489
-msgid "Gearbox"
 msgstr ""
 
 #: templates/listings/advanced_search.html:595
@@ -15622,6 +16829,14 @@ msgstr ""
 msgid "Matmenys ir svoris"
 msgstr ""
 
+#: templates/listings/contact.html:6 templates/pages/help_center.html:442
+msgid "Contact Us"
+msgstr "Contact us"
+
+#: templates/listings/contact.html:14
+msgid "Contact Information"
+msgstr ""
+
 #: templates/listings/electronics_listing_create.html:149
 #: templates/listings/listing_detail.html:316
 #: templates/listings/listing_detail.html:365
@@ -16906,7 +18121,7 @@ msgstr ""
 
 #: templates/listings/listing_detail.html:2914
 msgid "Nepildykite šio lauko"
-msgstr ""
+msgstr "Do not fill this field"
 
 #: templates/listings/listing_detail.html:2920
 msgid "Reason*"
@@ -16970,7 +18185,7 @@ msgstr ""
 
 #: templates/listings/listing_detail.html:3107
 msgid "Rašyti"
-msgstr ""
+msgstr "Message"
 
 #: templates/listings/listing_edit.html:19
 #: templates/listings/my_listings.html:241
@@ -17278,7 +18493,7 @@ msgstr ""
 
 #: templates/listings/listing_list.html:910
 msgid "Pardavėjas"
-msgstr ""
+msgstr "Seller"
 
 #: templates/listings/listing_list.html:910
 msgid "Privatus asmuo"
@@ -18371,7 +19586,7 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:200
 #: templates/listings/wheels_list.html:275
 msgid "Ieškoti..."
-msgstr ""
+msgstr "Search..."
 
 #: templates/listings/motogear_create.html:4
 msgid "Sell Moto Gear"
@@ -18755,24 +19970,12 @@ msgstr ""
 msgid "Disc brakes"
 msgstr ""
 
-#: templates/listings/motorcycle_create.html:254
-msgid "Audio system"
-msgstr ""
-
-#: templates/listings/motorcycle_create.html:255
-msgid "Cruise control"
-msgstr ""
-
 #: templates/listings/motorcycle_create.html:256
 msgid "Traction control"
 msgstr ""
 
 #: templates/listings/motorcycle_create.html:257
 msgid "Quick shifter"
-msgstr ""
-
-#: templates/listings/motorcycle_create.html:258
-msgid "LED lights"
 msgstr ""
 
 #: templates/listings/motorcycle_create.html:263
@@ -18809,11 +20012,6 @@ msgstr ""
 
 #: templates/listings/motorcycle_create.html:277
 msgid "Security"
-msgstr ""
-
-#: templates/listings/motorcycle_create.html:279
-#: templates/listings/motorcycles_advanced_search.html:399
-msgid "ABS"
 msgstr ""
 
 #: templates/listings/motorcycle_create.html:280
@@ -18976,10 +20174,6 @@ msgstr ""
 
 #: templates/listings/motorcycles_advanced_search.html:398
 msgid "Disc Brakes"
-msgstr ""
-
-#: templates/listings/motorcycles_advanced_search.html:400
-msgid "Alarm"
 msgstr ""
 
 #: templates/listings/motorcycles_advanced_search.html:401
@@ -19206,15 +20400,15 @@ msgstr ""
 
 #: templates/listings/partials/_lightbox.html:22
 msgid "Tolinti"
-msgstr ""
+msgstr "Zoom out"
 
 #: templates/listings/partials/_lightbox.html:25
 msgid "Artinti"
-msgstr ""
+msgstr "Zoom in"
 
 #: templates/listings/partials/_lightbox.html:46
 msgid "Ankstesnė"
-msgstr ""
+msgstr "Previous"
 
 #: templates/listings/partials/_mobile_picker.html:20
 msgid "Pasirinkite"
@@ -19246,11 +20440,11 @@ msgstr "Forward"
 #: templates/listings/partials/_my_searches.html:55
 #: templates/listings/partials/fields/_mobile_rows.html:42
 msgid "Pašalinti"
-msgstr ""
+msgstr "Remove"
 
 #: templates/listings/partials/_my_searches.html:65
 msgid "Valdyti mano paieškas"
-msgstr ""
+msgstr "Manage my searches"
 
 #: templates/listings/partials/_panel_bodies.html:28
 #: templates/listings/partials/search_panel.html:42
@@ -19435,11 +20629,11 @@ msgstr "Mesh"
 
 #: templates/listings/partials/_results_header_mobile.html:30
 msgid "Sąrašas"
-msgstr ""
+msgstr "List"
 
 #: templates/listings/partials/_results_header_mobile.html:38
 msgid "Nauji ir atnaujinti"
-msgstr ""
+msgstr "New and renewed"
 
 #: templates/listings/partials/_save_search.html:15
 #: templates/listings/partials/_save_search.html:20
@@ -19532,7 +20726,7 @@ msgstr ""
 
 #: templates/listings/partials/sidebar_generic.html:32
 msgid "Daugiau filtrų"
-msgstr ""
+msgstr "More filters"
 
 #: templates/listings/partials/sidebar_generic.html:88
 msgid "Filtruoti"
@@ -19752,7 +20946,7 @@ msgstr ""
 #: templates/listings/saved_searches.html:22
 #: templates/listings/wheels_list.html:98
 msgid "Trupinių takas"
-msgstr ""
+msgstr "Breadcrumb"
 
 #: templates/listings/saved_searches.html:23
 #: templates/listings/wheels_list.html:99
@@ -20441,11 +21635,11 @@ msgstr ""
 
 #: templates/listings/wheels_list.html:265
 msgid "Visos šalys"
-msgstr ""
+msgstr "All countries"
 
 #: templates/listings/wheels_list.html:274
 msgid "Paieška tekste"
-msgstr ""
+msgstr "Text search"
 
 #: templates/listings/wheels_list.html:294
 msgid "Listings found:"
@@ -20850,10 +22044,6 @@ msgid ""
 "select 'Delete'. The listing will be permanently removed."
 msgstr ""
 
-#: templates/pages/help_center.html:442
-msgid "Contact Us"
-msgstr ""
-
 #: templates/pages/help_center.html:445
 msgid "Get in touch with us — we usually reply within 24 hours."
 msgstr ""
@@ -21169,7 +22359,7 @@ msgstr ""
 
 #: templates/pages/help_center.html:767
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Privacy policy"
 
 #: templates/pages/help_center.html:774
 msgid "1. What We Collect"
