@@ -31,7 +31,7 @@ from django.contrib import messages
 
 from django.http import JsonResponse
 
-from django.db.models import Q
+from django.db.models import Max, Q
 
 from django.urls import reverse
 
