@@ -290,10 +290,15 @@
      tarp eilučių plonas skirtukas, hover — pavadinimas akcento spalva. */
   .adv-rail-more { position: relative; flex: 1 1 0; min-width: 0; display: flex; }
   .adv-rail-more > .adv-rail-item { width: 100%; }
-  .adv-rail-fly { position: absolute; top: calc(100% + 6px); right: 0; z-index: 40;
+  /* Sąrašas prilimpa prie mygtuko (jokio tarpo), o virš jo dar yra
+     nematomas „tiltas" — pelė keliaudama žemyn neišeina iš hover zonos. */
+  .adv-rail-fly { position: absolute; top: 100%; right: 0; z-index: 40;
                   min-width: 288px; background: var(--surface);
                   border: 1px solid var(--border); border-radius: 8px;
-                  box-shadow: 0 12px 32px rgba(17, 24, 39, .14); padding: 4px 0; }
+                  box-shadow: 0 12px 32px rgba(17, 24, 39, .14);
+                  padding: 4px 0; margin-top: 6px; }
+  .adv-rail-fly::before { content: ''; position: absolute; left: 0; right: 0;
+                          top: -10px; height: 10px; }
   .adv-rail-fly-item { display: flex; align-items: center; gap: 12px;
                        padding: 10px 16px; font-size: var(--fs-sm);
                        color: var(--text); text-decoration: none; white-space: nowrap;

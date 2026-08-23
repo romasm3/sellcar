@@ -14,10 +14,14 @@
 
 <div class="sp-shell bg-white rounded-xl shadow-sm flex max-w-[610px] overflow-visible{% if layout == 'side' %} sp-side{% endif %}"
      style="width:100%;margin:0 auto 1.5rem auto;"
-     x-data="spPanel()" x-init="init()">
+     x-data="spPanel()" x-init="init()"
+     {% comment %}Esc uždaro visus juostos iškrentančius sąrašus — ta pati
+     logika kaip detalios paieškos juostoje.{% endcomment %}
+     @keydown.escape.window="closeFlyouts()">
 
 {# ---------- KATEGORIJŲ RAIL — Alpine tab'ai, be navigacijos ---------- #}
-  <div class="sp-rail w-14 shrink-0 flex flex-col items-center pt-4 lg:pt-4 gap-0.5 border-r border-gray-100">
+  <div class="sp-rail w-14 shrink-0 flex flex-col items-center pt-4 lg:pt-4 gap-0.5 border-r border-gray-100"
+       @click.outside="closeFlyouts()">
   <div class="sp-rail-scroll">
 
     <a href="/?section=cars" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"

@@ -41,9 +41,25 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
   {% endfor %}
 
   {% if adv_more %}
-  <div class="adv-rail-more" x-data="{ open: false }" @mouseleave="open = false">
+  {% comment %}Sąrašas atsidaro ir užvedus, ir paspaudus. Užsidaro tik po
+  ~300 ms nuo išėjimo (kad pelė spėtų nukeliauti nuo mygtuko į sąrašą),
+  paspaudus šalia arba Esc. Užvedimu atidarom tik ten, kur pelė iš tikrųjų
+  yra — jutikliniuose ekranuose lieka vien paspaudimas.{% endcomment %}
+  <div class="adv-rail-more"
+       x-data="{
+         open: false, t: null,
+         hoverIsBusi() { return window.matchMedia('(hover: hover)').matches; },
+         atidaryk() { clearTimeout(this.t); this.open = true; },
+         uzdarykVeliau() { clearTimeout(this.t); this.t = setTimeout(() => this.open = false, 300); },
+         uzdarykDabar() { clearTimeout(this.t); this.open = false; }
+       }"
+       @mouseenter="if (hoverIsBusi()) atidaryk()"
+       @mouseleave="if (hoverIsBusi()) uzdarykVeliau()"
+       @click.outside="uzdarykDabar()"
+       @keydown.escape.window="uzdarykDabar()">
     <button type="button" class="adv-rail-item{% for m in adv_more %}{% if m.active %} is-on{% endif %}{% endfor %}"
-            @click="open = !open" @mouseenter="open = true">
+            :aria-expanded="open" aria-haspopup="true"
+            @click="clearTimeout(t); open = hoverIsBusi() ? true : !open">
       <span class="adv-rail-ico">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>
       </span>
@@ -51,7 +67,8 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
     </button>
     <div x-show="open" x-cloak class="adv-rail-fly">
       {% for m in adv_more %}
-      <a href="{{ m.url }}" class="adv-rail-fly-item{% if m.active %} is-on{% endif %}">
+      <a href="{{ m.url }}" class="adv-rail-fly-item{% if m.active %} is-on{% endif %}"
+         @click="uzdarykDabar()">
         <span class="adv-rail-fly-ico">
           {% if m.slug == 'construction' %}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 20h18M5 20V9h7v11M12 12h4l3 4v4"/><circle cx="8" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
