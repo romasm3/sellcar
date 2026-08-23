@@ -76,9 +76,9 @@
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
         {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug sub=adv.sub_slug back=request.get_full_path %}
 
-        <div class="hidden lg:flex flex-col gap-y-3" data-laukai="darbalaukis">
+        <div class="hidden lg:block ag-grid" data-laukai="darbalaukis">
           {% for row in adv.rows %}
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
+          <div class="ag-row">
             {% for f in row %}
             {% if f.type == 'range' %}
             {% comment %}vienetai=1 — čia laukai platūs, perjungiklis telpa{% endcomment %}
@@ -117,26 +117,25 @@
             tais pačiais brand/model parametrais eilių tvarka, todėl veikia
             ir „atgal", ir išsaugotos paieškos (views.taikyti_markiu_poras).
             {% endcomment %}
-            <div class="sm:col-span-2" data-pair-row>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+            <div class="ag-mm" data-pair-row>
+              <div class="ag-row">
                 {% include 'listings/partials/fields/_brand.html' with f=adv.pair_brand cur_fixed=1 cur_val=adv.pair_rows.0.brand %}
                 {% include 'listings/partials/fields/_model.html' with f=adv.pair_model cur_fixed=1 cur_val=adv.pair_rows.0.model %}
               </div>
             </div>
-            <div class="flex items-end pb-[6px]">
+            <div class="ag-cell ag-add">
               <button type="button" @click="if (poros < 5) poros++"
-                      x-show="poros < 5"
-                      class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900">
-                + {% trans "Pridėti daugiau markių/modelių" %}
+                      x-show="poros < 5" class="ag-btn-add">
+                <span class="ag-plus">+</span> {% trans "Pridėti daugiau markių/modelių" %}
               </button>
             </div>
 
             {% for pr in adv.pair_rows %}{% if not forloop.first %}
-            <div class="sm:col-span-3" x-show="poros > {{ forloop.counter0 }}" x-cloak data-pair-row>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
+            <div class="ag-full" x-show="poros > {{ forloop.counter0 }}" x-cloak data-pair-row>
+              <div class="ag-row">
                 {% include 'listings/partials/fields/_brand.html' with f=adv.pair_brand cur_fixed=1 cur_val=pr.brand %}
                 {% include 'listings/partials/fields/_model.html' with f=adv.pair_model cur_fixed=1 cur_val=pr.model %}
-                <div class="flex items-end pb-[6px]">
+                <div class="ag-cell ag-add">
                   <button type="button" class="pair-x"
                           @click="$el.closest('[data-pair-row]').querySelectorAll('input[type=hidden]').forEach(i => i.value = '');
                                   poros = Math.max(1, poros - 1);
@@ -180,8 +179,8 @@
           {% endfor %}
 
           {# ── Rūšiavimas — savo eilutėje, pirmame stulpelyje ── #}
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
-            <div>
+          <div class="ag-row">
+            <div class="ag-cell">
               <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Rūšiavimas" %}</label>
               <div class="sp-sel">
                 <select name="sort" class="sp-fld">
@@ -222,20 +221,21 @@
       </div>
       {% endif %}
 
-      {# ═══ YPATUMAI — suskleidžiama sekcija su skaitikliu ═══ #}
+      {# ═══ YPATUMAI — suskleidžiama sekcija su skaitikliu (etalono struktūra) ═══ #}
       {% if adv.equipment %}
-      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-5">
-        <button type="button" @click="eqOpen = !eqOpen"
-                class="w-full flex items-center justify-between px-6 py-4 text-left">
-          <span class="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-            {% trans "Ypatumai" %} (<span x-text="eqCount"></span>/{{ adv.equipment_total }})
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-5 p-4 sm:p-6">
+        <button type="button" @click="eqOpen = !eqOpen" class="ag-addons-header">
+          <span>{% trans "Ypatumai" %}
+            <span class="ag-addons-count">(<span x-text="eqCount"></span>/{{ adv.equipment_total }})</span>
           </span>
-          <span class="text-gray-400 text-lg" x-text="eqOpen ? '−' : '+'"></span>
+          <span class="ag-addons-arrow" :class="eqOpen && 'is-open'">⌄</span>
         </button>
-        <div x-show="eqOpen" x-cloak class="px-6 pb-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-2">
-            {% for eq in adv.equipment %}
-            <label class="flex items-center gap-2 cursor-pointer text-[13px]">
+        <div x-show="eqOpen" x-cloak class="ag-addons-content">
+          {% for grupe in adv.equipment_groups %}
+          <div class="ag-addons-name">{{ grupe.label }}</div>
+          <div class="ag-row ag-addons-row">
+            {% for eq in grupe.items %}
+            <label class="ag-cell ag-check">
               <input type="checkbox" name="equipment" value="{{ eq.id }}"
                      {% if eq.id|stringformat:"s" in selected_equipment %}checked{% endif %}
                      @change="eqCount += $event.target.checked ? 1 : -1"
@@ -244,20 +244,18 @@
             </label>
             {% endfor %}
           </div>
+          {% endfor %}
         </div>
       </div>
       {% endif %}
 
-      {% comment %}Telefone ieškoma per apatinės juostos mygtuką („Skelbimai"),
-      todėl šis darbalaukio blokas ten slepiamas — kitaip ekrane būtų du
-      akcento spalvos mygtukai (docs/dizaino-sistema.md, hierarchija).{% endcomment %}
       {% comment %}Lipnus mygtukas su gyvu skaičiumi — kaip etalone
       („Ieškoti 28645"). Telefone ieškoma per apatinę juostą, todėl ten šis
       blokas slepiamas (docs/dizaino-sistema.md, hierarchija).{% endcomment %}
       <div class="adv-submit hidden lg:flex items-center justify-center gap-3">
         <a href="{% url 'listing_list' %}?category={{ adv.slug }}"
            class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Išvalyti" %}</a>
-        <button type="submit" class="px-12 py-3 bg-primary text-white rounded-lg hover:bg-gray-800 font-semibold text-sm">
+        <button type="submit" class="ag-submit">
           {% trans "Ieškoti" %} <span id="advCount">{{ result_count }}</span>
         </button>
       </div>
@@ -290,6 +288,71 @@
 </script>
 
 <style>
+  /* ═══ Formos tinklelis — etalono matmenys ═══
+     (autogidas extended-search.css: .form-grid row-gap 12px; .row
+     gap 12/24 px ir align-items:flex-end; laukas 33,3333% - 16px;
+     markė+modelis 66,6666% - 8px; „Pridėti daugiau" — trečias stulpelis.) */
+  .ag-grid { display: flex; flex-direction: column; row-gap: 12px; padding-bottom: 20px; }
+  .ag-row { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; }
+  .ag-row > * { width: calc(33.3333% - 16px); box-sizing: border-box; }
+  .ag-row > .ag-mm { width: calc(66.6666% - 8px); }
+  .ag-mm > .ag-row > * { width: calc(50% - 12px); }
+  .ag-row > .ag-full { width: 100%; }
+  .ag-cell { box-sizing: border-box; }
+
+  /* Etiketės ir laukai — etalono dydžiai (label 14px, laukas 40px). */
+  .ag-grid label { font-size: 14px; font-weight: 400; margin-bottom: 6px; }
+  /* Žymimųjų langelių užrašai etalone irgi paprasto storio. */
+  .ag-grid .sp-ctl label, .ag-grid label.flex { font-weight: 400; margin-bottom: 0; }
+
+  /* Tekstinė paieška — su lupos ženkleliu lauke, kaip etalone. */
+  .ag-grid input[name="q"] {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'><circle cx='11' cy='11' r='7'/><path stroke-linecap='round' d='M21 21l-4.35-4.35'/></svg>");
+    background-repeat: no-repeat; background-position: 12px 50%; background-size: 18px 18px;
+    padding-left: 38px;
+  }
+  .ag-grid .sp-fld { height: 40px; line-height: 38px; padding: 0 12px; font-size: 16px;
+                     border-color: #E7E7E7; }
+  .ag-grid select.sp-fld { line-height: normal; }
+
+  /* „+ Pridėti daugiau markių/modelių" — trečiame stulpelyje, prie laukų linijos. */
+  .ag-add { display: flex; align-items: center; min-height: 40px; }
+  .ag-btn-add { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+                font-size: 14px; font-weight: 500; color: var(--text); background: none;
+                border: 0; padding: 0; }
+  .ag-btn-add:hover { color: var(--accent); }
+  .ag-plus { display: inline-flex; align-items: center; justify-content: center;
+             width: 18px; height: 18px; border-radius: 50%; background: var(--accent);
+             color: #fff; font-size: 13px; line-height: 1; }
+
+  /* ═══ Ypatumai — etalono „addons" ═══ */
+  /* Ypatumai: antraštė — atskira dėžutė trečdalio pločio (etalone 249 px
+     iš 790), turinys — grupės antraštė ir po tris langelius eilutėje. */
+  .ag-addons-header { display: inline-flex; align-items: center; justify-content: space-between;
+                      gap: 16px; width: calc(33.3333% - 16px); min-width: 240px; height: 46px;
+                      padding: 10px 20px; font-size: 17px; color: var(--text);
+                      background: var(--surface); border: 1px solid #E3E3E3;
+                      border-radius: 8px; cursor: pointer; }
+  .ag-addons-count { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+  .ag-addons-arrow { color: var(--text-muted); transition: transform .2s; }
+  .ag-addons-arrow.is-open { transform: rotate(180deg); }
+  .ag-addons-content { padding: 20px 0 18px; }
+  .ag-addons-name { font-weight: 700; font-size: 16px; margin: 20px 0 12px; }
+  .ag-addons-name:first-child { margin-top: 0; }
+  .ag-addons-row { margin-bottom: 12px; }
+  .ag-check { display: flex; align-items: center; gap: 8px; font-size: 14px;
+              min-height: 40px; cursor: pointer; }
+
+  @media (max-width: 1023px) {
+    .ag-row > *, .ag-row > .ag-mm, .ag-mm > .ag-row > * { width: 100%; }
+  }
+
+  /* „Ieškoti N" — etalone 60 % pločio (max 400 px), 46 px, 18 px šriftas. */
+  .ag-submit { width: 60%; max-width: 400px; min-height: 46px; font-size: 18px;
+               font-weight: 600; color: #fff; background: var(--accent);
+               border: 0; border-radius: 8px; cursor: pointer; }
+  .ag-submit:hover { background: var(--accent-hover); }
+
   /* Poros pašalinimo mygtukas — kaip etalone, pilkas kryžiukas. */
   .pair-x { width: var(--btn-h-sm); height: var(--btn-h-sm); border: 1px solid var(--border);
             border-radius: var(--r-md); background: var(--surface); color: var(--text-muted);

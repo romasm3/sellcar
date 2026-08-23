@@ -755,8 +755,39 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
     prefix = EQUIPMENT_PREFIX.get(vt_slug)
     if prefix:
         eq_qs = eq_qs.filter(category__startswith=prefix)
-    eq_rows = {e.name: e for e in eq_qs}
-    eq_items = [{'id': eq_rows[n].id, 'name': n} for n in equipment if n in eq_rows]
+    # Tuo pačiu vardu Equipment eilučių būna kelios (kiekvienai kategorijai
+    # sava). Automobiliams renkamės TIK automobilių kategorijų eilutes —
+    # kitaip į „Ypatumus" patekdavo svetimos (camp_, trailer_, legacy) ir
+    # filtras pagal jų id nieko nerastų.
+    from apps.listings.views import CARS_EQUIPMENT_CATEGORIES as _CARS_EQ
+    _leistinos = {k for k, _l in _CARS_EQ}
+    eq_rows = {}
+    for e in eq_qs:
+        esama = eq_rows.get(e.name)
+        if esama is None:
+            eq_rows[e.name] = e
+            continue
+        if vt_slug == 'cars' and e.category in _leistinos and esama.category not in _leistinos:
+            eq_rows[e.name] = e
+    if vt_slug == 'cars':
+        eq_rows = {n: e for n, e in eq_rows.items() if e.category in _leistinos}
+    eq_items = [{'id': eq_rows[n].id, 'name': n, 'cat': eq_rows[n].category}
+                for n in equipment if n in eq_rows]
+
+    # Ypatumai grupėmis su antraštėmis — kaip etalone („Interjeras",
+    # „Eksterjeras"...). Grupių eilė — kaip pirmą kartą pasitaiko konfige.
+    from apps.listings.views import EQUIPMENT_CATEGORY_LABELS as _EQ_VARDAI
+    _grupiu_vardai = dict(_EQ_VARDAI)
+    _grupiu_vardai.update({k: l for k, l in _CARS_EQ})
+    eq_grupes, _matytos = [], {}
+    for item in eq_items:
+        raktas = item.get('cat') or ''
+        if raktas not in _matytos:
+            _matytos[raktas] = {'key': raktas,
+                                'label': _grupiu_vardai.get(raktas, raktas),
+                                'items': []}
+            eq_grupes.append(_matytos[raktas])
+        _matytos[raktas]['items'].append(item)
 
     return {
         'slug': vt_slug,
@@ -769,6 +800,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         'pair_model': next((f for f in fields if f.get('widget') == 'model'), None),
         'rows': _layout_rows(cat, fields),
         'equipment': eq_items,
+        'equipment_groups': eq_grupes,
         'equipment_label': eq_section,
         'equipment_total': len(eq_items),
         'sort_options': SORT_OPTIONS,
