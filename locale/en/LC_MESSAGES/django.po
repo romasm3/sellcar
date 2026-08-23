@@ -23071,3 +23071,27 @@ msgstr "Car parts"
 #: templates/listings/advanced_generic.html
 msgid "Pridėti daugiau markių/modelių"
 msgstr "Add more brands/models"
+
+#: apps/accounts/antispam.py
+msgid "Naudokite nuolatinį el. pašto adresą"
+msgstr "Use a permanent email address"
+
+#: apps/accounts/antispam.py
+msgid "Per valandą iš vieno adreso galima sukurti ne daugiau kaip %(kiek)s paskyras. Bandykite vėliau."
+msgstr "You can create no more than %(kiek)s accounts per hour from one address. Please try again later."
+
+#: apps/accounts/antispam.py
+msgid "Per daug nepavykusių bandymų. Pabandykite po %(minutes)s min."
+msgstr "Too many failed attempts. Please try again in %(minutes)s minutes."
+
+#: apps/accounts/antispam.py
+msgid "Neteisingas el. paštas arba slaptažodis."
+msgstr "Incorrect email or password."
+
+#: apps/accounts/antispam.py
+msgid "Šis el. paštas jau užregistruotas."
+msgstr "This email is already registered."
+
+#: apps/accounts/antispam.py
+msgid "Svetainė"
+msgstr "Website"

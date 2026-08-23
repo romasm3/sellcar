@@ -1,10 +1,18 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
+    """Registracija su apsauga nuo botų (žr. apps/accounts/antispam.py).
+
+    Honeypot `website` yra šablone (ne formos laukas), o čia tikrinam
+    vienadienius pašto domenus — el. pašto patvirtinimo kol kas nėra,
+    todėl tai vienintelis adreso tikrumo barjeras.
+    """
+
     email = forms.EmailField(required=True)
 
     class Meta:
@@ -12,9 +20,12 @@ class UserRegisterForm(UserCreationForm):
         fields = ['email', 'password1', 'password2']
 
     def clean_email(self):
+        from .antispam import domenas_vienadienis, ZINUTES
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email is already registered.")
+            raise forms.ValidationError(_('Šis el. paštas jau užregistruotas.'))
+        if domenas_vienadienis(email):
+            raise forms.ValidationError(ZINUTES['disposable'])
         return email
 
     def save(self, commit=True):

@@ -105,6 +105,10 @@ class Profile(models.Model):
     dealer_phone = models.CharField(max_length=30, blank=True)
     dealer_description = models.TextField(blank=True)
 
+    # ═══ Registracijos pėdsakas — botų tyrimui (kaip ListingReport) ═══
+    signup_ip = models.GenericIPAddressField(null=True, blank=True)
+    signup_user_agent = models.CharField(max_length=400, blank=True)
+
     # ─── Dealer subscription (€99/mėn — Stripe later) ───
     dealer_subscription_active = models.BooleanField(default=False)
     dealer_subscription_expires = models.DateTimeField(null=True, blank=True)
