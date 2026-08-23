@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 12:58:30 CEST
+Sugeneruota: 2026-08-23 12:59:44 CEST
 
 ## Kodas
 
@@ -10,6 +10,10 @@ origin/master: e9797e5 feat(i18n): EN paieškos panelė — kategorijos ir filtr
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
    M apps/listings/search_config/panels.py
+   M apps/listings/translatable_db.py
+   M locale/en/LC_MESSAGES/django.mo
+   M locale/en/LC_MESSAGES/django.po
+   M locale/lt/LC_MESSAGES/django.po
 ```
 
 ## Servisai
@@ -24,7 +28,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001049s
+HTTP 301, 0.001698s
 ```
 
 ## Skelbimų būsenos
@@ -58,9 +62,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 12:48:42 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 23 12:50:20 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 23 12:50:21 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 12:50:21 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 12:50:21 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.060s CPU time.
 Aug 23 12:51:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -83,4 +84,7 @@ Aug 23 12:57:07 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 12:57:09 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 12:57:09 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 12:58:29 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 12:58:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 12:58:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 12:59:44 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
