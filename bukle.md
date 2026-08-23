@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 13:36:50 CEST
+Sugeneruota: 2026-08-23 13:38:01 CEST
 
 ## Kodas
 
@@ -24,7 +24,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001513s
+HTTP 301, 0.002777s
 ```
 
 ## Skelbimų būsenos
@@ -58,9 +58,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:05 vmi3306453 autoleft-deploy[4147727]: Operations to perform:
-Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:05 vmi3306453 autoleft-deploy[4147727]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, listings, payments, sessions
-Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:05 vmi3306453 autoleft-deploy[4147727]: Running migrations:
 Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:05 vmi3306453 autoleft-deploy[4147727]:   No migrations to apply.
 Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:06 vmi3306453 autoleft-deploy[4147732]: 0 static files copied to '/root/autoleft/staticfiles', 140 unmodified.
 Aug 23 13:32:08 vmi3306453 autoleft-deploy[4147803]: Aug 23 13:32:06 vmi3306453 autoleft-deploy[4147711]: [13:32:06] Restartinam gunicorn.service
@@ -83,4 +80,7 @@ Aug 23 13:35:27 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 23 13:35:27 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 13:35:27 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.040s CPU time.
 Aug 23 13:36:50 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 13:36:51 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 13:36:51 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 13:38:00 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
