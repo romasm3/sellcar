@@ -1,6 +1,6 @@
-Hi ,
+Hi {{ user_name }},
 
-Your listing will expire in {{ days_left }} day{{ days_left|pluralize }}:
+Your listing expires on {{ expires_at|date:"Y-m-d H:i" }} — that is {% if days_left == 0 %}today{% else %}in {{ days_left }} day{{ days_left|pluralize }}{% endif %}.
 
    {{ listing_title }}
    {{ listing_price_display }}
@@ -9,14 +9,11 @@ Your listing will expire in {{ days_left }} day{{ days_left|pluralize }}:
 Listing URL:
 {{ listing_url }}
 
-Last chance: your listing expires today
-Don't lose your spot - extend it with one click:
+Extend the validity now — pick a 30 / 60 / 90 day plan and pay; the days are
+added to the time you have left, and you do not have to edit anything:
 {{ extend_url }}
 
-Or renew it to top of the list:
-{{ renew_url }}
-
-If you've already sold the vehicle, mark it as SOLD here:
+If you have already sold the vehicle, mark it as SOLD here:
 {{ site_url }}/dashboard/announcements/
 
 Tips if your listing is not getting enough attention:

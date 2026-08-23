@@ -280,13 +280,10 @@
                             <div class="md:w-40 flex-shrink-0 p-4 border-b md:border-b-0 md:border-r border-gray-100 flex flex-col justify-center items-center">
                                 {% if listing.status == 'active' %}
                                     {% if listing.days_until_expiry and listing.days_until_expiry <= 3 %}
-                                        <form method="post" action="{% url 'listing_activate' listing.pk %}" class="w-full">
-                                            {% csrf_token %}
-                                            <button type="submit"
-                                                    class="w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-xs font-semibold flex items-center justify-center gap-1">
-                                                ⚠ {% trans "Extend" %}
-                                            </button>
-                                        </form>
+                                        <a href="{% url 'listing_select_plan' listing.pk %}"
+                                           class="w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-xs font-semibold flex items-center justify-center gap-1">
+                                            ⚠ {% trans "Extend" %}
+                                        </a>
                                         <div class="text-xs text-red-600 text-center mt-1">
                                             {% blocktrans count counter=listing.days_until_expiry %}{{ counter }} day left{% plural %}{{ counter }} days left{% endblocktrans %}
                                         </div>

@@ -125,21 +125,15 @@
         </form>
 
         {% if is_active %}
-            <form method="post" action="{% url 'listing_activate' listing.pk %}">
-                {% csrf_token %}
-                <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
-                    Extend validity
-                    {% if payments_enabled %}({{ listing_fee }} €){% endif %}
-                </button>
-            </form>
+            <a href="{% url 'listing_select_plan' listing.pk %}"
+               class="inline-block px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
+                Extend validity
+            </a>
         {% else %}
-            <form method="post" action="{% url 'listing_activate' listing.pk %}">
-                {% csrf_token %}
-                <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
-                    Activate listing
-                    {% if payments_enabled %}({{ listing_fee }} €){% endif %}
-                </button>
-            </form>
+            <a href="{% url 'listing_select_plan' listing.pk %}"
+               class="inline-block px-6 py-2.5 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
+                Activate listing
+            </a>
         {% endif %}
     </div>
 

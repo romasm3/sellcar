@@ -320,7 +320,7 @@ def pritaikyti_apmoketa_plana(
     plan_boost_days=0, plan_boost_count=0,
     plan_featured_days=0, plan_highlight_days=0,
     renew_count=0, renew_days=0, addon_featured_days=0,
-    send_email=True,
+    send_email=True, pratesimas=False,
 ):
     """Aktyvuoja skelbimą ir uždeda visas apmokėto plano paslaugas.
 
@@ -332,16 +332,22 @@ def pritaikyti_apmoketa_plana(
     skelbimas nebūtų aktyvuotas iš viso.
 
     Nieko nedaro, jei skelbimas jau aktyvus — webhook'as gali ateiti du kartus.
-    Grąžina True, jei aktyvavo.
+    Išimtis: pratesimas=True — tada aktyvus skelbimas PRATĘSIAMAS (dienos
+    pridedamos prie likusio galiojimo), o „paskelbta" laiškas nesiunčiamas.
+    Grąžina True, jei aktyvavo arba pratęsė.
     """
     from datetime import timedelta
     from django.utils import timezone
 
-    if listing.status == 'active':
+    if listing.status == 'active' and not pratesimas:
         return False
 
     now = timezone.now()
-    listing.activate(days=plan_days)
+    if pratesimas:
+        listing.pratesti(days=plan_days)
+        send_email = False
+    else:
+        listing.activate(days=plan_days)
 
     if send_email:
         try:

@@ -22695,3 +22695,23 @@ msgstr "Search"
 
 #~ msgid "Top markės"
 #~ msgstr "Top brands"
+
+#: templates/listings/listing_select_plan.html
+msgid "Pratęsti galiojimą"
+msgstr "Extend validity"
+
+#: templates/listings/listing_select_plan.html
+msgid "Pratęsk skelbimo galiojimą"
+msgstr "Extend your listing"
+
+#: templates/listings/listing_select_plan.html
+msgid "Skelbimas galioja iki"
+msgstr "Listing is valid until"
+
+#: templates/listings/listing_select_plan.html
+msgid "Pasirinktos dienos bus pridėtos prie likusio laiko."
+msgstr "The days you choose are added to the time left."
+
+#: templates/listings/listing_select_plan.html
+msgid "Pasirink pratęsimo planą"
+msgstr "Choose an extension plan"

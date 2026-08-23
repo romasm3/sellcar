@@ -132,9 +132,11 @@ class Command(BaseCommand):
                 'listing_title': listing.title,
                 'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
-                'extend_url': f'{settings.SITE_URL}/{listing.pk}/edit/',
+                # Pratęsimas veda TIESIAI į plano/apmokėjimo puslapį, ne į edit
+                'extend_url': f'{settings.SITE_URL}/listings/{listing.pk}/select-plan/',
                 'renew_url': f'{settings.SITE_URL}/dashboard/announcements/',
                 'days_left': days_left,
+                'expires_at': listing.expires_at,
                 'views_count': listing.views_count or 0,
             })
 

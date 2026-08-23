@@ -2052,6 +2052,27 @@ class Listing(models.Model):
         ])
         return True
 
+    def pratesti(self, days=None):
+        """Pratęsia AKTYVAUS skelbimo galiojimą: dienos pridedamos prie likusio laiko.
+
+        Skirtingai nuo activate() — čia niekas neatstatoma iš naujo: skelbimas
+        jau matomas, keičiasi tik expires_at. Jei galiojimas jau pasibaigęs,
+        skaičiuojam nuo dabar.
+        """
+        if days is None:
+            days = self.DEFAULT_ACTIVE_DAYS
+        now = timezone.now()
+        baze = self.expires_at if (self.expires_at and self.expires_at > now) else now
+        self.status = 'active'
+        self.expires_at = baze + timedelta(days=days)
+        self.last_reminder_sent_at = None
+        self.last_expired_reminder_at = None
+        self.save(update_fields=[
+            'status', 'expires_at',
+            'last_reminder_sent_at', 'last_expired_reminder_at',
+        ])
+        return True
+
     def mark_expired(self):
         self.status = 'expired'
         self.last_reminder_sent_at = None

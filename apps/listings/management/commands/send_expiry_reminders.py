@@ -83,8 +83,9 @@ class Command(BaseCommand):
         )
 
     def _build_listing_url(self, listing):
+        """Pratęsimo nuoroda — planų/apmokėjimo puslapis, ne redagavimo forma."""
         base = getattr(settings, 'SITE_URL', 'http://127.0.0.1:8000')
-        return f'{base}/{listing.pk}/edit/'
+        return f'{base}/listings/{listing.pk}/select-plan/'
 
     def _send_expiring_soon(self, listing, dry_run):
         subject = f'Your listing expires in {listing.days_until_expiry} day(s)'

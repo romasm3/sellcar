@@ -2,13 +2,25 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% trans "Select a plan" %} — AutoLeft{% endblock %}
+{% block title %}{% if pratesimas %}{% trans "Pratęsti galiojimą" %}{% else %}{% trans "Select a plan" %}{% endif %} — AutoLeft{% endblock %}
 
 {% block content %}
 <div class="max-w-5xl mx-auto px-4 py-8">
 
+  {# ═══ Pratęsimo juosta — skelbimas jau aktyvus, keičiasi tik galiojimas ═══ #}
+  {% if pratesimas %}
+  <div class="mb-6 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3">
+    <div class="text-base font-extrabold text-gray-900">{% trans "Pratęsk skelbimo galiojimą" %}</div>
+    <div class="mt-1 text-sm text-gray-700">
+      {% trans "Skelbimas galioja iki" %}
+      <strong>{{ listing.expires_at|date:"Y-m-d" }}</strong>.
+      {% trans "Pasirinktos dienos bus pridėtos prie likusio laiko." %}
+    </div>
+  </div>
+  {% endif %}
+
   {# ═══ Step indicator ═══ #}
-  <div class="hidden lg:flex items-center justify-center gap-3 mb-8 text-sm border-b border-gray-200 pb-4">
+  <div class="{% if pratesimas %}hidden{% else %}hidden lg:flex{% endif %} items-center justify-center gap-3 mb-8 text-sm border-b border-gray-200 pb-4">
     <span class="text-gray-400">1. {% trans "Listing info" %}</span>
     <span class="text-gray-300">›</span>
     <span class="text-gray-900 font-bold">2. {% trans "Service selection" %}</span>
@@ -32,11 +44,11 @@
       {# Pilka juosta su skelbimo pavadinimu ir „Redaguoti" — kaip etalone #}
       <div class="-mx-4 mb-4 bg-gray-100 px-4 py-3 flex items-center justify-between gap-3">
         <span class="text-sm text-gray-800 truncate">{{ listing.title }}</span>
-        <a href="/create/cars/quick/?edit={{ listing.pk }}"
+        <a href="{{ listing.get_edit_url }}"
            class="text-sm text-gray-700 underline whitespace-nowrap">{% trans "Redaguoti" %}</a>
       </div>
 
-      <h2 class="text-xl font-extrabold text-gray-900 mb-3">{% trans "Pasirink aktyvavimo planą" %}</h2>
+      <h2 class="text-xl font-extrabold text-gray-900 mb-3">{% if pratesimas %}{% trans "Pasirink pratęsimo planą" %}{% else %}{% trans "Pasirink aktyvavimo planą" %}{% endif %}</h2>
 
       <div class="grid grid-cols-3 gap-2 items-stretch">
         {% for plan in plans %}

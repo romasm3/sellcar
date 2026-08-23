@@ -124,6 +124,8 @@ class Command(BaseCommand):
             site_url = settings.SITE_URL
             listing_url = f'{site_url}{listing.get_absolute_url()}'
             my_listings_url = f'{site_url}/dashboard/announcements/'
+            # Pratęsimas veda TIESIAI į plano/apmokėjimo puslapį, ne į edit
+            extend_url = f'{site_url}/listings/{listing.pk}/select-plan/'
 
             # Vardas: first_name > email prefix (NE username, jis gali būti "COMPANY")
             if seller.first_name:
@@ -144,8 +146,9 @@ class Command(BaseCommand):
                     'views_count': listing.views_count or 0,
                     'saves_count': listing.saved_by.count(),
                     'days_left': days_left,
+                    'expires_at': listing.expires_at,
                     'listing_url': listing_url,
-                    'extend_url': my_listings_url,
+                    'extend_url': extend_url,
                     'renew_url': my_listings_url,
                     'my_listings_url': my_listings_url,
                     'site_url': site_url,

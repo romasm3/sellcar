@@ -499,6 +499,7 @@ def stripe_webhook(request):
                 renew_count = int(_md('renew_count', '0') or 0)
                 renew_days = int(_md('renew_days', '0') or 0)
                 addon_featured_days = int(_md('addon_featured_days', '0') or 0)
+                is_extend = bool(_md('is_extend', ''))
 
                 # Idempotency — jau apdorota? (tikrinam pagal WalletTransaction log)
                 already = WalletTransaction.objects.filter(
@@ -515,8 +516,10 @@ def stripe_webhook(request):
                 except Listing.DoesNotExist:
                     return HttpResponse('Listing not found', status=200)
 
-                # Jeigu jau aktyvus — nedubliuojam
-                if listing.status == 'active':
+                # Jeigu jau aktyvus — nedubliuojam.
+                # Išimtis: pratęsimas (is_extend) — ten kaip tik ir mokama už
+                # aktyvaus skelbimo galiojimo prailginimą.
+                if listing.status == 'active' and not is_extend:
                     return HttpResponse(status=200)
 
                 now = timezone.now()
@@ -535,6 +538,7 @@ def stripe_webhook(request):
                     renew_count=renew_count,
                     renew_days=renew_days,
                     addon_featured_days=addon_featured_days,
+                    pratesimas=is_extend,
                 )
 
                 # Promo kodo panaudojimas — įrašom tik po sėkmingo apmokėjimo

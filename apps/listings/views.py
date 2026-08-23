@@ -5239,9 +5239,11 @@ def listing_activate(request, pk):
     payments_enabled = getattr(settings, 'PAYMENTS_ENABLED', False)
     fee = listing.listing_fee
 
+    # Ne-draft (active / inactive / expired) → planų puslapis.
+    # Pratęsimas NEVEDA į redagavimo formą: skelbimo turinys nesikeičia,
+    # reikia tik nusipirkti galiojimą (30/60/90 d.).
     if payments_enabled:
-        messages.info(request, f'Payment system not yet enabled. Fee: {fee}')
-        return redirect('listing_edit_hub', pk=listing.pk)
+        return redirect('listing_select_plan', pk=listing.pk)
 
     previous_status = listing.status
     if previous_status == 'expired':
@@ -5565,6 +5567,10 @@ def listing_success(request, pk):
 @login_required
 def my_listings(request):
     from django.db.models import Case, When, IntegerField, Value
+
+    # Grįžimas po apmokėto pratęsimo (Stripe success_url)
+    if request.GET.get('pratesta'):
+        messages.success(request, _('Skelbimo galiojimas pratęstas'))
 
     status_filter = request.GET.get('status', 'all')
     selected_category = request.GET.get('category', '')
@@ -7218,9 +7224,9 @@ def listing_select_plan(request, pk):
 
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
 
-    # Jeigu jau active — nukreipk į detail (nereikia mokėti dar kartą)
-    if listing.status == 'active':
-        return redirect('listing_detail', pk=pk)
+    # Aktyvus skelbimas — PRATĘSIMO režimas: tas pats planų puslapis,
+    # tik dienos pridedamos prie likusio galiojimo, o ne skaičiuojamos iš naujo.
+    pratesimas = (listing.status == 'active')
 
     # Completeness guard: incomplete drafts must be filled before activating
     if listing.status == 'draft':
@@ -7311,6 +7317,7 @@ def listing_select_plan(request, pk):
     context = {
         'listing': listing,
         'main_image': listing.images.first(),
+        'pratesimas': pratesimas,
         'plans': plans,
         'wallet_balance': wallet_balance,
         # Multiplier info (jei įjungtas — rodysim user'iui)
@@ -7339,9 +7346,8 @@ def listing_pay_plan(request, pk, plan_code):
 
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
 
-    if listing.status == 'active':
-        messages.info(request, 'Listing is already active.')
-        return redirect('listing_detail', pk=pk)
+    # Aktyvus skelbimas — pratęsimas (dienos pridedamos prie likusio galiojimo)
+    pratesimas = (listing.status == 'active')
 
     # ─── Surask plan'ą DB pagal vehicle_type + code ───
     db_plan = PricingPlan.objects.filter(
@@ -7461,6 +7467,7 @@ def listing_pay_plan(request, pk, plan_code):
             renew_count=renew_count,
             renew_days=renew_days,
             addon_featured_days=featured_days,
+            pratesimas=pratesimas,
         )
         if promo:
             PromoCodeUsage.objects.create(
@@ -7468,6 +7475,9 @@ def listing_pay_plan(request, pk, plan_code):
                 discount_amount=discount_amount,
             )
             PromoCode.objects.filter(pk=promo.pk).update(used_count=F('used_count') + 1)
+        if pratesimas:
+            messages.success(request, _('Skelbimo galiojimas pratęstas'))
+            return redirect('my_listings')
         return redirect(
             reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
         )
@@ -7505,13 +7515,15 @@ def listing_pay_plan(request, pk, plan_code):
             }],
             customer_email=request.user.email,
             success_url=request.build_absolute_uri(
-                reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'
+                (reverse('my_listings') + '?pratesta=1') if pratesimas
+                else (reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published')
             ),
             cancel_url=request.build_absolute_uri(
                 reverse('listing_select_plan', kwargs={'pk': listing.pk})
             ),
             metadata={
                 'type': 'listing_plan',
+                'is_extend': '1' if pratesimas else '',
                 'user_id': str(request.user.id),
                 'listing_id': str(listing.pk),
                 'plan_code': plan['code'],
