@@ -12783,23 +12783,23 @@ msgstr ""
 #: apps/listings/views.py:1258 apps/listings/views.py:1273
 #: apps/listings/views.py:1399
 msgid "Visi skelbimai"
-msgstr ""
+msgstr "All listings"
 
 #: apps/listings/views.py:1351 apps/listings/views.py:1360
 #: apps/listings/views.py:1365 apps/listings/views.py:1388
 msgid "iki"
-msgstr ""
+msgstr "up to"
 
 #: apps/listings/views.py:1353 apps/listings/views.py:1362
 #: apps/listings/views.py:1386
 msgid "nuo"
-msgstr ""
+msgstr "from"
 
 #: apps/listings/views.py:1358 apps/listings/views.py:1360
 #: apps/listings/views.py:1362 templates/emails/saved_listings_list.html:33
 #: templates/emails/saved_listings_list.txt:6
 msgid "m."
-msgstr ""
+msgstr "yr"
 
 #: apps/listings/views.py:1398 templates/listings/advanced_generic.html:70
 #: templates/listings/partials/_panel_bodies.html:1099
@@ -14708,7 +14708,7 @@ msgstr[1] ""
 #: templates/emails/saved_listings_list.html:37
 #: templates/listings/saved_listings.html:117
 msgid "Kaina sumažėjo"
-msgstr ""
+msgstr "Price dropped"
 
 #: templates/emails/saved_listings_list.html:46
 msgid "Visi įsiminti skelbimai"
@@ -18739,7 +18739,7 @@ msgstr ""
 #: templates/listings/listing_select_plan.html:36
 #: templates/listings/saved_searches.html:106
 msgid "Redaguoti"
-msgstr ""
+msgstr "Edit"
 
 #: templates/listings/listing_select_plan.html:39
 msgid "Pasirink aktyvavimo planą"
@@ -20941,7 +20941,7 @@ msgstr ""
 #: templates/listings/saved_searches.html:48
 #: templates/listings/saved_searches.html:54
 msgid "Ištrinti viską"
-msgstr ""
+msgstr "Delete all"
 
 #: templates/listings/saved_listings.html:28
 msgid "Ištrinti nebeaktyvius skelbimus iš sąrašo?"
@@ -20949,43 +20949,43 @@ msgstr ""
 
 #: templates/listings/saved_listings.html:31
 msgid "Trinti neaktyvius"
-msgstr ""
+msgstr "Delete inactive"
 
 #: templates/listings/saved_listings.html:42
 msgid "Pranešimai apie sumažintą kainą"
-msgstr ""
+msgstr "Price drop alerts"
 
 #: templates/listings/saved_listings.html:52
 #: templates/listings/saved_listings.html:53
 #: templates/listings/saved_searches.html:84
 msgid "Gauti ekrane"
-msgstr ""
+msgstr "Get on screen"
 
 #: templates/listings/saved_listings.html:54
 msgid "Kritusią kainą pažymėsime žalia žyma šiame sąraše"
-msgstr ""
+msgstr "We will mark price drops with a green badge in this list"
 
 #: templates/listings/saved_listings.html:61
 #: templates/listings/saved_listings.html:62
 #: templates/listings/saved_searches.html:97
 msgid "Gauti el. paštu"
-msgstr ""
+msgstr "Get by email"
 
 #: templates/listings/saved_listings.html:63
 msgid "Sumažėjus įsiminto skelbimo kainai atsiųsime laišką"
-msgstr ""
+msgstr "We will email you when a saved listing gets cheaper"
 
 #: templates/listings/saved_listings.html:75
 msgid "Siųsti el. paštu"
-msgstr ""
+msgstr "Send by email"
 
 #: templates/listings/saved_listings.html:80
 msgid "Spausdinti"
-msgstr ""
+msgstr "Print"
 
 #: templates/listings/saved_listings.html:85
 msgid "Rikiuoti"
-msgstr ""
+msgstr "Sort"
 
 #: templates/listings/saved_listings.html:136
 msgid "No saved listings yet"
@@ -21003,23 +21003,23 @@ msgstr "Breadcrumb"
 #: templates/listings/saved_searches.html:23
 #: templates/listings/wheels_list.html:99
 msgid "Pagrindinis"
-msgstr ""
+msgstr "Home"
 
 #: templates/listings/saved_searches.html:36
 msgid "Išsaugotos"
-msgstr ""
+msgstr "Saved"
 
 #: templates/listings/saved_searches.html:38
 msgid "Paskutinės"
-msgstr ""
+msgstr "Recent"
 
 #: templates/listings/saved_searches.html:75
 msgid "nauji"
-msgstr ""
+msgstr "new"
 
 #: templates/listings/saved_searches.html:89
 msgid "Ekrane"
-msgstr ""
+msgstr "On screen"
 
 #: templates/listings/saved_searches.html:90
 msgid ""
@@ -21029,16 +21029,16 @@ msgstr ""
 
 #: templates/listings/saved_searches.html:99
 msgid "El. paštu"
-msgstr ""
+msgstr "By email"
 
 #: templates/listings/saved_searches.html:100
 msgid "Gauti el. paštu: atsiradus naujiems skelbimams atsiųsime laišką"
-msgstr ""
+msgstr "By email: we will email you when new listings appear"
 
 #: templates/listings/saved_searches.html:115
 #: templates/listings/saved_searches.html:176
 msgid "Trinti"
-msgstr ""
+msgstr "Delete"
 
 #: templates/listings/saved_searches.html:126
 msgid "Išsaugotų paieškų nėra"
@@ -21052,15 +21052,15 @@ msgstr ""
 
 #: templates/listings/saved_searches.html:158
 msgid "Išsaugoti"
-msgstr ""
+msgstr "Save"
 
 #: templates/listings/saved_searches.html:166
 msgid "Atidaryti"
-msgstr ""
+msgstr "Open"
 
 #: templates/listings/saved_searches.html:187
 msgid "Paskutinių paieškų nėra"
-msgstr ""
+msgstr "No recent searches"
 
 #: templates/listings/saved_searches.html:188
 msgid ""

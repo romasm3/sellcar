@@ -1213,7 +1213,22 @@ def _skaicius(reiksme):
 
 
 def _lt(reiksme):
-    return _LT_REIKSMES.get(str(reiksme), str(reiksme))
+    """Reikšmės pavadinimas aktyvia kalba.
+
+    Pirmiausia bandom katalogą (ten yra ir „Petrol" → „Benzinas", ir
+    angliškos formos), o savas žodynas lieka atsargai tiems DB tekstams,
+    kurių kataloge dar nėra. Anksčiau čia visada grąžindavom lietuvišką
+    variantą, todėl angliškoje versijoje santraukos likdavo lietuviškos.
+    """
+    from django.utils.translation import get_language, gettext
+
+    tekstas = str(reiksme)
+    isverstas = gettext(tekstas)
+    if isverstas != tekstas:
+        return isverstas
+    if (get_language() or '').split('-')[0] == 'lt':
+        return _LT_REIKSMES.get(tekstas, tekstas)
+    return tekstas
 
 
 def _kategorijos_vardas(kat):
@@ -1227,7 +1242,9 @@ def _kategorijos_vardas(kat):
     from .search_config import panels as panel_mod
     p = panel_mod.PANELS.get(kat)
     if p and p.get('name'):
-        return p['name']
+        # Vardas konfigūracijoje lietuviškas — verčiam aktyvia kalba
+        from django.utils.translation import gettext
+        return gettext(p['name'])
     from .models import VehicleType
     vt = VehicleType.objects.filter(slug=kat).first()
     return vt.name if vt else str(kat)
@@ -1381,6 +1398,8 @@ def _filtru_santrauka(params, riba=None):
         lbl, rusis, eile = etiketes.get(k, (None, 'val', 9999))
         if not lbl:
             continue
+        from django.utils.translation import gettext
+        lbl = gettext(lbl)
         reiksmes = ', '.join(_sarasu(v))
         if rusis == 'min':
             likę.append((eile, '%s %s %s' % (lbl, _('nuo'), reiksmes)))
