@@ -68,33 +68,6 @@ veda į tą pačią panelę per ?section= ir neša jau pasirinktus filtrus.
     <div class="hidden sm:block"></div>
   {% endif %}{% endfor %}
   </div>
-
-  {% if panel.pair_model %}
-  {% comment %}Kelios markės/modeliai — kaip detalioje paieškoje, tik
-  kompaktiškai: mygtukas atveria papildomas poras (brand/model parametrai
-  eilių tvarka, žr. views.taikyti_markiu_poras).{% endcomment %}
-  <div x-data="{ poros: {{ request.GET|get_list:panel.pair_brand.param|length|default:1 }} }">
-    <button type="button" x-show="poros < 3" @click="poros++"
-            class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900">
-      + {% trans "Pridėti daugiau markių/modelių" %}
-    </button>
-    {% for nr in '12'|make_list %}
-    <div x-show="poros > {{ forloop.counter }}" x-cloak data-pair-row
-         class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-3">
-      {% include 'listings/partials/fields/_brand.html' with f=panel.pair_brand cur_fixed=1 cur_val=request.GET|get_list:panel.pair_brand.param|index:forloop.counter %}
-      <div class="flex gap-2 items-end">
-        <div class="flex-1">
-          {% include 'listings/partials/fields/_model.html' with f=panel.pair_model cur_fixed=1 cur_val=request.GET|get_list:panel.pair_model.param|index:forloop.counter %}
-        </div>
-        <button type="button" class="pair-x-sm"
-                @click="$el.closest('[data-pair-row]').querySelectorAll('input[type=hidden]').forEach(i => i.value = '');
-                        poros = Math.max(1, poros - 1);
-                        if (typeof refreshCount === 'function') refreshCount(0)">✕</button>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
   {% endfor %}
 
   {% comment %} Kategorijos, kurios po konfigūracijos laukų dar turi savo blokų

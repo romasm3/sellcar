@@ -1523,6 +1523,16 @@ function setupSidebarAutoRefresh() {
     var sidebarForm = document.getElementById('sidebarForm');
     if (!sidebarForm) return;
 
+    // Markė ir modelis gyvena paslėptuose laukuose (Alpine valdikliai),
+    // todėl jų pasirinkimas ateina kaip 'change' nuo hidden input'o.
+    var POROS = ['brand', 'model', 'motorcycle_brand', 'motorcycle_model', 'truck_brand'];
+    sidebarForm.addEventListener('change', function (e) {
+        var t = e.target;
+        if (t && t.type === 'hidden' && POROS.indexOf(t.name) !== -1) {
+            sidebarForm.submit();
+        }
+    });
+
     // Checkbox + select → momentinis submit
     sidebarForm.querySelectorAll('input[type="checkbox"], select').forEach(function(el) {
         // Praleisk hidden inputs ir fuel_type_chk (jis turi savo handler'į)

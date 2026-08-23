@@ -763,6 +763,10 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
         'sub_slug': sub_slug,
         'label': _(cat['name']),
         'fields': fields,
+        # Markės/modelio pora — kur ji yra, ten galima pridėti daugiau porų
+        # (detali paieška ir rezultatų šoninė juosta).
+        'pair_brand': next((f for f in fields if f.get('widget') == 'brand'), None),
+        'pair_model': next((f for f in fields if f.get('widget') == 'model'), None),
         'rows': _layout_rows(cat, fields),
         'equipment': eq_items,
         'equipment_label': eq_section,

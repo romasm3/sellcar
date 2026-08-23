@@ -381,9 +381,13 @@ if (!window.brandField) {
         // Paslėptą lauką keičia Alpine (:value), o toks keitimas 'change'
         // įvykio nekelia — be jo detalios paieškos „Ieškoti N" skaičius
         // neatsinaujintų pasirinkus markę ar modelį.
-        var el = this.$el;
+        // $root — komponento šaknis (o ne paspaustas punktas, kurį rodo $el).
+        var sakn = this.$root || this.$el;
         setTimeout(function () {
-          el.dispatchEvent(new Event('change', { bubbles: true }));
+          // Įvykį keliam nuo paties paslėpto lauko — taip klausytojai
+          // (detali paieška, šoninė juosta) žino, kuris filtras pasikeitė.
+          var hidden = sakn.querySelector('input[type="hidden"]') || sakn;
+          hidden.dispatchEvent(new Event('change', { bubbles: true }));
         }, 0);
       }
     };
@@ -495,9 +499,13 @@ if (!window.modelField) {
         // Paslėptą lauką keičia Alpine (:value), o toks keitimas 'change'
         // įvykio nekelia — be jo detalios paieškos „Ieškoti N" skaičius
         // neatsinaujintų pasirinkus markę ar modelį.
-        var el = this.$el;
+        // $root — komponento šaknis (o ne paspaustas punktas, kurį rodo $el).
+        var sakn = this.$root || this.$el;
         setTimeout(function () {
-          el.dispatchEvent(new Event('change', { bubbles: true }));
+          // Įvykį keliam nuo paties paslėpto lauko — taip klausytojai
+          // (detali paieška, šoninė juosta) žino, kuris filtras pasikeitė.
+          var hidden = sakn.querySelector('input[type="hidden"]') || sakn;
+          hidden.dispatchEvent(new Event('change', { bubbles: true }));
         }, 0);
       }
     };
