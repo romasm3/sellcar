@@ -426,7 +426,7 @@
      "db_field": "range_km",
      "param": null,
      "multi": false,
-     "active": true,
+     "active": false,
      "param_min": "range_min",
      "param_max": "range_max"
     },
@@ -2100,9 +2100,6 @@
      "Metai",
      "Kaina",
      "Kuro tipas"
-    ],
-    [
-     "Rida su vienu įkrovimu, km"
     ],
     [
      "Kėbulo tipas",

@@ -178,17 +178,6 @@
           </div>
           {% endfor %}
 
-          {# ── Rūšiavimas — savo eilutėje, pirmame stulpelyje ── #}
-          <div class="ag-row">
-            <div class="ag-cell">
-              <label class="block text-[12.5px] font-bold mb-[5px]">{% trans "Rūšiavimas" %}</label>
-              <div class="sp-sel">
-                <select name="sort" class="sp-fld">
-                  {% for v, l in adv.sort_options %}<option value="{{ v }}" {% if request.GET.sort == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
-                </select>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
