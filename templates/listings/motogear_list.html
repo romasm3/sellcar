@@ -210,6 +210,7 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- SIDEBAR LAYOUT                           -->
     <!-- ═══════════════════════════════════════ -->
+    {% include 'listings/partials/_sp_field_styles.html' %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         {# ─── Header ─── #}
@@ -218,10 +219,6 @@
                 <h1 class="text-2xl font-bold text-gray-900">{% trans "Moto Gear & Accessories" %}</h1>
                 <p class="text-sm text-gray-600 mt-1">{% blocktrans with count=total_count %}Found {{ count }} listings{% endblocktrans %}</p>
             </div>
-            <a href="{% url 'motogear_listing_create' %}?new=1"
-               class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
-                <i class="fas fa-plus"></i> {% trans "Sell moto gear" %}
-            </a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -229,158 +226,37 @@
             {# ═══════════════════════════════════════════════════════ #}
             {#  SIDEBAR — FILTERS                                      #}
             {# ═══════════════════════════════════════════════════════ #}
-            <aside class="lg:col-span-1 space-y-4">
-                <form method="GET" id="filterForm" class="space-y-4">
+            <aside class="w-full lg:col-span-1 no-print">
+                {% comment %}Filtrai — tie patys bendri laukų šablonai
+                (partials/fields/*), kaip visų kitų kategorijų šoninėje
+                juostoje: išskleidžiami sąrašai su žymimais langeliais,
+                ne multi-select „Ctrl" sąrašas ir ne mygtukų tinklelis.{% endcomment %}
+                <form method="GET" id="filterForm" class="sp-side-card flex flex-col gap-y-3">
                     <input type="hidden" name="sidebar" value="1">
                     <input type="hidden" name="category" value="moto-gear">
 
-                    {# Search #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">{% trans "Search" %}</label>
-                        <input type="text" name="search" value="{{ search_query|default:'' }}"
-                               placeholder="{% trans 'Brand, model, keyword...' %}"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                    </div>
-
-                    {# Category checkboxes #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Category" %}</h3>
-                        <div class="space-y-2 max-h-60 overflow-y-auto">
-                            {% for sub in gear_subcategories %}
-                            <label class="flex items-center justify-between text-sm cursor-pointer">
-                                <span class="flex items-center gap-2">
-                                    <input type="checkbox" name="subcategory" value="{{ sub.id }}"
-                                           {% if sub.id|stringformat:"s" in selected_subcategories %}checked{% endif %}
-                                           class="w-4 h-4 text-primary rounded">
-                                    <span class="text-gray-700">{{ sub.name }}</span>
-                                </span>
-                                <span class="text-gray-400 text-xs">{{ sub.listings_count|default:0 }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    {# Manufacturer dropdown #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Manufacturer" %}</h3>
-                        <select name="gear_brand" multiple size="6"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                            {% for brand in gear_brands %}
-                            <option value="{{ brand.id }}"
-                                    {% if brand.id|stringformat:"s" in selected_brands %}selected{% endif %}>
-                                {{ brand.name }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                        <p class="text-xs text-gray-400 mt-1">{% trans "Hold Ctrl/Cmd for multiple" %}</p>
-                    </div>
-
-                    {# Size #}
-                    {% if gear_size_choices %}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Size" %}</h3>
-                        <div class="grid grid-cols-3 gap-1">
-                            {% for value, label in gear_size_choices %}
-                            <label class="flex items-center justify-center text-xs cursor-pointer border border-gray-200 rounded px-2 py-1 hover:border-primary transition-colors {% if value in selected_sizes %}bg-primary text-white border-primary{% endif %}">
-                                <input type="checkbox" name="gear_size" value="{{ value }}"
-                                       {% if value in selected_sizes %}checked{% endif %}
-                                       class="hidden">
-                                {{ label }}
-                            </label>
-                            {% endfor %}
-                        </div>
-                    </div>
+                    {% for f in sidebar_fields %}
+                    <div class="sp-ctl">
+                    {% if f.type == 'range' %}
+                        {% include 'listings/partials/fields/_range.html' with f=f %}
+                    {% elif f.type == 'text' %}
+                        {% include 'listings/partials/fields/_text.html' with f=f %}
+                    {% elif f.type == 'multiselect' %}
+                        {% include 'listings/partials/fields/_multiselect.html' with f=f %}
+                    {% else %}
+                        {% include 'listings/partials/fields/_select.html' with f=f %}
                     {% endif %}
-
-                    {# Material #}
-                    {% if gear_material_choices %}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Material" %}</h3>
-                        <div class="space-y-1.5">
-                            {% for value, label in gear_material_choices %}
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="checkbox" name="gear_material" value="{{ value }}"
-                                       {% if value in selected_materials %}checked{% endif %}
-                                       class="w-4 h-4 mr-2 text-primary rounded">
-                                <span class="text-gray-700">{{ label }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
                     </div>
-                    {% endif %}
+                    {% endfor %}
 
-                    {# Gender #}
-                    {% if gear_gender_choices %}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Gender" %}</h3>
-                        <div class="space-y-1.5">
-                            {% for value, label in gear_gender_choices %}
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="checkbox" name="gear_gender" value="{{ value }}"
-                                       {% if value in selected_genders %}checked{% endif %}
-                                       class="w-4 h-4 mr-2 text-primary rounded">
-                                <span class="text-gray-700">{{ label }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    {# Condition #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Condition" %}</h3>
-                        <div class="space-y-1.5">
-                            {% for value, label in condition_choices %}
-                            <label class="flex items-center text-sm cursor-pointer">
-                                <input type="checkbox" name="condition" value="{{ value }}"
-                                       {% if value in selected_conditions %}checked{% endif %}
-                                       class="w-4 h-4 mr-2 text-primary rounded">
-                                <span class="text-gray-700">{{ label }}</span>
-                            </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    {# Price range #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Price (€)" %}</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="number" name="price_min" placeholder="{% trans 'Min' %}"
-                                   value="{{ request.GET.price_min|default:'' }}"
-                                   class="px-2 py-2 border border-gray-300 rounded-lg text-sm">
-                            <input type="number" name="price_max" placeholder="{% trans 'Max' %}"
-                                   value="{{ request.GET.price_max|default:'' }}"
-                                   class="px-2 py-2 border border-gray-300 rounded-lg text-sm">
-                        </div>
-                    </div>
-
-                    {# Country / State #}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                        <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Location" %}</h3>
-                        <select name="country_filter"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2">
-                            <option value="">{% trans "All countries" %}</option>
-                            {% for code, name in country_choices %}
-                            <option value="{{ code }}" {% if selected_country == code %}selected{% endif %}>{{ name }}</option>
-                            {% endfor %}
-                        </select>
-                        <select name="state_filter"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                            <option value="">{% trans "All US states" %}</option>
-                            {% for code, name in us_states %}
-                            <option value="{{ code }}" {% if selected_state == code %}selected{% endif %}>{{ name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 pt-1">
                         <button type="submit"
                                 class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark text-sm font-medium">
-                            {% trans "Apply filters" %}
+                            {% trans "Ieškoti" %}
                         </button>
-                        <a href="?category=moto-gear"
+                        <a href="?sidebar=1"
                            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">
-                            {% trans "Reset" %}
+                            {% trans "Išvalyti" %}
                         </a>
                     </div>
                 </form>

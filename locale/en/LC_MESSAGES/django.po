@@ -8178,7 +8178,7 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:108
 #: templates/listings/partials/_panel_bodies.html:95
 msgid "Pagamintas iš"
-msgstr "Made from"
+msgstr "Material"
 
 #: apps/listings/translatable_db.py:871
 msgid "Pagrindinis galinių durų stiklas"
@@ -10654,7 +10654,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1510
 msgid "Vyriškas/moteriškas"
-msgstr ""
+msgstr "Gender"
 
 #: apps/listings/translatable_db.py:1511
 msgid "Vėjo deflektorius"
@@ -22719,3 +22719,7 @@ msgstr "Choose an extension plan"
 #: templates/listings/select_value.html
 msgid "Gerai"
 msgstr "Done"
+
+#: apps/listings/motogear_views.py
+msgid "Markė, modelis, raktažodis..."
+msgstr "Brand, model, keyword..."

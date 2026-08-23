@@ -127,11 +127,20 @@ FK_CHOICE_FIELDS = {'fuel_type': 'FuelType', 'transmission': 'Transmission'}
 def _fk_options(db_field, config_options=None):
     from apps.listings import models as m
     from django.utils.translation import gettext
+    from django.utils import translation
     model = getattr(m, FK_CHOICE_FIELDS[db_field])
-    rows = [(o.pk, gettext(o.name)) for o in model.objects.all()]
+    objs = list(model.objects.all())
+    # Etalono `options` yra LIETUVIŠKI, todėl atranka visada daroma pagal
+    # lietuvišką etiketę — nesvarbu, kuria kalba žiūrima. Anksčiau lyginta
+    # su aktyvios kalbos vertimu: angliškoje versijoje niekas nesutapdavo,
+    # subset likdavo tuščias ir grįždavo VISOS DB reikšmės (EN rodydavo
+    # 13 kuro rūšių ir 4 pavarų dėžes vietoj etalono 12 ir 2).
+    with translation.override('lt'):
+        lt_etiketes = {o.pk: gettext(o.name) for o in objs}
+    rows = [(o.pk, gettext(o.name)) for o in objs]
     if config_options:
         wanted = {str(o).strip() for o in config_options}
-        subset = [r for r in rows if r[1] in wanted]
+        subset = [r for r in rows if lt_etiketes[r[0]] in wanted]
         if subset:
             rows = subset
     return sorted(rows, key=lambda r: r[1])
