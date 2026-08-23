@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 16:21:45 CEST
+Sugeneruota: 2026-08-23 16:23:31 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001189s
+HTTP 301, 0.001206s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:45 vmi3306453 autoleft-deploy[4177385]: [2026-08-23 16:18:45] === Naujų commit'ų rasta: 7e04dd8 → 62c5b05 ===
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:45 vmi3306453 autoleft-deploy[4177399]:     62c5b05 fix(paieska): „Detali paieška" telefone — laukai su reikšmių ekranais
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:45 vmi3306453 autoleft-deploy[4177385]: [2026-08-23 16:18:45] Kodas atnaujintas iki 62c5b05
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:51 vmi3306453 autoleft-deploy[4177385]: [2026-08-23 16:18:51] Patikra praėjo
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:51 vmi3306453 autoleft-deploy[4177473]: [16:18:51] === Deploy pradžia (20260823_161851) ===
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:53 vmi3306453 autoleft-deploy[4177473]: [16:18:53] DB dumpas: /root/autoleft_backups/db_20260823_161851.sql
@@ -82,4 +79,7 @@ Aug 23 16:20:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 23 16:20:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 16:20:32 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.156s CPU time.
 Aug 23 16:21:44 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 16:21:46 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 16:21:46 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 16:23:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
