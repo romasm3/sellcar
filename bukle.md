@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 13:16:13 CEST
+Sugeneruota: 2026-08-23 13:17:15 CEST
 
 ## Kodas
 
@@ -8,7 +8,8 @@ Sugeneruota: 2026-08-23 13:16:13 CEST
 sukasi:      38067e8 feat(i18n): ETAPAS 1 — vieši puslapiai angliškai
 origin/master: 38067e8 feat(i18n): ETAPAS 1 — vieši puslapiai angliškai
 šaka:        master
-darbo katalogas: švarus
+DĖMESIO: darbo katalogas nešvarus —
+   M templates/listings/wheels_create.html
 ```
 
 ## Servisai
@@ -23,7 +24,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001087s
+HTTP 301, 0.000940s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +58,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 13:06:34 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 23 13:06:34 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 23 13:07:40 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 13:07:42 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 13:07:42 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 13:08:48 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -82,4 +80,7 @@ Aug 23 13:14:50 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 13:14:52 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 13:14:52 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 13:16:12 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 13:16:14 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 13:16:14 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 13:17:14 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
