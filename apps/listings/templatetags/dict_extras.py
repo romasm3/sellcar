@@ -235,12 +235,25 @@ def skelbimu(kiek):
     """Lietuviška daugiskaita: 1 skelbimas · 2–9 skelbimai · 0, 10–20 skelbimų.
 
     Django `pluralize` moka tik dvi formas, o lietuvių kalboje jų trys,
-    todėl skaičiuojam patys (kaip ir kitur sąrašuose).
+    todėl lietuviškai skaičiuojam patys. Kitomis kalbomis grąžinam
+    verčiamą žodį — kitaip angliškoje versijoje kabotų „skelbimų".
     """
+    from django.utils.translation import get_language, ngettext
+
     try:
         n = int(kiek)
     except (TypeError, ValueError):
-        return 'skelbimų'
+        n = 0
+
+    if (get_language() or '').split('-')[0] != 'lt':
+        return ngettext('ad', 'ads', n)
+
+    šimtai, vienetai = n % 100, n % 10
+    if vienetai == 1 and šimtai != 11:
+        return 'skelbimas'
+    if 2 <= vienetai <= 9 and not 11 <= šimtai <= 19:
+        return 'skelbimai'
+    return 'skelbimų'
     šimtai = n % 100
     vienetai = n % 10
     if vienetai == 1 and šimtai != 11:

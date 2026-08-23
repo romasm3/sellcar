@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 12:53+0300\n"
+"POT-Creation-Date: 2026-08-23 13:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2463,7 +2463,7 @@ msgstr "Motociklų dalys"
 msgid "Platforma"
 msgstr "Platformos"
 
-#: apps/listings/models.py:842
+#: apps/listings/models.py:842 apps/listings/translatable_db.py:1529
 msgid "Šaldytuvas"
 msgstr "Šaldytuvas"
 
@@ -2571,7 +2571,7 @@ msgstr "Paskirtis"
 #: apps/listings/models.py:874 apps/listings/models.py:970
 #: apps/listings/models.py:1087 apps/listings/models.py:1145
 #: apps/listings/models.py:1195 apps/listings/models.py:1219
-#: apps/listings/models.py:1271
+#: apps/listings/models.py:1271 apps/listings/translatable_db.py:797
 #: templates/listings/agriculture_listing_create.html:82
 #: templates/listings/camping_listing_create.html:67
 #: templates/listings/construction_listing_create.html:66
@@ -2642,7 +2642,8 @@ msgstr "Bendras ratų skaičius"
 msgid "Ašys (gamintojas)"
 msgstr "Gamintojas"
 
-#: apps/listings/models.py:889 templates/listings/listing_detail.html:1380
+#: apps/listings/models.py:889 apps/listings/translatable_db.py:314
+#: templates/listings/listing_detail.html:1380
 #: templates/listings/listing_detail.html:1429
 #: templates/listings/partials/_panel_bodies.html:625
 #: templates/listings/trailers_listing_create.html:143
@@ -2879,7 +2880,7 @@ msgstr "Padangos"
 msgid "Savaeigė"
 msgstr "Savaeigė"
 
-#: apps/listings/models.py:967
+#: apps/listings/models.py:967 apps/listings/translatable_db.py:867
 #: templates/listings/agriculture_listing_create.html:62
 #: templates/listings/listing_detail.html:1272
 msgid "Padargas / Savaeigė"
@@ -3329,7 +3330,8 @@ msgstr ""
 msgid "Rankinis"
 msgstr "Ritininis"
 
-#: apps/listings/models.py:1149 templates/listings/listing_detail.html:1005
+#: apps/listings/models.py:1149 apps/listings/translatable_db.py:502
+#: templates/listings/listing_detail.html:1005
 #: templates/listings/loading_equipment_create.html:197
 msgid "Energijos šaltinis"
 msgstr "Energijos šaltinis"
@@ -3424,7 +3426,7 @@ msgstr ""
 msgid "Prikabinamas namelis"
 msgstr ""
 
-#: apps/listings/models.py:1222
+#: apps/listings/models.py:1222 apps/listings/translatable_db.py:1384
 #: templates/listings/camping_listing_create.html:138
 #: templates/listings/listing_detail.html:678
 msgid "Tinka su B kat. teisėmis"
@@ -3485,7 +3487,8 @@ msgstr ""
 msgid "Nuomos kaina valandai"
 msgstr ""
 
-#: apps/listings/models.py:1280 templates/listings/rental_car_create.html:141
+#: apps/listings/models.py:1280 apps/listings/translatable_db.py:1349
+#: templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
 msgstr ""
@@ -3674,6 +3677,7 @@ msgid "Video registratorius"
 msgstr ""
 
 #: apps/listings/models.py:1363 apps/listings/translatable_db.py:182
+#: apps/listings/translatable_db.py:1574
 msgid "Žemų dažnių garsiakalbis"
 msgstr ""
 
@@ -3724,7 +3728,7 @@ msgstr ""
 msgid "Maksimalus greitis, km/h"
 msgstr ""
 
-#: apps/listings/models.py:1419
+#: apps/listings/models.py:1419 apps/listings/translatable_db.py:1213
 #: templates/listings/bicycles_listing_create.html:132
 msgid "Rida su vienu įkrovimu, km"
 msgstr ""
@@ -3738,18 +3742,18 @@ msgstr ""
 msgid "Baterijos talpos likutis, %"
 msgstr ""
 
-#: apps/listings/models.py:1434
+#: apps/listings/models.py:1434 apps/listings/translatable_db.py:1514
 #: templates/listings/bicycles_listing_create.html:179
 msgid "Įkrovimo laikas, val."
 msgstr ""
 
-#: apps/listings/models.py:1438
+#: apps/listings/models.py:1438 apps/listings/translatable_db.py:866
 #: templates/listings/bicycles_listing_create.html:185
 #: templates/listings/listing_detail.html:240
 msgid "Padangų tipas"
 msgstr ""
 
-#: apps/listings/models.py:1443
+#: apps/listings/models.py:1443 apps/listings/translatable_db.py:1203
 #: templates/listings/bicycles_listing_create.html:194
 msgid "Ratų skersmuo, coliais"
 msgstr ""
@@ -3825,7 +3829,7 @@ msgstr "Pirmosios registracijos data"
 msgid "Kuro tipas"
 msgstr "Kuro tipas"
 
-#: apps/listings/models.py:1472
+#: apps/listings/models.py:1472 apps/listings/translatable_db.py:926
 #: templates/listings/camping_listing_create.html:291
 #: templates/listings/listing_detail.html:577
 #: templates/listings/listing_detail.html:739
@@ -3835,7 +3839,8 @@ msgstr "Kuro tipas"
 msgid "Pavarų dėžė"
 msgstr ""
 
-#: apps/listings/models.py:1474 templates/listings/listing_detail.html:541
+#: apps/listings/models.py:1474 apps/listings/translatable_db.py:756
+#: templates/listings/listing_detail.html:541
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
@@ -3853,7 +3858,8 @@ msgstr "Sunkvežimio tipas"
 msgid "Color (custom)"
 msgstr "Spalva (kita)"
 
-#: apps/listings/models.py:1494 templates/listings/listing_detail.html:545
+#: apps/listings/models.py:1494 apps/listings/translatable_db.py:463
+#: templates/listings/listing_detail.html:545
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
 msgstr ""
@@ -4740,6 +4746,14 @@ msgstr ""
 msgid "Paslaugos tipas yra privalomas"
 msgstr ""
 
+#: apps/listings/templatetags/dict_extras.py:249
+msgid "ad"
+msgid_plural "ads"
+msgstr[0] "skelbimas"
+msgstr[1] "skelbimai"
+msgstr[2] ""
+msgstr[3] ""
+
 #: apps/listings/trailers_views.py:227
 msgid "Priekabų kategorija nesukonfigūruota."
 msgstr "Priekabų kategorija nesukonfigūruota."
@@ -5277,7 +5291,7 @@ msgstr ""
 msgid "AUX jungtis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:79
+#: apps/listings/translatable_db.py:79 apps/listings/translatable_db.py:206
 msgid "Aklosios zonos stebėjimo sistema"
 msgstr ""
 
@@ -5289,7 +5303,7 @@ msgstr ""
 msgid "Atsarginis ratas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:82
+#: apps/listings/translatable_db.py:82 apps/listings/translatable_db.py:264
 msgid "Atstumo jutiklių sistema"
 msgstr ""
 
@@ -5305,23 +5319,23 @@ msgstr ""
 msgid "Automatinio parkavimo sistema"
 msgstr ""
 
-#: apps/listings/translatable_db.py:86
+#: apps/listings/translatable_db.py:86 apps/listings/translatable_db.py:279
 msgid "Automatiškai užsilenkiantys veidrodėliai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:87
+#: apps/listings/translatable_db.py:87 apps/listings/translatable_db.py:280
 msgid "Automatiškai įsijungiantys žibintai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:88
+#: apps/listings/translatable_db.py:88 apps/listings/translatable_db.py:283
 msgid "Automobilis iš Amerikos"
 msgstr ""
 
-#: apps/listings/translatable_db.py:89
+#: apps/listings/translatable_db.py:89 apps/listings/translatable_db.py:294
 msgid "Autonominis šildymas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:90
+#: apps/listings/translatable_db.py:90 apps/listings/translatable_db.py:297
 msgid "Autopilotas (kruizo kontrolė)"
 msgstr ""
 
@@ -5329,7 +5343,7 @@ msgstr ""
 msgid "Avarinio stabdymo sistema"
 msgstr ""
 
-#: apps/listings/translatable_db.py:92
+#: apps/listings/translatable_db.py:92 apps/listings/translatable_db.py:338
 msgid "Bagažinės uždangalas"
 msgstr ""
 
@@ -5337,7 +5351,7 @@ msgstr ""
 msgid "Baterijos garantija"
 msgstr ""
 
-#: apps/listings/translatable_db.py:94
+#: apps/listings/translatable_db.py:94 apps/listings/translatable_db.py:348
 msgid "Beraktė užvedimo sistema"
 msgstr ""
 
@@ -5353,11 +5367,11 @@ msgstr ""
 msgid "Daugiafunkcinis vairas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:101
+#: apps/listings/translatable_db.py:101 apps/listings/translatable_db.py:444
 msgid "Dinaminis posūkių apšvietimas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:102
+#: apps/listings/translatable_db.py:102 apps/listings/translatable_db.py:456
 msgid "Durelių pritraukimas"
 msgstr ""
 
@@ -5373,27 +5387,27 @@ msgstr ""
 msgid "El. langai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:106
+#: apps/listings/translatable_db.py:106 apps/listings/translatable_db.py:483
 msgid "El. reguliuojami veidrodėliai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:107
+#: apps/listings/translatable_db.py:107 apps/listings/translatable_db.py:486
 msgid "Elektra reguliuojama vairo padėtis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:108
+#: apps/listings/translatable_db.py:108 apps/listings/translatable_db.py:487
 msgid "Elektra valdomas bagažinės dangtis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:109
+#: apps/listings/translatable_db.py:109 apps/listings/translatable_db.py:488
 msgid "Elektra valdomos sėdynės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:110
+#: apps/listings/translatable_db.py:110 apps/listings/translatable_db.py:489
 msgid "Elektra valdomos sėdynės su atmintimi"
 msgstr ""
 
-#: apps/listings/translatable_db.py:111
+#: apps/listings/translatable_db.py:111 apps/listings/translatable_db.py:490
 msgid "Elektra šildomas priekinis stiklas"
 msgstr ""
 
@@ -5425,19 +5439,19 @@ msgstr ""
 msgid "Kablys"
 msgstr ""
 
-#: apps/listings/translatable_db.py:119
+#: apps/listings/translatable_db.py:119 apps/listings/translatable_db.py:697
 msgid "Keli raktų komplektai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:120
+#: apps/listings/translatable_db.py:120 apps/listings/translatable_db.py:698
 msgid "Kelio ženklų atpažinimo sistema"
 msgstr ""
 
-#: apps/listings/translatable_db.py:121
+#: apps/listings/translatable_db.py:121 apps/listings/translatable_db.py:732
 msgid "Klimato kontrolė"
 msgstr ""
 
-#: apps/listings/translatable_db.py:122
+#: apps/listings/translatable_db.py:122 apps/listings/translatable_db.py:743
 msgid "Kritulių jutiklis"
 msgstr ""
 
@@ -5445,15 +5459,15 @@ msgstr ""
 msgid "LCD ekranas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:124
+#: apps/listings/translatable_db.py:124 apps/listings/translatable_db.py:758
 msgid "LED dienos žibintai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:125
+#: apps/listings/translatable_db.py:125 apps/listings/translatable_db.py:761
 msgid "LED žibintai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:126
+#: apps/listings/translatable_db.py:126 apps/listings/translatable_db.py:770
 msgid "Laisvų rankų įranga"
 msgstr ""
 
@@ -5465,7 +5479,7 @@ msgstr ""
 msgid "Lietuvoje neeksploatuotas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:129
+#: apps/listings/translatable_db.py:129 apps/listings/translatable_db.py:789
 msgid "Liečiamas ekranas"
 msgstr ""
 
@@ -5473,11 +5487,11 @@ msgstr ""
 msgid "MP3 grotuvas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:131
+#: apps/listings/translatable_db.py:131 apps/listings/translatable_db.py:798
 msgid "Masažinės sėdynės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:132
+#: apps/listings/translatable_db.py:132 apps/listings/translatable_db.py:799
 msgid "Matriciniai žibintai"
 msgstr ""
 
@@ -5489,11 +5503,11 @@ msgstr ""
 msgid "Navigacija/GPS"
 msgstr ""
 
-#: apps/listings/translatable_db.py:135
+#: apps/listings/translatable_db.py:135 apps/listings/translatable_db.py:826
 msgid "Nuotolinis užvedimas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:136
+#: apps/listings/translatable_db.py:136 apps/listings/translatable_db.py:827
 msgid "Nuovargio įspėjimo sistema"
 msgstr ""
 
@@ -5505,11 +5519,11 @@ msgstr ""
 msgid "Oro kondicionierius"
 msgstr ""
 
-#: apps/listings/translatable_db.py:139
+#: apps/listings/translatable_db.py:139 apps/listings/translatable_db.py:854
 msgid "Oro pagalvės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:140
+#: apps/listings/translatable_db.py:140 apps/listings/translatable_db.py:864
 msgid "Padangų slėgio stebėjimo sistema"
 msgstr ""
 
@@ -5517,11 +5531,11 @@ msgstr ""
 msgid "Padidinta variklio galia"
 msgstr ""
 
-#: apps/listings/translatable_db.py:142
+#: apps/listings/translatable_db.py:142 apps/listings/translatable_db.py:868
 msgid "Pagalbos iškvietimo sistema (eCall)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:143
+#: apps/listings/translatable_db.py:143 apps/listings/translatable_db.py:882
 msgid "Palydovinė sekimo sistema"
 msgstr ""
 
@@ -5529,7 +5543,7 @@ msgstr ""
 msgid "Panoraminis stogas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:145
+#: apps/listings/translatable_db.py:145 apps/listings/translatable_db.py:891
 msgid "Papildoma audio įranga"
 msgstr ""
 
@@ -5537,15 +5551,15 @@ msgstr ""
 msgid "Parduodama lizingu"
 msgstr ""
 
-#: apps/listings/translatable_db.py:147
+#: apps/listings/translatable_db.py:147 apps/listings/translatable_db.py:903
 msgid "Paruoštas autosportui"
 msgstr ""
 
-#: apps/listings/translatable_db.py:148
+#: apps/listings/translatable_db.py:148 apps/listings/translatable_db.py:940
 msgid "Pavarų perjungimas prie vairo"
 msgstr ""
 
-#: apps/listings/translatable_db.py:149
+#: apps/listings/translatable_db.py:149 apps/listings/translatable_db.py:971
 msgid "Pneumatinė pakaba"
 msgstr ""
 
@@ -5553,15 +5567,15 @@ msgstr ""
 msgid "Priekinio vaizdo kamera"
 msgstr ""
 
-#: apps/listings/translatable_db.py:151
+#: apps/listings/translatable_db.py:151 apps/listings/translatable_db.py:1037
 msgid "Priekinių žibintų plovimo įtaisas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:152
+#: apps/listings/translatable_db.py:152 apps/listings/translatable_db.py:1092
 msgid "Pritaikytas neįgaliems"
 msgstr ""
 
-#: apps/listings/translatable_db.py:153
+#: apps/listings/translatable_db.py:153 apps/listings/translatable_db.py:1093
 msgid "Pritemstantis veidrodėlis"
 msgstr ""
 
@@ -5569,11 +5583,11 @@ msgstr ""
 msgid "Projekcinis ekranas ant stiklo (HUD)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:155
+#: apps/listings/translatable_db.py:155 apps/listings/translatable_db.py:1222
 msgid "Rūko žibintai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:156
+#: apps/listings/translatable_db.py:156 apps/listings/translatable_db.py:1253
 msgid "Serviso knygelė"
 msgstr ""
 
@@ -5581,7 +5595,7 @@ msgstr ""
 msgid "Signalizacija/Imobilaizeris"
 msgstr ""
 
-#: apps/listings/translatable_db.py:158
+#: apps/listings/translatable_db.py:158 apps/listings/translatable_db.py:1257
 msgid "Skaitmeninis prietaisų skydelis"
 msgstr ""
 
@@ -5589,7 +5603,7 @@ msgstr ""
 msgid "Skelbimas su VIN"
 msgstr "Skelbimas su VIN"
 
-#: apps/listings/translatable_db.py:160
+#: apps/listings/translatable_db.py:160 apps/listings/translatable_db.py:1295
 msgid "Sportinės sėdynės"
 msgstr ""
 
@@ -5601,11 +5615,11 @@ msgstr ""
 msgid "Stoglangis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:163
+#: apps/listings/translatable_db.py:163 apps/listings/translatable_db.py:1339
 msgid "Stogo bagažinės laikikliai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:164
+#: apps/listings/translatable_db.py:164 apps/listings/translatable_db.py:1348
 msgid "Susidūrimo prevencijos sistema"
 msgstr ""
 
@@ -5617,11 +5631,11 @@ msgstr ""
 msgid "Tamsinti stiklai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:167
+#: apps/listings/translatable_db.py:167 apps/listings/translatable_db.py:1385
 msgid "Tolimųjų šviesų asistentas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:168
+#: apps/listings/translatable_db.py:168 apps/listings/translatable_db.py:1388
 msgid "Traukos kontrolės sistema"
 msgstr ""
 
@@ -5641,48 +5655,5426 @@ msgstr ""
 msgid "Valdymas balsu"
 msgstr ""
 
-#: apps/listings/translatable_db.py:173
+#: apps/listings/translatable_db.py:173 apps/listings/translatable_db.py:1467
 msgid "Vasarinių padangų komplektas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:174
+#: apps/listings/translatable_db.py:174 apps/listings/translatable_db.py:1484
 msgid "Veliūro salonas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:175
+#: apps/listings/translatable_db.py:175 apps/listings/translatable_db.py:1490
 msgid "Ventiliuojamos sėdynės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:176
+#: apps/listings/translatable_db.py:176 apps/listings/translatable_db.py:1498
 msgid "Virtualūs veidrodėliai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:177
+#: apps/listings/translatable_db.py:177 apps/listings/translatable_db.py:1513
 msgid "Įkalnės stabdis"
 msgstr ""
 
-#: apps/listings/translatable_db.py:178
+#: apps/listings/translatable_db.py:178 apps/listings/translatable_db.py:1535
 msgid "Šildomas vairas"
 msgstr ""
 
-#: apps/listings/translatable_db.py:179
+#: apps/listings/translatable_db.py:179 apps/listings/translatable_db.py:1536
 msgid "Šildomi veidrodėliai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:180
+#: apps/listings/translatable_db.py:180 apps/listings/translatable_db.py:1538
 msgid "Šildomos sėdynės"
 msgstr ""
 
-#: apps/listings/translatable_db.py:181
+#: apps/listings/translatable_db.py:181 apps/listings/translatable_db.py:1541
 msgid "Šilumos siurblys"
 msgstr ""
 
-#: apps/listings/translatable_db.py:183
+#: apps/listings/translatable_db.py:183 apps/listings/translatable_db.py:1576
 msgid "Žibintai „Xenon“"
 msgstr ""
 
-#: apps/listings/translatable_db.py:184
+#: apps/listings/translatable_db.py:184 apps/listings/translatable_db.py:1593
 msgid "Žieminių padangų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:190
+msgid "(A) statramsčio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:191
+msgid "(B) statramsčio apdaila (apatinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:192
+msgid "(B) statramsčio apdaila (viršutinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:193
+msgid "(C) statramsčio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:194
+msgid "(D) statramsčio apdaila (apatinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:195
+msgid "(D) statramsčio apdaila (viršutinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:196
+msgid "ABS rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:197
+msgid "ACC daviklio grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:198
+msgid "APD hidro transformatorius (automato pūslė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:199
+msgid "AdBlue purkštukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:200
+msgid "AdBlue skysčio bakelio laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:201
+msgid "AdBlue skysčio bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:202
+msgid "AdBlue skysčio tiekimo vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:203
+msgid "AdBlue skysčio užpylimo vamzdis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:204
+msgid "Akinių dėklas/ stalčiukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:205
+msgid "Akinių tipas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:207
+msgid "Aktyvaus stabilizatoriaus valdymo/ vožtuvų blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:208
+msgid "Aktyvaus stabilizatoriaus valdymo/ vožtuvų bloko laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:209
+msgid "Aktyvaus stabilizatoriaus vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:210
+msgid "Aktyvios anglies (degalų garų) filtras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:211
+msgid "Akumuliatoriaus dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:212
+msgid "Akumuliatoriaus saugiklis (rėlė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:213
+msgid "Alkūninio veleno apsukų daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:214
+msgid "Alkūninio veleno dantratis/ skriemulys (paskirstimo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:215
+msgid "Alkūninio veleno laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:216
+msgid "Alkūninio veleno padėties dantratis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:217
+msgid "Alkūninio veleno padėties daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:218
+msgid "Alkūninis velenas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:219
+msgid "Alsuoklio vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:220
+msgid "Alsuoklio žarnos sensorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:221
+msgid "Alsuoklis/ alsuoklio vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:222
+msgid "Amortizatoriaus atrama (kronšteinas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:223
+msgid "Amortizatorius galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:224
+msgid "Amortizatorius variklio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:225
+msgid "Antra eilė sėdynių"
+msgstr ""
+
+#: apps/listings/translatable_db.py:226
+msgid "Antros sėdynių eilės kilimėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:227
+msgid "Apatinis, bagažinės šono, apdailos skydas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:228
+msgid "Apatinė apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:229
+msgid "Apatinė bamperio dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:230
+msgid "Apatinė bamperio dalis (lūpa)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:231
+msgid "Apatinė dalis radiatorių panelės (televizoriaus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:232
+msgid "Apatinė slidė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:233
+msgid "Apdaila aplink degalų bako dangtelį"
+msgstr ""
+
+#: apps/listings/translatable_db.py:234
+msgid "Apdaila bagažinės dangčio (komplektas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:235
+msgid "Apdaila galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:236
+msgid "Apdaila galinių durų (moldingas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:237
+msgid "Apdaila krovinių durų (moldingas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:238
+msgid "Apdaila prie degalų bako dangtelio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:239
+msgid "Apdaila priekinių durų (moldingas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:240
+msgid "Apdaila slankiojančių durų (moldingas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:241
+msgid "Apdaila variklio dangčio spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:242
+msgid "Apdailinė galinio bamperio juosta"
+msgstr ""
+
+#: apps/listings/translatable_db.py:243
+msgid "Apdailinė priekinio bamperio juosta"
+msgstr ""
+
+#: apps/listings/translatable_db.py:244
+msgid "Apdailinė stogo juosta \"moldingas\""
+msgstr ""
+
+#: apps/listings/translatable_db.py:245
+msgid "Apdailos detalės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:246
+msgid "Apmušimas galinių durų (obšifke)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:247
+msgid "Apmušimas priekinių durų (obšifke)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:248
+msgid "Apmušimas slankiojančių durų (obšifke)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:249
+msgid "Apsauginės durų stiklo grotos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:250
+msgid "Apsauginės slankiojančių durų stiklo grotos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:251
+msgid "Apsaugos nuo vaikų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:252
+msgid "Apšildoma kabina"
+msgstr ""
+
+#: apps/listings/translatable_db.py:253
+msgid "Apšvietimo konsolės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:254
+msgid "Atbulinės eigos daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:255
+msgid "Atidarymo rankenėlė (su kamera) galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:256
+msgid "Atidarymo rankenėlė galinio dangčio (išorinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:257
+msgid "Atidarymo rankenėlė galinio dangčio (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:258
+msgid "Atidarymo rankenėlė slankiojančių durų (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:259
+msgid "Atitraukiami šonai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:260
+msgid "Atlenkiamos sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:261
+msgid "Atrama galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:262
+msgid "Atraminė variklio dangčio kojelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:263
+msgid "Atsarginė padanga \"plona\""
+msgstr ""
+
+#: apps/listings/translatable_db.py:265
+msgid "Atveriamas bagažinės dangčio stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:266
+msgid "Atvėrimo rankenėlė galinio borto"
+msgstr ""
+
+#: apps/listings/translatable_db.py:267
+msgid "Audio aparatūra"
+msgstr ""
+
+#: apps/listings/translatable_db.py:268
+msgid "Aukšta kabina"
+msgstr ""
+
+#: apps/listings/translatable_db.py:269
+msgid "Aukštas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:270
+#: templates/listings/partials/_panel_bodies.html:174
+#: templates/listings/partials/_panel_bodies.html:261
+#: templates/listings/partials/_panel_bodies.html:416
+msgid "Aukštis"
+msgstr "Aukštis"
+
+#: apps/listings/translatable_db.py:271
+msgid "Aukštis m"
+msgstr ""
+
+#: apps/listings/translatable_db.py:272
+msgid "Aukšto dažnio garsiakalbis (-iai) priekinėse duryse"
+msgstr ""
+
+#: apps/listings/translatable_db.py:273
+msgid "Aukšto dažnio garsiakalbis galinėse duryse"
+msgstr ""
+
+#: apps/listings/translatable_db.py:274
+msgid "Aukštos įtampos ritė \"babyna\""
+msgstr ""
+
+#: apps/listings/translatable_db.py:275
+msgid "Aukštos įtampos uždegimo laidas (žvaklaidis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:276
+msgid "Aukščio daviklis (priek. žibintų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:277
+msgid "Aukščio daviklis (priekinių žibintų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:278
+msgid "Automatinė pavarų dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:281
+msgid "Automobilio pašildymo laikmatis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:282
+msgid "Automobilio užvedimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:284
+msgid "Automobilis ne iš JAV"
+msgstr ""
+
+#: apps/listings/translatable_db.py:285
+msgid "Autonominio šildytuvo (Webastos) dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:286
+msgid "Autonominio šildytuvo (webastos) cirkuliacinis siurbliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:287
+msgid "Autonominio šildytuvo (webastos) degalų pompa (siurbliukas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:288
+msgid "Autonominio šildytuvo (webastos) degalų vamzdelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:289
+msgid "Autonominio šildytuvo (webastos) distancinio valdymo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:290
+msgid "Autonominio šildytuvo (webastos) distancinio valdymo pultelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:291
+msgid "Autonominio šildytuvo (webastos) duslintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:292
+msgid "Autonominio šildytuvo (webastos) tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:293
+msgid "Autonominio šildytuvo (webastos) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:295
+msgid "Autonominis šildymas (webasto)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:296
+msgid "Autonominis šildytuvas (webasto)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:298
+msgid "Autovežio antstatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:299
+#: templates/listings/listing_detail.html:581
+#: templates/listings/listing_detail.html:1985
+#: templates/listings/moto_for_parts_create.html:134
+#: templates/listings/rental_moto_create.html:157
+msgid "Aušinimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:300
+msgid "Aušinimo skysčio išsiplėtimo bakelio dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:301
+msgid "Aušinimo skysčio išsiplėtimo bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:302
+msgid "Aušinimo skysčio lygio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:303
+msgid "Aušinimo skysčio lygio rėl"
+msgstr ""
+
+#: apps/listings/translatable_db.py:304
+msgid "Aušinimo skysčio radiatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:305
+msgid "Aušinimo skysčio temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:306
+msgid "Aušinimo vamzdelis (-iai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:307
+msgid "Aušinimo ventiliatoriaus instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:308
+msgid "Aušinimo ventiliatoriaus rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:309
+msgid "Avarinio ženklo laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:310
+msgid "Avarinis ženklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:311
+msgid "Avarinių šviesų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:312
+msgid "Avarinių žibintų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:313
+msgid "Ašelė (galinio rato)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:315
+msgid "Bagažinės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:316
+msgid "Bagažinės Lango užuolaidėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:317
+msgid "Bagažinės amortizatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:318
+msgid "Bagažinės apatinis vyris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:319
+msgid "Bagažinės apdailos dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:320
+msgid "Bagažinės apšvietimo žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:321
+msgid "Bagažinės dangčio atidarymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:322
+msgid "Bagažinės dangčio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:323
+msgid "Bagažinės dangčio uždarymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:324
+msgid "Bagažinės dangčio valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:325
+msgid "Bagažinės dugnas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:326
+msgid "Bagažinės dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:327
+msgid "Bagažinės grindys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:328
+msgid "Bagažinės grotos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:329
+msgid "Bagažinės kilimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:330
+msgid "Bagažinės kilimėlis (guminis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:331
+msgid "Bagažinės lango užuolaidėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:332
+msgid "Bagažinės pertvara"
+msgstr ""
+
+#: apps/listings/translatable_db.py:333
+msgid "Bagažinės sandarinimo guma (ant kėbulo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:334
+msgid "Bagažinės sandarinimo guma (prie stiklo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:335
+msgid "Bagažinės slenksčio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:336
+msgid "Bagažinės spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:337
+msgid "Bagažinės troselis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:339
+msgid "Bagažinės viršutinis vyris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:340
+msgid "Bagažinės vyrių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:341
+msgid "Bagažo skyrius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:342
+msgid "Baliono (multi) vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:343
+msgid "Balkis panelės tvirtinimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:344
+msgid "Bamperio apsauga visureigiams (džipams)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:345
+msgid "Bamperių pastiprinimai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:346
+msgid "Belaidžio įkrovimo modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:347
+msgid "Bendroji masė kg"
+msgstr ""
+
+#: apps/listings/translatable_db.py:349
+msgid "Beraktės sistemos KESSY valdymo blokas/ modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:350
+msgid "Betonvežio antstatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:351
+msgid "Bortinė platforma"
+msgstr ""
+
+#: apps/listings/translatable_db.py:352
+msgid "CB radio įranga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:353
+msgid "Centr. skylės diametras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:354
+msgid "Centrinio garsiakalbio rėmelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:355
+msgid "Centrinio užrakto jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:356
+msgid "Centrinio užrakto rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:357
+msgid "Centrinio užrakto vakuuminė pompa"
+msgstr ""
+
+#: apps/listings/translatable_db.py:358
+msgid "Centrinio užrakto valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:359
+msgid "Centrinio užrakto varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:360
+msgid "Centrinis užraktas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:361
+msgid "Centrinis vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:362
+msgid "Centrinė konsolė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:363
+msgid "Centrinės konsolės valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:364
+msgid "Centrinės oro grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:365
+msgid "Cilindrų galvutė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:366
+msgid "Daiktadežė lubų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:367
+msgid "Daiktadėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:368
+msgid "Daiktadėžė automobilio priekyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:369
+msgid "Daiktadėžė bagažinėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:370
+msgid "Daiktadėžė centrinės konsolės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:371
+msgid "Daiktadėžė galinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:372
+msgid "Daiktadėžė priekinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:373
+msgid "Daiktadėžės (bordačioko) dangtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:374
+msgid "Daiktadėžės (bordačioko) komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:375
+msgid "Daiktadėžės (bordačioko) rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:376
+msgid "Daiktadėžės (bordačioko) remas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:377
+msgid "Daiktadėžės (bordačioko) spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:378
+msgid "Daiktadėžės automobilio priekyje apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:379
+msgid "Daiktadėžės paklotėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:380
+msgid "Daiktadėžės pertvara"
+msgstr ""
+
+#: apps/listings/translatable_db.py:381
+msgid "Daiktadėžės žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:382
+msgid "Dangtelis degalų bako"
+msgstr ""
+
+#: apps/listings/translatable_db.py:383
+msgid "Dangtelis durų rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:384
+msgid "Dangtelis galinių durų rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:385
+msgid "Dangtelis kibirkšties paskirstytojo (tramplioriaus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:386
+msgid "Dangtelis oro pagalvės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:387
+msgid "Dangtelis palangėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:388
+msgid "Dangtelis priekinių durų rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:389
+msgid "Dangtelis saugiklių dėžės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:390
+msgid "Dangtelis slankiojančių durų rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:391
+msgid "Dangtelis su skysčio lygio davikliu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:392
+msgid "Dangtelis užuolaidos (štorkės) laikiklio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:393
+msgid "Dangtis akumuliatoriaus dėžės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:394
+msgid "Darbinis tūris (litrai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:395
+msgid "Darbinis tūris cm³"
+msgstr "Darbinis tūris cm³"
+
+#: apps/listings/translatable_db.py:396
+msgid "Daužtas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:397
+msgid "Deflektorius variklio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:398
+msgid "Degalių lygio matuoklio rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:399
+msgid "Degalų (kuro) paskirstytojas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:400
+msgid "Degalų (kuro) siurblio valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:401
+msgid "Degalų (kuro) siurblys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:402
+msgid "Degalų aušintuvas (radiatorius)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:403
+msgid "Degalų bakas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:404
+msgid "Degalų bako atidarymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:405
+msgid "Degalų bako atidarymo trosas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:406
+msgid "Degalų bako dangtelio atidarymo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:407
+msgid "Degalų bako dangtelio spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:408
+msgid "Degalų bako dangtelio spynos varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:409
+msgid "Degalų bako dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:410
+msgid "Degalų bako laikiklis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:411
+msgid "Degalų bako užpylimo vamzdis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:412
+msgid "Degalų bako užsukamas dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:413
+msgid "Degalų bako vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:414
+msgid "Degalų filtras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:415
+msgid "Degalų filtro korpusas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:416
+msgid "Degalų filtro laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:417
+msgid "Degalų filtro šildytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:418
+msgid "Degalų grąžinimo vamzdelis/ žarnelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:419
+msgid "Degalų lygio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:420
+msgid "Degalų magistralinis vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:421
+msgid "Degalų perjungimo (dujų) jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:422
+msgid "Degalų purkštukų (forsunkių) laidai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:423
+msgid "Degalų purkštukų (forsunkių) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:424
+msgid "Degalų siurblio (degalų bake) veržlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:425
+msgid "Degalų siurblio dantratis (skriemulys)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:426
+msgid "Degalų siurblio kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:427
+msgid "Degalų siurbliuko rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:428
+msgid "Degalų siurblys (degalų bake)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:429
+msgid "Degalų slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:430
+msgid "Degalų slėgio reguliatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:431
+msgid "Degalų temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:432
+msgid "Degalų temperatūros matuoklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:433
+msgid "Degalų tiekimo į purkštukus vamzdelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:434
+msgid "Degalų vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:435
+msgid "Degalų vamzdelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:436
+msgid "Degalų įpurškimas kita"
+msgstr ""
+
+#: apps/listings/translatable_db.py:437
+msgid "Degalų šildytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:438
+msgid "Degimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:439
+msgid "Dekoratyvinė apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:440
+msgid "Dekoratyvinė apdailos juostelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:441
+msgid "Dienos šviesų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:442
+msgid "Diferencialų blokavimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:443
+msgid "Difūzorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:445
+msgid "Diržo įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:446
+msgid "Diržo įtempėjo skriemulys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:447
+msgid "Diskiniai stabdžiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:448
+msgid "Droselinė sklendė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:449
+msgid "Dugno apsauga galinės važiuoklės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:450
+msgid "Dujinė viryklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:451
+msgid "Dujų filtras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:452
+msgid "Dujų purkštukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:453
+msgid "Dujų reduktoriaus temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:454
+msgid "Dujų įrangos valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:455
+msgid "Dujų įrangos vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:457
+msgid "Durys šone"
+msgstr ""
+
+#: apps/listings/translatable_db.py:458
+msgid "Durų apdailų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:459
+msgid "Durų apmušalai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:460
+msgid "Durų atvėrimo/ užvėrimo daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:461
+msgid "Durų elektronikos valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:462
+msgid "Durų peleninė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:464
+msgid "Durų spyna (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:465
+msgid "Durų stiklo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:466
+msgid "Durų stiklo bėgelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:467
+msgid "Durų stiklo rėmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:468
+msgid "Dušas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:469
+msgid "Dvidurio galinių vietų šoninis apdailos skydas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:470
+msgid "Dviračių laikikliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:471
+msgid "Dviračių laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:472
+msgid "EGR aušintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:473
+msgid "EGR aušintuvo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:474
+msgid "EGR vamzdelis (-iai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:475
+msgid "EGR vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:476
+msgid "ESP (Stabilumo kontrolės sistema)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:477
+msgid "ESP (stabilumo sistemos) daviklis (išilginio pagreičio daviklis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:478
+msgid "Ekranas/ displėjus/ ekraniukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:479
+msgid "El. Lango pakėlimo mechanizmo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:480
+msgid "El. lango pakėlimo mechanizmas be varikliuko"
+msgstr ""
+
+#: apps/listings/translatable_db.py:481
+msgid "El. langų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:482
+msgid "El. oro padavimo sklendė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:484
+msgid "El. sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:485
+msgid "El. veidrodėliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:491
+msgid "Elektrinis radiatorių ventiliatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:492
+msgid "Elektrinis salono (220V) šildytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:493
+msgid "Elektrinis salono pečiuko radiatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:494
+msgid "Elektrinių langų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:495
+msgid "Elektrinė galinio stiklo užuolaida"
+msgstr ""
+
+#: apps/listings/translatable_db.py:496
+msgid "Elektrinė lango užuolaidėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:497
+msgid "Elektrinė tempimo gervė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:498
+msgid "Elektrinė variklio pašildymo sistema (papildoma)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:499
+msgid "Elektromagnetinis vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:500
+msgid "Elektromobilio įkrovimo laidas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:501
+msgid "Elektroninė klimato kontrolė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:503
+msgid "Galimybė prijungti papildomą bateriją"
+msgstr ""
+
+#: apps/listings/translatable_db.py:504
+msgid "Galinio aukščio daviklio svirtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:505
+msgid "Galinio dangčio (bagažinės) instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:506
+msgid "Galinio dangčio numerio apšvietimo juosta"
+msgstr ""
+
+#: apps/listings/translatable_db.py:507
+msgid "Galinio el. lango pakėlimo mechanizmas be varikliuko"
+msgstr ""
+
+#: apps/listings/translatable_db.py:508
+msgid "Galinio kėbulo slenksčio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:509
+msgid "Galinio lango atidarymo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:510
+msgid "Galinio reduktoriaus kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:511
+msgid "Galinio reduktoriaus pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:512
+msgid "Galinio slenksčio apdaila (išorinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:513
+msgid "Galinio slenksčio apdaila (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:514
+msgid "Galinio stalčiuko/lentinėlės paklotėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:515
+msgid "Galinio stiklo atidarymo mygtukas/ rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:516
+msgid "Galinio stiklo valytuvo kojelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:517
+msgid "Galinio šoninio lango užuolaidėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:518
+msgid "Galinio šoninio stiklo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:519
+msgid "Galinio žibinto apdaila (juostelė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:520
+msgid "Galinio žibinto dangtelis (lizdas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:521
+msgid "Galinio žibinto detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:522
+msgid "Galinio žibinto stiklas (dangtyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:523
+msgid "Galinio žibinto stiklas (kėbule)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:524
+msgid "Galinis amortizatorius (pneumatinė/ hidraulinė važiuoklė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:525
+msgid "Galinis atšvaitas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:526
+msgid "Galinis dangtis (bagažinės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:527
+msgid "Galinis kilimėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:528
+msgid "Galinis lankas visureigiams (džipams)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:529
+msgid "Galinis pusašis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:530
+msgid "Galinis slenkstis (kėbulo dalis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:531
+msgid "Galinis stabdžių ABS daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:532
+msgid "Galinis stabdžių diskas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:533
+msgid "Galinis suvedimo varžtas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:534
+msgid "Galinis varikliukas langų pakėlėjo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:535
+msgid "Galinis važiuoklės balkis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:536
+msgid "Galinis viršutinis vyris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:537
+msgid "Galinis vyrių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:538
+msgid "Galinis vėjo deflek"
+msgstr ""
+
+#: apps/listings/translatable_db.py:539
+msgid "Galinis šoninis kėbulo stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:540
+msgid "Galinis žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:541
+msgid "Galinis žibintas bamperyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:542
+msgid "Galinis žibintas dangtyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:543
+msgid "Galinis žibintas kėbule"
+msgstr ""
+
+#: apps/listings/translatable_db.py:544
+msgid "Galinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:545
+msgid "Galinių durų apšvietimo žibintas (viduje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:546
+msgid "Galinių durų atvėrimo/ užvėrimo daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:547
+msgid "Galinių durų garsiakalbio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:548
+msgid "Galinių durų instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:549
+msgid "Galinių durų oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:550
+msgid "Galinių durų pritraukėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:551
+msgid "Galinių durų rankenos apšvietimo žibintas (išorėje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:552
+msgid "Galinių durų sandarinimo guma"
+msgstr ""
+
+#: apps/listings/translatable_db.py:553
+msgid "Galinių durų spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:554
+msgid "Galinių durų stiklo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:555
+msgid "Galinių durų stiklo bėgelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:556
+msgid "Galinių durų stiklo rėmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:557
+msgid "Galinių durų troselis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:558
+msgid "Galinių langų jungtuko apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:559
+msgid "Galinių stabdžio (EMF) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:560
+msgid "Galinių vietų apšvietimo žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:561
+msgid "Galinių žibintų istaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:562
+msgid "Galinių žibintų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:563
+msgid "Galinių žibintų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:564
+msgid "Galinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:565
+msgid "Galinė amortizatoriaus cilindro apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:566
+msgid "Galinė apdailos juosta"
+msgstr ""
+
+#: apps/listings/translatable_db.py:567
+msgid "Galinė arka"
+msgstr ""
+
+#: apps/listings/translatable_db.py:568
+msgid "Galinė atidarymo rankenėlė (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:569
+msgid "Galinė atidarymo rankenėlė vidinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:570
+msgid "Galinė dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:571
+msgid "Galinė kreipenčioji įvorė (-ės) (sailentblokas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:572
+msgid "Galinė kėbulo dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:573
+msgid "Galinė lango užuolaidėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:574
+msgid "Galinė lingė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:575
+msgid "Galinė pneumatinė (oro) pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:576
+msgid "Galinė pneumatinė (oro) pagalvė su amortizatoriumi"
+msgstr ""
+
+#: apps/listings/translatable_db.py:577
+msgid "Galinė pūslė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:578
+msgid "Galinė sandarinimo guma (ant kėbulo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:579
+msgid "Galinė sandarinimo guma (prie stiklo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:580
+msgid "Galinė spynos kilpa"
+msgstr ""
+
+#: apps/listings/translatable_db.py:581
+msgid "Galinė spyruoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:582
+msgid "Galinė spyruoklės guminė atrama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:583
+msgid "Galinė stabdžių disko apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:584
+msgid "Galinė stabilizatoriaus traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:585
+msgid "Galinė stebulė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:586
+msgid "Galinė svirtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:587
+msgid "Galinė sėdynė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:588
+msgid "Galinė uždarymo rankena/ apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:589
+msgid "Galinė šakė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:590
+msgid "Galinė švytuoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:591
+msgid "Galinės arkos apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:592
+msgid "Galinės durys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:593
+msgid "Galinės orinės pakabos vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:594
+msgid "Galinės pakabos aukščio daviklio svirtelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:595
+msgid "Galinės pakabos aukščio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:596
+msgid "Galinės sedynės porankis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:597
+msgid "Galinės spynos varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:598
+msgid "Galinės sėdynės galvos atrama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:599
+msgid "Galinės važiuoklės komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:600
+msgid "Galiojanti techninė apžiūra (TA)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:601
+msgid "Galvutė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:602
+msgid "Galvutės dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:603
+msgid "Galvutės tvirtinimo varžtai/ smeigės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:604
+msgid "Gamintojo ženkliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:605
+msgid "Gamintojo ženkliukas/ modelio raidės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:606
+msgid "Gamyklinis rato centrinės skylės dangtelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:607
+msgid "Garažo vartų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:608
+msgid "Garsiakalbio apdaila slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:609
+msgid "Garsiakalbis (-iai) galinėje palangėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:610
+msgid "Garsiakalbis (-iai) galinėse duryse"
+msgstr ""
+
+#: apps/listings/translatable_db.py:611
+msgid "Garsiakalbis (-iai) priekinėse duryse"
+msgstr ""
+
+#: apps/listings/translatable_db.py:612
+msgid "Garsiakalbis panelėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:613
+msgid "Garso aparatūra"
+msgstr ""
+
+#: apps/listings/translatable_db.py:614
+msgid "Garso izoliacija variklio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:615
+msgid "Garso signalo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:616
+msgid "Generatoriaus detalė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:617
+msgid "Generatoriaus diržas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:618
+msgid "Generatoriaus diržo atraminis guolis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:619
+msgid "Generatoriaus diržo įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:620
+msgid "Generatoriaus kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:621
+msgid "Geros būklės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:622
+msgid "Grandinės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:623
+msgid "Grandinės šliaužiklis (variklio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:624
+msgid "Greičio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:625
+msgid "Greičio daviklis (spidometro daviklis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:626
+msgid "Greičio palaikymo sistema"
+msgstr ""
+
+#: apps/listings/translatable_db.py:627
+msgid "Greičio palaikymo siurbliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:628
+msgid "Greičio variatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:629
+msgid "Greičių dėžės karteris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:630
+msgid "Grotelės apatinės (trijų dalių)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:631
+msgid "Grotelės dangčio plokštumoje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:632
+msgid "Grotelės palangėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:633
+msgid "Grotelės priekinės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:634
+msgid "Grotelės sparne"
+msgstr ""
+
+#: apps/listings/translatable_db.py:635
+msgid "Grotelės viršutinės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:636
+msgid "Guma sandarinimo (ant bagažinės durų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:637
+msgid "Guma sandarinimo (ant galinio dangčio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:638
+msgid "Guma sandarinimo (ant priekinių durų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:639
+msgid "Guma sandarinimo (ant slankiojančių durų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:640
+msgid "Guma sandarinimo priekinių durų (prie stiklo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:641
+msgid "Guma sandarinimo slankiojančių durų (prie stiklo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:642
+msgid "Guminė kardano jungtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:643
+msgid "Guoliavietė (galinė ašis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:644
+msgid "Guoliavietė (priekinė ašis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:645
+msgid "Gyvulių pervežimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:646
+msgid "Head-up ekranas/ displėjus"
+msgstr ""
+
+#: apps/listings/translatable_db.py:647
+msgid "Hibrido/ elektromobilio akumuliatoriaus laikiklis/ kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:648
+msgid "Hibrido/ elektromobilio akumuliatorius aušintuvas (ventiliatorius)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:649
+msgid "Hidraulikos komplektas galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:650
+msgid "Hidraulikos siurblys galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:651
+msgid "Hidraulinis SERVOTRONIC vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:652
+msgid "Hidraulinis stogo užrakto cilindriukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:653
+msgid "Hidraulinis važiuoklės siurblys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:654
+msgid "Hidrocilindras galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:655
+msgid "ISOFIX (Vaiko kėdutės tvirtinimo taškai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:656
+#: templates/listings/advanced_generic.html:142
+#: templates/listings/motogear_advanced.html:214
+#: templates/listings/partials/_panel_bodies.html:115
+#: templates/listings/partials/_panel_bodies.html:209
+#: templates/listings/partials/_panel_bodies.html:295
+#: templates/listings/partials/_panel_bodies.html:455
+#: templates/listings/partials/_panel_bodies.html:557
+#: templates/listings/partials/fields/_mobile_rows.html:71
+#: templates/listings/partials/fields/_text.html:6
+msgid "Ieškoti"
+msgstr "Ieškoti"
+
+#: apps/listings/translatable_db.py:657
+msgid "Indikatoriaus rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:658
+msgid "Interjero apšvietimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:659
+msgid "Interkūlerio radiatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:660
+msgid "Interkūlerio žarna (-os)/ vamzdelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:661
+msgid "Interkūlerio žarnos/ vamzdelio laikiklis/ kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:662
+msgid "Inverteris (įtampos keitiklis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:663
+msgid "Išilginiai stogo strypai \"ragai\""
+msgstr ""
+
+#: apps/listings/translatable_db.py:664
+msgid "Išilginė traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:665
+msgid "Išmetamųjų dujų slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:666
+msgid "Išmetamųjų dujų temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:667
+msgid "Išmetamųjų dujų vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:668
+msgid "Išmetimo daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:669
+msgid "Išmetimo kolektoriaus kita detalė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:670
+msgid "Išmetimo kolektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:671
+msgid "Išmetimo termo izoliacija (apsauga nuo karščio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:672
+msgid "Išmetimo valymo valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:673
+msgid "Išminamasis guolis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:674
+msgid "Išminamasis guolis su cilindriuku"
+msgstr ""
+
+#: apps/listings/translatable_db.py:675
+msgid "Išminamasis guolis su svirtimi"
+msgstr ""
+
+#: apps/listings/translatable_db.py:676
+msgid "Išminamojo guolio svirtis/ šakutė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:677
+msgid "Išorinio pusašio šarnyro (granatos) guma"
+msgstr ""
+
+#: apps/listings/translatable_db.py:678
+msgid "Išorinis pusašio šarnyras (granata)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:679
+msgid "Išorinė atidarymo rankena"
+msgstr ""
+
+#: apps/listings/translatable_db.py:680
+msgid "Išorinė atidarymo rankena galinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:681
+msgid "Išorinė atidarymo rankena slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:682
+msgid "Išorinė bagažinės atidarymo rankena"
+msgstr ""
+
+#: apps/listings/translatable_db.py:683
+msgid "Išorės apdailos komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:684
+msgid "Jungiklis galinio dangčio uždarymo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:685
+msgid "Jungiklių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:686
+msgid "Kalnų stabdis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:687
+msgid "Kampinė galinio bamperio dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:688
+msgid "Kampinė priekinio bamperio dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:689
+msgid "Kampinės bamperio dalies laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:690
+msgid "Karbiuratoriaus/ mono įpurškimo padas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:691
+msgid "Kardano kryžminė jungtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:692
+msgid "Karštas vanduo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:693
+msgid "Katalizatorius/ FAP/DPF kietųjų dalelių filtras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:694
+msgid "Keleivio atlošas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:695
+msgid "Keleivio oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:696
+msgid "Keleivio oro pagalvės jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:699
+msgid "Kelių oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:700
+msgid "Kibirkšties paskirstytojas (trampliorius)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:701
+msgid "Kietašonis antstatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:702
+msgid "Kilimėlių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:703
+msgid "Kilimėlių laikiklis (-iai)/ fiksatorius (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:704
+msgid "Kilpa bagažinės durų spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:705
+msgid "Kilpa priekinės spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:706
+msgid "Kilpa slankiojančių durų spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:707
+msgid "Kilpa variklio dangčio spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:708
+msgid "Kita (-os) sėdynė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:709
+msgid "Kita bagažinės apdailos detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:710
+msgid "Kita centrinė konsolės (tunelio) detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:711
+msgid "Kita dugno detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:712
+msgid "Kita galinių durų apdailos detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:713
+msgid "Kita galinės važiuoklės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:714
+msgid "Kita išorės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:715
+msgid "Kita karbiuratoriaus detalė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:716
+msgid "Kita kėbulo dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:717
+msgid "Kita palangės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:718
+msgid "Kita panelės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:719
+msgid "Kita priekinių durų apdailos detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:720
+msgid "Kita priekinės važiuoklės dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:721
+msgid "Kita rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:722
+msgid "Kita salono detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:723
+msgid "Kita slankiojančių durų apdailos detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:724
+msgid "Kita slenkscių/ statramsčių apdailos detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:725
+msgid "Kita variklio detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:726
+msgid "Kita variklio galvutės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:727
+msgid "Kita variklio skyriaus detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:728
+msgid "Kitas prietaisų skydelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:729
+msgid "Kitas salono žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:730
+msgid "Kiti jungtukai/ rankenėlės/ perjungėjai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:731
+msgid "Kiti ženkliukai/ užrašai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:733
+msgid "Klimato kontrolės/ pečiuko kontrolės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:734
+msgid "Kojų erdvės šonine apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:735
+msgid "Kolektorius įsiurbimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:736
+msgid "Komplektas dujų įrangos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:737
+msgid "Konsolės valdymo modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:738
+msgid "Kontaktinė durų jungtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:739
+msgid "Konteinerių gabenimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:740
+msgid "Kopetėlės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:741
+msgid "Korpusas purkštukų montavimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:742
+msgid "Kosnsolės stalčiuko/lentinėlės paklotėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:744
+msgid "Kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:745
+msgid "Kronšteinas amortizatorius tvirtinimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:746
+msgid "Kronšteinas spynos tvirtinimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:747
+msgid "Krovininių durų stiklo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:748
+msgid "Krovinio diržai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:749
+msgid "Krovinių (bagažinės) durys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:750
+msgid "Krovinių (bagažinės) durų instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:751
+msgid "Krovinių (bagažinės) durų stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:752
+msgid "Kruizo kontrolė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:753
+msgid "Kuro žarna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:754
+msgid "Kėbulas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:755
+msgid "Kėbulo modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:757
+msgid "Kėlimo taškas/padas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:759
+msgid "LED dienos žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:760
+msgid "LED šviesų modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:762
+msgid "Laikiklis (kronšteinas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:763
+msgid "Laikiklis purkštuko (forsunkės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:764
+msgid "Laikiklis radiatorių panelės (televizoriaus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:765
+msgid "Laikiklis/ kronšteinas išorinės atidarymo rankenos bagažinės durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:766
+msgid "Laikiklis/ kronšteinas išorinės atidarymo rankenos galinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:767
+msgid "Laikiklis/ kronšteinas išorinės atidarymo rankenos slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:768
+msgid "Laikiklis/ kronšteinas išorinės priekinės atidarymo rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:769
+msgid "Laisvos eigos vožtuvas (reguliatorius)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:771
+msgid "Landžeronas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:772
+msgid "Lango oro grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:773
+msgid "Lango užuolaidėlė slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:774
+msgid "Langų apiplovimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:775
+msgid "Langų skysčio bakelio užpylimo vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:776
+msgid "Langų skysčio bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:777
+msgid "Langų skysčio lygio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:778
+msgid "Langų skysčio purkštukas (-ai) galinio stiklo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:779
+msgid "Langų skysčio purkštukas (-ai) priekinio stiklo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:780
+msgid "Langų skysčio siurbliukas (stiklų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:781
+msgid "Langų skysčio žarnelė (-ės) galinio stiklo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:782
+msgid "Langų skysčio žarnelė (-ės) priekinio stiklo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:783
+msgid "Langų valdymo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:784
+msgid "Langų valytuvų intervalo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:785
+msgid "Langų valytuvų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:786
+msgid "Lauko temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:787
+msgid "Lauko temperatūros matuoklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:788
+msgid "Lemputė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:790
+msgid "Lingės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:791
+msgid "Linijiniai išėjimai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:792
+msgid "Lonžeronai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:793
+msgid "Lopšys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:794
+msgid "Lubų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:795
+msgid "Lėtintos pavaros"
+msgstr ""
+
+#: apps/listings/translatable_db.py:796
+msgid "MONO įpurškimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:800
+msgid "Max kėlimo aukštis m"
+msgstr ""
+
+#: apps/listings/translatable_db.py:801
+msgid "Mažasis \"A\" galinių durų stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:802
+msgid "Mažasis \"A\" priekinių durų stiklas (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:803
+msgid "Mažasis \"A\" priekinių durų stiklas (keturdurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:804
+msgid "Mechaninis galinio lango pakėlimo mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:805
+msgid "Mechaninis lango pakėlimo mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:806
+msgid "Mechaninis priekinio lango pakėlimo mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:807
+msgid "Mechaninė 4 pavarų dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:808
+msgid "Mechaninė 5 pavarų dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:809
+msgid "Mechaninė 6 pavarų dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:810
+msgid "Mechaninė 7 pavarų dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:811
+msgid "Mechaninė degalų pompa"
+msgstr ""
+
+#: apps/listings/translatable_db.py:812
+msgid "Mechaninė galinio stiklo užuolaida"
+msgstr ""
+
+#: apps/listings/translatable_db.py:813
+msgid "Medienvežio antstatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:814
+#: templates/listings/partials/_panel_bodies.html:510
+#: templates/listings/wheels_list.html:229
+msgid "Medžiaga"
+msgstr "Medžiaga"
+
+#: apps/listings/translatable_db.py:815
+#: templates/listings/rental_minibus_create.html:87
+msgid "Miegamų vietų skaičius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:816
+msgid "Modelio raidės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:817
+msgid "Modelio raidės ant durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:818
+msgid "Modelio raidės ant sparno"
+msgstr ""
+
+#: apps/listings/translatable_db.py:819
+msgid "Multifunkcinis valdymo jungtukas/ rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:820
+msgid "Mygtukas kablio bagažinėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:821
+msgid "Navigacijos žemėlapiai CD/DVD"
+msgstr ""
+
+#: apps/listings/translatable_db.py:822
+msgid "Negamyklinis (papildomas) priešrūkinis žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:823
+msgid "Negamyklinis rato centrinės skylės dangtelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:824
+msgid "Numerio apšvietimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:825
+msgid "Numerių laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:828
+msgid "Originalūs ratlankiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:829
+msgid "Oro filtro dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:830
+msgid "Oro filtro dėžės dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:831
+msgid "Oro filtro dėžės laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:832
+msgid "Oro grotelės gale"
+msgstr ""
+
+#: apps/listings/translatable_db.py:833
+msgid "Oro grotelės lubose"
+msgstr ""
+
+#: apps/listings/translatable_db.py:834
+msgid "Oro kokybės daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:835
+msgid "Oro kondicionieriaus diržo įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:836
+msgid "Oro kondicionieriaus išsiplėtimo vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:837
+msgid "Oro kondicionieriaus kita detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:838
+msgid "Oro kondicionieriaus kompresoriaus kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:839
+msgid "Oro kondicionieriaus kompresoriaus mova/ įvorė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:840
+msgid "Oro kondicionieriaus oro srauto sklendės varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:841
+msgid "Oro kondicionieriaus radiatorius aušinimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:842
+msgid "Oro kondicionieriaus slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:843
+msgid "Oro kondicionieriaus vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:844
+msgid "Oro kondicionieriaus ventiliatorius (aušinimo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:845
+msgid "Oro kondicionieriaus/ klimato/ pečiuko valdymo blokas (salone)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:846
+msgid "Oro kondicionieriaus/ šildymo valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:847
+msgid "Oro mikrofiltro rėmas (dalis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:848
+msgid "Oro nukreipėjas/ kanalas interkūlerio radiatoriaus"
+msgstr ""
+
+#: apps/listings/translatable_db.py:849
+msgid "Oro pagalvių juosta (srs žiedas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:850
+msgid "Oro pagalvių juostos instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:851
+msgid "Oro pagalvių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:852
+msgid "Oro pagalvių smūgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:853
+msgid "Oro pagalvių valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:855
+msgid "Oro pakabos valdymo blokas (galinės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:856
+msgid "Oro paėmimo kanalo detalė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:857
+msgid "Oro skirstytuvas/ vožtuvų blokas (pneumatinė važiuoklė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:858
+msgid "Oro skirstytuvas/ vožtuvų blokas (pneumatinės važiuoklės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:859
+msgid "Oro sklendės trosas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:860
+msgid "Oro sklendės varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:861
+msgid "Oro slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:862
+msgid "Oro vamzdis į turbiną"
+msgstr ""
+
+#: apps/listings/translatable_db.py:863
+msgid "Padangų slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:865
+msgid "Padangų slėgio valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:869
+msgid "Pagalvė pavarų dėžės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:870
+#: templates/listings/motogear_advanced.html:108
+#: templates/listings/partials/_panel_bodies.html:95
+msgid "Pagamintas iš"
+msgstr "Pagamintas iš"
+
+#: apps/listings/translatable_db.py:871
+msgid "Pagrindinis galinių durų stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:872
+msgid "Pagrindinis priekinių durų stiklas (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:873
+msgid "Pagrindinis priekinių durų stiklas (keturdurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:874
+msgid "Pagrindinis stabdžių cilindriukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:875
+msgid "Pakaitinimo žvakių laidai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:876
+msgid "Pakaitinimo žvakė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:877
+msgid "Pakeliama ašis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:878
+msgid "Pakrovėjas akumuliatorius (papildomas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:879
+msgid "Pakėlimo/ nuleidimo mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:880
+msgid "Palangė galinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:881
+msgid "Palangės garsiakalbio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:883
+msgid "Panelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:884
+msgid "Panelės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:885
+msgid "Panelės apdailos skydas (apatinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:886
+msgid "Panelės apdailos skydas (centrinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:887
+msgid "Panelės apdailos skydas (šoninis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:888
+msgid "Panelės apšvietimo reguliavimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:889
+msgid "Panelės instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:890
+msgid "Panelės stalčiuko/lentinėlės paklotėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:892
+msgid "Papildomas hidraulikos vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:893
+msgid "Papildomas stop žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:894
+msgid "Pardavėjo tipas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:895
+msgid "Parduodamos po vieną"
+msgstr ""
+
+#: apps/listings/translatable_db.py:896
+msgid "Parduodu po vieną"
+msgstr ""
+
+#: apps/listings/translatable_db.py:897
+msgid "Parkavimo (PDC) daviklių ekranas/ displėjus"
+msgstr ""
+
+#: apps/listings/translatable_db.py:898
+msgid "Parkavimo (PDC) daviklių garsiakalbis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:899
+msgid "Parkavimo (PDC) daviklių instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:900
+msgid "Parkavimo (PDC) daviklių jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:901
+msgid "Parkavimo (PDC) daviklių valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:902
+msgid "Parkavimo kojelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:904
+msgid "Pasirinkite dalį (0/70)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:905
+msgid "Paskirstymo diržas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:906
+msgid "Paskirstymo diržo apsauga (dangtelis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:907
+msgid "Paskirstymo diržo atraminis guolis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:908
+msgid "Paskirstymo diržo įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:909
+msgid "Paskirstymo diržo/ grandinės įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:910
+msgid "Paskirstymo fazių reguliatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:911
+msgid "Paskirstymo grandinė (variklio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:912
+msgid "Paskirstymo grandinės dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:913
+msgid "Paskirstymo grandinės žvaigždutė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:914
+msgid "Paskirstymo velenėliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:915
+msgid "Paskirstymo velenėlio adaptacijos vožtuvas (vanos vožtuvas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:916
+msgid "Paskirstymo velenėlio apsukų daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:917
+msgid "Paskirstymo velenėlio laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:918
+msgid "Paskirstymo velenėlio padėties daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:919
+msgid "Paskirstymo velenėlio skriemulys/ vanusas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:920
+msgid "Paskirstymo velenėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:921
+msgid "Pastiprinimas slenksčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:922
+msgid "Pastovaus greičio (autopiloto) rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:923
+msgid "Pastovaus greičio (cruise) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:924
+msgid "Pastovaus greičio jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:925
+msgid "Pastovaus greičio palaikymo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:927
+msgid "Pavarų dėžės apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:928
+msgid "Pavarų dėžės detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:929
+msgid "Pavarų dėžės instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:930
+msgid "Pavarų dėžės reduktoriaus (razdatkės) varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:931
+msgid "Pavarų dėžės reduktorius (razdatkė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:932
+msgid "Pavarų dėžės reduktorius (razdatkės) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:933
+msgid "Pavarų dėžės tarpinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:934
+msgid "Pavarų dėžės tepalo aušintuvo vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:935
+msgid "Pavarų dėžės tepalo radiatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:936
+msgid "Pavarų dėžės tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:937
+msgid "Pavarų dėžės valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:938
+msgid "Pavarų indikacinė rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:939
+msgid "Pavarų indikatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:941
+msgid "Pavarų perjungimo jungtukas/ rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:942
+msgid "Pavarų perjungimo mechanizmas (dėžėje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:943
+msgid "Pavarų perjungimo mechanizmas (kulysa) (salone)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:944
+msgid "Pavarų perjungimo svirties apdaila (oda, bumbulas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:945
+msgid "Pavarų perjungimo svirties apdaila (plastikinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:946
+msgid "Pavarų perjungimo svirtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:947
+msgid "Pavarų perjungimo traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:948
+msgid "Pavarų perjungimo trosas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:949
+msgid "Pavarų perjungimo troso laikiklis/ kronsteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:950
+msgid "Pavarų selektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:951
+msgid "Pedalų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:952
+msgid "Peleninė (galinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:953
+msgid "Peleninė (priekyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:954
+msgid "Peleninė panelėje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:955
+msgid "Peleninės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:956
+msgid "Peleninės apdaila (galinės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:957
+msgid "Peleninės apdaila (priekyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:958
+msgid "Penkto bėgio dantratis (-čiai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:959
+msgid "Penumatinio oro pakabos kompresoriaus laikiklis (kronšteinas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:960
+msgid "Personalinis apšvietimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:961
+msgid "Pesčiųjų oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:962
+msgid "Pečiuko radiatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:963
+msgid "Pečiuko radiatorius vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:964
+msgid "Pečiuko reguliavimo trosiukai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:965
+msgid "Pečiuko ventiliatoriaus reustatas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:966
+msgid "Pečiuko ventiliatorius/ putikas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:967
+msgid "Pirmosios registracijos šalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:968
+msgid "Platforma stumiasi į abi puses"
+msgstr ""
+
+#: apps/listings/translatable_db.py:969
+msgid "Platforma stumiasi į vieną pusę"
+msgstr ""
+
+#: apps/listings/translatable_db.py:970
+msgid "Pliusinių laidų jungimo mazgas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:972
+msgid "Pneumatinės (oro) pakabos kompresorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:973
+msgid "Pneumatinės (oro) pakabos oro filtras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:974
+msgid "Pneumatinės (oro) pakabos oro paėmimo vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:975
+msgid "Posūkiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:976
+msgid "Posūkio žibintas veidrodėlyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:977
+msgid "Posūkių/ šviesų rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:978
+msgid "Pridegėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:979
+msgid "Pridegėjas (galinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:980
+msgid "Pridegėjas (priekyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:981
+msgid "Pridegėjo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:982
+msgid "Pridegėjo apdaila (galinio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:983
+msgid "Pridegėjo apdaila (priekyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:984
+msgid "Priekabos kablio rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:985
+msgid "Priekinio aukščio daviklio svirtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:986
+msgid "Priekinio el. Lango pakėlimo mechanizmo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:987
+msgid "Priekinio el. lango pakėlimo mechanizmo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:988
+msgid "Priekinio kėbulo slenksčio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:989
+msgid "Priekinio lango atidarymo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:990
+msgid "Priekinio reduktoriaus kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:991
+msgid "Priekinio reduktoriaus pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:992
+msgid "Priekinio slenksčio apdaila (išorinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:993
+msgid "Priekinio slenksčio apdaila (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:994
+msgid "Priekinio stiklo valytuvų kojelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:995
+msgid "Priekinio žibinto (-ų) laidas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:996
+msgid "Priekinio žibinto (xenon) lemputė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:997
+msgid "Priekinio žibinto apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:998
+msgid "Priekinio žibinto dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:999
+msgid "Priekinio žibinto detalė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1000
+msgid "Priekinio žibinto laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1001
+msgid "Priekinio žibinto lemputė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1002
+msgid "Priekinio žibinto stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1003
+msgid "Priekinis amortizatorius (pneumatinė/ hidraulinė važiuoklė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1004
+msgid "Priekinis atšvaitas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1005
+msgid "Priekinis el. lango pakėlimo mechanizmas be varikliuko"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1006
+msgid "Priekinis kilimėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1007
+msgid "Priekinis laikiklis/ kronšteinas išorinės atidarymo rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1008
+msgid "Priekinis lankas visureigiams (džipams)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1009
+msgid "Priekinis posūkio žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1010
+msgid "Priekinis pusašis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1011
+msgid "Priekinis slenkstis (kėbulo dalis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1012
+msgid "Priekinis stabdžių ABS daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1013
+msgid "Priekinis stabdžių diskas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1014
+msgid "Priekinis suvedimo varžtas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1015
+msgid "Priekinis varikliukas langų pakėlėjo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1016
+msgid "Priekinis viršutinis vyris"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1017
+msgid "Priekinis vyrių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1018
+msgid "Priekinis vėjo deflektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1019
+msgid "Priekinis žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1020
+msgid "Priekinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1021
+msgid "Priekinių durų apšvietimo žibintas (viduje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1022
+msgid "Priekinių durų atvėrimo riotuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1023
+msgid "Priekinių durų atvėrimo/ užvėrimo daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1024
+msgid "Priekinių durų instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1025
+msgid "Priekinių durų oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1026
+msgid "Priekinių durų pritraukėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1027
+msgid "Priekinių durų pritraukėjas (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1028
+msgid "Priekinių durų rankenos apšvietimo žibintas (išorėje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1029
+msgid "Priekinių durų stiklo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1030
+msgid "Priekinių durų stiklo bėgelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1031
+msgid "Priekinių durų stiklo rėmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1032
+msgid "Priekinių durų troselis (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1033
+msgid "Priekinių durų ventiliatorius/ putikas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1034
+msgid "Priekinių langų jungtuko apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1035
+msgid "Priekinių vietų apšvietimo žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1036
+msgid "Priekinių žibintų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1038
+msgid "Priekinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1039
+msgid "Priekinė apdailos juosta"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1040
+msgid "Priekinė arka"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1041
+msgid "Priekinė atidarymo rankenėlė (vidinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1042
+msgid "Priekinė atidarymo rankenėlė vidinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1043
+msgid "Priekinė durų spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1044
+msgid "Priekinė dvivietė sėdynė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1045
+msgid "Priekinė garsiakalbio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1046
+msgid "Priekinė guma sandarinimo (prie stiklo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1047
+msgid "Priekinė keleivio sėdynė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1048
+msgid "Priekinė kreipenčioji įvorė (-ės) (sailentblokas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1049
+msgid "Priekinė kėbulo dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1050
+msgid "Priekinė laidų tarpinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1051
+msgid "Priekinė lingė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1052
+msgid "Priekinė mortizatoriaus cilindro apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1053
+msgid "Priekinė pneumatinė (oro) pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1054
+msgid "Priekinė pneumatinė (oro) pagalvė su amortizatoriumi"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1055
+msgid "Priekinė pūslė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1056
+msgid "Priekinė sandarinimo guma (ant durų)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1057
+msgid "Priekinė sandarinimo guma ant kėbulo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1058
+msgid "Priekinė spynos kilpa"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1059
+msgid "Priekinė spyruoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1060
+msgid "Priekinė spyruoklės guminė atrama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1061
+msgid "Priekinė stabdžių disko apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1062
+msgid "Priekinė stabilizatoriaus traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1063
+msgid "Priekinė stebulė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1064
+msgid "Priekinė svirtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1065
+msgid "Priekinė uždarymo rankena/ apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1066
+msgid "Priekinė užrakinimo spynelė (prie rankenos)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1067
+msgid "Priekinė vairuotojo sėdynė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1068
+msgid "Priekinė šakė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1069
+msgid "Priekinės arkos apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1070
+msgid "Priekinės durys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1071
+msgid "Priekinės durys (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1072
+msgid "Priekinės keleivio sėdynės padas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1073
+msgid "Priekinės orinės pakabos vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1074
+msgid "Priekinės pakabos aukščio daviklio svirtelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1075
+msgid "Priekinės pakabos aukščio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1076
+msgid "Priekinės spynos varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1077
+msgid "Priekinės sėdynės galvos atrama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1078
+msgid "Priekinės vairuotojo sėdynės padas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1079
+msgid "Priekinės važiuoklės dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1080
+msgid "Priekinės važiuoklės komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1081
+msgid "Priekio detalių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1082
+msgid "Prietaisų skydelio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1083
+msgid "Prietaisų skydelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1084
+msgid "Priešrūkinio žibinto apdaila/ grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1085
+msgid "Priešrūkinio žibinto dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1086
+msgid "Priešrūkinio žibinto laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1087
+msgid "Priešrūkinio žibinto lemputė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1088
+msgid "Priešrūkinis žibintas gale"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1089
+msgid "Priešrūkinis žibintas priekyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1090
+msgid "Priešrūkinių žibintų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1091
+msgid "Priešrūkinių žibintų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1094
+msgid "Pritraukėjas galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1095
+msgid "Pritraukėjas šoninių slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1096
+msgid "Pritraukėjas/ solenoidas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1097
+msgid "Prožektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1098
+msgid "Puodelių laikiklio guminis paklotėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1099
+msgid "Puodelių laikiklis (gale)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1100
+msgid "Puodelių laikiklis (priekyje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1101
+msgid "Purkštukas (-ai) (forsunkė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1102
+msgid "Purkštukų (forsunkių) komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1103
+msgid "Purkštukų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1104
+msgid "Pusašiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1105
+msgid "Pusašio mova"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1106
+msgid "Pusašio pakabinamas guolis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1107
+msgid "Pusašio pakabinamo guolio kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1108
+msgid "R 12 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1109
+msgid "R 12 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1110
+msgid "R 12 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1111
+msgid "R 12 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1112
+msgid "R 12 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1113
+msgid "R 12 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1114
+msgid "R 12 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1115
+msgid "R 12 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1116
+msgid "R 13 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1117
+msgid "R 13 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1118
+msgid "R 13 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1119
+msgid "R 13 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1120
+msgid "R 13 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1121
+msgid "R 13 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1122
+msgid "R 13 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1123
+msgid "R 13 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1124
+msgid "R 14 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1125
+msgid "R 14 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1126
+msgid "R 14 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1127
+msgid "R 14 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1128
+msgid "R 14 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1129
+msgid "R 14 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1130
+msgid "R 14 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1131
+msgid "R 14 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1132
+msgid "R 15 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1133
+msgid "R 15 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1134
+msgid "R 15 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1135
+msgid "R 15 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1136
+msgid "R 15 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1137
+msgid "R 15 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1138
+msgid "R 15 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1139
+msgid "R 15 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1140
+msgid "R 16 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1141
+msgid "R 16 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1142
+msgid "R 16 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1143
+msgid "R 16 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1144
+msgid "R 16 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1145
+msgid "R 16 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1146
+msgid "R 16 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1147
+msgid "R 16 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1148
+msgid "R 17 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1149
+msgid "R 17 plieninis štampuotas ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1150
+msgid "R 17 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1151
+msgid "R 17 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1152
+msgid "R 17 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1153
+msgid "R 17 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1154
+msgid "R 17 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1155
+msgid "R 17 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1156
+msgid "R 18 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1157
+msgid "R 18 vasarinė C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1158
+msgid "R 18 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1159
+msgid "R 18 žieminė C su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1160
+msgid "R 18 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1161
+msgid "R 18 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1162
+msgid "R 18 žieminės C padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1163
+msgid "R 19 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1164
+msgid "R 19 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1165
+msgid "R 19 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1166
+msgid "R 19 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1167
+msgid "R 20 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1168
+msgid "R 20 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1169
+msgid "R 20 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1170
+msgid "R 20 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1171
+msgid "R 21 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1172
+msgid "R 21 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1173
+msgid "R 21 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1174
+msgid "R 21 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1175
+msgid "R 22 anglies pluošto ratlankis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1176
+msgid "R 22 vasarinės padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1177
+msgid "R 22 žieminė padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1178
+msgid "R 22 žieminė su dygliais padanga (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1179
+msgid "Radiatoriaus (-ių) laikiklis/ kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1180
+msgid "Radiatoriaus grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1181
+msgid "Radiatoriaus oro nukreipėjas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1182
+msgid "Radiatorių apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1183
+msgid "Radiatorių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1184
+msgid "Radiatorių panelė (televizorius)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1185
+msgid "Raktas ratų varžtams"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1186
+msgid "Rankena atidarymo išorinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1187
+msgid "Rankena atidarymo vidinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1188
+msgid "Rankenos apdaila oda/medžiaga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1189
+msgid "Rankenėlių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1190
+msgid "Rankenėlė atidarymo vidinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1191
+msgid "Rankenėlė galinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1192
+msgid "Rankenėlė priekinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1193
+msgid "Rankenėlės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1194
+msgid "Rankinio atleidimo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1195
+msgid "Rankinio kaladėlės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1196
+msgid "Rankinio stabdžio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1197
+msgid "Rankinio stabdžio jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1198
+msgid "Rankinio stabdžio valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1199
+msgid "Rankinio tvirtinimo kronšteinas (salone)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1200
+msgid "Rankinis užvedimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1201
+#: templates/listings/construction_listing_create.html:178
+#: templates/listings/forestry_listing_create.html:171
+#: templates/listings/listing_detail.html:597
+#: templates/listings/listing_detail.html:870
+#: templates/listings/listing_detail.html:1150
+#: templates/listings/rental_heavy_create.html:138
+msgid "Ratų formulė"
+msgstr "Ratų formulė"
+
+#: apps/listings/translatable_db.py:1202
+msgid "Ratų išnešimo keitikliai (rastafkės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1204
+msgid "Ratų varžtų/ veržlių dangtelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1205
+msgid "Razetė priekabai (kištukinis lizdas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1206
+msgid "Razetės priekabai perėjimas (kištukinio lizdo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1207
+msgid "Reduktorius (dujų įrangos)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1208
+msgid "Ribotuvas bagažinės durų atvėrimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1209
+msgid "Ribotuvas galinio borto atvėrimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1210
+msgid "Ribotuvas galinių durų atvėrimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1211
+msgid "Ribotuvas priekinių durų atvėrimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1212
+msgid "Ribotuvas slankiojančių durų atvėrimo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1214
+msgid "Ritinėlio kreiptuvas apatinis/ vyris apatinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1215
+msgid "Ritinėlio kreiptuvas vidurinis/ vyris vidurinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1216
+msgid "Ritinėlio kreiptuvas viršutinis/ vyris viršutinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1217
+msgid "Ritinėlių kreiptuvų/ vyrių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1218
+msgid "Rėlių montavimo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1219
+msgid "Rėmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1220
+msgid "Rėmas stoglangio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1221
+msgid "Rėmelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1223
+msgid "SRS oro pagalvės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1224
+msgid "Sagtis diržo galine"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1225
+msgid "Sagtis diržo priekinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1226
+msgid "Sagtis diržo vidurinė (gale)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1227
+msgid "Salono apšvietimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1228
+msgid "Salono pečiukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1229
+msgid "Salono pečiuko ventiliatoriaus rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1230
+msgid "Salono temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1231
+msgid "Sandarinimo guma priekinių durų (ant kėbulo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1232
+msgid "Sankabos pedalo tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1233
+msgid "Sankabos skysčio išsiplėtimo bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1234
+msgid "Sankabos skysčio lygio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1235
+msgid "Sankabos vamzdelis (-iai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1236
+msgid "Saugiklių blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1237
+msgid "Saugiklių dėžė (komplektas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1238
+msgid "Saugos diržas (lubose)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1239
+msgid "Saugos diržas galinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1240
+msgid "Saugos diržas priekinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1241
+msgid "Saugos diržas trečios eilės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1242
+msgid "Saugos diržas vidurinis (gale)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1243
+msgid "Saugos diržo apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1244
+msgid "Saugos diržo reguliavimo varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1245
+msgid "Saugos diržų įspėjimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1246
+msgid "Saulės šviesos daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1247
+msgid "Savęs balansavimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1248
+msgid "Sedynių šildymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1249
+msgid "Sedynės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1250
+msgid "Sedynės nugaros atramos spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1251
+msgid "Sedynės reguliatorių apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1252
+msgid "Selenoidinis vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1254
+msgid "Sezoniškumas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1255
+msgid "Signalizacijos rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1256
+msgid "Skaidraus stiklo priekiniai žibintai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1258
+msgid "Skersinė (reaktyvinė) traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1259
+msgid "Skirtas bet kokiam paviršiui"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1260
+msgid "Skirtas tvirtam paviršiui"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1261
+msgid "Sklendės padėties daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1262
+msgid "Sklendės valdymo varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1263
+msgid "Skriejikas (bėgunokas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1264
+msgid "Skriemulys alkūninio veleno"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1265
+msgid "Skydelio nuo saulės laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1266
+msgid "Skydelis nuo saulės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1267
+msgid "Skėčio laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1268
+msgid "Slankiojančių durų atidarymo rankenėlė vidinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1269
+msgid "Slankiojančių durų atvėrimo/ užvėrimo daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1270
+msgid "Slankiojančių durų el. lango pakėlimo mechanizmas be varikliuko"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1271
+msgid "Slankiojančių durų sandarinimo guma (ant kėbulo)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1272
+msgid "Slankiojančių durų spyna"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1273
+msgid "Slankiojančių durų stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1274
+msgid "Slankiojančių durų troselis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1275
+msgid "Slenksčiai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1276
+msgid "Slenksčiai visureigiams (džipams)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1277
+msgid "Slenksčio dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1278
+msgid "Slidė (-ės) priekinės keleivio sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1279
+msgid "Slidė (-ės) priekinės vairuotojo sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1280
+msgid "Slidės apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1281
+msgid "Slidės apdaila galinės sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1282
+msgid "Slidės apdaila priekinės keleivio sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1283
+msgid "Slidės apdaila priekinės vairuotojo sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1284
+msgid "Slidžių maišas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1285
+msgid "Slėpti iš aukcionų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1286
+msgid "Smagratis (plaukiojantis/ dviejų masių)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1287
+msgid "Smūginis degalų blokavimo daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1288
+msgid "Sparno posūkio žibintas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1289
+msgid "Sparno užbaigimas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1290
+msgid "Sparnų praplatinimai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1291
+msgid "Spidometras (prietaisų skydelis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1292
+msgid "Spidometro (prietaisų skydelio) trosas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1293
+msgid "Spoileris galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1294
+msgid "Sportinės padangos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1296
+msgid "Spyna galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1297
+msgid "Spyna variklio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1298
+msgid "Spynelė galinio dangčio (išorėje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1299
+msgid "Spynos varikliukas galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1300
+msgid "Spyruoklė (-ės) galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1301
+msgid "Spyruoklės atrama (bliūdelis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1302
+msgid "Spyruoklės atrama (viršutinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1303
+msgid "Srovės išlyginimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1304
+msgid "Stabdzių suporto spyruoklė/ prispaudėjas (priekis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1305
+msgid "Stabdžių aušinimo oro kanalas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1306
+msgid "Stabdžių būgnas (galinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1307
+msgid "Stabdžių būgnas (priekinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1308
+msgid "Stabdžių diskai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1309
+msgid "Stabdžių el. laidai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1310
+msgid "Stabdžių intensyvumo (svorio) reguliatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1311
+msgid "Stabdžių kaladėlių apkaba/ laikiklis (galas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1312
+msgid "Stabdžių kaladėlių apkaba/ laikiklis (priekis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1313
+msgid "Stabdžių kaladėlių nusidėvėjimo daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1314
+msgid "Stabdžių kaladėlės (Priekinės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1315
+msgid "Stabdžių kaladėlės (galinės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1316
+msgid "Stabdžių kitos dalys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1317
+msgid "Stabdžių pedalas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1318
+msgid "Stabdžių pedalo daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1319
+msgid "Stabdžių pedalo laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1320
+msgid "Stabdžių sistemos valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1321
+msgid "Stabdžių skysčio išsiplėtimo bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1322
+msgid "Stabdžių suportai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1323
+msgid "Stabdžių suporto spyruoklė/ prispaudėjas (galas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1324
+msgid "Stabdžių vakuumo pūslė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1325
+msgid "Stabdžių vamzdeliai/ žarnelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1326
+msgid "Stabdžių vamzdelis (-iai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1327
+msgid "Stabilumo kontrolės sistema"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1328
+msgid "Stalčiukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1329
+msgid "Starterio detalė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1330
+msgid "Starterio mova/ įvorė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1331
+msgid "Stebulė su užraktu (blokiruotė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1332
+msgid "Stebulės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1333
+msgid "Stiklo kėbule (fortkės) atidarymo el. varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1334
+msgid "Stiklo kėbule (fortkės) jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1335
+msgid "Stiklo šildymo elektra jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1336
+msgid "Stogo \"ragų\" skersiniai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1337
+msgid "Stogo apmušalai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1338
+msgid "Stogo bagažinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1340
+msgid "Stogo oro pagalvė (užuolaida)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1341
+msgid "Stogo užraktas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1342
+msgid "Stūmokliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1343
+msgid "Stūmoklio žiedas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1344
+msgid "Stūmoklis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1345
+msgid "Stūmoklis su švaistikliu"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1346
+msgid "Sudedamo stogo vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1347
+msgid "Sulankstomas rėmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1350
+msgid "Sėdynes pakėlimo mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1351
+msgid "Sėdynių / durų apdailų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1352
+msgid "Sėdynių atminties jungtukas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1353
+msgid "Sėdynių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1354
+msgid "Sėdynių reguliavimo jungtukas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1355
+msgid "Sėdynių šildymo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1356
+msgid "Sėdynė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1357
+msgid "Sėdynės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1358
+msgid "Sėdynės instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1359
+msgid "Sėdynės nugaros atramos atlenkimo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1360
+msgid "Sėdynės oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1361
+msgid "Sėdynės reguliavimo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1362
+msgid "Sėdynės reguliavimo ratukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1363
+msgid "Sėdynės slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1364
+msgid "Sėdynės valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1365
+msgid "Sėdynės valdymo varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1366
+msgid "Sėdynės ventiliatorius/ putikas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1367
+msgid "Sėdynės, atlošėliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1368
+msgid "Tarpai tarp skylių"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1369
+msgid "Tarpinė galinių laidų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1370
+msgid "Tarpinė priekinių laidų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1371
+#: templates/listings/motogear_advanced.html:199
+#: templates/listings/partials/_panel_bodies.html:114
+#: templates/listings/partials/_panel_bodies.html:208
+#: templates/listings/partials/_panel_bodies.html:294
+#: templates/listings/partials/_panel_bodies.html:454
+#: templates/listings/partials/_panel_bodies.html:556
+#: templates/listings/partials/_panel_bodies.html:1007
+#: templates/listings/partials/_panel_bodies.html:1047
+#: templates/listings/partials/_panel_bodies.html:1131
+msgid "Tekstinė paieška"
+msgstr "Tekstinė paieška"
+
+#: apps/listings/translatable_db.py:1372
+msgid "Tekstinė paieška / Detalės kodas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1373
+msgid "Telefono klaviatūra"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1374
+msgid "Tepalo filtro laikiklis/ aušintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1375
+msgid "Tepalo lygio matuoklė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1376
+msgid "Tepalo paėmimo vamzdelis (karteryje)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1377
+msgid "Tepalo siurblio grandinė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1378
+msgid "Tepalo slėgio daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1379
+msgid "Tepalo slėgio rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1380
+msgid "Tepalo temperatūros matuoklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1381
+msgid "Tepalo užpylimo angos dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1382
+msgid "Tepalo užpylimo vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1383
+msgid "Tepimo vamzdelis (-iai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1386
+msgid "Tr. priem. markė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1387
+msgid "Transmisijos tepalo aušintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1389
+msgid "Trečia eilė sėdynių"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1390
+msgid "Trečios eilės kilimėlis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1391
+msgid "Trečios eilės sėdynių galvos atrama"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1392
+msgid "Trikampis stiklas kėbulo priekyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1393
+msgid "Troselis priekinių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1394
+msgid "Troselis variklio dangčio spynos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1395
+msgid "Turbinos slėgio matuoklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1396
+msgid "Turėklas (viršutinė apdaila)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1397
+msgid "Tuščios eigos rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1398
+#: templates/listings/wheels_list.html:219
+msgid "Tvirtinimo taškai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1399
+msgid "Tvirtinimo varžtas (atsarginio rato)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1400
+msgid "Uždarymo rankena (galinio dangčio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1401
+msgid "Užrakinimo spynelė (prie rankenos)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1402
+msgid "Užuolaida (štorkė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1403
+msgid "Užuolaidos (štorkės) laikiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1404
+msgid "Užuolaidos (štorkės) varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1405
+msgid "Užvedimo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1406
+msgid "Užvedimo kortelės skaitytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1407
+msgid "Užvedimo raktas (raktelis)/ kortelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1408
+msgid "Užvedimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1409
+msgid "Užvedimo spynelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1410
+msgid "Užvedimo spynelės kontaktai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1411
+msgid "Užvedimo- blokavimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1412
+msgid "Vairo ašies apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1413
+msgid "Vairo kolonėle"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1414
+msgid "Vairo kolonėlės elektrinė dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1415
+msgid "Vairo kolonėlės mechaninė dalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1416
+msgid "Vairo kolonėlės tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1417
+msgid "Vairo kolonėlės valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1418
+msgid "Vairo oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1419
+msgid "Vairo oro pagalvės dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1420
+msgid "Vairo padėties (kampo) daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1421
+msgid "Vairo padėties el. varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1422
+msgid "Vairo padėties reguliavimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1423
+msgid "Vairo padėties valdymo rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1424
+msgid "Vairo padėtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1425
+msgid "Vairo rato ašies komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1426
+msgid "Vairo rato ašies kryžminė jungtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1427
+msgid "Vairo rato ašis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1428
+msgid "Vairo stiprintuvo diržas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1429
+msgid "Vairo stiprintuvo diržo įtempėjas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1430
+msgid "Vairo stiprintuvo siurblio tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1431
+msgid "Vairo stiprintuvo skysčio bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1432
+msgid "Vairo stiprintuvo žarna (-os)/ vamzdelis (-iai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1433
+msgid "Vairo traukė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1434
+msgid "Vairo traukės antgalis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1435
+msgid "Vairo traukės apsuaga (guminė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1436
+msgid "Vairo užraktas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1437
+msgid "Vaistinėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1438
+msgid "Vaizdo kamera veidrodėlyje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1439
+msgid "Vaizdo kamera veidrodėlyje (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1440
+msgid "Vakuuminis vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1441
+msgid "Vakuumo vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1442
+msgid "Vakuumo vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1443
+msgid "Valdymo bloko aušintuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1444
+msgid "Valytuvų apdaila (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1445
+msgid "Valytuvų greičio jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1446
+msgid "Valytuvų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1447
+msgid "Valytuvų komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1448
+msgid "Valytuvų mechanizmas (trapecija)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1449
+msgid "Valytuvų mechanizmo komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1450
+msgid "Valytuvų rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1451
+msgid "Valytuvų varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1452
+msgid "Vamzdeliai/žarnelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1453
+msgid "Vandens nubėgimo žarna/vamzdelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1454
+msgid "Variklio aušinimo vamzdelis (-ai)/ žarna (-os)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1455
+msgid "Variklio dangčio (kapoto) rankenėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1456
+msgid "Variklio dangčio atvėrimo/ užvėrimo daviklis (varlytė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1457
+msgid "Variklio galvutė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1458
+msgid "Variklio gesinimo sklendė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1459
+msgid "Variklio kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1460
+msgid "Variklio pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1461
+msgid "Variklio pagalvės vakuuminis vožtuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1462
+msgid "Variklio termo izoliacija (apsauga nuo karščio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1463
+msgid "Variklio tvirtinimo kronšteinas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1464
+msgid "Varikliukas priekinio langų pakėlėjo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1465
+msgid "Varikliukas šoninių slankiojančių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1466
+msgid "Varžtai/ veržlės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1468
+msgid "Važiuoklės aukščio/ standumo reguliavimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1469
+msgid "Veidrodelių valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1470
+msgid "Veidrodėliai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1471
+msgid "Veidrodėlio dalys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1472
+msgid "Veidrodėlio dalys (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1473
+msgid "Veidrodėlio plastikinė apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1474
+msgid "Veidrodėlio plastikinė apdaila (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1475
+msgid "Veidrodėlio stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1476
+msgid "Veidrodėlio stiklas (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1477
+msgid "Veidrodėlis (elektra valdomas)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1478
+msgid "Veidrodėlis (elektra valdomas) (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1479
+msgid "Veidrodėlis (mechaninis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1480
+msgid "Veidrodėlis (mechaninis) (dvidurio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1481
+msgid "Veidrodėlių jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1482
+msgid "Veidrodėlių jungtuko apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1483
+msgid "Veidrodėlių šildymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1485
+msgid "Ventilecinės grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1486
+msgid "Ventiliatoriaus (-ių) valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1487
+msgid "Ventiliatoriaus sparnuotė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1488
+msgid "Ventiliatorius/ putikas priekinėse duryse"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1489
+msgid "Ventiliatorių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1491
+msgid "Video įranga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1492
+msgid "Vidinio pusašio šarnyro (granatos) guma"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1493
+msgid "Vidinis pusašio šarnyras (granata)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1494
+msgid "Vidinė atmintis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1495
+msgid "Vidurinė dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1496
+msgid "Vidurinė pūslė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1497
+msgid "Vikšrinis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1499
+msgid "Virtuvėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1500
+msgid "Viršutinė apdaila (prie lango)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1501
+msgid "Viršutinė dalis radiatorių panelės (televizoriaus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1502
+msgid "Viršutinė slidė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1503
+msgid "Visureigių padangos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1504
+msgid "Vožtuvas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1505
+msgid "Vožtuvas (elektro magnetinis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1506
+msgid "Vožtuvas vakuuminis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1507
+msgid "Vožtuvų kėliklis (-iai) (karomislas (-ai))"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1508
+msgid "Vyris (-iai) galinio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1509
+msgid "Vyris (-iai) variklio dangčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1510
+msgid "Vyriškas/moteriškas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1511
+msgid "Vėjo deflektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1512
+msgid "Yra greitojo įkrovimo jungtis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1515
+msgid "Įkrovimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1516
+msgid "Įpurškimo kolektorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1517
+msgid "Įpurškimo sistema"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1518
+msgid "Įpurškimo valdymo blokas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1519
+msgid "Įrankių daiktadėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1520
+msgid "Įrankių dėžė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1521
+msgid "Įrankių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1522
+msgid "Įsiurbiamo oro temperatūros daviklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1523
+msgid "Įsiurbimo rezonatorius"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1524
+msgid "Įtampos keitiklis/ keitimo modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1525
+msgid "Įveikiama įkalnė °"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1526
+msgid "Šakės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1527
+msgid "Šaldymo įranga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1528
+msgid "Šaldymo įranga (krovininis automobilis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1530
+#: templates/listings/motogear_advanced.html:167
+msgid "Šalis"
+msgstr "Šalis"
+
+#: apps/listings/translatable_db.py:1531
+msgid "Šalmo tipas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1532
+msgid "Šarnyras"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1533
+msgid "Šerdesas (kaištis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1534
+msgid "Šildomas priekinis stiklas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1537
+msgid "Šildomos rankenos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1539
+msgid "Šildymo radiatoriaus vožtuvas (-ai) (kiaušiniai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1540
+msgid "Šildytuvas aušinimo skysčio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1542
+msgid "Šoninio garsiakalbio apdaila"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1543
+msgid "Šoninio garsiakalbio rėmelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1544
+msgid "Šoninio poslinkio mechanizmas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1545
+msgid "Šoninis apdailos skydas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1546
+msgid "Šoninis bortas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1547
+msgid "Šoninis stiklas kėbulo viduryje"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1548
+msgid "Šoninių (slankiojančių) durų instaliacija"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1549
+msgid "Šoninių durų"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1550
+msgid "Šoninių slankiojančių durų ECU modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1551
+msgid "Šoninių slankiojančių durų uždarymo/ atidarymo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1552
+msgid "Šoninė apdaila (galinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1553
+msgid "Šoninė apdaila (prie lango)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1554
+msgid "Šoninė apdaila (priekinė)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1555
+msgid "Šoninė apdaila prie galinės sėdynės (apačia)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1556
+msgid "Šoninė apdaila prie galinės sėdynės (viršus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1557
+msgid "Šoninė dalis radiatorių panelės (televizoriaus)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1558
+msgid "Šoninė dugno apsauga"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1559
+msgid "Šoninė oro pagalvė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1560
+msgid "Šoninės oro grotelės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1561
+msgid "Šoninės slankiojančios durys"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1562
+msgid "Švaistiklis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1563
+msgid "Šviesų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1564
+msgid "Šviesų modulis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1565
+msgid "Šviesų rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1566
+msgid "Žaliuzė kuzavo"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1567
+msgid "Žaliuzės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1568
+msgid "Žarna (-os)/ vamzdis (-džiai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1569
+msgid "Žarna alsuoklio"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1570
+msgid "Žema kabina"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1571
+msgid "Žemintos pavaros"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1572
+msgid "Žemo dažnio garsiakalbio grotelės/ dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1573
+msgid "Žemo dažnio garsiakalbis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1575
+msgid "Žibintai"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1577
+msgid "Žibinto apdaila (galinio)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1578
+msgid "Žibinto blokelis/ (xenon blokelis)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1579
+msgid "Žibintų apiplovimo bakelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1580
+msgid "Žibintų apiplovimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1581
+msgid "Žibintų apiplovimo purkštukas (-ai)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1582
+msgid "Žibintų apiplovimo purkštukų dangtelis"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1583
+msgid "Žibintų apiplovimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1584
+msgid "Žibintų apiplovimo skysčio siurbliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1585
+msgid "Žibintų apiplovimo skysčio žarnelė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1586
+msgid "Žibintų aukščio reguliavimo jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1587
+msgid "Žibintų aukščio reguliavimo varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1588
+msgid "Žibintų valytuvas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1589
+msgid "Žibintų valytuvų jungtukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1590
+msgid "Žibintų valytuvų kojelių komplektas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1591
+msgid "Žibintų valytuvų kojelė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1592
+msgid "Žibintų valytuvų varikliukas"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1594
+msgid "Žieminės dygliuotos"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1595
+msgid "Žvaigždutės"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1596
+msgid "Žvakių pakaitinimo rėlė"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1597
+msgid "Žvakė (-ės)"
+msgstr ""
+
+#: apps/listings/translatable_db.py:1598
+msgid "Žvakės (-ių) laidas (-ai)"
 msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:40
@@ -8089,18 +13481,6 @@ msgstr "Ypatumai"
 msgid "Išvalyti"
 msgstr "Išvalyti paiešką"
 
-#: templates/listings/advanced_generic.html:142
-#: templates/listings/motogear_advanced.html:214
-#: templates/listings/partials/_panel_bodies.html:115
-#: templates/listings/partials/_panel_bodies.html:209
-#: templates/listings/partials/_panel_bodies.html:295
-#: templates/listings/partials/_panel_bodies.html:455
-#: templates/listings/partials/_panel_bodies.html:557
-#: templates/listings/partials/fields/_mobile_rows.html:71
-#: templates/listings/partials/fields/_text.html:6
-msgid "Ieškoti"
-msgstr "Ieškoti"
-
 #: templates/listings/advanced_search.html:5
 #: templates/listings/trucks_list.html:671
 #: templates/listings/wheels_advanced_search.html:5
@@ -9971,15 +15351,6 @@ msgstr "Būtina nurodyti valstiją"
 msgid "Matmenys ir svoris"
 msgstr ""
 
-#: templates/listings/construction_listing_create.html:178
-#: templates/listings/forestry_listing_create.html:171
-#: templates/listings/listing_detail.html:597
-#: templates/listings/listing_detail.html:870
-#: templates/listings/listing_detail.html:1150
-#: templates/listings/rental_heavy_create.html:138
-msgid "Ratų formulė"
-msgstr "Ratų formulė"
-
 #: templates/listings/electronics_listing_create.html:149
 #: templates/listings/listing_detail.html:316
 #: templates/listings/listing_detail.html:365
@@ -10868,13 +16239,6 @@ msgstr ""
 #: templates/listings/listing_detail.html:1927
 #: templates/listings/listing_detail.html:1977
 msgid "Darbinis tūris"
-msgstr ""
-
-#: templates/listings/listing_detail.html:581
-#: templates/listings/listing_detail.html:1985
-#: templates/listings/moto_for_parts_create.html:134
-#: templates/listings/rental_moto_create.html:157
-msgid "Aušinimas"
 msgstr ""
 
 #: templates/listings/listing_detail.html:590
@@ -12747,11 +18111,6 @@ msgstr "Vaikiškas"
 msgid "Dydis"
 msgstr "Dydis"
 
-#: templates/listings/motogear_advanced.html:108
-#: templates/listings/partials/_panel_bodies.html:95
-msgid "Pagamintas iš"
-msgstr "Pagamintas iš"
-
 #: templates/listings/motogear_advanced.html:111
 msgid "Odos"
 msgstr "Odos"
@@ -12840,10 +18199,6 @@ msgstr "Ruda / smėlio"
 msgid "Marga"
 msgstr "Marga"
 
-#: templates/listings/motogear_advanced.html:167
-msgid "Šalis"
-msgstr "Šalis"
-
 #: templates/listings/motogear_advanced.html:169
 #: templates/listings/motogear_advanced.html:177
 #: templates/listings/partials/_panel_bodies.html:616
@@ -12882,18 +18237,6 @@ msgstr "7 dienos"
 #: templates/listings/motogear_advanced.html:194
 msgid "30 dienų"
 msgstr "30 dienų"
-
-#: templates/listings/motogear_advanced.html:199
-#: templates/listings/partials/_panel_bodies.html:114
-#: templates/listings/partials/_panel_bodies.html:208
-#: templates/listings/partials/_panel_bodies.html:294
-#: templates/listings/partials/_panel_bodies.html:454
-#: templates/listings/partials/_panel_bodies.html:556
-#: templates/listings/partials/_panel_bodies.html:1007
-#: templates/listings/partials/_panel_bodies.html:1047
-#: templates/listings/partials/_panel_bodies.html:1131
-msgid "Tekstinė paieška"
-msgstr "Tekstinė paieška"
 
 #: templates/listings/motogear_advanced.html:200
 #: templates/listings/wheels_list.html:275
@@ -13851,12 +19194,6 @@ msgstr "Skersmuo"
 msgid "Plotis"
 msgstr "Plotis"
 
-#: templates/listings/partials/_panel_bodies.html:174
-#: templates/listings/partials/_panel_bodies.html:261
-#: templates/listings/partials/_panel_bodies.html:416
-msgid "Aukštis"
-msgstr "Aukštis"
-
 #: templates/listings/partials/_panel_bodies.html:227
 #: templates/listings/partials/search_panel.html:63
 msgid "Padangos keturračiams"
@@ -13902,11 +19239,6 @@ msgstr "Keturračiams"
 #: templates/listings/partials/_panel_bodies.html:378
 msgid "Žemės ūkio technikai"
 msgstr "Žemės ūkio technikai"
-
-#: templates/listings/partials/_panel_bodies.html:510
-#: templates/listings/wheels_list.html:229
-msgid "Medžiaga"
-msgstr "Medžiaga"
 
 #: templates/listings/partials/_panel_bodies.html:514
 msgid "Lengvojo lydinio"
@@ -14143,10 +19475,6 @@ msgstr ""
 #: templates/listings/rental_car_create.html:209
 #: templates/listings/rental_minibus_create.html:171
 msgid "Kuro sąnaudos (l/100 km)"
-msgstr ""
-
-#: templates/listings/rental_minibus_create.html:87
-msgid "Miegamų vietų skaičius"
 msgstr ""
 
 #: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
@@ -15008,10 +20336,6 @@ msgstr ""
 
 #: templates/listings/wheels_list.html:188
 msgid "Aukštis (profilis)"
-msgstr ""
-
-#: templates/listings/wheels_list.html:219
-msgid "Tvirtinimo taškai"
 msgstr ""
 
 #: templates/listings/wheels_list.html:252
@@ -16656,9 +21980,6 @@ msgstr "Paieška"
 #~| msgid "Visos markės"
 #~ msgid "Kitos markės"
 #~ msgstr "Visos markės"
-
-#~ msgid "Darbinis tūris cm³"
-#~ msgstr "Darbinis tūris cm³"
 
 #~ msgid "Turistiniai"
 #~ msgstr "Turistiniai"
