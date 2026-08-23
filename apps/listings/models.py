@@ -1456,9 +1456,12 @@ class Listing(models.Model):
     )
     first_registration = models.DateField(verbose_name=_("First Registration Date"), null=True, blank=True)
 
-    fuel_type = models.ForeignKey(FuelType, on_delete=models.SET_NULL, null=True, blank=True)
-    transmission = models.ForeignKey(Transmission, on_delete=models.SET_NULL, null=True, blank=True)
-    body_type = models.CharField(max_length=50, choices=BODY_TYPE_CHOICES, blank=True)
+    fuel_type = models.ForeignKey(FuelType, on_delete=models.SET_NULL, null=True, blank=True,
+                                  verbose_name=_('Kuro tipas'))
+    transmission = models.ForeignKey(Transmission, on_delete=models.SET_NULL, null=True, blank=True,
+                                     verbose_name=_('Pavarų dėžė'))
+    body_type = models.CharField(max_length=50, choices=BODY_TYPE_CHOICES, blank=True,
+                                 verbose_name=_('Kėbulo tipas'))
 
     # ═══ TRUCK TYPE — autoplius-style "Tipas" (used when subcategory='trucks') ═══
     truck_type = models.CharField(
@@ -1477,7 +1480,8 @@ class Listing(models.Model):
         verbose_name=_("Color (custom)"),
         help_text="Used when color='other' — free text fallback",
     )
-    doors = models.CharField(max_length=10, choices=DOOR_CHOICES, blank=True)
+    doors = models.CharField(max_length=10, choices=DOOR_CHOICES, blank=True,
+                             verbose_name=_('Durų skaičius'))
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='used')
     defects = models.CharField(max_length=50, choices=DEFECT_CHOICES, default='none')
     steering = models.CharField(max_length=10, choices=STEERING_CHOICES, blank=True)
@@ -1564,7 +1568,7 @@ class Listing(models.Model):
         verbose_name=_("Number of vents"),
     )
 
-    vin = models.CharField(max_length=17, blank=True)
+    vin = models.CharField(max_length=17, blank=True, verbose_name=_('VIN kodas'))
     registration_number = models.CharField(max_length=20, blank=True)
 
     # ─── PARTS-specific fields ───

@@ -1195,7 +1195,7 @@ _LT_REIKSMES = {
     'Semi-automatic': 'Pusiau automatinė', 'CVT': 'Bepakopė (CVT)',
     # kėbulai (URL reikšmės — slug'ai)
     'Sedan': 'Sedanas', 'Hatchback': 'Hečbekas', 'Estate': 'Universalas',
-    'Wagon': 'Universalas', 'Minivan': 'Vienatūris', 'Suv': 'Visureigis / krosoveris',
+    'Wagon': 'Universalas', 'Minivan': 'Vienatūris', 'Suv': 'Visureigis',
     'Coupe': 'Kupė', 'Commercial': 'Komercinis', 'Convertible': 'Kabrioletas',
     'Limousine': 'Limuzinas', 'Pickup': 'Pikapas', 'Minibus': 'Mikroautobusas',
     'Van': 'Mikroautobusas', 'Truck': 'Sunkvežimis', 'Other': 'Kita',
