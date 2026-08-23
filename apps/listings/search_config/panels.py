@@ -417,7 +417,7 @@ def build_panel(vt_slug, user=None, sub_slug=None):
             # netinka — nuomos kaina parai prasideda nuo 5, o pardavimo
             # pakopos nuo 500, todėl visas sąrašas būtų bevertis.
             _own_src = f.get('options') or f.get('options_from') or []
-            own = [(o, o) for o in _own_src] if f.get('own_options') else None
+            own = [(o, _(o)) for o in _own_src] if f.get('own_options') else None
             if own:
                 item['options_min'] = item['options_max'] = own
                 item['free_input'] = True
@@ -435,7 +435,7 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 # Kol skelbimų nėra, distinct grąžina tuščią sąrašą —
                 # tada rodom etalono reikšmes iš konfigūracijos.
                 item['options'] = (_distinct_options(vt_slug, db, user)
-                                   or [(o, o) for o in (f.get('options') or [])])
+                                   or [(o, _(o)) for o in (f.get('options') or [])])
             elif db == 'boat_material':
                 from apps.listings.boats_views import BOAT_MATERIAL_CHOICES
                 item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
@@ -592,7 +592,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
 
         if f['type'] == 'range':
             _own_src = f.get('options') or f.get('options_from') or []
-            own = [(o, o) for o in _own_src] if f.get('own_options') else None
+            own = [(o, _(o)) for o in _own_src] if f.get('own_options') else None
             if own:
                 item['options_min'] = item['options_max'] = own
                 item['free_input'] = True
@@ -601,7 +601,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
             elif db == 'price':
                 item['options_min'], item['options_max'] = price_min, price_max
             else:
-                opts = [(o, o) for o in (f.get('options') or [])]
+                opts = [(o, _(o)) for o in (f.get('options') or [])]
                 item['options_min'] = item['options_max'] = opts
                 item['free_input'] = True     # kg/mm diapazonai — leidžiam bet kokį skaičių
         elif f['type'] in ('select', 'multiselect'):
@@ -629,7 +629,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 # Miestai iš realių skelbimų; kol jų nėra, sąrašas būtų
                 # tuščias — tada imam etalono reikšmes iš konfigūracijos.
                 item['options'] = (_distinct_options(vt_slug, db, user)
-                                   or [(o, o) for o in (f.get('options') or [])])
+                                   or [(o, _(o)) for o in (f.get('options') or [])])
             elif db == 'country':
                 item['options'] = list(Listing.COUNTRY_CHOICES)
             elif db == 'created_at':
