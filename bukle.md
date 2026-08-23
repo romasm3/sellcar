@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 16:23:31 CEST
+Sugeneruota: 2026-08-23 16:24:43 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001206s
+HTTP 301, 0.001219s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:51 vmi3306453 autoleft-deploy[4177385]: [2026-08-23 16:18:51] Patikra praėjo
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:51 vmi3306453 autoleft-deploy[4177473]: [16:18:51] === Deploy pradžia (20260823_161851) ===
-Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:53 vmi3306453 autoleft-deploy[4177473]: [16:18:53] DB dumpas: /root/autoleft_backups/db_20260823_161851.sql
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:54 vmi3306453 autoleft-deploy[4177491]: Operations to perform:
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:54 vmi3306453 autoleft-deploy[4177491]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, listings, payments, sessions
 Aug 23 16:18:57 vmi3306453 autoleft-deploy[4177588]: Aug 23 16:18:54 vmi3306453 autoleft-deploy[4177491]: Running migrations:
@@ -82,4 +79,7 @@ Aug 23 16:21:44 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 16:21:46 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 16:21:46 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 16:23:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 16:23:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 16:23:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 16:24:43 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
