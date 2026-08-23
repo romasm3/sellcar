@@ -575,6 +575,9 @@ def build_panel(vt_slug, user=None, sub_slug=None):
         'rows': _panel_rows(cat, fields),
         'card_fields': cat.get('card_fields', []),
         'has_advanced': advanced_is_active(vt_slug),
+        # Markės/modelio pora — panelėje irgi galima pridėti daugiau porų
+        'pair_brand': next((f for f in fields if f.get('widget') == 'brand'), None),
+        'pair_model': next((f for f in fields if f.get('widget') == 'model'), None),
     }
 
 
@@ -854,6 +857,13 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
         if not f.get('active', True):
             continue
         db, ftype = f['db_field'], f['type']
+
+        # Markės/modelio poras (kelios markės vienu metu) tvarko
+        # views.taikyti_markiu_poras — čia jų nekartojam, kitaip antros
+        # poros modelis susiaurintų ir pirmos poros markę.
+        if db in ('brand', 'model', 'motorcycle_brand', 'motorcycle_model',
+                  'truck_brand') and len(_getlist(params, f.get('param'))) > 1:
+            continue
 
         # Ypatumus ir bendrus laukus (šalis/miestas/senumas/pardavėjas)
         # jau tvarko filter_listings — čia jų nekartojam, kad nedubliuotume.

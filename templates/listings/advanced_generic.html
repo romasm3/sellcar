@@ -30,7 +30,7 @@
     </div>
 
     <form method="get" action="{% url 'listing_list' %}" id="advForm"
-          x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }} }">
+          x-data="{ eqOpen: false, eqCount: {{ selected_equipment|length }}, poros: {{ adv.pair_count|default:1 }} }">
       <input type="hidden" name="category" value="{{ adv.slug }}">
       {% comment %}sidebar=1 — rezultatai atsidaro su šonine juosta, kaip iš panelės{% endcomment %}
       <input type="hidden" name="sidebar" value="1">
@@ -110,6 +110,45 @@
                 + {% trans "Pridėti daugiau markių" %}
               </button>
             </div>
+
+            {% elif f.widget == 'brand' and adv.pair_model %}
+            {% comment %}Markė + Modelis + „Pridėti daugiau" — kaip etalone:
+            porų gali būti kelios, kiekviena su savo modeliu. Poros keliauja
+            tais pačiais brand/model parametrais eilių tvarka, todėl veikia
+            ir „atgal", ir išsaugotos paieškos (views.taikyti_markiu_poras).
+            {% endcomment %}
+            <div class="sm:col-span-2" data-pair-row>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                {% include 'listings/partials/fields/_brand.html' with f=adv.pair_brand cur_fixed=1 cur_val=adv.pair_rows.0.brand %}
+                {% include 'listings/partials/fields/_model.html' with f=adv.pair_model cur_fixed=1 cur_val=adv.pair_rows.0.model %}
+              </div>
+            </div>
+            <div class="flex items-end pb-[6px]">
+              <button type="button" @click="if (poros < 5) poros++"
+                      x-show="poros < 5"
+                      class="text-[12.5px] font-bold text-gray-600 hover:text-gray-900">
+                + {% trans "Pridėti daugiau markių/modelių" %}
+              </button>
+            </div>
+
+            {% for pr in adv.pair_rows %}{% if not forloop.first %}
+            <div class="sm:col-span-3" x-show="poros > {{ forloop.counter0 }}" x-cloak data-pair-row>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3">
+                {% include 'listings/partials/fields/_brand.html' with f=adv.pair_brand cur_fixed=1 cur_val=pr.brand %}
+                {% include 'listings/partials/fields/_model.html' with f=adv.pair_model cur_fixed=1 cur_val=pr.model %}
+                <div class="flex items-end pb-[6px]">
+                  <button type="button" class="pair-x"
+                          @click="$el.closest('[data-pair-row]').querySelectorAll('input[type=hidden]').forEach(i => i.value = '');
+                                  poros = Math.max(1, poros - 1);
+                                  $el.closest('form').dispatchEvent(new Event('change', { bubbles: true }))"
+                          title="{% trans 'Pašalinti' %}">✕</button>
+                </div>
+              </div>
+            </div>
+            {% endif %}{% endfor %}
+
+            {% elif f.widget == 'model' and adv.pair_model %}
+            {% comment %}Modelis jau atvaizduotas poros eilutėje.{% endcomment %}
 
             {% elif f.widget == 'brand' %}
             {% comment %}Kelios markės vienu metu — kaip etalone: pirmas laukas
@@ -251,6 +290,12 @@
 </script>
 
 <style>
+  /* Poros pašalinimo mygtukas — kaip etalone, pilkas kryžiukas. */
+  .pair-x { width: var(--btn-h-sm); height: var(--btn-h-sm); border: 1px solid var(--border);
+            border-radius: var(--r-md); background: var(--surface); color: var(--text-muted);
+            font-size: 15px; line-height: 1; cursor: pointer; }
+  .pair-x:hover { border-color: var(--border-hover); color: var(--text); }
+
   /* „Ieškoti N" lieka matomas slenkant — etalone jis lipnus. */
   .adv-submit { position: sticky; bottom: 0; z-index: 30;
                 padding: var(--sp-3) 0 var(--sp-4);

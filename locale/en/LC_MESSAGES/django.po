@@ -23067,3 +23067,7 @@ msgstr "Tyre ad search"
 #: apps/listings/search_config/panels.py
 msgid "Automobilių dalys"
 msgstr "Car parts"
+
+#: templates/listings/advanced_generic.html
+msgid "Pridėti daugiau markių/modelių"
+msgstr "Add more brands/models"

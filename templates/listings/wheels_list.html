@@ -80,6 +80,7 @@
 {% endblock %}
 
 {% block content %}
+{% include 'listings/partials/_sp_field_styles.html' %}
 <div class="bg-gray-50 min-h-screen">
 <div class="max-w-6xl mx-auto px-4 py-6">
 
@@ -117,7 +118,7 @@
 
                     {% for f in sidebar_fields %}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{{ f.label }}</span>
+                        {% if f.type != 'multiselect' %}<span class="sidebar-label">{{ f.label }}</span>{% endif %}
                         {% if f.type == 'range' %}
                         <div class="sb-range flex gap-2">
                             <select name="{{ f.param_min }}" class="sb-select">
@@ -133,6 +134,12 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        {% elif f.type == 'multiselect' %}
+                        {% comment %}Kelios reikšmės (pvz. kelios tr. priem.
+                        markės) — tas pats valdiklis kaip kitose paieškose.
+                        {% endcomment %}
+                        {% include 'listings/partials/fields/_multiselect.html' with f=f %}
+
                         {% elif f.type == 'text' %}
                         <input type="text" name="{{ f.param }}" class="sb-input"
                                placeholder="{{ f.placeholder }}"
@@ -144,6 +151,15 @@
                             <option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>
                             {% endfor %}
                         </select>
+                        {% endif %}
+                        {% if f.param == 'fits_brand' %}
+                        {% comment %}Kelios tr. priem. markės — kaip etalone.
+                        Klonuojam tą patį sąrašą (2500+ markių HTML'e kartoti
+                        nesinorėtų), reikšmės jungiamos „arba".{% endcomment %}
+                        <button type="button" class="mt-1 text-[12px] font-bold text-gray-600 hover:text-gray-900"
+                                onclick="pridetiMarke(this)">
+                            + {% trans "Pridėti daugiau markių" %}
+                        </button>
                         {% endif %}
                     </div>
                     {% endfor %}
@@ -331,6 +347,18 @@
 
 {% block extra_js %}
 <script>
+// Papildomos „Tr. priem. markė" eilutės: klonuojam esamą sąrašą, kad
+// nekartotume 2500+ <option> HTML'e. Serveris kelias reikšmes jungia „arba".
+function pridetiMarke(btn) {
+    var sekcija = btn.parentNode;
+    var sablonas = sekcija.querySelector('select[name="fits_brand"]');
+    if (!sablonas || sekcija.querySelectorAll('select[name="fits_brand"]').length >= 3) { return; }
+    var kopija = sablonas.cloneNode(true);
+    kopija.value = '';
+    kopija.classList.add('mt-2');
+    sekcija.insertBefore(kopija, btn);
+}
+
 function onSortChange(selectEl) {
     var url = new URL(window.location.href);
     if (selectEl.value) {

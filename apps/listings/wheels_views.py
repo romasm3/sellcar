@@ -568,8 +568,14 @@ def _apply_wheels_filters(request, product_type=None):
             platesni = [v for v, _lbl in RIM_WIDTH_CHOICES
                         if _to_decimal(v) is not None and float(v) > 11]
             qs = qs.filter(rim_width__in=platesni)
-        if getval('fits_brand'):
-            qs = qs.filter(fits_brands__icontains=getval('fits_brand'))
+        # Tr. priem. markė — kelios reikšmės jungiamos „arba", kaip
+        # markių poros automobilių paieškoje.
+        markes = [v.strip() for v in request.GET.getlist('fits_brand') if v.strip()]
+        if markes:
+            salyga = Q()
+            for m in markes:
+                salyga |= Q(fits_brands__icontains=m)
+            qs = qs.filter(salyga)
 
     # Žymimieji langeliai (etalonas: juostos apačia)
     zymes = (wheels_filters.RIM_FEATURES if product_type == 'rim'

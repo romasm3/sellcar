@@ -1467,10 +1467,17 @@ def _paieskos_params(request):
         if raktas in ('sidebar', 'search_id', 'page', 'sort', 'issaugoti',
                       'csrfmiddlewaretoken', 'ajax'):
             continue
-        reiksmes = [v for v in request.GET.getlist(raktas) if v]
+        visos = request.GET.getlist(raktas)
+        reiksmes = [v for v in visos if v]
         if not reiksmes:
             continue
-        params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
+        # Markės/modelio poros suporuojamos pagal eilės numerį, todėl
+        # tuščių reikšmių tarp jų išmesti negalima — kitaip antros poros
+        # modelis atitektų pirmai (žr. taikyti_markiu_poras).
+        if raktas in PORU_PARAMETRAI and len(visos) > 1:
+            params[raktas] = visos
+        else:
+            params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
     return params
 
 
@@ -1525,12 +1532,26 @@ def _paieskos_qs(request, params):
         qs = qs.filter(vehicle_type__slug=kat)
 
     markes = _sarasu(params.get('brand'))
-    if len(markes) == 1:
+    modeliai_raw = _sarasu(params.get('model'))
+    poros_pritaikytos = False
+    if len([m for m in markes if m]) > 1:
+        # Kelios markės — poros „arba" (BMW 320 ARBA Audi)
+        salyga = Q()
+        for i, marke in enumerate(markes):
+            if not marke:
+                continue
+            viena = Q(brand_id=marke)
+            modelis = modeliai_raw[i] if i < len(modeliai_raw) else ''
+            if str(modelis).isdigit():
+                viena &= Q(model_id=modelis)
+            salyga |= viena
+        qs = qs.filter(salyga)
+        poros_pritaikytos = True
+    elif markes and markes[0]:
         qs = qs.filter(brand_id=markes[0])
-    elif markes:
-        qs = qs.filter(brand_id__in=markes)
 
-    modeliai = [m for m in _sarasu(params.get('model')) if str(m).isdigit()]
+    modeliai = [] if poros_pritaikytos else [
+        m for m in modeliai_raw if str(m).isdigit()]
     if len(modeliai) == 1:
         qs = qs.filter(model_id=modeliai[0])
     elif modeliai:
@@ -1910,17 +1931,11 @@ def listing_list(request, panel_fragment=False, category=None):
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
-    # Kelios markės/modeliai — detali paieška leidžia pridėti daugiau markių,
-    # tada reikšmės jungiamos „arba" (kaip skaičiuoja ir count endpoint'as).
-    _brand_list = [v for v in request.GET.getlist('brand') if v]
-    _model_list = [v for v in request.GET.getlist('model') if v]
-    if len(_brand_list) > 1:
-        listings = listings.filter(brand_id__in=_brand_list)
-    elif brand_filter:
-        listings = listings.filter(brand_id=brand_filter)
-    if len(_model_list) > 1:
-        listings = listings.filter(model_id__in=_model_list)
-    elif model_filter:
+    # Markės/modelio poros — „arba" tarp porų; skaičiukas ir sąrašas eina
+    # per tą pačią funkciją, todėl niekada neišsiskiria.
+    listings, _poros_pritaikytos = taikyti_markiu_poras(
+        listings, request.GET, category_filter)
+    if not _poros_pritaikytos and model_filter:
         listings = listings.filter(model_id=model_filter)
 
     # Dalių paieška: tekstas, kodai ir dalies kategorija — tie patys filtrai
@@ -7906,6 +7921,72 @@ def _subcategory_slug_from(params):
     return str(val)
 
 
+# Markės/modelio poros — etalone galima ieškoti kelių markių iš karto,
+# kiekvienai atskirai nurodant modelį („BMW 320 ARBA Audi (visi)").
+# URL'e poros keliauja kaip tie patys `brand`/`model` parametrai eilių
+# tvarka: brand=944&model=&brand=961&model=1200. Taip veikia ir „atgal"
+# mygtukas, ir išsaugotos paieškos — naujo parametro nereikėjo.
+# (markės parametras, modelio parametras, markės stulpelis, modelio stulpelis)
+# Motociklai naudoja TUOS PAČIUS `brand`/`model` parametrus, bet kitus
+# stulpelius, todėl porų aprašas priklauso nuo kategorijos.
+# Parametrai, kurių eiliškumas svarbus (markės/modelio poros)
+PORU_PARAMETRAI = ('brand', 'model', 'motorcycle_brand', 'motorcycle_model',
+                   'truck_brand')
+
+BRAND_PAIR_FIELDS = (
+    ('brand', 'model', 'brand_id', 'model_id'),
+    ('truck_brand', None, 'truck_brand_id', None),
+)
+BRAND_PAIR_BY_CATEGORY = {
+    'motorcycles': (
+        ('brand', 'model', 'motorcycle_brand_id', 'motorcycle_model_id'),
+        ('motorcycle_brand', 'motorcycle_model', 'motorcycle_brand_id', 'motorcycle_model_id'),
+    ),
+}
+
+
+def _poru_sarasas(params, brand_param, model_param):
+    """[(markė, modelis)] eilių tvarka; tuščios markės praleidžiamos."""
+    if hasattr(params, 'getlist'):
+        markes = params.getlist(brand_param)
+        modeliai = params.getlist(model_param) if model_param else []
+    else:
+        markes = [params.get(brand_param)] if params.get(brand_param) else []
+        modeliai = [params.get(model_param)] if model_param and params.get(model_param) else []
+    poros = []
+    for i, marke in enumerate(markes):
+        if not marke:
+            continue
+        modelis = modeliai[i] if i < len(modeliai) else ''
+        poros.append((marke, modelis or ''))
+    return poros
+
+
+def taikyti_markiu_poras(listings, params, category=None):
+    """Kelios markės/modeliai — „arba" tarp porų, „ir" poros viduje.
+
+    Grąžina (queryset, ar_pritaikyta). Jei porų nėra, nieko nedaro ir
+    palieka tvarkyti įprastiems vienos reikšmės filtrams.
+    """
+    pritaikyta = False
+    laukai = BRAND_PAIR_BY_CATEGORY.get(category, BRAND_PAIR_FIELDS)
+    for brand_param, model_param, brand_col, model_col in laukai:
+        poros = _poru_sarasas(params, brand_param, model_param)
+        if not poros:
+            continue
+        salyga = Q()
+        for marke, modelis in poros:
+            viena = Q(**{brand_col: marke})
+            if modelis and model_col:
+                viena &= Q(**{model_col: modelis})
+            salyga |= viena
+        listings = listings.filter(salyga)
+        pritaikyta = True
+
+        # Modelis be markės (senos nuorodos) — filtruojam atskirai
+    return listings, pritaikyta
+
+
 def filter_listings(params, user=None, category=None, base_qs=None):
     """Pritaiko visus GET filtrus ant Listing queryset'o.
 
@@ -7970,16 +8051,9 @@ def filter_listings(params, user=None, category=None, base_qs=None):
             | Q(part_category__parent__parent__slug__in=_dal_kat)
         )
 
-    # Kelios markės/modeliai (detali paieška leidžia pridėti daugiau) — „arba".
-    _brands = _getlist('brand')
-    if len(_brands) > 1:
-        listings = listings.filter(brand_id__in=_brands)
-    elif params.get('brand'):
-        listings = listings.filter(brand_id=params['brand'])
-    _models = _getlist('model')
-    if len(_models) > 1:
-        listings = listings.filter(model_id__in=_models)
-    elif params.get('model'):
+    # Markės/modelio poros — „arba" tarp porų (žr. taikyti_markiu_poras)
+    listings, _poros_pritaikytos = taikyti_markiu_poras(listings, params, category)
+    if not _poros_pritaikytos and params.get('model'):
         listings = listings.filter(model_id=params['model'])
     if params.get('submodel'):
         listings = listings.filter(submodel_id=params['submodel'])
@@ -8217,8 +8291,21 @@ def advanced_search_generic(request, category):
         'trailer_brand_text',
     )
 
-    # Papildomų markių laukų vietos („+ Pridėti daugiau markių") — etalone
-    # markių galima nurodyti kelias.
+    # Markės/modelio poros — etalone jų gali būti kelios („BMW 320 ARBA
+    # Audi"). Pirma eilutė visada matoma, likusios atsiveria mygtuku.
+    PORU_RIBA = 5
+    _laukai = [f for row in adv['rows'] for f in row if f]
+    _marke = next((f for f in _laukai if f.get('widget') == 'brand'), None)
+    _modelis = next((f for f in _laukai if f.get('widget') == 'model'), None)
+    adv['pair_brand'] = _marke
+    adv['pair_model'] = _modelis
+    _poros = _poru_sarasas(request.GET, _marke['param'], _modelis['param']) if _marke and _modelis else []
+    adv['pair_rows'] = [
+        {'nr': i, 'brand': (_poros[i][0] if i < len(_poros) else ''),
+         'model': (_poros[i][1] if i < len(_poros) else '')}
+        for i in range(PORU_RIBA)
+    ]
+    adv['pair_count'] = max(1, len(_poros))
     adv['brand_extra_slots'] = list(range(3))
 
     # Dalių kategorijos — 19 viršutinio lygio PartCategory eilučių.
