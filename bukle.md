@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 17:02:59 CEST
+Sugeneruota: 2026-08-23 17:04:03 CEST
 
 ## Kodas
 
@@ -17,6 +17,7 @@ DĖMESIO: darbo katalogas nešvarus —
    M templates/listings/motogear_list.html
    M templates/listings/motorcycles_list.html
    M templates/listings/partials/_panel_bodies.html
+   M templates/listings/partials/search_panel.html
    M templates/listings/partials/search_rail.html
    M templates/listings/trucks_list.html
    M templates/listings/wheels_advanced_search.html
@@ -36,7 +37,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001098s
+HTTP 301, 0.002417s
 ```
 
 ## Skelbimų būsenos
@@ -70,9 +71,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 16:53:16 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.115s CPU time.
-Aug 23 16:54:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 23 16:54:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 16:54:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 16:55:35 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 16:55:36 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
@@ -95,4 +93,7 @@ Aug 23 17:01:41 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 17:01:43 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 17:01:43 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 17:02:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 17:03:00 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 17:03:00 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 17:04:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
