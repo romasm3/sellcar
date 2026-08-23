@@ -95,6 +95,13 @@ def option_label(field, value):
     for opt_value, label in field.get('options') or []:
         if str(opt_value) == value:
             return label
+    # Diapazono ribos turi savo sąrašus: „5000" → „5 000". Adrese guli
+    # neformatuotas skaičius, o telefono eilutėje jis turi atrodyti taip
+    # pat, kaip pasirinkimo ekrane.
+    for key in ('options_min', 'options_max'):
+        for opt_value, label in field.get(key) or []:
+            if str(opt_value) == value:
+                return label
     return value
 
 

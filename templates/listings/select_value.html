@@ -8,6 +8,10 @@
 Drill-in ekranas — tikras puslapis su savo URL, todėl veikia naršyklės
 „atgal". Etalone tai /select/?type=…; pas mus lauko tipas imamas iš
 konfigūracijos, o grįžimo kelias — iš ?grizti (tikrinamas, kad būtų savas).
+
+Diapazonams (kaina, metai, variklis, rida) rodomi DU stulpeliai — „Nuo"
+ir „Iki" — kaip etalono „ddvaluedouble". Anksčiau eilutė vedė tik į
+apatinę ribą ir viršutinės telefone nebuvo kaip nurodyti.
 {% endcomment %}
 <div class="sp-select-page" x-data="{ q: '' }">
   <div class="sp-sheet-hdr">
@@ -15,8 +19,37 @@ konfigūracijos, o grįžimo kelias — iš ?grizti (tikrinamas, kad būtų sava
       <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
     </a>
     <span>{{ title }}</span>
+    <a class="sp-sheet-clear" href="{{ clear_url }}">{{ clear_label|default:_("Visi") }}</a>
   </div>
 
+  {% if columns %}
+  {% comment %}Diapazonas: dvi ribos vienu ekranu, be paieškos laukelio —
+  kainų ir metų sąrašuose jo etalone irgi nėra.{% endcomment %}
+  <div class="sp-sheet-cols">
+    {% for col in columns %}
+    <div class="sp-sheet-col">
+      <div class="sp-sheet-colhdr">{{ col.label }}</div>
+      <div class="sp-sheet-list">
+        <a class="sp-sheet-item{% if not col.current %} is-sel{% endif %}" href="{{ col.clear_url }}">
+          {% trans "Visi" %}
+        </a>
+        {% for value, label in col.options %}
+        <a class="sp-sheet-item{% if col.current == value|stringformat:'s' %} is-sel{% endif %}"
+           href="?laukas={{ col.param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}&amp;reiksme={{ value|urlencode }}">
+          <span>{{ label }}</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% comment %}Abi ribos renkamos neišeinant iš ekrano, tad reikia aiškaus
+  „baigiau" — ‹ antraštėje tam per mažai matomas.{% endcomment %}
+  <div class="sp-sheet-foot">
+    <a class="sp-sheet-done" href="{{ back_link|default:back }}">{% trans "Gerai" %}</a>
+  </div>
+
+  {% else %}
   <div class="sp-sheet-search">
     <input type="text" x-model="q" placeholder="{% trans 'Paieška...' %}" autofocus>
   </div>
@@ -26,14 +59,16 @@ konfigūracijos, o grįžimo kelias — iš ?grizti (tikrinamas, kad būtų sava
       {{ clear_label|default:_("Visi") }}
     </a>
     {% for value, label, count in options %}
-    <a class="sp-sheet-item{% if current == value|stringformat:'s' %} is-sel{% endif %}{% if not count %} is-tuscia{% endif %}"
+    <a class="sp-sheet-item{% if current == value|stringformat:'s' %} is-sel{% endif %}{% if rodyti_kiekius and not count %} is-tuscia{% endif %}"
        x-show="!q || '{{ label|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
        href="?laukas={{ param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}{% if step %}&amp;zingsnis={{ step }}{% endif %}{% if chosen_brand %}&amp;marke={{ chosen_brand|urlencode }}{% endif %}&amp;reiksme={{ value|urlencode }}">
       <span>{{ label }}</span>
-      {% comment %}Skaičius visada — ir „(0)"; tuščia eilutė tik blankesnė.{% endcomment %}
-      <span class="cnt">({{ count|default:0 }})</span>
+      {% comment %}Kiekiai yra tik markių sąraše; kitur „(0)" prie kiekvienos
+      eilutės atrodė, lyg ji būtų neaktyvi.{% endcomment %}
+      {% if rodyti_kiekius %}<span class="cnt">({{ count|default:0 }})</span>{% endif %}
     </a>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
 {% endblock %}

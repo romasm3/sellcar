@@ -30,7 +30,29 @@ Parametrai:
   {% if f.type != 'text' and f.type != 'checkbox' and f.db_field != 'model' %}
   {% with key=f.param|default:f.param_min chosen=request.GET|get_list_param:f.param %}
 
-  {% if chosen %}
+  {% comment %}
+  DIAPAZONAS (kaina, metai, variklis, rida) — eilutė lieka su savo
+  pavadinimu, o pasirinktos ribos rodomos jos dešinėje („nuo 5 000 iki
+  20 000"). Žymos čia netinka: „5 000" be „Kainos" nieko nesako, o dvi
+  ribos yra vienas filtras, ne dvi atskiros reikšmės.
+
+  Iki šiol diapazono eilutė nerodė NIEKO: `chosen` imamas pagal f.param,
+  kurio diapazonas neturi (jis turi param_min/param_max), tad pasirinkus
+  kainą telefone atrodė, lyg paspaudimas nieko nepadarė.
+  {% endcomment %}
+  {% if f.type == 'range' %}
+  {% with vmin=request.GET|get_param:f.param_min vmax=request.GET|get_param:f.param_max %}
+  <a class="sp-mrow"
+     href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub %}&amp;sub={{ sub|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}">
+    <span>{{ f.label }}</span>
+    {% if vmin or vmax %}
+    <span class="sp-mrow-val">{% if vmin %}{% trans "nuo" %} {{ f|option_label:vmin }}{% endif %}{% if vmax %} {% trans "iki" %} {{ f|option_label:vmax }}{% endif %}</span>
+    {% endif %}
+    <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </a>
+  {% endwith %}
+
+  {% elif chosen %}
   <div class="sp-chips">
     {% comment %}
     Po žymą kiekvienai reikšmei. Kelios markės kaupiamos tuo pačiu

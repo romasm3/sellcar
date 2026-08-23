@@ -125,10 +125,20 @@ def select_value(request):
                 changes[model_param] = value
             return redirect(_with_params(back, changes, append=True) + '#sp-target')
 
+        # Diapazonas — ekrane abi ribos, tad po „Nuo" LIEKAM čia: kitaip
+        # „Iki" nurodyti reikėtų grįžti ir vėl atidaryti tą pačią eilutę.
+        # Pasirinkimas įrašomas į grįžimo adresą, o į panelę veda ‹ ir
+        # „Gerai".
+        if field['type'] == 'range':
+            return redirect(_with_params(request.get_full_path(), {
+                'grizti': _with_params(back, {param: value}),
+                'laukas': field.get('param_min') or param,
+                'reiksme': None,
+            }))
+
         # Daugybiniai laukai (kuro tipas, kėbulas, markė be modelių...)
         # kaupia reikšmes — telefone jas rodo atskiros žymos, o „+" šalia
-        # jų kviečia būtent šį ekraną. Vienareikšmiai (kaina, metai,
-        # rida) — perrašo.
+        # jų kviečia būtent šį ekraną. Vienareikšmiai — perrašo.
         daugybinis = field.get('type') == 'multiselect' or field.get('widget') == 'brand'
         return redirect(_with_params(back, {param: value}, append=daugybinis)
                         + '#sp-target')
@@ -144,6 +154,7 @@ def select_value(request):
             'field': field, 'param': param, 'category': category, 'sub_slug': sub_slug,
             'back': back, 'current': '', 'step': '2', 'chosen_brand': chosen_brand,
             'options': [(m.id, m.name, 0) for m in models],
+            'rodyti_kiekius': False,
             'title': brand.name if brand else field['label'],
             # „Visi modeliai" — grįžtam tik su marke
             'clear_url': _with_params(back, {param: chosen_brand}, append=True) + '#sp-target',
@@ -152,7 +163,13 @@ def select_value(request):
                                       {'zingsnis': None, 'marke': None}),
         })
 
-    current = dict(parse_qsl(urlparse(back).query, keep_blank_values=True)).get(param, '')
+    esami = dict(parse_qsl(urlparse(back).query, keep_blank_values=True))
+    current = esami.get(param, '')
+    columns = None
+    # Skelbimų kiekiai yra tik markių sąraše (brand_api). Kitur jų nėra,
+    # o „(0)" prie kiekvienos kainos ar metų atrodė, lyg eilutė būtų
+    # neaktyvi — todėl ten kiekių nerodom visai.
+    rodyti_kiekius = field.get('widget') == 'brand'
 
     if field.get('widget') == 'brand':
         # Tas pats šaltinis kaip /ajax/markes/ — sąrašas kešuotas, o į
@@ -165,11 +182,32 @@ def select_value(request):
             items = [it for it in items if q in it['n'].lower()]
         options = [(it['v'], it['n'], it['c']) for it in items]
     elif field['type'] == 'range':
-        source = (field.get('options_min') if param == field.get('param_min')
-                  else field.get('options_max')) or []
-        options = [(v, l, 0) for v, l in source]
+        # Diapazonas — ABI ribos viename ekrane, kaip etalono
+        # „ddvaluedouble" (docs/mobilus-etalonas.md). Iki šiol eilutė vedė
+        # tik į „Nuo", tad viršutinės ribos telefone nebuvo kaip nurodyti.
+        options = []
+        columns = []
+        for riba, etikete, source in (
+                (field.get('param_min'), _('Nuo'), field.get('options_min')),
+                (field.get('param_max'), _('Iki'), field.get('options_max'))):
+            if not riba:
+                continue
+            columns.append({
+                'param': riba,
+                'label': etikete,
+                'current': esami.get(riba, ''),
+                'options': [(v, l) for v, l in (source or [])],
+                'clear_url': _with_params(back, {riba: ''}) + '#sp-target',
+            })
     else:
         options = [(v, l, 0) for v, l in (field.get('options') or [])]
+
+    # „Visi" diapazone valo abi ribas iš karto
+    if columns:
+        clear_url = _with_params(
+            back, {c['param']: '' for c in columns}) + '#sp-target'
+    else:
+        clear_url = _with_params(back, {param: ''}) + '#sp-target'
 
     return render(request, 'listings/select_value.html', {
         'field': field,
@@ -179,9 +217,11 @@ def select_value(request):
         'back': back,
         'current': current,
         'options': options,
+        'columns': columns,
+        'rodyti_kiekius': rodyti_kiekius,
         'title': _('Markė, modelis') if cascade else field['label'],
         'step': '1',
-        'clear_url': _with_params(back, {param: ''}) + '#sp-target',
+        'clear_url': clear_url,
         'clear_label': _('Visi'),
         'back_link': back + '#sp-target',
         'cascade': cascade,

@@ -136,6 +136,16 @@ tikrink('category' not in html.split('grizti=')[1].split('"')[0],
 antraste('3. Visi laukai, visos kategorijos')
 
 
+def diapazono_params(cfg):
+    """Diapazono laukų parametrai — jie elgiasi kitaip nei vienareikšmiai."""
+    out = set()
+    for row in cfg.get('rows') or []:
+        for f in row or []:
+            if f and f.get('type') == 'range':
+                out |= {p for p in (f.get('param_min'), f.get('param_max')) if p}
+    return out
+
+
 def drill_laukai(cfg):
     """Laukai, kuriuos telefone renderina _mobile_rows.html."""
     out = []
@@ -158,6 +168,7 @@ for slug in sorted(panel_config.active_categories()):
     if not cfg:
         continue
     back = search_panel_tab(rf.get('/?section=' + slug))['sp_back']
+    diapazonai = diapazono_params(cfg)
     for param in drill_laukai(cfg):
         atsakymas = select_views.select_value(rf.get(
             '/pasirinkti/', {'laukas': param, 'kategorija': slug,
@@ -168,10 +179,21 @@ for slug in sorted(panel_config.active_categories()):
                 '%s/%s: grąžina be category= (%s)' % (slug, param, vieta))
         tikrink('sidebar=' not in vieta,
                 '%s/%s: grąžina be sidebar= (%s)' % (slug, param, vieta))
-        tikrink(vieta.startswith('/?section=' + slug),
-                '%s/%s: grįžta į panelę (%s)' % (slug, param, vieta))
-        tikrink(param + '=5000' in vieta,
-                '%s/%s: reikšmė adrese (%s)' % (slug, param, vieta))
+        if param in diapazonai:
+            # Diapazonas lieka pasirinkimo ekrane (abi ribos vienu ekranu),
+            # o reikšmė įrašoma į grįžimo adresą.
+            tikrink(vieta.startswith('/pasirinkti/'),
+                    '%s/%s: lieka pasirinkimo ekrane (%s)' % (slug, param, vieta))
+            grizti = dict(parse_qsl(urlparse(vieta).query)).get('grizti', '')
+            tikrink(grizti.startswith('/?section=' + slug),
+                    '%s/%s: grįžimas veda į panelę (%s)' % (slug, param, grizti))
+            tikrink(param + '=5000' in grizti,
+                    '%s/%s: reikšmė grįžimo adrese (%s)' % (slug, param, grizti))
+        else:
+            tikrink(vieta.startswith('/?section=' + slug),
+                    '%s/%s: grįžta į panelę (%s)' % (slug, param, vieta))
+            tikrink(param + '=5000' in vieta,
+                    '%s/%s: reikšmė adrese (%s)' % (slug, param, vieta))
         tikrinta += 1
 print('  patikrinta laukų: %d' % tikrinta)
 
@@ -200,10 +222,14 @@ for slug, sekcijos in sorted(SECTIONS.items()):
                 uzklausa['sub'] = sub
             atsakymas = select_views.select_value(rf.get('/pasirinkti/', uzklausa))
             vieta = atsakymas.get('Location', '')
-            tikrink('sekcija=' + sek in vieta,
-                    '%s/%s/%s: sekcija išlieka (%s)' % (slug, sek, param, vieta))
-            tikrink('category=' not in vieta,
-                    '%s/%s/%s: be category= (%s)' % (slug, sek, param, vieta))
+            # Diapazonas lieka pasirinkimo ekrane — panelės adresas guli
+            # ?grizti parametre.
+            panele = (dict(parse_qsl(urlparse(vieta).query)).get('grizti', '')
+                      if vieta.startswith('/pasirinkti/') else vieta)
+            tikrink('sekcija=' + sek in panele,
+                    '%s/%s/%s: sekcija išlieka (%s)' % (slug, sek, param, panele))
+            tikrink('category=' not in panele,
+                    '%s/%s/%s: be category= (%s)' % (slug, sek, param, panele))
 
 
 # ═══ 5. Kaupimas ir perrašymas ═══════════════════════════════════════
@@ -213,9 +239,10 @@ antraste('5. Daugybiniai laukai kaupiami, vienareikšmiai perrašomi')
 v1 = select_views.select_value(rf.get('/pasirinkti/', {
     'laukas': 'price_min', 'kategorija': 'cars',
     'grizti': '/?section=cars&price_min=1000', 'reiksme': '5000'})).get('Location')
-tikrink(parse_qsl(urlparse(v1).query).count(('price_min', '1000')) == 0
-        and ('price_min', '5000') in parse_qsl(urlparse(v1).query),
-        'kaina perrašoma: ' + str(v1))
+g1 = dict(parse_qsl(urlparse(v1).query)).get('grizti', '')
+tikrink(parse_qsl(urlparse(g1).query).count(('price_min', '1000')) == 0
+        and ('price_min', '5000') in parse_qsl(urlparse(g1).query),
+        'kaina perrašoma: ' + str(g1))
 
 # kuro tipas — daugybinis: antras pasirinkimas pridedamas
 cfg = panel_config.build_panel('cars')
@@ -290,6 +317,75 @@ tikrink(atsakymas.status_code == 302 and 'sidebar=1' in atsakymas.get('Location'
 atsakymas = klientas.get('/', {'section': 'cars', 'price_min': '5000'})
 tikrink(atsakymas.status_code == 200,
         '?section=cars&price_min=5000 → 200, ne peradresavimas (buvo šuolis į rezultatus)')
+
+
+# ═══ 9. Diapazonas: eilutė rodo reikšmę, ekrane abi ribos ════════════
+antraste('9. Diapazonai (kaina, metai) — etalono „ddvaluedouble"')
+
+import re as _re
+
+def panele_html(qs):
+    r = rf.get(qs)
+    return Template("{% include 'listings/partials/panel_generic.html' %}").render(Context({
+        'request': r, 'panel': panel_config.build_panel('cars'),
+        'count_key': 'cars', **search_panel_tab(r)}))
+
+
+def mob_eilutes(html):
+    dalis = html.split('<div class="sp-mlist')[1].split('sp-mfoot-search')[0]
+    return [' '.join(_re.sub(r'<[^>]+>', ' ', m).split())
+            for m in _re.findall(r'<a class="sp-mrow"[\s\S]*?</a>', dalis)]
+
+
+# Klaida, dėl kurios viskas prasidėjo: pasirinkus kainą eilutė nerodė nieko
+eil = mob_eilutes(panele_html('/?section=cars&price_min=5000'))
+tikrink(any('5 000' in e for e in eil), 'eilutė rodo pasirinktą kainą: %s' % eil)
+eil = mob_eilutes(panele_html('/?section=cars&price_min=5000&price_max=20000'))
+tikrink(any('5 000' in e and '20 000' in e for e in eil),
+        'eilutė rodo abi ribas: %s' % eil)
+# neformatuotas adreso skaičius eilutėje virsta „5 000", kaip ekrane
+tikrink(not any('5000' in e for e in eil), 'skaičius suformatuotas: %s' % eil)
+eil = mob_eilutes(panele_html('/?section=cars'))
+tikrink(not any(_re.search(r'\d', e) for e in eil),
+        'be filtrų eilutėse skaičių nėra: %s' % eil)
+
+# Pasirinkimo ekranas: du stulpeliai, kiekvienas su savo parametru
+puslapis = klientas.get('/pasirinkti/', {
+    'laukas': 'price_min', 'kategorija': 'cars', 'grizti': '/?section=cars'}).content.decode()
+stulpeliai = puslapis.split('<div class="sp-sheet-col">')[1:]
+tikrink(len(stulpeliai) == 2, 'du stulpeliai (rasta %d)' % len(stulpeliai))
+if len(stulpeliai) == 2:
+    for laukiama, stulpelis in zip(('price_min', 'price_max'), stulpeliai):
+        rasta = set(_re.findall(r'laukas=([a-z_]+)', stulpelis))
+        tikrink(rasta == {laukiama}, 'stulpelio laukas %s (rasta %s)' % (laukiama, rasta))
+
+# „Nuo" pasirinkimas palieka ekrane, kad „Iki" nereikėtų atidaryti iš naujo
+zingsnis = klientas.get('/pasirinkti/', {
+    'laukas': 'price_min', 'kategorija': 'cars',
+    'grizti': '/?section=cars', 'reiksme': '5000'})
+tikrink(zingsnis.status_code == 302 and zingsnis['Location'].startswith('/pasirinkti/'),
+        'po „Nuo" liekam ekrane: %s' % zingsnis.get('Location'))
+
+toliau = klientas.get(zingsnis['Location'].replace('laukas=price_min', 'laukas=price_max')
+                      + '&reiksme=20000')
+galutinis = klientas.get(toliau['Location']).content.decode()
+pazymeta = _re.findall(r'is-sel"[\s\S]{0,220}?<span>([^<]*)</span>', galutinis)
+tikrink(pazymeta == ['5 000', '20 000'],
+        'abi ribos pažymėtos ekrane: %s' % pazymeta)
+baigti = _re.search(r'sp-sheet-done" href="([^"]+)"', galutinis)
+tikrink(baigti is not None, '„Gerai" mygtukas yra')
+if baigti:
+    adresas = baigti.group(1).replace('&amp;', '&').split('#')[0]
+    tikrink('price_min=5000' in adresas and 'price_max=20000' in adresas,
+            '„Gerai" veda į panelę su abiem ribom: %s' % adresas)
+    tikrink(klientas.get(adresas).status_code == 200, '„Gerai" adresas atsidaro')
+
+# Skelbimų kiekiai — tik markių sąraše; „(0)" prie kiekvienos kainos
+# atrodė, lyg eilutė būtų neaktyvi
+for laukas in ('price_min', 'fuel_type'):
+    p = klientas.get('/pasirinkti/', {'laukas': laukas, 'kategorija': 'cars',
+                                      'grizti': '/?section=cars'}).content.decode()
+    tikrink('class="cnt"' not in p, '%s: sąraše nebėra „(0)"' % laukas)
 
 
 print('\n' + '═' * 64)
