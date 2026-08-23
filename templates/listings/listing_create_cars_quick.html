@@ -67,25 +67,23 @@
                             </select>
                         </div>
 
-                        {% comment %}Metai ir mėnuo — vienas laukas „Pirmos
-                        registracijos data" iš dviejų pasirinkimų, kaip etalone.{% endcomment %}
-                        <div class="md:col-span-2 -mb-2">
-                            <label class="block text-xs font-medium text-gray-600">{% trans "Pirmos registracijos data" %} <span class="text-red-500">*</span></label>
-                        </div>
-
-                        <div data-field-wrap="year" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Metai" %} <span class="text-red-500">*</span></label>
-                            <select name="year" id="id_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
+                        {% comment %}Vienas laukas „Pirmos registracijos data":
+                        viena antraštė, o Metai ir Mėnuo — šalia vienas kito.
+                        data-field-wrap lieka abiem, nes JS pagal juos žymi klaidas.
+                        Laukų vardai (year, month) nesikeičia.{% endcomment %}
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Pirmos registracijos data" %} <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div data-field-wrap="year" data-required="true">
+                                    <select name="year" id="id_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
                                 <option value="">---------</option>
                                 {% for year in years %}
                                 <option value="{{ year }}" {% if listing_data.step1.year == year %}selected{% endif %}>{{ year }}</option>
                                 {% endfor %}
                             </select>
-                        </div>
-
-                        <div data-field-wrap="month" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mėnuo" %} <span class="text-red-500">*</span></label>
-                            <select name="month" id="id_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
+                                </div>
+                                <div data-field-wrap="month" data-required="true">
+                                    <select name="month" id="id_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if is_edit_mode %}disabled{% endif %}>
                                 <option value="">--</option>
                                 <option value="1" {% if listing_data.step1.first_registration_month == 1 %}selected{% endif %}>01</option>
                                 <option value="2" {% if listing_data.step1.first_registration_month == 2 %}selected{% endif %}>02</option>
@@ -100,6 +98,8 @@
                                 <option value="11" {% if listing_data.step1.first_registration_month == 11 %}selected{% endif %}>11</option>
                                 <option value="12" {% if listing_data.step1.first_registration_month == 12 %}selected{% endif %}>12</option>
                             </select>
+                                </div>
+                            </div>
                         </div>
 
                         <div data-field-wrap="fuel_type" data-required="true">
