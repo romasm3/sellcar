@@ -1,43 +1,14 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-23 13:25:26 CEST
+Sugeneruota: 2026-08-23 13:26:35 CEST
 
 ## Kodas
 
 ```
-sukasi:      38067e8 feat(i18n): ETAPAS 1 — vieši puslapiai angliškai
-origin/master: 38067e8 feat(i18n): ETAPAS 1 — vieši puslapiai angliškai
+sukasi:      31ee12f feat(i18n): ETAPAS 2 — create ir edit formos angliškai
+origin/master: 31ee12f feat(i18n): ETAPAS 2 — create ir edit formos angliškai
 šaka:        master
-DĖMESIO: darbo katalogas nešvarus —
-   M apps/listings/agriculture_views.py
-   M apps/listings/bicycles_views.py
-   M apps/listings/camping_views.py
-   M apps/listings/construction_views.py
-   M apps/listings/electronics_views.py
-   M apps/listings/image_validation.py
-   M apps/listings/parts_views.py
-   M apps/listings/rental_views.py
-   M apps/listings/trailers_views.py
-   M apps/listings/translatable_db.py
-   M apps/listings/wheels_views.py
-   M locale/en/LC_MESSAGES/django.mo
-   M locale/en/LC_MESSAGES/django.po
-   M locale/lt/LC_MESSAGES/django.po
-   M templates/listings/agriculture_listing_create.html
-   M templates/listings/bicycles_listing_create.html
-   M templates/listings/camping_listing_create.html
-   M templates/listings/electronics_listing_create.html
-   M templates/listings/loading_equipment_create.html
-   M templates/listings/moto_part_create.html
-   M templates/listings/motogear_create.html
-   M templates/listings/rental_car_create.html
-   M templates/listings/rental_heavy_create.html
-   M templates/listings/rental_minibus_create.html
-   M templates/listings/services_listing_create.html
-   M templates/listings/trailers_listing_create.html
-   M templates/listings/truck_for_parts_create.html
-   M templates/listings/trucks_listing_create.html
-   M templates/listings/wheels_create.html
+darbo katalogas: švarus
 ```
 
 ## Servisai
@@ -52,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001257s
+HTTP 301, 0.000922s
 ```
 
 ## Skelbimų būsenos
@@ -86,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 23 13:17:16 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 23 13:17:16 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 23 13:17:16 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.209s CPU time.
-Aug 23 13:18:20 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 23 13:18:22 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 13:18:22 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 13:19:29 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -111,4 +78,8 @@ Aug 23 13:24:21 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 23 13:24:23 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 23 13:24:23 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 23 13:25:26 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 23 13:25:28 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 23 13:25:28 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 23 13:25:28 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.011s CPU time.
+Aug 23 13:26:34 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
