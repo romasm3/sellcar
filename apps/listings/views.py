@@ -5528,12 +5528,14 @@ def listing_success(request, pk):
     action = request.GET.get('action', 'published')
     if action == 'created':
         action = 'published'
+    # Antraštės buvo paprastos eilutės be _(), todėl po „Pratęsti" žmogus
+    # matydavo angliškai. Dabar verčiamos kaip visa kita.
     action_headlines = {
-        'published':   'Your listing was successfully published',
-        'extended':    'Your listing was successfully extended',
-        'reactivated': 'Your listing was successfully reactivated',
+        'published':   _('Skelbimas paskelbtas'),
+        'extended':    _('Skelbimo galiojimas pratęstas'),
+        'reactivated': _('Skelbimas vėl aktyvus'),
     }
-    headline = action_headlines.get(action, 'Your listing is active')
+    headline = action_headlines.get(action, _('Skelbimas aktyvus'))
     context = {
         'listing': listing, 'action': action, 'headline': headline,
         'main_image': listing.images.first(),
