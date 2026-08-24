@@ -268,17 +268,22 @@ function spPanel() {
       setTimeout(() => {
         const tinklas = this.$refs.pgrid;
         if (!tinklas) return;
-        const plytele = tinklas.querySelector('.sp-plytele');
+        // Dvi eilutės didelių (po dvi) + tiek mažų (po tris), kiek telpa
+        const didele = tinklas.querySelector('.sp-plytele.is-didele');
+        const maza = tinklas.querySelector('.sp-plytele:not(.is-didele)');
         const tarpas = parseFloat(getComputedStyle(tinklas).rowGap) || 8;
-        const aukstis = plytele ? plytele.getBoundingClientRect().height : 0;
-        const eilute = (aukstis > 10 ? aukstis : (window.innerWidth <= 370 ? 92 : 100)) + tarpas;
+        const dH = (didele ? didele.getBoundingClientRect().height : 0) ||
+                   (window.innerWidth <= 370 ? 104 : 112);
+        const mH = (maza ? maza.getBoundingClientRect().height : 0) ||
+                   (window.innerWidth <= 370 ? 82 : 88);
         const koja = document.querySelector('.sp-picker-foot');
         const virsus = tinklas.getBoundingClientRect().top;
         const laisva = window.innerHeight - virsus - (koja ? koja.offsetHeight : 64) - 10;
-        const eiluciu = Math.max(1, Math.floor(laisva / eilute));
-        const telpa = eiluciu * 3;
+        const poDideliu = laisva - 2 * (dH + tarpas);      // keturios didelės = 2 eilutės
+        const maZuEiluciu = Math.max(0, Math.floor(poDideliu / (mH + tarpas)));
+        const telpa = 4 + maZuEiluciu * 3;
         const viso = tinklas.querySelectorAll('.sp-plytele:not(.sp-plytele-daugiau)').length;
-        this.pRiba = (viso <= telpa) ? viso : Math.max(3, telpa - 1);
+        this.pRiba = (viso <= telpa) ? viso : Math.max(4, telpa - 1);
         this.pVisos = (viso <= telpa);
       }, 60);
     },

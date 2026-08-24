@@ -278,10 +278,13 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
                       -webkit-overflow-scrolling: touch; padding: 10px 12px 8px; }
 
-    .sp-picker-tinklas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* Šešių stulpelių pagrindas: didelė plytelė užima 3 (dvi eilutėje),
+       maža — 2 (trys eilutėje). Pirmos keturios kategorijos didelės. */
+    .sp-picker-tinklas { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
                          gap: 8px; }
-    .sp-plytele { display: flex; flex-direction: column; align-items: center;
-                  justify-content: center; gap: 5px; height: 100px; padding: 8px 6px;
+    .sp-plytele { grid-column: span 2; display: flex; flex-direction: column;
+                  align-items: center; overflow: hidden;
+                  justify-content: center; gap: 5px; height: 92px; padding: 8px 6px;
                   background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
                   text-decoration: none; text-align: center; min-width: 0;
                   cursor: pointer; font: inherit; }
@@ -296,17 +299,27 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-plytele-txt { font-size: 12px; line-height: 1.15; color: var(--accent);
                       font-weight: 600; max-width: 100%; overflow-wrap: anywhere;
                       display: -webkit-box; -webkit-line-clamp: 2;
-                      -webkit-box-orient: vertical; overflow: hidden; }
+                      -webkit-box-orient: vertical; overflow: hidden;
+                      max-height: 2.3em; flex: 0 0 auto; }
     .sp-plytele.is-soon .sp-plytele-txt { color: #B7BCC2; }
     .sp-plytele-cnt { font-size: 11px; color: #9AA0A6; line-height: 1; }
     .sp-plytele-daugiau { border-style: dashed; }
 
+    /* Keturios populiariausios — dvigubai platesnės ir aukštesnės */
+    .sp-plytele.is-didele { grid-column: span 3; height: 112px; gap: 7px; }
+    .sp-plytele.is-didele .sp-plytele-ico { width: 34px; height: 34px; }
+    .sp-plytele.is-didele .sp-plytele-txt { font-size: 14px; }
+    .sp-plytele.is-didele .sp-plytele-cnt { font-size: 11.5px; }
+
     @media (max-width: 370px) {
       .sp-picker-tinklas { gap: 6px; }
-      .sp-plytele { height: 92px; }
+      .sp-plytele { height: 86px; }
+      .sp-plytele.is-didele { height: 104px; }
       .sp-plytele-txt { font-size: 11px; }
+      .sp-plytele.is-didele .sp-plytele-txt { font-size: 13px; }
       .sp-plytele-ico { width: 24px; height: 24px; }
       .sp-plytele-ico i.fa-solid { font-size: 24px !important; }
+      .sp-plytele.is-didele .sp-plytele-ico i.fa-solid { font-size: 32px !important; }
     }
 
     .sp-picker-foot { padding: 8px 12px; border-top: 1px solid var(--accent-soft); background: #fff; }

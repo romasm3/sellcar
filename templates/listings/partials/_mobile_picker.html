@@ -32,18 +32,18 @@ juosta su fly2 iškrentančiu sąrašu.
     <div class="sp-picker-tinklas" x-ref="pgrid">
       {% for k in picker_visos %}
       {% if k.soon %}
-      <span class="sp-plytele is-soon" title="{{ k.label }}" aria-disabled="true"
+      <span class="sp-plytele{% if forloop.counter0 < 4 %} is-didele{% endif %} is-soon" title="{{ k.label }}" aria-disabled="true"
             x-show="pmatch('{{ k.label|escapejs }}') && (pVisos || {{ forloop.counter0 }} < pRiba)">
         <span class="sp-plytele-ico">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=26 pav=k.label %}</span>
         <span class="sp-plytele-txt">{{ k.label|tdb|trumpas }}</span>
         <span class="sp-plytele-cnt">{% trans "netrukus" %}</span>
       </span>
       {% else %}
-      <a class="sp-plytele" title="{{ k.label|tdb }}"
+      <a class="sp-plytele{% if forloop.counter0 < 4 %} is-didele{% endif %}" title="{{ k.label|tdb }}"
          href="{% url 'listing_list' %}{{ k.url }}"
          x-show="pmatch('{{ k.label|tdb|escapejs }}') && (pVisos || {{ forloop.counter0 }} < pRiba)"
          {% if k.section %}@click.prevent="picker = false; goTab('{{ k.section }}', '{{ k.sekcija }}', pickerScroll)"{% endif %}>
-        <span class="sp-plytele-ico">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=26 pav=k.label %}</span>
+        <span class="sp-plytele-ico">{% if forloop.counter0 < 4 %}{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=34 pav=k.label %}{% else %}{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=26 pav=k.label %}{% endif %}</span>
         <span class="sp-plytele-txt">{{ k.label|tdb|trumpas }}</span>
         <span class="sp-plytele-cnt">{{ k.count|default:0 }}</span>
       </a>
