@@ -22,7 +22,7 @@ SAUGIKLIAI
 KAS LAIKOMA TIKRAI TESTINIU (mašininė žymė, be spėlionių)
     · aprašymas prasideda „TESTINIS SKELBIMAS"   (testiniai_skelbimai)
     · aprašyme yra „__SEEDED_FAKE__"             (seed_fake_listings)
-    · savininkas testai@autoleft.local
+    · savininkas testai@example.com
     · pavadinime „[TEST]"
 
 KAS PATENKA Į „KLAUSTUKUS" (rodoma, bet netrinama)
@@ -50,7 +50,7 @@ from django.db import transaction
 
 TESTINIO_APRASO_PRADZIA = 'TESTINIS SKELBIMAS'
 SEED_ZYMA = '__SEEDED_FAKE__'
-TESTINIS_PASTAS = 'testai@autoleft.local'
+TESTINIS_PASTAS = 'testai@example.com'
 ITARTINA_PASKYRA = 'romasm333@gmail.com'
 
 # Pavadinimai, kurie beveik visada reiškia bandymą. Tikrinama VISAS

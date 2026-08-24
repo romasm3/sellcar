@@ -6,7 +6,7 @@
 
 Visi pažymėti trimis būdais, kad vėliau būtų lengva rasti:
   · aprašymas prasideda „TESTINIS SKELBIMAS"
-  · savininkas — paskyra testai@autoleft.local
+  · savininkas — paskyra testai@example.com
   · pavadinime priesaga „[TEST]"
 """
 
@@ -16,7 +16,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 ZYMA = 'TESTINIS SKELBIMAS'
-TEST_EMAIL = 'testai@autoleft.local'
+TEST_EMAIL = 'testai@example.com'
 
 # (vehicle_type slug, sekcijos raktas|None, pavadinimas, metai, kaina, miestas, papildomi laukai)
 SPEC = [

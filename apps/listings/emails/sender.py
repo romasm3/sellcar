@@ -76,6 +76,13 @@ def send_scenario(
 
     context = context or {}
 
+    # Negyvas domenas (.local, .test, example.com…) — nesiunčiam ir
+    # nekeliam scenarijaus skaitiklio; laiškas vis tiek grįžtų atgal.
+    from apps.listings.pasto_apsauga import domenas_negyvas
+    if domenas_negyvas(to_email):
+        logger.warning(f"[email] praleista {code}: negyvas domenas ({to_email})")
+        return False
+
     can_send, reason = should_send(code, to_user)
     if not can_send:
         logger.info(f"[email] skipping {code} to {to_email}: {reason}")

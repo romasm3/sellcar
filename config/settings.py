@@ -213,10 +213,15 @@ GOOGLE_MAPS_API_KEY = config("GOOGLE_MAPS_API_KEY", default="")
 # ═══════════════════════════════════════════════════════════
 EMAIL_USE_CONSOLE = config("EMAIL_USE_CONSOLE", default=False, cast=bool)
 
+# Visi laiškai eina pro apsaugą (apps/listings/pasto_apsauga.py): ji išmeta
+# gavėjus su negyvais domenais (.local, .test, example.com...), kad
+# nebegrįžtų „Delivery Status Notification (Failure)".
+EMAIL_BACKEND = "apps.listings.pasto_apsauga.ApsaugotasBackend"
+
 if EMAIL_USE_CONSOLE:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    EMAIL_BACKEND_TIKRAS = "django.core.mail.backends.console.EmailBackend"
 else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_BACKEND_TIKRAS = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = "smtp.gmail.com"
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True

@@ -187,3 +187,52 @@ class PuslapiuTestas(SimpleTestCase):
         self.assertEqual(blogos, [], 'Eilutės be jungiklių ar patarimų:\n  ' + '\n  '.join(blogos))
         self.assertEqual(len(patarimai), 1,
                          'ⓘ patarimų tekstai skiriasi tarp eilučių: %s' % (patarimai,))
+
+
+class PastoApsaugosTestas(SimpleTestCase):
+    """Laiškai į negyvus domenus (.local, .test, example.com) nesiunčiami.
+
+    Testinės paskyros adresai yra išgalvoti, todėl kiekvienas laiškas
+    grįždavo „Delivery Status Notification (Failure)". Apsauga gyvena
+    pašto gale, pro kurį eina VISI laiškai.
+    """
+
+    def test_negyvi_domenai_atpazistami(self):
+        from apps.listings.pasto_apsauga import domenas_negyvas
+        negyvi = ['testai@autoleft.local', 'a@example.com', 'b@sub.example.org',
+                  'c@x.test', 'd@y.invalid', 'e@localhost', 'be-domeno', '']
+        gyvi = ['romasm3@gmail.com', 'info@autoleft.com', 'x@paštas.lt']
+        for a in negyvi:
+            self.assertTrue(domenas_negyvas(a), f'{a!r} turi būti negyvas')
+        for a in gyvi:
+            self.assertFalse(domenas_negyvas(a), f'{a!r} turi būti gyvas')
+
+    def test_laiskas_i_negyva_adresa_nesiunciamas(self):
+        """Apsauga tikrinama tiesiogiai: testų aplinkoje Django pati
+        pakeičia EMAIL_BACKEND į locmem, tad per settings jos nepagautum."""
+        from django.core import mail
+        from django.core.mail import EmailMessage
+        from django.test import override_settings
+        from apps.listings.pasto_apsauga import ApsaugotasBackend
+        with override_settings(
+                EMAIL_BACKEND_TIKRAS='django.core.mail.backends.locmem.EmailBackend'):
+            mail.outbox = []
+            galas = ApsaugotasBackend()
+            kiek = galas.send_messages([
+                EmailMessage('T', 'turinys', 'noreply@autoleft.com', ['testai@example.com'])])
+            self.assertEqual(kiek, 0, 'į negyvą domeną siųsti nebandom')
+            self.assertEqual(len(mail.outbox), 0)
+
+    def test_misriame_sarase_lieka_tik_gyvi(self):
+        from django.core import mail
+        from django.core.mail import EmailMessage
+        from django.test import override_settings
+        from apps.listings.pasto_apsauga import ApsaugotasBackend
+        with override_settings(
+                EMAIL_BACKEND_TIKRAS='django.core.mail.backends.locmem.EmailBackend'):
+            mail.outbox = []
+            galas = ApsaugotasBackend()
+            galas.send_messages([EmailMessage(
+                'T', 'turinys', 'noreply@autoleft.com',
+                ['romasm3@gmail.com', 'testai@example.com'])])
+            self.assertEqual([m.to for m in mail.outbox], [['romasm3@gmail.com']])
