@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-24 14:09:59 CEST
+Sugeneruota: 2026-08-24 14:11:14 CEST
 
 ## Kodas
 
@@ -9,6 +9,7 @@ sukasi:      288b7a9 feat(skelbimas): pardavėjo blokas turinyje ir „Kiti pard
 origin/master: 288b7a9 feat(skelbimas): pardavėjo blokas turinyje ir „Kiti pardavėjo skelbimai"
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
+   M config/urls.py
    M templates/accounts/login.html
    M templates/accounts/password_reset_complete.html
    M templates/accounts/password_reset_confirm.html
@@ -33,7 +34,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001029s
+HTTP 301, 0.001233s
 ```
 
 ## Skelbimų būsenos
@@ -67,9 +68,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 24 14:00:05 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 2.161s CPU time.
-Aug 24 14:01:12 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 24 14:01:14 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 14:01:14 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 14:01:14 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.162s CPU time.
 Aug 24 14:02:28 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -92,4 +90,7 @@ Aug 24 14:08:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 24 14:08:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 14:08:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 14:09:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 24 14:10:00 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 24 14:10:00 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 24 14:11:13 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
