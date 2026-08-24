@@ -4,33 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Klaida serveryje — Autoleft.</title>
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/logo/autoleft-ikona.svg' %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'brand/autoleft-icon.svg' %}">
   <!-- 500 puslapis renderinamas BE konteksto procesorių (jie patys gali būti
        sugedę), todėl jis savarankiškas: be base.html ir be adresų šablonų
        žymų — visos nuorodos rašomos tiesiogiai. -->
   <style>
-    @font-face { font-family: 'EB Garamond'; font-style: normal; font-weight: 400;
-                 font-display: swap;
-                 src: url("{% static 'fonts/eb-garamond-400-latin.woff2' %}") format('woff2'); }
     body { margin: 0; background: #F7F7F8; color: #181B1F;
            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
     .kl { max-width: 560px; margin: 0 auto; padding: 64px 16px; text-align: center; }
-    .logo { font-family: "EB Garamond", Georgia, "Times New Roman", serif; font-weight: 400;
-            font-size: 32px; color: #181B1F; letter-spacing: .005em; line-height: 1;
-            text-decoration: none; }
-    .logo-dot { color: #E14D28; }
+    .site-logo { display: inline-flex; }
+    .site-logo img { height: 32px; width: auto; display: block; }
     .kodas { margin-top: 32px; font-size: 64px; font-weight: 700; color: #6B7280; line-height: 1; }
     h1 { margin: 12px 0 0; font-size: 24px; }
     p { margin: 8px 0 0; color: #6B7280; }
     .btn { display: inline-flex; align-items: center; height: 40px; padding: 0 20px;
            margin-top: 24px; border-radius: 8px; background: #374151; color: #fff;
            text-decoration: none; font-weight: 600; }
-    @media (max-width: 767px) { .logo { font-size: 24px; } }
+    @media (max-width: 767px) { .site-logo img { height: 24px; } }
   </style>
 </head>
 <body>
   <div class="kl">
-    <a href="/" class="logo" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+    <a href="/" class="site-logo" aria-label="AutoLeft">
+      <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
+    </a>
     <div class="kodas">500</div>
     <h1>Kažkas sugedo mūsų pusėje</h1>
     <p>Bandykite dar kartą po kelių minučių — jau žinom apie klaidą.</p>

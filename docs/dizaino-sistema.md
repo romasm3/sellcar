@@ -170,9 +170,16 @@ Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikon
 ```
 
 Ženklo failai gyvena `static/brand/` (tekstas kreivėmis — šrifto nereikia):
-šviesiam fonui `autoleft-logo.svg`, tamsiam `autoleft-logo-dark.svg`,
-vienspalvis `autoleft-logo-mono.svg` (`currentColor`), ikona
-`autoleft-icon.svg` ir PNG 512/192/180/64/32/16 bei `maskable` variantai PWA.
+
+| Failas | Kam |
+|---|---|
+| `autoleft-logo.svg` | šviesus fonas — antraštė, meniu, prisijungimas, klaidų puslapiai |
+| `autoleft-logo-dark.svg` | tamsus fonas — poraštė, administracija |
+| `autoleft-logo-mono.svg` | vienspalviai paviršiai (paveldi `currentColor`) |
+| `autoleft-icon.svg` + `autoleft-icon-{512,192,180,64,32,16}.png` | favicon, apple-touch, PWA |
+| `autoleft-icon-maskable.svg` + `-{512,192}.png` | PWA maskable |
+| `autoleft-og-1200x630.png` | `og:image`, logotipas ant balto fono |
+| `autoleft-logo-512.png`, `autoleft-logo-dark-512.png` | laiškams (pašto klientai SVG nerodo) |
 
 **Oranžinė naudojama tik dviejose vietose: logotipe ir programėlės
 ikonoje. Daugiau niekur svetainėje jos nėra** — nei mygtukuose, nei žymose,

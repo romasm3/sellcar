@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}{% trans "Sign Up" %} - AutoLeft{% endblock %}
@@ -8,7 +9,9 @@
     <div class="max-w-md w-full">
         <!-- Logo & Title -->
         <div class="text-center mb-8">
-            <a href="{% url 'home' %}" class="logo mb-4 inline-block" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+            <a href="{% url 'home' %}" class="site-logo mb-4 inline-flex" aria-label="AutoLeft">
+                <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
+            </a>
             <h2 class="text-3xl font-bold text-gray-900">{% trans "Create Account" %}</h2>
             <p class="text-gray-600 mt-2">{% trans "Join AutoLeft today" %}</p>
         </div>

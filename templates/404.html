@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{% trans "Puslapis nerastas" %} - Autoleft{% endblock %}
 {% block content %}
 {% comment %}404 — su prekės ženklu ir keliu atgal (standalone režime
 naršyklės „atgal" juostos nėra, žr. docs/pwa-pasiruosimas.md).{% endcomment %}
 <div class="kl-puslapis">
-  <a href="{% url 'home' %}" class="logo" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+  <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
+    <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
+  </a>
   <div class="kl-kodas">404</div>
   <h1 class="kl-antraste">{% trans "Tokio puslapio nėra" %}</h1>
   <p class="kl-tekstas">{% trans "Nuoroda galėjo pasenti arba skelbimas nuimtas." %}</p>

@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+{% comment %}Administracijos antraštė su prekės ženklu.
+
+Paveldim iš admin/base.html (NE iš base_site.html — tas pats vardas
+sukeltų begalinę rekursiją). Ženklas tamsiam fonui: admin juosta tamsi.
+{% endcomment %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | AutoLeft{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}" style="display:inline-flex;align-items:center;padding:6px 0;">
+    <img src="{% static 'brand/autoleft-logo-dark.svg' %}" alt="AutoLeft"
+         style="height:24px;width:auto;display:block;">
+  </a>
+</div>
+{% endblock %}

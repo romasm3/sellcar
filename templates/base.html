@@ -15,7 +15,9 @@
     <meta property="og:url" content="https://autoleft.com{{ request.path }}">
     {% comment %}Bendras ženklas dalijantis puslapiais be nuotraukos;
     skelbimo puslapis jį perrašo savo nuotrauka.{% endcomment %}
-    <meta property="og:image" content="https://autoleft.com{% static 'img/logo/autoleft-512.png' %}">
+    <meta property="og:image" content="https://autoleft.com{% static 'brand/autoleft-og-1200x630.png' %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
     {% comment %}msTitle turi būti apibrėžta anksčiau nei Alpine paleidžia
@@ -27,51 +29,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    {% comment %}Logotipo šriftas — savas, ne iš Google: puslapis kraunasi
-    greičiau ir logotipas neblyksi. Lotynų rinkinys 23 KB, latin-ext (su
-    ąčęėįšųūž) 56 KB — pastarasis atsisiunčiamas tik jei tokių ženklų
-    reikia, o „Autoleft." jų neturi.{% endcomment %}
-    <link rel="preload" href="{% static 'fonts/eb-garamond-400-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 
     {% comment %}Ikona — skirtukui, telefono ekranui ir (vėliau) PWA.{% endcomment %}
-    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo/autoleft-ikona.svg' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/logo/autoleft-32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/logo/autoleft-16.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/logo/autoleft-180.png' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'brand/autoleft-icon.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'brand/autoleft-icon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'brand/autoleft-icon-16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'brand/autoleft-icon-180.png' %}">
     <style>
         * { font-family: 'Inter', sans-serif; }
         [x-cloak] { display: none !important; }
 
-        /* ═══ LOGOTIPO ŠRIFTAS — savas, be Google užklausos ═══ */
-        @font-face {
-            font-family: 'EB Garamond';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url("{% static 'fonts/eb-garamond-400-latin.woff2' %}") format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-                           U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
-                           U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-        @font-face {
-            font-family: 'EB Garamond';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url("{% static 'fonts/eb-garamond-400-latin-ext.woff2' %}") format('woff2');
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
-                           U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
-                           U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
 
-        /* ═══ LOGOTIPAS ═══ „Autoleft" + oranžinis taškas */
-        .logo { font-family: var(--brand-font); font-weight: 400; font-size: 32px;
-                color: var(--brand-ink); letter-spacing: .005em; line-height: 1;
-                text-decoration: none; white-space: nowrap; display: inline-block; }
-        .logo-dot { color: var(--brand-orange); }
-        /* Ant tamsaus fono — poraštė, tamsios juostos */
-        .logo-sviesus { color: #FFFFFF; }
-        @media (max-width: 767px) { .logo { font-size: 24px; } }
 
         /* ═══ LOGOTIPAS FAILU (static/brand/) ═══
            Proporcija 4,07:1 — plotis skaičiuojamas iš aukščio (width:auto),
@@ -119,7 +87,6 @@
                (docs/dizaino-sistema.md, „Prekės ženklo spalva"). */
             --brand-ink:    #181B1F;
             --brand-orange: #E14D28;
-            --brand-font: "EB Garamond", Georgia, "Times New Roman", serif;
 
             /* ── DIZAINO SISTEMA (docs/dizaino-sistema.md) ──────────────
                Visos reikšmės išmatuotos iš etalono CSS. Šablonuose
@@ -315,7 +282,9 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-8 min-w-0">
-                    <a href="{% url 'home' %}" class="logo" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+                    <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
+                    </a>
 
                     <!-- Desktop Navigation -->
                     <div class="hidden lg:flex items-center gap-6">
@@ -557,7 +526,9 @@
             <div class="px-4 py-4 space-y-1">
                 {% comment %}Meniu viršuje — logotipas, kaip ir svečio meniu.{% endcomment %}
                 <div class="px-4 pb-3 mb-1 border-b border-gray-200">
-                    <a href="{% url 'home' %}" class="logo" style="font-size:24px" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+                    <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">
+                    </a>
                 </div>
                 <a href="{% url 'listing_create' %}"
                    class="flex items-center justify-center gap-1.5 px-4 py-2.5 mb-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors">
@@ -635,7 +606,9 @@
             {% endcomment %}
             <div class="mm-panel">
                 <div class="mm-head">
-                    <a href="{% url 'home' %}" class="logo" style="font-size:24px" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+                    <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">
+                    </a>
                     <button type="button" class="mm-close" @click="mobileMenu = false"
                             aria-label="{% trans 'Uždaryti' %}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
@@ -742,7 +715,9 @@
                 <!-- Brand + Social -->
                 <div class="lg:col-span-7">
                     <div class="mb-4">
-                        <a href="{% url 'home' %}" class="logo logo-sviesus" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+                        <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
+                            <img src="{% static 'brand/autoleft-logo-dark.svg' %}" alt="AutoLeft" width="130" height="32">
+                        </a>
                     </div>
                     <p class="text-sm text-gray-400 leading-relaxed mb-6 max-w-md">
                         {% trans "Discover trusted vehicles and services — easier, faster, simpler." %}

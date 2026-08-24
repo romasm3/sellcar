@@ -112,7 +112,7 @@ class Command(BaseCommand):
         send_mail(
             subject=subject,
             message=text_body,
-            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@sellcar.com'),
+            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'),
             recipient_list=[listing.seller.email],
             html_message=html_body,
             fail_silently=False,
@@ -145,7 +145,7 @@ class Command(BaseCommand):
         send_mail(
             subject=subject,
             message=text_body,
-            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@sellcar.com'),
+            from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@autoleft.com'),
             recipient_list=[listing.seller.email],
             html_message=html_body,
             fail_silently=False,
