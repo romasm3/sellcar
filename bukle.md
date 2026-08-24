@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-24 21:39:51 CEST
+Sugeneruota: 2026-08-24 21:40:55 CEST
 
 ## Kodas
 
@@ -11,6 +11,7 @@ origin/master: 6fe942b feat(ikonos): kategorijų ikonos iš Font Awesome, vienas
 DĖMESIO: darbo katalogas nešvarus —
    M apps/listings/templatetags/dict_extras.py
    M apps/listings/views.py
+   M templates/base.html
    M templates/listings/partials/_mobile_picker.html
    M templates/listings/partials/_sp_field_styles.html
    M templates/listings/partials/search_panel.html
@@ -28,7 +29,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001233s
+HTTP 301, 0.556692s
 ```
 
 ## Skelbimų būsenos
@@ -62,9 +63,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 24 21:30:32 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.084s CPU time.
-Aug 24 21:32:17 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 24 21:32:19 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 21:32:19 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 21:32:19 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.097s CPU time.
 Aug 24 21:33:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -87,4 +85,7 @@ Aug 24 21:38:28 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 24 21:38:28 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 21:38:28 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.091s CPU time.
 Aug 24 21:39:50 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 24 21:39:52 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 24 21:39:52 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 24 21:40:55 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
