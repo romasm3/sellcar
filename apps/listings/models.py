@@ -2210,6 +2210,54 @@ class ListingView(models.Model):
         indexes = [models.Index(fields=['listing', 'viewed_at'])]
 
 
+class PerziuretasSkelbimas(models.Model):
+    """Peržiūrėtų skelbimų sąrašas (paskyroje).
+
+    Vienas įrašas vienam skelbimui: atidarius tą patį skelbimą dar kartą
+    tik atnaujinamas laikas, dublikato nekuriam. Laikom RIBA naujausių —
+    senesni krenta, kad sąrašas neaugtų be galo.
+
+    Svečio sąrašas gyvena naršyklėje (localStorage), o prisijungus
+    perkeliamas čia — views.perziureti_sujungti.
+
+    ListingView tam netinka: ten kaupiamos VISOS peržiūros (ir anoniminės)
+    statistikai, po įrašą kiekvienam atidarymui.
+    """
+
+    RIBA = 100
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='perziureti_skelbimai')
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE,
+                                related_name='perziuros')
+    perziureta = models.DateTimeField(default=timezone.now, db_index=True)
+
+    class Meta:
+        verbose_name = _('Peržiūrėtas skelbimas')
+        verbose_name_plural = _('Peržiūrėti skelbimai')
+        unique_together = ('user', 'listing')
+        ordering = ['-perziureta']
+        indexes = [models.Index(fields=['user', '-perziureta'])]
+
+    def __str__(self):
+        return f'{self.user} → {self.listing_id}'
+
+    @classmethod
+    def zymeti(cls, user, listing, kada=None):
+        """Įrašo arba atnaujina peržiūrą ir nukerpa sąrašą iki RIBA."""
+        if not user or not user.is_authenticated or not listing:
+            return None
+        irasas, _sukurta = cls.objects.update_or_create(
+            user=user, listing=listing,
+            defaults={'perziureta': kada or timezone.now()},
+        )
+        senesni = list(cls.objects.filter(user=user)
+                       .values_list('id', flat=True)[cls.RIBA:])
+        if senesni:
+            cls.objects.filter(id__in=senesni).delete()
+        return irasas
+
+
 class ListingImpression(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='impression_records')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='listing_impressions')

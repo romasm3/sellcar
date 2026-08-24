@@ -43,6 +43,7 @@ from .models import (
     Listing,
     ListingImage,
     ListingView,
+    PerziuretasSkelbimas,
     ListingImpression,
     SalesRecord,
     Model,
@@ -2586,6 +2587,11 @@ def listing_detail(request, pk):
         raise Http404("Listing not found")
 
     _track_listing_view(request, listing)
+
+    # Peržiūrėtų skelbimų sąrašas (/perziureti/). Svečio sąrašą tvarko
+    # naršyklė (static/js/perziureti.js), prisijungusio — paskyra.
+    if request.user.is_authenticated:
+        PerziuretasSkelbimas.zymeti(request.user, listing)
 
     is_saved = request.user.is_authenticated and SavedListing.objects.filter(
         user=request.user, listing=listing

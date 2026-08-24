@@ -24,6 +24,10 @@
 {% endblock %}
 
 {% block content %}
+{% comment %}Peržiūrėtų skelbimų žymėjimas: svečio sąrašą į localStorage
+įrašo static/js/perziureti.js, prisijungusio — jau įrašė serveris.{% endcomment %}
+<span data-perziurimas-skelbimas="{{ listing.pk }}"
+      data-prisijunges="{% if user.is_authenticated %}1{% else %}0{% endif %}" hidden></span>
 {% if rodyti_neaktyvu %}
 {% comment %}Neaktyvų skelbimą mato tik savininkas ir personalas — juosta
 paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}

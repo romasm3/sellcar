@@ -14558,7 +14558,7 @@ msgstr "Saved ads"
 
 #: templates/base.html:614
 msgid "Peržiūrėti skelbimai"
-msgstr "Browse listings"
+msgstr "Viewed ads"
 
 #: templates/base.html:621
 msgid "Žemėlapio paieška"
@@ -23198,6 +23198,62 @@ msgid "prieš %(sk)s m."
 msgid_plural "prieš %(sk)s m."
 msgstr[0] "%(sk)s year ago"
 msgstr[1] "%(sk)s years ago"
+
+#. peržiūrėti skelbimai
+msgid "Peržiūrėtas skelbimas"
+msgstr "Viewed ad"
+
+#. peržiūrėti skelbimai
+msgid "Peržiūrėta"
+msgstr "Viewed"
+
+#. peržiūrėti skelbimai
+msgid "Pašalinti iš peržiūrėtų"
+msgstr "Remove from viewed"
+
+#. peržiūrėti skelbimai
+msgid "Dar nesate peržiūrėję nė vieno skelbimo"
+msgstr "You haven't viewed any ads yet"
+
+#. peržiūrėti skelbimai
+msgid "Naršyti skelbimus"
+msgstr "Browse ads"
+
+#. peržiūrėti skelbimai
+msgid "Visos kategorijos"
+msgstr "All categories"
+
+#. peržiūrėti skelbimai
+msgid "Naujausi"
+msgstr "Newest"
+
+#. peržiūrėti skelbimai
+msgid "Seniausi"
+msgstr "Oldest"
+
+#. peržiūrėti skelbimai
+msgid "Pigiausi"
+msgstr "Cheapest"
+
+#. peržiūrėti skelbimai
+msgid "Brangiausi"
+msgstr "Most expensive"
+
+#. peržiūrėti skelbimai
+msgid "Mano AutoLeft"
+msgstr "My AutoLeft"
+
+#. peržiūrėti skelbimai
+msgid "Kraunama…"
+msgstr "Loading…"
+
+#. peržiūrėti skelbimai
+msgid "Žiūrėjote"
+msgstr "Viewed"
+
+#. peržiūrėti skelbimai
+msgid "Nuoroda nukopijuota"
+msgstr "Link copied"
 
 #~ msgid "Top markės"
 #~ msgstr "Top brands"

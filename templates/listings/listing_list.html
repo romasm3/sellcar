@@ -819,7 +819,7 @@ a.sp-rail-btn { text-decoration:none; }
                 <div class="space-y-3">
                     {% for listing in listings %}
                     {% with eff_level=listing.get_effective_star_level %}
-                    <div class="h-listing-card group {% if listing.status == 'sold' %}sold-card{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
+                    <div data-skelbimas="{{ listing.pk }}" class="h-listing-card group {% if listing.status == 'sold' %}sold-card{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
                          x-data="{ idx: 0, total: {{ listing.images.count }} }"
                          data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}"
                          {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>
@@ -1139,7 +1139,7 @@ function onSortChange(selectEl) {
                 <div class="home-tab-grid">
                     {% for listing in tab_daily %}
                     {% with eff_level=listing.get_effective_star_level %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1176,7 +1176,7 @@ function onSortChange(selectEl) {
                 <div class="home-tab-grid">
                     {% for listing in tab_offers %}
                     {% with eff_level=listing.get_effective_star_level %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1217,7 +1217,7 @@ function onSortChange(selectEl) {
                 {% if tab_newest %}
                 <div class="home-tab-grid">
                     {% for listing in tab_newest %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1249,7 +1249,7 @@ function onSortChange(selectEl) {
                 {% if tab_popular %}
                 <div class="home-tab-grid">
                     {% for listing in tab_popular %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1283,7 +1283,7 @@ function onSortChange(selectEl) {
                 {% if tab_expensive %}
                 <div class="home-tab-grid">
                     {% for listing in tab_expensive %}
-                    <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}

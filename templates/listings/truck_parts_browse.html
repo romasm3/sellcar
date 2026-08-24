@@ -207,7 +207,7 @@
       {% if listings %}
       {% for listing in listings %}
       {% with eff_level=listing.get_effective_star_level %}
-      <div class="h-listing-card group {% if listing.status == 'sold' %}sold-card{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
+      <div data-skelbimas="{{ listing.pk }}" class="h-listing-card group {% if listing.status == 'sold' %}sold-card{% endif %} {% if listing.is_highlighted %}highlighted-card{% endif %}"
            x-data="{ idx: 0, total: {{ listing.images.count }} }"
            data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}"
            {% if listing.status != 'sold' %}@click="window.location='{% url 'listing_detail' listing.pk %}'"{% endif %}>

@@ -1,0 +1,60 @@
+{% load i18n listing_filters i18n_db %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PERŽIŪRĖTO SKELBIMO KORTELĖ
+
+Ta pati išvaizda kaip rezultatų sąraše (.h-listing-card ir tos pačios
+klasės), plius trys dalykai:
+  • „Peržiūrėta prieš 2 val." po pavadinimu (laikas — bendra .time-ago
+    mechanika, _laiko_zyma_js.html);
+  • veiksmai po kortele: „Rašyti žinutę", „Dalintis";
+  • ✕ — pašalina iš peržiūrėtų.
+
+Parametrai: listing, perziureta (ISO laikas), svecias (0/1).
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="pz-kort h-listing-card" data-skelbimas="{{ listing.pk }}">
+  <a class="pz-nuotrauka h-img-side" href="{% url 'listing_detail' listing.pk %}">
+    {% if listing.first_image %}
+      {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
+    {% else %}
+      <div class="no-img-icon"><i class="fas fa-car"></i></div>
+    {% endif %}
+    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+  </a>
+
+  <div class="h-info-side">
+    <div class="ap-title-row">
+      <h3 class="ap-title">{{ listing.title }}</h3>
+      <div class="ap-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
+    </div>
+
+    <div class="pz-kada">
+      {% trans "Peržiūrėta" %}
+      <span class="time-ago" data-paskelbta="{{ perziureta|date:'c' }}"><span class="time-ago-text"></span></span>
+    </div>
+
+    <div class="ap-spec-line">{% spec_eilute listing %}</div>
+
+    {% if listing.city or listing.country %}
+    <div class="pz-vieta">{% if listing.city %}{{ listing.city }}{% endif %}</div>
+    {% endif %}
+
+    <div class="pz-veiksmai">
+      <a class="pz-veiksmas" href="{% if user.is_authenticated %}{% url 'conversations:start' listing.pk %}{% else %}{% url 'accounts:login' %}?next={% url 'listing_detail' listing.pk %}{% endif %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+        <span>{% trans "Rašyti žinutę" %}</span>
+      </a>
+      <button type="button" class="pz-veiksmas" data-dalintis="{{ listing.pk }}"
+              data-nuoroda="{{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' listing.pk %}"
+              data-pavadinimas="{{ listing.title }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path stroke-linecap="round" d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>
+        <span>{% trans "Dalintis" %}</span>
+      </button>
+    </div>
+  </div>
+
+  <button type="button" class="pz-salinti" data-salinti="{{ listing.pk }}"
+          title="{% trans 'Pašalinti iš peržiūrėtų' %}" aria-label="{% trans 'Pašalinti iš peržiūrėtų' %}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>

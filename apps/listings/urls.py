@@ -3,6 +3,7 @@ from . import views
 from apps.listings import brand_api
 from . import views_help
 from . import motorcycles_views
+from . import perziureti_views
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
@@ -180,6 +181,13 @@ urlpatterns = [
     path('search/toggle-save/', views.toggle_save_search, name='toggle_save_search'),
     path('search/duplicate/<int:pk>/', views.duplicate_search, name='duplicate_search'),
     path('search/<int:pk>/viewed/', views.mark_search_viewed, name='mark_search_viewed'),
+
+    # ─── Peržiūrėti skelbimai (veikia ir svečiui — iš localStorage) ───
+    path('perziureti/', perziureti_views.perziureti_skelbimai, name='perziureti_skelbimai'),
+    path('perziureti/duomenys/', perziureti_views.perziureti_duomenys, name='perziureti_duomenys'),
+    path('perziureti/sujungti/', perziureti_views.perziureti_sujungti, name='perziureti_sujungti'),
+    path('perziureti/id/', perziureti_views.perziuretu_id, name='perziuretu_id'),
+    path('perziureti/<int:pk>/pasalinti/', perziureti_views.perziureti_pasalinti, name='perziureti_pasalinti'),
 
     # ─── Image ───
     path("image/<int:pk>/delete/", views.image_delete, name="image_delete"),
