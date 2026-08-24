@@ -2609,9 +2609,36 @@ def listing_detail(request, pk):
             is_shadow_banned=False,
         ).count()
 
+    from django.db.models.functions import Coalesce
+
+    # ─── Kiti pardavėjo skelbimai ───
+    # Rodom tik jei jų yra daugiau nei šis vienas; dabartinio sąraše nėra.
+    _kiti_qs = Listing.objects.filter(
+        seller=listing.seller, status='active', is_shadow_banned=False,
+    ).exclude(pk=listing.pk).select_related(
+        'brand', 'model', 'fuel_type', 'transmission', 'vehicle_type'
+    ).prefetch_related('images').annotate(
+        paskelbta_db=Coalesce('activated_at', 'created_at')
+    ).order_by('-paskelbta_db')
+    kiti_skelbimai = list(_kiti_qs[:4])
+    kiti_skelbimai_kiek = _kiti_qs.count()
+
+    # „Žiūrėti daugiau" — prekiautojo puslapis arba pardavėjo profilis
+    if hasattr(listing.seller, 'profile') and listing.seller.profile.dealer_subscription_active:
+        pardavejo_url = reverse('accounts:dealer_public_page',
+                                args=[listing.seller.username])
+    else:
+        pardavejo_url = reverse('accounts:seller_profile', args=[listing.seller.pk])
+
     context = {
         'listing': listing,
         'is_owner': is_owner,
+        'kiti_skelbimai': kiti_skelbimai,
+        'saved_ids': set(SavedListing.objects.filter(
+            user=request.user, listing__in=kiti_skelbimai
+        ).values_list('listing_id', flat=True)) if request.user.is_authenticated else set(),
+        'kiti_skelbimai_kiek': kiti_skelbimai_kiek,
+        'pardavejo_url': pardavejo_url,
         # Juosta „Skelbimas neaktyvus" — rodoma tik tiems, kas jį apskritai mato
         'rodyti_neaktyvu': _neaktyvus or listing.is_shadow_banned,
         'is_staff_view': is_staff,

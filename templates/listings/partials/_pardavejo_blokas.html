@@ -1,0 +1,125 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PARDAVĖJO BLOKAS — pagrindiniame stulpelyje, po vietos bloku.
+
+Etalone pardavėjo informacija yra turinyje, o dešinėje juostoje lieka
+tik kaina ir kontaktų mygtukai.
+
+Įmonei: logotipas, pavadinimas, „Tapatybė patvirtinta", vieta, svetainė,
+papildomi kontaktai, aprašymas su „Daugiau".
+Privačiam asmeniui: tas pats blokas be logotipo, svetainės ir aprašymo.
+
+Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% with p=listing.seller.profile %}
+<div class="pard-blokas">
+  <h2 class="pard-antraste">{% trans "Pardavėjas" %}</h2>
+
+  <div class="pard-virsus">
+    {% if p.dealer_subscription_active %}
+    <div class="pard-logo">
+      {% if p.dealer_logo %}
+        <img src="{{ p.dealer_logo.url }}" alt="{{ p.dealer_company_name|default:listing.seller.username }}">
+      {% else %}
+        <span>{{ p.dealer_company_name|default:listing.seller.username|first|upper }}</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="pard-info">
+      <div class="pard-vardas">
+        {% if p.dealer_subscription_active %}{{ p.dealer_company_name|default:listing.seller.username }}
+        {% else %}{{ p.display_name|default:listing.seller.username }}{% endif %}
+      </div>
+
+      {% if p.tapatybe_patvirtinta_rodyti %}
+      <span class="pard-zyma">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        {% trans "Tapatybė patvirtinta" %}
+      </span>
+      {% endif %}
+
+      <div class="pard-vieta">
+        {% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
+      </div>
+
+      {% if p.dealer_subscription_active and p.website %}
+      {% comment %}Pardavėjo svetainė yra IŠORINIS adresas — čia
+      target="_blank" teisėtas (žr. docs/pwa-pasiruosimas.md).{% endcomment %}
+      <a class="pard-svetaine" href="{% if p.website|slice:':4' != 'http' %}https://{% endif %}{{ p.website }}"
+         target="_blank" rel="noopener noreferrer">{{ p.website }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if p.show_phone and p.phone_number %}
+  <div class="pard-kontaktai" x-data="phoneReveal({{ listing.pk }}, '{{ p.phone_number|slice:':8' }}...')">
+    <div class="pard-kontaktai-vardas">{% trans "Papildomi skelbimo kontaktai" %}</div>
+    <button type="button" class="ap-phone" @click="reveal()" x-show="!full">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+      <span x-text="masked"></span>
+      <em>{% trans "Rodyti numerį" %}</em>
+    </button>
+    <a class="ap-phone is-full" x-show="full" x-cloak :href="'tel:' + full">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
+      <span x-text="full"></span>
+    </a>
+  </div>
+  {% endif %}
+
+  {% if p.dealer_subscription_active and p.dealer_description %}
+  <div class="pard-aprasymas" x-data="{ visas: false }">
+    <p :class="visas ? '' : 'pard-trumpai'">{{ p.dealer_description|linebreaksbr }}</p>
+    <button type="button" class="pard-daugiau" @click="visas = !visas">
+      <span x-show="!visas">{% trans "Daugiau" %}</span>
+      <span x-show="visas" x-cloak>{% trans "Mažiau" %}</span>
+    </button>
+  </div>
+  {% endif %}
+</div>
+{% endwith %}
+
+<style>
+  /* ═══ Pardavėjo blokas ═══  matmenys ir spalvos — docs/dizaino-sistema.md */
+  .pard-blokas { background: var(--surface); border: 1px solid var(--border);
+                 border-radius: var(--r-lg, 12px); padding: var(--sp-6); }
+  .pard-antraste { font-size: var(--fs-lg, 20px); font-weight: var(--fw-semibold);
+                   color: var(--text); margin-bottom: var(--sp-4); }
+  .pard-virsus { display: flex; gap: var(--sp-4); align-items: flex-start; }
+  .pard-logo { flex: 0 0 auto; width: 64px; height: 64px; border: 1px solid var(--border);
+               border-radius: var(--r-md); background: var(--surface);
+               display: flex; align-items: center; justify-content: center;
+               overflow: hidden; }
+  .pard-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+  .pard-logo span { font-size: 22px; font-weight: var(--fw-bold); color: var(--accent); }
+  .pard-info { min-width: 0; }
+  .pard-vardas { font-size: var(--fs-base); font-weight: var(--fw-bold); color: var(--text); }
+  .pard-zyma { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px;
+               padding: 2px 8px; border-radius: 12px; background: #ECFDF3;
+               border: 1px solid #ABEFC6; color: #067647;
+               font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
+  .pard-zyma svg { width: 12px; height: 12px; }
+  .pard-vieta { margin-top: 6px; font-size: var(--fs-sm); color: var(--text-muted); }
+  .pard-svetaine { display: inline-block; margin-top: 4px; font-size: var(--fs-sm);
+                   color: var(--accent); text-decoration: none; word-break: break-all; }
+  .pard-svetaine:hover { text-decoration: underline; }
+
+  .pard-kontaktai { margin-top: var(--sp-5); padding-top: var(--sp-4);
+                    border-top: 1px solid var(--border); }
+  .pard-kontaktai-vardas { font-size: var(--fs-sm); color: var(--text-muted);
+                           margin-bottom: var(--sp-2); }
+
+  .pard-aprasymas { margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--text);
+                    line-height: 1.55; }
+  .pard-trumpai { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+                  overflow: hidden; }
+  .pard-daugiau { margin-top: 6px; background: none; border: 0; padding: 0;
+                  color: var(--accent); font-size: var(--fs-sm);
+                  font-weight: var(--fw-semibold); cursor: pointer; }
+  .pard-daugiau:hover { text-decoration: underline; }
+
+  @media (max-width: 767px) {
+    .pard-blokas { padding: var(--sp-4); }
+  }
+</style>

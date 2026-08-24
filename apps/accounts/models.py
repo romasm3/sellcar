@@ -80,6 +80,13 @@ class Profile(models.Model):
         help_text="Display your listing locations on Google Maps"
     )
 
+    # Tapatybės patvirtinimas — žalia žyma pardavėjo bloke skelbimo
+    # puslapyje. Nustato administracija; patvirtinti prekiautojai
+    # (dealer_status='approved') laikomi patvirtintais savaime — žr.
+    # `tapatybe_patvirtinta_rodyti`.
+    tapatybe_patvirtinta = models.BooleanField(
+        default=False, verbose_name=_('Tapatybė patvirtinta'))
+
     # ═══════════════════════════════════════════════════════════
     # ACCOUNT TYPE & DEALER FIELDS (added 2026-05-07)
     # ═══════════════════════════════════════════════════════════
@@ -162,6 +169,15 @@ class Profile(models.Model):
         if self.account_type == 'dealer' and self.dealer_company_name:
             return self.dealer_company_name
         return self.user.get_full_name() or self.user.username
+
+    @property
+    def tapatybe_patvirtinta_rodyti(self):
+        """Ar rodyti žalią „Tapatybė patvirtinta" žymą.
+
+        Rankinis administracijos pažymėjimas ARBA patvirtintas
+        prekiautojas (jo dokumentai jau tikrinti).
+        """
+        return bool(self.tapatybe_patvirtinta) or self.dealer_status == 'approved'
 
     @property
     def is_dealer(self):

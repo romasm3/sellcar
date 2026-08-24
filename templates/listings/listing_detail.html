@@ -178,7 +178,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -323,7 +323,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% endif %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -422,7 +422,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
                         {% if listing.price %}
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% else %}
                         <p class="text-3xl font-bold text-gray-700">{% trans "Sutartinė kaina" %}</p>
                         {% endif %}
@@ -501,7 +501,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Nuomos kaina parai" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.rent_price_hour %}
                         <p class="text-sm text-gray-600 mt-2">
                             {% trans "Nuomos kaina valandai" %}:
@@ -685,7 +685,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% endif %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -840,7 +840,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -963,7 +963,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -1105,7 +1105,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{% if listing.price %}{{ listing.price|kaina:listing.currency_symbol }}{% else %}{% trans "Sutartinė" %}{% endif %}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{% if listing.price %}{{ listing.price|kaina:listing.currency_symbol }}{% else %}{% trans "Sutartinė" %}{% endif %}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -1244,7 +1244,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>
                         {% endif %}
@@ -1389,7 +1389,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>
                         {% endif %}
@@ -1600,9 +1600,9 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             </div>
                         </div>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
+                    <div class="border-t border-gray-200 pt-6 lg:hidden">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
                         {% endif %}
@@ -1942,7 +1942,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </span>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
+                        <p class="text-4xl font-bold text-primary lg:hidden">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -2053,9 +2053,9 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             </div>
                         </div>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
+                    <div class="border-t border-gray-200 pt-6 lg:hidden">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
-                        <p class="text-4xl font-bold text-primary">
+                        <p class="text-4xl font-bold text-primary lg:hidden">
                             {{ listing.price|kaina:listing.currency_symbol }}
                             {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
                         </p>
@@ -2342,9 +2342,9 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             </div>
                         </div>
                     </div>
-                    <div class="border-t border-gray-200 pt-6">
+                    <div class="border-t border-gray-200 pt-6 lg:hidden">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
-                        <p class="text-4xl font-bold text-primary">
+                        <p class="text-4xl font-bold text-primary lg:hidden">
                             {{ listing.price|kaina:listing.currency_symbol }}
                             {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
                         </p>
@@ -2609,6 +2609,14 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
 
                 {% endif %}{# end vehicle_type branch #}
 
+                {% comment %}Pardavėjo blokas — turinyje, ne šone (etalonas).
+                Šone lieka kaina ir kontaktų mygtukai.{% endcomment %}
+                {% include 'listings/partials/_pardavejo_blokas.html' %}
+
+                {% if kiti_skelbimai %}
+                {% include 'listings/partials/_kiti_skelbimai.html' %}
+                {% endif %}
+
             </div>
 
             <!-- Sidebar (same for all categories — with kW/HP, km/mi dual display) -->
@@ -2637,68 +2645,34 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     {% endif %}
 
-                    {% comment %}Kainos čia NEBĖRA — ji rodoma vieną kartą,
-                    pagrindiniame bloke po nuotraukomis (kartu su „+ mokesčiai",
-                    eksporto kaina ir „Kaina derinama"). Šoninė kortelė lieka
-                    kontaktams.{% endcomment %}
+                    {% comment %}KAINA — kaip etalone, dešinėje juostoje kartu su
+                    kontaktais. Pagrindiniame stulpelyje ji rodoma tik telefone
+                    (ten ši kortelė nusileidžia į patį apačią), todėl viename
+                    ekrane kaina visada matoma vieną kartą.{% endcomment %}
+                    <div class="hidden lg:block mb-4">
+                        <p class="text-3xl font-bold text-primary">
+                            {{ listing.price|kaina:listing.currency_symbol }}
+                            {% if listing.taxes_extra %}<span class="text-sm font-normal text-gray-500 ml-1">{% trans "+ taxes" %}</span>{% endif %}
+                            {% if listing.negotiable %}<span class="text-sm font-normal text-gray-500 ml-1" title="{% trans 'Kaina derinama' %}">◎</span>{% endif %}
+                        </p>
+                        {% if listing.export_price %}
+                        <p class="text-sm text-gray-600 mt-1">
+                            {% trans "Eksportui" %}: <span class="font-semibold text-gray-900">{{ listing.export_price|kaina:listing.currency_symbol }}</span>
+                        </p>
+                        {% endif %}
+                        {% if listing.open_to_trade %}
+                        <p class="text-xs text-gray-600 mt-1">{% trans "Interested in trade" %}</p>
+                        {% endif %}
+                        <p class="text-sm text-gray-500 mt-2">
+                            {% if listing.city and listing.city != "—" %}{{ listing.city }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}
+                        </p>
+                    </div>
 
                     <hr class="mb-4">
 
-                    {# ─── Seller info block (Dealer vs Private) ─── #}
-                    {% if listing.seller.profile.dealer_subscription_active %}
-                        {# ═══ DEALER CARD ═══ #}
-                        <div class="mb-4 bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-4">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-14 h-14 bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
-                                    {% if listing.seller.profile.dealer_logo %}
-                                        <img src="{{ listing.seller.profile.dealer_logo.url }}"
-                                             class="w-full h-full object-contain p-1"
-                                             alt="Logo">
-                                    {% else %}
-                                        <div class="w-full h-full bg-primary flex items-center justify-center text-white text-lg font-bold">
-                                            {{ listing.seller.profile.dealer_company_name|default:listing.seller.username|first|upper }}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="font-bold text-gray-900 text-sm truncate">
-                                        {{ listing.seller.profile.dealer_company_name|default:listing.seller.username }}
-                                    </div>
-                                    <div class="flex items-center gap-1 mt-0.5 text-xs text-blue-700 font-medium">
-                                        <i class="fas fa-check-circle"></i>
-                                        <span>{% trans "Verified Dealer" %}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-1.5 text-xs text-gray-700 mb-3 pb-3 border-b border-blue-100">
-                                {% if listing.seller.profile.dealer_address %}
-                                <div class="flex items-start gap-2">
-                                    <i class="fas fa-map-marker-alt text-gray-400 w-3 mt-0.5"></i>
-                                    <span>{{ listing.seller.profile.dealer_address }}</span>
-                                </div>
-                                {% endif %}
-                                <div class="flex items-center gap-2 text-gray-600">
-                                    <i class="fas fa-car text-gray-400 w-3"></i>
-                                    <span><strong class="text-gray-900">{{ dealer_active_listings_count }}</strong> {% trans "cars available" %}</span>
-                                </div>
-                            </div>
-
-                            <a href="{% url 'accounts:dealer_public_page' listing.seller.username %}"
-                               class="block w-full sp-btn-secondary text-center text-sm font-semibold py-2.5 rounded-lg transition-colors">
-                                <i class="fas fa-th-list mr-1"></i> {% trans "Browse all listings" %}
-                            </a>
-                        </div>
-
-                    {% else %}
-                        {# ═══ PRIVATE USER — minimalus ═══ #}
-                        <div class="mb-4">
-                            <p class="text-sm text-gray-500 px-1">
-                                {% if listing.country %}{{ listing.get_country_display }}{% endif %}{% if listing.state %}, {{ listing.get_state_display }}{% endif %}{% if listing.city and listing.city != "—" %}, {{ listing.city }}{% endif %}{% if listing.postal_code %} · {{ listing.postal_code }}{% endif %}
-                            </p>
-                        </div>
-                    {% endif %}
-
+                    {% comment %}Pardavėjo informacija perkelta į pagrindinį
+                    stulpelį (partials/_pardavejo_blokas.html) — čia lieka tik
+                    kaina ir kontaktų mygtukai, kaip etalone.{% endcomment %}
                     {% comment %}
                     KONTAKTAI MATOMI VISIEMS — kaip etalone (patikrinta
                     2026-08-21 neprisijungus: pardavėjo blokas matomas,
