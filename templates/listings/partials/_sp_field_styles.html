@@ -336,6 +336,12 @@ vidinės paraštės 9px/12px, aukštis 40px.
   }
   @media (min-width: 1024px) { .sp-picker { display: none !important; } }
 
+
+  /* Poros pašalinimas panelėje. */
+  .pair-x-sm { width: 34px; height: var(--btn-h-sm, 38px); border: 1px solid var(--border);
+               border-radius: var(--r-md); background: var(--surface); color: var(--text-muted);
+               font-size: 14px; line-height: 1; cursor: pointer; flex: 0 0 auto; }
+  .pair-x-sm:hover { border-color: var(--border-hover); color: var(--text); }
 </style>
 
 {% comment %}
@@ -370,7 +376,20 @@ if (!window.brandField) {
         if (q) list = list.filter(function (b) { return b.n.toLowerCase().indexOf(q) !== -1; });
         return list;
       },
-      pick(v, n) { this.val = v; this.name = n; this.open = false; }
+      pick(v, n) {
+        this.val = v; this.name = n; this.open = false;
+        // Paslėptą lauką keičia Alpine (:value), o toks keitimas 'change'
+        // įvykio nekelia — be jo detalios paieškos „Ieškoti N" skaičius
+        // neatsinaujintų pasirinkus markę ar modelį.
+        // $root — komponento šaknis (o ne paspaustas punktas, kurį rodo $el).
+        var sakn = this.$root || this.$el;
+        setTimeout(function () {
+          // Įvykį keliam nuo paties paslėpto lauko — taip klausytojai
+          // (detali paieška, šoninė juosta) žino, kuris filtras pasikeitė.
+          var hidden = sakn.querySelector('input[type="hidden"]') || sakn;
+          hidden.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 0);
+      }
     };
   };
 }
@@ -413,6 +432,7 @@ document.addEventListener('submit', function (e) {
   .sk-fld { height: 56px; border-radius: 10px; }
 }
 @keyframes sk { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
 </style>
 
 {% comment %}
@@ -429,8 +449,10 @@ if (!window.modelField) {
 
       init() {
         var self = this;
-        var form = this.$el.closest('form');
-        var input = form && form.querySelector('input[name="' + cfg.brandParam + '"]');
+        // Poros eilutėje modelis klausosi TOS PAČIOS eilutės markės;
+        // kitur — pirmos formos markės, kaip anksčiau.
+        var scope = this.$el.closest('[data-pair-row]') || this.$el.closest('form');
+        var input = scope && scope.querySelector('input[name="' + cfg.brandParam + '"]');
         if (!input) { return; }
         this.brand = input.value || '';
         // Alpine markės lauką keičia per :value, todėl sekam reikšmę,
@@ -472,7 +494,20 @@ if (!window.modelField) {
         return this.items.filter(function (m) { return m.n.toLowerCase().indexOf(q) !== -1; });
       },
 
-      pick(v, n) { this.val = v; this.name = n; this.open = false; }
+      pick(v, n) {
+        this.val = v; this.name = n; this.open = false;
+        // Paslėptą lauką keičia Alpine (:value), o toks keitimas 'change'
+        // įvykio nekelia — be jo detalios paieškos „Ieškoti N" skaičius
+        // neatsinaujintų pasirinkus markę ar modelį.
+        // $root — komponento šaknis (o ne paspaustas punktas, kurį rodo $el).
+        var sakn = this.$root || this.$el;
+        setTimeout(function () {
+          // Įvykį keliam nuo paties paslėpto lauko — taip klausytojai
+          // (detali paieška, šoninė juosta) žino, kuris filtras pasikeitė.
+          var hidden = sakn.querySelector('input[type="hidden"]') || sakn;
+          hidden.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 0);
+      }
     };
   };
 }

@@ -1467,10 +1467,17 @@ def _paieskos_params(request):
         if raktas in ('sidebar', 'search_id', 'page', 'sort', 'issaugoti',
                       'csrfmiddlewaretoken', 'ajax'):
             continue
-        reiksmes = [v for v in request.GET.getlist(raktas) if v]
+        visos = request.GET.getlist(raktas)
+        reiksmes = [v for v in visos if v]
         if not reiksmes:
             continue
-        params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
+        # Markės/modelio poros suporuojamos pagal eilės numerį, todėl
+        # tuščių reikšmių tarp jų išmesti negalima — kitaip antros poros
+        # modelis atitektų pirmai (žr. taikyti_markiu_poras).
+        if raktas in PORU_PARAMETRAI and len(visos) > 1:
+            params[raktas] = visos
+        else:
+            params[raktas] = reiksmes[0] if len(reiksmes) == 1 else reiksmes
     return params
 
 
@@ -1525,12 +1532,26 @@ def _paieskos_qs(request, params):
         qs = qs.filter(vehicle_type__slug=kat)
 
     markes = _sarasu(params.get('brand'))
-    if len(markes) == 1:
+    modeliai_raw = _sarasu(params.get('model'))
+    poros_pritaikytos = False
+    if len([m for m in markes if m]) > 1:
+        # Kelios markės — poros „arba" (BMW 320 ARBA Audi)
+        salyga = Q()
+        for i, marke in enumerate(markes):
+            if not marke:
+                continue
+            viena = Q(brand_id=marke)
+            modelis = modeliai_raw[i] if i < len(modeliai_raw) else ''
+            if str(modelis).isdigit():
+                viena &= Q(model_id=modelis)
+            salyga |= viena
+        qs = qs.filter(salyga)
+        poros_pritaikytos = True
+    elif markes and markes[0]:
         qs = qs.filter(brand_id=markes[0])
-    elif markes:
-        qs = qs.filter(brand_id__in=markes)
 
-    modeliai = [m for m in _sarasu(params.get('model')) if str(m).isdigit()]
+    modeliai = [] if poros_pritaikytos else [
+        m for m in modeliai_raw if str(m).isdigit()]
     if len(modeliai) == 1:
         qs = qs.filter(model_id=modeliai[0])
     elif modeliai:
@@ -1910,10 +1931,35 @@ def listing_list(request, panel_fragment=False, category=None):
 
     if search_query:
         listings = listings.filter(title__icontains=search_query)
-    if brand_filter:
-        listings = listings.filter(brand_id=brand_filter)
-    if model_filter:
+    # Markės/modelio poros — „arba" tarp porų; skaičiukas ir sąrašas eina
+    # per tą pačią funkciją, todėl niekada neišsiskiria.
+    listings, _poros_pritaikytos = taikyti_markiu_poras(
+        listings, request.GET, category_filter)
+    if not _poros_pritaikytos and model_filter:
         listings = listings.filter(model_id=model_filter)
+
+    # Dalių paieška: tekstas, kodai ir dalies kategorija — tie patys filtrai
+    # kaip filter_listings, kad „Ieškoti N" ir sąrašas sutaptų.
+    _dal_tekstas = (request.GET.get('part_query') or '').strip()
+    if _dal_tekstas:
+        listings = listings.filter(
+            Q(title__icontains=_dal_tekstas) | Q(description__icontains=_dal_tekstas)
+        )
+    if (request.GET.get('oem_code') or '').strip():
+        listings = listings.filter(oem_code__icontains=request.GET['oem_code'].strip())
+    _vk = (request.GET.get('engine_code_search') or request.GET.get('engine_code') or '').strip()
+    if _vk:
+        listings = listings.filter(engine_code__icontains=_vk)
+    _gk = (request.GET.get('gearbox_code_search') or request.GET.get('gearbox_code') or '').strip()
+    if _gk:
+        listings = listings.filter(gearbox_code__icontains=_gk)
+    _dk = [v for v in request.GET.getlist('part_cat') if v]
+    if _dk:
+        listings = listings.filter(
+            Q(part_category__slug__in=_dk)
+            | Q(part_category__parent__slug__in=_dk)
+            | Q(part_category__parent__parent__slug__in=_dk)
+        )
     if submodel_filter:
         listings = listings.filter(submodel_id=submodel_filter)
     if price_min:
@@ -4606,6 +4652,15 @@ def advanced_search_count_ajax(request):
 def advanced_search(request):
     from django.db.models import Q
     from itertools import groupby
+
+    # Dalys turi savo detalią paiešką (deklaratyvi, su ikonų juosta) —
+    # sena nuoroda veda ten, kad neliktų dviejų skirtingų formų.
+    if request.GET.get('category') == 'parts':
+        params = request.GET.copy()
+        params.pop('category', None)
+        likutis = params.urlencode()
+        adresas = reverse('advanced_search_generic', kwargs={'category': 'parts'})
+        return redirect(adresas + (f'?{likutis}' if likutis else ''))
 
     if request.GET.get('category') == 'motorcycles':
         from . import motorcycles_views
@@ -7866,6 +7921,72 @@ def _subcategory_slug_from(params):
     return str(val)
 
 
+# Markės/modelio poros — etalone galima ieškoti kelių markių iš karto,
+# kiekvienai atskirai nurodant modelį („BMW 320 ARBA Audi (visi)").
+# URL'e poros keliauja kaip tie patys `brand`/`model` parametrai eilių
+# tvarka: brand=944&model=&brand=961&model=1200. Taip veikia ir „atgal"
+# mygtukas, ir išsaugotos paieškos — naujo parametro nereikėjo.
+# (markės parametras, modelio parametras, markės stulpelis, modelio stulpelis)
+# Motociklai naudoja TUOS PAČIUS `brand`/`model` parametrus, bet kitus
+# stulpelius, todėl porų aprašas priklauso nuo kategorijos.
+# Parametrai, kurių eiliškumas svarbus (markės/modelio poros)
+PORU_PARAMETRAI = ('brand', 'model', 'motorcycle_brand', 'motorcycle_model',
+                   'truck_brand')
+
+BRAND_PAIR_FIELDS = (
+    ('brand', 'model', 'brand_id', 'model_id'),
+    ('truck_brand', None, 'truck_brand_id', None),
+)
+BRAND_PAIR_BY_CATEGORY = {
+    'motorcycles': (
+        ('brand', 'model', 'motorcycle_brand_id', 'motorcycle_model_id'),
+        ('motorcycle_brand', 'motorcycle_model', 'motorcycle_brand_id', 'motorcycle_model_id'),
+    ),
+}
+
+
+def _poru_sarasas(params, brand_param, model_param):
+    """[(markė, modelis)] eilių tvarka; tuščios markės praleidžiamos."""
+    if hasattr(params, 'getlist'):
+        markes = params.getlist(brand_param)
+        modeliai = params.getlist(model_param) if model_param else []
+    else:
+        markes = [params.get(brand_param)] if params.get(brand_param) else []
+        modeliai = [params.get(model_param)] if model_param and params.get(model_param) else []
+    poros = []
+    for i, marke in enumerate(markes):
+        if not marke:
+            continue
+        modelis = modeliai[i] if i < len(modeliai) else ''
+        poros.append((marke, modelis or ''))
+    return poros
+
+
+def taikyti_markiu_poras(listings, params, category=None):
+    """Kelios markės/modeliai — „arba" tarp porų, „ir" poros viduje.
+
+    Grąžina (queryset, ar_pritaikyta). Jei porų nėra, nieko nedaro ir
+    palieka tvarkyti įprastiems vienos reikšmės filtrams.
+    """
+    pritaikyta = False
+    laukai = BRAND_PAIR_BY_CATEGORY.get(category, BRAND_PAIR_FIELDS)
+    for brand_param, model_param, brand_col, model_col in laukai:
+        poros = _poru_sarasas(params, brand_param, model_param)
+        if not poros:
+            continue
+        salyga = Q()
+        for marke, modelis in poros:
+            viena = Q(**{brand_col: marke})
+            if modelis and model_col:
+                viena &= Q(**{model_col: modelis})
+            salyga |= viena
+        listings = listings.filter(salyga)
+        pritaikyta = True
+
+        # Modelis be markės (senos nuorodos) — filtruojam atskirai
+    return listings, pritaikyta
+
+
 def filter_listings(params, user=None, category=None, base_qs=None):
     """Pritaiko visus GET filtrus ant Listing queryset'o.
 
@@ -7910,9 +8031,29 @@ def filter_listings(params, user=None, category=None, base_qs=None):
             Q(title__icontains=part_query) | Q(description__icontains=part_query)
         )
 
-    if params.get('brand'):
-        listings = listings.filter(brand_id=params['brand'])
-    if params.get('model'):
+    # Dalių kodai — mūsų priedas prie etalono (Autogidas kodų paieškos neturi)
+    if (params.get('oem_code') or '').strip():
+        listings = listings.filter(oem_code__icontains=params['oem_code'].strip())
+    _var_kodas = (params.get('engine_code_search') or params.get('engine_code') or '').strip()
+    if _var_kodas:
+        listings = listings.filter(engine_code__icontains=_var_kodas)
+    _dez_kodas = (params.get('gearbox_code_search') or params.get('gearbox_code') or '').strip()
+    if _dez_kodas:
+        listings = listings.filter(gearbox_code__icontains=_dez_kodas)
+
+    # Dalies kategorija — pažymima viršutinio lygio, o skelbimai kabo ant
+    # trečio lygio, todėl imam ir visus palikuonis.
+    _dal_kat = [v for v in _getlist('part_cat') if v]
+    if _dal_kat:
+        listings = listings.filter(
+            Q(part_category__slug__in=_dal_kat)
+            | Q(part_category__parent__slug__in=_dal_kat)
+            | Q(part_category__parent__parent__slug__in=_dal_kat)
+        )
+
+    # Markės/modelio poros — „arba" tarp porų (žr. taikyti_markiu_poras)
+    listings, _poros_pritaikytos = taikyti_markiu_poras(listings, params, category)
+    if not _poros_pritaikytos and params.get('model'):
         listings = listings.filter(model_id=params['model'])
     if params.get('submodel'):
         listings = listings.filter(submodel_id=params['submodel'])
@@ -8012,6 +8153,115 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     return listings
 
 
+def _rail_counts():
+    """Aktyvių skelbimų skaičiai juostos sąrašams (5 min. talpykloje).
+
+    Skaičiuojama viena vieta visiems iškrentantiems sąrašams — ir
+    „Daugiau", ir kategorijų subkategorijoms.
+    """
+    from django.core.cache import cache
+    kiekiai = cache.get('adv_rail_counts')
+    if kiekiai is not None:
+        return kiekiai
+
+    from .models import WheelListing
+    from . import motogear_views
+    from .search_panel import parts_count_qs
+
+    kiekiai = dict(
+        _public_listings_qs(None)
+        .values_list('vehicle_type__slug')
+        .annotate(n=Count('id'))
+    )
+    # Motociklai be aprangos — ji juostoje rodoma atskiru punktu
+    kiekiai['motogear'] = motogear_views._moto_gear_public_qs(None).count()
+    kiekiai['motorcycles'] = max(
+        0, kiekiai.get('motorcycles', 0) - kiekiai['motogear'])
+
+    ratai = dict(
+        WheelListing.objects.filter(status='active', is_shadow_banned=False)
+        .values_list('product_type').annotate(n=Count('id'))
+    )
+    kiekiai['rims'] = ratai.get('rim', 0)
+    kiekiai['tyres'] = ratai.get('tyre', 0)
+
+    # Padangos pagal paskirtį — atskiri juostos punktai po „Motociklai"
+    pagal_paskirti = dict(
+        WheelListing.objects.filter(status='active', is_shadow_banned=False,
+                                    product_type='tyre')
+        .values_list('purpose').annotate(n=Count('id'))
+    )
+    kiekiai['moto-tyres'] = pagal_paskirti.get('moto', 0)
+    kiekiai['quad-tyres'] = pagal_paskirti.get('quad', 0)
+
+    for raktas, sub in (('parts', 'car'), ('moto-parts', 'moto'),
+                        ('truck-parts', 'truck')):
+        try:
+            kiekiai[raktas] = parts_count_qs(sub, {}).count()
+        except Exception:      # skaičius neturi griauti puslapio
+            kiekiai[raktas] = 0
+
+    cache.set('adv_rail_counts', kiekiai, 300)
+    return kiekiai
+
+
+def _rail_url(slug):
+    """Kur veda juostos punktas — kiekviena kategorija turi savo paiešką."""
+    if slug == 'rims':
+        return reverse('wheels_advanced_search') + '?type=rim'
+    if slug == 'tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre'
+    if slug == 'moto-tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre&purpose=moto'
+    if slug == 'quad-tyres':
+        return reverse('wheels_advanced_search') + '?type=tyre&purpose=quad'
+    if slug == 'motogear':
+        return reverse('motogear_advanced_search')
+    if slug == 'moto-parts':
+        return reverse('moto_parts_advanced_search')
+    if slug == 'truck-parts':
+        return reverse('truck_parts_advanced_search')
+    return reverse('advanced_search_generic', kwargs={'category': slug})
+
+
+def _advanced_rail(active_slug):
+    """Ikonų juostos punktai detalios paieškos viršuje.
+
+    Punktai, po kuriais yra kelios paieškos (Ratai, Motociklai, Dalys),
+    gauna iškrentantį sąrašą su skelbimų skaičiais — kaip etalone.
+    Aktyvus žymimas ir tada, kai esi vaikinėje kategorijoje (padangų
+    paieškoje pažymėta „Ratai").
+    """
+    kiekiai = _rail_counts()
+
+    def _vaikai(slug):
+        return [
+            {'slug': v, 'label': label, 'url': _rail_url(v),
+             'count': kiekiai.get(v, 0), 'active': v == active_slug}
+            for v, label in panel_config.ADVANCED_RAIL_CHILDREN.get(slug, ())
+        ]
+
+    juosta = []
+    for slug, label, key in panel_config.ADVANCED_RAIL:
+        vaikai = _vaikai(slug)
+        aktyvus = slug == active_slug or any(v['active'] for v in vaikai)
+        juosta.append({
+            'slug': slug, 'label': label, 'key': key,
+            'url': vaikai[0]['url'] if vaikai else _rail_url(slug),
+            'children': vaikai, 'active': aktyvus,
+        })
+
+    daugiau = []
+    for slug in panel_config.ADVANCED_RAIL_MORE:
+        cfg = panel_config.build_advanced(slug, None)
+        if cfg:
+            daugiau.append({'slug': slug, 'label': cfg['label'],
+                            'url': _rail_url(slug),
+                            'count': kiekiai.get(slug, 0),
+                            'active': slug == active_slug})
+    return juosta, daugiau
+
+
 def advanced_search_generic(request, category):
     """Išplėstinė paieška iš konfigūracijos — /paieska/<kategorija>/.
 
@@ -8024,15 +8274,10 @@ def advanced_search_generic(request, category):
     if adv is None:
         raise Http404
 
-    # Kategorijų juosta viršuje — kaip etalone (Auto, Motociklai, Ratai,
-    # Dalys, Ž. ūkio…): iš tos pačios detalios paieškos kategorijų aibės,
-    # kad sąrašas negalėtų prasilenkti su tuo, kas iš tikrųjų veikia.
-    adv_cats = []
-    for _slug in sorted(panel_config.advanced_categories()):
-        _cfg = panel_config.build_advanced(_slug, None)
-        if _cfg:
-            adv_cats.append({'slug': _slug, 'label': _cfg['label'],
-                             'active': _slug == category})
+    # Ikonų juosta viršuje — kaip pagrindiniame puslapyje (Auto, Motociklai,
+    # Ratai, Dalys, Ž. ūkio…). Tvarka iš panels.ADVANCED_RAIL, o „Daugiau"
+    # sąraše — likusios kategorijos, kurių detali paieška veikia.
+    adv_rail, adv_more = _advanced_rail(category)
 
     qs = filter_listings(request.GET, user=request.user, category=category)
 
@@ -8046,8 +8291,38 @@ def advanced_search_generic(request, category):
         'trailer_brand_text',
     )
 
+    # Markės/modelio poros — etalone jų gali būti kelios („BMW 320 ARBA
+    # Audi"). Pirma eilutė visada matoma, likusios atsiveria mygtuku.
+    PORU_RIBA = 5
+    _laukai = [f for row in adv['rows'] for f in row if f]
+    _marke = next((f for f in _laukai if f.get('widget') == 'brand'), None)
+    _modelis = next((f for f in _laukai if f.get('widget') == 'model'), None)
+    adv['pair_brand'] = _marke
+    adv['pair_model'] = _modelis
+    _poros = _poru_sarasas(request.GET, _marke['param'], _modelis['param']) if _marke and _modelis else []
+    adv['pair_rows'] = [
+        {'nr': i, 'brand': (_poros[i][0] if i < len(_poros) else ''),
+         'model': (_poros[i][1] if i < len(_poros) else '')}
+        for i in range(PORU_RIBA)
+    ]
+    adv['pair_count'] = max(1, len(_poros))
+    adv['brand_extra_slots'] = list(range(3))
+
+    # Dalių kategorijos — 19 viršutinio lygio PartCategory eilučių.
+    dalies_kategorijos, pasirinktos_dalys = [], []
+    if category == 'parts':
+        pasirinktos_dalys = request.GET.getlist('part_cat')
+        dalies_kategorijos = [
+            {'slug': slug, 'label': label, 'checked': slug in pasirinktos_dalys}
+            for slug, label in panel_config.PARTS_CATEGORIES
+        ]
+
     return render(request, 'listings/advanced_generic.html', {
-        'adv_categories': adv_cats,
+        'part_categories': dalies_kategorijos,
+        'selected_part_categories': pasirinktos_dalys,
+        'adv_rail': adv_rail,
+        'adv_more': adv_more,
+        'adv_title': panel_config.ADVANCED_TITLES.get(category) or adv['label'],
         'adv': adv,
         'result_count': qs.count(),
         'selected_equipment': request.GET.getlist('equipment'),
@@ -8058,13 +8333,13 @@ def advanced_search_generic(request, category):
 def search_panel_count(request, category):
     """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
     request.GET = sanitize_search_params(request.GET)
-    if category in ('tires', 'wheels'):
+    if category in ('tires', 'wheels', 'rims'):
         try:
-            from .models import WheelListing
-            qs = WheelListing.objects.filter(status='active')
-            wtype = request.GET.get('type')
-            if wtype:
-                qs = qs.filter(wheel_type=wtype)
+            from . import wheels_views
+            # Tas pats filtrų kelias kaip naršymo puslapyje, todėl skaičius
+            # mygtuke visada sutampa su rezultatų sąrašu.
+            tipas = 'rim' if category == 'rims' or request.GET.get('type') == 'rim' else 'tyre'
+            qs, _tipas, _f = wheels_views._apply_wheels_filters(request, tipas)
             return JsonResponse({'count': qs.count()})
         except Exception:
             return JsonResponse({'count': 0})
@@ -8082,8 +8357,10 @@ def search_panel_count(request, category):
             qs = qs.filter(title__icontains=_gq)
         return JsonResponse({'count': qs.count()})
 
-    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u
-    if category in PARTS_COUNT_KEYS:
+    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u.
+    # Detali paieška (advanced=1) skaičiuoja bendru filtru, kad mygtuko
+    # skaičius sutaptų su rezultatų sąrašu.
+    if category in PARTS_COUNT_KEYS and not request.GET.get('advanced'):
         qs = parts_count_qs(
             PARTS_COUNT_KEYS[category], request.GET, user=request.user
         )

@@ -127,11 +127,20 @@ FK_CHOICE_FIELDS = {'fuel_type': 'FuelType', 'transmission': 'Transmission'}
 def _fk_options(db_field, config_options=None):
     from apps.listings import models as m
     from django.utils.translation import gettext
+    from django.utils import translation
     model = getattr(m, FK_CHOICE_FIELDS[db_field])
-    rows = [(o.pk, gettext(o.name)) for o in model.objects.all()]
+    objs = list(model.objects.all())
+    # Etalono `options` yra LIETUVIŠKI, todėl atranka visada daroma pagal
+    # lietuvišką etiketę — nesvarbu, kuria kalba žiūrima. Anksčiau lyginta
+    # su aktyvios kalbos vertimu: angliškoje versijoje niekas nesutapdavo,
+    # subset likdavo tuščias ir grįždavo VISOS DB reikšmės (EN rodydavo
+    # 13 kuro rūšių ir 4 pavarų dėžes vietoj etalono 12 ir 2).
+    with translation.override('lt'):
+        lt_etiketes = {o.pk: gettext(o.name) for o in objs}
+    rows = [(o.pk, gettext(o.name)) for o in objs]
     if config_options:
         wanted = {str(o).strip() for o in config_options}
-        subset = [r for r in rows if r[1] in wanted]
+        subset = [r for r in rows if lt_etiketes[r[0]] in wanted]
         if subset:
             rows = subset
     return sorted(rows, key=lambda r: r[1])
@@ -200,7 +209,86 @@ for _cat in _RAW_ADV['categories']:
 # įjungus dabar pusė laukų būtų dekoracija.
 ADVANCED_ENABLED = {'trailers', 'agriculture', 'construction', 'loading-equipment', 'forestry', 'camping-houses',
                     'rental', 'services', 'electronics', 'bicycles', 'trucks', 'boats',
-                    'cars', 'motorcycles'}
+                    'cars', 'motorcycles', 'parts'}
+
+# Detalios paieškos antraštės — etalone kategorija eina kilmininku
+# („Automobilių skelbimų paieška"), todėl vardo iš `name` nepakanka.
+ADVANCED_TITLES = {
+    'cars': _('Automobilių skelbimų paieška'),
+    'motorcycles': _('Motociklų skelbimų paieška'),
+    'trucks': _('Sunkiojo transporto skelbimų paieška'),
+    'trailers': _('Priekabų skelbimų paieška'),
+    'agriculture': _('Žemės ūkio technikos skelbimų paieška'),
+    'construction': _('Statybinės technikos skelbimų paieška'),
+    'loading-equipment': _('Krovimo technikos skelbimų paieška'),
+    'forestry': _('Miško ūkio technikos skelbimų paieška'),
+    'camping-houses': _('Turistinių namelių skelbimų paieška'),
+    'boats': _('Vandens transporto skelbimų paieška'),
+    'bicycles': _('Dviračių ir paspirtukų skelbimų paieška'),
+    'rental': _('Nuomos skelbimų paieška'),
+    'electronics': _('Audio ir navigacijos skelbimų paieška'),
+    'services': _('Paslaugų skelbimų paieška'),
+    'parts': _('Automobilių dalių skelbimų paieška'),
+}
+
+# Detalių kategorijos — 19 viršutinio lygio PartCategory eilučių etalono
+# tvarka (lietuviška abėcėlė). DB `name_lt` tuščias, todėl užrašai gyvena
+# čia; `name_en` DB sutampa su vertimais.
+PARTS_CATEGORIES = [
+    ('lighting', _('Apšvietimas')),
+    ('exhaust-system', _('Dujų išmetimo sistema')),
+    ('doors', _('Durys')),
+    ('electrical-systems', _('El. sistemos')),
+    ('rear-axle', _('Galinė ašis')),
+    ('rear-exterior-parts', _('Galinės išorės detalės')),
+    ('body', _('Kėbulas')),
+    ('other-parts', _('Kitos detalės')),
+    ('ac-heating-radiators', _('Kondicionierius/ šildymas/ radiatoriai')),
+    ('fuel-system', _('Kuro sistema')),
+    ('gearbox-clutch-transmission', _('Pavarų dėžė/ sankaba/ transmisija')),
+    ('front-axle', _('Priekinė ašis')),
+    ('front-exterior-parts', _('Priekinės išorės detalės')),
+    ('wheels-tyres', _('Ratai/ padangos')),
+    ('interior', _('Salonas/ interjeras')),
+    ('brakes', _('Stabdžiai')),
+    ('glass', _('Stiklai')),
+    ('window-light-wash-system', _('Stiklų žibintų apiplovimo/ valymo sistema')),
+    ('engine', _('Variklis')),
+]
+
+# Ikonų juosta detalios paieškos viršuje — ta pati tvarka kaip etalone.
+# `key` naudojamas ikonai šablone, `url_name`/`url` — nuorodai.
+# Užrašai trumpi — kaip etalone, kad tilptų į vieną-dvi eilutes.
+ADVANCED_RAIL = [
+    ('cars', _('Auto'), 'cars'),
+    ('motorcycles', _('Motociklai'), 'motorcycles'),
+    ('tires', _('Ratai'), 'tires'),
+    ('parts', _('Dalys'), 'parts'),
+    ('agriculture', _('Ž. ūkio'), 'agriculture'),
+    ('trucks', _('Sunkusis tr.'), 'trucks'),
+    ('trailers', _('Priekabos'), 'trailers'),
+    ('rental', _('Nuoma'), 'rental'),
+    ('electronics', _('Audio'), 'electronics'),
+    ('services', _('Paslaugos'), 'services'),
+]
+
+# Punktai, po kuriais yra kelios paieškos — iškrentantis sąrašas su
+# skelbimų skaičiais (etalonas: autogidas). Vaiko raktas naudojamas ir
+# nuorodai (views._rail_url), ir skaičiukui.
+ADVANCED_RAIL_CHILDREN = {
+    'tires': [('rims', _('Ratlankiai')), ('tyres', _('Padangos'))],
+    'motorcycles': [('motorcycles', _('Motociklai')),
+                    ('motogear', _('Apranga, šalmai, aksesuarai')),
+                    ('moto-tyres', _('Padangos motociklams')),
+                    ('quad-tyres', _('Padangos keturračiams'))],
+    'parts': [('parts', _('Automobilių dalys')),
+              ('moto-parts', _('Motociklų dalys')),
+              ('truck-parts', _('Sunkiojo transporto dalys'))],
+}
+
+# „Daugiau" sąrašas — likusios kategorijos, kurių detali paieška veikia.
+ADVANCED_RAIL_MORE = ['construction', 'loading-equipment', 'forestry',
+                      'camping-houses', 'boats', 'bicycles']
 
 SORT_OPTIONS = [
     ('newest',     _('Nauji ir atnaujinti viršuje')),
@@ -487,6 +575,9 @@ def build_panel(vt_slug, user=None, sub_slug=None):
         'rows': _panel_rows(cat, fields),
         'card_fields': cat.get('card_fields', []),
         'has_advanced': advanced_is_active(vt_slug),
+        # Markės/modelio pora — panelėje irgi galima pridėti daugiau porų
+        'pair_brand': next((f for f in fields if f.get('widget') == 'brand'), None),
+        'pair_model': next((f for f in fields if f.get('widget') == 'model'), None),
     }
 
 
@@ -635,7 +726,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 # tuščias — tada imam etalono reikšmes iš konfigūracijos.
                 item['options'] = (_distinct_options(vt_slug, db, user)
                                    or [(o, _(o)) for o in (f.get('options') or [])])
-            elif db == 'country':
+            elif db in ('country', 'origin_country'):
                 item['options'] = list(Listing.COUNTRY_CHOICES)
             elif db == 'created_at':
                 item['options'] = [(1, _('Vienos dienos')), (3, _('Trijų dienų')),
@@ -664,16 +755,52 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
     prefix = EQUIPMENT_PREFIX.get(vt_slug)
     if prefix:
         eq_qs = eq_qs.filter(category__startswith=prefix)
-    eq_rows = {e.name: e for e in eq_qs}
-    eq_items = [{'id': eq_rows[n].id, 'name': n} for n in equipment if n in eq_rows]
+    # Tuo pačiu vardu Equipment eilučių būna kelios (kiekvienai kategorijai
+    # sava). Automobiliams renkamės TIK automobilių kategorijų eilutes —
+    # kitaip į „Ypatumus" patekdavo svetimos (camp_, trailer_, legacy) ir
+    # filtras pagal jų id nieko nerastų.
+    from apps.listings.views import CARS_EQUIPMENT_CATEGORIES as _CARS_EQ
+    _leistinos = {k for k, _l in _CARS_EQ}
+    eq_rows = {}
+    for e in eq_qs:
+        esama = eq_rows.get(e.name)
+        if esama is None:
+            eq_rows[e.name] = e
+            continue
+        if vt_slug == 'cars' and e.category in _leistinos and esama.category not in _leistinos:
+            eq_rows[e.name] = e
+    if vt_slug == 'cars':
+        eq_rows = {n: e for n, e in eq_rows.items() if e.category in _leistinos}
+    eq_items = [{'id': eq_rows[n].id, 'name': n, 'cat': eq_rows[n].category}
+                for n in equipment if n in eq_rows]
+
+    # Ypatumai grupėmis su antraštėmis — kaip etalone („Interjeras",
+    # „Eksterjeras"...). Grupių eilė — kaip pirmą kartą pasitaiko konfige.
+    from apps.listings.views import EQUIPMENT_CATEGORY_LABELS as _EQ_VARDAI
+    _grupiu_vardai = dict(_EQ_VARDAI)
+    _grupiu_vardai.update({k: l for k, l in _CARS_EQ})
+    eq_grupes, _matytos = [], {}
+    for item in eq_items:
+        raktas = item.get('cat') or ''
+        if raktas not in _matytos:
+            _matytos[raktas] = {'key': raktas,
+                                'label': _grupiu_vardai.get(raktas, raktas),
+                                'items': []}
+            eq_grupes.append(_matytos[raktas])
+        _matytos[raktas]['items'].append(item)
 
     return {
         'slug': vt_slug,
         'sub_slug': sub_slug,
         'label': _(cat['name']),
         'fields': fields,
+        # Markės/modelio pora — kur ji yra, ten galima pridėti daugiau porų
+        # (detali paieška ir rezultatų šoninė juosta).
+        'pair_brand': next((f for f in fields if f.get('widget') == 'brand'), None),
+        'pair_model': next((f for f in fields if f.get('widget') == 'model'), None),
         'rows': _layout_rows(cat, fields),
         'equipment': eq_items,
+        'equipment_groups': eq_grupes,
         'equipment_label': eq_section,
         'equipment_total': len(eq_items),
         'sort_options': SORT_OPTIONS,
@@ -767,9 +894,19 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
             continue
         db, ftype = f['db_field'], f['type']
 
+        # Markės/modelio poras (kelios markės vienu metu) tvarko
+        # views.taikyti_markiu_poras — čia jų nekartojam, kitaip antros
+        # poros modelis susiaurintų ir pirmos poros markę.
+        if db in ('brand', 'model', 'motorcycle_brand', 'motorcycle_model',
+                  'truck_brand') and len(_getlist(params, f.get('param'))) > 1:
+            continue
+
         # Ypatumus ir bendrus laukus (šalis/miestas/senumas/pardavėjas)
         # jau tvarko filter_listings — čia jų nekartojam, kad nedubliuotume.
-        if db in ('__equipment__', 'country', 'city', 'created_at', 'seller_type'):
+        # Išimtis — žymimasis langelis „Tik Lietuvoje": jis irgi remiasi
+        # `country` stulpeliu, bet bendrasis filtras jo neapdoroja.
+        if (db in ('__equipment__', 'country', 'city', 'created_at', 'seller_type')
+                and not (db == 'country' and ftype == 'checkbox')):
             continue
 
         # Kelios markės vienu metu — reikšmės masyvas
@@ -808,7 +945,12 @@ def apply_panel_filters(listings, vt_slug, params, source='advanced_or_panel', s
 
         elif ftype == 'checkbox':
             if _get(params, f.get('param')):
-                if db == 'vin':
+                if f.get('negate'):
+                    # Etalone yra ir neigiami langeliai: „Automobilis ne iš
+                    # JAV", „Slėpti iš aukcionų" — pažymėtas langelis reiškia
+                    # lauko reikšmę False.
+                    listings = listings.filter(**{db: False})
+                elif db == 'vin':
                     listings = listings.exclude(vin__isnull=True).exclude(vin='')
                 elif db == 'country':
                     listings = listings.filter(country='LT')

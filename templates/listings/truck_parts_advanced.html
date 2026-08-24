@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load adv_rail %}
 {% load i18n i18n_db %}
 
 {% block title %}{% trans "Truck Parts Search" %} - AutoLeft{% endblock %}
@@ -44,6 +45,19 @@
 
 {% block content %}
 <div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
+
+{% comment %}Kategorijų juosta ir trupinių takas — toks pat viršus kaip
+visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
+<div class="adv-top-bar">
+  <nav class="adv-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+    <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+    <span>›</span>
+    <span>{% trans "Skelbimų paieška" %}</span>
+    <span>›</span>
+    <span class="adv-crumb-on">{% trans "Sunkiojo transporto dalys" %}</span>
+  </nav>
+  <div class="adv-top-card">{% adv_rail 'truck-parts' %}</div>
+</div>
 <div class="adv-wrap">
 
 {# Submit eina TIESIAI į sidebar (truck_parts_browse) su filtrais #}

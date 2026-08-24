@@ -15325,7 +15325,7 @@ msgstr "Pridėti daugiau prekių ženklų / modelių"
 #: templates/listings/truck_parts_advanced.html:100
 #: templates/listings/wheels_advanced_search.html:99
 msgid "Price, €"
-msgstr ""
+msgstr "Kaina, €"
 
 #: templates/listings/advanced_search.html:256
 #: templates/listings/boats_listing_create.html:186

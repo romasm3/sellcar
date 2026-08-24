@@ -19,6 +19,14 @@
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
             <form method="POST">
                 {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+                {% comment %}Honeypot — nematomas laukas botams (toks pat kaip
+                pranešimo apie skelbimą formoje). Žmogus jo neužpildo, nes
+                nemato; užpildytas — registracija tyliai atmetama.{% endcomment %}
+                <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                    <label>{% trans "Svetainė" %}
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                    </label>
+                </div>
                 {% csrf_token %}
 
                 <!-- Email -->

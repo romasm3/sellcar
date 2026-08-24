@@ -33,15 +33,24 @@
         <div class="sp-flyout"></div>
     </div>
 
-    {# Ratai — atskiras wheels view (?type=tyre / ?type=rim) #}
+    {# Ratlankiai ir padangos — dvi ATSKIROS kategorijos, kaip etalone #}
     <div class="sp-rail-more">
-        <a href="{% url 'wheels_list' %}?type=tyre"
+        <a href="{% url 'rims_list' %}"
+           class="sp-rail-btn {% if selected_category == 'rims' %}sp-rail-on{% endif %}">
+            <i class="fas fa-dharmachakra"></i>
+        </a>
+        <div class="sp-flyout">
+            <a href="{% url 'rims_list' %}" class="sp-fly-item"><i class="fas fa-dharmachakra"></i><span>{% trans "Ratlankiai" %}</span></a>
+        </div>
+    </div>
+
+    <div class="sp-rail-more">
+        <a href="{% url 'tyres_list' %}"
            class="sp-rail-btn {% if selected_category == 'tires' %}sp-rail-on{% endif %}">
             <i class="fas fa-compact-disc"></i>
         </a>
         <div class="sp-flyout">
-            <a href="{% url 'wheels_list' %}?type=tyre" class="sp-fly-item"><i class="fas fa-circle-notch"></i><span>{% trans "Tyres" %}</span></a>
-            <a href="{% url 'wheels_list' %}?type=rim" class="sp-fly-item"><i class="fas fa-dharmachakra"></i><span>{% trans "Rims" %}</span></a>
+            <a href="{% url 'tyres_list' %}" class="sp-fly-item"><i class="fas fa-circle-notch"></i><span>{% trans "Padangos" %}</span></a>
         </div>
     </div>
 

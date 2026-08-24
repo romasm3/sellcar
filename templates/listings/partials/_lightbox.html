@@ -50,7 +50,7 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
       <img class="lb-blur" :src="items[idx] && items[idx].sm" alt="" x-show="!loaded" aria-hidden="true">
       <img class="lb-img" :src="items[idx] && items[idx].full" :alt="alt"
            :style="'transform: translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'"
-           :class="scale > 1 && 'is-zoomed'"
+           :class="[scale > 1 && 'is-zoomed', grabbing && 'is-grabbing']"
            @load="loaded = true" @dragstart.prevent>
     </div>
 
@@ -58,6 +58,46 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
             @click.stop="go(1)" aria-label="{% trans 'Kita' %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
     </button>
+  </div>
+
+  {% comment %}Apatinė juosta — kaip etalone: kairėje skelbimo pavadinimas,
+  dešinėje „Įsiminti", „Dalintis" ir nuotraukos numeris.{% endcomment %}
+  <div class="lb-foot">
+    <div class="lb-title" x-text="title"></div>
+    <div class="lb-actions">
+      <button type="button" class="lb-act" :class="saved && 'is-on'" @click="toggleSave()"
+              x-show="saveUrl">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
+             :fill="saved ? 'currentColor' : 'none'"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M12 20.3l-1.2-1.1C6.3 15.2 3.5 12.6 3.5 9.4 3.5 6.9 5.5 5 8 5c1.5 0 2.9.7 3.8 1.8l.2.3.2-.3C13.1 5.7 14.5 5 16 5c2.5 0 4.5 1.9 4.5 4.4 0 3.2-2.8 5.8-7.3 9.8l-1.2 1.1z"/></svg>
+        <span x-text="saved ? '{% trans "Įsiminta" %}' : '{% trans "Įsiminti" %}'"></span>
+      </button>
+
+      <button type="button" class="lb-act" @click="share()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7a3 3 0 1 0 0 2.6m0-2.6l6.6-3.4m-6.6 6l6.6 3.4M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+        <span>{% trans "Dalintis" %}</span>
+      </button>
+
+      <span class="lb-act lb-num">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8.5h3l1.3-2h7.4L17 8.5h3v10H4v-10z"/><circle cx="12" cy="13" r="3.2"/></svg>
+        <span x-text="(idx + 1) + '/' + items.length"></span>
+      </span>
+    </div>
+  </div>
+
+  {% comment %}Dalinimosi langelis — nuorodos kopijavimas ir Facebook.
+  Telefone naudojam sisteminį dalinimosi langą (navigator.share).{% endcomment %}
+  <div class="lb-share" x-show="shareOpen" x-cloak @click.self="shareOpen = false">
+    <div class="lb-share-box">
+      <div class="lb-share-title">{% trans "Dalintis" %}</div>
+      <div class="lb-share-row">
+        <input type="text" :value="shareUrl" readonly x-ref="shareInput">
+        <button type="button" @click="copyLink()" x-text="copied ? '{% trans "Nukopijuota" %}' : '{% trans "Kopijuoti" %}'"></button>
+      </div>
+      <a class="lb-share-fb" :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl)"
+         target="_blank" rel="noopener">Facebook</a>
+      <button type="button" class="lb-share-close" @click="shareOpen = false">{% trans "Uždaryti" %}</button>
+    </div>
   </div>
 
   <div class="lb-thumbs" x-show="items.length > 1">
@@ -69,8 +109,40 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
 </div>
 
 <style>
-  .lb { position: fixed; inset: 0; z-index: 120; display: flex; flex-direction: column;
-        background: rgba(17, 24, 39, .94); }
+  /* Apatinė juosta: kairėje pavadinimas, dešinėje veiksmai ir numeris. */
+  .lb-foot { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--sp-3); padding: var(--sp-2) var(--sp-3); color: #fff; flex: 0 0 auto; }
+  .lb-title { font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+              overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-actions { display: flex; align-items: center; gap: var(--sp-3); flex: 0 0 auto; }
+  .lb-act { display: inline-flex; align-items: center; gap: 6px; color: #fff;
+            background: none; border: 0; font-size: var(--fs-sm); cursor: pointer; opacity: .9; }
+  .lb-act:hover { opacity: 1; }
+  .lb-act svg { width: 18px; height: 18px; }
+  .lb-act.is-on { color: #ef4444; }
+  .lb-num { cursor: default; opacity: .8; }
+  @media (max-width: 640px) { .lb-act span { display: none; } .lb-num span { display: inline; } }
+
+  /* Dalinimosi langelis. */
+  .lb-share { position: fixed; inset: 0; z-index: 130; display: flex;
+              align-items: center; justify-content: center; background: rgba(17,24,39,.6); }
+  .lb-share-box { background: #fff; border-radius: 12px; padding: 20px; width: min(420px, 92vw);
+                  display: flex; flex-direction: column; gap: 12px; }
+  .lb-share-title { font-weight: 700; font-size: 16px; }
+  .lb-share-row { display: flex; gap: 8px; }
+  .lb-share-row input { flex: 1; min-width: 0; border: 1px solid var(--border);
+                        border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+  .lb-share-row button, .lb-share-fb, .lb-share-close {
+        border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px;
+        font-size: 14px; cursor: pointer; background: #fff; text-align: center;
+        text-decoration: none; color: var(--text); }
+  .lb-share-row button { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .lb-share-close { color: var(--text-muted); }
+
+  /* Fonas nepermatomas — kaip etalone; per pusiau permatomą prasišviesdavo
+     puslapio antraštė ir tekstas. */
+  .lb { position: fixed; inset: 0; z-index: 140; display: flex; flex-direction: column;
+        background: #111827; }
   .lb-bar { display: flex; align-items: center; justify-content: space-between;
             padding: var(--sp-2) var(--sp-3); color: #fff; flex: 0 0 auto; }
   .lb-count { font-size: var(--fs-sm); font-weight: var(--fw-medium); opacity: .85; }
@@ -85,13 +157,21 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
   .lb-stage { flex: 1 1 auto; min-height: 0; position: relative; display: flex;
               align-items: center; justify-content: center; overflow: hidden;
               touch-action: none; }
-  .lb-frame { position: relative; max-width: 100%; max-height: 100%;
-              display: flex; align-items: center; justify-content: center; }
-  .lb-img, .lb-blur { max-width: 96vw; max-height: 100%; object-fit: contain;
-                      user-select: none; -webkit-user-drag: none; }
+  /* Kadras užima visą sceną, todėl max-height:100% turi į ką atsiremti —
+     anksčiau jis buvo skaičiuojamas nuo susitraukusio kadro, nuotrauka
+     likdavo natūralaus aukščio ir viršus su apačia būdavo nukerpami. */
+  .lb-frame { position: absolute; inset: 0; display: flex;
+              align-items: center; justify-content: center;
+              padding: var(--sp-2) 64px; box-sizing: border-box; }
+  .lb-img, .lb-blur { max-width: 100%; max-height: 100%; width: auto; height: auto;
+                      object-fit: contain; user-select: none; -webkit-user-drag: none; }
+  @media (max-width: 640px) { .lb-frame { padding: var(--sp-2); } }
   .lb-img { transition: transform .18s ease-out; cursor: zoom-in; }
+  .lb-img { cursor: zoom-in; }
   .lb-img.is-zoomed { cursor: grab; transition: none; }
-  .lb-blur { position: absolute; inset: 0; margin: auto; filter: blur(18px); transform: scale(1.04); }
+  .lb-img.is-grabbing { cursor: grabbing; }
+  .lb-blur { position: absolute; inset: var(--sp-2) 64px; margin: auto;
+             filter: blur(18px); transform: scale(1.04); }
   .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
   .lb-prev { left: var(--sp-3); }
   .lb-next { right: var(--sp-3); }
@@ -115,46 +195,107 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
 function lightbox() {
   return {
     on: false, idx: 0, items: [], alt: '',
+    title: '', saveUrl: '', saved: false, shareUrl: '',
+    shareOpen: false, copied: false, grabbing: false,
+    ZOOM: 2.5,                       // paspaudimo priartinimas, kaip etalone
     scale: 1, tx: 0, ty: 0, loaded: false,
-    _p: {}, _start: null, _pinch: null, _scrollY: 0,
+    _p: {}, _start: null, _pinch: null, _scrollY: 0, _dragged: false,
 
     init() {
       // Duomenys ateina iš puslapio — vienas sąrašas visoms nuotraukoms
       this.items = window.__lbImages || [];
       this.alt = window.__lbAlt || '';
+      this.title = window.__lbTitle || this.alt;
+      this.saveUrl = window.__lbSaveUrl || '';
+      this.saved = !!window.__lbSaved;
+      this.shareUrl = window.__lbShareUrl || location.href.split('#')[0];
       window.lb = this;
+
+      // #gallery/3 — atidaro konkrečią nuotrauką; „atgal" uždaro galeriją
+      var self = this;
+      window.addEventListener('popstate', function () { self.fromHash(); });
+      this.fromHash();
     },
 
-    open(i) {
+    fromHash() {
+      var m = (location.hash || '').match(/^#gallery\/(\d+)$/);
+      if (m) {
+        var i = Math.max(0, Math.min(this.items.length - 1, parseInt(m[1], 10) - 1));
+        if (!this.on) { this.open(i, true); } else { this.show(i, true); }
+      } else if (this.on) {
+        this.close(true);
+      }
+    },
+    setHash(replace) {
+      var h = '#gallery/' + (this.idx + 1);
+      if (location.hash === h) { return; }
+      if (replace) { history.replaceState(null, '', h); }
+      else { history.pushState(null, '', h); }
+    },
+
+    open(i, isHash) {
       this.idx = i || 0; this.reset(); this.on = true;
       // Fonas nejuda, bet padėtis išsaugoma — uždarius grįžtam tiksliai ten
       this._scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
+      this.setHash(!!isHash);
     },
-    close() {
+    close(isHash) {
       this.on = false;
+      this.shareOpen = false;
       document.body.style.overflow = '';
       window.scrollTo(0, this._scrollY);
+      // Uždarant mygtuku grįžtam per istoriją, kad „atgal" nesugrąžintų galerijos
+      if (!isHash && location.hash.indexOf('#gallery/') === 0) { history.back(); }
     },
-    show(i) { this.idx = i; this.reset(); },
+    show(i, isHash) { this.idx = i; this.reset(); this.setHash(!!isHash); },
     go(d) {
       if (!this.items.length) { return; }
       this.idx = (this.idx + d + this.items.length) % this.items.length;
       this.reset();
+      this.setHash(true);
     },
     reset() { this.scale = 1; this.tx = 0; this.ty = 0; this.loaded = false; },
 
-    // Uždarom tik tada, kai paspausta TAMSIOJE srityje, o ne ant piešinio
+    // Paspaudimas: ant nuotraukos — priartina į tašką (arba atitolina),
+    // tamsioje srityje — uždaro.
     stageClick(e) {
-      if (this.scale > 1) { return; }                 // priartinus — tempiam, neuždarom
+      if (this._dragged) { this._dragged = false; return; }   // tempimas, ne paspaudimas
       var img = this.$el.querySelector('.lb-img');
       if (!img || !img.naturalWidth) { this.close(); return; }
       var r = img.getBoundingClientRect();
-      var k = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight);
-      var w = img.naturalWidth * k, h = img.naturalHeight * k;
-      var x0 = r.left + (r.width - w) / 2, y0 = r.top + (r.height - h) / 2;
-      var inside = e.clientX >= x0 && e.clientX <= x0 + w && e.clientY >= y0 && e.clientY <= y0 + h;
-      if (!inside) { this.close(); }
+      var inside = e.clientX >= r.left && e.clientX <= r.right
+                && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) {
+        if (this.scale === 1) { this.close(); }
+        return;
+      }
+      if (this.scale > 1) { this.reset(); return; }           // antras paspaudimas — atgal
+      this.zoomAt(e.clientX, e.clientY, this.ZOOM);
+    },
+
+    // Priartina taip, kad paspaudimo taškas liktų po pelės rodykle.
+    zoomAt(cx, cy, s) {
+      var img = this.$el.querySelector('.lb-img');
+      if (!img) { return; }
+      var r = img.getBoundingClientRect();
+      var centerX = r.left + r.width / 2, centerY = r.top + r.height / 2;
+      var k = s / this.scale;
+      this.tx = (this.tx - (cx - centerX)) * k + (cx - centerX);
+      this.ty = (this.ty - (cy - centerY)) * k + (cy - centerY);
+      this.scale = s;
+      this.clamp();
+    },
+
+    // Neleidžiam ištempti vaizdo už kadro ribų.
+    clamp() {
+      var img = this.$el.querySelector('.lb-img');
+      if (!img || this.scale <= 1) { this.tx = 0; this.ty = 0; return; }
+      var r = img.getBoundingClientRect();
+      var maxX = Math.max(0, (r.width * this.scale - r.width) / 2);
+      var maxY = Math.max(0, (r.height * this.scale - r.height) / 2);
+      this.tx = Math.min(maxX, Math.max(-maxX, this.tx));
+      this.ty = Math.min(maxY, Math.max(-maxY, this.ty));
     },
 
     key(e) {
@@ -171,8 +312,50 @@ function lightbox() {
       if (s === 1) { this.tx = 0; this.ty = 0; }
       this.scale = s;
     },
-    onWheel(e) { this.zoom(e.deltaY < 0 ? 0.3 : -0.3); },
-    toggleZoom() { this.scale > 1 ? this.zoom(-4) : this.zoom(1); },
+    onWheel(e) {
+      var s = Math.min(4, Math.max(1, this.scale + (e.deltaY < 0 ? 0.3 : -0.3)));
+      if (s === 1) { this.reset(); return; }
+      this.zoomAt(e.clientX, e.clientY, s);
+    },
+    // Dvigubas paspaudimas (ir dvigubas bakstelėjimas telefone)
+    toggleZoom(e) {
+      if (this.scale > 1) { this.reset(); }
+      else { this.zoomAt(e.clientX, e.clientY, this.ZOOM); }
+    },
+
+    // ── Įsiminti ir dalintis ──
+    toggleSave() {
+      if (!this.saveUrl) { return; }
+      var self = this;
+      var csrf = (document.querySelector('[name=csrfmiddlewaretoken]') || {}).value || '';
+      fetch(this.saveUrl, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRFToken': csrf },
+      }).then(function (r) {
+        if (r.status === 401) {
+          return r.json().then(function (d) { location.href = d.login_url || '/accounts/login/'; });
+        }
+        return r.json().then(function (d) { self.saved = !!d.saved; });
+      }).catch(function () {});
+    },
+
+    share() {
+      var duom = { title: this.title, url: this.shareUrl };
+      if (navigator.share) { navigator.share(duom).catch(function () {}); return; }
+      this.copied = false;
+      this.shareOpen = true;
+    },
+    copyLink() {
+      var self = this;
+      var ok = function () { self.copied = true; setTimeout(function () { self.copied = false; }, 2000); };
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.shareUrl).then(ok).catch(function () {
+          self.$refs.shareInput.select(); document.execCommand('copy'); ok();
+        });
+      } else {
+        this.$refs.shareInput.select(); document.execCommand('copy'); ok();
+      }
+    },
 
     // Vienas pirštas — tempimas (priartinus) arba braukimas (nepriartinus).
     // Du pirštai — priartinimas.
@@ -184,6 +367,7 @@ function lightbox() {
       } else {
         this._start = { x: e.clientX, y: e.clientY, tx: this.tx, ty: this.ty, t: Date.now() };
       }
+      if (this.scale > 1) { this.grabbing = true; }
       if (e.target.setPointerCapture) { try { e.target.setPointerCapture(e.pointerId); } catch (x) {} }
     },
     move(e) {
@@ -197,6 +381,10 @@ function lightbox() {
       if (this.scale > 1 && this._start) {
         this.tx = this._start.tx + (e.clientX - this._start.x);
         this.ty = this._start.ty + (e.clientY - this._start.y);
+        if (Math.abs(e.clientX - this._start.x) > 3 || Math.abs(e.clientY - this._start.y) > 3) {
+          this._dragged = true;
+        }
+        this.clamp();
       }
     },
     up(e) {
@@ -208,6 +396,7 @@ function lightbox() {
         if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { this.go(dx < 0 ? 1 : -1); }
       }
       this._start = null;
+      this.grabbing = false;
     },
     _dist() {
       var v = Object.values(this._p);

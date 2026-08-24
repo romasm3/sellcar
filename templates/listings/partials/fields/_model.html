@@ -13,7 +13,8 @@ param>]`), o pasikeitus jai parsisiunčia modelius. Kol markė nepasirinkta
 
 Be JS lieka tekstinis įvedimas tuo pačiu parametru (filtrų variklis
 nenumerinę reikšmę suranda pagal pavadinimą).
-{% endcomment %}{% with cur=request.GET|get_param:f.param %}
+{% endcomment %}{% comment %}`cur_fixed` — reikšmę duoda kviečiantis šablonas
+(markės/modelio porų eilutės).{% endcomment %}{% if cur_fixed %}{% firstof cur_val '' as cur %}{% else %}{% firstof request.GET|get_param:f.param '' as cur %}{% endif %}
 <div class="relative"
      x-data="modelField({
         url: '{% url "model_options" %}?kategorija={{ f.model_vt|escapejs }}',
@@ -56,4 +57,4 @@ nenumerinę reikšmę suranda pagal pavadinimą).
     </div>
   </div>
 </div>
-{% endwith %}
+

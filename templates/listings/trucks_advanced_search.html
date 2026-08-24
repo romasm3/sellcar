@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load adv_rail %}
 {% load i18n i18n_db %}
 
 {% block title %}{% trans "Advanced Truck Search" %} - AutoLeft{% endblock %}
@@ -259,6 +260,19 @@
 
 {% block content %}
 <div class="bg-gray-50 min-h-screen">
+
+{% comment %}Kategorijų juosta ir trupinių takas — toks pat viršus kaip
+visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
+<div class="adv-top-bar">
+  <nav class="adv-crumbs" aria-label="{% trans 'Trupinių takas' %}">
+    <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+    <span>›</span>
+    <span>{% trans "Skelbimų paieška" %}</span>
+    <span>›</span>
+    <span class="adv-crumb-on">{% trans "Sunkvežimiai" %}</span>
+  </nav>
+  <div class="adv-top-card">{% adv_rail 'trucks' %}</div>
+</div>
     <div class="max-w-7xl mx-auto px-4 py-6">
 
         {# ═══ Page header ═══ #}

@@ -66,39 +66,42 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                 {# ─── Image Gallery (same for all) ─── #}
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     {% if listing.images.all %}
-                    <div x-data="{ currentImage: 0, images: {{ listing.images.count }} }">
-                        <div class="relative overflow-hidden" style="max-height: 600px; min-height: 320px;">
+                    <div x-data="galerijosJuosta({{ listing.images.count }})" x-init="init()">
+                        {% comment %}Scena — pastovaus aukščio (kaip etalone): keičiant
+                        nuotraukas nesikeičia dėžutės dydis, todėl rodyklės, miniatiūros
+                        ir tekstas žemiau nepašoka. Nuotrauka telpa per object-fit.
+                        {% endcomment %}
+                        <div class="relative overflow-hidden ld-stage">
                             {% for image in listing.images.all %}
                             <div x-show="currentImage === {{ forloop.counter0 }}"
                                  {% if not forloop.first %}style="display:none;"{% endif %}
-                                 class="relative">
+                                 class="ld-slide">
                                 <div class="absolute inset-0 bg-cover bg-center"
                                      style="background-image: url('{{ image.url_sm }}'); filter: blur(40px) brightness(0.65); transform: scale(1.15); z-index: 0;"></div>
                                 {% comment %}Paspaudus atsidaro sluoksnis virš skelbimo, ne failas.
                                 href lieka kaip atsarga be JS.{% endcomment %}
-                                <a href="{{ image.image.url }}" class="relative flex items-center justify-center"
-                                   @click.prevent="window.lb && window.lb.open({{ forloop.counter0 }})"
-                                   style="z-index: 1; min-height: 320px; max-height: 600px;">
+                                <a href="{{ image.image.url }}" class="relative flex items-center justify-center ld-link"
+                                   @click.prevent="window.lb && window.lb.open({{ forloop.counter0 }})">
                                     {% comment %}Rodom 1600 px versiją; originalas lieka lightbox nuorodoje.{% endcomment %}
                                     <picture>
                                       {% if image.url_sm_webp %}<source media="(max-width: 668px)" srcset="{{ image.url_sm_webp }}" type="image/webp">{% endif %}
                                       {% if image.url_lg_webp %}<source srcset="{{ image.url_lg_webp }}" type="image/webp">{% endif %}
                                       <img src="{{ image.url_lg }}" alt="{{ listing.title }}"
                                            {% if image.w_lg %}width="{{ image.w_lg }}" height="{{ image.h_lg }}"{% endif %}
-                                           loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" decoding="async"
-                                           class="block w-auto h-auto cursor-zoom-in"
-                                           style="max-width: 100%; max-height: 600px; min-height: 320px; object-fit: contain;">
+                                           loading="{% if forloop.counter0 < 3 %}eager{% else %}lazy{% endif %}" decoding="async"
+                                           data-pilna="{{ image.url_lg }}"
+                                           class="block cursor-zoom-in ld-img">
                                     </picture>
                                 </a>
                             </div>
                             {% endfor %}
 
                             {% if listing.images.count > 1 %}
-                            <button @click.prevent.stop="currentImage = currentImage > 0 ? currentImage - 1 : images - 1"
+                            <button @click.prevent.stop="rodyk(currentImage > 0 ? currentImage - 1 : images - 1)"
                                     class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors z-10">
                                 <i class="fas fa-chevron-left text-gray-900"></i>
                             </button>
-                            <button @click.prevent.stop="currentImage = currentImage < images - 1 ? currentImage + 1 : 0"
+                            <button @click.prevent.stop="rodyk(currentImage < images - 1 ? currentImage + 1 : 0)"
                                     class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md transition-colors z-10">
                                 <i class="fas fa-chevron-right text-gray-900"></i>
                             </button>
@@ -112,7 +115,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
                             <div class="flex gap-2 overflow-x-auto" style="scrollbar-width: thin;">
                                 {% for image in listing.images.all %}
-                                <button @click.prevent.stop="currentImage = {{ forloop.counter0 }}; window.lb && window.lb.open({{ forloop.counter0 }})"
+                                <button @click.prevent.stop="rodyk({{ forloop.counter0 }})"
                                         :class="currentImage === {{ forloop.counter0 }} ? 'ring-2 ring-primary opacity-100' : 'opacity-70 hover:opacity-100'"
                                         class="w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 transition-all">
                                     <img src="{{ image.url_sm }}" alt="{{ listing.title }}" width="80" height="64"
@@ -1651,7 +1654,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                             </span>
                         </div>
 
@@ -2029,7 +2031,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
                                 <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
-                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -2146,7 +2147,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
                         {% if listing.engine_capacity %}
@@ -2154,7 +2154,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Engine capacity" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2321,7 +2320,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
                                 <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
-                                <div class="text-xs text-gray-400">≈ {% widthratio listing.mileage 1609 1000 %} mi</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -2407,7 +2405,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {% widthratio listing.mileage 1609 1000 %} mi</span>
                             </span>
                         </div>
 
@@ -2416,7 +2413,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="text-gray-600">{% trans "Engine Capacity" %}</span>
                             <span class="font-medium text-gray-900">
                                 <span data-unit-show="engine_capacity" data-unit-raw="{{ listing.engine_capacity|default_if_none:''|unlocalize }}">{{ listing.engine_capacity }} L</span>
-                                <span class="text-gray-400 text-sm">/ ≈ {{ listing.engine_capacity|floatformat:0 }}000 cm³</span>
                             </span>
                         </div>
                         {% endif %}
@@ -2628,7 +2624,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% if listing.mileage %}
                     <div class="text-sm text-gray-600 mb-1">
                         <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
-                        <span class="text-gray-400">/ ≈ {% widthratio listing.mileage 1000 621 %} mi</span>
                     </div>
                     {% endif %}
                     {% if listing.power %}
@@ -2985,7 +2980,51 @@ window.__lbImages = [
   {% endfor %}
 ];
 window.__lbAlt = "{{ listing.title|escapejs }}";
+{% comment %}Galerijos apatinei juostai: pavadinimas, „Įsiminti" ir dalinimosi
+nuoroda. Ta pati komponentė naudojama visose kategorijose.{% endcomment %}
+window.__lbTitle = "{{ listing.title|escapejs }}{% if listing.year %}, {{ listing.year }}{% endif %}";
+window.__lbSaveUrl = "{% url 'save_listing' listing.pk %}";
+window.__lbSaved = {% if is_saved %}true{% else %}false{% endif %};
+window.__lbShareUrl = "{{ request.scheme }}://{{ request.get_host }}{{ listing.get_absolute_url }}";
 </script>
+<style>
+  /* Skelbimo nuotraukų juosta — pastovaus aukščio scena (kaip etalone).
+     Anksčiau kiekviena nuotrauka nustatydavo savo aukštį, todėl perjungiant
+     šokdavo rodyklės, miniatiūros ir visas tekstas žemiau. */
+  .ld-stage { height: clamp(320px, 46vw, 560px); background: #0f172a; }
+  .ld-slide { position: absolute; inset: 0; }
+  .ld-link { position: absolute; inset: 0; z-index: 1; }
+  .ld-img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+            object-fit: contain; }
+</style>
+
+<script>
+// Nuotraukų perjungimas: gretimos nuotraukos parsisiunčiamos iš anksto,
+// todėl paspaudus rodyklę vaizdas pasikeičia iškart, be įkrovimo pauzės.
+function galerijosJuosta(kiek) {
+  return {
+    currentImage: 0,
+    images: kiek,
+    init() { this.parsisiusk(0); },
+    rodyk(i) {
+      this.currentImage = i;
+      this.parsisiusk(i);
+    },
+    parsisiusk(i) {
+      var visos = this.$el.querySelectorAll('.ld-img');
+      var self = this;
+      [i - 1, i + 1, i + 2].forEach(function (n) {
+        var k = (n + self.images) % self.images;
+        var el = visos[k];
+        if (!el) { return; }
+        el.loading = 'eager';
+        if (el.dataset.pilna) { new Image().src = el.dataset.pilna; }
+      });
+    },
+  };
+}
+</script>
+
 {% include 'listings/partials/_lightbox.html' %}
 
 <script>

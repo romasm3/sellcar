@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %}
+{% load dict_extras i18n %}
 
 {% block title %}{% if product_type == 'rim' %}{% trans "Browse Rims" %}{% else %}{% trans "Browse Tyres" %}{% endif %} - AutoLeft{% endblock %}
 
@@ -20,13 +20,6 @@
 .wl-crumbs a { color:var(--text-muted); text-decoration:none; }
 .wl-crumbs a:hover { color:var(--text); text-decoration:underline; }
 .wl-crumb-on { color:var(--text); }
-.wl-type { display:flex; gap:var(--sp-2); }
-.wl-type-btn { flex:1; display:inline-flex; align-items:center; justify-content:center;
-               height:var(--btn-h-sm); border:1px solid var(--border); border-radius:var(--r-md);
-               background:var(--surface); font-size:var(--fs-sm); font-weight:var(--fw-medium);
-               color:var(--text-muted); text-decoration:none; transition:border-color var(--dur), color var(--dur); }
-.wl-type-btn:hover { border-color:var(--border-hover); color:var(--text); }
-.wl-type-btn.is-on { border-color:var(--accent); color:var(--text); font-weight:var(--fw-semibold); }
 .more-filters-btn { margin-top:var(--sp-2); width:100%; padding:0.55rem 1rem; border:1.5px solid #4b5563; color:var(--accent); background:#fff; font-size:0.85rem; font-weight:600; border-radius:0.4rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.15s; text-decoration:none; }
 .more-filters-btn:hover { background:#f3f4f6; border-color:var(--accent-hover); color:var(--accent-hover); }
 
@@ -87,6 +80,7 @@
 {% endblock %}
 
 {% block content %}
+{% include 'listings/partials/_sp_field_styles.html' %}
 <div class="bg-gray-50 min-h-screen">
 <div class="max-w-6xl mx-auto px-4 py-6">
 
@@ -96,8 +90,6 @@
     (etalone taip pat).{% endcomment %}
     <nav class="wl-crumbs" aria-label="{% trans 'Trupinių takas' %}">
       <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
-      <span>›</span>
-      <a href="{% url 'wheels_list' %}">{% trans "Ratlankiai / padangos" %}</a>
       <span>›</span>
       <span class="wl-crumb-on">{% if product_type == 'rim' %}{% trans "Ratlankiai" %}{% else %}{% trans "Padangos" %}{% endif %}</span>
     </nav>
@@ -115,159 +107,79 @@
         <div class="w-full lg:w-60 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-20">
 
-                {% comment %}Tipo perjungimas — anksčiau buvo tik viršutinėje
-                panelėje; be jo iš šoninės juostos nebūtų kaip pereiti tarp
-                ratlankių ir padangų.{% endcomment %}
-                <div class="sidebar-section">
-                    <span class="sidebar-label">{% trans "Tipas" %}</span>
-                    <div class="wl-type">
-                        <a href="{% url 'wheels_list' %}?type=rim"
-                           class="wl-type-btn{% if product_type == 'rim' %} is-on{% endif %}">{% trans "Ratlankiai" %}</a>
-                        <a href="{% url 'wheels_list' %}?type=tyre"
-                           class="wl-type-btn{% if product_type != 'rim' %} is-on{% endif %}">{% trans "Padangos" %}</a>
-                    </div>
-                </div>
+                {% comment %}Filtrai — etalono eilės tvarka
+                (docs/autogidas-ratlankiai-padangos.md). Laukų sąrašas
+                ateina iš wheels_filters.sidebar_fields: ratlankiams ir
+                padangoms jis skirtingas, todėl „Tipas: ratlankiai /
+                padangos" perjungiklio nebėra — tai atskiros kategorijos.
+                {% endcomment %}
+                <form method="get" id="sidebarForm"
+                      action="{% if product_type == 'rim' %}{% url 'rims_list' %}{% else %}{% url 'tyres_list' %}{% endif %}">
 
-                <form method="get" action="{% url 'wheels_list' %}" id="sidebarForm">
-                    <input type="hidden" name="type" value="{{ product_type }}">
-
-                    {% comment %}Eiliškumas kaip etalone: paskirtis (ir sezonas
-                    padangoms), skersmuo, plotis, PCD, tvirtinimo taškai,
-                    būklė, kaina, vieta. Kiekvienas filtras — po VIENĄ kartą:
-                    viršutinės panelės nebėra, tad dublių nelieka.{% endcomment %}
-
+                    {% for f in sidebar_fields %}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Paskirtis" %}</span>
-                        <select name="purpose" class="sb-select">
-                            <option value="">{% trans "Visos" %}</option>
-                            {% for val, label in purpose_choices %}
-                            <option value="{{ val }}" {% if f.purpose == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {% if product_type == 'tyre' %}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Sezonas" %}</span>
-                        <select name="tyre_season" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in tyre_season_choices %}
-                            <option value="{{ val }}" {% if f.tyre_season == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {% endif %}
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Skersmuo" %}</span>
-                        <select name="diameter" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in diameter_choices %}
-                            <option value="{{ val }}" {% if f.diameter == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {% if product_type == 'tyre' %}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Plotis" %}</span>
-                        <select name="tyre_width" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in tyre_width_choices %}
-                            <option value="{{ val }}" {% if f.tyre_width == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Aukštis (profilis)" %}</span>
-                        <select name="tyre_profile" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in tyre_profile_choices %}
-                            <option value="{{ val }}" {% if f.tyre_profile == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {% else %}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Plotis" %}</span>
-                        <select name="rim_width" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in rim_width_choices %}
-                            <option value="{{ val }}" {% if f.rim_width == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "PCD" %}</span>
-                        <select name="rim_pcd" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in rim_pcd_choices %}
-                            <option value="{{ val }}" {% if f.rim_pcd == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Tvirtinimo taškai" %}</span>
-                        <select name="rim_bolt_count" class="sb-select">
-                            <option value="">{% trans "Visi" %}</option>
-                            {% for val, label in rim_bolt_count_choices %}
-                            <option value="{{ val }}" {% if f.rim_bolt_count == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Medžiaga" %}</span>
-                        <select name="rim_material" class="sb-select">
-                            <option value="">{% trans "Visos" %}</option>
-                            {% for val, label in rim_material_choices %}
-                            <option value="{{ val }}" {% if f.rim_material == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {% endif %}
-
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Būklė" %}</span>
-                        <select name="condition" class="sb-select">
-                            <option value="">{% trans "Visos" %}</option>
-                            {% for val, label in condition_choices %}
-                            <option value="{{ val }}" {% if f.condition == val %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {# ═══ KAINA ═══ #}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Kaina (€)" %}</span>
-                        <div class="sb-range">
-                            <input type="number" name="price_from" class="sb-input" placeholder="{% trans 'Nuo' %}" value="{{ f.price_from }}">
-                            <input type="number" name="price_to" class="sb-input" placeholder="{% trans 'Iki' %}" value="{{ f.price_to }}">
+                        {% if f.type != 'multiselect' %}<span class="sidebar-label">{{ f.label }}</span>{% endif %}
+                        {% if f.type == 'range' %}
+                        <div class="sb-range flex gap-2">
+                            <select name="{{ f.param_min }}" class="sb-select">
+                                <option value="">{% trans "Nuo" %}</option>
+                                {% for v, lbl in f.options_min %}
+                                <option value="{{ v }}" {% if request.GET|get_param:f.param_min == v %}selected{% endif %}>{{ lbl }}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="{{ f.param_max }}" class="sb-select">
+                                <option value="">{% trans "Iki" %}</option>
+                                {% for v, lbl in f.options_max %}
+                                <option value="{{ v }}" {% if request.GET|get_param:f.param_max == v %}selected{% endif %}>{{ lbl }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-                    </div>
+                        {% elif f.type == 'multiselect' %}
+                        {% comment %}Kelios reikšmės (pvz. kelios tr. priem.
+                        markės) — tas pats valdiklis kaip kitose paieškose.
+                        {% endcomment %}
+                        {% include 'listings/partials/fields/_multiselect.html' with f=f %}
 
-                    {% comment %}Vieta — perkelta iš pašalintos viršutinės panelės,
-                    kitaip šalies filtro nebūtų iš viso.{% endcomment %}
-                    <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Vieta" %}</span>
-                        <select name="country_filter" class="sb-select">
-                            <option value="">{% trans "Visos šalys" %}</option>
-                            {% for code, name in country_choices %}
-                            <option value="{{ code }}" {% if f.country_filter == code %}selected{% endif %}>{{ name }}</option>
+                        {% elif f.type == 'text' %}
+                        <input type="text" name="{{ f.param }}" class="sb-input"
+                               placeholder="{{ f.placeholder }}"
+                               value="{{ request.GET|get_param:f.param }}">
+                        {% else %}
+                        <select name="{{ f.param }}" class="sb-select">
+                            <option value="">{{ f.placeholder }}</option>
+                            {% for v, lbl in f.options %}
+                            <option value="{{ v }}" {% if request.GET|get_param:f.param == v|stringformat:"s" %}selected{% endif %}>{{ lbl }}</option>
                             {% endfor %}
                         </select>
+                        {% endif %}
+                        {% if f.param == 'fits_brand' %}
+                        {% comment %}Kelios tr. priem. markės — kaip etalone.
+                        Klonuojam tą patį sąrašą (2500+ markių HTML'e kartoti
+                        nesinorėtų), reikšmės jungiamos „arba".{% endcomment %}
+                        <button type="button" class="mt-1 text-[12px] font-bold text-gray-600 hover:text-gray-900"
+                                onclick="pridetiMarke(this)">
+                            + {% trans "Pridėti daugiau markių" %}
+                        </button>
+                        {% endif %}
                     </div>
+                    {% endfor %}
 
-                    {# ═══ TEKSTINĖ PAIEŠKA ═══ #}
+                    {% comment %}Filtrai taikomi tik paspaudus šį mygtuką;
+                    skaičius jame atsinaujina be perkrovimo.{% endcomment %}
+                    <button type="submit" class="save-search-btn w-full justify-center mb-3">
+                        {% trans "Filtruoti" %} <span id="sidebarCount">{{ total_count }}</span>
+                    </button>
+
+                    {% comment %}Žymimieji langeliai — juostos apačioje, kaip etalone.{% endcomment %}
                     <div class="sidebar-section">
-                        <span class="sidebar-label">{% trans "Paieška tekste" %}</span>
-                        <input type="text" name="q" class="sb-input" placeholder="{% trans 'Ieškoti...' %}" value="{{ f.q }}">
+                        {% for param, label, checked in feature_fields %}
+                        <label class="flex items-center gap-2 text-sm text-gray-700 mb-1.5 cursor-pointer">
+                            <input type="checkbox" name="{{ param }}" value="1"
+                                   {% if checked %}checked{% endif %}
+                                   class="w-4 h-4 rounded">
+                            <span>{{ label }}</span>
+                        </label>
+                        {% endfor %}
                     </div>
                 </form>
 
@@ -281,6 +193,16 @@
 
         {# ═══════════════ RESULTS ═══════════════ #}
         <div class="flex-1 min-w-0">
+
+            {% if quick_links %}
+            {% comment %}Greitos nuorodos — etalone jos yra virš rezultatų.{% endcomment %}
+            <div class="season-tabs">
+                {% for v, lbl in quick_links %}
+                <a href="{% url 'rims_list' %}?rim_material={{ v }}"
+                   class="season-tab{% if request.GET.rim_material == v %} active{% endif %}">{{ lbl }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
                 <div class="flex items-center justify-between flex-wrap gap-3">
@@ -416,7 +338,7 @@
                 </span>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "No listings found" %}</h3>
                 <p class="text-gray-500 mb-6">{% trans "Try adjusting your filters" %}</p>
-                <a href="{% url 'wheels_list' %}?type={{ product_type }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg"><i class="fas fa-undo"></i> {% trans "Clear filters" %}</a>
+                <a href="{% if product_type == 'rim' %}{% url 'rims_list' %}{% else %}{% url 'tyres_list' %}{% endif %}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg"><i class="fas fa-undo"></i> {% trans "Clear filters" %}</a>
             </div>
             {% endif %}
         </div>
@@ -427,6 +349,42 @@
 
 {% block extra_js %}
 <script>
+// Filtrai taikomi tik paspaudus „Filtruoti"; čia — gyvas skaičius mygtuke.
+document.addEventListener('DOMContentLoaded', function () {
+  var forma = document.getElementById('sidebarForm');
+  var skaicius = document.getElementById('sidebarCount');
+  if (!forma || !skaicius) { return; }
+  var kategorija = '{{ product_type }}' === 'rim' ? 'rims' : 'tires';
+  var laikmatis = null;
+  function atnaujink() {
+    clearTimeout(laikmatis);
+    laikmatis = setTimeout(function () {
+      var qs = new URLSearchParams(new FormData(forma)).toString();
+      fetch('/paieska/count/' + kategorija + '/?type={{ product_type }}&' + qs,
+            { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { skaicius.textContent = d.count; })
+        .catch(function () {});
+    }, 250);
+  }
+  forma.addEventListener('change', atnaujink);
+  forma.addEventListener('input', function (e) {
+    if (['text', 'number', 'search'].indexOf(e.target.type) !== -1) atnaujink();
+  });
+});
+
+// Papildomos „Tr. priem. markė" eilutės: klonuojam esamą sąrašą, kad
+// nekartotume 2500+ <option> HTML'e. Serveris kelias reikšmes jungia „arba".
+function pridetiMarke(btn) {
+    var sekcija = btn.parentNode;
+    var sablonas = sekcija.querySelector('select[name="fits_brand"]');
+    if (!sablonas || sekcija.querySelectorAll('select[name="fits_brand"]').length >= 3) { return; }
+    var kopija = sablonas.cloneNode(true);
+    kopija.value = '';
+    kopija.classList.add('mt-2');
+    sekcija.insertBefore(kopija, btn);
+}
+
 function onSortChange(selectEl) {
     var url = new URL(window.location.href);
     if (selectEl.value) {

@@ -1910,7 +1910,7 @@ msgstr ""
 
 #: apps/listings/models.py:539 apps/listings/translatable_db.py:1826
 msgid "Vasarinės"
-msgstr ""
+msgstr "Summer"
 
 #: apps/listings/models.py:540
 msgid "Žieminės / šildomos"
@@ -2826,7 +2826,7 @@ msgstr "Implement / self-propelled"
 #: templates/listings/listing_detail.html:1235
 #: templates/listings/listing_detail.html:1284
 msgid "Motovalandos"
-msgstr ""
+msgstr "Engine hours"
 
 #: apps/listings/models.py:982
 #: templates/listings/agriculture_listing_create.html:194
@@ -3080,7 +3080,7 @@ msgstr ""
 #: templates/listings/listing_detail.html:866
 #: templates/listings/listing_detail.html:1146
 msgid "Pavaros tipas"
-msgstr ""
+msgstr "Drive type"
 
 #: apps/listings/models.py:1098
 #: templates/listings/construction_attachment_create.html:124
@@ -3321,7 +3321,7 @@ msgstr ""
 #: templates/listings/rental_minibus_create.html:120
 #: templates/listings/rental_moto_create.html:106
 msgid "Nuomos kaina valandai"
-msgstr ""
+msgstr "Rental price per hour"
 
 #: apps/listings/models.py:1280 apps/listings/translatable_db.py:1349
 #: templates/listings/rental_car_create.html:141
@@ -3435,7 +3435,7 @@ msgstr "Agricultural machinery repair"
 #: apps/listings/models.py:1325 templates/listings/listing_detail.html:408
 #: templates/listings/services_listing_create.html:55
 msgid "Paslaugos tipas"
-msgstr ""
+msgstr "Service type"
 
 #: apps/listings/models.py:1344 apps/listings/translatable_db.py:1628
 msgid "Automobilių signalizacija"
@@ -3567,7 +3567,7 @@ msgstr "Pneumatic tyres"
 #: apps/listings/models.py:1415
 #: templates/listings/bicycles_listing_create.html:114
 msgid "Maksimalus greitis, km/h"
-msgstr ""
+msgstr "Top speed, km/h"
 
 #: apps/listings/models.py:1419 apps/listings/translatable_db.py:1213
 #: templates/listings/bicycles_listing_create.html:132
@@ -3577,11 +3577,11 @@ msgstr "Range on one charge, km"
 #: apps/listings/models.py:1424
 #: templates/listings/bicycles_listing_create.html:167
 msgid "Baterijos talpa, Ah"
-msgstr ""
+msgstr "Battery capacity, Ah"
 
 #: apps/listings/models.py:1429
 msgid "Baterijos talpos likutis, %"
-msgstr ""
+msgstr "Remaining battery capacity, %"
 
 #: apps/listings/models.py:1434 apps/listings/translatable_db.py:1514
 #: templates/listings/bicycles_listing_create.html:179
@@ -4475,11 +4475,11 @@ msgstr "Two weeks"
 
 #: apps/listings/search_config/panels.py:639
 msgid "Privatus"
-msgstr ""
+msgstr "Private"
 
 #: apps/listings/search_config/panels.py:639
 msgid "Verslas"
-msgstr ""
+msgstr "Business"
 
 #: apps/listings/search_panel.py:32
 #: templates/listings/partials/_panel_bodies.html:943
@@ -5951,7 +5951,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:284
 msgid "Automobilis ne iš JAV"
-msgstr ""
+msgstr "Not imported from the USA"
 
 #: apps/listings/translatable_db.py:285
 msgid "Autonominio šildytuvo (Webastos) dugno apsauga"
@@ -6211,7 +6211,7 @@ msgstr "CB radio"
 
 #: apps/listings/translatable_db.py:353
 msgid "Centr. skylės diametras"
-msgstr ""
+msgstr "Centre bore"
 
 #: apps/listings/translatable_db.py:354
 msgid "Centrinio garsiakalbio rėmelis"
@@ -7769,7 +7769,7 @@ msgstr "Fuel hose"
 
 #: apps/listings/translatable_db.py:754
 msgid "Kėbulas"
-msgstr ""
+msgstr "Body"
 
 #: apps/listings/translatable_db.py:755
 msgid "Kėbulo modulis"
@@ -7921,7 +7921,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:800
 msgid "Max kėlimo aukštis m"
-msgstr ""
+msgstr "Max lift height, m"
 
 #: apps/listings/translatable_db.py:801
 msgid "Mažasis \"A\" galinių durų stiklas"
@@ -7984,7 +7984,7 @@ msgstr "Material"
 #: apps/listings/translatable_db.py:815
 #: templates/listings/rental_minibus_create.html:87
 msgid "Miegamų vietų skaičius"
-msgstr ""
+msgstr "Number of berths"
 
 #: apps/listings/translatable_db.py:816
 msgid "Modelio raidės"
@@ -8178,7 +8178,7 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:108
 #: templates/listings/partials/_panel_bodies.html:95
 msgid "Pagamintas iš"
-msgstr "Made from"
+msgstr "Material"
 
 #: apps/listings/translatable_db.py:871
 msgid "Pagrindinis galinių durų stiklas"
@@ -8270,11 +8270,11 @@ msgstr "Seller type"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
-msgstr ""
+msgstr "Sold individually"
 
 #: apps/listings/translatable_db.py:896
 msgid "Parduodu po vieną"
-msgstr ""
+msgstr "Sold individually"
 
 #: apps/listings/translatable_db.py:897
 msgid "Parkavimo (PDC) daviklių ekranas/ displėjus"
@@ -8546,7 +8546,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:967
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "Country of first registration"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -9668,7 +9668,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1254
 msgid "Sezoniškumas"
-msgstr ""
+msgstr "Season"
 
 #: apps/listings/translatable_db.py:1255
 msgid "Signalizacijos rėlė"
@@ -9788,7 +9788,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1285
 msgid "Slėpti iš aukcionų"
-msgstr ""
+msgstr "Hide auction listings"
 
 #: apps/listings/translatable_db.py:1286
 msgid "Smagratis (plaukiojantis/ dviejų masių)"
@@ -9824,7 +9824,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1294
 msgid "Sportinės padangos"
-msgstr "Performance tyres"
+msgstr "Sport tyres"
 
 #: apps/listings/translatable_db.py:1296
 msgid "Spyna galinio dangčio"
@@ -10177,7 +10177,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1386
 msgid "Tr. priem. markė"
-msgstr ""
+msgstr "Vehicle brand"
 
 #: apps/listings/translatable_db.py:1387
 msgid "Transmisijos tepalo aušintuvas"
@@ -10222,7 +10222,7 @@ msgstr ""
 #: apps/listings/translatable_db.py:1398
 #: templates/listings/wheels_list.html:219
 msgid "Tvirtinimo taškai"
-msgstr "Bolt pattern"
+msgstr "Bolt count"
 
 #: apps/listings/translatable_db.py:1399
 msgid "Tvirtinimo varžtas (atsarginio rato)"
@@ -10626,7 +10626,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1503
 msgid "Visureigių padangos"
-msgstr "Off-road tyres"
+msgstr "SUV tyres"
 
 #: apps/listings/translatable_db.py:1504
 msgid "Vožtuvas (-ai)"
@@ -10654,7 +10654,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1510
 msgid "Vyriškas/moteriškas"
-msgstr ""
+msgstr "Gender"
 
 #: apps/listings/translatable_db.py:1511
 msgid "Vėjo deflektorius"
@@ -10706,7 +10706,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1525
 msgid "Įveikiama įkalnė °"
-msgstr ""
+msgstr "Climbable gradient, °"
 
 #: apps/listings/translatable_db.py:1526
 msgid "Šakės"
@@ -10951,7 +10951,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1594
 msgid "Žieminės dygliuotos"
-msgstr ""
+msgstr "Studded winter"
 
 #: apps/listings/translatable_db.py:1595
 msgid "Žvaigždutės"
@@ -11134,7 +11134,7 @@ msgstr "Trousers"
 #: apps/listings/translatable_db.py:1700
 #: templates/listings/partials/_panel_bodies.html:377
 msgid "Keturračiams"
-msgstr "For ATVs"
+msgstr "Quad bikes"
 
 #: apps/listings/translatable_db.py:1702
 msgid "Kiti stambūs defektai"
@@ -11248,7 +11248,7 @@ msgstr "Gloves"
 
 #: apps/listings/translatable_db.py:1761
 msgid "Plieniniai štampuoti"
-msgstr ""
+msgstr "Steel stamped"
 
 #: apps/listings/translatable_db.py:1762
 msgid "Plungė"
@@ -11268,11 +11268,11 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1773
 msgid "Ratlankių dangteliai"
-msgstr ""
+msgstr "Hub caps"
 
 #: apps/listings/translatable_db.py:1775
 msgid "Ratų gaubtai"
-msgstr ""
+msgstr "Wheel covers"
 
 #: apps/listings/translatable_db.py:1778
 msgid "Rokiškis"
@@ -11324,7 +11324,7 @@ msgstr "Jacket"
 
 #: apps/listings/translatable_db.py:1805
 msgid "Sunkvežimiams ir autobusams"
-msgstr ""
+msgstr "Trucks and buses"
 
 #: apps/listings/translatable_db.py:1807
 msgid "Sunkvežimis virš 7,5t."
@@ -11485,7 +11485,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1864
 msgid "Žieminės"
-msgstr ""
+msgstr "Winter"
 
 #: apps/listings/translatable_db.py:1874
 msgid "4x4 varantys ratai"
@@ -16163,7 +16163,7 @@ msgstr ""
 
 #: templates/listings/bicycles_listing_create.html:108
 msgid "Galia, W"
-msgstr ""
+msgstr "Power, W"
 
 #: templates/listings/bicycles_listing_create.html:120
 msgid "Svoris, kg"
@@ -16171,7 +16171,7 @@ msgstr "Weight (kg)"
 
 #: templates/listings/bicycles_listing_create.html:126
 msgid "Maksimali apkrova, kg"
-msgstr ""
+msgstr "Maximum load, kg"
 
 #: templates/listings/bicycles_listing_create.html:138
 #: templates/listings/camping_listing_create.html:244
@@ -17721,7 +17721,7 @@ msgstr "Mileage"
 #: templates/listings/rental_minibus_create.html:109
 #: templates/listings/rental_moto_create.html:95
 msgid "Nuomos kaina parai"
-msgstr ""
+msgstr "Rental price per day"
 
 #: templates/listings/listing_detail.html:533
 #: templates/listings/rental_car_create.html:89
@@ -19438,7 +19438,7 @@ msgstr ""
 
 #: templates/listings/motogear_advanced.html:48
 msgid "Išvalyti paiešką"
-msgstr ""
+msgstr "Clear search"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/_panel_bodies.html:48
@@ -20448,7 +20448,7 @@ msgstr ""
 
 #: templates/listings/partials/_card_params.html:38
 msgid "Variklis"
-msgstr ""
+msgstr "Engine"
 
 #: templates/listings/partials/_lightbox.html:22
 msgid "Tolinti"
@@ -20536,7 +20536,7 @@ msgstr "Search"
 #: templates/listings/partials/_panel_bodies.html:138
 #: templates/listings/partials/search_panel.html:56
 msgid "Padangos motociklams"
-msgstr ""
+msgstr "Motorcycle tyres"
 
 #: templates/listings/partials/_panel_bodies.html:146
 #: templates/listings/partials/_panel_bodies.html:235
@@ -20557,7 +20557,7 @@ msgstr "Width"
 #: templates/listings/partials/_panel_bodies.html:227
 #: templates/listings/partials/search_panel.html:63
 msgid "Padangos keturračiams"
-msgstr "ATV tyres"
+msgstr "Quad bike tyres"
 
 #: templates/listings/partials/_panel_bodies.html:355
 #: templates/listings/partials/search_panel.html:83
@@ -20570,7 +20570,7 @@ msgstr "Tyres"
 #: templates/listings/partials/_panel_bodies.html:372
 #: templates/listings/partials/_panel_bodies.html:487
 msgid "Lengviesiems"
-msgstr "For cars"
+msgstr "Cars"
 
 #: templates/listings/partials/_panel_bodies.html:373
 #: templates/listings/partials/_panel_bodies.html:488
@@ -20580,7 +20580,7 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:374
 #: templates/listings/partials/_panel_bodies.html:489
 msgid "Mikroautobusams"
-msgstr "For vans"
+msgstr "Vans"
 
 #: templates/listings/partials/_panel_bodies.html:375
 #: templates/listings/partials/_panel_bodies.html:490
@@ -20590,7 +20590,7 @@ msgstr "For trucks"
 #: templates/listings/partials/_panel_bodies.html:376
 #: templates/listings/partials/_panel_bodies.html:491
 msgid "Motociklams"
-msgstr "For motorcycles"
+msgstr "Motorcycles"
 
 #: templates/listings/partials/_panel_bodies.html:378
 msgid "Žemės ūkio technikai"
@@ -20598,7 +20598,7 @@ msgstr "For agricultural machinery"
 
 #: templates/listings/partials/_panel_bodies.html:514
 msgid "Lengvojo lydinio"
-msgstr ""
+msgstr "Alloy"
 
 #: templates/listings/partials/_panel_bodies.html:515
 msgid "Plieniniai"
@@ -20606,7 +20606,7 @@ msgstr ""
 
 #: templates/listings/partials/_panel_bodies.html:516
 msgid "Kalti"
-msgstr ""
+msgstr "Forged"
 
 #: templates/listings/partials/_panel_bodies.html:521
 msgid "Skylių išdėstymas (PCD)"
@@ -20782,7 +20782,7 @@ msgstr "More filters"
 
 #: templates/listings/partials/sidebar_generic.html:88
 msgid "Filtruoti"
-msgstr ""
+msgstr "Filter"
 
 #: templates/listings/parts_category_select.html:8
 msgid "Car parts — Select category"
@@ -21679,7 +21679,7 @@ msgstr "Season"
 
 #: templates/listings/wheels_list.html:188
 msgid "Aukštis (profilis)"
-msgstr "Profile height"
+msgstr "Profile"
 
 #: templates/listings/wheels_list.html:252
 msgid "Kaina (€)"
@@ -22719,3 +22719,399 @@ msgstr "Choose an extension plan"
 #: templates/listings/select_value.html
 msgid "Gerai"
 msgstr "Done"
+
+#: apps/listings/motogear_views.py
+msgid "Markė, modelis, raktažodis..."
+msgstr "Brand, model, keyword..."
+
+#: apps/listings/wheels_filters.py
+msgid "Tarpai tarp skylių (mm)"
+msgstr "PCD (mm)"
+
+#: apps/listings/wheels_filters.py
+msgid "Plotis (coliais)"
+msgstr "Width (inches)"
+
+#: apps/listings/wheels_filters.py
+msgid "Kiekis"
+msgstr "Quantity"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudoti/Nauji"
+msgstr "Condition"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudoti"
+msgstr "Used"
+
+#: apps/listings/wheels_filters.py
+msgid "Nauji"
+msgstr "New"
+
+#: apps/listings/wheels_filters.py
+msgid "Priedai"
+msgstr "Accessories"
+
+#: apps/listings/wheels_filters.py
+msgid "Su padangom"
+msgstr "With tyres"
+
+#: apps/listings/wheels_filters.py
+msgid "Chromuoti"
+msgstr "Chrome"
+
+#: apps/listings/wheels_filters.py
+msgid "Aplankstyti ratlankiai"
+msgstr "Bent rims"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudotas/Naujas"
+msgstr "Condition"
+
+#: apps/listings/wheels_filters.py
+msgid "Naudotos"
+msgstr "Used"
+
+#: apps/listings/wheels_filters.py
+msgid "Naujos"
+msgstr "New"
+
+#: apps/listings/wheels_filters.py
+msgid "Universalios"
+msgstr "All-season"
+
+#: apps/listings/wheels_filters.py
+msgid "Protektoriaus gylis"
+msgstr "Tread depth"
+
+#: apps/listings/wheels_filters.py
+msgid "Traktoriams ir spec technikai"
+msgstr "Tractors and machinery"
+
+#: apps/listings/wheels_filters.py
+msgid "Visureigiams"
+msgstr "SUV"
+
+#: apps/listings/wheels_filters.py
+msgid "Sustiprintos"
+msgstr "Reinforced"
+
+#: apps/listings/wheels_filters.py
+msgid "Run on flat"
+msgstr "Run flat"
+
+#: apps/listings/wheels_filters.py
+msgid "Atsarginė padanga „plona“"
+msgstr "Space-saver spare"
+
+#: apps/listings/wheels_filters.py
+msgid "Lietaus padangos"
+msgstr "Rain tyres"
+
+#: apps/listings/wheels_filters.py
+msgid "Visi miestai"
+msgstr "All cities"
+
+#: apps/listings/wheels_filters.py
+msgid "Visi gamintojai"
+msgstr "All manufacturers"
+
+#: apps/listings/wheels_filters.py
+msgid "5 ir daugiau"
+msgstr "5 and more"
+
+#: apps/listings/wheels_filters.py
+msgid "Vienos dienos (tik nauji)"
+msgstr "One day (new only)"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių skelbimų paieška"
+msgstr "Car ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Motociklų skelbimų paieška"
+msgstr "Motorcycle ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkiojo transporto skelbimų paieška"
+msgstr "Heavy vehicle ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekabų skelbimų paieška"
+msgstr "Trailer ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Žemės ūkio technikos skelbimų paieška"
+msgstr "Agricultural machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Statybinės technikos skelbimų paieška"
+msgstr "Construction machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Krovimo technikos skelbimų paieška"
+msgstr "Loading equipment ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Miško ūkio technikos skelbimų paieška"
+msgstr "Forestry machinery ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Turistinių namelių skelbimų paieška"
+msgstr "Caravan and camper ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Vandens transporto skelbimų paieška"
+msgstr "Boat ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Dviračių ir paspirtukų skelbimų paieška"
+msgstr "Bicycle and scooter ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Nuomos skelbimų paieška"
+msgstr "Rental ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio ir navigacijos skelbimų paieška"
+msgstr "Audio and navigation ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Paslaugų skelbimų paieška"
+msgstr "Service ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Skelbimų paieška"
+msgstr "Ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Kategorijos"
+msgstr "Categories"
+
+#: apps/listings/search_config/panels.py
+msgid "Ratai"
+msgstr "Wheels"
+
+#: apps/listings/search_config/panels.py
+msgid "Žemės ūkio technika"
+msgstr "Agricultural machinery"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkusis transportas"
+msgstr "Heavy vehicles"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekabos"
+msgstr "Trailers"
+
+#: apps/listings/search_config/panels.py
+msgid "Nuoma"
+msgstr "Rental"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio, navigacija"
+msgstr "Audio, navigation"
+
+#: apps/listings/search_config/panels.py
+msgid "Galia, kW"
+msgstr "Power, kW"
+
+#: apps/listings/search_config/panels.py
+msgid "Galiojanti TA"
+msgstr "Valid MOT"
+
+#: apps/listings/search_config/panels.py
+msgid "Tik Lietuvoje"
+msgstr "In Lithuania only"
+
+#: apps/listings/search_config/panels.py
+msgid "Naudota/Nauja"
+msgstr "Used/New"
+
+#: apps/listings/search_config/panels.py
+msgid "Naudotos/Naujos"
+msgstr "Used/New"
+
+#: apps/listings/search_config/panels.py
+msgid "Keliamoji galia kg"
+msgstr "Load capacity, kg"
+
+#: apps/listings/search_config/panels.py
+msgid "Max keliamoji galia kg"
+msgstr "Max load capacity, kg"
+
+#: apps/listings/search_config/panels.py
+msgid "Auto"
+msgstr "Cars"
+
+#: apps/listings/search_config/panels.py
+msgid "Ž. ūkio"
+msgstr "Agri"
+
+#: apps/listings/search_config/panels.py
+msgid "Sunkusis tr."
+msgstr "Heavy"
+
+#: apps/listings/search_config/panels.py
+msgid "Audio"
+msgstr "Audio"
+
+#: templates/listings/partials/_adv_rail.html
+msgid "Daugiau"
+msgstr "More"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių dalių skelbimų paieška"
+msgstr "Car parts ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavadinimas ar aprašymas"
+msgstr "Title or description"
+
+#: apps/listings/search_config/panels.py
+msgid "pvz. stabdžių diskas"
+msgstr "e.g. brake disc"
+
+#: apps/listings/search_config/panels.py
+msgid "OEM kodas"
+msgstr "OEM code"
+
+#: apps/listings/search_config/panels.py
+msgid "Variklio kodas"
+msgstr "Engine code"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavarų dėžės kodas"
+msgstr "Gearbox code"
+
+#: apps/listings/search_config/panels.py
+msgid "Detalės kategorija"
+msgstr "Part category"
+
+#: apps/listings/search_config/panels.py
+msgid "Apšvietimas"
+msgstr "Lighting"
+
+#: apps/listings/search_config/panels.py
+msgid "Dujų išmetimo sistema"
+msgstr "Exhaust system"
+
+#: apps/listings/search_config/panels.py
+msgid "Durys"
+msgstr "Doors"
+
+#: apps/listings/search_config/panels.py
+msgid "El. sistemos"
+msgstr "Electrical systems"
+
+#: apps/listings/search_config/panels.py
+msgid "Galinė ašis"
+msgstr "Rear axle"
+
+#: apps/listings/search_config/panels.py
+msgid "Galinės išorės detalės"
+msgstr "Rear exterior parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Kitos detalės"
+msgstr "Other parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Kondicionierius/ šildymas/ radiatoriai"
+msgstr "A/C / heating / radiators"
+
+#: apps/listings/search_config/panels.py
+msgid "Kuro sistema"
+msgstr "Fuel system"
+
+#: apps/listings/search_config/panels.py
+msgid "Pavarų dėžė/ sankaba/ transmisija"
+msgstr "Gearbox / clutch / transmission"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekinė ašis"
+msgstr "Front axle"
+
+#: apps/listings/search_config/panels.py
+msgid "Priekinės išorės detalės"
+msgstr "Front exterior parts"
+
+#: apps/listings/search_config/panels.py
+msgid "Ratai/ padangos"
+msgstr "Wheels / tyres"
+
+#: apps/listings/search_config/panels.py
+msgid "Salonas/ interjeras"
+msgstr "Interior"
+
+#: apps/listings/search_config/panels.py
+msgid "Stabdžiai"
+msgstr "Brakes"
+
+#: apps/listings/search_config/panels.py
+msgid "Stiklai"
+msgstr "Glass"
+
+#: apps/listings/search_config/panels.py
+msgid "Stiklų žibintų apiplovimo/ valymo sistema"
+msgstr "Windscreen washer / wiper system"
+
+#: apps/listings/wheels_views.py
+msgid "Ratlankių skelbimų paieška"
+msgstr "Rim ad search"
+
+#: apps/listings/wheels_views.py
+msgid "Padangų skelbimų paieška"
+msgstr "Tyre ad search"
+
+#: apps/listings/search_config/panels.py
+msgid "Automobilių dalys"
+msgstr "Car parts"
+
+#: templates/listings/advanced_generic.html
+msgid "Pridėti daugiau markių/modelių"
+msgstr "Add more brands/models"
+
+#: apps/accounts/antispam.py
+msgid "Naudokite nuolatinį el. pašto adresą"
+msgstr "Use a permanent email address"
+
+#: apps/accounts/antispam.py
+msgid "Per valandą iš vieno adreso galima sukurti ne daugiau kaip %(kiek)s paskyras. Bandykite vėliau."
+msgstr "You can create no more than %(kiek)s accounts per hour from one address. Please try again later."
+
+#: apps/accounts/antispam.py
+msgid "Per daug nepavykusių bandymų. Pabandykite po %(minutes)s min."
+msgstr "Too many failed attempts. Please try again in %(minutes)s minutes."
+
+#: apps/accounts/antispam.py
+msgid "Neteisingas el. paštas arba slaptažodis."
+msgstr "Incorrect email or password."
+
+#: apps/accounts/antispam.py
+msgid "Šis el. paštas jau užregistruotas."
+msgstr "This email is already registered."
+
+#: apps/accounts/antispam.py
+msgid "Svetainė"
+msgstr "Website"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Įsiminti"
+msgstr "Save"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Įsiminta"
+msgstr "Saved"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Dalintis"
+msgstr "Share"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Kopijuoti"
+msgstr "Copy"
+
+#: templates/listings/partials/_lightbox.html
+msgid "Nukopijuota"
+msgstr "Copied"

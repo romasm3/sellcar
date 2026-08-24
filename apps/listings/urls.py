@@ -60,6 +60,11 @@ urlpatterns = [
     path("create/wheels/", wheels_views.wheels_create, name="wheels_create"),
     path("create/tyres/", wheels_views.tyres_create, name="tyres_create"),
     path("create/rims/", wheels_views.rims_create, name="rims_create"),
+    # Ratlankiai ir padangos — dvi ATSKIROS kategorijos (etalonas:
+    # docs/autogidas-ratlankiai-padangos.md). Senasis bendras adresas
+    # lieka tik 301 nukreipimui.
+    path("browse/rims/", wheels_views.rims_list, name="rims_list"),
+    path("browse/tyres/", wheels_views.tyres_list, name="tyres_list"),
     path("browse/wheels/", wheels_views.wheels_list, name="wheels_list"),
     path("search/wheels/advanced/", wheels_views.wheels_advanced_search, name="wheels_advanced_search"),
     path("ajax/wheels-search-count/", wheels_views.wheels_search_count_ajax, name="wheels_search_count_ajax"),

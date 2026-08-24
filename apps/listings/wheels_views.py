@@ -21,6 +21,7 @@ from django.core.paginator import Paginator
 from django.db.models import Case, When, IntegerField, Value, Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.utils import timezone
 # gettext_lazy, o ne gettext: modulio lygio sąrašai (TYRE_FEATURE_FIELDS ir kt.)
 # įvertinami importo metu, kai aktyvi numatytoji kalba — su „gettext" jie
@@ -28,6 +29,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .image_validation import split_valid_images
+from . import wheels_filters
 from .models import (
     WheelListing, WheelImage, SavedWheelListing,
     WHEEL_PURPOSE_CHOICES, WHEEL_DIAMETER_CHOICES, WHEEL_CONDITION_CHOICES,
@@ -419,21 +421,27 @@ WHEELS_FILTER_KEYS = [
     # rim
     'rim_width', 'rim_pcd', 'rim_bolt_count', 'rim_material',
     'rim_et_from', 'rim_et_to',
+    # etalono papildymas (docs/autogidas-ratlankiai-padangos.md)
+    'rim_pcd_mm', 'rim_dia', 'fits_brand', 'quantity', 'manufacturer',
+    'tread_from', 'tread_to', 'age', 'seller_type',
 ]
 
 
-def _apply_wheels_filters(request):
+def _apply_wheels_filters(request, product_type=None):
     """Grąžina (qs, product_type, f_dict) pagal request.GET.
 
-    Naudoja wheels_list, wheels_advanced_search ir wheels_search_count_ajax —
-    filter logika VIENOJE vietoje.
+    Naudoja rims_list / tyres_list, wheels_advanced_search ir
+    wheels_search_count_ajax — filter logika VIENOJE vietoje.
+    Naršymo puslapiai kategoriją perduoda argumentu (atskiri URL), senoji
+    išplėstinė paieška — per ?type=.
     """
 
     def getval(name):
         v = request.GET.get(name, '')
         return v.strip() if v else ''
 
-    product_type = getval('type')
+    if product_type not in ('tyre', 'rim'):
+        product_type = getval('type')
     if product_type not in ('tyre', 'rim'):
         product_type = 'tyre'
 
@@ -450,8 +458,12 @@ def _apply_wheels_filters(request):
         qs = qs.filter(diameter=getval('diameter'))
     if getval('condition'):
         qs = qs.filter(condition=getval('condition'))
-    if getval('brand'):
-        qs = qs.filter(brand_name__icontains=getval('brand'))
+    # Gamintojas: `brand` sanitize'e laikomas FK id (automobilių markė), todėl
+    # ratų gamintojo vardas keliauja per `manufacturer`; `brand` paliktas dėl
+    # senų nuorodų.
+    gamintojas = getval('manufacturer') or getval('brand')
+    if gamintojas:
+        qs = qs.filter(brand_name__icontains=gamintojas)
 
     # Tekstinė paieška — title + description + brand + model
     if getval('q'):
@@ -499,7 +511,7 @@ def _apply_wheels_filters(request):
             qs = qs.filter(tyre_dot_year=getval('tyre_dot_year'))
     # ─── rim filtrai ───
     else:
-        if getval('rim_width'):
+        if getval('rim_width') and getval('rim_width') != wheels_filters.RIM_WIDTH_OVER:
             qs = qs.filter(rim_width=getval('rim_width'))
         if getval('rim_pcd'):
             qs = qs.filter(rim_pcd=getval('rim_pcd'))
@@ -514,15 +526,101 @@ def _apply_wheels_filters(request):
         if et_to is not None and getval('rim_et_to'):
             qs = qs.filter(rim_et__lte=et_to)
 
+    # ─── etalono filtrai (abiem kategorijom) ───
+    if getval('quantity'):
+        if getval('quantity') == '5plus':
+            qs = qs.filter(quantity__gte=5)
+        else:
+            qty = _to_int(getval('quantity'))
+            if qty:
+                qs = qs.filter(quantity=qty)
+
+    amzius = getval('age')
+    if amzius in wheels_filters.AGE_DAYS:
+        riba = timezone.now() - timedelta(days=wheels_filters.AGE_DAYS[amzius])
+        qs = qs.filter(created_at__gte=riba)
+        if amzius == '1d_new':
+            # „tik nauji" — ne pakelti į viršų, o realiai nauji skelbimai
+            qs = qs.filter(last_boosted_at__isnull=True)
+
+    if getval('seller_type') in ('private', 'dealer'):
+        qs = qs.filter(seller__profile__account_type=getval('seller_type'))
+
+    # ─── etalono filtrai pagal kategoriją ───
+    if product_type == 'tyre':
+        gylis = [
+            v for v in wheels_filters.TREAD_DEPTHS
+            if (not getval('tread_from') or float(v) >= float(getval('tread_from')))
+            and (not getval('tread_to') or float(v) <= float(getval('tread_to')))
+        ]
+        if getval('tread_from') or getval('tread_to'):
+            qs = qs.filter(tyre_tread_mm__in=gylis)
+    else:
+        # PCD mm: DB saugo „5x112" pavidalu, etalonas — 112.00
+        if getval('rim_pcd_mm'):
+            mm = getval('rim_pcd_mm').rstrip('0').rstrip('.')
+            qs = qs.filter(rim_pcd__endswith='x' + mm)
+        if getval('rim_dia'):
+            dia = _to_decimal(getval('rim_dia'))
+            if dia is not None:
+                qs = qs.filter(rim_dia=dia)
+        if getval('rim_width') == wheels_filters.RIM_WIDTH_OVER:
+            platesni = [v for v, _lbl in RIM_WIDTH_CHOICES
+                        if _to_decimal(v) is not None and float(v) > 11]
+            qs = qs.filter(rim_width__in=platesni)
+        # Tr. priem. markė — kelios reikšmės jungiamos „arba", kaip
+        # markių poros automobilių paieškoje.
+        markes = [v.strip() for v in request.GET.getlist('fits_brand') if v.strip()]
+        if markes:
+            salyga = Q()
+            for m in markes:
+                salyga |= Q(fits_brands__icontains=m)
+            qs = qs.filter(salyga)
+
+    # Žymimieji langeliai (etalonas: juostos apačia)
+    zymes = (wheels_filters.RIM_FEATURES if product_type == 'rim'
+             else wheels_filters.TYRE_FEATURES)
+    for laukas, _label in zymes:
+        if request.GET.get(laukas):
+            qs = qs.filter(**{laukas: True})
+
     f = {k: getval(k) for k in WHEELS_FILTER_KEYS}
     f['type'] = product_type
     return qs, product_type, f
 
 
+def _wheels_distinct(product_type, field):
+    """DB reikšmės, kurių nėra etalono sąraše (spec. technikos dydžiai)."""
+    return list(
+        WheelListing.objects.filter(status='active', product_type=product_type)
+        .exclude(**{field: ''})
+        .values_list(field, flat=True).distinct()
+    )
+
+
+def _wheels_cities(product_type):
+    return sorted(
+        c for c in WheelListing.objects.filter(
+            status='active', product_type=product_type
+        ).exclude(city='').values_list('city', flat=True).distinct() if c
+    )
+
+
+def _wheels_vehicle_brands():
+    """Tr. priem. markės — automobilių markių sąrašas (`fits_brands` tekste)."""
+    from .models import Brand
+    return list(Brand.objects.order_by('name').values_list('name', flat=True))
+
+
 def _wheels_choices_context():
-    """Bendri choices — list + advanced search template'ams."""
+    """Bendri choices — list + advanced search template'ams.
+
+    „Keturračiams" yra tik PAIEŠKOJE: etalone toks punktas yra (juostoje —
+    „Padangos keturračiams"), o skelbimo formoje jo nėra ir modelio
+    WHEEL_PURPOSE_CHOICES nekeičiam — create forma lieka tokia pati.
+    """
     return {
-        'purpose_choices': WHEEL_PURPOSE_CHOICES,
+        'purpose_choices': list(WHEEL_PURPOSE_CHOICES) + [('quad', _('Keturračiams'))],
         'diameter_choices': WHEEL_DIAMETER_CHOICES,
         'condition_choices': WHEEL_CONDITION_CHOICES,
         'tyre_width_choices': TYRE_WIDTH_CHOICES,
@@ -547,10 +645,36 @@ def _wheels_choices_context():
 # ═══════════════════════════════════════════════════════════
 
 def wheels_list(request):
-    """Tyres/Rims paieška — sidebar layout (klonas cars listing_list ?sidebar=1)."""
+    """Senoji bendra nuoroda — 301 į atskiras kategorijas.
+
+    Etalone (docs/autogidas-ratlankiai-padangos.md) ratlankiai ir padangos
+    yra dvi atskiros kategorijos, todėl bendro puslapio su „Tipas"
+    perjungikliu nebėra. Parametrai keliauja kartu, kad išsaugotos nuorodos
+    neprarastų filtrų.
+    """
+    from django.http import HttpResponsePermanentRedirect
+    params = request.GET.copy()
+    tipas = (params.pop('type', [''])[0] or '').strip()
+    tikslas = reverse('tyres_list') if tipas == 'tyre' else reverse('rims_list')
+    likutis = params.urlencode()
+    return HttpResponsePermanentRedirect(tikslas + (f'?{likutis}' if likutis else ''))
+
+
+def rims_list(request):
+    """Ratlankiai — atskira kategorija (etalonas: autogidas „Ratlankiai")."""
+    return _wheels_browse(request, 'rim')
+
+
+def tyres_list(request):
+    """Padangos — atskira kategorija (etalonas: autogidas „Padangos")."""
+    return _wheels_browse(request, 'tyre')
+
+
+def _wheels_browse(request, product_type):
+    """Bendras naršymo puslapis: struktūra ta pati, laukai — pagal kategoriją."""
     request.GET = sanitize_search_params(request.GET)
 
-    qs, product_type, f = _apply_wheels_filters(request)
+    qs, product_type, f = _apply_wheels_filters(request, product_type)
     qs = qs.prefetch_related('images')
 
     # ─── rikiavimas: stars > boost > new > kiti (kaip Listing) ───
@@ -608,8 +732,22 @@ def wheels_list(request):
         if l.star_level and l.star_expires_at and l.star_expires_at > now
     }
 
+    laukai, features = wheels_filters.sidebar_fields(
+        product_type,
+        brand_names=(RIM_BRANDS if product_type == 'rim' else TYRE_BRANDS),
+        cities=_wheels_cities(product_type),
+        tyre_widths_db=_wheels_distinct(product_type, 'tyre_width'),
+        tyre_profiles_db=_wheels_distinct(product_type, 'tyre_profile'),
+        vehicle_brands=_wheels_vehicle_brands(),
+    )
+
     context = {
         'product_type': product_type,
+        'sidebar_fields': laukai,
+        'feature_fields': [
+            (param, label, bool(request.GET.get(param))) for param, label in features
+        ],
+        'quick_links': wheels_filters.quick_links() if product_type == 'rim' else [],
         'page_obj': page_obj,
         'total_count': paginator.count,
         'querystring': querystring,
@@ -632,10 +770,29 @@ def wheels_advanced_search(request):
     request.GET = sanitize_search_params(request.GET)
     qs, product_type, f = _apply_wheels_filters(request)
 
+    # Viršaus blokas — ta pati ikonų juosta kaip kitų kategorijų detaliose
+    # paieškose (aktyvus „Ratai").
+    from .views import _advanced_rail
+    # Padangos motociklams/keturračiams juostoje yra atskiri punktai po
+    # „Motociklai", todėl aktyvų punktą renkam ir pagal paskirtį.
+    if product_type == 'rim':
+        _aktyvus = 'rims'
+    elif f.get('purpose') == 'moto':
+        _aktyvus = 'moto-tyres'
+    elif f.get('purpose') == 'quad':
+        _aktyvus = 'quad-tyres'
+    else:
+        _aktyvus = 'tyres'
+    adv_rail, adv_more = _advanced_rail(_aktyvus)
+
     context = {
         'product_type': product_type,
         'f': f,
         'total_count': qs.count(),
+        'adv_rail': adv_rail,
+        'adv_more': adv_more,
+        'adv_title': (_('Ratlankių skelbimų paieška') if product_type == 'rim'
+                      else _('Padangų skelbimų paieška')),
     }
     context.update(_wheels_choices_context())
     return render(request, 'listings/wheels_advanced_search.html', context)
@@ -692,6 +849,9 @@ def wheels_detail(request, pk):
         'listing': listing,
         'images': listing.images.all(),
         'is_owner': listing.seller_id == request.user.id,
+        # Galerijos „Įsiminti" būsena — kaip skelbimų puslapyje
+        'is_saved': (request.user.is_authenticated and SavedWheelListing.objects.filter(
+            user=request.user, listing=listing).exists()),
     }
     return render(request, 'listings/wheels_detail.html', context)
 

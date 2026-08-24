@@ -916,7 +916,55 @@ def motogear_list(request):
         'new_listing_ids': new_listing_ids,
         'selected_category': 'moto-gear',
     }
+    # Šoninė filtrų juosta — tie patys bendri laukų šablonai
+    # (partials/fields/*), kaip visose kitose kategorijose. Anksčiau čia
+    # gyveno atskiras senas rinkinys: multi-select sąrašas su „Ctrl" ir
+    # dydžių mygtukų tinklelis.
+    context['sidebar_fields'] = _motogear_sidebar_fields(
+        gear_subcategories, context['gear_brands'],
+    )
     return render(request, 'listings/motogear_list.html', context)
+
+
+def _motogear_sidebar_fields(gear_subcategories, context_brands):
+    """Filtrų laukai šoninei juostai — bendrų partials/fields/* formatu.
+
+    Kiekvienas laukas: {'type', 'label', 'param', 'options'} arba
+    diapazonui {'type': 'range', 'param_min', 'param_max'}. Reikšmių
+    etiketės išverčiamos čia (DB vardai — per gettext, kaip |tdb).
+    """
+    from django.utils.translation import gettext
+    from .models import Listing
+
+    def parinktys(choices):
+        return [(v, gettext(str(lbl))) for v, lbl in (choices or ())]
+
+    laukai = [
+        {'type': 'text', 'label': gettext('Tekstinė paieška'), 'param': 'search',
+         'placeholder': gettext('Markė, modelis, raktažodis...')},
+        {'type': 'multiselect', 'label': gettext('Tipas'), 'param': 'subcategory',
+         'options': [(sub.id, f'{gettext(sub.name)} ({sub.listings_count})')
+                     for sub in gear_subcategories]},
+    ]
+    if context_brands:
+        laukai.append({'type': 'multiselect', 'label': gettext('Gamintojas'),
+                       'param': 'gear_brand',
+                       'options': [(b.id, gettext(b.name)) for b in context_brands]})
+    laukai += [
+        {'type': 'multiselect', 'label': gettext('Dydis'), 'param': 'gear_size',
+         'options': parinktys(getattr(Listing, 'GEAR_SIZE_CHOICES', ()))},
+        {'type': 'multiselect', 'label': gettext('Pagamintas iš'), 'param': 'gear_material',
+         'options': parinktys(getattr(Listing, 'GEAR_MATERIAL_CHOICES', ()))},
+        {'type': 'multiselect', 'label': gettext('Vyriškas/moteriškas'), 'param': 'gear_gender',
+         'options': parinktys(getattr(Listing, 'GEAR_GENDER_CHOICES', ()))},
+        {'type': 'multiselect', 'label': gettext('Būklė'), 'param': 'condition',
+         'options': parinktys(getattr(Listing, 'CONDITION_CHOICES', ()))},
+        {'type': 'range', 'label': gettext('Kaina'),
+         'param_min': 'price_min', 'param_max': 'price_max'},
+        {'type': 'select', 'label': gettext('Šalis'), 'param': 'country_filter',
+         'options': [(c, gettext(str(n))) for c, n in getattr(Listing, 'COUNTRY_CHOICES', ())]},
+    ]
+    return [f for f in laukai if f['type'] in ('text', 'range') or f.get('options')]
 
 
 

@@ -1,5 +1,10 @@
+import logging
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.utils.translation import gettext as _
+
+logger = logging.getLogger(__name__)
 
 from apps.listings.image_validation import ImageValidationError, validate_image
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -47,12 +52,42 @@ def safe_next(request, default=None):
     return default
 
 def register(request):
+    """Registracija su apsauga nuo botų.
+
+    El. pašto patvirtinimo (dar) nėra, todėl barjerai trys: nematomas
+    laukas (honeypot), registracijų riba iš vieno IP ir vienadienių pašto
+    domenų sąrašas (žr. antispam.py). Prie paskyros įrašom IP ir naršyklę
+    — kaip prie pranešimų apie skelbimą, kad spam'ą būtų galima ištirti.
+    """
+    from . import antispam
+
     if request.user.is_authenticated:
         return redirect("accounts:home")
     if request.method == "POST":
+        ip = antispam.kliento_ip(request)
+
+        # Botas užpildė paslėptą lauką — tyliai nieko nedarom
+        if antispam.honeypot_uzpildytas(request):
+            logger.info('register: honeypot užpildytas (%s)', ip)
+            return redirect(safe_next(request) or "accounts:home")
+
+        if antispam.registraciju_riba_virsyta(ip):
+            logger.info('register: viršyta riba iš %s', ip)
+            messages.error(request, antispam.ZINUTES['per_daug_registraciju']
+                           % {'kiek': antispam.REGISTRACIJU_RIBA})
+            return render(request, "accounts/register.html",
+                          {"form": UserRegisterForm(), "next": safe_next(request, '')})
+
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            antispam.zymeti_registracija(ip)
+
+            profilis = getattr(user, 'profile', None)
+            if profilis is not None:
+                profilis.signup_ip = ip or None
+                profilis.signup_user_agent = antispam.naudotojo_narsykle(request)
+                profilis.save(update_fields=['signup_ip', 'signup_user_agent'])
 
             # ═══ EMAIL: welcome naujas user'is ═══
             try:
@@ -79,9 +114,25 @@ def register(request):
 
 
 def login_view(request):
+    """Prisijungimas su apsauga nuo slaptažodžių spėliojimo.
+
+    Penki nepavykę bandymai iš vieno IP per 15 min. — laikinas blokas su
+    aiškia žinute. Sėkmingas prisijungimas skaitiklį nuvalo.
+    """
+    from . import antispam
+
     if request.user.is_authenticated:
         return redirect("accounts:home")
     if request.method == "POST":
+        ip = antispam.kliento_ip(request)
+        if antispam.login_uzblokuotas(ip):
+            logger.info('login: laikinas blokas %s', ip)
+            messages.error(request, antispam.ZINUTES['login_blokas']
+                           % {'minutes': antispam.LOGIN_LANGAS // 60})
+            return render(request, "accounts/login.html",
+                          {"email": request.POST.get("email", "").strip(),
+                           "next": safe_next(request, '')})
+
         email = request.POST.get("email", "").strip()
         password = request.POST.get("password", "")
         try:
@@ -90,10 +141,12 @@ def login_view(request):
         except User.DoesNotExist:
             user = None
         if user is not None:
+            antispam.valyti_login_bandymus(ip)
             login(request, user)
             return redirect(safe_next(request) or "accounts:home")
         else:
-            messages.error(request, "Invalid email or password.")
+            antispam.zymeti_nepavykusi_login(ip)
+            messages.error(request, _('Neteisingas el. paštas arba slaptažodis.'))
             return render(request, "accounts/login.html",
                           {"email": email, "next": safe_next(request, '')})
     return render(request, "accounts/login.html", {"next": safe_next(request, '')})
