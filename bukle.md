@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-24 12:45:42 CEST
+Sugeneruota: 2026-08-24 12:47:26 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001073s
+HTTP 301, 0.001928s
 ```
 
 ## Skelbimų būsenos
@@ -57,9 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:14 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:14 vmi3306453 autoleft-deploy[167307]: [2026-08-24 12:43:14] === Naujų commit'ų rasta: f689648 → 3f85319 ===
-Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:14 vmi3306453 autoleft-deploy[167307]: [2026-08-24 12:43:14] Kodas atnaujintas iki 3f85319
 Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:20 vmi3306453 autoleft-deploy[167307]: [2026-08-24 12:43:20] Patikra praėjo
 Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:20 vmi3306453 autoleft-deploy[167448]: [12:43:20] === Deploy pradžia (20260824_124320) ===
 Aug 24 12:43:25 vmi3306453 autoleft-deploy[167541]: Aug 24 12:43:21 vmi3306453 autoleft-deploy[167448]: [12:43:21] DB dumpas: /root/autoleft_backups/db_20260824_124320.sql
@@ -82,4 +79,7 @@ Aug 24 12:44:32 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 24 12:44:32 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 12:44:32 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.045s CPU time.
 Aug 24 12:45:42 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 24 12:45:43 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 24 12:45:43 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 24 12:47:25 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
