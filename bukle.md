@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-24 12:18:47 CEST
+Sugeneruota: 2026-08-24 12:19:57 CEST
 
 ## Kodas
 
@@ -15,6 +15,7 @@ DĖMESIO: darbo katalogas nešvarus —
    M apps/listings/trucks_views.py
    M apps/listings/views.py
    M apps/listings/wheels_views.py
+   M templates/listings/listing_list.html
 ```
 
 ## Servisai
@@ -29,7 +30,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001127s
+HTTP 301, 0.001100s
 ```
 
 ## Skelbimų būsenos
@@ -63,10 +64,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 24 12:10:08 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 24 12:10:10 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 24 12:10:10 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 24 12:10:10 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.289s CPU time.
 Aug 24 12:11:20 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 24 12:11:21 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 12:11:21 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -88,4 +85,8 @@ Aug 24 12:17:42 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 24 12:17:42 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 12:17:42 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.426s CPU time.
 Aug 24 12:18:46 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 24 12:18:48 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 24 12:18:48 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 24 12:18:48 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.025s CPU time.
+Aug 24 12:19:57 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
