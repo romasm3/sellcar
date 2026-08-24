@@ -394,23 +394,32 @@ antraste('10. „Detali paieška" veda į puslapį su drill-in eilutėmis')
 # Senasis /search/advanced/ telefone yra darbalaukio tinklelis: paspaudus
 # „Kaina" nieko neatsidarydavo. Migruotos kategorijos siunčiamos į
 # /paieska/<kategorija>/, kur laukai yra spaudžiamos eilutės.
-for kat, migruota in (('cars', True), ('trucks', True), ('boats', True),
-                      ('parts', False)):
+# Kurios kategorijos turi savo /paieska/ puslapį — imam iš to paties
+# šaltinio, kurį naudoja pati nuoroda, kad testas nesentų migruojant
+# naujoms kategorijoms.
+migruotos = set(panel_config.advanced_categories())
+for kat in ('cars', 'trucks', 'boats', 'parts', 'electronics', 'moto-gear'):
     b = klientas.get('/', {'category': kat, 'sidebar': '1'}).content.decode()
     m = _re.search(r'<a href="([^"]*)"\s*\n?\s*class="inline-flex[^"]*"[^>]*>\s*'
                    r'<i class="fas fa-sliders-h"', b)
     nuoroda = m.group(1) if m else ''
-    tikrink(('/paieska/' in nuoroda) == migruota,
+    if not nuoroda:
+        continue          # ta kategorija peradresuoja kitur (ratai → /browse/wheels/)
+    tikrink(('/paieska/' in nuoroda) == (kat in migruotos),
             '%s: „Detali paieška" → %s' % (kat, nuoroda[:60]))
 
-for kat in ('cars', 'trucks', 'boats'):
+for kat in sorted(migruotos):
     atsakymas = klientas.get('/paieska/%s/' % kat, {'price_min': '5000'})
     turinys = atsakymas.content.decode()
     tikrink(atsakymas.status_code == 200, '/paieska/%s/ atsidaro' % kat)
     tikrink(len(_re.findall(r'<a class="sp-mrow"', turinys)) > 3,
             '/paieska/%s/ turi drill-in eilutes' % kat)
-    tikrink('/pasirinkti/?laukas=price_min' in turinys.replace('&amp;', '&'),
-            '/paieska/%s/ kainos eilutė veda į reikšmių ekraną' % kat)
+    # Kainos laukas yra ne visose kategorijose (paslaugos jo neturi),
+    # todėl tikrinam tik ten, kur konfigūracija jį aprašo.
+    adv = panel_config.build_advanced(kat)
+    if 'price_min' in drill_laukai(adv or {}):
+        tikrink('/pasirinkti/?laukas=price_min' in turinys.replace('&amp;', '&'),
+                '/paieska/%s/ kainos eilutė veda į reikšmių ekraną' % kat)
 
 # ir iš ten grįžtama atgal į detalią paiešką, ne į rezultatus
 atsakymas = klientas.get('/pasirinkti/', {
