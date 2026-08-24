@@ -69,6 +69,13 @@ Dažniausiai perpanaudojama:
 „Galia, kW" ir tam yra `power` (Integer) — puiku. Jei naujas laukas bus
 filtruojamas diapazonu, kurk jį `IntegerField`/`DecimalField`, ne `CharField`.
 
+### PWA yra planuose — rašom su tuo omenyje
+
+AutoLeft taps įdiegiama programėle. Dar nedaroma, bet naujas kodas privalo
+būti suderinamas, kad vėliau užtektų pridėti manifestą, service worker'į ir
+ikonas — be perrašymų. Šešios taisyklės ir esamos būklės inventorius:
+`docs/pwa-pasiruosimas.md`. Santrauka — šio dokumento skyriuje „9. PWA".
+
 ### Klausimai, kuriuos užduoti prieš kodą
 
 1. **Migracija ir jos paleidimas.** Vos pakeitus `models.py`, produkcija
@@ -1001,3 +1008,34 @@ grąžindavo 0. Patikra, kuri niekada nesuveikia, yra blogesnė už jokią.
 Pirmi du turi grąžinti tuščią sąrašą, trečias — 1 (rezultatų puslapyje 0,
 nes ten pagrindinio veiksmo nėra). Jei ne — taisom prieš commit'ą arba
 pasakom, kodėl ta vieta yra išimtis.
+
+---
+
+## 9. PWA — planuojama, bet galioja jau dabar
+
+**Dar nedaroma.** Manifesto, service worker'io ir ikonų nėra. Bet AutoLeft
+taps įdiegiama programėle, todėl viskas, kas rašoma dabar, turi būti su tuo
+suderinama. Pilnas dokumentas su esamos būklės inventoriumi:
+`docs/pwa-pasiruosimas.md`.
+
+1. **Statiniai failai versijuojami** (maiša pavadinime) — service worker'is
+   gali saugiai kešuoti tik tokį failą. Praktikoje: jungiam TIK per
+   `{% static %}`, niekada ranka rašytu `/static/js/foo.js` keliu.
+2. **Jokių įrašytų absoliučių adresų su domenu.** Visur santykiniai keliai
+   arba `{% url %}` — kitaip standalone režimas išmes vartotoją į naršyklę.
+   Vienintelė išimtis:
+   `og:` ir `twitter:` meta žymos (jos skirtos robotams).
+3. **Veikia be interneto tiek, kiek įmanoma.** Kiekvienas `fetch()` turi
+   `.catch()` su matoma klaidos būsena, ne tuščią ekraną. Jei rodai
+   „Kraunama…", privalai turėti ir „Nepavyko. Bandykite dar kartą".
+4. **Nuotraukos ir ikonos — vienoje vietoje** (`static/img/`), kad
+   manifestui užtektų pridėti 192 ir 512 px variantus.
+5. **Naršymas veikia be naršyklės mygtukų.** Standalone režime „atgal"
+   juostos nėra: drill-in ekranai turi savo „atgal" (arba × su `grizti`),
+   vidiniai puslapiai — trupinių taką, žingsninės formos — mygtuką „Atgal".
+6. **Nieko, kas iššoka iš programėlės.** `window.location.href` su pilnu
+   domenu — ne. `target="_blank"` — tik tikrai išoriniams adresams
+   (soc. tinklai, WhatsApp, pardavėjo svetainė); vidinei nuorodai niekada.
+
+Kai PWA darysim, liks: manifestas, ikonos, `sw.js`, `<link rel="manifest">`
+ir maišos saugyklos įjungimas. Jokių perrašymų — jei taisyklių laikomasi.

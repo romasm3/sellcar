@@ -15,6 +15,11 @@ Django vehicle marketplace, Lithuanian-first. PRODUCTION server — be careful.
 - Frontend: Alpine.js + Tailwind
 - Single Listing table for most categories via ?category= filter; trucks have separate TruckBrand/TruckModel tables
 - Search panel partials live in templates/listings/partials/ (search_rail.html, search_panel.html, panel_*.html)
+- PWA planuojama (dar nedaroma): statiniai tik per {% static %}, jokių
+  absoliučių adresų su domenu (išskyrus og:/twitter: meta), kiekvienas
+  fetch() su matoma klaidos būsena, ikonos static/img/, „atgal" nuorodos
+  gilyn einančiuose ekranuose, target="_blank" tik išoriniams adresams.
+  Taisyklės ir esama būklė: docs/pwa-pasiruosimas.md
 - Contact block: every create/edit form renders it ONLY via
   {% include 'listings/partials/contact_block.html' %} — never copy the HTML.
   Per-category differences go through include parameters (show_postal,
