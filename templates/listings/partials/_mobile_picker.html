@@ -24,65 +24,40 @@ juosta su fly2 iškrentančiu sąrašu.
   </div>
 
   <div class="sp-picker-body">
-
-    {# ═══ Keturios pagrindinės — didelės kortelės ═══ #}
-    <div class="sp-picker-cards">
-      {% for k in picker_primary %}
-      <a class="sp-picker-card" title="{{ k.label }}"
-         href="{% url 'listing_list' %}?section={% if k.slug == 'tires' %}wheels{% else %}{{ k.slug }}{% endif %}"
-         x-show="pmatch('{{ k.label|escapejs }}')"
-         @click.prevent="picker = false; goTab('{% if k.slug == 'tires' %}wheels{% else %}{{ k.slug }}{% endif %}', '', pickerScroll)">
-        <span class="sp-picker-ico-lg">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=30 %}</span>
-        <span class="sp-picker-card-name">{{ k.label }}</span>
-        {% comment %}Lietuviška daugiskaita turi tris formas — filtras `skelbimu`.{% endcomment %}
-        <span class="sp-picker-card-cnt">{{ k.count }} {{ k.count|skelbimu }}</span>
-      </a>
-      {% endfor %}
-    </div>
-
-    {# ═══ Kitos kategorijos ═══ #}
-    <div class="sp-picker-sec">{% trans "Kitos kategorijos" %}</div>
-    <div class="sp-picker-grid">
-      {% for item in picker_kitos %}
-      <a class="sp-picker-cell" title="{{ item.name|tdb }}"
-         x-show="pmatch('{{ item.name|tdb|escapejs }}')"
-         href="{% url 'listing_list' %}{{ item.url }}"
-         {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
-        <span class="sp-picker-txt">{{ item.name|tdb|trumpas }}</span>
-        <span class="sp-picker-cnt">{{ item.count }}</span>
-        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=item.slug dydis=20 pav=item.name %}</span>
-      </a>
-      {% endfor %}
-    </div>
-
-    {# ═══ Nuoma ir paslaugos ═══ #}
-    <div class="sp-picker-sec">{% trans "Nuoma ir paslaugos" %}</div>
-    <div class="sp-picker-grid">
-      {% for item in picker_nuoma %}
-      <a class="sp-picker-cell" title="{{ item.name|tdb }}"
-         x-show="pmatch('{{ item.name|tdb|escapejs }}')"
-         href="{% url 'listing_list' %}{{ item.url }}"
-         {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
-        <span class="sp-picker-txt">{{ item.name|tdb|trumpas }}</span>
-        <span class="sp-picker-cnt">{{ item.count }}</span>
-        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=item.slug dydis=20 pav=item.name %}</span>
-      </a>
-      {% endfor %}
-    </div>
-
-    {# ═══ Netrukus — nespaudžiamos ═══ #}
-    <div class="sp-picker-sec">
-      {% trans "Netrukus" %}
-      <span class="sp-picker-soon">{% trans "NETRUKUS" %}</span>
-    </div>
-    <div class="sp-picker-grid">
-      {% for slug, name in coming_soon_categories %}
-      <span class="sp-picker-cell is-soon" title="{{ name }}" aria-disabled="true"
-            x-show="pmatch('{{ name|escapejs }}')">
-        <span class="sp-picker-txt">{{ name|trumpas }}</span>
-        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug dydis=20 %}</span>
+    {% comment %}Vienas tinklelis: 3 stulpeliai, plytelė ~100 px. Pirmos
+    keturios — populiariausios, po jų likusios ta pačia tvarka, gale —
+    būsimos kategorijos. Jei plytelių daugiau, nei telpa į ekraną,
+    paskutinė virsta „Daugiau" (žr. picker.js sp-picker-daugiau) —
+    slinkimo neatsiranda.{% endcomment %}
+    <div class="sp-picker-tinklas" x-ref="pgrid">
+      {% for k in picker_visos %}
+      {% if k.soon %}
+      <span class="sp-plytele is-soon" title="{{ k.label }}" aria-disabled="true"
+            x-show="pmatch('{{ k.label|escapejs }}') && (pVisos || {{ forloop.counter0 }} < pRiba)">
+        <span class="sp-plytele-ico">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=26 pav=k.label %}</span>
+        <span class="sp-plytele-txt">{{ k.label|tdb|trumpas }}</span>
+        <span class="sp-plytele-cnt">{% trans "netrukus" %}</span>
       </span>
+      {% else %}
+      <a class="sp-plytele" title="{{ k.label|tdb }}"
+         href="{% url 'listing_list' %}{{ k.url }}"
+         x-show="pmatch('{{ k.label|tdb|escapejs }}') && (pVisos || {{ forloop.counter0 }} < pRiba)"
+         {% if k.section %}@click.prevent="picker = false; goTab('{{ k.section }}', '{{ k.sekcija }}', pickerScroll)"{% endif %}>
+        <span class="sp-plytele-ico">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=26 pav=k.label %}</span>
+        <span class="sp-plytele-txt">{{ k.label|tdb|trumpas }}</span>
+        <span class="sp-plytele-cnt">{{ k.count|default:0 }}</span>
+      </a>
+      {% endif %}
       {% endfor %}
+
+      {% comment %}Paskutinė plytelė, kai visos netelpa.{% endcomment %}
+      <button type="button" class="sp-plytele sp-plytele-daugiau"
+              x-show="!pVisos && pRiba < {{ picker_visos|length }} && !pq"
+              @click="pVisos = true">
+        <span class="sp-plytele-ico"><i class="fa-solid fa-ellipsis" style="font-size:26px" aria-hidden="true"></i></span>
+        <span class="sp-plytele-txt">{% trans "Daugiau" %}</span>
+        <span class="sp-plytele-cnt" x-text="({{ picker_visos|length }} - pRiba) + ''"></span>
+      </button>
     </div>
   </div>
 

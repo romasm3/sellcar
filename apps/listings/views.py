@@ -1753,6 +1753,50 @@ def _track_listing_impressions(request, listings):
     Listing.objects.filter(pk__in=ids).update(impressions_count=F('impressions_count') + 1)
 
 
+# ═══════════════════════════════════════════════════════════
+# TELEFONO KATEGORIJŲ PIKERIS — vienas plytelių sąrašas
+#
+# Iki tol pikeris turėjo keturias dideles korteles ir tris sekcijas su
+# eilutėmis — sąrašą tekdavo slinkti, o kiek kategorijų yra iš viso,
+# nesimatydavo. Dabar visos ateina viena eile: pirmos keturios
+# populiariausios (tos pačios kaip ikonų juostoje), po jų likusios ta
+# pačia tvarka, gale — būsimos (nespaudžiamos).
+# ═══════════════════════════════════════════════════════════
+
+def _picker_plyteles(vt_counts, wheel_counts, more_items):
+    plyteles = [
+        {'slug': 'cars', 'label': _('Automobiliai'), 'url': '?section=cars',
+         'section': 'cars', 'sekcija': '', 'count': vt_counts.get('cars', 0)},
+        {'slug': 'motorcycles', 'label': _('Motociklai, apranga'),
+         'url': '?section=motorcycles', 'section': 'motorcycles', 'sekcija': '',
+         'count': vt_counts.get('motorcycles', 0)},
+        {'slug': 'tires', 'label': _('Ratlankiai / padangos'),
+         'url': '?section=wheels', 'section': 'wheels', 'sekcija': '',
+         'count': wheel_counts.get('tyre', 0) + wheel_counts.get('rim', 0)},
+        {'slug': 'parts', 'label': _('Dalys'), 'url': '?section=parts',
+         'section': 'parts', 'sekcija': '', 'count': vt_counts.get('parts', 0)},
+    ]
+    for i in more_items:
+        plyteles.append({
+            'slug': i['slug'], 'label': i['name'], 'url': i['url'],
+            'section': i['section'], 'sekcija': i['sekcija'], 'count': i['count'],
+        })
+    for slug, vardas in COMING_SOON_PICKER:
+        plyteles.append({'slug': slug, 'label': vardas, 'url': '', 'section': '',
+                         'sekcija': '', 'count': None, 'soon': True})
+    return plyteles
+
+
+COMING_SOON_PICKER = [
+    ('planes', _('Lėktuvai')),
+    ('planes-parts', _('Lėktuvų dalys')),
+    ('robots', _('Robotai')),
+    ('robots-parts', _('Robotų dalys')),
+    ('drones', _('Dronai')),
+    ('drones-parts', _('Dronų dalys')),
+]
+
+
 # Rezultatu puslapis renderina sonine juosta tik ne telefonams
 # (context_processors.device_kind), todel atsakymas priklauso nuo
 # User-Agent ir tai turi buti pasakyta kesams.
@@ -2354,6 +2398,11 @@ def listing_list(request, panel_fragment=False, category=None):
                          if i['slug'] in ('rental', 'services', 'car-buying')],
         'picker_kitos': [i for i in more_items
                          if i['slug'] not in ('rental', 'services', 'car-buying')],
+        # Telefono pikeris — VIENAS plytelių sąrašas (3 stulpeliai):
+        # pirmos keturios populiariausios, po jų likusios ta pačia tvarka,
+        # gale — būsimos kategorijos (nespaudžiamos). Sekcijų nebeliko:
+        # taip visos telpa į ekraną be slinkimo.
+        'picker_visos': _picker_plyteles(_vt_counts, wheel_counts, more_items),
         **_lazy_ctx(lambda: parts_panel_context(request.user),
                     ('parts_subs', 'parts_car_subcats', 'parts_brands',
                      'parts_moto_brands', 'parts_truck_brands',

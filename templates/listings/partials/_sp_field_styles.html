@@ -268,76 +268,47 @@ vidinės paraštės 9px/12px, aukštis 40px.
                             display: flex; align-items: center; justify-content: center; }
     .sp-picker-hdr svg { width: 18px; height: 18px; }
     {% comment %}
-    Išdėstymas kaip etalone: pirmos keturios kategorijos — 2×2 didelių
-    kortelių tinklelis, likusios — eilutėmis per VISĄ plotį (vienas
-    stulpelis; anksčiau čia buvo `1fr 1fr` ir eilutės lįsdavo už ekrano). Ir viskas
-    telpa į ekraną be slinkimo, nesvarbu, koks jo aukštis: eilutės
-    nesikreipia į fiksuotus taškus, o pasidalija likusią vietą
-    (flex: 1 1 0). Aukštame lange (446×1288) eilutė išeina ~34 px, 390×844
-    telefone — ~19 px; abiem atvejais nieko nereikia stumdyti.
+    Vienas plytelių tinklelis: 3 stulpeliai, plytelė ~100 px (ikona 26 px,
+    pavadinimas 12 px dviem eilutėm, skaičius 11 px). Sekcijų ir didelių
+    kortelių nebeliko — taip kategorijos telpa į ekraną be slinkimo, o
+    jei visos netelpa, paskutinė plytelė yra „Daugiau" (pSkaiciuok()).
+    Siauresniuose ekranuose (≤370 px) šriftas ir ikona sumažinami, bet
+    stulpelių lieka trys.
     {% endcomment %}
     .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
-                      -webkit-overflow-scrolling: touch;
-                      padding: 10px 12px 8px; display: flex; flex-direction: column; gap: 4px; }
+                      -webkit-overflow-scrolling: touch; padding: 10px 12px 8px; }
 
-    /* Keturios pagrindinės — didelės kortelės 2×2 */
-    .sp-picker-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-                       margin-bottom: 2px; max-width: 100%; }
-    .sp-picker-card { display: flex; flex-direction: column; align-items: center;
-                      justify-content: center; gap: 6px; padding: 14px 8px;
-                      background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
-                      text-decoration: none; text-align: center; min-width: 0; }
-    .sp-picker-card:active { background: #F4F5F6; }
-    .sp-picker-ico-lg { width: 46px; height: 46px; color: var(--accent);
-                        flex: 0 0 auto; display: block; }
-    .sp-picker-ico-lg svg { width: 100%; height: 100%; }
-    .sp-picker-ico-lg i.fa-solid { display: inline-flex; align-items: center;
-                                   justify-content: center; width: 100%; height: 100%; }
-    .sp-picker-card-name { font-size: 14.5px; font-weight: 600; color: var(--accent);
-                           line-height: 1.2; max-width: 100%; overflow-wrap: anywhere;
-                           display: -webkit-box; -webkit-line-clamp: 2;
-                           -webkit-box-orient: vertical; overflow: hidden; }
-    .sp-picker-card-cnt { font-size: 11.5px; color: #9AA0A6; }
+    .sp-picker-tinklas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+                         gap: 8px; }
+    .sp-plytele { display: flex; flex-direction: column; align-items: center;
+                  justify-content: center; gap: 5px; height: 100px; padding: 8px 6px;
+                  background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
+                  text-decoration: none; text-align: center; min-width: 0;
+                  cursor: pointer; font: inherit; }
+    .sp-plytele:active { background: #F4F5F6; }
+    .sp-plytele.is-soon { color: #B7BCC2; background: #FAFBFB; cursor: default; }
+    .sp-plytele-ico { width: 26px; height: 26px; color: var(--accent);
+                      flex: 0 0 auto; display: block; }
+    .sp-plytele-ico svg { width: 100%; height: 100%; }
+    .sp-plytele-ico i.fa-solid { display: inline-flex; align-items: center;
+                                 justify-content: center; width: 100%; height: 100%; }
+    .sp-plytele.is-soon .sp-plytele-ico { color: #B7BCC2; }
+    .sp-plytele-txt { font-size: 12px; line-height: 1.15; color: var(--accent);
+                      font-weight: 600; max-width: 100%; overflow-wrap: anywhere;
+                      display: -webkit-box; -webkit-line-clamp: 2;
+                      -webkit-box-orient: vertical; overflow: hidden; }
+    .sp-plytele.is-soon .sp-plytele-txt { color: #B7BCC2; }
+    .sp-plytele-cnt { font-size: 11px; color: #9AA0A6; line-height: 1; }
+    .sp-plytele-daugiau { border-style: dashed; }
 
-    /* Sekcijų antraštės */
-    .sp-picker-sec { display: flex; align-items: center; gap: 6px;
-                     margin-top: 4px; padding: 0 2px;
-                     font-size: 11px; font-weight: 700; letter-spacing: .04em;
-                     text-transform: uppercase; color: #9AA0A6; }
-    .sp-picker-soon { font-size: 9px; font-weight: 700; letter-spacing: .04em;
-                      color: #9AA0A6; background: #F4F5F6; border-radius: 999px;
-                      padding: 2px 7px; }
+    @media (max-width: 370px) {
+      .sp-picker-tinklas { gap: 6px; }
+      .sp-plytele { height: 92px; }
+      .sp-plytele-txt { font-size: 11px; }
+      .sp-plytele-ico { width: 24px; height: 24px; }
+      .sp-plytele-ico i.fa-solid { font-size: 24px !important; }
+    }
 
-    /* Likusios — kompaktiškas dviejų stulpelių sąrašas */
-    .sp-picker-grid { display: grid; grid-template-columns: 1fr; gap: 5px;
-                      max-width: 100%; }
-    /* Etalone: pavadinimas kairėje, ikona dešinėje (žr. _mobile_picker.html) */
-    .sp-picker-cell { display: flex; align-items: center; gap: 8px; min-width: 0;
-                      padding: 12px 12px; background: #fff;
-                      border: 1px solid #E6E8EB; border-radius: 10px;
-                      font-size: 14px; line-height: 1.25; color: var(--accent);
-                      text-decoration: none; }
-    .sp-picker-cell:active { background: #F4F5F6; }
-    .sp-picker-cell.is-soon { color: #B7BCC2; background: #FAFBFB; }
-    .sp-picker-ico { width: 26px; height: 26px; color: #9AA0A6; flex: 0 0 auto;
-                     display: block; margin-left: auto; }
-    .sp-picker-ico svg { width: 100%; height: 100%; }
-    .sp-picker-ico i.fa-solid { display: inline-flex; align-items: center;
-                                justify-content: center; width: 100%; height: 100%; }
-    .sp-picker-txt { flex: 1 1 auto; min-width: 0; overflow: hidden;
-                     text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-    .sp-picker-cnt { flex: 0 0 auto; font-size: 11.5px; color: #9AA0A6; }
-    /* Sonine juosta telefone neatiduodama (zr. device_kind), bet jei UA
-       nebudingas (darbalaukio narsykle siaurame lange) - paslepiam ir CSS,
-       kad neliktu dvieju skirtingu filtru vienu metu. */
-    aside.no-print, #sidebarForm { display: none !important; }
-    /* „Keisti paiešką" — telefone pakeičia visą šoninę juostą. */
-    .sp-filter-icon { display: inline-flex; align-items: center; gap: 5px;
-                      padding: 5px 9px; border: 1px solid #DCDEE2; border-radius: 8px;
-                      font-size: 12.5px; font-weight: 600; color: #1F2328;
-                      text-decoration: none; white-space: nowrap; flex: 0 0 auto; }
-    .sp-filter-icon svg { width: 15px; height: 15px; }
-    @media (max-width: 400px) { .sp-filter-icon span { display: none; } }
     .sp-picker-foot { padding: 8px 12px; border-top: 1px solid var(--accent-soft); background: #fff; }
     .sp-picker-search { position: relative; display: block; }
     .sp-picker-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%);

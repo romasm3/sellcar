@@ -52,6 +52,20 @@
             .site-logo { padding: calc(24px * .31) 0; }
             .site-logo img { height: 24px; }
         }
+        /* Siauriausiuose telefonuose (≤370 px) antraštės eilutė buvo 6 px
+           platesnė už ekraną — mažinam tarpus ir „Įkelti" paraštes, kad
+           neatsirastų horizontalus slinkimas. */
+        /* Siauriausiuose telefonuose (≤370 px) antraštės eilutė buvo 6 px
+           platesnė už ekraną. Tailwind `gap-2` klasę perrašom su !important —
+           kitaip laimėtų ji (tas pats specifiškumas, bet įkeliama vėliau). */
+        @media (max-width: 370px) {
+            .hdr-veiksmai { gap: 4px !important; }
+            .btn-sell { padding-left: 8px; padding-right: 8px; }
+            .site-logo img { height: 22px; }
+            /* Kalbos vėliavėlė telefone yra ir meniu viduje — siauriausiuose
+               ekranuose antraštėje jos nerodom, kad eilutė tilptų. */
+            .hdr-veiksmai > .relative.shrink-0:first-child { display: none; }
+        }
 
         /* ═══ AKCENTO SPALVOS — VIENINTELĖ VIETA ═══
            Norint pakeisti projekto akcentą, keičiamos tik šios eilutės:
@@ -306,7 +320,7 @@
                 ir žinučių ikonos slepiamos, nes jos yra meniu viduje, o
                 netilpusi eilutė plėtė visą puslapį iki 396 px.
                 {% endcomment %}
-                <div class="flex items-center gap-2 md:gap-4 min-w-0">
+                <div class="hdr-veiksmai flex items-center gap-2 md:gap-4 min-w-0">
 
                     <!-- ═══ LANGUAGE SWITCHER ═══ -->
                     {% get_current_language as CURRENT_LANG %}

@@ -141,7 +141,7 @@
       {% endcomment %}
       <button type="button" class="sp-rail-btn2"
               :class="tab === 'boats' && 'sp-on'"
-              @click="window.innerWidth < 1024 ? (pickerScroll = window.scrollY, picker = true) : fly2 = !fly2">
+              @click="window.innerWidth < 1024 ? (pickerScroll = window.scrollY, picker = true, pSkaiciuok()) : fly2 = !fly2">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
       </button>
 
@@ -251,7 +251,37 @@ function spPanel() {
     picker: false,
     pq: '',
 
+    // ─── Telefono pikerio plytelės ───
+    // Rodom tiek, kiek telpa į ekraną (be slinkimo); jei visos netelpa,
+    // paskutinė plytelė yra „Daugiau" ir ją paspaudus atsiveria likusios.
+    pRiba: 99,
+    pVisos: false,
+
     pmatch(t) { return !this.pq || String(t).toLowerCase().indexOf(this.pq.toLowerCase()) !== -1; },
+
+    /** Kiek plytelių telpa: (laisvas aukštis / eilutės aukštis) × 3.
+     *  Skaičiuojam iš tikrų matmenų, todėl veikia ir 360, ir 430 px,
+     *  ir žemesniuose ekranuose. Vieną vietą paliekam „Daugiau". */
+    pSkaiciuok() {
+      // Skaičiuojam, kai pikeris jau matomas — kitaip plytelės aukštis
+      // dar 0 ir „telpa" išeitų begalinis.
+      setTimeout(() => {
+        const tinklas = this.$refs.pgrid;
+        if (!tinklas) return;
+        const plytele = tinklas.querySelector('.sp-plytele');
+        const tarpas = parseFloat(getComputedStyle(tinklas).rowGap) || 8;
+        const aukstis = plytele ? plytele.getBoundingClientRect().height : 0;
+        const eilute = (aukstis > 10 ? aukstis : (window.innerWidth <= 370 ? 92 : 100)) + tarpas;
+        const koja = document.querySelector('.sp-picker-foot');
+        const virsus = tinklas.getBoundingClientRect().top;
+        const laisva = window.innerHeight - virsus - (koja ? koja.offsetHeight : 64) - 10;
+        const eiluciu = Math.max(1, Math.floor(laisva / eilute));
+        const telpa = eiluciu * 3;
+        const viso = tinklas.querySelectorAll('.sp-plytele:not(.sp-plytele-daugiau)').length;
+        this.pRiba = (viso <= telpa) ? viso : Math.max(3, telpa - 1);
+        this.pVisos = (viso <= telpa);
+      }, 60);
+    },
 
     // Kategorijos, kurios etalone turi kelias sekcijas (sunkusis 04/06/03/08/21,
     // statybinė 24/16). 'main' — pagrindinė sekcija be subkategorijos.
