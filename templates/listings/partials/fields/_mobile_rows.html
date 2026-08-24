@@ -53,6 +53,11 @@ Parametrai:
   {% endwith %}
 
   {% elif chosen %}
+  {% comment %}Pasirinktos reikšmės lieka TOJE PAČIOJE eilutėje su pavadinimu:
+  anksčiau žymos su × ir ⊕ kabodavo be konteksto, o pirmas pavadintas laukas
+  sąraše būdavo jau „Metai".{% endcomment %}
+  <div class="sp-chip-eil">
+  <span class="sp-chip-eil-vardas">{% if f.widget == 'brand' %}{% trans "Markė, modelis" %}{% else %}{{ f.label }}{% endif %}</span>
   <div class="sp-chips">
     {% comment %}
     Po žymą kiekvienai reikšmei. Kelios markės kaupiamos tuo pačiu
@@ -73,10 +78,11 @@ Parametrai:
       <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v8M8 12h8"/></svg>
     </a>
   </div>
+  </div>
   {% else %}
   <a class="sp-mrow"
      href="{% url 'select_value' %}?laukas={{ key|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub %}&amp;sub={{ sub|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}">
-    <span>{{ f.label }}</span>
+    <span>{% if f.widget == 'brand' %}{% trans "Markė, modelis" %}{% else %}{{ f.label }}{% endif %}</span>
     <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
   </a>
   {% endif %}

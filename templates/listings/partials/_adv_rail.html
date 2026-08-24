@@ -61,6 +61,16 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
       <span class="adv-rail-txt">{% trans "Daugiau" %}</span>
     </button>
     <div x-show="open" x-cloak class="adv-rail-fly">
+      {% comment %}Telefone juostoje lieka tik keturios ikonos, todėl likusios
+      kategorijos turi būti pasiekiamos „…" sąraše. Darbalaukyje jos matomos
+      juostoje, tad ten šios eilutės paslėptos (.adv-rail-fly-tel).{% endcomment %}
+      {% for r in adv_rail %}{% if forloop.counter > 4 %}
+      <a href="{{ r.url }}" class="adv-rail-fly-item adv-rail-fly-tel{% if r.active %} is-on{% endif %}"
+         @click="uzdarykDabar()">
+        <span class="adv-rail-fly-ico">{% include 'listings/partials/_adv_rail_ico.html' with key=r.key %}</span>
+        <span class="adv-rail-fly-txt">{{ r.label }}</span>
+      </a>
+      {% endif %}{% endfor %}
       {% for m in adv_more %}
       <a href="{{ m.url }}" class="adv-rail-fly-item{% if m.active %} is-on{% endif %}"
          @click="uzdarykDabar()">
@@ -96,11 +106,7 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
   /* overflow: visible — kitaip juosta nukirstų „Daugiau" iškrentantį
      sąrašą; telefone juosta slenkama į šoną. */
   .adv-rail { display: flex; align-items: stretch; gap: 0; overflow: visible; }
-  @media (max-width: 640px) {
-    .adv-rail { overflow-x: auto; scrollbar-width: none; }
-    .adv-rail::-webkit-scrollbar { display: none; }
-    .adv-rail-item { min-width: 72px; }
-  }
+
   .adv-rail-item { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column;
                    align-items: center; justify-content: flex-start; gap: 6px;
                    padding: 6px 4px 10px; border: 0; border-bottom: 2px solid transparent;
@@ -144,6 +150,29 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
   .adv-rail-fly-txt { flex: 1 1 auto; }
   .adv-rail-fly-num { flex: 0 0 auto; color: var(--text-muted); font-size: 13px; }
   .adv-rail-fly-item.is-on { color: var(--accent); font-weight: var(--fw-semibold); }
+  /* ═══ Telefonas ═══
+     Etalone juostoje yra TIK ikonos (be pavadinimų) ir tik keturios +
+     „…": automobilis · motociklas · ratlankis · dalys. Likusios
+     kategorijos — „…" sąraše. Aktyvi ikona akcento spalvos su 3 px
+     pabraukimu per ikonos plotį. Slinkimo į šoną nėra: keturios ikonos
+     dalijasi visą plotį po lygiai. */
+  @media (max-width: 767px) {
+    .adv-rail { overflow: visible; }
+    .adv-rail-txt { display: none; }
+    .adv-rail > :nth-child(n+5) { display: none; }
+    .adv-rail > .adv-rail-more { display: flex; }
+    .adv-rail > a.adv-rail-item.is-on { display: flex; }
+    .adv-rail > div:has(> a.adv-rail-item.is-on) { display: flex; }
+    .adv-rail-item { min-width: 0; padding: 4px 0 0; border-bottom: 0; }
+    .adv-rail-item.is-on { border-bottom: 0; }
+    .adv-rail-ico { height: auto; padding-bottom: 6px; border-bottom: 3px solid transparent; }
+    .adv-rail-ico svg { width: 28px; height: 28px; }
+    .adv-rail-item.is-on .adv-rail-ico { border-bottom-color: var(--accent); }
+    .adv-rail-fly { min-width: 240px; }
+  }
+  /* „…" sąrašo eilutės, kurios reikalingos tik telefone */
+  .adv-rail-fly-tel { display: none; }
+  @media (max-width: 767px) { .adv-rail-fly-tel { display: flex; } }
 </style>
 
 <script>
