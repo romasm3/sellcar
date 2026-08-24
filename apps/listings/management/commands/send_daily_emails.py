@@ -30,6 +30,7 @@ from datetime import timedelta
 
 from apps.listings.models import Listing, SavedListing, SalesRecord
 from apps.listings.emails.sender import send_scenario
+from apps.listings import formatai
 
 
 # Views milestones - kai pasiekia šiuos skaičius, siunčia notification
@@ -130,7 +131,7 @@ class Command(BaseCommand):
             success = self._send('listing_expiring_soon', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 # Pratęsimas veda TIESIAI į plano/apmokėjimo puslapį, ne į edit
                 'extend_url': f'{settings.SITE_URL}/listings/{listing.pk}/select-plan/',
@@ -178,7 +179,7 @@ class Command(BaseCommand):
             success = self._send('listing_expired', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'reactivate_url': f'{settings.SITE_URL}/{listing.pk}/edit/',
                 'views_count': listing.views_count or 0,
             })
@@ -274,7 +275,7 @@ class Command(BaseCommand):
             success = self._send('listing_views_milestone', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 # Laiške rodom TIKSLŲ skaičių (154), o ne pakopą (100) —
                 # pakopa lieka tik tam, kad žinotume, kada verta siųsti.
                 'views_count': listing.views_count,
@@ -326,7 +327,7 @@ class Command(BaseCommand):
             success = self._send('listing_popular', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 'views_count': listing.views_count,
                 'percentile': 10,
@@ -372,7 +373,7 @@ class Command(BaseCommand):
             success = self._send('listing_no_sale_reminder', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'days_active': days_active,
                 'views_count': listing.views_count or 0,
                 'saves_count': saves_count,
@@ -421,7 +422,7 @@ class Command(BaseCommand):
             success = self._send('listing_saved_by_users', user, {
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 'saves_count': saves_count,
             })
@@ -488,7 +489,7 @@ class Command(BaseCommand):
             top_listings = qs.order_by('-created_at')[:5]
             listings_data = [{
                 'title': l.title,
-                'price_display': f'{l.currency_symbol}{int(l.price)}',
+                'price_display': formatai.kaina(l.price, l.currency_symbol),
                 'url': f'{settings.SITE_URL}{l.get_absolute_url()}',
             } for l in top_listings]
 

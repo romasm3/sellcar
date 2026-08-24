@@ -763,10 +763,9 @@ def trucks_listing_edit(request, pk):
                 if new_price < old_price_f:
                     _send_saved_listing_price_drop_emails(listing, old_price_f, new_price)
                 else:
-                    summary = (
-                        f'Price changed from {listing.currency_symbol}{int(old_price_f)} '
-                        f'to {listing.currency_symbol}{int(new_price)}'
-                    )
+                    summary = _('Kaina pasikeitė: %(sena)s → %(nauja)s') % {
+                        'sena': formatai.kaina(old_price_f, listing.currency_symbol),
+                        'nauja': formatai.kaina(new_price, listing.currency_symbol)}
                     _send_saved_listing_updated_emails(listing, summary)
             else:
                 _send_saved_listing_updated_emails(listing, 'Listing details updated')
@@ -1054,7 +1053,7 @@ def trucks_list(request):
     _now = timezone.now()
     _3d = _now - timedelta(days=NEW_LISTING_DAYS)
     listings = listings.annotate(
-        eff_date=Greatest('created_at', Coalesce('last_boosted_at', 'created_at')),
+        eff_date=Greatest(Coalesce('activated_at', 'created_at'), Coalesce('last_boosted_at', 'created_at')),
         sort_priority=Case(
             When(star_level=2, star_expires_at__gt=_now, then=Value(500)),
             When(star_level=1, star_expires_at__gt=_now, then=Value(400)),
@@ -1113,8 +1112,7 @@ def trucks_list(request):
         ).values_list('listing_id', flat=True))
 
     new_listing_ids = [
-        l.id for l in listings_all
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in listings_all if l.yra_naujas
     ]
 
     # Tabs
@@ -1131,7 +1129,7 @@ def trucks_list(request):
         ).order_by('-last_boosted_at')[:6])
     if not tab_featured:
         tab_featured = list(tabs_base.order_by('-created_at')[:6])
-    tab_newest = list(tabs_base.order_by('-created_at')[:6])
+    tab_newest = list(tabs_base.annotate(paskelbta_db=Coalesce('activated_at', 'created_at')).order_by('-paskelbta_db')[:6])
     tab_popular = list(tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(tabs_base.filter(price__gt=0).order_by('-price')[:6])
 

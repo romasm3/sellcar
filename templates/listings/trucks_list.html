@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static dict_extras %}
 {% load i18n i18n_db %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Trucks & Commercial" %} - AutoLeft{% endblock %}
 
@@ -52,6 +53,7 @@
 .card-badge-new { display:inline-flex; align-items:center; padding:2px 7px; background:#10b981; color:#fff; font-size:0.62rem; font-weight:700; }
 .card-badge-time { display:inline-flex; align-items:center; padding:2px 7px; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); color:#fff; font-size:0.62rem; font-weight:600; }
 .card-bottom-left { position:absolute; bottom:8px; left:8px; max-width:calc(100% - 16px); display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-top-left { position:absolute; top:8px; left:8px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
 
 .card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:3px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,0.2); }
 .mini-2star { background:#fff; color:#d97706; border:1px solid #f59e0b; }
@@ -444,14 +446,9 @@
                             </span>
                             {% endif %}
 
-                            {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                            {% if eff_level > 0 %}
                             <div class="card-bottom-left">
-                                {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                                <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">{% trans "New" %}</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
-                                {% endif %}
                                 {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">⭐</span>{% endif %}
                                 {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">⭐⭐</span>{% endif %}
                             </div>
@@ -460,15 +457,15 @@
                         <div class="h-info-side">
                             <div class="ap-title-row">
                                 <h3 class="ap-title group-hover:text-cyan-600 transition-colors">{{ listing.title }}</h3>
-                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.price|kaina:listing.currency_symbol }}</div>
                             </div>
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
-                                {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                                 <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
                             </div>
                             <div class="ap-spec-line">
-                                {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                                {% if listing.transmission %}<span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                                 {% if listing.engine_capacity or listing.power %}
                                     {% if listing.transmission %}<span class="sep">·</span>{% endif %}
                                     <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
@@ -754,14 +751,9 @@
                     </span>
                     {% endif %}
 
-                    {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                    {% if eff_level > 0 %}
                     <div class="card-bottom-left">
-                        {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                        <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
-                            <span class="card-badge-new">{% trans "New" %}</span>
-                            <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                        </div>
-                        {% endif %}
                         {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">⭐</span>{% endif %}
                         {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">⭐⭐</span>{% endif %}
                     </div>
@@ -771,16 +763,16 @@
                 <div class="p-2.5 flex flex-col gap-1">
                     <div class="ap-title-row">
                         <h3 class="ap-title group-hover:text-cyan-600 transition-colors truncate">{{ listing.title }}</h3>
-                        <div class="ap-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                        <div class="ap-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                     </div>
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>
-                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                        {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                         <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
                     </div>
                     {% if listing.transmission or listing.engine_capacity or listing.power or listing.euro_standard %}
                     <div class="ap-spec-line">
-                        {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                        {% if listing.transmission %}<span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                         {% if listing.engine_capacity or listing.power %}
                             {% if listing.transmission %}<span class="sep">·</span>{% endif %}
                             <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
@@ -848,15 +840,15 @@
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-truck"></i></div>
                             {% endif %}
-                            {% if listing.star_level >= 1 %}<span class="home-tab-badge badge-featured">⭐ {% trans "FEATURED" %}</span>{% endif %}
+                            {% if listing.star_level >= 1 %}<span class="home-tab-badge badge-featured">⭐ {% trans "Išskirtinis" %}</span>{% endif %}
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.is_truck and listing.truck_type %}{{ listing.get_truck_type_display }}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% else %}{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -874,15 +866,15 @@
                     <a href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.images.first %}<img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
-                            {% if listing.pk in new_listing_ids %}<span class="home-tab-badge badge-new">{% trans "NEW" %}</span>{% endif %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.is_truck and listing.truck_type %}{{ listing.get_truck_type_display }}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% else %}{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -904,9 +896,9 @@
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.is_truck and listing.truck_type %}{{ listing.get_truck_type_display }}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% else %}{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -928,9 +920,9 @@
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.is_truck and listing.truck_type %}{{ listing.get_truck_type_display }}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% else %}{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -962,28 +954,7 @@ var I18N = {
     daysAgoSuffix: "{% trans 'days ago' %}"
 };
 
-function formatTimeAgo(isoString) {
-    if (!isoString) return '';
-    var created = new Date(isoString);
-    if (isNaN(created.getTime())) return '';
-    var now = new Date();
-    var diffSec = Math.floor((now - created) / 1000);
-    if (diffSec < 60) return Math.max(1, diffSec) + I18N.sAgo;
-    var diffMin = Math.floor(diffSec / 60);
-    if (diffMin < 60) return diffMin + I18N.minAgo;
-    var diffH = Math.floor(diffMin / 60);
-    if (diffH < 24) return diffH + I18N.hAgo;
-    var diffD = Math.floor(diffH / 24);
-    if (diffD === 1) return I18N.dayAgo;
-    return diffD + ' ' + I18N.daysAgoSuffix;
-}
-function refreshTimeAgo() {
-    document.querySelectorAll('.time-ago').forEach(function(el) {
-        var iso = el.dataset.created;
-        var txtEl = el.querySelector('.time-ago-text');
-        if (txtEl) txtEl.textContent = formatTimeAgo(iso);
-    });
-}
+// Laiko žymos tekstą piešia _laiko_zyma_js.html (window.laikoZyma).
 
 function openCategoryModal() {
     document.getElementById('categoryModal').classList.remove('hidden');
@@ -1280,8 +1251,6 @@ document.addEventListener('DOMContentLoaded', function() {
         el.addEventListener('click', function() { loadSubs(el); });
     });
 
-    refreshTimeAgo();
-    setInterval(refreshTimeAgo, 60000);
 
     var selEl = document.querySelector('#locationList .loc-item.selected');
     if (selEl) { var locLabel = document.getElementById('locationLabel'); if (locLabel) locLabel.textContent = selEl.textContent.trim(); }

@@ -1,5 +1,6 @@
 import json
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext
 import os
 from django.shortcuts import render, redirect, get_object_or_404
 import logging
@@ -58,6 +59,7 @@ from .models import (
 from collections.abc import Mapping
 from django.views.decorators.vary import vary_on_headers
 from django.views.decorators.http import require_GET, require_POST
+from apps.listings import formatai
 from datetime import date, timedelta, datetime
 
 NEW_LISTING_DAYS = 3
@@ -720,7 +722,7 @@ def _build_grouped_equipment(listing):
         if cat in items_by_cat:
             grouped.append({
                 'key': cat,
-                'label': EQUIPMENT_CATEGORY_LABELS.get(cat, cat.title()),
+                'label': gettext(EQUIPMENT_CATEGORY_LABELS.get(cat, cat.title())),
                 'items': sorted(items_by_cat[cat]),
             })
     return grouped
@@ -797,7 +799,7 @@ def _build_grouped_equipment(listing):
         if cat in items_by_cat:
             grouped.append({
                 'key': cat,
-                'label': EQUIPMENT_CATEGORY_LABELS.get(cat, cat.title()),
+                'label': gettext(EQUIPMENT_CATEGORY_LABELS.get(cat, cat.title())),
                 'items': sorted(items_by_cat[cat]),
             })
     return grouped
@@ -817,7 +819,7 @@ def _send_listing_published_email(listing, user):
             context={
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 'active_days': Listing.DEFAULT_ACTIVE_DAYS,
             },
@@ -840,7 +842,7 @@ def _send_listing_sold_confirmation_email(listing, user, display_sold):
             context={
                 'user_name': user.first_name or user.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'days_active': days_active,
                 'display_sold': display_sold,
                 'sold_display_days': Listing.SOLD_DISPLAY_DAYS,
@@ -877,7 +879,7 @@ def _send_saved_listing_sold_emails(listing):
                 context={
                     'user_name': user.first_name or user.username,
                     'listing_title': listing.title,
-                    'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                    'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                     'similar_url': similar_url,
                 },
             )
@@ -907,7 +909,7 @@ def _send_saved_listing_updated_emails(listing, change_summary):
                 context={
                     'user_name': user.first_name or user.username,
                     'listing_title': listing.title,
-                    'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                    'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                     'change_summary': change_summary,
                     'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 },
@@ -974,7 +976,7 @@ def _send_listing_saved_by_users_email(listing, saver_user):
             context={
                 'user_name': seller.first_name or seller.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
                 'total_saves': listing.saved_by.count(),
             },
@@ -998,7 +1000,7 @@ def _send_listing_first_views_email(listing):
             context={
                 'user_name': seller.first_name or seller.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'views_count': listing.views_count,
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
             },
@@ -1022,7 +1024,7 @@ def _send_listing_views_milestone_email(listing, milestone):
             context={
                 'user_name': seller.first_name or seller.username,
                 'listing_title': listing.title,
-                'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                 'views_count': listing.views_count,
                 'milestone': milestone,
                 'listing_url': f'{settings.SITE_URL}{listing.get_absolute_url()}',
@@ -1859,7 +1861,7 @@ def listing_list(request, panel_fragment=False, category=None):
         'brand', 'model', 'submodel', 'fuel_type', 'transmission', 'vehicle_type'
     ).prefetch_related('images').annotate(
         effective_date=Greatest(
-            'created_at',
+            Coalesce('activated_at', 'created_at'),
             Coalesce('last_boosted_at', 'created_at'),
         ),
     ).annotate(
@@ -2044,32 +2046,36 @@ def listing_list(request, panel_fragment=False, category=None):
         listings = listings.filter(imported_from_us=True)
 
     # ═══ Sort logika ═══
+    # „Naujausi" — pagal paskelbimo laiką (activated_at, o jei jo nėra —
+    # created_at), tas pats šaltinis kaip kortelių laiko žymai.
+    from django.db.models.functions import Coalesce as _Coalesce
+    listings = listings.annotate(paskelbta_db=_Coalesce('activated_at', 'created_at'))
     sort_param = request.GET.get('sort', 'newest')
     if sort_param == 'price_asc':
-        listings = listings.order_by('price', '-created_at')
+        listings = listings.order_by('price', '-paskelbta_db')
     elif sort_param == 'price_desc':
-        listings = listings.order_by('-price', '-created_at')
+        listings = listings.order_by('-price', '-paskelbta_db')
     elif sort_param == 'mileage_asc':
-        listings = listings.order_by('mileage', '-created_at')
+        listings = listings.order_by('mileage', '-paskelbta_db')
     elif sort_param == 'mileage_desc':
-        listings = listings.order_by('-mileage', '-created_at')
+        listings = listings.order_by('-mileage', '-paskelbta_db')
     elif sort_param == 'year_asc':
-        listings = listings.order_by('year', '-created_at')
+        listings = listings.order_by('year', '-paskelbta_db')
     elif sort_param == 'year_desc':
-        listings = listings.order_by('-year', '-created_at')
+        listings = listings.order_by('-year', '-paskelbta_db')
     elif sort_param == 'newest_renewed':
         # Priority: jei yra last_boosted_at — naudoja jį, kitaip created_at
         from django.db.models import F, Case, When, DateTimeField
         listings = listings.annotate(
             sort_date=Case(
                 When(last_boosted_at__isnull=False, then=F('last_boosted_at')),
-                default=F('created_at'),
+                default=F('paskelbta_db'),
                 output_field=DateTimeField(),
             )
         ).order_by('-sort_date')
     else:
-        # Default: newest (created_at desc)
-        listings = listings.order_by('-created_at')
+        # Default: newest — pagal paskelbimo laiką
+        listings = listings.order_by('-paskelbta_db')
     if request.GET.get('feat_multi_keys'):
         listings = listings.filter(multiple_keys=True)
     if request.GET.get('feat_power_boost'):
@@ -2121,8 +2127,7 @@ def listing_list(request, panel_fragment=False, category=None):
     ]
 
     new_listing_ids = [
-        l.id for l in listings_list
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in listings_list if l.yra_naujas
     ]
 
     categories_qs = _get_visible_vehicle_types(request.user)
@@ -2183,7 +2188,7 @@ def listing_list(request, panel_fragment=False, category=None):
         _tabs_base.filter(created_at__gte=_now_tabs - timedelta(days=7))
         .order_by('-created_at')[:12]
     )
-    tab_newest = list(_tabs_base.order_by('-created_at')[:6])
+    tab_newest = list(_tabs_base.annotate(paskelbta_db=Coalesce('activated_at', 'created_at')).order_by('-paskelbta_db')[:6])
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
 
@@ -4221,7 +4226,9 @@ def listing_edit(request, pk):
                 if new_price < old_price:
                     _send_saved_listing_price_drop_emails(listing, old_price, new_price)
                 else:
-                    summary = f'Price changed from {listing.currency_symbol}{int(old_price)} to {listing.currency_symbol}{int(new_price)}'
+                    summary = _('Kaina pasikeitė: %(sena)s → %(nauja)s') % {
+                        'sena': formatai.kaina(old_price, listing.currency_symbol),
+                        'nauja': formatai.kaina(new_price, listing.currency_symbol)}
                     _send_saved_listing_updated_emails(listing, summary)
         except (ValueError, TypeError):
             pass
@@ -4911,7 +4918,7 @@ def advanced_search(request):
 
     sorted_listings = listings.annotate(
         effective_date=Greatest(
-            'created_at',
+            Coalesce('activated_at', 'created_at'),
             Coalesce('last_boosted_at', 'created_at'),
         ),
     ).annotate(
@@ -4928,8 +4935,7 @@ def advanced_search(request):
     _track_listing_impressions(request, sorted_listings_all)
 
     new_listing_ids = [
-        l.id for l in sorted_listings_all
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in sorted_listings_all if l.yra_naujas
     ]
 
     context = {
@@ -5081,7 +5087,7 @@ def listing_edit_hub(request, pk):
          'progress': f'{filled_equipment} / {total_equipment}'},
         {'key': 'price', 'icon': '€', 'title': 'Price',
          'url': reverse('listing_edit_section', kwargs={'pk': listing.pk, 'section': 'price'}),
-         'progress': f'{listing.currency_symbol}{int(listing.price)}'},
+         'progress': formatai.kaina(listing.price, listing.currency_symbol)},
         {'key': 'description', 'icon': '📝', 'title': 'Description, Technical Condition',
          'url': reverse('listing_edit_section', kwargs={'pk': listing.pk, 'section': 'description'}),
          'progress': None},
@@ -5570,11 +5576,9 @@ def _handle_edit_step_post(request, listing, step):
                     if new_price < _old_price:
                         _send_saved_listing_price_drop_emails(listing, _old_price, new_price)
                     else:
-                        summary = (
-                            f'Price changed from '
-                            f'{listing.currency_symbol}{int(_old_price)} to '
-                            f'{listing.currency_symbol}{int(new_price)}'
-                        )
+                        summary = _('Kaina pasikeitė: %(sena)s → %(nauja)s') % {
+                            'sena': formatai.kaina(_old_price, listing.currency_symbol),
+                            'nauja': formatai.kaina(new_price, listing.currency_symbol)}
                         _send_saved_listing_updated_emails(listing, summary)
             except (ValueError, TypeError):
                 pass
@@ -7037,11 +7041,9 @@ def listing_create_cars_quick(request):
                     if new_price < old_price:
                         _send_saved_listing_price_drop_emails(target, old_price, new_price)
                     else:
-                        summary = (
-                            f'Price changed from '
-                            f'{target.currency_symbol}{int(old_price)} to '
-                            f'{target.currency_symbol}{int(new_price)}'
-                        )
+                        summary = _('Kaina pasikeitė: %(sena)s → %(nauja)s') % {
+                            'sena': formatai.kaina(old_price, target.currency_symbol),
+                            'nauja': formatai.kaina(new_price, target.currency_symbol)}
                         _send_saved_listing_updated_emails(target, summary)
                 else:
                     _send_saved_listing_updated_emails(target, 'Listing updated')

@@ -7,6 +7,42 @@ from django.utils.translation import gettext_lazy as _
 from datetime import timedelta
 
 
+# ═══════════════════════════════════════════════════════════════════
+# PASKELBIMO LAIKAS — vienas šaltinis „naujumui" ir laiko žymai.
+#
+# Skelbimas gali ilgai gulėti juodraščiuose, todėl `created_at` rodo
+# tik kada pradėtas pildyti. Į sąrašus jis patenka aktyvavus, tad
+# naujumas ir „prieš X" skaičiuojami nuo `activated_at`, o jei jo dar
+# nėra (seni įrašai, juodraščiai) — nuo `created_at`.
+#
+# Šablonuose ir vaizduose naudojama TIK `listing.paskelbta` /
+# `listing.yra_naujas`; DB pusėje (rikiavimui) — paskelbimo_israiska().
+# ═══════════════════════════════════════════════════════════════════
+
+NAUJO_SKELBIMO_DIENOS = 3
+
+
+class PaskelbimoLaikas:
+    """Bendros savybės modeliams, turintiems created_at ir activated_at."""
+
+    @property
+    def paskelbta(self):
+        return self.activated_at or self.created_at
+
+    @property
+    def yra_naujas(self):
+        kada = self.paskelbta
+        if not kada:
+            return False
+        return kada >= timezone.now() - timedelta(days=NAUJO_SKELBIMO_DIENOS)
+
+
+def paskelbimo_israiska():
+    """`paskelbta` atitikmuo DB pusėje — rikiavimui ir anotacijoms."""
+    from django.db.models.functions import Coalesce
+    return Coalesce('activated_at', 'created_at')
+
+
 class VehicleType(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     slug = models.SlugField(unique=True)
@@ -298,7 +334,7 @@ class Transmission(models.Model):
         return self.name
 
 
-class Listing(models.Model):
+class Listing(PaskelbimoLaikas, models.Model):
     CONDITION_CHOICES = [
         ('new', _('New')),
         ('used', _('Used')),
@@ -2776,7 +2812,7 @@ class PromoCodeUsage(models.Model):
 # ═══════════════════════════════════════════════════════════════════════════
 
 
-class Truck(models.Model):
+class Truck(PaskelbimoLaikas, models.Model):
     SUBCATEGORY_CHOICES = [
         ('trucks', _('Trucks (Sunkvežimiai)')),
         ('vehicle-transporters', _('Vehicle Transporters')),
@@ -3882,7 +3918,7 @@ WHEEL_SOLD_DISPLAY_DAYS = 7
 WHEEL_AUTO_DELETE_AFTER_EXPIRY_DAYS = 160
  
  
-class WheelListing(models.Model):
+class WheelListing(PaskelbimoLaikas, models.Model):
     """Tyres + Rims vienoje lentelėje. product_type skiria."""
  
     PRODUCT_TYPE_CHOICES = [

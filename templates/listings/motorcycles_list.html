@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static dict_extras %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Motorcycles" %} - AutoLeft{% endblock %}
 
@@ -52,6 +53,7 @@
 .card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
 .card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.2); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 .card-bottom-left { position:absolute; bottom:8px; left:8px; max-width:calc(100% - 16px); display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-top-left { position:absolute; top:8px; left:8px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
 
 .card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 3px rgba(0,0,0,0.15); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); line-height:1; }
 .highlighted-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important; border-color: #fb923c !important; box-shadow: 0 4px 14px rgba(251,146,60,0.25) !important; }
@@ -293,14 +295,9 @@
                     {% endif %}
                     {% endif %}
 
-                    {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                    {% if eff_level > 0 %}
                     <div class="card-bottom-left">
-                        {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                        <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
-                            <span class="card-badge-new">New</span>
-                            <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                        </div>
-                        {% endif %}
                         {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 1 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
                         {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">{% if listing.star_count > 2 %}{{ listing.star_count }} {% endif %}⭐⭐</span>{% endif %}
                     </div>
@@ -309,7 +306,7 @@
                 <div class="p-2.5 flex flex-col gap-1">
                     <div class="ap-title-row">
                         <h3 class="ap-title group-hover:text-primary truncate">{{ listing.title }}</h3>
-                        <div class="ap-price">${{ listing.price|floatformat:0 }}</div>
+                        <div class="ap-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                     </div>
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>
@@ -769,14 +766,9 @@
                             </a>
                             {% endif %}
                             {% endif %}
-                            {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                            {% if eff_level > 0 %}
                             <div class="card-bottom-left">
-                                {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                                <div class="card-badge-group time-ago" data-created="{{ listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">New</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
-                                {% endif %}
                                 {% if eff_level == 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 1 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
                                 {% if eff_level == 2 %}<span class="card-mini-badge mini-2star">{% if listing.star_count > 2 %}{{ listing.star_count }} {% endif %}⭐⭐</span>{% endif %}
                             </div>
@@ -785,7 +777,7 @@
                         <div class="h-info-side">
                             <div class="ap-title-row">
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
-                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                                <div class="ap-price" style="font-size:1.2rem;">{{ listing.price|kaina:listing.currency_symbol }}</div>
                             </div>
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
@@ -838,28 +830,7 @@ var ALL_BRANDS = [
 
 var subCache = {};
 
-function formatTimeAgo(isoString) {
-    if (!isoString) return '';
-    var created = new Date(isoString);
-    if (isNaN(created.getTime())) return '';
-    var now = new Date();
-    var diffSec = Math.floor((now - created) / 1000);
-    if (diffSec < 60) return Math.max(1, diffSec) + '{% trans "s ago" %}';
-    var diffMin = Math.floor(diffSec / 60);
-    if (diffMin < 60) return diffMin + '{% trans "min ago" %}';
-    var diffH = Math.floor(diffMin / 60);
-    if (diffH < 24) return diffH + '{% trans "h ago" %}';
-    var diffD = Math.floor(diffH / 24);
-    if (diffD === 1) return '{% trans "1 day ago" %}';
-    return diffD + ' {% trans "days ago" %}';
-}
-function refreshTimeAgo() {
-    document.querySelectorAll('.time-ago').forEach(function(el) {
-        var iso = el.dataset.created;
-        var txtEl = el.querySelector('.time-ago-text');
-        if (txtEl) txtEl.textContent = formatTimeAgo(iso);
-    });
-}
+// Laiko žymos tekstą piešia _laiko_zyma_js.html (window.laikoZyma).
 
 function onSortChange(selectEl) {
     var url = new URL(window.location.href);
@@ -1130,8 +1101,6 @@ document.addEventListener('DOMContentLoaded', function() {
         el.addEventListener('click', function() { loadSubs(el); });
     });
 
-    refreshTimeAgo();
-    setInterval(refreshTimeAgo, 60000);
 
     setupSidebarAutoRefresh();
 

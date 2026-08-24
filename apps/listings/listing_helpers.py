@@ -297,7 +297,7 @@ def build_listing_title(brand_name='', model_name='', year=None, suffix=''):
     
     Examples:
         build_listing_title('BMW', 'M5', 2024)              → 'BMW M5 2024'
-        build_listing_title('AC', 'Cobra', 2026, '(for parts)') → 'AC Cobra 2026 (for parts)'
+        build_listing_title('AC', 'Cobra', 2026, '(dalimis)') → 'AC Cobra 2026 (dalimis)'
         build_listing_title('Honda', '', 2023)              → 'Honda 2023'
     """
     parts = []

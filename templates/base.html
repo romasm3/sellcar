@@ -776,6 +776,8 @@
     {# Vienas laukų variantas siunčiamas — be „?q=&q=" dublikatų #}
     <script src="{% static 'js/vienas_variantas.js' %}" defer></script>
 
+    {% comment %}Kortelių ir skelbimo puslapio laiko žymos — vienas šaltinis.{% endcomment %}
+    {% include 'listings/partials/_laiko_zyma_js.html' %}
     {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n dict_extras %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Moto Gear" %} - AutoLeft{% endblock %}
 
@@ -37,6 +38,12 @@
 {% endblock %}
 
 {% block content %}
+<style>
+.card-top-left { position:absolute; top:8px; left:8px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
+.card-badge-group { display:inline-flex; align-items:stretch; border-radius:5px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
+.card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.45); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+</style>
 <div class="bg-gray-50 min-h-screen">
 
     <!-- Category Modal -->
@@ -174,9 +181,7 @@
                         <i class="fas fa-image text-4xl"></i>
                     </div>
                     {% endif %}
-                    {% if listing.id in new_listing_ids %}
-                    <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "NEW" %}</span>
-                    {% endif %}
+                    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                     {% if listing.status == 'sold' %}
                     <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "SOLD" %}</span>
                     {% endif %}
@@ -193,7 +198,7 @@
                         {% if listing.gear_size %}• {{ listing.get_gear_size_display }}{% endif %}
                     </p>
                     <p class="text-lg font-bold text-gray-900 mt-2">
-                        {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                        {{ listing.price|kaina:listing.currency_symbol }}
                     </p>
                 </div>
             </a>
@@ -283,9 +288,7 @@
                             </div>
                             {% endif %}
 
-                            {% if listing.id in new_listing_ids %}
-                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "NEW" %}</span>
-                            {% endif %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
 
                             {% if listing.status == 'sold' %}
                             <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded">{% trans "SOLD" %}</span>
@@ -305,7 +308,7 @@
                                 {% if listing.gear_size %}• {{ listing.get_gear_size_display }}{% endif %}
                             </p>
                             <p class="text-lg font-bold text-gray-900 mt-2">
-                                {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                                {{ listing.price|kaina:listing.currency_symbol }}
                             </p>
                             <p class="text-xs text-gray-500 mt-1">
                                 <i class="fas fa-map-marker-alt"></i> {{ listing.get_display_location|default:"-" }}

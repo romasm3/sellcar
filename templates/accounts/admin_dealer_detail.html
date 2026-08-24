@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n dict_extras %}
+{% load listing_filters %}
 
 {% block title %}{{ dealer_user.username }} - Dealer Detail{% endblock %}
 
@@ -162,7 +163,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="text-sm font-medium text-gray-900 truncate">{{ listing.title }}</div>
                         <div class="text-xs text-gray-500">
-                            ${{ listing.price|floatformat:0 }} ·
+                            {{ listing.price|kaina:listing.currency_symbol }} ·
                             {% if listing.status == 'active' %}<span class="text-green-600">Active</span>
                             {% elif listing.status == 'sold' %}<span class="text-blue-600">Sold</span>
                             {% elif listing.status == 'draft' %}<span class="text-gray-400">Draft</span>

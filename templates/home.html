@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static dict_extras %}
 {% load i18n i18n_db %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Cars" %} - AutoLeft{% endblock %}
 
@@ -184,7 +185,7 @@
                     
                     <!-- Price Badge -->
                     <div class="absolute top-3 left-3 px-3 py-1 bg-primary text-white text-sm font-bold rounded-lg shadow-lg">
-                        €{{ listing.price|floatformat:0 }}
+                        {{ listing.price|kaina:listing.currency_symbol }}
                     </div>
                     
                     <!-- Save Button -->
@@ -210,11 +211,11 @@
                         </div>
                         <div class="flex items-center gap-1.5">
                             <i class="fas fa-gas-pump text-gray-400"></i>
-                            <span>{{ listing.fuel_type.name|default:"—" }}</span>
+                            <span>{{ listing.fuel_type.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex items-center gap-1.5">
                             <i class="fas fa-cog text-gray-400"></i>
-                            <span>{{ listing.transmission.name|default:"—" }}</span>
+                            <span>{{ listing.transmission.name|tdb|default:"—" }}</span>
                         </div>
                     </div>
                     

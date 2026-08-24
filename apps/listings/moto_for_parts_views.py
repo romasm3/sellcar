@@ -235,7 +235,7 @@ def moto_for_parts_create(request):
                 brand_name=draft.motorcycle_brand.name if draft.motorcycle_brand else '',
                 model_name=draft.motorcycle_model.name if draft.motorcycle_model else '',
                 year=draft.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
 
             # 6. PUBLISH per helper
@@ -297,7 +297,7 @@ def moto_for_parts_edit(request, pk):
                 brand_name=listing.motorcycle_brand.name if listing.motorcycle_brand else '',
                 model_name=listing.motorcycle_model.name if listing.motorcycle_model else '',
                 year=listing.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
 
             # 6. EDIT per helper

@@ -19,6 +19,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from apps.listings.models import Listing
+from apps.listings import formatai
 
 
 class Command(BaseCommand):
@@ -142,7 +143,7 @@ class Command(BaseCommand):
                 context={
                     'user_name': user_name,
                     'listing_title': listing.title,
-                    'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                    'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                     'views_count': listing.views_count or 0,
                     'saves_count': listing.saved_by.count(),
                     'days_left': days_left,

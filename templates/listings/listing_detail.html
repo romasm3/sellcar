@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n i18n_db %}
 {% load l10n %}
+{% load listing_filters %}
 
 {% block title %}{{ listing.title }} - AutoLeft{% endblock %}
 
@@ -9,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AUTOLEFT.COM">
 <meta property="og:title" content="{{ listing.title }} | {% trans "Listing" %} | #{{ listing.pk }}">
-<meta property="og:description" content="{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }} · {{ listing.description|striptags|truncatechars:140 }}">
+<meta property="og:description" content="{{ listing.price|kaina:listing.currency_symbol }} · {{ listing.description|striptags|truncatechars:140 }}">
 <meta property="og:url" content="https://autoleft.com/{{ listing.pk }}/">
 {% if main_img %}
 <meta property="og:image" content="https://autoleft.com{{ main_img.image.url }}">
@@ -173,7 +174,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -318,7 +319,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% endif %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -417,7 +418,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
                         {% if listing.price %}
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% else %}
                         <p class="text-3xl font-bold text-gray-700">{% trans "Sutartinė kaina" %}</p>
                         {% endif %}
@@ -496,11 +497,11 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Nuomos kaina parai" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.rent_price_hour %}
                         <p class="text-sm text-gray-600 mt-2">
                             {% trans "Nuomos kaina valandai" %}:
-                            <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.rent_price_hour|floatformat:0 }}</span>
+                            <span class="font-semibold text-gray-900">{{ listing.rent_price_hour|kaina:listing.currency_symbol }}</span>
                         </p>
                         {% endif %}
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
@@ -555,7 +556,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Degalų bako talpa" %}</span>
@@ -575,7 +576,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavarų dėžė" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.transmission.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.transmission.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Aušinimas" %}</span>
@@ -680,7 +681,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% endif %}
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -717,7 +718,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Degalų bako talpa" %}</span>
@@ -737,7 +738,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavarų dėžė" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.transmission.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.transmission.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Pavarų skaičius" %}</span>
@@ -835,7 +836,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -872,7 +873,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Degalų bako talpa" %}</span>
@@ -958,7 +959,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -1100,7 +1101,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{% if listing.price %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% else %}{% trans "Sutartinė" %}{% endif %}</p>
+                        <p class="text-4xl font-bold text-primary">{% if listing.price %}{{ listing.price|kaina:listing.currency_symbol }}{% else %}{% trans "Sutartinė" %}{% endif %}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -1156,7 +1157,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Degalų bako talpa" %}</span>
@@ -1239,7 +1240,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>
                         {% endif %}
@@ -1384,7 +1385,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>
                         {% endif %}
@@ -1584,7 +1585,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <i class="fas fa-gas-pump text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"—" }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -1597,7 +1598,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
                         {% endif %}
@@ -1653,7 +1654,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>
                             </span>
                         </div>
 
@@ -1783,7 +1784,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         {% if listing.transmission %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Gearbox" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.transmission.name }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.transmission.name|tdb }}</span>
                         </div>
                         {% endif %}
                         {% if listing.sleeping_seats %}
@@ -1929,7 +1930,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <span class="inline-block mb-4 px-3 py-1 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">
@@ -1937,7 +1938,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </span>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Kaina" %}</p>
-                        <p class="text-4xl font-bold text-primary">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}<span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Kaina derinama" %}</span>{% endif %}
                     </div>
                 </div>
@@ -1990,7 +1991,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Spalva" %}</span>
@@ -2030,33 +2031,33 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
-                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
+                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span></div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-gas-pump text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"N/A" }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-cog text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Transmission" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|default:"N/A" }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|tdb|default:"—" }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
                         <p class="text-4xl font-bold text-primary">
-                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            {{ listing.price|kaina:listing.currency_symbol }}
                             {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
                         </p>
                         {% if listing.export_price %}
                         <p class="text-sm text-gray-600 mt-1">
-                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span>
+                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.export_price|kaina:listing.currency_symbol }}</span>
                         </p>
                         {% endif %}
                         <div class="flex flex-wrap gap-2 mt-2">
@@ -2091,7 +2092,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Model" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.model.name|default:"N/A" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.model.name|default:"—" }}</span>
                         </div>
                         {% if listing.modification %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
@@ -2146,7 +2147,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>
                             </span>
                         </div>
                         {% if listing.engine_capacity %}
@@ -2319,33 +2320,33 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <i class="fas fa-tachometer-alt text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Mileage" %}</div>
-                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span></div>
+                                <div class="font-semibold text-gray-900"><span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span></div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-gas-pump text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Fuel" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|default:"N/A" }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.fuel_type.name|tdb|default:"—" }}</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-cog text-primary text-xl"></i>
                             <div>
                                 <div class="text-xs text-gray-600">{% trans "Transmission" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|default:"N/A" }}</div>
+                                <div class="font-semibold text-gray-900">{{ listing.transmission.name|tdb|default:"—" }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price" %}</p>
                         <p class="text-4xl font-bold text-primary">
-                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                            {{ listing.price|kaina:listing.currency_symbol }}
                             {% if listing.taxes_extra %}<span class="text-base font-normal text-gray-500">{% trans "+ taxes" %}</span>{% endif %}
                         </p>
                         {% if listing.export_price %}
                         <p class="text-sm text-gray-600 mt-1">
-                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span>
+                            {% trans "Export price:" %} <span class="font-semibold text-gray-900">{{ listing.export_price|kaina:listing.currency_symbol }}</span>
                         </p>
                         {% endif %}
                         <div class="flex flex-wrap gap-2 mt-2">
@@ -2382,15 +2383,15 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Body Type" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"N/A" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_body_type_display|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Color" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"N/A" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_color_display|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Doors" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.doors|default:"N/A" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.doors|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Condition" %}</span>
@@ -2404,7 +2405,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Mileage" %}</span>
                             <span class="font-medium text-gray-900">
-                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
+                                <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>
                             </span>
                         </div>
 
@@ -2613,7 +2614,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="text-sm text-gray-500 mb-2">{{ listing.year }}</div>
                     <h2 class="text-xl font-bold text-gray-900 mb-3">{{ listing.title }}</h2>
                     <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
-                        {% if listing.fuel_type %}<span>{{ listing.fuel_type.name }}</span>{% endif %}
+                        {% if listing.fuel_type %}<span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                         {% if listing.engine_capacity %}<span>{{ listing.engine_capacity }}L</span>{% endif %}
                         {% if listing.vehicle_type and listing.vehicle_type.slug == 'trucks' %}
                             {% if listing.get_truck_type_display %}<span>{{ listing.get_truck_type_display }}</span>{% endif %}
@@ -2623,7 +2624,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     {% if listing.mileage %}
                     <div class="text-sm text-gray-600 mb-1">
-                        <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|floatformat:0 }} km</span>
+                        <span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>
                     </div>
                     {% endif %}
                     {% if listing.power %}
@@ -2632,37 +2633,10 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     </div>
                     {% endif %}
 
-                    <div class="mb-4">
-                        <p class="text-3xl font-bold text-primary">
-                            {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
-                            {% if listing.taxes_extra %}
-                            <span class="inline-flex items-center gap-1 text-sm font-normal text-gray-500 ml-1">
-                                {% trans "+ taxes" %}
-                                <span class="relative inline-flex group cursor-help">
-                                    <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                    <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-56 shadow-lg font-normal normal-case">
-                                        {% trans "Price excludes taxes — please ask the seller about applicable taxes for your region." %}
-                                    </span>
-                                </span>
-                            </span>
-                            {% endif %}
-                            {% if listing.negotiable %}<span class="text-sm font-normal text-gray-500 ml-1">◎</span>{% endif %}
-                        </p>
-                        {% if listing.export_price %}
-                        <p class="text-sm text-gray-600 mt-1 inline-flex items-center gap-1">
-                            <span>{% trans "Export:" %} <span class="font-semibold text-gray-900">{{ listing.currency_symbol }}{{ listing.export_price|floatformat:0 }}</span></span>
-                            <span class="relative inline-flex group cursor-help">
-                                <i class="fas fa-info-circle text-gray-400 text-xs"></i>
-                                <span class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 bg-gray-900 text-white text-xs rounded px-3 py-2 w-60 shadow-lg font-normal normal-case">
-                                    {% trans "Special price for export buyers — typically used when shipping the vehicle outside the seller's country. Ask the seller about export documentation and conditions." %}
-                                </span>
-                            </span>
-                        </p>
-                        {% endif %}
-                        {% if listing.open_to_trade %}
-                        <p class="text-xs text-purple-700 mt-1"><i class="fas fa-exchange-alt mr-1"></i>{% trans "Interested in trade" %}</p>
-                        {% endif %}
-                    </div>
+                    {% comment %}Kainos čia NEBĖRA — ji rodoma vieną kartą,
+                    pagrindiniame bloke po nuotraukomis (kartu su „+ mokesčiai",
+                    eksporto kaina ir „Kaina derinama"). Šoninė kortelė lieka
+                    kontaktams.{% endcomment %}
 
                     <hr class="mb-4">
 
@@ -2805,7 +2779,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         {% if listing.last_boosted_at and listing.show_renewed_badge %}
                         <div class="flex items-center justify-between text-sm">
                             <span class="text-gray-600"><i class="fas fa-sync-alt mr-2 text-gray-400"></i>{% trans "Renewed" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.last_boosted_at|timesince }}</span>
+                            <span class="font-medium text-gray-900 time-ago" data-paskelbta="{{ listing.last_boosted_at|date:'c' }}"><span class="time-ago-text"></span></span>
                         </div>
                         {% endif %}
                     </div>

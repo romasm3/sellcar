@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static dict_extras %}
 {% load i18n i18n_db %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Cars" %} - AutoLeft{% endblock %}
 
@@ -52,6 +53,9 @@
 .card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.3); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 .card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.2); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 .card-bottom-left { position:absolute; bottom:8px; left:8px; max-width:calc(100% - 16px); display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-top-left { position:absolute; top:8px; left:8px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
+/* Naršymo kortelėje kairiame kampe jau yra širdelė — žyma šalia jos. */
+.h-img-side .card-top-left { left:44px; }
 
 .card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 3px rgba(0,0,0,0.15); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); line-height:1; }
 
@@ -874,14 +878,9 @@ a.sp-rail-btn { text-decoration:none; }
                             </a>
                             {% endif %}
                             {% endif %}
-                            {% if listing.status != 'sold' and listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                            {% if eff_level > 0 %}
                             <div class="card-bottom-left">
-                                {% if listing.status != 'sold' and listing.pk in new_listing_ids %}
-                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">New</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
-                                {% endif %}
                                 {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
 
                             </div>
@@ -890,7 +889,7 @@ a.sp-rail-btn { text-decoration:none; }
                         <div class="h-info-side">
                             <div class="ap-title-row">
                                 <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
-                                <div class="ap-price" style="font-size:1.2rem;">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
+                                <div class="ap-price" style="font-size:1.2rem;">{% if listing.vehicle_type.slug == 'services' and not listing.price %}<span class="text-sm font-semibold text-gray-600">{% trans "Sutartinė" %}</span>{% else %}{{ listing.price|kaina:listing.currency_symbol }}{% if listing.vehicle_type.slug == 'rental' %}<span class="text-xs font-medium text-gray-500">/{% trans "parai" %}</span>{% endif %}{% endif %}</div>
                             </div>
                             {% comment %}Telefone — etalono parametrų tinklelis (trys stulpeliai su
                             ikonomis). Darbalaukyje jis paslėptas, ten lieka ap-spec-line eilutės.{% endcomment %}
@@ -940,7 +939,7 @@ a.sp-rail-btn { text-decoration:none; }
                             </div>
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
-                                {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.currency_symbol }}{{ listing.rent_price_hour|floatformat:0 }}/{% trans "val." %}</span>{% endif %}
+                                {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.rent_price_hour|kaina:listing.currency_symbol }}/{% trans "val." %}</span>{% endif %}
                                 {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
                             </div>
                             {% elif listing.vehicle_type.slug == 'camping-houses' %}
@@ -1010,11 +1009,11 @@ a.sp-rail-btn { text-decoration:none; }
                             {% else %}
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
-                                {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                                 <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
                             </div>
                             <div class="ap-spec-line">
-                                {% if listing.transmission %}<span>{{ listing.transmission.name }}</span>{% endif %}
+                                {% if listing.transmission %}<span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                                 {% if listing.engine_capacity or listing.power %}
                                     {% if listing.transmission %}<span class="sep">·</span>{% endif %}
                                     <span>{% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.engine_capacity and listing.power %}, {% endif %}{% if listing.power %}{{ listing.power }} kW{% endif %}</span>
@@ -1144,21 +1143,14 @@ function onSortChange(selectEl) {
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
                             <span class="home-tab-badge badge-daily">{% trans "Dienos pasiūlymas" %}</span>
-                            {% if listing.pk in new_listing_ids %}
-                            <div class="card-bottom-left">
-                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">{% trans "New" %}</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
-                            </div>
-                            {% endif %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endwith %}
@@ -1189,16 +1181,11 @@ function onSortChange(selectEl) {
                             {% endif %}
 
                             {# Bottom-left badges — IDENTIŠKAS Browse cards stilius #}
-                            {% if listing.is_featured or listing.pk in new_listing_ids or eff_level > 0 %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                            {% if listing.is_featured or eff_level > 0 %}
                             <div class="card-bottom-left">
                                 {% if listing.is_featured %}
-                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">FEATURED</span>
-                                {% endif %}
-                                {% if listing.pk in new_listing_ids %}
-                                <div class="card-badge-group time-ago" data-created="{{ listing.activated_at|default:listing.created_at|date:'c' }}">
-                                    <span class="card-badge-new">{% trans "New" %}</span>
-                                    <span class="card-badge-time"><span class="time-ago-text"></span></span>
-                                </div>
+                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">{% trans "Išskirtinis" %}</span>
                                 {% endif %}
                                 {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
 
@@ -1208,9 +1195,9 @@ function onSortChange(selectEl) {
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endwith %}
@@ -1233,9 +1220,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
-                            {% if listing.pk in new_listing_ids %}
-                            <span class="home-tab-badge badge-new">NEW</span>
-                            {% endif %}
+                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                             {% if listing.vin %}
                             <span class="badge-vin">VIN</span>
                             {% endif %}
@@ -1243,9 +1228,9 @@ function onSortChange(selectEl) {
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -1277,9 +1262,9 @@ function onSortChange(selectEl) {
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -1313,9 +1298,9 @@ function onSortChange(selectEl) {
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
                             <div class="home-tab-spec">
-                                {% if listing.engine_capacity %}{{ listing.engine_capacity }} L{% endif %}{% if listing.fuel_type %}, {{ listing.fuel_type.name|lower }}{% endif %}{% if listing.body_type %}, {{ listing.get_body_type_display|lower }}{% endif %}
+                                {% spec_eilute listing %}
                             </div>
-                            <div class="home-tab-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                            <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
                     </a>
                     {% endfor %}
@@ -1343,28 +1328,7 @@ var ALL_BRANDS = [
 
 var subCache = {};
 
-function formatTimeAgo(isoString) {
-    if (!isoString) return '';
-    var created = new Date(isoString);
-    if (isNaN(created.getTime())) return '';
-    var now = new Date();
-    var diffSec = Math.floor((now - created) / 1000);
-    if (diffSec < 60) return Math.max(1, diffSec) + '{% trans "s ago" %}';
-    var diffMin = Math.floor(diffSec / 60);
-    if (diffMin < 60) return diffMin + '{% trans "min ago" %}';
-    var diffH = Math.floor(diffMin / 60);
-    if (diffH < 24) return diffH + '{% trans "h ago" %}';
-    var diffD = Math.floor(diffH / 24);
-    if (diffD === 1) return '{% trans "1 day ago" %}';
-    return diffD + ' {% trans "days ago" %}';
-}
-function refreshTimeAgo() {
-    document.querySelectorAll('.time-ago').forEach(function(el) {
-        var iso = el.dataset.created;
-        var txtEl = el.querySelector('.time-ago-text');
-        if (txtEl) txtEl.textContent = formatTimeAgo(iso);
-    });
-}
+// Laiko žymos tekstą piešia _laiko_zyma_js.html (window.laikoZyma).
 
 function openCategoryModal() {
     var modal = document.getElementById('categoryModal');
@@ -1892,9 +1856,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.cat-left-item').forEach(function(el) {
         el.addEventListener('click', function() { loadSubs(el); });
     });
-
-    refreshTimeAgo();
-    setInterval(refreshTimeAgo, 60000);
 
     // Auto-refresh sidebar filters (autogidas.lt style)
     setupSidebarAutoRefresh();

@@ -1,0 +1,19 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+LAIKO ŽYMA kortelėje.
+
+Du atskiri dalykai vienoje grupėje:
+  • „Naujas" — žalias, tik jei skelbimas paskelbtas per pastarąsias
+    3 dienas (Listing.yra_naujas);
+  • laikas — pilkas, rodomas VISADA.
+
+Laikas skaičiuojamas nuo `listing.paskelbta` (activated_at, o jei jo
+nėra — created_at). Tekstą įrašo _laiko_zyma_js.html, todėl žyma
+nesensta puslapiui gulint atidarytam.
+
+Naudojimas:  {% include 'listings/partials/_laiko_zyma.html' with listing=listing %}
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}<div class="card-badge-group time-ago" data-paskelbta="{{ listing.paskelbta|date:'c' }}">
+  {% if listing.yra_naujas %}<span class="card-badge-new">{% trans "Naujas" %}</span>{% endif %}
+  <span class="card-badge-time"><span class="time-ago-text"></span></span>
+</div>

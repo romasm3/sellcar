@@ -2,6 +2,7 @@
 {% load static dict_extras %}
 {% load adv_rail %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Advanced Motorcycle Search" %} - AutoLeft{% endblock %}
 
@@ -106,6 +107,12 @@
 {% endblock %}
 
 {% block content %}
+<style>
+.card-top-left { position:absolute; top:8px; left:8px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
+.card-badge-group { display:inline-flex; align-items:stretch; border-radius:5px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
+.card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.45); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+</style>
 <div style="background:#f3f4f6; min-height:100vh; padding-bottom:40px;">
 
 {% comment %}Kategorijų juosta ir trupinių takas — toks pat viršus kaip
@@ -443,8 +450,8 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
             {% else %}
             <div class="w-full h-full flex items-center justify-center"><i class="fas fa-motorcycle text-4xl text-gray-300"></i></div>
             {% endif %}
-            <div style="position:absolute;top:8px;left:8px;background:#2563eb;color:#fff;padding:3px 10px;border-radius:4px;font-size:0.82rem;font-weight:700;">${{ listing.price|floatformat:0 }}</div>
-            {% if listing.pk in new_listing_ids %}<div style="position:absolute;bottom:8px;left:8px;background:#10b981;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.72rem;font-weight:700;">{% trans "New" %}</div>{% endif %}
+            <div style="position:absolute;top:8px;left:8px;background:#2563eb;color:#fff;padding:3px 10px;border-radius:4px;font-size:0.82rem;font-weight:700;">{{ listing.price|kaina:listing.currency_symbol }}</div>
+            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
         </div>
         <div style="padding:10px 12px;">
             <div style="font-weight:700;font-size:0.9rem;color:#111827;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ listing.title }}</div>

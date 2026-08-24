@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n i18n_db dict_extras %}
+{% load listing_filters %}
 {% block title %}{{ profile.dealer_company_name|default:dealer_user.username }} - AutoLeft{% endblock %}
 
 {% block content %}
@@ -221,8 +222,8 @@
                                 <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-600 mt-1">
                                     {% if listing.year %}<span>{{ listing.year }}</span>{% endif %}
                                     {% if listing.mileage %}<span class="text-gray-400">•</span><span>{{ listing.mileage|floatformat:0 }} mi</span>{% endif %}
-                                    {% if listing.fuel_type %}<span class="text-gray-400">•</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
-                                    {% if listing.transmission %}<span class="text-gray-400">•</span><span>{{ listing.transmission.name }}</span>{% endif %}
+                                    {% if listing.fuel_type %}<span class="text-gray-400">•</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
+                                    {% if listing.transmission %}<span class="text-gray-400">•</span><span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                                 </div>
                                 <div class="text-xs text-gray-500 mt-1">
                                     <i class="fas fa-map-marker-alt mr-1"></i>{{ listing.city|default:"—" }}
@@ -234,7 +235,7 @@
                         </div>
 
                         <div class="flex-shrink-0 flex flex-col items-end justify-between">
-                            <div class="text-xl font-bold text-red-600">${{ listing.price|floatformat:0 }}</div>
+                            <div class="text-xl font-bold text-red-600">{{ listing.price|kaina:listing.currency_symbol }}</div>
                             {% if listing.views_count %}
                             <div class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>{{ listing.views_count }}</div>
                             {% endif %}

@@ -138,13 +138,16 @@
         if (v === null || isNaN(v)) return '';
         return String(roundTo(v, dec));
     }
-    // Reikšmė į užuominą — su skirtukais, kad 150 000 būtų skaitoma
+    // Reikšmė į užuominą — su skirtukais, kad 150 000 būtų skaitoma.
+    // Tūkstančiai skiriami NEDALOMU TARPU (lietuviškas formatas), o ne
+    // pagal naršyklės kalbą — kitaip anglų kalbos naršyklė rodydavo
+    // „15,000 km".
     function forHint(v, dec) {
         if (v === null || isNaN(v)) return '';
         try {
-            return new Intl.NumberFormat(undefined, {
+            return new Intl.NumberFormat('lt-LT', {
                 minimumFractionDigits: 0, maximumFractionDigits: dec
-            }).format(roundTo(v, dec));
+            }).format(roundTo(v, dec)).replace(/\u202F/g, '\u00A0');
         } catch (e) { return String(roundTo(v, dec)); }
     }
     function toAlt(spec, canon) {
@@ -420,9 +423,18 @@
         f.hidden.value = (f.canon === null) ? '' : forInput(f.canon, f.spec.dec);
     }
 
+    // Kol vienetų perjungiklio nėra, mylių (km ↔ mi) nerodom niekur:
+    // nei užuominose po laukais, nei skelbimo reikšmėse.
+    var SLEPIAMOS_SEIMOS = { distance: true };
+
+    function seimaSlepiama(spec) {
+        return !!(spec && SLEPIAMOS_SEIMOS[spec.family]);
+    }
+
     function updateHint(f) {
         var spec = f.spec;
         if (f.quiet || !f.hint) return;
+        if (seimaSlepiama(spec)) { f.hint.textContent = ''; return; }
         if (f.canon === null || isNaN(f.canon)) { f.hint.textContent = ''; return; }
         if (!isAlt(spec)) {
             var a = toAlt(spec, f.canon);
@@ -459,11 +471,13 @@
         v.hint.className = 'unit-hint';
         v.hint.setAttribute('style', HINT_STYLE);
 
-        el.style.cursor = 'pointer';
-        if (window.UNIT_TOGGLE_TITLE) el.title = window.UNIT_TOGGLE_TITLE;
-        el.addEventListener('click', function () {
-            setFamilyMode(spec.family, isAlt(spec) ? 'canonical' : 'alt');
-        });
+        if (!seimaSlepiama(spec)) {
+            el.style.cursor = 'pointer';
+            if (window.UNIT_TOGGLE_TITLE) el.title = window.UNIT_TOGGLE_TITLE;
+            el.addEventListener('click', function () {
+                setFamilyMode(spec.family, isAlt(spec) ? 'canonical' : 'alt');
+            });
+        }
 
         views.push(v);
         renderView(v);
@@ -480,6 +494,11 @@
 
     function renderView(v) {
         var spec = v.spec, alt = isAlt(spec);
+        if (seimaSlepiama(spec)) {
+            // Tik kanoniniai vienetai: „15 000 km", jokių mylių.
+            v.el.textContent = joinValues(spec, v.raw, 'canon') + ' ' + spec.canonical;
+            return;
+        }
         v.el.textContent = joinValues(spec, v.raw, alt ? 'alt' : 'canon') + ' ' + unitOf(spec);
         v.hint.textContent = '≈ ' + joinValues(spec, v.raw, alt ? 'canon' : 'alt') + ' ' +
                              (alt ? spec.canonical : spec.alt);

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load dict_extras i18n %}
+{% load listing_filters %}
 
 {% block title %}{% if product_type == 'rim' %}{% trans "Browse Rims" %}{% else %}{% trans "Browse Tyres" %}{% endif %} - AutoLeft{% endblock %}
 
@@ -68,6 +69,9 @@
 .gallery-dot.active { background:#fff; }
 
 .card-bottom-left { position:absolute; bottom:8px; left:8px; display:flex; flex-direction:column-reverse; gap:3px; align-items:flex-start; }
+.card-top-left { position:absolute; top:8px; left:44px; z-index:7; display:flex; gap:4px; align-items:flex-start; }
+.card-badge-group { display:inline-flex; align-items:stretch; border-radius:5px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+.card-badge-time { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(0,0,0,0.45); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 .card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; border-radius:5px; text-shadow:0 1px 2px rgba(0,0,0,0.4); box-shadow:0 1px 4px rgba(0,0,0,0.15); }
 .card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; background:rgba(0,0,0,0.35); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.15); line-height:1; }
 
@@ -265,11 +269,9 @@
                         </a>
                         {% endif %}
 
-                        {% if listing.pk in new_ids or listing.pk in starred %}
+                        <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+                        {% if listing.pk in starred %}
                         <div class="card-bottom-left">
-                            {% if listing.pk in new_ids %}
-                            <span class="card-badge-new">{% trans "New" %}</span>
-                            {% endif %}
                             {% if listing.pk in starred %}
                             <span class="card-mini-badge">⭐</span>
                             {% endif %}
@@ -279,7 +281,7 @@
                     <div class="h-info-side">
                         <div class="ap-title-row">
                             <h3 class="ap-title group-hover:text-primary transition-colors">{{ listing.title }}</h3>
-                            <div class="ap-price">${{ listing.price|floatformat:0 }}</div>
+                            <div class="ap-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                         </div>
 
                         {# ═══ SPEC CHIPS (autogidas pilki chip'ai) ═══ #}

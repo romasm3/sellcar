@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n dict_extras i18n_db %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Saved Listings" %} - AutoLeft{% endblock %}
 {% block content %}
@@ -109,7 +110,7 @@
             <div class="si-vidus">
                 {% if kainos_ekrane and saved.kaina_krito %}
                 <div class="si-krito">
-                  {% trans "Kaina sumažėjo" %} −{{ saved.kaina_krito|floatformat:0 }} {{ saved.listing.currency_symbol }}
+                  {% trans "Kaina sumažėjo" %} −{{ saved.kaina_krito|kaina:saved.listing.currency_symbol }}
                 </div>
                 {% endif %}
 
@@ -119,7 +120,7 @@
                     {% if saved.listing.first_registration %}<span>{{ saved.listing.first_registration|date:"Y-m" }}</span>
                     {% elif saved.listing.year %}<span>{{ saved.listing.year }}</span>{% endif %}
                     {% if saved.listing.fuel_type %}<span>{{ saved.listing.fuel_type.name|tdb }}</span>{% endif %}
-                    {% if saved.listing.mileage %}<span>{{ saved.listing.mileage|floatformat:0 }} km</span>{% endif %}
+                    {% if saved.listing.mileage %}<span>{{ saved.listing.mileage|sk }} km</span>{% endif %}
                     {% if saved.listing.transmission %}<span>{{ saved.listing.transmission.name|tdb }}</span>{% endif %}
                     {% if saved.listing.engine_capacity %}<span>{{ saved.listing.engine_capacity }} L{% if saved.listing.power %}, {{ saved.listing.power }} kW{% endif %}</span>
                     {% elif saved.listing.power %}<span>{{ saved.listing.power }} kW</span>{% endif %}
@@ -133,7 +134,7 @@
             </div>
 
             <div class="si-desine">
-                <div class="si-kaina">{{ saved.listing.price|floatformat:0 }} {{ saved.listing.currency_symbol }}</div>
+                <div class="si-kaina">{{ saved.listing.price|kaina:saved.listing.currency_symbol }}</div>
 
                 <div class="si-veiksmai">
                     <a class="si-veiksmas" href="{% url 'conversations:start' saved.listing.pk %}">

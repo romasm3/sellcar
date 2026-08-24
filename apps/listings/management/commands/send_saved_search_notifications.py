@@ -19,6 +19,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from apps.listings.models import Listing, SavedSearch
+from apps.listings import formatai
 
 
 MAX_LISTINGS_IN_EMAIL = 5
@@ -80,7 +81,7 @@ class Command(BaseCommand):
             listings_data = [
                 {
                     'title': l.title,
-                    'price_display': f'{l.currency_symbol}{int(l.price)}',
+                    'price_display': formatai.kaina(l.price, l.currency_symbol),
                     'url': f'{self._site_url()}{l.get_absolute_url()}',
                 }
                 for l in top_listings

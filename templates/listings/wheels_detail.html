@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{{ listing.title }} - AutoLeft{% endblock %}
 
@@ -82,7 +83,7 @@
                     </div>
                     <div class="border-t border-gray-200 pt-6">
                         <p class="text-sm text-gray-600 mb-1">{% trans "Price per unit" %}</p>
-                        <p class="text-4xl font-bold text-primary">${{ listing.price|floatformat:0 }}</p>
+                        <p class="text-4xl font-bold text-primary">{{ listing.price|kaina:listing.currency_symbol }}</p>
                         {% if listing.negotiable %}
                         <span class="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">{% trans "Negotiable" %}</span>
                         {% endif %}

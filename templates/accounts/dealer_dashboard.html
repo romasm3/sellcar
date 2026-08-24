@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n dict_extras %}
+{% load listing_filters %}
 {% block title %}{% trans "Dealer Dashboard" %} - AutoLeft{% endblock %}
 
 {% block content %}
@@ -111,7 +112,7 @@
                     {% endif %}
                     <div>
                         <div class="font-medium text-gray-900">{{ listing.title }}</div>
-                        <div class="text-xs text-gray-500">${{ listing.price|floatformat:0 }}</div>
+                        <div class="text-xs text-gray-500">{{ listing.price|kaina:listing.currency_symbol }}</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4 text-sm text-gray-600">

@@ -240,7 +240,7 @@ def truck_for_parts_create(request):
                 brand_name=draft.truck_brand.name if draft.truck_brand else '',
                 model_name=specific['truck_model_text'],
                 year=draft.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
             finalize_listing_publish(draft, common['phone'], request.user)
             _sync_part_types(draft, specific['part_types'])
@@ -284,7 +284,7 @@ def truck_for_parts_edit(request, pk):
                 brand_name=listing.truck_brand.name if listing.truck_brand else '',
                 model_name=specific['truck_model_text'],
                 year=listing.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
             finalize_listing_edit(listing, common['phone'], request.user)
             _sync_part_types(listing, specific['part_types'])

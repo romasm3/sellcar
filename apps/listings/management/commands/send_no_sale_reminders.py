@@ -18,6 +18,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from apps.listings.models import Listing
+from apps.listings import formatai
 
 
 class Command(BaseCommand):
@@ -128,7 +129,7 @@ class Command(BaseCommand):
                 context={
                     'user_name': seller.first_name or seller.username,
                     'listing_title': listing.title,
-                    'listing_price_display': f'{listing.currency_symbol}{int(listing.price)}',
+                    'listing_price_display': formatai.kaina(listing.price, listing.currency_symbol),
                     'days_active': days_active,
                     'views_count': listing.views_count or 0,
                     'saves_count': listing.saved_by.count(),

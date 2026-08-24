@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Statistics" %} — {{ listing.title }} - AutoLeft{% endblock %}
 
@@ -33,7 +34,7 @@
                         {{ listing.brand.name }} {% if listing.model %}{{ listing.model.name }}{% endif %} {{ listing.year }}
                     </h1>
                     <div class="text-lg font-bold text-gray-900 mt-1">
-                        {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                        {{ listing.price|kaina:listing.currency_symbol }}
                     </div>
                 </div>
                 <div class="text-right">

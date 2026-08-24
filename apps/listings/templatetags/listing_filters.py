@@ -52,3 +52,43 @@ def star_badge(listing):
     if level == 1:
         return '⭐'
     return ''
+
+# ═══════════════════════════════════════════════════════════════════
+# SKAIČIŲ IR KAINŲ FORMATAS — logika viena, apps/listings/formatai.py
+# ═══════════════════════════════════════════════════════════════════
+
+from apps.listings import formatai
+
+register.filter(name='sk')(formatai.sk)
+register.filter(name='kaina')(formatai.kaina)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# KORTELĖS SPECIFIKACIJŲ EILUTĖ
+#
+# Tušti laukai praleidžiami, skyriklis „ · ", todėl eilutė niekada
+# neprasideda skyrikliu ir nelieka „, , sedanas". DB reikšmės (kuro
+# tipas) verčiamos per katalogą — tas pats šaltinis kaip |tdb.
+# ═══════════════════════════════════════════════════════════════════
+
+from django.utils.translation import gettext
+
+
+@register.simple_tag(name='spec_eilute')
+def spec_eilute(listing):
+    """„2.0 L · Benzinas / dujos · Sedanas"."""
+    dalys = []
+
+    if getattr(listing, 'is_truck', False) and getattr(listing, 'truck_type', ''):
+        dalys.append(listing.get_truck_type_display())
+    elif getattr(listing, 'engine_capacity', None):
+        dalys.append('%s L' % listing.engine_capacity)
+
+    kuras = getattr(listing, 'fuel_type', None)
+    if kuras and getattr(kuras, 'name', ''):
+        dalys.append(gettext(str(kuras.name)))
+
+    if getattr(listing, 'body_type', ''):
+        dalys.append(listing.get_body_type_display())
+
+    return ' · '.join(d for d in dalys if d)

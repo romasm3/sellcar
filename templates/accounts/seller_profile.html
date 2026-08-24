@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n i18n_db %}
 {% load dict_extras %}
+{% load listing_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -332,9 +333,9 @@
                                         <div class="flex flex-wrap gap-x-1 text-xs text-gray-500">
                                             {% if listing.first_registration %}<span>{{ listing.first_registration|date:"Y-m" }}</span>{% elif listing.year %}<span>{{ listing.year }}</span>{% endif %}
                                             {% if listing.body_type %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.get_body_type_display }}</span>{% endif %}
-                                            {% if listing.mileage %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.mileage|floatformat:0 }} km</span>{% endif %}
-                                            {% if listing.fuel_type %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
-                                            {% if listing.transmission %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.transmission.name }}</span>{% endif %}
+                                            {% if listing.mileage %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.mileage|sk }} km</span>{% endif %}
+                                            {% if listing.fuel_type %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
+                                            {% if listing.transmission %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                                             {% if listing.engine_capacity %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.engine_capacity }} L</span>{% endif %}
                                             {% if listing.power %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.power }} kW</span>{% endif %}
                                             {% if listing.city %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.city }}</span>{% endif %}
@@ -342,7 +343,7 @@
                                     </div>
                                     <div class="flex items-center justify-between mt-2">
                                         <p class="text-lg font-bold text-primary">
-                                            €{{ listing.price|floatformat:0 }}
+                                            {{ listing.price|kaina:listing.currency_symbol }}
                                             {% if listing.negotiable %}<span class="text-xs font-normal text-gray-400 ml-1">{% trans "negotiable" %}</span>{% endif %}
                                         </p>
                                         <span class="text-xs text-gray-400">{{ listing.created_at|date:"Y-m-d" }}</span>

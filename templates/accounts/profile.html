@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load dict_extras %}
+{% load listing_filters %}
 
 {% block title %}{{ user.username }}'s Profile - AutoLeft{% endblock %}
 
@@ -130,14 +131,14 @@
                                     {% endif %}
                                     <div class="absolute top-2 right-2">
                                         <span class="bg-white px-2 py-1 rounded-full text-xs font-semibold">
-                                            €{{ listing.price|floatformat:0 }}
+                                            {{ listing.price|kaina:listing.currency_symbol }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="p-4">
                                     <h4 class="font-semibold text-gray-900 mb-1 line-clamp-1">{{ listing.title }}</h4>
                                     <p class="text-sm text-gray-600 mb-3">
-                                        {{ listing.year }} • {{ listing.mileage|floatformat:0 }} km
+                                        {{ listing.year }} • {{ listing.mileage|sk }} km
                                     </p>
                                     <div class="flex gap-2">
                                         <a href="{% url 'listing_detail' listing.pk %}"
@@ -191,7 +192,7 @@
                                 <div class="p-4">
                                     <h4 class="font-semibold text-gray-900 mb-1 line-clamp-1">{{ listing.title }}</h4>
                                     <p class="text-sm text-gray-600">
-                                        {{ listing.year }} • €{{ listing.price|floatformat:0 }}
+                                        {{ listing.year }} • {{ listing.price|kaina:listing.currency_symbol }}
                                     </p>
                                 </div>
                             </div>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n dict_extras %}
+{% load listing_filters %}
 {% block title %}{% trans "Messages" %} - AutoLeft{% endblock %}
 
 {% block content %}
@@ -103,7 +104,7 @@
                         <p class="font-semibold text-gray-900">{{ selected_other_user.email }}</p>
                         <a href="{% url 'listing_detail' selected_conv.listing.pk %}"
                            class="text-xs text-primary hover:underline">
-                            {{ selected_conv.listing }} — €{{ selected_conv.listing.price|floatformat:0 }}
+                            {{ selected_conv.listing }} — {{ selected_conv.listing.price|kaina }}
                         </a>
                         {% endif %}
                     </div>

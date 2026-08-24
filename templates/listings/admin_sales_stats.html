@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load listing_filters %}
 
 {% block title %}Admin: Sales Statistics - AutoLeft{% endblock %}
 
@@ -277,17 +278,17 @@
             </div>
             <div class="kpi-card card-accent">
                 <div class="kpi-label">Total Revenue</div>
-                <div class="kpi-value kpi-value-teal">${{ total_revenue|floatformat:0 }}</div>
+                <div class="kpi-value kpi-value-teal">{{ total_revenue|kaina }}</div>
                 <div class="kpi-hint">gross sales</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">This Month</div>
                 <div class="kpi-value">{{ sales_this_month }}</div>
-                <div class="kpi-hint">sold · ${{ revenue_this_month|floatformat:0 }}</div>
+                <div class="kpi-hint">sold · {{ revenue_this_month|kaina }}</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Avg Price</div>
-                <div class="kpi-value">${{ avg_price|floatformat:0 }}</div>
+                <div class="kpi-value">{{ avg_price|kaina }}</div>
                 <div class="kpi-hint">avg {{ avg_days_active }} days active</div>
             </div>
         </div>
@@ -354,7 +355,7 @@
                             <td class="py-2 text-gray-500">{{ forloop.counter }}</td>
                             <td class="py-2 font-medium text-gray-900">{{ s.seller_email }}</td>
                             <td class="py-2 text-right font-semibold">{{ s.sales_count }}</td>
-                            <td class="py-2 text-right font-semibold" style="color: var(--teal);">${{ s.total_revenue|floatformat:0 }}</td>
+                            <td class="py-2 text-right font-semibold" style="color: var(--teal);">{{ s.total_revenue|kaina }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -382,7 +383,7 @@
                             <td class="py-2 text-gray-500">{{ forloop.counter }}</td>
                             <td class="py-2 font-medium text-gray-900">{{ b.brand__name }}</td>
                             <td class="py-2 text-right font-semibold">{{ b.sales_count }}</td>
-                            <td class="py-2 text-right text-gray-700">${{ b.avg_price|floatformat:0 }}</td>
+                            <td class="py-2 text-right text-gray-700">{{ b.avg_price|kaina }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -418,7 +419,7 @@
                                 {% if r.year %}({{ r.year }}){% endif %}
                             </td>
                             <td class="py-2 text-gray-700">{{ r.seller_email }}</td>
-                            <td class="py-2 text-right font-semibold" style="color: var(--teal);">{{ r.currency_symbol }}{{ r.price|floatformat:0 }}</td>
+                            <td class="py-2 text-right font-semibold" style="color: var(--teal);">{{ r.price|kaina:r.currency_symbol }}</td>
                             <td class="py-2 text-right text-gray-600">{{ r.days_active }}d</td>
                             <td class="py-2 text-center">
                                 {% if r.marked_sold %}
@@ -493,8 +494,8 @@
 
             <div class="kpi-card card-accent">
                 <div class="kpi-label">Revenue (this week)</div>
-                <div class="kpi-value">${{ wow_revenue_this|floatformat:0 }}</div>
-                <div class="kpi-hint">last week: ${{ wow_revenue_prev|floatformat:0 }}</div>
+                <div class="kpi-value">{{ wow_revenue_this|kaina }}</div>
+                <div class="kpi-hint">last week: {{ wow_revenue_prev|kaina }}</div>
                 <div class="mt-2 text-sm
                     {% if wow_revenue_change is None %}wow-arrow-flat
                     {% elif wow_revenue_change > 0 %}wow-arrow-up
@@ -611,7 +612,7 @@
                             <td class="py-1.5 text-gray-500">{{ forloop.counter }}</td>
                             <td class="py-1.5 font-medium text-gray-900">{{ b.brand__name }}</td>
                             <td class="py-1.5 text-right font-semibold">{{ b.count }}</td>
-                            <td class="py-1.5 text-right text-gray-700">${{ b.avg_price|floatformat:0 }}</td>
+                            <td class="py-1.5 text-right text-gray-700">{{ b.avg_price|kaina }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -677,7 +678,7 @@
                             </a>
                         </td>
                         <td class="py-2 text-right font-semibold">{{ l.views_count }}</td>
-                        <td class="py-2 text-right text-gray-700">${{ l.price|floatformat:0 }}</td>
+                        <td class="py-2 text-right text-gray-700">{{ l.price|kaina }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -852,8 +853,8 @@
                                 </a>
                             </td>
                             <td class="py-2 text-right font-bold" style="color: var(--teal);">{{ l.views_count }}</td>
-                            <td class="py-2 text-right text-gray-700">${{ l.price|floatformat:0 }}</td>
-                            <td class="py-2 text-right text-gray-500 text-xs">{{ l.created_at|timesince|truncatechars:10 }}</td>
+                            <td class="py-2 text-right text-gray-700">{{ l.price|kaina }}</td>
+                            <td class="py-2 text-right text-gray-500 text-xs"><span class="time-ago" data-paskelbta="{{ l.paskelbta|date:'c' }}"><span class="time-ago-text"></span></span></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -884,8 +885,8 @@
                                     {% if not l.brand %}{{ l.title|truncatechars:35 }}{% endif %}
                                 </a>
                             </td>
-                            <td class="py-2 text-right text-gray-700">${{ l.price|floatformat:0 }}</td>
-                            <td class="py-2 text-right text-gray-500 text-xs">{{ l.created_at|timesince|truncatechars:10 }}</td>
+                            <td class="py-2 text-right text-gray-700">{{ l.price|kaina }}</td>
+                            <td class="py-2 text-right text-gray-500 text-xs"><span class="time-ago" data-paskelbta="{{ l.paskelbta|date:'c' }}"><span class="time-ago-text"></span></span></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -979,7 +980,7 @@
                         <tr>
                             <td class="py-1.5 font-medium text-gray-900">{{ c.country }}</td>
                             <td class="py-1.5 text-right">{{ c.count }}</td>
-                            <td class="py-1.5 text-right font-semibold" style="color: var(--teal);">${{ c.avg_price|floatformat:0 }}</td>
+                            <td class="py-1.5 text-right font-semibold" style="color: var(--teal);">{{ c.avg_price|kaina }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -996,7 +997,7 @@
                         <tr>
                             <td class="py-1.5 font-medium text-gray-900">{{ s.state }}</td>
                             <td class="py-1.5 text-right text-gray-500 text-xs">{{ s.count }}</td>
-                            <td class="py-1.5 text-right font-semibold" style="color: var(--teal);">${{ s.avg_price|floatformat:0 }}</td>
+                            <td class="py-1.5 text-right font-semibold" style="color: var(--teal);">{{ s.avg_price|kaina }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -1064,12 +1065,12 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div class="kpi-card card-accent">
                 <div class="kpi-label">Median Price</div>
-                <div class="kpi-value kpi-value-teal">${{ median_price|floatformat:0 }}</div>
+                <div class="kpi-value kpi-value-teal">{{ median_price|kaina }}</div>
                 <div class="kpi-hint">middle of all prices</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Avg Price</div>
-                <div class="kpi-value">${{ avg_price|floatformat:0 }}</div>
+                <div class="kpi-value">{{ avg_price|kaina }}</div>
                 <div class="kpi-hint">arithmetic average</div>
             </div>
             {% if avg_sale_ratio %}
@@ -1131,7 +1132,7 @@
                     <tr>
                         <td class="py-2 font-medium text-gray-900">{{ c.vehicle_type__name|default:"Other" }}</td>
                         <td class="py-2 text-right">{{ c.count }}</td>
-                        <td class="py-2 text-right font-semibold" style="color: var(--teal);">${{ c.avg_price|floatformat:0 }}</td>
+                        <td class="py-2 text-right font-semibold" style="color: var(--teal);">{{ c.avg_price|kaina }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

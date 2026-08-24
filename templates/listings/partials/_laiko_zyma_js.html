@@ -1,0 +1,103 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+LAIKO ŽYMOS TEKSTAS — viena vieta visiems sąrašams ir skelbimo puslapiui.
+
+Skaičius paduodamas Į išverstą eilutę (%(sk)s), o ne klijuojamas priekyje,
+todėl veikia lietuviški linksniai: „prieš 1 min." · „prieš 2 min." ·
+„prieš 11 min.". Kiekvienai formai serveris atiduoda po eilutę
+(blocktrans count su n=1 / n=2 / n=11), o naršyklė pasirenka
+formą pagal Intl.PluralRules TOS kalbos taisyklę — todėl tas pats kodas
+tinka ir kalboms su dviem formomis (en), ir su trimis (lt, ru).
+
+Elementas:  <div class="time-ago" data-paskelbta="…ISO…">
+              <span class="time-ago-text"></span></div>
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<script>
+(function () {
+  if (window.laikoZyma) return;          // įtraukta jau kitame šablone
+
+  var KA_TIK = "{% trans 'ką tik' %}";
+  var FORMOS = {
+    min: [
+      "{% blocktrans with sk='%(sk)s' count n=1 %}prieš {{ sk }} min.{% plural %}prieš {{ sk }} min.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=2 %}prieš {{ sk }} min.{% plural %}prieš {{ sk }} min.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=11 %}prieš {{ sk }} min.{% plural %}prieš {{ sk }} min.{% endblocktrans %}"
+    ],
+    val: [
+      "{% blocktrans with sk='%(sk)s' count n=1 %}prieš {{ sk }} val.{% plural %}prieš {{ sk }} val.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=2 %}prieš {{ sk }} val.{% plural %}prieš {{ sk }} val.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=11 %}prieš {{ sk }} val.{% plural %}prieš {{ sk }} val.{% endblocktrans %}"
+    ],
+    d: [
+      "{% blocktrans with sk='%(sk)s' count n=1 %}prieš {{ sk }} d.{% plural %}prieš {{ sk }} d.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=2 %}prieš {{ sk }} d.{% plural %}prieš {{ sk }} d.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=11 %}prieš {{ sk }} d.{% plural %}prieš {{ sk }} d.{% endblocktrans %}"
+    ],
+    men: [
+      "{% blocktrans with sk='%(sk)s' count n=1 %}prieš {{ sk }} mėn.{% plural %}prieš {{ sk }} mėn.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=2 %}prieš {{ sk }} mėn.{% plural %}prieš {{ sk }} mėn.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=11 %}prieš {{ sk }} mėn.{% plural %}prieš {{ sk }} mėn.{% endblocktrans %}"
+    ],
+    m: [
+      "{% blocktrans with sk='%(sk)s' count n=1 %}prieš {{ sk }} m.{% plural %}prieš {{ sk }} m.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=2 %}prieš {{ sk }} m.{% plural %}prieš {{ sk }} m.{% endblocktrans %}",
+      "{% blocktrans with sk='%(sk)s' count n=11 %}prieš {{ sk }} m.{% plural %}prieš {{ sk }} m.{% endblocktrans %}"
+    ]
+  };
+
+  // Intl kategorija -> mūsų eilutės indeksas (0 = n1, 1 = n2, 2 = n11)
+  var INDEKSAI = { one: 0, two: 1, few: 1, many: 2, other: 2, zero: 2 };
+  var pluralRules = null;
+  try {
+    pluralRules = new Intl.PluralRules(document.documentElement.lang || 'lt');
+  } catch (e) { pluralRules = null; }
+
+  function forma(vienetas, n) {
+    var sarasas = FORMOS[vienetas];
+    var kat = pluralRules ? pluralRules.select(n) : (n === 1 ? 'one' : 'other');
+    var idx = INDEKSAI[kat];
+    if (idx === undefined) idx = 2;
+    return sarasas[idx].replace('%(sk)s', n);
+  }
+
+  function tekstas(iso) {
+    if (!iso) return '';
+    var kada = new Date(iso);
+    if (isNaN(kada.getTime())) return '';
+    var sek = Math.floor((new Date() - kada) / 1000);
+    if (sek < 0) sek = 0;
+    if (sek < 60) return KA_TIK;
+    var min = Math.floor(sek / 60);
+    if (min < 60) return forma('min', min);
+    var val = Math.floor(min / 60);
+    if (val < 24) return forma('val', val);
+    var d = Math.floor(val / 24);
+    if (d < 30) return forma('d', d);
+    var men = Math.floor(d / 30);
+    if (men < 12) return forma('men', men);
+    return forma('m', Math.floor(d / 365));
+  }
+
+  function perpiesti(saknis) {
+    (saknis || document).querySelectorAll('.time-ago').forEach(function (el) {
+      var iso = el.dataset.paskelbta || el.dataset.created;
+      var t = el.querySelector('.time-ago-text');
+      if (t) t.textContent = tekstas(iso);
+    });
+  }
+
+  window.laikoZyma = { tekstas: tekstas, perpiesti: perpiesti };
+  // Senas vardas — kad jau esantys kvietimai šablonuose veiktų.
+  window.formatTimeAgo = tekstas;
+  window.refreshTimeAgo = perpiesti;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { perpiesti(); });
+  } else {
+    perpiesti();
+  }
+  // Puslapis gali būti atidarytas ilgai — žymos atsinaujina kas minutę.
+  setInterval(function () { perpiesti(); }, 60000);
+})();
+</script>

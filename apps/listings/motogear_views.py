@@ -800,7 +800,7 @@ def motogear_list(request):
     listings = _moto_gear_public_qs(request.user).select_related(
         'subcategory', 'vehicle_type', 'gear_brand'
     ).annotate(
-        effective_date=Greatest('created_at', Coalesce('last_boosted_at', 'created_at')),
+        effective_date=Greatest(Coalesce('activated_at', 'created_at'), Coalesce('last_boosted_at', 'created_at')),
     ).annotate(
         sort_priority=Case(
             When(star_level=2, star_expires_at__gt=_now, then=Value(500)),
@@ -882,8 +882,7 @@ def motogear_list(request):
     _track_listing_impressions(request, listings_list)
 
     new_listing_ids = [
-        l.id for l in listings_list
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in listings_list if l.yra_naujas
     ]
 
     def _safe(name, default=None):

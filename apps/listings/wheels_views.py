@@ -693,16 +693,19 @@ def _wheels_browse(request, product_type):
         )
     )
 
+    # Naujumas — pagal paskelbimo laiką (activated_at arba created_at)
+    from django.db.models.functions import Coalesce as _Coalesce
+    qs = qs.annotate(paskelbta_db=_Coalesce('activated_at', 'created_at'))
     sort = request.GET.get('sort', '').strip()
     if sort == 'price_asc':
-        qs = qs.order_by('price', '-created_at')
+        qs = qs.order_by('price', '-paskelbta_db')
     elif sort == 'price_desc':
-        qs = qs.order_by('-price', '-created_at')
+        qs = qs.order_by('-price', '-paskelbta_db')
     elif sort == 'newest':
-        qs = qs.order_by('-created_at')
+        qs = qs.order_by('-paskelbta_db')
     else:
         sort = ''
-        qs = qs.order_by('-sort_priority', '-created_at')
+        qs = qs.order_by('-sort_priority', '-paskelbta_db')
 
     paginator = Paginator(qs, 24)
     page_obj = paginator.get_page(request.GET.get('page'))

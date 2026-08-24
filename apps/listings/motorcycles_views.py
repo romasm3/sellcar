@@ -885,7 +885,7 @@ def motorcycles_list(request):
         'motorcycle_brand', 'motorcycle_model', 'vehicle_type'
     ).annotate(
         effective_date=Greatest(
-            'created_at',
+            Coalesce('activated_at', 'created_at'),
             Coalesce('last_boosted_at', 'created_at'),
         ),
     ).annotate(
@@ -966,8 +966,7 @@ def motorcycles_list(request):
     _moto_track_impressions(request, listings_list)
 
     new_listing_ids = [
-        l.id for l in listings_list
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in listings_list if l.yra_naujas
     ]
 
     try:
@@ -1169,7 +1168,7 @@ def motorcycles_advanced_search(request):
 
     sorted_listings = listings.annotate(
         effective_date=Greatest(
-            'created_at',
+            Coalesce('activated_at', 'created_at'),
             Coalesce('last_boosted_at', 'created_at'),
         ),
     ).annotate(
@@ -1186,8 +1185,7 @@ def motorcycles_advanced_search(request):
     _moto_track_impressions(request, sorted_listings_all)
 
     new_listing_ids = [
-        l.id for l in sorted_listings_all
-        if l.created_at >= timezone.now() - timedelta(days=NEW_LISTING_DAYS)
+        l.id for l in sorted_listings_all if l.yra_naujas
     ]
 
     # Choices

@@ -252,7 +252,7 @@ def car_for_parts_create(request):
                 brand_name=draft.brand.name if draft.brand else '',
                 model_name=draft.model.name if draft.model else '',
                 year=draft.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
 
             # 6. PUBLISH per helper
@@ -314,7 +314,7 @@ def car_for_parts_edit(request, pk):
                 brand_name=listing.brand.name if listing.brand else '',
                 model_name=listing.model.name if listing.model else '',
                 year=listing.year,
-                suffix='(for parts)',
+                suffix='(dalimis)',
             )
 
             # 6. EDIT per helper

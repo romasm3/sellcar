@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load listing_filters %}
+{% load i18n_db %}
 
 {% block title %}Admin: Moderate {{ target_user.email }} - AutoLeft{% endblock %}
 
@@ -119,13 +121,13 @@
 
                             <!-- Price -->
                             <div class="text-xl font-bold text-gray-900 mt-1 mb-3">
-                                {{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}
+                                {{ listing.price|kaina:listing.currency_symbol }}
                             </div>
 
                             <!-- Specs -->
                             <div class="text-sm text-gray-600 space-y-1 mb-3">
                                 <div class="flex flex-wrap gap-x-3">
-                                    {% if listing.fuel_type %}<span>{{ listing.fuel_type.name }}</span>{% endif %}
+                                    {% if listing.fuel_type %}<span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                                     {% if listing.body_type %}<span>· {{ listing.get_body_type_display }}</span>{% endif %}
                                     {% if listing.mileage %}<span>· {{ listing.mileage|stringformat:"d" }} km</span>{% endif %}
                                     {% if listing.city %}<span>· {{ listing.city }}</span>{% endif %}

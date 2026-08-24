@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load listing_filters %}
+{% load i18n_db %}
 
 {% block title %}{% if pratesimas %}{% trans "Pratęsti galiojimą" %}{% else %}{% trans "Select a plan" %}{% endif %} — AutoLeft{% endblock %}
 
@@ -359,15 +361,15 @@
         <div class="mb-2">
           <h3 class="font-bold text-gray-900 text-base leading-snug truncate mb-1">{{ listing.title }}</h3>
           {% if listing.price %}
-            <div class="text-2xl font-bold text-gray-900">€{{ listing.price|floatformat:0 }}</div>
+            <div class="text-2xl font-bold text-gray-900">{{ listing.price|kaina:listing.currency_symbol }}</div>
           {% endif %}
         </div>
 
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600">
           {% if listing.year %}<span class="font-semibold text-gray-900">{{ listing.year }}</span>{% endif %}
-          {% if listing.fuel_type %}<span class="text-gray-300">·</span><span>{{ listing.fuel_type.name }}</span>{% endif %}
-          {% if listing.mileage %}<span class="text-gray-300">·</span><span>{{ listing.mileage|floatformat:0 }} {% trans "km" %}</span>{% endif %}
-          {% if listing.transmission %}<span class="text-gray-300">·</span><span>{{ listing.transmission.name }}</span>{% endif %}
+          {% if listing.fuel_type %}<span class="text-gray-300">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
+          {% if listing.mileage %}<span class="text-gray-300">·</span><span>{{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
+          {% if listing.transmission %}<span class="text-gray-300">·</span><span>{{ listing.transmission.name|tdb }}</span>{% endif %}
           {% if listing.engine_capacity %}<span class="text-gray-300">·</span><span>{{ listing.engine_capacity }} {% trans "L" %}</span>{% endif %}
         </div>
 

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static dict_extras %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Map Search" %} - AutoLeft{% endblock %}
 
@@ -101,13 +102,13 @@
                                     
                                     <!-- Price badge -->
                                     <div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-sm font-semibold">
-                                        €{{ listing.price|floatformat:0 }}
+                                        {{ listing.price|kaina:listing.currency_symbol }}
                                     </div>
                                 </div>
 
                                 <h4 class="font-semibold text-gray-900 text-sm mb-1">{{ listing.title }}</h4>
                                 <p class="text-xs text-gray-600 mb-1">
-                                    {{ listing.year }} • {{ listing.mileage|floatformat:0 }} {% trans "km" %}
+                                    {{ listing.year }} • {{ listing.mileage|sk }} {% trans "km" %}
                                 </p>
                                 {% if listing.city %}
                                 <p class="text-xs text-gray-500">

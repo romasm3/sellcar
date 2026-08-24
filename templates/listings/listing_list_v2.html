@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static dict_extras %}
 {% load i18n i18n_db %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Browse Cars" %} (v2) - AutoLeft{% endblock %}
 
@@ -360,10 +361,10 @@
                     <div class="v2-card-title">{{ listing.title }}</div>
                     <div class="v2-card-spec">
                         {{ listing.year }}
-                        {% if listing.fuel_type %} · {{ listing.fuel_type.name }}{% endif %}
+                        {% if listing.fuel_type %} · {{ listing.fuel_type.name|tdb }}{% endif %}
                         {% if listing.mileage %} · {{ listing.mileage|stringformat:"d" }} km{% endif %}
                     </div>
-                    <div class="v2-card-price">{{ listing.currency_symbol }}{{ listing.price|floatformat:0 }}</div>
+                    <div class="v2-card-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                 </div>
             </a>
             {% endfor %}

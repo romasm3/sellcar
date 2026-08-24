@@ -1,4 +1,5 @@
-{% load i18n i18n_db %}{% comment %}
+{% load i18n i18n_db %}
+{% load listing_filters %}{% comment %}
 Kortelės parametrai TELEFONE — trys stulpeliai su ikonomis, kaip etalone
 (docs/mobilus-etalonas.md, „Skelbimo kortelė": Metai, Kuro tipas, Rida,
 Pavarų dėžė, Variklis, Miestas; kiekvienas — ikona, etiketė, reikšmė).
@@ -23,7 +24,7 @@ pats blokas tinka ir kategorijoms be variklio ar ridos.
   {% if listing.mileage %}
   <div class="cp-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 19a8 8 0 10-8-8"/><path stroke-linecap="round" d="M12 13l4-4M4 19h16"/></svg>
-    <div><i>{% trans "Rida" %}</i><b>{{ listing.mileage|floatformat:0 }} km</b></div>
+    <div><i>{% trans "Rida" %}</i><b>{{ listing.mileage|sk }} km</b></div>
   </div>
   {% endif %}
   {% if listing.transmission %}
