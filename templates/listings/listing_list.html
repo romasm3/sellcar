@@ -60,8 +60,8 @@
 .card-mini-badge { display:inline-flex; align-items:center; gap:2px; padding:2px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; box-shadow:0 1px 3px rgba(0,0,0,0.15); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); line-height:1; }
 
 /* ─── Highlighted listing card (purchased highlight addon) ─── */
-.highlighted-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important; border-color: #fb923c !important; box-shadow: 0 4px 14px rgba(251,146,60,0.25) !important; }
-.h-listing-card.highlighted-card { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important; border-color: #fb923c !important; }
+.highlighted-card { background: var(--accent-soft) !important; border-color: var(--accent) !important; box-shadow: none !important; }
+.h-listing-card.highlighted-card { background: var(--accent-soft) !important; border-color: var(--accent) !important; }
 .h-listing-card.highlighted-card .h-img-side { background: transparent !important; }
 .card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
 .mini-2star { background:rgba(0,0,0,0.35); color:#fff; border:none; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
@@ -194,18 +194,18 @@
 /* Žymos — dizaino sistemos spalvos, be oranžinės (6 skyrius). */
 .badge-featured { background: var(--accent-soft); color: var(--accent); }
 .badge-featured-paid { background: var(--accent) !important; color: var(--accent-contrast) !important; font-weight: 700; }
-.badge-highlight { background: #fb923c !important; color: #fff !important; font-weight: 700; }
+.badge-highlight { background: var(--accent) !important; color: var(--accent-contrast) !important; font-weight: 700; }
 .badge-stars { background: #fbbf24; color: var(--accent-hover); font-weight: 700; }
 
-/* ─── Day's deals: paid featured / highlighted cards (oranžinis paryškinimas) ─── */
+/* ─── Day's deals: apmokėtos/paryškintos kortelės — akcento spalva ─── */
 .home-tab-card-orange {
-    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important;
-    border: 2px solid #fb923c !important;
-    box-shadow: 0 4px 14px rgba(251, 146, 60, 0.25) !important;
+    background: var(--accent-soft) !important;
+    border: 2px solid var(--accent) !important;
+    box-shadow: none !important;
 }
 .home-tab-card-orange:hover {
-    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.35) !important;
-    border-color: #f97316 !important;
+    box-shadow: 0 0 8px rgba(0,0,0,.2) !important;
+    border-color: var(--accent-hover) !important;
 }
 
 /* ─── Day's deals: badges stack (top-left, vertical) ─── */
@@ -227,15 +227,15 @@
 .badge-featured-paid { background: var(--accent) !important; color: var(--accent-contrast) !important; font-weight: 700; }
 .badge-stars { background: #fbbf24; color: var(--accent-hover); font-weight: 700; }
 
-/* ─── Day's deals: paid featured cards (oranžinis paryškinimas) ─── */
+/* ─── Day's deals: apmokėtos kortelės — akcento spalva ─── */
 .home-tab-card-paid {
-    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%) !important;
-    border: 2px solid #fb923c !important;
-    box-shadow: 0 4px 14px rgba(251, 146, 60, 0.25) !important;
+    background: var(--accent-soft) !important;
+    border: 2px solid var(--accent) !important;
+    box-shadow: none !important;
 }
 .home-tab-card-paid:hover {
-    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.35) !important;
-    border-color: #f97316 !important;
+    box-shadow: 0 0 8px rgba(0,0,0,.2) !important;
+    border-color: var(--accent-hover) !important;
 }
 
 /* ─── Day's deals: badges stack (top-left, vertical) ─── */
@@ -856,8 +856,12 @@ a.sp-rail-btn { text-decoration:none; }
 
                             {% comment %}Trys miniatiūros — kaip etalono kortelėje
                             (.image.has-thumbs). Telefone jų nėra: ten kortelė
-                            stulpeliu ir nuotrauka per visą plotį.{% endcomment %}
-                            {% if listing.images.count > 1 %}
+                            stulpeliu ir nuotrauka per visą plotį.
+
+                            Kol kas IŠJUNGTOS: THUMBS_ENABLED = False
+                            (apps/listings/context_processors.py). Kodas lieka —
+                            grąžinti užtenka tos vienos eilutės.{% endcomment %}
+                            {% if THUMBS_ENABLED and listing.images.count > 1 %}
                             <div class="h-thumbs">
                               {% for img in listing.images.all|slice:"1:4" %}
                               <button type="button" class="h-thumb" :class="idx === {{ forloop.counter }} && 'is-on'"
@@ -1185,7 +1189,7 @@ function onSortChange(selectEl) {
                             {% if listing.is_featured or eff_level > 0 %}
                             <div class="card-bottom-left">
                                 {% if listing.is_featured %}
-                                <span class="card-mini-badge" style="background:rgba(249,115,22,0.85);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.4);">{% trans "Išskirtinis" %}</span>
+                                <span class="card-mini-badge" style="background:rgba(var(--accent-rgb),0.85);color:var(--accent-contrast);text-shadow:0 1px 2px rgba(0,0,0,0.4);">{% trans "Išskirtinis" %}</span>
                                 {% endif %}
                                 {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
 

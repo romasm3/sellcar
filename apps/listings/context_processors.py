@@ -165,3 +165,20 @@ def saved_listings_count(request):
         return {'saved_listings_count': 0}
     from .models import SavedListing
     return {'saved_listings_count': SavedListing.objects.filter(user=request.user).count()}
+
+# ═══════════════════════════════════════════════════════════════════
+# RODYMO JUNGIKLIAI
+#
+# Vienoje vietoje surašyti laikini įjungta/išjungta jungikliai, kad
+# funkciją būtų galima grąžinti pakeitus VIENĄ eilutę, o kodo trinti
+# nereikėtų.
+# ═══════════════════════════════════════════════════════════════════
+
+# Trys miniatiūros kortelės nuotraukos apačioje. Išjungta, kol skelbimų
+# su keliomis nuotraukomis mažai — kortelė švaresnė, o paspaudus vis tiek
+# atsidaro skelbimas. Nuotraukų skaitiklis („6/8") lieka visada.
+THUMBS_ENABLED = False
+
+
+def rodymo_jungikliai(request):
+    return {'THUMBS_ENABLED': THUMBS_ENABLED}

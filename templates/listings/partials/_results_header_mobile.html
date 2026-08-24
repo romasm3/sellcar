@@ -49,6 +49,12 @@ todėl išsikišdavo į KAIRĘ (neigiamas left).
   </div>
 
 <style>
-  .sp-save-row { display: flex; margin: 0 0 var(--sp-3); }
-  .sp-save-row .ip-btn { width: 100%; justify-content: center; height: var(--btn-h); }
+  /* Tik telefone: darbalaukyje „Išsaugoti paiešką" yra rūšiavimo eilutėje,
+     ir jis ten VIENINTELIS. `display:flex` be medijos užklausos nugalėdavo
+     Tailwind `lg:hidden` (ta pati specifiškumo klasė, mūsų stilius vėliau),
+     todėl mygtukas rodydavosi du kartus. */
+  @media (max-width: 1023px) {
+    .sp-save-row { display: flex; margin: 0 0 var(--sp-3); }
+    .sp-save-row .ip-btn { width: 100%; justify-content: center; height: var(--btn-h); }
+  }
 </style>
