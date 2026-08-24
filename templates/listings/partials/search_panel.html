@@ -26,14 +26,14 @@
 
     <a href="/?section=cars" class="sp-rail-btn2" :class="tab === 'cars' && 'sp-on'"
             @click.prevent="goTab('cars')">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 13l1.6-4.2A2 2 0 018 7.5h8a2 2 0 011.9 1.3L19.5 13M4.5 13h15M4.5 13v3.5a1 1 0 001 1h1a1 1 0 001-1V16h9v.5a1 1 0 001 1h1a1 1 0 001-1V13"/></svg>
+      {% include 'listings/partials/category_icon.html' with slug='cars' dydis=23 %}
     </a>
 
     {# ── MOTO su flyout (Motociklai / Moto apranga) ── #}
     <div class="relative w-full" @mouseenter="fly4Open()" @mouseleave="fly4Close()">
       <a href="/?section=motorcycles" class="sp-rail-btn2" :class="['motorcycles','motogear','moto-tyres','quad-tyres'].includes(tab) && 'sp-on'"
               @click.prevent="goTab('motorcycles'); fly4 = false">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
+        {% include 'listings/partials/category_icon.html' with slug='motorcycles' dydis=23 %}
       </a>
 
       <div x-show="fly4" x-cloak x-transition.opacity.duration.100ms
@@ -42,28 +42,28 @@
 
         <a href="/?section=motorcycles" @click.prevent="goTab('motorcycles'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='motorcycles' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="tab === 'motorcycles' && 'text-primary'">{% trans "Motociklai" %}</span>
         </a>
 
         {# Apranga, šalmai — atidaro motogear formą panelėje #}
         <a href="/?section=motogear" @click.prevent="goTab('motogear'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3a7 7 0 00-7 7v4a7 7 0 0014 0v-4a7 7 0 00-7-7zM5 12h14M12 12v9"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='motogear' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="tab === 'motogear' && 'text-primary'">{% trans "Apranga, šalmai, aksesuarai" %}</span>
         </a>
 
         {# Padangos motociklams — atskira kategorija (moto-tyres) #}
         <a href="/?section=moto-tyres" @click.prevent="goTab('moto-tyres'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='moto-tyres' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="tab === 'moto-tyres' && 'text-primary'">{% trans "Padangos motociklams" %}</span>
         </a>
 
         {# Padangos keturračiams — atskira kategorija (quad-tyres) #}
         <a href="/?section=quad-tyres" @click.prevent="goTab('quad-tyres'); fly4 = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='quad-tyres' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="tab === 'quad-tyres' && 'text-primary'">{% trans "Padangos keturračiams" %}</span>
         </a>
 
@@ -75,7 +75,7 @@
     <div class="relative w-full" @mouseenter="flyOpen()" @mouseleave="flyClose()">
       <a href="/?section=wheels" class="sp-rail-btn2" :class="tab === 'wheels' && 'sp-on'"
               @click.prevent="goTab('wheels'); fly = false">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path stroke-linecap="round" d="M12 3.5v5M12 15.5v5M3.9 8.8l4.6 2M15.5 13.2l4.6 2M3.9 15.2l4.6-2M15.5 10.8l4.6-2"/></svg>
+        {% include 'listings/partials/category_icon.html' with slug='rims' dydis=23 %}
       </a>
 
       <div x-show="fly" x-cloak x-transition.opacity.duration.100ms
@@ -83,13 +83,13 @@
            @mouseenter="flyOpen()" @mouseleave="flyClose()">
         <a href="/?section=wheels&amp;sekcija=tyre" @click.prevent="goTab('wheels', 'tyre'); fly = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='tires' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="wheelType === 'tyre' && 'text-primary'">{% trans "Padangos" %}</span>
           <span class="text-[13.5px] text-gray-400">({{ wheel_counts.tyre|default:0 }})</span>
         </a>
         <a href="/?section=wheels&amp;sekcija=rim" @click.prevent="goTab('wheels', 'rim'); fly = false"
                 class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          <svg class="w-6 h-6 text-gray-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 3.5v5.5M12 15v5.5M3.9 8.8l5.2 1.9M14.9 13.3l5.2 1.9M3.9 15.2l5.2-1.9M14.9 10.7l5.2-1.9"/></svg>
+          {% include 'listings/partials/category_icon.html' with slug='rims' dydis=19 %}
           <span class="text-[14.5px] font-bold" :class="wheelType === 'rim' && 'text-primary'">{% trans "Ratlankiai" %}</span>
           <span class="text-[13.5px] text-gray-400">({{ wheel_counts.rim|default:0 }})</span>
         </a>
@@ -100,7 +100,7 @@
     <div class="relative w-full" @mouseenter="fly3Open()" @mouseleave="fly3Close()">
       <a href="/?section=parts" class="sp-rail-btn2" :class="tab === 'parts' && 'sp-on'"
               @click.prevent="goTab('parts'); fly3 = false">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
+        {% include 'listings/partials/category_icon.html' with slug='parts' dydis=23 %}
       </a>
 
       <div x-show="fly3" x-cloak x-transition.opacity.duration.100ms
@@ -113,11 +113,11 @@
                 class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
             {% if sub.key == 'moto' %}
-              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="2.5"/><circle cx="18.5" cy="17" r="2.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 17l3-6h4.5l1.8-3h2.7M14 8l4.5 9M8.5 11h6.5"/></svg>
+              {% include 'listings/partials/category_icon.html' with slug='moto-parts' dydis=19 %}
             {% elif sub.key == 'truck' %}
-              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h11v8H3zM14 11h4l3 3v2h-7M6.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17.5 18.5a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
+              {% include 'listings/partials/category_icon.html' with slug='truck-parts' dydis=19 %}
             {% else %}
-              <svg class="w-6 h-6 shrink-0" :class="(tab === 'parts' && partSub === '{{ sub.key }}') ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 6.5a4 4 0 00-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 004.9-5.6l-2.8 2.8-2.4-.6-.6-2.4 2.8-2.8z"/></svg>
+              {% include 'listings/partials/category_icon.html' with slug='car-parts' dydis=19 %}
             {% endif %}
             <span class="text-[14.5px] font-bold"
                   :class="(tab === 'parts' && partSub === '{{ sub.key }}') && 'text-primary'">{{ sub.label }}</span>
@@ -155,7 +155,7 @@
         <a href="/?section=boats" @click.prevent="goTab('boats'); fly2 = false"
                 class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
-            <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
+            {% include 'listings/partials/category_icon.html' with slug='boats' dydis=19 %}
             <span class="text-[14.5px] font-bold text-gray-800" :class="tab === 'boats' && 'text-primary'">{{ item.name|tdb }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
@@ -168,7 +168,7 @@
            {% if item.section %}@click.prevent="goTab('{{ item.section }}', '{{ item.sekcija }}'); fly2 = false"{% endif %}
            class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
           <span class="flex items-center gap-3">
-            <svg class="w-6 h-6 text-gray-700 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
+            {% include 'listings/partials/category_icon.html' with slug=item.slug dydis=19 pav=item.name %}
             <span class="text-[14.5px] font-bold text-gray-800">{{ item.name|tdb }}</span>
           </span>
           <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>

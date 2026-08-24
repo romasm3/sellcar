@@ -109,8 +109,10 @@ class PuslapiuTestas(SimpleTestCase):
         Lyginam su tuo pačiu partial'u, kuris piešia ikonas visur kitur —
         todėl testas pagauna ir „automobiliams rodomas sunkvežimis".
         """
+        # Ikona gali būti Font Awesome <i> arba SVG (padangos, ratlankiai)
         sablonas = re.compile(
-            r'block w-12 h-12 mx-auto mb-4 text-gray-300">\s*(<svg.*?</svg>)', re.S)
+            r'block w-12 h-12 mx-auto mb-4 text-gray-300">\s*'
+            r'(<svg.*?</svg>|<i class="fa-solid[^>]*></i>)', re.S)
         klaidos = []
         for slug in self.kategorijos:
             # price_min didesnis už bet kokią kainą → tuščia būsena
@@ -126,7 +128,7 @@ class PuslapiuTestas(SimpleTestCase):
             laukiama = re.sub(
                 r'\s+', ' ',
                 render_to_string('listings/partials/category_icon.html',
-                                 {'slug': slug})).strip()
+                                 {'slug': slug, 'dydis': 40})).strip()
             if puslapyje != laukiama:
                 klaidos.append(f'{slug}: ikona ne tos kategorijos\n'
                                f'      puslapyje: {puslapyje[:110]}\n'

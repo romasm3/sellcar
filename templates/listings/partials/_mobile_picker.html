@@ -32,7 +32,7 @@ juosta su fly2 iškrentančiu sąrašu.
          href="{% url 'listing_list' %}?section={% if k.slug == 'tires' %}wheels{% else %}{{ k.slug }}{% endif %}"
          x-show="pmatch('{{ k.label|escapejs }}')"
          @click.prevent="picker = false; goTab('{% if k.slug == 'tires' %}wheels{% else %}{{ k.slug }}{% endif %}', '', pickerScroll)">
-        <span class="sp-picker-ico-lg">{% include 'listings/partials/category_icon.html' with slug=k.slug %}</span>
+        <span class="sp-picker-ico-lg">{% include 'listings/partials/category_icon.html' with slug=k.slug dydis=30 %}</span>
         <span class="sp-picker-card-name">{{ k.label }}</span>
         {% comment %}Lietuviška daugiskaita turi tris formas — filtras `skelbimu`.{% endcomment %}
         <span class="sp-picker-card-cnt">{{ k.count }} {{ k.count|skelbimu }}</span>
@@ -50,9 +50,7 @@ juosta su fly2 iškrentančiu sąrašu.
          {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
         <span class="sp-picker-txt">{{ item.name|tdb|trumpas }}</span>
         <span class="sp-picker-cnt">{{ item.count }}</span>
-        <span class="sp-picker-ico">
-          <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
-        </span>
+        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=item.slug dydis=20 pav=item.name %}</span>
       </a>
       {% endfor %}
     </div>
@@ -67,9 +65,7 @@ juosta su fly2 iškrentančiu sąrašu.
          {% if item.section %}@click.prevent="picker = false; goTab('{{ item.section }}', '{{ item.sekcija }}', pickerScroll)"{% endif %}>
         <span class="sp-picker-txt">{{ item.name|tdb|trumpas }}</span>
         <span class="sp-picker-cnt">{{ item.count }}</span>
-        <span class="sp-picker-ico">
-          <svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ item.icon }}"/></svg>
-        </span>
+        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=item.slug dydis=20 pav=item.name %}</span>
       </a>
       {% endfor %}
     </div>
@@ -84,7 +80,7 @@ juosta su fly2 iškrentančiu sąrašu.
       <span class="sp-picker-cell is-soon" title="{{ name }}" aria-disabled="true"
             x-show="pmatch('{{ name|escapejs }}')">
         <span class="sp-picker-txt">{{ name|trumpas }}</span>
-        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug %}</span>
+        <span class="sp-picker-ico">{% include 'listings/partials/category_icon.html' with slug=slug dydis=20 %}</span>
       </span>
       {% endfor %}
     </div>
