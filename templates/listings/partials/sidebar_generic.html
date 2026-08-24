@@ -108,13 +108,31 @@ Matmenys — isplestine-config.json „sidebar_layout".
       </div>
       {% endif %}
 
-      <button type="submit"
-              class="sp-btn-secondary text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-        {% trans "Filtruoti" %}
-      </button>
+      {% comment %}Filtrai taikomi TIK paspaudus šį mygtuką — pasirinkimai
+      kaupiasi, puslapis nesikrauna. Skaičius mygtuke atsinaujina per count
+      endpoint'ą (žr. setupSidebarAutoRefresh). Mygtukas lipnus, kad būtų
+      matomas ir slenkant ilgą filtrų sąrašą.{% endcomment %}
+      <div class="sb-apply">
+        <button type="submit"
+                class="sp-btn-secondary w-full text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+          {% trans "Filtruoti" %} <span id="sidebarCount">{{ total_count }}</span>
+        </button>
+        <a href="{% url 'listing_list' %}?category={{ sidebar.slug }}&sidebar=1"
+           class="sb-clear">{% trans "Išvalyti" %}</a>
+      </div>
     </div>
   </form>
 </aside>
 
 {% endif %}
+
+<style>
+  /* Filtravimo mygtukas lieka matomas slenkant juostą. */
+  .sb-apply { position: sticky; bottom: 0; z-index: 5; display: flex;
+              flex-direction: column; gap: 6px; padding-top: 8px;
+              background: linear-gradient(to bottom, rgba(255,255,255,0), #fff 30%); }
+  .sb-clear { text-align: center; font-size: 12.5px; color: var(--text-muted);
+              text-decoration: none; padding-bottom: 2px; }
+  .sb-clear:hover { color: var(--text); text-decoration: underline; }
+</style>

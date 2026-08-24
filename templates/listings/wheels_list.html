@@ -164,8 +164,10 @@
                     </div>
                     {% endfor %}
 
+                    {% comment %}Filtrai taikomi tik paspaudus šį mygtuką;
+                    skaičius jame atsinaujina be perkrovimo.{% endcomment %}
                     <button type="submit" class="save-search-btn w-full justify-center mb-3">
-                        {% trans "Ieškoti" %}
+                        {% trans "Filtruoti" %} <span id="sidebarCount">{{ total_count }}</span>
                     </button>
 
                     {% comment %}Žymimieji langeliai — juostos apačioje, kaip etalone.{% endcomment %}
@@ -347,6 +349,30 @@
 
 {% block extra_js %}
 <script>
+// Filtrai taikomi tik paspaudus „Filtruoti"; čia — gyvas skaičius mygtuke.
+document.addEventListener('DOMContentLoaded', function () {
+  var forma = document.getElementById('sidebarForm');
+  var skaicius = document.getElementById('sidebarCount');
+  if (!forma || !skaicius) { return; }
+  var kategorija = '{{ product_type }}' === 'rim' ? 'rims' : 'tires';
+  var laikmatis = null;
+  function atnaujink() {
+    clearTimeout(laikmatis);
+    laikmatis = setTimeout(function () {
+      var qs = new URLSearchParams(new FormData(forma)).toString();
+      fetch('/paieska/count/' + kategorija + '/?type={{ product_type }}&' + qs,
+            { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { skaicius.textContent = d.count; })
+        .catch(function () {});
+    }, 250);
+  }
+  forma.addEventListener('change', atnaujink);
+  forma.addEventListener('input', function (e) {
+    if (['text', 'number', 'search'].indexOf(e.target.type) !== -1) atnaujink();
+  });
+});
+
 // Papildomos „Tr. priem. markė" eilutės: klonuojam esamą sąrašą, kad
 // nekartotume 2500+ <option> HTML'e. Serveris kelias reikšmes jungia „arba".
 function pridetiMarke(btn) {

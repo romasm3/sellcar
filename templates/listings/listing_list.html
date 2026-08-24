@@ -1514,56 +1514,46 @@ function sidebarFuelChange(cb) {
         if (el !== cb) el.checked = false;
     });
     document.getElementById('sidebarFuelHidden').value = cb.checked ? cb.value : '';
-    document.getElementById('sidebarForm').submit();
+    // Filtras taikomas tik paspaudus „Filtruoti" — čia tik pranešam apie
+    // pasikeitimą, kad atsinaujintų skaičius mygtuke.
+    document.getElementById('sidebarForm').dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 // ═══ AUTO-REFRESH SIDEBAR — autogidas.lt style ═══
 // Kai pažymi checkbox / pakeiti select / įvedi reikšmę — automatiškai submit'ina form'ą
 function setupSidebarAutoRefresh() {
+    // Filtrai NEBEtaikomi po kiekvieno pasirinkimo — žmogus pasirenka kiek
+    // nori ir spaudžia „Filtruoti". Čia liko tik gyvas rezultatų skaičius
+    // mygtuke (per /paieska/count/<kategorija>/) ir Enter kaip patvirtinimas.
     var sidebarForm = document.getElementById('sidebarForm');
     if (!sidebarForm) return;
 
-    // Markė ir modelis gyvena paslėptuose laukuose (Alpine valdikliai),
-    // todėl jų pasirinkimas ateina kaip 'change' nuo hidden input'o.
-    var POROS = ['brand', 'model', 'motorcycle_brand', 'motorcycle_model', 'truck_brand'];
-    sidebarForm.addEventListener('change', function (e) {
-        var t = e.target;
-        if (t && t.type === 'hidden' && POROS.indexOf(t.name) !== -1) {
-            sidebarForm.submit();
-        }
+    var skaicius = document.getElementById('sidebarCount');
+    var kategorija = (sidebarForm.querySelector('[name="category"]') || {}).value || '';
+    var laikmatis = null;
+
+    function atnaujinkSkaiciu() {
+        if (!skaicius || !kategorija) { return; }
+        clearTimeout(laikmatis);
+        laikmatis = setTimeout(function () {
+            var qs = new URLSearchParams(new FormData(sidebarForm)).toString();
+            fetch('/paieska/count/' + kategorija + '/?advanced=1&' + qs,
+                  { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(function (r) { return r.json(); })
+                .then(function (d) { skaicius.textContent = d.count; })
+                .catch(function () {});
+        }, 250);
+    }
+
+    sidebarForm.addEventListener('change', atnaujinkSkaiciu);
+    sidebarForm.addEventListener('input', function (e) {
+        if (['text', 'number', 'search'].indexOf(e.target.type) !== -1) { atnaujinkSkaiciu(); }
     });
 
-    // Checkbox + select → momentinis submit
-    sidebarForm.querySelectorAll('input[type="checkbox"], select').forEach(function(el) {
-        // Praleisk hidden inputs ir fuel_type_chk (jis turi savo handler'į)
-        if (el.type === 'hidden') return;
-        if (el.name === 'fuel_type_chk') return;
-
-        el.addEventListener('change', function() {
-            sidebarForm.submit();
-        });
-    });
-
-    // Number/text input → submit kai user pabaigia (blur) arba paspaudžia Enter
-    sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(el) {
-        if (el.type === 'hidden') return;
-
-        // Įsiminti pradinę reikšmę, kad submit'inom tik kai pasikeičia
-        var initialValue = el.value;
-
-        el.addEventListener('blur', function() {
-            if (el.value !== initialValue) {
-                sidebarForm.submit();
-            }
-        });
-
-        el.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                if (el.value !== initialValue) {
-                    sidebarForm.submit();
-                }
-            }
+    // Enter tekstiniame lauke — patvirtinimas, o ne atsitiktinis perkrovimas
+    sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function (el) {
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); sidebarForm.submit(); }
         });
     });
 }

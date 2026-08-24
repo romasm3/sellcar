@@ -20782,7 +20782,7 @@ msgstr "More filters"
 
 #: templates/listings/partials/sidebar_generic.html:88
 msgid "Filtruoti"
-msgstr ""
+msgstr "Filter"
 
 #: templates/listings/parts_category_select.html:8
 msgid "Car parts — Select category"

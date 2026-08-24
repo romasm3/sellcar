@@ -8333,13 +8333,13 @@ def advanced_search_generic(request, category):
 def search_panel_count(request, category):
     """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
     request.GET = sanitize_search_params(request.GET)
-    if category in ('tires', 'wheels'):
+    if category in ('tires', 'wheels', 'rims'):
         try:
-            from .models import WheelListing
-            qs = WheelListing.objects.filter(status='active')
-            wtype = request.GET.get('type')
-            if wtype:
-                qs = qs.filter(wheel_type=wtype)
+            from . import wheels_views
+            # Tas pats filtrų kelias kaip naršymo puslapyje, todėl skaičius
+            # mygtuke visada sutampa su rezultatų sąrašu.
+            tipas = 'rim' if category == 'rims' or request.GET.get('type') == 'rim' else 'tyre'
+            qs, _tipas, _f = wheels_views._apply_wheels_filters(request, tipas)
             return JsonResponse({'count': qs.count()})
         except Exception:
             return JsonResponse({'count': 0})
