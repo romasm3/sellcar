@@ -162,12 +162,11 @@ Skaitikliai antraštėje — ne akcentas. Jie informaciniai: `--fs-xs`, žyma su
 
 Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikona.
 
-### Prekės ženklo spalva — oranžinė #E8703A
+### Prekės ženklo spalva — oranžinė #E14D28
 
 ```
---brand-ink    #1A1A1A   logotipo užrašas
---brand-dot    #E8703A   TIK taškas logotipe ir ikonoje
---brand-paper  #F2F0ED   šviesus ženklo fonas (og:image, tamsios juostos)
+--brand-ink     #181B1F   logotipo užrašas
+--brand-orange  #E14D28   TIK logotipe ir ikonoje
 ```
 
 Ženklo failai gyvena `static/brand/` (tekstas kreivėmis — šrifto nereikia):
@@ -175,7 +174,7 @@ Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikon
 vienspalvis `autoleft-logo-mono.svg` (`currentColor`), ikona
 `autoleft-icon.svg` ir PNG 512/192/180/64/32/16 bei `maskable` variantai PWA.
 
-**Oranžinė naudojama tik dviejose vietose: logotipo taške ir programėlės
+**Oranžinė naudojama tik dviejose vietose: logotipe ir programėlės
 ikonoje. Daugiau niekur svetainėje jos nėra** — nei mygtukuose, nei žymose,
 nei aktyviose būsenose. Akcentas lieka antracitas (`--accent`).
 
@@ -191,13 +190,14 @@ Patikra (turi grąžinti tuščią sąrašą — logotipo taškas neskaičiuojam
 [...document.querySelectorAll('body *')]
   .filter(e => !e.classList.contains('logo-dot'))
   .filter(e => { const cs = getComputedStyle(e);
-                 return /232,\s*112,\s*58/.test(cs.color + cs.backgroundColor + cs.borderColor); });
+                 return /225,\s*77,\s*40/.test(cs.color + cs.backgroundColor + cs.borderColor); });
 ```
 
-Logotipo dydis: **32 px darbalaukyje, 24 px telefone**, minimalus — 20 px.
-Proporcija 2,83:1: plotis skaičiuojamas iš aukščio (`width: auto`), ženklo
-netempiam. Aplink jį paliekama tuščia erdvė, lygi raidės „A" aukščiui.
-Ant tamsaus fono imamas `autoleft-logo-dark.svg`.
+Logotipo dydis: **32 px darbalaukyje, 24 px telefone**, minimalus — 18 px.
+Proporcija 4,07:1: plotis skaičiuojamas iš aukščio (`width: auto`), ženklo
+netempiam. Aplink jį paliekama tuščia erdvė, lygi PUSEI raidės „A" aukščio.
+Ant tamsaus fono imamas `autoleft-logo-dark.svg`, vienspalviams paviršiams —
+`autoleft-logo-mono.svg` (paveldi `currentColor`).
 
 ---
 

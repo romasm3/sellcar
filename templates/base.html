@@ -68,20 +68,20 @@
         .logo { font-family: var(--brand-font); font-weight: 400; font-size: 32px;
                 color: var(--brand-ink); letter-spacing: .005em; line-height: 1;
                 text-decoration: none; white-space: nowrap; display: inline-block; }
-        .logo-dot { color: var(--brand-dot); }
+        .logo-dot { color: var(--brand-orange); }
         /* Ant tamsaus fono — poraštė, tamsios juostos */
-        .logo-sviesus { color: #F2F0ED; }
+        .logo-sviesus { color: #FFFFFF; }
         @media (max-width: 767px) { .logo { font-size: 24px; } }
 
         /* ═══ LOGOTIPAS FAILU (static/brand/) ═══
-           Aplink ženklą paliekama tuščia erdvė, lygi raidės „A" aukščiui
-           (≈ 0,62 × logotipo aukščio), proporcija 2,83:1 — netempiam,
-           plotis skaičiuojamas iš aukščio. Minimalus aukštis 20 px. */
+           Proporcija 4,07:1 — plotis skaičiuojamas iš aukščio (width:auto),
+           ženklo netempiam. Aplink jį tuščia erdvė, lygi PUSEI raidės „A"
+           aukščio (≈ 0,31 × logotipo aukščio). Minimalus aukštis 18 px. */
         .site-logo { display: inline-flex; align-items: center;
-                     padding: calc(32px * .62) 0; text-decoration: none; }
-        .site-logo img { height: 32px; width: auto; display: block; min-height: 20px; }
+                     padding: calc(32px * .31) 0; text-decoration: none; }
+        .site-logo img { height: 32px; width: auto; display: block; min-height: 18px; }
         @media (max-width: 1023px) {
-            .site-logo { padding: calc(24px * .62) 0; }
+            .site-logo { padding: calc(24px * .31) 0; }
             .site-logo img { height: 24px; }
         }
 
@@ -117,9 +117,8 @@
                Oranžinė naudojama TIK logotipo taške ir ikonoje. Niekur
                kitur svetainėje jos nėra — akcentas lieka antracitas
                (docs/dizaino-sistema.md, „Prekės ženklo spalva"). */
-            --brand-ink:   #1A1A1A;
-            --brand-dot:   #E8703A;
-            --brand-paper: #F2F0ED;
+            --brand-ink:    #181B1F;
+            --brand-orange: #E14D28;
             --brand-font: "EB Garamond", Georgia, "Times New Roman", serif;
 
             /* ── DIZAINO SISTEMA (docs/dizaino-sistema.md) ──────────────
