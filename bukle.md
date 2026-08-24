@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-24 14:11:14 CEST
+Sugeneruota: 2026-08-24 14:12:23 CEST
 
 ## Kodas
 
@@ -10,6 +10,7 @@ origin/master: 288b7a9 feat(skelbimas): pardavėjo blokas turinyje ir „Kiti pa
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
    M config/urls.py
+   M docs/dizaino-sistema.md
    M templates/accounts/login.html
    M templates/accounts/password_reset_complete.html
    M templates/accounts/password_reset_confirm.html
@@ -34,7 +35,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001233s
+HTTP 301, 0.001669s
 ```
 
 ## Skelbimų būsenos
@@ -68,9 +69,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 24 14:01:14 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 24 14:01:14 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.162s CPU time.
-Aug 24 14:02:28 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 24 14:02:30 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 14:02:30 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 14:03:37 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
@@ -93,4 +91,7 @@ Aug 24 14:09:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai
 Aug 24 14:10:00 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 24 14:10:00 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 24 14:11:13 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 24 14:11:15 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 24 14:11:15 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 24 14:12:22 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
