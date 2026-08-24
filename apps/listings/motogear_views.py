@@ -27,7 +27,10 @@ from .models import (
 )
 
 
-NEW_LISTING_DAYS = 3
+# Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
+# (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
+from apps.listings.models import NAUJO_SKELBIMO_DIENOS
+NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 GEAR_TYPE_BY_SLUG = {
     'helmets': 'helmet',
@@ -881,9 +884,6 @@ def motogear_list(request):
     from .views import _track_listing_impressions
     _track_listing_impressions(request, listings_list)
 
-    new_listing_ids = [
-        l.id for l in listings_list if l.yra_naujas
-    ]
 
     def _safe(name, default=None):
         try:
@@ -912,7 +912,6 @@ def motogear_list(request):
         'selected_state': state_filter,
         'search_query': search_query,
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'selected_category': 'moto-gear',
     }
     # Šoninė filtrų juosta — tie patys bendri laukų šablonai

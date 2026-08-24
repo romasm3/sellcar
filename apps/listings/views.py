@@ -62,7 +62,10 @@ from django.views.decorators.http import require_GET, require_POST
 from apps.listings import formatai
 from datetime import date, timedelta, datetime
 
-NEW_LISTING_DAYS = 3
+# Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
+# (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
+from apps.listings.models import NAUJO_SKELBIMO_DIENOS
+NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 # „Pasiūlymai" skirtuke rodomi VISI vieši skelbimai. Riba palikta tik kaip
 # apsauga nuo begalinio puslapio — jei skelbimų daugiau, reikės puslapiavimo
@@ -2126,9 +2129,6 @@ def listing_list(request, panel_fragment=False, category=None):
         for cat_key, items in groupby(all_equipment_qs, key=lambda x: x.category)
     ]
 
-    new_listing_ids = [
-        l.id for l in listings_list if l.yra_naujas
-    ]
 
     categories_qs = _get_visible_vehicle_types(request.user)
     categories = sorted(
@@ -2425,7 +2425,6 @@ def listing_list(request, panel_fragment=False, category=None):
             category_filter, request.user,
             sub_slug=_subcategory_slug_from(request.GET)),
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'us_states': Listing.US_STATE_CHOICES,
         'country_choices': Listing.COUNTRY_CHOICES,
         'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
@@ -4934,9 +4933,6 @@ def advanced_search(request):
     sorted_listings_all = list(sorted_listings[:60])
     _track_listing_impressions(request, sorted_listings_all)
 
-    new_listing_ids = [
-        l.id for l in sorted_listings_all if l.yra_naujas
-    ]
 
     context = {
         'listings': sorted_listings_all,
@@ -4958,7 +4954,6 @@ def advanced_search(request):
         'defect_choices': Listing.DEFECT_CHOICES,
         'us_states': Listing.US_STATE_CHOICES,
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'f': request.GET,
         'selected_body_types': request.GET.getlist('body_type'),
         'equipment_by_category': equipment_by_category,

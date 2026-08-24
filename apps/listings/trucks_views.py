@@ -39,7 +39,10 @@ logger = logging.getLogger(__name__)
 # CONFIG
 # ═══════════════════════════════════════════════════════════
 TRUCKS_DRAFT_SESSION_KEY = 'active_trucks_draft_id'
-NEW_LISTING_DAYS = 3
+# Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
+# (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
+from apps.listings.models import NAUJO_SKELBIMO_DIENOS
+NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 CITY_COORDINATES = {
     'vilnius': (54.6872, 25.2797), 'kaunas': (54.8985, 23.9036),
@@ -1111,9 +1114,6 @@ def trucks_list(request):
             user=request.user
         ).values_list('listing_id', flat=True))
 
-    new_listing_ids = [
-        l.id for l in listings_all if l.yra_naujas
-    ]
 
     # Tabs
     tabs_base = _public_trucks_qs(request.user).select_related(
@@ -1151,7 +1151,6 @@ def trucks_list(request):
         'selected_state': selected_state,
         'us_states': _us_states(),
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'tab_featured': tab_featured,
         'tab_newest': tab_newest,
         'tab_popular': tab_popular,

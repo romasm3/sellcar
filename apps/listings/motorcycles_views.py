@@ -844,7 +844,10 @@ def _handle_post(request):
 # ═══════════════════════════════════════════════════════════════════════════
 
 
-NEW_LISTING_DAYS = 3
+# Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
+# (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
+from apps.listings.models import NAUJO_SKELBIMO_DIENOS
+NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 
 def _moto_public_listings_qs(request_user=None):
@@ -965,9 +968,6 @@ def motorcycles_list(request):
     listings_list = list(listings[:60])
     _moto_track_impressions(request, listings_list)
 
-    new_listing_ids = [
-        l.id for l in listings_list if l.yra_naujas
-    ]
 
     try:
         motorcycle_type_choices = Listing.MOTORCYCLE_TYPE_CHOICES
@@ -990,7 +990,6 @@ def motorcycles_list(request):
         'total_count': listings.count(),
         'selected_category': 'motorcycles',
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'us_states': Listing.US_STATE_CHOICES,
         'selected_country': country_filter,
         'selected_state': state_filter,
@@ -1184,9 +1183,6 @@ def motorcycles_advanced_search(request):
     sorted_listings_all = list(sorted_listings[:60])
     _moto_track_impressions(request, sorted_listings_all)
 
-    new_listing_ids = [
-        l.id for l in sorted_listings_all if l.yra_naujas
-    ]
 
     # Choices
     try:
@@ -1253,7 +1249,6 @@ def motorcycles_advanced_search(request):
         'country_choices': country_choices,
         'us_states': Listing.US_STATE_CHOICES,
         'saved_ids': saved_ids,
-        'new_listing_ids': new_listing_ids,
         'f': request.GET,
         'selected_moto_eq': moto_eq,
     }
