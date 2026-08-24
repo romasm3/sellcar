@@ -362,7 +362,7 @@
                     <div class="v2-card-spec">
                         {{ listing.year }}
                         {% if listing.fuel_type %} · {{ listing.fuel_type.name|tdb }}{% endif %}
-                        {% if listing.mileage %} · {{ listing.mileage|stringformat:"d" }} km{% endif %}
+                        {% if listing.mileage %} · {{ listing.mileage|sk }} km{% endif %}
                     </div>
                     <div class="v2-card-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
                 </div>

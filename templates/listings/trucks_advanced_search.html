@@ -725,7 +725,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
                         <div class="ap-spec-line">
                             <span>{{ listing.year }}</span>
                             {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
-                            <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                            <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} {% trans "km" %}</span>
                         </div>
                         {% if listing.transmission or listing.engine_capacity or listing.power or listing.euro_standard %}
                         <div class="ap-spec-line">

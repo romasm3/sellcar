@@ -232,7 +232,7 @@
                                     {% if listing.body_type %}<span>· {{ listing.get_body_type_display }}</span>{% endif %}
                                     {% if listing.motorcycle_type %}<span>· {{ listing.get_motorcycle_type_display }}</span>{% endif %}
                                     {% if listing.engine_capacity_cc %}<span>· {{ listing.engine_capacity_cc }} cm³</span>{% endif %}
-                                    {% if listing.mileage %}<span>· {{ listing.mileage|stringformat:"d" }} {% trans "km" %}</span>{% endif %}
+                                    {% if listing.mileage %}<span>· {{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
                                     {% if listing.city and listing.city != '—' %}<span>· {{ listing.city }}</span>{% endif %}
                                 </div>
 
@@ -510,7 +510,7 @@
                                     {% if listing.body_type %}<span>· {{ listing.get_body_type_display }}</span>{% endif %}
                                     {% if listing.motorcycle_type %}<span>· {{ listing.get_motorcycle_type_display }}</span>{% endif %}
                                     {% if listing.engine_capacity_cc %}<span>· {{ listing.engine_capacity_cc }} cm³</span>{% endif %}
-                                    {% if listing.mileage %}<span>· {{ listing.mileage|stringformat:"d" }} {% trans "km" %}</span>{% endif %}
+                                    {% if listing.mileage %}<span>· {{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
                                     {% if listing.city and listing.city != '—' %}<span>· {{ listing.city }}</span>{% endif %}
                                 </div>
 

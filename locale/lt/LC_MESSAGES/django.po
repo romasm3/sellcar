@@ -17032,7 +17032,7 @@ msgstr "pvz., DSG7"
 #: templates/listings/trucks_advanced_search.html:375
 #: templates/listings/trucks_list.html:326
 msgid "Price (€)"
-msgstr ""
+msgstr "Kaina (€)"
 
 #: templates/listings/car_for_parts_create.html:236
 #: templates/listings/truck_for_parts_create.html:180

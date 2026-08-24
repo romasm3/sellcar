@@ -462,7 +462,7 @@
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
                                 {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
-                                <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                                <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} {% trans "km" %}</span>
                             </div>
                             <div class="ap-spec-line">
                                 {% if listing.transmission %}<span>{{ listing.transmission.name|tdb }}</span>{% endif %}
@@ -768,7 +768,7 @@
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>
                         {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
-                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                        <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} {% trans "km" %}</span>
                     </div>
                     {% if listing.transmission or listing.engine_capacity or listing.power or listing.euro_standard %}
                     <div class="ap-spec-line">

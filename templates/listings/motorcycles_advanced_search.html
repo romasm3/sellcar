@@ -458,7 +458,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
             <div style="font-size:0.75rem;color:#9ca3af;margin-bottom:8px;">{{ listing.motorcycle_brand.name }} {{ listing.motorcycle_model.name }}</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:0.75rem;color:#6b7280;">
                 <span><i class="far fa-calendar" style="color:#9ca3af;margin-right:3px;"></i>{{ listing.year }}</span>
-                <span><i class="fas fa-road" style="color:#9ca3af;margin-right:3px;"></i>{{ listing.mileage|default:"0" }} {% trans "km" %}</span>
+                <span><i class="fas fa-road" style="color:#9ca3af;margin-right:3px;"></i>{{ listing.mileage|default:"0"|sk }} {% trans "km" %}</span>
                 <span><i class="fas fa-cog" style="color:#9ca3af;margin-right:3px;"></i>{{ listing.engine_capacity_cc|default:"—" }} cm³</span>
                 <span><i class="fas fa-motorcycle" style="color:#9ca3af;margin-right:3px;"></i>{{ listing.get_motorcycle_type_display|default:"—" }}</span>
             </div>

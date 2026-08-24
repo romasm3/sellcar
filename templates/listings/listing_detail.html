@@ -492,7 +492,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-road text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
@@ -584,7 +584,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Spalva" %}</span>
@@ -671,7 +671,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-road text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Rida" %}</div>
-                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</div></div>
+                                <div class="font-semibold text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</div></div>
                         </div>
                     </div>
                     {% if listing.b_licence_ok %}
@@ -1153,7 +1153,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rida" %}</span>
-                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage }} km</span>{% else %}—{% endif %}</span>
+                            <span class="font-medium text-gray-900">{% if listing.mileage %}<span data-unit-show="mileage" data-unit-raw="{{ listing.mileage|default_if_none:''|unlocalize }}">{{ listing.mileage|sk }} km</span>{% else %}—{% endif %}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Kuro tipas" %}</span>

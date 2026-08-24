@@ -311,7 +311,7 @@
                     <div class="ap-spec-line">
                         <span>{{ listing.year }}</span>
                         {% if listing.engine_capacity_cc %}<span class="sep">·</span><span>{{ listing.engine_capacity_cc }} cm³</span>{% endif %}
-                        <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                        <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} km</span>
                     </div>
                     <div class="ap-loc">
                         <i class="fas fa-map-marker-alt"></i>
@@ -782,7 +782,7 @@
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
                                 {% if listing.engine_capacity_cc %}<span class="sep">·</span><span>{{ listing.engine_capacity_cc }} cm³</span>{% endif %}
-                                <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                                <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} km</span>
                             </div>
                             <div class="ap-spec-line">
                                 {% if listing.get_motorcycle_type_display %}<span>{{ listing.get_motorcycle_type_display }}</span>{% endif %}

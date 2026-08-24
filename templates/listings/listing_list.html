@@ -940,7 +940,7 @@ a.sp-rail-btn { text-decoration:none; }
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
                                 {% if listing.rent_price_hour %}<span class="sep">·</span><span>{{ listing.rent_price_hour|kaina:listing.currency_symbol }}/{% trans "val." %}</span>{% endif %}
-                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
                             </div>
                             {% elif listing.vehicle_type.slug == 'camping-houses' %}
                             <div class="ap-spec-line">
@@ -949,7 +949,7 @@ a.sp-rail-btn { text-decoration:none; }
                             </div>
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
-                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage }} {% trans "km" %}</span>{% endif %}
+                                {% if listing.mileage %}<span class="sep">·</span><span>{{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
                                 {% if listing.b_licence_ok %}<span class="sep">·</span><span>{% trans "B kat." %}</span>{% endif %}
                             </div>
                             {% elif listing.vehicle_type.slug == 'forestry' %}
@@ -1010,7 +1010,7 @@ a.sp-rail-btn { text-decoration:none; }
                             <div class="ap-spec-line">
                                 <span>{{ listing.year }}</span>
                                 {% if listing.fuel_type %}<span class="sep">·</span><span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
-                                <span class="sep">·</span><span>{{ listing.mileage|default:"0" }} km</span>
+                                <span class="sep">·</span><span>{{ listing.mileage|default:"0"|sk }} km</span>
                             </div>
                             <div class="ap-spec-line">
                                 {% if listing.transmission %}<span>{{ listing.transmission.name|tdb }}</span>{% endif %}
