@@ -278,11 +278,12 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-picker-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
                       -webkit-overflow-scrolling: touch; padding: 10px 12px 8px; }
 
-    /* Šešių stulpelių pagrindas: didelė plytelė užima 3 (dvi eilutėje),
-       maža — 2 (trys eilutėje). Pirmos keturios kategorijos didelės. */
-    .sp-picker-tinklas { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
-                         gap: 8px; }
-    .sp-plytele { grid-column: span 2; display: flex; flex-direction: column;
+    /* Flex, ne grid: net jei kuri nors taisyklė nepasiektų naršyklės,
+       plytelės tiesiog gultų viena šalia kitos, o ne būtų nukirptos.
+       Maža plytelė — trys eilutėje, didelė — dvi. */
+    .sp-picker-tinklas { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+    .sp-plytele { flex: 0 0 calc((100% - 16px) / 3); max-width: calc((100% - 16px) / 3);
+                  display: flex; flex-direction: column;
                   align-items: center; overflow: hidden;
                   justify-content: center; gap: 5px; height: 92px; padding: 8px 6px;
                   background: #fff; border: 1px solid #E6E8EB; border-radius: 12px;
@@ -305,14 +306,17 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-plytele-cnt { font-size: 11px; color: #9AA0A6; line-height: 1; }
     .sp-plytele-daugiau { border-style: dashed; }
 
-    /* Keturios populiariausios — dvigubai platesnės ir aukštesnės */
-    .sp-plytele.is-didele { grid-column: span 3; height: 112px; gap: 7px; }
+    /* Keturios populiariausios — plačiau (dvi eilutėje) ir aukščiau */
+    .sp-plytele.is-didele { flex: 0 0 calc((100% - 8px) / 2);
+                            max-width: calc((100% - 8px) / 2); height: 112px; gap: 7px; }
     .sp-plytele.is-didele .sp-plytele-ico { width: 34px; height: 34px; }
     .sp-plytele.is-didele .sp-plytele-txt { font-size: 14px; }
     .sp-plytele.is-didele .sp-plytele-cnt { font-size: 11.5px; }
 
     @media (max-width: 370px) {
       .sp-picker-tinklas { gap: 6px; }
+      .sp-plytele { flex-basis: calc((100% - 12px) / 3); max-width: calc((100% - 12px) / 3); }
+      .sp-plytele.is-didele { flex-basis: calc((100% - 6px) / 2); max-width: calc((100% - 6px) / 2); }
       .sp-plytele { height: 86px; }
       .sp-plytele.is-didele { height: 104px; }
       .sp-plytele-txt { font-size: 11px; }
