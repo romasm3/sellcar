@@ -2385,6 +2385,8 @@ class SavedListing(models.Model):
     # („Gauti ekrane" žyma sąraše). Seniems įrašams užpildoma migracijoje.
     price_at_save = models.DecimalField(max_digits=10, decimal_places=2,
                                         null=True, blank=True)
+    # Asmeninė pastaba prie įsiminto skelbimo — mato tik pats žmogus
+    note = models.TextField(blank=True, default='')
 
     @property
     def kaina_krito(self):

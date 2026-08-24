@@ -3769,6 +3769,23 @@ def delete_inactive_saved(request):
 
 @login_required
 @require_POST
+def save_listing_note(request, pk):
+    """Asmeninė pastaba prie įsiminto skelbimo („Parašyti komentarą sau").
+
+    Matoma tik pačiam žmogui; saugoma prie SavedListing įrašo, todėl
+    išsitrina kartu su įsiminimu. Išsaugoma iš karto (blur), atsakymas —
+    JSON, kad puslapio nereikėtų perkrauti.
+    """
+    irasas = SavedListing.objects.filter(user=request.user, listing_id=pk).first()
+    if not irasas:
+        return JsonResponse({'ok': False}, status=404)
+    irasas.note = (request.POST.get('note') or '').strip()[:2000]
+    irasas.save(update_fields=['note'])
+    return JsonResponse({'ok': True, 'note': irasas.note})
+
+
+@login_required
+@require_POST
 def toggle_price_drop(request, kanalas):
     """Kainos kritimo pranešimai: „ekrane" arba „el. paštu"."""
     profilis = getattr(request.user, 'profile', None)

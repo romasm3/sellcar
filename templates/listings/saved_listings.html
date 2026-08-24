@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n dict_extras %}
+{% load i18n dict_extras i18n_db %}
 
 {% block title %}{% trans "Saved Listings" %} - AutoLeft{% endblock %}
 {% block content %}
@@ -15,7 +15,7 @@
       <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
         <h2 class="text-2xl font-bold text-gray-900">
           {% trans "Įsiminti skelbimai" %}
-          <span class="text-red-600">({{ isiminta_viso }})</span>
+          <span class="text-red-600">(<span id="si-count">{{ isiminta_viso }}</span>)</span>
         </h2>
         <div class="flex flex-wrap gap-2">
           <form method="post" action="{% url 'delete_all_saved' %}"
@@ -90,40 +90,68 @@
       </div>
     </div>
     {% if saved_listings %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="si-sarasas">
+    {% comment %}Horizontali kortelė (etalonas: Autogidas „Įsiminti skelbimai"):
+    kairėje nuotrauka, viduryje pavadinimas su specifikacijų burbulais ir
+    asmenine pastaba, dešinėje kaina, apačioje — veiksmai ir įsiminimo data.
+    {% endcomment %}
+    <div class="flex flex-col gap-4" id="si-sarasas">
         {% for saved in saved_listings %}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
-             onclick="window.location='{% url 'listing_detail' saved.listing.pk %}'">
-            <div class="relative">
+        <div class="si-kort" id="si-kort-{{ saved.listing.pk }}">
+            <a href="{% url 'listing_detail' saved.listing.pk %}" class="si-foto">
                 {% if saved.listing.images.first %}
                 <img loading="lazy" decoding="async" src="{{ saved.listing.images.first|img_sm }}"
-                     class="w-full h-48 object-cover"
                      alt="{{ saved.listing.title }}">
                 {% else %}
-                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                    <i class="fas fa-car text-gray-400 text-4xl"></i>
-                </div>
+                <span class="si-nofoto"><i class="fas fa-car"></i></span>
                 {% endif %}
-                <button onclick="event.stopPropagation(); unsaveListing(this, {{ saved.listing.pk }})"
-                        class="absolute top-3 left-3 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-md hover:scale-110 transition-all">
-                    <i class="fas fa-heart text-red-500"></i>
-                </button>
-            </div>
-            <div class="p-4">
+            </a>
+
+            <div class="si-vidus">
                 {% if kainos_ekrane and saved.kaina_krito %}
                 <div class="si-krito">
                   {% trans "Kaina sumažėjo" %} −{{ saved.kaina_krito|floatformat:0 }} {{ saved.listing.currency_symbol }}
                 </div>
                 {% endif %}
-                <h5 class="font-semibold text-gray-900 mb-2">{{ saved.listing.title }}</h5>
-                <p class="text-sm text-gray-500 mb-1">
-                    <i class="fas fa-calendar mr-1"></i> {{ saved.listing.year }}
-                    | <i class="fas fa-road mr-1"></i> {{ saved.listing.mileage|floatformat:0 }} {% trans "km" %}
-                </p>
-                <p class="text-primary font-bold text-lg mb-2">€{{ saved.listing.price|floatformat:0 }}</p>
-                <p class="text-sm text-gray-500">
-                    <i class="fas fa-map-marker-alt mr-1"></i> {{ saved.listing.city }}
-                </p>
+
+                <a href="{% url 'listing_detail' saved.listing.pk %}" class="si-pav">{{ saved.listing.title }}</a>
+
+                <div class="si-tags">
+                    {% if saved.listing.first_registration %}<span>{{ saved.listing.first_registration|date:"Y-m" }}</span>
+                    {% elif saved.listing.year %}<span>{{ saved.listing.year }}</span>{% endif %}
+                    {% if saved.listing.fuel_type %}<span>{{ saved.listing.fuel_type.name|tdb }}</span>{% endif %}
+                    {% if saved.listing.mileage %}<span>{{ saved.listing.mileage|floatformat:0 }} km</span>{% endif %}
+                    {% if saved.listing.transmission %}<span>{{ saved.listing.transmission.name|tdb }}</span>{% endif %}
+                    {% if saved.listing.engine_capacity %}<span>{{ saved.listing.engine_capacity }} L{% if saved.listing.power %}, {{ saved.listing.power }} kW{% endif %}</span>
+                    {% elif saved.listing.power %}<span>{{ saved.listing.power }} kW</span>{% endif %}
+                    {% if saved.listing.get_display_location %}<span>{{ saved.listing.get_display_location }}</span>{% endif %}
+                </div>
+
+                <textarea class="si-pastaba no-print" rows="2"
+                          data-pk="{{ saved.listing.pk }}"
+                          placeholder="{% trans 'Parašyti komentarą sau' %}">{{ saved.note }}</textarea>
+                {% if saved.note %}<div class="si-pastaba-print">{{ saved.note }}</div>{% endif %}
+            </div>
+
+            <div class="si-desine">
+                <div class="si-kaina">{{ saved.listing.price|floatformat:0 }} {{ saved.listing.currency_symbol }}</div>
+
+                <div class="si-veiksmai">
+                    <a class="si-veiksmas" href="{% url 'conversations:start' saved.listing.pk %}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20 15a2 2 0 0 1-2 2H8l-4 3V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg>
+                        <span>{% trans "Rašyti žinutę" %}</span>
+                    </a>
+                    <button type="button" class="si-veiksmas"
+                            data-share="{{ request.scheme }}://{{ request.get_host }}{% url 'listing_detail' saved.listing.pk %}"
+                            data-title="{{ saved.listing.title|escapejs }}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.7 10.7a3 3 0 1 0 0 2.6m0-2.6l6.6-3.4m-6.6 6l6.6 3.4M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                        <span>{% trans "Dalintis" %}</span>
+                    </button>
+                    <button type="button" class="si-sirdis" title="{% trans 'Išimti iš įsimintų' %}"
+                            onclick="unsaveListing(this, {{ saved.listing.pk }})">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.3l-1.2-1.1C6.3 15.2 3.5 12.6 3.5 9.4 3.5 6.9 5.5 5 8 5c1.5 0 2.9.7 3.8 1.8l.2.3.2-.3C13.1 5.7 14.5 5 16 5c2.5 0 4.5 1.9 4.5 4.4 0 3.2-2.8 5.8-7.3 9.8l-1.2 1.1z"/></svg>
+                    </button>
+                    <span class="si-data">{{ saved.saved_at|date:"Y-m-d" }}</span>
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -177,19 +205,99 @@
               border: 1px solid var(--success-border);
               border-radius: var(--badge-r); padding: var(--badge-pad); }
 
+  /* ═══ Horizontali įsiminto skelbimo kortelė ═══ */
+  .si-kort { display: flex; gap: var(--sp-4); background: var(--surface);
+             border: 1px solid var(--border); border-radius: var(--r-lg, 12px);
+             padding: var(--sp-3); }
+  .si-foto { flex: 0 0 210px; height: 150px; border-radius: 8px; overflow: hidden;
+             background: #F3F4F6; display: flex; align-items: center; justify-content: center; }
+  .si-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .si-nofoto { color: #9CA3AF; font-size: 28px; }
+  .si-vidus { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .si-pav { font-size: 16px; font-weight: var(--fw-semibold); color: var(--text);
+            text-decoration: none; }
+  .si-pav:hover { text-decoration: underline; }
+  .si-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .si-tags span { background: #F3F4F6; color: #4B5563; border-radius: 6px;
+                  padding: 3px 9px; font-size: 12.5px; white-space: nowrap; }
+  .si-pastaba { width: 100%; border: 1px solid var(--border); border-radius: 8px;
+                padding: 8px 10px; font-size: 13px; color: var(--text);
+                resize: vertical; background: #FCFCFD; }
+  .si-pastaba:focus { outline: none; border-color: var(--accent); background: #fff; }
+  .si-pastaba-print { display: none; }
+  .si-desine { flex: 0 0 230px; display: flex; flex-direction: column;
+               align-items: flex-end; justify-content: space-between; gap: var(--sp-3); }
+  .si-kaina { font-size: 20px; font-weight: 700; color: var(--text); white-space: nowrap; }
+  .si-veiksmai { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+                 justify-content: flex-end; }
+  .si-veiksmas { display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+                 color: var(--text-muted); background: none; border: 0; cursor: pointer;
+                 text-decoration: none; }
+  .si-veiksmas:hover { color: var(--text); }
+  .si-veiksmas svg { width: 16px; height: 16px; }
+  .si-sirdis { background: none; border: 0; cursor: pointer; color: #EF4444; padding: 0; }
+  .si-sirdis svg { width: 20px; height: 20px; }
+  .si-data { font-size: 12.5px; color: var(--text-disabled, #9CA3AF); }
+  @media (max-width: 767px) {
+    .si-kort { flex-direction: column; }
+    .si-foto { flex: none; width: 100%; height: 200px; }
+    .si-desine { flex: none; width: 100%; align-items: stretch; }
+    .si-veiksmai { justify-content: space-between; }
+  }
+
   /* Spausdinam tik sąrašą */
   @media print {
       header, footer, nav, .no-print, .si-juosta { display: none !important; }
       body { background: #fff; }
       #si-sarasas { display: block !important; }
       #si-sarasas > div { break-inside: avoid; border: 1px solid #ddd;
-                          margin-bottom: 8mm; box-shadow: none; cursor: auto; }
-      #si-sarasas img { max-height: 45mm; }
-      #si-sarasas button { display: none !important; }
+                          margin-bottom: 6mm; box-shadow: none; cursor: auto; }
+      #si-sarasas img { max-height: 40mm; }
+      #si-sarasas button, .si-veiksmai, .si-pastaba { display: none !important; }
+      .si-pastaba-print { display: block !important; font-size: 11px; color: #444;
+                          border-left: 2px solid #ddd; padding-left: 6px; }
+      .si-kort { page-break-inside: avoid; }
+      .si-desine { align-items: flex-end !important; }
   }
 </style>
 
 <script>
+// Asmeninė pastaba — išsaugoma iškart, kai laukas praranda fokusą.
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.si-pastaba').forEach(function (laukas) {
+    var pradine = laukas.value;
+    laukas.addEventListener('blur', function () {
+      if (laukas.value === pradine) { return; }
+      var duom = new FormData();
+      duom.append('note', laukas.value);
+      fetch('/' + laukas.dataset.pk + '/save/note/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'X-Requested-With': 'XMLHttpRequest' },
+        body: duom,
+      }).then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.ok) { pradine = laukas.value; laukas.classList.add('si-issaugota');
+                      setTimeout(function () { laukas.classList.remove('si-issaugota'); }, 1200); }
+        }).catch(function () {});
+    });
+  });
+
+  // Dalintis — telefone sisteminis langas, kitur nuorodos kopijavimas
+  document.querySelectorAll('[data-share]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var url = b.dataset.share, pav = b.dataset.title || '';
+      if (navigator.share) { navigator.share({ title: pav, url: url }).catch(function () {}); return; }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          var s = b.querySelector('span'); var senas = s.textContent;
+          s.textContent = '{% trans "Nukopijuota" %}';
+          setTimeout(function () { s.textContent = senas; }, 1500);
+        });
+      }
+    });
+  });
+});
+
 function unsaveListing(btn, listingId) {
     const icon = btn.querySelector('i');
     fetch(`/${listingId}/save/`, {
@@ -202,9 +310,11 @@ function unsaveListing(btn, listingId) {
     .then(r => r.json())
     .then(data => {
         if (!data.saved) {
-            icon.className = 'far fa-heart text-gray-400';
-        } else {
-            icon.className = 'fas fa-heart text-red-500';
+            // Išėmus iš įsimintų kortelė iškart dingsta ir atsinaujina skaičius
+            const kortele = document.getElementById('si-kort-' + listingId);
+            if (kortele) { kortele.remove(); }
+            const antraste = document.getElementById('si-count');
+            if (antraste) { antraste.textContent = Math.max(0, parseInt(antraste.textContent, 10) - 1); }
         }
     });
 }

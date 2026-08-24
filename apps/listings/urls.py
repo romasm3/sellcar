@@ -226,6 +226,7 @@ urlpatterns = [
     path("<int:pk>/vin-update/", views.listing_vin_update, name="listing_vin_update"),
     path("<int:pk>/delete/", views.listing_delete, name="listing_delete"),
     path("<int:pk>/save/", views.save_listing, name="save_listing"),
+    path("<int:pk>/save/note/", views.save_listing_note, name="save_listing_note"),
     path("<int:pk>/contact/", views.contact_seller, name="contact_seller"),
     path("<int:pk>/report/", views.report_listing, name="report_listing"),
     # Jau išsiųstuose laiškuose figūruoja senas kelias „/listings/<id>/",

@@ -14529,7 +14529,7 @@ msgstr "My searches"
 
 #: templates/base.html:609 templates/listings/saved_listings.html:18
 msgid "Įsiminti skelbimai"
-msgstr "Saved listings"
+msgstr "Saved ads"
 
 #: templates/base.html:614
 msgid "Peržiūrėti skelbimai"
@@ -20935,7 +20935,7 @@ msgstr ""
 
 #: templates/listings/saved_listings.html:23
 msgid "Ištrinti visus įsimintus skelbimus?"
-msgstr ""
+msgstr "Delete all saved ads?"
 
 #: templates/listings/saved_listings.html:25
 #: templates/listings/saved_searches.html:48
@@ -23115,3 +23115,15 @@ msgstr "Copy"
 #: templates/listings/partials/_lightbox.html
 msgid "Nukopijuota"
 msgstr "Copied"
+
+#: templates/listings/saved_listings.html
+msgid "Parašyti komentarą sau"
+msgstr "Write a note to yourself"
+
+#: templates/listings/saved_listings.html
+msgid "Rašyti žinutę"
+msgstr "Send a message"
+
+#: templates/listings/saved_listings.html
+msgid "Išimti iš įsimintų"
+msgstr "Remove from saved"
