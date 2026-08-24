@@ -4,6 +4,7 @@ from apps.listings import brand_api
 from . import views_help
 from . import motorcycles_views
 from . import perziureti_views
+from . import skelbimai_views
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
@@ -181,6 +182,9 @@ urlpatterns = [
     path('search/toggle-save/', views.toggle_save_search, name='toggle_save_search'),
     path('search/duplicate/<int:pk>/', views.duplicate_search, name='duplicate_search'),
     path('search/<int:pk>/viewed/', views.mark_search_viewed, name='mark_search_viewed'),
+
+    # ─── Visi skelbimai iš visų kategorijų ───
+    path('skelbimai/', skelbimai_views.visi_skelbimai, name='visi_skelbimai'),
 
     # ─── Peržiūrėti skelbimai (veikia ir svečiui — iš localStorage) ───
     path('perziureti/', perziureti_views.perziureti_skelbimai, name='perziureti_skelbimai'),

@@ -1,12 +1,13 @@
 {% load i18n %}{% comment %}
 Kortelių sąrašas — ta pati dalis serveriui (prisijungęs) ir svečio
-užklausai (perziureti_duomenys grąžina šitą HTML).
-{% endcomment %}{% for i in irasai %}
-{% include 'listings/partials/_perziureta_kortele.html' with listing=i.listing perziureta=i.perziureta svecias=svecias %}
+užklausai (perziureti_duomenys grąžina šitą HTML). Kortelė bendra su
+/skelbimai/ puslapiu.
+{% endcomment %}{% for i in korteles %}
+{% include 'listings/partials/_skelbimo_kortele.html' with i=i salinti=1 %}
 {% empty %}
-<div class="pz-tuscia">
+<div class="sk-tuscia">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
   <p>{% trans "Dar nesate peržiūrėję nė vieno skelbimo" %}</p>
-  <a class="pz-mygtukas" href="{% url 'browse_listings' %}">{% trans "Naršyti skelbimus" %}</a>
+  <a class="sk-mygtukas" href="{% url 'visi_skelbimai' %}">{% trans "Naršyti skelbimus" %}</a>
 </div>
 {% endfor %}

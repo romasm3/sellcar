@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "Skelbimai" %} - AutoLeft{% endblock %}
+
+{% block content %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+VISI SKELBIMAI — /skelbimai/
+
+Trupinių takas · kategorijų žymų juosta su ‹ › · antraštė su skaičiumi ·
+„Rasta skelbimų" ir rūšiavimas · kortelės · puslapiavimas.
+
+Kortelė ta pati kaip /perziureti/ (partials/_skelbimo_kortele.html), tad
+žymos ir veiksmai visur vienodi.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% include 'listings/partials/_kortele_stiliai.html' %}
+
+<div class="vs-puslapis">
+  <nav class="vs-takas" aria-label="{% trans 'Trupinių takas' %}">
+    <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+    <span>›</span>
+    <span class="vs-takas-on">{% trans "Skelbimai" %}</span>
+  </nav>
+
+  {% comment %}Kategorijų juosta — slenka pati, ne puslapis; ‹ › mygtukai
+  darbalaukyje, telefone pirštu.{% endcomment %}
+  <div class="vs-zymos" x-data="zymuJuosta()">
+    <button type="button" class="vs-rodykle" @click="stumk(-1)" x-show="slenka" aria-label="{% trans 'Atgal' %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="vs-zymu-juosta" x-ref="juosta">
+      {% for z in zymos %}
+      <a class="vs-zyma{% if z.aktyvi %} is-on{% endif %}"
+         href="?{% if z.slug %}kategorija={{ z.slug|urlencode }}&amp;{% endif %}rusiuoti={{ rusiuoti }}">
+        {{ z.label }}{% if z.kiek %} <em>{{ z.kiek }}</em>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    <button type="button" class="vs-rodykle" @click="stumk(1)" x-show="slenka" aria-label="{% trans 'Pirmyn' %}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <h1 class="vs-antraste">
+    {% trans "Skelbimai" %} <span class="vs-kiekis">({{ is_viso }})</span>
+  </h1>
+
+  <div class="vs-irankiai">
+    <div class="vs-rasta">{% trans "Rasta skelbimų:" %} <strong>{{ rasta }}</strong></div>
+    <label class="vs-rusiuoti">
+      <span>{% trans "Rūšiuoti pagal" %}</span>
+      <select onchange="window.location = this.value">
+        {% for reiksme, vardas in rusiavimas %}
+        <option value="?{% if kategorija %}kategorija={{ kategorija|urlencode }}&amp;{% endif %}rusiuoti={{ reiksme }}"
+                {% if reiksme == rusiuoti %}selected{% endif %}>{{ vardas }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+
+  <div class="sk-sarasas">
+    {% for i in korteles %}
+      {% include 'listings/partials/_skelbimo_kortele.html' with i=i sirdis=1 %}
+    {% empty %}
+    <div class="sk-tuscia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M20 20l-4-4"/></svg>
+      <p>{% trans "Šioje kategorijoje skelbimų kol kas nėra" %}</p>
+      <a class="sk-mygtukas" href="{% url 'visi_skelbimai' %}">{% trans "Rodyti visus skelbimus" %}</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if puslapis.paginator.num_pages > 1 %}
+  <nav class="vs-puslapiai" aria-label="{% trans 'Puslapiavimas' %}">
+    {% if puslapis.has_previous %}
+    <a href="?{{ params }}{% if params %}&amp;{% endif %}page={{ puslapis.previous_page_number }}">‹ {% trans "Atgal" %}</a>
+    {% endif %}
+    <span class="vs-puslapiai-info">
+      {% blocktrans with dabar=puslapis.number viso=puslapis.paginator.num_pages %}{{ dabar }} iš {{ viso }}{% endblocktrans %}
+    </span>
+    {% if puslapis.has_next %}
+    <a href="?{{ params }}{% if params %}&amp;{% endif %}page={{ puslapis.next_page_number }}">{% trans "Pirmyn" %} ›</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</div>
+
+<style>
+  /* Matmenys ir spalvos — docs/dizaino-sistema.md */
+  .vs-puslapis { max-width: 1100px; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-10); }
+  .vs-takas { display: flex; align-items: center; gap: var(--sp-2);
+              font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-4); }
+  .vs-takas a { color: var(--text-muted); text-decoration: none; }
+  .vs-takas a:hover { color: var(--text); text-decoration: underline; }
+  .vs-takas-on { color: var(--text); }
+
+  .vs-zymos { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-5); }
+  .vs-zymu-juosta { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none;
+                    scroll-behavior: smooth; flex: 1 1 auto; min-width: 0; }
+  .vs-zymu-juosta::-webkit-scrollbar { display: none; }
+  .vs-zyma { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+             height: var(--btn-h-sm); padding: 0 var(--sp-3);
+             border: 1px solid var(--border); border-radius: 999px;
+             background: var(--surface); color: var(--text);
+             font-size: var(--fs-sm); text-decoration: none; white-space: nowrap; }
+  .vs-zyma:hover { border-color: var(--accent); }
+  .vs-zyma em { font-style: normal; color: var(--text-muted); font-size: var(--fs-xs); }
+  .vs-zyma.is-on { background: var(--accent); border-color: var(--accent);
+                   color: var(--accent-contrast); font-weight: var(--fw-semibold); }
+  .vs-zyma.is-on em { color: var(--accent-contrast); opacity: .8; }
+  .vs-rodykle { flex: 0 0 auto; width: 32px; height: 32px; display: flex;
+                align-items: center; justify-content: center; border-radius: 50%;
+                border: 1px solid var(--border); background: var(--surface);
+                color: var(--text-muted); cursor: pointer; }
+  .vs-rodykle:hover { color: var(--text); border-color: var(--accent); }
+  .vs-rodykle svg { width: 16px; height: 16px; }
+
+  .vs-antraste { font-size: 24px; font-weight: var(--fw-bold); color: var(--text);
+                 margin-bottom: var(--sp-4); }
+  .vs-kiekis { color: var(--text-muted); font-weight: var(--fw-semibold); }
+
+  .vs-irankiai { display: flex; align-items: center; justify-content: space-between;
+                 gap: var(--sp-3); flex-wrap: wrap;
+                 background: var(--surface); border: 1px solid var(--border);
+                 border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4);
+                 margin-bottom: var(--sp-4); }
+  .vs-rasta { font-size: var(--fs-base); color: var(--text-muted); }
+  .vs-rasta strong { color: var(--text); }
+  .vs-rusiuoti { display: flex; align-items: center; gap: var(--sp-2);
+                 font-size: var(--fs-sm); color: var(--text-muted); }
+  .vs-rusiuoti select { height: var(--btn-h); padding: 0 var(--sp-3);
+                        border: 1px solid var(--border); border-radius: var(--r-md);
+                        background: var(--surface); color: var(--text);
+                        font-size: var(--fs-base); }
+
+  .vs-puslapiai { display: flex; align-items: center; justify-content: center;
+                  gap: var(--sp-4); margin-top: var(--sp-6); }
+  .vs-puslapiai a { display: inline-flex; align-items: center; height: var(--btn-h);
+                    padding: 0 var(--sp-4); border: 1px solid var(--border);
+                    border-radius: var(--r-md); color: var(--text);
+                    text-decoration: none; font-weight: var(--fw-semibold); }
+  .vs-puslapiai a:hover { border-color: var(--accent); color: var(--accent); }
+  .vs-puslapiai-info { color: var(--text-muted); font-size: var(--fs-sm); }
+
+  @media (max-width: 767px) {
+    .vs-rodykle { display: none; }
+    .vs-irankiai { flex-direction: column; align-items: stretch; }
+    .vs-rusiuoti { justify-content: space-between; }
+  }
+</style>
+
+<script>
+// Kategorijų juosta: rodyklės matomos tik tada, kai turinys netelpa.
+function zymuJuosta() {
+  return {
+    slenka: false,
+    init() {
+      var j = this.$refs.juosta;
+      this.slenka = j.scrollWidth > j.clientWidth + 4;
+      window.addEventListener('resize', () => {
+        this.slenka = j.scrollWidth > j.clientWidth + 4;
+      });
+    },
+    stumk(kryptis) {
+      var j = this.$refs.juosta;
+      j.scrollBy({ left: kryptis * Math.max(200, j.clientWidth * 0.7), behavior: 'smooth' });
+    }
+  };
+}
+</script>
+{% endblock %}

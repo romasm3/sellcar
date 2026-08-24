@@ -27,6 +27,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
+from .korteles import kortele
 from .models import Listing, PerziuretasSkelbimas
 
 
@@ -81,7 +82,7 @@ def perziureti_skelbimai(request):
         kiek = len(korteles)
 
     return render(request, 'listings/perziureti.html', {
-        'irasai': korteles,
+        'korteles': [kortele(i.listing, perziureta=i.perziureta) for i in korteles],
         'kiek': kiek,
         'kategorijos': kategorijos,
         'kategorija': kategorija,
@@ -96,7 +97,7 @@ def perziureti_duomenys(request):
     """Svečio kortelės: JSON {ids: [...], laikai: {id: ISO}, kategorija, sort}.
 
     Grąžina paruoštą HTML — kad kortelė būtų viena ir ta pati kaip
-    prisijungusiam (partials/_perziureta_kortele.html).
+    prisijungusiam (partials/_skelbimo_kortele.html).
     """
     try:
         duom = json.loads(request.body or '{}')
@@ -134,8 +135,10 @@ def perziureti_duomenys(request):
     elif sort == 'brangiausi':
         irasai.sort(key=lambda x: x['listing'].price or 0, reverse=True)
 
-    html = render_to_string('listings/partials/_perziuretu_sarasas.html',
-                            {'irasai': irasai, 'svecias': True}, request=request)
+    html = render_to_string(
+        'listings/partials/_perziuretu_sarasas.html',
+        {'korteles': [kortele(x['listing'], perziureta=x['perziureta']) for x in irasai]},
+        request=request)
     kategorijos = _kategoriju_sarasas([pagal_id[i] for i in ids if i in pagal_id])
     return JsonResponse({'html': html, 'kiek': len(irasai),
                          'kategorijos': kategorijos})

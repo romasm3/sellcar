@@ -1,0 +1,77 @@
+{% load i18n listing_filters %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+SKELBIMO KORTELĖ sąrašuose (/skelbimai/, /perziureti/).
+
+Vienas pavidalas dviem modeliams: `i` — žodynas iš apps/listings/korteles.py
+(obj, url, img, spec, miestas, vin, perziureta, issaugotas).
+
+Parametrai:
+    i         — kortelės duomenys
+    sirdis    — rodyti „Įsiminti" (1/0)
+    salinti   — rodyti ✕ „Pašalinti iš peržiūrėtų" (1/0)
+
+Žymos: laikas ir „Naujas" — visada; VIN — jei yra; „Žiūrėjote" prideda
+static/js/perziureti.js pagal data-skelbimas.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="sk-kort" data-skelbimas="{{ i.pk }}">
+  <a class="sk-nuotrauka" href="{{ i.url }}">
+    {% if i.img %}
+      {% include 'listings/partials/_img.html' with img=i.img alt=i.obj.title %}
+    {% else %}
+      <span class="sk-be-nuotraukos"><i class="fas fa-car"></i></span>
+    {% endif %}
+    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=i.obj %}</div>
+    {% if i.vin %}<span class="sk-vin">{% trans "VIN" %}</span>{% endif %}
+  </a>
+
+  <div class="sk-turinys">
+    <div class="sk-eilute">
+      <a class="sk-pavadinimas" href="{{ i.url }}">{{ i.obj.title }}</a>
+      <div class="sk-kaina">{{ i.obj.price|kaina:i.obj.currency_symbol }}</div>
+    </div>
+
+    {% if i.perziureta %}
+    <div class="sk-kada">
+      {% trans "Peržiūrėta" %}
+      <span class="time-ago" data-paskelbta="{{ i.perziureta|date:'c' }}"><span class="time-ago-text"></span></span>
+    </div>
+    {% endif %}
+
+    {% if i.spec %}<div class="sk-spec">{{ i.spec }}</div>{% endif %}
+    {% if i.miestas %}<div class="sk-vieta">{{ i.miestas }}</div>{% endif %}
+
+    <div class="sk-veiksmai">
+      <a class="sk-veiksmas" href="{% if user.is_authenticated %}{% url 'conversations:start' i.pk %}{% else %}{% url 'accounts:login' %}?next={{ i.url|urlencode }}{% endif %}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
+        <span>{% trans "Rašyti žinutę" %}</span>
+      </a>
+      <button type="button" class="sk-veiksmas" data-dalintis="{{ i.pk }}"
+              data-nuoroda="{{ request.scheme }}://{{ request.get_host }}{{ i.url }}"
+              data-pavadinimas="{{ i.obj.title }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path stroke-linecap="round" d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>
+        <span>{% trans "Dalintis" %}</span>
+      </button>
+      {% if sirdis %}
+      {% if user.is_authenticated %}
+      <button type="button" class="sk-veiksmas" onclick="toggleSave(this, {{ i.pk }})">
+        <i class="{% if i.issaugotas %}fas{% else %}far{% endif %} fa-heart"></i>
+        <span>{% trans "Įsiminti" %}</span>
+      </button>
+      {% else %}
+      <a class="sk-veiksmas" href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}">
+        <i class="far fa-heart"></i>
+        <span>{% trans "Įsiminti" %}</span>
+      </a>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  {% if salinti %}
+  <button type="button" class="sk-salinti" data-salinti="{{ i.pk }}"
+          title="{% trans 'Pašalinti iš peržiūrėtų' %}" aria-label="{% trans 'Pašalinti iš peržiūrėtų' %}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  {% endif %}
+</div>

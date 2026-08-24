@@ -408,7 +408,7 @@
                     <a href="{% url 'conversations:list' %}" class="relative hidden lg:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
                         <i class="fas fa-envelope text-xl"></i>
                         {% if unread_messages_count > 0 %}
-                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
+                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
                             {{ unread_messages_count }}
                         </span>
                         {% endif %}
@@ -466,7 +466,7 @@
                                 <span class="relative inline-block w-5 mr-1">
                                     <i class="fas fa-envelope"></i>
                                     {% if unread_messages_count > 0 %}
-                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-red-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ unread_messages_count }}</span>
+                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ unread_messages_count }}</span>
                                     {% endif %}
                                 </span>
                                 {% trans "Messages" %}
@@ -484,23 +484,23 @@
 
                             {% if user.is_superuser %}
                             <hr class="my-2">
-                            <div class="px-4 py-1 text-xs font-semibold text-red-700 uppercase tracking-wide">{% trans "Admin" %}</div>
-                            <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                            <div class="px-4 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">{% trans "Admin" %}</div>
+                            <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-shield-alt w-5"></i> {% trans "Moderate users" %}
                             </a>
-                            <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                            <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-store w-5"></i> {% trans "Moderate dealers" %}
                             </a>
-                            <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                            <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-chart-line w-5"></i> {% trans "Sales stats" %}
                             </a>
-                            <a href="/admin/" class="block px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors">
+                            <a href="/admin/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-cog w-5"></i> {% trans "Django admin" %}
                             </a>
                             {% endif %}
 
                             <hr class="my-2">
-                            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors">
+                            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <i class="fas fa-sign-out-alt w-5"></i> {% trans "Logout" %}
                             </a>
                         </div>
@@ -548,7 +548,7 @@
                     <a href="{% url 'home' %}" class="logo" style="font-size:24px" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
                 </div>
                 <a href="{% url 'listing_create' %}"
-                   class="flex items-center justify-center gap-1.5 px-4 py-2.5 mb-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
+                   class="flex items-center justify-center gap-1.5 px-4 py-2.5 mb-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -590,22 +590,22 @@
                 </a>
                 {% if user.is_superuser %}
                 <hr class="my-2">
-                <div class="px-4 py-1 text-xs font-semibold text-red-700 uppercase tracking-wide">{% trans "Admin" %}</div>
-                <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
+                <div class="px-4 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">{% trans "Admin" %}</div>
+                <a href="{% url 'admin_users_list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-shield-alt w-5"></i> {% trans "Moderate users" %}
                 </a>
-                <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
+                <a href="{% url 'accounts:admin_dealers_list' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-store w-5"></i> {% trans "Moderate dealers" %}
                 </a>
-                <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
+                <a href="{% url 'admin_sales_stats' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-chart-line w-5"></i> {% trans "Sales stats" %}
                 </a>
-                <a href="/admin/" class="block px-4 py-2 text-red-700 hover:bg-red-50 rounded-lg">
+                <a href="/admin/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-cog w-5"></i> {% trans "Django admin" %}
                 </a>
                 {% endif %}
                 <hr class="my-2">
-                <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100 rounded-lg">
+                <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-sign-out-alt w-5"></i> {% trans "Logout" %}
                 </a>
             </div>

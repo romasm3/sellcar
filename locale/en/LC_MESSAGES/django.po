@@ -23255,5 +23255,37 @@ msgstr "Viewed"
 msgid "Nuoroda nukopijuota"
 msgstr "Link copied"
 
+#. visi skelbimai
+msgid "Rasta skelbimų:"
+msgstr "Listings found:"
+
+#. visi skelbimai
+msgid "Rūšiuoti pagal"
+msgstr "Sort by"
+
+#. visi skelbimai
+msgid "Žiūrėti visus"
+msgstr "View all"
+
+#. visi skelbimai
+msgid "Populiariausi"
+msgstr "Most popular"
+
+#. visi skelbimai
+msgid "Šioje kategorijoje skelbimų kol kas nėra"
+msgstr "No listings in this category yet"
+
+#. visi skelbimai
+msgid "Rodyti visus skelbimus"
+msgstr "Show all listings"
+
+#. visi skelbimai
+msgid "Puslapiavimas"
+msgstr "Pagination"
+
+#. visi skelbimai
+msgid "vnt."
+msgstr "pcs"
+
 #~ msgid "Top markės"
 #~ msgstr "Top brands"

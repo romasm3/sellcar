@@ -102,11 +102,12 @@
         document.querySelectorAll('[data-skelbimas]').forEach(function (kort) {
             if (kort.querySelector('.card-ziurejote')) return;
             if (!matyti[parseInt(kort.getAttribute('data-skelbimas'), 10)]) return;
-            if (kort.classList.contains('pz-kort')) return;   // pačiame sąraše nereikia
+            // Peržiūrėtų sąraše ženkliuko nereikia — ten visi jau matyti
+            if (window.location.pathname.indexOf('/perziureti/') === 0) return;
 
             var vieta = kort.querySelector('.card-bottom-left');
             if (!vieta) {
-                var nuotr = kort.querySelector('.h-img-side, .home-tab-img, .pz-nuotrauka');
+                var nuotr = kort.querySelector('.h-img-side, .home-tab-img, .sk-nuotrauka');
                 if (!nuotr) return;
                 vieta = document.createElement('div');
                 vieta.className = 'card-bottom-left';

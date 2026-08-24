@@ -3,13 +3,14 @@
 {% block title %}{% trans "Peržiūrėti skelbimai" %} - AutoLeft{% endblock %}
 
 {% block content %}
+{% include 'listings/partials/_kortele_stiliai.html' %}
 {% comment %}
 ═══════════════════════════════════════════════════════════════════════
 PERŽIŪRĖTI SKELBIMAI
 
 Prisijungusiam kortelės ateina iš serverio, svečiui — iš naršyklės
 sąrašo (localStorage) per /perziureti/duomenys/. Kortelė ta pati abiem
-atvejais (partials/_perziureta_kortele.html).
+atvejais (partials/_skelbimo_kortele.html).
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 <div class="pz-puslapis">
@@ -48,7 +49,7 @@ atvejais (partials/_perziureta_kortele.html).
     {% if svecias %}
     <div class="pz-kraunama">{% trans "Kraunama…" %}</div>
     {% else %}
-    {% include 'listings/partials/_perziuretu_sarasas.html' with irasai=irasai svecias=0 %}
+    {% include 'listings/partials/_perziuretu_sarasas.html' with korteles=korteles %}
     {% endif %}
   </div>
 </div>
@@ -72,76 +73,9 @@ atvejais (partials/_perziureta_kortele.html).
                       border-radius: var(--r-md); font-size: var(--fs-base);
                       color: var(--text); }
 
-  .pz-sarasas { display: flex; flex-direction: column; gap: var(--sp-3); }
-
-  /* Kortelės vidus — tos pačios klasės kaip rezultatų sąraše, bet jų
-     stiliai gyvena listing_list.html viduje, todėl čia pakartojam tik
-     tai, ko reikia šiam puslapiui. */
-  .pz-kort .ap-title-row { display: flex; justify-content: space-between;
-                           align-items: flex-start; gap: var(--sp-2); }
-  .pz-kort .ap-title { font-weight: var(--fw-bold); color: var(--text);
-                       font-size: 0.95rem; line-height: 1.25; flex: 1; min-width: 0; }
-  .pz-kort .ap-price { font-size: 1.05rem; font-weight: 800; color: var(--text);
-                       line-height: 1.2; white-space: nowrap; flex-shrink: 0; }
-  .pz-kort .ap-spec-line { color: var(--text-muted); font-size: 0.82rem; line-height: 1.4; }
-  .pz-kort .card-top-left { position: absolute; top: 8px; left: 8px; z-index: 3;
-                            display: flex; gap: 4px; }
-  .pz-kort .card-badge-group { display: inline-flex; align-items: stretch;
-                               border-radius: 5px; overflow: hidden;
-                               box-shadow: 0 1px 4px rgba(0,0,0,.15); }
-  .pz-kort .card-badge-new { display: inline-flex; align-items: center; padding: 3px 8px;
-                             background: rgba(16,185,129,.55); color: #fff;
-                             font-size: .62rem; font-weight: 700;
-                             text-shadow: 0 1px 2px rgba(0,0,0,.4); }
-  .pz-kort .card-badge-time { display: inline-flex; align-items: center; padding: 3px 8px;
-                              background: rgba(0,0,0,.45); color: #fff;
-                              font-size: .62rem; font-weight: 600;
-                              text-shadow: 0 1px 2px rgba(0,0,0,.6); }
-  .pz-kort .no-img-icon { display: flex; align-items: center; justify-content: center;
-                          width: 100%; height: 100%; color: var(--text-muted); font-size: 28px; }
-
-  /* Kortelė — rezultatų sąrašo išvaizda + peržiūros eilutė ir veiksmai */
-  .pz-kort { position: relative; display: flex; gap: var(--sp-4);
-             background: var(--surface); border: 1px solid var(--border);
-             border-radius: var(--r-md); overflow: hidden; }
-  .pz-nuotrauka { position: relative; flex: 0 0 240px; height: 180px; display: block;
-                  background: var(--accent-soft); }
-  .pz-nuotrauka img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  /* dešinėje palikta vietos ✕ mygtukui, kad neuždengtų kainos */
-  .pz-kort .h-info-side { flex: 1 1 auto; min-width: 0; padding: var(--sp-3) 48px var(--sp-3) 0; }
-  .pz-kada { font-size: var(--fs-sm); color: var(--text-muted); margin: 2px 0 var(--sp-2); }
-  .pz-vieta { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 2px; }
-  .pz-veiksmai { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); flex-wrap: wrap; }
-  .pz-veiksmas { display: inline-flex; align-items: center; gap: 6px;
-                 height: var(--btn-h-sm); padding: 0 var(--sp-3);
-                 border: 1px solid var(--border); border-radius: var(--r-md);
-                 background: var(--surface); color: var(--text);
-                 font-size: var(--fs-sm); text-decoration: none; cursor: pointer; }
-  .pz-veiksmas:hover { border-color: var(--accent); color: var(--accent); }
-  .pz-veiksmas svg { width: 16px; height: 16px; }
-  .pz-salinti { position: absolute; top: var(--sp-2); right: var(--sp-2);
-                width: 30px; height: 30px; display: flex; align-items: center;
-                justify-content: center; border: 1px solid var(--border);
-                border-radius: 50%; background: var(--surface);
-                color: var(--text-muted); cursor: pointer; }
-  .pz-salinti:hover { color: var(--text); border-color: var(--accent); }
-  .pz-salinti svg { width: 14px; height: 14px; }
-
-  .pz-tuscia { text-align: center; padding: var(--sp-10) var(--sp-4);
-               background: var(--surface); border: 1px solid var(--border);
-               border-radius: var(--r-md); color: var(--text-muted); }
-  .pz-tuscia svg { width: 40px; height: 40px; margin: 0 auto var(--sp-3); display: block; }
-  .pz-tuscia p { font-size: var(--fs-base); margin-bottom: var(--sp-4); }
-  .pz-mygtukas { display: inline-flex; align-items: center; height: var(--btn-h);
-                 padding: 0 var(--sp-5); border-radius: var(--r-md);
-                 background: var(--accent); color: var(--accent-contrast);
-                 text-decoration: none; font-weight: var(--fw-semibold); }
-  .pz-kraunama { padding: var(--sp-8); text-align: center; color: var(--text-muted); }
+  .sk-sarasas { display: flex; flex-direction: column; gap: var(--sp-3); }
 
   @media (max-width: 767px) {
-    .pz-kort { flex-direction: column; gap: 0; }
-    .pz-nuotrauka { flex: 0 0 auto; width: 100%; height: 200px; }
-    .pz-kort .h-info-side { padding: var(--sp-3) 44px var(--sp-3) var(--sp-3); }
     .pz-laukas select { min-width: 0; width: 100%; }
     .pz-laukas { flex: 1 1 45%; }
   }

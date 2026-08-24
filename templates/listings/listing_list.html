@@ -172,11 +172,17 @@
 .home-tab-btn { padding-bottom: 0.75rem; padding-left: 0.25rem; padding-right: 0.25rem; border-bottom: 2px solid transparent; font-weight: 500; white-space: nowrap; font-size: 0.95rem; color: #6b7280; cursor: pointer; background: none; transition: all 0.2s; }
 .home-tab-btn:hover { color: #111827; }
 .home-tab-btn.active { border-bottom-color: #10b981; color: #10b981; }
-.home-tab-btn-hot { color: #dc2626; font-weight: 600; }
-.home-tab-btn-hot:hover { color: #b91c1c; }
-.home-tab-btn-hot.active { border-bottom-color: #dc2626; color: #dc2626; }
-.home-tab-badge.badge-daily { background: #dc2626; color: #fff; }
+.home-tab-btn-hot { color: var(--accent); font-weight: 600; }
+.home-tab-btn-hot:hover { color: var(--accent-hover); }
+.home-tab-btn-hot.active { border-bottom-color: var(--accent); color: var(--accent); }
 .home-tab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+/* „Žiūrėti visus" — antrinis mygtukas, centruotas po kortelėmis */
+.home-tab-visi { display: flex; align-items: center; justify-content: center;
+                 max-width: 320px; margin: var(--sp-5) auto 0; height: var(--btn-h);
+                 border: 1px solid var(--border); border-radius: var(--r-md);
+                 background: var(--surface); color: var(--text);
+                 font-weight: var(--fw-semibold); text-decoration: none; }
+.home-tab-visi:hover { border-color: var(--accent); color: var(--accent); }
 @media (min-width: 640px) { .home-tab-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .home-tab-grid { grid-template-columns: repeat(6, 1fr); } }
 
@@ -287,7 +293,7 @@
 /* ─── Brand+Model pair (added dynamically) ─── */
 .brand-pair-extra { padding-top:0.75rem; border-top:1px dashed #e5e7eb; margin-top:0.75rem; position:relative; }
 .brand-pair-remove { position:absolute; top:0.5rem; right:0; width:20px; height:20px; border:none; background:transparent; color:#9ca3af; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
-.brand-pair-remove:hover { color:#ef4444; }
+.brand-pair-remove:hover { color:var(--accent); }
 
 /* ─── Search panel icon rail (autogidas style) ─── */
 .sp-rail { border-right:1px solid #f3f4f6; }
@@ -874,7 +880,7 @@ a.sp-rail-btn { text-decoration:none; }
                             {% if listing.status != 'sold' %}
                             {% if user.is_authenticated %}
                             <button @click.stop="toggleSave($event.currentTarget, {{ listing.pk }})" class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md transition-all z-10">
-                                <i class="{% if listing.pk in saved_ids %}fas text-red-500{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
+                                <i class="{% if listing.pk in saved_ids %}fas text-[color:var(--accent)]{% else %}far text-gray-400{% endif %} fa-heart text-sm"></i>
                             </button>
                             {% else %}
                             <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" @click.stop class="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur-sm hover:bg-white rounded-md flex items-center justify-center shadow-md z-10">
@@ -1146,8 +1152,6 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
-                            <span class="home-tab-badge badge-daily">{% trans "Dienos pasiūlymas" %}</span>
-                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
@@ -1163,6 +1167,9 @@ function onSortChange(selectEl) {
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "Šiandien naujų skelbimų dar nėra." %}</p>
                 {% endif %}
+                {% comment %}Antrinis mygtukas po kortelėmis — veda į
+                /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
+                <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}">{% trans "Žiūrėti visus" %}</a>
             </div>
 
             {% comment %}
@@ -1184,17 +1191,6 @@ function onSortChange(selectEl) {
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
 
-                            {# Bottom-left badges — IDENTIŠKAS Browse cards stilius #}
-                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
-                            {% if listing.is_featured or eff_level > 0 %}
-                            <div class="card-bottom-left">
-                                {% if listing.is_featured %}
-                                <span class="card-mini-badge" style="background:rgba(var(--accent-rgb),0.85);color:var(--accent-contrast);text-shadow:0 1px 2px rgba(0,0,0,0.4);">{% trans "Išskirtinis" %}</span>
-                                {% endif %}
-                                {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-
-                            </div>
-                            {% endif %}
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
@@ -1210,6 +1206,9 @@ function onSortChange(selectEl) {
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No featured listings yet." %}</p>
                 {% endif %}
+                {% comment %}Antrinis mygtukas po kortelėmis — veda į
+                /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
+                <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}">{% trans "Žiūrėti visus" %}</a>
             </div>
 
             {# ─── Newest ─── #}
@@ -1223,10 +1222,6 @@ function onSortChange(selectEl) {
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
-                            {% endif %}
-                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
-                            {% if listing.vin %}
-                            <span class="badge-vin">VIN</span>
                             {% endif %}
                         </div>
                         <div class="home-tab-info">
@@ -1242,6 +1237,9 @@ function onSortChange(selectEl) {
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
                 {% endif %}
+                {% comment %}Antrinis mygtukas po kortelėmis — veda į
+                /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
+                <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}?rusiuoti=naujausi">{% trans "Žiūrėti visus" %}</a>
             </div>
 
             {# ─── Most popular ─── #}
@@ -1257,10 +1255,6 @@ function onSortChange(selectEl) {
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
                             {% if listing.views_count and listing.views_count > 0 %}
-                            <span class="home-tab-badge badge-popular"><i class="fas fa-eye"></i> {{ listing.views_count }}</span>
-                            {% endif %}
-                            {% if listing.vin %}
-                            <span class="badge-vin">{% trans "VIN" %}</span>
                             {% endif %}
                         </div>
                         <div class="home-tab-info">
@@ -1276,6 +1270,9 @@ function onSortChange(selectEl) {
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
                 {% endif %}
+                {% comment %}Antrinis mygtukas po kortelėmis — veda į
+                /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
+                <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}?rusiuoti=populiarus">{% trans "Žiūrėti visus" %}</a>
             </div>
 
             {# ─── Most expensive ─── #}
@@ -1291,12 +1288,7 @@ function onSortChange(selectEl) {
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
                             {% if listing.star_level >= 2 %}
-                            <span class="home-tab-badge badge-featured">⭐⭐</span>
                             {% elif listing.star_level >= 1 %}
-                            <span class="home-tab-badge badge-featured">⭐</span>
-                            {% endif %}
-                            {% if listing.vin %}
-                            <span class="badge-vin">{% trans "VIN" %}</span>
                             {% endif %}
                         </div>
                         <div class="home-tab-info">
@@ -1312,6 +1304,9 @@ function onSortChange(selectEl) {
                 {% else %}
                 <p class="text-center text-gray-500 py-8 text-sm">{% trans "No listings yet." %}</p>
                 {% endif %}
+                {% comment %}Antrinis mygtukas po kortelėmis — veda į
+                /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
+                <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}?rusiuoti=brangiausi">{% trans "Žiūrėti visus" %}</a>
             </div>
 
         </div>
@@ -1727,7 +1722,7 @@ function updateBodyTypeLabel() {
 function toggleSave(btn, listingId) {
     var icon = btn.querySelector('i');
     var wasSaved = icon.classList.contains('fas');
-    icon.className = wasSaved ? 'far fa-heart text-gray-400 text-sm' : 'fas fa-heart text-red-500 text-sm';
+    icon.className = wasSaved ? 'far fa-heart text-gray-400 text-sm' : 'fas fa-heart text-[color:var(--accent)] text-sm';
     fetch('/' + listingId + '/save/', {
         method: 'POST',
         headers: { 'X-CSRFToken': '{{ csrf_token }}', 'X-Requested-With': 'XMLHttpRequest' }
@@ -1736,7 +1731,7 @@ function toggleSave(btn, listingId) {
     .then(function(res) {
         // Neprisijungęs — vedam į prisijungimą ir grąžinam į šį puslapį
         if (!res.ok && res.d && res.d.login_url) { window.location = res.d.login_url; return; }
-        icon.className = res.d.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+        icon.className = res.d.saved ? 'fas fa-heart text-[color:var(--accent)] text-sm' : 'far fa-heart text-gray-400 text-sm';
         if (window.isiminti && res.d.kiek !== undefined) window.isiminti.nustatyk(res.d.kiek);
     });
 }
