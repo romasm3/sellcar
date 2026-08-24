@@ -165,10 +165,15 @@ Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikon
 ### Prekės ženklo spalva — oranžinė #E8703A
 
 ```
---brand-ink   #1A1A1A   logotipo užrašas „Autoleft"
---brand-dot   #E8703A   TIK taškas logotipe ir ikonoje
---brand-font  "EB Garamond", Georgia, "Times New Roman", serif
+--brand-ink    #1A1A1A   logotipo užrašas
+--brand-dot    #E8703A   TIK taškas logotipe ir ikonoje
+--brand-paper  #F2F0ED   šviesus ženklo fonas (og:image, tamsios juostos)
 ```
+
+Ženklo failai gyvena `static/brand/` (tekstas kreivėmis — šrifto nereikia):
+šviesiam fonui `autoleft-logo.svg`, tamsiam `autoleft-logo-dark.svg`,
+vienspalvis `autoleft-logo-mono.svg` (`currentColor`), ikona
+`autoleft-icon.svg` ir PNG 512/192/180/64/32/16 bei `maskable` variantai PWA.
 
 **Oranžinė naudojama tik dviejose vietose: logotipo taške ir programėlės
 ikonoje. Daugiau niekur svetainėje jos nėra** — nei mygtukuose, nei žymose,
@@ -189,8 +194,10 @@ Patikra (turi grąžinti tuščią sąrašą — logotipo taškas neskaičiuojam
                  return /232,\s*112,\s*58/.test(cs.color + cs.backgroundColor + cs.borderColor); });
 ```
 
-Logotipo dydis: 32 px darbalaukyje, 24 px telefone. Ant tamsaus fono užrašas
-tampa `#F2F0ED`, taškas lieka oranžinis (`.logo-sviesus`).
+Logotipo dydis: **32 px darbalaukyje, 24 px telefone**, minimalus — 20 px.
+Proporcija 2,83:1: plotis skaičiuojamas iš aukščio (`width: auto`), ženklo
+netempiam. Aplink jį paliekama tuščia erdvė, lygi raidės „A" aukščiui.
+Ant tamsaus fono imamas `autoleft-logo-dark.svg`.
 
 ---
 
