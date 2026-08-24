@@ -162,6 +162,36 @@ Skaitikliai antraštėje — ne akcentas. Jie informaciniai: `--fs-xs`, žyma su
 
 Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikona.
 
+### Prekės ženklo spalva — oranžinė #E8703A
+
+```
+--brand-ink   #1A1A1A   logotipo užrašas „Autoleft"
+--brand-dot   #E8703A   TIK taškas logotipe ir ikonoje
+--brand-font  "EB Garamond", Georgia, "Times New Roman", serif
+```
+
+**Oranžinė naudojama tik dviejose vietose: logotipo taške ir programėlės
+ikonoje. Daugiau niekur svetainėje jos nėra** — nei mygtukuose, nei žymose,
+nei aktyviose būsenose. Akcentas lieka antracitas (`--accent`).
+
+Kodėl taip: viena reta spalva atsimenama geriau nei visur išbarstyta. Kai
+oranžinė yra vieninteliame taške, ji tampa ženklu — akis ją suranda iškart
+ir susieja su preke. Kai ta pati oranžinė yra ir mygtuke, ir žymoje, ir
+kortelės fone, ji nustoja ką nors reikšti ir tampa dar viena spalva triukšme.
+Tas pats principas kaip su akcentu: vienas elementas ekrane, ne penki.
+
+Patikra (turi grąžinti tuščią sąrašą — logotipo taškas neskaičiuojamas):
+
+```javascript
+[...document.querySelectorAll('body *')]
+  .filter(e => !e.classList.contains('logo-dot'))
+  .filter(e => { const cs = getComputedStyle(e);
+                 return /232,\s*112,\s*58/.test(cs.color + cs.backgroundColor + cs.borderColor); });
+```
+
+Logotipo dydis: 32 px darbalaukyje, 24 px telefone. Ant tamsaus fono užrašas
+tampa `#F2F0ED`, taškas lieka oranžinis (`.logo-sviesus`).
+
 ---
 
 ## 7. Kortelės

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Puslapis nerastas" %} - Autoleft{% endblock %}
+{% block content %}
+{% comment %}404 — su prekės ženklu ir keliu atgal (standalone režime
+naršyklės „atgal" juostos nėra, žr. docs/pwa-pasiruosimas.md).{% endcomment %}
+<div class="kl-puslapis">
+  <a href="{% url 'home' %}" class="logo" aria-label="Autoleft">Autoleft<span class="logo-dot">.</span></a>
+  <div class="kl-kodas">404</div>
+  <h1 class="kl-antraste">{% trans "Tokio puslapio nėra" %}</h1>
+  <p class="kl-tekstas">{% trans "Nuoroda galėjo pasenti arba skelbimas nuimtas." %}</p>
+  <div class="kl-mygtukai">
+    <a class="kl-btn kl-btn-pirmas" href="{% url 'home' %}">{% trans "Į pradžią" %}</a>
+    <a class="kl-btn" href="{% url 'browse_listings' %}">{% trans "Naršyti skelbimus" %}</a>
+  </div>
+</div>
+<style>
+  .kl-puslapis { max-width: 560px; margin: 0 auto; padding: var(--sp-16) var(--sp-4);
+                 text-align: center; }
+  .kl-kodas { margin-top: var(--sp-8); font-size: 64px; font-weight: var(--fw-bold);
+              color: var(--text-muted); line-height: 1; }
+  .kl-antraste { margin-top: var(--sp-3); font-size: 24px; font-weight: var(--fw-bold);
+                 color: var(--text); }
+  .kl-tekstas { margin-top: var(--sp-2); color: var(--text-muted); }
+  .kl-mygtukai { display: flex; gap: var(--sp-3); justify-content: center;
+                 margin-top: var(--sp-6); flex-wrap: wrap; }
+  .kl-btn { display: inline-flex; align-items: center; height: var(--btn-h);
+            padding: 0 var(--sp-5); border: 1px solid var(--accent);
+            border-radius: var(--r-md); color: var(--accent);
+            text-decoration: none; font-weight: var(--fw-semibold); }
+  .kl-btn-pirmas { background: var(--accent); color: var(--accent-contrast); }
+</style>
+{% endblock %}

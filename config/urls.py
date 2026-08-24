@@ -4,6 +4,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+# Administracijos antraštė — prekės ženklas, ne „Django administration".
+# Taškas rašomas tekste: admin šablonas savo HTML čia neleidžia.
+admin.site.site_header = 'Autoleft.'
+admin.site.site_title = 'Autoleft.'
+admin.site.index_title = 'Valdymas'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
