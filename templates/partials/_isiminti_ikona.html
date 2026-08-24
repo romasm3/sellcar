@@ -1,0 +1,23 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ĮSIMINTŲ SKELBIMŲ IKONA antraštėje (širdis su skaitikliu).
+
+Ta pati dalis darbalaukyje ir telefone — skaitiklis abiejuose vaizduose
+ima iš TO PATIES šaltinio:
+  • prisijungusiam — `saved_listings_count` (context_processors),
+  • svečiui — localStorage („isiminti" sąrašas), static/js/isiminti.js.
+
+Skaičių po išsaugojimo atnaujina isiminti.js per
+[data-isiminti-skaitiklis], todėl puslapio perkrauti nereikia.
+Nulis nerodomas.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}<a href="{% if user.is_authenticated %}{% url 'saved_listings' %}{% else %}{% url 'accounts:login' %}?next={% url 'saved_listings' %}{% endif %}"
+   class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors"
+   data-isiminti-nuoroda
+   title="{% trans 'Įsiminti skelbimai' %}" aria-label="{% trans 'Įsiminti skelbimai' %}">
+    <i class="fas fa-heart text-xl"></i>
+    <span data-isiminti-skaitiklis
+          data-serverio-kiekis="{% if user.is_authenticated %}{{ saved_listings_count|default:0 }}{% endif %}"
+          class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none"
+          {% if not saved_listings_count %}style="display:none"{% endif %}>{{ saved_listings_count|default:0 }}</span>
+</a>

@@ -1737,6 +1737,7 @@ function toggleSave(btn, listingId) {
         // Neprisijungęs — vedam į prisijungimą ir grąžinam į šį puslapį
         if (!res.ok && res.d && res.d.login_url) { window.location = res.d.login_url; return; }
         icon.className = res.d.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+        if (window.isiminti && res.d.kiek !== undefined) window.isiminti.nustatyk(res.d.kiek);
     });
 }
 

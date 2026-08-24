@@ -3936,7 +3936,12 @@ def save_listing(request, pk):
                 _send_listing_saved_by_users_email(listing, request.user)
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return JsonResponse({'saved': is_saved})
+        # `kiek` — bendras įsimintų skaičius antraštės skaitikliui
+        # (vienas šaltinis: static/js/isiminti.js jį tik perpiešia).
+        return JsonResponse({
+            'saved': is_saved,
+            'kiek': SavedListing.objects.filter(user=request.user).count(),
+        })
 
     next_page = request.META.get('HTTP_REFERER', '/')
     return redirect(next_page)

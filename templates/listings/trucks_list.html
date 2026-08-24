@@ -1208,6 +1208,7 @@ function toggleSave(btn, listingId) {
     .then(function(r) { return r.json(); })
     .then(function(data) {
         icon.className = data.saved ? 'fas fa-heart text-red-500 text-sm' : 'far fa-heart text-gray-400 text-sm';
+        if (window.isiminti && data.kiek !== undefined) window.isiminti.nustatyk(data.kiek);
     });
 }
 

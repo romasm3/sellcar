@@ -329,11 +329,12 @@
       var icon = btn.querySelector("i");
       fetch("/" + pk + "/save/", { method: "POST", headers: { "X-CSRFToken": getCookie("csrftoken") } })
         .then(function (r) { return r.json(); })
-        .then(function () {
+        .then(function (data) {
           if (icon) {
             icon.classList.toggle("fas"); icon.classList.toggle("far");
             icon.classList.toggle("text-red-500"); icon.classList.toggle("text-gray-400");
           }
+          if (window.isiminti && data && data.kiek !== undefined) window.isiminti.nustatyk(data.kiek);
         }).catch(function () {});
     };
   }
