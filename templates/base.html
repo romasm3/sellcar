@@ -58,13 +58,22 @@
         /* Siauriausiuose telefonuose (≤370 px) antraštės eilutė buvo 6 px
            platesnė už ekraną. Tailwind `gap-2` klasę perrašom su !important —
            kitaip laimėtų ji (tas pats specifiškumas, bet įkeliama vėliau). */
-        @media (max-width: 370px) {
-            .hdr-veiksmai { gap: 4px !important; }
-            .btn-sell { padding-left: 8px; padding-right: 8px; }
-            .site-logo img { height: 22px; }
-            /* Kalbos vėliavėlė telefone yra ir meniu viduje — siauriausiuose
-               ekranuose antraštėje jos nerodom, kad eilutė tilptų. */
+        /* Siauruose telefonuose (≤400 px) antraštės eilutė netilpdavo ir
+           puslapis pasislinkdavo į šoną — ypač matoma, kai atidarytas
+           kategorijų pikeris. Tas pats nutikdavo ir platesniame ekrane,
+           kai telefone įjungtas didesnis sistemos šriftas, todėl čia
+           paliekam tik tai, kas būtina: ženklas, „+", paieška, širdis, ☰.
+           Kalbos vėliavėlė ir „Įkelti" užrašas yra meniu viduje. */
+        @media (max-width: 400px) {
+            .hdr-veiksmai { gap: 4px !important; min-width: 0; }
             .hdr-veiksmai > .relative.shrink-0:first-child { display: none; }
+            .btn-sell { padding-left: 10px; padding-right: 10px; }
+            .site-logo img { height: 22px; }
+        }
+        /* Dar siauriau (≤370 px) arba su labai dideliu sistemos šriftu
+           „Įkelti" lieka tik pliuso ikona. */
+        @media (max-width: 370px) {
+            .btn-sell span { display: none; }
         }
 
         /* ═══ AKCENTO SPALVOS — VIENINTELĖ VIETA ═══
@@ -815,7 +824,8 @@
             <div class="pt-6" style="border-top: 1px solid rgba(255,255,255,0.08);">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p class="text-sm text-gray-500">&copy; 2025 AutoLeft. {% trans "All rights reserved." %}</p>
-                    <div class="flex items-center gap-6 text-xs text-gray-500">
+                    {% comment %}flex-wrap — kad su didesniu telefono šriftu eilutė lūžtų, o ne plėstų puslapio į šoną.{% endcomment %}
+                    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500">
                         <a href="{% url 'terms' %}" class="hover:text-gray-300 transition-colors">{% trans "Terms" %}</a>
                         <span class="text-gray-700">·</span>
                         <a href="{% url 'privacy' %}" class="hover:text-gray-300 transition-colors">{% trans "Privacy" %}</a>
