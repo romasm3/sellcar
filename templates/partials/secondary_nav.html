@@ -10,30 +10,17 @@ Telefone juosta slenkama į šoną (overflow-x:auto, slankiklis paslėptas) —
 sąmoninga išimtis iš „be horizontalaus slinkimo" taisyklės: slenka pati
 juosta savo konteineryje, puslapio ji neišplečia (SKILL.md).
 
-Nuorodos: kur puslapis JAU yra — tikras {% url %}; kur dar nėra — „#"
-su TODO, kad nebūtų mirusių 404.
+Punktai ateina iš VIENOS vietos — apps/listings/context_processors.py
+SEC_NAV_ITEMS. Punktą grąžinti į juostą = pakeisti jo eilutės pirmą
+reikšmę į True; kodo trinti nereikia. Ta pati eilutė maitina ir telefono
+meniu, todėl abu vaizdai visada sutampa.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 <nav class="sec-nav no-print" aria-label="{% trans 'Papildoma navigacija' %}">
   <div class="sec-nav-in">
-    {# TODO: finansavimo puslapio dar nėra — įdėti {% url %}, kai atsiras #}
-    <a href="#" class="sec-nav-item">{% trans "Finansavimas" %}</a>
-
-    {% comment %}„Reklama / pasiūlymai verslui" — esamas help puslapis{% endcomment %}
-    <a href="{% url 'advertise' %}" class="sec-nav-item">{% trans "Pasiūlymai verslui" %}</a>
-
-    {# TODO: autokatalogo (markių/modelių žinyno) puslapio dar nėra #}
-    <a href="#" class="sec-nav-item">{% trans "Autokatalogas" %}</a>
-
-    {% comment %}Straipsniai kol kas veda į „Patarimai ir gidai" — kito
-    straipsnių puslapio nėra.{% endcomment %}
-    <a href="{% url 'tips_guides' %}" class="sec-nav-item">{% trans "Straipsniai" %}</a>
-
-    <a href="{% url 'help_center' %}" class="sec-nav-item">{% trans "Pagalba" %}</a>
-    <a href="{% url 'about_us' %}" class="sec-nav-item">{% trans "Apie mus" %}</a>
-
-    {% comment %}Paskutinis — akcentuotas; veda į pardavėjo (dealer) planą.{% endcomment %}
-    <a href="{% url 'accounts:become_dealer' %}" class="sec-nav-item is-pro">{% trans "PRO pardavimas" %}</a>
+    {% for p in sec_nav %}
+    <a href="{{ p.url }}" class="sec-nav-item">{{ p.label }}</a>
+    {% endfor %}
   </div>
 </nav>
 
@@ -51,7 +38,7 @@ su TODO, kad nebūtų mirusių 404.
                   text-decoration: none;
                   border-bottom: 2px solid transparent; margin-bottom: -1px;
                   transition: color var(--dur), border-color var(--dur); }
-  .sec-nav-item:hover { color: var(--danger); border-bottom-color: var(--danger); }
+  .sec-nav-item:hover { color: var(--accent); border-bottom-color: var(--accent); }
   .sec-nav-item.is-pro { color: var(--accent); font-weight: var(--fw-semibold); }
   @media (max-width: 1023px) {
     .sec-nav-in { gap: var(--sp-4); padding: 0 var(--sp-3); }

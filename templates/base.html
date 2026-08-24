@@ -293,9 +293,9 @@
                         </a>
 
                         <!-- ═══ NEWS & HELP LINK (paprasta nuoroda, be ikonos) ═══ -->
-                        <a href="{% url 'help_center' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                            {% trans "News & Help" %}
-                        </a>
+                        {% comment %}„Pagalba" ir „Apie mus" gyvena antrinėje juostoje
+                        (SEC_NAV_ITEMS, rodoma iškart po antrašte), todėl čia jų
+                        nekartojam — antraštėje lieka tik žemėlapio paieška.{% endcomment %}
                     </div>
                 </div>
 
@@ -540,9 +540,12 @@
                 <a href="{% url 'search_map' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-map-marker-alt w-5"></i> {% trans "Map Search" %}
                 </a>
-                <a href="{% url 'help_center' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                    <i class="fas fa-newspaper w-5"></i> {% trans "News & Help" %}
+                {% comment %}Tie patys punktai kaip antrinėje juostoje (SEC_NAV_ITEMS).{% endcomment %}
+                {% for p in sec_nav %}
+                <a href="{{ p.url }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-newspaper w-5"></i> {{ p.label }}
                 </a>
+                {% endfor %}
                 <hr class="my-2">
                 <a href="{% url 'my_listings' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     <i class="fas fa-car w-5"></i> {% trans "My Ads" %}
@@ -648,10 +651,14 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
                         <span>{% trans "Žemėlapio paieška" %}</span>
                     </a>
-                    <a href="{% url 'help_center' %}" class="mm-row">
+                    {% comment %}Tie patys punktai kaip antrinėje juostoje —
+                    vienas sąrašas SEC_NAV_ITEMS (context_processors.py).{% endcomment %}
+                    {% for p in sec_nav %}
+                    <a href="{{ p.url }}" class="mm-row">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h13v14H6a2 2 0 01-2-2zM17 8h3v9a2 2 0 01-2 2M7 9h7M7 12h7M7 15h4"/></svg>
-                        <span>{% trans "Naujienos ir pagalba" %}</span>
+                        <span>{{ p.label }}</span>
                     </a>
+                    {% endfor %}
                 </nav>
 
                 {% comment %}Kalbos — tas pats vėliavėlių sąrašas kaip antraštėje,

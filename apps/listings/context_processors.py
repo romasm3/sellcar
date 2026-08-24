@@ -20,6 +20,8 @@ def device_kind(request):
 
 
 from apps.listings.search_config.panels import is_active
+from django.urls import NoReverseMatch, reverse
+from django.utils.translation import gettext_lazy as _
 
 
 # Kategorijos, turinčios paieškos panelę. Vienas sąrašas: pagal jį
@@ -182,3 +184,39 @@ THUMBS_ENABLED = False
 
 def rodymo_jungikliai(request):
     return {'THUMBS_ENABLED': THUMBS_ENABLED}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ANTRINĖ NAVIGACIJA — vienas sąrašas juostai ir telefono meniu
+#
+# Punktą įjungti/išjungti = pakeisti PIRMĄ reikšmę (True/False). Kodo
+# trinti nereikia — išjungtas punktas tiesiog nerenderinamas.
+#
+#   (rodyti, etiketė, maršruto vardas)
+#
+# `None` maršrutas reiškia, kad puslapio dar nėra — toks punktas gali
+# būti tik išjungtas (kitaip nuoroda vestų į niekur).
+# ═══════════════════════════════════════════════════════════════════
+
+SEC_NAV_ITEMS = [
+    (False, _('Finansavimas'),      None),                     # puslapio dar nėra
+    (False, _('Pasiūlymai verslui'), 'advertise'),
+    (False, _('Autokatalogas'),     None),                     # puslapio dar nėra
+    (False, _('Straipsniai'),       'tips_guides'),
+    (True,  _('Pagalba'),           'help_center'),
+    (True,  _('Apie mus'),          'about_us'),
+    (False, _('PRO pardavimas'),    'accounts:become_dealer'),
+]
+
+
+def antrine_navigacija(request):
+    """Įjungti antrinės navigacijos punktai su adresais."""
+    punktai = []
+    for rodyti, etikete, marsrutas in SEC_NAV_ITEMS:
+        if not rodyti or not marsrutas:
+            continue
+        try:
+            punktai.append({'label': etikete, 'url': reverse(marsrutas)})
+        except NoReverseMatch:          # maršruto nebėra — punkto nerodom
+            continue
+    return {'sec_nav': punktai}
