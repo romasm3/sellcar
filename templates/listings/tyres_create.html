@@ -12,7 +12,8 @@
             <h2 class="text-xl font-bold text-gray-900">{% trans "New listing: Tyres" %}</h2>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" id="tyresForm" action="{% if is_edit_mode %}{% url 'wheels_edit' listing.pk %}{% else %}{% endif %}">
+        <form method="POST" enctype="multipart/form-data" id="tyresForm" action="{% if is_edit_mode %}{% url 'wheels_edit' listing.pk %}{% else %}{% endif %}" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
             <input type="hidden" name="product_type" value="tyre">
 

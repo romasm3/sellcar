@@ -30,21 +30,6 @@
         </div>
         {% endif %}
 
-        {% if messages %}
-        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg" id="server-errors">
-            <div class="flex items-start gap-3 text-red-800">
-                <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
-                <div class="text-sm">
-                    <p class="font-medium mb-1">{% trans "Please fix the following:" %}</p>
-                    <ul class="list-disc list-inside space-y-1">
-                        {% for msg in messages %}
-                        <li>{{ msg }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {% endif %}
 
         <div id="js-errors" class="hidden mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <div class="flex items-start gap-3 text-red-800">
@@ -57,7 +42,8 @@
         </div>
 
         <form method="POST" enctype="multipart/form-data" id="mainForm" novalidate
-              action="{% if is_edit_mode %}{% url 'moto_for_parts_edit' listing.pk %}{% else %}{% url 'moto_for_parts_create' %}{% endif %}">
+              action="{% if is_edit_mode %}{% url 'moto_for_parts_edit' listing.pk %}{% else %}{% url 'moto_for_parts_create' %}{% endif %}" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
 
             {# ═══ MAIN DETAILS ═══ #}

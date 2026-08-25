@@ -282,7 +282,8 @@
             </div>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data" id="truckForm">
+        <form method="post" enctype="multipart/form-data" id="truckForm" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
 
             {# ════════════════════════════════════════════════ #}

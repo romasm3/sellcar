@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %}Privalomų laukų klaidos — vienos klasės visoms formoms
+    (žr. static/js/form_validation.js ir listings/partials/_form_errors.html){% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/form_validation.css' %}">
 
 
     {% comment %}Ikona — skirtukui, telefono ekranui ir (vėliau) PWA.{% endcomment %}
@@ -840,6 +843,7 @@
 
     {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
     <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';</script>
+    <script src="{% static 'js/form_validation.js' %}" defer></script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
     {# „Išsaugoti paiešką" jungiklis ir pranešimas #}
     <script src="{% static 'js/issaugoti_paieska.js' %}" defer></script>

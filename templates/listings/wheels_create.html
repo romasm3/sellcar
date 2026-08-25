@@ -20,7 +20,8 @@
             </div>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" id="wheelsForm" action="">
+        <form method="POST" enctype="multipart/form-data" id="wheelsForm" action="" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
             <input type="hidden" name="product_type" id="product_type" value="{{ initial_type }}">
 

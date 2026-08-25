@@ -301,7 +301,7 @@ msgstr ""
 #: templates/listings/loading_equipment_create.html:800
 #: templates/listings/trailers_listing_create.html:924
 msgid "Būklė yra privaloma"
-msgstr ""
+msgstr "Condition is required"
 
 #: apps/listings/agriculture_views.py:220 apps/listings/bicycles_views.py:154
 #: apps/listings/camping_views.py:159 apps/listings/construction_views.py:327
@@ -321,12 +321,12 @@ msgstr ""
 #: templates/listings/rental_minibus_create.html:756
 #: templates/listings/trailers_listing_create.html:925
 msgid "Tipas yra privalomas"
-msgstr ""
+msgstr "Type is required"
 
 #: apps/listings/agriculture_views.py:225
 #: templates/listings/agriculture_listing_create.html:783
 msgid "Padargas / Savaeigė yra privalomas"
-msgstr ""
+msgstr "Attachment / self-propelled is required"
 
 #: apps/listings/agriculture_views.py:230 apps/listings/camping_views.py:164
 #: apps/listings/construction_views.py:333 apps/listings/forestry_views.py:131
@@ -343,7 +343,7 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:714
 #: templates/listings/trailers_listing_create.html:926
 msgid "Markė yra privaloma"
-msgstr ""
+msgstr "Brand is required"
 
 #: apps/listings/agriculture_views.py:237 apps/listings/camping_views.py:178
 #: apps/listings/construction_views.py:175 apps/listings/forestry_views.py:137
@@ -360,7 +360,7 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:716
 #: templates/listings/trailers_listing_create.html:927
 msgid "Metai yra privalomi"
-msgstr ""
+msgstr "Year is required"
 
 #: apps/listings/agriculture_views.py:241
 #: apps/listings/construction_views.py:179 apps/listings/loading_views.py:163
@@ -370,7 +370,7 @@ msgstr ""
 #: templates/listings/loading_equipment_create.html:804
 #: templates/listings/trailers_listing_create.html:928
 msgid "Mėnuo yra privalomas"
-msgstr ""
+msgstr "Month is required"
 
 #: apps/listings/agriculture_views.py:269 apps/listings/bicycles_views.py:168
 #: apps/listings/camping_views.py:191 apps/listings/electronics_views.py:165
@@ -384,7 +384,7 @@ msgstr ""
 #: templates/listings/loading_equipment_create.html:805
 #: templates/listings/trailers_listing_create.html:930
 msgid "Kaina yra privaloma"
-msgstr ""
+msgstr "Price is required"
 
 #: apps/listings/agriculture_views.py:284 apps/listings/bicycles_views.py:201
 #: apps/listings/camping_views.py:226 apps/listings/construction_views.py:208
@@ -406,7 +406,7 @@ msgstr ""
 #: templates/listings/services_listing_create.html:646
 #: templates/listings/trailers_listing_create.html:934
 msgid "Valstija yra privaloma"
-msgstr ""
+msgstr "State is required"
 
 #: apps/listings/agriculture_views.py:290 apps/listings/bicycles_views.py:207
 #: apps/listings/camping_views.py:232 apps/listings/construction_views.py:214
@@ -428,7 +428,7 @@ msgstr ""
 #: templates/listings/services_listing_create.html:644
 #: templates/listings/trailers_listing_create.html:932
 msgid "Miestas yra privalomas"
-msgstr ""
+msgstr "City is required"
 
 #: apps/listings/agriculture_views.py:298 apps/listings/bicycles_views.py:214
 #: apps/listings/camping_views.py:239 apps/listings/construction_views.py:221
@@ -450,7 +450,7 @@ msgstr ""
 #: templates/listings/services_listing_create.html:643
 #: templates/listings/trailers_listing_create.html:931
 msgid "Telefonas yra privalomas"
-msgstr ""
+msgstr "Phone is required"
 
 #: apps/listings/agriculture_views.py:304 apps/listings/bicycles_views.py:220
 #: apps/listings/camping_views.py:245 apps/listings/construction_views.py:354
@@ -473,7 +473,7 @@ msgstr ""
 #: templates/listings/services_listing_create.html:649
 #: templates/listings/trailers_listing_create.html:937
 msgid "Turite sutikti su taisyklėmis"
-msgstr ""
+msgstr "You must agree to the terms"
 
 #: apps/listings/agriculture_views.py:365 apps/listings/bicycles_views.py:277
 #: apps/listings/camping_views.py:301 apps/listings/construction_views.py:257
@@ -496,7 +496,7 @@ msgstr ""
 #: templates/listings/bicycles_listing_create.html:765
 #: templates/listings/electronics_listing_create.html:716
 msgid "Gamintojas yra privalomas"
-msgstr ""
+msgstr "Manufacturer is required"
 
 #: apps/listings/boats_views.py:42 apps/listings/models.py:583
 #: templates/listings/partials/panel_boats.html:20
@@ -551,7 +551,7 @@ msgstr ""
 #: templates/listings/rental_minibus_create.html:758
 #: templates/listings/rental_moto_create.html:715
 msgid "Modelis yra privalomas"
-msgstr ""
+msgstr "Model is required"
 
 #: apps/listings/construction_views.py:276
 msgid "Ši forma skirta tik statybinės technikos skelbimams."
@@ -573,7 +573,7 @@ msgstr ""
 #: apps/listings/electronics_views.py:157
 #: templates/listings/electronics_listing_create.html:720
 msgid "Galingumas W yra privalomas garsiakalbiams"
-msgstr ""
+msgstr "Power in W is required for speakers"
 
 #: apps/listings/forestry_views.py:90
 msgid "Miško ūkio technikos kategorija nesukonfigūruota."
@@ -4417,7 +4417,7 @@ msgstr ""
 #: templates/listings/rental_minibus_create.html:761
 #: templates/listings/rental_moto_create.html:717
 msgid "Nuomos kaina parai yra privaloma"
-msgstr ""
+msgstr "Daily rental price is required"
 
 #: apps/listings/rental_views.py:355 apps/listings/translatable_db.py:32
 #: templates/listings/partials/_panel_bodies.html:859
@@ -4435,17 +4435,17 @@ msgstr "Limousine & wedding car rental"
 #: templates/listings/rental_car_create.html:790
 #: templates/listings/rental_minibus_create.html:759
 msgid "Sėdimų vietų skaičius yra privalomas"
-msgstr ""
+msgstr "Number of seats is required"
 
 #: apps/listings/rental_views.py:413
 #: templates/listings/rental_car_create.html:793
 msgid "Kėbulo tipas yra privalomas"
-msgstr ""
+msgstr "Body type is required"
 
 #: apps/listings/rental_views.py:436
 #: templates/listings/rental_moto_create.html:713
 msgid "Motociklo tipas yra privalomas"
-msgstr ""
+msgstr "Motorcycle type is required"
 
 #: apps/listings/search_config/panels.py:206
 msgid "Nauji ir atnaujinti viršuje"
@@ -4581,12 +4581,12 @@ msgstr ""
 #: apps/listings/services_views.py:100
 #: templates/listings/services_listing_create.html:641
 msgid "Pavadinimas yra privalomas"
-msgstr ""
+msgstr "Title is required"
 
 #: apps/listings/services_views.py:105
 #: templates/listings/services_listing_create.html:642
 msgid "Paslaugos tipas yra privalomas"
-msgstr ""
+msgstr "Service type is required"
 
 #: apps/listings/templatetags/dict_extras.py:249
 msgid "ad"
@@ -4605,7 +4605,7 @@ msgstr ""
 #: apps/listings/trailers_views.py:315
 #: templates/listings/trailers_listing_create.html:929
 msgid "Paskirtis yra privaloma"
-msgstr ""
+msgstr "Purpose is required"
 
 #: apps/listings/translatable_db.py:15
 #: templates/listings/listing_list.html:328
@@ -12947,7 +12947,7 @@ msgstr ""
 
 #: apps/listings/views.py:4375
 msgid "Netinkama užklausa"
-msgstr ""
+msgstr "Invalid request"
 
 #: apps/listings/views.py:5534
 msgid "Skelbimas paskelbtas"
@@ -23346,3 +23346,91 @@ msgstr "Tools for dealers: listing management, customer enquiries, reports."
 
 #~ msgid "Top markės"
 #~ msgstr "Top brands"
+
+#: apps/listings/formos_klaidos.py
+msgid "Defektai yra privalomi"
+msgstr "Defects are required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Durų skaičius yra privalomas"
+msgstr "Number of doors is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Dydis yra privalomas"
+msgstr "Size is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Ištaisykite šias klaidas:"
+msgstr "Please fix the following:"
+
+#: apps/listings/formos_klaidos.py
+msgid "Kategorija yra privaloma"
+msgstr "Category is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Kuro tipas nerastas"
+msgstr "Fuel type not found"
+
+#: apps/listings/formos_klaidos.py
+msgid "Kuro tipas yra privalomas"
+msgstr "Fuel type is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Lytis yra privaloma"
+msgstr "Gender is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Markė nerasta"
+msgstr "Brand not found"
+
+#: apps/listings/formos_klaidos.py
+msgid "Medžiaga yra privaloma"
+msgstr "Material is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Modelis nerastas"
+msgstr "Model not found"
+
+#: apps/listings/formos_klaidos.py
+msgid "Nepavyko išsaugoti"
+msgstr "Save failed"
+
+#: apps/listings/formos_klaidos.py
+msgid "Nepavyko išsaugoti: %s"
+msgstr "Save failed: %s"
+
+#: apps/listings/formos_klaidos.py
+msgid "Netinkama reikšmė"
+msgstr "Invalid value"
+
+#: apps/listings/formos_klaidos.py
+msgid "Netinkamas mėnesio ir metų derinys"
+msgstr "Invalid month/year combination"
+
+#: apps/listings/formos_klaidos.py
+msgid "Padargas / savaeigė yra privalomas"
+msgstr "Attachment / self-propelled is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Pavarų dėžė nerasta"
+msgstr "Transmission not found"
+
+#: apps/listings/formos_klaidos.py
+msgid "Pavarų dėžė yra privaloma"
+msgstr "Transmission is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Privalomas laukas"
+msgstr "This field is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "Rida yra privaloma"
+msgstr "Mileage is required"
+
+#: apps/listings/formos_klaidos.py
+msgid "agree_terms: Turite sutikti su taisyklėmis"
+msgstr "agree_terms: You must agree to the terms"
+
+#: apps/listings/formos_klaidos.py
+msgid "phone: Telefonas yra privalomas"
+msgstr "phone: Phone is required"

@@ -699,21 +699,21 @@ def _handle_post(request, edit_listing=None):
 
     errors = []
     if not POST.get('subcategory'):
-        errors.append(_('Category is required.'))
+        errors.append(_('Kategorija yra privaloma'))
     if not POST.get('gear_gender'):
-        errors.append(_('Gender is required.'))
+        errors.append(_('Lytis yra privaloma'))
     if not POST.get('gear_size'):
-        errors.append(_('Size is required.'))
+        errors.append(_('Dydis yra privalomas'))
     if not POST.get('gear_material'):
-        errors.append(_('Material is required.'))
+        errors.append(_('Medžiaga yra privaloma'))
     if not POST.get('condition'):
-        errors.append(_('Condition is required.'))
+        errors.append(_('Būklė yra privaloma'))
     price = _float_or_none(POST.get('price'))
     if not price or price <= 0:
-        errors.append(_('Valid price is required.'))
+        errors.append(_('Kaina yra privaloma'))
     # Terms are agreed to once, when the listing is first published.
     if not edit_listing and not POST.get('agree_terms'):
-        errors.append(_('You must agree to terms and conditions.'))
+        errors.append(_('Turite sutikti su taisyklėmis'))
 
     # Phone lives on the profile, not the listing — same as every other form.
     phone_val = (POST.get('phone', '') or '').strip()
@@ -734,7 +734,7 @@ def _handle_post(request, edit_listing=None):
     try:
         listing = _save_draft_fields(request, POST, draft_id, edit_listing=edit_listing)
     except Exception as e:
-        errors.append(f'Save failed: {e}')
+        errors.append(_('Nepavyko išsaugoti: %s') % e)
         return render(
             request, 'listings/motogear_create.html',
             _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id,
@@ -742,7 +742,7 @@ def _handle_post(request, edit_listing=None):
         )
 
     if not listing:
-        errors.append('Save failed.')
+        errors.append(_('Nepavyko išsaugoti'))
         return render(
             request, 'listings/motogear_create.html',
             _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id,

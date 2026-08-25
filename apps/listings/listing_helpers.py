@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 """
 ═══════════════════════════════════════════════════════════════════════════════
 AutoLeft — Listing Helper Functions
@@ -140,25 +141,25 @@ def validate_common_fields(common_data, require_condition=True, require_year=Tru
     errors = []
 
     if require_terms and not common_data.get('agree_terms'):
-        errors.append('You must agree to the terms')
+        errors.append(_('Turite sutikti su taisyklėmis'))
 
     if require_condition and not common_data['condition']:
-        errors.append('Condition is required')
+        errors.append(_('Būklė yra privaloma'))
     
     if require_year and not common_data['year']:
-        errors.append('Year is required')
+        errors.append(_('Metai yra privalomi'))
     
     if not common_data['price'] or common_data['price'] <= 0:
-        errors.append('Price is required')
+        errors.append(_('Kaina yra privaloma'))
     
     if not common_data['phone']:
-        errors.append('Phone is required')
+        errors.append(_('Telefonas yra privalomas'))
     
     if not common_data['city']:
-        errors.append('City is required')
+        errors.append(_('Miestas yra privalomas'))
     
     if common_data['country'] == 'US' and not common_data['state']:
-        errors.append('State is required for US listings')
+        errors.append(_('Valstija yra privaloma'))
     
     return errors
 

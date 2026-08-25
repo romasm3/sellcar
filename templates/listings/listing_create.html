@@ -62,7 +62,8 @@
 
         <div class="{% if not clp_mode %}bg-white rounded-xl shadow-sm border border-gray-200 p-8{% endif %}">
             <form method="POST" enctype="multipart/form-data" id="mainForm"
-                  {% if is_edit_mode %}action="{% url 'listing_edit_step' edit_listing_id step %}"{% endif %}>
+                  {% if is_edit_mode %}action="{% url 'listing_edit_step' edit_listing_id step %}"{% endif %} data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
                 {% csrf_token %}
 
                 {% if step == 1 and not is_edit_mode %}

@@ -224,11 +224,11 @@ def truck_for_parts_create(request):
 
         errors = validate_common_fields(common, require_terms=True)
         if not specific['truck_brand_id']:
-            errors.append('Brand is required')
+            errors.append(_('Markė yra privaloma'))
         if not specific['truck_model_text']:
-            errors.append('Model is required')
+            errors.append(_('Modelis yra privalomas'))
         if not specific['truck_type']:
-            errors.append('Type is required')
+            errors.append(_('Tipas yra privalomas'))
 
         if errors:
             for e in errors:
@@ -268,11 +268,11 @@ def truck_for_parts_edit(request, pk):
 
         errors = validate_common_fields(common)
         if not specific['truck_brand_id']:
-            errors.append('Brand is required')
+            errors.append(_('Markė yra privaloma'))
         if not specific['truck_model_text']:
-            errors.append('Model is required')
+            errors.append(_('Modelis yra privalomas'))
         if not specific['truck_type']:
-            errors.append('Type is required')
+            errors.append(_('Tipas yra privalomas'))
 
         if errors:
             for e in errors:

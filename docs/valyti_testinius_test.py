@@ -54,7 +54,8 @@ def tikrink(salyga, ka):
         print('  NEPAVYKO: ' + ka)
 
 U = get_user_model()
-testai = U.objects.create_user(username='testai', email='testai@autoleft.local', password='x')
+from apps.listings.management.commands.valyti_testinius import TESTINIS_PASTAS
+testai = U.objects.create_user(username='testai', email=TESTINIS_PASTAS, password='x')
 adminas = U.objects.create_user(username='romasm3', email='romasm3@gmail.com', password='x')
 pirkejas = U.objects.create_user(username='romasm333', email='romasm333@gmail.com', password='x')
 VT = VehicleType.objects.create(name='Automobiliai', slug='cars')
@@ -139,7 +140,12 @@ def v(l, n=0):
     return ivertinti(l, 'Listing', n)[0]
 tikrink(v(t1, 1) == 'testinis', 't1 „TESTINIS SKELBIMAS" → testinis')
 tikrink(v(t2) == 'testinis', 't2 __SEEDED_FAKE__ → testinis')
-tikrink(v(t3) == 'testinis', 't3 testai@autoleft.local → testinis')
+tikrink(v(t3) == 'testinis', 't3 %s → testinis' % TESTINIS_PASTAS)
+# Adresas paimtas iš komandos, o ne įrašytas ranka: jį jau kartą pakeitė
+# (autoleft.local → example.com) ir testas dėl to sugriuvo.
+from apps.listings.management.commands.testiniai_skelbimai import TEST_EMAIL
+tikrink(TEST_EMAIL == TESTINIS_PASTAS,
+        'komandos naudoja tą patį testinį adresą: %r vs %r' % (TEST_EMAIL, TESTINIS_PASTAS))
 tikrink(v(t4) == 'testinis', 't4 [test] pavadinime → testinis')
 tikrink(v(k1, 1) == 'klaustukas', 'k1 „aaa" → klaustukas')
 tikrink(v(k2) == 'klaustukas', 'k2 1 € be nuotraukų → klaustukas')

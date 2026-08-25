@@ -72,34 +72,34 @@ def _handle_post(request, edit_listing=None):
 
     title = (request.POST.get('title', '') or '').strip()
     if not title:
-        errors.append('Part name is required')
+        errors.append(_('Pavadinimas yra privalomas'))
 
     condition = request.POST.get('condition', '')
     if condition not in ('new', 'used', 'refurbished', 'damaged'):
-        errors.append('Condition is required')
+        errors.append(_('Būklė yra privaloma'))
 
     brand_id = _int_or_none(request.POST.get('motorcycle_brand'))
     if not brand_id:
-        errors.append('Brand is required')
+        errors.append(_('Markė yra privaloma'))
 
     price = _float_or_none(request.POST.get('price'))
     if price is None or price <= 0:
-        errors.append('Price is required')
+        errors.append(_('Kaina yra privaloma'))
 
     country = request.POST.get('country', 'US')
     state = request.POST.get('state', '') if country == 'US' else ''
     city = (request.POST.get('city', '') or '').strip()
     if country == 'US' and not state:
-        errors.append('State is required for US')
+        errors.append(_('Valstija yra privaloma'))
     if country != 'US' and not city:
-        errors.append('City is required')
+        errors.append(_('Miestas yra privalomas'))
 
     phone = (request.POST.get('phone', '') or '').strip()
     if not phone:
-        errors.append('Phone is required')
+        errors.append(_('Telefonas yra privalomas'))
 
     if not edit_listing and not request.POST.get('agree_terms'):
-        errors.append('You must agree to the terms')
+        errors.append(_('Turite sutikti su taisyklėmis'))
 
     if errors:
         for e in errors:

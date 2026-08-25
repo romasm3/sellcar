@@ -43,7 +43,8 @@
         </div>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data" id="mainForm" novalidate>
+        <form method="POST" enctype="multipart/form-data" id="mainForm" novalidate data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
             <input type="hidden" name="draft_id" id="draft_id" value="{{ draft_id|default:'' }}">
             {% if is_edit_mode %}<input type="hidden" name="edit" value="{{ edit_listing_id }}">{% endif %}

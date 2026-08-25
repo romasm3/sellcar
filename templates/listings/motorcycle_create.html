@@ -35,7 +35,8 @@
         </div>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data" id="motoForm" novalidate>
+        <form method="POST" enctype="multipart/form-data" id="motoForm" novalidate data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
             <input type="hidden" name="draft_id" id="draftId" value="{{ draft_id|default:'' }}">
 

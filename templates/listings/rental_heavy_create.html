@@ -28,7 +28,7 @@
         </div>
 
         <form method="POST" enctype="multipart/form-data" id="rentHeavyForm"
-              action="{% if is_edit_mode %}{% url 'rental_heavy_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'rental_heavy_create' %}{% endif %}">
+              action="{% if is_edit_mode %}{% url 'rental_heavy_create' %}?edit={{ edit_listing_id }}{% else %}{% url 'rental_heavy_create' %}{% endif %}" data-validate>
             {% csrf_token %}
 
             {# ═══════════════════════════════════════════════════════════ #}
@@ -328,13 +328,7 @@
                 </div>
             </div>
 
-            {% if messages %}
-            <div class="mb-5 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
-                    {% for message in messages %}<li>{{ message }}</li>{% endfor %}
-                </ul>
-            </div>
-            {% endif %}
+            {% include 'listings/partials/_form_errors.html' %}
 
             {# ═══ SUBMIT ═══ #}
             <div class="flex items-center justify-center mb-8">

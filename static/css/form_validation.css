@@ -1,0 +1,85 @@
+/* ═══════════════════════════════════════════════════════════════════
+   PRIVALOMŲ LAUKŲ KLAIDOS — vienos klasės visoms /create/ formoms.
+
+   Iki šiol kiekviena forma turėjo savo .field-error CSS ir savo inline
+   JS: skirtingi rėmelių storiai, skirtingos spalvos, kai kur klaida
+   matėsi tik viršutinėje dėžutėje, o pats laukas likdavo baltas.
+   Čia — viena vieta; JS (static/js/form_validation.js) kabina būtent
+   šias klases, o serveris tas pačias grąžina per error_fields.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Neteisingas laukas — 2 px raudonas rėmelis ir švelnus fonas.
+   !important reikalingas todėl, kad formų laukai turi Tailwind
+   `border-gray-300` klases tiesiai elemente. */
+.field-invalid,
+.field-invalid input,
+.field-invalid select,
+.field-invalid textarea {
+    border: 2px solid #dc2626 !important;
+    background-color: #fef2f2 !important;
+}
+
+/* Žymimasis langelis fono nedažo — tik rėmelį, kitaip varnelė dingsta */
+input[type="checkbox"].field-invalid,
+input[type="radio"].field-invalid {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+    background-color: transparent !important;
+}
+
+/* Lauko pavadinimas virš neteisingo lauko */
+.label-invalid {
+    color: #dc2626 !important;
+}
+
+/* Žinutė po lauku */
+.field-error-msg {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #dc2626;
+}
+
+/* Telefone antraštė lipni, todėl scrollIntoView nuveždavo lauką po ja.
+   90 px = antraštės aukštis + tarpas. */
+input, select, textarea, [data-field-wrap], .field-error-msg {
+    scroll-margin-top: 90px;
+}
+
+/* ── Viršutinė klaidų dėžutė ─────────────────────────────────────── */
+.form-error-box {
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    border: 1px solid #fca5a5;
+    border-radius: 0.5rem;
+    background-color: #fef2f2;
+    color: #b91c1c;
+    scroll-margin-top: 90px;
+}
+
+.form-error-box .form-error-title {
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.form-error-box ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    list-style: disc;
+}
+
+.form-error-box li + li {
+    margin-top: 0.2rem;
+}
+
+/* Kiekviena klaida — nuoroda į patį lauką */
+.form-error-box a {
+    color: #b91c1c;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.form-error-box a:hover {
+    color: #7f1d1d;
+}

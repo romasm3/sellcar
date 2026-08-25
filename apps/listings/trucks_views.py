@@ -636,31 +636,31 @@ def _validate_required(post, require_terms=False):
     """Returns dict of {field: error_msg} for any missing required fields."""
     errors = {}
     if not post.get('truck_type'):
-        errors['truck_type'] = 'Type is required'
+        errors['truck_type'] = _('Tipas yra privalomas')
     if not _int_or_none(post.get('truck_brand')):
-        errors['truck_brand'] = 'Make is required'
+        errors['truck_brand'] = _('Markė yra privaloma')
     if not (post.get('truck_model_text') or '').strip():
-        errors['truck_model_text'] = 'Model is required'
+        errors['truck_model_text'] = _('Modelis yra privalomas')
     if not _int_or_none(post.get('year')):
-        errors['year'] = 'Year is required'
+        errors['year'] = _('Metai yra privalomi')
     if not _int_or_none(post.get('first_registration_month')):
-        errors['first_registration_month'] = 'Month is required'
+        errors['first_registration_month'] = _('Mėnuo yra privalomas')
     if not _int_or_none(post.get('fuel_type')):
-        errors['fuel_type'] = 'Fuel type is required'
+        errors['fuel_type'] = _('Kuro tipas yra privalomas')
     if not post.get('defects'):
-        errors['defects'] = 'Defects status is required'
+        errors['defects'] = _('Defektai yra privalomi')
     if not post.get('condition'):
-        errors['condition'] = 'New / Used is required'
+        errors['condition'] = _('Būklė yra privaloma')
     if not _decimal_or_none(post.get('price')):
-        errors['price'] = 'Price is required'
+        errors['price'] = _('Kaina yra privaloma')
     if post.get('country', 'US') == 'US' and not post.get('state'):
-        errors['state'] = 'State is required'
+        errors['state'] = _('Valstija yra privaloma')
     if not (post.get('city') or '').strip():
-        errors['city'] = 'City is required'
+        errors['city'] = _('Miestas yra privalomas')
     if not (post.get('phone') or '').strip():
-        errors['phone'] = 'Phone is required'
+        errors['phone'] = _('Telefonas yra privalomas')
     if require_terms and not post.get('agree_terms'):
-        errors['agree_terms'] = 'You must agree to the terms'
+        errors['agree_terms'] = _('Turite sutikti su taisyklėmis')
     return errors
 
 

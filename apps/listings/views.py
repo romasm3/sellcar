@@ -3517,23 +3517,23 @@ def listing_create(request):
 
             errors = []
             if not current_draft.brand:
-                errors.append('Brand is required')
+                errors.append(_('Markė yra privaloma'))
             if not current_draft.model:
-                errors.append('Model is required')
+                errors.append(_('Modelis yra privalomas'))
             if not current_draft.year:
-                errors.append('Year is required')
+                errors.append(_('Metai yra privalomi'))
             if not current_draft.first_registration:
-                errors.append('Month is required')
+                errors.append(_('Mėnuo yra privalomas'))
             if not current_draft.body_type:
-                errors.append('Body type is required')
+                errors.append(_('Kėbulo tipas yra privalomas'))
             if not current_draft.fuel_type:
-                errors.append('Fuel type is required')
+                errors.append(_('Kuro tipas yra privalomas'))
             if not current_draft.transmission:
-                errors.append('Transmission is required')
+                errors.append(_('Pavarų dėžė yra privaloma'))
             if not current_draft.doors:
-                errors.append('Doors is required')
+                errors.append(_('Durų skaičius yra privalomas'))
             if not current_draft.mileage:
-                errors.append('Mileage is required')
+                errors.append(_('Rida yra privaloma'))
 
             if errors:
                 form = Step3VehicleDataForm(request.POST)
@@ -3588,9 +3588,9 @@ def listing_create(request):
             agree_terms_val = request.POST.get('agree_terms')
             extra_errors = []
             if not phone_val:
-                extra_errors.append('phone: This field is required.')
+                extra_errors.append(_('phone: Telefonas yra privalomas'))
             if not agree_terms_val:
-                extra_errors.append('agree_terms: You must agree to the terms.')
+                extra_errors.append(_('agree_terms: Turite sutikti su taisyklėmis'))
 
             if form.is_valid() and not extra_errors:
                 if phone_val and hasattr(request.user, 'profile'):
@@ -6869,27 +6869,27 @@ def listing_create_cars_quick(request):
                 try:
                     target.brand = Brand.objects.get(pk=brand_id)
                 except Brand.DoesNotExist:
-                    errors.append('Brand not found')
+                    errors.append(_('Markė nerasta'))
             else:
-                errors.append('Brand is required')
+                errors.append(_('Markė yra privaloma'))
 
             if model_id:
                 try:
                     target.model = Model.objects.get(pk=model_id)
                 except Model.DoesNotExist:
-                    errors.append('Model not found')
+                    errors.append(_('Modelis nerastas'))
             else:
-                errors.append('Model is required')
+                errors.append(_('Modelis yra privalomas'))
 
             if not year:
-                errors.append('Year is required')
+                errors.append(_('Metai yra privalomi'))
             else:
                 target.year = year
                 if month:
                     try:
                         target.first_registration = date(year=year, month=month, day=1)
                     except (ValueError, TypeError):
-                        errors.append('Invalid month/year combination')
+                        errors.append(_('Netinkamas mėnesio ir metų derinys'))
 
         # VIN editable both modes
         target.vin = (request.POST.get('vin', '') or '').strip().upper()
@@ -6897,45 +6897,45 @@ def listing_create_cars_quick(request):
         # ─── Section 3: Technical Details ───
         body_type = request.POST.get('body_type', '')
         if not body_type:
-            errors.append('Body Type is required')
+            errors.append(_('Kėbulo tipas yra privalomas'))
         target.body_type = body_type
 
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         if not ft_id:
-            errors.append('Fuel Type is required')
+            errors.append(_('Kuro tipas yra privalomas'))
         else:
             try:
                 target.fuel_type = FuelType.objects.get(pk=ft_id)
             except FuelType.DoesNotExist:
-                errors.append('Fuel Type not found')
+                errors.append(_('Kuro tipas nerastas'))
 
         tr_id = _int_or_none(request.POST.get('transmission'))
         if not tr_id:
-            errors.append('Transmission is required')
+            errors.append(_('Pavarų dėžė yra privaloma'))
         else:
             try:
                 target.transmission = Transmission.objects.get(pk=tr_id)
             except Transmission.DoesNotExist:
-                errors.append('Transmission not found')
+                errors.append(_('Pavarų dėžė nerasta'))
 
         doors = request.POST.get('doors', '')
         if not doors:
-            errors.append('Doors is required')
+            errors.append(_('Durų skaičius yra privalomas'))
         target.doors = doors
 
         condition = request.POST.get('condition', '')
         if not condition:
-            errors.append('Condition is required')
+            errors.append(_('Būklė yra privaloma'))
         target.condition = condition
 
         defects = request.POST.get('defects', '')
         if not defects:
-            errors.append('Defects is required')
+            errors.append(_('Defektai yra privalomi'))
         target.defects = defects
 
         mileage = _int_or_none(request.POST.get('mileage'))
         if mileage is None:
-            errors.append('Mileage is required')
+            errors.append(_('Rida yra privaloma'))
         else:
             target.mileage = mileage
 
@@ -6966,7 +6966,7 @@ def listing_create_cars_quick(request):
         # ─── Price ───
         price = _float_or_none(request.POST.get('price'))
         if price is None or price <= 0:
-            errors.append('Price is required')
+            errors.append(_('Kaina yra privaloma'))
         else:
             target.price = price
         target.negotiable = request.POST.get('negotiable') == 'on'
@@ -7002,14 +7002,14 @@ def listing_create_cars_quick(request):
         if country == 'US':
             state = request.POST.get('state', '')
             if not state:
-                errors.append('State is required')
+                errors.append(_('Valstija yra privaloma'))
             if hasattr(target, 'state'):
                 target.state = state
             target.city = request.POST.get('city', '') or '—'
         else:
             city = request.POST.get('city', '')
             if not city:
-                errors.append('City is required')
+                errors.append(_('Miestas yra privalomas'))
             target.city = city
             if hasattr(target, 'state'):
                 target.state = ''
@@ -7021,14 +7021,14 @@ def listing_create_cars_quick(request):
         # Phone — į user.profile (autoplius style)
         phone_val = (request.POST.get('phone', '') or '').strip()
         if not phone_val:
-            errors.append('Phone is required')
+            errors.append(_('Telefonas yra privalomas'))
         elif hasattr(request.user, 'profile'):
             request.user.profile.phone_number = phone_val
             request.user.profile.save(update_fields=['phone_number'])
 
         # Terms agreement (tik CREATE)
         if not is_edit_mode and not request.POST.get('agree_terms'):
-            errors.append('You must agree to the terms')
+            errors.append(_('Turite sutikti su taisyklėmis'))
 
         # ─── Equipment ───
         equipment_ids = request.POST.getlist('equipment')

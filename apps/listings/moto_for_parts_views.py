@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.utils.translation import gettext as _
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .models import (
@@ -218,7 +219,7 @@ def moto_for_parts_create(request):
         # 2. Validate — BENDRUS per helper + SPECIFINIUS rankiniu būdu
         errors = validate_common_fields(common, require_terms=True)
         if not specific['brand_id']:
-            errors.append('Brand is required')
+            errors.append(_('Markė yra privaloma'))
 
         if errors:
             for e in errors:
@@ -280,7 +281,7 @@ def moto_for_parts_edit(request, pk):
         # 2. Validate
         errors = validate_common_fields(common)
         if not specific['brand_id']:
-            errors.append('Brand is required')
+            errors.append(_('Markė yra privaloma'))
 
         if errors:
             for e in errors:

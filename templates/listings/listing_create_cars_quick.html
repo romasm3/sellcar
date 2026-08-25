@@ -28,7 +28,8 @@
         </div>
 
         <form method="POST" enctype="multipart/form-data" id="quickForm"
-              action="{% if is_edit_mode %}{% url 'listing_create_cars_quick' %}?edit={{ edit_listing_id }}{% else %}{% url 'listing_create_cars_quick' %}{% endif %}">
+              action="{% if is_edit_mode %}{% url 'listing_create_cars_quick' %}?edit={{ edit_listing_id }}{% else %}{% url 'listing_create_cars_quick' %}{% endif %}" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
             {% csrf_token %}
 
             {# ═══════════════════════════════════════════════════════════ #}

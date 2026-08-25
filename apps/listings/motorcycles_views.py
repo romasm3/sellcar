@@ -737,14 +737,14 @@ def _handle_post(request):
     price = _float_or_none(POST.get('price'))
 
     if not brand_id:
-        errors.append('Brand is required.')
+        errors.append(_('Markė yra privaloma'))
     if not year:
-        errors.append('Year is required.')
+        errors.append(_('Metai yra privalomi'))
     if not price or price <= 0:
-        errors.append('Valid price is required.')
+        errors.append(_('Kaina yra privaloma'))
     # Terms are agreed to once, when the listing is first published.
     if not is_edit_mode and not POST.get('agree_terms'):
-        errors.append('You must agree to the terms.')
+        errors.append(_('Turite sutikti su taisyklėmis'))
 
     if errors:
         return _rerender(errors)

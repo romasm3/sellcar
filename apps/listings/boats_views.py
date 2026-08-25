@@ -135,19 +135,19 @@ def boats_listing_create(request):
         # ─── Condition (required) ───
         condition = request.POST.get('condition', '')
         if not condition:
-            errors.append('Condition is required')
+            errors.append(_('Būklė yra privaloma'))
         target.condition = condition
 
         # ─── Type (required) ───
         boat_type = request.POST.get('boat_type', '')
         if not boat_type:
-            errors.append('Type is required')
+            errors.append(_('Tipas yra privalomas'))
         target.boat_type = boat_type
 
         # ─── Year (required) ───
         year = _int_or_none(request.POST.get('year'))
         if not year:
-            errors.append('Year is required')
+            errors.append(_('Metai yra privalomi'))
         else:
             target.year = year
 
@@ -186,7 +186,7 @@ def boats_listing_create(request):
         # ─── Price ───
         price = _float_or_none(request.POST.get('price'))
         if price is None or price <= 0:
-            errors.append('Price is required')
+            errors.append(_('Kaina yra privaloma'))
         else:
             target.price = price
         target.negotiable = request.POST.get('negotiable') == 'on'
@@ -208,14 +208,14 @@ def boats_listing_create(request):
         if country == 'US':
             state = request.POST.get('state', '')
             if not state:
-                errors.append('State is required')
+                errors.append(_('Valstija yra privaloma'))
             if hasattr(target, 'state'):
                 target.state = state
             target.city = request.POST.get('city', '') or '—'
         else:
             city = request.POST.get('city', '')
             if not city:
-                errors.append('City is required')
+                errors.append(_('Miestas yra privalomas'))
             target.city = city
             if hasattr(target, 'state'):
                 target.state = ''
@@ -227,14 +227,14 @@ def boats_listing_create(request):
         # Phone → profile
         phone_val = (request.POST.get('phone', '') or '').strip()
         if not phone_val:
-            errors.append('Phone is required')
+            errors.append(_('Telefonas yra privalomas'))
         elif hasattr(request.user, 'profile'):
             request.user.profile.phone_number = phone_val
             request.user.profile.save(update_fields=['phone_number'])
 
         # Terms (CREATE only)
         if not is_edit_mode and not request.POST.get('agree_terms'):
-            errors.append('You must agree to the terms')
+            errors.append(_('Turite sutikti su taisyklėmis'))
 
         # ─── Title ───
         title_parts = []

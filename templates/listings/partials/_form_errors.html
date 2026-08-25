@@ -1,0 +1,28 @@
+{% load i18n formos_klaidos_tags %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+FORMOS KLAIDOS — viena dėžutė visoms /create/ formoms.
+
+Kiekviena klaida yra nuoroda <a href="#id_laukas">: paspaudus
+form_validation.js sklandžiai nuslenka prie lauko ir jį fokusuoja.
+Šalia — JSON blokas tam pačiam skriptui: iš jo jis žino, kuriuos laukus
+pažymėti .field-invalid ir kokį tekstą įrašyti po jais.
+
+Klaidos imamos iš view'o konteksto (error_fields / error_messages), o
+jei jų nėra — iš `messages`, atpažįstant pagal tekstą. Todėl partial'as
+veikia ir tuose view'uose, kurie dar nepertvarkyti.
+
+Naudojimas — iškart po <form ... data-validate>:
+    {% include 'listings/partials/_form_errors.html' %}
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% formos_klaidos_kontekstas as k %}
+{% if k.eilutes %}
+<div class="form-error-box" id="form-error-box" role="alert">
+  <div class="form-error-title">{% trans "Ištaisykite šias klaidas:" %}</div>
+  <ul>
+    {% for e in k.eilutes %}
+    <li>{% if e.laukas %}<a href="#id_{{ e.laukas }}">{{ e.tekstas }}</a>{% else %}{{ e.tekstas }}{% endif %}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+<script type="application/json" id="serverio-klaidos">{% formos_klaidos_json k.laukai k.zinutes %}</script>

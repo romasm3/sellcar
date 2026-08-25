@@ -435,7 +435,8 @@
 
 
 
-        <form method="post" enctype="multipart/form-data" id="partsForm">
+        <form method="post" enctype="multipart/form-data" id="partsForm" data-validate>
+        {% include 'listings/partials/_form_errors.html' %}
 
             {% csrf_token %}
 

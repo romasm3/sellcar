@@ -221,3 +221,37 @@ def antrine_navigacija(request):
         except NoReverseMatch:          # maršruto nebėra — punkto nerodom
             continue
     return {'sec_nav': punktai}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# FORMŲ KLAIDOS — error_fields / error_messages visuose šablonuose
+#
+# Kad šablone veiktų tai, ko tikimasi:
+#     class="... {% if 'contact_terms' in error_fields %}field-invalid{% endif %}"
+#
+# View'as gali paduoti savo (formos_klaidos.kontekstas()) — tada laimi jo.
+# Jei nepadavė, klaidos atpažįstamos iš `messages` pagal tekstą, todėl
+# senų 28 formų perrašinėti nereikia.
+#
+# TINGIAI: `messages` iteravimas pažymi jas panaudotomis, o tai reikštų,
+# kad ir sėkmės pranešimai dingtų nespėję pasirodyti. SimpleLazyObject
+# užtikrina, kad į juos būtų kreipiamasi TIK tada, kai šablonas iš
+# tikrųjų paprašo error_fields.
+# ═══════════════════════════════════════════════════════════════════
+def form_error_fields(request):
+    from django.utils.functional import SimpleLazyObject
+    from django.contrib.messages import get_messages
+    from apps.listings import formos_klaidos
+
+    def _surinkti():
+        try:
+            tekstai = [str(m) for m in get_messages(request)]
+        except Exception:
+            return {'error_fields': [], 'error_messages': {}}
+        return formos_klaidos.kontekstas(tekstai)
+
+    return {
+        'error_fields': SimpleLazyObject(lambda: _surinkti()['error_fields']),
+        'error_messages': SimpleLazyObject(lambda: _surinkti()['error_messages']),
+        'form_errors': SimpleLazyObject(lambda: _surinkti()['form_errors']),
+    }
