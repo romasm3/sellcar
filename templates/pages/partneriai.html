@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "Partneriai ir reklama" %} - AutoLeft{% endblock %}
+
+{% block content %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PARTNERIAI IR REKLAMA
+
+Sąrašas ateina iš apps/listings/partneriai.py — naujas partneris ten yra
+viena eilutė. Kol partnerių nėra įjungtų, rodoma tuščia būsena su
+kvietimu susisiekti (geriau tuščia, negu išgalvotas partneris).
+
+Spalvos ir matmenys — docs/dizaino-sistema.md.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="pt-puslapis">
+  <nav class="pt-takas" aria-label="{% trans 'Trupinių takas' %}">
+    <a href="{% url 'home' %}">{% trans "Pagrindinis" %}</a>
+    <span>›</span>
+    <span class="pt-takas-on">{% trans "Partneriai ir reklama" %}</span>
+  </nav>
+
+  <h1 class="pt-antraste">{% trans "Partneriai ir reklama" %}</h1>
+  <p class="pt-ivadas">
+    {% trans "Įmonės, su kuriomis dirbame kartu: transporto priemonių istorijos ataskaitos, programinė įranga prekiautojams, draudimas, finansavimas ir kitos paslaugos." %}
+  </p>
+
+  {% if partneriai %}
+  <div class="pt-sarasas">
+    {% for p in partneriai %}
+    <div class="pt-kort">
+      <div class="pt-logo">
+        {% if p.logo %}
+          <img src="{% static 'partneriai/' %}{{ p.logo }}" alt="{{ p.vardas }}" loading="lazy">
+        {% else %}
+          <span>{{ p.vardas|first|upper }}</span>
+        {% endif %}
+      </div>
+      <div class="pt-turinys">
+        <div class="pt-vardas">{{ p.vardas }}</div>
+        {% if p.kategorija %}<div class="pt-kategorija">{{ p.kategorija }}</div>{% endif %}
+        {% if p.aprasymas %}<p class="pt-aprasymas">{{ p.aprasymas }}</p>{% endif %}
+        {% if p.url %}
+        {% comment %}Partnerio svetainė — išorinis adresas, todėl
+        target="_blank" čia teisėtas (docs/pwa-pasiruosimas.md).{% endcomment %}
+        <a class="pt-nuoroda" href="{{ p.url }}" target="_blank" rel="noopener noreferrer">
+          {% trans "Svetainė" %} ↗
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="pt-tuscia">
+    <i class="fa-solid fa-handshake-angle" aria-hidden="true"></i>
+    <p>{% trans "Partnerių sąrašas ruošiamas." %}</p>
+  </div>
+  {% endif %}
+
+  <div class="pt-kvietimas">
+    <h2>{% trans "Norite tapti partneriu arba reklamuotis?" %}</h2>
+    <p>{% trans "Rašykite — atsiųsime auditorijos duomenis ir galimas reklamos vietas." %}</p>
+    <div class="pt-mygtukai">
+      <a class="pt-btn pt-btn-pirmas" href="mailto:helpautoinfo@gmail.com?subject={% trans 'Partnerystė' %}">
+        helpautoinfo@gmail.com
+      </a>
+      <a class="pt-btn" href="{% url 'advertise' %}">{% trans "Reklamos galimybės" %}</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pt-puslapis { max-width: 900px; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-10); }
+  .pt-takas { display: flex; align-items: center; gap: var(--sp-2);
+              font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--sp-4); }
+  .pt-takas a { color: var(--text-muted); text-decoration: none; }
+  .pt-takas a:hover { color: var(--text); text-decoration: underline; }
+  .pt-takas-on { color: var(--text); }
+  .pt-antraste { font-size: 24px; font-weight: var(--fw-bold); color: var(--text); }
+  .pt-ivadas { margin: var(--sp-2) 0 var(--sp-6); color: var(--text-muted);
+               font-size: var(--fs-base); line-height: 1.55; }
+
+  .pt-sarasas { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .pt-kort { display: flex; gap: var(--sp-4); padding: var(--sp-4);
+             background: var(--surface); border: 1px solid var(--border);
+             border-radius: var(--r-md); }
+  .pt-logo { flex: 0 0 auto; width: 64px; height: 64px; border: 1px solid var(--border);
+             border-radius: var(--r-md); display: flex; align-items: center;
+             justify-content: center; overflow: hidden; background: var(--surface); }
+  .pt-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+  .pt-logo span { font-size: 22px; font-weight: var(--fw-bold); color: var(--accent); }
+  .pt-turinys { min-width: 0; }
+  .pt-vardas { font-size: var(--fs-base); font-weight: var(--fw-bold); color: var(--text); }
+  .pt-kategorija { margin-top: 2px; font-size: var(--fs-xs); color: var(--text-muted);
+                   text-transform: uppercase; letter-spacing: .04em; }
+  .pt-aprasymas { margin-top: var(--sp-2); font-size: var(--fs-sm); color: var(--text);
+                  line-height: 1.55; }
+  .pt-nuoroda { display: inline-block; margin-top: var(--sp-2); font-size: var(--fs-sm);
+                font-weight: var(--fw-semibold); color: var(--accent); text-decoration: none; }
+  .pt-nuoroda:hover { text-decoration: underline; }
+
+  .pt-tuscia { text-align: center; padding: var(--sp-10) var(--sp-4); color: var(--text-muted);
+               background: var(--surface); border: 1px solid var(--border);
+               border-radius: var(--r-md); }
+  .pt-tuscia i { font-size: 34px; display: block; margin-bottom: var(--sp-3); }
+
+  .pt-kvietimas { margin-top: var(--sp-8); padding: var(--sp-6);
+                  background: var(--accent-soft); border-radius: var(--r-md); }
+  .pt-kvietimas h2 { font-size: var(--fs-lg, 20px); font-weight: var(--fw-semibold);
+                     color: var(--text); }
+  .pt-kvietimas p { margin-top: var(--sp-2); color: var(--text-muted); font-size: var(--fs-sm); }
+  .pt-mygtukai { display: flex; gap: var(--sp-3); margin-top: var(--sp-4); flex-wrap: wrap; }
+  .pt-btn { display: inline-flex; align-items: center; height: var(--btn-h);
+            padding: 0 var(--sp-5); border: 1px solid var(--accent); border-radius: var(--r-md);
+            color: var(--accent); background: var(--surface); text-decoration: none;
+            font-weight: var(--fw-semibold); }
+  .pt-btn-pirmas { background: var(--accent); color: var(--accent-contrast); }
+
+  @media (max-width: 767px) {
+    .pt-kort { flex-direction: column; gap: var(--sp-3); }
+    .pt-btn { width: 100%; justify-content: center; }
+  }
+</style>
+{% endblock %}

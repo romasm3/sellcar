@@ -103,6 +103,7 @@ urlpatterns = [
     path('help/valuation/', views_help.valuation, name='valuation'),
     path('help/advertise/', views_help.advertise, name='advertise'),
     path('help/about/', views_help.about_us, name='about_us'),
+    path('partneriai/', views_help.partneriai, name='partneriai'),
     path('help/contact/', views_help.contact_page, name='contact_page'),
     path('help/terms/', views_help.terms, name='terms'),
     path('help/privacy/', views_help.privacy, name='privacy'),

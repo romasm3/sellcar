@@ -23287,5 +23287,62 @@ msgstr "Pagination"
 msgid "vnt."
 msgstr "pcs"
 
+#. partneriai
+msgid "Partneriai"
+msgstr "Partners"
+
+#. partneriai
+msgid "Partneriai ir reklama"
+msgstr "Partners & advertising"
+
+#. partneriai
+msgid ""
+"Įmonės, su kuriomis dirbame kartu: transporto priemonių istorijos "
+"ataskaitos, programinė įranga prekiautojams, draudimas, finansavimas ir "
+"kitos paslaugos."
+msgstr ""
+"Companies we work with: vehicle history reports, dealer software, insurance,"
+" financing and other services."
+
+#. partneriai
+msgid "Partnerių sąrašas ruošiamas."
+msgstr "The partner list is being prepared."
+
+#. partneriai
+msgid "Norite tapti partneriu arba reklamuotis?"
+msgstr "Want to become a partner or advertise?"
+
+#. partneriai
+msgid "Rašykite — atsiųsime auditorijos duomenis ir galimas reklamos vietas."
+msgstr "Write to us — we will send audience data and available ad placements."
+
+#. partneriai
+msgid "Reklamos galimybės"
+msgstr "Advertising options"
+
+#. partneriai
+msgid "Partnerystė"
+msgstr "Partnership"
+
+#. partneriai
+msgid "Istorijos ataskaitos"
+msgstr "History reports"
+
+#. partneriai
+msgid "Programinė įranga"
+msgstr "Software"
+
+#. partneriai
+msgid ""
+"Transporto priemonės istorijos ataskaita pagal VIN: eismo įvykiai, ridos "
+"įrašai, savininkų skaičius."
+msgstr ""
+"Vehicle history report by VIN: accidents, mileage records, number of owners."
+
+#. partneriai
+msgid ""
+"Sprendimai prekiautojams: skelbimų valdymas, klientų užklausos, ataskaitos."
+msgstr "Tools for dealers: listing management, customer enquiries, reports."
+
 #~ msgid "Top markės"
 #~ msgstr "Top brands"

@@ -102,6 +102,14 @@ def advertise(request):
     })
 
 
+def partneriai(request):
+    """Partneriai ir reklama — sąrašas iš apps/listings/partneriai.py."""
+    from apps.listings.partneriai import matomi_partneriai
+    return render(request, 'pages/partneriai.html', {
+        'partneriai': matomi_partneriai(),
+    })
+
+
 def about_us(request):
     return render(request, 'pages/page_simple.html', {
         'page_title': 'About Us',

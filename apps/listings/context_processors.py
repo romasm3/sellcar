@@ -205,6 +205,7 @@ SEC_NAV_ITEMS = [
     (False, _('Straipsniai'),       'tips_guides'),
     (True,  _('Pagalba'),           'help_center'),
     (True,  _('Apie mus'),          'about_us'),
+    (True,  _('Partneriai'),         'partneriai'),
     (False, _('PRO pardavimas'),    'accounts:become_dealer'),
 ]
 
