@@ -163,6 +163,20 @@ def _riba(reiksme):
         return None
 
 
+def _naujame_lange(request):
+    """Ar žemėlapio skelbimus atidaryti naujame skirtuke.
+
+    Tik darbalaukyje: žmogus surenka filtrus, priartina žemėlapį ir
+    randa kelis įdomius — kiekvieną nori pažiūrėti neprarasdamas to, ką
+    surinko. Telefone naujas skirtukas naršyklėje nepatogus, todėl ten
+    liekam tame pačiame lange: žemėlapio padėtis ir filtrai guli adrese
+    (zemelapio_paieska.js irasykURL), tad „atgal" grąžina tiksliai ten,
+    kur buvai. Įrenginį sprendžia tas pats device_kind kaip visur.
+    """
+    from .context_processors import device_kind
+    return not device_kind(request)['is_phone']
+
+
 def _plote(qs, request):
     """Apriboja iki matomo žemėlapio ploto (abiem modeliams vienodai)."""
     s, n = _riba(request.GET.get('s')), _riba(request.GET.get('n'))
@@ -282,6 +296,7 @@ def zemelapio_rezultatai(request):
 
     html = render_to_string('listings/partials/_zemelapio_sarasas.html', {
         'korteles': [kortele(o, issaugotas=o.pk in issaugoti) for o in irasai],
+        'naujame_lange': _naujame_lange(request),
     }, request=request)
 
     zymekliai = _zymekliai(listing_qs, request) if listing_qs is not None else []
@@ -406,6 +421,8 @@ def zemelapio_paieska(request):
             'lng': _riba(request.GET.get('lng')) or 23.88,
             'z': int(request.GET.get('z') or 7),
             'is_url': bool(request.GET.get('lat')),
+            # Skelbimai naujame skirtuke — tik darbalaukyje (žr. _naujame_lange)
+            'naujame_lange': _naujame_lange(request),
         }),
     })
 
@@ -496,8 +513,9 @@ def zemelapio_kortele(request, pk):
         'html': render_to_string(
             'listings/partials/_zemelapio_burbulas.html',
             {'k': kortele(o), 'neaisku': neaisku, 'valiuta': valiuta,
-             'lat': lat, 'lng': lng}, request=request),
-        'lat': lat, 'lng': lng,
+             'lat': lat, 'lng': lng,
+             'naujame_lange': _naujame_lange(request)}, request=request),
+        'lat': lat, 'lng': lng, 'url': kortele(o)['url'],
     })
 
 
@@ -508,6 +526,7 @@ def zemelapio_pardavejas(request, pk):
     return JsonResponse({
         'kiek': qs.count(),
         'html': render_to_string('listings/partials/_zemelapio_aikstele.html',
-                                 {'korteles': [kortele(o) for o in irasai]},
+                                 {'korteles': [kortele(o) for o in irasai],
+                                  'naujame_lange': _naujame_lange(request)},
                                  request=request),
     })

@@ -3,7 +3,7 @@
 puslapyje. Grąžinamas ir per /map/duomenys/, kai pastumiamas žemėlapis.
 {% endcomment %}{% for i in korteles %}
 <div class="zp-kort-rem" data-kort="{{ i.pk }}">
-  {% include 'listings/partials/_skelbimo_kortele.html' with i=i sirdis=1 %}
+  {% include 'listings/partials/_skelbimo_kortele.html' with i=i sirdis=1 naujame_lange=naujame_lange %}
 </div>
 {% empty %}
 <div class="sk-tuscia">

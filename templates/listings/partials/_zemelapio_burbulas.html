@@ -9,7 +9,7 @@ kurią naudoja rezultatų kortelės. Todėl burbulas vienodai rodo ir
 <div class="zb" data-id="{{ k.pk }}">
   <button type="button" class="zb-uzdaryti" data-uzdaryti
           aria-label="{% trans 'Uždaryti' %}"><i class="fa-solid fa-xmark"></i></button>
-  <a class="zb-foto" href="{{ k.url }}">
+  <a class="zb-foto" href="{{ k.url }}"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %}>
     {% if k.img %}
       {% include 'listings/partials/_img.html' with img=k.img alt=k.obj.title %}
     {% else %}
@@ -19,7 +19,7 @@ kurią naudoja rezultatų kortelės. Todėl burbulas vienodai rodo ir
   </a>
 
   <div class="zb-turinys">
-    <a class="zb-pav" href="{{ k.url }}">{{ k.obj.title }}</a>
+    <a class="zb-pav" href="{{ k.url }}"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %}>{{ k.obj.title }}</a>
     <div class="zb-kaina">{{ k.obj.price|kaina:valiuta }}</div>
     <div class="zb-spec">{{ k.spec }}</div>
 
@@ -35,7 +35,7 @@ kurią naudoja rezultatų kortelės. Todėl burbulas vienodai rodo ir
     <div class="zb-mygtukai">
       {% comment %}Navigacija — išorinis adresas, todėl target=_blank teisėtas.{% endcomment %}
       <a class="zb-btn" data-nav href="#" target="_blank" rel="noopener noreferrer">{% trans "Kaip nuvažiuoti" %}</a>
-      <a class="zb-btn zb-btn-pirmas" href="{{ k.url }}">{% trans "Žiūrėti skelbimą" %}</a>
+      <a class="zb-btn zb-btn-pirmas" href="{{ k.url }}"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %}>{% trans "Žiūrėti skelbimą" %}</a>
     </div>
   </div>
 </div>

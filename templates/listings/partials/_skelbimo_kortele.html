@@ -9,13 +9,17 @@ Parametrai:
     i         — kortelės duomenys
     sirdis    — rodyti „Įsiminti" (1/0)
     salinti   — rodyti ✕ „Pašalinti iš peržiūrėtų" (1/0)
+    naujame_lange — atidaryti skelbimą naujame skirtuke (1/0). Numatyta
+                ne: įprastame sąraše grįžimas „atgal" natūralus. Įjungta
+                tik žemėlapio paieškoje ir tik darbalaukyje — ten žmogus
+                surenka filtrus bei mastelį ir jų prarasti nenori.
 
 Žymos: laikas ir „Naujas" — visada; VIN — jei yra; „Žiūrėjote" prideda
 static/js/perziureti.js pagal data-skelbimas.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 <div class="sk-kort" data-skelbimas="{{ i.pk }}">
-  <a class="sk-nuotrauka" href="{{ i.url }}">
+  <a class="sk-nuotrauka" href="{{ i.url }}"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %}>
     {% if i.img %}
       {% include 'listings/partials/_img.html' with img=i.img alt=i.obj.title %}
     {% else %}
@@ -27,7 +31,7 @@ static/js/perziureti.js pagal data-skelbimas.
 
   <div class="sk-turinys">
     <div class="sk-eilute">
-      <a class="sk-pavadinimas" href="{{ i.url }}">{{ i.obj.title }}</a>
+      <a class="sk-pavadinimas" href="{{ i.url }}"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %}>{{ i.obj.title }}</a>
       <div class="sk-kaina">{{ i.obj.price|kaina:i.obj.currency_symbol }}</div>
     </div>
 

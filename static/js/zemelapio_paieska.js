@@ -35,6 +35,7 @@ function zpSkelbimu(n) {
 // paieška). Ranka pelės ratuku žmogus gali priartinti ir toliau.
 const MAKS_MASTELIS = 15;
 
+
 // Markės parametras kiekvienoje šeimoje savas — sunkvežimiams
 // `truck_brand`, žemės ūkiui `agri_brand_text` ir t. t. Vardus duoda
 // /ajax/markes/ (`param` ir kiekvieno įrašo `p`); čia tik sąrašas, kurį
@@ -78,6 +79,8 @@ function zemelapioPaieska() {
         lMarke: '',        // tas pats lange
         _pasirinktas: null,
         _atidarytas: null,
+        _atidarytoUrl: '',
+        naujameLange: !!pradine.naujame_lange,
         _musuVieta: null,
         _matytiServeryje: [],
         lapasAtidarytas: false,
@@ -96,6 +99,10 @@ function zemelapioPaieska() {
             // reikia iškart (kitaip laukas rodytų tuščią „Markė").
             if (this.f.brand || this.f.category) this.uzkraukMarkes();
             this.laukZemelapio();
+            // Atsarginis krovimas: telefone žemėlapis pagal nutylėjimą
+            // paslėptas, todėl „idle" gali ir neįvykti — be šito sąrašas
+            // liktų tuščias.
+            setTimeout(() => { if (!this._pakrauta) this.uzkrauk(); }, 1500);
         },
 
         /** Filtrai iš adreso — tie patys raktai kaip visose paieškose. */
@@ -140,7 +147,7 @@ function zemelapioPaieska() {
                 this.irasykURL();
                 // Pirmas krovimas tik čia: prieš „idle" kraštinių dar nėra,
                 // todėl „N skelbimų šioje srityje" rodydavo visus.
-                if (!this._pakrauta) { this._pakrauta = true; this.uzkrauk(); }
+                if (!this._pakrauta) this.uzkrauk();
             });
             G.zem.addListener('click', () => this.uzdarykBurbula());
             document.addEventListener('keydown', e => { if (e.key === 'Escape') this.uzdarykBurbula(); });
@@ -169,7 +176,15 @@ function zemelapioPaieska() {
         },
 
         /** Duomenys pagal matomą plotą. */
+        /** Ar žemėlapis realiai matomas (telefone jis pagal nutylėjimą
+         *  paslėptas — tada kraštinių nėra ir sąrašas rodo viską). */
+        zemelapisRodomas() {
+            const el = this.$refs.zemelapis;
+            return !!(el && el.offsetWidth > 0 && el.offsetHeight > 0);
+        },
+
         uzkrauk() {
+            this._pakrauta = true;
             const p = new URLSearchParams(this.f);
             // „Arčiausiai" — atskaitos taškas: vartotojo vieta, o jei jos
             // nežinom, žemėlapio centras.
@@ -178,7 +193,7 @@ function zemelapioPaieska() {
                     lat: G.zem.getCenter().lat(), lng: G.zem.getCenter().lng() };
                 p.set('mlat', t.lat); p.set('mlng', t.lng);
             }
-            const b = G.zem && G.zem.getBounds();
+            const b = this.zemelapisRodomas() && G.zem && G.zem.getBounds();
             if (b) {
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
@@ -265,7 +280,7 @@ function zemelapioPaieska() {
                     zIndex: matyti[z.id] ? 5 : 10,
                 });
                 m.__id = z.id; m.__busena = busena; m.__kaina = z.kaina;
-                m.addListener('click', () => this.zymeklioPaspaudimas(z.id));
+                m.addListener('click', () => this.zymeklioPaspaudimas(z.id, z.tipas));
                 m.addListener('mouseover', () => this.zymeklioUzvedimas(z.id, true));
                 m.addListener('mouseout', () => this.zymeklioUzvedimas(z.id, false));
                 G.zymekliai[z.id] = m;
@@ -350,15 +365,33 @@ function zemelapioPaieska() {
                 .catch(() => {});
         },
 
-        /** Pirmas paspaudimas — kortelė, antras — atidaro skelbimą. */
-        zymeklioPaspaudimas(id) {
-            if (this._atidarytas === id) { window.location = '/' + id + '/'; return; }
+        /** Pirmas paspaudimas — kortelė, antras — atidaro skelbimą.
+         *  Darbalaukyje naujame skirtuke (paieška lieka nepaliesta),
+         *  telefone — tame pačiame lange; adrese guli žemėlapio padėtis
+         *  ir filtrai, todėl „atgal" grąžina tiksliai ten, kur buvai. */
+        zymeklioPaspaudimas(id, tipas) {
+            if (this._atidarytas === id) { this.atidarykSkelbima(); return; }
             this._atidarytas = id;
+            this._atidarytoUrl = '';
             this.perpieskBusena();
-            fetch('/map/kortele/' + id + '/', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            const adr = '/map/kortele/' + id + '/' + (tipas ? '?tipas=' + tipas : '');
+            fetch(adr, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                 .then(r => r.ok ? r.json() : null)
-                .then(a => { if (a) this.rodykTurini(a.html, G.zymekliai[id], a); })
+                .then(a => {
+                    if (!a) return;
+                    this._atidarytoUrl = a.url || '';
+                    this.rodykTurini(a.html, G.zymekliai[id], a);
+                })
                 .catch(() => {});
+        },
+
+        atidarykSkelbima() {
+            const url = this._atidarytoUrl;
+            if (!url) return;
+            // Sprendžia serveris (device_kind) — kad juostoje, burbule ir
+            // žymeklyje elgesys būtų vienodas.
+            if (this.naujameLange) window.open(url, '_blank', 'noopener');
+            else window.location = url;
         },
 
         /** Užvedus — paryškinam kortelę sąraše (paspaudimas daro kita). */
@@ -559,7 +592,7 @@ function zemelapioPaieska() {
             const m = this.pagalRakta(this.lMarke);
             if (m) l[m.p || this.markesParam] = String(m.v);
             const p = new URLSearchParams(this.valyk(l));
-            const b = G.zem && G.zem.getBounds();
+            const b = this.zemelapisRodomas() && G.zem && G.zem.getBounds();
             if (b) {   // skaičius toks pat, kokį pamatys pritaikęs
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());

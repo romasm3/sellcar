@@ -4,7 +4,7 @@ prekiautojo žymeklį rodomas šis sąrašas, ne vienas automobilis).
 {% endcomment %}
 <div class="za">
   {% for i in korteles %}
-  <a class="za-eil" href="{{ i.url }}">
+  <a class="za-eil"{% if naujame_lange %} target="_blank" rel="noopener"{% endif %} href="{{ i.url }}">
     <span class="za-foto">
       {% if i.img %}{% include 'listings/partials/_img.html' with img=i.img alt=i.obj.title %}{% endif %}
     </span>
