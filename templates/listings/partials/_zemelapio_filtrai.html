@@ -47,13 +47,16 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
       <div class="zf-sekcija">
         <div class="zf-vardas">{% trans "Kategorija" %}</div>
         <div class="zf-zymos">
-          {% for k in filtru_kategorijos %}
-          <button type="button" class="zf-zyma" :class="l.category === '{{ k.slug }}' && 'is-on'"
-                  @click="l.category = (l.category === '{{ k.slug }}' ? '' : '{{ k.slug }}'); uzkraukMarkes(l.category); perskaiciuok()">
-            {% kategorijos_ikona k.slug 16 %}
-            <span>{{ k.vardas }}</span>
-          </button>
-          {% endfor %}
+          {% comment %}Tie patys punktai kaip juostoje — tik netuščios,
+          su skaičiais. Sąrašas ateina su duomenimis, todėl antros
+          kopijos nėra.{% endcomment %}
+          <template x-for="k in kategorijos" :key="k.slug">
+            <button type="button" class="zf-zyma" :class="l.category === k.slug && 'is-on'"
+                    @click="l.category = (l.category === k.slug ? '' : k.slug); uzkraukMarkes(l.category); perskaiciuok()">
+              <span x-html="kategorijosIkona(k.slug)"></span>
+              <span x-text="k.vardas + ' (' + k.kiek + ')'"></span>
+            </button>
+          </template>
         </div>
       </div>
 

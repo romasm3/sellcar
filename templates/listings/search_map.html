@@ -45,12 +45,21 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     </div>
 
     {% comment %}Greitieji filtrai — tie patys laukai kaip panelėje.{% endcomment %}
-    {% comment %}Kategorija — pirma, prieš markę. Sąrašas iš to paties
-    šaltinio kaip antraštės paieška ir kategorijų juosta
-    (views.paieskos_kategorijos).{% endcomment %}
+    {% comment %}Kategorija — pirma, prieš markę. Sąrašas ateina su
+    duomenimis (/map/duomenys/ -> kategorijos): tie patys punktai kaip
+    ikonų juostoje ir pikeryje, tik parodomos vien tos, kurios turi
+    skelbimų, su skaičiumi. Skaičiai skaičiuojami su kitais aktyviais
+    filtrais ir matomu plotu.{% endcomment %}
     <select class="zp-sel" x-model="f.category" @change="keiskKategorija()">
       <option value="">{% trans "Visos kategorijos" %}</option>
-      {% for k in filtru_kategorijos %}<option value="{{ k.slug }}">{{ k.vardas }}</option>{% endfor %}
+      <template x-for="k in kategorijos" :key="k.slug">
+        <option :value="k.slug" x-text="k.vardas + ' (' + k.kiek + ')'"></option>
+      </template>
+      {% comment %}Pasirinktoji lieka sąraše net jei plote jos nebeliko —
+      kitaip laukas atrodytų tuščias.{% endcomment %}
+      <template x-if="f.category && !kategorijos.some(k => k.slug === f.category)">
+        <option :value="f.category" x-text="kategorijosVardas(f.category)"></option>
+      </template>
     </select>
 
     {% comment %}Markės — iš /ajax/markes/?kategorija=<slug>, to paties
@@ -149,8 +158,13 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     tekstas: "{% trans 'Paieška' %}", kategorija: "{% trans 'Kategorija' %}",
     skelbimu: ["{% trans 'skelbimas' %}", "{% trans 'skelbimai' %}", "{% trans 'skelbimų' %}"]
   };
+  {% comment %}Kategorijų ikonos — tos pačios, ką piešia {% kategorijos_ikona %};
+  naršyklei paduodamos paruoštos, kad JS neturėtų savo ikonų rinkinio.{% endcomment %}
+  window.ZP_IKONOS = {
+    {% for slug, vardas in kategoriju_vardai %}"{{ slug }}": "{% filter escapejs %}{% kategorijos_ikona slug 16 %}{% endfilter %}"{% if not forloop.last %}, {% endif %}{% endfor %}
+  };
   window.ZP_VARDAI = {
-    kategorijos: { {% for k in filtru_kategorijos %}"{{ k.slug }}": "{{ k.vardas|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
+    kategorijos: { {% for slug, vardas in kategoriju_vardai %}"{{ slug }}": "{{ vardas|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     kuras: { {% for f in kuro_tipai %}"{{ f.name|escapejs }}": "{{ f.name|tdb|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     rusiavimas: { {% for r, v, i in rusiavimo_kortos %}"{{ r }}": "{{ v|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     papildomi: { {% for raktas, reiksme, vardas in papildomi_filtrai %}"{{ raktas }}": "{{ vardas|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} }

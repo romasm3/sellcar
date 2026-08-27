@@ -70,6 +70,7 @@ function zemelapioPaieska() {
         markesQ: '',
         f: {},            // juostos filtrai (taikomi iškart)
         l: {},            // lango filtrai (taikomi paspaudus „Rodyti")
+        kategorijos: [],   // [{slug, vardas, kiek}] — tik netuščios
         markes: [],        // [{v, n, c, k, p}] pagal pasirinktą kategoriją
         markesKat: null,   // kuriai kategorijai jos užkrautos ('' = visos)
         markesParam: 'brand',
@@ -187,6 +188,7 @@ function zemelapioPaieska() {
                 .then(a => {
                     if (!a) return;
                     this.kiek = a.kiek;
+                    if (a.kategorijos) this.kategorijos = a.kategorijos;
                     this.$refs.sarasas.innerHTML = a.html;
                     if (window.laikoZyma) window.laikoZyma.perpiesti(this.$refs.sarasas);
                     this.pieskZymeklius(a.zymekliai);
@@ -461,6 +463,14 @@ function zemelapioPaieska() {
         },
 
         // ── Markės ──
+        kategorijosVardas(slug) {
+            const k = this.kategorijos.find(x => x.slug === slug);
+            if (k) return k.vardas + ' (' + k.kiek + ')';
+            return ((window.ZP_VARDAI || {}).kategorijos || {})[slug] || slug;
+        },
+
+        kategorijosIkona(slug) { return (window.ZP_IKONOS || {})[slug] || ''; },
+
         /** Markės iš /ajax/markes/ — to paties šaltinio kaip panelėse.
          *  Su kategorija — tos šeimos markės, be jos — visos šeimos. */
         uzkraukMarkes(kat) {
