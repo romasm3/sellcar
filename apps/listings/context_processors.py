@@ -181,9 +181,15 @@ def saved_listings_count(request):
 # atsidaro skelbimas. Nuotraukų skaitiklis („6/8") lieka visada.
 THUMBS_ENABLED = False
 
+# Kompaktiška paieška antraštėje (kategorija · vieta · markė · 🔍).
+# Išjungta 2026-08-27: antraštė tapo ankšta, o ta pati paieška yra
+# puslapio viduje. Kodas lieka vietoje — įjungti = True.
+ANTRASTES_PAIESKA = False
+
 
 def rodymo_jungikliai(request):
-    return {'THUMBS_ENABLED': THUMBS_ENABLED}
+    return {'THUMBS_ENABLED': THUMBS_ENABLED,
+            'ANTRASTES_PAIESKA': ANTRASTES_PAIESKA}
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -273,6 +279,11 @@ def form_error_fields(request):
 # ═══════════════════════════════════════════════════════════════════
 
 def antrastes_paieska(request):
+    # Išjungus jungiklį nedarom nė vienos užklausos — juostos vis tiek
+    # niekas nerenderins.
+    if not ANTRASTES_PAIESKA:
+        return {}
+
     from apps.listings.views import (_get_visible_vehicle_types,
                                      _kategorijos_vardas)
 

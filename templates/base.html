@@ -304,8 +304,12 @@
       data-prisijunges="{% if user.is_authenticated %}1{% else %}0{% endif %}">
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="hdr-eile flex flex-wrap justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% comment %}Su išjungta antraštės paieška eilutė lieka tokia,
+            kokia buvo: fiksuoto aukščio ir nelaužoma. Įjungus jungiklį
+            aukštį perima .hdr-eile (min-height), kad siauruose ekranuose
+            juosta galėtų nusileisti į savo eilutę.{% endcomment %}
+            <div class="hdr-eile flex justify-between items-center{% if ANTRASTES_PAIESKA %} flex-wrap{% else %} h-16{% endif %}">
                 <!-- Logo -->
                 <div class="flex items-center gap-8 min-w-0">
                     <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
@@ -539,8 +543,12 @@
                 puslapiams ir abiem vaizdams (juosta / telefono langas).
                 Nuo 1280 px ji stovi antraštės eilutėje tarp logotipo ir
                 veiksmų; siauriau — nusileidžia į savo eilutę po jais
-                (todėl eilutė laužoma).{% endcomment %}
-                {% include 'partials/_antrastes_paieska.html' %}
+                (todėl eilutė laužoma).
+
+                Jungiklis — context_processors.ANTRASTES_PAIESKA. Dabar
+                išjungta: antraštė buvo ankšta, o ta pati paieška yra
+                puslapio viduje. Grąžinti = True vienoje vietoje.{% endcomment %}
+                {% if ANTRASTES_PAIESKA %}{% include 'partials/_antrastes_paieska.html' %}{% endif %}
             </div>
         </div>
 
