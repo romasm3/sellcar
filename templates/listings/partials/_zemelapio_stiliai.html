@@ -259,3 +259,14 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
   .zp-sel:disabled { color: var(--text-muted); background: var(--accent-soft);
                      cursor: not-allowed; }
 </style>
+<style>
+  /* Krovimo metu sąrašas pritemdomas, o ne išvalomas */
+  .zp-sarasas.is-kraunama, .zp-rasta.is-kraunama { opacity: .45;
+      transition: opacity .15s ease; pointer-events: none; }
+  .zp-atitolinti { display: inline-flex; align-items: center; gap: 8px;
+      margin-top: var(--sp-3); height: var(--btn-h); padding: 0 var(--sp-4);
+      border: 1px solid var(--border); border-radius: var(--r-md);
+      background: var(--surface); color: var(--text);
+      font-size: var(--fs-sm); font-weight: var(--fw-semibold); cursor: pointer; }
+  .zp-atitolinti:hover { background: var(--accent-soft); }
+</style>

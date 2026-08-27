@@ -52,11 +52,11 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     filtrais ir matomu plotu.{% endcomment %}
     <select class="zp-sel" x-model="f.category" @change="keiskKategorija()">
       <option value="">{% trans "Visos kategorijos" %}</option>
-      {% comment %}Rodom VISĄ katalogą, ne tik tai, kas pateko į rezultatus:
-      skaičius skliaustuose ateina su duomenimis, o tuščios kategorijos
-      lieka matomos, tik pilkos ir nepaspaudžiamos.{% endcomment %}
+      {% comment %}Rodom VISĄ katalogą, ne tik tai, kas pateko į rezultatus.
+      Skaičius skliaustuose — facet: su matomu plotu ir kitais filtrais, bet
+      BE kategorijos filtro. Visos pasirenkamos, tuščios rodo (0).{% endcomment %}
       <template x-for="k in kategorijos" :key="k.slug">
-        <option :value="k.slug" :disabled="!k.kiek" :class="!k.kiek && 'zp-tuscia'"
+        <option :value="k.slug" :class="!k.kiek && 'zp-tuscia'"
                 x-text="k.vardas + ' (' + k.kiek + ')'"></option>
       </template>
     </select>
@@ -122,19 +122,18 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
   {# ═══ TURINYS ═══ #}
   <div class="zp-turinys" :class="!zemelapisMatomas && 'be-zemelapio'">
     <div class="zp-kaire">
-      <div class="zp-rasta">
+      <div class="zp-rasta" :class="kraunama && 'is-kraunama'">
         <strong x-text="kiek"></strong>
         <span x-text="zpSkelbimu(kiek) + ' {% trans "šioje srityje" %}'"></span>
       </div>
-      <div class="zp-sarasas" x-ref="sarasas" @mouseover="pazymek($event)" @mouseout="nupazymek()"></div>
+      <div class="zp-sarasas" x-ref="sarasas" :class="kraunama && 'is-kraunama'" @mouseover="pazymek($event)" @mouseout="nupazymek()"></div>
     </div>
 
     <div class="zp-desine" x-show="zemelapisMatomas">
       <div class="zp-zemelapio-rem">
         <div id="zpMap" class="zp-zemelapis" x-ref="zemelapis"></div>
-        <button type="button" class="zp-ieskoti-cia" x-show="pajudinta" x-cloak @click="ieskokSrityje()">
-          <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> {% trans "Ieškoti šioje srityje" %}
-        </button>
+        {% comment %}„Ieškoti šioje srityje" mygtuko nebėra: rezultatai
+        persikrauna patys, kai žemėlapis nurimsta (idle + 400 ms).{% endcomment %}
 
       </div>
     </div>

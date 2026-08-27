@@ -8,6 +8,12 @@ puslapyje. Grąžinamas ir per /map/duomenys/, kai pastumiamas žemėlapis.
 {% empty %}
 <div class="sk-tuscia">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-  <p>{% trans "Šioje srityje skelbimų nėra — pastumkite arba atitolinkite žemėlapį." %}</p>
+  <p>{% trans "Šioje srityje skelbimų nėra" %}</p>
+  {% comment %}Mygtukas ateina su AJAX HTML, todėl Alpine jo neapdoroja —
+  paspaudimą gaudo deleguotas klausytojas pagal data-atitolinti.{% endcomment %}
+  <button type="button" class="zp-atitolinti" data-atitolinti>
+    <i class="fa-solid fa-magnifying-glass-minus" aria-hidden="true"></i>
+    {% trans "Atitolinti" %}
+  </button>
 </div>
 {% endfor %}

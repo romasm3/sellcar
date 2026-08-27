@@ -62,7 +62,8 @@ function zemelapioPaieska() {
         // ── būsena ──
         kiek: 0,
         langoKiek: 0,
-        pajudinta: false,
+        kraunama: false,   // krovimo metu sąrašas pritemdomas
+        _programinis: false,
         zemelapisMatomas: true,
         mobZemelapis: false,
         filtraiAtidaryti: false,
@@ -147,19 +148,25 @@ function zemelapioPaieska() {
                 fullscreenControl: false,
             });
 
+            // Google atitikmuo „moveend" yra `idle` — jis įvyksta pabaigus
+            // tempti ar keisti mastelį, kai žemėlapis nurimsta.
             G.zem.addListener('idle', () => {
                 this.irasykURL();
-                // Pirmas krovimas tik čia: prieš „idle" kraštinių dar nėra,
-                // todėl „N skelbimų šioje srityje" rodydavo visus.
-                if (!this._pakrauta) this.uzkrauk();
+                if (!this._pakrauta) { this.uzkrauk(); return; }
+                // Programinis postūmis (vietos paieška, „Atitolinti") pats
+                // pasirūpina krovimu — kitaip gautume ciklą.
+                if (this._programinis) { this._programinis = false; return; }
+                if (!this.ribosPasikeite()) return;   // < 2 % — nejudinam
+                clearTimeout(this._atidejimas);
+                this._atidejimas = setTimeout(() => this.uzkrauk(), 400);
             });
             G.zem.addListener('click', () => this.uzdarykBurbula());
             document.addEventListener('keydown', e => { if (e.key === 'Escape') this.uzdarykBurbula(); });
             document.addEventListener('click', e => {
                 if (e.target.closest('[data-uzdaryti]')) this.uzdarykBurbula();
+                // Mygtukas ateina su AJAX HTML, todėl klausom deleguotai
+                if (e.target.closest('[data-atitolinti]')) this.atitolink();
             });
-            G.zem.addListener('dragend', () => { this.pajudinta = true; });
-            G.zem.addListener('zoom_changed', () => { this.pajudinta = true; });
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
@@ -187,8 +194,35 @@ function zemelapioPaieska() {
             return !!(el && el.offsetWidth > 0 && el.offsetHeight > 0);
         },
 
+        /** Ar plotas pasikeitė tiek, kad vertėtų perkrauti (>2 %).
+         *  Pikselinis „drebėjimas" ir mikro postūmiai užklausų nekelia. */
+        ribosPasikeite() {
+            const b = this.zemelapisRodomas() && G.zem && G.zem.getBounds();
+            if (!b) return false;
+            const dabar = { s: b.getSouthWest().lat(), n: b.getNorthEast().lat(),
+                            v: b.getSouthWest().lng(), r: b.getNorthEast().lng() };
+            const sen = this._ribos;
+            if (!sen) return true;
+            const aukstis = Math.abs(sen.n - sen.s) || 1;
+            const plotis = Math.abs(sen.r - sen.v) || 1;
+            const santykis = Math.max(
+                Math.abs(dabar.s - sen.s) / aukstis, Math.abs(dabar.n - sen.n) / aukstis,
+                Math.abs(dabar.v - sen.v) / plotis, Math.abs(dabar.r - sen.r) / plotis);
+            return santykis > 0.02;
+        },
+
+        /** Programinis žemėlapio postūmis — be automatinio perkrovimo. */
+        pastumk(veiksmas) {
+            this._programinis = true;
+            veiksmas();
+        },
+
         uzkrauk() {
             this._pakrauta = true;
+            this.kraunama = true;
+            // Sena užklausa nebeaktuali — nutraukiam, kad neperrašytų naujos
+            if (this._ctrl) this._ctrl.abort();
+            this._ctrl = ('AbortController' in window) ? new AbortController() : null;
             const p = new URLSearchParams(this.f);
             // „Arčiausiai" — atskaitos taškas: vartotojo vieta, o jei jos
             // nežinom, žemėlapio centras.
@@ -202,21 +236,39 @@ function zemelapioPaieska() {
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
             }
-            fetch('/map/duomenys/?' + p.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            if (b) {
+                this._ribos = { s: b.getSouthWest().lat(), n: b.getNorthEast().lat(),
+                                v: b.getSouthWest().lng(), r: b.getNorthEast().lng() };
+            }
+            fetch('/map/duomenys/?' + p.toString(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                signal: this._ctrl ? this._ctrl.signal : undefined,
+            })
                 .then(r => r.ok ? r.json() : null)
                 .then(a => {
+                    this.kraunama = false;
                     if (!a) return;
                     this.kiek = a.kiek;
                     if (a.kategorijos) this.kategorijos = a.kategorijos;
+                    // Sąrašas keičiamas tik gavus atsakymą — krovimo metu jis
+                    // tik pritemdomas, kad ekranas nemirksėtų tuštuma.
                     this.$refs.sarasas.innerHTML = a.html;
                     if (window.laikoZyma) window.laikoZyma.perpiesti(this.$refs.sarasas);
                     this.pieskZymeklius(a.zymekliai);
-                    this.pajudinta = false;
                 })
-                .catch(() => {});     // tinklo klaida — lieka tai, kas jau matoma
+                .catch(e => {         // nutraukta arba tinklo klaida —
+                    if (e && e.name === 'AbortError') return;   // lieka, kas matoma
+                    this.kraunama = false;
+                });
         },
 
-        ieskokSrityje() { this.uzkrauk(); },
+        /** Tuščias plotas — atitolinam dviem lygiais ir kraunam iš naujo. */
+        atitolink() {
+            if (!G.zem) return;
+            const naujas = Math.max(1, G.zem.getZoom() - 2);
+            this.pastumk(() => G.zem.setZoom(naujas));
+            setTimeout(() => this.uzkrauk(), 300);
+        },
 
         /** SVG žymeklis su kaina. Antracito nenaudojam — jis susilieja
          *  su žemėlapio pilkuma; pavienis yra beveik juodas #111827. */
@@ -494,8 +546,10 @@ function zemelapioPaieska() {
             if (!G.zem || !v.lat) return;
             // Šalis — mažesnis mastelis, adresas — didesnis
             const salis = !v.miestas || v.tekstas.split(',').length <= 1;
-            G.zem.setCenter({ lat: v.lat, lng: v.lon });
-            G.zem.setZoom(Math.min(salis ? 6 : 12, MAKS_MASTELIS));
+            this.pastumk(() => {
+                G.zem.setCenter({ lat: v.lat, lng: v.lon });
+                G.zem.setZoom(Math.min(salis ? 6 : 12, MAKS_MASTELIS));
+            });
             setTimeout(() => this.uzkrauk(), 300);
         },
 
