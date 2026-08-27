@@ -2108,37 +2108,9 @@ def listing_list(request, panel_fragment=False, category=None):
     if request.GET.get('feat_us_import'):
         listings = listings.filter(imported_from_us=True)
 
-    # ═══ Sort logika ═══
-    # „Naujausi" — pagal paskelbimo laiką (activated_at, o jei jo nėra —
-    # created_at), tas pats šaltinis kaip kortelių laiko žymai.
-    from django.db.models.functions import Coalesce as _Coalesce
-    listings = listings.annotate(paskelbta_db=_Coalesce('activated_at', 'created_at'))
+    # ═══ Sort logika ═══ (rikiuoti() — bendra rezultatams ir žemėlapiui)
     sort_param = request.GET.get('sort', 'newest')
-    if sort_param == 'price_asc':
-        listings = listings.order_by('price', '-paskelbta_db')
-    elif sort_param == 'price_desc':
-        listings = listings.order_by('-price', '-paskelbta_db')
-    elif sort_param == 'mileage_asc':
-        listings = listings.order_by('mileage', '-paskelbta_db')
-    elif sort_param == 'mileage_desc':
-        listings = listings.order_by('-mileage', '-paskelbta_db')
-    elif sort_param == 'year_asc':
-        listings = listings.order_by('year', '-paskelbta_db')
-    elif sort_param == 'year_desc':
-        listings = listings.order_by('-year', '-paskelbta_db')
-    elif sort_param == 'newest_renewed':
-        # Priority: jei yra last_boosted_at — naudoja jį, kitaip created_at
-        from django.db.models import F, Case, When, DateTimeField
-        listings = listings.annotate(
-            sort_date=Case(
-                When(last_boosted_at__isnull=False, then=F('last_boosted_at')),
-                default=F('paskelbta_db'),
-                output_field=DateTimeField(),
-            )
-        ).order_by('-sort_date')
-    else:
-        # Default: newest — pagal paskelbimo laiką
-        listings = listings.order_by('-paskelbta_db')
+    listings = rikiuoti(listings, sort_param)
     if request.GET.get('feat_multi_keys'):
         listings = listings.filter(multiple_keys=True)
     if request.GET.get('feat_power_boost'):
@@ -8106,6 +8078,43 @@ def taikyti_markiu_poras(listings, params, category=None):
     return listings, pritaikyta
 
 
+def rikiuoti(listings, sort_param=None):
+    """Rikiavimas — VIENA vieta rezultatams ir žemėlapio paieškai.
+
+    „Naujausi" skaičiuojami nuo paskelbimo laiko (activated_at, o jei jo
+    nėra — created_at), tas pats šaltinis kaip kortelių laiko žymai.
+    Nežinomas raktas krinta į „naujausi", todėl sąrašas niekada nelieka
+    be tvarkos.
+    """
+    from django.db.models.functions import Coalesce as _Coalesce
+
+    listings = listings.annotate(paskelbta_db=_Coalesce('activated_at', 'created_at'))
+    sort_param = sort_param or 'newest'
+    if sort_param == 'price_asc':
+        return listings.order_by('price', '-paskelbta_db')
+    if sort_param == 'price_desc':
+        return listings.order_by('-price', '-paskelbta_db')
+    if sort_param == 'mileage_asc':
+        return listings.order_by('mileage', '-paskelbta_db')
+    if sort_param == 'mileage_desc':
+        return listings.order_by('-mileage', '-paskelbta_db')
+    if sort_param == 'year_asc':
+        return listings.order_by('year', '-paskelbta_db')
+    if sort_param == 'year_desc':
+        return listings.order_by('-year', '-paskelbta_db')
+    if sort_param == 'newest_renewed':
+        # Jei yra last_boosted_at — naudojam jį, kitaip paskelbimo laiką
+        from django.db.models import F, Case, When, DateTimeField
+        return listings.annotate(
+            sort_date=Case(
+                When(last_boosted_at__isnull=False, then=F('last_boosted_at')),
+                default=F('paskelbta_db'),
+                output_field=DateTimeField(),
+            )
+        ).order_by('-sort_date')
+    return listings.order_by('-paskelbta_db')
+
+
 def filter_listings(params, user=None, category=None, base_qs=None):
     """Pritaiko visus GET filtrus ant Listing queryset'o.
 
@@ -8225,6 +8234,10 @@ def filter_listings(params, user=None, category=None, base_qs=None):
 
     if params.get('has_vin'):
         listings = listings.exclude(vin__isnull=True).exclude(vin='')
+    # Žemėlapio „Su nuotraukomis" — filtras gyvena čia, kad tas pats
+    # parametras veiktų ir rezultatų puslapyje, ir detalioje paieškoje.
+    if params.get('su_nuotraukomis'):
+        listings = listings.filter(images__isnull=False).distinct()
     if params.get('valid_inspection'):
         listings = listings.filter(valid_inspection=True)
     if params.get('hide_auctions'):

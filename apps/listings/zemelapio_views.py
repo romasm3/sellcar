@@ -74,7 +74,9 @@ def zemelapio_rezultatai(request):
     if request.GET.get('tik_skaicius'):
         return JsonResponse({'kiek': kiek})
 
-    irasai = list(qs.order_by('-id')[:MAKS_KORTELIU])
+    # Rikiavimas — ta pati funkcija kaip rezultatų puslapyje; be jos
+    # filtrų lango „Rūšiuoti pagal" nieko nedarydavo.
+    irasai = list(_rikiuoti_zemelapiui(qs, request)[:MAKS_KORTELIU])
 
     issaugoti = set()
     if request.user.is_authenticated:
@@ -89,6 +91,49 @@ def zemelapio_rezultatai(request):
 
     return JsonResponse({'kiek': kiek, 'html': html, 'zymekliai': zymekliai,
                          'rodoma': len(irasai)})
+
+
+def _markes_zemelapyje(user):
+    """[{v, n}] — markės, kurių skelbimai turi koordinates.
+
+    Vardai imami iš DB nekeičiant: jei ten „Škoda", taip ir rodom.
+    Sąrašas trumpas ir tikras — anksčiau juostoje gulėjo visos
+    automobilių markės, įskaitant tas, kurių žemėlapyje nė vienos.
+    """
+    eilutes = (_su_koordinatemis(user).exclude(brand=None)
+               .values('brand_id', 'brand__name').distinct()
+               .order_by('brand__name'))
+    return [{'v': e['brand_id'], 'n': e['brand__name']} for e in eilutes]
+
+
+def _rikiuoti_zemelapiui(qs, request):
+    """Rikiavimas žemėlapyje: bendra views.rikiuoti + „Arčiausiai".
+
+    „Arčiausiai" prasmę turi tik čia, todėl ir gyvena čia. Atskaitos
+    taškas — vartotojo vieta (mlat/mlng), o jei jos nėra, žemėlapio
+    centras. Atstumas skaičiuojamas apytiksliai (plokščias, ilgumos
+    skirtumas pataisytas pagal platumą) — rikiavimui to užtenka ir
+    nereikia PostGIS.
+    """
+    from .views import rikiuoti
+
+    if (request.GET.get('sort') or '') != 'arciausiai':
+        return rikiuoti(qs, request.GET.get('sort'))
+
+    from django.db.models import F, FloatField, ExpressionWrapper, Value
+    import math
+
+    lat = _riba(request.GET.get('mlat')) or _riba(request.GET.get('lat'))
+    lng = _riba(request.GET.get('mlng')) or _riba(request.GET.get('lng'))
+    if lat is None or lng is None:
+        return rikiuoti(qs, 'newest')
+
+    k = math.cos(math.radians(lat)) ** 2
+    atstumas = ExpressionWrapper(
+        (F('latitude') - Value(lat)) * (F('latitude') - Value(lat))
+        + (F('longitude') - Value(lng)) * (F('longitude') - Value(lng)) * Value(k),
+        output_field=FloatField())
+    return qs.annotate(_atstumas=atstumas).order_by('_atstumas')
 
 
 def zemelapio_paieska(request):
@@ -123,14 +168,20 @@ def zemelapio_paieska(request):
             {'slug': 'rental', 'label': _t('Nuoma')},
         ],
         'kuro_tipai': FuelType.objects.all().order_by('name'),
+        # Raktai — TIKRI filter_listings parametrai, ne savi vardai.
+        # „vin"/„tik_lietuvoje" niekur nebuvo skaitomi, todėl tos žymos
+        # tik piešdavosi ir nieko nefiltruodavo.
         'papildomi_filtrai': [
-            ('vin', _t('Su VIN')),
-            ('feat_warranty', _t('Su garantija')),
-            ('tik_lietuvoje', _t('Tik Lietuvoje')),
-            ('su_nuotraukomis', _t('Su nuotraukomis')),
+            ('has_vin', '1', _t('Su VIN')),
+            ('feat_warranty', 'on', _t('Su garantija')),
+            ('country_filter', 'LT', _t('Tik Lietuvoje')),
+            ('su_nuotraukomis', '1', _t('Su nuotraukomis')),
         ],
-        'makes': (Brand.objects.filter(vehicle_type__slug='cars')
-                  .values_list('name', flat=True).distinct().order_by('name')),
+        # Markės — id ir vardas, o ne vardas kaip tekstas: filtruojam
+        # `brand=<id>`, nes būtent jį supranta filter_listings. Rodom tik
+        # tas markes, kurių skelbimai žemėlapyje realiai yra, ir vardus
+        # tokius, kokie įrašyti DB („Škoda", ne „Skoda").
+        'makes': _markes_zemelapyje(request.user),
         'models': ModelasModelis.objects.values_list('name', flat=True)
                   .distinct().order_by('name'),
         'years': list(range(metai + 1, 1989, -1)),

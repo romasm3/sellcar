@@ -23,6 +23,21 @@ function zpSkelbimu(n) {
     return T[2];
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// Google objektai laikomi ČIA, ne Alpine būsenoje.
+//
+// Alpine (kaip ir Vue) kiekvieną komponento lauką apvynioja Proxy. Į
+// proxy suvyniotam google.maps.Marker `setMap(null)` nebenuima žymeklio
+// nuo žemėlapio — todėl kiekvienas filtras pridėdavo naujų žymeklių ant
+// senų. Būsenoje lieka tik paprasti duomenys.
+// ═══════════════════════════════════════════════════════════════════
+const G = {
+    zem: null, sankaupos: null, burbulas: null,
+    zymekliai: {},      // id -> žymeklis
+    visi: [],           // visi šįkart sukurti žymekliai
+    apskritimai: [],    // apytikslių vietų punktyrai
+};
+
 function zemelapioPaieska() {
     // Pradinė padėtis ateina per json_script — taip išvengiam HTML kabučių
     // vertimo (dėl jo anksčiau lūždavo visas skriptas).
@@ -42,13 +57,8 @@ function zemelapioPaieska() {
         markesQ: '',
         f: {},            // juostos filtrai (taikomi iškart)
         l: {},            // lango filtrai (taikomi paspaudus „Rodyti")
-        _zem: null,
-        _sankaupos: null,
-        _zymekliai: {},
         _pasirinktas: null,
         _atidarytas: null,
-        _burbulas: null,
-        _apskritimai: [],
         _musuVieta: null,
         _matytiServeryje: [],
         lapasAtidarytas: false,
@@ -61,7 +71,7 @@ function zemelapioPaieska() {
             this.$watch('mobZemelapis', v => {
                 const d = document.querySelector('.zp-desine');
                 if (d) d.classList.toggle('mob-matomas', v);
-                if (v && this._zem) setTimeout(() => google.maps.event.trigger(this._zem, 'resize'), 200);
+                if (v && G.zem) setTimeout(() => google.maps.event.trigger(G.zem, 'resize'), 200);
             });
             this.laukZemelapio();
         },
@@ -87,7 +97,7 @@ function zemelapioPaieska() {
 
         pieskZemelapi() {
             const el = this.$refs.zemelapis;
-            this._zem = new google.maps.Map(el, {
+            G.zem = new google.maps.Map(el, {
                 center: { lat: pradine.lat, lng: pradine.lng },
                 zoom: pradine.z,
                 // Ratukas priartina iškart, kai pelė virš žemėlapio —
@@ -99,22 +109,26 @@ function zemelapioPaieska() {
                 fullscreenControl: false,
             });
 
-            this._zem.addListener('idle', () => { this.irasykURL(); });
-            this._zem.addListener('click', () => this.uzdarykBurbula());
+            G.zem.addListener('idle', () => {
+                this.irasykURL();
+                // Pirmas krovimas tik čia: prieš „idle" kraštinių dar nėra,
+                // todėl „N skelbimų šioje srityje" rodydavo visus.
+                if (!this._pakrauta) { this._pakrauta = true; this.uzkrauk(); }
+            });
+            G.zem.addListener('click', () => this.uzdarykBurbula());
             document.addEventListener('keydown', e => { if (e.key === 'Escape') this.uzdarykBurbula(); });
             document.addEventListener('click', e => {
                 if (e.target.closest('[data-uzdaryti]')) this.uzdarykBurbula();
             });
-            this._zem.addListener('dragend', () => { this.pajudinta = true; });
-            this._zem.addListener('zoom_changed', () => { this.pajudinta = true; });
+            G.zem.addListener('dragend', () => { this.pajudinta = true; });
+            G.zem.addListener('zoom_changed', () => { this.pajudinta = true; });
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
                     this._musuVieta = { lat: p.coords.latitude, lng: p.coords.longitude };
                     if (!pradine.is_url) {
-                        this._zem.setCenter(this._musuVieta);
-                        this._zem.setZoom(10);
-                        this.uzkrauk();
+                        G.zem.setCenter(this._musuVieta);
+                        G.zem.setZoom(10);   // „idle" perkraus sąrašą pats
                     }
                 }, () => {}, { timeout: 3000 });
             }
@@ -125,13 +139,19 @@ function zemelapioPaieska() {
                     .then(a => { this._matytiServeryje = a.ids || []; })
                     .catch(() => {});
             }
-            this.uzkrauk();
         },
 
         /** Duomenys pagal matomą plotą. */
         uzkrauk() {
             const p = new URLSearchParams(this.f);
-            const b = this._zem && this._zem.getBounds();
+            // „Arčiausiai" — atskaitos taškas: vartotojo vieta, o jei jos
+            // nežinom, žemėlapio centras.
+            if (this.f.sort === 'arciausiai' && G.zem) {
+                const t = this._musuVieta || {
+                    lat: G.zem.getCenter().lat(), lng: G.zem.getCenter().lng() };
+                p.set('mlat', t.lat); p.set('mlng', t.lng);
+            }
+            const b = G.zem && G.zem.getBounds();
             if (b) {
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
@@ -178,11 +198,22 @@ function zemelapioPaieska() {
         },
 
         pieskZymeklius(sarasas) {
-            if (!this._zem) return;
-            if (this._sankaupos) this._sankaupos.clearMarkers();
-            (this._apskritimai || []).forEach(a => a.setMap(null));
-            this._apskritimai = [];
-            this._zymekliai = {};
+            if (!G.zem) return;
+            // Senus žymeklius nuimam patys: vien `clearMarkers()` palieka
+            // ankstesnę sankaupų grupę gyvą ir žymekliai kaupdavosi.
+            if (G.sankaupos) {
+                G.sankaupos.clearMarkers();
+                G.sankaupos.setMap(null);
+                G.sankaupos = null;
+            }
+            (G.visi || []).forEach(m => {
+                google.maps.event.clearInstanceListeners(m);
+                m.setMap(null);
+            });
+            G.visi = [];
+            (G.apskritimai || []).forEach(a => a.setMap(null));
+            G.apskritimai = [];
+            G.zymekliai = {};
             const matyti = this.matytiId();
             const zym = [];
 
@@ -209,22 +240,23 @@ function zemelapioPaieska() {
                 m.addListener('click', () => this.zymeklioPaspaudimas(z.id));
                 m.addListener('mouseover', () => this.zymeklioUzvedimas(z.id, true));
                 m.addListener('mouseout', () => this.zymeklioUzvedimas(z.id, false));
-                this._zymekliai[z.id] = m;
+                G.zymekliai[z.id] = m;
                 zym.push(m);
 
                 // Apytikslė vieta — punktyrinis ~500 m apskritimas
                 if (z.apytiksliai) {
-                    this._apskritimai.push(new google.maps.Circle({
-                        map: this._zem, center: { lat: z.lat, lng: z.lng }, radius: 500,
+                    G.apskritimai.push(new google.maps.Circle({
+                        map: G.zem, center: { lat: z.lat, lng: z.lng }, radius: 500,
                         strokeColor: '#111827', strokeOpacity: .55, strokeWeight: 1.5,
                         fillColor: '#111827', fillOpacity: .07, clickable: false,
                     }));
                 }
             });
 
+            G.visi = zym;
             if (window.markerClusterer && window.markerClusterer.MarkerClusterer) {
-                this._sankaupos = new markerClusterer.MarkerClusterer({
-                    map: this._zem, markers: zym,
+                G.sankaupos = new markerClusterer.MarkerClusterer({
+                    map: G.zem, markers: zym,
                     renderer: { render: ({ count, position }) => new google.maps.Marker({
                         position, zIndex: 50,
                         icon: this.ikona(String(count), 'įprastas'),
@@ -232,7 +264,7 @@ function zemelapioPaieska() {
                     onClusterClick: (e, sankaupa, zem) => this.sankaupaPaspausta(sankaupa, zem),
                 });
             } else {
-                zym.forEach(m => m.setMap(this._zem));
+                zym.forEach(m => m.setMap(G.zem));
             }
         },
 
@@ -270,7 +302,7 @@ function zemelapioPaieska() {
         },
 
         uzdarykBurbula() {
-            if (this._burbulas) this._burbulas.close();
+            if (G.burbulas) G.burbulas.close();
             this.lapasAtidarytas = false;
             if (this._atidarytas !== null) { this._atidarytas = null; this.perpieskBusena(); }
         },
@@ -289,7 +321,7 @@ function zemelapioPaieska() {
             this.perpieskBusena();
             fetch('/map/kortele/' + id + '/', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                 .then(r => r.ok ? r.json() : null)
-                .then(a => { if (a) this.rodykTurini(a.html, this._zymekliai[id], a); })
+                .then(a => { if (a) this.rodykTurini(a.html, G.zymekliai[id], a); })
                 .catch(() => {});
         },
 
@@ -297,7 +329,7 @@ function zemelapioPaieska() {
         zymeklioUzvedimas(id, ijungta) {
             const kort = this.$refs.sarasas.querySelector('[data-kort="' + id + '"]');
             if (kort) kort.classList.toggle('is-pazymeta', ijungta);
-            const m = this._zymekliai[id];
+            const m = G.zymekliai[id];
             if (!m) return;
             m.setIcon(this.ikona(m.__kaina, this._atidarytas === id ? 'pasirinktas' : m.__busena,
                                  ijungta));
@@ -305,8 +337,8 @@ function zemelapioPaieska() {
         },
 
         perpieskBusena() {
-            Object.keys(this._zymekliai).forEach(id => {
-                const m = this._zymekliai[id];
+            Object.keys(G.zymekliai).forEach(id => {
+                const m = G.zymekliai[id];
                 const b = (String(this._atidarytas) === String(id)) ? 'pasirinktas' : m.__busena;
                 m.setIcon(this.ikona(m.__kaina, b));
                 m.setZIndex(b === 'pasirinktas' ? 70 : (m.__busena === 'ziuretas' ? 5 : 10));
@@ -320,17 +352,17 @@ function zemelapioPaieska() {
                 this.$nextTick(() => this.paruoskAtstuma(duom));
                 return;
             }
-            if (!this._burbulas) {
-                this._burbulas = new google.maps.InfoWindow({ maxWidth: 268 });
-                this._burbulas.addListener('closeclick', () => { this._atidarytas = null; this.perpieskBusena(); });
+            if (!G.burbulas) {
+                G.burbulas = new google.maps.InfoWindow({ maxWidth: 268 });
+                G.burbulas.addListener('closeclick', () => { this._atidarytas = null; this.perpieskBusena(); });
             }
-            this._burbulas.setContent(html);
+            G.burbulas.setContent(html);
             // Sankaupoje esantis žymeklis nėra žemėlapyje — tada rišam prie taško
             if (zymeklis && zymeklis.getMap()) {
-                this._burbulas.open({ map: this._zem, anchor: zymeklis });
+                G.burbulas.open({ map: G.zem, anchor: zymeklis });
             } else if (duom && duom.lat != null) {
-                this._burbulas.setPosition({ lat: duom.lat, lng: duom.lng });
-                this._burbulas.open({ map: this._zem });
+                G.burbulas.setPosition({ lat: duom.lat, lng: duom.lng });
+                G.burbulas.open({ map: G.zem });
             }
             setTimeout(() => this.paruoskAtstuma(duom), 60);
         },
@@ -368,11 +400,11 @@ function zemelapioPaieska() {
         pazymek(e) {
             const kort = e.target.closest('[data-kort]');
             if (!kort) return;
-            const m = this._zymekliai[kort.dataset.kort];
+            const m = G.zymekliai[kort.dataset.kort];
             if (m) m.setAnimation(google.maps.Animation.BOUNCE);
         },
         nupazymek() {
-            Object.values(this._zymekliai).forEach(m => m.setAnimation(null));
+            Object.values(G.zymekliai).forEach(m => m.setAnimation(null));
         },
 
         // ── Vietos paieška (Photon) ──
@@ -386,11 +418,11 @@ function zemelapioPaieska() {
         },
         pasirinkVieta(v) {
             this.vietos = []; this.vietosQ = v.tekstas;
-            if (!this._zem || !v.lat) return;
+            if (!G.zem || !v.lat) return;
             // Šalis — mažesnis mastelis, adresas — didesnis
             const salis = !v.miestas || v.tekstas.split(',').length <= 1;
-            this._zem.setCenter({ lat: v.lat, lng: v.lon });
-            this._zem.setZoom(salis ? 6 : 12);
+            G.zem.setCenter({ lat: v.lat, lng: v.lon });
+            G.zem.setZoom(salis ? 6 : 12);
             setTimeout(() => this.uzkrauk(), 300);
         },
 
@@ -402,7 +434,7 @@ function zemelapioPaieska() {
 
         perskaiciuok() {
             const p = new URLSearchParams(this.valyk(this.l));
-            const b = this._zem && this._zem.getBounds();
+            const b = G.zem && G.zem.getBounds();
             if (b) {   // skaičius toks pat, kokį pamatys pritaikęs
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
@@ -427,6 +459,7 @@ function zemelapioPaieska() {
         vardas(raktas, reiksme) {
             const V = window.ZP_VARDAI || {};
             if (raktas === 'category') return (V.kategorijos || {})[reiksme] || reiksme;
+            if (raktas === 'brand') return (V.markes || {})[reiksme] || reiksme;
             if (raktas === 'fuel_type') return (V.kuras || {})[reiksme] || reiksme;
             if (raktas === 'sort') return (V.rusiavimas || {})[reiksme] || reiksme;
             return reiksme;
@@ -434,23 +467,27 @@ function zemelapioPaieska() {
 
         aktyvuSarasas() {
             const T = window.ZP_TEKSTAI || {};
-            const vardai = { make: T.marke, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
+            const vardai = { brand: T.marke, q: T.tekstas, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
                              year_min: T.metai + ' ' + T.nuo, year_max: T.metai + ' ' + T.iki,
                              mileage_min: T.rida + ' ' + T.nuo, mileage_max: T.rida + ' ' + T.iki,
                              fuel_type: T.kuras };
+            // „Kita" žymos (has_vin, country_filter…) — vien pavadinimas,
+            // reikšmė („1", „LT") žmogui nieko nesako.
+            const papildomi = (window.ZP_VARDAI || {}).papildomi || {};
             return Object.keys(this.valyk(this.f)).map(k => ({
                 raktas: k,
-                tekstas: (vardai[k] ? vardai[k] + ': ' : '') + this.vardas(k, this.f[k])
+                tekstas: papildomi[k] ? papildomi[k]
+                         : (vardai[k] ? vardai[k] + ': ' : '') + this.vardas(k, this.f[k])
             }));
         },
 
         /** Padėtis ir filtrai adrese — nuorodą galima dalintis. */
         irasykURL() {
-            if (!this._zem) return;
-            const c = this._zem.getCenter(); if (!c) return;
+            if (!G.zem) return;
+            const c = G.zem.getCenter(); if (!c) return;
             const p = new URLSearchParams(this.valyk(this.f));
             p.set('lat', c.lat().toFixed(5)); p.set('lng', c.lng().toFixed(5));
-            p.set('z', this._zem.getZoom());
+            p.set('z', G.zem.getZoom());
             history.replaceState(null, '', location.pathname + '?' + p.toString());
         },
     };

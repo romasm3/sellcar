@@ -21,6 +21,16 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
     </div>
 
     <div class="zf-turinys">
+      {% comment %}Tekstinė paieška — parametras `q`, tas pats kaip
+      rezultatų puslapyje. Būtina ir todėl, kad dalis skelbimų (nuoma,
+      dalys) markės lauko DB neturi — jų markė gyvena pavadinime.{% endcomment %}
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Paieška pagal pavadinimą" %}</div>
+        <input type="text" class="zf-paieska" x-model="l.q"
+               @input.debounce.400ms="perskaiciuok()"
+               placeholder="{% trans 'Pvz. Škoda Octavia' %}">
+      </div>
+
       <div class="zf-sekcija">
         <div class="zf-vardas">{% trans "Rūšiuoti pagal" %}</div>
         <div class="zf-korteles">
@@ -51,11 +61,15 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
         <div class="zf-vardas">{% trans "Markė" %}</div>
         <input type="text" class="zf-paieska" x-model="markesQ" placeholder="{% trans 'Ieškoti markės' %}">
         <div class="zf-markes">
+          {% comment %}Filtruojam brand=<id> — būtent jį supranta
+          filter_listings. Anksčiau siųsdavom markės vardą (make=Skoda),
+          kurio atrankos variklis neskaito, todėl sąrašas nesikeisdavo.
+          Vardas rodomas toks, koks įrašytas DB.{% endcomment %}
           {% for m in makes %}
-          <label class="zf-varnele" x-show="!markesQ || '{{ m|lower|escapejs }}'.includes(markesQ.toLowerCase())">
-            <input type="checkbox" value="{{ m }}" :checked="l.make === '{{ m|escapejs }}'"
-                   @change="l.make = ($event.target.checked ? '{{ m|escapejs }}' : ''); perskaiciuok()">
-            <span>{{ m }}</span>
+          <label class="zf-varnele" x-show="!markesQ || '{{ m.n|lower|escapejs }}'.includes(markesQ.toLowerCase())">
+            <input type="checkbox" value="{{ m.v }}" :checked="String(l.brand) === '{{ m.v }}'"
+                   @change="l.brand = ($event.target.checked ? '{{ m.v }}' : ''); perskaiciuok()">
+            <span>{{ m.n }}</span>
           </label>
           {% endfor %}
         </div>
@@ -94,9 +108,11 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
       <div class="zf-sekcija">
         <div class="zf-vardas">{% trans "Kita" %}</div>
         <div class="zf-zymos">
-          {% for raktas, vardas in papildomi_filtrai %}
+          {% comment %}Raktas ir reikšmė — tikri filter_listings parametrai
+          (has_vin=1, country_filter=LT...), o ne savi vardai.{% endcomment %}
+          {% for raktas, reiksme, vardas in papildomi_filtrai %}
           <button type="button" class="zf-zyma" :class="l['{{ raktas }}'] && 'is-on'"
-                  @click="l['{{ raktas }}'] = (l['{{ raktas }}'] ? '' : 'on'); perskaiciuok()">
+                  @click="l['{{ raktas }}'] = (l['{{ raktas }}'] ? '' : '{{ reiksme }}'); perskaiciuok()">
             <span>{{ vardas }}</span>
           </button>
           {% endfor %}
