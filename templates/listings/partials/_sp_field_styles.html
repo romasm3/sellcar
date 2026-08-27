@@ -237,8 +237,13 @@ vidinės paraštės 9px/12px, aukštis 40px.
 
   /* Rezultatų antraštė telefone (etalono .items-header) */
   @media (max-width: 1023px) {
+    {% comment %}Siauruose ekranuose (360 px) rikiavimo laukas su ilgu
+    tekstu išstumdavo eilutę už puslapio krašto — todėl eilutė laužoma,
+    o pats laukas mažinamas kartu su ja.{% endcomment %}
     .sp-items-header { display: flex; align-items: center; justify-content: space-between;
-                       gap: 12px; padding: 10px 0 12px; }
+                       flex-wrap: wrap; gap: 12px; padding: 10px 0 12px; }
+    .sp-items-header .filter-controls { min-width: 0; }
+    .sp-items-header .sorting { min-width: 0; }
     .sp-items-header .ads-count { font-size: 15px; color: #1F2328; }
     .sp-items-header .ads-count span { font-weight: 700; }
     .sp-items-header .filter-controls { display: flex; align-items: center; gap: 14px; }
@@ -252,7 +257,8 @@ vidinės paraštės 9px/12px, aukštis 40px.
                                 font-size: 15px; color: #1F2328; }
     .sp-items-header .sorting svg { width: 16px; height: 16px; color: #9AA0A6; }
     .sp-items-header .sorting select { border: none; background: none; font-size: 15px;
-                                       color: #1F2328; outline: none; max-width: 150px; }
+                                       color: #1F2328; outline: none;
+                                       max-width: 150px; min-width: 0; }
   }
   @media (min-width: 1024px) { .sp-items-header { display: none; } }
 

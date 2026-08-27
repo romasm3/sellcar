@@ -86,13 +86,60 @@ def brand_name(vt_slug, value, sub_slug=None):
     return str(value)
 
 
+# ── Bendras markių sąrašas (antraštės paieškai) ─────────────────────
+# Antraštės juostoje kategorija gali būti nepasirinkta („Visos
+# kategorijos"), o markė vis tiek turi siūlytis. Todėl sulipdom visų
+# kategorijų sąrašus į vieną: vardas -> (kategorija, reikšmė, kiekis).
+# Jei tas pats vardas yra keliose kategorijose, laimi ta, kurioje
+# daugiau skelbimų — taip „Volkswagen" veda į automobilius, o ne į
+# atsitiktinę kategoriją. Antro sąrašo nekuriame: imam tuos pačius
+# brand_items(), kuriuos naudoja panelės.
+
+VISOS_KEY = 'brandlist:visos:v1'
+
+
+def visos_markes():
+    """[{v, n, c, k}] — visų kategorijų markės, k = kategorijos slug."""
+    hit = cache.get(VISOS_KEY)
+    if hit is not None:
+        return hit
+
+    from apps.listings.search_config.panels import PANELS
+
+    geriausi = {}
+    for slug in PANELS:
+        for it in (brand_items(slug) or []):
+            raktas = it['n'].strip().lower()
+            esamas = geriausi.get(raktas)
+            if esamas is None or it['c'] > esamas['c']:
+                geriausi[raktas] = {'v': it['v'], 'n': it['n'],
+                                    'c': it['c'], 'k': slug}
+    # Netrumpinam: sąrašas guli tik serverio keše (~130 KB), o į naršyklę
+    # keliauja tik keli pagal `q` atrinkti įrašai. Trumpinant nukristų
+    # abėcėlės uodega — būtent joje sėdi retesnės markės.
+    items = sorted(geriausi.values(), key=lambda x: (-x['c'], x['n'].lower()))
+    cache.set(VISOS_KEY, items, CACHE_SECONDS)
+    return items
+
+
 @require_GET
 @cache_control(public=True, max_age=CACHE_SECONDS)
 def brand_options(request):
-    """GET /ajax/markes/?kategorija=<slug>&subkategorija=<slug>&q=<tekstas>"""
+    """GET /ajax/markes/?kategorija=<slug>&subkategorija=<slug>&q=<tekstas>
+
+    Be `kategorija` grąžinam bendrą visų kategorijų sąrašą, bet tik su
+    `q` — visas jis sveria per 60 KB ir antraštei nereikalingas.
+    """
     vt_slug = request.GET.get('kategorija') or ''
     sub_slug = request.GET.get('subkategorija') or None
     q = (request.GET.get('q') or '').strip().lower()
+
+    if not vt_slug:
+        items = [] if not q else [
+            it for it in visos_markes() if q in it['n'].lower()][:12]
+        return JsonResponse({'kategorija': '', 'markes': items,
+                             'viso': len(items)},
+                            json_dumps_params={'ensure_ascii': False})
 
     items = brand_items(vt_slug, sub_slug)
     if items is None:

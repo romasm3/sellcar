@@ -123,6 +123,7 @@ TEMPLATES = [
                 "apps.listings.context_processors.form_error_fields",
                 "apps.listings.context_processors.rodymo_jungikliai",
                 "apps.listings.context_processors.antrine_navigacija",
+                "apps.listings.context_processors.antrastes_paieska",
             ],
         },
     },

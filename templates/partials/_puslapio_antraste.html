@@ -1,0 +1,51 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PUSLAPIO PAVADINIMAS — po antrašte, kartu su trupinių taku.
+
+Anksčiau puslapio vardas („Žemėlapio paieška") stovėjo šalia logotipo.
+Ten dabar kompaktiška paieška, o vardas gyvena čia — vienoje vietoje
+visiems puslapiams.
+
+Naudojimas:
+    {% verbatim %}{% block puslapio_antraste %}
+      {% trans "Žemėlapio paieška" as pav %}
+      {% include 'partials/_puslapio_antraste.html' with pavadinimas=pav %}
+    {% endblock %}{% endverbatim %}
+
+Neprivalomai `trupiniai` — sąrašas {label, url}; „Pradžia" pridedama
+visada, todėl jos perduoti nereikia.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="pa no-print">
+  <div class="pa-in">
+    <nav class="pa-trupiniai" aria-label="{% trans 'Trupinių takas' %}">
+      <a href="{% url 'home' %}">{% trans "Pradžia" %}</a>
+      {% for t in trupiniai %}
+      <span class="pa-skirt" aria-hidden="true">/</span>
+      {% if t.url %}<a href="{{ t.url }}">{{ t.label }}</a>
+      {% else %}<span>{{ t.label }}</span>{% endif %}
+      {% endfor %}
+      <span class="pa-skirt" aria-hidden="true">/</span>
+      <span class="pa-dabar">{{ pavadinimas }}</span>
+    </nav>
+    <h1 class="pa-h1">{{ pavadinimas }}</h1>
+  </div>
+</div>
+
+<style>
+  .pa { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .pa-in { max-width: 80rem; margin: 0 auto;
+           padding: var(--sp-3) var(--sp-4) var(--sp-4); }
+  .pa-trupiniai { display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+                  font-size: 12.5px; color: var(--text-muted); }
+  .pa-trupiniai a { color: inherit; text-decoration: none; }
+  .pa-trupiniai a:hover { color: var(--accent); text-decoration: underline; }
+  .pa-skirt { color: var(--border); }
+  .pa-dabar { color: var(--text); font-weight: var(--fw-medium); }
+  .pa-h1 { margin: 4px 0 0; font-size: 20px; font-weight: var(--fw-bold);
+           color: var(--text); line-height: 1.2; }
+  @media (max-width: 1023px) {
+    .pa-in { padding: var(--sp-2) var(--sp-3) var(--sp-3); }
+    .pa-h1 { font-size: 17px; }
+  }
+</style>

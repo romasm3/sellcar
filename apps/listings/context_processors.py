@@ -255,3 +255,46 @@ def form_error_fields(request):
         'error_messages': SimpleLazyObject(lambda: _surinkti()['error_messages']),
         'form_errors': SimpleLazyObject(lambda: _surinkti()['form_errors']),
     }
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ANTRAŠTĖS PAIEŠKA — kompaktiška juosta visuose puslapiuose
+#
+# Trys laukai (kategorija · vieta · markė) siunčia TUOS PAČIUS
+# parametrus, kaip paieškos panelė ir detali paieška:
+#     category=<slug> · city=<tekstas> (+country_filter) ·
+#     brand=<id> arba q=<tekstas>
+# Todėl rezultatų puslapyje jie jau būna pažymėti — antro filtrų
+# rinkinio nėra.
+#
+# Kategorijų sąrašas — iš to paties šaltinio kaip visur:
+# _get_visible_vehicle_types() + _kategorijos_vardas() (vardai iš
+# paieškos panelių konfigūracijos, nes VehicleType.name dar angliškas).
+# ═══════════════════════════════════════════════════════════════════
+
+def antrastes_paieska(request):
+    from apps.listings.views import (_get_visible_vehicle_types,
+                                     _kategorijos_vardas)
+
+    kategorijos = [{'slug': vt.slug, 'vardas': _kategorijos_vardas(vt.slug)}
+                   for vt in _get_visible_vehicle_types(request.user)
+                   if vt.slug in PANEL_SLUGS]
+
+    get = request.GET
+    kat = (get.get('category') or get.get('section') or '').strip()
+    marke_id = (get.get('brand') or '').strip()
+    marke_tekstas = (get.get('q') or '').strip()
+    if marke_id and kat:
+        from apps.listings.brand_api import brand_name
+        marke_tekstas = brand_name(kat, marke_id) or marke_tekstas
+
+    return {
+        'hdr_kategorijos': kategorijos,
+        'hdr_pradine': {
+            'kategorija': kat,
+            'vieta': (get.get('city') or '').strip(),
+            'salis': (get.get('country_filter') or '').strip(),
+            'markeId': marke_id,
+            'marke': marke_tekstas,
+        },
+    }

@@ -2,6 +2,11 @@
 {% load i18n static listing_filters i18n_db %}
 {% block title %}{% trans "Žemėlapio paieška" %} - AutoLeft{% endblock %}
 
+{% block puslapio_antraste %}
+  {% trans "Žemėlapio paieška" as pav %}
+  {% include 'partials/_puslapio_antraste.html' with pavadinimas=pav %}
+{% endblock %}
+
 {% block content %}
 {% comment %}
 ═══════════════════════════════════════════════════════════════════════

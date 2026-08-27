@@ -1949,7 +1949,12 @@ def listing_list(request, panel_fragment=False, category=None):
     fuel_types = FuelType.objects.all().order_by('name')
     transmissions = Transmission.objects.all().order_by('name')
 
+    # ?category=all — „Visos kategorijos" iš antraštės paieškos. Be jo
+    # tuščia kategorija krinta į „cars", todėl paieška be kategorijos
+    # slėpdavo dalis, nuomą, techniką ir kitas kategorijas.
     category_filter = request.GET.get('category', 'cars')
+    if category_filter == 'all':
+        category_filter = None
     brand_filter = request.GET.get('brand')
     model_filter = request.GET.get('model')
     submodel_filter = request.GET.get('submodel')
@@ -2468,6 +2473,9 @@ def listing_list(request, panel_fragment=False, category=None):
         'total_count': listings.count(),
         'categories': categories,
         'selected_category': category_filter,
+        # „Visos kategorijos": antraštė negali likti „Automobiliai" —
+        # šoninė juosta tokiu atveju rodo bendrus (automobilių) laukus.
+        'visos_kategorijos': category_filter is None,
         # „Išsaugoti paiešką" mygtuko būsena — kad perkrovus puslapį jau
         # išsaugota paieška iškart rodytų išsaugotą būseną.
         'paieska_issaugota': bool(_rasti_issaugota(request.user,

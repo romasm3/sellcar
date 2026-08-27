@@ -92,6 +92,12 @@ def _photon_irasas(f):
                                    s.get('country')) if x)
     return {
         'tekstas': vardas,
+        # `vardas` ir `tipas` reikalingi antraštės vietos laukui: miestui
+        # Photon dažnai neužpildo `city`, tada `miestas` nukrenta iki
+        # savivaldybės („Kauno miesto savivaldybė"), o žmogus rinkosi
+        # „Kaunas". Adresui atvirkščiai — reikia būtent miesto.
+        'vardas': s.get('name') or '',
+        'tipas': s.get('type') or s.get('osm_value') or '',
         'lat': koord[1],
         'lon': koord[0],
         'miestas': s.get('city') or s.get('town') or s.get('village')

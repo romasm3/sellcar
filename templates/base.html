@@ -304,25 +304,19 @@
       data-prisijunges="{% if user.is_authenticated %}1{% else %}0{% endif %}">
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="hdr-eile flex flex-wrap justify-between items-center">
                 <!-- Logo -->
                 <div class="flex items-center gap-8 min-w-0">
                     <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
                         <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
                     </a>
 
-                    <!-- Desktop Navigation -->
-                    <div class="hidden lg:flex items-center gap-6">
-                        <a href="{% url 'search_map' %}" class="text-gray-700 hover:text-primary font-medium transition-colors">
-                            {% trans "Map Search" %}
-                        </a>
-
-                        <!-- ═══ NEWS & HELP LINK (paprasta nuoroda, be ikonos) ═══ -->
-                        {% comment %}„Pagalba" ir „Apie mus" gyvena antrinėje juostoje
-                        (SEC_NAV_ITEMS, rodoma iškart po antrašte), todėl čia jų
-                        nekartojam — antraštėje lieka tik žemėlapio paieška.{% endcomment %}
-                    </div>
+                    {% comment %}Šalia logotipo nebėra jokio teksto: puslapio
+                    pavadinimas persikėlė po antrašte (blokas „puslapio_antraste"),
+                    o žemėlapio paieška — į dešinės pusės ikonų eilę. Vietą
+                    užima kompaktiška paieška (ji pati įsistato į vidurį).
+                    {% endcomment %}
                 </div>
 
                 <!-- Right Side -->
@@ -393,6 +387,15 @@
                     2026-08-20): ji sena, atpažįstama, žymė buvo atmesta.
                     Matoma ir telefone; vokas telefone lieka paslėptas.
                     {% endcomment %}
+                    {% comment %}Žemėlapio paieška — ikona, nes tekstinę nuorodą
+                    šalia logotipo pakeitė paieškos juosta. Telefone ji lieka
+                    meniu viduje.{% endcomment %}
+                    <a href="{% url 'search_map' %}"
+                       class="hidden lg:inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors"
+                       title="{% trans 'Map Search' %}" aria-label="{% trans 'Map Search' %}">
+                        <i class="fas fa-map-location-dot text-xl"></i>
+                    </a>
+
                     <!-- Saved Searches Icon -->
                     <a href="{% url 'saved_searches_list' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'My Searches' %}">
                         <i class="fas fa-search text-xl"></i>
@@ -531,6 +534,13 @@
                         </svg>
                     </button>
                 </div>
+
+                {% comment %}Kompaktiška paieška — VIENAS egzempliorius visiems
+                puslapiams ir abiem vaizdams (juosta / telefono langas).
+                Nuo 1280 px ji stovi antraštės eilutėje tarp logotipo ir
+                veiksmų; siauriau — nusileidžia į savo eilutę po jais
+                (todėl eilutė laužoma).{% endcomment %}
+                {% include 'partials/_antrastes_paieska.html' %}
             </div>
         </div>
 
@@ -711,6 +721,10 @@
     {% comment %}Antrinė navigacija — iškart po antrašte, visuose base.html
     puslapiuose (templates/partials/secondary_nav.html).{% endcomment %}
     {% include 'partials/secondary_nav.html' %}
+
+    {% comment %}Puslapio pavadinimas ir trupinių takas — po antrašte, ne
+    šalia logotipo (templates/partials/_puslapio_antraste.html).{% endcomment %}
+    {% block puslapio_antraste %}{% endblock %}
 
     <!-- Messages -->
     {% if messages %}

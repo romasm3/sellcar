@@ -1,0 +1,226 @@
+{% load i18n static %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ANTRAŠTĖS PAIEŠKA — kompaktiška juosta, matoma VISUOSE puslapiuose.
+
+  [Kategorija ▾] │ [Vieta] │ [Markė ar modelis] │ (🔍)
+
+VIENAS RINKINYS: laukai siunčia tuos pačius parametrus kaip paieškos
+panelė ir detali paieška — category, city (+country_filter), brand arba
+q. Todėl rezultatų puslapyje pasirinkimai jau būna pažymėti, o antro
+filtrų rinkinio niekur nekuriame.
+
+VIENAS EGZEMPLIORIUS: juosta ir telefono pilno ekrano langas — tas pats
+DOM ir ta pati forma; telefone ji tik kitaip pastatoma (CSS). Kopijos
+nėra, todėl lauką pridėti = pataisyti šitą failą.
+
+Vietos siūlymai — Photon (OpenStreetMap) per /ajax/adresai/, tas pats
+šaltinis kaip kūrimo formoje ir žemėlapio paieškoje.
+Markių siūlymai — /ajax/markes/, tas pats šaltinis kaip panelėse.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{{ hdr_pradine|json_script:"apPradine" }}
+{% comment %}Eilutė antraštėje: nuo 1280 px — juosta, įstatyta į antraštės
+vidurį; siauriau — pilno pločio mygtukas po antrašte, nes trys laukai
+kartu su logotipu ir dešinės pusės veiksmais netelpa.{% endcomment %}
+<div class="ap-eile">
+<div class="ap" x-data="antrastesPaieska()">
+
+  {# Telefone juosta susitraukia į vieną mygtuką #}
+  <button type="button" class="ap-mygtukas" @click="atidaryk()">
+    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+    <span x-text="santrauka()">{% trans "Ieškoti" %}</span>
+  </button>
+
+  <form class="ap-juosta" :class="atverta && 'is-atverta'" method="get"
+        action="{% url 'listing_list' %}" @submit="paruosk($event)"
+        @keydown.escape="uzdaryk()">
+
+    {# Pilno ekrano lango viršus — matomas tik telefone #}
+    <div class="ap-lapo-virsus">
+      <span>{% trans "Paieška" %}</span>
+      <button type="button" @click="uzdaryk()" aria-label="{% trans 'Uždaryti' %}">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    {# ── 1. Kategorija ── #}
+    <label class="ap-laukas ap-kat">
+      <span class="ap-etikete">{% trans "Kategorija" %}</span>
+      <select x-model="kategorija" @change="markesSarasas = []">
+        <option value="all">{% trans "Visos kategorijos" %}</option>
+        {% for k in hdr_kategorijos %}
+        <option value="{{ k.slug }}">{{ k.vardas }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <span class="ap-skirtukas" aria-hidden="true"></span>
+
+    {# ── 2. Vieta ── #}
+    <div class="ap-laukas ap-vieta">
+      <span class="ap-etikete">{% trans "Vieta" %}</span>
+      <input type="text" x-model="vieta" autocomplete="off"
+             placeholder="{% trans 'Visa Lietuva' %}"
+             @input.debounce.300ms="ieskokVietos()"
+             @focus="if (vietos.length) rodykVietas = true">
+      <div class="ap-siulymai" x-show="rodykVietas && vietos.length" x-cloak
+           @click.outside="rodykVietas = false">
+        <template x-for="(v, i) in vietos" :key="i">
+          <button type="button" class="ap-siulymas" @click="pasirinkVieta(v)">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span x-text="v.tekstas"></span>
+          </button>
+        </template>
+        {% comment %}ODbL reikalauja nuorodos ten, kur naudojami OSM duomenys.{% endcomment %}
+        <span class="ap-osm">{% trans "Vietų paieška" %}: ©
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>
+        </span>
+      </div>
+    </div>
+
+    <span class="ap-skirtukas" aria-hidden="true"></span>
+
+    {# ── 3. Markė ar modelis ── #}
+    <div class="ap-laukas ap-marke">
+      <span class="ap-etikete">{% trans "Markė ar modelis" %}</span>
+      <input type="text" x-model="marke" autocomplete="off"
+             placeholder="{% trans 'Bet kuri markė' %}"
+             @input.debounce.250ms="ieskokMarkiu()"
+             @focus="if (markesSarasas.length) rodykMarkes = true">
+      <div class="ap-siulymai" x-show="rodykMarkes && markesSarasas.length" x-cloak
+           @click.outside="rodykMarkes = false">
+        <template x-for="(m, i) in markesSarasas" :key="i">
+          <button type="button" class="ap-siulymas" @click="pasirinkMarke(m)">
+            <span x-text="m.n"></span>
+            <em class="ap-siul-kat" x-show="m.kn" x-text="m.kn"></em>
+          </button>
+        </template>
+      </div>
+    </div>
+
+    <button type="submit" class="ap-eiti" aria-label="{% trans 'Ieškoti' %}">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+    </button>
+
+    {% comment %}Reikšmės į URL dedamos siunčiant — tuščios išjungiamos,
+    kad adresas liktų švarus ir vienodas su panelės nuorodomis.{% endcomment %}
+    <input type="hidden" name="category" x-ref="pCategory" disabled>
+    <input type="hidden" name="city" x-ref="pCity" disabled>
+    <input type="hidden" name="country_filter" x-ref="pCountry" disabled>
+    <input type="hidden" name="brand" x-ref="pBrand" disabled>
+    <input type="hidden" name="q" x-ref="pQ" disabled>
+  </form>
+</div>
+</div>
+
+{% comment %}Kategorijų vardai siūlymų eilutei ir mygtuko tekstas —
+verčiami serveryje, kad JS neturėtų savo žodyno.{% endcomment %}
+<script>
+  window.AP_TEKSTAI = { ieskoti: '{% trans "Ieškoti" %}' };
+  window.AP_KATEGORIJOS = {
+    {% for k in hdr_kategorijos %}'{{ k.slug }}': '{{ k.vardas|escapejs }}',{% endfor %}
+  };
+</script>
+<script src="{% static 'js/antrastes_paieska.js' %}"></script>
+
+<style>
+  /* ═══ Juosta darbalaukyje ═══ */
+  .hdr-eile { min-height: 64px; }
+  .ap-eile { order: 2; flex: 1 1 320px; min-width: 0;
+             max-width: 620px; margin: 0 var(--sp-6); }
+  .hdr-veiksmai { order: 3; }
+  .ap { display: flex; align-items: center; min-width: 0; }
+  .ap-mygtukas { display: none; }
+  .ap-juosta { display: flex; align-items: stretch; height: 44px; width: 100%;
+               background: var(--surface); border: 1px solid var(--border);
+               border-radius: 999px; box-shadow: 0 1px 2px rgba(17,24,39,.05);
+               padding: 0 4px 0 6px; max-width: 620px; min-width: 0; }
+  .ap-juosta:focus-within { box-shadow: 0 2px 10px rgba(17,24,39,.10); }
+  .ap-lapo-virsus { display: none; }
+  .ap-laukas { position: relative; display: flex; flex-direction: column;
+               justify-content: center; padding: 0 12px; min-width: 0; cursor: text; }
+  .ap-kat { flex: 0 1 168px; cursor: pointer; }
+  .ap-vieta { flex: 1 1 150px; }
+  .ap-marke { flex: 1 1 170px; }
+  .ap-etikete { font-size: 10.5px; font-weight: 600; letter-spacing: .02em;
+                color: var(--text-muted); text-transform: uppercase;
+                line-height: 1; margin-bottom: 2px; }
+  .ap-laukas input, .ap-laukas select {
+      width: 100%; border: 0; padding: 0; background: transparent;
+      font-size: 13.5px; font-weight: 500; color: var(--text);
+      line-height: 1.2; outline: none; appearance: none;
+      text-overflow: ellipsis; }
+  .ap-kat select { cursor: pointer;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5 6 8.5 10 4.5' fill='none' stroke='%236B7280' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right center;
+      background-size: 12px; padding-right: 16px; }
+  .ap-laukas input::placeholder { color: var(--text-muted); font-weight: 400; }
+  .ap-skirtukas { align-self: center; width: 1px; height: 22px;
+                  background: var(--border); flex: 0 0 auto; }
+  .ap-eiti { flex: 0 0 auto; align-self: center; width: 36px; height: 36px;
+             margin-left: 4px; border: 0; border-radius: 999px;
+             background: var(--accent); color: var(--accent-contrast);
+             cursor: pointer; display: flex; align-items: center;
+             justify-content: center; font-size: 14px;
+             transition: background var(--dur); }
+  .ap-eiti:hover { background: var(--accent-hover); }
+
+  /* ═══ Siūlymai ═══ */
+  .ap-siulymai { position: absolute; top: calc(100% + 6px); left: 0; z-index: 60;
+                 min-width: 260px; max-width: 340px; max-height: 320px;
+                 overflow-y: auto; background: var(--surface);
+                 border: 1px solid var(--border); border-radius: var(--r-md);
+                 box-shadow: 0 8px 24px rgba(17,24,39,.14); padding: 4px; }
+  .ap-siulymas { display: flex; align-items: center; gap: 8px; width: 100%;
+                 padding: 8px 10px; border: 0; background: none; cursor: pointer;
+                 text-align: left; font-size: 13.5px; color: var(--text);
+                 border-radius: var(--r-sm); }
+  .ap-siulymas:hover { background: var(--accent-soft); }
+  .ap-siulymas i { color: var(--text-muted); font-size: 12px; }
+  .ap-siul-kat { margin-left: auto; font-style: normal; font-size: 11.5px;
+                 color: var(--text-muted); white-space: nowrap; }
+  .ap-osm { display: block; padding: 6px 10px; font-size: 11px;
+            color: var(--text-muted); border-top: 1px solid var(--border); }
+  .ap-osm a { color: inherit; text-decoration: underline; }
+
+  /* ═══ Telefone — vienas mygtukas + pilno ekrano langas ═══ */
+  @media (max-width: 1279px) {
+    .ap-eile { order: 3; flex: 0 0 100%; max-width: none;
+               margin: 0; padding: 0 0 10px; }
+    .hdr-veiksmai { order: 2; }
+    .ap { width: 100%; }
+    .ap-mygtukas { display: flex; align-items: center; gap: 8px; width: 100%;
+                   height: 40px; padding: 0 14px; border: 1px solid var(--border);
+                   border-radius: 999px; background: var(--surface);
+                   font-size: 14px; font-weight: 600; color: var(--text);
+                   box-shadow: 0 1px 2px rgba(17,24,39,.05); cursor: pointer; }
+    .ap-mygtukas i { color: var(--text-muted); }
+    .ap-mygtukas span { overflow: hidden; text-overflow: ellipsis;
+                        white-space: nowrap; }
+    .ap-juosta { display: none; }
+    .ap-juosta.is-atverta {
+        display: flex; flex-direction: column; align-items: stretch;
+        position: fixed; inset: 0; z-index: 200; height: 100%;
+        max-width: none; border: 0; border-radius: 0; box-shadow: none;
+        padding: 0 var(--sp-4) var(--sp-4); overflow-y: auto; }
+    .ap-juosta.is-atverta .ap-lapo-virsus {
+        display: flex; align-items: center; justify-content: space-between;
+        height: 56px; margin: 0 calc(-1 * var(--sp-4)) var(--sp-2);
+        padding: 0 var(--sp-4); border-bottom: 1px solid var(--border);
+        font-size: 16px; font-weight: 700; color: var(--text); }
+    .ap-lapo-virsus button { border: 0; background: none; font-size: 18px;
+                             color: var(--text-muted); cursor: pointer; }
+    .ap-juosta.is-atverta .ap-laukas {
+        flex: 0 0 auto; padding: 10px 14px; margin-top: 10px;
+        border: 1px solid var(--border); border-radius: var(--r-md); }
+    .ap-juosta.is-atverta .ap-laukas input,
+    .ap-juosta.is-atverta .ap-laukas select { font-size: 16px; }
+    .ap-juosta.is-atverta .ap-skirtukas { display: none; }
+    .ap-juosta.is-atverta .ap-siulymai { position: static; max-width: none;
+        margin-top: 8px; box-shadow: none; }
+    .ap-juosta.is-atverta .ap-eiti { width: 100%; height: 48px;
+        margin: var(--sp-4) 0 0; border-radius: var(--r-md); font-size: 15px; }
+    .ap-juosta.is-atverta .ap-eiti::after {
+        content: attr(aria-label); margin-left: 8px; font-weight: 600; }
+  }
+</style>
