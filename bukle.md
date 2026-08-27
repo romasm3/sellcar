@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-27 13:29:53 CEST
+Sugeneruota: 2026-08-27 13:31:04 CEST
 
 ## Kodas
 
@@ -10,6 +10,10 @@ origin/master: ba229ad chore(antraštė): kompaktiška paieška išjungiama vien
 šaka:        master
 DĖMESIO: darbo katalogas nešvarus —
    M apps/listings/views.py
+   M apps/listings/zemelapio_views.py
+   M static/js/zemelapio_paieska.js
+   M templates/listings/partials/_zemelapio_filtrai.html
+   M templates/listings/search_map.html
 ```
 
 ## Servisai
@@ -24,7 +28,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001819s
+HTTP 301, 0.377284s
 ```
 
 ## Skelbimų būsenos
@@ -58,9 +62,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 27 13:21:49 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.028s CPU time.
-Aug 27 13:22:54 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 27 13:22:56 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 27 13:22:56 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 27 13:24:04 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 27 13:24:06 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
@@ -83,4 +84,7 @@ Aug 27 13:28:45 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 27 13:28:45 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 27 13:28:45 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.019s CPU time.
 Aug 27 13:29:53 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 27 13:29:55 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 27 13:29:55 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 27 13:31:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
