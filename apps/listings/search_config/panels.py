@@ -124,6 +124,23 @@ DISTINCT_VALUE_FIELDS = {'city'}
 FK_CHOICE_FIELDS = {'fuel_type': 'FuelType', 'transmission': 'Transmission'}
 
 
+def _saliu_options(vt_slug, user=None):
+    """Šalių sąrašas FILTRAMS — tik tos, kurios turi skelbimų.
+
+    Vardai ir tvarka — iš apps/listings/salys.py. Iki šito
+    isplestine-config.json turėjo savo sąrašą, kur reikšmė buvo
+    lietuviškas VARDAS („Lietuva"), o `country` stulpelyje guli kodas
+    („LT"), todėl filtras nieko nerasdavo.
+    """
+    from apps.listings import salys
+    from apps.listings.views import _public_listings_qs
+
+    qs = _public_listings_qs(user)
+    if vt_slug:
+        qs = qs.filter(vehicle_type__slug=vt_slug)
+    return salys.su_skelbimais(qs)
+
+
 def _fk_options(db_field, config_options=None):
     from apps.listings import models as m
     from django.utils.translation import gettext
@@ -524,6 +541,8 @@ def build_panel(vt_slug, user=None, sub_slug=None):
                 # tada rodom etalono reikšmes iš konfigūracijos.
                 item['options'] = (_distinct_options(vt_slug, db, user)
                                    or [(o, _(o)) for o in (f.get('options') or [])])
+            elif db in ('country', 'origin_country'):
+                item['options'] = _saliu_options(vt_slug, user)
             elif db == 'boat_material':
                 from apps.listings.boats_views import BOAT_MATERIAL_CHOICES
                 item['options'] = [(v, l) for v, l in BOAT_MATERIAL_CHOICES if v]
@@ -727,7 +746,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
                 item['options'] = (_distinct_options(vt_slug, db, user)
                                    or [(o, _(o)) for o in (f.get('options') or [])])
             elif db in ('country', 'origin_country'):
-                item['options'] = list(Listing.COUNTRY_CHOICES)
+                item['options'] = _saliu_options(vt_slug, user)
             elif db == 'created_at':
                 item['options'] = [(1, _('Vienos dienos')), (3, _('Trijų dienų')),
                                    (7, _('Savaitės')), (14, _('Dviejų savaičių'))]

@@ -4,6 +4,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from . import salys
 from datetime import timedelta
 
 
@@ -650,40 +652,12 @@ class Listing(PaskelbimoLaikas, models.Model):
         ('en_certified', _('EN certified')),
     ]
 
-    COUNTRY_CHOICES = [
-        ('US', _('United States')), ('LT', _('Lithuania')),
-        ('LV', _('Latvia')), ('EE', _('Estonia')),
-        ('PL', _('Poland')), ('DE', _('Germany')),
-        ('NL', _('Netherlands')), ('BE', _('Belgium')),
-        ('FR', _('France')), ('IT', _('Italy')),
-        ('ES', _('Spain')), ('AT', _('Austria')),
-        ('CZ', _('Czech Republic')), ('SK', _('Slovakia')),
-        ('HU', _('Hungary')), ('RO', _('Romania')),
-        ('BG', _('Bulgaria')), ('SE', _('Sweden')),
-        ('DK', _('Denmark')), ('FI', _('Finland')),
-        ('NO', _('Norway')), ('GB', _('United Kingdom')),
-        ('IE', _('Ireland')), ('CH', _('Switzerland')),
-    ]
+    # Šalių sąrašas — apps/listings/salys.py (vienas visai svetainei).
+    # Čia jis buvo dubliuotas dviejuose modeliuose ir dar dešimtyje vaizdų.
+    COUNTRY_CHOICES = salys.pasirinkimai()
 
-    US_STATE_CHOICES = [
-        ('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'),
-        ('AR', 'Arkansas'), ('CA', 'California'), ('CO', 'Colorado'),
-        ('CT', 'Connecticut'), ('DE', 'Delaware'), ('FL', 'Florida'),
-        ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'),
-        ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'),
-        ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'),
-        ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'),
-        ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'),
-        ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'),
-        ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'),
-        ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'),
-        ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'),
-        ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'),
-        ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'),
-        ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
-        ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'),
-        ('WI', 'Wisconsin'), ('WY', 'Wyoming'),
-    ]
+    # Valstijos — irgi iš salys.py (JAV, Kanada, Australija)
+    US_STATE_CHOICES = salys.VALSTIJOS['US']
 
     CURRENCY_CHOICES = [
         ('USD', 'US Dollar ($)'),
@@ -1731,8 +1705,10 @@ class Listing(PaskelbimoLaikas, models.Model):
         help_text="Price excludes taxes — buyer should ask seller",
     )
 
-    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='US')
-    state = models.CharField(max_length=2, choices=US_STATE_CHOICES, blank=True)
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES,
+                               default=salys.NUMATYTA)
+    state = models.CharField(max_length=salys.VALSTIJOS_ILGIS,
+                             choices=salys.visos_valstijos(), blank=True)
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=200, blank=True)
@@ -2993,40 +2969,12 @@ class Truck(PaskelbimoLaikas, models.Model):
         ('right', _('Right-hand drive (UK)')),
     ]
 
-    COUNTRY_CHOICES = [
-        ('US', _('United States')), ('LT', _('Lithuania')),
-        ('LV', _('Latvia')), ('EE', _('Estonia')),
-        ('PL', _('Poland')), ('DE', _('Germany')),
-        ('NL', _('Netherlands')), ('BE', _('Belgium')),
-        ('FR', _('France')), ('IT', _('Italy')),
-        ('ES', _('Spain')), ('AT', _('Austria')),
-        ('CZ', _('Czech Republic')), ('SK', _('Slovakia')),
-        ('HU', _('Hungary')), ('RO', _('Romania')),
-        ('BG', _('Bulgaria')), ('SE', _('Sweden')),
-        ('DK', _('Denmark')), ('FI', _('Finland')),
-        ('NO', _('Norway')), ('GB', _('United Kingdom')),
-        ('IE', _('Ireland')), ('CH', _('Switzerland')),
-    ]
+    # Šalių sąrašas — apps/listings/salys.py (vienas visai svetainei).
+    # Čia jis buvo dubliuotas dviejuose modeliuose ir dar dešimtyje vaizdų.
+    COUNTRY_CHOICES = salys.pasirinkimai()
 
-    US_STATE_CHOICES = [
-        ('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'),
-        ('AR', 'Arkansas'), ('CA', 'California'), ('CO', 'Colorado'),
-        ('CT', 'Connecticut'), ('DE', 'Delaware'), ('FL', 'Florida'),
-        ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'),
-        ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'),
-        ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'),
-        ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'),
-        ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'),
-        ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'),
-        ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'),
-        ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'),
-        ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'),
-        ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'),
-        ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'),
-        ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'),
-        ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'),
-        ('WI', 'Wisconsin'), ('WY', 'Wyoming'),
-    ]
+    # Valstijos — irgi iš salys.py (JAV, Kanada, Australija)
+    US_STATE_CHOICES = salys.VALSTIJOS['US']
 
     CURRENCY_CHOICES = [
         ('USD', 'US Dollar ($)'),
@@ -3212,8 +3160,10 @@ class Truck(PaskelbimoLaikas, models.Model):
         default=False, verbose_name=_("Price excludes VAT"),
     )
 
-    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='US')
-    state = models.CharField(max_length=2, choices=US_STATE_CHOICES, blank=True)
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES,
+                               default=salys.NUMATYTA)
+    state = models.CharField(max_length=salys.VALSTIJOS_ILGIS,
+                             choices=salys.visos_valstijos(), blank=True)
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=200, blank=True)
@@ -4043,7 +3993,8 @@ class WheelListing(PaskelbimoLaikas, models.Model):
     fits_brands = models.CharField(max_length=200, blank=True, default='')
  
     # ─── Lokacija + kontaktai ───
-    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, default='LT')
+    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES,
+                               default=salys.NUMATYTA)
     state = models.CharField(max_length=64, blank=True)
     city = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)

@@ -14,11 +14,9 @@ def _truck_part_groups():
 
 
 def _truck_country_choices():
-    from apps.listings.views import COUNTRY_FLAGS as _flag
-    all_c = list(Listing.COUNTRY_CHOICES)
-    us = [c for c in all_c if c[0] == 'US']
-    rest = sorted([c for c in all_c if c[0] != 'US'], key=lambda x: x[1])
-    return [(code, f"{_flag.get(code, '🌍')} {name}") for code, name in (us + rest)]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    from apps.listings import salys
+    return salys.plokscias()
 
 
 def _tp_clean_list(values):

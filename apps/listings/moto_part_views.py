@@ -370,15 +370,9 @@ def _render_form(request, listing=None, errors=None):
         if items:
             part_groups.append({'key': cat_key, 'label': cat_label, 'items': items})
 
-    # ─── Country choices su vėliavėlėmis (US pirmas, paskui EU pagal pavadinimą) ───
-    from apps.listings.views import COUNTRY_FLAGS as _flag
-    all_c = list(Listing.COUNTRY_CHOICES)
-    us = [c for c in all_c if c[0] == 'US']
-    rest = sorted([c for c in all_c if c[0] != 'US'], key=lambda x: x[1])
-    country_choices = [
-        (code, f"{_flag.get(code, '🌍')} {name}")
-        for code, name in (us + rest)
-    ]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    from apps.listings import salys
+    country_choices = salys.plokscias()
 
     context = {
         'moto_brands': moto_brands,
@@ -471,11 +465,9 @@ def moto_parts_browse(request):
             part_groups.append({'key': key, 'label': label, 'items': items})
             total_pt += len(items)
 
-    from apps.listings.views import COUNTRY_FLAGS as _flag
-    all_c = list(Listing.COUNTRY_CHOICES)
-    us = [c for c in all_c if c[0] == 'US']
-    rest = sorted([c for c in all_c if c[0] != 'US'], key=lambda x: x[1])
-    country_choices = [(code, f"{_flag.get(code, '🌍')} {name}") for code, name in (us + rest)]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    from apps.listings import salys
+    country_choices = salys.plokscias()
 
     current_year = timezone.now().year
 
@@ -506,11 +498,9 @@ def moto_parts_advanced_search(request):
             part_groups.append({'key': key, 'label': label, 'items': items})
             total_pt += len(items)
 
-    from apps.listings.views import COUNTRY_FLAGS as _flag
-    all_c = list(Listing.COUNTRY_CHOICES)
-    us = [c for c in all_c if c[0] == 'US']
-    rest = sorted([c for c in all_c if c[0] != 'US'], key=lambda x: x[1])
-    country_choices = [(code, f"{_flag.get(code, '🌍')} {name}") for code, name in (us + rest)]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    from apps.listings import salys
+    country_choices = salys.plokscias()
 
     current_year = timezone.now().year
     context = {

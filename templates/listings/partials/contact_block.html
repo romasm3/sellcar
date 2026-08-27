@@ -6,7 +6,8 @@ callers only pass the value to prefill).
 
 Behaviour (matches the cars quick form, which is the reference):
   • Country defaults to US.
-  • State shows only when country == US; City is always visible.
+  • „Valstija“ rodoma tik toms šalims, kurios ją turi (JAV, Kanada,
+    Australija) — sąrašas ateina iš salys.VALSTIJOS. Miestas — visada.
   • The country cascade is handled by static/js/contact_block.js, which
     self-initialises — callers must NOT define their own onCountryChange.
 
@@ -45,6 +46,10 @@ Behaviour (matches the cars quick form, which is the reference):
 
 {% contact_country_choices as all_country_choices %}
 {% contact_state_choices as all_us_states %}
+{% contact_country_groups as all_country_groups %}
+{% contact_state_groups as all_state_groups %}
+{% contact_numatyta_salis as numatyta_salis %}
+{% contact_valstiju_salys as valstiju_salys %}
 
 {% trans "Phone" as lbl_phone %}
 {% trans "Email" as lbl_email %}
@@ -85,9 +90,9 @@ Behaviour (matches the cars quick form, which is the reference):
             {% include 'listings/partials/_contact_field.html' with type='email' name=email_name|default:'email' id='id_email' label=lbl_email value=val_email required=False optional_hint=hint_optional placeholder=ph_email tooltip=tip_email wrap_attrs='' span='' error=errors.email %}
         {% endif %}
 
-        {% include 'listings/partials/_contact_select.html' with name='country' id='id_country' label=lbl_country value=val_country|default:'US' choices=all_country_choices required=True onchange='onCountryChange()' wrap_attrs='data-field-wrap="country" data-required="true"' span='' error=errors.country %}
+        {% include 'listings/partials/_contact_select.html' with name='country' id='id_country' label=lbl_country value=val_country|default:numatyta_salis choices=all_country_choices grupes=all_country_groups required=True onchange='onCountryChange()' wrap_attrs='data-field-wrap="country" data-required="true"' span='' error=errors.country %}
 
-        {% include 'listings/partials/_contact_select.html' with name='state' id='id_state' label=lbl_state value=val_state choices=all_us_states required=True empty_label=lbl_select_state star_id='state-required' wrap_attrs='id="stateFieldWrapper" data-field-wrap="state" data-required="true"' span='' error=errors.state %}
+        {% include 'listings/partials/_contact_select.html' with name='state' id='id_state' label=lbl_state value=val_state choices=all_us_states grupes=all_state_groups required=True empty_label=lbl_select_state star_id='state-required' wrap_attrs='id="stateFieldWrapper" data-field-wrap="state" data-required="true"' span='' error=errors.state %}
 
         {% include 'listings/partials/_contact_field.html' with type='text' name='city' id='id_city' label=lbl_city value=val_city required=True placeholder=ph_city wrap_attrs='id="cityFieldWrapper" data-field-wrap="city" data-required="true"' span=city_span|default:'md:col-span-2' error=errors.city %}
 
@@ -148,6 +153,10 @@ Behaviour (matches the cars quick form, which is the reference):
 {% endif %}
 {% endif %}
 
+{% comment %}Šaliu, kurios turi valstijas, sąrašas — iš salys.VALSTIJOS.
+JS savo sąrašo neturi, todėl nauja tokia šalis atsiranda vienoje vietoje.
+{% endcomment %}
+<script>window.VALSTIJU_SALYS = '{{ valstiju_salys }}'.split(',');</script>
 {# Country → state cascade + contact validation, shared by every form. #}
 <script src="{% static 'js/contact_block.js' %}"></script>
 {% if not be_zemelapio %}<script src="{% static 'js/vietos_zemelapis.js' %}"></script>{% endif %}

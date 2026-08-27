@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from . import salys
 from .models import (
     Listing,
     ListingImage,
@@ -292,7 +293,7 @@ class Step3VehicleDataForm(forms.Form):
 
     origin_country = forms.ChoiceField(
         label=_("Origin Country"),
-        choices=[('', '---------')] + Listing.COUNTRY_CHOICES,
+        choices=[('', '---------')] + salys.plokscias(),
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
@@ -383,38 +384,13 @@ class Step6DescriptionForm(forms.Form):
 class Step7ContactForm(forms.Form):
     """Step 7: Contact Information & Location"""
 
-    # 14. US pridetas prie country choices
-    COUNTRY_CHOICES = [
-        ('LT', 'Lithuania'),
-        ('LV', 'Latvia'),
-        ('EE', 'Estonia'),
-        ('PL', 'Poland'),
-        ('DE', 'Germany'),
-        ('NL', 'Netherlands'),
-        ('BE', 'Belgium'),
-        ('FR', 'France'),
-        ('IT', 'Italy'),
-        ('ES', 'Spain'),
-        ('AT', 'Austria'),
-        ('CZ', 'Czech Republic'),
-        ('SK', 'Slovakia'),
-        ('HU', 'Hungary'),
-        ('RO', 'Romania'),
-        ('BG', 'Bulgaria'),
-        ('SE', 'Sweden'),
-        ('DK', 'Denmark'),
-        ('FI', 'Finland'),
-        ('NO', 'Norway'),
-        ('GB', 'United Kingdom'),
-        ('IE', 'Ireland'),
-        ('CH', 'Switzerland'),
-        ('US', 'United States'),
-    ]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    COUNTRY_CHOICES = salys.plokscias()
 
     country = forms.ChoiceField(
         label=_("Country"),
         choices=COUNTRY_CHOICES,
-        initial='LT',
+        initial=salys.NUMATYTA,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 

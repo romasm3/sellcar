@@ -11,6 +11,9 @@
  * Nepavykus geokodavimui viskas veikia toliau: laukas lieka paprastu
  * tekstu, žymeklį galima statyti ranka. Skelbimo kūrimas nesustoja.
  */
+// Mastelis, kuriuo rodom pasirinktą vietą — matosi gatvė.
+const MASTELIS = 15;
+
 function vietosZemelapis(pradiniai) {
     return {
         uzklausa: '',
@@ -32,7 +35,8 @@ function vietosZemelapis(pradiniai) {
             const L = window.L;
             if (!L || !this.$refs.zemelapis) return;
             const centras = (this.lat && this.lon) ? [this.lat, this.lon] : [54.6872, 25.2797];
-            const priartinimas = (this.lat && this.lon) ? 16 : 6;
+            // Žinant vietą rodom gatvę (MASTELIS), nežinant — visą šalį
+            const priartinimas = (this.lat && this.lon) ? MASTELIS : 6;
 
             this._zem = L.map(this.$refs.zemelapis, { zoomControl: false, scrollWheelZoom: true })
                          .setView(centras, priartinimas);
@@ -44,6 +48,35 @@ function vietosZemelapis(pradiniai) {
 
             // Paspaudus žemėlapį — žymeklis atsiranda toje vietoje
             this._zem.on('click', (e) => this.pastatyk(e.latlng.lat, e.latlng.lng, true));
+
+            // Konteineris gali būti buvęs paslėptas (skirtukai, „rodyti
+            // daugiau") — tada Leaflet nežino savo dydžio ir plytelės
+            // atrodo netinkamo mastelio.
+            setTimeout(() => this._zem.invalidateSize(), 200);
+
+            // Adresas jau įvestas kontaktų bloke, o koordinačių nėra —
+            // susirandam jas ir priartinam, kad žemėlapis nerodytų visos
+            // Lietuvos šalia užpildyto adreso.
+            if (!(this.lat && this.lon)) this.pagalIvestaAdresa();
+        },
+
+        /** Vienas kartas: adresas iš kontaktų bloko -> koordinatės. */
+        pagalIvestaAdresa() {
+            const laukas = document.getElementById('id_address');
+            const miestas = document.getElementById('id_city');
+            const tekstas = [laukas && laukas.value, miestas && miestas.value]
+                .filter(Boolean).join(', ').trim();
+            if (tekstas.length < 3) return;
+            fetch('/ajax/adresai/?q=' + encodeURIComponent(tekstas))
+                .then(r => r.ok ? r.json() : { siulymai: [] })
+                .then(a => {
+                    const s = (a.siulymai || [])[0];
+                    if (!s || !s.lat || !s.lon || !this._zem) return;
+                    this.uzklausa = this.uzklausa || s.tekstas;
+                    this._zem.setView([s.lat, s.lon], MASTELIS);
+                    this.pastatyk(s.lat, s.lon, false);
+                })
+                .catch(() => {});   // nepavyko — žemėlapis lieka kaip buvo
         },
 
         pastatyk(lat, lon, klausk) {
@@ -62,6 +95,11 @@ function vietosZemelapis(pradiniai) {
                 });
             } else {
                 this._zymeklis.setLatLng([lat, lon]);
+            }
+            // Pastatę žymeklį programiškai (ne pele) parodom jį iš arti:
+            // rodyti visą šalį šalia įvesto adreso nėra prasmės.
+            if (!klausk && this._zem.getZoom() < MASTELIS) {
+                this._zem.setView([lat, lon], MASTELIS);
             }
             if (klausk) setTimeout(() => this.atvirkstinis(), 300);
         },
@@ -83,7 +121,7 @@ function vietosZemelapis(pradiniai) {
             this.miestas = s.miestas || '';
             this.salis = s.salis || '';
             if (this._zem && s.lat && s.lon) {
-                this._zem.setView([s.lat, s.lon], 16);
+                this._zem.setView([s.lat, s.lon], MASTELIS);
                 this.pastatyk(s.lat, s.lon, false);
             }
             this.irasykAdresa(s.tekstas, s.miestas);

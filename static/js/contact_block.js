@@ -16,7 +16,10 @@
         var stateWrap = document.getElementById('stateFieldWrapper');
         if (!country || !stateWrap) return;
 
-        var isUS = country.value === 'US';
+        // Kurios šalys turi valstijas — sąrašą duoda serveris
+        // (salys.VALSTIJOS per contact_block.html). Savo sąrašo čia nėra.
+        var suValstijomis = window.VALSTIJU_SALYS || ['US'];
+        var isUS = suValstijomis.indexOf(country.value) !== -1;
         var stateInput = stateWrap.querySelector('select[name="state"]');
         var star = document.getElementById('state-required');
 

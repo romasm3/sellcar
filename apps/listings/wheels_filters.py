@@ -196,11 +196,13 @@ def _range(label, param_min, param_max, values, unit=''):
 def sidebar_fields(product_type, brand_names, cities, tyre_widths_db=(),
                    tyre_profiles_db=(), vehicle_brands=()):
     """Šoninės juostos laukai vienai kategorijai (etalono eilės tvarka)."""
+    from . import salys
     from .models import WheelListing
 
     bendri_pabaiga = [
+        # Filtre — tik tos šalys, kurios turi skelbimų (salys.py)
         _select('Šalis', 'country_filter',
-                [(c, n) for c, n in WheelListing.COUNTRY_CHOICES],
+                salys.su_skelbimais(WheelListing.objects.filter(status='active')),
                 placeholder='Visos šalys'),
         _select('Miestas', 'city', [(c, c) for c in cities],
                 placeholder='Visi miestai'),

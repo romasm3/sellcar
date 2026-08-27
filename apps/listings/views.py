@@ -39,6 +39,7 @@ from .forms import (
     Step6DescriptionForm,
     Step7ContactForm,
 )
+from . import salys
 from .models import (
     Listing,
     ListingImage,
@@ -2466,8 +2467,10 @@ def listing_list(request, panel_fragment=False, category=None):
             sub_slug=_subcategory_slug_from(request.GET)),
         'saved_ids': saved_ids,
         'us_states': Listing.US_STATE_CHOICES,
-        'country_choices': Listing.COUNTRY_CHOICES,
-        'location_countries': [{'code': c, 'name': n, 'fi_code': c.lower()} for c, n in Listing.COUNTRY_CHOICES],
+        'country_choices': salys.plokscias(),
+        # Filtruose — tik tos šalys, kurios turi skelbimų (kaip ir markės).
+        # Kūrimo formose sąrašas lieka visas (contact_block_tags).
+        'location_countries': salys.filtro_salys(listings),
         'selected_country': country_filter,
         'selected_state': state_filter,
         # „Mano paieškos" blokas: išsaugotos (prisijungusiam) ir paskutinės

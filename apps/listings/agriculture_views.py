@@ -148,13 +148,9 @@ def _type_for_subcategory(slug):
 
 
 def _country_choices():
-    _all = list(Listing.COUNTRY_CHOICES)
-    _us = [c for c in _all if c[0] == 'US']
-    _rest = sorted([c for c in _all if c[0] != 'US'], key=lambda x: x[1])
-    return [
-        (code, f"{COUNTRY_FLAGS.get(code, '🌍')} {name}")
-        for code, name in (_us + _rest)
-    ]
+    # Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py)
+    from apps.listings import salys
+    return salys.plokscias()
 
 
 @login_required

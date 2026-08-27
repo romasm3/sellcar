@@ -28,6 +28,7 @@ from django.db.models.functions import Greatest, Coalesce, Lower
 from datetime import date, timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
+from apps.listings import salys
 from .models import (
     Listing,
     ListingImage,
@@ -1000,11 +1001,9 @@ def motorcycles_list(request):
         return render(request, 'listings/motorcycles_list.html', context)
 
     context.update({
-        'country_choices': Listing.COUNTRY_CHOICES,
-        'location_countries': [
-            {'code': c, 'name': n, 'fi_code': c.lower()}
-            for c, n in Listing.COUNTRY_CHOICES
-        ],
+        'country_choices': salys.plokscias(),
+        # Filtruose — tik tos šalys, kurios turi skelbimų
+        'location_countries': salys.filtro_salys(listings),
         'brands': [],
         'fuel_types': [],
         'transmissions': [],
@@ -1228,7 +1227,7 @@ def motorcycles_advanced_search(request):
     except AttributeError:
         euro_standard_choices = []
     try:
-        country_choices = Listing.COUNTRY_CHOICES
+        country_choices = salys.plokscias()
     except AttributeError:
         country_choices = []
 

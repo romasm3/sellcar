@@ -58,11 +58,10 @@ CURRENCY_CHOICES = [
     ('USD', '$'), ('EUR', '€'), ('GBP', '£'),
 ]
 
-COUNTRY_CHOICES = [
-    ('US', _('United States')), ('LT', _('Lithuania')),
-    ('LV', _('Latvia')), ('EE', _('Estonia')), ('PL', _('Poland')),
-    ('DE', _('Germany')), ('NL', _('Netherlands')), ('GB', _('United Kingdom')),
-]
+# Šalys — vienas sąrašas visai svetainei (apps/listings/salys.py).
+# Čia buvo savas aštuonių šalių sąrašas.
+from apps.listings import salys as _salys
+COUNTRY_CHOICES = _salys.plokscias()
 
 MONTHS = [
     ('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'),
@@ -1163,11 +1162,9 @@ def trucks_list(request):
 
     context.update({
         'selected_category': 'trucks',
-        'country_choices': Listing.COUNTRY_CHOICES,
-        'location_countries': [
-            {'code': c, 'name': n, 'fi_code': c.lower()}
-            for c, n in Listing.COUNTRY_CHOICES
-        ],
+        'country_choices': _salys.plokscias(),
+        # Filtruose — tik tos šalys, kurios turi skelbimų
+        'location_countries': _salys.filtro_salys(listings),
         'transmissions': [],
         'body_type_choices': [],
         'selected_body_types': [],
