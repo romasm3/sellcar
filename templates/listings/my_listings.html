@@ -233,7 +233,7 @@
                                     {% if listing.motorcycle_type %}<span>· {{ listing.get_motorcycle_type_display }}</span>{% endif %}
                                     {% if listing.engine_capacity_cc %}<span>· {{ listing.engine_capacity_cc }} cm³</span>{% endif %}
                                     {% if listing.mileage %}<span>· {{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
-                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city }}</span>{% endif %}
+                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city|vietovardis }}</span>{% endif %}
                                 </div>
 
                                 <div class="mt-3 flex items-center gap-3 text-sm">
@@ -395,7 +395,7 @@
                                 <div class="text-sm text-gray-600 flex flex-wrap gap-x-2">
                                     {% if listing.year %}<span>{{ listing.year }}</span>{% endif %}
                                     {% if listing.fuel_type %}<span>· {{ listing.fuel_type.name|tdb }}</span>{% endif %}
-                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city }}</span>{% endif %}
+                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city|vietovardis }}</span>{% endif %}
                                 </div>
                             </div>
 
@@ -511,7 +511,7 @@
                                     {% if listing.motorcycle_type %}<span>· {{ listing.get_motorcycle_type_display }}</span>{% endif %}
                                     {% if listing.engine_capacity_cc %}<span>· {{ listing.engine_capacity_cc }} cm³</span>{% endif %}
                                     {% if listing.mileage %}<span>· {{ listing.mileage|sk }} {% trans "km" %}</span>{% endif %}
-                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city }}</span>{% endif %}
+                                    {% if listing.city and listing.city != '—' %}<span>· {{ listing.city|vietovardis }}</span>{% endif %}
                                 </div>
 
                                 <div class="mt-3 flex items-center gap-3 text-sm">

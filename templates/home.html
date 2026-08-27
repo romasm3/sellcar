@@ -222,7 +222,7 @@
                     <!-- Location -->
                     <div class="mt-3 pt-3 border-t border-gray-100 flex items-center gap-1.5 text-xs text-gray-500">
                         <i class="fas fa-map-marker-alt text-gray-400"></i>
-                        <span>{{ listing.city|default:_("Unknown") }}</span>
+                        <span>{{ listing.city|vietovardis|default:_("Unknown") }}</span>
                     </div>
                 </div>
             </a>

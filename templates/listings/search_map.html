@@ -30,6 +30,8 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
       <input type="text" x-model="vietosQ" @input.debounce.300ms="ieskokVietos()"
              @keydown.escape="vietos = []"
              placeholder="{% trans 'Miestas, adresas arba šalis' %}">
+      {% comment %}Photon (OpenStreetMap) naudojamas vietos paieškai, todėl
+      nuoroda rodoma prie jo, o ne ant Google žemėlapio — tas turi savo.{% endcomment %}
       <div class="zp-vietos" x-show="vietos.length" x-cloak @click.outside="vietos = []">
         <template x-for="(v, i) in vietos" :key="i">
           <button type="button" class="zp-vieta-siul" @click="pasirinkVieta(v)" x-text="v.tekstas"></button>
@@ -57,6 +59,8 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
       {% trans "Filtrai" %}
       <span class="zp-filtru-sk" x-show="aktyvuKiek()" x-text="aktyvuKiek()"></span>
     </button>
+
+    <span class="zp-osm-mini">{% trans "Vietų paieška" %}: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a></span>
 
     <button type="button" class="zp-slepti" @click="zemelapisMatomas = !zemelapisMatomas">
       <span x-show="zemelapisMatomas">{% trans "Slėpti žemėlapį" %}</span>
@@ -91,7 +95,7 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
         <button type="button" class="zp-ieskoti-cia" x-show="pajudinta" x-cloak @click="ieskokSrityje()">
           <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> {% trans "Ieškoti šioje srityje" %}
         </button>
-        <div class="zp-osm">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a></div>
+
       </div>
     </div>
   </div>

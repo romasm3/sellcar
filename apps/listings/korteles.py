@@ -13,7 +13,7 @@ kortelė turi atrodyti vienodai. Todėl vaizdai paverčia įrašus į vieną
 from django.urls import reverse
 from django.utils.translation import gettext
 
-from .templatetags.listing_filters import spec_eilute
+from .templatetags.listing_filters import spec_eilute, vietovardis
 
 
 def _nuotrauka(objektas):
@@ -47,11 +47,11 @@ def kortele(objektas, perziureta=None, issaugotas=False):
     if ar_ratlankis:
         url = objektas.get_absolute_url()
         spec = _ratlankio_spec(objektas)
-        miestas = getattr(objektas, 'city', '')
+        miestas = vietovardis(getattr(objektas, 'city', ''))
     else:
         url = reverse('listing_detail', args=[objektas.pk])
         spec = spec_eilute(objektas)
-        miestas = objektas.city if objektas.city and objektas.city != '—' else ''
+        miestas = vietovardis(objektas.city) if objektas.city and objektas.city != '—' else ''
 
     return {
         'obj': objektas,

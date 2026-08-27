@@ -952,7 +952,7 @@
                         {% for c in geo_top_cities %}
                         <tr>
                             <td class="py-1.5 text-gray-500">{{ forloop.counter }}</td>
-                            <td class="py-1.5 font-medium text-gray-900">{{ c.city }}</td>
+                            <td class="py-1.5 font-medium text-gray-900">{{ c.city|vietovardis }}</td>
                             <td class="py-1.5 text-gray-600">{{ c.country|default:"—" }}</td>
                             <td class="py-1.5 text-right font-semibold">{{ c.count }}</td>
                         </tr>

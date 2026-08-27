@@ -130,7 +130,7 @@
                                     {% if listing.fuel_type %}<span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                                     {% if listing.body_type %}<span>· {{ listing.get_body_type_display }}</span>{% endif %}
                                     {% if listing.mileage %}<span>· {{ listing.mileage|sk }} km</span>{% endif %}
-                                    {% if listing.city %}<span>· {{ listing.city }}</span>{% endif %}
+                                    {% if listing.city %}<span>· {{ listing.city|vietovardis }}</span>{% endif %}
                                 </div>
                                 <div class="text-xs text-gray-500">
                                     Created: {{ listing.created_at|date:"Y-m-d H:i" }}

@@ -198,6 +198,24 @@ IKONOS_PAGAL_PAVADINIMA = {
 }
 
 
+@register.filter(name='vietovardis')
+def vietovardis(reiksme):
+    """„kaunas" -> „Kaunas"; „VILNIUS" -> „Vilnius"; „new york" -> „New York".
+
+    Pardavėjai miestą įrašo kaip nori, o kortelėse ir skelbime jis turi
+    atrodyti vienodai. Didžiąsias raides paliekam ten, kur jos prasmingos
+    (brūkšneliai, keli žodžiai).
+    """
+    tekstas = str(reiksme or '').strip()
+    if not tekstas:
+        return ''
+    dalys = []
+    for zodis in tekstas.split():
+        dalys.append('-'.join(d[:1].upper() + d[1:].lower() if d else d
+                              for d in zodis.split('-')))
+    return ' '.join(dalys)
+
+
 @register.simple_tag(name='kategorijos_ikona')
 def kategorijos_ikona(slug, dydis=22, cls='', pav=''):
     """<i class="fa-solid fa-car-side …"> arba SVG ratams.

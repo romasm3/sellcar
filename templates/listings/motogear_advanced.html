@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load adv_rail %}
+{% load listing_filters %}
 {% block title %}{% trans "Apranga, šalmai, aksesuarai" %} - AutoLeft{% endblock %}
 
 {% block extra_css %}
@@ -195,7 +196,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
 
       <div class="adv-field">
         <label>{% trans "Miestas" %}</label>
-        <input type="text" name="city" class="adv-input" placeholder="{% trans 'Visi' %}" value="{{ f.city }}">
+        <input type="text" name="city" class="adv-input" placeholder="{% trans 'Visi' %}" value="{{ f.city|vietovardis }}">
       </div>
 
       <div class="adv-field">

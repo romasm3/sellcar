@@ -132,7 +132,7 @@
                 </div>
                 <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ listing.city }}</span>
+                    <span>{{ listing.city|vietovardis }}</span>
                 </div>
                 <a href="{% url 'listing_detail' listing.pk %}"
                    class="block w-full bg-primary text-white text-center py-2.5 rounded-lg hover:bg-primary-dark transition-colors font-medium">

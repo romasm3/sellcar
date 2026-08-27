@@ -75,10 +75,10 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
                     color: var(--accent-contrast); font-weight: var(--fw-semibold);
                     font-size: var(--fs-sm); cursor: pointer;
                     box-shadow: 0 6px 18px rgba(17,24,39,.18); }
-  .zp-osm { position: absolute; bottom: 6px; right: 8px; z-index: 5; font-size: 11px;
-            color: var(--text-muted); background: rgba(255,255,255,.85);
-            padding: 1px 6px; border-radius: 4px; }
-  .zp-osm a { color: inherit; }
+  /* OSM nuoroda skirta vietų paieškai (Photon), ne Google žemėlapiui —
+     todėl rodoma juostoje prie lauko, o ne ant žemėlapio. */
+  .zp-osm-mini { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  .zp-osm-mini a { color: inherit; text-decoration: underline; }
 
   .zp-mob-jungiklis { display: none; }
 

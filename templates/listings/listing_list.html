@@ -668,7 +668,7 @@ a.sp-rail-btn { text-decoration:none; }
                             {# ═══ CITY ═══ #}
                             <div class="sidebar-section">
                                 <span class="sidebar-label">{% trans "City" %}</span>
-                                <input type="text" name="city" placeholder="{% trans 'All' %}" value="{{ request.GET.city }}"
+                                <input type="text" name="city" placeholder="{% trans 'All' %}" value="{{ request.GET.city|vietovardis }}"
                                        class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
                             </div>
 
@@ -941,7 +941,7 @@ a.sp-rail-btn { text-decoration:none; }
                                 {% if listing.service_type %}<span>{{ listing.get_service_type_display }}</span>{% endif %}
                             </div>
                             <div class="ap-spec-line">
-                                <span>{{ listing.city }}</span>
+                                <span>{{ listing.city|vietovardis }}</span>
                             </div>
                             {% elif listing.vehicle_type.slug == 'rental' %}
                             <div class="ap-spec-line">
@@ -1036,7 +1036,7 @@ a.sp-rail-btn { text-decoration:none; }
                             {% endif %}
                             <div class="ap-loc mt-auto">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ listing.city|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
+                                <span>{{ listing.city|vietovardis|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
                             </div>
                         </div>
                     </div>

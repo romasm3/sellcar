@@ -1,4 +1,5 @@
-{% load i18n %}{% comment %}
+{% load i18n %}
+{% load listing_filters %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 PARDAVĖJO BLOKAS — pagrindiniame stulpelyje, po vietos bloku.
 
@@ -41,7 +42,7 @@ Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
       {% endif %}
 
       <div class="pard-vieta">
-        {% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
+        {% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
       </div>
 
       {% if p.dealer_subscription_active and p.website %}

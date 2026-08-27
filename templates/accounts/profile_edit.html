@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load listing_filters %}
 
 {% block title %}{% trans "Edit Profile" %} - AutoLeft{% endblock %}
 
@@ -94,7 +95,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "City" %}</label>
-                    {{ p_form.city }}
+                    {{ p_form.city|vietovardis }}
                 </div>
 
                 <div>

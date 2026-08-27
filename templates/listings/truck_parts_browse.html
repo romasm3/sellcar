@@ -173,7 +173,7 @@
       </div>
       <div class="mpb-field">
         <label>{% trans "City" %}</label>
-        <input type="text" name="city" value="{{ request.GET.city }}" placeholder="{% trans 'All' %}">
+        <input type="text" name="city" value="{{ request.GET.city|vietovardis }}" placeholder="{% trans 'All' %}">
       </div>
       <div class="mpb-field">
         <label>{% trans "Show no older than" %}</label>
@@ -268,7 +268,7 @@
               </div>
               <div class="ap-loc mt-auto">
                   <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ listing.city|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
+                  <span>{{ listing.city|vietovardis|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
               </div>
           </div>
       </div>

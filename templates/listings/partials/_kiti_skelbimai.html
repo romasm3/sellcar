@@ -42,7 +42,7 @@ puslapis: docs/pwa-pasiruosimas.md ir SKILL.md taisyklė dėl slinkimo).
           {% if l.transmission %}<span>{{ l.transmission.name|tdb }}</span>{% endif %}
           {% if l.engine_capacity %}<span>{{ l.engine_capacity }} L</span>{% endif %}
           {% if l.power %}<span>{{ l.power }} kW</span>{% endif %}
-          {% if l.city and l.city != "—" %}<span>{{ l.city }}</span>{% endif %}
+          {% if l.city and l.city != "—" %}<span>{{ l.city|vietovardis }}</span>{% endif %}
         </div>
       </a>
     </div>

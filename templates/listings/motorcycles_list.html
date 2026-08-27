@@ -315,7 +315,7 @@
                     </div>
                     <div class="ap-loc">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span class="truncate">{{ listing.city|default:_("Unknown") }}</span>
+                        <span class="truncate">{{ listing.city|vietovardis|default:_("Unknown") }}</span>
                     </div>
                 </div>
             </div>
@@ -597,7 +597,7 @@
                         {# CITY #}
                         <div class="sidebar-section">
                             <span class="sidebar-label">{% trans "City" %}</span>
-                            <input type="text" name="city" placeholder="{% trans 'All' %}" value="{{ request.GET.city }}"
+                            <input type="text" name="city" placeholder="{% trans 'All' %}" value="{{ request.GET.city|vietovardis }}"
                                    class="w-full px-2 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm">
                         </div>
 
@@ -794,7 +794,7 @@
                             </div>
                             <div class="ap-loc mt-auto">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ listing.city|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
+                                <span>{{ listing.city|vietovardis|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
                             </div>
                         </div>
                     </div>

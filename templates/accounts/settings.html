@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load listing_filters %}
+
 
 {% block title %}Account Settings - AutoLeft{% endblock %}
 
@@ -154,7 +156,7 @@
                         <td class="px-4 py-3 text-gray-500">City</td>
                         <td class="px-4 py-3">
                             <span class="inline-value">{{ user.profile.city|default:"-" }}</span>
-                            <input type="text" name="city" value="{{ user.profile.city }}" class="inline-input hidden border border-gray-300 rounded px-2 py-1 text-sm w-full focus:outline-none focus:border-primary">
+                            <input type="text" name="city" value="{{ user.profile.city|vietovardis }}" class="inline-input hidden border border-gray-300 rounded px-2 py-1 text-sm w-full focus:outline-none focus:border-primary">
                         </td>
                         <td class="px-4 py-3 text-right">
                             <button type="button" onclick="toggleEdit(this)" class="text-primary hover:underline text-xs edit-btn">Edit</button>

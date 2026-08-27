@@ -143,7 +143,7 @@
                         {% if seller.profile.street or seller.profile.city %}
                         <div class="flex items-start gap-2 text-xs text-gray-600">
                             <i class="fas fa-map-marker-alt text-gray-400 mt-0.5 w-4"></i>
-                            <span>{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city }}</span>
+                            <span>{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city|vietovardis }}</span>
                         </div>
                         {% endif %}
 
@@ -338,7 +338,7 @@
                                             {% if listing.transmission %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.transmission.name|tdb }}</span>{% endif %}
                                             {% if listing.engine_capacity %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.engine_capacity }} L</span>{% endif %}
                                             {% if listing.power %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.power }} kW</span>{% endif %}
-                                            {% if listing.city %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.city }}</span>{% endif %}
+                                            {% if listing.city %}<span class="text-gray-300 mx-0.5">|</span><span>{{ listing.city|vietovardis }}</span>{% endif %}
                                         </div>
                                     </div>
                                     <div class="flex items-center justify-between mt-2">
@@ -371,7 +371,7 @@
                             {% if seller.profile.contact_person %}<div class="flex gap-3"><i class="fas fa-user text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Contact person" %}</p><p class="font-medium">{{ seller.profile.contact_person }}</p></div></div>{% endif %}
                             {% if seller.profile.phone_number %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone" %}</p><a href="tel:{{ seller.profile.phone_number }}" class="font-medium text-primary">{{ seller.profile.phone_number }}</a></div></div>{% endif %}
                             {% if seller.profile.phone_number_secondary %}<div class="flex gap-3"><i class="fas fa-phone text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Phone 2" %}</p><a href="tel:{{ seller.profile.phone_number_secondary }}" class="font-medium text-primary">{{ seller.profile.phone_number_secondary }}</a></div></div>{% endif %}
-                            {% if seller.profile.street or seller.profile.city %}<div class="flex gap-3"><i class="fas fa-map-marker-alt text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Address" %}</p><p class="font-medium">{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city }}{% if seller.profile.country %}, {{ seller.profile.country }}{% endif %}</p></div></div>{% endif %}
+                            {% if seller.profile.street or seller.profile.city %}<div class="flex gap-3"><i class="fas fa-map-marker-alt text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Address" %}</p><p class="font-medium">{% if seller.profile.street %}{{ seller.profile.street }} {{ seller.profile.house_number }}, {% endif %}{{ seller.profile.city|vietovardis }}{% if seller.profile.country %}, {{ seller.profile.country }}{% endif %}</p></div></div>{% endif %}
                             {% if seller.profile.working_hours %}<div class="flex gap-3"><i class="fas fa-clock text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Working hours" %}</p><p class="font-medium">{{ seller.profile.working_hours }}</p></div></div>{% endif %}
                             {% if seller.profile.website %}<div class="flex gap-3"><i class="fas fa-globe text-gray-400 w-4"></i><div><p class="text-xs text-gray-400">{% trans "Website" %}</p><a href="{{ seller.profile.website }}" target="_blank" class="font-medium text-primary">{{ seller.profile.website }}</a></div></div>{% endif %}
                         </div>

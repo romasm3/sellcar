@@ -742,7 +742,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
                         {% endif %}
                         <div class="ap-loc">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span class="truncate">{{ listing.city|default:_("Unknown") }}</span>
+                            <span class="truncate">{{ listing.city|vietovardis|default:_("Unknown") }}</span>
                         </div>
                     </div>
                 </div>

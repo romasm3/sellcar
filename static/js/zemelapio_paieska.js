@@ -5,8 +5,7 @@
  *   • sąrašas persirenka pagal MATOMĄ žemėlapio plotą (/map/duomenys/);
  *   • pastūmus žemėlapį atsiranda „Ieškoti šioje srityje" — automatiškai
  *     neperkraunam, kad ekranas nešokinėtų po kiekvieno judesio;
- *   • ratukas priartina TIK paspaudus žemėlapį (be Ctrl): kol nepaspausta,
- *     ratukas slenka puslapį, paskui — žemėlapį (gestureHandling greedy);
+ *   • ratukas priartina iškart (gestureHandling: 'greedy'), be Ctrl;
  *   • persidengiantys žymekliai jungiami į sankaupas su skaičiais;
  *   • užvedus ant kortelės paryškėja žymeklis; paspaudus žymeklį sąrašas
  *     nuslenka prie kortelės, antras paspaudimas atidaro skelbimą;
@@ -83,15 +82,14 @@ function zemelapioPaieska() {
             this._zem = new google.maps.Map(el, {
                 center: { lat: pradine.lat, lng: pradine.lng },
                 zoom: pradine.z,
-                // Ratukas veikia be Ctrl, bet tik kai žemėlapis „paimtas“:
-                // iki pirmo paspaudimo puslapis slenka įprastai.
-                gestureHandling: 'cooperative',
+                // Ratukas priartina iškart, kai pelė virš žemėlapio —
+                // be Ctrl ir be jokio užrašo. Nustatoma KURIANT žemėlapį:
+                // per setOptions vėliau Google užrašo nebenuima.
+                gestureHandling: 'greedy',
                 mapTypeControl: false,
                 streetViewControl: false,
                 fullscreenControl: false,
             });
-            el.addEventListener('click', () => this._zem.setOptions({ gestureHandling: 'greedy' }));
-            el.addEventListener('mouseleave', () => this._zem.setOptions({ gestureHandling: 'cooperative' }));
 
             this._zem.addListener('idle', () => { this.irasykURL(); });
             this._zem.addListener('dragend', () => { this.pajudinta = true; });

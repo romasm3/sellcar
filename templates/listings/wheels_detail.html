@@ -239,7 +239,7 @@
                     {% endif %}
                     <div class="border-t border-gray-200 pt-3 mt-3 text-sm text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary mr-2"></i>
-                        {{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}
+                        {{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}
                         <div class="text-xs text-gray-500 mt-0.5">{{ listing.get_country_display }}</div>
                     </div>
                 </div>

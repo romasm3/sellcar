@@ -282,7 +282,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -395,7 +395,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -416,7 +416,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-map-marker-alt text-primary text-xl"></i>
                             <div><div class="text-xs text-gray-600">{% trans "Miestas" %}</div>
-                                <div class="font-semibold text-gray-900">{{ listing.city }}</div></div>
+                                <div class="font-semibold text-gray-900">{{ listing.city|vietovardis }}</div></div>
                         </div>
                     </div>
                     <div class="border-t border-gray-200 pt-6">
@@ -461,7 +461,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -645,7 +645,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -805,7 +805,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -929,7 +929,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -1062,7 +1062,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -1202,7 +1202,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -1346,7 +1346,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -1557,7 +1557,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -1878,7 +1878,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
                             <p class="font-medium text-lg">
-                                {{ listing.city }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}
+                                {{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}
                             </p>
                             {% if not listing.hide_exact_address %}
                                 {% if listing.address %}
@@ -2009,7 +2009,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     <div class="flex items-start gap-3 text-gray-700">
                         <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
                         <div>
-                            <p class="font-medium text-lg">{{ listing.city }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
+                            <p class="font-medium text-lg">{{ listing.city|vietovardis }}{% if listing.state %}, {{ listing.state }}{% endif %}</p>
                             <p class="text-sm text-gray-500">{{ listing.get_country_display_name }}</p>
                         </div>
                     </div>
@@ -2249,7 +2249,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                                     <i class="fas fa-city text-gray-400 text-xs"></i>{% trans "City" %}
                                 </p>
                                 <p class="text-base font-semibold text-gray-900">
-                                    {% if listing.city and listing.city != "—" %}{{ listing.city }}{% else %}—{% endif %}
+                                    {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% else %}—{% endif %}
                                 </p>
                             </div>
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -2275,11 +2275,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% if listing.latitude and listing.longitude %}
                     <div class="relative">
                         <div id="locationMap" class="h-72 w-full border-t border-gray-200"></div>
-                        {% comment %}Koordinatės gautos iš OpenStreetMap geokodavimo —
-                        nuoroda privaloma pagal ODbL licenciją.{% endcomment %}
-                        <div class="absolute bottom-1 right-2 text-[11px] text-gray-500 bg-white/85 px-1.5 rounded">
-                            © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="underline">OpenStreetMap</a>
-                        </div>
+
                         {% comment %}Tikslios koordinatės viešai rodomos tik tada,
                         kai pardavėjas pasirinko tikslią vietą ir pats ją pasižymėjo.{% endcomment %}
                         {% if listing.koordinates_tikslios and not listing.hide_exact_address %}
@@ -2582,7 +2578,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">{% trans "City" %}</p>
                             <p class="text-base font-semibold text-gray-900">
-                                {% if listing.city and listing.city != "—" %}{{ listing.city }}{% else %}—{% endif %}
+                                {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% else %}—{% endif %}
                             </p>
                         </div>
 
@@ -2673,7 +2669,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <p class="text-xs text-gray-600 mt-1">{% trans "Interested in trade" %}</p>
                         {% endif %}
                         <p class="text-sm text-gray-500 mt-2">
-                            {% if listing.city and listing.city != "—" %}{{ listing.city }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}
+                            {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}
                         </p>
                     </div>
 
@@ -3020,6 +3016,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const lat = {{ listing.latitude }};
         const lng = {{ listing.longitude }};
         const map = new google.maps.Map(mapElement, {
+            // Toks pat elgesys kaip žemėlapio paieškoje: ratukas be Ctrl
+            gestureHandling: 'greedy',
             center: { lat: lat, lng: lng },
             zoom: {% if listing.hide_exact_address %}14{% elif not listing.koordinates_tikslios %}12{% else %}16{% endif %},
             disableDefaultUI: true,

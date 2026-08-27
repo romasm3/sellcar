@@ -300,7 +300,7 @@
                                 {% if listing.get_rim_material_display %}<span class="spec-chip">{{ listing.get_rim_material_display }}</span>{% endif %}
                             {% endif %}
                             {% if listing.quantity %}<span class="spec-chip">{% trans "Qty" %} {{ listing.quantity }}</span>{% endif %}
-                            {% if listing.city %}<span class="spec-chip">{{ listing.city }}{% if listing.country %}, {{ listing.country }}{% endif %}</span>{% endif %}
+                            {% if listing.city %}<span class="spec-chip">{{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.country }}{% endif %}</span>{% endif %}
                         </div>
 
                         <div class="ap-loc mt-auto">
