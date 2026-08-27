@@ -52,13 +52,12 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     filtrais ir matomu plotu.{% endcomment %}
     <select class="zp-sel" x-model="f.category" @change="keiskKategorija()">
       <option value="">{% trans "Visos kategorijos" %}</option>
+      {% comment %}Rodom VISĄ katalogą, ne tik tai, kas pateko į rezultatus:
+      skaičius skliaustuose ateina su duomenimis, o tuščios kategorijos
+      lieka matomos, tik pilkos ir nepaspaudžiamos.{% endcomment %}
       <template x-for="k in kategorijos" :key="k.slug">
-        <option :value="k.slug" x-text="k.vardas + ' (' + k.kiek + ')'"></option>
-      </template>
-      {% comment %}Pasirinktoji lieka sąraše net jei plote jos nebeliko —
-      kitaip laukas atrodytų tuščias.{% endcomment %}
-      <template x-if="f.category && !kategorijos.some(k => k.slug === f.category)">
-        <option :value="f.category" x-text="kategorijosVardas(f.category)"></option>
+        <option :value="k.slug" :disabled="!k.kiek" :class="!k.kiek && 'zp-tuscia'"
+                x-text="k.vardas + ' (' + k.kiek + ')'"></option>
       </template>
     </select>
 
@@ -67,10 +66,22 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     bendras visų šeimų sąrašas. Filtruojam brand=<id>, nes būtent jį
     supranta filter_listings.{% endcomment %}
     <select class="zp-sel" x-model="markeRaktas" @change="taikykMarke()"
+            :disabled="!f.category" :title="f.category ? '' : (ZP_TEKSTAI.pirmaKategorija || '')"
             @mousedown="uzkraukMarkes()" @focus="uzkraukMarkes()">
       <option value="">{% trans "Markė" %}</option>
       <template x-for="m in markes" :key="raktas(m)">
         <option :value="raktas(m)" x-text="m.n"></option>
+      </template>
+    </select>
+
+    {% comment %}Modelis — kaskada po markės per tą patį /ajax/modeliai/,
+    kurį naudoja panelės. Neaktyvus, kol markė nepasirinkta; pakeitus
+    kategoriją ar markę išsivalo.{% endcomment %}
+    <select class="zp-sel" x-model="f.model" @change="taikyk()"
+            :disabled="!markeRaktas || !modeliai.length">
+      <option value="">{% trans "Modelis" %}</option>
+      <template x-for="m in modeliai" :key="m.v">
+        <option :value="m.v" x-text="m.n"></option>
       </template>
     </select>
     <select class="zp-sel" x-model="f.price_max" @change="taikyk()">
@@ -156,6 +167,8 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     marke: "{% trans 'Markė' %}", rida: "{% trans 'Rida' %}",
     kuras: "{% trans 'Kuro tipas' %}", nuo: "{% trans 'nuo' %}", iki: "{% trans 'iki' %}",
     tekstas: "{% trans 'Paieška' %}", kategorija: "{% trans 'Kategorija' %}",
+    modelis: "{% trans 'Modelis' %}",
+    pirmaKategorija: "{% trans 'Pirma pasirinkite kategoriją' %}",
     skelbimu: ["{% trans 'skelbimas' %}", "{% trans 'skelbimai' %}", "{% trans 'skelbimų' %}"]
   };
   {% comment %}Kategorijų ikonos — tos pačios, ką piešia {% kategorijos_ikona %};

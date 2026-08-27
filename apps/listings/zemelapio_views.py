@@ -220,16 +220,25 @@ def _plote_arba_none(qs, request):
 
 
 def _kategoriju_kiekiai(request):
-    """[{slug, vardas, kiek}] — tik netuščios, su esamais filtrais ir plotu.
+    """[{slug, vardas, kiek}] — VISAS katalogas su skaičiais.
 
-    Skaičiuojama BE pačios kategorijos filtro (kitaip pasirinkus vieną
-    kategoriją visos kitos rodytų nulius), bet su visais kitais filtrais
-    ir su matomu plotu — kaip markių atveju.
+    Skaičiuojama be kategorijos ir be jos vidinių filtrų (markės,
+    modelio) — kitaip pasirinkus vieną kategoriją visos kitos rodytų
+    nulius ir nebeliktų kaip persijungti. Bendri filtrai (kaina, metai,
+    tekstas...) ir matomas plotas įskaičiuojami, kaip ir markių atveju.
     """
     from django.db.models import Count
 
     get = request.GET.copy()
     get.pop('category', None)
+    # Markė ir modelis galioja tik savo kategorijoje: palikti juos reikštų,
+    # kad pasirinkus „BMW" visos kitos kategorijos nukristų į nulį ir
+    # taptų nepaspaudžiamos — nebeliktų kaip persijungti.
+    for raktas in ('model', 'brand', 'truck_brand', 'motorcycle_brand',
+                   'agri_brand_text', 'trailer_brand_text', 'rent_brand_text',
+                   'elec_brand_text', 'load_brand_text', 'constr_brand_text',
+                   'forest_brand_text', 'camp_brand_text', 'bike_brand_text'):
+        get.pop(raktas, None)
     # GET pakeičiam laikinai, kad filtravimo kelias liktų tas pats
     tikras = request.GET
     request.GET = get
@@ -259,8 +268,11 @@ def _kategoriju_kiekiai(request):
     finally:
         request.GET = tikras
 
+    # Sąrašas — VISAS kategorijų katalogas (kategoriju_medis), ne tik tai,
+    # kas pateko į rezultatus: žmogus turi matyti, kas apskritai yra, o
+    # tuščios rodomos pilkos ir nepaspaudžiamos.
     return [{'slug': slug, 'vardas': vardas, 'kiek': kiekiai.get(slug, 0)}
-            for slug, vardas in kategoriju_medis() if kiekiai.get(slug)]
+            for slug, vardas in kategoriju_medis()]
 
 
 def zemelapio_rezultatai(request):

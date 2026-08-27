@@ -73,6 +73,7 @@ function zemelapioPaieska() {
         l: {},            // lango filtrai (taikomi paspaudus „Rodyti")
         kategorijos: [],   // [{slug, vardas, kiek}] — tik netuščios
         markes: [],        // [{v, n, c, k, p}] pagal pasirinktą kategoriją
+        modeliai: [],      // [{v, n, c}] pagal pasirinktą markę
         markesKat: null,   // kuriai kategorijai jos užkrautos ('' = visos)
         markesParam: 'brand',
         markeRaktas: '',   // juostos pasirinkimas: 'parametras|reikšmė'
@@ -98,6 +99,7 @@ function zemelapioPaieska() {
             // Markės — jei adrese jau yra kategorija ar markė, sąrašo
             // reikia iškart (kitaip laukas rodytų tuščią „Markė").
             if (this.f.brand || this.f.category) this.uzkraukMarkes();
+            if (this.f.model) setTimeout(() => this.uzkraukModelius(), 400);
             this.laukZemelapio();
             // Atsarginis krovimas: telefone žemėlapis pagal nutylėjimą
             // paslėptas, todėl „idle" gali ir neįvykti — be šito sąrašas
@@ -118,6 +120,8 @@ function zemelapioPaieska() {
                 const v = p.get(k); if (v) o[k] = v;
             });
             MARKIU_PARAMAI.forEach(k => { if (o[k]) this.markeRaktas = k + '|' + o[k]; });
+            // Kategorija, markė ir modelis adrese guli kartu su lat/lng/z,
+            // todėl nuoroda atkuria ir filtrus, ir žemėlapio padėtį.
             return o;
         },
 
@@ -522,6 +526,24 @@ function zemelapioPaieska() {
                 .catch(() => { this.markes = []; });
         },
 
+        /** Modeliai — tas pats /ajax/modeliai/, kurį naudoja panelės.
+         *  Kaskada: be markės sąrašo nėra, todėl laukas neaktyvus.
+         *  Modelių duomenų yra tik ten, kur jų yra DB (automobiliai,
+         *  motociklai) — kitose kategorijose laukas lieka neaktyvus. */
+        uzkraukModelius() {
+            const m = this.pagalRakta(this.markeRaktas);
+            const kat = this.f.category || '';
+            if (!m || !kat) { this.modeliai = []; return; }
+            fetch('/ajax/modeliai/?kategorija=' + encodeURIComponent(kat) +
+                  '&marke=' + encodeURIComponent(m.v))
+                .then(r => r.ok ? r.json() : { modeliai: [] })
+                .then(a => {
+                    this.modeliai = (a.modeliai || []).slice()
+                        .sort((x, y) => x.n.localeCompare(y.n, 'lt'));
+                })
+                .catch(() => { this.modeliai = []; });
+        },
+
         /** Lange rodom ne visas 2 300 — tik tas, kurias randa paieška. */
         markesRodomos() {
             const q = (this.markesQ || '').trim().toLowerCase();
@@ -533,6 +555,9 @@ function zemelapioPaieska() {
         /** Markę taikom TUO parametru, kurio prašo jos šeima. */
         taikykMarke() {
             MARKIU_PARAMAI.forEach(k => { delete this.f[k]; });
+            // Modelis gyvena markės viduje — pakeitus markę jis nebegalioja
+            delete this.f.model;
+            this.modeliai = [];
             const m = this.pagalRakta(this.markeRaktas);
             if (m) {
                 this.f[m.p || this.markesParam] = String(m.v);
@@ -544,6 +569,7 @@ function zemelapioPaieska() {
                     this.uzkraukMarkes(m.k);
                 }
             }
+            this.uzkraukModelius();
             this.taikyk();
         },
 
@@ -562,7 +588,9 @@ function zemelapioPaieska() {
             // Markė gyvena kategorijos viduje (ir kitu parametru), todėl
             // pakeitus kategoriją senoji nebegalioja.
             MARKIU_PARAMAI.forEach(k => { delete this.f[k]; });
+            delete this.f.model;
             this.markeRaktas = '';
+            this.modeliai = [];
             this.markesKat = null;
             this.uzkraukMarkes();
             this.taikyk();
@@ -613,12 +641,16 @@ function zemelapioPaieska() {
         },
         nuimk(raktas) {
             delete this.f[raktas]; delete this.l[raktas];
-            if (MARKIU_PARAMAI.indexOf(raktas) !== -1) { this.markeRaktas = ''; this.lMarke = ''; }
+            if (MARKIU_PARAMAI.indexOf(raktas) !== -1) {
+                this.markeRaktas = ''; this.lMarke = '';
+                delete this.f.model; this.modeliai = [];
+            }
             if (raktas === 'category') {
                 // Be kategorijos senoji markė nebegalioja: kitoje šeimoje
                 // tas pats id reiškia kitą markę.
                 MARKIU_PARAMAI.forEach(k => { delete this.f[k]; delete this.l[k]; });
                 this.markeRaktas = ''; this.lMarke = '';
+                delete this.f.model; delete this.l.model; this.modeliai = [];
                 this.markesKat = null; this.uzkraukMarkes('');
             }
             this.taikyk();
@@ -629,6 +661,10 @@ function zemelapioPaieska() {
         vardas(raktas, reiksme) {
             const V = window.ZP_VARDAI || {};
             if (raktas === 'category') return (V.kategorijos || {})[reiksme] || reiksme;
+            if (raktas === 'model') {
+                const m = this.modeliai.find(x => String(x.v) === String(reiksme));
+                return m ? m.n : reiksme;
+            }
             if (MARKIU_PARAMAI.indexOf(raktas) !== -1) {
                 const m = this.markes.find(x => String(x.v) === String(reiksme));
                 return m ? m.n : reiksme;   // tekstiniuose laukuose reikšmė ir yra vardas
@@ -640,7 +676,7 @@ function zemelapioPaieska() {
 
         aktyvuSarasas() {
             const T = window.ZP_TEKSTAI || {};
-            const vardai = { q: T.tekstas, category: T.kategorija, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
+            const vardai = { q: T.tekstas, category: T.kategorija, model: T.modelis, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
                              year_min: T.metai + ' ' + T.nuo, year_max: T.metai + ' ' + T.iki,
                              mileage_min: T.rida + ' ' + T.nuo, mileage_max: T.rida + ' ' + T.iki,
                              fuel_type: T.kuras };
