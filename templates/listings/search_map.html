@@ -1,333 +1,128 @@
 {% extends 'base.html' %}
-{% load static dict_extras %}
-{% load i18n %}
-{% load listing_filters %}
-
-{% block title %}{% trans "Map Search" %} - AutoLeft{% endblock %}
+{% load i18n static listing_filters i18n_db %}
+{% block title %}{% trans "Žemėlapio paieška" %} - AutoLeft{% endblock %}
 
 {% block content %}
-<div class="max-w-full mx-auto px-4 py-6">
-    <div class="flex flex-col lg:flex-row gap-6">
-        
-        <!-- Sidebar with filters and listings -->
-        <div class="lg:w-1/3 xl:w-1/4">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 h-[700px] overflow-hidden flex flex-col">
-                
-                <!-- Filters -->
-                <div class="p-4 border-b border-gray-200">
-                    <h3 class="font-semibold text-gray-900 mb-4">
-                        <i class="fas fa-filter mr-2 text-primary"></i>{% trans "Filters" %}
-                    </h3>
-                    <form method="get" id="filterForm" class="space-y-3">
-                        <!-- Make -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Make" %}</label>
-                            <select name="make" id="makeSelect" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                <option value="">{% trans "All makes" %}</option>
-                                {% for make in makes %}
-                                    <option value="{{ make }}" {% if request.GET.make == make %}selected{% endif %}>{{ make }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ŽEMĖLAPIO PAIEŠKA
 
-                        <!-- Price -->
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Price from" %}</label>
-                                <input type="number" name="price_min" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="€" value="{{ request.GET.price_min }}">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Price to" %}</label>
-                                <input type="number" name="price_max" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="€" value="{{ request.GET.price_max }}">
-                            </div>
-                        </div>
+Maketas: viršuje filtrų juosta (+ „Filtrai" langas), kairėje rezultatai
+dviem stulpeliais, dešinėje prilipęs žemėlapis su savo slinkimu.
 
-                        <!-- Year -->
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Year from" %}</label>
-                                <select name="year_min" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                    <option value="">{% trans "From" %}</option>
-                                    {% for year in years %}
-                                        <option value="{{ year }}" {% if request.GET.year_min == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Year to" %}</label>
-                                <select name="year_max" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                    <option value="">{% trans "To" %}</option>
-                                    {% for year in years %}
-                                        <option value="{{ year }}" {% if request.GET.year_max == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
+Filtrai — tas pats rinkinys ir tie patys parametrų vardai kaip paieškos
+panelėje bei detalioje paieškoje (search_params + filter_listings),
+todėl nuoroda su ?brand=…&price_min=… veikia visur vienodai.
 
-                        <div class="flex gap-2">
-                            <button type="submit" class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
-                                <i class="fas fa-search mr-1"></i> {% trans "Search" %}
-                            </button>
-                            <a href="{% url 'search_map' %}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
-                                {% trans "Clear" %}
-                            </a>
-                        </div>
-                    </form>
-                </div>
+Kortelės — bendra partials/_skelbimo_kortele.html, ne kopija.
+Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% include 'listings/partials/_kortele_stiliai.html' %}
 
-                <!-- Listings List -->
-                <div class="flex-1 overflow-y-auto p-4">
-                    <p class="text-sm text-gray-600 mb-3">{% blocktrans with count=listings.count %}Found {{ count }} listings{% endblocktrans %}</p>
+{{ pradine_busena|json_script:"zpPradine" }}
+<div class="zp" x-data="zemelapioPaieska()" x-init="paruosk()">
 
-                    {% if listings %}
-                        <div class="space-y-3">
-                            {% for listing in listings %}
-                            <div class="listing-card relative bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer border border-gray-200 hover:border-primary"
-                               data-lat="{{ listing.latitude|default:'54.8985' }}"
-                               data-lng="{{ listing.longitude|default:'23.9036' }}"
-                               data-id="{{ listing.id }}"
-                               data-url="{% url 'listing_detail' listing.pk %}">
-
-                                <!-- Image -->
-                                <div class="relative h-32 rounded-lg overflow-hidden mb-2 bg-gray-200">
-                                    {% if listing.images.first %}
-                                        <img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" 
-                                             alt="{{ listing.title }}" 
-                                             class="w-full h-full object-cover">
-                                    {% else %}
-                                        <div class="w-full h-full flex items-center justify-center">
-                                            <i class="fas fa-car text-3xl text-gray-400"></i>
-                                        </div>
-                                    {% endif %}
-                                    
-                                    <!-- Price badge -->
-                                    <div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-sm font-semibold">
-                                        {{ listing.price|kaina:listing.currency_symbol }}
-                                    </div>
-                                </div>
-
-                                <h4 class="font-semibold text-gray-900 text-sm mb-1">{{ listing.title }}</h4>
-                                <p class="text-xs text-gray-600 mb-1">
-                                    {{ listing.year }} • {{ listing.mileage|sk }} {% trans "km" %}
-                                </p>
-                                {% if listing.city %}
-                                <p class="text-xs text-gray-500">
-                                    <i class="fas fa-map-marker-alt mr-1"></i>{{ listing.city }}
-                                </p>
-                                {% endif %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="text-center py-8 text-gray-500">
-                            <i class="fas fa-search text-4xl mb-3"></i>
-                            <p>{% trans "No listings found" %}</p>
-                            <p class="text-sm">{% trans "Try changing the filters" %}</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Map -->
-        <div class="lg:w-2/3 xl:w-3/4">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div id="map" class="h-[700px] w-full"></div>
-            </div>
-        </div>
+  {# ═══ FILTRŲ JUOSTA ═══ #}
+  <div class="zp-juosta">
+    <div class="zp-vieta">
+      <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+      <input type="text" x-model="vietosQ" @input.debounce.300ms="ieskokVietos()"
+             @keydown.escape="vietos = []"
+             placeholder="{% trans 'Miestas, adresas arba šalis' %}">
+      <div class="zp-vietos" x-show="vietos.length" x-cloak @click.outside="vietos = []">
+        <template x-for="(v, i) in vietos" :key="i">
+          <button type="button" class="zp-vieta-siul" @click="pasirinkVieta(v)" x-text="v.tekstas"></button>
+        </template>
+      </div>
     </div>
-</div>
-{% endblock %}
 
-{% comment %}OSM nuoroda — skelbimų koordinatės gautos iš OpenStreetMap
-geokodavimo, todėl licencija reikalauja jos ir čia.{% endcomment %}
-<div class="text-[11px] text-gray-500 px-4 py-2">
-  © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="underline">OpenStreetMap</a> {% trans "bendruomenė" %}
+    {% comment %}Greitieji filtrai — tie patys laukai kaip panelėje.{% endcomment %}
+    <select class="zp-sel" x-model="f.make" @change="taikyk()">
+      <option value="">{% trans "Markė" %}</option>
+      {% for m in makes %}<option value="{{ m }}">{{ m }}</option>{% endfor %}
+    </select>
+    <select class="zp-sel" x-model="f.price_max" @change="taikyk()">
+      <option value="">{% trans "Kaina iki" %}</option>
+      {% for p in "1000,3000,5000,10000,20000,50000"|split:"," %}
+      <option value="{{ p }}">{{ p|kaina }}</option>{% endfor %}
+    </select>
+    <select class="zp-sel" x-model="f.year_min" @change="taikyk()">
+      <option value="">{% trans "Metai nuo" %}</option>
+      {% for y in years %}{% if forloop.counter0 < 30 %}<option value="{{ y }}">{{ y }}</option>{% endif %}{% endfor %}
+    </select>
+
+    <button type="button" class="zp-filtrai-btn" @click="atidarykFiltrus()">
+      <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+      {% trans "Filtrai" %}
+      <span class="zp-filtru-sk" x-show="aktyvuKiek()" x-text="aktyvuKiek()"></span>
+    </button>
+
+    <button type="button" class="zp-slepti" @click="zemelapisMatomas = !zemelapisMatomas">
+      <span x-show="zemelapisMatomas">{% trans "Slėpti žemėlapį" %}</span>
+      <span x-show="!zemelapisMatomas" x-cloak>{% trans "Rodyti žemėlapį" %}</span>
+    </button>
+  </div>
+
+  {# ═══ AKTYVIŲ FILTRŲ ŽYMĖS ═══ #}
+  <div class="zp-zymes" x-show="aktyvuKiek()" x-cloak>
+    <template x-for="z in aktyvuSarasas()" :key="z.raktas">
+      <span class="zp-zyme">
+        <span x-text="z.tekstas"></span>
+        <button type="button" @click="nuimk(z.raktas)" aria-label="{% trans 'Pašalinti' %}">✕</button>
+      </span>
+    </template>
+    <button type="button" class="zp-valyti" @click="isvalyk(true)">{% trans "Išvalyti viską" %}</button>
+  </div>
+
+  {# ═══ TURINYS ═══ #}
+  <div class="zp-turinys" :class="!zemelapisMatomas && 'be-zemelapio'">
+    <div class="zp-kaire">
+      <div class="zp-rasta">
+        <strong x-text="kiek"></strong>
+        <span x-text="zpSkelbimu(kiek) + ' {% trans "šioje srityje" %}'"></span>
+      </div>
+      <div class="zp-sarasas" x-ref="sarasas" @mouseover="pazymek($event)" @mouseout="nupazymek()"></div>
+    </div>
+
+    <div class="zp-desine" x-show="zemelapisMatomas">
+      <div class="zp-zemelapio-rem">
+        <div id="zpMap" class="zp-zemelapis" x-ref="zemelapis"></div>
+        <button type="button" class="zp-ieskoti-cia" x-show="pajudinta" x-cloak @click="ieskokSrityje()">
+          <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> {% trans "Ieškoti šioje srityje" %}
+        </button>
+        <div class="zp-osm">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a></div>
+      </div>
+    </div>
+  </div>
+
+  {# ═══ TELEFONO JUNGIKLIS ═══ #}
+  <button type="button" class="zp-mob-jungiklis" @click="mobZemelapis = !mobZemelapis">
+    <template x-if="!mobZemelapis"><span><i class="fa-solid fa-map-location-dot"></i> {% trans "Žemėlapis" %}</span></template>
+    <template x-if="mobZemelapis"><span><i class="fa-solid fa-list"></i> {% trans "Sąrašas" %}</span></template>
+  </button>
+
+  {% include 'listings/partials/_zemelapio_filtrai.html' %}
 </div>
 
-{% block extra_js %}
-<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
+{% include 'listings/partials/_zemelapio_stiliai.html' %}
 
 <script>
-// ─── i18n strings ───
-var I18N = {
-    noImage: "{% trans 'No image' %}",
-    km: "{% trans 'km' %}",
-    viewDetails: "{% trans 'View Details' %}"
-};
-
-let map;
-let markers = [];
-let infoWindow;
-
-function initMap() {
-    // Default location - Lithuania (Kaunas)
-    const defaultLocation = { lat: 54.8985, lng: 23.9036 };
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: defaultLocation,
-        mapTypeControl: true,
-        streetViewControl: false,
-        fullscreenControl: true
-    });
-
-    infoWindow = new google.maps.InfoWindow();
-
-    // Add markers from listings
-    addMarkers();
-
-    // Fit map to markers if any
-    if (markers.length > 0) {
-        fitMapToMarkers();
-    }
-}
-
-function addMarkers() {
-    const listings = {{ listings_json|safe }};
-    let currentListingIndex = 0;
-
-    listings.forEach((listing, index) => {
-        const lat = listing.latitude || 54.8985;
-        const lng = listing.longitude || 23.9036;
-
-        const marker = new google.maps.Marker({
-            position: { lat: lat, lng: lng },
-            map: map,
-            title: listing.title,
-            icon: {
-                url: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
-            }
-        });
-
-        marker.addListener('click', () => {
-            currentListingIndex = index;
-            showInfoWindow(index);
-            highlightCard(listing.id);
-        });
-
-        markers.push({ marker: marker, id: listing.id, index: index });
-    });
-
-    // Function to show info window with navigation
-    window.showInfoWindow = function(index) {
-        if (index < 0 || index >= listings.length) return;
-        
-        currentListingIndex = index;
-        const listing = listings[index];
-        const marker = markers[index].marker;
-
-        const imageHtml = listing.main_image 
-            ? `<img src="${listing.main_image}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">`
-            : `<div style="width: 100%; height: 80px; background: #e5e7eb; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center;"><span style="color: #9ca3af;">${I18N.noImage}</span></div>`;
-
-        const contentString = `
-            <div style="max-width: 220px; font-family: Inter, sans-serif;">
-                ${imageHtml}
-                <h6 style="margin: 0 0 5px 0; font-size: 14px; font-weight: 600;">${listing.title}</h6>
-                <p style="margin: 0; color: #666; font-size: 12px;">
-                    ${listing.year} • ${listing.mileage.toLocaleString()} ${I18N.km}
-                </p>
-                <p style="margin: 5px 0; color: #7C3AED; font-weight: bold; font-size: 16px;">
-                    €${listing.price.toLocaleString()}
-                </p>
-                
-                <!-- Navigation and View Details -->
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
-                    <div style="display: flex; gap: 5px;">
-                        <button onclick="navigateListing(-1)" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: ${index > 0 ? '#fff' : '#f3f4f6'}; cursor: ${index > 0 ? 'pointer' : 'not-allowed'}; display: flex; align-items: center; justify-content: center;" ${index === 0 ? 'disabled' : ''}>
-                            <span style="color: ${index > 0 ? '#7C3AED' : '#9ca3af'};">←</span>
-                        </button>
-                        <button onclick="navigateListing(1)" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: ${index < listings.length - 1 ? '#fff' : '#f3f4f6'}; cursor: ${index < listings.length - 1 ? 'pointer' : 'not-allowed'}; display: flex; align-items: center; justify-content: center;" ${index === listings.length - 1 ? 'disabled' : ''}>
-                            <span style="color: ${index < listings.length - 1 ? '#7C3AED' : '#9ca3af'};">→</span>
-                        </button>
-                    </div>
-                    <span style="font-size: 11px; color: #666;">${index + 1} / ${listings.length}</span>
-                </div>
-                
-                <a href="/${listing.id}/" style="display: block; background: #7C3AED; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 500; text-align: center; margin-top: 8px;">
-                    ${I18N.viewDetails}
-                </a>
-            </div>
-        `;
-
-        infoWindow.setContent(contentString);
-        infoWindow.open(map, marker);
-        map.panTo(marker.getPosition());
-        highlightCard(listing.id);
-    };
-
-    // Navigate to prev/next listing
-    window.navigateListing = function(direction) {
-        const newIndex = currentListingIndex + direction;
-        if (newIndex >= 0 && newIndex < listings.length) {
-            showInfoWindow(newIndex);
-        }
-    };
-}
-
-function fitMapToMarkers() {
-    if (markers.length > 0) {
-        const bounds = new google.maps.LatLngBounds();
-        markers.forEach(item => {
-            bounds.extend(item.marker.getPosition());
-        });
-        map.fitBounds(bounds);
-        
-        // Don't zoom too far in
-        google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-            if (map.getZoom() > 14) {
-                map.setZoom(14);
-            }
-        });
-    }
-}
-
-function focusListing(id, lat, lng) {
-    if (lat && lng) {
-        map.setCenter({ lat: parseFloat(lat), lng: parseFloat(lng) });
-        map.setZoom(14);
-
-        const markerItem = markers.find(m => m.id === id);
-        if (markerItem) {
-            google.maps.event.trigger(markerItem.marker, 'click');
-        }
-    }
-    highlightCard(id);
-}
-
-function highlightCard(id) {
-    document.querySelectorAll('.listing-card').forEach(card => {
-        card.classList.remove('ring-2', 'ring-primary');
-    });
-
-    const card = document.querySelector(`.listing-card[data-id="${id}"]`);
-    if (card) {
-        card.classList.add('ring-2', 'ring-primary');
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-}
-
-// Click on listing card to focus marker
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.listing-card').forEach(card => {
-        card.addEventListener('click', function(e) {
-            // Don't prevent default - let the link work
-            const id = parseInt(this.dataset.id);
-            const lat = parseFloat(this.dataset.lat);
-            const lng = parseFloat(this.dataset.lng);
-            
-            // Focus on map marker
-            const markerItem = markers.find(m => m.id === id);
-            if (markerItem) {
-                map.setCenter({ lat: lat, lng: lng });
-                map.setZoom(12);
-                google.maps.event.trigger(markerItem.marker, 'click');
-            }
-        });
-    });
-});
-
-window.onload = initMap;
+  window.ZP_TEKSTAI = {
+    kaina: "{% trans 'Kaina' %}", metai: "{% trans 'Metai' %}",
+    marke: "{% trans 'Markė' %}", rida: "{% trans 'Rida' %}",
+    kuras: "{% trans 'Kuro tipas' %}", nuo: "{% trans 'nuo' %}", iki: "{% trans 'iki' %}",
+    skelbimu: ["{% trans 'skelbimas' %}", "{% trans 'skelbimai' %}", "{% trans 'skelbimų' %}"]
+  };
+  window.ZP_VARDAI = {
+    kategorijos: { {% for k in filtru_kategorijos %}"{{ k.slug }}": "{{ k.label|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
+    kuras: { {% for f in kuro_tipai %}"{{ f.name|escapejs }}": "{{ f.name|tdb|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
+    rusiavimas: { {% for r, v, i in rusiavimo_kortos %}"{{ r }}": "{{ v|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} }
+  };
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" defer></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js" defer></script>
+{% comment %}BE defer: Alpine įkeliamas anksčiau ir su „defer" jis
+paleidžiamas pirmas — tada zemelapioPaieska() dar neegzistuoja.{% endcomment %}
+<script src="{% static 'js/zemelapio_paieska.js' %}"></script>
 {% endblock %}

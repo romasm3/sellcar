@@ -6,6 +6,7 @@ from . import motorcycles_views
 from . import perziureti_views
 from . import skelbimai_views
 from . import geokodavimas
+from . import zemelapio_views
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
@@ -37,7 +38,9 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('browse/', views.listing_list, name='browse_listings'),
     path('v2/', views.listing_list_v2, name='listing_list_v2'),
-    path("map/", views.search_map, name="search_map"),
+    # Žemėlapio paieška — puslapis ir duomenys pagal matomą plotą
+    path("map/", zemelapio_views.zemelapio_paieska, name="search_map"),
+    path("map/duomenys/", zemelapio_views.zemelapio_rezultatai, name="zemelapio_duomenys"),
 
     # ─── Create ───
     path("create/", views.listing_create, name="listing_create"),

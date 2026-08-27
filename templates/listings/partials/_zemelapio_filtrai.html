@@ -1,0 +1,114 @@
+{% load i18n listing_filters i18n_db %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+FILTRŲ LANGAS (žemėlapio paieška)
+
+Visi filtrai vienu metu: rūšiavimas, kategorijos, markė, kaina, metai,
+rida, kuro tipas ir „kita". Parametrų vardai — tie patys, kuriuos
+naudoja paieškos panelė ir detali paieška, todėl filtrai taikomi tuo
+pačiu keliu (search_params + filter_listings).
+
+Apačios juosta prilipusi; dešinysis mygtukas rodo, kiek rezultatų liks
+pritaikius — skaičius atsinaujina dar neuždarius lango.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="zf-danga" x-show="filtraiAtidaryti" x-cloak
+     @click.self="uzdarykFiltrus()" @keydown.escape.window="uzdarykFiltrus()">
+  <div class="zf-langas" role="dialog" aria-modal="true" aria-label="{% trans 'Filtrai' %}">
+
+    <div class="zf-virsus">
+      <h2>{% trans "Filtrai" %}</h2>
+      <button type="button" class="zf-uzdaryti" @click="uzdarykFiltrus()" aria-label="{% trans 'Uždaryti' %}">✕</button>
+    </div>
+
+    <div class="zf-turinys">
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Rūšiuoti pagal" %}</div>
+        <div class="zf-korteles">
+          {% for reiksme, vardas, ikona in rusiavimo_kortos %}
+          <button type="button" class="zf-kortele" :class="l.sort === '{{ reiksme }}' && 'is-on'"
+                  @click="l.sort = '{{ reiksme }}'; perskaiciuok()">
+            <i class="fa-solid {{ ikona }}" aria-hidden="true"></i>
+            <span>{{ vardas }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Kategorija" %}</div>
+        <div class="zf-zymos">
+          {% for k in filtru_kategorijos %}
+          <button type="button" class="zf-zyma" :class="l.category === '{{ k.slug }}' && 'is-on'"
+                  @click="l.category = (l.category === '{{ k.slug }}' ? '' : '{{ k.slug }}'); perskaiciuok()">
+            {% kategorijos_ikona k.slug 16 %}
+            <span>{{ k.label }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Markė" %}</div>
+        <input type="text" class="zf-paieska" x-model="markesQ" placeholder="{% trans 'Ieškoti markės' %}">
+        <div class="zf-markes">
+          {% for m in makes %}
+          <label class="zf-varnele" x-show="!markesQ || '{{ m|lower|escapejs }}'.includes(markesQ.toLowerCase())">
+            <input type="checkbox" value="{{ m }}" :checked="l.make === '{{ m|escapejs }}'"
+                   @change="l.make = ($event.target.checked ? '{{ m|escapejs }}' : ''); perskaiciuok()">
+            <span>{{ m }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="zf-sekcija zf-diapazonai">
+        <div class="zf-diapazonas">
+          <div class="zf-vardas">{% trans "Kaina" %}</div>
+          <input type="number" min="0" step="1" placeholder="{% trans 'Nuo' %}" x-model="l.price_min" @change="perskaiciuok()">
+          <input type="number" min="0" step="1" placeholder="{% trans 'Iki' %}" x-model="l.price_max" @change="perskaiciuok()">
+        </div>
+        <div class="zf-diapazonas">
+          <div class="zf-vardas">{% trans "Metai" %}</div>
+          <input type="number" min="1950" step="1" placeholder="{% trans 'Nuo' %}" x-model="l.year_min" @change="perskaiciuok()">
+          <input type="number" min="1950" step="1" placeholder="{% trans 'Iki' %}" x-model="l.year_max" @change="perskaiciuok()">
+        </div>
+        <div class="zf-diapazonas">
+          <div class="zf-vardas">{% trans "Rida, km" %}</div>
+          <input type="number" min="0" step="1000" placeholder="{% trans 'Nuo' %}" x-model="l.mileage_min" @change="perskaiciuok()">
+          <input type="number" min="0" step="1000" placeholder="{% trans 'Iki' %}" x-model="l.mileage_max" @change="perskaiciuok()">
+        </div>
+      </div>
+
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Kuro tipas" %}</div>
+        <div class="zf-zymos">
+          {% for f in kuro_tipai %}
+          <button type="button" class="zf-zyma" :class="l.fuel_type === '{{ f.name|escapejs }}' && 'is-on'"
+                  @click="l.fuel_type = (l.fuel_type === '{{ f.name|escapejs }}' ? '' : '{{ f.name|escapejs }}'); perskaiciuok()">
+            <span>{{ f.name|tdb }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="zf-sekcija">
+        <div class="zf-vardas">{% trans "Kita" %}</div>
+        <div class="zf-zymos">
+          {% for raktas, vardas in papildomi_filtrai %}
+          <button type="button" class="zf-zyma" :class="l['{{ raktas }}'] && 'is-on'"
+                  @click="l['{{ raktas }}'] = (l['{{ raktas }}'] ? '' : 'on'); perskaiciuok()">
+            <span>{{ vardas }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="zf-apacia">
+      <button type="button" class="zf-valyti" @click="isvalyk(false)">{% trans "Išvalyti viską" %}</button>
+      <button type="button" class="zf-rodyti" @click="pritaikykFiltrus()">
+        {% trans "Rodyti" %} <span x-text="langoKiek"></span> <span x-text="zpSkelbimu(langoKiek)"></span>
+      </button>
+    </div>
+  </div>
+</div>
