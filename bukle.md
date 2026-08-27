@@ -1,46 +1,14 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-27 12:13:12 CEST
+Sugeneruota: 2026-08-27 12:14:31 CEST
 
 ## Kodas
 
 ```
-sukasi:      2b2510f feat(žemėlapis): žemėlapio paieška dviem stulpeliais su filtrų langu
-origin/master: 2b2510f feat(žemėlapis): žemėlapio paieška dviem stulpeliais su filtrų langu
+sukasi:      678d8b8 fix(žemėlapis): ratukas be Ctrl, OSM nuoroda tik prie OSM, miestai iš didžiosios
+origin/master: 678d8b8 fix(žemėlapis): ratukas be Ctrl, OSM nuoroda tik prie OSM, miestai iš didžiosios
 šaka:        master
-DĖMESIO: darbo katalogas nešvarus —
-   M apps/listings/korteles.py
-   M apps/listings/templatetags/listing_filters.py
-   M static/js/zemelapio_paieska.js
-   M templates/accounts/profile_edit.html
-   M templates/accounts/seller_profile.html
-   M templates/accounts/settings.html
-   M templates/home.html
-   M templates/listings/admin_moderate_user.html
-   M templates/listings/admin_sales_stats.html
-   M templates/listings/home.html
-   M templates/listings/listing_detail.html
-   M templates/listings/listing_list.html
-   M templates/listings/listing_select_plan.html
-   M templates/listings/listing_services_order.html
-   M templates/listings/moto_parts_advanced.html
-   M templates/listings/moto_parts_browse.html
-   M templates/listings/motogear_advanced.html
-   M templates/listings/motorcycles_advanced_search.html
-   M templates/listings/motorcycles_list.html
-   M templates/listings/my_listings.html
-   M templates/listings/partials/_card_params.html
-   M templates/listings/partials/_kiti_skelbimai.html
-   M templates/listings/partials/_pardavejo_blokas.html
-   M templates/listings/partials/_zemelapio_stiliai.html
-   M templates/listings/search_map.html
-   M templates/listings/truck_parts_advanced.html
-   M templates/listings/truck_parts_browse.html
-   M templates/listings/trucks_advanced_search.html
-   M templates/listings/trucks_list.html
-   M templates/listings/wheels_advanced_search.html
-   M templates/listings/wheels_detail.html
-   M templates/listings/wheels_list.html
+darbo katalogas: švarus
 ```
 
 ## Servisai
@@ -55,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001233s
+HTTP 301, 0.001767s
 ```
 
 ## Skelbimų būsenos
@@ -89,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 27 12:06:00 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 27 12:06:02 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 27 12:06:02 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 27 12:06:02 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.164s CPU time.
 Aug 27 12:07:09 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 27 12:07:10 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 27 12:07:10 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -114,4 +78,8 @@ Aug 27 12:12:00 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 27 12:12:00 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 27 12:12:00 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.101s CPU time.
 Aug 27 12:13:12 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 27 12:13:14 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 27 12:13:14 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 27 12:13:14 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.012s CPU time.
+Aug 27 12:14:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
