@@ -228,7 +228,7 @@ def _save_common(request, target, errors, require_month=True):
 
 def _finish(request, target, is_edit_mode, old_price, new_images):
     """Bendra pabaiga: koordinatės, save, nuotraukos, laiškai, redirect."""
-    lat, lng = get_coordinates_for_location(target.city, target.country)
+    lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
     target.latitude, target.longitude = lat, lng
     target.save()
 

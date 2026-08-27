@@ -100,7 +100,13 @@ Behaviour (matches the cars quick form, which is the reference):
         {% endif %}
     </div>
 
-    {% if show_hide_address %}
+    {% comment %}Vieta žemėlapyje — adreso siūlymai, tempiamas žymeklis ir
+    tikslumo pasirinkimas. Viena vieta visoms kategorijų formoms; „slėpti
+    tikslų adresą" varnelė perėjo į šio bloko „Rodyti tik apytiksliai".
+    {% endcomment %}
+    {% if not be_zemelapio %}
+    {% include 'listings/partials/_vietos_blokas.html' %}
+    {% elif show_hide_address %}
     <label class="flex items-center gap-2 mt-4 cursor-pointer">
         <input type="checkbox" name="hide_exact_address" id="id_hide_exact_address"
                {% if checked_hide_address %}checked{% endif %} class="w-4 h-4 rounded">
@@ -144,3 +150,4 @@ Behaviour (matches the cars quick form, which is the reference):
 
 {# Country → state cascade + contact validation, shared by every form. #}
 <script src="{% static 'js/contact_block.js' %}"></script>
+{% if not be_zemelapio %}<script src="{% static 'js/vietos_zemelapis.js' %}"></script>{% endif %}

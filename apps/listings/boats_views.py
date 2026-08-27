@@ -268,7 +268,7 @@ def boats_listing_create(request):
             )
 
         # ─── Coordinates ───
-        lat, lng = get_coordinates_for_location(target.city, target.country)
+        lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
         target.latitude = lat
         target.longitude = lng
 

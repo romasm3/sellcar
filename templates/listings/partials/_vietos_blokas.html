@@ -1,0 +1,125 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+VIETA ŽEMĖLAPYJE — adreso siūlymai ir tempiamas žymeklis.
+
+Įtraukiama iš contact_block.html, todėl visos kategorijų formos gauna
+tą patį lauką. Saugom keturis dalykus: adreso tekstą (kaip įvedė),
+latitude/longitude (iš žymeklio), miestą ir šalį (iš geokodavimo —
+filtrams ir žemėlapio paieškai).
+
+Duomenys — OpenStreetMap (Photon siūlymams, Nominatim atvirkštiniam
+geokodavimui) per mūsų pačių galus (/ajax/adresai/, /ajax/vieta/), kad
+User-Agent, kešas ir dažnis liktų mūsų rankose.
+
+Atvirkštinis geokodavimas kviečiamas TIK paleidus žymeklį (ne tempiant),
+su 300 ms atidėjimu — taip laikomės Nominatim taisyklių.
+
+Jei geokodavimas neveikia, laukas veikia toliau: žmogus įrašo adresą
+ranka ir pats pasistato žymeklį — skelbimo kūrimas nesustoja.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% comment %}Redaguojant koordinatės imamos iš paties skelbimo, jei vaizdas
+jų neperdavė — taip senas skelbimas atsidaro su žymekliu ten, kur jis yra.
+{% endcomment %}
+<div class="vt-blokas" x-data="vietosZemelapis({
+        lat: {% firstof val_latitude listing.latitude 'null' %},
+        lon: {% firstof val_longitude listing.longitude 'null' %},
+        tiksliai: {% if checked_hide_address %}false{% else %}true{% endif %}
+     })" x-init="paruosk()">
+
+  <label class="vt-etikete" for="id_vietos_paieska">{% trans "Vieta žemėlapyje" %}</label>
+
+  <div class="vt-laukas">
+    <input type="text" id="id_vietos_paieska" autocomplete="off"
+           class="sp-fld" placeholder="{% trans 'Įveskite adresą arba vietovę' %}"
+           x-model="uzklausa" @input.debounce.300ms="ieskok()"
+           @keydown.escape="siulymai = []">
+    <div class="vt-siulymai" x-show="siulymai.length" x-cloak @click.outside="siulymai = []">
+      <template x-for="(s, i) in siulymai" :key="i">
+        <button type="button" class="vt-siulymas" @click="pasirink(s)" x-text="s.tekstas"></button>
+      </template>
+    </div>
+  </div>
+
+  <div class="vt-zemelapis-rem">
+    <div class="vt-zemelapis" x-ref="zemelapis"></div>
+    <div class="vt-mastelis">
+      <button type="button" @click="mastelis(1)" aria-label="{% trans 'Priartinti' %}">+</button>
+      <button type="button" @click="mastelis(-1)" aria-label="{% trans 'Atitolinti' %}">−</button>
+    </div>
+    {% comment %}Licencijos reikalavimas — nuoroda privaloma visur, kur
+    rodomi OSM duomenys.{% endcomment %}
+    <div class="vt-nuoroda">© <a href="https://www.openstreetmap.org/copyright"
+       target="_blank" rel="noopener noreferrer">OpenStreetMap</a> {% trans "bendruomenė" %}</div>
+  </div>
+
+  {% if listing and listing.latitude and not listing.koordinates_tikslios %}
+  <p class="vt-pastaba vt-patikslink">
+    {% trans "Šio skelbimo vieta apytikslė — pažymėta pagal miestą. Patempkite žymeklį arba įveskite adresą, kad pirkėjai matytų tikslią vietą." %}
+  </p>
+  {% endif %}
+
+  <p class="vt-pastaba" x-show="!lat || !lon">
+    {% trans "Vieta neprivaloma, bet be jos skelbimas nepateks į žemėlapio paiešką." %}
+  </p>
+
+  <div class="vt-privatumas">
+    <span class="vt-privatumas-vardas">{% trans "Vietos tikslumas" %}</span>
+    <label class="vt-radijas">
+      <input type="radio" name="hide_exact_address" value="" x-model="tiksliaiStr">
+      <span>{% trans "Rodyti tikslią vietą" %}</span>
+    </label>
+    <label class="vt-radijas">
+      <input type="radio" name="hide_exact_address" value="on" x-model="tiksliaiStr">
+      <span>{% trans "Rodyti tik apytiksliai" %}</span>
+      <em>{% trans "žemėlapyje — ~500 m spindulio sritis, tikslios koordinatės viešai nerodomos" %}</em>
+    </label>
+  </div>
+
+  <input type="hidden" name="latitude" x-model="lat">
+  <input type="hidden" name="longitude" x-model="lon">
+  <input type="hidden" name="vietos_miestas" x-model="miestas">
+  <input type="hidden" name="vietos_salis" x-model="salis">
+</div>
+
+<style>
+  .vt-blokas { margin-top: var(--sp-5); }
+  .vt-etikete { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 5px; }
+  .vt-laukas { position: relative; }
+  .vt-siulymai { position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + 4px);
+                 background: var(--surface); border: 1px solid var(--border);
+                 border-radius: var(--r-md); box-shadow: 0 12px 32px rgba(17,24,39,.14);
+                 overflow: hidden; }
+  .vt-siulymas { display: block; width: 100%; text-align: left; padding: 10px 14px;
+                 font-size: var(--fs-sm); color: var(--text); background: none;
+                 border: 0; border-bottom: 1px solid #F1F1F1; cursor: pointer; }
+  .vt-siulymas:last-child { border-bottom: 0; }
+  .vt-siulymas:hover { background: var(--accent-soft); }
+
+  .vt-zemelapis-rem { position: relative; margin-top: var(--sp-3); }
+  .vt-zemelapis { height: 300px; border: 1px solid var(--border);
+                  border-radius: var(--r-md); overflow: hidden; background: var(--accent-soft); }
+  .vt-mastelis { position: absolute; top: 10px; right: 10px; z-index: 500;
+                 display: flex; flex-direction: column; gap: 4px; }
+  .vt-mastelis button { width: 32px; height: 32px; border: 1px solid var(--border);
+                        border-radius: var(--r-sm, 6px); background: var(--surface);
+                        color: var(--text); font-size: 18px; line-height: 1; cursor: pointer; }
+  .vt-mastelis button:hover { border-color: var(--accent); color: var(--accent); }
+  .vt-nuoroda { position: absolute; bottom: 6px; right: 10px; z-index: 500;
+                font-size: 11px; color: var(--text-muted);
+                background: rgba(255,255,255,.85); padding: 1px 6px; border-radius: 4px; }
+  .vt-nuoroda a { color: inherit; }
+
+  .vt-pastaba { margin-top: var(--sp-2); font-size: var(--fs-sm); color: var(--text-muted); }
+  .vt-patikslink { padding: 10px 12px; background: var(--accent-soft);
+                   border-radius: var(--r-md); color: var(--text); }
+  .vt-privatumas { margin-top: var(--sp-3); display: flex; flex-wrap: wrap;
+                   align-items: center; gap: var(--sp-3); }
+  .vt-privatumas-vardas { font-size: 12.5px; font-weight: 700; }
+  .vt-radijas { display: inline-flex; align-items: center; gap: 6px;
+                font-size: var(--fs-sm); color: var(--text); cursor: pointer; }
+  .vt-radijas em { font-style: normal; color: var(--text-muted); font-size: var(--fs-xs); }
+  @media (max-width: 767px) {
+    .vt-privatumas { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
+  }
+</style>

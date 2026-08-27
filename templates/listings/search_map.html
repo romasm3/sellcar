@@ -139,6 +139,12 @@
 </div>
 {% endblock %}
 
+{% comment %}OSM nuoroda — skelbimų koordinatės gautos iš OpenStreetMap
+geokodavimo, todėl licencija reikalauja jos ir čia.{% endcomment %}
+<div class="text-[11px] text-gray-500 px-4 py-2">
+  © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="underline">OpenStreetMap</a> {% trans "bendruomenė" %}
+</div>
+
 {% block extra_js %}
 <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
 

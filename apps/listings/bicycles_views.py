@@ -236,8 +236,7 @@ def bicycles_listing_create(request):
                 messages.error(request, e)
             return _render_form(request, target, is_edit_mode, request.POST)
 
-        target.latitude, target.longitude = get_coordinates_for_location(
-            target.city, target.country)
+        target.latitude, target.longitude = get_coordinates_for_location(target.city, target.country, request.POST)
 
         try:
             target.save()

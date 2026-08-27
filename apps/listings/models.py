@@ -1739,6 +1739,9 @@ class Listing(PaskelbimoLaikas, models.Model):
     hide_exact_address = models.BooleanField(default=False)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    # Ar koordinates pažymėjo pats pardavėjas (žymekliu žemėlapyje), ar jos
+    # spėtos iš miesto pavadinimo. Spėtos rodomos su žyma „apytiksliai".
+    koordinates_tikslios = models.BooleanField(default=False)
 
     features = models.TextField(blank=True)
     video_url = models.URLField(blank=True)

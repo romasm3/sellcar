@@ -5,6 +5,7 @@ from . import views_help
 from . import motorcycles_views
 from . import perziureti_views
 from . import skelbimai_views
+from . import geokodavimas
 from . import motogear_views
 from . import trucks_views
 from . import car_for_parts_views
@@ -104,6 +105,10 @@ urlpatterns = [
     path('help/advertise/', views_help.advertise, name='advertise'),
     path('help/about/', views_help.about_us, name='about_us'),
     path('partneriai/', views_help.partneriai, name='partneriai'),
+
+    # ─── Vietos laukas kūrimo formoje (OSM: Photon + Nominatim) ───
+    path('ajax/adresai/', geokodavimas.ajax_siulymai, name='ajax_adresai'),
+    path('ajax/vieta/', geokodavimas.ajax_adresas_pagal_taska, name='ajax_vieta'),
     path('help/contact/', views_help.contact_page, name='contact_page'),
     path('help/terms/', views_help.terms, name='terms'),
     path('help/privacy/', views_help.privacy, name='privacy'),

@@ -321,7 +321,7 @@ def agriculture_listing_create(request):
                                preselected_type=agri_type, is_edit_mode=is_edit_mode,
                                posted=request.POST)
 
-        lat, lng = get_coordinates_for_location(target.city, target.country)
+        lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
         target.latitude, target.longitude = lat, lng
 
         try:

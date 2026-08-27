@@ -349,7 +349,7 @@ def _build_fields_from_post(request, POST):
     if not city_for_display:
         city_for_display = '—'
 
-    lat, lng = get_coordinates_for_location(city_for_display, country)
+    lat, lng = get_coordinates_for_location(city_for_display, country, request.POST)
 
     title = _build_listing_title(brand, model, year)
 

@@ -238,3 +238,33 @@ class PastoApsaugosTestas(SimpleTestCase):
                 'T', 'turinys', 'noreply@autoleft.com',
                 ['romasm3@gmail.com', 'testai@example.com'])])
             self.assertEqual([m.to for m in mail.outbox], [['romasm3@gmail.com']])
+
+
+class GeokodavimoTestas(SimpleTestCase):
+    """Vietos laukas turi veikti ir tada, kai geokodavimas neatsako."""
+
+    def test_trumpa_uzklausa_neina_i_tinkla(self):
+        from apps.listings import geokodavimas
+        senas = geokodavimas._uzklausa
+        kvietimai = []
+        geokodavimas._uzklausa = lambda *a, **k: kvietimai.append(a) or None
+        try:
+            self.assertEqual(geokodavimas.siulymai('Vi'), [])
+            self.assertEqual(kvietimai, [], 'trumpesnės nei 3 raidės neturi keliauti į OSM')
+        finally:
+            geokodavimas._uzklausa = senas
+
+    def test_neveikiantis_servisas_negriauna_formos(self):
+        from apps.listings import geokodavimas
+        senas = geokodavimas._uzklausa
+        geokodavimas._uzklausa = lambda *a, **k: None      # imituojam klaidą
+        try:
+            self.assertEqual(geokodavimas.siulymai('Gedimino pr'), [])
+            self.assertIsNone(geokodavimas.atvirkstinis(54.68, 25.28))
+            self.assertIsNone(geokodavimas.miesto_centras('Vilnius'))
+        finally:
+            geokodavimas._uzklausa = senas
+
+    def test_blogos_koordinates_nepratrukdo(self):
+        from apps.listings.geokodavimas import atvirkstinis
+        self.assertIsNone(atvirkstinis('abc', None))

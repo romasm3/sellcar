@@ -513,7 +513,7 @@ def _build_fields_from_post(request, POST):
     # need to fall back to the state label for US listings.
     city_for_display = city or '—'
 
-    lat, lng = get_coordinates_for_location(city_for_display, country)
+    lat, lng = get_coordinates_for_location(city_for_display, country, request.POST)
 
     submitted_subtype = POST.get('gear_subtype', '')
     if submitted_subtype and gear_type and not submitted_subtype.startswith(f'{gear_type}:'):

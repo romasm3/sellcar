@@ -261,8 +261,7 @@ def _handle(request, form_key, parse_fields):
                 messages.error(request, e)
             return _render(request, form_key, target, is_edit_mode, request.POST)
 
-        target.latitude, target.longitude = get_coordinates_for_location(
-            target.city, target.country)
+        target.latitude, target.longitude = get_coordinates_for_location(target.city, target.country, request.POST)
 
         try:
             target.save()

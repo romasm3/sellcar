@@ -241,7 +241,7 @@ def loading_listing_create(request):
                 messages.error(request, e)
             return _render_form(request, target, is_edit_mode, request.POST)
 
-        lat, lng = get_coordinates_for_location(target.city, target.country)
+        lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
         target.latitude, target.longitude = lat, lng
 
         try:

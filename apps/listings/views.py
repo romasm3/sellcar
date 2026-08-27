@@ -334,7 +334,17 @@ TRAILERS_SUBCATEGORY_SLUGS = {
 
 logger = logging.getLogger(__name__)
 
-def get_coordinates_for_location(city, country_code):
+def get_coordinates_for_location(city, country_code, post=None):
+    """Koordinatės vietai.
+
+    Jei forma atsiuntė žymeklio koordinates (partials/_vietos_blokas.html),
+    grąžinam jas — jos tikslios. Kitaip lieka senasis būdas: miesto centras
+    iš CITY_COORDINATES (apytiksliai).
+    """
+    if post:
+        lat, lon = _float_or_none(post.get('latitude')), _float_or_none(post.get('longitude'))
+        if lat is not None and lon is not None:
+            return (lat, lon)
     if city:
         city_lower = city.lower().strip()
         if city_lower in CITY_COORDINATES:
@@ -4182,7 +4192,7 @@ def search_map(request):
             lat = float(listing.latitude)
             lng = float(listing.longitude)
         else:
-            lat, lng = get_coordinates_for_location(listing.city, listing.country)
+            lat, lng = get_coordinates_for_location(listing.city, listing.country, request.POST)
         listings_json.append({
             'id': listing.pk,
             'title': listing.title,
@@ -5688,7 +5698,7 @@ def _handle_edit_step_post(request, listing, step):
             if hasattr(listing, 'state'):
                 listing.state = request.POST.get('state', '') if listing.country == 'US' else ''
 
-            lat, lng = get_coordinates_for_location(listing.city, listing.country)
+            lat, lng = get_coordinates_for_location(listing.city, listing.country, request.POST)
             listing.latitude = lat
             listing.longitude = lng
             listing.save()
@@ -7074,7 +7084,7 @@ def listing_create_cars_quick(request):
             target.title = ' '.join(title_parts)
 
         # Coordinates
-        lat, lng = get_coordinates_for_location(target.city, target.country)
+        lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
         target.latitude = lat
         target.longitude = lng
 

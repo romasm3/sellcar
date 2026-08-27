@@ -119,6 +119,14 @@ def parse_common_listing_fields(request):
         'postal_code': request.POST.get('postal_code', '').strip(),
         'hide_exact_address': request.POST.get('hide_exact_address') in ('on', 'true', '1'),
 
+        # Vieta žemėlapyje — koordinatės iš žymeklio (partials/_vietos_blokas.html).
+        # Miestas ir šalis iš geokodavimo naudojami tik tada, kai laukai tušti:
+        # ranka įvestas miestas svarbesnis už atspėtą.
+        'latitude': _float_or_none(request.POST.get('latitude')),
+        'longitude': _float_or_none(request.POST.get('longitude')),
+        'vietos_miestas': request.POST.get('vietos_miestas', '').strip(),
+        'vietos_salis': request.POST.get('vietos_salis', '').strip(),
+
         # Sutikimas su taisyklėmis (tik CREATE)
         'agree_terms': request.POST.get('agree_terms') in ('on', 'true', '1'),
     }
@@ -189,10 +197,17 @@ def apply_common_fields_to_listing(listing, common_data):
     listing.country = common_data['country']
     listing.state = common_data['state'] if common_data['country'] == 'US' else ''
     
-    listing.city = common_data['city']
+    listing.city = common_data['city'] or common_data.get('vietos_miestas', '')
     listing.address = common_data['address']
     listing.postal_code = common_data['postal_code']
     listing.hide_exact_address = common_data['hide_exact_address']
+
+    # Koordinatės iš žemėlapio žymeklio — tikslesnės už miesto centrą,
+    # todėl perrašo tai, ką vėliau spėtų get_coordinates_for_location().
+    if common_data.get('latitude') is not None and common_data.get('longitude') is not None:
+        listing.latitude = common_data['latitude']
+        listing.longitude = common_data['longitude']
+        listing.koordinates_tikslios = True
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -226,11 +241,13 @@ def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
         user.profile.phone_number = phone
         user.profile.save(update_fields=['phone_number'])
     
-    # 2. Coordinates
-    if listing.city and listing.country:
-        lat, lng = get_coordinates_for_location(listing.city, listing.country)
-        listing.latitude = lat
-        listing.longitude = lng
+    # 2. Coordinates — tik jei žmogus nepasižymėjo vietos žemėlapyje.
+    # Žymeklio koordinatės tikslios, miesto centras — apytikslis.
+    if listing.latitude is None or listing.longitude is None:
+        if listing.city and listing.country:
+            lat, lng = get_coordinates_for_location(listing.city, listing.country)
+            listing.latitude = lat
+            listing.longitude = lng
     
     # 3. CRITICAL: save() PRIEŠ activate()
     # activate() naudoja update_fields=['status', 'activated_at', ...] 

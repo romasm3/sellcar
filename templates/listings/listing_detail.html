@@ -2275,6 +2275,14 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     {% if listing.latitude and listing.longitude %}
                     <div class="relative">
                         <div id="locationMap" class="h-72 w-full border-t border-gray-200"></div>
+                        {% comment %}Koordinatės gautos iš OpenStreetMap geokodavimo —
+                        nuoroda privaloma pagal ODbL licenciją.{% endcomment %}
+                        <div class="absolute bottom-1 right-2 text-[11px] text-gray-500 bg-white/85 px-1.5 rounded">
+                            © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" class="underline">OpenStreetMap</a>
+                        </div>
+                        {% comment %}Tikslios koordinatės viešai rodomos tik tada,
+                        kai pardavėjas pasirinko tikslią vietą ir pats ją pasižymėjo.{% endcomment %}
+                        {% if listing.koordinates_tikslios and not listing.hide_exact_address %}
                         <div class="absolute bottom-4 left-4 bg-white shadow-lg rounded-lg p-3 border border-gray-200 max-w-xs"
                              x-data="{ copied: false }">
                             <div class="flex items-start gap-2">
@@ -2292,11 +2300,12 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                                 </button>
                             </div>
                         </div>
-                        {% if listing.hide_exact_address %}
+                        {% endif %}
+                        {% if listing.hide_exact_address or not listing.koordinates_tikslios %}
                         <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm shadow-md rounded-lg px-3 py-2 border border-gray-200">
                             <p class="text-xs text-gray-700 flex items-center gap-1.5">
-                                <i class="fas fa-info-circle text-blue-500"></i>
-                                {% trans "Approximate area only" %}
+                                <i class="fas fa-info-circle text-gray-400"></i>
+                                {% if listing.hide_exact_address %}{% trans "Rodoma tik apytikslė vieta" %}{% else %}{% trans "Vieta apytikslė — pagal miestą" %}{% endif %}
                             </p>
                         </div>
                         {% endif %}
@@ -3012,18 +3021,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const lng = {{ listing.longitude }};
         const map = new google.maps.Map(mapElement, {
             center: { lat: lat, lng: lng },
-            zoom: {% if listing.hide_exact_address %}12{% else %}15{% endif %},
+            zoom: {% if listing.hide_exact_address %}14{% elif not listing.koordinates_tikslios %}12{% else %}16{% endif %},
             disableDefaultUI: true,
             zoomControl: true
         });
-        {% if listing.hide_exact_address %}
+        {% if listing.hide_exact_address or not listing.koordinates_tikslios %}
+        {% comment %}Apytikslė vieta: pardavėjas pasirinko neatskleisti tikslios
+        (~500 m) arba koordinatės spėtos iš miesto pavadinimo (~1,5 km).
+        Spalva — dizaino sistemos akcentas, ne violetinė.{% endcomment %}
         new google.maps.Circle({
             map: map,
             center: { lat: lat, lng: lng },
-            radius: 2000,
-            fillColor: '#7C3AED',
-            fillOpacity: 0.2,
-            strokeColor: '#7C3AED',
+            radius: {% if listing.hide_exact_address %}500{% else %}1500{% endif %},
+            fillColor: '#374151',
+            fillOpacity: 0.15,
+            strokeColor: '#374151',
             strokeOpacity: 0.5,
             strokeWeight: 2
         });

@@ -437,7 +437,7 @@ def trailers_listing_create(request):
                 posted=request.POST,
             )
 
-        lat, lng = get_coordinates_for_location(target.city, target.country)
+        lat, lng = get_coordinates_for_location(target.city, target.country, request.POST)
         target.latitude = lat
         target.longitude = lng
 
