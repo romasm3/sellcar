@@ -8078,6 +8078,20 @@ def taikyti_markiu_poras(listings, params, category=None):
     return listings, pritaikyta
 
 
+def paieskos_kategorijos(user):
+    """[{slug, vardas}] — kategorijos, turinčios paieškos panelę.
+
+    VIENAS šaltinis visiems paieškos paviršiams: antraštės juostai,
+    žemėlapio filtrams ir kategorijų sąrašams. Vardai — iš panelių
+    konfigūracijos (_kategorijos_vardas), nes VehicleType.name DB dar
+    angliškas.
+    """
+    from apps.listings.context_processors import PANEL_SLUGS
+    return [{'slug': vt.slug, 'vardas': _kategorijos_vardas(vt.slug)}
+            for vt in _get_visible_vehicle_types(user)
+            if vt.slug in PANEL_SLUGS]
+
+
 def rikiuoti(listings, sort_param=None):
     """Rikiavimas — VIENA vieta rezultatams ir žemėlapio paieškai.
 

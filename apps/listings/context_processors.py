@@ -284,12 +284,9 @@ def antrastes_paieska(request):
     if not ANTRASTES_PAIESKA:
         return {}
 
-    from apps.listings.views import (_get_visible_vehicle_types,
-                                     _kategorijos_vardas)
+    from apps.listings.views import paieskos_kategorijos
 
-    kategorijos = [{'slug': vt.slug, 'vardas': _kategorijos_vardas(vt.slug)}
-                   for vt in _get_visible_vehicle_types(request.user)
-                   if vt.slug in PANEL_SLUGS]
+    kategorijos = paieskos_kategorijos(request.user)
 
     get = request.GET
     kat = (get.get('category') or get.get('section') or '').strip()

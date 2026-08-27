@@ -6,7 +6,9 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
   /* ═══ Filtrų juosta ═══ */
   .zp-juosta { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap;
                padding-bottom: var(--sp-3); }
-  .zp-vieta { position: relative; flex: 1 1 260px; min-width: 200px; display: flex;
+  /* Vietos laukas užleidžia vietą: juostoje dabar penki elementai
+     (vieta, kategorija, markė, kaina, metai) ir mygtukai. */
+  .zp-vieta { position: relative; flex: 1 1 200px; min-width: 160px; max-width: 320px; display: flex;
               align-items: center; gap: var(--sp-2); height: var(--btn-h);
               padding: 0 var(--sp-3); border: 1px solid var(--border);
               border-radius: var(--r-md); background: var(--surface); }
@@ -22,9 +24,10 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
                    border-bottom: 1px solid #F1F1F1; cursor: pointer; }
   .zp-vieta-siul:hover { background: var(--accent-soft); }
 
-  .zp-sel { height: var(--btn-h); padding: 0 var(--sp-3); border: 1px solid var(--border);
+  .zp-sel { height: var(--btn-h); padding: 0 var(--sp-2); border: 1px solid var(--border);
             border-radius: var(--r-md); background: var(--surface); color: var(--text);
-            font-size: var(--fs-sm); }
+            font-size: var(--fs-sm); max-width: 170px; }
+  .zp-slepti { margin-left: auto; }
   .zp-filtrai-btn, .zp-slepti { display: inline-flex; align-items: center; gap: 8px;
             height: var(--btn-h); padding: 0 var(--sp-4); border: 1px solid var(--border);
             border-radius: var(--r-md); background: var(--surface); color: var(--text);
@@ -245,4 +248,8 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
   .gm-style-iw-d { overflow: hidden !important; }
   /* Google ✕ slepiam — kortelė turi savo, kad veiktų ir apatiniame lape */
   .gm-style-iw-chr { display: none; }
+</style>
+<style>
+  /* Markių sąrašo užpildas, kol jis dar kraunamas iš /ajax/markes/ */
+  .zf-tuscia { padding: var(--sp-3); color: var(--text-muted); font-size: var(--fs-sm); }
 </style>

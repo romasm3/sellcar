@@ -75,6 +75,25 @@ def brand_items(vt_slug, sub_slug=None):
     return items
 
 
+def brand_param(vt_slug, sub_slug=None):
+    """Kuriuo parametru filtruojama tos kategorijos markė.
+
+    Ne visur jis vadinasi `brand`: sunkvežimiams — `truck_brand`, žemės
+    ūkiui — `agri_brand_text` ir t. t. Vardas imamas iš tos pačios
+    konfigūracijos, kurią naudoja panelės, todėl antro sąrašo nėra.
+    """
+    from apps.listings.search_config.panels import (
+        _panel_cfg, PANELS, FK_BRAND_FIELDS, TEXT_BRAND_FIELDS)
+
+    cfg = _panel_cfg(vt_slug, sub_slug) or PANELS.get(vt_slug)
+    if not cfg:
+        return 'brand'
+    for f in cfg.get('fields', []):
+        if f.get('db_field') in FK_BRAND_FIELDS or f.get('db_field') in TEXT_BRAND_FIELDS:
+            return f.get('param') or 'brand'
+    return 'brand'
+
+
 def brand_name(vt_slug, value, sub_slug=None):
     """Pasirinktos markės pavadinimas — kad laukas rodytų jį be JS."""
     if not value:
@@ -108,12 +127,16 @@ def visos_markes():
 
     geriausi = {}
     for slug in PANELS:
+        par = brand_param(slug)
         for it in (brand_items(slug) or []):
             raktas = it['n'].strip().lower()
             esamas = geriausi.get(raktas)
             if esamas is None or it['c'] > esamas['c']:
+                # `p` — kuriuo parametru šitą markę filtruoti, `k` — kurios
+                # kategorijos ji yra. Be jų bendras sąrašas būtų negyvas:
+                # `agri_brand_text` reikšmė kaip `brand` nieko nefiltruotų.
                 geriausi[raktas] = {'v': it['v'], 'n': it['n'],
-                                    'c': it['c'], 'k': slug}
+                                    'c': it['c'], 'k': slug, 'p': par}
     # Netrumpinam: sąrašas guli tik serverio keše (~130 KB), o į naršyklę
     # keliauja tik keli pagal `q` atrinkti įrašai. Trumpinant nukristų
     # abėcėlės uodega — būtent joje sėdi retesnės markės.
@@ -135,8 +158,15 @@ def brand_options(request):
     q = (request.GET.get('q') or '').strip().lower()
 
     if not vt_slug:
-        items = [] if not q else [
-            it for it in visos_markes() if q in it['n'].lower()][:12]
+        # `visos=1` — visas bendras sąrašas (žemėlapio markių laukui, kai
+        # kategorija nepasirinkta). Be jo grąžinam tik pagal `q`, nes
+        # antraštės paieškai viso sąrašo nereikia, o jis nemažas.
+        if request.GET.get('visos'):
+            items = visos_markes()
+        elif q:
+            items = [it for it in visos_markes() if q in it['n'].lower()][:12]
+        else:
+            items = []
         return JsonResponse({'kategorija': '', 'markes': items,
                              'viso': len(items)},
                             json_dumps_params={'ensure_ascii': False})
@@ -148,7 +178,8 @@ def brand_options(request):
     if q:
         items = [it for it in items if q in it['n'].lower()]
 
-    payload = {'kategorija': vt_slug, 'markes': items, 'viso': len(items)}
+    payload = {'kategorija': vt_slug, 'param': brand_param(vt_slug, sub_slug),
+               'markes': items, 'viso': len(items)}
     body = json.dumps(payload, ensure_ascii=False)
     etag = '"%s"' % hashlib.md5(body.encode('utf-8')).hexdigest()[:16]
     if request.headers.get('If-None-Match') == etag:

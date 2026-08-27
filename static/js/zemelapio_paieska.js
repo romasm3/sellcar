@@ -31,6 +31,19 @@ function zpSkelbimu(n) {
 // nuo žemėlapio — todėl kiekvienas filtras pridėdavo naujų žymeklių ant
 // senų. Būsenoje lieka tik paprasti duomenys.
 // ═══════════════════════════════════════════════════════════════════
+// Didžiausias mastelis, iki kurio priartinam PATYS (sankaupa, vietos
+// paieška). Ranka pelės ratuku žmogus gali priartinti ir toliau.
+const MAKS_MASTELIS = 15;
+
+// Markės parametras kiekvienoje šeimoje savas — sunkvežimiams
+// `truck_brand`, žemės ūkiui `agri_brand_text` ir t. t. Vardus duoda
+// /ajax/markes/ (`param` ir kiekvieno įrašo `p`); čia tik sąrašas, kurį
+// reikia išvalyti keičiant pasirinkimą.
+const MARKIU_PARAMAI = ['brand', 'truck_brand', 'motorcycle_brand',
+    'agri_brand_text', 'trailer_brand_text', 'rent_brand_text',
+    'elec_brand_text', 'load_brand_text', 'constr_brand_text',
+    'forest_brand_text', 'camp_brand_text', 'bike_brand_text'];
+
 const G = {
     zem: null, sankaupos: null, burbulas: null,
     zymekliai: {},      // id -> žymeklis
@@ -57,6 +70,11 @@ function zemelapioPaieska() {
         markesQ: '',
         f: {},            // juostos filtrai (taikomi iškart)
         l: {},            // lango filtrai (taikomi paspaudus „Rodyti")
+        markes: [],        // [{v, n, c, k, p}] pagal pasirinktą kategoriją
+        markesKat: null,   // kuriai kategorijai jos užkrautos ('' = visos)
+        markesParam: 'brand',
+        markeRaktas: '',   // juostos pasirinkimas: 'parametras|reikšmė'
+        lMarke: '',        // tas pats lange
         _pasirinktas: null,
         _atidarytas: null,
         _musuVieta: null,
@@ -73,17 +91,25 @@ function zemelapioPaieska() {
                 if (d) d.classList.toggle('mob-matomas', v);
                 if (v && G.zem) setTimeout(() => google.maps.event.trigger(G.zem, 'resize'), 200);
             });
+            // Markės — jei adrese jau yra kategorija ar markė, sąrašo
+            // reikia iškart (kitaip laukas rodytų tuščią „Markė").
+            if (this.f.brand || this.f.category) this.uzkraukMarkes();
             this.laukZemelapio();
         },
 
         /** Filtrai iš adreso — tie patys raktai kaip visose paieškose. */
         isURL() {
             const p = new URLSearchParams(location.search), o = {};
-            ['make', 'model', 'category', 'price_min', 'price_max', 'year_min', 'year_max',
-             'mileage_min', 'mileage_max', 'fuel_type', 'transmission', 'sort',
-             'vin', 'feat_warranty', 'tik_lietuvoje', 'su_nuotraukomis'].forEach(k => {
+            // Raktai — TIE PATYS, kuriuos skaito filter_listings. „make",
+            // „vin", „tik_lietuvoje" iš čia dingo: tokių parametrų atrankos
+            // variklis nemoka, todėl jie tik piešdavo žymes.
+            ['model', 'category', 'price_min', 'price_max', 'year_min', 'year_max',
+             'mileage_min', 'mileage_max', 'fuel_type', 'transmission', 'sort', 'q',
+             'has_vin', 'feat_warranty', 'country_filter', 'su_nuotraukomis']
+                .concat(MARKIU_PARAMAI).forEach(k => {
                 const v = p.get(k); if (v) o[k] = v;
             });
+            MARKIU_PARAMAI.forEach(k => { if (o[k]) this.markeRaktas = k + '|' + o[k]; });
             return o;
         },
 
@@ -268,15 +294,23 @@ function zemelapioPaieska() {
             }
         },
 
-        /** Sankaupa: priartinam. Jei jau arčiausiai — rodom sąrašą. */
+        /** Sankaupa: priartinam tiek, kad ji išsiskirtų — apie du lygius,
+         *  ne iki galo. Ties MAKS_MASTELIS rodom skelbimų sąrašą.
+         *
+         *  fitBounds prie tankios sankaupos nulekia iki z=20, o tada
+         *  matosi atskiri namai ir dingsta kontekstas — todėl po jo
+         *  mastelį prispaudžiam. */
         sankaupaPaspausta(sankaupa, zem) {
-            const arciausiai = zem.getZoom() >= (zem.maxZoom || 20) - 1;
-            if (!arciausiai) {
-                zem.fitBounds(sankaupa.bounds);
+            const dabar = zem.getZoom();
+            if (dabar >= MAKS_MASTELIS) {
+                this.rodykSarasa((sankaupa.markers || []).map(m => m.__id).filter(Boolean));
                 return;
             }
-            const id = (sankaupa.markers || []).map(m => m.__id).filter(Boolean);
-            this.rodykSarasa(id);
+            const tikslas = Math.min(dabar + 2, MAKS_MASTELIS);
+            zem.fitBounds(sankaupa.bounds, 80);
+            google.maps.event.addListenerOnce(zem, 'idle', () => {
+                if (zem.getZoom() > tikslas) zem.setZoom(tikslas);
+            });
         },
 
         /** Keli skelbimai toje pačioje vietoje — slenkamas sąrašas. */
@@ -422,18 +456,99 @@ function zemelapioPaieska() {
             // Šalis — mažesnis mastelis, adresas — didesnis
             const salis = !v.miestas || v.tekstas.split(',').length <= 1;
             G.zem.setCenter({ lat: v.lat, lng: v.lon });
-            G.zem.setZoom(salis ? 6 : 12);
+            G.zem.setZoom(Math.min(salis ? 6 : 12, MAKS_MASTELIS));
             setTimeout(() => this.uzkrauk(), 300);
         },
 
+        // ── Markės ──
+        /** Markės iš /ajax/markes/ — to paties šaltinio kaip panelėse.
+         *  Su kategorija — tos šeimos markės, be jos — visos šeimos. */
+        uzkraukMarkes(kat) {
+            kat = (kat === undefined ? (this.f.category || '') : (kat || ''));
+            if (this.markesKat === kat) return;
+            this.markesKat = kat;
+            const adr = kat ? '/ajax/markes/?kategorija=' + encodeURIComponent(kat)
+                            : '/ajax/markes/?visos=1';
+            fetch(adr)
+                .then(r => r.ok ? r.json() : { markes: [] })
+                .then(a => {
+                    this.markesParam = a.param || 'brand';
+                    this.markes = (a.markes || []).slice()
+                        .sort((x, y) => x.n.localeCompare(y.n, 'lt'));
+                })
+                .catch(() => { this.markes = []; });
+        },
+
+        /** Lange rodom ne visas 2 300 — tik tas, kurias randa paieška. */
+        markesRodomos() {
+            const q = (this.markesQ || '').trim().toLowerCase();
+            const sar = q ? this.markes.filter(m => m.n.toLowerCase().includes(q))
+                          : this.markes;
+            return sar.slice(0, 200);
+        },
+
+        /** Markę taikom TUO parametru, kurio prašo jos šeima. */
+        taikykMarke() {
+            MARKIU_PARAMAI.forEach(k => { delete this.f[k]; });
+            const m = this.pagalRakta(this.markeRaktas);
+            if (m) {
+                this.f[m.p || this.markesParam] = String(m.v);
+                // Tekstiniai markės laukai veikia tik savo kategorijoje,
+                // todėl kartu pažymim ir ją.
+                if (m.k && !this.f.category) {
+                    this.f.category = m.k;
+                    this.markesKat = null;
+                    this.uzkraukMarkes(m.k);
+                }
+            }
+            this.taikyk();
+        },
+
+        pagalRakta(raktas) {
+            if (!raktas) return null;
+            const i = raktas.indexOf('|');
+            const par = raktas.slice(0, i), v = raktas.slice(i + 1);
+            return this.markes.find(x => (x.p || this.markesParam) === par
+                                         && String(x.v) === v) || null;
+        },
+
+        raktas(m) { return (m.p || this.markesParam) + '|' + m.v; },
+
+        /** Kategorija: filtruoja sąrašą ir persirenka markes. */
+        keiskKategorija() {
+            // Markė gyvena kategorijos viduje (ir kitu parametru), todėl
+            // pakeitus kategoriją senoji nebegalioja.
+            MARKIU_PARAMAI.forEach(k => { delete this.f[k]; });
+            this.markeRaktas = '';
+            this.markesKat = null;
+            this.uzkraukMarkes();
+            this.taikyk();
+        },
+
         // ── Filtrai ──
-        atidarykFiltrus() { this.l = Object.assign({}, this.f); this.filtraiAtidaryti = true; this.perskaiciuok(); },
+        atidarykFiltrus() {
+            this.l = Object.assign({}, this.f);
+            this.lMarke = this.markeRaktas;
+            this.filtraiAtidaryti = true;
+            this.uzkraukMarkes(this.l.category || '');
+            this.perskaiciuok();
+        },
         uzdarykFiltrus() { this.filtraiAtidaryti = false; },
-        pritaikykFiltrus() { this.f = Object.assign({}, this.valyk(this.l)); this.filtraiAtidaryti = false; this.taikyk(); },
+        pritaikykFiltrus() {
+            this.f = Object.assign({}, this.valyk(this.l));
+            this.filtraiAtidaryti = false;
+            this.markeRaktas = this.lMarke;
+            this.uzkraukMarkes(this.f.category || '');
+            this.taikykMarke();
+        },
         valyk(o) { const r = {}; Object.keys(o).forEach(k => { if (o[k]) r[k] = o[k]; }); return r; },
 
         perskaiciuok() {
-            const p = new URLSearchParams(this.valyk(this.l));
+            const l = Object.assign({}, this.l);
+            MARKIU_PARAMAI.forEach(k => { delete l[k]; });
+            const m = this.pagalRakta(this.lMarke);
+            if (m) l[m.p || this.markesParam] = String(m.v);
+            const p = new URLSearchParams(this.valyk(l));
             const b = G.zem && G.zem.getBounds();
             if (b) {   // skaičius toks pat, kokį pamatys pritaikęs
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
@@ -449,17 +564,32 @@ function zemelapioPaieska() {
         taikyk() { this.f = this.valyk(this.f); this.irasykURL(); this.uzkrauk(); },
         isvalyk(irJuosta) {
             this.l = {};
-            if (irJuosta) { this.f = {}; this.taikyk(); }
+            this.lMarke = '';
+            if (irJuosta) { this.f = {}; this.markeRaktas = ''; this.taikyk(); }
             this.perskaiciuok();
         },
-        nuimk(raktas) { delete this.f[raktas]; delete this.l[raktas]; this.taikyk(); },
+        nuimk(raktas) {
+            delete this.f[raktas]; delete this.l[raktas];
+            if (MARKIU_PARAMAI.indexOf(raktas) !== -1) { this.markeRaktas = ''; this.lMarke = ''; }
+            if (raktas === 'category') {
+                // Be kategorijos senoji markė nebegalioja: kitoje šeimoje
+                // tas pats id reiškia kitą markę.
+                MARKIU_PARAMAI.forEach(k => { delete this.f[k]; delete this.l[k]; });
+                this.markeRaktas = ''; this.lMarke = '';
+                this.markesKat = null; this.uzkraukMarkes('');
+            }
+            this.taikyk();
+        },
 
         aktyvuKiek() { return Object.keys(this.valyk(this.f)).length; },
         /** Filtro reikšmė žmogui: kategorijos ir kuro vardai, ne raktai. */
         vardas(raktas, reiksme) {
             const V = window.ZP_VARDAI || {};
             if (raktas === 'category') return (V.kategorijos || {})[reiksme] || reiksme;
-            if (raktas === 'brand') return (V.markes || {})[reiksme] || reiksme;
+            if (MARKIU_PARAMAI.indexOf(raktas) !== -1) {
+                const m = this.markes.find(x => String(x.v) === String(reiksme));
+                return m ? m.n : reiksme;   // tekstiniuose laukuose reikšmė ir yra vardas
+            }
             if (raktas === 'fuel_type') return (V.kuras || {})[reiksme] || reiksme;
             if (raktas === 'sort') return (V.rusiavimas || {})[reiksme] || reiksme;
             return reiksme;
@@ -467,18 +597,21 @@ function zemelapioPaieska() {
 
         aktyvuSarasas() {
             const T = window.ZP_TEKSTAI || {};
-            const vardai = { brand: T.marke, q: T.tekstas, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
+            const vardai = { q: T.tekstas, category: T.kategorija, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
                              year_min: T.metai + ' ' + T.nuo, year_max: T.metai + ' ' + T.iki,
                              mileage_min: T.rida + ' ' + T.nuo, mileage_max: T.rida + ' ' + T.iki,
                              fuel_type: T.kuras };
             // „Kita" žymos (has_vin, country_filter…) — vien pavadinimas,
             // reikšmė („1", „LT") žmogui nieko nesako.
             const papildomi = (window.ZP_VARDAI || {}).papildomi || {};
-            return Object.keys(this.valyk(this.f)).map(k => ({
-                raktas: k,
-                tekstas: papildomi[k] ? papildomi[k]
-                         : (vardai[k] ? vardai[k] + ': ' : '') + this.vardas(k, this.f[k])
-            }));
+            return Object.keys(this.valyk(this.f)).map(k => {
+                const et = MARKIU_PARAMAI.indexOf(k) !== -1 ? T.marke : vardai[k];
+                return {
+                    raktas: k,
+                    tekstas: papildomi[k] ? papildomi[k]
+                             : (et ? et + ': ' : '') + this.vardas(k, this.f[k]),
+                };
+            });
         },
 
         /** Padėtis ir filtrai adrese — nuorodą galima dalintis. */

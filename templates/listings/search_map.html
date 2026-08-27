@@ -45,11 +45,24 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     </div>
 
     {% comment %}Greitieji filtrai — tie patys laukai kaip panelėje.{% endcomment %}
-    {% comment %}brand=<id> — tas pats parametras kaip panelėje ir
-    detalioje paieškoje; markės vardo atrankos variklis neskaito.{% endcomment %}
-    <select class="zp-sel" x-model="f.brand" @change="taikyk()">
+    {% comment %}Kategorija — pirma, prieš markę. Sąrašas iš to paties
+    šaltinio kaip antraštės paieška ir kategorijų juosta
+    (views.paieskos_kategorijos).{% endcomment %}
+    <select class="zp-sel" x-model="f.category" @change="keiskKategorija()">
+      <option value="">{% trans "Visos kategorijos" %}</option>
+      {% for k in filtru_kategorijos %}<option value="{{ k.slug }}">{{ k.vardas }}</option>{% endfor %}
+    </select>
+
+    {% comment %}Markės — iš /ajax/markes/?kategorija=<slug>, to paties
+    šaltinio kaip panelėse. Persirenka pasirinkus kategoriją; be jos —
+    bendras visų šeimų sąrašas. Filtruojam brand=<id>, nes būtent jį
+    supranta filter_listings.{% endcomment %}
+    <select class="zp-sel" x-model="markeRaktas" @change="taikykMarke()"
+            @mousedown="uzkraukMarkes()" @focus="uzkraukMarkes()">
       <option value="">{% trans "Markė" %}</option>
-      {% for m in makes %}<option value="{{ m.v }}">{{ m.n }}</option>{% endfor %}
+      <template x-for="m in markes" :key="raktas(m)">
+        <option :value="raktas(m)" x-text="m.n"></option>
+      </template>
     </select>
     <select class="zp-sel" x-model="f.price_max" @change="taikyk()">
       <option value="">{% trans "Kaina iki" %}</option>
@@ -133,15 +146,13 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     kaina: "{% trans 'Kaina' %}", metai: "{% trans 'Metai' %}",
     marke: "{% trans 'Markė' %}", rida: "{% trans 'Rida' %}",
     kuras: "{% trans 'Kuro tipas' %}", nuo: "{% trans 'nuo' %}", iki: "{% trans 'iki' %}",
-    tekstas: "{% trans 'Paieška' %}",
+    tekstas: "{% trans 'Paieška' %}", kategorija: "{% trans 'Kategorija' %}",
     skelbimu: ["{% trans 'skelbimas' %}", "{% trans 'skelbimai' %}", "{% trans 'skelbimų' %}"]
   };
   window.ZP_VARDAI = {
-    kategorijos: { {% for k in filtru_kategorijos %}"{{ k.slug }}": "{{ k.label|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
+    kategorijos: { {% for k in filtru_kategorijos %}"{{ k.slug }}": "{{ k.vardas|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     kuras: { {% for f in kuro_tipai %}"{{ f.name|escapejs }}": "{{ f.name|tdb|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     rusiavimas: { {% for r, v, i in rusiavimo_kortos %}"{{ r }}": "{{ v|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
-    {% comment %}Žymoje rodom markės vardą, nors filtruojam pagal id.{% endcomment %}
-    markes: { {% for m in makes %}"{{ m.v }}": "{{ m.n|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} },
     papildomi: { {% for raktas, reiksme, vardas in papildomi_filtrai %}"{{ raktas }}": "{{ vardas|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %} }
   };
 </script>

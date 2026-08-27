@@ -93,19 +93,6 @@ def zemelapio_rezultatai(request):
                          'rodoma': len(irasai)})
 
 
-def _markes_zemelapyje(user):
-    """[{v, n}] — markės, kurių skelbimai turi koordinates.
-
-    Vardai imami iš DB nekeičiant: jei ten „Škoda", taip ir rodom.
-    Sąrašas trumpas ir tikras — anksčiau juostoje gulėjo visos
-    automobilių markės, įskaitant tas, kurių žemėlapyje nė vienos.
-    """
-    eilutes = (_su_koordinatemis(user).exclude(brand=None)
-               .values('brand_id', 'brand__name').distinct()
-               .order_by('brand__name'))
-    return [{'v': e['brand_id'], 'n': e['brand__name']} for e in eilutes]
-
-
 def _rikiuoti_zemelapiui(qs, request):
     """Rikiavimas žemėlapyje: bendra views.rikiuoti + „Arčiausiai".
 
@@ -139,7 +126,7 @@ def _rikiuoti_zemelapiui(qs, request):
 def zemelapio_paieska(request):
     """Puslapis. Pradinis turinys — Lietuva; toliau viską tvarko žemėlapis."""
     from django.conf import settings
-    from .models import Brand, Model as ModelasModelis
+    from .views import paieskos_kategorijos
     from django.utils import timezone
 
     qs = _filtruoti(request)
@@ -157,16 +144,10 @@ def zemelapio_paieska(request):
             ('price_asc', _t('Pigiausi'), 'fa-arrow-down-short-wide'),
             ('price_desc', _t('Brangiausi'), 'fa-arrow-up-wide-short'),
         ],
-        'filtru_kategorijos': [
-            {'slug': 'cars', 'label': _t('Automobiliai')},
-            {'slug': 'motorcycles', 'label': _t('Motociklai')},
-            {'slug': 'trucks', 'label': _t('Sunkusis transportas')},
-            {'slug': 'trailers', 'label': _t('Priekabos')},
-            {'slug': 'agriculture', 'label': _t('Žemės ūkio')},
-            {'slug': 'construction', 'label': _t('Statybinė')},
-            {'slug': 'parts', 'label': _t('Dalys')},
-            {'slug': 'rental', 'label': _t('Nuoma')},
-        ],
+        # Kategorijos — TAS PATS šaltinis, kuris maitina antraštės paiešką
+        # ir kategorijų sąrašus (views.paieskos_kategorijos). Čia buvo
+        # ranka surašytas aštuonių kategorijų sąrašas — ketvirta kopija.
+        'filtru_kategorijos': paieskos_kategorijos(request.user),
         'kuro_tipai': FuelType.objects.all().order_by('name'),
         # Raktai — TIKRI filter_listings parametrai, ne savi vardai.
         # „vin"/„tik_lietuvoje" niekur nebuvo skaitomi, todėl tos žymos
@@ -177,13 +158,9 @@ def zemelapio_paieska(request):
             ('country_filter', 'LT', _t('Tik Lietuvoje')),
             ('su_nuotraukomis', '1', _t('Su nuotraukomis')),
         ],
-        # Markės — id ir vardas, o ne vardas kaip tekstas: filtruojam
-        # `brand=<id>`, nes būtent jį supranta filter_listings. Rodom tik
-        # tas markes, kurių skelbimai žemėlapyje realiai yra, ir vardus
-        # tokius, kokie įrašyti DB („Škoda", ne „Skoda").
-        'makes': _markes_zemelapyje(request.user),
-        'models': ModelasModelis.objects.values_list('name', flat=True)
-                  .distinct().order_by('name'),
+        # Markių sąrašo čia nebėra: jį paduoda /ajax/markes/ pagal
+        # pasirinktą kategoriją — tas pats šaltinis (Brand + scopes),
+        # kurį naudoja panelės, detali paieška ir antraštės paieška.
         'years': list(range(metai + 1, 1989, -1)),
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
         'pradine_busena': ({

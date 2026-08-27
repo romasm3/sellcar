@@ -49,9 +49,9 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
         <div class="zf-zymos">
           {% for k in filtru_kategorijos %}
           <button type="button" class="zf-zyma" :class="l.category === '{{ k.slug }}' && 'is-on'"
-                  @click="l.category = (l.category === '{{ k.slug }}' ? '' : '{{ k.slug }}'); perskaiciuok()">
+                  @click="l.category = (l.category === '{{ k.slug }}' ? '' : '{{ k.slug }}'); uzkraukMarkes(l.category); perskaiciuok()">
             {% kategorijos_ikona k.slug 16 %}
-            <span>{{ k.label }}</span>
+            <span>{{ k.vardas }}</span>
           </button>
           {% endfor %}
         </div>
@@ -61,17 +61,18 @@ pritaikius — skaičius atsinaujina dar neuždarius lango.
         <div class="zf-vardas">{% trans "Markė" %}</div>
         <input type="text" class="zf-paieska" x-model="markesQ" placeholder="{% trans 'Ieškoti markės' %}">
         <div class="zf-markes">
-          {% comment %}Filtruojam brand=<id> — būtent jį supranta
-          filter_listings. Anksčiau siųsdavom markės vardą (make=Skoda),
-          kurio atrankos variklis neskaito, todėl sąrašas nesikeisdavo.
-          Vardas rodomas toks, koks įrašytas DB.{% endcomment %}
-          {% for m in makes %}
-          <label class="zf-varnele" x-show="!markesQ || '{{ m.n|lower|escapejs }}'.includes(markesQ.toLowerCase())">
-            <input type="checkbox" value="{{ m.v }}" :checked="String(l.brand) === '{{ m.v }}'"
-                   @change="l.brand = ($event.target.checked ? '{{ m.v }}' : ''); perskaiciuok()">
-            <span>{{ m.n }}</span>
-          </label>
-          {% endfor %}
+          {% comment %}Markės ateina iš /ajax/markes/ pagal pasirinktą
+          kategoriją — tas pats šaltinis kaip panelėse. Filtruojam
+          brand=<id>: markės vardo atrankos variklis neskaito. Vardai
+          rodomi tokie, kokie įrašyti DB („Škoda", ne „Skoda").{% endcomment %}
+          <template x-for="m in markesRodomos()" :key="raktas(m)">
+            <label class="zf-varnele">
+              <input type="checkbox" :value="raktas(m)" :checked="lMarke === raktas(m)"
+                     @change="lMarke = ($event.target.checked ? raktas(m) : ''); perskaiciuok()">
+              <span x-text="m.n"></span>
+            </label>
+          </template>
+          <div class="zf-tuscia" x-show="!markes.length" x-cloak>{% trans "Kraunama…" %}</div>
         </div>
       </div>
 
