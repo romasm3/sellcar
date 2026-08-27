@@ -170,3 +170,79 @@ docs/dizaino-sistema.md (jokios violetinės ar juodų mygtukų).{% endcomment %}
     .zf-diapazonai { grid-template-columns: 1fr; }
   }
 </style>
+<style>
+  /* ═══ Burbulas paspaudus žymeklį (268 px) ═══ */
+  .zb { width: 268px; position: relative; }
+  .zb-uzdaryti { position: absolute; top: 8px; right: 8px; z-index: 2;
+                 width: 28px; height: 28px; border: 0; border-radius: 999px;
+                 background: rgba(255,255,255,.92); color: var(--text);
+                 box-shadow: 0 1px 3px rgba(17,24,39,.25); cursor: pointer;
+                 display: flex; align-items: center; justify-content: center; }
+  .zb-uzdaryti:hover { background: #fff; }
+  .zb-foto { position: relative; display: block; aspect-ratio: 16 / 10;
+             background: var(--accent-soft); overflow: hidden; border-radius: 8px; }
+  .zb-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .zb-be-foto { display: flex; align-items: center; justify-content: center;
+                width: 100%; height: 100%; color: var(--text-muted); font-size: 24px; }
+  .zb-vin { position: absolute; top: 8px; left: 8px; padding: 2px 6px;
+            background: rgba(6,118,71,.9); color: #fff; font-size: 11px;
+            font-weight: 600; border-radius: 4px; }
+  .zb-turinys { padding: 10px 2px 2px; }
+  .zb-pav { display: block; font-size: 14px; font-weight: 700; color: var(--text);
+            text-decoration: none; line-height: 1.25; }
+  .zb-pav:hover { color: var(--accent); }
+  .zb-kaina { font-size: 16px; font-weight: 800; color: var(--text); margin-top: 2px; }
+  .zb-spec { font-size: 12px; color: var(--text-muted); margin-top: 2px;
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .zb-vieta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .zb-neaisku { margin-top: 6px; padding: 6px 8px; background: var(--accent-soft);
+                border-radius: 6px; font-size: 11.5px; color: var(--text); }
+  .zb-mygtukai { display: flex; gap: 6px; margin-top: 10px; }
+  .zb-btn { flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center;
+            height: 36px; border: 1px solid var(--border); border-radius: var(--r-md);
+            font-size: 13px; font-weight: 600; color: var(--text); text-decoration: none; }
+  .zb-btn-pirmas { background: var(--accent); border-color: var(--accent);
+                   color: var(--accent-contrast); }
+
+  /* ═══ Prekiautojo aikštelė ═══ */
+  .za { max-height: 320px; overflow-y: auto; width: 300px; }
+  .za-eil { display: flex; align-items: center; gap: 10px; padding: 8px;
+            border-bottom: 1px solid var(--border); text-decoration: none; }
+  .za-eil:hover { background: var(--accent-soft); }
+  .za-foto { flex: 0 0 auto; width: 56px; height: 42px; border-radius: 6px;
+             overflow: hidden; background: var(--accent-soft); }
+  .za-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .za-tekstas { flex: 1 1 auto; min-width: 0; }
+  .za-pav { display: block; font-size: 13px; font-weight: 600; color: var(--text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .za-spec { display: block; font-size: 11.5px; color: var(--text-muted);
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .za-kaina { flex: 0 0 auto; font-size: 13px; font-weight: 800; color: var(--text); }
+  .za-tuscia { padding: var(--sp-4); color: var(--text-muted); font-size: var(--fs-sm); }
+
+  /* ═══ Telefono apatinis lapas ═══ */
+  .zl { display: none; }
+  @media (max-width: 1023px) {
+    .zl { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
+          max-height: 34vh; background: var(--surface); border-radius: 16px 16px 0 0;
+          box-shadow: 0 -8px 28px rgba(17,24,39,.22); padding: 8px var(--sp-4) var(--sp-4);
+          overflow-y: auto; transition: max-height .2s ease; }
+    .zl.is-pilnas { max-height: 88vh; }
+    .zl-rankena { display: block; width: 44px; height: 4px; margin: 0 auto 10px;
+                  border: 0; border-radius: 999px; background: #D1D5DB; cursor: pointer; }
+    .zl .zb { width: 100%; }
+    .zl .zb-foto { aspect-ratio: 16 / 9; }
+    .zl:not(.is-pilnas) .zb-foto { aspect-ratio: auto; height: 84px; }
+    .zl:not(.is-pilnas) .zb-neaisku { display: none; }
+    .zl .zb-mygtukai { position: sticky; bottom: 0; background: var(--surface);
+                       padding-top: 8px; }
+    .zl .zb-btn { height: 44px; }
+  }
+</style>
+<style>
+  /* Google burbulo rėmas — be papildomų paraščių, kad kortelė būtų 268 px */
+  .gm-style-iw.gm-style-iw-c { padding: 8px !important; border-radius: 12px; }
+  .gm-style-iw-d { overflow: hidden !important; }
+  /* Google ✕ slepiam — kortelė turi savo, kad veiktų ir apatiniame lape */
+  .gm-style-iw-chr { display: none; }
+</style>

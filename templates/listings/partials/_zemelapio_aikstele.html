@@ -1,0 +1,20 @@
+{% load i18n listing_filters %}{% comment %}
+Prekiautojo aikštelė — visi jo skelbimai slenkamame sąraše (paspaudus
+prekiautojo žymeklį rodomas šis sąrašas, ne vienas automobilis).
+{% endcomment %}
+<div class="za">
+  {% for i in korteles %}
+  <a class="za-eil" href="{{ i.url }}">
+    <span class="za-foto">
+      {% if i.img %}{% include 'listings/partials/_img.html' with img=i.img alt=i.obj.title %}{% endif %}
+    </span>
+    <span class="za-tekstas">
+      <span class="za-pav">{{ i.obj.title }}</span>
+      <span class="za-spec">{{ i.spec }}</span>
+    </span>
+    <span class="za-kaina">{{ i.obj.price|kaina:i.obj.currency_symbol }}</span>
+  </a>
+  {% empty %}
+  <div class="za-tuscia">{% trans "Skelbimų nerasta" %}</div>
+  {% endfor %}
+</div>

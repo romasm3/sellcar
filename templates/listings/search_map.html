@@ -106,6 +106,16 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
     <template x-if="mobZemelapis"><span><i class="fa-solid fa-list"></i> {% trans "Sąrašas" %}</span></template>
   </button>
 
+  {% comment %}TELEFONO APATINIS LAPAS — vietoj burbulo. Pagal nutylėjimą
+  užima trečdalį ekrano; patraukus aukštyn išsiskleidžia į pilną kortelę,
+  žemyn — užsidaro.{% endcomment %}
+  <div class="zl" x-show="lapasAtidarytas" x-cloak :class="lapasPilnas && 'is-pilnas'"
+       @touchstart="lapoPradzia($event)" @touchend="lapoPabaiga($event)">
+    <button type="button" class="zl-rankena" @click="lapasPilnas = !lapasPilnas"
+            aria-label="{% trans 'Išskleisti' %}"></button>
+    <div class="zl-turinys" x-html="lapoHtml"></div>
+  </div>
+
   {% include 'listings/partials/_zemelapio_filtrai.html' %}
 </div>
 

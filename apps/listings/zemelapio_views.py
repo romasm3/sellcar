@@ -19,8 +19,11 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
+from . import formatai
 from .korteles import kortele
 from .models import Listing, SavedListing
+
+SIMBOLIAI = {'EUR': '€', 'USD': '$', 'GBP': '£'}
 
 MAKS_KORTELIU = 60          # kiek kortelių rodom sąraše vienu metu
 MAKS_ZYMEKLIU = 2000        # kiek taškų siunčiam žemėlapiui
@@ -82,14 +85,7 @@ def zemelapio_rezultatai(request):
         'korteles': [kortele(o, issaugotas=o.pk in issaugoti) for o in irasai],
     }, request=request)
 
-    # values() — be select_related, todėl žymekliams neužklausiam nieko
-    # daugiau, negu reikia taškui nupiešti
-    zymekliai = [
-        {'id': z['id'], 'lat': float(z['latitude']), 'lng': float(z['longitude']),
-         'tikslu': z['koordinates_tikslios']}
-        for z in qs.values('id', 'latitude', 'longitude',
-                           'koordinates_tikslios')[:MAKS_ZYMEKLIU]
-    ]
+    zymekliai = _zymekliai(qs, request)
 
     return JsonResponse({'kiek': kiek, 'html': html, 'zymekliai': zymekliai,
                          'rodoma': len(irasai)})
@@ -145,4 +141,87 @@ def zemelapio_paieska(request):
             'z': int(request.GET.get('z') or 7),
             'is_url': bool(request.GET.get('lat')),
         }),
+    })
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ŽYMEKLIAI
+#
+# Žemėlapyje rodoma KAINA, ne taškas. Prekiautojų skelbimai suklijuojami
+# į vieną aikštelės žymeklį. Apytikslėms vietoms koordinatės apvalinamos
+# ČIA — tikslios į naršyklę neiškeliauja.
+# ═══════════════════════════════════════════════════════════════════
+
+APVALINIMAS = 3          # 3 skaitmenys ≈ 110 m tikslumas
+
+
+def _apytiksliai(reiksme):
+    return round(float(reiksme), APVALINIMAS)
+
+
+def _zymekliai(qs, request):
+    laukai = ('id', 'latitude', 'longitude', 'koordinates_tikslios',
+              'hide_exact_address', 'price', 'currency', 'city',
+              'seller_id', 'seller__profile__dealer_subscription_active',
+              'seller__profile__dealer_company_name', 'seller__username')
+    eilutes = list(qs.values(*laukai)[:MAKS_ZYMEKLIU])
+
+    # Prekiautojų skelbimai — vienas žymeklis aikštelei
+    prekiautoju = {}
+    for e in eilutes:
+        if e['seller__profile__dealer_subscription_active']:
+            prekiautoju.setdefault(e['seller_id'], []).append(e)
+
+    zymekliai = []
+    for e in eilutes:
+        if e['seller_id'] in prekiautoju:
+            continue
+        neaisku = e['hide_exact_address'] or not e['koordinates_tikslios']
+        zymekliai.append({
+            'id': e['id'],
+            'lat': _apytiksliai(e['latitude']) if neaisku else float(e['latitude']),
+            'lng': _apytiksliai(e['longitude']) if neaisku else float(e['longitude']),
+            'kaina': formatai.kaina(e['price'], SIMBOLIAI.get(e['currency'], '€')),
+            'apytiksliai': bool(e['hide_exact_address']),
+            'spetas': not e['koordinates_tikslios'],
+        })
+
+    for seller_id, jo in prekiautoju.items():
+        pirmas = jo[0]
+        zymekliai.append({
+            'tipas': 'pardavejas',
+            'pardavejas': seller_id,
+            'lat': float(pirmas['latitude']),
+            'lng': float(pirmas['longitude']),
+            'vardas': (pirmas['seller__profile__dealer_company_name']
+                       or pirmas['seller__username']),
+            'kiek': len(jo),
+        })
+    return zymekliai
+
+
+def zemelapio_kortele(request, pk):
+    """Burbulo turinys paspaudus žymeklį."""
+    from django.shortcuts import get_object_or_404
+    from .models import Listing as L
+    l = get_object_or_404(_su_koordinatemis(request.user), pk=pk)
+    neaisku = l.hide_exact_address or not l.koordinates_tikslios
+    return JsonResponse({
+        'html': render_to_string('listings/partials/_zemelapio_burbulas.html',
+                                 {'l': l, 'neaisku': neaisku}, request=request),
+        # Navigacijai — apvalintos, jei vieta apytikslė
+        'lat': _apytiksliai(l.latitude) if neaisku else float(l.latitude),
+        'lng': _apytiksliai(l.longitude) if neaisku else float(l.longitude),
+    })
+
+
+def zemelapio_pardavejas(request, pk):
+    """Prekiautojo aikštelė — visi jo skelbimai sąraše."""
+    qs = _filtruoti(request).filter(seller_id=pk)
+    irasai = list(qs.order_by('-id')[:50])
+    return JsonResponse({
+        'kiek': qs.count(),
+        'html': render_to_string('listings/partials/_zemelapio_aikstele.html',
+                                 {'korteles': [kortele(o) for o in irasai]},
+                                 request=request),
     })

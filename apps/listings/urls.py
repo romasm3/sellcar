@@ -41,6 +41,8 @@ urlpatterns = [
     # Žemėlapio paieška — puslapis ir duomenys pagal matomą plotą
     path("map/", zemelapio_views.zemelapio_paieska, name="search_map"),
     path("map/duomenys/", zemelapio_views.zemelapio_rezultatai, name="zemelapio_duomenys"),
+    path("map/kortele/<int:pk>/", zemelapio_views.zemelapio_kortele, name="zemelapio_kortele"),
+    path("map/pardavejas/<int:pk>/", zemelapio_views.zemelapio_pardavejas, name="zemelapio_pardavejas"),
 
     # ─── Create ───
     path("create/", views.listing_create, name="listing_create"),
