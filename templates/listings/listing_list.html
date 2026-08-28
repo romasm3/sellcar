@@ -1320,6 +1320,37 @@ function onSortChange(selectEl) {
     </div>
     {% endif %}
 
+    {% comment %}Viena kukli eilutė po skelbimų skirtukais — įėjimas į
+    /imones/. Ne sekcija: pagrindinis puslapis lieka apie skelbimus.
+    Jei įmonių dar nėra, eilutės nerodom visai.{% endcomment %}
+    {% if imoniu_juosta %}
+    <div class="im-juosta-rem">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 im-juosta">
+        <span class="im-juosta-vardas">{% trans "Servisai ir prekiautojai" %}</span>
+        <span class="im-juosta-sar">
+          {% for i in imoniu_juosta %}<a href="{{ i.get_absolute_url }}">{{ i.pavadinimas }}</a>{% if not forloop.last %}<i>·</i>{% endif %}{% endfor %}
+        </span>
+        <a class="im-juosta-visos" href="{% url 'imones:sarasas' %}">{% trans "Visos įmonės" %} →</a>
+      </div>
+    </div>
+    <style>
+      .im-juosta-rem { background: var(--surface); border-top: 1px solid var(--border); }
+      .im-juosta { display: flex; align-items: center; flex-wrap: wrap;
+                   gap: 8px 12px; padding: 14px var(--sp-4); font-size: var(--fs-sm); }
+      .im-juosta-vardas { font-weight: var(--fw-semibold); color: var(--text); }
+      .im-juosta-sar { display: flex; flex-wrap: wrap; gap: 8px;
+                       color: var(--text-muted); min-width: 0; }
+      .im-juosta-sar a { color: var(--text-muted); text-decoration: none; }
+      .im-juosta-sar a:hover { color: var(--accent); text-decoration: underline; }
+      .im-juosta-sar i { font-style: normal; color: var(--border); }
+      .im-juosta-visos { margin-left: auto; color: var(--accent);
+                         font-weight: var(--fw-semibold); text-decoration: none;
+                         white-space: nowrap; }
+      .im-juosta-visos:hover { text-decoration: underline; }
+      @media (max-width: 640px) { .im-juosta-visos { margin-left: 0; } }
+    </style>
+    {% endif %}
+
 </div>
 {% endblock %}
 

@@ -2471,6 +2471,9 @@ def listing_list(request, panel_fragment=False, category=None):
         # Filtruose — tik tos šalys, kurios turi skelbimų (kaip ir markės).
         # Kūrimo formose sąrašas lieka visas (contact_block_tags).
         'location_countries': salys.filtro_salys(listings),
+        # Kukli eilutė po skirtukais: kelios įmonės ir nuoroda į /imones/.
+        # Tuščias sąrašas — eilutės šablonas nerodo visai.
+        'imoniu_juosta': _imoniu_juosta(),
         'selected_country': country_filter,
         'selected_state': state_filter,
         # „Mano paieškos" blokas: išsaugotos (prisijungusiam) ir paskutinės
@@ -8079,6 +8082,20 @@ def taikyti_markiu_poras(listings, params, category=None):
 
         # Modelis be markės (senos nuorodos) — filtruojam atskirai
     return listings, pritaikyta
+
+
+def _imoniu_juosta(kiek=5):
+    """Kelios patvirtintos įmonės pagrindinio puslapio eilutei.
+
+    Pagrindinis puslapis lieka apie skelbimus — tai tik viena eilutė su
+    vardais ir nuoroda, ne sekcija.
+    """
+    try:
+        from apps.imones.models import Imone
+        return list(Imone.objects.filter(patvirtinta=True)
+                    .only('pavadinimas', 'slug')[:kiek])
+    except Exception:      # įmonių dar nėra — eilutės tiesiog nebus
+        return []
 
 
 def paieskos_kategorijos(user):

@@ -205,6 +205,7 @@ def rodymo_jungikliai(request):
 # ═══════════════════════════════════════════════════════════════════
 
 SEC_NAV_ITEMS = [
+    (True,  _('Įmonės ir servisai'), 'imones:sarasas'),
     (False, _('Finansavimas'),      None),                     # puslapio dar nėra
     (False, _('Pasiūlymai verslui'), 'advertise'),
     (False, _('Autokatalogas'),     None),                     # puslapio dar nėra
