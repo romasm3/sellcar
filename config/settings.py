@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     # Local apps
     "apps.accounts",
     "apps.listings",
+    "apps.imones",
     "apps.conversations",
     "apps.broadcasts",
     "apps.payments",

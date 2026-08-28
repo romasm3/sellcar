@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load i18n static listing_filters %}
+{% block title %}{{ imone.pavadinimas }} - AutoLeft{% endblock %}
+
+{% block puslapio_antraste %}
+  {% comment %}Trupinių takas: Pradžia · Įmonės · Miestas · Įmonė{% endcomment %}
+  {% url 'imones:sarasas' as imoniu_url %}
+  {% trans "Įmonės" as imoniu_pav %}
+  {% include 'partials/_puslapio_antraste.html' with pavadinimas=imone.pavadinimas trupiniai=trupiniai %}
+{% endblock %}
+
+{% block content %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ĮMONĖS PUSLAPIS — /imone/<slug>/
+
+Maketas iš docs/imones-demo.html. Vidurys priklauso nuo tipo:
+servisui — paslaugos su kainomis, prekiautojui — jo skelbimai.
+
+Atsiliepimų bloko NĖRA (3 etapas) — vietoj vertinimo rodom „Nuo YYYY m."
+ir skelbimų skaičių, kaip sutarta.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% include 'imones/_stiliai.html' %}
+{% include 'listings/partials/_kortele_stiliai.html' %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  <div class="im-hmeta" style="margin-top: var(--sp-4)">
+    {% if imone.nuo_metu %}<span>{% blocktrans with metai=imone.nuo_metu %}Nuo {{ metai }} m.{% endblocktrans %}</span><span>·</span>{% endif %}
+    {% if imone.ar_atidaryta %}
+      <span class="im-atidaryta">{% trans "Atidaryta" %}</span> {% trans "iki" %} {{ imone.uzsidaro }}
+    {% else %}
+      <span class="im-uzdaryta">{% trans "Šiuo metu uždaryta" %}</span>
+    {% endif %}
+    {% if imone.adresas or imone.miestas %}
+      <span>·</span>
+      <span>{{ imone.adresas }}{% if imone.adresas and imone.miestas %}, {% endif %}{{ imone.miestas }}</span>
+    {% endif %}
+    {% if imone.latitude and imone.longitude %}
+      {% comment %}Navigacija — išorinis adresas, todėl target=_blank teisėtas.{% endcomment %}
+      <a class="im-nuoroda" target="_blank" rel="noopener noreferrer"
+         href="https://www.google.com/maps/dir/?api=1&destination={{ imone.latitude }},{{ imone.longitude }}">
+        {% trans "Kaip nuvažiuoti" %}</a>
+    {% endif %}
+  </div>
+
+  {% if nuotraukos %}
+  <div class="im-galerija">
+    {% for n in nuotraukos %}
+    <div>
+      <img src="{{ n.nuotrauka.url }}" alt="{{ imone.pavadinimas }}" loading="lazy">
+      {% if forloop.last and nuotrauku_kiek > 5 %}
+        <span class="im-visos">{% trans "Visos nuotraukos" %}</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="im-stulpeliai">
+    <div>
+      {% if imone.aprasymas %}
+      <div class="im-blokas">
+        <h2>{% trans "Apie įmonę" %}</h2>
+        <p style="color: var(--text-muted); white-space: pre-line;">{{ imone.aprasymas }}</p>
+      </div>
+      {% endif %}
+
+      {% if imone.tipas == 'servisas' %}
+      <div class="im-blokas">
+        <h2>{% trans "Paslaugos ir kainos" %}</h2>
+        {% for p in paslaugos %}
+        <div class="im-paslauga">
+          <div>
+            <div class="p-vardas">{{ p.pavadinimas }}</div>
+            {% if p.aprasymas or p.trukme_min %}
+            <div class="p-apie">
+              {{ p.aprasymas }}{% if p.aprasymas and p.trukme_min %} · {% endif %}
+              {% if p.trukme_min %}{% blocktrans with min=p.trukme_min %}apie {{ min }} min.{% endblocktrans %}{% endif %}
+            </div>
+            {% endif %}
+          </div>
+          {% if p.kaina %}<div class="p-kaina">{{ p.kaina|kaina:'€' }}</div>{% endif %}
+        </div>
+        {% empty %}
+        <p style="color: var(--text-muted)">{% trans "Paslaugų sąrašas dar nepildytas." %}</p>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="im-blokas">
+        <h2>{% blocktrans with vardas=imone.pavadinimas %}{{ vardas }} skelbimai{% endblocktrans %}
+            <span>{{ skelbimu_kiek }}</span></h2>
+        {% if korteles %}
+        <div class="im-skelbimai">
+          {% for i in korteles %}
+          {% include 'listings/partials/_skelbimo_kortele.html' with i=i sirdis=1 %}
+          {% endfor %}
+        </div>
+        {% if skelbimu_kiek > korteles|length %}
+        <a class="im-btn" style="margin-top: 14px"
+           href="{% url 'listing_list' %}?seller={{ imone.savininkas_id }}&sidebar=1">
+          {% blocktrans count kiek=skelbimu_kiek %}Žiūrėti {{ kiek }} skelbimą{% plural %}Žiūrėti visus {{ kiek }} skelbimus{% endblocktrans %}
+        </a>
+        {% endif %}
+        {% else %}
+        <p style="color: var(--text-muted)">{% trans "Šiuo metu skelbimų nėra." %}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="im-blokas">
+        <h2>{% trans "Darbo laikas" %}</h2>
+        {% for vardas, laikai, siandien in laikai %}
+        <div class="im-diena{% if siandien %} is-siandien{% endif %}">
+          <span class="d">{{ vardas }}</span>
+          {% if laikai %}<span>{{ laikai.0 }} – {{ laikai.1 }}</span>
+          {% else %}<span class="nedirba">{% trans "Nedirba" %}</span>{% endif %}
+        </div>
+        {% empty %}
+        <p style="color: var(--text-muted)">{% trans "Darbo laikas nenurodytas." %}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="im-sonas">
+      <div class="im-blokas">
+        {% if imone.telefonas %}
+        <div class="im-etikete">{% trans "Skambinkite" %}</div>
+        <a class="im-tel" href="tel:{{ imone.telefonas }}">{{ imone.telefonas }}</a>
+        {% endif %}
+        {% if zinutes_url %}
+        <a class="im-btn im-btn-pirmas" href="{{ zinutes_url }}">{% trans "Rašyti žinutę" %}</a>
+        {% elif imone.el_pastas %}
+        <a class="im-btn im-btn-pirmas" href="mailto:{{ imone.el_pastas }}">{% trans "Rašyti laišką" %}</a>
+        {% endif %}
+        {% comment %}„Įsiminti įmonę" — 1 etape saugoma naršyklėje, kaip ir
+        peržiūrėti skelbimai; paskyros sąrašas ateis kartu su 2 etapu.{% endcomment %}
+        <button type="button" class="im-btn" data-isiminti="{{ imone.pk }}">
+          <span class="im-isiminti-txt">{% trans "Įsiminti įmonę" %}</span>
+        </button>
+
+        {% if imone.latitude and imone.longitude %}
+        <div class="im-zemelapis" id="imMap"
+             data-lat="{{ imone.latitude }}" data-lng="{{ imone.longitude }}"
+             data-vardas="{{ imone.pavadinimas }}"></div>
+        {% endif %}
+        <div style="font-size: 13px; color: var(--text-muted)">
+          {{ imone.adresas }}{% if imone.adresas and imone.miestas %}, {% endif %}{{ imone.miestas }}
+        </div>
+        {% if imone.svetaine %}
+        <a class="im-nuoroda" style="font-size: 13px" href="{{ imone.svetaine }}"
+           target="_blank" rel="noopener noreferrer">{% trans "Svetainė" %} →</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/imone.js' %}"></script>
+{% endblock %}

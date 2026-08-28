@@ -368,6 +368,10 @@ a.sp-rail-btn { text-decoration:none; }
     {% if request.GET.sidebar %}
     {% include 'listings/partials/_sp_field_styles.html' %}
     <div class="max-w-5xl mx-auto px-4 py-6">
+        {% comment %}„Skelbimai | Įmonės" — ne naujas puslapis, o dvi to
+        paties paieškos pusės (templates/imones/_skirtukai.html).{% endcomment %}
+        {% include 'imones/_stiliai.html' %}
+        <div class="mb-4">{% include 'imones/_skirtukai.html' with aktyvus='skelbimai' %}</div>
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div>
                 <h1 class="text-xl font-bold text-gray-900">{% if visos_kategorijos %}{% trans "Visos kategorijos" %}{% elif sidebar %}{{ sidebar.label }}{% else %}{% trans "Cars" %}{% endif %}</h1>

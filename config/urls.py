@@ -19,6 +19,7 @@ urlpatterns = [
     path('accounts/', include('apps.accounts.urls')),
     path('conversations/', include('apps.conversations.urls')),
     path('payments/', include('apps.payments.urls')),
+    path('', include('apps.imones.urls')),
     path('', include('apps.listings.urls')),
 ]
 

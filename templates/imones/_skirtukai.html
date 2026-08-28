@@ -1,0 +1,17 @@
+{% load i18n %}{% comment %}
+Perjungiklis „Skelbimai | Įmonės" — ne naujas puslapis, o dvi to paties
+paieškos pusės. Filtrai, kurie turi prasmę abiejose (miestas, tekstas),
+perduodami toliau.
+
+Parametras `aktyvus` — 'skelbimai' arba 'imones'.
+{% endcomment %}
+<div class="im-tabs" role="tablist">
+  <a class="im-tab{% if aktyvus == 'skelbimai' %} is-on{% endif %}"
+     href="{% url 'listing_list' %}{% if request.GET.city %}?city={{ request.GET.city|urlencode }}{% endif %}">
+    {% trans "Skelbimai" %}
+  </a>
+  <a class="im-tab{% if aktyvus == 'imones' %} is-on{% endif %}"
+     href="{% url 'imones:sarasas' %}{% if request.GET.city %}?city={{ request.GET.city|urlencode }}{% endif %}">
+    {% trans "Įmonės" %}
+  </a>
+</div>

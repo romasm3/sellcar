@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Įmonės — demo</title>
+<style>
+:root{
+  --accent:#374151; --accent-hover:#1F2937; --accent-soft:#EEF0F2;
+  --brand:#E14D28;
+  --text:#111827; --text-muted:#6B7280; --text-disabled:#9CA3AF;
+  --border:#E7E7E7; --border-hover:#B0B0B0;
+  --surface:#fff; --surface-muted:#F9FAFB;
+  --success:#067647; --success-bg:#ECFDF3; --success-line:#ABEFC6;
+  --star:#F59E0B;
+  --r:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  background:var(--surface-muted);color:var(--text);line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.note{max-width:1180px;margin:0 auto;padding:20px 16px;font-size:13px;color:var(--text-muted)}
+.note b{color:var(--text)}
+h2s{}
+.sec{max-width:1180px;margin:40px auto 0;padding:0 16px}
+.sec h3{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-disabled);margin-bottom:14px}
+
+/* --- antraštė --- */
+.top{background:#fff;border-bottom:1px solid var(--border)}
+.top-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em}
+.logo .l{color:var(--brand)}
+.spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;
+  padding:0 16px;border-radius:var(--r);font-size:15px;font-weight:600;cursor:pointer;
+  border:1px solid var(--border);background:#fff;color:var(--text);transition:.2s;
+  font-family:inherit;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--border-hover)}
+.btn-main{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-main:hover{background:var(--accent-hover)}
+.btn-sm{height:34px;font-size:14px;padding:0 12px}
+.btn svg{width:16px;height:16px}
+
+/* --- skirtukai --- */
+.tabs{display:flex;gap:4px;background:var(--surface-muted);padding:4px;border-radius:999px;
+  border:1px solid var(--border);width:max-content}
+.tab{padding:7px 20px;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;
+  border:0;background:none;color:var(--text-muted);font-family:inherit;transition:.2s}
+.tab.on{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.10)}
+
+/* --- įmonių kortelės --- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+.co{background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;
+  cursor:pointer;transition:.2s}
+.co:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.co .ph{aspect-ratio:16/10;background:linear-gradient(135deg,#D6D3D1,#A8A29E);position:relative}
+.co .badge{position:absolute;left:8px;top:8px;background:rgba(17,24,39,.82);color:#fff;
+  font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px}
+.co .heart{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text-muted)}
+.co .c{padding:12px}
+.co .nm{font-size:16px;font-weight:600;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.rate{font-size:14px;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.rate svg{width:14px;height:14px;color:var(--star)}
+.rate span{color:var(--text-muted);font-weight:400;font-size:13px}
+.co .meta{font-size:13px;color:var(--text-muted);margin-top:4px}
+.co .type{font-size:13px;color:var(--text-muted);margin-top:2px}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;
+  border:1px solid var(--border);color:var(--text-muted);margin-top:8px}
+.pill.deal{color:var(--accent);background:var(--accent-soft);border-color:transparent}
+
+/* --- įmonės puslapis --- */
+.crumbs{font-size:13px;color:var(--text-muted);padding:16px 0}
+.crumbs a{color:var(--text-muted);text-decoration:none}
+.crumbs a:hover{color:var(--accent);text-decoration:underline}
+h1{font-size:30px;font-weight:700;letter-spacing:-.02em}
+.h-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:8px;font-size:14px;
+  color:var(--text-muted)}
+.open{color:var(--success);font-weight:600}
+.link{color:var(--accent);font-weight:600;text-decoration:none}
+.link:hover{text-decoration:underline}
+
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;
+  margin-top:20px;height:340px}
+.gal div{background:linear-gradient(135deg,#D6D3D1,#A8A29E);border-radius:6px}
+.gal div:first-child{grid-row:1/3;border-radius:var(--r) 0 0 var(--r)}
+.gal div:nth-child(3){border-radius:0 var(--r) 0 0}
+.gal div:nth-child(5){border-radius:0 0 var(--r) 0;position:relative}
+.gal .more{position:absolute;right:12px;bottom:12px;background:#fff;border-radius:var(--r);
+  padding:8px 14px;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;margin:32px 0 64px;
+  align-items:start}
+.block{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;
+  margin-bottom:16px}
+.block h4{font-size:18px;font-weight:700;margin-bottom:14px}
+
+.srv{display:flex;justify-content:space-between;gap:16px;padding:14px 0;
+  border-top:1px solid var(--border);align-items:center}
+.srv:first-of-type{border-top:0;padding-top:0}
+.srv .n{font-size:15px;font-weight:600}
+.srv .d{font-size:13px;color:var(--text-muted);margin-top:2px}
+.srv .p{font-size:16px;font-weight:700;white-space:nowrap}
+
+.hrs{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}
+.hrs+.hrs{border-top:1px solid var(--border)}
+.hrs .d{color:var(--text-muted)}
+.hrs.today{font-weight:700}
+.hrs .c{color:var(--text-disabled)}
+
+.side{position:sticky;top:16px}
+.side .price{font-size:14px;color:var(--text-muted)}
+.side .tel{font-size:22px;font-weight:700;margin:2px 0 14px}
+.side .btn{width:100%;margin-bottom:8px}
+.mapbox{height:150px;border-radius:6px;margin:14px 0 10px;
+  background:repeating-linear-gradient(0deg,#E8EDE9 0 1px,transparent 1px 30px),
+             repeating-linear-gradient(90deg,#E8EDE9 0 1px,transparent 1px 30px),#F1F5F2;
+  position:relative;border:1px solid var(--border)}
+.mapbox .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);
+  background:#111827;color:#fff;border:2px solid #fff;border-radius:999px;
+  padding:4px 10px;font-size:12px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+
+.rev{padding:14px 0;border-top:1px solid var(--border)}
+.rev:first-of-type{border-top:0;padding-top:0}
+.rev .hd{display:flex;gap:10px;align-items:center}
+.av{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+.rev .who{font-size:14px;font-weight:600}
+.rev .when{font-size:12px;color:var(--text-disabled)}
+.rev .tx{font-size:14px;color:var(--text-muted);margin-top:8px}
+.stars{color:var(--star);font-size:13px;letter-spacing:1px}
+
+.cards2{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.mini{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:#fff}
+.mini .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#D6D3D1,#A8A29E)}
+.mini .c{padding:10px}
+.mini .t{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .p{font-size:16px;font-weight:700;margin-top:2px}
+.mini .m{font-size:12px;color:var(--text-muted);margin-top:4px}
+
+@media(max-width:900px){ .cols{grid-template-columns:1fr} .gal{grid-template-columns:1fr;grid-template-rows:200px;height:auto}
+  .gal div:not(:first-child){display:none} .gal div:first-child{border-radius:var(--r)} }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="top-in">
+  <span class="logo">Auto<span class="l">Left</span></span>
+  <span class="spacer"></span>
+  <a class="btn">Žemėlapis</a>
+  <a class="btn btn-main">+ Įkelti</a>
+</div></div>
+
+<p class="note"><b>Demo.</b> Du dalykai: paieškos skirtukas „Įmonės" ir įmonės puslapis.
+Struktūra iš Fresha, dizainas mūsų.</p>
+
+<!-- ============ PAIEŠKA SU SKIRTUKAIS ============ -->
+<div class="sec">
+  <h3>1 · Paieška — naujas skirtukas „Įmonės"</h3>
+  <div class="wrap" style="padding:0">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div class="tabs">
+        <button class="tab">Skelbimai</button>
+        <button class="tab on">Įmonės</button>
+      </div>
+      <span style="font-size:14px;color:var(--text-muted)">Rasta <b style="color:var(--text)">28</b> įmonės</span>
+      <span class="spacer"></span>
+      <button class="btn btn-sm">Visos · Prekiautojai · Servisai</button>
+    </div>
+
+    <div class="grid">
+      <article class="co">
+        <div class="ph"><span class="badge">23 skelbimai</span><span class="heart">♡</span></div>
+        <div class="c">
+          <div class="nm">MIKAUTA
+            <span class="rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 1-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>4,8 <span>(64)</span></span>
+          </div>
+          <div class="meta">Kaunas, Chemijos g. 12 · 3 km</div>
+          <div class="type">Automobilių prekyba</div>
+          <span class="pill deal">Prekiautojas</span>
+        </div>
+      </article>
+
+      <article class="co">
+        <div class="ph"><span class="badge">Atidaryta iki 18:00</span><span class="heart">♡</span></div>
+        <div class="c">
+          <div class="nm">Ratų Servisas
+            <span class="rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 1-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>5,0 <span>(128)</span></span>
+          </div>
+          <div class="meta">Kaunas, Taikos pr. 88 · 5 km</div>
+          <div class="type">Padangų montavimas · Geometrija</div>
+          <span class="pill">Servisas</span>
+        </div>
+      </article>
+
+      <article class="co">
+        <div class="ph"><span class="badge">Atidaryta iki 20:00</span><span class="heart">♡</span></div>
+        <div class="c">
+          <div class="nm">Blizgus Auto
+            <span class="rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 1-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>4,9 <span>(211)</span></span>
+          </div>
+          <div class="meta">Vilnius, Savanorių pr. 174 · 92 km</div>
+          <div class="type">Detailing · Poliravimas · Keramika</div>
+          <span class="pill">Servisas</span>
+        </div>
+      </article>
+
+      <article class="co">
+        <div class="ph"><span class="badge">7 skelbimai</span><span class="heart">♡</span></div>
+        <div class="c">
+          <div class="nm">Auto Bravo
+            <span class="rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 1-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>4,6 <span>(31)</span></span>
+          </div>
+          <div class="meta">Klaipėda, Šilutės pl. 40 · 210 km</div>
+          <div class="type">Automobilių prekyba · Supirkimas</div>
+          <span class="pill deal">Prekiautojas</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ĮMONĖS PUSLAPIS ============ -->
+<div class="sec">
+  <h3>2 · Įmonės puslapis</h3>
+</div>
+
+<div class="wrap">
+  <div class="crumbs"><a href="#">Pradžia</a> · <a href="#">Įmonės</a> · <a href="#">Kaunas</a> · Ratų Servisas</div>
+
+  <h1>Ratų Servisas</h1>
+  <div class="h-meta">
+    <span class="rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 1-5 4.9 1.2 7L12 18l-6.2 3.4L7 14.4 2 9.5l7-1z"/></svg>5,0 <span>(128)</span></span>
+    <span>·</span>
+    <span class="open">Atidaryta</span> iki 18:00
+    <span>·</span>
+    <span>Taikos pr. 88, Kaunas</span>
+    <a class="link" href="#">Kaip nuvažiuoti</a>
+  </div>
+
+  <div class="gal">
+    <div></div><div></div><div></div><div></div>
+    <div><span class="more">Visos nuotraukos</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="block">
+        <h4>Paslaugos ir kainos</h4>
+        <div class="srv"><div><div class="n">Padangų montavimas — R15</div><div class="d">4 ratai · apie 40 min.</div></div><div class="p">30 €</div></div>
+        <div class="srv"><div><div class="n">Padangų montavimas — R17–R19</div><div class="d">4 ratai · apie 50 min.</div></div><div class="p">44 €</div></div>
+        <div class="srv"><div><div class="n">Ratų balansavimas</div><div class="d">1 ratas · 10 min.</div></div><div class="p">6 €</div></div>
+        <div class="srv"><div><div class="n">Geometrijos reguliavimas</div><div class="d">Lengvasis automobilis · 1 val.</div></div><div class="p">45 €</div></div>
+        <div class="srv"><div><div class="n">Padangų sandėliavimas</div><div class="d">Sezonui · 4 ratai</div></div><div class="p">25 €</div></div>
+      </div>
+
+      <div class="block">
+        <h4>Darbo laikas</h4>
+        <div class="hrs today"><span class="d">Pirmadienis</span><span>08:00 – 18:00</span></div>
+        <div class="hrs"><span class="d">Antradienis</span><span>08:00 – 18:00</span></div>
+        <div class="hrs"><span class="d">Trečiadienis</span><span>08:00 – 18:00</span></div>
+        <div class="hrs"><span class="d">Ketvirtadienis</span><span>08:00 – 18:00</span></div>
+        <div class="hrs"><span class="d">Penktadienis</span><span>08:00 – 17:00</span></div>
+        <div class="hrs"><span class="d">Šeštadienis</span><span>09:00 – 14:00</span></div>
+        <div class="hrs"><span class="d">Sekmadienis</span><span class="c">Nedirba</span></div>
+      </div>
+
+      <div class="block">
+        <h4>Atsiliepimai <span style="font-weight:400;color:var(--text-muted);font-size:15px">128</span></h4>
+        <div class="rev">
+          <div class="hd"><span class="av">TK</span><div><div class="who">Tomas K.</div><div class="when">prieš 3 d.</div></div></div>
+          <div class="stars">★★★★★</div>
+          <div class="tx">Greitai ir tvarkingai. Ratus subalansavo be eilės, kaina kaip skelbta.</div>
+        </div>
+        <div class="rev">
+          <div class="hd"><span class="av">RG</span><div><div class="who">Rūta G.</div><div class="when">prieš savaitę</div></div></div>
+          <div class="stars">★★★★★</div>
+          <div class="tx">Padarė geometriją, mašina nustojo tempti į šoną. Rekomenduoju.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="block">
+        <div class="price">Skambinkite</div>
+        <div class="tel">+370 612 34567</div>
+        <button class="btn btn-main">Rašyti žinutę</button>
+        <button class="btn">Įsiminti įmonę</button>
+        <div class="mapbox"><span class="pin">Ratų Servisas</span></div>
+        <div style="font-size:13px;color:var(--text-muted)">Taikos pr. 88, Kaunas</div>
+        <a class="link" style="font-size:13px" href="#">Kaip nuvažiuoti →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- prekiautojo variantas -->
+  <div class="sec" style="padding:0;margin-top:0">
+    <h3>3 · Prekiautojo puslapis — tas pats, tik vietoj paslaugų jo skelbimai</h3>
+  </div>
+  <div class="block" style="margin-bottom:64px">
+    <h4>MIKAUTA skelbimai <span style="font-weight:400;color:var(--text-muted);font-size:15px">23</span></h4>
+    <div class="cards2">
+      <div class="mini"><div class="ph"></div><div class="c"><div class="t">BMW 320d Touring</div><div class="p">15 900 €</div><div class="m">2018 · 142 000 km</div></div></div>
+      <div class="mini"><div class="ph"></div><div class="c"><div class="t">Audi A6 Avant</div><div class="p">12 400 €</div><div class="m">2016 · 231 000 km</div></div></div>
+      <div class="mini"><div class="ph"></div><div class="c"><div class="t">Škoda Octavia</div><div class="p">8 900 €</div><div class="m">2017 · 186 000 km</div></div></div>
+      <div class="mini"><div class="ph"></div><div class="c"><div class="t">VW Passat</div><div class="p">9 750 €</div><div class="m">2015 · 254 000 km</div></div></div>
+    </div>
+    <button class="btn" style="width:100%;margin-top:14px">Žiūrėti visus 23 skelbimus</button>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tabs .tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs .tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+}));
+</script>
+</body>
+</html>

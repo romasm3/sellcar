@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "Įmonės" %} - AutoLeft{% endblock %}
+
+{% block puslapio_antraste %}
+  {% trans "Įmonės" as pav %}
+  {% include 'partials/_puslapio_antraste.html' with pavadinimas=pav %}
+{% endblock %}
+
+{% block content %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ĮMONIŲ SĄRAŠAS — /imones/
+
+Maketas iš docs/imones-demo.html: skirtukai „Skelbimai | Įmonės",
+rastų skaičius, filtrai dešinėje ir kortelių tinklelis.
+
+Vertinimo (žvaigždučių) ČIA NĖRA — atsiliepimai yra 3 etapas. Vietoj jo
+kortelė rodo skelbimų skaičių arba darbo laiką.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% include 'imones/_stiliai.html' %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="im-virsus">
+    {% include 'imones/_skirtukai.html' with aktyvus='imones' %}
+    <span class="im-rasta">{% blocktrans count kiek=rasta %}Rasta <b>{{ kiek }}</b> įmonė{% plural %}Rasta <b>{{ kiek }}</b> įmonių{% endblocktrans %}</span>
+
+    <form class="im-filtrai" method="get">
+      <input type="search" name="q" class="im-ieskoti" value="{{ f_q }}"
+             placeholder="{% trans 'Pavadinimas' %}">
+      <select name="city" class="im-sel" onchange="this.form.submit()">
+        <option value="">{% trans "Visi miestai" %}</option>
+        {% for m in miestai %}
+        <option value="{{ m }}" {% if m == f_miestas %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+      </select>
+      <select name="tipas" class="im-sel" onchange="this.form.submit()">
+        <option value="">{% trans "Visos įmonės" %}</option>
+        {% for reiksme, vardas in tipai %}
+        <option value="{{ reiksme }}" {% if reiksme == f_tipas %}selected{% endif %}>{{ vardas }}</option>
+        {% endfor %}
+      </select>
+      <select name="veikla" class="im-sel" onchange="this.form.submit()">
+        <option value="">{% trans "Visos veiklos" %}</option>
+        {% for v in veiklos %}
+        <option value="{{ v.slug }}" {% if v.slug == f_veikla %}selected{% endif %}>{{ v.pavadinimas }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+
+  <div class="im-tinklas">
+    {% for i in imones %}
+    <a class="im-kort" href="{{ i.get_absolute_url }}">
+      <div class="im-foto">
+        {% if i.nuotraukos.first %}
+          <img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
+        {% elif i.logotipas %}
+          <img class="im-logo" src="{{ i.logotipas.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
+        {% endif %}
+        {% if i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
+          <span class="im-zyma">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
+        {% elif i.ar_atidaryta %}
+          <span class="im-zyma">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
+        {% endif %}
+      </div>
+      <div class="im-kort-turinys">
+        <div class="im-vardas">{{ i.pavadinimas }}</div>
+        <div class="im-meta">
+          {% if i.miestas %}{{ i.miestas }}{% if i.adresas %}, {{ i.adresas }}{% endif %}{% else %}{{ i.adresas }}{% endif %}
+        </div>
+        <div class="im-veiklos">
+          {% for v in i.veiklos.all %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}
+        </div>
+        <span class="im-pill{% if i.tipas == 'prekiautojas' %} is-prek{% endif %}">{{ i.get_tipas_display }}</span>
+      </div>
+    </a>
+    {% empty %}
+    <div class="im-tuscia">
+      <p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <div style="height: var(--sp-10)"></div>
+</div>
+{% endblock %}

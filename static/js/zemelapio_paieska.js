@@ -47,6 +47,7 @@ const MARKIU_PARAMAI = ['brand', 'truck_brand', 'motorcycle_brand',
 
 const G = {
     zem: null, sankaupos: null, burbulas: null,
+    imones: [],         // įmonių žymekliai (OverlayView)
     zymekliai: {},      // id -> žymeklis
     visi: [],           // visi šįkart sukurti žymekliai
     apskritimai: [],    // apytikslių vietų punktyrai
@@ -255,6 +256,7 @@ function zemelapioPaieska() {
                     this.$refs.sarasas.innerHTML = a.html;
                     if (window.laikoZyma) window.laikoZyma.perpiesti(this.$refs.sarasas);
                     this.pieskZymeklius(a.zymekliai);
+                    this.uzkraukImones();
                 })
                 .catch(e => {         // nutraukta arba tinklo klaida —
                     if (e && e.name === 'AbortError') return;   // lieka, kas matoma
@@ -268,6 +270,75 @@ function zemelapioPaieska() {
             const naujas = Math.max(1, G.zem.getZoom() - 2);
             this.pastumk(() => G.zem.setZoom(naujas));
             setTimeout(() => this.uzkrauk(), 300);
+        },
+
+        /** Įmonių žymekliai: baltas burbulas su logotipu ir vardu.
+         *  Google Marker ikona yra vienas paveikslėlis, todėl logotipo į
+         *  ją neįdėsi — naudojam OverlayView su tikru HTML. */
+        pieskImones(sarasas) {
+            (G.imones || []).forEach(o => o.setMap(null));
+            G.imones = [];
+            if (!G.zem || !sarasas || !sarasas.length) return;
+            if (!window.google || !google.maps.OverlayView) return;
+
+            const Klase = this.imoniuKlase();
+            sarasas.forEach(i => {
+                const o = new Klase(i);
+                o.setMap(G.zem);
+                G.imones.push(o);
+            });
+        },
+
+        /** OverlayView klasė kuriama vieną kartą — google.maps jau įkeltas. */
+        imoniuKlase() {
+            if (G._ImonesKlase) return G._ImonesKlase;
+            class ImonesZymeklis extends google.maps.OverlayView {
+                constructor(duom) { super(); this.d = duom; this.el = null; }
+                onAdd() {
+                    const e = document.createElement('a');
+                    e.className = 'zp-imone';
+                    e.href = this.d.url;
+                    e.target = '_blank';
+                    e.rel = 'noopener';
+                    e.title = this.d.vardas;
+                    const logo = this.d.logo
+                        ? `<img src="${this.d.logo}" alt="">`
+                        : `<span class="zp-imone-raide">${(this.d.vardas || '?')[0]}</span>`;
+                    const kiek = this.d.kiek
+                        ? `<em>${this.d.kiek}</em>` : '';
+                    e.innerHTML = logo + `<span>${this.d.vardas}</span>` + kiek;
+                    this.el = e;
+                    this.getPanes().floatPane.appendChild(e);
+                }
+                draw() {
+                    if (!this.el) return;
+                    const t = this.getProjection().fromLatLngToDivPixel(
+                        new google.maps.LatLng(this.d.lat, this.d.lng));
+                    if (!t) return;
+                    this.el.style.left = t.x + 'px';
+                    this.el.style.top = t.y + 'px';
+                }
+                onRemove() {
+                    if (this.el && this.el.parentNode) this.el.parentNode.removeChild(this.el);
+                    this.el = null;
+                }
+            }
+            G._ImonesKlase = ImonesZymeklis;
+            return G._ImonesKlase;
+        },
+
+        uzkraukImones() {
+            const p = new URLSearchParams();
+            const b = this.zemelapisRodomas() && G.zem && G.zem.getBounds();
+            if (b) {
+                p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
+                p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
+            }
+            fetch('/imones/duomenys/?' + p.toString(),
+                  { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then(r => r.ok ? r.json() : { imones: [] })
+                .then(a => this.pieskImones(a.imones || []))
+                .catch(() => {});   // be įmonių žemėlapis veikia toliau
         },
 
         /** SVG žymeklis su kaina. Antracito nenaudojam — jis susilieja
