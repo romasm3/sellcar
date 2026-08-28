@@ -16,8 +16,9 @@ class PaslauguInline(admin.TabularInline):
 
 @admin.register(Imone)
 class ImoneAdmin(admin.ModelAdmin):
-    list_display = ('pavadinimas', 'tipas', 'miestas', 'patvirtinta', 'sukurta')
-    list_filter = ('tipas', 'patvirtinta', 'miestas', 'veiklos')
+    list_display = ('pavadinimas', 'tipas', 'miestas', 'patvirtinta',
+                    'testine', 'sukurta')
+    list_filter = ('tipas', 'patvirtinta', 'testine', 'miestas', 'veiklos')
     search_fields = ('pavadinimas', 'adresas', 'miestas', 'telefonas', 'el_pastas')
     list_editable = ('patvirtinta',)
     prepopulated_fields = {'slug': ('pavadinimas',)}
@@ -25,7 +26,7 @@ class ImoneAdmin(admin.ModelAdmin):
     inlines = [NuotraukuInline, PaslauguInline]
     fieldsets = (
         (None, {'fields': ('tipas', 'pavadinimas', 'slug', 'savininkas',
-                           'patvirtinta')}),
+                           'patvirtinta', 'testine')}),
         ('Turinys', {'fields': ('logotipas', 'aprasymas', 'veiklos')}),
         ('Vieta', {'fields': ('adresas', 'miestas', 'salis',
                               'latitude', 'longitude')}),

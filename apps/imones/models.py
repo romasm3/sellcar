@@ -86,6 +86,10 @@ class Imone(models.Model):
                                    blank=True, on_delete=models.SET_NULL,
                                    related_name='imones')
     patvirtinta = models.BooleanField(default=False)
+    # Bandomieji įrašai — kad juos būtų galima rasti ir pašalinti viena
+    # komanda (manage.py imones_testines --pasalinti). Tikrų įmonių
+    # niekada nežymim.
+    testine = models.BooleanField(default=False, verbose_name='Testinė')
 
     sukurta = models.DateTimeField(auto_now_add=True)
     atnaujinta = models.DateTimeField(auto_now=True)
