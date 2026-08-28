@@ -1,0 +1,111 @@
+{% load i18n static %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+PAGRINDINĖ PAIEŠKA — viena juosta, kaip Fresha pradžios puslapyje.
+
+  [🔍 Ko ieškote]  │  [📍 Vieta]  │  [Kategorija]  │  (Ieškoti)
+
+Paspaudus pirmą lauką atsiveria kortelė su skirtukais (Visi · Skelbimai ·
+Įmonės) ir paskutinėmis paieškomis. Skirtukas lemia, kur nuveda mygtukas:
+
+  Visi / Skelbimai -> /map/  (sąrašas ir žemėlapis šalia)
+  Įmonės           -> /imones/
+
+Parametrai — tie patys, kuriuos skaito filter_listings: q, city, category.
+Paskutinės paieškos laikomos naršyklėje (localStorage), kaip ir peržiūrėti
+skelbimai — paskyros sąrašo tam nereikia.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="hp" x-data="herojausPaieska()" @keydown.escape="atviras = false">
+  <form class="hp-juosta" method="get" :action="veiksmas()" @submit="paruosk()">
+
+    {# ── 1. Ko ieškote ── #}
+    <div class="hp-laukas hp-ko" @click.outside="atviras = false">
+      <i class="fa-solid fa-magnifying-glass hp-ikona" aria-hidden="true"></i>
+      <input type="text" x-model="ko" autocomplete="off"
+             placeholder="{% trans 'Visi skelbimai' %}"
+             @focus="atviras = true" @input="atviras = true">
+
+      {# Kortelė po lauku — skirtukai ir paskutinės paieškos #}
+      <div class="hp-kortele" x-show="atviras" x-cloak>
+        <div class="hp-skirtukai">
+          <template x-for="s in skirtukai" :key="s.raktas">
+            <button type="button" class="hp-skirtukas" :class="s.raktas === skirtukas && 'is-on'"
+                    @click="skirtukas = s.raktas" x-text="s.vardas"></button>
+          </template>
+        </div>
+
+        <div class="hp-antraste" x-show="paskutines.length">
+          <span>{% trans "Paskutinės paieškos" %}</span>
+          <button type="button" class="hp-valyti" @click="isvalyk()">{% trans "Išvalyti" %}</button>
+        </div>
+        <template x-for="(p, i) in paskutines" :key="i">
+          <button type="button" class="hp-eilute" @click="pasirink(p)">
+            <span class="hp-eilute-ikona"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span>
+              <b x-text="p.ko || '{% trans "Visi skelbimai" %}'"></b>
+              <em x-text="p.aprasas"></em>
+            </span>
+          </button>
+        </template>
+        <div class="hp-tuscia" x-show="!paskutines.length">
+          {% trans "Įrašykite markę, modelį arba įmonės pavadinimą" %}
+        </div>
+      </div>
+    </div>
+
+    <span class="hp-skirtis" aria-hidden="true"></span>
+
+    {# ── 2. Vieta (Photon, tas pats šaltinis kaip visur) ── #}
+    <div class="hp-laukas hp-vieta">
+      <i class="fa-solid fa-location-dot hp-ikona" aria-hidden="true"></i>
+      <input type="text" x-model="vieta" autocomplete="off"
+             placeholder="{% trans 'Visa Lietuva' %}"
+             @input.debounce.300ms="ieskokVietos()"
+             @focus="if (vietos.length) rodykVietas = true">
+      <div class="hp-siulymai" x-show="rodykVietas && vietos.length" x-cloak
+           @click.outside="rodykVietas = false">
+        <template x-for="(v, i) in vietos" :key="i">
+          <button type="button" class="hp-siulymas" @click="pasirinkVieta(v)">
+            <i class="fa-solid fa-location-dot"></i><span x-text="v.tekstas"></span>
+          </button>
+        </template>
+        {% comment %}ODbL: nuoroda rodoma ten, kur naudojami OSM duomenys.{% endcomment %}
+        <span class="hp-osm">{% trans "Vietų paieška" %}: ©
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+    </div>
+
+    <span class="hp-skirtis" aria-hidden="true"></span>
+
+    {# ── 3. Kategorija ── #}
+    <label class="hp-laukas hp-kat" x-show="skirtukas !== 'imones'">
+      <i class="fa-solid fa-list hp-ikona" aria-hidden="true"></i>
+      <select x-model="kategorija">
+        <option value="">{% trans "Visos kategorijos" %}</option>
+        {% for k in hero_kategorijos %}
+        <option value="{{ k.slug }}">{{ k.vardas }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <button type="submit" class="hp-eiti">{% trans "Ieškoti" %}</button>
+
+    {% comment %}Reikšmės į adresą dedamos siunčiant — tuščios išjungiamos.{% endcomment %}
+    <input type="hidden" name="q" x-ref="pQ" disabled>
+    <input type="hidden" name="city" x-ref="pCity" disabled>
+    <input type="hidden" name="country_filter" x-ref="pCountry" disabled>
+    <input type="hidden" name="category" x-ref="pCategory" disabled>
+  </form>
+</div>
+
+<script>
+  window.HP_TEKSTAI = {
+    visi: '{% trans "Visi" %}', skelbimai: '{% trans "Skelbimai" %}',
+    imones: '{% trans "Įmonės" %}', visaLietuva: '{% trans "Visa Lietuva" %}',
+    visosKategorijos: '{% trans "Visos kategorijos" %}'
+  };
+  window.HP_KATEGORIJOS = {
+    {% for k in hero_kategorijos %}'{{ k.slug }}': '{{ k.vardas|escapejs }}',{% endfor %}
+  };
+</script>
+<script src="{% static 'js/hero_paieska.js' %}"></script>

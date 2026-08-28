@@ -1062,6 +1062,13 @@ a.sp-rail-btn { text-decoration:none; }
         </div>
     </div>
     {% else %}
+    {% comment %}Viena paieškos juosta viršuje — kaip Fresha pradžios
+    puslapyje. „Ieškoti" veda į /map/ (sąrašas ir žemėlapis šalia) arba į
+    /imones/, jei pasirinktas skirtukas „Įmonės". Žemiau viskas lieka kaip
+    buvo: kategorijų panelė ir skelbimų skirtukai.{% endcomment %}
+    {% include 'listings/partials/_hero_stiliai.html' %}
+    {% include 'listings/partials/_hero_paieska.html' %}
+
     <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="flex items-center justify-between mb-6">
             <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>

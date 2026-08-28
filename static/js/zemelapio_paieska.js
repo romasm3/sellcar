@@ -117,7 +117,7 @@ function zemelapioPaieska() {
             // variklis nemoka, todėl jie tik piešdavo žymes.
             ['model', 'category', 'price_min', 'price_max', 'year_min', 'year_max',
              'mileage_min', 'mileage_max', 'fuel_type', 'transmission', 'sort', 'q',
-             'has_vin', 'feat_warranty', 'country_filter', 'su_nuotraukomis']
+             'has_vin', 'feat_warranty', 'country_filter', 'su_nuotraukomis', 'city']
                 .concat(MARKIU_PARAMAI).forEach(k => {
                 const v = p.get(k); if (v) o[k] = v;
             });
@@ -801,7 +801,8 @@ function zemelapioPaieska() {
 
         aktyvuSarasas() {
             const T = window.ZP_TEKSTAI || {};
-            const vardai = { q: T.tekstas, category: T.kategorija, model: T.modelis, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
+            const vardai = { q: T.tekstas, category: T.kategorija, model: T.modelis,
+                             city: T.vieta, price_min: T.kaina + ' ' + T.nuo, price_max: T.kaina + ' ' + T.iki,
                              year_min: T.metai + ' ' + T.nuo, year_max: T.metai + ' ' + T.iki,
                              mileage_min: T.rida + ' ' + T.nuo, mileage_max: T.rida + ' ' + T.iki,
                              fuel_type: T.kuras };

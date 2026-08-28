@@ -29,9 +29,14 @@
 
     function pazymek(mygtukas, yra) {
         var t = mygtukas.querySelector('.im-isiminti-txt');
-        if (t) t.textContent = yra ? mygtukas.dataset.yra || 'Įsiminta'
-                                   : mygtukas.dataset.nera || 'Įsiminti įmonę';
-        mygtukas.style.borderColor = yra ? 'var(--accent)' : '';
+        if (t) {                       // šoninės kortelės mygtukas su tekstu
+            t.textContent = yra ? mygtukas.dataset.yra || 'Įsiminta'
+                                : mygtukas.dataset.nera || 'Įsiminti įmonę';
+            mygtukas.style.borderColor = yra ? 'var(--accent)' : '';
+        } else {                       // širdis kortelėje sąraše
+            mygtukas.textContent = yra ? '♥' : '♡';
+            mygtukas.classList.toggle('is-on', yra);
+        }
     }
 
     function ikelkLeaflet(kai) {
@@ -48,13 +53,17 @@
     }
 
     function paruosk() {
-        var m = document.querySelector('[data-isiminti]');
-        if (m) {
-            m.dataset.nera = m.querySelector('.im-isiminti-txt').textContent;
-            m.dataset.yra = 'Įsiminta';
-            pazymek(m, skaityk().indexOf(m.dataset.isiminti) !== -1);
-            m.addEventListener('click', function () { perjunk(m.dataset.isiminti, m); });
-        }
+        // Mygtukų gali būti daug: šoninė kortelė puslapyje ir širdys sąraše
+        var sarasas = skaityk();
+        [].forEach.call(document.querySelectorAll('[data-isiminti]'), function (m) {
+            var t = m.querySelector('.im-isiminti-txt');
+            if (t) { m.dataset.nera = t.textContent; m.dataset.yra = 'Įsiminta'; }
+            pazymek(m, sarasas.indexOf(m.dataset.isiminti) !== -1);
+            m.addEventListener('click', function (e) {
+                e.preventDefault(); e.stopPropagation();   // kortelė yra nuoroda
+                perjunk(m.dataset.isiminti, m);
+            });
+        });
 
         var el = document.getElementById('imMap');
         if (!el) return;

@@ -2474,6 +2474,8 @@ def listing_list(request, panel_fragment=False, category=None):
         # Kukli eilutė po skirtukais: kelios įmonės ir nuoroda į /imones/.
         # Tuščias sąrašas — eilutės šablonas nerodo visai.
         'imoniu_juosta': _imoniu_juosta(),
+        # Pagrindinės paieškos juostos kategorijos — tas pats šaltinis
+        'hero_kategorijos': paieskos_kategorijos(request.user),
         'selected_country': country_filter,
         'selected_state': state_filter,
         # „Mano paieškos" blokas: išsaugotos (prisijungusiam) ir paskutinės
