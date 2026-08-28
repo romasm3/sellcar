@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-08-29 01:33:54 CEST
+Sugeneruota: 2026-08-29 01:34:58 CEST
 
 ## Kodas
 
@@ -26,7 +26,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001537s
+HTTP 301, 0.001177s
 ```
 
 ## Skelbimų būsenos
@@ -60,10 +60,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Aug 29 01:27:04 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Aug 29 01:27:06 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Aug 29 01:27:06 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Aug 29 01:27:06 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.308s CPU time.
 Aug 29 01:28:15 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 Aug 29 01:28:17 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Aug 29 01:28:17 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -85,4 +81,8 @@ Aug 29 01:32:45 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Aug 29 01:32:45 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Aug 29 01:32:45 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.415s CPU time.
 Aug 29 01:33:54 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Aug 29 01:33:56 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Aug 29 01:33:56 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Aug 29 01:33:56 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.417s CPU time.
+Aug 29 01:34:58 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
