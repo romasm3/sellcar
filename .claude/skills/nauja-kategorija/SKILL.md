@@ -1039,3 +1039,45 @@ suderinama. Pilnas dokumentas su esamos būklės inventoriumi:
 
 Kai PWA darysim, liks: manifestas, ikonos, `sw.js`, `<link rel="manifest">`
 ir maišos saugyklos įjungimas. Jokių perrašymų — jei taisyklių laikomasi.
+
+## 10. Demo failas — palyginimas PRIVALOMAS
+
+Kai užduotyje duotas demo failas (`docs/demo/*.html`), darbas **nelaikomas
+baigtu**, kol gyvas puslapis nepalygintas su demo greta ir neparodyta
+lentelė. „Padariau pagal demo" be palyginimo nepriimama.
+
+Kodėl ši taisyklė atsirado: du kartus iš eilės rezultatas nuo demo
+nutolo (blokai be rėmelių, kitokie šriftų dydžiai, kiti tekstai,
+atsiradę blokai, kurių demo nebuvo) — nes buvo dirbama „iš atminties",
+o ne skaitant demo CSS.
+
+**Tvarka:**
+
+1. **Perskaityk visą demo CSS**, ne peržvelk. Užsirašyk reikšmes:
+   šriftų dydžius ir svorius, tarpus, rėmelius, apvalinimą, tinklelius,
+   aukščius, spalvas.
+2. **Perkelk pažodžiui.** Jei demo rašo `18px/700`, tai ir turi būti
+   `18px/700`, o ne „panašiai" ar „iš dizaino sistemos". Klases
+   pervadink su savo prefiksu ir šalia komentaru surašyk atitikmenis
+   (`demo .block -> .im-block`).
+3. **Tekstai irgi pažodžiui**: „Rašyti žinutę", „Įsiminti įmonę",
+   „Visos nuotraukos", „Kaip nuvažiuoti", „Paslaugos ir kainos",
+   „Darbo laikas".
+4. **Nekurk blokų, kurių demo nėra.** Jei atsirado savas blokas —
+   išimk arba pagrįsk atskirai.
+5. **Nufotografuok abu** per Playwright ties 1440 ir 390 px, sudėk
+   greta (PIL) ir parodyk paveikslėlį.
+6. **Pateik lentelę** `elementas | demo | pas mus | sutampa`. Visose
+   eilutėse turi būti „taip". Jei kur nors „ne" — taisyk ir kartok.
+7. **Sąmoningi nukrypimai** (pvz. atsiliepimai atidėti vėlesniam etapui)
+   lentelėje rašomi atskira eilute su priežastimi — jie neslepiami.
+
+Reikšmes patogu tikrinti ne akimis, o naršyklėje:
+
+```js
+getComputedStyle(document.querySelector('.im-block'))
+  // fontSize, fontWeight, padding, borderRadius, gap, gridTemplateColumns…
+```
+
+Palygink demo ir gyvo puslapio `getComputedStyle` reikšmes — jos turi
+sutapti skaičius į skaičių.

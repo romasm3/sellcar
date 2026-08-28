@@ -26,15 +26,18 @@ def imoniu_sarasas(request):
 
     miestas = (request.GET.get('city') or '').strip()
     tipas = (request.GET.get('tipas') or '').strip()
-    veikla = (request.GET.get('veikla') or '').strip()
+    # Veiklos sritys — žymos, galima rinktis kelias (?veikla=a&veikla=b).
+    # Kelios reiškia „bet kuri iš jų": servisas dažnai daro ir remontą,
+    # ir padangas, todėl susiaurinti iki „visos kartu" būtų per griežta.
+    veiklos_f = [v for v in request.GET.getlist('veikla') if v]
     q = (request.GET.get('q') or '').strip()
 
     if miestas:
         qs = qs.filter(miestas__icontains=miestas)
     if tipas in dict(Imone.TIPAI):
         qs = qs.filter(tipas=tipas)
-    if veikla:
-        qs = qs.filter(veiklos__slug=veikla)
+    if veiklos_f:
+        qs = qs.filter(veiklos__slug__in=veiklos_f)
     if q:
         qs = qs.filter(Q(pavadinimas__icontains=q) | Q(aprasymas__icontains=q))
 
@@ -55,9 +58,12 @@ def imoniu_sarasas(request):
         'rasta': qs.distinct().count(),
         'miestai': (_matomos().exclude(miestas='')
                     .values_list('miestas', flat=True).distinct().order_by('miestas')),
-        'veiklos': VeiklosSritis.objects.filter(imones__patvirtinta=True).distinct(),
+        # Filtre rodom tik tas sritis, kurios turi bent vieną įmonę
+        'veiklos': (VeiklosSritis.objects.filter(imones__patvirtinta=True)
+                    .annotate(kiek=Count('imones', distinct=True))
+                    .order_by('tvarka', 'pavadinimas').distinct()),
         'tipai': Imone.TIPAI,
-        'f_miestas': miestas, 'f_tipas': tipas, 'f_veikla': veikla, 'f_q': q,
+        'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f, 'f_q': q,
     })
 
 
@@ -70,7 +76,7 @@ def imone(request, slug):
     if obj.tipas == Imone.PREKIAUTOJAS:
         qs = obj.skelbimai()
         skelbimu_kiek = qs.count()
-        skelbimai = list(qs.order_by('-id')[:6])
+        skelbimai = list(qs.order_by('-id')[:8])
         # „Rašyti žinutę" pokalbis rišamas prie skelbimo — imam naujausią.
         # Jei skelbimų nėra, mygtuko nerodom (žr. šabloną).
         if skelbimai:
@@ -84,14 +90,13 @@ def imone(request, slug):
         trupiniai.append({'label': obj.miestas,
                           'url': reverse('imones:sarasas') + '?city=' + obj.miestas})
 
-    from apps.listings.korteles import kortele
     return render(request, 'imones/imone.html', {
         'imone': obj,
         'trupiniai': trupiniai,
         'nuotraukos': list(obj.nuotraukos.all()[:5]),
         'nuotrauku_kiek': obj.nuotraukos.count(),
         'paslaugos': list(obj.paslaugos.all()) if obj.tipas == Imone.SERVISAS else [],
-        'korteles': [kortele(o) for o in skelbimai],
+        'skelbimai': skelbimai,
         'skelbimu_kiek': skelbimu_kiek,
         'zinutes_url': zinutes_url,
         'laikai': obj.savaites_laikai(),

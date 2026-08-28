@@ -2,6 +2,11 @@
 """
 ĮMONĖS — vienas objektas, du tipai.
 
+Įmonė yra TIK verslas: prekiautojas arba servisas. Privatus pardavėjas
+profilio negauna — jo skelbimai lieka skelbimais. Todėl profiliai
+kuriami tik iš prekiautojų paskyrų (manage.py imones_is_paskyru), o
+servisai registruosis patys ir bus patvirtinami rankomis.
+
 Prekiautojas ir servisas skiriasi tik tuo, kas rodoma puslapio viduryje
 (skelbimai ar paslaugos), todėl atskirų modelių nekuriame — vienas
 `Imone` su `tipas`.
@@ -35,9 +40,19 @@ SAVAITE = [
 
 
 class VeiklosSritis(models.Model):
-    """Žyma: prekyba, supirkimas, servisas, padangos, detailing…"""
+    """Ką įmonė daro: prekyba, remontas, padangos, detailing…
+
+    Viena įmonė gali turėti kelias sritis — servisas dažnai daro ir
+    remontą, ir padangas. Sąrašas grupuojamas (prekyba / servisai),
+    kad filtre būtų lengviau susigaudyti.
+    """
+    PREKYBA = 'prekyba'
+    SERVISAS = 'servisas'
+    GRUPES = [(PREKYBA, _('Prekyba')), (SERVISAS, _('Servisai'))]
+
     pavadinimas = models.CharField(max_length=64, unique=True)
     slug = models.SlugField(max_length=64, unique=True)
+    grupe = models.CharField(max_length=16, choices=GRUPES, default=SERVISAS)
     tvarka = models.PositiveIntegerField(default=0)
 
     class Meta:

@@ -2,26 +2,24 @@
 {% load i18n static %}
 {% block title %}{% trans "Įmonės" %} - AutoLeft{% endblock %}
 
-{% block puslapio_antraste %}
-  {% trans "Įmonės" as pav %}
-  {% include 'partials/_puslapio_antraste.html' with pavadinimas=pav %}
-{% endblock %}
-
 {% block content %}
 {% comment %}
 ═══════════════════════════════════════════════════════════════════════
-ĮMONIŲ SĄRAŠAS — /imones/
+ĮMONIŲ SĄRAŠAS — /imones/  (maketas: docs/demo/imones-demo.html, 1 dalis)
 
-Maketas iš docs/imones-demo.html: skirtukai „Skelbimai | Įmonės",
-rastų skaičius, filtrai dešinėje ir kortelių tinklelis.
+Kortelė iš demo: nuotrauka 16:10, žyma kairėje viršuje, širdis dešinėje,
+pavadinimas 16/600 su dešine puse toje pačioje eilutėje, miestas ir
+adresas 13 px pilki, veiklos sritys 13 px pilkos, žyma apačioje.
 
-Vertinimo (žvaigždučių) ČIA NĖRA — atsiliepimai yra 3 etapas. Vietoj jo
-kortelė rodo skelbimų skaičių arba darbo laiką.
+Dešinėje pavadinimo pusėje demo rodo vertinimą. Atsiliepimai — 3 etapas
+(sutarta: kas gali rašyti ir ką daryti su melagingais dar neaprašyta),
+todėl toje pačioje vietoje ir tuo pačiu stiliumi rodom sutartą pakaitalą:
+prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 {% include 'imones/_stiliai.html' %}
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="im-sritis" style="padding-top:16px">
   <div class="im-virsus">
     {% include 'imones/_skirtukai.html' with aktyvus='imones' %}
     <span class="im-rasta">{% blocktrans count kiek=rasta %}Rasta <b>{{ kiek }}</b> įmonė{% plural %}Rasta <b>{{ kiek }}</b> įmonių{% endblocktrans %}</span>
@@ -41,47 +39,57 @@ kortelė rodo skelbimų skaičių arba darbo laiką.
         <option value="{{ reiksme }}" {% if reiksme == f_tipas %}selected{% endif %}>{{ vardas }}</option>
         {% endfor %}
       </select>
-      <select name="veikla" class="im-sel" onchange="this.form.submit()">
-        <option value="">{% trans "Visos veiklos" %}</option>
-        {% for v in veiklos %}
-        <option value="{{ v.slug }}" {% if v.slug == f_veikla %}selected{% endif %}>{{ v.pavadinimas }}</option>
-        {% endfor %}
-      </select>
     </form>
   </div>
 
-  <div class="im-tinklas">
+  {% comment %}Veiklos sritys — žymos, galima pažymėti kelias. Rodom tik
+  tas, kurios turi bent vieną įmonę (skaičius skliaustuose).{% endcomment %}
+  {% if veiklos %}
+  <form class="im-zymos" method="get">
+    <input type="hidden" name="q" value="{{ f_q }}">
+    <input type="hidden" name="city" value="{{ f_miestas }}">
+    <input type="hidden" name="tipas" value="{{ f_tipas }}">
+    {% for v in veiklos %}
+    <label class="im-zyma{% if v.slug in f_veiklos %} is-on{% endif %}">
+      <input type="checkbox" name="veikla" value="{{ v.slug }}"
+             {% if v.slug in f_veiklos %}checked{% endif %}
+             onchange="this.form.submit()">
+      <span>{{ v.pavadinimas }}</span><em>{{ v.kiek }}</em>
+    </label>
+    {% endfor %}
+    {% if f_veiklos %}
+    <a class="im-zymos-valyti" href="?{% if f_q %}q={{ f_q|urlencode }}&{% endif %}{% if f_miestas %}city={{ f_miestas|urlencode }}&{% endif %}{% if f_tipas %}tipas={{ f_tipas }}{% endif %}">{% trans "Išvalyti" %}</a>
+    {% endif %}
+  </form>
+  {% endif %}
+
+  <div class="im-grid">
     {% for i in imones %}
-    <a class="im-kort" href="{{ i.get_absolute_url }}">
-      <div class="im-foto">
-        {% if i.nuotraukos.first %}
-          <img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
-        {% elif i.logotipas %}
-          <img class="im-logo" src="{{ i.logotipas.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
-        {% endif %}
+    <a class="im-co" href="{{ i.get_absolute_url }}">
+      <div class="ph">
+        {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">{% endif %}
         {% if i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
-          <span class="im-zyma">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
+          <span class="badge">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
         {% elif i.ar_atidaryta %}
-          <span class="im-zyma">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
+          <span class="badge">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
         {% endif %}
+        <button type="button" class="heart" data-isiminti="{{ i.pk }}"
+                aria-label="{% trans 'Įsiminti įmonę' %}">♡</button>
       </div>
-      <div class="im-kort-turinys">
-        <div class="im-vardas">{{ i.pavadinimas }}</div>
-        <div class="im-meta">
-          {% if i.miestas %}{{ i.miestas }}{% if i.adresas %}, {{ i.adresas }}{% endif %}{% else %}{{ i.adresas }}{% endif %}
+      <div class="c">
+        <div class="nm">{{ i.pavadinimas }}
+          <span class="im-rate">{% if i.tipas == 'prekiautojas' %}{{ i.skelbimu_kiek }} <span>{% trans "skelbimų" %}</span>{% else %}<span>{% blocktrans with metai=i.nuo_metu %}Nuo {{ metai }} m.{% endblocktrans %}</span>{% endif %}</span>
         </div>
-        <div class="im-veiklos">
-          {% for v in i.veiklos.all %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}
-        </div>
-        <span class="im-pill{% if i.tipas == 'prekiautojas' %} is-prek{% endif %}">{{ i.get_tipas_display }}</span>
+        <div class="meta">{{ i.miestas }}{% if i.miestas and i.adresas %}, {% endif %}{{ i.adresas }}</div>
+        <div class="type">{% for v in i.veiklos.all %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}</div>
+        <span class="im-pill{% if i.tipas == 'prekiautojas' %} deal{% endif %}">{{ i.get_tipas_display }}</span>
       </div>
     </a>
     {% empty %}
-    <div class="im-tuscia">
-      <p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p>
-    </div>
+    <div class="im-tuscia"><p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p></div>
     {% endfor %}
   </div>
-  <div style="height: var(--sp-10)"></div>
+  <div style="height:64px"></div>
 </div>
+<script src="{% static 'js/imone.js' %}"></script>
 {% endblock %}
