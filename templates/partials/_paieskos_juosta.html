@@ -30,7 +30,7 @@ numatyta „Visa Lietuva", o naršyklei leidus siūloma „Dabartinė vieta".
 {% comment %}„Uždaryti paspaudus šalia" kabinam ant viso bloko, ne ant
 lauko: skirtukai ir eilutės yra kortelėje, kuri laukui yra „išorė", ir
 paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
-<div class="hp" x-data="paieskosJuosta('{{ aktyvi_sritis|default:"visi" }}', '{{ rezimas|default:"visi" }}')" @keydown.escape="uzdaryk()"
+<div class="hp" x-data="paieskosJuosta('{{ aktyvi_sritis|default:"visi" }}', '{{ rezimas|default:"visi" }}', '{{ f_laikas|default:"" }}')" @keydown.escape="uzdaryk()"
      @click.outside="uzdaryk()">
   <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get"
         action="{{ veiksmas|default:'/map/' }}" @submit="paruosk()">
@@ -59,13 +59,13 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
       <input type="text" x-model="vieta" autocomplete="off"
              placeholder="{% trans 'Visa Lietuva' %}"
              @input.debounce.300ms="ieskokVietos()"
-             @focus="rodykVietas = true">
-      <div class="hp-siulymai" x-show="rodykVietas" x-cloak @click.outside="rodykVietas = false">
-        <button type="button" class="hp-siulymas" @click="dabartineVieta()" x-show="arGalimaVieta">
+             @focus="atidarytas = 'vieta'">
+      <div class="hp-lst hp-siulymai" x-show="atidarytas === 'vieta'" x-cloak>
+        <button type="button" class="hp-lst-eil" @click="dabartineVieta()" x-show="arGalimaVieta">
           <i class="fa-solid fa-location-crosshairs"></i><span>{% trans "Dabartinė vieta" %}</span>
         </button>
         <template x-for="(v, i) in vietos" :key="i">
-          <button type="button" class="hp-siulymas" @click="pasirinkVieta(v)">
+          <button type="button" class="hp-lst-eil" @click="pasirinkVieta(v)">
             <i class="fa-solid fa-location-dot"></i><span x-text="v.tekstas"></span>
           </button>
         </template>
@@ -80,14 +80,35 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
 
     {% comment %}Trečias laukas — pagal ĮMONĖS DARBO LAIKĄ, ne rezervaciją:
     rezervacijų sistemos nėra ir neplanuojam.{% endcomment %}
-    <label class="hp-laukas hp-kada" :class="zingsnis && zingsnis !== 3 && 'hp-slepiam'">
+    <div class="hp-laukas hp-kada" :class="zingsnis && zingsnis !== 3 && 'hp-slepiam'">
       <i class="fa-regular fa-clock hp-ikona" aria-hidden="true"></i>
-      <select name="laikas" x-model="kada">
-        {% for reiksme, vardas in laiko_pasirinkimai %}
-        <option value="{{ reiksme }}" {% if reiksme == f_laikas %}selected{% endif %}>{{ vardas }}</option>
-        {% endfor %}
-      </select>
-    </label>
+      <button type="button" class="hp-reiksme" :class="!kada && 'yra-tuscia'"
+              @click="perjunk('kada')"
+              @keydown.arrow-down.prevent="atidarytas === 'kada' ? kadaZemyn() : perjunk('kada')"
+              @keydown.arrow-up.prevent="kadaAukstyn()"
+              @keydown.enter.prevent="kadaPasirink()"
+              x-text="kadosVardas()"></button>
+
+      {% comment %}Tas pats sąrašo apvalkalas (.hp-lst) ir tos pačios
+      eilutės (.hp-lst-eil) kaip vietos siūlymuose — trečios atmainos
+      nekuriam. Punktai ateina iš serverio (window.HP_LAIKAI).{% endcomment %}
+      <div class="hp-lst hp-lst-kada" x-show="atidarytas === 'kada'" x-cloak>
+        <template x-for="(l, i) in laikoSarasas" :key="l.v">
+          <div>
+            <button type="button" class="hp-lst-eil" :class="[l.svarbi && 'yra-svarbi',
+                    kada === l.v && 'is-pasirinkta', kadosZymeta === i && 'is-pazymeta']"
+                    @mouseenter="kadosZymeta = i"
+                    @click="kada = l.v; atidarytas = ''">
+              <template x-if="l.svarbi"><span class="hp-taskas" aria-hidden="true"></span></template>
+              <span x-text="l.n"></span>
+              <i class="fa-solid fa-check hp-varnele" aria-hidden="true" x-show="kada === l.v"></i>
+            </button>
+            <template x-if="l.svarbi"><span class="hp-lst-linija" aria-hidden="true"></span></template>
+          </div>
+        </template>
+      </div>
+      <input type="hidden" name="laikas" :value="kada" :disabled="!kada">
+    </div>
     {% endif %}
 
     <button type="submit" class="hp-eiti" x-show="!zingsnis || zingsnis === 3">{% trans "Ieškoti" %}</button>
@@ -101,7 +122,7 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
     <input type="hidden" name="country_filter" x-ref="pCountry" disabled>
 
     {# ── Iškrentantis sąrašas ── #}
-    <div class="hp-kortele" x-show="atviras && (!zingsnis || zingsnis === 1)" x-cloak>
+    <div class="hp-lst hp-kortele" x-show="atidarytas === 'ko' && (!zingsnis || zingsnis === 1)" x-cloak>
       <div class="hp-skirtukai">
         <template x-for="s in sritys" :key="s.raktas">
           <button type="button" class="hp-skirtukas" :class="s.raktas === sritis && 'is-on'"
@@ -129,7 +150,9 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
                @mouseenter="pazymeta = indeksas(gi, ei)">
               <span class="hp-ikonele" :class="e.img && 'su-foto'">
                 <template x-if="e.img"><img :src="e.img" alt=""></template>
-                <template x-if="!e.img"><i class="fa-solid" :class="ikona(e.tipas)"></i></template>
+                {% comment %}Paslaugos turi savo ikoną (VeiklosSritis.ikona);
+                kitiems tipams — bendra pagal tipą.{% endcomment %}
+                <template x-if="!e.img"><i class="fa-solid" :class="e.ikona || ikona(e.tipas)"></i></template>
               </span>
               <span class="hp-tekstas">
                 <b x-text="e.vardas"></b>
@@ -151,6 +174,11 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
 </div>
 
 <script>
+  {% comment %}„Kada" punktai — iš to paties šaltinio kaip filtras
+  serveryje (imones.views.LAIKO_PASIRINKIMAI).{% endcomment %}
+  window.HP_LAIKAI = [
+    {% for reiksme, vardas in laiko_pasirinkimai %}{ v: '{{ reiksme }}', n: '{{ vardas|escapejs }}', svarbi: {% if reiksme == 'dabar' %}true{% else %}false{% endif %} }{% if not forloop.last %},{% endif %}{% endfor %}
+  ];
   window.HP_TEKSTAI = {
     visi: '{% trans "Visi" %}', markes: '{% trans "Markės" %}',
     skelbimai: '{% trans "Skelbimai" %}', imones: '{% trans "Įmonės" %}',

@@ -52,6 +52,9 @@ class VeiklosSritis(models.Model):
 
     pavadinimas = models.CharField(max_length=64, unique=True)
     slug = models.SlugField(max_length=64, unique=True)
+    # Font Awesome klasė — tas pats rinkinys kaip kategorijų ikonoms
+    # (listing_filters.KATEGORIJU_IKONOS). Kiekviena sritis turi savo.
+    ikona = models.CharField(max_length=48, default='fa-screwdriver-wrench')
     grupe = models.CharField(max_length=16, choices=GRUPES, default=SERVISAS)
     tvarka = models.PositiveIntegerField(default=0)
 

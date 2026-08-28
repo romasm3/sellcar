@@ -145,6 +145,7 @@ def _paslaugos(q, kiek=EILUCIU):
     eilutes = eilutes.order_by('-kiek', 'tvarka')[:kiek]
     return [{
         'tipas': 'paslauga',
+        'ikona': v.ikona,
         'vardas': v.pavadinimas,
         'kiek_imoniu': v.kiek,
         'url': '/imones/?veikla=%s' % v.slug,

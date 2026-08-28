@@ -15,22 +15,24 @@
  * Klaviatūra: ↑↓ vaikšto po eilutėmis, Enter atidaro pažymėtą (o jei
  * niekas nepažymėta — paprasčiausiai siunčia formą), Esc uždaro.
  */
-function paieskosJuosta(pradineSritis, rezimas) {
+function paieskosJuosta(pradineSritis, rezimas, pradinisLaikas) {
     const T = window.HP_TEKSTAI || {};
     const RAKTAS = 'paieskos_istorija';
     const RIBA = 4;
 
     return {
-        atviras: false,
+        atidarytas: '',     // 'ko' | 'vieta' | 'kada' — vienu metu vienas
+        kadosZymeta: -1,
         sritis: (rezimas === 'imoniu_puslapis') ? 'imoniu_puslapis'
                                                 : (pradineSritis || 'visi'),
         rodytiZymas: rezimas !== 'imoniu_puslapis',
         imoniu: rezimas === 'imoniu_puslapis',
-        kada: '',
+        kada: pradinisLaikas || '',   // atsistato iš adreso
+        laikoSarasas: window.HP_LAIKAI || [],
         zingsnis: 0,        // 0 — darbalaukis; telefone 1..3
         ko: '', vieta: '', salis: '',
         grupes: [], paskutines: [],
-        vietos: [], rodykVietas: false,
+        vietos: [],
         pazymeta: -1,
         arGalimaVieta: !!(navigator && navigator.geolocation),
         _ctrl: null,
@@ -53,8 +55,19 @@ function paieskosJuosta(pradineSritis, rezimas) {
         },
 
         // ── Atidarymas ir uždarymas ────────────────────────────────
+        /** Ar bent vienas juostos sąrašas atviras (telefono ekranui). */
+        get atviras() { return !!this.atidarytas; },
+
+        /** Perjungia vieną sąrašą; kiti tuo metu užsidaro. */
+        perjunk(kuris) {
+            this.atidarytas = (this.atidarytas === kuris) ? '' : kuris;
+            if (this.atidarytas === 'kada') {
+                this.kadosZymeta = this.laikoSarasas.findIndex(l => l.v === this.kada);
+            }
+        },
+
         atidaryk() {
-            this.atviras = true;
+            this.atidarytas = 'ko';
             const telefone = window.innerWidth <= 900;
             document.body.classList.toggle('hp-uzdengta', telefone);
             // Telefone einam per tris ekranus iš eilės: ko · kur · kada
@@ -69,7 +82,7 @@ function paieskosJuosta(pradineSritis, rezimas) {
         },
 
         uzdaryk() {
-            this.atviras = false;
+            this.atidarytas = '';
             this.zingsnis = 0;
             this.pazymeta = -1;
             document.body.classList.remove('hp-uzdengta');
@@ -156,6 +169,28 @@ function paieskosJuosta(pradineSritis, rezimas) {
             window.location = v.url;
         },
 
+        // ── „Kada" sąrašas ─────────────────────────────────────────
+        kadosVardas() {
+            const l = this.laikoSarasas.find(x => x.v === this.kada);
+            return l ? l.n : (this.laikoSarasas[0] ? this.laikoSarasas[0].n : '');
+        },
+
+        kadaZemyn() {
+            const n = this.laikoSarasas.length;
+            if (n) this.kadosZymeta = (this.kadosZymeta + 1) % n;
+        },
+
+        kadaAukstyn() {
+            const n = this.laikoSarasas.length;
+            if (n) this.kadosZymeta = (this.kadosZymeta - 1 + n) % n;
+        },
+
+        kadaPasirink() {
+            if (this.atidarytas !== 'kada') return;
+            const l = this.laikoSarasas[this.kadosZymeta];
+            if (l) { this.kada = l.v; this.atidarytas = ''; }
+        },
+
         // ── Paskutinės paieškos naršyklėje ─────────────────────────
         skaityk() {
             try { return JSON.parse(localStorage.getItem(RAKTAS) || '[]') || []; }
@@ -181,7 +216,7 @@ function paieskosJuosta(pradineSritis, rezimas) {
             if (q.length < 3) { this.vietos = []; return; }
             fetch('/ajax/adresai/?q=' + encodeURIComponent(q))
                 .then(r => r.ok ? r.json() : { siulymai: [] })
-                .then(a => { this.vietos = a.siulymai || []; this.rodykVietas = true; })
+                .then(a => { this.vietos = a.siulymai || []; this.atidarytas = 'vieta'; })
                 .catch(() => { this.vietos = []; });
         },
 
@@ -191,7 +226,7 @@ function paieskosJuosta(pradineSritis, rezimas) {
             this.vieta = (vietove ? v.vardas : v.miestas) || v.vardas
                          || v.miestas || v.tekstas;
             this.salis = v.salies_kodas || '';
-            this.vietos = []; this.rodykVietas = false;
+            this.vietos = []; this.atidarytas = '';
         },
 
         /** „Dabartinė vieta" — koordinatės paverčiamos miestu (Nominatim). */
@@ -204,10 +239,10 @@ function paieskosJuosta(pradineSritis, rezimas) {
                         const v = (a.vieta || {});
                         this.vieta = v.miestas || v.tekstas || '';
                         this.salis = v.salies_kodas || '';
-                        this.rodykVietas = false;
+                        this.atidarytas = '';
                     })
-                    .catch(() => { this.rodykVietas = false; });
-            }, () => { this.rodykVietas = false; }, { timeout: 5000 });
+                    .catch(() => { this.atidarytas = ''; });
+            }, () => { this.atidarytas = ''; }, { timeout: 5000 });
         },
 
         /** Prieš siunčiant — reikšmės į paslėptus laukus, tuščios išjungtos. */

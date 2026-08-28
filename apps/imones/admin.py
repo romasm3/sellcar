@@ -39,5 +39,5 @@ class ImoneAdmin(admin.ModelAdmin):
 
 @admin.register(VeiklosSritis)
 class VeiklosSritisAdmin(admin.ModelAdmin):
-    list_display = ('pavadinimas', 'slug', 'tvarka')
+    list_display = ('pavadinimas', 'slug', 'ikona', 'grupe', 'tvarka')
     prepopulated_fields = {'slug': ('pavadinimas',)}
