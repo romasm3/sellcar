@@ -1,6 +1,7 @@
 {% load i18n static %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
-PAGRINDINĖ PAIEŠKA — dvi dalys ir mygtukas vienoje suapvalintoje formoje:
+PAIEŠKOS JUOSTA — BENDRAS komponentas. Dvi dalys ir mygtukas vienoje
+suapvalintoje formoje:
 
   🔍 [Ko ieškote?]   📍 [Vieta]   ( Ieškoti )
 
@@ -10,6 +11,12 @@ markės. Rašant rodomi sugrupuoti rezultatai su antraštėmis; grupė be
 rezultatų nerodoma. Duomenys — /ajax/paieska/ (apps/listings/
 paieskos_siulymai.py), 250 ms pauzė, ne kas raidę.
 
+Parametrai:
+    aktyvi_sritis  kuri žyma pažymėta atidarius — 'visi' (numatyta),
+                   'markes', 'skelbimai' arba 'imones'
+
+Įdedama bet kur vienu {% verbatim %}{% include %}{% endverbatim %}; antros kopijos nekuriam.
+
 Klaviatūra: ↑↓ vaikšto po eilutes, Enter atidaro pažymėtą, Esc uždaro.
 Vieta — Photon per /ajax/adresai/, tas pats šaltinis kaip kūrimo formoje;
 numatyta „Visa Lietuva", o naršyklei leidus siūloma „Dabartinė vieta".
@@ -18,7 +25,7 @@ numatyta „Visa Lietuva", o naršyklei leidus siūloma „Dabartinė vieta".
 {% comment %}„Uždaryti paspaudus šalia" kabinam ant viso bloko, ne ant
 lauko: skirtukai ir eilutės yra kortelėje, kuri laukui yra „išorė", ir
 paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
-<div class="hp" x-data="herojausPaieska()" @keydown.escape="uzdaryk()"
+<div class="hp" x-data="paieskosJuosta('{{ aktyvi_sritis|default:"visi" }}')" @keydown.escape="uzdaryk()"
      @click.outside="uzdaryk()">
   <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get" action="/map/"
         @submit="paruosk()">
@@ -125,4 +132,4 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
     visaLietuva: '{% trans "Visa Lietuva" %}'
   };
 </script>
-<script src="{% static 'js/hero_paieska.js' %}"></script>
+<script src="{% static 'js/paieskos_juosta.js' %}"></script>

@@ -19,49 +19,33 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
 {% endcomment %}
 {% include 'imones/_stiliai.html' %}
 
-<div class="im-sritis" style="padding-top:16px">
+<div class="im-sritis" style="padding-top:16px" x-data="{ filtraiAtidaryti: false }">
+  {% comment %}Viršuje lieka tik skirtukai, rastų skaičius ir mygtukai —
+  buvę trys laukeliai persikėlė į „Filtrai" langą.{% endcomment %}
   <div class="im-virsus">
     {% include 'imones/_skirtukai.html' with aktyvus='imones' %}
     <span class="im-rasta">{% blocktrans count kiek=rasta %}Rasta <b>{{ kiek }}</b> įmonė{% plural %}Rasta <b>{{ kiek }}</b> įmonių{% endblocktrans %}</span>
-
-    <form class="im-filtrai" method="get">
-      <input type="search" name="q" class="im-ieskoti" value="{{ f_q }}"
-             placeholder="{% trans 'Pavadinimas' %}">
-      <select name="city" class="im-sel" onchange="this.form.submit()">
-        <option value="">{% trans "Visi miestai" %}</option>
-        {% for m in miestai %}
-        <option value="{{ m }}" {% if m == f_miestas %}selected{% endif %}>{{ m }}</option>
-        {% endfor %}
-      </select>
-      <select name="tipas" class="im-sel" onchange="this.form.submit()">
-        <option value="">{% trans "Visos įmonės" %}</option>
-        {% for reiksme, vardas in tipai %}
-        <option value="{{ reiksme }}" {% if reiksme == f_tipas %}selected{% endif %}>{{ vardas }}</option>
-        {% endfor %}
-      </select>
-    </form>
+    <div class="im-mygtukai">
+      <button type="button" class="im-sel im-filtrai-btn" @click="filtraiAtidaryti = true">
+        <i class="fa-solid fa-sliders" aria-hidden="true"></i> {% trans "Filtrai" %}
+        {% if aktyviu_filtru %}<span class="im-filtru-sk">{{ aktyviu_filtru }}</span>{% endif %}
+      </button>
+      {% comment %}Įmonės žemėlapyje jau rodomos žymekliais su logotipais —
+      atskiro žemėlapio čia nekuriam, vedam į tą patį.{% endcomment %}
+      <a class="im-sel im-filtrai-btn" href="{% url 'search_map' %}{% if f_miestas %}?city={{ f_miestas|urlencode }}{% endif %}">
+        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> {% trans "Žemėlapyje" %}
+      </a>
+    </div>
   </div>
 
-  {% comment %}Veiklos sritys — žymos, galima pažymėti kelias. Rodom tik
-  tas, kurios turi bent vieną įmonę (skaičius skliaustuose).{% endcomment %}
-  {% if veiklos %}
-  <form class="im-zymos" method="get">
-    <input type="hidden" name="q" value="{{ f_q }}">
-    <input type="hidden" name="city" value="{{ f_miestas }}">
-    <input type="hidden" name="tipas" value="{{ f_tipas }}">
-    {% for v in veiklos %}
-    <label class="im-zyma{% if v.slug in f_veiklos %} is-on{% endif %}">
-      <input type="checkbox" name="veikla" value="{{ v.slug }}"
-             {% if v.slug in f_veiklos %}checked{% endif %}
-             onchange="this.form.submit()">
-      <span>{{ v.pavadinimas }}</span><em>{{ v.kiek }}</em>
-    </label>
-    {% endfor %}
-    {% if f_veiklos %}
-    <a class="im-zymos-valyti" href="?{% if f_q %}q={{ f_q|urlencode }}&{% endif %}{% if f_miestas %}city={{ f_miestas|urlencode }}&{% endif %}{% if f_tipas %}tipas={{ f_tipas }}{% endif %}">{% trans "Išvalyti" %}</a>
-    {% endif %}
-  </form>
-  {% endif %}
+  {% comment %}Paieškos juosta — BENDRAS komponentas
+  (templates/partials/_paieskos_juosta.html). Čia žyma „Įmonės" pažymėta
+  iš anksto, bet žmogus gali persijungti į skelbimus tame pačiame lauke.
+  {% endcomment %}
+  {% include 'partials/_paieskos_juosta_stiliai.html' %}
+  {% include 'partials/_paieskos_juosta.html' with aktyvi_sritis='imones' %}
+
+  {% include 'imones/_filtrai.html' %}
 
   <div class="im-grid">
     {% for i in imones %}

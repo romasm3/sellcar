@@ -1,0 +1,109 @@
+{% load i18n %}{% comment %}
+FILTRŲ LANGAS įmonių sąraše. Į jį persikėlė trys buvę juostos laukeliai
+(pavadinimas, miestas, tipas) ir veiklos sritys — viršuje liko tik
+skirtukai, rastų skaičius ir šis mygtukas.
+{% endcomment %}
+<div class="imf-danga" x-show="filtraiAtidaryti" x-cloak
+     @click.self="filtraiAtidaryti = false" @keydown.escape.window="filtraiAtidaryti = false">
+  <div class="imf-langas" role="dialog" aria-modal="true" aria-label="{% trans 'Filtrai' %}">
+    <form method="get">
+      <div class="imf-virsus">
+        <h2>{% trans "Filtrai" %}</h2>
+        <button type="button" class="imf-uzdaryti" @click="filtraiAtidaryti = false"
+                aria-label="{% trans 'Uždaryti' %}">✕</button>
+      </div>
+
+      <div class="imf-turinys">
+        <div class="imf-sekcija">
+          <div class="imf-vardas">{% trans "Pavadinimas" %}</div>
+          <input type="search" name="q" class="imf-laukas" value="{{ f_q }}"
+                 placeholder="{% trans 'Įmonės pavadinimas' %}">
+        </div>
+
+        <div class="imf-sekcija">
+          <div class="imf-vardas">{% trans "Miestas" %}</div>
+          <select name="city" class="imf-laukas">
+            <option value="">{% trans "Visi miestai" %}</option>
+            {% for m in miestai %}
+            <option value="{{ m }}" {% if m == f_miestas %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="imf-sekcija">
+          <div class="imf-vardas">{% trans "Įmonės tipas" %}</div>
+          <div class="imf-zymos">
+            {% for reiksme, vardas in tipai %}
+            <label class="imf-zyma{% if reiksme == f_tipas %} is-on{% endif %}">
+              <input type="radio" name="tipas" value="{{ reiksme }}"
+                     {% if reiksme == f_tipas %}checked{% endif %}>
+              <span>{{ vardas }}</span>
+            </label>
+            {% endfor %}
+            <label class="imf-zyma{% if not f_tipas %} is-on{% endif %}">
+              <input type="radio" name="tipas" value="" {% if not f_tipas %}checked{% endif %}>
+              <span>{% trans "Visos įmonės" %}</span>
+            </label>
+          </div>
+        </div>
+
+        {% if veiklos %}
+        <div class="imf-sekcija">
+          <div class="imf-vardas">{% trans "Veiklos sritys" %}</div>
+          <div class="imf-zymos">
+            {% for v in veiklos %}
+            <label class="imf-zyma{% if v.slug in f_veiklos %} is-on{% endif %}">
+              <input type="checkbox" name="veikla" value="{{ v.slug }}"
+                     {% if v.slug in f_veiklos %}checked{% endif %}>
+              <span>{{ v.pavadinimas }}</span><em>{{ v.kiek }}</em>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="imf-apacia">
+        <a class="imf-valyti" href="{% url 'imones:sarasas' %}">{% trans "Išvalyti viską" %}</a>
+        <button type="submit" class="im-btn im-btn-main" style="width:auto">{% trans "Rodyti" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .imf-danga { position: fixed; inset: 0; z-index: 200; display: flex;
+               align-items: center; justify-content: center; padding: 16px;
+               background: rgba(17,24,39,.45); }
+  .imf-langas { width: min(680px, 100%); max-height: 86vh; display: flex;
+                flex-direction: column; background: #fff;
+                border-radius: 16px; overflow: hidden; }
+  .imf-virsus { display: flex; align-items: center; justify-content: space-between;
+                padding: 18px 20px; border-bottom: 1px solid var(--im-border, #E7E7E7); }
+  .imf-virsus h2 { font-size: 18px; font-weight: 700; }
+  .imf-uzdaryti { border: 0; background: none; font-size: 18px;
+                  color: var(--im-muted, #6B7280); cursor: pointer; }
+  .imf-turinys { padding: 20px; overflow-y: auto; }
+  .imf-sekcija + .imf-sekcija { margin-top: 20px; }
+  .imf-vardas { font-size: 13px; font-weight: 700; letter-spacing: .02em;
+                text-transform: uppercase; color: var(--im-muted, #6B7280);
+                margin-bottom: 10px; }
+  .imf-laukas { width: 100%; height: 40px; padding: 0 12px; font-size: 15px;
+                border: 1px solid var(--im-border, #E7E7E7); border-radius: 8px;
+                background: #fff; font-family: inherit; }
+  .imf-zymos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .imf-zyma { position: relative; display: inline-flex; align-items: center; gap: 6px;
+              padding: 8px 14px; border: 1px solid var(--im-border, #E7E7E7);
+              border-radius: 999px; background: #fff; font-size: 14px;
+              cursor: pointer; }
+  .imf-zyma input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .imf-zyma:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .imf-zyma em { font-style: normal; font-size: 12px; color: var(--im-muted, #6B7280); }
+  .imf-zyma.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .imf-zyma.is-on em { color: rgba(255,255,255,.75); }
+  .imf-apacia { display: flex; align-items: center; justify-content: space-between;
+                gap: 16px; padding: 16px 20px;
+                border-top: 1px solid var(--im-border, #E7E7E7); }
+  .imf-valyti { font-size: 14px; color: var(--im-muted, #6B7280); text-decoration: none; }
+  .imf-valyti:hover { text-decoration: underline; }
+</style>

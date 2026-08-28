@@ -1,5 +1,5 @@
 /**
- * PAGRINDINĖ PAIEŠKA — Alpine komponentas.
+ * PAIEŠKOS JUOSTA — bendras Alpine komponentas (ne vieno puslapio).
  *
  * Du laukai (ko ieškote · vieta) ir mygtukas. Sąraše — filtro žymos ir
  * sugrupuoti rezultatai iš /ajax/paieska/. Užklausa siunčiama po 250 ms
@@ -15,14 +15,14 @@
  * Klaviatūra: ↑↓ vaikšto po eilutėmis, Enter atidaro pažymėtą (o jei
  * niekas nepažymėta — paprasčiausiai siunčia formą), Esc uždaro.
  */
-function herojausPaieska() {
+function paieskosJuosta(pradineSritis) {
     const T = window.HP_TEKSTAI || {};
     const RAKTAS = 'paieskos_istorija';
     const RIBA = 4;
 
     return {
         atviras: false,
-        sritis: 'visi',
+        sritis: pradineSritis || 'visi',
         ko: '', vieta: '', salis: '',
         grupes: [], paskutines: [],
         vietos: [], rodykVietas: false,

@@ -64,6 +64,8 @@ def imoniu_sarasas(request):
                     .order_by('tvarka', 'pavadinimas').distinct()),
         'tipai': Imone.TIPAI,
         'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f, 'f_q': q,
+        # Skaičiukas ant „Filtrai" mygtuko — kiek filtrų įjungta
+        'aktyviu_filtru': len([x for x in (miestas, tipas, q) if x]) + len(veiklos_f),
     })
 
 
