@@ -130,11 +130,47 @@ def _populiarios(user, kiek=MARKIU_RIBA):
     } for m in turincios[:kiek]]
 
 
+def _paslaugos(q, kiek=EILUCIU):
+    """Veiklos sritys su įmonių skaičiumi — įmonių puslapio siūlymai."""
+    try:
+        from apps.imones.models import VeiklosSritis
+    except Exception:
+        return []
+    eilutes = (VeiklosSritis.objects.filter(imones__patvirtinta=True)
+               .annotate(kiek=Count('imones', distinct=True)))
+    if q:
+        eilutes = eilutes.filter(pavadinimas__icontains=q)
+    eilutes = eilutes.order_by('-kiek', 'tvarka')[:kiek]
+    return [{
+        'tipas': 'paslauga',
+        'vardas': v.pavadinimas,
+        'kiek_imoniu': v.kiek,
+        'url': '/imones/?veikla=%s' % v.slug,
+    } for v in eilutes]
+
+
+def _imoniu_siulymai(request, q):
+    """Įmonių puslapio sąrašas: tik paslaugos ir įmonės, be markių."""
+    grupes = []
+    paslaugos = _paslaugos(q)
+    if paslaugos:
+        grupes.append({'vardas': str(_('Paslaugos')), 'eilutes': paslaugos})
+    imones = _imones(q) if q else []
+    if imones:
+        grupes.append({'vardas': str(_('Įmonės')), 'eilutes': imones})
+    return JsonResponse({'q': q, 'paskutines': [], 'grupes': grupes})
+
+
 @require_GET
 def ajax_paieskos_siulymai(request):
     """GET /ajax/paieska/?q=<tekstas>&sritis=visi|markes|skelbimai|imones"""
     q = (request.GET.get('q') or '').strip()
     sritis = (request.GET.get('sritis') or 'visi').strip()
+
+    # Įmonių puslapyje siūlom TIK paslaugas ir įmones — markių, modelių
+    # ir skelbimų ten nėra ir nebus.
+    if sritis == 'imoniu_puslapis':
+        return _imoniu_siulymai(request, q)
 
     if len(q) < 2:
         # Tuščias laukas: paskutinės paieškos (sesija — veikia ir svečiui)

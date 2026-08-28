@@ -35,7 +35,7 @@ def _darbas(sesta=('09:00', '14:00'), nuo='08:00', iki='18:00'):
 
 IMONES = [
     {
-        'raktas': 'test-padangos', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2011, 'raktas': 'test-padangos', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Ratų Servisas',
         'aprasymas': 'Padangų montavimas ir remontas, ratų balansavimas bei '
                      'geometrijos reguliavimas. Dirbame su lengvaisiais '
@@ -58,7 +58,7 @@ IMONES = [
         ],
     },
     {
-        'raktas': 'test-detailing', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2018, 'raktas': 'test-detailing', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Blizgus Auto',
         'aprasymas': 'Kėbulo poliravimas, keraminės ir plėvelinės dangos, '
                      'salono cheminis valymas. Dirbame uždarose patalpose su '
@@ -81,7 +81,7 @@ IMONES = [
         ],
     },
     {
-        'raktas': 'test-remontas', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2004, 'raktas': 'test-remontas', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Auto Meistrai',
         'aprasymas': 'Bendras automobilių remontas: variklio ir važiuoklės '
                      'darbai, stabdžiai, diagnostika. Dirbame su visomis '
@@ -104,7 +104,7 @@ IMONES = [
         ],
     },
     {
-        'raktas': 'test-prekiautojas', 'tipas': Imone.PREKIAUTOJAS,
+        'veikia_nuo': 2009, 'raktas': 'test-prekiautojas', 'tipas': Imone.PREKIAUTOJAS,
         'pavadinimas': 'MIKAUTA',
         'aprasymas': 'Naudoti automobiliai iš Vokietijos ir Skandinavijos. '
                      'Visi automobiliai patikrinti, su servisų istorija. '
@@ -120,7 +120,7 @@ IMONES = [
         'paslaugos': [],
     },
     {
-        'raktas': 'test-prekiautojas-2', 'tipas': Imone.PREKIAUTOJAS,
+        'veikia_nuo': 2021, 'raktas': 'test-prekiautojas-2', 'tipas': Imone.PREKIAUTOJAS,
         'pavadinimas': 'Auto Bravo',
         'aprasymas': 'Automobilių prekyba ir supirkimas Vilniuje. Perkame '
                      'automobilius su defektais ir be techninės apžiūros. '
@@ -196,6 +196,27 @@ class Command(BaseCommand):
         img.save(buferis, format='JPEG', quality=80)
         return ContentFile(buferis.getvalue())
 
+    @staticmethod
+    def _nuotraukos(kiek):
+        """Tikros nuotraukos — pasiskolintos iš jau įkeltų skelbimų.
+
+        Piešti dryžius nebeverta: bandomosios įmonės turi atrodyti kaip
+        tikros. Failai kopijuojami, originalūs skelbimai nepaliečiami.
+        """
+        from apps.listings.models import ListingImage
+
+        eilutes = (ListingImage.objects.exclude(image='')
+                   .order_by('?')[:kiek])
+        isvestis = []
+        for e in eilutes:
+            try:
+                e.image.open('rb')
+                isvestis.append(ContentFile(e.image.read()))
+                e.image.close()
+            except Exception:
+                continue
+        return isvestis
+
     def _viena(self, a, savininkai):
         with transaction.atomic():
             imone, nauja = Imone.objects.get_or_create(
@@ -213,6 +234,7 @@ class Command(BaseCommand):
             imone.el_pastas = a['el_pastas']
             imone.svetaine = a['svetaine']
             imone.darbo_laikas = a['darbo_laikas']
+            imone.veikia_nuo = a.get('veikia_nuo')
             nr = a.get('savininkas_nr')
             imone.savininkas = (savininkai[nr] if nr is not None
                                 and nr < len(savininkai) else None)
@@ -235,12 +257,8 @@ class Command(BaseCommand):
 
             if imone.nuotraukos.count() < 5:
                 imone.nuotraukos.all().delete()
-                for i in range(5):
+                for i, failas in enumerate(self._nuotraukos(5)):
                     n = ImonesNuotrauka(imone=imone, tvarka=i)
-                    n.nuotrauka.save(
-                        f"{a['raktas']}-{i + 1}.jpg",
-                        self._piesinys(f"{a['pavadinimas']} · {i + 1}",
-                                       a['spalva'], 1200, 800),
-                        save=False)
+                    n.nuotrauka.save(f"{a['raktas']}-{i + 1}.jpg", failas, save=False)
                     n.save()
         self.stdout.write(('sukurta ' if nauja else 'atnaujinta ') + imone.pavadinimas)

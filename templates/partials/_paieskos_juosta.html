@@ -14,6 +14,11 @@ paieskos_siulymai.py), 250 ms pauzė, ne kas raidę.
 Parametrai:
     aktyvi_sritis  kuri žyma pažymėta atidarius — 'visi' (numatyta),
                    'markes', 'skelbimai' arba 'imones'
+    rezimas        'visi' (numatyta) — keturios žymos ir keturios grupės,
+                   siunčia į /map/;
+                   'imoniu_puslapis' — be žymų, tik paslaugos ir įmonės,
+                   „Ieškoti" lieka tame pačiame puslapyje
+    veiksmas       formos adresas (numatyta /map/)
 
 Įdedama bet kur vienu {% verbatim %}{% include %}{% endverbatim %}; antros kopijos nekuriam.
 
@@ -25,10 +30,10 @@ numatyta „Visa Lietuva", o naršyklei leidus siūloma „Dabartinė vieta".
 {% comment %}„Uždaryti paspaudus šalia" kabinam ant viso bloko, ne ant
 lauko: skirtukai ir eilutės yra kortelėje, kuri laukui yra „išorė", ir
 paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
-<div class="hp" x-data="paieskosJuosta('{{ aktyvi_sritis|default:"visi" }}')" @keydown.escape="uzdaryk()"
+<div class="hp" x-data="paieskosJuosta('{{ aktyvi_sritis|default:"visi" }}', '{{ rezimas|default:"visi" }}')" @keydown.escape="uzdaryk()"
      @click.outside="uzdaryk()">
-  <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get" action="/map/"
-        @submit="paruosk()">
+  <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get"
+        action="{{ veiksmas|default:'/map/' }}" @submit="paruosk()">
 
     {# ── 1. Ko ieškote ── #}
     <div class="hp-laukas hp-ko">
@@ -76,7 +81,7 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
 
     {# ── Iškrentantis sąrašas ── #}
     <div class="hp-kortele" x-show="atviras" x-cloak>
-      <div class="hp-skirtukai">
+      <div class="hp-skirtukai" x-show="rodytiZymas">
         <template x-for="s in sritys" :key="s.raktas">
           <button type="button" class="hp-skirtukas" :class="s.raktas === sritis && 'is-on'"
                   @click="sritis = s.raktas; ieskok()" x-text="s.vardas"></button>
@@ -110,8 +115,8 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
                 <em x-show="e.apie || e.vieta"
                     x-text="[e.apie, e.vieta].filter(Boolean).join(' · ')"></em>
               </span>
-              <span class="hp-desine" x-show="e.kaina || e.kiek"
-                    x-text="e.kaina || zenklas(e.kiek)"></span>
+              <span class="hp-desine" x-show="e.kaina || e.kiek || e.kiek_imoniu"
+                    x-text="e.kaina || zenklas(e.kiek) || imoniuZenklas(e.kiek_imoniu)"></span>
             </a>
           </template>
         </div>
@@ -129,6 +134,7 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
     visi: '{% trans "Visi" %}', markes: '{% trans "Markės" %}',
     skelbimai: '{% trans "Skelbimai" %}', imones: '{% trans "Įmonės" %}',
     skelbimu: ['{% trans "skelbimas" %}', '{% trans "skelbimai" %}', '{% trans "skelbimų" %}'],
+    imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}'],
     visaLietuva: '{% trans "Visa Lietuva" %}'
   };
 </script>

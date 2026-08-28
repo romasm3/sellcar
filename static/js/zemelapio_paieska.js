@@ -272,59 +272,11 @@ function zemelapioPaieska() {
             setTimeout(() => this.uzkrauk(), 300);
         },
 
-        /** Įmonių žymekliai: baltas burbulas su logotipu ir vardu.
-         *  Google Marker ikona yra vienas paveikslėlis, todėl logotipo į
-         *  ją neįdėsi — naudojam OverlayView su tikru HTML. */
+        /** Įmonių žymekliai — bendras static/js/imoniu_zymekliai.js
+         *  (tas pats piešinys naudojamas ir /imones/ žemėlapyje). */
         pieskImones(sarasas) {
-            (G.imones || []).forEach(o => o.setMap(null));
-            G.imones = [];
-            if (!G.zem || !sarasas || !sarasas.length) return;
-            if (!window.google || !google.maps.OverlayView) return;
-
-            const Klase = this.imoniuKlase();
-            sarasas.forEach(i => {
-                const o = new Klase(i);
-                o.setMap(G.zem);
-                G.imones.push(o);
-            });
-        },
-
-        /** OverlayView klasė kuriama vieną kartą — google.maps jau įkeltas. */
-        imoniuKlase() {
-            if (G._ImonesKlase) return G._ImonesKlase;
-            class ImonesZymeklis extends google.maps.OverlayView {
-                constructor(duom) { super(); this.d = duom; this.el = null; }
-                onAdd() {
-                    const e = document.createElement('a');
-                    e.className = 'zp-imone';
-                    e.href = this.d.url;
-                    e.target = '_blank';
-                    e.rel = 'noopener';
-                    e.title = this.d.vardas;
-                    const logo = this.d.logo
-                        ? `<img src="${this.d.logo}" alt="">`
-                        : `<span class="zp-imone-raide">${(this.d.vardas || '?')[0]}</span>`;
-                    const kiek = this.d.kiek
-                        ? `<em>${this.d.kiek}</em>` : '';
-                    e.innerHTML = logo + `<span>${this.d.vardas}</span>` + kiek;
-                    this.el = e;
-                    this.getPanes().floatPane.appendChild(e);
-                }
-                draw() {
-                    if (!this.el) return;
-                    const t = this.getProjection().fromLatLngToDivPixel(
-                        new google.maps.LatLng(this.d.lat, this.d.lng));
-                    if (!t) return;
-                    this.el.style.left = t.x + 'px';
-                    this.el.style.top = t.y + 'px';
-                }
-                onRemove() {
-                    if (this.el && this.el.parentNode) this.el.parentNode.removeChild(this.el);
-                    this.el = null;
-                }
-            }
-            G._ImonesKlase = ImonesZymeklis;
-            return G._ImonesKlase;
+            if (!window.imoniuZymekliai) return;
+            G.imones = window.imoniuZymekliai(G.zem, sarasas, G.imones);
         },
 
         uzkraukImones() {

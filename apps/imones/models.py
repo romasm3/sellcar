@@ -100,6 +100,10 @@ class Imone(models.Model):
     savininkas = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
                                    blank=True, on_delete=models.SET_NULL,
                                    related_name='imones')
+    # Kada įmonė pradėjo veiklą — rodoma vietoj vertinimo („Nuo 2019 m.").
+    # Jei nenurodyta, imam sukūrimo metus.
+    veikia_nuo = models.PositiveIntegerField(null=True, blank=True,
+                                             verbose_name='Veikia nuo (metai)')
     patvirtinta = models.BooleanField(default=False)
     # Bandomieji įrašai — kad juos būtų galima rasti ir pašalinti viena
     # komanda (manage.py imones_testines --pasalinti). Tikrų įmonių
@@ -170,7 +174,7 @@ class Imone(models.Model):
 
     def nuo_metu(self):
         """„Nuo 2019 m." — kol atsiliepimų nėra, tai rodom vietoj vertinimo."""
-        return self.sukurta.year if self.sukurta else None
+        return self.veikia_nuo or (self.sukurta.year if self.sukurta else None)
 
 
 class ImonesNuotrauka(models.Model):

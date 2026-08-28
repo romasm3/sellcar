@@ -15,14 +15,16 @@
  * Klaviatūra: ↑↓ vaikšto po eilutėmis, Enter atidaro pažymėtą (o jei
  * niekas nepažymėta — paprasčiausiai siunčia formą), Esc uždaro.
  */
-function paieskosJuosta(pradineSritis) {
+function paieskosJuosta(pradineSritis, rezimas) {
     const T = window.HP_TEKSTAI || {};
     const RAKTAS = 'paieskos_istorija';
     const RIBA = 4;
 
     return {
         atviras: false,
-        sritis: pradineSritis || 'visi',
+        sritis: (rezimas === 'imoniu_puslapis') ? 'imoniu_puslapis'
+                                                : (pradineSritis || 'visi'),
+        rodytiZymas: rezimas !== 'imoniu_puslapis',
         ko: '', vieta: '', salis: '',
         grupes: [], paskutines: [],
         vietos: [], rodykVietas: false,
@@ -82,12 +84,20 @@ function paieskosJuosta(pradineSritis) {
 
         ikona(tipas) {
             return { marke: 'fa-car', modelis: 'fa-car', skelbimas: 'fa-image',
-                     imone: 'fa-building', vieta: 'fa-location-dot' }[tipas] || 'fa-magnifying-glass';
+                     imone: 'fa-building', vieta: 'fa-location-dot',
+                     paslauga: 'fa-screwdriver-wrench' }[tipas] || 'fa-magnifying-glass';
         },
+
+        imoniuZenklas(kiek) { return this.forma(kiek, (T.imoniu || [])); },
 
         zenklas(kiek) {
             if (!kiek) return '';
-            const f = T.skelbimu || ['skelbimas', 'skelbimai', 'skelbimų'];
+            return this.forma(kiek, T.skelbimu || ['skelbimas', 'skelbimai', 'skelbimų']);
+        },
+
+        /** Lietuviška daugiskaita: 1 įmonė · 2 įmonės · 11 įmonių. */
+        forma(kiek, f) {
+            if (!kiek || !f.length) return '';
             const d = kiek % 10, dd = kiek % 100;
             const v = (d === 0 || (dd >= 11 && dd <= 19)) ? f[2] : (d === 1 ? f[0] : f[1]);
             return kiek + ' ' + v;

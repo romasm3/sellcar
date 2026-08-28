@@ -7,6 +7,7 @@ registruosis patys (2 etapas), o kol administratorius nepatvirtino,
 puslapyje jų nėra.
 """
 
+from django.conf import settings
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -66,6 +67,7 @@ def imoniu_sarasas(request):
         'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f, 'f_q': q,
         # Skaičiukas ant „Filtrai" mygtuko — kiek filtrų įjungta
         'aktyviu_filtru': len([x for x in (miestas, tipas, q) if x]) + len(veiklos_f),
+        'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
     })
 
 

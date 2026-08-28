@@ -18,23 +18,27 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 {% include 'imones/_stiliai.html' %}
+{% include 'partials/_imones_zymeklio_stiliai.html' %}
 
-<div class="im-sritis" style="padding-top:16px" x-data="{ filtraiAtidaryti: false }">
+<div class="im-sritis" style="padding-top:16px" x-data="imoniuSarasas()">
   {% comment %}Viršuje lieka tik skirtukai, rastų skaičius ir mygtukai —
   buvę trys laukeliai persikėlė į „Filtrai" langą.{% endcomment %}
   <div class="im-virsus">
-    {% include 'imones/_skirtukai.html' with aktyvus='imones' %}
+    {% comment %}Skirtuko „Skelbimai | Įmonės" čia nėra: tai atskiras
+    puslapis įmonėms ir servisams, ne rezultatų puslapio atmaina.{% endcomment %}
     <span class="im-rasta">{% blocktrans count kiek=rasta %}Rasta <b>{{ kiek }}</b> įmonė{% plural %}Rasta <b>{{ kiek }}</b> įmonių{% endblocktrans %}</span>
     <div class="im-mygtukai">
       <button type="button" class="im-sel im-filtrai-btn" @click="filtraiAtidaryti = true">
         <i class="fa-solid fa-sliders" aria-hidden="true"></i> {% trans "Filtrai" %}
         {% if aktyviu_filtru %}<span class="im-filtru-sk">{{ aktyviu_filtru }}</span>{% endif %}
       </button>
-      {% comment %}Įmonės žemėlapyje jau rodomos žymekliais su logotipais —
-      atskiro žemėlapio čia nekuriam, vedam į tą patį.{% endcomment %}
-      <a class="im-sel im-filtrai-btn" href="{% url 'search_map' %}{% if f_miestas %}?city={{ f_miestas|urlencode }}{% endif %}">
-        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> {% trans "Žemėlapyje" %}
-      </a>
+      {% comment %}Žemėlapis SAVAS — rodo tik įmones, ne skelbimus.
+      Jungiklis, ne nuoroda: sąrašas lieka toje pačioje vietoje.{% endcomment %}
+      <button type="button" class="im-sel im-filtrai-btn" @click="zemelapis = !zemelapis">
+        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+        <span x-show="!zemelapis">{% trans "Žemėlapyje" %}</span>
+        <span x-show="zemelapis" x-cloak>{% trans "Slėpti žemėlapį" %}</span>
+      </button>
     </div>
   </div>
 
@@ -43,15 +47,18 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
   iš anksto, bet žmogus gali persijungti į skelbimus tame pačiame lauke.
   {% endcomment %}
   {% include 'partials/_paieskos_juosta_stiliai.html' %}
-  {% include 'partials/_paieskos_juosta.html' with aktyvi_sritis='imones' %}
+  {% url 'imones:sarasas' as imoniu_veiksmas %}
+  {% include 'partials/_paieskos_juosta.html' with rezimas='imoniu_puslapis' veiksmas=imoniu_veiksmas %}
 
   {% include 'imones/_filtrai.html' %}
 
+  <div class="im-turinys" :class="zemelapis && 'su-zemelapiu'">
   <div class="im-grid">
     {% for i in imones %}
     <a class="im-co" href="{{ i.get_absolute_url }}">
       <div class="ph">
-        {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">{% endif %}
+        {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
+        {% else %}<i class="fa-solid {% if i.tipas == 'prekiautojas' %}fa-car{% else %}fa-screwdriver-wrench{% endif %}" aria-hidden="true"></i>{% endif %}
         {% if i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
           <span class="badge">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
         {% elif i.ar_atidaryta %}
@@ -72,8 +79,20 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
     {% empty %}
     <div class="im-tuscia"><p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p></div>
     {% endfor %}
+    </div>
+
+    {% comment %}Savas žemėlapis — tik įmonės. Žymekliai piešiami bendru
+    static/js/imoniu_zymekliai.js, tuo pačiu kaip žemėlapio paieškoje.
+    {% endcomment %}
+    <div class="im-zemelapio-rem" x-show="zemelapis" x-cloak>
+      <div class="im-zemelapis" x-ref="zemelapis" id="imoniuMap"></div>
+    </div>
   </div>
   <div style="height:64px"></div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" defer></script>
+{% comment %}Įmonių žymekliai — bendras failas su žemėlapio paieška.{% endcomment %}
+<script src="{% static 'js/imoniu_zymekliai.js' %}"></script>
+<script src="{% static 'js/imoniu_sarasas.js' %}"></script>
 <script src="{% static 'js/imone.js' %}"></script>
 {% endblock %}
