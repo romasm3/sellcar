@@ -25,6 +25,9 @@ function paieskosJuosta(pradineSritis, rezimas) {
         sritis: (rezimas === 'imoniu_puslapis') ? 'imoniu_puslapis'
                                                 : (pradineSritis || 'visi'),
         rodytiZymas: rezimas !== 'imoniu_puslapis',
+        imoniu: rezimas === 'imoniu_puslapis',
+        kada: '',
+        zingsnis: 0,        // 0 — darbalaukis; telefone 1..3
         ko: '', vieta: '', salis: '',
         grupes: [], paskutines: [],
         vietos: [], rodykVietas: false,
@@ -32,22 +35,42 @@ function paieskosJuosta(pradineSritis, rezimas) {
         arGalimaVieta: !!(navigator && navigator.geolocation),
         _ctrl: null,
 
-        sritys: [
-            { raktas: 'visi', vardas: T.visi || 'Visi' },
-            { raktas: 'markes', vardas: T.markes || 'Markės' },
-            { raktas: 'skelbimai', vardas: T.skelbimai || 'Skelbimai' },
-            { raktas: 'imones', vardas: T.imones || 'Įmonės' },
-        ],
+        get sritys() {
+            // Įmonių puslapyje skelbimų ir markių nėra — trys žymos
+            if (this.imoniu) {
+                return [
+                    { raktas: 'imoniu_puslapis', vardas: T.visi || 'Visi' },
+                    { raktas: 'paslaugos', vardas: T.paslaugos || 'Paslaugos' },
+                    { raktas: 'imones', vardas: T.imones || 'Įmonės' },
+                ];
+            }
+            return [
+                { raktas: 'visi', vardas: T.visi || 'Visi' },
+                { raktas: 'markes', vardas: T.markes || 'Markės' },
+                { raktas: 'skelbimai', vardas: T.skelbimai || 'Skelbimai' },
+                { raktas: 'imones', vardas: T.imones || 'Įmonės' },
+            ];
+        },
 
         // ── Atidarymas ir uždarymas ────────────────────────────────
         atidaryk() {
             this.atviras = true;
-            document.body.classList.toggle('hp-uzdengta', window.innerWidth <= 900);
+            const telefone = window.innerWidth <= 900;
+            document.body.classList.toggle('hp-uzdengta', telefone);
+            // Telefone einam per tris ekranus iš eilės: ko · kur · kada
+            this.zingsnis = telefone ? 1 : 0;
             this.ieskok();
+        },
+
+        /** „Atgal": telefone grąžina žingsnį, pirmame — uždaro. */
+        atgal() {
+            if (this.zingsnis > 1) { this.zingsnis = this.zingsnis - 1; return; }
+            this.uzdaryk();
         },
 
         uzdaryk() {
             this.atviras = false;
+            this.zingsnis = 0;
             this.pazymeta = -1;
             document.body.classList.remove('hp-uzdengta');
         },

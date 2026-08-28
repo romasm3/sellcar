@@ -11,10 +11,40 @@ from django.conf import settings
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils.translation import gettext_lazy as _
 
 from .models import Imone, VeiklosSritis
 
 PUSLAPYJE = 24
+
+
+# Trečio juostos lauko reikšmės — filtruojam pagal DARBO LAIKĄ, ne
+# rezervaciją: rezervacijų sistemos nėra ir neplanuojam.
+LAIKO_PASIRINKIMAI = [
+    ('', _('Bet kada')),
+    ('dabar', _('Atidaryta dabar')),
+    ('siandien', _('Šiandien')),
+    ('rytoj', _('Rytoj')),
+    ('sestadieni', _('Šeštadienį')),
+    ('sekmadieni', _('Sekmadienį')),
+]
+
+
+def _tinka_laikui(imone, laikas):
+    from django.utils import timezone
+
+    siandien = timezone.localtime().weekday()
+    if laikas == 'dabar':
+        return imone.ar_atidaryta()
+    if laikas == 'siandien':
+        return imone.dirba(siandien)
+    if laikas == 'rytoj':
+        return imone.dirba((siandien + 1) % 7)
+    if laikas == 'sestadieni':
+        return imone.dirba(5)
+    if laikas == 'sekmadieni':
+        return imone.dirba(6)
+    return True
 
 
 def _matomos():
@@ -32,6 +62,7 @@ def imoniu_sarasas(request):
     # ir padangas, todėl susiaurinti iki „visos kartu" būtų per griežta.
     veiklos_f = [v for v in request.GET.getlist('veikla') if v]
     q = (request.GET.get('q') or '').strip()
+    laikas = (request.GET.get('laikas') or '').strip()
 
     if miestas:
         qs = qs.filter(miestas__icontains=miestas)
@@ -42,7 +73,13 @@ def imoniu_sarasas(request):
     if q:
         qs = qs.filter(Q(pavadinimas__icontains=q) | Q(aprasymas__icontains=q))
 
-    imones = list(qs.distinct()[:PUSLAPYJE])
+    # Darbo laiko filtras. Skaičiuojam Python'e: darbo laikas guli JSON
+    # lauke, o įmonių skaičius mažas — SQL sąlyga čia nieko neduotų.
+    visos = list(qs.distinct())
+    if laikas:
+        visos = [i for i in visos if _tinka_laikui(i, laikas)]
+    rasta = len(visos)
+    imones = visos[:PUSLAPYJE]
 
     # Skelbimų skaičius prekiautojų kortelėms — viena užklausa
     kiekiai = {}
@@ -56,7 +93,7 @@ def imoniu_sarasas(request):
 
     return render(request, 'imones/sarasas.html', {
         'imones': imones,
-        'rasta': qs.distinct().count(),
+        'rasta': rasta,
         'miestai': (_matomos().exclude(miestas='')
                     .values_list('miestas', flat=True).distinct().order_by('miestas')),
         # Filtre rodom tik tas sritis, kurios turi bent vieną įmonę
@@ -65,6 +102,7 @@ def imoniu_sarasas(request):
                     .order_by('tvarka', 'pavadinimas').distinct()),
         'tipai': Imone.TIPAI,
         'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f, 'f_q': q,
+        'f_laikas': laikas, 'laiko_pasirinkimai': LAIKO_PASIRINKIMAI,
         # Skaičiukas ant „Filtrai" mygtuko — kiek filtrų įjungta
         'aktyviu_filtru': len([x for x in (miestas, tipas, q) if x]) + len(veiklos_f),
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),

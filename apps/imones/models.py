@@ -163,6 +163,27 @@ class Imone(models.Model):
         laikai = self.laikas(timezone.localtime().weekday())
         return laikai[1] if laikai else None
 
+    def atidaro(self):
+        """„08:00" — kada atsidaro artimiausiu metu.
+
+        Jei šiandien dar neatsidarė — šiandienos pradžia; kitu atveju
+        artimiausios darbo dienos pradžia. Kortelėje rodom „Uždaryta ·
+        atidaro 08:00", kad nereikėtų atsidaryti darbo laiko lentelės.
+        """
+        dabar = timezone.localtime()
+        siandien = self.laikas(dabar.weekday())
+        if siandien and dabar.strftime('%H:%M') < siandien[0]:
+            return siandien[0]
+        for i in range(1, 8):
+            laikai = self.laikas((dabar.weekday() + i) % 7)
+            if laikai:
+                return laikai[0]
+        return None
+
+    def dirba(self, diena):
+        """Ar tą savaitės dieną dirba (0 = pirmadienis)."""
+        return self.laikas(diena) is not None
+
     # ── Turinys ─────────────────────────────────────────────────────
     def skelbimai(self):
         """Prekiautojo skelbimai — per savininką, tas pats viešas srautas."""

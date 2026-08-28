@@ -89,8 +89,10 @@ def _imones(q, kiek=EILUCIU):
         from apps.imones.models import Imone
     except Exception:
         return []
-    eilutes = (Imone.objects.filter(patvirtinta=True)
-               .filter(Q(pavadinimas__icontains=q) | Q(miestas__icontains=q))[:kiek])
+    eilutes = Imone.objects.filter(patvirtinta=True)
+    if q:
+        eilutes = eilutes.filter(Q(pavadinimas__icontains=q) | Q(miestas__icontains=q))
+    eilutes = eilutes[:kiek]
     return [{
         'tipas': 'imone',
         'vardas': i.pavadinimas,
@@ -149,15 +151,17 @@ def _paslaugos(q, kiek=EILUCIU):
     } for v in eilutes]
 
 
-def _imoniu_siulymai(request, q):
+def _imoniu_siulymai(request, q, sritis='imoniu_puslapis'):
     """Įmonių puslapio sąrašas: tik paslaugos ir įmonės, be markių."""
     grupes = []
-    paslaugos = _paslaugos(q)
-    if paslaugos:
-        grupes.append({'vardas': str(_('Paslaugos')), 'eilutes': paslaugos})
-    imones = _imones(q) if q else []
-    if imones:
-        grupes.append({'vardas': str(_('Įmonės')), 'eilutes': imones})
+    if sritis in ('imoniu_puslapis', 'paslaugos'):
+        paslaugos = _paslaugos(q)
+        if paslaugos:
+            grupes.append({'vardas': str(_('Paslaugos')), 'eilutes': paslaugos})
+    if sritis in ('imoniu_puslapis', 'imones'):
+        imones = _imones(q) if q else _imones('')
+        if imones:
+            grupes.append({'vardas': str(_('Įmonės')), 'eilutes': imones})
     return JsonResponse({'q': q, 'paskutines': [], 'grupes': grupes})
 
 
@@ -169,8 +173,8 @@ def ajax_paieskos_siulymai(request):
 
     # Įmonių puslapyje siūlom TIK paslaugas ir įmones — markių, modelių
     # ir skelbimų ten nėra ir nebus.
-    if sritis == 'imoniu_puslapis':
-        return _imoniu_siulymai(request, q)
+    if sritis in ('imoniu_puslapis', 'paslaugos', 'imones'):
+        return _imoniu_siulymai(request, q, sritis)
 
     if len(q) < 2:
         # Tuščias laukas: paskutinės paieškos (sesija — veikia ir svečiui)

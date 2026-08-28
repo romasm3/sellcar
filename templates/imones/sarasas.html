@@ -48,7 +48,7 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
   {% endcomment %}
   {% include 'partials/_paieskos_juosta_stiliai.html' %}
   {% url 'imones:sarasas' as imoniu_veiksmas %}
-  {% include 'partials/_paieskos_juosta.html' with rezimas='imoniu_puslapis' veiksmas=imoniu_veiksmas %}
+  {% include 'partials/_paieskos_juosta.html' with rezimas='imoniu_puslapis' veiksmas=imoniu_veiksmas laiko_pasirinkimai=laiko_pasirinkimai f_laikas=f_laikas %}
 
   {% include 'imones/_filtrai.html' %}
 
@@ -59,10 +59,14 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
       <div class="ph">
         {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
         {% else %}<i class="fa-solid {% if i.tipas == 'prekiautojas' %}fa-car{% else %}fa-screwdriver-wrench{% endif %}" aria-hidden="true"></i>{% endif %}
-        {% if i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
+        {% comment %}Ženkliukas pagal darbo laiką: atidaryta — žalias,
+        uždaryta — pilkas su artimiausiu atsidarymu.{% endcomment %}
+        {% if i.ar_atidaryta %}
+          <span class="badge is-atidaryta">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
+        {% elif i.atidaro %}
+          <span class="badge is-uzdaryta">{% trans "Uždaryta" %} · {% trans "atidaro" %} {{ i.atidaro }}</span>
+        {% elif i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
           <span class="badge">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
-        {% elif i.ar_atidaryta %}
-          <span class="badge">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
         {% endif %}
         <button type="button" class="heart" data-isiminti="{{ i.pk }}"
                 aria-label="{% trans 'Įsiminti įmonę' %}">♡</button>

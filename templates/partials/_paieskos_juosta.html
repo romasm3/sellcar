@@ -35,23 +35,26 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
   <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get"
         action="{{ veiksmas|default:'/map/' }}" @submit="paruosk()">
 
+    {% comment %}„Atgal" gyvena formos lygyje, ne pirmame lauke: telefone
+    jis reikalingas visuose trijuose ekranuose.{% endcomment %}
+    <button type="button" class="hp-atgal" x-show="atviras" x-cloak @click="atgal()">
+      <i class="fa-solid fa-arrow-left"></i> {% trans "Atgal" %}
+    </button>
+
     {# ── 1. Ko ieškote ── #}
-    <div class="hp-laukas hp-ko">
+    <div class="hp-laukas hp-ko" :class="zingsnis && zingsnis !== 1 && 'hp-slepiam'">
       <i class="fa-solid fa-magnifying-glass hp-ikona" aria-hidden="true"></i>
       <input type="text" x-model="ko" autocomplete="off" x-ref="ko"
-             placeholder="{% trans 'Ko ieškote?' %}"
+             :placeholder="rodytiZymas ? '{% trans "Ko ieškote?" %}' : '{% trans "Visos paslaugos" %}'"
              @focus="atidaryk()" @input.debounce.250ms="ieskok()"
              @keydown.arrow-down.prevent="zemyn()" @keydown.arrow-up.prevent="aukstyn()"
              @keydown.enter="jeiPazymeta($event)">
-      <button type="button" class="hp-atgal" x-show="atviras" x-cloak @click="uzdaryk()">
-        <i class="fa-solid fa-arrow-left"></i> {% trans "Atgal" %}
-      </button>
     </div>
 
-    <span class="hp-skirtis" aria-hidden="true"></span>
+    <span class="hp-skirtis" aria-hidden="true" :class="zingsnis && 'hp-slepiam'"></span>
 
     {# ── 2. Vieta ── #}
-    <div class="hp-laukas hp-vieta">
+    <div class="hp-laukas hp-vieta" :class="zingsnis && zingsnis !== 2 && 'hp-slepiam'">
       <i class="fa-solid fa-location-dot hp-ikona" aria-hidden="true"></i>
       <input type="text" x-model="vieta" autocomplete="off"
              placeholder="{% trans 'Visa Lietuva' %}"
@@ -72,7 +75,25 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
       </div>
     </div>
 
-    <button type="submit" class="hp-eiti">{% trans "Ieškoti" %}</button>
+    {% if laiko_pasirinkimai %}
+    <span class="hp-skirtis" aria-hidden="true"></span>
+
+    {% comment %}Trečias laukas — pagal ĮMONĖS DARBO LAIKĄ, ne rezervaciją:
+    rezervacijų sistemos nėra ir neplanuojam.{% endcomment %}
+    <label class="hp-laukas hp-kada" :class="zingsnis && zingsnis !== 3 && 'hp-slepiam'">
+      <i class="fa-regular fa-clock hp-ikona" aria-hidden="true"></i>
+      <select name="laikas" x-model="kada">
+        {% for reiksme, vardas in laiko_pasirinkimai %}
+        <option value="{{ reiksme }}" {% if reiksme == f_laikas %}selected{% endif %}>{{ vardas }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    {% endif %}
+
+    <button type="submit" class="hp-eiti" x-show="!zingsnis || zingsnis === 3">{% trans "Ieškoti" %}</button>
+    {% comment %}Telefone einam per tris ekranus iš eilės: ko · kur · kada.{% endcomment %}
+    <button type="button" class="hp-eiti hp-toliau" x-show="zingsnis && zingsnis < 3" x-cloak
+            @click="zingsnis = zingsnis + 1">{% trans "Toliau" %}</button>
 
     {% comment %}Reikšmės į adresą dedamos siunčiant — tuščios išjungiamos.{% endcomment %}
     <input type="hidden" name="q" x-ref="pQ" disabled>
@@ -80,8 +101,8 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
     <input type="hidden" name="country_filter" x-ref="pCountry" disabled>
 
     {# ── Iškrentantis sąrašas ── #}
-    <div class="hp-kortele" x-show="atviras" x-cloak>
-      <div class="hp-skirtukai" x-show="rodytiZymas">
+    <div class="hp-kortele" x-show="atviras && (!zingsnis || zingsnis === 1)" x-cloak>
+      <div class="hp-skirtukai">
         <template x-for="s in sritys" :key="s.raktas">
           <button type="button" class="hp-skirtukas" :class="s.raktas === sritis && 'is-on'"
                   @click="sritis = s.raktas; ieskok()" x-text="s.vardas"></button>
@@ -135,6 +156,7 @@ paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
     skelbimai: '{% trans "Skelbimai" %}', imones: '{% trans "Įmonės" %}',
     skelbimu: ['{% trans "skelbimas" %}', '{% trans "skelbimai" %}', '{% trans "skelbimų" %}'],
     imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}'],
+    paslaugos: '{% trans "Paslaugos" %}',
     visaLietuva: '{% trans "Visa Lietuva" %}'
   };
 </script>
