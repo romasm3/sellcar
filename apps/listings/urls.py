@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from apps.listings import brand_api
+from apps.listings import paieskos_siulymai
 from . import views_help
 from . import motorcycles_views
 from . import perziureti_views
@@ -170,6 +171,8 @@ urlpatterns = [
     path('paieska/count/<str:category>/', views.search_panel_count, name='search_panel_count'),
     # Markių sąrašai — vienas šaltinis visiems keturiems paviršiams
     # (greitoji panelė, detali paieška, šoninė juosta, /pasirinkti/).
+    path('ajax/paieska/', paieskos_siulymai.ajax_paieskos_siulymai,
+         name='paieskos_siulymai'),
     path('ajax/markes/', brand_api.brand_options, name='brand_options'),
     path('ajax/modeliai/', brand_api.model_options, name='model_options'),
     path('<int:pk>/telefonas/', views.listing_phone, name='listing_phone'),

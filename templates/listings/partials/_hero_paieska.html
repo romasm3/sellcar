@@ -1,92 +1,64 @@
 {% load i18n static %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
-PAGRINDINĖ PAIEŠKA — viena juosta, kaip Fresha pradžios puslapyje.
+PAGRINDINĖ PAIEŠKA — dvi dalys ir mygtukas vienoje suapvalintoje formoje:
 
-  [🔍 Ko ieškote]  │  [📍 Vieta]  │  [Kategorija]  │  (Ieškoti)
+  🔍 [Ko ieškote?]   📍 [Vieta]   ( Ieškoti )
 
-Paspaudus pirmą lauką atsiveria kortelė su skirtukais (Visi · Skelbimai ·
-Įmonės) ir paskutinėmis paieškomis. Skirtukas lemia, kur nuveda mygtukas:
+Paspaudus lauką atsiveria sąrašas: filtro žymos (Visi · Markės ·
+Skelbimai · Įmonės), o po jomis — paskutinės paieškos ir populiariausios
+markės. Rašant rodomi sugrupuoti rezultatai su antraštėmis; grupė be
+rezultatų nerodoma. Duomenys — /ajax/paieska/ (apps/listings/
+paieskos_siulymai.py), 250 ms pauzė, ne kas raidę.
 
-  Visi / Skelbimai -> /map/  (sąrašas ir žemėlapis šalia)
-  Įmonės           -> /imones/
-
-Parametrai — tie patys, kuriuos skaito filter_listings: q, city, category.
-Paskutinės paieškos laikomos naršyklėje (localStorage), kaip ir peržiūrėti
-skelbimai — paskyros sąrašo tam nereikia.
+Klaviatūra: ↑↓ vaikšto po eilutes, Enter atidaro pažymėtą, Esc uždaro.
+Vieta — Photon per /ajax/adresai/, tas pats šaltinis kaip kūrimo formoje;
+numatyta „Visa Lietuva", o naršyklei leidus siūloma „Dabartinė vieta".
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-<div class="hp" x-data="herojausPaieska()" @keydown.escape="atviras = false">
-  <form class="hp-juosta" method="get" :action="veiksmas()" @submit="paruosk()">
+{% comment %}„Uždaryti paspaudus šalia" kabinam ant viso bloko, ne ant
+lauko: skirtukai ir eilutės yra kortelėje, kuri laukui yra „išorė", ir
+paspaudimas ant jų sąrašą užverdavo.{% endcomment %}
+<div class="hp" x-data="herojausPaieska()" @keydown.escape="uzdaryk()"
+     @click.outside="uzdaryk()">
+  <form class="hp-juosta" :class="atviras && 'is-atviras'" method="get" action="/map/"
+        @submit="paruosk()">
 
     {# ── 1. Ko ieškote ── #}
-    <div class="hp-laukas hp-ko" @click.outside="atviras = false">
+    <div class="hp-laukas hp-ko">
       <i class="fa-solid fa-magnifying-glass hp-ikona" aria-hidden="true"></i>
-      <input type="text" x-model="ko" autocomplete="off"
-             placeholder="{% trans 'Visi skelbimai' %}"
-             @focus="atviras = true" @input="atviras = true">
-
-      {# Kortelė po lauku — skirtukai ir paskutinės paieškos #}
-      <div class="hp-kortele" x-show="atviras" x-cloak>
-        <div class="hp-skirtukai">
-          <template x-for="s in skirtukai" :key="s.raktas">
-            <button type="button" class="hp-skirtukas" :class="s.raktas === skirtukas && 'is-on'"
-                    @click="skirtukas = s.raktas" x-text="s.vardas"></button>
-          </template>
-        </div>
-
-        <div class="hp-antraste" x-show="paskutines.length">
-          <span>{% trans "Paskutinės paieškos" %}</span>
-          <button type="button" class="hp-valyti" @click="isvalyk()">{% trans "Išvalyti" %}</button>
-        </div>
-        <template x-for="(p, i) in paskutines" :key="i">
-          <button type="button" class="hp-eilute" @click="pasirink(p)">
-            <span class="hp-eilute-ikona"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <span>
-              <b x-text="p.ko || '{% trans "Visi skelbimai" %}'"></b>
-              <em x-text="p.aprasas"></em>
-            </span>
-          </button>
-        </template>
-        <div class="hp-tuscia" x-show="!paskutines.length">
-          {% trans "Įrašykite markę, modelį arba įmonės pavadinimą" %}
-        </div>
-      </div>
+      <input type="text" x-model="ko" autocomplete="off" x-ref="ko"
+             placeholder="{% trans 'Ko ieškote?' %}"
+             @focus="atidaryk()" @input.debounce.250ms="ieskok()"
+             @keydown.arrow-down.prevent="zemyn()" @keydown.arrow-up.prevent="aukstyn()"
+             @keydown.enter="jeiPazymeta($event)">
+      <button type="button" class="hp-atgal" x-show="atviras" x-cloak @click="uzdaryk()">
+        <i class="fa-solid fa-arrow-left"></i> {% trans "Atgal" %}
+      </button>
     </div>
 
     <span class="hp-skirtis" aria-hidden="true"></span>
 
-    {# ── 2. Vieta (Photon, tas pats šaltinis kaip visur) ── #}
+    {# ── 2. Vieta ── #}
     <div class="hp-laukas hp-vieta">
       <i class="fa-solid fa-location-dot hp-ikona" aria-hidden="true"></i>
       <input type="text" x-model="vieta" autocomplete="off"
              placeholder="{% trans 'Visa Lietuva' %}"
              @input.debounce.300ms="ieskokVietos()"
-             @focus="if (vietos.length) rodykVietas = true">
-      <div class="hp-siulymai" x-show="rodykVietas && vietos.length" x-cloak
-           @click.outside="rodykVietas = false">
+             @focus="rodykVietas = true">
+      <div class="hp-siulymai" x-show="rodykVietas" x-cloak @click.outside="rodykVietas = false">
+        <button type="button" class="hp-siulymas" @click="dabartineVieta()" x-show="arGalimaVieta">
+          <i class="fa-solid fa-location-crosshairs"></i><span>{% trans "Dabartinė vieta" %}</span>
+        </button>
         <template x-for="(v, i) in vietos" :key="i">
           <button type="button" class="hp-siulymas" @click="pasirinkVieta(v)">
             <i class="fa-solid fa-location-dot"></i><span x-text="v.tekstas"></span>
           </button>
         </template>
-        {% comment %}ODbL: nuoroda rodoma ten, kur naudojami OSM duomenys.{% endcomment %}
-        <span class="hp-osm">{% trans "Vietų paieška" %}: ©
+        {% comment %}ODbL: nuoroda ten, kur naudojami OSM duomenys.{% endcomment %}
+        <span class="hp-osm" x-show="vietos.length">{% trans "Vietų paieška" %}: ©
           <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
       </div>
     </div>
-
-    <span class="hp-skirtis" aria-hidden="true"></span>
-
-    {# ── 3. Kategorija ── #}
-    <label class="hp-laukas hp-kat" x-show="skirtukas !== 'imones'">
-      <i class="fa-solid fa-list hp-ikona" aria-hidden="true"></i>
-      <select x-model="kategorija">
-        <option value="">{% trans "Visos kategorijos" %}</option>
-        {% for k in hero_kategorijos %}
-        <option value="{{ k.slug }}">{{ k.vardas }}</option>
-        {% endfor %}
-      </select>
-    </label>
 
     <button type="submit" class="hp-eiti">{% trans "Ieškoti" %}</button>
 
@@ -94,18 +66,63 @@ skelbimai — paskyros sąrašo tam nereikia.
     <input type="hidden" name="q" x-ref="pQ" disabled>
     <input type="hidden" name="city" x-ref="pCity" disabled>
     <input type="hidden" name="country_filter" x-ref="pCountry" disabled>
-    <input type="hidden" name="category" x-ref="pCategory" disabled>
+
+    {# ── Iškrentantis sąrašas ── #}
+    <div class="hp-kortele" x-show="atviras" x-cloak>
+      <div class="hp-skirtukai">
+        <template x-for="s in sritys" :key="s.raktas">
+          <button type="button" class="hp-skirtukas" :class="s.raktas === sritis && 'is-on'"
+                  @click="sritis = s.raktas; ieskok()" x-text="s.vardas"></button>
+        </template>
+      </div>
+
+      <div class="hp-antraste" x-show="paskutines.length" x-cloak>
+        <span>{% trans "Paskutinės paieškos" %}</span>
+        <button type="button" class="hp-valyti" @click="isvalyk()">{% trans "Išvalyti" %}</button>
+      </div>
+      <template x-for="(p, i) in paskutines" :key="'p' + i">
+        <a class="hp-eilute" :href="p.url" :class="pazymeta === indeksas('p', i) && 'is-pazymeta'"
+           @mouseenter="pazymeta = indeksas('p', i)">
+          <span class="hp-ikonele"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <span class="hp-tekstas"><b x-text="p.vardas"></b></span>
+        </a>
+      </template>
+
+      <template x-for="(g, gi) in grupes" :key="'g' + gi">
+        <div>
+          <div class="hp-antraste"><span x-text="g.vardas"></span></div>
+          <template x-for="(e, ei) in g.eilutes" :key="'e' + gi + '-' + ei">
+            <a class="hp-eilute" :href="e.url" :class="pazymeta === indeksas(gi, ei) && 'is-pazymeta'"
+               @mouseenter="pazymeta = indeksas(gi, ei)">
+              <span class="hp-ikonele" :class="e.img && 'su-foto'">
+                <template x-if="e.img"><img :src="e.img" alt=""></template>
+                <template x-if="!e.img"><i class="fa-solid" :class="ikona(e.tipas)"></i></template>
+              </span>
+              <span class="hp-tekstas">
+                <b x-text="e.vardas"></b>
+                <em x-show="e.apie || e.vieta"
+                    x-text="[e.apie, e.vieta].filter(Boolean).join(' · ')"></em>
+              </span>
+              <span class="hp-desine" x-show="e.kaina || e.kiek"
+                    x-text="e.kaina || zenklas(e.kiek)"></span>
+            </a>
+          </template>
+        </div>
+      </template>
+
+      <div class="hp-tuscia" x-show="!grupes.length && !paskutines.length" x-cloak>
+        {% trans "Įrašykite markę, modelį, skelbimą arba įmonę" %}
+      </div>
+    </div>
   </form>
 </div>
 
 <script>
   window.HP_TEKSTAI = {
-    visi: '{% trans "Visi" %}', skelbimai: '{% trans "Skelbimai" %}',
-    imones: '{% trans "Įmonės" %}', visaLietuva: '{% trans "Visa Lietuva" %}',
-    visosKategorijos: '{% trans "Visos kategorijos" %}'
-  };
-  window.HP_KATEGORIJOS = {
-    {% for k in hero_kategorijos %}'{{ k.slug }}': '{{ k.vardas|escapejs }}',{% endfor %}
+    visi: '{% trans "Visi" %}', markes: '{% trans "Markės" %}',
+    skelbimai: '{% trans "Skelbimai" %}', imones: '{% trans "Įmonės" %}',
+    skelbimu: ['{% trans "skelbimas" %}', '{% trans "skelbimai" %}', '{% trans "skelbimų" %}'],
+    visaLietuva: '{% trans "Visa Lietuva" %}'
   };
 </script>
 <script src="{% static 'js/hero_paieska.js' %}"></script>
