@@ -27,8 +27,9 @@ class ImoneAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('tipas', 'pavadinimas', 'slug', 'savininkas',
                            'patvirtinta', 'testine')}),
-        ('Turinys', {'fields': ('logotipas', 'aprasymas', 'veiklos', 'veikia_nuo')}),
-        ('Vieta', {'fields': ('adresas', 'miestas', 'salis',
+        ('Turinys', {'fields': ('logotipas', 'aprasymas', 'veiklos', 'veikia_nuo',
+                                'reitingas', 'atsiliepimu_kiekis')}),
+        ('Vieta', {'fields': ('adresas', 'rajonas', 'miestas', 'salis',
                               'latitude', 'longitude')}),
         ('Kontaktai', {'fields': ('telefonas', 'el_pastas', 'svetaine')}),
         ('Darbo laikas', {'fields': ('darbo_laikas',),

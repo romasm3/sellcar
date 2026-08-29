@@ -35,7 +35,7 @@ def _darbas(sesta=('09:00', '14:00'), nuo='08:00', iki='18:00'):
 
 IMONES = [
     {
-        'veikia_nuo': 2011, 'raktas': 'test-padangos', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2011, 'rajonas': 'Aleksotas', 'reitingas': '4.8', 'atsiliepimu_kiekis': 204, 'raktas': 'test-padangos', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Ratų Servisas',
         'aprasymas': 'Padangų montavimas ir remontas, ratų balansavimas bei '
                      'geometrijos reguliavimas. Dirbame su lengvaisiais '
@@ -58,7 +58,7 @@ IMONES = [
         ],
     },
     {
-        'veikia_nuo': 2018, 'raktas': 'test-detailing', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2018, 'rajonas': 'Naujamiestis', 'reitingas': '5.0', 'atsiliepimu_kiekis': 1175, 'raktas': 'test-detailing', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Blizgus Auto',
         'aprasymas': 'Kėbulo poliravimas, keraminės ir plėvelinės dangos, '
                      'salono cheminis valymas. Dirbame uždarose patalpose su '
@@ -81,7 +81,7 @@ IMONES = [
         ],
     },
     {
-        'veikia_nuo': 2004, 'raktas': 'test-remontas', 'tipas': Imone.SERVISAS,
+        'veikia_nuo': 2004, 'rajonas': 'Šilainiai', 'reitingas': '4.9', 'atsiliepimu_kiekis': 312, 'raktas': 'test-remontas', 'tipas': Imone.SERVISAS,
         'pavadinimas': 'Auto Meistrai',
         'aprasymas': 'Bendras automobilių remontas: variklio ir važiuoklės '
                      'darbai, stabdžiai, diagnostika. Dirbame su visomis '
@@ -104,7 +104,7 @@ IMONES = [
         ],
     },
     {
-        'veikia_nuo': 2009, 'raktas': 'test-prekiautojas', 'tipas': Imone.PREKIAUTOJAS,
+        'veikia_nuo': 2009, 'rajonas': 'Petrašiūnai', 'reitingas': '4.7', 'atsiliepimu_kiekis': 86, 'raktas': 'test-prekiautojas', 'tipas': Imone.PREKIAUTOJAS,
         'pavadinimas': 'MIKAUTA',
         'aprasymas': 'Naudoti automobiliai iš Vokietijos ir Skandinavijos. '
                      'Visi automobiliai patikrinti, su servisų istorija. '
@@ -120,7 +120,7 @@ IMONES = [
         'paslaugos': [],
     },
     {
-        'veikia_nuo': 2021, 'raktas': 'test-prekiautojas-2', 'tipas': Imone.PREKIAUTOJAS,
+        'veikia_nuo': 2021, 'rajonas': 'Fabijoniškės', 'reitingas': '4.6', 'atsiliepimu_kiekis': 58, 'raktas': 'test-prekiautojas-2', 'tipas': Imone.PREKIAUTOJAS,
         'pavadinimas': 'Auto Bravo',
         'aprasymas': 'Automobilių prekyba ir supirkimas Vilniuje. Perkame '
                      'automobilius su defektais ir be techninės apžiūros. '
@@ -235,6 +235,9 @@ class Command(BaseCommand):
             imone.svetaine = a['svetaine']
             imone.darbo_laikas = a['darbo_laikas']
             imone.veikia_nuo = a.get('veikia_nuo')
+            imone.rajonas = a.get('rajonas', '')
+            imone.reitingas = a.get('reitingas')
+            imone.atsiliepimu_kiekis = a.get('atsiliepimu_kiekis', 0)
             nr = a.get('savininkas_nr')
             imone.savininkas = (savininkai[nr] if nr is not None
                                 and nr < len(savininkai) else None)

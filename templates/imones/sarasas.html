@@ -2,66 +2,137 @@
 {% load i18n static %}
 {% block title %}{% trans "Įmonės" %} - AutoLeft{% endblock %}
 
-{% block content %}
-{% comment %}
-═══════════════════════════════════════════════════════════════════════
-ĮMONIŲ SĄRAŠAS — /imones/  (maketas: docs/demo/imones-demo.html, 1 dalis)
+{% comment %}Sava 88 px antraštė su paieškos baru — kaip etalone
+(docs/demo/imones-fresha-1v1.html). Svetainės antraštė čia pakeičiama,
+kitiems puslapiams ji lieka.{% endcomment %}
+{% block antraste %}
+<header class="fr-hdr">
+  <a class="fr-logo" href="{% url 'home' %}">Auto<span>Left</span></a>
 
-Kortelė iš demo: nuotrauka 16:10, žyma kairėje viršuje, širdis dešinėje,
-pavadinimas 16/600 su dešine puse toje pačioje eilutėje, miestas ir
-adresas 13 px pilki, veiklos sritys 13 px pilkos, žyma apačioje.
-
-Dešinėje pavadinimo pusėje demo rodo vertinimą. Atsiliepimai — 3 etapas
-(sutarta: kas gali rašyti ir ką daryti su melagingais dar neaprašyta),
-todėl toje pačioje vietoje ir tuo pačiu stiliumi rodom sutartą pakaitalą:
-prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
-═══════════════════════════════════════════════════════════════════════
-{% endcomment %}
-{% include 'imones/_stiliai.html' %}
-{% include 'partials/_imones_zymeklio_stiliai.html' %}
-
-<div class="im-sritis" style="padding-top:16px" x-data="imoniuSarasas()">
-  {% comment %}Viršuje lieka tik skirtukai, rastų skaičius ir mygtukai —
-  buvę trys laukeliai persikėlė į „Filtrai" langą.{% endcomment %}
-  <div class="im-virsus">
-    {% comment %}Skirtuko „Skelbimai | Įmonės" čia nėra: tai atskiras
-    puslapis įmonėms ir servisams, ne rezultatų puslapio atmaina.{% endcomment %}
-    <span class="im-rasta">{% blocktrans count kiek=rasta %}Rasta <b>{{ kiek }}</b> įmonė{% plural %}Rasta <b>{{ kiek }}</b> įmonių{% endblocktrans %}</span>
-    <div class="im-mygtukai">
-      <button type="button" class="im-sel im-filtrai-btn" @click="filtraiAtidaryti = true">
-        <i class="fa-solid fa-sliders" aria-hidden="true"></i> {% trans "Filtrai" %}
-        {% if aktyviu_filtru %}<span class="im-filtru-sk">{{ aktyviu_filtru }}</span>{% endif %}
-      </button>
-      {% comment %}Įmonių žemėlapis — atskiras puslapis /imones/map/.
-      Filtrai keliauja kartu; į skelbimų /map/ niekada nevedam.{% endcomment %}
-      <a class="im-sel im-filtrai-btn" href="{% url 'imones:zemelapis' %}?{{ request.GET.urlencode }}">
-        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> {% trans "Žemėlapyje" %}
-      </a>
+  <form class="fr-sb" method="get" action="{% url 'imones:sarasas' %}"
+        x-data="freshaJuosta()" @submit="paruosk()">
+    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('ko')">
+      <div class="val" :class="!ko && 'ph'"
+           x-text="ko || '{% trans "Paslauga ar įmonė" %}'">{% trans "Paslauga ar įmonė" %}</div>
+      <div class="fr-lst" x-show="atidarytas === 'ko'" x-cloak @click.outside="atidarytas = ''">
+        <template x-for="(g, gi) in grupes" :key="gi">
+          <div>
+            <div class="fr-lst-antraste" x-text="g.vardas"></div>
+            <template x-for="(e, ei) in g.eilutes" :key="ei">
+              <button type="button" class="fr-lst-eil" @click="pasirink(e)">
+                <span x-text="e.vardas"></span>
+                <em x-show="e.kiek_imoniu || e.vieta"
+                    x-text="e.kiek_imoniu ? (e.kiek_imoniu + ' {% trans "įmonės" %}') : e.vieta"></em>
+              </button>
+            </template>
+          </div>
+        </template>
+      </div>
     </div>
+
+    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('vieta')">
+      <div class="val" :class="!vieta && 'ph'"
+           x-text="vieta || '{% trans "Dabartinė vieta" %}'">{% trans "Dabartinė vieta" %}</div>
+      <div class="fr-lst" x-show="atidarytas === 'vieta'" x-cloak @click.outside="atidarytas = ''">
+        <button type="button" class="fr-lst-eil" @click="dabartineVieta()">
+          <span>{% trans "Dabartinė vieta" %}</span></button>
+        <template x-for="(v, i) in vietos" :key="i">
+          <button type="button" class="fr-lst-eil" @click="pasirinkVieta(v)">
+            <span x-text="v.tekstas"></span></button>
+        </template>
+        <input type="text" class="fr-lst-ieskoti" x-model="vietosQ"
+               @input.debounce.300ms="ieskokVietos()"
+               placeholder="{% trans 'Miestas ar adresas' %}">
+      </div>
+    </div>
+
+    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('kada')">
+      <div class="val" x-text="kadosVardas()">{% trans "Šiandien · Bet kada" %}</div>
+      <div class="fr-lst" x-show="atidarytas === 'kada'" x-cloak @click.outside="atidarytas = ''">
+        {% for reiksme, vardas in laiko_pasirinkimai %}
+        <button type="button" class="fr-lst-eil" :class="kada === '{{ reiksme }}' && 'is-on'"
+                @click="kada = '{{ reiksme }}'; atidarytas = ''">
+          <span>{{ vardas }}</span></button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" class="fr-go" title="{% trans 'Ieškoti' %}" @click="skrisk = true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff"
+           stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+    </button>
+
+    <input type="hidden" name="q" x-ref="pQ" disabled>
+    <input type="hidden" name="city" x-ref="pCity" disabled>
+    <input type="hidden" name="veikla" x-ref="pVeikla" disabled>
+    <input type="hidden" name="laikas" x-ref="pLaikas" disabled>
+    <input type="hidden" name="skrendam" value="1">
+  </form>
+
+  <button type="button" class="fr-menu" onclick="document.querySelector('#frMeniu').showModal()">
+    {% trans "Meniu" %}
+    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+{% comment %}„Meniu" — tos pačios nuorodos kaip svetainės antrinėje juostoje.{% endcomment %}
+<dialog id="frMeniu" class="fr-meniu">
+  <a href="{% url 'home' %}">{% trans "Pradžia" %}</a>
+  <a href="{% url 'listing_list' %}">{% trans "Skelbimai" %}</a>
+  <a href="{% url 'search_map' %}">{% trans "Žemėlapio paieška" %}</a>
+  {% for p in sec_nav %}<a href="{{ p.url }}">{{ p.label }}</a>{% endfor %}
+  <button type="button" onclick="this.closest('dialog').close()">{% trans "Uždaryti" %}</button>
+</dialog>
+{% endblock %}
+
+{% block content %}
+{% include 'imones/_fresha_stiliai.html' %}
+{{ pradine|json_script:"frPradine" }}
+
+<div class="fr-wrap" x-data="freshaPuslapis()" x-init="paruosk()" :class="!zemelapis && 'be-zemelapio'">
+  <div class="fr-sarasas">
+    <div class="fr-irankiai">
+      <div class="fr-seg-jung">
+        <button type="button" class="on">{% trans "Įmonės" %}</button>
+        <button type="button" @click="alert('{% trans "Specialistai — vėlesnis etapas" %}')">{% trans "Specialistai" %}</button>
+      </div>
+      <div class="fr-kiek"><b x-text="kiek">0</b> <span x-text="zenklas(kiek)"></span>
+        {% trans "žemėlapio srityje" %}</div>
+      <button type="button" class="fr-tbtn" @click="filtraiAtidaryti = true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        {% trans "Filtrai" %}</button>
+      <button type="button" class="fr-tbtn" @click="perjunkZemelapi()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+        <span x-text="zemelapis ? '{% trans "Slėpti žemėlapį" %}' : '{% trans "Rodyti žemėlapį" %}'"></span></button>
+    </div>
+
+    <div class="fr-datos" x-ref="datos"></div>
+    <div class="fr-tinklas" x-ref="tinklas"></div>
   </div>
 
-  {% comment %}Paieškos juosta — BENDRAS komponentas
-  (templates/partials/_paieskos_juosta.html). Čia žyma „Įmonės" pažymėta
-  iš anksto, bet žmogus gali persijungti į skelbimus tame pačiame lauke.
-  {% endcomment %}
-  {% include 'partials/_paieskos_juosta_stiliai.html' %}
-  {% url 'imones:sarasas' as imoniu_veiksmas %}
-  {% include 'partials/_paieskos_juosta.html' with rezimas='imoniu_puslapis' veiksmas=imoniu_veiksmas laiko_pasirinkimai=laiko_pasirinkimai f_laikas=f_laikas %}
+  <div class="fr-zemelapio-st" x-show="zemelapis">
+    <div id="frMap"></div>
+    <button type="button" class="fr-map-btn fr-map-expand" title="{% trans 'Visas ekranas' %}"
+            @click="visasEkranas()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5"/></svg>
+    </button>
+    <div class="fr-zoom"><button type="button" @click="priartink(1)">+</button><button type="button" @click="priartink(-1)">−</button></div>
+    <button type="button" class="fr-redo" :class="pajudinta && 'show'" @click="uzkrauk()">{% trans "Ieškoti šioje srityje" %}</button>
+  </div>
 
   {% include 'imones/_filtrai.html' %}
-
-  <div class="im-turinys">
-  <div class="im-grid">
-    {% for i in imones %}
-    {% include "imones/_kortele.html" with i=i %}
-    {% empty %}
-    <div class="im-tuscia"><p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p></div>
-    {% endfor %}
-    </div>
-
-  </div>
-  <div style="height:64px"></div>
 </div>
-<script src="{% static 'js/imoniu_sarasas.js' %}"></script>
-<script src="{% static 'js/imone.js' %}"></script>
+
+<script>
+  window.FR_TEKSTAI = {
+    imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}'],
+    betKada: '{% trans "Bet kada" %}', siandien: '{% trans "Šiandien" %}',
+    rytoj: '{% trans "Rytoj" %}', atsiliepimai: '{% trans "atsiliepimai" %}',
+    dienos: ['{% trans "Sk" %}','{% trans "Pr" %}','{% trans "An" %}','{% trans "Tr" %}','{% trans "Kt" %}','{% trans "Pn" %}','{% trans "Št" %}']
+  };
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{% static 'js/imones_fresha.js' %}"></script>
 {% endblock %}

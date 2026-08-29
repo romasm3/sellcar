@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoLeft — Įmonės (Fresha 1:1)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{
+  --ink:#181B1F;
+  --text:#1A1A1A;
+  --muted:#6B7280;
+  --border:#E5E7EB;
+  --border-strong:#D1D5DB;
+  --bg:#FFFFFF;
+  --soft:#F4F4F5;
+  --chip:#181B1F;
+  --star:#F5B301;
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-pill:999px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);background:var(--bg);font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* ---------- HEADER ---------- */
+.hdr{height:88px;display:flex;align-items:center;gap:24px;padding:0 32px}
+.logo{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--ink);flex:0 0 auto}
+.logo span{color:#E14D28}
+
+.searchbar{
+  flex:1 1 auto;max-width:720px;margin:0 auto;
+  height:56px;display:flex;align-items:center;
+  background:#fff;border:1px solid var(--border);border-radius:var(--r-pill);
+  box-shadow:0 1px 2px rgba(0,0,0,.04);padding:0 8px 0 0;
+}
+.sb-seg{flex:1 1 0;min-width:0;height:56px;display:flex;flex-direction:column;justify-content:center;
+  padding:0 24px;position:relative;border:0;background:none;text-align:left;border-radius:var(--r-pill)}
+.sb-seg + .sb-seg::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:1px;height:24px;background:var(--border)}
+.sb-seg:hover{background:var(--soft)}
+.sb-seg .val{font-size:15px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-seg .val.ph{color:var(--muted);font-weight:400}
+.sb-go{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:0;background:var(--ink);
+  color:#fff;display:flex;align-items:center;justify-content:center}
+.sb-go:hover{background:#000}
+.menu{flex:0 0 auto;height:48px;padding:0 20px;border:1px solid var(--border-strong);
+  background:#fff;border-radius:var(--r-pill);display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px}
+.menu:hover{background:var(--soft)}
+
+/* ---------- LAYOUT ---------- */
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 46%;gap:24px;padding:0 32px 32px;align-items:start}
+body.nomap .wrap{grid-template-columns:minmax(0,1fr)}
+body.nomap .mapcol{display:none}
+
+/* ---------- TOOLBAR ---------- */
+.toolbar{display:flex;align-items:center;gap:16px;padding:4px 0 16px}
+.seg{display:inline-flex;background:var(--soft);border-radius:var(--r-pill);padding:4px}
+.seg button{border:0;background:none;height:36px;padding:0 18px;border-radius:var(--r-pill);
+  font-size:14px;font-weight:500;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.count{margin-left:auto;color:var(--muted);font-size:14px}
+.tbtn{height:44px;padding:0 18px;border:1px solid var(--border-strong);background:#fff;
+  border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:14px}
+.tbtn:hover{background:var(--soft)}
+.tbtn svg{width:18px;height:18px}
+
+/* ---------- DATE STRIP ---------- */
+.dates{display:flex;gap:28px;overflow-x:auto;border-bottom:1px solid var(--border);
+  padding-bottom:0;margin-bottom:20px;scrollbar-width:none}
+.dates::-webkit-scrollbar{display:none}
+.dates button{border:0;background:none;padding:0 0 12px;white-space:nowrap;font-size:14px;
+  color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.dates button.on{color:var(--text);font-weight:600;border-bottom-color:var(--ink)}
+
+/* ---------- CARDS ---------- */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 24px}
+@media(max-width:1280px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{cursor:pointer}
+.ph-wrap{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;background:var(--soft)}
+.ph-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.fav{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:0;
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.16)}
+.fav svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2}
+.fav.on svg{fill:#E14D28;stroke:#E14D28}
+.c-top{display:flex;align-items:flex-start;gap:12px;margin-top:12px}
+.c-name{font-size:17px;font-weight:600;line-height:1.3;flex:1 1 auto}
+.c-rate{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:14px;font-weight:600;padding-top:2px}
+.c-rate svg{width:14px;height:14px;fill:var(--star)}
+.c-meta{color:var(--muted);font-size:14px;margin-top:2px}
+.c-type{color:var(--muted);font-size:14px;margin-top:1px}
+.svc{margin-top:12px;background:var(--soft);border-radius:var(--r-md);padding:14px 16px}
+.svc-row{display:flex;align-items:baseline;gap:12px}
+.svc-name{font-weight:600;font-size:14px;flex:1 1 auto}
+.svc-price{font-weight:600;font-size:14px;white-space:nowrap}
+.svc-dur{color:var(--muted);font-size:13px;margin-top:2px}
+.slots{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.slot{height:32px;padding:0 12px;border-radius:var(--r-sm);border:0;background:var(--chip);
+  color:#fff;font-size:13px;font-weight:600;display:inline-flex;align-items:center}
+.slot.ghost{background:#fff;color:var(--text);border:1px solid var(--border-strong)}
+
+/* ---------- MAP ---------- */
+.mapcol{position:sticky;top:16px;height:calc(100vh - 120px);min-height:520px}
+#map{width:100%;height:100%;border-radius:var(--r-md);z-index:1}
+.leaflet-container{font:inherit;border-radius:var(--r-md)}
+.map-btn{position:absolute;z-index:500;width:40px;height:40px;border-radius:50%;background:#fff;
+  border:0;box-shadow:0 2px 6px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.map-expand{top:16px;right:16px}
+.zoomwrap{position:absolute;right:16px;bottom:24px;z-index:500;background:#fff;border-radius:var(--r-pill);
+  box-shadow:0 2px 6px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden}
+.zoomwrap button{width:40px;height:44px;border:0;background:#fff;font-size:20px;line-height:1}
+.zoomwrap button+button{border-top:1px solid var(--border)}
+.redo{position:absolute;z-index:500;top:16px;left:50%;transform:translateX(-50%);
+  height:40px;padding:0 18px;border-radius:var(--r-pill);background:#fff;border:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);font-weight:600;font-size:14px;display:none}
+.redo.show{display:block}
+
+/* pin */
+.pin{background:var(--ink);color:#fff;border-radius:var(--r-pill);padding:5px 11px;font-size:13px;
+  font-weight:600;display:flex;align-items:center;gap:5px;white-space:nowrap;
+  box-shadow:0 2px 6px rgba(0,0,0,.28);transform:translate(-50%,-100%)}
+.pin svg{width:12px;height:12px;fill:#fff}
+.pin::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);
+  width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:6px solid var(--ink)}
+.pin.act{background:#E14D28}
+.pin.act::after{border-top-color:#E14D28}
+.pin.seen{background:#fff;color:var(--text);border:1px solid var(--border-strong)}
+.pin.seen svg{fill:var(--star)}
+.pin.seen::after{border-top-color:#fff}
+.leaflet-div-icon{background:none;border:0}
+.leaflet-popup-content-wrapper{border-radius:var(--r-md);padding:0;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.leaflet-popup-content{margin:0;width:268px!important}
+.leaflet-popup-tip{box-shadow:none}
+.pop img{width:100%;height:132px;object-fit:cover;display:block;border-radius:var(--r-md) var(--r-md) 0 0}
+.pop .b{padding:12px 14px 14px}
+.pop .n{font-weight:600;font-size:15px}
+.pop .m{color:var(--muted);font-size:13px;margin-top:2px}
+.pop .p{font-weight:600;font-size:14px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">Auto<span>Left</span></div>
+  <div class="searchbar">
+    <button class="sb-seg"><div class="val" id="q1">Servisas ir remontas</div></button>
+    <button class="sb-seg"><div class="val" id="q2">Dabartinė vieta</div></button>
+    <button class="sb-seg"><div class="val" id="q3">Šiandien · Bet kada</div></button>
+    <button class="sb-go" id="go" title="Ieškoti">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+    </button>
+  </div>
+  <button class="menu">Meniu
+    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<div class="wrap">
+  <div class="listcol">
+    <div class="toolbar">
+      <div class="seg">
+        <button class="on">Įmonės</button>
+        <button>Specialistai</button>
+      </div>
+      <div class="count"><b id="cnt">6</b> įmonės žemėlapio srityje</div>
+      <button class="tbtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        Filtrai</button>
+      <button class="tbtn" id="hide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+        <span id="hidetxt">Slėpti žemėlapį</span></button>
+    </div>
+
+    <div class="dates" id="dates"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="mapcol">
+    <div id="map"></div>
+    <button class="map-btn map-expand" title="Visas ekranas">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5"/></svg>
+    </button>
+    <div class="zoomwrap"><button id="zin">+</button><button id="zout">−</button></div>
+    <button class="redo" id="redo">Ieškoti šioje srityje</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>';
+
+const DATA = [
+ {id:1,n:"M House Detailing",t:"Detailing",r:5.0,rev:1175,d:"Naujamiestis, Vilnius",km:"1,2 km",
+  s:"Keraminė kėbulo danga",p:"450 €",dur:"6 val",slots:["Šiandien 14:00","16:30"],
+  img:"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=70",lat:54.6796,lng:25.2650},
+ {id:2,n:"Auto Servisas Vilkas",t:"Servisas ir remontas",r:4.9,rev:312,d:"Žirmūnai, Vilnius",km:"3,4 km",
+  s:"Tepalų ir filtrų keitimas",p:"35 €",dur:"45 min",slots:["Šiandien 15:30","17:00"],
+  img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&q=70",lat:54.7145,lng:25.2960},
+ {id:3,n:"Baltic Cars — autohausas",t:"Prekiautojas",r:4.7,rev:86,d:"Kirtimai, Vilnius",km:"6,8 km",
+  s:"48 automobiliai aikštelėje",p:"nuo 4 900 €",dur:"Atidaryta iki 19:00",slots:["Žiūrėti skelbimus"],ghost:true,
+  img:"https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=800&q=70",lat:54.6262,lng:25.2440},
+ {id:4,n:"Ratų Centras 4x4",t:"Padangos ir ratlankiai",r:4.8,rev:204,d:"Fabijoniškės, Vilnius",km:"5,1 km",
+  s:"Ratų montavimas R17",p:"28 €",dur:"30 min",slots:["Šiandien 13:15","14:45"],
+  img:"https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=70",lat:54.7318,lng:25.2340},
+ {id:5,n:"Kėbulo Meistrai",t:"Kėbulo remontas",r:4.6,rev:58,d:"Naujininkai, Vilnius",km:"4,2 km",
+  s:"Įlenkimo šalinimas be dažymo",p:"nuo 60 €",dur:"2 val",slots:["Rytoj 09:00","11:30"],
+  img:"https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=800&q=70",lat:54.6520,lng:25.2790},
+ {id:6,n:"ElektroAuto Diagnostika",t:"Elektronika ir diagnostika",r:5.0,rev:41,d:"Šnipiškės, Vilnius",km:"2,0 km",
+  s:"Kompiuterinė diagnostika",p:"25 €",dur:"40 min",slots:["Šiandien 16:00","18:20"],
+  img:"https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e2f?w=800&q=70",lat:54.6980,lng:25.2760},
+];
+
+/* ---- date strip ---- */
+const DAYS=["Sekmadienis","Pirmadienis","Antradienis","Trečiadienis","Ketvirtadienis","Penktadienis","Šeštadienis"];
+const SH=["Sk","Pr","An","Tr","Kt","Pn","Št"];
+const ds=document.getElementById('dates');
+let html='<button>Bet kada</button><button class="on">Šiandien</button><button>Rytoj</button>';
+const t=new Date();
+for(let i=2;i<16;i++){const d=new Date(t.getTime()+i*864e5);
+  html+=`<button>${SH[d.getDay()]} ${d.getDate()}</button>`;}
+ds.innerHTML=html;
+ds.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;
+  ds.querySelectorAll('button').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');});
+
+/* ---- cards ---- */
+const grid=document.getElementById('grid');
+grid.innerHTML=DATA.map(c=>`
+<article class="card" data-id="${c.id}">
+  <div class="ph-wrap">
+    <img src="${c.img}" alt="" loading="lazy">
+    <button class="fav" data-fav><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg></button>
+  </div>
+  <div class="c-top">
+    <div class="c-name">${c.n}</div>
+    <div class="c-rate">${STAR}${c.r.toFixed(1)}</div>
+  </div>
+  <div class="c-meta">${c.km} · ${c.d}</div>
+  <div class="c-type">${c.t} · ${c.rev} atsiliepimai</div>
+  <div class="svc">
+    <div class="svc-row"><div class="svc-name">${c.s}</div><div class="svc-price">${c.p}</div></div>
+    <div class="svc-dur">${c.dur}</div>
+    <div class="slots">${c.slots.map(s=>`<button class="slot${c.ghost?' ghost':''}">${s}</button>`).join('')}</div>
+  </div>
+</article>`).join('');
+
+grid.addEventListener('click',e=>{
+  const f=e.target.closest('[data-fav]');
+  if(f){e.stopPropagation();f.classList.toggle('on');return;}
+  const card=e.target.closest('.card');if(!card)return;
+  focus(+card.dataset.id,true);
+});
+grid.addEventListener('mouseover',e=>{const c=e.target.closest('.card');if(c)hl(+c.dataset.id,true)});
+grid.addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c)hl(+c.dataset.id,false)});
+
+/* ---- map ---- */
+const map=L.map('map',{zoomControl:false,scrollWheelZoom:true,attributionControl:true})
+  .setView([54.6872,25.2797],12);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+ {maxZoom:19,attribution:'&copy; OpenStreetMap, &copy; CARTO'}).addTo(map);
+document.getElementById('zin').onclick=()=>map.zoomIn();
+document.getElementById('zout').onclick=()=>map.zoomOut();
+
+const marks={};
+DATA.forEach(c=>{
+  const icon=L.divIcon({className:'',html:`<div class="pin" id="pin${c.id}">${STAR}${c.r.toFixed(1)}</div>`,iconSize:[0,0]});
+  const m=L.marker([c.lat,c.lng],{icon}).addTo(map);
+  m.bindPopup(`<div class="pop"><img src="${c.img}" alt="">
+    <div class="b"><div class="n">${c.n}</div>
+    <div class="m">${STAR.replace('<svg','<svg style="width:12px;height:12px;fill:#F5B301;vertical-align:-1px"')} ${c.r.toFixed(1)} · ${c.rev} atsiliepimai</div>
+    <div class="m">${c.t} · ${c.d}</div>
+    <div class="p">${c.s} — ${c.p}</div></div></div>`,{closeButton:true,offset:[0,-14]});
+  m.on('click',()=>focus(c.id,false));
+  marks[c.id]=m;
+});
+function pin(id){return document.getElementById('pin'+id)}
+function hl(id,on){const p=pin(id);if(p)p.classList.toggle('act',on)}
+function focus(id,openPopup){
+  DATA.forEach(c=>hl(c.id,false));hl(id,true);
+  const c=DATA.find(x=>x.id===id);
+  map.flyTo([c.lat,c.lng],15,{duration:.6});
+  if(openPopup)setTimeout(()=>marks[id].openPopup(),320);
+  const p=pin(id);if(p)p.classList.remove('seen');
+}
+map.on('moveend',()=>document.getElementById('redo').classList.add('show'));
+document.getElementById('redo').onclick=e=>{e.target.classList.remove('show')};
+
+/* search -> straight into the map */
+document.getElementById('go').onclick=()=>{
+  const b=L.latLngBounds(DATA.map(c=>[c.lat,c.lng]));
+  map.flyToBounds(b,{padding:[60,60],duration:.7});
+  document.getElementById('redo').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* hide map */
+document.getElementById('hide').onclick=()=>{
+  document.body.classList.toggle('nomap');
+  const off=document.body.classList.contains('nomap');
+  document.getElementById('hidetxt').textContent=off?'Rodyti žemėlapį':'Slėpti žemėlapį';
+  if(!off)setTimeout(()=>map.invalidateSize(),50);
+};
+</script>
+</body>
+</html>

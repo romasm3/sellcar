@@ -302,6 +302,10 @@
 </head>
 <body class="h-full bg-gray-50" x-data="{ mobileMenu: false, userMenu: false }"
       data-prisijunges="{% if user.is_authenticated %}1{% else %}0{% endif %}">
+    {% comment %}Antraštė bloke: įmonių puslapis (Fresha maketas) turi savo
+    88 px antraštę su paieškos baru, todėl ten šitą pakeičia. Kiti
+    puslapiai nepasikeitė.{% endcomment %}
+    {% block antraste %}
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -733,6 +737,7 @@
     {% comment %}Antrinė navigacija — iškart po antrašte, visuose base.html
     puslapiuose (templates/partials/secondary_nav.html).{% endcomment %}
     {% include 'partials/secondary_nav.html' %}
+    {% endblock %}
 
     {% comment %}Puslapio pavadinimas ir trupinių takas — po antrašte, ne
     šalia logotipo (templates/partials/_puslapio_antraste.html).{% endcomment %}

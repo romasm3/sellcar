@@ -11,7 +11,10 @@ from django.conf import settings
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.template.loader import render_to_string
+
+from apps.listings import formatai
 from django.utils.translation import gettext_lazy as _
 
 from .models import Imone, VeiklosSritis
@@ -129,26 +132,24 @@ def imoniu_sarasas(request):
     imones = _su_skelbimu_kiekiais(visos[:PUSLAPYJE])
 
     kontekstas = _filtru_kontekstas(request)
-    kontekstas.update({'imones': imones, 'rasta': len(visos)})
+    kontekstas.update({
+        'imones': imones, 'rasta': len(visos),
+        # Kortelės ir žymekliai piešiami naršyklėje iš /imones/duomenys/,
+        # todėl čia užtenka pradinės žemėlapio padėties.
+        'pradine': {'lat': float(request.GET.get('lat') or 54.6872),
+                    'lng': float(request.GET.get('lng') or 25.2797),
+                    'z': int(request.GET.get('z') or 12)},
+    })
     return render(request, 'imones/sarasas.html', kontekstas)
 
 
 def imoniu_zemelapis(request):
-    """/imones/map/ — įmonių žemėlapis: kortelės kairėje, žemėlapis dešinėje.
-
-    Atskiras puslapis nuo skelbimų /map/: savi duomenys, savi filtrai,
-    sava navigacija. Bendras tik karkasas — kortelė ir žymeklio piešinys.
-    """
-    kontekstas = _filtru_kontekstas(request)
-    kontekstas.update({
-        'pradine_busena': {
-            'lat': float(request.GET.get('lat') or 55.17),
-            'lng': float(request.GET.get('lng') or 23.88),
-            'z': int(request.GET.get('z') or 7),
-            'is_url': bool(request.GET.get('lat')),
-        },
-    })
-    return render(request, 'imones/zemelapis.html', kontekstas)
+    """Senas /imones/map/ — žemėlapis dabar yra pačiame /imones/ puslapyje."""
+    from django.shortcuts import redirect
+    adresas = reverse('imones:sarasas')
+    if request.GET:
+        adresas += '?' + request.GET.urlencode()
+    return redirect(adresas)
 
 
 
@@ -215,20 +216,76 @@ def zemelapio_imones(request):
 
     html = render_to_string('imones/_zemelapio_sarasas.html',
                             {'imones': imones}, request=request)
-    return JsonResponse({
-        'kiek': len(visos),
-        'html': html,
-        'imones': [{
-            'id': i.pk,
-            'vardas': i.pavadinimas,
-            'lat': float(i.latitude),
-            'lng': float(i.longitude),
-            'logo': i.logotipas.url if i.logotipas else '',
-            'kiek': i.skelbimu_kiek,
-            'url': i.get_absolute_url(),
-            'tipas': i.tipas,
-        } for i in imones],
-    })
+    return JsonResponse({'kiek': len(visos), 'imones': [_zemelapiui(i) for i in imones]})
+
+
+def _zemelapiui(i):
+    """Vienos įmonės duomenys kortelei, žymekliui ir burbului.
+
+    Vienas pavidalas visiems trims — kortelė sąraše, piliulė žemėlapyje
+    ir burbulas piešiami iš to paties įrašo.
+    """
+    p = i.pirma_paslauga()
+    nuotrauka = i.nuotraukos.first()
+    if i.tipas == Imone.PREKIAUTOJAS:
+        # Prekiautojui vietoj paslaugos — aikštelė ir kainos pradžia
+        paslauga = ('%s %s' % (i.skelbimu_kiek, _('automobiliai aikštelėje'))
+                    if i.skelbimu_kiek else str(_('Automobilių prekyba')))
+        kaina = _pigiausia(i)
+        trukme = ('%s %s' % (_('Atidaryta iki'), i.uzsidaro()) if i.ar_atidaryta()
+                  else (('%s · %s %s' % (_('Uždaryta'), _('atidaro'), i.atidaro()))
+                        if i.atidaro() else ''))
+        cipsai = [{'tekstas': str(_('Žiūrėti skelbimus')), 'ghost': True,
+                   'url': i.get_absolute_url()}]
+    else:
+        paslauga = p.pavadinimas if p else ''
+        kaina = ('%s €' % formatai.sk(p.kaina)) if p and p.kaina else ''
+        trukme = ('%s %s min.' % (_('apie'), p.trukme_min)) if p and p.trukme_min else ''
+        # Laisvų laikų sistemos nėra, todėl čia — tikras darbo laikas
+        # ir kelias į paslaugas, o ne išgalvoti laikai.
+        cipsai = []
+        if i.ar_atidaryta():
+            cipsai.append({'tekstas': '%s %s–%s' % (_('Šiandien'),
+                                                    i.laikas(_siandien())[0],
+                                                    i.uzsidaro()),
+                           'ghost': False, 'url': i.get_absolute_url()})
+        elif i.atidaro():
+            cipsai.append({'tekstas': '%s %s' % (_('Atidaro'), i.atidaro()),
+                           'ghost': False, 'url': i.get_absolute_url()})
+        cipsai.append({'tekstas': str(_('Žiūrėti paslaugas')), 'ghost': True,
+                       'url': i.get_absolute_url()})
+
+    return {
+        'id': i.pk,
+        'vardas': i.pavadinimas,
+        'tipas': i.get_tipas_display(),
+        'vietove': i.vietove(),
+        'reitingas': float(i.reitingas) if i.reitingas else None,
+        'atsiliepimai': i.atsiliepimu_kiekis,
+        'img': nuotrauka.nuotrauka.url if nuotrauka else '',
+        'lat': float(i.latitude) if i.latitude else None,
+        'lng': float(i.longitude) if i.longitude else None,
+        'url': i.get_absolute_url(),
+        'paslauga': paslauga,
+        'kaina': kaina,
+        'trukme': trukme,
+        'cipsai': cipsai,
+    }
+
+
+def _siandien():
+    from django.utils import timezone
+    return timezone.localtime().weekday()
+
+
+def _pigiausia(imone):
+    """„nuo 4 900 €" — pigiausias prekiautojo skelbimas."""
+    from apps.listings.views import _public_listings_qs
+    if not imone.savininkas_id:
+        return ''
+    eil = (_public_listings_qs(None).filter(seller_id=imone.savininkas_id)
+           .exclude(price=None).order_by('price').values_list('price', flat=True).first())
+    return ('%s %s €' % (_('nuo'), formatai.sk(eil))) if eil else ''
 
 
 def zemelapio_kortele(request, pk):

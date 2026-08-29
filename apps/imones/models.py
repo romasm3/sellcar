@@ -107,6 +107,13 @@ class Imone(models.Model):
     # Jei nenurodyta, imam sukūrimo metus.
     veikia_nuo = models.PositiveIntegerField(null=True, blank=True,
                                              verbose_name='Veikia nuo (metai)')
+    # Rajonas kortelėje rodomas prieš miestą: „Naujamiestis, Vilnius"
+    rajonas = models.CharField(max_length=80, blank=True)
+    # Vertinimas ir atsiliepimų kiekis. Patys atsiliepimai — 3 etapas;
+    # kol jo nėra, šie laukai pildomi rankomis (admin) arba importuojami.
+    reitingas = models.DecimalField(max_digits=2, decimal_places=1,
+                                    null=True, blank=True)
+    atsiliepimu_kiekis = models.PositiveIntegerField(default=0)
     patvirtinta = models.BooleanField(default=False)
     # Bandomieji įrašai — kad juos būtų galima rasti ir pašalinti viena
     # komanda (manage.py imones_testines --pasalinti). Tikrų įmonių
@@ -182,6 +189,13 @@ class Imone(models.Model):
             if laikai:
                 return laikai[0]
         return None
+
+    def vietove(self):
+        """„Naujamiestis, Vilnius" arba tiesiog miestas."""
+        return ', '.join(x for x in (self.rajonas, self.miestas) if x)
+
+    def pirma_paslauga(self):
+        return self.paslaugos.first()
 
     def dirba(self, diena):
         """Ar tą savaitės dieną dirba (0 = pirmadienis)."""
