@@ -1,0 +1,29 @@
+{% load i18n %}{% comment %}
+ĮMONĖS KORTELĖ — bendra sąrašui (/imones/) ir žemėlapiui (/imones/map/).
+Vienas pavidalas, viena vieta; skiriasi tik tinklelis aplinkui.
+{% endcomment %}
+<a class="im-co" href="{{ i.get_absolute_url }}">
+  <div class="ph">
+    {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
+    {% else %}<i class="fa-solid {% if i.tipas == 'prekiautojas' %}fa-car{% else %}fa-screwdriver-wrench{% endif %}" aria-hidden="true"></i>{% endif %}
+    {% comment %}Ženkliukas pagal darbo laiką: atidaryta — žalias,
+    uždaryta — pilkas su artimiausiu atsidarymu.{% endcomment %}
+    {% if i.ar_atidaryta %}
+      <span class="badge is-atidaryta">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
+    {% elif i.atidaro %}
+      <span class="badge is-uzdaryta">{% trans "Uždaryta" %} · {% trans "atidaro" %} {{ i.atidaro }}</span>
+    {% elif i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
+      <span class="badge">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
+    {% endif %}
+    <button type="button" class="heart" data-isiminti="{{ i.pk }}"
+            aria-label="{% trans 'Įsiminti įmonę' %}">♡</button>
+  </div>
+  <div class="c">
+    <div class="nm">{{ i.pavadinimas }}
+      <span class="im-rate">{% if i.tipas == 'prekiautojas' %}{{ i.skelbimu_kiek }} <span>{% trans "skelbimų" %}</span>{% else %}<span>{% blocktrans with metai=i.nuo_metu %}Nuo {{ metai }} m.{% endblocktrans %}</span>{% endif %}</span>
+    </div>
+    <div class="meta">{{ i.miestas }}{% if i.miestas and i.adresas %}, {% endif %}{{ i.adresas }}</div>
+    <div class="type">{% for v in i.veiklos.all %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}</div>
+    <span class="im-pill{% if i.tipas == 'prekiautojas' %} deal{% endif %}">{{ i.get_tipas_display }}</span>
+  </div>
+</a>

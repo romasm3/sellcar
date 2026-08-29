@@ -35,6 +35,11 @@ function zpSkelbimu(n) {
 // paieška). Ranka pelės ratuku žmogus gali priartinti ir toliau.
 const MAKS_MASTELIS = 15;
 
+// Ar skelbimų žemėlapyje rodyti ir įmones. Išjungta: įmonės turi savo
+// pusę (/imones/ ir /imones/map/) ir su skelbimais nesimaišo. Kodas
+// lieka — įjungti = true.
+const IMONES_ZEMELAPYJE = false;
+
 
 // Markės parametras kiekvienoje šeimoje savas — sunkvežimiams
 // `truck_brand`, žemės ūkiui `agri_brand_text` ir t. t. Vardus duoda
@@ -256,7 +261,7 @@ function zemelapioPaieska() {
                     this.$refs.sarasas.innerHTML = a.html;
                     if (window.laikoZyma) window.laikoZyma.perpiesti(this.$refs.sarasas);
                     this.pieskZymeklius(a.zymekliai);
-                    this.uzkraukImones();
+                    if (IMONES_ZEMELAPYJE) this.uzkraukImones();
                 })
                 .catch(e => {         // nutraukta arba tinklo klaida —
                     if (e && e.name === 'AbortError') return;   // lieka, kas matoma

@@ -1,0 +1,33 @@
+{% load i18n %}{% comment %}
+Burbulas paspaudus įmonės žymeklį. Antras paspaudimas ant to paties
+žymeklio atidaro įmonės puslapį (žr. imoniu_zemelapis.js).
+{% endcomment %}
+<div class="imb" data-id="{{ i.pk }}">
+  <button type="button" class="imb-uzdaryti" data-uzdaryti
+          aria-label="{% trans 'Uždaryti' %}"><i class="fa-solid fa-xmark"></i></button>
+  <a class="imb-foto" href="{{ i.get_absolute_url }}">
+    {% if i.nuotraukos.first %}
+      <img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}">
+    {% else %}
+      <span class="imb-be-foto"><i class="fa-solid {% if i.tipas == 'prekiautojas' %}fa-car{% else %}fa-screwdriver-wrench{% endif %}"></i></span>
+    {% endif %}
+    {% if i.ar_atidaryta %}
+      <span class="imb-zyma is-atidaryta">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
+    {% elif i.atidaro %}
+      <span class="imb-zyma is-uzdaryta">{% trans "Uždaryta" %} · {% trans "atidaro" %} {{ i.atidaro }}</span>
+    {% endif %}
+  </a>
+
+  <div class="imb-turinys">
+    <a class="imb-pav" href="{{ i.get_absolute_url }}">{{ i.pavadinimas }}</a>
+    <div class="imb-tipas">{{ i.get_tipas_display }}{% if i.veiklos.all %} · {% for v in i.veiklos.all|slice:":2" %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}{% endif %}</div>
+    <div class="imb-vieta">{{ i.miestas }}{% if i.miestas and i.adresas %}, {% endif %}{{ i.adresas }}</div>
+
+    <div class="imb-mygtukai">
+      {% comment %}Navigacija — išorinis adresas, todėl target=_blank teisėtas.{% endcomment %}
+      <a class="im-btn" target="_blank" rel="noopener noreferrer"
+         href="https://www.google.com/maps/dir/?api=1&destination={{ i.latitude }},{{ i.longitude }}">{% trans "Kaip nuvažiuoti" %}</a>
+      <a class="im-btn im-btn-main" href="{{ i.get_absolute_url }}">{% trans "Žiūrėti įmonę" %}</a>
+    </div>
+  </div>
+</div>

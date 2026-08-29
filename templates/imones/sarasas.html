@@ -32,13 +32,11 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
         <i class="fa-solid fa-sliders" aria-hidden="true"></i> {% trans "Filtrai" %}
         {% if aktyviu_filtru %}<span class="im-filtru-sk">{{ aktyviu_filtru }}</span>{% endif %}
       </button>
-      {% comment %}Žemėlapis SAVAS — rodo tik įmones, ne skelbimus.
-      Jungiklis, ne nuoroda: sąrašas lieka toje pačioje vietoje.{% endcomment %}
-      <button type="button" class="im-sel im-filtrai-btn" @click="zemelapis = !zemelapis">
-        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-        <span x-show="!zemelapis">{% trans "Žemėlapyje" %}</span>
-        <span x-show="zemelapis" x-cloak>{% trans "Slėpti žemėlapį" %}</span>
-      </button>
+      {% comment %}Įmonių žemėlapis — atskiras puslapis /imones/map/.
+      Filtrai keliauja kartu; į skelbimų /map/ niekada nevedam.{% endcomment %}
+      <a class="im-sel im-filtrai-btn" href="{% url 'imones:zemelapis' %}?{{ request.GET.urlencode }}">
+        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> {% trans "Žemėlapyje" %}
+      </a>
     </div>
   </div>
 
@@ -52,51 +50,18 @@ prekiautojui — skelbimų skaičių, servisui — „Nuo YYYY m."
 
   {% include 'imones/_filtrai.html' %}
 
-  <div class="im-turinys" :class="zemelapis && 'su-zemelapiu'">
+  <div class="im-turinys">
   <div class="im-grid">
     {% for i in imones %}
-    <a class="im-co" href="{{ i.get_absolute_url }}">
-      <div class="ph">
-        {% if i.nuotraukos.first %}<img src="{{ i.nuotraukos.first.nuotrauka.url }}" alt="{{ i.pavadinimas }}" loading="lazy">
-        {% else %}<i class="fa-solid {% if i.tipas == 'prekiautojas' %}fa-car{% else %}fa-screwdriver-wrench{% endif %}" aria-hidden="true"></i>{% endif %}
-        {% comment %}Ženkliukas pagal darbo laiką: atidaryta — žalias,
-        uždaryta — pilkas su artimiausiu atsidarymu.{% endcomment %}
-        {% if i.ar_atidaryta %}
-          <span class="badge is-atidaryta">{% trans "Atidaryta iki" %} {{ i.uzsidaro }}</span>
-        {% elif i.atidaro %}
-          <span class="badge is-uzdaryta">{% trans "Uždaryta" %} · {% trans "atidaro" %} {{ i.atidaro }}</span>
-        {% elif i.tipas == 'prekiautojas' and i.skelbimu_kiek %}
-          <span class="badge">{% blocktrans count kiek=i.skelbimu_kiek %}{{ kiek }} skelbimas{% plural %}{{ kiek }} skelbimai{% endblocktrans %}</span>
-        {% endif %}
-        <button type="button" class="heart" data-isiminti="{{ i.pk }}"
-                aria-label="{% trans 'Įsiminti įmonę' %}">♡</button>
-      </div>
-      <div class="c">
-        <div class="nm">{{ i.pavadinimas }}
-          <span class="im-rate">{% if i.tipas == 'prekiautojas' %}{{ i.skelbimu_kiek }} <span>{% trans "skelbimų" %}</span>{% else %}<span>{% blocktrans with metai=i.nuo_metu %}Nuo {{ metai }} m.{% endblocktrans %}</span>{% endif %}</span>
-        </div>
-        <div class="meta">{{ i.miestas }}{% if i.miestas and i.adresas %}, {% endif %}{{ i.adresas }}</div>
-        <div class="type">{% for v in i.veiklos.all %}{{ v.pavadinimas }}{% if not forloop.last %} · {% endif %}{% endfor %}</div>
-        <span class="im-pill{% if i.tipas == 'prekiautojas' %} deal{% endif %}">{{ i.get_tipas_display }}</span>
-      </div>
-    </a>
+    {% include "imones/_kortele.html" with i=i %}
     {% empty %}
     <div class="im-tuscia"><p>{% trans "Įmonių pagal šiuos filtrus nėra." %}</p></div>
     {% endfor %}
     </div>
 
-    {% comment %}Savas žemėlapis — tik įmonės. Žymekliai piešiami bendru
-    static/js/imoniu_zymekliai.js, tuo pačiu kaip žemėlapio paieškoje.
-    {% endcomment %}
-    <div class="im-zemelapio-rem" x-show="zemelapis" x-cloak>
-      <div class="im-zemelapis" x-ref="zemelapis" id="imoniuMap"></div>
-    </div>
   </div>
   <div style="height:64px"></div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" defer></script>
-{% comment %}Įmonių žymekliai — bendras failas su žemėlapio paieška.{% endcomment %}
-<script src="{% static 'js/imoniu_zymekliai.js' %}"></script>
 <script src="{% static 'js/imoniu_sarasas.js' %}"></script>
 <script src="{% static 'js/imone.js' %}"></script>
 {% endblock %}

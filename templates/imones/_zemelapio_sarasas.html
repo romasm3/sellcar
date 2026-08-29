@@ -1,0 +1,16 @@
+{% load i18n %}{% comment %}
+Įmonių kortelių sąrašas žemėlapio puslapyje — ta pati kortelė kaip
+/imones/ tinklelyje (imones/_kortele.html), tik dviem stulpeliais.
+{% endcomment %}{% for i in imones %}
+<div class="imz-kort" data-imone="{{ i.pk }}">
+  {% include "imones/_kortele.html" with i=i %}
+</div>
+{% empty %}
+<div class="im-tuscia">
+  <p>{% trans "Šioje srityje įmonių nėra" %}</p>
+  <button type="button" class="im-btn" style="width:auto;margin:14px auto 0" data-atitolinti>
+    <i class="fa-solid fa-magnifying-glass-minus" aria-hidden="true"></i>
+    {% trans "Atitolinti" %}
+  </button>
+</div>
+{% endfor %}

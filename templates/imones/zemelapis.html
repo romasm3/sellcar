@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% trans "Įmonių žemėlapis" %} - AutoLeft{% endblock %}
+
+{% block puslapio_antraste %}
+  {% trans "Įmonių žemėlapis" as pav %}
+  {% include 'partials/_puslapio_antraste.html' with pavadinimas=pav %}
+{% endblock %}
+
+{% block content %}
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ĮMONIŲ ŽEMĖLAPIS — /imones/map/
+
+Atskiras puslapis nuo skelbimų /map/: savi duomenys (/imones/duomenys/),
+savi filtrai ir sava navigacija. Su skelbimų puse parametrai nesimaišo.
+
+Bendras tik karkasas: kortelė (imones/_kortele.html), žymeklio piešinys
+(static/js/imoniu_zymekliai.js) ir paieškos juosta
+(partials/_paieskos_juosta.html).
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% include 'imones/_stiliai.html' %}
+{% include 'partials/_imones_zymeklio_stiliai.html' %}
+{% include 'imones/_zemelapio_stiliai.html' %}
+
+{{ pradine_busena|json_script:"imzPradine" }}
+<div class="imz im-sritis" x-data="imoniuZemelapis()" x-init="paruosk()">
+
+  <div class="im-virsus">
+    <span class="im-rasta">
+      <strong x-text="kiek">0</strong>
+      <span x-text="zenklas(kiek) + ' {% trans "šioje srityje" %}'"></span>
+    </span>
+    <div class="im-mygtukai">
+      <a class="im-sel im-filtrai-btn" href="{% url 'imones:sarasas' %}?{{ request.GET.urlencode }}">
+        <i class="fa-solid fa-list" aria-hidden="true"></i> {% trans "Sąrašas" %}
+      </a>
+      <button type="button" class="im-sel im-filtrai-btn" @click="zemelapisMatomas = !zemelapisMatomas">
+        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+        <span x-show="zemelapisMatomas">{% trans "Slėpti žemėlapį" %}</span>
+        <span x-show="!zemelapisMatomas" x-cloak>{% trans "Rodyti žemėlapį" %}</span>
+      </button>
+    </div>
+  </div>
+
+  {% comment %}Ta pati juosta kaip /imones/ — tik „Ieškoti" lieka čia.{% endcomment %}
+  {% url 'imones:zemelapis' as zemelapio_veiksmas %}
+  {% include 'partials/_paieskos_juosta_stiliai.html' %}
+  {% include 'partials/_paieskos_juosta.html' with rezimas='imoniu_puslapis' veiksmas=zemelapio_veiksmas %}
+
+  <div class="imz-turinys" :class="!zemelapisMatomas && 'be-zemelapio'">
+    <div class="imz-kaire">
+      <div class="imz-sarasas" x-ref="sarasas" :class="kraunama && 'is-kraunama'"></div>
+    </div>
+    <div class="imz-desine" x-show="zemelapisMatomas">
+      <div class="imz-zemelapio-rem">
+        <div id="imonesMap" class="imz-zemelapis" x-ref="zemelapis"></div>
+        <button type="button" class="imz-ieskoti-cia" x-show="pajudinta" x-cloak
+                @click="uzkrauk()">
+          <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+          {% trans "Ieškoti šioje srityje" %}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.IMZ_TEKSTAI = {
+    imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}']
+  };
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" defer></script>
+{% comment %}Įmonių žymekliai — bendras failas su skelbimų žemėlapiu.{% endcomment %}
+<script src="{% static 'js/imoniu_zymekliai.js' %}"></script>
+<script src="{% static 'js/imoniu_zemelapis.js' %}"></script>
+<script src="{% static 'js/imone.js' %}"></script>
+{% endblock %}

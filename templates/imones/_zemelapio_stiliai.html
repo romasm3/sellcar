@@ -1,0 +1,66 @@
+<style>
+  /* ═══ Įmonių žemėlapio puslapis — maketas kaip /map/, tik su įmonėmis ═══ */
+  .imz-turinys { display: grid; grid-template-columns: 55% 45%; gap: 16px;
+                 align-items: start; margin-top: 8px; }
+  .imz-turinys.be-zemelapio { grid-template-columns: 1fr; }
+  .imz-kaire { min-width: 0; }
+  .imz-sarasas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+                 gap: 16px; }
+  .imz-sarasas.is-kraunama { opacity: .45; transition: opacity .15s ease;
+                             pointer-events: none; }
+  .imz-turinys.be-zemelapio .imz-sarasas {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .imz-kort.is-pazymeta .im-co { border-color: var(--accent);
+                                 box-shadow: 0 2px 10px rgba(0,0,0,.10); }
+  .imz-desine { position: sticky; top: 16px; }
+  .imz-zemelapio-rem { position: relative; }
+  .imz-zemelapis { height: calc(100vh - 200px); min-height: 460px;
+                   border: 1px solid var(--im-border, #E7E7E7);
+                   border-radius: var(--im-r, 8px); overflow: hidden; }
+  .imz-ieskoti-cia { position: absolute; left: 50%; top: 16px;
+                     transform: translateX(-50%); display: inline-flex;
+                     align-items: center; gap: 8px; height: 40px; padding: 0 18px;
+                     border: 1px solid var(--im-border, #E7E7E7); border-radius: 999px;
+                     background: #fff; color: var(--im-text, #111827);
+                     font-size: 14px; font-weight: 600; cursor: pointer;
+                     box-shadow: 0 4px 14px rgba(17,24,39,.18); font-family: inherit; }
+
+  /* ═══ Burbulas paspaudus žymeklį ═══ */
+  .imb { width: 268px; position: relative; }
+  .imb-uzdaryti { position: absolute; top: 8px; right: 8px; z-index: 2;
+                  width: 28px; height: 28px; border: 0; border-radius: 999px;
+                  background: rgba(255,255,255,.92); color: var(--im-text, #111827);
+                  box-shadow: 0 1px 3px rgba(17,24,39,.25); cursor: pointer;
+                  display: flex; align-items: center; justify-content: center; }
+  .imb-foto { position: relative; display: block; aspect-ratio: 16/10;
+              background: var(--im-surface-muted, #F9FAFB); border-radius: 8px;
+              overflow: hidden; }
+  .imb-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .imb-be-foto { display: flex; align-items: center; justify-content: center;
+                 width: 100%; height: 100%; color: #C9CDD3; font-size: 26px; }
+  .imb-zyma { position: absolute; left: 8px; top: 8px; padding: 3px 8px;
+              color: #fff; font-size: 11px; font-weight: 600; border-radius: 4px;
+              background: rgba(17,24,39,.82); }
+  .imb-zyma.is-atidaryta { background: #067647; }
+  .imb-zyma.is-uzdaryta { background: rgba(107,114,128,.92); }
+  .imb-turinys { padding: 10px 2px 2px; }
+  .imb-pav { display: block; font-size: 15px; font-weight: 700;
+             color: var(--im-text, #111827); text-decoration: none; line-height: 1.25; }
+  .imb-pav:hover { color: var(--accent); }
+  .imb-tipas { font-size: 12.5px; color: var(--im-muted, #6B7280); margin-top: 2px; }
+  .imb-vieta { font-size: 12.5px; color: var(--im-muted, #6B7280); margin-top: 4px; }
+  .imb-mygtukai { display: flex; gap: 6px; margin-top: 10px; }
+  .imb-mygtukai .im-btn { flex: 1 1 0; height: 36px; padding: 0 10px; font-size: 13px; }
+
+  /* Google burbulo rėmas — be papildomų paraščių */
+  .gm-style-iw.gm-style-iw-c { padding: 8px !important; border-radius: 12px; }
+  .gm-style-iw-d { overflow: hidden !important; }
+  .gm-style-iw-chr { display: none; }
+
+  @media (max-width: 1023px) {
+    .imz-turinys { grid-template-columns: 1fr; }
+    .imz-sarasas { grid-template-columns: 1fr; }
+    .imz-desine { position: static; }
+    .imz-zemelapis { height: 60vh; }
+  }
+</style>

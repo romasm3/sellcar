@@ -3,7 +3,9 @@ paieškai ir įmonių puslapiui. Piešinys — static/js/imoniu_zymekliai.js.
 {% endcomment %}
 <style>
   /* Įmonės žymeklis — baltas burbulas su logotipu (OverlayView) */
-  .zp-imone { position: absolute; transform: translate(-50%, -100%);
+  /* z-index — kad ant atidaryto burbulo žymeklis liktų paspaudžiamas:
+     antras paspaudimas atidaro įmonės puslapį. */
+  .zp-imone { position: absolute; z-index: 5; transform: translate(-50%, -100%);
       display: inline-flex; align-items: center; gap: 6px; max-width: 200px;
       padding: 4px 10px 4px 4px; background: var(--surface);
       border: 2px solid #fff; border-radius: 999px; color: var(--text);
