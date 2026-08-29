@@ -1,5 +1,8 @@
 /**
- * ŽEMĖLAPIO PAIEŠKA — sąrašas ir žemėlapis viename ekrane.
+ * SKELBIMŲ ŽEMĖLAPIO PAIEŠKA — /map/
+ *
+ * Rodo TIK skelbimus. Įmonės turi savo žemėlapį (/imones/map/) su savo
+ * duomenų galu; du atskiri pasauliai, bendras tik karkasas. — sąrašas ir žemėlapis viename ekrane.
  *
  * Elgsena:
  *   • sąrašas persirenka pagal MATOMĄ žemėlapio plotą (/map/duomenys/);
@@ -35,10 +38,6 @@ function zpSkelbimu(n) {
 // paieška). Ranka pelės ratuku žmogus gali priartinti ir toliau.
 const MAKS_MASTELIS = 15;
 
-// Ar skelbimų žemėlapyje rodyti ir įmones. Išjungta: įmonės turi savo
-// pusę (/imones/ ir /imones/map/) ir su skelbimais nesimaišo. Kodas
-// lieka — įjungti = true.
-const IMONES_ZEMELAPYJE = false;
 
 
 // Markės parametras kiekvienoje šeimoje savas — sunkvežimiams
@@ -52,7 +51,6 @@ const MARKIU_PARAMAI = ['brand', 'truck_brand', 'motorcycle_brand',
 
 const G = {
     zem: null, sankaupos: null, burbulas: null,
-    imones: [],         // įmonių žymekliai (OverlayView)
     zymekliai: {},      // id -> žymeklis
     visi: [],           // visi šįkart sukurti žymekliai
     apskritimai: [],    // apytikslių vietų punktyrai
@@ -261,7 +259,6 @@ function zemelapioPaieska() {
                     this.$refs.sarasas.innerHTML = a.html;
                     if (window.laikoZyma) window.laikoZyma.perpiesti(this.$refs.sarasas);
                     this.pieskZymeklius(a.zymekliai);
-                    if (IMONES_ZEMELAPYJE) this.uzkraukImones();
                 })
                 .catch(e => {         // nutraukta arba tinklo klaida —
                     if (e && e.name === 'AbortError') return;   // lieka, kas matoma
@@ -275,27 +272,6 @@ function zemelapioPaieska() {
             const naujas = Math.max(1, G.zem.getZoom() - 2);
             this.pastumk(() => G.zem.setZoom(naujas));
             setTimeout(() => this.uzkrauk(), 300);
-        },
-
-        /** Įmonių žymekliai — bendras static/js/imoniu_zymekliai.js
-         *  (tas pats piešinys naudojamas ir /imones/ žemėlapyje). */
-        pieskImones(sarasas) {
-            if (!window.imoniuZymekliai) return;
-            G.imones = window.imoniuZymekliai(G.zem, sarasas, G.imones);
-        },
-
-        uzkraukImones() {
-            const p = new URLSearchParams();
-            const b = this.zemelapisRodomas() && G.zem && G.zem.getBounds();
-            if (b) {
-                p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
-                p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
-            }
-            fetch('/imones/duomenys/?' + p.toString(),
-                  { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-                .then(r => r.ok ? r.json() : { imones: [] })
-                .then(a => this.pieskImones(a.imones || []))
-                .catch(() => {});   // be įmonių žemėlapis veikia toliau
         },
 
         /** SVG žymeklis su kaina. Antracito nenaudojam — jis susilieja

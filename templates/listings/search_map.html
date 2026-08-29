@@ -19,7 +19,8 @@ Filtrai — tas pats rinkinys ir tie patys parametrų vardai kaip paieškos
 panelėje bei detalioje paieškoje (search_params + filter_listings),
 todėl nuoroda su ?brand=…&price_min=… veikia visur vienodai.
 
-Kortelės — bendra partials/_skelbimo_kortele.html, ne kopija.
+Rodom TIK skelbimus: įmonės turi savo žemėlapį (/imones/map/) ir savo
+duomenų galą. Kortelės — bendra partials/_skelbimo_kortele.html.
 Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
@@ -159,7 +160,6 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
 </div>
 
 {% include 'listings/partials/_zemelapio_stiliai.html' %}
-{% include 'partials/_imones_zymeklio_stiliai.html' %}
 
 <script>
   window.ZP_TEKSTAI = {
@@ -185,8 +185,6 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" defer></script>
 <script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js" defer></script>
-{% comment %}Įmonių žymekliai — bendras failas su įmonių puslapiu.{% endcomment %}
-<script src="{% static 'js/imoniu_zymekliai.js' %}"></script>
 {% comment %}BE defer: Alpine įkeliamas anksčiau ir su „defer" jis
 paleidžiamas pirmas — tada zemelapioPaieska() dar neegzistuoja.{% endcomment %}
 <script src="{% static 'js/zemelapio_paieska.js' %}"></script>
