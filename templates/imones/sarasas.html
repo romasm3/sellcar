@@ -9,7 +9,12 @@ kitiems puslapiams ji lieka.{% endcomment %}
 <header class="fr-hdr">
   <a class="fr-logo" href="{% url 'home' %}">Auto<span>Left</span></a>
 
+  {% comment %}Adresai ateina iš šablono ({% url %}) — su kalbos priešdėliu,
+  kad ir siūlymai grįžtų puslapio kalba. JS jų nesikonstruoja.{% endcomment %}
   <form class="fr-sb" method="get" action="{% url 'imones:sarasas' %}"
+        data-siulymai="{% url 'paieskos_siulymai' %}"
+        data-adresai="{% url 'ajax_adresai' %}"
+        data-vieta="{% url 'ajax_vieta' %}"
         x-data="freshaJuosta()" @submit="paruosk()">
     <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('ko')">
       <div class="val" :class="!ko && 'ph'"
@@ -82,6 +87,17 @@ kitiems puslapiams ji lieka.{% endcomment %}
   <a href="{% url 'listing_list' %}">{% trans "Skelbimai" %}</a>
   <a href="{% url 'search_map' %}">{% trans "Žemėlapio paieška" %}</a>
   {% for p in sec_nav %}<a href="{{ p.url }}">{{ p.label }}</a>{% endfor %}
+  {% comment %}Kalba — tas pats set_language kaip svetainės antraštėje;
+  „next" nešasi ir kelią, ir filtrus, kad po perjungimo liktum toje pačioje
+  paieškoje (lietuviškas adresas be priešdėlio, angliškas su /en/).{% endcomment %}
+  <form class="fr-kalbos" action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    {% for kodas, vardas in LANGUAGES %}
+    <button type="submit" name="language" value="{{ kodas }}"
+            class="{% if kodas == CURRENT_LANG %}on{% endif %}">{{ vardas }}</button>
+    {% endfor %}
+  </form>
   <button type="button" onclick="this.closest('dialog').close()">{% trans "Uždaryti" %}</button>
 </dialog>
 {% endblock %}
@@ -116,7 +132,10 @@ kitiems puslapiams ji lieka.{% endcomment %}
   </div>
 
   <div class="fr-zemelapio-st" x-show="zemelapis">
-    <div id="frMap" data-map-id="{{ GOOGLE_MAPS_ID }}"></div>
+    {% comment %}data-duomenys — adresas su kalbos priešdėliu (/en/…), kad JSON
+    grįžtų ta pačia kalba kaip puslapis. JS adresų nesikonstruoja.{% endcomment %}
+    <div id="frMap" data-map-id="{{ GOOGLE_MAPS_ID }}"
+         data-duomenys="{% url 'imones:zemelapio_imones' %}"></div>
     <button type="button" class="fr-map-btn fr-map-expand" title="{% trans 'Visas ekranas' %}"
             @click="visasEkranas()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5"/></svg>
@@ -128,15 +147,9 @@ kitiems puslapiams ji lieka.{% endcomment %}
   {% include 'imones/_filtrai.html' %}
 </div>
 
-<script>
-  window.FR_TEKSTAI = {
-    imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}'],
-    betKada: '{% trans "Bet kada" %}', siandien: '{% trans "Šiandien" %}',
-    rytoj: '{% trans "Rytoj" %}', atsiliepimai: '{% trans "atsiliepimai" %}',
-    ziureti: '{% trans "Žiūrėti" %}',
-    dienos: ['{% trans "Sk" %}','{% trans "Pr" %}','{% trans "An" %}','{% trans "Tr" %}','{% trans "Kt" %}','{% trans "Pn" %}','{% trans "Št" %}']
-  };
-</script>
+{% comment %}Naršyklės piešiami tekstai — per json_script, ne eilutėmis JS faile
+(žr. apps/imones/views._js_tekstai).{% endcomment %}
+{{ tekstai|json_script:"fr-tekstai" }}
 {% comment %}Google Maps su „marker" biblioteka — AdvancedMarkerElement
 leidžia žymekliu naudoti mūsų HTML piliulę. Atskira instancija nuo /map/:
 kitas konteineris (#frMap) ir kitas failas.{% endcomment %}

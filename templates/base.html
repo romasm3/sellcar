@@ -351,7 +351,7 @@
                              class="fixed top-[70px] left-3 w-48 max-h-[70vh] overflow-y-auto md:absolute md:top-auto md:mt-2 md:right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 py-1">
                             <form action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
-                                <input name="next" type="hidden" value="{{ request.path }}">
+                                <input name="next" type="hidden" value="{{ request.path }}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
                                 {% for lang_code, lang_name in LANGUAGES %}
                                 <button type="submit" name="language" value="{{ lang_code }}"
                                         class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-3 transition-colors {% if lang_code == CURRENT_LANG %}bg-gray-50 font-semibold{% endif %}">

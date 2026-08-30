@@ -15,11 +15,27 @@
 const FR = { zem: null, zymekliai: {}, sankaupos: null, burbulas: null,
              duomenys: [], musuVieta: null };
 
+/** Tekstai iš šablono (json_script) — JS'e eilučių nelaikom.
+ *  Skaitom tinginiu būdu: juosta pasileidžia anksčiau už puslapį. */
+function frTekstai() {
+    if (!FR.tekstai) {
+        const e = document.getElementById('fr-tekstai');
+        FR.tekstai = e ? JSON.parse(e.textContent) : {};
+    }
+    return FR.tekstai;
+}
+
 /* ── Paieškos baras antraštėje ───────────────────────────────────── */
 function freshaJuosta() {
     return {
         atidarytas: '', ko: '', koVeikla: '', vieta: '', vietosQ: '', kada: '',
         vietos: [], grupes: [],
+
+        /** Adresas iš juostos data- atributo (jame yra kalbos priešdėlis). */
+        adresas(kuris, atsarginis) {
+            const f = document.querySelector('.fr-sb');
+            return (f && f.dataset[kuris]) || atsarginis;
+        },
 
         atidaryk(kuris) {
             this.atidarytas = (this.atidarytas === kuris) ? '' : kuris;
@@ -27,7 +43,8 @@ function freshaJuosta() {
         },
 
         ieskok() {
-            fetch('/ajax/paieska/?sritis=imoniu_puslapis&q=' + encodeURIComponent(this.ko))
+            fetch(this.adresas('siulymai', '/ajax/paieska/') +
+                  '?sritis=imoniu_puslapis&q=' + encodeURIComponent(this.ko))
                 .then(r => r.ok ? r.json() : { grupes: [] })
                 .then(a => { this.grupes = a.grupes || []; })
                 .catch(() => { this.grupes = []; });
@@ -44,7 +61,7 @@ function freshaJuosta() {
         ieskokVietos() {
             const q = this.vietosQ.trim();
             if (q.length < 3) { this.vietos = []; return; }
-            fetch('/ajax/adresai/?q=' + encodeURIComponent(q))
+            fetch(this.adresas('adresai', '/ajax/adresai/') + '?q=' + encodeURIComponent(q))
                 .then(r => r.ok ? r.json() : { siulymai: [] })
                 .then(a => { this.vietos = a.siulymai || []; })
                 .catch(() => { this.vietos = []; });
@@ -60,7 +77,8 @@ function freshaJuosta() {
         dabartineVieta() {
             if (!navigator.geolocation) return;
             navigator.geolocation.getCurrentPosition(p => {
-                fetch('/ajax/vieta/?lat=' + p.coords.latitude + '&lon=' + p.coords.longitude)
+                fetch(this.adresas('vieta', '/ajax/vieta/') +
+                      '?lat=' + p.coords.latitude + '&lon=' + p.coords.longitude)
                     .then(r => r.ok ? r.json() : { vieta: {} })
                     .then(a => { this.vieta = (a.vieta || {}).miestas || ''; this.atidarytas = ''; })
                     .catch(() => { this.atidarytas = ''; });
@@ -68,8 +86,8 @@ function freshaJuosta() {
         },
 
         kadosVardas() {
-            const T = window.FR_TEKSTAI || {};
-            if (!this.kada) return (T.siandien || 'Šiandien') + ' · ' + (T.betKada || 'Bet kada');
+            const T = frTekstai();
+            if (!this.kada) return T.siandien + ' · ' + T.betKada;
             const el = [...document.querySelectorAll('.fr-lst-eil.is-on span')][0];
             return el ? el.textContent.trim() : '';
         },
@@ -87,7 +105,7 @@ function freshaJuosta() {
 
 /* ── Puslapis: sąrašas, datų juosta ir žemėlapis ─────────────────── */
 function freshaPuslapis() {
-    const T = () => window.FR_TEKSTAI || {};
+    const T = frTekstai;
     const ZVAIGZDE = '<svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>';
 
     return {
@@ -111,10 +129,10 @@ function freshaPuslapis() {
 
         /* ---- datų juosta: Bet kada · Šiandien · Rytoj · Pr 31 … ---- */
         datuJuosta() {
-            const t = T(), sh = t.dienos || ['Sk','Pr','An','Tr','Kt','Pn','Št'];
-            let html = `<button class="on">${t.betKada || 'Bet kada'}</button>` +
-                       `<button>${t.siandien || 'Šiandien'}</button>` +
-                       `<button>${t.rytoj || 'Rytoj'}</button>`;
+            const t = T(), sh = t.dienos;
+            let html = `<button class="on">${t.betKada}</button>` +
+                       `<button>${t.siandien}</button>` +
+                       `<button>${t.rytoj}</button>`;
             const dabar = new Date();
             for (let i = 2; i < 16; i++) {
                 const d = new Date(dabar.getTime() + i * 864e5);
@@ -189,7 +207,8 @@ function freshaPuslapis() {
                 p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
                 p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
             }
-            fetch('/imones/duomenys/?' + p.toString(),
+            const adresas = (document.getElementById('frMap') || {}).dataset;
+            fetch((adresas && adresas.duomenys || '/imones/duomenys/') + '?' + p.toString(),
                   { headers: { 'X-Requested-With': 'XMLHttpRequest' },
                     signal: this._ctrl ? this._ctrl.signal : undefined })
                 .then(r => r.ok ? r.json() : null)
@@ -298,7 +317,7 @@ function freshaPuslapis() {
     ${c.reitingas ? `<div class="fr-reit">${ZVAIGZDE}${c.reitingas.toFixed(1)}</div>` : ''}
   </div>
   <div class="fr-meta">${this.atstumas(c)}${c.vietove}</div>
-  <div class="fr-tipas">${c.tipas}${c.atsiliepimai ? ' · ' + c.atsiliepimai + ' ' + (t.atsiliepimai || 'atsiliepimai') : ''}</div>
+  <div class="fr-tipas">${c.tipas}${c.atsiliepimai ? ' · ' + c.atsiliepimai + ' ' + t.atsiliepimai : ''}</div>
   <div class="fr-pasl">
     <div class="fr-pasl-eil"><div class="fr-pasl-vardas">${c.paslauga}</div>
       <div class="fr-pasl-kaina">${c.kaina}</div></div>
@@ -312,10 +331,10 @@ function freshaPuslapis() {
             const t = T();
             return `<div class="fr-pop">${c.img ? `<a href="${c.url}" target="_blank" rel="noopener"><img src="${c.img}" alt=""></a>` : ''}
   <div class="b"><a class="n" href="${c.url}" target="_blank" rel="noopener">${c.vardas}</a>
-  <div class="m">${ZVAIGZDE.replace('<svg', '<svg style="width:12px;height:12px;fill:#F5B301;vertical-align:-1px"')} ${(c.reitingas || 0).toFixed(1)} · ${c.atsiliepimai} ${t.atsiliepimai || 'atsiliepimai'}</div>
+  <div class="m">${ZVAIGZDE.replace('<svg', '<svg style="width:12px;height:12px;fill:#F5B301;vertical-align:-1px"')} ${(c.reitingas || 0).toFixed(1)} · ${c.atsiliepimai} ${t.atsiliepimai}</div>
   <div class="m">${c.tipas} · ${c.vietove}</div>
   <div class="p">${c.paslauga} — ${c.kaina}</div>
-  <a class="fr-pop-btn" href="${c.url}" target="_blank" rel="noopener">${(T().ziureti || 'Žiūrėti')}</a>
+  <a class="fr-pop-btn" href="${c.url}" target="_blank" rel="noopener">${T().ziureti}</a>
   </div></div>`;
         },
 
@@ -368,7 +387,7 @@ function freshaPuslapis() {
         },
 
         zenklas(kiek) {
-            const f = (T().imoniu) || ['įmonė', 'įmonės', 'įmonių'];
+            const f = T().imoniu;
             const d = kiek % 10, dd = kiek % 100;
             return (d === 0 || (dd >= 11 && dd <= 19)) ? f[2] : (d === 1 ? f[0] : f[1]);
         },

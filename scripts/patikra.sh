@@ -4,6 +4,7 @@
 #
 # 1. Šablonų skenavimas: {# be #} toje pačioje eilutėje (nutekėtų į puslapį)
 # 2. Django testai: puslapiai be šablono komentarų + tuščios būsenos ikonos
+# 3. Vertimų sargyba: /en/ puslapiuose nėra lietuvių kalbos, šablonuose — {% trans %}
 #
 # Paleidimas rankomis:  ./scripts/patikra.sh
 # ═══════════════════════════════════════════════════════════════════════
@@ -11,7 +12,7 @@ set -u
 cd "$(dirname "$0")/.."
 KLAIDU=0
 
-echo "── 1/2  Šablonai: neuždarytas {# … "
+echo "── 1/3  Šablonai: neuždarytas {# … "
 RADINIAI=$(grep -rn '{#' templates/ --include='*.html' \
            | grep -v '#}' | grep -v '\.bak' || true)
 if [ -n "$RADINIAI" ]; then
@@ -23,10 +24,15 @@ else
     echo "        švaru"
 fi
 
-echo "── 2/2  Puslapių testai "
+echo "── 2/3  Puslapių testai "
 # PIPESTATUS — kitaip tikrintume „tail" būseną, o ne testų (krito nepastebėtai)
 venv/bin/python manage.py test apps.listings \
     --testrunner=config.test_runner.BeDuombazes 2>&1 | tail -14
+[ "${PIPESTATUS[0]}" -ne 0 ] && KLAIDU=1
+
+echo "── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti "
+venv/bin/python manage.py test apps.imones \
+    --testrunner=config.test_runner.BeDuombazes 2>&1 | tail -10
 [ "${PIPESTATUS[0]}" -ne 0 ] && KLAIDU=1
 
 if [ "$KLAIDU" -ne 0 ]; then

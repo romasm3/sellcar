@@ -140,6 +140,25 @@ def _filtru_kontekstas(request):
     }
 
 
+def _js_tekstai():
+    """Tekstai, kuriuos piešia naršyklė (kortelė, burbulas, datų juosta).
+
+    JS'e eilučių nelaikom — jos verčiamos čia ir keliauja per json_script,
+    kad vertimą pagautų makemessages, o ne liktų anglų/lietuvių mišinys.
+    """
+    # vietinis „_" — kad msgid'us pagautų makemessages (jis ieško _(...))
+    from django.utils.translation import gettext as _
+    return {
+        'imoniu': [_('įmonė'), _('įmonės'), _('įmonių')],
+        'betKada': _('Bet kada'),
+        'siandien': _('Šiandien'),
+        'rytoj': _('Rytoj'),
+        'atsiliepimai': _('atsiliepimai'),
+        'ziureti': _('Žiūrėti'),
+        'dienos': [_('Sk'), _('Pr'), _('An'), _('Tr'), _('Kt'), _('Pn'), _('Št')],
+    }
+
+
 def imoniu_sarasas(request):
     """/imones/ — kortelių tinklelis su filtrais (paieška, vieta, kada)."""
     qs = _filtruoti(request).prefetch_related('veiklos', 'nuotraukos')
@@ -151,6 +170,7 @@ def imoniu_sarasas(request):
         'imones': imones, 'rasta': len(visos),
         # Kortelės ir žymekliai piešiami naršyklėje iš /imones/duomenys/,
         # todėl čia užtenka pradinės žemėlapio padėties.
+        'tekstai': _js_tekstai(),
         'pradine': {'lat': float(request.GET.get('lat') or 54.6872),
                     'lng': float(request.GET.get('lng') or 25.2797),
                     'z': int(request.GET.get('z') or 12)},
@@ -185,8 +205,9 @@ def imone(request, slug):
             zinutes_url = reverse('conversations:start', args=[skelbimai[0].pk])
 
     from django.urls import reverse
-    from django.utils.translation import gettext as _t
-    trupiniai = [{'label': _t('Įmonės'), 'url': reverse('imones:sarasas')}]
+    # vietinis „_" — kad msgid'us pagautų makemessages (jis ieško _(...))
+    from django.utils.translation import gettext as _
+    trupiniai = [{'label': _('Įmonės'), 'url': reverse('imones:sarasas')}]
     if obj.miestas:
         trupiniai.append({'label': obj.miestas,
                           'url': reverse('imones:sarasas') + '?city=' + obj.miestas})
@@ -254,8 +275,9 @@ def _zemelapiui(i):
                    'url': i.get_absolute_url() + '#skelbimai'}]
     else:
         paslauga = p.pavadinimas if p else ''
-        kaina = ('%s €' % formatai.sk(p.kaina)) if p and p.kaina else ''
-        trukme = ('%s %s min.' % (_('apie'), p.trukme_min)) if p and p.trukme_min else ''
+        # Kainos formatas — iš formatai.kaina (lt „30 €", en „€30"), ne ranka.
+        kaina = formatai.kaina(p.kaina) if p and p.kaina else ''
+        trukme = (_('apie %(min)s min.') % {'min': p.trukme_min}) if p and p.trukme_min else ''
         # Laisvų laikų sistemos nėra, todėl čia — tikras darbo laikas
         # ir kelias į paslaugas, o ne išgalvoti laikai.
         cipsai = []
@@ -303,7 +325,7 @@ def _pigiausia(imone):
         return ''
     eil = (_public_listings_qs(None).filter(seller_id=imone.savininkas_id)
            .exclude(price=None).order_by('price').values_list('price', flat=True).first())
-    return ('%s %s €' % (_('nuo'), formatai.sk(eil))) if eil else ''
+    return (_('nuo %(kaina)s') % {'kaina': formatai.kaina(eil)}) if eil else ''
 
 
 def zemelapio_kortele(request, pk):

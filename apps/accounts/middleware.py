@@ -17,6 +17,8 @@ from django.conf import settings
 
 from django.utils import translation
 
+from django.utils.translation import get_language_from_path
+
 
 
 
@@ -31,7 +33,13 @@ class UserLanguageMiddleware:
 
     def __call__(self, request):
 
-        if request.user.is_authenticated:
+        # Adrese esantis priešdėlis (/en/…) yra stipresnis už profilio kalbą:
+
+        # kitaip angliškas puslapis būtų atiduotas lietuviškai.
+
+        is_adreso = get_language_from_path(request.path_info)
+
+        if is_adreso is None and request.user.is_authenticated:
 
             try:
 
@@ -59,7 +67,7 @@ class UserLanguageMiddleware:
 
                     request.LANGUAGE_CODE = cookie_lang
 
-                elif user_lang:
+                elif user_lang and user_lang in valid:
 
                     translation.activate(user_lang)
 

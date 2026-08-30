@@ -49,6 +49,12 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
   .fr-meniu a, .fr-meniu button { display: block; padding: 8px 0; font-size: 15px;
              color: var(--text); text-decoration: none; border: 0; background: none;
              cursor: pointer; }
+  /* kalbos — viena eilutė dialogo apačioje */
+  .fr-kalbos { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px;
+             border-top: 1px solid var(--border); }
+  .fr-kalbos button { padding: 4px 10px; border: 1px solid var(--border);
+             border-radius: 999px; font-size: 13px; }
+  .fr-kalbos button.on { background: var(--text); color: #fff; border-color: var(--text); }
 
   /* iškrentantys sąrašai baro segmentuose */
   .fr-lst { position: absolute; top: calc(100% + 6px); left: 0; z-index: 900;
@@ -84,11 +90,15 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
             cursor: pointer; font-family: inherit; }
   .fr-seg-jung button.on, .fr-seg-jung .fr-jung-btn.on {
             background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
-  .fr-kiek { margin-left: auto; color: var(--muted); font-size: 14px; }
+  {% comment %}Sąmoningas nukrypimas nuo etalono: etalonas tik lietuviškas,
+  o angliškas tekstas ilgesnis. Skaičius trumpinam daugtaškiu, mygtukų
+  nelaužom — kitaip įrankių juosta pastorėja į dvi eilutes.{% endcomment %}
+  .fr-kiek { margin-left: auto; color: var(--muted); font-size: 14px;
+             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .fr-tbtn { height: 44px; padding: 0 18px; border: 1px solid var(--border-strong);
              background: #fff; border-radius: 999px; display: inline-flex;
              align-items: center; gap: 10px; font-weight: 500; font-size: 14px;
-             cursor: pointer; font-family: inherit; }
+             cursor: pointer; font-family: inherit; white-space: nowrap; }
   .fr-tbtn:hover { background: var(--soft); }
   .fr-tbtn svg { width: 18px; height: 18px; }
 

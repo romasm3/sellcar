@@ -13,7 +13,21 @@ Python kode (laiškai, pranešimai) — kaina(...) / sk(...) tiesiogiai.
 
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
-NEDALOMAS = ' '
+from django.utils.translation import get_language
+
+NEDALOMAS = '\u00a0'
+
+# Kalbos formatas: (tūkstančių skirtukas, ar simbolis prieš skaičių).
+# Django lt lokalė tūkstančius skirtų tašku („5.000") — mums reikia nedalomo
+# tarpo, todėl skirtuką nurodom patys, o ne imam iš formats.py.
+FORMATAI = {
+    'en': (',', True),        # €5,000
+}
+NUMATYTAS = (NEDALOMAS, False)   # lt: 5 000 €
+
+
+def _formatas():
+    return FORMATAI.get((get_language() or 'lt')[:2], NUMATYTAS)
 
 
 def sveikas(reiksme):
@@ -27,16 +41,18 @@ def sveikas(reiksme):
 
 
 def sk(reiksme):
-    """15000 -> „15 000". Neatpažintą reikšmę grąžina nepakeistą."""
+    """15000 -> lt „15 000", en „15,000". Neatpažintą reikšmę grąžina nepakeistą."""
     n = sveikas(reiksme)
     if n is None:
         return reiksme if reiksme is not None else ''
-    return '{:,}'.format(n).replace(',', NEDALOMAS)
+    return '{:,}'.format(n).replace(',', _formatas()[0])
 
 
 def kaina(reiksme, simbolis='€'):
-    """5000 -> „5 000 €" (simbolis gale, tarpas prieš jį)."""
+    """5000 -> lt „5 000 €" (simbolis gale), en „€5,000" (simbolis priekyje)."""
     n = sveikas(reiksme)
     if n is None:
         return ''
-    return '%s%s%s' % (sk(n), NEDALOMAS, simbolis or '€')
+    simbolis = simbolis or '€'
+    priekyje = _formatas()[1]
+    return '%s%s' % (simbolis, sk(n)) if priekyje else '%s%s%s' % (sk(n), NEDALOMAS, simbolis)

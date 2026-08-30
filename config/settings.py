@@ -160,21 +160,14 @@ TIME_ZONE = "Europe/Vilnius"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+# Tūkstančiai skiriami pagal kalbą (lt „5 000", en „5,000")
+USE_THOUSAND_SEPARATOR = True
 
+# Sąsaja verčiama į dvi kalbas. Kitų kalbų .po failai lieka locale/ —
+# grąžinti kalbą reiškia pridėti eilutę čia.
 LANGUAGES = [
+    ("lt", _("Lietuvių")),
     ("en", _("English")),
-    ("lt", _("Lithuanian")),
-    ("lv", _("Latvian")),
-    ("et", _("Estonian")),
-    ("pl", _("Polish")),
-    ("de", _("German")),
-    ("ru", _("Russian")),
-    ("fr", _("French")),
-    ("es", _("Spanish")),
-    ("zh-hans", _("Chinese")),
-    ("vi", _("Vietnamese")),
-    ("ar", _("Arabic")),
-    ("ko", _("Korean")),
 ]
 
 LOCALE_PATHS = [

@@ -396,16 +396,17 @@ def zemelapio_paieska(request):
     metai = timezone.now().year
 
     from .models import FuelType
-    from django.utils.translation import gettext as _t
+    # vietinis „_" — kad msgid'us pagautų makemessages (jis ieško _(...))
+    from django.utils.translation import gettext as _
 
     return render(request, 'listings/search_map.html', {
         'is_viso': qs.count(),
         # Filtrų lango turinys — tie patys raktai, kaip visose paieškose
         'rusiavimo_kortos': [
-            ('newest', _t('Naujausi'), 'fa-clock'),
-            ('arciausiai', _t('Arčiausiai'), 'fa-location-crosshairs'),
-            ('price_asc', _t('Pigiausi'), 'fa-arrow-down-short-wide'),
-            ('price_desc', _t('Brangiausi'), 'fa-arrow-up-wide-short'),
+            ('newest', _('Naujausi'), 'fa-clock'),
+            ('arciausiai', _('Arčiausiai'), 'fa-location-crosshairs'),
+            ('price_asc', _('Pigiausi'), 'fa-arrow-down-short-wide'),
+            ('price_desc', _('Brangiausi'), 'fa-arrow-up-wide-short'),
         ],
         # Kategorijos — TAS PATS šaltinis, kuris piešia ikonų juostą ir
         # pikerį (kategoriju_medis iš panels.ADVANCED_RAIL). Čia buvo
@@ -418,10 +419,10 @@ def zemelapio_paieska(request):
         # „vin"/„tik_lietuvoje" niekur nebuvo skaitomi, todėl tos žymos
         # tik piešdavosi ir nieko nefiltruodavo.
         'papildomi_filtrai': [
-            ('has_vin', '1', _t('Su VIN')),
-            ('feat_warranty', 'on', _t('Su garantija')),
-            ('country_filter', 'LT', _t('Tik Lietuvoje')),
-            ('su_nuotraukomis', '1', _t('Su nuotraukomis')),
+            ('has_vin', '1', _('Su VIN')),
+            ('feat_warranty', 'on', _('Su garantija')),
+            ('country_filter', 'LT', _('Tik Lietuvoje')),
+            ('su_nuotraukomis', '1', _('Su nuotraukomis')),
         ],
         # Markių sąrašo čia nebėra: jį paduoda /ajax/markes/ pagal
         # pasirinktą kategoriją — tas pats šaltinis (Brand + scopes),
