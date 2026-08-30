@@ -62,7 +62,7 @@ pakaitalas: „Nuo YYYY m." arba skelbimų skaičius.
   <div class="im-cols">
     <div>
       {% if imone.tipas == 'servisas' %}
-      <div class="im-block">
+      <div class="im-block" id="paslaugos">
         <h4>{% trans "Paslaugos ir kainos" %}</h4>
         {% for p in paslaugos %}
         <div class="im-srv">
@@ -79,7 +79,7 @@ pakaitalas: „Nuo YYYY m." arba skelbimų skaičius.
         {% endfor %}
       </div>
       {% else %}
-      <div class="im-block">
+      <div class="im-block" id="skelbimai">
         <h4>{% blocktrans with vardas=imone.pavadinimas %}{{ vardas }} skelbimai{% endblocktrans %} <span>{{ skelbimu_kiek }}</span></h4>
         <div class="im-cards2">
           {% for s in skelbimai %}

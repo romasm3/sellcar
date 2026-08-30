@@ -209,6 +209,10 @@ LOGOUT_REDIRECT_URL = "/"    # po logout → home (root)
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY = config("GOOGLE_MAPS_API_KEY", default="")
+# Map ID reikia AdvancedMarkerElement žymekliams (įmonių žemėlapis).
+# „DEMO_MAP_ID" veikia be Cloud Console įrašo; tikram stiliui verta
+# susikurti savą ir įrašyti į .env.
+GOOGLE_MAPS_ID = config("GOOGLE_MAPS_ID", default="DEMO_MAP_ID")
 
 # ═══════════════════════════════════════════════════════════
 # Email Configuration

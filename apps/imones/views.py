@@ -122,6 +122,7 @@ def _filtru_kontekstas(request):
         'laiko_pasirinkimai': LAIKO_PASIRINKIMAI,
         'aktyviu_filtru': len([x for x in (miestas, tipas, q, laikas) if x]) + len(veiklos_f),
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
+        'GOOGLE_MAPS_ID': getattr(settings, 'GOOGLE_MAPS_ID', 'DEMO_MAP_ID'),
     }
 
 
@@ -236,7 +237,7 @@ def _zemelapiui(i):
                   else (('%s · %s %s' % (_('Uždaryta'), _('atidaro'), i.atidaro()))
                         if i.atidaro() else ''))
         cipsai = [{'tekstas': str(_('Žiūrėti skelbimus')), 'ghost': True,
-                   'url': i.get_absolute_url()}]
+                   'url': i.get_absolute_url() + '#skelbimai'}]
     else:
         paslauga = p.pavadinimas if p else ''
         kaina = ('%s €' % formatai.sk(p.kaina)) if p and p.kaina else ''
@@ -248,12 +249,14 @@ def _zemelapiui(i):
             cipsai.append({'tekstas': '%s %s–%s' % (_('Šiandien'),
                                                     i.laikas(_siandien())[0],
                                                     i.uzsidaro()),
-                           'ghost': False, 'url': i.get_absolute_url()})
+                           'ghost': False,
+                           'url': i.get_absolute_url() + '#paslaugos'})
         elif i.atidaro():
             cipsai.append({'tekstas': '%s %s' % (_('Atidaro'), i.atidaro()),
-                           'ghost': False, 'url': i.get_absolute_url()})
+                           'ghost': False,
+                           'url': i.get_absolute_url() + '#paslaugos'})
         cipsai.append({'tekstas': str(_('Žiūrėti paslaugas')), 'ghost': True,
-                       'url': i.get_absolute_url()})
+                       'url': i.get_absolute_url() + '#paslaugos'})
 
     return {
         'id': i.pk,

@@ -112,7 +112,7 @@ kitiems puslapiams ji lieka.{% endcomment %}
   </div>
 
   <div class="fr-zemelapio-st" x-show="zemelapis">
-    <div id="frMap"></div>
+    <div id="frMap" data-map-id="{{ GOOGLE_MAPS_ID }}"></div>
     <button type="button" class="fr-map-btn fr-map-expand" title="{% trans 'Visas ekranas' %}"
             @click="visasEkranas()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5"/></svg>
@@ -129,10 +129,14 @@ kitiems puslapiams ji lieka.{% endcomment %}
     imoniu: ['{% trans "įmonė" %}', '{% trans "įmonės" %}', '{% trans "įmonių" %}'],
     betKada: '{% trans "Bet kada" %}', siandien: '{% trans "Šiandien" %}',
     rytoj: '{% trans "Rytoj" %}', atsiliepimai: '{% trans "atsiliepimai" %}',
+    ziureti: '{% trans "Žiūrėti" %}',
     dienos: ['{% trans "Sk" %}','{% trans "Pr" %}','{% trans "An" %}','{% trans "Tr" %}','{% trans "Kt" %}','{% trans "Pn" %}','{% trans "Št" %}']
   };
 </script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{% comment %}Google Maps su „marker" biblioteka — AdvancedMarkerElement
+leidžia žymekliu naudoti mūsų HTML piliulę. Atskira instancija nuo /map/:
+kitas konteineris (#frMap) ir kitas failas.{% endcomment %}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=marker&v=weekly" defer></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js" defer></script>
 <script src="{% static 'js/imones_fresha.js' %}"></script>
 {% endblock %}

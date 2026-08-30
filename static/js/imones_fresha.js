@@ -4,9 +4,16 @@
  * Rodom TIK apps.imones objektus: /imones/duomenys/ grąžina ir korteles,
  * ir žymeklius, ir burbulus iš vieno įrašo. Skelbimų (Listing) čia nėra.
  *
- * Žemėlapis — Leaflet su CARTO voyager plytelėmis, kaip etalone.
+ * Žemėlapis — Google Maps su AdvancedMarkerElement: žymeklis lieka toks
+ * pat HTML kaip etalone (juoda piliulė su ★, trikampis smaigalys).
+ * /map/ (skelbimai) turi savo atskirą instanciją ir savo konteinerį —
+ * nieko nebendrinam.
+ *
+ * Koordinatės į DB rašomos tik iš Photon/Nominatim (kūrimo forma) —
+ * Google geokoderio čia nenaudojam.
  */
-const FR = { zem: null, zymekliai: {}, duomenys: [], musuVieta: null };
+const FR = { zem: null, zymekliai: {}, sankaupos: null, burbulas: null,
+             duomenys: [], musuVieta: null };
 
 /* ── Paieškos baras antraštėje ───────────────────────────────────── */
 function freshaJuosta() {
@@ -122,24 +129,32 @@ function freshaPuslapis() {
             });
         },
 
-        /* ---- žemėlapis ---- */
+        /* ---- žemėlapis (Google) ---- */
         zemelapioParuosimas() {
-            if (!window.L) { setTimeout(() => this.zemelapioParuosimas(), 200); return; }
+            if (!window.google || !google.maps || !google.maps.marker) {
+                setTimeout(() => this.zemelapioParuosimas(), 200);
+                return;
+            }
             let pradine = { lat: 54.6872, lng: 25.2797, z: 12 };
             try { pradine = JSON.parse(document.getElementById('frPradine').textContent); }
             catch (e) {}
-            FR.zem = L.map('frMap', { zoomControl: false, scrollWheelZoom: true,
-                                      attributionControl: true })
-                      .setView([pradine.lat, pradine.lng], pradine.z);
-            // Etalone CARTO voyager, bet jis dabar reikalauja API rakto
-            // („API KEY REQUIRED" ant plytelių), todėl imam tas pačias OSM
-            // plyteles, kurias jau naudoja kūrimo formos žemėlapis.
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(FR.zem);
-            FR.zem.on('moveend', () => {
+            const el = document.getElementById('frMap');
+            FR.zem = new google.maps.Map(el, {
+                center: { lat: pradine.lat, lng: pradine.lng },
+                zoom: pradine.z,
+                mapId: el.dataset.mapId || 'DEMO_MAP_ID',
+                gestureHandling: 'greedy',   // ratukas zoomina iškart, be ctrl
+                zoomControl: false,          // savi mygtukai apačioj dešinėj
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+            });
+            FR.burbulas = new google.maps.InfoWindow({ maxWidth: 268 });
+            FR.zem.addListener('idle', () => {
                 if (this._pakrauta) this.pajudinta = true;
                 this.irasykURL();
             });
+            FR.zem.addListener('click', () => FR.burbulas && FR.burbulas.close());
             this.uzkrauk();
         },
 
@@ -149,12 +164,14 @@ function freshaPuslapis() {
             const el = document.getElementById('frMap');
             if (!document.fullscreenElement) el.requestFullscreen && el.requestFullscreen();
             else document.exitFullscreen();
-            setTimeout(() => FR.zem && FR.zem.invalidateSize(), 300);
+            setTimeout(() => FR.zem && google.maps.event.trigger(FR.zem, 'resize'), 300);
         },
 
         perjunkZemelapi() {
             this.zemelapis = !this.zemelapis;
-            if (this.zemelapis) setTimeout(() => FR.zem && FR.zem.invalidateSize(), 60);
+            if (this.zemelapis) setTimeout(() => {
+                if (FR.zem) google.maps.event.trigger(FR.zem, 'resize');
+            }, 60);
         },
 
         /* ---- duomenys ---- */
@@ -169,8 +186,8 @@ function freshaPuslapis() {
             const skrendam = new URLSearchParams(location.search).get('skrendam');
             const b = !skrendam && FR.zem && this.zemelapis && FR.zem.getBounds();
             if (b) {
-                p.set('s', b.getSouth()); p.set('n', b.getNorth());
-                p.set('v', b.getWest()); p.set('r', b.getEast());
+                p.set('s', b.getSouthWest().lat()); p.set('n', b.getNorthEast().lat());
+                p.set('v', b.getSouthWest().lng()); p.set('r', b.getNorthEast().lng());
             }
             fetch('/imones/duomenys/?' + p.toString(),
                   { headers: { 'X-Requested-With': 'XMLHttpRequest' },
@@ -191,8 +208,10 @@ function freshaPuslapis() {
         skriskPrieVisu() {
             const su = FR.duomenys.filter(c => c.lat && c.lng);
             if (!FR.zem || !su.length) return;
-            FR.zem.flyToBounds(L.latLngBounds(su.map(c => [c.lat, c.lng])),
-                               { padding: [60, 60], duration: .7 });
+            const ribos = new google.maps.LatLngBounds();
+            su.forEach(c => ribos.extend({ lat: c.lat, lng: c.lng }));
+            // Paraštės — kad piliulė neliktų nukirsta prie krašto
+            FR.zem.fitBounds(ribos, { top: 60, right: 40, bottom: 40, left: 40 });
             this.pajudinta = false;
             window.scrollTo({ top: 0, behavior: 'smooth' });
             // Vėliavėlę nuimam, kad kiti krovimai vėl eitų pagal plotą
@@ -206,17 +225,46 @@ function freshaPuslapis() {
         piesk(sarasas) {
             this.$refs.tinklas.innerHTML = sarasas.map(c => this.kortele(c)).join('');
             this.rikKorteles();
-            Object.values(FR.zymekliai).forEach(m => FR.zem.removeLayer(m));
+            (FR.sankaupos ? [FR.sankaupos] : []).forEach(s => s.clearMarkers());
+            Object.values(FR.zymekliai).forEach(m => { m.map = null; });
             FR.zymekliai = {};
+            const zym = [];
             sarasas.forEach(c => {
                 if (!c.lat || !c.lng) return;
-                const ikona = L.divIcon({ className: '', iconSize: [0, 0],
-                    html: `<div class="fr-pin" id="frPin${c.id}">${ZVAIGZDE}${(c.reitingas || 0).toFixed(1)}</div>` });
-                const m = L.marker([c.lat, c.lng], { icon: ikona }).addTo(FR.zem);
-                m.bindPopup(this.burbulas(c), { closeButton: true, offset: [0, -14] });
-                m.on('click', () => this.pazymek(c.id, false));
+                const el = document.createElement('div');
+                el.className = 'fr-pin';
+                el.id = 'frPin' + c.id;
+                el.innerHTML = ZVAIGZDE + (c.reitingas || 0).toFixed(1);
+                const m = new google.maps.marker.AdvancedMarkerElement({
+                    map: FR.zem, position: { lat: c.lat, lng: c.lng },
+                    content: el, title: c.vardas,
+                });
+                m.addListener('click', () => this.rodykBurbula(c, m));
                 FR.zymekliai[c.id] = m;
+                zym.push(m);
             });
+            // Persidengiančius suklijuojam į sankaupas
+            if (window.markerClusterer && window.markerClusterer.MarkerClusterer) {
+                if (FR.sankaupos) FR.sankaupos.setMap(null);
+                FR.sankaupos = new markerClusterer.MarkerClusterer({
+                    map: FR.zem, markers: zym,
+                    // Sankaupa atrodo kaip ta pati piliulė, tik su skaičiumi
+                    renderer: { render: ({ count, position }) => {
+                        const el = document.createElement('div');
+                        el.className = 'fr-pin';
+                        el.textContent = String(count);
+                        return new google.maps.marker.AdvancedMarkerElement({
+                            position, content: el, zIndex: 10 });
+                    } },
+                });
+            }
+        },
+
+        /** Burbulas — ta pati 268 px kortelė kaip anksčiau. */
+        rodykBurbula(c, zymeklis) {
+            if (!FR.burbulas) return;
+            FR.burbulas.setContent(this.burbulas(c));
+            FR.burbulas.open({ map: FR.zem, anchor: zymeklis });
         },
 
         atstumas(c) {
@@ -232,10 +280,13 @@ function freshaPuslapis() {
         kortele(c) {
             const t = T();
             const foto = c.img ? `<img src="${c.img}" alt="" loading="lazy">` : '';
+            // Čipsai — mygtukai, ne nuorodos: kortelė jau yra <a>, o <a>
+            // viduje <a> naršyklė išskaido (kortelė lūžo į dvi dalis).
             const cipsai = (c.cipsai || []).map(s =>
-                `<a class="fr-cipsas${s.ghost ? ' ghost' : ''}" href="${s.url}">${s.tekstas}</a>`).join('');
+                `<button type="button" class="fr-cipsas${s.ghost ? ' ghost' : ''}"
+                         data-url="${s.url}">${s.tekstas}</button>`).join('');
             return `
-<article class="fr-kort" data-id="${c.id}">
+<a class="fr-kort" data-id="${c.id}" href="${c.url}" target="_blank" rel="noopener">
   <div class="fr-foto">${foto}
     <button type="button" class="fr-sirdis" data-sirdis="${c.id}">
       <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg>
@@ -253,16 +304,18 @@ function freshaPuslapis() {
     <div class="fr-pasl-trukme">${c.trukme}</div>
     <div class="fr-cipsai">${cipsai}</div>
   </div>
-</article>`;
+</a>`;
         },
 
         burbulas(c) {
             const t = T();
-            return `<div class="fr-pop">${c.img ? `<img src="${c.img}" alt="">` : ''}
-  <div class="b"><div class="n">${c.vardas}</div>
+            return `<div class="fr-pop">${c.img ? `<a href="${c.url}" target="_blank" rel="noopener"><img src="${c.img}" alt=""></a>` : ''}
+  <div class="b"><a class="n" href="${c.url}" target="_blank" rel="noopener">${c.vardas}</a>
   <div class="m">${ZVAIGZDE.replace('<svg', '<svg style="width:12px;height:12px;fill:#F5B301;vertical-align:-1px"')} ${(c.reitingas || 0).toFixed(1)} · ${c.atsiliepimai} ${t.atsiliepimai || 'atsiliepimai'}</div>
   <div class="m">${c.tipas} · ${c.vietove}</div>
-  <div class="p">${c.paslauga} — ${c.kaina}</div></div></div>`;
+  <div class="p">${c.paslauga} — ${c.kaina}</div>
+  <a class="fr-pop-btn" href="${c.url}" target="_blank" rel="noopener">${(T().ziureti || 'Žiūrėti')}</a>
+  </div></div>`;
         },
 
         rikKorteles() {
@@ -271,10 +324,17 @@ function freshaPuslapis() {
             t.dataset.pariszta = '1';
             t.addEventListener('click', e => {
                 const s = e.target.closest('[data-sirdis]');
-                if (s) { e.stopPropagation(); s.classList.toggle('on'); return; }
-                if (e.target.closest('.fr-cipsas')) return;      // čipsas — nuoroda
-                const k = e.target.closest('.fr-kort');
-                if (k) this.pazymek(+k.dataset.id, true);
+                if (s) {                       // širdutė puslapio neatidaro
+                    e.preventDefault(); e.stopPropagation();
+                    s.classList.toggle('on');
+                    return;
+                }
+                const c = e.target.closest('.fr-cipsas');
+                if (c) {                       // čipsas atidaro savo adresą
+                    e.preventDefault(); e.stopPropagation();
+                    window.open(c.dataset.url, '_blank', 'noopener');
+                    return;
+                }
             });
             t.addEventListener('mouseover', e => {
                 const k = e.target.closest('.fr-kort');
@@ -291,22 +351,17 @@ function freshaPuslapis() {
             if (p) p.classList.toggle('act', on);
         },
 
-        /** Paspaudus kortelę — nuskrendam (zoom 15) ir atidarom burbulą. */
-        pazymek(id, atidaryti) {
-            FR.duomenys.forEach(c => this.ryskus(c.id, false));
-            this.ryskus(id, true);
-            const c = FR.duomenys.find(x => x.id === id);
-            if (!c || !FR.zem) return;
-            FR.zem.flyTo([c.lat, c.lng], 15, { duration: .6 });
-            if (atidaryti) setTimeout(() => FR.zymekliai[id] && FR.zymekliai[id].openPopup(), 320);
-        },
+        /** Kortelė pati yra nuoroda į /imone/<slug>/; čia liko tik žymeklio
+         *  paryškinimas užvedus. */
 
         irasykURL() {
             if (!FR.zem) return;
             const c = FR.zem.getCenter();
+            if (!c) return;
             const p = new URLSearchParams(location.search);
             p.delete('skrendam');
-            p.set('lat', c.lat.toFixed(5)); p.set('lng', c.lng.toFixed(5));
+            // Google LatLng — lat()/lng() yra metodai, ne laukai
+            p.set('lat', c.lat().toFixed(5)); p.set('lng', c.lng().toFixed(5));
             p.set('z', FR.zem.getZoom());
             history.replaceState(null, '', location.pathname + '?' + p.toString());
         },
