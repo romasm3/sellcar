@@ -25,11 +25,43 @@ function frTekstai() {
     return FR.tekstai;
 }
 
-/* ── Paieškos baras antraštėje ───────────────────────────────────── */
+/* ── Paieškos baras antraštėje ───────────────────────────────────
+ * Trys atskiri langai, kiekvienas savo segmente (maketas —
+ * docs/paieskos-dropdown-demo_3.html). Atidarytas langas uždeda
+ * body.fr-atverta: tamsėja fonas, baras platėja, apvalus mygtukas
+ * virsta „Ieškoti".                                              */
+const FR_ATMINTIS = { paieskos: 'fr-paskutines-paieskos', vietos: 'fr-paskutines-vietos' };
+
+/** localStorage gali būti uždarytas (privatus langas) — tada tyliai be istorijos. */
+function frAtmintis(raktas) {
+    try { return JSON.parse(localStorage.getItem(raktas)) || []; } catch (e) { return []; }
+}
+function frIrasyk(raktas, sarasas) {
+    try { localStorage.setItem(raktas, JSON.stringify(sarasas.slice(0, 5))); } catch (e) { /* pilna arba uždaryta */ }
+}
+function frKalba() { return document.documentElement.lang || 'lt'; }
+
 function freshaJuosta() {
     return {
-        atidarytas: '', ko: '', koVeikla: '', vieta: '', vietosQ: '', kada: '',
-        vietos: [], grupes: [],
+        atidarytas: '', ko: '', koVeikla: '', cipsas: 'visi',
+        vieta: '', vietosQ: '', vietosKlaida: '', vlat: '', vlng: '',
+        kada: '', data: '', paros: '',
+        vietos: [], vietosPask: [], paskutines: [], grupes: [], cipsai: [],
+        menuoData: null, skrisk: false,
+
+        /** Pradinė būsena iš adreso — kad po perkrovimo baras rodytų tą patį. */
+        paruoskJuosta() {
+            const p = new URLSearchParams(location.search);
+            this.ko = p.get('q') || '';
+            this.koVeikla = p.get('veikla') || '';
+            this.vieta = p.get('city') || '';
+            this.vlat = p.get('vlat') || ''; this.vlng = p.get('vlng') || '';
+            this.data = p.get('data') || ''; this.paros = p.get('paros') || '';
+            this.paskutines = frAtmintis(FR_ATMINTIS.paieskos);
+            this.vietosPask = frAtmintis(FR_ATMINTIS.vietos);
+            this.menuoData = this.data ? new Date(this.data + 'T00:00:00') : new Date();
+            this.menuoData.setDate(1);
+        },
 
         /** Adresas iš juostos data- atributo (jame yra kalbos priešdėlis). */
         adresas(kuris, atsarginis) {
@@ -38,60 +70,155 @@ function freshaJuosta() {
         },
 
         atidaryk(kuris) {
-            this.atidarytas = (this.atidarytas === kuris) ? '' : kuris;
-            if (this.atidarytas === 'ko') this.ieskok();
+            if (this.atidarytas === kuris) return;      // paspaudimas lange nieko nekeičia
+            this.atidarytas = kuris;
+            document.body.classList.add('fr-atverta');
+            if (kuris === 'ko') { this.ieskok(); this.$nextTick(() => this.$refs.koLaukas.focus()); }
+            if (kuris === 'vieta') { this.vietosKlaida = ''; this.$nextTick(() => this.$refs.vietosLaukas.focus()); }
         },
 
+        uzdaryk() {
+            this.atidarytas = '';
+            document.body.classList.remove('fr-atverta');
+        },
+
+        /* ---- 1. Paslauga ---- */
         ieskok() {
-            fetch(this.adresas('siulymai', '/ajax/paieska/') +
-                  '?sritis=imoniu_puslapis&q=' + encodeURIComponent(this.ko))
+            fetch(this.adresas('siulymai', '/ajax/paieska/') + '?sritis=imoniu_puslapis' +
+                  '&tipas=' + encodeURIComponent(this.cipsas) +
+                  '&q=' + encodeURIComponent(this.ko))
                 .then(r => r.ok ? r.json() : { grupes: [] })
-                .then(a => { this.grupes = a.grupes || []; })
+                .then(a => { this.grupes = a.grupes || []; this.cipsai = a.cipsai || this.cipsai; })
                 .catch(() => { this.grupes = []; });
         },
 
         pasirink(e) {
             this.ko = e.vardas;
-            // Paslauga filtruoja pagal veiklos sritį, įmonė — pagal vardą
-            this.koVeikla = (e.url || '').includes('veikla=')
-                ? e.url.split('veikla=')[1] : '';
-            this.atidarytas = '';
+            // Paslauga filtruoja pagal veiklos sritį, įmonė ir meistras — pagal vardą
+            this.koVeikla = (e.url || '').includes('veikla=') ? e.url.split('veikla=')[1] : '';
+            this.idekPaskutine({ vardas: e.vardas, apie: e.vieta || e.apie || '',
+                                 veikla: this.koVeikla });
+            this.uzdaryk();
         },
 
+        pasirinkPaskutine(pa) {
+            this.ko = pa.vardas; this.koVeikla = pa.veikla || '';
+            this.uzdaryk();
+        },
+
+        idekPaskutine(irasas) {
+            const be = this.paskutines.filter(x => x.vardas !== irasas.vardas);
+            this.paskutines = [irasas].concat(be).slice(0, 5);
+            frIrasyk(FR_ATMINTIS.paieskos, this.paskutines);
+        },
+
+        valykPaskutines() { this.paskutines = []; frIrasyk(FR_ATMINTIS.paieskos, []); },
+
+        /* ---- 2. Vieta ---- */
         ieskokVietos() {
             const q = this.vietosQ.trim();
+            this.vietosKlaida = '';
             if (q.length < 3) { this.vietos = []; return; }
-            fetch(this.adresas('adresai', '/ajax/adresai/') + '?q=' + encodeURIComponent(q))
+            if (this._vCtrl) this._vCtrl.abort();
+            this._vCtrl = new AbortController();
+            fetch(this.adresas('adresai', '/ajax/adresai/') + '?salis=LT&kiek=6&q=' +
+                  encodeURIComponent(q), { signal: this._vCtrl.signal })
                 .then(r => r.ok ? r.json() : { siulymai: [] })
-                .then(a => { this.vietos = a.siulymai || []; })
-                .catch(() => { this.vietos = []; });
+                .then(a => { this.vietos = (a.siulymai || []).slice(0, 6); })
+                .catch(e => { if (e.name !== 'AbortError') this.vietos = []; });
         },
 
         pasirinkVieta(v) {
             const vietove = ['city', 'town', 'village', 'district', 'locality', 'hamlet']
                 .indexOf(v.tipas) !== -1;
-            this.vieta = (vietove ? v.vardas : v.miestas) || v.vardas || v.tekstas;
-            this.atidarytas = '';
+            this.vieta = v.miestas || (vietove ? v.vardas : '') || v.vardas || v.tekstas || '';
+            this.vlat = v.lat || ''; this.vlng = v.lng || v.lon || '';
+            this.vietosQ = ''; this.vietos = [];
+            if (this.vieta || this.vlat) {
+                const be = this.vietosPask.filter(x => x.vardas !== (v.vardas || this.vieta));
+                this.vietosPask = [{ vardas: v.vardas || this.vieta,
+                                     apie: v.apie || v.tekstas || '', miestas: this.vieta,
+                                     lat: this.vlat, lng: this.vlng }].concat(be).slice(0, 5);
+                frIrasyk(FR_ATMINTIS.vietos, this.vietosPask);
+            }
+            this.uzdaryk();
+            this.siusk();
         },
 
+        valykVietas() { this.vietosPask = []; frIrasyk(FR_ATMINTIS.vietos, []); },
+
         dabartineVieta() {
-            if (!navigator.geolocation) return;
+            const T = frTekstai();
+            if (!navigator.geolocation) { this.vietosKlaida = T.vietosKlaida; return; }
+            this.vietosKlaida = T.vietosIeskom;
             navigator.geolocation.getCurrentPosition(p => {
                 fetch(this.adresas('vieta', '/ajax/vieta/') +
                       '?lat=' + p.coords.latitude + '&lon=' + p.coords.longitude)
                     .then(r => r.ok ? r.json() : { vieta: {} })
-                    .then(a => { this.vieta = (a.vieta || {}).miestas || ''; this.atidarytas = ''; })
-                    .catch(() => { this.atidarytas = ''; });
-            }, () => { this.atidarytas = ''; }, { timeout: 5000 });
+                    .then(a => {
+                        this.vietosKlaida = '';
+                        this.pasirinkVieta({ vardas: (a.vieta || {}).miestas || T.vietaCia,
+                                             miestas: (a.vieta || {}).miestas || '',
+                                             apie: (a.vieta || {}).salis || '',
+                                             lat: p.coords.latitude, lng: p.coords.longitude });
+                    })
+                    .catch(() => { this.vietosKlaida = T.vietosKlaida; });
+            }, () => { this.vietosKlaida = T.vietosNeleido; }, { timeout: 8000 });
         },
 
-        kadosVardas() {
+        /* ---- 3. Kada ---- */
+        get savaitesRaides() {
+            const d = frTekstai().dienos || [];
+            return [d[1], d[2], d[3], d[4], d[5], d[6], d[0]];   // nuo pirmadienio
+        },
+
+        get menuoVardas() {
+            const d = this.menuoData || new Date();
+            const m = d.toLocaleDateString(frKalba(), { month: 'long' });
+            return m.charAt(0).toUpperCase() + m.slice(1) + ' ' + d.getFullYear();
+        },
+
+        /** Mėnesio tinklelis: tušti langeliai iki pirmadienio, tada dienos. */
+        get dienos() {
+            const d = this.menuoData || new Date();
+            const metai = d.getFullYear(), men = d.getMonth();
+            const pirma = new Date(metai, men, 1);
+            const poslinkis = (pirma.getDay() + 6) % 7;
+            const kiek = new Date(metai, men + 1, 0).getDate();
+            const siandien = new Date(); siandien.setHours(0, 0, 0, 0);
+            const eil = [];
+            for (let i = 0; i < poslinkis; i++) eil.push({ diena: 0 });
+            for (let n = 1; n <= kiek; n++) {
+                const data = new Date(metai, men, n);
+                eil.push({
+                    diena: n,
+                    praeitis: data < siandien,
+                    iso: metai + '-' + String(men + 1).padStart(2, '0') + '-' + String(n).padStart(2, '0'),
+                });
+            }
+            return eil;
+        },
+
+        menuo(zingsnis) {
+            const d = new Date(this.menuoData || new Date());
+            d.setDate(1); d.setMonth(d.getMonth() + zingsnis);
+            this.menuoData = d;
+        },
+
+        valykKada() { this.data = ''; this.paros = ''; },
+
+        get kadosVardas() {
             const T = frTekstai();
-            if (!this.kada) return T.siandien + ' · ' + T.betKada;
-            const el = [...document.querySelectorAll('.fr-lst-eil.is-on span')][0];
-            return el ? el.textContent.trim() : '';
+            const dalys = [];
+            if (this.data) {
+                dalys.push(new Date(this.data + 'T00:00:00')
+                    .toLocaleDateString(frKalba(), { month: 'long', day: 'numeric' }));
+            }
+            if (this.paros) dalys.push((T.paros || {})[this.paros] || '');
+            return { tikra: dalys.length > 0, tekstas: dalys.join(' · ') || T.betKada };
         },
 
+        /* ---- Bendra ---- */
         paruosk() {
             const dek = (n, v) => { const e = this.$refs[n]; if (!e) return;
                 e.value = v || ''; e.disabled = !v; };
@@ -99,6 +226,18 @@ function freshaJuosta() {
             dek('pVeikla', this.koVeikla);
             dek('pCity', this.vieta.trim());
             dek('pLaikas', this.kada);
+            dek('pData', this.data);
+            dek('pParos', this.paros);
+            dek('pLat', this.vlat);
+            dek('pLng', this.vlng);
+        },
+
+        /** Pasirinkus vietą ieškom iškart — žemėlapis nuskrenda pats. */
+        siusk() {
+            this.skrisk = true;
+            this.paruosk();
+            // $root — forma (x-data šaknis). $el čia būtų paspaustas mygtukas.
+            this.$root.submit();
         },
     };
 }

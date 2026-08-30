@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 21:49+0300\n"
+"POT-Creation-Date: 2026-08-30 22:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,11 +207,11 @@ msgstr ""
 msgid "Dealer working hours"
 msgstr ""
 
-#: apps/accounts/models.py:141 config/settings.py:170
+#: apps/accounts/models.py:141 config/settings.py:174
 msgid "English"
 msgstr "English"
 
-#: apps/accounts/models.py:142 config/settings.py:169
+#: apps/accounts/models.py:142 config/settings.py:173
 msgid "Lietuvių"
 msgstr "Lithuanian"
 
@@ -393,11 +393,12 @@ msgstr "Test entry"
 msgid "Įmonė"
 msgstr "Business"
 
-#: apps/imones/models.py:150 apps/imones/views.py:210
-#: apps/listings/paieskos_siulymai.py:165
-#: apps/listings/paieskos_siulymai.py:207 templates/imones/_skirtukai.html:15
+#: apps/imones/models.py:150 apps/imones/views.py:286
+#: apps/listings/paieskos_siulymai.py:202
+#: apps/listings/paieskos_siulymai.py:222
+#: apps/listings/paieskos_siulymai.py:268 templates/imones/_skirtukai.html:15
 #: templates/imones/imone.html:28 templates/imones/sarasas.html:3
-#: templates/imones/sarasas.html:121
+#: templates/imones/sarasas.html:246
 #: templates/partials/_paieskos_juosta.html:193
 msgid "Įmonės"
 msgstr "Businesses"
@@ -426,7 +427,8 @@ msgstr "Business service"
 msgid "Įmonės paslaugos"
 msgstr "Business services"
 
-#: apps/imones/views.py:29 apps/imones/views.py:153
+#: apps/imones/views.py:29 apps/imones/views.py:49 apps/imones/views.py:220
+#: templates/imones/sarasas.html:153
 msgid "Bet kada"
 msgstr "Any time"
 
@@ -434,11 +436,11 @@ msgstr "Any time"
 msgid "Atidaryta dabar"
 msgstr "Open now"
 
-#: apps/imones/views.py:31 apps/imones/views.py:154 apps/imones/views.py:285
+#: apps/imones/views.py:31 apps/imones/views.py:221 apps/imones/views.py:363
 msgid "Šiandien"
 msgstr "Today"
 
-#: apps/imones/views.py:32 apps/imones/views.py:155
+#: apps/imones/views.py:32 apps/imones/views.py:222
 msgid "Rytoj"
 msgstr "Tomorrow"
 
@@ -450,99 +452,150 @@ msgstr "Saturday"
 msgid "Sekmadienį"
 msgstr "Sunday"
 
-#: apps/imones/views.py:152 templates/imones/zemelapis.html:72
+#: apps/imones/views.py:50
+msgid "Rytas 8–12"
+msgstr "Morning 8–12"
+
+#: apps/imones/views.py:51
+msgid "Diena 12–17"
+msgstr "Afternoon 12–17"
+
+#: apps/imones/views.py:52
+msgid "Vakaras 17–21"
+msgstr "Evening 17–21"
+
+#: apps/imones/views.py:58 templates/partials/_antrastes_paieska.html:64
+#: templates/partials/_paieskos_juosta.html:62
+#: templates/partials/_paieskos_juosta.html:197
+msgid "Visa Lietuva"
+msgstr "All Lithuania"
+
+#: apps/imones/views.py:59
+msgid "Vilnius"
+msgstr "Vilnius"
+
+#: apps/imones/views.py:59
+msgid "ir 20 km spinduliu"
+msgstr "and within 20 km"
+
+#: apps/imones/views.py:61
+msgid "Kaunas"
+msgstr "Kaunas"
+
+#: apps/imones/views.py:63 apps/listings/translatable_db.py:1703
+msgid "Klaipėda"
+msgstr "Klaipėda"
+
+#: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
 msgstr "business"
 
-#: apps/imones/views.py:152 templates/imones/sarasas.html:32
-#: templates/imones/zemelapis.html:72
+#: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonės"
 msgstr "businesses"
 
-#: apps/imones/views.py:152 templates/imones/zemelapis.html:72
+#: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonių"
 msgstr "businesses"
 
-#: apps/imones/views.py:156
+#: apps/imones/views.py:223
 msgid "atsiliepimai"
 msgstr "reviews"
 
-#: apps/imones/views.py:157
+#: apps/imones/views.py:224
 msgid "Žiūrėti"
 msgstr "View"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:226
+msgid "Ieškom jūsų vietos…"
+msgstr "Finding your location…"
+
+#: apps/imones/views.py:227
+msgid "Vietos leidimas atmestas — įrašykite miestą ranka."
+msgstr "Location permission denied — type a city instead."
+
+#: apps/imones/views.py:228
+msgid "Vietos nustatyti nepavyko — įrašykite miestą ranka."
+msgstr "Could not get your location — type a city instead."
+
+#: apps/imones/views.py:229 templates/imones/sarasas.html:97
+#: templates/imones/sarasas.html:101
+#: templates/partials/_paieskos_juosta.html:67
+msgid "Dabartinė vieta"
+msgstr "Current location"
+
+#: apps/imones/views.py:230
 msgid "Sk"
 msgstr "Sun"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "Pr"
 msgstr "Mon"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "An"
 msgstr "Tue"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "Tr"
 msgstr "Wed"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "Kt"
 msgstr "Thu"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "Pn"
 msgstr "Fri"
 
-#: apps/imones/views.py:158
+#: apps/imones/views.py:230
 msgid "Št"
 msgstr "Sat"
 
-#: apps/imones/views.py:268
+#: apps/imones/views.py:346
 msgid "automobiliai aikštelėje"
 msgstr "cars in stock"
 
-#: apps/imones/views.py:269
+#: apps/imones/views.py:347
 msgid "Automobilių prekyba"
 msgstr "Car sales"
 
-#: apps/imones/views.py:271 templates/imones/_burbulas.html:15
+#: apps/imones/views.py:349 templates/imones/_burbulas.html:15
 #: templates/imones/_kortele.html:13
 msgid "Atidaryta iki"
 msgstr "Open until"
 
-#: apps/imones/views.py:272 templates/imones/_burbulas.html:17
+#: apps/imones/views.py:350 templates/imones/_burbulas.html:17
 #: templates/imones/_kortele.html:15 templates/imones/imone.html:40
 msgid "Uždaryta"
 msgstr "Closed"
 
-#: apps/imones/views.py:272 templates/imones/_burbulas.html:17
+#: apps/imones/views.py:350 templates/imones/_burbulas.html:17
 #: templates/imones/_kortele.html:15
 msgid "atidaro"
 msgstr "opens"
 
-#: apps/imones/views.py:274
+#: apps/imones/views.py:352
 msgid "Žiūrėti skelbimus"
 msgstr "View listings"
 
-#: apps/imones/views.py:280 templates/imones/imone.html:73
+#: apps/imones/views.py:358 templates/imones/imone.html:73
 #, python-format
 msgid "apie %(min)s min."
 msgstr "about %(min)s min"
 
-#: apps/imones/views.py:291
+#: apps/imones/views.py:369
 msgid "Atidaro"
 msgstr "Opens"
 
-#: apps/imones/views.py:294
+#: apps/imones/views.py:372
 msgid "Žiūrėti paslaugas"
 msgstr "View services"
 
-#: apps/imones/views.py:328
+#: apps/imones/views.py:406
 #, python-format
 msgid "nuo %(kaina)s"
 msgstr "from %(kaina)s"
@@ -4742,7 +4795,65 @@ msgstr ""
 msgid "Draft not found"
 msgstr ""
 
-#: apps/listings/paieskos_siulymai.py:161
+#: apps/listings/paieskos_siulymai.py:199 apps/listings/select_views.py:225
+#: templates/listings/motogear_advanced.html:71
+#: templates/listings/motogear_advanced.html:96
+#: templates/listings/motogear_advanced.html:108
+#: templates/listings/motogear_advanced.html:118
+#: templates/listings/motogear_advanced.html:126
+#: templates/listings/motogear_advanced.html:141
+#: templates/listings/motogear_advanced.html:151
+#: templates/listings/motogear_advanced.html:158
+#: templates/listings/motogear_advanced.html:200
+#: templates/listings/motogear_advanced.html:206
+#: templates/listings/partials/_panel_bodies.html:47
+#: templates/listings/partials/_panel_bodies.html:87
+#: templates/listings/partials/_panel_bodies.html:98
+#: templates/listings/partials/_panel_bodies.html:108
+#: templates/listings/partials/_panel_bodies.html:148
+#: templates/listings/partials/_panel_bodies.html:236
+#: templates/listings/partials/_panel_bodies.html:372
+#: templates/listings/partials/_panel_bodies.html:387
+#: templates/listings/partials/_panel_bodies.html:399
+#: templates/listings/partials/_panel_bodies.html:496
+#: templates/listings/partials/_panel_bodies.html:512
+#: templates/listings/partials/_panel_bodies.html:526
+#: templates/listings/partials/_panel_bodies.html:631
+#: templates/listings/partials/_panel_bodies.html:643
+#: templates/listings/partials/_panel_bodies.html:655
+#: templates/listings/partials/_panel_bodies.html:994
+#: templates/listings/partials/_panel_bodies.html:1001
+#: templates/listings/partials/_panel_bodies.html:1057
+#: templates/listings/partials/_panel_bodies.html:1121
+#: templates/listings/partials/_panel_bodies.html:1141
+#: templates/listings/partials/_sp_field_styles.html:473
+#: templates/listings/partials/_sp_parts_brand.html:53
+#: templates/listings/partials/fields/_model.html:24
+#: templates/listings/partials/fields/_model.html:44
+#: templates/listings/partials/fields/_model.html:45
+#: templates/listings/partials/fields/_multiselect.html:17
+#: templates/listings/partials/fields/_multiselect.html:18
+#: templates/listings/partials/fields/_multiselect.html:35
+#: templates/listings/partials/fields/_select.html:9
+#: templates/listings/partials/search_panel.html:252
+#: templates/listings/partials/search_panel.html:306
+#: templates/listings/partials/search_panel.html:309
+#: templates/listings/partials/search_panel.html:312
+#: templates/listings/partials/search_panel.html:409
+#: templates/listings/partials/search_panel.html:427
+#: templates/listings/partials/search_panel.html:437
+#: templates/listings/partials/search_panel.html:454
+#: templates/listings/select_value.html:22
+#: templates/listings/select_value.html:35
+#: templates/listings/select_value.html:61
+#: templates/partials/_paieskos_juosta.html:192
+#: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
+#: templates/search/_panel_cars.html:49
+msgid "Visi"
+msgstr "All"
+
+#: apps/listings/paieskos_siulymai.py:200
+#: apps/listings/paieskos_siulymai.py:220
 #: apps/listings/search_config/panels.py:289
 #: templates/listings/partials/_panel_bodies.html:841
 #: templates/listings/services_listing_create.html:24
@@ -4750,16 +4861,21 @@ msgstr ""
 msgid "Paslaugos"
 msgstr "Services"
 
-#: apps/listings/paieskos_siulymai.py:190
+#: apps/listings/paieskos_siulymai.py:203
+#: apps/listings/paieskos_siulymai.py:224
+msgid "Meistrai"
+msgstr "Professionals"
+
+#: apps/listings/paieskos_siulymai.py:251
 msgid "Populiariausios markės"
 msgstr ""
 
-#: apps/listings/paieskos_siulymai.py:202
+#: apps/listings/paieskos_siulymai.py:263
 msgid "Markės ir modeliai"
 msgstr ""
 
-#: apps/listings/paieskos_siulymai.py:205 templates/imones/_skirtukai.html:11
-#: templates/imones/sarasas.html:90
+#: apps/listings/paieskos_siulymai.py:266 templates/imones/_skirtukai.html:11
+#: templates/imones/sarasas.html:215
 #: templates/listings/advanced_search.html:153
 #: templates/listings/partials/_panel_bodies.html:128
 #: templates/listings/partials/_panel_bodies.html:216
@@ -4779,7 +4895,7 @@ msgstr ""
 msgid "Skelbimai"
 msgstr "Search"
 
-#: apps/listings/paieskos_siulymai.py:209
+#: apps/listings/paieskos_siulymai.py:270
 msgid "Vietos"
 msgstr ""
 
@@ -5413,63 +5529,6 @@ msgstr "To"
 #: templates/listings/partials/fields/_mobile_rows.html:89
 msgid "Markė, modelis"
 msgstr "Make, model"
-
-#: apps/listings/select_views.py:225
-#: templates/listings/motogear_advanced.html:71
-#: templates/listings/motogear_advanced.html:96
-#: templates/listings/motogear_advanced.html:108
-#: templates/listings/motogear_advanced.html:118
-#: templates/listings/motogear_advanced.html:126
-#: templates/listings/motogear_advanced.html:141
-#: templates/listings/motogear_advanced.html:151
-#: templates/listings/motogear_advanced.html:158
-#: templates/listings/motogear_advanced.html:200
-#: templates/listings/motogear_advanced.html:206
-#: templates/listings/partials/_panel_bodies.html:47
-#: templates/listings/partials/_panel_bodies.html:87
-#: templates/listings/partials/_panel_bodies.html:98
-#: templates/listings/partials/_panel_bodies.html:108
-#: templates/listings/partials/_panel_bodies.html:148
-#: templates/listings/partials/_panel_bodies.html:236
-#: templates/listings/partials/_panel_bodies.html:372
-#: templates/listings/partials/_panel_bodies.html:387
-#: templates/listings/partials/_panel_bodies.html:399
-#: templates/listings/partials/_panel_bodies.html:496
-#: templates/listings/partials/_panel_bodies.html:512
-#: templates/listings/partials/_panel_bodies.html:526
-#: templates/listings/partials/_panel_bodies.html:631
-#: templates/listings/partials/_panel_bodies.html:643
-#: templates/listings/partials/_panel_bodies.html:655
-#: templates/listings/partials/_panel_bodies.html:994
-#: templates/listings/partials/_panel_bodies.html:1001
-#: templates/listings/partials/_panel_bodies.html:1057
-#: templates/listings/partials/_panel_bodies.html:1121
-#: templates/listings/partials/_panel_bodies.html:1141
-#: templates/listings/partials/_sp_field_styles.html:473
-#: templates/listings/partials/_sp_parts_brand.html:53
-#: templates/listings/partials/fields/_model.html:24
-#: templates/listings/partials/fields/_model.html:44
-#: templates/listings/partials/fields/_model.html:45
-#: templates/listings/partials/fields/_multiselect.html:17
-#: templates/listings/partials/fields/_multiselect.html:18
-#: templates/listings/partials/fields/_multiselect.html:35
-#: templates/listings/partials/fields/_select.html:9
-#: templates/listings/partials/search_panel.html:252
-#: templates/listings/partials/search_panel.html:306
-#: templates/listings/partials/search_panel.html:309
-#: templates/listings/partials/search_panel.html:312
-#: templates/listings/partials/search_panel.html:409
-#: templates/listings/partials/search_panel.html:427
-#: templates/listings/partials/search_panel.html:437
-#: templates/listings/partials/search_panel.html:454
-#: templates/listings/select_value.html:22
-#: templates/listings/select_value.html:35
-#: templates/listings/select_value.html:61
-#: templates/partials/_paieskos_juosta.html:192
-#: templates/search/_panel_cars.html:18 templates/search/_panel_cars.html:42
-#: templates/search/_panel_cars.html:49
-msgid "Visi"
-msgstr "All"
 
 #: apps/listings/services_views.py:68
 msgid "Paslaugų kategorija nesukonfigūruota."
@@ -8310,7 +8369,8 @@ msgstr ""
 msgid "ISOFIX (Vaiko kėdutės tvirtinimo taškai)"
 msgstr ""
 
-#: apps/listings/translatable_db.py:656 templates/imones/sarasas.html:67
+#: apps/listings/translatable_db.py:656 templates/imones/sarasas.html:186
+#: templates/imones/sarasas.html:189
 #: templates/listings/advanced_generic.html:270
 #: templates/listings/motogear_advanced.html:230
 #: templates/listings/motogear_list.html:262
@@ -12039,10 +12099,6 @@ msgstr "Quad bikes"
 msgid "Kiti stambūs defektai"
 msgstr ""
 
-#: apps/listings/translatable_db.py:1703
-msgid "Klaipėda"
-msgstr ""
-
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
 msgstr ""
@@ -15446,7 +15502,7 @@ msgid "Create Ad"
 msgstr ""
 
 #: templates/base.html:687 templates/imones/_burbulas.html:7
-#: templates/imones/_filtrai.html:13 templates/imones/sarasas.html:105
+#: templates/imones/_filtrai.html:13 templates/imones/sarasas.html:230
 #: templates/listings/partials/_lightbox.html:28
 #: templates/listings/partials/_lightbox.html:104
 #: templates/listings/partials/_mobile_picker.html:21
@@ -15476,7 +15532,7 @@ msgstr "My searches"
 msgid "Įsiminti skelbimai"
 msgstr "Saved ads"
 
-#: templates/base.html:723 templates/imones/sarasas.html:91
+#: templates/base.html:723 templates/imones/sarasas.html:216
 #: templates/listings/search_map.html:3 templates/listings/search_map.html:6
 msgid "Žemėlapio paieška"
 msgstr "Map search"
@@ -15967,7 +16023,7 @@ msgid "Žiūrėti įmonę"
 msgstr "View business"
 
 #: templates/imones/_filtrai.html:8 templates/imones/_filtrai.html:11
-#: templates/imones/sarasas.html:129
+#: templates/imones/sarasas.html:254
 #: templates/listings/partials/_zemelapio_filtrai.html:16
 #: templates/listings/partials/_zemelapio_filtrai.html:19
 #: templates/listings/search_map.html:106
@@ -16042,7 +16098,7 @@ msgstr "No businesses in this area"
 msgid "Atitolinti"
 msgstr "Zoom out"
 
-#: templates/imones/imone.html:27 templates/imones/sarasas.html:89
+#: templates/imones/imone.html:27 templates/imones/sarasas.html:214
 #: templates/partials/_puslapio_antraste.html:22
 msgid "Pradžia"
 msgstr "Home"
@@ -16091,50 +16147,84 @@ msgstr "Call"
 msgid "Rašyti žinutę"
 msgstr "Send a message"
 
-#: templates/imones/sarasas.html:23
-msgid "Paslauga ar įmonė"
-msgstr "Service or business"
+#: templates/imones/sarasas.html:34
+#: templates/partials/_paieskos_juosta.html:50
+msgid "Visos paslaugos"
+msgstr "All services"
 
-#: templates/imones/sarasas.html:42 templates/imones/sarasas.html:45
-#: templates/partials/_paieskos_juosta.html:67
-msgid "Dabartinė vieta"
-msgstr "Current location"
+#: templates/imones/sarasas.html:47
+#: templates/partials/_paieskos_juosta.html:141
+msgid "Paskutinės paieškos"
+msgstr "Recent searches"
 
-#: templates/imones/sarasas.html:52
-msgid "Miestas ar adresas"
-msgstr "City or address"
+#: templates/imones/sarasas.html:48 templates/imones/sarasas.html:110
+#: templates/imones/sarasas.html:180
+#: templates/listings/advanced_generic.html:268
+#: templates/listings/motogear_list.html:266
+#: templates/listings/partials/sidebar_generic.html:128
+#: templates/partials/_paieskos_juosta.html:142
+msgid "Išvalyti"
+msgstr "Clear"
 
-#: templates/imones/sarasas.html:57
-msgid "Šiandien · Bet kada"
-msgstr "Today · Any time"
+#: templates/imones/sarasas.html:88
+msgid "Nieko neradom"
+msgstr "Nothing found"
 
-#: templates/imones/sarasas.html:80
+#: templates/imones/sarasas.html:109 templates/listings/saved_searches.html:38
+msgid "Paskutinės"
+msgstr "Recent"
+
+#: templates/imones/sarasas.html:124
+msgid "Populiaru"
+msgstr "Popular"
+
+#: templates/imones/sarasas.html:145
+msgid "Tokios vietos neradom"
+msgstr "No such place found"
+
+#: templates/imones/sarasas.html:157
+msgid "Ankstesnis mėnuo"
+msgstr "Previous month"
+
+#: templates/imones/sarasas.html:159
+msgid "Kitas mėnuo"
+msgstr "Next month"
+
+#: templates/imones/sarasas.html:172
+msgid "Paros metas"
+msgstr "Time of day"
+
+#: templates/imones/sarasas.html:181
+msgid "Taikyti"
+msgstr "Apply"
+
+#: templates/imones/sarasas.html:205
 msgid "Meniu"
 msgstr "Menu"
 
-#: templates/imones/sarasas.html:123
+#: templates/imones/sarasas.html:248
 msgid "Specialistai"
 msgstr "Professionals"
 
-#: templates/imones/sarasas.html:126
+#: templates/imones/sarasas.html:251
 msgid "žemėlapio srityje"
 msgstr "in the map area"
 
-#: templates/imones/sarasas.html:132 templates/imones/zemelapis.html:41
+#: templates/imones/sarasas.html:257 templates/imones/zemelapis.html:41
 #: templates/listings/search_map.html:113
 msgid "Slėpti žemėlapį"
 msgstr "Hide map"
 
-#: templates/imones/sarasas.html:132 templates/imones/zemelapis.html:42
+#: templates/imones/sarasas.html:257 templates/imones/zemelapis.html:42
 #: templates/listings/search_map.html:114
 msgid "Rodyti žemėlapį"
 msgstr "Show map"
 
-#: templates/imones/sarasas.html:145
+#: templates/imones/sarasas.html:270
 msgid "Visas ekranas"
 msgstr "Full screen"
 
-#: templates/imones/sarasas.html:150 templates/imones/zemelapis.html:63
+#: templates/imones/sarasas.html:275 templates/imones/zemelapis.html:63
 msgid "Ieškoti šioje srityje"
 msgstr "Search this area"
 
@@ -16276,13 +16366,6 @@ msgstr "Part category"
 #: templates/listings/trailers_listing_create.html:354
 msgid "Ypatumai"
 msgstr "Features"
-
-#: templates/listings/advanced_generic.html:268
-#: templates/listings/motogear_list.html:266
-#: templates/listings/partials/sidebar_generic.html:128
-#: templates/partials/_paieskos_juosta.html:142
-msgid "Išvalyti"
-msgstr "Clear"
 
 #: templates/listings/advanced_search.html:6
 #: templates/listings/trucks_list.html:669
@@ -22198,10 +22281,6 @@ msgstr ""
 msgid "Išsaugotos"
 msgstr "Saved"
 
-#: templates/listings/saved_searches.html:38
-msgid "Paskutinės"
-msgstr "Recent"
-
 #: templates/listings/saved_searches.html:75
 msgid "nauji"
 msgstr "new"
@@ -23955,12 +24034,6 @@ msgstr "Partnership"
 msgid "Reklamos galimybės"
 msgstr "Advertising options"
 
-#: templates/partials/_antrastes_paieska.html:64
-#: templates/partials/_paieskos_juosta.html:62
-#: templates/partials/_paieskos_juosta.html:197
-msgid "Visa Lietuva"
-msgstr ""
-
 #: templates/partials/_antrastes_paieska.html:87
 msgid "Markė ar modelis"
 msgstr ""
@@ -23973,16 +24046,8 @@ msgstr ""
 msgid "Ko ieškote?"
 msgstr ""
 
-#: templates/partials/_paieskos_juosta.html:50
-msgid "Visos paslaugos"
-msgstr ""
-
 #: templates/partials/_paieskos_juosta.html:123
 msgid "Toliau"
-msgstr ""
-
-#: templates/partials/_paieskos_juosta.html:141
-msgid "Paskutinės paieškos"
 msgstr ""
 
 #: templates/partials/_paieskos_juosta.html:178

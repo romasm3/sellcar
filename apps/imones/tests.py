@@ -42,7 +42,12 @@ _ZYME = re.compile(r'\{%.*?%\}|\{\{.*?\}\}|\{#.*?#\}', re.S)
 _SKRIPTAI = re.compile(r'<(script|style)\b[^>]*>.*?</\1>', re.S | re.I)
 _KOMENT_HTML = re.compile(r'<!--.*?-->', re.S)
 _ATRIBUTAI = re.compile(
-    r'\b(placeholder|title|aria-label|alt)\s*=\s*(["\'])(.*?)\2', re.S)
+    r'(:?)\b(placeholder|title|aria-label|alt)\s*=\s*(["\'])(.*?)\3', re.S)
+# Bet kokia atributo reikšmė — išmetam ją prieš šalindami žymes, kad
+# „>" Alpine išraiškoje (x-show="a > 2") nesuskaldytų žymės per pusę.
+_ATRIB_REIKSME = re.compile(r'=\s*(["\'])(?:(?!\1).)*\1', re.S)
+# Eilutės konstanta Alpine išraiškoje (:placeholder="a || 'tekstas'")
+_EILUTE = re.compile(r'''(["\'])(.*?)\1''', re.S)
 _ZODIS = re.compile(r'[A-Za-z' + LT_RAIDES + r']{3,}')
 
 
@@ -58,16 +63,21 @@ class NeapvyniotasTekstasTestas(SimpleTestCase):
     def _radiniai(self, kelias):
         s = _be_komentaru(kelias.read_text(encoding='utf-8'))
         radiniai = []
-        # 1. verčiami atributai
-        for m in _ATRIBUTAI.finditer(_ZYME.sub(' ', _SKRIPTAI.sub(' ', s))):
-            reiksme = m.group(3).strip()
-            zodziai = _ZODIS.findall(reiksme)
+        # 1. verčiami atributai. Alpine sąsajoje (:placeholder="…") tikrinam
+        #    tik eilutės konstantas — kintamųjų vardai nėra tekstas.
+        be_zymiu = _ZYME.sub(' ', _SKRIPTAI.sub(' ', s))
+        for m in _ATRIBUTAI.finditer(be_zymiu):
+            reiksme = m.group(4).strip()
+            tikrinam = ([e for _c, e in _EILUTE.findall(reiksme)] if m.group(1)
+                        else [reiksme])
+            zodziai = [z for dalis in tikrinam for z in _ZODIS.findall(dalis)]
             if zodziai and not all(z in LEISTA for z in zodziai):
                 eil = s[:m.start()].count('\n') + 1
-                radiniai.append(f'{kelias.name}:{eil}: {m.group(1)}="{reiksme[:60]}"')
+                radiniai.append(f'{kelias.name}:{eil}: {m.group(2)}="{reiksme[:60]}"')
         # 2. tekstas tarp žymių
         b = _KOMENT_HTML.sub(' ', _SKRIPTAI.sub(' ', s))
-        b = re.sub(r'<[^>]*>', ' ', _ZYME.sub(' ', b))
+        b = _ATRIB_REIKSME.sub('=""', _ZYME.sub(' ', b))
+        b = re.sub(r'<[^>]*>', ' ', b)
         for eil, linija in enumerate(b.splitlines(), 1):
             for z in _ZODIS.findall(linija):
                 if z not in LEISTA:
@@ -129,6 +139,11 @@ class AngliskasPuslapisTestas(SimpleTestCase):
                 zodziai |= set(_ZODIS.findall(getattr(i, laukas, '') or ''))
         for v in VeiklosSritis.objects.all():
             zodziai |= set(_ZODIS.findall(v.pavadinimas or ''))
+        # Vietovardžiai („Klaipėda", „Visa Lietuva") — irgi duomenys:
+        # jie lieka lietuviški ir angliškame puslapyje.
+        from .views import POPULIARIOS_VIETOS
+        for v in POPULIARIOS_VIETOS:
+            zodziai |= set(_ZODIS.findall(str(v['vardas'])))
         for p in ImonesPaslauga.objects.all():
             zodziai |= set(_ZODIS.findall((p.pavadinimas or '') + ' ' + (p.aprasymas or '')))
         return zodziai

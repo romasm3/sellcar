@@ -84,23 +84,51 @@ def _skelbimai(q, user, kiek=EILUCIU):
     return isvestis
 
 
+def _imones_nuotrauka(i):
+    """Logotipas, o jei jo nėra — pirma įmonės nuotrauka."""
+    if i.logotipas:
+        return i.logotipas.url
+    pirma = i.nuotraukos.first()
+    return pirma.failas.url if pirma and pirma.failas else ''
+
+
+def _imones_eilute(i):
+    """Viena įmonės/meistro eilutė: nuotrauka, vardas, vieta, reitingas."""
+    return {
+        'tipas': 'meistras' if i.tipas == i.MEISTRAS else 'imone',
+        'vardas': i.rodomas_vardas(),
+        'apie': i.rodomas_tipas(),
+        'vieta': i.vietove(),
+        'img': _imones_nuotrauka(i),
+        'reitingas': float(i.reitingas) if i.reitingas else 0,
+        'url': i.get_absolute_url(),
+    }
+
+
 def _imones(q, kiek=EILUCIU):
     try:
         from apps.imones.models import Imone
     except Exception:
         return []
-    eilutes = Imone.objects.filter(patvirtinta=True)
+    eilutes = Imone.objects.filter(patvirtinta=True, tipas__in=Imone.IMONIU_TIPAI)
     if q:
         eilutes = eilutes.filter(Q(pavadinimas__icontains=q) | Q(miestas__icontains=q))
-    eilutes = eilutes[:kiek]
-    return [{
-        'tipas': 'imone',
-        'vardas': i.pavadinimas,
-        'apie': i.get_tipas_display(),
-        'vieta': i.miestas,
-        'img': i.logotipas.url if i.logotipas else '',
-        'url': i.get_absolute_url(),
-    } for i in eilutes]
+    return [_imones_eilute(i) for i in eilutes[:kiek]]
+
+
+def _meistrai(q, kiek=EILUCIU):
+    """Meistrai — atskira grupė, kaip etalone."""
+    try:
+        from apps.imones.models import Imone
+    except Exception:
+        return []
+    eilutes = Imone.objects.filter(patvirtinta=True, tipas=Imone.MEISTRAS)
+    if q:
+        eilutes = eilutes.filter(Q(meistras_vardas__icontains=q)
+                                 | Q(pavadinimas__icontains=q)
+                                 | Q(specializacija__icontains=q)
+                                 | Q(miestas__icontains=q))
+    return [_imones_eilute(i) for i in eilutes[:kiek]]
 
 
 def _vietos(q, user, kiek=EILUCIU):
@@ -143,27 +171,66 @@ def _paslaugos(q, kiek=EILUCIU):
     if q:
         eilutes = eilutes.filter(pavadinimas__icontains=q)
     eilutes = eilutes.order_by('-kiek', 'tvarka')[:kiek]
+    # DB laikom trumpą vardą („fa-car-side"), o naršyklei duodam pilną
+    # klasę — Font Awesome 6 be stiliaus klasės ženkliuko nepiešia.
+    def klase(ikona):
+        ikona = ikona or 'fa-screwdriver-wrench'
+        return ikona if ikona.startswith('fa-solid') else 'fa-solid ' + ikona
+
     return [{
         'tipas': 'paslauga',
-        'ikona': v.ikona,
+        'ikona': klase(v.ikona),
         'vardas': v.pavadinimas,
         'kiek_imoniu': v.kiek,
         'url': '/imones/?veikla=%s' % v.slug,
     } for v in eilutes]
 
 
+def _imoniu_cipsai(q):
+    """Juostelės su kiekiais: Visi · Paslaugos · Įmonės · Meistrai."""
+    try:
+        from apps.imones.models import Imone, VeiklosSritis
+    except Exception:
+        return []
+    paslaugu = VeiklosSritis.objects.filter(imones__patvirtinta=True)
+    imoniu = Imone.objects.filter(patvirtinta=True, tipas__in=Imone.IMONIU_TIPAI)
+    meistru = Imone.objects.filter(patvirtinta=True, tipas=Imone.MEISTRAS)
+    if q:
+        paslaugu = paslaugu.filter(pavadinimas__icontains=q)
+        imoniu = imoniu.filter(Q(pavadinimas__icontains=q) | Q(miestas__icontains=q))
+        meistru = meistru.filter(Q(meistras_vardas__icontains=q)
+                                 | Q(specializacija__icontains=q)
+                                 | Q(miestas__icontains=q))
+    return [
+        {'raktas': 'visi', 'vardas': str(_('Visi'))},
+        {'raktas': 'paslaugos', 'vardas': str(_('Paslaugos')),
+         'kiek': paslaugu.distinct().count()},
+        {'raktas': 'imones', 'vardas': str(_('Įmonės')), 'kiek': imoniu.count()},
+        {'raktas': 'meistrai', 'vardas': str(_('Meistrai')), 'kiek': meistru.count()},
+    ]
+
+
 def _imoniu_siulymai(request, q, sritis='imoniu_puslapis'):
-    """Įmonių puslapio sąrašas: tik paslaugos ir įmonės, be markių."""
+    """Įmonių puslapio sąrašas: paslaugos, įmonės ir meistrai — be markių.
+
+    `tipas` — pasirinkta juostelė lango viršuje; „visi" rodo visas grupes.
+    """
+    tipas = (request.GET.get('tipas') or 'visi').strip()
     grupes = []
-    if sritis in ('imoniu_puslapis', 'paslaugos'):
-        paslaugos = _paslaugos(q)
-        if paslaugos:
-            grupes.append({'vardas': str(_('Paslaugos')), 'eilutes': paslaugos})
-    if sritis in ('imoniu_puslapis', 'imones'):
-        imones = _imones(q) if q else _imones('')
-        if imones:
-            grupes.append({'vardas': str(_('Įmonės')), 'eilutes': imones})
-    return JsonResponse({'q': q, 'paskutines': [], 'grupes': grupes})
+
+    def prideti(vardas, eilutes):
+        if eilutes:
+            grupes.append({'vardas': vardas, 'eilutes': eilutes})
+
+    if sritis in ('imoniu_puslapis', 'paslaugos') and tipas in ('visi', 'paslaugos'):
+        prideti(str(_('Paslaugos')), _paslaugos(q))
+    if sritis in ('imoniu_puslapis', 'imones') and tipas in ('visi', 'imones'):
+        prideti(str(_('Įmonės')), _imones(q))
+    if sritis == 'imoniu_puslapis' and tipas in ('visi', 'meistrai'):
+        prideti(str(_('Meistrai')), _meistrai(q))
+
+    return JsonResponse({'q': q, 'paskutines': [],
+                         'cipsai': _imoniu_cipsai(q), 'grupes': grupes})
 
 
 @require_GET

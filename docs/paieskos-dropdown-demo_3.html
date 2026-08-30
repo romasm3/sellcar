@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — paieškos išskleidimai (Fresha 1:1)</title>
+<style>
+:root{--ink:#181B1F;--text:#1A1A1A;--muted:#6B7280;--border:#E5E7EB;--strong:#D1D5DB;
+ --soft:#F4F4F5;--soft2:#E9E9EC;--acc:#E14D28;--acc-bg:#FDEDE9;--star:#F5B301;--pill:999px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+ color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;background:#fff}
+button{font:inherit;color:inherit;cursor:pointer}
+
+.hdr{height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;
+ position:relative;z-index:60;background:#fff}
+.logo{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--ink)}
+.logo span{color:var(--acc)}
+.menu{height:48px;padding:0 20px;border:1px solid var(--strong);background:#fff;border-radius:var(--pill);
+ display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px}
+
+/* ---------- BARAS ---------- */
+.sbwrap{position:absolute;left:50%;transform:translateX(-50%);top:16px;width:720px;transition:width .18s ease}
+body.open .sbwrap{width:1000px}
+.sb{height:56px;display:flex;align-items:center;background:#fff;border:1px solid var(--border);
+ border-radius:var(--pill);box-shadow:0 1px 2px rgba(0,0,0,.04);padding-right:8px;transition:box-shadow .18s}
+body.open .sb{box-shadow:0 8px 28px rgba(0,0,0,.16);border-color:transparent;padding-right:6px}
+
+.seg{flex:1 1 0;min-width:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 24px;
+ position:relative;border-radius:var(--pill);cursor:pointer;user-select:none}
+.seg+.seg::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+ width:1px;height:24px;background:var(--border);transition:opacity .15s}
+.seg:hover{background:var(--soft)}
+.seg > svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.8;flex:0 0 auto;display:none}
+body.open .seg > svg{display:block}
+.seg .val{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg .val.ph{color:var(--muted);font-weight:400}
+.seg input{border:0;outline:0;font:inherit;font-weight:500;width:100%;background:none;padding:0}
+.seg input::placeholder{color:var(--muted);font-weight:400}
+body.open .seg.act{background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.16);z-index:3}
+body.open .seg.act::before,body.open .seg.act+.seg::before{opacity:0}
+
+.go{flex:0 0 auto;height:44px;border-radius:var(--pill);border:0;background:var(--ink);color:#fff;
+ display:flex;align-items:center;justify-content:center;width:44px;transition:width .18s,padding .18s}
+body.open .go{width:auto;padding:0 26px;font-weight:600;font-size:15px}
+.go .tx{display:none}
+body.open .go .ic{display:none}
+body.open .go .tx{display:block}
+
+/* ---------- LANGAI ---------- */
+.dd{position:absolute;top:64px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.18);
+ padding:16px 0 10px;display:none;max-height:min(640px,calc(100vh - 150px));overflow-y:auto;cursor:default}
+.seg.act .dd{display:block}
+#dd-q{left:0;width:600px}
+#dd-v{left:0;width:425px}
+#dd-k{right:0;width:392px;padding:20px}
+.dd::-webkit-scrollbar{width:10px}
+.dd::-webkit-scrollbar-thumb{background:#D9D9DD;border-radius:8px;border:3px solid #fff}
+
+.chips{display:flex;gap:8px;padding:0 20px 14px;flex-wrap:wrap}
+.chip{height:38px;padding:0 16px;border-radius:var(--pill);border:1px solid var(--border);background:#fff;
+ display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.chip b{color:var(--muted);font-weight:500}
+.chip:hover{background:var(--soft)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.on b{color:#A8ABB0}
+
+.sect{padding:10px 20px 4px;display:flex;align-items:center;justify-content:space-between}
+.sect h4{margin:0;font-size:15px;font-weight:700}
+.sect .clr{border:0;background:none;font-size:13px;font-weight:600;color:var(--acc)}
+.sect .clr:hover{text-decoration:underline}
+
+.item{display:flex;align-items:center;gap:14px;width:100%;border:0;background:none;text-align:left;padding:10px 20px}
+.item:hover{background:var(--soft)}
+.ico{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--soft);
+ display:flex;align-items:center;justify-content:center}
+.item:hover .ico{background:var(--soft2)}
+.ico svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.8}
+.ico.acc{background:var(--acc-bg)}
+.ico.acc svg{stroke:var(--acc);fill:none}
+.item:hover .ico.acc{background:#FBE1DA}
+.ph40{flex:0 0 auto;width:40px;height:40px;border-radius:8px;object-fit:cover}
+.av40{flex:0 0 auto;width:40px;height:40px;border-radius:50%;object-fit:cover}
+.tt{font-size:15px;font-weight:500;line-height:1.25;display:block}
+.ss{font-size:13px;color:var(--muted);margin-top:1px;display:block}
+.rt{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600}
+.rt svg{width:12px;height:12px;fill:var(--star);stroke:none}
+
+/* ---------- KADA ---------- */
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-h b{font-size:15px}
+.cal-nav{display:flex;gap:6px}
+.cal-nav button{width:32px;height:32px;border-radius:50%;border:0;background:var(--soft);
+ display:flex;align-items:center;justify-content:center}
+.cal-nav button:hover{background:var(--soft2)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal span{height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+.cal button{height:40px;border:0;background:none;border-radius:10px;font-size:14px;font-weight:500}
+.cal button:hover:not(:disabled){background:var(--soft)}
+.cal button:disabled{color:#C9CBCF}
+.cal button.on{background:var(--ink);color:#fff}
+.hr{height:1px;background:var(--border);margin:16px 0}
+.lbl{font-size:13px;font-weight:700;margin-bottom:10px}
+.tchips{display:flex;gap:8px;flex-wrap:wrap}
+.tchip{height:38px;padding:0 14px;border-radius:var(--pill);border:1px solid var(--border);background:#fff;font-size:14px;font-weight:500}
+.tchip:hover{background:var(--soft)}
+.tchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dd-foot{display:flex;gap:10px;margin-top:18px}
+.dd-foot button{flex:1;height:46px;border-radius:var(--pill);border:1px solid var(--strong);background:#fff;font-weight:600}
+.dd-foot .pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:50;display:none}
+body.open .scrim{display:block}
+.page{padding:0 32px}
+.hint{max-width:900px;margin:24px auto 0;color:var(--muted);text-align:center}
+.fake{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:840px;margin:24px 0}
+.fake div{height:200px;background:var(--soft);border-radius:12px}
+</style>
+</head>
+<body>
+
+<div class="scrim" id="scrim"></div>
+
+<header class="hdr">
+  <div class="logo">Auto<span>Left</span></div>
+
+  <div class="sbwrap">
+    <div class="sb">
+
+      <!-- 1. PASLAUGA -->
+      <div class="seg" data-seg="q">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+        <input id="q" placeholder="Visos paslaugos">
+        <div class="dd" id="dd-q">
+          <div class="chips">
+            <button class="chip on">Visi</button>
+            <button class="chip">Paslaugos <b>40+</b></button>
+            <button class="chip">Įmonės <b>12</b></button>
+            <button class="chip">Meistrai <b>8</b></button>
+          </div>
+          <div class="sect"><h4>Paskutinės paieškos</h4><button class="clr">Išvalyti</button></div>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+            <span><span class="tt">Visos paslaugos</span><span class="ss">Bet kada · Vilnius</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+            <span><span class="tt">Tepalų keitimas</span><span class="ss">Bet kada</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+            <span><span class="tt">Detailing</span><span class="ss">Šiandien · Naujamiestis</span></span></button>
+
+          <div class="sect"><h4>Paslaugos</h4></div>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+            <span><span class="tt">Visos paslaugos</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17h16M6 17V9l3-4h6l3 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg></span>
+            <span><span class="tt">Servisas ir remontas</span><span class="ss">Tepalai · stabdžiai · pakaba</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <span><span class="tt">Padangos ir ratlankiai</span><span class="ss">Montavimas · geometrija</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 14l8-9 8 9-8 5z"/></svg></span>
+            <span><span class="tt">Detailing ir plovykla</span><span class="ss">Poliravimas · keramika</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 12 3-7h5"/></svg></span>
+            <span><span class="tt">Elektronika ir diagnostika</span></span></button>
+
+          <div class="sect"><h4>Įmonės</h4></div>
+          <button class="item"><img class="ph40" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=120&q=60" alt="">
+            <span><span class="tt">M House Detailing</span><span class="ss">Naujamiestis, Vilnius</span></span>
+            <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>5,0</span></button>
+          <button class="item"><img class="ph40" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=120&q=60" alt="">
+            <span><span class="tt">Auto Servisas Vilkas</span><span class="ss">Žirmūnai, Vilnius</span></span>
+            <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,9</span></button>
+
+          <div class="sect"><h4>Meistrai</h4></div>
+          <button class="item"><img class="av40" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=60" alt="">
+            <span><span class="tt">Tomas · mobilus meistras</span><span class="ss">Atvyksta pas jus · Vilnius</span></span>
+            <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,9</span></button>
+          <button class="item"><img class="av40" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=60" alt="">
+            <span><span class="tt">Marius · kėbulo meistras</span><span class="ss">Garažas · Naujininkai</span></span>
+            <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,8</span></button>
+        </div>
+      </div>
+
+      <!-- 2. VIETA -->
+      <div class="seg" data-seg="v">
+        <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <input id="v" placeholder="Dabartinė vieta">
+        <div class="dd" id="dd-v">
+          <button class="item"><span class="ico acc"><svg viewBox="0 0 24 24" fill="none"><path d="M21 3L3 10.5l8 2.5 2.5 8z" stroke-linejoin="round"/></svg></span>
+            <span><span class="tt">Dabartinė vieta</span></span></button>
+          <div class="sect"><h4>Paskutinės</h4><button class="clr">Išvalyti</button></div>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="tt">Naujamiestis</span><span class="ss">Vilnius, Lietuva</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="tt">Savanorių pr. 15</span><span class="ss">03116 Vilnius, Lietuva</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="tt">Kaunas</span><span class="ss">Lietuva</span></span></button>
+          <div class="sect"><h4>Populiaru</h4></div>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+            <span><span class="tt">Visa Lietuva</span></span></button>
+          <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+            <span><span class="tt">Vilnius</span><span class="ss">ir 20 km spinduliu</span></span></button>
+        </div>
+      </div>
+
+      <!-- 3. KADA -->
+      <div class="seg" data-seg="k">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+        <div class="val">Bet kada</div>
+        <div class="dd" id="dd-k">
+          <div class="cal-h"><b>Rugsėjis 2026</b>
+            <div class="cal-nav">
+              <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div class="cal" id="cal"></div>
+          <div class="hr"></div>
+          <div class="lbl">Paros metas</div>
+          <div class="tchips">
+            <button class="tchip on">Bet kada</button>
+            <button class="tchip">Rytas 8–12</button>
+            <button class="tchip">Diena 12–17</button>
+            <button class="tchip">Vakaras 17–21</button>
+          </div>
+          <div class="dd-foot"><button>Išvalyti</button><button class="pri">Taikyti</button></div>
+        </div>
+      </div>
+
+      <button class="go" id="go">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+        <span class="tx">Ieškoti</span>
+      </button>
+    </div>
+  </div>
+
+  <button class="menu">Meniu
+    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<div class="page">
+  <div class="hint">Spausk kiekvieną paieškos baro dalį — atsidarys skirtingas langas. Escape arba fonas uždaro.</div>
+  <div class="fake"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<script>
+const b=document.body, segs=[...document.querySelectorAll('[data-seg]')];
+segs.forEach(s=>s.addEventListener('click',e=>{
+  if(e.target.closest('.dd'))return;
+  b.classList.add('open');
+  segs.forEach(x=>x.classList.remove('act'));
+  s.classList.add('act');
+  const i=s.querySelector('input'); if(i)i.focus();
+}));
+document.getElementById('scrim').onclick=close_;
+document.getElementById('go').onclick=close_;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close_()});
+function close_(){b.classList.remove('open');segs.forEach(x=>x.classList.remove('act'))}
+
+/* kalendorius */
+const cal=document.getElementById('cal'), SH=['Pr','An','Tr','Kt','Pn','Št','Sk'];
+let h=SH.map(d=>`<span>${d}</span>`).join('');
+const y=2026,m=8, first=new Date(y,m,1), off=(first.getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+for(let i=0;i<off;i++)h+='<button disabled></button>';
+for(let d=1;d<=days;d++)h+=`<button${d===3?' class="on"':''}>${d}</button>`;
+cal.innerHTML=h;
+cal.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON'||e.target.disabled)return;
+ cal.querySelectorAll('button').forEach(x=>x.classList.remove('on'));e.target.classList.add('on')});
+document.querySelector('.tchips').addEventListener('click',e=>{if(!e.target.classList.contains('tchip'))return;
+ document.querySelectorAll('.tchip').forEach(x=>x.classList.remove('on'));e.target.classList.add('on')});
+document.querySelectorAll('.chips')[0].addEventListener('click',e=>{if(!e.target.classList.contains('chip'))return;
+ document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));e.target.classList.add('on')});
+</script>
+</body>
+</html>

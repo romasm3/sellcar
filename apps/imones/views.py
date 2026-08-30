@@ -35,6 +35,61 @@ LAIKO_PASIRINKIMAI = [
 ]
 
 
+# „Paros metas" iš paieškos baro „Kada" lango. Reikšmės sutampa su
+# tekstais (Rytas 8–12 …) — jei keisis viena, turi keistis ir kita.
+PAROS_LANGAI = {
+    'rytas': ('08:00', '12:00'),
+    'diena': ('12:00', '17:00'),
+    'vakaras': ('17:00', '21:00'),
+}
+
+
+# „Kada" lango juostelės. Raktai sutampa su PAROS_LANGAI.
+PAROS_PASIRINKIMAI = [
+    ('', _('Bet kada')),
+    ('rytas', _('Rytas 8–12')),
+    ('diena', _('Diena 12–17')),
+    ('vakaras', _('Vakaras 17–21')),
+]
+
+# „Populiaru" vietos lange. Koordinatės — miestų centrai; „Visa Lietuva"
+# jų neturi, nes ji filtrą nuima.
+POPULIARIOS_VIETOS = [
+    {'vardas': _('Visa Lietuva'), 'apie': '', 'miestas': '', 'lat': '', 'lng': ''},
+    {'vardas': _('Vilnius'), 'apie': _('ir 20 km spinduliu'),
+     'miestas': 'Vilnius', 'lat': '54.6872', 'lng': '25.2797'},
+    {'vardas': _('Kaunas'), 'apie': '', 'miestas': 'Kaunas',
+     'lat': '54.8985', 'lng': '23.9036'},
+    {'vardas': _('Klaipėda'), 'apie': '', 'miestas': 'Klaipėda',
+     'lat': '55.7033', 'lng': '21.1443'},
+]
+
+
+def _data(reiksme):
+    """„2026-09-03" -> date arba None (blogą reikšmę tyliai praleidžiam)."""
+    from datetime import date
+    try:
+        m, d, dd = (reiksme or '').split('-')
+        return date(int(m), int(d), int(dd))
+    except (ValueError, AttributeError):
+        return None
+
+
+def _tinka_datai(imone, data, paros):
+    """Ar tą dieną (ir tuo paros metu) įmonė dirba.
+
+    Paros langas tikrinamas persidengimu: „Rytas 8–12" tinka ir tam,
+    kas dirba 10–19, ir tam, kas dirba 7–11.
+    """
+    laikai = imone.laikas(data.weekday())
+    if not laikai:
+        return False
+    langas = PAROS_LANGAI.get(paros)
+    if not langas:
+        return True
+    return laikai[0] < langas[1] and langas[0] < laikai[1]
+
+
 def _tinka_laikui(imone, laikas):
     from django.utils import timezone
 
@@ -88,11 +143,17 @@ def _filtruoti(request, qs=None):
     return qs.distinct()
 
 
-def _po_laiko(imones, laikas):
-    """Darbo laiko filtras — Python'e (laikas guli JSON lauke)."""
-    if not laikas:
-        return imones
-    return [i for i in imones if _tinka_laikui(i, laikas)]
+def _po_laiko(imones, laikas, data=None, paros=''):
+    """Darbo laiko filtras — Python'e (laikas guli JSON lauke).
+
+    Du šaltiniai: datų juosta (`laikas`) ir baro „Kada" langas
+    (`data` + `paros`). Abu veikia kartu — kas neatitinka, iškrenta.
+    """
+    if laikas:
+        imones = [i for i in imones if _tinka_laikui(i, laikas)]
+    if data:
+        imones = [i for i in imones if _tinka_datai(i, data, paros)]
+    return imones
 
 
 def _su_skelbimu_kiekiais(imones):
@@ -122,6 +183,8 @@ def _filtru_kontekstas(request):
     tipas = (get.get('tipas') or '').strip()
     q = (get.get('q') or '').strip()
     laikas = (get.get('laikas') or '').strip()
+    data = (get.get('data') or '').strip()
+    paros = (get.get('paros') or '').strip()
     return {
         'miestai': (_matomos().exclude(miestas='')
                     .values_list('miestas', flat=True).distinct().order_by('miestas')),
@@ -130,9 +193,13 @@ def _filtru_kontekstas(request):
                     .order_by('tvarka', 'pavadinimas').distinct()),
         'tipai': Imone.TIPAI,
         'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f,
-        'f_q': q, 'f_laikas': laikas,
+        'f_q': q, 'f_laikas': laikas, 'f_data': data, 'f_paros': paros,
+        'f_lat': (get.get('vlat') or '').strip(), 'f_lng': (get.get('vlng') or '').strip(),
         'laiko_pasirinkimai': LAIKO_PASIRINKIMAI,
-        'aktyviu_filtru': len([x for x in (miestas, q, laikas) if x]) + len(veiklos_f),
+        'paros_pasirinkimai': PAROS_PASIRINKIMAI,
+        'populiarios_vietos': POPULIARIOS_VIETOS,
+        'aktyviu_filtru': (len([x for x in (miestas, q, laikas, data, paros) if x])
+                           + len(veiklos_f)),
         # Perjungiklio nuorodos — visi filtrai be `tipas`
         'be_tipo': _be_tipo(request),
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
@@ -155,6 +222,13 @@ def _js_tekstai():
         'rytoj': _('Rytoj'),
         'atsiliepimai': _('atsiliepimai'),
         'ziureti': _('Žiūrėti'),
+        # Vietos lango pranešimai — tylėti negalima nė vienu atveju
+        'vietosIeskom': _('Ieškom jūsų vietos…'),
+        'vietosNeleido': _('Vietos leidimas atmestas — įrašykite miestą ranka.'),
+        'vietosKlaida': _('Vietos nustatyti nepavyko — įrašykite miestą ranka.'),
+        'vietaCia': _('Dabartinė vieta'),
+        # „Kada" segmento užrašui — tekstų iš DOM neskaitom
+        'paros': {r: str(v) for r, v in PAROS_PASIRINKIMAI if r},
         'dienos': [_('Sk'), _('Pr'), _('An'), _('Tr'), _('Kt'), _('Pn'), _('Št')],
     }
 
@@ -162,7 +236,9 @@ def _js_tekstai():
 def imoniu_sarasas(request):
     """/imones/ — kortelių tinklelis su filtrais (paieška, vieta, kada)."""
     qs = _filtruoti(request).prefetch_related('veiklos', 'nuotraukos')
-    visos = _po_laiko(list(qs), (request.GET.get('laikas') or '').strip())
+    visos = _po_laiko(list(qs), (request.GET.get('laikas') or '').strip(),
+                      _data(request.GET.get('data')),
+                      (request.GET.get('paros') or '').strip())
     imones = _su_skelbimu_kiekiais(visos[:PUSLAPYJE])
 
     kontekstas = _filtru_kontekstas(request)
@@ -171,8 +247,10 @@ def imoniu_sarasas(request):
         # Kortelės ir žymekliai piešiami naršyklėje iš /imones/duomenys/,
         # todėl čia užtenka pradinės žemėlapio padėties.
         'tekstai': _js_tekstai(),
-        'pradine': {'lat': float(request.GET.get('lat') or 54.6872),
-                    'lng': float(request.GET.get('lng') or 25.2797),
+        # Pasirinkta vieta (vlat/vlng) tampa pradine žemėlapio padėtimi,
+        # jei adrese dar nėra tikslesnio lat/lng.
+        'pradine': {'lat': float(request.GET.get('lat') or request.GET.get('vlat') or 54.6872),
+                    'lng': float(request.GET.get('lng') or request.GET.get('vlng') or 25.2797),
                     'z': int(request.GET.get('z') or 12)},
     })
     return render(request, 'imones/sarasas.html', kontekstas)
@@ -247,7 +325,9 @@ def zemelapio_imones(request):
               else qs.filter(Q(longitude__gte=v) | Q(longitude__lte=r)))
 
     visos = _po_laiko(list(qs.prefetch_related('veiklos', 'nuotraukos')),
-                      (request.GET.get('laikas') or '').strip())
+                      (request.GET.get('laikas') or '').strip(),
+                      _data(request.GET.get('data')),
+                      (request.GET.get('paros') or '').strip())
     imones = _su_skelbimu_kiekiais(visos[:ZEMELAPYJE])
 
     html = render_to_string('imones/_zemelapio_sarasas.html',

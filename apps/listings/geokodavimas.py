@@ -107,22 +107,31 @@ def _photon_irasas(f):
     }
 
 
-def siulymai(uzklausa, kalba='lt', kiek=6):
-    """Adresų siūlymai rašant. Tuščias sąrašas = tyliai be siūlymų."""
+def siulymai(uzklausa, kalba='lt', kiek=6, salis=''):
+    """Adresų siūlymai rašant. Tuščias sąrašas = tyliai be siūlymų.
+
+    `salis` (pvz. „LT") palieka tik tos šalies rezultatus. Photon šalies
+    filtro neturi, todėl imam su atsarga ir atsijojam čia.
+    """
     uzklausa = (uzklausa or '').strip()
     if len(uzklausa) < 3:
         return []
-    raktas = _raktas('siul', GEO_TIEKEJAS, kalba, uzklausa.lower())
+    salis = (salis or '').upper()
+    raktas = _raktas('siul', GEO_TIEKEJAS, kalba, salis, kiek, uzklausa.lower())
 
     def gauk():
         if GEO_TIEKEJAS != 'photon':
             return []
         photon_kalba = kalba if kalba in PHOTON_KALBOS else 'default'
-        duom = _uzklausa(PHOTON_URL, {'q': uzklausa, 'limit': kiek,
+        duom = _uzklausa(PHOTON_URL, {'q': uzklausa,
+                                      'limit': kiek * 3 if salis else kiek,
                                       'lang': photon_kalba})
         if not duom:
             return []
-        return [_photon_irasas(f) for f in duom.get('features', [])]
+        eil = [_photon_irasas(f) for f in duom.get('features', [])]
+        if salis:
+            eil = [e for e in eil if e.get('salies_kodas') == salis]
+        return eil[:kiek]
 
     return _kesas(raktas, gauk) or []
 
@@ -199,8 +208,13 @@ def _kalba(request):
 def ajax_siulymai(request):
     """/ajax/adresai/?q=… — adresų siūlymai rašant."""
     from django.http import JsonResponse
+    try:
+        kiek = min(int(request.GET.get('kiek') or 6), 10)
+    except ValueError:
+        kiek = 6
     return JsonResponse({'siulymai': siulymai(request.GET.get('q', ''),
-                                              _kalba(request))})
+                                              _kalba(request), kiek,
+                                              request.GET.get('salis', ''))})
 
 
 def ajax_adresas_pagal_taska(request):

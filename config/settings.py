@@ -115,6 +115,10 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
+                # LANGUAGES ir LANGUAGE_CODE šablonams (kalbos perjungiklis,
+                # <html lang>). Be jo LANGUAGE_CODE buvo tuščias ir visi
+                # puslapiai skelbdavosi angliškais.
+                "django.template.context_processors.i18n",
                 "apps.conversations.context_processors.unread_messages",
                 "apps.listings.context_processors.saved_searches_count",
                 "apps.listings.context_processors.saved_listings_count",

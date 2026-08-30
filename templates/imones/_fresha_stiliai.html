@@ -17,63 +17,146 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
   /* Etalono body yra 14px/1.45; mūsų svetainės — 16px, todėl šitą sritį
      grąžinam į etalono dydį, kad viskas paveldėtų tą patį. */
   .fr-hdr, .fr-wrap, .fr-meniu, .fr-pop { font-size: 14px; line-height: 1.45; }
-  .fr-hdr { height: 88px; display: flex; align-items: center; gap: 24px;
-            padding: 0 32px; background: #fff; }
+  .fr-hdr { height: 88px; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 32px; position: relative;
+            z-index: 60; background: #fff; }
   .fr-logo { font-size: 26px; font-weight: 800; letter-spacing: -.5px;
              color: var(--ink); flex: 0 0 auto; text-decoration: none; }
   .fr-logo span { color: #E14D28; }
-  .fr-sb { flex: 1 1 auto; max-width: 720px; margin: 0 auto; height: 56px;
-           display: flex; align-items: center; background: #fff;
+  {% comment %}Baras ir trys jo langai — reikšmės PAŽODŽIUI iš
+  docs/paieskos-dropdown-demo_3.html. Klasės su fr- prefiksu:
+  .sbwrap->.fr-sbwrap · .sb->.fr-sb · .seg->.fr-seg · .go->.fr-go
+  .dd->.fr-dd · .chip->.fr-dd-cipsas · .sect->.fr-sect · .item->.fr-item
+  .ico->.fr-ico · .tt->.fr-tt · .ss->.fr-ss · .rt->.fr-rt
+  body.open->body.fr-atverta{% endcomment %}
+  .fr-sbwrap { position: absolute; left: 50%; transform: translateX(-50%);
+            top: 16px; width: 720px; transition: width .18s ease; }
+  body.fr-atverta .fr-sbwrap { width: 1000px; }
+  .fr-sb { height: 56px; display: flex; align-items: center; background: #fff;
            border: 1px solid var(--border); border-radius: 999px;
-           box-shadow: 0 1px 2px rgba(0,0,0,.04); padding: 0 8px 0 0; }
-  .fr-seg { flex: 1 1 0; min-width: 0; height: 56px; display: flex;
-            flex-direction: column; justify-content: center; padding: 0 24px;
-            position: relative; border: 0; background: none; text-align: left;
-            border-radius: 999px; cursor: pointer; font: inherit; }
-  .fr-seg + .fr-seg::before { content: ""; position: absolute; left: 0; top: 50%;
-            transform: translateY(-50%); width: 1px; height: 24px; background: var(--border); }
-  .fr-seg:hover { background: var(--soft); }
-  .fr-seg .val { font-size: 15px; font-weight: 500; color: var(--text);
-                 white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .fr-seg .val.ph { color: var(--muted); font-weight: 400; }
-  .fr-go { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; border: 0;
-           background: var(--ink); color: #fff; display: flex; align-items: center;
-           justify-content: center; cursor: pointer; }
-  .fr-go:hover { background: #000; }
-  .fr-menu { flex: 0 0 auto; height: 48px; padding: 0 20px;
-             border: 1px solid var(--border-strong); background: #fff;
-             border-radius: 999px; display: flex; align-items: center; gap: 10px;
-             font-weight: 500; font-size: 15px; cursor: pointer; }
-  .fr-menu:hover { background: var(--soft); }
-  .fr-meniu { border: 0; border-radius: 12px; padding: 16px 20px; }
-  .fr-meniu a, .fr-meniu button { display: block; padding: 8px 0; font-size: 15px;
-             color: var(--text); text-decoration: none; border: 0; background: none;
-             cursor: pointer; }
-  /* kalbos — viena eilutė dialogo apačioje */
-  .fr-kalbos { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px;
-             border-top: 1px solid var(--border); }
-  .fr-kalbos button { padding: 4px 10px; border: 1px solid var(--border);
-             border-radius: 999px; font-size: 13px; }
-  .fr-kalbos button.on { background: var(--text); color: #fff; border-color: var(--text); }
+           box-shadow: 0 1px 2px rgba(0,0,0,.04); padding-right: 8px;
+           transition: box-shadow .18s; }
+  body.fr-atverta .fr-sb { box-shadow: 0 8px 28px rgba(0,0,0,.16);
+           border-color: transparent; padding-right: 6px; }
 
-  /* iškrentantys sąrašai baro segmentuose */
-  .fr-lst { position: absolute; top: calc(100% + 6px); left: 0; z-index: 900;
-            width: 300px; max-height: 380px; overflow-y: auto; padding: 4px;
-            background: #fff; border: 1px solid var(--border); border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,.10); cursor: default; }
-  .fr-lst-antraste { padding: 8px 12px 4px; font-size: 12px; font-weight: 700;
-            letter-spacing: .02em; text-transform: uppercase; color: var(--muted); }
-  .fr-lst-eil { display: flex; align-items: center; gap: 8px; width: 100%;
-            height: 40px; padding: 8px 12px; border: 0; background: none;
-            border-radius: 6px; font-size: 15px; color: var(--text);
-            text-align: left; cursor: pointer; font: inherit; }
-  .fr-lst-eil span { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis;
-            white-space: nowrap; }
-  .fr-lst-eil em { font-style: normal; font-size: 13px; color: var(--muted); }
-  .fr-lst-eil:hover { background: var(--soft); }
-  .fr-lst-eil.is-on { background: #F4F4F5; font-weight: 600; }
-  .fr-lst-ieskoti { width: calc(100% - 8px); margin: 4px; height: 36px; padding: 0 10px;
-            border: 1px solid var(--border); border-radius: 6px; font: inherit; }
+  .fr-seg { flex: 1 1 0; min-width: 0; height: 56px; display: flex;
+            align-items: center; gap: 12px; padding: 0 24px; position: relative;
+            border: 0; background: none; text-align: left; font: inherit;
+            border-radius: 999px; cursor: pointer; user-select: none; }
+  .fr-seg + .fr-seg::before { content: ""; position: absolute; left: 0; top: 50%;
+            transform: translateY(-50%); width: 1px; height: 24px;
+            background: var(--border); transition: opacity .15s; }
+  .fr-seg:hover { background: var(--soft); }
+  .fr-seg > svg { width: 18px; height: 18px; stroke: var(--muted); fill: none;
+            stroke-width: 1.8; flex: 0 0 auto; display: none; }
+  body.fr-atverta .fr-seg > svg { display: block; }
+  .fr-seg .val { font-size: 15px; font-weight: 500; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+  .fr-seg .val.ph { color: var(--muted); font-weight: 400; }
+  .fr-seg input { border: 0; outline: 0; font: inherit; font-weight: 500;
+            width: 100%; background: none; padding: 0; }
+  .fr-seg input::placeholder { color: var(--muted); font-weight: 400; }
+  body.fr-atverta .fr-seg.act { background: #fff;
+            box-shadow: 0 4px 18px rgba(0,0,0,.16); z-index: 3; }
+  body.fr-atverta .fr-seg.act::before,
+  body.fr-atverta .fr-seg.act + .fr-seg::before { opacity: 0; }
+
+  .fr-go { flex: 0 0 auto; height: 44px; border-radius: 999px; border: 0;
+           background: var(--ink); color: #fff; display: flex; align-items: center;
+           justify-content: center; width: 44px; cursor: pointer;
+           transition: width .18s, padding .18s; }
+  body.fr-atverta .fr-go { width: auto; padding: 0 26px; font-weight: 600; font-size: 15px; }
+  .fr-go .tx { display: none; }
+  body.fr-atverta .fr-go .ic { display: none; }
+  body.fr-atverta .fr-go .tx { display: block; }
+  .fr-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.28); z-index: 50; display: none; }
+  body.fr-atverta .fr-scrim { display: block; }
+
+  /* ---------- LANGAI ---------- */
+  .fr-dd { position: absolute; top: 64px; background: #fff; border-radius: 16px;
+           box-shadow: 0 12px 40px rgba(0,0,0,.18); padding: 16px 0 10px;
+           max-height: min(640px, calc(100vh - 150px)); overflow-y: auto;
+           cursor: default; z-index: 900; }
+  .fr-dd-ko { left: 0; width: 600px; }
+  .fr-dd-vieta { left: 0; width: 425px; }
+  .fr-dd-kada { right: 0; width: 392px; padding: 20px; }
+  .fr-dd::-webkit-scrollbar { width: 10px; }
+  .fr-dd::-webkit-scrollbar-thumb { background: #D9D9DD; border-radius: 8px; border: 3px solid #fff; }
+
+  .fr-dd-cipsai { display: flex; gap: 8px; padding: 0 20px 14px; flex-wrap: wrap; }
+  .fr-dd-cipsas { height: 38px; padding: 0 16px; border-radius: 999px;
+            border: 1px solid var(--border); background: #fff; display: inline-flex;
+            align-items: center; gap: 8px; font-size: 14px; font-weight: 500;
+            cursor: pointer; font-family: inherit; color: var(--text); }
+  .fr-dd-cipsas b { color: var(--muted); font-weight: 500; }
+  .fr-dd-cipsas:hover { background: var(--soft); }
+  .fr-dd-cipsas.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .fr-dd-cipsas.on b { color: #A8ABB0; }
+
+  .fr-sect { padding: 10px 20px 4px; display: flex; align-items: center;
+            justify-content: space-between; }
+  .fr-sect h4 { margin: 0; font-size: 15px; font-weight: 700; }
+  .fr-clr { border: 0; background: none; font-size: 13px; font-weight: 600;
+            color: #E14D28; cursor: pointer; font-family: inherit; }
+  .fr-clr:hover { text-decoration: underline; }
+
+  .fr-item { display: flex; align-items: center; gap: 14px; width: 100%; border: 0;
+            background: none; text-align: left; padding: 10px 20px; cursor: pointer;
+            font: inherit; color: var(--text); }
+  .fr-item:hover { background: var(--soft); }
+  .fr-ico { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+            background: var(--soft); display: flex; align-items: center;
+            justify-content: center; }
+  .fr-item:hover .fr-ico { background: #E9E9EC; }
+  .fr-ico svg { width: 18px; height: 18px; stroke: var(--ink); fill: none; stroke-width: 1.8; }
+  {% comment %}Ikona — Font Awesome, kaip visame projekte; dydis ir spalva
+  tokie patys kaip etalono SVG (18px, --ink).{% endcomment %}
+  .fr-ico i { font-size: 18px; color: var(--ink); line-height: 1; }
+  .fr-ico.acc { background: #FDEDE9; }
+  .fr-ico.acc svg { stroke: #E14D28; fill: none; }
+  .fr-item:hover .fr-ico.acc { background: #FBE1DA; }
+  .fr-ph40 { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+  .fr-av40 { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .fr-tt { font-size: 15px; font-weight: 500; line-height: 1.25; display: block; }
+  .fr-ss { font-size: 13px; color: var(--muted); margin-top: 1px; display: block; }
+  .fr-rt { margin-left: auto; display: flex; align-items: center; gap: 5px;
+            font-size: 13px; font-weight: 600; }
+  .fr-rt svg { width: 12px; height: 12px; fill: var(--star); stroke: none; }
+  {% comment %}Tuščias langas ir geolokacijos klaida — etalone jų nėra,
+  bet tylėti negalima (žr. PWA taisykles).{% endcomment %}
+  .fr-tuscia { padding: 10px 20px 14px; color: var(--muted); font-size: 14px; }
+
+  /* ---------- KADA ---------- */
+  .fr-cal-h { display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 12px; }
+  .fr-cal-h b { font-size: 15px; }
+  .fr-cal-nav { display: flex; gap: 6px; }
+  .fr-cal-nav button { width: 32px; height: 32px; border-radius: 50%; border: 0;
+            background: var(--soft); display: flex; align-items: center;
+            justify-content: center; cursor: pointer; }
+  .fr-cal-nav button:hover { background: #E9E9EC; }
+  .fr-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .fr-cal span { height: 28px; display: flex; align-items: center;
+            justify-content: center; font-size: 12px; color: var(--muted); }
+  .fr-cal button { height: 40px; border: 0; background: none; border-radius: 10px;
+            font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;
+            color: var(--text); }
+  .fr-cal button:hover:not(:disabled) { background: var(--soft); }
+  .fr-cal button:disabled { color: #C9CBCF; cursor: default; }
+  .fr-cal button.on { background: var(--ink); color: #fff; }
+  .fr-hr { height: 1px; background: var(--border); margin: 16px 0; }
+  .fr-lbl { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .fr-tchips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .fr-tchip { height: 38px; padding: 0 14px; border-radius: 999px;
+            border: 1px solid var(--border); background: #fff; font-size: 14px;
+            font-weight: 500; cursor: pointer; font-family: inherit; color: var(--text); }
+  .fr-tchip:hover { background: var(--soft); }
+  .fr-tchip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .fr-dd-foot { display: flex; gap: 10px; margin-top: 18px; }
+  .fr-dd-foot button { flex: 1; height: 46px; border-radius: 999px;
+            border: 1px solid var(--border-strong); background: #fff;
+            font-weight: 600; cursor: pointer; font-family: inherit; color: var(--text); }
+  .fr-dd-foot .pri { background: var(--ink); color: #fff; border-color: var(--ink); }
 
   /* ---------- LAYOUT ---------- */
   .fr-wrap { display: grid; grid-template-columns: minmax(0,1fr) 46%; gap: 24px;
@@ -207,7 +290,20 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
 
   @media (max-width: 900px) {
     .fr-hdr { height: auto; flex-wrap: wrap; gap: 12px; padding: 12px 16px; }
-    .fr-sb { order: 3; width: 100%; max-width: none; }
+    {% comment %}Telefone baras nebeplaukioja virš antraštės — atsistoja
+    po ja per visą plotį, o langai pasitempia iki ekrano kraštų.{% endcomment %}
+    .fr-sbwrap, body.fr-atverta .fr-sbwrap { position: relative; transform: none;
+             left: auto; top: auto; width: 100%; order: 3; }
+    {% comment %}Langas kabinamas ant viso baro, ne ant siauro segmento,
+    todėl segmentas telefone nebėra pozicionavimo pagrindas — kartu dingsta
+    ir brūkšneliai tarp jų (jiems vietos vis tiek nebūtų).{% endcomment %}
+    {% comment %}Telefone trys segmentai dalinasi ~360 px, todėl ikonos
+    nerodom nė atidarius — kitaip užrašui lieka po kelias raides.{% endcomment %}
+    .fr-seg { position: static; padding: 0 12px; }
+    body.fr-atverta .fr-seg > svg { display: none; }
+    .fr-seg + .fr-seg::before { display: none; }
+    .fr-dd, .fr-dd-ko, .fr-dd-vieta, .fr-dd-kada { left: 0; right: 0; top: calc(100% + 8px);
+             width: auto; max-height: calc(100vh - 180px); }
     .fr-wrap { grid-template-columns: minmax(0,1fr); padding: 0 16px 24px; }
     .fr-zemelapio-st { position: static; height: 60vh; }
   }

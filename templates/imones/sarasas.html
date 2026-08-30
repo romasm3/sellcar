@@ -6,73 +6,194 @@
 (docs/demo/imones-fresha-1v1.html). Svetainės antraštė čia pakeičiama,
 kitiems puslapiams ji lieka.{% endcomment %}
 {% block antraste %}
+{% comment %}Uždanga — už antraštės ribų, kaip etalone: antraštė yra
+z-index 60, uždanga 50, todėl baras lieka virš patamsėjusio puslapio.{% endcomment %}
+<div class="fr-scrim" x-data @click="$dispatch('fr-uzdaryk')"></div>
 <header class="fr-hdr">
   <a class="fr-logo" href="{% url 'home' %}">Auto<span>Left</span></a>
 
-  {% comment %}Adresai ateina iš šablono ({% url %}) — su kalbos priešdėliu,
-  kad ir siūlymai grįžtų puslapio kalba. JS jų nesikonstruoja.{% endcomment %}
+  {% comment %}PAIEŠKOS BARAS su trimis langais — 1:1 pagal
+  docs/paieskos-dropdown-demo_3.html. Kiekvienas langas kabo po SAVO
+  segmentu (.fr-dd yra segmento viduje), todėl atsidaro po juo, o ne po
+  visu baru. Adresai ateina iš šablono ({% url %}) — su kalbos priešdėliu,
+  kad ir siūlymai grįžtų puslapio kalba; JS jų nesikonstruoja.{% endcomment %}
+  <div class="fr-sbwrap">
   <form class="fr-sb" method="get" action="{% url 'imones:sarasas' %}"
         data-siulymai="{% url 'paieskos_siulymai' %}"
         data-adresai="{% url 'ajax_adresai' %}"
         data-vieta="{% url 'ajax_vieta' %}"
-        x-data="freshaJuosta()" @submit="paruosk()">
-    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('ko')">
-      <div class="val" :class="!ko && 'ph'"
-           x-text="ko || '{% trans "Paslauga ar įmonė" %}'">{% trans "Paslauga ar įmonė" %}</div>
-      <div class="fr-lst" x-show="atidarytas === 'ko'" x-cloak @click.outside="atidarytas = ''">
-        <template x-for="(g, gi) in grupes" :key="gi">
+        x-data="freshaJuosta()" x-init="paruoskJuosta()" @submit="paruosk()"
+        @fr-uzdaryk.window="uzdaryk()" @keydown.escape.window="uzdaryk()">
+
+    {% comment %}1. PASLAUGA — 600 px langas{% endcomment %}
+    <div class="fr-seg" :class="atidarytas === 'ko' && 'act'" @click="atidaryk('ko')">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+      <input x-ref="koLaukas" x-model="ko" @input.debounce.250ms="ieskok()"
+             placeholder="{% trans 'Visos paslaugos' %}">
+      <div class="fr-dd fr-dd-ko" x-show="atidarytas === 'ko'" x-cloak @click.stop>
+        <div class="fr-dd-cipsai">
+          <template x-for="c in cipsai" :key="c.raktas">
+            <button type="button" class="fr-dd-cipsas" :class="cipsas === c.raktas && 'on'"
+                    @click="cipsas = c.raktas; ieskok()">
+              <span x-text="c.vardas"></span><b x-show="c.kiek" x-text="c.kiek"></b>
+            </button>
+          </template>
+        </div>
+
+        <template x-if="paskutines.length">
           <div>
-            <div class="fr-lst-antraste" x-text="g.vardas"></div>
-            <template x-for="(e, ei) in g.eilutes" :key="ei">
-              <button type="button" class="fr-lst-eil" @click="pasirink(e)">
-                <span x-text="e.vardas"></span>
-                <em x-show="e.kiek_imoniu || e.vieta"
-                    x-text="e.kiek_imoniu ? (e.kiek_imoniu + ' {% trans "įmonės" %}') : e.vieta"></em>
+            <div class="fr-sect"><h4>{% trans "Paskutinės paieškos" %}</h4>
+              <button type="button" class="fr-clr" @click="valykPaskutines()">{% trans "Išvalyti" %}</button>
+            </div>
+            <template x-for="(pa, i) in paskutines" :key="i">
+              <button type="button" class="fr-item" @click="pasirinkPaskutine(pa)">
+                <span class="fr-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+                <span><span class="fr-tt" x-text="pa.vardas"></span>
+                      <span class="fr-ss" x-show="pa.apie" x-text="pa.apie"></span></span>
               </button>
             </template>
           </div>
         </template>
-      </div>
-    </div>
 
-    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('vieta')">
-      <div class="val" :class="!vieta && 'ph'"
-           x-text="vieta || '{% trans "Dabartinė vieta" %}'">{% trans "Dabartinė vieta" %}</div>
-      <div class="fr-lst" x-show="atidarytas === 'vieta'" x-cloak @click.outside="atidarytas = ''">
-        <button type="button" class="fr-lst-eil" @click="dabartineVieta()">
-          <span>{% trans "Dabartinė vieta" %}</span></button>
-        <template x-for="(v, i) in vietos" :key="i">
-          <button type="button" class="fr-lst-eil" @click="pasirinkVieta(v)">
-            <span x-text="v.tekstas"></span></button>
+        <template x-for="(g, gi) in grupes" :key="gi">
+          <div>
+            <div class="fr-sect"><h4 x-text="g.vardas"></h4></div>
+            <template x-for="(e, ei) in g.eilutes" :key="ei">
+              <button type="button" class="fr-item" @click="pasirink(e)">
+                {% comment %}Paslauga — ikona apskritime; įmonė ir meistras —
+                nuotrauka (be jos lieka tas pats apskritimas su ikona).{% endcomment %}
+                <template x-if="e.tipas === 'paslauga' || !e.img">
+                  <span class="fr-ico"><i :class="e.tipas === 'paslauga'
+                        ? (e.ikona || 'fa-solid fa-screwdriver-wrench')
+                        : (e.tipas === 'meistras' ? 'fa-solid fa-user' : 'fa-solid fa-shop')"></i></span>
+                </template>
+                <template x-if="e.tipas !== 'paslauga' && e.img">
+                  <img :class="e.tipas === 'meistras' ? 'fr-av40' : 'fr-ph40'"
+                       :src="e.img" alt="">
+                </template>
+                <span><span class="fr-tt" x-text="e.vardas"></span>
+                      <span class="fr-ss" x-show="e.vieta || e.apie"
+                            x-text="e.vieta || e.apie"></span></span>
+                <span class="fr-rt" x-show="e.reitingas">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>
+                  <span x-text="e.reitingas ? e.reitingas.toFixed(1) : ''"></span>
+                </span>
+              </button>
+            </template>
+          </div>
         </template>
-        <input type="text" class="fr-lst-ieskoti" x-model="vietosQ"
-               @input.debounce.300ms="ieskokVietos()"
-               placeholder="{% trans 'Miestas ar adresas' %}">
+        <div class="fr-tuscia" x-show="!grupes.length && !paskutines.length">{% trans "Nieko neradom" %}</div>
       </div>
     </div>
 
-    <div class="fr-seg" role="button" tabindex="0" @click="atidaryk('kada')">
-      <div class="val" x-text="kadosVardas()">{% trans "Šiandien · Bet kada" %}</div>
-      <div class="fr-lst" x-show="atidarytas === 'kada'" x-cloak @click.outside="atidarytas = ''">
-        {% for reiksme, vardas in laiko_pasirinkimai %}
-        <button type="button" class="fr-lst-eil" :class="kada === '{{ reiksme }}' && 'is-on'"
-                @click="kada = '{{ reiksme }}'; atidarytas = ''">
-          <span>{{ vardas }}</span></button>
-        {% endfor %}
+    {% comment %}2. VIETA — 425 px langas{% endcomment %}
+    <div class="fr-seg" :class="atidarytas === 'vieta' && 'act'" @click="atidaryk('vieta')">
+      <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <input x-ref="vietosLaukas" x-model="vietosQ" @input.debounce.250ms="ieskokVietos()"
+             :placeholder="vieta || '{% trans "Dabartinė vieta" %}'">
+      <div class="fr-dd fr-dd-vieta" x-show="atidarytas === 'vieta'" x-cloak @click.stop>
+        <button type="button" class="fr-item" @click="dabartineVieta()">
+          <span class="fr-ico acc"><svg viewBox="0 0 24 24" fill="none"><path d="M21 3L3 10.5l8 2.5 2.5 8z" stroke-linejoin="round"/></svg></span>
+          <span><span class="fr-tt">{% trans "Dabartinė vieta" %}</span></span>
+        </button>
+        {% comment %}Atmetus leidimą — matomas pranešimas, ne tylus nieko.{% endcomment %}
+        <div class="fr-tuscia" x-show="vietosKlaida" x-text="vietosKlaida"></div>
+
+        <template x-if="!vietosQ.trim() && vietosPask.length">
+          <div>
+            <div class="fr-sect"><h4>{% trans "Paskutinės" %}</h4>
+              <button type="button" class="fr-clr" @click="valykVietas()">{% trans "Išvalyti" %}</button>
+            </div>
+            <template x-for="(v, i) in vietosPask" :key="i">
+              <button type="button" class="fr-item" @click="pasirinkVieta(v)">
+                <span class="fr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+                <span><span class="fr-tt" x-text="v.vardas"></span>
+                      <span class="fr-ss" x-show="v.apie" x-text="v.apie"></span></span>
+              </button>
+            </template>
+          </div>
+        </template>
+
+        <template x-if="!vietosQ.trim()">
+          <div>
+            <div class="fr-sect"><h4>{% trans "Populiaru" %}</h4></div>
+            {% for v in populiarios_vietos %}
+            <button type="button" class="fr-item"
+                    @click="pasirinkVieta({vardas: '{{ v.vardas }}', apie: '{{ v.apie }}',
+                                           miestas: '{{ v.miestas }}', lat: '{{ v.lat }}', lng: '{{ v.lng }}'})">
+              <span class="fr-ico"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
+              <span><span class="fr-tt">{{ v.vardas }}</span>
+                {% if v.apie %}<span class="fr-ss">{{ v.apie }}</span>{% endif %}</span>
+            </button>
+            {% endfor %}
+          </div>
+        </template>
+
+        <template x-for="(v, i) in vietos" :key="i">
+          <button type="button" class="fr-item" @click="pasirinkVieta(v)">
+            <span class="fr-ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="fr-tt" x-text="v.vardas || v.tekstas"></span>
+                  <span class="fr-ss" x-text="v.tekstas"></span></span>
+          </button>
+        </template>
+        <div class="fr-tuscia" x-show="vietosQ.trim().length > 2 && !vietos.length && !vietosKlaida">
+          {% trans "Tokios vietos neradom" %}</div>
+      </div>
+    </div>
+
+    {% comment %}3. KADA — 392 px langas su kalendoriumi{% endcomment %}
+    <div class="fr-seg" :class="atidarytas === 'kada' && 'act'" @click="atidaryk('kada')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      <div class="val" :class="!kadosVardas.tikra && 'ph'" x-text="kadosVardas.tekstas">{% trans "Bet kada" %}</div>
+      <div class="fr-dd fr-dd-kada" x-show="atidarytas === 'kada'" x-cloak @click.stop>
+        <div class="fr-cal-h"><b x-text="menuoVardas"></b>
+          <div class="fr-cal-nav">
+            <button type="button" @click="menuo(-1)" aria-label="{% trans 'Ankstesnis mėnuo' %}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" @click="menuo(1)" aria-label="{% trans 'Kitas mėnuo' %}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#181B1F" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <div class="fr-cal">
+          <template x-for="(d, i) in savaitesRaides" :key="i"><span x-text="d"></span></template>
+          <template x-for="(d, i) in dienos" :key="i">
+            <button type="button" :disabled="!d.diena || d.praeitis"
+                    :class="d.iso && d.iso === data && 'on'"
+                    x-text="d.diena || ''" @click="d.iso && (data = d.iso)"></button>
+          </template>
+        </div>
+        <div class="fr-hr"></div>
+        <div class="fr-lbl">{% trans "Paros metas" %}</div>
+        <div class="fr-tchips">
+          {% for reiksme, vardas in paros_pasirinkimai %}
+          <button type="button" class="fr-tchip" :class="paros === '{{ reiksme }}' && 'on'"
+                  @click="paros = '{{ reiksme }}'">{{ vardas }}</button>
+          {% endfor %}
+        </div>
+        <div class="fr-dd-foot">
+          <button type="button" @click="valykKada()">{% trans "Išvalyti" %}</button>
+          <button type="button" class="pri" @click="uzdaryk()">{% trans "Taikyti" %}</button>
+        </div>
       </div>
     </div>
 
     <button type="submit" class="fr-go" title="{% trans 'Ieškoti' %}" @click="skrisk = true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff"
-           stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff"
+           stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+      <span class="tx">{% trans "Ieškoti" %}</span>
     </button>
 
     <input type="hidden" name="q" x-ref="pQ" disabled>
     <input type="hidden" name="city" x-ref="pCity" disabled>
     <input type="hidden" name="veikla" x-ref="pVeikla" disabled>
     <input type="hidden" name="laikas" x-ref="pLaikas" disabled>
+    <input type="hidden" name="data" x-ref="pData" disabled>
+    <input type="hidden" name="paros" x-ref="pParos" disabled>
+    <input type="hidden" name="vlat" x-ref="pLat" disabled>
+    <input type="hidden" name="vlng" x-ref="pLng" disabled>
     <input type="hidden" name="skrendam" value="1">
   </form>
+  </div>
 
   <button type="button" class="fr-menu" onclick="document.querySelector('#frMeniu').showModal()">
     {% trans "Meniu" %}
