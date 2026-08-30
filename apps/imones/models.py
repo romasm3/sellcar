@@ -75,7 +75,12 @@ class VeiklosSritis(models.Model):
 class Imone(models.Model):
     PREKIAUTOJAS = 'prekiautojas'
     SERVISAS = 'servisas'
-    TIPAI = [(PREKIAUTOJAS, _('Prekiautojas')), (SERVISAS, _('Servisas'))]
+    MEISTRAS = 'meistras'
+    TIPAI = [(PREKIAUTOJAS, _('Prekiautojas')), (SERVISAS, _('Servisas')),
+             (MEISTRAS, _('Meistras'))]
+    # Įmonės (servisai ir prekiautojai) ir meistrai rodomi atskirai —
+    # perjungiklis „Įmonės | Specialistai" remiasi šiuo skirstymu.
+    IMONIU_TIPAI = (PREKIAUTOJAS, SERVISAS)
 
     tipas = models.CharField(max_length=16, choices=TIPAI, default=PREKIAUTOJAS)
     pavadinimas = models.CharField(max_length=120)
@@ -100,6 +105,22 @@ class Imone(models.Model):
 
     veiklos = models.ManyToManyField(VeiklosSritis, blank=True,
                                      related_name='imones')
+    # ── Meistrui (tipas=meistras) ──────────────────────────────────
+    meistras_vardas = models.CharField(max_length=120, blank=True,
+                                       verbose_name=_('Meistro vardas'))
+    specializacija = models.CharField(max_length=120, blank=True,
+                                      verbose_name=_('Specializacija'))
+    dirba_vietoje = models.BooleanField(default=True,
+                                        verbose_name=_('Turi dirbtuvę'))
+    atvyksta_pas_klienta = models.BooleanField(
+        default=False, verbose_name=_('Atvyksta pas klientą'))
+    # Meistras gali priklausyti įmonei. Kol kas nenaudojam, bet laukas
+    # yra, kad vėliau nereikėtų perdarinėti duomenų.
+    imone = models.ForeignKey('self', null=True, blank=True,
+                              on_delete=models.SET_NULL,
+                              related_name='meistrai',
+                              verbose_name=_('Priklauso įmonei'))
+
     savininkas = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
                                    blank=True, on_delete=models.SET_NULL,
                                    related_name='imones')
@@ -191,8 +212,33 @@ class Imone(models.Model):
         return None
 
     def vietove(self):
-        """„Naujamiestis, Vilnius" arba tiesiog miestas."""
-        return ', '.join(x for x in (self.rajonas, self.miestas) if x)
+        """Kortelės vietos eilutė.
+
+        Meistrui ji kitokia: mobilus rodo „Atvyksta pas jus · Vilnius",
+        turintis dirbtuvę — „Naujininkai, Vilnius", o abu — abu per „·".
+        """
+        vieta = ', '.join(x for x in (self.rajonas, self.miestas) if x)
+        if self.tipas != self.MEISTRAS:
+            return vieta
+        dalys = []
+        if self.atvyksta_pas_klienta:
+            dalys.append('%s · %s' % (_('Atvyksta pas jus'), self.miestas)
+                         if self.miestas else str(_('Atvyksta pas jus')))
+        if self.dirba_vietoje and vieta:
+            dalys.append(vieta)
+        return ' · '.join(dalys) or vieta
+
+    def rodomas_vardas(self):
+        """Meistrui — jo vardas, įmonei — pavadinimas."""
+        if self.tipas == self.MEISTRAS and self.meistras_vardas:
+            return self.meistras_vardas
+        return self.pavadinimas
+
+    def rodomas_tipas(self):
+        """Kortelės tipo eilutė: meistrui — specializacija."""
+        if self.tipas == self.MEISTRAS and self.specializacija:
+            return self.specializacija
+        return self.get_tipas_display()
 
     def pirma_paslauga(self):
         return self.paslaugos.first()

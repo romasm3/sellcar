@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — paieškos išskleidimas (Fresha 1:1)</title>
+<style>
+:root{--ink:#181B1F;--text:#1A1A1A;--muted:#6B7280;--border:#E5E7EB;--strong:#D1D5DB;
+ --soft:#F4F4F5;--star:#F5B301;--pill:999px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+ color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;background:#fff}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* ---- HEADER ---- */
+.hdr{height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;
+ position:relative;z-index:60;background:#fff}
+.logo{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--ink)}
+.logo span{color:#E14D28}
+.menu{height:48px;padding:0 20px;border:1px solid var(--strong);background:#fff;border-radius:var(--pill);
+ display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px}
+
+/* ---- SEARCH BAR: du pavidalai ---- */
+.sbwrap{position:absolute;left:50%;transform:translateX(-50%);top:16px;width:720px;transition:width .18s ease}
+body.open .sbwrap{width:1000px}
+
+.sb{height:56px;display:flex;align-items:center;background:#fff;border:1px solid var(--border);
+ border-radius:var(--pill);box-shadow:0 1px 2px rgba(0,0,0,.04);padding-right:8px;transition:box-shadow .18s}
+body.open .sb{box-shadow:0 8px 28px rgba(0,0,0,.16);border-color:transparent;padding-right:6px}
+
+.seg{flex:1 1 0;min-width:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 24px;
+ position:relative;border:0;background:none;text-align:left;border-radius:var(--pill)}
+.seg+.seg::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+ width:1px;height:24px;background:var(--border)}
+.seg:hover{background:var(--soft)}
+.seg svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.8;flex:0 0 auto;display:none}
+body.open .seg svg{display:block}
+.seg .val{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg .val.ph{color:var(--muted);font-weight:400}
+/* aktyvus segmentas išskleidus */
+body.open .seg.act{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.14);z-index:2}
+body.open .seg.act::before,body.open .seg.act + .seg::before{opacity:0}
+.seg input{border:0;outline:0;font:inherit;font-weight:500;width:100%;background:none;padding:0}
+.seg input::placeholder{color:var(--muted);font-weight:400}
+
+.go{flex:0 0 auto;height:44px;border-radius:var(--pill);border:0;background:var(--ink);color:#fff;
+ display:flex;align-items:center;justify-content:center;width:44px;transition:width .18s,padding .18s}
+body.open .go{width:auto;padding:0 26px;font-weight:600;font-size:15px}
+.go .ic{display:block}
+.go .tx{display:none}
+body.open .go .ic{display:none}
+body.open .go .tx{display:block}
+
+/* ---- DROPDOWN ---- */
+.dd{position:absolute;top:64px;left:0;width:600px;background:#fff;border-radius:16px;
+ box-shadow:0 12px 40px rgba(0,0,0,.18);padding:16px 0 8px;display:none;
+ max-height:min(640px,calc(100vh - 140px));overflow-y:auto}
+body.open .dd{display:block}
+.dd::-webkit-scrollbar{width:10px}
+.dd::-webkit-scrollbar-thumb{background:#D9D9DD;border-radius:8px;border:3px solid #fff}
+
+.chips{display:flex;gap:8px;padding:0 20px 14px;flex-wrap:wrap}
+.chip{height:38px;padding:0 16px;border-radius:var(--pill);border:1px solid var(--border);background:#fff;
+ display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.chip b{color:var(--muted);font-weight:500}
+.chip:hover{background:var(--soft)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.on b{color:#A8ABB0}
+
+.sect{padding:10px 20px 4px;display:flex;align-items:center;justify-content:space-between}
+.sect h4{margin:0;font-size:15px;font-weight:700}
+.sect button{border:0;background:none;font-size:13px;font-weight:600;color:var(--muted)}
+.sect button:hover{color:var(--text);text-decoration:underline}
+
+.item{display:flex;align-items:center;gap:14px;width:100%;border:0;background:none;text-align:left;
+ padding:10px 20px;border-radius:0}
+.item:hover{background:var(--soft)}
+.ico{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:var(--soft);
+ display:flex;align-items:center;justify-content:center}
+.item:hover .ico{background:#E9E9EC}
+.ico svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.8}
+.ph40{flex:0 0 auto;width:40px;height:40px;border-radius:8px;object-fit:cover}
+.tt{font-size:15px;font-weight:500;line-height:1.25}
+.ss{font-size:13px;color:var(--muted);margin-top:1px}
+.rt{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600}
+.rt svg{width:12px;height:12px;fill:var(--star)}
+
+/* ---- FONAS ---- */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:50;display:none}
+body.open .scrim{display:block}
+.page{padding:0 32px}
+.hint{max-width:900px;margin:24px auto 0;color:var(--muted);text-align:center}
+.fake{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:840px;margin:24px 0}
+.fake div{height:220px;background:var(--soft);border-radius:12px}
+</style>
+</head>
+<body class="open">
+
+<div class="scrim" id="scrim"></div>
+
+<header class="hdr">
+  <div class="logo">Auto<span>Left</span></div>
+
+  <div class="sbwrap">
+    <div class="sb">
+      <button class="seg act" data-seg>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+        <input id="q" placeholder="Visos paslaugos" value="">
+      </button>
+      <button class="seg" data-seg>
+        <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div class="val">Dabartinė vieta</div>
+      </button>
+      <button class="seg" data-seg>
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+        <div class="val">Bet kada</div>
+      </button>
+      <button class="go" id="go">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+        <span class="tx">Ieškoti</span>
+      </button>
+    </div>
+
+    <div class="dd" id="dd">
+      <div class="chips">
+        <button class="chip on">Visi</button>
+        <button class="chip">Paslaugos <b>40+</b></button>
+        <button class="chip">Įmonės <b>12</b></button>
+        <button class="chip">Meistrai <b>8</b></button>
+      </div>
+
+      <div class="sect"><h4>Paskutinės paieškos</h4><button>Išvalyti</button></div>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+        <span><span class="tt">Visos paslaugos</span><span class="ss">Bet kada · Vilnius</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+        <span><span class="tt">Tepalų keitimas</span><span class="ss">Bet kada</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg></span>
+        <span><span class="tt">Detailing</span><span class="ss">Šiandien · Naujamiestis</span></span></button>
+
+      <div class="sect"><h4>Paslaugos</h4></div>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span><span class="tt">Visos paslaugos</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17h16M6 17V9l3-4h6l3 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg></span>
+        <span><span class="tt">Servisas ir remontas</span><span class="ss">Tepalai · stabdžiai · pakaba</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span><span class="tt">Padangos ir ratlankiai</span><span class="ss">Montavimas · geometrija</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 14l8-9 8 9-8 5z"/></svg></span>
+        <span><span class="tt">Detailing ir plovykla</span><span class="ss">Poliravimas · keramika</span></span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 12 3-7h5"/></svg></span>
+        <span><span class="tt">Elektronika ir diagnostika</span></span></button>
+
+      <div class="sect"><h4>Įmonės</h4></div>
+      <button class="item"><img class="ph40" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=120&q=60" alt="">
+        <span><span class="tt">M House Detailing</span><span class="ss">Naujamiestis, Vilnius</span></span>
+        <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>5,0</span></button>
+      <button class="item"><img class="ph40" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=120&q=60" alt="">
+        <span><span class="tt">Auto Servisas Vilkas</span><span class="ss">Žirmūnai, Vilnius</span></span>
+        <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,9</span></button>
+      <button class="item"><img class="ph40" src="https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=120&q=60" alt="">
+        <span><span class="tt">Baltic Cars — autohausas</span><span class="ss">Kirtimai, Vilnius</span></span>
+        <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,7</span></button>
+
+      <div class="sect"><h4>Meistrai</h4></div>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span>
+        <span><span class="tt">Tomas · mobilus meistras</span><span class="ss">Atvyksta pas jus · Vilnius</span></span>
+        <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,9</span></button>
+      <button class="item"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span>
+        <span><span class="tt">Marius · kėbulo meistras</span><span class="ss">Garažas · Naujininkai</span></span>
+        <span class="rt"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .9-5.1 4.8 1.3 7-6.2-3.4L5.8 21l1.3-7L2 9.5l7-.9z"/></svg>4,8</span></button>
+    </div>
+  </div>
+
+  <button class="menu">Meniu
+    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<div class="page">
+  <div class="hint">Paspausk bet kur už lango — užsidarys. Paspausk paieškos barą — atsidarys.</div>
+  <div class="fake"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<script>
+const b=document.body;
+document.querySelectorAll('[data-seg]').forEach(s=>s.addEventListener('click',e=>{
+  e.stopPropagation();b.classList.add('open');
+  document.querySelectorAll('[data-seg]').forEach(x=>x.classList.remove('act'));
+  s.classList.add('act');
+  if(s.querySelector('input'))s.querySelector('input').focus();
+}));
+document.getElementById('scrim').onclick=()=>b.classList.remove('open');
+document.addEventListener('keydown',e=>{if(e.key==='Escape')b.classList.remove('open')});
+document.getElementById('dd').addEventListener('click',e=>e.stopPropagation());
+document.getElementById('go').onclick=()=>{b.classList.remove('open')};
+</script>
+</body>
+</html>

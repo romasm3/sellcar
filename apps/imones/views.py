@@ -73,8 +73,13 @@ def _filtruoti(request, qs=None):
 
     if miestas:
         qs = qs.filter(miestas__icontains=miestas)
-    if tipas in dict(Imone.TIPAI):
+    # „Įmonės | Specialistai" perjungiklis: meistrai rodomi atskirai
+    if tipas == 'meistrai':
+        qs = qs.filter(tipas=Imone.MEISTRAS)
+    elif tipas in dict(Imone.TIPAI):
         qs = qs.filter(tipas=tipas)
+    else:
+        qs = qs.filter(tipas__in=Imone.IMONIU_TIPAI)
     if veiklos_f:
         qs = qs.filter(veiklos__slug__in=veiklos_f)
     if q:
@@ -102,6 +107,13 @@ def _su_skelbimu_kiekiais(imones):
     return imones
 
 
+def _be_tipo(request):
+    p = request.GET.copy()
+    for k in ('tipas', 'lat', 'lng', 'z', 'skrendam'):
+        p.pop(k, None)
+    return p.urlencode()
+
+
 def _filtru_kontekstas(request):
     """Bendras kontekstas abiem puslapiams (filtrai, sąrašai, žymos)."""
     get = request.GET
@@ -120,7 +132,9 @@ def _filtru_kontekstas(request):
         'f_miestas': miestas, 'f_tipas': tipas, 'f_veiklos': veiklos_f,
         'f_q': q, 'f_laikas': laikas,
         'laiko_pasirinkimai': LAIKO_PASIRINKIMAI,
-        'aktyviu_filtru': len([x for x in (miestas, tipas, q, laikas) if x]) + len(veiklos_f),
+        'aktyviu_filtru': len([x for x in (miestas, q, laikas) if x]) + len(veiklos_f),
+        # Perjungiklio nuorodos — visi filtrai be `tipas`
+        'be_tipo': _be_tipo(request),
         'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', ''),
         'GOOGLE_MAPS_ID': getattr(settings, 'GOOGLE_MAPS_ID', 'DEMO_MAP_ID'),
     }
@@ -260,9 +274,10 @@ def _zemelapiui(i):
 
     return {
         'id': i.pk,
-        'vardas': i.pavadinimas,
-        'tipas': i.get_tipas_display(),
+        'vardas': i.rodomas_vardas(),
+        'tipas': i.rodomas_tipas(),
         'vietove': i.vietove(),
+        'meistras': i.tipas == Imone.MEISTRAS,
         'reitingas': float(i.reitingas) if i.reitingas else None,
         'atsiliepimai': i.atsiliepimu_kiekis,
         'img': nuotrauka.nuotrauka.url if nuotrauka else '',

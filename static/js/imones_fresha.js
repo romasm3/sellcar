@@ -280,13 +280,14 @@ function freshaPuslapis() {
         kortele(c) {
             const t = T();
             const foto = c.img ? `<img src="${c.img}" alt="" loading="lazy">` : '';
+            const meistras = c.meistras ? ' yra-meistras' : '';
             // Čipsai — mygtukai, ne nuorodos: kortelė jau yra <a>, o <a>
             // viduje <a> naršyklė išskaido (kortelė lūžo į dvi dalis).
             const cipsai = (c.cipsai || []).map(s =>
                 `<button type="button" class="fr-cipsas${s.ghost ? ' ghost' : ''}"
                          data-url="${s.url}">${s.tekstas}</button>`).join('');
             return `
-<a class="fr-kort" data-id="${c.id}" href="${c.url}" target="_blank" rel="noopener">
+<a class="fr-kort${meistras}" data-id="${c.id}" href="${c.url}" target="_blank" rel="noopener">
   <div class="fr-foto">${foto}
     <button type="button" class="fr-sirdis" data-sirdis="${c.id}">
       <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg>

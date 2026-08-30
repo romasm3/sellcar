@@ -77,10 +77,13 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
   /* ---------- TOOLBAR ---------- */
   .fr-irankiai { display: flex; align-items: center; gap: 16px; padding: 4px 0 16px; }
   .fr-seg-jung { display: inline-flex; background: var(--soft); border-radius: 999px; padding: 4px; }
-  .fr-seg-jung button { border: 0; background: none; height: 36px; padding: 0 18px;
+  .fr-seg-jung button, .fr-seg-jung .fr-jung-btn {
+            border: 0; background: none; height: 36px; padding: 0 18px;
+            display: inline-flex; align-items: center; text-decoration: none;
             border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--muted);
             cursor: pointer; font-family: inherit; }
-  .fr-seg-jung button.on { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .fr-seg-jung button.on, .fr-seg-jung .fr-jung-btn.on {
+            background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
   .fr-kiek { margin-left: auto; color: var(--muted); font-size: 14px; }
   .fr-tbtn { height: 44px; padding: 0 18px; border: 1px solid var(--border-strong);
              background: #fff; border-radius: 999px; display: inline-flex;
@@ -113,6 +116,10 @@ demo .hdr->.fr-hdr · .searchbar->.fr-sb · .sb-seg->.fr-seg · .sb-go->.fr-go
              box-shadow: 0 1px 3px rgba(0,0,0,.16); cursor: pointer; }
   .fr-sirdis svg { width: 16px; height: 16px; stroke: var(--ink); fill: none; stroke-width: 2; }
   .fr-sirdis.on svg { fill: #E14D28; stroke: #E14D28; }
+  /* Meistro kortelėje — apvali nuotrauka vietoj plataus kadro */
+  .fr-kort.yra-meistras .fr-foto { aspect-ratio: 1/1; width: 96px;
+            border-radius: 999px; margin-bottom: 4px; }
+  .fr-kort.yra-meistras .fr-sirdis { top: 4px; right: auto; left: 72px; }
   .fr-virsus { display: flex; align-items: flex-start; gap: 12px; margin-top: 12px; }
   .fr-vardas { font-size: 17px; font-weight: 600; line-height: 1.3; flex: 1 1 auto; }
   .fr-reit { flex: 0 0 auto; display: flex; align-items: center; gap: 5px;

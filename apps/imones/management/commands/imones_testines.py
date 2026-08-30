@@ -137,6 +137,67 @@ IMONES = [
     },
 ]
 
+# Keturi bandomieji meistrai (Specialistai). Meistras — tas pats objektas,
+# tik tipas kitas: vietoj įmonės pavadinimo rodom vardą ir specializaciją.
+MEISTRAI = [
+    {
+        'raktas': 'test-meistras-mobilus', 'pavadinimas': 'Tomas K.',
+        'meistras_vardas': 'Tomas K.', 'specializacija': 'Mobilus meistras',
+        'aprasymas': 'Bandomasis meistras. Atvykstu su įranga: akumuliatoriai, '
+                     'stabdžiai, smulkūs gedimai vietoje.',
+        'miestas': 'Vilnius', 'rajonas': '', 'adresas': '',
+        'lat': 54.6892, 'lng': 25.2798, 'dirba_vietoje': False,
+        'atvyksta_pas_klienta': True, 'reitingas': '4.9',
+        'atsiliepimu_kiekis': 96, 'veikia_nuo': 2016,
+        'telefonas': '+370 600 45678', 'el_pastas': 'demo.tomas@example.com',
+        'veiklos': ['remontas'], 'spalva': (0x18, 0x1B, 0x1F),
+        'paslaugos': [('Akumuliatoriaus keitimas vietoje', 'Su detale', 40, 45),
+                      ('Stabdžių kaladėlių keitimas', 'Viena ašis', 90, 60)],
+    },
+    {
+        'raktas': 'test-meistras-kebulas', 'pavadinimas': 'Andrius P.',
+        'meistras_vardas': 'Andrius P.', 'specializacija': 'Kėbulo meistras',
+        'aprasymas': 'Bandomasis meistras. Įlenkimų šalinimas be dažymo, '
+                     'lokalus dažymas savo garaže.',
+        'miestas': 'Kaunas', 'rajonas': 'Petrašiūnai', 'adresas': 'R. Kalantos g. 34',
+        'lat': 54.8890, 'lng': 23.9720, 'dirba_vietoje': True,
+        'atvyksta_pas_klienta': False, 'reitingas': '4.8',
+        'atsiliepimu_kiekis': 143, 'veikia_nuo': 2013,
+        'telefonas': '+370 611 22334', 'el_pastas': 'demo.andrius@example.com',
+        'veiklos': ['dazymas-kebulo-remontas'], 'spalva': (0x37, 0x41, 0x51),
+        'paslaugos': [('Įlenkimo šalinimas be dažymo', 'Vienas elementas', 120, 60),
+                      ('Lokalus dažymas', 'Vienas elementas', 240, 150)],
+    },
+    {
+        'raktas': 'test-meistras-detailing', 'pavadinimas': 'Rūta G.',
+        'meistras_vardas': 'Rūta G.', 'specializacija': 'Mobilus detailing',
+        'aprasymas': 'Bandomoji meistrė. Poliravimas ir salono valymas '
+                     'atvykstant pas klientą.',
+        'miestas': 'Vilnius', 'rajonas': 'Žirmūnai', 'adresas': '',
+        'lat': 54.7145, 'lng': 25.2960, 'dirba_vietoje': True,
+        'atvyksta_pas_klienta': True, 'reitingas': '5.0',
+        'atsiliepimu_kiekis': 61, 'veikia_nuo': 2020,
+        'telefonas': '+370 622 33445', 'el_pastas': 'demo.ruta@example.com',
+        'veiklos': ['detailing'], 'spalva': (0x1F, 0x29, 0x37),
+        'paslaugos': [('Salono cheminis valymas', 'Atvykstant', 180, 130),
+                      ('Vienos pakopos poliravimas', 'Atvykstant', 240, 190)],
+    },
+    {
+        'raktas': 'test-meistras-elektronika', 'pavadinimas': 'Mindaugas V.',
+        'meistras_vardas': 'Mindaugas V.', 'specializacija': 'Elektronikos meistras',
+        'aprasymas': 'Bandomasis meistras. Diagnostika, valdymo blokai, '
+                     'elektros instaliacija.',
+        'miestas': 'Kaunas', 'rajonas': 'Šilainiai', 'adresas': 'Baltų pr. 12',
+        'lat': 54.9310, 'lng': 23.8790, 'dirba_vietoje': True,
+        'atvyksta_pas_klienta': True, 'reitingas': '4.7',
+        'atsiliepimu_kiekis': 38, 'veikia_nuo': 2018,
+        'telefonas': '+370 633 44556', 'el_pastas': 'demo.mindaugas@example.com',
+        'veiklos': ['elektronika-diagnostika'], 'spalva': (0x4B, 0x55, 0x63),
+        'paslaugos': [('Kompiuterinė diagnostika', 'Su ataskaita', 45, 35),
+                      ('Valdymo bloko remontas', 'Priklauso nuo gedimo', 180, 120)],
+    },
+]
+
 
 class Command(BaseCommand):
     help = 'Sukuria (arba pašalina) pilnus bandomuosius įmonių duomenis'
@@ -155,10 +216,12 @@ class Command(BaseCommand):
         savininkai = self._savininkai()
         for a in IMONES:
             self._viena(a, savininkai)
+        for a in MEISTRAI:
+            self._vienas_meistras(a)
 
         self.stdout.write('')
         for i in Imone.objects.filter(testine=True).order_by('tipas', 'pavadinimas'):
-            self.stdout.write(f'  {i.get_tipas_display():13} {i.pavadinimas:16} '
+            self.stdout.write(f'  {i.get_tipas_display():13} {i.rodomas_vardas():16} '
                               f'{i.miestas:9} /imone/{i.slug}/')
         self.stdout.write(self.style.SUCCESS(
             '\nPašalinti: manage.py imones_testines --pasalinti'))
@@ -216,6 +279,44 @@ class Command(BaseCommand):
             except Exception:
                 continue
         return isvestis
+
+    def _vienas_meistras(self, a):
+        """Meistras — tas pats Imone įrašas su tipas=meistras."""
+        with transaction.atomic():
+            m, nauja = Imone.objects.get_or_create(
+                slug=a['raktas'],
+                defaults={'pavadinimas': a['pavadinimas'], 'tipas': Imone.MEISTRAS})
+            m.tipas = Imone.MEISTRAS
+            for laukas in ('pavadinimas', 'meistras_vardas', 'specializacija',
+                           'aprasymas', 'adresas', 'miestas', 'rajonas',
+                           'telefonas', 'el_pastas', 'dirba_vietoje',
+                           'atvyksta_pas_klienta', 'atsiliepimu_kiekis',
+                           'veikia_nuo'):
+                setattr(m, laukas, a[laukas] if laukas in a else getattr(m, laukas))
+            m.salis = 'LT'
+            m.latitude, m.longitude = a['lat'], a['lng']
+            m.reitingas = a['reitingas']
+            m.darbo_laikas = _darbas()
+            m.patvirtinta = True
+            m.testine = True
+            if not m.logotipas:
+                m.logotipas.save(f"{a['raktas']}-logo.jpg",
+                                 self._piesinys(a['meistras_vardas'], a['spalva'],
+                                                200, 200, True), save=False)
+            m.save()
+            m.veiklos.set(VeiklosSritis.objects.filter(slug__in=a['veiklos']))
+            m.paslaugos.all().delete()
+            for i, (pav, apie, trukme, kaina) in enumerate(a['paslaugos']):
+                ImonesPaslauga.objects.create(imone=m, pavadinimas=pav,
+                                              aprasymas=apie, trukme_min=trukme,
+                                              kaina=kaina, tvarka=i)
+            if m.nuotraukos.count() < 3:
+                m.nuotraukos.all().delete()
+                for i, failas in enumerate(self._nuotraukos(3)):
+                    n = ImonesNuotrauka(imone=m, tvarka=i)
+                    n.nuotrauka.save(f"{a['raktas']}-{i + 1}.jpg", failas, save=False)
+                    n.save()
+        self.stdout.write(('sukurta ' if nauja else 'atnaujinta ') + a['meistras_vardas'])
 
     def _viena(self, a, savininkai):
         with transaction.atomic():

@@ -93,9 +93,13 @@ kitiems puslapiams ji lieka.{% endcomment %}
 <div class="fr-wrap" x-data="freshaPuslapis()" x-init="paruosk()" :class="!zemelapis && 'be-zemelapio'">
   <div class="fr-sarasas">
     <div class="fr-irankiai">
+      {% comment %}Įmonės = servisai ir prekiautojai, Specialistai = meistrai.
+      Atskiri rezultatai ir atskiri žymekliai; adrese — ?tipas=meistrai.{% endcomment %}
       <div class="fr-seg-jung">
-        <button type="button" class="on">{% trans "Įmonės" %}</button>
-        <button type="button" @click="alert('{% trans "Specialistai — vėlesnis etapas" %}')">{% trans "Specialistai" %}</button>
+        <a class="fr-jung-btn{% if f_tipas != 'meistrai' %} on{% endif %}"
+           href="?{{ be_tipo }}">{% trans "Įmonės" %}</a>
+        <a class="fr-jung-btn{% if f_tipas == 'meistrai' %} on{% endif %}"
+           href="?{{ be_tipo }}{% if be_tipo %}&{% endif %}tipas=meistrai">{% trans "Specialistai" %}</a>
       </div>
       <div class="fr-kiek"><b x-text="kiek">0</b> <span x-text="zenklas(kiek)"></span>
         {% trans "žemėlapio srityje" %}</div>

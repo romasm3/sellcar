@@ -6,6 +6,8 @@ app_name = 'imones'
 
 urlpatterns = [
     path('imones/', views.imoniu_sarasas, name='sarasas'),
+    # Tas pats puslapis ir adresu /imones/paieska/
+    path('imones/paieska/', views.imoniu_sarasas, name='paieska'),
     path('imone/<slug:slug>/', views.imone, name='imone'),
     path('imones/map/', views.imoniu_zemelapis, name='zemelapis'),
     path('imones/duomenys/', views.zemelapio_imones, name='zemelapio_imones'),
