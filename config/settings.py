@@ -157,6 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 from django.utils.translation import gettext_lazy as _
 
 LANGUAGE_CODE = "lt"
@@ -167,11 +168,34 @@ USE_TZ = True
 # Tūkstančiai skiriami pagal kalbą (lt „5 000", en „5,000")
 USE_THOUSAND_SEPARATOR = True
 
-# Sąsaja verčiama į dvi kalbas. Kitų kalbų .po failai lieka locale/ —
-# grąžinti kalbą reiškia pridėti eilutę čia.
+# Kalbos perjungiklyje matomos VISOS, kurioms locale/ turi .po failą.
+# 8dd8851 sąrašas buvo apkarpytas iki lt/en, o .po failai liko — grąžinta
+# atgal visa trylika.
+#
+# Pavadinimai eina per gettext: msgid angliškas, o kiekviena kalba jį
+# verčia savaip (lt.po: „Latvian" → „Latviešu"). Todėl angliškame
+# puslapyje jie lieka angliški — to reikalauja ir vertimų sargyba
+# (apps/imones/tests.py: /en/ puslapiuose lietuviškų raidžių būti negali).
+#
+# lt yra numatytoji ir adreso priešdėlio negauna (i18n_patterns su
+# prefix_default_language=False), visos kitos gauna: /en/, /lv/, /ru/…
+#
+# DĖMESIO: lt ir en išverstos, likusios — apie 69 %. Neišverstos eilutės
+# krenta į msgid, t. y. rodomos lietuviškai.
 LANGUAGES = [
-    ("lt", _("Lietuvių")),
+    ("lt", _("Lithuanian")),
     ("en", _("English")),
+    ("lv", _("Latvian")),
+    ("et", _("Estonian")),
+    ("pl", _("Polish")),
+    ("de", _("German")),
+    ("ru", _("Russian")),
+    ("fr", _("French")),
+    ("es", _("Spanish")),
+    ("zh-hans", _("Chinese")),
+    ("vi", _("Vietnamese")),
+    ("ar", _("Arabic")),
+    ("ko", _("Korean")),
 ]
 
 LOCALE_PATHS = [

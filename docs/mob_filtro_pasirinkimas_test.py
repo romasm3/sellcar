@@ -28,7 +28,7 @@ settings.configure(
         "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
         "django.contrib.humanize", "django.contrib.sitemaps",
         "apps.accounts", "apps.listings", "apps.conversations", "apps.broadcasts",
-        "apps.payments", "apps.analytics",
+        "apps.payments", "apps.analytics", "apps.imones",
         "crispy_forms", "crispy_bootstrap4", "django_filters", "rosetta",
     ],
     MIDDLEWARE=[
