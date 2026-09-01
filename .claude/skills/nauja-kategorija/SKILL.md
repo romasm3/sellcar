@@ -52,17 +52,21 @@ svetainei, jokių kopijų.
 
 **5. Šalies vėliavėlė rodoma visur, kur rodoma vieta:** kontaktų bloke,
 kortelėje, žemėlapio burbule, išsaugotuose skelbimuose, šalies
-sąrašuose. Vėliava eina **GALE, po pavadinimo** — `Vilnius, Lietuva
-[vėliava]`, sąrašo eilutėje `○ Lietuva [vėliava]      4 821` (prilipusi
-prie pavadinimo, skaičius — dešiniame krašte). Niekur ne prieš
-pavadinimą. Šalies vardas pilnas ir išverstas.
+sąrašuose. Vėliava eina **IŠKART PO šalies pavadinimo** — `📍 Kaunas,
+Lithuania [vėliava]`, sąrašo eilutėje `○ Lithuania [vėliava]      4 821`
+(prilipusi prie pavadinimo, skaičius — dešiniame krašte). Ne prieš, ne
+eilutės gale. Eilutė nesilaužo: `flex-wrap:nowrap`, tekstui daugtaškis,
+vėliavai `flex:0 0 auto`. Kortelėse vietos eilutę duoda viena dalis
+`listings/partials/_kort_vieta.html`. Vardas kortelėje ir šalies
+sąrašuose — angliškas (`|salies_vardas_en`), kontaktų bloke — išverstas.
 Šaltinis — skelbimo šalis iš kontaktų bloko, jokio spėliojimo pagal
 paskyrą ar IP. SVG (`static/flags/<kodas>.svg`), 16×12 px, viena dalis
 `templates/partials/_veliava.html`. Be šalies — tik miestas, be tuščio
 kvadrato.
 
-> Vėliavos vardas vietos eilutėje — IŠVERSTAS (`salys.vardas`). Šalies
-> juostoje virš panelės — angliškas ir neverčiamas (`salys.VARDAI_EN`).
+> Kontaktų bloke vardas IŠVERSTAS (`salys.vardas`) — tekstas žmogui.
+> Kortelėje ir šalies sąrašuose — angliškas ir neverčiamas
+> (`salys.VARDAI_EN`): sąrašas tarptautinis.
 
 **6. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
 puslapio filtras — tai viena bendra reikšmė. Pakeitus bet kur (juostoje

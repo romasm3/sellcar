@@ -112,19 +112,33 @@ Jokio spėliojimo pagal pardavėjo paskyrą ar IP.
 4. išsaugotose paieškose ir peržiūrėtuose skelbimuose
 5. šalies sąrašuose — juostoje virš panelės ir šoninėje juostoje
 
-**Formatas visur vienodas — vėliava GALE, po pavadinimo:**
+**Formatas visur vienodas — vėliava IŠKART PO šalies pavadinimo:**
 
-    Vilnius, Lietuva [vėliava]
+    📍 Kaunas, Lithuania [vėliava]
 
-Sąrašo eilutėje ji prilimpa prie pavadinimo, o skaičius nustumiamas į
-dešinį kraštą:
+Ne prieš, ne eilutės gale. Sąrašo eilutėje ji taip pat prilimpa prie
+pavadinimo, o skaičius nustumiamas į dešinį kraštą:
 
-    ○ Lietuva [vėliava]              4 821
+    ○ Lithuania [vėliava]            4 821
     ● Visos šalys [gaublys]         48 320
 
-Niekur ne prieš pavadinimą. Radus seną variantą — taisyti.
+Radus seną variantą — taisyti.
 
-Šalies pavadinimas **pilnas ir išverstas** — ne kodas „LT" ar „DE".
+**Eilutė nesilaužo.** `display:flex; align-items:center; gap:6px;
+flex-wrap:nowrap`; tekstui `overflow:hidden; text-overflow:ellipsis;
+white-space:nowrap`; vėliavai `flex:0 0 auto`. Ilga vieta
+(„Nordrhein-Westfalen, Germany") trumpinama daugtaškiu, bet vėliava
+NIEKADA nenukrenta į antrą eilutę.
+
+Šalies pavadinimas **pilnas** — ne kodas „LT" ar „DE".
+
+> **Kur angliškas, kur išverstas.** Kortelės vietos eilutėje ir šalies
+> sąrašuose (juostoje, šoninėje juostoje) vardas **angliškas ir
+> neverčiamas** (`salys.VARDAI_EN`, filtras `|salies_vardas_en`) — tai
+> tarptautinis sąrašas, jį skaito ir tas, kuris svetainės kalbos nemoka.
+> Kontaktų bloke skelbimo puslapyje vardas lieka **išverstas**
+> (`salys.vardas`) — ten tekstas skirtas žmogui, skaitančiam skelbimą
+> savo kalba.
 
 > Nepainioti su šalies juosta virš paieškos panelės: ten sąrašas
 > tarptautinis, todėl vardai **angliški ir neverčiami**
@@ -140,6 +154,12 @@ Niekur ne prieš pavadinimą. Radus seną variantą — taisyti.
 - `alt` ir `title` — pilnas šalies pavadinimas.
 - **Viena šablono dalis** `templates/partials/_veliava.html`, naudojama
   visur. Jokių kopijų.
+- **Kortelės vietos eilutė** — irgi viena dalis:
+  `templates/listings/partials/_kort_vieta.html` (smeigtukas, tekstas,
+  vėliava). Kortelėse jos HTML nekopijuojam.
+- Rėmelis daromas `outline: 1px solid rgba(0,0,0,.10); outline-offset:
+  -1px` — border'as 16×12 vėliavą paverstų 18×14, o `box-shadow … inset`
+  ant `<img>` nesimato (etalone vėliava yra `<svg>`).
 - Vėliavų rinkinys — **visos** šalys iš `salys.py`. Vienas šaltinis, ne
   po failą kaskart.
 
@@ -215,7 +235,9 @@ puslapyje.
 - [ ] Kontaktai tik per `contact_block.html`
 - [ ] Vėliavėlė visur, kur rodoma vieta, per `_veliava.html`
 - [ ] Vėliavėlė VISUR po pavadinimo, ne prieš jį
-- [ ] Vėliavėlė — SVG, 16×12, su rėmeliu; šalies vardas pilnas ir išverstas
+- [ ] Vėliavėlė — SVG, 16×12, su rėmeliu; šalies vardas pilnas
+- [ ] Kortelėje ir šalies sąrašuose vardas angliškas, kontaktų bloke — išverstas
+- [ ] Vietos eilutė nesilaužo net su ilgu pavadinimu
 - [ ] Be šalies — tik miestas, be tuščio kvadrato
 - [ ] Šalis — viena reikšmė: pakeitus vienur, pasikeitė visur
 - [ ] Šalies keitimas nenumetė markės, kainos, metų

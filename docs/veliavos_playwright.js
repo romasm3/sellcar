@@ -24,16 +24,25 @@ const tik=(s,k)=>{ s?gerai++:(blogai++,console.log('  NEPAVYKO: '+k)); };
   await p.waitForTimeout(2500);
   const vel = await p.$$('.veliava');
   tik(vel.length >= 2, `kortelėse vėliavėlių: ${vel.length}`);
-  // Sąraše yra du išdėstymai (tinklelis ir juosta) — vienas paslėptas,
-  // tad matmenis imam iš MATOMOS vėliavėlės.
+  // Matuojam būtent VIETOS EILUTĖS vėliavą: šoninės juostos šalies bloke
+  // vėliavos didesnės (20×15) ir jos čia netinka. Sąraše yra du kortelių
+  // išdėstymai — vienas paslėptas, tad imam matomą.
   let dydis = null, matoma = null;
-  for (const v of vel) { const d = await v.boundingBox(); if (d && d.width) { dydis = d; matoma = v; break; } }
-  tik(dydis, 'yra matoma vėliavėlė');
+  for (const v of await p.$$('.kv .veliava, .card-params .veliava')) {
+    const d = await v.boundingBox();
+    if (d && d.width) { dydis = d; matoma = v; break; }
+  }
+  tik(dydis, 'yra matoma vietos eilutės vėliavėlė');
   if (!dydis) { await b.close(); console.log('gerai: '+gerai+', nepavyko: '+(blogai+1)); process.exit(1); }
   tik(Math.round(dydis.width) === 16 && Math.round(dydis.height) === 12,
       `16×12 (${Math.round(dydis.width)}×${Math.round(dydis.height)})`);
   const stilius = await matoma.evaluate(e => { const c = getComputedStyle(e);
-    return { tarpas: c.marginRight, apval: c.borderRadius, remelis: c.borderColor, tipas: e.tagName }; });
+    // Tarpą iki teksto duoda arba pačios vėliavos margin (tekstinėje
+    // eilutėje), arba tėvo flex gap (naujoje .kv eilutėje) — abu 6px.
+    const t = getComputedStyle(e.parentElement);
+    const tarpas = c.marginLeft !== '0px' ? c.marginLeft
+                 : (t.display.includes('flex') ? (t.columnGap || t.gap) : c.marginLeft);
+    return { tarpas, apval: c.borderRadius, tipas: e.tagName }; });
   tik(stilius.tarpas === '6px', `tarpas 6px (${stilius.tarpas})`);
   tik(stilius.apval === '2px', `apvalinimas 2px (${stilius.apval})`);
   tik(stilius.tipas === 'IMG', 'SVG per <img>, ne emoji');

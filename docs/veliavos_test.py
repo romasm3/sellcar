@@ -92,6 +92,7 @@ VIETOS_FAILAI = [
     'templates/listings/partials/_card_params.html',
     'templates/listings/partials/_zemelapio_burbulas.html',
     'templates/listings/saved_listings.html',
+    'templates/listings/partials/_kort_vieta.html',
     'templates/partials/_veliava.html',
 ]
 emoji = [f for f in VIETOS_FAILAI
@@ -128,6 +129,7 @@ with translation.override('lt'):
 antraste('5. Keturios vietos')
 VIETOS = {
     'templates/listings/partials/_pardavejo_blokas.html': 'kontaktų blokas skelbime',
+    'templates/listings/partials/_kort_vieta.html': 'kortelės vietos eilutė',
     'templates/listings/partials/_card_params.html': 'kortelė sąraše',
     'templates/listings/partials/_zemelapio_burbulas.html': 'žemėlapio burbulas',
     'templates/listings/saved_listings.html': 'išsaugoti skelbimai',
@@ -146,6 +148,23 @@ k = open(os.path.join(BASE, 'apps/listings/korteles.py'), encoding='utf-8').read
 tikrink("'salis'" in k and "'salies_vardas'" in k,
         'korteles.py paduoda šalį ir pavadinimą burbului')
 
+# Kortelės vietos eilutė — viena dalis, be savo <img>, vėliava PO teksto
+kv = open(os.path.join(BASE, 'templates/listings/partials/_kort_vieta.html'),
+          encoding='utf-8').read()
+# Komentaras faile irgi mini <img> ir _veliava.html, todėl tikrinam tik
+# tikrą žymėjimą — viską po {% endcomment %}.
+kv_zym = kv.split('{% endcomment %}', 1)[1]
+tikrink('<img' not in kv_zym, 'kortelės eilutė savo <img> neturi')
+tikrink(kv_zym.index('kv-txt') < kv_zym.index('_veliava.html'),
+        'vėliava PO teksto, ne prieš')
+tikrink('salies_vardas_en' in kv, 'kortelėje angliškas šalies vardas')
+naudoja = []
+for kelias in ('templates/listings/listing_list.html',):
+    t = open(os.path.join(BASE, kelias), encoding='utf-8').read()
+    naudoja.append(t.count('_kort_vieta.html'))
+tikrink(naudoja[0] >= 6,
+        'visos pagrindinio kortelės + rezultatai naudoja dalį (%d)' % naudoja[0])
+
 
 antraste('6. CSS pagal specifikaciją')
 css = open(os.path.join(BASE, 'static/css/style.css'), encoding='utf-8').read()
@@ -153,7 +172,12 @@ blokas = css[css.index('.veliava {'):css.index('}', css.index('.veliava {'))]
 for reiksme, ka in (('width: 16px', 'plotis 16px'), ('height: 12px', 'aukštis 12px'),
                     ('margin-left: 6px', 'tarpas 6px (vėliava gale)'),
                     ('border-radius: 2px', 'apvalinimas 2px'),
-                    ('rgba(0, 0, 0, .08)', 'rėmelis rgba(0,0,0,.08)')):
+                    # Rėmelis — outline su neigiamu offset'u, ne border:
+                    # 16×12 turi likti tikslūs (etalonas naudoja
+                    # box-shadow inset, bet ten <svg>, o pas mus <img>).
+                    ('outline: 1px solid rgba(0, 0, 0, .10)',
+                     'rėmelis 1px rgba(0,0,0,.10)'),
+                    ('outline-offset: -1px', 'rėmelis viduje, matmenų nekeičia')):
     tikrink(reiksme in blokas, 'CSS: %s' % ka)
 
 

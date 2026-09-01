@@ -81,7 +81,8 @@ const eik = async (p, kelias) => {
                            fullPage: false });
       // Kortelės vieta — ta pati vėliava, ir ji eina PO pavadinimo
       const kortele = await p.evaluate(() => {
-        const loc = document.querySelector('.ap-loc span');
+        // Vietos eilutė dabar ateina iš bendros dalies (_kort_vieta.html)
+        const loc = document.querySelector('.kv-zalia');
         if (!loc) return null;
         const f = loc.querySelector('img.veliava');
         if (!f) return { beVeliavos: true, tekstas: loc.textContent.trim() };
@@ -93,7 +94,8 @@ const eik = async (p, kelias) => {
       if (kortele && !kortele.beVeliavos) {
         tik(/flags\/de\.svg/.test(kortele.src), 'kortelės vėliava vokiška');
         tik(kortele.veliava > kortele.kaire, 'kortelėje vėliava PO vietos teksto');
-        tik(/Vokietija/.test(kortele.tekstas), 'kortelėje pilnas šalies vardas');
+        tik(/Germany/.test(kortele.tekstas),
+            'kortelėje pilnas angliškas šalies vardas: ' + kortele.tekstas);
       }
     }
     await eik(p, '/imones/');

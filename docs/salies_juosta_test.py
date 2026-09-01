@@ -267,14 +267,17 @@ eilutes = subprocess.run(['git', 'diff', '-U0', 'origin/master', '--',
 pakeistos = [e for e in eilutes
              if (e.startswith('+') or e.startswith('-'))
              and not e.startswith(('+++', '---'))]
-# Leidžiamos tik dvi temos: šalies juostos įtraukimas ir vėliavėlė
-# kortelės vietoje (pašalintoje eilutėje vėliavos dar nėra, todėl
-# atpažįstam ją iš to paties šalies laukelio).
-LEISTINA = ('_salis', '_salies_juosta', 'Šalies juosta', '_veliava',
-            'get_country_display_name')
-tikrink(all(any(z in e for z in LEISTINA) for e in pakeistos),
-        'listing_list.html pakeistos tik juostos ir vėliavos eilutės:\n    '
-        + '\n    '.join(pakeistos))
+# Ko iš tikrųjų saugom: kad nė viena pakeista eilutė neliestų paieškos
+# PANELĖS vidaus. Sąrašas, ką leidžiam, greitai pasensta (kiekvienas
+# naujas komentaras jį laužo), o panelės žymės yra pastovios.
+PANELES_ZYMES = ('sp-panel', 'sp-rail', 'sp-shell', 'sp-field', 'sp-tab',
+                 'sp-mrow', 'search_panel.html', 'search_rail.html',
+                 'panel_generic.html', '_panel_bodies.html',
+                 'Tik Lietuvoje')
+paliesta = [e for e in pakeistos if any(z in e for z in PANELES_ZYMES)]
+tikrink(not paliesta,
+        'listing_list.html panelės vidus nepaliestas:\n    '
+        + '\n    '.join(paliesta))
 
 
 print('\n' + '═' * 60)

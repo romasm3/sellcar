@@ -152,7 +152,7 @@
     text-transform: uppercase;
     letter-spacing: .5px;
 }
-.salis-cur { display: flex; align-items: center; gap: 8px;
+.salis-cur { display: flex; align-items: center; gap: 10px;
              font-weight: 600; font-size: 15px; }
 .salis-cur-vardas { min-width: 0; overflow: hidden;
                     text-overflow: ellipsis; white-space: nowrap; }
@@ -163,11 +163,14 @@
 
 .salis-list { margin-top: 12px; border-top: 1px solid #E5E7EB;
               padding-top: 8px; max-height: 320px; overflow-y: auto; }
+/* Eilutė 34px (etalonas: .srow) — aukštį nustatom aiškiai, nes su
+   20×15 vėliava vien iš tarpų išeidavo 40px. */
 .salis-eil { display: flex; align-items: center; gap: 10px;
-             padding: 8px 0; text-decoration: none; color: #1A1A1A; }
+             min-height: 34px; padding: 0; text-decoration: none;
+             color: #1A1A1A; }
 .salis-eil:hover .salis-eil-vardas { text-decoration: underline; }
 .salis-eil.su-skirtuku { border-bottom: 1px solid #E5E7EB;
-                         padding-bottom: 10px; margin-bottom: 4px; }
+                         margin-bottom: 4px; }
 .salis-radijo { width: 16px; height: 16px; border-radius: 50%;
                 border: 1.5px solid #9CA3AF; flex: 0 0 auto; }
 .salis-eil.is-on .salis-radijo { border-color: #181B1F; border-width: 5px; }

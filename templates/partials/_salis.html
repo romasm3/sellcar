@@ -38,7 +38,9 @@ duoda skaičių ant panelės mygtuko.
     <a href="{{ s.url }}" class="salis-eil{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}">
       <span class="salis-radijo" aria-hidden="true"></span>
       <span class="salis-eil-vardas">{{ s.vardas }}</span>
-      {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele='' %}
+      {% comment %}Šoninėje juostoje vėliavos 20×15 — kaip etalone
+      (docs/demo/veliaveles-sidebar-demo.html, .fl be .fl-s).{% endcomment %}
+      {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele=1 %}
       <span class="salis-eil-kiekis">{{ s.kiek|intcomma }}</span>
     </a>
     {% endfor %}

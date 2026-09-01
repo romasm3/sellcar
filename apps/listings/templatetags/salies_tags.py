@@ -31,6 +31,17 @@ def salies_vardas(kodas):
 
 
 @register.filter
+def salies_vardas_en(kodas):
+    """'LT' → „Lithuania" — angliškas ir NEVERČIAMAS.
+
+    Kortelės vietos eilutėje ir šalies sąrašuose vardas visur vienodas,
+    nepriklausomai nuo sąsajos kalbos: sąrašas tarptautinis, jį skaito ir
+    tas, kuris svetainės kalbos nemoka.
+    """
+    return salys.vardas_en(kodas)
+
+
+@register.filter
 def veliava_yra(zemas_kodas):
     """Ar turim tokį SVG. Sąrašas nuskaitomas kartą, ne po failą kaskart."""
     global _TURIMOS
