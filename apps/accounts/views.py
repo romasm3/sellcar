@@ -91,7 +91,10 @@ def register(request):
 
             # ═══ EMAIL: welcome naujas user'is ═══
             try:
-                from apps.listings.emails.sender import send_scenario
+                # Į FONĄ: pasisveikinimas yra registracijos šalutinis
+                # padarinys, o naujokas jo puslapyje nelaukia.
+                from apps.listings.emails.fone import (
+                    send_scenario_fone as send_scenario)
                 send_scenario(
                     code='account_welcome',
                     to_email=user.email,

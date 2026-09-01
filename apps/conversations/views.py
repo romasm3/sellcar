@@ -29,7 +29,9 @@ def _send_new_message_email(conversation, sender, recipient, content, new_messag
             # Jau yra neskaitytų žinučių iš šio siuntėjo — nesiunčiam email.
             return
 
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: pranešimas apie žinutę — siuntėjas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         # Sender vardas: first_name > email prefix (NE username)
         if sender.first_name:

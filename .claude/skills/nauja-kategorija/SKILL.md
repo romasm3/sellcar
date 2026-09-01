@@ -93,7 +93,26 @@ grep -o '<svg[^>]*>' <failas> | grep -v 'width='     # turi būti tuščia
 curl -s <adresas> | grep -c 'class="vieta"'          # visuose paviršiuose > 0
 ```
 
-**7. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
+**7. LAIŠKAS NIEKADA NESIUNČIAMAS UŽKLAUSOS METU.** `send_scenario`
+sinchroniškai jungiasi prie smtp.gmail.com; kol vyksta TLS, prisijungimas
+ir siuntimas, laukia ir gunicorn darbininkas, ir lankytojas. Skelbimo
+puslapyje tai buvo tikra klaida: peržiūrų skaičiui peržengus 10 ar 100,
+eilinis lankytojas laukdavo pašto serverio, o be `EMAIL_TIMEOUT` —
+laukdavo be galo. Todėl:
+
+* šalutiniai pranešimai (peržiūrų slenkstis, išsaugoto skelbimo
+  pokyčiai, žinutė, pasisveikinimas, pranešimas administracijai) —
+  per `apps/listings/emails/fone.py`
+  (`send_scenario_fone`, `send_admin_scenario_fone`, `send_mail_fone`);
+* sinchroniškai lieka tik tai, ko rezultatą puslapis TIKRAI rodo
+  („Sąrašas išsiųstas į…", slaptažodžio atkūrimas) ir management
+  komandos, kurioms reikia tikro rezultato ataskaitai;
+* `EMAIL_TIMEOUT` privalo būti nustatytas — be jo Django laukia amžinai.
+
+Patikra: `docs/pasto_fone_test.py` pakiša lėtą (2 s) pašto backend'ą ir
+tikrina, kad skelbimo puslapis vis tiek atiduodamas greičiau.
+
+**8. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
 puslapio filtras — tai viena bendra reikšmė. Pakeitus bet kur (juostoje
 virš panelės, šoninėje juostoje, `/imones/`), ji galioja visur. Viena
 šablono dalis `templates/partials/_salis.html` (stiliai `juosta`,
@@ -107,7 +126,7 @@ imama TIK iš kontaktų bloko; jei skiriasi nuo pasirinktos — tyli eilutė
 nekuriam antro sąrašo — įtraukiam tą pačią dalį.
 > Tai skirtingi paviršiai, nesupainiok.
 
-**6. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
+**9. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
 paslaugos ir kainos kortelėje, viskas kita — įmonės puslapyje.
 
 
@@ -896,6 +915,7 @@ ne tik naujai kategorijai:
 - [ ] Kiekvienas naujas inline SVG turi width ir height žymėje
 - [ ] Bendro elemento stilius — bendrame CSS faile, ne šablono <style>
 - [ ] Testas matuoja tikrus matmenis naršyklėje, ne tik CSS eilutę faile
+- [ ] Nė vienas laiškas nesiunčiamas užklausos metu (fone.py), EMAIL_TIMEOUT yra
 
 ### Testų artefaktai, kurie atrodo kaip klaidos
 

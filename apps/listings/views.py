@@ -826,7 +826,10 @@ def _build_grouped_equipment(listing):
 
 def _send_listing_published_email(listing, user):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
         send_scenario(
             code='listing_published',
             to_email=user.email,
@@ -845,7 +848,10 @@ def _send_listing_published_email(listing, user):
 
 def _send_listing_sold_confirmation_email(listing, user, display_sold):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
         days_active = 0
         if listing.created_at:
             days_active = (timezone.now() - listing.created_at).days
@@ -869,7 +875,10 @@ def _send_listing_sold_confirmation_email(listing, user, display_sold):
 
 def _send_saved_listing_sold_emails(listing):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         saved_by_users = SavedListing.objects.filter(
             listing=listing
@@ -904,7 +913,10 @@ def _send_saved_listing_sold_emails(listing):
 
 def _send_saved_listing_updated_emails(listing, change_summary):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         saved_by_users = SavedListing.objects.filter(
             listing=listing
@@ -935,7 +947,10 @@ def _send_saved_listing_updated_emails(listing, change_summary):
 
 def _send_saved_listing_price_drop_emails(listing, old_price, new_price):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         drop_amount = old_price - new_price
         drop_percent = int(round((drop_amount / old_price) * 100)) if old_price > 0 else 0
@@ -975,7 +990,10 @@ def _send_saved_listing_price_drop_emails(listing, old_price, new_price):
 
 def _send_listing_saved_by_users_email(listing, saver_user):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         seller = listing.seller
         if not seller or not seller.email:
@@ -1002,7 +1020,10 @@ def _send_listing_saved_by_users_email(listing, saver_user):
 
 def _send_listing_first_views_email(listing):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         seller = listing.seller
         if not seller or not seller.email:
@@ -1026,7 +1047,10 @@ def _send_listing_first_views_email(listing):
 
 def _send_listing_views_milestone_email(listing, milestone):
     try:
-        from apps.listings.emails.sender import send_scenario
+        # Į FONĄ: šitas laiškas yra šalutinis puslapio atidarymo ar
+        # išsaugojimo padarinys — lankytojas pašto serverio nelaukia.
+        from apps.listings.emails.fone import (
+            send_scenario_fone as send_scenario)
 
         seller = listing.seller
         if not seller or not seller.email:
@@ -4088,7 +4112,9 @@ def report_listing(request, pk):
     """
     from datetime import timedelta
     from django.urls import reverse
-    from apps.listings.emails.sender import send_admin_scenario
+    # Į FONĄ: pranešimas administracijai, o pranešėjas atsakymo nelaukia.
+    from apps.listings.emails.fone import (
+        send_admin_scenario_fone as send_admin_scenario)
     from .models import ListingReport
 
     listing = get_object_or_404(Listing, pk=pk)

@@ -273,6 +273,16 @@ else:
 
 DEFAULT_FROM_EMAIL = config("EMAIL_USER", default="helpautoinfo@gmail.com")
 
+# Kiek laukti pašto serverio. BE ŠITO Django naudoja sisteminį numatytąjį
+# socket timeout'ą, t. y. laukia BE GALO: neatsakantis smtp.gmail.com
+# pakabindavo gunicorn darbininką visam laikui.
+EMAIL_TIMEOUT = 10
+
+# Laiškai, siunčiami užklausos metu, keliauja į foną
+# (apps/listings/emails/fone.py) — lankytojas pašto serverio nelaukia.
+# Testai ir management komandos šitą išjungia, kad matytų tikrą rezultatą.
+PASTAS_FONE = config("PASTAS_FONE", default=True, cast=bool)
+
 # Password Reset settings
 PASSWORD_RESET_TIMEOUT = 259200
 
