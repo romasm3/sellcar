@@ -128,6 +128,7 @@ TEMPLATES = [
                 "apps.listings.context_processors.form_error_fields",
                 # Šalis — viena reikšmė visai svetainei (partials/_salis.html)
                 "apps.listings.context_processors.salis",
+                "apps.listings.context_processors.versija",
                 "apps.listings.context_processors.rodymo_jungikliai",
                 "apps.listings.context_processors.antrine_navigacija",
                 "apps.listings.context_processors.antrastes_paieska",
@@ -219,6 +220,58 @@ LANGUAGE_COOKIE_NAME = "django_language"
 LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365  # 1 metai (sekundėmis)
 LANGUAGE_COOKIE_SAMESITE = "Lax"
 LANGUAGE_COOKIE_HTTPONLY = False
+
+# ═══════════════════════════════════════════════════════════
+# VERSIJOS ŽYMĖ — kuri kodo versija TIKRAI sukasi
+#
+# Kiekvieno puslapio <head> gauna <meta name="versija" content="…">.
+# Be jos neįmanoma iš šalies pasakyti, ar darbas pasiekė svetainę:
+# 2026-09-01 keturi darbai iš eilės gulėjo master'yje, o deploy taimeris
+# serveryje tyliai neveikė — nei žmogus, nei Claude to nematė.
+#
+# Iš kur imama, iš eilės:
+#   1. APP_DIR/VERSIJA — failą rašo deploy-agent.sh po git pull.
+#      Jis NEĮTRAUKTAS į EXCLUDES, tad keliauja kartu su snapshot'u:
+#      atsukus kodą į last_good, grįžta ir TA PATI sena žyma, o ne nauja.
+#   2. GIT_SHA aplinkos kintamasis — jei kas paleidžia be deploy skripto.
+#   3. .git/HEAD — vietinėje aplinkoje, kur nei failo, nei kintamojo nėra.
+#   4. „nezinoma" — geriau tuščia reikšmė nei melaginga.
+# ═══════════════════════════════════════════════════════════
+def _versija():
+    failas = BASE_DIR / "VERSIJA"
+    try:
+        sha = failas.read_text(encoding="utf-8").strip()
+        if sha:
+            return sha[:12]
+    except OSError:
+        pass
+
+    sha = config("GIT_SHA", default="").strip()
+    if sha:
+        return sha[:12]
+
+    try:
+        galva = (BASE_DIR / ".git" / "HEAD").read_text(encoding="utf-8").strip()
+        if galva.startswith("ref: "):
+            vardas = galva[5:].strip()
+            nuoroda = BASE_DIR / ".git" / vardas
+            if nuoroda.exists():
+                return nuoroda.read_text(encoding="utf-8").strip()[:12]
+            # Supakuotos nuorodos (po `git gc`) atskiro failo neturi
+            supakuotos = BASE_DIR / ".git" / "packed-refs"
+            if supakuotos.exists():
+                for eil in supakuotos.read_text(encoding="utf-8").splitlines():
+                    if eil.endswith(" " + vardas):
+                        return eil.split(" ", 1)[0][:12]
+        elif galva:
+            return galva[:12]
+    except OSError:
+        pass
+
+    return "nezinoma"
+
+
+GIT_SHA = _versija()
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"

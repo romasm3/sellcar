@@ -21,8 +21,33 @@ systemd, nginx, psycopg): šviežias git klonas, be produkcijos prieigos.
   nebandyk; iškelk pakeitimus į master ir deploy'ą paleis serverio timeris
 - Gyvą svetainę matai tik per `curl https://autoleft.com/…` — tuo ir
   tikrink, ar darbas pasiekė lankytoją (SKILL.md 8 taisyklė)
+- Prieigos prie 66.94.124.183 (produkcijos VPS) NĖRA: nei ssh, nei
+  systemctl, nei DB. Kodas į svetainę patenka TIK per serverio deploy
+  taimerį, kai commit'as atsiranda master'yje
 - Jei reikia serverio žurnalų ar rankinio deploy'o — paprašyk žmogaus,
-  nemeluok, kad „paleidau".
+  nemeluok, kad „paleidau"
+
+### PO KIEKVIENO DARBO — PATIKRINK, AR JIS GYVAI
+
+Sumerginęs į master, PRIVALAI paleisti:
+
+```bash
+curl -s https://autoleft.com/ | grep -o 'name="versija" content="[^"]*"'
+git rev-parse --short=12 HEAD
+```
+
+ir ataskaitoje VISADA rašyti eilutę:
+
+```
+GYVAI: taip (sha)
+GYVAI: NE (gyvai <sha>, master <sha>, skirtumas N commit'ų)
+```
+
+Jei nesutampa — **pirmoje ataskaitos eilutėje, storai**:
+**„DARBAS DAR NEPASIEKĖ SVETAINĖS"**. Ne pabaigoje, o pačioje pradžioje.
+
+Niekada nerašyk „padaryta ir veikia gyvai", jei versijos žymė to
+nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 - Never run destructive DB commands (DROP, DELETE without WHERE, flush) — always ask first
 - deploy-agent.sh exists for snapshot deploys (last_good rollback)
 

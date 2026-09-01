@@ -89,6 +89,13 @@ PY
 }
 
 apply() {
+  # Versijos žymė: iš jos settings.GIT_SHA, o iš jo — <meta name="versija">
+  # kiekviename puslapyje. Failas NEĮTRAUKTAS į EXCLUDES, tad keliauja su
+  # snapshot'u: atsukus kodą grįžta ir sena žyma, o ne apgaulinga nauja.
+  git -C "$APP_DIR" rev-parse --short=12 HEAD > "${APP_DIR}/VERSIJA" 2>/dev/null \
+    || echo "nezinoma" > "${APP_DIR}/VERSIJA"
+  log "Versija: $(cat "${APP_DIR}/VERSIJA")"
+
   # shellcheck disable=SC1091
   source "${VENV}/bin/activate"
   python manage.py migrate --noinput
@@ -107,8 +114,14 @@ statiniu_bukle() {
   # Grąžina „<manifesto-mtime> <css-vardas-gyvame-HTML>"
   local mt html vardas
   mt="$(stat -c %Y "$STATINIU_MANIFESTAS" 2>/dev/null || echo 0)"
-  html="$(curl -fsS --max-time 10 --unix-socket "$GUNICORN_SOCK" \
-            -H "Host: $HEALTH_HOST" "http://localhost/" 2>/dev/null || true)"
+  # `X-Forwarded-Proto: https` BŪTINAS: produkcijoje SECURE_SSL_REDIRECT
+  # įjungtas, o per soketą užklausa atrodo neapsaugota, tad Django grąžina
+  # 301 su tuščiu kūnu. Be šitos antraštės patikra „nematydavo" HTML ir
+  # klaidingai skelbdavo, kad maišas neveikia (2026-09-01 dėl to buvo
+  # atsuktas visiškai sveikas deploy'as).
+  html="$(curl -fsSL --max-time 10 --unix-socket "$GUNICORN_SOCK" \
+            -H "Host: $HEALTH_HOST" -H "X-Forwarded-Proto: https" \
+            "http://localhost/" 2>/dev/null || true)"
   # `|| true` BŪTINAS: skriptas sukasi su `set -euo pipefail`, o grep be
   # atitikmens grąžina 1 ir pipefail tą 1 paverčia viso priskyrimo klaida —
   # skriptas nutrūkdavo dar PRIEŠ deploy'ą. Pirmą kartą atitikmens ir
@@ -177,7 +190,19 @@ dump_db
 apply
 restart_service
 
-if health_check && tikrinti_statinius "$PRIES_MT" "$PRIES_CSS"; then
+# Gyvybės klausimas yra TIK health_check: ar puslapis atsidaro.
+# Statinių maišas — pageidavimas. Anksčiau jis buvo sujungtas su health
+# per `&&`, ir viena nepavykusi smulkmena atsukdavo visiškai veikiantį
+# darbą. Dabar jis tik įspėja.
+if health_check; then
+  if tikrinti_statinius "$PRIES_MT" "$PRIES_CSS"; then
+    :
+  else
+    log "⚠️  ĮSPĖJIMAS: statinių maišas neatsinaujino, kaip tikėtasi."
+    log "⚠️  Kodas NEATSUKAMAS — svetainė veikia. Lankytojų naršyklės"
+    log "⚠️  gali kurį laiką rodyti seną CSS; patikrink rankiniu būdu:"
+    log "⚠️    curl -s https://${HEALTH_HOST}/ | grep -o 'style\.[a-z0-9]*\.css'"
+  fi
   log "✅ Veikia — atnaujinam 'last_good' į naują versiją."
   snapshot_code
   log "=== Deploy OK ==="

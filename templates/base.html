@@ -34,6 +34,13 @@
     <link rel="stylesheet" href="{% static 'css/form_validation.css' %}">
     {% comment %}Šalies juosta virš paieškos panelės
     (partials/_salis.html){% endcomment %}
+    {% comment %}VERSIJOS ŽYMĖ — kuri kodo versija TIKRAI sukasi.
+    Be jos neįmanoma iš šalies pasakyti, ar darbas pasiekė svetainę:
+    2026-09-01 keturi darbai gulėjo master'yje, o deploy taimeris tyliai
+    neveikė. Patikra: curl -s https://autoleft.com/ |
+    grep -o 'name="versija" content="[^"]*"'{% endcomment %}
+    <meta name="versija" content="{{ GIT_SHA }}">
+
     <link rel="stylesheet" href="{% static 'css/salies_juosta.css' %}">
     <link rel="stylesheet" href="{% static 'css/sonine_juosta.css' %}">
 

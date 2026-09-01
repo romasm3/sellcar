@@ -160,6 +160,30 @@ tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_statiniu_test.sh')),
         'yra dry-run testas deploy logikai')
 
 
+antraste('8. Versijos žymė')
+b = open(os.path.join(BASE, 'templates/base.html'), encoding='utf-8').read()
+tikrink('<meta name="versija" content="{{ GIT_SHA }}">' in b,
+        'base.html turi <meta name="versija">')
+tikrink(hasattr(nustatymai, 'GIT_SHA'), 'settings.GIT_SHA yra')
+tikrink(nustatymai.GIT_SHA and nustatymai.GIT_SHA != 'nezinoma',
+        'GIT_SHA turi reikšmę (%r)' % getattr(nustatymai, 'GIT_SHA', None))
+tikrink('apps.listings.context_processors.versija'
+        in nustatymai.TEMPLATES[0]['OPTIONS']['context_processors'],
+        'kontekstinis procesorius užregistruotas')
+tikrink('VERSIJA' in open(os.path.join(BASE, '.gitignore'), encoding='utf-8').read(),
+        'VERSIJA failas neversijuojamas (jį rašo deploy)')
+
+antraste('9. Statinių patikra neatsuka kodo')
+d2 = open(os.path.join(BASE, 'deploy-agent.sh'), encoding='utf-8').read()
+tikrink('health_check && tikrinti_statinius' not in d2,
+        'patikra NĖRA sujungta su health per &&')
+tikrink('X-Forwarded-Proto: https' in d2,
+        'patikra siunčia X-Forwarded-Proto (kitaip gauna 301)')
+seke = d2[d2.index('if health_check; then'):d2.index('=== Deploy OK ===')]
+tikrink('restore_code' not in seke,
+        'sėkmės šakoje atsukimo nėra')
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

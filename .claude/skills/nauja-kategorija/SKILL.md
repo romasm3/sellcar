@@ -134,6 +134,18 @@ curl -sI https://autoleft.com/ | grep -i cache
 # 3. Nuotrauka iš GYVOS svetainės, ne iš vietinio serverio
 ```
 
+**Versijos žymė — pirmiausia.** Kiekvienas puslapis turi
+`<meta name="versija" content="<sha>">`; ją per `settings.GIT_SHA` deda
+deploy'as. Vienintelis patikimas atsakymas į „ar mano darbas gyvai":
+
+```bash
+curl -s https://autoleft.com/ | grep -o 'name="versija" content="[^"]*"'
+```
+
+Ataskaitoje visada rašoma eilutė `GYVAI: taip (sha)` arba
+`GYVAI: NE (gyvai …, master …, skirtumas N commit'ų)`; antruoju atveju
+pirmoje ataskaitos eilutėje — **„DARBAS DAR NEPASIEKĖ SVETAINĖS"**.
+
 Jei CSS vardas nepasikeitė, o šablonai keitėsi — darbas dar nepasiekė
 lankytojo. Deploy tai tikrina pats (`deploy-agent.sh`,
 `tikrinti_statinius`), bet nuotrauka iš gyvos svetainės yra paskutinis

@@ -44,15 +44,47 @@ if tikrinti_statinius "0" ""; then echo "  ✔ patikra praėjo"; else echo "  �
 echo "── 3. Blogas atvejis: šablonai keitėsi, CSS vardas ne ──"
 FAKE_MT=1000
 if tikrinti_statinius "999" "style.df8265b02e1b.css"; then
-  echo "  ✘ PRALEIDO (neturėtų)"; else echo "  ✔ deploy sustabdytas"; fi
+  echo "  ✘ nepastebėjo (turėtų)"; else echo "  ✔ įspėja (kodas NEATSUKAMAS)"; fi
 
 echo "── 4. Blogas atvejis: manifestas neatsinaujino ──"
 FAKE_MT=1000
 if tikrinti_statinius "1000" ""; then
-  echo "  ✘ PRALEIDO (neturėtų)"; else echo "  ✔ deploy sustabdytas"; fi
+  echo "  ✘ nepastebėjo (turėtų)"; else echo "  ✔ įspėja (kodas NEATSUKAMAS)"; fi
 
 echo "── 5. Blogas atvejis: HTML be maišo po deploy ──"
 FAKE_HTML='<link href="/static/css/style.css">'; FAKE_MT=2000
 if tikrinti_statinius "1000" ""; then
-  echo "  ✘ PRALEIDO (neturėtų)"; else echo "  ✔ deploy sustabdytas"; fi
+  echo "  ✘ nepastebėjo (turėtų)"; else echo "  ✔ įspėja (kodas NEATSUKAMAS)"; fi
+echo "── 6. Statinių patikra NEATSUKA kodo ──"
+# 2026-09-01: patikra buvo sujungta su health per `&&`, tad viena
+# nepavykusi smulkmena atsukdavo visiškai veikiantį deploy'ą.
+SRC=/home/user/sellcar/deploy-agent.sh
+if grep -q 'health_check && tikrinti_statinius' "$SRC"; then
+  echo "  ✘ patikra vis dar gali atsukti kodą"; exit 1
+else
+  echo "  ✔ health ir statinių patikra atskirti"
+fi
+if grep -q 'restore_code' "$SRC" && \
+   awk '/^if health_check; then/,/^else/' "$SRC" | grep -q 'restore_code'; then
+  echo "  ✘ atsukimas pasiekiamas iš sėkmės šakos"; exit 1
+else
+  echo "  ✔ atsukimas tik iš health FAIL šakos"
+fi
+
+echo "── 7. Patikra siunčia X-Forwarded-Proto ──"
+# Be jos Django (SECURE_SSL_REDIRECT) grąžina 301 tuščiu kūnu, ir
+# patikra „nemato" HTML.
+if grep -q 'X-Forwarded-Proto: https' "$SRC"; then
+  echo "  ✔ antraštė siunčiama"
+else
+  echo "  ✘ antraštės nėra — patikra gaus 301"; exit 1
+fi
+
+echo "── 8. Deploy įrašo versijos žymę ──"
+if grep -q 'rev-parse --short=12 HEAD > "${APP_DIR}/VERSIJA"' "$SRC"; then
+  echo "  ✔ VERSIJA rašoma apply() metu"
+else
+  echo "  ✘ versijos žymė nerašoma"; exit 1
+fi
+
 echo "VISKAS"

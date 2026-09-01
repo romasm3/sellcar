@@ -349,3 +349,14 @@ def salis(request):
         'salies_kiekis': kiekis(),
         'salies_sarasas': _lauk('salies_sarasas'),
     }
+
+
+# ═══════════════════════════════════════════════════════════════════
+# VERSIJOS ŽYMĖ visiems puslapiams (settings.GIT_SHA).
+#
+# Pigu: reikšmė apskaičiuojama kartą, importuojant nustatymus, ir
+# nekinta iki proceso perkrovimo — jokių failų skaitymų per užklausą.
+# ═══════════════════════════════════════════════════════════════════
+def versija(request):
+    from django.conf import settings
+    return {'GIT_SHA': getattr(settings, 'GIT_SHA', 'nezinoma')}
