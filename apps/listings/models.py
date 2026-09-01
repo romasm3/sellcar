@@ -1806,7 +1806,11 @@ class Listing(PaskelbimoLaikas, models.Model):
 
 
     def get_country_display_name(self):
-        return dict(self.COUNTRY_CHOICES).get(self.country, self.country)
+        # salys.vardas(), o ne dict(COUNTRY_CHOICES): pasirinkimai() grąžina
+        # GRUPUOTĄ struktūrą (<optgroup>), tad dict() raktais paverčia grupių
+        # vardus, ir viskas, kas ne Lietuva, iškrisdavo į kodą — vietoj
+        # „Berlin, Vokietija" matydavosi „Berlin, DE".
+        return salys.vardas(self.country)
 
     def get_state_display_name(self):
         return dict(self.US_STATE_CHOICES).get(self.state, self.state)
@@ -3223,7 +3227,11 @@ class Truck(PaskelbimoLaikas, models.Model):
         return reverse('truck_detail', kwargs={'pk': self.pk})
 
     def get_country_display_name(self):
-        return dict(self.COUNTRY_CHOICES).get(self.country, self.country)
+        # salys.vardas(), o ne dict(COUNTRY_CHOICES): pasirinkimai() grąžina
+        # GRUPUOTĄ struktūrą (<optgroup>), tad dict() raktais paverčia grupių
+        # vardus, ir viskas, kas ne Lietuva, iškrisdavo į kodą — vietoj
+        # „Berlin, Vokietija" matydavosi „Berlin, DE".
+        return salys.vardas(self.country)
 
     def get_state_display_name(self):
         return dict(self.US_STATE_CHOICES).get(self.state, self.state)

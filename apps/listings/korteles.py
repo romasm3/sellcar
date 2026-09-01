@@ -60,6 +60,12 @@ def kortele(objektas, perziureta=None, issaugotas=False):
         'img': _nuotrauka(objektas),
         'spec': spec,
         'miestas': miestas,
+        # Vieta žemėlapio burbule rodoma su šalies vėliavėle
+        # (templates/partials/_veliava.html) — šaltinis tas pats skelbimo
+        # laukas, kurį pardavėjas nurodė kontaktų bloke.
+        'salis': getattr(objektas, 'country', '') or '',
+        'salies_vardas': (str(objektas.get_country_display())
+                          if getattr(objektas, 'country', '') else ''),
         'vin': getattr(objektas, 'vin', '') or '',
         'perziureta': perziureta,
         'issaugotas': issaugotas,

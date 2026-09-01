@@ -1,0 +1,20 @@
+{% load i18n static salies_tags %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ŠALIES VĖLIAVĖLĖ — viena dalis visoms vietoms.
+
+Naudojama ten, kur rodoma skelbimo VIETA: kontaktų bloke skelbimo
+puslapyje, kortelėje sąraše, žemėlapio burbule ir išsaugotuose
+skelbimuose. Kopijų kitur būti negali.
+
+    {% include 'partials/_veliava.html' with kodas=listing.country %}
+
+SVG, ne emoji: Windows vėliavų emoji neturi ir vietoj jų rodo dvi
+raides kvadratėliuose. Failai — static/flags/<kodas>.svg (lipis
+flag-icons, MIT), po vieną kiekvienai salys.py šaliai.
+
+Šalies nenurodžius neišvedama nieko — nei tuščio kvadrato, nei klaidos.
+
+Parametrai:
+    kodas — šalies kodas ('LT', 'de'); tuščias = nerodom
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% if kodas %}{% with zemas=kodas|lower vardas=kodas|salies_vardas %}{% if zemas|veliava_yra %}<img class="veliava" src="{% static 'flags/'|add:zemas|add:'.svg' %}" width="16" height="12" alt="{{ vardas }}" title="{{ vardas }}" loading="lazy">{% endif %}{% endwith %}{% endif %}

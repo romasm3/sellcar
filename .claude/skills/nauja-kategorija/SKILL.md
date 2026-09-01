@@ -26,6 +26,46 @@ Greitas orientyras, kurį etaloną kopijuoti:
 
 ## 0. Prieš rašant kodą — visada
 
+### NUOLATINĖS TAISYKLĖS — galioja kiekvienam paviršiui
+
+Pilnas tekstas ir patikros būdai: **`docs/taisykles.md`**. Santrauka, be
+kurios darbo neatiduodam:
+
+**1. Vieta yra svarbiausias filtras.** Kiekviename filtrų paviršiuje —
+greitojoje panelėje, šoninėje juostoje, išplėstinėje paieškoje ir
+mobiliame rodinyje — vieta yra PIRMA ir visada matoma. Niekada
+neslepiama po „Daugiau filtrų", niekada nenustumiama žemiau markės ar
+kainos. Tvarka visada: **šalis → miestas → spindulys**.
+
+**2. Kortelė rodo tik tai, ko reikia apsispręsti, ar verta atidaryti:**
+nuotrauka, pavadinimas, metai, kaina, pagrindiniai trys parametrai ir
+VIETA. Komplektacija, įranga, VIN, aprašymas, istorija — kortelėje
+NErodoma, tik skelbimo viduje.
+
+**3. Skelbimo puslapyje kontaktų blokas yra pagrindinis elementas**, ne
+priedas: pardavėjo tipas, telefonas, žinutė ir TIKSLI VIETA — miestas,
+adresas, žemėlapis su žymekliu ir „Kaip nuvažiuoti". Matomas be slinkimo
+iki galo.
+
+**4. Kontaktai visada per `contact_block.html`** — viena dalis visai
+svetainei, jokių kopijų.
+
+**5. Šalies vėliavėlė rodoma visur, kur rodoma vieta:** kontaktų bloke,
+kortelėje, žemėlapio burbule, išsaugotuose skelbimuose. Formatas
+`[vėliava] Vilnius, Lietuva`, šalies vardas pilnas ir išverstas.
+Šaltinis — skelbimo šalis iš kontaktų bloko, jokio spėliojimo pagal
+paskyrą ar IP. SVG (`static/flags/<kodas>.svg`), 16×12 px, viena dalis
+`templates/partials/_veliava.html`. Be šalies — tik miestas, be tuščio
+kvadrato.
+
+> Vėliavos vardas vietos eilutėje — IŠVERSTAS (`salys.vardas`). Šalies
+> juostoje virš panelės — angliškas ir neverčiamas (`salys.VARDAI_EN`).
+> Tai skirtingi paviršiai, nesupainiok.
+
+**6. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
+paslaugos ir kainos kortelėje, viskas kita — įmonės puslapyje.
+
+
 ### Sek `boats` patterną, NE `trucks`
 
 | | `boats_views.py` ✅ | `trucks_views.py` ❌ |
@@ -793,6 +833,19 @@ except RuntimeError: pass
 - [ ] Kortelėse kategorijos laukai (abu išdėstymai)
 - [ ] Detalės puslapyje visi užpildyti laukai + ypatumai
 - [ ] **Kitos kategorijos nepakitusios** — cars, trucks, boats, trailers, parts
+
+Nuolatinės taisyklės (`docs/taisykles.md`) — tikrinama KIEKVIENAM darbui,
+ne tik naujai kategorijai:
+
+- [ ] Vieta — pirmas filtras visuose keturiuose paviršiuose
+      (panelė, šoninė juosta, išplėstinė, mobilus); šalis → miestas → spindulys
+- [ ] Kortelėje tik: nuotrauka, pavadinimas, metai, kaina, 3 parametrai, vieta
+      (jokios komplektacijos, įrangos, VIN, aprašymo, istorijos)
+- [ ] Kontaktų blokas skelbime — su tikslia vieta, žemėlapiu ir
+      „Kaip nuvažiuoti"; matomas be slinkimo iki galo
+- [ ] Kontaktai tik per `contact_block.html`
+- [ ] Šalies vėliavėlė per `partials/_veliava.html` visose keturiose
+      vietose; be šalies — tik miestas
 
 ### Testų artefaktai, kurie atrodo kaip klaidos
 

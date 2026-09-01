@@ -124,7 +124,7 @@
                     {% if saved.listing.transmission %}<span>{{ saved.listing.transmission.name|tdb }}</span>{% endif %}
                     {% if saved.listing.engine_capacity %}<span>{{ saved.listing.engine_capacity }} L{% if saved.listing.power %}, {{ saved.listing.power }} kW{% endif %}</span>
                     {% elif saved.listing.power %}<span>{{ saved.listing.power }} kW</span>{% endif %}
-                    {% if saved.listing.get_display_location %}<span>{{ saved.listing.get_display_location }}</span>{% endif %}
+                    {% if saved.listing.get_display_location %}<span>{% include 'partials/_veliava.html' with kodas=saved.listing.country %}{{ saved.listing.get_display_location }}</span>{% endif %}
                 </div>
 
                 <textarea class="si-pastaba no-print" rows="2"

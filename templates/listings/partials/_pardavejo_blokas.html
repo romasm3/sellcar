@@ -42,7 +42,10 @@ Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
       {% endif %}
 
       <div class="pard-vieta">
-        {% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
+        {% comment %}Vėliavėlė — viena dalis visai svetainei
+        (templates/partials/_veliava.html). Šaltinis — skelbimo šalis,
+        kurią pardavėjas nurodė kontaktų bloke; jokio spėliojimo.{% endcomment %}
+        {% include 'partials/_veliava.html' with kodas=listing.country %}{% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
       </div>
 
       {% if p.dealer_subscription_active and p.website %}

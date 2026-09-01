@@ -324,3 +324,21 @@ img {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ŠALIES VĖLIAVĖLĖ prie vietos (templates/partials/_veliava.html).
+   Vienas stilius visoms keturioms vietoms: kontaktų blokui, kortelei,
+   žemėlapio burbului ir išsaugotiems skelbimams.
+   Rėmelis — kad baltos vėliavos (JP, PL) nesusilietų su fonu.
+   ═══════════════════════════════════════════════════════════════════ */
+.veliava {
+    width: 16px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: -1px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    object-fit: cover;
+    flex: 0 0 auto;
+    display: inline-block;
+}

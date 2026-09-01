@@ -5007,179 +5007,179 @@ msgstr "Motorcycle type is required"
 
 #: apps/listings/salys.py:40
 msgid "Lietuva"
-msgstr ""
+msgstr "Lithuania"
 
 #: apps/listings/salys.py:43
 msgid "Latvija"
-msgstr ""
+msgstr "Latvia"
 
 #: apps/listings/salys.py:43
 msgid "Estija"
-msgstr ""
+msgstr "Estonia"
 
 #: apps/listings/salys.py:44
 msgid "Lenkija"
-msgstr ""
+msgstr "Poland"
 
 #: apps/listings/salys.py:44
 msgid "Vokietija"
-msgstr ""
+msgstr "Germany"
 
 #: apps/listings/salys.py:48
 msgid "Airija"
-msgstr ""
+msgstr "Ireland"
 
 #: apps/listings/salys.py:48
 msgid "Austrija"
-msgstr ""
+msgstr "Austria"
 
 #: apps/listings/salys.py:48
 msgid "Belgija"
-msgstr ""
+msgstr "Belgium"
 
 #: apps/listings/salys.py:49
 msgid "Bulgarija"
-msgstr ""
+msgstr "Bulgaria"
 
 #: apps/listings/salys.py:49 apps/listings/translatable_db.py:1835
 msgid "Čekija"
-msgstr ""
+msgstr "Czechia"
 
 #: apps/listings/salys.py:49
 msgid "Danija"
-msgstr ""
+msgstr "Denmark"
 
 #: apps/listings/salys.py:50
 msgid "Graikija"
-msgstr ""
+msgstr "Greece"
 
 #: apps/listings/salys.py:50
 msgid "Islandija"
-msgstr ""
+msgstr "Iceland"
 
 #: apps/listings/salys.py:50
 msgid "Ispanija"
-msgstr ""
+msgstr "Spain"
 
 #: apps/listings/salys.py:51
 msgid "Italija"
-msgstr ""
+msgstr "Italy"
 
 #: apps/listings/salys.py:51
 msgid "Kipras"
-msgstr ""
+msgstr "Cyprus"
 
 #: apps/listings/salys.py:51
 msgid "Kroatija"
-msgstr ""
+msgstr "Croatia"
 
 #: apps/listings/salys.py:52
 msgid "Lichtenšteinas"
-msgstr ""
+msgstr "Liechtenstein"
 
 #: apps/listings/salys.py:52
 msgid "Liuksemburgas"
-msgstr ""
+msgstr "Luxembourg"
 
 #: apps/listings/salys.py:53
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: apps/listings/salys.py:53
 msgid "Norvegija"
-msgstr ""
+msgstr "Norway"
 
 #: apps/listings/salys.py:53
 msgid "Nyderlandai"
-msgstr ""
+msgstr "Netherlands"
 
 #: apps/listings/salys.py:54
 msgid "Portugalija"
-msgstr ""
+msgstr "Portugal"
 
 #: apps/listings/salys.py:54 apps/listings/translatable_db.py:1765
 msgid "Prancūzija"
-msgstr ""
+msgstr "France"
 
 #: apps/listings/salys.py:55
 msgid "Rumunija"
-msgstr ""
+msgstr "Romania"
 
 #: apps/listings/salys.py:55
 msgid "Slovakija"
-msgstr ""
+msgstr "Slovakia"
 
 #: apps/listings/salys.py:55
 msgid "Slovėnija"
-msgstr ""
+msgstr "Slovenia"
 
 #: apps/listings/salys.py:56
 msgid "Suomija"
-msgstr ""
+msgstr "Finland"
 
 #: apps/listings/salys.py:56 apps/listings/translatable_db.py:1853
 msgid "Švedija"
-msgstr ""
+msgstr "Sweden"
 
 #: apps/listings/salys.py:56 apps/listings/translatable_db.py:1854
 msgid "Šveicarija"
-msgstr ""
+msgstr "Switzerland"
 
 #: apps/listings/salys.py:57
 msgid "Vengrija"
-msgstr ""
+msgstr "Hungary"
 
 #: apps/listings/salys.py:61
 msgid "Baltarusija"
-msgstr ""
+msgstr "Belarus"
 
 #: apps/listings/salys.py:61
 msgid "Moldova"
-msgstr ""
+msgstr "Moldova"
 
 #: apps/listings/salys.py:62
 msgid "Rusija"
-msgstr ""
+msgstr "Russia"
 
 #: apps/listings/salys.py:62
 msgid "Ukraina"
-msgstr ""
+msgstr "Ukraine"
 
 #: apps/listings/salys.py:67
 msgid "Didžioji Britanija"
-msgstr ""
+msgstr "United Kingdom"
 
 #: apps/listings/salys.py:67
 msgid "Gruzija"
-msgstr ""
+msgstr "Georgia"
 
 #: apps/listings/salys.py:68
 msgid "Japonija"
-msgstr ""
+msgstr "Japan"
 
 #: apps/listings/salys.py:68
 msgid "Jungtinės Valstijos"
-msgstr ""
+msgstr "United States"
 
 #: apps/listings/salys.py:69
 msgid "Jungtiniai Arabų Emyratai"
-msgstr ""
+msgstr "United Arab Emirates"
 
 #: apps/listings/salys.py:69
 msgid "Kazachstanas"
-msgstr ""
+msgstr "Kazakhstan"
 
 #: apps/listings/salys.py:70
 msgid "Turkija"
-msgstr ""
+msgstr "Turkey"
 
 #: apps/listings/salys.py:72
 msgid "Kanada"
-msgstr ""
+msgstr "Canada"
 
 #: apps/listings/salys.py:72
 msgid "Australija"
-msgstr ""
+msgstr "Australia"
 
 #: apps/listings/salys.py:82
 msgid "Kaimyninės šalys"

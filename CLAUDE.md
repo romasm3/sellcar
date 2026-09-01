@@ -29,6 +29,16 @@ Django vehicle marketplace, Lithuanian-first. PRODUCTION server — be careful.
   from the view; several views used to narrow it to US-only by accident.
   A new category form MUST use this partial and those tags.
 
+## Nuolatinės taisyklės — docs/taisykles.md
+- Vieta yra svarbiausias filtras: pirma ir visada matoma kiekviename
+  paviršiuje (panelė, šoninė juosta, išplėstinė, mobilus), tvarka
+  šalis → miestas → spindulys. Kortelėje tik tai, ko reikia apsispręsti,
+  ar verta atidaryti. Kontaktų blokas skelbime — pagrindinis elementas su
+  tikslia vieta ir žemėlapiu. Šalies vėliavėlė visur, kur rodoma vieta,
+  per `templates/partials/_veliava.html`.
+- Pilnas sąrašas ir patikros būdai — `docs/taisykles.md`. Tikrinama
+  PRIEŠ atiduodant kiekvieną darbą, ne tik naują kategoriją.
+
 ## Workflow
 - Commit as you go: small logical commits after each meaningful step, Conventional Commits format (feat/fix/chore...), then push
 - Merge to master yourself when the work is done — do NOT ask each time.
