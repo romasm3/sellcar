@@ -4,17 +4,21 @@
 
 Naudojama ten, kur rodoma skelbimo VIETA: kontaktų bloke skelbimo
 puslapyje, kortelėje sąraše, žemėlapio burbule ir išsaugotuose
-skelbimuose. Kopijų kitur būti negali.
+skelbimuose — ir šalies juostoje virš paieškos panelės. Kopijų kitur
+būti negali.
 
     {% include 'partials/_veliava.html' with kodas=listing.country %}
 
 SVG, ne emoji: Windows vėliavų emoji neturi ir vietoj jų rodo dvi
 raides kvadratėliuose. Failai — static/flags/<kodas>.svg (lipis
-flag-icons, MIT), po vieną kiekvienai salys.py šaliai.
+flag-icons, MIT), po vieną kiekvienai salys.py šaliai, plius
+„visos.svg" gaublys juostos punktui „Visos šalys".
 
 Šalies nenurodžius neišvedama nieko — nei tuščio kvadrato, nei klaidos.
 
 Parametrai:
-    kodas — šalies kodas ('LT', 'de'); tuščias = nerodom
+    kodas  — šalies kodas ('LT', 'de', 'visos'); tuščias = nerodom
+    vardas — pavadinimas alt/title, jei ne šalis (pvz. „Visos šalys")
+    didele — 20×15 vietoj 16×12 (šalies juostos eilutė)
 ═══════════════════════════════════════════════════════════════════════
-{% endcomment %}{% if kodas %}{% with zemas=kodas|lower vardas=kodas|salies_vardas %}{% if zemas|veliava_yra %}<img class="veliava" src="{% static 'flags/'|add:zemas|add:'.svg' %}" width="16" height="12" alt="{{ vardas }}" title="{{ vardas }}" loading="lazy">{% endif %}{% endwith %}{% endif %}
+{% endcomment %}{% if kodas %}{% with zemas=kodas|lower %}{% if zemas|veliava_yra %}{% firstof vardas kodas|salies_vardas as pav %}<img class="veliava{% if didele %} veliava-didele{% endif %}" src="{% static 'flags/'|add:zemas|add:'.svg' %}" width="{% if didele %}20{% else %}16{% endif %}" height="{% if didele %}15{% else %}12{% endif %}" alt="{{ pav }}" title="{{ pav }}" loading="lazy">{% endif %}{% endwith %}{% endif %}

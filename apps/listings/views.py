@@ -8271,6 +8271,14 @@ def filter_listings(params, user=None, category=None, base_qs=None):
         listings = listings.filter(country='US', state=params['state_filter'])
     elif params.get('country_filter'):
         listings = listings.filter(country=params['country_filter'])
+    elif params.get('salis'):
+        # Šalies juosta virš panelės. Čia, o ne tik listing_list'e, kad
+        # mygtuko skaičius panelėje ir juostos skaičiukai sutaptų —
+        # abu eina per filter_listings.
+        from apps.listings import salies_juosta
+        _kodas = salies_juosta.kodas_is_reiksmes(params.get('salis'))
+        if _kodas:
+            listings = listings.filter(country=_kodas)
 
     posted_within = params.get('posted_within')
     if posted_within:

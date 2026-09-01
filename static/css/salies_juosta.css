@@ -22,6 +22,8 @@
 }
 
 .salies-smeigtukas { width: 18px; height: 18px; flex: 0 0 auto; color: #1A1A1A; }
+/* Eilutės vėliavėlė kiek didesnė nei sąraše — kaip demo (.fl-b) */
+.salies-eilute .veliava-didele { margin-right: 0; }
 .salies-vardas { font-size: 15px; font-weight: 600; color: #1A1A1A; }
 .salies-kiekis { font-size: 14px; color: #6B7280; min-width: 0;
                  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -87,7 +89,9 @@
     color: #1A1A1A;
 }
 .salies-punktas:hover, .salies-punktas.is-on { background: #F4F4F5; }
-.salies-punktas .fi { width: 24px; height: 24px; border-radius: 50%; flex: 0 0 auto; }
+.salies-punktas .veliava { margin-right: 0; }
+/* „Visos šalys" — pirma ir atskirta linija nuo šalių sąrašo */
+.salies-punktas.su-skirtuku { border-bottom: 1px solid #E5E7EB; }
 .salies-punkto-vardas { flex: 1 1 auto; font-size: 15px; font-weight: 500;
                         overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .salies-punktas.is-on .salies-punkto-vardas { font-weight: 700; }

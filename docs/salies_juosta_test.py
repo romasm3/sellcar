@@ -119,27 +119,57 @@ tikrink(lt_vardas == en_vardas == 'Germany',
         'pavadinimas nekinta pagal sąsajos kalbą (lt=%r, en=%r)' % (lt_vardas, en_vardas))
 
 
-antraste('2. Skaičiai — tikri, iš DB')
+antraste('2. Skaičiai — ta pačia funkcija kaip mygtuko skaičius')
 cache.clear()
 k = sj.kiekiai()
 tikrink(k == KIEK, 'kiekiai %s (laukta %s)' % (k, KIEK))
 tikrink(k.get('DE') == 4, 'juodraštis į skaičiukus nepateko')
 
+# Juostos skaičiukas ir panelės mygtukas negali prasilenkti — abu eina
+# per views.filter_listings.
+from apps.listings.views import filter_listings
+cache.clear()
+per_uzklausa = sj.kiekiai(uzklausa('/?section=cars'))
+for kodas, laukta in KIEK.items():
+    mygtukas = filter_listings({'salis': kodas.lower()}, user=None).count()
+    tikrink(per_uzklausa.get(kodas) == mygtukas == laukta,
+            '%s: juosta %s = mygtukas %s = %s'
+            % (kodas, per_uzklausa.get(kodas), mygtukas, laukta))
+tikrink(filter_listings({'salis': 'visos'}, user=None).count() == sum(KIEK.values()),
+        '„visos" mygtuke — bendras kiekis')
+
 
 antraste('3. Sąrašas')
 cache.clear()
 eil = sj.sarasas('LT', request=uzklausa('/'))
-tikrink([e['kodas'] for e in eil] == ['LT', 'DE', 'PL', 'LV'],
-        'rikiuota pagal kiekį, ne abėcėlę: %s' % [e['kodas'] for e in eil])
-tikrink(all(e['kiek'] > 0 for e in eil), 'šalys be skelbimų nerodomos')
-tikrink(len(eil) == 4, 'sąraše tik tos, kurios turi skelbimų (%d)' % len(eil))
-tikrink(eil[0]['dabartine'] and not any(e['dabartine'] for e in eil[1:]),
+tikrink(eil[0]['zemas'] == 'visos', '„Visos šalys" — PIRMAS sąraše')
+tikrink(eil[0]['skirtukas'], 'atskirtas linija')
+tikrink(eil[0]['kiek'] == sum(KIEK.values()),
+        '„Visos šalys" rodo bendrą kiekį (%s)' % eil[0]['kiek'])
+salys_eil = eil[1:]
+tikrink([e['kodas'] for e in salys_eil] == ['LT', 'DE', 'PL', 'LV'],
+        'rikiuota pagal kiekį, ne abėcėlę: %s' % [e['kodas'] for e in salys_eil])
+tikrink(all(e['kiek'] > 0 for e in salys_eil), 'šalys be skelbimų nerodomos')
+tikrink(len(salys_eil) == 4, 'sąraše tik tos, kurios turi skelbimų (%d)' % len(salys_eil))
+tikrink(salys_eil[0]['dabartine'] and not any(e['dabartine'] for e in salys_eil[1:]),
         'pažymėta tik dabartinė')
-tikrink(eil[1]['vardas'] == 'Germany', 'vardas angliškas sąraše')
+tikrink(salys_eil[1]['vardas'] == 'Germany', 'vardas angliškas sąraše')
 # pasirinkta be skelbimų — vis tiek rodoma
 eil2 = sj.sarasas('JP', request=uzklausa('/'))
 tikrink(any(e['kodas'] == 'JP' and e['dabartine'] for e in eil2),
         'pasirinkta šalis rodoma net be skelbimų')
+
+antraste('3b. „Visos šalys"')
+tikrink(sj.pasirinkta(uzklausa('/?salis=visos')) == 'VISOS', '?salis=visos atpažįstamas')
+tikrink(sj.kodas_is_reiksmes('visos') == '', '„visos" filtrui — tuščias kodas')
+tikrink(sj.kodas_is_reiksmes('de') == 'DE', '„de" filtrui — DE')
+cache.clear()
+tikrink(sj.filtruoti(Listing.objects.filter(status='active'),
+                     uzklausa('/?salis=visos')).count() == sum(KIEK.values()),
+        '„Visos šalys" nefiltruoja')
+k2 = sj.kontekstas(uzklausa('/?salis=visos'))
+tikrink(k2['salies_vardas'] == 'Visos šalys', 'juostoje rodo „Visos šalys"')
+tikrink(k2['salies_kiekis'] == sum(KIEK.values()), 'ir bendrą kiekį')
 
 
 antraste('4. Pasirinkimo grandinė: ?salis= → slapukas → numatytoji')
@@ -200,7 +230,15 @@ html = Template("{% include 'listings/partials/_salies_juosta.html' %}").render(
     Context({'request': r, **sj.kontekstas(r)}))
 tikrink('Lithuania' in html, 'rodoma dabartinė šalis angliškai')
 tikrink('salies-juosta' in html and 'salies-eilute' in html, 'yra juostos struktūra')
-tikrink(html.count('salies-punktas') >= 4, 'sąraše visos 4 šalys')
+tikrink(html.count('salies-punktas') >= 5, 'sąraše „Visos šalys" ir 4 šalys')
+tikrink('Visos šalys' in html, 'yra „Visos šalys" eilutė')
+tikrink('su-skirtuku' in html, '„Visos šalys" atskirta linija')
+tikrink('flags/visos.svg' in html, 'gaublio ikona')
+# Eilutės vėliavėlė ateina iš bendros dalies (_veliava.html) — savo
+# klasės neturi, atpažįstam pagal .veliava-didele.
+tikrink('veliava-didele' in html, 'eilutėje yra vėliavėlė prieš pavadinimą')
+tikrink(html.count('partials/_veliava') == 0 and html.count('class="veliava') >= 2,
+        'vėliavos per bendrą dalį, be savo <img>')
 tikrink('Germany' in html and 'Poland' in html, 'kitos šalys angliškai')
 tikrink('Lietuva' not in html and 'Vokietija' not in html,
         'lietuviškų pavadinimų juostoje nėra')

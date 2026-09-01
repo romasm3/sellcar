@@ -24,6 +24,9 @@ Duomenys ateina iš salies_juosta.kontekstas().
             d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/>
       <circle cx="12" cy="10" r="2.6"/>
     </svg>
+    {% comment %}Vėliavėlė prieš pavadinimą — ta pati dalis kaip visur
+    kitur (templates/partials/_veliava.html).{% endcomment %}
+    {% include 'partials/_veliava.html' with kodas=salies_kodas vardas=salies_vardas didele=1 %}
     <span class="salies-vardas">{{ salies_vardas }}</span>
     <span class="salies-kiekis">· {% blocktrans count counter=salies_kiekis %}{{ counter }} skelbimas{% plural %}{{ counter }} skelbimai{% endblocktrans %}</span>
 
@@ -48,9 +51,9 @@ Duomenys ateina iš salies_juosta.kontekstas().
     <div class="salies-sarasas">
       {% for s in salies_sarasas %}
       <a href="{{ s.url }}"
-         class="salies-punktas{% if s.dabartine %} is-on{% endif %}"
+         class="salies-punktas{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}"
          x-show="!q || '{{ s.vardas|escapejs }}'.toLowerCase().includes(q.toLowerCase())">
-        <span class="fi fi-{{ s.kodas|lower }} fis"></span>
+        {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele='' %}
         <span class="salies-punkto-vardas">{{ s.vardas }}</span>
         <span class="salies-punkto-kiekis">{{ s.kiek|intcomma }}</span>
         {% if s.dabartine %}

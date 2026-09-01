@@ -62,8 +62,9 @@ katalogas = os.path.join(BASE, 'static', 'flags')
 turimos = {f[:-4].lower() for f in os.listdir(katalogas) if f.endswith('.svg')}
 truksta = {k.lower() for k in salys.VARDAI} - turimos
 tikrink(not truksta, 'visos šalys turi SVG (trūksta: %s)' % sorted(truksta))
-tikrink(len(turimos) == len(salys.VARDAI),
-        'failų tiek pat, kiek šalių (%d / %d)' % (len(turimos), len(salys.VARDAI)))
+# „visos.svg" — gaublys juostos punktui „Visos šalys", ne šalis
+tikrink(turimos - {k.lower() for k in salys.VARDAI} == {'visos'},
+        'be šalių tik gaublys (%s)' % sorted(turimos - {k.lower() for k in salys.VARDAI}))
 for kodas in list(turimos)[:5]:
     turinys = open(os.path.join(katalogas, kodas + '.svg'), encoding='utf-8').read(400)
     tikrink(turinys.lstrip().startswith('<svg') or '<svg' in turinys[:200],

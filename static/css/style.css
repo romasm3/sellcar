@@ -342,3 +342,6 @@ img {
     flex: 0 0 auto;
     display: inline-block;
 }
+
+/* Didesnis variantas — šalies juostos eilutei (demo .fl-b) */
+.veliava-didele { width: 20px; height: 15px; }

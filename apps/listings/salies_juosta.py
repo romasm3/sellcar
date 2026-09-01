@@ -18,9 +18,11 @@ sąrašas. Šalys be skelbimų sąraše nerodomos (išskyrus pasirinktąją, kad
 eilutė neliktų tuščia).
 """
 from django.core.cache import cache
+from django.utils.translation import gettext as _
 
 from . import salys
 
+VISOS = 'visos'                           # ?salis=visos — be šalies filtro
 SLAPUKAS = 'salis'
 SLAPUKO_AMZIUS = 60 * 60 * 24 * 365      # metai
 KESO_RAKTAS = 'salies_juostos_kiekiai'
@@ -28,13 +30,26 @@ KESO_LAIKAS = 300                         # 5 min — skaičiukai, ne pinigai
 
 
 def _kodas(reiksme):
-    """'de' → 'DE'. Nežinomą kodą atmetam, kad ?salis=xx nefiltruotų tuščiai."""
+    """'de' → 'DE', 'visos' → 'VISOS'. Nežinomą kodą atmetam, kad
+    ?salis=xx nefiltruotų tuščiai."""
     kodas = str(reiksme or '').strip().upper()
+    if kodas == VISOS.upper():
+        return kodas
     return kodas if kodas in salys.VARDAI else ''
 
 
+def kodas_is_reiksmes(reiksme):
+    """Šalies kodas filtravimui: 'de' → 'DE', 'visos' → '' (nefiltruojam).
+
+    Naudoja ir views.filter_listings — tas pats variklis, kuris skaičiuoja
+    mygtuko skaičių panelėje.
+    """
+    kodas = _kodas(reiksme)
+    return '' if kodas in ('', VISOS.upper()) else kodas
+
+
 def pasirinkta(request):
-    """Kuri šalis rodoma juostoje. Visada grąžina galiojantį kodą."""
+    """Kuri šalis rodoma juostoje. Visada grąžina galiojantį kodą arba VISOS."""
     return (_kodas(request.GET.get('salis'))
             or _kodas(request.COOKIES.get(SLAPUKAS))
             or salys.NUMATYTA)
@@ -46,24 +61,43 @@ def aiskiai_pasirinkta(request):
                 or _kodas(request.COOKIES.get(SLAPUKAS)))
 
 
-def kiekiai(vieso_qs=None):
-    """{'LT': 4821, 'DE': 217, …} — tikri skaičiai iš DB.
+def _be_salies(params):
+    """Tie patys filtrai, tik be pačios šalies ir puslapiavimo."""
+    svarus = params.copy()
+    for raktas in ('salis', 'page'):
+        svarus.pop(raktas, None)
+    return svarus
 
-    Kešuojama 5 min: juosta renderinama kiekviename puslapyje, o
-    GROUP BY per visus skelbimus nėra nemokamas.
+
+def kiekiai(request=None, vieso_qs=None):
+    """{'LT': 4821, 'DE': 217, …} — kiek skelbimų kurioje šalyje.
+
+    Skaičiuojama TA PAČIA funkcija, kuri duoda skaičių ant panelės
+    mygtuko (views.filter_listings), tik sugrupuota pagal šalį — todėl
+    juostos skaičiukas ir mygtukas negali prasilenkti.
+
+    Kešuojama 5 min pagal esamus filtrus: juosta renderinama kiekviename
+    puslapyje, o GROUP BY nėra nemokamas.
     """
-    esami = cache.get(KESO_RAKTAS)
+    from django.db.models import Count
+    from .views import filter_listings, _public_listings_qs
+
+    if request is None:
+        eilutes = ((vieso_qs if vieso_qs is not None else _public_listings_qs(None))
+                   .exclude(country='').values('country').annotate(kiek=Count('id')))
+        return {e['country']: e['kiek'] for e in eilutes}
+
+    params = _be_salies(request.GET)
+    raktas = '%s:%s' % (KESO_RAKTAS, params.urlencode())
+    esami = cache.get(raktas)
     if esami is not None:
         return esami
 
-    from django.db.models import Count
-    if vieso_qs is None:
-        from .views import _public_listings_qs
-        vieso_qs = _public_listings_qs(None)
-    eilutes = (vieso_qs.exclude(country='')
-               .values('country').annotate(kiek=Count('id')))
+    qs = filter_listings(params, user=getattr(request, 'user', None),
+                         base_qs=vieso_qs)
+    eilutes = qs.exclude(country='').values('country').annotate(kiek=Count('id'))
     surinkta = {e['country']: e['kiek'] for e in eilutes}
-    cache.set(KESO_RAKTAS, surinkta, KESO_LAIKAS)
+    cache.set(raktas, surinkta, KESO_LAIKAS)
     return surinkta
 
 
@@ -80,8 +114,12 @@ def _nuoroda(request, kodas):
 
 
 def sarasas(dabartine, vieso_qs=None, request=None):
-    """Šalys juostos sąrašui — pagal skelbimų kiekį, ne abėcėlę."""
-    skaiciai = kiekiai(vieso_qs)
+    """Šalys juostos sąrašui.
+
+    Pirmas — „Visos šalys" su bendru kiekiu, atskirtas linija. Toliau
+    šalys pagal SKELBIMŲ KIEKĮ, ne abėcėlę; be skelbimų nerodomos.
+    """
+    skaiciai = kiekiai(request, vieso_qs)
     eilutes = [
         {'kodas': kodas, 'zemas': kodas.lower(),
          'vardas': salys.vardas_en(kodas), 'kiek': kiek,
@@ -97,7 +135,15 @@ def sarasas(dabartine, vieso_qs=None, request=None):
             'vardas': salys.vardas_en(dabartine), 'kiek': 0, 'dabartine': True,
             'url': _nuoroda(request, dabartine) if request else '?salis=' + dabartine.lower()})
     eilutes.sort(key=lambda e: (-e['kiek'], e['vardas']))
-    return eilutes
+
+    # „Visos šalys" — visada pirma, su bendru kiekiu.
+    visos = {
+        'kodas': VISOS.upper(), 'zemas': VISOS,
+        'vardas': str(_('Visos šalys')), 'kiek': sum(skaiciai.values()),
+        'dabartine': dabartine == VISOS.upper(), 'skirtukas': True,
+        'url': _nuoroda(request, VISOS) if request else '?salis=' + VISOS,
+    }
+    return [visos] + eilutes
 
 
 def kontekstas(request, vieso_qs=None):
@@ -106,7 +152,9 @@ def kontekstas(request, vieso_qs=None):
     eilutes = sarasas(dabartine, vieso_qs, request)
     return {
         'salies_kodas': dabartine,
-        'salies_vardas': salys.vardas_en(dabartine),
+        'salies_zemas': dabartine.lower(),
+        'salies_vardas': (str(_('Visos šalys')) if dabartine == VISOS.upper()
+                          else salys.vardas_en(dabartine)),
         'salies_kiekis': next((e['kiek'] for e in eilutes if e['dabartine']), 0),
         'salies_sarasas': eilutes,
     }
@@ -122,7 +170,9 @@ def filtruoti(listings, request):
     (adresu ar slapuku) taikomas visada.
     """
     kodas = pasirinkta(request)
-    if aiskiai_pasirinkta(request) or kiekiai().get(kodas):
+    if kodas == VISOS.upper():
+        return listings                      # „Visos šalys" — jokio filtro
+    if aiskiai_pasirinkta(request) or kiekiai(request).get(kodas):
         return listings.filter(country=kodas)
     return listings
 

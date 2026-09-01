@@ -1,13 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════
    ŠALIES JUOSTA virš paieškos panelės — Playwright patikra.
+   Etalonas: docs/demo/veliaveles-pagrindinis-demo.html
 
    Paleidimas (reikia vietinio serverio ties 127.0.0.1:8899):
        SP=<katalogas su node_modules> node docs/salies_juosta_playwright.js
-
-   Tikrina matmenis (56 px eilutė, 610 px plotis, 16 px tarpas iki
-   panelės, 420 px langas / apatinis lakštas telefone), angliškus
-   pavadinimus, rikiavimą pagal kiekį, paiešką, Escape, ir kad
-   pasirinkus šalį adresas tampa ?salis=de, o seni filtrai lieka.
    ═══════════════════════════════════════════════════════════════════ */
 const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
 const S = process.env.SP;
@@ -55,10 +51,18 @@ const tik=(s,k)=>{ s?gerai++:(blogai++,console.log('  NEPAVYKO: '+k)); };
     tik(rodykle.includes('-1') || rodykle === 'matrix(-1, 0, 0, -1, 0, 0)',
         `rodyklė apsivertė (${rodykle})`);
     const punktai = await p.$$('.salies-punktas');
-    tik(punktai.length === 4, `4 šalys su skelbimais (${punktai.length})`);
+    tik(punktai.length === 5, `„Visos šalys" + 4 šalys (${punktai.length})`);
     const tekstai = await p.$$eval('.salies-punkto-vardas', e => e.map(x => x.textContent.trim()));
-    tik(JSON.stringify(tekstai) === JSON.stringify(['Lithuania','Germany','Poland','Latvia']),
-        'angliškai ir pagal kiekį: ' + JSON.stringify(tekstai));
+    tik(JSON.stringify(tekstai) === JSON.stringify(['Visos šalys','Lithuania','Germany','Poland','Latvia']),
+        '„Visos šalys" pirma, toliau pagal kiekį: ' + JSON.stringify(tekstai));
+    tik(await p.$('.salies-punktas.su-skirtuku'), '„Visos šalys" atskirta linija');
+    // Eilutės vėliavėlė ateina iš bendros dalies (_veliava.html), tad
+    // savo klasės neturi — atpažįstam pagal .veliava-didele.
+    const eilVel = await p.$('.salies-eilute .veliava-didele');
+    tik(eilVel && await eilVel.isVisible(), 'eilutėje vėliavėlė prieš pavadinimą');
+    const dv = eilVel && await eilVel.boundingBox();
+    tik(dv && Math.round(dv.width) === 20 && Math.round(dv.height) === 15,
+        `eilutės vėliavėlė 20×15 (${dv ? Math.round(dv.width)+'×'+Math.round(dv.height) : '—'})`);
     const svoris = await p.$eval('.salies-punktas.is-on .salies-punkto-vardas',
                                  e => getComputedStyle(e).fontWeight);
     tik(svoris === '700', `dabartinė 700 (${svoris})`);
@@ -83,7 +87,7 @@ const tik=(s,k)=>{ s?gerai++:(blogai++,console.log('  NEPAVYKO: '+k)); };
     // Pasirinkus šalį — perkraunama ir adresas ?salis=de
     await p.click('.salies-keisti'); await p.waitForTimeout(400);
     await Promise.all([p.waitForNavigation({waitUntil:'domcontentloaded', timeout:30000}),
-                       p.click('.salies-punktas:not(.is-on)')]);
+                       p.click('.salies-punktas[href*="salis=de"]')]);
     await p.waitForTimeout(1500);
     const u = new URL(p.url());
     tik(u.searchParams.get('salis') === 'de', `adresas ?salis=de (${p.url()})`);
