@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load dict_extras %}
+{% load kalbu_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}" class="h-full">
 <head>
@@ -269,20 +270,73 @@
         .mm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2);
                       border-top: 1px solid var(--border); padding-top: var(--sp-3); }
         .mm-actions .mm-btn { font-size: var(--fs-sm); padding: 0 var(--sp-2); }
-        .mm-flags { border-top: 1px solid var(--border); padding-top: var(--sp-3); margin-top: var(--sp-2); }
-        .mm-flags form { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
-        .mm-flag { display: inline-flex; align-items: center; gap: var(--sp-1);
-                   height: var(--btn-h-sm); padding: 0 var(--sp-2);
-                   border: 1px solid var(--border); border-radius: var(--r-md);
-                   background: var(--surface); transition: border-color var(--dur), background-color var(--dur); }
-        .mm-flag em { font-style: normal; font-size: var(--fs-xs); font-weight: var(--fw-medium);
-                      color: var(--text-muted); }
-        .mm-flag .fi { width: 18px; height: 18px; border-radius: var(--r-full); }
-        .mm-flag.is-on { border-color: var(--accent); background: var(--accent-soft); }
-        .mm-flag.is-on em { color: var(--text); font-weight: var(--fw-semibold); }
         .btn-sell svg { width: 18px; height: 18px; flex: 0 0 auto; }
         /* Tekstas slepiamas tik labai siauruose ekranuose — 390 px jis telpa. */
         @media (max-width: 340px) { .btn-sell span { display: none; } .btn-sell { padding: 0 var(--sp-2); } }
+
+        /* ═══ KALBŲ PERJUNGIKLIS (templates/partials/_kalbos.html) ═══
+           Telefone jo nebuvo visai: antraštėje netilpo, o meniu gale
+           gulėjo tik smulkūs kodų ženkleliai („LT", „ZH-HANS"). Dabar
+           vienas sąrašas trimis vietomis — meniu, apatinis lakštas ir
+           poraštė. */
+        .kalbos-sarasas { }
+        .kalbos-antraste { font-size: 13px; font-weight: 700; color: var(--text-muted);
+                           text-transform: uppercase; letter-spacing: .4px;
+                           padding: 0 0 6px; }
+        .kalbos-sarasas form { display: flex; flex-direction: column; }
+        .kalbos-eilute { display: flex; align-items: center; gap: 12px;
+                         width: 100%; height: 48px; padding: 0 2px;
+                         background: none; border: 0; cursor: pointer;
+                         font-size: 16px; color: var(--text); text-align: left;
+                         transition: background-color var(--dur); }
+        .kalbos-eilute:hover { background: var(--accent-soft); }
+        .kalbos-eilute .fi { width: 24px; height: 24px; border-radius: 50%;
+                             flex: 0 0 auto; }
+        .kalbos-vardas { flex: 1 1 auto; min-width: 0; overflow: hidden;
+                         text-overflow: ellipsis; white-space: nowrap; }
+        .kalbos-eilute.is-on .kalbos-vardas { font-weight: 600; }
+        .kalbos-varnele { width: 20px; height: 20px; flex: 0 0 auto; color: #000; }
+
+        /* Skyrelis mėsainio meniu apačioje */
+        .mm-kalbos { border-top: 1px solid #E5E7EB; padding-top: var(--sp-3);
+                     margin-top: var(--sp-2); }
+
+        /* Antraštės apvali vėliavėlė (tik telefone — darbalaukyje lieka
+           įprastas iškrentantis sąrašas) */
+        .kalbos-mygtukas { width: 32px; height: 32px; border-radius: 50%;
+                           border: 1px solid var(--border); background: var(--surface);
+                           padding: 0; cursor: pointer; flex: 0 0 auto;
+                           display: none; align-items: center; justify-content: center;
+                           overflow: hidden; }
+        .kalbos-mygtukas .fi { width: 30px; height: 30px; border-radius: 50%; }
+        @media (max-width: 1023px) { .kalbos-mygtukas { display: inline-flex; } }
+        /* Siauriausiuose telefonuose antraštės eilutė ir taip ankšta —
+           vėliavėlė dingsta, sąrašas lieka meniu ir poraštėje. */
+        @media (max-width: 360px) { .kalbos-mygtukas { display: none; } }
+
+        /* Apatinis lakštas */
+        .kalbos-uzdanga { position: fixed; inset: 0; background: rgba(0,0,0,.4);
+                          z-index: 80; }
+        .kalbos-lakstas { position: fixed; left: 0; right: 0; bottom: 0; z-index: 81;
+                          background: var(--surface); border-radius: 16px 16px 0 0;
+                          padding: 8px 16px calc(16px + env(safe-area-inset-bottom));
+                          max-height: 80vh; overflow-y: auto;
+                          box-shadow: 0 -8px 30px rgba(0,0,0,.18); }
+        .kalbos-lakstas-rankena { width: 40px; height: 4px; border-radius: 2px;
+                                  background: var(--border); margin: 6px auto 10px; }
+
+        /* Poraštė */
+        .kalbos-porastes { position: relative; }
+        .kalbos-porastes-btn { display: inline-flex; align-items: center; gap: 8px;
+                               background: none; border: 0; padding: 4px 0;
+                               color: #9CA3AF; font-size: 13px; cursor: pointer; }
+        .kalbos-porastes-btn .fi { width: 20px; height: 20px; border-radius: 50%; }
+        .kalbos-porastes-btn svg { width: 14px; height: 14px; transition: transform var(--dur); }
+        .kalbos-porastes-sarasas { position: absolute; bottom: 100%; left: 0; z-index: 20;
+                                   width: 220px; max-height: 60vh; overflow-y: auto;
+                                   background: var(--surface); border: 1px solid var(--border);
+                                   border-radius: 12px; padding: 6px 12px; margin-bottom: 8px;
+                                   box-shadow: 0 10px 30px rgba(0,0,0,.25); }
     </style>
     <script>
         tailwind.config = {
@@ -300,7 +354,7 @@
     </script>
     {% block extra_css %}{% endblock %}
 </head>
-<body class="h-full bg-gray-50" x-data="{ mobileMenu: false, userMenu: false }"
+<body class="h-full bg-gray-50" x-data="{ mobileMenu: false, userMenu: false, kalbosLakstas: false }"
       data-prisijunges="{% if user.is_authenticated %}1{% else %}0{% endif %}">
     {% comment %}Antraštė bloke: įmonių puslapis (Fresha maketas) turi savo
     88 px antraštę su paieškos baru, todėl ten šitą pakeičia. Kiti
@@ -339,29 +393,27 @@
                     <!-- ═══ LANGUAGE SWITCHER ═══ -->
                     {% get_current_language as CURRENT_LANG %}
                     {% get_available_languages as LANGUAGES %}
-                    <div class="relative shrink-0" x-data="{ langOpen: false }">
+                    <div class="relative shrink-0 hidden lg:block" x-data="{ langOpen: false }">
                         <button @click="langOpen = !langOpen"
                                 class="flex items-center gap-1.5 px-2.5 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                            <span class="fi fi-{% if CURRENT_LANG == 'en' %}us{% elif CURRENT_LANG == 'lt' %}lt{% elif CURRENT_LANG == 'lv' %}lv{% elif CURRENT_LANG == 'et' %}ee{% elif CURRENT_LANG == 'pl' %}pl{% elif CURRENT_LANG == 'de' %}de{% elif CURRENT_LANG == 'ru' %}ru{% elif CURRENT_LANG == 'fr' %}fr{% elif CURRENT_LANG == 'es' %}es{% elif CURRENT_LANG == 'zh-hans' %}cn{% elif CURRENT_LANG == 'vi' %}vn{% elif CURRENT_LANG == 'ar' %}sa{% elif CURRENT_LANG == 'ko' %}kr{% else %}us{% endif %} fis" style="width: 22px; height: 22px; border-radius: 50%;"></span>
+                            <span class="fi fi-{{ CURRENT_LANG|veliavos_kodas }} fis" style="width: 22px; height: 22px; border-radius: 50%;"></span>
                             <span class="uppercase text-xs font-semibold hidden sm:inline">{{ CURRENT_LANG }}</span>
                             <i class="fas fa-chevron-down text-[10px] text-gray-400"></i>
                         </button>
 
                         <div x-show="langOpen" @click.outside="langOpen = false" x-cloak
-                             class="fixed top-[70px] left-3 w-48 max-h-[70vh] overflow-y-auto md:absolute md:top-auto md:mt-2 md:right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 py-1">
-                            <form action="{% url 'set_language' %}" method="post">
-                                {% csrf_token %}
-                                <input name="next" type="hidden" value="{{ request.path }}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}">
-                                {% for lang_code, lang_name in LANGUAGES %}
-                                <button type="submit" name="language" value="{{ lang_code }}"
-                                        class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-3 transition-colors {% if lang_code == CURRENT_LANG %}bg-gray-50 font-semibold{% endif %}">
-                                    <span class="fi fi-{% if lang_code == 'en' %}us{% elif lang_code == 'lt' %}lt{% elif lang_code == 'lv' %}lv{% elif lang_code == 'et' %}ee{% elif lang_code == 'pl' %}pl{% elif lang_code == 'de' %}de{% elif lang_code == 'ru' %}ru{% elif lang_code == 'fr' %}fr{% elif lang_code == 'es' %}es{% elif lang_code == 'zh-hans' %}cn{% elif lang_code == 'vi' %}vn{% elif lang_code == 'ar' %}sa{% elif lang_code == 'ko' %}kr{% else %}us{% endif %} fis" style="width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;"></span>
-                                    <span class="text-gray-700">{% if lang_code == 'en' %}English{% elif lang_code == 'lt' %}Lithuanian{% elif lang_code == 'lv' %}Latvian{% elif lang_code == 'et' %}Estonian{% elif lang_code == 'pl' %}Polish{% elif lang_code == 'de' %}German{% elif lang_code == 'ru' %}Russian{% elif lang_code == 'fr' %}French{% elif lang_code == 'es' %}Spanish{% elif lang_code == 'zh-hans' %}Chinese{% elif lang_code == 'vi' %}Vietnamese{% elif lang_code == 'ar' %}Arabic{% elif lang_code == 'ko' %}Korean{% else %}{{ lang_name }}{% endif %}</span>
-                                </button>
-                                {% endfor %}
-                            </form>
+                             class="absolute top-auto mt-2 right-0 w-48 max-h-[70vh] overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg z-50 py-1">
+                            {% include 'partials/_kalbos.html' with stilius='iskleidziamas' %}
                         </div>
                     </div>
+
+                    {% comment %}Telefone ir planšetėje — apvali vėliavėlė, atidaranti
+                    tą patį sąrašą apatiniame lakšte. Darbalaukyje jos nėra (ten
+                    veikia iškrentantis sąrašas aukščiau).{% endcomment %}
+                    <button type="button" class="kalbos-mygtukas" @click="kalbosLakstas = true"
+                            aria-label="{% trans 'Kalba' %}">
+                        <span class="fi fi-{{ CURRENT_LANG|veliavos_kodas }} fis"></span>
+                    </button>
 
                     {% comment %}
                     „Sukurti skelbimą" rodomas VISADA — ir neprisijungusiam,
@@ -713,21 +765,10 @@
                     {% endfor %}
                 </nav>
 
-                {% comment %}Kalbos — tas pats vėliavėlių sąrašas kaip antraštėje,
-                visos kalbos, aktyvi paryškinta.{% endcomment %}
-                <div class="mm-flags">
-                    <form action="{% url 'set_language' %}" method="post">
-                        {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                        {% for lang_code, lang_name in LANGUAGES %}
-                        <button type="submit" name="language" value="{{ lang_code }}"
-                                class="mm-flag{% if lang_code == CURRENT_LANG %} is-on{% endif %}"
-                                title="{{ lang_name }}">
-                            <span class="fi fi-{% if lang_code == 'en' %}us{% elif lang_code == 'lt' %}lt{% elif lang_code == 'lv' %}lv{% elif lang_code == 'et' %}ee{% elif lang_code == 'pl' %}pl{% elif lang_code == 'de' %}de{% elif lang_code == 'ru' %}ru{% elif lang_code == 'fr' %}fr{% elif lang_code == 'es' %}es{% elif lang_code == 'zh-hans' %}cn{% elif lang_code == 'vi' %}vn{% elif lang_code == 'ar' %}sa{% elif lang_code == 'ko' %}kr{% else %}us{% endif %} fis"></span>
-                            <em>{{ lang_code|upper }}</em>
-                        </button>
-                        {% endfor %}
-                    </form>
+                {% comment %}Kalbos — meniu apačioje, po visais punktais.
+                Tas pats sąrašas kaip lakšte ir poraštėje (viena dalis).{% endcomment %}
+                <div class="mm-kalbos">
+                    {% include 'partials/_kalbos.html' with stilius='sarasas' %}
                 </div>
             </div>
         {% endif %}
@@ -736,6 +777,17 @@
 
     {% comment %}Antrinė navigacija — iškart po antrašte, visuose base.html
     puslapiuose (templates/partials/secondary_nav.html).{% endcomment %}
+    {% comment %}Apatinis kalbų lakštas — jį atidaro apvali vėliavėlė
+    antraštėje. Sąrašas tas pats, kaip meniu ir poraštėje.{% endcomment %}
+    <div x-show="kalbosLakstas" x-cloak>
+      <div class="kalbos-uzdanga" @click="kalbosLakstas = false"></div>
+      <div class="kalbos-lakstas" role="dialog" aria-modal="true"
+           aria-label="{% trans 'Kalba' %}">
+        <div class="kalbos-lakstas-rankena"></div>
+        {% include 'partials/_kalbos.html' with stilius='sarasas' %}
+      </div>
+    </div>
+
     {% include 'partials/secondary_nav.html' %}
     {% endblock %}
 
@@ -858,6 +910,9 @@
             <div class="pt-6" style="border-top: 1px solid rgba(255,255,255,0.08);">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p class="text-sm text-gray-500">&copy; 2025 AutoLeft. {% trans "All rights reserved." %}</p>
+                    {% comment %}Kalba poraštėje — trečia vieta, kaip daro
+                    dauguma svetainių: kas jos neieško meniu, randa apačioje.{% endcomment %}
+                    {% include 'partials/_kalbos.html' with stilius='porastes' %}
                     {% comment %}flex-wrap — kad su didesniu telefono šriftu eilutė lūžtų, o ne plėstų puslapio į šoną.{% endcomment %}
                     <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500">
                         <a href="{% url 'imones:sarasas' %}" class="hover:text-gray-300 transition-colors">{% trans "Įmonės ir servisai" %}</a>

@@ -1,0 +1,69 @@
+{% load i18n kalbu_tags %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+KALBŲ PERJUNGIKLIS — viena dalis visoms vietoms.
+
+Iki šiol tas pats sąrašas gulėjo keturiose vietose base.html'e su
+nukopijuota 13 šakų vėliavų grandine, o telefone jo nesimatė visai.
+
+Perjungimas — django set_language su next = request.get_full_path, todėl
+lieki TAME PAČIAME puslapyje su visais filtrais (?section=cars&price_min=…).
+Django set_language pats persuka adreso kalbos priešdėlį (translate_url),
+tad iš /en/… pateksi į /… ir atvirkščiai.
+
+    {% include 'partials/_kalbos.html' with stilius='sarasas' %}
+
+stilius:
+    sarasas       — 48 px eilutės su pavadinimais (mėsainio meniu, lakštas)
+    iskleidziamas — kompaktiškas darbalaukio antraštės sąrašas
+    porastes      — „Kalba: Lietuvių ▾" poraštėje
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% get_current_language as DABARTINE %}{% get_available_languages as VISOS_KALBOS %}
+
+{% if stilius == 'porastes' %}
+<div class="kalbos-porastes" x-data="{ atidaryta: false }">
+  <button type="button" @click="atidaryta = !atidaryta" class="kalbos-porastes-btn">
+    <span class="fi fi-{{ DABARTINE|veliavos_kodas }} fis"></span>
+    <span>{% trans "Kalba" %}: {{ DABARTINE|kalbos_pavadinimas }}</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         :style="atidaryta && 'transform:rotate(180deg)'"><path stroke-linecap="round" d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div x-show="atidaryta" x-cloak @click.outside="atidaryta = false" class="kalbos-porastes-sarasas">
+    {% include 'partials/_kalbos.html' with stilius='sarasas' be_antrastes=1 %}
+  </div>
+</div>
+
+{% elif stilius == 'iskleidziamas' %}
+<form action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  {% for kodas, vardas in VISOS_KALBOS %}
+  <button type="submit" name="language" value="{{ kodas }}"
+          class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-50 flex items-center gap-3 transition-colors{% if kodas == DABARTINE %} bg-gray-50 font-semibold{% endif %}">
+    <span class="fi fi-{{ kodas|veliavos_kodas }} fis" style="width:22px;height:22px;border-radius:50%;flex-shrink:0"></span>
+    <span class="text-gray-700">{{ kodas|kalbos_pavadinimas:vardas }}</span>
+  </button>
+  {% endfor %}
+</form>
+
+{% else %}
+{% comment %}Sąrašas — pagrindinis pavidalas telefone.{% endcomment %}
+<div class="kalbos-sarasas">
+  {% if not be_antrastes %}<div class="kalbos-antraste">{% trans "Kalba" %}</div>{% endif %}
+  <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    {% for kodas, vardas in VISOS_KALBOS %}
+    <button type="submit" name="language" value="{{ kodas }}"
+            class="kalbos-eilute{% if kodas == DABARTINE %} is-on{% endif %}"
+            lang="{{ kodas }}"{% if kodas == DABARTINE %} aria-current="true"{% endif %}>
+      <span class="fi fi-{{ kodas|veliavos_kodas }} fis"></span>
+      <span class="kalbos-vardas">{{ kodas|kalbos_pavadinimas:vardas }}</span>
+      {% if kodas == DABARTINE %}
+      <svg class="kalbos-varnele" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      {% endif %}
+    </button>
+    {% endfor %}
+  </form>
+</div>
+{% endif %}

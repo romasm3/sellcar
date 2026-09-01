@@ -352,7 +352,11 @@ tikrink(not any(_re.search(r'\d', e) for e in eil),
 # Pasirinkimo ekranas: du stulpeliai, kiekvienas su savo parametru
 puslapis = klientas.get('/pasirinkti/', {
     'laukas': 'price_min', 'kategorija': 'cars', 'grizti': '/?section=cars'}).content.decode()
-stulpeliai = puslapis.split('<div class="sp-sheet-col">')[1:]
+# Ribojam iki pačių stulpelių: toliau puslapyje yra kalbų perjungiklis,
+# kurio „next" laukas neša dabartinį adresą (su ?laukas=price_min), ir
+# atviras pjūvis iki dokumento galo pagautų būtent jį.
+_stulp = puslapis.split('<div class="sp-sheet-cols">')[1].split('sp-sheet-foot')[0]
+stulpeliai = _stulp.split('<div class="sp-sheet-col">')[1:]
 tikrink(len(stulpeliai) == 2, 'du stulpeliai (rasta %d)' % len(stulpeliai))
 if len(stulpeliai) == 2:
     for laukiama, stulpelis in zip(('price_min', 'price_max'), stulpeliai):

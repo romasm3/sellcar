@@ -146,6 +146,14 @@ class AngliskasPuslapisTestas(SimpleTestCase):
             zodziai |= set(_ZODIS.findall(str(v['vardas'])))
         for p in ImonesPaslauga.objects.all():
             zodziai |= set(_ZODIS.findall((p.pavadinimas or '') + ' ' + (p.aprasymas or '')))
+        # Kalbų pavadinimai perjungiklyje — „Lietuvių", „Latviešu", „Русский".
+        # Jie tyčia rašomi gimtąja kalba ir NEVERČIAMI: žmogus sąraše ieško
+        # savo kalbos tokios, kokią ją vadina pats, o ne išverstos į tą, kurios
+        # nemoka. Perjungiklis yra kiekviename puslapyje, tad be šios išimties
+        # patikra kristų būtent dėl teisingo elgesio.
+        from apps.listings.templatetags.kalbu_tags import PAVADINIMAI
+        for vardas in PAVADINIMAI.values():
+            zodziai |= set(_ZODIS.findall(vardas))
         return zodziai
 
     @staticmethod

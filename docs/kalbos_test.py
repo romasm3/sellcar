@@ -197,6 +197,43 @@ else:
                 '%s: „Skelbimai" → %r (laukta %r)' % (kodas, gauta, laukiama))
 
 
+antraste('8. Perjungiklis telefone — viena bendra dalis')
+dalis = os.path.join(BASE, 'templates/partials/_kalbos.html')
+tikrink(os.path.exists(dalis), 'yra templates/partials/_kalbos.html')
+turinys = io.open(dalis, encoding='utf-8').read() if os.path.exists(dalis) else ''
+for stilius in ('sarasas', 'iskleidziamas', 'porastes'):
+    tikrink("'%s'" % stilius in turinys, 'dalis moka stilių %r' % stilius)
+tikrink('request.get_full_path' in turinys,
+        'perjungimas grįžta į tą patį adresą su GET parametrais')
+tikrink("{% url 'set_language' %}" in turinys, 'naudojamas django set_language')
+
+baze = io.open(os.path.join(BASE, 'templates/base.html'), encoding='utf-8').read()
+# Keturios vietos, viena dalis: darbalaukio iškrentantis sąrašas,
+# telefono apatinis lakštas, mėsainio meniu ir poraštė.
+tikrink(baze.count("include 'partials/_kalbos.html'") == 4,
+        'base.html įtraukia dalį 4 vietose (rasta %d)'
+        % baze.count("include 'partials/_kalbos.html'"))
+for stilius in ("stilius='iskleidziamas'", "stilius='sarasas'", "stilius='porastes'"):
+    tikrink(stilius in baze, 'base.html naudoja %s' % stilius)
+for klase in ('kalbos-mygtukas', 'kalbos-lakstas', 'mm-kalbos', 'kalbos-porastes'):
+    tikrink(klase in baze, 'base.html turi .%s' % klase)
+
+# Senoji 13 šakų vėliavų grandinė turi būti dingusi — dėl jos pridėjus
+# kalbą reikėdavo taisyti penkias vietas.
+tikrink("CURRENT_LANG == 'zh-hans' %}cn" not in baze,
+        'base.html nebeliko nukopijuotos vėliavų grandinės')
+tikrink('mm-flag' not in baze, 'senas kodų ženkleliu blokas pašalintas')
+
+from apps.listings.templatetags.kalbu_tags import veliavos_kodas, kalbos_pavadinimas, VELIAVOS
+for kodas, veliava in (('en', 'us'), ('et', 'ee'), ('zh-hans', 'cn'),
+                       ('vi', 'vn'), ('ar', 'sa'), ('ko', 'kr'), ('lt', 'lt')):
+    tikrink(veliavos_kodas(kodas) == veliava,
+            'vėliava %s → %s (gauta %s)' % (kodas, veliava, veliavos_kodas(kodas)))
+tikrink(set(VELIAVOS) == set(kodai), 'vėliavos aprašytos visoms kalboms')
+tikrink(kalbos_pavadinimas('ru') == 'Русский', 'ru → Русский')
+tikrink(kalbos_pavadinimas('nezinoma', 'Atsarginis') == 'Atsarginis', 'nežinomai — atsarginis')
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)
