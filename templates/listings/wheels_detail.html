@@ -220,7 +220,7 @@
                     </a>
                     <p class="text-xs text-gray-500">
                         {% trans "Status" %}: <span class="font-medium text-gray-700">{{ listing.get_status_display }}</span>
-                        · {% trans "Views" %}: {{ listing.views_count }}
+                        · {% trans "Views" %}: {{ listing.views_count|sk }}
                     </p>
                 </div>
                 {% endif %}

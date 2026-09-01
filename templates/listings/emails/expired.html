@@ -1,4 +1,4 @@
-{% load humanize %}<!DOCTYPE html>
+{% load humanize listing_filters %}<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -52,13 +52,13 @@
                                             {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %}
                                         </div>
                                         <div style="color:#111827; font-size:18px; font-weight:700; margin-bottom:8px;">
-                                            {{ listing.price|floatformat:0|intcomma }} €
+                                            {{ listing.price|kaina:listing.currency_symbol }}
                                         </div>
                                         <div style="color:#6b7280; font-size:13px;">
                                             <span style="display:inline-block; padding:2px 8px; background-color:#fef2f2; color:#b91c1c; border-radius:4px; font-weight:600; font-size:11px;">
                                                 INACTIVE
                                             </span>
-                                            <span style="margin-left:8px;">Views: {{ listing.views_count }}</span>
+                                            <span style="margin-left:8px;">Views: {{ listing.views_count|sk }}</span>
                                         </div>
                                     </td>
                                 </tr>

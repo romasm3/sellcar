@@ -48,15 +48,15 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-xl border border-gray-200 p-5">
             <div class="text-xs uppercase tracking-wider text-gray-500 mb-1">{% trans "Active listings" %}</div>
-            <div class="text-3xl font-bold text-gray-900">{{ active_count }}<span class="text-base text-gray-500">/{{ listings_limit }}</span></div>
+            <div class="text-3xl font-bold text-gray-900">{{ active_count|sk }}<span class="text-base text-gray-500">/{{ listings_limit }}</span></div>
         </div>
         <div class="bg-white rounded-xl border border-gray-200 p-5">
             <div class="text-xs uppercase tracking-wider text-gray-500 mb-1">{% trans "Total views" %}</div>
-            <div class="text-3xl font-bold text-gray-900">{{ total_views }}</div>
+            <div class="text-3xl font-bold text-gray-900">{{ total_views|sk }}</div>
         </div>
         <div class="bg-white rounded-xl border border-gray-200 p-5">
             <div class="text-xs uppercase tracking-wider text-gray-500 mb-1">{% trans "Total saves" %}</div>
-            <div class="text-3xl font-bold text-gray-900">{{ total_saves }}</div>
+            <div class="text-3xl font-bold text-gray-900">{{ total_saves|sk }}</div>
         </div>
         <div class="bg-white rounded-xl border border-gray-200 p-5">
             <div class="text-xs uppercase tracking-wider text-gray-500 mb-1">{% trans "Days remaining" %}</div>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-4 text-sm text-gray-600">
-                    <span><i class="fas fa-eye mr-1"></i> {{ listing.views_count }}</span>
+                    <span><i class="fas fa-eye mr-1"></i> {{ listing.views_count|sk }}</span>
                     <span><i class="fas fa-heart mr-1 text-red-400"></i> {{ listing.saved_by.count }}</span>
                 </div>
             </a>

@@ -1,4 +1,4 @@
-{% load i18n %}{% comment %}
+{% load i18n listing_filters %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 ĮSIMINTŲ SKELBIMŲ IKONA antraštėje (širdis su skaitikliu).
 
@@ -17,7 +17,7 @@ Nulis nerodomas.
    title="{% trans 'Įsiminti skelbimai' %}" aria-label="{% trans 'Įsiminti skelbimai' %}">
     <i class="fas fa-heart text-xl"></i>
     <span data-isiminti-skaitiklis
-          data-serverio-kiekis="{% if user.is_authenticated %}{{ saved_listings_count|default:0 }}{% endif %}"
+          data-serverio-kiekis="{% if user.is_authenticated %}{{ saved_listings_count|default:0|sk }}{% endif %}"
           class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none"
-          {% if not saved_listings_count %}style="display:none"{% endif %}>{{ saved_listings_count|default:0 }}</span>
+          {% if not saved_listings_count %}style="display:none"{% endif %}>{{ saved_listings_count|default:0|sk }}</span>
 </a>

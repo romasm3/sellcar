@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n_db i18n dict_extras static %}
+{% load i18n_db i18n dict_extras static listing_filters %}
 {% block title %}{{ adv.label }} — {% trans "Detali paieška" %} - AutoLeft{% endblock %}
 
 {% block content %}
@@ -260,7 +260,7 @@
         <a href="{% url 'listing_list' %}?category={{ adv.slug }}"
            class="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium">{% trans "Išvalyti" %}</a>
         <button type="submit" class="ag-submit">
-          {% trans "Ieškoti" %} <span id="advCount">{{ result_count }}</span>
+          {% trans "Ieškoti" %} <span id="advCount">{{ result_count|sk }}</span>
         </button>
       </div>
     </form>

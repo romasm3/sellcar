@@ -109,8 +109,8 @@
             </a>
 
             <span class="ml-auto text-xs text-gray-500">
-                <span class="font-semibold text-gray-700">{{ total_humans_30d }}</span> human views ·
-                <span class="font-semibold text-red-700">{{ total_bots_30d }}</span> bot views (30d)
+                <span class="font-semibold text-gray-700">{{ total_humans_30d|sk }}</span> human views ·
+                <span class="font-semibold text-red-700">{{ total_bots_30d|sk }}</span> bot views (30d)
             </span>
         </div>
 
@@ -213,7 +213,7 @@
         <div class="bg-white rounded-xl border border-gray-300 p-6 mb-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-900">🌍 Top Countries (last 30 days)</h3>
-                <span class="text-xs text-gray-500">{{ total_country_visitors }} unique visitors</span>
+                <span class="text-xs text-gray-500">{{ total_country_visitors|sk }} unique visitors</span>
             </div>
 
             {% if top_countries_data %}
@@ -235,7 +235,7 @@
                         <span class="text-xs text-gray-500">visitors ({{ c.percent }}%)</span>
                     </div>
                     <div class="flex-shrink-0 text-right text-xs text-gray-400" style="width: 80px;">
-                        {{ c.pageviews }} views
+                        {{ c.pageviews|sk }} views
                     </div>
                 </div>
                 {% endfor %}
@@ -273,7 +273,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="kpi-card">
                 <div class="kpi-label">Total Sales</div>
-                <div class="kpi-value">{{ total_sales }}</div>
+                <div class="kpi-value">{{ total_sales|sk }}</div>
                 <div class="kpi-hint">all time</div>
             </div>
             <div class="kpi-card card-accent">
@@ -296,7 +296,7 @@
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
             <div class="kpi-card-sm">
                 <div class="kpi-label">Total listings</div>
-                <div class="kpi-value-sm">{{ total_listings }}</div>
+                <div class="kpi-value-sm">{{ total_listings|sk }}</div>
             </div>
             <div class="kpi-card-sm">
                 <div class="kpi-label">Active</div>
@@ -677,7 +677,7 @@
                                 {% if not l.brand and not l.model %}{{ l.title|truncatechars:50 }}{% endif %}
                             </a>
                         </td>
-                        <td class="py-2 text-right font-semibold">{{ l.views_count }}</td>
+                        <td class="py-2 text-right font-semibold">{{ l.views_count|sk }}</td>
                         <td class="py-2 text-right text-gray-700">{{ l.price|kaina }}</td>
                     </tr>
                     {% endfor %}
@@ -696,7 +696,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div class="kpi-card-sm">
                 <div class="kpi-label">Total users</div>
-                <div class="kpi-value-sm">{{ total_users }}</div>
+                <div class="kpi-value-sm">{{ total_users|sk }}</div>
             </div>
             <div class="kpi-card-sm">
                 <div class="kpi-label">New today</div>
@@ -758,7 +758,7 @@
                     <tr>
                         <td class="py-2 text-gray-500">{{ forloop.counter }}</td>
                         <td class="py-2 font-medium text-gray-900">{{ s.seller__email }}</td>
-                        <td class="py-2 text-right font-semibold">{{ s.listings_count }}</td>
+                        <td class="py-2 text-right font-semibold">{{ s.listings_count|sk }}</td>
                         <td class="py-2 text-right" style="color: var(--teal);">{{ s.active_count }}</td>
                         <td class="py-2 text-right text-gray-700">{{ s.sold_count }}</td>
                     </tr>
@@ -778,30 +778,30 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div class="kpi-card-sm">
                 <div class="kpi-label">Total saved listings</div>
-                <div class="kpi-value-sm">{{ saved_listings_total }}</div>
+                <div class="kpi-value-sm">{{ saved_listings_total|sk }}</div>
             </div>
             <div class="kpi-card-sm">
                 <div class="kpi-label">Saved searches</div>
-                <div class="kpi-value-sm">{{ saved_searches_total }}</div>
+                <div class="kpi-value-sm">{{ saved_searches_total|sk }}</div>
             </div>
             <div class="kpi-card-sm">
                 <div class="kpi-label">Conversations</div>
-                <div class="kpi-value-sm">{{ conversations_total }}</div>
+                <div class="kpi-value-sm">{{ conversations_total|sk }}</div>
             </div>
             <div class="kpi-card-sm">
                 <div class="kpi-label">Messages</div>
-                <div class="kpi-value-sm">{{ messages_total }}</div>
+                <div class="kpi-value-sm">{{ messages_total|sk }}</div>
             </div>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <div class="kpi-card-sm">
                 <div class="kpi-label">Total listing views</div>
-                <div class="kpi-value-sm">{{ total_listing_views }}</div>
+                <div class="kpi-value-sm">{{ total_listing_views|sk }}</div>
             </div>
             <div class="kpi-card-sm card-accent-warning">
                 <div class="kpi-label">Listings without views</div>
-                <div class="kpi-value-sm" style="color: #b91c1c;">{{ listings_no_views }}</div>
+                <div class="kpi-value-sm" style="color: #b91c1c;">{{ listings_no_views|sk }}</div>
                 <div class="kpi-hint">active listings</div>
             </div>
             <div class="kpi-card-sm card-accent-warning">
@@ -852,7 +852,7 @@
                                     {% if not l.brand %}{{ l.title|truncatechars:35 }}{% endif %}
                                 </a>
                             </td>
-                            <td class="py-2 text-right font-bold" style="color: var(--teal);">{{ l.views_count }}</td>
+                            <td class="py-2 text-right font-bold" style="color: var(--teal);">{{ l.views_count|sk }}</td>
                             <td class="py-2 text-right text-gray-700">{{ l.price|kaina }}</td>
                             <td class="py-2 text-right text-gray-500 text-xs"><span class="time-ago" data-paskelbta="{{ l.paskelbta|date:'c' }}"><span class="time-ago-text"></span></span></td>
                         </tr>

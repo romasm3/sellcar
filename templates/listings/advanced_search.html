@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static listing_filters %}
 {% load adv_rail %}
 {% load i18n i18n_db %}
 
@@ -927,7 +927,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
 
 <div class="adv-bottom">
     <button type="submit" class="btn-search" id="advancedSearchBtn">
-        <i class="fas fa-search"></i> <span>{% trans "Search" %}</span> <span id="advSearchCount">({{ total_count }})</span>
+        <i class="fas fa-search"></i> <span>{% trans "Search" %}</span> <span id="advSearchCount">({{ total_count|sk }})</span>
     </button>
 </div>
 </form>

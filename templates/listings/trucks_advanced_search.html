@@ -294,7 +294,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
         <div class="subcat-pills">
             <a href="?category=trucks" class="subcat-pill {% if not f.subcategory %}active{% endif %}">
                 <span>{% trans "All" %}</span>
-                <span class="pill-count">{{ total_count }}</span>
+                <span class="pill-count">{{ total_count|sk }}</span>
             </a>
             {% for sc in subcategories %}
             <a href="?category=trucks&subcategory={{ sc.slug }}"
@@ -601,7 +601,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
                 <div>
                     <div class="bg-white border border-gray-200 rounded-xl p-4 sticky top-20">
                         <div class="text-center mb-4">
-                            <div class="text-3xl font-bold text-cyan-600">{{ total_count }}</div>
+                            <div class="text-3xl font-bold text-cyan-600">{{ total_count|sk }}</div>
                             <div class="text-sm text-gray-500">{% trans "listings match your filters" %}</div>
                         </div>
                         <button type="submit" class="btn-search w-full justify-center mb-2">
@@ -644,7 +644,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
         {# ═══════════════════════════════════════════════════════════ #}
         <div class="mt-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-bold text-gray-900">{% trans "Results" %} <span class="text-gray-400 font-normal">({{ total_count }})</span></h2>
+                <h2 class="text-lg font-bold text-gray-900">{% trans "Results" %} <span class="text-gray-400 font-normal">({{ total_count|sk }})</span></h2>
                 <select class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
                     <option>{% trans "Newest" %}</option>
                     <option>{% trans "Price: Low to High" %}</option>

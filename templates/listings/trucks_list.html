@@ -216,7 +216,7 @@
         <div class="subcat-pills">
             <a href="?sidebar=1&category=trucks" class="subcat-pill {% if not selected_subcategory %}active{% endif %}">
                 <span>{% trans "All" %}</span>
-                <span class="pill-count">{{ total_count }}</span>
+                <span class="pill-count">{{ total_count|sk }}</span>
             </a>
             {% for sc in subcategories %}
             <a href="?sidebar=1&category=trucks&subcategory={{ sc.slug }}"
@@ -514,7 +514,7 @@
         <div class="subcat-pills">
             <a href="/?category=trucks" class="subcat-pill {% if not selected_subcategory %}active{% endif %}">
                 <span>{% trans "All" %}</span>
-                <span class="pill-count">{{ total_count }}</span>
+                <span class="pill-count">{{ total_count|sk }}</span>
             </a>
             {% for sc in subcategories %}
             <a href="/?category=trucks&subcategory={{ sc.slug }}"
@@ -890,7 +890,7 @@
                     <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.images.first %}<img loading="lazy" decoding="async" src="{{ listing.images.first|img_sm }}" alt="{{ listing.title }}">{% else %}<div class="home-tab-no-img"><i class="fas fa-truck"></i></div>{% endif %}
-                            {% if listing.views_count and listing.views_count > 0 %}<span class="home-tab-badge badge-popular"><i class="fas fa-eye"></i> {{ listing.views_count }}</span>{% endif %}
+                            {% if listing.views_count and listing.views_count > 0 %}<span class="home-tab-badge badge-popular"><i class="fas fa-eye"></i> {{ listing.views_count|sk }}</span>{% endif %}
                             {% if listing.vin %}<span class="badge-vin">VIN</span>{% endif %}
                         </div>
                         <div class="home-tab-info">

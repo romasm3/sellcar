@@ -45,11 +45,11 @@
                 </div>
                 <div class="grid grid-cols-3 gap-4 text-center">
                     <div>
-                        <div class="text-2xl font-bold text-gray-900">{{ total_count }}</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ total_count|sk }}</div>
                         <div class="text-xs text-gray-500 uppercase">Total</div>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-green-700">{{ active_count }}</div>
+                        <div class="text-2xl font-bold text-green-700">{{ active_count|sk }}</div>
                         <div class="text-xs text-gray-500 uppercase">Active</div>
                     </div>
                     <div>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="text-xs text-gray-500">
                                     Created: {{ listing.created_at|date:"Y-m-d H:i" }}
-                                    &middot; Views: {{ listing.views_count }}
+                                    &middot; Views: {{ listing.views_count|sk }}
                                 </div>
                             </div>
                         </div>

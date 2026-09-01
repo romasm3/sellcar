@@ -32,7 +32,7 @@
                     <span class="inline-flex items-center gap-1 bg-green-500 px-2 py-0.5 rounded-full text-xs font-semibold">
                         <i class="fas fa-check-circle"></i> {% trans "Verified Dealer" %}
                     </span>
-                    <span class="drop-shadow">{{ total_count }} {% trans "listings" %}</span>
+                    <span class="drop-shadow">{{ total_count|sk }} {% trans "listings" %}</span>
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
                             <span>{% trans "All listings" %}</span>
                         </span>
                         <span class="text-xs {% if not selected_category %}text-red-600{% else %}text-gray-500{% endif %}">
-                            ({{ total_count }})
+                            ({{ total_count|sk }})
                         </span>
                     </a>
 
@@ -177,7 +177,7 @@
 
             <div class="flex items-center justify-between mb-4">
                 <div class="text-sm text-gray-700">
-                    {% trans "Showing" %} <strong>{{ listings_count }}</strong> {% trans "listings" %}
+                    {% trans "Showing" %} <strong>{{ listings_count|sk }}</strong> {% trans "listings" %}
                 </div>
                 <form method="get" class="flex items-center gap-2">
                     {% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}
@@ -237,7 +237,7 @@
                         <div class="flex-shrink-0 flex flex-col items-end justify-between">
                             <div class="text-xl font-bold text-red-600">{{ listing.price|kaina:listing.currency_symbol }}</div>
                             {% if listing.views_count %}
-                            <div class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>{{ listing.views_count }}</div>
+                            <div class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>{{ listing.views_count|sk }}</div>
                             {% endif %}
                         </div>
                     </div>

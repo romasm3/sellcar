@@ -1,4 +1,4 @@
-{% load i18n_db i18n dict_extras %}{% comment %}
+{% load i18n_db i18n dict_extras listing_filters %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 ŠONINĖ FILTRŲ JUOSTA rezultatų puslapyje.
 
@@ -120,7 +120,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
         <button type="submit"
                 class="sp-btn-secondary w-full text-[13.5px] font-bold rounded-lg px-4 py-[9px] flex items-center justify-center gap-2 transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-          {% trans "Filtruoti" %} <span id="sidebarCount">{{ total_count }}</span>
+          {% trans "Filtruoti" %} <span id="sidebarCount">{{ total_count|sk }}</span>
         </button>
         <a href="{% url 'listing_list' %}?category={{ sidebar.slug }}&sidebar=1"
            class="sb-clear">{% trans "Išvalyti" %}</a>

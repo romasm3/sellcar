@@ -2756,7 +2756,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         {% if listing.views_count %}
                         <div class="flex items-center justify-between text-sm">
                             <span class="text-gray-600"><i class="far fa-eye mr-2 text-gray-400"></i>{% trans "Views" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.views_count }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.views_count|sk }}</span>
                         </div>
                         {% endif %}
                         {% if listing.last_boosted_at and listing.show_renewed_badge %}

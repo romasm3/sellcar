@@ -28,7 +28,7 @@
                     <!-- Stats -->
                     <div class="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-primary">{{ active_count|default:0 }}</div>
+                            <div class="text-2xl font-bold text-primary">{{ active_count|default:0|sk }}</div>
                             <div class="text-xs text-gray-600">Listings</div>
                         </div>
                         <div class="text-center">
@@ -104,12 +104,12 @@
                             <button @click="activeTab = 'active'"
                                     :class="activeTab === 'active' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
                                     class="px-6 py-4 border-b-2 font-medium transition-colors">
-                                Active Listings ({{ active_count|default:0 }})
+                                Active Listings ({{ active_count|default:0|sk }})
                             </button>
                             <button @click="activeTab = 'sold'"
                                     :class="activeTab === 'sold' ? 'border-primary text-primary' : 'border-transparent text-gray-600 hover:text-gray-900'"
                                     class="px-6 py-4 border-b-2 font-medium transition-colors">
-                                Sold ({{ sold_count|default:0 }})
+                                Sold ({{ sold_count|default:0|sk }})
                             </button>
                         </div>
                     </div>

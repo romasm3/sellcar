@@ -433,7 +433,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
     <a href="/browse/?category=motorcycles" class="btn-clear">← {% trans "Back to Motorcycles" %}</a>
     <div style="display:flex;align-items:center;gap:14px;">
         <a href="/search/advanced/motorcycles/" class="btn-clear">{% trans "Clear filters" %}</a>
-        <span style="font-size:0.82rem;color:#6b7280;">{% trans "Found" %}: <strong>{{ total_count }}</strong></span>
+        <span style="font-size:0.82rem;color:#6b7280;">{% trans "Found" %}: <strong>{{ total_count|sk }}</strong></span>
         <button type="submit" class="btn-search"><i class="fas fa-search"></i> {% trans "Search" %}</button>
     </div>
 </div>

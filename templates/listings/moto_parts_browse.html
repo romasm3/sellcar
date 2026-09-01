@@ -98,7 +98,7 @@
   <div class="mpb-head">
     <div>
       <h1>{% trans "Motorcycle parts" %}</h1>
-      <span class="count">{{ total_count }} {% trans "listings found" %}</span>
+      <span class="count">{{ total_count|sk }} {% trans "listings found" %}</span>
     </div>
     <a class="mpb-adv" href="{% url 'moto_parts_advanced_search' %}"><i class="fas fa-sliders-h"></i> {% trans "Advanced" %}</a>
   </div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n listing_filters %}
 
 {% block title %}Dealer Moderation - Admin{% endblock %}
 
@@ -21,7 +21,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white border border-gray-200 rounded-xl p-5">
             <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Active Dealers</div>
-            <div class="text-3xl font-bold text-green-600">{{ total_dealers }}</div>
+            <div class="text-3xl font-bold text-green-600">{{ total_dealers|sk }}</div>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-5">
             <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">New This Week</div>
@@ -117,7 +117,7 @@
                     <td class="px-4 py-3">
                         <div class="text-sm">
                             <div><strong class="text-gray-900">{{ d.active_listings }}</strong> active</div>
-                            <div class="text-xs text-gray-500">{{ d.total_listings }} total</div>
+                            <div class="text-xs text-gray-500">{{ d.total_listings|sk }} total</div>
                         </div>
                     </td>
 

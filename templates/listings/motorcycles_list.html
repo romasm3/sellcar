@@ -505,7 +505,7 @@
                         {# FILTRAVIMO MYGTUKAS — filtrai taikomi tik jį paspaudus #}
                         <button type="submit" class="btn-orange-search mb-3">
                             <i class="fas fa-search"></i> {% trans "Filtruoti" %}
-                            <span id="sidebarCount">{{ total_count }}</span>
+                            <span id="sidebarCount">{{ total_count|sk }}</span>
                         </button>
 
                         {# EXTRA CHECKBOXES #}

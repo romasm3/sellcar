@@ -167,8 +167,18 @@ TIME_ZONE = "Europe/Vilnius"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-# Tūkstančiai skiriami pagal kalbą (lt „5 000", en „5,000")
-USE_THOUSAND_SEPARATOR = True
+# Tūkstančių skirtuko iš Django lokalės NEIMAM.
+#
+# Komentaras čia anksčiau žadėjo „lt 5 000", bet Django lt lokalė skiria
+# TAŠKU: intcomma(48320) → „48.320". Todėl įjungtas USE_THOUSAND_SEPARATOR
+# gadino viską, kas renderinama plikai — metai virsdavo „2.018", o formų
+# laukuose atsirasdavo „15.000 km", kurio nebeišsaugosi.
+#
+# Skaičius, kuriems tarpas TIKRAI reikalingas (kiekiai, peržiūros, rida,
+# kainos), formatuojam patys per apps/listings/formatai.py — filtrai
+# |sk ir |kaina duoda nedalomą tarpą lietuviškai ir kablelį angliškai.
+# Metai, ID ir formų reikšmės lieka plikos, kaip ir turi būti.
+USE_THOUSAND_SEPARATOR = False
 
 # Kalbos perjungiklyje matomos VISOS, kurioms locale/ turi .po failą.
 # 8dd8851 sąrašas buvo apkarpytas iki lt/en, o .po failai liko — grąžinta

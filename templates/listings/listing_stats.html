@@ -62,7 +62,7 @@
                 <div class="text-[10px] font-semibold text-gray-600 uppercase tracking-wide mb-1">
                     <i class="fas fa-eye text-gray-400"></i> {% trans "Views" %}
                 </div>
-                <div class="text-2xl font-bold text-gray-900">{{ views_total }}</div>
+                <div class="text-2xl font-bold text-gray-900">{{ views_total|sk }}</div>
                 <div class="text-[11px] mt-1 {% if views_change_pct > 0 %}text-green-600{% elif views_change_pct < 0 %}text-red-600{% else %}text-gray-500{% endif %}">
                     {% if views_change_pct > 0 %}↑{% elif views_change_pct < 0 %}↓{% endif %}
                     {% blocktrans with pct=views_change_pct %}{{ pct }}% vs last week{% endblocktrans %}
@@ -73,7 +73,7 @@
                 <div class="text-[10px] font-semibold text-gray-600 uppercase tracking-wide mb-1">
                     <i class="fas fa-chart-bar text-gray-400"></i> {% trans "Impressions" %}
                 </div>
-                <div class="text-2xl font-bold text-gray-900">{{ impressions_total }}</div>
+                <div class="text-2xl font-bold text-gray-900">{{ impressions_total|sk }}</div>
                 <div class="text-[11px] mt-1 {% if impressions_change_pct > 0 %}text-green-600{% elif impressions_change_pct < 0 %}text-red-600{% else %}text-gray-500{% endif %}">
                     {% if impressions_change_pct > 0 %}↑{% elif impressions_change_pct < 0 %}↓{% endif %}
                     {% blocktrans with pct=impressions_change_pct %}{{ pct }}% vs last week{% endblocktrans %}
@@ -92,7 +92,7 @@
                 <div class="text-[10px] font-semibold text-gray-600 uppercase tracking-wide mb-1">
                     <i class="fas fa-heart text-gray-400"></i> {% trans "Saved" %}
                 </div>
-                <div class="text-2xl font-bold text-gray-900">{{ saves_total }}</div>
+                <div class="text-2xl font-bold text-gray-900">{{ saves_total|sk }}</div>
                 <div class="text-[11px] text-gray-500 mt-1">{% blocktrans with rate=save_rate %}{{ rate }}% save rate{% endblocktrans %}</div>
             </div>
 
@@ -123,7 +123,7 @@
         <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
             <div class="flex items-center justify-between mb-3">
                 <h2 class="text-base font-semibold text-gray-900">{% trans "Views per day (last 30 days)" %}</h2>
-                <span class="text-xs text-gray-500">{% trans "Total" %}: {{ views_total }}</span>
+                <span class="text-xs text-gray-500">{% trans "Total" %}: {{ views_total|sk }}</span>
             </div>
             <div style="position: relative; width: 100%; height: 180px;">
                 <canvas id="viewsChart"></canvas>
@@ -134,7 +134,7 @@
         <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
             <div class="flex items-center justify-between mb-3">
                 <h2 class="text-base font-semibold text-gray-900">{% trans "Impressions per day (last 30 days)" %}</h2>
-                <span class="text-xs text-gray-500">{% trans "Total" %}: {{ impressions_total }}</span>
+                <span class="text-xs text-gray-500">{% trans "Total" %}: {{ impressions_total|sk }}</span>
             </div>
             <div style="position: relative; width: 100%; height: 180px;">
                 <canvas id="impressionsChart"></canvas>

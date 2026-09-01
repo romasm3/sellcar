@@ -1,4 +1,4 @@
-{% load i18n dict_extras %}{% comment %}
+{% load i18n dict_extras listing_filters %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 REZULTATŲ ANTRAŠTĖ TELEFONE (etalono .items-header)
 
@@ -9,7 +9,7 @@ todėl išsikišdavo į KAIRĘ (neigiamas left).
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
   <div class="sp-items-header lg:hidden">
-    <div class="ads-count">{% trans "Rasta:" %} <span>{{ total_count }}</span></div>
+    <div class="ads-count">{% trans "Rasta:" %} <span>{{ total_count|sk }}</span></div>
     {% comment %}Etalone telefone šoninės juostos nėra — vietoj jos viena
     ikona, vedanti į detalią paiešką su tais pačiais parametrais
     (<a class="icon icon-filter change-search" href="/paieska/…">).{% endcomment %}

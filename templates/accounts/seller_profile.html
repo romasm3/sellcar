@@ -51,7 +51,7 @@
                 <div class="flex overflow-x-auto gap-0 px-2">
                     <button onclick="showTab('listings')" id="tab-listings"
                             class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-primary text-primary whitespace-nowrap">
-                        {% trans "Listings" %} ({{ listings_count }})
+                        {% trans "Listings" %} ({{ listings_count|sk }})
                     </button>
                     <button onclick="showTab('contacts')" id="tab-contacts"
                             class="tab-btn px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600 hover:text-gray-900 whitespace-nowrap">

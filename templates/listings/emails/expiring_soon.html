@@ -1,4 +1,4 @@
-{% load humanize %}<!DOCTYPE html>
+{% load listing_filters %}<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@
                                             {{ listing.brand.name }}{% if listing.model %} {{ listing.model.name }}{% endif %}
                                         </div>
                                         <div style="color:#111827; font-size:18px; font-weight:700;">
-                                            {{ listing.price|floatformat:0|intcomma }} €
+                                            {{ listing.price|kaina:listing.currency_symbol }}
                                         </div>
                                     </td>
                                 </tr>
