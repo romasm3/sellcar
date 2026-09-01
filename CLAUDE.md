@@ -2,9 +2,27 @@
 Django vehicle marketplace, Lithuanian-first. PRODUCTION server — be careful.
 
 ## Environment
-- This IS the live production server (/root/autoleft), PostgreSQL, gunicorn via /run/gunicorn.sock, nginx
+PIRMAS ŽINGSNIS — pasitikrink, KUR esi. Nuo to priklauso viskas:
+
+```bash
+pwd; ls -d /root/autoleft 2>/dev/null && echo SERVERIS || echo KONTEINERIS
+```
+
+**A. Produkcijos serveris** (`/root/autoleft`, yra systemd, nginx,
+/run/gunicorn.sock, psycopg): PostgreSQL, gunicorn per soketą, nginx.
 - After backend changes: systemctl restart gunicorn
-- You may run migrations, collectstatic and systemctl restart gunicorn yourself without asking; report what you did at the end
+- You may run migrations, collectstatic and systemctl restart gunicorn
+  yourself without asking; report what you did at the end
+
+**B. Debesų konteineris** (`/home/user/sellcar`, PID 1 = process_api, nėra
+systemd, nginx, psycopg): šviežias git klonas, be produkcijos prieigos.
+- Vietinei patikrai: sqlite + runserver (žr. docs/*_test.py antraštes)
+- `systemctl`, `journalctl`, `./deploy-agent.sh` čia NEVEIKIA — net
+  nebandyk; iškelk pakeitimus į master ir deploy'ą paleis serverio timeris
+- Gyvą svetainę matai tik per `curl https://autoleft.com/…` — tuo ir
+  tikrink, ar darbas pasiekė lankytoją (SKILL.md 8 taisyklė)
+- Jei reikia serverio žurnalų ar rankinio deploy'o — paprašyk žmogaus,
+  nemeluok, kad „paleidau".
 - Never run destructive DB commands (DROP, DELETE without WHERE, flush) — always ask first
 - deploy-agent.sh exists for snapshot deploys (last_good rollback)
 
