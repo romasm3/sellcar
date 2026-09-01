@@ -184,6 +184,17 @@ tikrink('restore_code' not in seke,
         'sėkmės šakoje atsukimo nėra')
 
 
+antraste('10. Po atsukimo katalogas lieka švarus')
+tikrink('sutvarkyti_po_atsukimo' in d2, 'yra sutvarkyti_po_atsukimo')
+atsukimas = d2[d2.index('restore_code\n  sutvarkyti_po_atsukimo'):]
+tikrink('sutvarkyti_po_atsukimo' in d2[d2.index('❌ Health FAIL'):],
+        'kviečiama iškart po restore_code')
+tikrink('git reset --hard' in d2, 'git istorija suderinama su failais')
+tikrink('pries_reset_' in d2, 'pakeitimai pirma išsaugomi į atsargą')
+tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_atsukimo_test.sh')),
+        'yra atsukimo testas su tikru git repozitoriumi')
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

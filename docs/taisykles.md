@@ -197,7 +197,50 @@ grąžinti tuščią — vėliavos kelias minimas tik vienoje dalyje.
 
 ---
 
-## 6. VIENA ŠALIS VISAI SVETAINEI
+## 6. NAUJA DEPLOY PATIKRA — PIRMA ATSKIRAI, TIK PASKUI Į GRANDINĘ
+
+> Įrašyta 2026-09-01, po to, kai nauja statinių patikra kas minutę
+> atsukdavo visiškai sveiką kodą.
+
+Kiekviena nauja patikra `deploy-agent.sh` arba `deploy-from-git.sh`
+pridedama TRIMIS žingsniais, ir ne kitokia tvarka:
+
+**1. Paleidžiama ATSKIRAI, nieko neveikdama.** Tik loguoja, ką būtų
+nusprendusi. Bent viena sėkminga ir viena nesėkminga eiga tikroje
+aplinkoje. `bash -n` čia negalioja — jis tikrina sintaksę, ne elgesį.
+
+**2. Turi savo testą, kuris ją PALEIDŽIA**, o ne skaito. Skriptas sukasi
+su `set -euo pipefail`, kur elgesys nėra akivaizdus iš teksto:
+
+* `grep` be atitikmens grąžina 1 → `pipefail` → `set -e` išmeta iš
+  skripto (taip deploy'as nutrūkdavo dar prieš prasidedant);
+* `curl` per gunicorn soketą be `X-Forwarded-Proto: https` gauna 301
+  tuščiu kūnu, nes `SECURE_SSL_REDIRECT` įjungtas — patikra „nemato" HTML;
+* `[[ ]] && komanda` paskutinėje eilutėje grąžina 1.
+
+Pavyzdžiai: `docs/deploy_statiniu_test.sh`, `docs/deploy_atsukimo_test.sh`.
+
+**3. Tik tada įjungiama — ir NIEKADA į grandinę, kuri atsuka kodą.**
+Gyvybės klausimas yra vienas: `health_check`, t. y. ar puslapis
+atsidaro. Visa kita — pageidavimai:
+
+| Patikra | Kas nutinka, kai krenta |
+|---|---|
+| `health_check` | atsukam kodą (ir sutvarkom git) |
+| statinių maišas, versijos žymė, bet kas kita | **tik įspėjimas žurnale** |
+
+Blogai: `if health_check && mano_patikra; then` — viena smulkmena
+nusveria veikiantį puslapį.
+
+**Po atsukimo darbinis katalogas privalo likti švarus.** `rsync` grąžina
+senus failus, bet git HEAD lieka rodyti į naują commit'ą; tada kitas
+`git pull` nulūžta ir taimeris tyliai nustoja veikti. Tvarko
+`sutvarkyti_po_atsukimo`: pataisa į atsargą, `git reset --hard` į
+`last_good/VERSIJA` sha, ir patikrinimas, kad `git status` tuščias.
+
+---
+
+## 7. VIENA ŠALIS VISAI SVETAINEI
 
 > Įrašyta 2026-09-01.
 
@@ -241,7 +284,7 @@ ir `docs/viena_salis_playwright.js` (naršyklė, nuotraukos 1600 ir 390 px).
 
 ---
 
-## 7. Tos pačios taisyklės — įmonėms ir meistrams
+## 8. Tos pačios taisyklės — įmonėms ir meistrams
 
 Vieta pirma. Paslaugos ir kainos — kortelėje. Viskas kita — įmonės
 puslapyje.
@@ -267,6 +310,7 @@ puslapyje.
 - [ ] Kortelėje vieta rodoma vieną kartą (darbalaukyje žalia eilutė,
       telefone „Miestas" langelis)
 - [ ] Be šalies — tik miestas, be tuščio kvadrato
+- [ ] Nauja deploy patikra: paleista atskirai, turi savo testą, neatsuka kodo
 - [ ] Šalis — viena reikšmė: pakeitus vienur, pasikeitė visur
 - [ ] Šalies keitimas nenumetė markės, kainos, metų
 - [ ] Skelbimo šalis paimta iš kontaktų bloko, ne iš paieškos

@@ -55,6 +55,67 @@ health_check() {
 snapshot_code() { mkdir -p "$LAST_GOOD"; rsync -a --delete "${EXCLUDES[@]}" "${APP_DIR}/" "${LAST_GOOD}/"; }
 restore_code()  { rsync -a --delete "${EXCLUDES[@]}" "${LAST_GOOD}/" "${APP_DIR}/"; }
 
+# ── PO ATSUKIMO DARBINIS KATALOGAS TURI LIKTI ŠVARUS ─────────────────
+# restore_code perrašo sekamus failus sena versija, o git HEAD lieka rodyti
+# į naują (blogą) commit'ą. Tada `git status` pilnas pakeitimų, ir kitas
+# `git pull` nulūžta su „local changes would be overwritten by merge":
+# taimeris sukasi, bet nieko nebeparsiunčia, ir atrodo, kad jis mirė.
+#
+# deploy-from-git.sh tai jau daro (git reset --hard "$LOCAL"), BET tik
+# tada, kai deploy-agent.sh paleistas per jį. Paleidus agentą tiesiogiai
+# — o taip daroma rankiniu būdu — niekas git istorijos nesutvarkydavo.
+#
+# Į kurią versiją grąžinti, žinom iš pačios atsuktos kopijos: restore_code
+# parneša ir last_good/VERSIJA su TA PAČIA sha, kurią atitinka failai.
+sutvarkyti_po_atsukimo() {
+  if ! git -C "$APP_DIR" rev-parse --git-dir >/dev/null 2>&1; then
+    log "Darbinis katalogas ne git — tvarkyti nėra ko."
+    return 0
+  fi
+
+  # Nieko netrinam be pėdsako: jei kas nors buvo redagavęs kodą serveryje,
+  # pataisa lieka atsargoje, o ne dingsta.
+  if ! git -C "$APP_DIR" diff --quiet HEAD 2>/dev/null; then
+    mkdir -p "$BACKUP_DIR"
+    local pataisa="${BACKUP_DIR}/pries_reset_${TS}.patch"
+    git -C "$APP_DIR" diff HEAD > "$pataisa" 2>/dev/null || true
+    log "Darbinio katalogo pakeitimai išsaugoti: $pataisa"
+  fi
+
+  local sha=""
+  if [[ -f "${LAST_GOOD}/VERSIJA" ]]; then
+    sha="$(tr -d "[:space:]" < "${LAST_GOOD}/VERSIJA")"
+  fi
+  if [[ -z "$sha" || "$sha" == "nezinoma" ]]; then
+    log "DĖMESIO: nežinau, į kurią versiją grąžinti git — nėra ${LAST_GOOD}/VERSIJA."
+    log "         Darbinis katalogas liko nešvarus; kitas git pull nulūš."
+    log "         Rankomis: git -C ${APP_DIR} log --oneline -3"
+    log "                   git -C ${APP_DIR} reset --hard <veikianti-sha>"
+    return 0
+  fi
+
+  if ! git -C "$APP_DIR" cat-file -e "${sha}^{commit}" 2>/dev/null; then
+    log "DĖMESIO: commit'as ${sha} nerastas — git nenustatytas."
+    return 0
+  fi
+
+  if git -C "$APP_DIR" reset --hard "$sha" >/dev/null 2>&1; then
+    log "git reset --hard ${sha} — istorija suderinta su atsuktais failais."
+  else
+    log "DĖMESIO: git reset nepavyko — reikia rankinio įsikišimo."
+    return 0
+  fi
+
+  # Pasitikrinam, o ne tikim: kitas pull turi praeiti.
+  if [[ -z "$(git -C "$APP_DIR" status --porcelain --untracked-files=no)" ]]; then
+    log "Darbinis katalogas švarus — kitas git pull veiks."
+  else
+    log "DĖMESIO: katalogas VIS DAR nešvarus:"
+    git -C "$APP_DIR" status --short --untracked-files=no | sed "s/^/         /" \
+      | while read -r e; do log "$e"; done
+  fi
+}
+
 dump_db() {
   mkdir -p "$BACKUP_DIR"
   local out="${BACKUP_DIR}/db_${TS}.sql"
@@ -209,6 +270,7 @@ if health_check; then
 else
   log "❌ Health FAIL — atkeičiam KODĄ į paskutinę veikiančią versiją (old)."
   restore_code
+  sutvarkyti_po_atsukimo
   restart_service
   if health_check; then
     log "Kodas atsuktas — sena versija vėl veikia."
