@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-01 21:43:33 CEST
+Sugeneruota: 2026-09-01 22:53:19 CEST
 
 ## Kodas
 
 ```
-sukasi:      9f0c6aa fix(pastas): laiškai iškelti iš užklausos į foną
-origin/master: fdf1c69 docs(claude): atskirti produkcijos serverį nuo debesų konteinerio
+sukasi:      b3e737b fix(deploy): statinių patikra nebeatsuka kodo + versijos žymė
+origin/master: b3e737b fix(deploy): statinių patikra nebeatsuka kodo + versijos žymė
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.002363s
+HTTP 301, 0.001625s
 ```
 
 ## Skelbimų būsenos
@@ -51,35 +51,35 @@ o ne taisyti kode.
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda1       291G   45G  247G  16% /
+/dev/sda1       291G   45G  246G  16% /
 ```
 
 ## Paskutinis auto-deploy
 
 ```
-Sep 01 21:43:29 vmi3306453 autoleft-deploy[2952526]:     ca29580 feat(juosta): šoninės filtrų juostos išvaizda pagal etaloną
-Sep 01 21:43:29 vmi3306453 autoleft-deploy[2952526]:     1f05c01 docs(ekranai): nuotraukos iš GYVOS autoleft.com (SKILL.md 8 taisyklė)
-Sep 01 21:43:29 vmi3306453 autoleft-deploy[2952526]:     d75e49d fix(deploy): statinių patikra nutraukdavo visą deploy'ą
-Sep 01 21:43:29 vmi3306453 autoleft-deploy[2952526]:     9d7bed7 fix(statiniai): turinio maišas varduose ir talpyklos taisyklės
-Sep 01 21:43:29 vmi3306453 autoleft-deploy[2952502]: [2026-09-01 21:43:29] Kodas atnaujintas iki fdf1c69
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:         raise ValueError(
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     ----------------------------------------------------------------------
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     Ran 11 tests in 1.216s
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     FAILED (errors=4)
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:         hashed_name = hashed_name_func(*args)
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:         raise ValueError(
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     ----------------------------------------------------------------------
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     Ran 4 tests in 0.242s
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     FAILED (errors=2)
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     
-Sep 01 21:43:33 vmi3306453 autoleft-deploy[2952600]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/kort-vieta-1600-salis-blokas.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/kort-vieta-390-ilgas.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/ekranai/sonine-juosta-apacia.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/ekranai/sonine-juosta-virsus.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-kontaktai-de.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-sonine-de.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-sonine-sarasas.png
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/kort_vieta_playwright.js
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/salies_juosta_test.py
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/sonine_juosta_playwright.js
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/sonines_juostos_sarasas.py
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/statiniu_kesas_test.py
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/taisykles.md
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/veliavos_test.py
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/viena_salis_test.py
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D static/css/sonine_juosta.css
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M templates/base.html
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M templates/listings/emails/expired.html
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M templates/listings/emails/expiring_soon.html
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M templates/pages/partneriai.html
+Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002170]: [2026-09-01 22:50:06] ❌ Darbo katalogas nešvarus — deploy'as sustabdytas. Sutvarkyk ranka.
+Sep 01 22:50:06 vmi3306453 systemd[1]: autoleft-deploy.service: Main process exited, code=exited, status=1/FAILURE
+Sep 01 22:50:06 vmi3306453 systemd[1]: autoleft-deploy.service: Failed with result 'exit-code'.
+Sep 01 22:50:06 vmi3306453 systemd[1]: Failed to start AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 01 22:53:19 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
