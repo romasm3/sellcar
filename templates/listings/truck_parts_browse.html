@@ -268,7 +268,7 @@
               </div>
               <div class="ap-loc mt-auto">
                   <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ listing.city|vietovardis|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}</span>
+                  <span>{{ listing.city|vietovardis|default:_("Unknown") }}{% if listing.country %}, {{ listing.get_country_display_name }}{% endif %}{% include 'partials/_veliava.html' with kodas=listing.country %}</span>
               </div>
           </div>
       </div>

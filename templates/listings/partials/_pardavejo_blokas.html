@@ -47,7 +47,10 @@ Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
       {% if listing.country and salies_kodas and listing.country != salies_kodas and salies_kodas != 'VISOS' %}
       <div class="pard-kita-salis">
         {% blocktrans with salis=listing.get_country_display_vietininkas %}Šis skelbimas yra {{ salis }}{% endblocktrans %}
-        <a href="?salis={{ listing.country|lower }}">{% blocktrans with salis=listing.get_country_display %}Rodyti visus {{ salis }} skelbimus{% endblocktrans %}</a>
+        {% comment %}Vietininkas („Vokietijoje"), ne vardininkas: lietuviškai
+        „Rodyti visus Vokietija skelbimus" yra beraštis sakinys. Kitomis
+        kalbomis ta pati funkcija grąžina paprastą pavadinimą.{% endcomment %}
+        <a href="?salis={{ listing.country|lower }}">{% blocktrans with salis=listing.get_country_display_vietininkas %}Rodyti visus skelbimus {{ salis }}{% endblocktrans %}</a>
       </div>
       {% endif %}
 

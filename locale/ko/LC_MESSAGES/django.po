@@ -12221,8 +12221,8 @@ msgstr "국가 검색"
 msgid "Šis skelbimas yra %(salis)s"
 msgstr "이 매물은 %(salis)s에 있습니다"
 
-#: templates/partials/_salis.html:0
-msgid "Rodyti visus %(salis)s skelbimus"
+#: templates/listings/partials/_pardavejo_blokas.html:0
+msgid "Rodyti visus skelbimus %(salis)s"
 msgstr "%(salis)s의 모든 매물 보기"
 
 #: templates/partials/_salis.html:0

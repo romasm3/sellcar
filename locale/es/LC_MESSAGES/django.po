@@ -12314,8 +12314,8 @@ msgstr "Buscar país"
 msgid "Šis skelbimas yra %(salis)s"
 msgstr "Este anuncio está en %(salis)s"
 
-#: templates/partials/_salis.html:0
-msgid "Rodyti visus %(salis)s skelbimus"
+#: templates/listings/partials/_pardavejo_blokas.html:0
+msgid "Rodyti visus skelbimus %(salis)s"
 msgstr "Ver todos los anuncios en %(salis)s"
 
 #: templates/partials/_salis.html:0

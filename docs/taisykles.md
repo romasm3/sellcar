@@ -106,14 +106,23 @@ Jokio spėliojimo pagal pardavėjo paskyrą ar IP.
 
 **Kur dedama** — visur, kur rodoma skelbimo vieta:
 
-1. kontaktų bloke skelbimo puslapyje, prieš miestą
+1. kontaktų bloke skelbimo puslapyje
 2. skelbimo kortelėje sąraše, vietos eilutėje
 3. žemėlapio žymeklio burbule
 4. išsaugotose paieškose ir peržiūrėtuose skelbimuose
+5. šalies sąrašuose — juostoje virš panelės ir šoninėje juostoje
 
-**Formatas visur vienodas:**
+**Formatas visur vienodas — vėliava GALE, po pavadinimo:**
 
-    [vėliava] Vilnius, Lietuva
+    Vilnius, Lietuva [vėliava]
+
+Sąrašo eilutėje ji prilimpa prie pavadinimo, o skaičius nustumiamas į
+dešinį kraštą:
+
+    ○ Lietuva [vėliava]              4 821
+    ● Visos šalys [gaublys]         48 320
+
+Niekur ne prieš pavadinimą. Radus seną variantą — taisyti.
 
 Šalies pavadinimas **pilnas ir išverstas** — ne kodas „LT" ar „DE".
 
@@ -130,7 +139,7 @@ Jokio spėliojimo pagal pardavėjo paskyrą ar IP.
   vėliavos (JP, PL) nesusilietų su fonu.
 - `alt` ir `title` — pilnas šalies pavadinimas.
 - **Viena šablono dalis** `templates/partials/_veliava.html`, naudojama
-  visose keturiose vietose. Jokių kopijų.
+  visur. Jokių kopijų.
 - Vėliavų rinkinys — **visos** šalys iš `salys.py`. Vienas šaltinis, ne
   po failą kaskart.
 
@@ -142,7 +151,51 @@ grąžinti tuščią — vėliavos kelias minimas tik vienoje dalyje.
 
 ---
 
-## 6. Tos pačios taisyklės — įmonėms ir meistrams
+## 6. VIENA ŠALIS VISAI SVETAINEI
+
+> Įrašyta 2026-09-01.
+
+Šalis **nėra** atskiras kiekvieno puslapio filtras. Tai **viena bendra
+reikšmė**: pakeitus ją bet kurioje vietoje, ji pasikeičia visose.
+
+**Viena vieta kode.** Jokių kopijų, jokių antrų sąrašų:
+
+| Kas | Kur |
+|---|---|
+| šablonas | `templates/partials/_salis.html` — trys stiliai: `juosta`, `sonine`, `lakstas` |
+| reikšmė ir sąrašas | `apps/listings/salies_juosta.py` |
+| kiekiai | `salies_juosta.kiekiai()` — ta pati funkcija, kuri duoda skaičių ant panelės mygtuko |
+| perdavimas šablonams | `context_processors.salis` |
+
+**Reikšmės sluoksniai** (adresas laimi visada):
+
+    ?salis=de  →  slapukas „salis"  →  paskyros profilis  →  lt
+
+**Kur veikia ta pati reikšmė:** paieškos panelė pradžioje, pradžios
+skirtukai („Naujausi", „Populiariausi"), šoninė juosta rezultatuose,
+išplėstinė paieška, `/imones/` ir `/imones/paieska/`, žemėlapis.
+
+**Šalies keitimas neišvalo kitų filtrų.** Markė, kaina, metai lieka;
+išvalomi tik miestas ir spindulys — jie pririšti prie senos šalies
+(`salies_juosta.PRIRISTI_PRIE_SALIES`). Tie patys laukai nuimami ir
+skaičiuojant skaičiukus: kitaip „Vilnius + 50 km" prie visų kitų šalių
+rodytų 0.
+
+**Skelbimo šalis — TIK iš kontaktų bloko**, niekada iš paieškoje
+pasirinktos. Jei jos skiriasi, virš bloko — tyli eilutė:
+
+    Šis skelbimas yra Vokietijoje   Rodyti visus skelbimus Vokietijoje
+
+Vietininkas („Vokietijoje") duodamas tik lietuviškoje sąsajoje —
+`salys.vietininkas()` kitomis kalbomis grąžina paprastą pavadinimą,
+nes ten prielinksnis yra vertime.
+
+**Patikra:** `docs/viena_salis_test.py` (tikras klientas, tikri adresai)
+ir `docs/viena_salis_playwright.js` (naršyklė, nuotraukos 1600 ir 390 px).
+
+---
+
+## 7. Tos pačios taisyklės — įmonėms ir meistrams
 
 Vieta pirma. Paslaugos ir kainos — kortelėje. Viskas kita — įmonės
 puslapyje.
@@ -160,7 +213,11 @@ puslapyje.
       žemėlapis, „Kaip nuvažiuoti"
 - [ ] Kontaktų blokas matomas be slinkimo iki galo (390 px)
 - [ ] Kontaktai tik per `contact_block.html`
-- [ ] Vėliavėlė visose keturiose vietose, per `_veliava.html`
+- [ ] Vėliavėlė visur, kur rodoma vieta, per `_veliava.html`
+- [ ] Vėliavėlė VISUR po pavadinimo, ne prieš jį
 - [ ] Vėliavėlė — SVG, 16×12, su rėmeliu; šalies vardas pilnas ir išverstas
 - [ ] Be šalies — tik miestas, be tuščio kvadrato
+- [ ] Šalis — viena reikšmė: pakeitus vienur, pasikeitė visur
+- [ ] Šalies keitimas nenumetė markės, kainos, metų
+- [ ] Skelbimo šalis paimta iš kontaktų bloko, ne iš paieškos
 - [ ] Įmonėms ir meistrams — tos pačios taisyklės

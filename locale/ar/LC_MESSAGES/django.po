@@ -12279,8 +12279,8 @@ msgstr "البحث عن بلد"
 msgid "Šis skelbimas yra %(salis)s"
 msgstr "هذا الإعلان في %(salis)s"
 
-#: templates/partials/_salis.html:0
-msgid "Rodyti visus %(salis)s skelbimus"
+#: templates/listings/partials/_pardavejo_blokas.html:0
+msgid "Rodyti visus skelbimus %(salis)s"
 msgstr "عرض كل الإعلانات في %(salis)s"
 
 #: templates/partials/_salis.html:0

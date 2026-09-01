@@ -89,13 +89,16 @@
     color: #1A1A1A;
 }
 .salies-punktas:hover, .salies-punktas.is-on { background: #F4F4F5; }
-.salies-punktas .veliava { margin-right: 0; }
+.salies-punktas .veliava { margin-right: 0; margin-left: -6px; }
 /* „Visos šalys" — pirma ir atskirta linija nuo šalių sąrašo */
 .salies-punktas.su-skirtuku { border-bottom: 1px solid #E5E7EB; }
-.salies-punkto-vardas { flex: 1 1 auto; font-size: 15px; font-weight: 500;
+/* Vardas NEIŠSITEMPIA: vėliava turi likti prilipusi prie pavadinimo
+   („Lietuva 🇱🇹        4 821"), o skaičius nustumiamas į dešinę. */
+.salies-punkto-vardas { flex: 0 1 auto; font-size: 15px; font-weight: 500;
                         overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .salies-punktas.is-on .salies-punkto-vardas { font-weight: 700; }
-.salies-punkto-kiekis { font-size: 13px; color: #6B7280; flex: 0 0 auto; }
+.salies-punkto-kiekis { font-size: 13px; color: #6B7280; flex: 0 0 auto;
+                        margin-left: auto; }
 .salies-varnele { width: 18px; height: 18px; flex: 0 0 auto; color: #181B1F; }
 
 /* ── Telefone — apatinis lakštas per visą plotį ──────────────────── */
@@ -168,11 +171,12 @@
 .salis-radijo { width: 16px; height: 16px; border-radius: 50%;
                 border: 1.5px solid #9CA3AF; flex: 0 0 auto; }
 .salis-eil.is-on .salis-radijo { border-color: #181B1F; border-width: 5px; }
-.salis-eil-vardas { flex: 1 1 auto; min-width: 0; overflow: hidden;
+.salis-eil-vardas { flex: 0 1 auto; min-width: 0; overflow: hidden;
                     text-overflow: ellipsis; white-space: nowrap; }
 .salis-eil.is-on .salis-eil-vardas { font-weight: 700; }
-.salis-eil .veliava { margin-right: 0; }
-.salis-eil-kiekis { color: #6B7280; font-size: 13px; flex: 0 0 auto; }
+.salis-eil .veliava { margin-right: 0; margin-left: -4px; }
+.salis-eil-kiekis { color: #6B7280; font-size: 13px; flex: 0 0 auto;
+                    margin-left: auto; }
 
 /* ═══ TYLI EILUTĖ: skelbimas kitoje šalyje nei pasirinkta ═════════ */
 .pard-kita-salis {

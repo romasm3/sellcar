@@ -24082,8 +24082,8 @@ msgstr "Search country"
 msgid "Šis skelbimas yra %(salis)s"
 msgstr "This listing is in %(salis)s"
 
-#: templates/partials/_salis.html:0
-msgid "Rodyti visus %(salis)s skelbimus"
+#: templates/listings/partials/_pardavejo_blokas.html:0
+msgid "Rodyti visus skelbimus %(salis)s"
 msgstr "Show all listings in %(salis)s"
 
 #: templates/partials/_salis.html:0

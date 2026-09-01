@@ -267,9 +267,13 @@ eilutes = subprocess.run(['git', 'diff', '-U0', 'origin/master', '--',
 pakeistos = [e for e in eilutes
              if (e.startswith('+') or e.startswith('-'))
              and not e.startswith(('+++', '---'))]
-tikrink(all('_salis' in e or '_salies_juosta' in e or 'Šalies juosta' in e
-            for e in pakeistos),
-        'listing_list.html pakeistos tik juostos eilutės:\n    '
+# Leidžiamos tik dvi temos: šalies juostos įtraukimas ir vėliavėlė
+# kortelės vietoje (pašalintoje eilutėje vėliavos dar nėra, todėl
+# atpažįstam ją iš to paties šalies laukelio).
+LEISTINA = ('_salis', '_salies_juosta', 'Šalies juosta', '_veliava',
+            'get_country_display_name')
+tikrink(all(any(z in e for z in LEISTINA) for e in pakeistos),
+        'listing_list.html pakeistos tik juostos ir vėliavos eilutės:\n    '
         + '\n    '.join(pakeistos))
 
 

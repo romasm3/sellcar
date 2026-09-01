@@ -51,8 +51,11 @@ iki galo.
 svetainei, jokių kopijų.
 
 **5. Šalies vėliavėlė rodoma visur, kur rodoma vieta:** kontaktų bloke,
-kortelėje, žemėlapio burbule, išsaugotuose skelbimuose. Formatas
-`[vėliava] Vilnius, Lietuva`, šalies vardas pilnas ir išverstas.
+kortelėje, žemėlapio burbule, išsaugotuose skelbimuose, šalies
+sąrašuose. Vėliava eina **GALE, po pavadinimo** — `Vilnius, Lietuva
+[vėliava]`, sąrašo eilutėje `○ Lietuva [vėliava]      4 821` (prilipusi
+prie pavadinimo, skaičius — dešiniame krašte). Niekur ne prieš
+pavadinimą. Šalies vardas pilnas ir išverstas.
 Šaltinis — skelbimo šalis iš kontaktų bloko, jokio spėliojimo pagal
 paskyrą ar IP. SVG (`static/flags/<kodas>.svg`), 16×12 px, viena dalis
 `templates/partials/_veliava.html`. Be šalies — tik miestas, be tuščio
@@ -60,6 +63,19 @@ kvadrato.
 
 > Vėliavos vardas vietos eilutėje — IŠVERSTAS (`salys.vardas`). Šalies
 > juostoje virš panelės — angliškas ir neverčiamas (`salys.VARDAI_EN`).
+
+**6. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
+puslapio filtras — tai viena bendra reikšmė. Pakeitus bet kur (juostoje
+virš panelės, šoninėje juostoje, `/imones/`), ji galioja visur. Viena
+šablono dalis `templates/partials/_salis.html` (stiliai `juosta`,
+`sonine`, `lakstas`), vienas kontekstinis procesorius
+`context_processors.salis`, viena kiekių funkcija
+`salies_juosta.kiekiai()`. Reikšmės sluoksniai: `?salis=` → slapukas →
+paskyros profilis → `lt`; adresas laimi visada. Šalies keitimas
+neišvalo markės, kainos, metų — tik miestą ir spindulį. Skelbimo šalis
+imama TIK iš kontaktų bloko; jei skiriasi nuo pasirinktos — tyli eilutė
+„Šis skelbimas yra Vokietijoje" su nuoroda. Naujam paviršiui
+nekuriam antro sąrašo — įtraukiam tą pačią dalį.
 > Tai skirtingi paviršiai, nesupainiok.
 
 **6. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
@@ -844,8 +860,10 @@ ne tik naujai kategorijai:
 - [ ] Kontaktų blokas skelbime — su tikslia vieta, žemėlapiu ir
       „Kaip nuvažiuoti"; matomas be slinkimo iki galo
 - [ ] Kontaktai tik per `contact_block.html`
-- [ ] Šalies vėliavėlė per `partials/_veliava.html` visose keturiose
-      vietose; be šalies — tik miestas
+- [ ] Šalies vėliavėlė per `partials/_veliava.html` visur, kur rodoma
+      vieta; VISUR po pavadinimo; be šalies — tik miestas
+- [ ] Šalis — viena reikšmė visai svetainei: pakeitus vienur, pasikeitė
+      visur; keitimas nenumetė markės, kainos, metų
 
 ### Testų artefaktai, kurie atrodo kaip klaidos
 
