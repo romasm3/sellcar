@@ -82,7 +82,7 @@ const eik = async (p, kelias) => {
       // Kortelės vieta — ta pati vėliava, ir ji eina PO pavadinimo
       const kortele = await p.evaluate(() => {
         // Vietos eilutė dabar ateina iš bendros dalies (_kort_vieta.html)
-        const loc = document.querySelector('.kv-zalia');
+        const loc = document.querySelector('.vieta-zalia');
         if (!loc) return null;
         const f = loc.querySelector('img.veliava');
         if (!f) return { beVeliavos: true, tekstas: loc.textContent.trim() };

@@ -30,9 +30,9 @@ const eik = async (p, kelias) => {
 const matuok = (p, sel) => p.evaluate((s) => {
   const v = document.querySelector(s);
   if (!v) return null;
-  const t = v.querySelector('.kv-txt');
+  const t = v.querySelector('.txt');
   const f = v.querySelector('img.veliava');
-  const pin = v.querySelector('.kv-pin');
+  const pin = v.querySelector('.pin');
   const st = getComputedStyle(v);
   const eil = v.getBoundingClientRect();
   const out = {
@@ -73,18 +73,18 @@ const matuok = (p, sel) => p.evaluate((s) => {
     // ── 1. PAGRINDINIS — „Pasiūlymų" tinklelis ──────────────────
     antraste('1. Pagrindinis: kortelės vietos eilutė');
     await eik(p, '/?salis=lt');
-    const kiek = await p.$$eval('.home-tab-card .kv', e => e.length);
+    const kiek = await p.$$eval('.home-tab-card .vieta', e => e.length);
     tik(kiek > 0, 'kortelėse yra vietos eilutė (' + kiek + ')');
     // Dalis skirtukų paslėpti, o paslėpto elemento matmenys — nuliai.
     // Žymim pirmą MATOMĄ ir matuojam būtent ją.
     const yraMatoma = await p.evaluate(() => {
-      for (const v of document.querySelectorAll('.home-tab-card .kv')) {
-        if (v.getBoundingClientRect().width > 0) { v.id = 'kv-matoma'; return true; }
+      for (const v of document.querySelectorAll('.home-tab-card .vieta')) {
+        if (v.getBoundingClientRect().width > 0) { v.id = 'vieta-matoma'; return true; }
       }
       return false;
     });
     tik(yraMatoma, 'bent viena vietos eilutė matoma');
-    const m = await matuok(p, '#kv-matoma');
+    const m = await matuok(p, '#vieta-matoma');
     if (m) {
       tik(/^Vilnius, Lithuania$|^X, Lithuania$/.test(m.tekstas),
           'formatas „Miestas, Lithuania": ' + m.tekstas);
@@ -106,11 +106,53 @@ const matuok = (p, sel) => p.evaluate((s) => {
     }
     // Tinklelis yra žemiau lango — prisukam prie jo, kad nuotraukoje
     // matytųsi būtent kortelės su vietos eilute.
-    await p.$eval('#kv-matoma', el => el.closest('.home-tab-grid')
+    await p.$eval('#vieta-matoma', el => el.closest('.home-tab-grid')
                   .scrollIntoView({ block: 'center' }));
     await p.waitForTimeout(500);
     await p.screenshot({ path: `${EKRANAI}/kort-vieta-${vardas}-pagrindinis.png`,
                          fullPage: false });
+
+    // ── 1b. SVG NEIŠSIPUČIA (ir be CSS) ─────────────────────────
+    // Būtent šito testo trūko: kai .vieta stiliai paviršiaus nepasiekia
+    // (pasenęs naršyklės kešas, kitas puslapis), smeigtukas be width/height
+    // išsitempia iki 100 % kortelės pločio, o vėliava nukrenta į antrą
+    // eilutę. Matuojam tikrus matmenis — su stiliais ir BE jų.
+    antraste('1b. SVG matmenys — net be CSS');
+    const rib = async (etikete, beCss) => {
+      const d = await p.evaluate(() => {
+        const v = document.getElementById('vieta-matoma');
+        if (!v) return null;
+        const pin = v.querySelector('.pin').getBoundingClientRect();
+        const fl = v.querySelector('img.veliava');
+        const f = fl ? fl.getBoundingClientRect() : null;
+        return { eilute: v.getBoundingClientRect().height,
+                 pinA: pin.height, pinP: pin.width,
+                 flA: f ? f.height : null, flP: f ? f.width : null };
+      });
+      if (!d) { tik(false, etikete + ': eilutė nerasta'); return; }
+      tik(d.pinA <= 14 && d.pinP <= 14,
+          etikete + ': smeigtukas ≤14px ('
+          + Math.round(d.pinP) + '×' + Math.round(d.pinA) + ')');
+      tik(d.flA === null || d.flA <= 14,
+          etikete + ': vėliava ≤14px aukščio (' + Math.round(d.flA) + ')');
+      // Vienos eilutės aukštį garantuoja CSS (flex-wrap: nowrap). Be
+      // stilių tekstas natūraliai laužiasi — ir tai nėra bėda; bėda buvo
+      // išsipūtęs SVG, o jį laiko width/height žymėje.
+      if (!beCss) tik(d.eilute < 24,
+          etikete + ': eilutė vienos eilutės aukščio ('
+          + Math.round(d.eilute) + 'px)');
+    };
+    await rib('su CSS');
+    // Išjungiam VISUS stilius ir tikrinam dar kartą: matmenys turi laikytis
+    // ant pačių SVG žymių, ne tik ant CSS.
+    await p.evaluate(() => {
+      for (const l of document.styleSheets) { try { l.disabled = true; } catch (e) {} }
+      for (const t of document.querySelectorAll('style, link[rel=stylesheet]')) t.remove();
+    });
+    await p.waitForTimeout(300);
+    await rib('be CSS', true);
+    await p.reload({ waitUntil: 'domcontentloaded' });
+    await p.waitForTimeout(1000);
 
     // ── 2. REZULTATAI su šonine juosta ──────────────────────────
     antraste('2. Rezultatai: žalia vietos eilutė');
@@ -119,7 +161,7 @@ const matuok = (p, sel) => p.evaluate((s) => {
     // ten vietą rodo „Miestas" langelis parametrų tinklelyje
     // (docs/mobilus-etalonas.md), ir dviejų vietų kortelėje nebūna.
     if (!telefonas) {
-      const z = await matuok(p, '.kv-zalia');
+      const z = await matuok(p, '.vieta-zalia');
       if (z) {
         tik(/, Germany$/.test(z.tekstas), 'formatas „Berlin, Germany": ' + z.tekstas);
         tik(z.poTeksto && z.tojePacioje, 'vėliava po šalies, VIENA eilutė');
@@ -129,11 +171,11 @@ const matuok = (p, sel) => p.evaluate((s) => {
       } else {
         tik(false, 'rezultatų kortelėje yra vietos eilutė');
       }
-      await p.$eval('.kv-zalia', el => el.closest('article, .ap-card, div')
+      await p.$eval('.vieta-zalia', el => el.closest('article, .ap-card, div')
                     .scrollIntoView({ block: 'center' }));
       await p.waitForTimeout(400);
     } else {
-      tik(await p.$$eval('.kv-zalia',
+      tik(await p.$$eval('.vieta-zalia',
             e => e.every(x => !x.getBoundingClientRect().width)),
           'telefone žalios eilutės nėra');
     }
@@ -147,12 +189,12 @@ const matuok = (p, sel) => p.evaluate((s) => {
       if (!k) return null;
       const matomos = [];
       // Žalia eilutė (darbalaukis) ir „Miestas" langelis (telefonas)
-      for (const sel of ['.kv-zalia', '.card-params .cp-item']) {
+      for (const sel of ['.vieta-zalia', '.card-params .cp-item']) {
         for (const e of k.querySelectorAll(sel)) {
           const r = e.getBoundingClientRect();
           if (!r.width) continue;
           const t = e.textContent.replace(/\s+/g, ' ').trim();
-          if (sel === '.kv-zalia' || /Miestas/.test(t)) matomos.push(t);
+          if (sel === '.vieta-zalia' || /Miestas/.test(t)) matomos.push(t);
         }
       }
       return matomos;
@@ -173,11 +215,11 @@ const matuok = (p, sel) => p.evaluate((s) => {
       const v = telefonas
         ? [...document.querySelectorAll('.card-params .cp-item div')]
             .find(e => /Miestas/.test(e.textContent))
-        : document.querySelector('.kv-zalia');
+        : document.querySelector('.vieta-zalia');
       if (!v) return null;
-      // Tekstą laiko atskiras elementas (.kv-txt arba .cp-vieta > span) —
+      // Tekstą laiko atskiras elementas (.txt arba .cp-vieta > span) —
       // vėliava yra jo brolis, tad rašom tik į tekstą.
-      const t = v.querySelector('.kv-txt, .cp-vieta > span');
+      const t = v.querySelector('.txt, .cp-vieta > span');
       const f = v.querySelector('img.veliava');
       if (!t || !f) return null;
       v.id = 'ilga-vieta';          // kad nuotrauka prisuktų būtent čia

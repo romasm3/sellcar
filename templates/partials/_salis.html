@@ -1,4 +1,4 @@
-{% load i18n humanize %}{% comment %}
+{% load i18n listing_filters %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 ŠALIS — VIENA REIKŠMĖ VISAI SVETAINEI.
 
@@ -41,7 +41,7 @@ duoda skaičių ant panelės mygtuko.
       {% comment %}Šoninėje juostoje vėliavos 20×15 — kaip etalone
       (docs/demo/veliaveles-sidebar-demo.html, .fl be .fl-s).{% endcomment %}
       {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele=1 %}
-      <span class="salis-eil-kiekis">{{ s.kiek|intcomma }}</span>
+      <span class="salis-eil-kiekis">{{ s.kiek|sk }}</span>
     </a>
     {% endfor %}
   </div>
@@ -55,7 +55,7 @@ sprendžia CSS (@media).{% endcomment %}
      @keydown.escape.window="atidaryta = false">
 
   <div class="salies-eilute">
-    <svg class="salies-smeigtukas" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg class="salies-smeigtukas" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="1.8" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round"
             d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/>
@@ -72,7 +72,7 @@ sprendžia CSS (@media).{% endcomment %}
     <button type="button" class="salies-keisti" @click="atidaryta = !atidaryta"
             :aria-expanded="atidaryta ? 'true' : 'false'">
       {% trans "Keisti šalį" %}
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
            :style="atidaryta && 'transform:rotate(180deg)'"><path stroke-linecap="round" d="M6 9l6 6 6-6"/></svg>
     </button>
   </div>
@@ -94,9 +94,9 @@ sprendžia CSS (@media).{% endcomment %}
          x-show="!q || '{{ s.vardas|escapejs }}'.toLowerCase().includes(q.toLowerCase())">
         <span class="salies-punkto-vardas">{{ s.vardas }}</span>
         {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele='' %}
-        <span class="salies-punkto-kiekis">{{ s.kiek|intcomma }}</span>
+        <span class="salies-punkto-kiekis">{{ s.kiek|sk }}</span>
         {% if s.dabartine %}
-        <svg class="salies-varnele" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg class="salies-varnele" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
         {% endif %}
       </a>

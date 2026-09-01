@@ -68,7 +68,32 @@ kvadrato.
 > Kortelėje ir šalies sąrašuose — angliškas ir neverčiamas
 > (`salys.VARDAI_EN`): sąrašas tarptautinis.
 
-**6. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
+**6. KIEKVIENAS INLINE SVG PRIVALO TURĖTI `width` IR `height` ATRIBUTUS**
+žymėje, ne tik CSS:
+
+```html
+<svg class="pin" width="11" height="11" viewBox="0 0 24 24">…</svg>
+```
+
+Be jų SVG išsitempia iki 100 % konteinerio pločio visur, kur stiliai
+nepasiekia: pasenęs naršyklės kešas, kitas puslapis, laiškas, fragmentas
+per AJAX. Taip jau tris kartus sulūžo kortelės vietos eilutė —
+smeigtukas išsipūtė per visą kortelę, o vėliava nukrito į antrą eilutę.
+
+Iš to plaukia antra dalis: **bendro elemento stilius gyvena bendrame
+faile** (`static/css/…`), niekada `<style>` bloke viename šablone —
+kitaip kiti paviršiai jo negauna. Ir **testas turi matuoti tikrus
+matmenis naršyklėje**, o ne tik tikrinti, ar CSS eilutė yra faile;
+`docs/kort_vieta_playwright.js` matuoja ir su stiliais, ir juos išjungęs.
+
+Patikra prieš atiduodant:
+
+```bash
+grep -o '<svg[^>]*>' <failas> | grep -v 'width='     # turi būti tuščia
+curl -s <adresas> | grep -c 'class="vieta"'          # visuose paviršiuose > 0
+```
+
+**7. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
 puslapio filtras — tai viena bendra reikšmė. Pakeitus bet kur (juostoje
 virš panelės, šoninėje juostoje, `/imones/`), ji galioja visur. Viena
 šablono dalis `templates/partials/_salis.html` (stiliai `juosta`,
@@ -868,6 +893,9 @@ ne tik naujai kategorijai:
       vieta; VISUR po pavadinimo; be šalies — tik miestas
 - [ ] Šalis — viena reikšmė visai svetainei: pakeitus vienur, pasikeitė
       visur; keitimas nenumetė markės, kainos, metų
+- [ ] Kiekvienas naujas inline SVG turi width ir height žymėje
+- [ ] Bendro elemento stilius — bendrame CSS faile, ne šablono <style>
+- [ ] Testas matuoja tikrus matmenis naršyklėje, ne tik CSS eilutę faile
 
 ### Testų artefaktai, kurie atrodo kaip klaidos
 

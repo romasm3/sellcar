@@ -168,6 +168,14 @@ eilutė po parametrais (`.kv-zalia`); telefone ji paslėpta, o vietą rodo
 - Vėliavų rinkinys — **visos** šalys iš `salys.py`. Vienas šaltinis, ne
   po failą kaskart.
 
+**Inline SVG — visada su `width` ir `height` žymėje**, ne tik CSS
+(`<svg class="pin" width="11" height="11" viewBox="0 0 24 24">`). Be jų
+jis išsitempia iki 100 % konteinerio ten, kur stiliai nepasiekia:
+pasenęs naršyklės kešas, kitas puslapis, laiškas. Bendro elemento
+stilius gyvena bendrame `static/css` faile, ne šablono `<style>` bloke.
+Testas turi matuoti tikrus matmenis naršyklėje — ir su stiliais, ir be
+jų (`docs/kort_vieta_playwright.js`, 1b dalis).
+
 **Šalis nenurodyta** — vėliavos nerodom, rodom tik miestą. Klaidų
 nemetam, tuščio kvadrato nepaliekam.
 

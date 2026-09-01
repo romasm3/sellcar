@@ -369,30 +369,35 @@ img {
    Etalonas: docs/demo/veliaveles-pagrindinis-demo.html (.card .l) ir
    veliaveles-sidebar-demo.html (.cloc).
 
+   ČIA, BENDRAME FAILE, ne šablono <style> bloke: eilutė renderinama ir
+   pradžios kortelėse, ir rezultatuose, ir telefone. Stilius, gyvenantis
+   viename šablone, kitų paviršių nepasiekia (docs/taisykles.md 5).
+
    flex-wrap: nowrap + tekstui daugtaškis + vėliavai flex: 0 0 auto —
    vėliava NIEKADA nenukrenta į antrą eilutę, net kai vieta ilga
-   („Nordrhein-Westfalen, Germany").
+   („Nordrhein-Westfalen, Germany"). Matmenys dubliuojami ir SVG
+   žymėje — kad be šito CSS niekas neišsipūstų.
    ═══════════════════════════════════════════════════════════════════ */
-.kv {
-    margin-top: 6px;
+.vieta {
     display: flex;
     align-items: center;
     gap: 6px;
     flex-wrap: nowrap;
     min-width: 0;
+    margin-top: 6px;
     color: #6B7280;
     font-size: 12.5px;
     line-height: 1.3;
 }
-.kv-pin { width: 11px; height: 11px; flex: 0 0 auto; }
-.kv-txt { min-width: 0; overflow: hidden; text-overflow: ellipsis;
-          white-space: nowrap; }
+.vieta .pin { width: 11px; height: 11px; flex: 0 0 auto; }
+.vieta .txt { min-width: 0; overflow: hidden; text-overflow: ellipsis;
+              white-space: nowrap; }
 /* Tarpą tvarko flex gap — vėliavos savo margin čia nereikia. */
-.kv .veliava { margin-left: 0; vertical-align: 0; }
+.vieta .veliava { margin-left: 0; vertical-align: 0; }
 
-/* Telefono kortelės „Miestas" langelis — ta pati taisyklė: tekstas
-   trumpinamas, vėliava lieka matoma. Be šito ji tiesiog dingdavo po
-   `overflow: hidden`, kai vieta ilga. */
+/* Telefono kortelės „Miestas" langelis (_card_params.html) — ta pati
+   taisyklė: tekstas trumpinamas, vėliava lieka matoma. Be šito ji
+   dingdavo po `overflow: hidden`, kai vieta ilga. */
 .cp-item b.cp-vieta { display: flex; align-items: center; gap: 6px;
                       min-width: 0; }
 .cp-vieta > span { min-width: 0; overflow: hidden; text-overflow: ellipsis;
@@ -400,6 +405,13 @@ img {
 .cp-vieta .veliava { margin-left: 0; vertical-align: 0; }
 
 /* Žalias variantas — kortelė rezultatų sąraše su šonine juosta */
-.kv-zalia { margin-top: 20px; color: #16A34A; font-weight: 600;
-            font-size: 14px; }
-.kv-zalia .kv-pin { width: 14px; height: 14px; }
+.vieta-zalia { margin-top: 20px; color: #16A34A; font-weight: 600;
+               font-size: 14px; }
+.vieta-zalia .pin { width: 14px; height: 14px; }
+
+/* Telefone vieta rodoma VIENĄ kartą — „Miestas" langelyje parametrų
+   tinklelyje (docs/mobilus-etalonas.md, .param-location). Žalia eilutė
+   yra darbalaukio pora prie .ap-spec-line, tad slepiam kartu su ja. */
+@media (max-width: 1023px) {
+    .vieta-eilute { display: none; }
+}

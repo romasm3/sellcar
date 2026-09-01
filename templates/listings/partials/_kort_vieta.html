@@ -12,14 +12,19 @@ flex: 0 0 auto ir niekada nenukrenta į antrą eilutę. Ilgas pavadinimas
     {% include 'listings/partials/_kort_vieta.html' with listing=listing %}
     {% include 'listings/partials/_kort_vieta.html' with listing=listing stilius='zalia' %}
 
+SVG TURI SAVO width/height ŽYMĖJE, ne tik CSS. Be jų smeigtukas
+išsitempia iki 100 % konteinerio pločio kiekvienoje vietoje, kurios
+nepasiekia stiliai (pasenęs naršyklės kešas, kitas puslapis, laiškas).
+Stiliai — static/css/style.css (.vieta), ne šablono <style> bloke.
+
 Šalies vardas — ANGLIŠKAS ir neverčiamas (salys.VARDAI_EN), toks pat
 kaip šalies juostoje ir šoninėje juostoje. Vėliava — tik per
-partials/_veliava.html, savų <img> čia nėra.
+partials/_veliava.html, savų paveikslėlių čia nėra.
 
 Be šalies rodom tik miestą; be abiejų — eilutės nėra visai.
 ═══════════════════════════════════════════════════════════════════════
-{% endcomment %}{% if listing.city or listing.country %}<div class="kv{% if stilius %} kv-{{ stilius }}{% endif %}">
-  <svg class="kv-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-  <span class="kv-txt">{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.country|salies_vardas_en }}{% endif %}</span>
+{% endcomment %}{% if listing.city or listing.country %}<div class="vieta{% if stilius %} vieta-{{ stilius }}{% endif %}">
+  <svg class="pin" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+  <span class="txt">{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.country|salies_vardas_en }}{% endif %}</span>
   {% include 'partials/_veliava.html' with kodas=listing.country vardas=listing.country|salies_vardas_en didele='' %}
 </div>{% endif %}

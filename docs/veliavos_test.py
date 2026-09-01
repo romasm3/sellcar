@@ -158,8 +158,14 @@ kv = open(os.path.join(BASE, 'templates/listings/partials/_kort_vieta.html'),
 # tikrą žymėjimą — viską po {% endcomment %}.
 kv_zym = kv.split('{% endcomment %}', 1)[1]
 tikrink('<img' not in kv_zym, 'kortelės eilutė savo <img> neturi')
-tikrink(kv_zym.index('kv-txt') < kv_zym.index('_veliava.html'),
+tikrink(kv_zym.index('class="txt"') < kv_zym.index('_veliava.html'),
         'vėliava PO teksto, ne prieš')
+# SVG matmenys — PAČIOJE žymėje, ne tik CSS (docs/taisykles.md 5)
+import re as _re
+be_matmenu = [t for t in _re.findall(r'<svg[^>]*>', kv_zym) if 'width=' not in t]
+tikrink(not be_matmenu, 'kiekvienas SVG su width/height: %s' % be_matmenu)
+tikrink('class="pin"' in kv_zym and 'width="11" height="11"' in kv_zym,
+        'smeigtukas 11×11 žymėje')
 tikrink('salies_vardas_en' in kv, 'kortelėje angliškas šalies vardas')
 naudoja = []
 for kelias in ('templates/listings/listing_list.html',):
@@ -182,6 +188,18 @@ for reiksme, ka in (('width: 16px', 'plotis 16px'), ('height: 12px', 'aukštis 1
                      'rėmelis 1px rgba(0,0,0,.10)'),
                     ('outline-offset: -1px', 'rėmelis viduje, matmenų nekeičia')):
     tikrink(reiksme in blokas, 'CSS: %s' % ka)
+
+
+antraste('6b. Vietos eilutės stilius — bendrame faile')
+css = open(os.path.join(BASE, 'static/css/style.css'), encoding='utf-8').read()
+for zyma in ('.vieta {', '.vieta .pin', '.vieta .txt', '.vieta-zalia',
+             '.vieta-eilute'):
+    tikrink(zyma in css, 'static/css/style.css turi %s' % zyma)
+ll = open(os.path.join(BASE, 'templates/listings/listing_list.html'),
+          encoding='utf-8').read()
+stiliai = ll[:ll.index('</style>')] if '<style>' in ll else ''
+tikrink('.vieta' not in stiliai,
+        'listing_list.html <style> bloke vietos taisyklių nėra')
 
 
 antraste('7. Taisyklės įrašytos')
