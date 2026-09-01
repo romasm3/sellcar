@@ -68,6 +68,8 @@ body.pick .scrim{display:block}
  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .card .p{font-weight:700;font-size:16px;margin-top:7px}
 .card .l{margin-top:6px;display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12.5px}
+.card .l .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card .l .fr{margin-left:auto;display:flex;flex:0 0 auto}
 .card .l .pin{width:11px;height:11px;stroke:var(--muted);fill:none;stroke-width:2;flex:0 0 auto}
 .fl{width:16px;height:12px;border-radius:2px;flex:0 0 auto;box-shadow:0 0 0 1px rgba(0,0,0,.10) inset;display:block}
 .fl-b{width:20px;height:15px}
@@ -93,8 +95,9 @@ h3{font-size:15px;color:var(--muted);font-weight:600;margin:26px 0 12px}
 
   <div class="tog">
     <span>Vėliava:</span>
-    <button data-pos="pries" class="on">Prieš tekstą</button>
-    <button data-pos="po">Gale, po šalies</button>
+    <button data-pos="po" class="on">Iškart po šalies — PASIRINKTA</button>
+    <button data-pos="desine">Dešinėje, eilutės gale</button>
+    <button data-pos="pries">Prieš tekstą</button>
     <button data-pos="tik">Gale, be šalies pavadinimo</button>
   </div>
 
@@ -162,9 +165,10 @@ const SK=[
  ["Audi A4","2.0 TDI · Sedanas","10 800 €","Praha","cz"]];
 
 const PIN='<svg class="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
-let pos='pries';
+let pos='po';
 function vieta(s){
   const f=flag(s[4]), m=s[3], n=D[s[4]].nm;
+  if(pos==='desine') return `${PIN} <span class="txt">${m}, ${n}</span><span class="fr">${f}</span>`;
   if(pos==='po')  return `${PIN} ${m}, ${n} ${f}`;
   if(pos==='tik') return `${PIN} ${m} ${f}`;
   return `${PIN} ${f} ${m}, ${n}`;

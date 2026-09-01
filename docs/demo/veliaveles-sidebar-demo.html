@@ -53,7 +53,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .srow{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer}
 .srow input{width:16px;height:16px;accent-color:var(--ink);margin:0;flex:0 0 auto}
 .srow .t{flex:1}
-.srow .c{color:var(--muted);font-size:13px}
+.srow .c{color:var(--muted);font-size:13px;margin-right:2px}
 .srow:hover .t{text-decoration:underline}
 
 /* vėliava */
@@ -81,7 +81,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .cs{color:var(--muted);margin-top:12px;display:flex;align-items:center;gap:8px}
 .cs svg{width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:1.8}
 .cspec{color:var(--text);margin-top:8px}
-.cloc{margin-top:20px;display:flex;align-items:center;gap:8px;color:var(--gr);font-weight:600}
+.cloc{margin-top:20px;display:flex;align-items:center;gap:6px;flex-wrap:nowrap;color:var(--gr);font-weight:600}
+.cloc .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cloc .fr{display:flex;flex:0 0 auto}
 .cloc .pin{width:14px;height:14px;stroke:var(--gr);fill:none;stroke-width:2}
 
 .hint{background:#fff;border:1px dashed var(--strong);border-radius:12px;padding:13px 16px;
@@ -100,7 +102,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 </header>
 
 <div class="wrap">
-  <div class="hint"><b>Vėliavėlės.</b> Šoninėje juostoje — prie kiekvienos šalies, kortelėse — prieš vietą.
+  <div class="hint"><b>Vėliavėlės ir vieta.</b> Miestas ir spindulys — čia, iškart po šalies (panelėje jų nėra). Visur dešinėje, eilutės gale: šoninėje juostoje po kiekio, kortelėse prie dešinio krašto.
   Visos vėliavos yra SVG, ne emoji, todėl matomos ir Windows'e. Paspausk „Keisti" šoninėje juostoje.</div>
 
   <div class="top"><h2 id="rasta">Rasti 2 skelbimai</h2><span class="m" id="rastasub">Lietuvoje</span></div>
@@ -113,10 +115,16 @@ button{font:inherit;color:inherit;cursor:pointer}
       <div class="salis-blk" id="sblk">
         <h4>Šalis</h4>
         <div class="salis-cur">
-          <span id="curfl"></span><span id="curnm">Lietuva</span>
+          <span id="curnm">Lietuva</span><span id="curfl"></span>
           <button class="keisti" id="keisti">Keisti</button>
         </div>
         <div class="salis-list" id="slist"></div>
+      </div>
+
+      <div class="grp" id="mstgrp"><label>Miestas</label>
+        <div id="miestai"></div>
+        <div style="margin-top:12px"><label style="display:block;font-weight:700;font-size:15px;margin-bottom:8px">Spindulys</label>
+          <div class="fld" id="spind">Visa šalis <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></div>
       </div>
 
       <div class="grp"><label>Markė</label>
@@ -199,6 +207,23 @@ const D={
  lv:{nm:"Latvija",n:1204,vt:"Latvijoje"},
  ee:{nm:"Estija",n:980,vt:"Estijoje"},
 };
+const MIESTAI={
+ lt:[["Vilnius",1842],["Kaunas",1104],["Klaipėda",612],["Šiauliai",388],["Panevėžys",291]],
+ de:[["Berlin",1840],["München",1520],["Hamburg",1210],["Köln",980],["Frankfurt",870]],
+ pl:[["Warszawa",1980],["Kraków",1420],["Gdańsk",1110],["Poznań",940],["Wrocław",870]],
+ fr:[["Paris",2140],["Lyon",980],["Marseille",860],["Toulouse",640]],
+ gb:[["London",2210],["Manchester",890],["Birmingham",740],["Glasgow",520]],
+ it:[["Roma",1640],["Milano",1420],["Torino",780],["Napoli",640]],
+ nl:[["Amsterdam",980],["Rotterdam",910],["Utrecht",430]],
+ be:[["Brussel",1120],["Antwerpen",840],["Gent",520]],
+ se:[["Stockholm",1040],["Göteborg",620],["Malmö",410]],
+ cz:[["Praha",980],["Brno",520],["Ostrava",340]],
+ at:[["Wien",890],["Graz",410],["Linz",320]],
+ ua:[["Kyjiv",720],["Lviv",480],["Odesa",340]],
+ dk:[["København",820],["Aarhus",410]],
+ lv:[["Ryga",640],["Daugpilis",180],["Liepoja",120]],
+ ee:[["Talinas",520],["Tartu",190],["Narva",110]],
+};
 const SKELB={
  lt:[["AMC Matador 2012","5 000 €","2.012 · Benzinas / dujos · 15 000 km","Automatinė · Sedanas","Kaunas","lt","prieš 8 d.","1/8","https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=70"],
      ["BMW 320d Touring","15 900 €","2.018 · Dyzelinas · 168 000 km","Automatinė · Universalas","Vilnius","lt","prieš 10 d.","1/4","https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=70"],
@@ -226,8 +251,19 @@ function pieskSali(k){
   el('slist').innerHTML=Object.entries(D).map(([kk,v])=>`
     <label class="srow" data-s="${kk}">
       <input type="radio" name="s" ${kk===dabar?'checked':''}>
-      ${flag(kk)}<span class="t">${v.nm}</span><span class="c">${nr(v.n)}</span>
+      <span class="t">${v.nm}</span>${flag(kk)}<span class="c" style="margin-left:auto">${nr(v.n)}</span>
     </label>`).join('');
+
+  const mst=MIESTAI[k];
+  if(k==='visos'||!mst){
+    document.getElementById('mstgrp').style.display='none';
+  }else{
+    document.getElementById('mstgrp').style.display='';
+    document.getElementById('miestai').innerHTML=mst.map(m=>`
+      <label class="srow"><input type="checkbox"><span class="t">${m[0]}</span>
+      <span class="c">${nr(m[1])}</span></label>`).join('')
+      +'<button style="border:0;background:none;padding:8px 0 0;font-weight:600;font-size:13px;text-decoration:underline">Rodyti visus</button>';
+  }
 
   const sk=SKELB[k]||SKELB.lt;
   el('cards').innerHTML=sk.map(c=>`
@@ -244,7 +280,7 @@ function pieskSali(k){
        <div class="cspec">${c[3]}</div>
        <div class="cloc">
          <svg class="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-         ${flag(c[5],true)} ${c[4]}, ${D[c[5]].nm}
+         <span class="txt">${c[4]}, ${D[c[5]].nm}</span>${flag(c[5],true)}
        </div>
      </div>
    </article>`).join('');
