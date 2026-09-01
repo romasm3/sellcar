@@ -226,6 +226,40 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+# ═══════════════════════════════════════════════════════════
+# TURINIO MAIŠAS STATINIAMS FAILAMS
+#
+# Kodėl: nginx statiniams neduoda jokio Cache-Control, tik ETag ir
+# Last-Modified. Tada naršyklė kešuoja EURISTIŠKAI — pati nusprendžia,
+# kiek laikyti, ir seno style.css neperklausia. Po dizaino keitimo dalis
+# lankytojų matydavo sulaužytą puslapį, kol nepaspausdavo Ctrl+Shift+R.
+#
+# ManifestStaticFilesStorage įrašo turinio maišą į vardą —
+# style.css → style.a1b2c3d4e5f6.css. Pakeitus failą pasikeičia vardas,
+# tad naršyklė gauna naują failą pati, o senojo kešas nebetrukdo. Tik
+# tada nginx'e prasminga `immutable` su metų galiojimu (deploy/README.md).
+#
+# Ką reikia žinoti rašant šablonus:
+#   * kelias VISADA per {% static %}, niekada „/static/…" ranka;
+#   * kelias turi būti pilnas VIENOJE žymėje — {% static 'a/'|add:b %},
+#     o ne {% static 'a/' %}{{ b }}: katalogo vardo manifeste nėra ir
+#     puslapis nulūžtų su ValueError;
+#   * nurodytas failas privalo egzistuoti (manifest_strict), kitaip
+#     puslapis grąžins 500, o ne tylų 404.
+#
+# Laiškuose kelias lieka absoliutus ir BE maišo: laiškas gyvena metus,
+# o senas maišas po kelių deploy'ų nebeegzistuotų. collectstatic
+# nesumaišytą kopiją palieka šalia, tad tokios nuorodos veikia.
+# ═══════════════════════════════════════════════════════════
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 

@@ -104,12 +104,14 @@ tikrink(not emoji, 'vietos eilutėse jokių emoji vėliavų (%s)' % emoji)
 antraste('3. Dalies išvestis')
 h = veliava('LT')
 tikrink('<img' in h, 'atiduoda <img>')
-tikrink('flags/lt.svg' in h, 'teisingas failas: %s' % h[:90])
+tikrink(re.search(r'flags/lt(\.[0-9a-f]{8,12})?\.svg', h),
+        'teisingas failas: %s' % h[:90])
 tikrink('width="16"' in h and 'height="12"' in h, '16×12')
 tikrink('class="veliava"' in h, 'klasė .veliava')
 tikrink('alt="Lietuva"' in h and 'title="Lietuva"' in h,
         'alt ir title — pilnas pavadinimas: %s' % h[:120])
-tikrink(veliava('de') and 'flags/de.svg' in veliava('de'), 'mažosiomis irgi veikia')
+tikrink(veliava('de') and re.search(r'flags/de(\.[0-9a-f]{8,12})?\.svg',
+                                    veliava('de')), 'mažosiomis irgi veikia')
 tikrink(veliava('') == '', 'be šalies — nieko (ne tuščias kvadratas)')
 tikrink(veliava(None) == '', 'None — nieko')
 tikrink(veliava('XX') == '', 'nežinomas kodas — nieko, be klaidos')

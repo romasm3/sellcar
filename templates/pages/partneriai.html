@@ -32,7 +32,11 @@ Spalvos ir matmenys — docs/dizaino-sistema.md.
     <div class="pt-kort">
       <div class="pt-logo">
         {% if p.logo %}
-          <img src="{% static 'partneriai/' %}{{ p.logo }}" alt="{{ p.vardas }}" loading="lazy">
+          {% comment %}Pilnas kelias vienoje {% templatetag openblock %} static {% templatetag closeblock %} žymėje: su turinio maišu
+          („manifest" saugykla) katalogo vardas atskirai neegzistuoja ir
+          puslapis nulūžtų. p.logo užpildomas tik kai failas tikrai yra
+          (apps/listings/partneriai._logo_yra).{% endcomment %}
+          <img src="{% static 'partneriai/'|add:p.logo %}" alt="{{ p.vardas }}" loading="lazy">
         {% else %}
           <span>{{ p.vardas|first|upper }}</span>
         {% endif %}

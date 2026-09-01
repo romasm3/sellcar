@@ -112,7 +112,38 @@ laukdavo be galo. Todėl:
 Patikra: `docs/pasto_fone_test.py` pakiša lėtą (2 s) pašto backend'ą ir
 tikrina, kad skelbimo puslapis vis tiek atiduodamas greičiau.
 
-**8. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
+**8. VIZUALINIS DARBAS TIKRINAMAS GYVOJE SVETAINĖJE, NE TIK 127.0.0.1.**
+
+Playwright nuotrauka iš vietinio serverio talpyklos klaidų NEPAGAUNA IŠ
+PRINCIPO: ten nėra nei nginx, nei naršyklės keše kabančio seno failo.
+Būtent todėl ataskaitos buvo žalios, o žmogus matė sulaužytą puslapį ir
+turėjo spausti Ctrl+Shift+R.
+
+Po kiekvieno vizualinio darbo, KAI JIS JAU IŠKELTAS:
+
+```bash
+# 1. Ar HTML rodo į naują (sumaišytą) failą
+curl -s https://autoleft.com/ | grep -o 'style\.[a-z0-9]*\.css'
+
+# 2. Ar statiniai turi ilgą galiojimą, o HTML — ne
+curl -sI https://autoleft.com/static/css/style.<maišas>.css | grep -i cache
+#   → Cache-Control: public, max-age=31536000, immutable
+curl -sI https://autoleft.com/ | grep -i cache
+#   → Cache-Control: no-cache, must-revalidate
+
+# 3. Nuotrauka iš GYVOS svetainės, ne iš vietinio serverio
+```
+
+Jei CSS vardas nepasikeitė, o šablonai keitėsi — darbas dar nepasiekė
+lankytojo. Deploy tai tikrina pats (`deploy-agent.sh`,
+`tikrinti_statinius`), bet nuotrauka iš gyvos svetainės yra paskutinis
+įrodymas, ir be jos darbas neatiduodamas.
+
+Susiję: statinių vardai turi turinio maišą (`STORAGES` nustatymuose),
+nginx taisyklės — `deploy/nginx-statiniai.conf`, patikra —
+`docs/statiniu_kesas_test.py`.
+
+**9. VIENA ŠALIS VISAI SVETAINEI.** Šalis nėra atskiras kiekvieno
 puslapio filtras — tai viena bendra reikšmė. Pakeitus bet kur (juostoje
 virš panelės, šoninėje juostoje, `/imones/`), ji galioja visur. Viena
 šablono dalis `templates/partials/_salis.html` (stiliai `juosta`,
@@ -126,7 +157,7 @@ imama TIK iš kontaktų bloko; jei skiriasi nuo pasirinktos — tyli eilutė
 nekuriam antro sąrašo — įtraukiam tą pačią dalį.
 > Tai skirtingi paviršiai, nesupainiok.
 
-**9. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
+**10. Tos pačios taisyklės — įmonėms ir meistrams:** vieta pirma,
 paslaugos ir kainos kortelėje, viskas kita — įmonės puslapyje.
 
 
@@ -916,6 +947,9 @@ ne tik naujai kategorijai:
 - [ ] Bendro elemento stilius — bendrame CSS faile, ne šablono <style>
 - [ ] Testas matuoja tikrus matmenis naršyklėje, ne tik CSS eilutę faile
 - [ ] Nė vienas laiškas nesiunčiamas užklausos metu (fone.py), EMAIL_TIMEOUT yra
+- [ ] Statiniai per {% static %}; kelias vienoje žymėje; failas egzistuoja
+- [ ] Po vizualinio darbo — nuotrauka iš GYVOS autoleft.com, ne tik iš 127.0.0.1
+- [ ] Gyvame HTML style.<maišas>.css pasikeitė, jei keitėsi šablonai ar CSS
 
 ### Testų artefaktai, kurie atrodo kaip klaidos
 

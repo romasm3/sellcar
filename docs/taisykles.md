@@ -168,6 +168,19 @@ eilutė po parametrais (`.kv-zalia`); telefone ji paslėpta, o vietą rodo
 - Vėliavų rinkinys — **visos** šalys iš `salys.py`. Vienas šaltinis, ne
   po failą kaskart.
 
+**Statiniai — visada per `{% static %}`, kelias vienoje žymėje.** Vardai
+turi turinio maišą (`ManifestStaticFilesStorage`), todėl pakeitus failą
+pasikeičia vardas ir naršyklė gauna naują pati. Ranka rašytas
+„/static/…" maišo negauna ir lieka kaboti naršyklės keše; sulipdytas
+`{% static 'a/' %}{{ b }}` iš viso lūžta, nes katalogo manifeste nėra.
+Išimtis — laiškai: ten adresas absoliutus (`{{ site_url }}/static/…`) ir
+nesumaišytas, nes laiškas gyvena ilgiau nei maišas.
+
+> **Vizualinis darbas tikrinamas GYVOJE svetainėje.** Nuotrauka iš
+> 127.0.0.1 talpyklos klaidų nepagauna iš principo — ten nėra nei nginx,
+> nei seno failo naršyklės keše. Patikra: `docs/statiniu_kesas_test.py`,
+> nginx taisyklės — `deploy/nginx-statiniai.conf`.
+
 **Inline SVG — visada su `width` ir `height` žymėje**, ne tik CSS
 (`<svg class="pin" width="11" height="11" viewBox="0 0 24 24">`). Be jų
 jis išsitempia iki 100 % konteinerio ten, kur stiliai nepasiekia:

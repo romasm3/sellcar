@@ -96,6 +96,52 @@ apply() {
   deactivate
 }
 
+# ── Statinių talpyklos patikra ────────────────────────────────────────
+# Kodėl: statiniai vardai turi turinio maišą (style.<maišas>.css). Jei
+# collectstatic nesuveikė arba manifestas liko senas, gyvas HTML rodys į
+# seną failą — lankytojas gaus seną CSS su nauju žymėjimu, t. y.
+# sulaužytą puslapį, ir to nesimatys jokiame vietiniame teste.
+STATINIU_MANIFESTAS="${APP_DIR}/staticfiles/staticfiles.json"
+
+statiniu_bukle() {
+  # Grąžina „<manifesto-mtime> <css-vardas-gyvame-HTML>"
+  local mt html vardas
+  mt="$(stat -c %Y "$STATINIU_MANIFESTAS" 2>/dev/null || echo 0)"
+  html="$(curl -fsS --max-time 10 --unix-socket "$GUNICORN_SOCK" \
+            -H "Host: $HEALTH_HOST" "http://localhost/" 2>/dev/null || true)"
+  vardas="$(printf '%s' "$html" | grep -oE 'style\.[a-z0-9]+\.css' | head -1)"
+  printf '%s %s' "$mt" "$vardas"
+}
+
+tikrinti_statinius() {
+  local pries_mt="$1" pries_css="$2"
+  local dabar mt css
+  dabar="$(statiniu_bukle)"; mt="${dabar%% *}"; css="${dabar##* }"
+
+  if [[ ! -f "$STATINIU_MANIFESTAS" ]]; then
+    log "❌ Nėra ${STATINIU_MANIFESTAS} — collectstatic nesuveikė."
+    return 1
+  fi
+  if [[ "$mt" == "$pries_mt" ]]; then
+    log "❌ staticfiles.json neatsinaujino (mtime $mt) — collectstatic nieko nepadarė."
+    return 1
+  fi
+  if [[ -z "$css" ]]; then
+    log "❌ Gyvas HTML nerodo į sumaišytą style.<maišas>.css."
+    log "   Patikrink STORAGES['staticfiles'] nustatymuose."
+    return 1
+  fi
+  # Jei šablonai ar statiniai keitėsi, o CSS vardas ne — maišas
+  # neperskaičiuotas, ir naršyklės liks prie senojo failo.
+  if [[ -n "$pries_css" && "$css" == "$pries_css" && "$SABLONAI_KEITESI" == "1" ]]; then
+    log "❌ Šablonai/statiniai keitėsi, bet CSS vardas liko $css."
+    log "   Naršyklės gaus seną failą — deploy stabdomas."
+    return 1
+  fi
+  log "Statiniai OK: $css (manifestas atnaujintas)"
+  return 0
+}
+
 ### --- eiga ---
 log "=== Deploy pradžia ($TS) ==="
 
@@ -106,11 +152,28 @@ if [[ ! -d "$LAST_GOOD" ]]; then
   log "Baseline sukurtas: $LAST_GOOD"
 fi
 
+# Ar šiame deploy'e keitėsi šablonai arba statiniai — tada CSS vardas
+# PRIVALO pasikeisti.
+SABLONAI_KEITESI=0
+if [[ -d "$LAST_GOOD" ]] && ! diff -rq --no-dereference \
+      "${LAST_GOOD}/templates" "${APP_DIR}/templates" >/dev/null 2>&1; then
+  SABLONAI_KEITESI=1
+fi
+if [[ -d "$LAST_GOOD" ]] && ! diff -rq --no-dereference \
+      "${LAST_GOOD}/static" "${APP_DIR}/static" >/dev/null 2>&1; then
+  SABLONAI_KEITESI=1
+fi
+[[ "$SABLONAI_KEITESI" == "1" ]] && log "Šablonai/statiniai keitėsi — tikrinsim CSS vardą."
+
+PRIES="$(statiniu_bukle)"
+PRIES_MT="${PRIES%% *}"
+PRIES_CSS="${PRIES##* }"
+
 dump_db
 apply
 restart_service
 
-if health_check; then
+if health_check && tikrinti_statinius "$PRIES_MT" "$PRIES_CSS"; then
   log "✅ Veikia — atnaujinam 'last_good' į naują versiją."
   snapshot_code
   log "=== Deploy OK ==="

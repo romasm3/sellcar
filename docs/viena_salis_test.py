@@ -108,6 +108,11 @@ def nuoroda(html, kodas):
     return htmlmod.unescape(m.group(1)) if m else None
 
 
+def veliavos_kelias(html, kodas):
+    """Ar HTML'e yra tos šalies vėliava. Vardas gali turėti turinio maišą
+    (flags/de.e88d88604d65.svg), tad lyginam pagal šabloną."""
+    return re.search(r'flags/%s(\.[0-9a-f]{8,12})?\.svg' % kodas, html) is not None
+
 def rodoma_salis(html):
     """Kuri šalis rodoma šablone — iš juostos arba iš šoninės juostos."""
     m = re.search(r'class="salies-vardas">([^<]+)<', html)
@@ -240,7 +245,7 @@ c4.cookies['salis'] = 'LT'          # svetainėje pasirinkta Lietuva
 det = c4.get(vokiskas.get_absolute_url())
 h = det.content.decode()
 tikrink(det.status_code == 200, 'vokiškas skelbimas atsidaro (%s)' % det.status_code)
-tikrink('flags/de.svg' in h, 'kontaktų bloke — VOKIŠKA vėliava')
+tikrink(veliavos_kelias(h, 'de'), 'kontaktų bloke — VOKIŠKA vėliava')
 tikrink('pard-kita-salis' in h, 'yra tyli eilutė „Šis skelbimas yra …"')
 tikrink('Vokietijoje' in h, 'eilutėje vietininkas „Vokietijoje"')
 tikrink('salis=de' in h, 'nuoroda „Rodyti visus Vokietijos skelbimus"')
@@ -250,7 +255,7 @@ cache.clear()
 h2 = c4.get(lietuviskas.get_absolute_url()).content.decode()
 tikrink('pard-kita-salis' not in h2,
         'ta pati šalis — tylios eilutės nėra')
-tikrink('flags/lt.svg' in h2, 'lietuviška vėliava')
+tikrink(veliavos_kelias(h2, 'lt'), 'lietuviška vėliava')
 
 
 antraste('8. Vėliava — PO pavadinimo')
