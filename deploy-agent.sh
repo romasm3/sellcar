@@ -109,7 +109,11 @@ statiniu_bukle() {
   mt="$(stat -c %Y "$STATINIU_MANIFESTAS" 2>/dev/null || echo 0)"
   html="$(curl -fsS --max-time 10 --unix-socket "$GUNICORN_SOCK" \
             -H "Host: $HEALTH_HOST" "http://localhost/" 2>/dev/null || true)"
-  vardas="$(printf '%s' "$html" | grep -oE 'style\.[a-z0-9]+\.css' | head -1)"
+  # `|| true` BŪTINAS: skriptas sukasi su `set -euo pipefail`, o grep be
+  # atitikmens grąžina 1 ir pipefail tą 1 paverčia viso priskyrimo klaida —
+  # skriptas nutrūkdavo dar PRIEŠ deploy'ą. Pirmą kartą atitikmens ir
+  # negali būti: senas HTML sumaišyto vardo neturi.
+  vardas="$(printf '%s' "$html" | grep -oE 'style\.[a-z0-9]+\.css' | head -1 || true)"
   printf '%s %s' "$mt" "$vardas"
 }
 

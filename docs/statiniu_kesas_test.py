@@ -150,6 +150,14 @@ tikrink('style\\.[a-z0-9]+\\.css' in d or 'style\\.' in d,
         'tikrinamas sumaišytas CSS vardas gyvame HTML')
 tikrink(d.index('tikrinti_statinius "$PRIES_MT"') > d.index('apply\n'),
         'patikra vyksta PO collectstatic')
+# Skriptas sukasi su `set -euo pipefail`: grep be atitikmens grąžina 1 ir
+# nutraukia VISĄ deploy'ą dar prieš prasidedant. Pirmą kartą atitikmens
+# ir negali būti, tad `|| true` čia privalomas.
+tikrink("| head -1 || true)" in d,
+        'grep pipeline apsaugotas `|| true` (kitaip deploy nutrūksta)')
+tikrink('set -euo pipefail' in d, 'skriptas su set -euo pipefail')
+tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_statiniu_test.sh')),
+        'yra dry-run testas deploy logikai')
 
 
 print('\n' + '═' * 60)
