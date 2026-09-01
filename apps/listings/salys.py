@@ -105,6 +105,32 @@ def vardas(kodas):
     return VARDAI.get(kodas, kodas)
 
 
+# ── Angliški pavadinimai — NEVERČIAMI ──────────────────────────────
+# Šalies juostoje virš paieškos panelės vardai rodomi angliškai ir
+# nekeičiami pagal sąsajos kalbą: tai tarptautinis sąrašas, kurį skaito
+# ir tas, kuris svetainės kalbos nemoka. Todėl čia paprastos eilutės, o
+# ne gettext — kitaip vertėjas juos „pataisytų" į lietuviškus.
+VARDAI_EN = {
+    'LT': 'Lithuania', 'LV': 'Latvia', 'EE': 'Estonia', 'PL': 'Poland',
+    'DE': 'Germany', 'IE': 'Ireland', 'AT': 'Austria', 'BE': 'Belgium',
+    'BG': 'Bulgaria', 'CZ': 'Czechia', 'DK': 'Denmark', 'GR': 'Greece',
+    'IS': 'Iceland', 'ES': 'Spain', 'IT': 'Italy', 'CY': 'Cyprus',
+    'HR': 'Croatia', 'LI': 'Liechtenstein', 'LU': 'Luxembourg',
+    'MT': 'Malta', 'NO': 'Norway', 'NL': 'Netherlands', 'PT': 'Portugal',
+    'FR': 'France', 'RO': 'Romania', 'SK': 'Slovakia', 'SI': 'Slovenia',
+    'FI': 'Finland', 'SE': 'Sweden', 'CH': 'Switzerland', 'HU': 'Hungary',
+    'BY': 'Belarus', 'MD': 'Moldova', 'RU': 'Russia', 'UA': 'Ukraine',
+    'GB': 'United Kingdom', 'GE': 'Georgia', 'JP': 'Japan',
+    'US': 'United States', 'AE': 'United Arab Emirates',
+    'KZ': 'Kazakhstan', 'TR': 'Turkey', 'CA': 'Canada', 'AU': 'Australia',
+}
+
+
+def vardas_en(kodas):
+    """Angliškas pavadinimas šalies juostai. Nežinomam kodui — pats kodas."""
+    return VARDAI_EN.get(str(kodas or '').upper(), str(kodas or '').upper())
+
+
 def grupes_su(kodai):
     """Tos pačios grupės, paliekant tik nurodytus kodus (filtrams).
 

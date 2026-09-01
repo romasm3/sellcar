@@ -1071,6 +1071,10 @@ a.sp-rail-btn { text-decoration:none; }
             <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
         </div>
 
+        {% comment %}Šalies juosta — ATSKIRA eilutė virš panelės. Panelės
+        viduje nekeičiama niekas.{% endcomment %}
+        <div style="display:flex;justify-content:center;width:100%;"><div style="width:100%;max-width:610px;">{% include 'listings/partials/_salies_juosta.html' %}</div></div>
+
         {# ═══ PAIEŠKOS PANELĖ (rail + kategorijos laukai) ═══ #}
         <div style="display:flex;justify-content:center;width:100%;">{% include 'listings/partials/search_panel.html' %}</div>
 

@@ -1662,6 +1662,12 @@ def _mano_paieskos(request, limit=6):
     }
 
 
+def salies_juosta_kontekstas(request):
+    """Šalies juostos duomenys šablonui — žr. apps/listings/salies_juosta.py."""
+    from apps.listings import salies_juosta
+    return salies_juosta.kontekstas(request, _public_listings_qs(request.user))
+
+
 def _public_listings_qs(request_user=None):
     now = timezone.now()
     sold_cutoff = now - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
@@ -2045,6 +2051,12 @@ def listing_list(request, panel_fragment=False, category=None):
         listings = listings.filter(country='US', state=state_filter)
     elif country_filter:
         listings = listings.filter(country=country_filter)
+    else:
+        # Šalies juosta virš paieškos panelės (?salis=de + slapukas).
+        # Senasis country_filter turi pirmenybę — jis ateina iš detalios
+        # paieškos laukų ir yra konkretesnis.
+        from apps.listings import salies_juosta
+        listings = salies_juosta.filtruoti(listings, request)
 
     # ═══ Posted within (24h, 3d, 7d, 30d) ═══
     posted_within = request.GET.get('posted_within')
@@ -2490,6 +2502,8 @@ def listing_list(request, panel_fragment=False, category=None):
         'tab_expensive': tab_expensive,
         'equipment_by_category': equipment_by_category,
         'selected_equipment': equipment_ids_selected,
+        # Šalies juosta virš panelės — vardai angliški, skaičiai iš DB
+        **salies_juosta_kontekstas(request),
     }
     # Paskutinės paieškos — įsimenam, kai žmogus tikrai filtravo
     if not panel_fragment and request.GET.get('sidebar'):
@@ -2514,7 +2528,9 @@ def listing_list(request, panel_fragment=False, category=None):
         context['sp_sekcija'] = resolve_section(_tab, request.GET)
         return render(request, 'listings/partials/_panel_bodies.html', context)
 
-    return render(request, 'listings/listing_list.html', context)
+    from apps.listings import salies_juosta as _sj
+    return _sj.atsiminti(
+        render(request, 'listings/listing_list.html', context), request)
 
 
 # ════════════════════════════════════════════════════════════════════
