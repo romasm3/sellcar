@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-01 20:13:39 CEST
+Sugeneruota: 2026-09-01 20:33:40 CEST
 
 ## Kodas
 
 ```
 sukasi:      9f0c6aa fix(pastas): laiškai iškelti iš užklausos į foną
-origin/master: 9d7bed7 fix(statiniai): turinio maišas varduose ir talpyklos taisyklės
+origin/master: d75e49d fix(deploy): statinių patikra nutraukdavo visą deploy'ą
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.002296s
+HTTP 301, 0.001331s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 01 20:12:33 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.647s CPU time.
-Sep 01 20:13:34 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 01 20:13:35 vmi3306453 autoleft-deploy[2887277]: [2026-09-01 20:13:35] === Naujų commit'ų rasta: 9f0c6aa → 9d7bed7 ===
-Sep 01 20:13:35 vmi3306453 autoleft-deploy[2887309]:     9d7bed7 fix(statiniai): turinio maišas varduose ir talpyklos taisyklės
-Sep 01 20:13:35 vmi3306453 autoleft-deploy[2887277]: [2026-09-01 20:13:35] Kodas atnaujintas iki 9d7bed7
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:         raise ValueError(
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     ----------------------------------------------------------------------
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     Ran 11 tests in 0.989s
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     FAILED (errors=4)
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:         hashed_name = hashed_name_func(*args)
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:         raise ValueError(
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     ----------------------------------------------------------------------
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     Ran 4 tests in 0.259s
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     FAILED (errors=2)
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     
-Sep 01 20:13:39 vmi3306453 autoleft-deploy[2887380]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 01 20:33:35 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 01 20:33:36 vmi3306453 autoleft-deploy[2902180]: [2026-09-01 20:33:36] === Naujų commit'ų rasta: 9f0c6aa → d75e49d ===
+Sep 01 20:33:36 vmi3306453 autoleft-deploy[2902204]:     d75e49d fix(deploy): statinių patikra nutraukdavo visą deploy'ą
+Sep 01 20:33:36 vmi3306453 autoleft-deploy[2902204]:     9d7bed7 fix(statiniai): turinio maišas varduose ir talpyklos taisyklės
+Sep 01 20:33:36 vmi3306453 autoleft-deploy[2902180]: [2026-09-01 20:33:36] Kodas atnaujintas iki d75e49d
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:         raise ValueError(
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     ----------------------------------------------------------------------
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     Ran 11 tests in 0.826s
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     FAILED (errors=4)
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:         hashed_name = hashed_name_func(*args)
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:         raise ValueError(
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     ValueError: Missing staticfiles manifest entry for 'brand/autoleft-icon.svg'
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     ----------------------------------------------------------------------
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     Ran 4 tests in 0.194s
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     FAILED (errors=2)
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     
+Sep 01 20:33:40 vmi3306453 autoleft-deploy[2902292]:     PATIKRA NEPRAĖJO — nediegti.
 ```
