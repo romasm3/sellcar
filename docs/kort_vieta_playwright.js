@@ -293,18 +293,20 @@ const matuok = (p, sel) => p.evaluate((s) => {
                               > cf.right };
       });
       if (blk) {
-        tik(blk.fonas === 'rgb(244, 244, 245)', 'fonas #F4F4F5 (' + blk.fonas + ')');
-        tik(blk.radius === '10px', 'radius 10px (' + blk.radius + ')');
-        tik(blk.padding === '14px', 'padding 14px (' + blk.padding + ')');
+        // Nuo docs/demo/grozio-demo.html šalies blokas atrodo kaip VISI
+        // kiti juostos blokai: be atskiro pilko fono, 16 px vidus, be savo
+        // apvalinimo. Matmenis tikrina docs/sonine_juosta_playwright.js.
+        tik(blk.fonas === 'rgba(0, 0, 0, 0)',
+            'be atskiro fono, kaip kiti blokai (' + blk.fonas + ')');
+        tik(blk.padding === '16px', 'bloko vidus 16px (' + blk.padding + ')');
         tik(blk.hDydis === '12px', 'antraštė 12px (' + blk.hDydis + ')');
         tik(blk.hSvoris === '700', 'antraštė 700 (' + blk.hSvoris + ')');
         tik(blk.hDidziosios === 'uppercase', 'antraštė didžiosiomis');
         tik(blk.hSpalva === 'rgb(107, 114, 128)', 'antraštė pilka (' + blk.hSpalva + ')');
-        // Etalone „Keisti" oranžinis (#E14D28) — tai to maketo akcentas.
-        // Svetainės akcentas yra antracitas #374151, o oranžinė pagal
-        // docs/dizaino-sistema.md leidžiama TIK logotipe ir ikonoje.
-        tik(blk.kSpalva === 'rgb(55, 65, 81)',
-            '„Keisti" svetainės akcento spalva (' + blk.kSpalva + ')');
+        // grozio-demo.html nuorodų spalva — #D2411D (tamsesnis, AA ant
+        // balto). Ženklo oranžinė #E14D28 lieka tik logotipe.
+        tik(blk.kSpalva === 'rgb(210, 65, 29)',
+            '„Keisti" #D2411D (' + blk.kSpalva + ')');
         tik(blk.kDydis === '13px', '„Keisti" 13px (' + blk.kDydis + ')');
         tik(blk.kSvoris === '600', '„Keisti" 600 (' + blk.kSvoris + ')');
         tik(blk.kFonas === 'rgba(0, 0, 0, 0)', '„Keisti" be fono');

@@ -1,0 +1,158 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ŠONINĖ FILTRŲ JUOSTA — išvaizda pagal docs/demo/grozio-demo.html
+
+   TIK IŠVAIZDA. Nė vienas filtras čia neatsiranda, nedingsta ir
+   nepersitvarko: žymėjimas lieka toks pat, keičiasi tarpai, dydžiai,
+   antraščių stilius ir spalvos. Turinio tapatumą saugo
+   docs/sonines_juostos_sarasas.py (išrašas prieš/po turi sutapti).
+
+   Iš etalono perimta:
+     · blokai: 16 px vidus, 1 px #E5E7EB linija tarp jų
+     · antraštė 12 px / 700, pilka, DIDŽIOSIOMIS, tarpas .5 px
+     · laukai 44 px, apvalinimas 8 px
+     · varnelių eilutės 34 px
+     · kiekiai dešinėje, #9CA3AF
+     · nuorodos #D2411D, 13–14 px
+     · „Filtruoti" 48 px, juodas, per visą plotį; „Išvalyti" po juo
+
+   Viskas apribota `.sp-side-card` — paieškos panelė naudoja tuos pačius
+   `.sp-fld`, o jos liesti negalima.
+
+   Juostos telefone nėra visai (serveris jos net neatiduoda), todėl
+   taisyklės galioja nuo 1024 px.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+  /* ── Kortelė ir blokai ──────────────────────────────────────────── */
+  /* `form.` — ne grožiui: tos pačios klasės taisyklė yra ir šablono
+     <style> bloke (_sp_field_styles.html), o jis įkeliamas vėliau. Su
+     vienodu specifiškumu laimėtų jis, tad pridedam elemento vardą. */
+  form.sp-side-card {
+    padding: 0;                     /* vidų dabar duoda patys blokai */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Vienas bloko šablonas: „Daugiau filtrų", šalis, kiekvienas laukas,
+     ypatumai. `.sb-apply` — ne blokas, o veiksmų juosta apačioje. */
+  .sp-side-card > a:first-of-type,
+  .sp-side-card > .salis-blk,
+  .sp-side-card [data-laukai="darbalaukis"] > div:not(.sb-apply) {
+    padding: 16px;
+    border-bottom: 1px solid #E5E7EB;
+    margin: 0;
+  }
+  .sp-side-card [data-laukai="darbalaukis"] {
+    gap: 0;                         /* tarpą tarp blokų daro linija */
+  }
+
+  /* Atskira linija po šalies bloko nebereikalinga — ją dabar piešia
+     pats blokas. Elementas lieka vietoje, tik nerodomas. */
+  .sp-side-card .sp-side-line { display: none; }
+
+  /* ── Antraštės ──────────────────────────────────────────────────── */
+  /* Laukų etiketės ateina iš bendrų partials/fields/* su Tailwind
+     klasėmis; dviejų klasių selektorius už jas stipresnis.
+     Antraštė nuo varnelės eilutės skiriasi klase `block`: visos bloko
+     antraštės yra `block text-[12.5px] font-bold`, o varnelių eilutės —
+     `flex items-center gap-2`. Be šito skirtumo ypatumų sąrašas
+     („Šilumos siurblys" ir kt.) būtų virtęs antraštėmis DIDŽIOSIOMIS. */
+  .sp-side-card [data-laukai="darbalaukis"] label.block,
+  .sp-side-card .salis-blk h4 {
+    display: block;
+    margin: 0 0 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    line-height: 1.3;
+  }
+  /* Varnelės eilutė — ne antraštė: mažosiomis, įprasta spalva, 34 px. */
+  .sp-side-card [data-laukai="darbalaukis"] label:not(.block) {
+    text-transform: none;
+    letter-spacing: 0;
+    color: #1A1A1A;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ── Laukai ─────────────────────────────────────────────────────── */
+  .sp-side-card .sp-fld {
+    height: 44px;
+    border-radius: 8px;
+    border-color: #E5E7EB;
+    font-size: 14px;
+    padding: 0 12px;
+  }
+  .sp-side-card .sp-fld:hover { border-color: #D1D5DB; }
+  /* „Daugiau filtrų" atrodo kaip laukas, tad ir aukštis toks pat. */
+  .sp-side-card > a:first-of-type.sp-fld {
+    height: auto;
+    padding: 16px;
+    border: 0;
+    border-bottom: 1px solid #E5E7EB;
+    border-radius: 0;
+  }
+
+  /* ── Kiekiai dešinėje ───────────────────────────────────────────── */
+  .sp-side-card .salis-eil-kiekis,
+  .sp-side-card .sp-ms-count,
+  .sp-side-card .opt-count { color: #9CA3AF; font-size: 13px; }
+
+  /* ── Nuorodos ───────────────────────────────────────────────────── */
+  /* Etalono --acc: #D2411D. Tai tamsesnis, AA kontrasto ant balto
+     variantas; ženklo oranžinė (#E14D28) lieka tik logotipe. */
+  .sp-side-card .salis-keisti-mazas,
+  .sp-side-card [data-laukai="darbalaukis"] button.text-\[12px\] {
+    color: #D2411D;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .sp-side-card .salis-keisti-mazas:hover,
+  .sp-side-card [data-laukai="darbalaukis"] button.text-\[12px\]:hover {
+    color: #B3350F;
+    text-decoration: underline;
+  }
+
+  /* ── Šalies blokas — kaip visi kiti ─────────────────────────────── */
+  /* Etalone visi blokai vienodi, be pilko fono. */
+  .sp-side-card .salis-blk {
+    background: none;
+    border-radius: 0;
+  }
+  .sp-side-card .salis-blk h4 { margin-bottom: 12px; }
+  .sp-side-card .salis-cur { font-size: 15px; font-weight: 600; }
+
+  /* ── Veiksmai apačioje ──────────────────────────────────────────── */
+  .sp-side-card .sb-apply { padding: 16px; gap: 0; }
+  .sp-side-card .sb-apply button[type="submit"] {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: #181B1F;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .sp-side-card .sb-apply button[type="submit"]:hover { background: #000; }
+  .sp-side-card .sb-clear {
+    display: block;
+    width: 100%;
+    padding: 12px 0 0;
+    background: none;
+    border: 0;
+    color: #6B7280;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .sp-side-card .sb-clear:hover { color: #1A1A1A; text-decoration: underline; }
+}

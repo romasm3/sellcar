@@ -185,6 +185,13 @@ Aktyvi kategorijos ikona — akcento spalvos pabraukimas, bet ne užpildyta ikon
 ikonoje. Daugiau niekur svetainėje jos nėra** — nei mygtukuose, nei žymose,
 nei aktyviose būsenose. Akcentas lieka antracitas (`--accent`).
 
+> **Viena išimtis (2026-09-01, docs/demo/grozio-demo.html):** šoninės
+> filtrų juostos TEKSTINĖS nuorodos — „Keisti", „Rodyti visus",
+> „+ Pridėti dar" — rašomos `#D2411D`. Tai tamsesnis, AA kontrasto ant
+> balto variantas, ne ženklo `#E14D28`. Išimtis galioja tik nuorodoms
+> juostoje (`static/css/sonine_juosta.css`): jokių oranžinių mygtukų,
+> žymų ar fonų. Ženklo oranžinė ir toliau tik logotipe ir ikonoje.
+
 Kodėl taip: viena reta spalva atsimenama geriau nei visur išbarstyta. Kai
 oranžinė yra vieninteliame taške, ji tampa ženklu — akis ją suranda iškart
 ir susieja su preke. Kai ta pati oranžinė yra ir mygtuke, ir žymoje, ir

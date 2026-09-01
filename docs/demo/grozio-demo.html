@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — grožio etalonas</title>
+<style>
+:root{
+  /* spalvos */
+  --ink:#181B1F; --text:#1A1A1A; --muted:#6B7280; --faint:#9CA3AF;
+  --border:#E5E7EB; --strong:#D1D5DB; --soft:#F4F4F5; --soft2:#E9E9EC;
+  --acc:#D2411D;        /* nuorodos, tekstas — AA ant balto */
+  --acc-mark:#E14D28;   /* ženklai, žymekliai, širdutė */
+  --star:#F5B301;
+  /* tarpai: 4 8 12 16 24 32 40 64 */
+  --r-fld:8px; --r-card:12px; --r-pill:999px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+ font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ---------- ANTRAŠTĖ ---------- */
+.hdr{height:64px;border-bottom:1px solid var(--border);display:flex;align-items:center;
+ justify-content:space-between;padding:0 24px;position:sticky;top:0;background:#fff;z-index:50}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.logo span{color:var(--acc-mark)}
+.hdr-r{display:flex;align-items:center;gap:16px;color:var(--muted)}
+.hdr-r .ic{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8}
+.btn{height:44px;padding:0 20px;border-radius:var(--r-pill);border:1px solid var(--strong);
+ background:#fff;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--soft)}
+.btn-pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-pri:hover{background:#000}
+
+/* ---------- VAIZDŲ PERJUNGIKLIS (tik demo) ---------- */
+.views{display:flex;gap:8px;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--soft)}
+.views button{height:36px;padding:0 16px;border-radius:var(--r-pill);border:1px solid var(--border);
+ background:#fff;font-weight:500;font-size:13px}
+.views button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.view{display:none}.view.on{display:block}
+
+.wrap{max-width:1400px;margin:0 auto;padding:24px}
+
+/* ---------- BENDRA ---------- */
+h1{font-size:24px;font-weight:700;letter-spacing:-.3px;margin:0 0 4px}
+h2{font-size:20px;font-weight:700;margin:0 0 16px}
+h3{font-size:17px;font-weight:600;margin:0 0 12px}
+.sub{color:var(--muted);font-size:14px}
+.lnk{color:var(--acc);font-weight:600;font-size:14px}
+.lnk:hover{text-decoration:underline}
+
+.tabs{display:flex;gap:32px;border-bottom:1px solid var(--border);margin:24px 0}
+.tabs button{border:0;background:none;padding:0 0 12px;font-size:15px;color:var(--muted);
+ border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+
+/* ---------- KORTELĖ (vienas šablonas visur) ---------- */
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+@media(max-width:1280px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;background:#fff;
+ display:flex;flex-direction:column;transition:box-shadow .15s,border-color .15s}
+.card:hover{border-color:var(--strong);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card .ph{position:relative;aspect-ratio:4/3;background:var(--soft);overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.bdg{position:absolute;left:8px;bottom:8px;background:rgba(24,27,31,.78);color:#fff;font-size:12px;
+ font-weight:600;padding:3px 8px;border-radius:6px}
+.fav{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:0;
+ background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+ box-shadow:0 1px 3px rgba(0,0,0,.16)}
+.fav svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:2}
+.fav.on svg{fill:var(--acc-mark);stroke:var(--acc-mark)}
+.card .b{padding:12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card .n{font-size:14px;font-weight:600;line-height:1.3;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+/* speces eilutė VISADA yra — net tuščia, kad tinklelis nešokinėtų */
+.card .s{font-size:13px;color:var(--muted);min-height:19px;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .p{font-size:16px;font-weight:700;margin-top:4px}
+.vieta{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;min-width:0;
+ font-size:12.5px;color:var(--muted);margin-top:auto;padding-top:8px}
+.vieta .pin{width:11px;height:11px;flex:0 0 auto;stroke:var(--muted);fill:none;stroke-width:2}
+.vieta .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.fl{width:16px;height:12px;flex:0 0 auto;display:block;border-radius:2px;
+ box-shadow:0 0 0 1px rgba(0,0,0,.10) inset}
+.fl-b{width:20px;height:15px}
+
+/* ---------- SĄRAŠAS SU ŠONINE JUOSTA ---------- */
+.cols{display:grid;grid-template-columns:288px minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:1000px){.cols{grid-template-columns:1fr}}
+.side{border:1px solid var(--border);border-radius:var(--r-card);background:#fff;position:sticky;top:88px;
+ overflow:hidden}
+.side .blk{padding:16px;border-bottom:1px solid var(--border)}
+.side .blk:last-child{border-bottom:0}
+.side h4{margin:0 0 12px;font-size:12px;font-weight:700;color:var(--muted);
+ text-transform:uppercase;letter-spacing:.5px}
+.side .cur{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.side .cur .lnk{margin-left:auto;font-size:13px}
+.opt{display:flex;align-items:center;gap:10px;height:34px;cursor:pointer}
+.opt input{width:16px;height:16px;accent-color:var(--ink);margin:0;flex:0 0 auto}
+.opt .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt .c{color:var(--faint);font-size:13px;flex:0 0 auto}
+.fld{height:44px;border:1px solid var(--border);border-radius:var(--r-fld);display:flex;
+ align-items:center;justify-content:space-between;padding:0 12px;color:var(--muted);background:#fff}
+.fld:hover{border-color:var(--strong)}
+.fld svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.side .go{width:100%;height:48px;border-radius:var(--r-pill);border:0;background:var(--ink);color:#fff;
+ font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+
+.rbar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.rbar .sel{height:44px;border:1px solid var(--border);border-radius:var(--r-fld);padding:0 12px;
+ display:flex;align-items:center;gap:8px;background:#fff}
+.rbar .sp{margin-left:auto}
+
+.row-card{display:grid;grid-template-columns:320px minmax(0,1fr);border:1px solid var(--border);
+ border-radius:var(--r-card);overflow:hidden;background:#fff;margin-bottom:16px}
+@media(max-width:760px){.row-card{grid-template-columns:1fr}}
+.row-card .ph{position:relative;aspect-ratio:4/3;background:var(--soft)}
+.row-card .b{padding:16px 20px;display:flex;flex-direction:column}
+.row-card .top{display:flex;align-items:baseline;gap:16px}
+.row-card .n{font-size:17px;font-weight:600;flex:1}
+.row-card .p{font-size:18px;font-weight:700;white-space:nowrap}
+.meta{color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:8px;font-size:13px}
+.meta svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:1.8}
+.spec{margin-top:8px;font-size:14px;color:var(--text)}
+
+/* ---------- SKELBIMO PUSLAPIS ---------- */
+.det{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:start}
+@media(max-width:1000px){.det{grid-template-columns:1fr}}
+.gal{border-radius:var(--r-card);overflow:hidden;background:var(--soft);aspect-ratio:16/10;position:relative}
+.thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}
+.thumbs div{aspect-ratio:4/3;background:var(--soft);border-radius:8px;overflow:hidden}
+.dl{border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;margin-top:24px}
+.dl div{display:grid;grid-template-columns:180px minmax(0,1fr);border-bottom:1px solid var(--border)}
+.dl div:last-child{border-bottom:0}
+.dl span{padding:12px 16px}
+.dl span:first-child{color:var(--muted);background:var(--soft)}
+.aside{border:1px solid var(--border);border-radius:var(--r-card);padding:20px;position:sticky;top:88px}
+.price-big{font-size:24px;font-weight:700}
+.seller{display:flex;align-items:center;gap:12px;margin:16px 0}
+.seller .av{width:44px;height:44px;border-radius:50%;background:var(--soft2);flex:0 0 auto;
+ display:flex;align-items:center;justify-content:center}
+.seller .av svg{width:22px;height:22px;stroke:var(--muted);fill:none;stroke-width:1.8}
+.map{height:140px;border-radius:var(--r-fld);background:
+ repeating-linear-gradient(45deg,#EDF0F2 0 12px,#E7EAEC 12px 24px);margin:16px 0;position:relative}
+.map .mk{position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);width:20px;height:20px;
+ fill:var(--acc-mark)}
+.stack{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.stack .btn{width:100%;justify-content:center;height:48px}
+.sec{margin-top:40px}
+.note{background:var(--soft);border-radius:var(--r-card);padding:16px;color:var(--muted);margin-bottom:24px}
+.note b{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">Auto<span>Left</span></div>
+  <div class="hdr-r">
+    <span id="hf"></span><span>LT</span>
+    <button class="btn">+ Įkelti</button>
+    <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+    <svg class="ic" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg>
+    <button class="btn btn-pri">Registruotis</button>
+  </div>
+</header>
+
+<div class="views">
+  <button class="on" data-v="a">1 · Pagrindinis</button>
+  <button data-v="b">2 · Sąrašas su šonine juosta</button>
+  <button data-v="c">3 · Skelbimo puslapis</button>
+</div>
+
+<!-- ============ 1 · PAGRINDINIS ============ -->
+<section class="view on" id="v-a"><div class="wrap">
+  <div class="note"><b>Kortelė — vienas šablonas.</b> Pavadinimas visada dvi eilutės, techninė eilutė visada yra
+  (net tuščia), kaina, vieta su vėliava. Todėl kortelės vienodo aukščio ir tinklelis nešokinėja.</div>
+
+  <h1>Naršyti automobilius</h1>
+  <div class="sub">Rasti 4 821 skelbimai · Lithuania</div>
+
+  <div class="tabs">
+    <button class="on">Pasiūlymai</button><button>Dienos pasiūlymai</button>
+    <button>Naujausi</button><button>Populiariausi</button><button>Brangiausi</button>
+  </div>
+
+  <div class="grid" id="grid-a"></div>
+  <div style="margin-top:24px"><button class="btn">Žiūrėti visus</button></div>
+</div></section>
+
+<!-- ============ 2 · SĄRAŠAS ============ -->
+<section class="view" id="v-b"><div class="wrap">
+  <div class="note"><b>Šoninė juosta.</b> Šalis viršuje, po ja miestas ir spindulys, tada filtrai.
+  Visi blokai to paties stiliaus, tarpai 16px, laukai 44px.</div>
+
+  <h1>Automobiliai</h1>
+  <div class="sub" style="margin-bottom:24px">Rasti 2 skelbimai</div>
+
+  <div class="cols">
+    <aside class="side">
+      <div class="blk">
+        <h4>Šalis</h4>
+        <div class="cur"><span>Lithuania</span><span id="f-lt"></span><a class="lnk">Keisti</a></div>
+      </div>
+      <div class="blk">
+        <h4>Miestas</h4>
+        <label class="opt"><input type="checkbox"><span class="t">Vilnius</span><span class="c">1 842</span></label>
+        <label class="opt"><input type="checkbox"><span class="t">Kaunas</span><span class="c">1 104</span></label>
+        <label class="opt"><input type="checkbox"><span class="t">Klaipėda</span><span class="c">612</span></label>
+        <a class="lnk" style="display:inline-block;margin-top:8px">Rodyti visus</a>
+      </div>
+      <div class="blk">
+        <h4>Spindulys</h4>
+        <div class="fld">Visa šalis <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="blk">
+        <h4>Markė ir modelis</h4>
+        <div class="fld" style="margin-bottom:12px">Visos markės <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="fld">Visi modeliai <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+        <a class="lnk" style="display:inline-block;margin-top:12px">+ Pridėti dar</a>
+      </div>
+      <div class="blk">
+        <h4>Metai</h4>
+        <div class="two"><div class="fld">Nuo</div><div class="fld">Iki</div></div>
+      </div>
+      <div class="blk">
+        <h4>Kaina, €</h4>
+        <div class="two"><div class="fld">Nuo</div><div class="fld">Iki</div></div>
+      </div>
+      <div class="blk">
+        <button class="go">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          Filtruoti · 2</button>
+        <button style="width:100%;border:0;background:none;color:var(--muted);padding:12px 0 0;font-weight:500">Išvalyti</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="rbar">
+        <div class="sel">Naujausi <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        <button class="btn sp">Išsaugoti paiešką</button>
+        <button class="btn">Išplėstinė</button>
+        <button class="btn">Žemėlapis</button>
+      </div>
+      <div id="rows"></div>
+    </main>
+  </div>
+</div></section>
+
+<!-- ============ 3 · SKELBIMAS ============ -->
+<section class="view" id="v-c"><div class="wrap">
+  <div class="note"><b>Skelbimo puslapis.</b> Kontaktų blokas su vieta ir žemėlapiu — matomas iškart,
+  be slinkimo. Apačioje kiti pardavėjo skelbimai.</div>
+
+  <div class="det">
+    <div>
+      <h1>BMW 320d Touring</h1>
+      <div class="sub" style="margin-bottom:16px">2018 · Dyzelinas · 168 000 km · Automatinė</div>
+
+      <div class="gal"><img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=75" alt=""></div>
+      <div class="thumbs">
+        <div><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300&q=60" alt=""></div>
+        <div><img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=300&q=60" alt=""></div>
+        <div><img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=300&q=60" alt=""></div>
+        <div><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=300&q=60" alt=""></div>
+        <div><img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=300&q=60" alt=""></div>
+        <div><img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=300&q=60" alt=""></div>
+      </div>
+
+      <h2 style="margin-top:32px">Techniniai duomenys</h2>
+      <div class="dl">
+        <div><span>Metai</span><span>2018</span></div>
+        <div><span>Rida</span><span>168 000 km</span></div>
+        <div><span>Kuro tipas</span><span>Dyzelinas</span></div>
+        <div><span>Variklis</span><span>2.0 D · 140 kW</span></div>
+        <div><span>Pavarų dėžė</span><span>Automatinė</span></div>
+        <div><span>Kėbulas</span><span>Universalas</span></div>
+        <div><span>VIN</span><span>WBA8E9…</span></div>
+      </div>
+
+      <h2 style="margin-top:32px">Aprašymas</h2>
+      <p style="color:var(--text);max-width:70ch">Automobilis pirktas Vokietijoje, aptarnautas pagal reglamentą,
+      turi pilną serviso istoriją. Nedažytas, be avarijų. Techninė apžiūra galioja iki 2027 m.</p>
+    </div>
+
+    <!-- KONTAKTŲ BLOKAS -->
+    <aside class="aside">
+      <div class="price-big">15 900 €</div>
+      <div class="sub">Derybų objektas</div>
+
+      <div class="seller">
+        <span class="av"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span>
+        <div>
+          <div style="font-weight:600">Privatus asmuo</div>
+          <div class="sub">Skelbimų: 3 · Nuo 2024 m.</div>
+        </div>
+      </div>
+
+      <div class="vieta" style="margin:0;padding:0;font-size:14px;color:var(--text);font-weight:500">
+        <svg class="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span class="txt">Kaunas, Lithuania</span><span id="f-lt2"></span>
+      </div>
+      <div class="sub" style="margin-top:4px">Savanorių pr. 187</div>
+
+      <div class="map"><svg class="mk" viewBox="0 0 24 24"><path d="M12 22s8-7 8-12a8 8 0 1 0-16 0c0 5 8 12 8 12z"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg></div>
+
+      <div class="stack">
+        <button class="btn btn-pri">Rodyti telefoną</button>
+        <button class="btn">Rašyti žinutę</button>
+        <button class="btn">Kaip nuvažiuoti</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="sec">
+    <h2>Kiti pardavėjo skelbimai</h2>
+    <div class="grid" id="grid-c"></div>
+  </div>
+</div></section>
+
+<script>
+const H=(a,b,c)=>`<rect width="30" height="7.33" fill="${a}"/><rect width="30" height="7.33" y="7.33" fill="${b}"/><rect width="30" height="7.34" y="14.66" fill="${c}"/>`;
+const FLAGS={lt:H("#FDB913","#006A44","#C1272D"),de:H("#000","#DD0000","#FFCE00"),
+ pl:`<rect width="30" height="11" fill="#fff"/><rect y="11" width="30" height="11" fill="#DC143C"/>`,
+ se:`<rect width="30" height="22" fill="#006AA7"/><rect x="10" width="3" height="22" fill="#FECC00"/><rect y="9.5" width="30" height="3" fill="#FECC00"/>`};
+const flag=(k,big)=>`<svg class="fl${big?' fl-b':''}" viewBox="0 0 30 22" preserveAspectRatio="none" aria-label="${k}">${FLAGS[k]||FLAGS.lt}</svg>`;
+const NM={lt:"Lithuania",de:"Germany",pl:"Poland",se:"Sweden"};
+const PIN='<svg class="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+const HEART='<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg>';
+
+const IMG=["photo-1552519507-da3b142c6e3d","photo-1503376780353-7e6692767b70","photo-1555215695-3004980ad54e",
+"photo-1541899481282-d53bffe3c35d","photo-1520031441872-265e4ff70366","photo-1494976388531-d1058494cdd8",
+"photo-1606664515524-ed2f786a0bd6","photo-1519641471654-76ce0107ad1b","photo-1449965408869-eaa3f722e40d",
+"photo-1583121274602-3e2820c69888","photo-1533473359331-0135ef1b58bf","photo-1502877338535-766e1452684a"];
+
+const D=[
+ ["AMC Matador","Benzinas · Sedanas","5 000 €","Kaunas","lt","prieš 8 d."],
+ ["Škoda Octavia nuoma parai su vairuotoju","","39 €","Vilnius","lt","prieš 2 d."],
+ ["BMW E90 priekinis žibintas","Dalys","120 €","Vilnius","lt","prieš 5 d."],
+ ["John Deere 6155M","Traktorius","68 500 €","Marijampolė","lt","prieš 1 d."],
+ ["Bayliner VR5 Bowrider","Katerių","32 900 €","Trakai","lt","prieš 12 d."],
+ ["Schmitz Cargobull SKO 24","Puspriekabė","13 900 €","Panevėžys","lt","prieš 3 d."],
+ ["MAN TGX 18.480","Vilkikas","28 500 €","Kaunas","lt","prieš 6 d."],
+ ["Honda CB500F","Motociklas","4 650 €","Vilnius","lt","prieš 9 d."],
+ ["BMW 320d Touring","2.0 D · Universalas","15 900 €","Kaunas","lt","prieš 10 d."],
+ ["Volkswagen Golf","1.5 TSI · Hečbekas","16 900 €","München","de","prieš 4 d."],
+ ["Opel Astra","1.6 CDTI · Hečbekas","8 900 €","Warszawa","pl","prieš 7 d."],
+ ["Volvo XC60","2.0 D · Visureigis","19 400 €","Göteborg","se","prieš 5 d."]];
+
+const card=(c,i)=>`<article class="card">
+  <div class="ph"><img src="https://images.unsplash.com/${IMG[i%IMG.length]}?w=500&q=65" alt="" loading="lazy">
+    <button class="fav">${HEART}</button><span class="bdg">${c[5]}</span></div>
+  <div class="b">
+    <div class="n">${c[0]}</div>
+    <div class="s">${c[1]||'&nbsp;'}</div>
+    <div class="p">${c[2]}</div>
+    <div class="vieta">${PIN}<span class="txt">${c[3]}, ${NM[c[4]]}</span>${flag(c[4])}</div>
+  </div></article>`;
+
+document.getElementById('grid-a').innerHTML=D.map(card).join('');
+document.getElementById('grid-c').innerHTML=D.slice(0,6).map(card).join('');
+document.getElementById('hf').innerHTML=flag('lt',true);
+document.getElementById('f-lt').innerHTML=flag('lt');
+document.getElementById('f-lt2').innerHTML=flag('lt');
+
+document.getElementById('rows').innerHTML=D.slice(8,10).map((c,i)=>`
+ <article class="row-card">
+   <div class="ph"><img src="https://images.unsplash.com/${IMG[i]}?w=700&q=70" alt="">
+     <button class="fav">${HEART}</button><span class="bdg">${c[5]}</span></div>
+   <div class="b">
+     <div class="top"><div class="n">${c[0]}</div><div class="p">${c[2]}</div></div>
+     <div class="meta"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>Privatus asmuo</div>
+     <div class="spec">2018 · Dyzelinas · 168 000 km</div>
+     <div class="spec">Automatinė · Universalas</div>
+     <div class="vieta">${PIN}<span class="txt">${c[3]}, ${NM[c[4]]}</span>${flag(c[4])}</div>
+   </div></article>`).join('');
+
+document.querySelector('.views').addEventListener('click',e=>{
+ const b=e.target.closest('[data-v]'); if(!b)return;
+ document.querySelectorAll('.views button').forEach(x=>x.classList.remove('on'));
+ b.classList.add('on');
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+ document.getElementById('v-'+b.dataset.v).classList.add('on');
+ window.scrollTo({top:0});
+});
+document.body.addEventListener('click',e=>{const f=e.target.closest('.fav');
+ if(f){e.preventDefault();f.classList.toggle('on')}});
+</script>
+</body>
+</html>
