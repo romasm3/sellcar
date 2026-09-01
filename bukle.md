@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-01 22:53:19 CEST
+Sugeneruota: 2026-09-01 22:54:31 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001625s
+HTTP 301, 0.003391s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/kort-vieta-1600-salis-blokas.png
-Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/kort-vieta-390-ilgas.png
-Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/ekranai/sonine-juosta-apacia.png
-Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      D docs/ekranai/sonine-juosta-virsus.png
 Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-kontaktai-de.png
 Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-sonine-de.png
 Sep 01 22:50:06 vmi3306453 autoleft-deploy[3002196]:      M docs/ekranai/viena-salis-1600-sonine-sarasas.png
@@ -82,4 +78,8 @@ Sep 01 22:50:06 vmi3306453 systemd[1]: autoleft-deploy.service: Main process exi
 Sep 01 22:50:06 vmi3306453 systemd[1]: autoleft-deploy.service: Failed with result 'exit-code'.
 Sep 01 22:50:06 vmi3306453 systemd[1]: Failed to start AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Sep 01 22:53:19 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 01 22:53:26 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 01 22:53:26 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 01 22:53:26 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 2.313s CPU time.
+Sep 01 22:54:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
