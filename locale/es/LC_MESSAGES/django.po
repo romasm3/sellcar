@@ -823,7 +823,8 @@ msgstr ""
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
 #, python-format
 msgid ""
-"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP failai."
+"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
+"failai."
 msgstr ""
 
 #: apps/listings/image_validation.py:64
@@ -1004,7 +1005,8 @@ msgstr ""
 
 #: apps/listings/models.py:225 apps/listings/models.py:253
 #: apps/listings/models.py:265 apps/listings/models.py:273
-#: apps/listings/models.py:1891 templates/listings/car_for_parts_create.html:70
+#: apps/listings/models.py:1891
+#: templates/listings/car_for_parts_create.html:70
 #: templates/listings/car_for_parts_create.html:80
 #: templates/listings/car_for_parts_create.html:90
 #: templates/listings/car_for_parts_create.html:104
@@ -2066,17 +2068,20 @@ msgstr ""
 msgid "Boat engine type"
 msgstr "Tipo de motor"
 
-#: apps/listings/models.py:669 templates/listings/boats_listing_create.html:234
+#: apps/listings/models.py:669
+#: templates/listings/boats_listing_create.html:234
 msgid "Liftable engine"
 msgstr ""
 
-#: apps/listings/models.py:670 templates/listings/boats_listing_create.html:238
+#: apps/listings/models.py:670
+#: templates/listings/boats_listing_create.html:238
 #, fuzzy
 #| msgid "Private seller"
 msgid "Propeller"
 msgstr "Vendedor particular"
 
-#: apps/listings/models.py:671 templates/listings/boats_listing_create.html:242
+#: apps/listings/models.py:671
+#: templates/listings/boats_listing_create.html:242
 msgid "Water turbine"
 msgstr ""
 
@@ -2228,7 +2233,8 @@ msgstr "Código del motor"
 msgid "Gearbox Code"
 msgstr "Código de la caja de cambios"
 
-#: apps/listings/models.py:847 templates/listings/car_for_parts_create.html:112
+#: apps/listings/models.py:847
+#: templates/listings/car_for_parts_create.html:112
 #: templates/listings/listing_detail.html:546
 msgid "Version"
 msgstr "Versión"
@@ -2238,17 +2244,20 @@ msgstr "Versión"
 msgid "Modification"
 msgstr "Modificación"
 
-#: apps/listings/models.py:857 templates/listings/car_for_parts_create.html:225
+#: apps/listings/models.py:857
+#: templates/listings/car_for_parts_create.html:225
 #: templates/listings/listing_detail.html:584
 msgid "Color code"
 msgstr "Código de colores"
 
-#: apps/listings/models.py:862 templates/listings/car_for_parts_create.html:232
+#: apps/listings/models.py:862
+#: templates/listings/car_for_parts_create.html:232
 #: templates/listings/listing_detail.html:615
 msgid "Engine code"
 msgstr "Código del motor"
 
-#: apps/listings/models.py:867 templates/listings/car_for_parts_create.html:239
+#: apps/listings/models.py:867
+#: templates/listings/car_for_parts_create.html:239
 #: templates/listings/listing_detail.html:621
 msgid "Gearbox code"
 msgstr "Código de la caja de cambios"
@@ -2264,12 +2273,14 @@ msgstr "Precio de exportación:"
 msgid "Open to trade"
 msgstr "Abierto al comercio"
 
-#: apps/listings/models.py:882 templates/listings/boats_listing_create.html:246
+#: apps/listings/models.py:882
+#: templates/listings/boats_listing_create.html:246
 #: templates/listings/listing_create_cars_quick.html:401
 msgid "Warranty included"
 msgstr "Garantía incluida"
 
-#: apps/listings/models.py:883 templates/listings/boats_listing_create.html:250
+#: apps/listings/models.py:883
+#: templates/listings/boats_listing_create.html:250
 #: templates/listings/listing_create_cars_quick.html:405
 msgid "Available on lease"
 msgstr "Disponible en alquiler"
@@ -2343,7 +2354,8 @@ msgstr "Inspección técnica válida"
 msgid "From auction"
 msgstr "De subasta"
 
-#: apps/listings/models.py:902 templates/listings/boats_listing_create.html:138
+#: apps/listings/models.py:902
+#: templates/listings/boats_listing_create.html:138
 #: templates/listings/listing_create_cars_quick.html:257
 #: templates/listings/listing_detail.html:512
 #: templates/listings/listing_detail.html:805
@@ -2880,7 +2892,8 @@ msgstr ""
 msgid "Sunkiojo transporto dalys"
 msgstr ""
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:260
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:260
 #: templates/listings/listing_list.html:290
 #: templates/listings/motogear_list.html:49
 #: templates/listings/motorcycles_advanced_search.html:127
@@ -2890,7 +2903,8 @@ msgstr ""
 msgid "Cars"
 msgstr "coches"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:261
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:261
 #: templates/listings/motogear_list.html:50
 #: templates/listings/motorcycles_advanced_search.html:128
 #: templates/listings/motorcycles_list.html:142
@@ -2899,7 +2913,8 @@ msgstr "coches"
 msgid "Minibuses, Buses & Campers"
 msgstr "Minibuses, autobuses y autocaravanas"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:262
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:262
 #: templates/listings/motogear_list.html:51
 #: templates/listings/motorcycles_advanced_search.html:126
 #: templates/listings/motorcycles_list.html:143
@@ -2909,7 +2924,8 @@ msgstr "Minibuses, autobuses y autocaravanas"
 msgid "Motorcycles & Moto Gear"
 msgstr "Motocicletas y equipamiento para motociclistas"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:263
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:263
 #: templates/listings/motogear_list.html:52
 #: templates/listings/motorcycles_advanced_search.html:129
 #: templates/listings/motorcycles_list.html:144
@@ -2921,7 +2937,8 @@ msgstr "Motocicletas y equipamiento para motociclistas"
 msgid "Trucks & Commercial"
 msgstr "Camiones y vehículos comerciales"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:264
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:264
 #: templates/listings/motogear_list.html:53
 #: templates/listings/motorcycles_list.html:145
 #: templates/listings/partials/search_rail.html:50
@@ -2930,7 +2947,8 @@ msgstr "Camiones y vehículos comerciales"
 msgid "Parts"
 msgstr "Regiones"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:268
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:268
 #: templates/listings/motogear_list.html:56
 #: templates/listings/motorcycles_list.html:148
 #: templates/listings/trucks_list.html:168
@@ -2949,7 +2967,8 @@ msgstr "Neumáticos y ruedas"
 msgid "Boats & Water Transport"
 msgstr "Embarcaciones y transporte acuático"
 
-#: apps/listings/translatable_db.py:17 templates/listings/listing_list.html:267
+#: apps/listings/translatable_db.py:17
+#: templates/listings/listing_list.html:267
 #: templates/listings/motogear_list.html:55
 #: templates/listings/motorcycles_advanced_search.html:131
 #: templates/listings/motorcycles_list.html:147
@@ -2958,7 +2977,8 @@ msgstr "Embarcaciones y transporte acuático"
 msgid "Trailers & Semi-trailers"
 msgstr "Remolques y semirremolques"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:269
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:269
 #: templates/listings/motogear_list.html:57
 #: templates/listings/motorcycles_list.html:149
 #: templates/listings/partials/search_rail.html:67
@@ -2966,7 +2986,8 @@ msgstr "Remolques y semirremolques"
 msgid "Construction & Warehouse Equipment"
 msgstr "Equipos de construcción y almacenamiento"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:270
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:270
 #: templates/listings/motogear_list.html:58
 #: templates/listings/motorcycles_list.html:150
 #: templates/listings/partials/search_rail.html:68
@@ -2974,7 +2995,8 @@ msgstr "Equipos de construcción y almacenamiento"
 msgid "Agricultural & Forestry"
 msgstr "Agricultura y silvicultura"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:271
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:271
 #: templates/listings/motogear_list.html:59
 #: templates/listings/motorcycles_list.html:151
 #: templates/listings/partials/search_rail.html:69
@@ -2982,7 +3004,8 @@ msgstr "Agricultura y silvicultura"
 msgid "Bicycles & Scooters"
 msgstr "Bicicletas y patinetes"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:272
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:272
 #: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/search_rail.html:70
@@ -2990,7 +3013,8 @@ msgstr "Bicicletas y patinetes"
 msgid "Services"
 msgstr "Servicios"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:273
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:273
 #: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:71
@@ -2998,7 +3022,8 @@ msgstr "Servicios"
 msgid "Car Rental"
 msgstr "Alquiler de coches"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:274
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:274
 #: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_list.html:154
 #: templates/listings/partials/search_rail.html:72
@@ -3006,7 +3031,8 @@ msgstr "Alquiler de coches"
 msgid "Planes & Aircraft"
 msgstr "Aviones y aeronaves"
 
-#: apps/listings/translatable_db.py:20 templates/listings/listing_list.html:275
+#: apps/listings/translatable_db.py:20
+#: templates/listings/listing_list.html:275
 #: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_list.html:155
 #: templates/listings/trucks_list.html:175
@@ -3570,7 +3596,8 @@ msgstr ""
 msgid "Korean"
 msgstr ""
 
-#: templates/accounts/become_dealer.html:3 templates/pages/help_center.html:540
+#: templates/accounts/become_dealer.html:3
+#: templates/pages/help_center.html:540
 msgid "Become a Dealer"
 msgstr "Conviértete en distribuidor"
 
@@ -3585,8 +3612,8 @@ msgstr "Vende más coches en AutoLeft"
 #: templates/accounts/become_dealer.html:13
 #, fuzzy
 #| msgid ""
-#| "Reach thousands of buyers with your branded dealer page, unlimited "
-#| "listings and featured placement."
+#| "Reach thousands of buyers with your branded dealer page, unlimited listings "
+#| "and featured placement."
 msgid ""
 "Reach thousands of buyers with your branded dealer page and professional "
 "tools."
@@ -3692,9 +3719,11 @@ msgstr "Eliminar anuncio"
 
 #: templates/accounts/become_dealer.html:93
 msgid "Talk to us about volume pricing or partnership opportunities."
-msgstr "Consúltenos sobre precios por volumen o posibilidades de colaboración."
+msgstr ""
+"Consúltenos sobre precios por volumen o posibilidades de colaboración."
 
-#: templates/accounts/become_dealer.html:96 templates/pages/help_center.html:82
+#: templates/accounts/become_dealer.html:96
+#: templates/pages/help_center.html:82
 msgid "Contact us"
 msgstr "Contáctanos"
 
@@ -3794,9 +3823,9 @@ msgstr "Mis anuncios"
 msgid "Manage your inventory"
 msgstr ""
 
-#: templates/accounts/dealer_dashboard.html:91 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:199
-#: templates/base.html:285
+#: templates/accounts/dealer_dashboard.html:91
+#: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
+#: templates/base.html:199 templates/base.html:285
 msgid "Wallet"
 msgstr "Billetera"
 
@@ -4206,7 +4235,8 @@ msgstr ""
 msgid "Recommended: 1920x400px"
 msgstr "Recomendado"
 
-#: templates/accounts/dealer_setup.html:70 templates/pages/help_center.html:655
+#: templates/accounts/dealer_setup.html:70
+#: templates/pages/help_center.html:655
 #, fuzzy
 #| msgid "About us"
 msgid "About Us"
@@ -4595,16 +4625,12 @@ msgstr "No puede ser completamente numérico"
 
 #: templates/accounts/register.html:102
 msgid ""
-"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Terms of Service</a>\n"
-"                            and <a href=\"#\" class=\"text-primary hover:"
-"text-primary-dark\">Privacy Policy</a>"
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
 msgstr ""
-"Acepto los <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Términos de servicio</a>\n"
+"Acepto los <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Términos de servicio</a>\n"
 "\n"
-"y la <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Política "
-"de privacidad</a>"
+"y la <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Política de privacidad</a>"
 
 #: templates/accounts/register.html:129
 msgid "Already have an account?"
@@ -5032,7 +5058,8 @@ msgstr "Fecha"
 #: templates/listings/truck_parts_advanced.html:65
 #: templates/listings/truck_parts_browse.html:113
 #: templates/listings/trucks_listing_create.html:338
-#: templates/listings/wheels_list.html:144 templates/pages/help_center.html:853
+#: templates/listings/wheels_list.html:144
+#: templates/pages/help_center.html:853
 msgid "Type"
 msgstr "Tipo"
 
@@ -5089,7 +5116,8 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #: templates/base.html:166 templates/base.html:270
-#: templates/listings/my_listings.html:4 templates/listings/my_listings.html:45
+#: templates/listings/my_listings.html:4
+#: templates/listings/my_listings.html:45
 msgid "My Ads"
 msgstr ""
 
@@ -5305,9 +5333,9 @@ msgid ""
 "your price, and publish. The listing will be live within 5-10 minutes."
 msgstr ""
 "Haz clic en el botón rojo \"Crear anuncio\" en la parte superior de "
-"cualquier página. Elige una categoría (Autos, Motocicletas, Camiones, etc.), "
-"completa los detalles, sube fotos, establece el precio y publica. El anuncio "
-"estará disponible en 5-10 minutos."
+"cualquier página. Elige una categoría (Autos, Motocicletas, Camiones, etc.),"
+" completa los detalles, sube fotos, establece el precio y publica. El "
+"anuncio estará disponible en 5-10 minutos."
 
 #: templates/faq.html:28
 msgid "How do I edit or delete my listing?"
@@ -5333,8 +5361,8 @@ msgid ""
 "automatically deleted."
 msgstr ""
 "Los anuncios permanecen activos durante 30 días. Puedes renovarlos cuando "
-"quieras. Tras su vencimiento, los anuncios se conservan en tu cuenta durante "
-"160 días antes de ser eliminados automáticamente."
+"quieras. Tras su vencimiento, los anuncios se conservan en tu cuenta durante"
+" 160 días antes de ser eliminados automáticamente."
 
 #: templates/faq.html:48
 msgid "How do I contact a seller?"
@@ -5346,8 +5374,8 @@ msgid ""
 "seller's phone number is shown if they have enabled it."
 msgstr ""
 "Abre cualquier anuncio y usa los botones \"Enviar mensaje\" o \"Enviar "
-"correo electrónico\". Si el vendedor lo ha habilitado, se mostrará su número "
-"de teléfono."
+"correo electrónico\". Si el vendedor lo ha habilitado, se mostrará su número"
+" de teléfono."
 
 #: templates/faq.html:58
 msgid "How does the wallet work?"
@@ -5360,8 +5388,8 @@ msgid ""
 "custom amount. 1 EUR = 1 credit."
 msgstr ""
 "Tu monedero almacena créditos que puedes usar para promocionar anuncios, "
-"anuncios destacados y publicaciones cruzadas. Recarga con 20 $, 100 $, 500 $ "
-"(con créditos adicionales) o cualquier cantidad que desees. 1 EUR = 1 "
+"anuncios destacados y publicaciones cruzadas. Recarga con 20 $, 100 $, 500 $"
+" (con créditos adicionales) o cualquier cantidad que desees. 1 EUR = 1 "
 "crédito."
 
 #: templates/faq.html:68
@@ -6106,8 +6134,8 @@ msgstr ""
 #: templates/listings/boats_listing_create.html:421
 #, fuzzy
 #| msgid ""
-#| "Not all required fields are filled in or filled in incorrectly. These "
-#| "fields are marked in red."
+#| "Not all required fields are filled in or filled in incorrectly. These fields"
+#| " are marked in red."
 msgid "Not all required fields are filled in. These fields are marked in red."
 msgstr ""
 "No se han rellenado todos los campos obligatorios o se han rellenado "
@@ -6204,7 +6232,8 @@ msgstr "Máximo 40 fotos. Elimina algunas primero."
 msgid ""
 "You picked too many photos — only the first available ones will be added."
 msgstr ""
-"Has seleccionado demasiadas fotos; solo se añadirán las primeras disponibles."
+"Has seleccionado demasiadas fotos; solo se añadirán las primeras "
+"disponibles."
 
 #: templates/listings/boats_listing_create.html:891
 #: templates/listings/listing_create.html:865
@@ -6517,7 +6546,8 @@ msgstr "Búsqueda fácil"
 #: templates/listings/home.html:165
 msgid "Find your dream car with advanced filters and map search"
 msgstr ""
-"Encuentra el coche de tus sueños con filtros avanzados y búsqueda en el mapa."
+"Encuentra el coche de tus sueños con filtros avanzados y búsqueda en el "
+"mapa."
 
 #: templates/listings/home.html:172
 msgid "Safe & Secure"
@@ -6845,7 +6875,8 @@ msgstr "Describe tu vehículo en detalle"
 
 #: templates/listings/listing_create.html:634
 msgid "Include condition, features, service history, etc."
-msgstr "Incluya el estado, las características, el historial de servicio, etc."
+msgstr ""
+"Incluya el estado, las características, el historial de servicio, etc."
 
 #: templates/listings/listing_create.html:651
 msgid "Contact & Location"
@@ -6880,12 +6911,12 @@ msgstr "Términos y condiciones"
 #: templates/listings/listing_create.html:699
 msgid ""
 "I agree to the <a href=\"#\" class=\"text-primary hover:underline\">Terms "
-"and Conditions</a> and <a href=\"#\" class=\"text-primary hover:"
-"underline\">Privacy Policy</a>"
+"and Conditions</a> and <a href=\"#\" class=\"text-primary "
+"hover:underline\">Privacy Policy</a>"
 msgstr ""
 "Acepto los <a href=\"#\" class=\"text-primary hover:underline\">Términos y "
-"condiciones</a> y la <a href=\"#\" class=\"text-primary hover:"
-"underline\">Política de privacidad</a>."
+"condiciones</a> y la <a href=\"#\" class=\"text-primary "
+"hover:underline\">Política de privacidad</a>."
 
 #: templates/listings/listing_create.html:701
 msgid "Send me newsletters and offers"
@@ -7065,8 +7096,8 @@ msgstr "Tipo de vendedor"
 #: templates/listings/tyres_create.html:236
 #: templates/listings/wheels_create.html:317
 msgid ""
-"The fewer questions buyers have when reading your listing, the faster you'll "
-"find a buyer."
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
 msgstr ""
 "Cuantas menos preguntas tengan los compradores al leer tu anuncio, más "
 "rápido encontrarás un comprador."
@@ -7115,17 +7146,18 @@ msgid ""
 "hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
 "class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
 msgstr ""
-"Al enviar, acepto los <a href=\"#\" class=\"text-gray-600 underline hover:"
-"text-gray-900\">Términos y condiciones</a> y la <a href=\"#\" class=\"text-"
-"gray-600 underline hover:text-gray-900\">Política de privacidad</a>."
+"Al enviar, acepto los <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Términos y condiciones</a> y la <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Política de "
+"privacidad</a>."
 
 #: templates/listings/listing_create_cars_quick.html:669
 #: templates/listings/rims_create.html:319
 #: templates/listings/tyres_create.html:355
 #: templates/listings/wheels_create.html:438
 msgid ""
-"Not all required fields are filled in or filled in incorrectly. These fields "
-"are marked in red."
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
 msgstr ""
 "No se han rellenado todos los campos obligatorios o se han rellenado "
 "incorrectamente. Estos campos están marcados en rojo."
@@ -7344,11 +7376,11 @@ msgstr "Inspección técnica hasta"
 
 #: templates/listings/listing_detail.html:1095
 msgid ""
-"Price excludes taxes — please ask the seller about applicable taxes for your "
-"region."
+"Price excludes taxes — please ask the seller about applicable taxes for your"
+" region."
 msgstr ""
-"El precio no incluye impuestos; consulte con el vendedor sobre los impuestos "
-"aplicables en su región."
+"El precio no incluye impuestos; consulte con el vendedor sobre los impuestos"
+" aplicables en su región."
 
 #: templates/listings/listing_detail.html:1104
 msgid "Export:"
@@ -8081,7 +8113,8 @@ msgid "Listing highlight"
 msgstr "Aspecto destacado del listado"
 
 #: templates/listings/listing_select_plan.html:69
-#: templates/listings/wheels_list.html:400 templates/pages/help_center.html:611
+#: templates/listings/wheels_list.html:400
+#: templates/pages/help_center.html:611
 msgid "Recommended"
 msgstr "Recomendado"
 
@@ -8181,8 +8214,8 @@ msgstr "Error"
 #: templates/listings/listing_select_plan.html:585
 #: templates/listings/listing_services_order.html:282
 msgid ""
-"Your listing will appear higher in search results than others. The more star "
-"boosts you order, the higher it will be displayed."
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
 msgstr ""
 "Tu anuncio aparecerá en una posición más destacada en los resultados de "
 "búsqueda. Cuantas más estrellas solicites, mejor posicionado estará."
@@ -8217,7 +8250,8 @@ msgid "Back to my ads"
 msgstr "Volver a mis anuncios"
 
 #: templates/listings/listing_services_order.html:19
-msgid "Boost your active listing with stars, highlight, or featured placement."
+msgid ""
+"Boost your active listing with stars, highlight, or featured placement."
 msgstr ""
 
 #: templates/listings/listing_services_order.html:48
@@ -8389,10 +8423,8 @@ msgstr "Listado publicado"
 
 #: templates/listings/listing_success.html:60
 #, python-format
-msgid ""
-"Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
-msgstr ""
-"Listado válido por <strong class=\"text-gray-900\">%(days)s días</strong>"
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "Listado válido por <strong class=\"text-gray-900\">%(days)s días</strong>"
 
 #: templates/listings/listing_success.html:65
 #, python-format
@@ -8453,8 +8485,8 @@ msgid ""
 "You currently have %(count)s of %(limit)s active listings. Choose an option "
 "below to add more."
 msgstr ""
-"Actualmente tienes %(count)s de %(limit)s anuncios activos. Elige una opción "
-"a continuación para añadir más."
+"Actualmente tienes %(count)s de %(limit)s anuncios activos. Elige una opción"
+" a continuación para añadir más."
 
 #: templates/listings/listing_upgrade.html:24
 msgid "Pay per listing"
@@ -9194,12 +9226,12 @@ msgstr "Código Postal"
 #: templates/listings/motogear_create.html:399
 msgid ""
 "I agree with <a href=\"#\" class=\"text-primary hover:underline\">Terms of "
-"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy "
-"policy</a>"
+"use</a> and the <a href=\"#\" class=\"text-primary hover:underline\">Privacy"
+" policy</a>"
 msgstr ""
-"Estoy de acuerdo con los <a href=\"#\" class=\"text-primary hover:"
-"underline\">Términos de uso</a> y la <a href=\"#\" class=\"text-primary "
-"hover:underline\">Política de privacidad</a>"
+"Estoy de acuerdo con los <a href=\"#\" class=\"text-primary "
+"hover:underline\">Términos de uso</a> y la <a href=\"#\" class=\"text-"
+"primary hover:underline\">Política de privacidad</a>"
 
 #: templates/listings/motogear_create.html:407
 msgid "I am a business seller"
@@ -9591,8 +9623,8 @@ msgid ""
 "<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
 msgstr ""
 "Puedes subir hasta <strong>40 fotos</strong>. El tamaño máximo por foto es "
-"de <strong>10 MB</strong>. Formatos compatibles: <strong>JPG, PNG, GIF</"
-"strong>."
+"de <strong>10 MB</strong>. Formatos compatibles: <strong>JPG, PNG, "
+"GIF</strong>."
 
 #: templates/listings/motorcycle_create.html:353
 msgid ""
@@ -10356,7 +10388,8 @@ msgstr "No hay funciones disponibles."
 msgid "No matches found"
 msgstr "No se encontraron motocicletas"
 
-#: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
+#: templates/listings/rims_create.html:4
+#: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 #, fuzzy
 #| msgid "New listing: Cars"
@@ -11004,7 +11037,8 @@ msgstr "Nuevo anuncio: Autos"
 #: templates/listings/wheels_advanced_search.html:222
 #: templates/listings/wheels_create.html:67
 #: templates/listings/wheels_list.html:133
-#: templates/listings/wheels_list.html:255 templates/pages/help_center.html:854
+#: templates/listings/wheels_list.html:255
+#: templates/pages/help_center.html:854
 msgid "Purpose"
 msgstr ""
 
@@ -11255,8 +11289,8 @@ msgid ""
 "listings</strong> in any category. If you delete a listing, that <strong "
 "class=\"text-gray-900 font-semibold\">free</strong> slot becomes available "
 "again — so you can always re-list within your free allowance. After your "
-"free listings are used, additional listings carry a small fee that keeps the "
-"platform running and online for everyone."
+"free listings are used, additional listings carry a small fee that keeps the"
+" platform running and online for everyone."
 msgstr ""
 
 #: templates/pages/help_center.html:175
@@ -11460,8 +11494,8 @@ msgstr "Posición en la lista"
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
-"get more views. Add a detailed description including condition, history, and "
-"any modifications. Your first 3 listings are completely free."
+"get more views. Add a detailed description including condition, history, and"
+" any modifications. Your first 3 listings are completely free."
 msgstr ""
 
 #: templates/pages/help_center.html:328
@@ -11484,8 +11518,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:341
 msgid ""
-"Started a listing but not ready to publish? Your work is saved automatically "
-"as a draft. Find drafts in 'My Listings' and continue editing whenever you "
+"Started a listing but not ready to publish? Your work is saved automatically"
+" as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
 
@@ -11496,9 +11530,9 @@ msgstr ""
 #: templates/pages/help_center.html:351
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
-"are kept in 'Saved Listings' so you can compare prices and come back to them "
-"later. You'll also receive email notifications when a saved listing's price "
-"drops."
+"are kept in 'Saved Listings' so you can compare prices and come back to them"
+" later. You'll also receive email notifications when a saved listing's price"
+" drops."
 msgstr ""
 
 #: templates/pages/help_center.html:358
@@ -11508,8 +11542,8 @@ msgstr ""
 #: templates/pages/help_center.html:361
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
-"where it ranks compared to similar listings. Use these numbers to figure out "
-"if your price is competitive and whether you need better photos or a "
+"where it ranks compared to similar listings. Use these numbers to figure out"
+" if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
 
@@ -11519,8 +11553,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:371
 msgid ""
-"Buyers can message you directly through the platform — no need to share your "
-"phone number publicly. Reply quickly: fast responses build trust and sell "
+"Buyers can message you directly through the platform — no need to share your"
+" phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
@@ -11545,19 +11579,18 @@ msgstr "¿Cómo creo un anuncio?"
 #: templates/pages/help_center.html:402
 #, fuzzy
 #| msgid ""
-#| "Click the red 'Create Ad' button at the top of any page. Choose a "
-#| "category (Cars, Motorcycles, Trucks, etc.), fill in the details, upload "
-#| "photos, set your price, and publish. The listing will be live within 5-10 "
-#| "minutes."
+#| "Click the red 'Create Ad' button at the top of any page. Choose a category "
+#| "(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
+#| "your price, and publish. The listing will be live within 5-10 minutes."
 msgid ""
 "Click the 'Create Ad' button in the top right corner, select a category, "
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
 "Haz clic en el botón rojo \"Crear anuncio\" en la parte superior de "
-"cualquier página. Elige una categoría (Autos, Motocicletas, Camiones, etc.), "
-"completa los detalles, sube fotos, establece el precio y publica. El anuncio "
-"estará disponible en 5-10 minutos."
+"cualquier página. Elige una categoría (Autos, Motocicletas, Camiones, etc.),"
+" completa los detalles, sube fotos, establece el precio y publica. El "
+"anuncio estará disponible en 5-10 minutos."
 
 #: templates/pages/help_center.html:407
 #, fuzzy
@@ -11567,8 +11600,8 @@ msgstr "¿Cómo puedo convertirme en distribuidor?"
 
 #: templates/pages/help_center.html:411
 msgid ""
-"Visit the 'Become a Dealer' page, subscribe for $100/month, and fill in your "
-"business profile. You'll get a verified dealer badge, public dealer page, "
+"Visit the 'Become a Dealer' page, subscribe for $100/month, and fill in your"
+" business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
 
@@ -11696,8 +11729,8 @@ msgstr "Insignia de distribuidor verificado"
 #: templates/pages/help_center.html:555
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
-"States. Contact us to discuss advertising opportunities — banners, sponsored "
-"placements, or partnership campaigns."
+"States. Contact us to discuss advertising opportunities — banners, sponsored"
+" placements, or partnership campaigns."
 msgstr ""
 
 #: templates/pages/help_center.html:567
@@ -11821,8 +11854,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:700
 msgid ""
-"By accessing or using this platform, you agree to these Terms of Use. If you "
-"don't agree, please don't use the platform."
+"By accessing or using this platform, you agree to these Terms of Use. If you"
+" don't agree, please don't use the platform."
 msgstr ""
 
 #: templates/pages/help_center.html:704
@@ -11844,9 +11877,9 @@ msgstr "Crear una cuenta"
 
 #: templates/pages/help_center.html:710
 msgid ""
-"To create listings or contact sellers, you must register an account. You are "
-"responsible for keeping your password secure and for all activity under your "
-"account. Provide accurate information — fake accounts will be removed."
+"To create listings or contact sellers, you must register an account. You are"
+" responsible for keeping your password secure and for all activity under "
+"your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
 
 #: templates/pages/help_center.html:714
@@ -11967,8 +12000,8 @@ msgstr ""
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
-"and descriptions you upload, your IP address and browser type, and pages you "
-"visit on our site."
+"and descriptions you upload, your IP address and browser type, and pages you"
+" visit on our site."
 msgstr ""
 
 #: templates/pages/help_center.html:778
@@ -12048,8 +12081,8 @@ msgstr "Seguridad"
 #, python-format
 msgid ""
 "We use industry-standard encryption (HTTPS) and secure password hashing. No "
-"system is 100%% secure — please use a strong unique password and don't share "
-"your account."
+"system is 100%% secure — please use a strong unique password and don't share"
+" your account."
 msgstr ""
 
 #: templates/pages/help_center.html:813
@@ -12058,8 +12091,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:814
 msgid ""
-"This platform is not intended for users under 18. We don't knowingly collect "
-"data from minors."
+"This platform is not intended for users under 18. We don't knowingly collect"
+" data from minors."
 msgstr ""
 
 #: templates/pages/help_center.html:818
@@ -12229,6 +12262,68 @@ msgstr "Volver a VenderAuto"
 msgid "Detali paieška"
 msgstr "Búsqueda avanzada"
 
+#: templates/listings/select_value.html
+msgid "Gerai"
+msgstr "Hecho"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "nuo"
+msgstr "desde"
+
+#: templates/listings/partials/fields/_mobile_rows.html
+msgid "iki"
+msgstr "hasta"
+
+#: templates/listings/select_value.html
+msgid "Atgal"
+msgstr "Atrás"
+
+#: templates/listings/select_value.html
+msgid "Nieko nerasta"
+msgstr "No se encontró nada"
+
+#: templates/listings/select_value.html
+msgid "Markė, modelis"
+msgstr "Marca, modelo"
+
+#: templates/listings/select_value.html
+msgid "Pašalinti"
+msgstr "Eliminar"
+
+#: templates/listings/select_value.html
+msgid "Pridėti"
+msgstr "Añadir"
+
+#: templates/partials/_salis.html:0
+msgid "Visos šalys"
+msgstr "Todos los países"
+
+#: templates/partials/_salis.html:0
+msgid "Keisti šalį"
+msgstr "Cambiar país"
+
+#: templates/partials/_salis.html:0
+msgid "Keisti"
+msgstr "Cambiar"
+
+#: templates/partials/_salis.html:0
+msgid "Ieškoti šalies"
+msgstr "Buscar país"
+
+#: templates/partials/_salis.html:0
+msgid "Šis skelbimas yra %(salis)s"
+msgstr "Este anuncio está en %(salis)s"
+
+#: templates/partials/_salis.html:0
+msgid "Rodyti visus %(salis)s skelbimus"
+msgstr "Ver todos los anuncios en %(salis)s"
+
+#: templates/partials/_salis.html:0
+msgid "%(counter)s skelbimas"
+msgid_plural "%(counter)s skelbimai"
+msgstr[0] "%(counter)s anuncio"
+msgstr[1] "%(counter)s anuncios"
+
 #~ msgid "Español"
 #~ msgstr "Español"
 
@@ -12305,35 +12400,3 @@ msgstr "Búsqueda avanzada"
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Se encontraron %(count)s anuncios de motocicletas"
-
-#: templates/listings/select_value.html
-msgid "Gerai"
-msgstr "Hecho"
-
-#: templates/listings/partials/fields/_mobile_rows.html
-msgid "nuo"
-msgstr "desde"
-
-#: templates/listings/partials/fields/_mobile_rows.html
-msgid "iki"
-msgstr "hasta"
-
-#: templates/listings/select_value.html
-msgid "Atgal"
-msgstr "Atrás"
-
-#: templates/listings/select_value.html
-msgid "Nieko nerasta"
-msgstr "No se encontró nada"
-
-#: templates/listings/select_value.html
-msgid "Markė, modelis"
-msgstr "Marca, modelo"
-
-#: templates/listings/select_value.html
-msgid "Pašalinti"
-msgstr "Eliminar"
-
-#: templates/listings/select_value.html
-msgid "Pridėti"
-msgstr "Añadir"

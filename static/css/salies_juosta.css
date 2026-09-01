@@ -130,3 +130,61 @@
     .salies-eilute { padding: 0 12px; gap: 8px; }
     .salies-keisti { padding: 0 10px; }
 }
+
+
+/* ═══ ŠONINĖS JUOSTOS BLOKAS (stilius='sonine') ═══════════════════
+   Demo: docs/demo/veliaveles-sidebar-demo.html (.salis-blk).
+   Vėliava — PO pavadinimo, prieš skaičių dešinėje. */
+.salis-blk {
+    background: #F4F4F5;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+.salis-blk h4 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.salis-cur { display: flex; align-items: center; gap: 8px;
+             font-weight: 600; font-size: 15px; }
+.salis-cur-vardas { min-width: 0; overflow: hidden;
+                    text-overflow: ellipsis; white-space: nowrap; }
+.salis-cur .veliava { margin-right: 0; }
+.salis-keisti-mazas { margin-left: auto; border: 0; background: none;
+                      color: var(--accent, #E14D28); font-weight: 600;
+                      font-size: 13px; padding: 0; cursor: pointer; flex: 0 0 auto; }
+
+.salis-list { margin-top: 12px; border-top: 1px solid #E5E7EB;
+              padding-top: 8px; max-height: 320px; overflow-y: auto; }
+.salis-eil { display: flex; align-items: center; gap: 10px;
+             padding: 8px 0; text-decoration: none; color: #1A1A1A; }
+.salis-eil:hover .salis-eil-vardas { text-decoration: underline; }
+.salis-eil.su-skirtuku { border-bottom: 1px solid #E5E7EB;
+                         padding-bottom: 10px; margin-bottom: 4px; }
+.salis-radijo { width: 16px; height: 16px; border-radius: 50%;
+                border: 1.5px solid #9CA3AF; flex: 0 0 auto; }
+.salis-eil.is-on .salis-radijo { border-color: #181B1F; border-width: 5px; }
+.salis-eil-vardas { flex: 1 1 auto; min-width: 0; overflow: hidden;
+                    text-overflow: ellipsis; white-space: nowrap; }
+.salis-eil.is-on .salis-eil-vardas { font-weight: 700; }
+.salis-eil .veliava { margin-right: 0; }
+.salis-eil-kiekis { color: #6B7280; font-size: 13px; flex: 0 0 auto; }
+
+/* ═══ TYLI EILUTĖ: skelbimas kitoje šalyje nei pasirinkta ═════════ */
+.pard-kita-salis {
+    font-size: 13px;
+    color: #6B7280;
+    padding: 8px 0 10px;
+    line-height: 1.5;
+}
+.pard-kita-salis a {
+    color: var(--accent, #E14D28);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 6px;
+}
+.pard-kita-salis a:hover { text-decoration: underline; }

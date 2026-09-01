@@ -218,3 +218,40 @@ def filtro_salys(qs=None, laukas='country'):
     """
     poros = su_skelbimais(qs, laukas) if qs is not None else plokscias()
     return [{'code': k, 'name': v, 'fi_code': k.lower()} for k, v in poros]
+
+
+# ── Vietininkas: „Vokietijoje" ─────────────────────────────────────
+# Reikalingas vienai eilutei skelbimo puslapyje („Šis skelbimas yra
+# Vokietijoje"). Lietuvių kalboje vietininko iš vardininko taisyklingai
+# neišvesi (Lietuva→Lietuvoje, bet Kipras→Kipre), tad sąrašas.
+VIETININKAI = {
+    'LT': 'Lietuvoje', 'LV': 'Latvijoje', 'EE': 'Estijoje', 'PL': 'Lenkijoje',
+    'DE': 'Vokietijoje', 'IE': 'Airijoje', 'AT': 'Austrijoje', 'BE': 'Belgijoje',
+    'BG': 'Bulgarijoje', 'CZ': 'Čekijoje', 'DK': 'Danijoje', 'GR': 'Graikijoje',
+    'IS': 'Islandijoje', 'ES': 'Ispanijoje', 'IT': 'Italijoje', 'CY': 'Kipre',
+    'HR': 'Kroatijoje', 'LI': 'Lichtenšteine', 'LU': 'Liuksemburge',
+    'MT': 'Maltoje', 'NO': 'Norvegijoje', 'NL': 'Nyderlanduose',
+    'PT': 'Portugalijoje', 'FR': 'Prancūzijoje', 'RO': 'Rumunijoje',
+    'SK': 'Slovakijoje', 'SI': 'Slovėnijoje', 'FI': 'Suomijoje',
+    'SE': 'Švedijoje', 'CH': 'Šveicarijoje', 'HU': 'Vengrijoje',
+    'BY': 'Baltarusijoje', 'MD': 'Moldovoje', 'RU': 'Rusijoje',
+    'UA': 'Ukrainoje', 'GB': 'Didžiojoje Britanijoje', 'GE': 'Gruzijoje',
+    'JP': 'Japonijoje', 'US': 'Jungtinėse Valstijose',
+    'AE': 'Jungtiniuose Arabų Emyratuose', 'KZ': 'Kazachstane',
+    'TR': 'Turkijoje', 'CA': 'Kanadoje', 'AU': 'Australijoje',
+}
+
+
+def vietininkas(kodas):
+    """'DE' → „Vokietijoje" — eilutei „Šis skelbimas yra …".
+
+    Vietininkas yra lietuvių kalbos linksnis, todėl jį duodam TIK
+    lietuviškoje sąsajoje. Kitomis kalbomis sakinys sudėtas iš prielinksnio
+    vertime („This listing is in %(salis)s"), tad ten reikia paprasto
+    pavadinimo — kitaip anglas skaitytų „is in Vokietijoje".
+    """
+    from django.utils.translation import get_language
+    kodas = str(kodas or '').upper()
+    if (get_language() or '').split('-')[0] != 'lt':
+        return vardas(kodas)
+    return VIETININKAI.get(kodas) or vardas(kodas)

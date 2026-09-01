@@ -1073,7 +1073,7 @@ a.sp-rail-btn { text-decoration:none; }
 
         {% comment %}Šalies juosta — ATSKIRA eilutė virš panelės. Panelės
         viduje nekeičiama niekas.{% endcomment %}
-        <div style="display:flex;justify-content:center;width:100%;"><div style="width:100%;max-width:610px;">{% include 'listings/partials/_salies_juosta.html' %}</div></div>
+        <div style="display:flex;justify-content:center;width:100%;"><div style="width:100%;max-width:610px;">{% include 'partials/_salis.html' with stilius='juosta' %}</div></div>
 
         {# ═══ PAIEŠKOS PANELĖ (rail + kategorijos laukai) ═══ #}
         <div style="display:flex;justify-content:center;width:100%;">{% include 'listings/partials/search_panel.html' %}</div>

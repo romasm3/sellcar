@@ -151,7 +151,7 @@ antraste('6. CSS pagal specifikaciją')
 css = open(os.path.join(BASE, 'static/css/style.css'), encoding='utf-8').read()
 blokas = css[css.index('.veliava {'):css.index('}', css.index('.veliava {'))]
 for reiksme, ka in (('width: 16px', 'plotis 16px'), ('height: 12px', 'aukštis 12px'),
-                    ('margin-right: 6px', 'tarpas 6px'),
+                    ('margin-left: 6px', 'tarpas 6px (vėliava gale)'),
                     ('border-radius: 2px', 'apvalinimas 2px'),
                     ('rgba(0, 0, 0, .08)', 'rėmelis rgba(0,0,0,.08)')):
     tikrink(reiksme in blokas, 'CSS: %s' % ka)

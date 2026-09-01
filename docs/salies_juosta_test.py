@@ -226,7 +226,7 @@ tikrink('page=' not in de['url'], 'puslapiavimas numetamas: %s' % de['url'])
 antraste('8. Šablonas')
 cache.clear()
 r = uzklausa('/')
-html = Template("{% include 'listings/partials/_salies_juosta.html' %}").render(
+html = Template("{% include 'partials/_salis.html' with stilius='juosta' %}").render(
     Context({'request': r, **sj.kontekstas(r)}))
 tikrink('Lithuania' in html, 'rodoma dabartinė šalis angliškai')
 tikrink('salies-juosta' in html and 'salies-eilute' in html, 'yra juostos struktūra')
@@ -259,14 +259,18 @@ PANELES = ('templates/listings/partials/search_panel.html',
            'templates/listings/partials/search_rail.html')
 for failas in PANELES:
     tikrink(failas not in pakeisti, 'nepaliestas %s' % failas)
-# listing_list.html — tik pridėta
-diff = subprocess.run(['git', 'diff', '--numstat', 'origin/master', '--',
-                       'templates/listings/listing_list.html'],
-                      capture_output=True, text=True, cwd=BASE).stdout.strip()
-if diff:
-    prideta, pasalinta = diff.split()[0], diff.split()[1]
-    tikrink(pasalinta == '0',
-            'listing_list.html tik papildytas (+%s / -%s)' % (prideta, pasalinta))
+# listing_list.html — pakeista TIK juostos eilutė. Viena pašalinta eilutė
+# yra: senasis include'as, perkeltas į partials/_salis.html.
+eilutes = subprocess.run(['git', 'diff', '-U0', 'origin/master', '--',
+                          'templates/listings/listing_list.html'],
+                         capture_output=True, text=True, cwd=BASE).stdout.splitlines()
+pakeistos = [e for e in eilutes
+             if (e.startswith('+') or e.startswith('-'))
+             and not e.startswith(('+++', '---'))]
+tikrink(all('_salis' in e or '_salies_juosta' in e or 'Šalies juosta' in e
+            for e in pakeistos),
+        'listing_list.html pakeistos tik juostos eilutės:\n    '
+        + '\n    '.join(pakeistos))
 
 
 print('\n' + '═' * 60)

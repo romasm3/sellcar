@@ -24061,3 +24061,33 @@ msgstr ""
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Secondary navigation"
+
+#: templates/partials/_salis.html:0
+msgid "Visos šalys"
+msgstr "All countries"
+
+#: templates/partials/_salis.html:0
+msgid "Keisti šalį"
+msgstr "Change country"
+
+#: templates/partials/_salis.html:0
+msgid "Keisti"
+msgstr "Change"
+
+#: templates/partials/_salis.html:0
+msgid "Ieškoti šalies"
+msgstr "Search country"
+
+#: templates/partials/_salis.html:0
+msgid "Šis skelbimas yra %(salis)s"
+msgstr "This listing is in %(salis)s"
+
+#: templates/partials/_salis.html:0
+msgid "Rodyti visus %(salis)s skelbimus"
+msgstr "Show all listings in %(salis)s"
+
+#: templates/partials/_salis.html:0
+msgid "%(counter)s skelbimas"
+msgid_plural "%(counter)s skelbimai"
+msgstr[0] "%(counter)s listing"
+msgstr[1] "%(counter)s listings"

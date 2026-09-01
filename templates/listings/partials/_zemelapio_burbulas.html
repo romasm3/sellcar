@@ -25,7 +25,7 @@ kurią naudoja rezultatų kortelės. Todėl burbulas vienodai rodo ir
 
     <div class="zb-vieta" data-lat="{{ lat }}" data-lng="{{ lng }}">
       <span class="zb-atstumas"></span>
-      {% if k.miestas %}<span>{% include 'partials/_veliava.html' with kodas=k.salis %}{{ k.miestas }}{% if k.salies_vardas %}, {{ k.salies_vardas }}{% endif %}</span>{% endif %}
+      {% if k.miestas %}<span>{{ k.miestas }}{% if k.salies_vardas %}, {{ k.salies_vardas }}{% endif %}{% include 'partials/_veliava.html' with kodas=k.salis %}</span>{% endif %}
     </div>
 
     {% if neaisku %}

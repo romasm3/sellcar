@@ -334,7 +334,8 @@ img {
 .veliava {
     width: 16px;
     height: 12px;
-    margin-right: 6px;
+    /* Vėliava eina PO pavadinimo, tad tarpas kairėje (docs/taisykles.md 5) */
+    margin-left: 6px;
     vertical-align: -1px;
     border-radius: 2px;
     border: 1px solid rgba(0, 0, 0, .08);

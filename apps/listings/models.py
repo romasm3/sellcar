@@ -1812,6 +1812,10 @@ class Listing(PaskelbimoLaikas, models.Model):
         # „Berlin, Vokietija" matydavosi „Berlin, DE".
         return salys.vardas(self.country)
 
+    def get_country_display_vietininkas(self):
+        """„Vokietijoje" — eilutei „Šis skelbimas yra …"."""
+        return salys.vietininkas(self.country)
+
     def get_state_display_name(self):
         return dict(self.US_STATE_CHOICES).get(self.state, self.state)
 
@@ -3232,6 +3236,10 @@ class Truck(PaskelbimoLaikas, models.Model):
         # vardus, ir viskas, kas ne Lietuva, iškrisdavo į kodą — vietoj
         # „Berlin, Vokietija" matydavosi „Berlin, DE".
         return salys.vardas(self.country)
+
+    def get_country_display_vietininkas(self):
+        """„Vokietijoje" — eilutei „Šis skelbimas yra …"."""
+        return salys.vietininkas(self.country)
 
     def get_state_display_name(self):
         return dict(self.US_STATE_CHOICES).get(self.state, self.state)

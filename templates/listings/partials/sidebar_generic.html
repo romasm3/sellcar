@@ -29,6 +29,10 @@ Matmenys — isplestine-config.json „sidebar_layout".
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h10M18 7h2M4 17h2M10 17h10M14 5v4M8 15v4"/></svg>
       {% trans "Daugiau filtrų" %}
     </a>
+    {% comment %}Šalis — PIRMA (docs/taisykles.md 1). Ta pati bendra
+    reikšmė kaip juostoje virš panelės ir /imones/.{% endcomment %}
+    {% include 'partials/_salis.html' with stilius='sonine' %}
+
     <div class="sp-side-line hidden lg:block"></div>
 
     {% include 'listings/partials/fields/_mobile_rows.html' with rows=sidebar.rows category=sidebar.slug sub=sidebar.sub_slug back=request.get_full_path adv_url=adv_url %}

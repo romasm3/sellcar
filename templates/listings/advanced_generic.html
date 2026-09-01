@@ -85,6 +85,10 @@
       {% endif %}
 
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-5">
+        {% comment %}Šalis — PIRMA (docs/taisykles.md 1), ta pati bendra
+        reikšmė kaip visur kitur.{% endcomment %}
+        {% include 'partials/_salis.html' with stilius='sonine' %}
+
         {% include 'listings/partials/fields/_mobile_rows.html' with rows=adv.rows category=adv.slug sub=adv.sub_slug back=request.get_full_path %}
 
         <div class="hidden lg:block ag-grid" data-laukai="darbalaukis">

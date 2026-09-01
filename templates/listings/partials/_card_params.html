@@ -42,7 +42,7 @@ pats blokas tinka ir kategorijoms be variklio ar ridos.
   {% if listing.city %}
   <div class="cp-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-    <div><i>{% trans "Miestas" %}</i><b>{% include 'partials/_veliava.html' with kodas=listing.country %}{{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}</b></div>
+    <div><i>{% trans "Miestas" %}</i><b>{{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}{% include 'partials/_veliava.html' with kodas=listing.country %}</b></div>
   </div>
   {% endif %}
 </div>

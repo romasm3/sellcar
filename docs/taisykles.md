@@ -30,7 +30,7 @@ markės ar kainos.
 laukas. Jei ne šalis — taisyklė laužoma.
 
 **Būklė 2026-09-01:** padaryta tik dalis — virš greitosios panelės yra
-šalies juosta (`listings/partials/_salies_juosta.html`). Pačių panelių
+šalies juosta (`templates/partials/_salis.html`). Pačių panelių
 konfigūracijoje vieta tebėra apačioje arba jos nėra visai:
 `cars` — `brand, model, year, price, fuel_type, body_type, __text__,
 country` (vieta 8-a); `motorcycles` — vietos lauko nėra.

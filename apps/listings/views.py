@@ -1662,12 +1662,6 @@ def _mano_paieskos(request, limit=6):
     }
 
 
-def salies_juosta_kontekstas(request):
-    """Šalies juostos duomenys šablonui — žr. apps/listings/salies_juosta.py."""
-    from apps.listings import salies_juosta
-    return salies_juosta.kontekstas(request, _public_listings_qs(request.user))
-
-
 def _public_listings_qs(request_user=None):
     now = timezone.now()
     sold_cutoff = now - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
@@ -2189,7 +2183,11 @@ def listing_list(request, panel_fragment=False, category=None):
     )
 
     _now_tabs = timezone.now()
-    _tabs_base = _public_listings_qs(request.user).select_related(
+    # Pradžios skirtukai („Naujausi", „Populiariausi", „Brangiausi") irgi
+    # paklūsta VIENAI svetainės šaliai — kitaip pasirinkus Lietuvą po
+    # panele vis tiek kabotų vokiški skelbimai.
+    from apps.listings import salies_juosta as _sj_tabs
+    _tabs_base = _sj_tabs.filtruoti(_public_listings_qs(request.user), request).select_related(
         'brand', 'model', 'fuel_type', 'transmission'
     ).prefetch_related('images')
 
@@ -2502,8 +2500,8 @@ def listing_list(request, panel_fragment=False, category=None):
         'tab_expensive': tab_expensive,
         'equipment_by_category': equipment_by_category,
         'selected_equipment': equipment_ids_selected,
-        # Šalies juosta virš panelės — vardai angliški, skaičiai iš DB
-        **salies_juosta_kontekstas(request),
+        # Šalies duomenis duoda kontekstinis procesorius
+        # (context_processors.salis) — vienas visai svetainei.
     }
     # Paskutinės paieškos — įsimenam, kai žmogus tikrai filtravo
     if not panel_fragment and request.GET.get('sidebar'):

@@ -95,6 +95,10 @@ Vietos paieška — Photon per /ajax/adresai/ (tas pats, kaip kūrimo formoje).
       {% for y in years %}{% if forloop.counter0 < 30 %}<option value="{{ y }}">{{ y }}</option>{% endif %}{% endfor %}
     </select>
 
+    {% comment %}Šalis — ta pati bendra reikšmė kaip panelėje ir šoninėje
+    juostoje (partials/_salis.html).{% endcomment %}
+    {% include 'partials/_salis.html' with stilius='sonine' %}
+
     <button type="button" class="zp-filtrai-btn" @click="atidarykFiltrus()">
       <i class="fa-solid fa-sliders" aria-hidden="true"></i>
       {% trans "Filtrai" %}

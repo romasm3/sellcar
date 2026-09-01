@@ -41,11 +41,20 @@ Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
       </span>
       {% endif %}
 
+      {% comment %}Skelbimo šalis imama TIK iš kontaktų bloko — iš to, kur
+      skelbimas įdėtas, niekada iš paieškoje pasirinktos šalies. Jei jos
+      skiriasi, virš bloko — tyli eilutė su nuoroda perjungti bendrą šalį.{% endcomment %}
+      {% if listing.country and salies_kodas and listing.country != salies_kodas and salies_kodas != 'VISOS' %}
+      <div class="pard-kita-salis">
+        {% blocktrans with salis=listing.get_country_display_vietininkas %}Šis skelbimas yra {{ salis }}{% endblocktrans %}
+        <a href="?salis={{ listing.country|lower }}">{% blocktrans with salis=listing.get_country_display %}Rodyti visus {{ salis }} skelbimus{% endblocktrans %}</a>
+      </div>
+      {% endif %}
+
       <div class="pard-vieta">
         {% comment %}Vėliavėlė — viena dalis visai svetainei
-        (templates/partials/_veliava.html). Šaltinis — skelbimo šalis,
-        kurią pardavėjas nurodė kontaktų bloke; jokio spėliojimo.{% endcomment %}
-        {% include 'partials/_veliava.html' with kodas=listing.country %}{% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}
+        (templates/partials/_veliava.html), VISUR po pavadinimo.{% endcomment %}
+        {% if p.dealer_subscription_active and p.dealer_address %}{{ p.dealer_address }}{% else %}{% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}{% endif %}{% include 'partials/_veliava.html' with kodas=listing.country %}
       </div>
 
       {% if p.dealer_subscription_active and p.website %}

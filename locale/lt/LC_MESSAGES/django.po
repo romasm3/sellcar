@@ -22106,7 +22106,7 @@ msgstr ""
 
 #: templates/listings/wheels_list.html:265
 msgid "Visos šalys"
-msgstr ""
+msgstr "Visos šalys"
 
 #: templates/listings/wheels_list.html:274
 msgid "Paieška tekste"
@@ -23311,6 +23311,34 @@ msgstr[0] "prieš %(sk)s m."
 msgstr[1] "prieš %(sk)s m."
 msgstr[2] "prieš %(sk)s m."
 msgstr[3] "prieš %(sk)s m."
+
+#: templates/partials/_salis.html:0
+msgid "Keisti šalį"
+msgstr "Keisti šalį"
+
+#: templates/partials/_salis.html:0
+msgid "Keisti"
+msgstr "Keisti"
+
+#: templates/partials/_salis.html:0
+msgid "Ieškoti šalies"
+msgstr "Ieškoti šalies"
+
+#: templates/partials/_salis.html:0
+msgid "Šis skelbimas yra %(salis)s"
+msgstr "Šis skelbimas yra %(salis)s"
+
+#: templates/partials/_salis.html:0
+msgid "Rodyti visus %(salis)s skelbimus"
+msgstr "Rodyti visus %(salis)s skelbimus"
+
+#: templates/partials/_salis.html:0
+msgid "%(counter)s skelbimas"
+msgid_plural "%(counter)s skelbimai"
+msgstr[0] "%(counter)s skelbimas"
+msgstr[1] "%(counter)s skelbimai"
+msgstr[2] "%(counter)s skelbimų"
+msgstr[3] "%(counter)s skelbimų"
 
 #~ msgid ""
 #~ "Your wallet stores credits used for boosting listings, featured ads, and "

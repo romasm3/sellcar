@@ -307,3 +307,45 @@ def antrastes_paieska(request):
             'marke': marke_tekstas,
         },
     }
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ŠALIS — VIENA REIKŠMĖ VISAI SVETAINEI
+#
+# Šalis nėra atskiras kiekvieno puslapio filtras. Pakeitus ją bet kur
+# (paieškos panelės juostoje, šoninėje juostoje, /imones/), ji galioja
+# visur: procesorius kviečiamas kiekvienam puslapiui, o reikšmė imama
+# iš vienos vietos — salies_juosta.pasirinkta().
+#
+# TINGIAI: kiekiai reikalauja GROUP BY per skelbimus, o dauguma
+# puslapių šalies juostos net nerodo. SimpleLazyObject užtikrina, kad
+# užklausa įvyktų tik tada, kai šablonas iš tikrųjų paprašo sąrašo.
+# ═══════════════════════════════════════════════════════════════════
+def salis(request):
+    from django.utils.functional import SimpleLazyObject, lazy
+    from apps.listings import salies_juosta
+
+    saugykla = {}
+
+    def _visas():
+        # Penkios reikšmės, viena užklausa: be šito kešo kiekvienas
+        # tingusis objektas perskaičiuotų sąrašą iš naujo.
+        if not saugykla:
+            saugykla.update(salies_juosta.kontekstas(request))
+        return saugykla
+
+    def _lauk(raktas):
+        return SimpleLazyObject(lambda: _visas()[raktas])
+
+    # Kiekis eina į {% blocktrans count %}, o daugiskaitos formulė daro
+    # „n % 100" — SimpleLazyObject tokio veiksmo neturi ir šablonas
+    # nulūžta. lazy(..., int) nusikopijuoja int metodus, tad veikia.
+    kiekis = lazy(lambda: _visas()['salies_kiekis'], int)
+
+    return {
+        'salies_kodas': _lauk('salies_kodas'),
+        'salies_zemas': _lauk('salies_zemas'),
+        'salies_vardas': _lauk('salies_vardas'),
+        'salies_kiekis': kiekis(),
+        'salies_sarasas': _lauk('salies_sarasas'),
+    }

@@ -238,6 +238,10 @@ z-index 60, uždanga 50, todėl baras lieka virš patamsėjusio puslapio.{% endc
         <a class="fr-jung-btn{% if f_tipas == 'meistrai' %} on{% endif %}"
            href="?{{ be_tipo }}{% if be_tipo %}&{% endif %}tipas=meistrai">{% trans "Specialistai" %}</a>
       </div>
+      {% comment %}Šalis — ta pati bendra reikšmė kaip skelbimų paieškoje
+      (partials/_salis.html). Pakeitus čia pasikeičia ir ten.{% endcomment %}
+      {% include 'partials/_salis.html' with stilius='sonine' %}
+
       <div class="fr-kiek"><b x-text="kiek">0</b> <span x-text="zenklas(kiek)"></span>
         {% trans "žemėlapio srityje" %}</div>
       <button type="button" class="fr-tbtn" @click="filtraiAtidaryti = true">

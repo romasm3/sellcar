@@ -1,0 +1,105 @@
+{% load i18n humanize %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ŠALIS — VIENA REIKŠMĖ VISAI SVETAINEI.
+
+Šalis nėra atskiras kiekvieno puslapio filtras: tai viena bendra
+reikšmė. Pakeitus bet kurioje vietoje pasikeičia visose — paieškos
+panelėje, šoninėje juostoje, išplėstinėje paieškoje, /imones/ ir
+žemėlapyje.
+
+Trys stiliai, viena dalis. Kopijų ir antrų sąrašų nėra:
+
+    {% include 'partials/_salis.html' with stilius='juosta' %}
+    {% include 'partials/_salis.html' with stilius='sonine' %}
+    {% include 'partials/_salis.html' with stilius='lakstas' %}
+
+Vėliava VISUR eina PO pavadinimo, prieš skaičių dešinėje —
+    Lietuva [vėliava]        4 821
+— ne prieš pavadinimą.
+
+Duomenys ateina iš konteksto procesoriaus
+(apps.listings.context_processors.salis), tad papildomo view'o darbo
+nereikia. Kiekiai — salies_juosta.kiekiai(), ta pati funkcija, kuri
+duoda skaičių ant panelės mygtuko.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{% if stilius == 'sonine' %}
+{% comment %}Šoninė juosta rezultatuose — blokas su radijo mygtukais.{% endcomment %}
+<div class="salis-blk{% if salies_sarasas|length < 2 %} salis-tuscia{% endif %}" x-data="{ atidaryta: false }">
+  <h4>{% trans "Šalis" %}</h4>
+  <div class="salis-cur">
+    <span class="salis-cur-vardas">{{ salies_vardas }}</span>
+    {% include 'partials/_veliava.html' with kodas=salies_kodas vardas=salies_vardas didele=1 %}
+    <button type="button" class="salis-keisti-mazas" @click="atidaryta = !atidaryta">{% trans "Keisti" %}</button>
+  </div>
+  <div class="salis-list" x-show="atidaryta" x-cloak>
+    {% for s in salies_sarasas %}
+    <a href="{{ s.url }}" class="salis-eil{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}">
+      <span class="salis-radijo" aria-hidden="true"></span>
+      <span class="salis-eil-vardas">{{ s.vardas }}</span>
+      {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele='' %}
+      <span class="salis-eil-kiekis">{{ s.kiek|intcomma }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
+{% comment %}„juosta" (virš paieškos panelės) ir „lakstas" (telefone) —
+ta pati eilutė ir tas pats sąrašas; skiriasi tik lango vieta, o tai
+sprendžia CSS (@media).{% endcomment %}
+<div class="salies-juosta" x-data="{ atidaryta: false }"
+     @keydown.escape.window="atidaryta = false">
+
+  <div class="salies-eilute">
+    <svg class="salies-smeigtukas" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.8" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/>
+      <circle cx="12" cy="10" r="2.6"/>
+    </svg>
+    <span class="salies-vardas">{{ salies_vardas }}</span>
+    {% include 'partials/_veliava.html' with kodas=salies_kodas vardas=salies_vardas didele=1 %}
+    {% comment %}|default:0|add:0 — kiekis skaičiuojamas tingiai, o
+    „blocktrans count" priima tik tikrą skaičių: add jį išskleidžia, o
+    default apsaugo, kai dalis renderinama be kontekstinio procesoriaus
+    (fragmentai, testai) — kitaip šablonas nulūžta.{% endcomment %}
+    <span class="salies-kiekis">· {% blocktrans count counter=salies_kiekis|default:0|add:0 %}{{ counter }} skelbimas{% plural %}{{ counter }} skelbimai{% endblocktrans %}</span>
+
+    <button type="button" class="salies-keisti" @click="atidaryta = !atidaryta"
+            :aria-expanded="atidaryta ? 'true' : 'false'">
+      {% trans "Keisti šalį" %}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           :style="atidaryta && 'transform:rotate(180deg)'"><path stroke-linecap="round" d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+
+  {% comment %}Uždanga — paspaudus šalia langas užsidaro. Telefone ji dar ir
+  patamsina foną po apatiniu lakštu.{% endcomment %}
+  <div x-show="atidaryta" x-cloak class="salies-uzdanga" @click="atidaryta = false"></div>
+
+  <div x-show="atidaryta" x-cloak class="salies-langas"
+       x-data="{ q: '' }" role="dialog" aria-label="{% trans 'Keisti šalį' %}">
+    <div class="salies-lakstelio-rankena"></div>
+    <div class="salies-paieska">
+      <input type="text" x-model="q" placeholder="{% trans 'Ieškoti šalies' %}">
+    </div>
+    <div class="salies-sarasas">
+      {% for s in salies_sarasas %}
+      <a href="{{ s.url }}"
+         class="salies-punktas{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}"
+         x-show="!q || '{{ s.vardas|escapejs }}'.toLowerCase().includes(q.toLowerCase())">
+        <span class="salies-punkto-vardas">{{ s.vardas }}</span>
+        {% include 'partials/_veliava.html' with kodas=s.kodas vardas=s.vardas didele='' %}
+        <span class="salies-punkto-kiekis">{{ s.kiek|intcomma }}</span>
+        {% if s.dabartine %}
+        <svg class="salies-varnele" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -48,23 +48,60 @@ def kodas_is_reiksmes(reiksme):
     return '' if kodas in ('', VISOS.upper()) else kodas
 
 
+def _is_profilio(request):
+    """Paskyros profilio šalis. Profile.country yra PAVADINIMAS
+    („Lithuania"), ne kodas, todėl verčiam atgal per abu sąrašus."""
+    vartotojas = getattr(request, 'user', None)
+    if not vartotojas or not getattr(vartotojas, 'is_authenticated', False):
+        return ''
+    vardas = str(getattr(getattr(vartotojas, 'profile', None), 'country', '') or '').strip()
+    if not vardas:
+        return ''
+    for kodas, en in salys.VARDAI_EN.items():
+        if en.lower() == vardas.lower():
+            return kodas
+    for kodas, lt in salys.VARDAI.items():
+        if str(lt).lower() == vardas.lower():
+            return kodas
+    return _kodas(vardas)
+
+
 def pasirinkta(request):
-    """Kuri šalis rodoma juostoje. Visada grąžina galiojantį kodą arba VISOS."""
+    """Kuri šalis galioja VISAI svetainei.
+
+    Sluoksniai pagal svarbą: adresas → slapukas → paskyros profilis →
+    numatytoji. Adresas laimi visada, kad nuorodą būtų galima nusiųsti.
+    """
     return (_kodas(request.GET.get('salis'))
             or _kodas(request.COOKIES.get(SLAPUKAS))
+            or _is_profilio(request)
             or salys.NUMATYTA)
 
 
 def aiskiai_pasirinkta(request):
-    """Ar žmogus šalį pasirinko pats (adresu arba anksčiau — slapuku)."""
+    """Ar šalis pasirinkta sąmoningai — adresu, slapuku ar profilyje."""
     return bool(_kodas(request.GET.get('salis'))
-                or _kodas(request.COOKIES.get(SLAPUKAS)))
+                or _kodas(request.COOKIES.get(SLAPUKAS))
+                or _is_profilio(request))
+
+
+# Filtrai, kurie priklauso SENAI šaliai — keičiant ją nebetenka prasmės.
+# Markė, kaina, metai ir visa kita lieka.
+PRIRISTI_PRIE_SALIES = ('city', 'spindulys', 'radius', 'state_filter',
+                        'country_filter', 'page')
 
 
 def _be_salies(params):
-    """Tie patys filtrai, tik be pačios šalies ir puslapiavimo."""
+    """Filtrai, pagal kuriuos skaičiuojami šalių skaičiukai.
+
+    Išmetam pačią šalį (kitaip visur būtų po vieną eilutę) ir viską, kas
+    pririšta prie SENOS šalies — miestą, spindulį, valstiją. Kitaip
+    „Vilnius + 50 km" būtų pritaikytas ir Vokietijai, ir visos kitos
+    šalys sąraše rodytų 0, nors skelbimų jose yra. Markė, kaina ir metai
+    lieka: skaičiukas turi atitikti tai, ką žmogus mato.
+    """
     svarus = params.copy()
-    for raktas in ('salis', 'page'):
+    for raktas in ('salis',) + PRIRISTI_PRIE_SALIES:
         svarus.pop(raktas, None)
     return svarus
 
@@ -102,14 +139,16 @@ def kiekiai(request=None, vieso_qs=None):
 
 
 def _nuoroda(request, kodas):
-    """Tas pats puslapis su kita šalimi — visi kiti filtrai lieka.
+    """Tas pats puslapis su kita šalimi.
 
-    Puslapiavimą numetam: pakeitus šalį 7-as puslapis dažniausiai jau
-    neegzistuoja.
+    Visi kiti filtrai LIEKA — pakeitus šalį markė, kaina ir metai
+    nedingsta. Išvalom tik tai, kas pririšta prie senos šalies (miestą,
+    spindulį, valstiją) ir puslapiavimą.
     """
     params = request.GET.copy()
+    for raktas in PRIRISTI_PRIE_SALIES:
+        params.pop(raktas, None)
     params['salis'] = kodas.lower()
-    params.pop('page', None)
     return '%s?%s' % (request.path, params.urlencode())
 
 
@@ -147,7 +186,7 @@ def sarasas(dabartine, vieso_qs=None, request=None):
 
 
 def kontekstas(request, vieso_qs=None):
-    """Viskas, ko reikia templates/listings/partials/_salies_juosta.html."""
+    """Viskas, ko reikia templates/partials/_salis.html."""
     dabartine = pasirinkta(request)
     eilutes = sarasas(dabartine, vieso_qs, request)
     return {
