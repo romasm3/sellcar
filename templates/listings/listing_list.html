@@ -130,6 +130,11 @@
   .ap-title { font-size: 15px; }
   .ap-price { font-size: 17px; order: 2; }
   .ap-spec-line { display: none; }          /* pakeičia .card-params */
+  /* Telefone vieta rodoma VIENĄ kartą — „Miestas" langelyje parametrų
+     tinklelyje (docs/mobilus-etalonas.md, .param-location). Žalia vietos
+     eilutė yra darbalaukio pora prie .ap-spec-line, tad slepiam kartu su
+     ja — kitaip kortelėje vieta kartojosi du kartus. */
+  .kv-eilute { display: none; }
   .card-params { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
   .cp-item { display: flex; align-items: center; gap: 8px;
              width: calc(33.3333% - 10.6667px); min-width: 0; }
@@ -1041,7 +1046,7 @@ a.sp-rail-btn { text-decoration:none; }
                             {% comment %}Vieta ir vėliava — bendra dalis
                             (_kort_vieta.html). Anksčiau čia buvo sava eilutė,
                             kurioje vėliava nukrisdavo į antrą eilutę.{% endcomment %}
-                            <div class="mt-auto">{% include 'listings/partials/_kort_vieta.html' with listing=listing stilius='zalia' %}</div>
+                            <div class="mt-auto kv-eilute">{% include 'listings/partials/_kort_vieta.html' with listing=listing stilius='zalia' %}</div>
                         </div>
                     </div>
                     {% endwith %}

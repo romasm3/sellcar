@@ -138,10 +138,13 @@ for kelias, aprasymas in VIETOS.items():
     t = open(os.path.join(BASE, kelias), encoding='utf-8').read()
     tikrink("partials/_veliava.html" in t, '%s naudoja dalį' % aprasymas)
 
-# Kortelė: formatas „[vėliava] Vilnius, Lietuva"
+# Kortelė: formatas „Vilnius, Lithuania [vėliava]" — vardas ANGLIŠKAS,
+# toks pat kaip darbalaukio kortelėje ir šalies sąrašuose.
 t = open(os.path.join(BASE, 'templates/listings/partials/_card_params.html'),
          encoding='utf-8').read()
-tikrink('get_country_display' in t, 'kortelėje pilnas šalies pavadinimas')
+tikrink('salies_vardas_en' in t, 'kortelėje pilnas angliškas šalies pavadinimas')
+tikrink('cp-vieta' in t and '<span>' in t,
+        'vietos tekstas atskirame <span> — vėliava nedingsta trumpinant')
 
 # Žemėlapio burbului duomenys ateina iš korteles.kortele()
 k = open(os.path.join(BASE, 'apps/listings/korteles.py'), encoding='utf-8').read()

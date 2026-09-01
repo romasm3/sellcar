@@ -132,13 +132,18 @@ NIEKADA nenukrenta į antrą eilutę.
 
 Šalies pavadinimas **pilnas** — ne kodas „LT" ar „DE".
 
-> **Kur angliškas, kur išverstas.** Kortelės vietos eilutėje ir šalies
-> sąrašuose (juostoje, šoninėje juostoje) vardas **angliškas ir
-> neverčiamas** (`salys.VARDAI_EN`, filtras `|salies_vardas_en`) — tai
-> tarptautinis sąrašas, jį skaito ir tas, kuris svetainės kalbos nemoka.
-> Kontaktų bloke skelbimo puslapyje vardas lieka **išverstas**
-> (`salys.vardas`) — ten tekstas skirtas žmogui, skaitančiam skelbimą
-> savo kalba.
+> **Kur angliškas, kur išverstas.** Kortelės vietos eilutėje (ir
+> darbalaukyje, ir telefono „Miestas" langelyje) bei šalies sąrašuose
+> (juostoje, šoninėje juostoje) vardas **angliškas ir neverčiamas**
+> (`salys.VARDAI_EN`, filtras `|salies_vardas_en`) — tai tarptautinis
+> sąrašas, jį skaito ir tas, kuris svetainės kalbos nemoka. Kontaktų
+> bloke skelbimo puslapyje vardas lieka **išverstas** (`salys.vardas`) —
+> ten tekstas skirtas žmogui, skaitančiam skelbimą savo kalba.
+
+**Vienoje kortelėje vieta rodoma VIENĄ kartą.** Darbalaukyje — žalia
+eilutė po parametrais (`.kv-zalia`); telefone ji paslėpta, o vietą rodo
+„Miestas" langelis parametrų tinklelyje (`docs/mobilus-etalonas.md`,
+`.param-location`). Dvi vietos toje pačioje kortelėje — klaida.
 
 > Nepainioti su šalies juosta virš paieškos panelės: ten sąrašas
 > tarptautinis, todėl vardai **angliški ir neverčiami**
@@ -237,7 +242,9 @@ puslapyje.
 - [ ] Vėliavėlė VISUR po pavadinimo, ne prieš jį
 - [ ] Vėliavėlė — SVG, 16×12, su rėmeliu; šalies vardas pilnas
 - [ ] Kortelėje ir šalies sąrašuose vardas angliškas, kontaktų bloke — išverstas
-- [ ] Vietos eilutė nesilaužo net su ilgu pavadinimu
+- [ ] Vietos eilutė nesilaužo net su ilgu pavadinimu, vėliava nedingsta
+- [ ] Kortelėje vieta rodoma vieną kartą (darbalaukyje žalia eilutė,
+      telefone „Miestas" langelis)
 - [ ] Be šalies — tik miestas, be tuščio kvadrato
 - [ ] Šalis — viena reikšmė: pakeitus vienur, pasikeitė visur
 - [ ] Šalies keitimas nenumetė markės, kainos, metų

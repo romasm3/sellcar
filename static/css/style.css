@@ -390,6 +390,15 @@ img {
 /* Tarpą tvarko flex gap — vėliavos savo margin čia nereikia. */
 .kv .veliava { margin-left: 0; vertical-align: 0; }
 
+/* Telefono kortelės „Miestas" langelis — ta pati taisyklė: tekstas
+   trumpinamas, vėliava lieka matoma. Be šito ji tiesiog dingdavo po
+   `overflow: hidden`, kai vieta ilga. */
+.cp-item b.cp-vieta { display: flex; align-items: center; gap: 6px;
+                      min-width: 0; }
+.cp-vieta > span { min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                   white-space: nowrap; }
+.cp-vieta .veliava { margin-left: 0; vertical-align: 0; }
+
 /* Žalias variantas — kortelė rezultatų sąraše su šonine juosta */
 .kv-zalia { margin-top: 20px; color: #16A34A; font-weight: 600;
             font-size: 14px; }

@@ -1,5 +1,5 @@
 {% load i18n i18n_db %}
-{% load listing_filters %}{% comment %}
+{% load listing_filters salies_tags %}{% comment %}
 Kortelės parametrai TELEFONE — trys stulpeliai su ikonomis, kaip etalone
 (docs/mobilus-etalonas.md, „Skelbimo kortelė": Metai, Kuro tipas, Rida,
 Pavarų dėžė, Variklis, Miestas; kiekvienas — ikona, etiketė, reikšmė).
@@ -42,7 +42,11 @@ pats blokas tinka ir kategorijoms be variklio ar ridos.
   {% if listing.city %}
   <div class="cp-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linecap="round" d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-    <div><i>{% trans "Miestas" %}</i><b>{{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.get_country_display }}{% endif %}{% include 'partials/_veliava.html' with kodas=listing.country %}</b></div>
+    {% comment %}Šalies vardas ANGLIŠKAS — toks pat kaip darbalaukio
+    kortelėje, šalies juostoje ir šoninėje juostoje (docs/taisykles.md 5).
+    Kitaip ta pati kortelė telefone sakytų „Vokietija", o darbalaukyje
+    „Germany".{% endcomment %}
+    <div><i>{% trans "Miestas" %}</i><b class="cp-vieta"><span>{{ listing.city|vietovardis }}{% if listing.country %}, {{ listing.country|salies_vardas_en }}{% endif %}</span>{% include 'partials/_veliava.html' with kodas=listing.country vardas=listing.country|salies_vardas_en %}</b></div>
   </div>
   {% endif %}
 </div>

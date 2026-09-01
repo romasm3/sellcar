@@ -115,31 +115,72 @@ const matuok = (p, sel) => p.evaluate((s) => {
     // ── 2. REZULTATAI su šonine juosta ──────────────────────────
     antraste('2. Rezultatai: žalia vietos eilutė');
     await eik(p, '/?section=cars&sidebar=1&salis=de');
-    const z = await matuok(p, '.kv-zalia');
-    if (z) {
-      tik(z.tekstas === 'Berlin, Germany' || /, Germany$/.test(z.tekstas),
-          'formatas „Berlin, Germany": ' + z.tekstas);
-      tik(z.poTeksto && z.tojePacioje, 'vėliava po šalies, VIENA eilutė');
-      tik(z.spalva === 'rgb(22, 163, 74)', 'žalia #16A34A (' + z.spalva + ')');
-      tik(z.aukstis < 30, 'eilutė nesulaužyta į dvi (' + Math.round(z.aukstis) + 'px)');
-      tik(Math.abs(z.pinPlotis - 14) < 0.6, 'smeigtukas 14px (' + z.pinPlotis + ')');
-    } else {
-      tik(false, 'rezultatų kortelėje yra vietos eilutė');
-    }
-    if (z) {
+    // Žalia eilutė — DARBALAUKIO vietos eilutė. Telefone ji paslėpta:
+    // ten vietą rodo „Miestas" langelis parametrų tinklelyje
+    // (docs/mobilus-etalonas.md), ir dviejų vietų kortelėje nebūna.
+    if (!telefonas) {
+      const z = await matuok(p, '.kv-zalia');
+      if (z) {
+        tik(/, Germany$/.test(z.tekstas), 'formatas „Berlin, Germany": ' + z.tekstas);
+        tik(z.poTeksto && z.tojePacioje, 'vėliava po šalies, VIENA eilutė');
+        tik(z.spalva === 'rgb(22, 163, 74)', 'žalia #16A34A (' + z.spalva + ')');
+        tik(z.aukstis < 30, 'eilutė nesulaužyta į dvi (' + Math.round(z.aukstis) + 'px)');
+        tik(Math.abs(z.pinPlotis - 14) < 0.6, 'smeigtukas 14px (' + z.pinPlotis + ')');
+      } else {
+        tik(false, 'rezultatų kortelėje yra vietos eilutė');
+      }
       await p.$eval('.kv-zalia', el => el.closest('article, .ap-card, div')
                     .scrollIntoView({ block: 'center' }));
       await p.waitForTimeout(400);
+    } else {
+      tik(await p.$$eval('.kv-zalia',
+            e => e.every(x => !x.getBoundingClientRect().width)),
+          'telefone žalios eilutės nėra');
     }
     await p.screenshot({ path: `${EKRANAI}/kort-vieta-${vardas}-rezultatai.png`,
                          fullPage: false });
 
+    // ── 2b. VIENA vieta kortelėje ───────────────────────────────
+    antraste('2b. Kortelėje vieta rodoma vieną kartą');
+    const vietos = await p.evaluate(() => {
+      const k = document.querySelector('.h-listing-card');
+      if (!k) return null;
+      const matomos = [];
+      // Žalia eilutė (darbalaukis) ir „Miestas" langelis (telefonas)
+      for (const sel of ['.kv-zalia', '.card-params .cp-item']) {
+        for (const e of k.querySelectorAll(sel)) {
+          const r = e.getBoundingClientRect();
+          if (!r.width) continue;
+          const t = e.textContent.replace(/\s+/g, ' ').trim();
+          if (sel === '.kv-zalia' || /Miestas/.test(t)) matomos.push(t);
+        }
+      }
+      return matomos;
+    });
+    tik(vietos && vietos.length === 1,
+        'kortelėje viena vietos eilutė: ' + JSON.stringify(vietos));
+    if (vietos && vietos.length) {
+      tik(/Germany/.test(vietos[0]),
+          'šalies vardas angliškas ir telefone, ir darbalaukyje: ' + vietos[0]);
+    }
+
     // ── 3. ILGAS PAVADINIMAS ────────────────────────────────────
     antraste('3. Ilgas pavadinimas — viena eilutė');
-    const ilgas = await p.evaluate(() => {
-      const v = document.querySelector('.kv-zalia');
+    // Telefone žalia eilutė paslėpta (vietą rodo „Miestas" langelis),
+    // tad ilgą pavadinimą tikrinam ten, kur eilutė iš tikrųjų matoma.
+    const ilgas = await p.evaluate((telefonas) => {
+      // Matuojam tą eilutę, kuri šiame plotyje IŠ TIKRŲJŲ matoma.
+      const v = telefonas
+        ? [...document.querySelectorAll('.card-params .cp-item div')]
+            .find(e => /Miestas/.test(e.textContent))
+        : document.querySelector('.kv-zalia');
       if (!v) return null;
-      const t = v.querySelector('.kv-txt'), f = v.querySelector('img.veliava');
+      // Tekstą laiko atskiras elementas (.kv-txt arba .cp-vieta > span) —
+      // vėliava yra jo brolis, tad rašom tik į tekstą.
+      const t = v.querySelector('.kv-txt, .cp-vieta > span');
+      const f = v.querySelector('img.veliava');
+      if (!t || !f) return null;
+      v.id = 'ilga-vieta';          // kad nuotrauka prisuktų būtent čia
       const priesA = v.getBoundingClientRect().height;
       t.textContent = 'Nordrhein-Westfalen, Germany';
       // Susiaurinam eilutę, kad tekstas TIKRAI netilptų — kitaip
@@ -153,7 +194,8 @@ const matuok = (p, sel) => p.evaluate((s) => {
                veliavaViduj: fr.right <= po.right + 1,
                trumpinta: t.scrollWidth > t.clientWidth + 1,
                fW: fr.width };
-    });
+    }, telefonas);
+    tik(!!ilgas, 'rasta matoma vietos eilutė ilgo pavadinimo patikrai');
     if (ilgas) {
       tik(Math.abs(ilgas.aukstis - ilgas.priesA) < 2,
           'eilutės aukštis nepasikeitė (' + Math.round(ilgas.priesA) + ' → '
@@ -166,11 +208,24 @@ const matuok = (p, sel) => p.evaluate((s) => {
       tik(ilgas.trumpinta, 'netelpantis tekstas trumpinamas daugtaškiu');
     }
     if (ilgas) {
-      await p.$eval('.kv-zalia', el => el.scrollIntoView({ block: 'center' }));
-      await p.waitForTimeout(400);
+      // Kortelė yra giliai puslapyje; fullPage nuotraukos clip'as
+      // skaičiuojamas nuo DOKUMENTO viršaus, tad koordinates imam kartu
+      // su window.scrollY — taip nuotraukoje atsiduria būtent ji.
+      const r = await p.evaluate(() => {
+        const k = document.getElementById('ilga-vieta')
+                  .closest('.h-listing-card');
+        const b = k.getBoundingClientRect();
+        return { x: b.x + scrollX, y: b.y + scrollY,
+                 w: b.width, h: b.height };
+      });
+      await p.screenshot({ path: `${EKRANAI}/kort-vieta-${vardas}-ilgas.png`,
+                           fullPage: true,
+                           clip: { x: Math.max(0, r.x - 8), y: Math.max(0, r.y - 8),
+                                   width: r.w + 16, height: r.h + 16 } });
+    } else {
+      await p.screenshot({ path: `${EKRANAI}/kort-vieta-${vardas}-ilgas.png`,
+                           fullPage: false });
     }
-    await p.screenshot({ path: `${EKRANAI}/kort-vieta-${vardas}-ilgas.png`,
-                         fullPage: false });
 
     // ── 4. ŠONINĖS JUOSTOS ŠALIES BLOKAS ────────────────────────
     if (!telefonas) {
