@@ -57,6 +57,28 @@ patikrink 3 punktą.
 
 Po pakeitimo: `systemctl restart gunicorn`.
 
+## Masinis .po užpildymas — TIK per paslaugos paskyrą
+
+`docs/vertimo_uzpildymas.py` API raktu nesinaudoja. Serverio
+`GOOGLE_MAPS_API_KEY` apribotas HTTP referrer'iais, tad iš komandinės
+eilutės grąžina:
+
+    403 Requests from referer <empty> are blocked
+
+Skriptas todėl eina tuo pačiu keliu kaip pokalbių vertimas —
+`translate_v2.Client()` be parametrų, autentikacija iš
+`GOOGLE_APPLICATION_CREDENTIALS` (numatytai
+`/root/autoleft/google-translate-key.json`):
+
+```
+cd /root/autoleft && source venv/bin/activate
+python docs/vertimo_uzpildymas.py ru en
+```
+
+Verčia paketais po 100, tarp paketų 200 ms. Kritęs paketas praleidžiamas
+ir darbas tęsiamas; jo eilutės lieka tuščios, o ribos surašomos
+`docs/vertimo_uzpildymas_ataskaita.txt`.
+
 ## Kaip patikrinti
 
 ```bash

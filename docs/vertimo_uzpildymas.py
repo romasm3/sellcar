@@ -2,6 +2,13 @@
 """
 VIENKARTINIS tuščių msgstr užpildymas Google Translate'u.
 
+AUTENTIKACIJA — tokia pati kaip apps/conversations/translate_service.py:
+paslaugos paskyra per GOOGLE_APPLICATION_CREDENTIALS (numatytai
+<projektas>/google-translate-key.json) ir `translate_v2.Client()` be
+jokių papildomų parametrų. API raktu čia nesinaudojam: Maps raktas
+apribotas HTTP referrer'iais, tad iš serverio grąžina
+403 „Requests from referer <empty> are blocked".
+
 Keturios apsaugos, dėl kurių susitarta:
 
   1. Liečiam TIK tuščias eilutes. Eilutė, kuri jau turi vertimą,
@@ -19,23 +26,25 @@ Keturios apsaugos, dėl kurių susitarta:
 Visos naujos eilutės pažymimos `#, fuzzy` — taip jos NEPATENKA į .mo ir
 vartotojui nerodomos, kol žmogus neperžiūrėjo. Tokia ir buvo mintis.
 
-Raktas: GOOGLE_TRANSLATE_API_KEY (arba GOOGLE_MAPS_API_KEY) aplinkoje.
+Paketas — 100 eilučių, tarp paketų 200 ms. Kritęs paketas praleidžiamas
+ir darbas tęsiamas; kurie krito, surašoma ataskaitos gale.
 
-    python docs/vertimo_uzpildymas.py --bandymas       # kiek ir ko yra
-    python docs/vertimo_uzpildymas.py ru en            # užpildo
+    cd /root/autoleft && source venv/bin/activate
+    python docs/vertimo_uzpildymas.py ru en
+    python docs/vertimo_uzpildymas.py --bandymas    # kiek ko yra, be API
 """
 import os
 import re
 import subprocess
 import sys
 import tempfile
+import time
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, 'docs'))
 
-API_URL = 'https://translation.googleapis.com/language/translate/v2'
-PORCIJA = 64          # kiek eilučių vienam kreipiniui (Google leidžia 128)
-LAIKAS = 30
+PAKETAS = 100         # eilučių viename kreipinyje
+PAUZE = 0.2           # s tarp paketų
 
 try:
     import polib
@@ -49,12 +58,26 @@ import terminai_taikyti as tt
 SAUGOMI = re.compile(r'%\([^)]*\)[a-zA-Z]|%[a-zA-Z%]|\{[^{}]*\}')
 
 
-def raktas():
-    for vardas in ('GOOGLE_TRANSLATE_API_KEY', 'GOOGLE_MAPS_API_KEY'):
-        v = (os.environ.get(vardas) or '').strip()
-        if v:
-            return v
+def rakto_failas():
+    """Tas pats kelias, kurį skaito config/settings.py."""
+    kelias = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+    if not kelias:
+        try:
+            from decouple import config
+            kelias = config('GOOGLE_APPLICATION_CREDENTIALS', default='')
+        except Exception:
+            kelias = ''
+    kelias = kelias or os.path.join(BASE, 'google-translate-key.json')
+    if os.path.isfile(kelias):
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = kelias
+        return kelias
     return ''
+
+
+def klientas():
+    """translate_v2.Client() be parametrų — kaip translate_service.py."""
+    from google.cloud import translate_v2 as translate
+    return translate.Client()
 
 
 def paslepk(tekstas):
@@ -70,26 +93,39 @@ def paslepk(tekstas):
 
 def atskleisk(tekstas, dalys):
     for i, d in enumerate(dalys):
-        # Google kartais įterpia tarpų aplink ženklą arba pakeičia
-        # skliaustų kryptį — priimam abu pavidalus.
+        # Google kartais įterpia tarpų aplink ženklą — priimam ir tokį.
         tekstas = re.sub(r'⟦\s*%d\s*⟧' % i, lambda _m, d=d: d, tekstas)
     return tekstas
 
 
-def versk(tekstai, kalba, api):
-    """[str] → [str] per Google v2. Skirsto porcijomis."""
-    import requests
-    isversta = []
-    for i in range(0, len(tekstai), PORCIJA):
-        porcija = tekstai[i:i + PORCIJA]
-        r = requests.post(API_URL, params={'key': api}, timeout=LAIKAS, data=[
-            ('q', t) for t in porcija
-        ] + [('target', kalba), ('source', 'en'), ('format', 'text')])
-        if r.status_code != 200:
-            raise SystemExit('Google atsakė %s: %s' % (r.status_code, r.text[:300]))
-        isversta += [d['translatedText'] for d in r.json()['data']['translations']]
-        print('   … %d/%d' % (min(i + PORCIJA, len(tekstai)), len(tekstai)))
-    return isversta
+def versk_paketais(tekstai, kalba, cli):
+    """[str] → ([str|None], [(nuo, iki, klaida)]).
+
+    Kritęs paketas neužverčia viso darbo: jo eilutės grįžta kaip None,
+    o klaida įrašoma į ataskaitą.
+    """
+    isversta = [None] * len(tekstai)
+    kritę = []
+    viso = len(tekstai)
+    for i in range(0, viso, PAKETAS):
+        porcija = tekstai[i:i + PAKETAS]
+        try:
+            # Šaltinio kalbos NENURODOM: msgid'ai mišrūs — dalis angliški,
+            # dalis lietuviški. Google atpažįsta pati.
+            atsakymas = cli.translate(porcija, target_language=kalba,
+                                      format_='text')
+            if isinstance(atsakymas, dict):
+                atsakymas = [atsakymas]
+            for j, t in enumerate(atsakymas):
+                isversta[i + j] = t.get('translatedText', '')
+        except Exception as e:
+            kritę.append((i, min(i + PAKETAS, viso), '%s: %s'
+                          % (type(e).__name__, str(e)[:200])))
+            print('   %d–%d KRITO (%s), tęsiam'
+                  % (i + 1, min(i + PAKETAS, viso), type(e).__name__))
+        print('   %d/%d' % (min(i + PAKETAS, viso), viso))
+        time.sleep(PAUZE)
+    return isversta, kritę
 
 
 def kandidatai(po, zodynas):
@@ -124,19 +160,27 @@ def isaugok_jei_svaru(po, kelias):
         os.unlink(laikinas.name)
         return False, '\n'.join(klaidos)
     os.replace(laikinas.name, kelias)
-    po = polib.pofile(kelias)
-    po.save_as_mofile(kelias[:-3] + '.mo')
+    polib.pofile(kelias).save_as_mofile(kelias[:-3] + '.mo')
     return True, '\n'.join(klaidos)
 
 
 def main():
     bandymas = '--bandymas' in sys.argv
     kalbos = [a for a in sys.argv[1:] if not a.startswith('--')] or ['ru', 'en']
-    api = raktas()
-    if not api and not bandymas:
-        sys.exit('Nėra GOOGLE_TRANSLATE_API_KEY (nei GOOGLE_MAPS_API_KEY) '
-                 'aplinkoje. Šitam konteineryje rakto nėra — paleisk '
-                 'serveryje arba perduok raktą per aplinkos kintamąjį.')
+
+    cli = None
+    if not bandymas:
+        failas = rakto_failas()
+        if not failas:
+            sys.exit('Nėra paslaugos paskyros rakto. Ieškota: '
+                     'GOOGLE_APPLICATION_CREDENTIALS ir %s.\n'
+                     'Serveryje jis yra — paleisk ten, iš /root/autoleft.'
+                     % os.path.join(BASE, 'google-translate-key.json'))
+        print('Raktas: %s' % failas)
+        try:
+            cli = klientas()
+        except Exception as e:
+            sys.exit('Nepavyko sukurti kliento: %s: %s' % (type(e).__name__, e))
 
     zodynas = tt.zodynas()
     ataskaita = []
@@ -154,23 +198,32 @@ def main():
             continue
 
         paslepti, dalys = zip(*[paslepk(e.msgid) for e in pildom])
-        gauta = versk(list(paslepti), kalba, api)
+        gauta, kritę = versk_paketais(list(paslepti), kalba, cli)
 
         sulauzyti = []
+        uzpildyta = 0
         for e, d, v in zip(pildom, dalys, gauta):
+            if v is None:
+                continue                   # paketas krito — paliekam tuščią
             v = atskleisk(v, d)
-            if kp.procentai(v) != kp.procentai(e.msgid) or kp.zymes(v) != kp.zymes(e.msgid):
+            if (kp.procentai(v) != kp.procentai(e.msgid)
+                    or kp.zymes(v) != kp.zymes(e.msgid)):
                 sulauzyti.append((e.msgid, v))
                 continue                   # 2 apsauga: paliekam tuščią
             e.msgstr = v
             if 'fuzzy' not in e.flags:
                 e.flags.append('fuzzy')    # dar neperžiūrėta
-        print('   užpildyta %d, sulaužytų kintamųjų %d'
-              % (len(pildom) - len(sulauzyti), len(sulauzyti)))
+            uzpildyta += 1
+        print('   užpildyta %d, sulaužytų kintamųjų %d, kritusių paketų %d'
+              % (uzpildyta, len(sulauzyti), len(kritę)))
+
         ataskaita.append('\n=== %s — kintamieji sulūžo (%d), verčia žmogus ==='
                          % (kalba, len(sulauzyti)))
         for mid, blogas in sulauzyti:
-            ataskaita.append('  msgid: %s\n  mašina: %s' % (mid, blogas))
+            ataskaita.append('  msgid : %s\n  mašina: %s' % (mid, blogas))
+        ataskaita.append('\n=== %s — kritę paketai (%d) ===' % (kalba, len(kritę)))
+        for nuo, iki, klaida in kritę:
+            ataskaita.append('  eilutės %d–%d: %s' % (nuo + 1, iki, klaida))
 
         gerai, klaida = isaugok_jei_svaru(po, kelias)
         if not gerai:

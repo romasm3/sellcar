@@ -1,17 +1,9 @@
-=== ru — daugiskaitos eilutės (24), verčia žmogus ===
-  %(counter)s listing | %(counter)s listings
+=== ru — daugiskaitos eilutės (16), verčia žmogus ===
   
                             %(counter)s day
                              | 
                             %(counter)s days
                             
-  %(counter)s person | %(counter)s people
-  %(counter)s listing found | %(counter)s listings found
-  Found %(counter)s listing | Found %(counter)s listings
-  %(counter)s ad | %(counter)s ads
-  Showing %(counter)s listing | Showing %(counter)s listings
-  %(counter)s day left | %(counter)s days left
-  visible %(counter)s more day | visible %(counter)s more days
   Ensure this value has at least %(limit_value)d character (it has %(show_value)d). | Ensure this value has at least %(limit_value)d characters (it has %(show_value)d).
   Ensure this value has at most %(limit_value)d character (it has %(show_value)d). | Ensure this value has at most %(limit_value)d characters (it has %(show_value)d).
   Ensure that there are no more than %(max)s digit in total. | Ensure that there are no more than %(max)s digits in total.
