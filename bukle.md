@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-02 19:59:44 CEST
+Sugeneruota: 2026-09-02 20:01:19 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001941s
+HTTP 301, 0.002693s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 02 19:54:25 vmi3306453 autoleft-deploy[3938773]: Sep 02 19:54:22 vmi3306453 autoleft-deploy[3938048]: [19:54:22] Raktai: .env — vietoje.
-Sep 02 19:54:25 vmi3306453 autoleft-deploy[3938773]: Sep 02 19:54:22 vmi3306453 autoleft-deploy[3938048]: [19:54:22] Raktai: google-translate-key.json — vietoje.
-Sep 02 19:54:25 vmi3306453 autoleft-deploy[3938773]: Sep 02 19:54:22 vmi3306453 autoleft-deploy[3938048]: [19:54:22] === Deploy OK ===
-Sep 02 19:54:25 vmi3306453 autoleft-deploy[3938773]: Sep 02 19:54:22 vmi3306453 autoleft-deploy[3937912]: [2026-09-02 19:54:22] ✅ Deploy OK — gyvai veikia a336fac
 Sep 02 19:54:25 vmi3306453 autoleft-deploy[3938773]: ```
 Sep 02 19:54:25 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Sep 02 19:54:25 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -82,4 +78,8 @@ Sep 02 19:58:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Sep 02 19:58:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Sep 02 19:58:31 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.305s CPU time.
 Sep 02 19:59:44 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 02 19:59:47 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 02 19:59:47 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 02 19:59:47 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.667s CPU time.
+Sep 02 20:01:18 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
