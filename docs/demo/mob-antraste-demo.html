@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — mobili antraštė su vėliavėle</title>
+<style>
+:root{--ink:#181B1F;--text:#1A1A1A;--muted:#6B7280;--faint:#9CA3AF;--border:#E5E7EB;
+ --strong:#D1D5DB;--soft:#F4F4F5;--acc:#D2411D;--gr:#16A34A;--pill:999px}
+*{box-sizing:border-box}
+body{margin:0;background:#E9EAEC;color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+ font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;
+ display:flex;gap:28px;justify-content:center;padding:24px 12px;flex-wrap:wrap}
+button{font:inherit;color:inherit;cursor:pointer}
+.col{display:flex;flex-direction:column;align-items:center}
+.cap{color:var(--muted);font-weight:600;margin-bottom:8px}
+
+.phone{background:#fff;border-radius:26px;overflow:hidden;position:relative;
+ box-shadow:0 12px 36px rgba(0,0,0,.18);height:720px;display:flex;flex-direction:column}
+.w360{width:360px}.w320{width:320px}
+
+/* ---------- ANTRAŠTĖ ---------- */
+.hdr{height:56px;flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:0 12px;
+ border-bottom:1px solid var(--border);min-width:0}
+.logo{font-size:18px;font-weight:800;letter-spacing:-.4px;flex:0 0 auto}
+.logo span{color:#E14D28}
+.grow{flex:1;min-width:0}
+
+/* kalbos mygtukas — vėliava + kodas + rodyklė, telpa ir 320px */
+.kalba{display:flex;align-items:center;gap:5px;border:0;background:none;padding:0 2px;
+ height:36px;flex:0 0 auto}
+.kalba .fl{width:20px;height:15px;border-radius:3px;display:block;
+ box-shadow:0 0 0 1px rgba(0,0,0,.12) inset}
+.kalba .kod{font-size:13px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.kalba .ch{width:11px;height:11px;stroke:var(--muted);fill:none;stroke-width:2.4;transition:transform .15s}
+.phone.sheet .kalba .ch{transform:rotate(180deg)}
+
+.ikelti{height:36px;padding:0 12px;border:1px solid var(--ink);border-radius:var(--pill);
+ background:var(--ink);color:#fff;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.ikelti .zod{display:inline}
+.w320 .ikelti .zod{display:none}          /* 320px — lieka tik pliusas */
+.w320 .ikelti{padding:0;width:36px;justify-content:center}
+
+.iko{width:36px;height:36px;border:0;background:none;display:flex;align-items:center;
+ justify-content:center;position:relative;flex:0 0 auto;padding:0}
+.iko svg{width:21px;height:21px;stroke:var(--ink);fill:none;stroke-width:1.9}
+.bdg{position:absolute;top:1px;right:1px;min-width:16px;height:16px;border-radius:8px;
+ background:var(--gr);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;
+ justify-content:center;padding:0 4px}
+
+/* nuorodų juosta — slenka, nesilaužo */
+.nav{height:44px;flex:0 0 auto;display:flex;align-items:center;gap:20px;padding:0 12px;
+ border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--muted);font-size:14px;flex:0 0 auto}
+
+/* ---------- TURINYS ---------- */
+.body{flex:1;overflow:auto;background:#F7F8F9;padding:14px 12px}
+h1{font-size:19px;margin:2px 0 12px;font-weight:600;color:#4B5563}
+
+/* šalies juosta — VIENA eilutė, mygtukas niekada nesitraukia */
+.salis{background:#fff;border:1px solid var(--border);border-radius:12px;height:52px;
+ display:flex;align-items:center;gap:8px;padding:0 10px 0 12px;min-width:0}
+.salis .pin{width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2;flex:0 0 auto}
+.salis .nm{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;
+ white-space:nowrap;min-width:0}
+.salis .fl{width:18px;height:13px;border-radius:2px;flex:0 0 auto;
+ box-shadow:0 0 0 1px rgba(0,0,0,.12) inset}
+.salis .cnt{color:var(--muted);font-size:13px;flex:0 0 auto;white-space:nowrap}
+.salis .keisti{margin-left:auto;height:34px;padding:0 12px;border:1px solid var(--strong);
+ border-radius:var(--pill);background:#fff;font-weight:600;font-size:13px;display:flex;
+ align-items:center;gap:6px;flex:0 0 auto}
+.salis .keisti svg{width:11px;height:11px;stroke:var(--ink);fill:none;stroke-width:2.4}
+
+.panel{background:#fff;border:1px solid var(--border);border-radius:12px;margin-top:12px;overflow:hidden}
+.rail{display:flex;border-bottom:1px solid var(--border)}
+.rail button{flex:1;height:52px;border:0;background:none;display:flex;align-items:center;
+ justify-content:center;position:relative}
+.rail button svg{width:24px;height:24px;stroke:var(--muted);fill:none;stroke-width:1.7}
+.rail button.on svg{stroke:var(--ink)}
+.rail button.on::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:3px;
+ background:var(--ink);border-radius:2px 2px 0 0}
+.pt{padding:12px 14px 4px;font-weight:700;font-size:15px}
+.fr{display:flex;align-items:center;height:50px;padding:0 14px;border-top:1px solid var(--border);
+ font-size:15px}
+.fr svg{margin-left:auto;width:15px;height:15px;stroke:var(--faint);fill:none;stroke-width:2}
+
+/* ---------- LAKŠTAS ---------- */
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;
+ transition:opacity .2s;z-index:30}
+.phone.sheet .scrim{opacity:1;pointer-events:auto}
+.sh{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;
+ transform:translateY(100%);transition:transform .24s cubic-bezier(.2,.8,.2,1);z-index:31;
+ padding-bottom:10px;max-height:76%;display:flex;flex-direction:column}
+.phone.sheet .sh{transform:none}
+.grab{width:40px;height:4px;background:var(--strong);border-radius:2px;margin:10px auto 4px;flex:0 0 auto}
+.sh h3{margin:6px 16px 8px;font-size:17px;font-weight:700}
+.sh .list{overflow:auto}
+.krow{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;height:48px;
+ padding:0 16px;text-align:left;font-size:16px}
+.krow:active{background:var(--soft)}
+.krow .fl{width:24px;height:18px;border-radius:3px;flex:0 0 auto;
+ box-shadow:0 0 0 1px rgba(0,0,0,.12) inset}
+.krow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.krow.on .nm{font-weight:600}
+.krow.on::after{content:"";width:20px;height:20px;flex:0 0 auto;
+ background:no-repeat center/20px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181B1F' stroke-width='2.6'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E")}
+</style>
+</head>
+<body>
+<div class="col"><div class="cap">360 px — dažniausias telefonas</div><div class="phone w360" id="a"></div></div>
+<div class="col"><div class="cap">320 px — mažiausias. „Įkelti" lieka be žodžio</div><div class="phone w320" id="b"></div></div>
+
+<script>
+const SPEC={
+ lt:`<rect width="30" height="7.33" fill="#FDB913"/><rect y="7.33" width="30" height="7.33" fill="#006A44"/><rect y="14.66" width="30" height="7.34" fill="#C1272D"/>`,
+ en:`<rect width="30" height="22" fill="#012169"/><path d="M0,0 30,22 M30,0 0,22" stroke="#fff" stroke-width="4"/><rect x="12" width="6" height="22" fill="#fff"/><rect y="8" width="30" height="6" fill="#fff"/><rect x="13.5" width="3" height="22" fill="#C8102E"/><rect y="9.5" width="30" height="3" fill="#C8102E"/>`,
+ ru:`<rect width="30" height="7.33" fill="#fff"/><rect y="7.33" width="30" height="7.33" fill="#0039A6"/><rect y="14.66" width="30" height="7.34" fill="#D52B1E"/>`,
+ pl:`<rect width="30" height="11" fill="#fff"/><rect y="11" width="30" height="11" fill="#DC143C"/>`,
+ lv:`<rect width="30" height="22" fill="#9E3039"/><rect y="9" width="30" height="4" fill="#fff"/>`,
+ de:`<rect width="30" height="7.33" fill="#000"/><rect y="7.33" width="30" height="7.33" fill="#DD0000"/><rect y="14.66" width="30" height="7.34" fill="#FFCE00"/>`};
+const fl=k=>`<svg class="fl" viewBox="0 0 30 22" preserveAspectRatio="none">${SPEC[k]}</svg>`;
+const K=[["lt","Lietuvių"],["en","English"],["ru","Русский"],["pl","Polski"],["lv","Latviešu"],["de","Deutsch"]];
+const NM={lt:"Lietuva",en:"United Kingdom",ru:"Rusija",pl:"Lenkija",lv:"Latvija",de:"Vokietija"};
+
+function ekranas(kalba){
+ return `
+ <header class="hdr">
+   <div class="logo">Auto<span>Left</span></div>
+   <div class="grow"></div>
+   <button class="kalba" data-sheet>${fl(kalba)}<span class="kod">${kalba}</span>
+     <svg class="ch" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+   <button class="ikelti"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span class="zod">Įkelti</span></button>
+   <button class="iko"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg><span class="bdg">7</span></button>
+   <button class="iko"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.5 12 20 12 20z"/></svg><span class="bdg">2</span></button>
+   <button class="iko"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+ </header>
+
+ <nav class="nav"><a>Įmonės ir servisai</a><a>Pagalba</a><a>Apie mus</a><a>Partneriai</a></nav>
+
+ <div class="body">
+   <h1>Rasti 7 skelbimai</h1>
+
+   <div class="salis">
+     <svg class="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+     <span class="nm">${NM[kalba]||"Lietuva"}</span>${fl(kalba)}
+     <span class="cnt">· 18</span>
+     <button class="keisti">Keisti <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+   </div>
+
+   <div class="panel">
+     <div class="rail">
+       <button class="on"><svg viewBox="0 0 24 24"><path d="M3 16h18M5 16V11l2-5h10l2 5v5"/><circle cx="7.5" cy="16.5" r="1.6"/><circle cx="16.5" cy="16.5" r="1.6"/></svg></button>
+       <button><svg viewBox="0 0 24 24"><circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/><path d="M5 16l4-6h5l3 6"/></svg></button>
+       <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg></button>
+       <button><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/></svg></button>
+       <button><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg></button>
+     </div>
+     <div class="pt">Automobiliai</div>
+     <div class="fr">Markė, modelis <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+     <div class="fr">Metai <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+     <div class="fr">Kaina <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+     <div class="fr">Kuro tipas <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+   </div>
+ </div>
+
+ <div class="scrim" data-close></div>
+ <div class="sh">
+   <div class="grab"></div><h3>Kalba</h3>
+   <div class="list">${K.map(([k,n])=>
+     `<button class="krow${k===kalba?' on':''}" data-k="${k}">${fl(k)}<span class="nm">${n}</span></button>`).join('')}</div>
+ </div>`;
+}
+
+let dabar='lt';
+function pieskim(){
+  a.innerHTML=ekranas(dabar); b.innerHTML=ekranas(dabar);
+}
+pieskim();
+
+document.addEventListener('click',e=>{
+  const ph=e.target.closest('.phone');
+  if(e.target.closest('[data-sheet]')){ph.classList.add('sheet');return}
+  if(e.target.closest('[data-close]')){ph.classList.remove('sheet');return}
+  const k=e.target.closest('[data-k]');
+  if(k){dabar=k.dataset.k;pieskim();}
+});
+</script>
+</body>
+</html>
