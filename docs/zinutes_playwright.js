@@ -160,6 +160,42 @@ const PASTAS = /[\w.-]+@[\w.-]+\.\w{2,}/;
   tik(po.tekstas === pries.tekstas, 'įrašytas tekstas dingo — vadinasi, buvo perkrovimas');
   tik(klaidos.length === 0, 'JS klaidos: ' + JSON.stringify(klaidos));
 
+  antraste('Vertimas — jungiklis su išsaugoma būsena');
+  const vBusena = () => p.evaluate(() => ({
+    btn: (document.getElementById('pkVerstiTxt') || {}).textContent.trim(),
+    bukle: (document.getElementById('pkVerstiBukle') || {}).textContent.trim(),
+    ijungta: (document.getElementById('pkVerstiBtn') || {}).dataset.ijungta,
+    savoSuKlaida: [...document.querySelectorAll('.pk-burb.as')]
+      .filter(b => b.querySelector('.pk-vertimo-klaida:not([hidden])')).length,
+  }));
+  const v0 = await vBusena();
+  tik(v0.btn === 'IŠVERSTI POKALBĮ' && v0.bukle === 'Rodomi originalūs pranešimai',
+      'išjungto jungiklio užrašai: ' + JSON.stringify(v0));
+
+  await p.evaluate(() => document.getElementById('pkVerstiBtn').click());
+  await p.waitForTimeout(3000);
+  const v1 = await vBusena();
+  console.log('  įjungus: ' + JSON.stringify(v1));
+  tik(v1.btn === 'RODYTI ORIGINALIAS ŽINUTES'
+      && v1.bukle === 'Pranešimai verčiami automatiškai',
+      'įjungto jungiklio užrašai: ' + JSON.stringify(v1));
+  tik(v1.ijungta === '1', 'jungiklis neįsijungė');
+  tik(v1.savoSuKlaida === 0, 'savo žinutės verčiamos — turi likti originalios');
+
+  await p.reload({ waitUntil: 'domcontentloaded' });
+  await p.waitForTimeout(2000);
+  const v2 = await vBusena();
+  tik(v2.ijungta === '1' && v2.btn === 'RODYTI ORIGINALIAS ŽINUTES',
+      'būsena neišliko po perkrovimo: ' + JSON.stringify(v2));
+
+  await p.evaluate(() => document.getElementById('pkVerstiBtn').click());
+  await p.waitForTimeout(2500);
+  const v3 = await vBusena();
+  tik(v3.ijungta === '0' && v3.btn === 'IŠVERSTI POKALBĮ', 'jungiklis neišsijungė');
+  tik(await p.evaluate(() =>
+        document.querySelectorAll('.pk-vertimo-klaida:not([hidden])').length === 0),
+      'išjungus liko vertimo klaidų prierašų');
+
   antraste('Nuotraukos ir didinimo langas');
   const foto = await p.evaluate(() => {
     const i = document.querySelector('.pk-burb img.lightbox-trigger');

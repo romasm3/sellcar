@@ -1,4 +1,4 @@
-{% load i18n pokalbiu_tags %}{% comment %}
+{% load i18n dict_extras pokalbiu_tags %}{% comment %}
 ═══════════════════════════════════════════════════════════════════════
 ŽINUČIŲ SRAUTAS — VIENA dalis abiem ekranams (sąrašui ir /conversations/<id>/).
 
@@ -22,7 +22,16 @@ margin-top:auto), o JS atidarius nuslenka į paskutinę žinutę.
   <div class="pk-burb {% if message.sender_id == request.user.id %}as{% else %}jie{% endif %}"
        data-message-id="{{ message.id }}">
     {% if message.content %}
-    <span class="pk-tekstas" data-original="{{ message.content }}">{{ message.content }}</span>
+    {% comment %}Jungiklis įjungtas → gaunama žinutė rodoma jau išversta,
+    o originalas lieka `data-original` (jungiklį išjungus grįžta be
+    naujos užklausos). Savo teksto neverčiam.{% endcomment %}
+    {% with v=vertimai|get_item:message.id %}
+    <span class="pk-tekstas" data-original="{{ message.content }}"
+          {% if v.tekstas %}data-verstas="{{ v.tekstas }}"{% endif %}>{% if vertimas_ijungtas and v.tekstas %}{{ v.tekstas }}{% else %}{{ message.content }}{% endif %}</span>
+    {% if vertimas_ijungtas and v.klaida %}
+    <span class="pk-vertimo-klaida">{% trans "Nepavyko išversti" %}</span>
+    {% endif %}
+    {% endwith %}
     {% endif %}
     {% if message.image %}
     <img src="{{ message.image.url }}" data-fullsrc="{{ message.image.url }}"

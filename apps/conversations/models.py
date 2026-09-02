@@ -98,3 +98,38 @@ class MessageTranslation(models.Model):
 
     def __str__(self):
         return f"Msg #{self.message_id} → {self.target_lang}"
+
+
+class ConversationTranslation(models.Model):
+    """Ar ŠITAS žmogus nori, kad ŠITAS pokalbis būtų verčiamas.
+
+    Jungiklis, ne vienkartinis veiksmas: įjungus verčiamos visos esamos
+    žinutės ir kiekviena nauja, kol išjungsi. Būsena laikoma serveryje
+    (ne localStorage), kad išliktų atidarius iš kito įrenginio.
+
+    Verčiamos TIK gaunamos žinutės — savo teksto versti nereikia.
+    """
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='pokalbiu_vertimai')
+    conversation = models.ForeignKey(
+        Conversation, on_delete=models.CASCADE, related_name='vertimo_busenos')
+    enabled = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ['user', 'conversation']
+        verbose_name = 'Pokalbio vertimas'
+        verbose_name_plural = 'Pokalbių vertimai'
+
+    def __str__(self):
+        return '%s · pokalbis %s · %s' % (
+            self.user_id, self.conversation_id,
+            'įjungta' if self.enabled else 'išjungta')
+
+    @classmethod
+    def ijungta(cls, user, conversation):
+        if not user or not getattr(user, 'is_authenticated', False):
+            return False
+        return cls.objects.filter(
+            user=user, conversation=conversation, enabled=True).exists()

@@ -8,8 +8,12 @@ Naudojimas:
     # → [{'id': 1, 'original': 'Labas', 'translated': 'Hallo', 'detected': 'lt'}, ...]
 """
 
+import logging
+
 from google.cloud import translate_v2 as translate
 from .models import Message, MessageTranslation
+
+logger = logging.getLogger(__name__)
 
 
 # Singleton client (sukuriam tik vieną kartą)
@@ -100,12 +104,18 @@ def translate_messages_for_user(messages, target_lang='en'):
                 )
         except Exception as e:
             # Failsafe: jei API neveikia (quota viršyta, network issue, etc.)
-            # — grąžinam originalų tekstą, vartotojas matys non-translated
-            print(f"[translate_service] Google API error: {e}")
+            # — grąžinam originalų tekstą, vartotojas matys non-translated.
+            #
+            # Kvietimas ir raktas nepaliesti. Pridėta tik žyma 'klaida':
+            # be jos sąsaja negalėjo atskirti „išversta į tą pačią kalbą"
+            # nuo „nepavyko", tad po žinute negalėdavo parodyti
+            # „Nepavyko išversti" (reikalavimas 2026-09-02, 7 punktas).
+            logger.exception('Google Translate API klaida: %s', e)
             for msg in to_translate:
                 cached[msg.id] = {
                     'translated': msg.content,
                     'detected': '',
+                    'klaida': True,
                 }
     
     # 4. Sudarom output (ta pati eilė kaip input messages)
@@ -120,5 +130,6 @@ def translate_messages_for_user(messages, target_lang='en'):
             'original': m.content,
             'translated': cache_entry['translated'],
             'detected': cache_entry['detected'],
+            'klaida': bool(cache_entry.get('klaida')),
         })
     return output

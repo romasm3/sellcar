@@ -211,6 +211,76 @@ tikrink(Conversation in dj_admin.site._registry, 'Conversation neregistruotas ad
 tikrink(Message in dj_admin.site._registry, 'Message neregistruotas admin\'e')
 
 
+antraste('7. Vertimas — jungiklis, ne vienkartinis veiksmas')
+from apps.conversations.models import ConversationTranslation
+
+# Pakišam veikiantį „Google" — tikrinam elgseną, ne biblioteką.
+def netikras(messages, target_lang='en'):
+    return [{'id': m.id, 'original': m.content,
+             'translated': '[%s] %s' % (target_lang, m.content),
+             'detected': 'lt', 'klaida': False} for m in messages]
+
+import apps.conversations.views as V
+orig_v = ts.translate_messages_for_user
+ts.translate_messages_for_user = netikras
+try:
+    mano = Message.objects.create(conversation=c, sender=b, content='Mano tekstas')
+    svetima = Message.objects.create(conversation=c, sender=a, content='Svetimas tekstas')
+
+    tikrink(not ConversationTranslation.ijungta(b, c), 'iš pradžių turi būti išjungta')
+
+    r7 = kl.post('/conversations/%s/translate/toggle/' % c.pk, {'ijungti': '1'})
+    d7 = json.loads(r7.content)
+    tikrink(r7.status_code == 200 and d7.get('ijungta') is True,
+            'jungiklis neįsijungė: %s' % r7.status_code)
+    tikrink(ConversationTranslation.ijungta(b, c), 'būsena neišsaugota serveryje')
+    tikrink(str(svetima.pk) in d7.get('vertimai', {}),
+            'įjungus negrąžinti esamų žinučių vertimai')
+    tikrink(str(mano.pk) not in d7.get('vertimai', {}),
+            'verčiamas SAVO tekstas — turi likti originalus')
+
+    # Nauja žinutė ateina jau išversta
+    nauja = Message.objects.create(conversation=c, sender=a, content='Nauja svetima')
+    r8 = kl.get('/conversations/check-new/?conv=%s&po=%s' % (c.pk, svetima.pk))
+    z = {x['id']: x for x in json.loads(r8.content)['zinutes']}
+    tikrink(z.get(nauja.pk, {}).get('vertimas', '').startswith('['),
+            'nauja žinutė ateina neišversta, nors jungiklis įjungtas')
+
+    mano2 = Message.objects.create(conversation=c, sender=b, content='Vėl mano')
+    r9 = kl.get('/conversations/check-new/?conv=%s&po=%s' % (c.pk, nauja.pk))
+    z2 = {x['id']: x for x in json.loads(r9.content)['zinutes']}
+    tikrink(not z2.get(mano2.pk, {}).get('vertimas'),
+            'sava nauja žinutė verčiama')
+
+    # Klaida — jungiklis lieka įjungtas
+    def su_klaida(messages, target_lang='en'):
+        return [{'id': m.id, 'original': m.content, 'translated': m.content,
+                 'detected': '', 'klaida': True} for m in messages]
+    ts.translate_messages_for_user = su_klaida
+    v = V._vertimai([svetima], b)
+    tikrink(v.get(svetima.pk, {}).get('klaida') is True,
+            'nepavykęs vertimas nepažymimas — sąsaja neparodys „Nepavyko išversti"')
+    tikrink(ConversationTranslation.ijungta(b, c), 'po klaidos jungiklis išsijungė')
+    ts.translate_messages_for_user = netikras
+
+    r10 = kl.post('/conversations/%s/translate/toggle/' % c.pk, {'ijungti': '0'})
+    tikrink(json.loads(r10.content).get('ijungta') is False, 'jungiklis neišsijungė')
+    tikrink(not ConversationTranslation.ijungta(b, c), 'išjungta būsena neišsaugota')
+
+    # Svetimo pokalbio jungiklio pasiekti negalima
+    r11 = kl.post('/conversations/%s/translate/toggle/' % sveti.pk, {'ijungti': '1'})
+    tikrink(r11.status_code == 404, 'svetimą pokalbį galima įjungti (%s)' % r11.status_code)
+finally:
+    ts.translate_messages_for_user = orig_v
+
+# Užrašai — tokie, kokių prašyta
+A_ = open(os.path.join(BASE, 'templates', 'conversations', 'partials',
+                       '_apacia.html'), encoding='utf-8').read()
+for uzrasas in ('IŠVERSTI POKALBĮ', 'RODYTI ORIGINALIAS ŽINUTES',
+                'Rodomi originalūs pranešimai', 'Pranešimai verčiami automatiškai'):
+    tikrink(uzrasas in A_, 'trūksta užrašo „%s"' % uzrasas)
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

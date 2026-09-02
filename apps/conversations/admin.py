@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Conversation, Message, MessageTranslation
+from .models import (Conversation, ConversationTranslation, Message,
+                     MessageTranslation)
 
 
 class MessageInline(admin.TabularInline):
@@ -56,3 +57,10 @@ class MessageTranslationAdmin(admin.ModelAdmin):
     list_display = ('message', 'target_lang', 'detected_source_lang', 'created_at')
     list_filter = ('target_lang', 'detected_source_lang')
     raw_id_fields = ('message',)
+
+
+@admin.register(ConversationTranslation)
+class ConversationTranslationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'conversation', 'enabled', 'updated_at')
+    list_filter = ('enabled',)
+    raw_id_fields = ('user', 'conversation')

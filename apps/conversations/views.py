@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 from apps.listings.image_validation import ImageValidationError, validate_image
 
-from .models import Conversation, Message
+from .models import Conversation, ConversationTranslation, Message
 
 
 # Greiti atsakymai — VIENAS sąrašas abiem ekranams (sąrašui ir pokalbiui).
@@ -29,13 +29,40 @@ def _greiti(conversation):
     return GREITI_ATSAKYMAI if (conversation and conversation.listing_id) else []
 
 
-def _zinutes_json(messages, user):
+def _vertimai(messages, user, request=None):
+    """{žinutės_id: {'tekstas': …, 'klaida': bool}} — TIK GAUNAMOMS.
+
+    Savo teksto neverčiam: žmogus žino, ką parašė. Vertimai keliauja per
+    MessageTranslation kešą, tad ta pati žinutė į Google eina vieną kartą.
+    Vertimo kvietimas ir raktas nepaliesti.
+    """
+    from django.utils import translation as django_translation
+
+    gaunamos = [m for m in messages
+                if m.sender_id != user.id and (m.content or '').strip()]
+    if not gaunamos:
+        return {}
+    kalba = (django_translation.get_language() or 'en').split('-')[0]
+    try:
+        from .translate_service import translate_messages_for_user
+        eilutes = translate_messages_for_user(gaunamos, kalba) or []
+    except Exception:
+        logger.exception('Vertimas nepavyko (kalba %s)', kalba)
+        # Klaida matoma po kiekviena žinute, jungiklis lieka įjungtas.
+        return {m.id: {'tekstas': m.content, 'klaida': True} for m in gaunamos}
+    return {e['id']: {'tekstas': e['translated'], 'klaida': bool(e.get('klaida'))}
+            for e in eilutes}
+
+
+def _zinutes_json(messages, user, vertimai=None):
     """Žinutės JSON'ui — tas pats pavidalas, kurį piešia šablonas."""
     from django.utils import timezone
     from apps.conversations.templatetags.pokalbiu_tags import dienos_zyma
+    vertimai = vertimai or {}
     out = []
     for m in messages:
         vietine = timezone.localtime(m.created_at)
+        v = vertimai.get(m.id) or {}
         out.append({
             'id': m.id,
             'mano': m.sender_id == user.id,
@@ -44,6 +71,10 @@ def _zinutes_json(messages, user):
             'laikas': vietine.strftime('%H:%M'),
             'diena': str(dienos_zyma(m.created_at)),
             'perskaityta': bool(m.is_read),
+            # Vertimas ateina kartu su žinute — kol jungiklis įjungtas,
+            # naujos žinutės verčiamos vieną kartą jas gavus.
+            'vertimas': v.get('tekstas', ''),
+            'vertimo_klaida': bool(v.get('klaida')),
         })
     return out
 
@@ -171,12 +202,18 @@ def conversation_list(request):
 
             return redirect(f'/conversations/?conv={selected_conv.pk}')
 
+    verciam = bool(selected_conv) and ConversationTranslation.ijungta(
+        request.user, selected_conv)
+    vertimai = _vertimai(selected_messages, request.user) if verciam else {}
+
     context = {
         'conv_data': conv_data,
         'selected_conv': selected_conv,
         'selected_messages': selected_messages,
         'selected_other_user': selected_other_user,
         'greiti_atsakymai': _greiti(selected_conv),
+        'vertimas_ijungtas': verciam,
+        'vertimai': vertimai,
     }
     return render(request, 'conversations/conversation_list.html', context)
 
@@ -218,11 +255,14 @@ def conversation_detail(request, pk):
     messages = conversation.messages.all()
     other_user = conversation.get_other_participant(request.user)
 
+    verciam = ConversationTranslation.ijungta(request.user, conversation)
     context = {
         'conversation': conversation,
         'messages': messages,
         'other_user': other_user,
         'greiti_atsakymai': _greiti(conversation),
+        'vertimas_ijungtas': verciam,
+        'vertimai': _vertimai(messages, request.user) if verciam else {},
     }
     return render(request, 'conversations/conversation_detail.html', context)
 
@@ -318,7 +358,10 @@ def check_new_messages(request):
             if po and str(po).isdigit():
                 naujos = naujos.filter(id__gt=int(po))
             naujos = list(naujos.order_by('created_at')[:50])
-            atsakymas['zinutes'] = _zinutes_json(naujos, request.user)
+            vertimai = (_vertimai(naujos, request.user)
+                        if ConversationTranslation.ijungta(request.user, conversation)
+                        else {})
+            atsakymas['zinutes'] = _zinutes_json(naujos, request.user, vertimai)
             # Pokalbis atidarytas — svetimos žinutės iškart perskaitytos,
             # kitaip vokas antraštėje rodytų tai, ką žmogus jau mato.
             svetimos = [m.id for m in naujos if m.sender_id != request.user.id]
@@ -329,6 +372,40 @@ def check_new_messages(request):
                     is_read=False).exclude(sender=request.user).count()
 
     return JsonResponse(atsakymas)
+
+
+@login_required
+def translate_toggle(request, pk):
+    """Vertimo JUNGIKLIS — įjungia arba išjungia šito pokalbio vertimą.
+
+    Būsena saugoma serveryje (ConversationTranslation), susieta su
+    naudotoju ir pokalbiu, todėl išlieka ir atidarius iš kito įrenginio.
+    Įjungus grąžinamos VISŲ gaunamų žinučių vertimai — spausti iš naujo
+    nereikia, o naujos ateina jau išverstos per check-new.
+    """
+    from django.http import JsonResponse
+
+    conversation = get_object_or_404(
+        Conversation, pk=pk, participants=request.user)
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'POST'}, status=405)
+
+    nori = str(request.POST.get('ijungti', '')).lower() in ('1', 'true', 'taip')
+    busena, _ = ConversationTranslation.objects.get_or_create(
+        user=request.user, conversation=conversation)
+    busena.enabled = nori
+    busena.save(update_fields=['enabled', 'updated_at'])
+
+    vertimai = {}
+    if nori:
+        vertimai = _vertimai(list(conversation.messages.all()), request.user)
+
+    return JsonResponse({
+        'success': True,
+        'ijungta': nori,
+        'vertimai': {str(k): v for k, v in vertimai.items()},
+    })
 
 
 @login_required

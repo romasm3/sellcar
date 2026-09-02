@@ -5,12 +5,16 @@ VIENA dalis abiem ekranams; abu siunčia į tą patį `conversations:detail`.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 {% if zinutes %}
+{% comment %}Vertimas — JUNGIKLIS, ne vienkartinis veiksmas. Įjungus
+verčiamos visos gaunamos žinutės ir kiekviena nauja, kol išjungsi;
+būsena saugoma serveryje (ConversationTranslation).{% endcomment %}
 <div class="pk-versti">
   <button type="button" id="pkVerstiBtn"
-          data-url="{% url 'conversations:translate' conversation.pk %}">
-    <span id="pkVerstiTxt">{% trans "IŠVERSTI POKALBĮ" %}</span>
+          data-url="{% url 'conversations:translate_toggle' conversation.pk %}"
+          data-ijungta="{% if vertimas_ijungtas %}1{% else %}0{% endif %}">
+    <span id="pkVerstiTxt">{% if vertimas_ijungtas %}{% trans "RODYTI ORIGINALIAS ŽINUTES" %}{% else %}{% trans "IŠVERSTI POKALBĮ" %}{% endif %}</span>
   </button>
-  <div class="pk-bukle" id="pkVerstiBukle">{% trans "Rodomos originalios žinutės" %}</div>
+  <div class="pk-bukle" id="pkVerstiBukle">{% if vertimas_ijungtas %}{% trans "Pranešimai verčiami automatiškai" %}{% else %}{% trans "Rodomi originalūs pranešimai" %}{% endif %}</div>
 </div>
 {% endif %}
 

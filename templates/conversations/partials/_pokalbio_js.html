@@ -17,11 +17,12 @@ jas prideda į apačią.
   'use strict';
   var T = {
     versti: "{% trans 'IŠVERSTI POKALBĮ' %}",
-    originalas: "{% trans 'RODYTI ORIGINALĄ' %}",
+    rodykOriginalus: "{% trans 'RODYTI ORIGINALIAS ŽINUTES' %}",
     verciama: "{% trans 'Verčiama…' %}",
-    rodomOriginalus: "{% trans 'Rodomos originalios žinutės' %}",
-    rodomVertimus: "{% trans 'Rodomos išverstos žinutės' %}",
+    rodomOriginalus: "{% trans 'Rodomi originalūs pranešimai' %}",
+    verciamaAuto: "{% trans 'Pranešimai verčiami automatiškai' %}",
     nepavyko: "{% trans 'Nepavyko išversti. Bandykite dar kartą.' %}",
+    nepavykoZinute: "{% trans 'Nepavyko išversti' %}",
     perskaityta: "{% trans 'perskaityta' %}",
     pristatyta: "{% trans 'pristatyta' %}"
   };
@@ -91,9 +92,11 @@ jas prideda į apačią.
       var sp = document.createElement('span');
       sp.className = 'pk-tekstas';
       sp.dataset.original = z.tekstas;
-      sp.textContent = z.tekstas;
+      if (z.vertimas) { sp.dataset.verstas = z.vertimas; }
+      sp.textContent = (verciam && z.vertimas && !z.mano) ? z.vertimas : z.tekstas;
       b.appendChild(sp);
     }
+    if (verciam && !z.mano && z.vertimo_klaida) { zymekKlaida(b, true); }
     if (z.foto) {
       var img = document.createElement('img');
       img.src = z.foto;
@@ -139,67 +142,99 @@ jas prideda į apačią.
   });
   paleisk();
 
-  // ─── Vertimas ────────────────────────────────────────────────────
+  // ─── Vertimas — JUNGIKLIS ─────────────────────────────────────────
+  // Įjungtas: visos gaunamos žinutės rodomos išverstos, o kiekviena
+  // nauja ateina jau išversta (check-new atiduoda `vertimas`). Savo
+  // teksto neverčiam. Būsena saugoma serveryje, ne naršyklėje.
   var vBtn = document.getElementById('pkVerstiBtn');
+  var verciam = !!(vBtn && vBtn.dataset.ijungta === '1');
+
+  function rodykVertima(sp, ijungta) {
+    if (!sp) { return; }
+    var v = sp.dataset.verstas;
+    sp.textContent = (ijungta && v) ? v : (sp.dataset.original || sp.textContent);
+  }
+
+  function perpiesk() {
+    document.querySelectorAll('.pk-burb').forEach(function (b) {
+      if (b.classList.contains('as')) { return; }   // savo teksto neverčiam
+      rodykVertima(b.querySelector('.pk-tekstas'), verciam);
+      var kl = b.querySelector('.pk-vertimo-klaida');
+      if (kl) { kl.hidden = !verciam; }
+    });
+  }
+
   if (vBtn) {
     var vTxt = document.getElementById('pkVerstiTxt');
     var vBukle = document.getElementById('pkVerstiBukle');
-    var isversta = false, kesas = null;
 
-    function taikyk(k) {
-      document.querySelectorAll('[data-message-id]').forEach(function (b) {
-        var t = k[parseInt(b.dataset.messageId, 10)];
-        var sp = b.querySelector('.pk-tekstas');
-        if (t && sp) { sp.textContent = t; }
-      });
-    }
-    function klaida() {
-      vBukle.textContent = T.nepavyko;
-      vBukle.classList.add('klaida');
-      vTxt.textContent = T.versti;
+    function uzrasai() {
+      vTxt.textContent = verciam ? T.rodykOriginalus : T.versti;
+      vBukle.textContent = verciam ? T.verciamaAuto : T.rodomOriginalus;
+      vBukle.classList.remove('klaida');
+      vBtn.dataset.ijungta = verciam ? '1' : '0';
     }
 
     vBtn.addEventListener('click', function () {
-      vBukle.classList.remove('klaida');
-      if (isversta) {
-        document.querySelectorAll('.pk-tekstas').forEach(function (sp) {
-          sp.textContent = sp.dataset.original;
-        });
-        vTxt.textContent = T.versti;
-        vBukle.textContent = T.rodomOriginalus;
-        isversta = false;
-        return;
-      }
-      if (kesas) {
-        taikyk(kesas); vTxt.textContent = T.originalas;
-        vBukle.textContent = T.rodomVertimus; isversta = true; return;
-      }
+      var nori = !verciam;
       vTxt.textContent = T.verciama;
       vBtn.disabled = true;
       // Jei paslauga neatsako, „Verčiama…" negali kaboti amžinai:
-      // po 20 s nutraukiam ir parodom „Nepavyko išversti".
+      // po 20 s nutraukiam ir grąžinam mygtuką.
       var nutraukiklis = ('AbortController' in window) ? new AbortController() : null;
       var laikas = setTimeout(function () {
-        if (nutraukiklis) { nutraukiklis.abort(); } else { klaida(); vBtn.disabled = false; }
+        if (nutraukiklis) { nutraukiklis.abort(); }
       }, 20000);
-      fetch(vBtn.dataset.url, { headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                                signal: nutraukiklis ? nutraukiklis.signal : undefined })
+
+      var duom = new FormData();
+      duom.append('ijungti', nori ? '1' : '0');
+      duom.append('csrfmiddlewaretoken', (document.querySelector('[name=csrfmiddlewaretoken]') || {}).value || '');
+
+      fetch(vBtn.dataset.url, {
+        method: 'POST', body: duom,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        signal: nutraukiklis ? nutraukiklis.signal : undefined
+      })
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (d) {
-          if (d && d.success && d.messages) {
-            kesas = {};
-            d.messages.forEach(function (m) { kesas[m.id] = m.translated; });
-            taikyk(kesas);
-            vTxt.textContent = T.originalas;
-            vBukle.textContent = T.rodomVertimus;
-            isversta = true;
-          } else {
-            klaida();
+          if (!d || !d.success) {
+            vBukle.textContent = T.nepavyko;
+            vBukle.classList.add('klaida');
+            vTxt.textContent = verciam ? T.rodykOriginalus : T.versti;
+            return;
           }
+          verciam = !!d.ijungta;
+          Object.keys(d.vertimai || {}).forEach(function (id) {
+            var b = document.querySelector('[data-message-id="' + id + '"]');
+            if (!b || b.classList.contains('as')) { return; }
+            var sp = b.querySelector('.pk-tekstas');
+            if (sp) { sp.dataset.verstas = d.vertimai[id].tekstas || ''; }
+            zymekKlaida(b, d.vertimai[id].klaida);
+          });
+          perpiesk();
+          uzrasai();
         })
-        .catch(klaida)
+        .catch(function () {
+          vBukle.textContent = T.nepavyko;
+          vBukle.classList.add('klaida');
+          vTxt.textContent = verciam ? T.rodykOriginalus : T.versti;
+        })
         .then(function () { clearTimeout(laikas); vBtn.disabled = false; });
     });
+  }
+
+  // Vienos žinutės vertimo klaida — pilkas prierašas po ja.
+  function zymekKlaida(burbulas, yra) {
+    var kl = burbulas.querySelector('.pk-vertimo-klaida');
+    if (yra && !kl) {
+      kl = document.createElement('span');
+      kl.className = 'pk-vertimo-klaida';
+      kl.textContent = T.nepavykoZinute;
+      var laikas = burbulas.querySelector('.pk-burb-laikas');
+      burbulas.insertBefore(kl, laikas || null);
+    } else if (kl) {
+      kl.hidden = !yra;
+    }
   }
 
   // ─── Nuotraukos įkėlimas ─────────────────────────────────────────
