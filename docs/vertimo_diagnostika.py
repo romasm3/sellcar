@@ -28,6 +28,7 @@ except Exception as e:
     paketas = False
 
 # ── 2. Raktas ──────────────────────────────────────────────────────
+# Du keliai: JSON failas arba API raktas (žr. docs/vertimo-raktas.md).
 import django
 try:
     django.setup()
@@ -44,6 +45,15 @@ print('   env GOOGLE_APPLICATION_CREDENTIALS: %r' % env)
 if env and not os.path.isfile(env):
     print('   DĖMESIO: env rodo į neegzistuojantį failą')
 
+from apps.conversations.translate_service import _api_raktas, _rakto_failas
+raktas = _api_raktas()
+print('   API raktas:   %s' % ('YRA (…%s)' % raktas[-4:] if raktas else 'NĖRA'))
+print('   kelias:       %s' % ('JSON failas' if _rakto_failas()
+                               else ('API raktas' if raktas else 'NĖRA NĖ VIENO')))
+if not _rakto_failas() and not raktas:
+    print('   Taisymas:     .env → GOOGLE_TRANSLATE_API_KEY=… ; '
+          'žr. docs/vertimo-raktas.md')
+
 # ── 3. Lentelė ─────────────────────────────────────────────────────
 from apps.conversations.models import MessageTranslation
 try:
@@ -53,16 +63,17 @@ except Exception as e:
     print('   Taisymas:     python manage.py migrate')
 
 # ── 4. Tikras kvietimas ────────────────────────────────────────────
-if paketas:
-    try:
-        from google.cloud import translate_v2 as translate
-        c = translate.Client()
-        r = c.translate(['Labas'], target_language='en', format_='text')
-        print('4. API:          VEIKIA → %r' % r[0].get('translatedText'))
-    except Exception as e:
-        print('4. API:          NEATSAKO — %s: %s' % (type(e).__name__, e))
-        print('   DefaultCredentialsError → nėra rakto;')
-        print('   Forbidden/PermissionDenied → API neįjungtas projekte arba nėra teisių;')
-        print('   ResourceExhausted → kvota.')
-else:
-    print('4. API:          netikrinta (nėra paketo)')
+# Kviečiam TĄ PATĮ kelią, kurį naudoja svetainė (_versk), kad diagnostika
+# nemeluotų apie kitą kelią nei tikrasis.
+from apps.conversations.translate_service import _versk
+try:
+    r = _versk(['Labas'], 'en')
+    print('4. API:          VEIKIA → %r' % (r[0].get('translatedText') if r else None))
+except Exception as e:
+    print('4. API:          NEATSAKO — %s: %s' % (type(e).__name__, e))
+    print('   VertimoNera             → nėra nei failo, nei rakto;')
+    print('   403 „has not been used" → Cloud Translation API neįjungtas projekte;')
+    print('   403 „referer/API_KEY"   → raktas apribotas (Maps-only arba HTTP referrer);')
+    print('   429                     → viršyta kvota;')
+    print('   DefaultCredentialsError → JSON failas nurodytas, bet netinka.')
+    print('   Žr. docs/vertimo-raktas.md')

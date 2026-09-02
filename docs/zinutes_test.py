@@ -156,6 +156,77 @@ for saknis, _k, failai in os.walk(os.path.join(BASE, 'templates', 'conversations
 tikrink(not blogos, 'liko location.reload(): %s' % blogos)
 
 
+antraste('5a. Raktas: JSON failas, API raktas arba „neįjungta"')
+from django.test import override_settings
+import unittest.mock as _mock
+import apps.conversations.translate_service as _ts
+
+def _sviezios(n=2, siuntejas=None):
+    return [Message.objects.create(conversation=c, sender=siuntejas or a,
+                                   content='Testas %s-%d' % (os.urandom(3).hex(), i))
+            for i in range(n)]
+
+# Nėra nieko → VertimoNera, ne tylus originalas
+with override_settings(GOOGLE_CREDENTIALS_PATH=None,
+                       GOOGLE_TRANSLATE_API_KEY='', GOOGLE_MAPS_API_KEY=''):
+    try:
+        _ts.translate_messages_for_user(_sviezios(1), 'en')
+        tikrink(False, 'be rakto grąžinamas originalas vietoj VertimoNera')
+    except _ts.VertimoNera:
+        tikrink(True, '')
+
+# API raktas → REST kelias, bibliotekos net neliečiam
+class _Ger:
+    status_code = 200
+    def json(self):
+        return {'data': {'translations': [
+            {'translatedText': 'A', 'detectedSourceLanguage': 'lt'},
+            {'translatedText': 'B', 'detectedSourceLanguage': 'lt'}]}}
+
+with override_settings(GOOGLE_CREDENTIALS_PATH=None, GOOGLE_TRANSLATE_API_KEY='RAKTAS'):
+    with _mock.patch.object(_ts, 'get_client',
+                            side_effect=AssertionError('biblioteka neturi būti kviečiama')):
+        with _mock.patch('requests.post', return_value=_Ger()) as post:
+            out = _ts.translate_messages_for_user(_sviezios(2), 'en')
+            kw = post.call_args.kwargs
+            tikrink(post.call_args.args[0] == _ts.API_URL, 'kviečiamas ne v2 galinis taškas')
+            tikrink(kw['params'] == {'key': 'RAKTAS'}, 'raktas nesiunčiamas: %s' % kw['params'])
+            tikrink(kw['json']['format'] == 'text', 'siunčiamas ne plain text')
+            tikrink(kw['timeout'] == _ts.LAIKAS, 'nėra laiko ribos')
+            tikrink([o['translated'] for o in out] == ['A', 'B'], 'vertimas nepriimtas')
+
+# Maps raktas — atsarginis
+with override_settings(GOOGLE_CREDENTIALS_PATH=None, GOOGLE_TRANSLATE_API_KEY='',
+                       GOOGLE_MAPS_API_KEY='MAPS'):
+    tikrink(_ts._api_raktas() == 'MAPS', 'nepaimamas GOOGLE_MAPS_API_KEY')
+with override_settings(GOOGLE_CREDENTIALS_PATH=None, GOOGLE_TRANSLATE_API_KEY='SAVAS',
+                       GOOGLE_MAPS_API_KEY='MAPS'):
+    tikrink(_ts._api_raktas() == 'SAVAS', 'savas raktas neturi pirmenybės')
+
+# Google klaida → žyma klaida, tekstas lieka originalus
+class _Blogas:
+    status_code = 403
+    text = 'x'
+    def json(self):
+        return {'error': {'message': 'Cloud Translation API has not been used'}}
+
+with override_settings(GOOGLE_CREDENTIALS_PATH=None, GOOGLE_TRANSLATE_API_KEY='RAKTAS'):
+    with _mock.patch('requests.post', return_value=_Blogas()):
+        sv = _sviezios(1)
+        out = _ts.translate_messages_for_user(sv, 'en')
+        tikrink(out[0]['klaida'] is True, '403 nepažymimas kaip klaida')
+        tikrink(out[0]['translated'] == sv[0].content, 'po klaidos negrąžinamas originalas')
+
+# settings ir sąsaja
+from django.conf import settings as _s
+tikrink(hasattr(_s, 'GOOGLE_TRANSLATE_API_KEY'), 'settings neskaito GOOGLE_TRANSLATE_API_KEY')
+_A = open(os.path.join(BASE, 'templates', 'conversations', 'partials',
+                       '_apacia.html'), encoding='utf-8').read()
+tikrink('Vertimas neįjungtas' in _A, 'sąsaja nerodo „Vertimas neįjungtas"')
+tikrink(os.path.isfile(os.path.join(BASE, 'docs', 'vertimo-raktas.md')),
+        'nėra docs/vertimo-raktas.md')
+
+
 antraste('5. Vertimas — logika kaip buvo, klaida nekabo')
 # Vertimo servisas 2026-09-02 ATSUKTAS į buvusią būseną (vartotojo
 # sprendimas): jis pats susitvarko su API klaidomis. Čia tikrinam tik tai,

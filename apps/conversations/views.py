@@ -29,6 +29,19 @@ def _greiti(conversation):
     return GREITI_ATSAKYMAI if (conversation and conversation.listing_id) else []
 
 
+def _vertimai_saugiai(messages, user):
+    """(vertimai, ar_neijungtas) — puslapio piešimui.
+
+    Puslapis dėl nenustatyto vertimo nekrenta: jungiklis lieka matomas, o
+    po juo parašoma „Vertimas neįjungtas".
+    """
+    from .translate_service import VertimoNera
+    try:
+        return _vertimai(messages, user), False
+    except VertimoNera:
+        return {}, True
+
+
 def _vertimai(messages, user, request=None):
     """{žinutės_id: {'tekstas': …, 'klaida': bool}} — TIK GAUNAMOMS.
 
@@ -43,9 +56,17 @@ def _vertimai(messages, user, request=None):
     if not gaunamos:
         return {}
     kalba = (django_translation.get_language() or 'en').split('-')[0]
+    from .translate_service import translate_messages_for_user, VertimoNera
     try:
-        from .translate_service import translate_messages_for_user
         eilutes = translate_messages_for_user(gaunamos, kalba) or []
+    except VertimoNera:
+        # Ne „nepavyko", o „nenustatyta": nėra nei rakto failo, nei API
+        # rakto. Keliam aukštyn — sąsaja parodys „Vertimas neįjungtas",
+        # kad nesimatytų tyliai grąžinto originalo.
+        logger.error('Vertimas neįjungtas: nėra nei GOOGLE_APPLICATION_'
+                     'CREDENTIALS failo, nei GOOGLE_TRANSLATE_API_KEY / '
+                     'GOOGLE_MAPS_API_KEY (žr. docs/vertimo-raktas.md)')
+        raise
     except Exception:
         logger.exception('Vertimas nepavyko (kalba %s)', kalba)
         # Klaida matoma po kiekviena žinute, jungiklis lieka įjungtas.
@@ -204,7 +225,8 @@ def conversation_list(request):
 
     verciam = bool(selected_conv) and ConversationTranslation.ijungta(
         request.user, selected_conv)
-    vertimai = _vertimai(selected_messages, request.user) if verciam else {}
+    vertimai, vertimo_nera = (_vertimai_saugiai(selected_messages, request.user)
+                              if verciam else ({}, False))
 
     context = {
         'conv_data': conv_data,
@@ -214,6 +236,7 @@ def conversation_list(request):
         'greiti_atsakymai': _greiti(selected_conv),
         'vertimas_ijungtas': verciam,
         'vertimai': vertimai,
+        'vertimo_nera': vertimo_nera,
     }
     return render(request, 'conversations/conversation_list.html', context)
 
@@ -256,13 +279,16 @@ def conversation_detail(request, pk):
     other_user = conversation.get_other_participant(request.user)
 
     verciam = ConversationTranslation.ijungta(request.user, conversation)
+    vertimai, vertimo_nera = (_vertimai_saugiai(messages, request.user)
+                              if verciam else ({}, False))
     context = {
         'conversation': conversation,
         'messages': messages,
         'other_user': other_user,
         'greiti_atsakymai': _greiti(conversation),
         'vertimas_ijungtas': verciam,
-        'vertimai': _vertimai(messages, request.user) if verciam else {},
+        'vertimai': vertimai,
+        'vertimo_nera': vertimo_nera,
     }
     return render(request, 'conversations/conversation_detail.html', context)
 
@@ -358,9 +384,9 @@ def check_new_messages(request):
             if po and str(po).isdigit():
                 naujos = naujos.filter(id__gt=int(po))
             naujos = list(naujos.order_by('created_at')[:50])
-            vertimai = (_vertimai(naujos, request.user)
-                        if ConversationTranslation.ijungta(request.user, conversation)
-                        else {})
+            vertimai = ({}
+                        if not ConversationTranslation.ijungta(request.user, conversation)
+                        else _vertimai_saugiai(naujos, request.user)[0])
             atsakymas['zinutes'] = _zinutes_json(naujos, request.user, vertimai)
             # Pokalbis atidarytas — svetimos žinutės iškart perskaitytos,
             # kitaip vokas antraštėje rodytų tai, ką žmogus jau mato.
@@ -399,7 +425,20 @@ def translate_toggle(request, pk):
 
     vertimai = {}
     if nori:
-        vertimai = _vertimai(list(conversation.messages.all()), request.user)
+        from .translate_service import VertimoNera
+        try:
+            vertimai = _vertimai(list(conversation.messages.all()), request.user)
+        except VertimoNera as e:
+            # Įjungti nėra ko: raktas nenustatytas. Būseną paliekam
+            # išjungtą ir pasakom tiesiai, o ne rodom originalą kaip
+            # vertimą.
+            busena.enabled = False
+            busena.save(update_fields=['enabled', 'updated_at'])
+            return JsonResponse({
+                'success': False,
+                'error': str(e),
+                'error_type': 'VertimoNera',
+            }, status=503)
 
     return JsonResponse({
         'success': True,

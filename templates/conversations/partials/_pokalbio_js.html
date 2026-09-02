@@ -23,6 +23,7 @@ jas prideda į apačią.
     verciamaAuto: "{% trans 'Pranešimai verčiami automatiškai' %}",
     nepavyko: "{% trans 'Nepavyko išversti. Bandykite dar kartą.' %}",
     nepavykoZinute: "{% trans 'Nepavyko išversti' %}",
+    neijungta: "{% trans 'Vertimas neįjungtas' %}",
     perskaityta: "{% trans 'perskaityta' %}",
     pristatyta: "{% trans 'pristatyta' %}"
   };
@@ -168,11 +169,15 @@ jas prideda į apačią.
     var vTxt = document.getElementById('pkVerstiTxt');
     var vBukle = document.getElementById('pkVerstiBukle');
 
-    function uzrasai() {
+    function uzrasaiTik() {
+      // Tik mygtukas — būsenos eilutėje jau parašyta klaida.
       vTxt.textContent = verciam ? T.rodykOriginalus : T.versti;
+      vBtn.dataset.ijungta = verciam ? '1' : '0';
+    }
+    function uzrasai() {
+      uzrasaiTik();
       vBukle.textContent = verciam ? T.verciamaAuto : T.rodomOriginalus;
       vBukle.classList.remove('klaida');
-      vBtn.dataset.ijungta = verciam ? '1' : '0';
     }
 
     vBtn.addEventListener('click', function () {
@@ -198,9 +203,12 @@ jas prideda į apačią.
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (d) {
           if (!d || !d.success) {
-            vBukle.textContent = T.nepavyko;
+            // Nenustatytas raktas ir „neatsakė" — skirtingi dalykai.
+            vBukle.textContent = (d && d.error_type === 'VertimoNera')
+                               ? T.neijungta : T.nepavyko;
             vBukle.classList.add('klaida');
-            vTxt.textContent = verciam ? T.rodykOriginalus : T.versti;
+            verciam = false;
+            uzrasaiTik();
             return;
           }
           verciam = !!d.ijungta;

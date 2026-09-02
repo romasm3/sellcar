@@ -1,19 +1,58 @@
 """
 Google Cloud Translation API service su DB cache.
 
+DU KELIAI IKI GOOGLE — abu veda į tą patį Cloud Translation v2:
+
+  1. JSON rakto failas (GOOGLE_APPLICATION_CREDENTIALS). Jei jis yra,
+     dirbam kaip anksčiau — per google-cloud-translate biblioteką.
+  2. API raktas (GOOGLE_TRANSLATE_API_KEY, o jo nesant —
+     GOOGLE_MAPS_API_KEY). Serveryje JSON failo nėra, o .env raktą turi.
+
+Kodėl antram keliui NENAUDOJAM `client_options={"api_key": ...}`:
+patikrinta google-cloud-translate 3.26.0 kode —
+`translate_v2.Client.__init__` iš `client_options` skaito TIK
+`api_endpoint`, o `api_key` tyliai ignoruoja ir vis tiek eina ieškoti
+numatytųjų kredencialų. Todėl su raktu kreipiamės tiesiai į tą patį
+viešą v2 galinį tašką (`requests` jau yra priklausomybėse).
+
+Jei nėra NEI failo, NEI rakto — keliam VertimoNera. Tylaus originalo su
+sėkmės būsena čia nebūna: žmogus turi pamatyti „Vertimas neįjungtas".
+
 Naudojimas:
     from apps.conversations.translate_service import translate_messages_for_user
-    
+
     output = translate_messages_for_user(messages_qs, target_lang='de')
     # → [{'id': 1, 'original': 'Labas', 'translated': 'Hallo', 'detected': 'lt'}, ...]
 """
 
 import logging
 
-from google.cloud import translate_v2 as translate
+from django.conf import settings
+
 from .models import Message, MessageTranslation
 
 logger = logging.getLogger(__name__)
+
+API_URL = 'https://translation.googleapis.com/language/translate/v2'
+LAIKAS = 15          # s — kad sąsaja nekabotų, jei Google neatsako
+
+
+class VertimoNera(Exception):
+    """Vertimas neįjungtas: nėra nei JSON rakto failo, nei API rakto."""
+
+
+def _api_raktas():
+    """API raktas iš .env. Savas — pirmiau, Maps — atsarginis."""
+    return (getattr(settings, 'GOOGLE_TRANSLATE_API_KEY', '')
+            or getattr(settings, 'GOOGLE_MAPS_API_KEY', '') or '').strip()
+
+
+def _rakto_failas():
+    kelias = getattr(settings, 'GOOGLE_CREDENTIALS_PATH', None)
+    try:
+        return bool(kelias) and kelias.is_file()
+    except Exception:
+        return False
 
 
 # Singleton client (sukuriam tik vieną kartą)
@@ -21,10 +60,46 @@ _client = None
 
 
 def get_client():
+    """Bibliotekos klientas — tik kai yra JSON rakto failas."""
+    from google.cloud import translate_v2 as translate
     global _client
     if _client is None:
         _client = translate.Client()
     return _client
+
+
+def _versk(tekstai, target_lang):
+    """[{'translatedText','detectedSourceLanguage'}] — vienas kvietimas.
+
+    Kuriuo keliu eiti, sprendžiam čia; visa kita servise vienoda.
+    """
+    if _rakto_failas():
+        return get_client().translate(
+            tekstai, target_language=target_lang, format_='text')
+
+    raktas = _api_raktas()
+    if not raktas:
+        raise VertimoNera('nėra nei GOOGLE_APPLICATION_CREDENTIALS failo, '
+                          'nei GOOGLE_TRANSLATE_API_KEY / GOOGLE_MAPS_API_KEY')
+
+    import requests
+    atsakymas = requests.post(
+        API_URL, params={'key': raktas},
+        json={'q': tekstai, 'target': target_lang, 'format': 'text'},
+        timeout=LAIKAS,
+    )
+    if atsakymas.status_code != 200:
+        # Google klaidą pasakom savais žodžiais — ji nurodo, ką taisyti.
+        try:
+            klaida = atsakymas.json().get('error', {}).get('message', '')
+        except Exception:
+            klaida = atsakymas.text[:200]
+        raise RuntimeError('Google Translate %s: %s'
+                           % (atsakymas.status_code, klaida))
+    duomenys = atsakymas.json().get('data', {}).get('translations', [])
+    return [{'translatedText': t.get('translatedText', ''),
+             'detectedSourceLanguage': t.get('detectedSourceLanguage', '')}
+            for t in duomenys]
 
 
 def translate_messages_for_user(messages, target_lang='en'):
@@ -70,15 +145,8 @@ def translate_messages_for_user(messages, target_lang='en'):
     # 3. Batch'u kviečiam Google API (jei yra ką)
     if to_translate:
         try:
-            client = get_client()
             texts = [m.content for m in to_translate]
-            
-            # Google API priima list of strings — grąžina list of dicts
-            results = client.translate(
-                texts,
-                target_language=target_lang,
-                format_='text',  # plain text (ne HTML)
-            )
+            results = _versk(texts, target_lang)
             
             # Saugojam į DB cache
             new_records = []
@@ -102,6 +170,10 @@ def translate_messages_for_user(messages, target_lang='en'):
                     new_records,
                     ignore_conflicts=True,
                 )
+        except VertimoNera:
+            # Vertimas išvis neįjungtas — ne „nepavyko", o „nenustatyta".
+            # Keliam aukštyn, kad sąsaja parodytų „Vertimas neįjungtas".
+            raise
         except Exception as e:
             # Failsafe: jei API neveikia (quota viršyta, network issue, etc.)
             # — grąžinam originalų tekstą, vartotojas matys non-translated.

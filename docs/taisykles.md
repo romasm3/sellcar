@@ -438,6 +438,43 @@ srityje randa el. pašto pavidalo tekstą.
 
 ---
 
+## 15. SERVERYJE GYVENANTYS FAILAI — DEPLOY JŲ NELIEČIA
+
+`.env` ir `google-translate-key.json` yra tik serveryje; git'e jų nėra.
+`restore_code` naudoja `rsync --delete`, todėl failas, atsiradęs PO
+paskutinio snapshot'o, atsukimo metu buvo TRINAMAS. Būtent taip 2026-09
+dingo vertimo raktas ir pokalbių vertimas ėmė grąžinti originalą.
+
+Sąrašas — VIENAS, `deploy-agent.sh` `SAUGOMI_FAILAI`. Iš jo daromi ir
+rsync išskyrimai, ir patikra. Naują serverio failą pridedi TEN, ne
+dviejose vietose.
+
+Po kiekvieno deploy'o ir po kiekvieno atsukimo `tikrinti_raktus` patikrina,
+ar failai vietoje; jei ne — žurnale 🔴 eilutės ir ataskaitos antraštėje
+„TRŪKSTA SERVERIO FAILŲ".
+
+## 16. ATSARGINĖS KOPIJOS NEGALI UŽPILDYTI DISKO
+
+* `pg_dump | gzip` — nespaustas dumpas buvo ~2,8 GB, po kiekvieno
+  deploy'o dar vienas; gzip mažina ~10 kartų (išmatuota: 332 kartus
+  tekstiniam SQL).
+* Laikom paskutines **5** (`KEEP_DB_DUMPS`), senesnes trinam.
+* PRIEŠ kopiją ir prieš bet kokį kodo keitimą — laisvos vietos patikra.
+  Mažiau nei **20 %** → deploy nutrūksta (`exit 2`) su aiškiu pranešimu,
+  kodas nepaliestas.
+* Patikra negali tapti gedimu: jei `df` atsako netikėtai, ji TYLI ir
+  praleidžia, o ne stabdo deploy'ą amžinai.
+* Žurnale — kopijos dydis, kopijų skaičius ir likusi vieta.
+
+Senas kopijas saugiai ištrinti paliekant dvi naujausias:
+
+    ls -1t /root/autoleft_backups/db_* | tail -n +3 | xargs -r rm -f
+
+Patikra: `docs/deploy_kopiju_test.sh` — paleidžia pačią logiką (failų
+išlikimą po `--delete`, vietos ribą abiem kryptim, valymą, gzip).
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -472,3 +509,5 @@ srityje randa el. pašto pavidalo tekstą.
 - [ ] Kalbos perjungiklis matomas 320, 360, 390, 414 ir 768 px
 - [ ] Pokalbiuose nerodomas nė vienas el. paštas
 - [ ] Naujos žinutės atsiranda be puslapio perkrovimo, tekstas nedingsta
+- [ ] Serverio failai (.env, raktai) išskirti iš snapshot/restore
+- [ ] Kopijos suspaustos, laikom 5, vietos patikra prieš deploy'ą

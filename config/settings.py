@@ -16,6 +16,12 @@ GOOGLE_CREDENTIALS_PATH = Path(config(
 if GOOGLE_CREDENTIALS_PATH.is_file():
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(GOOGLE_CREDENTIALS_PATH)
 
+# Antras kelias — paprastas API raktas. JSON rakto failo serveryje nėra,
+# o .env jau turi Google raktą, tad vertimas gali dirbti ir su juo
+# (žr. docs/vertimo-raktas.md). Pirmenybė — savas GOOGLE_TRANSLATE_API_KEY;
+# jo nesant imamas GOOGLE_MAPS_API_KEY iš to paties projekto.
+GOOGLE_TRANSLATE_API_KEY = config("GOOGLE_TRANSLATE_API_KEY", default="")
+
 # Be default'o — jei .env nepasiekiamas, startas krenta garsiai,
 # o ne pakyla su viešai žinomu raktu.
 SECRET_KEY = config("SECRET_KEY")

@@ -14,7 +14,7 @@ būsena saugoma serveryje (ConversationTranslation).{% endcomment %}
           data-ijungta="{% if vertimas_ijungtas %}1{% else %}0{% endif %}">
     <span id="pkVerstiTxt">{% if vertimas_ijungtas %}{% trans "RODYTI ORIGINALIAS ŽINUTES" %}{% else %}{% trans "IŠVERSTI POKALBĮ" %}{% endif %}</span>
   </button>
-  <div class="pk-bukle" id="pkVerstiBukle">{% if vertimas_ijungtas %}{% trans "Pranešimai verčiami automatiškai" %}{% else %}{% trans "Rodomi originalūs pranešimai" %}{% endif %}</div>
+  <div class="pk-bukle{% if vertimo_nera %} klaida{% endif %}" id="pkVerstiBukle">{% if vertimo_nera %}{% trans "Vertimas neįjungtas" %}{% elif vertimas_ijungtas %}{% trans "Pranešimai verčiami automatiškai" %}{% else %}{% trans "Rodomi originalūs pranešimai" %}{% endif %}</div>
 </div>
 {% endif %}
 

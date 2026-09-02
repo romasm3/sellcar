@@ -21,22 +21,87 @@ HEALTH_HOST="autoleft.com"               # turi būti ALLOWED_HOSTS sąraše
 HEALTH_PATH="/"                          # arba /health/ jei turėsi
 LAST_GOOD="/root/autoleft_last_good"     # "old" kodo kopija
 BACKUP_DIR="/root/autoleft_backups"      # DB dumpai
-KEEP_DB_DUMPS=10
+KEEP_DB_DUMPS=5                          # laikom paskutines 5 (buvo 10)
+MIN_LAISVOS_PROC=20                      # mažiau — deploy nutrūksta
 ### -----------------------
 
 TS="$(date +%Y%m%d_%H%M%S)"
 cd "$APP_DIR"
 log() { echo "[$(date '+%H:%M:%S')] $*"; }
 
+# ── FAILAI, KURIE GYVENA TIK SERVERYJE ───────────────────────────────
+# Jų nėra git'e ir jų negalima nei įsidėti į snapshot'ą, nei atsukti:
+# `restore_code` naudoja `rsync --delete`, tad failas, atsiradęs PO
+# paskutinio snapshot'o, atsukimo metu būtų IŠTRINTAS. Būtent taip
+# 2026-09 dingo google-translate-key.json ir nustojo veikti vertimas.
+#
+# VIENAS sąrašas: iš jo daromi ir rsync išskyrimai, ir patikra po deploy'o.
+SAUGOMI_FAILAI=(
+  '.env'
+  'google-translate-key.json'
+)
+
 # Ko NEkopijuojam į/iš snapshot'o (kad neužtrintų venv, media, secretų, paties skripto)
 EXCLUDES=(
-  --exclude 'venv/'        --exclude '.env'
+  --exclude 'venv/'
   --exclude 'media/'       --exclude 'staticfiles/'
   --exclude '.git/'        --exclude '__pycache__/'
   --exclude '*.pyc'        --exclude '*.log'
   --exclude '*.swp'        --exclude 'deploy-agent.sh'
   --exclude 'deploy-from-git.sh'    --exclude 'deploy/'
 )
+for _f in "${SAUGOMI_FAILAI[@]}"; do EXCLUDES+=( --exclude "$_f" ); done
+
+# ── AR SERVERIO RAKTAI VIETOJE ───────────────────────────────────────
+# Kviečiama po kiekvieno deploy'o IR po atsukimo. Grąžina 1, jei bent
+# vieno nebėra; žurnale — ryškus įspėjimas, ne tyli eilutė.
+tikrinti_raktus() {
+  local truksta=0 f
+  for f in "${SAUGOMI_FAILAI[@]}"; do
+    if [[ -e "${APP_DIR}/${f}" ]]; then
+      log "Raktai: ${f} — vietoje."
+    else
+      truksta=1
+      log "🔴 DINGO SERVERIO FAILAS: ${APP_DIR}/${f}"
+      log "🔴 Jo nėra git'e — deploy jo neatstatys. Reikia įdėti ranka."
+      [[ "$f" == 'google-translate-key.json' ]] && \
+        log "🔴 Be jo NEVEIKIA vertimas pokalbiuose (docs/vertimo-raktas.md)."
+      [[ "$f" == '.env' ]] && \
+        log "🔴 Be jo svetainė NEPAKILS."
+    fi
+  done
+  return "$truksta"
+}
+
+# ── AR UŽTEKS VIETOS DISKE ───────────────────────────────────────────
+# Tikrinam PRIEŠ kopiją ir PRIEŠ bet kokį kodo keitimą: geriau nutraukti
+# deploy'ą su aiškiu pranešimu, nei užpildyti diską ir palikti serverį,
+# kuriame nebeveikia niekas.
+laisva_proc() { df -P "$1" | awk 'NR==2 { gsub(/%/,"",$5); print 100-$5 }'; }
+laisva_zmoniskai() { df -Ph "$1" | awk 'NR==2 { print $4 }'; }
+
+vietos_patikra() {
+  mkdir -p "$BACKUP_DIR"
+  local laisva; laisva="$(laisva_proc "$BACKUP_DIR" 2>/dev/null || true)"
+  # Jei df atsakė netikėtai, patikra TYLI ir praleidžia. Tuščia reikšmė
+  # bash'e lyginant su -lt virsta nuliu, tad be šito sargo neaiški df
+  # išvestis būtų amžinai stabdžiusi deploy'ą — patikra negali tapti
+  # gedimu (docs/taisykles.md 6).
+  if ! [[ "$laisva" =~ ^[0-9]+$ ]]; then
+    log "⚠️  Nepavyko nustatyti laisvos vietos (df: '${laisva}') — tęsiam."
+    return 0
+  fi
+  if [[ "$laisva" -lt "$MIN_LAISVOS_PROC" ]]; then
+    log "❌ STOP: diske liko tik ${laisva}% (${MIN_LAISVOS_PROC}% riba)."
+    log "   Laisva: $(laisva_zmoniskai "$BACKUP_DIR"). Kopijos: ${BACKUP_DIR}"
+    log "   Deploy NEVYKDOMAS — kodas nepaliestas, svetainė veikia kaip veikė."
+    log "   Vietos atlaisvinti (paliekant dvi naujausias kopijas):"
+    log "     ls -1t ${BACKUP_DIR}/db_* | tail -n +3 | xargs -r rm -f"
+    return 1
+  fi
+  log "Vietos diske: ${laisva}% laisva ($(laisva_zmoniskai "$BACKUP_DIR"))."
+  return 0
+}
 
 restart_service() { log "Restartinam $SERVICE"; systemctl restart "$SERVICE"; }
 
@@ -135,18 +200,39 @@ PY
 )"
   [[ -z "$conf" ]] && { log "DB: nepavyko nuskaityti nustatymų — praleidžiam dumpą."; return 0; }
   IFS='|' read -r engine name user pass host port <<<"$conf"
+  # SUSPAUSTA. Nespaustas dumpas buvo ~2,8 GB, o po kiekvieno deploy'o
+  # atsirasdavo dar vienas — per parą ~20 GB. gzip sumažina ~10 kartų.
   if [[ "$engine" == *postgresql* ]]; then
-    if PGPASSWORD="$pass" pg_dump -h "$host" -p "$port" -U "$user" "$name" > "$out" 2>/dev/null; then
-      log "DB dumpas: $out"
+    out="${out}.gz"
+    if PGPASSWORD="$pass" pg_dump -h "$host" -p "$port" -U "$user" "$name" \
+         2>/dev/null | gzip -c > "$out"; then
+      log "DB dumpas: $out ($(du -h "$out" | cut -f1))"
     else
       log "DB: pg_dump nepavyko — tęsiam be DB kopijos."; rm -f "$out"
     fi
   elif [[ "$engine" == *sqlite3* ]]; then
-    cp -f "$name" "${BACKUP_DIR}/db_${TS}.sqlite3" && log "DB kopija: ${BACKUP_DIR}/db_${TS}.sqlite3"
+    out="${BACKUP_DIR}/db_${TS}.sqlite3.gz"
+    if gzip -c "$name" > "$out"; then
+      log "DB kopija: $out ($(du -h "$out" | cut -f1))"
+    else
+      log "DB: kopija nepavyko — tęsiam."; rm -f "$out"
+    fi
   else
     log "DB: nežinomas engine ($engine) — praleidžiam."
   fi
-  ls -1t "${BACKUP_DIR}"/db_* 2>/dev/null | tail -n +$((KEEP_DB_DUMPS+1)) | xargs -r rm -f
+
+  # Laikom paskutines KEEP_DB_DUMPS, senesnes trinam. Šablonas „db_*"
+  # gaudo ir senus nespaustus .sql, ir naujus .sql.gz.
+  local senos
+  senos="$(ls -1t "${BACKUP_DIR}"/db_* 2>/dev/null | tail -n +$((KEEP_DB_DUMPS+1)) || true)"
+  if [[ -n "$senos" ]]; then
+    local kiek; kiek="$(printf '%s\n' "$senos" | wc -l)"
+    printf '%s\n' "$senos" | xargs -r rm -f
+    log "Senos kopijos ištrintos: ${kiek} (laikom ${KEEP_DB_DUMPS} naujausias)."
+  fi
+  log "Kopijos: $(ls -1 "${BACKUP_DIR}"/db_* 2>/dev/null | wc -l) vnt., "\
+      "viso $(du -sh "$BACKUP_DIR" 2>/dev/null | cut -f1), "\
+      "diske laisva $(laisva_zmoniskai "$BACKUP_DIR") ($(laisva_proc "$BACKUP_DIR")%)."
 }
 
 apply() {
@@ -247,6 +333,11 @@ PRIES="$(statiniu_bukle)"
 PRIES_MT="${PRIES%% *}"
 PRIES_CSS="${PRIES##* }"
 
+# Vietos patikra — PIRMA, dar nieko nepakeitus.
+if ! vietos_patikra; then
+  exit 2
+fi
+
 dump_db
 apply
 restart_service
@@ -266,16 +357,25 @@ if health_check; then
   fi
   log "✅ Veikia — atnaujinam 'last_good' į naują versiją."
   snapshot_code
-  log "=== Deploy OK ==="
+  if tikrinti_raktus; then
+    log "=== Deploy OK ==="
+  else
+    log "=== Deploy OK, BET TRŪKSTA SERVERIO FAILŲ (žr. 🔴 aukščiau) ==="
+  fi
 else
   log "❌ Health FAIL — atkeičiam KODĄ į paskutinę veikiančią versiją (old)."
   restore_code
   sutvarkyti_po_atsukimo
+  # Atsukimas naudoja rsync --delete — būtent čia anksčiau dingdavo
+  # serveryje gyvenantys failai. Dabar jie išskirti, o patikra tai
+  # patvirtina garsiai.
+  tikrinti_raktus || true
   restart_service
   if health_check; then
     log "Kodas atsuktas — sena versija vėl veikia."
     log "SVARBU: jei buvo DB migracijų, kodą atsukom, bet DB — ne."
-    log "        DB atkūrimui rankiniu būdu: ${BACKUP_DIR}/db_${TS}.sql"
+    log "        DB atkūrimui rankiniu būdu: ${BACKUP_DIR}/db_${TS}.sql.gz"
+    log "        (gunzip -c FAILAS.gz | psql -U VARTOTOJAS BAZĖ)"
   else
     log "DĖMESIO: net po atsukimo FAIL. Reikia rankinio įsikišimo."
   fi

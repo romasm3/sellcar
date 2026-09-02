@@ -176,25 +176,39 @@ const PASTAS = /[\w.-]+@[\w.-]+\.\w{2,}/;
   await p.waitForTimeout(3000);
   const v1 = await vBusena();
   console.log('  įjungus: ' + JSON.stringify(v1));
-  tik(v1.btn === 'RODYTI ORIGINALIAS ŽINUTES'
-      && v1.bukle === 'Pranešimai verčiami automatiškai',
-      'įjungto jungiklio užrašai: ' + JSON.stringify(v1));
-  tik(v1.ijungta === '1', 'jungiklis neįsijungė');
-  tik(v1.savoSuKlaida === 0, 'savo žinutės verčiamos — turi likti originalios');
 
-  await p.reload({ waitUntil: 'domcontentloaded' });
-  await p.waitForTimeout(2000);
-  const v2 = await vBusena();
-  tik(v2.ijungta === '1' && v2.btn === 'RODYTI ORIGINALIAS ŽINUTES',
-      'būsena neišliko po perkrovimo: ' + JSON.stringify(v2));
+  if (v1.bukle === 'Vertimas neįjungtas') {
+    // Serveryje/konteineryje nėra nei JSON rakto, nei API rakto —
+    // tikrinam BŪTENT tą kelią: aiškus užrašas, o ne tylus originalas.
+    console.log('  (rakto nėra — tikrinam „Vertimas neįjungtas" kelią)');
+    tik(v1.ijungta === '0', 'be rakto jungiklis vis tiek įsijungė');
+    tik(v1.btn === 'IŠVERSTI POKALBĮ', 'mygtukas neatsistatė: ' + v1.btn);
+    tik(await p.evaluate(() =>
+          document.getElementById('pkVerstiBukle').classList.contains('klaida')),
+        '„Vertimas neįjungtas" nepažymėtas kaip klaida');
+    tik(await p.evaluate(() => !document.getElementById('pkVerstiBtn').disabled),
+        'mygtukas liko neaktyvus');
+  } else {
+    tik(v1.btn === 'RODYTI ORIGINALIAS ŽINUTES'
+        && v1.bukle === 'Pranešimai verčiami automatiškai',
+        'įjungto jungiklio užrašai: ' + JSON.stringify(v1));
+    tik(v1.ijungta === '1', 'jungiklis neįsijungė');
+    tik(v1.savoSuKlaida === 0, 'savo žinutės verčiamos — turi likti originalios');
 
-  await p.evaluate(() => document.getElementById('pkVerstiBtn').click());
-  await p.waitForTimeout(2500);
-  const v3 = await vBusena();
-  tik(v3.ijungta === '0' && v3.btn === 'IŠVERSTI POKALBĮ', 'jungiklis neišsijungė');
-  tik(await p.evaluate(() =>
-        document.querySelectorAll('.pk-vertimo-klaida:not([hidden])').length === 0),
-      'išjungus liko vertimo klaidų prierašų');
+    await p.reload({ waitUntil: 'domcontentloaded' });
+    await p.waitForTimeout(2000);
+    const v2 = await vBusena();
+    tik(v2.ijungta === '1' && v2.btn === 'RODYTI ORIGINALIAS ŽINUTES',
+        'būsena neišliko po perkrovimo: ' + JSON.stringify(v2));
+
+    await p.evaluate(() => document.getElementById('pkVerstiBtn').click());
+    await p.waitForTimeout(2500);
+    const v3 = await vBusena();
+    tik(v3.ijungta === '0' && v3.btn === 'IŠVERSTI POKALBĮ', 'jungiklis neišsijungė');
+    tik(await p.evaluate(() =>
+          document.querySelectorAll('.pk-vertimo-klaida:not([hidden])').length === 0),
+        'išjungus liko vertimo klaidų prierašų');
+  }
 
   antraste('Nuotraukos ir didinimo langas');
   const foto = await p.evaluate(() => {
