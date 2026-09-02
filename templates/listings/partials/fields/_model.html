@@ -15,7 +15,9 @@ Be JS lieka tekstinis įvedimas tuo pačiu parametru (filtrų variklis
 nenumerinę reikšmę suranda pagal pavadinimą).
 {% endcomment %}{% comment %}`cur_fixed` — reikšmę duoda kviečiantis šablonas
 (markės/modelio porų eilutės).{% endcomment %}{% if cur_fixed %}{% firstof cur_val '' as cur %}{% else %}{% firstof request.GET|get_param:f.param '' as cur %}{% endif %}
-<div class="relative"
+{% comment %}Išvalymo sutartis — žr. _brand.html.{% endcomment %}
+<div class="relative" data-isvalomas
+     @isvalyk="pick('', '{% trans "Visi" %}')"
      x-data="modelField({
         url: '{% url "model_options" %}?kategorija={{ f.model_vt|escapejs }}',
         brandParam: '{{ f.brand_param|default:"brand"|escapejs }}',

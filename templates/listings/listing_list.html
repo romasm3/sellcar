@@ -1550,6 +1550,10 @@ function setupSidebarAutoRefresh() {
         if (!skaicius || !kategorija) { return; }
         clearTimeout(laikmatis);
         laikmatis = setTimeout(function () {
+            // Skaičiuojam TIK iš to, ką vartotojas mato — tais pačiais
+            // laukais, kuriuos pasiųs „Filtruoti" (static/js/vienas_variantas.js).
+            // Be to skaičius rodytų kitą rinkinį nei mygtukas pritaikys.
+            if (window.spTvarkykLaukus) { window.spTvarkykLaukus(); }
             var qs = new URLSearchParams(new FormData(sidebarForm)).toString();
             fetch('/paieska/count/' + kategorija + '/?advanced=1&' + qs,
                   { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
@@ -1567,7 +1571,7 @@ function setupSidebarAutoRefresh() {
     // Enter tekstiniame lauke — patvirtinimas, o ne atsitiktinis perkrovimas
     sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function (el) {
         el.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') { e.preventDefault(); sidebarForm.submit(); }
+            if (e.key === 'Enter') { e.preventDefault(); sidebarForm.requestSubmit(); }
         });
     });
 }

@@ -31,7 +31,7 @@ Matmenys — isplestine-config.json „sidebar_layout".
     </a>
     {% comment %}Šalis — PIRMA (docs/taisykles.md 1). Ta pati bendra
     reikšmė kaip juostoje virš panelės ir /imones/.{% endcomment %}
-    {% include 'partials/_salis.html' with stilius='sonine' %}
+    {% include 'partials/_salis.html' with stilius='sonine' formoje=1 %}
 
     <div class="sp-side-line hidden lg:block"></div>
 
@@ -78,10 +78,19 @@ Matmenys — isplestine-config.json „sidebar_layout".
               <div class="flex-1 min-w-0">
                 {% include 'listings/partials/fields/_model.html' with f=sidebar.pair_model cur_fixed=1 cur_val=request.GET|get_list:sidebar.pair_model.param|index:forloop.counter %}
               </div>
+              {% comment %}× tik IŠVALO eilutę — puslapis nesikrauna.
+              Anksčiau čia buvo tiesioginis įrašymas į hidden input ir
+              `form.submit()`: reikšmę valdo Alpine (`:value="val"`), tad
+              rašymas į DOM nieko nekeitė, o siuntimas grąžindavo markę iš
+              telefono sąrašo paslėptų kopijų. Dabar sakom patiems
+              laukams išsivalyti ir tik pranešam formai, kad atsinaujintų
+              skaičius ant „Filtruoti".{% endcomment %}
               <button type="button" class="pair-x-sm"
-                      @click="$el.closest('[data-pair-row]').querySelectorAll('input[type=hidden]').forEach(i => i.value = '');
+                      @click="$el.closest('[data-pair-row]').querySelectorAll('[data-isvalomas]')
+                                 .forEach(el => el.dispatchEvent(new CustomEvent('isvalyk')));
                               poros = Math.max(1, poros - 1);
-                              $el.closest('form').submit()">✕</button>
+                              $nextTick(() => $el.closest('form')
+                                 .dispatchEvent(new Event('change', { bubbles: true })))">✕</button>
             </div>
           </div>
           {% endfor %}

@@ -23,7 +23,12 @@ renderinamas ne vieną kartą (kelios markės detalioje paieškoje).
 {% endcomment %}{% comment %}`cur_fixed` — reikšmę duoda kviečiantis šablonas
 (detalioje paieškoje markių laukų yra keli). Be jos imam pirmą GET reikšmę,
 kaip visur kitur.{% endcomment %}{% if cur_fixed %}{% firstof cur_val '' as cur %}{% else %}{% firstof request.GET|get_param:f.param '' as cur %}{% endif %}
-<div class="relative"
+{% comment %}`data-isvalomas` + `@isvalyk` — vieninga išvalymo sutartis.
+Poros × (sidebar_generic.html) nerašo į hidden input tiesiogiai: reikšmę
+valdo Alpine, tad DOM įrašas tyliai dingdavo. Vietoj to laukui siunčiamas
+įvykis, o jis pats atstato pradinę būseną.{% endcomment %}
+<div class="relative" data-isvalomas
+     @isvalyk="pick('', '{% trans "Visos markės" %}')"
      x-data="brandField({
         url: '{{ f.brand_url|escapejs }}',
         val: '{{ cur|escapejs }}',

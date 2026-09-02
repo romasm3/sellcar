@@ -94,10 +94,16 @@ Parametrai:
   {% comment %}
   ANTROS IR TOLESNĖS TO PATIES LAUKO REIKŠMĖS.
 
-  Žyma rodo visas (pvz. dvi markes), bet darbalaukio valdiklis — vienas
-  <select>/<input> — nešasi tik paskutinę, tad spaudžiant „Skelbimai"
-  ankstesnės dingdavo. Likusios keliauja paslėptais įvedimais tuo pačiu
-  vardu; variklis jas ima per getlist ir filtruoja kaip „arba".
+  Žyma rodo visas (pvz. dvi markes), bet telefone matomos eilutės savo
+  valdiklio neturi — jos veda į /pasirinkti/. Todėl VISOS reikšmės
+  keliauja paslėptais įvedimais tuo pačiu vardu; variklis jas ima per
+  getlist ir filtruoja kaip „arba".
+
+  Anksčiau čia buvo praleidžiama paskutinė („not forloop.last"): tada
+  darbalaukio valdiklis buvo siunčiamas kartu ir ją atnešdavo pats. Nuo
+  tada, kai nematomo paviršiaus laukai išjungiami (static/js/vienas_variantas.js),
+  darbalaukio valdiklio telefone nebėra — ir paskutinė markė tyliai
+  dingdavo. Dubliavimo nėra: darbalaukyje išjungiamas šitas blokas.
 
   Diapazonai, žymimieji langeliai, tekstas ir multiselect čia neįeina:
   pirmieji trys vienareikšmiai, o multiselect savo reikšmes jau siunčia
@@ -105,7 +111,7 @@ Parametrai:
   {% endcomment %}
   {% for row in rows %}{% for f in row %}{% if f and f.param and f.type != 'range' and f.type != 'multiselect' and f.type != 'checkbox' and f.type != 'text' %}
   {% with chosen=request.GET|get_list_param:f.param %}{% if chosen|length > 1 %}
-  {% for value in chosen %}{% if not forloop.last %}<input type="hidden" name="{{ f.param }}" value="{{ value }}">{% endif %}{% endfor %}
+  {% for value in chosen %}<input type="hidden" name="{{ f.param }}" value="{{ value }}">{% endfor %}
   {% endif %}{% endwith %}
   {% endif %}{% endfor %}{% endfor %}
 

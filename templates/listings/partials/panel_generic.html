@@ -28,7 +28,7 @@ veda į tą pačią panelę per ?section= ir neša jau pasirinktus filtrus.
 {% endcomment %}
 {% include 'listings/partials/fields/_mobile_rows.html' with rows=panel.rows count_key=count_key category=panel.slug sub=panel.sub_slug adv_url=adv_url back=sp_back %}
 
-<div class="hidden lg:flex flex-col gap-y-3">
+<div class="hidden lg:flex flex-col gap-y-3" data-laukai="darbalaukis">
   {% for row in panel.rows %}
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
   {% for f in row %}{% if f %}

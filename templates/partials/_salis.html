@@ -10,7 +10,7 @@ panelėje, šoninėje juostoje, išplėstinėje paieškoje, /imones/ ir
 Trys stiliai, viena dalis. Kopijų ir antrų sąrašų nėra:
 
     {% include 'partials/_salis.html' with stilius='juosta' %}
-    {% include 'partials/_salis.html' with stilius='sonine' %}
+    {% include 'partials/_salis.html' with stilius='sonine' formoje=1 %}   {# formos viduje #}
     {% include 'partials/_salis.html' with stilius='lakstas' %}
 
 Vėliava VISUR eina PO pavadinimo, prieš skaičių dešinėje —
@@ -25,17 +25,38 @@ duoda skaičių ant panelės mygtuko.
 {% endcomment %}
 
 {% if stilius == 'sonine' %}
-{% comment %}Šoninė juosta rezultatuose — blokas su radijo mygtukais.{% endcomment %}
-<div class="salis-blk{% if salies_sarasas|length < 2 %} salis-tuscia{% endif %}" x-data="{ atidaryta: false }">
+{% comment %}Šoninė juosta rezultatuose — blokas su radijo mygtukais.
+
+FORMOS VIDUJE ŠALIS YRA FILTRO LAUKAS, NE NUORODA — `formoje=1`.
+
+Tada blokas laikosi tos pačios taisyklės kaip visi kiti formos laukai:
+pasirinkimas keičia tik vietinę būseną ir užrašą, puslapis NEPERSIKRAUNA,
+o skaičius ant „Filtruoti" atsinaujina gyvai. Adresas pasikeičia vienu
+kartu — tik paspaudus „Filtruoti". Iki 2026-09-02 šalies punktas ir čia
+išnešdavo į kitą adresą iškart, o pakeliui prarasdavo viską, kas jau
+buvo suvesta, bet dar nepasiųsta (pvz. įvestą „Galia kW").
+
+Be formos (/imones/, žemėlapis) punktas lieka paprasta nuoroda — ten
+nėra ko kaupti ir ji veikia be JS. Todėl žymė abiem atvejais ta pati
+<a href>, tik formoje paspaudimas perimamas.
+
+Reikšmė keliauja tuo pačiu `salis` parametru, tad „viena šalis visai
+svetainei" sluoksniai (adresas → slapukas → profilis → lt) nesikeičia.
+{% endcomment %}
+<div class="salis-blk{% if salies_sarasas|length < 2 %} salis-tuscia{% endif %}"
+     x-data="salisLaukas('{{ salies_zemas|escapejs }}', '{{ salies_vardas|escapejs }}')">
   <h4>{% trans "Šalis" %}</h4>
+  {% if formoje %}<input type="hidden" name="salis" :value="kodas">{% endif %}
   <div class="salis-cur">
-    <span class="salis-cur-vardas">{{ salies_vardas }}</span>
+    <span class="salis-cur-vardas" x-text="vardas">{{ salies_vardas }}</span>
     {% include 'partials/_veliava.html' with kodas=salies_kodas vardas=salies_vardas didele=1 %}
     <button type="button" class="salis-keisti-mazas" @click="atidaryta = !atidaryta">{% trans "Keisti" %}</button>
   </div>
   <div class="salis-list" x-show="atidaryta" x-cloak>
     {% for s in salies_sarasas %}
-    <a href="{{ s.url }}" class="salis-eil{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}">
+    <a href="{{ s.url }}" class="salis-eil{% if s.dabartine %} is-on{% endif %}{% if s.skirtukas %} su-skirtuku{% endif %}"
+       {% if formoje %}:class="{ 'is-on': kodas === '{{ s.zemas|escapejs }}' }"
+       @click.prevent="pasirink('{{ s.zemas|escapejs }}', '{{ s.vardas|escapejs }}', $el)"{% endif %}>
       <span class="salis-radijo" aria-hidden="true"></span>
       <span class="salis-eil-vardas">{{ s.vardas }}</span>
       {% comment %}Šoninėje juostoje vėliavos 20×15 — kaip etalone
@@ -46,6 +67,42 @@ duoda skaičių ant panelės mygtuko.
     {% endfor %}
   </div>
 </div>
+<script>
+if (!window.salisLaukas) {
+  window.salisLaukas = function (kodas, vardas) {
+    return {
+      atidaryta: false, kodas: kodas, vardas: vardas,
+
+      pasirink(z, v, mygtukas) {
+        this.kodas = z; this.vardas = v; this.atidaryta = false;
+
+        // Vėliavėlę imam iš to paties punkto — antros <img> kopijos
+        // niekur nekuriam (docs/taisykles.md: viena dalis vienam dalykui).
+        var is = mygtukas.querySelector('img.veliava');
+        var i = this.$el.querySelector('.salis-cur img.veliava');
+        if (is && i) { i.src = is.src; i.alt = i.title = is.alt; }
+
+        // Prie SENOS šalies pririšti filtrai nebetenka prasmės — tie
+        // patys laukai, kaip salies_juosta.PRIRISTI_PRIE_SALIES. Markė,
+        // kaina ir metai LIEKA.
+        var f = this.$el.closest('form');
+        if (f) {
+          ['city', 'spindulys', 'radius', 'state_filter', 'country_filter', 'page']
+            .forEach(function (vardas) {
+              f.querySelectorAll('[name="' + vardas + '"]').forEach(function (el) {
+                if (el.type === 'checkbox' || el.type === 'radio') { el.checked = false; }
+                else { el.value = ''; }
+              });
+            });
+          // Tik pranešam apie pasikeitimą — skaičius ant „Filtruoti"
+          // atsinaujina, adresas lieka toks pat.
+          f.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      },
+    };
+  };
+}
+</script>
 
 {% else %}
 {% comment %}„juosta" (virš paieškos panelės) ir „lakstas" (telefone) —

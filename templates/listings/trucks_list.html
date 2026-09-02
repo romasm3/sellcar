@@ -1069,7 +1069,9 @@ function sidebarFuelChange(cb) {
         if (el !== cb) el.checked = false;
     });
     document.getElementById('sidebarFuelHidden').value = cb.checked ? cb.value : '';
-    document.getElementById('sidebarForm').submit();
+    // Filtras taikomas tik paspaudus „Filtruoti" — čia tik pranešam apie
+    // pasikeitimą, kad atsinaujintų skaičius mygtuke.
+    document.getElementById('sidebarForm').dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function toggleLocationDropdown(e) {

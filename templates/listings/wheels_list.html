@@ -361,6 +361,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function atnaujink() {
     clearTimeout(laikmatis);
     laikmatis = setTimeout(function () {
+      // Tik matomi laukai — žr. static/js/vienas_variantas.js.
+      if (window.spTvarkykLaukus) { window.spTvarkykLaukus(); }
       var qs = new URLSearchParams(new FormData(forma)).toString();
       fetch('/paieska/count/' + kategorija + '/?type={{ product_type }}&' + qs,
             { headers: { 'X-Requested-With': 'XMLHttpRequest' } })

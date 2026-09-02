@@ -930,16 +930,17 @@ function chooseSidebarBrand(id, name) {
     document.getElementById('sidebarBrandDd').classList.add('hidden');
     document.getElementById('sidebarModelHidden').value = '';
     document.getElementById('sidebarModelLabel').textContent = '{% trans "All Models" %}';
-    // Submit form to apply brand filter (model resets to All)
-    document.getElementById('sidebarForm').submit();
+    // Filtras taikomas tik paspaudus „Filtruoti" — čia tik pranešam apie
+    // pasikeitimą, kad atsinaujintų skaičius mygtuke.
+    document.getElementById('sidebarForm').dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function chooseSidebarModel(modelId, name) {
     document.getElementById('sidebarModelHidden').value = modelId || '';
     document.getElementById('sidebarModelLabel').textContent = name;
     document.getElementById('sidebarModelDd').classList.add('hidden');
-    // Submit form to apply model filter
-    document.getElementById('sidebarForm').submit();
+    // Kaip ir markė — reikšmė tik kaupiama, puslapis nesikrauna.
+    document.getElementById('sidebarForm').dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function buildSidebarModelList(data) {
@@ -983,6 +984,8 @@ function setupSidebarAutoRefresh() {
         if (!skaicius) return;
         clearTimeout(laikmatis);
         laikmatis = setTimeout(function () {
+            // Tik matomi laukai — žr. static/js/vienas_variantas.js.
+            if (window.spTvarkykLaukus) { window.spTvarkykLaukus(); }
             var qs = new URLSearchParams(new FormData(sidebarForm)).toString();
             fetch('/paieska/count/motorcycles/?advanced=1&' + qs,
                   { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
@@ -997,7 +1000,7 @@ function setupSidebarAutoRefresh() {
     });
     sidebarForm.querySelectorAll('input[type="number"], input[type="text"]').forEach(function(el) {
         el.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') { e.preventDefault(); sidebarForm.submit(); }
+            if (e.key === 'Enter') { e.preventDefault(); sidebarForm.requestSubmit(); }
         });
     });
 }
