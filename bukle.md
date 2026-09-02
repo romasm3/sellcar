@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-02 20:39:22 CEST
+Sugeneruota: 2026-09-02 20:39:31 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001259s
+HTTP 301, 0.001134s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 02 20:37:06 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.393s CPU time.
-Sep 02 20:38:24 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 02 20:38:24 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:38:24] === Naujų commit'ų rasta: e2bcc42 → 7e171f9 ===
-Sep 02 20:38:24 vmi3306453 autoleft-deploy[3973679]:     7e171f9 fix(vertimai): masinis užpildymas per paslaugos paskyrą, ne API raktą
-Sep 02 20:38:24 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:38:24] Kodas atnaujintas iki 7e171f9
-Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:38:33] Patikra praėjo
-Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973840]: [20:38:33] === Deploy pradžia (20260902_203833) ===
-Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973840]: [20:38:33] Vietos diske: 91% laisva (267G).
-Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] DB dumpas: /root/autoleft_backups/db_20260902_203833.sql.gz (132M)
-Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Senos kopijos ištrintos: 1 (laikom 5 naujausias).
-Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Kopijos: 5 vnt.,  viso 653M,  diske laisva 267G (91%).
-Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Versija: 7e171f9f79e4
-Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]: Operations to perform:
-Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, imones, listings, payments, sessions
-Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]: Running migrations:
-Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]:   No migrations to apply.
-Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974481]: 0 static files copied to '/root/autoleft/staticfiles', 218 unmodified, 126 post-processed.
-Sep 02 20:39:20 vmi3306453 autoleft-deploy[3973840]: [20:39:20] Restartinam gunicorn.service
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Health OK (1/10)
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Statiniai OK: style.df8265b02e1b.css (manifestas atnaujintas)
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Raktai: .env — vietoje.
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Raktai: google-translate-key.json — vietoje.
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] === Deploy OK ===
-Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:39:22] ✅ Deploy OK — gyvai veikia 7e171f9
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:38:33] Patikra praėjo
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973840]: [20:38:33] === Deploy pradžia (20260902_203833) ===
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:38:33 vmi3306453 autoleft-deploy[3973840]: [20:38:33] Vietos diske: 91% laisva (267G).
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] DB dumpas: /root/autoleft_backups/db_20260902_203833.sql.gz (132M)
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Senos kopijos ištrintos: 1 (laikom 5 naujausias).
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Kopijos: 5 vnt.,  viso 653M,  diske laisva 267G (91%).
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:17 vmi3306453 autoleft-deploy[3973840]: [20:39:17] Versija: 7e171f9f79e4
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]: Operations to perform:
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]:   Apply all migrations: accounts, admin, analytics, auth, broadcasts, contenttypes, conversations, imones, listings, payments, sessions
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]: Running migrations:
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974441]:   No migrations to apply.
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:19 vmi3306453 autoleft-deploy[3974481]: 0 static files copied to '/root/autoleft/staticfiles', 218 unmodified, 126 post-processed.
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:20 vmi3306453 autoleft-deploy[3973840]: [20:39:20] Restartinam gunicorn.service
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Health OK (1/10)
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Statiniai OK: style.df8265b02e1b.css (manifestas atnaujintas)
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Raktai: .env — vietoje.
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] Raktai: google-translate-key.json — vietoje.
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973840]: [20:39:22] === Deploy OK ===
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: Sep 02 20:39:22 vmi3306453 autoleft-deploy[3973655]: [2026-09-02 20:39:22] ✅ Deploy OK — gyvai veikia 7e171f9
+Sep 02 20:39:26 vmi3306453 autoleft-deploy[3974668]: ```
+Sep 02 20:39:26 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 02 20:39:26 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 02 20:39:26 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 44.100s CPU time.
+Sep 02 20:39:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
