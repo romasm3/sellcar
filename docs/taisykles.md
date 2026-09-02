@@ -332,6 +332,61 @@ markę (adresas nejuda, skaičius keičiasi tris kartus), paspaudžia
 
 ---
 
+## 10. SĄRAŠŲ TEKSTAS VISADA KAIRĖJE
+
+Kiekvienoje sąrašo eilutėje — iškrentančiame lauke, šalių sąraše,
+telefono eilutėse, /pasirinkti/ puslapyje — tekstas prasideda kairėje:
+
+    justify-content: flex-start;  text-align: left;
+    pavadinimo span: flex: 1; min-width: 0; text-align: left;
+    skaičius (jei yra): margin-left: auto;
+
+`justify-content: space-between` sąrašo eilutėje NEBENAUDOJAMAS: jis
+eilutės turinį stumdo pagal tekstų ilgį. Antraštėms (`.sp-items-header`,
+`.sp-picker-hdr`) tai netaikoma — jos ne sąrašo eilutės.
+
+Viena išimtis, kuri stipresnė: šalies vardas NEIŠTEMPIAMAS iki viso
+pločio (`flex: 0 1 auto`), nes vėliava turi likti prilipusi prie
+pavadinimo (taisyklė 5). Skaičius į dešinę nueina per `margin-left:auto`.
+
+Patikra: `docs/sarasu_lygiuote_playwright.js` — matuoja tikrą atstumą
+nuo eilutės krašto iki teksto; riba 38 px (14 px vidus + 16 px langelis
++ 10 px tarpas). `GYVAI=1` — matuoja gyvoje svetainėje.
+
+---
+
+## 11. SĄRAŠŲ UŽRAŠŲ IR REIKŠMIŲ NEKEISTI
+
+Filtrų laukų pavadinimai ir jų reikšmės NEVERČIAMI, NEPERVADINAMI ir
+NETRUMPINAMI savo nuožiūra — niekada, nebent žmogus aiškiai paprašo tą
+patį lauką pervadinti. Reikšmės imamos iš modelio arba konfigūracijos
+TOKIOS, KOKIOS YRA.
+
+Jei sąrašas tuščias, tvarkoma tik JUNGTIS (pvz. laukas nebuvo įrašytas į
+`CHOICES_BY_DB_FIELD`), o ne kuriamas naujas reikšmių sąrašas.
+
+„Pagražinimas" be prašymo — irgi keitimas. Prieš bet kokį išvaizdos
+darbą:
+
+1. užfiksuok, kaip veikia dabar (`docs/sonines_juostos_sarasas.py`
+   išrašas arba lygiavertis), ir įrašyk failą;
+2. padaryk darbą;
+3. po darbo tą patį išrašą pakartok ir ĮRODYK, kad elgsena ir turinys
+   nepasikeitė — skirtumas turi būti tuščias arba paaiškintas eilutė po
+   eilutės.
+
+Be to įrodymo darbas neatiduodamas.
+
+---
+
+## 12. JOKIO AUTOMATINIO PERSIKROVIMO PASIRINKUS FILTRĄ
+
+Žr. 9. Pasirinkimas kaupiamas, adresą keičia tik „Filtruoti". Šablonuose
+neturi likti nė vieno `form.submit()`, `@change="$el.form.submit()"` ar
+`onchange="this.form.submit()"` filtro lauke.
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -360,3 +415,6 @@ markę (adresas nejuda, skaičius keičiasi tris kartus), paspaudžia
 - [ ] „Filtruoti" atnaujina adresą vienu kartu su visais pasirinkimais
 - [ ] Markės/modelio × ištrina eilutę ir nepalieka `?brand=` adrese
 - [ ] Skaičiaus laukų `<datalist>` reikšmės skaitinės
+- [ ] Sąrašų tekstas kairėje (offsetLeft <= 38 px visuose paviršiuose)
+- [ ] Nė vienas užrašas ar reikšmė nepervadinti be prašymo
+- [ ] Prieš/po išrašas sutampa arba skirtumas paaiškintas

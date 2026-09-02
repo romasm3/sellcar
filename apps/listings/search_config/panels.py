@@ -76,6 +76,12 @@ CHOICES_BY_DB_FIELD = {
     'motorcycle_type': 'MOTORCYCLE_TYPE_CHOICES',
     'euro_standard':   'EURO_STANDARD_CHOICES',
     'condition':       'CONDITION_CHOICES',
+    # Šitų dviejų čia nebuvo nuo pat pirmo commit'o (03c1ad0, 2026-08-20),
+    # todėl „Varantieji ratai" ir „Vairo padėtis" visur rodė tik „Visi".
+    # Reikšmės imamos iš modelio TOKIOS, KOKIOS YRA — nieko neverčiam ir
+    # nepervadinam (docs/taisykles.md 11).
+    'drive_type':      'DRIVE_TYPE_CHOICES',
+    'steering':        'STEERING_CHOICES',
 }
 
 # db_field, kurių reikšmės — laisvas tekstas iš skelbimų (ne choices).

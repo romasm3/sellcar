@@ -79,9 +79,14 @@
 
 .salies-sarasas { max-height: 400px; overflow-y: auto; padding-bottom: 8px; }
 
+/* Tekstas kairėje (docs/taisykles.md 10). Vardas NEIŠTEMPIAMAS iki
+   viso pločio — kitaip vėliava atitrūktų nuo pavadinimo (taisyklė 5);
+   dešinę pusę tvarko skaičiaus margin-left:auto. */
 .salies-punktas {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    text-align: left;
     gap: 12px;
     height: 50px;
     padding: 0 18px;
@@ -165,7 +170,8 @@
               padding-top: 8px; max-height: 320px; overflow-y: auto; }
 /* Eilutė 34px (etalonas: .srow) — aukštį nustatom aiškiai, nes su
    20×15 vėliava vien iš tarpų išeidavo 40px. */
-.salis-eil { display: flex; align-items: center; gap: 10px;
+.salis-eil { display: flex; align-items: center; justify-content: flex-start;
+             text-align: left; gap: 10px;
              min-height: 34px; padding: 0; text-decoration: none;
              color: #1A1A1A; }
 .salis-eil:hover .salis-eil-vardas { text-decoration: underline; }

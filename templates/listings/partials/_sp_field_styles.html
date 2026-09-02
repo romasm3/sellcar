@@ -33,9 +33,14 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-dd-search input:focus { border-color:var(--accent); }
   .sp-dd-search svg { position:absolute; right:18px; top:50%; transform:translateY(-50%); width:17px; height:17px; color:#9AA0A6; pointer-events:none; }
   .sp-dd-scroll { max-height:280px; overflow-y:auto; }
-  .sp-dd-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-size:14px; color:#333; cursor:pointer; }
+  /* SĄRAŠO EILUTĖ: tekstas VISADA kairėje (docs/taisykles.md 10).
+     „space-between" čia buvo nuo pat pradžių (acaed7e, 2026-08-20) ir
+     eilutės turinį stumdydavo pagal jo ilgį; dabar tvarką nustato pats
+     tekstas, o skaičius atsistoja į dešinę per margin-left:auto. */
+  .sp-dd-item { display:flex; align-items:center; justify-content:flex-start; text-align:left; gap:12px; padding:9px 14px; font-size:14px; color:#333; cursor:pointer; }
+  .sp-dd-item > span:not(.sp-dd-count) { flex:1; min-width:0; text-align:left; }
   .sp-dd-item:hover { background:#F6F7F8; }
-  .sp-dd-count { color:#9AA0A6; font-size:13px; }
+  .sp-dd-count { color:#9AA0A6; font-size:13px; margin-left:auto; flex:0 0 auto; }
   /* Markė be skelbimų — rodoma, bet blankesnė (katalogas dar pildosi) */
   .sp-dd-item.is-tuscia { color:#9AA0A6; }
   .sp-dd-item.is-tuscia .sp-dd-count { color:#C4C8CC; }
@@ -107,11 +112,12 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-grid-mobile { display: block !important; }
     .sp-ctl { display: none; }
 
-    .sp-mrow { display: flex; align-items: center; justify-content: space-between;
+    .sp-mrow { display: flex; align-items: center; justify-content: flex-start;
                gap: 10px; width: 100%; height: 56px; padding: 0 2px;
                font-size: 17px; color: #1F2328; background: none; border: none;
                border-bottom: 1px solid var(--accent-soft); text-align: left; cursor: pointer; }
-    .sp-mrow-val { margin-left: auto; color: #9AA0A6; font-size: 15px;
+    .sp-mrow > span:first-child { flex: 1; min-width: 0; text-align: left; }
+    .sp-mrow-val { margin-left: auto; color: #9AA0A6; font-size: 15px; flex: 0 0 auto;
                    max-width: 45%; overflow: hidden; text-overflow: ellipsis;
                    white-space: nowrap; }
     .sp-mrow svg { width: 18px; height: 18px; color: #9AA0A6; flex: 0 0 auto; }
@@ -129,11 +135,13 @@ vidinės paraštės 9px/12px, aukštis 40px.
     .sp-sheet-search input { width: 100%; height: 44px; border: 1px solid #DCDEE2;
                              border-radius: 8px; padding: 0 12px; font-size: 16px; outline: none; }
     .sp-sheet-list { flex: 1; overflow-y: auto; }
-    .sp-sheet-item { display: flex; align-items: center; justify-content: space-between;
+    .sp-sheet-item { display: flex; align-items: center; justify-content: flex-start;
+                     text-align: left; gap: 10px;
                      height: 52px; padding: 0 14px; font-size: 17px; color: #1F2328;
                      border-bottom: 1px solid #F3F4F6; cursor: pointer; }
+    .sp-sheet-item > span:not(.cnt) { flex: 1; min-width: 0; text-align: left; }
     .sp-sheet-item.is-sel { color: var(--accent); font-weight: 700; }
-    .sp-sheet-item .cnt { color: #9AA0A6; font-size: 15px; }
+    .sp-sheet-item .cnt { color: #9AA0A6; font-size: 15px; margin-left: auto; flex: 0 0 auto; }
     /* Markė be skelbimų — matoma, tik blankesnė */
     .sp-sheet-item.is-tuscia { color: #9AA0A6; }
     .sp-sheet-item.is-tuscia .cnt { color: #C4C8CC; }
@@ -204,11 +212,13 @@ vidinės paraštės 9px/12px, aukštis 40px.
   .sp-select-page .sp-sheet-search input { width: 100%; height: 44px; border: 1px solid #DCDEE2;
                     border-radius: 8px; padding: 0 12px; font-size: 16px; outline: none; }
   .sp-select-page .sp-sheet-list { flex: 1; }
-  .sp-select-page .sp-sheet-item { display: flex; align-items: center; justify-content: space-between;
+  .sp-select-page .sp-sheet-item { display: flex; align-items: center; justify-content: flex-start;
+                    text-align: left; gap: 10px;
                     min-height: 52px; padding: 0 14px; font-size: 17px; color: #1F2328;
                     border-bottom: 1px solid #F3F4F6; text-decoration: none; }
+  .sp-select-page .sp-sheet-item > span:not(.cnt) { flex: 1; min-width: 0; text-align: left; }
   .sp-select-page .sp-sheet-item.is-sel { font-weight: 700; color: var(--accent); }
-  .sp-select-page .cnt { color: #9AA0A6; font-size: 15px; }
+  .sp-select-page .cnt { color: #9AA0A6; font-size: 15px; margin-left: auto; flex: 0 0 auto; }
   /* „Visi" antraštėje — vienu paspaudimu nuvalyti lauką neieškant
      eilutės sąrašo viršuje. */
   .sp-select-page .sp-sheet-clear { margin-left: auto; font-size: 15px;
