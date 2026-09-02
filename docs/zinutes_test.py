@@ -189,8 +189,10 @@ ts.translate_messages_for_user = sprogsta
 try:
     r6 = kl2.get('/conversations/%s/translate/' % c.pk)
     tikrink(r6.status_code == 500, 'neatsakius vertimui grąžinamas %s' % r6.status_code)
-    tikrink(json.loads(r6.content).get('success') is False,
-            'klaida praneša apie sėkmę — sąsaja liktų kaboti')
+    d6 = json.loads(r6.content)
+    tikrink(d6.get('success') is False, 'klaida praneša apie sėkmę — sąsaja liktų kaboti')
+    tikrink(d6.get('error_type') == 'RuntimeError',
+            'atsakyme nėra klaidos tipo — nematyti, KUR problema: %r' % d6.get('error_type'))
 finally:
     ts.translate_messages_for_user = orig
 

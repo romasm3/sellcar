@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 from apps.listings.image_validation import ImageValidationError, validate_image
 
 from .models import Conversation, Message
@@ -369,7 +373,19 @@ def translate_conversation(request, pk):
             'messages': translated,
         })
     except Exception as e:
+        # PRIEŽASTIS TURI LIKTI ŽURNALE. Iki 2026-09-02 čia buvo tik
+        # str(e) atsakyme, o serviso viduje — print(): kai vertimas krito
+        # produkcijoje, iš niekur nebuvo matyti, ar tai neįdiegtas
+        # google-cloud-translate, ar trūkstamas raktas, ar API atsakymas.
+        # logger.exception įrašo pilną traceback į gunicorn žurnalą.
+        logger.exception('Vertimas nepavyko (pokalbis %s, kalba %s)',
+                         pk, target_lang)
         return JsonResponse({
             'success': False,
             'error': str(e),
+            # Klaidos tipas — kad atsakymas pats pasakytų, kur žiūrėti:
+            # ModuleNotFoundError → paketas neįdiegtas venv'e;
+            # DefaultCredentialsError → nėra rakto;
+            # ProgrammingError → nepritaikyta migracija.
+            'error_type': type(e).__name__,
         }, status=500)
