@@ -3764,7 +3764,7 @@ msgstr "Без названия"
 #: templates/listings/trucks_listing_create.html:352
 #: templates/listings/trucks_listing_create.html:574
 msgid "Year"
-msgstr "Год выпуска"
+msgstr "Год"
 
 #: apps/listings/models.py:1457 apps/listings/models.py:2861
 #, fuzzy
@@ -4907,12 +4907,12 @@ msgstr "Тягачи"
 
 #: apps/listings/translatable_db.py:20 apps/listings/views.py:1708
 msgid "Autotraukiniai, autovežiai"
-msgstr ""
+msgstr "Автопоезда, автовозы"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
 #: apps/listings/views.py:1709
 msgid "Komunalinio ūkio transportas"
-msgstr ""
+msgstr "Коммунальная техника"
 
 #: apps/listings/translatable_db.py:21
 #: templates/listings/loading_equipment_create.html:25
@@ -7590,7 +7590,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1225
 #: templates/listings/partials/search_panel.html:1343
 msgid "Visos markės"
-msgstr ""
+msgstr "Все марки"
 
 #: templates/listings/advanced_generic.html:65
 msgid "Pridėti daugiau markių"
@@ -7921,7 +7921,7 @@ msgstr ""
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/search_panel.html:900
 msgid "Žemės ūkio technika, padargai"
-msgstr ""
+msgstr "Сельхозтехника, навесное оборудование"
 
 #: templates/listings/agriculture_listing_create.html:40
 #: templates/listings/camping_listing_create.html:41
@@ -8043,7 +8043,7 @@ msgstr ""
 #: templates/listings/trailers_listing_create.html:93
 #: templates/listings/trailers_listing_create.html:253
 msgid "Metai"
-msgstr "Год выпуска"
+msgstr "Год"
 
 #: templates/listings/agriculture_listing_create.html:120
 #: templates/listings/camping_listing_create.html:119
@@ -17141,6 +17141,10 @@ msgstr "Сельхозтехника"
 #. terminai.md — patvirtintas vertimas
 msgid "Žinutės"
 msgstr "Сообщения"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Limuzinų, vestuvių transportas"
+msgstr "Лимузины, свадебный транспорт"
 
 #, fuzzy
 #~ msgid "Naked / Street"

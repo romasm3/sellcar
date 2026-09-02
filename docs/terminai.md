@@ -20,7 +20,7 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 |---|---|---|
 | Markė | Марка | Make |
 | Modelis | Модель | Model |
-| Metai | Год выпуска | Year |
+| Metai | Год | Year |
 | Kaina | Цена | Price |
 | Kuro tipas | Тип топлива | Fuel type |
 | Kėbulo tipas | Тип кузова | Body type |
@@ -83,6 +83,11 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Žemės ūkio technika | Сельхозтехника | Agricultural machinery |
 | Automobilių nuoma | Аренда автомобилей | Car rental |
 | Ratlankiai | Диски | Wheels |
+| Visos markės | Все марки | — |
+| Žemės ūkio technika, padargai | Сельхозтехника, навесное оборудование | — |
+| Autotraukiniai, autovežiai | Автопоезда, автовозы | — |
+| Komunalinio ūkio transportas | Коммунальная техника | — |
+| Limuzinų, vestuvių transportas | Лимузины, свадебный транспорт | — |
 
 ## Sąsaja
 
@@ -99,6 +104,10 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Įkelti | Разместить | Post |
 | Žinutės | Сообщения | Messages |
 | Įmonės ir servisai | Компании и сервисы | Businesses and services |
+
+Brūkšnys `—` langelyje reiškia, kad tos kalbos vertimo dar nėra ir
+skriptas to langelio neliečia. Terminas nuo to netampa neteisingas —
+tiesiog laukia.
 
 ## Sudėtinės eilutės
 

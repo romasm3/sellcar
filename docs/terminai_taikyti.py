@@ -64,6 +64,8 @@ def zodynas():
             r = raktas(variantas)
             turimas = z.setdefault(r, {})
             for kalba, reiksme in irasas.items():
+                if reiksme in ('', '—'):
+                    continue                  # tos kalbos vertimo dar nėra
                 if kalba in turimas:
                     continue                  # pirmoji lentelė laimi
                 if ' / ' in reiksme and ' / ' not in variantas:

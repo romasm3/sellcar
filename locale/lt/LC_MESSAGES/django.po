@@ -15554,10 +15554,8 @@ msgstr "Grįžti į skelbimo redagavimą"
 
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:737
-#, fuzzy
-#| msgid "Žemės ūkio technikai"
 msgid "Žemės ūkio technika, padargai"
-msgstr "Žemės ūkio technikai"
+msgstr "Žemės ūkio technika, padargai"
 
 #: templates/listings/agriculture_listing_create.html:40
 #: templates/listings/camping_listing_create.html:41
@@ -23435,6 +23433,10 @@ msgstr "Žemės ūkio technika"
 #. terminai.md — patvirtintas vertimas
 msgid "Žinutės"
 msgstr "Žinutės"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Limuzinų, vestuvių transportas"
+msgstr "Limuzinų, vestuvių transportas"
 
 #~ msgid ""
 #~ "Your wallet stores credits used for boosting listings, featured ads, and "

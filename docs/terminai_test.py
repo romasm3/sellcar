@@ -61,7 +61,9 @@ def terminai():
 T = terminai()
 antraste('1. Lentelė perskaitoma')
 tikrink(len(T) >= 70, 'terminų per mažai: %d' % len(T))
-tikrink(all(all(x) for x in T), 'yra tuščių langelių')
+tikrink(all(x[0] and x[1] for x in T), 'yra tuščių LT arba RU langelių')
+tuscia_en = [x[0] for x in T if x[2] == '—']
+print('  langelių be angliško varianto: %d %s' % (len(tuscia_en), tuscia_en[:3]))
 
 antraste('2. Ką pamato vartotojas')
 for kalba, stulpelis in (('ru', 1), ('en', 2)):
@@ -69,7 +71,7 @@ for kalba, stulpelis in (('ru', 1), ('en', 2)):
     blogi = [(lt, translation.gettext(lt), laukta)
              for lt, ru, en in T
              for laukta in ((ru, en)[stulpelis - 1],)
-             if translation.gettext(lt) != laukta]
+             if laukta != '—' and translation.gettext(lt) != laukta]
     tikrink(not blogi, '%s: neatitinka %d — %s' % (kalba, len(blogi), blogi[:3]))
     print('  %s: patikrinta %d, visi sutampa: %s' % (kalba, len(T), not blogi))
 translation.activate('lt')
