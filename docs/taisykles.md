@@ -475,6 +475,37 @@ išlikimą po `--delete`, vietos ribą abiem kryptim, valymą, gzip).
 
 ---
 
+## 17. TERMINAI — VIENAS ŠALTINIS, PATVIRTINTI VERTIMAI
+
+`docs/terminai.md` — filtrų laukų, reikšmių, kategorijų ir sąsajos
+terminai lietuvių, rusų ir anglų kalbomis. Vertimai **patvirtinti**: jų
+neverčiam iš naujo ir nekeičiam savo nuožiūra. Abejojant dėl termino
+etalonas — `autogidas.lt/ru/`, o ne naujas vertimas.
+
+Naujas terminas pridedamas **į docs/terminai.md**, ne į .po. Tada:
+
+    python docs/terminai_taikyti.py --bandymas   # parodo, ką keis
+    python docs/terminai_taikyti.py              # įrašo .po ir .mo
+
+Patvirtintas vertimas **negali likti `#, fuzzy`** — tokia eilutė
+nekompiliuojama į .mo ir vartotojui nerodoma, t. y. vertimas neveiktų.
+Fuzzy lieka tik neperžiūrėtoms mašinos eilutėms, kad matytųsi, jog jos
+dar netikrintos.
+
+Dalis tekstų į .po per `makemessages` nepatenka niekada: filtrų užrašai
+ateina per `_(f['label'])`, o reikšmės — iš DB, ir xgettext kintamojo
+nemato. Tokie tekstai registruojami `apps/listings/translatable_db.py`
+(ten yra `TERMINAI_LT`, sutampantis su terminai.md).
+
+`.mo` failai laikomi git'e, o deploy jų NEKOMPILIUOJA — todėl po kiekvieno
+vertimų keitimo `.mo` perrašomas ir commit'inamas kartu su `.po`.
+
+Patikra: `docs/terminai_test.py` — per tikrą gettext tikrina, ką pamato
+rusas ir anglas, ar patvirtinti terminai nepažymėti fuzzy ir ar .mo ne
+senesnis už .po.
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -511,3 +542,5 @@ išlikimą po `--delete`, vietos ribą abiem kryptim, valymą, gzip).
 - [ ] Naujos žinutės atsiranda be puslapio perkrovimo, tekstas nedingsta
 - [ ] Serverio failai (.env, raktai) išskirti iš snapshot/restore
 - [ ] Kopijos suspaustos, laikom 5, vietos patikra prieš deploy'ą
+- [ ] Nauji terminai — docs/terminai.md, ne tiesiai .po
+- [ ] Po vertimų keitimo perrašytas ir sukommitintas .mo

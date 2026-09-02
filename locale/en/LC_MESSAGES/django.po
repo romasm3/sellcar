@@ -42,7 +42,7 @@ msgstr "This email is already registered."
 
 #: apps/accounts/models.py:17
 msgid "Private Seller"
-msgstr ""
+msgstr "Private seller"
 
 #: apps/accounts/models.py:18
 msgid "Car Dealer / Autohouse"
@@ -92,7 +92,7 @@ msgstr ""
 #: templates/listings/truck_parts_browse.html:175
 #: templates/listings/wheels_advanced_search.html:289
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: apps/accounts/models.py:34 apps/listings/forms.py:391
 #: templates/accounts/profile_edit.html:92
@@ -106,7 +106,7 @@ msgstr ""
 #: templates/listings/truck_parts_browse.html:163
 #: templates/listings/wheels_advanced_search.html:269
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: apps/accounts/models.py:35 templates/accounts/profile_edit.html:21
 msgid "Profile Picture"
@@ -114,7 +114,7 @@ msgstr ""
 
 #: apps/accounts/models.py:42
 msgid "Seller Type"
-msgstr ""
+msgstr "Seller type"
 
 #: apps/accounts/models.py:44 templates/accounts/dealer_setup.html:22
 msgid "Company Name"
@@ -391,7 +391,7 @@ msgstr "Test entry"
 
 #: apps/imones/models.py:149
 msgid "Įmonė"
-msgstr "Business"
+msgstr "Dealer"
 
 #: apps/imones/models.py:150 apps/imones/views.py:286
 #: apps/listings/paieskos_siulymai.py:202
@@ -489,7 +489,7 @@ msgstr "Klaipėda"
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
-msgstr "business"
+msgstr "dealer"
 
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
@@ -931,7 +931,7 @@ msgstr ""
 
 #: apps/listings/context_processors.py:208 templates/base.html:891
 msgid "Įmonės ir servisai"
-msgstr "Businesses and repair shops"
+msgstr "Businesses and services"
 
 #: apps/listings/context_processors.py:209
 msgid "Finansavimas"
@@ -1072,7 +1072,7 @@ msgstr "Brand"
 #: templates/listings/wheels_create.html:62
 #: templates/listings/wheels_detail.html:107
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: apps/listings/forms.py:39
 msgid "Manufacturing Year"
@@ -1111,7 +1111,7 @@ msgstr "Body type"
 #: templates/listings/trucks_list.html:337
 #: templates/listings/trucks_list.html:627
 msgid "Fuel Type"
-msgstr ""
+msgstr "Fuel type"
 
 #: apps/listings/forms.py:109 apps/listings/models.py:331
 #: templates/accounts/dealer_public_page.html:109
@@ -1296,7 +1296,7 @@ msgstr ""
 #: templates/listings/wheels_list.html:99
 #: templates/listings/wheels_list.html:103
 msgid "Ratlankiai"
-msgstr "Rims"
+msgstr "Wheels"
 
 #: apps/listings/forms.py:228 templates/listings/advanced_search.html:337
 #: templates/listings/listing_create.html:624
@@ -1318,7 +1318,7 @@ msgstr "Weight (kg)"
 #: templates/listings/motorcycle_create.html:212
 #: templates/listings/motorcycles_advanced_search.html:383
 msgid "Euro Standard"
-msgstr ""
+msgstr "Euro standard"
 
 #: apps/listings/forms.py:252
 msgid "CO\\u2082 Emission (g/km)"
@@ -1593,7 +1593,7 @@ msgstr ""
 #: templates/listings/listing_list.html:693
 #: templates/listings/motorcycles_list.html:612
 msgid "Damaged"
-msgstr ""
+msgstr "Damaged"
 
 #: apps/listings/models.py:347 apps/listings/models.py:2856
 msgid "Juodraštis"
@@ -2860,7 +2860,7 @@ msgstr "Purpose"
 #: templates/listings/trailers_listing_create.html:65
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
-msgstr "Brand"
+msgstr "Make"
 
 #: apps/listings/models.py:887 apps/listings/models.py:983
 #: apps/listings/models.py:1100
@@ -3960,7 +3960,7 @@ msgstr ""
 #: templates/listings/trucks_listing_create.html:313
 #: templates/listings/trucks_listing_create.html:465
 msgid "Year"
-msgstr ""
+msgstr "Year"
 
 #: apps/listings/models.py:1477 apps/listings/models.py:3040
 msgid "First Registration Date"
@@ -4427,7 +4427,7 @@ msgstr ""
 
 #: apps/listings/models.py:2936
 msgid "Hybrid"
-msgstr ""
+msgstr "Hybrid"
 
 #: apps/listings/models.py:2937
 msgid "Hydrogen"
@@ -4529,14 +4529,14 @@ msgstr ""
 
 #: apps/listings/models.py:3830 apps/listings/translatable_db.py:58
 msgid "Trucks"
-msgstr ""
+msgstr "Trucks"
 
 #: apps/listings/models.py:3831 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:152
 #: templates/listings/motorcycles_list.html:190
 #: templates/listings/motorcycles_list.html:344
 msgid "Motorcycles"
-msgstr ""
+msgstr "Motorcycles"
 
 #: apps/listings/models.py:3832
 msgid "Industrial"
@@ -4780,7 +4780,7 @@ msgstr "Condition"
 #: templates/listings/services_listing_create.html:66
 #: templates/listings/trailers_listing_create.html:171
 msgid "Kaina"
-msgstr "Price (€)"
+msgstr "Price"
 
 #: apps/listings/motogear_views.py:962 apps/listings/translatable_db.py:1530
 #: templates/listings/motogear_advanced.html:183
@@ -4893,7 +4893,7 @@ msgstr ""
 #: templates/partials/_paieskos_juosta.html:193
 #: templates/search/_panel_cars.html:60
 msgid "Skelbimai"
-msgstr "Search"
+msgstr "Listings"
 
 #: apps/listings/paieskos_siulymai.py:270
 msgid "Vietos"
@@ -5584,7 +5584,7 @@ msgstr "Purpose is required"
 #: templates/listings/partials/search_rail.html:13
 #: templates/listings/trucks_list.html:167
 msgid "Cars"
-msgstr ""
+msgstr "Cars"
 
 #: apps/listings/translatable_db.py:15
 #: templates/listings/listing_list.html:342
@@ -5698,7 +5698,7 @@ msgstr ""
 #: templates/listings/partials/search_rail.html:80
 #: templates/listings/trucks_list.html:180
 msgid "Car Rental"
-msgstr ""
+msgstr "Car rental"
 
 #: apps/listings/translatable_db.py:19
 #: templates/listings/listing_list.html:356
@@ -5806,7 +5806,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:39
 msgid "Buses"
-msgstr ""
+msgstr "Buses"
 
 #: apps/listings/translatable_db.py:40
 msgid "Campers"
@@ -5990,7 +5990,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:55
 msgid "Semi-trailers"
-msgstr ""
+msgstr "Semi-trailers"
 
 #: apps/listings/translatable_db.py:55
 #: templates/listings/sidebar_moto_parts.html:20
@@ -7370,7 +7370,7 @@ msgstr "Engine size cm³"
 
 #: apps/listings/translatable_db.py:396 apps/listings/translatable_db.py:1651
 msgid "Daužtas"
-msgstr ""
+msgstr "Damaged"
 
 #: apps/listings/translatable_db.py:397
 msgid "Deflektorius variklio dangčio"
@@ -9527,7 +9527,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:967
 msgid "Pirmosios registracijos šalis"
-msgstr "Country of first registration"
+msgstr "First registration country"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -11294,7 +11294,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1424
 msgid "Vairo padėtis"
-msgstr "Steering position"
+msgstr "Steering side"
 
 #: apps/listings/translatable_db.py:1425
 msgid "Vairo rato ašies komplektas"
@@ -11986,7 +11986,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1636
 msgid "Be defektų"
-msgstr ""
+msgstr "No defects"
 
 #: apps/listings/translatable_db.py:1637
 msgid "Benzinas/Gamtinės dujos"
@@ -12014,7 +12014,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1653
 msgid "Dešinėje"
-msgstr ""
+msgstr "Right"
 
 #: apps/listings/translatable_db.py:1654
 msgid "Diagnostikos įranga"
@@ -12046,7 +12046,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1675
 msgid "Hečbekas"
-msgstr ""
+msgstr "Hatchback"
 
 #: apps/listings/translatable_db.py:1682
 msgid "Išmetimo sistemos Tuning dalys"
@@ -12062,7 +12062,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1685
 msgid "Kairėje"
-msgstr ""
+msgstr "Left"
 
 #: apps/listings/translatable_db.py:1686
 msgid "Kaišiadorys"
@@ -12336,7 +12336,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1830
 msgid "Vienatūris"
-msgstr ""
+msgstr "MPV"
 
 #: apps/listings/translatable_db.py:1832
 msgid "Vilkaviškis"
@@ -12854,7 +12854,7 @@ msgstr ""
 #: templates/listings/listing_detail.html:1795
 #: templates/listings/trucks_listing_create.html:490
 msgid "Gearbox"
-msgstr ""
+msgstr "Gearbox"
 
 #: apps/listings/translatable_db.py:2035
 msgid "Generator"
@@ -13289,7 +13289,7 @@ msgstr ""
 #: templates/listings/advanced_search.html:329
 #: templates/listings/listing_detail.html:2459
 msgid "Seats"
-msgstr ""
+msgstr "Seats"
 
 #: apps/listings/translatable_db.py:2207
 msgid "Seats / Backrests"
@@ -13745,7 +13745,7 @@ msgstr ""
 #: templates/listings/partials/fields/_mobile_rows.html:51
 #: templates/listings/search_map.html:176
 msgid "iki"
-msgstr "up to"
+msgstr "to"
 
 #: apps/listings/views.py:1387 apps/listings/views.py:1396
 #: apps/listings/views.py:1422
@@ -14289,7 +14289,7 @@ msgstr ""
 #: templates/accounts/dealer_public_page.html:180
 #: templates/accounts/seller_profile.html:293
 msgid "listings"
-msgstr ""
+msgstr "listings"
 
 #: templates/accounts/dealer_public_page.html:51
 #: templates/accounts/dealer_public_page.html:61
@@ -14425,7 +14425,7 @@ msgstr ""
 #: templates/listings/wheels_advanced_search.html:271
 #: templates/listings/wheels_advanced_search.html:290
 msgid "All"
-msgstr ""
+msgstr "All"
 
 #: templates/accounts/dealer_public_page.html:69
 #: templates/listings/listing_list_v2.html:310
@@ -14473,13 +14473,13 @@ msgstr "Body type"
 #: templates/listings/truck_parts_browse.html:134
 #: templates/listings/wheels_advanced_search.html:302
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: templates/accounts/dealer_public_page.html:133
 #: templates/listings/advanced_search.html:856
 #: templates/listings/trucks_advanced_search.html:633
 msgid "Clear"
-msgstr ""
+msgstr "Clear"
 
 #: templates/accounts/dealer_public_page.html:145
 msgid "Categories"
@@ -14988,7 +14988,7 @@ msgstr ""
 
 #: templates/accounts/seller_profile.html:54
 msgid "Listings"
-msgstr ""
+msgstr "Listings"
 
 #: templates/accounts/seller_profile.html:58
 #: templates/listings/listing_create.html:26
@@ -15009,7 +15009,7 @@ msgstr ""
 
 #: templates/accounts/seller_profile.html:115
 msgid "Private seller"
-msgstr ""
+msgstr "Private seller"
 
 #: templates/accounts/seller_profile.html:124
 #: templates/accounts/seller_profile.html:371
@@ -15138,7 +15138,7 @@ msgstr ""
 #: templates/listings/wheels_advanced_search.html:118
 #: templates/listings/wheels_advanced_search.html:230
 msgid "From"
-msgstr ""
+msgstr "From"
 
 #: templates/accounts/seller_profile.html:222 templates/home.html:84
 #: templates/listings/advanced_search.html:210
@@ -15195,7 +15195,7 @@ msgstr ""
 #: templates/listings/wheels_advanced_search.html:120
 #: templates/listings/wheels_advanced_search.html:232
 msgid "To"
-msgstr ""
+msgstr "To"
 
 #: templates/accounts/seller_profile.html:231
 msgid "Price from €"
@@ -15428,7 +15428,7 @@ msgstr ""
 
 #: templates/base.html:401
 msgid "Įkelti"
-msgstr "Post an ad"
+msgstr "Post"
 
 #: templates/base.html:417 templates/base.html:610
 msgid "Map Search"
@@ -15436,13 +15436,13 @@ msgstr ""
 
 #: templates/base.html:422 templates/base.html:494 templates/base.html:627
 msgid "My Searches"
-msgstr ""
+msgstr "My searches"
 
 #: templates/base.html:442 templates/base.html:507 templates/base.html:636
 #: templates/conversations/conversation_list.html:4
 #: templates/conversations/conversation_list.html:14
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
 #: templates/base.html:476 templates/base.html:621
 #: templates/listings/my_listings.html:6
@@ -15467,7 +15467,7 @@ msgstr ""
 #: templates/listings/truck_parts_advanced.html:154
 #: templates/listings/truck_parts_browse.html:191
 msgid "Dealer"
-msgstr ""
+msgstr "Dealer"
 
 #: templates/base.html:522 templates/base.html:649
 msgid "Admin"
@@ -15882,7 +15882,7 @@ msgstr ""
 #: templates/listings/trucks_list.html:561
 #: templates/listings/trucks_listing_create.html:341
 msgid "Make"
-msgstr "Brand"
+msgstr "Make"
 
 #: templates/home.html:57
 msgid "Price Min"
@@ -15963,7 +15963,7 @@ msgstr ""
 #: templates/listings/trucks_list.html:693
 #: templates/listings/trucks_listing_create.html:370
 msgid "Mileage"
-msgstr "Mileage (km)"
+msgstr "Mileage"
 
 #: templates/home.html:165
 msgid "Map View"
@@ -17546,7 +17546,7 @@ msgstr ""
 #: templates/listings/tyres_create.html:95
 #: templates/listings/wheels_create.html:106
 msgid "Price"
-msgstr "Price (€)"
+msgstr "Price"
 
 #: templates/listings/boats_listing_create.html:117
 #: templates/listings/listing_create_cars_quick.html:214
@@ -17887,7 +17887,7 @@ msgstr "Tread remaining"
 #: templates/listings/camping_listing_create.html:281
 #: templates/listings/listing_detail.html:757
 msgid "Varantieji ratai"
-msgstr "Drivetrain"
+msgstr "Drive"
 
 #: templates/listings/camping_listing_create.html:308
 #: templates/listings/listing_detail.html:773
@@ -18704,7 +18704,7 @@ msgstr "CO₂ emissions (g/km)"
 
 #: templates/listings/listing_create_cars_quick.html:301
 msgid "First registration country"
-msgstr "Country of first registration"
+msgstr "First registration country"
 
 #: templates/listings/listing_create_cars_quick.html:348
 msgid "Curb weight, kg"
@@ -18716,7 +18716,7 @@ msgstr "Weight (kg)"
 #: templates/listings/trucks_advanced_search.html:478
 #: templates/listings/trucks_list.html:354
 msgid "Euro standard"
-msgstr "Euro emissions standard"
+msgstr "Euro standard"
 
 #: templates/listings/listing_create_cars_quick.html:356
 msgid "Fuel consumption (l/100km)"
@@ -18755,7 +18755,7 @@ msgstr "Special features"
 #: templates/listings/truck_parts_advanced.html:151
 #: templates/listings/truck_parts_browse.html:188
 msgid "Seller type"
-msgstr ""
+msgstr "Seller type"
 
 #: templates/listings/listing_create_cars_quick.html:480
 #: templates/listings/rims_create.html:206
@@ -18807,7 +18807,7 @@ msgstr ""
 
 #: templates/listings/listing_delete.html:28
 msgid "Kaina:"
-msgstr ""
+msgstr "Price:"
 
 #: templates/listings/listing_detail.html:39
 msgid "Skelbimas neaktyvus"
@@ -19089,7 +19089,7 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:652
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
-msgstr "Euro emissions standard"
+msgstr "Euro standard"
 
 #: templates/listings/listing_detail.html:1467
 msgid "Tūris"
@@ -19284,7 +19284,7 @@ msgstr ""
 
 #: templates/listings/listing_detail.html:2497
 msgid "City:"
-msgstr ""
+msgstr "City:"
 
 #: templates/listings/listing_detail.html:2498
 msgid "Highway:"
@@ -19784,7 +19784,7 @@ msgstr "Seller"
 
 #: templates/listings/listing_list.html:936
 msgid "Privatus asmuo"
-msgstr ""
+msgstr "Private seller"
 
 #: templates/listings/listing_list.html:937
 msgid "Patvirtintas"
@@ -21088,7 +21088,7 @@ msgstr ""
 
 #: templates/listings/motorcycle_create.html:222
 msgid "First Registration Country"
-msgstr "Country of first registration"
+msgstr "First registration country"
 
 #: templates/listings/motorcycle_create.html:223
 msgid "e.g. Japan"
@@ -21786,7 +21786,7 @@ msgstr "Width (inches)"
 #: templates/listings/partials/_panel_bodies.html:597
 #: templates/listings/trailers_listing_create.html:25
 msgid "Priekabos / Puspriekabės"
-msgstr "Trailers & semi-trailers"
+msgstr "Trailers"
 
 #: templates/listings/partials/_panel_bodies.html:688
 msgid "TA galioja iki"
@@ -22380,7 +22380,7 @@ msgstr ""
 #: templates/listings/search_map.html:180
 #: templates/partials/_paieskos_juosta.html:194
 msgid "skelbimai"
-msgstr ""
+msgstr "listings"
 
 #: templates/listings/select_value.html:51
 msgid "Gerai"
@@ -22408,7 +22408,7 @@ msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:56
 msgid "MODEL"
-msgstr ""
+msgstr "MODEL"
 
 #: templates/listings/sidebar_moto_parts.html:65
 msgid "CONDITION"
@@ -22436,11 +22436,11 @@ msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:126
 msgid "COUNTRY"
-msgstr ""
+msgstr "COUNTRY"
 
 #: templates/listings/sidebar_moto_parts.html:128
 msgid "All countries"
-msgstr ""
+msgstr "All countries"
 
 #: templates/listings/sidebar_moto_parts.html:138
 msgid "STATE"
@@ -24091,3 +24091,87 @@ msgid "%(counter)s skelbimas"
 msgid_plural "%(counter)s skelbimai"
 msgstr[0] "%(counter)s listing"
 msgstr[1] "%(counter)s listings"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas"
+msgstr "Petrol"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / dujos"
+msgstr "Petrol / LPG"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dyzelinas"
+msgstr "Diesel"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Elektra"
+msgstr "Electric"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Galia, kW"
+msgstr "Power, kW"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Galiniai"
+msgstr "Rear"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Hibridas"
+msgstr "Hybrid"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Kabrioletas"
+msgstr "Convertible"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Kairėje / Dešinėje"
+msgstr "Left / Right"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Kupė"
+msgstr "Coupe"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Nuo / Iki"
+msgstr "From / To"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Priekiniai"
+msgstr "Front"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Puspriekabės"
+msgstr "Semi-trailers"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Sedanas"
+msgstr "Saloon"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Universalas"
+msgstr "Estate"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Visi / Visos"
+msgstr "All"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Visi varantys"
+msgstr "All-wheel"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Visureigis / Krosoveris"
+msgstr "SUV / Crossover"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Ypatybės"
+msgstr "Features"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Žemės ūkio technika"
+msgstr "Agricultural machinery"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Žinutės"
+msgstr "Messages"
