@@ -172,6 +172,22 @@ const PASTAS = /[\w.-]+@[\w.-]+\.\w{2,}/;
     tik(await p.evaluate(() => { const l = document.getElementById('pkLangas'); return l && !l.hidden; }),
         'didinimo langas neatsidaro');
     await p.keyboard.press('Escape');
+    await p.waitForTimeout(300);
+    tik(await p.evaluate(() => { const l = document.getElementById('pkLangas'); return l.hidden; }),
+        'Escape neuždaro didinimo lango');
+    // Miniatiūra, ne visas burbulas
+    var mm = await p.evaluate(() => {
+      const i = document.querySelector('.pk-burb img.lightbox-trigger');
+      const r = i.getBoundingClientRect(), bur = i.closest('.pk-burb').getBoundingClientRect();
+      const cs = getComputedStyle(i);
+      return { w: Math.round(r.width), h: Math.round(r.height),
+               dalis: r.width / bur.width, radius: cs.borderRadius, cursor: cs.cursor };
+    });
+    console.log('  miniatiūra: ' + JSON.stringify(mm));
+    tik(mm.w <= 220 && mm.h <= 220, 'miniatiūra didesnė nei 220 px');
+    tik(mm.dalis <= 0.71, 'telefone miniatiūra platesnė nei 70 % burbulo');
+    tik(mm.radius === '10px', 'miniatiūros apvalinimas ne 10 px');
+    tik(mm.cursor === 'pointer', 'miniatiūra be cursor:pointer');
   } else {
     console.log('  (šitame pokalbyje nuotraukų nėra — praleista)');
   }
@@ -197,6 +213,16 @@ const PASTAS = /[\w.-]+@[\w.-]+\.\w{2,}/;
   }));
   tik(dd.sarasasMatyti, 'darbalaukyje sąrašas turi likti matomas');
   tik(dd.juostele, 'darbalaukyje nėra skelbimo juostelės');
+  var dm = await d.evaluate(() => {
+    const i = document.querySelector('.pk-burb img.lightbox-trigger');
+    if (!i) return null;
+    const r = i.getBoundingClientRect();
+    return { w: Math.round(r.width), h: Math.round(r.height) };
+  });
+  if (dm) {
+    console.log('  miniatiūra darbalaukyje: ' + JSON.stringify(dm));
+    tik(dm.w <= 220 && dm.h <= 220, 'darbalaukyje miniatiūra didesnė nei 220 px');
+  }
   tik(!PASTAS.test(dd.tekstas), 'darbalaukyje matyti el. paštas');
   await d.screenshot({ path: EKRANAI + '/zinutes-1600.png' });
 

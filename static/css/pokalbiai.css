@@ -77,8 +77,12 @@
                border-bottom-left-radius: 4px; align-self: flex-start; }
 .pk-burb.as { background: #181B1F; color: #fff;
               border-bottom-right-radius: 4px; align-self: flex-end; }
-.pk-burb img { width: 100%; border-radius: 10px; margin-top: 6px; display: block;
-               cursor: pointer; }
+/* NUOTRAUKA BURBULE — miniatiūra, ne visas paveikslas. Iki 2026-09-02
+   čia buvo `width:100%`: nuotrauka išsipūsdavo per visą burbulą ir
+   išstumdavo žinutes. Originalą matai paspaudęs (didinimo langas). */
+.pk-burb img { max-width: 220px; max-height: 220px; width: auto; height: auto;
+               object-fit: cover; border-radius: 10px; margin-top: 6px;
+               display: block; cursor: pointer; }
 .pk-burb-laikas { font-size: 11px; color: #9CA3AF; margin-top: 3px; text-align: right; }
 .pk-burb.as .pk-burb-laikas { color: #A8ABB0; }
 .pk-tuscia { align-self: center; color: #9CA3AF; font-size: 13px; padding: 24px 0; }
@@ -108,4 +112,6 @@
   .pk-kortele { border: 0; border-radius: 0; height: calc(100vh - 56px); }
   .pk-greiti { padding-left: 12px; padding-right: 12px; }
   .pk-burb { max-width: 85%; }
+  /* Telefone miniatiūra neplatesnė kaip 70 % burbulo. */
+  .pk-burb img { max-width: 70%; }
 }

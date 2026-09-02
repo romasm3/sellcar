@@ -176,7 +176,14 @@ jas prideda į apačią.
       }
       vTxt.textContent = T.verciama;
       vBtn.disabled = true;
-      fetch(vBtn.dataset.url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      // Jei paslauga neatsako, „Verčiama…" negali kaboti amžinai:
+      // po 20 s nutraukiam ir parodom „Nepavyko išversti".
+      var nutraukiklis = ('AbortController' in window) ? new AbortController() : null;
+      var laikas = setTimeout(function () {
+        if (nutraukiklis) { nutraukiklis.abort(); } else { klaida(); vBtn.disabled = false; }
+      }, 20000);
+      fetch(vBtn.dataset.url, { headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                                signal: nutraukiklis ? nutraukiklis.signal : undefined })
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (d) {
           if (d && d.success && d.messages) {
@@ -191,7 +198,7 @@ jas prideda į apačią.
           }
         })
         .catch(klaida)
-        .then(function () { vBtn.disabled = false; });
+        .then(function () { clearTimeout(laikas); vBtn.disabled = false; });
     });
   }
 

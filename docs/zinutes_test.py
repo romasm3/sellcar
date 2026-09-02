@@ -156,13 +156,16 @@ for saknis, _k, failai in os.walk(os.path.join(BASE, 'templates', 'conversations
 tikrink(not blogos, 'liko location.reload(): %s' % blogos)
 
 
-antraste('5. Vertimo klaida matoma, o ne tylus originalas')
+antraste('5. Vertimas — logika kaip buvo, klaida nekabo')
+# Vertimo servisas 2026-09-02 ATSUKTAS į buvusią būseną (vartotojo
+# sprendimas): jis pats susitvarko su API klaidomis. Čia tikrinam tik tai,
+# kad neatsakius paslaugai atsakymas BŪTŲ, o ne amžinas „Verčiama…".
 SERVISAS = os.path.join(BASE, 'apps', 'conversations', 'translate_service.py')
-tikrink('return None' in open(SERVISAS, encoding='utf-8').read(),
-        'servisas vis dar grąžina originalą vietoj klaidos')
+tikrink('Failsafe' in open(SERVISAS, encoding='utf-8').read(),
+        'servisas nebe toks, koks buvo (dingo failsafe)')
 
-# google-cloud-translate šitame konteineryje neįdiegtas — pakišam
-# tuščią modulį, kad būtų galima patikrinti PATĮ KELIĄ, o ne biblioteką.
+# google-cloud-translate šitame konteineryje neįdiegtas — pakišam tuščią
+# modulį, kad būtų galima patikrinti PATĮ KELIĄ, o ne biblioteką.
 import types
 if 'google.cloud.translate_v2' not in sys.modules:
     g = types.ModuleType('google'); g.__path__ = []
@@ -179,23 +182,23 @@ kl2 = Client(HTTP_ACCEPT_LANGUAGE='lt')
 kl2.force_login(a)
 Message.objects.create(conversation=c, sender=a, content='Labas')
 orig = ts.translate_messages_for_user
-ts.translate_messages_for_user = lambda *args, **kw: None      # „API neatsakė"
-try:
-    r5 = kl2.get('/conversations/%s/translate/' % c.pk)
-    tikrink(r5.status_code == 502, 'neatsakius vertimui grąžinamas %s' % r5.status_code)
-    tikrink(json.loads(r5.content).get('success') is False, 'klaida praneša apie sėkmę')
-finally:
-    ts.translate_messages_for_user = orig
 
 def sprogsta(*args, **kw):
     raise RuntimeError('API nepasiekiamas')
 ts.translate_messages_for_user = sprogsta
 try:
     r6 = kl2.get('/conversations/%s/translate/' % c.pk)
-    tikrink(r6.status_code == 502, 'išimties atveju grąžinamas %s' % r6.status_code)
-    tikrink(json.loads(r6.content).get('success') is False, 'išimtis praneša apie sėkmę')
+    tikrink(r6.status_code == 500, 'neatsakius vertimui grąžinamas %s' % r6.status_code)
+    tikrink(json.loads(r6.content).get('success') is False,
+            'klaida praneša apie sėkmę — sąsaja liktų kaboti')
 finally:
     ts.translate_messages_for_user = orig
+
+# Sąsajoje turi būti ir laiko riba, ir klaidos užrašas
+JS = os.path.join(BASE, 'templates', 'conversations', 'partials', '_pokalbio_js.html')
+js = open(JS, encoding='utf-8').read()
+tikrink('Nepavyko išversti' in js, 'sąsaja nerodo „Nepavyko išversti"')
+tikrink('setTimeout' in js and 'abort' in js, 'nėra laiko ribos — „Verčiama…" gali kaboti')
 
 
 antraste('6. Negyvo paketo nebėra, admin užregistruotas')

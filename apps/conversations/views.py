@@ -353,25 +353,23 @@ def translate_conversation(request, pk):
 
     messages_qs = conversation.messages.exclude(content='').order_by('created_at')
 
-    # Klaida turi būti MATOMA. Anksčiau servisas tyliai grąžindavo
-    # originalą, o sąsaja rodydavo „išversta" — žmogus matė savo kalbą ir
-    # manė, kad vertimas toks. Dabar servisas praneša, kad nepavyko, ir
-    # mygtukas rodo „Nepavyko išversti".
+    # Vertimo logika — TOKIA, KOKIA BUVO (2026-09-02 atsukta). Servisas
+    # pats susitvarko su API klaidomis; čia nieko nepridedam.
+    #
+    # Vienintelis pakeitimas prieš senąjį kodą: importas guli try viduje.
+    # Be jo neįdiegta google-cloud-translate biblioteka duotų 500 su HTML
+    # klaidos puslapiu vietoj JSON, ir sąsaja liktų kaboti ties
+    # „Verčiama…" — o ji turi parodyti „Nepavyko išversti".
     try:
-        # Importas ČIA, kartu su kvietimu: jei google-cloud-translate
-        # neįdiegtas, tai irgi „nepavyko išversti", o ne 500 su klaidos
-        # puslapiu vietoj JSON.
         from .translate_service import translate_messages_for_user
         translated = translate_messages_for_user(messages_qs, target_lang)
+        return JsonResponse({
+            'success': True,
+            'target_lang': target_lang,
+            'messages': translated,
+        })
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=502)
-
-    if translated is None:
-        return JsonResponse(
-            {'success': False, 'error': 'translate-unavailable'}, status=502)
-
-    return JsonResponse({
-        'success': True,
-        'target_lang': target_lang,
-        'messages': translated,
-    })
+        return JsonResponse({
+            'success': False,
+            'error': str(e),
+        }, status=500)
