@@ -393,16 +393,27 @@ Antraštės kalbos perjungiklis nėra slepiamas jokiame plotyje. Ties
 ≤360 px jis buvo dingęs, o 360 CSS px (720 fizinių taškų, DPR 2) yra
 dažniausias Android plotis — kalbos nematydavo didelė dalis žmonių.
 
-Pavidalas telefone: siauras tekstinis „lt ▾" — dabartinės kalbos kodas
-mažosiomis (dvi raidės) ir 12 px rodyklė. ~28 px pločio, 32 px aukščio,
-be fono ir be rėmelio; telpa ir 320 px ekrane.
+Pavidalas telefone (etalonas `docs/demo/mob-antraste-demo.html`):
+vėliavėlė 20×15, kalbos kodas DIDŽIOSIOMIS (13 px, svoris 700, tarpas
+tarp raidžių 0,3 px — per `text-transform`, pati reikšmė lieka „lt") ir
+11 px rodyklė. ~56 px pločio, 36 px aukščio, be fono ir be rėmelio;
+telpa ir 320 px ekrane.
 
-Kai antraštėje trūksta vietos, trumpinama „Įkelti" (≤370 px lieka tik
+Kai antraštėje trūksta vietos, trumpinama „Įkelti" (≤340 px lieka tik
 „+"), o NE kalba.
 
-Patikra: `docs/kalbos_perjungiklis_playwright.js` — 320, 360, 390, 414 ir
-768 px; krenta, jei bent viename perjungiklio nėra, jis neatsidaro arba
-antraštė plečia puslapį. `GYVAI=1` — tikrina gyvoje svetainėje.
+Šalies juosta — VIENA 52 px eilutė, kuri nesilaužo: trumpinamas tik
+pavadinimas (`ellipsis`), o vėliava, skaičius ir „Keisti" yra
+`flex: 0 0 auto`; „Keisti" nustumiamas per `margin-left: auto`.
+
+Nuorodų juosta po antrašte slenka į šoną (`overflow-x: auto`,
+`white-space: nowrap`, slankiklis paslėptas) ir puslapio neišplečia.
+
+Patikra: `docs/kalbos_perjungiklis_playwright.js` ir
+`docs/mob_antrastes_playwright.js` — 320, 360, 390, 414 ir 768 px:
+perjungiklis matomas, antraštė vienoje eilutėje be persidengimo, šalies
+juosta ne aukštesnė kaip 52 px, `scrollWidth <= innerWidth`, lakštas
+kaip etalone. `GYVAI=1` — tikrina gyvoje svetainėje.
 
 ---
 

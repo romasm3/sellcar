@@ -10,35 +10,45 @@
     margin: 0 auto 16px;          /* 16 px tarpas iki panelės */
 }
 
+/* VIENA EILUTĖ, KURI NIEKADA NESILAUŽO.
+   Trumpinti galima TIK pavadinimą: vėliava, skaičius ir „Keisti" yra
+   fiksuoto pločio. Anksčiau buvo atvirkščiai — ellipsis kabojo ant
+   skaičiaus, todėl telefone matėsi „18 sk…", o „Visos šalys" krisdavo
+   į antrą eilutę. */
 .salies-eilute {
     display: flex;
     align-items: center;
-    gap: 10px;
-    height: 56px;
-    padding: 0 18px;
+    gap: 8px;
+    height: 52px;
+    padding: 0 10px 0 12px;
     background: #fff;
     border: 1px solid #E5E7EB;
     border-radius: 12px;
 }
 
-.salies-smeigtukas { width: 18px; height: 18px; flex: 0 0 auto; color: #1A1A1A; }
+.salies-smeigtukas { width: 15px; height: 15px; flex: 0 0 auto; color: #6B7280; }
 /* Eilutės vėliavėlė kiek didesnė nei sąraše — kaip demo (.fl-b) */
 .salies-eilute .veliava-didele { margin-right: 0; }
-.salies-vardas { font-size: 15px; font-weight: 600; color: #1A1A1A; }
-.salies-kiekis { font-size: 14px; color: #6B7280; min-width: 0;
-                 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Eilutėje vėliavėlė 18×13 (demo .salis .fl) — siauresnė nei sąraše,
+   kad 320 px ekrane liktų vietos pavadinimui. */
+.salies-eilute .veliava { flex: 0 0 auto; width: 18px; height: 13px; }
+.salies-vardas { font-size: 15px; font-weight: 600; color: #1A1A1A;
+                 min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                 white-space: nowrap; }
+.salies-kiekis { font-size: 13px; color: #6B7280; flex: 0 0 auto;
+                 white-space: nowrap; }
 
 .salies-keisti {
     margin-left: auto;
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 36px;
-    padding: 0 14px;
+    height: 34px;
+    padding: 0 12px;
     border: 1px solid #D1D5DB;
     border-radius: 999px;
     background: #fff;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #1A1A1A;
     cursor: pointer;
@@ -46,14 +56,14 @@
     transition: border-color .15s;
 }
 .salies-keisti:hover { border-color: #9CA3AF; }
-.salies-keisti svg { width: 13px; height: 13px; transition: transform .15s; }
+.salies-keisti svg { width: 11px; height: 11px; transition: transform .15s; }
 
 /* ── Langas ─────────────────────────────────────────────────────── */
 .salies-uzdanga { position: fixed; inset: 0; z-index: 40; }
 
 .salies-langas {
     position: absolute;
-    top: calc(56px + 8px);
+    top: calc(52px + 8px);
     right: 0;
     z-index: 41;
     width: 420px;
@@ -131,13 +141,11 @@
         margin: 8px auto 4px;
     }
     .salies-sarasas { max-height: none; flex: 1 1 auto; }
-    /* Siaurame ekrane „Keisti šalį" lieka tik rodyklė su ikona */
-    .salies-kiekis { flex: 1 1 auto; }
+    /* Skaičius NEIŠTEMPIAMAS ir netrumpinamas — vietos atlaisvina
+       pavadinimas (žr. .salies-vardas ellipsis). */
 }
-@media (max-width: 400px) {
-    .salies-eilute { padding: 0 12px; gap: 8px; }
-    .salies-keisti { padding: 0 10px; }
-}
+/* Siauriau nieko atskirai nebereikia: eilutė ir taip viena, o vietos
+   atlaisvina pavadinimo ellipsis. */
 
 
 /* ═══ ŠONINĖS JUOSTOS BLOKAS (stilius='sonine') ═══════════════════
