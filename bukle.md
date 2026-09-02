@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-02 16:03:35 CEST
+Sugeneruota: 2026-09-02 16:04:41 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001764s
+HTTP 301, 0.001504s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 02 15:58:55 vmi3306453 autoleft-deploy[3758008]: Sep 02 15:58:51 vmi3306453 autoleft-deploy[3757488]: [15:58:51] ⚠️    curl -s https://autoleft.com/ | grep -o 'style\.[a-z0-9]*\.css'
-Sep 02 15:58:55 vmi3306453 autoleft-deploy[3758008]: Sep 02 15:58:51 vmi3306453 autoleft-deploy[3757488]: [15:58:51] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
-Sep 02 15:58:55 vmi3306453 autoleft-deploy[3758008]: Sep 02 15:58:51 vmi3306453 autoleft-deploy[3757488]: [15:58:51] === Deploy OK ===
-Sep 02 15:58:55 vmi3306453 autoleft-deploy[3758008]: Sep 02 15:58:51 vmi3306453 autoleft-deploy[3757358]: [2026-09-02 15:58:51] ✅ Deploy OK — gyvai veikia f1886fe
 Sep 02 15:58:55 vmi3306453 autoleft-deploy[3758008]: ```
 Sep 02 15:58:55 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
 Sep 02 15:58:55 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
@@ -82,4 +78,8 @@ Sep 02 16:02:34 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Sep 02 16:02:34 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Sep 02 16:02:34 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.436s CPU time.
 Sep 02 16:03:35 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 02 16:03:37 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 02 16:03:37 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 02 16:03:37 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.613s CPU time.
+Sep 02 16:04:41 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
