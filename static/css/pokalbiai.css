@@ -1,0 +1,111 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ŽINUTĖS — sąrašas ir pokalbis.
+   Etalonas: docs/demo/zinutes-notification-demo.html (2 ir 3 ekranai).
+
+   Vardai, ne el. paštai; neperskaityti matomi iš pirmo žvilgsnio;
+   žinutės prilipusios prie apačios; telefone sąrašas ir pokalbis —
+   atskiri ekranai.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Tailwind „display" pagalbinės klasės nugali naršyklės [hidden]
+   taisyklę, todėl paslėptas elementas (voko žymė su 0, nuotraukos
+   peržiūra) vis tiek matėsi. Grąžinam [hidden] galią. */
+[hidden] { display: none !important; }
+
+.pk-shell { display: flex; height: 100%; }
+
+/* ── Sąrašo eilutė (demo .row) ─────────────────────────────────── */
+.pk-eil { display: flex; gap: 12px; padding: 12px; align-items: center;
+          border-bottom: 1px solid var(--border, #E5E7EB);
+          text-decoration: none; color: var(--text, #1A1A1A); }
+.pk-eil:hover { background: #FAFBFC; }
+/* Neperskaityta: šviesus fonas + paryškinta paskutinė žinutė + taškas */
+.pk-eil.yra-nauju { background: #F8FAFC; }
+.pk-eil.yra-nauju .pk-pask { font-weight: 600; color: var(--text, #1A1A1A); }
+.pk-eil.pasirinkta { background: #F1F5F9; }
+.pk-av { width: 52px; height: 52px; border-radius: 10px; object-fit: cover;
+         flex: 0 0 auto; border: 1px solid var(--border, #E5E7EB); }
+.pk-av-raide { width: 52px; height: 52px; border-radius: 10px; flex: 0 0 auto;
+               display: flex; align-items: center; justify-content: center;
+               background: #181B1F; color: #fff; font-weight: 800; font-size: 18px; }
+.pk-eil-b { flex: 1; min-width: 0; }
+.pk-eil-b > span { display: block; }
+.pk-virs { display: flex; }
+.pk-virs { display: flex; align-items: baseline; gap: 8px; }
+.pk-vardas { font-size: 15px; font-weight: 700; min-width: 0;
+             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pk-laikas { margin-left: auto; color: #9CA3AF; font-size: 12px; flex: 0 0 auto; }
+.pk-skelb { color: #6B7280; font-size: 13px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pk-pask { margin-top: 2px; color: #374151;
+           overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pk-taskas { width: 9px; height: 9px; border-radius: 50%; background: #16A34A;
+             flex: 0 0 auto; }
+.pk-kiek { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px;
+           background: #16A34A; color: #fff; font-size: 11px; font-weight: 700;
+           display: flex; align-items: center; justify-content: center;
+           flex: 0 0 auto; }
+
+/* ── Skelbimo juostelė pokalbio viršuje (demo .ctx) ────────────── */
+.pk-juostele { display: flex; gap: 10px; align-items: center;
+               padding: 10px 12px; background: #F4F4F5;
+               border-bottom: 1px solid var(--border, #E5E7EB);
+               text-decoration: none; color: inherit; }
+.pk-juostele:hover { background: #EDEEEF; }
+.pk-juostele img, .pk-juostele .pk-jz { width: 44px; height: 44px;
+                                        border-radius: 8px; object-fit: cover;
+                                        flex: 0 0 auto; }
+.pk-jz { display: flex; align-items: center; justify-content: center;
+         background: #181B1F; color: #fff; font-size: 18px; }
+.pk-juostele-b { flex: 1; min-width: 0; }
+/* Pavadinimas ir kaina — atskiromis eilutėmis, kaip etalone. */
+.pk-juostele-n { display: block; font-weight: 600; font-size: 14px;
+                 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pk-juostele-k { display: block; font-weight: 700; font-size: 14px; }
+
+/* ── Žinučių srautas (demo .msgs) ──────────────────────────────── */
+/* PRILIPUSIOS PRIE APAČIOS: margin-top:auto ant pirmo vaiko pakelia
+   turinį, kai jo mažai, o srautas lieka apačioje — kaip telefone. */
+.pk-srautas { flex: 1; overflow-y: auto; padding: 14px 12px;
+              background: #FAFBFC; display: flex; flex-direction: column;
+              gap: 10px; }
+.pk-srautas > :first-child { margin-top: auto; }
+.pk-diena { align-self: center; color: #9CA3AF; font-size: 12px; margin: 2px 0; }
+.pk-burb { max-width: 78%; padding: 9px 12px; border-radius: 14px;
+           font-size: 14.5px; word-break: break-word; }
+.pk-burb.jie { background: #fff; border: 1px solid var(--border, #E5E7EB);
+               border-bottom-left-radius: 4px; align-self: flex-start; }
+.pk-burb.as { background: #181B1F; color: #fff;
+              border-bottom-right-radius: 4px; align-self: flex-end; }
+.pk-burb img { width: 100%; border-radius: 10px; margin-top: 6px; display: block;
+               cursor: pointer; }
+.pk-burb-laikas { font-size: 11px; color: #9CA3AF; margin-top: 3px; text-align: right; }
+.pk-burb.as .pk-burb-laikas { color: #A8ABB0; }
+.pk-tuscia { align-self: center; color: #9CA3AF; font-size: 13px; padding: 24px 0; }
+
+/* ── Greiti atsakymai (demo .greiti) ───────────────────────────── */
+.pk-greiti { display: flex; gap: 8px; padding: 8px 12px; overflow-x: auto;
+             border-top: 1px solid var(--border, #E5E7EB); background: #fff;
+             scrollbar-width: none; }
+.pk-greiti::-webkit-scrollbar { display: none; }
+.pk-greiti button { flex: 0 0 auto; height: 34px; padding: 0 14px;
+                    border-radius: 999px; border: 1px solid #D1D5DB;
+                    background: #fff; font-size: 13px; font-weight: 500;
+                    white-space: nowrap; cursor: pointer; }
+.pk-greiti button:hover { border-color: #9CA3AF; }
+
+/* ── Vertimas ──────────────────────────────────────────────────── */
+.pk-versti { text-align: center; padding: 10px 12px;
+             border-top: 1px solid #F3F4F6; }
+.pk-versti button { background: none; border: 0; cursor: pointer;
+                    color: var(--accent, #D2411D); font-weight: 700;
+                    font-size: 13px; letter-spacing: .3px; }
+.pk-versti .pk-bukle { font-size: 12px; color: #6B7280; margin-top: 2px; }
+.pk-versti .pk-bukle.klaida { color: #B91C1C; font-weight: 600; }
+
+/* ── Telefonas: sąrašas ir pokalbis — ATSKIRI ekranai ──────────── */
+@media (max-width: 767px) {
+  .pk-kortele { border: 0; border-radius: 0; height: calc(100vh - 56px); }
+  .pk-greiti { padding-left: 12px; padding-right: 12px; }
+  .pk-burb { max-width: 85%; }
+}

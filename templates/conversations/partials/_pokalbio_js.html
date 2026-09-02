@@ -1,0 +1,288 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+POKALBIO SKRIPTAS — VIENA dalis abiem ekranams.
+
+Turi: gyvą žinučių gavimą BE PERKROVIMO, nuslinkimą į apačią, greitus
+atsakymus, nuotraukų įkėlimą (įklijavimas / tempimas / failas), didinimo
+langą ir vertimą su MATOMA klaida.
+
+Iki 2026-09-02 čia buvo `location.reload()` kas 5 s: dingdavo rašomas
+tekstas, nušokdavo slinkimas ir prapuldavo įkelta nuotrauka. Dabar
+/conversations/check-new/ grąžina naujas žinutes po paskutinio id, o JS
+jas prideda į apačią.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<script>
+(function () {
+  'use strict';
+  var T = {
+    versti: "{% trans 'IŠVERSTI POKALBĮ' %}",
+    originalas: "{% trans 'RODYTI ORIGINALĄ' %}",
+    verciama: "{% trans 'Verčiama…' %}",
+    rodomOriginalus: "{% trans 'Rodomos originalios žinutės' %}",
+    rodomVertimus: "{% trans 'Rodomos išverstos žinutės' %}",
+    nepavyko: "{% trans 'Nepavyko išversti. Bandykite dar kartą.' %}",
+    perskaityta: "{% trans 'perskaityta' %}",
+    pristatyta: "{% trans 'pristatyta' %}"
+  };
+
+  var srautas = document.getElementById('pkSrautas');
+  var apacioje = true;
+
+  function iApacia(visada) {
+    if (!srautas) { return; }
+    if (visada || apacioje) { srautas.scrollTop = srautas.scrollHeight; }
+  }
+  if (srautas) {
+    srautas.addEventListener('scroll', function () {
+      apacioje = srautas.scrollHeight - srautas.scrollTop - srautas.clientHeight < 40;
+    });
+    iApacia(true);
+  }
+
+  // ─── Greiti atsakymai ────────────────────────────────────────────
+  var laukas = document.getElementById('messageContent');
+  var greiti = document.getElementById('pkGreiti');
+  if (greiti && laukas) {
+    greiti.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-greitas]');
+      if (!b) { return; }
+      laukas.value = b.dataset.greitas;
+      laukas.focus();
+    });
+  }
+
+  // ─── Gyvos žinutės BE PERKROVIMO ─────────────────────────────────
+  function paskutinisId() {
+    var burbulai = srautas ? srautas.querySelectorAll('[data-message-id]') : [];
+    return burbulai.length ? burbulai[burbulai.length - 1].dataset.messageId : '';
+  }
+
+  function zenklas(n) {
+    // Vokas antraštėje — ta pati reikšmė, kurią duoda kontekstinis procesorius
+    document.querySelectorAll('[data-zinuciu-zyme]').forEach(function (el) {
+      el.textContent = n;
+      el.hidden = !n;
+    });
+    document.title = document.title.replace(/^\(\d+\)\s*/, '');
+    if (n) { document.title = '(' + n + ') ' + document.title; }
+  }
+
+  function pridek(z) {
+    if (!srautas || document.querySelector('[data-message-id="' + z.id + '"]')) { return; }
+    // `:last-of-type` čia netinka: paskutinis <div> yra burbulas, ne
+    // skirtukas, tad selektorius nieko negrąžindavo ir prie kiekvienos
+    // naujos žinutės atsirasdavo dar vienas „Šiandien".
+    var visosDienos = srautas.querySelectorAll('.pk-diena');
+    var paskDiena = visosDienos.length ? visosDienos[visosDienos.length - 1] : null;
+    if (!paskDiena || paskDiena.textContent.trim() !== z.diena) {
+      var d = document.createElement('div');
+      d.className = 'pk-diena';
+      d.textContent = z.diena;
+      srautas.appendChild(d);
+    }
+    var tuscia = srautas.querySelector('.pk-tuscia');
+    if (tuscia) { tuscia.remove(); }
+
+    var b = document.createElement('div');
+    b.className = 'pk-burb ' + (z.mano ? 'as' : 'jie');
+    b.dataset.messageId = z.id;
+    if (z.tekstas) {
+      var sp = document.createElement('span');
+      sp.className = 'pk-tekstas';
+      sp.dataset.original = z.tekstas;
+      sp.textContent = z.tekstas;
+      b.appendChild(sp);
+    }
+    if (z.foto) {
+      var img = document.createElement('img');
+      img.src = z.foto;
+      img.dataset.fullsrc = z.foto;
+      img.className = 'lightbox-trigger';
+      img.loading = 'lazy';
+      b.appendChild(img);
+    }
+    var l = document.createElement('div');
+    l.className = 'pk-burb-laikas';
+    l.textContent = z.laikas + (z.mano ? ' · ' + (z.perskaityta ? T.perskaityta : T.pristatyta) : '');
+    b.appendChild(l);
+    srautas.appendChild(b);
+  }
+
+  var URL_TIKRINTI = "{% url 'conversations:check_new' %}";
+  var laikmatis = null;
+
+  function tikrink() {
+    var adresas = URL_TIKRINTI;
+    if (srautas && srautas.dataset.conv) {
+      adresas += '?conv=' + encodeURIComponent(srautas.dataset.conv)
+               + '&po=' + encodeURIComponent(paskutinisId());
+    }
+    fetch(adresas, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        zenklas(d.unread_count);
+        (d.zinutes || []).forEach(pridek);
+        if ((d.zinutes || []).length) { iApacia(false); }
+      })
+      .catch(function () { /* be interneto — tiesiog laukiam kito karto */ });
+  }
+
+  // 10 s aktyviame skirtuke, 60 s fone — nešildom telefono baterijos.
+  function paleisk() {
+    clearInterval(laikmatis);
+    laikmatis = setInterval(tikrink, document.hidden ? 60000 : 10000);
+  }
+  document.addEventListener('visibilitychange', function () {
+    paleisk();
+    if (!document.hidden) { tikrink(); }
+  });
+  paleisk();
+
+  // ─── Vertimas ────────────────────────────────────────────────────
+  var vBtn = document.getElementById('pkVerstiBtn');
+  if (vBtn) {
+    var vTxt = document.getElementById('pkVerstiTxt');
+    var vBukle = document.getElementById('pkVerstiBukle');
+    var isversta = false, kesas = null;
+
+    function taikyk(k) {
+      document.querySelectorAll('[data-message-id]').forEach(function (b) {
+        var t = k[parseInt(b.dataset.messageId, 10)];
+        var sp = b.querySelector('.pk-tekstas');
+        if (t && sp) { sp.textContent = t; }
+      });
+    }
+    function klaida() {
+      vBukle.textContent = T.nepavyko;
+      vBukle.classList.add('klaida');
+      vTxt.textContent = T.versti;
+    }
+
+    vBtn.addEventListener('click', function () {
+      vBukle.classList.remove('klaida');
+      if (isversta) {
+        document.querySelectorAll('.pk-tekstas').forEach(function (sp) {
+          sp.textContent = sp.dataset.original;
+        });
+        vTxt.textContent = T.versti;
+        vBukle.textContent = T.rodomOriginalus;
+        isversta = false;
+        return;
+      }
+      if (kesas) {
+        taikyk(kesas); vTxt.textContent = T.originalas;
+        vBukle.textContent = T.rodomVertimus; isversta = true; return;
+      }
+      vTxt.textContent = T.verciama;
+      vBtn.disabled = true;
+      fetch(vBtn.dataset.url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (d) {
+          if (d && d.success && d.messages) {
+            kesas = {};
+            d.messages.forEach(function (m) { kesas[m.id] = m.translated; });
+            taikyk(kesas);
+            vTxt.textContent = T.originalas;
+            vBukle.textContent = T.rodomVertimus;
+            isversta = true;
+          } else {
+            klaida();
+          }
+        })
+        .catch(klaida)
+        .then(function () { vBtn.disabled = false; });
+    });
+  }
+
+  // ─── Nuotraukos įkėlimas ─────────────────────────────────────────
+  var failas = document.getElementById('imageInput');
+  var forma = document.getElementById('messageForm');
+  var perziura = document.getElementById('imagePreview');
+  var perziuraImg = document.getElementById('previewImg');
+  var salinti = document.getElementById('removeImage');
+
+  function rodykPerziura(f) {
+    if (!f || !f.type.startsWith('image/') || !perziura) { return; }
+    var fr = new FileReader();
+    fr.onload = function (e) { perziuraImg.src = e.target.result; perziura.hidden = false; };
+    fr.readAsDataURL(f);
+  }
+  function imk(f) {
+    var dt = new DataTransfer();
+    dt.items.add(f);
+    failas.files = dt.files;
+    rodykPerziura(f);
+  }
+  if (failas) {
+    failas.addEventListener('change', function () {
+      if (failas.files[0]) { rodykPerziura(failas.files[0]); }
+    });
+    if (salinti) {
+      salinti.addEventListener('click', function () {
+        failas.value = ''; perziura.hidden = true; perziuraImg.src = '';
+      });
+    }
+    document.addEventListener('paste', function (e) {
+      var items = (e.clipboardData || {}).items || [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image/') === 0) {
+          var f = items[i].getAsFile();
+          if (f) { imk(f); e.preventDefault(); break; }
+        }
+      }
+    });
+    if (srautas) {
+      ['dragover', 'dragenter'].forEach(function (ev) {
+        srautas.addEventListener(ev, function (e) { e.preventDefault(); });
+      });
+      srautas.addEventListener('drop', function (e) {
+        e.preventDefault();
+        var f = (e.dataTransfer && e.dataTransfer.files) ? e.dataTransfer.files[0] : null;
+        if (f && f.type.startsWith('image/')) { imk(f); }
+      });
+    }
+  }
+  if (forma && laukas) {
+    forma.addEventListener('submit', function (e) {
+      var yraTeksto = laukas.value.trim().length > 0;
+      var yraFoto = failas && failas.files.length > 0;
+      if (!yraTeksto && !yraFoto) { e.preventDefault(); laukas.focus(); return false; }
+      var b = document.getElementById('sendButton');
+      if (b) { b.disabled = true; setTimeout(function () { b.disabled = false; }, 3000); }
+    });
+  }
+
+  // ─── Nuotraukos didinimo langas ──────────────────────────────────
+  var langas = null, langoImg = null;
+  function langoHTML() {
+    if (langas) { return; }
+    langas = document.createElement('div');
+    langas.id = 'pkLangas';
+    langas.hidden = true;
+    langas.style.cssText = 'position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);'
+      + 'display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out';
+    langas.innerHTML = '<img alt="" style="max-width:100%;max-height:100%;'
+      + 'object-fit:contain;border-radius:10px">';
+    document.body.appendChild(langas);
+    langoImg = langas.querySelector('img');
+    langas.addEventListener('click', uzdaryk);
+  }
+  function uzdaryk() {
+    if (!langas) { return; }
+    langas.hidden = true; langoImg.src = ''; document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('.lightbox-trigger');
+    if (!t) { return; }
+    e.preventDefault();
+    langoHTML();
+    langoImg.src = t.dataset.fullsrc || t.src;
+    langas.hidden = false;
+    document.body.style.overflow = 'hidden';
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { uzdaryk(); }
+  });
+})();
+</script>

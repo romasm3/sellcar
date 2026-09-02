@@ -85,9 +85,13 @@
             .btn-sell { padding-left: 10px; padding-right: 10px; }
             .site-logo img { height: 22px; }
         }
-        /* Vietos antraštėje atlaisvinam „Įkelti" sąskaita, ne kalbos:
-           ties ≤340 px lieka tik pliuso ženklas be žodžio. */
-        @media (max-width: 340px) {
+        /* Vietos antraštėje atlaisvinam „Įkelti" sąskaita — ne kalbos ir
+           ne voko. Prisijungusiam eilutėje yra ir vokas su žyme, todėl
+           ties 360 px su žodžiu „Įkelti" eilutė buvo 7 px per plati
+           (išmatuota 2026-09-02); riba pakelta nuo 340 iki 400 px.
+           Alternatyva būtų slėpti širdį, bet ji telefone rodoma
+           sąmoningai (vartotojo sprendimas 2026-08-24). */
+        @media (max-width: 400px) {
             .btn-sell span { display: none; }
         }
 
@@ -511,14 +515,15 @@
 
                     {% if user.is_authenticated %}
 
-                    <!-- Messages Icon -->
-                    <a href="{% url 'conversations:list' %}" class="relative hidden lg:inline-flex text-gray-600 hover:text-primary transition-colors" title="{% trans 'Messages' %}">
+                    {% comment %}Vokas su žyme rodomas IR TELEFONE. Iki
+                    2026-09-02 jis buvo `hidden lg:inline-flex`, tad naujos
+                    žinutės telefone matėsi tik atidarius meniu. Žymė turi
+                    `data-zinuciu-zyme` — pokalbio skriptas ją atnaujina
+                    gyvai, be puslapio perkrovimo.{% endcomment %}
+                    <a href="{% url 'conversations:list' %}" class="relative inline-flex shrink-0 text-gray-600 hover:text-primary transition-colors" title="{% trans 'Žinutės' %}">
                         <i class="fas fa-envelope text-xl"></i>
-                        {% if unread_messages_count > 0 %}
-                        <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">
-                            {{ unread_messages_count }}
-                        </span>
-                        {% endif %}
+                        <span data-zinuciu-zyme {% if not unread_messages_count %}hidden{% endif %}
+                              class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-green-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold leading-none">{{ unread_messages_count }}</span>
                     </a>
 
                     <!-- User Menu (desktop tik — mobile'e per hamburger) -->
@@ -572,9 +577,8 @@
                             <a href="{% url 'conversations:list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
                                 <span class="relative inline-block w-5 mr-1">
                                     <i class="fas fa-envelope"></i>
-                                    {% if unread_messages_count > 0 %}
-                                    <span class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ unread_messages_count }}</span>
-                                    {% endif %}
+                                    <span data-zinuciu-zyme {% if not unread_messages_count %}hidden{% endif %}
+                                          class="absolute -top-1.5 -right-1.5 min-w-[14px] h-3.5 bg-green-500 text-white text-[9px] leading-[14px] text-center rounded-full font-bold px-0.5">{{ unread_messages_count }}</span>
                                 </span>
                                 {% trans "Messages" %}
                             </a>

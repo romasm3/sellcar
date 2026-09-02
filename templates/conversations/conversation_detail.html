@@ -1,77 +1,41 @@
 {% extends 'base.html' %}
-{% load i18n %}
-{% block title %}{% trans "Chat" %} - AutoLeft{% endblock %}
+{% load i18n static pokalbiu_tags %}
+{% block title %}{% trans "Pokalbis" %} - AutoLeft{% endblock %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/pokalbiai.css' %}">{% endblock %}
+
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 py-8">
-    <!-- Header -->
-    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-4 flex items-center gap-4">
-        <a href="{% url 'conversations:list' %}" class="text-gray-400 hover:text-primary">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-            {{ other_user.email|first|upper }}
-        </div>
-        <div>
-            <p class="font-semibold text-gray-900">{{ other_user.email }}</p>
-            {% if conversation.listing %}
-            <a href="{% url 'listing_detail' conversation.listing.pk %}" class="text-xs text-primary hover:underline">
-                {{ conversation.listing }}
-            </a>
-            {% endif %}
-        </div>
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+VIENAS POKALBIS savo adresu. Etalonas — docs/demo/zinutes-notification-demo.html (3).
+
+Tas pats srautas, ta pati apačia ir tas pats skriptas kaip
+conversation_list.html — per bendras dalis, be kopijų. Todėl nuotraukos,
+datų skirtukai, greiti atsakymai ir didinimo langas čia atsirado
+savaime: anksčiau šitas ekranas nerodė nė vienos nuotraukos.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+<div class="max-w-3xl mx-auto md:px-4 md:py-6">
+  <div class="pk-kortele bg-white md:border md:border-gray-200 md:rounded-xl overflow-hidden flex flex-col"
+       style="height: calc(100vh - 140px);">
+
+    <div class="h-14 px-3 flex items-center gap-2 border-b border-gray-200 shrink-0">
+      <a href="{% url 'conversations:list' %}" class="w-8 h-8 flex items-center justify-center -ml-1"
+         aria-label="{% trans 'Atgal' %}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2"><path stroke-linecap="round" d="M15 5l-7 7 7 7"/></svg>
+      </a>
+      <span class="text-[17px] font-bold truncate">
+        {% if not conversation.listing %}{% trans "AutoLeft pagalba" %}{% else %}{{ other_user|vardas }}{% endif %}
+      </span>
     </div>
-    <!-- Messages -->
-    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-4 space-y-3 min-h-96 max-h-96 overflow-y-auto" id="messageContainer">
-        {% for message in messages %}
-        <div class="flex {% if message.sender == request.user %}justify-end{% else %}justify-start{% endif %}">
-            <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-2xl text-sm
-                {% if message.sender == request.user %}
-                bg-primary text-white rounded-br-sm
-                {% else %}
-                bg-gray-100 text-gray-800 rounded-bl-sm
-                {% endif %}">
-                <p>{{ message.content }}</p>
-                <p class="text-xs mt-1 {% if message.sender == request.user %}text-purple-200{% else %}text-gray-400{% endif %}">
-                    {{ message.created_at|date:"H:i" }}
-                    {% if message.sender == request.user %}
-                        {% if message.is_read %}
-                        ✓✓ {% trans "Seen" %}
-                        {% else %}
-                        ✓
-                        {% endif %}
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-        {% empty %}
-        <div class="text-center text-gray-400 py-8">
-            <p class="text-sm">{% trans "Start the conversation!" %}</p>
-        </div>
-        {% endfor %}
-    </div>
-    <!-- Message Input -->
-    <form method="post" class="flex gap-3">
-        {% csrf_token %}
-        <input type="text" name="content" placeholder="{% trans 'Type a message...' %}"
-               autocomplete="off" required
-               class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
-        <button type="submit"
-                class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors">
-            <i class="fas fa-paper-plane"></i>
-        </button>
-    </form>
+
+    {% include 'conversations/partials/_juostele.html' %}
+    {% include 'conversations/partials/_srautas.html' with zinutes=messages %}
+    {% include 'conversations/partials/_apacia.html' with zinutes=messages %}
+
+  </div>
 </div>
-<script>
-    const container = document.getElementById('messageContainer');
-    container.scrollTop = container.scrollHeight;
-    setInterval(function() {
-        fetch('{% url "conversations:check_new" %}')
-            .then(r => r.json())
-            .then(data => {
-                if (data.unread_count > 0) {
-                    location.reload();
-                }
-            });
-    }, 5000);
-</script>
 {% endblock %}
+
+{% block extra_js %}{% include 'conversations/partials/_pokalbio_js.html' %}{% endblock %}

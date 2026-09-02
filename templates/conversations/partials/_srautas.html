@@ -1,0 +1,39 @@
+{% load i18n pokalbiu_tags %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+ŽINUČIŲ SRAUTAS — VIENA dalis abiem ekranams (sąrašui ir /conversations/<id>/).
+
+Kopijų nėra: burbulo žymė, datų skirtukai ir nuotraukos aprašyti tik čia.
+Datos skirtukas — per {% templatetag openblock %} ifchanged {% templatetag closeblock %},
+užrašas iš `dienos_zyma` („Šiandien", „Vakar", „rugsėjo 2").
+
+Srautas prilipęs prie APAČIOS (static/css/pokalbiai.css: pirmam vaikui
+margin-top:auto), o JS atidarius nuslenka į paskutinę žinutę.
+
+    {% include 'conversations/partials/_srautas.html' with zinutes=... %}
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% comment %}Paskutinės žinutės id JS pasiima iš paskutinio burbulo —
+šablone jo atskirai nesinešam, kad neatsirastų antra tiesos vieta.{% endcomment %}
+<div class="pk-srautas" id="pkSrautas" data-conv="{{ conversation.pk }}">
+  {% for message in zinutes %}
+  {% ifchanged message.created_at|date:"Y-m-d" %}
+  <div class="pk-diena">{{ message.created_at|dienos_zyma }}</div>
+  {% endifchanged %}
+  <div class="pk-burb {% if message.sender_id == request.user.id %}as{% else %}jie{% endif %}"
+       data-message-id="{{ message.id }}">
+    {% if message.content %}
+    <span class="pk-tekstas" data-original="{{ message.content }}">{{ message.content }}</span>
+    {% endif %}
+    {% if message.image %}
+    <img src="{{ message.image.url }}" data-fullsrc="{{ message.image.url }}"
+         class="lightbox-trigger" loading="lazy" decoding="async"
+         alt="{% trans 'Žinutės nuotrauka' %}">
+    {% endif %}
+    <div class="pk-burb-laikas">
+      {{ message.created_at|date:"H:i" }}{% if message.sender_id == request.user.id %} · {% if message.is_read %}{% trans "perskaityta" %}{% else %}{% trans "pristatyta" %}{% endif %}{% endif %}
+    </div>
+  </div>
+  {% empty %}
+  <div class="pk-tuscia">{% trans "Pradėkite pokalbį!" %}</div>
+  {% endfor %}
+</div>

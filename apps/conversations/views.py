@@ -3,10 +3,45 @@ from django.contrib import messages as django_messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from apps.listings.image_validation import ImageValidationError, validate_image
 
 from .models import Conversation, Message
+
+
+# Greiti atsakymai — VIENAS sąrašas abiem ekranams (sąrašui ir pokalbiui).
+# Rodomi tik ten, kur pokalbis turi skelbimą: pagalbos pokalbyje jie
+# beprasmiai.
+GREITI_ATSAKYMAI = [
+    _('Ar dar parduodate?'),
+    _('Kokia mažiausia kaina?'),
+    _('Kada galima apžiūrėti?'),
+    _('Ar keičiate?'),
+]
+
+
+def _greiti(conversation):
+    return GREITI_ATSAKYMAI if (conversation and conversation.listing_id) else []
+
+
+def _zinutes_json(messages, user):
+    """Žinutės JSON'ui — tas pats pavidalas, kurį piešia šablonas."""
+    from django.utils import timezone
+    from apps.conversations.templatetags.pokalbiu_tags import dienos_zyma
+    out = []
+    for m in messages:
+        vietine = timezone.localtime(m.created_at)
+        out.append({
+            'id': m.id,
+            'mano': m.sender_id == user.id,
+            'tekstas': m.content or '',
+            'foto': m.image.url if m.image else '',
+            'laikas': vietine.strftime('%H:%M'),
+            'diena': str(dienos_zyma(m.created_at)),
+            'perskaityta': bool(m.is_read),
+        })
+    return out
 
 
 def _send_new_message_email(conversation, sender, recipient, content, new_message):
@@ -137,6 +172,7 @@ def conversation_list(request):
         'selected_conv': selected_conv,
         'selected_messages': selected_messages,
         'selected_other_user': selected_other_user,
+        'greiti_atsakymai': _greiti(selected_conv),
     }
     return render(request, 'conversations/conversation_list.html', context)
 
@@ -182,6 +218,7 @@ def conversation_detail(request, pk):
         'conversation': conversation,
         'messages': messages,
         'other_user': other_user,
+        'greiti_atsakymai': _greiti(conversation),
     }
     return render(request, 'conversations/conversation_detail.html', context)
 
@@ -247,7 +284,17 @@ def start_support_conversation(request):
 
 @login_required
 def check_new_messages(request):
-    """Polling — tikrina ar yra naujų žinučių (JSON)"""
+    """Polling BE PERKROVIMO.
+
+    Grąžina naujų žinučių sąrašą po nurodyto id — JS jas prideda į
+    apačią. Anksčiau čia buvo tik skaičius, o šablonas darydavo
+    `location.reload()`: dingdavo rašomas tekstas ir nušokdavo slinkimas.
+
+        /conversations/check-new/?conv=12&po=345
+
+    `conv` ir `po` neprivalomi — be jų grąžinamas tik bendras skaitiklis
+    (antraštės vokui).
+    """
     from django.http import JsonResponse
 
     unread_count = Message.objects.filter(
@@ -255,7 +302,29 @@ def check_new_messages(request):
         is_read=False
     ).exclude(sender=request.user).count()
 
-    return JsonResponse({'unread_count': unread_count})
+    atsakymas = {'unread_count': unread_count, 'zinutes': []}
+
+    conv_pk = request.GET.get('conv')
+    po = request.GET.get('po')
+    if conv_pk:
+        conversation = Conversation.objects.filter(
+            pk=conv_pk, participants=request.user).first()
+        if conversation:
+            naujos = conversation.messages.all()
+            if po and str(po).isdigit():
+                naujos = naujos.filter(id__gt=int(po))
+            naujos = list(naujos.order_by('created_at')[:50])
+            atsakymas['zinutes'] = _zinutes_json(naujos, request.user)
+            # Pokalbis atidarytas — svetimos žinutės iškart perskaitytos,
+            # kitaip vokas antraštėje rodytų tai, ką žmogus jau mato.
+            svetimos = [m.id for m in naujos if m.sender_id != request.user.id]
+            if svetimos:
+                Message.objects.filter(id__in=svetimos).update(is_read=True)
+                atsakymas['unread_count'] = Message.objects.filter(
+                    conversation__participants=request.user,
+                    is_read=False).exclude(sender=request.user).count()
+
+    return JsonResponse(atsakymas)
 
 
 @login_required
@@ -267,7 +336,6 @@ def translate_conversation(request, pk):
     """
     from django.http import JsonResponse
     from django.utils import translation as django_translation
-    from .translate_service import translate_messages_for_user
 
     conversation = get_object_or_404(
         Conversation, pk=pk, participants=request.user,
@@ -285,15 +353,25 @@ def translate_conversation(request, pk):
 
     messages_qs = conversation.messages.exclude(content='').order_by('created_at')
 
+    # Klaida turi būti MATOMA. Anksčiau servisas tyliai grąžindavo
+    # originalą, o sąsaja rodydavo „išversta" — žmogus matė savo kalbą ir
+    # manė, kad vertimas toks. Dabar servisas praneša, kad nepavyko, ir
+    # mygtukas rodo „Nepavyko išversti".
     try:
+        # Importas ČIA, kartu su kvietimu: jei google-cloud-translate
+        # neįdiegtas, tai irgi „nepavyko išversti", o ne 500 su klaidos
+        # puslapiu vietoj JSON.
+        from .translate_service import translate_messages_for_user
         translated = translate_messages_for_user(messages_qs, target_lang)
-        return JsonResponse({
-            'success': True,
-            'target_lang': target_lang,
-            'messages': translated,
-        })
     except Exception as e:
-        return JsonResponse({
-            'success': False,
-            'error': str(e),
-        }, status=500)
+        return JsonResponse({'success': False, 'error': str(e)}, status=502)
+
+    if translated is None:
+        return JsonResponse(
+            {'success': False, 'error': 'translate-unavailable'}, status=502)
+
+    return JsonResponse({
+        'success': True,
+        'target_lang': target_lang,
+        'messages': translated,
+    })

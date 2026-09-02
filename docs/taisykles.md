@@ -417,6 +417,27 @@ kaip etalone. `GYVAI=1` — tikrina gyvoje svetainėje.
 
 ---
 
+## 14. ŽINUTĖSE — VARDAS, NIEKADA EL. PAŠTAS
+
+Pokalbių sąraše ir pokalbyje žmogus vadinamas vardu. El. paštas
+nerodomas nė vienoje vietoje — nei kaip pavadinimas, nei avataro raidėje.
+
+Vardą duoda VIENA vieta —
+`apps/conversations/templatetags/pokalbiu_tags.vardas`:
+`Profile.display_name` → vardas ir pavardė → „Naudotojas #42". Adresą
+atpažįstam iš „@" ir atmetam: registruojantis `username` prilyginamas el.
+paštui (accounts/forms.py), tad `display_name` atsarginis kelias be šito
+grąžintų būtent adresą.
+
+Savo paskyroje (antraštės meniu, /accounts/…) adresas lieka — ten žmogus
+mato save patį.
+
+Patikra: `docs/zinutes_test.py` (serveris) ir
+`docs/zinutes_playwright.js` (naršyklė) — abu krenta, jei pokalbių
+srityje randa el. pašto pavidalo tekstą.
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -449,3 +470,5 @@ kaip etalone. `GYVAI=1` — tikrina gyvoje svetainėje.
 - [ ] Nė vienas užrašas ar reikšmė nepervadinti be prašymo
 - [ ] Prieš/po išrašas sutampa arba skirtumas paaiškintas
 - [ ] Kalbos perjungiklis matomas 320, 360, 390, 414 ir 768 px
+- [ ] Pokalbiuose nerodomas nė vienas el. paštas
+- [ ] Naujos žinutės atsiranda be puslapio perkrovimo, tekstas nedingsta

@@ -32,6 +32,7 @@ def translate_messages_for_user(messages, target_lang='en'):
         target_lang: ISO kodas ('en', 'de', 'es', 'lt', 'lv', 'pl', etc.)
     
     Returns:
+        None, jei vertimo paslauga neatsakė (klaidą rodom vartotojui);
         list of dicts: [{
             'id': msg_id,
             'original': '...',
@@ -99,14 +100,12 @@ def translate_messages_for_user(messages, target_lang='en'):
                     ignore_conflicts=True,
                 )
         except Exception as e:
-            # Failsafe: jei API neveikia (quota viršyta, network issue, etc.)
-            # — grąžinam originalų tekstą, vartotojas matys non-translated
+            # KLAIDA NESLEPIAMA. Anksčiau čia buvo grąžinamas originalus
+            # tekstas, o sąsaja rodydavo „išversta" — žmogus matydavo savo
+            # kalbą ir manydavo, kad toks ir vertimas. Dabar grąžinam None,
+            # o view'as praneša „Nepavyko išversti".
             print(f"[translate_service] Google API error: {e}")
-            for msg in to_translate:
-                cached[msg.id] = {
-                    'translated': msg.content,
-                    'detected': '',
-                }
+            return None
     
     # 4. Sudarom output (ta pati eilė kaip input messages)
     output = []

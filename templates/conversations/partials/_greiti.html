@@ -1,0 +1,11 @@
+{% load i18n %}{% comment %}
+Greiti atsakymai — slenkanti eilutė virš įvedimo lauko (demo .greiti).
+Sąrašas ateina iš views.GREITI_ATSAKYMAI ir rodomas TIK tada, kai
+pokalbis turi skelbimą (views._greiti).
+{% endcomment %}{% if greiti_atsakymai %}
+<div class="pk-greiti" id="pkGreiti">
+  {% for a in greiti_atsakymai %}
+  <button type="button" data-greitas="{{ a }}">{{ a }}</button>
+  {% endfor %}
+</div>
+{% endif %}
