@@ -6637,8 +6637,10 @@ msgstr "Рабочее время"
 #, python-format
 msgid "%(counter)s listing"
 msgid_plural "%(counter)s listings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s объявление"
+msgstr[1] "%(counter)s объявления"
+msgstr[2] "%(counter)s объявлений"
+msgstr[3] "%(counter)s объявления"
 
 #: templates/accounts/seller_profile.html:168
 #, python-format, fuzzy
@@ -10858,8 +10860,10 @@ msgstr "Объявление"
 #, python-format
 msgid "%(counter)s person"
 msgid_plural "%(counter)s people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s человек"
+msgstr[1] "%(counter)s человека"
+msgstr[2] "%(counter)s человек"
+msgstr[3] "%(counter)s человека"
 
 #: templates/listings/listing_detail.html:2774
 #: templates/listings/listing_stats.html:62
@@ -11043,8 +11047,10 @@ msgstr "Выберите категорию"
 #, python-format
 msgid "%(counter)s listing found"
 msgid_plural "%(counter)s listings found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Найдено %(counter)s объявление"
+msgstr[1] "Найдено %(counter)s объявления"
+msgstr[2] "Найдено %(counter)s объявлений"
+msgstr[3] "Найдено %(counter)s объявления"
 
 #: templates/listings/listing_list.html:306
 #: templates/listings/moto_parts_browse.html:100
@@ -11319,8 +11325,10 @@ msgstr ""
 #, python-format
 msgid "Found %(counter)s listing"
 msgid_plural "Found %(counter)s listings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Найдено %(counter)s объявление"
+msgstr[1] "Найдено %(counter)s объявления"
+msgstr[2] "Найдено %(counter)s объявлений"
+msgstr[3] "Найдено %(counter)s объявления"
 
 #: templates/listings/listing_list.html:980
 msgid "Pasiūlymai"
@@ -11440,10 +11448,10 @@ msgstr "Максимальная цена"
 #, python-format
 msgid "%(counter)s ad"
 msgid_plural "%(counter)s ads"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%(counter)s объявление"
+msgstr[1] "%(counter)s объявления"
+msgstr[2] "%(counter)s объявлений"
+msgstr[3] "%(counter)s объявления"
 
 #: templates/listings/listing_list_v2.html:374
 #, fuzzy
@@ -13193,8 +13201,10 @@ msgstr "Тип двигателя"
 #, python-format
 msgid "Showing %(counter)s listing"
 msgid_plural "Showing %(counter)s listings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Показано %(counter)s объявление"
+msgstr[1] "Показано %(counter)s объявления"
+msgstr[2] "Показано %(counter)s объявлений"
+msgstr[3] "Показано %(counter)s объявления"
 
 #: templates/listings/my_listings.html:61
 #, fuzzy, python-format
@@ -13251,8 +13261,10 @@ msgstr "Продлевать"
 #, python-format
 msgid "%(counter)s day left"
 msgid_plural "%(counter)s days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Остался %(counter)s день"
+msgstr[1] "Осталось %(counter)s дня"
+msgstr[2] "Осталось %(counter)s дней"
+msgstr[3] "Осталось %(counter)s дня"
 
 #: templates/listings/my_listings.html:319
 msgid "Position"
@@ -13267,8 +13279,10 @@ msgstr "Просмотреть подробную статистику"
 #, python-format
 msgid "visible %(counter)s more day"
 msgid_plural "visible %(counter)s more days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ещё %(counter)s день"
+msgstr[1] "ещё %(counter)s дня"
+msgstr[2] "ещё %(counter)s дней"
+msgstr[3] "ещё %(counter)s дня"
 
 #: templates/listings/my_listings.html:408
 #, python-format, fuzzy

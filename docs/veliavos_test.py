@@ -81,6 +81,11 @@ for saknis, _d, failai in os.walk(os.path.join(BASE, 'templates')):
             continue
         kelias = os.path.join(saknis, f)
         t = open(kelias, encoding='utf-8').read()
+        # Kelias, paminėtas komentare, nėra kopija — tai paaiškinimas,
+        # kodėl kalbų vėliavos imamos ne iš static/flags/.
+        for sablonas in (r'\{%\s*comment\s*%\}.*?\{%\s*endcomment\s*%\}',
+                         r'<!--.*?-->', r'/\*.*?\*/'):
+            t = re.sub(sablonas, '', t, flags=re.S)
         if 'flags/' in t:
             kopijos.append(os.path.relpath(kelias, BASE))
 tikrink(not kopijos, 'vėliavos kelias minimas tik vienoje dalyje (kopijos: %s)' % kopijos)
