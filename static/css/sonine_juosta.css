@@ -31,8 +31,22 @@
   form.sp-side-card {
     padding: 0;                     /* vidų dabar duoda patys blokai */
     border-radius: 12px;
-    overflow: hidden;
+    /* JOKIO overflow: hidden. Jis apkarpydavo atsidariusius sąrašus
+       (.sp-dd) ties kortelės kraštu, ir reikšmės virsdavo „Lietu…",
+       „Vokie…". Kampus ir taip nėra ko karpyti — blokai be fono. */
   }
+
+  /* Sąrašo langas — TIKSLIAI po lauku, per visą lauko plotį.
+     Bendras .sp-dd turi min-width: 250px (tinka plačiai panelei), o
+     230 px juostoje dėl jo langas išlipdavo į dešinę. */
+  .sp-side-card .sp-dd {
+    left: 0;
+    right: 0;
+    width: auto;
+    min-width: 0;
+    z-index: 40;
+  }
+  .sp-side-card .sp-dd-scroll { max-height: 264px; }
 
   /* Vienas bloko šablonas: „Daugiau filtrų", šalis, kiekvienas laukas,
      ypatumai. `.sb-apply` — ne blokas, o veiksmų juosta apačioje. */
