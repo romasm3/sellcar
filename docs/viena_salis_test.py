@@ -118,7 +118,9 @@ def rodoma_salis(html):
     m = re.search(r'class="salies-vardas">([^<]+)<', html)
     if m:
         return m.group(1).strip()
-    m = re.search(r'class="salis-cur-vardas">([^<]+)<', html)
+    # Šoninėje juostoje užrašą valdo Alpine (x-text), tad po klasės gali
+    # eiti dar atributų — regexp neturi to laikyti kita struktūra.
+    m = re.search(r'class="salis-cur-vardas"[^>]*>([^<]+)<', html)
     return m.group(1).strip() if m else None
 
 

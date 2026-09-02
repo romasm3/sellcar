@@ -291,6 +291,47 @@ puslapyje.
 
 ---
 
+## 9. FILTRAS TIK RENKA REIKŠMĘ — PUSLAPIS KRAUNAMAS VIENĄ KARTĄ
+
+Kiekvienas paieškos laukas — šoninėje juostoje, panelėje ir detalioje
+paieškoje — laikosi tos pačios taisyklės:
+
+* pasirinkimas keičia TIK vietinę būseną ir lauko užrašą;
+* puslapis NEPERSIKRAUNA ir adresas NESIKEIČIA;
+* skaičius ant „Filtruoti" atsinaujina gyvai (count endpoint);
+* adresą atnaujina tik „Filtruoti" — vienu kartu, su visais pasirinkimais;
+* „Išvalyti" valo tik paspaustas;
+* naršyklės „atgal" grąžina ankstesnį filtrų rinkinį.
+
+Išimčių nėra: šalis, kuras, markė, modelis ir visa kita elgiasi vienodai.
+Šalies punktai formos viduje (`_salis.html` su `formoje=1`) yra laukas, ne
+nuoroda; be formos (/imones/, /map/) jie lieka nuorodos.
+
+Ką tikrinti kode:
+
+* juostos šablonuose neturi likti nė vieno `form.submit()`,
+  `@change="$el.form.submit()"` ar `onchange="this.form.submit()"`
+  (vienintelė išimtis — sekcijos jungiklis, kuris keičia patį laukų
+  rinkinį);
+* laukas, kurio reikšmę valdo Alpine, valomas per įvykį
+  (`data-isvalomas` + `@isvalyk`), o ne rašant tiesiai į `input.value` —
+  Alpine tokį įrašą perrašo;
+* `form.submit()` NEKELIA „submit" įvykio, tad visos apsaugos
+  (`static/js/vienas_variantas.js`) praleidžiamos; jei reikia siųsti iš
+  JS — `form.requestSubmit()`;
+* nematomo paviršiaus ir suskleistos markės/modelio eilutės laukai
+  siunčiami neturi — kitaip adrese lieka `?brand=&brand=` ir juosta
+  atsistato su daugiau eilučių, nei buvo;
+* `<input type="number">` pasiūlymų sąraše (`<datalist>`) reikšmė turi
+  būti SKAIČIUS, o žmogui matomas užrašas — per `label`; tekstinės
+  reikšmės („74 kW (100 AG)") laukas nepriima ir lieka tuščias.
+
+Patikra: `docs/juostos_elgsena_playwright.js` — pasirenka šalį, kurą ir
+markę (adresas nejuda, skaičius keičiasi tris kartus), paspaudžia
+„Filtruoti" (adresas atnaujinamas vienu kartu su visais trimis).
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -315,3 +356,7 @@ puslapyje.
 - [ ] Šalies keitimas nenumetė markės, kainos, metų
 - [ ] Skelbimo šalis paimta iš kontaktų bloko, ne iš paieškos
 - [ ] Įmonėms ir meistrams — tos pačios taisyklės
+- [ ] Filtro pasirinkimas neperkrauna puslapio ir nekeičia adreso
+- [ ] „Filtruoti" atnaujina adresą vienu kartu su visais pasirinkimais
+- [ ] Markės/modelio × ištrina eilutę ir nepalieka `?brand=` adrese
+- [ ] Skaičiaus laukų `<datalist>` reikšmės skaitinės
