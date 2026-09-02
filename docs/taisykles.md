@@ -387,6 +387,25 @@ neturi likti nė vieno `form.submit()`, `@change="$el.form.submit()"` ar
 
 ---
 
+## 13. KALBOS PERJUNGIKLIS MATOMAS VISADA
+
+Antraštės kalbos perjungiklis nėra slepiamas jokiame plotyje. Ties
+≤360 px jis buvo dingęs, o 360 CSS px (720 fizinių taškų, DPR 2) yra
+dažniausias Android plotis — kalbos nematydavo didelė dalis žmonių.
+
+Pavidalas telefone: siauras tekstinis „lt ▾" — dabartinės kalbos kodas
+mažosiomis (dvi raidės) ir 12 px rodyklė. ~28 px pločio, 32 px aukščio,
+be fono ir be rėmelio; telpa ir 320 px ekrane.
+
+Kai antraštėje trūksta vietos, trumpinama „Įkelti" (≤370 px lieka tik
+„+"), o NE kalba.
+
+Patikra: `docs/kalbos_perjungiklis_playwright.js` — 320, 360, 390, 414 ir
+768 px; krenta, jei bent viename perjungiklio nėra, jis neatsidaro arba
+antraštė plečia puslapį. `GYVAI=1` — tikrina gyvoje svetainėje.
+
+---
+
 ## Patikros sąrašas prieš atiduodant darbą
 
 - [ ] Vieta pirmas filtras VISUOSE keturiuose paviršiuose
@@ -418,3 +437,4 @@ neturi likti nė vieno `form.submit()`, `@change="$el.form.submit()"` ar
 - [ ] Sąrašų tekstas kairėje (offsetLeft <= 38 px visuose paviršiuose)
 - [ ] Nė vienas užrašas ar reikšmė nepervadinti be prašymo
 - [ ] Prieš/po išrašas sutampa arba skirtumas paaiškintas
+- [ ] Kalbos perjungiklis matomas 320, 360, 390, 414 ir 768 px
