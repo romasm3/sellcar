@@ -375,6 +375,29 @@ def _daugybinis(item):
     return item
 
 
+def _diapazono_options(reiksmes):
+    """Diapazono pasiūlymai skaičiaus laukui: [(skaičius, užrašas)].
+
+    Konfigūracijoje dalis pakopų yra tekstinės — „74 kW (100 AG)",
+    „>15". Šablonas jas dėdavo tiesiai į <datalist> kaip <option value>,
+    o laukas yra <input type="number">: naršyklė netinkamos reikšmės
+    nepriima ir „Galia, kW" pasirinkus punktą likdavo TUŠČIA.
+
+    Todėl reikšmė — tik skaičius (jį ir siųsim), o žmogui matomas užrašas
+    lieka nepakeistas ir keliauja per <option label>. Pakopos be jokio
+    skaičiaus praleidžiamos: į skaičiaus lauką jų vis tiek neįrašysi.
+    """
+    out = []
+    for o in reiksmes or []:
+        tekstas = str(o).strip()
+        rasta = re.search(r'-?\d+(?:[.,]\d+)?', tekstas)
+        if not rasta:
+            continue
+        skaicius = rasta.group(0).replace(',', '.')
+        out.append((skaicius, _(tekstas) if tekstas != skaicius else skaicius))
+    return out
+
+
 def _price_tiers():
     fmt = lambda v: f'{v:,}'.replace(',', ' ')
     return ([(v, fmt(v)) for v in PRICE_MIN_TIERS],
@@ -522,7 +545,7 @@ def build_panel(vt_slug, user=None, sub_slug=None):
             # netinka — nuomos kaina parai prasideda nuo 5, o pardavimo
             # pakopos nuo 500, todėl visas sąrašas būtų bevertis.
             _own_src = f.get('options') or f.get('options_from') or []
-            own = [(o, _(o)) for o in _own_src] if f.get('own_options') else None
+            own = _diapazono_options(_own_src) if f.get('own_options') else None
             if own:
                 item['options_min'] = item['options_max'] = own
                 item['free_input'] = True
@@ -707,7 +730,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
 
         if f['type'] == 'range':
             _own_src = f.get('options') or f.get('options_from') or []
-            own = [(o, _(o)) for o in _own_src] if f.get('own_options') else None
+            own = _diapazono_options(_own_src) if f.get('own_options') else None
             if own:
                 item['options_min'] = item['options_max'] = own
                 item['free_input'] = True
@@ -716,7 +739,7 @@ def build_advanced(vt_slug, user=None, sub_slug=None):
             elif db == 'price':
                 item['options_min'], item['options_max'] = price_min, price_max
             else:
-                opts = [(o, _(o)) for o in (f.get('options') or [])]
+                opts = _diapazono_options(f.get('options'))
                 item['options_min'] = item['options_max'] = opts
                 item['free_input'] = True     # kg/mm diapazonai — leidžiam bet kokį skaičių
         elif f['type'] in ('select', 'multiselect'):

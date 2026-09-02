@@ -37,8 +37,12 @@ laukeliai su datalist pasiūlymais.
            {% if uspec and vienetai %}data-unit-field="{{ uspec }}" data-unit-quiet {% endif %}value="{{ request.GET|get_param:f.param_max }}" placeholder="{% trans 'Iki' %}"
            class="sp-fld placeholder-gray-400">
     {% endwith %}
-    <datalist id="dl-{{ f.param_min }}">{% for v, lbl in f.options_min %}<option value="{{ v }}">{% endfor %}</datalist>
-    <datalist id="dl-{{ f.param_max }}">{% for v, lbl in f.options_max %}<option value="{{ v }}">{% endfor %}</datalist>
+    {% comment %}`value` — TIK skaičius (laukas yra type=number, teksto jis
+    nepriims ir liks tuščias), o žmogui matomas užrašas („74 kW (100 AG)")
+    keliauja per `label`. Skaičių iš pakopos išskiria
+    search_config.panels._diapazono_options.{% endcomment %}
+    <datalist id="dl-{{ f.param_min }}">{% for v, lbl in f.options_min %}<option value="{{ v }}"{% if lbl != v %} label="{{ lbl }}"{% endif %}>{% endfor %}</datalist>
+    <datalist id="dl-{{ f.param_max }}">{% for v, lbl in f.options_max %}<option value="{{ v }}"{% if lbl != v %} label="{{ lbl }}"{% endif %}>{% endfor %}</datalist>
     {% endif %}
   </div>
 </div>
