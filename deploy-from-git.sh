@@ -21,7 +21,7 @@ set -euo pipefail
 APP_DIR="${APP_DIR:-/root/autoleft}"
 BRANCH="${DEPLOY_BRANCH:-master}"
 REMOTE="${DEPLOY_REMOTE:-origin}"
-LOCKFILE="/run/autoleft-deploy.lock"
+LOCKFILE="${LOCKFILE:-/run/autoleft-deploy.lock}"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
 die() { log "❌ $*"; exit 1; }
@@ -102,6 +102,19 @@ if ./deploy-agent.sh; then
     if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh || true; fi
     exit 0
 fi
+
+# Nekartojam to paties commit'o kas minutę.
+#
+# Žymė iki šiol buvo rašoma TIK tada, kai krisdavo scripts/patikra.sh. Kai
+# krisdavo pats deploy-agent.sh, taimeris kas minutę bandydavo tą patį
+# commit'ą iš naujo — ir kas minutę atsukdavo kodą. 2026-09-01 būtent taip
+# „dingo" keturi darbai iš eilės: taimeris nebuvo sustojęs, jis sukosi.
+#
+# Žymę nuvalo naujas commit'as (žr. viršuje) arba ranka:
+#     rm -f deploy/.blogas-commitas && ./deploy-from-git.sh
+echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+log "Žymė įrašyta: ${UPSTREAM:0:7} daugiau nebandomas."
+log "Kartoti: rm -f ${BLOGAS_FAILAS} && ${APP_DIR}/deploy-from-git.sh"
 
 # deploy-agent.sh jau grąžino FAILUS iš last_good; suderinam ir git istoriją.
 log "deploy-agent.sh grąžino klaidą — atsukam git į ${LOCAL:0:7}, kad failai ir istorija sutaptų."

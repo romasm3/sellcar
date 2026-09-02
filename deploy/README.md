@@ -136,4 +136,44 @@ Nuo 2026-08-22 `deploy-from-git.sh` prieš liesdamas produkciją paleidžia
 * blogas commit'as įrašomas į `deploy/.blogas-commitas`, kad timeris jo
   nekartotų kas minutę — žymė nusivalo, kai `master` gauna naują commit'ą.
 
+Nuo 2026-09-02 ta pati žymė rašoma ir tada, kai krenta **pats
+`deploy-agent.sh`** (health check). Anksčiau ji buvo rašoma tik po
+`patikra.sh`, todėl kritęs deploy'as buvo kartojamas kas minutę — ir kas
+minutę atsukdavo kodą. 2026-09-01 taip „dingo" keturi darbai iš eilės:
+taimeris nebuvo sustojęs, jis sukosi ir kas kartą viską grąžindavo atgal.
+
 Žurnalas: `journalctl -u autoleft-deploy -n 50`
+
+## Kai deploy'as sustojo
+
+Požymis: `master` juda, o gyva svetainė ne. Patikra per sekundę —
+versijos žymė turi sutapti su `master`:
+
+```bash
+curl -s https://autoleft.com/ | grep -o 'name="versija" content="[^"]*"'
+git -C /root/autoleft rev-parse --short=12 origin/master
+```
+
+Nesutampa — tikrinam eilės tvarka:
+
+```bash
+# 1. Ar taimeris gyvas
+systemctl list-timers autoleft-deploy
+journalctl -u autoleft-deploy -n 80 --no-pager
+
+# 2. Ar nėra „šito commit'o daugiau nebandom" žymės
+cat /root/autoleft/deploy/.blogas-commitas 2>/dev/null
+
+# 3. Ar darbinis katalogas švarus (nešvarus stabdo git pull)
+git -C /root/autoleft status --short --untracked-files=no
+```
+
+Atkūrimas, kai žymė yra ir priežastis pašalinta:
+
+```bash
+rm -f /root/autoleft/deploy/.blogas-commitas
+/root/autoleft/deploy-from-git.sh
+```
+
+Žymė nusivalo ir pati, kai `master` gauna naują commit'ą — tad įprastu
+atveju pakanka iškelti pataisą.

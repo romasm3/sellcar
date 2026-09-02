@@ -195,6 +195,25 @@ tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_atsukimo_test.sh')),
         'yra atsukimo testas su tikru git repozitoriumi')
 
 
+antraste('11. Kritęs deploy nekartojamas kas minutę')
+g = open(os.path.join(BASE, 'deploy-from-git.sh'), encoding='utf-8').read()
+# Žymė turi būti rašoma DVIEJOSE vietose: po patikra.sh ir po
+# deploy-agent.sh. Iki 2026-09-02 buvo tik pirmoji, ir kritęs deploy'as
+# kas minutę atsukdavo kodą.
+tikrink(g.count('> "$BLOGAS_FAILAS"') == 2,
+        'žymė rašoma abiejuose kritimo keliuose (%d)'
+        % g.count('> "$BLOGAS_FAILAS"'))
+po_agento = g[g.index('if ./deploy-agent.sh; then'):]
+tikrink('> "$BLOGAS_FAILAS"' in po_agento,
+        'agentui kritus žymė įrašoma')
+tikrink('LOCKFILE:-' in g, 'užrakto kelias perrašomas (testuojamumas)')
+tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_kartojimo_test.sh')),
+        'yra kartojimo testas su tikrais git repozitoriumis')
+tikrink('blogas-commitas' in open(os.path.join(BASE, 'deploy/README.md'),
+                                  encoding='utf-8').read(),
+        'atkūrimo tvarka aprašyta deploy/README.md')
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)
