@@ -26,10 +26,20 @@ naršyklės „atgal" juostos nėra, žr. docs/pwa-pasiruosimas.md).{% endcommen
   .kl-tekstas { margin-top: var(--sp-2); color: var(--text-muted); }
   .kl-mygtukai { display: flex; gap: var(--sp-3); justify-content: center;
                  margin-top: var(--sp-6); flex-wrap: wrap; }
-  .kl-btn { display: inline-flex; align-items: center; height: var(--btn-h);
-            padding: 0 var(--sp-5); border: 1px solid var(--accent);
-            border-radius: var(--r-md); color: var(--accent);
-            text-decoration: none; font-weight: var(--fw-semibold); }
+  /* Fiksuotas aukštis kirpo ilgesnius vertimus („Смотреть объявления"):
+     tekstas persikeldavo į antrą eilutę ir išlįsdavo iš rėmelio. Dabar
+     aukštis minimalus, o tekstas nesikelia į kitą eilutę. */
+  .kl-btn { display: inline-flex; align-items: center; justify-content: center;
+            box-sizing: border-box; min-height: var(--btn-h);
+            padding: var(--sp-2) var(--sp-5); border: 1px solid var(--accent);
+            border-radius: var(--r-md); color: var(--accent); line-height: 1.25;
+            white-space: nowrap; text-decoration: none;
+            font-weight: var(--fw-semibold); }
+  @media (max-width: 380px) {
+    /* Siaurame ekrane du ilgi mygtukai vienas šalia kito nebetelpa —
+       dedam vieną po kitu, o ne karpom tekstą. */
+    .kl-mygtukai { flex-direction: column; align-items: stretch; }
+  }
   .kl-btn-pirmas { background: var(--accent); color: var(--accent-contrast); }
 </style>
 {% endblock %}

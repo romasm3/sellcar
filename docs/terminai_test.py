@@ -53,6 +53,9 @@ def terminai():
         if not eil.startswith('|') or eil.startswith('|---'):
             continue
         d = [x.strip() for x in eil.strip('|').split('|')]
+        # Langelis su „=" yra msgid variantas, o ne vertimas (žr.
+        # docs/terminai.md „Kaip taikoma") — tikrinant jis prilygsta „—".
+        d = ['—' if x.startswith('=') else x for x in d]
         if len(d) == 3 and d[0] != 'Lietuviškai':
             eilutes.append(tuple(d))
     return eilutes
@@ -100,6 +103,18 @@ antraste('5. Terminai užregistruoti makemessages\'ui')
 td = open(os.path.join(BASE, 'apps', 'listings', 'translatable_db.py'), encoding='utf-8').read()
 truksta = [lt for lt, _r, _e in T if ("_('%s')" % lt.replace("'", "\\'")) not in td]
 tikrink(not truksta, 'translatable_db.py netrūksta: %s' % truksta[:5])
+
+antraste('6. Kintamieji ir HTML žymės nesulaužyti')
+sys.path.insert(0, os.path.join(BASE, 'docs'))
+import kintamuju_patikra as kp
+for kalba in ('ru', 'en', 'lt'):
+    kelias = os.path.join(BASE, 'locale', kalba, 'LC_MESSAGES', 'django.po')
+    _po, rasta = kp.bedos(kelias)
+    tikrink(not rasta, '%s: %d eilutės su sulaužytais kintamaisiais — %s'
+            % (kalba, len(rasta), [r[1][:40] for r in rasta[:3]]))
+    ispejo = kp.ispejimai(kelias)
+    if ispejo:
+        print('  %s: įspėjimų (dingęs kintamasis ar žymė): %d' % (kalba, len(ispejo)))
 
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))

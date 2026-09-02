@@ -3461,11 +3461,11 @@ msgstr "Motociklų nuoma"
 
 #: apps/listings/models.py:1254
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "Keleivinis mikroautobusas"
 
 #: apps/listings/models.py:1255
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "Krovininis mikroautobusas"
 
 #: apps/listings/models.py:1259
 msgid "Autotraukinys"
@@ -11349,7 +11349,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
-msgstr ""
+msgstr "Komercinis auto(su būda)"
 
 #: apps/listings/translatable_db.py:1705
 msgid "Konteinerių sunkvežimis"
@@ -11389,7 +11389,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1727
 msgid "Miško technika"
-msgstr ""
+msgstr "Miško technika"
 
 #: apps/listings/translatable_db.py:1732
 msgid "Mišrus"
@@ -14736,11 +14736,11 @@ msgstr ""
 
 #: templates/base.html:593
 msgid "Sukurti skelbimą"
-msgstr ""
+msgstr "Sukurti skelbimą"
 
 #: templates/base.html:597
 msgid "Prisijungti"
-msgstr ""
+msgstr "Prisijungti"
 
 #: templates/base.html:604 templates/listings/partials/_my_searches.html:28
 #: templates/listings/saved_searches.html:4
@@ -14755,11 +14755,11 @@ msgstr ""
 
 #: templates/base.html:614
 msgid "Peržiūrėti skelbimai"
-msgstr ""
+msgstr "Peržiūrėti skelbimai"
 
 #: templates/base.html:621
 msgid "Žemėlapio paieška"
-msgstr ""
+msgstr "Žemėlapio paieška"
 
 #: templates/base.html:625
 msgid "Naujienos ir pagalba"
@@ -18936,7 +18936,7 @@ msgstr ""
 
 #: templates/listings/listing_list.html:1124
 msgid "Dienos pasiūlymai"
-msgstr ""
+msgstr "Dienos pasiūlymai"
 
 #: templates/listings/listing_list.html:1132
 #: templates/listings/trucks_list.html:831
@@ -18954,7 +18954,7 @@ msgstr ""
 
 #: templates/listings/listing_list.html:1179
 msgid "Šiandien naujų skelbimų dar nėra."
-msgstr ""
+msgstr "Šiandien naujų skelbimų dar nėra."
 
 #: templates/listings/listing_list.html:1232
 msgid "No featured listings yet."
@@ -20685,6 +20685,8 @@ msgid "Showing %(counter)s listing"
 msgid_plural "Showing %(counter)s listings"
 msgstr[0] "Rodomas %(counter)s skelbimas"
 msgstr[1] "Rodomi %(counter)s skelbimai"
+msgstr[2] "Rodoma %(counter)s skelbimo"
+msgstr[3] "Rodoma %(counter)s skelbimų"
 
 #: templates/listings/motorcycles_list.html:723
 #: templates/listings/trucks_list.html:390
@@ -21162,7 +21164,7 @@ msgstr ""
 
 #: templates/listings/partials/fields/_model.html:54
 msgid "Pirma pasirinkite markę"
-msgstr ""
+msgstr "Pirma pasirinkite markę"
 
 #: templates/listings/partials/panel_cars.html:28
 msgid "Show brands with 0 listings"
@@ -23244,11 +23246,11 @@ msgstr ""
 
 #: templates/partials/secondary_nav.html:34
 msgid "Pagalba"
-msgstr ""
+msgstr "Pagalba"
 
 #: templates/partials/secondary_nav.html:35
 msgid "Apie mus"
-msgstr ""
+msgstr "Apie mus"
 
 #: templates/partials/secondary_nav.html:39
 msgid "PRO pardavimas"
@@ -23437,6 +23439,144 @@ msgstr "Žinutės"
 #. terminai.md — patvirtintas vertimas
 msgid "Limuzinų, vestuvių transportas"
 msgstr "Limuzinų, vestuvių transportas"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Auto supirkimas"
+msgstr "Auto supirkimas"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Autovežiai"
+msgstr "Autovežiai"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra (hibridas)"
+msgstr "Benzinas / elektra (hibridas)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra (įkraunamas)"
+msgstr "Benzinas / elektra (įkraunamas)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra / dujos"
+msgstr "Benzinas / elektra / dujos"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / gamtinės dujos"
+msgstr "Benzinas / gamtinės dujos"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
+#: apps/listings/zemelapio_views.py:409
+msgid "Brangiausi"
+msgstr "Brangiausi"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dviračiai"
+msgstr "Dviračiai"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dyzelinas / elektra (hibridas)"
+msgstr "Dyzelinas / elektra (hibridas)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dyzelinas / elektra (įkraunamas)"
+msgstr "Dyzelinas / elektra (įkraunamas)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Kalba"
+msgstr "Kalba"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Komunalinis"
+msgstr "Komunalinis"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Krovimo technika"
+msgstr "Krovimo technika"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Limuzinų nuoma"
+msgstr "Limuzinų nuoma"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Mikroautob. nuoma"
+msgstr "Mikroautob. nuoma"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:17
+#: templates/listings/partials/_perziuretu_sarasas.html:11
+msgid "Naršyti skelbimus"
+msgstr "Naršyti skelbimus"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
+#: apps/listings/zemelapio_views.py:406
+msgid "Naujausi"
+msgstr "Naujausi"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:14
+msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
+msgstr "Nuoroda galėjo pasenti arba skelbimas nuimtas."
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/context_processors.py:215
+msgid "Partneriai"
+msgstr "Partneriai"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/skelbimai_views.py:26
+msgid "Populiariausi"
+msgstr "Populiariausi"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:3
+msgid "Puslapis nerastas"
+msgstr "Puslapis nerastas"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Statybos priedai"
+msgstr "Statybos priedai"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Sunkiojo nuoma"
+msgstr "Sunkiojo nuoma"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:13
+msgid "Tokio puslapio nėra"
+msgstr "Tokio puslapio nėra"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Vandens transp."
+msgstr "Vandens transp."
+
+#. terminai.md — patvirtintas vertimas
+msgid "Video, audio, navi"
+msgstr "Video, audio, navi"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/imones/_filtrai.html:45 templates/listings/listing_list.html:1366
+msgid "Visos įmonės"
+msgstr "Visos įmonės"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:16
+msgid "Į pradžią"
+msgstr "Į pradžią"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Žemės ūkio"
+msgstr "Žemės ūkio"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/listings/listing_list.html:1206
+#: templates/listings/listing_list.html:1247
+#: templates/listings/listing_list.html:1279
+#: templates/listings/listing_list.html:1313
+#: templates/listings/listing_list.html:1348
+msgid "Žiūrėti visus"
+msgstr "Žiūrėti visus"
 
 #~ msgid ""
 #~ "Your wallet stores credits used for boosting listings, featured ads, and "

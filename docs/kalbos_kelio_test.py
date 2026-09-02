@@ -158,6 +158,31 @@ tikrink(r.status_code == 404, 'nesamas kelias grąžino %s' % r.status_code)
 tikrink(not r.get('Location'), 'nesamas kelias nukreipiamas — būtų ciklas')
 
 
+antraste('404 puslapis kalba vartotojo kalba')
+LAUKIAMA = {
+    'ru': ['Такой страницы нет',
+           'Ссылка могла устареть или объявление снято.',
+           'На главную', 'Смотреть объявления'],
+    'lt': ['Tokio puslapio nėra',
+           'Nuoroda galėjo pasenti arba skelbimas nuimtas.',
+           'Į pradžią', 'Naršyti skelbimus'],
+}
+for kalba, tekstai in LAUKIAMA.items():
+    p = u.profile; p.language = kalba; p.save(update_fields=['language'])
+    c = Client(); c.force_login(u)
+    kelias = '/tokio-kelio-tikrai-nera/' if kalba == 'lt' else '/%s/tokio-kelio-nera/' % kalba
+    r = c.get(kelias)
+    kunas = r.content.decode('utf-8')
+    tikrink(r.status_code == 404, '%s: 404 puslapis grąžino %s' % (kalba, r.status_code))
+    for t in tekstai:
+        tikrink(t in kunas, '%s: 404 puslapyje nėra „%s"' % (kalba, t))
+    # Mygtukas nebeturi fiksuoto aukščio — ilgesnis vertimas nebekerpamas.
+    tikrink('min-height: var(--btn-h)' in kunas,
+            '%s: .kl-btn vis dar su fiksuotu aukščiu' % kalba)
+    tikrink('white-space: nowrap' in kunas,
+            '%s: .kl-btn tekstas gali persikelti į antrą eilutę' % kalba)
+
+
 antraste('POST nenukreipiamas (302 nuneštų kūną)')
 p = u.profile; p.language = 'ru'; p.save(update_fields=['language'])
 c = Client(); c.force_login(u)

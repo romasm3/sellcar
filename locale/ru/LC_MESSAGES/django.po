@@ -3406,15 +3406,15 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1006
 #: templates/listings/rental_moto_create.html:25
 msgid "Motociklų nuoma"
-msgstr ""
+msgstr "Аренда мотоциклов"
 
 #: apps/listings/models.py:1244
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "Пассажирский микроавтобус"
 
 #: apps/listings/models.py:1245
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "Грузовой микроавтобус"
 
 #: apps/listings/models.py:1249
 msgid "Autotraukinys"
@@ -4936,7 +4936,7 @@ msgstr ""
 #: templates/listings/camping_listing_create.html:25
 #: templates/listings/partials/search_panel.html:1065
 msgid "Turistiniai nameliai"
-msgstr ""
+msgstr "Дома на колёсах"
 
 #: apps/listings/translatable_db.py:33
 #: templates/listings/rental_minibus_create.html:25
@@ -4948,7 +4948,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:911
 #: templates/listings/partials/search_panel.html:916
 msgid "Statybinė technika"
-msgstr ""
+msgstr "Строительная техника"
 
 #: apps/listings/translatable_db.py:38
 #, fuzzy
@@ -5298,11 +5298,11 @@ msgstr "CTR"
 
 #: apps/listings/translatable_db.py:66
 msgid "Diesel / Electric (Hybrid)"
-msgstr ""
+msgstr "Дизель / электро (гибрид)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Diesel / Electric (Plug-in)"
-msgstr ""
+msgstr "Дизель / электро (подключаемый гибрид)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Ethanol"
@@ -5314,19 +5314,19 @@ msgstr "Бензин"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / CNG"
-msgstr ""
+msgstr "Бензин / метан"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / Electric (Hybrid)"
-msgstr ""
+msgstr "Бензин / электро (гибрид)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric (Plug-in)"
-msgstr ""
+msgstr "Бензин / электро (подключаемый гибрид)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric / LPG"
-msgstr ""
+msgstr "Бензин / электро / газ"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / LPG"
@@ -6641,7 +6641,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/accounts/seller_profile.html:168
-#, python-format
+#, python-format, fuzzy
 msgid "Member since %(year)s"
 msgstr "Участник с %(лет)"
 
@@ -6841,7 +6841,7 @@ msgid "Clear All"
 msgstr "Очистить все"
 
 #: templates/accounts/seller_profile.html:292
-#, python-format
+#, python-format, fuzzy
 msgid "of %(total)s"
 msgstr "%(всего)"
 
@@ -6902,7 +6902,7 @@ msgid "Phone 2"
 msgstr "Телефон 2"
 
 #: templates/accounts/seller_profile.html:383
-#, python-format
+#, python-format, fuzzy
 msgid "About %(company)s"
 msgstr "О %(компаний)"
 
@@ -6977,7 +6977,7 @@ msgid "Get"
 msgstr "Получать"
 
 #: templates/accounts/wallet.html:88
-#, python-format
+#, python-format, fuzzy
 msgid "= %(total)s points"
 msgstr "= %(всего) баллов"
 
@@ -7404,7 +7404,7 @@ msgid "Find Your Perfect Vehicle"
 msgstr "Найдите свой идеальный автомобиль"
 
 #: templates/home.html:14
-#, python-format
+#, python-format, fuzzy
 msgid "Browse %(count)s listings"
 msgstr "Просмотрите %(количество) объявлений"
 
@@ -7464,7 +7464,7 @@ msgstr "Доступные транспортные средства"
 #: templates/home.html:149 templates/listings/motogear_list.html:215
 #: templates/listings/search_map.html:79
 #: templates/listings/trucks_list.html:504
-#, python-format
+#, python-format, fuzzy
 msgid "Found %(count)s listings"
 msgstr "Найдено %(количество) объявлений"
 
@@ -9462,7 +9462,7 @@ msgstr "Опишите, что входит в комплект, дефекты,
 #: templates/listings/car_for_parts_create.html:270
 #: templates/listings/moto_for_parts_create.html:207
 #: templates/listings/truck_for_parts_create.html:203
-#, python-format
+#, python-format, fuzzy
 msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
 msgstr ""
 "(%(количество) / 36 — перетащите для изменения порядка, нажмите для "
@@ -9776,7 +9776,7 @@ msgid "Vehicle Details"
 msgstr "Сведения об автомобиле"
 
 #: templates/listings/listing_create.html:29
-#, python-format
+#, python-format, fuzzy
 msgid "Editing: %(brand)s %(model)s"
 msgstr "Редактирование: %(бренд)s %(модель)s"
 
@@ -9785,7 +9785,7 @@ msgid "Create New Listing"
 msgstr "Создать новое объявление"
 
 #: templates/listings/listing_create.html:36
-#, python-format
+#, python-format, fuzzy
 msgid "Step %(current)s of %(total)s"
 msgstr "Шаг %(текущий) из %(всего)"
 
@@ -9928,7 +9928,7 @@ msgid "Already uploaded"
 msgstr "Уже загружено"
 
 #: templates/listings/listing_create.html:328
-#, python-format
+#, python-format, fuzzy
 msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
 msgstr ""
 "(%(количество) / 40 — нажмите для увеличения, перетащите для изменения "
@@ -10123,7 +10123,7 @@ msgid "Defects is required"
 msgstr "Требуется устранение дефектов."
 
 #: templates/listings/listing_create_cars_quick.html:22
-#, python-format
+#, python-format, fuzzy
 msgid "Edit listing: %(brand)s %(model)s"
 msgstr "Редактировать список: %(бренд) %(модель)"
 
@@ -11736,7 +11736,7 @@ msgstr "Действительно до"
 
 #: templates/listings/listing_stats.html:67
 #: templates/listings/listing_stats.html:78
-#, python-format
+#, python-format, fuzzy
 msgid "%(pct)s%% vs last week"
 msgstr "%(процентов)%% по сравнению с прошлой неделей"
 
@@ -11761,7 +11761,7 @@ msgid "%(rate)s%% save rate"
 msgstr "%(rate)s%% скидка коэффициент"
 
 #: templates/listings/listing_stats.html:106
-#, python-format
+#, python-format, fuzzy
 msgid "Your listing position: %(pos)s / %(total)s"
 msgstr "Позиция вашего объявления: %(поз)с / %(всего)с"
 
@@ -11828,14 +11828,14 @@ msgid "Listing published"
 msgstr "Опубликовано объявление"
 
 #: templates/listings/listing_success.html:60
-#, python-format
+#, python-format, fuzzy
 msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
 msgstr ""
 "Объявление действительно в течение <strong class=\"text-gray-900\">%(дней)s "
 "дней</strong>"
 
 #: templates/listings/listing_success.html:65
-#, python-format
+#, python-format, fuzzy
 msgid "Expires on <strong class=\"text-gray-900\">%(date)s</strong>"
 msgstr "Срок действия истекает <strong class=\"text-gray-900\">%(даты)</strong>"
 
@@ -11889,7 +11889,7 @@ msgid "You've reached your listing limit"
 msgstr "Вы достигли лимита объявлений."
 
 #: templates/listings/listing_upgrade.html:14
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "You currently have %(count)s of %(limit)s active listings. Choose an option "
 "below to add more."
@@ -11945,7 +11945,7 @@ msgstr "помесячно"
 
 #: templates/listings/listing_upgrade.html:56
 #: templates/listings/listing_upgrade.html:77
-#, python-format
+#, python-format, fuzzy
 msgid "%(count)s active listings"
 msgstr "%(количество) активных объявлений"
 
@@ -12475,7 +12475,7 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1175
 #: templates/listings/partials/search_panel.html:1261
 msgid "Tekstinė paieška"
-msgstr ""
+msgstr "Текстовый поиск"
 
 #: templates/listings/motogear_advanced.html:200
 msgid "Ieškoti..."
@@ -13271,7 +13271,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listings/my_listings.html:408
-#, python-format
+#, python-format, fuzzy
 msgid "Auto-delete in %(days)sd"
 msgstr "Автоматическое удаление в %(дней) стандартного отклонения"
 
@@ -14204,7 +14204,7 @@ msgid "listings match your filters"
 msgstr "Объявления соответствуют вашим фильтрам"
 
 #: templates/listings/trucks_advanced_search.html:592
-#, python-format
+#, python-format, fuzzy
 msgid "Show %(count)s results"
 msgstr "Показать результаты в % (количество)"
 
@@ -14213,7 +14213,7 @@ msgid "Save this search"
 msgstr "Сохранить этот поиск"
 
 #: templates/listings/trucks_advanced_search.html:613
-#, python-format
+#, python-format, fuzzy
 msgid "Found <strong>%(count)s</strong> trucks matching your filters"
 msgstr ""
 "Найдены <strong>%(количество)</strong> грузовиков, соответствующих вашим "
@@ -14256,7 +14256,7 @@ msgid "Browse Trucks & Commercial"
 msgstr "Просмотрите грузовики и коммерческий транспорт."
 
 #: templates/listings/trucks_list.html:193
-#, python-format
+#, python-format, fuzzy
 msgid "%(count)s listings found"
 msgstr "%(количество) найденных объявлений"
 
@@ -14274,7 +14274,7 @@ msgid "Search make..."
 msgstr "Поиск производит..."
 
 #: templates/listings/trucks_list.html:376
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(count)s listings"
 msgstr "Отображается %(количество) объявлений"
 
@@ -14302,7 +14302,7 @@ msgid "Euro"
 msgstr "Евро"
 
 #: templates/listings/trucks_list.html:680
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(shown)s of %(total)s"
 msgstr "Отображается %(показано) от %(всего)"
 
@@ -14349,7 +14349,7 @@ msgid "Status:"
 msgstr "Статус:"
 
 #: templates/listings/trucks_listing_create.html:306
-#, python-format
+#, python-format, fuzzy
 msgid "Expires %(date)s"
 msgstr "Срок действия истекает %(дата)"
 
@@ -17145,6 +17145,213 @@ msgstr "Сообщения"
 #. terminai.md — patvirtintas vertimas
 msgid "Limuzinų, vestuvių transportas"
 msgstr "Лимузины, свадебный транспорт"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/context_processors.py:214
+msgid "Apie mus"
+msgstr "О нас"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Auto supirkimas"
+msgstr "Скупка автомобилей"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Autovežiai"
+msgstr "Автовозы"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra (hibridas)"
+msgstr "Бензин / электро (гибрид)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra (įkraunamas)"
+msgstr "Бензин / электро (подключаемый гибрид)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / elektra / dujos"
+msgstr "Бензин / электро / газ"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Benzinas / gamtinės dujos"
+msgstr "Бензин / метан"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
+#: apps/listings/zemelapio_views.py:409
+msgid "Brangiausi"
+msgstr "Дорогие"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/listings/listing_list.html:1155
+msgid "Dienos pasiūlymai"
+msgstr "Предложения дня"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dviračiai"
+msgstr "Велосипеды"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dyzelinas / elektra (hibridas)"
+msgstr "Дизель / электро (гибрид)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Dyzelinas / elektra (įkraunamas)"
+msgstr "Дизель / электро (подключаемый гибрид)"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Kalba"
+msgstr "Язык"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/models.py:363
+msgid "Kombi mikroautobusas"
+msgstr "Комби-микроавтобус"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/translatable_db.py:1704
+msgid "Komercinis auto(su būda)"
+msgstr "Коммерческий фургон"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Komunalinis"
+msgstr "Коммунальная техника"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Krovimo technika"
+msgstr "Погрузочная техника"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Limuzinų nuoma"
+msgstr "Аренда лимузинов"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Mikroautob. nuoma"
+msgstr "Аренда микроавтобусов"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/translatable_db.py:1727
+msgid "Miško technika"
+msgstr "Лесная техника"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:17
+#: templates/listings/partials/_perziuretu_sarasas.html:11
+msgid "Naršyti skelbimus"
+msgstr "Смотреть объявления"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
+#: apps/listings/zemelapio_views.py:406
+msgid "Naujausi"
+msgstr "Новые"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:14
+msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
+msgstr "Ссылка могла устареть или объявление снято."
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/context_processors.py:213
+msgid "Pagalba"
+msgstr "Помощь"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/context_processors.py:215
+msgid "Partneriai"
+msgstr "Партнёры"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/models.py:2216 templates/base.html:498
+#: templates/base.html:633 templates/base.html:716
+#: templates/listings/perziureti.html:3 templates/listings/perziureti.html:22
+#: templates/listings/perziureti.html:26
+msgid "Peržiūrėti skelbimai"
+msgstr "Просмотренные объявления"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/listings/partials/fields/_model.html:56
+msgid "Pirma pasirinkite markę"
+msgstr "Сначала выберите марку"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/skelbimai_views.py:26
+msgid "Populiariausi"
+msgstr "Популярные"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/base.html:699
+msgid "Prisijungti"
+msgstr "Войти"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:3
+msgid "Puslapis nerastas"
+msgstr "Страница не найдена"
+
+#. terminai.md — patvirtintas vertimas
+#: apps/listings/models.py:364
+msgid "Savadarbis auto"
+msgstr "Самодельный автомобиль"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Statybos priedai"
+msgstr "Навесное оборудование"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/base.html:695
+msgid "Sukurti skelbimą"
+msgstr "Разместить объявление"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Sunkiojo nuoma"
+msgstr "Аренда грузового транспорта"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:13
+msgid "Tokio puslapio nėra"
+msgstr "Такой страницы нет"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Vandens transp."
+msgstr "Водный транспорт"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Video, audio, navi"
+msgstr "Видео, аудио, навигация"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/imones/_filtrai.html:45 templates/listings/listing_list.html:1366
+msgid "Visos įmonės"
+msgstr "Все компании"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/404.html:16
+msgid "Į pradžią"
+msgstr "На главную"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/listings/listing_list.html:1201
+msgid "Šiandien naujų skelbimų dar nėra."
+msgstr "Сегодня новых объявлений пока нет."
+
+#. terminai.md — patvirtintas vertimas
+#: templates/base.html:723 templates/imones/sarasas.html:216
+#: templates/listings/search_map.html:3 templates/listings/search_map.html:6
+msgid "Žemėlapio paieška"
+msgstr "Поиск на карте"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Žemės ūkio"
+msgstr "Сельхозтехника"
+
+#. terminai.md — patvirtintas vertimas
+#: templates/listings/listing_list.html:1206
+#: templates/listings/listing_list.html:1247
+#: templates/listings/listing_list.html:1279
+#: templates/listings/listing_list.html:1313
+#: templates/listings/listing_list.html:1348
+msgid "Žiūrėti visus"
+msgstr "Смотреть все"
 
 #, fuzzy
 #~ msgid "Naked / Street"

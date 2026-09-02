@@ -69,6 +69,17 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Daužtas | Битый | Damaged |
 | Privatus asmuo | Частное лицо | Private seller |
 | Įmonė | Компания | Dealer |
+| Benzinas / elektra (hibridas) | Бензин / электро (гибрид) | =Petrol / Electric (Hybrid) |
+| Benzinas / elektra (įkraunamas) | Бензин / электро (подключаемый гибрид) | =Petrol / Electric (Plug-in) |
+| Benzinas / elektra / dujos | Бензин / электро / газ | =Petrol / Electric / LPG |
+| Benzinas / gamtinės dujos | Бензин / метан | =Petrol / CNG |
+| Dyzelinas / elektra (hibridas) | Дизель / электро (гибрид) | =Diesel / Electric (Hybrid) |
+| Dyzelinas / elektra (įkraunamas) | Дизель / электро (подключаемый гибрид) | =Diesel / Electric (Plug-in) |
+| Komercinis auto(su būda) | Коммерческий фургон | — |
+| Keleivinis mikroautobusas | Пассажирский микроавтобус | — |
+| Krovininis mikroautobusas | Грузовой микроавтобус | — |
+| Kombi mikroautobusas | Комби-микроавтобус | — |
+| Savadarbis auto | Самодельный автомобиль | — |
 
 ## Kategorijos
 
@@ -88,6 +99,22 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Autotraukiniai, autovežiai | Автопоезда, автовозы | — |
 | Komunalinio ūkio transportas | Коммунальная техника | — |
 | Limuzinų, vestuvių transportas | Лимузины, свадебный транспорт | — |
+| Žemės ūkio | Сельхозтехника | — |
+| Autovežiai | Автовозы | — |
+| Komunalinis | Коммунальная техника | — |
+| Limuzinų nuoma | Аренда лимузинов | — |
+| Motociklų nuoma | Аренда мотоциклов | — |
+| Mikroautob. nuoma | Аренда микроавтобусов | — |
+| Sunkiojo nuoma | Аренда грузового транспорта | — |
+| Video, audio, navi | Видео, аудио, навигация | — |
+| Auto supirkimas | Скупка автомобилей | — |
+| Krovimo technika | Погрузочная техника | — |
+| Statybinė technika | Строительная техника | — |
+| Statybos priedai | Навесное оборудование | — |
+| Miško technika | Лесная техника | — |
+| Turistiniai nameliai | Дома на колёсах | — |
+| Vandens transp. | Водный транспорт | — |
+| Dviračiai | Велосипеды | — |
 
 ## Sąsaja
 
@@ -104,10 +131,37 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Įkelti | Разместить | Post |
 | Žinutės | Сообщения | Messages |
 | Įmonės ir servisai | Компании и сервисы | Businesses and services |
+| Sukurti skelbimą | Разместить объявление | — |
+| Prisijungti | Войти | — |
+| Peržiūrėti skelbimai | Просмотренные объявления | — |
+| Žemėlapio paieška | Поиск на карте | — |
+| Pagalba | Помощь | — |
+| Apie mus | О нас | — |
+| Partneriai | Партнёры | — |
+| Kalba | Язык | — |
+| Pirma pasirinkite markę | Сначала выберите марку | — |
+| Tekstinė paieška | Текстовый поиск | — |
+| Dienos pasiūlymai | Предложения дня | — |
+| Naujausi | Новые | — |
+| Populiariausi | Популярные | — |
+| Brangiausi | Дорогие | — |
+| Šiandien naujų skelbimų dar nėra. | Сегодня новых объявлений пока нет. | — |
+| Žiūrėti visus | Смотреть все | — |
+| Visos įmonės | Все компании | — |
 
 Brūkšnys `—` langelyje reiškia, kad tos kalbos vertimo dar nėra ir
 skriptas to langelio neliečia. Terminas nuo to netampa neteisingas —
 tiesiog laukia.
+
+## Klaidų puslapiai
+
+| Lietuviškai | По-русски | English |
+|---|---|---|
+| Puslapis nerastas | Страница не найдена | — |
+| Tokio puslapio nėra | Такой страницы нет | — |
+| Nuoroda galėjo pasenti arba skelbimas nuimtas. | Ссылка могла устареть или объявление снято. | — |
+| Į pradžią | На главную | — |
+| Naršyti skelbimus | Смотреть объявления | — |
 
 ## Sudėtinės eilutės
 
@@ -131,6 +185,10 @@ skaidom — vertimai TIE PATYS, tik priskirti savo eilutei.
 * msgid'ai projekte mišrūs — dalis lietuviški, dalis dar angliški
   (senesnis kodas). Skriptas ieško **abiejų**: ir lietuviško, ir angliško
   varianto, ir nepaiso raidžių dydžio bei galinio dvitaškio.
+* Langelis, prasidedantis `=`, yra **ne vertimas, o msgid variantas**:
+  kuro deriniai kode gyvena angliškai (`Petrol / Electric (Hybrid)`),
+  tad angliškas stulpelis nurodo, prie kurio msgid taikyti rusišką
+  vertimą, bet paties angliško katalogo neliečia.
 * Patvirtinti vertimai įrašomi **be `#, fuzzy`**: fuzzy eilutė
   nekompiliuojama į .mo ir vartotojui nerodoma — pažymėjus fuzzy
   vertimas tiesiog neveiktų.
