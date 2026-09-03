@@ -22,7 +22,7 @@ from decimal import Decimal
 from django.db import transaction
 from decimal import Decimal
 from django.utils import timezone
-from .constants import can_create_listing
+from .constants import can_create_listing, mokejimai_ijungti
 from .image_validation import ImageValidationError, split_valid_images, validate_images
 from .search_panel import (
     COUNT_KEY_TO_SUB, parts_count_qs, parts_panel_context,
@@ -5411,6 +5411,64 @@ def listing_activation_plans(request, pk):
     return render(request, 'listings/listing_activation_plans.html', context)
 
 
+def _skelbimas_uzpildytas(listing):
+    """Ar juodraštyje užpildyta tai, be ko skelbimo skelbti negalima.
+
+    Ta pati sąlyga naudojama ir planų puslapyje (mokėjimai įjungti), ir
+    nemokamame publikavime — kad nemokamas srautas nepraleistų į
+    svetainę pusiau tuščio skelbimo.
+    """
+    is_moto_gear = (listing.subcategory_id
+                    and listing.subcategory.slug in MOTO_GEAR_SLUGS)
+    if is_moto_gear:
+        return bool(
+            listing.subcategory_id and listing.condition
+            and listing.price and listing.price > 0
+            and listing.country and listing.city and listing.city != '—'
+        )
+    uzpildyta = bool(
+        listing.year and listing.first_registration and listing.fuel_type_id
+        and listing.price and listing.price > 0
+        and listing.country and listing.city and listing.city != '—'
+    )
+    slug = listing.vehicle_type.slug if listing.vehicle_type else ''
+    if slug == 'cars':
+        uzpildyta = uzpildyta and bool(
+            listing.brand_id and listing.body_type
+            and listing.transmission_id and listing.doors and listing.mileage
+        )
+    elif slug == 'trucks':
+        uzpildyta = uzpildyta and bool(
+            listing.truck_brand_id and listing.truck_model_text
+            and listing.truck_type
+        )
+    return uzpildyta
+
+
+def _publikuok_nemokamai(request, listing):
+    """Aktyvuoja skelbimą be mokėjimo ir grąžina nukreipimą į „pavyko".
+
+    Naudojama, kai MOKEJIMAI_IJUNGTI = False. Viena vieta, kad skydelio
+    mygtukas, planų puslapio nuoroda ir laiško saitas darytų tą patį.
+    """
+    previous_status = listing.status
+    if previous_status == 'expired':
+        action = 'reactivated'
+    elif previous_status == 'draft':
+        action = 'published'
+    else:
+        action = 'extended'
+
+    listing.activate(days=Listing.DEFAULT_ACTIVE_DAYS)
+
+    if previous_status == 'draft':
+        _send_listing_published_email(listing, request.user)
+
+    return redirect(
+        reverse('listing_success', kwargs={'pk': listing.pk}) + f'?action={action}'
+    )
+
+
 @login_required
 def listing_activate(request, pk):
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
@@ -5434,8 +5492,7 @@ def listing_activate(request, pk):
         request.session.modified = True
         return redirect('/create/?step=2')
 
-    payments_enabled = getattr(settings, 'PAYMENTS_ENABLED', False)
-    fee = listing.listing_fee
+    payments_enabled = mokejimai_ijungti()
 
     # Ne-draft (active / inactive / expired) → planų puslapis.
     # Pratęsimas NEVEDA į redagavimo formą: skelbimo turinys nesikeičia,
@@ -5443,22 +5500,7 @@ def listing_activate(request, pk):
     if payments_enabled:
         return redirect('listing_select_plan', pk=listing.pk)
 
-    previous_status = listing.status
-    if previous_status == 'expired':
-        action = 'reactivated'
-    elif previous_status == 'draft':
-        action = 'published'
-    else:
-        action = 'extended'
-
-    listing.activate(days=Listing.DEFAULT_ACTIVE_DAYS)
-
-    if previous_status == 'draft':
-        _send_listing_published_email(listing, request.user)
-
-    return redirect(
-        reverse('listing_success', kwargs={'pk': listing.pk}) + f'?action={action}'
-    )
+    return _publikuok_nemokamai(request, listing)
 
 
 @login_required
@@ -7418,38 +7460,23 @@ def listing_select_plan(request, pk):
 
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
 
+    # Mokėjimai išjungti — planų puslapio nerodom visai. Į čia veda senos
+    # nuorodos („Aktyvuoti", „Pratęsti") ir laiškų saitai, tad aklavietės
+    # čia būti negali: aktyvuojam nemokamai ir vedam į „pavyko".
+    if not mokejimai_ijungti():
+        if listing.status == 'draft' and not _skelbimas_uzpildytas(listing):
+            messages.info(request, _('Užpildykite skelbimą prieš jo aktyvavimą.'))
+            return redirect(listing.get_edit_url())
+        return _publikuok_nemokamai(request, listing)
+
     # Aktyvus skelbimas — PRATĘSIMO režimas: tas pats planų puslapis,
     # tik dienos pridedamos prie likusio galiojimo, o ne skaičiuojamos iš naujo.
     pratesimas = (listing.status == 'active')
 
     # Completeness guard: incomplete drafts must be filled before activating
-    if listing.status == 'draft':
-        is_moto_gear = (listing.subcategory_id and listing.subcategory.slug in MOTO_GEAR_SLUGS)
-        if is_moto_gear:
-            is_complete = bool(
-                listing.subcategory_id and listing.condition
-                and listing.price and listing.price > 0
-                and listing.country and listing.city and listing.city != '—'
-            )
-        else:
-            is_complete = bool(
-                listing.year and listing.first_registration and listing.fuel_type_id
-                and listing.price and listing.price > 0
-                and listing.country and listing.city and listing.city != '—'
-            )
-            slug = listing.vehicle_type.slug if listing.vehicle_type else ''
-            if slug == 'cars':
-                is_complete = is_complete and bool(
-                    listing.brand_id and listing.body_type
-                    and listing.transmission_id and listing.doors and listing.mileage
-                )
-            elif slug == 'trucks':
-                is_complete = is_complete and bool(
-                    listing.truck_brand_id and listing.truck_model_text and listing.truck_type
-                )
-        if not is_complete:
-            messages.info(request, 'Complete the listing before activating it.')
-            return redirect(listing.get_edit_url())
+    if listing.status == 'draft' and not _skelbimas_uzpildytas(listing):
+        messages.info(request, 'Complete the listing before activating it.')
+        return redirect(listing.get_edit_url())
 
     # ─── Plan'us paimam iš DB pagal kategoriją ───
     plans_qs = PricingPlan.objects.filter(
@@ -7539,6 +7566,10 @@ def listing_pay_plan(request, pk, plan_code):
     from decimal import Decimal
 
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+
+    # Mokėjimai išjungti — nurašyti nėra ko. Aktyvuojam nemokamai.
+    if not mokejimai_ijungti():
+        return _publikuok_nemokamai(request, listing)
 
     # Aktyvus skelbimas — pratęsimas (dienos pridedamos prie likusio galiojimo)
     pratesimas = (listing.status == 'active')
@@ -7872,6 +7903,10 @@ def listing_services_order(request, pk):
     """
     from .models import PricingSettings
 
+    # Mokėjimai išjungti — mokamų priedų parduoti nėra iš ko.
+    if not mokejimai_ijungti():
+        return redirect('my_listings')
+
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
 
     if listing.status != 'active':
@@ -7928,6 +7963,10 @@ def listing_services_order(request, pk):
 def listing_services_checkout(request, pk):
     """Apdoroja paslaugų pirkimą — nuima iš wallet, prideda paslaugas."""
     from .models import PricingSettings
+
+    # Mokėjimai išjungti — mokamų priedų parduoti nėra iš ko.
+    if not mokejimai_ijungti():
+        return redirect('my_listings')
 
     listing = get_object_or_404(Listing, pk=pk, seller=request.user)
 

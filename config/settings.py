@@ -142,6 +142,8 @@ TEMPLATES = [
                 "apps.listings.context_processors.rodymo_jungikliai",
                 "apps.listings.context_processors.antrine_navigacija",
                 "apps.listings.context_processors.antrastes_paieska",
+                # Mokėjimų jungiklis: slepia piniginę ir kainų lenteles
+                "apps.listings.context_processors.mokejimai",
             ],
         },
     },
@@ -392,7 +394,31 @@ SESSION_SAVE_EVERY_REQUEST = True
 # Listing lifecycle (expire / reminders / cleanup)
 # ═══════════════════════════════════════════════════════════
 SITE_URL = config("SITE_URL", default="http://127.0.0.1:8000")
-PAYMENTS_ENABLED = bool(STRIPE_SECRET_KEY)
+
+# ═══════════════════════════════════════════════════════════
+# MOKĖJIMAI — vienas jungiklis visai svetainei
+# ═══════════════════════════════════════════════════════════
+# False (dabar): VISŲ skelbimų įkėlimas nemokamas. Skelbimas
+# aktyvuojamas iš karto, planų puslapis ir „Apmokėti" ekranai
+# nerodomi, piniginė ir mokami priedai paslėpti.
+# True: grįžta senas srautas — planų pasirinkimas, piniginės nurašymas.
+#
+# Mokėjimo kodas NIEKUR neištrintas: payments programa, modeliai,
+# migracijos, Stripe servisas ir planų puslapis vietoje. Šis jungiklis
+# tik APEINA juos.
+#
+# Kur veikia (visos vietos eina per šį vieną jungiklį):
+#   * apps/listings/constants.py:can_create_free_listing — visų
+#     kategorijų įkėlimo formos per jį sprendžia, ar publikuoti iš karto;
+#   * apps/listings/views.py:listing_activate — skydelio „Aktyvuoti";
+#   * listing_select_plan / listing_pay_plan — senos nuorodos ir laiškų
+#     saitai nebeatsiduria aklavietėje: aktyvuoja nemokamai;
+#   * apps/listings/context_processors.py:mokejimai — šablonų jungiklis.
+MOKEJIMAI_IJUNGTI = config("MOKEJIMAI_IJUNGTI", default=False, cast=bool)
+
+# Senas vardas — tas pats jungiklis. Kodas, rašytas anksčiau, skaito jį.
+# Stripe raktas vienas savaime mokėjimų nebeįjungia: jungiklis viršesnis.
+PAYMENTS_ENABLED = MOKEJIMAI_IJUNGTI and bool(STRIPE_SECRET_KEY)
 
 # ═══════════════════════════════════════════════════════════
 # File uploads (skelbimo nuotraukoms)

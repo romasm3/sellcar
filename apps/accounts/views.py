@@ -305,6 +305,12 @@ def wallet(request):
     """Wallet page — balance, top-up, transaction history."""
     from .models import WalletTransaction
     from django.conf import settings as dj_settings
+    from apps.listings.constants import mokejimai_ijungti
+
+    # Mokėjimai išjungti — piniginės puslapio nerodom (viskas nemokama).
+    # Modelis, sandoriai ir istorija VIETOJE: įjungus grįžta kaip buvo.
+    if not mokejimai_ijungti():
+        return redirect('accounts:settings')
 
     profile = request.user.profile
     transactions = WalletTransaction.objects.filter(user=request.user)[:50]
@@ -338,7 +344,12 @@ def wallet(request):
 def wallet_top_up(request):
     """Top-up wallet via Stripe Checkout (or placeholder if not configured)."""
     from django.conf import settings as dj_settings
+    from apps.listings.constants import mokejimai_ijungti
     from .models import WalletTransaction
+
+    # Mokėjimai išjungti — papildyti nėra ko.
+    if not mokejimai_ijungti():
+        return redirect('accounts:settings')
 
     if request.method != 'POST':
         return redirect('accounts:wallet')
@@ -654,7 +665,12 @@ def become_dealer(request):
         DEALER_SUB_PRICE_USD, DEALER_SUBSCRIPTION_DAYS, DEALER_LIMIT,
         ACCOUNT_TYPE_DEALER, DEALER_STATUS_APPROVED,
     )
+    from apps.listings.constants import mokejimai_ijungti
     from .models import WalletTransaction
+
+    # Mokėjimai išjungti — prenumeratos parduoti nėra iš ko.
+    if not mokejimai_ijungti():
+        return redirect('accounts:settings')
 
     profile = request.user.profile
 

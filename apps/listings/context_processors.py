@@ -360,3 +360,16 @@ def salis(request):
 def versija(request):
     from django.conf import settings
     return {'GIT_SHA': getattr(settings, 'GIT_SHA', 'nezinoma')}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# MOKĖJIMŲ JUNGIKLIS šablonams.
+#
+# Kol `MOKEJIMAI_IJUNGTI = False`, šablonai per šitą reikšmę slepia
+# viską, kas be mokėjimų neturi prasmės: piniginę, kainų lenteles,
+# „Apmokėti" ir mokamų priedų mygtukus. Pats HTML NEIŠTRINTAS —
+# apvyniotas {% if MOKEJIMAI_IJUNGTI %}, tad įjungus grįžta.
+# ═══════════════════════════════════════════════════════════════════
+def mokejimai(request):
+    from django.conf import settings
+    return {'MOKEJIMAI_IJUNGTI': bool(getattr(settings, 'MOKEJIMAI_IJUNGTI', False))}

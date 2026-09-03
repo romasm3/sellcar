@@ -289,9 +289,23 @@ def can_create_listing(user):
     return (True, active_count, 99999)
 
 
+def mokejimai_ijungti():
+    """Ar mokėjimai įjungti. VIENAS jungiklis visai svetainei.
+
+    Kol `MOKEJIMAI_IJUNGTI = False`, kiekvienas skelbimas nemokamas ir
+    publikuojamas iš karto. Mokėjimo kodas vietoje — tik apeinamas.
+    """
+    from django.conf import settings
+    return bool(getattr(settings, 'MOKEJIMAI_IJUNGTI', False))
+
+
 def can_create_free_listing(user):
     """Pirmi PRIVATE_FREE_LIMIT aktyvūs skelbimai — nemokami (auto-publish).
     Nuo (PRIVATE_FREE_LIMIT + 1) — reikia mokamo plano.
+
+    Išjungus mokėjimus nemokami VISI: čia vienas taškas, per kurį
+    sprendžia visų kategorijų įkėlimo formos, tad jungiklio užtenka
+    vieno — nereikia lopyti dvidešimties `redirect('listing_select_plan')`.
 
     Returns:
         (is_free, active_count, free_limit)
@@ -301,5 +315,7 @@ def can_create_free_listing(user):
 
     from .models import Listing
     active_count = Listing.objects.filter(seller=user, status='active').count()
+    if not mokejimai_ijungti():
+        return (True, active_count, 99999)
     is_free = active_count < PRIVATE_FREE_LIMIT
     return (is_free, active_count, PRIVATE_FREE_LIMIT)
