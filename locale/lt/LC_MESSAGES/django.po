@@ -13843,7 +13843,8 @@ msgstr "Sveiki sugrįžę"
 
 #: templates/accounts/login.html:15
 msgid "Login to your AutoLeft account"
-msgstr ""
+msgstr "Prisijunkite prie savo AutoLeft paskyros"
+
 
 #: templates/accounts/login.html:35
 msgid "Enter your email"
@@ -13893,7 +13894,8 @@ msgstr "Jūs sėkmingai atsijungėte."
 
 #: templates/accounts/logout.html:9
 msgid "Thank you for using AutoLeft!"
-msgstr ""
+msgstr "Ačiū, kad naudojatės AutoLeft!"
+
 
 #: templates/accounts/logout.html:11
 msgid "Login Again"
@@ -14154,7 +14156,8 @@ msgstr "Sukurti paskyrą"
 
 #: templates/accounts/register.html:15
 msgid "Join AutoLeft today"
-msgstr ""
+msgstr "Prisijunkite prie AutoLeft jau šiandien"
+
 
 #: templates/accounts/register.html:27
 msgid "Email Address *"
@@ -24060,3 +24063,10 @@ msgstr "Žiūrėti visus"
 
 #~ msgid "Keturračiai (ATV)"
 #~ msgstr "Keturračiai (ATV)"
+
+# Registracijos/prisijungimo puslapių eilutės
+
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a> and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"Sutinku su <a href=\"#\" class=\"text-primary hover:text-primary-dark\">paslaugų teikimo sąlygomis</a> ir <a href=\"#\" class=\"text-primary hover:text-primary-dark\">privatumo politika</a>"

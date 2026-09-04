@@ -17504,3 +17504,19 @@ msgstr "Смотреть все"
 #, python-format
 #~ msgid "Found %(count)s motorcycle listings"
 #~ msgstr "Найдено %(количество) объявлений о мотоциклах"
+
+# Registracijos/prisijungimo puslapių eilutės
+
+msgid "Login to your AutoLeft account"
+msgstr "Войдите в свой аккаунт AutoLeft"
+
+msgid "Thank you for using AutoLeft!"
+msgstr "Спасибо, что пользуетесь AutoLeft!"
+
+msgid "Join AutoLeft today"
+msgstr "Присоединяйтесь к AutoLeft уже сегодня"
+
+msgid ""
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a> and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
+msgstr ""
+"Я соглашаюсь с <a href=\"#\" class=\"text-primary hover:text-primary-dark\">условиями обслуживания</a> и <a href=\"#\" class=\"text-primary hover:text-primary-dark\">политикой конфиденциальности</a>"
