@@ -17367,6 +17367,10 @@ msgstr "Сельхозтехника"
 msgid "Žiūrėti visus"
 msgstr "Смотреть все"
 
+#. terminai.md — patvirtintas vertimas
+msgid "Registruotis"
+msgstr "Регистрация"
+
 #, fuzzy
 #~ msgid "Naked / Street"
 #~ msgstr "Улица"

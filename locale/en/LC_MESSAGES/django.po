@@ -24175,3 +24175,7 @@ msgstr "Agricultural machinery"
 #. terminai.md — patvirtintas vertimas
 msgid "Žinutės"
 msgstr "Messages"
+
+#. terminai.md — patvirtintas vertimas
+msgid "Registruotis"
+msgstr "Sign up"

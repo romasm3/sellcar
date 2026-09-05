@@ -627,8 +627,12 @@
                     <a href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex text-gray-700 hover:text-primary font-medium transition-colors">
                         {% trans "Login" %}
                     </a>
+                    {% comment %}msgid lietuviškas, kaip visur projekte: „Register"
+                    rusiškame kataloge vertimo neturėjo, o Django tokiu atveju krinta
+                    į numatytosios kalbos (lt) katalogą — todėl rusiškame puslapyje
+                    mygtukas likdavo „Registruotis".{% endcomment %}
                     <a href="{% url 'accounts:register' %}?next={{ request.get_full_path|urlencode }}" class="hidden lg:inline-flex btn-sell" style="height: var(--btn-h-sm);">
-                        {% trans "Register" %}
+                        {% trans "Registruotis" %}
                     </a>
                     {% endif %}
 

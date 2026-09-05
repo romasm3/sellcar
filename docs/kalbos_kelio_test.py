@@ -183,6 +183,53 @@ for kalba, tekstai in LAUKIAMA.items():
             '%s: .kl-btn tekstas gali persikelti į antrą eilutę' % kalba)
 
 
+antraste('Kalbos perjungiklis persuka next (ir jo vidų)')
+from apps.listings.kalbos_kelias import be_priesdelio, su_kalba
+
+tikrink(be_priesdelio('/ru/imones/') == '/imones/', 'be_priesdelio /ru/imones/')
+tikrink(be_priesdelio('/ru/') == '/', 'be_priesdelio /ru/')
+tikrink(be_priesdelio('/imones/') == '/imones/', 'be_priesdelio be priešdėlio')
+
+PERJUNGIMAI = [
+    # (adresas, kalba, laukiamas rezultatas)
+    ('/ru/', 'lt', '/'),
+    ('/ru/', 'en', '/en/'),
+    ('/', 'ru', '/ru/'),
+    ('/ru/imones/', 'en', '/en/imones/'),
+    ('/imones/?q=abc', 'ru', '/ru/imones/?q=abc'),
+    # next parametras persukamas kartu
+    ('/ru/accounts/login/?next=/ru/%3Fcategory%3Dcars', 'lt',
+     '/accounts/login/?next=%2F%3Fcategory%3Dcars'),
+    ('/ru/accounts/login/?next=/ru/%3Fcategory%3Dcars', 'en',
+     '/en/accounts/login/?next=%2Fen%2F%3Fcategory%3Dcars'),
+    ('/accounts/register/?next=/imones/', 'ru',
+     '/ru/accounts/register/?next=%2Fru%2Fimones%2F'),
+    # už i18n_patterns ribų — nekeičiam
+    ('/admin/', 'ru', '/admin/'),
+    ('/robots.txt', 'ru', '/robots.txt'),
+    # svetimų adresų neliečiam
+    ('https://kitas.lt/', 'ru', 'https://kitas.lt/'),
+    ('//kitas.lt/', 'ru', '//kitas.lt/'),
+]
+for adresas, kalba, laukta in PERJUNGIMAI:
+    gauta = su_kalba(adresas, kalba)
+    tikrink(gauta == laukta,
+            '%s → %s: gauta „%s", laukta „%s"' % (adresas, kalba, gauta, laukta))
+
+# Ir per tikrą POST: slapukas, nukreipimas ir naujos kalbos puslapis
+for kalba, kelias, laukta in (('en', '/ru/accounts/login/?next=/ru/', '/en/accounts/login/'),
+                              ('lt', '/ru/imones/', '/imones/'),
+                              ('ru', '/imones/', '/ru/imones/')):
+    c = Client()
+    r = c.post('/i18n/setlang/', {'language': kalba, 'next': kelias})
+    tikrink(r.status_code == 302, '%s: setlang grąžino %s' % (kalba, r.status_code))
+    vieta = r.get('Location', '')
+    tikrink(vieta.split('?')[0] == laukta,
+            '%s: nukreipta į „%s", laukta „%s"' % (kalba, vieta, laukta))
+    r2 = c.get(vieta)
+    tikrink(r2.status_code == 200, '%s: %s grąžino %s' % (kalba, vieta, r2.status_code))
+
+
 antraste('POST nenukreipiamas (302 nuneštų kūną)')
 p = u.profile; p.language = 'ru'; p.save(update_fields=['language'])
 c = Client(); c.force_login(u)

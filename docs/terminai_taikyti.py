@@ -61,13 +61,14 @@ def zodynas():
     for lt, ru, en in skaityk_terminus():
         irasas = {'lt': lt, 'ru': ru, 'en': en}
         for variantas in (lt, en):            # msgid gali būti bet kuris
-            if not variantas or variantas == '—':
-                continue
+            if not variantas or variantas == '—' or variantas.startswith('~'):
+                continue                      # „~" — vertimas, bet ne msgid
             r = raktas(variantas.lstrip('=').strip())
             turimas = z.setdefault(r, {})
             for kalba, reiksme in irasas.items():
                 if reiksme in ('', '—') or reiksme.startswith('='):
                     continue                  # nėra vertimo arba tik msgid
+                reiksme = reiksme.lstrip('~').strip()
                 if kalba in turimas:
                     continue                  # pirmoji lentelė laimi
                 if ' / ' in reiksme and ' / ' not in variantas:

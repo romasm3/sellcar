@@ -23578,6 +23578,10 @@ msgstr "Žemės ūkio"
 msgid "Žiūrėti visus"
 msgstr "Žiūrėti visus"
 
+#. terminai.md — patvirtintas vertimas
+msgid "Registruotis"
+msgstr "Registruotis"
+
 #~ msgid ""
 #~ "Your wallet stores credits used for boosting listings, featured ads, and "
 #~ "cross-posting. Top up with $20, $100, $500 (with bonus credits) or any "

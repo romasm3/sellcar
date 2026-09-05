@@ -55,7 +55,9 @@ def terminai():
         d = [x.strip() for x in eil.strip('|').split('|')]
         # Langelis su „=" yra msgid variantas, o ne vertimas (žr.
         # docs/terminai.md „Kaip taikoma") — tikrinant jis prilygsta „—".
-        d = ['—' if x.startswith('=') else x for x in d]
+        # Langelis su „~" yra vertimas, tik ne msgid variantas — žymę
+        # nuimam, o pačią reikšmę tikrinam kaip visas kitas.
+        d = ['—' if x.startswith('=') else x.lstrip('~').strip() for x in d]
         if len(d) == 3 and d[0] != 'Lietuviškai':
             eilutes.append(tuple(d))
     return eilutes

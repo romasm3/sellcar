@@ -133,6 +133,7 @@ Skriptas skaito TIK šitą failą. Naujas terminas pridedamas čia, ne .po.
 | Įmonės ir servisai | Компании и сервисы | Businesses and services |
 | Sukurti skelbimą | Разместить объявление | — |
 | Prisijungti | Войти | — |
+| Registruotis | Регистрация | ~Sign up |
 | Peržiūrėti skelbimai | Просмотренные объявления | — |
 | Žemėlapio paieška | Поиск на карте | — |
 | Pagalba | Помощь | — |
@@ -185,6 +186,10 @@ skaidom — vertimai TIE PATYS, tik priskirti savo eilutei.
 * msgid'ai projekte mišrūs — dalis lietuviški, dalis dar angliški
   (senesnis kodas). Skriptas ieško **abiejų**: ir lietuviško, ir angliško
   varianto, ir nepaiso raidžių dydžio bei galinio dvitaškio.
+* Langelis, prasidedantis `~`, yra **vertimas, bet ne msgid variantas**:
+  „Registruotis" angliškai yra „Sign up", bet msgid `Sign Up` (registracijos
+  puslapio antraštė) turi savo, anksčiau patvirtintą rusišką vertimą —
+  žymė neleidžia jo perrašyti.
 * Langelis, prasidedantis `=`, yra **ne vertimas, o msgid variantas**:
   kuro deriniai kode gyvena angliškai (`Petrol / Electric (Hybrid)`),
   tad angliškas stulpelis nurodo, prie kurio msgid taikyti rusišką

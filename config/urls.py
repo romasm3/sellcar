@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+
+from apps.listings.kalbos_kelias import perjungti_kalba
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
@@ -14,6 +16,11 @@ admin.site.index_title = 'Valdymas'
 # Be kalbos priešdėlio: valdymas, kalbos keitimas, robots.txt.
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Kalbos perjungimas — SAVAS, prieš Django rinkinį: Django
+    # `set_language` adreso priešdėlio čia nepersuka (žr.
+    # apps/listings/kalbos_kelias.py), tad žmogus grįždavo į /ru/…
+    # ir kalba atšokdavo atgal.
+    path('i18n/setlang/', perjungti_kalba, name='set_language'),
     path('i18n/', include('django.conf.urls.i18n')),
     path('rosetta/', include('rosetta.urls')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),

@@ -2486,4 +2486,5 @@ TERMINAI_LT = [
     _('Nuoroda galėjo pasenti arba skelbimas nuimtas.'),
     _('Į pradžią'),
     _('Naršyti skelbimus'),
+    _('Registruotis'),
 ]
