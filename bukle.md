@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-06 18:26:16 CEST
+Sugeneruota: 2026-09-06 18:27:31 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001186s
+HTTP 301, 0.003016s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:00 vmi3306453 autoleft-deploy[401338]: [18:24:00] Health OK (1/10)
-Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ❌ Šablonai/statiniai keitėsi, bet CSS vardas liko style.df8265b02e1b.css.
-Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01]    Naršyklės gaus seną failą — deploy stabdomas.
-Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  ĮSPĖJIMAS: statinių maišas neatsinaujino, kaip tikėtasi.
 Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  Kodas NEATSUKAMAS — svetainė veikia. Lankytojų naršyklės
 Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  gali kurį laiką rodyti seną CSS; patikrink rankiniu būdu:
 Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️    curl -s https://autoleft.com/ | grep -o 'style\.[a-z0-9]*\.css'
@@ -82,4 +78,8 @@ Sep 06 18:25:12 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Sep 06 18:25:12 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Sep 06 18:25:12 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.562s CPU time.
 Sep 06 18:26:16 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 18:26:18 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 18:26:18 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 18:26:18 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.470s CPU time.
+Sep 06 18:27:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
