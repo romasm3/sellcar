@@ -59,7 +59,7 @@ apatinę ribą ir viršutinės telefone nebuvo kaip nurodyti.
       {{ clear_label|default:_("Visi") }}
     </a>
     {% for value, label, count in options %}
-    <a class="sp-sheet-item{% if current == value|stringformat:'s' %} is-sel{% endif %}{% if rodyti_kiekius and not count %} is-tuscia{% endif %}"
+    <a class="sp-sheet-item{% if current == value|stringformat:'s' %} is-sel{% endif %}"
        x-show="!q || '{{ label|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
        href="?laukas={{ param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}{% if step %}&amp;zingsnis={{ step }}{% endif %}{% if chosen_brand %}&amp;marke={{ chosen_brand|urlencode }}{% endif %}&amp;reiksme={{ value|urlencode }}">
       <span>{{ label }}</span>
