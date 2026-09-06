@@ -1,14 +1,15 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-06 10:34:29 CEST
+Sugeneruota: 2026-09-06 11:21:37 CEST
 
 ## Kodas
 
 ```
-sukasi:      7a71bd0 vertimai: uzpildyti, sugadinti pazymeti fuzzy
-origin/master: 2907582 fix(vertimai): fuzzy eilučių tvarkymas de/fr/vi/ar + .mo iš repo į deploy'ą
+sukasi:      2649730 vertimai: de/fr/vi/ar uzpildyti ant Code sesijos bazes
+origin/master: 2649730 vertimai: de/fr/vi/ar uzpildyti ant Code sesijos bazes
 šaka:        master
-darbo katalogas: švarus
+DĖMESIO: darbo katalogas nešvarus —
+   M docs/vertimo_uzpildymas_ataskaita.txt
 ```
 
 ## Servisai
@@ -23,7 +24,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001200s
+HTTP 301, 0.002866s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +58,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 06 10:34:16 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 06 10:34:17 vmi3306453 autoleft-deploy[92923]: [2026-09-06 10:34:17] === Naujų commit'ų rasta: 7a71bd0 → 2907582 ===
-Sep 06 10:34:17 vmi3306453 autoleft-deploy[92944]:     2907582 fix(vertimai): fuzzy eilučių tvarkymas de/fr/vi/ar + .mo iš repo į deploy'ą
-Sep 06 10:34:17 vmi3306453 autoleft-deploy[92944]:     c493ddc test(patikra): bendros Playwright dalys perkeltos iš /tmp į repo
-Sep 06 10:34:17 vmi3306453 autoleft-deploy[92923]: [2026-09-06 10:34:17] Kodas atnaujintas iki 2907582
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     [email] praleisti negyvi adresai (1): testai@example.com
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     .[email] praleisti negyvi adresai (1): testai@example.com
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     ..s....
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     ----------------------------------------------------------------------
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     Ran 11 tests in 6.768s
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     OK (skipped=1)
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:       /en/imones/paieska/: Šalis
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:       /en/imones/paieska/: šalys
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:       /en/imones/paieska/: šioje
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:       /en/imones/paieska/: Žemėlapio
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:       /en/imones/paieska/: žemėlapio
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     ----------------------------------------------------------------------
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     Ran 4 tests in 0.436s
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     FAILED (failures=1)
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     
-Sep 06 10:34:29 vmi3306453 autoleft-deploy[93143]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 06 11:12:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:12:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:12:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:13:45 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:13:46 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:13:46 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:14:51 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:14:51 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:14:51 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:15:55 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:15:55 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:15:55 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:17:09 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:17:10 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:17:10 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:18:15 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:18:15 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:18:15 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:19:27 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:19:27 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:19:27 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:20:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 06 11:20:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 11:20:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 11:21:36 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
