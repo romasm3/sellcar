@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-06 18:24:01 CEST
+Sugeneruota: 2026-09-06 18:24:04 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001958s
+HTTP 301, 0.001752s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/hr/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/uk/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ca/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/da/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/hy/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ne/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ar_DZ/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/gd/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/hi/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/io/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/tt/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/es/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 06 18:23:58 vmi3306453 autoleft-deploy[401338]: [18:23:58] Restartinam gunicorn.service
-Sep 06 18:24:00 vmi3306453 autoleft-deploy[401338]: [18:24:00] Health OK (1/10)
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ❌ Šablonai/statiniai keitėsi, bet CSS vardas liko style.df8265b02e1b.css.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01]    Naršyklės gaus seną failą — deploy stabdomas.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  ĮSPĖJIMAS: statinių maišas neatsinaujino, kaip tikėtasi.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  Kodas NEATSUKAMAS — svetainė veikia. Lankytojų naršyklės
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  gali kurį laiką rodyti seną CSS; patikrink rankiniu būdu:
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️    curl -s https://autoleft.com/ | grep -o 'style\.[a-z0-9]*\.css'
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] Raktai: .env — vietoje.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] Raktai: google-translate-key.json — vietoje.
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] === Deploy OK ===
-Sep 06 18:24:01 vmi3306453 autoleft-deploy[401140]: [2026-09-06 18:24:01] ✅ Deploy OK — gyvai veikia cfc8091
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ne/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ar_DZ/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/gd/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/hi/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/io/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/tt/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[402105]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/es/LC_MESSAGES/django.po” is already compiled and up to date.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:23:58 vmi3306453 autoleft-deploy[401338]: [18:23:58] Restartinam gunicorn.service
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:00 vmi3306453 autoleft-deploy[401338]: [18:24:00] Health OK (1/10)
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ❌ Šablonai/statiniai keitėsi, bet CSS vardas liko style.df8265b02e1b.css.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01]    Naršyklės gaus seną failą — deploy stabdomas.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  ĮSPĖJIMAS: statinių maišas neatsinaujino, kaip tikėtasi.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  Kodas NEATSUKAMAS — svetainė veikia. Lankytojų naršyklės
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️  gali kurį laiką rodyti seną CSS; patikrink rankiniu būdu:
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ⚠️    curl -s https://autoleft.com/ | grep -o 'style\.[a-z0-9]*\.css'
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] ✅ Veikia — atnaujinam 'last_good' į naują versiją.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] Raktai: .env — vietoje.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] Raktai: google-translate-key.json — vietoje.
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401338]: [18:24:01] === Deploy OK ===
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: Sep 06 18:24:01 vmi3306453 autoleft-deploy[401140]: [2026-09-06 18:24:01] ✅ Deploy OK — gyvai veikia cfc8091
+Sep 06 18:24:03 vmi3306453 autoleft-deploy[402274]: ```
+Sep 06 18:24:03 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 06 18:24:03 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 06 18:24:03 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1min 9.095s CPU time.
+Sep 06 18:24:03 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
