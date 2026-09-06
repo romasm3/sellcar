@@ -56,16 +56,18 @@ valdo Alpine, tad DOM įrašas tyliai dingdavo. Vietoj to laukui siunčiamas
       </div>
       <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
       <template x-for="b in visible()" :key="b.v">
-        {% comment %}Skaičius rodomas VISADA, taip pat ir „(0)" — katalogas
+        {% comment %}Skaičius rodomas VISADA, taip pat ir nulis — katalogas
         dar mažas, o slepiant tuščias markes sąrašas atrodytų nykus.
+        Rodom PLIKĄ skaičių dešinėje, be skliaustelių („BMW 1"), kaip
+        autogide — skliausteliai eilutę darė panašią į išnašą.
 
-        Eilutė be skelbimų NEBLANKINAMA: „Audi (0)" turi atrodyti lygiai
-        taip pat ryškiai kaip „BMW (1)", skiriasi tik skaičius. Blanki
+        Eilutė be skelbimų NEBLANKINAMA: „Audi 0" turi atrodyti lygiai
+        taip pat ryškiai kaip „BMW 1", skiriasi tik skaičius. Blanki
         eilutė atrodė neaktyvi, nors ją paspausti galima.{% endcomment %}
         <div class="sp-dd-item"
              @click="pick(b.v, b.n); if (typeof refreshCount === 'function') refreshCount(0)">
           <span x-text="b.n"></span>
-          <span class="sp-dd-count" x-text="'(' + (b.c || 0) + ')'"></span>
+          <span class="sp-dd-count" x-text="b.c || 0"></span>
         </div>
       </template>
       <div class="sp-dd-foot" x-show="!loading && visible().length === 0">

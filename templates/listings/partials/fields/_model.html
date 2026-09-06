@@ -48,11 +48,11 @@ nenumerinę reikšmę suranda pagal pavadinimą).
       <div class="sp-dd-foot" x-show="loading">{% trans "Kraunama..." %}</div>
       <template x-for="m in visible()" :key="m.v">
         {% comment %}Kaip ir markių sąraše: modelis be skelbimų rodomas
-        tokiu pat ryškiu tekstu, tik su „(0)".{% endcomment %}
+        tokiu pat ryškiu tekstu, o skaičius — plikas, be skliaustelių.{% endcomment %}
         <div class="sp-dd-item"
              @click="pick(m.v, m.n); if (typeof refreshCount === 'function') refreshCount(0)">
           <span x-text="m.n"></span>
-          <span class="sp-dd-count" x-text="'(' + (m.c || 0) + ')'"></span>
+          <span class="sp-dd-count" x-text="m.c || 0"></span>
         </div>
       </template>
       <div class="sp-dd-foot" x-show="!loading && visible().length === 0">

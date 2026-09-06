@@ -1,4 +1,4 @@
-/* MARKĖS BE SKELBIMŲ RODOMOS TOKIU PAT RYŠKIU TEKSTU KAIP IR SU SKELBIMAIS.
+/* MARKIŲ SĄRAŠAS: VIENODAS RYŠKUMAS IR PLIKAS SKAIČIUS.
  *
  * Anksčiau eilutė su „(0)" gaudavo .is-tuscia ir pilkėdavo — atrodė
  * neaktyvi, nors ją paspausti galima (autogidas jas rodo ryškias).
@@ -81,8 +81,8 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
   console.log('  rasta eilučių su skaičiumi:', eilutes.length);
   tikrink(eilutes.length >= 2, 'per mažai markių sąraše, nėra ką lyginti');
 
-  const nuliniai = eilutes.filter(e => /\(0\)/.test(e.skaicius));
-  const neNuliniai = eilutes.filter(e => !/\(0\)/.test(e.skaicius));
+  const nuliniai = eilutes.filter(e => e.skaicius === '0');
+  const neNuliniai = eilutes.filter(e => e.skaicius !== '0');
   console.log('  su (0):', nuliniai.length, '| su skelbimais:', neNuliniai.length);
   tikrink(nuliniai.length >= 1, 'nėra nė vienos markės su (0) — patikra beprasmė');
   tikrink(neNuliniai.length >= 1, 'nėra nė vienos markės su skelbimais');
@@ -101,9 +101,9 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
     for (const e of nuliniai) console.log(`  su (0):   ${e.vardas.trim()} ${e.skaicius} → ${e.spalva}`);
   }
 
-  // Skaičius skliaustuose privalo likti
-  tikrink(eilutes.every(e => /^\(\d+\)$/.test(e.skaicius)),
-    'skaičius skliaustuose dingo arba pasikeitė pavidalas');
+  // Skaičius rodomas PLIKAS, be skliaustelių („BMW 1", ne „BMW (1)")
+  tikrink(eilutes.every(e => /^\d+$/.test(e.skaicius)),
+    'skaičius ne plikas: ' + eilutes.map(e => e.skaicius).join(', '));
 
   await p.screenshot({ path: (process.env.SP || '/tmp') + '/markes-sarasas.png' });
   await b.close();

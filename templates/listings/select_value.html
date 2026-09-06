@@ -63,9 +63,10 @@ apatinę ribą ir viršutinės telefone nebuvo kaip nurodyti.
        x-show="!q || '{{ label|escapejs }}'.toLowerCase().indexOf(q.toLowerCase()) !== -1"
        href="?laukas={{ param|urlencode }}&amp;kategorija={{ category|urlencode }}{% if sub_slug %}&amp;sub={{ sub_slug|urlencode }}{% endif %}&amp;grizti={{ back|urlencode }}{% if step %}&amp;zingsnis={{ step }}{% endif %}{% if chosen_brand %}&amp;marke={{ chosen_brand|urlencode }}{% endif %}&amp;reiksme={{ value|urlencode }}">
       <span>{{ label }}</span>
-      {% comment %}Kiekiai yra tik markių sąraše; kitur „(0)" prie kiekvienos
-      eilutės atrodė, lyg ji būtų neaktyvi.{% endcomment %}
-      {% if rodyti_kiekius %}<span class="cnt">({{ count|default:0 }})</span>{% endif %}
+      {% comment %}Kiekiai yra tik markių sąraše; kitur nulis prie kiekvienos
+      eilutės atrodė, lyg ji būtų neaktyvi. Skaičius plikas, be
+      skliaustelių — kaip ir darbalaukio sąraše.{% endcomment %}
+      {% if rodyti_kiekius %}<span class="cnt">{{ count|default:0 }}</span>{% endif %}
     </a>
     {% endfor %}
   </div>
