@@ -69,8 +69,16 @@ def kalbos():
 
 
 def rusiuok(po):
-    """(priimtini, svetimi, sulauzyti) — fuzzy eilutės pagal rūšį."""
-    priimtini, svetimi, sulauzyti = [], [], []
+    """(priimtini, svetimi, sulauzyti, neperziureti) — fuzzy pagal rūšį.
+
+    „Neperžiūrėti" yra atskira rūšis ir jos NIEKADA nepriimam: tai
+    mašininio užpildymo eilutės, kurias docs/vertimo_uzpildymas.py
+    sąmoningai pažymi fuzzy, kad žmogus pirma peržiūrėtų. Jos neturi
+    `#| msgid` — msgmerge jų neliečia. Anksčiau jos pakliūdavo į
+    „priimtinus" ir vienu paleidimu būtų atsidūrusios svetainėje
+    neperžiūrėtos.
+    """
+    priimtini, svetimi, sulauzyti, neperziureti = [], [], [], []
     for e in po:
         if e.obsolete or 'fuzzy' not in e.flags:
             continue
@@ -78,11 +86,13 @@ def rusiuok(po):
             continue                      # tuščia fuzzy — nieko netaisom
         if kintamieji(e.msgid) != kintamieji(e.msgstr):
             sulauzyti.append(e)           # kintamieji nesutampa
-        elif e.previous_msgid and pagrindas(e.previous_msgid) != pagrindas(e.msgid):
+        elif not e.previous_msgid:
+            neperziureti.append(e)        # mašinos darbas, laukia žmogaus
+        elif pagrindas(e.previous_msgid) != pagrindas(e.msgid):
             svetimi.append(e)             # vertimas nuo kitos eilutės
         else:
             priimtini.append(e)
-    return priimtini, svetimi, sulauzyti
+    return priimtini, svetimi, sulauzyti, neperziureti
 
 
 def main():
@@ -91,8 +101,9 @@ def main():
     nurodytos = [a for a in sys.argv[1:] if not a.startswith('--')]
     sarasas = nurodytos or kalbos()
 
-    print('%-8s %6s %10s %10s %11s' % ('kalba', 'fuzzy', 'priimtini',
-                                       'svetimi', 'kintamieji'))
+    print('%-8s %6s %10s %9s %11s %13s'
+          % ('kalba', 'fuzzy', 'priimtini', 'svetimi', 'kintamieji',
+             'neperžiūrėti'))
     pavyzdziai = []
     for kalba in sarasas:
         kelias = po_kelias(kalba)
@@ -100,10 +111,12 @@ def main():
             print('%-8s — nėra katalogo' % kalba)
             continue
         po = polib.pofile(kelias)
-        priimtini, svetimi, sulauzyti = rusiuok(po)
-        print('%-8s %6d %10d %10d %11d'
-              % (kalba, len(priimtini) + len(svetimi) + len(sulauzyti),
-                 len(priimtini), len(svetimi), len(sulauzyti)))
+        priimtini, svetimi, sulauzyti, neperziureti = rusiuok(po)
+        print('%-8s %6d %10d %9d %11d %13d'
+              % (kalba, len(priimtini) + len(svetimi) + len(sulauzyti)
+                 + len(neperziureti),
+                 len(priimtini), len(svetimi), len(sulauzyti),
+                 len(neperziureti)))
 
         if not pavyzdziai:
             for e in svetimi[:5]:
