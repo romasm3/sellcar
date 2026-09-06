@@ -497,8 +497,12 @@ ateina per `_(f['label'])`, o reikšmės — iš DB, ir xgettext kintamojo
 nemato. Tokie tekstai registruojami `apps/listings/translatable_db.py`
 (ten yra `TERMINAI_LT`, sutampantis su terminai.md).
 
-`.mo` failai laikomi git'e, o deploy jų NEKOMPILIUOJA — todėl po kiekvieno
-vertimų keitimo `.mo` perrašomas ir commit'inamas kartu su `.po`.
+`.mo` failai NEBELAIKOMI git'e (2026-09-06): binariniai, todėl kas kartą
+kėlė merge konfliktus. Juos gamina deploy'as — `deploy-agent.sh` po
+`collectstatic` paleidžia `compilemessages`. Į repo keliauja tik `.po`.
+
+Iš to plaukia taisyklė: **kas išima `compilemessages` iš deploy'o,
+išjungia visus vertimus.** `.po` be `.mo` nerodo nieko.
 
 Patikra: `docs/terminai_test.py` — per tikrą gettext tikrina, ką pamato
 rusas ir anglas, ar patvirtinti terminai nepažymėti fuzzy ir ar .mo ne

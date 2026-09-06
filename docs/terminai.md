@@ -199,8 +199,9 @@ skaidom — vertimai TIE PATYS, tik priskirti savo eilutei.
   vertimas tiesiog neveiktų.
 * Viskas, kas NĖRA šitame faile, lieka kaip buvo. Skriptas nieko
   neverčia savo nuožiūra.
-* `.mo` failai projekte laikomi git'e, o deploy jų nekompiliuoja, todėl
-  skriptas juos perrašo iš karto.
+* `.mo` failai į repo nebepatenka (`.gitignore`), o gamina juos deploy'as
+  (`compilemessages`). Skriptas vis tiek perrašo juos ir vietoje — kad
+  vietinė patikra rodytų tą patį, ką pamatys lankytojas.
 
 ## Kas dar neišversta
 

@@ -19038,6 +19038,10 @@ msgstr ""
 "dark\">условиями обслуживания</a> и <a href=\"#\" class=\"text-primary "
 "hover:text-primary-dark\">политикой конфиденциальности</a>"
 
+#. terminai.md — patvirtintas vertimas
+msgid "Registruotis"
+msgstr "Регистрация"
+
 #, fuzzy
 #~ msgid "Naked / Street"
 #~ msgstr "Улица"

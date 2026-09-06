@@ -19,8 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps/accounts/models.py:17
-#, fuzzy
-#| msgid "Private seller"
 msgid "Private Seller"
 msgstr "Privatverkäufer"
 
@@ -48,10 +46,8 @@ msgid "Phone Number"
 msgstr "Telefonnummer"
 
 #: apps/accounts/models.py:30
-#, fuzzy
-#| msgid "Secondary Phone"
 msgid "Secondary Phone Number"
-msgstr "Zweittelefon"
+msgstr ""
 
 #: apps/accounts/models.py:31 templates/accounts/profile_edit.html:101
 msgid "Street"
@@ -123,44 +119,32 @@ msgid "Profile Picture"
 msgstr "Profilbild"
 
 #: apps/accounts/models.py:42
-#, fuzzy
-#| msgid "Seller type"
 msgid "Seller Type"
 msgstr "Verkäufertyp"
 
 #: apps/accounts/models.py:44 templates/accounts/dealer_setup.html:22
-#, fuzzy
-#| msgid "Company"
 msgid "Company Name"
-msgstr "Unternehmen"
+msgstr ""
 
 #: apps/accounts/models.py:45
-#, fuzzy
-#| msgid "Company"
 msgid "Company Logo"
-msgstr "Unternehmen"
+msgstr ""
 
 #: apps/accounts/models.py:46
 msgid "Banner Image"
 msgstr ""
 
 #: apps/accounts/models.py:47 templates/accounts/dealer_setup.html:76
-#, fuzzy
-#| msgid "Working hours"
 msgid "Working Hours"
 msgstr "Arbeitszeit"
 
 #: apps/accounts/models.py:48
-#, fuzzy
-#| msgid "Contact person"
 msgid "Contact Person"
 msgstr "Ansprechpartner"
 
 #: apps/accounts/models.py:49
-#, fuzzy
-#| msgid "Description"
 msgid "Company Description"
-msgstr "Beschreibung"
+msgstr ""
 
 #: apps/accounts/models.py:50 templates/accounts/dealer_setup.html:34
 #: templates/accounts/seller_profile.html:375
@@ -168,60 +152,44 @@ msgid "Website"
 msgstr "Webseite"
 
 #: apps/accounts/models.py:53 apps/accounts/models.py:242
-#, fuzzy
-#| msgid "Listing"
 msgid "Rating"
-msgstr "Auflistung"
+msgstr ""
 
 #: apps/accounts/models.py:54
-#, fuzzy
-#| msgid "Origin Country"
 msgid "Rating Count"
-msgstr "Herkunftsland"
+msgstr ""
 
 #: apps/accounts/models.py:59
 msgid "Wallet Balance (points)"
 msgstr ""
 
 #: apps/accounts/models.py:63
-#, fuzzy
-#| msgid "Modification"
 msgid "Email Notifications"
-msgstr "Änderung"
+msgstr ""
 
 #: apps/accounts/models.py:64
 msgid "Email Messages Notifications"
 msgstr ""
 
 #: apps/accounts/models.py:65
-#, fuzzy
-#| msgid "Main details"
 msgid "Marketing Emails"
-msgstr "Hauptdetails"
+msgstr ""
 
 #: apps/accounts/models.py:66
-#, fuzzy
-#| msgid "Modification"
 msgid "SMS Notifications"
-msgstr "Änderung"
+msgstr ""
 
 #: apps/accounts/models.py:69
-#, fuzzy
-#| msgid "Edit Profile"
 msgid "Show Email on Profile"
-msgstr "Profil bearbeiten"
+msgstr ""
 
 #: apps/accounts/models.py:70
-#, fuzzy
-#| msgid "Showing %(count)s listings"
 msgid "Show Phone on Listings"
-msgstr "%(count)s Einträge werden angezeigt"
+msgstr ""
 
 #: apps/accounts/models.py:71
-#, fuzzy
-#| msgid "Edit Profile"
 msgid "Public Profile"
-msgstr "Profil bearbeiten"
+msgstr ""
 
 #: apps/accounts/models.py:74
 msgid "Show Location on Map"
@@ -232,16 +200,12 @@ msgid "Account type"
 msgstr ""
 
 #: apps/accounts/models.py:91
-#, fuzzy
-#| msgid "Sales stats"
 msgid "Dealer status"
-msgstr "Verkaufsstatistiken"
+msgstr ""
 
 #: apps/accounts/models.py:116
-#, fuzzy
-#| msgid "Working hours"
 msgid "Dealer working hours"
-msgstr "Arbeitszeit"
+msgstr ""
 
 #: apps/accounts/models.py:125 config/settings.py:143
 msgid "English"
@@ -284,18 +248,14 @@ msgstr ""
 #: templates/listings/wheels_list.html:179
 #: templates/listings/wheels_list.html:313
 #: templates/listings/wheels_list.html:472
-#, fuzzy
-#| msgid "Edit Profile"
 msgid "Profile"
-msgstr "Profil bearbeiten"
+msgstr ""
 
 #: apps/accounts/models.py:180
 msgid "Top-up"
 msgstr ""
 
 #: apps/accounts/models.py:181
-#, fuzzy
-#| msgid "bonus"
 msgid "Bonus"
 msgstr "Bonus"
 
@@ -324,36 +284,28 @@ msgid "Failed"
 msgstr "Fehlgeschlagen"
 
 #: apps/accounts/models.py:191
-#, fuzzy
-#| msgid "Recommended"
 msgid "Refunded"
-msgstr "Empfohlen"
+msgstr ""
 
 #: apps/accounts/models.py:201
 msgid "Amount (points)"
 msgstr ""
 
 #: apps/accounts/models.py:206
-#, fuzzy
-#| msgid "= %(total)s points"
 msgid "Bonus points"
-msgstr "= %(gesamt)s Punkte"
+msgstr ""
 
 #: apps/accounts/models.py:225
-#, fuzzy
-#| msgid "Select a conversation"
 msgid "Wallet Transaction"
-msgstr "Wählen Sie eine Konversation aus"
+msgstr ""
 
 #: apps/accounts/models.py:243
 msgid "Comment"
 msgstr ""
 
 #: apps/accounts/models.py:248
-#, fuzzy
-#| msgid "Seller type"
 msgid "Seller Review"
-msgstr "Verkäufertyp"
+msgstr ""
 
 #: apps/listings/boats_views.py:42
 #: templates/listings/partials/panel_boats.html:20
@@ -362,10 +314,8 @@ msgstr ""
 
 #: apps/listings/boats_views.py:43 apps/listings/models.py:2935
 #: templates/listings/partials/panel_boats.html:21
-#, fuzzy
-#| msgid "Steering"
 msgid "Steel"
-msgstr "Lenkung"
+msgstr ""
 
 #: apps/listings/boats_views.py:44
 #: templates/listings/partials/panel_boats.html:22
@@ -397,10 +347,8 @@ msgstr "Andere"
 
 #: apps/listings/forms.py:21 apps/listings/models.py:16
 #: apps/listings/models.py:543
-#, fuzzy
-#| msgid "Vehicle search"
 msgid "Vehicle Type"
-msgstr "Fahrzeugsuche"
+msgstr ""
 
 #: apps/listings/forms.py:27 apps/listings/models.py:53
 #: apps/listings/models.py:545 templates/accounts/dealer_public_page.html:48
@@ -485,20 +433,14 @@ msgid "Model"
 msgstr "Modell"
 
 #: apps/listings/forms.py:38
-#, fuzzy
-#| msgid "Manufacturer"
 msgid "Manufacturing Year"
-msgstr "Hersteller"
+msgstr ""
 
 #: apps/listings/forms.py:44
-#, fuzzy
-#| msgid "Registration Type"
 msgid "Registration Month"
-msgstr "Registrierungsart"
+msgstr ""
 
 #: apps/listings/forms.py:50
-#, fuzzy
-#| msgid "VIN code"
 msgid "VIN Code"
 msgstr "VIN-Code"
 
@@ -630,10 +572,8 @@ msgid "Mileage (km)"
 msgstr "Kilometerstand (km)"
 
 #: apps/listings/forms.py:157
-#, fuzzy
-#| msgid "Engine Capacity"
 msgid "Engine Capacity (L)"
-msgstr "Motorkapazität"
+msgstr ""
 
 #: apps/listings/forms.py:167 apps/listings/models.py:2163
 #: templates/listings/advanced_search.html:682
@@ -686,28 +626,20 @@ msgid "Euro Standard"
 msgstr "Euro-Standard"
 
 #: apps/listings/forms.py:223
-#, fuzzy
-#| msgid "CO₂ Emission (g/km)"
 msgid "CO\\u2082 Emission (g/km)"
-msgstr "CO₂-Emission (g/km)"
+msgstr ""
 
 #: apps/listings/forms.py:233
-#, fuzzy
-#| msgid "Fuel Consumption (l/100km)"
 msgid "Fuel Consumption City (l/100km)"
-msgstr "Kraftstoffverbrauch (l/100km)"
+msgstr ""
 
 #: apps/listings/forms.py:244
-#, fuzzy
-#| msgid "Fuel Consumption (l/100km)"
 msgid "Fuel Consumption Highway (l/100km)"
-msgstr "Kraftstoffverbrauch (l/100km)"
+msgstr ""
 
 #: apps/listings/forms.py:255
-#, fuzzy
-#| msgid "Fuel Consumption (l/100km)"
 msgid "Fuel Consumption Combined (l/100km)"
-msgstr "Kraftstoffverbrauch (l/100km)"
+msgstr ""
 
 #: apps/listings/forms.py:266 templates/listings/listing_create.html:566
 #: templates/listings/listing_detail.html:938
@@ -716,28 +648,20 @@ msgid "Origin Country"
 msgstr "Herkunftsland"
 
 #: apps/listings/forms.py:273
-#, fuzzy
-#| msgid "Technical Inspection Valid Until"
 msgid "Technical Inspection Month"
-msgstr "Technische Inspektion gültig bis"
+msgstr ""
 
 #: apps/listings/forms.py:280
-#, fuzzy
-#| msgid "Technical Inspection Valid Until"
 msgid "Technical Inspection Year"
-msgstr "Technische Inspektion gültig bis"
+msgstr ""
 
 #: apps/listings/forms.py:292
-#, fuzzy
-#| msgid "Special Features"
 msgid "Search Features"
-msgstr "Besondere Merkmale"
+msgstr ""
 
 #: apps/listings/forms.py:323
-#, fuzzy
-#| msgid "Price ($)"
 msgid "Price (\\u20ac)"
-msgstr "Preis ($)"
+msgstr ""
 
 #: apps/listings/forms.py:333 templates/listings/listing_create.html:624
 #: templates/listings/listing_edit.html:74
@@ -783,32 +707,24 @@ msgid "Hide exact address (show only city/area on map)"
 msgstr ""
 
 #: apps/listings/forms.py:429
-#, fuzzy
-#| msgid "Contact person"
 msgid "Contact Phone"
-msgstr "Ansprechpartner"
+msgstr ""
 
 #: apps/listings/forms.py:438 templates/accounts/login.html:26
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
 #: apps/listings/forms.py:447
-#, fuzzy
-#| msgid "Show makes with 0 listings"
 msgid "Show phone number in listing"
-msgstr "Marken mit 0 Einträgen anzeigen"
+msgstr ""
 
 #: apps/listings/forms.py:454
-#, fuzzy
-#| msgid "You must agree to terms and conditions"
 msgid "I agree to the Terms and Conditions and Privacy Policy"
-msgstr "Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen."
+msgstr ""
 
 #: apps/listings/forms.py:460
-#, fuzzy
-#| msgid "Send me newsletters and offers"
 msgid "Subscribe to newsletter and special offers"
-msgstr "Senden Sie mir Newsletter und Angebote"
+msgstr ""
 
 #: apps/listings/image_validation.py:38
 msgid "failas"
@@ -849,58 +765,42 @@ msgid "Order"
 msgstr "Befehl"
 
 #: apps/listings/models.py:33
-#, fuzzy
-#| msgid "Select subcategory:"
 msgid "Parent subcategory"
-msgstr "Unterkategorie auswählen:"
+msgstr ""
 
 #: apps/listings/models.py:35 apps/listings/models.py:158
 msgid "Display order"
 msgstr ""
 
 #: apps/listings/models.py:38
-#, fuzzy
-#| msgid "Subcategory"
 msgid "SubCategory"
 msgstr "Unterkategorie"
 
 #: apps/listings/models.py:82 apps/listings/models.py:547
-#, fuzzy
-#| msgid "Model"
 msgid "SubModel"
-msgstr "Modell"
+msgstr ""
 
 #: apps/listings/models.py:96 apps/listings/models.py:551
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motorcycle Brand"
-msgstr "Motorräder"
+msgstr ""
 
 #: apps/listings/models.py:110 apps/listings/models.py:556
-#, fuzzy
-#| msgid "Motorcycle Type"
 msgid "Motorcycle Model"
-msgstr "Motorradtyp"
+msgstr ""
 
 #: apps/listings/models.py:128 apps/listings/models.py:561
 #: apps/listings/models.py:2073
-#, fuzzy
-#| msgid "Brand"
 msgid "Truck Brand"
-msgstr "Marke"
+msgstr ""
 
 #: apps/listings/models.py:142 apps/listings/models.py:566
 #: apps/listings/models.py:2078
-#, fuzzy
-#| msgid "Truck Details"
 msgid "Truck Model"
-msgstr "LKW-Details"
+msgstr ""
 
 #: apps/listings/models.py:161
-#, fuzzy
-#| msgid "Brand"
 msgid "Gear Brand"
-msgstr "Marke"
+msgstr ""
 
 #: apps/listings/models.py:199 apps/listings/models.py:1876
 #: apps/listings/models.py:2941 apps/listings/moto_part_views.py:31
@@ -978,10 +878,8 @@ msgid "Coupe"
 msgstr "Coupe"
 
 #: apps/listings/models.py:217
-#, fuzzy
-#| msgid "Trucks & Commercial"
 msgid "Commercial"
-msgstr "Lkw & Nutzfahrzeuge"
+msgstr ""
 
 #: apps/listings/models.py:217
 msgid "Convertible"
@@ -1186,10 +1084,8 @@ msgid "10x8"
 msgstr ""
 
 #: apps/listings/models.py:266
-#, fuzzy
-#| msgid "Up to 50 listings"
 msgid "Up to 3.5 t"
-msgstr "Bis zu 50 Einträge"
+msgstr ""
 
 #: apps/listings/models.py:267
 msgid "3.5 - 7.5 t"
@@ -1204,16 +1100,12 @@ msgid "Air"
 msgstr ""
 
 #: apps/listings/models.py:275
-#, fuzzy
-#| msgid "Steering"
 msgid "Spring"
-msgstr "Lenkung"
+msgstr ""
 
 #: apps/listings/models.py:276
-#, fuzzy
-#| msgid "Privacy policy"
 msgid "Parabolic"
-msgstr "Datenschutzrichtlinie"
+msgstr ""
 
 #: apps/listings/models.py:277
 msgid "Hydraulic"
@@ -1279,10 +1171,8 @@ msgid "Burned"
 msgstr ""
 
 #: apps/listings/models.py:294 apps/listings/models.py:1986
-#, fuzzy
-#| msgid "Gearbox code"
 msgid "Gearbox defect"
-msgstr "Getriebecode"
+msgstr ""
 
 #: apps/listings/models.py:295
 msgid "Hail damage"
@@ -1293,16 +1183,12 @@ msgid "Sunken"
 msgstr ""
 
 #: apps/listings/models.py:296 apps/listings/models.py:1985
-#, fuzzy
-#| msgid "Engine code"
 msgid "Engine defect"
-msgstr "Motorkennung"
+msgstr ""
 
 #: apps/listings/models.py:296 apps/listings/models.py:1989
-#, fuzzy
-#| msgid "Minor defects"
 msgid "Major defects"
-msgstr "Kleinere Mängel"
+msgstr ""
 
 #: apps/listings/models.py:299
 msgid "2/3 doors"
@@ -1333,16 +1219,12 @@ msgid "All-wheel drive (AWD/4WD)"
 msgstr ""
 
 #: apps/listings/models.py:323
-#, fuzzy
-#| msgid "Climate control"
 msgid "No climate control"
-msgstr "Klimaanlage"
+msgstr ""
 
 #: apps/listings/models.py:324
-#, fuzzy
-#| msgid "Condition"
 msgid "Air conditioning"
-msgstr "Zustand"
+msgstr ""
 
 #: apps/listings/models.py:325
 #: templates/listings/listing_create_cars_quick.html:337
@@ -1350,44 +1232,32 @@ msgid "Climate control"
 msgstr "Klimaanlage"
 
 #: apps/listings/models.py:326
-#, fuzzy
-#| msgid "Climate control"
 msgid "Dual-zone climate control"
-msgstr "Klimaanlage"
+msgstr ""
 
 #: apps/listings/models.py:327
-#, fuzzy
-#| msgid "Climate control"
 msgid "Triple-zone climate control"
-msgstr "Klimaanlage"
+msgstr ""
 
 #: apps/listings/models.py:331
-#, fuzzy
-#| msgid "Support"
 msgid "Sport"
-msgstr "Unterstützung"
+msgstr ""
 
 #: apps/listings/models.py:331
-#, fuzzy
-#| msgid "Cruise control"
 msgid "Cruiser"
-msgstr "Tempomat"
+msgstr ""
 
 #: apps/listings/models.py:332
-#, fuzzy
-#| msgid "Touring Cases"
 msgid "Touring"
-msgstr "Touring Cases"
+msgstr ""
 
 #: apps/listings/models.py:332
 msgid "Enduro"
 msgstr ""
 
 #: apps/listings/models.py:333
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motocross"
-msgstr "Motorräder"
+msgstr ""
 
 #: apps/listings/models.py:333
 msgid "Chopper"
@@ -1530,10 +1400,8 @@ msgid "Pusinis"
 msgstr ""
 
 #: apps/listings/models.py:375
-#, fuzzy
-#| msgid "Support"
 msgid "Sportinė"
-msgstr "Unterstützung"
+msgstr ""
 
 #: apps/listings/models.py:376
 msgid "Kelioninė"
@@ -1666,20 +1534,16 @@ msgid "S"
 msgstr ""
 
 #: apps/listings/models.py:430
-#, fuzzy
-#| msgid "MM"
 msgid "M"
-msgstr "MM"
+msgstr ""
 
 #: apps/listings/models.py:431 templates/listings/listing_select_plan.html:273
 msgid "L"
 msgstr "L"
 
 #: apps/listings/models.py:431
-#, fuzzy
-#| msgid "L"
 msgid "XL"
-msgstr "L"
+msgstr ""
 
 #: apps/listings/models.py:432
 msgid "XXL"
@@ -1698,10 +1562,8 @@ msgid "Numeric"
 msgstr ""
 
 #: apps/listings/models.py:440
-#, fuzzy
-#| msgid "Other"
 msgid "Leather"
-msgstr "Andere"
+msgstr ""
 
 #: apps/listings/models.py:441
 msgid "Textile"
@@ -1720,10 +1582,8 @@ msgid "Mesh"
 msgstr ""
 
 #: apps/listings/models.py:450
-#, fuzzy
-#| msgid "Min"
 msgid "Men"
-msgstr "Min"
+msgstr ""
 
 #: apps/listings/models.py:451
 msgid "Women"
@@ -1739,10 +1599,8 @@ msgid "Kids"
 msgstr ""
 
 #: apps/listings/models.py:459
-#, fuzzy
-#| msgid "Safety certification"
 msgid "No certification"
-msgstr "Sicherheitszertifizierung"
+msgstr ""
 
 #: apps/listings/models.py:461
 msgid "ECE 22.06"
@@ -1807,17 +1665,13 @@ msgstr "Vereinigte Staaten"
 
 #: apps/listings/models.py:479 apps/listings/models.py:1998
 #: apps/listings/trucks_views.py:57
-#, fuzzy
-#| msgid "Not Used in Lithuania"
 msgid "Lithuania"
-msgstr "Wird in Litauen nicht verwendet"
+msgstr ""
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
-#, fuzzy
-#| msgid "Latviešu"
 msgid "Latvia"
-msgstr "Latviešu"
+msgstr ""
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
@@ -1844,10 +1698,8 @@ msgid "Belgium"
 msgstr ""
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
-#, fuzzy
-#| msgid "Cancel"
 msgid "France"
-msgstr "Stornieren"
+msgstr ""
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
 msgid "Italy"
@@ -1899,10 +1751,8 @@ msgstr ""
 
 #: apps/listings/models.py:489 apps/listings/models.py:2008
 #: apps/listings/trucks_views.py:59
-#, fuzzy
-#| msgid "Unlimited listings"
 msgid "United Kingdom"
-msgstr "Unbegrenzte Einträge"
+msgstr ""
 
 #: apps/listings/models.py:490 apps/listings/models.py:2009
 msgid "Ireland"
@@ -1938,48 +1788,34 @@ msgid "Rear suspension"
 msgstr "Hinterradaufhängung"
 
 #: apps/listings/models.py:598
-#, fuzzy
-#| msgid "Length"
 msgid "Length (mm)"
-msgstr "Länge"
+msgstr ""
 
 #: apps/listings/models.py:603 templates/listings/tyres_create.html:125
 #: templates/listings/wheels_create.html:136
-#, fuzzy
-#| msgid "Width"
 msgid "Width (mm)"
-msgstr "Breite"
+msgstr ""
 
 #: apps/listings/models.py:608
-#, fuzzy
-#| msgid "Height"
 msgid "Height (mm)"
-msgstr "Höhe"
+msgstr ""
 
 #: apps/listings/models.py:612
-#, fuzzy
-#| msgid "Volume"
 msgid "Volume (m³)"
-msgstr "Volumen"
+msgstr ""
 
 #: apps/listings/models.py:617 apps/listings/models.py:2116
-#, fuzzy
-#| msgid "Gross weight"
 msgid "Gross weight (kg)"
-msgstr "Bruttogewicht"
+msgstr ""
 
 #: apps/listings/models.py:622 apps/listings/models.py:2126
-#, fuzzy
-#| msgid "Payload capacity"
 msgid "Payload capacity (kg)"
-msgstr "Nutzlastkapazität"
+msgstr ""
 
 #: apps/listings/models.py:627 apps/listings/models.py:668
 #: templates/listings/boats_listing_create.html:223
-#, fuzzy
-#| msgid "Fuel tank capacity"
 msgid "Fuel tank capacity (L)"
-msgstr "Kraftstofftankkapazität"
+msgstr ""
 
 #: apps/listings/models.py:632 templates/listings/listing_detail.html:341
 #: templates/listings/trucks_listing_create.html:608
@@ -2024,10 +1860,8 @@ msgid "Boat engine"
 msgstr ""
 
 #: apps/listings/models.py:651
-#, fuzzy
-#| msgid "Body type"
 msgid "Boat type"
-msgstr "Körpertyp"
+msgstr ""
 
 #: apps/listings/models.py:659
 msgid "Petrol 4-stroke outboard"
@@ -2043,16 +1877,12 @@ msgstr ""
 
 #: apps/listings/models.py:662 apps/listings/models.py:1960
 #: apps/listings/translatable_db.py:52
-#, fuzzy
-#| msgid "Electric starter"
 msgid "Electric"
-msgstr "Elektrostarter"
+msgstr ""
 
 #: apps/listings/models.py:663
-#, fuzzy
-#| msgid "Engine"
 msgid "No engine"
-msgstr "Motor"
+msgstr ""
 
 #: apps/listings/models.py:664
 msgid "Petrol 2-stroke outboard"
@@ -2063,10 +1893,8 @@ msgid "Petrol 2-stroke inboard"
 msgstr ""
 
 #: apps/listings/models.py:667
-#, fuzzy
-#| msgid "Engine Type"
 msgid "Boat engine type"
-msgstr "Motortyp"
+msgstr ""
 
 #: apps/listings/models.py:669
 #: templates/listings/boats_listing_create.html:234
@@ -2075,10 +1903,8 @@ msgstr ""
 
 #: apps/listings/models.py:670
 #: templates/listings/boats_listing_create.html:238
-#, fuzzy
-#| msgid "Private seller"
 msgid "Propeller"
-msgstr "Privatverkäufer"
+msgstr ""
 
 #: apps/listings/models.py:671
 #: templates/listings/boats_listing_create.html:242
@@ -2086,16 +1912,12 @@ msgid "Water turbine"
 msgstr ""
 
 #: apps/listings/models.py:676 apps/listings/models.py:2067
-#, fuzzy
-#| msgid "Subcategory"
 msgid "Sub-category"
 msgstr "Unterkategorie"
 
 #: apps/listings/models.py:679 apps/listings/models.py:2081
-#, fuzzy
-#| msgid "Untitled"
 msgid "Title"
-msgstr "Ohne Titel"
+msgstr ""
 
 #: apps/listings/models.py:682 apps/listings/models.py:2085
 #: templates/accounts/seller_profile.html:210
@@ -2135,10 +1957,8 @@ msgid "Year"
 msgstr "Jahr"
 
 #: apps/listings/models.py:689 apps/listings/models.py:2093
-#, fuzzy
-#| msgid "First Registration"
 msgid "First Registration Date"
-msgstr "Erste Registrierung"
+msgstr ""
 
 #: apps/listings/models.py:700 apps/listings/models.py:2098
 #: templates/listings/partials/panel_trucks.html:70
@@ -2149,10 +1969,8 @@ msgid "Truck type"
 msgstr "LKW-Typ"
 
 #: apps/listings/models.py:709 apps/listings/models.py:2191
-#, fuzzy
-#| msgid "Color code"
 msgid "Color (custom)"
-msgstr "Farbcode"
+msgstr ""
 
 #: apps/listings/models.py:744
 msgid "Subtype (custom)"
@@ -2172,64 +1990,48 @@ msgid "Manufacturer"
 msgstr "Hersteller"
 
 #: apps/listings/models.py:763
-#, fuzzy
-#| msgid "Manufacturer"
 msgid "Manufacturer (custom)"
-msgstr "Hersteller"
+msgstr ""
 
 #: apps/listings/models.py:768
 msgid "Brand (legacy)"
 msgstr ""
 
 #: apps/listings/models.py:772
-#, fuzzy
-#| msgid "Model"
 msgid "Model name"
-msgstr "Modell"
+msgstr ""
 
 #: apps/listings/models.py:778
-#, fuzzy
-#| msgid "Material"
 msgid "Material (custom)"
-msgstr "Material"
+msgstr ""
 
 #: apps/listings/models.py:784
 msgid "Gender (custom)"
 msgstr ""
 
 #: apps/listings/models.py:790
-#, fuzzy
-#| msgid "Safety certification"
 msgid "Safety certification (custom)"
-msgstr "Sicherheitszertifizierung"
+msgstr ""
 
 #: apps/listings/models.py:796 templates/listings/motogear_create.html:151
 msgid "Number of vents"
 msgstr "Anzahl der Lüftungsöffnungen"
 
 #: apps/listings/models.py:806 templates/listings/advanced_search.html:466
-#, fuzzy
-#| msgid "Code"
 msgid "OEM Code"
-msgstr "Code"
+msgstr ""
 
 #: apps/listings/models.py:814 apps/listings/models.py:2811
-#, fuzzy
-#| msgid "Category"
 msgid "Part Category"
-msgstr "Kategorie"
+msgstr ""
 
 #: apps/listings/models.py:821 apps/listings/models.py:835
 #: templates/listings/advanced_search.html:474
-#, fuzzy
-#| msgid "Engine code"
 msgid "Engine Code"
 msgstr "Motorkennung"
 
 #: apps/listings/models.py:827 apps/listings/models.py:841
 #: templates/listings/advanced_search.html:482
-#, fuzzy
-#| msgid "Gearbox code"
 msgid "Gearbox Code"
 msgstr "Getriebecode"
 
@@ -2263,8 +2065,6 @@ msgid "Gearbox code"
 msgstr "Getriebecode"
 
 #: apps/listings/models.py:874
-#, fuzzy
-#| msgid "Export price:"
 msgid "Export price"
 msgstr "Exportpreis:"
 
@@ -2363,10 +2163,8 @@ msgid "+ Taxes"
 msgstr "+ Steuern"
 
 #: apps/listings/models.py:918 apps/listings/models.py:2228
-#, fuzzy
-#| msgid "I am a business seller"
 msgid "Business seller"
-msgstr "Ich bin ein gewerblicher Verkäufer"
+msgstr ""
 
 #: apps/listings/models.py:950 templates/listings/listing_detail.html:10
 #: templates/listings/listing_stats.html:30
@@ -2378,78 +2176,56 @@ msgid "Interior"
 msgstr ""
 
 #: apps/listings/models.py:1443 apps/listings/views.py:61
-#, fuzzy
-#| msgid "Electric starter"
 msgid "Electronics"
-msgstr "Elektrostarter"
+msgstr ""
 
 #: apps/listings/models.py:1444
-#, fuzzy
-#| msgid "Safety Tips"
 msgid "Safety"
-msgstr "Sicherheitstipps"
+msgstr ""
 
 #: apps/listings/models.py:1445
-#, fuzzy
-#| msgid "Video"
 msgid "Audio/Video"
-msgstr "Video"
+msgstr ""
 
 #: apps/listings/models.py:1446 apps/listings/views.py:60
 msgid "Exterior"
 msgstr ""
 
 #: apps/listings/models.py:1447 apps/listings/views.py:64
-#, fuzzy
-#| msgid "Other features"
 msgid "Other Features"
 msgstr "Weitere Funktionen"
 
 #: apps/listings/models.py:1448
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motorcycle Features"
-msgstr "Motorräder"
+msgstr ""
 
 #: apps/listings/models.py:1449
-#, fuzzy
-#| msgid "Features"
 msgid "Gear Features"
-msgstr "Merkmale"
+msgstr ""
 
 #: apps/listings/models.py:1450
-#, fuzzy
-#| msgid "Features"
 msgid "Truck Features"
-msgstr "Merkmale"
+msgstr ""
 
 #: apps/listings/models.py:1523
-#, fuzzy
-#| msgid "Safety certification"
 msgid "Seller notifications"
-msgstr "Sicherheitszertifizierung"
+msgstr ""
 
 #: apps/listings/models.py:1524
-#, fuzzy
-#| msgid "No saved listings yet"
 msgid "Buyer - saved listings"
-msgstr "Noch keine gespeicherten Einträge"
+msgstr ""
 
 #: apps/listings/models.py:1525
-#, fuzzy
-#| msgid "Saved Searches"
 msgid "Saved search alerts"
-msgstr "Gespeicherte Suchanfragen"
+msgstr ""
 
 #: apps/listings/models.py:1526
 msgid "Account / auth"
 msgstr ""
 
 #: apps/listings/models.py:1527
-#, fuzzy
-#| msgid "Messages"
 msgid "Messaging"
-msgstr "Nachrichten"
+msgstr ""
 
 #: apps/listings/models.py:1528
 msgid "Payments / Stripe"
@@ -2460,36 +2236,28 @@ msgid "Marketing / newsletter"
 msgstr ""
 
 #: apps/listings/models.py:1530
-#, fuzzy
-#| msgid "Modification"
 msgid "Admin notifications"
-msgstr "Änderung"
+msgstr ""
 
 #: apps/listings/models.py:1531
 msgid "Extra / experimental"
 msgstr ""
 
 #: apps/listings/models.py:1532
-#, fuzzy
-#| msgid "Truck specifics"
 msgid "Truck-specific notifications"
-msgstr "LKW-Spezifikationen"
+msgstr ""
 
 #: apps/listings/models.py:1644
-#, fuzzy
-#| msgid "Settings"
 msgid "Pricing Settings"
-msgstr "Einstellungen"
+msgstr ""
 
 #: apps/listings/models.py:1689
 msgid "Price Multiplier Tier"
 msgstr ""
 
 #: apps/listings/models.py:1765
-#, fuzzy
-#| msgid "Part Name or Code"
 msgid "Promo Code"
-msgstr "Teilebezeichnung oder Code"
+msgstr ""
 
 #: apps/listings/models.py:1848
 msgid "Promo Code Usage"
@@ -2500,10 +2268,8 @@ msgid "Trucks (Sunkvežimiai)"
 msgstr ""
 
 #: apps/listings/models.py:1870 apps/listings/translatable_db.py:44
-#, fuzzy
-#| msgid "Vehicle search"
 msgid "Vehicle Transporters"
-msgstr "Fahrzeugsuche"
+msgstr ""
 
 #: apps/listings/models.py:1871
 msgid "Semi-trucks / Tractors"
@@ -2535,10 +2301,8 @@ msgid "Crew cab"
 msgstr ""
 
 #: apps/listings/models.py:1922
-#, fuzzy
-#| msgid "Extend"
 msgid "Extended cab"
-msgstr "Verlängern"
+msgstr ""
 
 #: apps/listings/models.py:1940
 msgid "Air / Air"
@@ -2601,20 +2365,14 @@ msgid "Cab type"
 msgstr ""
 
 #: apps/listings/models.py:2106
-#, fuzzy
-#| msgid "Select a conversation"
 msgid "Axle configuration"
-msgstr "Wählen Sie eine Konversation aus"
+msgstr ""
 
 #: apps/listings/models.py:2110
-#, fuzzy
-#| msgid "Rear suspension"
 msgid "Suspension"
-msgstr "Hinterradaufhängung"
+msgstr ""
 
 #: apps/listings/models.py:2121
-#, fuzzy
-#| msgid "Curb Weight (kg)"
 msgid "Curb weight (kg)"
 msgstr "Leergewicht (kg)"
 
@@ -2631,10 +2389,8 @@ msgid "Cargo width (m)"
 msgstr ""
 
 #: apps/listings/models.py:2142
-#, fuzzy
-#| msgid "Curb Weight (kg)"
 msgid "Cargo height (m)"
-msgstr "Leergewicht (kg)"
+msgstr ""
 
 #: apps/listings/models.py:2147
 #: templates/listings/boats_listing_create.html:167
@@ -2643,68 +2399,52 @@ msgid "Number of seats"
 msgstr "Anzahl Sitzplätze"
 
 #: apps/listings/models.py:2158
-#, fuzzy
-#| msgid "Engine capacity, L"
 msgid "Engine capacity (L)"
-msgstr "Hubraum, Liter"
+msgstr ""
 
 #: apps/listings/models.py:2168
-#, fuzzy
-#| msgid "Power (kW)"
 msgid "Power (HP)"
-msgstr "Leistung (kW)"
+msgstr ""
 
 #: apps/listings/models.py:2173
 msgid "Torque (Nm)"
 msgstr ""
 
 #: apps/listings/models.py:2180
-#, fuzzy
-#| msgid "Fuel consumption (l/100km)"
 msgid "Fuel consumption (L/100km)"
 msgstr "Kraftstoffverbrauch (l/100km)"
 
 #: apps/listings/models.py:2185
-#, fuzzy
-#| msgid "Fuel tank capacity"
 msgid "Fuel tank (L)"
-msgstr "Kraftstofftankkapazität"
+msgstr ""
 
 #: apps/listings/models.py:2213
 msgid "Price excludes VAT"
 msgstr ""
 
 #: apps/listings/models.py:2261
-#, fuzzy
-#| msgid "Truck type"
 msgid "Truck"
-msgstr "LKW-Typ"
+msgstr ""
 
 #: apps/listings/models.py:2573
-#, fuzzy
-#| msgid "Truck type"
 msgid "Truck Image"
-msgstr "LKW-Typ"
+msgstr ""
 
 #: apps/listings/models.py:2586
 msgid "Truck Equipment Selection"
 msgstr ""
 
 #: apps/listings/models.py:2601
-#, fuzzy
-#| msgid "Saved Searches"
 msgid "Saved Truck"
-msgstr "Gespeicherte Suchanfragen"
+msgstr ""
 
 #: apps/listings/models.py:2677
 msgid "Truck Sales Record"
 msgstr ""
 
 #: apps/listings/models.py:2874
-#, fuzzy
-#| msgid "Passenger Backrest"
 msgid "Passenger cars"
-msgstr "Rückenlehne für Beifahrer"
+msgstr ""
 
 #: apps/listings/models.py:2875
 msgid "SUV / Off-road"
@@ -2715,10 +2455,8 @@ msgid "Commercial / Van"
 msgstr ""
 
 #: apps/listings/models.py:2877 apps/listings/translatable_db.py:43
-#, fuzzy
-#| msgid "Browse Trucks"
 msgid "Trucks"
-msgstr "LKWs durchsuchen"
+msgstr ""
 
 #: apps/listings/models.py:2878 apps/listings/translatable_db.py:37
 #: templates/listings/motorcycles_advanced_search.html:134
@@ -2773,10 +2511,8 @@ msgid "Sold"
 msgstr "Verkauft"
 
 #: apps/listings/models.py:2950
-#, fuzzy
-#| msgid "Expires %(date)s"
 msgid "Expired"
-msgstr "Läuft ab %(Datum)s"
+msgstr ""
 
 #: apps/listings/models.py:2951
 msgid "Archived"
@@ -2801,16 +2537,12 @@ msgid "Rims"
 msgstr ""
 
 #: apps/listings/models.py:3049
-#, fuzzy
-#| msgid "Create Listing"
 msgid "Wheel Listing"
-msgstr "Eintrag erstellen"
+msgstr ""
 
 #: apps/listings/models.py:3134
-#, fuzzy
-#| msgid "Wheel formula"
 msgid "Wheel Image"
-msgstr "Radformel"
+msgstr ""
 
 #: apps/listings/moto_part_views.py:23
 msgid "Trim / Body parts"
@@ -2818,29 +2550,21 @@ msgstr ""
 
 #: apps/listings/moto_part_views.py:24
 #: apps/listings/truck_for_parts_views.py:42
-#, fuzzy
-#| msgid "Electric starter"
 msgid "Electrical system parts"
-msgstr "Elektrostarter"
+msgstr ""
 
 #: apps/listings/moto_part_views.py:25
-#, fuzzy
-#| msgid "Engine capacity"
 msgid "Engine cooling parts"
-msgstr "Motorkapazität"
+msgstr ""
 
 #: apps/listings/moto_part_views.py:26
 #: apps/listings/truck_for_parts_views.py:43
-#, fuzzy
-#| msgid "Engine capacity"
 msgid "Engine parts"
-msgstr "Motorkapazität"
+msgstr ""
 
 #: apps/listings/moto_part_views.py:27
-#, fuzzy
-#| msgid "Automatic transmission"
 msgid "Chassis & transmission parts"
-msgstr "Automatikgetriebe"
+msgstr ""
 
 #: apps/listings/moto_part_views.py:33
 msgid "Refurbished"
@@ -2849,29 +2573,21 @@ msgstr ""
 #: apps/listings/motogear_views.py:173 apps/listings/motorcycles_views.py:570
 #: apps/listings/trucks_views.py:842 apps/listings/views.py:1441
 #: apps/listings/views.py:1581
-#, fuzzy
-#| msgid "No image"
 msgid "No images uploaded"
-msgstr "Kein Bild"
+msgstr ""
 
 #: apps/listings/motogear_views.py:183 apps/listings/motorcycles_views.py:580
 #: apps/listings/views.py:1453
-#, fuzzy
-#| msgid "Max 36 photos, 20MB each"
 msgid "Maximum 40 photos reached"
-msgstr "Maximal 36 Fotos, je 20 MB"
+msgstr ""
 
 #: apps/listings/motorcycles_views.py:461
-#, fuzzy
-#| msgid "Failed to save search. Please try again."
 msgid "Failed to save draft."
-msgstr "Suche konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+msgstr ""
 
 #: apps/listings/motorcycles_views.py:508 apps/listings/views.py:1577
-#, fuzzy
-#| msgid "Listing ID not found"
 msgid "Draft not found"
-msgstr "Angebots-ID nicht gefunden"
+msgstr ""
 
 #: apps/listings/parts_views.py:73
 msgid "Car, van parts"
@@ -3072,10 +2788,8 @@ msgid "Turistiniai nameliai"
 msgstr ""
 
 #: apps/listings/translatable_db.py:27
-#, fuzzy
-#| msgid "Aircraft Parts"
 msgid "Aircraft Accessories"
-msgstr "Flugzeugteile"
+msgstr ""
 
 #: apps/listings/translatable_db.py:27
 msgid "Airplanes"
@@ -3086,32 +2800,24 @@ msgid "Avionics"
 msgstr ""
 
 #: apps/listings/translatable_db.py:27
-#, fuzzy
-#| msgid "Dealer"
 msgid "Balers"
-msgstr "Händler"
+msgstr ""
 
 #: apps/listings/translatable_db.py:27
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Bicycles"
-msgstr "Motorräder"
+msgstr ""
 
 #: apps/listings/translatable_db.py:28
-#, fuzzy
-#| msgid "Rotate failed"
 msgid "Boat Trailers"
-msgstr "Drehung fehlgeschlagen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:28
 msgid "Boats"
 msgstr ""
 
 #: apps/listings/translatable_db.py:28
-#, fuzzy
-#| msgid "Body type"
 msgid "Body Repair"
-msgstr "Körpertyp"
+msgstr ""
 
 #: apps/listings/translatable_db.py:28
 msgid "Bulldozers"
@@ -3126,22 +2832,16 @@ msgid "Campers"
 msgstr ""
 
 #: apps/listings/translatable_db.py:29
-#, fuzzy
-#| msgid "Parts"
 msgid "Car Parts"
-msgstr "Teile"
+msgstr ""
 
 #: apps/listings/translatable_db.py:29
-#, fuzzy
-#| msgid "Services"
 msgid "Car Service"
-msgstr "Dienstleistungen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:29
-#, fuzzy
-#| msgid "For dealers"
 msgid "Car Trailers"
-msgstr "Für Händler"
+msgstr ""
 
 #: apps/listings/translatable_db.py:29
 msgid "Car Wash"
@@ -3188,32 +2888,24 @@ msgid "Drones"
 msgstr ""
 
 #: apps/listings/translatable_db.py:33
-#, fuzzy
-#| msgid "Electric starter"
 msgid "Electric Bikes"
-msgstr "Elektrostarter"
+msgstr ""
 
 #: apps/listings/translatable_db.py:33
-#, fuzzy
-#| msgid "Electric Starter"
 msgid "Electric Scooters"
-msgstr "Elektrischer Anlasser"
+msgstr ""
 
 #: apps/listings/translatable_db.py:33
-#, fuzzy
-#| msgid "Engine capacity"
 msgid "Engine Parts"
-msgstr "Motorkapazität"
+msgstr ""
 
 #: apps/listings/translatable_db.py:33
 msgid "Excavators"
 msgstr ""
 
 #: apps/listings/translatable_db.py:34
-#, fuzzy
-#| msgid "Listing is"
 msgid "Fishing Boats"
-msgstr "Angebot ist"
+msgstr ""
 
 #: apps/listings/translatable_db.py:34
 msgid "Flatbed Trailers"
@@ -3248,16 +2940,12 @@ msgid "Loaders"
 msgstr ""
 
 #: apps/listings/translatable_db.py:36
-#, fuzzy
-#| msgid "Moto Gear & Accessories"
 msgid "Moto Gear, accessories"
 msgstr "Motorradausrüstung & Zubehör"
 
 #: apps/listings/translatable_db.py:37
-#, fuzzy
-#| msgid "Parts"
 msgid "Moto Parts"
-msgstr "Teile"
+msgstr ""
 
 #: apps/listings/translatable_db.py:37
 msgid "Motociklų nuoma"
@@ -3276,28 +2964,20 @@ msgid "Other Construction"
 msgstr ""
 
 #: apps/listings/translatable_db.py:38
-#, fuzzy
-#| msgid "Other features"
 msgid "Other Trailers"
-msgstr "Weitere Funktionen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:39
-#, fuzzy
-#| msgid "Other features"
 msgid "Other Watercraft"
-msgstr "Weitere Funktionen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:39
-#, fuzzy
-#| msgid "Listing"
 msgid "Painting"
-msgstr "Auflistung"
+msgstr ""
 
 #: apps/listings/translatable_db.py:39
-#, fuzzy
-#| msgid "Passenger seat"
 msgid "Passenger Minibuses"
-msgstr "Beifahrersitz"
+msgstr ""
 
 #: apps/listings/translatable_db.py:39
 msgid "Ploughs"
@@ -3316,17 +2996,13 @@ msgid "Semi-Trucks / Tractors"
 msgstr ""
 
 #: apps/listings/translatable_db.py:41
-#, fuzzy
-#| msgid "Trailers & Semi-trailers"
 msgid "Semi-trailers"
-msgstr "Anhänger und Sattelanhänger"
+msgstr ""
 
 #: apps/listings/translatable_db.py:41
 #: templates/listings/sidebar_moto_parts.html:19
-#, fuzzy
-#| msgid "Sell moto gear"
 msgid "Single moto part"
-msgstr "Motorradausrüstung verkaufen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:41
 msgid "Single part / parts kit"
@@ -3345,60 +3021,44 @@ msgid "Sunkiojo transporto, priekabų nuoma"
 msgstr ""
 
 #: apps/listings/translatable_db.py:43
-#, fuzzy
-#| msgid "Trailers & Semi-trailers"
 msgid "Tipper Trailers"
-msgstr "Anhänger und Sattelanhänger"
+msgstr ""
 
 #: apps/listings/translatable_db.py:43
-#, fuzzy
-#| msgid "Showing"
 msgid "Towing"
-msgstr "Anzeige"
+msgstr ""
 
 #: apps/listings/translatable_db.py:43
 msgid "Tractors"
 msgstr ""
 
 #: apps/listings/translatable_db.py:43
-#, fuzzy
-#| msgid "Truck Details"
 msgid "Truck Parts"
-msgstr "LKW-Details"
+msgstr ""
 
 #: apps/listings/translatable_db.py:44
-#, fuzzy
-#| msgid "Planes & Aircraft"
 msgid "Ultralight Aircraft"
-msgstr "Flugzeuge und Luftfahrzeuge"
+msgstr ""
 
 #: apps/listings/translatable_db.py:45
-#, fuzzy
-#| msgid "Sell whole car for parts"
 msgid "Whole car for parts"
-msgstr "Verkaufe das ganze Auto in Einzelteilen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:45
-#, fuzzy
-#| msgid "Sell whole car for parts"
 msgid "Whole moto for parts"
-msgstr "Verkaufe das ganze Auto in Einzelteilen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:45
-#, fuzzy
-#| msgid "Sell whole car for parts"
 msgid "Whole truck for parts"
-msgstr "Verkaufe das ganze Auto in Einzelteilen"
+msgstr ""
 
 #: apps/listings/translatable_db.py:46
 msgid "Yachts"
 msgstr ""
 
 #: apps/listings/translatable_db.py:51
-#, fuzzy
-#| msgid "CTR"
 msgid "CVT"
-msgstr "CTR"
+msgstr ""
 
 #: apps/listings/translatable_db.py:51
 msgid "Diesel / Electric (Hybrid)"
@@ -3437,22 +3097,16 @@ msgid "Petrol / LPG"
 msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:39
-#, fuzzy
-#| msgid "Body type"
 msgid "Body parts"
-msgstr "Körpertyp"
+msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:40
-#, fuzzy
-#| msgid "Automatic transmission"
 msgid "Chassis / transmission parts"
-msgstr "Automatikgetriebe"
+msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:41
-#, fuzzy
-#| msgid "Cooling Type"
 msgid "Cooling system parts"
-msgstr "Kühlart"
+msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:44
 msgid "Cabin / interior parts"
@@ -3465,26 +3119,20 @@ msgstr ""
 #: apps/listings/trucks_views.py:834 apps/listings/views.py:1437
 #: apps/listings/views.py:1487 apps/listings/views.py:5869
 #: apps/listings/views.py:5875
-#, fuzzy
-#| msgid "Listing ID not found"
 msgid "Listing not found"
-msgstr "Angebots-ID nicht gefunden"
+msgstr ""
 
 #: apps/listings/views.py:62
-#, fuzzy
-#| msgid "Safe & Secure"
 msgid "Safety & Security"
-msgstr "Sicher und geschützt"
+msgstr ""
 
 #: apps/listings/views.py:63
 msgid "Audio, Video & Connectivity"
 msgstr ""
 
 #: apps/listings/views.py:65
-#, fuzzy
-#| msgid "Select Vehicle Category"
 msgid "Electric vehicle features"
-msgstr "Fahrzeugkategorie auswählen"
+msgstr ""
 
 #: apps/listings/views.py:5866
 msgid "Įveskite kodą"
@@ -3503,10 +3151,8 @@ msgid "Sold individually"
 msgstr ""
 
 #: apps/listings/wheels_views.py:58
-#, fuzzy
-#| msgid "Sport-ready"
 msgid "Sport tyres"
-msgstr "Sportbereit"
+msgstr ""
 
 #: apps/listings/wheels_views.py:59
 msgid "SUV tyres"
@@ -3549,20 +3195,16 @@ msgid "Lithuanian"
 msgstr ""
 
 #: config/settings.py:145
-#, fuzzy
-#| msgid "Latviešu"
 msgid "Latvian"
-msgstr "Latviešu"
+msgstr ""
 
 #: config/settings.py:146
 msgid "Estonian"
 msgstr ""
 
 #: config/settings.py:147
-#, fuzzy
-#| msgid "English"
 msgid "Polish"
-msgstr "English"
+msgstr ""
 
 #: config/settings.py:148
 msgid "German"
@@ -3610,26 +3252,18 @@ msgid "Sell more cars on SellCar"
 msgstr "Verkaufe mehr Autos auf AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
-#, fuzzy
-#| msgid ""
-#| "Reach thousands of buyers with your branded dealer page, unlimited listings "
-#| "and featured placement."
 msgid ""
 "Reach thousands of buyers with your branded dealer page and professional "
 "tools."
 msgstr ""
-"Erreichen Sie Tausende von Käufern mit Ihrer eigenen Händlerseite, "
-"unbegrenzten Angeboten und hervorgehobener Platzierung."
 
 #: templates/accounts/become_dealer.html:20
 msgid "You are an active Dealer"
 msgstr ""
 
 #: templates/accounts/become_dealer.html:22
-#, fuzzy
-#| msgid "Tech inspection valid until"
 msgid "Subscription active until"
-msgstr "Technische Inspektion gültig bis"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:26
 msgid "Go to Dashboard"
@@ -3649,20 +3283,16 @@ msgid "Cancel anytime"
 msgstr "Jederzeit kündbar"
 
 #: templates/accounts/become_dealer.html:46
-#, fuzzy
-#| msgid "No subscription"
 msgid "Extend subscription"
-msgstr "Kein Abonnement"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:48
 msgid "Subscribe"
 msgstr "Abonnieren"
 
 #: templates/accounts/become_dealer.html:52
-#, fuzzy
-#| msgid "Available balance"
 msgid "Wallet balance:"
-msgstr "Verfügbares Guthaben"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:53 templates/accounts/wallet.html:21
 #: templates/accounts/wallet.html:55
@@ -3675,16 +3305,12 @@ msgid "Up to"
 msgstr ""
 
 #: templates/accounts/become_dealer.html:60
-#, fuzzy
-#| msgid "Back to listings"
 msgid "active listings"
-msgstr "Zurück zur Übersicht"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:60
-#, fuzzy
-#| msgid "Back to categories"
 msgid "across all categories"
-msgstr "Zurück zu den Kategorien"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:64
 msgid "Branded dealer page"
@@ -3712,10 +3338,8 @@ msgid "Priority support"
 msgstr "Prioritätsunterstützung"
 
 #: templates/accounts/become_dealer.html:92
-#, fuzzy
-#| msgid "Delete listing"
 msgid "Need more listings?"
-msgstr "Eintrag löschen"
+msgstr ""
 
 #: templates/accounts/become_dealer.html:93
 msgid "Talk to us about volume pricing or partnership opportunities."
@@ -3735,16 +3359,12 @@ msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:3
 #: templates/accounts/dealer_dashboard.html:10
-#, fuzzy
-#| msgid "Analytics dashboard"
 msgid "Dealer Dashboard"
-msgstr "Analyse-Dashboard"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:15
-#, fuzzy
-#| msgid "Become a Dealer"
 msgid "Welcome, Dealer"
-msgstr "Händler werden"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:21
 #: templates/accounts/profile_edit.html:4
@@ -3753,28 +3373,20 @@ msgid "Edit Profile"
 msgstr "Profil bearbeiten"
 
 #: templates/accounts/dealer_dashboard.html:24
-#, fuzzy
-#| msgid "View public page"
 msgid "View Public Page"
 msgstr "Öffentliche Seite anzeigen"
 
 #: templates/accounts/dealer_dashboard.html:34
-#, fuzzy
-#| msgid "No subscription"
 msgid "Dealer subscription active"
-msgstr "Kein Abonnement"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:36
-#, fuzzy
-#| msgid "Expires %(date)s"
 msgid "Expires"
-msgstr "Läuft ab %(Datum)s"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:37
-#, fuzzy
-#| msgid "days ago"
 msgid "days remaining"
-msgstr "vor Tagen"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:42
 #: templates/listings/my_listings.html:53
@@ -3783,22 +3395,16 @@ msgid "Renew"
 msgstr "Erneuern"
 
 #: templates/accounts/dealer_dashboard.html:49
-#, fuzzy
-#| msgid "Activate Listing"
 msgid "Active listings"
-msgstr "Eintrag aktivieren"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:53
-#, fuzzy
-#| msgid "Total"
 msgid "Total views"
-msgstr "Gesamt"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:57
-#, fuzzy
-#| msgid "Total"
 msgid "Total saves"
-msgstr "Gesamt"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:61
 msgid "Days remaining"
@@ -3814,8 +3420,6 @@ msgid "Add a new vehicle"
 msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:82
-#, fuzzy
-#| msgid "My Listings"
 msgid "My listings"
 msgstr "Meine Angebote"
 
@@ -3834,27 +3438,21 @@ msgid "Balance & top-up"
 msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:100
-#, fuzzy
-#| msgid "View listing"
 msgid "Top viewed listings"
-msgstr "Angebot ansehen"
+msgstr ""
 
 #: templates/accounts/dealer_dashboard.html:128
 msgid "No listings yet"
 msgstr "Noch keine Einträge"
 
 #: templates/accounts/dealer_dashboard.html:129
-#, fuzzy
-#| msgid "Create your first listing to start selling."
 msgid "Create your first listing to get started"
-msgstr "Erstellen Sie Ihr erstes Angebot, um mit dem Verkauf zu beginnen."
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:32
 #: templates/listings/listing_detail.html:1142
-#, fuzzy
-#| msgid "Verified dealer badge"
 msgid "Verified Dealer"
-msgstr "Verifiziertes Händlerabzeichen"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:34
 #: templates/accounts/dealer_public_page.html:179
@@ -4076,16 +3674,12 @@ msgid "Clear"
 msgstr "Klar"
 
 #: templates/accounts/dealer_public_page.html:144
-#, fuzzy
-#| msgid "All Categories"
 msgid "Categories"
-msgstr "Alle Kategorien"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:151
-#, fuzzy
-#| msgid "listings"
 msgid "All listings"
-msgstr "Angebote"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:179
 #: templates/accounts/seller_profile.html:291
@@ -4093,10 +3687,8 @@ msgid "Showing"
 msgstr "Anzeige"
 
 #: templates/accounts/dealer_public_page.html:192
-#, fuzzy
-#| msgid "Sort by:"
 msgid "Sort"
-msgstr "Sortieren nach:"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:194
 #: templates/accounts/seller_profile.html:300
@@ -4104,20 +3696,14 @@ msgid "Newest first"
 msgstr "Neueste zuerst"
 
 #: templates/accounts/dealer_public_page.html:195
-#, fuzzy
-#| msgid "Newest first"
 msgid "Oldest first"
-msgstr "Neueste zuerst"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:196
-#, fuzzy
-#| msgid "Price: Low to High"
 msgid "Price: low to high"
 msgstr "Preis: Niedrig bis Hoch"
 
 #: templates/accounts/dealer_public_page.html:197
-#, fuzzy
-#| msgid "Price: High to Low"
 msgid "Price: high to low"
 msgstr "Preis: Hoch bis Niedrig"
 
@@ -4126,29 +3712,21 @@ msgid "Most viewed"
 msgstr ""
 
 #: templates/accounts/dealer_public_page.html:248
-#, fuzzy
-#| msgid "listings match your filters"
 msgid "No listings match your filters."
-msgstr "Die Einträge entsprechen Ihren Filtern."
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:260
 #: templates/pages/help_center.html:140
-#, fuzzy
-#| msgid "Contacts"
 msgid "Contact"
-msgstr "Kontakte"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:281
-#, fuzzy
-#| msgid "Contact information"
 msgid "No contact info provided"
-msgstr "Kontaktinformationen"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:292
-#, fuzzy
-#| msgid "Open to trade"
 msgid "Open Hours"
-msgstr "Für den Handel geöffnet"
+msgstr ""
 
 #: templates/accounts/dealer_public_page.html:300
 #: templates/accounts/dealer_setup.html:86
@@ -4156,16 +3734,12 @@ msgid "Closed"
 msgstr ""
 
 #: templates/accounts/dealer_public_page.html:315
-#, fuzzy
-#| msgid "About Me"
 msgid "About"
-msgstr "Über mich"
+msgstr ""
 
 #: templates/accounts/dealer_setup.html:3
-#, fuzzy
-#| msgid "Dealer"
 msgid "Dealer Setup"
-msgstr "Händler"
+msgstr ""
 
 #: templates/accounts/dealer_setup.html:9
 msgid "Dealer Profile Setup"
@@ -4176,10 +3750,8 @@ msgid "All fields are optional. You can fill them now or later via Dashboard."
 msgstr ""
 
 #: templates/accounts/dealer_setup.html:18
-#, fuzzy
-#| msgid "Main Information"
 msgid "Company Information"
-msgstr "Hauptinformationen"
+msgstr ""
 
 #: templates/accounts/dealer_setup.html:26
 #: templates/accounts/seller_profile.html:371
@@ -4216,10 +3788,8 @@ msgid "Visual Branding"
 msgstr ""
 
 #: templates/accounts/dealer_setup.html:46
-#, fuzzy
-#| msgid "Logout"
 msgid "Logo"
-msgstr "Abmelden"
+msgstr ""
 
 #: templates/accounts/dealer_setup.html:53
 msgid "Recommended: square, 200x200px+"
@@ -4230,15 +3800,11 @@ msgid "Banner"
 msgstr ""
 
 #: templates/accounts/dealer_setup.html:63
-#, fuzzy
-#| msgid "Recommended"
 msgid "Recommended: 1920x400px"
-msgstr "Empfohlen"
+msgstr ""
 
 #: templates/accounts/dealer_setup.html:70
 #: templates/pages/help_center.html:655
-#, fuzzy
-#| msgid "About us"
 msgid "About Us"
 msgstr "Über uns"
 
@@ -4255,10 +3821,8 @@ msgid "Skip for now"
 msgstr ""
 
 #: templates/accounts/dealer_setup.html:105
-#, fuzzy
-#| msgid "Save failed"
 msgid "Save profile"
-msgstr "Speichern fehlgeschlagen"
+msgstr ""
 
 #: templates/accounts/login.html:4 templates/accounts/login.html:85
 #: templates/base.html:232
@@ -4695,9 +4259,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/accounts/seller_profile.html:168
-#, python-format, fuzzy
+#, python-format
 msgid "Member since %(year)s"
-msgstr "Mitglied seit %(Jahre)"
+msgstr ""
 
 #: templates/accounts/seller_profile.html:190 templates/home.html:36
 #: templates/listings/home.html:24 templates/listings/listing_list.html:1376
@@ -4895,9 +4459,9 @@ msgid "Clear All"
 msgstr "Alles löschen"
 
 #: templates/accounts/seller_profile.html:292
-#, python-format, fuzzy
+#, python-format
 msgid "of %(total)s"
-msgstr "von %(gesamt)s"
+msgstr ""
 
 #: templates/accounts/seller_profile.html:301
 #: templates/listings/listing_list_v2.html:341
@@ -4957,9 +4521,9 @@ msgid "Phone 2"
 msgstr "Telefon 2"
 
 #: templates/accounts/seller_profile.html:383
-#, python-format, fuzzy
+#, python-format
 msgid "About %(company)s"
-msgstr "Über %(Unternehmen)s"
+msgstr ""
 
 #: templates/accounts/seller_profile.html:408
 msgid "No reviews yet."
@@ -5032,9 +4596,9 @@ msgid "Get"
 msgstr "Erhalten"
 
 #: templates/accounts/wallet.html:88
-#, python-format, fuzzy
+#, python-format
 msgid "= %(total)s points"
-msgstr "= %(gesamt)s Punkte"
+msgstr ""
 
 #: templates/accounts/wallet.html:103
 msgid "Test mode (developer only)"
@@ -5082,10 +4646,8 @@ msgid "No transactions yet."
 msgstr "Bisher keine Transaktionen."
 
 #: templates/base.html:8
-#, fuzzy
-#| msgid "SellCar - Buy & Sell Cars Online"
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr "AutoLeft – Autos online kaufen und verkaufen"
+msgstr ""
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -5101,10 +4663,8 @@ msgid "Create Ad"
 msgstr "Anzeige erstellen"
 
 #: templates/base.html:116 templates/base.html:175 templates/base.html:273
-#, fuzzy
-#| msgid "Saved"
 msgid "Saved Ads"
-msgstr "Gespeichert"
+msgstr ""
 
 #: templates/base.html:126 templates/base.html:184 templates/base.html:276
 #: templates/listings/saved_searches.html:18
@@ -5147,10 +4707,8 @@ msgid "Moderate users"
 msgstr "Moderate Benutzer"
 
 #: templates/base.html:213 templates/base.html:297
-#, fuzzy
-#| msgid "Moderate users"
 msgid "Moderate dealers"
-msgstr "Moderate Benutzer"
+msgstr ""
 
 #: templates/base.html:216 templates/base.html:300
 msgid "Sales stats"
@@ -5771,10 +5329,8 @@ msgid "Compatible With (Vehicle)"
 msgstr "Kompatibel mit (Fahrzeug)"
 
 #: templates/listings/advanced_search.html:564
-#, fuzzy
-#| msgid "Vehicle Details"
 msgid "Vehicle Technical Specs"
-msgstr "Fahrzeugdetails"
+msgstr ""
 
 #: templates/listings/advanced_search.html:586
 #: templates/listings/listing_detail.html:335
@@ -5783,14 +5339,10 @@ msgid "Gearbox"
 msgstr "Getriebe"
 
 #: templates/listings/advanced_search.html:634
-#, fuzzy
-#| msgid "Tyres & Wheels"
 msgid "Drive Wheels"
-msgstr "Reifen & Felgen"
+msgstr ""
 
 #: templates/listings/advanced_search.html:668
-#, fuzzy
-#| msgid "Engine size (L)"
 msgid "Engine Size (L)"
 msgstr "Hubraum (L)"
 
@@ -5804,22 +5356,16 @@ msgstr ""
 "durchsucht."
 
 #: templates/listings/advanced_search.html:878
-#, fuzzy
-#| msgid "All Categories"
 msgid "Part Categories"
-msgstr "Alle Kategorien"
+msgstr ""
 
 #: templates/listings/advanced_search.html:886
-#, fuzzy
-#| msgid "Search location..."
 msgid "Search categories..."
-msgstr "Standort suchen..."
+msgstr ""
 
 #: templates/listings/advanced_search.html:894
-#, fuzzy
-#| msgid "None selected"
 msgid "categories selected"
-msgstr "Keine ausgewählt"
+msgstr ""
 
 #: templates/listings/advanced_search.html:1140
 #: templates/listings/advanced_search.html:1231
@@ -5860,10 +5406,8 @@ msgid "Edit listing"
 msgstr "Eintrag bearbeiten"
 
 #: templates/listings/boats_listing_create.html:24
-#, fuzzy
-#| msgid "View listing"
 msgid "New listing"
-msgstr "Angebot ansehen"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:39
 #: templates/listings/listing_create_cars_quick.html:38
@@ -5874,16 +5418,12 @@ msgid "Main listing data"
 msgstr "Hauptlistendaten"
 
 #: templates/listings/boats_listing_create.html:66
-#, fuzzy
-#| msgid "e.g. Japan"
 msgid "e.g. Bayliner"
-msgstr "z.B. Japan"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:73
-#, fuzzy
-#| msgid "e.g. 4"
 msgid "e.g. VR5"
-msgstr "z.B. 4"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:89
 #: templates/listings/motogear_create.html:160
@@ -5951,22 +5491,16 @@ msgid "Additional data"
 msgstr "Zusätzliche Daten"
 
 #: templates/listings/boats_listing_create.html:155
-#, fuzzy
-#| msgid "Length"
 msgid "Length (m)"
-msgstr "Länge"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:161
-#, fuzzy
-#| msgid "Width"
 msgid "Width (m)"
-msgstr "Breite"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:214
-#, fuzzy
-#| msgid "Number of vents"
 msgid "Number of engines"
-msgstr "Anzahl der Lüftungsöffnungen"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:264
 #: templates/listings/listing_create_cars_quick.html:467
@@ -6047,10 +5581,8 @@ msgstr "Nach rechts drehen"
 #: templates/listings/rims_create.html:220
 #: templates/listings/tyres_create.html:253
 #: templates/listings/wheels_create.html:334
-#, fuzzy
-#| msgid "Selected plan:"
 msgid "Selected photos"
-msgstr "Ausgewählter Tarif:"
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:326
 msgid "Drag to reorder. The first photo is the main one."
@@ -6078,10 +5610,8 @@ msgstr "Bis zu 40 Fotos. Maximale Größe 24 MB. JPG, GIF, PNG."
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:365
 #: templates/listings/motorcycle_create.html:503
-#, fuzzy
-#| msgid "Uploading {n} photo(s)..."
 msgid "Uploading photos..."
-msgstr "Es werden {n} Fotos hochgeladen..."
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:362
 #: templates/listings/listing_create_cars_quick.html:594
@@ -6139,14 +5669,8 @@ msgid "By submitting, I agree to the Terms and Conditions and Privacy Policy"
 msgstr ""
 
 #: templates/listings/boats_listing_create.html:421
-#, fuzzy
-#| msgid ""
-#| "Not all required fields are filled in or filled in incorrectly. These fields"
-#| " are marked in red."
 msgid "Not all required fields are filled in. These fields are marked in red."
 msgstr ""
-"Nicht alle Pflichtfelder sind ausgefüllt oder fehlerhaft ausgefüllt. Diese "
-"Felder sind rot markiert."
 
 #: templates/listings/boats_listing_create.html:441
 #: templates/listings/listing_create.html:748
@@ -6203,10 +5727,8 @@ msgstr "Angebots-ID nicht gefunden"
 #: templates/listings/listing_create_cars_quick.html:1658
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:502
-#, fuzzy
-#| msgid "Preparing draft..."
 msgid "Preparing photos..."
-msgstr "Entwurf wird vorbereitet..."
+msgstr ""
 
 #: templates/listings/boats_listing_create.html:835
 #: templates/listings/boats_listing_create.html:836
@@ -6645,18 +6167,18 @@ msgid "Vehicle Details"
 msgstr "Fahrzeugdetails"
 
 #: templates/listings/listing_create.html:28
-#, python-format, fuzzy
+#, python-format
 msgid "Editing: %(brand)s %(model)s"
-msgstr "Bearbeitung: %(Marke)s %(Modell)s"
+msgstr ""
 
 #: templates/listings/listing_create.html:34
 msgid "Create New Listing"
 msgstr "Neuen Eintrag erstellen"
 
 #: templates/listings/listing_create.html:35
-#, python-format, fuzzy
+#, python-format
 msgid "Step %(current)s of %(total)s"
-msgstr "Schritt %(aktuell)s von %(gesamt)s"
+msgstr ""
 
 #: templates/listings/listing_create.html:54
 #: templates/listings/listing_create.html:848
@@ -7404,16 +6926,12 @@ msgstr ""
 "Verkäufer nach den Exportdokumenten und -bedingungen."
 
 #: templates/listings/listing_detail.html:1156
-#, fuzzy
-#| msgid "No features available."
 msgid "cars available"
-msgstr "Keine Funktionen verfügbar."
+msgstr ""
 
 #: templates/listings/listing_detail.html:1162
-#, fuzzy
-#| msgid "Browse Listings"
 msgid "Browse all listings"
-msgstr "Angebote durchsuchen"
+msgstr ""
 
 #: templates/listings/listing_detail.html:1181
 msgid "Click to copy"
@@ -7460,10 +6978,8 @@ msgid "Report"
 msgstr "Bericht"
 
 #: templates/listings/listing_detail.html:1238
-#, fuzzy
-#| msgid "Listing"
 msgid "Listing ID"
-msgstr "Auflistung"
+msgstr ""
 
 #: templates/listings/listing_detail.html:1243
 #, python-format
@@ -8024,20 +7540,14 @@ msgid "Switch back to V1"
 msgstr ""
 
 #: templates/listings/listing_list_v2.html:275
-#, fuzzy
-#| msgid "Subcategory"
 msgid "subcategories"
-msgstr "Unterkategorie"
+msgstr ""
 
 #: templates/listings/listing_list_v2.html:284
-#, fuzzy
-#| msgid "Back to categories"
 msgid "No subcategories"
-msgstr "Zurück zu den Kategorien"
+msgstr ""
 
 #: templates/listings/listing_list_v2.html:304
-#, fuzzy
-#| msgid "Price Max"
 msgid "Price max"
 msgstr "Maximalpreis"
 
@@ -8050,17 +7560,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listings/listing_list_v2.html:374
-#, fuzzy
-#| msgid "No trucks found"
 msgid "No ads found"
-msgstr "Keine LKWs gefunden"
+msgstr ""
 
 #: templates/listings/listing_list_v2.html:375
-#, fuzzy
-#| msgid "Try removing some filters or adjusting the ranges."
 msgid "Try selecting a different category or adjusting filters"
 msgstr ""
-"Versuchen Sie, einige Filter zu entfernen oder die Bereiche anzupassen."
 
 #: templates/listings/listing_select_plan.html:5
 #: templates/listings/listing_select_plan.html:422
@@ -8254,10 +7759,8 @@ msgid "Order extra services"
 msgstr ""
 
 #: templates/listings/listing_services_order.html:13
-#, fuzzy
-#| msgid "Back to my listings"
 msgid "Back to my ads"
-msgstr "Zurück zu meinen Angeboten"
+msgstr ""
 
 #: templates/listings/listing_services_order.html:19
 msgid ""
@@ -8265,10 +7768,8 @@ msgid ""
 msgstr ""
 
 #: templates/listings/listing_services_order.html:48
-#, fuzzy
-#| msgid "Listing is"
 msgid "Listing is active"
-msgstr "Angebot ist"
+msgstr ""
 
 #: templates/listings/listing_services_order.html:65
 #: templates/listings/listing_services_order.html:89
@@ -8283,10 +7784,8 @@ msgid "d. left"
 msgstr ""
 
 #: templates/listings/listing_services_order.html:129
-#, fuzzy
-#| msgid "Available balance"
 msgid "Wallet balance"
-msgstr "Verfügbares Guthaben"
+msgstr ""
 
 #: templates/listings/listing_services_order.html:153
 msgid "Insufficient wallet balance. Please top up."
@@ -8297,10 +7796,8 @@ msgid "Cost will be deducted from your wallet balance."
 msgstr ""
 
 #: templates/listings/listing_services_order.html:247
-#, fuzzy
-#| msgid "Insufficient wallet balance. Please top up."
 msgid "Insufficient balance"
-msgstr "Ihr Guthaben reicht nicht aus. Bitte laden Sie es auf."
+msgstr ""
 
 #: templates/listings/listing_stats.html:4
 #: templates/listings/my_listings.html:302
@@ -8432,9 +7929,9 @@ msgid "Listing published"
 msgstr "Eintrag veröffentlicht"
 
 #: templates/listings/listing_success.html:60
-#, python-format, fuzzy
+#, python-format
 msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
-msgstr "Angebot gültig für <strong class=\"text-gray-900\">%(Tage)s Tage</strong>"
+msgstr ""
 
 #: templates/listings/listing_success.html:65
 #, python-format
@@ -8550,9 +8047,9 @@ msgstr "pro Monat"
 
 #: templates/listings/listing_upgrade.html:56
 #: templates/listings/listing_upgrade.html:77
-#, python-format, fuzzy
+#, python-format
 msgid "%(count)s active listings"
-msgstr "%(Anzahl)s aktive Angebote"
+msgstr ""
 
 #: templates/listings/listing_upgrade.html:58
 msgid "All features included"
@@ -8584,62 +8081,44 @@ msgid "Back to my listings"
 msgstr "Zurück zu meinen Angeboten"
 
 #: templates/listings/moto_part_create.html:4
-#, fuzzy
-#| msgid "Sell Moto Gear"
 msgid "Sell Moto Part"
-msgstr "Motorradbekleidung verkaufen"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:16
-#, fuzzy
-#| msgid "Motorcycle Type"
 msgid "Edit motorcycle part"
-msgstr "Motorradtyp"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:16
-#, fuzzy
-#| msgid "Motorcycle Type"
 msgid "Motorcycle part"
-msgstr "Motorradtyp"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:55
-#, fuzzy
-#| msgid "Part name / code"
 msgid "Part name"
-msgstr "Teilebezeichnung / Code"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:62
-#, fuzzy
-#| msgid "Part name / code"
 msgid "Part code"
-msgstr "Teilebezeichnung / Code"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:96
 #: templates/listings/moto_parts_advanced.html:65
 #: templates/listings/moto_parts_browse.html:113
 #: templates/listings/motorcycles_list.html:515
 #: templates/listings/partials/panel_moto.html:79
-#, fuzzy
-#| msgid "Motorcycle Type"
 msgid "Motorcycle type"
 msgstr "Motorradtyp"
 
 #: templates/listings/moto_part_create.html:116
-#, fuzzy
-#| msgid "Engine Capacity (cm³)"
 msgid "Engine displacement (cm³)"
-msgstr "Hubraum (cm³)"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:117
-#, fuzzy
-#| msgid "e.g. 110"
 msgid "e.g. 1300"
-msgstr "z.B. 110"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:140
-#, fuzzy
-#| msgid "Drive type"
 msgid "Part type"
-msgstr "Laufwerkstyp"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:155
 msgid "No part types configured yet."
@@ -8650,58 +8129,42 @@ msgid "Comments"
 msgstr ""
 
 #: templates/listings/moto_part_create.html:163
-#, fuzzy
-#| msgid "Describe what is included, defects, parts condition, etc."
 msgid "Describe the part, defects, condition, compatibility, etc."
-msgstr "Beschreiben Sie, was enthalten ist, Mängel, Zustand der Teile usw."
+msgstr ""
 
 #: templates/listings/moto_part_create.html:170
 msgid "(max 36)"
 msgstr ""
 
 #: templates/listings/moto_part_create.html:289
-#, fuzzy
-#| msgid "You must agree to terms and conditions"
 msgid "I agree to the terms and conditions"
-msgstr "Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen."
+msgstr ""
 
 #: templates/listings/moto_part_create.html:343
-#, fuzzy
-#| msgid "Price is required"
 msgid "Part name is required"
-msgstr "Preis erforderlich"
+msgstr ""
 
 #: templates/listings/moto_part_create.html:350
-#, fuzzy
-#| msgid "You must agree to terms and conditions"
 msgid "You must agree to the terms"
-msgstr "Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen."
+msgstr ""
 
 #: templates/listings/moto_parts_advanced.html:5
-#, fuzzy
-#| msgid "Motorcycles & Moto Gear"
 msgid "Motorcycle Parts Search"
-msgstr "Motorräder & Motorradausrüstung"
+msgstr ""
 
 #: templates/listings/moto_parts_advanced.html:54
-#, fuzzy
-#| msgid "Motorcycles & Moto Gear"
 msgid "Motorcycle parts search"
-msgstr "Motorräder & Motorradausrüstung"
+msgstr ""
 
 #: templates/listings/moto_parts_advanced.html:60
 #: templates/listings/moto_parts_browse.html:110
 #: templates/listings/truck_parts_advanced.html:60
 #: templates/listings/truck_parts_browse.html:110
-#, fuzzy
-#| msgid "Text search"
 msgid "Text search / Part code"
-msgstr "Textsuche"
+msgstr ""
 
 #: templates/listings/moto_parts_advanced.html:90
 #: templates/listings/moto_parts_browse.html:139
-#, fuzzy
-#| msgid "Engine Capacity (cm³)"
 msgid "Engine capacity (cm³)"
 msgstr "Hubraum (cm³)"
 
@@ -8716,10 +8179,8 @@ msgstr ""
 #: templates/listings/moto_parts_browse.html:180
 #: templates/listings/truck_parts_advanced.html:131
 #: templates/listings/truck_parts_browse.html:182
-#, fuzzy
-#| msgid "/month"
 msgid "1 month"
-msgstr "/Monat"
+msgstr ""
 
 #: templates/listings/moto_parts_advanced.html:141
 #: templates/listings/moto_parts_browse.html:192
@@ -8728,25 +8189,19 @@ msgstr ""
 
 #: templates/listings/moto_parts_browse.html:5
 #: templates/listings/moto_parts_browse.html:97
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motorcycle parts"
-msgstr "Motorräder"
+msgstr ""
 
 #: templates/listings/moto_parts_browse.html:98
 #: templates/listings/truck_parts_browse.html:98
-#, fuzzy
-#| msgid "No listings found"
 msgid "listings found"
-msgstr "Keine Einträge gefunden"
+msgstr ""
 
 #: templates/listings/moto_parts_browse.html:165
 #: templates/listings/truck_parts_advanced.html:142
 #: templates/listings/truck_parts_browse.html:167
-#, fuzzy
-#| msgid "State (USA)"
 msgid "State (US)"
-msgstr "Bundesstaat (USA)"
+msgstr ""
 
 #: templates/listings/motogear_advanced.html:3
 #: templates/listings/partials/search_panel.html:73
@@ -8829,10 +8284,8 @@ msgstr ""
 
 #: templates/listings/motogear_advanced.html:59
 #: templates/listings/partials/search_panel.html:551
-#, fuzzy
-#| msgid "Combined"
 msgid "Kombinezonai"
-msgstr "Kombiniert"
+msgstr ""
 
 #: templates/listings/motogear_advanced.html:60
 #: templates/listings/partials/search_panel.html:552
@@ -8854,8 +8307,6 @@ msgid "Krepšiai, kuprinės"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:69
-#, fuzzy
-#| msgid "Kaina:"
 msgid "Kaina, $"
 msgstr "Kaina:"
 
@@ -8918,10 +8369,8 @@ msgstr ""
 
 #: templates/listings/motogear_advanced.html:82
 #: templates/listings/partials/search_panel.html:589
-#, fuzzy
-#| msgid "Material"
 msgid "Moteriškas"
-msgstr "Material"
+msgstr ""
 
 #: templates/listings/motogear_advanced.html:83
 msgid "Vaikiškas"
@@ -8981,20 +8430,16 @@ msgid "Naudota"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:134
-#, fuzzy
-#| msgid "No defects"
 msgid "Su defektais"
-msgstr "Keine Mängel"
+msgstr ""
 
 #: templates/listings/motogear_advanced.html:139
 msgid "Tipo detalė"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:146
-#, fuzzy
-#| msgid "Salvage"
 msgid "Spalva"
-msgstr "Retten"
+msgstr ""
 
 #: templates/listings/motogear_advanced.html:149
 msgid "Juoda"
@@ -9304,10 +8749,8 @@ msgid "Browse Moto Gear"
 msgstr "Stöbern Sie in der Motorradausrüstung"
 
 #: templates/listings/motogear_list.html:91
-#, fuzzy
-#| msgid "Sell Moto Gear"
 msgid "Moto Gear"
-msgstr "Motorradbekleidung verkaufen"
+msgstr ""
 
 #: templates/listings/motogear_list.html:107
 #: templates/listings/motorcycles_list.html:206
@@ -9354,8 +8797,6 @@ msgid "Untitled"
 msgstr "Ohne Titel"
 
 #: templates/listings/motogear_list.html:200
-#, fuzzy
-#| msgid "No moto gear listings found."
 msgid "No moto gear listings found"
 msgstr "Keine Angebote für Motorradbekleidung gefunden."
 
@@ -9415,10 +8856,8 @@ msgstr ""
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
-#, fuzzy
-#| msgid "Create Motorcycle Listing"
 msgid "Edit Motorcycle Listing"
-msgstr "Motorrad-Eintrag erstellen"
+msgstr ""
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
@@ -9821,40 +9260,33 @@ msgid "No motorcycle listings found"
 msgstr "Keine Motorradangebote gefunden"
 
 #: templates/listings/motorcycles_list.html:339
-#, fuzzy, python-format
-#| msgid "No motorcycle listings found"
+#, python-format
 msgid "%(counter)s motorcycle listing found"
 msgid_plural "%(counter)s motorcycle listings found"
-msgstr[0] "Keine Motorradangebote gefunden"
-msgstr[1] "Keine Motorradangebote gefunden"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/listings/motorcycles_list.html:550
-#, fuzzy
-#| msgid "Cooling Type"
 msgid "Cooling"
-msgstr "Kühlart"
+msgstr ""
 
 #: templates/listings/motorcycles_list.html:561
-#, fuzzy
-#| msgid "Engine Type"
 msgid "Engine type"
 msgstr "Motortyp"
 
 #: templates/listings/my_listings.html:61
-#, fuzzy, python-format
-#| msgid "Renew all %(count)s active listings to the top?"
+#, python-format
 msgid "Renew all %(count)s active ads to the top?"
-msgstr "Alle %(count)s aktiven Einträge wieder ganz oben anzeigen?"
+msgstr ""
 
 #: templates/listings/my_listings.html:63
 msgid "Renew all"
 msgstr "Alle erneuern"
 
 #: templates/listings/my_listings.html:64
-#, fuzzy, python-format
-#| msgid "%(count)s active listings jump to top of the list"
+#, python-format
 msgid "%(count)s active ads jump to top of the list"
-msgstr "%(count)s aktive Angebote springen an den Anfang der Liste"
+msgstr ""
 
 #: templates/listings/my_listings.html:73
 msgid "Create new"
@@ -9881,10 +9313,8 @@ msgid "Recently renewed - can renew again after 1 hour"
 msgstr "Kürzlich verlängert – kann nach 1 Stunde erneut verlängert werden."
 
 #: templates/listings/my_listings.html:268
-#, fuzzy
-#| msgid "Services"
 msgid "Order services"
-msgstr "Dienstleistungen"
+msgstr ""
 
 #: templates/listings/my_listings.html:287
 msgid "Extend"
@@ -9923,10 +9353,8 @@ msgid "Price not set"
 msgstr "Preis noch nicht festgelegt"
 
 #: templates/listings/my_listings.html:556
-#, fuzzy
-#| msgid "Listing is <strong>inactive</strong>"
 msgid "Ad is <strong>inactive</strong>"
-msgstr "Das Angebot ist <strong>inaktiv</strong>"
+msgstr ""
 
 #: templates/listings/my_listings.html:560
 msgid "Activate"
@@ -9941,54 +9369,40 @@ msgid "inactive"
 msgstr "inaktiv"
 
 #: templates/listings/my_listings.html:603
-#, fuzzy
-#| msgid "No listings in this category"
 msgid "No ads in this category"
-msgstr "In dieser Kategorie sind keine Einträge vorhanden."
+msgstr ""
 
 #: templates/listings/my_listings.html:603
-#, fuzzy
-#| msgid "No messages yet"
 msgid "No ads yet"
-msgstr "Noch keine Nachrichten"
+msgstr ""
 
 #: templates/listings/my_listings.html:607
 msgid "Try selecting \\"
 msgstr "Versuchen Sie, \\ auszuwählen."
 
 #: templates/listings/my_listings.html:609
-#, fuzzy
-#| msgid "Create your first listing to start selling."
 msgid "Create your first ad to start selling."
-msgstr "Erstellen Sie Ihr erstes Angebot, um mit dem Verkauf zu beginnen."
+msgstr ""
 
 #: templates/listings/my_listings.html:614
-#, fuzzy
-#| msgid "Create Ad"
 msgid "Create ad"
 msgstr "Anzeige erstellen"
 
 #: templates/listings/my_listings.html:632
-#, fuzzy
-#| msgid "Are you sure you want to delete this listing?"
 msgid "Are you sure you want to delete this ad?"
-msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
+msgstr ""
 
 #: templates/listings/my_listings.html:642
 msgid "I sold it"
 msgstr "Ich habe es verkauft."
 
 #: templates/listings/my_listings.html:661
-#, fuzzy
-#| msgid "Mark listing with \\"
 msgid "Mark ad with \\"
-msgstr "Eintrag mit \\ kennzeichnen"
+msgstr ""
 
 #: templates/listings/my_listings.html:684
-#, fuzzy
-#| msgid "Delete failed"
 msgid "Delete ad"
-msgstr "Löschen fehlgeschlagen"
+msgstr ""
 
 #: templates/listings/my_listings.html:702
 msgid "Are you sure you want to delete this listing?"
@@ -10027,10 +9441,8 @@ msgstr ""
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/search_panel.html:268
 #: templates/listings/partials/search_panel.html:1258
-#, fuzzy
-#| msgid "Top case"
 msgid "Top markės"
-msgstr "Topcase"
+msgstr ""
 
 #: templates/listings/partials/_sp_parts_brand.html:32
 #: templates/listings/partials/search_panel.html:279
@@ -10049,10 +9461,8 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:418
 #: templates/listings/partials/search_panel.html:1275
 #: templates/search/_panel_cars.html:16
-#, fuzzy
-#| msgid "Model"
 msgid "Modelis"
-msgstr "Modell"
+msgstr ""
 
 #: templates/listings/partials/_sp_parts_price.html:4
 #: templates/listings/partials/search_panel.html:330
@@ -10064,8 +9474,6 @@ msgstr "Modell"
 #: templates/listings/partials/search_panel.html:933
 #: templates/listings/partials/search_panel.html:1035
 #: templates/listings/partials/search_panel.html:1102
-#, fuzzy
-#| msgid "Kaina:"
 msgid "Kaina"
 msgstr "Kaina:"
 
@@ -10222,20 +9630,16 @@ msgid "Cruiser / Chopper"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:505
-#, fuzzy
-#| msgid "Street"
 msgid "Naked / Street"
-msgstr "Straße"
+msgstr ""
 
 #: templates/listings/partials/search_panel.html:506
 msgid "Enduro / Cross"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:507
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motoroleriai"
-msgstr "Motorräder"
+msgstr ""
 
 #: templates/listings/partials/search_panel.html:508
 msgid "Mopedai"
@@ -10299,10 +9703,8 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:878
 #: templates/listings/partials/search_panel.html:991
-#, fuzzy
-#| msgid "Motorcycles"
 msgid "Motociklams"
-msgstr "Motorräder"
+msgstr ""
 
 #: templates/listings/partials/search_panel.html:879
 msgid "Keturračiams"
@@ -10341,10 +9743,8 @@ msgid "Maks."
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:1170
-#, fuzzy
-#| msgid "e.g. 06H 145 601 H"
 msgid "pvz. 06H 145 601 H"
-msgstr "z.B. 06H 145 601 H"
+msgstr ""
 
 #: templates/listings/partials/search_panel.html:1208
 #: templates/listings/partials/search_panel.html:1290
@@ -10365,62 +9765,44 @@ msgid "Kraunama..."
 msgstr "Wird geladen..."
 
 #: templates/listings/parts_category_select.html:8
-#, fuzzy
-#| msgid "← Select a category"
 msgid "Car parts — Select category"
-msgstr "← Wählen Sie eine Kategorie aus"
+msgstr ""
 
 #: templates/listings/parts_category_select.html:28
-#, fuzzy
-#| msgid "Listing duration"
 msgid "Listing information"
-msgstr "Angebotsdauer"
+msgstr ""
 
 #: templates/listings/parts_category_select.html:76
-#, fuzzy
-#| msgid "Select a category"
 msgid "Search parts category..."
-msgstr "Wählen Sie eine Kategorie aus"
+msgstr ""
 
 #: templates/listings/parts_category_select.html:144
-#, fuzzy
-#| msgid "Loading..."
 msgid "Loading…"
 msgstr "Laden..."
 
 #: templates/listings/parts_category_select.html:290
-#, fuzzy
-#| msgid "Uploading..."
 msgid "Error loading."
-msgstr "Wird hochgeladen..."
+msgstr ""
 
 #: templates/listings/parts_category_select.html:312
-#, fuzzy
-#| msgid "No features available."
 msgid "No parts available"
-msgstr "Keine Funktionen verfügbar."
+msgstr ""
 
 #: templates/listings/parts_category_select.html:408
-#, fuzzy
-#| msgid "No motorcycles found"
 msgid "No matches found"
-msgstr "Keine Motorräder gefunden"
+msgstr ""
 
 #: templates/listings/rims_create.html:4
 #: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
-#, fuzzy
-#| msgid "New listing: Cars"
 msgid "New listing: Rims"
-msgstr "Neu im Angebot: Autos"
+msgstr ""
 
 #: templates/listings/rims_create.html:40
 #: templates/listings/tyres_create.html:43
 #: templates/listings/wheels_create.html:54
-#, fuzzy
-#| msgid "Manufacturer"
 msgid "Enter manufacturer"
-msgstr "Hersteller"
+msgstr ""
 
 #: templates/listings/rims_create.html:53
 #: templates/listings/tyres_create.html:66
@@ -10439,37 +9821,29 @@ msgstr ""
 
 #: templates/listings/rims_create.html:103
 #: templates/listings/wheels_create.html:238
-#, fuzzy
-#| msgid "Main details"
 msgid "Rim details"
-msgstr "Hauptdetails"
+msgstr ""
 
 #: templates/listings/rims_create.html:121
 #: templates/listings/wheels_advanced_search.html:191
 #: templates/listings/wheels_create.html:269
 #: templates/listings/wheels_list.html:190
 #: templates/listings/wheels_list.html:346
-#, fuzzy
-#| msgid "All countries"
 msgid "Bolt count"
-msgstr "Alle Länder"
+msgstr ""
 
 #: templates/listings/rims_create.html:145
 #: templates/listings/wheels_create.html:245
-#, fuzzy
-#| msgid "Width"
 msgid "Width (J)"
-msgstr "Breite"
+msgstr ""
 
 #: templates/listings/rims_create.html:157
 msgid "Center bore"
 msgstr ""
 
 #: templates/listings/rims_create.html:171
-#, fuzzy
-#| msgid "Disc brakes"
 msgid "Fits car brands"
-msgstr "Scheibenbremsen"
+msgstr ""
 
 #: templates/listings/rims_create.html:172
 msgid "e.g. Audi, BMW, VW"
@@ -10478,65 +9852,48 @@ msgstr ""
 #: templates/listings/rims_create.html:201
 #: templates/listings/tyres_create.html:232
 #: templates/listings/wheels_create.html:313
-#, fuzzy
-#| msgid "Describe the item — condition, history, why you’re selling..."
 msgid "Describe condition, wear, storage, reason for selling..."
 msgstr ""
-"Beschreiben Sie den Artikel – Zustand, Geschichte, Grund für den Verkauf..."
 
 #: templates/listings/rims_create.html:229
 #: templates/listings/tyres_create.html:262
 #: templates/listings/wheels_create.html:343
-#, fuzzy
-#| msgid "Up to 40 photos. Max size 24MB. JPG, GIF, PNG."
 msgid "Up to 20 photos. Max size 24MB. JPG, GIF, PNG."
-msgstr "Bis zu 40 Fotos. Maximale Größe 24 MB. JPG, GIF, PNG."
+msgstr ""
 
 #: templates/listings/rims_create.html:406
 #: templates/listings/tyres_create.html:443
 #: templates/listings/wheels_create.html:573
-#, fuzzy
-#| msgid "State is required"
 msgid "Manufacturer is required"
-msgstr "Der Staat ist erforderlich"
+msgstr ""
 
 #: templates/listings/rims_create.html:409
 #: templates/listings/tyres_create.html:446
 #: templates/listings/wheels_create.html:576
-#, fuzzy
-#| msgid "State is required"
 msgid "Diameter is required"
-msgstr "Der Staat ist erforderlich"
+msgstr ""
 
 #: templates/listings/rims_create.html:418
 #: templates/listings/truck_for_parts_create.html:348
-#, fuzzy
-#| msgid "Body Type is required"
 msgid "Type is required"
-msgstr "Körpertyp erforderlich"
+msgstr ""
 
 #: templates/listings/rims_create.html:419
-#, fuzzy
-#| msgid "Month is required"
 msgid "Bolt count is required"
-msgstr "Ein Monat wird benötigt"
+msgstr ""
 
 #: templates/listings/rims_create.html:421
 #: templates/listings/tyres_create.html:454
 #: templates/listings/wheels_create.html:585
 #: templates/listings/wheels_create.html:591
-#, fuzzy
-#| msgid "City is required"
 msgid "Width is required"
-msgstr "Die Stadt ist erforderlich"
+msgstr ""
 
 #: templates/listings/rims_create.html:590
 #: templates/listings/tyres_create.html:628
 #: templates/listings/wheels_create.html:804
-#, fuzzy
-#| msgid "Maximum 40 photos. Remove some first."
 msgid "Maximum 20 photos. Remove some first."
-msgstr "Maximal 40 Fotos. Entfernen Sie zunächst einige."
+msgstr ""
 
 #: templates/listings/saved_listings.html:4
 #: templates/listings/saved_listings.html:8
@@ -10647,10 +10004,8 @@ msgid "TEXT SEARCH"
 msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:91
-#, fuzzy
-#| msgid "Part Name or Code"
 msgid "Name or OEM code..."
-msgstr "Teilebezeichnung oder Code"
+msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:100
 msgid "MOTORCYCLE TYPE"
@@ -10674,69 +10029,51 @@ msgid "All states"
 msgstr "Alle Staaten"
 
 #: templates/listings/sidebar_moto_parts.html:151
-#, fuzzy
-#| msgid "Negotiable"
 msgid "Negotiable price"
-msgstr "Verhandelbar"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:4
-#, fuzzy
-#| msgid "Sell Car For Parts"
 msgid "Sell Truck For Parts"
-msgstr "Auto in Ersatzteilen verkaufen"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:23
-#, fuzzy
-#| msgid "Sell whole car for parts"
 msgid "Sell whole truck for parts"
-msgstr "Verkaufe das ganze Auto in Einzelteilen"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:82
 msgid "e.g. Actros, FH, TGX"
 msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:111
-#, fuzzy
-#| msgid "e.g. 12.0"
 msgid "e.g. 320"
-msgstr "z. B. 12.0"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:124
-#, fuzzy
-#| msgid "e.g. 12.0"
 msgid "e.g. 12.8"
-msgstr "z. B. 12.0"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:170
 #: templates/listings/truck_parts_advanced.html:153
 #: templates/listings/truck_parts_browse.html:193
-#, fuzzy
-#| msgid "Available on lease"
 msgid "Available parts"
-msgstr "Verfügbar zur Miete"
+msgstr ""
 
 #: templates/listings/truck_for_parts_create.html:171
 msgid "Tick the parts available from this truck."
 msgstr ""
 
 #: templates/listings/truck_parts_advanced.html:5
-#, fuzzy
-#| msgid "Parts search"
 msgid "Truck Parts Search"
-msgstr "Teilesuche"
+msgstr ""
 
 #: templates/listings/truck_parts_advanced.html:54
-#, fuzzy
-#| msgid "Parts search"
 msgid "Truck parts search"
-msgstr "Teilesuche"
+msgstr ""
 
 #: templates/listings/truck_parts_browse.html:5
 #: templates/listings/truck_parts_browse.html:97
-#, fuzzy
-#| msgid "Truck Details"
 msgid "Truck parts"
-msgstr "LKW-Details"
+msgstr ""
 
 #: templates/listings/trucks_advanced_search.html:5
 #: templates/listings/trucks_advanced_search.html:268
@@ -10808,9 +10145,9 @@ msgid "listings match your filters"
 msgstr "Die Einträge entsprechen Ihren Filtern."
 
 #: templates/listings/trucks_advanced_search.html:592
-#, python-format, fuzzy
+#, python-format
 msgid "Show %(count)s results"
-msgstr "%(Anzahl)s Ergebnisse anzeigen"
+msgstr ""
 
 #: templates/listings/trucks_advanced_search.html:603
 msgid "Save this search"
@@ -10907,9 +10244,9 @@ msgid "Euro"
 msgstr "Euro"
 
 #: templates/listings/trucks_list.html:680
-#, python-format, fuzzy
+#, python-format
 msgid "Showing %(shown)s of %(total)s"
-msgstr "Anzeige von %(angezeigt)s von %(gesamt)s"
+msgstr ""
 
 #: templates/listings/trucks_list.html:843
 msgid "FEATURED"
@@ -10942,9 +10279,9 @@ msgid "Status:"
 msgstr "Status:"
 
 #: templates/listings/trucks_listing_create.html:306
-#, python-format, fuzzy
+#, python-format
 msgid "Expires %(date)s"
-msgstr "Läuft ab %(Datum)s"
+msgstr ""
 
 #: templates/listings/trucks_listing_create.html:311
 msgid "View public page"
@@ -11048,10 +10385,8 @@ msgstr "Speichern fehlgeschlagen"
 #: templates/listings/tyres_create.html:4
 #: templates/listings/tyres_create.html:12
 #: templates/listings/wheels_create.html:13
-#, fuzzy
-#| msgid "New listing: Cars"
 msgid "New listing: Tyres"
-msgstr "Neu im Angebot: Autos"
+msgstr ""
 
 #: templates/listings/tyres_create.html:56
 #: templates/listings/wheels_advanced_search.html:222
@@ -11064,10 +10399,8 @@ msgstr ""
 
 #: templates/listings/tyres_create.html:118
 #: templates/listings/wheels_create.html:129
-#, fuzzy
-#| msgid "Hide details"
 msgid "Tyre details"
-msgstr "Details ausblenden"
+msgstr ""
 
 #: templates/listings/tyres_create.html:137
 #: templates/listings/wheels_create.html:148
@@ -11079,10 +10412,8 @@ msgstr ""
 #: templates/listings/wheels_advanced_search.html:130
 #: templates/listings/wheels_create.html:160
 #: templates/listings/wheels_list.html:267
-#, fuzzy
-#| msgid "Reason*"
 msgid "Season"
-msgstr "Grund*"
+msgstr ""
 
 #: templates/listings/tyres_create.html:161
 #: templates/listings/wheels_advanced_search.html:140
@@ -11092,10 +10423,8 @@ msgstr ""
 
 #: templates/listings/tyres_create.html:171
 #: templates/listings/wheels_create.html:182
-#, fuzzy
-#| msgid "Loading..."
 msgid "Load index"
-msgstr "Laden..."
+msgstr ""
 
 #: templates/listings/tyres_create.html:177
 #: templates/listings/wheels_advanced_search.html:150
@@ -11116,29 +10445,21 @@ msgstr ""
 
 #: templates/listings/tyres_create.html:455
 #: templates/listings/wheels_create.html:586
-#, fuzzy
-#| msgid "Price is required"
 msgid "Profile is required"
-msgstr "Preis erforderlich"
+msgstr ""
 
 #: templates/listings/tyres_create.html:456
 #: templates/listings/wheels_create.html:587
-#, fuzzy
-#| msgid "Year is required"
 msgid "Season is required"
-msgstr "Jahr erforderlich"
+msgstr ""
 
 #: templates/listings/wheels_advanced_search.html:63
-#, fuzzy
-#| msgid "Parts search"
 msgid "Rims search"
-msgstr "Teilesuche"
+msgstr ""
 
 #: templates/listings/wheels_advanced_search.html:63
-#, fuzzy
-#| msgid "Text search"
 msgid "Tyres search"
-msgstr "Textsuche"
+msgstr ""
 
 #: templates/listings/wheels_advanced_search.html:160
 msgid "DOT year"
@@ -11167,28 +10488,20 @@ msgid "e.g. Michelin winter set..."
 msgstr ""
 
 #: templates/listings/wheels_create.html:13
-#, fuzzy
-#| msgid "New listing: Cars"
 msgid "New listing: Tyres & Rims"
-msgstr "Neu im Angebot: Autos"
+msgstr ""
 
 #: templates/listings/wheels_list.html:5
-#, fuzzy
-#| msgid "Browse Cars"
 msgid "Browse Rims"
-msgstr "Autos durchsuchen"
+msgstr ""
 
 #: templates/listings/wheels_list.html:5
-#, fuzzy
-#| msgid "Browse Trucks"
 msgid "Browse Tyres"
-msgstr "LKWs durchsuchen"
+msgstr ""
 
 #: templates/listings/wheels_list.html:391
-#, fuzzy
-#| msgid "No listings found"
 msgid "Listings found:"
-msgstr "Keine Einträge gefunden"
+msgstr ""
 
 #: templates/listings/wheels_list.html:473
 msgid "Tread left"
@@ -11204,30 +10517,24 @@ msgid "Help Center"
 msgstr ""
 
 #: templates/pages/help_center.html:24
-#, fuzzy
-#| msgid "Personal Information"
 msgid "Help & Information"
-msgstr "Persönliche Daten"
+msgstr ""
 
 #: templates/pages/help_center.html:40
 msgid "Quick navigation"
 msgstr ""
 
 #: templates/pages/help_center.html:47
-#, fuzzy
-#| msgid "Reviews"
 msgid "Overview"
-msgstr "Rezensionen"
+msgstr ""
 
 #: templates/pages/help_center.html:52
 msgid "News & Updates"
 msgstr ""
 
 #: templates/pages/help_center.html:57
-#, fuzzy
-#| msgid "Create new"
 msgid "What's new"
-msgstr "Neu erstellen"
+msgstr ""
 
 #: templates/pages/help_center.html:62
 msgid "Market trends"
@@ -11238,10 +10545,8 @@ msgid "Tips & guides"
 msgstr ""
 
 #: templates/pages/help_center.html:72
-#, fuzzy
-#| msgid "SellCar Support"
 msgid "Help & Support"
-msgstr "AutoLeft-Support"
+msgstr ""
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -11257,20 +10562,16 @@ msgid "Advertising"
 msgstr "Werbung"
 
 #: templates/pages/help_center.html:102
-#, fuzzy
-#| msgid "Parts"
 msgid "Partners"
-msgstr "Teile"
+msgstr ""
 
 #: templates/pages/help_center.html:107
 msgid "Partners & resources"
 msgstr ""
 
 #: templates/pages/help_center.html:112
-#, fuzzy
-#| msgid "About Me"
 msgid "About & Legal"
-msgstr "Über mich"
+msgstr ""
 
 #: templates/pages/help_center.html:122
 msgid "Terms of use"
@@ -11281,10 +10582,8 @@ msgid "Privacy policy"
 msgstr "Datenschutzrichtlinie"
 
 #: templates/pages/help_center.html:148
-#, fuzzy
-#| msgid "24 hours"
 msgid "Hours"
-msgstr "24 Stunden"
+msgstr ""
 
 #: templates/pages/help_center.html:153
 msgid "Live chat"
@@ -11326,22 +10625,16 @@ msgid "You can reach us through support or social media:"
 msgstr ""
 
 #: templates/pages/help_center.html:185 templates/pages/help_center.html:193
-#, fuzzy
-#| msgid "You've reached your listing limit"
 msgid "Send us your listing link"
-msgstr "Sie haben Ihr Angebotslimit erreicht."
+msgstr ""
 
 #: templates/pages/help_center.html:186
-#, fuzzy
-#| msgid "Send message to support"
 msgid "Message support"
-msgstr "Nachricht an den Support senden"
+msgstr ""
 
 #: templates/pages/help_center.html:194
-#, fuzzy
-#| msgid "Send message to support"
 msgid "Login to message support"
-msgstr "Nachricht an den Support senden"
+msgstr ""
 
 #: templates/pages/help_center.html:201
 msgid "Instagram"
@@ -11356,10 +10649,8 @@ msgid "What's New"
 msgstr ""
 
 #: templates/pages/help_center.html:229 templates/pages/help_center.html:245
-#, fuzzy
-#| msgid "Features"
 msgid "New Feature"
-msgstr "Merkmale"
+msgstr ""
 
 #: templates/pages/help_center.html:231
 msgid "Dealer Subscriptions Launched"
@@ -11374,10 +10665,8 @@ msgid "Update"
 msgstr ""
 
 #: templates/pages/help_center.html:239
-#, fuzzy
-#| msgid "Select Vehicle Category"
 msgid "New Vehicle Categories: Trucks"
-msgstr "Fahrzeugkategorie auswählen"
+msgstr ""
 
 #: templates/pages/help_center.html:240
 msgid "You can now buy and sell heavy commercial vehicles."
@@ -11403,38 +10692,29 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:267
-#, fuzzy
-#| msgid "Most popular"
 msgid "Most popular category"
-msgstr "Am beliebtesten"
+msgstr ""
 
 #: templates/pages/help_center.html:268
-#, fuzzy
-#| msgid "Sedan"
 msgid "Sedans"
-msgstr "Limousine"
+msgstr ""
 
 #: templates/pages/help_center.html:269
-#, fuzzy, python-format
-#| msgid "Up to 50 listings"
+#, python-format
 msgid "42%% of all listings"
-msgstr "Bis zu 50 Einträge"
+msgstr ""
 
 #: templates/pages/help_center.html:272
 msgid "Average sale time"
 msgstr ""
 
 #: templates/pages/help_center.html:273
-#, fuzzy
-#| msgid "1 day"
 msgid "18 days"
-msgstr "1 Tag"
+msgstr ""
 
 #: templates/pages/help_center.html:274
-#, fuzzy
-#| msgid "All Categories"
 msgid "Across all categories"
-msgstr "Alle Kategorien"
+msgstr ""
 
 #: templates/pages/help_center.html:277
 msgid "Top selling brand"
@@ -11445,10 +10725,8 @@ msgid "Toyota"
 msgstr ""
 
 #: templates/pages/help_center.html:279
-#, fuzzy
-#| msgid "Volume"
 msgid "By volume"
-msgstr "Volumen"
+msgstr ""
 
 #: templates/pages/help_center.html:283
 msgid "What buyers are searching for"
@@ -11505,10 +10783,8 @@ msgid "Everything you need to know to sell faster and buy smarter."
 msgstr ""
 
 #: templates/pages/help_center.html:318
-#, fuzzy
-#| msgid "Position in list"
 msgid "Posting your first listing"
-msgstr "Position in der Liste"
+msgstr ""
 
 #: templates/pages/help_center.html:321
 msgid ""
@@ -11519,10 +10795,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:328
-#, fuzzy
-#| msgid "When are buyers viewing your listing?"
 msgid "Renewing your listing"
-msgstr "Wann sehen sich die Käufer Ihr Angebot an?"
+msgstr ""
 
 #: templates/pages/help_center.html:331
 msgid ""
@@ -11591,33 +10865,19 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:398
-#, fuzzy
-#| msgid "How do I create a listing?"
 msgid "How do I create an ad?"
-msgstr "Wie erstelle ich ein Angebot?"
+msgstr ""
 
 #: templates/pages/help_center.html:402
-#, fuzzy
-#| msgid ""
-#| "Click the red 'Create Ad' button at the top of any page. Choose a category "
-#| "(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
-#| "your price, and publish. The listing will be live within 5-10 minutes."
 msgid ""
 "Click the 'Create Ad' button in the top right corner, select a category, "
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
-"Klicken Sie oben auf einer beliebigen Seite auf den roten Button „Anzeige "
-"erstellen“. Wählen Sie eine Kategorie (Autos, Motorräder, Lkw usw.), geben "
-"Sie die Details ein, laden Sie Fotos hoch, legen Sie Ihren Preis fest und "
-"veröffentlichen Sie die Anzeige. Die Anzeige ist innerhalb von 5–10 Minuten "
-"online."
 
 #: templates/pages/help_center.html:407
-#, fuzzy
-#| msgid "How do I become a dealer?"
 msgid "How to become a dealer?"
-msgstr "Wie werde ich Händler?"
+msgstr ""
 
 #: templates/pages/help_center.html:411
 msgid ""
@@ -11637,10 +10897,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:425
-#, fuzzy
-#| msgid "How do I edit or delete my listing?"
 msgid "How do I delete my listing?"
-msgstr "Wie kann ich meinen Eintrag bearbeiten oder löschen?"
+msgstr ""
 
 #: templates/pages/help_center.html:429
 msgid ""
@@ -11649,8 +10907,6 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:441
-#, fuzzy
-#| msgid "Contact us"
 msgid "Contact Us"
 msgstr "Kontaktieren Sie uns"
 
@@ -11663,20 +10919,16 @@ msgid "United States based support — serving customers worldwide."
 msgstr ""
 
 #: templates/pages/help_center.html:454 templates/pages/help_center.html:460
-#, fuzzy
-#| msgid "Send message to support"
 msgid "Private message support"
-msgstr "Nachricht an den Support senden"
+msgstr ""
 
 #: templates/pages/help_center.html:455
 msgid "Start a chat — fastest response"
 msgstr ""
 
 #: templates/pages/help_center.html:461
-#, fuzzy
-#| msgid "Login to Contact"
 msgid "Login to start a chat"
-msgstr "Anmelden und Kontakt aufnehmen"
+msgstr ""
 
 #: templates/pages/help_center.html:493
 msgid "First 3 listings — FREE"
@@ -11694,10 +10946,8 @@ msgid "Private sellers — additional listings"
 msgstr ""
 
 #: templates/pages/help_center.html:507
-#, fuzzy
-#| msgid "Edit listing"
 msgid "First 3 listings"
-msgstr "Eintrag bearbeiten"
+msgstr ""
 
 #: templates/pages/help_center.html:508
 msgid "FREE"
@@ -11712,10 +10962,8 @@ msgid "Standard — 60 days"
 msgstr ""
 
 #: templates/pages/help_center.html:519
-#, fuzzy
-#| msgid "Recommended"
 msgid "Recommended — 90 days"
-msgstr "Empfohlen"
+msgstr ""
 
 #: templates/pages/help_center.html:524
 msgid ""
@@ -11724,26 +10972,18 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:528
-#, fuzzy
-#| msgid "Dealer"
 msgid "Dealers"
-msgstr "Händler"
+msgstr ""
 
 #: templates/pages/help_center.html:531
-#, fuzzy
-#| msgid "Description"
 msgid "Dealer Subscription"
-msgstr "Beschreibung"
+msgstr ""
 
 #: templates/pages/help_center.html:535
-#, fuzzy
-#| msgid "Up to 50 listings"
 msgid "Up to 30 active listings"
-msgstr "Bis zu 50 Einträge"
+msgstr ""
 
 #: templates/pages/help_center.html:536
-#, fuzzy
-#| msgid "Verified dealer badge"
 msgid "Verified Dealer badge"
 msgstr "Verifiziertes Händlerabzeichen"
 
@@ -11759,22 +10999,16 @@ msgid "WhatsApp"
 msgstr ""
 
 #: templates/pages/help_center.html:574 templates/pages/help_center.html:580
-#, fuzzy
-#| msgid "Priority support"
 msgid "Live support"
-msgstr "Prioritätsunterstützung"
+msgstr ""
 
 #: templates/pages/help_center.html:575
-#, fuzzy
-#| msgid "Priority support"
 msgid "Chat with support"
-msgstr "Prioritätsunterstützung"
+msgstr ""
 
 #: templates/pages/help_center.html:581
-#, fuzzy
-#| msgid "Login to Contact"
 msgid "Login to chat"
-msgstr "Anmelden und Kontakt aufnehmen"
+msgstr ""
 
 #: templates/pages/help_center.html:593
 msgid "Partners & Resources"
@@ -11787,10 +11021,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:600
-#, fuzzy
-#| msgid "Recommended"
 msgid "Recommended services"
-msgstr "Empfohlen"
+msgstr ""
 
 #: templates/pages/help_center.html:613
 msgid ""
@@ -11815,10 +11047,8 @@ msgid "See advertising options"
 msgstr ""
 
 #: templates/pages/help_center.html:641
-#, fuzzy
-#| msgid "Price to"
 msgid "Write to us"
-msgstr "Preis bis"
+msgstr ""
 
 #: templates/pages/help_center.html:659
 msgid ""
@@ -11843,24 +11073,18 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:673
-#, fuzzy
-#| msgid "Active"
 msgid "Active users"
-msgstr "Aktiv"
+msgstr ""
 
 #: templates/pages/help_center.html:677
-#, fuzzy
-#| msgid "Vehicle search"
 msgid "Vehicles listed"
-msgstr "Fahrzeugsuche"
+msgstr ""
 
 #: templates/pages/help_center.html:681
 msgid "Middleman fees"
 msgstr ""
 
 #: templates/pages/help_center.html:692
-#, fuzzy
-#| msgid "Terms of use"
 msgid "Terms of Use"
 msgstr "Nutzungsbedingungen"
 
@@ -11891,10 +11115,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:709
-#, fuzzy
-#| msgid "Create Account"
 msgid "3. User Accounts"
-msgstr "Benutzerkonto erstellen"
+msgstr ""
 
 #: templates/pages/help_center.html:710
 msgid ""
@@ -11904,10 +11126,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:714
-#, fuzzy
-#| msgid "No listings yet"
 msgid "4. Listings Content"
-msgstr "Noch keine Einträge"
+msgstr ""
 
 #: templates/pages/help_center.html:715
 msgid ""
@@ -11919,10 +11139,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:719
-#, fuzzy
-#| msgid "No transactions yet."
 msgid "5. Transactions Between Users"
-msgstr "Bisher keine Transaktionen."
+msgstr ""
 
 #: templates/pages/help_center.html:720
 msgid ""
@@ -11998,18 +11216,14 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:754
-#, fuzzy
-#| msgid "Contacts"
 msgid "12. Contact"
-msgstr "Kontakte"
+msgstr ""
 
 #: templates/pages/help_center.html:755
 msgid "Questions about these Terms? Email us at helpautoinfo@gmail.com."
 msgstr ""
 
 #: templates/pages/help_center.html:766
-#, fuzzy
-#| msgid "Privacy policy"
 msgid "Privacy Policy"
 msgstr "Datenschutzrichtlinie"
 
@@ -12093,10 +11307,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:808
-#, fuzzy
-#| msgid "Security"
 msgid "8. Security"
-msgstr "Sicherheit"
+msgstr ""
 
 #: templates/pages/help_center.html:809
 #, python-format
@@ -12117,10 +11329,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:818
-#, fuzzy
-#| msgid "Save Changes"
 msgid "10. Changes"
-msgstr "Änderungen speichern"
+msgstr ""
 
 #: templates/pages/help_center.html:819
 msgid ""
@@ -12129,10 +11339,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:823
-#, fuzzy
-#| msgid "Contacts"
 msgid "11. Contact"
-msgstr "Kontakte"
+msgstr ""
 
 #: templates/pages/help_center.html:824
 msgid ""
@@ -12140,10 +11348,8 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:835
-#, fuzzy
-#| msgid "Cookies"
 msgid "Cookie Policy"
-msgstr "Cookies"
+msgstr ""
 
 #: templates/pages/help_center.html:842
 msgid "What are cookies?"
@@ -12157,16 +11363,12 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:847
-#, fuzzy
-#| msgid "Cookies"
 msgid "Cookies we use"
-msgstr "Cookies"
+msgstr ""
 
 #: templates/pages/help_center.html:855
-#, fuzzy
-#| msgid "is required"
 msgid "Required?"
-msgstr "ist erforderlich"
+msgstr ""
 
 #: templates/pages/help_center.html:860
 msgid "Essential"
@@ -12193,10 +11395,8 @@ msgid "No"
 msgstr ""
 
 #: templates/pages/help_center.html:870
-#, fuzzy
-#| msgid "Analytics dashboard"
 msgid "Analytics"
-msgstr "Analyse-Dashboard"
+msgstr ""
 
 #: templates/pages/help_center.html:871
 msgid "Anonymous usage statistics (page views, errors)"
@@ -12211,10 +11411,8 @@ msgid "Stripe (payments), Google Maps (location)"
 msgstr ""
 
 #: templates/pages/help_center.html:877
-#, fuzzy
-#| msgid "(optional)"
 msgid "Optional"
-msgstr "(optional)"
+msgstr ""
 
 #: templates/pages/help_center.html:885
 msgid "How long cookies last"
@@ -12249,20 +11447,16 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:900
-#, fuzzy
-#| msgid "Have questions?"
 msgid "Questions?"
-msgstr "Haben Sie Fragen?"
+msgstr ""
 
 #: templates/pages/help_center.html:901
 msgid "Email us at helpautoinfo@gmail.com."
 msgstr ""
 
 #: templates/pages/page_simple.html:69
-#, fuzzy
-#| msgid "Coming soon (Stripe)"
 msgid "Coming Soon"
-msgstr "Demnächst verfügbar (Stripe)"
+msgstr ""
 
 #: templates/pages/page_simple.html:71
 msgid ""
@@ -12274,10 +11468,8 @@ msgid "Need information now? Reach out to us:"
 msgstr ""
 
 #: templates/pages/page_simple.html:86
-#, fuzzy
-#| msgid "Back to SellCar"
 msgid "Back to Help Center"
-msgstr "Zurück zu AutoLeft"
+msgstr ""
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"

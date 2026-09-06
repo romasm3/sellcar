@@ -137,3 +137,14 @@ VERSIJA
 
 # Vietinės patikros DB (docs/patikra/sqlite_settings.py)
 .patikra.sqlite3
+
+# ── Kas į repo nepatenka ────────────────────────────────────────────
+# .mo yra binariniai: kiekvienas dviejų šakų vertimų darbas baigdavosi
+# merge konfliktu, kurio neįmanoma perskaityti. Nuo šiol juos gamina
+# deploy'as (deploy-agent.sh → compilemessages), o šaltinis yra .po.
+*.mo
+
+# Serveriniai failai — gyvena TIK serveryje. Į repo patekę jie dingtų
+# per rollback'ą (rsync --delete) ir nutrūktų vertimas bei paštas.
+.env
+google-translate-key.json

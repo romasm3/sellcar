@@ -247,6 +247,10 @@ apply() {
   source "${VENV}/bin/activate"
   python manage.py migrate --noinput
   python manage.py collectstatic --noinput
+  # .mo failai nebelaikomi git'e (binariniai — nuolatiniai merge
+  # konfliktai), tad juos privalo pagaminti deploy'as. Be šito žingsnio
+  # svetainė liktų VISIŠKAI neišversta: .po vienas nieko nerodo.
+  python manage.py compilemessages
   deactivate
 }
 

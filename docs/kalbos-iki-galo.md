@@ -41,8 +41,10 @@ for f in locale/*/LC_MESSAGES/django.po; do msgfmt --check -o /dev/null "$f" || 
 python docs/kalbu_skeneris.py
 ```
 
-Rezultatą **sucommitink** — `.mo` failai laikomi git'e, o deploy'as
-`compilemessages` nevykdo.
+Sucommitink **`.po`** — `.mo` į repo nebepatenka (žr. `.gitignore`).
+Juos pagamina deploy'as: `deploy-agent.sh` po `collectstatic` paleidžia
+`compilemessages`. Vietoje `.mo` vis tiek reikia — be jų vietinis
+serveris rodys neišverstą tekstą.
 
 ## Ką sargyba daro
 
