@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — šoninė juosta su atidarytais sąrašais</title>
+<style>
+:root{--ink:#181B1F;--text:#1A1A1A;--muted:#6B7280;--faint:#9CA3AF;--border:#E5E7EB;
+ --strong:#D1D5DB;--soft:#F4F4F5;--acc:#D2411D;--pill:999px}
+*{box-sizing:border-box}
+body{margin:0;background:#F7F8F9;color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+ font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+
+.wrap{max-width:1200px;margin:0 auto;padding:24px}
+.hint{background:#fff;border:1px dashed var(--strong);border-radius:12px;padding:14px 16px;
+ color:var(--muted);margin-bottom:20px}
+.hint b{color:var(--text)}
+.cols{display:grid;grid-template-columns:288px minmax(0,1fr);gap:24px;align-items:start}
+
+/* ---------- JUOSTA ---------- */
+.side{background:#fff;border:1px solid var(--border);border-radius:12px;
+ /* SVARBU: jokio overflow:hidden — kitaip sąrašai nukirpiami */
+ overflow:visible}
+.blk{padding:16px;border-bottom:1px solid var(--border);position:relative}
+.blk:last-child{border-bottom:0}
+.blk h4{margin:0 0 12px;font-size:12px;font-weight:700;color:var(--muted);
+ text-transform:uppercase;letter-spacing:.5px}
+
+/* laukas */
+.fld{position:relative}
+.fld > button{width:100%;height:44px;border:1px solid var(--border);border-radius:8px;
+ background:#fff;display:flex;align-items:center;justify-content:space-between;
+ padding:0 12px;color:var(--muted);text-align:left}
+.fld > button:hover{border-color:var(--strong)}
+.fld.open > button{border-color:var(--ink)}
+.fld > button .v{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.fld.pasirinkta > button .v{color:var(--text);font-weight:500}
+.fld > button svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;
+ flex:0 0 auto;margin-left:8px;transition:transform .15s}
+.fld.open > button svg{transform:rotate(180deg)}
+
+/* ATIDARYTAS SĄRAŠAS — tiksliai po lauku, to paties pločio */
+.pan{position:absolute;top:calc(100% + 4px);left:0;right:0;   /* left+right = lauko plotis */
+ background:#fff;border:1px solid var(--border);border-radius:8px;
+ box-shadow:0 8px 24px rgba(0,0,0,.14);z-index:40;display:none;overflow:hidden}
+.fld.open .pan{display:block}
+.pan .srch{padding:8px;border-bottom:1px solid var(--border)}
+.pan .srch input{width:100%;height:36px;border:1px solid var(--border);border-radius:6px;
+ padding:0 10px;font:inherit;outline:0}
+.pan .srch input:focus{border-color:var(--ink)}
+.pan .list{max-height:264px;overflow-y:auto;overscroll-behavior:contain}
+.pan .list::-webkit-scrollbar{width:10px}
+.pan .list::-webkit-scrollbar-thumb{background:#D9D9DD;border-radius:8px;border:3px solid #fff}
+.opt{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;
+ padding:0 12px;height:40px;text-align:left}
+.opt:hover{background:var(--soft)}
+.opt input{width:16px;height:16px;accent-color:var(--ink);margin:0;flex:0 0 auto}
+.opt .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt .c{color:var(--faint);font-size:13px;flex:0 0 auto}
+.opt.on .t{font-weight:600}
+.opt.on::after{content:"";width:16px;height:16px;flex:0 0 auto;
+ background:no-repeat center/16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181B1F' stroke-width='2.4'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E")}
+.pan .foot{border-top:1px solid var(--border);padding:8px;display:flex;gap:8px}
+.pan .foot button{flex:1;height:36px;border-radius:var(--pill);border:1px solid var(--strong);
+ background:#fff;font-weight:600;font-size:13px}
+.pan .foot .pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inp{height:44px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font:inherit;
+ outline:0;width:100%}
+.inp:focus{border-color:var(--ink)}
+.chk{display:flex;align-items:center;gap:10px;height:34px;cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--ink);margin:0}
+.lnk{color:var(--acc);font-weight:600;font-size:13px;border:0;background:none;padding:0}
+.lnk:hover{text-decoration:underline}
+.go{width:100%;height:48px;border-radius:var(--pill);border:0;background:var(--ink);color:#fff;
+ font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.clr{width:100%;border:0;background:none;color:var(--muted);padding:12px 0 0;font-weight:500}
+.salis .cur{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.salis .cur .lnk{margin-left:auto}
+.fl{width:16px;height:12px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.10) inset;flex:0 0 auto}
+
+.fake{background:#fff;border:1px solid var(--border);border-radius:12px;height:220px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hint"><b>Atidaryti sąrašai.</b> Kiekvienas atsidaro tiksliai po savo lauku, to paties pločio,
+  neišlipa iš juostos ir nenukerpa teksto. Ilgi sąrašai slenka viduje. Paspausk kelis iš eilės.</div>
+
+  <div class="cols">
+    <aside class="side" id="side"></aside>
+    <main><div class="fake"></div><div class="fake"></div><div class="fake"></div></main>
+  </div>
+</div>
+
+<script>
+const LT=`<svg class="fl" viewBox="0 0 30 22" preserveAspectRatio="none"><rect width="30" height="7.33" fill="#FDB913"/><rect y="7.33" width="30" height="7.33" fill="#006A44"/><rect y="14.66" width="30" height="7.34" fill="#C1272D"/></svg>`;
+const CHEV='<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+
+/* tipai: vienas (radio sąrašas), keli (varnelės + paieška), nuoiki (du laukeliai), varnelės */
+const BLOKAI=[
+ {h:"Šalis", tipas:"salis"},
+ {h:"Markė", tipas:"keli", srch:true, o:[["Volkswagen",812],["BMW",704],["Audi",651],["Toyota",498],["Mercedes-Benz",462],["Opel",341],["Škoda",298],["Nissan",210],["Ford",188],["Renault",164],["Peugeot",151],["Honda",132]]},
+ {h:"Modelis", tipas:"keli", srch:true, o:[["Golf",96],["Passat",88],["A4",74],["320d",61],["Octavia",57],["Astra",44]]},
+ {h:"Metai", tipas:"nuoiki"},
+ {h:"Kaina, €", tipas:"nuoiki"},
+ {h:"Kuro tipas", tipas:"keli", o:[["Benzinas",1812],["Dyzelinas",2104],["Benzinas / dujos",286],["Hibridas",604],["Elektra",301],["Benzinas / elektra",142]]},
+ {h:"Kėbulo tipas", tipas:"keli", srch:true, o:[["Sedanas",980],["Universalas",1120],["Hečbekas",860],["Visureigis",740],["Kupė",180],["Kabrioletas",64],["Vienatūris",210],["Pikapas",88]]},
+ {h:"Pavarų dėžė", tipas:"keli", o:[["Automatinė",2410],["Mechaninė",1980]]},
+ {h:"Galia, kW", tipas:"nuoiki"},
+ {h:"Rida, km", tipas:"nuoiki"},
+ {h:"Varantieji ratai", tipas:"vienas", o:[["Visi",0],["Priekiniai",2140],["Galiniai",640],["Visi varantys",480]]},
+ {h:"Vairo padėtis", tipas:"vienas", o:[["Visi",0],["Kairėje",4210],["Dešinėje",96]]},
+ {h:"Defektai", tipas:"vienas", o:[["Visi",0],["Be defektų",3980],["Daužtas",164],["Degęs",22],["Pavarų dėžės defektas",18],["Pažeistas krušos",31],["Skendęs",7],["Variklio defektas",44],["Kiti smulkūs defektai",88],["Kiti stambūs defektai",26]]},
+ {h:"Durų skaičius", tipas:"vienas", o:[["Visi",0],["2/3",210],["4/5",3940],["6/7",64]]},
+ {h:"Sėdimų vietų skaičius", tipas:"vienas", o:[["Visi",0],["2",88],["4",240],["5",3810],["7",164]]},
+ {h:"Spalva", tipas:"keli", srch:true, o:[["Balta",640],["Juoda",980],["Pilka",720],["Sidabrinė",540],["Mėlyna",410],["Raudona",260],["Žalia",120],["Ruda",96]]},
+ {h:"Euro standartas", tipas:"vienas", o:[["Visi",0],["Euro 6",1840],["Euro 5",1210],["Euro 4",640],["Euro 3",210]]},
+ {h:"Pirmosios registracijos šalis", tipas:"keli", srch:true, o:[["Lietuva",1240],["Vokietija",2140],["Nyderlandai",410],["Didžioji Britanija",188],["Jungtinės Valstijos",96],["Prancūzija",164],["Belgija",142]]},
+ {h:"Miestas", tipas:"keli", srch:true, o:[["Vilnius",1842],["Kaunas",1104],["Klaipėda",612],["Šiauliai",388],["Panevėžys",291],["Alytus",154],["Marijampolė",121],["Utena",98]]},
+ {h:"Pardavėjo tipas", tipas:"vienas", o:[["Visi",0],["Privatus asmuo",3120],["Įmonė",1701]]},
+ {h:"Ypatybės", tipas:"varneles", o:["Domina keitimas","Garantija","Parduodama lizingu","Paruoštas autosportui","Pritaikytas neįgaliems","Skelbimas su VIN"]},
+];
+
+const nr=n=>n.toLocaleString('lt-LT').replace(/ /g,' ');
+
+function laukas(b,i){
+  const daug=b.o.length>8||b.srch;
+  const eil=b.o.map((o,j)=>{
+    const [pav,kiek]=Array.isArray(o)?o:[o,0];
+    if(b.tipas==='keli')
+      return `<label class="opt"><input type="checkbox"><span class="t">${pav}</span>${kiek?`<span class="c">${nr(kiek)}</span>`:''}</label>`;
+    return `<button class="opt${j===0?' on':''}" data-vienas><span class="t">${pav}</span>${kiek?`<span class="c">${nr(kiek)}</span>`:''}</button>`;
+  }).join('');
+  return `<div class="fld" data-fld>
+    <button data-tog><span class="v">Visi</span>${CHEV}</button>
+    <div class="pan">
+      ${daug?'<div class="srch"><input placeholder="Paieška..."></div>':''}
+      <div class="list">${eil}</div>
+      ${b.tipas==='keli'?'<div class="foot"><button>Išvalyti</button><button class="pri">Taikyti</button></div>':''}
+    </div>
+  </div>`;
+}
+
+document.getElementById('side').innerHTML = BLOKAI.map((b,i)=>{
+  if(b.tipas==='salis')
+    return `<div class="blk salis"><h4>Šalis</h4>
+      <div class="cur"><span>Lithuania</span>${LT}<button class="lnk">Keisti</button></div></div>`;
+  if(b.tipas==='nuoiki')
+    return `<div class="blk"><h4>${b.h}</h4>
+      <div class="two"><input class="inp" placeholder="Nuo"><input class="inp" placeholder="Iki"></div></div>`;
+  if(b.tipas==='varneles')
+    return `<div class="blk"><h4>${b.h}</h4>
+      ${b.o.map(t=>`<label class="chk"><input type="checkbox"><span>${t}</span></label>`).join('')}</div>`;
+  return `<div class="blk"><h4>${b.h}</h4>${laukas(b,i)}</div>`;
+}).join('')
+ + `<div class="blk"><button class="go">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+      Filtruoti · 7</button><button class="clr">Išvalyti</button></div>`;
+
+/* atidarymas — vienu metu tik vienas */
+document.addEventListener('click',e=>{
+  const tog=e.target.closest('[data-tog]');
+  document.querySelectorAll('[data-fld].open').forEach(f=>{
+    if(!tog||f!==tog.closest('[data-fld]'))f.classList.remove('open');
+  });
+  if(tog){
+    const f=tog.closest('[data-fld]');
+    f.classList.toggle('open');
+    const s=f.querySelector('.srch input'); if(s&&f.classList.contains('open'))s.focus();
+    return;
+  }
+  const v=e.target.closest('[data-vienas]');
+  if(v){
+    const f=v.closest('[data-fld]');
+    f.querySelectorAll('.opt').forEach(x=>x.classList.remove('on'));
+    v.classList.add('on');
+    const t=v.querySelector('.t').textContent;
+    f.querySelector('.v').textContent=t;
+    f.classList.toggle('pasirinkta',t!=='Visi');
+    f.classList.remove('open');
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')
+  document.querySelectorAll('[data-fld].open').forEach(f=>f.classList.remove('open'))});
+
+/* varnelių suvestinė lauke */
+document.addEventListener('change',e=>{
+  const f=e.target.closest('[data-fld]'); if(!f)return;
+  const pas=[...f.querySelectorAll('.opt input:checked')].map(x=>x.closest('.opt').querySelector('.t').textContent);
+  f.querySelector('.v').textContent = pas.length? (pas.length===1?pas[0]:pas[0]+' +'+(pas.length-1)) : 'Visi';
+  f.classList.toggle('pasirinkta',pas.length>0);
+});
+
+/* paieška sąraše */
+document.addEventListener('input',e=>{
+  if(!e.target.closest('.srch'))return;
+  const f=e.target.closest('[data-fld]'), t=e.target.value.trim().toLowerCase();
+  f.querySelectorAll('.list .opt').forEach(o=>{
+    o.style.display = o.querySelector('.t').textContent.toLowerCase().includes(t)?'':'none';
+  });
+});
+
+/* vienas atidarytas iš karto, kad matytųsi */
+document.querySelectorAll('[data-fld]')[10].classList.add('open');
+</script>
+</body>
+</html>
