@@ -15,8 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: apps/accounts/antispam.py:35
 msgid "Naudokite nuolatinį el. pašto adresą"
@@ -423,7 +422,7 @@ msgstr "Tests"
 
 #: apps/imones/models.py:149 apps/listings/translatable_db.py:2409
 msgid "Įmonė"
-msgstr ""
+msgstr "Uzņēmums"
 
 #: apps/imones/models.py:150 apps/imones/views.py:288
 #: apps/listings/paieskos_siulymai.py:208
@@ -517,7 +516,7 @@ msgstr "Klaipēda"
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
-msgstr ""
+msgstr "uzņēmums"
 
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
@@ -665,7 +664,8 @@ msgstr "Nosacījums ir obligāts"
 #: apps/listings/loading_views.py:143 apps/listings/rental_views.py:452
 #: apps/listings/rental_views.py:481 apps/listings/trailers_views.py:283
 #: apps/listings/truck_for_parts_views.py:231
-#: apps/listings/truck_for_parts_views.py:275 apps/listings/trucks_views.py:638
+#: apps/listings/truck_for_parts_views.py:275
+#: apps/listings/trucks_views.py:638
 #: templates/listings/agriculture_listing_create.html:776
 #: templates/listings/bicycles_listing_create.html:758
 #: templates/listings/camping_listing_create.html:869
@@ -689,13 +689,15 @@ msgstr "Agregāts/pašgājējs ir obligāts"
 #: apps/listings/car_for_parts_views.py:239
 #: apps/listings/car_for_parts_views.py:301
 #: apps/listings/construction_views.py:329 apps/listings/forestry_views.py:127
-#: apps/listings/loading_views.py:148 apps/listings/moto_for_parts_views.py:222
+#: apps/listings/loading_views.py:148
+#: apps/listings/moto_for_parts_views.py:222
 #: apps/listings/moto_for_parts_views.py:284
 #: apps/listings/moto_part_views.py:83 apps/listings/motorcycles_views.py:741
 #: apps/listings/rental_views.py:190 apps/listings/trailers_views.py:289
 #: apps/listings/truck_for_parts_views.py:227
-#: apps/listings/truck_for_parts_views.py:271 apps/listings/trucks_views.py:640
-#: apps/listings/views.py:3556 apps/listings/views.py:6954
+#: apps/listings/truck_for_parts_views.py:271
+#: apps/listings/trucks_views.py:640 apps/listings/views.py:3556
+#: apps/listings/views.py:6954
 #: templates/listings/agriculture_listing_create.html:778
 #: templates/listings/camping_listing_create.html:870
 #: templates/listings/construction_listing_create.html:772
@@ -937,8 +939,9 @@ msgstr "Šī veidlapa ir paredzēta tikai tūristu namu sludinājumiem."
 
 #: apps/listings/camping_views.py:165 apps/listings/rental_views.py:195
 #: apps/listings/truck_for_parts_views.py:229
-#: apps/listings/truck_for_parts_views.py:273 apps/listings/trucks_views.py:642
-#: apps/listings/views.py:3558 apps/listings/views.py:6962
+#: apps/listings/truck_for_parts_views.py:273
+#: apps/listings/trucks_views.py:642 apps/listings/views.py:3558
+#: apps/listings/views.py:6962
 #: templates/listings/camping_listing_create.html:871
 #: templates/listings/rental_car_create.html:782
 #: templates/listings/rental_heavy_create.html:746
@@ -959,7 +962,7 @@ msgstr "Būvniecības tehnikas kategorija nav konfigurēta."
 #: apps/listings/context_processors.py:208
 #: apps/listings/translatable_db.py:2434 templates/base.html:1007
 msgid "Įmonės ir servisai"
-msgstr ""
+msgstr "Uzņēmumi un pakalpojumi"
 
 #: apps/listings/context_processors.py:209
 msgid "Finansavimas"
@@ -980,17 +983,17 @@ msgstr "Raksti"
 #: apps/listings/context_processors.py:213
 #: apps/listings/translatable_db.py:2472
 msgid "Pagalba"
-msgstr ""
+msgstr "Palīdzība"
 
 #: apps/listings/context_processors.py:214
 #: apps/listings/translatable_db.py:2473
 msgid "Apie mus"
-msgstr ""
+msgstr "Par mums"
 
 #: apps/listings/context_processors.py:215
 #: apps/listings/translatable_db.py:2474
 msgid "Partneriai"
-msgstr ""
+msgstr "Partneri"
 
 #: apps/listings/context_processors.py:216
 msgid "PRO pardavimas"
@@ -1015,7 +1018,8 @@ msgstr "Mežsaimniecības tehnikas kategorija nav konfigurēta."
 
 #: apps/listings/forestry_views.py:96
 msgid "Ši forma skirta tik miško ūkio technikos skelbimams."
-msgstr "Šī veidlapa ir paredzēta tikai mežsaimniecības tehnikas sludinājumiem."
+msgstr ""
+"Šī veidlapa ir paredzēta tikai mežsaimniecības tehnikas sludinājumiem."
 
 #: apps/listings/forms.py:22 apps/listings/models.py:54
 #: apps/listings/models.py:692
@@ -1327,7 +1331,7 @@ msgstr "Valsts uzņēmums Regitra"
 #: templates/listings/wheels_list.html:99
 #: templates/listings/wheels_list.html:103
 msgid "Ratlankiai"
-msgstr ""
+msgstr "Diski"
 
 #: apps/listings/forms.py:228 templates/listings/advanced_search.html:337
 #: templates/listings/listing_create.html:624
@@ -1465,7 +1469,8 @@ msgstr ""
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
 #, python-format
 msgid ""
-"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP failai."
+"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
+"failai."
 msgstr ""
 "Nederīgs faila formāts: '%(name)s'. Atļauti tikai JPG, PNG un WEBP faili."
 
@@ -1681,7 +1686,7 @@ msgstr "Komerciāls"
 
 #: apps/listings/models.py:359
 msgid "Convertible"
-msgstr ""
+msgstr "Kabriolets"
 
 #: apps/listings/models.py:360
 msgid "Limousine"
@@ -1701,15 +1706,16 @@ msgstr "Kravas automašīna/mikroautobuss"
 
 #: apps/listings/models.py:363 apps/listings/translatable_db.py:2454
 msgid "Kombi mikroautobusas"
-msgstr ""
+msgstr "Kombinētais mikroautobuss"
 
 #: apps/listings/models.py:364 apps/listings/translatable_db.py:2455
 msgid "Savadarbis auto"
-msgstr ""
+msgstr "Savadarbis auto"
 
 #: apps/listings/models.py:370 apps/listings/models.py:398
 #: apps/listings/models.py:410 apps/listings/models.py:418
-#: apps/listings/models.py:2874 templates/listings/car_for_parts_create.html:57
+#: apps/listings/models.py:2874
+#: templates/listings/car_for_parts_create.html:57
 #: templates/listings/car_for_parts_create.html:67
 #: templates/listings/car_for_parts_create.html:77
 #: templates/listings/car_for_parts_create.html:91
@@ -2659,7 +2665,7 @@ msgstr "Dīzeļdzinējs"
 #: apps/listings/models.py:811 apps/listings/models.py:2943
 #: apps/listings/translatable_db.py:67
 msgid "Electric"
-msgstr ""
+msgstr "Elektrisks"
 
 #: apps/listings/models.py:812
 msgid "No engine"
@@ -2677,15 +2683,18 @@ msgstr "Benzīna divtaktu iekšējais dzinējs"
 msgid "Boat engine type"
 msgstr "Laivas dzinēja tips"
 
-#: apps/listings/models.py:818 templates/listings/boats_listing_create.html:222
+#: apps/listings/models.py:818
+#: templates/listings/boats_listing_create.html:222
 msgid "Liftable engine"
 msgstr "Paceļams dzinējs"
 
-#: apps/listings/models.py:819 templates/listings/boats_listing_create.html:226
+#: apps/listings/models.py:819
+#: templates/listings/boats_listing_create.html:226
 msgid "Propeller"
 msgstr "Propellers"
 
-#: apps/listings/models.py:820 templates/listings/boats_listing_create.html:230
+#: apps/listings/models.py:820
+#: templates/listings/boats_listing_create.html:230
 msgid "Water turbine"
 msgstr "Ūdens turbīna"
 
@@ -2805,7 +2814,7 @@ msgstr ">3 asis"
 #: apps/listings/models.py:870 apps/listings/models.py:1080
 #: apps/listings/translatable_db.py:1721 apps/listings/translatable_db.py:2394
 msgid "Mechaninė"
-msgstr ""
+msgstr "Mehānisks"
 
 #: apps/listings/models.py:871
 msgid "Pneumatinė"
@@ -2884,11 +2893,12 @@ msgstr "Mērķis"
 #: templates/listings/rental_heavy_create.html:55
 #: templates/listings/rental_minibus_create.html:55
 #: templates/listings/rental_moto_create.html:56
-#: templates/listings/search_map.html:77 templates/listings/search_map.html:180
+#: templates/listings/search_map.html:77
+#: templates/listings/search_map.html:180
 #: templates/listings/trailers_listing_create.html:65
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
-msgstr ""
+msgstr "Zīmols"
 
 #: apps/listings/models.py:887 apps/listings/models.py:983
 #: apps/listings/models.py:1100 apps/listings/translatable_db.py:2365
@@ -2918,11 +2928,12 @@ msgstr ""
 #: templates/listings/rental_heavy_create.html:75
 #: templates/listings/rental_minibus_create.html:75
 #: templates/listings/rental_moto_create.html:76
-#: templates/listings/search_map.html:89 templates/listings/search_map.html:183
+#: templates/listings/search_map.html:89
+#: templates/listings/search_map.html:183
 #: templates/listings/trailers_listing_create.html:86
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
-msgstr ""
+msgstr "Modelis"
 
 #: apps/listings/models.py:891 templates/listings/listing_detail.html:1447
 #: templates/listings/trailers_listing_create.html:123
@@ -3397,7 +3408,7 @@ msgstr "Hidrauliskā – 4x4"
 #: apps/listings/models.py:1081 apps/listings/translatable_db.py:1624
 #: apps/listings/translatable_db.py:2393
 msgid "Automatinė"
-msgstr ""
+msgstr "Automātiska"
 
 #: apps/listings/models.py:1082
 msgid "Elektromechaninė"
@@ -3626,15 +3637,15 @@ msgstr "Ūdens transports"
 #: templates/listings/partials/_panel_bodies.html:859
 #: templates/listings/rental_moto_create.html:25
 msgid "Motociklų nuoma"
-msgstr ""
+msgstr "Motociklu noma"
 
 #: apps/listings/models.py:1264 apps/listings/translatable_db.py:2452
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "Pasažieru mikroautobuss"
 
 #: apps/listings/models.py:1265 apps/listings/translatable_db.py:2453
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "Kravas furgons"
 
 #: apps/listings/models.py:1269
 msgid "Autotraukinys"
@@ -3669,7 +3680,7 @@ msgstr "Nomas cena stundā"
 #: templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
-msgstr ""
+msgstr "Vietu skaits"
 
 #: apps/listings/models.py:1292 templates/listings/rental_car_create.html:224
 #: templates/listings/rental_moto_create.html:177
@@ -4012,7 +4023,7 @@ msgstr "Pirmās reģistrācijas datums"
 #: templates/listings/rental_moto_create.html:166
 #: templates/listings/search_map.html:181 templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
-msgstr ""
+msgstr "Degvielas veids"
 
 #: apps/listings/models.py:1482 apps/listings/translatable_db.py:926
 #: apps/listings/translatable_db.py:2370
@@ -4023,7 +4034,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:132
 #: templates/listings/rental_minibus_create.html:183
 msgid "Pavarų dėžė"
-msgstr ""
+msgstr "Ātrumkārba"
 
 #: apps/listings/models.py:1484 apps/listings/translatable_db.py:756
 #: apps/listings/translatable_db.py:2369
@@ -4031,7 +4042,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
-msgstr ""
+msgstr "Ķermeņa tips"
 
 #: apps/listings/models.py:1491 apps/listings/models.py:3053
 #: templates/listings/partials/panel_trucks.html:70
@@ -4050,7 +4061,7 @@ msgstr "Krāsa (pielāgota)"
 #: templates/listings/listing_detail.html:555
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
-msgstr ""
+msgstr "Durvju skaits"
 
 #: apps/listings/models.py:1545
 msgid "Subtype (custom)"
@@ -4060,7 +4071,8 @@ msgstr "Apakštips (pielāgots)"
 msgid "Size (custom)"
 msgstr "Izmērs (pielāgots)"
 
-#: apps/listings/models.py:1560 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:1560
+#: templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:93
 #: templates/listings/rims_create.html:29
 #: templates/listings/tyres_create.html:32
@@ -4125,12 +4137,14 @@ msgstr "Dzinēja kods"
 msgid "Gearbox Code"
 msgstr "Pārnesumkārbas kods"
 
-#: apps/listings/models.py:1648 templates/listings/car_for_parts_create.html:99
+#: apps/listings/models.py:1648
+#: templates/listings/car_for_parts_create.html:99
 #: templates/listings/listing_detail.html:2114
 msgid "Version"
 msgstr "Versija"
 
-#: apps/listings/models.py:1653 templates/listings/car_for_parts_create.html:82
+#: apps/listings/models.py:1653
+#: templates/listings/car_for_parts_create.html:82
 #: templates/listings/listing_detail.html:2108
 msgid "Modification"
 msgstr "Modifikācija"
@@ -4271,7 +4285,7 @@ msgstr "Skatīta reklāma"
 #: templates/listings/perziureti.html:3 templates/listings/perziureti.html:22
 #: templates/listings/perziureti.html:26
 msgid "Peržiūrėti skelbimai"
-msgstr ""
+msgstr "Skatīt reklāmas"
 
 #: apps/listings/models.py:2384 apps/listings/views.py:82
 msgid "Interior"
@@ -4424,11 +4438,11 @@ msgstr "Pavasaris / pavasaris"
 
 #: apps/listings/models.py:2931 apps/listings/translatable_db.py:67
 msgid "Manual"
-msgstr ""
+msgstr "Manuāli"
 
 #: apps/listings/models.py:2932 apps/listings/translatable_db.py:66
 msgid "Automatic"
-msgstr ""
+msgstr "Automātiska"
 
 #: apps/listings/models.py:2933 apps/listings/translatable_db.py:70
 msgid "Semi-automatic"
@@ -4436,7 +4450,7 @@ msgstr "Pusautomātiska"
 
 #: apps/listings/models.py:2938 apps/listings/translatable_db.py:66
 msgid "Diesel"
-msgstr ""
+msgstr "Dīzelis"
 
 #: apps/listings/models.py:2939
 msgid "Petrol / Gasoline"
@@ -4456,7 +4470,7 @@ msgstr "Sašķidrinātā dabasgāze (LNG)"
 
 #: apps/listings/models.py:2944
 msgid "Hybrid"
-msgstr ""
+msgstr "Hibrīds"
 
 #: apps/listings/models.py:2945
 msgid "Hydrogen"
@@ -4558,7 +4572,7 @@ msgstr "Komerciāls / No"
 
 #: apps/listings/models.py:3846 apps/listings/translatable_db.py:58
 msgid "Trucks"
-msgstr ""
+msgstr "Kravas automašīnas"
 
 #: apps/listings/models.py:3847 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:152
@@ -4735,7 +4749,7 @@ msgstr "Saraksts atjaunināts."
 #: templates/listings/partials/_panel_bodies.html:1050
 #: templates/listings/partials/_panel_bodies.html:1134
 msgid "Tekstinė paieška"
-msgstr ""
+msgstr "Teksta meklēšana"
 
 #: apps/listings/motogear_views.py:942
 msgid "Markė, modelis, raktažodis..."
@@ -4816,7 +4830,7 @@ msgstr "Kaina:"
 #: templates/listings/motogear_advanced.html:183
 #: templates/partials/_salis.html:48
 msgid "Šalis"
-msgstr ""
+msgstr "Valsts"
 
 #: apps/listings/motorcycles_views.py:454
 msgid "Failed to save draft."
@@ -4907,8 +4921,9 @@ msgstr "Populārākie zīmoli"
 msgid "Markės ir modeliai"
 msgstr "Markas un modeļi"
 
-#: apps/listings/paieskos_siulymai.py:272 apps/listings/translatable_db.py:2424
-#: templates/imones/_skirtukai.html:11 templates/imones/sarasas.html:217
+#: apps/listings/paieskos_siulymai.py:272
+#: apps/listings/translatable_db.py:2424 templates/imones/_skirtukai.html:11
+#: templates/imones/sarasas.html:217
 #: templates/listings/advanced_search.html:153
 #: templates/listings/partials/_panel_bodies.html:128
 #: templates/listings/partials/_panel_bodies.html:216
@@ -4980,7 +4995,7 @@ msgstr "Piederumi, Tūnings"
 #: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
 #: apps/listings/translatable_db.py:2478 apps/listings/zemelapio_views.py:406
 msgid "Naujausi"
-msgstr ""
+msgstr "Jaunākais"
 
 #: apps/listings/perziureti_views.py:36
 msgid "Seniausi"
@@ -4994,7 +5009,7 @@ msgstr "Lētākais"
 #: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
 #: apps/listings/translatable_db.py:2480 apps/listings/zemelapio_views.py:409
 msgid "Brangiausi"
-msgstr ""
+msgstr "Visdārgākais"
 
 #: apps/listings/rental_views.py:155
 msgid "Transporto nuomos kategorija nesukonfigūruota."
@@ -5017,7 +5032,7 @@ msgstr "Dienas nomas maksa ir obligāta."
 #: templates/listings/partials/_panel_bodies.html:862
 #: templates/listings/rental_car_create.html:25
 msgid "Automobilių nuoma"
-msgstr ""
+msgstr "Automašīnu noma"
 
 #: apps/listings/rental_views.py:353 apps/listings/translatable_db.py:47
 #: templates/listings/partials/_panel_bodies.html:858
@@ -5387,7 +5402,7 @@ msgstr "Auto"
 #: templates/listings/partials/_panel_bodies.html:28
 #: templates/listings/partials/search_panel.html:47
 msgid "Motociklai"
-msgstr ""
+msgstr "Motocikli"
 
 #: apps/listings/search_config/panels.py:288
 msgid "Ratai"
@@ -5409,7 +5424,7 @@ msgstr "Smags tr."
 #: apps/listings/search_config/panels.py:292
 #: apps/listings/translatable_db.py:2441
 msgid "Priekabos"
-msgstr ""
+msgstr "Piekabes"
 
 #: apps/listings/search_config/panels.py:293
 msgid "Nuoma"
@@ -5420,7 +5435,8 @@ msgid "Audio"
 msgstr "Audio"
 
 #: apps/listings/search_config/panels.py:302
-#: apps/listings/skelbimai_views.py:33 templates/listings/listing_list.html:346
+#: apps/listings/skelbimai_views.py:33
+#: templates/listings/listing_list.html:346
 #: templates/listings/motogear_list.html:65
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/_panel_bodies.html:359
@@ -5536,8 +5552,8 @@ msgstr "Visi modeļi"
 #: templates/listings/partials/_zemelapio_filtrai.html:98
 #: templates/listings/partials/fields/_range.html:15
 #: templates/listings/partials/fields/_range.html:36
-#: templates/listings/wheels_list.html:132 templates/search/_panel_cars.html:24
-#: templates/search/_panel_cars.html:33
+#: templates/listings/wheels_list.html:132
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
 msgstr "No"
 
@@ -5561,8 +5577,8 @@ msgstr "No"
 #: templates/listings/partials/_zemelapio_filtrai.html:99
 #: templates/listings/partials/fields/_range.html:21
 #: templates/listings/partials/fields/_range.html:39
-#: templates/listings/wheels_list.html:138 templates/search/_panel_cars.html:28
-#: templates/search/_panel_cars.html:35
+#: templates/listings/wheels_list.html:138
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
 msgstr "Līdz"
 
@@ -5587,7 +5603,7 @@ msgstr "Pakalpojuma veids ir obligāts."
 
 #: apps/listings/skelbimai_views.py:26 apps/listings/translatable_db.py:2479
 msgid "Populiariausi"
-msgstr ""
+msgstr "Populārākais"
 
 #: apps/listings/skelbimai_views.py:63 apps/listings/views.py:1316
 #: apps/listings/views.py:1331 apps/listings/views.py:1459
@@ -5618,7 +5634,8 @@ msgstr "Šī veidlapa ir paredzēta tikai treileru reklāmām."
 msgid "Paskirtis yra privaloma"
 msgstr "Obligāti jānorāda galamērķis"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:341
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:341
 #: templates/listings/listing_list.html:378
 #: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_advanced_search.html:145
@@ -5628,7 +5645,8 @@ msgstr "Obligāti jānorāda galamērķis"
 msgid "Cars"
 msgstr "Automašīnas"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:342
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:342
 #: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_advanced_search.html:146
 #: templates/listings/motorcycles_list.html:148
@@ -5637,7 +5655,8 @@ msgstr "Automašīnas"
 msgid "Minibuses, Buses & Campers"
 msgstr "Mikroautobusi, autobusi un kemperi"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:343
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:343
 #: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_advanced_search.html:144
 #: templates/listings/motorcycles_list.html:149
@@ -5647,7 +5666,8 @@ msgstr "Mikroautobusi, autobusi un kemperi"
 msgid "Motorcycles & Moto Gear"
 msgstr "Motocikli un moto aprīkojums"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:344
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:344
 #: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_advanced_search.html:147
 #: templates/listings/motorcycles_list.html:150
@@ -5659,7 +5679,8 @@ msgstr "Motocikli un moto aprīkojums"
 msgid "Trucks & Commercial"
 msgstr "Kravas automašīnas un komerctransports"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:347
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:347
 #: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:59
@@ -5683,7 +5704,8 @@ msgstr "Riepas un diski"
 msgid "Boats & Water Transport"
 msgstr "Laivas un ūdens transports"
 
-#: apps/listings/translatable_db.py:17 templates/listings/listing_list.html:350
+#: apps/listings/translatable_db.py:17
+#: templates/listings/listing_list.html:350
 #: templates/listings/motogear_list.html:68
 #: templates/listings/motorcycles_advanced_search.html:149
 #: templates/listings/motorcycles_list.html:155
@@ -5692,7 +5714,8 @@ msgstr "Laivas un ūdens transports"
 msgid "Trailers & Semi-trailers"
 msgstr "Piekabes un puspiekabes"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:351
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:351
 #: templates/listings/motogear_list.html:69
 #: templates/listings/motorcycles_list.html:156
 #: templates/listings/partials/search_rail.html:76
@@ -5700,7 +5723,8 @@ msgstr "Piekabes un puspiekabes"
 msgid "Construction & Warehouse Equipment"
 msgstr "Būvniecības un noliktavu aprīkojums"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:352
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:352
 #: templates/listings/motogear_list.html:70
 #: templates/listings/motorcycles_list.html:157
 #: templates/listings/partials/search_rail.html:77
@@ -5708,7 +5732,8 @@ msgstr "Būvniecības un noliktavu aprīkojums"
 msgid "Agricultural & Forestry"
 msgstr "Lauksaimniecība un mežsaimniecība"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:353
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:353
 #: templates/listings/motogear_list.html:71
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/partials/search_rail.html:78
@@ -5716,7 +5741,8 @@ msgstr "Lauksaimniecība un mežsaimniecība"
 msgid "Bicycles & Scooters"
 msgstr "Velosipēdi un skrejriteņi"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:354
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:354
 #: templates/listings/motogear_list.html:72
 #: templates/listings/motorcycles_list.html:159
 #: templates/listings/partials/search_rail.html:79
@@ -5724,7 +5750,8 @@ msgstr "Velosipēdi un skrejriteņi"
 msgid "Services"
 msgstr "Pakalpojumi"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:355
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:355
 #: templates/listings/motogear_list.html:73
 #: templates/listings/motorcycles_list.html:160
 #: templates/listings/partials/search_rail.html:80
@@ -5732,7 +5759,8 @@ msgstr "Pakalpojumi"
 msgid "Car Rental"
 msgstr "Auto noma"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:356
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:356
 #: templates/listings/motogear_list.html:74
 #: templates/listings/motorcycles_list.html:161
 #: templates/listings/partials/search_rail.html:81
@@ -5740,7 +5768,8 @@ msgstr "Auto noma"
 msgid "Planes & Aircraft"
 msgstr "Lidmašīnas un lidaparāti"
 
-#: apps/listings/translatable_db.py:20 templates/listings/listing_list.html:357
+#: apps/listings/translatable_db.py:20
+#: templates/listings/listing_list.html:357
 #: templates/listings/motogear_list.html:75
 #: templates/listings/motorcycles_list.html:162
 #: templates/listings/trucks_list.html:182
@@ -5751,19 +5780,19 @@ msgstr "Lidmašīnu detaļas"
 #: apps/listings/views.py:2463
 #: templates/listings/partials/_panel_bodies.html:315
 msgid "Vilkikai"
-msgstr ""
+msgstr "Traktori"
 
 #: apps/listings/translatable_db.py:20 apps/listings/translatable_db.py:2421
 #: apps/listings/views.py:2465
 #: templates/listings/partials/_panel_bodies.html:316
 msgid "Autotraukiniai, autovežiai"
-msgstr ""
+msgstr "Autovilcieni, autovedēji"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
 #: apps/listings/translatable_db.py:2422 apps/listings/views.py:2466
 #: templates/listings/partials/_panel_bodies.html:317
 msgid "Komunalinio ūkio transportas"
-msgstr ""
+msgstr "Pašvaldības transports"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:1707
 #: templates/listings/loading_equipment_create.html:25
@@ -5787,7 +5816,7 @@ msgstr "Mežsaimniecības tehnika"
 #: templates/listings/camping_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:933
 msgid "Turistiniai nameliai"
-msgstr ""
+msgstr "Tūristu kajītes"
 
 #: apps/listings/translatable_db.py:33
 #: templates/listings/rental_minibus_create.html:25
@@ -5798,7 +5827,7 @@ msgstr "Mikroautobusu, tūristu, ūdens transportlīdzekļu noma"
 #: templates/listings/construction_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:754
 msgid "Statybinė technika"
-msgstr ""
+msgstr "Celtniecības tehnika"
 
 #: apps/listings/translatable_db.py:38
 msgid "Aircraft Accessories"
@@ -5838,7 +5867,7 @@ msgstr "Buldozeri"
 
 #: apps/listings/translatable_db.py:39
 msgid "Buses"
-msgstr ""
+msgstr "Autobusi"
 
 #: apps/listings/translatable_db.py:40
 msgid "Campers"
@@ -6022,7 +6051,7 @@ msgstr "Puspiekabes / Vilcēji"
 
 #: apps/listings/translatable_db.py:55
 msgid "Semi-trailers"
-msgstr ""
+msgstr "Puspiekabes"
 
 #: apps/listings/translatable_db.py:55
 #: templates/listings/sidebar_moto_parts.html:20
@@ -6095,11 +6124,11 @@ msgstr "CVT"
 
 #: apps/listings/translatable_db.py:66
 msgid "Diesel / Electric (Hybrid)"
-msgstr ""
+msgstr "Dīzelis/elektriskais (hibrīds)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Diesel / Electric (Plug-in)"
-msgstr ""
+msgstr "Dīzeļdegviela / elektriskā (pieslēdzama)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Ethanol"
@@ -6107,27 +6136,27 @@ msgstr "Etanols"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol"
-msgstr ""
+msgstr "Benzīns"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / CNG"
-msgstr ""
+msgstr "Benzīns / Saspiestā dabasgāze"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / Electric (Hybrid)"
-msgstr ""
+msgstr "Benzīns/Elektriskais (hibrīds)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric (Plug-in)"
-msgstr ""
+msgstr "Benzīns/Elektriskais (pieslēdzams)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric / LPG"
-msgstr ""
+msgstr "Benzīns / Elektro / LPG"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / LPG"
-msgstr ""
+msgstr "Benzīns / Sašķidrinātā naftas gāze (LPG)"
 
 #: apps/listings/translatable_db.py:76 apps/listings/translatable_db.py:1872
 msgid "360° vaizdo kamera"
@@ -7403,7 +7432,7 @@ msgstr "Darba tilpums cm³"
 #: apps/listings/translatable_db.py:396 apps/listings/translatable_db.py:1651
 #: apps/listings/translatable_db.py:2407
 msgid "Daužtas"
-msgstr ""
+msgstr "Salauzts"
 
 #: apps/listings/translatable_db.py:397
 msgid "Deflektorius variklio dangčio"
@@ -8824,7 +8853,8 @@ msgstr "Radiatora paneļa (TV) kronšteins"
 
 #: apps/listings/translatable_db.py:765
 msgid "Laikiklis/ kronšteinas išorinės atidarymo rankenos bagažinės durų"
-msgstr "Bagāžas nodalījuma durvju ārējā atvēršanas roktura turētājs/kronšteins"
+msgstr ""
+"Bagāžas nodalījuma durvju ārējā atvēršanas roktura turētājs/kronšteins"
 
 #: apps/listings/translatable_db.py:766
 msgid "Laikiklis/ kronšteinas išorinės atidarymo rankenos galinių durų"
@@ -9281,7 +9311,7 @@ msgstr "Papildu bremžu signāls"
 
 #: apps/listings/translatable_db.py:894 apps/listings/translatable_db.py:2384
 msgid "Pardavėjo tipas"
-msgstr ""
+msgstr "Pārdevēja veids"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
@@ -9561,7 +9591,7 @@ msgstr "Plecu ventilators/pūtējs"
 
 #: apps/listings/translatable_db.py:967 apps/listings/translatable_db.py:2381
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "Pirmās reģistrācijas valsts"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -11328,7 +11358,7 @@ msgstr "Stūres rata pozīcijas vadības poga"
 
 #: apps/listings/translatable_db.py:1424 apps/listings/translatable_db.py:2375
 msgid "Vairo padėtis"
-msgstr ""
+msgstr "Stūres rata pozīcija"
 
 #: apps/listings/translatable_db.py:1425
 msgid "Vairo rato ašies komplektas"
@@ -12020,7 +12050,7 @@ msgstr "Kajaks/Kanoe"
 
 #: apps/listings/translatable_db.py:1636 apps/listings/translatable_db.py:2406
 msgid "Be defektų"
-msgstr ""
+msgstr "Bez defektiem"
 
 #: apps/listings/translatable_db.py:1637
 msgid "Benzinas/Gamtinės dujos"
@@ -12048,7 +12078,7 @@ msgstr "Degus"
 
 #: apps/listings/translatable_db.py:1653 apps/listings/translatable_db.py:2440
 msgid "Dešinėje"
-msgstr ""
+msgstr "Pa labi"
 
 #: apps/listings/translatable_db.py:1654
 msgid "Diagnostikos įranga"
@@ -12080,7 +12110,7 @@ msgstr "Dzīvnieku pārvadāšanai"
 
 #: apps/listings/translatable_db.py:1675 apps/listings/translatable_db.py:2397
 msgid "Hečbekas"
-msgstr ""
+msgstr "Hečbeks"
 
 #: apps/listings/translatable_db.py:1682
 msgid "Išmetimo sistemos Tuning dalys"
@@ -12096,7 +12126,7 @@ msgstr "Juodkrante"
 
 #: apps/listings/translatable_db.py:1685 apps/listings/translatable_db.py:2439
 msgid "Kairėje"
-msgstr ""
+msgstr "Kreisajā pusē"
 
 #: apps/listings/translatable_db.py:1686
 msgid "Kaišiadorys"
@@ -12135,7 +12165,7 @@ msgstr "Citi būtiski defekti"
 
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
-msgstr ""
+msgstr "Komerciālais transportlīdzeklis (ar kabīni)"
 
 #: apps/listings/translatable_db.py:1705
 msgid "Konteinerių sunkvežimis"
@@ -12175,7 +12205,7 @@ msgstr "Melnais ērkšķis"
 
 #: apps/listings/translatable_db.py:1727
 msgid "Miško technika"
-msgstr ""
+msgstr "Mežsaimniecības tehnika"
 
 #: apps/listings/translatable_db.py:1732
 msgid "Mišrus"
@@ -12370,7 +12400,7 @@ msgstr "Šasijas tūninga detaļas"
 
 #: apps/listings/translatable_db.py:1830 apps/listings/translatable_db.py:2401
 msgid "Vienatūris"
-msgstr ""
+msgstr "Vienatūris"
 
 #: apps/listings/translatable_db.py:1832
 msgid "Vilkaviškis"
@@ -13717,7 +13747,7 @@ msgstr "Šasijas detaļas"
 #: templates/listings/trailers_listing_create.html:93
 #: templates/listings/trailers_listing_create.html:253
 msgid "Metai"
-msgstr ""
+msgstr "Gads"
 
 #: apps/listings/translatable_db.py:2371
 #: templates/listings/listing_detail.html:503
@@ -13729,30 +13759,30 @@ msgstr ""
 #: templates/listings/partials/_card_params.html:27
 #: templates/listings/search_map.html:180
 msgid "Rida"
-msgstr ""
+msgstr "Rinda"
 
 #: apps/listings/translatable_db.py:2372
 msgid "Galia, kW"
-msgstr ""
+msgstr "Gallijs, kW"
 
 #: apps/listings/translatable_db.py:2373
 #: templates/listings/listing_detail.html:579
 #: templates/listings/listing_detail.html:1936
 #: templates/listings/listing_detail.html:1986
 msgid "Darbinis tūris"
-msgstr ""
+msgstr "Pārvietojums"
 
 #: apps/listings/translatable_db.py:2374
 #: templates/listings/camping_listing_create.html:281
 #: templates/listings/listing_detail.html:757
 msgid "Varantieji ratai"
-msgstr ""
+msgstr "Piedziņas riteņi"
 
 #: apps/listings/translatable_db.py:2376
 #: templates/listings/camping_listing_create.html:308
 #: templates/listings/listing_detail.html:773
 msgid "Defektai"
-msgstr ""
+msgstr "Defekti"
 
 #: apps/listings/translatable_db.py:2379
 #: templates/listings/bicycles_listing_create.html:138
@@ -13771,14 +13801,14 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:148
 #: templates/listings/trailers_listing_create.html:239
 msgid "Spalva"
-msgstr ""
+msgstr "Krāsa"
 
 #: apps/listings/translatable_db.py:2380
 #: templates/listings/listing_detail.html:1451
 #: templates/listings/partials/_panel_bodies.html:652
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
-msgstr ""
+msgstr "Eiro standarts"
 
 #: apps/listings/translatable_db.py:2383 templates/imones/_filtrai.html:24
 #: templates/listings/listing_detail.html:423
@@ -13787,107 +13817,107 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:105
 #: templates/listings/partials/_panel_bodies.html:993
 msgid "Miestas"
-msgstr ""
+msgstr "Pilsēta"
 
 #: apps/listings/translatable_db.py:2385
 msgid "Ypatybės"
-msgstr ""
+msgstr "Funkcijas"
 
 #: apps/listings/translatable_db.py:2386
 msgid "Nuo / Iki"
-msgstr ""
+msgstr "No / Uz"
 
 #: apps/listings/translatable_db.py:2387
 msgid "Visi / Visos"
-msgstr ""
+msgstr "Visi / Visi"
 
 #: apps/listings/translatable_db.py:2388
 msgid "Benzinas"
-msgstr ""
+msgstr "Benzīns"
 
 #: apps/listings/translatable_db.py:2389
 msgid "Dyzelinas"
-msgstr ""
+msgstr "Dīzelis"
 
 #: apps/listings/translatable_db.py:2390
 msgid "Benzinas / dujos"
-msgstr ""
+msgstr "Benzīns/gāze"
 
 #: apps/listings/translatable_db.py:2391
 msgid "Hibridas"
-msgstr ""
+msgstr "Hibrīds"
 
 #: apps/listings/translatable_db.py:2392
 msgid "Elektra"
-msgstr ""
+msgstr "Elektra"
 
 #: apps/listings/translatable_db.py:2395
 msgid "Sedanas"
-msgstr ""
+msgstr "Sedans"
 
 #: apps/listings/translatable_db.py:2396
 msgid "Universalas"
-msgstr ""
+msgstr "Universālis"
 
 #: apps/listings/translatable_db.py:2398
 msgid "Visureigis / Krosoveris"
-msgstr ""
+msgstr "Apvidus auto / Krosovers"
 
 #: apps/listings/translatable_db.py:2399
 msgid "Kupė"
-msgstr ""
+msgstr "Kupeja"
 
 #: apps/listings/translatable_db.py:2400
 msgid "Kabrioletas"
-msgstr ""
+msgstr "Kabriolets"
 
 #: apps/listings/translatable_db.py:2402
 msgid "Kairėje / Dešinėje"
-msgstr ""
+msgstr "Kreisais/Labais"
 
 #: apps/listings/translatable_db.py:2403
 msgid "Priekiniai"
-msgstr ""
+msgstr "Priekšpuse"
 
 #: apps/listings/translatable_db.py:2404
 msgid "Galiniai"
-msgstr ""
+msgstr "Aizmugure"
 
 #: apps/listings/translatable_db.py:2405
 msgid "Visi varantys"
-msgstr ""
+msgstr "Visa braukšana"
 
 #: apps/listings/translatable_db.py:2408
 #: templates/listings/listing_list.html:936
 msgid "Privatus asmuo"
-msgstr ""
+msgstr "Privātpersona"
 
 #: apps/listings/translatable_db.py:2410 apps/listings/views.py:562
 #: apps/listings/views.py:1803 apps/listings/views.py:2408
 #: templates/listings/partials/_panel_bodies.html:18
 msgid "Automobiliai"
-msgstr ""
+msgstr "Automašīnas"
 
 #: apps/listings/translatable_db.py:2412 apps/listings/views.py:2462
 #: templates/listings/partials/_panel_bodies.html:318
 #: templates/listings/trucks_advanced_search.html:275
 msgid "Sunkvežimiai"
-msgstr ""
+msgstr "Kravas automašīnas"
 
 #: apps/listings/translatable_db.py:2414 apps/listings/views.py:2464
 #: templates/listings/partials/_panel_bodies.html:314
 msgid "Autobusai"
-msgstr ""
+msgstr "Autobusi"
 
 #: apps/listings/translatable_db.py:2415
 #: templates/listings/partials/_panel_bodies.html:597
 #: templates/listings/trailers_listing_create.html:25
 msgid "Priekabos / Puspriekabės"
-msgstr ""
+msgstr "Piekabes / Puspiekabes"
 
 #: apps/listings/translatable_db.py:2416
 msgid "Žemės ūkio technika"
-msgstr ""
+msgstr "Lauksaimniecības tehnika"
 
 #: apps/listings/translatable_db.py:2419 apps/listings/views.py:1458
 #: templates/listings/advanced_generic.html:125
@@ -13899,17 +13929,17 @@ msgstr ""
 #: templates/listings/partials/fields/_brand.html:57
 #: templates/listings/partials/search_panel.html:339
 msgid "Visos markės"
-msgstr ""
+msgstr "Visi zīmoli"
 
 #: apps/listings/translatable_db.py:2420
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:740
 msgid "Žemės ūkio technika, padargai"
-msgstr ""
+msgstr "Lauksaimniecības tehnika, darbarīki"
 
 #: apps/listings/translatable_db.py:2423
 msgid "Limuzinų, vestuvių transportas"
-msgstr ""
+msgstr "Limuzīns, kāzu transports"
 
 #: apps/listings/translatable_db.py:2425 templates/base.html:817
 #: templates/listings/partials/_my_searches.html:28
@@ -13917,18 +13947,18 @@ msgstr ""
 #: templates/listings/saved_searches.html:25
 #: templates/listings/saved_searches.html:29
 msgid "Mano paieškos"
-msgstr ""
+msgstr "Mani meklējumi"
 
 #: apps/listings/translatable_db.py:2426 apps/listings/zemelapio_views.py:424
 msgid "Tik Lietuvoje"
-msgstr ""
+msgstr "Tikai Lietuvā"
 
 #: apps/listings/translatable_db.py:2428
 #: templates/listings/motorcycles_list.html:508
 #: templates/listings/partials/sidebar_generic.html:140
 #: templates/listings/wheels_list.html:180
 msgid "Filtruoti"
-msgstr ""
+msgstr "Filtrs"
 
 #: apps/listings/translatable_db.py:2429 templates/imones/sarasas.html:50
 #: templates/imones/sarasas.html:112 templates/imones/sarasas.html:182
@@ -13937,7 +13967,7 @@ msgstr ""
 #: templates/listings/partials/sidebar_generic.html:143
 #: templates/partials/_paieskos_juosta.html:142
 msgid "Išvalyti"
-msgstr ""
+msgstr "Skaidrs"
 
 #: apps/listings/translatable_db.py:2430 templates/partials/_salis.html:134
 #: templates/partials/_salis.html:146
@@ -13946,13 +13976,13 @@ msgstr "Mainīt valsti"
 
 #: apps/listings/translatable_db.py:2432 templates/base.html:498
 msgid "Įkelti"
-msgstr ""
+msgstr "Augšupielādēt"
 
 #: apps/listings/translatable_db.py:2433 templates/base.html:544
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:29
 msgid "Žinutės"
-msgstr ""
+msgstr "Ziņojumi"
 
 #: apps/listings/translatable_db.py:2438
 #: templates/listings/motogear_advanced.html:185
@@ -13966,118 +13996,118 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:310
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
-msgstr ""
+msgstr "Visi"
 
 #: apps/listings/translatable_db.py:2442
 msgid "Puspriekabės"
-msgstr ""
+msgstr "Puspiekabes"
 
 #: apps/listings/translatable_db.py:2446
 msgid "Benzinas / elektra (hibridas)"
-msgstr ""
+msgstr "Benzīns/elektriskais (hibrīds)"
 
 #: apps/listings/translatable_db.py:2447
 msgid "Benzinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "Benzīna/elektriskais (uzlādējams)"
 
 #: apps/listings/translatable_db.py:2448
 msgid "Benzinas / elektra / dujos"
-msgstr ""
+msgstr "Benzīns / elektrība / gāze"
 
 #: apps/listings/translatable_db.py:2449
 msgid "Benzinas / gamtinės dujos"
-msgstr ""
+msgstr "Benzīns/dabasgāze"
 
 #: apps/listings/translatable_db.py:2450
 msgid "Dyzelinas / elektra (hibridas)"
-msgstr ""
+msgstr "Dīzeļdzinējs/elektriskais (hibrīds)"
 
 #: apps/listings/translatable_db.py:2451
 msgid "Dyzelinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "Dīzeļdegviela/elektriskā (uzlādējama)"
 
 #: apps/listings/translatable_db.py:2456
 msgid "Žemės ūkio"
-msgstr ""
+msgstr "Lauksaimniecības"
 
 #: apps/listings/translatable_db.py:2457
 msgid "Autovežiai"
-msgstr ""
+msgstr "Auto pārvadātāji"
 
 #: apps/listings/translatable_db.py:2458
 msgid "Komunalinis"
-msgstr ""
+msgstr "Komunāls"
 
 #: apps/listings/translatable_db.py:2459
 msgid "Limuzinų nuoma"
-msgstr ""
+msgstr "Limuzīnu noma"
 
 #: apps/listings/translatable_db.py:2460
 msgid "Mikroautob. nuoma"
-msgstr ""
+msgstr "Mikroautobusu noma"
 
 #: apps/listings/translatable_db.py:2461
 msgid "Sunkiojo nuoma"
-msgstr ""
+msgstr "Smago iekārtu noma"
 
 #: apps/listings/translatable_db.py:2462
 msgid "Video, audio, navi"
-msgstr ""
+msgstr "Es redzu, es dzirdu, esmu laivā."
 
 #: apps/listings/translatable_db.py:2463
 msgid "Auto supirkimas"
-msgstr ""
+msgstr "Automašīnas iegāde"
 
 #: apps/listings/translatable_db.py:2464
 msgid "Krovimo technika"
-msgstr ""
+msgstr "Iekraušanas aprīkojums"
 
 #: apps/listings/translatable_db.py:2465
 msgid "Statybos priedai"
-msgstr ""
+msgstr "Būvniecības piederumi"
 
 #: apps/listings/translatable_db.py:2466
 msgid "Vandens transp."
-msgstr ""
+msgstr "Ūdens transports"
 
 #: apps/listings/translatable_db.py:2467
 msgid "Dviračiai"
-msgstr ""
+msgstr "Velosipēdi"
 
 #: apps/listings/translatable_db.py:2468 templates/base.html:806
 msgid "Sukurti skelbimą"
-msgstr ""
+msgstr "Izveidot reklāmu"
 
 #: apps/listings/translatable_db.py:2469 templates/base.html:810
 msgid "Prisijungti"
-msgstr ""
+msgstr "Pieslēgties"
 
 #: apps/listings/translatable_db.py:2471 templates/base.html:834
 #: templates/imones/sarasas.html:218 templates/listings/search_map.html:3
 #: templates/listings/search_map.html:6
 msgid "Žemėlapio paieška"
-msgstr ""
+msgstr "Kartes meklēšana"
 
 #: apps/listings/translatable_db.py:2475 templates/base.html:463
 #: templates/base.html:871 templates/partials/_kalbos.html:26
 #: templates/partials/_kalbos.html:52
 msgid "Kalba"
-msgstr ""
+msgstr "Valoda"
 
 #: apps/listings/translatable_db.py:2476
 #: templates/listings/partials/fields/_model.html:59
 msgid "Pirma pasirinkite markę"
-msgstr ""
+msgstr "Vispirms izvēlieties zīmolu"
 
 #: apps/listings/translatable_db.py:2477
 #: templates/listings/listing_list.html:1161
 msgid "Dienos pasiūlymai"
-msgstr ""
+msgstr "Dienas piedāvājumi"
 
 #: apps/listings/translatable_db.py:2481
 #: templates/listings/listing_list.html:1208
 msgid "Šiandien naujų skelbimų dar nėra."
-msgstr ""
+msgstr "Šodien nav jaunu reklāmu."
 
 #: apps/listings/translatable_db.py:2482
 #: templates/listings/listing_list.html:1213
@@ -14086,37 +14116,37 @@ msgstr ""
 #: templates/listings/listing_list.html:1323
 #: templates/listings/listing_list.html:1359
 msgid "Žiūrėti visus"
-msgstr ""
+msgstr "Skatīt visu"
 
 #: apps/listings/translatable_db.py:2483 templates/imones/_filtrai.html:45
 #: templates/listings/listing_list.html:1377
 msgid "Visos įmonės"
-msgstr ""
+msgstr "Visi uzņēmumi"
 
 #: apps/listings/translatable_db.py:2484 templates/404.html:3
 msgid "Puslapis nerastas"
-msgstr ""
+msgstr "Lapa nav atrasta"
 
 #: apps/listings/translatable_db.py:2485 templates/404.html:13
 msgid "Tokio puslapio nėra"
-msgstr ""
+msgstr "Tādas lapas nav."
 
 #: apps/listings/translatable_db.py:2486 templates/404.html:14
 msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
-msgstr ""
+msgstr "Saite, iespējams, ir novecojusi vai reklāma ir noņemta."
 
 #: apps/listings/translatable_db.py:2487 templates/404.html:16
 msgid "Į pradžią"
-msgstr ""
+msgstr "Atpakaļ uz augšu"
 
 #: apps/listings/translatable_db.py:2488 templates/404.html:17
 #: templates/listings/partials/_perziuretu_sarasas.html:11
 msgid "Naršyti skelbimus"
-msgstr ""
+msgstr "Pārlūkot reklāmas"
 
 #: apps/listings/translatable_db.py:2489 templates/base.html:659
 msgid "Registruotis"
-msgstr ""
+msgstr "Reģistrēties"
 
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
@@ -14529,7 +14559,8 @@ msgstr "Arābu"
 msgid "Korean"
 msgstr "Korejiešu"
 
-#: templates/accounts/become_dealer.html:3 templates/pages/help_center.html:541
+#: templates/accounts/become_dealer.html:3
+#: templates/pages/help_center.html:541
 msgid "Become a Dealer"
 msgstr "Kļūsti par dīleri"
 
@@ -14637,7 +14668,8 @@ msgstr "Vai nepieciešams vairāk sludinājumu?"
 msgid "Talk to us about volume pricing or partnership opportunities."
 msgstr "Runājiet ar mums par apjoma cenām vai partnerības iespējām."
 
-#: templates/accounts/become_dealer.html:96 templates/pages/help_center.html:82
+#: templates/accounts/become_dealer.html:96
+#: templates/pages/help_center.html:82
 msgid "Contact us"
 msgstr "Sazinieties ar mums"
 
@@ -14736,9 +14768,9 @@ msgstr "Mani sludinājumi"
 msgid "Manage your inventory"
 msgstr "Pārvaldiet savu inventāru"
 
-#: templates/accounts/dealer_dashboard.html:92 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:612
-#: templates/base.html:750
+#: templates/accounts/dealer_dashboard.html:92
+#: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
+#: templates/base.html:612 templates/base.html:750
 msgid "Wallet"
 msgstr "Maka"
 
@@ -15076,7 +15108,8 @@ msgstr "Baneris"
 msgid "Recommended: 1920x400px"
 msgstr "Ieteicamais: 1920x400 pikseļi"
 
-#: templates/accounts/dealer_setup.html:70 templates/pages/help_center.html:656
+#: templates/accounts/dealer_setup.html:70
+#: templates/pages/help_center.html:656
 msgid "About Us"
 msgstr "Par mums"
 
@@ -15448,10 +15481,8 @@ msgstr "Nevar būt tikai skaitlisks"
 
 #: templates/accounts/register.html:113
 msgid ""
-"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Terms of Service</a>\n"
-"                            and <a href=\"#\" class=\"text-primary hover:"
-"text-primary-dark\">Privacy Policy</a>"
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
 msgstr ""
 "Es piekrītu <a href=\"#\" class=\"text-primary hover:text-primary-"
 "dark\">pakalpojumu sniegšanas noteikumiem</a> un <a href=\"#\" class=\"text-"
@@ -15827,8 +15858,8 @@ msgstr "Papildiniet savu kontu"
 
 #: templates/accounts/wallet.html:37
 msgid ""
-"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and "
-"cross-posting."
+"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and"
+" cross-posting."
 msgstr ""
 "Punkti ir virtuāla AutoLeft valūta. Izmantojiet tos bonusiem, izceltām "
 "reklāmām un savstarpējai publicēšanai."
@@ -15898,7 +15929,8 @@ msgstr "Tips"
 msgid "Amount"
 msgstr "Summa"
 
-#: templates/accounts/wallet.html:128 templates/listings/wheels_detail.html:223
+#: templates/accounts/wallet.html:128
+#: templates/listings/wheels_detail.html:223
 msgid "Status"
 msgstr "Statuss"
 
@@ -15923,7 +15955,8 @@ msgid "My Searches"
 msgstr "Mani meklējumi"
 
 #: templates/base.html:575 templates/base.html:728
-#: templates/listings/my_listings.html:6 templates/listings/my_listings.html:47
+#: templates/listings/my_listings.html:6
+#: templates/listings/my_listings.html:47
 msgid "My Ads"
 msgstr "Manas reklāmas"
 
@@ -16079,8 +16112,8 @@ msgstr "Saruna"
 #: templates/listings/listing_create.html:117
 #: templates/listings/listing_create.html:154
 #: templates/listings/partials/_my_searches.html:31
-#: templates/listings/select_value.html:18 templates/listings/skelbimai.html:30
-#: templates/listings/skelbimai.html:78
+#: templates/listings/select_value.html:18
+#: templates/listings/skelbimai.html:30 templates/listings/skelbimai.html:78
 #: templates/partials/_paieskos_juosta.html:43
 msgid "Atgal"
 msgstr "Atpakaļ"
@@ -16288,8 +16321,8 @@ msgid ""
 "expiration, listings are kept in your account for 160 days before being "
 "automatically deleted."
 msgstr ""
-"Sludinājumi ir aktīvi 30 dienas. Tos var atjaunot jebkurā laikā. Pēc termiņa "
-"beigām sludinājumi tiek glabāti jūsu kontā 160 dienas, pirms tie tiek "
+"Sludinājumi ir aktīvi 30 dienas. Tos var atjaunot jebkurā laikā. Pēc termiņa"
+" beigām sludinājumi tiek glabāti jūsu kontā 160 dienas, pirms tie tiek "
 "automātiski dzēsti."
 
 #: templates/faq.html:48
@@ -16302,7 +16335,8 @@ msgid ""
 "seller's phone number is shown if they have enabled it."
 msgstr ""
 "Atveriet jebkuru sludinājumu un izmantojiet pogas “Sūtīt ziņojumu” vai "
-"“Sūtīt e-pastu”. Pārdevēja tālruņa numurs tiek parādīts, ja tas ir iespējots."
+"“Sūtīt e-pastu”. Pārdevēja tālruņa numurs tiek parādīts, ja tas ir "
+"iespējots."
 
 #: templates/faq.html:58
 msgid "How does the wallet work?"
@@ -16329,9 +16363,9 @@ msgid ""
 "or Enterprise) and subscribe. You'll get unlimited listings, a branded "
 "dealer page, custom logo, and featured placement."
 msgstr ""
-"Apmeklējiet lapu “Dīleris” sava konta izvēlnē. Izvēlieties plānu (Basic, Pro "
-"vai Enterprise) un abonējiet. Jūs saņemsiet neierobežotu skaitu sludinājumu, "
-"zīmola dīlera lapu, pielāgotu logotipu un izceltu izvietojumu."
+"Apmeklējiet lapu “Dīleris” sava konta izvēlnē. Izvēlieties plānu (Basic, Pro"
+" vai Enterprise) un abonējiet. Jūs saņemsiet neierobežotu skaitu "
+"sludinājumu, zīmola dīlera lapu, pielāgotu logotipu un izceltu izvietojumu."
 
 #: templates/faq.html:78
 msgid "How do I change my password?"
@@ -16658,7 +16692,8 @@ msgstr "Zvanīt"
 msgid "Rašyti žinutę"
 msgstr "Uzrakstīt ziņojumu"
 
-#: templates/imones/sarasas.html:36 templates/partials/_paieskos_juosta.html:50
+#: templates/imones/sarasas.html:36
+#: templates/partials/_paieskos_juosta.html:50
 msgid "Visos paslaugos"
 msgstr "Visi pakalpojumi"
 
@@ -16964,15 +16999,16 @@ msgstr "Detaļas nosaukums vai kods"
 
 #: templates/listings/advanced_search.html:426
 msgid "Text search: name, OEM, engine code, gearbox code..."
-msgstr "Teksta meklēšana: nosaukums, OEM, dzinēja kods, pārnesumkārbas kods..."
+msgstr ""
+"Teksta meklēšana: nosaukums, OEM, dzinēja kods, pārnesumkārbas kods..."
 
 #: templates/listings/advanced_search.html:430
 msgid ""
 "Searches: Title, Description, OEM Code, Engine Code, Gearbox Code, "
 "Modification"
 msgstr ""
-"Meklēšana: Nosaukums, Apraksts, OEM kods, Dzinēja kods, Pārnesumkārbas kods, "
-"Modifikācija"
+"Meklēšana: Nosaukums, Apraksts, OEM kods, Dzinēja kods, Pārnesumkārbas kods,"
+" Modifikācija"
 
 #: templates/listings/advanced_search.html:485
 msgid "Compatible With (Vehicle)"
@@ -18139,7 +18175,8 @@ msgstr "Augšupielādēt fotoattēlus"
 #: templates/listings/boats_listing_create.html:321
 #: templates/listings/listing_create_cars_quick.html:567
 msgid "Up to 40 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr "Līdz 40 fotoattēliem. Maksimālais izmērs 20 MB. JPG, GIF, PNG formāti."
+msgstr ""
+"Līdz 40 fotoattēliem. Maksimālais izmērs 20 MB. JPG, GIF, PNG formāti."
 
 #: templates/listings/boats_listing_create.html:328
 #: templates/listings/boats_listing_create.html:722
@@ -18884,8 +18921,8 @@ msgstr "Galvenais"
 #: templates/listings/listing_create.html:313
 msgid "💡 Hover over photo to see options. Click photo to enlarge."
 msgstr ""
-"💡 Novietojiet kursoru virs fotoattēla, lai skatītu opcijas. Noklikšķiniet "
-"uz fotoattēla, lai to palielinātu."
+"💡 Novietojiet kursoru virs fotoattēla, lai skatītu opcijas. Noklikšķiniet uz"
+" fotoattēla, lai to palielinātu."
 
 #: templates/listings/listing_create.html:328
 #: templates/listings/listing_create_cars_quick.html:537
@@ -19209,8 +19246,8 @@ msgstr "Pārdevēja veids"
 #: templates/listings/tyres_create.html:237
 #: templates/listings/wheels_create.html:320
 msgid ""
-"The fewer questions buyers have when reading your listing, the faster you'll "
-"find a buyer."
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
 msgstr ""
 "Jo mazāk jautājumu pircējiem radīsies, lasot jūsu sludinājumu, jo ātrāk jūs "
 "atradīsiet pircēju."
@@ -19228,11 +19265,11 @@ msgstr ""
 #: templates/listings/tyres_create.html:297
 #: templates/listings/wheels_create.html:367
 msgid ""
-"Not all required fields are filled in or filled in incorrectly. These fields "
-"are marked in red."
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
 msgstr ""
-"Ne visi obligātie lauki ir aizpildīti vai aizpildīti nepareizi. Šie lauki ir "
-"atzīmēti sarkanā krāsā."
+"Ne visi obligātie lauki ir aizpildīti vai aizpildīti nepareizi. Šie lauki ir"
+" atzīmēti sarkanā krāsā."
 
 #: templates/listings/listing_create_cars_quick.html:861
 #: templates/listings/rims_create.html:362
@@ -20386,7 +20423,8 @@ msgstr "Izvēlieties aktivizācijas plānu"
 
 #: templates/listings/listing_select_plan.html:62
 #: templates/listings/listing_select_plan.html:167
-#: templates/listings/wheels_list.html:232 templates/pages/help_center.html:612
+#: templates/listings/wheels_list.html:232
+#: templates/pages/help_center.html:612
 msgid "Recommended"
 msgstr "Ieteicams"
 
@@ -20552,8 +20590,8 @@ msgstr "Kļūda"
 #: templates/listings/listing_select_plan.html:712
 #: templates/listings/listing_services_order.html:284
 msgid ""
-"Your listing will appear higher in search results than others. The more star "
-"boosts you order, the higher it will be displayed."
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
 msgstr ""
 "Jūsu sludinājums meklēšanas rezultātos tiks parādīts augstāk nekā citi. Jo "
 "vairāk zvaigžņu piešķiršanas jūs pasūtīsiet, jo augstāk tas tiks parādīts."
@@ -20586,7 +20624,8 @@ msgid "Back to my ads"
 msgstr "Atpakaļ pie manām reklāmām"
 
 #: templates/listings/listing_services_order.html:21
-msgid "Boost your active listing with stars, highlight, or featured placement."
+msgid ""
+"Boost your active listing with stars, highlight, or featured placement."
 msgstr ""
 "Uzlabojiet savu aktīvo sludinājumu ar zvaigznītēm, izcelšanu vai piedāvāto "
 "izvietojumu."
@@ -20754,11 +20793,10 @@ msgstr "Sludinājums publicēts"
 
 #: templates/listings/listing_success.html:61
 #, python-format
-msgid ""
-"Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
 msgstr ""
-"Sludinājums ir derīgs <strong class=\"text-gray-900\">%(days)s dienas</"
-"strong>"
+"Sludinājums ir derīgs <strong class=\"text-gray-900\">%(days)s "
+"dienas</strong>"
 
 #: templates/listings/listing_success.html:66
 #, python-format
@@ -20793,7 +20831,8 @@ msgstr "Uzrakstiet detalizētu aprakstu, ieskaitot apkopes vēsturi"
 
 #: templates/listings/listing_success.html:162
 msgid "Set a competitive price based on similar listings"
-msgstr "Nosakiet konkurētspējīgu cenu, pamatojoties uz līdzīgiem sludinājumiem"
+msgstr ""
+"Nosakiet konkurētspējīgu cenu, pamatojoties uz līdzīgiem sludinājumiem"
 
 #: templates/listings/listing_success.html:166
 msgid "Respond quickly to buyer messages"
@@ -20944,8 +20983,8 @@ msgid ""
 "Riba — 3,5 t bendrosios masės: iki jos pakanka B kategorijos vairuotojo "
 "pažymėjimo."
 msgstr ""
-"Ierobežojums ir 3,5 tonnas pilnas masas: līdz šim ierobežojumam pietiek ar B "
-"kategorijas autovadītāja apliecību."
+"Ierobežojums ir 3,5 tonnas pilnas masas: līdz šim ierobežojumam pietiek ar B"
+" kategorijas autovadītāja apliecību."
 
 #: templates/listings/moto_for_parts_create.html:28
 msgid "Parduoti motociklą dalimis"
@@ -22346,8 +22385,8 @@ msgstr ""
 #: templates/listings/partials/_vietos_blokas.html:64
 msgid "Vieta neprivaloma, bet be jos skelbimas nepateks į žemėlapio paiešką."
 msgstr ""
-"Atrašanās vieta nav obligāta, taču bez tās jūsu reklāma netiks rādīta kartes "
-"meklēšanā."
+"Atrašanās vieta nav obligāta, taču bez tās jūsu reklāma netiks rādīta kartes"
+" meklēšanā."
 
 #: templates/listings/partials/_vietos_blokas.html:68
 msgid "Vietos tikslumas"
@@ -22365,7 +22404,8 @@ msgstr "Rādīt tikai apm."
 msgid ""
 "žemėlapyje — ~500 m spindulio sritis, tikslios koordinatės viešai nerodomos"
 msgstr ""
-"kartē — ~500 m rādiusa apgabals, precīzas koordinātas publiski netiek rādītas"
+"kartē — ~500 m rādiusa apgabals, precīzas koordinātas publiski netiek "
+"rādītas"
 
 #: templates/listings/partials/_zemelapio_aikstele.html:18
 msgid "Skelbimų nerasta"
@@ -22471,9 +22511,10 @@ msgid ""
 "hover:text-gray-900\">Terms and Conditions</a> and <a href=\"#\" "
 "class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
 msgstr ""
-"Iesniedzot, es piekrītu <a href=\"#\" class=\"text-gray-600 underline hover:"
-"text-gray-900\">Noteikumiem un nosacījumiem</a> un <a href=\"#\" "
-"class=\"text-gray-600 underline hover:text-gray-900\">Privātuma politikai</a>"
+"Iesniedzot, es piekrītu <a href=\"#\" class=\"text-gray-600 underline "
+"hover:text-gray-900\">Noteikumiem un nosacījumiem</a> un <a href=\"#\" "
+"class=\"text-gray-600 underline hover:text-gray-900\">Privātuma "
+"politikai</a>"
 
 #: templates/listings/partials/fields/_brand.html:72
 msgid "Nieko nerasta"
@@ -22545,7 +22586,8 @@ msgstr "Darba tilpums (l)"
 msgid "Kuro sąnaudos (l/100 km)"
 msgstr "Degvielas patēriņš (l/100 km)"
 
-#: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
+#: templates/listings/rims_create.html:4
+#: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Rims"
 msgstr "Jauns sludinājums: Diski"
@@ -22612,7 +22654,8 @@ msgstr "Aprakstiet stāvokli, nolietojumu, glabāšanu, pārdošanas iemeslu..."
 #: templates/listings/tyres_create.html:263
 #: templates/listings/wheels_create.html:346
 msgid "Up to 20 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr "Līdz 20 fotoattēliem. Maksimālais izmērs 20 MB. JPG, GIF, PNG formāti."
+msgstr ""
+"Līdz 20 fotoattēliem. Maksimālais izmērs 20 MB. JPG, GIF, PNG formāti."
 
 #: templates/listings/rims_create.html:348
 #: templates/listings/tyres_create.html:385
@@ -22740,8 +22783,8 @@ msgid ""
 "Gauti ekrane: naujus skelbimus pažymėsime žalia žyma šiame sąraše ir "
 "pagrindiniame puslapyje"
 msgstr ""
-"Iepazīstieties ar ekrānu: jaunas reklāmas tiks atzīmētas ar zaļu atzīmi šajā "
-"sarakstā un sākumlapā."
+"Iepazīstieties ar ekrānu: jaunas reklāmas tiks atzīmētas ar zaļu atzīmi šajā"
+" sarakstā un sākumlapā."
 
 #: templates/listings/saved_searches.html:99
 msgid "El. paštu"
@@ -22750,7 +22793,8 @@ msgstr "Pa e-pastu"
 #: templates/listings/saved_searches.html:100
 msgid "Gauti el. paštu: atsiradus naujiems skelbimams atsiųsime laišką"
 msgstr ""
-"Saņemt pa e-pastu: mēs nosūtīsim jums e-pastu, kad parādīsies jaunas reklāmas"
+"Saņemt pa e-pastu: mēs nosūtīsim jums e-pastu, kad parādīsies jaunas "
+"reklāmas"
 
 #: templates/listings/saved_searches.html:115
 #: templates/listings/saved_searches.html:176
@@ -22763,8 +22807,8 @@ msgstr "Nav saglabātu meklējumu"
 
 #: templates/listings/saved_searches.html:127
 msgid ""
-"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras "
-"naujų skelbimų."
+"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras"
+" naujų skelbimų."
 msgstr ""
 "Veiciet meklēšanu un noklikšķiniet uz \"Saglabāt meklēšanu\", lai saņemtu "
 "paziņojumus, kad parādās jaunas reklāmas."
@@ -22833,7 +22877,7 @@ msgstr "reklāma"
 #: templates/listings/search_map.html:185
 #: templates/partials/_paieskos_juosta.html:194
 msgid "skelbimai"
-msgstr ""
+msgstr "reklāmas"
 
 #: templates/listings/select_value.html:51
 msgid "Gerai"
@@ -22861,7 +22905,7 @@ msgstr "ZĪMOLS"
 
 #: templates/listings/sidebar_moto_parts.html:56
 msgid "MODEL"
-msgstr ""
+msgstr "MODELIS"
 
 #: templates/listings/sidebar_moto_parts.html:65
 msgid "CONDITION"
@@ -22889,7 +22933,7 @@ msgstr "DZINĒJA TILPUMS (cm³)"
 
 #: templates/listings/sidebar_moto_parts.html:126
 msgid "COUNTRY"
-msgstr ""
+msgstr "VALSTS"
 
 #: templates/listings/sidebar_moto_parts.html:128
 msgid "All countries"
@@ -23327,8 +23371,8 @@ msgstr "Aprakstiet savu kravas automašīnu..."
 #: templates/listings/trucks_listing_create.html:591
 msgid "Drop photos here or <strong>click to upload</strong>"
 msgstr ""
-"Iemetiet fotoattēlus šeit vai <strong>noklikšķiniet, lai augšupielādētu</"
-"strong>"
+"Iemetiet fotoattēlus šeit vai <strong>noklikšķiniet, lai "
+"augšupielādētu</strong>"
 
 #: templates/listings/trucks_listing_create.html:592
 msgid "Up to 40 photos · JPG, PNG · max 20 MB each · Drag photos to reorder"
@@ -23609,16 +23653,16 @@ msgid ""
 "listings</strong> in any category. If you delete a listing, that <strong "
 "class=\"text-gray-900 font-semibold\">free</strong> slot becomes available "
 "again — so you can always re-list within your free allowance. After your "
-"free listings are used, additional listings carry a small fee that keeps the "
-"platform running and online for everyone."
+"free listings are used, additional listings carry a small fee that keeps the"
+" platform running and online for everyone."
 msgstr ""
 "Katrs lietotājs jebkurā kategorijā saņem <strong class=\"text-gray-900 font-"
 "semibold\">3 bezmaksas sludinājumus</strong>. Ja sludinājumu izdzēšat, šī "
-"<strong class=\"text-gray-900 font-semibold\">bezmaksas</strong> vieta atkal "
-"kļūst pieejama, tāpēc jūs vienmēr varat to atkārtoti ievietot savā bezmaksas "
-"limitā. Pēc tam, kad jūsu bezmaksas sludinājumi ir izmantoti, par papildu "
-"sludinājumiem tiek piemērota neliela maksa, kas nodrošina platformas darbību "
-"un pieejamību ikvienam."
+"<strong class=\"text-gray-900 font-semibold\">bezmaksas</strong> vieta atkal"
+" kļūst pieejama, tāpēc jūs vienmēr varat to atkārtoti ievietot savā "
+"bezmaksas limitā. Pēc tam, kad jūsu bezmaksas sludinājumi ir izmantoti, par "
+"papildu sludinājumiem tiek piemērota neliela maksa, kas nodrošina platformas"
+" darbību un pieejamību ikvienam."
 
 #: templates/pages/help_center.html:175
 msgid ""
@@ -23627,6 +23671,9 @@ msgid ""
 "reach more buyers, <strong class=\"text-gray-900 font-semibold\">free of "
 "charge</strong>."
 msgstr ""
+"Kad jūsu sludinājums ir publicēts, nosūtiet mums saiti — mēs bez maksas "
+"izveidosim papildu video saturu mūsu Instagram un TikTok kanālos, lai "
+"reklamētu atlasītus sludinājumus un palīdzētu jums sasniegt vairāk pircēju."
 
 #: templates/pages/help_center.html:177
 msgid "You can reach us through support or social media:"
@@ -23783,7 +23830,8 @@ msgstr "Piedāvātie sludinājumi saņem 5 reizes vairāk pieprasījumu"
 
 #: templates/pages/help_center.html:300
 msgid "Data updated weekly based on marketplace activity."
-msgstr "Dati tiek atjaunināti katru nedēļu, pamatojoties uz tirgus aktivitāti."
+msgstr ""
+"Dati tiek atjaunināti katru nedēļu, pamatojoties uz tirgus aktivitāti."
 
 #: templates/pages/help_center.html:309
 msgid "Tips & Guides"
@@ -23801,8 +23849,8 @@ msgstr "Jūsu pirmā sludinājuma publicēšana"
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
-"get more views. Add a detailed description including condition, history, and "
-"any modifications. Your first 3 listings are completely free."
+"get more views. Add a detailed description including condition, history, and"
+" any modifications. Your first 3 listings are completely free."
 msgstr ""
 "Augšējā izvēlnē noklikšķiniet uz “Izveidot sludinājumu”, izvēlieties "
 "kategoriju un aizpildiet transportlīdzekļa informāciju. Augšupielādējiet "
@@ -23833,8 +23881,8 @@ msgstr "Melnraksti — saglabāt un aktivizēt vēlāk"
 
 #: templates/pages/help_center.html:342
 msgid ""
-"Started a listing but not ready to publish? Your work is saved automatically "
-"as a draft. Find drafts in 'My Listings' and continue editing whenever you "
+"Started a listing but not ready to publish? Your work is saved automatically"
+" as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
 "Vai esat sācis sludinājumu, bet vēl neesat gatavs publicēšanai? Jūsu darbs "
@@ -23849,9 +23897,9 @@ msgstr "Saglabājiet izlasi ar sirds ikonu"
 #: templates/pages/help_center.html:352
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
-"are kept in 'Saved Listings' so you can compare prices and come back to them "
-"later. You'll also receive email notifications when a saved listing's price "
-"drops."
+"are kept in 'Saved Listings' so you can compare prices and come back to them"
+" later. You'll also receive email notifications when a saved listing's price"
+" drops."
 msgstr ""
 "Redzat sev tīkamu sludinājumu? Noklikšķiniet uz sirds ikonas, lai to "
 "saglabātu. Visi jūsu iecienītākie sludinājumi tiek glabāti sadaļā "
@@ -23866,8 +23914,8 @@ msgstr "Saraksta veiktspējas izsekošana"
 #: templates/pages/help_center.html:362
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
-"where it ranks compared to similar listings. Use these numbers to figure out "
-"if your price is competitive and whether you need better photos or a "
+"where it ranks compared to similar listings. Use these numbers to figure out"
+" if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
 "Katram sludinājumam ir statistikas lapa, kurā redzami skatījumi, iespaidi, "
@@ -23882,8 +23930,8 @@ msgstr "Saziņa ar pircējiem"
 
 #: templates/pages/help_center.html:372
 msgid ""
-"Buyers can message you directly through the platform — no need to share your "
-"phone number publicly. Reply quickly: fast responses build trust and sell "
+"Buyers can message you directly through the platform — no need to share your"
+" phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
@@ -23916,8 +23964,8 @@ msgid ""
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
-"Noklikšķiniet uz pogas “Izveidot sludinājumu” augšējā labajā stūrī, atlasiet "
-"kategoriju, aizpildiet informāciju, augšupielādējiet fotoattēlus un "
+"Noklikšķiniet uz pogas “Izveidot sludinājumu” augšējā labajā stūrī, atlasiet"
+" kategoriju, aizpildiet informāciju, augšupielādējiet fotoattēlus un "
 "publicējiet savu sludinājumu. Process aizņem aptuveni 5 minūtes."
 
 #: templates/pages/help_center.html:408
@@ -23926,8 +23974,8 @@ msgstr "Kā kļūt par dīleri?"
 
 #: templates/pages/help_center.html:412
 msgid ""
-"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your "
-"business profile. You'll get a verified dealer badge, public dealer page, "
+"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your"
+" business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
 "Apmeklējiet lapu “Kļūsti par dīleri”, abonējiet par 100 €/mēnesī un "
@@ -23943,8 +23991,8 @@ msgid ""
 "Yes. We use industry-standard encryption to protect your personal "
 "information. See our Privacy Policy for details."
 msgstr ""
-"Jā. Mēs izmantojam nozares standarta šifrēšanu, lai aizsargātu jūsu personas "
-"datus. Sīkāku informāciju skatiet mūsu konfidencialitātes politikā."
+"Jā. Mēs izmantojam nozares standarta šifrēšanu, lai aizsargātu jūsu personas"
+" datus. Sīkāku informāciju skatiet mūsu konfidencialitātes politikā."
 
 #: templates/pages/help_center.html:426
 msgid "How do I delete my listing?"
@@ -24045,8 +24093,8 @@ msgstr "Verificēta dīlera emblēma"
 #: templates/pages/help_center.html:556
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
-"States. Contact us to discuss advertising opportunities — banners, sponsored "
-"placements, or partnership campaigns."
+"States. Contact us to discuss advertising opportunities — banners, sponsored"
+" placements, or partnership campaigns."
 msgstr ""
 "Sasniedziet tūkstošiem automašīnu pircēju un pārdevēju visā Eiropā un "
 "Amerikas Savienotajās Valstīs. Sazinieties ar mums, lai apspriestu reklāmas "
@@ -24077,8 +24125,8 @@ msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
 msgstr ""
-"Uzticami pakalpojumi un rīki, kas palīdzēs jums droši pirkt un pārdot. Dažus "
-"pārvaldām mēs, citus – partneri, ar kuriem sadarbojamies."
+"Uzticami pakalpojumi un rīki, kas palīdzēs jums droši pirkt un pārdot. Dažus"
+" pārvaldām mēs, citus – partneri, ar kuriem sadarbojamies."
 
 #: templates/pages/help_center.html:601
 msgid "Recommended services"
@@ -24144,8 +24192,8 @@ msgid ""
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
-"Mūsu uzdevums ir palīdzēt jums tikt pamanītiem. Mēs reklamējam sludinājumus, "
-"izmantojot mērķtiecīgas reklāmas, video saturu un sociālo mediju kampaņas, "
+"Mūsu uzdevums ir palīdzēt jums tikt pamanītiem. Mēs reklamējam sludinājumus,"
+" izmantojot mērķtiecīgas reklāmas, video saturu un sociālo mediju kampaņas, "
 "tādējādi piesaistot vairāk uzmanības pareizajiem transportlīdzekļiem, lai "
 "pārdošana notiktu ātrāk un par godīgām cenām visiem iesaistītajiem."
 
@@ -24176,8 +24224,8 @@ msgstr "1. Noteikumu pieņemšana"
 
 #: templates/pages/help_center.html:701
 msgid ""
-"By accessing or using this platform, you agree to these Terms of Use. If you "
-"don't agree, please don't use the platform."
+"By accessing or using this platform, you agree to these Terms of Use. If you"
+" don't agree, please don't use the platform."
 msgstr ""
 "Piekļūstot šai platformai vai izmantojot to, jūs piekrītat šiem Lietošanas "
 "noteikumiem. Ja nepiekrītat, lūdzu, neizmantojiet platformu."
@@ -24203,9 +24251,9 @@ msgstr "3. Lietotāju konti"
 
 #: templates/pages/help_center.html:711
 msgid ""
-"To create listings or contact sellers, you must register an account. You are "
-"responsible for keeping your password secure and for all activity under your "
-"account. Provide accurate information — fake accounts will be removed."
+"To create listings or contact sellers, you must register an account. You are"
+" responsible for keeping your password secure and for all activity under "
+"your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
 "Lai izveidotu sludinājumus vai sazinātos ar pārdevējiem, jums ir jāreģistrē "
 "konts. Jūs esat atbildīgs par savas paroles drošību un visām darbībām, kas "
@@ -24225,8 +24273,8 @@ msgid ""
 "notice."
 msgstr ""
 "Jūs esat pilnībā atbildīgs par publicēto saturu: fotoattēliem, aprakstiem, "
-"cenām un transportlīdzekļu datiem. Sludinājumiem jābūt precīziem, likumīgiem "
-"un jūsu pašu veidotiem. Nepublicējiet zagtus transportlīdzekļus, "
+"cenām un transportlīdzekļu datiem. Sludinājumiem jābūt precīziem, likumīgiem"
+" un jūsu pašu veidotiem. Nepublicējiet zagtus transportlīdzekļus, "
 "transportlīdzekļus, kurus jums nav tiesību pārdot, vai krāpnieciskus "
 "sludinājumus. Mēs paturam tiesības noņemt jebkuru sludinājumu bez "
 "iepriekšēja brīdinājuma."
@@ -24243,9 +24291,9 @@ msgid ""
 "public locations."
 msgstr ""
 "Mēs neesam iesaistīti nekādos darījumos starp pircējiem un pārdevējiem. Mēs "
-"neveicam maksājumus, piegādes, pārbaudes vai strīdus. Pirms apmaksas vienmēr "
-"pārbaudiet transportlīdzekli klātienē. Izmantojiet drošas maksāšanas metodes "
-"un tikieties drošās publiskās vietās."
+"neveicam maksājumus, piegādes, pārbaudes vai strīdus. Pirms apmaksas vienmēr"
+" pārbaudiet transportlīdzekli klātienē. Izmantojiet drošas maksāšanas "
+"metodes un tikieties drošās publiskās vietās."
 
 #: templates/pages/help_center.html:725
 msgid "6. Fees and Payments"
@@ -24302,8 +24350,8 @@ msgid ""
 "To the maximum extent allowed by law, we are not liable for any damages "
 "arising from your use of the platform or from transactions between users."
 msgstr ""
-"Ciktāl to atļauj likums, mēs neesam atbildīgi par jebkādiem zaudējumiem, kas "
-"radušies jūsu platformas lietošanas vai lietotāju savstarpējo darījumu "
+"Ciktāl to atļauj likums, mēs neesam atbildīgi par jebkādiem zaudējumiem, kas"
+" radušies jūsu platformas lietošanas vai lietotāju savstarpējo darījumu "
 "rezultātā."
 
 #: templates/pages/help_center.html:745
@@ -24315,8 +24363,8 @@ msgid ""
 "We reserve the right to suspend or terminate accounts that violate these "
 "Terms. You may delete your account at any time from your account settings."
 msgstr ""
-"Mēs paturam tiesības apturēt vai izbeigt kontus, kas pārkāpj šos Noteikumus. "
-"Jūs varat jebkurā laikā dzēst savu kontu no sava konta iestatījumiem."
+"Mēs paturam tiesības apturēt vai izbeigt kontus, kas pārkāpj šos Noteikumus."
+" Jūs varat jebkurā laikā dzēst savu kontu no sava konta iestatījumiem."
 
 #: templates/pages/help_center.html:750
 msgid "11. Changes to Terms"
@@ -24339,8 +24387,8 @@ msgstr "12. Kontaktinformācija"
 #: templates/pages/help_center.html:756
 msgid "Questions about these Terms? Email us at helpautoinfo@gmail.com."
 msgstr ""
-"Jautājumi par šiem Noteikumiem? Sūtiet mums e-pastu uz helpautoinfo@gmail."
-"com."
+"Jautājumi par šiem Noteikumiem? Sūtiet mums e-pastu uz "
+"helpautoinfo@gmail.com."
 
 #: templates/pages/help_center.html:767
 msgid "Privacy Policy"
@@ -24354,12 +24402,12 @@ msgstr "1. Ko mēs apkopojam"
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
-"and descriptions you upload, your IP address and browser type, and pages you "
-"visit on our site."
+"and descriptions you upload, your IP address and browser type, and pages you"
+" visit on our site."
 msgstr ""
-"Kad jūs izmantojat šo platformu, mēs apkopojam: jūsu e-pasta adresi un vārdu "
-"(jūsu kontam), jūsu tālruņa numuru (ja izvēlaties to kopīgot sludinājumos), "
-"jūsu augšupielādētos fotoattēlus un aprakstus, jūsu IP adresi un "
+"Kad jūs izmantojat šo platformu, mēs apkopojam: jūsu e-pasta adresi un vārdu"
+" (jūsu kontam), jūsu tālruņa numuru (ja izvēlaties to kopīgot sludinājumos),"
+" jūsu augšupielādētos fotoattēlus un aprakstus, jūsu IP adresi un "
 "pārlūkprogrammas veidu, kā arī lapas, ko apmeklējat mūsu vietnē."
 
 #: templates/pages/help_center.html:779
@@ -24389,10 +24437,10 @@ msgid ""
 "username, city, and (if enabled) phone number are visible to other users. "
 "Your email is not shown publicly unless you choose to display it."
 msgstr ""
-"Jūsu sludinājumi, tostarp fotoattēli un apraksti, ir publiski pieejami. Jūsu "
-"vārds vai lietotājvārds, pilsēta un (ja iespējots) tālruņa numurs ir redzami "
-"citiem lietotājiem. Jūsu e-pasts netiek rādīts publiski, ja vien jūs "
-"neizvēlaties to parādīt."
+"Jūsu sludinājumi, tostarp fotoattēli un apraksti, ir publiski pieejami. Jūsu"
+" vārds vai lietotājvārds, pilsēta un (ja iespējots) tālruņa numurs ir "
+"redzami citiem lietotājiem. Jūsu e-pasts netiek rādīts publiski, ja vien jūs"
+" neizvēlaties to parādīt."
 
 #: templates/pages/help_center.html:789
 msgid "4. Cookies and Tracking"
@@ -24461,12 +24509,12 @@ msgstr "8. Drošība"
 #, python-format
 msgid ""
 "We use industry-standard encryption (HTTPS) and secure password hashing. No "
-"system is 100%% secure — please use a strong unique password and don't share "
-"your account."
+"system is 100%% secure — please use a strong unique password and don't share"
+" your account."
 msgstr ""
-"Mēs izmantojam nozares standarta šifrēšanu (HTTPS) un drošu paroļu jaukšanu. "
-"Neviena sistēma nav 100%% droša — lūdzu, izmantojiet spēcīgu unikālu paroli "
-"un nekopīgojiet savu kontu."
+"Mēs izmantojam nozares standarta šifrēšanu (HTTPS) un drošu paroļu jaukšanu."
+" Neviena sistēma nav 100%% droša — lūdzu, izmantojiet spēcīgu unikālu paroli"
+" un nekopīgojiet savu kontu."
 
 #: templates/pages/help_center.html:814
 msgid "9. Children"
@@ -24474,8 +24522,8 @@ msgstr "9. Bērni"
 
 #: templates/pages/help_center.html:815
 msgid ""
-"This platform is not intended for users under 18. We don't knowingly collect "
-"data from minors."
+"This platform is not intended for users under 18. We don't knowingly collect"
+" data from minors."
 msgstr ""
 "Šī platforma nav paredzēta lietotājiem, kas jaunāki par 18 gadiem. Mēs "
 "apzināti nevācam datus no nepilngadīgajiem."
@@ -24489,8 +24537,8 @@ msgid ""
 "We may update this Privacy Policy. Important changes will be announced on "
 "the site."
 msgstr ""
-"Mēs varam atjaunināt šo Privātuma politiku. Svarīgas izmaiņas tiks paziņotas "
-"vietnē."
+"Mēs varam atjaunināt šo Privātuma politiku. Svarīgas izmaiņas tiks paziņotas"
+" vietnē."
 
 #: templates/pages/help_center.html:824
 msgid "11. Contact"
@@ -24518,8 +24566,8 @@ msgid ""
 "listings you've viewed."
 msgstr ""
 "Sīkfaili ir mazi teksta faili, ko tīmekļa vietnes saglabā jūsu ierīcē, lai "
-"atcerētos lietas, piemēram, to, ka esat pieteicies, kādu valodu vēlaties vai "
-"kurus ierakstus esat skatījis."
+"atcerētos lietas, piemēram, to, ka esat pieteicies, kādu valodu vēlaties vai"
+" kurus ierakstus esat skatījis."
 
 #: templates/pages/help_center.html:848
 msgid "Cookies we use"
@@ -24652,8 +24700,8 @@ msgid ""
 "ataskaitos, programinė įranga prekiautojams, draudimas, finansavimas ir "
 "kitos paslaugos."
 msgstr ""
-"Uzņēmumi, ar kuriem mēs sadarbojamies: transportlīdzekļu vēstures atskaites, "
-"dīleru programmatūra, apdrošināšana, finansēšana un citi pakalpojumi."
+"Uzņēmumi, ar kuriem mēs sadarbojamies: transportlīdzekļu vēstures atskaites,"
+" dīleru programmatūra, apdrošināšana, finansēšana un citi pakalpojumi."
 
 #: templates/pages/partneriai.html:64
 msgid "Partnerių sąrašas ruošiamas."

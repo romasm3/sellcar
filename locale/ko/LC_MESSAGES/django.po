@@ -26,9 +26,7 @@ msgstr "고정된 이메일 주소를 사용하세요."
 msgid ""
 "Per valandą iš vieno adreso galima sukurti ne daugiau kaip %(kiek)s "
 "paskyras. Bandykite vėliau."
-msgstr ""
-"한 주소당 시간당 최대 %(kiek)s개의 계정만 생성할 수 있습니다. 나중에 다시 시"
-"도해 주세요."
+msgstr "한 주소당 시간당 최대 %(kiek)s개의 계정만 생성할 수 있습니다. 나중에 다시 시도해 주세요."
 
 #: apps/accounts/antispam.py:40
 #, python-format
@@ -420,7 +418,7 @@ msgstr "시험"
 
 #: apps/imones/models.py:149 apps/listings/translatable_db.py:2409
 msgid "Įmonė"
-msgstr ""
+msgstr "회사"
 
 #: apps/imones/models.py:150 apps/imones/views.py:288
 #: apps/listings/paieskos_siulymai.py:208
@@ -514,7 +512,7 @@ msgstr "클라이페다"
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
-msgstr ""
+msgstr "회사"
 
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
@@ -661,7 +659,8 @@ msgstr "이 조건은 필수입니다."
 #: apps/listings/loading_views.py:143 apps/listings/rental_views.py:452
 #: apps/listings/rental_views.py:481 apps/listings/trailers_views.py:283
 #: apps/listings/truck_for_parts_views.py:231
-#: apps/listings/truck_for_parts_views.py:275 apps/listings/trucks_views.py:638
+#: apps/listings/truck_for_parts_views.py:275
+#: apps/listings/trucks_views.py:638
 #: templates/listings/agriculture_listing_create.html:776
 #: templates/listings/bicycles_listing_create.html:758
 #: templates/listings/camping_listing_create.html:869
@@ -685,13 +684,15 @@ msgstr "구현/자주식은 필수입니다."
 #: apps/listings/car_for_parts_views.py:239
 #: apps/listings/car_for_parts_views.py:301
 #: apps/listings/construction_views.py:329 apps/listings/forestry_views.py:127
-#: apps/listings/loading_views.py:148 apps/listings/moto_for_parts_views.py:222
+#: apps/listings/loading_views.py:148
+#: apps/listings/moto_for_parts_views.py:222
 #: apps/listings/moto_for_parts_views.py:284
 #: apps/listings/moto_part_views.py:83 apps/listings/motorcycles_views.py:741
 #: apps/listings/rental_views.py:190 apps/listings/trailers_views.py:289
 #: apps/listings/truck_for_parts_views.py:227
-#: apps/listings/truck_for_parts_views.py:271 apps/listings/trucks_views.py:640
-#: apps/listings/views.py:3556 apps/listings/views.py:6954
+#: apps/listings/truck_for_parts_views.py:271
+#: apps/listings/trucks_views.py:640 apps/listings/views.py:3556
+#: apps/listings/views.py:6954
 #: templates/listings/agriculture_listing_create.html:778
 #: templates/listings/camping_listing_create.html:870
 #: templates/listings/construction_listing_create.html:772
@@ -931,8 +932,9 @@ msgstr "이 양식은 관광 숙박 시설 광고 전용입니다."
 
 #: apps/listings/camping_views.py:165 apps/listings/rental_views.py:195
 #: apps/listings/truck_for_parts_views.py:229
-#: apps/listings/truck_for_parts_views.py:273 apps/listings/trucks_views.py:642
-#: apps/listings/views.py:3558 apps/listings/views.py:6962
+#: apps/listings/truck_for_parts_views.py:273
+#: apps/listings/trucks_views.py:642 apps/listings/views.py:3558
+#: apps/listings/views.py:6962
 #: templates/listings/camping_listing_create.html:871
 #: templates/listings/rental_car_create.html:782
 #: templates/listings/rental_heavy_create.html:746
@@ -953,7 +955,7 @@ msgstr "건설 장비 카테고리가 구성되어 있지 않습니다."
 #: apps/listings/context_processors.py:208
 #: apps/listings/translatable_db.py:2434 templates/base.html:1007
 msgid "Įmonės ir servisai"
-msgstr ""
+msgstr "기업 및 서비스"
 
 #: apps/listings/context_processors.py:209
 msgid "Finansavimas"
@@ -974,17 +976,17 @@ msgstr "조항"
 #: apps/listings/context_processors.py:213
 #: apps/listings/translatable_db.py:2472
 msgid "Pagalba"
-msgstr ""
+msgstr "돕다"
 
 #: apps/listings/context_processors.py:214
 #: apps/listings/translatable_db.py:2473
 msgid "Apie mus"
-msgstr ""
+msgstr "회사 소개"
 
 #: apps/listings/context_processors.py:215
 #: apps/listings/translatable_db.py:2474
 msgid "Partneriai"
-msgstr ""
+msgstr "파트너"
 
 #: apps/listings/context_processors.py:216
 msgid "PRO pardavimas"
@@ -1321,7 +1323,7 @@ msgstr "국영기업 레지트라"
 #: templates/listings/wheels_list.html:99
 #: templates/listings/wheels_list.html:103
 msgid "Ratlankiai"
-msgstr ""
+msgstr "림"
 
 #: apps/listings/forms.py:228 templates/listings/advanced_search.html:337
 #: templates/listings/listing_create.html:624
@@ -1454,14 +1456,13 @@ msgstr "파일"
 #, python-format
 msgid ""
 "Failas „%(name)s“ per didelis (%(size).1f MB). Maksimalus dydis — 20 MB."
-msgstr ""
-"파일 \"%(name)s\"의 크기가 너무 큽니다(%(size).1f MB). 최대 크기는 20MB입니"
-"다."
+msgstr "파일 \"%(name)s\"의 크기가 너무 큽니다(%(size).1f MB). 최대 크기는 20MB입니다."
 
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
 #, python-format
 msgid ""
-"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP failai."
+"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
+"failai."
 msgstr "잘못된 파일 형식입니다: '%(name)s'. JPG, PNG, WEBP 파일만 허용됩니다."
 
 #: apps/listings/image_validation.py:64
@@ -1675,7 +1676,7 @@ msgstr "광고"
 
 #: apps/listings/models.py:359
 msgid "Convertible"
-msgstr ""
+msgstr "바꾸어 말할 수 있는"
 
 #: apps/listings/models.py:360
 msgid "Limousine"
@@ -1695,15 +1696,16 @@ msgstr "트럭/밴"
 
 #: apps/listings/models.py:363 apps/listings/translatable_db.py:2454
 msgid "Kombi mikroautobusas"
-msgstr ""
+msgstr "콤비 미니버스"
 
 #: apps/listings/models.py:364 apps/listings/translatable_db.py:2455
 msgid "Savadarbis auto"
-msgstr ""
+msgstr "수제 자동차"
 
 #: apps/listings/models.py:370 apps/listings/models.py:398
 #: apps/listings/models.py:410 apps/listings/models.py:418
-#: apps/listings/models.py:2874 templates/listings/car_for_parts_create.html:57
+#: apps/listings/models.py:2874
+#: templates/listings/car_for_parts_create.html:57
 #: templates/listings/car_for_parts_create.html:67
 #: templates/listings/car_for_parts_create.html:77
 #: templates/listings/car_for_parts_create.html:91
@@ -2653,7 +2655,7 @@ msgstr "디젤 엔진 내장형"
 #: apps/listings/models.py:811 apps/listings/models.py:2943
 #: apps/listings/translatable_db.py:67
 msgid "Electric"
-msgstr ""
+msgstr "전기 같은"
 
 #: apps/listings/models.py:812
 msgid "No engine"
@@ -2671,15 +2673,18 @@ msgstr "가솔린 2행정 내장형 엔진"
 msgid "Boat engine type"
 msgstr "보트 엔진 종류"
 
-#: apps/listings/models.py:818 templates/listings/boats_listing_create.html:222
+#: apps/listings/models.py:818
+#: templates/listings/boats_listing_create.html:222
 msgid "Liftable engine"
 msgstr "들어올릴 수 있는 엔진"
 
-#: apps/listings/models.py:819 templates/listings/boats_listing_create.html:226
+#: apps/listings/models.py:819
+#: templates/listings/boats_listing_create.html:226
 msgid "Propeller"
 msgstr "추진자"
 
-#: apps/listings/models.py:820 templates/listings/boats_listing_create.html:230
+#: apps/listings/models.py:820
+#: templates/listings/boats_listing_create.html:230
 msgid "Water turbine"
 msgstr "수력 터빈"
 
@@ -2799,7 +2804,7 @@ msgstr "3축 이상"
 #: apps/listings/models.py:870 apps/listings/models.py:1080
 #: apps/listings/translatable_db.py:1721 apps/listings/translatable_db.py:2394
 msgid "Mechaninė"
-msgstr ""
+msgstr "기계적인"
 
 #: apps/listings/models.py:871
 msgid "Pneumatinė"
@@ -2878,11 +2883,12 @@ msgstr "목적"
 #: templates/listings/rental_heavy_create.html:55
 #: templates/listings/rental_minibus_create.html:55
 #: templates/listings/rental_moto_create.html:56
-#: templates/listings/search_map.html:77 templates/listings/search_map.html:180
+#: templates/listings/search_map.html:77
+#: templates/listings/search_map.html:180
 #: templates/listings/trailers_listing_create.html:65
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
-msgstr ""
+msgstr "상표"
 
 #: apps/listings/models.py:887 apps/listings/models.py:983
 #: apps/listings/models.py:1100 apps/listings/translatable_db.py:2365
@@ -2912,11 +2918,12 @@ msgstr ""
 #: templates/listings/rental_heavy_create.html:75
 #: templates/listings/rental_minibus_create.html:75
 #: templates/listings/rental_moto_create.html:76
-#: templates/listings/search_map.html:89 templates/listings/search_map.html:183
+#: templates/listings/search_map.html:89
+#: templates/listings/search_map.html:183
 #: templates/listings/trailers_listing_create.html:86
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
-msgstr ""
+msgstr "모델"
 
 #: apps/listings/models.py:891 templates/listings/listing_detail.html:1447
 #: templates/listings/trailers_listing_create.html:123
@@ -3391,7 +3398,7 @@ msgstr "유압식 4륜구동"
 #: apps/listings/models.py:1081 apps/listings/translatable_db.py:1624
 #: apps/listings/translatable_db.py:2393
 msgid "Automatinė"
-msgstr ""
+msgstr "오토매틱"
 
 #: apps/listings/models.py:1082
 msgid "Elektromechaninė"
@@ -3620,15 +3627,15 @@ msgstr "수상 운송"
 #: templates/listings/partials/_panel_bodies.html:859
 #: templates/listings/rental_moto_create.html:25
 msgid "Motociklų nuoma"
-msgstr ""
+msgstr "오토바이 대여"
 
 #: apps/listings/models.py:1264 apps/listings/translatable_db.py:2452
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "승객용 미니버스"
 
 #: apps/listings/models.py:1265 apps/listings/translatable_db.py:2453
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "화물 밴"
 
 #: apps/listings/models.py:1269
 msgid "Autotraukinys"
@@ -3663,7 +3670,7 @@ msgstr "시간당 대여 가격"
 #: templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
-msgstr ""
+msgstr "좌석 수"
 
 #: apps/listings/models.py:1292 templates/listings/rental_car_create.html:224
 #: templates/listings/rental_moto_create.html:177
@@ -4006,7 +4013,7 @@ msgstr "첫 등록일"
 #: templates/listings/rental_moto_create.html:166
 #: templates/listings/search_map.html:181 templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
-msgstr ""
+msgstr "연료 종류"
 
 #: apps/listings/models.py:1482 apps/listings/translatable_db.py:926
 #: apps/listings/translatable_db.py:2370
@@ -4017,7 +4024,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:132
 #: templates/listings/rental_minibus_create.html:183
 msgid "Pavarų dėžė"
-msgstr ""
+msgstr "변속 장치"
 
 #: apps/listings/models.py:1484 apps/listings/translatable_db.py:756
 #: apps/listings/translatable_db.py:2369
@@ -4025,7 +4032,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
-msgstr ""
+msgstr "체형"
 
 #: apps/listings/models.py:1491 apps/listings/models.py:3053
 #: templates/listings/partials/panel_trucks.html:70
@@ -4044,7 +4051,7 @@ msgstr "색상 (사용자 지정)"
 #: templates/listings/listing_detail.html:555
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
-msgstr ""
+msgstr "문의 개수"
 
 #: apps/listings/models.py:1545
 msgid "Subtype (custom)"
@@ -4054,7 +4061,8 @@ msgstr "하위 유형(사용자 지정)"
 msgid "Size (custom)"
 msgstr "사이즈 (맞춤 제작)"
 
-#: apps/listings/models.py:1560 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:1560
+#: templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:93
 #: templates/listings/rims_create.html:29
 #: templates/listings/tyres_create.html:32
@@ -4119,12 +4127,14 @@ msgstr "엔진 코드"
 msgid "Gearbox Code"
 msgstr "기어박스 코드"
 
-#: apps/listings/models.py:1648 templates/listings/car_for_parts_create.html:99
+#: apps/listings/models.py:1648
+#: templates/listings/car_for_parts_create.html:99
 #: templates/listings/listing_detail.html:2114
 msgid "Version"
 msgstr "버전"
 
-#: apps/listings/models.py:1653 templates/listings/car_for_parts_create.html:82
+#: apps/listings/models.py:1653
+#: templates/listings/car_for_parts_create.html:82
 #: templates/listings/listing_detail.html:2108
 msgid "Modification"
 msgstr "가감"
@@ -4265,7 +4275,7 @@ msgstr "광고를 봤습니다"
 #: templates/listings/perziureti.html:3 templates/listings/perziureti.html:22
 #: templates/listings/perziureti.html:26
 msgid "Peržiūrėti skelbimai"
-msgstr ""
+msgstr "광고 보기"
 
 #: apps/listings/models.py:2384 apps/listings/views.py:82
 msgid "Interior"
@@ -4418,11 +4428,11 @@ msgstr "봄 / 봄"
 
 #: apps/listings/models.py:2931 apps/listings/translatable_db.py:67
 msgid "Manual"
-msgstr ""
+msgstr "수동"
 
 #: apps/listings/models.py:2932 apps/listings/translatable_db.py:66
 msgid "Automatic"
-msgstr ""
+msgstr "오토매틱"
 
 #: apps/listings/models.py:2933 apps/listings/translatable_db.py:70
 msgid "Semi-automatic"
@@ -4430,7 +4440,7 @@ msgstr "반자동"
 
 #: apps/listings/models.py:2938 apps/listings/translatable_db.py:66
 msgid "Diesel"
-msgstr ""
+msgstr "디젤"
 
 #: apps/listings/models.py:2939
 msgid "Petrol / Gasoline"
@@ -4450,7 +4460,7 @@ msgstr "LNG"
 
 #: apps/listings/models.py:2944
 msgid "Hybrid"
-msgstr ""
+msgstr "잡종"
 
 #: apps/listings/models.py:2945
 msgid "Hydrogen"
@@ -4552,7 +4562,7 @@ msgstr "상업용 / ~에서"
 
 #: apps/listings/models.py:3846 apps/listings/translatable_db.py:58
 msgid "Trucks"
-msgstr ""
+msgstr "트럭"
 
 #: apps/listings/models.py:3847 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:152
@@ -4729,7 +4739,7 @@ msgstr "목록이 업데이트되었습니다."
 #: templates/listings/partials/_panel_bodies.html:1050
 #: templates/listings/partials/_panel_bodies.html:1134
 msgid "Tekstinė paieška"
-msgstr ""
+msgstr "텍스트 검색"
 
 #: apps/listings/motogear_views.py:942
 msgid "Markė, modelis, raktažodis..."
@@ -4810,7 +4820,7 @@ msgstr "카이나:"
 #: templates/listings/motogear_advanced.html:183
 #: templates/partials/_salis.html:48
 msgid "Šalis"
-msgstr ""
+msgstr "국가"
 
 #: apps/listings/motorcycles_views.py:454
 msgid "Failed to save draft."
@@ -4901,8 +4911,9 @@ msgstr "가장 인기 있는 브랜드"
 msgid "Markės ir modeliai"
 msgstr "제조사 및 모델"
 
-#: apps/listings/paieskos_siulymai.py:272 apps/listings/translatable_db.py:2424
-#: templates/imones/_skirtukai.html:11 templates/imones/sarasas.html:217
+#: apps/listings/paieskos_siulymai.py:272
+#: apps/listings/translatable_db.py:2424 templates/imones/_skirtukai.html:11
+#: templates/imones/sarasas.html:217
 #: templates/listings/advanced_search.html:153
 #: templates/listings/partials/_panel_bodies.html:128
 #: templates/listings/partials/_panel_bodies.html:216
@@ -4934,9 +4945,7 @@ msgstr "역사 보고서"
 msgid ""
 "Transporto priemonės istorijos ataskaita pagal VIN: eismo įvykiai, ridos "
 "įrašai, savininkų skaičius."
-msgstr ""
-"차량 식별 번호(VIN)를 통한 차량 이력 보고서: 교통사고 기록, 주행 거리 기록, "
-"소유자 수."
+msgstr "차량 식별 번호(VIN)를 통한 차량 이력 보고서: 교통사고 기록, 주행 거리 기록, 소유자 수."
 
 #: apps/listings/partneriai.py:23
 msgid "Programinė įranga"
@@ -4973,7 +4982,7 @@ msgstr "액세서리, 튜닝"
 #: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
 #: apps/listings/translatable_db.py:2478 apps/listings/zemelapio_views.py:406
 msgid "Naujausi"
-msgstr ""
+msgstr "최신"
 
 #: apps/listings/perziureti_views.py:36
 msgid "Seniausi"
@@ -4987,7 +4996,7 @@ msgstr "가장 저렴한"
 #: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
 #: apps/listings/translatable_db.py:2480 apps/listings/zemelapio_views.py:409
 msgid "Brangiausi"
-msgstr ""
+msgstr "가장 비싼"
 
 #: apps/listings/rental_views.py:155
 msgid "Transporto nuomos kategorija nesukonfigūruota."
@@ -5010,7 +5019,7 @@ msgstr "일일 대여 가격은 필수입니다."
 #: templates/listings/partials/_panel_bodies.html:862
 #: templates/listings/rental_car_create.html:25
 msgid "Automobilių nuoma"
-msgstr ""
+msgstr "렌터카"
 
 #: apps/listings/rental_views.py:353 apps/listings/translatable_db.py:47
 #: templates/listings/partials/_panel_bodies.html:858
@@ -5380,7 +5389,7 @@ msgstr "자동"
 #: templates/listings/partials/_panel_bodies.html:28
 #: templates/listings/partials/search_panel.html:47
 msgid "Motociklai"
-msgstr ""
+msgstr "오토바이"
 
 #: apps/listings/search_config/panels.py:288
 msgid "Ratai"
@@ -5402,7 +5411,7 @@ msgstr "무거운 tr."
 #: apps/listings/search_config/panels.py:292
 #: apps/listings/translatable_db.py:2441
 msgid "Priekabos"
-msgstr ""
+msgstr "트레일러"
 
 #: apps/listings/search_config/panels.py:293
 msgid "Nuoma"
@@ -5413,7 +5422,8 @@ msgid "Audio"
 msgstr "오디오"
 
 #: apps/listings/search_config/panels.py:302
-#: apps/listings/skelbimai_views.py:33 templates/listings/listing_list.html:346
+#: apps/listings/skelbimai_views.py:33
+#: templates/listings/listing_list.html:346
 #: templates/listings/motogear_list.html:65
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/_panel_bodies.html:359
@@ -5529,8 +5539,8 @@ msgstr "전체 모델"
 #: templates/listings/partials/_zemelapio_filtrai.html:98
 #: templates/listings/partials/fields/_range.html:15
 #: templates/listings/partials/fields/_range.html:36
-#: templates/listings/wheels_list.html:132 templates/search/_panel_cars.html:24
-#: templates/search/_panel_cars.html:33
+#: templates/listings/wheels_list.html:132
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
 msgstr "부터"
 
@@ -5554,8 +5564,8 @@ msgstr "부터"
 #: templates/listings/partials/_zemelapio_filtrai.html:99
 #: templates/listings/partials/fields/_range.html:21
 #: templates/listings/partials/fields/_range.html:39
-#: templates/listings/wheels_list.html:138 templates/search/_panel_cars.html:28
-#: templates/search/_panel_cars.html:35
+#: templates/listings/wheels_list.html:138
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
 msgstr "까지"
 
@@ -5580,7 +5590,7 @@ msgstr "서비스 유형을 입력해야 합니다."
 
 #: apps/listings/skelbimai_views.py:26 apps/listings/translatable_db.py:2479
 msgid "Populiariausi"
-msgstr ""
+msgstr "가장 인기 있는"
 
 #: apps/listings/skelbimai_views.py:63 apps/listings/views.py:1316
 #: apps/listings/views.py:1331 apps/listings/views.py:1459
@@ -5609,7 +5619,8 @@ msgstr "이 양식은 예고편 광고 전용입니다."
 msgid "Paskirtis yra privaloma"
 msgstr "목적지를 입력해야 합니다."
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:341
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:341
 #: templates/listings/listing_list.html:378
 #: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_advanced_search.html:145
@@ -5619,7 +5630,8 @@ msgstr "목적지를 입력해야 합니다."
 msgid "Cars"
 msgstr "자동차"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:342
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:342
 #: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_advanced_search.html:146
 #: templates/listings/motorcycles_list.html:148
@@ -5628,7 +5640,8 @@ msgstr "자동차"
 msgid "Minibuses, Buses & Campers"
 msgstr "미니버스, 버스 및 캠핑카"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:343
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:343
 #: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_advanced_search.html:144
 #: templates/listings/motorcycles_list.html:149
@@ -5638,7 +5651,8 @@ msgstr "미니버스, 버스 및 캠핑카"
 msgid "Motorcycles & Moto Gear"
 msgstr "오토바이 및 오토바이 용품"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:344
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:344
 #: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_advanced_search.html:147
 #: templates/listings/motorcycles_list.html:150
@@ -5650,7 +5664,8 @@ msgstr "오토바이 및 오토바이 용품"
 msgid "Trucks & Commercial"
 msgstr "트럭 및 상용차"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:347
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:347
 #: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:59
@@ -5674,7 +5689,8 @@ msgstr "타이어 및 휠"
 msgid "Boats & Water Transport"
 msgstr "보트 및 수상 운송"
 
-#: apps/listings/translatable_db.py:17 templates/listings/listing_list.html:350
+#: apps/listings/translatable_db.py:17
+#: templates/listings/listing_list.html:350
 #: templates/listings/motogear_list.html:68
 #: templates/listings/motorcycles_advanced_search.html:149
 #: templates/listings/motorcycles_list.html:155
@@ -5683,7 +5699,8 @@ msgstr "보트 및 수상 운송"
 msgid "Trailers & Semi-trailers"
 msgstr "트레일러 및 세미트레일러"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:351
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:351
 #: templates/listings/motogear_list.html:69
 #: templates/listings/motorcycles_list.html:156
 #: templates/listings/partials/search_rail.html:76
@@ -5691,7 +5708,8 @@ msgstr "트레일러 및 세미트레일러"
 msgid "Construction & Warehouse Equipment"
 msgstr "건설 및 창고 장비"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:352
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:352
 #: templates/listings/motogear_list.html:70
 #: templates/listings/motorcycles_list.html:157
 #: templates/listings/partials/search_rail.html:77
@@ -5699,7 +5717,8 @@ msgstr "건설 및 창고 장비"
 msgid "Agricultural & Forestry"
 msgstr "농업 및 임업"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:353
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:353
 #: templates/listings/motogear_list.html:71
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/partials/search_rail.html:78
@@ -5707,7 +5726,8 @@ msgstr "농업 및 임업"
 msgid "Bicycles & Scooters"
 msgstr "자전거 및 스쿠터"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:354
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:354
 #: templates/listings/motogear_list.html:72
 #: templates/listings/motorcycles_list.html:159
 #: templates/listings/partials/search_rail.html:79
@@ -5715,7 +5735,8 @@ msgstr "자전거 및 스쿠터"
 msgid "Services"
 msgstr "서비스"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:355
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:355
 #: templates/listings/motogear_list.html:73
 #: templates/listings/motorcycles_list.html:160
 #: templates/listings/partials/search_rail.html:80
@@ -5723,7 +5744,8 @@ msgstr "서비스"
 msgid "Car Rental"
 msgstr "렌터카"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:356
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:356
 #: templates/listings/motogear_list.html:74
 #: templates/listings/motorcycles_list.html:161
 #: templates/listings/partials/search_rail.html:81
@@ -5731,7 +5753,8 @@ msgstr "렌터카"
 msgid "Planes & Aircraft"
 msgstr "비행기 및 항공기"
 
-#: apps/listings/translatable_db.py:20 templates/listings/listing_list.html:357
+#: apps/listings/translatable_db.py:20
+#: templates/listings/listing_list.html:357
 #: templates/listings/motogear_list.html:75
 #: templates/listings/motorcycles_list.html:162
 #: templates/listings/trucks_list.html:182
@@ -5742,19 +5765,19 @@ msgstr "항공기 부품"
 #: apps/listings/views.py:2463
 #: templates/listings/partials/_panel_bodies.html:315
 msgid "Vilkikai"
-msgstr ""
+msgstr "트랙터"
 
 #: apps/listings/translatable_db.py:20 apps/listings/translatable_db.py:2421
 #: apps/listings/views.py:2465
 #: templates/listings/partials/_panel_bodies.html:316
 msgid "Autotraukiniai, autovežiai"
-msgstr ""
+msgstr "로드트레인, 자동차 운반차"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
 #: apps/listings/translatable_db.py:2422 apps/listings/views.py:2466
 #: templates/listings/partials/_panel_bodies.html:317
 msgid "Komunalinio ūkio transportas"
-msgstr ""
+msgstr "시립 교통"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:1707
 #: templates/listings/loading_equipment_create.html:25
@@ -5778,7 +5801,7 @@ msgstr "임업용 기계"
 #: templates/listings/camping_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:933
 msgid "Turistiniai nameliai"
-msgstr ""
+msgstr "관광용 오두막"
 
 #: apps/listings/translatable_db.py:33
 #: templates/listings/rental_minibus_create.html:25
@@ -5789,7 +5812,7 @@ msgstr "미니버스, 관광용 차량, 수상 차량 대여"
 #: templates/listings/construction_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:754
 msgid "Statybinė technika"
-msgstr ""
+msgstr "건설 기계"
 
 #: apps/listings/translatable_db.py:38
 msgid "Aircraft Accessories"
@@ -5829,7 +5852,7 @@ msgstr "불도저"
 
 #: apps/listings/translatable_db.py:39
 msgid "Buses"
-msgstr ""
+msgstr "버스"
 
 #: apps/listings/translatable_db.py:40
 msgid "Campers"
@@ -6013,7 +6036,7 @@ msgstr "세미트럭/트랙터"
 
 #: apps/listings/translatable_db.py:55
 msgid "Semi-trailers"
-msgstr ""
+msgstr "세미트레일러"
 
 #: apps/listings/translatable_db.py:55
 #: templates/listings/sidebar_moto_parts.html:20
@@ -6086,11 +6109,11 @@ msgstr "CVT"
 
 #: apps/listings/translatable_db.py:66
 msgid "Diesel / Electric (Hybrid)"
-msgstr ""
+msgstr "디젤/전기(하이브리드)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Diesel / Electric (Plug-in)"
-msgstr ""
+msgstr "디젤/전기(플러그인)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Ethanol"
@@ -6098,27 +6121,27 @@ msgstr "에탄올"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol"
-msgstr ""
+msgstr "가솔린"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / CNG"
-msgstr ""
+msgstr "휘발유/CNG"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / Electric (Hybrid)"
-msgstr ""
+msgstr "가솔린/전기(하이브리드)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric (Plug-in)"
-msgstr ""
+msgstr "휘발유/전기(플러그인)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric / LPG"
-msgstr ""
+msgstr "휘발유/전기/LPG"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / LPG"
-msgstr ""
+msgstr "휘발유/LPG"
 
 #: apps/listings/translatable_db.py:76 apps/listings/translatable_db.py:1872
 msgid "360° vaizdo kamera"
@@ -7394,7 +7417,7 @@ msgstr "변위 cm³"
 #: apps/listings/translatable_db.py:396 apps/listings/translatable_db.py:1651
 #: apps/listings/translatable_db.py:2407
 msgid "Daužtas"
-msgstr ""
+msgstr "고장난"
 
 #: apps/listings/translatable_db.py:397
 msgid "Deflektorius variklio dangčio"
@@ -9271,7 +9294,7 @@ msgstr "추가 브레이크등"
 
 #: apps/listings/translatable_db.py:894 apps/listings/translatable_db.py:2384
 msgid "Pardavėjo tipas"
-msgstr ""
+msgstr "판매자 유형"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
@@ -9551,7 +9574,7 @@ msgstr "어깨 선풍기/송풍기"
 
 #: apps/listings/translatable_db.py:967 apps/listings/translatable_db.py:2381
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "최초 등록 국가"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -11318,7 +11341,7 @@ msgstr "스티어링 휠 위치 조절 노브"
 
 #: apps/listings/translatable_db.py:1424 apps/listings/translatable_db.py:2375
 msgid "Vairo padėtis"
-msgstr ""
+msgstr "스티어링 휠 위치"
 
 #: apps/listings/translatable_db.py:1425
 msgid "Vairo rato ašies komplektas"
@@ -12010,7 +12033,7 @@ msgstr "카약/카누"
 
 #: apps/listings/translatable_db.py:1636 apps/listings/translatable_db.py:2406
 msgid "Be defektų"
-msgstr ""
+msgstr "결함 없음"
 
 #: apps/listings/translatable_db.py:1637
 msgid "Benzinas/Gamtinės dujos"
@@ -12038,7 +12061,7 @@ msgstr "데구스"
 
 #: apps/listings/translatable_db.py:1653 apps/listings/translatable_db.py:2440
 msgid "Dešinėje"
-msgstr ""
+msgstr "오른쪽에"
 
 #: apps/listings/translatable_db.py:1654
 msgid "Diagnostikos įranga"
@@ -12070,7 +12093,7 @@ msgstr "동물을 운송하기 위해"
 
 #: apps/listings/translatable_db.py:1675 apps/listings/translatable_db.py:2397
 msgid "Hečbekas"
-msgstr ""
+msgstr "해치백"
 
 #: apps/listings/translatable_db.py:1682
 msgid "Išmetimo sistemos Tuning dalys"
@@ -12086,7 +12109,7 @@ msgstr "주오드크란테"
 
 #: apps/listings/translatable_db.py:1685 apps/listings/translatable_db.py:2439
 msgid "Kairėje"
-msgstr ""
+msgstr "왼쪽에"
 
 #: apps/listings/translatable_db.py:1686
 msgid "Kaišiadorys"
@@ -12125,7 +12148,7 @@ msgstr "기타 주요 결함"
 
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
-msgstr ""
+msgstr "상용차 (캐빈 포함)"
 
 #: apps/listings/translatable_db.py:1705
 msgid "Konteinerių sunkvežimis"
@@ -12165,7 +12188,7 @@ msgstr "인목 무리"
 
 #: apps/listings/translatable_db.py:1727
 msgid "Miško technika"
-msgstr ""
+msgstr "임업 장비"
 
 #: apps/listings/translatable_db.py:1732
 msgid "Mišrus"
@@ -12360,7 +12383,7 @@ msgstr "섀시 튜닝 부품"
 
 #: apps/listings/translatable_db.py:1830 apps/listings/translatable_db.py:2401
 msgid "Vienatūris"
-msgstr ""
+msgstr "하나로 된 돌"
 
 #: apps/listings/translatable_db.py:1832
 msgid "Vilkaviškis"
@@ -13707,7 +13730,7 @@ msgstr "차체 세부 정보"
 #: templates/listings/trailers_listing_create.html:93
 #: templates/listings/trailers_listing_create.html:253
 msgid "Metai"
-msgstr ""
+msgstr "년도"
 
 #: apps/listings/translatable_db.py:2371
 #: templates/listings/listing_detail.html:503
@@ -13719,30 +13742,30 @@ msgstr ""
 #: templates/listings/partials/_card_params.html:27
 #: templates/listings/search_map.html:180
 msgid "Rida"
-msgstr ""
+msgstr "열"
 
 #: apps/listings/translatable_db.py:2372
 msgid "Galia, kW"
-msgstr ""
+msgstr "갈륨, kW"
 
 #: apps/listings/translatable_db.py:2373
 #: templates/listings/listing_detail.html:579
 #: templates/listings/listing_detail.html:1936
 #: templates/listings/listing_detail.html:1986
 msgid "Darbinis tūris"
-msgstr ""
+msgstr "배수량"
 
 #: apps/listings/translatable_db.py:2374
 #: templates/listings/camping_listing_create.html:281
 #: templates/listings/listing_detail.html:757
 msgid "Varantieji ratai"
-msgstr ""
+msgstr "구동 휠"
 
 #: apps/listings/translatable_db.py:2376
 #: templates/listings/camping_listing_create.html:308
 #: templates/listings/listing_detail.html:773
 msgid "Defektai"
-msgstr ""
+msgstr "결함"
 
 #: apps/listings/translatable_db.py:2379
 #: templates/listings/bicycles_listing_create.html:138
@@ -13761,14 +13784,14 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:148
 #: templates/listings/trailers_listing_create.html:239
 msgid "Spalva"
-msgstr ""
+msgstr "색상"
 
 #: apps/listings/translatable_db.py:2380
 #: templates/listings/listing_detail.html:1451
 #: templates/listings/partials/_panel_bodies.html:652
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
-msgstr ""
+msgstr "유로 표준"
 
 #: apps/listings/translatable_db.py:2383 templates/imones/_filtrai.html:24
 #: templates/listings/listing_detail.html:423
@@ -13777,107 +13800,107 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:105
 #: templates/listings/partials/_panel_bodies.html:993
 msgid "Miestas"
-msgstr ""
+msgstr "도시"
 
 #: apps/listings/translatable_db.py:2385
 msgid "Ypatybės"
-msgstr ""
+msgstr "특징"
 
 #: apps/listings/translatable_db.py:2386
 msgid "Nuo / Iki"
-msgstr ""
+msgstr "출발지/도착지"
 
 #: apps/listings/translatable_db.py:2387
 msgid "Visi / Visos"
-msgstr ""
+msgstr "모두 / 모두"
 
 #: apps/listings/translatable_db.py:2388
 msgid "Benzinas"
-msgstr ""
+msgstr "가솔린"
 
 #: apps/listings/translatable_db.py:2389
 msgid "Dyzelinas"
-msgstr ""
+msgstr "디젤"
 
 #: apps/listings/translatable_db.py:2390
 msgid "Benzinas / dujos"
-msgstr ""
+msgstr "휘발유/가스"
 
 #: apps/listings/translatable_db.py:2391
 msgid "Hibridas"
-msgstr ""
+msgstr "잡종"
 
 #: apps/listings/translatable_db.py:2392
 msgid "Elektra"
-msgstr ""
+msgstr "일렉트라"
 
 #: apps/listings/translatable_db.py:2395
 msgid "Sedanas"
-msgstr ""
+msgstr "의자 가마"
 
 #: apps/listings/translatable_db.py:2396
 msgid "Universalas"
-msgstr ""
+msgstr "스테이션 왜건"
 
 #: apps/listings/translatable_db.py:2398
 msgid "Visureigis / Krosoveris"
-msgstr ""
+msgstr "SUV/크로스오버"
 
 #: apps/listings/translatable_db.py:2399
 msgid "Kupė"
-msgstr ""
+msgstr "쿠페"
 
 #: apps/listings/translatable_db.py:2400
 msgid "Kabrioletas"
-msgstr ""
+msgstr "바꾸어 말할 수 있는"
 
 #: apps/listings/translatable_db.py:2402
 msgid "Kairėje / Dešinėje"
-msgstr ""
+msgstr "왼쪽/오른쪽"
 
 #: apps/listings/translatable_db.py:2403
 msgid "Priekiniai"
-msgstr ""
+msgstr "앞쪽"
 
 #: apps/listings/translatable_db.py:2404
 msgid "Galiniai"
-msgstr ""
+msgstr "뒤쪽"
 
 #: apps/listings/translatable_db.py:2405
 msgid "Visi varantys"
-msgstr ""
+msgstr "모든 운전"
 
 #: apps/listings/translatable_db.py:2408
 #: templates/listings/listing_list.html:936
 msgid "Privatus asmuo"
-msgstr ""
+msgstr "개인"
 
 #: apps/listings/translatable_db.py:2410 apps/listings/views.py:562
 #: apps/listings/views.py:1803 apps/listings/views.py:2408
 #: templates/listings/partials/_panel_bodies.html:18
 msgid "Automobiliai"
-msgstr ""
+msgstr "자동차"
 
 #: apps/listings/translatable_db.py:2412 apps/listings/views.py:2462
 #: templates/listings/partials/_panel_bodies.html:318
 #: templates/listings/trucks_advanced_search.html:275
 msgid "Sunkvežimiai"
-msgstr ""
+msgstr "트럭"
 
 #: apps/listings/translatable_db.py:2414 apps/listings/views.py:2464
 #: templates/listings/partials/_panel_bodies.html:314
 msgid "Autobusai"
-msgstr ""
+msgstr "버스"
 
 #: apps/listings/translatable_db.py:2415
 #: templates/listings/partials/_panel_bodies.html:597
 #: templates/listings/trailers_listing_create.html:25
 msgid "Priekabos / Puspriekabės"
-msgstr ""
+msgstr "트레일러/세미트레일러"
 
 #: apps/listings/translatable_db.py:2416
 msgid "Žemės ūkio technika"
-msgstr ""
+msgstr "농업 기계"
 
 #: apps/listings/translatable_db.py:2419 apps/listings/views.py:1458
 #: templates/listings/advanced_generic.html:125
@@ -13889,17 +13912,17 @@ msgstr ""
 #: templates/listings/partials/fields/_brand.html:57
 #: templates/listings/partials/search_panel.html:339
 msgid "Visos markės"
-msgstr ""
+msgstr "모든 브랜드"
 
 #: apps/listings/translatable_db.py:2420
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:740
 msgid "Žemės ūkio technika, padargai"
-msgstr ""
+msgstr "농기계, 농기구"
 
 #: apps/listings/translatable_db.py:2423
 msgid "Limuzinų, vestuvių transportas"
-msgstr ""
+msgstr "리무진, 웨딩 교통편"
 
 #: apps/listings/translatable_db.py:2425 templates/base.html:817
 #: templates/listings/partials/_my_searches.html:28
@@ -13907,18 +13930,18 @@ msgstr ""
 #: templates/listings/saved_searches.html:25
 #: templates/listings/saved_searches.html:29
 msgid "Mano paieškos"
-msgstr ""
+msgstr "내 검색"
 
 #: apps/listings/translatable_db.py:2426 apps/listings/zemelapio_views.py:424
 msgid "Tik Lietuvoje"
-msgstr ""
+msgstr "오직 리투아니아에서만"
 
 #: apps/listings/translatable_db.py:2428
 #: templates/listings/motorcycles_list.html:508
 #: templates/listings/partials/sidebar_generic.html:140
 #: templates/listings/wheels_list.html:180
 msgid "Filtruoti"
-msgstr ""
+msgstr "필터"
 
 #: apps/listings/translatable_db.py:2429 templates/imones/sarasas.html:50
 #: templates/imones/sarasas.html:112 templates/imones/sarasas.html:182
@@ -13927,7 +13950,7 @@ msgstr ""
 #: templates/listings/partials/sidebar_generic.html:143
 #: templates/partials/_paieskos_juosta.html:142
 msgid "Išvalyti"
-msgstr ""
+msgstr "분명한"
 
 #: apps/listings/translatable_db.py:2430 templates/partials/_salis.html:134
 #: templates/partials/_salis.html:146
@@ -13936,13 +13959,13 @@ msgstr "국가 변경"
 
 #: apps/listings/translatable_db.py:2432 templates/base.html:498
 msgid "Įkelti"
-msgstr ""
+msgstr "업로드"
 
 #: apps/listings/translatable_db.py:2433 templates/base.html:544
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:29
 msgid "Žinutės"
-msgstr ""
+msgstr "메시지"
 
 #: apps/listings/translatable_db.py:2438
 #: templates/listings/motogear_advanced.html:185
@@ -13956,118 +13979,118 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:310
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
-msgstr ""
+msgstr "모두"
 
 #: apps/listings/translatable_db.py:2442
 msgid "Puspriekabės"
-msgstr ""
+msgstr "세미트레일러"
 
 #: apps/listings/translatable_db.py:2446
 msgid "Benzinas / elektra (hibridas)"
-msgstr ""
+msgstr "가솔린/전기(하이브리드)"
 
 #: apps/listings/translatable_db.py:2447
 msgid "Benzinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "휘발유/전기(충전식)"
 
 #: apps/listings/translatable_db.py:2448
 msgid "Benzinas / elektra / dujos"
-msgstr ""
+msgstr "휘발유 / 전기 / 가스"
 
 #: apps/listings/translatable_db.py:2449
 msgid "Benzinas / gamtinės dujos"
-msgstr ""
+msgstr "휘발유/천연가스"
 
 #: apps/listings/translatable_db.py:2450
 msgid "Dyzelinas / elektra (hibridas)"
-msgstr ""
+msgstr "디젤/전기(하이브리드)"
 
 #: apps/listings/translatable_db.py:2451
 msgid "Dyzelinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "디젤/전기(충전식)"
 
 #: apps/listings/translatable_db.py:2456
 msgid "Žemės ūkio"
-msgstr ""
+msgstr "농업"
 
 #: apps/listings/translatable_db.py:2457
 msgid "Autovežiai"
-msgstr ""
+msgstr "자동차 운반 트럭"
 
 #: apps/listings/translatable_db.py:2458
 msgid "Komunalinis"
-msgstr ""
+msgstr "공동체"
 
 #: apps/listings/translatable_db.py:2459
 msgid "Limuzinų nuoma"
-msgstr ""
+msgstr "리무진 렌탈"
 
 #: apps/listings/translatable_db.py:2460
 msgid "Mikroautob. nuoma"
-msgstr ""
+msgstr "미니버스 대여"
 
 #: apps/listings/translatable_db.py:2461
 msgid "Sunkiojo nuoma"
-msgstr ""
+msgstr "중장비 임대"
 
 #: apps/listings/translatable_db.py:2462
 msgid "Video, audio, navi"
-msgstr ""
+msgstr "나는 보고, 듣고, 배 위에 있다."
 
 #: apps/listings/translatable_db.py:2463
 msgid "Auto supirkimas"
-msgstr ""
+msgstr "자동차 구매"
 
 #: apps/listings/translatable_db.py:2464
 msgid "Krovimo technika"
-msgstr ""
+msgstr "장비 적재"
 
 #: apps/listings/translatable_db.py:2465
 msgid "Statybos priedai"
-msgstr ""
+msgstr "건설 자재"
 
 #: apps/listings/translatable_db.py:2466
 msgid "Vandens transp."
-msgstr ""
+msgstr "수상 운송"
 
 #: apps/listings/translatable_db.py:2467
 msgid "Dviračiai"
-msgstr ""
+msgstr "자전거"
 
 #: apps/listings/translatable_db.py:2468 templates/base.html:806
 msgid "Sukurti skelbimą"
-msgstr ""
+msgstr "광고 만들기"
 
 #: apps/listings/translatable_db.py:2469 templates/base.html:810
 msgid "Prisijungti"
-msgstr ""
+msgstr "로그인"
 
 #: apps/listings/translatable_db.py:2471 templates/base.html:834
 #: templates/imones/sarasas.html:218 templates/listings/search_map.html:3
 #: templates/listings/search_map.html:6
 msgid "Žemėlapio paieška"
-msgstr ""
+msgstr "지도 검색"
 
 #: apps/listings/translatable_db.py:2475 templates/base.html:463
 #: templates/base.html:871 templates/partials/_kalbos.html:26
 #: templates/partials/_kalbos.html:52
 msgid "Kalba"
-msgstr ""
+msgstr "언어"
 
 #: apps/listings/translatable_db.py:2476
 #: templates/listings/partials/fields/_model.html:59
 msgid "Pirma pasirinkite markę"
-msgstr ""
+msgstr "먼저 브랜드를 선택하세요"
 
 #: apps/listings/translatable_db.py:2477
 #: templates/listings/listing_list.html:1161
 msgid "Dienos pasiūlymai"
-msgstr ""
+msgstr "오늘의 특가 상품"
 
 #: apps/listings/translatable_db.py:2481
 #: templates/listings/listing_list.html:1208
 msgid "Šiandien naujų skelbimų dar nėra."
-msgstr ""
+msgstr "오늘은 새로운 광고가 없습니다."
 
 #: apps/listings/translatable_db.py:2482
 #: templates/listings/listing_list.html:1213
@@ -14076,37 +14099,37 @@ msgstr ""
 #: templates/listings/listing_list.html:1323
 #: templates/listings/listing_list.html:1359
 msgid "Žiūrėti visus"
-msgstr ""
+msgstr "모두 보기"
 
 #: apps/listings/translatable_db.py:2483 templates/imones/_filtrai.html:45
 #: templates/listings/listing_list.html:1377
 msgid "Visos įmonės"
-msgstr ""
+msgstr "모든 회사"
 
 #: apps/listings/translatable_db.py:2484 templates/404.html:3
 msgid "Puslapis nerastas"
-msgstr ""
+msgstr "페이지를 찾을 수 없습니다"
 
 #: apps/listings/translatable_db.py:2485 templates/404.html:13
 msgid "Tokio puslapio nėra"
-msgstr ""
+msgstr "해당 페이지는 존재하지 않습니다."
 
 #: apps/listings/translatable_db.py:2486 templates/404.html:14
 msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
-msgstr ""
+msgstr "링크가 오래되었거나 광고가 삭제되었을 수 있습니다."
 
 #: apps/listings/translatable_db.py:2487 templates/404.html:16
 msgid "Į pradžią"
-msgstr ""
+msgstr "맨 위로 돌아가기"
 
 #: apps/listings/translatable_db.py:2488 templates/404.html:17
 #: templates/listings/partials/_perziuretu_sarasas.html:11
 msgid "Naršyti skelbimus"
-msgstr ""
+msgstr "광고 보기"
 
 #: apps/listings/translatable_db.py:2489 templates/base.html:659
 msgid "Registruotis"
-msgstr ""
+msgstr "등록하다"
 
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
@@ -14327,8 +14350,7 @@ msgstr "감사합니다, 메시지 잘 받았습니다."
 msgid ""
 "Per valandą galima siųsti ne daugiau kaip %(kiek)s pranešimus. Bandykite "
 "vėliau."
-msgstr ""
-"한 시간에 %(kiek)s개의 메시지만 보낼 수 있습니다. 나중에 다시 시도해 주세요."
+msgstr "한 시간에 %(kiek)s개의 메시지만 보낼 수 있습니다. 나중에 다시 시도해 주세요."
 
 #: apps/listings/views.py:4142
 msgid "Pasirinkite pranešimo priežastį."
@@ -14518,7 +14540,8 @@ msgstr "아라비아 말"
 msgid "Korean"
 msgstr "한국인"
 
-#: templates/accounts/become_dealer.html:3 templates/pages/help_center.html:541
+#: templates/accounts/become_dealer.html:3
+#: templates/pages/help_center.html:541
 msgid "Become a Dealer"
 msgstr "딜러가 되세요"
 
@@ -14534,9 +14557,7 @@ msgstr "AutoLeft에서 더 많은 차량을 판매하세요."
 msgid ""
 "Reach thousands of buyers with your branded dealer page and professional "
 "tools."
-msgstr ""
-"브랜드화된 딜러 페이지와 전문적인 도구를 활용하여 수천 명의 구매자에게 도달하"
-"세요."
+msgstr "브랜드화된 딜러 페이지와 전문적인 도구를 활용하여 수천 명의 구매자에게 도달하세요."
 
 #: templates/accounts/become_dealer.html:20
 msgid "You are an active Dealer"
@@ -14626,7 +14647,8 @@ msgstr "더 많은 상품 목록이 필요하신가요?"
 msgid "Talk to us about volume pricing or partnership opportunities."
 msgstr "대량 구매 할인이나 파트너십 기회에 대해 문의해 주세요."
 
-#: templates/accounts/become_dealer.html:96 templates/pages/help_center.html:82
+#: templates/accounts/become_dealer.html:96
+#: templates/pages/help_center.html:82
 msgid "Contact us"
 msgstr "저희에게 연락하세요"
 
@@ -14634,9 +14656,7 @@ msgstr "저희에게 연락하세요"
 msgid ""
 "Payments processed via your wallet balance. Stripe direct subscription "
 "coming soon."
-msgstr ""
-"지갑 잔액을 통해 결제가 처리됩니다. Stripe 직접 구독 서비스는 곧 제공될 예정"
-"입니다."
+msgstr "지갑 잔액을 통해 결제가 처리됩니다. Stripe 직접 구독 서비스는 곧 제공될 예정입니다."
 
 #: templates/accounts/csrf_failure.html:3
 #: templates/accounts/csrf_failure.html:6
@@ -14648,8 +14668,7 @@ msgid ""
 "Formos saugumo raktas nebegalioja — taip nutinka, kai puslapis ilgai buvo "
 "atidarytas. Grįžkite atgal ir bandykite dar kartą."
 msgstr ""
-"양식의 보안 키가 더 이상 유효하지 않습니다. 이는 페이지가 오랫동안 열려 있을 "
-"때 발생합니다. 뒤로 돌아가서 다시 시도하십시오."
+"양식의 보안 키가 더 이상 유효하지 않습니다. 이는 페이지가 오랫동안 열려 있을 때 발생합니다. 뒤로 돌아가서 다시 시도하십시오."
 
 #: templates/accounts/csrf_failure.html:11
 msgid "Bandyti dar kartą"
@@ -14725,9 +14744,9 @@ msgstr "내 상품 목록"
 msgid "Manage your inventory"
 msgstr "재고를 관리하세요"
 
-#: templates/accounts/dealer_dashboard.html:92 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:612
-#: templates/base.html:750
+#: templates/accounts/dealer_dashboard.html:92
+#: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
+#: templates/base.html:612 templates/base.html:750
 msgid "Wallet"
 msgstr "지갑"
 
@@ -15021,9 +15040,7 @@ msgstr "딜러 프로필 설정"
 
 #: templates/accounts/dealer_setup.html:10
 msgid "All fields are optional. You can fill them now or later via Dashboard."
-msgstr ""
-"모든 입력란은 선택 사항입니다. 지금 입력하시거나 나중에 대시보드를 통해 입력"
-"하실 수 있습니다."
+msgstr "모든 입력란은 선택 사항입니다. 지금 입력하시거나 나중에 대시보드를 통해 입력하실 수 있습니다."
 
 #: templates/accounts/dealer_setup.html:18
 msgid "Company Information"
@@ -15065,7 +15082,8 @@ msgstr "기치"
 msgid "Recommended: 1920x400px"
 msgstr "권장 해상도: 1920x400px"
 
-#: templates/accounts/dealer_setup.html:70 templates/pages/help_center.html:656
+#: templates/accounts/dealer_setup.html:70
+#: templates/pages/help_center.html:656
 msgid "About Us"
 msgstr "회사 소개"
 
@@ -15433,14 +15451,12 @@ msgstr "완전히 숫자로만 표현될 수는 없습니다."
 
 #: templates/accounts/register.html:113
 msgid ""
-"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Terms of Service</a>\n"
-"                            and <a href=\"#\" class=\"text-primary hover:"
-"text-primary-dark\">Privacy Policy</a>"
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
 msgstr ""
-"본인은 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">서비스 약"
-"관</a> 및 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">개인정"
-"보 보호정책</a>에 동의합니다."
+"본인은 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">서비스 약관</a> "
+"및 <a href=\"#\" class=\"text-primary hover:text-primary-dark\">개인정보 "
+"보호정책</a>에 동의합니다."
 
 #: templates/accounts/register.html:140
 msgid "Already have an account?"
@@ -15812,11 +15828,9 @@ msgstr "계정에 충전하세요"
 
 #: templates/accounts/wallet.html:37
 msgid ""
-"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and "
-"cross-posting."
-msgstr ""
-"포인트는 AutoLeft의 가상 화폐입니다. 포인트를 사용하여 부스트, 추천 광고 및 "
-"크로스 포스팅에 활용하세요."
+"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and"
+" cross-posting."
+msgstr "포인트는 AutoLeft의 가상 화폐입니다. 포인트를 사용하여 부스트, 추천 광고 및 크로스 포스팅에 활용하세요."
 
 #: templates/accounts/wallet.html:40
 msgid "1 € = 1 point"
@@ -15883,7 +15897,8 @@ msgstr "유형"
 msgid "Amount"
 msgstr "양"
 
-#: templates/accounts/wallet.html:128 templates/listings/wheels_detail.html:223
+#: templates/accounts/wallet.html:128
+#: templates/listings/wheels_detail.html:223
 msgid "Status"
 msgstr "상태"
 
@@ -15908,7 +15923,8 @@ msgid "My Searches"
 msgstr "내 검색"
 
 #: templates/base.html:575 templates/base.html:728
-#: templates/listings/my_listings.html:6 templates/listings/my_listings.html:47
+#: templates/listings/my_listings.html:6
+#: templates/listings/my_listings.html:47
 msgid "My Ads"
 msgstr "내 광고"
 
@@ -16060,8 +16076,8 @@ msgstr "대화"
 #: templates/listings/listing_create.html:117
 #: templates/listings/listing_create.html:154
 #: templates/listings/partials/_my_searches.html:31
-#: templates/listings/select_value.html:18 templates/listings/skelbimai.html:30
-#: templates/listings/skelbimai.html:78
+#: templates/listings/select_value.html:18
+#: templates/listings/skelbimai.html:30 templates/listings/skelbimai.html:78
 #: templates/partials/_paieskos_juosta.html:43
 msgid "Atgal"
 msgstr "뒤로"
@@ -16236,9 +16252,8 @@ msgid ""
 "(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
 "your price, and publish. The listing will be live within 5-10 minutes."
 msgstr ""
-"페이지 상단에 있는 빨간색 '광고 만들기' 버튼을 클릭하세요. 카테고리(자동차, "
-"오토바이, 트럭 등)를 선택하고, 세부 정보를 입력하고, 사진을 업로드하고, 가격"
-"을 설정한 후 게시하세요. 광고는 5~10분 내에 게시됩니다."
+"페이지 상단에 있는 빨간색 '광고 만들기' 버튼을 클릭하세요. 카테고리(자동차, 오토바이, 트럭 등)를 선택하고, 세부 정보를 입력하고,"
+" 사진을 업로드하고, 가격을 설정한 후 게시하세요. 광고는 5~10분 내에 게시됩니다."
 
 #: templates/faq.html:28
 msgid "How do I edit or delete my listing?"
@@ -16249,9 +16264,8 @@ msgid ""
 "Go to 'My Listings' from the user menu. Click any listing to view it, then "
 "use the Edit or Delete buttons. Edits are reflected immediately."
 msgstr ""
-"사용자 메뉴에서 '내 상품 목록'으로 이동하세요. 원하는 상품 목록을 클릭하여 내"
-"용을 확인한 후, '수정' 또는 '삭제' 버튼을 사용하세요. 수정 사항은 즉시 반영됩"
-"니다."
+"사용자 메뉴에서 '내 상품 목록'으로 이동하세요. 원하는 상품 목록을 클릭하여 내용을 확인한 후, '수정' 또는 '삭제' 버튼을 "
+"사용하세요. 수정 사항은 즉시 반영됩니다."
 
 #: templates/faq.html:38
 msgid "How long is my listing active?"
@@ -16263,8 +16277,8 @@ msgid ""
 "expiration, listings are kept in your account for 160 days before being "
 "automatically deleted."
 msgstr ""
-"상품 등록은 30일 동안 유효합니다. 언제든지 갱신할 수 있습니다. 등록 기간이 만"
-"료된 후에는 160일 동안 계정에 보관된 후 자동으로 삭제됩니다."
+"상품 등록은 30일 동안 유효합니다. 언제든지 갱신할 수 있습니다. 등록 기간이 만료된 후에는 160일 동안 계정에 보관된 후 자동으로 "
+"삭제됩니다."
 
 #: templates/faq.html:48
 msgid "How do I contact a seller?"
@@ -16275,8 +16289,8 @@ msgid ""
 "Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
 "seller's phone number is shown if they have enabled it."
 msgstr ""
-"상품 목록을 열고 '메시지 보내기' 또는 '이메일 보내기' 버튼을 사용하세요. 판매"
-"자가 전화번호 표시를 설정해 놓았다면 전화번호가 표시됩니다."
+"상품 목록을 열고 '메시지 보내기' 또는 '이메일 보내기' 버튼을 사용하세요. 판매자가 전화번호 표시를 설정해 놓았다면 전화번호가 "
+"표시됩니다."
 
 #: templates/faq.html:58
 msgid "How does the wallet work?"
@@ -16288,9 +16302,8 @@ msgid ""
 "cross-posting. Top up with €20, €100, €500 (with bonus credits) or any "
 "custom amount. 1 EUR = 1 credit."
 msgstr ""
-"지갑에는 상품 목록 노출, 추천 광고, 교차 게시 등에 사용할 수 있는 크레딧이 저"
-"장됩니다. 20유로, 100유로, 500유로(보너스 크레딧 포함) 또는 원하는 금액으로 "
-"충전하세요. 1유로는 1크레딧입니다."
+"지갑에는 상품 목록 노출, 추천 광고, 교차 게시 등에 사용할 수 있는 크레딧이 저장됩니다. 20유로, 100유로, 500유로(보너스 "
+"크레딧 포함) 또는 원하는 금액으로 충전하세요. 1유로는 1크레딧입니다."
 
 #: templates/faq.html:68
 msgid "How do I become a dealer?"
@@ -16302,9 +16315,8 @@ msgid ""
 "or Enterprise) and subscribe. You'll get unlimited listings, a branded "
 "dealer page, custom logo, and featured placement."
 msgstr ""
-"계정 메뉴에서 '딜러' 페이지를 방문하세요. 플랜(기본, 프로 또는 엔터프라이즈)"
-"을 선택하고 구독하세요. 무제한 차량 등록, 브랜드 딜러 페이지, 맞춤 로고 및 추"
-"천 게재 기능을 이용하실 수 있습니다."
+"계정 메뉴에서 '딜러' 페이지를 방문하세요. 플랜(기본, 프로 또는 엔터프라이즈)을 선택하고 구독하세요. 무제한 차량 등록, 브랜드 딜러"
+" 페이지, 맞춤 로고 및 추천 게재 기능을 이용하실 수 있습니다."
 
 #: templates/faq.html:78
 msgid "How do I change my password?"
@@ -16316,9 +16328,8 @@ msgid ""
 "and the new one. If you forgot your password, use 'Forgot password?' on the "
 "login page."
 msgstr ""
-"설정으로 이동한 다음 '비밀번호 변경'을 클릭하세요. 현재 비밀번호와 새 비밀번"
-"호를 입력하세요. 비밀번호를 잊어버린 경우 로그인 페이지에서 '비밀번호 찾"
-"기'를 사용하세요."
+"설정으로 이동한 다음 '비밀번호 변경'을 클릭하세요. 현재 비밀번호와 새 비밀번호를 입력하세요. 비밀번호를 잊어버린 경우 로그인 "
+"페이지에서 '비밀번호 찾기'를 사용하세요."
 
 #: templates/faq.html:88
 msgid "How do I delete my account?"
@@ -16330,8 +16341,8 @@ msgid ""
 "need to enter your password to confirm. This action is permanent and cannot "
 "be undone."
 msgstr ""
-"설정으로 이동하여 맨 아래로 스크롤한 다음 '계정 삭제'를 클릭하세요. 확인하려"
-"면 비밀번호를 입력해야 합니다. 이 작업은 영구적이며 되돌릴 수 없습니다."
+"설정으로 이동하여 맨 아래로 스크롤한 다음 '계정 삭제'를 클릭하세요. 확인하려면 비밀번호를 입력해야 합니다. 이 작업은 영구적이며 "
+"되돌릴 수 없습니다."
 
 #: templates/faq.html:99
 msgid "Still need help?"
@@ -16628,7 +16639,8 @@ msgstr "부르다"
 msgid "Rašyti žinutę"
 msgstr "메시지를 작성하세요"
 
-#: templates/imones/sarasas.html:36 templates/partials/_paieskos_juosta.html:50
+#: templates/imones/sarasas.html:36
+#: templates/partials/_paieskos_juosta.html:50
 msgid "Visos paslaugos"
 msgstr "모든 서비스"
 
@@ -16962,9 +16974,7 @@ msgstr "엔진 크기(리터)"
 msgid ""
 "Specify which vehicles this part fits. Empty rows are ignored. Leave all "
 "empty = search all parts."
-msgstr ""
-"이 부품이 호환되는 차량을 지정하십시오. 빈 행은 무시됩니다. 모든 행을 비워두"
-"면 모든 부품을 검색합니다."
+msgstr "이 부품이 호환되는 차량을 지정하십시오. 빈 행은 무시됩니다. 모든 행을 비워두면 모든 부품을 검색합니다."
 
 #: templates/listings/advanced_search.html:854
 msgid "Part Categories"
@@ -17516,9 +17526,7 @@ msgstr "사진 업로드"
 #: templates/listings/services_listing_create.html:189
 #: templates/listings/trailers_listing_create.html:452
 msgid "Iki 36 nuotraukų. Maks. dydis 20MB. JPG, GIF, PNG."
-msgstr ""
-"사진은 최대 36장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형"
-"식은 JPG, GIF, PNG입니다."
+msgstr "사진은 최대 36장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형식은 JPG, GIF, PNG입니다."
 
 #: templates/listings/agriculture_listing_create.html:335
 #: templates/listings/agriculture_listing_create.html:722
@@ -17566,9 +17574,7 @@ msgstr "사진 업로드 중..."
 #: templates/listings/services_listing_create.html:216
 #: templates/listings/trailers_listing_create.html:479
 msgid "Užpildyti ne visi privalomi laukai. Jie pažymėti raudonai."
-msgstr ""
-"필수 입력 항목 중 일부가 입력되지 않았습니다. 입력되지 않은 항목은 빨간색으"
-"로 표시되어 있습니다."
+msgstr "필수 입력 항목 중 일부가 입력되지 않았습니다. 입력되지 않은 항목은 빨간색으로 표시되어 있습니다."
 
 #: templates/listings/agriculture_listing_create.html:367
 #: templates/listings/bicycles_listing_create.html:349
@@ -18109,9 +18115,7 @@ msgstr "사진 업로드"
 #: templates/listings/boats_listing_create.html:321
 #: templates/listings/listing_create_cars_quick.html:567
 msgid "Up to 40 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr ""
-"사진은 최대 40장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형"
-"식은 JPG, GIF, PNG입니다."
+msgstr "사진은 최대 40장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형식은 JPG, GIF, PNG입니다."
 
 #: templates/listings/boats_listing_create.html:328
 #: templates/listings/boats_listing_create.html:722
@@ -18127,9 +18131,7 @@ msgstr "사진 업로드 중..."
 
 #: templates/listings/boats_listing_create.html:349
 msgid "Not all required fields are filled in. These fields are marked in red."
-msgstr ""
-"필수 입력 항목 중 일부가 입력되지 않았습니다. 입력되지 않은 항목은 빨간색으"
-"로 표시되어 있습니다."
+msgstr "필수 입력 항목 중 일부가 입력되지 않았습니다. 입력되지 않은 항목은 빨간색으로 표시되어 있습니다."
 
 #: templates/listings/boats_listing_create.html:363
 #: templates/listings/listing_create.html:758
@@ -18219,8 +18221,7 @@ msgstr "사진은 최대 40장까지 가능합니다. 먼저 일부를 삭제해
 #: templates/listings/motorcycle_create.html:444
 msgid ""
 "You picked too many photos — only the first available ones will be added."
-msgstr ""
-"사진을 너무 많이 선택하셨습니다. 가장 먼저 선택 가능한 사진만 추가됩니다."
+msgstr "사진을 너무 많이 선택하셨습니다. 가장 먼저 선택 가능한 사진만 추가됩니다."
 
 #: templates/listings/boats_listing_create.html:783
 #: templates/listings/listing_detail.html:2246
@@ -18847,9 +18848,7 @@ msgstr "기본"
 
 #: templates/listings/listing_create.html:313
 msgid "💡 Hover over photo to see options. Click photo to enlarge."
-msgstr ""
-"💡 사진 위에 마우스를 올려놓으면 옵션을 볼 수 있습니다. 사진을 클릭하면 확대"
-"됩니다."
+msgstr "💡 사진 위에 마우스를 올려놓으면 옵션을 볼 수 있습니다. 사진을 클릭하면 확대됩니다."
 
 #: templates/listings/listing_create.html:328
 #: templates/listings/listing_create_cars_quick.html:537
@@ -18860,8 +18859,7 @@ msgstr "이미 업로드됨"
 #: templates/listings/listing_create.html:329
 #, python-format
 msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
-msgstr ""
-"(%(count)s / 40 — 클릭하면 확대되고, 드래그하면 순서를 바꿀 수 있습니다)"
+msgstr "(%(count)s / 40 — 클릭하면 확대되고, 드래그하면 순서를 바꿀 수 있습니다)"
 
 #: templates/listings/listing_create.html:356
 msgid "Add more photos"
@@ -19027,8 +19025,7 @@ msgstr "({count} / 40 — 클릭하면 확대되고, 드래그하면 순서를 �
 #: templates/listings/listing_create.html:903
 #, python-brace-format
 msgid "You picked {n} photos but only {a} fit. First {a} will be added."
-msgstr ""
-"{n}장의 사진을 선택하셨지만 {a}장만 적합합니다. 첫 번째 {a}장이 추가됩니다."
+msgstr "{n}장의 사진을 선택하셨지만 {a}장만 적합합니다. 첫 번째 {a}장이 추가됩니다."
 
 #: templates/listings/listing_create.html:907
 #: templates/listings/listing_create_cars_quick.html:847
@@ -19085,9 +19082,7 @@ msgstr "VIN 코드"
 #: templates/listings/listing_create_cars_quick.html:248
 msgid ""
 "Price excludes taxes — ask the seller for details about applicable taxes."
-msgstr ""
-"가격에는 세금이 포함되어 있지 않습니다. 적용되는 세금에 대한 자세한 내용은 판"
-"매자에게 문의하십시오."
+msgstr "가격에는 세금이 포함되어 있지 않습니다. 적용되는 세금에 대한 자세한 내용은 판매자에게 문의하십시오."
 
 #: templates/listings/listing_create_cars_quick.html:265
 #: templates/listings/listing_create_cars_quick.html:758
@@ -19170,11 +19165,9 @@ msgstr "판매자 유형"
 #: templates/listings/tyres_create.html:237
 #: templates/listings/wheels_create.html:320
 msgid ""
-"The fewer questions buyers have when reading your listing, the faster you'll "
-"find a buyer."
-msgstr ""
-"구매자들이 상품 설명을 읽으면서 궁금해하는 점이 적을수록, 더 빨리 구매자를 찾"
-"을 수 있습니다."
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
+msgstr "구매자들이 상품 설명을 읽으면서 궁금해하는 점이 적을수록, 더 빨리 구매자를 찾을 수 있습니다."
 
 #: templates/listings/listing_create_cars_quick.html:481
 #: templates/listings/rims_create.html:207
@@ -19188,11 +19181,9 @@ msgstr "대문자만 사용하거나 기호를 과도하게 사용하지 마십�
 #: templates/listings/tyres_create.html:297
 #: templates/listings/wheels_create.html:367
 msgid ""
-"Not all required fields are filled in or filled in incorrectly. These fields "
-"are marked in red."
-msgstr ""
-"필수 입력 항목 중 일부가 입력되지 않았거나 잘못 입력되었습니다. 이러한 항목"
-"은 빨간색으로 표시되어 있습니다."
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
+msgstr "필수 입력 항목 중 일부가 입력되지 않았거나 잘못 입력되었습니다. 이러한 항목은 빨간색으로 표시되어 있습니다."
 
 #: templates/listings/listing_create_cars_quick.html:861
 #: templates/listings/rims_create.html:362
@@ -19870,9 +19861,7 @@ msgstr "편집하다"
 #: templates/listings/listing_edit.html:55
 msgid ""
 "Brand, Model and First Registration cannot be changed. VIN can be edited."
-msgstr ""
-"브랜드, 모델 및 최초 등록 정보는 변경할 수 없습니다. 차량 식별 번호(VIN)는 수"
-"정할 수 있습니다."
+msgstr "브랜드, 모델 및 최초 등록 정보는 변경할 수 없습니다. 차량 식별 번호(VIN)는 수정할 수 있습니다."
 
 #: templates/listings/listing_edit.html:67
 msgid "Price (€)*"
@@ -20345,7 +20334,8 @@ msgstr "활성화 플랜을 선택하세요"
 
 #: templates/listings/listing_select_plan.html:62
 #: templates/listings/listing_select_plan.html:167
-#: templates/listings/wheels_list.html:232 templates/pages/help_center.html:612
+#: templates/listings/wheels_list.html:232
+#: templates/pages/help_center.html:612
 msgid "Recommended"
 msgstr "추천"
 
@@ -20509,29 +20499,23 @@ msgstr "오류"
 #: templates/listings/listing_select_plan.html:712
 #: templates/listings/listing_services_order.html:284
 msgid ""
-"Your listing will appear higher in search results than others. The more star "
-"boosts you order, the higher it will be displayed."
-msgstr ""
-"귀하의 상품 정보는 다른 상품보다 검색 결과 상단에 표시됩니다. 별점 부스트를 "
-"많이 주문할수록 표시 순위가 높아집니다."
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr "귀하의 상품 정보는 다른 상품보다 검색 결과 상단에 표시됩니다. 별점 부스트를 많이 주문할수록 표시 순위가 높아집니다."
 
 #: templates/listings/listing_select_plan.html:717
 #: templates/listings/listing_services_order.html:289
 msgid ""
 "Your listing will be shown on the homepage among featured listings, "
 "attracting up to 5x more views."
-msgstr ""
-"귀하의 상품 정보는 홈페이지의 추천 상품 목록에 표시되어 최대 5배 더 많은 조회"
-"수를 기록할 것입니다."
+msgstr "귀하의 상품 정보는 홈페이지의 추천 상품 목록에 표시되어 최대 5배 더 많은 조회수를 기록할 것입니다."
 
 #: templates/listings/listing_select_plan.html:722
 #: templates/listings/listing_services_order.html:294
 msgid ""
 "Your listing will have a colored background in search results, making it "
 "stand out from other listings."
-msgstr ""
-"검색 결과에서 귀하의 상품 정보는 배경에 색상이 표시되어 다른 상품 정보보다 눈"
-"에 띄게 됩니다."
+msgstr "검색 결과에서 귀하의 상품 정보는 배경에 색상이 표시되어 다른 상품 정보보다 눈에 띄게 됩니다."
 
 #: templates/listings/listing_services_order.html:7
 #: templates/listings/listing_services_order.html:18
@@ -20543,9 +20527,9 @@ msgid "Back to my ads"
 msgstr "내 광고 목록으로 돌아가기"
 
 #: templates/listings/listing_services_order.html:21
-msgid "Boost your active listing with stars, highlight, or featured placement."
-msgstr ""
-"별점, 하이라이트 또는 추천 게재를 통해 활성 상품 목록을 더욱 돋보이게 하세요."
+msgid ""
+"Boost your active listing with stars, highlight, or featured placement."
+msgstr "별점, 하이라이트 또는 추천 게재를 통해 활성 상품 목록을 더욱 돋보이게 하세요."
 
 #: templates/listings/listing_services_order.html:50
 msgid "Listing is active"
@@ -20650,22 +20634,17 @@ msgstr "귀하의 목록 순위: %(pos)s / %(total)s"
 msgid ""
 "Your listing is in the top 10 among all active listings. Boost it to move "
 "higher."
-msgstr ""
-"귀하의 상품 목록이 모든 활성 상품 목록 중 상위 10위 안에 있습니다. 순위를 높"
-"이려면 홍보해 보세요."
+msgstr "귀하의 상품 목록이 모든 활성 상품 목록 중 상위 10위 안에 있습니다. 순위를 높이려면 홍보해 보세요."
 
 #: templates/listings/listing_stats.html:113
 msgid ""
 "Your listing is in the top 50 among all active listings. Boost it to move "
 "higher."
-msgstr ""
-"귀하의 상품 목록이 모든 활성 상품 목록 중 상위 50위 안에 있습니다. 순위를 높"
-"이려면 홍보해 보세요."
+msgstr "귀하의 상품 목록이 모든 활성 상품 목록 중 상위 50위 안에 있습니다. 순위를 높이려면 홍보해 보세요."
 
 #: templates/listings/listing_stats.html:115
 msgid "Boost your listing to move higher among all active listings."
-msgstr ""
-"모든 활성 목록 중에서 더 높은 순위에 노출되도록 목록 노출 순위를 높이세요."
+msgstr "모든 활성 목록 중에서 더 높은 순위에 노출되도록 목록 노출 순위를 높이세요."
 
 #: templates/listings/listing_stats.html:125
 msgid "Views per day (last 30 days)"
@@ -20709,11 +20688,8 @@ msgstr "목록이 게시되었습니다"
 
 #: templates/listings/listing_success.html:61
 #, python-format
-msgid ""
-"Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
-msgstr ""
-"상품 목록은 <strong class=\"text-gray-900\">%(days)s일</strong> 동안 유효합니"
-"다."
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgstr "상품 목록은 <strong class=\"text-gray-900\">%(days)s일</strong> 동안 유효합니다."
 
 #: templates/listings/listing_success.html:66
 #, python-format
@@ -20885,8 +20861,7 @@ msgstr "카테고리 목록으로 돌아가기"
 #: templates/listings/minibus_choice.html:25
 msgid ""
 "Mikroautobusai neturi atskiros kategorijos — pasirinkite, kur dėti skelbimą."
-msgstr ""
-"미니버스는 별도의 카테고리가 없습니다. 광고를 게재할 위치를 선택하세요."
+msgstr "미니버스는 별도의 카테고리가 없습니다. 광고를 게재할 위치를 선택하세요."
 
 #: templates/listings/minibus_choice.html:49
 msgid ""
@@ -21272,8 +21247,8 @@ msgid ""
 "Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
 "WEBP. First is main."
 msgstr ""
-"최대 <strong>40장</strong>의 사진. 각 사진 최대 <strong>16MB</strong>. JPG, "
-"PNG, WEBP 형식. 첫 번째 사진이 대표 사진입니다."
+"최대 <strong>40장</strong>의 사진. 각 사진 최대 <strong>16MB</strong>. JPG, PNG, WEBP "
+"형식. 첫 번째 사진이 대표 사진입니다."
 
 #: templates/listings/motogear_create.html:296
 msgid "PNG, JPG up to 16MB each (max 40 photos)"
@@ -21608,22 +21583,18 @@ msgid ""
 "You can upload up to <strong>40 photos</strong>. Max size per photo is "
 "<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
 msgstr ""
-"사진은 최대 <strong>40장</strong>까지 업로드할 수 있습니다. 사진 한 장당 최"
-"대 크기는 <strong>10MB</strong>입니다. 지원되는 파일 형식은 <strong>JPG, "
-"PNG, GIF</strong>입니다."
+"사진은 최대 <strong>40장</strong>까지 업로드할 수 있습니다. 사진 한 장당 최대 크기는 "
+"<strong>10MB</strong>입니다. 지원되는 파일 형식은 <strong>JPG, PNG, GIF</strong>입니다."
 
 #: templates/listings/motorcycle_create.html:342
 msgid ""
 "To change photo order, drag and drop into desired position. The first photo "
 "will be used as the main cover image."
-msgstr ""
-"사진 순서를 변경하려면 원하는 위치로 드래그 앤 드롭하세요. 첫 번째 사진은 메"
-"인 표지 이미지로 사용됩니다."
+msgstr "사진 순서를 변경하려면 원하는 위치로 드래그 앤 드롭하세요. 첫 번째 사진은 메인 표지 이미지로 사용됩니다."
 
 #: templates/listings/motorcycle_create.html:344
 msgid "Shoot in good lighting, ideally outdoors"
-msgstr ""
-"조명이 좋은 곳에서 촬영하세요. 가능하면 야외에서 촬영하는 것이 좋습니다."
+msgstr "조명이 좋은 곳에서 촬영하세요. 가능하면 야외에서 촬영하는 것이 좋습니다."
 
 #: templates/listings/motorcycle_create.html:345
 msgid "Include photos of front, side, rear, and engine"
@@ -21882,7 +21853,7 @@ msgstr "가격 미정"
 
 #: templates/listings/my_listings.html:556
 msgid "Ad is <strong>inactive</strong>"
-msgstr ""
+msgstr "광고가 비활성화되었습니다."
 
 #: templates/listings/my_listings.html:560
 msgid "Activate"
@@ -22274,14 +22245,12 @@ msgid ""
 "Šio skelbimo vieta apytikslė — pažymėta pagal miestą. Patempkite žymeklį "
 "arba įveskite adresą, kad pirkėjai matytų tikslią vietą."
 msgstr ""
-"이 매물의 위치는 도시명으로 표시되어 있으며 대략적인 위치입니다. 구매자분들"
-"은 마우스 커서를 드래그하거나 주소를 입력하여 정확한 위치를 확인하세요."
+"이 매물의 위치는 도시명으로 표시되어 있으며 대략적인 위치입니다. 구매자분들은 마우스 커서를 드래그하거나 주소를 입력하여 정확한 위치를 "
+"확인하세요."
 
 #: templates/listings/partials/_vietos_blokas.html:64
 msgid "Vieta neprivaloma, bet be jos skelbimas nepateks į žemėlapio paiešką."
-msgstr ""
-"위치 정보 입력은 선택 사항이지만, 입력하지 않으면 지도 검색 결과에 광고가 표"
-"시되지 않습니다."
+msgstr "위치 정보 입력은 선택 사항이지만, 입력하지 않으면 지도 검색 결과에 광고가 표시되지 않습니다."
 
 #: templates/listings/partials/_vietos_blokas.html:68
 msgid "Vietos tikslumas"
@@ -22380,9 +22349,7 @@ msgstr "잠재 구매자들이 전화로 연락할 수 있도록 전화번호를
 msgid ""
 "Email lets potential buyers reach you by email. Hidden from public listing "
 "visitors."
-msgstr ""
-"이메일 주소를 통해 잠재 구매자가 이메일로 연락할 수 있습니다. 공개 목록 방문"
-"자에게는 표시되지 않습니다."
+msgstr "이메일 주소를 통해 잠재 구매자가 이메일로 연락할 수 있습니다. 공개 목록 방문자에게는 표시되지 않습니다."
 
 #: templates/listings/partials/contact_block.html:119
 msgid "Hide exact address from the public listing"
@@ -22476,7 +22443,8 @@ msgstr "작동 용량(리터)"
 msgid "Kuro sąnaudos (l/100 km)"
 msgstr "연료 소비량(리터/100km)"
 
-#: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
+#: templates/listings/rims_create.html:4
+#: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Rims"
 msgstr "신규 등록 상품: 휠"
@@ -22543,9 +22511,7 @@ msgstr "제품 상태, 마모 정도, 보관 상태, 판매 이유 등을 자세
 #: templates/listings/tyres_create.html:263
 #: templates/listings/wheels_create.html:346
 msgid "Up to 20 photos. Max size 20MB. JPG, GIF, PNG."
-msgstr ""
-"사진은 최대 20장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형"
-"식은 JPG, GIF, PNG입니다."
+msgstr "사진은 최대 20장까지 업로드 가능합니다. 최대 파일 크기는 20MB입니다. 파일 형식은 JPG, GIF, PNG입니다."
 
 #: templates/listings/rims_create.html:348
 #: templates/listings/tyres_create.html:385
@@ -22671,9 +22637,7 @@ msgstr "화면에"
 msgid ""
 "Gauti ekrane: naujus skelbimus pažymėsime žalia žyma šiame sąraše ir "
 "pagrindiniame puslapyje"
-msgstr ""
-"화면에 표시하세요: 새 광고는 이 목록과 홈페이지에 초록색 체크 표시로 표시됩니"
-"다."
+msgstr "화면에 표시하세요: 새 광고는 이 목록과 홈페이지에 초록색 체크 표시로 표시됩니다."
 
 #: templates/listings/saved_searches.html:99
 msgid "El. paštu"
@@ -22694,11 +22658,9 @@ msgstr "저장된 검색 없음"
 
 #: templates/listings/saved_searches.html:127
 msgid ""
-"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras "
-"naujų skelbimų."
-msgstr ""
-"검색을 실행하고 \"검색 저장\"을 클릭하면 새 광고가 표시될 때 알림을 받을 수 "
-"있습니다."
+"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras"
+" naujų skelbimų."
+msgstr "검색을 실행하고 \"검색 저장\"을 클릭하면 새 광고가 표시될 때 알림을 받을 수 있습니다."
 
 #: templates/listings/saved_searches.html:158
 msgid "Išsaugoti"
@@ -22716,9 +22678,7 @@ msgstr "최근 검색 기록이 없습니다."
 msgid ""
 "Kai atliksite paiešką su bent vienu filtru, ji atsiras čia — prisijungti "
 "nebūtina."
-msgstr ""
-"필터를 하나 이상 사용하여 검색을 완료하면 로그인 없이도 검색 결과가 여기에 표"
-"시됩니다."
+msgstr "필터를 하나 이상 사용하여 검색을 완료하면 로그인 없이도 검색 결과가 여기에 표시됩니다."
 
 #: templates/listings/search_map.html:38
 msgid "Miestas, adresas arba šalis"
@@ -22764,7 +22724,7 @@ msgstr "광고"
 #: templates/listings/search_map.html:185
 #: templates/partials/_paieskos_juosta.html:194
 msgid "skelbimai"
-msgstr ""
+msgstr "광고"
 
 #: templates/listings/select_value.html:51
 msgid "Gerai"
@@ -22792,7 +22752,7 @@ msgstr "상표"
 
 #: templates/listings/sidebar_moto_parts.html:56
 msgid "MODEL"
-msgstr ""
+msgstr "모델"
 
 #: templates/listings/sidebar_moto_parts.html:65
 msgid "CONDITION"
@@ -22820,7 +22780,7 @@ msgstr "엔진 배기량 (cm³)"
 
 #: templates/listings/sidebar_moto_parts.html:126
 msgid "COUNTRY"
-msgstr ""
+msgstr "국가"
 
 #: templates/listings/sidebar_moto_parts.html:128
 msgid "All countries"
@@ -22955,8 +22915,7 @@ msgstr "제조사/모델 조합을 추가하세요"
 msgid ""
 "Add multiple combos to search e.g. <em>Volvo FH</em> AND <em>Scania R</em>."
 msgstr ""
-"예를 들어 <em>Volvo FH</em> AND <em>Scania R</em>과 같이 여러 조합을 추가하"
-"여 검색할 수 있습니다."
+"예를 들어 <em>Volvo FH</em> AND <em>Scania R</em>과 같이 여러 조합을 추가하여 검색할 수 있습니다."
 
 #: templates/listings/trucks_advanced_search.html:372
 msgid "Year, Price & Performance"
@@ -23203,8 +23162,8 @@ msgid ""
 "Fill in the details below. Required fields are marked with <span "
 "class=\"text-red-600\">*</span>."
 msgstr ""
-"아래 세부 정보를 입력해 주세요. 필수 입력 항목은 <span class=\"text-"
-"red-600\">*</span>로 표시되어 있습니다."
+"아래 세부 정보를 입력해 주세요. 필수 입력 항목은 <span class=\"text-red-600\">*</span>로 표시되어 "
+"있습니다."
 
 #: templates/listings/trucks_listing_create.html:293
 msgid "Basic Information"
@@ -23259,9 +23218,7 @@ msgstr "여기에 사진을 드롭하거나 <strong>클릭하여 업로드</stro
 
 #: templates/listings/trucks_listing_create.html:592
 msgid "Up to 40 photos · JPG, PNG · max 20 MB each · Drag photos to reorder"
-msgstr ""
-"최대 40장 사진 · JPG, PNG 형식 · 각 사진 최대 20MB · 사진을 드래그하여 순서"
-"를 변경하세요"
+msgstr "최대 40장 사진 · JPG, PNG 형식 · 각 사진 최대 20MB · 사진을 드래그하여 순서를 변경하세요"
 
 #: templates/listings/trucks_listing_create.html:602
 #: templates/listings/trucks_listing_create.html:615
@@ -23270,8 +23227,7 @@ msgstr "보다"
 
 #: templates/listings/trucks_listing_create.html:607
 msgid "No photos yet — upload some to attract buyers"
-msgstr ""
-"아직 사진이 없습니다. 구매자들의 관심을 끌 수 있도록 사진을 업로드해 주세요."
+msgstr "아직 사진이 없습니다. 구매자들의 관심을 끌 수 있도록 사진을 업로드해 주세요."
 
 #: templates/listings/trucks_listing_create.html:630
 msgid "YouTube URL — e.g. https://youtube.com/watch?v=..."
@@ -23528,8 +23484,7 @@ msgstr "저희가 드리는 개인적인 메시지입니다"
 #: templates/pages/help_center.html:171
 msgid ""
 "Hello, and thank you for being here. We're glad to have you on the platform."
-msgstr ""
-"안녕하세요, 참여해주셔서 감사합니다. 저희 플랫폼에 오신 것을 환영합니다."
+msgstr "안녕하세요, 참여해주셔서 감사합니다. 저희 플랫폼에 오신 것을 환영합니다."
 
 #: templates/pages/help_center.html:173
 msgid ""
@@ -23537,15 +23492,14 @@ msgid ""
 "listings</strong> in any category. If you delete a listing, that <strong "
 "class=\"text-gray-900 font-semibold\">free</strong> slot becomes available "
 "again — so you can always re-list within your free allowance. After your "
-"free listings are used, additional listings carry a small fee that keeps the "
-"platform running and online for everyone."
+"free listings are used, additional listings carry a small fee that keeps the"
+" platform running and online for everyone."
 msgstr ""
-"모든 사용자는 모든 카테고리에서 <strong class=\"text-gray-900 font-"
-"semibold\">3개의 무료 상품 등록</strong> 기회를 얻습니다. 상품을 삭제하면 해"
-"당 <strong class=\"text-gray-900 font-semibold\">무료</strong> 등록 슬롯이 다"
-"시 사용 가능해지므로, 무료 등록 횟수 내에서 언제든지 다시 등록할 수 있습니"
-"다. 무료 등록 횟수를 모두 사용한 후에는 추가 등록 시 소정의 수수료가 부과되"
-"며, 이 수수료는 플랫폼 운영 및 모든 사용자를 위해 사용됩니다."
+"모든 사용자는 모든 카테고리에서 <strong class=\"text-gray-900 font-semibold\">3개의 무료 상품 "
+"등록</strong> 기회를 얻습니다. 상품을 삭제하면 해당 <strong class=\"text-gray-900 font-"
+"semibold\">무료</strong> 등록 슬롯이 다시 사용 가능해지므로, 무료 등록 횟수 내에서 언제든지 다시 등록할 수 있습니다."
+" 무료 등록 횟수를 모두 사용한 후에는 추가 등록 시 소정의 수수료가 부과되며, 이 수수료는 플랫폼 운영 및 모든 사용자를 위해 "
+"사용됩니다."
 
 #: templates/pages/help_center.html:175
 msgid ""
@@ -23554,10 +23508,9 @@ msgid ""
 "reach more buyers, <strong class=\"text-gray-900 font-semibold\">free of "
 "charge</strong>."
 msgstr ""
-"광고가 게시되면 링크를 보내주세요. 저희는 엄선된 매물을 홍보하고 더 많은 구매"
-"자에게 도달할 수 있도록 Instagram 및 TikTok 채널에 추가 동영상 콘텐츠를 제작"
-"해 드립니다. <strong class=\"text-gray-900 font-semibold\">무료</strong>입니"
-"다."
+"광고가 게시되면 링크를 보내주세요. 저희는 엄선된 매물을 홍보하고 더 많은 구매자에게 도달할 수 있도록 Instagram 및 TikTok"
+" 채널에 추가 동영상 콘텐츠를 제작해 드립니다. <strong class=\"text-gray-900 font-"
+"semibold\">무료</strong>입니다."
 
 #: templates/pages/help_center.html:177
 msgid "You can reach us through support or social media:"
@@ -23581,9 +23534,7 @@ msgstr "인스타그램"
 
 #: templates/pages/help_center.html:214
 msgid "Browse the topics on the left for FAQ, pricing, and more."
-msgstr ""
-"왼쪽의 주제들을 살펴보시면 자주 묻는 질문(FAQ), 가격 정보 등을 확인하실 수 있"
-"습니다."
+msgstr "왼쪽의 주제들을 살펴보시면 자주 묻는 질문(FAQ), 가격 정보 등을 확인하실 수 있습니다."
 
 #: templates/pages/help_center.html:223
 msgid "What's New"
@@ -23727,13 +23678,12 @@ msgstr "첫 번째 상품 등록하기"
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
-"get more views. Add a detailed description including condition, history, and "
-"any modifications. Your first 3 listings are completely free."
+"get more views. Add a detailed description including condition, history, and"
+" any modifications. Your first 3 listings are completely free."
 msgstr ""
-"상단 메뉴에서 '광고 만들기'를 클릭하고 카테고리를 선택한 후 차량 정보를 입력"
-"하세요. 선명한 사진을 최소 5장 이상 업로드해 주세요. 사진이 많을수록 조회수"
-"가 높아집니다. 차량 상태, 이력, 개조 사항 등을 포함한 자세한 설명을 추가해 주"
-"세요. 처음 3개 광고는 무료입니다."
+"상단 메뉴에서 '광고 만들기'를 클릭하고 카테고리를 선택한 후 차량 정보를 입력하세요. 선명한 사진을 최소 5장 이상 업로드해 주세요. "
+"사진이 많을수록 조회수가 높아집니다. 차량 상태, 이력, 개조 사항 등을 포함한 자세한 설명을 추가해 주세요. 처음 3개 광고는 "
+"무료입니다."
 
 #: templates/pages/help_center.html:329
 msgid "Renewing your listing"
@@ -23746,9 +23696,8 @@ msgid ""
 "Renewing is free for your first 3 listings; additional renewals require a "
 "paid plan."
 msgstr ""
-"등록된 상품 정보는 30일 동안 활성화 상태로 유지됩니다. 그 후에는 갱신해야 하"
-"며, 한 시간에 한 번씩 검색 결과 상단에 다시 노출시킬 수 있습니다. 처음 3개 상"
-"품 정보는 무료로 갱신할 수 있으며, 추가 갱신은 유료 플랜이 필요합니다."
+"등록된 상품 정보는 30일 동안 활성화 상태로 유지됩니다. 그 후에는 갱신해야 하며, 한 시간에 한 번씩 검색 결과 상단에 다시 노출시킬"
+" 수 있습니다. 처음 3개 상품 정보는 무료로 갱신할 수 있으며, 추가 갱신은 유료 플랜이 필요합니다."
 
 #: templates/pages/help_center.html:339
 msgid "Drafts — save and activate later"
@@ -23756,14 +23705,13 @@ msgstr "초안 - 저장 후 나중에 활성화"
 
 #: templates/pages/help_center.html:342
 msgid ""
-"Started a listing but not ready to publish? Your work is saved automatically "
-"as a draft. Find drafts in 'My Listings' and continue editing whenever you "
+"Started a listing but not ready to publish? Your work is saved automatically"
+" as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
-"상품 등록을 시작했지만 아직 게시할 준비가 되지 않았나요? 작성 중인 내용은 자"
-"동으로 임시 저장으로 저장됩니다. '내 상품 목록'에서 임시 저장된 내용을 확인하"
-"고 언제든지 편집을 이어갈 수 있습니다. 준비가 되면 임시 저장 파일을 활성화하"
-"세요. 활성화된 임시 저장 파일은 30일 동안 게시됩니다."
+"상품 등록을 시작했지만 아직 게시할 준비가 되지 않았나요? 작성 중인 내용은 자동으로 임시 저장으로 저장됩니다. '내 상품 목록'에서 "
+"임시 저장된 내용을 확인하고 언제든지 편집을 이어갈 수 있습니다. 준비가 되면 임시 저장 파일을 활성화하세요. 활성화된 임시 저장 파일은"
+" 30일 동안 게시됩니다."
 
 #: templates/pages/help_center.html:349
 msgid "Saving favorites with the heart icon"
@@ -23772,13 +23720,12 @@ msgstr "하트 아이콘을 사용하여 즐겨찾기에 추가하세요."
 #: templates/pages/help_center.html:352
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
-"are kept in 'Saved Listings' so you can compare prices and come back to them "
-"later. You'll also receive email notifications when a saved listing's price "
-"drops."
+"are kept in 'Saved Listings' so you can compare prices and come back to them"
+" later. You'll also receive email notifications when a saved listing's price"
+" drops."
 msgstr ""
-"마음에 드는 매물이 있나요? 하트 아이콘을 클릭하여 저장하세요. 즐겨찾기에 추가"
-"한 모든 매물은 '저장된 매물'에 저장되므로 가격을 비교하거나 나중에 다시 확인"
-"할 수 있습니다. 저장된 매물의 가격이 인하되면 이메일 알림도 받게 됩니다."
+"마음에 드는 매물이 있나요? 하트 아이콘을 클릭하여 저장하세요. 즐겨찾기에 추가한 모든 매물은 '저장된 매물'에 저장되므로 가격을 "
+"비교하거나 나중에 다시 확인할 수 있습니다. 저장된 매물의 가격이 인하되면 이메일 알림도 받게 됩니다."
 
 #: templates/pages/help_center.html:359
 msgid "Tracking listing performance"
@@ -23787,13 +23734,12 @@ msgstr "목록 실적 추적"
 #: templates/pages/help_center.html:362
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
-"where it ranks compared to similar listings. Use these numbers to figure out "
-"if your price is competitive and whether you need better photos or a "
+"where it ranks compared to similar listings. Use these numbers to figure out"
+" if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
-"각 상품 목록에는 조회수, 노출수, 저장 횟수, 유사 상품과의 순위 비교 등 통계 "
-"정보가 표시됩니다. 이 수치를 활용하여 가격 경쟁력을 확인하고, 더 나은 사진이"
-"나 더 강력한 상품 설명이 필요한지 판단해 보세요."
+"각 상품 목록에는 조회수, 노출수, 저장 횟수, 유사 상품과의 순위 비교 등 통계 정보가 표시됩니다. 이 수치를 활용하여 가격 경쟁력을 "
+"확인하고, 더 나은 사진이나 더 강력한 상품 설명이 필요한지 판단해 보세요."
 
 #: templates/pages/help_center.html:369
 msgid "Communicating with buyers"
@@ -23801,14 +23747,13 @@ msgstr "구매자와의 소통"
 
 #: templates/pages/help_center.html:372
 msgid ""
-"Buyers can message you directly through the platform — no need to share your "
-"phone number publicly. Reply quickly: fast responses build trust and sell "
+"Buyers can message you directly through the platform — no need to share your"
+" phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
-"구매자는 플랫폼을 통해 직접 메시지를 보낼 수 있으므로 전화번호를 공개적으로 "
-"공유할 필요가 없습니다. 빠르게 응답하세요. 신속한 응답은 신뢰를 구축하고 차"
-"량 판매를 앞당깁니다. 앱 내 대화 시스템을 사용하여 협상 기록을 보관하세요."
+"구매자는 플랫폼을 통해 직접 메시지를 보낼 수 있으므로 전화번호를 공개적으로 공유할 필요가 없습니다. 빠르게 응답하세요. 신속한 응답은 "
+"신뢰를 구축하고 차량 판매를 앞당깁니다. 앱 내 대화 시스템을 사용하여 협상 기록을 보관하세요."
 
 #: templates/pages/help_center.html:379
 msgid "When you sell — mark it sold"
@@ -23820,9 +23765,8 @@ msgid ""
 "Buyers who saved the listing will be notified automatically, and the sale "
 "gets recorded in your seller history."
 msgstr ""
-"거래가 완료되면 '내 매물' 페이지에서 해당 매물을 '판매 완료'로 표시하세요. 매"
-"물을 저장해 둔 구매자에게 자동으로 알림이 전송되며, 판매 내역이 판매자 기록"
-"에 저장됩니다."
+"거래가 완료되면 '내 매물' 페이지에서 해당 매물을 '판매 완료'로 표시하세요. 매물을 저장해 둔 구매자에게 자동으로 알림이 전송되며, "
+"판매 내역이 판매자 기록에 저장됩니다."
 
 #: templates/pages/help_center.html:399
 msgid "How do I create an ad?"
@@ -23834,9 +23778,8 @@ msgid ""
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
-"오른쪽 상단의 '광고 만들기' 버튼을 클릭하고, 카테고리를 선택하고, 세부 정보"
-"를 입력하고, 사진을 업로드한 후, 상품 정보를 게시하세요. 전체 과정은 약 5분 "
-"정도 소요됩니다."
+"오른쪽 상단의 '광고 만들기' 버튼을 클릭하고, 카테고리를 선택하고, 세부 정보를 입력하고, 사진을 업로드한 후, 상품 정보를 "
+"게시하세요. 전체 과정은 약 5분 정도 소요됩니다."
 
 #: templates/pages/help_center.html:408
 msgid "How to become a dealer?"
@@ -23844,13 +23787,12 @@ msgstr "딜러가 되는 방법은 무엇인가요?"
 
 #: templates/pages/help_center.html:412
 msgid ""
-"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your "
-"business profile. You'll get a verified dealer badge, public dealer page, "
+"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your"
+" business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
-"'딜러 되기' 페이지를 방문하여 월 100유로에 가입하고 사업자 프로필을 작성하세"
-"요. 인증된 딜러 배지, 공개 딜러 페이지, 최대 30대의 차량 등록 기능을 이용하"
-"실 수 있습니다."
+"'딜러 되기' 페이지를 방문하여 월 100유로에 가입하고 사업자 프로필을 작성하세요. 인증된 딜러 배지, 공개 딜러 페이지, 최대 "
+"30대의 차량 등록 기능을 이용하실 수 있습니다."
 
 #: templates/pages/help_center.html:417
 msgid "Is my data safe?"
@@ -23861,8 +23803,7 @@ msgid ""
 "Yes. We use industry-standard encryption to protect your personal "
 "information. See our Privacy Policy for details."
 msgstr ""
-"네. 당사는 귀하의 개인 정보를 보호하기 위해 업계 표준 암호화 기술을 사용합니"
-"다. 자세한 내용은 개인정보 처리방침을 참조하십시오."
+"네. 당사는 귀하의 개인 정보를 보호하기 위해 업계 표준 암호화 기술을 사용합니다. 자세한 내용은 개인정보 처리방침을 참조하십시오."
 
 #: templates/pages/help_center.html:426
 msgid "How do I delete my listing?"
@@ -23873,8 +23814,8 @@ msgid ""
 "Go to 'My Ads' in the user menu, find the listing, click the menu icon, and "
 "select 'Delete'. The listing will be permanently removed."
 msgstr ""
-"사용자 메뉴에서 '내 광고'로 이동하여 해당 광고를 찾고, 메뉴 아이콘을 클릭한 "
-"다음 '삭제'를 선택하세요. 그러면 광고가 영구적으로 삭제됩니다."
+"사용자 메뉴에서 '내 광고'로 이동하여 해당 광고를 찾고, 메뉴 아이콘을 클릭한 다음 '삭제'를 선택하세요. 그러면 광고가 영구적으로 "
+"삭제됩니다."
 
 #: templates/pages/help_center.html:445
 msgid "Get in touch with us — we usually reply within 24 hours."
@@ -23906,8 +23847,8 @@ msgid ""
 "free too. After 3 listings, paid plans apply for additional listings and "
 "renewals."
 msgstr ""
-"첫 3개 상품 등록은 카테고리에 상관없이 완전히 무료입니다. 갱신도 무료입니다. "
-"3개 등록 이후에는 추가 등록 및 갱신에 대해 유료 플랜이 적용됩니다."
+"첫 3개 상품 등록은 카테고리에 상관없이 완전히 무료입니다. 갱신도 무료입니다. 3개 등록 이후에는 추가 등록 및 갱신에 대해 유료 "
+"플랜이 적용됩니다."
 
 #: templates/pages/help_center.html:504
 msgid "Private sellers — additional listings"
@@ -23937,9 +23878,7 @@ msgstr "권장 기간 — 90일"
 msgid ""
 "Renewing a listing is free for the first 3 listings. After that, renewing "
 "costs the same as a fresh listing."
-msgstr ""
-"처음 3개 상품 등록은 무료로 갱신할 수 있습니다. 그 이후에는 신규 등록과 동일"
-"한 비용이 발생합니다."
+msgstr "처음 3개 상품 등록은 무료로 갱신할 수 있습니다. 그 이후에는 신규 등록과 동일한 비용이 발생합니다."
 
 #: templates/pages/help_center.html:529
 msgid "Dealers"
@@ -23960,12 +23899,11 @@ msgstr "인증된 딜러 배지"
 #: templates/pages/help_center.html:556
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
-"States. Contact us to discuss advertising opportunities — banners, sponsored "
-"placements, or partnership campaigns."
+"States. Contact us to discuss advertising opportunities — banners, sponsored"
+" placements, or partnership campaigns."
 msgstr ""
-"유럽과 미국의 수천 명에 달하는 자동차 구매자와 판매자에게 광고를 홍보하세요. "
-"배너 광고, 유료 광고, 파트너십 캠페인 등 다양한 광고 기회에 대해 문의해 주세"
-"요."
+"유럽과 미국의 수천 명에 달하는 자동차 구매자와 판매자에게 광고를 홍보하세요. 배너 광고, 유료 광고, 파트너십 캠페인 등 다양한 광고 "
+"기회에 대해 문의해 주세요."
 
 #: templates/pages/help_center.html:568
 msgid "WhatsApp"
@@ -23992,8 +23930,8 @@ msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
 msgstr ""
-"안심하고 구매하고 판매할 수 있도록 신뢰할 수 있는 서비스와 도구를 제공합니"
-"다. 일부는 당사에서 운영하고, 나머지는 당사와 협력하는 파트너가 운영합니다."
+"안심하고 구매하고 판매할 수 있도록 신뢰할 수 있는 서비스와 도구를 제공합니다. 일부는 당사에서 운영하고, 나머지는 당사와 협력하는 "
+"파트너가 운영합니다."
 
 #: templates/pages/help_center.html:601
 msgid "Recommended services"
@@ -24003,9 +23941,7 @@ msgstr "추천 서비스"
 msgid ""
 "Vehicle history reports — check mileage, accidents, ownership history and "
 "more before you buy a car."
-msgstr ""
-"차량 이력 보고서 — 차량 구매 전 주행 거리, 사고 내역, 소유권 이전 이력 등을 "
-"확인하세요."
+msgstr "차량 이력 보고서 — 차량 구매 전 주행 거리, 사고 내역, 소유권 이전 이력 등을 확인하세요."
 
 #: templates/pages/help_center.html:631
 msgid "Want your business or ad featured here?"
@@ -24018,10 +23954,8 @@ msgid ""
 "buyers and sellers. Tell us what you'd like to promote and we'll find the "
 "right placement for you."
 msgstr ""
-"자동차 관련 서비스(보험, 금융, 운송, 세차, 부품 등)를 운영하시거나 다른 플랫"
-"폼을 광고하고 싶으시다면, 저희 플랫폼을 통해 구매자와 판매자에게 도달하실 수 "
-"있습니다. 홍보하고 싶은 내용을 알려주시면 가장 적합한 광고 게재 위치를 찾아드"
-"리겠습니다."
+"자동차 관련 서비스(보험, 금융, 운송, 세차, 부품 등)를 운영하시거나 다른 플랫폼을 광고하고 싶으시다면, 저희 플랫폼을 통해 구매자와"
+" 판매자에게 도달하실 수 있습니다. 홍보하고 싶은 내용을 알려주시면 가장 적합한 광고 게재 위치를 찾아드리겠습니다."
 
 #: templates/pages/help_center.html:638
 msgid "See advertising options"
@@ -24037,8 +23971,7 @@ msgid ""
 "vehicles directly — without middlemen, without dealer markups, without "
 "hidden fees."
 msgstr ""
-"수천 명의 고객이 매일 저희 플랫폼을 이용하여 중개인이나 딜러 마진, 숨겨진 수"
-"수료 없이 차량을 직접 검색, 구매 및 판매하고 있습니다."
+"수천 명의 고객이 매일 저희 플랫폼을 이용하여 중개인이나 딜러 마진, 숨겨진 수수료 없이 차량을 직접 검색, 구매 및 판매하고 있습니다."
 
 #: templates/pages/help_center.html:664
 msgid ""
@@ -24046,9 +23979,8 @@ msgid ""
 "platform where private sellers and verified dealers meet real buyers. The "
 "deal happens between you and the other party, exactly as it should."
 msgstr ""
-"저희는 자동차 판매점이 아닙니다. 저희는 차량을 사고팔지 않습니다. 저희는 개"
-"인 판매자와 검증된 딜러가 실제 구매자를 만나는 마켓플레이스 플랫폼입니다. 거"
-"래는 구매자와 판매자 본인 간에 직접 이루어집니다."
+"저희는 자동차 판매점이 아닙니다. 저희는 차량을 사고팔지 않습니다. 저희는 개인 판매자와 검증된 딜러가 실제 구매자를 만나는 마켓플레이스"
+" 플랫폼입니다. 거래는 구매자와 판매자 본인 간에 직접 이루어집니다."
 
 #: templates/pages/help_center.html:668
 msgid ""
@@ -24057,10 +23989,8 @@ msgid ""
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
-"저희는 고객님의 차량이 주목받을 수 있도록 도와드립니다. 타겟 광고, 동영상 콘"
-"텐츠, 소셜 미디어 캠페인을 통해 매물을 홍보하여 적합한 차량에 더 많은 관심을 "
-"집중시키고, 결과적으로 모든 관계자에게 공정한 가격으로 더 빠르게 판매가 이루"
-"어지도록 지원합니다."
+"저희는 고객님의 차량이 주목받을 수 있도록 도와드립니다. 타겟 광고, 동영상 콘텐츠, 소셜 미디어 캠페인을 통해 매물을 홍보하여 적합한 "
+"차량에 더 많은 관심을 집중시키고, 결과적으로 모든 관계자에게 공정한 가격으로 더 빠르게 판매가 이루어지도록 지원합니다."
 
 #: templates/pages/help_center.html:674
 msgid "Active users"
@@ -24089,11 +24019,11 @@ msgstr "1. 약관 동의"
 
 #: templates/pages/help_center.html:701
 msgid ""
-"By accessing or using this platform, you agree to these Terms of Use. If you "
-"don't agree, please don't use the platform."
+"By accessing or using this platform, you agree to these Terms of Use. If you"
+" don't agree, please don't use the platform."
 msgstr ""
-"이 플랫폼에 접속하거나 사용함으로써 귀하는 본 이용 약관에 동의하는 것으로 간"
-"주됩니다. 동의하지 않으시는 경우, 플랫폼을 사용하지 마십시오."
+"이 플랫폼에 접속하거나 사용함으로써 귀하는 본 이용 약관에 동의하는 것으로 간주됩니다. 동의하지 않으시는 경우, 플랫폼을 사용하지 "
+"마십시오."
 
 #: templates/pages/help_center.html:705
 msgid "2. What This Platform Is"
@@ -24105,9 +24035,8 @@ msgid ""
 "We don't own, sell, inspect, or warrant any vehicle listed on the platform. "
 "All transactions happen directly between users."
 msgstr ""
-"이 플랫폼은 차량 구매자와 판매자를 연결하는 온라인 장터입니다. 당사는 플랫폼"
-"에 등록된 차량을 소유, 판매, 검사 또는 보증하지 않습니다. 모든 거래는 사용자 "
-"간에 직접 이루어집니다."
+"이 플랫폼은 차량 구매자와 판매자를 연결하는 온라인 장터입니다. 당사는 플랫폼에 등록된 차량을 소유, 판매, 검사 또는 보증하지 "
+"않습니다. 모든 거래는 사용자 간에 직접 이루어집니다."
 
 #: templates/pages/help_center.html:710
 msgid "3. User Accounts"
@@ -24115,13 +24044,12 @@ msgstr "3. 사용자 계정"
 
 #: templates/pages/help_center.html:711
 msgid ""
-"To create listings or contact sellers, you must register an account. You are "
-"responsible for keeping your password secure and for all activity under your "
-"account. Provide accurate information — fake accounts will be removed."
+"To create listings or contact sellers, you must register an account. You are"
+" responsible for keeping your password secure and for all activity under "
+"your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
-"상품 등록이나 판매자에게 연락하려면 계정을 등록해야 합니다. 비밀번호 보안 및 "
-"계정 활동에 대한 모든 책임은 사용자에게 있습니다. 정확한 정보를 제공해 주십시"
-"오. 허위 계정은 삭제됩니다."
+"상품 등록이나 판매자에게 연락하려면 계정을 등록해야 합니다. 비밀번호 보안 및 계정 활동에 대한 모든 책임은 사용자에게 있습니다. 정확한"
+" 정보를 제공해 주십시오. 허위 계정은 삭제됩니다."
 
 #: templates/pages/help_center.html:715
 msgid "4. Listings Content"
@@ -24135,11 +24063,9 @@ msgid ""
 "fraudulent listings. We reserve the right to remove any listing without "
 "notice."
 msgstr ""
-"사진, 설명, 가격, 차량 정보 등 게시하는 모든 콘텐츠에 대한 책임은 전적으로 귀"
-"하에게 있습니다. 게시글은 정확하고 합법적이어야 하며, 반드시 본인이 직접 작성"
-"한 것이어야 합니다. 도난 차량, 판매 권한이 없는 차량 또는 허위 게시글은 절대 "
-"올리지 마십시오. 당사는 사전 고지 없이 언제든지 게시글을 삭제할 권리를 보유합"
-"니다."
+"사진, 설명, 가격, 차량 정보 등 게시하는 모든 콘텐츠에 대한 책임은 전적으로 귀하에게 있습니다. 게시글은 정확하고 합법적이어야 하며,"
+" 반드시 본인이 직접 작성한 것이어야 합니다. 도난 차량, 판매 권한이 없는 차량 또는 허위 게시글은 절대 올리지 마십시오. 당사는 사전"
+" 고지 없이 언제든지 게시글을 삭제할 권리를 보유합니다."
 
 #: templates/pages/help_center.html:720
 msgid "5. Transactions Between Users"
@@ -24152,9 +24078,8 @@ msgid ""
 "vehicle in person before paying. Use safe payment methods and meet in safe "
 "public locations."
 msgstr ""
-"저희는 구매자와 판매자 간의 거래에 관여하지 않습니다. 결제, 배송, 차량 검사, "
-"분쟁 해결 등을 대행하지 않습니다. 결제 전에 반드시 차량을 직접 확인하십시오. "
-"안전한 결제 방법을 이용하시고 안전한 공공장소에서 만나십시오."
+"저희는 구매자와 판매자 간의 거래에 관여하지 않습니다. 결제, 배송, 차량 검사, 분쟁 해결 등을 대행하지 않습니다. 결제 전에 반드시 "
+"차량을 직접 확인하십시오. 안전한 결제 방법을 이용하시고 안전한 공공장소에서 만나십시오."
 
 #: templates/pages/help_center.html:725
 msgid "6. Fees and Payments"
@@ -24166,9 +24091,8 @@ msgid ""
 "and dealer subscriptions are paid. All fees are non-refundable except where "
 "required by law. See the Pricing page for current rates."
 msgstr ""
-"사용자당 처음 3개의 상품 등록은 무료입니다. 추가 상품 등록, 프리미엄 플랜 및 "
-"딜러 구독은 유료입니다. 법률에 의해 환불이 요구되는 경우를 제외하고 모든 수수"
-"료는 환불되지 않습니다. 현재 요금은 가격 페이지를 참조하십시오."
+"사용자당 처음 3개의 상품 등록은 무료입니다. 추가 상품 등록, 프리미엄 플랜 및 딜러 구독은 유료입니다. 법률에 의해 환불이 요구되는 "
+"경우를 제외하고 모든 수수료는 환불되지 않습니다. 현재 요금은 가격 페이지를 참조하십시오."
 
 #: templates/pages/help_center.html:730
 msgid "7. Prohibited Activities"
@@ -24181,9 +24105,8 @@ msgid ""
 "illegal or fraudulent content, or use bots to interact with the platform. "
 "Violations may result in account suspension."
 msgstr ""
-"중복 상품 등록, 스팸 행위, 타인에 대한 괴롭힘, 사이트 데이터 무단 복제, 검색 "
-"순위 조작 시도, 불법 또는 사기성 콘텐츠 게시, 봇을 이용한 플랫폼 이용은 금지"
-"됩니다. 위반 시 계정이 정지될 수 있습니다."
+"중복 상품 등록, 스팸 행위, 타인에 대한 괴롭힘, 사이트 데이터 무단 복제, 검색 순위 조작 시도, 불법 또는 사기성 콘텐츠 게시, "
+"봇을 이용한 플랫폼 이용은 금지됩니다. 위반 시 계정이 정지될 수 있습니다."
 
 #: templates/pages/help_center.html:735
 msgid "8. Disclaimer of Warranties"
@@ -24195,8 +24118,8 @@ msgid ""
 "guarantee that listings are accurate, that transactions will be successful, "
 "or that the service will be uninterrupted."
 msgstr ""
-"본 플랫폼은 어떠한 보증도 없이 '있는 그대로' 제공됩니다. 당사는 상품 정보의 "
-"정확성, 거래의 성공 여부 또는 서비스의 중단 없는 제공을 보장하지 않습니다."
+"본 플랫폼은 어떠한 보증도 없이 '있는 그대로' 제공됩니다. 당사는 상품 정보의 정확성, 거래의 성공 여부 또는 서비스의 중단 없는 "
+"제공을 보장하지 않습니다."
 
 #: templates/pages/help_center.html:740
 msgid "9. Limitation of Liability"
@@ -24207,8 +24130,8 @@ msgid ""
 "To the maximum extent allowed by law, we are not liable for any damages "
 "arising from your use of the platform or from transactions between users."
 msgstr ""
-"법이 허용하는 최대 범위 내에서, 당사는 귀하의 플랫폼 이용 또는 사용자 간 거래"
-"로 인해 발생하는 어떠한 손해에 대해서도 책임을 지지 않습니다."
+"법이 허용하는 최대 범위 내에서, 당사는 귀하의 플랫폼 이용 또는 사용자 간 거래로 인해 발생하는 어떠한 손해에 대해서도 책임을 지지 "
+"않습니다."
 
 #: templates/pages/help_center.html:745
 msgid "10. Termination"
@@ -24219,8 +24142,7 @@ msgid ""
 "We reserve the right to suspend or terminate accounts that violate these "
 "Terms. You may delete your account at any time from your account settings."
 msgstr ""
-"당사는 본 약관을 위반하는 계정을 일시 중지하거나 해지할 권리를 보유합니다. 계"
-"정 설정에서 언제든지 계정을 삭제할 수 있습니다."
+"당사는 본 약관을 위반하는 계정을 일시 중지하거나 해지할 권리를 보유합니다. 계정 설정에서 언제든지 계정을 삭제할 수 있습니다."
 
 #: templates/pages/help_center.html:750
 msgid "11. Changes to Terms"
@@ -24232,9 +24154,8 @@ msgid ""
 "announced on the site. Continued use after changes means you accept the "
 "updated Terms."
 msgstr ""
-"당사는 본 약관을 수시로 업데이트할 수 있습니다. 중요한 변경 사항은 사이트에 "
-"공지될 것입니다. 변경 후에도 계속 이용하는 것은 업데이트된 약관에 동의하는 것"
-"으로 간주됩니다."
+"당사는 본 약관을 수시로 업데이트할 수 있습니다. 중요한 변경 사항은 사이트에 공지될 것입니다. 변경 후에도 계속 이용하는 것은 "
+"업데이트된 약관에 동의하는 것으로 간주됩니다."
 
 #: templates/pages/help_center.html:755
 msgid "12. Contact"
@@ -24242,9 +24163,7 @@ msgstr "12. 연락처"
 
 #: templates/pages/help_center.html:756
 msgid "Questions about these Terms? Email us at helpautoinfo@gmail.com."
-msgstr ""
-"이용 약관에 대해 궁금한 점이 있으시면 helpautoinfo@gmail.com으로 이메일을 보"
-"내주세요."
+msgstr "이용 약관에 대해 궁금한 점이 있으시면 helpautoinfo@gmail.com으로 이메일을 보내주세요."
 
 #: templates/pages/help_center.html:767
 msgid "Privacy Policy"
@@ -24258,12 +24177,11 @@ msgstr "1. 우리가 수집하는 정보"
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
-"and descriptions you upload, your IP address and browser type, and pages you "
-"visit on our site."
+"and descriptions you upload, your IP address and browser type, and pages you"
+" visit on our site."
 msgstr ""
-"이 플랫폼을 이용하실 때, 당사는 귀하의 이메일 주소와 이름(계정용), 전화번호"
-"(게시물에 공유하기로 선택한 경우), 업로드하신 사진과 설명, IP 주소 및 브라우"
-"저 종류, 그리고 당사 사이트에서 방문하신 페이지 정보를 수집합니다."
+"이 플랫폼을 이용하실 때, 당사는 귀하의 이메일 주소와 이름(계정용), 전화번호(게시물에 공유하기로 선택한 경우), 업로드하신 사진과 "
+"설명, IP 주소 및 브라우저 종류, 그리고 당사 사이트에서 방문하신 페이지 정보를 수집합니다."
 
 #: templates/pages/help_center.html:779
 msgid "2. How We Use Your Data"
@@ -24276,10 +24194,9 @@ msgid ""
 "fraud and abuse, and (with your consent) send marketing emails. We don't "
 "sell your personal data to third parties."
 msgstr ""
-"당사는 귀하의 데이터를 다음과 같은 목적으로 사용합니다. 마켓플레이스 운영(상"
-"품 등록 및 메시지 전송), 중요 계정 이메일 발송, 플랫폼 개선, 사기 및 악용 방"
-"지, 그리고 (귀하의 동의 하에) 마케팅 이메일 발송. 당사는 귀하의 개인 데이터"
-"를 제3자에게 판매하지 않습니다."
+"당사는 귀하의 데이터를 다음과 같은 목적으로 사용합니다. 마켓플레이스 운영(상품 등록 및 메시지 전송), 중요 계정 이메일 발송, 플랫폼"
+" 개선, 사기 및 악용 방지, 그리고 (귀하의 동의 하에) 마케팅 이메일 발송. 당사는 귀하의 개인 데이터를 제3자에게 판매하지 "
+"않습니다."
 
 #: templates/pages/help_center.html:784
 msgid "3. What's Public"
@@ -24291,9 +24208,8 @@ msgid ""
 "username, city, and (if enabled) phone number are visible to other users. "
 "Your email is not shown publicly unless you choose to display it."
 msgstr ""
-"사진과 설명을 포함한 등록 정보는 공개됩니다. 이름 또는 사용자 이름, 도시, 그"
-"리고 (설정한 경우) 전화번호는 다른 사용자에게 표시됩니다. 이메일 주소는 사용"
-"자가 공개를 선택하지 않는 한 공개되지 않습니다."
+"사진과 설명을 포함한 등록 정보는 공개됩니다. 이름 또는 사용자 이름, 도시, 그리고 (설정한 경우) 전화번호는 다른 사용자에게 "
+"표시됩니다. 이메일 주소는 사용자가 공개를 선택하지 않는 한 공개되지 않습니다."
 
 #: templates/pages/help_center.html:789
 msgid "4. Cookies and Tracking"
@@ -24305,8 +24221,8 @@ msgid ""
 "preferences, and analyze how the site is used. See the Cookie Policy for "
 "full details."
 msgstr ""
-"저희는 쿠키를 사용하여 로그인 상태 유지, 언어 및 검색 환경설정 저장, 사이트 "
-"이용 분석 등의 기능을 제공합니다. 자세한 내용은 쿠키 정책을 참조하세요."
+"저희는 쿠키를 사용하여 로그인 상태 유지, 언어 및 검색 환경설정 저장, 사이트 이용 분석 등의 기능을 제공합니다. 자세한 내용은 쿠키 "
+"정책을 참조하세요."
 
 #: templates/pages/help_center.html:794
 msgid "5. Third-Party Services"
@@ -24318,9 +24234,8 @@ msgid ""
 "and analytics. These providers handle data securely under their own privacy "
 "policies. We also embed Google Maps on listing pages."
 msgstr ""
-"저희는 결제(Stripe), 이메일 발송 및 분석을 위해 신뢰할 수 있는 제3자 서비스"
-"를 이용합니다. 이러한 서비스 제공업체는 자체 개인정보 보호정책에 따라 데이터"
-"를 안전하게 처리합니다. 또한 상품 목록 페이지에 Google 지도를 삽입했습니다."
+"저희는 결제(Stripe), 이메일 발송 및 분석을 위해 신뢰할 수 있는 제3자 서비스를 이용합니다. 이러한 서비스 제공업체는 자체 "
+"개인정보 보호정책에 따라 데이터를 안전하게 처리합니다. 또한 상품 목록 페이지에 Google 지도를 삽입했습니다."
 
 #: templates/pages/help_center.html:799
 msgid "6. Your Rights (GDPR)"
@@ -24332,10 +24247,8 @@ msgid ""
 "you, correct inaccurate data, delete your account and data, export your "
 "data, and withdraw marketing consent. Contact us to use these rights."
 msgstr ""
-"유럽 연합(EU)에 거주하시는 경우, 다음과 같은 권리가 있습니다. 당사가 보유한 "
-"귀하의 데이터에 접근하고, 부정확한 데이터를 수정하고, 계정 및 데이터를 삭제하"
-"고, 데이터를 내보내고, 마케팅 동의를 철회할 수 있습니다. 이러한 권리를 행사하"
-"려면 당사에 문의하십시오."
+"유럽 연합(EU)에 거주하시는 경우, 다음과 같은 권리가 있습니다. 당사가 보유한 귀하의 데이터에 접근하고, 부정확한 데이터를 수정하고,"
+" 계정 및 데이터를 삭제하고, 데이터를 내보내고, 마케팅 동의를 철회할 수 있습니다. 이러한 권리를 행사하려면 당사에 문의하십시오."
 
 #: templates/pages/help_center.html:804
 msgid "7. Data Retention"
@@ -24347,9 +24260,8 @@ msgid ""
 "we remove personal data within 30 days, except where we need to keep it for "
 "legal reasons (tax records, fraud prevention)."
 msgstr ""
-"계정이 활성화되어 있는 동안에는 귀하의 데이터를 보관합니다. 계정을 삭제하시"
-"면, 법적 사유(세금 기록, 사기 방지)로 보관해야 하는 경우를 제외하고 30일 이내"
-"에 개인 데이터를 삭제합니다."
+"계정이 활성화되어 있는 동안에는 귀하의 데이터를 보관합니다. 계정을 삭제하시면, 법적 사유(세금 기록, 사기 방지)로 보관해야 하는 "
+"경우를 제외하고 30일 이내에 개인 데이터를 삭제합니다."
 
 #: templates/pages/help_center.html:809
 msgid "8. Security"
@@ -24359,8 +24271,8 @@ msgstr "8. 보안"
 #, python-format
 msgid ""
 "We use industry-standard encryption (HTTPS) and secure password hashing. No "
-"system is 100%% secure — please use a strong unique password and don't share "
-"your account."
+"system is 100%% secure — please use a strong unique password and don't share"
+" your account."
 msgstr ""
 
 #: templates/pages/help_center.html:814
@@ -24369,11 +24281,9 @@ msgstr "9. 어린이"
 
 #: templates/pages/help_center.html:815
 msgid ""
-"This platform is not intended for users under 18. We don't knowingly collect "
-"data from minors."
-msgstr ""
-"이 플랫폼은 18세 미만 사용자를 대상으로 하지 않습니다. 당사는 미성년자의 데이"
-"터를 고의로 수집하지 않습니다."
+"This platform is not intended for users under 18. We don't knowingly collect"
+" data from minors."
+msgstr "이 플랫폼은 18세 미만 사용자를 대상으로 하지 않습니다. 당사는 미성년자의 데이터를 고의로 수집하지 않습니다."
 
 #: templates/pages/help_center.html:819
 msgid "10. Changes"
@@ -24383,9 +24293,7 @@ msgstr "10. 변경 사항"
 msgid ""
 "We may update this Privacy Policy. Important changes will be announced on "
 "the site."
-msgstr ""
-"당사는 본 개인정보 보호정책을 업데이트할 수 있습니다. 중요한 변경 사항은 사이"
-"트에 공지될 것입니다."
+msgstr "당사는 본 개인정보 보호정책을 업데이트할 수 있습니다. 중요한 변경 사항은 사이트에 공지될 것입니다."
 
 #: templates/pages/help_center.html:824
 msgid "11. Contact"
@@ -24394,9 +24302,7 @@ msgstr "11. 연락처"
 #: templates/pages/help_center.html:825
 msgid ""
 "Questions about your privacy or data? Email us at helpautoinfo@gmail.com."
-msgstr ""
-"개인정보 또는 데이터 관련 문의사항이 있으시면 helpautoinfo@gmail.com으로 이메"
-"일을 보내주세요."
+msgstr "개인정보 또는 데이터 관련 문의사항이 있으시면 helpautoinfo@gmail.com으로 이메일을 보내주세요."
 
 #: templates/pages/help_center.html:836
 msgid "Cookie Policy"
@@ -24412,8 +24318,8 @@ msgid ""
 "things — like that you're logged in, what language you prefer, or which "
 "listings you've viewed."
 msgstr ""
-"쿠키는 웹사이트가 사용자의 기기에 저장하는 작은 텍스트 파일로, 로그인 상태, "
-"선호하는 언어, 조회한 상품 목록 등과 같은 정보를 기억하는 데 사용됩니다."
+"쿠키는 웹사이트가 사용자의 기기에 저장하는 작은 텍스트 파일로, 로그인 상태, 선호하는 언어, 조회한 상품 목록 등과 같은 정보를 "
+"기억하는 데 사용됩니다."
 
 #: templates/pages/help_center.html:848
 msgid "Cookies we use"
@@ -24477,9 +24383,8 @@ msgid ""
 "(like login remembering) last up to 1 year. You can clear cookies any time "
 "from your browser settings."
 msgstr ""
-"세션 쿠키는 브라우저를 닫으면 삭제됩니다. 영구 쿠키(로그인 정보 저장 쿠키 등)"
-"는 최대 1년까지 유지됩니다. 브라우저 설정에서 언제든지 쿠키를 삭제할 수 있습"
-"니다."
+"세션 쿠키는 브라우저를 닫으면 삭제됩니다. 영구 쿠키(로그인 정보 저장 쿠키 등)는 최대 1년까지 유지됩니다. 브라우저 설정에서 언제든지"
+" 쿠키를 삭제할 수 있습니다."
 
 #: templates/pages/help_center.html:891
 msgid "Managing cookies"
@@ -24491,9 +24396,8 @@ msgid ""
 "essential cookies, the platform may not work properly. You won't be able to "
 "log in, post listings, or save preferences."
 msgstr ""
-"브라우저 설정에서 쿠키를 비활성화할 수 있지만, 필수 쿠키를 비활성화하면 플랫"
-"폼이 제대로 작동하지 않을 수 있습니다. 로그인, 상품 등록, 환경 설정 저장 등"
-"이 불가능해집니다."
+"브라우저 설정에서 쿠키를 비활성화할 수 있지만, 필수 쿠키를 비활성화하면 플랫폼이 제대로 작동하지 않을 수 있습니다. 로그인, 상품 "
+"등록, 환경 설정 저장 등이 불가능해집니다."
 
 #: templates/pages/help_center.html:896
 msgid "Do Not Track"
@@ -24504,8 +24408,8 @@ msgid ""
 "We honor 'Do Not Track' signals where technically feasible. Non-essential "
 "analytics cookies will not be set if your browser sends this signal."
 msgstr ""
-"저희는 기술적으로 가능한 경우 '추적 금지' 신호를 존중합니다. 브라우저에서 이 "
-"신호를 보내면 필수적이지 않은 분석 쿠키는 설정되지 않습니다."
+"저희는 기술적으로 가능한 경우 '추적 금지' 신호를 존중합니다. 브라우저에서 이 신호를 보내면 필수적이지 않은 분석 쿠키는 설정되지 "
+"않습니다."
 
 #: templates/pages/help_center.html:901
 msgid "Questions?"
@@ -24522,9 +24426,7 @@ msgstr "곧 출시 예정"
 #: templates/pages/page_simple.html:71
 msgid ""
 "We're working on this page. Check back soon for full content and features."
-msgstr ""
-"이 페이지는 현재 작업 중입니다. 곧 전체 콘텐츠와 기능이 추가될 예정이니 다시 "
-"방문해 주세요."
+msgstr "이 페이지는 현재 작업 중입니다. 곧 전체 콘텐츠와 기능이 추가될 예정이니 다시 방문해 주세요."
 
 #: templates/pages/page_simple.html:75
 msgid "Need information now? Reach out to us:"
@@ -24544,9 +24446,7 @@ msgid ""
 "Įmonės, su kuriomis dirbame kartu: transporto priemonių istorijos "
 "ataskaitos, programinė įranga prekiautojams, draudimas, finansavimas ir "
 "kitos paslaugos."
-msgstr ""
-"당사가 협력하는 업체는 차량 이력 보고서, 딜러 소프트웨어, 보험, 금융 및 기타 "
-"서비스 제공업체입니다."
+msgstr "당사가 협력하는 업체는 차량 이력 보고서, 딜러 소프트웨어, 보험, 금융 및 기타 서비스 제공업체입니다."
 
 #: templates/pages/partneriai.html:64
 msgid "Partnerių sąrašas ruošiamas."
@@ -24558,8 +24458,7 @@ msgstr "파트너가 되시겠습니까, 아니면 광고를 게재하시겠습�
 
 #: templates/pages/partneriai.html:70
 msgid "Rašykite — atsiųsime auditorijos duomenis ir galimas reklamos vietas."
-msgstr ""
-"저희에게 연락주시면 시청자 데이터와 가능한 광고 시간대를 보내드리겠습니다."
+msgstr "저희에게 연락주시면 시청자 데이터와 가능한 광고 시간대를 보내드리겠습니다."
 
 #: templates/pages/partneriai.html:72
 msgid "Partnerystė"

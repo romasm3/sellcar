@@ -418,7 +418,7 @@ msgstr "测试"
 
 #: apps/imones/models.py:149 apps/listings/translatable_db.py:2409
 msgid "Įmonė"
-msgstr ""
+msgstr "公司"
 
 #: apps/imones/models.py:150 apps/imones/views.py:288
 #: apps/listings/paieskos_siulymai.py:208
@@ -512,7 +512,7 @@ msgstr "克莱佩达"
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
-msgstr ""
+msgstr "公司"
 
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
@@ -659,7 +659,8 @@ msgstr "条件是强制性的"
 #: apps/listings/loading_views.py:143 apps/listings/rental_views.py:452
 #: apps/listings/rental_views.py:481 apps/listings/trailers_views.py:283
 #: apps/listings/truck_for_parts_views.py:231
-#: apps/listings/truck_for_parts_views.py:275 apps/listings/trucks_views.py:638
+#: apps/listings/truck_for_parts_views.py:275
+#: apps/listings/trucks_views.py:638
 #: templates/listings/agriculture_listing_create.html:776
 #: templates/listings/bicycles_listing_create.html:758
 #: templates/listings/camping_listing_create.html:869
@@ -683,13 +684,15 @@ msgstr "必须配备自走式/自行式机械"
 #: apps/listings/car_for_parts_views.py:239
 #: apps/listings/car_for_parts_views.py:301
 #: apps/listings/construction_views.py:329 apps/listings/forestry_views.py:127
-#: apps/listings/loading_views.py:148 apps/listings/moto_for_parts_views.py:222
+#: apps/listings/loading_views.py:148
+#: apps/listings/moto_for_parts_views.py:222
 #: apps/listings/moto_for_parts_views.py:284
 #: apps/listings/moto_part_views.py:83 apps/listings/motorcycles_views.py:741
 #: apps/listings/rental_views.py:190 apps/listings/trailers_views.py:289
 #: apps/listings/truck_for_parts_views.py:227
-#: apps/listings/truck_for_parts_views.py:271 apps/listings/trucks_views.py:640
-#: apps/listings/views.py:3556 apps/listings/views.py:6954
+#: apps/listings/truck_for_parts_views.py:271
+#: apps/listings/trucks_views.py:640 apps/listings/views.py:3556
+#: apps/listings/views.py:6954
 #: templates/listings/agriculture_listing_create.html:778
 #: templates/listings/camping_listing_create.html:870
 #: templates/listings/construction_listing_create.html:772
@@ -929,8 +932,9 @@ msgstr "此表格仅用于旅游旅馆广告。"
 
 #: apps/listings/camping_views.py:165 apps/listings/rental_views.py:195
 #: apps/listings/truck_for_parts_views.py:229
-#: apps/listings/truck_for_parts_views.py:273 apps/listings/trucks_views.py:642
-#: apps/listings/views.py:3558 apps/listings/views.py:6962
+#: apps/listings/truck_for_parts_views.py:273
+#: apps/listings/trucks_views.py:642 apps/listings/views.py:3558
+#: apps/listings/views.py:6962
 #: templates/listings/camping_listing_create.html:871
 #: templates/listings/rental_car_create.html:782
 #: templates/listings/rental_heavy_create.html:746
@@ -951,7 +955,7 @@ msgstr "未配置工程机械类别。"
 #: apps/listings/context_processors.py:208
 #: apps/listings/translatable_db.py:2434 templates/base.html:1007
 msgid "Įmonės ir servisai"
-msgstr ""
+msgstr "公司和服务"
 
 #: apps/listings/context_processors.py:209
 msgid "Finansavimas"
@@ -972,17 +976,17 @@ msgstr "文章"
 #: apps/listings/context_processors.py:213
 #: apps/listings/translatable_db.py:2472
 msgid "Pagalba"
-msgstr ""
+msgstr "帮助"
 
 #: apps/listings/context_processors.py:214
 #: apps/listings/translatable_db.py:2473
 msgid "Apie mus"
-msgstr ""
+msgstr "关于我们"
 
 #: apps/listings/context_processors.py:215
 #: apps/listings/translatable_db.py:2474
 msgid "Partneriai"
-msgstr ""
+msgstr "合作伙伴"
 
 #: apps/listings/context_processors.py:216
 msgid "PRO pardavimas"
@@ -1319,7 +1323,7 @@ msgstr "国有企业 Regitra"
 #: templates/listings/wheels_list.html:99
 #: templates/listings/wheels_list.html:103
 msgid "Ratlankiai"
-msgstr ""
+msgstr "轮辋"
 
 #: apps/listings/forms.py:228 templates/listings/advanced_search.html:337
 #: templates/listings/listing_create.html:624
@@ -1457,7 +1461,8 @@ msgstr "文件“%(name)s”过大（%(size).1f MB）。最大大小为 20 MB。
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
 #, python-format
 msgid ""
-"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP failai."
+"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
+"failai."
 msgstr "文件格式无效：“%(name)s”。仅允许 JPG、PNG 和 WEBP 文件格式。"
 
 #: apps/listings/image_validation.py:64
@@ -1671,7 +1676,7 @@ msgstr "商业的"
 
 #: apps/listings/models.py:359
 msgid "Convertible"
-msgstr ""
+msgstr "敞篷车"
 
 #: apps/listings/models.py:360
 msgid "Limousine"
@@ -1691,15 +1696,16 @@ msgstr "卡车/厢式货车"
 
 #: apps/listings/models.py:363 apps/listings/translatable_db.py:2454
 msgid "Kombi mikroautobusas"
-msgstr ""
+msgstr "康比小巴"
 
 #: apps/listings/models.py:364 apps/listings/translatable_db.py:2455
 msgid "Savadarbis auto"
-msgstr ""
+msgstr "自制汽车"
 
 #: apps/listings/models.py:370 apps/listings/models.py:398
 #: apps/listings/models.py:410 apps/listings/models.py:418
-#: apps/listings/models.py:2874 templates/listings/car_for_parts_create.html:57
+#: apps/listings/models.py:2874
+#: templates/listings/car_for_parts_create.html:57
 #: templates/listings/car_for_parts_create.html:67
 #: templates/listings/car_for_parts_create.html:77
 #: templates/listings/car_for_parts_create.html:91
@@ -2649,7 +2655,7 @@ msgstr "柴油舷内机"
 #: apps/listings/models.py:811 apps/listings/models.py:2943
 #: apps/listings/translatable_db.py:67
 msgid "Electric"
-msgstr ""
+msgstr "电的"
 
 #: apps/listings/models.py:812
 msgid "No engine"
@@ -2667,15 +2673,18 @@ msgstr "汽油二冲程舷内机"
 msgid "Boat engine type"
 msgstr "船用发动机类型"
 
-#: apps/listings/models.py:818 templates/listings/boats_listing_create.html:222
+#: apps/listings/models.py:818
+#: templates/listings/boats_listing_create.html:222
 msgid "Liftable engine"
 msgstr "可升降发动机"
 
-#: apps/listings/models.py:819 templates/listings/boats_listing_create.html:226
+#: apps/listings/models.py:819
+#: templates/listings/boats_listing_create.html:226
 msgid "Propeller"
 msgstr "螺旋桨"
 
-#: apps/listings/models.py:820 templates/listings/boats_listing_create.html:230
+#: apps/listings/models.py:820
+#: templates/listings/boats_listing_create.html:230
 msgid "Water turbine"
 msgstr "水轮机"
 
@@ -2795,7 +2804,7 @@ msgstr ">3轴"
 #: apps/listings/models.py:870 apps/listings/models.py:1080
 #: apps/listings/translatable_db.py:1721 apps/listings/translatable_db.py:2394
 msgid "Mechaninė"
-msgstr ""
+msgstr "机械的"
 
 #: apps/listings/models.py:871
 msgid "Pneumatinė"
@@ -2874,11 +2883,12 @@ msgstr "目的"
 #: templates/listings/rental_heavy_create.html:55
 #: templates/listings/rental_minibus_create.html:55
 #: templates/listings/rental_moto_create.html:56
-#: templates/listings/search_map.html:77 templates/listings/search_map.html:180
+#: templates/listings/search_map.html:77
+#: templates/listings/search_map.html:180
 #: templates/listings/trailers_listing_create.html:65
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
-msgstr ""
+msgstr "品牌"
 
 #: apps/listings/models.py:887 apps/listings/models.py:983
 #: apps/listings/models.py:1100 apps/listings/translatable_db.py:2365
@@ -2908,11 +2918,12 @@ msgstr ""
 #: templates/listings/rental_heavy_create.html:75
 #: templates/listings/rental_minibus_create.html:75
 #: templates/listings/rental_moto_create.html:76
-#: templates/listings/search_map.html:89 templates/listings/search_map.html:183
+#: templates/listings/search_map.html:89
+#: templates/listings/search_map.html:183
 #: templates/listings/trailers_listing_create.html:86
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
-msgstr ""
+msgstr "模型"
 
 #: apps/listings/models.py:891 templates/listings/listing_detail.html:1447
 #: templates/listings/trailers_listing_create.html:123
@@ -2938,7 +2949,7 @@ msgstr "单轴悬架类型"
 
 #: apps/listings/models.py:904
 msgid "1 ašies padangų likutis %"
-msgstr ""
+msgstr "第一轴轮胎剩余百分比"
 
 #: apps/listings/models.py:905
 msgid "1 ašies padangų išmatavimai"
@@ -2950,7 +2961,7 @@ msgstr "2轴悬挂式"
 
 #: apps/listings/models.py:908
 msgid "2 ašies padangų likutis %"
-msgstr ""
+msgstr "第二轴轮胎剩余百分比"
 
 #: apps/listings/models.py:909
 msgid "2 ašies padangų išmatavimai"
@@ -2962,7 +2973,7 @@ msgstr "三轴悬挂式"
 
 #: apps/listings/models.py:912
 msgid "3 ašies padangų likutis %"
-msgstr ""
+msgstr "第三轴轮胎剩余百分比"
 
 #: apps/listings/models.py:913
 msgid "3 ašies padangų išmatavimai"
@@ -3387,7 +3398,7 @@ msgstr "液压式四驱"
 #: apps/listings/models.py:1081 apps/listings/translatable_db.py:1624
 #: apps/listings/translatable_db.py:2393
 msgid "Automatinė"
-msgstr ""
+msgstr "自动的"
 
 #: apps/listings/models.py:1082
 msgid "Elektromechaninė"
@@ -3600,7 +3611,7 @@ msgstr "适用于B类许可证"
 
 #: apps/listings/models.py:1244
 msgid "Padangų likutis %"
-msgstr ""
+msgstr "轮胎剩余百分比"
 
 #: apps/listings/models.py:1261 apps/listings/views.py:574
 msgid "Autobusas"
@@ -3616,15 +3627,15 @@ msgstr "水运"
 #: templates/listings/partials/_panel_bodies.html:859
 #: templates/listings/rental_moto_create.html:25
 msgid "Motociklų nuoma"
-msgstr ""
+msgstr "摩托车租赁"
 
 #: apps/listings/models.py:1264 apps/listings/translatable_db.py:2452
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "客运小巴"
 
 #: apps/listings/models.py:1265 apps/listings/translatable_db.py:2453
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "货车"
 
 #: apps/listings/models.py:1269
 msgid "Autotraukinys"
@@ -3659,7 +3670,7 @@ msgstr "每小时租金"
 #: templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
-msgstr ""
+msgstr "座位数"
 
 #: apps/listings/models.py:1292 templates/listings/rental_car_create.html:224
 #: templates/listings/rental_moto_create.html:177
@@ -3914,7 +3925,7 @@ msgstr "电池容量，安时"
 
 #: apps/listings/models.py:1439
 msgid "Baterijos talpos likutis, %"
-msgstr ""
+msgstr "剩余电池容量百分比"
 
 #: apps/listings/models.py:1444 apps/listings/translatable_db.py:1514
 #: templates/listings/bicycles_listing_create.html:179
@@ -4002,7 +4013,7 @@ msgstr "首次登记日期"
 #: templates/listings/rental_moto_create.html:166
 #: templates/listings/search_map.html:181 templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
-msgstr ""
+msgstr "燃料类型"
 
 #: apps/listings/models.py:1482 apps/listings/translatable_db.py:926
 #: apps/listings/translatable_db.py:2370
@@ -4013,7 +4024,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:132
 #: templates/listings/rental_minibus_create.html:183
 msgid "Pavarų dėžė"
-msgstr ""
+msgstr "变速箱"
 
 #: apps/listings/models.py:1484 apps/listings/translatable_db.py:756
 #: apps/listings/translatable_db.py:2369
@@ -4021,7 +4032,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
-msgstr ""
+msgstr "体型"
 
 #: apps/listings/models.py:1491 apps/listings/models.py:3053
 #: templates/listings/partials/panel_trucks.html:70
@@ -4040,7 +4051,7 @@ msgstr "颜色（自定义）"
 #: templates/listings/listing_detail.html:555
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
-msgstr ""
+msgstr "门的数量"
 
 #: apps/listings/models.py:1545
 msgid "Subtype (custom)"
@@ -4050,7 +4061,8 @@ msgstr "子类型（自定义）"
 msgid "Size (custom)"
 msgstr "尺寸（可定制）"
 
-#: apps/listings/models.py:1560 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:1560
+#: templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:93
 #: templates/listings/rims_create.html:29
 #: templates/listings/tyres_create.html:32
@@ -4115,12 +4127,14 @@ msgstr "发动机代码"
 msgid "Gearbox Code"
 msgstr "变速箱代码"
 
-#: apps/listings/models.py:1648 templates/listings/car_for_parts_create.html:99
+#: apps/listings/models.py:1648
+#: templates/listings/car_for_parts_create.html:99
 #: templates/listings/listing_detail.html:2114
 msgid "Version"
 msgstr "版本"
 
-#: apps/listings/models.py:1653 templates/listings/car_for_parts_create.html:82
+#: apps/listings/models.py:1653
+#: templates/listings/car_for_parts_create.html:82
 #: templates/listings/listing_detail.html:2108
 msgid "Modification"
 msgstr "修改"
@@ -4261,7 +4275,7 @@ msgstr "已查看广告"
 #: templates/listings/perziureti.html:3 templates/listings/perziureti.html:22
 #: templates/listings/perziureti.html:26
 msgid "Peržiūrėti skelbimai"
-msgstr ""
+msgstr "查看广告"
 
 #: apps/listings/models.py:2384 apps/listings/views.py:82
 msgid "Interior"
@@ -4414,11 +4428,11 @@ msgstr "春季"
 
 #: apps/listings/models.py:2931 apps/listings/translatable_db.py:67
 msgid "Manual"
-msgstr ""
+msgstr "手动的"
 
 #: apps/listings/models.py:2932 apps/listings/translatable_db.py:66
 msgid "Automatic"
-msgstr ""
+msgstr "自动的"
 
 #: apps/listings/models.py:2933 apps/listings/translatable_db.py:70
 msgid "Semi-automatic"
@@ -4426,7 +4440,7 @@ msgstr "半自动"
 
 #: apps/listings/models.py:2938 apps/listings/translatable_db.py:66
 msgid "Diesel"
-msgstr ""
+msgstr "柴油机"
 
 #: apps/listings/models.py:2939
 msgid "Petrol / Gasoline"
@@ -4446,7 +4460,7 @@ msgstr "液化天然气"
 
 #: apps/listings/models.py:2944
 msgid "Hybrid"
-msgstr ""
+msgstr "杂交种"
 
 #: apps/listings/models.py:2945
 msgid "Hydrogen"
@@ -4548,7 +4562,7 @@ msgstr "商业/来自"
 
 #: apps/listings/models.py:3846 apps/listings/translatable_db.py:58
 msgid "Trucks"
-msgstr ""
+msgstr "卡车"
 
 #: apps/listings/models.py:3847 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:152
@@ -4725,7 +4739,7 @@ msgstr "房源信息已更新。"
 #: templates/listings/partials/_panel_bodies.html:1050
 #: templates/listings/partials/_panel_bodies.html:1134
 msgid "Tekstinė paieška"
-msgstr ""
+msgstr "文本搜索"
 
 #: apps/listings/motogear_views.py:942
 msgid "Markė, modelis, raktažodis..."
@@ -4806,7 +4820,7 @@ msgstr "凯娜："
 #: templates/listings/motogear_advanced.html:183
 #: templates/partials/_salis.html:48
 msgid "Šalis"
-msgstr ""
+msgstr "国家"
 
 #: apps/listings/motorcycles_views.py:454
 msgid "Failed to save draft."
@@ -4897,8 +4911,9 @@ msgstr "最受欢迎的品牌"
 msgid "Markės ir modeliai"
 msgstr "品牌和型号"
 
-#: apps/listings/paieskos_siulymai.py:272 apps/listings/translatable_db.py:2424
-#: templates/imones/_skirtukai.html:11 templates/imones/sarasas.html:217
+#: apps/listings/paieskos_siulymai.py:272
+#: apps/listings/translatable_db.py:2424 templates/imones/_skirtukai.html:11
+#: templates/imones/sarasas.html:217
 #: templates/listings/advanced_search.html:153
 #: templates/listings/partials/_panel_bodies.html:128
 #: templates/listings/partials/_panel_bodies.html:216
@@ -4967,7 +4982,7 @@ msgstr "配件、改装"
 #: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
 #: apps/listings/translatable_db.py:2478 apps/listings/zemelapio_views.py:406
 msgid "Naujausi"
-msgstr ""
+msgstr "最新的"
 
 #: apps/listings/perziureti_views.py:36
 msgid "Seniausi"
@@ -4981,7 +4996,7 @@ msgstr "最便宜"
 #: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
 #: apps/listings/translatable_db.py:2480 apps/listings/zemelapio_views.py:409
 msgid "Brangiausi"
-msgstr ""
+msgstr "最贵的"
 
 #: apps/listings/rental_views.py:155
 msgid "Transporto nuomos kategorija nesukonfigūruota."
@@ -5004,7 +5019,7 @@ msgstr "每日租金价格是强制性的。"
 #: templates/listings/partials/_panel_bodies.html:862
 #: templates/listings/rental_car_create.html:25
 msgid "Automobilių nuoma"
-msgstr ""
+msgstr "租车"
 
 #: apps/listings/rental_views.py:353 apps/listings/translatable_db.py:47
 #: templates/listings/partials/_panel_bodies.html:858
@@ -5374,7 +5389,7 @@ msgstr "汽车"
 #: templates/listings/partials/_panel_bodies.html:28
 #: templates/listings/partials/search_panel.html:47
 msgid "Motociklai"
-msgstr ""
+msgstr "摩托车"
 
 #: apps/listings/search_config/panels.py:288
 msgid "Ratai"
@@ -5396,7 +5411,7 @@ msgstr "重型 tr。"
 #: apps/listings/search_config/panels.py:292
 #: apps/listings/translatable_db.py:2441
 msgid "Priekabos"
-msgstr ""
+msgstr "预告片"
 
 #: apps/listings/search_config/panels.py:293
 msgid "Nuoma"
@@ -5407,7 +5422,8 @@ msgid "Audio"
 msgstr "声音的"
 
 #: apps/listings/search_config/panels.py:302
-#: apps/listings/skelbimai_views.py:33 templates/listings/listing_list.html:346
+#: apps/listings/skelbimai_views.py:33
+#: templates/listings/listing_list.html:346
 #: templates/listings/motogear_list.html:65
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/_panel_bodies.html:359
@@ -5523,8 +5539,8 @@ msgstr "全部车型"
 #: templates/listings/partials/_zemelapio_filtrai.html:98
 #: templates/listings/partials/fields/_range.html:15
 #: templates/listings/partials/fields/_range.html:36
-#: templates/listings/wheels_list.html:132 templates/search/_panel_cars.html:24
-#: templates/search/_panel_cars.html:33
+#: templates/listings/wheels_list.html:132
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
 msgstr "从"
 
@@ -5548,8 +5564,8 @@ msgstr "从"
 #: templates/listings/partials/_zemelapio_filtrai.html:99
 #: templates/listings/partials/fields/_range.html:21
 #: templates/listings/partials/fields/_range.html:39
-#: templates/listings/wheels_list.html:138 templates/search/_panel_cars.html:28
-#: templates/search/_panel_cars.html:35
+#: templates/listings/wheels_list.html:138
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
 msgstr "至"
 
@@ -5574,7 +5590,7 @@ msgstr "服务类型必填"
 
 #: apps/listings/skelbimai_views.py:26 apps/listings/translatable_db.py:2479
 msgid "Populiariausi"
-msgstr ""
+msgstr "最受欢迎"
 
 #: apps/listings/skelbimai_views.py:63 apps/listings/views.py:1316
 #: apps/listings/views.py:1331 apps/listings/views.py:1459
@@ -5603,7 +5619,8 @@ msgstr "此表格仅用于发布预告片广告。"
 msgid "Paskirtis yra privaloma"
 msgstr "目的地为必填项"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:341
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:341
 #: templates/listings/listing_list.html:378
 #: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_advanced_search.html:145
@@ -5613,7 +5630,8 @@ msgstr "目的地为必填项"
 msgid "Cars"
 msgstr "汽车"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:342
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:342
 #: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_advanced_search.html:146
 #: templates/listings/motorcycles_list.html:148
@@ -5622,7 +5640,8 @@ msgstr "汽车"
 msgid "Minibuses, Buses & Campers"
 msgstr "小型巴士、巴士和露营车"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:343
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:343
 #: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_advanced_search.html:144
 #: templates/listings/motorcycles_list.html:149
@@ -5632,7 +5651,8 @@ msgstr "小型巴士、巴士和露营车"
 msgid "Motorcycles & Moto Gear"
 msgstr "摩托车及摩托车装备"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:344
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:344
 #: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_advanced_search.html:147
 #: templates/listings/motorcycles_list.html:150
@@ -5644,7 +5664,8 @@ msgstr "摩托车及摩托车装备"
 msgid "Trucks & Commercial"
 msgstr "卡车和商用车"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:347
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:347
 #: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:59
@@ -5668,7 +5689,8 @@ msgstr "轮胎和车轮"
 msgid "Boats & Water Transport"
 msgstr "船舶和水上运输"
 
-#: apps/listings/translatable_db.py:17 templates/listings/listing_list.html:350
+#: apps/listings/translatable_db.py:17
+#: templates/listings/listing_list.html:350
 #: templates/listings/motogear_list.html:68
 #: templates/listings/motorcycles_advanced_search.html:149
 #: templates/listings/motorcycles_list.html:155
@@ -5677,7 +5699,8 @@ msgstr "船舶和水上运输"
 msgid "Trailers & Semi-trailers"
 msgstr "拖车和半挂车"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:351
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:351
 #: templates/listings/motogear_list.html:69
 #: templates/listings/motorcycles_list.html:156
 #: templates/listings/partials/search_rail.html:76
@@ -5685,7 +5708,8 @@ msgstr "拖车和半挂车"
 msgid "Construction & Warehouse Equipment"
 msgstr "建筑及仓储设备"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:352
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:352
 #: templates/listings/motogear_list.html:70
 #: templates/listings/motorcycles_list.html:157
 #: templates/listings/partials/search_rail.html:77
@@ -5693,7 +5717,8 @@ msgstr "建筑及仓储设备"
 msgid "Agricultural & Forestry"
 msgstr "农业和林业"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:353
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:353
 #: templates/listings/motogear_list.html:71
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/partials/search_rail.html:78
@@ -5701,7 +5726,8 @@ msgstr "农业和林业"
 msgid "Bicycles & Scooters"
 msgstr "自行车和滑板车"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:354
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:354
 #: templates/listings/motogear_list.html:72
 #: templates/listings/motorcycles_list.html:159
 #: templates/listings/partials/search_rail.html:79
@@ -5709,7 +5735,8 @@ msgstr "自行车和滑板车"
 msgid "Services"
 msgstr "服务"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:355
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:355
 #: templates/listings/motogear_list.html:73
 #: templates/listings/motorcycles_list.html:160
 #: templates/listings/partials/search_rail.html:80
@@ -5717,7 +5744,8 @@ msgstr "服务"
 msgid "Car Rental"
 msgstr "租车"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:356
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:356
 #: templates/listings/motogear_list.html:74
 #: templates/listings/motorcycles_list.html:161
 #: templates/listings/partials/search_rail.html:81
@@ -5725,7 +5753,8 @@ msgstr "租车"
 msgid "Planes & Aircraft"
 msgstr "飞机和航空器"
 
-#: apps/listings/translatable_db.py:20 templates/listings/listing_list.html:357
+#: apps/listings/translatable_db.py:20
+#: templates/listings/listing_list.html:357
 #: templates/listings/motogear_list.html:75
 #: templates/listings/motorcycles_list.html:162
 #: templates/listings/trucks_list.html:182
@@ -5736,19 +5765,19 @@ msgstr "飞机零件"
 #: apps/listings/views.py:2463
 #: templates/listings/partials/_panel_bodies.html:315
 msgid "Vilkikai"
-msgstr ""
+msgstr "拖拉机"
 
 #: apps/listings/translatable_db.py:20 apps/listings/translatable_db.py:2421
 #: apps/listings/views.py:2465
 #: templates/listings/partials/_panel_bodies.html:316
 msgid "Autotraukiniai, autovežiai"
-msgstr ""
+msgstr "公路列车，汽车运输车"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
 #: apps/listings/translatable_db.py:2422 apps/listings/views.py:2466
 #: templates/listings/partials/_panel_bodies.html:317
 msgid "Komunalinio ūkio transportas"
-msgstr ""
+msgstr "市政交通"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:1707
 #: templates/listings/loading_equipment_create.html:25
@@ -5772,7 +5801,7 @@ msgstr "林业机械"
 #: templates/listings/camping_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:933
 msgid "Turistiniai nameliai"
-msgstr ""
+msgstr "旅游小屋"
 
 #: apps/listings/translatable_db.py:33
 #: templates/listings/rental_minibus_create.html:25
@@ -5783,7 +5812,7 @@ msgstr "小巴、旅游车、水上交通工具租赁"
 #: templates/listings/construction_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:754
 msgid "Statybinė technika"
-msgstr ""
+msgstr "工程机械"
 
 #: apps/listings/translatable_db.py:38
 msgid "Aircraft Accessories"
@@ -5823,7 +5852,7 @@ msgstr "推土机"
 
 #: apps/listings/translatable_db.py:39
 msgid "Buses"
-msgstr ""
+msgstr "公交车"
 
 #: apps/listings/translatable_db.py:40
 msgid "Campers"
@@ -6007,7 +6036,7 @@ msgstr "半挂卡车/牵引车"
 
 #: apps/listings/translatable_db.py:55
 msgid "Semi-trailers"
-msgstr ""
+msgstr "半挂车"
 
 #: apps/listings/translatable_db.py:55
 #: templates/listings/sidebar_moto_parts.html:20
@@ -6080,11 +6109,11 @@ msgstr "CVT"
 
 #: apps/listings/translatable_db.py:66
 msgid "Diesel / Electric (Hybrid)"
-msgstr ""
+msgstr "柴油/电动（混合动力）"
 
 #: apps/listings/translatable_db.py:67
 msgid "Diesel / Electric (Plug-in)"
-msgstr ""
+msgstr "柴油/电动（插电式）"
 
 #: apps/listings/translatable_db.py:67
 msgid "Ethanol"
@@ -6092,27 +6121,27 @@ msgstr "乙醇"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol"
-msgstr ""
+msgstr "汽油"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / CNG"
-msgstr ""
+msgstr "汽油/压缩天然气"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / Electric (Hybrid)"
-msgstr ""
+msgstr "汽油/电动（混合动力）"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric (Plug-in)"
-msgstr ""
+msgstr "汽油/电动（插电式）"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric / LPG"
-msgstr ""
+msgstr "汽油/电力/液化石油气"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / LPG"
-msgstr ""
+msgstr "汽油/液化石油气"
 
 #: apps/listings/translatable_db.py:76 apps/listings/translatable_db.py:1872
 msgid "360° vaizdo kamera"
@@ -7388,7 +7417,7 @@ msgstr "位移 cm³"
 #: apps/listings/translatable_db.py:396 apps/listings/translatable_db.py:1651
 #: apps/listings/translatable_db.py:2407
 msgid "Daužtas"
-msgstr ""
+msgstr "破碎的"
 
 #: apps/listings/translatable_db.py:397
 msgid "Deflektorius variklio dangčio"
@@ -9265,7 +9294,7 @@ msgstr "附加刹车灯"
 
 #: apps/listings/translatable_db.py:894 apps/listings/translatable_db.py:2384
 msgid "Pardavėjo tipas"
-msgstr ""
+msgstr "卖家类型"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
@@ -9545,7 +9574,7 @@ msgstr "肩扇/鼓风机"
 
 #: apps/listings/translatable_db.py:967 apps/listings/translatable_db.py:2381
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "首次注册国家"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -11312,7 +11341,7 @@ msgstr "方向盘位置控制旋钮"
 
 #: apps/listings/translatable_db.py:1424 apps/listings/translatable_db.py:2375
 msgid "Vairo padėtis"
-msgstr ""
+msgstr "方向盘位置"
 
 #: apps/listings/translatable_db.py:1425
 msgid "Vairo rato ašies komplektas"
@@ -12004,7 +12033,7 @@ msgstr "皮划艇/独木舟"
 
 #: apps/listings/translatable_db.py:1636 apps/listings/translatable_db.py:2406
 msgid "Be defektų"
-msgstr ""
+msgstr "无缺陷"
 
 #: apps/listings/translatable_db.py:1637
 msgid "Benzinas/Gamtinės dujos"
@@ -12032,7 +12061,7 @@ msgstr "八齿鼠"
 
 #: apps/listings/translatable_db.py:1653 apps/listings/translatable_db.py:2440
 msgid "Dešinėje"
-msgstr ""
+msgstr "在右侧"
 
 #: apps/listings/translatable_db.py:1654
 msgid "Diagnostikos įranga"
@@ -12064,7 +12093,7 @@ msgstr "用于运输动物"
 
 #: apps/listings/translatable_db.py:1675 apps/listings/translatable_db.py:2397
 msgid "Hečbekas"
-msgstr ""
+msgstr "掀背车"
 
 #: apps/listings/translatable_db.py:1682
 msgid "Išmetimo sistemos Tuning dalys"
@@ -12080,7 +12109,7 @@ msgstr "朱德克兰特"
 
 #: apps/listings/translatable_db.py:1685 apps/listings/translatable_db.py:2439
 msgid "Kairėje"
-msgstr ""
+msgstr "在左侧"
 
 #: apps/listings/translatable_db.py:1686
 msgid "Kaišiadorys"
@@ -12119,7 +12148,7 @@ msgstr "其他主要缺陷"
 
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
-msgstr ""
+msgstr "商用车辆（带驾驶室）"
 
 #: apps/listings/translatable_db.py:1705
 msgid "Konteinerių sunkvežimis"
@@ -12159,7 +12188,7 @@ msgstr "黑刺"
 
 #: apps/listings/translatable_db.py:1727
 msgid "Miško technika"
-msgstr ""
+msgstr "林业设备"
 
 #: apps/listings/translatable_db.py:1732
 msgid "Mišrus"
@@ -12354,7 +12383,7 @@ msgstr "底盘改装部件"
 
 #: apps/listings/translatable_db.py:1830 apps/listings/translatable_db.py:2401
 msgid "Vienatūris"
-msgstr ""
+msgstr "巨石"
 
 #: apps/listings/translatable_db.py:1832
 msgid "Vilkaviškis"
@@ -13701,7 +13730,7 @@ msgstr "底盘细节"
 #: templates/listings/trailers_listing_create.html:93
 #: templates/listings/trailers_listing_create.html:253
 msgid "Metai"
-msgstr ""
+msgstr "年"
 
 #: apps/listings/translatable_db.py:2371
 #: templates/listings/listing_detail.html:503
@@ -13713,30 +13742,30 @@ msgstr ""
 #: templates/listings/partials/_card_params.html:27
 #: templates/listings/search_map.html:180
 msgid "Rida"
-msgstr ""
+msgstr "排"
 
 #: apps/listings/translatable_db.py:2372
 msgid "Galia, kW"
-msgstr ""
+msgstr "镓，千瓦"
 
 #: apps/listings/translatable_db.py:2373
 #: templates/listings/listing_detail.html:579
 #: templates/listings/listing_detail.html:1936
 #: templates/listings/listing_detail.html:1986
 msgid "Darbinis tūris"
-msgstr ""
+msgstr "位移"
 
 #: apps/listings/translatable_db.py:2374
 #: templates/listings/camping_listing_create.html:281
 #: templates/listings/listing_detail.html:757
 msgid "Varantieji ratai"
-msgstr ""
+msgstr "驱动轮"
 
 #: apps/listings/translatable_db.py:2376
 #: templates/listings/camping_listing_create.html:308
 #: templates/listings/listing_detail.html:773
 msgid "Defektai"
-msgstr ""
+msgstr "缺陷"
 
 #: apps/listings/translatable_db.py:2379
 #: templates/listings/bicycles_listing_create.html:138
@@ -13755,14 +13784,14 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:148
 #: templates/listings/trailers_listing_create.html:239
 msgid "Spalva"
-msgstr ""
+msgstr "颜色"
 
 #: apps/listings/translatable_db.py:2380
 #: templates/listings/listing_detail.html:1451
 #: templates/listings/partials/_panel_bodies.html:652
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
-msgstr ""
+msgstr "欧洲标准"
 
 #: apps/listings/translatable_db.py:2383 templates/imones/_filtrai.html:24
 #: templates/listings/listing_detail.html:423
@@ -13771,107 +13800,107 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:105
 #: templates/listings/partials/_panel_bodies.html:993
 msgid "Miestas"
-msgstr ""
+msgstr "城市"
 
 #: apps/listings/translatable_db.py:2385
 msgid "Ypatybės"
-msgstr ""
+msgstr "特征"
 
 #: apps/listings/translatable_db.py:2386
 msgid "Nuo / Iki"
-msgstr ""
+msgstr "从/到"
 
 #: apps/listings/translatable_db.py:2387
 msgid "Visi / Visos"
-msgstr ""
+msgstr "全部 / 所有"
 
 #: apps/listings/translatable_db.py:2388
 msgid "Benzinas"
-msgstr ""
+msgstr "汽油"
 
 #: apps/listings/translatable_db.py:2389
 msgid "Dyzelinas"
-msgstr ""
+msgstr "柴油机"
 
 #: apps/listings/translatable_db.py:2390
 msgid "Benzinas / dujos"
-msgstr ""
+msgstr "汽油/天然气"
 
 #: apps/listings/translatable_db.py:2391
 msgid "Hibridas"
-msgstr ""
+msgstr "杂交种"
 
 #: apps/listings/translatable_db.py:2392
 msgid "Elektra"
-msgstr ""
+msgstr "艾丽卡"
 
 #: apps/listings/translatable_db.py:2395
 msgid "Sedanas"
-msgstr ""
+msgstr "轿车"
 
 #: apps/listings/translatable_db.py:2396
 msgid "Universalas"
-msgstr ""
+msgstr "旅行车"
 
 #: apps/listings/translatable_db.py:2398
 msgid "Visureigis / Krosoveris"
-msgstr ""
+msgstr "SUV/跨界车"
 
 #: apps/listings/translatable_db.py:2399
 msgid "Kupė"
-msgstr ""
+msgstr "双门轿跑车"
 
 #: apps/listings/translatable_db.py:2400
 msgid "Kabrioletas"
-msgstr ""
+msgstr "敞篷车"
 
 #: apps/listings/translatable_db.py:2402
 msgid "Kairėje / Dešinėje"
-msgstr ""
+msgstr "左/右"
 
 #: apps/listings/translatable_db.py:2403
 msgid "Priekiniai"
-msgstr ""
+msgstr "正面"
 
 #: apps/listings/translatable_db.py:2404
 msgid "Galiniai"
-msgstr ""
+msgstr "后部"
 
 #: apps/listings/translatable_db.py:2405
 msgid "Visi varantys"
-msgstr ""
+msgstr "所有驾驶"
 
 #: apps/listings/translatable_db.py:2408
 #: templates/listings/listing_list.html:936
 msgid "Privatus asmuo"
-msgstr ""
+msgstr "私人人士"
 
 #: apps/listings/translatable_db.py:2410 apps/listings/views.py:562
 #: apps/listings/views.py:1803 apps/listings/views.py:2408
 #: templates/listings/partials/_panel_bodies.html:18
 msgid "Automobiliai"
-msgstr ""
+msgstr "汽车"
 
 #: apps/listings/translatable_db.py:2412 apps/listings/views.py:2462
 #: templates/listings/partials/_panel_bodies.html:318
 #: templates/listings/trucks_advanced_search.html:275
 msgid "Sunkvežimiai"
-msgstr ""
+msgstr "卡车"
 
 #: apps/listings/translatable_db.py:2414 apps/listings/views.py:2464
 #: templates/listings/partials/_panel_bodies.html:314
 msgid "Autobusai"
-msgstr ""
+msgstr "公交车"
 
 #: apps/listings/translatable_db.py:2415
 #: templates/listings/partials/_panel_bodies.html:597
 #: templates/listings/trailers_listing_create.html:25
 msgid "Priekabos / Puspriekabės"
-msgstr ""
+msgstr "拖车/半挂车"
 
 #: apps/listings/translatable_db.py:2416
 msgid "Žemės ūkio technika"
-msgstr ""
+msgstr "农业机械"
 
 #: apps/listings/translatable_db.py:2419 apps/listings/views.py:1458
 #: templates/listings/advanced_generic.html:125
@@ -13883,17 +13912,17 @@ msgstr ""
 #: templates/listings/partials/fields/_brand.html:57
 #: templates/listings/partials/search_panel.html:339
 msgid "Visos markės"
-msgstr ""
+msgstr "所有品牌"
 
 #: apps/listings/translatable_db.py:2420
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:740
 msgid "Žemės ūkio technika, padargai"
-msgstr ""
+msgstr "农业机械、农具"
 
 #: apps/listings/translatable_db.py:2423
 msgid "Limuzinų, vestuvių transportas"
-msgstr ""
+msgstr "豪华轿车，婚车"
 
 #: apps/listings/translatable_db.py:2425 templates/base.html:817
 #: templates/listings/partials/_my_searches.html:28
@@ -13901,18 +13930,18 @@ msgstr ""
 #: templates/listings/saved_searches.html:25
 #: templates/listings/saved_searches.html:29
 msgid "Mano paieškos"
-msgstr ""
+msgstr "我的搜索"
 
 #: apps/listings/translatable_db.py:2426 apps/listings/zemelapio_views.py:424
 msgid "Tik Lietuvoje"
-msgstr ""
+msgstr "仅在立陶宛"
 
 #: apps/listings/translatable_db.py:2428
 #: templates/listings/motorcycles_list.html:508
 #: templates/listings/partials/sidebar_generic.html:140
 #: templates/listings/wheels_list.html:180
 msgid "Filtruoti"
-msgstr ""
+msgstr "筛选"
 
 #: apps/listings/translatable_db.py:2429 templates/imones/sarasas.html:50
 #: templates/imones/sarasas.html:112 templates/imones/sarasas.html:182
@@ -13921,7 +13950,7 @@ msgstr ""
 #: templates/listings/partials/sidebar_generic.html:143
 #: templates/partials/_paieskos_juosta.html:142
 msgid "Išvalyti"
-msgstr ""
+msgstr "清除"
 
 #: apps/listings/translatable_db.py:2430 templates/partials/_salis.html:134
 #: templates/partials/_salis.html:146
@@ -13930,13 +13959,13 @@ msgstr "更改国家"
 
 #: apps/listings/translatable_db.py:2432 templates/base.html:498
 msgid "Įkelti"
-msgstr ""
+msgstr "上传"
 
 #: apps/listings/translatable_db.py:2433 templates/base.html:544
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:29
 msgid "Žinutės"
-msgstr ""
+msgstr "消息"
 
 #: apps/listings/translatable_db.py:2438
 #: templates/listings/motogear_advanced.html:185
@@ -13950,118 +13979,118 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:310
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
-msgstr ""
+msgstr "全部"
 
 #: apps/listings/translatable_db.py:2442
 msgid "Puspriekabės"
-msgstr ""
+msgstr "半挂车"
 
 #: apps/listings/translatable_db.py:2446
 msgid "Benzinas / elektra (hibridas)"
-msgstr ""
+msgstr "汽油/电动（混合动力）"
 
 #: apps/listings/translatable_db.py:2447
 msgid "Benzinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "汽油/电动（可充电）"
 
 #: apps/listings/translatable_db.py:2448
 msgid "Benzinas / elektra / dujos"
-msgstr ""
+msgstr "汽油/电力/天然气"
 
 #: apps/listings/translatable_db.py:2449
 msgid "Benzinas / gamtinės dujos"
-msgstr ""
+msgstr "汽油/天然气"
 
 #: apps/listings/translatable_db.py:2450
 msgid "Dyzelinas / elektra (hibridas)"
-msgstr ""
+msgstr "柴油/电动（混合动力）"
 
 #: apps/listings/translatable_db.py:2451
 msgid "Dyzelinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "柴油/电动（可充电）"
 
 #: apps/listings/translatable_db.py:2456
 msgid "Žemės ūkio"
-msgstr ""
+msgstr "农业"
 
 #: apps/listings/translatable_db.py:2457
 msgid "Autovežiai"
-msgstr ""
+msgstr "汽车运输车"
 
 #: apps/listings/translatable_db.py:2458
 msgid "Komunalinis"
-msgstr ""
+msgstr "公社"
 
 #: apps/listings/translatable_db.py:2459
 msgid "Limuzinų nuoma"
-msgstr ""
+msgstr "豪华轿车租赁"
 
 #: apps/listings/translatable_db.py:2460
 msgid "Mikroautob. nuoma"
-msgstr ""
+msgstr "小巴租赁"
 
 #: apps/listings/translatable_db.py:2461
 msgid "Sunkiojo nuoma"
-msgstr ""
+msgstr "重型设备租赁"
 
 #: apps/listings/translatable_db.py:2462
 msgid "Video, audio, navi"
-msgstr ""
+msgstr "我看见，我听见，我在一艘船上。"
 
 #: apps/listings/translatable_db.py:2463
 msgid "Auto supirkimas"
-msgstr ""
+msgstr "汽车购买"
 
 #: apps/listings/translatable_db.py:2464
 msgid "Krovimo technika"
-msgstr ""
+msgstr "装载设备"
 
 #: apps/listings/translatable_db.py:2465
 msgid "Statybos priedai"
-msgstr ""
+msgstr "建筑配件"
 
 #: apps/listings/translatable_db.py:2466
 msgid "Vandens transp."
-msgstr ""
+msgstr "水运"
 
 #: apps/listings/translatable_db.py:2467
 msgid "Dviračiai"
-msgstr ""
+msgstr "自行车"
 
 #: apps/listings/translatable_db.py:2468 templates/base.html:806
 msgid "Sukurti skelbimą"
-msgstr ""
+msgstr "创建广告"
 
 #: apps/listings/translatable_db.py:2469 templates/base.html:810
 msgid "Prisijungti"
-msgstr ""
+msgstr "登录"
 
 #: apps/listings/translatable_db.py:2471 templates/base.html:834
 #: templates/imones/sarasas.html:218 templates/listings/search_map.html:3
 #: templates/listings/search_map.html:6
 msgid "Žemėlapio paieška"
-msgstr ""
+msgstr "地图搜索"
 
 #: apps/listings/translatable_db.py:2475 templates/base.html:463
 #: templates/base.html:871 templates/partials/_kalbos.html:26
 #: templates/partials/_kalbos.html:52
 msgid "Kalba"
-msgstr ""
+msgstr "语言"
 
 #: apps/listings/translatable_db.py:2476
 #: templates/listings/partials/fields/_model.html:59
 msgid "Pirma pasirinkite markę"
-msgstr ""
+msgstr "首先选择一个品牌"
 
 #: apps/listings/translatable_db.py:2477
 #: templates/listings/listing_list.html:1161
 msgid "Dienos pasiūlymai"
-msgstr ""
+msgstr "每日特惠"
 
 #: apps/listings/translatable_db.py:2481
 #: templates/listings/listing_list.html:1208
 msgid "Šiandien naujų skelbimų dar nėra."
-msgstr ""
+msgstr "今天没有新广告。"
 
 #: apps/listings/translatable_db.py:2482
 #: templates/listings/listing_list.html:1213
@@ -14070,37 +14099,37 @@ msgstr ""
 #: templates/listings/listing_list.html:1323
 #: templates/listings/listing_list.html:1359
 msgid "Žiūrėti visus"
-msgstr ""
+msgstr "查看全部"
 
 #: apps/listings/translatable_db.py:2483 templates/imones/_filtrai.html:45
 #: templates/listings/listing_list.html:1377
 msgid "Visos įmonės"
-msgstr ""
+msgstr "所有公司"
 
 #: apps/listings/translatable_db.py:2484 templates/404.html:3
 msgid "Puslapis nerastas"
-msgstr ""
+msgstr "页面未找到"
 
 #: apps/listings/translatable_db.py:2485 templates/404.html:13
 msgid "Tokio puslapio nėra"
-msgstr ""
+msgstr "没有这个页面。"
 
 #: apps/listings/translatable_db.py:2486 templates/404.html:14
 msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
-msgstr ""
+msgstr "链接可能已失效，或者广告可能已被删除。"
 
 #: apps/listings/translatable_db.py:2487 templates/404.html:16
 msgid "Į pradžią"
-msgstr ""
+msgstr "返回顶部"
 
 #: apps/listings/translatable_db.py:2488 templates/404.html:17
 #: templates/listings/partials/_perziuretu_sarasas.html:11
 msgid "Naršyti skelbimus"
-msgstr ""
+msgstr "浏览广告"
 
 #: apps/listings/translatable_db.py:2489 templates/base.html:659
 msgid "Registruotis"
-msgstr ""
+msgstr "登记"
 
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
@@ -14511,7 +14540,8 @@ msgstr "阿拉伯"
 msgid "Korean"
 msgstr "韩国人"
 
-#: templates/accounts/become_dealer.html:3 templates/pages/help_center.html:541
+#: templates/accounts/become_dealer.html:3
+#: templates/pages/help_center.html:541
 msgid "Become a Dealer"
 msgstr "成为经销商"
 
@@ -14617,7 +14647,8 @@ msgstr "需要更多房源？"
 msgid "Talk to us about volume pricing or partnership opportunities."
 msgstr "请与我们联系，洽谈批量定价或合作机会。"
 
-#: templates/accounts/become_dealer.html:96 templates/pages/help_center.html:82
+#: templates/accounts/become_dealer.html:96
+#: templates/pages/help_center.html:82
 msgid "Contact us"
 msgstr "联系我们"
 
@@ -14712,9 +14743,9 @@ msgstr "我的房源"
 msgid "Manage your inventory"
 msgstr "管理您的库存"
 
-#: templates/accounts/dealer_dashboard.html:92 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:612
-#: templates/base.html:750
+#: templates/accounts/dealer_dashboard.html:92
+#: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
+#: templates/base.html:612 templates/base.html:750
 msgid "Wallet"
 msgstr "钱包"
 
@@ -15050,7 +15081,8 @@ msgstr "横幅"
 msgid "Recommended: 1920x400px"
 msgstr "推荐尺寸：1920x400像素"
 
-#: templates/accounts/dealer_setup.html:70 templates/pages/help_center.html:656
+#: templates/accounts/dealer_setup.html:70
+#: templates/pages/help_center.html:656
 msgid "About Us"
 msgstr "关于我们"
 
@@ -15418,13 +15450,10 @@ msgstr "不能完全是数字式的"
 
 #: templates/accounts/register.html:113
 msgid ""
-"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Terms of Service</a>\n"
-"                            and <a href=\"#\" class=\"text-primary hover:"
-"text-primary-dark\">Privacy Policy</a>"
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
 msgstr ""
-"我同意<a href=\"#\" class=\"text-primary hover:text-primary-dark\">服务条款</"
-"a>\n"
+"我同意<a href=\"#\" class=\"text-primary hover:text-primary-dark\">服务条款</a>\n"
 "\n"
 "和<a href=\"#\" class=\"text-primary hover:text-primary-dark\">隐私政策</a>"
 
@@ -15798,11 +15827,9 @@ msgstr "充值您的账户"
 
 #: templates/accounts/wallet.html:37
 msgid ""
-"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and "
-"cross-posting."
-msgstr ""
-"积分是 AutoLeft 的虚拟货币。您可以使用积分来提升排名、投放精选广告和进行交叉"
-"发布。"
+"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and"
+" cross-posting."
+msgstr "积分是 AutoLeft 的虚拟货币。您可以使用积分来提升排名、投放精选广告和进行交叉发布。"
 
 #: templates/accounts/wallet.html:40
 msgid "1 € = 1 point"
@@ -15869,7 +15896,8 @@ msgstr "类型"
 msgid "Amount"
 msgstr "数量"
 
-#: templates/accounts/wallet.html:128 templates/listings/wheels_detail.html:223
+#: templates/accounts/wallet.html:128
+#: templates/listings/wheels_detail.html:223
 msgid "Status"
 msgstr "地位"
 
@@ -15894,7 +15922,8 @@ msgid "My Searches"
 msgstr "我的搜索"
 
 #: templates/base.html:575 templates/base.html:728
-#: templates/listings/my_listings.html:6 templates/listings/my_listings.html:47
+#: templates/listings/my_listings.html:6
+#: templates/listings/my_listings.html:47
 msgid "My Ads"
 msgstr "我的广告"
 
@@ -16046,8 +16075,8 @@ msgstr "对话"
 #: templates/listings/listing_create.html:117
 #: templates/listings/listing_create.html:154
 #: templates/listings/partials/_my_searches.html:31
-#: templates/listings/select_value.html:18 templates/listings/skelbimai.html:30
-#: templates/listings/skelbimai.html:78
+#: templates/listings/select_value.html:18
+#: templates/listings/skelbimai.html:30 templates/listings/skelbimai.html:78
 #: templates/partials/_paieskos_juosta.html:43
 msgid "Atgal"
 msgstr "返回"
@@ -16222,8 +16251,7 @@ msgid ""
 "(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
 "your price, and publish. The listing will be live within 5-10 minutes."
 msgstr ""
-"点击任意页面顶部的红色“创建广告”按钮。选择类别（汽车、摩托车、卡车等），填写"
-"详细信息，上传照片，设置价格，然后发布。广告将在 5-10 分钟内上线。"
+"点击任意页面顶部的红色“创建广告”按钮。选择类别（汽车、摩托车、卡车等），填写详细信息，上传照片，设置价格，然后发布。广告将在 5-10 分钟内上线。"
 
 #: templates/faq.html:28
 msgid "How do I edit or delete my listing?"
@@ -16233,9 +16261,7 @@ msgstr "如何编辑或删除我的房源信息？"
 msgid ""
 "Go to 'My Listings' from the user menu. Click any listing to view it, then "
 "use the Edit or Delete buttons. Edits are reflected immediately."
-msgstr ""
-"从用户菜单进入“我的房源”。点击任意房源即可查看，然后使用编辑或删除按钮。编辑"
-"内容会立即生效。"
+msgstr "从用户菜单进入“我的房源”。点击任意房源即可查看，然后使用编辑或删除按钮。编辑内容会立即生效。"
 
 #: templates/faq.html:38
 msgid "How long is my listing active?"
@@ -16246,9 +16272,7 @@ msgid ""
 "Listings are active for 30 days. You can renew them anytime. After "
 "expiration, listings are kept in your account for 160 days before being "
 "automatically deleted."
-msgstr ""
-"商品信息有效期为30天，您可以随时续订。过期后，商品信息将在您的账户中保留160"
-"天，之后会自动删除。"
+msgstr "商品信息有效期为30天，您可以随时续订。过期后，商品信息将在您的账户中保留160天，之后会自动删除。"
 
 #: templates/faq.html:48
 msgid "How do I contact a seller?"
@@ -16258,9 +16282,7 @@ msgstr "我该如何联系卖家？"
 msgid ""
 "Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
 "seller's phone number is shown if they have enabled it."
-msgstr ""
-"打开任意商品页面，使用“发送消息”或“发送邮件”按钮。如果卖家已启用电话号码功"
-"能，则会显示该号码。"
+msgstr "打开任意商品页面，使用“发送消息”或“发送邮件”按钮。如果卖家已启用电话号码功能，则会显示该号码。"
 
 #: templates/faq.html:58
 msgid "How does the wallet work?"
@@ -16272,8 +16294,8 @@ msgid ""
 "cross-posting. Top up with €20, €100, €500 (with bonus credits) or any "
 "custom amount. 1 EUR = 1 credit."
 msgstr ""
-"您的钱包用于存储推广商品信息、精选广告和交叉发布所需的积分。您可以充值 20 欧"
-"元、100 欧元、500 欧元（含奖励积分）或任何自定义金额。1 欧元 = 1 积分。"
+"您的钱包用于存储推广商品信息、精选广告和交叉发布所需的积分。您可以充值 20 欧元、100 欧元、500 欧元（含奖励积分）或任何自定义金额。1 欧元 "
+"= 1 积分。"
 
 #: templates/faq.html:68
 msgid "How do I become a dealer?"
@@ -16285,8 +16307,7 @@ msgid ""
 "or Enterprise) and subscribe. You'll get unlimited listings, a branded "
 "dealer page, custom logo, and featured placement."
 msgstr ""
-"从您的账户菜单访问“经销商”页面。选择套餐（基础版、专业版或企业版）并订阅。您"
-"将获得无限量列表发布、品牌经销商页面、自定义徽标和精选展示位置。"
+"从您的账户菜单访问“经销商”页面。选择套餐（基础版、专业版或企业版）并订阅。您将获得无限量列表发布、品牌经销商页面、自定义徽标和精选展示位置。"
 
 #: templates/faq.html:78
 msgid "How do I change my password?"
@@ -16297,9 +16318,7 @@ msgid ""
 "Go to Settings, then click 'Change Password'. Enter your current password "
 "and the new one. If you forgot your password, use 'Forgot password?' on the "
 "login page."
-msgstr ""
-"进入“设置”，然后点击“更改密码”。输入您当前的密码和新密码。如果您忘记了密码，"
-"请在登录页面使用“忘记密码？”功能。"
+msgstr "进入“设置”，然后点击“更改密码”。输入您当前的密码和新密码。如果您忘记了密码，请在登录页面使用“忘记密码？”功能。"
 
 #: templates/faq.html:88
 msgid "How do I delete my account?"
@@ -16310,9 +16329,7 @@ msgid ""
 "Go to Settings, scroll to the bottom, and click 'Delete Account'. You'll "
 "need to enter your password to confirm. This action is permanent and cannot "
 "be undone."
-msgstr ""
-"前往“设置”，滚动到页面底部，然后点击“删除帐户”。您需要输入密码进行确认。此操"
-"作不可撤销。"
+msgstr "前往“设置”，滚动到页面底部，然后点击“删除帐户”。您需要输入密码进行确认。此操作不可撤销。"
 
 #: templates/faq.html:99
 msgid "Still need help?"
@@ -16609,7 +16626,8 @@ msgstr "称呼"
 msgid "Rašyti žinutę"
 msgstr "写一条消息"
 
-#: templates/imones/sarasas.html:36 templates/partials/_paieskos_juosta.html:50
+#: templates/imones/sarasas.html:36
+#: templates/partials/_paieskos_juosta.html:50
 msgid "Visos paslaugos"
 msgstr "所有服务"
 
@@ -19134,8 +19152,8 @@ msgstr "卖家类型"
 #: templates/listings/tyres_create.html:237
 #: templates/listings/wheels_create.html:320
 msgid ""
-"The fewer questions buyers have when reading your listing, the faster you'll "
-"find a buyer."
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
 msgstr "买家在阅读您的商品信息时提出的问题越少，您就能越快找到买家。"
 
 #: templates/listings/listing_create_cars_quick.html:481
@@ -19150,8 +19168,8 @@ msgstr "避免使用全部大写字母或过多符号。"
 #: templates/listings/tyres_create.html:297
 #: templates/listings/wheels_create.html:367
 msgid ""
-"Not all required fields are filled in or filled in incorrectly. These fields "
-"are marked in red."
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
 msgstr "并非所有必填字段都已填写或填写错误。这些字段以红色标记。"
 
 #: templates/listings/listing_create_cars_quick.html:861
@@ -20303,7 +20321,8 @@ msgstr "选择激活方案"
 
 #: templates/listings/listing_select_plan.html:62
 #: templates/listings/listing_select_plan.html:167
-#: templates/listings/wheels_list.html:232 templates/pages/help_center.html:612
+#: templates/listings/wheels_list.html:232
+#: templates/pages/help_center.html:612
 msgid "Recommended"
 msgstr "受到推崇的"
 
@@ -20467,11 +20486,9 @@ msgstr "错误"
 #: templates/listings/listing_select_plan.html:712
 #: templates/listings/listing_services_order.html:284
 msgid ""
-"Your listing will appear higher in search results than others. The more star "
-"boosts you order, the higher it will be displayed."
-msgstr ""
-"您的商家信息在搜索结果中的排名将高于其他商家。您购买的星级推广服务越多，排名"
-"就越高。"
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
+msgstr "您的商家信息在搜索结果中的排名将高于其他商家。您购买的星级推广服务越多，排名就越高。"
 
 #: templates/listings/listing_select_plan.html:717
 #: templates/listings/listing_services_order.html:289
@@ -20497,7 +20514,8 @@ msgid "Back to my ads"
 msgstr "返回我的广告"
 
 #: templates/listings/listing_services_order.html:21
-msgid "Boost your active listing with stars, highlight, or featured placement."
+msgid ""
+"Boost your active listing with stars, highlight, or featured placement."
 msgstr "通过加星标、突出显示或精选展示来提升您的房源排名。"
 
 #: templates/listings/listing_services_order.html:50
@@ -20657,8 +20675,7 @@ msgstr "房源已发布"
 
 #: templates/listings/listing_success.html:61
 #, python-format
-msgid ""
-"Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
 msgstr "房源有效期为<strong class=\"text-gray-900\">%(days)s 天</strong>"
 
 #: templates/listings/listing_success.html:66
@@ -20716,9 +20733,7 @@ msgstr "您的商品数量已达上限"
 msgid ""
 "You currently have %(count)s of %(limit)s active listings. Choose an option "
 "below to add more."
-msgstr ""
-"您目前有 %(count)s 个有效房源，共 %(limit)s 个。请选择以下选项以添加更多房"
-"源。"
+msgstr "您目前有 %(count)s 个有效房源，共 %(limit)s 个。请选择以下选项以添加更多房源。"
 
 #: templates/listings/listing_upgrade.html:24
 msgid "Pay per listing"
@@ -21219,8 +21234,7 @@ msgid ""
 "Up to <strong>40 photos</strong>. Max <strong>16MB</strong> each. JPG, PNG, "
 "WEBP. First is main."
 msgstr ""
-"最多<strong>40张照片</strong>。每张照片最大<strong>16MB</strong>。JPG、PNG、"
-"WEBP格式。第一张照片为主图。"
+"最多<strong>40张照片</strong>。每张照片最大<strong>16MB</strong>。JPG、PNG、WEBP格式。第一张照片为主图。"
 
 #: templates/listings/motogear_create.html:296
 msgid "PNG, JPG up to 16MB each (max 40 photos)"
@@ -21555,8 +21569,7 @@ msgid ""
 "You can upload up to <strong>40 photos</strong>. Max size per photo is "
 "<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
 msgstr ""
-"您最多可以上传<strong>40张照片</strong>。每张照片最大尺寸为<strong>10MB</"
-"strong>。支持的格式：<strong>JPG、PNG、GIF</strong>。"
+"您最多可以上传<strong>40张照片</strong>。每张照片最大尺寸为<strong>10MB</strong>。支持的格式：<strong>JPG、PNG、GIF</strong>。"
 
 #: templates/listings/motorcycle_create.html:342
 msgid ""
@@ -21825,7 +21838,7 @@ msgstr "价格未设定"
 
 #: templates/listings/my_listings.html:556
 msgid "Ad is <strong>inactive</strong>"
-msgstr ""
+msgstr "广告已失效。"
 
 #: templates/listings/my_listings.html:560
 msgid "Activate"
@@ -22216,9 +22229,7 @@ msgstr "社区"
 msgid ""
 "Šio skelbimo vieta apytikslė — pažymėta pagal miestą. Patempkite žymeklį "
 "arba įveskite adresą, kad pirkėjai matytų tikslią vietą."
-msgstr ""
-"此房源位置为大致位置，以城市标注。拖动光标或输入地址即可查看买家所需的确切位"
-"置。"
+msgstr "此房源位置为大致位置，以城市标注。拖动光标或输入地址即可查看买家所需的确切位置。"
 
 #: templates/listings/partials/_vietos_blokas.html:64
 msgid "Vieta neprivaloma, bet be jos skelbimas nepateks į žemėlapio paiešką."
@@ -22415,7 +22426,8 @@ msgstr "工作体积（升）"
 msgid "Kuro sąnaudos (l/100 km)"
 msgstr "燃油消耗量（升/100公里）"
 
-#: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
+#: templates/listings/rims_create.html:4
+#: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Rims"
 msgstr "新上架：轮毂"
@@ -22629,8 +22641,8 @@ msgstr "没有已保存的搜索"
 
 #: templates/listings/saved_searches.html:127
 msgid ""
-"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras "
-"naujų skelbimų."
+"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras"
+" naujų skelbimų."
 msgstr "进行搜索并点击“保存搜索”，即可在新广告出现时收到通知。"
 
 #: templates/listings/saved_searches.html:158
@@ -22695,7 +22707,7 @@ msgstr "广告"
 #: templates/listings/search_map.html:185
 #: templates/partials/_paieskos_juosta.html:194
 msgid "skelbimai"
-msgstr ""
+msgstr "广告"
 
 #: templates/listings/select_value.html:51
 msgid "Gerai"
@@ -22723,7 +22735,7 @@ msgstr "品牌"
 
 #: templates/listings/sidebar_moto_parts.html:56
 msgid "MODEL"
-msgstr ""
+msgstr "模型"
 
 #: templates/listings/sidebar_moto_parts.html:65
 msgid "CONDITION"
@@ -22751,7 +22763,7 @@ msgstr "发动机排量（立方厘米）"
 
 #: templates/listings/sidebar_moto_parts.html:126
 msgid "COUNTRY"
-msgstr ""
+msgstr "国家"
 
 #: templates/listings/sidebar_moto_parts.html:128
 msgid "All countries"
@@ -23131,8 +23143,7 @@ msgstr "创建卡车和商业列表"
 msgid ""
 "Fill in the details below. Required fields are marked with <span "
 "class=\"text-red-600\">*</span>."
-msgstr ""
-"请在下方填写详细信息。必填字段标有<span class=\"text-red-600\">*</span>。"
+msgstr "请在下方填写详细信息。必填字段标有<span class=\"text-red-600\">*</span>。"
 
 #: templates/listings/trucks_listing_create.html:293
 msgid "Basic Information"
@@ -23187,9 +23198,7 @@ msgstr "在此处上传照片或<strong>点击上传</strong>"
 
 #: templates/listings/trucks_listing_create.html:592
 msgid "Up to 40 photos · JPG, PNG · max 20 MB each · Drag photos to reorder"
-msgstr ""
-"最多可上传 40 张照片 · JPG、PNG 格式 · 每张照片最大 20 MB · 拖动照片即可重新"
-"排序"
+msgstr "最多可上传 40 张照片 · JPG、PNG 格式 · 每张照片最大 20 MB · 拖动照片即可重新排序"
 
 #: templates/listings/trucks_listing_create.html:602
 #: templates/listings/trucks_listing_create.html:615
@@ -23463,14 +23472,12 @@ msgid ""
 "listings</strong> in any category. If you delete a listing, that <strong "
 "class=\"text-gray-900 font-semibold\">free</strong> slot becomes available "
 "again — so you can always re-list within your free allowance. After your "
-"free listings are used, additional listings carry a small fee that keeps the "
-"platform running and online for everyone."
+"free listings are used, additional listings carry a small fee that keeps the"
+" platform running and online for everyone."
 msgstr ""
-"每位用户在任何类别中均可获得<strong class=\"text-gray-900 font-semibold\">3个"
-"免费发布名额</strong>。如果您删除某个名额，该<strong class=\"text-gray-900 "
-"font-semibold\">免费</strong>名额将再次可用——因此您始终可以在免费名额范围内重"
-"新发布。免费名额用完后，额外的发布名额将收取少量费用，以维持平台的运营，确保"
-"所有用户都能继续使用。"
+"每位用户在任何类别中均可获得<strong class=\"text-gray-900 font-"
+"semibold\">3个免费发布名额</strong>。如果您删除某个名额，该<strong class=\"text-gray-900 font-"
+"semibold\">免费</strong>名额将再次可用——因此您始终可以在免费名额范围内重新发布。免费名额用完后，额外的发布名额将收取少量费用，以维持平台的运营，确保所有用户都能继续使用。"
 
 #: templates/pages/help_center.html:175
 msgid ""
@@ -23479,9 +23486,9 @@ msgid ""
 "reach more buyers, <strong class=\"text-gray-900 font-semibold\">free of "
 "charge</strong>."
 msgstr ""
-"广告上线后，请将链接发送给我们——我们会在 Instagram 和 TikTok 频道上制作额外的"
-"视频内容，以推广精选的商品，帮助您触达更多买家，<strong class=\"text-"
-"gray-900 font-semibold\">免费</strong>。"
+"广告上线后，请将链接发送给我们——我们会在 Instagram 和 TikTok "
+"频道上制作额外的视频内容，以推广精选的商品，帮助您触达更多买家，<strong class=\"text-gray-900 font-"
+"semibold\">免费</strong>。"
 
 #: templates/pages/help_center.html:177
 msgid "You can reach us through support or social media:"
@@ -23649,12 +23656,11 @@ msgstr "发布您的第一条房源信息"
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
-"get more views. Add a detailed description including condition, history, and "
-"any modifications. Your first 3 listings are completely free."
+"get more views. Add a detailed description including condition, history, and"
+" any modifications. Your first 3 listings are completely free."
 msgstr ""
-"点击顶部菜单中的“创建广告”，选择车辆类别，并填写车辆详细信息。上传至少 5 张清"
-"晰的照片——照片越多，浏览量越高。添加详细描述，包括车辆状况、历史记录和任何改"
-"装情况。您的前 3 个广告位完全免费。"
+"点击顶部菜单中的“创建广告”，选择车辆类别，并填写车辆详细信息。上传至少 5 "
+"张清晰的照片——照片越多，浏览量越高。添加详细描述，包括车辆状况、历史记录和任何改装情况。您的前 3 个广告位完全免费。"
 
 #: templates/pages/help_center.html:329
 msgid "Renewing your listing"
@@ -23667,8 +23673,8 @@ msgid ""
 "Renewing is free for your first 3 listings; additional renewals require a "
 "paid plan."
 msgstr ""
-"房源信息有效期为 30 天。之后，您需要续订——每小时可续订一次，将任意房源信息重"
-"新置顶于搜索结果顶部。前 3 个房源信息续订免费；后续续订需购买付费套餐。"
+"房源信息有效期为 30 天。之后，您需要续订——每小时可续订一次，将任意房源信息重新置顶于搜索结果顶部。前 3 "
+"个房源信息续订免费；后续续订需购买付费套餐。"
 
 #: templates/pages/help_center.html:339
 msgid "Drafts — save and activate later"
@@ -23676,13 +23682,12 @@ msgstr "草稿——保存并稍后激活"
 
 #: templates/pages/help_center.html:342
 msgid ""
-"Started a listing but not ready to publish? Your work is saved automatically "
-"as a draft. Find drafts in 'My Listings' and continue editing whenever you "
+"Started a listing but not ready to publish? Your work is saved automatically"
+" as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
-"已经开始撰写房源信息但还没准备好发布？您的作品会自动保存为草稿。您可以在“我的"
-"房源信息”中找到草稿，并随时继续编辑。准备就绪后，即可激活草稿——它将自动发布 "
-"30 天。"
+"已经开始撰写房源信息但还没准备好发布？您的作品会自动保存为草稿。您可以在“我的房源信息”中找到草稿，并随时继续编辑。准备就绪后，即可激活草稿——它将自动发布"
+" 30 天。"
 
 #: templates/pages/help_center.html:349
 msgid "Saving favorites with the heart icon"
@@ -23691,13 +23696,11 @@ msgstr "使用心形图标保存收藏"
 #: templates/pages/help_center.html:352
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
-"are kept in 'Saved Listings' so you can compare prices and come back to them "
-"later. You'll also receive email notifications when a saved listing's price "
-"drops."
+"are kept in 'Saved Listings' so you can compare prices and come back to them"
+" later. You'll also receive email notifications when a saved listing's price"
+" drops."
 msgstr ""
-"看到喜欢的房源了吗？点击心形图标即可保存。所有收藏的房源都会保存在“已保存房"
-"源”中，方便您比较价格并稍后查看。此外，当已保存的房源降价时，您还会收到邮件通"
-"知。"
+"看到喜欢的房源了吗？点击心形图标即可保存。所有收藏的房源都会保存在“已保存房源”中，方便您比较价格并稍后查看。此外，当已保存的房源降价时，您还会收到邮件通知。"
 
 #: templates/pages/help_center.html:359
 msgid "Tracking listing performance"
@@ -23706,13 +23709,11 @@ msgstr "跟踪列表表现"
 #: templates/pages/help_center.html:362
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
-"where it ranks compared to similar listings. Use these numbers to figure out "
-"if your price is competitive and whether you need better photos or a "
+"where it ranks compared to similar listings. Use these numbers to figure out"
+" if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
-"每个房源信息页面都有一个统计信息页面，显示浏览量、曝光量、收藏量以及与类似房"
-"源的排名。您可以利用这些数据来判断您的价格是否具有竞争力，以及是否需要更好的"
-"照片或更吸引人的描述。"
+"每个房源信息页面都有一个统计信息页面，显示浏览量、曝光量、收藏量以及与类似房源的排名。您可以利用这些数据来判断您的价格是否具有竞争力，以及是否需要更好的照片或更吸引人的描述。"
 
 #: templates/pages/help_center.html:369
 msgid "Communicating with buyers"
@@ -23720,13 +23721,12 @@ msgstr "与买家沟通"
 
 #: templates/pages/help_center.html:372
 msgid ""
-"Buyers can message you directly through the platform — no need to share your "
-"phone number publicly. Reply quickly: fast responses build trust and sell "
+"Buyers can message you directly through the platform — no need to share your"
+" phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
-"买家可以直接通过平台给您发送消息——无需公开您的电话号码。快速回复：快速回复有"
-"助于建立信任，加快车辆销售。使用应用内的对话系统记录谈判过程。"
+"买家可以直接通过平台给您发送消息——无需公开您的电话号码。快速回复：快速回复有助于建立信任，加快车辆销售。使用应用内的对话系统记录谈判过程。"
 
 #: templates/pages/help_center.html:379
 msgid "When you sell — mark it sold"
@@ -23737,9 +23737,7 @@ msgid ""
 "When the deal closes, mark the listing as sold from the 'My Listings' page. "
 "Buyers who saved the listing will be notified automatically, and the sale "
 "gets recorded in your seller history."
-msgstr ""
-"交易完成后，请在“我的房源”页面将房源标记为已售出。已收藏该房源的买家将自动收"
-"到通知，并且此次销售记录将添加到您的卖家历史记录中。"
+msgstr "交易完成后，请在“我的房源”页面将房源标记为已售出。已收藏该房源的买家将自动收到通知，并且此次销售记录将添加到您的卖家历史记录中。"
 
 #: templates/pages/help_center.html:399
 msgid "How do I create an ad?"
@@ -23750,9 +23748,7 @@ msgid ""
 "Click the 'Create Ad' button in the top right corner, select a category, "
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
-msgstr ""
-"点击右上角的“创建广告”按钮，选择类别，填写详细信息，上传照片，然后发布您的广"
-"告。整个过程大约需要5分钟。"
+msgstr "点击右上角的“创建广告”按钮，选择类别，填写详细信息，上传照片，然后发布您的广告。整个过程大约需要5分钟。"
 
 #: templates/pages/help_center.html:408
 msgid "How to become a dealer?"
@@ -23760,12 +23756,10 @@ msgstr "如何成为经销商？"
 
 #: templates/pages/help_center.html:412
 msgid ""
-"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your "
-"business profile. You'll get a verified dealer badge, public dealer page, "
+"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your"
+" business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
-msgstr ""
-"访问“成为经销商”页面，每月支付 100 欧元订阅，并填写您的商家信息。您将获得认证"
-"经销商徽章、公开经销商页面，并可列出最多 30 辆车。"
+msgstr "访问“成为经销商”页面，每月支付 100 欧元订阅，并填写您的商家信息。您将获得认证经销商徽章、公开经销商页面，并可列出最多 30 辆车。"
 
 #: templates/pages/help_center.html:417
 msgid "Is my data safe?"
@@ -23775,9 +23769,7 @@ msgstr "我的数据安全吗？"
 msgid ""
 "Yes. We use industry-standard encryption to protect your personal "
 "information. See our Privacy Policy for details."
-msgstr ""
-"是的。我们采用行业标准的加密技术来保护您的个人信息。详情请参阅我们的隐私政"
-"策。"
+msgstr "是的。我们采用行业标准的加密技术来保护您的个人信息。详情请参阅我们的隐私政策。"
 
 #: templates/pages/help_center.html:426
 msgid "How do I delete my listing?"
@@ -23787,9 +23779,7 @@ msgstr "如何删除我的商品信息？"
 msgid ""
 "Go to 'My Ads' in the user menu, find the listing, click the menu icon, and "
 "select 'Delete'. The listing will be permanently removed."
-msgstr ""
-"进入用户菜单中的“我的广告”，找到该广告，点击菜单图标，然后选择“删除”。该广告"
-"将被永久移除。"
+msgstr "进入用户菜单中的“我的广告”，找到该广告，点击菜单图标，然后选择“删除”。该广告将被永久移除。"
 
 #: templates/pages/help_center.html:445
 msgid "Get in touch with us — we usually reply within 24 hours."
@@ -23820,9 +23810,7 @@ msgid ""
 "Your first 3 listings are completely free, in any category. Renewals are "
 "free too. After 3 listings, paid plans apply for additional listings and "
 "renewals."
-msgstr ""
-"您的前 3 个商品列表完全免费，不限类别。续费也免费。3 个列表之后，额外的列表和"
-"续费将按付费计划收费。"
+msgstr "您的前 3 个商品列表完全免费，不限类别。续费也免费。3 个列表之后，额外的列表和续费将按付费计划收费。"
 
 #: templates/pages/help_center.html:504
 msgid "Private sellers — additional listings"
@@ -23873,11 +23861,9 @@ msgstr "认证经销商徽章"
 #: templates/pages/help_center.html:556
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
-"States. Contact us to discuss advertising opportunities — banners, sponsored "
-"placements, or partnership campaigns."
-msgstr ""
-"触达遍布欧洲和美国的数千名汽车买家和卖家。联系我们，探讨广告合作机会——横幅广"
-"告、赞助位或合作推广活动。"
+"States. Contact us to discuss advertising opportunities — banners, sponsored"
+" placements, or partnership campaigns."
+msgstr "触达遍布欧洲和美国的数千名汽车买家和卖家。联系我们，探讨广告合作机会——横幅广告、赞助位或合作推广活动。"
 
 #: templates/pages/help_center.html:568
 msgid "WhatsApp"
@@ -23903,9 +23889,7 @@ msgstr "合作伙伴及资源"
 msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
-msgstr ""
-"我们提供值得信赖的服务和工具，助您安心买卖。部分服务由我们运营，部分服务由我"
-"们的合作伙伴运营。"
+msgstr "我们提供值得信赖的服务和工具，助您安心买卖。部分服务由我们运营，部分服务由我们的合作伙伴运营。"
 
 #: templates/pages/help_center.html:601
 msgid "Recommended services"
@@ -23928,9 +23912,7 @@ msgid ""
 "buyers and sellers. Tell us what you'd like to promote and we'll find the "
 "right placement for you."
 msgstr ""
-"如果您经营汽车相关服务——例如保险、融资、运输、美容、配件——或者想推广其他平"
-"台，您可以触达我们的买家和卖家。告诉我们您想推广的内容，我们会为您找到合适的"
-"广告位。"
+"如果您经营汽车相关服务——例如保险、融资、运输、美容、配件——或者想推广其他平台，您可以触达我们的买家和卖家。告诉我们您想推广的内容，我们会为您找到合适的广告位。"
 
 #: templates/pages/help_center.html:638
 msgid "See advertising options"
@@ -23945,9 +23927,7 @@ msgid ""
 "Thousands of clients use our platform every day to browse, buy, and sell "
 "vehicles directly — without middlemen, without dealer markups, without "
 "hidden fees."
-msgstr ""
-"每天有成千上万的客户使用我们的平台直接浏览、购买和出售车辆——没有中间商，没有"
-"经销商加价，没有隐藏费用。"
+msgstr "每天有成千上万的客户使用我们的平台直接浏览、购买和出售车辆——没有中间商，没有经销商加价，没有隐藏费用。"
 
 #: templates/pages/help_center.html:664
 msgid ""
@@ -23955,9 +23935,7 @@ msgid ""
 "platform where private sellers and verified dealers meet real buyers. The "
 "deal happens between you and the other party, exactly as it should."
 msgstr ""
-"我们不是汽车经销商，我们不买卖汽车。我们是一个交易平台——一个让私人卖家和认证"
-"经销商与真实买家对接的平台。交易完全由您和交易对方自行完成，一切都按正规流程"
-"进行。"
+"我们不是汽车经销商，我们不买卖汽车。我们是一个交易平台——一个让私人卖家和认证经销商与真实买家对接的平台。交易完全由您和交易对方自行完成，一切都按正规流程进行。"
 
 #: templates/pages/help_center.html:668
 msgid ""
@@ -23966,9 +23944,7 @@ msgid ""
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
-"我们所做的就是帮助您提升曝光率。我们通过精准广告、视频内容和社交媒体推广活动"
-"来宣传您的车辆信息，让更多人关注合适的车辆，从而加快销售速度，并确保所有参与"
-"者都能获得公平的价格。"
+"我们所做的就是帮助您提升曝光率。我们通过精准广告、视频内容和社交媒体推广活动来宣传您的车辆信息，让更多人关注合适的车辆，从而加快销售速度，并确保所有参与者都能获得公平的价格。"
 
 #: templates/pages/help_center.html:674
 msgid "Active users"
@@ -23997,10 +23973,9 @@ msgstr "1. 接受条款"
 
 #: templates/pages/help_center.html:701
 msgid ""
-"By accessing or using this platform, you agree to these Terms of Use. If you "
-"don't agree, please don't use the platform."
-msgstr ""
-"访问或使用本平台即表示您同意这些使用条款。如果您不同意，请勿使用本平台。"
+"By accessing or using this platform, you agree to these Terms of Use. If you"
+" don't agree, please don't use the platform."
+msgstr "访问或使用本平台即表示您同意这些使用条款。如果您不同意，请勿使用本平台。"
 
 #: templates/pages/help_center.html:705
 msgid "2. What This Platform Is"
@@ -24011,9 +23986,7 @@ msgid ""
 "This is an online marketplace that connects buyers and sellers of vehicles. "
 "We don't own, sell, inspect, or warrant any vehicle listed on the platform. "
 "All transactions happen directly between users."
-msgstr ""
-"这是一个连接车辆买家和卖家的在线交易平台。我们不拥有、出售、检验或担保平台上"
-"列出的任何车辆。所有交易均直接在用户之间进行。"
+msgstr "这是一个连接车辆买家和卖家的在线交易平台。我们不拥有、出售、检验或担保平台上列出的任何车辆。所有交易均直接在用户之间进行。"
 
 #: templates/pages/help_center.html:710
 msgid "3. User Accounts"
@@ -24021,12 +23994,10 @@ msgstr "3. 用户帐户"
 
 #: templates/pages/help_center.html:711
 msgid ""
-"To create listings or contact sellers, you must register an account. You are "
-"responsible for keeping your password secure and for all activity under your "
-"account. Provide accurate information — fake accounts will be removed."
-msgstr ""
-"要创建商品列表或联系卖家，您必须注册一个账户。您有责任确保密码安全，并对您账"
-"户下的所有活动负责。请提供真实信息——虚假账户将被删除。"
+"To create listings or contact sellers, you must register an account. You are"
+" responsible for keeping your password secure and for all activity under "
+"your account. Provide accurate information — fake accounts will be removed."
+msgstr "要创建商品列表或联系卖家，您必须注册一个账户。您有责任确保密码安全，并对您账户下的所有活动负责。请提供真实信息——虚假账户将被删除。"
 
 #: templates/pages/help_center.html:715
 msgid "4. Listings Content"
@@ -24040,9 +24011,7 @@ msgid ""
 "fraudulent listings. We reserve the right to remove any listing without "
 "notice."
 msgstr ""
-"您须对您发布的内容负全部责任，包括照片、描述、价格和车辆信息。所有信息必须准"
-"确、合法且为您本人所有。请勿发布被盗车辆、您无权出售的车辆或虚假信息。我们保"
-"留随时删除任何信息的权利，恕不另行通知。"
+"您须对您发布的内容负全部责任，包括照片、描述、价格和车辆信息。所有信息必须准确、合法且为您本人所有。请勿发布被盗车辆、您无权出售的车辆或虚假信息。我们保留随时删除任何信息的权利，恕不另行通知。"
 
 #: templates/pages/help_center.html:720
 msgid "5. Transactions Between Users"
@@ -24054,9 +24023,7 @@ msgid ""
 "handle payments, deliveries, inspections, or disputes. Always verify the "
 "vehicle in person before paying. Use safe payment methods and meet in safe "
 "public locations."
-msgstr ""
-"我们并非买卖双方交易的参与方。我们不处理付款、交付、验车或纠纷。付款前务必亲"
-"自核实车辆。请使用安全的支付方式，并在安全的公共场所进行交易。"
+msgstr "我们并非买卖双方交易的参与方。我们不处理付款、交付、验车或纠纷。付款前务必亲自核实车辆。请使用安全的支付方式，并在安全的公共场所进行交易。"
 
 #: templates/pages/help_center.html:725
 msgid "6. Fees and Payments"
@@ -24068,8 +24035,7 @@ msgid ""
 "and dealer subscriptions are paid. All fees are non-refundable except where "
 "required by law. See the Pricing page for current rates."
 msgstr ""
-"每位用户前 3 个商品信息发布免费。超出部分、高级套餐和经销商订阅均需付费。除法"
-"律另有规定外，所有费用均不予退还。请访问“定价”页面查看当前价格。"
+"每位用户前 3 个商品信息发布免费。超出部分、高级套餐和经销商订阅均需付费。除法律另有规定外，所有费用均不予退还。请访问“定价”页面查看当前价格。"
 
 #: templates/pages/help_center.html:730
 msgid "7. Prohibited Activities"
@@ -24082,9 +24048,7 @@ msgid ""
 "illegal or fraudulent content, or use bots to interact with the platform. "
 "Violations may result in account suspension."
 msgstr ""
-"您不得：发布重复的商品信息、向其他用户发送垃圾信息、骚扰他人、抓取网站数据、"
-"试图操纵搜索排名、发布非法或欺诈性内容，或使用机器人程序与平台互动。违规者可"
-"能会被暂停账户。"
+"您不得：发布重复的商品信息、向其他用户发送垃圾信息、骚扰他人、抓取网站数据、试图操纵搜索排名、发布非法或欺诈性内容，或使用机器人程序与平台互动。违规者可能会被暂停账户。"
 
 #: templates/pages/help_center.html:735
 msgid "8. Disclaimer of Warranties"
@@ -24095,9 +24059,7 @@ msgid ""
 "The platform is provided 'as is' without warranties of any kind. We don't "
 "guarantee that listings are accurate, that transactions will be successful, "
 "or that the service will be uninterrupted."
-msgstr ""
-"本平台按“现状”提供，不提供任何形式的担保。我们不保证房源信息的准确性、交易的"
-"成功率或服务的持续性。"
+msgstr "本平台按“现状”提供，不提供任何形式的担保。我们不保证房源信息的准确性、交易的成功率或服务的持续性。"
 
 #: templates/pages/help_center.html:740
 msgid "9. Limitation of Liability"
@@ -24107,9 +24069,7 @@ msgstr "9. 责任限制"
 msgid ""
 "To the maximum extent allowed by law, we are not liable for any damages "
 "arising from your use of the platform or from transactions between users."
-msgstr ""
-"在法律允许的最大范围内，我们不对您因使用平台或用户之间的交易而造成的任何损失"
-"承担责任。"
+msgstr "在法律允许的最大范围内，我们不对您因使用平台或用户之间的交易而造成的任何损失承担责任。"
 
 #: templates/pages/help_center.html:745
 msgid "10. Termination"
@@ -24119,9 +24079,7 @@ msgstr "10. 终止"
 msgid ""
 "We reserve the right to suspend or terminate accounts that violate these "
 "Terms. You may delete your account at any time from your account settings."
-msgstr ""
-"我们保留暂停或终止违反本条款的账户的权利。您可以随时在账户设置中删除您的账"
-"户。"
+msgstr "我们保留暂停或终止违反本条款的账户的权利。您可以随时在账户设置中删除您的账户。"
 
 #: templates/pages/help_center.html:750
 msgid "11. Changes to Terms"
@@ -24132,9 +24090,7 @@ msgid ""
 "We may update these Terms occasionally. Significant changes will be "
 "announced on the site. Continued use after changes means you accept the "
 "updated Terms."
-msgstr ""
-"我们可能会不时更新这些条款。重大变更将在网站上公布。变更后继续使用即表示您接"
-"受更新后的条款。"
+msgstr "我们可能会不时更新这些条款。重大变更将在网站上公布。变更后继续使用即表示您接受更新后的条款。"
 
 #: templates/pages/help_center.html:755
 msgid "12. Contact"
@@ -24156,12 +24112,11 @@ msgstr "1. 我们收集的信息"
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
-"and descriptions you upload, your IP address and browser type, and pages you "
-"visit on our site."
+"and descriptions you upload, your IP address and browser type, and pages you"
+" visit on our site."
 msgstr ""
-"当您使用此平台时，我们会收集：您的电子邮件和姓名（用于您的帐户）、您的电话号"
-"码（如果您选择在列表中分享）、您上传的照片和描述、您的 IP 地址和浏览器类型，"
-"以及您在我们网站上访问的页面。"
+"当您使用此平台时，我们会收集：您的电子邮件和姓名（用于您的帐户）、您的电话号码（如果您选择在列表中分享）、您上传的照片和描述、您的 IP "
+"地址和浏览器类型，以及您在我们网站上访问的页面。"
 
 #: templates/pages/help_center.html:779
 msgid "2. How We Use Your Data"
@@ -24174,9 +24129,7 @@ msgid ""
 "fraud and abuse, and (with your consent) send marketing emails. We don't "
 "sell your personal data to third parties."
 msgstr ""
-"我们使用您的数据用于：运营平台（展示您的商品列表、发送消息）、发送重要的账户"
-"邮件、改进平台、防止欺诈和滥用行为，以及（经您同意）发送营销邮件。我们不会将"
-"您的个人数据出售给第三方。"
+"我们使用您的数据用于：运营平台（展示您的商品列表、发送消息）、发送重要的账户邮件、改进平台、防止欺诈和滥用行为，以及（经您同意）发送营销邮件。我们不会将您的个人数据出售给第三方。"
 
 #: templates/pages/help_center.html:784
 msgid "3. What's Public"
@@ -24188,9 +24141,7 @@ msgid ""
 "username, city, and (if enabled) phone number are visible to other users. "
 "Your email is not shown publicly unless you choose to display it."
 msgstr ""
-"您的房源信息（包括照片和描述）是公开的。您的姓名或用户名、所在城市以及（如果"
-"已启用）电话号码对其他用户可见。除非您选择公开，否则您的电子邮件地址不会公开"
-"显示。"
+"您的房源信息（包括照片和描述）是公开的。您的姓名或用户名、所在城市以及（如果已启用）电话号码对其他用户可见。除非您选择公开，否则您的电子邮件地址不会公开显示。"
 
 #: templates/pages/help_center.html:789
 msgid "4. Cookies and Tracking"
@@ -24201,9 +24152,7 @@ msgid ""
 "We use cookies to keep you logged in, remember your language and search "
 "preferences, and analyze how the site is used. See the Cookie Policy for "
 "full details."
-msgstr ""
-"我们使用 Cookie 来保持您的登录状态、记住您的语言和搜索偏好，并分析网站的使用"
-"情况。请参阅 Cookie 政策了解详情。"
+msgstr "我们使用 Cookie 来保持您的登录状态、记住您的语言和搜索偏好，并分析网站的使用情况。请参阅 Cookie 政策了解详情。"
 
 #: templates/pages/help_center.html:794
 msgid "5. Third-Party Services"
@@ -24215,9 +24164,7 @@ msgid ""
 "and analytics. These providers handle data securely under their own privacy "
 "policies. We also embed Google Maps on listing pages."
 msgstr ""
-"我们使用值得信赖的第三方服务进行支付（Stripe）、电子邮件发送和数据分析。这些"
-"服务提供商会根据各自的隐私政策安全地处理数据。此外，我们还在商品详情页面嵌入"
-"了谷歌地图。"
+"我们使用值得信赖的第三方服务进行支付（Stripe）、电子邮件发送和数据分析。这些服务提供商会根据各自的隐私政策安全地处理数据。此外，我们还在商品详情页面嵌入了谷歌地图。"
 
 #: templates/pages/help_center.html:799
 msgid "6. Your Rights (GDPR)"
@@ -24229,8 +24176,7 @@ msgid ""
 "you, correct inaccurate data, delete your account and data, export your "
 "data, and withdraw marketing consent. Contact us to use these rights."
 msgstr ""
-"如果您身处欧盟境内，您有权：访问我们持有的关于您的数据、更正不准确的数据、删"
-"除您的帐户和数据、导出您的数据以及撤回营销同意。请联系我们以行使这些权利。"
+"如果您身处欧盟境内，您有权：访问我们持有的关于您的数据、更正不准确的数据、删除您的帐户和数据、导出您的数据以及撤回营销同意。请联系我们以行使这些权利。"
 
 #: templates/pages/help_center.html:804
 msgid "7. Data Retention"
@@ -24242,9 +24188,8 @@ msgid ""
 "we remove personal data within 30 days, except where we need to keep it for "
 "legal reasons (tax records, fraud prevention)."
 msgstr ""
-"我们会在您的账户处于活动状态期间保留您的数据。如果您删除账户，我们会在 30 天"
-"内删除您的个人数据，除非出于法律原因（例如税务记录、防范欺诈）我们需要保留这"
-"些数据。"
+"我们会在您的账户处于活动状态期间保留您的数据。如果您删除账户，我们会在 30 "
+"天内删除您的个人数据，除非出于法律原因（例如税务记录、防范欺诈）我们需要保留这些数据。"
 
 #: templates/pages/help_center.html:809
 msgid "8. Security"
@@ -24254,8 +24199,8 @@ msgstr "8. 安全性"
 #, python-format
 msgid ""
 "We use industry-standard encryption (HTTPS) and secure password hashing. No "
-"system is 100%% secure — please use a strong unique password and don't share "
-"your account."
+"system is 100%% secure — please use a strong unique password and don't share"
+" your account."
 msgstr ""
 
 #: templates/pages/help_center.html:814
@@ -24264,8 +24209,8 @@ msgstr "9. 儿童"
 
 #: templates/pages/help_center.html:815
 msgid ""
-"This platform is not intended for users under 18. We don't knowingly collect "
-"data from minors."
+"This platform is not intended for users under 18. We don't knowingly collect"
+" data from minors."
 msgstr "本平台不面向18岁以下用户。我们不会故意收集未成年人的数据。"
 
 #: templates/pages/help_center.html:819
@@ -24285,8 +24230,7 @@ msgstr "11. 联系方式"
 #: templates/pages/help_center.html:825
 msgid ""
 "Questions about your privacy or data? Email us at helpautoinfo@gmail.com."
-msgstr ""
-"如果您对隐私或数据有任何疑问，请发送电子邮件至 helpautoinfo@gmail.com。"
+msgstr "如果您对隐私或数据有任何疑问，请发送电子邮件至 helpautoinfo@gmail.com。"
 
 #: templates/pages/help_center.html:836
 msgid "Cookie Policy"
@@ -24301,9 +24245,7 @@ msgid ""
 "Cookies are small text files that websites store on your device to remember "
 "things — like that you're logged in, what language you prefer, or which "
 "listings you've viewed."
-msgstr ""
-"Cookie 是网站存储在您设备上的小型文本文件，用于记住一些信息，例如您已登录、您"
-"偏好的语言或您查看过的列表。"
+msgstr "Cookie 是网站存储在您设备上的小型文本文件，用于记住一些信息，例如您已登录、您偏好的语言或您查看过的列表。"
 
 #: templates/pages/help_center.html:848
 msgid "Cookies we use"
@@ -24367,8 +24309,8 @@ msgid ""
 "(like login remembering) last up to 1 year. You can clear cookies any time "
 "from your browser settings."
 msgstr ""
-"会话 cookie 会在您关闭浏览器时被删除。持久性 cookie（例如登录记忆 cookie）的"
-"有效期最长可达 1 年。您可以随时在浏览器设置中清除 cookie。"
+"会话 cookie 会在您关闭浏览器时被删除。持久性 cookie（例如登录记忆 cookie）的有效期最长可达 1 年。您可以随时在浏览器设置中清除 "
+"cookie。"
 
 #: templates/pages/help_center.html:891
 msgid "Managing cookies"
@@ -24379,9 +24321,7 @@ msgid ""
 "You can disable cookies in your browser settings — but if you disable "
 "essential cookies, the platform may not work properly. You won't be able to "
 "log in, post listings, or save preferences."
-msgstr ""
-"您可以在浏览器设置中禁用 Cookie，但如果您禁用必要的 Cookie，平台可能无法正常"
-"运行。您将无法登录、发布房源或保存偏好设置。"
+msgstr "您可以在浏览器设置中禁用 Cookie，但如果您禁用必要的 Cookie，平台可能无法正常运行。您将无法登录、发布房源或保存偏好设置。"
 
 #: templates/pages/help_center.html:896
 msgid "Do Not Track"
@@ -24391,9 +24331,7 @@ msgstr "请勿追踪"
 msgid ""
 "We honor 'Do Not Track' signals where technically feasible. Non-essential "
 "analytics cookies will not be set if your browser sends this signal."
-msgstr ""
-"在技术可行的情况下，我们会尊重“请勿追踪”信号。如果您的浏览器发送此信号，我们"
-"将不会设置非必要的分析型 Cookie。"
+msgstr "在技术可行的情况下，我们会尊重“请勿追踪”信号。如果您的浏览器发送此信号，我们将不会设置非必要的分析型 Cookie。"
 
 #: templates/pages/help_center.html:901
 msgid "Questions?"

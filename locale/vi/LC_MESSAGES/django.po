@@ -422,7 +422,7 @@ msgstr "Bài kiểm tra"
 
 #: apps/imones/models.py:149 apps/listings/translatable_db.py:2409
 msgid "Įmonė"
-msgstr ""
+msgstr "Công ty"
 
 #: apps/imones/models.py:150 apps/imones/views.py:288
 #: apps/listings/paieskos_siulymai.py:208
@@ -516,7 +516,7 @@ msgstr "Klaipeda"
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
 msgid "įmonė"
-msgstr ""
+msgstr "công ty"
 
 #: apps/imones/views.py:219 templates/imones/zemelapis.html:72
 #: templates/partials/_paieskos_juosta.html:195
@@ -663,7 +663,8 @@ msgstr "Điều kiện bắt buộc"
 #: apps/listings/loading_views.py:143 apps/listings/rental_views.py:452
 #: apps/listings/rental_views.py:481 apps/listings/trailers_views.py:283
 #: apps/listings/truck_for_parts_views.py:231
-#: apps/listings/truck_for_parts_views.py:275 apps/listings/trucks_views.py:638
+#: apps/listings/truck_for_parts_views.py:275
+#: apps/listings/trucks_views.py:638
 #: templates/listings/agriculture_listing_create.html:776
 #: templates/listings/bicycles_listing_create.html:758
 #: templates/listings/camping_listing_create.html:869
@@ -687,13 +688,15 @@ msgstr "Việc triển khai/tự hành là bắt buộc."
 #: apps/listings/car_for_parts_views.py:239
 #: apps/listings/car_for_parts_views.py:301
 #: apps/listings/construction_views.py:329 apps/listings/forestry_views.py:127
-#: apps/listings/loading_views.py:148 apps/listings/moto_for_parts_views.py:222
+#: apps/listings/loading_views.py:148
+#: apps/listings/moto_for_parts_views.py:222
 #: apps/listings/moto_for_parts_views.py:284
 #: apps/listings/moto_part_views.py:83 apps/listings/motorcycles_views.py:741
 #: apps/listings/rental_views.py:190 apps/listings/trailers_views.py:289
 #: apps/listings/truck_for_parts_views.py:227
-#: apps/listings/truck_for_parts_views.py:271 apps/listings/trucks_views.py:640
-#: apps/listings/views.py:3556 apps/listings/views.py:6954
+#: apps/listings/truck_for_parts_views.py:271
+#: apps/listings/trucks_views.py:640 apps/listings/views.py:3556
+#: apps/listings/views.py:6954
 #: templates/listings/agriculture_listing_create.html:778
 #: templates/listings/camping_listing_create.html:870
 #: templates/listings/construction_listing_create.html:772
@@ -935,8 +938,9 @@ msgstr "Mẫu đơn này chỉ dành cho quảng cáo nhà nghỉ du lịch."
 
 #: apps/listings/camping_views.py:165 apps/listings/rental_views.py:195
 #: apps/listings/truck_for_parts_views.py:229
-#: apps/listings/truck_for_parts_views.py:273 apps/listings/trucks_views.py:642
-#: apps/listings/views.py:3558 apps/listings/views.py:6962
+#: apps/listings/truck_for_parts_views.py:273
+#: apps/listings/trucks_views.py:642 apps/listings/views.py:3558
+#: apps/listings/views.py:6962
 #: templates/listings/camping_listing_create.html:871
 #: templates/listings/rental_car_create.html:782
 #: templates/listings/rental_heavy_create.html:746
@@ -957,7 +961,7 @@ msgstr "Danh mục thiết bị xây dựng chưa được cấu hình."
 #: apps/listings/context_processors.py:208
 #: apps/listings/translatable_db.py:2434 templates/base.html:1007
 msgid "Įmonės ir servisai"
-msgstr ""
+msgstr "Các công ty và dịch vụ"
 
 #: apps/listings/context_processors.py:209
 msgid "Finansavimas"
@@ -978,17 +982,17 @@ msgstr "Bài viết"
 #: apps/listings/context_processors.py:213
 #: apps/listings/translatable_db.py:2472
 msgid "Pagalba"
-msgstr ""
+msgstr "Giúp đỡ"
 
 #: apps/listings/context_processors.py:214
 #: apps/listings/translatable_db.py:2473
 msgid "Apie mus"
-msgstr ""
+msgstr "Về chúng tôi"
 
 #: apps/listings/context_processors.py:215
 #: apps/listings/translatable_db.py:2474
 msgid "Partneriai"
-msgstr ""
+msgstr "Đối tác"
 
 #: apps/listings/context_processors.py:216
 msgid "PRO pardavimas"
@@ -1325,7 +1329,7 @@ msgstr "Cơ quan đăng ký doanh nghiệp nhà nước"
 #: templates/listings/wheels_list.html:99
 #: templates/listings/wheels_list.html:103
 msgid "Ratlankiai"
-msgstr ""
+msgstr "Vành xe"
 
 #: apps/listings/forms.py:228 templates/listings/advanced_search.html:337
 #: templates/listings/listing_create.html:624
@@ -1463,7 +1467,8 @@ msgstr ""
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
 #, python-format
 msgid ""
-"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP failai."
+"Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
+"failai."
 msgstr ""
 "Định dạng tệp không hợp lệ: '%(name)s'. Chỉ cho phép các tệp JPG, PNG và "
 "WEBP."
@@ -1679,7 +1684,7 @@ msgstr "Thuộc về thương mại"
 
 #: apps/listings/models.py:359
 msgid "Convertible"
-msgstr ""
+msgstr "Xe mui trần"
 
 #: apps/listings/models.py:360
 msgid "Limousine"
@@ -1699,15 +1704,16 @@ msgstr "Xe tải/Xe van"
 
 #: apps/listings/models.py:363 apps/listings/translatable_db.py:2454
 msgid "Kombi mikroautobusas"
-msgstr ""
+msgstr "Xe buýt nhỏ Combi"
 
 #: apps/listings/models.py:364 apps/listings/translatable_db.py:2455
 msgid "Savadarbis auto"
-msgstr ""
+msgstr "Xe tự chế"
 
 #: apps/listings/models.py:370 apps/listings/models.py:398
 #: apps/listings/models.py:410 apps/listings/models.py:418
-#: apps/listings/models.py:2874 templates/listings/car_for_parts_create.html:57
+#: apps/listings/models.py:2874
+#: templates/listings/car_for_parts_create.html:57
 #: templates/listings/car_for_parts_create.html:67
 #: templates/listings/car_for_parts_create.html:77
 #: templates/listings/car_for_parts_create.html:91
@@ -2657,7 +2663,7 @@ msgstr "Động cơ diesel gắn trong"
 #: apps/listings/models.py:811 apps/listings/models.py:2943
 #: apps/listings/translatable_db.py:67
 msgid "Electric"
-msgstr ""
+msgstr "Điện"
 
 #: apps/listings/models.py:812
 msgid "No engine"
@@ -2675,15 +2681,18 @@ msgstr "Động cơ xăng 2 thì gắn trong"
 msgid "Boat engine type"
 msgstr "Loại động cơ thuyền"
 
-#: apps/listings/models.py:818 templates/listings/boats_listing_create.html:222
+#: apps/listings/models.py:818
+#: templates/listings/boats_listing_create.html:222
 msgid "Liftable engine"
 msgstr "Động cơ có thể nâng"
 
-#: apps/listings/models.py:819 templates/listings/boats_listing_create.html:226
+#: apps/listings/models.py:819
+#: templates/listings/boats_listing_create.html:226
 msgid "Propeller"
 msgstr "Cánh quạt"
 
-#: apps/listings/models.py:820 templates/listings/boats_listing_create.html:230
+#: apps/listings/models.py:820
+#: templates/listings/boats_listing_create.html:230
 msgid "Water turbine"
 msgstr "Tuabin nước"
 
@@ -2803,7 +2812,7 @@ msgstr ">3 trục"
 #: apps/listings/models.py:870 apps/listings/models.py:1080
 #: apps/listings/translatable_db.py:1721 apps/listings/translatable_db.py:2394
 msgid "Mechaninė"
-msgstr ""
+msgstr "Cơ khí"
 
 #: apps/listings/models.py:871
 msgid "Pneumatinė"
@@ -2882,11 +2891,12 @@ msgstr "Mục đích"
 #: templates/listings/rental_heavy_create.html:55
 #: templates/listings/rental_minibus_create.html:55
 #: templates/listings/rental_moto_create.html:56
-#: templates/listings/search_map.html:77 templates/listings/search_map.html:180
+#: templates/listings/search_map.html:77
+#: templates/listings/search_map.html:180
 #: templates/listings/trailers_listing_create.html:65
 #: templates/search/_panel_cars.html:8
 msgid "Markė"
-msgstr ""
+msgstr "Thương hiệu"
 
 #: apps/listings/models.py:887 apps/listings/models.py:983
 #: apps/listings/models.py:1100 apps/listings/translatable_db.py:2365
@@ -2916,11 +2926,12 @@ msgstr ""
 #: templates/listings/rental_heavy_create.html:75
 #: templates/listings/rental_minibus_create.html:75
 #: templates/listings/rental_moto_create.html:76
-#: templates/listings/search_map.html:89 templates/listings/search_map.html:183
+#: templates/listings/search_map.html:89
+#: templates/listings/search_map.html:183
 #: templates/listings/trailers_listing_create.html:86
 #: templates/search/_panel_cars.html:16
 msgid "Modelis"
-msgstr ""
+msgstr "Người mẫu"
 
 #: apps/listings/models.py:891 templates/listings/listing_detail.html:1447
 #: templates/listings/trailers_listing_create.html:123
@@ -3395,7 +3406,7 @@ msgstr "Hệ thống thủy lực – 4x4"
 #: apps/listings/models.py:1081 apps/listings/translatable_db.py:1624
 #: apps/listings/translatable_db.py:2393
 msgid "Automatinė"
-msgstr ""
+msgstr "Tự động"
 
 #: apps/listings/models.py:1082
 msgid "Elektromechaninė"
@@ -3608,7 +3619,7 @@ msgstr "Thích hợp cho giấy phép hạng B."
 
 #: apps/listings/models.py:1244
 msgid "Padangų likutis %"
-msgstr ""
+msgstr "Tỷ lệ phần trăm lốp còn lại"
 
 #: apps/listings/models.py:1261 apps/listings/views.py:574
 msgid "Autobusas"
@@ -3624,15 +3635,15 @@ msgstr "Vận tải đường thủy"
 #: templates/listings/partials/_panel_bodies.html:859
 #: templates/listings/rental_moto_create.html:25
 msgid "Motociklų nuoma"
-msgstr ""
+msgstr "Cho thuê xe máy"
 
 #: apps/listings/models.py:1264 apps/listings/translatable_db.py:2452
 msgid "Keleivinis mikroautobusas"
-msgstr ""
+msgstr "Xe buýt nhỏ chở khách"
 
 #: apps/listings/models.py:1265 apps/listings/translatable_db.py:2453
 msgid "Krovininis mikroautobusas"
-msgstr ""
+msgstr "Xe tải chở hàng"
 
 #: apps/listings/models.py:1269
 msgid "Autotraukinys"
@@ -3667,7 +3678,7 @@ msgstr "Giá thuê theo giờ"
 #: templates/listings/rental_car_create.html:141
 #: templates/listings/rental_minibus_create.html:81
 msgid "Sėdimų vietų skaičius"
-msgstr ""
+msgstr "Số lượng chỗ ngồi"
 
 #: apps/listings/models.py:1292 templates/listings/rental_car_create.html:224
 #: templates/listings/rental_moto_create.html:177
@@ -4010,7 +4021,7 @@ msgstr "Ngày đăng ký đầu tiên"
 #: templates/listings/rental_moto_create.html:166
 #: templates/listings/search_map.html:181 templates/search/_panel_cars.html:40
 msgid "Kuro tipas"
-msgstr ""
+msgstr "Loại nhiên liệu"
 
 #: apps/listings/models.py:1482 apps/listings/translatable_db.py:926
 #: apps/listings/translatable_db.py:2370
@@ -4021,7 +4032,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:132
 #: templates/listings/rental_minibus_create.html:183
 msgid "Pavarų dėžė"
-msgstr ""
+msgstr "Hộp số"
 
 #: apps/listings/models.py:1484 apps/listings/translatable_db.py:756
 #: apps/listings/translatable_db.py:2369
@@ -4029,7 +4040,7 @@ msgstr ""
 #: templates/listings/rental_car_create.html:97
 #: templates/search/_panel_cars.html:47
 msgid "Kėbulo tipas"
-msgstr ""
+msgstr "Thể trạng"
 
 #: apps/listings/models.py:1491 apps/listings/models.py:3053
 #: templates/listings/partials/panel_trucks.html:70
@@ -4048,7 +4059,7 @@ msgstr "Màu sắc (tùy chỉnh)"
 #: templates/listings/listing_detail.html:555
 #: templates/listings/rental_car_create.html:106
 msgid "Durų skaičius"
-msgstr ""
+msgstr "Số lượng cửa"
 
 #: apps/listings/models.py:1545
 msgid "Subtype (custom)"
@@ -4058,7 +4069,8 @@ msgstr "Loại phụ (tùy chỉnh)"
 msgid "Size (custom)"
 msgstr "Kích thước (tùy chỉnh)"
 
-#: apps/listings/models.py:1560 templates/listings/boats_listing_create.html:65
+#: apps/listings/models.py:1560
+#: templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:93
 #: templates/listings/rims_create.html:29
 #: templates/listings/tyres_create.html:32
@@ -4123,12 +4135,14 @@ msgstr "Mã động cơ"
 msgid "Gearbox Code"
 msgstr "Mã hộp số"
 
-#: apps/listings/models.py:1648 templates/listings/car_for_parts_create.html:99
+#: apps/listings/models.py:1648
+#: templates/listings/car_for_parts_create.html:99
 #: templates/listings/listing_detail.html:2114
 msgid "Version"
 msgstr "Phiên bản"
 
-#: apps/listings/models.py:1653 templates/listings/car_for_parts_create.html:82
+#: apps/listings/models.py:1653
+#: templates/listings/car_for_parts_create.html:82
 #: templates/listings/listing_detail.html:2108
 msgid "Modification"
 msgstr "Sửa đổi"
@@ -4269,7 +4283,7 @@ msgstr "Đã xem quảng cáo"
 #: templates/listings/perziureti.html:3 templates/listings/perziureti.html:22
 #: templates/listings/perziureti.html:26
 msgid "Peržiūrėti skelbimai"
-msgstr ""
+msgstr "Xem quảng cáo"
 
 #: apps/listings/models.py:2384 apps/listings/views.py:82
 msgid "Interior"
@@ -4422,11 +4436,11 @@ msgstr "Mùa xuân / Mùa xuân"
 
 #: apps/listings/models.py:2931 apps/listings/translatable_db.py:67
 msgid "Manual"
-msgstr ""
+msgstr "Thủ công"
 
 #: apps/listings/models.py:2932 apps/listings/translatable_db.py:66
 msgid "Automatic"
-msgstr ""
+msgstr "Tự động"
 
 #: apps/listings/models.py:2933 apps/listings/translatable_db.py:70
 msgid "Semi-automatic"
@@ -4434,7 +4448,7 @@ msgstr "Bán tự động"
 
 #: apps/listings/models.py:2938 apps/listings/translatable_db.py:66
 msgid "Diesel"
-msgstr ""
+msgstr "Dầu diesel"
 
 #: apps/listings/models.py:2939
 msgid "Petrol / Gasoline"
@@ -4454,7 +4468,7 @@ msgstr "LNG"
 
 #: apps/listings/models.py:2944
 msgid "Hybrid"
-msgstr ""
+msgstr "Lai"
 
 #: apps/listings/models.py:2945
 msgid "Hydrogen"
@@ -4556,7 +4570,7 @@ msgstr "Thương mại / Từ"
 
 #: apps/listings/models.py:3846 apps/listings/translatable_db.py:58
 msgid "Trucks"
-msgstr ""
+msgstr "Xe tải"
 
 #: apps/listings/models.py:3847 apps/listings/translatable_db.py:48
 #: templates/listings/motorcycles_advanced_search.html:152
@@ -4733,7 +4747,7 @@ msgstr "Thông tin đã được cập nhật."
 #: templates/listings/partials/_panel_bodies.html:1050
 #: templates/listings/partials/_panel_bodies.html:1134
 msgid "Tekstinė paieška"
-msgstr ""
+msgstr "Tìm kiếm văn bản"
 
 #: apps/listings/motogear_views.py:942
 msgid "Markė, modelis, raktažodis..."
@@ -4814,7 +4828,7 @@ msgstr "Kaina:"
 #: templates/listings/motogear_advanced.html:183
 #: templates/partials/_salis.html:48
 msgid "Šalis"
-msgstr ""
+msgstr "Quốc gia"
 
 #: apps/listings/motorcycles_views.py:454
 msgid "Failed to save draft."
@@ -4905,8 +4919,9 @@ msgstr "Các thương hiệu phổ biến nhất"
 msgid "Markės ir modeliai"
 msgstr "Các hãng và mẫu xe"
 
-#: apps/listings/paieskos_siulymai.py:272 apps/listings/translatable_db.py:2424
-#: templates/imones/_skirtukai.html:11 templates/imones/sarasas.html:217
+#: apps/listings/paieskos_siulymai.py:272
+#: apps/listings/translatable_db.py:2424 templates/imones/_skirtukai.html:11
+#: templates/imones/sarasas.html:217
 #: templates/listings/advanced_search.html:153
 #: templates/listings/partials/_panel_bodies.html:128
 #: templates/listings/partials/_panel_bodies.html:216
@@ -4950,8 +4965,8 @@ msgstr "Phần mềm"
 msgid ""
 "Sprendimai prekiautojams: skelbimų valdymas, klientų užklausos, ataskaitos."
 msgstr ""
-"Giải pháp dành cho người bán: quản lý quảng cáo, giải đáp thắc mắc của khách "
-"hàng, báo cáo."
+"Giải pháp dành cho người bán: quản lý quảng cáo, giải đáp thắc mắc của khách"
+" hàng, báo cáo."
 
 #: apps/listings/parts_views.py:69 apps/listings/parts_views.py:127
 msgid "Car, van parts"
@@ -4979,7 +4994,7 @@ msgstr "Phụ kiện, Độ xe"
 #: apps/listings/perziureti_views.py:35 apps/listings/skelbimai_views.py:25
 #: apps/listings/translatable_db.py:2478 apps/listings/zemelapio_views.py:406
 msgid "Naujausi"
-msgstr ""
+msgstr "Mới nhất"
 
 #: apps/listings/perziureti_views.py:36
 msgid "Seniausi"
@@ -4993,7 +5008,7 @@ msgstr "Rẻ nhất"
 #: apps/listings/perziureti_views.py:38 apps/listings/skelbimai_views.py:27
 #: apps/listings/translatable_db.py:2480 apps/listings/zemelapio_views.py:409
 msgid "Brangiausi"
-msgstr ""
+msgstr "Đắt nhất"
 
 #: apps/listings/rental_views.py:155
 msgid "Transporto nuomos kategorija nesukonfigūruota."
@@ -5016,7 +5031,7 @@ msgstr "Giá thuê mỗi ngày là bắt buộc."
 #: templates/listings/partials/_panel_bodies.html:862
 #: templates/listings/rental_car_create.html:25
 msgid "Automobilių nuoma"
-msgstr ""
+msgstr "Thuê xe hơi"
 
 #: apps/listings/rental_views.py:353 apps/listings/translatable_db.py:47
 #: templates/listings/partials/_panel_bodies.html:858
@@ -5386,7 +5401,7 @@ msgstr "Tự động"
 #: templates/listings/partials/_panel_bodies.html:28
 #: templates/listings/partials/search_panel.html:47
 msgid "Motociklai"
-msgstr ""
+msgstr "Xe máy"
 
 #: apps/listings/search_config/panels.py:288
 msgid "Ratai"
@@ -5408,7 +5423,7 @@ msgstr "Xe tải hạng nặng."
 #: apps/listings/search_config/panels.py:292
 #: apps/listings/translatable_db.py:2441
 msgid "Priekabos"
-msgstr ""
+msgstr "Trailer"
 
 #: apps/listings/search_config/panels.py:293
 msgid "Nuoma"
@@ -5419,7 +5434,8 @@ msgid "Audio"
 msgstr "Âm thanh"
 
 #: apps/listings/search_config/panels.py:302
-#: apps/listings/skelbimai_views.py:33 templates/listings/listing_list.html:346
+#: apps/listings/skelbimai_views.py:33
+#: templates/listings/listing_list.html:346
 #: templates/listings/motogear_list.html:65
 #: templates/listings/motorcycles_list.html:152
 #: templates/listings/partials/_panel_bodies.html:359
@@ -5535,8 +5551,8 @@ msgstr "Tất cả mẫu xe"
 #: templates/listings/partials/_zemelapio_filtrai.html:98
 #: templates/listings/partials/fields/_range.html:15
 #: templates/listings/partials/fields/_range.html:36
-#: templates/listings/wheels_list.html:132 templates/search/_panel_cars.html:24
-#: templates/search/_panel_cars.html:33
+#: templates/listings/wheels_list.html:132
+#: templates/search/_panel_cars.html:24 templates/search/_panel_cars.html:33
 msgid "Nuo"
 msgstr "Từ"
 
@@ -5560,8 +5576,8 @@ msgstr "Từ"
 #: templates/listings/partials/_zemelapio_filtrai.html:99
 #: templates/listings/partials/fields/_range.html:21
 #: templates/listings/partials/fields/_range.html:39
-#: templates/listings/wheels_list.html:138 templates/search/_panel_cars.html:28
-#: templates/search/_panel_cars.html:35
+#: templates/listings/wheels_list.html:138
+#: templates/search/_panel_cars.html:28 templates/search/_panel_cars.html:35
 msgid "Iki"
 msgstr "Đến"
 
@@ -5586,7 +5602,7 @@ msgstr "Loại dịch vụ là bắt buộc"
 
 #: apps/listings/skelbimai_views.py:26 apps/listings/translatable_db.py:2479
 msgid "Populiariausi"
-msgstr ""
+msgstr "Phổ biến nhất"
 
 #: apps/listings/skelbimai_views.py:63 apps/listings/views.py:1316
 #: apps/listings/views.py:1331 apps/listings/views.py:1459
@@ -5615,7 +5631,8 @@ msgstr "Mẫu này chỉ dành cho quảng cáo trailer."
 msgid "Paskirtis yra privaloma"
 msgstr "Cần có thông tin về điểm đến."
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:341
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:341
 #: templates/listings/listing_list.html:378
 #: templates/listings/motogear_list.html:60
 #: templates/listings/motorcycles_advanced_search.html:145
@@ -5625,7 +5642,8 @@ msgstr "Cần có thông tin về điểm đến."
 msgid "Cars"
 msgstr "Ô tô"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:342
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:342
 #: templates/listings/motogear_list.html:61
 #: templates/listings/motorcycles_advanced_search.html:146
 #: templates/listings/motorcycles_list.html:148
@@ -5634,7 +5652,8 @@ msgstr "Ô tô"
 msgid "Minibuses, Buses & Campers"
 msgstr "Xe minibus, xe buýt và xe cắm trại"
 
-#: apps/listings/translatable_db.py:15 templates/listings/listing_list.html:343
+#: apps/listings/translatable_db.py:15
+#: templates/listings/listing_list.html:343
 #: templates/listings/motogear_list.html:62
 #: templates/listings/motorcycles_advanced_search.html:144
 #: templates/listings/motorcycles_list.html:149
@@ -5644,7 +5663,8 @@ msgstr "Xe minibus, xe buýt và xe cắm trại"
 msgid "Motorcycles & Moto Gear"
 msgstr "Xe máy & Phụ kiện xe máy"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:344
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:344
 #: templates/listings/motogear_list.html:63
 #: templates/listings/motorcycles_advanced_search.html:147
 #: templates/listings/motorcycles_list.html:150
@@ -5656,7 +5676,8 @@ msgstr "Xe máy & Phụ kiện xe máy"
 msgid "Trucks & Commercial"
 msgstr "Xe tải & Thương mại"
 
-#: apps/listings/translatable_db.py:16 templates/listings/listing_list.html:347
+#: apps/listings/translatable_db.py:16
+#: templates/listings/listing_list.html:347
 #: templates/listings/motogear_list.html:66
 #: templates/listings/motorcycles_list.html:153
 #: templates/listings/partials/search_rail.html:59
@@ -5680,7 +5701,8 @@ msgstr "Lốp & Vành xe"
 msgid "Boats & Water Transport"
 msgstr "Thuyền và vận tải đường thủy"
 
-#: apps/listings/translatable_db.py:17 templates/listings/listing_list.html:350
+#: apps/listings/translatable_db.py:17
+#: templates/listings/listing_list.html:350
 #: templates/listings/motogear_list.html:68
 #: templates/listings/motorcycles_advanced_search.html:149
 #: templates/listings/motorcycles_list.html:155
@@ -5689,7 +5711,8 @@ msgstr "Thuyền và vận tải đường thủy"
 msgid "Trailers & Semi-trailers"
 msgstr "Rơ moóc và xe bán rơ moóc"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:351
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:351
 #: templates/listings/motogear_list.html:69
 #: templates/listings/motorcycles_list.html:156
 #: templates/listings/partials/search_rail.html:76
@@ -5697,7 +5720,8 @@ msgstr "Rơ moóc và xe bán rơ moóc"
 msgid "Construction & Warehouse Equipment"
 msgstr "Thiết bị xây dựng và kho bãi"
 
-#: apps/listings/translatable_db.py:18 templates/listings/listing_list.html:352
+#: apps/listings/translatable_db.py:18
+#: templates/listings/listing_list.html:352
 #: templates/listings/motogear_list.html:70
 #: templates/listings/motorcycles_list.html:157
 #: templates/listings/partials/search_rail.html:77
@@ -5705,7 +5729,8 @@ msgstr "Thiết bị xây dựng và kho bãi"
 msgid "Agricultural & Forestry"
 msgstr "Nông nghiệp và Lâm nghiệp"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:353
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:353
 #: templates/listings/motogear_list.html:71
 #: templates/listings/motorcycles_list.html:158
 #: templates/listings/partials/search_rail.html:78
@@ -5713,7 +5738,8 @@ msgstr "Nông nghiệp và Lâm nghiệp"
 msgid "Bicycles & Scooters"
 msgstr "Xe đạp & Xe tay ga"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:354
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:354
 #: templates/listings/motogear_list.html:72
 #: templates/listings/motorcycles_list.html:159
 #: templates/listings/partials/search_rail.html:79
@@ -5721,7 +5747,8 @@ msgstr "Xe đạp & Xe tay ga"
 msgid "Services"
 msgstr "Dịch vụ"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:355
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:355
 #: templates/listings/motogear_list.html:73
 #: templates/listings/motorcycles_list.html:160
 #: templates/listings/partials/search_rail.html:80
@@ -5729,7 +5756,8 @@ msgstr "Dịch vụ"
 msgid "Car Rental"
 msgstr "Thuê xe hơi"
 
-#: apps/listings/translatable_db.py:19 templates/listings/listing_list.html:356
+#: apps/listings/translatable_db.py:19
+#: templates/listings/listing_list.html:356
 #: templates/listings/motogear_list.html:74
 #: templates/listings/motorcycles_list.html:161
 #: templates/listings/partials/search_rail.html:81
@@ -5737,7 +5765,8 @@ msgstr "Thuê xe hơi"
 msgid "Planes & Aircraft"
 msgstr "Máy bay"
 
-#: apps/listings/translatable_db.py:20 templates/listings/listing_list.html:357
+#: apps/listings/translatable_db.py:20
+#: templates/listings/listing_list.html:357
 #: templates/listings/motogear_list.html:75
 #: templates/listings/motorcycles_list.html:162
 #: templates/listings/trucks_list.html:182
@@ -5748,19 +5777,19 @@ msgstr "Phụ tùng máy bay"
 #: apps/listings/views.py:2463
 #: templates/listings/partials/_panel_bodies.html:315
 msgid "Vilkikai"
-msgstr ""
+msgstr "Máy kéo"
 
 #: apps/listings/translatable_db.py:20 apps/listings/translatable_db.py:2421
 #: apps/listings/views.py:2465
 #: templates/listings/partials/_panel_bodies.html:316
 msgid "Autotraukiniai, autovežiai"
-msgstr ""
+msgstr "Đoàn xe đường bộ, xe vận chuyển ô tô"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:29
 #: apps/listings/translatable_db.py:2422 apps/listings/views.py:2466
 #: templates/listings/partials/_panel_bodies.html:317
 msgid "Komunalinio ūkio transportas"
-msgstr ""
+msgstr "Giao thông đô thị"
 
 #: apps/listings/translatable_db.py:21 apps/listings/translatable_db.py:1707
 #: templates/listings/loading_equipment_create.html:25
@@ -5784,7 +5813,7 @@ msgstr "Máy móc lâm nghiệp"
 #: templates/listings/camping_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:933
 msgid "Turistiniai nameliai"
-msgstr ""
+msgstr "Nhà nghỉ du lịch"
 
 #: apps/listings/translatable_db.py:33
 #: templates/listings/rental_minibus_create.html:25
@@ -5795,7 +5824,7 @@ msgstr "Cho thuê xe minibus, xe du lịch, xe đường thủy"
 #: templates/listings/construction_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:754
 msgid "Statybinė technika"
-msgstr ""
+msgstr "Máy móc xây dựng"
 
 #: apps/listings/translatable_db.py:38
 msgid "Aircraft Accessories"
@@ -5835,7 +5864,7 @@ msgstr "Máy ủi"
 
 #: apps/listings/translatable_db.py:39
 msgid "Buses"
-msgstr ""
+msgstr "Xe buýt"
 
 #: apps/listings/translatable_db.py:40
 msgid "Campers"
@@ -6019,7 +6048,7 @@ msgstr "Xe tải/Xe kéo"
 
 #: apps/listings/translatable_db.py:55
 msgid "Semi-trailers"
-msgstr ""
+msgstr "Xe rơ moóc"
 
 #: apps/listings/translatable_db.py:55
 #: templates/listings/sidebar_moto_parts.html:20
@@ -6092,11 +6121,11 @@ msgstr "CVT"
 
 #: apps/listings/translatable_db.py:66
 msgid "Diesel / Electric (Hybrid)"
-msgstr ""
+msgstr "Động cơ Diesel/Điện (lai)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Diesel / Electric (Plug-in)"
-msgstr ""
+msgstr "Động cơ diesel/điện (cắm sạc)"
 
 #: apps/listings/translatable_db.py:67
 msgid "Ethanol"
@@ -6104,27 +6133,27 @@ msgstr "Ethanol"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol"
-msgstr ""
+msgstr "Xăng"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / CNG"
-msgstr ""
+msgstr "Xăng/Khí CNG"
 
 #: apps/listings/translatable_db.py:68
 msgid "Petrol / Electric (Hybrid)"
-msgstr ""
+msgstr "Xăng/Điện (Hybrid)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric (Plug-in)"
-msgstr ""
+msgstr "Xăng/Điện (Cắm sạc)"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / Electric / LPG"
-msgstr ""
+msgstr "Xăng / Điện / LPG"
 
 #: apps/listings/translatable_db.py:69
 msgid "Petrol / LPG"
-msgstr ""
+msgstr "Xăng/LPG"
 
 #: apps/listings/translatable_db.py:76 apps/listings/translatable_db.py:1872
 msgid "360° vaizdo kamera"
@@ -7400,7 +7429,7 @@ msgstr "Thể tích dịch chuyển cm³"
 #: apps/listings/translatable_db.py:396 apps/listings/translatable_db.py:1651
 #: apps/listings/translatable_db.py:2407
 msgid "Daužtas"
-msgstr ""
+msgstr "Vỡ"
 
 #: apps/listings/translatable_db.py:397
 msgid "Deflektorius variklio dangčio"
@@ -9277,7 +9306,7 @@ msgstr "Đèn phanh bổ sung"
 
 #: apps/listings/translatable_db.py:894 apps/listings/translatable_db.py:2384
 msgid "Pardavėjo tipas"
-msgstr ""
+msgstr "Loại người bán"
 
 #: apps/listings/translatable_db.py:895
 msgid "Parduodamos po vieną"
@@ -9557,7 +9586,7 @@ msgstr "Quạt đeo vai/ máy thổi"
 
 #: apps/listings/translatable_db.py:967 apps/listings/translatable_db.py:2381
 msgid "Pirmosios registracijos šalis"
-msgstr ""
+msgstr "Quốc gia đăng ký lần đầu"
 
 #: apps/listings/translatable_db.py:968 apps/listings/translatable_db.py:2166
 msgid "Platforma stumiasi į abi puses"
@@ -11324,7 +11353,7 @@ msgstr "núm điều khiển vị trí vô lăng"
 
 #: apps/listings/translatable_db.py:1424 apps/listings/translatable_db.py:2375
 msgid "Vairo padėtis"
-msgstr ""
+msgstr "Vị trí vô lăng"
 
 #: apps/listings/translatable_db.py:1425
 msgid "Vairo rato ašies komplektas"
@@ -12016,7 +12045,7 @@ msgstr "Thuyền kayak/cano"
 
 #: apps/listings/translatable_db.py:1636 apps/listings/translatable_db.py:2406
 msgid "Be defektų"
-msgstr ""
+msgstr "Không có khuyết điểm"
 
 #: apps/listings/translatable_db.py:1637
 msgid "Benzinas/Gamtinės dujos"
@@ -12044,7 +12073,7 @@ msgstr "Chuột Degus"
 
 #: apps/listings/translatable_db.py:1653 apps/listings/translatable_db.py:2440
 msgid "Dešinėje"
-msgstr ""
+msgstr "Bên phải"
 
 #: apps/listings/translatable_db.py:1654
 msgid "Diagnostikos įranga"
@@ -12076,7 +12105,7 @@ msgstr "Dùng để vận chuyển động vật"
 
 #: apps/listings/translatable_db.py:1675 apps/listings/translatable_db.py:2397
 msgid "Hečbekas"
-msgstr ""
+msgstr "Xe hatchback"
 
 #: apps/listings/translatable_db.py:1682
 msgid "Išmetimo sistemos Tuning dalys"
@@ -12092,7 +12121,7 @@ msgstr "Juodkrante"
 
 #: apps/listings/translatable_db.py:1685 apps/listings/translatable_db.py:2439
 msgid "Kairėje"
-msgstr ""
+msgstr "Bên trái"
 
 #: apps/listings/translatable_db.py:1686
 msgid "Kaišiadorys"
@@ -12131,7 +12160,7 @@ msgstr "Các khuyết điểm lớn khác"
 
 #: apps/listings/translatable_db.py:1704
 msgid "Komercinis auto(su būda)"
-msgstr ""
+msgstr "Xe thương mại (có cabin)"
 
 #: apps/listings/translatable_db.py:1705
 msgid "Konteinerių sunkvežimis"
@@ -12171,7 +12200,7 @@ msgstr "Cây gai đen"
 
 #: apps/listings/translatable_db.py:1727
 msgid "Miško technika"
-msgstr ""
+msgstr "Thiết bị lâm nghiệp"
 
 #: apps/listings/translatable_db.py:1732
 msgid "Mišrus"
@@ -12366,7 +12395,7 @@ msgstr "Phụ tùng điều chỉnh khung gầm"
 
 #: apps/listings/translatable_db.py:1830 apps/listings/translatable_db.py:2401
 msgid "Vienatūris"
-msgstr ""
+msgstr "Khối đá nguyên khối"
 
 #: apps/listings/translatable_db.py:1832
 msgid "Vilkaviškis"
@@ -13713,7 +13742,7 @@ msgstr "Chi tiết khung gầm"
 #: templates/listings/trailers_listing_create.html:93
 #: templates/listings/trailers_listing_create.html:253
 msgid "Metai"
-msgstr ""
+msgstr "Năm"
 
 #: apps/listings/translatable_db.py:2371
 #: templates/listings/listing_detail.html:503
@@ -13725,30 +13754,30 @@ msgstr ""
 #: templates/listings/partials/_card_params.html:27
 #: templates/listings/search_map.html:180
 msgid "Rida"
-msgstr ""
+msgstr "Hàng ngang"
 
 #: apps/listings/translatable_db.py:2372
 msgid "Galia, kW"
-msgstr ""
+msgstr "Gallium, kW"
 
 #: apps/listings/translatable_db.py:2373
 #: templates/listings/listing_detail.html:579
 #: templates/listings/listing_detail.html:1936
 #: templates/listings/listing_detail.html:1986
 msgid "Darbinis tūris"
-msgstr ""
+msgstr "Sự dịch chuyển"
 
 #: apps/listings/translatable_db.py:2374
 #: templates/listings/camping_listing_create.html:281
 #: templates/listings/listing_detail.html:757
 msgid "Varantieji ratai"
-msgstr ""
+msgstr "bánh xe dẫn động"
 
 #: apps/listings/translatable_db.py:2376
 #: templates/listings/camping_listing_create.html:308
 #: templates/listings/listing_detail.html:773
 msgid "Defektai"
-msgstr ""
+msgstr "Các khuyết điểm"
 
 #: apps/listings/translatable_db.py:2379
 #: templates/listings/bicycles_listing_create.html:138
@@ -13767,14 +13796,14 @@ msgstr ""
 #: templates/listings/rental_moto_create.html:148
 #: templates/listings/trailers_listing_create.html:239
 msgid "Spalva"
-msgstr ""
+msgstr "Màu sắc"
 
 #: apps/listings/translatable_db.py:2380
 #: templates/listings/listing_detail.html:1451
 #: templates/listings/partials/_panel_bodies.html:652
 #: templates/listings/trailers_listing_create.html:153
 msgid "Euro standartas"
-msgstr ""
+msgstr "Tiêu chuẩn Châu Âu"
 
 #: apps/listings/translatable_db.py:2383 templates/imones/_filtrai.html:24
 #: templates/listings/listing_detail.html:423
@@ -13783,107 +13812,107 @@ msgstr ""
 #: templates/listings/partials/_panel_bodies.html:105
 #: templates/listings/partials/_panel_bodies.html:993
 msgid "Miestas"
-msgstr ""
+msgstr "Thành phố"
 
 #: apps/listings/translatable_db.py:2385
 msgid "Ypatybės"
-msgstr ""
+msgstr "Đặc trưng"
 
 #: apps/listings/translatable_db.py:2386
 msgid "Nuo / Iki"
-msgstr ""
+msgstr "Từ / Đến"
 
 #: apps/listings/translatable_db.py:2387
 msgid "Visi / Visos"
-msgstr ""
+msgstr "Tất cả / Tất cả"
 
 #: apps/listings/translatable_db.py:2388
 msgid "Benzinas"
-msgstr ""
+msgstr "Xăng"
 
 #: apps/listings/translatable_db.py:2389
 msgid "Dyzelinas"
-msgstr ""
+msgstr "Dầu diesel"
 
 #: apps/listings/translatable_db.py:2390
 msgid "Benzinas / dujos"
-msgstr ""
+msgstr "Xăng/khí đốt"
 
 #: apps/listings/translatable_db.py:2391
 msgid "Hibridas"
-msgstr ""
+msgstr "Lai"
 
 #: apps/listings/translatable_db.py:2392
 msgid "Elektra"
-msgstr ""
+msgstr "Elektra"
 
 #: apps/listings/translatable_db.py:2395
 msgid "Sedanas"
-msgstr ""
+msgstr "Sedan"
 
 #: apps/listings/translatable_db.py:2396
 msgid "Universalas"
-msgstr ""
+msgstr "xe ga"
 
 #: apps/listings/translatable_db.py:2398
 msgid "Visureigis / Krosoveris"
-msgstr ""
+msgstr "Xe SUV / Xe Crossover"
 
 #: apps/listings/translatable_db.py:2399
 msgid "Kupė"
-msgstr ""
+msgstr "Xe coupe"
 
 #: apps/listings/translatable_db.py:2400
 msgid "Kabrioletas"
-msgstr ""
+msgstr "Xe mui trần"
 
 #: apps/listings/translatable_db.py:2402
 msgid "Kairėje / Dešinėje"
-msgstr ""
+msgstr "Trái / Phải"
 
 #: apps/listings/translatable_db.py:2403
 msgid "Priekiniai"
-msgstr ""
+msgstr "Đằng trước"
 
 #: apps/listings/translatable_db.py:2404
 msgid "Galiniai"
-msgstr ""
+msgstr "Ở phía sau"
 
 #: apps/listings/translatable_db.py:2405
 msgid "Visi varantys"
-msgstr ""
+msgstr "Tất cả việc lái xe"
 
 #: apps/listings/translatable_db.py:2408
 #: templates/listings/listing_list.html:936
 msgid "Privatus asmuo"
-msgstr ""
+msgstr "Người riêng tư"
 
 #: apps/listings/translatable_db.py:2410 apps/listings/views.py:562
 #: apps/listings/views.py:1803 apps/listings/views.py:2408
 #: templates/listings/partials/_panel_bodies.html:18
 msgid "Automobiliai"
-msgstr ""
+msgstr "Ô tô"
 
 #: apps/listings/translatable_db.py:2412 apps/listings/views.py:2462
 #: templates/listings/partials/_panel_bodies.html:318
 #: templates/listings/trucks_advanced_search.html:275
 msgid "Sunkvežimiai"
-msgstr ""
+msgstr "Xe tải"
 
 #: apps/listings/translatable_db.py:2414 apps/listings/views.py:2464
 #: templates/listings/partials/_panel_bodies.html:314
 msgid "Autobusai"
-msgstr ""
+msgstr "Xe buýt"
 
 #: apps/listings/translatable_db.py:2415
 #: templates/listings/partials/_panel_bodies.html:597
 #: templates/listings/trailers_listing_create.html:25
 msgid "Priekabos / Puspriekabės"
-msgstr ""
+msgstr "Rơ moóc / Rơ moóc kéo"
 
 #: apps/listings/translatable_db.py:2416
 msgid "Žemės ūkio technika"
-msgstr ""
+msgstr "Máy móc nông nghiệp"
 
 #: apps/listings/translatable_db.py:2419 apps/listings/views.py:1458
 #: templates/listings/advanced_generic.html:125
@@ -13895,17 +13924,17 @@ msgstr ""
 #: templates/listings/partials/fields/_brand.html:57
 #: templates/listings/partials/search_panel.html:339
 msgid "Visos markės"
-msgstr ""
+msgstr "Tất cả các thương hiệu"
 
 #: apps/listings/translatable_db.py:2420
 #: templates/listings/agriculture_listing_create.html:25
 #: templates/listings/partials/_panel_bodies.html:740
 msgid "Žemės ūkio technika, padargai"
-msgstr ""
+msgstr "Máy móc, thiết bị nông nghiệp"
 
 #: apps/listings/translatable_db.py:2423
 msgid "Limuzinų, vestuvių transportas"
-msgstr ""
+msgstr "Xe limousine, dịch vụ vận chuyển đám cưới"
 
 #: apps/listings/translatable_db.py:2425 templates/base.html:817
 #: templates/listings/partials/_my_searches.html:28
@@ -13913,18 +13942,18 @@ msgstr ""
 #: templates/listings/saved_searches.html:25
 #: templates/listings/saved_searches.html:29
 msgid "Mano paieškos"
-msgstr ""
+msgstr "Tìm kiếm của tôi"
 
 #: apps/listings/translatable_db.py:2426 apps/listings/zemelapio_views.py:424
 msgid "Tik Lietuvoje"
-msgstr ""
+msgstr "Chỉ có ở Lithuania"
 
 #: apps/listings/translatable_db.py:2428
 #: templates/listings/motorcycles_list.html:508
 #: templates/listings/partials/sidebar_generic.html:140
 #: templates/listings/wheels_list.html:180
 msgid "Filtruoti"
-msgstr ""
+msgstr "Lọc"
 
 #: apps/listings/translatable_db.py:2429 templates/imones/sarasas.html:50
 #: templates/imones/sarasas.html:112 templates/imones/sarasas.html:182
@@ -13933,7 +13962,7 @@ msgstr ""
 #: templates/listings/partials/sidebar_generic.html:143
 #: templates/partials/_paieskos_juosta.html:142
 msgid "Išvalyti"
-msgstr ""
+msgstr "Thông thoáng"
 
 #: apps/listings/translatable_db.py:2430 templates/partials/_salis.html:134
 #: templates/partials/_salis.html:146
@@ -13942,13 +13971,13 @@ msgstr "Đổi quốc gia"
 
 #: apps/listings/translatable_db.py:2432 templates/base.html:498
 msgid "Įkelti"
-msgstr ""
+msgstr "Tải lên"
 
 #: apps/listings/translatable_db.py:2433 templates/base.html:544
 #: templates/conversations/conversation_list.html:3
 #: templates/conversations/conversation_list.html:29
 msgid "Žinutės"
-msgstr ""
+msgstr "Tin nhắn"
 
 #: apps/listings/translatable_db.py:2438
 #: templates/listings/motogear_advanced.html:185
@@ -13962,118 +13991,118 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:310
 #: templates/search/_panel_cars.html:11
 msgid "Visos"
-msgstr ""
+msgstr "Tất cả"
 
 #: apps/listings/translatable_db.py:2442
 msgid "Puspriekabės"
-msgstr ""
+msgstr "Xe rơ moóc"
 
 #: apps/listings/translatable_db.py:2446
 msgid "Benzinas / elektra (hibridas)"
-msgstr ""
+msgstr "Xăng/điện (lai)"
 
 #: apps/listings/translatable_db.py:2447
 msgid "Benzinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "Xăng/điện (có thể sạc lại)"
 
 #: apps/listings/translatable_db.py:2448
 msgid "Benzinas / elektra / dujos"
-msgstr ""
+msgstr "Xăng dầu / điện / khí đốt"
 
 #: apps/listings/translatable_db.py:2449
 msgid "Benzinas / gamtinės dujos"
-msgstr ""
+msgstr "Xăng/khí tự nhiên"
 
 #: apps/listings/translatable_db.py:2450
 msgid "Dyzelinas / elektra (hibridas)"
-msgstr ""
+msgstr "Động cơ diesel/điện (lai)"
 
 #: apps/listings/translatable_db.py:2451
 msgid "Dyzelinas / elektra (įkraunamas)"
-msgstr ""
+msgstr "Động cơ diesel/điện (có thể sạc lại)"
 
 #: apps/listings/translatable_db.py:2456
 msgid "Žemės ūkio"
-msgstr ""
+msgstr "Nông nghiệp"
 
 #: apps/listings/translatable_db.py:2457
 msgid "Autovežiai"
-msgstr ""
+msgstr "Xe vận chuyển ô tô"
 
 #: apps/listings/translatable_db.py:2458
 msgid "Komunalinis"
-msgstr ""
+msgstr "Cộng đồng"
 
 #: apps/listings/translatable_db.py:2459
 msgid "Limuzinų nuoma"
-msgstr ""
+msgstr "Thuê xe limousine"
 
 #: apps/listings/translatable_db.py:2460
 msgid "Mikroautob. nuoma"
-msgstr ""
+msgstr "Cho thuê xe minibus"
 
 #: apps/listings/translatable_db.py:2461
 msgid "Sunkiojo nuoma"
-msgstr ""
+msgstr "Cho thuê thiết bị hạng nặng"
 
 #: apps/listings/translatable_db.py:2462
 msgid "Video, audio, navi"
-msgstr ""
+msgstr "Tôi nhìn thấy, tôi nghe thấy, tôi đang ở trên một chiếc thuyền."
 
 #: apps/listings/translatable_db.py:2463
 msgid "Auto supirkimas"
-msgstr ""
+msgstr "Mua xe hơi"
 
 #: apps/listings/translatable_db.py:2464
 msgid "Krovimo technika"
-msgstr ""
+msgstr "Thiết bị xếp dỡ"
 
 #: apps/listings/translatable_db.py:2465
 msgid "Statybos priedai"
-msgstr ""
+msgstr "Phụ kiện xây dựng"
 
 #: apps/listings/translatable_db.py:2466
 msgid "Vandens transp."
-msgstr ""
+msgstr "Vận tải đường thủy"
 
 #: apps/listings/translatable_db.py:2467
 msgid "Dviračiai"
-msgstr ""
+msgstr "Xe đạp"
 
 #: apps/listings/translatable_db.py:2468 templates/base.html:806
 msgid "Sukurti skelbimą"
-msgstr ""
+msgstr "Tạo quảng cáo"
 
 #: apps/listings/translatable_db.py:2469 templates/base.html:810
 msgid "Prisijungti"
-msgstr ""
+msgstr "Đăng nhập"
 
 #: apps/listings/translatable_db.py:2471 templates/base.html:834
 #: templates/imones/sarasas.html:218 templates/listings/search_map.html:3
 #: templates/listings/search_map.html:6
 msgid "Žemėlapio paieška"
-msgstr ""
+msgstr "Tìm kiếm trên bản đồ"
 
 #: apps/listings/translatable_db.py:2475 templates/base.html:463
 #: templates/base.html:871 templates/partials/_kalbos.html:26
 #: templates/partials/_kalbos.html:52
 msgid "Kalba"
-msgstr ""
+msgstr "Ngôn ngữ"
 
 #: apps/listings/translatable_db.py:2476
 #: templates/listings/partials/fields/_model.html:59
 msgid "Pirma pasirinkite markę"
-msgstr ""
+msgstr "Trước tiên hãy chọn một thương hiệu."
 
 #: apps/listings/translatable_db.py:2477
 #: templates/listings/listing_list.html:1161
 msgid "Dienos pasiūlymai"
-msgstr ""
+msgstr "Ưu đãi hàng ngày"
 
 #: apps/listings/translatable_db.py:2481
 #: templates/listings/listing_list.html:1208
 msgid "Šiandien naujų skelbimų dar nėra."
-msgstr ""
+msgstr "Hôm nay không có quảng cáo mới nào."
 
 #: apps/listings/translatable_db.py:2482
 #: templates/listings/listing_list.html:1213
@@ -14082,37 +14111,37 @@ msgstr ""
 #: templates/listings/listing_list.html:1323
 #: templates/listings/listing_list.html:1359
 msgid "Žiūrėti visus"
-msgstr ""
+msgstr "Xem tất cả"
 
 #: apps/listings/translatable_db.py:2483 templates/imones/_filtrai.html:45
 #: templates/listings/listing_list.html:1377
 msgid "Visos įmonės"
-msgstr ""
+msgstr "Tất cả các công ty"
 
 #: apps/listings/translatable_db.py:2484 templates/404.html:3
 msgid "Puslapis nerastas"
-msgstr ""
+msgstr "Không tìm thấy trang"
 
 #: apps/listings/translatable_db.py:2485 templates/404.html:13
 msgid "Tokio puslapio nėra"
-msgstr ""
+msgstr "Không có trang nào như vậy."
 
 #: apps/listings/translatable_db.py:2486 templates/404.html:14
 msgid "Nuoroda galėjo pasenti arba skelbimas nuimtas."
-msgstr ""
+msgstr "Liên kết có thể đã lỗi thời hoặc quảng cáo có thể đã bị xóa."
 
 #: apps/listings/translatable_db.py:2487 templates/404.html:16
 msgid "Į pradžią"
-msgstr ""
+msgstr "Trở lại đầu trang"
 
 #: apps/listings/translatable_db.py:2488 templates/404.html:17
 #: templates/listings/partials/_perziuretu_sarasas.html:11
 msgid "Naršyti skelbimus"
-msgstr ""
+msgstr "Xem quảng cáo"
 
 #: apps/listings/translatable_db.py:2489 templates/base.html:659
 msgid "Registruotis"
-msgstr ""
+msgstr "Đăng ký"
 
 #: apps/listings/truck_for_parts_views.py:40
 msgid "Body parts"
@@ -14523,7 +14552,8 @@ msgstr "tiếng Ả Rập"
 msgid "Korean"
 msgstr "tiếng Hàn"
 
-#: templates/accounts/become_dealer.html:3 templates/pages/help_center.html:541
+#: templates/accounts/become_dealer.html:3
+#: templates/pages/help_center.html:541
 msgid "Become a Dealer"
 msgstr "Trở thành đại lý"
 
@@ -14632,7 +14662,8 @@ msgid "Talk to us about volume pricing or partnership opportunities."
 msgstr ""
 "Hãy liên hệ với chúng tôi để thảo luận về giá bán sỉ hoặc cơ hội hợp tác."
 
-#: templates/accounts/become_dealer.html:96 templates/pages/help_center.html:82
+#: templates/accounts/become_dealer.html:96
+#: templates/pages/help_center.html:82
 msgid "Contact us"
 msgstr "Liên hệ với chúng tôi"
 
@@ -14731,9 +14762,9 @@ msgstr "Danh sách của tôi"
 msgid "Manage your inventory"
 msgstr "Quản lý hàng tồn kho của bạn"
 
-#: templates/accounts/dealer_dashboard.html:92 templates/accounts/wallet.html:3
-#: templates/accounts/wallet.html:9 templates/base.html:612
-#: templates/base.html:750
+#: templates/accounts/dealer_dashboard.html:92
+#: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
+#: templates/base.html:612 templates/base.html:750
 msgid "Wallet"
 msgstr "Cái ví"
 
@@ -15071,7 +15102,8 @@ msgstr "Ngọn cờ"
 msgid "Recommended: 1920x400px"
 msgstr "Độ phân giải đề xuất: 1920x400px"
 
-#: templates/accounts/dealer_setup.html:70 templates/pages/help_center.html:656
+#: templates/accounts/dealer_setup.html:70
+#: templates/pages/help_center.html:656
 msgid "About Us"
 msgstr "Về chúng tôi"
 
@@ -15303,7 +15335,8 @@ msgstr "Chúng tôi đã gửi cho bạn hướng dẫn đặt lại mật khẩ
 
 #: templates/accounts/password_reset_done.html:14
 msgid "Check your inbox (and spam folder just in case)."
-msgstr "Kiểm tra hộp thư đến của bạn (và cả thư mục thư rác phòng trường hợp)."
+msgstr ""
+"Kiểm tra hộp thư đến của bạn (và cả thư mục thư rác phòng trường hợp)."
 
 #: templates/accounts/password_reset_done.html:17
 msgid "The link will expire in 1 hour."
@@ -15442,15 +15475,11 @@ msgstr "Không thể hoàn toàn là số."
 
 #: templates/accounts/register.html:113
 msgid ""
-"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Terms of Service</a>\n"
-"                            and <a href=\"#\" class=\"text-primary hover:"
-"text-primary-dark\">Privacy Policy</a>"
+"I agree to the <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Terms of Service</a>\n"
+"                            and <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Privacy Policy</a>"
 msgstr ""
-"Tôi đồng ý với <a href=\"#\" class=\"text-primary hover:text-primary-"
-"dark\">Điều khoản dịch vụ</a>\n"
-"và <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Chính sách "
-"bảo mật</a>"
+"Tôi đồng ý với <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Điều khoản dịch vụ</a>\n"
+"và <a href=\"#\" class=\"text-primary hover:text-primary-dark\">Chính sách bảo mật</a>"
 
 #: templates/accounts/register.html:140
 msgid "Already have an account?"
@@ -15822,8 +15851,8 @@ msgstr "Nạp tiền vào tài khoản của bạn"
 
 #: templates/accounts/wallet.html:37
 msgid ""
-"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and "
-"cross-posting."
+"Points are virtual AutoLeft currency. Use them for boosts, featured ads, and"
+" cross-posting."
 msgstr ""
 "Điểm là đơn vị tiền tệ ảo của AutoLeft. Hãy sử dụng chúng để tăng lượt hiển "
 "thị, hiển thị quảng cáo nổi bật và chia sẻ chéo bài viết."
@@ -15893,7 +15922,8 @@ msgstr "Kiểu"
 msgid "Amount"
 msgstr "Số lượng"
 
-#: templates/accounts/wallet.html:128 templates/listings/wheels_detail.html:223
+#: templates/accounts/wallet.html:128
+#: templates/listings/wheels_detail.html:223
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -15918,7 +15948,8 @@ msgid "My Searches"
 msgstr "Tìm kiếm của tôi"
 
 #: templates/base.html:575 templates/base.html:728
-#: templates/listings/my_listings.html:6 templates/listings/my_listings.html:47
+#: templates/listings/my_listings.html:6
+#: templates/listings/my_listings.html:47
 msgid "My Ads"
 msgstr "Quảng cáo của tôi"
 
@@ -16074,8 +16105,8 @@ msgstr "Cuộc hội thoại"
 #: templates/listings/listing_create.html:117
 #: templates/listings/listing_create.html:154
 #: templates/listings/partials/_my_searches.html:31
-#: templates/listings/select_value.html:18 templates/listings/skelbimai.html:30
-#: templates/listings/skelbimai.html:78
+#: templates/listings/select_value.html:18
+#: templates/listings/skelbimai.html:30 templates/listings/skelbimai.html:78
 #: templates/partials/_paieskos_juosta.html:43
 msgid "Atgal"
 msgstr "Quay lại"
@@ -16250,9 +16281,9 @@ msgid ""
 "(Cars, Motorcycles, Trucks, etc.), fill in the details, upload photos, set "
 "your price, and publish. The listing will be live within 5-10 minutes."
 msgstr ""
-"Nhấp vào nút màu đỏ 'Tạo quảng cáo' ở đầu bất kỳ trang nào. Chọn danh mục (Ô "
-"tô, Xe máy, Xe tải, v.v.), điền thông tin chi tiết, tải ảnh lên, đặt giá và "
-"đăng tải. Tin đăng sẽ hiển thị trong vòng 5-10 phút."
+"Nhấp vào nút màu đỏ 'Tạo quảng cáo' ở đầu bất kỳ trang nào. Chọn danh mục (Ô"
+" tô, Xe máy, Xe tải, v.v.), điền thông tin chi tiết, tải ảnh lên, đặt giá và"
+" đăng tải. Tin đăng sẽ hiển thị trong vòng 5-10 phút."
 
 #: templates/faq.html:28
 msgid "How do I edit or delete my listing?"
@@ -16290,8 +16321,8 @@ msgid ""
 "Open any listing and use the 'Send Message' or 'Send Email' buttons. The "
 "seller's phone number is shown if they have enabled it."
 msgstr ""
-"Mở bất kỳ tin rao bán nào và sử dụng nút 'Gửi tin nhắn' hoặc 'Gửi email'. Số "
-"điện thoại của người bán sẽ hiển thị nếu họ đã bật tính năng này."
+"Mở bất kỳ tin rao bán nào và sử dụng nút 'Gửi tin nhắn' hoặc 'Gửi email'. Số"
+" điện thoại của người bán sẽ hiển thị nếu họ đã bật tính năng này."
 
 #: templates/faq.html:58
 msgid "How does the wallet work?"
@@ -16318,8 +16349,8 @@ msgid ""
 "or Enterprise) and subscribe. You'll get unlimited listings, a branded "
 "dealer page, custom logo, and featured placement."
 msgstr ""
-"Truy cập trang 'Đại lý' từ menu tài khoản của bạn. Chọn gói dịch vụ (Cơ bản, "
-"Chuyên nghiệp hoặc Doanh nghiệp) và đăng ký. Bạn sẽ nhận được số lượng tin "
+"Truy cập trang 'Đại lý' từ menu tài khoản của bạn. Chọn gói dịch vụ (Cơ bản,"
+" Chuyên nghiệp hoặc Doanh nghiệp) và đăng ký. Bạn sẽ nhận được số lượng tin "
 "đăng không giới hạn, trang đại lý mang thương hiệu riêng, logo tùy chỉnh và "
 "vị trí hiển thị nổi bật."
 
@@ -16646,7 +16677,8 @@ msgstr "Gọi"
 msgid "Rašyti žinutę"
 msgstr "Viết một tin nhắn"
 
-#: templates/imones/sarasas.html:36 templates/partials/_paieskos_juosta.html:50
+#: templates/imones/sarasas.html:36
+#: templates/partials/_paieskos_juosta.html:50
 msgid "Visos paslaugos"
 msgstr "Tất cả các dịch vụ"
 
@@ -18143,8 +18175,8 @@ msgstr "Đang tải ảnh lên..."
 #: templates/listings/boats_listing_create.html:349
 msgid "Not all required fields are filled in. These fields are marked in red."
 msgstr ""
-"Không phải tất cả các trường bắt buộc đều được điền đầy đủ. Những trường này "
-"được đánh dấu màu đỏ."
+"Không phải tất cả các trường bắt buộc đều được điền đầy đủ. Những trường này"
+" được đánh dấu màu đỏ."
 
 #: templates/listings/boats_listing_create.html:363
 #: templates/listings/listing_create.html:758
@@ -18432,8 +18464,8 @@ msgstr "Giá (€)"
 #: templates/listings/truck_for_parts_create.html:168
 msgid "Describe what is included, defects, parts condition, etc."
 msgstr ""
-"Mô tả những gì được bao gồm, các khuyết điểm, tình trạng của các bộ phận, v."
-"v."
+"Mô tả những gì được bao gồm, các khuyết điểm, tình trạng của các bộ phận, "
+"v.v."
 
 #: templates/listings/car_for_parts_create.html:231
 #: templates/listings/moto_for_parts_create.html:177
@@ -18660,7 +18692,8 @@ msgstr "Nhanh chóng & Dễ dàng"
 #: templates/listings/home.html:182
 msgid "List your car in minutes and connect with buyers instantly"
 msgstr ""
-"Đăng bán xe của bạn chỉ trong vài phút và kết nối ngay lập tức với người mua."
+"Đăng bán xe của bạn chỉ trong vài phút và kết nối ngay lập tức với người "
+"mua."
 
 #: templates/listings/home.html:191
 msgid "Ready to Sell Your Car?"
@@ -18913,7 +18946,8 @@ msgstr "Thông tin chi tiết bổ sung"
 #: templates/listings/listing_create.html:616
 msgid "Drive type, seats, rim size, fuel consumption, etc."
 msgstr ""
-"Loại dẫn động, số chỗ ngồi, kích thước vành xe, mức tiêu thụ nhiên liệu, v.v."
+"Loại dẫn động, số chỗ ngồi, kích thước vành xe, mức tiêu thụ nhiên liệu, "
+"v.v."
 
 #: templates/listings/listing_create.html:623
 #: templates/listings/listing_detail.html:2465
@@ -19189,8 +19223,8 @@ msgstr "Loại người bán"
 #: templates/listings/tyres_create.html:237
 #: templates/listings/wheels_create.html:320
 msgid ""
-"The fewer questions buyers have when reading your listing, the faster you'll "
-"find a buyer."
+"The fewer questions buyers have when reading your listing, the faster you'll"
+" find a buyer."
 msgstr ""
 "Càng ít câu hỏi mà người mua đặt ra khi đọc tin rao bán của bạn, bạn càng "
 "nhanh chóng tìm được người mua."
@@ -19207,8 +19241,8 @@ msgstr "Tránh sử dụng chữ in hoa toàn bộ hoặc quá nhiều ký hiệ
 #: templates/listings/tyres_create.html:297
 #: templates/listings/wheels_create.html:367
 msgid ""
-"Not all required fields are filled in or filled in incorrectly. These fields "
-"are marked in red."
+"Not all required fields are filled in or filled in incorrectly. These fields"
+" are marked in red."
 msgstr ""
 "Không phải tất cả các trường bắt buộc đều được điền đầy đủ hoặc được điền "
 "không chính xác. Những trường này được đánh dấu màu đỏ."
@@ -20364,7 +20398,8 @@ msgstr "Chọn gói kích hoạt"
 
 #: templates/listings/listing_select_plan.html:62
 #: templates/listings/listing_select_plan.html:167
-#: templates/listings/wheels_list.html:232 templates/pages/help_center.html:612
+#: templates/listings/wheels_list.html:232
+#: templates/pages/help_center.html:612
 msgid "Recommended"
 msgstr "Khuyến khích"
 
@@ -20506,8 +20541,8 @@ msgstr "chính sách bảo mật"
 msgid ""
 "Secure payment via Stripe. You'll be redirected to a secure checkout page."
 msgstr ""
-"Thanh toán an toàn qua Stripe. Bạn sẽ được chuyển hướng đến trang thanh toán "
-"an toàn."
+"Thanh toán an toàn qua Stripe. Bạn sẽ được chuyển hướng đến trang thanh toán"
+" an toàn."
 
 #: templates/listings/listing_select_plan.html:388
 msgid "Back to edit listing"
@@ -20532,11 +20567,11 @@ msgstr "Lỗi"
 #: templates/listings/listing_select_plan.html:712
 #: templates/listings/listing_services_order.html:284
 msgid ""
-"Your listing will appear higher in search results than others. The more star "
-"boosts you order, the higher it will be displayed."
+"Your listing will appear higher in search results than others. The more star"
+" boosts you order, the higher it will be displayed."
 msgstr ""
-"Tin đăng của bạn sẽ xuất hiện ở vị trí cao hơn trong kết quả tìm kiếm so với "
-"những tin khác. Bạn càng đặt nhiều lượt tăng sao, tin đăng của bạn sẽ càng "
+"Tin đăng của bạn sẽ xuất hiện ở vị trí cao hơn trong kết quả tìm kiếm so với"
+" những tin khác. Bạn càng đặt nhiều lượt tăng sao, tin đăng của bạn sẽ càng "
 "được hiển thị ở vị trí cao hơn."
 
 #: templates/listings/listing_select_plan.html:717
@@ -20567,7 +20602,8 @@ msgid "Back to my ads"
 msgstr "Quay lại quảng cáo của tôi"
 
 #: templates/listings/listing_services_order.html:21
-msgid "Boost your active listing with stars, highlight, or featured placement."
+msgid ""
+"Boost your active listing with stars, highlight, or featured placement."
 msgstr ""
 "Tăng cường độ hiển thị tin đăng của bạn bằng cách gắn sao, làm nổi bật hoặc "
 "hiển thị ở vị trí nổi bật."
@@ -20735,8 +20771,7 @@ msgstr "Thông tin đăng tải"
 
 #: templates/listings/listing_success.html:61
 #, python-format
-msgid ""
-"Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
+msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
 msgstr ""
 "Thời hạn đăng tin là <strong class=\"text-gray-900\">%(days)s ngày</strong>"
 
@@ -20922,8 +20957,8 @@ msgid ""
 "Riba — 3,5 t bendrosios masės: iki jos pakanka B kategorijos vairuotojo "
 "pažymėjimo."
 msgstr ""
-"Giới hạn trọng lượng tổng là 3,5 tấn: đối với trọng lượng dưới mức này, bằng "
-"lái xe hạng B là đủ."
+"Giới hạn trọng lượng tổng là 3,5 tấn: đối với trọng lượng dưới mức này, bằng"
+" lái xe hạng B là đủ."
 
 #: templates/listings/moto_for_parts_create.html:28
 msgid "Parduoti motociklą dalimis"
@@ -21004,8 +21039,8 @@ msgstr "Bình luận"
 #: templates/listings/moto_part_create.html:153
 msgid "Describe the part, defects, condition, compatibility, etc."
 msgstr ""
-"Mô tả chi tiết bộ phận, các khuyết điểm, tình trạng, khả năng tương thích, v."
-"v."
+"Mô tả chi tiết bộ phận, các khuyết điểm, tình trạng, khả năng tương thích, "
+"v.v."
 
 #: templates/listings/moto_part_create.html:160
 msgid "(max 36)"
@@ -21647,17 +21682,17 @@ msgid ""
 "You can upload up to <strong>40 photos</strong>. Max size per photo is "
 "<strong>10MB</strong>. Supported formats: <strong>JPG, PNG, GIF</strong>."
 msgstr ""
-"Bạn có thể tải lên tối đa <strong>40 ảnh</strong>. Kích thước tối đa mỗi ảnh "
-"là <strong>10MB</strong>. Các định dạng được hỗ trợ: <strong>JPG, PNG, GIF</"
-"strong>."
+"Bạn có thể tải lên tối đa <strong>40 ảnh</strong>. Kích thước tối đa mỗi ảnh"
+" là <strong>10MB</strong>. Các định dạng được hỗ trợ: <strong>JPG, PNG, "
+"GIF</strong>."
 
 #: templates/listings/motorcycle_create.html:342
 msgid ""
 "To change photo order, drag and drop into desired position. The first photo "
 "will be used as the main cover image."
 msgstr ""
-"Để thay đổi thứ tự ảnh, hãy kéo và thả vào vị trí mong muốn. Ảnh đầu tiên sẽ "
-"được sử dụng làm ảnh bìa chính."
+"Để thay đổi thứ tự ảnh, hãy kéo và thả vào vị trí mong muốn. Ảnh đầu tiên sẽ"
+" được sử dụng làm ảnh bìa chính."
 
 #: templates/listings/motorcycle_create.html:344
 msgid "Shoot in good lighting, ideally outdoors"
@@ -21671,8 +21706,8 @@ msgstr "Bao gồm ảnh chụp mặt trước, mặt bên, mặt sau và động
 #: templates/listings/motorcycle_create.html:346
 msgid "Show any defects honestly — builds buyer trust"
 msgstr ""
-"Hãy trung thực trình bày mọi khuyết điểm — điều này sẽ tạo dựng lòng tin của "
-"người mua."
+"Hãy trung thực trình bày mọi khuyết điểm — điều này sẽ tạo dựng lòng tin của"
+" người mua."
 
 #: templates/listings/motorcycle_create.html:347
 msgid "Avoid filters — buyers want to see real condition"
@@ -22343,7 +22378,8 @@ msgstr "Chỉ hiển thị giá trị xấp xỉ."
 msgid ""
 "žemėlapyje — ~500 m spindulio sritis, tikslios koordinatės viešai nerodomos"
 msgstr ""
-"Trên bản đồ — khu vực bán kính ~500 m, tọa độ chính xác không được công khai."
+"Trên bản đồ — khu vực bán kính ~500 m, tọa độ chính xác không được công "
+"khai."
 
 #: templates/listings/partials/_zemelapio_aikstele.html:18
 msgid "Skelbimų nerasta"
@@ -22450,8 +22486,9 @@ msgid ""
 "class=\"text-gray-600 underline hover:text-gray-900\">Privacy Policy</a>"
 msgstr ""
 "Bằng cách gửi biểu mẫu, tôi đồng ý với <a href=\"#\" class=\"text-gray-600 "
-"underline hover:text-gray-900\">Điều khoản và Điều kiện</a> và <a href=\"#\" "
-"class=\"text-gray-600 underline hover:text-gray-900\">Chính sách Bảo mật</a>"
+"underline hover:text-gray-900\">Điều khoản và Điều kiện</a> và <a href=\"#\""
+" class=\"text-gray-600 underline hover:text-gray-900\">Chính sách Bảo "
+"mật</a>"
 
 #: templates/listings/partials/fields/_brand.html:72
 msgid "Nieko nerasta"
@@ -22523,7 +22560,8 @@ msgstr "Thể tích làm việc (l)"
 msgid "Kuro sąnaudos (l/100 km)"
 msgstr "Mức tiêu thụ nhiên liệu (l/100 km)"
 
-#: templates/listings/rims_create.html:4 templates/listings/rims_create.html:12
+#: templates/listings/rims_create.html:4
+#: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
 msgid "New listing: Rims"
 msgstr "Sản phẩm mới: Vành xe"
@@ -22744,11 +22782,11 @@ msgstr "Không có tìm kiếm nào được lưu"
 
 #: templates/listings/saved_searches.html:127
 msgid ""
-"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras "
-"naujų skelbimų."
+"Atlikite paiešką ir paspauskite „Išsaugoti paiešką“ — pranešime, kai atsiras"
+" naujų skelbimų."
 msgstr ""
-"Hãy thực hiện tìm kiếm và nhấp vào \"Lưu tìm kiếm\" để nhận thông báo khi có "
-"quảng cáo mới xuất hiện."
+"Hãy thực hiện tìm kiếm và nhấp vào \"Lưu tìm kiếm\" để nhận thông báo khi có"
+" quảng cáo mới xuất hiện."
 
 #: templates/listings/saved_searches.html:158
 msgid "Išsaugoti"
@@ -22767,8 +22805,8 @@ msgid ""
 "Kai atliksite paiešką su bent vienu filtru, ji atsiras čia — prisijungti "
 "nebūtina."
 msgstr ""
-"Sau khi bạn thực hiện tìm kiếm với ít nhất một bộ lọc, kết quả sẽ hiển thị ở "
-"đây — không cần đăng nhập."
+"Sau khi bạn thực hiện tìm kiếm với ít nhất một bộ lọc, kết quả sẽ hiển thị ở"
+" đây — không cần đăng nhập."
 
 #: templates/listings/search_map.html:38
 msgid "Miestas, adresas arba šalis"
@@ -22814,7 +22852,7 @@ msgstr "quảng cáo"
 #: templates/listings/search_map.html:185
 #: templates/partials/_paieskos_juosta.html:194
 msgid "skelbimai"
-msgstr ""
+msgstr "quảng cáo"
 
 #: templates/listings/select_value.html:51
 msgid "Gerai"
@@ -22842,7 +22880,7 @@ msgstr "THƯƠNG HIỆU"
 
 #: templates/listings/sidebar_moto_parts.html:56
 msgid "MODEL"
-msgstr ""
+msgstr "NGƯỜI MẪU"
 
 #: templates/listings/sidebar_moto_parts.html:65
 msgid "CONDITION"
@@ -22870,7 +22908,7 @@ msgstr "DUNG TÍCH ĐỘNG CƠ (cm³)"
 
 #: templates/listings/sidebar_moto_parts.html:126
 msgid "COUNTRY"
-msgstr ""
+msgstr "QUỐC GIA"
 
 #: templates/listings/sidebar_moto_parts.html:128
 msgid "All countries"
@@ -23585,16 +23623,16 @@ msgid ""
 "listings</strong> in any category. If you delete a listing, that <strong "
 "class=\"text-gray-900 font-semibold\">free</strong> slot becomes available "
 "again — so you can always re-list within your free allowance. After your "
-"free listings are used, additional listings carry a small fee that keeps the "
-"platform running and online for everyone."
+"free listings are used, additional listings carry a small fee that keeps the"
+" platform running and online for everyone."
 msgstr ""
 "Mỗi người dùng được <strong class=\"text-gray-900 font-semibold\">3 lượt "
 "đăng tin miễn phí</strong> trong bất kỳ danh mục nào. Nếu bạn xóa một tin "
-"đăng, vị trí <strong class=\"text-gray-900 font-semibold\">miễn phí</strong> "
-"đó sẽ lại khả dụng — vì vậy bạn luôn có thể đăng lại tin trong giới hạn miễn "
-"phí của mình. Sau khi sử dụng hết số lượt đăng miễn phí, các tin đăng bổ "
-"sung sẽ phải trả một khoản phí nhỏ để duy trì hoạt động của nền tảng và đảm "
-"bảo mọi người đều có thể sử dụng."
+"đăng, vị trí <strong class=\"text-gray-900 font-semibold\">miễn phí</strong>"
+" đó sẽ lại khả dụng — vì vậy bạn luôn có thể đăng lại tin trong giới hạn "
+"miễn phí của mình. Sau khi sử dụng hết số lượt đăng miễn phí, các tin đăng "
+"bổ sung sẽ phải trả một khoản phí nhỏ để duy trì hoạt động của nền tảng và "
+"đảm bảo mọi người đều có thể sử dụng."
 
 #: templates/pages/help_center.html:175
 msgid ""
@@ -23605,9 +23643,9 @@ msgid ""
 msgstr ""
 "Sau khi quảng cáo của bạn được đăng tải, hãy gửi cho chúng tôi đường dẫn — "
 "chúng tôi sẽ tạo thêm nội dung video trên các kênh Instagram và TikTok của "
-"mình để quảng bá các tin đăng được chọn và giúp bạn tiếp cận nhiều người mua "
-"hơn, <strong class=\"text-gray-900 font-semibold\">hoàn toàn miễn phí</"
-"strong>."
+"mình để quảng bá các tin đăng được chọn và giúp bạn tiếp cận nhiều người mua"
+" hơn, <strong class=\"text-gray-900 font-semibold\">hoàn toàn miễn "
+"phí</strong>."
 
 #: templates/pages/help_center.html:177
 msgid "You can reach us through support or social media:"
@@ -23682,8 +23720,8 @@ msgid ""
 "Insights and statistics about the marketplace — what's selling, where, and "
 "at what price."
 msgstr ""
-"Thông tin chi tiết và số liệu thống kê về thị trường — mặt hàng nào đang bán "
-"chạy, ở đâu và với giá bao nhiêu."
+"Thông tin chi tiết và số liệu thống kê về thị trường — mặt hàng nào đang bán"
+" chạy, ở đâu và với giá bao nhiêu."
 
 #: templates/pages/help_center.html:267
 msgid "Most popular category"
@@ -23780,12 +23818,12 @@ msgstr "Đăng tin đăng đầu tiên của bạn"
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
-"get more views. Add a detailed description including condition, history, and "
-"any modifications. Your first 3 listings are completely free."
+"get more views. Add a detailed description including condition, history, and"
+" any modifications. Your first 3 listings are completely free."
 msgstr ""
 "Nhấp vào 'Tạo quảng cáo' trên menu phía trên, chọn danh mục và điền thông "
-"tin chi tiết về xe. Tải lên ít nhất 5 ảnh rõ nét — tin đăng có nhiều ảnh hơn "
-"sẽ nhận được nhiều lượt xem hơn. Thêm mô tả chi tiết bao gồm tình trạng, "
+"tin chi tiết về xe. Tải lên ít nhất 5 ảnh rõ nét — tin đăng có nhiều ảnh hơn"
+" sẽ nhận được nhiều lượt xem hơn. Thêm mô tả chi tiết bao gồm tình trạng, "
 "lịch sử và bất kỳ sửa đổi nào. 3 tin đăng đầu tiên của bạn hoàn toàn miễn "
 "phí."
 
@@ -23811,13 +23849,13 @@ msgstr "Bản nháp — lưu lại và kích hoạt sau"
 
 #: templates/pages/help_center.html:342
 msgid ""
-"Started a listing but not ready to publish? Your work is saved automatically "
-"as a draft. Find drafts in 'My Listings' and continue editing whenever you "
+"Started a listing but not ready to publish? Your work is saved automatically"
+" as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
 "Bạn đã bắt đầu viết tin đăng nhưng chưa sẵn sàng đăng tải? Tin đăng của bạn "
-"sẽ được tự động lưu dưới dạng bản nháp. Tìm các bản nháp trong mục 'Tin đăng "
-"của tôi' và tiếp tục chỉnh sửa bất cứ khi nào bạn muốn. Kích hoạt bản nháp "
+"sẽ được tự động lưu dưới dạng bản nháp. Tìm các bản nháp trong mục 'Tin đăng"
+" của tôi' và tiếp tục chỉnh sửa bất cứ khi nào bạn muốn. Kích hoạt bản nháp "
 "khi bạn đã sẵn sàng — tin đăng sẽ được hiển thị công khai trong 30 ngày."
 
 #: templates/pages/help_center.html:349
@@ -23827,14 +23865,14 @@ msgstr "Lưu mục yêu thích bằng biểu tượng trái tim"
 #: templates/pages/help_center.html:352
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
-"are kept in 'Saved Listings' so you can compare prices and come back to them "
-"later. You'll also receive email notifications when a saved listing's price "
-"drops."
+"are kept in 'Saved Listings' so you can compare prices and come back to them"
+" later. You'll also receive email notifications when a saved listing's price"
+" drops."
 msgstr ""
-"Bạn thấy tin rao bán nào ưng ý? Hãy nhấn vào biểu tượng trái tim để lưu lại. "
-"Tất cả các tin rao bán yêu thích của bạn sẽ được lưu trong mục 'Tin rao bán "
-"đã lưu' để bạn có thể so sánh giá và quay lại xem sau. Bạn cũng sẽ nhận được "
-"thông báo qua email khi giá của tin rao bán đã lưu giảm."
+"Bạn thấy tin rao bán nào ưng ý? Hãy nhấn vào biểu tượng trái tim để lưu lại."
+" Tất cả các tin rao bán yêu thích của bạn sẽ được lưu trong mục 'Tin rao bán"
+" đã lưu' để bạn có thể so sánh giá và quay lại xem sau. Bạn cũng sẽ nhận "
+"được thông báo qua email khi giá của tin rao bán đã lưu giảm."
 
 #: templates/pages/help_center.html:359
 msgid "Tracking listing performance"
@@ -23843,8 +23881,8 @@ msgstr "Theo dõi hiệu suất danh sách"
 #: templates/pages/help_center.html:362
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
-"where it ranks compared to similar listings. Use these numbers to figure out "
-"if your price is competitive and whether you need better photos or a "
+"where it ranks compared to similar listings. Use these numbers to figure out"
+" if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
 "Mỗi tin đăng đều có trang thống kê hiển thị lượt xem, số lần xuất hiện, số "
@@ -23858,8 +23896,8 @@ msgstr "Giao tiếp với người mua"
 
 #: templates/pages/help_center.html:372
 msgid ""
-"Buyers can message you directly through the platform — no need to share your "
-"phone number publicly. Reply quickly: fast responses build trust and sell "
+"Buyers can message you directly through the platform — no need to share your"
+" phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
@@ -23878,8 +23916,8 @@ msgid ""
 "Buyers who saved the listing will be notified automatically, and the sale "
 "gets recorded in your seller history."
 msgstr ""
-"Khi giao dịch hoàn tất, hãy đánh dấu tin đăng là đã bán trên trang 'Tin đăng "
-"của tôi'. Người mua đã lưu tin đăng sẽ nhận được thông báo tự động và giao "
+"Khi giao dịch hoàn tất, hãy đánh dấu tin đăng là đã bán trên trang 'Tin đăng"
+" của tôi'. Người mua đã lưu tin đăng sẽ nhận được thông báo tự động và giao "
 "dịch sẽ được ghi lại trong lịch sử bán hàng của bạn."
 
 #: templates/pages/help_center.html:399
@@ -23902,8 +23940,8 @@ msgstr "Làm thế nào để trở thành đại lý?"
 
 #: templates/pages/help_center.html:412
 msgid ""
-"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your "
-"business profile. You'll get a verified dealer badge, public dealer page, "
+"Visit the 'Become a Dealer' page, subscribe for €100/month, and fill in your"
+" business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
 "Hãy truy cập trang 'Trở thành đại lý', đăng ký với giá 100€/tháng và điền "
@@ -23941,7 +23979,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:448
 msgid "United States based support — serving customers worldwide."
-msgstr "Dịch vụ hỗ trợ đặt tại Hoa Kỳ — phục vụ khách hàng trên toàn thế giới."
+msgstr ""
+"Dịch vụ hỗ trợ đặt tại Hoa Kỳ — phục vụ khách hàng trên toàn thế giới."
 
 #: templates/pages/help_center.html:455 templates/pages/help_center.html:461
 msgid "Private message support"
@@ -23998,8 +24037,8 @@ msgid ""
 "Renewing a listing is free for the first 3 listings. After that, renewing "
 "costs the same as a fresh listing."
 msgstr ""
-"Gia hạn tin đăng là miễn phí cho 3 tin đăng đầu tiên. Sau đó, phí gia hạn sẽ "
-"giống như phí đăng tin mới."
+"Gia hạn tin đăng là miễn phí cho 3 tin đăng đầu tiên. Sau đó, phí gia hạn sẽ"
+" giống như phí đăng tin mới."
 
 #: templates/pages/help_center.html:529
 msgid "Dealers"
@@ -24020,11 +24059,11 @@ msgstr "Huy hiệu đại lý đã được xác minh"
 #: templates/pages/help_center.html:556
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
-"States. Contact us to discuss advertising opportunities — banners, sponsored "
-"placements, or partnership campaigns."
+"States. Contact us to discuss advertising opportunities — banners, sponsored"
+" placements, or partnership campaigns."
 msgstr ""
-"Tiếp cận hàng ngàn người mua và bán xe hơi trên khắp châu Âu và Hoa Kỳ. Liên "
-"hệ với chúng tôi để thảo luận về các cơ hội quảng cáo — banner, vị trí tài "
+"Tiếp cận hàng ngàn người mua và bán xe hơi trên khắp châu Âu và Hoa Kỳ. Liên"
+" hệ với chúng tôi để thảo luận về các cơ hội quảng cáo — banner, vị trí tài "
 "trợ hoặc các chiến dịch hợp tác."
 
 #: templates/pages/help_center.html:568
@@ -24052,8 +24091,9 @@ msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
 msgstr ""
-"Các dịch vụ và công cụ đáng tin cậy giúp bạn mua và bán một cách tự tin. Một "
-"số do chúng tôi vận hành, số khác do các đối tác chúng tôi hợp tác cung cấp."
+"Các dịch vụ và công cụ đáng tin cậy giúp bạn mua và bán một cách tự tin. Một"
+" số do chúng tôi vận hành, số khác do các đối tác chúng tôi hợp tác cung "
+"cấp."
 
 #: templates/pages/help_center.html:601
 msgid "Recommended services"
@@ -24069,7 +24109,8 @@ msgstr ""
 
 #: templates/pages/help_center.html:631
 msgid "Want your business or ad featured here?"
-msgstr "Bạn muốn doanh nghiệp hoặc quảng cáo của mình được giới thiệu tại đây?"
+msgstr ""
+"Bạn muốn doanh nghiệp hoặc quảng cáo của mình được giới thiệu tại đây?"
 
 #: templates/pages/help_center.html:633
 msgid ""
@@ -24080,8 +24121,8 @@ msgid ""
 msgstr ""
 "Nếu bạn kinh doanh dịch vụ liên quan đến ô tô — bảo hiểm, tài chính, vận "
 "chuyển, chăm sóc xe, phụ tùng — hoặc muốn quảng cáo trên nền tảng khác, bạn "
-"có thể tiếp cận người mua và người bán của chúng tôi. Hãy cho chúng tôi biết "
-"bạn muốn quảng bá điều gì và chúng tôi sẽ tìm vị trí phù hợp cho bạn."
+"có thể tiếp cận người mua và người bán của chúng tôi. Hãy cho chúng tôi biết"
+" bạn muốn quảng bá điều gì và chúng tôi sẽ tìm vị trí phù hợp cho bạn."
 
 #: templates/pages/help_center.html:638
 msgid "See advertising options"
@@ -24119,8 +24160,8 @@ msgid ""
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
-"Điều chúng tôi làm là giúp bạn thu hút sự chú ý. Chúng tôi quảng bá tin đăng "
-"thông qua quảng cáo nhắm mục tiêu, nội dung video và các chiến dịch truyền "
+"Điều chúng tôi làm là giúp bạn thu hút sự chú ý. Chúng tôi quảng bá tin đăng"
+" thông qua quảng cáo nhắm mục tiêu, nội dung video và các chiến dịch truyền "
 "thông xã hội — thu hút nhiều người xem hơn đến đúng loại xe, giúp giao dịch "
 "diễn ra nhanh hơn và với giá cả hợp lý cho tất cả các bên liên quan."
 
@@ -24151,8 +24192,8 @@ msgstr "1. Chấp nhận các Điều khoản"
 
 #: templates/pages/help_center.html:701
 msgid ""
-"By accessing or using this platform, you agree to these Terms of Use. If you "
-"don't agree, please don't use the platform."
+"By accessing or using this platform, you agree to these Terms of Use. If you"
+" don't agree, please don't use the platform."
 msgstr ""
 "Bằng cách truy cập hoặc sử dụng nền tảng này, bạn đồng ý với các Điều khoản "
 "sử dụng này. Nếu bạn không đồng ý, vui lòng không sử dụng nền tảng."
@@ -24167,10 +24208,10 @@ msgid ""
 "We don't own, sell, inspect, or warrant any vehicle listed on the platform. "
 "All transactions happen directly between users."
 msgstr ""
-"Đây là một sàn giao dịch trực tuyến kết nối người mua và người bán xe. Chúng "
-"tôi không sở hữu, bán, kiểm tra hoặc bảo hành bất kỳ chiếc xe nào được niêm "
-"yết trên nền tảng này. Tất cả các giao dịch đều diễn ra trực tiếp giữa người "
-"dùng."
+"Đây là một sàn giao dịch trực tuyến kết nối người mua và người bán xe. Chúng"
+" tôi không sở hữu, bán, kiểm tra hoặc bảo hành bất kỳ chiếc xe nào được niêm"
+" yết trên nền tảng này. Tất cả các giao dịch đều diễn ra trực tiếp giữa "
+"người dùng."
 
 #: templates/pages/help_center.html:710
 msgid "3. User Accounts"
@@ -24178,14 +24219,14 @@ msgstr "3. Tài khoản người dùng"
 
 #: templates/pages/help_center.html:711
 msgid ""
-"To create listings or contact sellers, you must register an account. You are "
-"responsible for keeping your password secure and for all activity under your "
-"account. Provide accurate information — fake accounts will be removed."
+"To create listings or contact sellers, you must register an account. You are"
+" responsible for keeping your password secure and for all activity under "
+"your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
 "Để tạo tin đăng hoặc liên hệ với người bán, bạn phải đăng ký tài khoản. Bạn "
-"chịu trách nhiệm bảo mật mật khẩu và chịu trách nhiệm cho mọi hoạt động dưới "
-"tài khoản của mình. Hãy cung cấp thông tin chính xác — các tài khoản giả mạo "
-"sẽ bị xóa."
+"chịu trách nhiệm bảo mật mật khẩu và chịu trách nhiệm cho mọi hoạt động dưới"
+" tài khoản của mình. Hãy cung cấp thông tin chính xác — các tài khoản giả "
+"mạo sẽ bị xóa."
 
 #: templates/pages/help_center.html:715
 msgid "4. Listings Content"
@@ -24199,8 +24240,8 @@ msgid ""
 "fraudulent listings. We reserve the right to remove any listing without "
 "notice."
 msgstr ""
-"Bạn hoàn toàn chịu trách nhiệm về nội dung mình đăng tải: ảnh, mô tả, giá cả "
-"và thông tin xe. Bài đăng phải chính xác, hợp pháp và do chính bạn thực "
+"Bạn hoàn toàn chịu trách nhiệm về nội dung mình đăng tải: ảnh, mô tả, giá cả"
+" và thông tin xe. Bài đăng phải chính xác, hợp pháp và do chính bạn thực "
 "hiện. Không đăng bán xe bị đánh cắp, xe mà bạn không có quyền bán hoặc các "
 "bài đăng gian lận. Chúng tôi có quyền xóa bất kỳ bài đăng nào mà không cần "
 "báo trước."
@@ -24231,10 +24272,10 @@ msgid ""
 "and dealer subscriptions are paid. All fees are non-refundable except where "
 "required by law. See the Pricing page for current rates."
 msgstr ""
-"Mỗi người dùng được đăng 3 tin rao bán đầu tiên miễn phí. Các tin rao bán bổ "
-"sung, gói cao cấp và gói dành cho đại lý đều phải trả phí. Tất cả các khoản "
-"phí đều không được hoàn lại trừ trường hợp pháp luật yêu cầu. Xem trang Giá "
-"cả để biết mức giá hiện hành."
+"Mỗi người dùng được đăng 3 tin rao bán đầu tiên miễn phí. Các tin rao bán bổ"
+" sung, gói cao cấp và gói dành cho đại lý đều phải trả phí. Tất cả các khoản"
+" phí đều không được hoàn lại trừ trường hợp pháp luật yêu cầu. Xem trang Giá"
+" cả để biết mức giá hiện hành."
 
 #: templates/pages/help_center.html:730
 msgid "7. Prohibited Activities"
@@ -24249,8 +24290,8 @@ msgid ""
 msgstr ""
 "Bạn không được phép: đăng tin trùng lặp, gửi thư rác cho người dùng khác, "
 "quấy rối bất kỳ ai, thu thập dữ liệu từ trang web, cố gắng thao túng thứ "
-"hạng tìm kiếm, đăng nội dung bất hợp pháp hoặc gian lận, hoặc sử dụng bot để "
-"tương tác với nền tảng. Vi phạm có thể dẫn đến việc bị đình chỉ tài khoản."
+"hạng tìm kiếm, đăng nội dung bất hợp pháp hoặc gian lận, hoặc sử dụng bot để"
+" tương tác với nền tảng. Vi phạm có thể dẫn đến việc bị đình chỉ tài khoản."
 
 #: templates/pages/help_center.html:735
 msgid "8. Disclaimer of Warranties"
@@ -24328,13 +24369,13 @@ msgstr "1. Những gì chúng tôi thu thập"
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
-"and descriptions you upload, your IP address and browser type, and pages you "
-"visit on our site."
+"and descriptions you upload, your IP address and browser type, and pages you"
+" visit on our site."
 msgstr ""
 "Khi bạn sử dụng nền tảng này, chúng tôi thu thập: email và tên của bạn (cho "
-"tài khoản của bạn), số điện thoại của bạn (nếu bạn chọn chia sẻ trên các tin "
-"đăng), ảnh và mô tả bạn tải lên, địa chỉ IP và loại trình duyệt của bạn, và "
-"các trang bạn truy cập trên trang web của chúng tôi."
+"tài khoản của bạn), số điện thoại của bạn (nếu bạn chọn chia sẻ trên các tin"
+" đăng), ảnh và mô tả bạn tải lên, địa chỉ IP và loại trình duyệt của bạn, và"
+" các trang bạn truy cập trên trang web của chúng tôi."
 
 #: templates/pages/help_center.html:779
 msgid "2. How We Use Your Data"
@@ -24406,8 +24447,8 @@ msgid ""
 "you, correct inaccurate data, delete your account and data, export your "
 "data, and withdraw marketing consent. Contact us to use these rights."
 msgstr ""
-"Nếu bạn đang ở trong Liên minh Châu Âu, bạn có quyền: truy cập dữ liệu chúng "
-"tôi lưu giữ về bạn, sửa dữ liệu không chính xác, xóa tài khoản và dữ liệu "
+"Nếu bạn đang ở trong Liên minh Châu Âu, bạn có quyền: truy cập dữ liệu chúng"
+" tôi lưu giữ về bạn, sửa dữ liệu không chính xác, xóa tài khoản và dữ liệu "
 "của bạn, xuất dữ liệu của bạn và thu hồi sự đồng ý tiếp thị. Vui lòng liên "
 "hệ với chúng tôi để thực hiện các quyền này."
 
@@ -24423,8 +24464,8 @@ msgid ""
 msgstr ""
 "Chúng tôi lưu giữ dữ liệu của bạn trong suốt thời gian tài khoản của bạn "
 "hoạt động. Nếu bạn xóa tài khoản, chúng tôi sẽ xóa dữ liệu cá nhân trong "
-"vòng 30 ngày, trừ trường hợp cần giữ lại vì lý do pháp lý (hồ sơ thuế, phòng "
-"chống gian lận)."
+"vòng 30 ngày, trừ trường hợp cần giữ lại vì lý do pháp lý (hồ sơ thuế, phòng"
+" chống gian lận)."
 
 #: templates/pages/help_center.html:809
 msgid "8. Security"
@@ -24434,8 +24475,8 @@ msgstr "8. An ninh"
 #, python-format
 msgid ""
 "We use industry-standard encryption (HTTPS) and secure password hashing. No "
-"system is 100%% secure — please use a strong unique password and don't share "
-"your account."
+"system is 100%% secure — please use a strong unique password and don't share"
+" your account."
 msgstr ""
 
 #: templates/pages/help_center.html:814
@@ -24444,8 +24485,8 @@ msgstr "9. Trẻ em"
 
 #: templates/pages/help_center.html:815
 msgid ""
-"This platform is not intended for users under 18. We don't knowingly collect "
-"data from minors."
+"This platform is not intended for users under 18. We don't knowingly collect"
+" data from minors."
 msgstr ""
 "Nền tảng này không dành cho người dùng dưới 18 tuổi. Chúng tôi không cố ý "
 "thu thập dữ liệu từ trẻ vị thành niên."
@@ -24554,8 +24595,8 @@ msgid ""
 "from your browser settings."
 msgstr ""
 "Cookie phiên sẽ bị xóa khi bạn đóng trình duyệt. Cookie lâu dài (như cookie "
-"ghi nhớ thông tin đăng nhập) có thời hạn tối đa 1 năm. Bạn có thể xóa cookie "
-"bất cứ lúc nào từ cài đặt trình duyệt của mình."
+"ghi nhớ thông tin đăng nhập) có thời hạn tối đa 1 năm. Bạn có thể xóa cookie"
+" bất cứ lúc nào từ cài đặt trình duyệt của mình."
 
 #: templates/pages/help_center.html:891
 msgid "Managing cookies"
@@ -24567,8 +24608,8 @@ msgid ""
 "essential cookies, the platform may not work properly. You won't be able to "
 "log in, post listings, or save preferences."
 msgstr ""
-"Bạn có thể tắt cookie trong cài đặt trình duyệt của mình — nhưng nếu bạn tắt "
-"các cookie thiết yếu, nền tảng có thể không hoạt động bình thường. Bạn sẽ "
+"Bạn có thể tắt cookie trong cài đặt trình duyệt của mình — nhưng nếu bạn tắt"
+" các cookie thiết yếu, nền tảng có thể không hoạt động bình thường. Bạn sẽ "
 "không thể đăng nhập, đăng tin rao bán hoặc lưu tùy chọn."
 
 #: templates/pages/help_center.html:896
@@ -24622,8 +24663,8 @@ msgid ""
 "ataskaitos, programinė įranga prekiautojams, draudimas, finansavimas ir "
 "kitos paslaugos."
 msgstr ""
-"Chúng tôi hợp tác với các công ty: cung cấp báo cáo lịch sử xe, phần mềm cho "
-"đại lý, bảo hiểm, tài chính và các dịch vụ khác."
+"Chúng tôi hợp tác với các công ty: cung cấp báo cáo lịch sử xe, phần mềm cho"
+" đại lý, bảo hiểm, tài chính và các dịch vụ khác."
 
 #: templates/pages/partneriai.html:64
 msgid "Partnerių sąrašas ruošiamas."
