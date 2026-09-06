@@ -177,3 +177,38 @@ rm -f /root/autoleft/deploy/.blogas-commitas
 
 Žymė nusivalo ir pati, kai `master` gauna naują commit'ą — tad įprastu
 atveju pakanka iškelti pataisą.
+
+### Būklės kanalas gali nutilti atskirai
+
+Šaka `serverio-bukle` yra VIENINTELIS kanalas iš serverio į pokalbį.
+Ji rašoma per `deploy/bukle.sh`, o tas kviečiamas iš
+`deploy-from-git.sh`. Vadinasi, kanalas gali nutilti dviem visiškai
+skirtingais atvejais, ir iš išorės jie atrodo vienodai:
+
+* nutilo pats deploy'as (taimeris, `git fetch`, nešvarus katalogas);
+* deploy'as sukasi, bet `bukle.sh` push'as nepavyksta (dingusi
+  `/root/autoleft_bukle` darbo kopija, pasibaigęs GitHub raktas).
+
+2026-09 abu sutapo: `serverio-bukle` paskutinį kartą rašyta 08-22, nors
+deploy'ai veikė iki 09-02. Todėl, kai gyva versija atsilieka, žiūrėk ne
+į šaką, o į systemd:
+
+```bash
+# viskas vienu ypu
+systemctl is-active autoleft-deploy.timer
+systemctl list-timers autoleft-deploy --no-pager
+journalctl -u autoleft-deploy -n 60 --no-pager
+cat /root/autoleft/deploy/.blogas-commitas 2>/dev/null || echo '(žymės nėra)'
+git -C /root/autoleft status --short --untracked-files=no
+git -C /root/autoleft log --oneline -1
+git -C /root/autoleft log --oneline -1 origin/master
+ls -la /root/autoleft_bukle 2>/dev/null | head -3
+```
+
+Atgaivinimas (saugu paleisti net jei viskas gerai):
+
+```bash
+systemctl enable --now autoleft-deploy.timer
+rm -f /root/autoleft/deploy/.blogas-commitas
+/root/autoleft/deploy-from-git.sh          # paleidžia iškart, rodo žurnalą
+```
