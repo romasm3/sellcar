@@ -46,6 +46,29 @@ sys.path.insert(0, os.path.join(BASE, 'docs'))
 PAKETAS = 100         # eilučių viename kreipinyje
 PAUZE = 0.2           # s tarp paketų
 
+# Katalogo aplankas ne visada sutampa su Google kalbos kodu:
+# Django rašo `zh_Hans`, Google laukia `zh-CN`.
+GOOGLE_KODAS = {
+    'zh_Hans': 'zh-CN', 'zh-hans': 'zh-CN', 'zh_Hant': 'zh-TW',
+    'pt_BR': 'pt', 'nb': 'no',
+}
+
+
+def visos_kalbos(su_saltiniu=False):
+    """Visi locale/ katalogai — kad naujos kalbos nereikėtų įrašinėti.
+
+    `lt` praleidžiam: tai šaltinio kalba, jos msgid'ai jau lietuviški, ir
+    tuščias msgstr vartotojui rodo būtent juos. Vertimas iš lietuvių į
+    lietuvių tik sugadintų patvirtintą tekstą. Reikia — nurodyk ją vardu.
+    """
+    saknis = os.path.join(BASE, 'locale')
+    visos = sorted(k for k in os.listdir(saknis)
+                   if os.path.exists(os.path.join(saknis, k,
+                                                  'LC_MESSAGES', 'django.po')))
+    if su_saltiniu:
+        return visos
+    return [k for k in visos if k != 'lt']
+
 try:
     import polib
 except ImportError:
@@ -112,8 +135,9 @@ def versk_paketais(tekstai, kalba, cli):
         try:
             # Šaltinio kalbos NENURODOM: msgid'ai mišrūs — dalis angliški,
             # dalis lietuviški. Google atpažįsta pati.
-            atsakymas = cli.translate(porcija, target_language=kalba,
-                                      format_='text')
+            atsakymas = cli.translate(
+                porcija, target_language=GOOGLE_KODAS.get(kalba, kalba),
+                format_='text')
             if isinstance(atsakymas, dict):
                 atsakymas = [atsakymas]
             for j, t in enumerate(atsakymas):
@@ -166,7 +190,9 @@ def isaugok_jei_svaru(po, kelias):
 
 def main():
     bandymas = '--bandymas' in sys.argv
-    kalbos = [a for a in sys.argv[1:] if not a.startswith('--')] or ['ru', 'en']
+    kalbos = [a for a in sys.argv[1:] if not a.startswith('--')]
+    if not kalbos or kalbos == ['visos']:
+        kalbos = visos_kalbos()
 
     cli = None
     if not bandymas:

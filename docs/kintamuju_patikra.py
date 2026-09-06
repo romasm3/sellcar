@@ -21,7 +21,17 @@ import re
 import sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KALBOS = ('ru', 'en', 'lt')
+
+
+def visos_kalbos():
+    """Visi katalogai, kurie tikrai yra locale/ (ne tik trys pirmieji)."""
+    saknis = os.path.join(BASE, 'locale')
+    return tuple(sorted(
+        k for k in os.listdir(saknis)
+        if os.path.exists(os.path.join(saknis, k, 'LC_MESSAGES', 'django.po'))))
+
+
+KALBOS = visos_kalbos()
 
 try:
     import polib
@@ -41,6 +51,16 @@ def kintamieji(tekstas):
 
 def procentai(tekstas):
     return sorted(PROC.findall(tekstas or ''))
+
+
+def vardiniai(tekstas):
+    """Tik %(vardas)s pavidalo — jų msgstr'e privalo būti visų."""
+    return sorted(p for p in PROC.findall(tekstas or '') if p.startswith('%('))
+
+
+def skliaustai(tekstas):
+    """{n}, {vardas} — JavaScript pusėje keičiami šablonai."""
+    return sorted(SKLIAUSTAI.findall(tekstas or ''))
 
 
 def zymes(tekstas):
@@ -89,6 +109,22 @@ def bedos(kelias):
         if svetimi:
             rasta.append((e, e.msgid, e.msgstr,
                           'kintamieji: originale nėra %s' % svetimi))
+            continue
+        # {n} pavidalo laukai: mašina mielai išverčia patį vardą
+        # („{n}" → „{ن}") arba nubraukia skliaustus. Tikrinam abi puses,
+        # bet tik jei originale skliaustų APSKRITAI yra — kitaip
+        # nubaustume sąmoningai pridėtą {n} (žr. „Uploading photos…").
+        sa, ss = skliaustai(e.msgid), skliaustai(e.msgstr)
+        if sa and sa != ss:
+            rasta.append((e, e.msgid, e.msgstr,
+                          'skliaustiniai kintamieji: %s vs %s' % (sa, ss)))
+            continue
+        # Vardinis %(x)s iš vertimo dingti negali: gettext tokį įrašą
+        # atmeta, o msgfmt --check laiko failą klaidingu.
+        dingę = [p for p in vardiniai(e.msgid) if p not in vardiniai(e.msgstr)]
+        if dingę:
+            rasta.append((e, e.msgid, e.msgstr,
+                          'vertime dingo kintamasis %s' % dingę))
     return po, rasta
 
 
