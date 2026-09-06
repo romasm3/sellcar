@@ -23,12 +23,14 @@ msgid "Private Seller"
 msgstr "بائع خاص"
 
 #: apps/accounts/models.py:18
+#, fuzzy
 msgid "Car Dealer / Autohouse"
-msgstr ""
+msgstr "معرض سيارات / مركز بيع السيارات"
 
 #: apps/accounts/models.py:27
+#, fuzzy
 msgid "Bio"
-msgstr ""
+msgstr "كان"
 
 #: apps/accounts/models.py:28 templates/listings/listing_detail.html:421
 #: templates/listings/listing_detail.html:651
@@ -46,8 +48,9 @@ msgid "Phone Number"
 msgstr "رقم التليفون"
 
 #: apps/accounts/models.py:30
+#, fuzzy
 msgid "Secondary Phone Number"
-msgstr ""
+msgstr "رقم الهاتف الثانوي"
 
 #: apps/accounts/models.py:31 templates/accounts/profile_edit.html:101
 msgid "Street"
@@ -123,16 +126,19 @@ msgid "Seller Type"
 msgstr "نوع البائع"
 
 #: apps/accounts/models.py:44 templates/accounts/dealer_setup.html:22
+#, fuzzy
 msgid "Company Name"
-msgstr ""
+msgstr "اسم الشركة"
 
 #: apps/accounts/models.py:45
+#, fuzzy
 msgid "Company Logo"
-msgstr ""
+msgstr "شعار الشركة"
 
 #: apps/accounts/models.py:46
+#, fuzzy
 msgid "Banner Image"
-msgstr ""
+msgstr "صورة بانر"
 
 #: apps/accounts/models.py:47 templates/accounts/dealer_setup.html:76
 msgid "Working Hours"
@@ -143,8 +149,9 @@ msgid "Contact Person"
 msgstr "الشخص الذي يمكن الاتصال به"
 
 #: apps/accounts/models.py:49
+#, fuzzy
 msgid "Company Description"
-msgstr ""
+msgstr "وصف الشركة"
 
 #: apps/accounts/models.py:50 templates/accounts/dealer_setup.html:34
 #: templates/accounts/seller_profile.html:375
@@ -152,60 +159,74 @@ msgid "Website"
 msgstr "موقع إلكتروني"
 
 #: apps/accounts/models.py:53 apps/accounts/models.py:242
+#, fuzzy
 msgid "Rating"
-msgstr ""
+msgstr "تصنيف"
 
 #: apps/accounts/models.py:54
+#, fuzzy
 msgid "Rating Count"
-msgstr ""
+msgstr "عدد التقييمات"
 
 #: apps/accounts/models.py:59
+#, fuzzy
 msgid "Wallet Balance (points)"
-msgstr ""
+msgstr "رصيد المحفظة (نقاط)"
 
 #: apps/accounts/models.py:63
+#, fuzzy
 msgid "Email Notifications"
-msgstr ""
+msgstr "إشعارات البريد الإلكتروني"
 
 #: apps/accounts/models.py:64
+#, fuzzy
 msgid "Email Messages Notifications"
-msgstr ""
+msgstr "إشعارات رسائل البريد الإلكتروني"
 
 #: apps/accounts/models.py:65
+#, fuzzy
 msgid "Marketing Emails"
-msgstr ""
+msgstr "رسائل التسويق الإلكترونية"
 
 #: apps/accounts/models.py:66
+#, fuzzy
 msgid "SMS Notifications"
-msgstr ""
+msgstr "إشعارات الرسائل النصية القصيرة"
 
 #: apps/accounts/models.py:69
+#, fuzzy
 msgid "Show Email on Profile"
-msgstr ""
+msgstr "إظهار البريد الإلكتروني في الملف الشخصي"
 
 #: apps/accounts/models.py:70
+#, fuzzy
 msgid "Show Phone on Listings"
-msgstr ""
+msgstr "إظهار رقم الهاتف في القوائم"
 
 #: apps/accounts/models.py:71
+#, fuzzy
 msgid "Public Profile"
-msgstr ""
+msgstr "الملف الشخصي العام"
 
 #: apps/accounts/models.py:74
+#, fuzzy
 msgid "Show Location on Map"
-msgstr ""
+msgstr "عرض الموقع على الخريطة"
 
 #: apps/accounts/models.py:85
+#, fuzzy
 msgid "Account type"
-msgstr ""
+msgstr "نوع الحساب"
 
 #: apps/accounts/models.py:91
+#, fuzzy
 msgid "Dealer status"
-msgstr ""
+msgstr "حالة الوكيل"
 
 #: apps/accounts/models.py:116
+#, fuzzy
 msgid "Dealer working hours"
-msgstr ""
+msgstr "ساعات عمل الوكيل"
 
 #: apps/accounts/models.py:125 config/settings.py:143
 msgid "English"
@@ -240,36 +261,42 @@ msgid "Français"
 msgstr "Français"
 
 #: apps/accounts/models.py:139
+#, fuzzy
 msgid "Preferred Language"
-msgstr ""
+msgstr "اللغة المفضلة"
 
 #: apps/accounts/models.py:171
 #: templates/listings/wheels_advanced_search.html:120
 #: templates/listings/wheels_list.html:179
 #: templates/listings/wheels_list.html:313
 #: templates/listings/wheels_list.html:472
+#, fuzzy
 msgid "Profile"
-msgstr ""
+msgstr "حساب تعريفي"
 
 #: apps/accounts/models.py:180
+#, fuzzy
 msgid "Top-up"
-msgstr ""
+msgstr "شحن الرصيد"
 
 #: apps/accounts/models.py:181
 msgid "Bonus"
 msgstr "علاوة"
 
 #: apps/accounts/models.py:182
+#, fuzzy
 msgid "Spend"
-msgstr ""
+msgstr "ينفق"
 
 #: apps/accounts/models.py:183
+#, fuzzy
 msgid "Refund"
-msgstr ""
+msgstr "استرداد"
 
 #: apps/accounts/models.py:184
+#, fuzzy
 msgid "Test top-up"
-msgstr ""
+msgstr "اختبار إعادة التعبئة"
 
 #: apps/accounts/models.py:188 templates/accounts/wallet.html:145
 msgid "Pending"
@@ -284,53 +311,64 @@ msgid "Failed"
 msgstr "فشل"
 
 #: apps/accounts/models.py:191
+#, fuzzy
 msgid "Refunded"
-msgstr ""
+msgstr "تم استرداد المبلغ"
 
 #: apps/accounts/models.py:201
+#, fuzzy
 msgid "Amount (points)"
-msgstr ""
+msgstr "المبلغ (نقاط)"
 
 #: apps/accounts/models.py:206
+#, fuzzy
 msgid "Bonus points"
-msgstr ""
+msgstr "نقاط إضافية"
 
 #: apps/accounts/models.py:225
+#, fuzzy
 msgid "Wallet Transaction"
-msgstr ""
+msgstr "معاملة المحفظة"
 
 #: apps/accounts/models.py:243
+#, fuzzy
 msgid "Comment"
-msgstr ""
+msgstr "تعليق"
 
 #: apps/accounts/models.py:248
+#, fuzzy
 msgid "Seller Review"
-msgstr ""
+msgstr "مراجعة البائع"
 
 #: apps/listings/boats_views.py:42
 #: templates/listings/partials/panel_boats.html:20
+#, fuzzy
 msgid "Aluminium"
-msgstr ""
+msgstr "الألومنيوم"
 
 #: apps/listings/boats_views.py:43 apps/listings/models.py:2935
 #: templates/listings/partials/panel_boats.html:21
+#, fuzzy
 msgid "Steel"
-msgstr ""
+msgstr "فُولاَذ"
 
 #: apps/listings/boats_views.py:44
 #: templates/listings/partials/panel_boats.html:22
+#, fuzzy
 msgid "Fiberglass / Plastic"
-msgstr ""
+msgstr "الألياف الزجاجية / البلاستيك"
 
 #: apps/listings/boats_views.py:45
 #: templates/listings/partials/panel_boats.html:23
+#, fuzzy
 msgid "Wood"
-msgstr ""
+msgstr "خشب"
 
 #: apps/listings/boats_views.py:46
 #: templates/listings/partials/panel_boats.html:24
+#, fuzzy
 msgid "PVC / Rubber"
-msgstr ""
+msgstr "PVC / مطاط"
 
 #: apps/listings/boats_views.py:47 apps/listings/models.py:220
 #: apps/listings/models.py:248 apps/listings/models.py:283
@@ -347,8 +385,9 @@ msgstr "آخر"
 
 #: apps/listings/forms.py:21 apps/listings/models.py:16
 #: apps/listings/models.py:543
+#, fuzzy
 msgid "Vehicle Type"
-msgstr ""
+msgstr "نوع المركبة"
 
 #: apps/listings/forms.py:27 apps/listings/models.py:53
 #: apps/listings/models.py:545 templates/accounts/dealer_public_page.html:48
@@ -433,20 +472,23 @@ msgid "Model"
 msgstr "نموذج"
 
 #: apps/listings/forms.py:38
+#, fuzzy
 msgid "Manufacturing Year"
-msgstr ""
+msgstr "سنة الصنع"
 
 #: apps/listings/forms.py:44
+#, fuzzy
 msgid "Registration Month"
-msgstr ""
+msgstr "شهر التسجيل"
 
 #: apps/listings/forms.py:50
 msgid "VIN Code"
 msgstr "رمز تعريف المركبة (VIN)"
 
 #: apps/listings/forms.py:81
+#, fuzzy
 msgid "Upload Video (YouTube or other URL)"
-msgstr ""
+msgstr "تحميل الفيديو (يوتيوب أو رابط آخر)"
 
 #: apps/listings/forms.py:95 templates/listings/advanced_search.html:244
 #: templates/listings/advanced_search.html:600 templates/listings/home.html:46
@@ -572,8 +614,9 @@ msgid "Mileage (km)"
 msgstr "المسافة المقطوعة (كم)"
 
 #: apps/listings/forms.py:157
+#, fuzzy
 msgid "Engine Capacity (L)"
-msgstr ""
+msgstr "سعة المحرك (لتر)"
 
 #: apps/listings/forms.py:167 apps/listings/models.py:2163
 #: templates/listings/advanced_search.html:682
@@ -626,20 +669,24 @@ msgid "Euro Standard"
 msgstr "المعيار الأوروبي"
 
 #: apps/listings/forms.py:223
+#, fuzzy
 msgid "CO\\u2082 Emission (g/km)"
-msgstr ""
+msgstr "انبعاثات ثاني أكسيد الكربون (غ/كم)"
 
 #: apps/listings/forms.py:233
+#, fuzzy
 msgid "Fuel Consumption City (l/100km)"
-msgstr ""
+msgstr "معدل استهلاك الوقود داخل المدينة (لتر/100 كم)"
 
 #: apps/listings/forms.py:244
+#, fuzzy
 msgid "Fuel Consumption Highway (l/100km)"
-msgstr ""
+msgstr "معدل استهلاك الوقود على الطرق السريعة (لتر/100 كم)"
 
 #: apps/listings/forms.py:255
+#, fuzzy
 msgid "Fuel Consumption Combined (l/100km)"
-msgstr ""
+msgstr "معدل استهلاك الوقود (لتر/100 كم)"
 
 #: apps/listings/forms.py:266 templates/listings/listing_create.html:566
 #: templates/listings/listing_detail.html:938
@@ -648,20 +695,24 @@ msgid "Origin Country"
 msgstr "بلد المنشأ"
 
 #: apps/listings/forms.py:273
+#, fuzzy
 msgid "Technical Inspection Month"
-msgstr ""
+msgstr "شهر الفحص الفني"
 
 #: apps/listings/forms.py:280
+#, fuzzy
 msgid "Technical Inspection Year"
-msgstr ""
+msgstr "سنة الفحص الفني"
 
 #: apps/listings/forms.py:292
+#, fuzzy
 msgid "Search Features"
-msgstr ""
+msgstr "ميزات البحث"
 
 #: apps/listings/forms.py:323
+#, fuzzy
 msgid "Price (\\u20ac)"
-msgstr ""
+msgstr "السعر (جنيه إسترليني)"
 
 #: apps/listings/forms.py:333 templates/listings/listing_create.html:624
 #: templates/listings/listing_edit.html:74
@@ -703,50 +754,58 @@ msgid "Street Address"
 msgstr "عنوان الشارع"
 
 #: apps/listings/forms.py:422
+#, fuzzy
 msgid "Hide exact address (show only city/area on map)"
-msgstr ""
+msgstr "إخفاء العنوان الكامل (إظهار المدينة/المنطقة فقط على الخريطة)"
 
 #: apps/listings/forms.py:429
+#, fuzzy
 msgid "Contact Phone"
-msgstr ""
+msgstr "رقم الهاتف للتواصل"
 
 #: apps/listings/forms.py:438 templates/accounts/login.html:26
 msgid "Email Address"
 msgstr "عنوان البريد الإلكتروني"
 
 #: apps/listings/forms.py:447
+#, fuzzy
 msgid "Show phone number in listing"
-msgstr ""
+msgstr "إظهار رقم الهاتف في القائمة"
 
 #: apps/listings/forms.py:454
+#, fuzzy
 msgid "I agree to the Terms and Conditions and Privacy Policy"
-msgstr ""
+msgstr "أوافق على الشروط والأحكام وسياسة الخصوصية"
 
 #: apps/listings/forms.py:460
+#, fuzzy
 msgid "Subscribe to newsletter and special offers"
-msgstr ""
+msgstr "اشترك في النشرة الإخبارية والعروض الخاصة"
 
 #: apps/listings/image_validation.py:38
+#, fuzzy
 msgid "failas"
-msgstr ""
+msgstr "ملف"
 
 #: apps/listings/image_validation.py:43
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "Failas „%(name)s“ per didelis (%(size).1f MB). Maksimalus dydis — 20 MB."
 msgstr ""
+"الملف \"%(name)s\" كبير جدًا (%(size).1f ميجابايت). الحد الأقصى للحجم هو 20 "
+"ميجابايت."
 
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
 "failai."
-msgstr ""
+msgstr "تنسيق الملف غير صالح: '%(name)s'. يُسمح فقط بملفات JPG وPNG وWEBP."
 
 #: apps/listings/image_validation.py:64
-#, python-format
+#, python-format, fuzzy
 msgid "Failas „%(name)s“ nėra tinkamas paveikslėlis arba yra sugadintas."
-msgstr ""
+msgstr "الملف \"%(name)s\" ليس صورة صالحة أو أنه تالف."
 
 #: apps/listings/models.py:11 apps/listings/models.py:25
 #: apps/listings/models.py:48 apps/listings/models.py:62
@@ -765,42 +824,50 @@ msgid "Order"
 msgstr "طلب"
 
 #: apps/listings/models.py:33
+#, fuzzy
 msgid "Parent subcategory"
-msgstr ""
+msgstr "الفئة الفرعية الرئيسية"
 
 #: apps/listings/models.py:35 apps/listings/models.py:158
+#, fuzzy
 msgid "Display order"
-msgstr ""
+msgstr "ترتيب العرض"
 
 #: apps/listings/models.py:38
 msgid "SubCategory"
 msgstr "الفئة الفرعية"
 
 #: apps/listings/models.py:82 apps/listings/models.py:547
+#, fuzzy
 msgid "SubModel"
-msgstr ""
+msgstr "النموذج الفرعي"
 
 #: apps/listings/models.py:96 apps/listings/models.py:551
+#, fuzzy
 msgid "Motorcycle Brand"
-msgstr ""
+msgstr "ماركة دراجات نارية"
 
 #: apps/listings/models.py:110 apps/listings/models.py:556
+#, fuzzy
 msgid "Motorcycle Model"
-msgstr ""
+msgstr "نموذج دراجة نارية"
 
 #: apps/listings/models.py:128 apps/listings/models.py:561
 #: apps/listings/models.py:2073
+#, fuzzy
 msgid "Truck Brand"
-msgstr ""
+msgstr "ماركة الشاحنات"
 
 #: apps/listings/models.py:142 apps/listings/models.py:566
 #: apps/listings/models.py:2078
+#, fuzzy
 msgid "Truck Model"
-msgstr ""
+msgstr "نماذج الشاحنات"
 
 #: apps/listings/models.py:161
+#, fuzzy
 msgid "Gear Brand"
-msgstr ""
+msgstr "ماركة جير"
 
 #: apps/listings/models.py:199 apps/listings/models.py:1876
 #: apps/listings/models.py:2941 apps/listings/moto_part_views.py:31
@@ -830,28 +897,34 @@ msgid "Damaged"
 msgstr "تالف"
 
 #: apps/listings/models.py:205 apps/listings/models.py:1881
+#, fuzzy
 msgid "Juodraštis"
-msgstr ""
+msgstr "مسودة"
 
 #: apps/listings/models.py:206 apps/listings/models.py:1882
+#, fuzzy
 msgid "Aktyvus"
-msgstr ""
+msgstr "نشيط"
 
 #: apps/listings/models.py:207 apps/listings/models.py:1883
+#, fuzzy
 msgid "Rezervuotas"
-msgstr ""
+msgstr "محجوز"
 
 #: apps/listings/models.py:208 apps/listings/models.py:1884
+#, fuzzy
 msgid "Neaktyvus"
-msgstr ""
+msgstr "غير نشط"
 
 #: apps/listings/models.py:209 apps/listings/models.py:1885
+#, fuzzy
 msgid "Parduotas"
-msgstr ""
+msgstr "مُباع"
 
 #: apps/listings/models.py:210 apps/listings/models.py:1886
+#, fuzzy
 msgid "Archyvuotas"
-msgstr ""
+msgstr "مؤرشف"
 
 #: apps/listings/models.py:214 templates/listings/home.html:49
 msgid "Sedan"
@@ -862,44 +935,52 @@ msgid "Hatchback"
 msgstr "هاتشباك"
 
 #: apps/listings/models.py:215
+#, fuzzy
 msgid "Estate/Wagon"
-msgstr ""
+msgstr "سيارة ستيشن واجن"
 
 #: apps/listings/models.py:215
+#, fuzzy
 msgid "Minivan"
-msgstr ""
+msgstr "سيارة ميني فان"
 
 #: apps/listings/models.py:216
+#, fuzzy
 msgid "SUV/Crossover"
-msgstr ""
+msgstr "سيارة رياضية متعددة الاستخدامات/كروس أوفر"
 
 #: apps/listings/models.py:216 templates/listings/home.html:52
 msgid "Coupe"
 msgstr "كوبيه"
 
 #: apps/listings/models.py:217
+#, fuzzy
 msgid "Commercial"
-msgstr ""
+msgstr "تجاري"
 
 #: apps/listings/models.py:217
 msgid "Convertible"
 msgstr ""
 
 #: apps/listings/models.py:218
+#, fuzzy
 msgid "Limousine"
-msgstr ""
+msgstr "ليموزين"
 
 #: apps/listings/models.py:218
+#, fuzzy
 msgid "Pickup"
-msgstr ""
+msgstr "يلتقط"
 
 #: apps/listings/models.py:219
+#, fuzzy
 msgid "Minibus"
-msgstr ""
+msgstr "حافلة صغيرة"
 
 #: apps/listings/models.py:219
+#, fuzzy
 msgid "Truck/Van"
-msgstr ""
+msgstr "شاحنة/سيارة نقل"
 
 #: apps/listings/models.py:225 apps/listings/models.py:253
 #: apps/listings/models.py:265 apps/listings/models.py:273
@@ -935,225 +1016,280 @@ msgid "— Select —"
 msgstr "- يختار -"
 
 #: apps/listings/models.py:226 apps/listings/models.py:1892
+#, fuzzy
 msgid "Tankers"
-msgstr ""
+msgstr "ناقلات النفط"
 
 #: apps/listings/models.py:227 apps/listings/models.py:1893
+#, fuzzy
 msgid "Car Carriers"
-msgstr ""
+msgstr "ناقلات السيارات"
 
 #: apps/listings/models.py:228 apps/listings/models.py:1894
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Concrete Mixers"
-msgstr ""
+msgstr "خلاطات الخرسانة"
 
 #: apps/listings/models.py:229 apps/listings/models.py:1895
+#, fuzzy
 msgid "Flatbed"
-msgstr ""
+msgstr "شاحنة مسطحة"
 
 #: apps/listings/models.py:230 apps/listings/models.py:1896
+#, fuzzy
 msgid "Flatbed with Tarpaulin"
-msgstr ""
+msgstr "شاحنة مسطحة مغطاة بقماش مشمع"
 
 #: apps/listings/models.py:231 apps/listings/models.py:1897
+#, fuzzy
 msgid "Curtain-Side"
-msgstr ""
+msgstr "جانب الستارة"
 
 #: apps/listings/models.py:232 apps/listings/models.py:1898
+#, fuzzy
 msgid "Double Cab"
-msgstr ""
+msgstr "كابينة مزدوجة"
 
 #: apps/listings/models.py:233 apps/listings/models.py:1899
+#, fuzzy
 msgid "Livestock Carriers"
-msgstr ""
+msgstr "ناقلات الماشية"
 
 #: apps/listings/models.py:234 apps/listings/models.py:1900
+#, fuzzy
 msgid "Insulated Box"
-msgstr ""
+msgstr "صندوق معزول"
 
 #: apps/listings/models.py:235 apps/listings/models.py:1901
+#, fuzzy
 msgid "Hard-Side Box"
-msgstr ""
+msgstr "صندوق ذو جوانب صلبة"
 
 #: apps/listings/models.py:236 apps/listings/models.py:1902
+#, fuzzy
 msgid "Container Carriers"
-msgstr ""
+msgstr "ناقلات الحاويات"
 
 #: apps/listings/models.py:237 apps/listings/models.py:1903
+#, fuzzy
 msgid "Logging Trucks"
-msgstr ""
+msgstr "شاحنات نقل الأخشاب"
 
 #: apps/listings/models.py:238 apps/listings/models.py:1904
+#, fuzzy
 msgid "Milk Tankers"
-msgstr ""
+msgstr "صهاريج الحليب"
 
 #: apps/listings/models.py:239 apps/listings/models.py:1905
+#, fuzzy
 msgid "Platforms"
-msgstr ""
+msgstr "المنصات"
 
 #: apps/listings/models.py:240 apps/listings/models.py:1906
+#, fuzzy
 msgid "Mobile Shop"
-msgstr ""
+msgstr "متجر الهواتف المحمولة"
 
 #: apps/listings/models.py:241 apps/listings/models.py:1907
+#, fuzzy
 msgid "Tippers"
-msgstr ""
+msgstr "دافعو المكافآت"
 
 #: apps/listings/models.py:242 apps/listings/models.py:1908
+#, fuzzy
 msgid "Hook-Lift Tippers"
-msgstr ""
+msgstr "شاحنات قلابة مزودة برافعة خطافية"
 
 #: apps/listings/models.py:243 apps/listings/models.py:1909
+#, fuzzy
 msgid "Crane Tippers"
-msgstr ""
+msgstr "رافعات قلابة"
 
 #: apps/listings/models.py:244 apps/listings/models.py:1910
+#, fuzzy
 msgid "With Crane"
-msgstr ""
+msgstr "مع كرين"
 
 #: apps/listings/models.py:245 apps/listings/models.py:1911
+#, fuzzy
 msgid "Refrigerators"
-msgstr ""
+msgstr "الثلاجات"
 
 #: apps/listings/models.py:246 apps/listings/models.py:1912
+#, fuzzy
 msgid "Curtain / Tarpaulin"
-msgstr ""
+msgstr "ستارة / قماش مشمع"
 
 #: apps/listings/models.py:247 apps/listings/models.py:1913
+#, fuzzy
 msgid "Chassis"
-msgstr ""
+msgstr "الهيكل"
 
 #: apps/listings/models.py:254 apps/listings/models.py:1927
+#, fuzzy
 msgid "4x2"
-msgstr ""
+msgstr "4x2"
 
 #: apps/listings/models.py:254 apps/listings/models.py:1928
+#, fuzzy
 msgid "4x4"
-msgstr ""
+msgstr "4x4"
 
 #: apps/listings/models.py:255 apps/listings/models.py:1929
+#, fuzzy
 msgid "6x2"
-msgstr ""
+msgstr "6x2"
 
 #: apps/listings/models.py:255
+#, fuzzy
 msgid "6x2/4"
-msgstr ""
+msgstr "6x2/4"
 
 #: apps/listings/models.py:256 apps/listings/models.py:1930
+#, fuzzy
 msgid "6x4"
-msgstr ""
+msgstr "6x4"
 
 #: apps/listings/models.py:256
+#, fuzzy
 msgid "6x4/2"
-msgstr ""
+msgstr "6x4/2"
 
 #: apps/listings/models.py:257 apps/listings/models.py:1931
+#, fuzzy
 msgid "6x6"
-msgstr ""
+msgstr "6x6"
 
 #: apps/listings/models.py:258 apps/listings/models.py:1932
+#, fuzzy
 msgid "8x2"
-msgstr ""
+msgstr "8x2"
 
 #: apps/listings/models.py:258
+#, fuzzy
 msgid "8x2/4"
-msgstr ""
+msgstr "8x2/4"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1933
+#, fuzzy
 msgid "8x4"
-msgstr ""
+msgstr "8x4"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1934
+#, fuzzy
 msgid "8x6"
-msgstr ""
+msgstr "8x6"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1935
+#, fuzzy
 msgid "8x8"
-msgstr ""
+msgstr "8x8"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x4"
-msgstr ""
+msgstr "10x4"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x6"
-msgstr ""
+msgstr "10x6"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x8"
-msgstr ""
+msgstr "10x8"
 
 #: apps/listings/models.py:266
+#, fuzzy
 msgid "Up to 3.5 t"
-msgstr ""
+msgstr "تصل إلى 3.5 طن"
 
 #: apps/listings/models.py:267
+#, fuzzy
 msgid "3.5 - 7.5 t"
-msgstr ""
+msgstr "3.5 - 7.5 طن"
 
 #: apps/listings/models.py:268
+#, fuzzy
 msgid "Over 7.5 t"
-msgstr ""
+msgstr "أكثر من 7.5 طن"
 
 #: apps/listings/models.py:274
+#, fuzzy
 msgid "Air"
-msgstr ""
+msgstr "هواء"
 
 #: apps/listings/models.py:275
+#, fuzzy
 msgid "Spring"
-msgstr ""
+msgstr "ربيع"
 
 #: apps/listings/models.py:276
+#, fuzzy
 msgid "Parabolic"
-msgstr ""
+msgstr "القطع المكافئ"
 
 #: apps/listings/models.py:277
+#, fuzzy
 msgid "Hydraulic"
-msgstr ""
+msgstr "هيدروليكي"
 
 #: apps/listings/models.py:278
+#, fuzzy
 msgid "Rubber"
-msgstr ""
+msgstr "ممحاة"
 
 #: apps/listings/models.py:284 apps/listings/models.py:1976
+#, fuzzy
 msgid "White"
-msgstr ""
+msgstr "أبيض"
 
 #: apps/listings/models.py:284 apps/listings/models.py:1976
+#, fuzzy
 msgid "Black"
-msgstr ""
+msgstr "أسود"
 
 #: apps/listings/models.py:285 apps/listings/models.py:1977
+#, fuzzy
 msgid "Red / Burgundy"
-msgstr ""
+msgstr "أحمر / بورغندي"
 
 #: apps/listings/models.py:285 apps/listings/models.py:1977
+#, fuzzy
 msgid "Blue"
-msgstr ""
+msgstr "أزرق"
 
 #: apps/listings/models.py:286 apps/listings/models.py:1978
+#, fuzzy
 msgid "Green / Khaki"
-msgstr ""
+msgstr "أخضر / كاكي"
 
 #: apps/listings/models.py:286 apps/listings/models.py:1978
+#, fuzzy
 msgid "Yellow / Gold"
-msgstr ""
+msgstr "أصفر / ذهبي"
 
 #: apps/listings/models.py:287 apps/listings/models.py:1979
+#, fuzzy
 msgid "Orange"
-msgstr ""
+msgstr "البرتقالي"
 
 #: apps/listings/models.py:287
+#, fuzzy
 msgid "Purple"
-msgstr ""
+msgstr "أرجواني"
 
 #: apps/listings/models.py:288 apps/listings/models.py:1979
+#, fuzzy
 msgid "Brown / Beige"
-msgstr ""
+msgstr "بني / بيج"
 
 #: apps/listings/models.py:289 apps/listings/models.py:1980
+#, fuzzy
 msgid "Multicolor"
-msgstr ""
+msgstr "متعدد الألوان"
 
 #: apps/listings/models.py:293 apps/listings/models.py:1984
 #: templates/listings/listing_detail.html:847
@@ -1163,68 +1299,84 @@ msgid "No defects"
 msgstr "لا توجد عيوب"
 
 #: apps/listings/models.py:293 apps/listings/models.py:1987
+#, fuzzy
 msgid "Dented"
-msgstr ""
+msgstr "متضرر"
 
 #: apps/listings/models.py:294 apps/listings/models.py:1988
+#, fuzzy
 msgid "Burned"
-msgstr ""
+msgstr "محروق"
 
 #: apps/listings/models.py:294 apps/listings/models.py:1986
+#, fuzzy
 msgid "Gearbox defect"
-msgstr ""
+msgstr "عيب في علبة التروس"
 
 #: apps/listings/models.py:295
+#, fuzzy
 msgid "Hail damage"
-msgstr ""
+msgstr "أضرار البرد"
 
 #: apps/listings/models.py:295
+#, fuzzy
 msgid "Sunken"
-msgstr ""
+msgstr "غائر"
 
 #: apps/listings/models.py:296 apps/listings/models.py:1985
+#, fuzzy
 msgid "Engine defect"
-msgstr ""
+msgstr "عطل في المحرك"
 
 #: apps/listings/models.py:296 apps/listings/models.py:1989
+#, fuzzy
 msgid "Major defects"
-msgstr ""
+msgstr "عيوب رئيسية"
 
 #: apps/listings/models.py:299
+#, fuzzy
 msgid "2/3 doors"
-msgstr ""
+msgstr "2/3 أبواب"
 
 #: apps/listings/models.py:299
+#, fuzzy
 msgid "4/5 doors"
-msgstr ""
+msgstr "4/5 أبواب"
 
 #: apps/listings/models.py:302 apps/listings/models.py:1993
+#, fuzzy
 msgid "Left-hand drive"
-msgstr ""
+msgstr "القيادة على اليسار"
 
 #: apps/listings/models.py:303 apps/listings/models.py:1994
+#, fuzzy
 msgid "Right-hand drive (UK)"
-msgstr ""
+msgstr "القيادة على اليمين (المملكة المتحدة)"
 
 #: apps/listings/models.py:307
+#, fuzzy
 msgid "Front-wheel drive (FWD)"
-msgstr ""
+msgstr "الدفع الأمامي (FWD)"
 
 #: apps/listings/models.py:308
+#, fuzzy
 msgid "Rear-wheel drive (RWD)"
-msgstr ""
+msgstr "الدفع بالعجلات الخلفية (RWD)"
 
 #: apps/listings/models.py:309
+#, fuzzy
 msgid "All-wheel drive (AWD/4WD)"
-msgstr ""
+msgstr "نظام الدفع الرباعي (AWD/4WD)"
 
 #: apps/listings/models.py:323
+#, fuzzy
 msgid "No climate control"
-msgstr ""
+msgstr "لا يوجد نظام تكييف"
 
 #: apps/listings/models.py:324
+#, fuzzy
 msgid "Air conditioning"
-msgstr ""
+msgstr "تكييف"
 
 #: apps/listings/models.py:325
 #: templates/listings/listing_create_cars_quick.html:337
@@ -1232,132 +1384,164 @@ msgid "Climate control"
 msgstr "نظام التحكم في المناخ"
 
 #: apps/listings/models.py:326
+#, fuzzy
 msgid "Dual-zone climate control"
-msgstr ""
+msgstr "نظام تحكم مناخي ثنائي المنطقة"
 
 #: apps/listings/models.py:327
+#, fuzzy
 msgid "Triple-zone climate control"
-msgstr ""
+msgstr "نظام تحكم مناخي ثلاثي المناطق"
 
 #: apps/listings/models.py:331
+#, fuzzy
 msgid "Sport"
-msgstr ""
+msgstr "رياضة"
 
 #: apps/listings/models.py:331
+#, fuzzy
 msgid "Cruiser"
-msgstr ""
+msgstr "كروزر"
 
 #: apps/listings/models.py:332
+#, fuzzy
 msgid "Touring"
-msgstr ""
+msgstr "السياحة"
 
 #: apps/listings/models.py:332
+#, fuzzy
 msgid "Enduro"
-msgstr ""
+msgstr "إندورو"
 
 #: apps/listings/models.py:333
+#, fuzzy
 msgid "Motocross"
-msgstr ""
+msgstr "موتوكروس"
 
 #: apps/listings/models.py:333
+#, fuzzy
 msgid "Chopper"
-msgstr ""
+msgstr "ساطور"
 
 #: apps/listings/models.py:334
+#, fuzzy
 msgid "Naked"
-msgstr ""
+msgstr "عارٍ"
 
 #: apps/listings/models.py:334
+#, fuzzy
 msgid "Scooter"
-msgstr ""
+msgstr "سكوتر"
 
 #: apps/listings/models.py:335
+#, fuzzy
 msgid "Moped"
-msgstr ""
+msgstr "دراجة نارية صغيرة"
 
 #: apps/listings/models.py:335
+#, fuzzy
 msgid "ATV / Quad"
-msgstr ""
+msgstr "مركبة رباعية الدفع"
 
 #: apps/listings/models.py:336
+#, fuzzy
 msgid "Trike"
-msgstr ""
+msgstr "دراجة ثلاثية العجلات"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Air-cooled"
-msgstr ""
+msgstr "تبريد بالهواء"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Water-cooled"
-msgstr ""
+msgstr "مبرد بالماء"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Oil-cooled"
-msgstr ""
+msgstr "مبرد بالزيت"
 
 #: apps/listings/models.py:344
+#, fuzzy
 msgid "Single-cylinder"
-msgstr ""
+msgstr "أسطوانة واحدة"
 
 #: apps/listings/models.py:344
+#, fuzzy
 msgid "Twin-cylinder"
-msgstr ""
+msgstr "أسطوانتان"
 
 #: apps/listings/models.py:345
+#, fuzzy
 msgid "Parallel-twin"
-msgstr ""
+msgstr "التوأم المتوازي"
 
 #: apps/listings/models.py:345
+#, fuzzy
 msgid "V-twin"
-msgstr ""
+msgstr "محرك ثنائي الأسطوانات على شكل حرف V"
 
 #: apps/listings/models.py:346
+#, fuzzy
 msgid "Triple (3-cylinder)"
-msgstr ""
+msgstr "ثلاثي (3 أسطوانات)"
 
 #: apps/listings/models.py:346
+#, fuzzy
 msgid "Inline-4"
-msgstr ""
+msgstr "خطي-4"
 
 #: apps/listings/models.py:347
+#, fuzzy
 msgid "V4"
-msgstr ""
+msgstr "V4"
 
 #: apps/listings/models.py:347
+#, fuzzy
 msgid "Boxer"
-msgstr ""
+msgstr "ملاكم"
 
 #: apps/listings/models.py:351
+#, fuzzy
 msgid "Helmet"
-msgstr ""
+msgstr "خوذة"
 
 #: apps/listings/models.py:352
+#, fuzzy
 msgid "Protective gear"
-msgstr ""
+msgstr "معدات الوقاية"
 
 #: apps/listings/models.py:353
+#, fuzzy
 msgid "Boots"
-msgstr ""
+msgstr "بوتس"
 
 #: apps/listings/models.py:354
+#, fuzzy
 msgid "Pants"
-msgstr ""
+msgstr "بنطال"
 
 #: apps/listings/models.py:355
+#, fuzzy
 msgid "Suit / Combination"
-msgstr ""
+msgstr "بدلة / طقم"
 
 #: apps/listings/models.py:356
+#, fuzzy
 msgid "Bag / Backpack"
-msgstr ""
+msgstr "حقيبة / حقيبة ظهر"
 
 #: apps/listings/models.py:357
+#, fuzzy
 msgid "Gloves"
-msgstr ""
+msgstr "قفازات"
 
 #: apps/listings/models.py:358
+#, fuzzy
 msgid "Jacket"
-msgstr ""
+msgstr "سترة"
 
 #: apps/listings/models.py:365 apps/listings/models.py:374
 #: apps/listings/models.py:382 apps/listings/models.py:389
@@ -1368,295 +1552,366 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:103
 #: templates/listings/motogear_advanced.html:124
 #: templates/listings/motogear_advanced.html:159
+#, fuzzy
 msgid "Kita"
-msgstr ""
+msgstr "نحن"
 
 #: apps/listings/models.py:366
+#, fuzzy
 msgid "Uždaras (full face)"
-msgstr ""
+msgstr "أوزداراس (قناع كامل للوجه)"
 
 #: apps/listings/models.py:367
+#, fuzzy
 msgid "Integralinis"
-msgstr ""
+msgstr "أساسي"
 
 #: apps/listings/models.py:368
+#, fuzzy
 msgid "Atverčiamas (modular)"
-msgstr ""
+msgstr "معياري"
 
 #: apps/listings/models.py:369
+#, fuzzy
 msgid "Atviras (jet)"
-msgstr ""
+msgstr "مفتوح (نفاث)"
 
 #: apps/listings/models.py:370
+#, fuzzy
 msgid "Krosinis / enduro"
-msgstr ""
+msgstr "كروسينيس / إندورو"
 
 #: apps/listings/models.py:371
+#, fuzzy
 msgid "Dual sport / kelioninis"
-msgstr ""
+msgstr "رياضة مزدوجة / سياحية"
 
 #: apps/listings/models.py:372
+#, fuzzy
 msgid "Pusinis"
-msgstr ""
+msgstr "نصف"
 
 #: apps/listings/models.py:375
+#, fuzzy
 msgid "Sportinė"
-msgstr ""
+msgstr "الرياضة"
 
 #: apps/listings/models.py:376
+#, fuzzy
 msgid "Kelioninė"
-msgstr ""
+msgstr "يسافر"
 
 #: apps/listings/models.py:377 apps/listings/models.py:399
+#, fuzzy
 msgid "Miesto"
-msgstr ""
+msgstr "موقع"
 
 #: apps/listings/models.py:378 apps/listings/models.py:398
+#, fuzzy
 msgid "Adventure"
-msgstr ""
+msgstr "مفامرة"
 
 #: apps/listings/models.py:379
+#, fuzzy
 msgid "Krosinė"
-msgstr ""
+msgstr "فرن"
 
 #: apps/listings/models.py:380
+#, fuzzy
 msgid "Čioperistams"
-msgstr ""
+msgstr "للمروحيات"
 
 #: apps/listings/models.py:383 apps/listings/models.py:402
+#, fuzzy
 msgid "Sportinės"
-msgstr ""
+msgstr "الرياضة"
 
 #: apps/listings/models.py:384 apps/listings/models.py:403
+#, fuzzy
 msgid "Kelioninės"
-msgstr ""
+msgstr "يسافر"
 
 #: apps/listings/models.py:385
+#, fuzzy
 msgid "Džinsai"
-msgstr ""
+msgstr "جينز"
 
 #: apps/listings/models.py:386 apps/listings/models.py:404
+#, fuzzy
 msgid "Krosinės"
-msgstr ""
+msgstr "الأفران"
 
 #: apps/listings/models.py:387 apps/listings/models.py:392
 #: apps/listings/models.py:407
+#, fuzzy
 msgid "Nuo lietaus"
-msgstr ""
+msgstr "من المطر"
 
 #: apps/listings/models.py:390
+#, fuzzy
 msgid "Vientisas"
-msgstr ""
+msgstr "صلب"
 
 #: apps/listings/models.py:391
+#, fuzzy
 msgid "Dviejų dalių"
-msgstr ""
+msgstr "قطعتان"
 
 #: apps/listings/models.py:395
 #: templates/listings/partials/search_panel.html:502
+#, fuzzy
 msgid "Sportiniai"
-msgstr ""
+msgstr "الرياضة"
 
 #: apps/listings/models.py:396
+#, fuzzy
 msgid "Kelioniniai"
-msgstr ""
+msgstr "يسافر"
 
 #: apps/listings/models.py:397
+#, fuzzy
 msgid "Krosiniai"
-msgstr ""
+msgstr "التزلج الريفي"
 
 #: apps/listings/models.py:405
+#, fuzzy
 msgid "Vasarinės"
-msgstr ""
+msgstr "صيف"
 
 #: apps/listings/models.py:406
+#, fuzzy
 msgid "Žieminės / šildomos"
-msgstr ""
+msgstr "شتاء / مُدفأ"
 
 #: apps/listings/models.py:410
+#, fuzzy
 msgid "Ant bako"
-msgstr ""
+msgstr "على الخزان"
 
 #: apps/listings/models.py:411
+#, fuzzy
 msgid "Ant sėdynės"
-msgstr ""
+msgstr "على المقعد"
 
 #: apps/listings/models.py:412
+#, fuzzy
 msgid "Šoninės"
-msgstr ""
+msgstr "الجوانب"
 
 #: apps/listings/models.py:413
+#, fuzzy
 msgid "Kuprinė"
-msgstr ""
+msgstr "حقيبة ظهر"
 
 #: apps/listings/models.py:414
+#, fuzzy
 msgid "Bagažinė (top case)"
-msgstr ""
+msgstr "صندوق السيارة (الصندوق العلوي)"
 
 #: apps/listings/models.py:415
+#, fuzzy
 msgid "Ritininis"
-msgstr ""
+msgstr "أسطوانة"
 
 #: apps/listings/models.py:418
+#, fuzzy
 msgid "Nugaros apsauga"
-msgstr ""
+msgstr "حماية الظهر"
 
 #: apps/listings/models.py:419
+#, fuzzy
 msgid "Krūtinės apsauga"
-msgstr ""
+msgstr "حماية الصدر"
 
 #: apps/listings/models.py:420
+#, fuzzy
 msgid "Kelių apsaugos"
-msgstr ""
+msgstr "حماية الطرق"
 
 #: apps/listings/models.py:421
+#, fuzzy
 msgid "Alkūnių apsaugos"
-msgstr ""
+msgstr "واقيات الكوع"
 
 #: apps/listings/models.py:422
+#, fuzzy
 msgid "Kaklo apsauga"
-msgstr ""
+msgstr "حماية للرقبة"
 
 #: apps/listings/models.py:423
+#, fuzzy
 msgid "Oro pagalvės liemenė"
-msgstr ""
+msgstr "سترة الوسادة الهوائية"
 
 #: apps/listings/models.py:429
+#, fuzzy
 msgid "XXS"
-msgstr ""
+msgstr "XXS"
 
 #: apps/listings/models.py:429
+#, fuzzy
 msgid "XS"
-msgstr ""
+msgstr "مقاس XS"
 
 #: apps/listings/models.py:430
+#, fuzzy
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: apps/listings/models.py:430
+#, fuzzy
 msgid "M"
-msgstr ""
+msgstr "م"
 
 #: apps/listings/models.py:431 templates/listings/listing_select_plan.html:273
 msgid "L"
 msgstr "ل"
 
 #: apps/listings/models.py:431
+#, fuzzy
 msgid "XL"
-msgstr ""
+msgstr "XL"
 
 #: apps/listings/models.py:432
+#, fuzzy
 msgid "XXL"
-msgstr ""
+msgstr "XXL"
 
 #: apps/listings/models.py:432
+#, fuzzy
 msgid "XXXL"
-msgstr ""
+msgstr "XXXL"
 
 #: apps/listings/models.py:433
+#, fuzzy
 msgid "One size / Universal"
-msgstr ""
+msgstr "مقاس واحد / مقاس عالمي"
 
 #: apps/listings/models.py:434
+#, fuzzy
 msgid "Numeric"
-msgstr ""
+msgstr "رقمي"
 
 #: apps/listings/models.py:440
+#, fuzzy
 msgid "Leather"
-msgstr ""
+msgstr "جلد"
 
 #: apps/listings/models.py:441
+#, fuzzy
 msgid "Textile"
-msgstr ""
+msgstr "النسيج"
 
 #: apps/listings/models.py:442
+#, fuzzy
 msgid "Leather + Textile"
-msgstr ""
+msgstr "الجلد والنسيج"
 
 #: apps/listings/models.py:443
+#, fuzzy
 msgid "Synthetic"
-msgstr ""
+msgstr "هندوسي"
 
 #: apps/listings/models.py:444
+#, fuzzy
 msgid "Mesh"
-msgstr ""
+msgstr "شبكة"
 
 #: apps/listings/models.py:450
+#, fuzzy
 msgid "Men"
-msgstr ""
+msgstr "الرجال"
 
 #: apps/listings/models.py:451
+#, fuzzy
 msgid "Women"
-msgstr ""
+msgstr "نحيف"
 
 #: apps/listings/models.py:452 templates/listings/motogear_advanced.html:84
 #: templates/listings/partials/search_panel.html:590
+#, fuzzy
 msgid "Unisex"
-msgstr ""
+msgstr "للجنسين"
 
 #: apps/listings/models.py:453
+#, fuzzy
 msgid "Kids"
-msgstr ""
+msgstr "أطفال"
 
 #: apps/listings/models.py:459
+#, fuzzy
 msgid "No certification"
-msgstr ""
+msgstr "لا يوجد اعتماد"
 
 #: apps/listings/models.py:461
+#, fuzzy
 msgid "ECE 22.06"
-msgstr ""
+msgstr "ECE 22.06"
 
 #: apps/listings/models.py:462
+#, fuzzy
 msgid "ECE 22.05"
-msgstr ""
+msgstr "ECE 22.05"
 
 #: apps/listings/models.py:463
+#, fuzzy
 msgid "DOT (FMVSS 218)"
-msgstr ""
+msgstr "وزارة النقل (FMVSS 218)"
 
 #: apps/listings/models.py:464
+#, fuzzy
 msgid "Snell M2020"
-msgstr ""
+msgstr "سنيل M2020"
 
 #: apps/listings/models.py:465
+#, fuzzy
 msgid "Snell M2015"
-msgstr ""
+msgstr "سنيل M2015"
 
 #: apps/listings/models.py:466
+#, fuzzy
 msgid "SHARP 5 stars"
-msgstr ""
+msgstr "حاد 5 نجوم"
 
 #: apps/listings/models.py:467
+#, fuzzy
 msgid "SHARP 4 stars"
-msgstr ""
+msgstr "حاد 4 نجوم"
 
 #: apps/listings/models.py:469
+#, fuzzy
 msgid "CE AAA (highest)"
-msgstr ""
+msgstr "CE AAA (الأعلى)"
 
 #: apps/listings/models.py:470
+#, fuzzy
 msgid "CE AA"
-msgstr ""
+msgstr "ما هي جمعية المدمنين المجهولين (AA)؟"
 
 #: apps/listings/models.py:471
+#, fuzzy
 msgid "CE A"
-msgstr ""
+msgstr "ماذا"
 
 #: apps/listings/models.py:472
+#, fuzzy
 msgid "CE B"
-msgstr ""
+msgstr "سي إي بي"
 
 #: apps/listings/models.py:473
+#, fuzzy
 msgid "CE Level 1 (impact)"
-msgstr ""
+msgstr "المستوى الأول من شهادة التعليم المستمر (التأثير)"
 
 #: apps/listings/models.py:474
+#, fuzzy
 msgid "CE Level 2 (impact)"
-msgstr ""
+msgstr "المستوى الثاني من شهادة التعليم المستمر (التأثير)"
 
 #: apps/listings/models.py:475
+#, fuzzy
 msgid "EN certified"
-msgstr ""
+msgstr "معتمد من قبل الاتحاد الأوروبي"
 
 #: apps/listings/models.py:479 apps/listings/models.py:1998
 #: apps/listings/trucks_views.py:57 templates/listings/trucks_list.html:546
@@ -1665,106 +1920,130 @@ msgstr "الولايات المتحدة"
 
 #: apps/listings/models.py:479 apps/listings/models.py:1998
 #: apps/listings/trucks_views.py:57
+#, fuzzy
 msgid "Lithuania"
-msgstr ""
+msgstr "ليتوانيا"
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Latvia"
-msgstr ""
+msgstr "لاتفيا"
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Estonia"
-msgstr ""
+msgstr "إستونيا"
 
 #: apps/listings/models.py:481 apps/listings/models.py:2000
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Poland"
-msgstr ""
+msgstr "بولندا"
 
 #: apps/listings/models.py:481 apps/listings/models.py:2000
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "Germany"
-msgstr ""
+msgstr "ألمانيا"
 
 #: apps/listings/models.py:482 apps/listings/models.py:2001
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "Netherlands"
-msgstr ""
+msgstr "هولندا"
 
 #: apps/listings/models.py:482 apps/listings/models.py:2001
+#, fuzzy
 msgid "Belgium"
-msgstr ""
+msgstr "بلجيكا"
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
+#, fuzzy
 msgid "France"
-msgstr ""
+msgstr "فرنسا"
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
+#, fuzzy
 msgid "Italy"
-msgstr ""
+msgstr "إيطاليا"
 
 #: apps/listings/models.py:484 apps/listings/models.py:2003
+#, fuzzy
 msgid "Spain"
-msgstr ""
+msgstr "إسبانيا"
 
 #: apps/listings/models.py:484 apps/listings/models.py:2003
+#, fuzzy
 msgid "Austria"
-msgstr ""
+msgstr "النمسا"
 
 #: apps/listings/models.py:485 apps/listings/models.py:2004
+#, fuzzy
 msgid "Czech Republic"
-msgstr ""
+msgstr "الجمهورية التشيكية"
 
 #: apps/listings/models.py:485 apps/listings/models.py:2004
+#, fuzzy
 msgid "Slovakia"
-msgstr ""
+msgstr "سلوفاكيا"
 
 #: apps/listings/models.py:486 apps/listings/models.py:2005
+#, fuzzy
 msgid "Hungary"
-msgstr ""
+msgstr "هنغاريا"
 
 #: apps/listings/models.py:486 apps/listings/models.py:2005
+#, fuzzy
 msgid "Romania"
-msgstr ""
+msgstr "رومانيا"
 
 #: apps/listings/models.py:487 apps/listings/models.py:2006
+#, fuzzy
 msgid "Bulgaria"
-msgstr ""
+msgstr "بلغاريا"
 
 #: apps/listings/models.py:487 apps/listings/models.py:2006
+#, fuzzy
 msgid "Sweden"
-msgstr ""
+msgstr "السويد"
 
 #: apps/listings/models.py:488 apps/listings/models.py:2007
+#, fuzzy
 msgid "Denmark"
-msgstr ""
+msgstr "الدنمارك"
 
 #: apps/listings/models.py:488 apps/listings/models.py:2007
+#, fuzzy
 msgid "Finland"
-msgstr ""
+msgstr "فنلندا"
 
 #: apps/listings/models.py:489 apps/listings/models.py:2008
+#, fuzzy
 msgid "Norway"
-msgstr ""
+msgstr "النرويج"
 
 #: apps/listings/models.py:489 apps/listings/models.py:2008
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "United Kingdom"
-msgstr ""
+msgstr "المملكة المتحدة"
 
 #: apps/listings/models.py:490 apps/listings/models.py:2009
+#, fuzzy
 msgid "Ireland"
-msgstr ""
+msgstr "أيرلندا"
 
 #: apps/listings/models.py:490 apps/listings/models.py:2009
+#, fuzzy
 msgid "Switzerland"
-msgstr ""
+msgstr "سويسرا"
 
 #: apps/listings/models.py:571
+#, fuzzy
 msgid "Truck Model (free text)"
-msgstr ""
+msgstr "نموذج الشاحنة (نص حر)"
 
 #: apps/listings/models.py:581 templates/listings/listing_detail.html:141
 #: templates/listings/listing_detail.html:221
@@ -1788,34 +2067,41 @@ msgid "Rear suspension"
 msgstr "نظام التعليق الخلفي"
 
 #: apps/listings/models.py:598
+#, fuzzy
 msgid "Length (mm)"
-msgstr ""
+msgstr "الطول (مم)"
 
 #: apps/listings/models.py:603 templates/listings/tyres_create.html:125
 #: templates/listings/wheels_create.html:136
+#, fuzzy
 msgid "Width (mm)"
-msgstr ""
+msgstr "العرض (مم)"
 
 #: apps/listings/models.py:608
+#, fuzzy
 msgid "Height (mm)"
-msgstr ""
+msgstr "الارتفاع (مم)"
 
 #: apps/listings/models.py:612
+#, fuzzy
 msgid "Volume (m³)"
-msgstr ""
+msgstr "الحجم (م³)"
 
 #: apps/listings/models.py:617 apps/listings/models.py:2116
+#, fuzzy
 msgid "Gross weight (kg)"
-msgstr ""
+msgstr "الوزن الإجمالي (كجم)"
 
 #: apps/listings/models.py:622 apps/listings/models.py:2126
+#, fuzzy
 msgid "Payload capacity (kg)"
-msgstr ""
+msgstr "سعة الحمولة (كجم)"
 
 #: apps/listings/models.py:627 apps/listings/models.py:668
 #: templates/listings/boats_listing_create.html:223
+#, fuzzy
 msgid "Fuel tank capacity (L)"
-msgstr ""
+msgstr "سعة خزان الوقود (لتر)"
 
 #: apps/listings/models.py:632 templates/listings/listing_detail.html:341
 #: templates/listings/trucks_listing_create.html:608
@@ -1828,52 +2114,64 @@ msgid "SDK number"
 msgstr "رقم SDK"
 
 #: apps/listings/models.py:641
+#, fuzzy
 msgid "Jet Ski / Personal watercraft"
-msgstr ""
+msgstr "جت سكي / مركبة مائية شخصية"
 
 #: apps/listings/models.py:642
+#, fuzzy
 msgid "Kayak / Canoe"
-msgstr ""
+msgstr "الكاياك / الزورق"
 
 #: apps/listings/models.py:643
+#, fuzzy
 msgid "Surfboard / Windsurf"
-msgstr ""
+msgstr "لوح التزلج على الماء / ركوب الأمواج"
 
 #: apps/listings/models.py:644
+#, fuzzy
 msgid "Yacht"
-msgstr ""
+msgstr "يخت"
 
 #: apps/listings/models.py:645
+#, fuzzy
 msgid "Motorboat / Cabin cruiser"
-msgstr ""
+msgstr "قارب بمحرك / قارب كابينة"
 
 #: apps/listings/models.py:646
+#, fuzzy
 msgid "Boat / Ship"
-msgstr ""
+msgstr "قارب / سفينة"
 
 #: apps/listings/models.py:647
+#, fuzzy
 msgid "Dinghy / Raft"
-msgstr ""
+msgstr "قارب صغير / طوف"
 
 #: apps/listings/models.py:648
+#, fuzzy
 msgid "Boat engine"
-msgstr ""
+msgstr "محرك قارب"
 
 #: apps/listings/models.py:651
+#, fuzzy
 msgid "Boat type"
-msgstr ""
+msgstr "نوع القارب"
 
 #: apps/listings/models.py:659
+#, fuzzy
 msgid "Petrol 4-stroke outboard"
-msgstr ""
+msgstr "محرك خارجي يعمل بالبنزين رباعي الأشواط"
 
 #: apps/listings/models.py:660
+#, fuzzy
 msgid "Petrol 4-stroke inboard"
-msgstr ""
+msgstr "محرك بنزين داخلي رباعي الأشواط"
 
 #: apps/listings/models.py:661
+#, fuzzy
 msgid "Diesel inboard"
-msgstr ""
+msgstr "محرك ديزل داخلي"
 
 #: apps/listings/models.py:662 apps/listings/models.py:1960
 #: apps/listings/translatable_db.py:52
@@ -1881,43 +2179,51 @@ msgid "Electric"
 msgstr ""
 
 #: apps/listings/models.py:663
+#, fuzzy
 msgid "No engine"
-msgstr ""
+msgstr "بدون محرك"
 
 #: apps/listings/models.py:664
+#, fuzzy
 msgid "Petrol 2-stroke outboard"
-msgstr ""
+msgstr "محرك خارجي يعمل بالبنزين ثنائي الأشواط"
 
 #: apps/listings/models.py:665
+#, fuzzy
 msgid "Petrol 2-stroke inboard"
-msgstr ""
+msgstr "محرك بنزين داخلي ثنائي الأشواط"
 
 #: apps/listings/models.py:667
+#, fuzzy
 msgid "Boat engine type"
-msgstr ""
+msgstr "نوع محرك القارب"
 
 #: apps/listings/models.py:669
 #: templates/listings/boats_listing_create.html:234
+#, fuzzy
 msgid "Liftable engine"
-msgstr ""
+msgstr "محرك قابل للرفع"
 
 #: apps/listings/models.py:670
 #: templates/listings/boats_listing_create.html:238
+#, fuzzy
 msgid "Propeller"
-msgstr ""
+msgstr "المروحة"
 
 #: apps/listings/models.py:671
 #: templates/listings/boats_listing_create.html:242
+#, fuzzy
 msgid "Water turbine"
-msgstr ""
+msgstr "توربين مائي"
 
 #: apps/listings/models.py:676 apps/listings/models.py:2067
 msgid "Sub-category"
 msgstr "الفئة الفرعية"
 
 #: apps/listings/models.py:679 apps/listings/models.py:2081
+#, fuzzy
 msgid "Title"
-msgstr ""
+msgstr "عنوان"
 
 #: apps/listings/models.py:682 apps/listings/models.py:2085
 #: templates/accounts/seller_profile.html:210
@@ -1957,8 +2263,9 @@ msgid "Year"
 msgstr "سنة"
 
 #: apps/listings/models.py:689 apps/listings/models.py:2093
+#, fuzzy
 msgid "First Registration Date"
-msgstr ""
+msgstr "تاريخ التسجيل الأول"
 
 #: apps/listings/models.py:700 apps/listings/models.py:2098
 #: templates/listings/partials/panel_trucks.html:70
@@ -1969,16 +2276,19 @@ msgid "Truck type"
 msgstr "نوع الشاحنة"
 
 #: apps/listings/models.py:709 apps/listings/models.py:2191
+#, fuzzy
 msgid "Color (custom)"
-msgstr ""
+msgstr "اللون (حسب الطلب)"
 
 #: apps/listings/models.py:744
+#, fuzzy
 msgid "Subtype (custom)"
-msgstr ""
+msgstr "النوع الفرعي (مخصص)"
 
 #: apps/listings/models.py:751
+#, fuzzy
 msgid "Size (custom)"
-msgstr ""
+msgstr "المقاس (حسب الطلب)"
 
 #: apps/listings/models.py:759 templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:79
@@ -1990,40 +2300,48 @@ msgid "Manufacturer"
 msgstr "الشركة المصنعة"
 
 #: apps/listings/models.py:763
+#, fuzzy
 msgid "Manufacturer (custom)"
-msgstr ""
+msgstr "الشركة المصنعة (حسب الطلب)"
 
 #: apps/listings/models.py:768
+#, fuzzy
 msgid "Brand (legacy)"
-msgstr ""
+msgstr "العلامة التجارية (القديمة)"
 
 #: apps/listings/models.py:772
+#, fuzzy
 msgid "Model name"
-msgstr ""
+msgstr "اسم الطراز"
 
 #: apps/listings/models.py:778
+#, fuzzy
 msgid "Material (custom)"
-msgstr ""
+msgstr "المادة (حسب الطلب)"
 
 #: apps/listings/models.py:784
+#, fuzzy
 msgid "Gender (custom)"
-msgstr ""
+msgstr "الجنس (العرف)"
 
 #: apps/listings/models.py:790
+#, fuzzy
 msgid "Safety certification (custom)"
-msgstr ""
+msgstr "شهادة السلامة (مخصصة)"
 
 #: apps/listings/models.py:796 templates/listings/motogear_create.html:151
 msgid "Number of vents"
 msgstr "عدد فتحات التهوية"
 
 #: apps/listings/models.py:806 templates/listings/advanced_search.html:466
+#, fuzzy
 msgid "OEM Code"
-msgstr ""
+msgstr "رمز الشركة المصنعة الأصلية"
 
 #: apps/listings/models.py:814 apps/listings/models.py:2811
+#, fuzzy
 msgid "Part Category"
-msgstr ""
+msgstr "فئة الجزء"
 
 #: apps/listings/models.py:821 apps/listings/models.py:835
 #: templates/listings/advanced_search.html:474
@@ -2163,8 +2481,9 @@ msgid "+ Taxes"
 msgstr "+ الضرائب"
 
 #: apps/listings/models.py:918 apps/listings/models.py:2228
+#, fuzzy
 msgid "Business seller"
-msgstr ""
+msgstr "بائع أعمال"
 
 #: apps/listings/models.py:950 templates/listings/listing_detail.html:10
 #: templates/listings/listing_stats.html:30
@@ -2172,112 +2491,138 @@ msgid "Listing"
 msgstr "قائمة"
 
 #: apps/listings/models.py:1442 apps/listings/views.py:59
+#, fuzzy
 msgid "Interior"
-msgstr ""
+msgstr "التصميم الداخلي"
 
 #: apps/listings/models.py:1443 apps/listings/views.py:61
+#, fuzzy
 msgid "Electronics"
-msgstr ""
+msgstr "الإلكترونيات"
 
 #: apps/listings/models.py:1444
+#, fuzzy
 msgid "Safety"
-msgstr ""
+msgstr "أمان"
 
 #: apps/listings/models.py:1445
+#, fuzzy
 msgid "Audio/Video"
-msgstr ""
+msgstr "صوت/فيديو"
 
 #: apps/listings/models.py:1446 apps/listings/views.py:60
+#, fuzzy
 msgid "Exterior"
-msgstr ""
+msgstr "الخارج"
 
 #: apps/listings/models.py:1447 apps/listings/views.py:64
 msgid "Other Features"
 msgstr "ميزات أخرى"
 
 #: apps/listings/models.py:1448
+#, fuzzy
 msgid "Motorcycle Features"
-msgstr ""
+msgstr "ميزات الدراجة النارية"
 
 #: apps/listings/models.py:1449
+#, fuzzy
 msgid "Gear Features"
-msgstr ""
+msgstr "ميزات المعدات"
 
 #: apps/listings/models.py:1450
+#, fuzzy
 msgid "Truck Features"
-msgstr ""
+msgstr "ميزات الشاحنة"
 
 #: apps/listings/models.py:1523
+#, fuzzy
 msgid "Seller notifications"
-msgstr ""
+msgstr "إشعارات البائع"
 
 #: apps/listings/models.py:1524
+#, fuzzy
 msgid "Buyer - saved listings"
-msgstr ""
+msgstr "المشتري - القوائم المحفوظة"
 
 #: apps/listings/models.py:1525
+#, fuzzy
 msgid "Saved search alerts"
-msgstr ""
+msgstr "تنبيهات البحث المحفوظة"
 
 #: apps/listings/models.py:1526
+#, fuzzy
 msgid "Account / auth"
-msgstr ""
+msgstr "الحساب / المصادقة"
 
 #: apps/listings/models.py:1527
+#, fuzzy
 msgid "Messaging"
-msgstr ""
+msgstr "المراسلة"
 
 #: apps/listings/models.py:1528
+#, fuzzy
 msgid "Payments / Stripe"
-msgstr ""
+msgstr "المدفوعات / سترايب"
 
 #: apps/listings/models.py:1529
+#, fuzzy
 msgid "Marketing / newsletter"
-msgstr ""
+msgstr "التسويق / النشرة الإخبارية"
 
 #: apps/listings/models.py:1530
+#, fuzzy
 msgid "Admin notifications"
-msgstr ""
+msgstr "إشعارات المسؤول"
 
 #: apps/listings/models.py:1531
+#, fuzzy
 msgid "Extra / experimental"
-msgstr ""
+msgstr "إضافي / تجريبي"
 
 #: apps/listings/models.py:1532
+#, fuzzy
 msgid "Truck-specific notifications"
-msgstr ""
+msgstr "إشعارات خاصة بالشاحنات"
 
 #: apps/listings/models.py:1644
+#, fuzzy
 msgid "Pricing Settings"
-msgstr ""
+msgstr "إعدادات التسعير"
 
 #: apps/listings/models.py:1689
+#, fuzzy
 msgid "Price Multiplier Tier"
-msgstr ""
+msgstr "مستوى مضاعف السعر"
 
 #: apps/listings/models.py:1765
+#, fuzzy
 msgid "Promo Code"
-msgstr ""
+msgstr "رمز ترويجي"
 
 #: apps/listings/models.py:1848
+#, fuzzy
 msgid "Promo Code Usage"
-msgstr ""
+msgstr "استخدام رمز الخصم"
 
 #: apps/listings/models.py:1869
+#, fuzzy
 msgid "Trucks (Sunkvežimiai)"
-msgstr ""
+msgstr "الشاحنات"
 
 #: apps/listings/models.py:1870 apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Vehicle Transporters"
-msgstr ""
+msgstr "ناقلات المركبات"
 
 #: apps/listings/models.py:1871
+#, fuzzy
 msgid "Semi-trucks / Tractors"
-msgstr ""
+msgstr "الشاحنات نصف المقطورة / الجرارات"
 
 #: apps/listings/models.py:1872 apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Vans"
-msgstr ""
+msgstr "فانز"
 
 #: apps/listings/models.py:1918 apps/listings/models.py:1926
 #: apps/listings/models.py:1939 apps/listings/models.py:1947
@@ -2285,40 +2630,49 @@ msgstr ""
 #: templates/listings/listing_list_v2.html:311
 #: templates/listings/listing_list_v2.html:321
 #: templates/listings/wheels_advanced_search.html:244
+#, fuzzy
 msgid "Any"
-msgstr ""
+msgstr "أي"
 
 #: apps/listings/models.py:1919
+#, fuzzy
 msgid "Day cab"
-msgstr ""
+msgstr "سيارة أجرة نهارية"
 
 #: apps/listings/models.py:1920
+#, fuzzy
 msgid "Sleeper"
-msgstr ""
+msgstr "مقصورة النوم"
 
 #: apps/listings/models.py:1921
+#, fuzzy
 msgid "Crew cab"
-msgstr ""
+msgstr "كابينة طاقم"
 
 #: apps/listings/models.py:1922
+#, fuzzy
 msgid "Extended cab"
-msgstr ""
+msgstr "كابينة ممتدة"
 
 #: apps/listings/models.py:1940
+#, fuzzy
 msgid "Air / Air"
-msgstr ""
+msgstr "ماء / ماء"
 
 #: apps/listings/models.py:1941
+#, fuzzy
 msgid "Air / Spring"
-msgstr ""
+msgstr "هواء / زنبرك"
 
 #: apps/listings/models.py:1942
+#, fuzzy
 msgid "Spring / Air"
-msgstr ""
+msgstr "الربيع / الهواء"
 
 #: apps/listings/models.py:1943
+#, fuzzy
 msgid "Spring / Spring"
-msgstr ""
+msgstr "الربيع / الربيع"
 
 #: apps/listings/models.py:1948 apps/listings/translatable_db.py:52
 msgid "Manual"
@@ -2329,68 +2683,81 @@ msgid "Automatic"
 msgstr ""
 
 #: apps/listings/models.py:1950 apps/listings/translatable_db.py:55
+#, fuzzy
 msgid "Semi-automatic"
-msgstr ""
+msgstr "شبه أوتوماتيكي"
 
 #: apps/listings/models.py:1955 apps/listings/translatable_db.py:51
 msgid "Diesel"
 msgstr ""
 
 #: apps/listings/models.py:1956
+#, fuzzy
 msgid "Petrol / Gasoline"
-msgstr ""
+msgstr "البنزين / البنزين"
 
 #: apps/listings/models.py:1957 apps/listings/translatable_db.py:52
+#, fuzzy
 msgid "LPG"
-msgstr ""
+msgstr "غاز البترول المسال"
 
 #: apps/listings/models.py:1958
+#, fuzzy
 msgid "CNG"
-msgstr ""
+msgstr "غاز طبيعي مضغوط"
 
 #: apps/listings/models.py:1959
+#, fuzzy
 msgid "LNG"
-msgstr ""
+msgstr "الغاز الطبيعي المسال"
 
 #: apps/listings/models.py:1961
 msgid "Hybrid"
 msgstr ""
 
 #: apps/listings/models.py:1962
+#, fuzzy
 msgid "Hydrogen"
-msgstr ""
+msgstr "هيدروجين"
 
 #: apps/listings/models.py:2102
+#, fuzzy
 msgid "Cab type"
-msgstr ""
+msgstr "نوع الكابينة"
 
 #: apps/listings/models.py:2106
+#, fuzzy
 msgid "Axle configuration"
-msgstr ""
+msgstr "تكوين المحور"
 
 #: apps/listings/models.py:2110
+#, fuzzy
 msgid "Suspension"
-msgstr ""
+msgstr "تعليق"
 
 #: apps/listings/models.py:2121
 msgid "Curb weight (kg)"
 msgstr "الوزن الصافي (كجم)"
 
 #: apps/listings/models.py:2130
+#, fuzzy
 msgid "Cargo volume (m³)"
-msgstr ""
+msgstr "حجم الحمولة (م³)"
 
 #: apps/listings/models.py:2134
+#, fuzzy
 msgid "Cargo length (m)"
-msgstr ""
+msgstr "طول الحمولة (م)"
 
 #: apps/listings/models.py:2138
+#, fuzzy
 msgid "Cargo width (m)"
-msgstr ""
+msgstr "عرض الحمولة (م)"
 
 #: apps/listings/models.py:2142
+#, fuzzy
 msgid "Cargo height (m)"
-msgstr ""
+msgstr "ارتفاع الحمولة (م)"
 
 #: apps/listings/models.py:2147
 #: templates/listings/boats_listing_create.html:167
@@ -2399,60 +2766,73 @@ msgid "Number of seats"
 msgstr "عدد المقاعد"
 
 #: apps/listings/models.py:2158
+#, fuzzy
 msgid "Engine capacity (L)"
-msgstr ""
+msgstr "سعة المحرك (لتر)"
 
 #: apps/listings/models.py:2168
+#, fuzzy
 msgid "Power (HP)"
-msgstr ""
+msgstr "القدرة (حصان)"
 
 #: apps/listings/models.py:2173
+#, fuzzy
 msgid "Torque (Nm)"
-msgstr ""
+msgstr "عزم الدوران (نيوتن متر)"
 
 #: apps/listings/models.py:2180
 msgid "Fuel consumption (L/100km)"
 msgstr "معدل استهلاك الوقود (لتر/100 كم)"
 
 #: apps/listings/models.py:2185
+#, fuzzy
 msgid "Fuel tank (L)"
-msgstr ""
+msgstr "خزان الوقود (لتر)"
 
 #: apps/listings/models.py:2213
+#, fuzzy
 msgid "Price excludes VAT"
-msgstr ""
+msgstr "السعر لا يشمل ضريبة القيمة المضافة"
 
 #: apps/listings/models.py:2261
+#, fuzzy
 msgid "Truck"
-msgstr ""
+msgstr "شاحنة"
 
 #: apps/listings/models.py:2573
+#, fuzzy
 msgid "Truck Image"
-msgstr ""
+msgstr "صورة شاحنة"
 
 #: apps/listings/models.py:2586
+#, fuzzy
 msgid "Truck Equipment Selection"
-msgstr ""
+msgstr "اختيار معدات الشاحنات"
 
 #: apps/listings/models.py:2601
+#, fuzzy
 msgid "Saved Truck"
-msgstr ""
+msgstr "شاحنة تم إنقاذها"
 
 #: apps/listings/models.py:2677
+#, fuzzy
 msgid "Truck Sales Record"
-msgstr ""
+msgstr "رقم قياسي في مبيعات الشاحنات"
 
 #: apps/listings/models.py:2874
+#, fuzzy
 msgid "Passenger cars"
-msgstr ""
+msgstr "سيارات الركاب"
 
 #: apps/listings/models.py:2875
+#, fuzzy
 msgid "SUV / Off-road"
-msgstr ""
+msgstr "سيارة دفع رباعي / للطرق الوعرة"
 
 #: apps/listings/models.py:2876
+#, fuzzy
 msgid "Commercial / Van"
-msgstr ""
+msgstr "تجاري / من"
 
 #: apps/listings/models.py:2877 apps/listings/translatable_db.py:43
 msgid "Trucks"
@@ -2466,36 +2846,44 @@ msgid "Motorcycles"
 msgstr "الدراجات النارية"
 
 #: apps/listings/models.py:2879
+#, fuzzy
 msgid "Industrial"
-msgstr ""
+msgstr "صناعي"
 
 #: apps/listings/models.py:2895
+#, fuzzy
 msgid "Summer"
-msgstr ""
+msgstr "صيف"
 
 #: apps/listings/models.py:2896
+#, fuzzy
 msgid "Winter"
-msgstr ""
+msgstr "شتاء"
 
 #: apps/listings/models.py:2897
+#, fuzzy
 msgid "All-season"
-msgstr ""
+msgstr "مناسب لجميع الفصول"
 
 #: apps/listings/models.py:2934
+#, fuzzy
 msgid "Alloy"
-msgstr ""
+msgstr "سبيكة"
 
 #: apps/listings/models.py:2936
+#, fuzzy
 msgid "Forged"
-msgstr ""
+msgstr "مزورة"
 
 #: apps/listings/models.py:2937
+#, fuzzy
 msgid "Carbon fiber"
-msgstr ""
+msgstr "ألياف الكربون"
 
 #: apps/listings/models.py:2946
+#, fuzzy
 msgid "Draft"
-msgstr ""
+msgstr "مسودة"
 
 #: apps/listings/models.py:2947 templates/listings/my_listings.html:146
 msgid "Active"
@@ -2511,12 +2899,14 @@ msgid "Sold"
 msgstr "مُباع"
 
 #: apps/listings/models.py:2950
+#, fuzzy
 msgid "Expired"
-msgstr ""
+msgstr "منتهي الصلاحية"
 
 #: apps/listings/models.py:2951
+#, fuzzy
 msgid "Archived"
-msgstr ""
+msgstr "مؤرشف"
 
 #: apps/listings/models.py:2963 apps/listings/translatable_db.py:44
 #: templates/listings/partials/search_rail.html:44
@@ -2524,8 +2914,9 @@ msgstr ""
 #: templates/listings/wheels_create.html:17
 #: templates/listings/wheels_list.html:91
 #: templates/listings/wheels_list.html:108
+#, fuzzy
 msgid "Tyres"
-msgstr ""
+msgstr "الإطارات"
 
 #: apps/listings/models.py:2964 apps/listings/translatable_db.py:40
 #: templates/listings/partials/search_rail.html:45
@@ -2533,80 +2924,97 @@ msgstr ""
 #: templates/listings/wheels_create.html:19
 #: templates/listings/wheels_list.html:91
 #: templates/listings/wheels_list.html:108
+#, fuzzy
 msgid "Rims"
-msgstr ""
+msgstr "جنوط"
 
 #: apps/listings/models.py:3049
+#, fuzzy
 msgid "Wheel Listing"
-msgstr ""
+msgstr "قائمة العجلات"
 
 #: apps/listings/models.py:3134
+#, fuzzy
 msgid "Wheel Image"
-msgstr ""
+msgstr "صورة العجلة"
 
 #: apps/listings/moto_part_views.py:23
+#, fuzzy
 msgid "Trim / Body parts"
-msgstr ""
+msgstr "أجزاء الهيكل / الزينة"
 
 #: apps/listings/moto_part_views.py:24
 #: apps/listings/truck_for_parts_views.py:42
+#, fuzzy
 msgid "Electrical system parts"
-msgstr ""
+msgstr "أجزاء النظام الكهربائي"
 
 #: apps/listings/moto_part_views.py:25
+#, fuzzy
 msgid "Engine cooling parts"
-msgstr ""
+msgstr "أجزاء تبريد المحرك"
 
 #: apps/listings/moto_part_views.py:26
 #: apps/listings/truck_for_parts_views.py:43
+#, fuzzy
 msgid "Engine parts"
-msgstr ""
+msgstr "قطع غيار المحرك"
 
 #: apps/listings/moto_part_views.py:27
+#, fuzzy
 msgid "Chassis & transmission parts"
-msgstr ""
+msgstr "أجزاء الهيكل وناقل الحركة"
 
 #: apps/listings/moto_part_views.py:33
+#, fuzzy
 msgid "Refurbished"
-msgstr ""
+msgstr "مُجدد"
 
 #: apps/listings/motogear_views.py:173 apps/listings/motorcycles_views.py:570
 #: apps/listings/trucks_views.py:842 apps/listings/views.py:1441
 #: apps/listings/views.py:1581
+#, fuzzy
 msgid "No images uploaded"
-msgstr ""
+msgstr "لم يتم تحميل أي صور"
 
 #: apps/listings/motogear_views.py:183 apps/listings/motorcycles_views.py:580
 #: apps/listings/views.py:1453
+#, fuzzy
 msgid "Maximum 40 photos reached"
-msgstr ""
+msgstr "تم الوصول إلى الحد الأقصى وهو 40 صورة"
 
 #: apps/listings/motorcycles_views.py:461
+#, fuzzy
 msgid "Failed to save draft."
-msgstr ""
+msgstr "فشل حفظ المسودة."
 
 #: apps/listings/motorcycles_views.py:508 apps/listings/views.py:1577
+#, fuzzy
 msgid "Draft not found"
-msgstr ""
+msgstr "لم يتم العثور على المسودة"
 
 #: apps/listings/parts_views.py:73
+#, fuzzy
 msgid "Car, van parts"
-msgstr ""
+msgstr "قطع غيار السيارات والشاحنات"
 
 #: apps/listings/search_panel.py:31
 #: templates/listings/partials/search_panel.html:1124
+#, fuzzy
 msgid "Automobilių, mikroautobusų dalys"
-msgstr ""
+msgstr "قطع غيار السيارات والحافلات الصغيرة"
 
 #: apps/listings/search_panel.py:32
 #: templates/listings/partials/search_panel.html:1125
+#, fuzzy
 msgid "Motociklų dalys"
-msgstr ""
+msgstr "قطع غيار الدراجات النارية"
 
 #: apps/listings/search_panel.py:33
 #: templates/listings/partials/search_panel.html:1126
+#, fuzzy
 msgid "Sunkiojo transporto dalys"
-msgstr ""
+msgstr "قطع غيار النقل الثقيل"
 
 #: apps/listings/translatable_db.py:15
 #: templates/listings/listing_list.html:260
@@ -2768,232 +3176,285 @@ msgid "Komunalinio ūkio transportas"
 msgstr ""
 
 #: apps/listings/translatable_db.py:21
+#, fuzzy
 msgid "Krovimo ir sandėliavimo technika"
-msgstr ""
+msgstr "معدات التحميل والتخزين"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Automobilių supirkimas"
-msgstr ""
+msgstr "شراء سيارة"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Video, audio, navigacijos"
-msgstr ""
+msgstr "فيديو، صوت، ملاحة"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Miško ūkio technika"
-msgstr ""
+msgstr "آلات الغابات"
 
 #: apps/listings/translatable_db.py:23
 msgid "Turistiniai nameliai"
 msgstr ""
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Aircraft Accessories"
-msgstr ""
+msgstr "ملحقات الطائرات"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Airplanes"
-msgstr ""
+msgstr "الطائرات"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Avionics"
-msgstr ""
+msgstr "إلكترونيات الطيران"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Balers"
-msgstr ""
+msgstr "مكابس التبن"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Bicycles"
-msgstr ""
+msgstr "الدراجات"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Boat Trailers"
-msgstr ""
+msgstr "مقطورات القوارب"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Boats"
-msgstr ""
+msgstr "القوارب"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Body Repair"
-msgstr ""
+msgstr "إصلاح هياكل السيارات"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Bulldozers"
-msgstr ""
+msgstr "الجرافات"
 
 #: apps/listings/translatable_db.py:28
 msgid "Buses"
 msgstr ""
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Campers"
-msgstr ""
+msgstr "المخيمين"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Parts"
-msgstr ""
+msgstr "قطع غيار السيارات"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Service"
-msgstr ""
+msgstr "خدمة السيارات"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Trailers"
-msgstr ""
+msgstr "مقطورات السيارات"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Wash"
-msgstr ""
+msgstr "مغسلة سيارات"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Caravans"
-msgstr ""
+msgstr "الكرفانات"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Cargo Minibuses over 3.5t"
-msgstr ""
+msgstr "حافلات نقل البضائع الصغيرة التي يزيد وزنها عن 3.5 طن"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Cargo Minibuses up to 3.5t"
-msgstr ""
+msgstr "حافلات نقل البضائع الصغيرة حتى 3.5 طن"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Combine Harvesters"
-msgstr ""
+msgstr "حصادات"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Compactors"
-msgstr ""
+msgstr "ضواغط التربة"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Cranes"
-msgstr ""
+msgstr "الرافعات"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Cultivators"
-msgstr ""
+msgstr "المزارعون"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Curtainsider Trailers"
-msgstr ""
+msgstr "مقطورات ذات جوانب قابلة للطي"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Diagnostics"
-msgstr ""
+msgstr "التشخيص"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Drones"
-msgstr ""
+msgstr "الطائرات بدون طيار"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Electric Bikes"
-msgstr ""
+msgstr "الدراجات الكهربائية"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Electric Scooters"
-msgstr ""
+msgstr "الدراجات البخارية الكهربائية"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Engine Parts"
-msgstr ""
+msgstr "قطع غيار المحرك"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Excavators"
-msgstr ""
+msgstr "حفارات"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Fishing Boats"
-msgstr ""
+msgstr "قوارب الصيد"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Flatbed Trailers"
-msgstr ""
+msgstr "مقطورات مسطحة"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Forestry Machines"
-msgstr ""
+msgstr "آلات الغابات"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Forklifts"
-msgstr ""
+msgstr "الرافعات الشوكية"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Helicopters"
-msgstr ""
+msgstr "طائرات الهليكوبتر"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Inflatable Boats"
-msgstr ""
+msgstr "القوارب المطاطية"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Jet Skis"
-msgstr ""
+msgstr "الدراجات المائية"
 
 #: apps/listings/translatable_db.py:36
+#, fuzzy
 msgid "Limuzinų, vestuvių transporto nuoma"
-msgstr ""
+msgstr "تأجير سيارات الليموزين وسيارات الزفاف"
 
 #: apps/listings/translatable_db.py:36
+#, fuzzy
 msgid "Loaders"
-msgstr ""
+msgstr "اللوادر"
 
 #: apps/listings/translatable_db.py:36
 msgid "Moto Gear, accessories"
 msgstr "معدات وملحقات الدراجات النارية"
 
 #: apps/listings/translatable_db.py:37
+#, fuzzy
 msgid "Moto Parts"
-msgstr ""
+msgstr "قطع غيار الدراجات النارية"
 
 #: apps/listings/translatable_db.py:37
 msgid "Motociklų nuoma"
 msgstr ""
 
 #: apps/listings/translatable_db.py:37
+#, fuzzy
 msgid "Motorboats"
-msgstr ""
+msgstr "القوارب الآلية"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Agricultural"
-msgstr ""
+msgstr "الزراعة الأخرى"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Construction"
-msgstr ""
+msgstr "أعمال بناء أخرى"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Trailers"
-msgstr ""
+msgstr "مقاطع دعائية أخرى"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Other Watercraft"
-msgstr ""
+msgstr "أنواع أخرى من القوارب"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Painting"
-msgstr ""
+msgstr "تلوين"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Passenger Minibuses"
-msgstr ""
+msgstr "حافلات صغيرة لنقل الركاب"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Ploughs"
-msgstr ""
+msgstr "المحاريث"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Refrigerator Trailers"
-msgstr ""
+msgstr "مقطورات التبريد"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Sailboats"
-msgstr ""
+msgstr "القوارب الشراعية"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Semi-Trucks / Tractors"
-msgstr ""
+msgstr "الشاحنات نصف المقطورة / الجرارات"
 
 #: apps/listings/translatable_db.py:41
 msgid "Semi-trailers"
@@ -3001,64 +3462,79 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:41
 #: templates/listings/sidebar_moto_parts.html:19
+#, fuzzy
 msgid "Single moto part"
-msgstr ""
+msgstr "قطعة غيار دراجة نارية واحدة"
 
 #: apps/listings/translatable_db.py:41
+#, fuzzy
 msgid "Single part / parts kit"
-msgstr ""
+msgstr "قطعة واحدة / مجموعة قطع غيار"
 
 #: apps/listings/translatable_db.py:41
+#, fuzzy
 msgid "Sprayers"
-msgstr ""
+msgstr "الرشاشات"
 
 #: apps/listings/translatable_db.py:42
+#, fuzzy
 msgid "Statybinės technikos priedai"
-msgstr ""
+msgstr "ملحقات معدات البناء"
 
 #: apps/listings/translatable_db.py:42
+#, fuzzy
 msgid "Sunkiojo transporto, priekabų nuoma"
-msgstr ""
+msgstr "خدمات النقل الثقيل، وتأجير المقطورات"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Tipper Trailers"
-msgstr ""
+msgstr "مقطورات قلابة"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Towing"
-msgstr ""
+msgstr "سحب السيارات"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Tractors"
-msgstr ""
+msgstr "الجرارات"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Truck Parts"
-msgstr ""
+msgstr "قطع غيار الشاحنات"
 
 #: apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Ultralight Aircraft"
-msgstr ""
+msgstr "طائرات خفيفة للغاية"
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole car for parts"
-msgstr ""
+msgstr "السيارة كاملة للبيع كقطع غيار"
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole moto for parts"
-msgstr ""
+msgstr "دراجة نارية كاملة لقطع الغيار"
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole truck for parts"
-msgstr ""
+msgstr "شاحنة كاملة لقطع الغيار"
 
 #: apps/listings/translatable_db.py:46
+#, fuzzy
 msgid "Yachts"
-msgstr ""
+msgstr "اليخوت"
 
 #: apps/listings/translatable_db.py:51
+#, fuzzy
 msgid "CVT"
-msgstr ""
+msgstr "ناقل الحركة المتغير باستمرار (CVT)"
 
 #: apps/listings/translatable_db.py:51
 msgid "Diesel / Electric (Hybrid)"
@@ -3069,8 +3545,9 @@ msgid "Diesel / Electric (Plug-in)"
 msgstr ""
 
 #: apps/listings/translatable_db.py:52
+#, fuzzy
 msgid "Ethanol"
-msgstr ""
+msgstr "الإيثانول"
 
 #: apps/listings/translatable_db.py:53
 msgid "Petrol"
@@ -3097,146 +3574,181 @@ msgid "Petrol / LPG"
 msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:39
+#, fuzzy
 msgid "Body parts"
-msgstr ""
+msgstr "أجزاء الجسم"
 
 #: apps/listings/truck_for_parts_views.py:40
+#, fuzzy
 msgid "Chassis / transmission parts"
-msgstr ""
+msgstr "أجزاء الهيكل / ناقل الحركة"
 
 #: apps/listings/truck_for_parts_views.py:41
+#, fuzzy
 msgid "Cooling system parts"
-msgstr ""
+msgstr "أجزاء أنظمة التبريد"
 
 #: apps/listings/truck_for_parts_views.py:44
+#, fuzzy
 msgid "Cabin / interior parts"
-msgstr ""
+msgstr "أجزاء المقصورة / الداخلية"
 
 #: apps/listings/truck_for_parts_views.py:45
+#, fuzzy
 msgid "Superstructure parts"
-msgstr ""
+msgstr "أجزاء البنية الفوقية"
 
 #: apps/listings/trucks_views.py:834 apps/listings/views.py:1437
 #: apps/listings/views.py:1487 apps/listings/views.py:5869
 #: apps/listings/views.py:5875
+#, fuzzy
 msgid "Listing not found"
-msgstr ""
+msgstr "لم يتم العثور على القائمة"
 
 #: apps/listings/views.py:62
+#, fuzzy
 msgid "Safety & Security"
-msgstr ""
+msgstr "السلامة والأمن"
 
 #: apps/listings/views.py:63
+#, fuzzy
 msgid "Audio, Video & Connectivity"
-msgstr ""
+msgstr "الصوت والفيديو والاتصال"
 
 #: apps/listings/views.py:65
+#, fuzzy
 msgid "Electric vehicle features"
-msgstr ""
+msgstr "ميزات السيارة الكهربائية"
 
 #: apps/listings/views.py:5866
+#, fuzzy
 msgid "Įveskite kodą"
-msgstr ""
+msgstr "أدخل الرمز"
 
 #: apps/listings/views.py:5880
+#, fuzzy
 msgid "Toks kodas neegzistuoja"
-msgstr ""
+msgstr "هذا النوع من التعليمات البرمجية غير موجود."
 
 #: apps/listings/wheels_views.py:56
+#, fuzzy
 msgid "Spare tyre (thin)"
-msgstr ""
+msgstr "إطار احتياطي (رفيع)"
 
 #: apps/listings/wheels_views.py:57 apps/listings/wheels_views.py:134
+#, fuzzy
 msgid "Sold individually"
-msgstr ""
+msgstr "يباع بشكل فردي"
 
 #: apps/listings/wheels_views.py:58
+#, fuzzy
 msgid "Sport tyres"
-msgstr ""
+msgstr "إطارات رياضية"
 
 #: apps/listings/wheels_views.py:59
+#, fuzzy
 msgid "SUV tyres"
-msgstr ""
+msgstr "إطارات سيارات الدفع الرباعي"
 
 #: apps/listings/wheels_views.py:60
+#, fuzzy
 msgid "Rain tyres"
-msgstr ""
+msgstr "إطارات المطر"
 
 #: apps/listings/wheels_views.py:61
+#, fuzzy
 msgid "Run-flat"
-msgstr ""
+msgstr "مقاومة للثقب"
 
 #: apps/listings/wheels_views.py:62
+#, fuzzy
 msgid "Reinforced"
-msgstr ""
+msgstr "معزز"
 
 #: apps/listings/wheels_views.py:63
+#, fuzzy
 msgid "Studded (winter)"
-msgstr ""
+msgstr "مرصع (شتوي)"
 
 #: apps/listings/wheels_views.py:132
+#, fuzzy
 msgid "Bent rims"
-msgstr ""
+msgstr "جنوط معوجة"
 
 #: apps/listings/wheels_views.py:133
+#, fuzzy
 msgid "Original rims"
-msgstr ""
+msgstr "جنوط أصلية"
 
 #: apps/listings/wheels_views.py:135
+#, fuzzy
 msgid "With tyres"
-msgstr ""
+msgstr "مع إطارات"
 
 #: apps/listings/wheels_views.py:136
+#, fuzzy
 msgid "Chromed"
-msgstr ""
+msgstr "مطلي بالكروم"
 
 #: config/settings.py:144
+#, fuzzy
 msgid "Lithuanian"
-msgstr ""
+msgstr "الليتواني"
 
 #: config/settings.py:145
+#, fuzzy
 msgid "Latvian"
-msgstr ""
+msgstr "اللاتفية"
 
 #: config/settings.py:146
+#, fuzzy
 msgid "Estonian"
-msgstr ""
+msgstr "الإستونية"
 
 #: config/settings.py:147
+#, fuzzy
 msgid "Polish"
-msgstr ""
+msgstr "بولندي"
 
 #: config/settings.py:148
+#, fuzzy
 msgid "German"
-msgstr ""
+msgstr "الألمانية"
 
 #: config/settings.py:149
+#, fuzzy
 msgid "Russian"
-msgstr ""
+msgstr "الروسية"
 
 #: config/settings.py:150
+#, fuzzy
 msgid "French"
-msgstr ""
+msgstr "فرنسي"
 
 #: config/settings.py:151
+#, fuzzy
 msgid "Spanish"
-msgstr ""
+msgstr "الأسبانية"
 
 #: config/settings.py:152
+#, fuzzy
 msgid "Chinese"
-msgstr ""
+msgstr "الصينية"
 
 #: config/settings.py:153
+#, fuzzy
 msgid "Vietnamese"
-msgstr ""
+msgstr "الفيتناميين"
 
 #: config/settings.py:154
+#, fuzzy
 msgid "Arabic"
-msgstr ""
+msgstr "عربي"
 
 #: config/settings.py:155
+#, fuzzy
 msgid "Korean"
-msgstr ""
+msgstr "كوري"
 
 #: templates/accounts/become_dealer.html:3
 #: templates/pages/help_center.html:540
@@ -3252,26 +3764,33 @@ msgid "Sell more cars on SellCar"
 msgstr "بيع المزيد من السيارات على AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
+#, fuzzy
 msgid ""
 "Reach thousands of buyers with your branded dealer page and professional "
 "tools."
 msgstr ""
+"يمكنك الوصول إلى آلاف المشترين من خلال صفحة الوكيل الخاصة بك والأدوات "
+"الاحترافية."
 
 #: templates/accounts/become_dealer.html:20
+#, fuzzy
 msgid "You are an active Dealer"
-msgstr ""
+msgstr "أنت تاجر نشط"
 
 #: templates/accounts/become_dealer.html:22
+#, fuzzy
 msgid "Subscription active until"
-msgstr ""
+msgstr "الاشتراك فعال حتى"
 
 #: templates/accounts/become_dealer.html:26
+#, fuzzy
 msgid "Go to Dashboard"
-msgstr ""
+msgstr "انتقل إلى لوحة التحكم"
 
 #: templates/accounts/become_dealer.html:34
+#, fuzzy
 msgid "Dealer / Autohouse"
-msgstr ""
+msgstr "تاجر / مركز سيارات"
 
 #: templates/accounts/become_dealer.html:37
 msgid "/month"
@@ -3283,16 +3802,18 @@ msgid "Cancel anytime"
 msgstr "يمكنك الإلغاء في أي وقت"
 
 #: templates/accounts/become_dealer.html:46
+#, fuzzy
 msgid "Extend subscription"
-msgstr ""
+msgstr "تمديد الاشتراك"
 
 #: templates/accounts/become_dealer.html:48
 msgid "Subscribe"
 msgstr "يشترك"
 
 #: templates/accounts/become_dealer.html:52
+#, fuzzy
 msgid "Wallet balance:"
-msgstr ""
+msgstr "رصيد المحفظة:"
 
 #: templates/accounts/become_dealer.html:53 templates/accounts/wallet.html:21
 #: templates/accounts/wallet.html:55
@@ -3301,16 +3822,19 @@ msgid "Top up"
 msgstr "تعبئة الرصيد"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "Up to"
-msgstr ""
+msgstr "حتى"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "active listings"
-msgstr ""
+msgstr "القوائم النشطة"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "across all categories"
-msgstr ""
+msgstr "في جميع الفئات"
 
 #: templates/accounts/become_dealer.html:64
 msgid "Branded dealer page"
@@ -3338,8 +3862,9 @@ msgid "Priority support"
 msgstr "دعم ذو أولوية"
 
 #: templates/accounts/become_dealer.html:92
+#, fuzzy
 msgid "Need more listings?"
-msgstr ""
+msgstr "هل تحتاج إلى المزيد من القوائم؟"
 
 #: templates/accounts/become_dealer.html:93
 msgid "Talk to us about volume pricing or partnership opportunities."
@@ -3351,19 +3876,24 @@ msgid "Contact us"
 msgstr "اتصل بنا"
 
 #: templates/accounts/become_dealer.html:101
+#, fuzzy
 msgid ""
 "Payments processed via your wallet balance. Stripe direct subscription "
 "coming soon."
 msgstr ""
+"تتم معالجة المدفوعات عبر رصيد محفظتك. خدمة الاشتراك المباشر عبر Stripe متاحة"
+" قريباً."
 
 #: templates/accounts/dealer_dashboard.html:3
 #: templates/accounts/dealer_dashboard.html:10
+#, fuzzy
 msgid "Dealer Dashboard"
-msgstr ""
+msgstr "لوحة معلومات الوكيل"
 
 #: templates/accounts/dealer_dashboard.html:15
+#, fuzzy
 msgid "Welcome, Dealer"
-msgstr ""
+msgstr "أهلاً وسهلاً، أيها التاجر"
 
 #: templates/accounts/dealer_dashboard.html:21
 #: templates/accounts/profile_edit.html:4
@@ -3376,16 +3906,19 @@ msgid "View Public Page"
 msgstr "عرض الصفحة العامة"
 
 #: templates/accounts/dealer_dashboard.html:34
+#, fuzzy
 msgid "Dealer subscription active"
-msgstr ""
+msgstr "اشتراك التاجر فعال"
 
 #: templates/accounts/dealer_dashboard.html:36
+#, fuzzy
 msgid "Expires"
-msgstr ""
+msgstr "تاريخ الانتهاء"
 
 #: templates/accounts/dealer_dashboard.html:37
+#, fuzzy
 msgid "days remaining"
-msgstr ""
+msgstr "الأيام المتبقية"
 
 #: templates/accounts/dealer_dashboard.html:42
 #: templates/listings/my_listings.html:53
@@ -3394,20 +3927,24 @@ msgid "Renew"
 msgstr "تجديد"
 
 #: templates/accounts/dealer_dashboard.html:49
+#, fuzzy
 msgid "Active listings"
-msgstr ""
+msgstr "القوائم النشطة"
 
 #: templates/accounts/dealer_dashboard.html:53
+#, fuzzy
 msgid "Total views"
-msgstr ""
+msgstr "إجمالي المشاهدات"
 
 #: templates/accounts/dealer_dashboard.html:57
+#, fuzzy
 msgid "Total saves"
-msgstr ""
+msgstr "إجمالي عمليات الحفظ"
 
 #: templates/accounts/dealer_dashboard.html:61
+#, fuzzy
 msgid "Days remaining"
-msgstr ""
+msgstr "الأيام المتبقية"
 
 #: templates/accounts/dealer_dashboard.html:73
 #: templates/accounts/dealer_dashboard.html:131
@@ -3415,16 +3952,18 @@ msgid "Create listing"
 msgstr "إنشاء قائمة"
 
 #: templates/accounts/dealer_dashboard.html:74
+#, fuzzy
 msgid "Add a new vehicle"
-msgstr ""
+msgstr "إضافة مركبة جديدة"
 
 #: templates/accounts/dealer_dashboard.html:82
 msgid "My listings"
 msgstr "قوائمي"
 
 #: templates/accounts/dealer_dashboard.html:83
+#, fuzzy
 msgid "Manage your inventory"
-msgstr ""
+msgstr "إدارة مخزونك"
 
 #: templates/accounts/dealer_dashboard.html:91
 #: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
@@ -3433,25 +3972,29 @@ msgid "Wallet"
 msgstr "محفظة"
 
 #: templates/accounts/dealer_dashboard.html:92
+#, fuzzy
 msgid "Balance & top-up"
-msgstr ""
+msgstr "الرصيد وإعادة التعبئة"
 
 #: templates/accounts/dealer_dashboard.html:100
+#, fuzzy
 msgid "Top viewed listings"
-msgstr ""
+msgstr "أكثر الإعلانات مشاهدة"
 
 #: templates/accounts/dealer_dashboard.html:128
 msgid "No listings yet"
 msgstr "لا توجد قوائم حتى الآن"
 
 #: templates/accounts/dealer_dashboard.html:129
+#, fuzzy
 msgid "Create your first listing to get started"
-msgstr ""
+msgstr "أنشئ قائمتك الأولى للبدء"
 
 #: templates/accounts/dealer_public_page.html:32
 #: templates/listings/listing_detail.html:1142
+#, fuzzy
 msgid "Verified Dealer"
-msgstr ""
+msgstr "تاجر معتمد"
 
 #: templates/accounts/dealer_public_page.html:34
 #: templates/accounts/dealer_public_page.html:179
@@ -3673,12 +4216,14 @@ msgid "Clear"
 msgstr "واضح"
 
 #: templates/accounts/dealer_public_page.html:144
+#, fuzzy
 msgid "Categories"
-msgstr ""
+msgstr "فئات"
 
 #: templates/accounts/dealer_public_page.html:151
+#, fuzzy
 msgid "All listings"
-msgstr ""
+msgstr "جميع القوائم"
 
 #: templates/accounts/dealer_public_page.html:179
 #: templates/accounts/seller_profile.html:291
@@ -3686,8 +4231,9 @@ msgid "Showing"
 msgstr "عرض"
 
 #: templates/accounts/dealer_public_page.html:192
+#, fuzzy
 msgid "Sort"
-msgstr ""
+msgstr "نوع"
 
 #: templates/accounts/dealer_public_page.html:194
 #: templates/accounts/seller_profile.html:300
@@ -3695,8 +4241,9 @@ msgid "Newest first"
 msgstr "الأحدث أولاً"
 
 #: templates/accounts/dealer_public_page.html:195
+#, fuzzy
 msgid "Oldest first"
-msgstr ""
+msgstr "الأقدم أولاً"
 
 #: templates/accounts/dealer_public_page.html:196
 msgid "Price: low to high"
@@ -3707,50 +4254,61 @@ msgid "Price: high to low"
 msgstr "السعر: من الأعلى إلى الأدنى"
 
 #: templates/accounts/dealer_public_page.html:198
+#, fuzzy
 msgid "Most viewed"
-msgstr ""
+msgstr "الأكثر مشاهدة"
 
 #: templates/accounts/dealer_public_page.html:248
+#, fuzzy
 msgid "No listings match your filters."
-msgstr ""
+msgstr "لا توجد نتائج مطابقة لمرشحاتك."
 
 #: templates/accounts/dealer_public_page.html:260
 #: templates/pages/help_center.html:140
+#, fuzzy
 msgid "Contact"
-msgstr ""
+msgstr "اتصال"
 
 #: templates/accounts/dealer_public_page.html:281
+#, fuzzy
 msgid "No contact info provided"
-msgstr ""
+msgstr "لم يتم توفير معلومات الاتصال"
 
 #: templates/accounts/dealer_public_page.html:292
+#, fuzzy
 msgid "Open Hours"
-msgstr ""
+msgstr "ساعات العمل"
 
 #: templates/accounts/dealer_public_page.html:300
 #: templates/accounts/dealer_setup.html:86
+#, fuzzy
 msgid "Closed"
-msgstr ""
+msgstr "مغلق"
 
 #: templates/accounts/dealer_public_page.html:315
+#, fuzzy
 msgid "About"
-msgstr ""
+msgstr "عن"
 
 #: templates/accounts/dealer_setup.html:3
+#, fuzzy
 msgid "Dealer Setup"
-msgstr ""
+msgstr "إعداد الموزع"
 
 #: templates/accounts/dealer_setup.html:9
+#, fuzzy
 msgid "Dealer Profile Setup"
-msgstr ""
+msgstr "إعداد ملف تعريف التاجر"
 
 #: templates/accounts/dealer_setup.html:10
+#, fuzzy
 msgid "All fields are optional. You can fill them now or later via Dashboard."
-msgstr ""
+msgstr "جميع الحقول اختيارية. يمكنك ملؤها الآن أو لاحقاً عبر لوحة التحكم."
 
 #: templates/accounts/dealer_setup.html:18
+#, fuzzy
 msgid "Company Information"
-msgstr ""
+msgstr "معلومات الشركة"
 
 #: templates/accounts/dealer_setup.html:26
 #: templates/accounts/seller_profile.html:371
@@ -3783,24 +4341,29 @@ msgid "Address"
 msgstr "عنوان"
 
 #: templates/accounts/dealer_setup.html:42
+#, fuzzy
 msgid "Visual Branding"
-msgstr ""
+msgstr "الهوية البصرية"
 
 #: templates/accounts/dealer_setup.html:46
+#, fuzzy
 msgid "Logo"
-msgstr ""
+msgstr "الشعار"
 
 #: templates/accounts/dealer_setup.html:53
+#, fuzzy
 msgid "Recommended: square, 200x200px+"
-msgstr ""
+msgstr "يُنصح باستخدام: مربع، 200×200 بكسل أو أكثر"
 
 #: templates/accounts/dealer_setup.html:56
+#, fuzzy
 msgid "Banner"
-msgstr ""
+msgstr "لافتة"
 
 #: templates/accounts/dealer_setup.html:63
+#, fuzzy
 msgid "Recommended: 1920x400px"
-msgstr ""
+msgstr "الحجم الموصى به: 1920×400 بكسل"
 
 #: templates/accounts/dealer_setup.html:70
 #: templates/pages/help_center.html:655
@@ -3808,20 +4371,24 @@ msgid "About Us"
 msgstr "معلومات عنا"
 
 #: templates/accounts/dealer_setup.html:71
+#, fuzzy
 msgid "Tell buyers about your dealership..."
-msgstr ""
+msgstr "أخبر المشترين عن وكالتك..."
 
 #: templates/accounts/dealer_setup.html:77
+#, fuzzy
 msgid "Set opening and closing times for each day, or mark as Closed."
-msgstr ""
+msgstr "حدد أوقات الفتح والإغلاق لكل يوم، أو ضع علامة \"مغلق\"."
 
 #: templates/accounts/dealer_setup.html:102
+#, fuzzy
 msgid "Skip for now"
-msgstr ""
+msgstr "تجاوز الأمر مؤقتًا"
 
 #: templates/accounts/dealer_setup.html:105
+#, fuzzy
 msgid "Save profile"
-msgstr ""
+msgstr "حفظ الملف الشخصي"
 
 #: templates/accounts/login.html:4 templates/accounts/login.html:85
 #: templates/base.html:232
@@ -4254,9 +4821,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/accounts/seller_profile.html:168
-#, python-format
+#, python-format, fuzzy
 msgid "Member since %(year)s"
-msgstr ""
+msgstr "عضو منذ %(year)s"
 
 #: templates/accounts/seller_profile.html:190 templates/home.html:36
 #: templates/listings/home.html:24 templates/listings/listing_list.html:1376
@@ -4454,9 +5021,9 @@ msgid "Clear All"
 msgstr "مسح الكل"
 
 #: templates/accounts/seller_profile.html:292
-#, python-format
+#, python-format, fuzzy
 msgid "of %(total)s"
-msgstr ""
+msgstr "من %(total)s"
 
 #: templates/accounts/seller_profile.html:301
 #: templates/listings/listing_list_v2.html:341
@@ -4516,9 +5083,9 @@ msgid "Phone 2"
 msgstr "الهاتف 2"
 
 #: templates/accounts/seller_profile.html:383
-#, python-format
+#, python-format, fuzzy
 msgid "About %(company)s"
-msgstr ""
+msgstr "حوالي %(company)s"
 
 #: templates/accounts/seller_profile.html:408
 msgid "No reviews yet."
@@ -4590,9 +5157,9 @@ msgid "Get"
 msgstr "يحصل"
 
 #: templates/accounts/wallet.html:88
-#, python-format
+#, python-format, fuzzy
 msgid "= %(total)s points"
-msgstr ""
+msgstr "= %(total)s نقطة"
 
 #: templates/accounts/wallet.html:103
 msgid "Test mode (developer only)"
@@ -4640,8 +5207,9 @@ msgid "No transactions yet."
 msgstr "لم يتم إجراء أي معاملات حتى الآن."
 
 #: templates/base.html:8
+#, fuzzy
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr ""
+msgstr "أوتوليفت - بيع وشراء السيارات عبر الإنترنت"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -4649,16 +5217,18 @@ msgid "Map Search"
 msgstr "البحث في الخريطة"
 
 #: templates/base.html:62 templates/base.html:265 templates/base.html:378
+#, fuzzy
 msgid "News & Help"
-msgstr ""
+msgstr "الأخبار والمساعدة"
 
 #: templates/base.html:105 templates/base.html:109 templates/base.html:258
 msgid "Create Ad"
 msgstr "إنشاء إعلان"
 
 #: templates/base.html:116 templates/base.html:175 templates/base.html:273
+#, fuzzy
 msgid "Saved Ads"
-msgstr ""
+msgstr "الإعلانات المحفوظة"
 
 #: templates/base.html:126 templates/base.html:184 templates/base.html:276
 #: templates/listings/saved_searches.html:18
@@ -4674,8 +5244,9 @@ msgstr "رسائل"
 #: templates/base.html:166 templates/base.html:270
 #: templates/listings/my_listings.html:4
 #: templates/listings/my_listings.html:45
+#, fuzzy
 msgid "My Ads"
-msgstr ""
+msgstr "إعلاناتي"
 
 #: templates/base.html:196 templates/base.html:282
 msgid "Settings"
@@ -4701,8 +5272,9 @@ msgid "Moderate users"
 msgstr "المستخدمون المعتدلون"
 
 #: templates/base.html:213 templates/base.html:297
+#, fuzzy
 msgid "Moderate dealers"
-msgstr ""
+msgstr "تجار معتدلون"
 
 #: templates/base.html:216 templates/base.html:300
 msgid "Sales stats"
@@ -4717,20 +5289,23 @@ msgid "Logout"
 msgstr "تسجيل الخروج"
 
 #: templates/base.html:235
+#, fuzzy
 msgid "Register"
-msgstr ""
+msgstr "يسجل"
 
 #: templates/base.html:357
 msgid "Discover trusted vehicles and services — easier, faster, simpler."
 msgstr "اكتشف المركبات والخدمات الموثوقة - بسهولة وسرعة وبساطة."
 
 #: templates/base.html:376
+#, fuzzy
 msgid "Looking for FAQ, dealer info, pricing? See"
-msgstr ""
+msgstr "هل تبحث عن الأسئلة الشائعة، أو معلومات عن الموزعين، أو الأسعار؟ انظر"
 
 #: templates/base.html:379
+#, fuzzy
 msgid "in the menu above."
-msgstr ""
+msgstr "في القائمة أعلاه."
 
 #: templates/base.html:385
 msgid "Have questions?"
@@ -5295,22 +5870,28 @@ msgid "Part Name or Code"
 msgstr "اسم الجزء أو رمزه"
 
 #: templates/listings/advanced_search.html:450
+#, fuzzy
 msgid "Text search: name, OEM, engine code, gearbox code..."
 msgstr ""
+"البحث النصي: الاسم، الشركة المصنعة الأصلية، رمز المحرك، رمز علبة التروس..."
 
 #: templates/listings/advanced_search.html:454
+#, fuzzy
 msgid ""
 "Searches: Title, Description, OEM Code, Engine Code, Gearbox Code, "
 "Modification"
 msgstr ""
+"عمليات البحث: العنوان، الوصف، رمز الشركة المصنعة الأصلية، رمز المحرك، رمز "
+"علبة التروس، التعديل"
 
 #: templates/listings/advanced_search.html:509
 msgid "Compatible With (Vehicle)"
 msgstr "متوافق مع (المركبة)"
 
 #: templates/listings/advanced_search.html:564
+#, fuzzy
 msgid "Vehicle Technical Specs"
-msgstr ""
+msgstr "المواصفات الفنية للمركبة"
 
 #: templates/listings/advanced_search.html:586
 #: templates/listings/listing_detail.html:335
@@ -5319,8 +5900,9 @@ msgid "Gearbox"
 msgstr "علبة التروس"
 
 #: templates/listings/advanced_search.html:634
+#, fuzzy
 msgid "Drive Wheels"
-msgstr ""
+msgstr "عجلات القيادة"
 
 #: templates/listings/advanced_search.html:668
 msgid "Engine Size (L)"
@@ -5335,16 +5917,19 @@ msgstr ""
 "الصفوف فارغة = البحث عن جميع الأجزاء."
 
 #: templates/listings/advanced_search.html:878
+#, fuzzy
 msgid "Part Categories"
-msgstr ""
+msgstr "فئات الأجزاء"
 
 #: templates/listings/advanced_search.html:886
+#, fuzzy
 msgid "Search categories..."
-msgstr ""
+msgstr "ابحث عن الفئات..."
 
 #: templates/listings/advanced_search.html:894
+#, fuzzy
 msgid "categories selected"
-msgstr ""
+msgstr "تم تحديد الفئات"
 
 #: templates/listings/advanced_search.html:1140
 #: templates/listings/advanced_search.html:1231
@@ -5385,8 +5970,9 @@ msgid "Edit listing"
 msgstr "تعديل القائمة"
 
 #: templates/listings/boats_listing_create.html:24
+#, fuzzy
 msgid "New listing"
-msgstr ""
+msgstr "إعلان جديد"
 
 #: templates/listings/boats_listing_create.html:39
 #: templates/listings/listing_create_cars_quick.html:38
@@ -5397,12 +5983,14 @@ msgid "Main listing data"
 msgstr "بيانات القائمة الرئيسية"
 
 #: templates/listings/boats_listing_create.html:66
+#, fuzzy
 msgid "e.g. Bayliner"
-msgstr ""
+msgstr "مثال: بايلينر"
 
 #: templates/listings/boats_listing_create.html:73
+#, fuzzy
 msgid "e.g. VR5"
-msgstr ""
+msgstr "مثال: VR5"
 
 #: templates/listings/boats_listing_create.html:89
 #: templates/listings/motogear_create.html:160
@@ -5470,16 +6058,19 @@ msgid "Additional data"
 msgstr "بيانات إضافية"
 
 #: templates/listings/boats_listing_create.html:155
+#, fuzzy
 msgid "Length (m)"
-msgstr ""
+msgstr "الطول (م)"
 
 #: templates/listings/boats_listing_create.html:161
+#, fuzzy
 msgid "Width (m)"
-msgstr ""
+msgstr "العرض (م)"
 
 #: templates/listings/boats_listing_create.html:214
+#, fuzzy
 msgid "Number of engines"
-msgstr ""
+msgstr "عدد المحركات"
 
 #: templates/listings/boats_listing_create.html:264
 #: templates/listings/listing_create_cars_quick.html:467
@@ -5560,12 +6151,14 @@ msgstr "أدر إلى اليمين"
 #: templates/listings/rims_create.html:220
 #: templates/listings/tyres_create.html:253
 #: templates/listings/wheels_create.html:334
+#, fuzzy
 msgid "Selected photos"
-msgstr ""
+msgstr "صور مختارة"
 
 #: templates/listings/boats_listing_create.html:326
+#, fuzzy
 msgid "Drag to reorder. The first photo is the main one."
-msgstr ""
+msgstr "اسحب لإعادة الترتيب. الصورة الأولى هي الصورة الرئيسية."
 
 #: templates/listings/boats_listing_create.html:332
 #: templates/listings/listing_create_cars_quick.html:554
@@ -5589,8 +6182,9 @@ msgstr "حتى 40 صورة. الحد الأقصى للحجم 24 ميجابايت
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:365
 #: templates/listings/motorcycle_create.html:503
+#, fuzzy
 msgid "Uploading photos..."
-msgstr ""
+msgstr "جارٍ تحميل الصور..."
 
 #: templates/listings/boats_listing_create.html:362
 #: templates/listings/listing_create_cars_quick.html:594
@@ -5644,12 +6238,14 @@ msgid "Street, house number"
 msgstr "الشارع، رقم المنزل"
 
 #: templates/listings/boats_listing_create.html:409
+#, fuzzy
 msgid "By submitting, I agree to the Terms and Conditions and Privacy Policy"
-msgstr ""
+msgstr "بإرسال هذا الطلب، أوافق على الشروط والأحكام وسياسة الخصوصية."
 
 #: templates/listings/boats_listing_create.html:421
+#, fuzzy
 msgid "Not all required fields are filled in. These fields are marked in red."
-msgstr ""
+msgstr "لم يتم ملء جميع الحقول المطلوبة. هذه الحقول مميزة باللون الأحمر."
 
 #: templates/listings/boats_listing_create.html:441
 #: templates/listings/listing_create.html:748
@@ -5706,8 +6302,9 @@ msgstr "لم يتم العثور على معرف القائمة"
 #: templates/listings/listing_create_cars_quick.html:1658
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:502
+#, fuzzy
 msgid "Preparing photos..."
-msgstr ""
+msgstr "جارٍ تحضير الصور..."
 
 #: templates/listings/boats_listing_create.html:835
 #: templates/listings/boats_listing_create.html:836
@@ -6125,9 +6722,9 @@ msgid "1 day"
 msgstr "يوم واحد"
 
 #: templates/listings/listing_activation_plans.html:98
-#, python-brace-format
+#, python-brace-format, fuzzy
 msgid "{n} days"
-msgstr ""
+msgstr "0 يوم"
 
 #: templates/listings/listing_create.html:20
 msgid "Photos & Video"
@@ -6140,18 +6737,18 @@ msgid "Vehicle Details"
 msgstr "تفاصيل المركبة"
 
 #: templates/listings/listing_create.html:28
-#, python-format
+#, python-format, fuzzy
 msgid "Editing: %(brand)s %(model)s"
-msgstr ""
+msgstr "التحرير: %(brand)s %(model)s"
 
 #: templates/listings/listing_create.html:34
 msgid "Create New Listing"
 msgstr "إنشاء قائمة جديدة"
 
 #: templates/listings/listing_create.html:35
-#, python-format
+#, python-format, fuzzy
 msgid "Step %(current)s of %(total)s"
-msgstr ""
+msgstr "الخطوة %(current)s من %(total)s"
 
 #: templates/listings/listing_create.html:54
 #: templates/listings/listing_create.html:848
@@ -6457,9 +7054,9 @@ msgid "({count} / 40 — click to enlarge, drag to reorder)"
 msgstr "({count} / 40 — انقر للتكبير، اسحب لإعادة الترتيب)"
 
 #: templates/listings/listing_create.html:847
-#, python-brace-format
+#, python-brace-format, fuzzy
 msgid "You picked {n} photos but only {a} fit. First {a} will be added."
-msgstr ""
+msgstr "اخترتَ ٠ صورة، ولكن صورة واحدة فقط تناسبك. سيتم إضافة أول صورتين."
 
 #: templates/listings/listing_create.html:851
 #: templates/listings/listing_create_cars_quick.html:925
@@ -6497,9 +7094,9 @@ msgid "Defects is required"
 msgstr "العيوب مطلوبة"
 
 #: templates/listings/listing_create_cars_quick.html:22
-#, python-format
+#, python-format, fuzzy
 msgid "Edit listing: %(brand)s %(model)s"
-msgstr ""
+msgstr "تعديل القائمة: %(brand)s %(model)s"
 
 #: templates/listings/listing_create_cars_quick.html:24
 msgid "New listing: Cars"
@@ -6889,12 +7486,14 @@ msgstr ""
 "استفسر من البائع عن وثائق وشروط التصدير."
 
 #: templates/listings/listing_detail.html:1156
+#, fuzzy
 msgid "cars available"
-msgstr ""
+msgstr "سيارات متاحة"
 
 #: templates/listings/listing_detail.html:1162
+#, fuzzy
 msgid "Browse all listings"
-msgstr ""
+msgstr "تصفح جميع الإعلانات"
 
 #: templates/listings/listing_detail.html:1181
 msgid "Click to copy"
@@ -6941,8 +7540,9 @@ msgid "Report"
 msgstr "تقرير"
 
 #: templates/listings/listing_detail.html:1238
+#, fuzzy
 msgid "Listing ID"
-msgstr ""
+msgstr "رقم القائمة"
 
 #: templates/listings/listing_detail.html:1243
 #, python-format
@@ -7494,20 +8094,24 @@ msgid "Loading..."
 msgstr "تحميل..."
 
 #: templates/listings/listing_list_v2.html:249
+#, fuzzy
 msgid "V2 preview — autogidas style sidebar"
-msgstr ""
+msgstr "معاينة الإصدار الثاني — شريط جانبي بنمط أوتوجيداس"
 
 #: templates/listings/listing_list_v2.html:250
+#, fuzzy
 msgid "Switch back to V1"
-msgstr ""
+msgstr "ارجع إلى الإصدار الأول"
 
 #: templates/listings/listing_list_v2.html:275
+#, fuzzy
 msgid "subcategories"
-msgstr ""
+msgstr "الفئات الفرعية"
 
 #: templates/listings/listing_list_v2.html:284
+#, fuzzy
 msgid "No subcategories"
-msgstr ""
+msgstr "لا توجد فئات فرعية"
 
 #: templates/listings/listing_list_v2.html:304
 msgid "Price max"
@@ -7526,12 +8130,14 @@ msgstr[4] ""
 msgstr[5] ""
 
 #: templates/listings/listing_list_v2.html:374
+#, fuzzy
 msgid "No ads found"
-msgstr ""
+msgstr "لم يتم العثور على إعلانات"
 
 #: templates/listings/listing_list_v2.html:375
+#, fuzzy
 msgid "Try selecting a different category or adjusting filters"
-msgstr ""
+msgstr "حاول اختيار فئة مختلفة أو تعديل عوامل التصفية"
 
 #: templates/listings/listing_select_plan.html:5
 #: templates/listings/listing_select_plan.html:422
@@ -7647,8 +8253,9 @@ msgid "Total"
 msgstr "المجموع"
 
 #: templates/listings/listing_select_plan.html:230
+#, fuzzy
 msgid "Pay with card"
-msgstr ""
+msgstr "ادفع بالبطاقة"
 
 #: templates/listings/listing_select_plan.html:237
 msgid "By submitting your listing, you agree to SellCar"
@@ -7667,9 +8274,10 @@ msgid "privacy policy"
 msgstr "سياسة الخصوصية"
 
 #: templates/listings/listing_select_plan.html:244
+#, fuzzy
 msgid ""
 "Secure payment via Stripe. You'll be redirected to a secure checkout page."
-msgstr ""
+msgstr "عملية دفع آمنة عبر Stripe. سيتم تحويلك إلى صفحة دفع آمنة."
 
 #: templates/listings/listing_select_plan.html:288
 msgid "Back to edit listing"
@@ -7720,49 +8328,58 @@ msgstr ""
 
 #: templates/listings/listing_services_order.html:5
 #: templates/listings/listing_services_order.html:16
+#, fuzzy
 msgid "Order extra services"
-msgstr ""
+msgstr "اطلب خدمات إضافية"
 
 #: templates/listings/listing_services_order.html:13
+#, fuzzy
 msgid "Back to my ads"
-msgstr ""
+msgstr "العودة إلى إعلاناتي"
 
 #: templates/listings/listing_services_order.html:19
+#, fuzzy
 msgid ""
 "Boost your active listing with stars, highlight, or featured placement."
-msgstr ""
+msgstr "عزز إعلانك النشط من خلال وضع النجوم أو التمييز أو العرض المميز."
 
 #: templates/listings/listing_services_order.html:48
+#, fuzzy
 msgid "Listing is active"
-msgstr ""
+msgstr "القائمة نشطة"
 
 #: templates/listings/listing_services_order.html:65
 #: templates/listings/listing_services_order.html:89
 #: templates/listings/listing_services_order.html:108
+#, fuzzy
 msgid "Currently:"
-msgstr ""
+msgstr "حالياً:"
 
 #: templates/listings/listing_services_order.html:65
 #: templates/listings/listing_services_order.html:89
 #: templates/listings/listing_services_order.html:108
+#, fuzzy
 msgid "d. left"
-msgstr ""
+msgstr "د. يسار"
 
 #: templates/listings/listing_services_order.html:129
+#, fuzzy
 msgid "Wallet balance"
-msgstr ""
+msgstr "رصيد المحفظة"
 
 #: templates/listings/listing_services_order.html:153
 msgid "Insufficient wallet balance. Please top up."
 msgstr "رصيد المحفظة غير كافٍ. يرجى إعادة شحنها."
 
 #: templates/listings/listing_services_order.html:157
+#, fuzzy
 msgid "Cost will be deducted from your wallet balance."
-msgstr ""
+msgstr "سيتم خصم التكلفة من رصيد محفظتك."
 
 #: templates/listings/listing_services_order.html:247
+#, fuzzy
 msgid "Insufficient balance"
-msgstr ""
+msgstr "رصيد غير كافٍ"
 
 #: templates/listings/listing_stats.html:4
 #: templates/listings/my_listings.html:302
@@ -8039,24 +8656,29 @@ msgid "Back to my listings"
 msgstr "العودة إلى قوائمي"
 
 #: templates/listings/moto_part_create.html:4
+#, fuzzy
 msgid "Sell Moto Part"
-msgstr ""
+msgstr "بيع قطع غيار الدراجات النارية"
 
 #: templates/listings/moto_part_create.html:16
+#, fuzzy
 msgid "Edit motorcycle part"
-msgstr ""
+msgstr "تعديل جزء الدراجة النارية"
 
 #: templates/listings/moto_part_create.html:16
+#, fuzzy
 msgid "Motorcycle part"
-msgstr ""
+msgstr "قطع غيار الدراجات النارية"
 
 #: templates/listings/moto_part_create.html:55
+#, fuzzy
 msgid "Part name"
-msgstr ""
+msgstr "اسم الجزء"
 
 #: templates/listings/moto_part_create.html:62
+#, fuzzy
 msgid "Part code"
-msgstr ""
+msgstr "رمز الجزء"
 
 #: templates/listings/moto_part_create.html:96
 #: templates/listings/moto_parts_advanced.html:65
@@ -8067,59 +8689,72 @@ msgid "Motorcycle type"
 msgstr "نوع الدراجة النارية"
 
 #: templates/listings/moto_part_create.html:116
+#, fuzzy
 msgid "Engine displacement (cm³)"
-msgstr ""
+msgstr "سعة المحرك (سم³)"
 
 #: templates/listings/moto_part_create.html:117
+#, fuzzy
 msgid "e.g. 1300"
-msgstr ""
+msgstr "مثال: 1300"
 
 #: templates/listings/moto_part_create.html:140
+#, fuzzy
 msgid "Part type"
-msgstr ""
+msgstr "نوع القطعة"
 
 #: templates/listings/moto_part_create.html:155
+#, fuzzy
 msgid "No part types configured yet."
-msgstr ""
+msgstr "لم يتم تكوين أي أنواع أجزاء بعد."
 
 #: templates/listings/moto_part_create.html:162
+#, fuzzy
 msgid "Comments"
-msgstr ""
+msgstr "تعليقات"
 
 #: templates/listings/moto_part_create.html:163
+#, fuzzy
 msgid "Describe the part, defects, condition, compatibility, etc."
-msgstr ""
+msgstr "صف الجزء، والعيوب، والحالة، والتوافق، وما إلى ذلك."
 
 #: templates/listings/moto_part_create.html:170
+#, fuzzy
 msgid "(max 36)"
-msgstr ""
+msgstr "(بحد أقصى 36)"
 
 #: templates/listings/moto_part_create.html:289
+#, fuzzy
 msgid "I agree to the terms and conditions"
-msgstr ""
+msgstr "أوافق على الشروط والأحكام"
 
 #: templates/listings/moto_part_create.html:343
+#, fuzzy
 msgid "Part name is required"
-msgstr ""
+msgstr "اسم الجزء مطلوب"
 
 #: templates/listings/moto_part_create.html:350
+#, fuzzy
 msgid "You must agree to the terms"
-msgstr ""
+msgstr "يجب عليك الموافقة على الشروط"
 
 #: templates/listings/moto_parts_advanced.html:5
+#, fuzzy
 msgid "Motorcycle Parts Search"
-msgstr ""
+msgstr "البحث عن قطع غيار الدراجات النارية"
 
 #: templates/listings/moto_parts_advanced.html:54
+#, fuzzy
 msgid "Motorcycle parts search"
-msgstr ""
+msgstr "البحث عن قطع غيار الدراجات النارية"
 
 #: templates/listings/moto_parts_advanced.html:60
 #: templates/listings/moto_parts_browse.html:110
 #: templates/listings/truck_parts_advanced.html:60
 #: templates/listings/truck_parts_browse.html:110
+#, fuzzy
 msgid "Text search / Part code"
-msgstr ""
+msgstr "البحث النصي / رمز القطعة"
 
 #: templates/listings/moto_parts_advanced.html:90
 #: templates/listings/moto_parts_browse.html:139
@@ -8130,55 +8765,65 @@ msgstr "سعة المحرك (سم³)"
 #: templates/listings/moto_parts_browse.html:179
 #: templates/listings/truck_parts_advanced.html:130
 #: templates/listings/truck_parts_browse.html:181
+#, fuzzy
 msgid "1 week"
-msgstr ""
+msgstr "أسبوع واحد"
 
 #: templates/listings/moto_parts_advanced.html:129
 #: templates/listings/moto_parts_browse.html:180
 #: templates/listings/truck_parts_advanced.html:131
 #: templates/listings/truck_parts_browse.html:182
+#, fuzzy
 msgid "1 month"
-msgstr ""
+msgstr "شهر واحد"
 
 #: templates/listings/moto_parts_advanced.html:141
 #: templates/listings/moto_parts_browse.html:192
+#, fuzzy
 msgid "Being dismantled for parts"
-msgstr ""
+msgstr "يتم تفكيكها لاستخراج قطع الغيار"
 
 #: templates/listings/moto_parts_browse.html:5
 #: templates/listings/moto_parts_browse.html:97
+#, fuzzy
 msgid "Motorcycle parts"
-msgstr ""
+msgstr "قطع غيار الدراجات النارية"
 
 #: templates/listings/moto_parts_browse.html:98
 #: templates/listings/truck_parts_browse.html:98
+#, fuzzy
 msgid "listings found"
-msgstr ""
+msgstr "تم العثور على قوائم"
 
 #: templates/listings/moto_parts_browse.html:165
 #: templates/listings/truck_parts_advanced.html:142
 #: templates/listings/truck_parts_browse.html:167
+#, fuzzy
 msgid "State (US)"
-msgstr ""
+msgstr "ولاية (الولايات المتحدة)"
 
 #: templates/listings/motogear_advanced.html:3
 #: templates/listings/partials/search_panel.html:73
 #: templates/listings/partials/search_panel.html:538
+#, fuzzy
 msgid "Apranga, šalmai, aksesuarai"
-msgstr ""
+msgstr "الملابس، والخوذات، والإكسسوارات"
 
 #: templates/listings/motogear_advanced.html:47
+#, fuzzy
 msgid "Aprangos, šalmų, aksesuarų paieška"
-msgstr ""
+msgstr "ابحث عن الملابس والخوذات والإكسسوارات"
 
 #: templates/listings/motogear_advanced.html:48
+#, fuzzy
 msgid "Išvalyti paiešką"
-msgstr ""
+msgstr "مسح البحث"
 
 #: templates/listings/motogear_advanced.html:53
 #: templates/listings/partials/search_panel.html:544
+#, fuzzy
 msgid "Tipas"
-msgstr ""
+msgstr "يكتب"
 
 #: templates/listings/motogear_advanced.html:55
 #: templates/listings/motogear_advanced.html:80
@@ -8227,42 +8872,50 @@ msgstr "الكل"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
+#, fuzzy
 msgid "Šalmai"
-msgstr ""
+msgstr "الخوذات"
 
 #: templates/listings/motogear_advanced.html:57
 #: templates/listings/partials/search_panel.html:549
+#, fuzzy
 msgid "Striukės"
-msgstr ""
+msgstr "السترات"
 
 #: templates/listings/motogear_advanced.html:58
 #: templates/listings/partials/search_panel.html:550
+#, fuzzy
 msgid "Kelnės"
-msgstr ""
+msgstr "بنطال"
 
 #: templates/listings/motogear_advanced.html:59
 #: templates/listings/partials/search_panel.html:551
+#, fuzzy
 msgid "Kombinezonai"
-msgstr ""
+msgstr "بذلات القفز"
 
 #: templates/listings/motogear_advanced.html:60
 #: templates/listings/partials/search_panel.html:552
+#, fuzzy
 msgid "Pirštinės"
-msgstr ""
+msgstr "قفازات"
 
 #: templates/listings/motogear_advanced.html:61
 #: templates/listings/partials/search_panel.html:553
+#, fuzzy
 msgid "Batai"
-msgstr ""
+msgstr "أحذية"
 
 #: templates/listings/motogear_advanced.html:62
 #: templates/listings/partials/search_panel.html:554
+#, fuzzy
 msgid "Apsaugos"
-msgstr ""
+msgstr "حماية"
 
 #: templates/listings/motogear_advanced.html:63
+#, fuzzy
 msgid "Krepšiai, kuprinės"
-msgstr ""
+msgstr "حقائب، حقائب ظهر"
 
 #: templates/listings/motogear_advanced.html:69
 msgid "Kaina, $"
@@ -8317,127 +8970,156 @@ msgstr "إلى"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
+#, fuzzy
 msgid "Vyriškas / moteriškas"
-msgstr ""
+msgstr "ذكر/أنثى"
 
 #: templates/listings/motogear_advanced.html:81
 #: templates/listings/partials/search_panel.html:588
+#, fuzzy
 msgid "Vyriškas"
-msgstr ""
+msgstr "ذكر"
 
 #: templates/listings/motogear_advanced.html:82
 #: templates/listings/partials/search_panel.html:589
+#, fuzzy
 msgid "Moteriškas"
-msgstr ""
+msgstr "المؤنث"
 
 #: templates/listings/motogear_advanced.html:83
+#, fuzzy
 msgid "Vaikiškas"
-msgstr ""
+msgstr "طفولي"
 
 #: templates/listings/motogear_advanced.html:90
+#, fuzzy
 msgid "Dydis"
-msgstr ""
+msgstr "مقاس"
 
 #: templates/listings/motogear_advanced.html:101
+#, fuzzy
 msgid "Vienas dydis"
-msgstr ""
+msgstr "مقاس واحد"
 
 #: templates/listings/motogear_advanced.html:102
+#, fuzzy
 msgid "Skaitinis"
-msgstr ""
+msgstr "عددي"
 
 #: templates/listings/motogear_advanced.html:108
+#, fuzzy
 msgid "Gamintojas"
-msgstr ""
+msgstr "الشركة المصنعة"
 
 #: templates/listings/motogear_advanced.html:116
 #: templates/listings/partials/search_panel.html:595
+#, fuzzy
 msgid "Pagamintas iš"
-msgstr ""
+msgstr "مصنوع من"
 
 #: templates/listings/motogear_advanced.html:119
+#, fuzzy
 msgid "Odos"
-msgstr ""
+msgstr "جلد"
 
 #: templates/listings/motogear_advanced.html:120
+#, fuzzy
 msgid "Tekstilės"
-msgstr ""
+msgstr "المنسوجات"
 
 #: templates/listings/motogear_advanced.html:121
+#, fuzzy
 msgid "Oda + tekstilė"
-msgstr ""
+msgstr "الجلد والنسيج"
 
 #: templates/listings/motogear_advanced.html:122
+#, fuzzy
 msgid "Sintetikos"
-msgstr ""
+msgstr "المواد الاصطناعية"
 
 #: templates/listings/motogear_advanced.html:123
+#, fuzzy
 msgid "Tinklelio"
-msgstr ""
+msgstr "شبكة"
 
 #: templates/listings/motogear_advanced.html:129
+#, fuzzy
 msgid "Naudota / nauja"
-msgstr ""
+msgstr "مستعمل / جديد"
 
 #: templates/listings/motogear_advanced.html:132
+#, fuzzy
 msgid "Nauja"
-msgstr ""
+msgstr "جديد"
 
 #: templates/listings/motogear_advanced.html:133
+#, fuzzy
 msgid "Naudota"
-msgstr ""
+msgstr "مستخدم"
 
 #: templates/listings/motogear_advanced.html:134
+#, fuzzy
 msgid "Su defektais"
-msgstr ""
+msgstr "مع وجود عيوب"
 
 #: templates/listings/motogear_advanced.html:139
+#, fuzzy
 msgid "Tipo detalė"
-msgstr ""
+msgstr "تفاصيل النوع"
 
 #: templates/listings/motogear_advanced.html:146
 msgid "Spalva"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:149
+#, fuzzy
 msgid "Juoda"
-msgstr ""
+msgstr "أسود"
 
 #: templates/listings/motogear_advanced.html:150
+#, fuzzy
 msgid "Balta"
-msgstr ""
+msgstr "أبيض"
 
 #: templates/listings/motogear_advanced.html:151
+#, fuzzy
 msgid "Raudona"
-msgstr ""
+msgstr "أحمر"
 
 #: templates/listings/motogear_advanced.html:152
+#, fuzzy
 msgid "Mėlyna"
-msgstr ""
+msgstr "أزرق"
 
 #: templates/listings/motogear_advanced.html:153
+#, fuzzy
 msgid "Žalia / chaki"
-msgstr ""
+msgstr "أخضر / كاكي"
 
 #: templates/listings/motogear_advanced.html:154
+#, fuzzy
 msgid "Geltona / auksinė"
-msgstr ""
+msgstr "أصفر/ذهبي"
 
 #: templates/listings/motogear_advanced.html:155
+#, fuzzy
 msgid "Oranžinė"
-msgstr ""
+msgstr "البرتقالي"
 
 #: templates/listings/motogear_advanced.html:156
+#, fuzzy
 msgid "Violetinė"
-msgstr ""
+msgstr "بنفسجي"
 
 #: templates/listings/motogear_advanced.html:157
+#, fuzzy
 msgid "Ruda / smėlio"
-msgstr ""
+msgstr "بني/بيج"
 
 #: templates/listings/motogear_advanced.html:158
+#, fuzzy
 msgid "Marga"
-msgstr ""
+msgstr "كثير"
 
 #: templates/listings/motogear_advanced.html:164
 #: templates/listings/partials/search_panel.html:313
@@ -8469,8 +9151,9 @@ msgid "Visos"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:181
+#, fuzzy
 msgid "Valstija (JAV)"
-msgstr ""
+msgstr "ولاية (الولايات المتحدة الأمريكية)"
 
 #: templates/listings/motogear_advanced.html:189
 #: templates/listings/partials/search_panel.html:605
@@ -8479,24 +9162,29 @@ msgid "Miestas"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:194
+#, fuzzy
 msgid "Rodyti ne senesnius nei"
-msgstr ""
+msgstr "لا تظهر أقدم من"
 
 #: templates/listings/motogear_advanced.html:197
+#, fuzzy
 msgid "24 valandos"
-msgstr ""
+msgstr "24 ساعة"
 
 #: templates/listings/motogear_advanced.html:198
+#, fuzzy
 msgid "3 dienos"
-msgstr ""
+msgstr "3 أيام"
 
 #: templates/listings/motogear_advanced.html:199
+#, fuzzy
 msgid "7 dienos"
-msgstr ""
+msgstr "7 أيام"
 
 #: templates/listings/motogear_advanced.html:200
+#, fuzzy
 msgid "30 dienų"
-msgstr ""
+msgstr "30 يومًا"
 
 #: templates/listings/motogear_advanced.html:205
 #: templates/listings/partials/search_panel.html:360
@@ -8516,12 +9204,14 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:206
 #: templates/listings/partials/search_panel.html:517
 #: templates/listings/partials/search_panel.html:839
+#, fuzzy
 msgid "Ieškoti..."
-msgstr ""
+msgstr "يبحث..."
 
 #: templates/listings/motogear_advanced.html:211
+#, fuzzy
 msgid "Ypatumai"
-msgstr ""
+msgstr "سمات"
 
 #: templates/listings/motogear_advanced.html:220
 #: templates/listings/partials/search_panel.html:363
@@ -8671,9 +9361,9 @@ msgid "Preparing draft..."
 msgstr "جارٍ إعداد المسودة..."
 
 #: templates/listings/motogear_create.html:464
-#, python-brace-format
+#, python-brace-format, fuzzy
 msgid "Uploading {n} photo(s)..."
-msgstr ""
+msgstr "جارٍ تحميل 0 صورة..."
 
 #: templates/listings/motogear_create.html:465
 msgid "Upload failed: no response"
@@ -8705,8 +9395,9 @@ msgid "Browse Moto Gear"
 msgstr "تصفح معدات الدراجات النارية"
 
 #: templates/listings/motogear_list.html:91
+#, fuzzy
 msgid "Moto Gear"
-msgstr ""
+msgstr "معدات الدراجات النارية"
 
 #: templates/listings/motogear_list.html:107
 #: templates/listings/motorcycles_list.html:206
@@ -8810,8 +9501,9 @@ msgstr "حاول تعديل فلاتر البحث أو كن أول من يضيف
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
+#, fuzzy
 msgid "Edit Motorcycle Listing"
-msgstr ""
+msgstr "تعديل قائمة الدراجات النارية"
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
@@ -9082,9 +9774,9 @@ msgid "Please fill in all required fields highlighted in red."
 msgstr "يرجى ملء جميع الحقول المطلوبة المظللة باللون الأحمر."
 
 #: templates/listings/motorcycle_create.html:500
-#, python-brace-format
+#, python-brace-format, fuzzy
 msgid "{n} file(s) selected"
-msgstr ""
+msgstr "تم تحديد 0 ملف"
 
 #: templates/listings/motorcycles_advanced_search.html:5
 msgid "Advanced Motorcycle Search"
@@ -9221,26 +9913,27 @@ msgstr[4] ""
 msgstr[5] ""
 
 #: templates/listings/motorcycles_list.html:550
+#, fuzzy
 msgid "Cooling"
-msgstr ""
+msgstr "تبريد"
 
 #: templates/listings/motorcycles_list.html:561
 msgid "Engine type"
 msgstr "نوع المحرك"
 
 #: templates/listings/my_listings.html:61
-#, python-format
+#, python-format, fuzzy
 msgid "Renew all %(count)s active ads to the top?"
-msgstr ""
+msgstr "هل تريد تجديد جميع الإعلانات النشطة (%(count)s) إلى أعلى الصفحة؟"
 
 #: templates/listings/my_listings.html:63
 msgid "Renew all"
 msgstr "جدد الكل"
 
 #: templates/listings/my_listings.html:64
-#, python-format
+#, python-format, fuzzy
 msgid "%(count)s active ads jump to top of the list"
-msgstr ""
+msgstr "%(count)s الإعلانات النشطة تنتقل إلى أعلى القائمة"
 
 #: templates/listings/my_listings.html:73
 msgid "Create new"
@@ -9267,8 +9960,9 @@ msgid "Recently renewed - can renew again after 1 hour"
 msgstr "تم التجديد مؤخراً - يمكن التجديد مرة أخرى بعد ساعة واحدة"
 
 #: templates/listings/my_listings.html:268
+#, fuzzy
 msgid "Order services"
-msgstr ""
+msgstr "خدمات الطلب"
 
 #: templates/listings/my_listings.html:287
 msgid "Extend"
@@ -9298,65 +9992,73 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listings/my_listings.html:408
-#, python-format
+#, python-format, fuzzy
 msgid "Auto-delete in %(days)sd"
-msgstr ""
+msgstr "حذف تلقائي في %(days)sd"
 
 #: templates/listings/my_listings.html:504
 msgid "Price not set"
 msgstr "لم يتم تحديد السعر"
 
 #: templates/listings/my_listings.html:556
+#, fuzzy
 msgid "Ad is <strong>inactive</strong>"
-msgstr ""
+msgstr "الإعلان <strong>غير نشط</strong>"
 
 #: templates/listings/my_listings.html:560
 msgid "Activate"
 msgstr "فعل"
 
 #: templates/listings/my_listings.html:581
+#, fuzzy
 msgid "Ad is"
-msgstr ""
+msgstr "الإعلان هو"
 
 #: templates/listings/my_listings.html:582
 msgid "inactive"
 msgstr "غير نشط"
 
 #: templates/listings/my_listings.html:603
+#, fuzzy
 msgid "No ads in this category"
-msgstr ""
+msgstr "لا توجد إعلانات في هذه الفئة"
 
 #: templates/listings/my_listings.html:603
+#, fuzzy
 msgid "No ads yet"
-msgstr ""
+msgstr "لا توجد إعلانات حتى الآن"
 
 #: templates/listings/my_listings.html:607
 msgid "Try selecting \\"
 msgstr "حاول تحديد \\"
 
 #: templates/listings/my_listings.html:609
+#, fuzzy
 msgid "Create your first ad to start selling."
-msgstr ""
+msgstr "أنشئ إعلانك الأول لتبدأ البيع."
 
 #: templates/listings/my_listings.html:614
 msgid "Create ad"
 msgstr "إنشاء إعلان"
 
 #: templates/listings/my_listings.html:632
+#, fuzzy
 msgid "Are you sure you want to delete this ad?"
-msgstr ""
+msgstr "هل أنت متأكد من رغبتك في حذف هذا الإعلان؟"
 
 #: templates/listings/my_listings.html:642
 msgid "I sold it"
 msgstr "بعتها"
 
 #: templates/listings/my_listings.html:661
+#, fuzzy
 msgid "Mark ad with \\"
-msgstr ""
+msgstr "ضع علامة على الإعلان بعلامة \\"
 
 #: templates/listings/my_listings.html:684
+#, fuzzy
 msgid "Delete ad"
-msgstr ""
+msgstr "حذف الإعلان"
 
 #: templates/listings/my_listings.html:702
 msgid "Are you sure you want to delete this listing?"
@@ -9395,20 +10097,23 @@ msgstr ""
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/search_panel.html:268
 #: templates/listings/partials/search_panel.html:1258
+#, fuzzy
 msgid "Top markės"
-msgstr ""
+msgstr "أفضل العلامات التجارية"
 
 #: templates/listings/partials/_sp_parts_brand.html:32
 #: templates/listings/partials/search_panel.html:279
 #: templates/listings/partials/search_panel.html:1269
+#, fuzzy
 msgid "Tik markės su skelbimais."
-msgstr ""
+msgstr "العلامات التجارية التي تعرض إعلانات فقط."
 
 #: templates/listings/partials/_sp_parts_brand.html:33
 #: templates/listings/partials/search_panel.html:280
 #: templates/listings/partials/search_panel.html:1270
+#, fuzzy
 msgid "Rodyti visus"
-msgstr ""
+msgstr "عرض الكل"
 
 #: templates/listings/partials/_sp_parts_brand.html:39
 #: templates/listings/partials/search_panel.html:285
@@ -9466,51 +10171,61 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:80
 #: templates/listings/partials/search_panel.html:636
+#, fuzzy
 msgid "Padangos motociklams"
-msgstr ""
+msgstr "إطارات الدراجات النارية"
 
 #: templates/listings/partials/search_panel.html:87
 #: templates/listings/partials/search_panel.html:723
+#, fuzzy
 msgid "Padangos keturračiams"
-msgstr ""
+msgstr "إطارات الدراجات الرباعية"
 
 #: templates/listings/partials/search_panel.html:107
+#, fuzzy
 msgid "Padangos"
-msgstr ""
+msgstr "الإطارات"
 
 #: templates/listings/partials/search_panel.html:113
 msgid "Ratlankiai"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:164
+#, fuzzy
 msgid "Lėktuvai"
-msgstr ""
+msgstr "الطائرات"
 
 #: templates/listings/partials/search_panel.html:168
+#, fuzzy
 msgid "Lėktuvų dalys"
-msgstr ""
+msgstr "قطع غيار الطائرات"
 
 #: templates/listings/partials/search_panel.html:175
+#, fuzzy
 msgid "Robotai"
-msgstr ""
+msgstr "الروبوتات"
 
 #: templates/listings/partials/search_panel.html:179
+#, fuzzy
 msgid "Robotų dalys"
-msgstr ""
+msgstr "قطع غيار الروبوت"
 
 #: templates/listings/partials/search_panel.html:186
+#, fuzzy
 msgid "Dronai"
-msgstr ""
+msgstr "الطائرات بدون طيار"
 
 #: templates/listings/partials/search_panel.html:190
+#, fuzzy
 msgid "Dronų dalys"
-msgstr ""
+msgstr "قطع غيار الطائرات بدون طيار"
 
 #: templates/listings/partials/search_panel.html:248
 #: templates/listings/partials/search_panel.html:860
 #: templates/search/_panel_cars.html:4
+#, fuzzy
 msgid "Paieška"
-msgstr ""
+msgstr "يبحث"
 
 #: templates/listings/partials/search_panel.html:337
 #: templates/listings/partials/search_panel.html:1157
@@ -9524,8 +10239,9 @@ msgid "Kėbulo tipas"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:369
+#, fuzzy
 msgid "Skelbimas su VIN"
-msgstr ""
+msgstr "إعلان مع رقم تعريف المركبة (VIN)"
 
 #: templates/listings/partials/search_panel.html:378
 #: templates/listings/partials/search_panel.html:525
@@ -9536,13 +10252,15 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1178
 #: templates/listings/partials/search_panel.html:1229
 #: templates/listings/partials/search_panel.html:1311
+#, fuzzy
 msgid "Išplėstinė paieška"
-msgstr ""
+msgstr "بحث متقدم"
 
 #: templates/listings/partials/search_panel.html:385
 #: templates/listings/partials/search_panel.html:1626
+#, fuzzy
 msgid "Išsaugoti paiešką"
-msgstr ""
+msgstr "حفظ البحث"
 
 #: templates/listings/partials/search_panel.html:392
 #: templates/listings/partials/search_panel.html:530
@@ -9568,63 +10286,76 @@ msgid "Visi modeliai"
 msgstr "كل الطرازات"
 
 #: templates/listings/partials/search_panel.html:471
+#, fuzzy
 msgid "Darbinis tūris cm³"
-msgstr ""
+msgstr "الإزاحة سم³"
 
 #: templates/listings/partials/search_panel.html:498
+#, fuzzy
 msgid "Motociklo tipas"
-msgstr ""
+msgstr "نوع الدراجة النارية"
 
 #: templates/listings/partials/search_panel.html:503
+#, fuzzy
 msgid "Turistiniai"
-msgstr ""
+msgstr "سائح"
 
 #: templates/listings/partials/search_panel.html:504
+#, fuzzy
 msgid "Cruiser / Chopper"
-msgstr ""
+msgstr "كروزر / تشوبر"
 
 #: templates/listings/partials/search_panel.html:505
+#, fuzzy
 msgid "Naked / Street"
-msgstr ""
+msgstr "عارٍ / في الشارع"
 
 #: templates/listings/partials/search_panel.html:506
+#, fuzzy
 msgid "Enduro / Cross"
-msgstr ""
+msgstr "إندورو / كروس"
 
 #: templates/listings/partials/search_panel.html:507
+#, fuzzy
 msgid "Motoroleriai"
-msgstr ""
+msgstr "الدراجات البخارية"
 
 #: templates/listings/partials/search_panel.html:508
+#, fuzzy
 msgid "Mopedai"
-msgstr ""
+msgstr "الدراجات النارية الصغيرة"
 
 #: templates/listings/partials/search_panel.html:509
+#, fuzzy
 msgid "Keturračiai (ATV)"
-msgstr ""
+msgstr "الدراجات الرباعية (ATVs)"
 
 #: templates/listings/partials/search_panel.html:555
+#, fuzzy
 msgid "Aksesuarai"
-msgstr ""
+msgstr "مُكَمِّلات"
 
 #: templates/listings/partials/search_panel.html:644
 #: templates/listings/partials/search_panel.html:731
 #: templates/listings/partials/search_panel.html:885
 #: templates/listings/partials/search_panel.html:996
+#, fuzzy
 msgid "Skersmuo"
-msgstr ""
+msgstr "القطر"
 
 #: templates/listings/partials/search_panel.html:657
 #: templates/listings/partials/search_panel.html:743
 #: templates/listings/partials/search_panel.html:901
+#, fuzzy
 msgid "Plotis"
-msgstr ""
+msgstr "عرض"
 
 #: templates/listings/partials/search_panel.html:672
 #: templates/listings/partials/search_panel.html:757
 #: templates/listings/partials/search_panel.html:918
+#, fuzzy
 msgid "Aukštis"
-msgstr ""
+msgstr "ارتفاع"
 
 #: templates/listings/partials/search_panel.html:807
 msgid "Sunkvežimiai"
@@ -9632,131 +10363,158 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:870
 #: templates/listings/partials/search_panel.html:983
+#, fuzzy
 msgid "Paskirtis"
-msgstr ""
+msgstr "غاية"
 
 #: templates/listings/partials/search_panel.html:874
 #: templates/listings/partials/search_panel.html:987
+#, fuzzy
 msgid "Lengviesiems"
-msgstr ""
+msgstr "للركاب"
 
 #: templates/listings/partials/search_panel.html:875
 #: templates/listings/partials/search_panel.html:988
+#, fuzzy
 msgid "Visureigiams (SUV)"
-msgstr ""
+msgstr "للسيارات الرياضية متعددة الاستخدامات"
 
 #: templates/listings/partials/search_panel.html:876
 #: templates/listings/partials/search_panel.html:989
+#, fuzzy
 msgid "Mikroautobusams"
-msgstr ""
+msgstr "للحافلات الصغيرة"
 
 #: templates/listings/partials/search_panel.html:877
 #: templates/listings/partials/search_panel.html:990
+#, fuzzy
 msgid "Sunkvežimiams"
-msgstr ""
+msgstr "للشاحنات"
 
 #: templates/listings/partials/search_panel.html:878
 #: templates/listings/partials/search_panel.html:991
+#, fuzzy
 msgid "Motociklams"
-msgstr ""
+msgstr "للدراجات النارية"
 
 #: templates/listings/partials/search_panel.html:879
+#, fuzzy
 msgid "Keturračiams"
-msgstr ""
+msgstr "للدراجات الرباعية"
 
 #: templates/listings/partials/search_panel.html:880
+#, fuzzy
 msgid "Žemės ūkio technikai"
-msgstr ""
+msgstr "الفنيين الزراعيين"
 
 #: templates/listings/partials/search_panel.html:1010
+#, fuzzy
 msgid "Medžiaga"
-msgstr ""
+msgstr "مادة"
 
 #: templates/listings/partials/search_panel.html:1014
+#, fuzzy
 msgid "Lengvojo lydinio"
-msgstr ""
+msgstr "سبيكة خفيفة"
 
 #: templates/listings/partials/search_panel.html:1015
+#, fuzzy
 msgid "Plieniniai"
-msgstr ""
+msgstr "فُولاَذ"
 
 #: templates/listings/partials/search_panel.html:1016
+#, fuzzy
 msgid "Kalti"
-msgstr ""
+msgstr "اللوم"
 
 #: templates/listings/partials/search_panel.html:1021
+#, fuzzy
 msgid "Skylių išdėstymas (PCD)"
-msgstr ""
+msgstr "ترتيب الثقوب (PCD)"
 
 #: templates/listings/partials/search_panel.html:1079
+#, fuzzy
 msgid "Vandens transportas"
-msgstr ""
+msgstr "النقل المائي"
 
 #: templates/listings/partials/search_panel.html:1105
+#, fuzzy
 msgid "Maks."
-msgstr ""
+msgstr "الأعلى."
 
 #: templates/listings/partials/search_panel.html:1170
+#, fuzzy
 msgid "pvz. 06H 145 601 H"
-msgstr ""
+msgstr "مثال: 06H 145 601 H"
 
 #: templates/listings/partials/search_panel.html:1208
 #: templates/listings/partials/search_panel.html:1290
+#, fuzzy
 msgid "pvz. detalės kodas"
-msgstr ""
+msgstr "مثال: رمز الجزء"
 
 #: templates/listings/partials/search_panel.html:1211
 #: templates/listings/partials/search_panel.html:1293
+#, fuzzy
 msgid "Dalies tipas"
-msgstr ""
+msgstr "نوع القطعة"
 
 #: templates/listings/partials/search_panel.html:1644
+#, fuzzy
 msgid "Išsaugota"
-msgstr ""
+msgstr "أنقذ"
 
 #: templates/listings/partials/search_panel.html:1664
 msgid "Kraunama..."
 msgstr "جارٍ التحميل..."
 
 #: templates/listings/parts_category_select.html:8
+#, fuzzy
 msgid "Car parts — Select category"
-msgstr ""
+msgstr "قطع غيار السيارات — اختر الفئة"
 
 #: templates/listings/parts_category_select.html:28
+#, fuzzy
 msgid "Listing information"
-msgstr ""
+msgstr "معلومات الإدراج"
 
 #: templates/listings/parts_category_select.html:76
+#, fuzzy
 msgid "Search parts category..."
-msgstr ""
+msgstr "ابحث عن فئة قطع الغيار..."
 
 #: templates/listings/parts_category_select.html:144
 msgid "Loading…"
 msgstr "تحميل..."
 
 #: templates/listings/parts_category_select.html:290
+#, fuzzy
 msgid "Error loading."
-msgstr ""
+msgstr "حدث خطأ في التحميل."
 
 #: templates/listings/parts_category_select.html:312
+#, fuzzy
 msgid "No parts available"
-msgstr ""
+msgstr "لا تتوفر قطع غيار"
 
 #: templates/listings/parts_category_select.html:408
+#, fuzzy
 msgid "No matches found"
-msgstr ""
+msgstr "لم يتم العثور على نتائج"
 
 #: templates/listings/rims_create.html:4
 #: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Rims"
-msgstr ""
+msgstr "إعلان جديد: جنوط"
 
 #: templates/listings/rims_create.html:40
 #: templates/listings/tyres_create.html:43
 #: templates/listings/wheels_create.html:54
+#, fuzzy
 msgid "Enter manufacturer"
-msgstr ""
+msgstr "أدخل اسم الشركة المصنعة"
 
 #: templates/listings/rims_create.html:53
 #: templates/listings/tyres_create.html:66
@@ -9764,90 +10522,106 @@ msgstr ""
 #: templates/listings/wheels_create.html:77
 #: templates/listings/wheels_list.html:156
 #: templates/listings/wheels_list.html:290
+#, fuzzy
 msgid "Diameter"
-msgstr ""
+msgstr "القطر"
 
 #: templates/listings/rims_create.html:74
 #: templates/listings/tyres_create.html:87
 #: templates/listings/wheels_create.html:98
+#, fuzzy
 msgid "Quantity"
-msgstr ""
+msgstr "كمية"
 
 #: templates/listings/rims_create.html:103
 #: templates/listings/wheels_create.html:238
+#, fuzzy
 msgid "Rim details"
-msgstr ""
+msgstr "تفاصيل الحافة"
 
 #: templates/listings/rims_create.html:121
 #: templates/listings/wheels_advanced_search.html:191
 #: templates/listings/wheels_create.html:269
 #: templates/listings/wheels_list.html:190
 #: templates/listings/wheels_list.html:346
+#, fuzzy
 msgid "Bolt count"
-msgstr ""
+msgstr "عدد البراغي"
 
 #: templates/listings/rims_create.html:145
 #: templates/listings/wheels_create.html:245
+#, fuzzy
 msgid "Width (J)"
-msgstr ""
+msgstr "العرض (J)"
 
 #: templates/listings/rims_create.html:157
+#, fuzzy
 msgid "Center bore"
-msgstr ""
+msgstr "مركز التجويف"
 
 #: templates/listings/rims_create.html:171
+#, fuzzy
 msgid "Fits car brands"
-msgstr ""
+msgstr "يناسب ماركات السيارات"
 
 #: templates/listings/rims_create.html:172
+#, fuzzy
 msgid "e.g. Audi, BMW, VW"
-msgstr ""
+msgstr "على سبيل المثال: أودي، بي إم دبليو، فولكس فاجن"
 
 #: templates/listings/rims_create.html:201
 #: templates/listings/tyres_create.html:232
 #: templates/listings/wheels_create.html:313
+#, fuzzy
 msgid "Describe condition, wear, storage, reason for selling..."
-msgstr ""
+msgstr "صف حالة المنتج، وآثار الاستخدام، وظروف التخزين، وسبب البيع..."
 
 #: templates/listings/rims_create.html:229
 #: templates/listings/tyres_create.html:262
 #: templates/listings/wheels_create.html:343
+#, fuzzy
 msgid "Up to 20 photos. Max size 24MB. JPG, GIF, PNG."
-msgstr ""
+msgstr "حتى ٢٠ صورة. الحد الأقصى للحجم ٢٤ ميجابايت. صيغ الصور: JPG، GIF، PNG."
 
 #: templates/listings/rims_create.html:406
 #: templates/listings/tyres_create.html:443
 #: templates/listings/wheels_create.html:573
+#, fuzzy
 msgid "Manufacturer is required"
-msgstr ""
+msgstr "الشركة المصنعة مطلوبة"
 
 #: templates/listings/rims_create.html:409
 #: templates/listings/tyres_create.html:446
 #: templates/listings/wheels_create.html:576
+#, fuzzy
 msgid "Diameter is required"
-msgstr ""
+msgstr "القطر مطلوب"
 
 #: templates/listings/rims_create.html:418
 #: templates/listings/truck_for_parts_create.html:348
+#, fuzzy
 msgid "Type is required"
-msgstr ""
+msgstr "النوع مطلوب"
 
 #: templates/listings/rims_create.html:419
+#, fuzzy
 msgid "Bolt count is required"
-msgstr ""
+msgstr "عدد البراغي مطلوب"
 
 #: templates/listings/rims_create.html:421
 #: templates/listings/tyres_create.html:454
 #: templates/listings/wheels_create.html:585
 #: templates/listings/wheels_create.html:591
+#, fuzzy
 msgid "Width is required"
-msgstr ""
+msgstr "العرض مطلوب"
 
 #: templates/listings/rims_create.html:590
 #: templates/listings/tyres_create.html:628
 #: templates/listings/wheels_create.html:804
+#, fuzzy
 msgid "Maximum 20 photos. Remove some first."
-msgstr ""
+msgstr "٢٠ صورة كحد أقصى. قم بإزالة بعضها أولاً."
 
 #: templates/listings/saved_listings.html:4
 #: templates/listings/saved_listings.html:8
@@ -9928,52 +10702,62 @@ msgid "No image"
 msgstr "لا توجد صورة"
 
 #: templates/listings/sidebar_moto_parts.html:18
+#, fuzzy
 msgid "CATEGORY"
-msgstr ""
+msgstr "فئة"
 
 #: templates/listings/sidebar_moto_parts.html:24
+#, fuzzy
 msgid "PART TYPE"
-msgstr ""
+msgstr "نوع القطعة"
 
 #: templates/listings/sidebar_moto_parts.html:41
+#, fuzzy
 msgid "BRAND"
-msgstr ""
+msgstr "ماركة"
 
 #: templates/listings/sidebar_moto_parts.html:55
 msgid "MODEL"
 msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:64
+#, fuzzy
 msgid "CONDITION"
-msgstr ""
+msgstr "حالة"
 
 #: templates/listings/sidebar_moto_parts.html:76
+#, fuzzy
 msgid "PRICE ($)"
-msgstr ""
+msgstr "السعر ($)"
 
 #: templates/listings/sidebar_moto_parts.html:89
+#, fuzzy
 msgid "TEXT SEARCH"
-msgstr ""
+msgstr "البحث النصي"
 
 #: templates/listings/sidebar_moto_parts.html:91
+#, fuzzy
 msgid "Name or OEM code..."
-msgstr ""
+msgstr "الاسم أو رمز الشركة المصنعة الأصلية..."
 
 #: templates/listings/sidebar_moto_parts.html:100
+#, fuzzy
 msgid "MOTORCYCLE TYPE"
-msgstr ""
+msgstr "نوع الدراجة النارية"
 
 #: templates/listings/sidebar_moto_parts.html:112
+#, fuzzy
 msgid "ENGINE CAPACITY (cm³)"
-msgstr ""
+msgstr "سعة المحرك (سم³)"
 
 #: templates/listings/sidebar_moto_parts.html:125
 msgid "COUNTRY"
 msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:137
+#, fuzzy
 msgid "STATE"
-msgstr ""
+msgstr "ولاية"
 
 #: templates/listings/sidebar_moto_parts.html:139
 #: templates/listings/trucks_advanced_search.html:558
@@ -9981,51 +10765,62 @@ msgid "All states"
 msgstr "جميع الولايات"
 
 #: templates/listings/sidebar_moto_parts.html:151
+#, fuzzy
 msgid "Negotiable price"
-msgstr ""
+msgstr "السعر قابل للتفاوض"
 
 #: templates/listings/truck_for_parts_create.html:4
+#, fuzzy
 msgid "Sell Truck For Parts"
-msgstr ""
+msgstr "بيع شاحنة لقطع الغيار"
 
 #: templates/listings/truck_for_parts_create.html:23
+#, fuzzy
 msgid "Sell whole truck for parts"
-msgstr ""
+msgstr "بيع الشاحنة كاملة كقطع غيار"
 
 #: templates/listings/truck_for_parts_create.html:82
+#, fuzzy
 msgid "e.g. Actros, FH, TGX"
-msgstr ""
+msgstr "على سبيل المثال: أكتيروس، إف إتش، تي جي إكس"
 
 #: templates/listings/truck_for_parts_create.html:111
+#, fuzzy
 msgid "e.g. 320"
-msgstr ""
+msgstr "مثال: 320"
 
 #: templates/listings/truck_for_parts_create.html:124
+#, fuzzy
 msgid "e.g. 12.8"
-msgstr ""
+msgstr "مثال: 12.8"
 
 #: templates/listings/truck_for_parts_create.html:170
 #: templates/listings/truck_parts_advanced.html:153
 #: templates/listings/truck_parts_browse.html:193
+#, fuzzy
 msgid "Available parts"
-msgstr ""
+msgstr "الأجزاء المتوفرة"
 
 #: templates/listings/truck_for_parts_create.html:171
+#, fuzzy
 msgid "Tick the parts available from this truck."
-msgstr ""
+msgstr "حدد الأجزاء المتوفرة من هذه الشاحنة."
 
 #: templates/listings/truck_parts_advanced.html:5
+#, fuzzy
 msgid "Truck Parts Search"
-msgstr ""
+msgstr "البحث عن قطع غيار الشاحنات"
 
 #: templates/listings/truck_parts_advanced.html:54
+#, fuzzy
 msgid "Truck parts search"
-msgstr ""
+msgstr "البحث عن قطع غيار الشاحنات"
 
 #: templates/listings/truck_parts_browse.html:5
 #: templates/listings/truck_parts_browse.html:97
+#, fuzzy
 msgid "Truck parts"
-msgstr ""
+msgstr "قطع غيار الشاحنات"
 
 #: templates/listings/trucks_advanced_search.html:5
 #: templates/listings/trucks_advanced_search.html:268
@@ -10097,9 +10892,9 @@ msgid "listings match your filters"
 msgstr "تتوافق القوائم مع فلاترك"
 
 #: templates/listings/trucks_advanced_search.html:592
-#, python-format
+#, python-format, fuzzy
 msgid "Show %(count)s results"
-msgstr ""
+msgstr "عرض %(count)s النتائج"
 
 #: templates/listings/trucks_advanced_search.html:603
 msgid "Save this search"
@@ -10165,9 +10960,9 @@ msgid "Search make..."
 msgstr "ابحث عن..."
 
 #: templates/listings/trucks_list.html:376
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(count)s listings"
-msgstr ""
+msgstr "عرض %(count)s قائمة"
 
 #: templates/listings/trucks_list.html:486
 #: templates/listings/trucks_list.html:798
@@ -10193,9 +10988,9 @@ msgid "Euro"
 msgstr "اليورو"
 
 #: templates/listings/trucks_list.html:680
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(shown)s of %(total)s"
-msgstr ""
+msgstr "عرض %(shown)s من %(total)s"
 
 #: templates/listings/trucks_list.html:843
 msgid "FEATURED"
@@ -10332,8 +11127,9 @@ msgstr "فشلت عملية الحفظ"
 #: templates/listings/tyres_create.html:4
 #: templates/listings/tyres_create.html:12
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Tyres"
-msgstr ""
+msgstr "إعلان جديد: إطارات"
 
 #: templates/listings/tyres_create.html:56
 #: templates/listings/wheels_advanced_search.html:222
@@ -10341,159 +11137,191 @@ msgstr ""
 #: templates/listings/wheels_list.html:133
 #: templates/listings/wheels_list.html:255
 #: templates/pages/help_center.html:854
+#, fuzzy
 msgid "Purpose"
-msgstr ""
+msgstr "غاية"
 
 #: templates/listings/tyres_create.html:118
 #: templates/listings/wheels_create.html:129
+#, fuzzy
 msgid "Tyre details"
-msgstr ""
+msgstr "تفاصيل الإطارات"
 
 #: templates/listings/tyres_create.html:137
 #: templates/listings/wheels_create.html:148
-#, python-format
+#, python-format, fuzzy
 msgid "Profile (%%)"
-msgstr ""
+msgstr "الملف الشخصي (%%)"
 
 #: templates/listings/tyres_create.html:149
 #: templates/listings/wheels_advanced_search.html:130
 #: templates/listings/wheels_create.html:160
 #: templates/listings/wheels_list.html:267
+#, fuzzy
 msgid "Season"
-msgstr ""
+msgstr "موسم"
 
 #: templates/listings/tyres_create.html:161
 #: templates/listings/wheels_advanced_search.html:140
 #: templates/listings/wheels_create.html:172
+#, fuzzy
 msgid "Speed index"
-msgstr ""
+msgstr "مؤشر السرعة"
 
 #: templates/listings/tyres_create.html:171
 #: templates/listings/wheels_create.html:182
+#, fuzzy
 msgid "Load index"
-msgstr ""
+msgstr "تحميل الفهرس"
 
 #: templates/listings/tyres_create.html:177
 #: templates/listings/wheels_advanced_search.html:150
 #: templates/listings/wheels_create.html:188
+#, fuzzy
 msgid "Tread depth"
-msgstr ""
+msgstr "عمق المداس"
 
 #: templates/listings/tyres_create.html:187
 #: templates/listings/wheels_create.html:198
-#, python-format
+#, python-format, fuzzy
 msgid "Remaining (%%)"
-msgstr ""
+msgstr "المتبقي (%%)"
 
 #: templates/listings/tyres_create.html:197
 #: templates/listings/wheels_create.html:208
+#, fuzzy
 msgid "Production year (DOT)"
-msgstr ""
+msgstr "سنة الإنتاج (وزارة النقل الأمريكية)"
 
 #: templates/listings/tyres_create.html:455
 #: templates/listings/wheels_create.html:586
+#, fuzzy
 msgid "Profile is required"
-msgstr ""
+msgstr "الملف الشخصي مطلوب"
 
 #: templates/listings/tyres_create.html:456
 #: templates/listings/wheels_create.html:587
+#, fuzzy
 msgid "Season is required"
-msgstr ""
+msgstr "الموسم مطلوب"
 
 #: templates/listings/wheels_advanced_search.html:63
+#, fuzzy
 msgid "Rims search"
-msgstr ""
+msgstr "البحث عن جنوط العجلات"
 
 #: templates/listings/wheels_advanced_search.html:63
+#, fuzzy
 msgid "Tyres search"
-msgstr ""
+msgstr "البحث عن الإطارات"
 
 #: templates/listings/wheels_advanced_search.html:160
+#, fuzzy
 msgid "DOT year"
-msgstr ""
+msgstr "سنة وزارة النقل"
 
 #: templates/listings/wheels_advanced_search.html:171
+#, fuzzy
 msgid "Rim width"
-msgstr ""
+msgstr "عرض الحافة"
 
 #: templates/listings/wheels_advanced_search.html:181
 #: templates/listings/wheels_list.html:201
 #: templates/listings/wheels_list.html:335
+#, fuzzy
 msgid "PCD"
-msgstr ""
+msgstr "PCD"
 
 #: templates/listings/wheels_advanced_search.html:211
+#, fuzzy
 msgid "ET (offset)"
-msgstr ""
+msgstr "التوقيت الشرقي (الإزاحة)"
 
 #: templates/listings/wheels_advanced_search.html:242
+#, fuzzy
 msgid "Min quantity"
-msgstr ""
+msgstr "الحد الأدنى للكمية"
 
 #: templates/listings/wheels_advanced_search.html:278
+#, fuzzy
 msgid "e.g. Michelin winter set..."
-msgstr ""
+msgstr "مثال: مجموعة ميشلان الشتوية..."
 
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Tyres & Rims"
-msgstr ""
+msgstr "إعلان جديد: إطارات وجنوط"
 
 #: templates/listings/wheels_list.html:5
+#, fuzzy
 msgid "Browse Rims"
-msgstr ""
+msgstr "تصفح الجنوط"
 
 #: templates/listings/wheels_list.html:5
+#, fuzzy
 msgid "Browse Tyres"
-msgstr ""
+msgstr "تصفح الإطارات"
 
 #: templates/listings/wheels_list.html:391
+#, fuzzy
 msgid "Listings found:"
-msgstr ""
+msgstr "النتائج التي تم العثور عليها:"
 
 #: templates/listings/wheels_list.html:473
+#, fuzzy
 msgid "Tread left"
-msgstr ""
+msgstr "اتجه يسارًا"
 
 #: templates/listings/wheels_list.html:481
+#, fuzzy
 msgid "Qty"
-msgstr ""
+msgstr "الكمية"
 
 #: templates/pages/help_center.html:4 templates/pages/help_center.html:16
 #: templates/pages/page_simple.html:18
+#, fuzzy
 msgid "Help Center"
-msgstr ""
+msgstr "مركز المساعدة"
 
 #: templates/pages/help_center.html:24
+#, fuzzy
 msgid "Help & Information"
-msgstr ""
+msgstr "المساعدة والمعلومات"
 
 #: templates/pages/help_center.html:40
+#, fuzzy
 msgid "Quick navigation"
-msgstr ""
+msgstr "التنقل السريع"
 
 #: templates/pages/help_center.html:47
+#, fuzzy
 msgid "Overview"
-msgstr ""
+msgstr "ملخص"
 
 #: templates/pages/help_center.html:52
+#, fuzzy
 msgid "News & Updates"
-msgstr ""
+msgstr "الأخبار والتحديثات"
 
 #: templates/pages/help_center.html:57
+#, fuzzy
 msgid "What's new"
-msgstr ""
+msgstr "ما الجديد"
 
 #: templates/pages/help_center.html:62
+#, fuzzy
 msgid "Market trends"
-msgstr ""
+msgstr "اتجاهات السوق"
 
 #: templates/pages/help_center.html:67
+#, fuzzy
 msgid "Tips & guides"
-msgstr ""
+msgstr "نصائح وإرشادات"
 
 #: templates/pages/help_center.html:72
+#, fuzzy
 msgid "Help & Support"
-msgstr ""
+msgstr "المساعدة والدعم"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -10509,16 +11337,19 @@ msgid "Advertising"
 msgstr "دعاية"
 
 #: templates/pages/help_center.html:102
+#, fuzzy
 msgid "Partners"
-msgstr ""
+msgstr "الشركاء"
 
 #: templates/pages/help_center.html:107
+#, fuzzy
 msgid "Partners & resources"
-msgstr ""
+msgstr "الشركاء والموارد"
 
 #: templates/pages/help_center.html:112
+#, fuzzy
 msgid "About & Legal"
-msgstr ""
+msgstr "نبذة عنا والشؤون القانونية"
 
 #: templates/pages/help_center.html:122
 msgid "Terms of use"
@@ -10529,25 +11360,30 @@ msgid "Privacy policy"
 msgstr "سياسة الخصوصية"
 
 #: templates/pages/help_center.html:148
+#, fuzzy
 msgid "Hours"
-msgstr ""
+msgstr "ساعات"
 
 #: templates/pages/help_center.html:153
+#, fuzzy
 msgid "Live chat"
-msgstr ""
+msgstr "الدردشة المباشرة"
 
 #: templates/pages/help_center.html:167
+#, fuzzy
 msgid "Welcome — thank you for joining"
-msgstr ""
+msgstr "أهلاً وسهلاً — شكراً لانضمامك"
 
 #: templates/pages/help_center.html:168
+#, fuzzy
 msgid "A personal note from us"
-msgstr ""
+msgstr "رسالة شخصية منّا"
 
 #: templates/pages/help_center.html:171
+#, fuzzy
 msgid ""
 "Hello, and thank you for being here. We're glad to have you on the platform."
-msgstr ""
+msgstr "أهلاً وسهلاً، وشكراً لوجودك هنا. يسعدنا انضمامك إلينا."
 
 #: templates/pages/help_center.html:173
 msgid ""
@@ -10560,148 +11396,187 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:175
+#, fuzzy
 msgid ""
 "Once your ad is live, send us the link — we create extra video content on "
 "our Instagram and TikTok channels to promote selected listings and help you "
 "reach more buyers, <strong class=\"text-gray-900 font-semibold\">free of "
 "charge</strong>."
 msgstr ""
+"بمجرد نشر إعلانك، أرسل لنا الرابط - نقوم بإنشاء محتوى فيديو إضافي على "
+"قنواتنا على Instagram و TikTok للترويج لقوائم مختارة ومساعدتك في الوصول إلى "
+"المزيد من المشترين، <strong class=\"text-gray-900 font-"
+"semibold\">مجانًا</strong>."
 
 #: templates/pages/help_center.html:177
+#, fuzzy
 msgid "You can reach us through support or social media:"
-msgstr ""
+msgstr "يمكنكم التواصل معنا عبر الدعم أو وسائل التواصل الاجتماعي:"
 
 #: templates/pages/help_center.html:185 templates/pages/help_center.html:193
+#, fuzzy
 msgid "Send us your listing link"
-msgstr ""
+msgstr "أرسل لنا رابط إعلانك"
 
 #: templates/pages/help_center.html:186
+#, fuzzy
 msgid "Message support"
-msgstr ""
+msgstr "دعم الرسائل"
 
 #: templates/pages/help_center.html:194
+#, fuzzy
 msgid "Login to message support"
-msgstr ""
+msgstr "سجّل الدخول للتواصل مع الدعم"
 
 #: templates/pages/help_center.html:201
+#, fuzzy
 msgid "Instagram"
-msgstr ""
+msgstr "انستغرام"
 
 #: templates/pages/help_center.html:214
+#, fuzzy
 msgid "Browse the topics on the left for FAQ, pricing, and more."
 msgstr ""
+"تصفح المواضيع الموجودة على اليسار للاطلاع على الأسئلة الشائعة والأسعار "
+"والمزيد."
 
 #: templates/pages/help_center.html:223
+#, fuzzy
 msgid "What's New"
-msgstr ""
+msgstr "ما الجديد"
 
 #: templates/pages/help_center.html:229 templates/pages/help_center.html:245
+#, fuzzy
 msgid "New Feature"
-msgstr ""
+msgstr "ميزة جديدة"
 
 #: templates/pages/help_center.html:231
+#, fuzzy
 msgid "Dealer Subscriptions Launched"
-msgstr ""
+msgstr "إطلاق اشتراكات الموزعين"
 
 #: templates/pages/help_center.html:232
+#, fuzzy
 msgid "Become a verified dealer for $100/month and list up to 30 vehicles."
 msgstr ""
+"كن تاجرًا معتمدًا مقابل 100 دولار شهريًا وقم بإدراج ما يصل إلى 30 مركبة."
 
 #: templates/pages/help_center.html:237
+#, fuzzy
 msgid "Update"
-msgstr ""
+msgstr "تحديث"
 
 #: templates/pages/help_center.html:239
+#, fuzzy
 msgid "New Vehicle Categories: Trucks"
-msgstr ""
+msgstr "فئات المركبات الجديدة: الشاحنات"
 
 #: templates/pages/help_center.html:240
+#, fuzzy
 msgid "You can now buy and sell heavy commercial vehicles."
-msgstr ""
+msgstr "يمكنك الآن شراء وبيع المركبات التجارية الثقيلة."
 
 #: templates/pages/help_center.html:247
+#, fuzzy
 msgid "Wallet System & Bonuses"
-msgstr ""
+msgstr "نظام المحفظة والمكافآت"
 
 #: templates/pages/help_center.html:248
-#, python-format
+#, python-format, fuzzy
 msgid "Top up your wallet and get up to 20%% bonus on payments."
-msgstr ""
+msgstr "قم بشحن محفظتك واحصل على مكافأة تصل إلى 20%% على المدفوعات."
 
 #: templates/pages/help_center.html:259
+#, fuzzy
 msgid "Market Trends"
-msgstr ""
+msgstr "اتجاهات السوق"
 
 #: templates/pages/help_center.html:262
+#, fuzzy
 msgid ""
 "Insights and statistics about the marketplace — what's selling, where, and "
 "at what price."
-msgstr ""
+msgstr "رؤى وإحصائيات حول السوق - ما الذي يُباع، وأين، وبأي سعر."
 
 #: templates/pages/help_center.html:267
+#, fuzzy
 msgid "Most popular category"
-msgstr ""
+msgstr "الفئة الأكثر شعبية"
 
 #: templates/pages/help_center.html:268
+#, fuzzy
 msgid "Sedans"
-msgstr ""
+msgstr "سيارات السيدان"
 
 #: templates/pages/help_center.html:269
-#, python-format
+#, python-format, fuzzy
 msgid "42%% of all listings"
-msgstr ""
+msgstr "42%% من جميع القوائم"
 
 #: templates/pages/help_center.html:272
+#, fuzzy
 msgid "Average sale time"
-msgstr ""
+msgstr "متوسط وقت البيع"
 
 #: templates/pages/help_center.html:273
+#, fuzzy
 msgid "18 days"
-msgstr ""
+msgstr "18 يومًا"
 
 #: templates/pages/help_center.html:274
+#, fuzzy
 msgid "Across all categories"
-msgstr ""
+msgstr "في جميع الفئات"
 
 #: templates/pages/help_center.html:277
+#, fuzzy
 msgid "Top selling brand"
-msgstr ""
+msgstr "العلامة التجارية الأكثر مبيعاً"
 
 #: templates/pages/help_center.html:278
+#, fuzzy
 msgid "Toyota"
-msgstr ""
+msgstr "تويوتا"
 
 #: templates/pages/help_center.html:279
+#, fuzzy
 msgid "By volume"
-msgstr ""
+msgstr "حسب الحجم"
 
 #: templates/pages/help_center.html:283
+#, fuzzy
 msgid "What buyers are searching for"
-msgstr ""
+msgstr "ما يبحث عنه المشترون"
 
 #: templates/pages/help_center.html:285
+#, fuzzy
 msgid "Fuel-efficient sedans under $15,000"
-msgstr ""
+msgstr "سيارات سيدان موفرة للوقود بأقل من 15000 دولار"
 
 #: templates/pages/help_center.html:286
+#, fuzzy
 msgid "Pickup trucks with low mileage"
-msgstr ""
+msgstr "شاحنات بيك أب ذات عدد كيلومترات منخفض"
 
 #: templates/pages/help_center.html:287
+#, fuzzy
 msgid "Hybrid and electric vehicles"
-msgstr ""
+msgstr "المركبات الهجينة والكهربائية"
 
 #: templates/pages/help_center.html:288
+#, fuzzy
 msgid "SUVs with all-wheel drive"
-msgstr ""
+msgstr "سيارات الدفع الرباعي"
 
 #: templates/pages/help_center.html:291
+#, fuzzy
 msgid "Selling tips based on data"
-msgstr ""
+msgstr "نصائح بيع مبنية على البيانات"
 
 #: templates/pages/help_center.html:293
+#, fuzzy
 msgid "Listings with 8+ photos sell 2x faster"
-msgstr ""
+msgstr "تُباع الإعلانات التي تحتوي على 8 صور أو أكثر أسرع بمرتين"
 
 #: templates/pages/help_center.html:294
 #, python-format
@@ -10714,322 +11589,440 @@ msgid "Listings posted on weekends get 40%% more views"
 msgstr ""
 
 #: templates/pages/help_center.html:296
+#, fuzzy
 msgid "Featured listings receive 5x more inquiries"
-msgstr ""
+msgstr "تحظى الإعلانات المميزة بخمسة أضعاف عدد الاستفسارات."
 
 #: templates/pages/help_center.html:299
+#, fuzzy
 msgid "Data updated weekly based on marketplace activity."
-msgstr ""
+msgstr "يتم تحديث البيانات أسبوعياً بناءً على نشاط السوق."
 
 #: templates/pages/help_center.html:308
+#, fuzzy
 msgid "Tips & Guides"
-msgstr ""
+msgstr "نصائح وإرشادات"
 
 #: templates/pages/help_center.html:311
+#, fuzzy
 msgid "Everything you need to know to sell faster and buy smarter."
-msgstr ""
+msgstr "كل ما تحتاج لمعرفته لبيع منتجاتك بشكل أسرع وشراء منتجاتك بذكاء."
 
 #: templates/pages/help_center.html:318
+#, fuzzy
 msgid "Posting your first listing"
-msgstr ""
+msgstr "نشر إعلانك الأول"
 
 #: templates/pages/help_center.html:321
+#, fuzzy
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
 "get more views. Add a detailed description including condition, history, and"
 " any modifications. Your first 3 listings are completely free."
 msgstr ""
+"انقر على \"إنشاء إعلان\" في القائمة العلوية، واختر فئة، ثم أدخل بيانات "
+"المركبة. حمّل خمس صور واضحة على الأقل - الإعلانات التي تحتوي على صور أكثر "
+"تحصل على مشاهدات أكثر. أضف وصفًا تفصيليًا يشمل حالة المركبة وتاريخها وأي "
+"تعديلات أُجريت عليها. أول ثلاث إعلانات مجانية تمامًا."
 
 #: templates/pages/help_center.html:328
+#, fuzzy
 msgid "Renewing your listing"
-msgstr ""
+msgstr "تجديد قائمتك"
 
 #: templates/pages/help_center.html:331
+#, fuzzy
 msgid ""
 "Listings stay active for 30 days. After that, you'll need to renew them — "
 "once per hour you can boost any listing back to the top of search results. "
 "Renewing is free for your first 3 listings; additional renewals require a "
 "paid plan."
 msgstr ""
+"تبقى الإعلانات فعّالة لمدة 30 يومًا. بعد ذلك، ستحتاج إلى تجديدها - يمكنك رفع"
+" أي إعلان إلى أعلى نتائج البحث مرة واحدة كل ساعة. التجديد مجاني لأول 3 "
+"إعلانات؛ أما التجديدات الإضافية فتتطلب اشتراكًا مدفوعًا."
 
 #: templates/pages/help_center.html:338
+#, fuzzy
 msgid "Drafts — save and activate later"
-msgstr ""
+msgstr "المسودات — احفظها وفعّلها لاحقًا"
 
 #: templates/pages/help_center.html:341
+#, fuzzy
 msgid ""
 "Started a listing but not ready to publish? Your work is saved automatically"
 " as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
+"بدأتَ بإنشاء إعلان ولكنك غير مستعد للنشر؟ سيتم حفظ عملك تلقائيًا كمسودة. "
+"يمكنك العثور على المسودات في \"إعلاناتي\" ومتابعة التعديل وقتما تشاء. فعّل "
+"المسودة عندما تكون جاهزًا، وستُنشر لمدة 30 يومًا."
 
 #: templates/pages/help_center.html:348
+#, fuzzy
 msgid "Saving favorites with the heart icon"
-msgstr ""
+msgstr "حفظ المفضلة باستخدام رمز القلب"
 
 #: templates/pages/help_center.html:351
+#, fuzzy
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
 "are kept in 'Saved Listings' so you can compare prices and come back to them"
 " later. You'll also receive email notifications when a saved listing's price"
 " drops."
 msgstr ""
+"هل أعجبك إعلان؟ انقر على أيقونة القلب لحفظه. تُحفظ جميع إعلاناتك المفضلة في "
+"\"الإعلانات المحفوظة\" لتتمكن من مقارنة الأسعار والعودة إليها لاحقًا. كما "
+"ستتلقى إشعارات عبر البريد الإلكتروني عند انخفاض سعر أي إعلان محفوظ."
 
 #: templates/pages/help_center.html:358
+#, fuzzy
 msgid "Tracking listing performance"
-msgstr ""
+msgstr "تتبع أداء قوائم المنتجات"
 
 #: templates/pages/help_center.html:361
+#, fuzzy
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
 "where it ranks compared to similar listings. Use these numbers to figure out"
 " if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
+"يحتوي كل إعلان على صفحة إحصائيات تعرض عدد المشاهدات، ومرات الظهور، والحفظ، "
+"وترتيبه مقارنةً بالإعلانات المماثلة. استخدم هذه الأرقام لتحديد ما إذا كان "
+"سعرك تنافسيًا، وما إذا كنت بحاجة إلى صور أفضل أو وصف أكثر تفصيلًا."
 
 #: templates/pages/help_center.html:368
+#, fuzzy
 msgid "Communicating with buyers"
-msgstr ""
+msgstr "التواصل مع المشترين"
 
 #: templates/pages/help_center.html:371
+#, fuzzy
 msgid ""
 "Buyers can message you directly through the platform — no need to share your"
 " phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
+"يمكن للمشترين مراسلتك مباشرةً عبر المنصة، فلا داعي لمشاركة رقم هاتفك علنًا. "
+"بادر بالرد سريعًا: فالردود السريعة تبني الثقة وتُسرّع عملية بيع السيارات. "
+"استخدم نظام المحادثات داخل التطبيق لتوثيق المفاوضات."
 
 #: templates/pages/help_center.html:378
+#, fuzzy
 msgid "When you sell — mark it sold"
-msgstr ""
+msgstr "عند البيع، ضع علامة \"تم البيع\"."
 
 #: templates/pages/help_center.html:381
+#, fuzzy
 msgid ""
 "When the deal closes, mark the listing as sold from the 'My Listings' page. "
 "Buyers who saved the listing will be notified automatically, and the sale "
 "gets recorded in your seller history."
 msgstr ""
+"عند إتمام الصفقة، قم بتحديد الإعلان كمباع من صفحة \"إعلاناتي\". سيتم إخطار "
+"المشترين الذين حفظوا الإعلان تلقائيًا، وسيتم تسجيل عملية البيع في سجل البائع"
+" الخاص بك."
 
 #: templates/pages/help_center.html:398
+#, fuzzy
 msgid "How do I create an ad?"
-msgstr ""
+msgstr "كيف أقوم بإنشاء إعلان؟"
 
 #: templates/pages/help_center.html:402
+#, fuzzy
 msgid ""
 "Click the 'Create Ad' button in the top right corner, select a category, "
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
+"انقر على زر \"إنشاء إعلان\" في الزاوية العلوية اليمنى، ثم اختر فئة، واملأ "
+"البيانات المطلوبة، وقم بتحميل الصور، وانشر إعلانك. تستغرق العملية حوالي 5 "
+"دقائق."
 
 #: templates/pages/help_center.html:407
+#, fuzzy
 msgid "How to become a dealer?"
-msgstr ""
+msgstr "كيف تصبح تاجراً؟"
 
 #: templates/pages/help_center.html:411
+#, fuzzy
 msgid ""
 "Visit the 'Become a Dealer' page, subscribe for $100/month, and fill in your"
 " business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
+"تفضل بزيارة صفحة \"كن موزعًا\"، واشترك مقابل 100 دولار شهريًا، وأكمل ملف "
+"تعريف عملك. ستحصل على شارة موزع معتمد، وصفحة موزع عامة، وإمكانية عرض ما يصل "
+"إلى 30 مركبة."
 
 #: templates/pages/help_center.html:416
+#, fuzzy
 msgid "Is my data safe?"
-msgstr ""
+msgstr "هل بياناتي آمنة؟"
 
 #: templates/pages/help_center.html:420
+#, fuzzy
 msgid ""
 "Yes. We use industry-standard encryption to protect your personal "
 "information. See our Privacy Policy for details."
 msgstr ""
+"نعم. نستخدم تشفيرًا متوافقًا مع معايير الصناعة لحماية معلوماتك الشخصية. راجع"
+" سياسة الخصوصية الخاصة بنا لمزيد من التفاصيل."
 
 #: templates/pages/help_center.html:425
+#, fuzzy
 msgid "How do I delete my listing?"
-msgstr ""
+msgstr "كيف يمكنني حذف إعلاني؟"
 
 #: templates/pages/help_center.html:429
+#, fuzzy
 msgid ""
 "Go to 'My Ads' in the user menu, find the listing, click the menu icon, and "
 "select 'Delete'. The listing will be permanently removed."
 msgstr ""
+"انتقل إلى \"إعلاناتي\" في قائمة المستخدم، وابحث عن الإعلان، ثم انقر على "
+"أيقونة القائمة، واختر \"حذف\". سيتم حذف الإعلان نهائياً."
 
 #: templates/pages/help_center.html:441
 msgid "Contact Us"
 msgstr "اتصل بنا"
 
 #: templates/pages/help_center.html:444
+#, fuzzy
 msgid "Get in touch with us — we usually reply within 24 hours."
-msgstr ""
+msgstr "تواصل معنا - عادةً ما نرد خلال 24 ساعة."
 
 #: templates/pages/help_center.html:447
+#, fuzzy
 msgid "United States based support — serving customers worldwide."
-msgstr ""
+msgstr "دعم مقره الولايات المتحدة - خدمة العملاء في جميع أنحاء العالم."
 
 #: templates/pages/help_center.html:454 templates/pages/help_center.html:460
+#, fuzzy
 msgid "Private message support"
-msgstr ""
+msgstr "دعم الرسائل الخاصة"
 
 #: templates/pages/help_center.html:455
+#, fuzzy
 msgid "Start a chat — fastest response"
-msgstr ""
+msgstr "ابدأ محادثة - أسرع استجابة"
 
 #: templates/pages/help_center.html:461
+#, fuzzy
 msgid "Login to start a chat"
-msgstr ""
+msgstr "سجّل الدخول لبدء محادثة"
 
 #: templates/pages/help_center.html:493
+#, fuzzy
 msgid "First 3 listings — FREE"
-msgstr ""
+msgstr "أول 3 إعلانات — مجاناً"
 
 #: templates/pages/help_center.html:495
+#, fuzzy
 msgid ""
 "Your first 3 listings are completely free, in any category. Renewals are "
 "free too. After 3 listings, paid plans apply for additional listings and "
 "renewals."
 msgstr ""
+"أول ثلاث إعلانات مجانية تمامًا، في أي فئة. التجديدات مجانية أيضًا. بعد ثلاث "
+"إعلانات، تُطبق خطط مدفوعة للإعلانات الإضافية والتجديدات."
 
 #: templates/pages/help_center.html:503
+#, fuzzy
 msgid "Private sellers — additional listings"
-msgstr ""
+msgstr "بائعون أفراد - قوائم إضافية"
 
 #: templates/pages/help_center.html:507
+#, fuzzy
 msgid "First 3 listings"
-msgstr ""
+msgstr "أول 3 نتائج"
 
 #: templates/pages/help_center.html:508
+#, fuzzy
 msgid "FREE"
-msgstr ""
+msgstr "حر"
 
 #: templates/pages/help_center.html:511
+#, fuzzy
 msgid "Basic — 30 days"
-msgstr ""
+msgstr "أساسي - 30 يومًا"
 
 #: templates/pages/help_center.html:515
+#, fuzzy
 msgid "Standard — 60 days"
-msgstr ""
+msgstr "قياسي - 60 يومًا"
 
 #: templates/pages/help_center.html:519
+#, fuzzy
 msgid "Recommended — 90 days"
-msgstr ""
+msgstr "موصى به — 90 يومًا"
 
 #: templates/pages/help_center.html:524
+#, fuzzy
 msgid ""
 "Renewing a listing is free for the first 3 listings. After that, renewing "
 "costs the same as a fresh listing."
 msgstr ""
+"تجديد الإعلان مجاني لأول 3 إعلانات. بعد ذلك، يكون التجديد بنفس تكلفة الإعلان"
+" الجديد."
 
 #: templates/pages/help_center.html:528
+#, fuzzy
 msgid "Dealers"
-msgstr ""
+msgstr "التجار"
 
 #: templates/pages/help_center.html:531
+#, fuzzy
 msgid "Dealer Subscription"
-msgstr ""
+msgstr "اشتراك الموزعين"
 
 #: templates/pages/help_center.html:535
+#, fuzzy
 msgid "Up to 30 active listings"
-msgstr ""
+msgstr "ما يصل إلى 30 إعلانًا نشطًا"
 
 #: templates/pages/help_center.html:536
 msgid "Verified Dealer badge"
 msgstr "شارة تاجر معتمد"
 
 #: templates/pages/help_center.html:555
+#, fuzzy
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
 "States. Contact us to discuss advertising opportunities — banners, sponsored"
 " placements, or partnership campaigns."
 msgstr ""
+"تواصل مع آلاف مشتري وبائعي السيارات في جميع أنحاء أوروبا والولايات المتحدة. "
+"اتصل بنا لمناقشة فرص الإعلان - الإعلانات المصورة، والإعلانات المدفوعة، أو "
+"حملات الشراكة."
 
 #: templates/pages/help_center.html:567
+#, fuzzy
 msgid "WhatsApp"
-msgstr ""
+msgstr "واتساب"
 
 #: templates/pages/help_center.html:574 templates/pages/help_center.html:580
+#, fuzzy
 msgid "Live support"
-msgstr ""
+msgstr "الدعم المباشر"
 
 #: templates/pages/help_center.html:575
+#, fuzzy
 msgid "Chat with support"
-msgstr ""
+msgstr "تواصل مع الدعم عبر الدردشة"
 
 #: templates/pages/help_center.html:581
+#, fuzzy
 msgid "Login to chat"
-msgstr ""
+msgstr "سجّل الدخول للدردشة"
 
 #: templates/pages/help_center.html:593
+#, fuzzy
 msgid "Partners & Resources"
-msgstr ""
+msgstr "الشركاء والموارد"
 
 #: templates/pages/help_center.html:596
+#, fuzzy
 msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
 msgstr ""
+"خدمات وأدوات موثوقة تساعدك على البيع والشراء بثقة. بعضها يُدار من قبلنا، "
+"والبعض الآخر من قبل شركاء نتعاون معهم."
 
 #: templates/pages/help_center.html:600
+#, fuzzy
 msgid "Recommended services"
-msgstr ""
+msgstr "الخدمات الموصى بها"
 
 #: templates/pages/help_center.html:613
+#, fuzzy
 msgid ""
 "Vehicle history reports — check mileage, accidents, ownership history and "
 "more before you buy a car."
 msgstr ""
+"تقارير تاريخ المركبة - تحقق من عدد الأميال والحوادث وتاريخ الملكية والمزيد "
+"قبل شراء سيارة."
 
 #: templates/pages/help_center.html:630
+#, fuzzy
 msgid "Want your business or ad featured here?"
-msgstr ""
+msgstr "هل ترغب في عرض عملك أو إعلانك هنا؟"
 
 #: templates/pages/help_center.html:632
+#, fuzzy
 msgid ""
 "If you run a car-related service — insurance, financing, transport, "
 "detailing, parts — or want to advertise another platform, you can reach our "
 "buyers and sellers. Tell us what you'd like to promote and we'll find the "
 "right placement for you."
 msgstr ""
+"إذا كنت تدير خدمة متعلقة بالسيارات - كالتأمين، أو التمويل، أو النقل، أو "
+"تلميع السيارات، أو قطع الغيار - أو ترغب في الإعلان على منصة أخرى، يمكنك "
+"الوصول إلى المشترين والبائعين لدينا. أخبرنا بما ترغب في الترويج له وسنجد لك "
+"المكان المناسب."
 
 #: templates/pages/help_center.html:637
+#, fuzzy
 msgid "See advertising options"
-msgstr ""
+msgstr "اطلع على خيارات الإعلان"
 
 #: templates/pages/help_center.html:641
+#, fuzzy
 msgid "Write to us"
-msgstr ""
+msgstr "راسلنا"
 
 #: templates/pages/help_center.html:659
+#, fuzzy
 msgid ""
 "Thousands of clients use our platform every day to browse, buy, and sell "
 "vehicles directly — without middlemen, without dealer markups, without "
 "hidden fees."
 msgstr ""
+"يستخدم آلاف العملاء منصتنا يوميًا لتصفح وشراء وبيع المركبات مباشرة - بدون "
+"وسطاء، وبدون هوامش ربح للتجار، وبدون رسوم خفية."
 
 #: templates/pages/help_center.html:663
+#, fuzzy
 msgid ""
 "We're not a dealership. We don't buy or sell cars. We're a marketplace — a "
 "platform where private sellers and verified dealers meet real buyers. The "
 "deal happens between you and the other party, exactly as it should."
 msgstr ""
+"لسنا وكالة بيع سيارات. لا نشتري أو نبيع السيارات. نحن سوق إلكتروني - منصة "
+"تجمع بين البائعين الأفراد والتجار المعتمدين والمشترين الحقيقيين. تتم الصفقة "
+"بينك وبين الطرف الآخر، كما ينبغي."
 
 #: templates/pages/help_center.html:667
+#, fuzzy
 msgid ""
 "What we do is help you get noticed. We promote listings through targeted "
 "ads, video content, and social media campaigns — bringing more eyes to the "
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
+"ما نقوم به هو مساعدتك على لفت الأنظار. نقوم بالترويج لإعلاناتك من خلال "
+"الإعلانات الموجهة، ومحتوى الفيديو، وحملات وسائل التواصل الاجتماعي، مما يجذب "
+"المزيد من الأنظار إلى السيارات المناسبة، وبالتالي تتم عمليات البيع بشكل أسرع"
+" وبأسعار عادلة لجميع الأطراف."
 
 #: templates/pages/help_center.html:673
+#, fuzzy
 msgid "Active users"
-msgstr ""
+msgstr "المستخدمون النشطون"
 
 #: templates/pages/help_center.html:677
+#, fuzzy
 msgid "Vehicles listed"
-msgstr ""
+msgstr "المركبات المدرجة"
 
 #: templates/pages/help_center.html:681
+#, fuzzy
 msgid "Middleman fees"
-msgstr ""
+msgstr "رسوم الوساطة"
 
 #: templates/pages/help_center.html:692
 msgid "Terms of Use"
@@ -11037,46 +12030,63 @@ msgstr "شروط الاستخدام"
 
 #: templates/pages/help_center.html:695 templates/pages/help_center.html:769
 #: templates/pages/help_center.html:838
+#, fuzzy
 msgid "Last updated: May 13, 2026"
-msgstr ""
+msgstr "آخر تحديث: 13 مايو 2026"
 
 #: templates/pages/help_center.html:699
+#, fuzzy
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. قبول الشروط"
 
 #: templates/pages/help_center.html:700
+#, fuzzy
 msgid ""
 "By accessing or using this platform, you agree to these Terms of Use. If you"
 " don't agree, please don't use the platform."
 msgstr ""
+"باستخدامك لهذه المنصة، فإنك توافق على شروط الاستخدام هذه. إذا كنت لا توافق، "
+"يُرجى عدم استخدام المنصة."
 
 #: templates/pages/help_center.html:704
+#, fuzzy
 msgid "2. What This Platform Is"
-msgstr ""
+msgstr "2. ما هي هذه المنصة؟"
 
 #: templates/pages/help_center.html:705
+#, fuzzy
 msgid ""
 "This is an online marketplace that connects buyers and sellers of vehicles. "
 "We don't own, sell, inspect, or warrant any vehicle listed on the platform. "
 "All transactions happen directly between users."
 msgstr ""
+"هذا سوق إلكتروني يربط بين مشتري وبائعي المركبات. نحن لا نملك أو نبيع أو نفحص"
+" أو نضمن أي مركبة معروضة على المنصة. تتم جميع المعاملات مباشرةً بين "
+"المستخدمين."
 
 #: templates/pages/help_center.html:709
+#, fuzzy
 msgid "3. User Accounts"
-msgstr ""
+msgstr "3. حسابات المستخدمين"
 
 #: templates/pages/help_center.html:710
+#, fuzzy
 msgid ""
 "To create listings or contact sellers, you must register an account. You are"
 " responsible for keeping your password secure and for all activity under "
 "your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
+"لإنشاء قوائم أو التواصل مع البائعين، يجب عليك إنشاء حساب. أنت مسؤول عن "
+"الحفاظ على سرية كلمة مرورك وعن جميع الأنشطة التي تتم من خلال حسابك. يرجى "
+"تقديم معلومات دقيقة، حيث سيتم حذف الحسابات الوهمية."
 
 #: templates/pages/help_center.html:714
+#, fuzzy
 msgid "4. Listings Content"
-msgstr ""
+msgstr "4. محتوى القوائم"
 
 #: templates/pages/help_center.html:715
+#, fuzzy
 msgid ""
 "You are fully responsible for the content you post: photos, descriptions, "
 "prices, and vehicle data. Listings must be accurate, legal, and your own. "
@@ -11084,178 +12094,258 @@ msgid ""
 "fraudulent listings. We reserve the right to remove any listing without "
 "notice."
 msgstr ""
+"أنت مسؤول مسؤولية كاملة عن المحتوى الذي تنشره: الصور، والأوصاف، والأسعار، "
+"وبيانات المركبات. يجب أن تكون الإعلانات دقيقة وقانونية ومن إنتاجك الخاص. "
+"يُمنع نشر إعلانات عن مركبات مسروقة، أو مركبات لا تملك الحق في بيعها، أو "
+"إعلانات احتيالية. نحتفظ بحقنا في حذف أي إعلان دون إشعار مسبق."
 
 #: templates/pages/help_center.html:719
+#, fuzzy
 msgid "5. Transactions Between Users"
-msgstr ""
+msgstr "5. المعاملات بين المستخدمين"
 
 #: templates/pages/help_center.html:720
+#, fuzzy
 msgid ""
 "We are not a party to any transaction between buyers and sellers. We don't "
 "handle payments, deliveries, inspections, or disputes. Always verify the "
 "vehicle in person before paying. Use safe payment methods and meet in safe "
 "public locations."
 msgstr ""
+"لسنا طرفاً في أي معاملة بين البائعين والمشترين. لا نتعامل مع المدفوعات أو "
+"عمليات التسليم أو المعاينة أو النزاعات. يرجى دائماً معاينة السيارة شخصياً "
+"قبل الدفع. استخدم طرق دفع آمنة والتقِ في أماكن عامة آمنة."
 
 #: templates/pages/help_center.html:724
+#, fuzzy
 msgid "6. Fees and Payments"
-msgstr ""
+msgstr "6. الرسوم والمدفوعات"
 
 #: templates/pages/help_center.html:725
+#, fuzzy
 msgid ""
 "The first 3 listings per user are free. Additional listings, premium plans, "
 "and dealer subscriptions are paid. All fees are non-refundable except where "
 "required by law. See the Pricing page for current rates."
 msgstr ""
+"أول ثلاث إعلانات مجانية لكل مستخدم. الإعلانات الإضافية، والخطط المميزة، "
+"واشتراكات الوكلاء مدفوعة. جميع الرسوم غير قابلة للاسترداد إلا في الحالات "
+"التي ينص عليها القانون. راجع صفحة الأسعار للاطلاع على الأسعار الحالية."
 
 #: templates/pages/help_center.html:729
+#, fuzzy
 msgid "7. Prohibited Activities"
-msgstr ""
+msgstr "7. الأنشطة المحظورة"
 
 #: templates/pages/help_center.html:730
+#, fuzzy
 msgid ""
 "You may not: post duplicate listings, spam other users, harass anyone, "
 "scrape data from the site, attempt to manipulate search rankings, post "
 "illegal or fraudulent content, or use bots to interact with the platform. "
 "Violations may result in account suspension."
 msgstr ""
+"لا يجوز لك: نشر إعلانات مكررة، أو إرسال رسائل غير مرغوب فيها إلى مستخدمين "
+"آخرين، أو مضايقة أي شخص، أو استخراج البيانات من الموقع، أو محاولة التلاعب "
+"بترتيب نتائج البحث، أو نشر محتوى غير قانوني أو احتيالي، أو استخدام برامج "
+"آلية للتفاعل مع المنصة. قد تؤدي المخالفات إلى تعليق حسابك."
 
 #: templates/pages/help_center.html:734
+#, fuzzy
 msgid "8. Disclaimer of Warranties"
-msgstr ""
+msgstr "8. إخلاء المسؤولية عن الضمانات"
 
 #: templates/pages/help_center.html:735
+#, fuzzy
 msgid ""
 "The platform is provided 'as is' without warranties of any kind. We don't "
 "guarantee that listings are accurate, that transactions will be successful, "
 "or that the service will be uninterrupted."
 msgstr ""
+"تُقدَّم المنصة \"كما هي\" دون أي ضمانات من أي نوع. لا نضمن دقة البيانات "
+"المعروضة، أو نجاح المعاملات، أو استمرار الخدمة دون انقطاع."
 
 #: templates/pages/help_center.html:739
+#, fuzzy
 msgid "9. Limitation of Liability"
-msgstr ""
+msgstr "9. تحديد المسؤولية"
 
 #: templates/pages/help_center.html:740
+#, fuzzy
 msgid ""
 "To the maximum extent allowed by law, we are not liable for any damages "
 "arising from your use of the platform or from transactions between users."
 msgstr ""
+"إلى أقصى حد يسمح به القانون، نحن لسنا مسؤولين عن أي أضرار تنشأ عن استخدامك "
+"للمنصة أو عن المعاملات بين المستخدمين."
 
 #: templates/pages/help_center.html:744
+#, fuzzy
 msgid "10. Termination"
-msgstr ""
+msgstr "10. الإنهاء"
 
 #: templates/pages/help_center.html:745
+#, fuzzy
 msgid ""
 "We reserve the right to suspend or terminate accounts that violate these "
 "Terms. You may delete your account at any time from your account settings."
 msgstr ""
+"نحتفظ بالحق في تعليق أو إنهاء الحسابات التي تخالف هذه الشروط. يمكنك حذف "
+"حسابك في أي وقت من إعدادات حسابك."
 
 #: templates/pages/help_center.html:749
+#, fuzzy
 msgid "11. Changes to Terms"
-msgstr ""
+msgstr "11. تغييرات في الشروط"
 
 #: templates/pages/help_center.html:750
+#, fuzzy
 msgid ""
 "We may update these Terms occasionally. Significant changes will be "
 "announced on the site. Continued use after changes means you accept the "
 "updated Terms."
 msgstr ""
+"قد نقوم بتحديث هذه الشروط من حين لآخر. سيتم الإعلان عن التغييرات الهامة على "
+"الموقع. استمرار استخدامك للموقع بعد التغييرات يعني موافقتك على الشروط "
+"المحدثة."
 
 #: templates/pages/help_center.html:754
+#, fuzzy
 msgid "12. Contact"
-msgstr ""
+msgstr "12. الاتصال"
 
 #: templates/pages/help_center.html:755
+#, fuzzy
 msgid "Questions about these Terms? Email us at helpautoinfo@gmail.com."
 msgstr ""
+"هل لديك أسئلة حول هذه الشروط؟ راسلنا عبر البريد الإلكتروني على "
+"helpautoinfo@gmail.com."
 
 #: templates/pages/help_center.html:766
 msgid "Privacy Policy"
 msgstr "سياسة الخصوصية"
 
 #: templates/pages/help_center.html:773
+#, fuzzy
 msgid "1. What We Collect"
-msgstr ""
+msgstr "1. ما نقوم بجمعه"
 
 #: templates/pages/help_center.html:774
+#, fuzzy
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
 "and descriptions you upload, your IP address and browser type, and pages you"
 " visit on our site."
 msgstr ""
+"عند استخدامك لهذه المنصة، نقوم بجمع: بريدك الإلكتروني واسمك (لحسابك)، ورقم "
+"هاتفك (إذا اخترت مشاركته في القوائم)، والصور والأوصاف التي تقوم بتحميلها، "
+"وعنوان IP الخاص بك ونوع المتصفح، والصفحات التي تزورها على موقعنا."
 
 #: templates/pages/help_center.html:778
+#, fuzzy
 msgid "2. How We Use Your Data"
-msgstr ""
+msgstr "2. كيف نستخدم بياناتك"
 
 #: templates/pages/help_center.html:779
+#, fuzzy
 msgid ""
 "We use your data to: operate the marketplace (show your listings, deliver "
 "messages), send important account emails, improve the platform, prevent "
 "fraud and abuse, and (with your consent) send marketing emails. We don't "
 "sell your personal data to third parties."
 msgstr ""
+"نستخدم بياناتك للأغراض التالية: تشغيل السوق (عرض إعلاناتك، إرسال الرسائل)، "
+"إرسال رسائل بريد إلكتروني مهمة متعلقة بحسابك، تحسين المنصة، منع الاحتيال "
+"وسوء الاستخدام، وإرسال رسائل تسويقية (بموافقتك). لا نبيع بياناتك الشخصية "
+"لأطراف ثالثة."
 
 #: templates/pages/help_center.html:783
+#, fuzzy
 msgid "3. What's Public"
-msgstr ""
+msgstr "3. ما هو عام"
 
 #: templates/pages/help_center.html:784
+#, fuzzy
 msgid ""
 "Your listings, including photos and descriptions, are public. Your name or "
 "username, city, and (if enabled) phone number are visible to other users. "
 "Your email is not shown publicly unless you choose to display it."
 msgstr ""
+"تُصبح إعلاناتك، بما في ذلك الصور والأوصاف، متاحة للعامة. اسمك أو اسم "
+"المستخدم الخاص بك، والمدينة التي تسكنها، ورقم هاتفك (إن كان مُفعّلاً) مرئية "
+"للمستخدمين الآخرين. أما بريدك الإلكتروني فلا يظهر للعامة إلا إذا اخترتَ "
+"عرضه."
 
 #: templates/pages/help_center.html:788
+#, fuzzy
 msgid "4. Cookies and Tracking"
-msgstr ""
+msgstr "4. ملفات تعريف الارتباط والتتبع"
 
 #: templates/pages/help_center.html:789
+#, fuzzy
 msgid ""
 "We use cookies to keep you logged in, remember your language and search "
 "preferences, and analyze how the site is used. See the Cookie Policy for "
 "full details."
 msgstr ""
+"نستخدم ملفات تعريف الارتباط لإبقائك مسجلاً للدخول، وتذكر لغتك وتفضيلات "
+"البحث، وتحليل كيفية استخدام الموقع. راجع سياسة ملفات تعريف الارتباط للاطلاع "
+"على التفاصيل الكاملة."
 
 #: templates/pages/help_center.html:793
+#, fuzzy
 msgid "5. Third-Party Services"
-msgstr ""
+msgstr "5. خدمات الطرف الثالث"
 
 #: templates/pages/help_center.html:794
+#, fuzzy
 msgid ""
 "We use trusted third-party services for payments (Stripe), email delivery, "
 "and analytics. These providers handle data securely under their own privacy "
 "policies. We also embed Google Maps on listing pages."
 msgstr ""
+"نستخدم خدمات جهات خارجية موثوقة للدفع (Stripe) وإرسال البريد الإلكتروني "
+"والتحليلات. تتعامل هذه الجهات مع البيانات بأمان وفقًا لسياسات الخصوصية "
+"الخاصة بها. كما نُضمّن خرائط جوجل في صفحات قوائم المنتجات."
 
 #: templates/pages/help_center.html:798
+#, fuzzy
 msgid "6. Your Rights (GDPR)"
-msgstr ""
+msgstr "6. حقوقك (اللائحة العامة لحماية البيانات)"
 
 #: templates/pages/help_center.html:799
+#, fuzzy
 msgid ""
 "If you're in the EU, you have the right to: access the data we hold about "
 "you, correct inaccurate data, delete your account and data, export your "
 "data, and withdraw marketing consent. Contact us to use these rights."
 msgstr ""
+"إذا كنت مقيمًا في الاتحاد الأوروبي، فلك الحق في: الوصول إلى البيانات التي "
+"نحتفظ بها عنك، وتصحيح البيانات غير الدقيقة، وحذف حسابك وبياناتك، وتصدير "
+"بياناتك، وسحب موافقتك على تلقي الرسائل التسويقية. تواصل معنا لممارسة هذه "
+"الحقوق."
 
 #: templates/pages/help_center.html:803
+#, fuzzy
 msgid "7. Data Retention"
-msgstr ""
+msgstr "7. الاحتفاظ بالبيانات"
 
 #: templates/pages/help_center.html:804
+#, fuzzy
 msgid ""
 "We keep your data while your account is active. If you delete your account, "
 "we remove personal data within 30 days, except where we need to keep it for "
 "legal reasons (tax records, fraud prevention)."
 msgstr ""
+"نحتفظ ببياناتك طالما كان حسابك نشطًا. إذا حذفت حسابك، فسنزيل البيانات "
+"الشخصية في غضون 30 يومًا، إلا إذا كنا نحتاج إلى الاحتفاظ بها لأسباب قانونية "
+"(سجلات الضرائب، منع الاحتيال)."
 
 #: templates/pages/help_center.html:808
+#, fuzzy
 msgid "8. Security"
-msgstr ""
+msgstr "8. الأمن"
 
 #: templates/pages/help_center.html:809
 #, python-format
@@ -11266,157 +12356,212 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:813
+#, fuzzy
 msgid "9. Children"
-msgstr ""
+msgstr "9. الأطفال"
 
 #: templates/pages/help_center.html:814
+#, fuzzy
 msgid ""
 "This platform is not intended for users under 18. We don't knowingly collect"
 " data from minors."
 msgstr ""
+"هذه المنصة غير مخصصة للمستخدمين الذين تقل أعمارهم عن 18 عامًا. نحن لا نجمع "
+"بيانات من القاصرين عن قصد."
 
 #: templates/pages/help_center.html:818
+#, fuzzy
 msgid "10. Changes"
-msgstr ""
+msgstr "10. التغييرات"
 
 #: templates/pages/help_center.html:819
+#, fuzzy
 msgid ""
 "We may update this Privacy Policy. Important changes will be announced on "
 "the site."
 msgstr ""
+"قد نقوم بتحديث سياسة الخصوصية هذه. سيتم الإعلان عن التغييرات المهمة على "
+"الموقع."
 
 #: templates/pages/help_center.html:823
+#, fuzzy
 msgid "11. Contact"
-msgstr ""
+msgstr "11. الاتصال"
 
 #: templates/pages/help_center.html:824
+#, fuzzy
 msgid ""
 "Questions about your privacy or data? Email us at helpautoinfo@gmail.com."
 msgstr ""
+"هل لديك أسئلة حول خصوصيتك أو بياناتك؟ راسلنا عبر البريد الإلكتروني على "
+"helpautoinfo@gmail.com."
 
 #: templates/pages/help_center.html:835
+#, fuzzy
 msgid "Cookie Policy"
-msgstr ""
+msgstr "سياسة ملفات تعريف الارتباط"
 
 #: templates/pages/help_center.html:842
+#, fuzzy
 msgid "What are cookies?"
-msgstr ""
+msgstr "ما هي ملفات تعريف الارتباط؟"
 
 #: templates/pages/help_center.html:843
+#, fuzzy
 msgid ""
 "Cookies are small text files that websites store on your device to remember "
 "things — like that you're logged in, what language you prefer, or which "
 "listings you've viewed."
 msgstr ""
+"ملفات تعريف الارتباط هي ملفات نصية صغيرة تخزنها مواقع الويب على جهازك لتذكر "
+"أشياء مثل أنك قمت بتسجيل الدخول، أو اللغة التي تفضلها، أو القوائم التي قمت "
+"بمشاهدتها."
 
 #: templates/pages/help_center.html:847
+#, fuzzy
 msgid "Cookies we use"
-msgstr ""
+msgstr "ملفات تعريف الارتباط التي نستخدمها"
 
 #: templates/pages/help_center.html:855
+#, fuzzy
 msgid "Required?"
-msgstr ""
+msgstr "مطلوب؟"
 
 #: templates/pages/help_center.html:860
+#, fuzzy
 msgid "Essential"
-msgstr ""
+msgstr "ضروري"
 
 #: templates/pages/help_center.html:861
+#, fuzzy
 msgid "Login session, security, CSRF protection"
 msgstr ""
+"جلسة تسجيل الدخول، والأمان، والحماية من هجمات تزوير الطلبات عبر المواقع "
+"(CSRF)."
 
 #: templates/pages/help_center.html:862
+#, fuzzy
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: templates/pages/help_center.html:865
+#, fuzzy
 msgid "Preferences"
-msgstr ""
+msgstr "التفضيلات"
 
 #: templates/pages/help_center.html:866
+#, fuzzy
 msgid "Language, currency, recent searches"
-msgstr ""
+msgstr "اللغة، العملة، عمليات البحث الأخيرة"
 
 #: templates/pages/help_center.html:867 templates/pages/help_center.html:872
+#, fuzzy
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #: templates/pages/help_center.html:870
+#, fuzzy
 msgid "Analytics"
-msgstr ""
+msgstr "التحليلات"
 
 #: templates/pages/help_center.html:871
+#, fuzzy
 msgid "Anonymous usage statistics (page views, errors)"
-msgstr ""
+msgstr "إحصائيات الاستخدام المجهولة (مشاهدات الصفحة، الأخطاء)"
 
 #: templates/pages/help_center.html:875
+#, fuzzy
 msgid "Third-party"
-msgstr ""
+msgstr "طرف ثالث"
 
 #: templates/pages/help_center.html:876
+#, fuzzy
 msgid "Stripe (payments), Google Maps (location)"
-msgstr ""
+msgstr "سترايب (للدفع)، خرائط جوجل (للتحديد الجغرافي)"
 
 #: templates/pages/help_center.html:877
+#, fuzzy
 msgid "Optional"
-msgstr ""
+msgstr "خياري"
 
 #: templates/pages/help_center.html:885
+#, fuzzy
 msgid "How long cookies last"
-msgstr ""
+msgstr "مدة صلاحية ملفات تعريف الارتباط"
 
 #: templates/pages/help_center.html:886
+#, fuzzy
 msgid ""
 "Session cookies are deleted when you close your browser. Persistent cookies "
 "(like login remembering) last up to 1 year. You can clear cookies any time "
 "from your browser settings."
 msgstr ""
+"تُحذف ملفات تعريف الارتباط الخاصة بالجلسة عند إغلاق المتصفح. أما ملفات تعريف"
+" الارتباط الدائمة (مثل ملفات تعريف الارتباط الخاصة بتذكر بيانات تسجيل "
+"الدخول) فتستمر لمدة تصل إلى عام واحد. يمكنك مسح ملفات تعريف الارتباط في أي "
+"وقت من إعدادات متصفحك."
 
 #: templates/pages/help_center.html:890
+#, fuzzy
 msgid "Managing cookies"
-msgstr ""
+msgstr "إدارة ملفات تعريف الارتباط"
 
 #: templates/pages/help_center.html:891
+#, fuzzy
 msgid ""
 "You can disable cookies in your browser settings — but if you disable "
 "essential cookies, the platform may not work properly. You won't be able to "
 "log in, post listings, or save preferences."
 msgstr ""
+"يمكنك تعطيل ملفات تعريف الارتباط في إعدادات متصفحك، ولكن إذا عطلت ملفات "
+"تعريف الارتباط الأساسية، فقد لا تعمل المنصة بشكل صحيح. لن تتمكن من تسجيل "
+"الدخول أو نشر الإعلانات أو حفظ التفضيلات."
 
 #: templates/pages/help_center.html:895
+#, fuzzy
 msgid "Do Not Track"
-msgstr ""
+msgstr "عدم التتبع"
 
 #: templates/pages/help_center.html:896
+#, fuzzy
 msgid ""
 "We honor 'Do Not Track' signals where technically feasible. Non-essential "
 "analytics cookies will not be set if your browser sends this signal."
 msgstr ""
+"نحترم إشارات \"عدم التتبع\" حيثما كان ذلك ممكناً من الناحية التقنية. لن يتم "
+"تعيين ملفات تعريف الارتباط التحليلية غير الضرورية إذا أرسل متصفحك هذه "
+"الإشارة."
 
 #: templates/pages/help_center.html:900
+#, fuzzy
 msgid "Questions?"
-msgstr ""
+msgstr "أسئلة؟"
 
 #: templates/pages/help_center.html:901
+#, fuzzy
 msgid "Email us at helpautoinfo@gmail.com."
-msgstr ""
+msgstr "راسلنا عبر البريد الإلكتروني على helpautoinfo@gmail.com."
 
 #: templates/pages/page_simple.html:69
+#, fuzzy
 msgid "Coming Soon"
-msgstr ""
+msgstr "قريباً"
 
 #: templates/pages/page_simple.html:71
+#, fuzzy
 msgid ""
 "We're working on this page. Check back soon for full content and features."
-msgstr ""
+msgstr "نعمل على هذه الصفحة. ترقبوا المزيد من المحتوى والميزات قريباً."
 
 #: templates/pages/page_simple.html:75
+#, fuzzy
 msgid "Need information now? Reach out to us:"
-msgstr ""
+msgstr "هل تحتاج إلى معلومات الآن؟ تواصل معنا:"
 
 #: templates/pages/page_simple.html:86
+#, fuzzy
 msgid "Back to Help Center"
-msgstr ""
+msgstr "العودة إلى مركز المساعدة"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"

@@ -23,12 +23,14 @@ msgid "Private Seller"
 msgstr "Người bán cá nhân"
 
 #: apps/accounts/models.py:18
+#, fuzzy
 msgid "Car Dealer / Autohouse"
-msgstr ""
+msgstr "Đại lý ô tô / Nhà xe"
 
 #: apps/accounts/models.py:27
+#, fuzzy
 msgid "Bio"
-msgstr ""
+msgstr "Đã từng là"
 
 #: apps/accounts/models.py:28 templates/listings/listing_detail.html:421
 #: templates/listings/listing_detail.html:651
@@ -46,8 +48,9 @@ msgid "Phone Number"
 msgstr "Số điện thoại"
 
 #: apps/accounts/models.py:30
+#, fuzzy
 msgid "Secondary Phone Number"
-msgstr ""
+msgstr "Số điện thoại phụ"
 
 #: apps/accounts/models.py:31 templates/accounts/profile_edit.html:101
 msgid "Street"
@@ -123,16 +126,19 @@ msgid "Seller Type"
 msgstr "Loại người bán"
 
 #: apps/accounts/models.py:44 templates/accounts/dealer_setup.html:22
+#, fuzzy
 msgid "Company Name"
-msgstr ""
+msgstr "Tên công ty"
 
 #: apps/accounts/models.py:45
+#, fuzzy
 msgid "Company Logo"
-msgstr ""
+msgstr "Logo công ty"
 
 #: apps/accounts/models.py:46
+#, fuzzy
 msgid "Banner Image"
-msgstr ""
+msgstr "Hình ảnh biểu ngữ"
 
 #: apps/accounts/models.py:47 templates/accounts/dealer_setup.html:76
 msgid "Working Hours"
@@ -143,8 +149,9 @@ msgid "Contact Person"
 msgstr "Người liên hệ"
 
 #: apps/accounts/models.py:49
+#, fuzzy
 msgid "Company Description"
-msgstr ""
+msgstr "Mô tả công ty"
 
 #: apps/accounts/models.py:50 templates/accounts/dealer_setup.html:34
 #: templates/accounts/seller_profile.html:375
@@ -152,60 +159,74 @@ msgid "Website"
 msgstr "Trang web"
 
 #: apps/accounts/models.py:53 apps/accounts/models.py:242
+#, fuzzy
 msgid "Rating"
-msgstr ""
+msgstr "Xếp hạng"
 
 #: apps/accounts/models.py:54
+#, fuzzy
 msgid "Rating Count"
-msgstr ""
+msgstr "Số lượt đánh giá"
 
 #: apps/accounts/models.py:59
+#, fuzzy
 msgid "Wallet Balance (points)"
-msgstr ""
+msgstr "Số dư trong ví (điểm)"
 
 #: apps/accounts/models.py:63
+#, fuzzy
 msgid "Email Notifications"
-msgstr ""
+msgstr "Thông báo qua email"
 
 #: apps/accounts/models.py:64
+#, fuzzy
 msgid "Email Messages Notifications"
-msgstr ""
+msgstr "Thông báo qua email"
 
 #: apps/accounts/models.py:65
+#, fuzzy
 msgid "Marketing Emails"
-msgstr ""
+msgstr "Email tiếp thị"
 
 #: apps/accounts/models.py:66
+#, fuzzy
 msgid "SMS Notifications"
-msgstr ""
+msgstr "Thông báo SMS"
 
 #: apps/accounts/models.py:69
+#, fuzzy
 msgid "Show Email on Profile"
-msgstr ""
+msgstr "Hiển thị email trên hồ sơ"
 
 #: apps/accounts/models.py:70
+#, fuzzy
 msgid "Show Phone on Listings"
-msgstr ""
+msgstr "Hiển thị số điện thoại trên danh sách"
 
 #: apps/accounts/models.py:71
+#, fuzzy
 msgid "Public Profile"
-msgstr ""
+msgstr "Hồ sơ công khai"
 
 #: apps/accounts/models.py:74
+#, fuzzy
 msgid "Show Location on Map"
-msgstr ""
+msgstr "Hiển thị vị trí trên bản đồ"
 
 #: apps/accounts/models.py:85
+#, fuzzy
 msgid "Account type"
-msgstr ""
+msgstr "Loại tài khoản"
 
 #: apps/accounts/models.py:91
+#, fuzzy
 msgid "Dealer status"
-msgstr ""
+msgstr "Trạng thái đại lý"
 
 #: apps/accounts/models.py:116
+#, fuzzy
 msgid "Dealer working hours"
-msgstr ""
+msgstr "Giờ làm việc của đại lý"
 
 #: apps/accounts/models.py:125 config/settings.py:143
 msgid "English"
@@ -240,36 +261,42 @@ msgid "Français"
 msgstr "Français"
 
 #: apps/accounts/models.py:139
+#, fuzzy
 msgid "Preferred Language"
-msgstr ""
+msgstr "Ngôn ngữ ưu tiên"
 
 #: apps/accounts/models.py:171
 #: templates/listings/wheels_advanced_search.html:120
 #: templates/listings/wheels_list.html:179
 #: templates/listings/wheels_list.html:313
 #: templates/listings/wheels_list.html:472
+#, fuzzy
 msgid "Profile"
-msgstr ""
+msgstr "Hồ sơ"
 
 #: apps/accounts/models.py:180
+#, fuzzy
 msgid "Top-up"
-msgstr ""
+msgstr "Nạp tiền"
 
 #: apps/accounts/models.py:181
 msgid "Bonus"
 msgstr "thưởng"
 
 #: apps/accounts/models.py:182
+#, fuzzy
 msgid "Spend"
-msgstr ""
+msgstr "Tiêu"
 
 #: apps/accounts/models.py:183
+#, fuzzy
 msgid "Refund"
-msgstr ""
+msgstr "Đền bù"
 
 #: apps/accounts/models.py:184
+#, fuzzy
 msgid "Test top-up"
-msgstr ""
+msgstr "Kiểm tra nạp tiền"
 
 #: apps/accounts/models.py:188 templates/accounts/wallet.html:145
 msgid "Pending"
@@ -284,53 +311,64 @@ msgid "Failed"
 msgstr "Thất bại"
 
 #: apps/accounts/models.py:191
+#, fuzzy
 msgid "Refunded"
-msgstr ""
+msgstr "Đã hoàn tiền"
 
 #: apps/accounts/models.py:201
+#, fuzzy
 msgid "Amount (points)"
-msgstr ""
+msgstr "Số điểm"
 
 #: apps/accounts/models.py:206
+#, fuzzy
 msgid "Bonus points"
-msgstr ""
+msgstr "Điểm thưởng"
 
 #: apps/accounts/models.py:225
+#, fuzzy
 msgid "Wallet Transaction"
-msgstr ""
+msgstr "Giao dịch ví"
 
 #: apps/accounts/models.py:243
+#, fuzzy
 msgid "Comment"
-msgstr ""
+msgstr "Bình luận"
 
 #: apps/accounts/models.py:248
+#, fuzzy
 msgid "Seller Review"
-msgstr ""
+msgstr "Đánh giá của người bán"
 
 #: apps/listings/boats_views.py:42
 #: templates/listings/partials/panel_boats.html:20
+#, fuzzy
 msgid "Aluminium"
-msgstr ""
+msgstr "Nhôm"
 
 #: apps/listings/boats_views.py:43 apps/listings/models.py:2935
 #: templates/listings/partials/panel_boats.html:21
+#, fuzzy
 msgid "Steel"
-msgstr ""
+msgstr "Thép"
 
 #: apps/listings/boats_views.py:44
 #: templates/listings/partials/panel_boats.html:22
+#, fuzzy
 msgid "Fiberglass / Plastic"
-msgstr ""
+msgstr "Sợi thủy tinh / Nhựa"
 
 #: apps/listings/boats_views.py:45
 #: templates/listings/partials/panel_boats.html:23
+#, fuzzy
 msgid "Wood"
-msgstr ""
+msgstr "Gỗ"
 
 #: apps/listings/boats_views.py:46
 #: templates/listings/partials/panel_boats.html:24
+#, fuzzy
 msgid "PVC / Rubber"
-msgstr ""
+msgstr "Nhựa PVC / Cao su"
 
 #: apps/listings/boats_views.py:47 apps/listings/models.py:220
 #: apps/listings/models.py:248 apps/listings/models.py:283
@@ -347,8 +385,9 @@ msgstr "Khác"
 
 #: apps/listings/forms.py:21 apps/listings/models.py:16
 #: apps/listings/models.py:543
+#, fuzzy
 msgid "Vehicle Type"
-msgstr ""
+msgstr "Loại xe"
 
 #: apps/listings/forms.py:27 apps/listings/models.py:53
 #: apps/listings/models.py:545 templates/accounts/dealer_public_page.html:48
@@ -433,20 +472,23 @@ msgid "Model"
 msgstr "Người mẫu"
 
 #: apps/listings/forms.py:38
+#, fuzzy
 msgid "Manufacturing Year"
-msgstr ""
+msgstr "Năm sản xuất"
 
 #: apps/listings/forms.py:44
+#, fuzzy
 msgid "Registration Month"
-msgstr ""
+msgstr "Tháng đăng ký"
 
 #: apps/listings/forms.py:50
 msgid "VIN Code"
 msgstr "Mã VIN"
 
 #: apps/listings/forms.py:81
+#, fuzzy
 msgid "Upload Video (YouTube or other URL)"
-msgstr ""
+msgstr "Tải video lên (YouTube hoặc URL khác)"
 
 #: apps/listings/forms.py:95 templates/listings/advanced_search.html:244
 #: templates/listings/advanced_search.html:600 templates/listings/home.html:46
@@ -572,8 +614,9 @@ msgid "Mileage (km)"
 msgstr "Quãng đường (km)"
 
 #: apps/listings/forms.py:157
+#, fuzzy
 msgid "Engine Capacity (L)"
-msgstr ""
+msgstr "Dung tích động cơ (L)"
 
 #: apps/listings/forms.py:167 apps/listings/models.py:2163
 #: templates/listings/advanced_search.html:682
@@ -626,20 +669,24 @@ msgid "Euro Standard"
 msgstr "Tiêu chuẩn Châu Âu"
 
 #: apps/listings/forms.py:223
+#, fuzzy
 msgid "CO\\u2082 Emission (g/km)"
-msgstr ""
+msgstr "Lượng khí thải CO₂ (g/km)"
 
 #: apps/listings/forms.py:233
+#, fuzzy
 msgid "Fuel Consumption City (l/100km)"
-msgstr ""
+msgstr "Mức tiêu thụ nhiên liệu trong thành phố (l/100km)"
 
 #: apps/listings/forms.py:244
+#, fuzzy
 msgid "Fuel Consumption Highway (l/100km)"
-msgstr ""
+msgstr "Mức tiêu thụ nhiên liệu trên đường cao tốc (l/100km)"
 
 #: apps/listings/forms.py:255
+#, fuzzy
 msgid "Fuel Consumption Combined (l/100km)"
-msgstr ""
+msgstr "Mức tiêu thụ nhiên liệu kết hợp (l/100km)"
 
 #: apps/listings/forms.py:266 templates/listings/listing_create.html:566
 #: templates/listings/listing_detail.html:938
@@ -648,20 +695,24 @@ msgid "Origin Country"
 msgstr "Quốc gia xuất xứ"
 
 #: apps/listings/forms.py:273
+#, fuzzy
 msgid "Technical Inspection Month"
-msgstr ""
+msgstr "Tháng kiểm tra kỹ thuật"
 
 #: apps/listings/forms.py:280
+#, fuzzy
 msgid "Technical Inspection Year"
-msgstr ""
+msgstr "Năm kiểm tra kỹ thuật"
 
 #: apps/listings/forms.py:292
+#, fuzzy
 msgid "Search Features"
-msgstr ""
+msgstr "Tính năng tìm kiếm"
 
 #: apps/listings/forms.py:323
+#, fuzzy
 msgid "Price (\\u20ac)"
-msgstr ""
+msgstr "Giá (€)"
 
 #: apps/listings/forms.py:333 templates/listings/listing_create.html:624
 #: templates/listings/listing_edit.html:74
@@ -703,32 +754,38 @@ msgid "Street Address"
 msgstr "Địa chỉ đường phố"
 
 #: apps/listings/forms.py:422
+#, fuzzy
 msgid "Hide exact address (show only city/area on map)"
-msgstr ""
+msgstr "Ẩn địa chỉ chính xác (chỉ hiển thị thành phố/khu vực trên bản đồ)"
 
 #: apps/listings/forms.py:429
+#, fuzzy
 msgid "Contact Phone"
-msgstr ""
+msgstr "Số điện thoại liên hệ"
 
 #: apps/listings/forms.py:438 templates/accounts/login.html:26
 msgid "Email Address"
 msgstr "Địa chỉ email"
 
 #: apps/listings/forms.py:447
+#, fuzzy
 msgid "Show phone number in listing"
-msgstr ""
+msgstr "Hiển thị số điện thoại trong danh sách"
 
 #: apps/listings/forms.py:454
+#, fuzzy
 msgid "I agree to the Terms and Conditions and Privacy Policy"
-msgstr ""
+msgstr "Tôi đồng ý với Điều khoản và Điều kiện cũng như Chính sách Bảo mật."
 
 #: apps/listings/forms.py:460
+#, fuzzy
 msgid "Subscribe to newsletter and special offers"
-msgstr ""
+msgstr "Đăng ký nhận bản tin và ưu đãi đặc biệt"
 
 #: apps/listings/image_validation.py:38
+#, fuzzy
 msgid "failas"
-msgstr ""
+msgstr "tài liệu"
 
 #: apps/listings/image_validation.py:43
 #, python-format
@@ -737,16 +794,18 @@ msgid ""
 msgstr ""
 
 #: apps/listings/image_validation.py:50 apps/listings/image_validation.py:76
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "Netinkamas failo formatas: „%(name)s“. Leidžiami tik JPG, PNG ir WEBP "
 "failai."
 msgstr ""
+"Định dạng tệp không hợp lệ: '%(name)s'. Chỉ cho phép các tệp JPG, PNG và "
+"WEBP."
 
 #: apps/listings/image_validation.py:64
-#, python-format
+#, python-format, fuzzy
 msgid "Failas „%(name)s“ nėra tinkamas paveikslėlis arba yra sugadintas."
-msgstr ""
+msgstr "Tệp \"%(name)s\" không phải là hình ảnh hợp lệ hoặc bị hỏng."
 
 #: apps/listings/models.py:11 apps/listings/models.py:25
 #: apps/listings/models.py:48 apps/listings/models.py:62
@@ -765,42 +824,50 @@ msgid "Order"
 msgstr "Đặt hàng"
 
 #: apps/listings/models.py:33
+#, fuzzy
 msgid "Parent subcategory"
-msgstr ""
+msgstr "Danh mục con cha"
 
 #: apps/listings/models.py:35 apps/listings/models.py:158
+#, fuzzy
 msgid "Display order"
-msgstr ""
+msgstr "Thứ tự hiển thị"
 
 #: apps/listings/models.py:38
 msgid "SubCategory"
 msgstr "Danh mục phụ"
 
 #: apps/listings/models.py:82 apps/listings/models.py:547
+#, fuzzy
 msgid "SubModel"
-msgstr ""
+msgstr "Mô hình con"
 
 #: apps/listings/models.py:96 apps/listings/models.py:551
+#, fuzzy
 msgid "Motorcycle Brand"
-msgstr ""
+msgstr "Thương hiệu xe máy"
 
 #: apps/listings/models.py:110 apps/listings/models.py:556
+#, fuzzy
 msgid "Motorcycle Model"
-msgstr ""
+msgstr "Mô hình xe máy"
 
 #: apps/listings/models.py:128 apps/listings/models.py:561
 #: apps/listings/models.py:2073
+#, fuzzy
 msgid "Truck Brand"
-msgstr ""
+msgstr "Thương hiệu xe tải"
 
 #: apps/listings/models.py:142 apps/listings/models.py:566
 #: apps/listings/models.py:2078
+#, fuzzy
 msgid "Truck Model"
-msgstr ""
+msgstr "Mô hình xe tải"
 
 #: apps/listings/models.py:161
+#, fuzzy
 msgid "Gear Brand"
-msgstr ""
+msgstr "Thương hiệu Gear"
 
 #: apps/listings/models.py:199 apps/listings/models.py:1876
 #: apps/listings/models.py:2941 apps/listings/moto_part_views.py:31
@@ -830,28 +897,34 @@ msgid "Damaged"
 msgstr "Bị hư hại"
 
 #: apps/listings/models.py:205 apps/listings/models.py:1881
+#, fuzzy
 msgid "Juodraštis"
-msgstr ""
+msgstr "Bản nháp"
 
 #: apps/listings/models.py:206 apps/listings/models.py:1882
+#, fuzzy
 msgid "Aktyvus"
-msgstr ""
+msgstr "Tích cực"
 
 #: apps/listings/models.py:207 apps/listings/models.py:1883
+#, fuzzy
 msgid "Rezervuotas"
-msgstr ""
+msgstr "Kín đáo"
 
 #: apps/listings/models.py:208 apps/listings/models.py:1884
+#, fuzzy
 msgid "Neaktyvus"
-msgstr ""
+msgstr "Không hoạt động"
 
 #: apps/listings/models.py:209 apps/listings/models.py:1885
+#, fuzzy
 msgid "Parduotas"
-msgstr ""
+msgstr "Đã bán"
 
 #: apps/listings/models.py:210 apps/listings/models.py:1886
+#, fuzzy
 msgid "Archyvuotas"
-msgstr ""
+msgstr "Đã lưu trữ"
 
 #: apps/listings/models.py:214 templates/listings/home.html:49
 msgid "Sedan"
@@ -862,44 +935,52 @@ msgid "Hatchback"
 msgstr "Xe hatchback"
 
 #: apps/listings/models.py:215
+#, fuzzy
 msgid "Estate/Wagon"
-msgstr ""
+msgstr "Xe nhà di động/xe ngựa"
 
 #: apps/listings/models.py:215
+#, fuzzy
 msgid "Minivan"
-msgstr ""
+msgstr "Xe minivan"
 
 #: apps/listings/models.py:216
+#, fuzzy
 msgid "SUV/Crossover"
-msgstr ""
+msgstr "Xe SUV/Xe crossover"
 
 #: apps/listings/models.py:216 templates/listings/home.html:52
 msgid "Coupe"
 msgstr "Xe coupe"
 
 #: apps/listings/models.py:217
+#, fuzzy
 msgid "Commercial"
-msgstr ""
+msgstr "Thuộc về thương mại"
 
 #: apps/listings/models.py:217
 msgid "Convertible"
 msgstr ""
 
 #: apps/listings/models.py:218
+#, fuzzy
 msgid "Limousine"
-msgstr ""
+msgstr "Xe limousine"
 
 #: apps/listings/models.py:218
+#, fuzzy
 msgid "Pickup"
-msgstr ""
+msgstr "Nhặt lên"
 
 #: apps/listings/models.py:219
+#, fuzzy
 msgid "Minibus"
-msgstr ""
+msgstr "Xe buýt nhỏ"
 
 #: apps/listings/models.py:219
+#, fuzzy
 msgid "Truck/Van"
-msgstr ""
+msgstr "Xe tải/Xe van"
 
 #: apps/listings/models.py:225 apps/listings/models.py:253
 #: apps/listings/models.py:265 apps/listings/models.py:273
@@ -935,225 +1016,280 @@ msgid "— Select —"
 msgstr "- Lựa chọn -"
 
 #: apps/listings/models.py:226 apps/listings/models.py:1892
+#, fuzzy
 msgid "Tankers"
-msgstr ""
+msgstr "Tàu chở dầu"
 
 #: apps/listings/models.py:227 apps/listings/models.py:1893
+#, fuzzy
 msgid "Car Carriers"
-msgstr ""
+msgstr "Xe vận chuyển ô tô"
 
 #: apps/listings/models.py:228 apps/listings/models.py:1894
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Concrete Mixers"
-msgstr ""
+msgstr "Máy trộn bê tông"
 
 #: apps/listings/models.py:229 apps/listings/models.py:1895
+#, fuzzy
 msgid "Flatbed"
-msgstr ""
+msgstr "Xe tải sàn phẳng"
 
 #: apps/listings/models.py:230 apps/listings/models.py:1896
+#, fuzzy
 msgid "Flatbed with Tarpaulin"
-msgstr ""
+msgstr "Xe tải thùng phẳng có bạt che"
 
 #: apps/listings/models.py:231 apps/listings/models.py:1897
+#, fuzzy
 msgid "Curtain-Side"
-msgstr ""
+msgstr "Phía rèm"
 
 #: apps/listings/models.py:232 apps/listings/models.py:1898
+#, fuzzy
 msgid "Double Cab"
-msgstr ""
+msgstr "Cabin đôi"
 
 #: apps/listings/models.py:233 apps/listings/models.py:1899
+#, fuzzy
 msgid "Livestock Carriers"
-msgstr ""
+msgstr "Người vận chuyển gia súc"
 
 #: apps/listings/models.py:234 apps/listings/models.py:1900
+#, fuzzy
 msgid "Insulated Box"
-msgstr ""
+msgstr "Hộp cách nhiệt"
 
 #: apps/listings/models.py:235 apps/listings/models.py:1901
+#, fuzzy
 msgid "Hard-Side Box"
-msgstr ""
+msgstr "Hộp cứng"
 
 #: apps/listings/models.py:236 apps/listings/models.py:1902
+#, fuzzy
 msgid "Container Carriers"
-msgstr ""
+msgstr "Tàu chở container"
 
 #: apps/listings/models.py:237 apps/listings/models.py:1903
+#, fuzzy
 msgid "Logging Trucks"
-msgstr ""
+msgstr "Xe tải chở gỗ"
 
 #: apps/listings/models.py:238 apps/listings/models.py:1904
+#, fuzzy
 msgid "Milk Tankers"
-msgstr ""
+msgstr "Xe bồn chở sữa"
 
 #: apps/listings/models.py:239 apps/listings/models.py:1905
+#, fuzzy
 msgid "Platforms"
-msgstr ""
+msgstr "Nền tảng"
 
 #: apps/listings/models.py:240 apps/listings/models.py:1906
+#, fuzzy
 msgid "Mobile Shop"
-msgstr ""
+msgstr "Cửa hàng di động"
 
 #: apps/listings/models.py:241 apps/listings/models.py:1907
+#, fuzzy
 msgid "Tippers"
-msgstr ""
+msgstr "Người đổ rác"
 
 #: apps/listings/models.py:242 apps/listings/models.py:1908
+#, fuzzy
 msgid "Hook-Lift Tippers"
-msgstr ""
+msgstr "Xe ben nâng móc"
 
 #: apps/listings/models.py:243 apps/listings/models.py:1909
+#, fuzzy
 msgid "Crane Tippers"
-msgstr ""
+msgstr "Xe ben cẩu"
 
 #: apps/listings/models.py:244 apps/listings/models.py:1910
+#, fuzzy
 msgid "With Crane"
-msgstr ""
+msgstr "Với cần cẩu"
 
 #: apps/listings/models.py:245 apps/listings/models.py:1911
+#, fuzzy
 msgid "Refrigerators"
-msgstr ""
+msgstr "Tủ lạnh"
 
 #: apps/listings/models.py:246 apps/listings/models.py:1912
+#, fuzzy
 msgid "Curtain / Tarpaulin"
-msgstr ""
+msgstr "Màn che / Bạt"
 
 #: apps/listings/models.py:247 apps/listings/models.py:1913
+#, fuzzy
 msgid "Chassis"
-msgstr ""
+msgstr "Khung gầm"
 
 #: apps/listings/models.py:254 apps/listings/models.py:1927
+#, fuzzy
 msgid "4x2"
-msgstr ""
+msgstr "4x2"
 
 #: apps/listings/models.py:254 apps/listings/models.py:1928
+#, fuzzy
 msgid "4x4"
-msgstr ""
+msgstr "4x4"
 
 #: apps/listings/models.py:255 apps/listings/models.py:1929
+#, fuzzy
 msgid "6x2"
-msgstr ""
+msgstr "6x2"
 
 #: apps/listings/models.py:255
+#, fuzzy
 msgid "6x2/4"
-msgstr ""
+msgstr "6x2/4"
 
 #: apps/listings/models.py:256 apps/listings/models.py:1930
+#, fuzzy
 msgid "6x4"
-msgstr ""
+msgstr "6x4"
 
 #: apps/listings/models.py:256
+#, fuzzy
 msgid "6x4/2"
-msgstr ""
+msgstr "6x4/2"
 
 #: apps/listings/models.py:257 apps/listings/models.py:1931
+#, fuzzy
 msgid "6x6"
-msgstr ""
+msgstr "6x6"
 
 #: apps/listings/models.py:258 apps/listings/models.py:1932
+#, fuzzy
 msgid "8x2"
-msgstr ""
+msgstr "8x2"
 
 #: apps/listings/models.py:258
+#, fuzzy
 msgid "8x2/4"
-msgstr ""
+msgstr "8x2/4"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1933
+#, fuzzy
 msgid "8x4"
-msgstr ""
+msgstr "8x4"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1934
+#, fuzzy
 msgid "8x6"
-msgstr ""
+msgstr "8x6"
 
 #: apps/listings/models.py:259 apps/listings/models.py:1935
+#, fuzzy
 msgid "8x8"
-msgstr ""
+msgstr "8x8"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x4"
-msgstr ""
+msgstr "10x4"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x6"
-msgstr ""
+msgstr "10x6"
 
 #: apps/listings/models.py:260
+#, fuzzy
 msgid "10x8"
-msgstr ""
+msgstr "10x8"
 
 #: apps/listings/models.py:266
+#, fuzzy
 msgid "Up to 3.5 t"
-msgstr ""
+msgstr "Lên đến 3,5 tấn"
 
 #: apps/listings/models.py:267
+#, fuzzy
 msgid "3.5 - 7.5 t"
-msgstr ""
+msgstr "3,5 - 7,5 tấn"
 
 #: apps/listings/models.py:268
+#, fuzzy
 msgid "Over 7.5 t"
-msgstr ""
+msgstr "Hơn 7,5 tấn"
 
 #: apps/listings/models.py:274
+#, fuzzy
 msgid "Air"
-msgstr ""
+msgstr "Không khí"
 
 #: apps/listings/models.py:275
+#, fuzzy
 msgid "Spring"
-msgstr ""
+msgstr "Mùa xuân"
 
 #: apps/listings/models.py:276
+#, fuzzy
 msgid "Parabolic"
-msgstr ""
+msgstr "Hình parabol"
 
 #: apps/listings/models.py:277
+#, fuzzy
 msgid "Hydraulic"
-msgstr ""
+msgstr "thủy lực"
 
 #: apps/listings/models.py:278
+#, fuzzy
 msgid "Rubber"
-msgstr ""
+msgstr "Cao su"
 
 #: apps/listings/models.py:284 apps/listings/models.py:1976
+#, fuzzy
 msgid "White"
-msgstr ""
+msgstr "Trắng"
 
 #: apps/listings/models.py:284 apps/listings/models.py:1976
+#, fuzzy
 msgid "Black"
-msgstr ""
+msgstr "Đen"
 
 #: apps/listings/models.py:285 apps/listings/models.py:1977
+#, fuzzy
 msgid "Red / Burgundy"
-msgstr ""
+msgstr "Đỏ / Đỏ tía"
 
 #: apps/listings/models.py:285 apps/listings/models.py:1977
+#, fuzzy
 msgid "Blue"
-msgstr ""
+msgstr "Màu xanh da trời"
 
 #: apps/listings/models.py:286 apps/listings/models.py:1978
+#, fuzzy
 msgid "Green / Khaki"
-msgstr ""
+msgstr "Xanh lá cây / Màu kaki"
 
 #: apps/listings/models.py:286 apps/listings/models.py:1978
+#, fuzzy
 msgid "Yellow / Gold"
-msgstr ""
+msgstr "Vàng/Vàng kim"
 
 #: apps/listings/models.py:287 apps/listings/models.py:1979
+#, fuzzy
 msgid "Orange"
-msgstr ""
+msgstr "Quả cam"
 
 #: apps/listings/models.py:287
+#, fuzzy
 msgid "Purple"
-msgstr ""
+msgstr "Màu tím"
 
 #: apps/listings/models.py:288 apps/listings/models.py:1979
+#, fuzzy
 msgid "Brown / Beige"
-msgstr ""
+msgstr "Nâu / Màu be"
 
 #: apps/listings/models.py:289 apps/listings/models.py:1980
+#, fuzzy
 msgid "Multicolor"
-msgstr ""
+msgstr "Nhiều màu"
 
 #: apps/listings/models.py:293 apps/listings/models.py:1984
 #: templates/listings/listing_detail.html:847
@@ -1163,68 +1299,84 @@ msgid "No defects"
 msgstr "Không có khuyết điểm"
 
 #: apps/listings/models.py:293 apps/listings/models.py:1987
+#, fuzzy
 msgid "Dented"
-msgstr ""
+msgstr "Bị móp"
 
 #: apps/listings/models.py:294 apps/listings/models.py:1988
+#, fuzzy
 msgid "Burned"
-msgstr ""
+msgstr "Bị cháy"
 
 #: apps/listings/models.py:294 apps/listings/models.py:1986
+#, fuzzy
 msgid "Gearbox defect"
-msgstr ""
+msgstr "Lỗi hộp số"
 
 #: apps/listings/models.py:295
+#, fuzzy
 msgid "Hail damage"
-msgstr ""
+msgstr "Thiệt hại do mưa đá"
 
 #: apps/listings/models.py:295
+#, fuzzy
 msgid "Sunken"
-msgstr ""
+msgstr "Chìm"
 
 #: apps/listings/models.py:296 apps/listings/models.py:1985
+#, fuzzy
 msgid "Engine defect"
-msgstr ""
+msgstr "Lỗi động cơ"
 
 #: apps/listings/models.py:296 apps/listings/models.py:1989
+#, fuzzy
 msgid "Major defects"
-msgstr ""
+msgstr "Các khuyết điểm chính"
 
 #: apps/listings/models.py:299
+#, fuzzy
 msgid "2/3 doors"
-msgstr ""
+msgstr "2/3 cửa"
 
 #: apps/listings/models.py:299
+#, fuzzy
 msgid "4/5 doors"
-msgstr ""
+msgstr "4/5 cửa"
 
 #: apps/listings/models.py:302 apps/listings/models.py:1993
+#, fuzzy
 msgid "Left-hand drive"
-msgstr ""
+msgstr "Lái xe bên trái"
 
 #: apps/listings/models.py:303 apps/listings/models.py:1994
+#, fuzzy
 msgid "Right-hand drive (UK)"
-msgstr ""
+msgstr "Tay lái bên phải (Anh)"
 
 #: apps/listings/models.py:307
+#, fuzzy
 msgid "Front-wheel drive (FWD)"
-msgstr ""
+msgstr "Dẫn động cầu trước (FWD)"
 
 #: apps/listings/models.py:308
+#, fuzzy
 msgid "Rear-wheel drive (RWD)"
-msgstr ""
+msgstr "Dẫn động cầu sau (RWD)"
 
 #: apps/listings/models.py:309
+#, fuzzy
 msgid "All-wheel drive (AWD/4WD)"
-msgstr ""
+msgstr "Hệ dẫn động bốn bánh (AWD/4WD)"
 
 #: apps/listings/models.py:323
+#, fuzzy
 msgid "No climate control"
-msgstr ""
+msgstr "Không có hệ thống điều khiển khí hậu"
 
 #: apps/listings/models.py:324
+#, fuzzy
 msgid "Air conditioning"
-msgstr ""
+msgstr "Máy điều hòa không khí"
 
 #: apps/listings/models.py:325
 #: templates/listings/listing_create_cars_quick.html:337
@@ -1232,132 +1384,164 @@ msgid "Climate control"
 msgstr "Kiểm soát khí hậu"
 
 #: apps/listings/models.py:326
+#, fuzzy
 msgid "Dual-zone climate control"
-msgstr ""
+msgstr "Điều khiển khí hậu hai vùng"
 
 #: apps/listings/models.py:327
+#, fuzzy
 msgid "Triple-zone climate control"
-msgstr ""
+msgstr "Hệ thống điều khiển khí hậu ba vùng"
 
 #: apps/listings/models.py:331
+#, fuzzy
 msgid "Sport"
-msgstr ""
+msgstr "Thể thao"
 
 #: apps/listings/models.py:331
+#, fuzzy
 msgid "Cruiser"
-msgstr ""
+msgstr "Tàu tuần dương"
 
 #: apps/listings/models.py:332
+#, fuzzy
 msgid "Touring"
-msgstr ""
+msgstr "Tham quan"
 
 #: apps/listings/models.py:332
+#, fuzzy
 msgid "Enduro"
-msgstr ""
+msgstr "Enduro"
 
 #: apps/listings/models.py:333
+#, fuzzy
 msgid "Motocross"
-msgstr ""
+msgstr "Motocross"
 
 #: apps/listings/models.py:333
+#, fuzzy
 msgid "Chopper"
-msgstr ""
+msgstr "Máy cắt cỏ"
 
 #: apps/listings/models.py:334
+#, fuzzy
 msgid "Naked"
-msgstr ""
+msgstr "Khỏa thân"
 
 #: apps/listings/models.py:334
+#, fuzzy
 msgid "Scooter"
-msgstr ""
+msgstr "Xe tay ga"
 
 #: apps/listings/models.py:335
+#, fuzzy
 msgid "Moped"
-msgstr ""
+msgstr "Xe máy"
 
 #: apps/listings/models.py:335
+#, fuzzy
 msgid "ATV / Quad"
-msgstr ""
+msgstr "Xe ATV/Xe địa hình bốn bánh"
 
 #: apps/listings/models.py:336
+#, fuzzy
 msgid "Trike"
-msgstr ""
+msgstr "Xe ba bánh"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Air-cooled"
-msgstr ""
+msgstr "Làm mát bằng không khí"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Water-cooled"
-msgstr ""
+msgstr "Làm mát bằng nước"
 
 #: apps/listings/models.py:340
+#, fuzzy
 msgid "Oil-cooled"
-msgstr ""
+msgstr "Làm mát bằng dầu"
 
 #: apps/listings/models.py:344
+#, fuzzy
 msgid "Single-cylinder"
-msgstr ""
+msgstr "Một xi-lanh"
 
 #: apps/listings/models.py:344
+#, fuzzy
 msgid "Twin-cylinder"
-msgstr ""
+msgstr "Hai xi-lanh"
 
 #: apps/listings/models.py:345
+#, fuzzy
 msgid "Parallel-twin"
-msgstr ""
+msgstr "Song song song"
 
 #: apps/listings/models.py:345
+#, fuzzy
 msgid "V-twin"
-msgstr ""
+msgstr "Động cơ V-twin"
 
 #: apps/listings/models.py:346
+#, fuzzy
 msgid "Triple (3-cylinder)"
-msgstr ""
+msgstr "Động cơ ba xi-lanh (3 xi-lanh)"
 
 #: apps/listings/models.py:346
+#, fuzzy
 msgid "Inline-4"
-msgstr ""
+msgstr "Inline-4"
 
 #: apps/listings/models.py:347
+#, fuzzy
 msgid "V4"
-msgstr ""
+msgstr "V4"
 
 #: apps/listings/models.py:347
+#, fuzzy
 msgid "Boxer"
-msgstr ""
+msgstr "võ sĩ quyền anh"
 
 #: apps/listings/models.py:351
+#, fuzzy
 msgid "Helmet"
-msgstr ""
+msgstr "Mũ bảo hiểm"
 
 #: apps/listings/models.py:352
+#, fuzzy
 msgid "Protective gear"
-msgstr ""
+msgstr "Thiết bị bảo hộ"
 
 #: apps/listings/models.py:353
+#, fuzzy
 msgid "Boots"
-msgstr ""
+msgstr "Bốt"
 
 #: apps/listings/models.py:354
+#, fuzzy
 msgid "Pants"
-msgstr ""
+msgstr "Quần dài"
 
 #: apps/listings/models.py:355
+#, fuzzy
 msgid "Suit / Combination"
-msgstr ""
+msgstr "Bộ đồ/Sự kết hợp"
 
 #: apps/listings/models.py:356
+#, fuzzy
 msgid "Bag / Backpack"
-msgstr ""
+msgstr "Túi xách / Ba lô"
 
 #: apps/listings/models.py:357
+#, fuzzy
 msgid "Gloves"
-msgstr ""
+msgstr "Găng tay"
 
 #: apps/listings/models.py:358
+#, fuzzy
 msgid "Jacket"
-msgstr ""
+msgstr "Áo khoác"
 
 #: apps/listings/models.py:365 apps/listings/models.py:374
 #: apps/listings/models.py:382 apps/listings/models.py:389
@@ -1368,295 +1552,366 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:103
 #: templates/listings/motogear_advanced.html:124
 #: templates/listings/motogear_advanced.html:159
+#, fuzzy
 msgid "Kita"
-msgstr ""
+msgstr "Chúng tôi"
 
 #: apps/listings/models.py:366
+#, fuzzy
 msgid "Uždaras (full face)"
-msgstr ""
+msgstr "Uzhdaras (toàn bộ khuôn mặt)"
 
 #: apps/listings/models.py:367
+#, fuzzy
 msgid "Integralinis"
-msgstr ""
+msgstr "Tích phân"
 
 #: apps/listings/models.py:368
+#, fuzzy
 msgid "Atverčiamas (modular)"
-msgstr ""
+msgstr "Mô-đun"
 
 #: apps/listings/models.py:369
+#, fuzzy
 msgid "Atviras (jet)"
-msgstr ""
+msgstr "Mở (tia)"
 
 #: apps/listings/models.py:370
+#, fuzzy
 msgid "Krosinis / enduro"
-msgstr ""
+msgstr "Krosinis / enduro"
 
 #: apps/listings/models.py:371
+#, fuzzy
 msgid "Dual sport / kelioninis"
-msgstr ""
+msgstr "Xe địa hình/du lịch"
 
 #: apps/listings/models.py:372
+#, fuzzy
 msgid "Pusinis"
-msgstr ""
+msgstr "Một nửa"
 
 #: apps/listings/models.py:375
+#, fuzzy
 msgid "Sportinė"
-msgstr ""
+msgstr "Thể thao"
 
 #: apps/listings/models.py:376
+#, fuzzy
 msgid "Kelioninė"
-msgstr ""
+msgstr "Du lịch"
 
 #: apps/listings/models.py:377 apps/listings/models.py:399
+#, fuzzy
 msgid "Miesto"
-msgstr ""
+msgstr "Vị trí"
 
 #: apps/listings/models.py:378 apps/listings/models.py:398
+#, fuzzy
 msgid "Adventure"
-msgstr ""
+msgstr "Cuộc phiêu lưu"
 
 #: apps/listings/models.py:379
+#, fuzzy
 msgid "Krosinė"
-msgstr ""
+msgstr "Lò vi sóng"
 
 #: apps/listings/models.py:380
+#, fuzzy
 msgid "Čioperistams"
-msgstr ""
+msgstr "Dành cho máy bay trực thăng"
 
 #: apps/listings/models.py:383 apps/listings/models.py:402
+#, fuzzy
 msgid "Sportinės"
-msgstr ""
+msgstr "Thể thao"
 
 #: apps/listings/models.py:384 apps/listings/models.py:403
+#, fuzzy
 msgid "Kelioninės"
-msgstr ""
+msgstr "Du lịch"
 
 #: apps/listings/models.py:385
+#, fuzzy
 msgid "Džinsai"
-msgstr ""
+msgstr "Quần jean"
 
 #: apps/listings/models.py:386 apps/listings/models.py:404
+#, fuzzy
 msgid "Krosinės"
-msgstr ""
+msgstr "Lò nướng"
 
 #: apps/listings/models.py:387 apps/listings/models.py:392
 #: apps/listings/models.py:407
+#, fuzzy
 msgid "Nuo lietaus"
-msgstr ""
+msgstr "Từ cơn mưa"
 
 #: apps/listings/models.py:390
+#, fuzzy
 msgid "Vientisas"
-msgstr ""
+msgstr "Chất rắn"
 
 #: apps/listings/models.py:391
+#, fuzzy
 msgid "Dviejų dalių"
-msgstr ""
+msgstr "Hai mảnh"
 
 #: apps/listings/models.py:395
 #: templates/listings/partials/search_panel.html:502
+#, fuzzy
 msgid "Sportiniai"
-msgstr ""
+msgstr "Thể thao"
 
 #: apps/listings/models.py:396
+#, fuzzy
 msgid "Kelioniniai"
-msgstr ""
+msgstr "Du lịch"
 
 #: apps/listings/models.py:397
+#, fuzzy
 msgid "Krosiniai"
-msgstr ""
+msgstr "Trượt tuyết băng đồng"
 
 #: apps/listings/models.py:405
+#, fuzzy
 msgid "Vasarinės"
-msgstr ""
+msgstr "Mùa hè"
 
 #: apps/listings/models.py:406
+#, fuzzy
 msgid "Žieminės / šildomos"
-msgstr ""
+msgstr "Mùa đông / có hệ thống sưởi"
 
 #: apps/listings/models.py:410
+#, fuzzy
 msgid "Ant bako"
-msgstr ""
+msgstr "Trên xe tăng"
 
 #: apps/listings/models.py:411
+#, fuzzy
 msgid "Ant sėdynės"
-msgstr ""
+msgstr "Trên ghế"
 
 #: apps/listings/models.py:412
+#, fuzzy
 msgid "Šoninės"
-msgstr ""
+msgstr "Các bên"
 
 #: apps/listings/models.py:413
+#, fuzzy
 msgid "Kuprinė"
-msgstr ""
+msgstr "Balo"
 
 #: apps/listings/models.py:414
+#, fuzzy
 msgid "Bagažinė (top case)"
-msgstr ""
+msgstr "Thùng hành lý (thùng trên cùng)"
 
 #: apps/listings/models.py:415
+#, fuzzy
 msgid "Ritininis"
-msgstr ""
+msgstr "Con lăn"
 
 #: apps/listings/models.py:418
+#, fuzzy
 msgid "Nugaros apsauga"
-msgstr ""
+msgstr "Bảo vệ lưng"
 
 #: apps/listings/models.py:419
+#, fuzzy
 msgid "Krūtinės apsauga"
-msgstr ""
+msgstr "Bảo vệ ngực"
 
 #: apps/listings/models.py:420
+#, fuzzy
 msgid "Kelių apsaugos"
-msgstr ""
+msgstr "Bảo vệ đường bộ"
 
 #: apps/listings/models.py:421
+#, fuzzy
 msgid "Alkūnių apsaugos"
-msgstr ""
+msgstr "Bảo vệ khuỷu tay"
 
 #: apps/listings/models.py:422
+#, fuzzy
 msgid "Kaklo apsauga"
-msgstr ""
+msgstr "Bảo vệ cổ"
 
 #: apps/listings/models.py:423
+#, fuzzy
 msgid "Oro pagalvės liemenė"
-msgstr ""
+msgstr "Áo khoác túi khí"
 
 #: apps/listings/models.py:429
+#, fuzzy
 msgid "XXS"
-msgstr ""
+msgstr "XXS"
 
 #: apps/listings/models.py:429
+#, fuzzy
 msgid "XS"
-msgstr ""
+msgstr "XS"
 
 #: apps/listings/models.py:430
+#, fuzzy
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: apps/listings/models.py:430
+#, fuzzy
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: apps/listings/models.py:431 templates/listings/listing_select_plan.html:273
 msgid "L"
 msgstr "L"
 
 #: apps/listings/models.py:431
+#, fuzzy
 msgid "XL"
-msgstr ""
+msgstr "XL"
 
 #: apps/listings/models.py:432
+#, fuzzy
 msgid "XXL"
-msgstr ""
+msgstr "XXL"
 
 #: apps/listings/models.py:432
+#, fuzzy
 msgid "XXXL"
-msgstr ""
+msgstr "XXXL"
 
 #: apps/listings/models.py:433
+#, fuzzy
 msgid "One size / Universal"
-msgstr ""
+msgstr "Một kích cỡ / Phổ thông"
 
 #: apps/listings/models.py:434
+#, fuzzy
 msgid "Numeric"
-msgstr ""
+msgstr "Số"
 
 #: apps/listings/models.py:440
+#, fuzzy
 msgid "Leather"
-msgstr ""
+msgstr "Da thú"
 
 #: apps/listings/models.py:441
+#, fuzzy
 msgid "Textile"
-msgstr ""
+msgstr "Dệt may"
 
 #: apps/listings/models.py:442
+#, fuzzy
 msgid "Leather + Textile"
-msgstr ""
+msgstr "Da + Vải"
 
 #: apps/listings/models.py:443
+#, fuzzy
 msgid "Synthetic"
-msgstr ""
+msgstr "Tổng hợp"
 
 #: apps/listings/models.py:444
+#, fuzzy
 msgid "Mesh"
-msgstr ""
+msgstr "Lưới"
 
 #: apps/listings/models.py:450
+#, fuzzy
 msgid "Men"
-msgstr ""
+msgstr "Đàn ông"
 
 #: apps/listings/models.py:451
+#, fuzzy
 msgid "Women"
-msgstr ""
+msgstr "Phụ nữ"
 
 #: apps/listings/models.py:452 templates/listings/motogear_advanced.html:84
 #: templates/listings/partials/search_panel.html:590
+#, fuzzy
 msgid "Unisex"
-msgstr ""
+msgstr "Unisex"
 
 #: apps/listings/models.py:453
+#, fuzzy
 msgid "Kids"
-msgstr ""
+msgstr "Trẻ em"
 
 #: apps/listings/models.py:459
+#, fuzzy
 msgid "No certification"
-msgstr ""
+msgstr "Không có chứng nhận"
 
 #: apps/listings/models.py:461
+#, fuzzy
 msgid "ECE 22.06"
-msgstr ""
+msgstr "ECE 22.06"
 
 #: apps/listings/models.py:462
+#, fuzzy
 msgid "ECE 22.05"
-msgstr ""
+msgstr "ECE 22.05"
 
 #: apps/listings/models.py:463
+#, fuzzy
 msgid "DOT (FMVSS 218)"
-msgstr ""
+msgstr "DOT (FMVSS 218)"
 
 #: apps/listings/models.py:464
+#, fuzzy
 msgid "Snell M2020"
-msgstr ""
+msgstr "Snell M2020"
 
 #: apps/listings/models.py:465
+#, fuzzy
 msgid "Snell M2015"
-msgstr ""
+msgstr "Snell M2015"
 
 #: apps/listings/models.py:466
+#, fuzzy
 msgid "SHARP 5 stars"
-msgstr ""
+msgstr "Sắc nét, 5 sao"
 
 #: apps/listings/models.py:467
+#, fuzzy
 msgid "SHARP 4 stars"
-msgstr ""
+msgstr "Sắc nét, 4 sao"
 
 #: apps/listings/models.py:469
+#, fuzzy
 msgid "CE AAA (highest)"
-msgstr ""
+msgstr "CE AAA (cao nhất)"
 
 #: apps/listings/models.py:470
+#, fuzzy
 msgid "CE AA"
-msgstr ""
+msgstr "AA là gì?"
 
 #: apps/listings/models.py:471
+#, fuzzy
 msgid "CE A"
-msgstr ""
+msgstr "CÁI GÌ"
 
 #: apps/listings/models.py:472
+#, fuzzy
 msgid "CE B"
-msgstr ""
+msgstr "CE B"
 
 #: apps/listings/models.py:473
+#, fuzzy
 msgid "CE Level 1 (impact)"
-msgstr ""
+msgstr "Chứng chỉ CE cấp độ 1 (tác động)"
 
 #: apps/listings/models.py:474
+#, fuzzy
 msgid "CE Level 2 (impact)"
-msgstr ""
+msgstr "Chứng chỉ CE cấp độ 2 (tác động)"
 
 #: apps/listings/models.py:475
+#, fuzzy
 msgid "EN certified"
-msgstr ""
+msgstr "Đạt chứng chỉ EN"
 
 #: apps/listings/models.py:479 apps/listings/models.py:1998
 #: apps/listings/trucks_views.py:57 templates/listings/trucks_list.html:546
@@ -1665,106 +1920,130 @@ msgstr "Hoa Kỳ"
 
 #: apps/listings/models.py:479 apps/listings/models.py:1998
 #: apps/listings/trucks_views.py:57
+#, fuzzy
 msgid "Lithuania"
-msgstr ""
+msgstr "Litva"
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Latvia"
-msgstr ""
+msgstr "Latvia"
 
 #: apps/listings/models.py:480 apps/listings/models.py:1999
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Estonia"
-msgstr ""
+msgstr "Estonia"
 
 #: apps/listings/models.py:481 apps/listings/models.py:2000
 #: apps/listings/trucks_views.py:58
+#, fuzzy
 msgid "Poland"
-msgstr ""
+msgstr "Ba Lan"
 
 #: apps/listings/models.py:481 apps/listings/models.py:2000
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "Germany"
-msgstr ""
+msgstr "Đức"
 
 #: apps/listings/models.py:482 apps/listings/models.py:2001
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "Netherlands"
-msgstr ""
+msgstr "Hà Lan"
 
 #: apps/listings/models.py:482 apps/listings/models.py:2001
+#, fuzzy
 msgid "Belgium"
-msgstr ""
+msgstr "Bỉ"
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
+#, fuzzy
 msgid "France"
-msgstr ""
+msgstr "Pháp"
 
 #: apps/listings/models.py:483 apps/listings/models.py:2002
+#, fuzzy
 msgid "Italy"
-msgstr ""
+msgstr "Ý"
 
 #: apps/listings/models.py:484 apps/listings/models.py:2003
+#, fuzzy
 msgid "Spain"
-msgstr ""
+msgstr "Tây ban nha"
 
 #: apps/listings/models.py:484 apps/listings/models.py:2003
+#, fuzzy
 msgid "Austria"
-msgstr ""
+msgstr "Áo"
 
 #: apps/listings/models.py:485 apps/listings/models.py:2004
+#, fuzzy
 msgid "Czech Republic"
-msgstr ""
+msgstr "Cộng hòa Séc"
 
 #: apps/listings/models.py:485 apps/listings/models.py:2004
+#, fuzzy
 msgid "Slovakia"
-msgstr ""
+msgstr "Slovakia"
 
 #: apps/listings/models.py:486 apps/listings/models.py:2005
+#, fuzzy
 msgid "Hungary"
-msgstr ""
+msgstr "Hungary"
 
 #: apps/listings/models.py:486 apps/listings/models.py:2005
+#, fuzzy
 msgid "Romania"
-msgstr ""
+msgstr "Romania"
 
 #: apps/listings/models.py:487 apps/listings/models.py:2006
+#, fuzzy
 msgid "Bulgaria"
-msgstr ""
+msgstr "Bulgaria"
 
 #: apps/listings/models.py:487 apps/listings/models.py:2006
+#, fuzzy
 msgid "Sweden"
-msgstr ""
+msgstr "Thụy Điển"
 
 #: apps/listings/models.py:488 apps/listings/models.py:2007
+#, fuzzy
 msgid "Denmark"
-msgstr ""
+msgstr "Đan Mạch"
 
 #: apps/listings/models.py:488 apps/listings/models.py:2007
+#, fuzzy
 msgid "Finland"
-msgstr ""
+msgstr "Phần Lan"
 
 #: apps/listings/models.py:489 apps/listings/models.py:2008
+#, fuzzy
 msgid "Norway"
-msgstr ""
+msgstr "Na Uy"
 
 #: apps/listings/models.py:489 apps/listings/models.py:2008
 #: apps/listings/trucks_views.py:59
+#, fuzzy
 msgid "United Kingdom"
-msgstr ""
+msgstr "Vương quốc Anh"
 
 #: apps/listings/models.py:490 apps/listings/models.py:2009
+#, fuzzy
 msgid "Ireland"
-msgstr ""
+msgstr "Ireland"
 
 #: apps/listings/models.py:490 apps/listings/models.py:2009
+#, fuzzy
 msgid "Switzerland"
-msgstr ""
+msgstr "Thụy Sĩ"
 
 #: apps/listings/models.py:571
+#, fuzzy
 msgid "Truck Model (free text)"
-msgstr ""
+msgstr "Mô hình xe tải (văn bản tự do)"
 
 #: apps/listings/models.py:581 templates/listings/listing_detail.html:141
 #: templates/listings/listing_detail.html:221
@@ -1788,34 +2067,41 @@ msgid "Rear suspension"
 msgstr "Hệ thống treo sau"
 
 #: apps/listings/models.py:598
+#, fuzzy
 msgid "Length (mm)"
-msgstr ""
+msgstr "Chiều dài (mm)"
 
 #: apps/listings/models.py:603 templates/listings/tyres_create.html:125
 #: templates/listings/wheels_create.html:136
+#, fuzzy
 msgid "Width (mm)"
-msgstr ""
+msgstr "Chiều rộng (mm)"
 
 #: apps/listings/models.py:608
+#, fuzzy
 msgid "Height (mm)"
-msgstr ""
+msgstr "Chiều cao (mm)"
 
 #: apps/listings/models.py:612
+#, fuzzy
 msgid "Volume (m³)"
-msgstr ""
+msgstr "Thể tích (m³)"
 
 #: apps/listings/models.py:617 apps/listings/models.py:2116
+#, fuzzy
 msgid "Gross weight (kg)"
-msgstr ""
+msgstr "Tổng trọng lượng (kg)"
 
 #: apps/listings/models.py:622 apps/listings/models.py:2126
+#, fuzzy
 msgid "Payload capacity (kg)"
-msgstr ""
+msgstr "Tải trọng tối đa (kg)"
 
 #: apps/listings/models.py:627 apps/listings/models.py:668
 #: templates/listings/boats_listing_create.html:223
+#, fuzzy
 msgid "Fuel tank capacity (L)"
-msgstr ""
+msgstr "Dung tích bình nhiên liệu (L)"
 
 #: apps/listings/models.py:632 templates/listings/listing_detail.html:341
 #: templates/listings/trucks_listing_create.html:608
@@ -1828,52 +2114,64 @@ msgid "SDK number"
 msgstr "Số SDK"
 
 #: apps/listings/models.py:641
+#, fuzzy
 msgid "Jet Ski / Personal watercraft"
-msgstr ""
+msgstr "Xe trượt nước/Phương tiện thể thao dưới nước cá nhân"
 
 #: apps/listings/models.py:642
+#, fuzzy
 msgid "Kayak / Canoe"
-msgstr ""
+msgstr "Thuyền kayak/cano"
 
 #: apps/listings/models.py:643
+#, fuzzy
 msgid "Surfboard / Windsurf"
-msgstr ""
+msgstr "Ván lướt sóng / Ván lướt gió"
 
 #: apps/listings/models.py:644
+#, fuzzy
 msgid "Yacht"
-msgstr ""
+msgstr "Du thuyền"
 
 #: apps/listings/models.py:645
+#, fuzzy
 msgid "Motorboat / Cabin cruiser"
-msgstr ""
+msgstr "Thuyền máy / Du thuyền có cabin"
 
 #: apps/listings/models.py:646
+#, fuzzy
 msgid "Boat / Ship"
-msgstr ""
+msgstr "Thuyền/Tàu"
 
 #: apps/listings/models.py:647
+#, fuzzy
 msgid "Dinghy / Raft"
-msgstr ""
+msgstr "Thuyền nhỏ / Bè"
 
 #: apps/listings/models.py:648
+#, fuzzy
 msgid "Boat engine"
-msgstr ""
+msgstr "Động cơ thuyền"
 
 #: apps/listings/models.py:651
+#, fuzzy
 msgid "Boat type"
-msgstr ""
+msgstr "Loại thuyền"
 
 #: apps/listings/models.py:659
+#, fuzzy
 msgid "Petrol 4-stroke outboard"
-msgstr ""
+msgstr "Động cơ xăng 4 thì gắn ngoài"
 
 #: apps/listings/models.py:660
+#, fuzzy
 msgid "Petrol 4-stroke inboard"
-msgstr ""
+msgstr "Động cơ xăng 4 thì gắn trong"
 
 #: apps/listings/models.py:661
+#, fuzzy
 msgid "Diesel inboard"
-msgstr ""
+msgstr "Động cơ diesel gắn trong"
 
 #: apps/listings/models.py:662 apps/listings/models.py:1960
 #: apps/listings/translatable_db.py:52
@@ -1881,43 +2179,51 @@ msgid "Electric"
 msgstr ""
 
 #: apps/listings/models.py:663
+#, fuzzy
 msgid "No engine"
-msgstr ""
+msgstr "Không có động cơ"
 
 #: apps/listings/models.py:664
+#, fuzzy
 msgid "Petrol 2-stroke outboard"
-msgstr ""
+msgstr "Động cơ xăng 2 thì gắn ngoài"
 
 #: apps/listings/models.py:665
+#, fuzzy
 msgid "Petrol 2-stroke inboard"
-msgstr ""
+msgstr "Động cơ xăng 2 thì gắn trong"
 
 #: apps/listings/models.py:667
+#, fuzzy
 msgid "Boat engine type"
-msgstr ""
+msgstr "Loại động cơ thuyền"
 
 #: apps/listings/models.py:669
 #: templates/listings/boats_listing_create.html:234
+#, fuzzy
 msgid "Liftable engine"
-msgstr ""
+msgstr "Động cơ có thể nâng"
 
 #: apps/listings/models.py:670
 #: templates/listings/boats_listing_create.html:238
+#, fuzzy
 msgid "Propeller"
-msgstr ""
+msgstr "Cánh quạt"
 
 #: apps/listings/models.py:671
 #: templates/listings/boats_listing_create.html:242
+#, fuzzy
 msgid "Water turbine"
-msgstr ""
+msgstr "Tuabin nước"
 
 #: apps/listings/models.py:676 apps/listings/models.py:2067
 msgid "Sub-category"
 msgstr "Danh mục phụ"
 
 #: apps/listings/models.py:679 apps/listings/models.py:2081
+#, fuzzy
 msgid "Title"
-msgstr ""
+msgstr "Tiêu đề"
 
 #: apps/listings/models.py:682 apps/listings/models.py:2085
 #: templates/accounts/seller_profile.html:210
@@ -1957,8 +2263,9 @@ msgid "Year"
 msgstr "Năm"
 
 #: apps/listings/models.py:689 apps/listings/models.py:2093
+#, fuzzy
 msgid "First Registration Date"
-msgstr ""
+msgstr "Ngày đăng ký đầu tiên"
 
 #: apps/listings/models.py:700 apps/listings/models.py:2098
 #: templates/listings/partials/panel_trucks.html:70
@@ -1969,16 +2276,19 @@ msgid "Truck type"
 msgstr "Loại xe tải"
 
 #: apps/listings/models.py:709 apps/listings/models.py:2191
+#, fuzzy
 msgid "Color (custom)"
-msgstr ""
+msgstr "Màu sắc (tùy chỉnh)"
 
 #: apps/listings/models.py:744
+#, fuzzy
 msgid "Subtype (custom)"
-msgstr ""
+msgstr "Loại phụ (tùy chỉnh)"
 
 #: apps/listings/models.py:751
+#, fuzzy
 msgid "Size (custom)"
-msgstr ""
+msgstr "Kích thước (tùy chỉnh)"
 
 #: apps/listings/models.py:759 templates/listings/boats_listing_create.html:65
 #: templates/listings/motogear_create.html:79
@@ -1990,40 +2300,48 @@ msgid "Manufacturer"
 msgstr "Nhà sản xuất"
 
 #: apps/listings/models.py:763
+#, fuzzy
 msgid "Manufacturer (custom)"
-msgstr ""
+msgstr "Nhà sản xuất (theo yêu cầu)"
 
 #: apps/listings/models.py:768
+#, fuzzy
 msgid "Brand (legacy)"
-msgstr ""
+msgstr "Thương hiệu (truyền thống)"
 
 #: apps/listings/models.py:772
+#, fuzzy
 msgid "Model name"
-msgstr ""
+msgstr "Tên mẫu"
 
 #: apps/listings/models.py:778
+#, fuzzy
 msgid "Material (custom)"
-msgstr ""
+msgstr "Chất liệu (tùy chỉnh)"
 
 #: apps/listings/models.py:784
+#, fuzzy
 msgid "Gender (custom)"
-msgstr ""
+msgstr "Giới tính (tùy chỉnh)"
 
 #: apps/listings/models.py:790
+#, fuzzy
 msgid "Safety certification (custom)"
-msgstr ""
+msgstr "Chứng nhận an toàn (tùy chỉnh)"
 
 #: apps/listings/models.py:796 templates/listings/motogear_create.html:151
 msgid "Number of vents"
 msgstr "Số lượng lỗ thông hơi"
 
 #: apps/listings/models.py:806 templates/listings/advanced_search.html:466
+#, fuzzy
 msgid "OEM Code"
-msgstr ""
+msgstr "Mã OEM"
 
 #: apps/listings/models.py:814 apps/listings/models.py:2811
+#, fuzzy
 msgid "Part Category"
-msgstr ""
+msgstr "Danh mục bộ phận"
 
 #: apps/listings/models.py:821 apps/listings/models.py:835
 #: templates/listings/advanced_search.html:474
@@ -2163,8 +2481,9 @@ msgid "+ Taxes"
 msgstr "+ Thuế"
 
 #: apps/listings/models.py:918 apps/listings/models.py:2228
+#, fuzzy
 msgid "Business seller"
-msgstr ""
+msgstr "Người bán hàng doanh nghiệp"
 
 #: apps/listings/models.py:950 templates/listings/listing_detail.html:10
 #: templates/listings/listing_stats.html:30
@@ -2172,112 +2491,138 @@ msgid "Listing"
 msgstr "Danh sách"
 
 #: apps/listings/models.py:1442 apps/listings/views.py:59
+#, fuzzy
 msgid "Interior"
-msgstr ""
+msgstr "Nội thất"
 
 #: apps/listings/models.py:1443 apps/listings/views.py:61
+#, fuzzy
 msgid "Electronics"
-msgstr ""
+msgstr "Điện tử"
 
 #: apps/listings/models.py:1444
+#, fuzzy
 msgid "Safety"
-msgstr ""
+msgstr "Sự an toàn"
 
 #: apps/listings/models.py:1445
+#, fuzzy
 msgid "Audio/Video"
-msgstr ""
+msgstr "Âm thanh/Video"
 
 #: apps/listings/models.py:1446 apps/listings/views.py:60
+#, fuzzy
 msgid "Exterior"
-msgstr ""
+msgstr "Ngoại thất"
 
 #: apps/listings/models.py:1447 apps/listings/views.py:64
 msgid "Other Features"
 msgstr "Các tính năng khác"
 
 #: apps/listings/models.py:1448
+#, fuzzy
 msgid "Motorcycle Features"
-msgstr ""
+msgstr "Đặc điểm xe máy"
 
 #: apps/listings/models.py:1449
+#, fuzzy
 msgid "Gear Features"
-msgstr ""
+msgstr "Tính năng của thiết bị"
 
 #: apps/listings/models.py:1450
+#, fuzzy
 msgid "Truck Features"
-msgstr ""
+msgstr "Đặc điểm xe tải"
 
 #: apps/listings/models.py:1523
+#, fuzzy
 msgid "Seller notifications"
-msgstr ""
+msgstr "Thông báo của người bán"
 
 #: apps/listings/models.py:1524
+#, fuzzy
 msgid "Buyer - saved listings"
-msgstr ""
+msgstr "Người mua - danh sách đã lưu"
 
 #: apps/listings/models.py:1525
+#, fuzzy
 msgid "Saved search alerts"
-msgstr ""
+msgstr "Thông báo tìm kiếm đã lưu"
 
 #: apps/listings/models.py:1526
+#, fuzzy
 msgid "Account / auth"
-msgstr ""
+msgstr "Tài khoản / xác thực"
 
 #: apps/listings/models.py:1527
+#, fuzzy
 msgid "Messaging"
-msgstr ""
+msgstr "Nhắn tin"
 
 #: apps/listings/models.py:1528
+#, fuzzy
 msgid "Payments / Stripe"
-msgstr ""
+msgstr "Thanh toán / Stripe"
 
 #: apps/listings/models.py:1529
+#, fuzzy
 msgid "Marketing / newsletter"
-msgstr ""
+msgstr "Tiếp thị / bản tin"
 
 #: apps/listings/models.py:1530
+#, fuzzy
 msgid "Admin notifications"
-msgstr ""
+msgstr "Thông báo quản trị viên"
 
 #: apps/listings/models.py:1531
+#, fuzzy
 msgid "Extra / experimental"
-msgstr ""
+msgstr "Thêm/thử nghiệm"
 
 #: apps/listings/models.py:1532
+#, fuzzy
 msgid "Truck-specific notifications"
-msgstr ""
+msgstr "Thông báo dành riêng cho xe tải"
 
 #: apps/listings/models.py:1644
+#, fuzzy
 msgid "Pricing Settings"
-msgstr ""
+msgstr "Cài đặt giá"
 
 #: apps/listings/models.py:1689
+#, fuzzy
 msgid "Price Multiplier Tier"
-msgstr ""
+msgstr "Mức hệ số nhân giá"
 
 #: apps/listings/models.py:1765
+#, fuzzy
 msgid "Promo Code"
-msgstr ""
+msgstr "Mã khuyến mãi"
 
 #: apps/listings/models.py:1848
+#, fuzzy
 msgid "Promo Code Usage"
-msgstr ""
+msgstr "Cách sử dụng mã khuyến mãi"
 
 #: apps/listings/models.py:1869
+#, fuzzy
 msgid "Trucks (Sunkvežimiai)"
-msgstr ""
+msgstr "Xe tải"
 
 #: apps/listings/models.py:1870 apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Vehicle Transporters"
-msgstr ""
+msgstr "Xe vận chuyển"
 
 #: apps/listings/models.py:1871
+#, fuzzy
 msgid "Semi-trucks / Tractors"
-msgstr ""
+msgstr "Xe tải cỡ lớn / Máy kéo"
 
 #: apps/listings/models.py:1872 apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Vans"
-msgstr ""
+msgstr "Vans"
 
 #: apps/listings/models.py:1918 apps/listings/models.py:1926
 #: apps/listings/models.py:1939 apps/listings/models.py:1947
@@ -2285,40 +2630,49 @@ msgstr ""
 #: templates/listings/listing_list_v2.html:311
 #: templates/listings/listing_list_v2.html:321
 #: templates/listings/wheels_advanced_search.html:244
+#, fuzzy
 msgid "Any"
-msgstr ""
+msgstr "Bất kì"
 
 #: apps/listings/models.py:1919
+#, fuzzy
 msgid "Day cab"
-msgstr ""
+msgstr "Cabin ban ngày"
 
 #: apps/listings/models.py:1920
+#, fuzzy
 msgid "Sleeper"
-msgstr ""
+msgstr "Người ngủ"
 
 #: apps/listings/models.py:1921
+#, fuzzy
 msgid "Crew cab"
-msgstr ""
+msgstr "Cabin kép"
 
 #: apps/listings/models.py:1922
+#, fuzzy
 msgid "Extended cab"
-msgstr ""
+msgstr "Cabin kéo dài"
 
 #: apps/listings/models.py:1940
+#, fuzzy
 msgid "Air / Air"
-msgstr ""
+msgstr "Nước / Nước"
 
 #: apps/listings/models.py:1941
+#, fuzzy
 msgid "Air / Spring"
-msgstr ""
+msgstr "Không khí / Lò xo"
 
 #: apps/listings/models.py:1942
+#, fuzzy
 msgid "Spring / Air"
-msgstr ""
+msgstr "Mùa xuân / Không khí"
 
 #: apps/listings/models.py:1943
+#, fuzzy
 msgid "Spring / Spring"
-msgstr ""
+msgstr "Mùa xuân / Mùa xuân"
 
 #: apps/listings/models.py:1948 apps/listings/translatable_db.py:52
 msgid "Manual"
@@ -2329,68 +2683,81 @@ msgid "Automatic"
 msgstr ""
 
 #: apps/listings/models.py:1950 apps/listings/translatable_db.py:55
+#, fuzzy
 msgid "Semi-automatic"
-msgstr ""
+msgstr "Bán tự động"
 
 #: apps/listings/models.py:1955 apps/listings/translatable_db.py:51
 msgid "Diesel"
 msgstr ""
 
 #: apps/listings/models.py:1956
+#, fuzzy
 msgid "Petrol / Gasoline"
-msgstr ""
+msgstr "Xăng dầu"
 
 #: apps/listings/models.py:1957 apps/listings/translatable_db.py:52
+#, fuzzy
 msgid "LPG"
-msgstr ""
+msgstr "Khí hóa lỏng (LPG)"
 
 #: apps/listings/models.py:1958
+#, fuzzy
 msgid "CNG"
-msgstr ""
+msgstr "CNG"
 
 #: apps/listings/models.py:1959
+#, fuzzy
 msgid "LNG"
-msgstr ""
+msgstr "LNG"
 
 #: apps/listings/models.py:1961
 msgid "Hybrid"
 msgstr ""
 
 #: apps/listings/models.py:1962
+#, fuzzy
 msgid "Hydrogen"
-msgstr ""
+msgstr "Hydro"
 
 #: apps/listings/models.py:2102
+#, fuzzy
 msgid "Cab type"
-msgstr ""
+msgstr "Loại cabin"
 
 #: apps/listings/models.py:2106
+#, fuzzy
 msgid "Axle configuration"
-msgstr ""
+msgstr "Cấu hình trục"
 
 #: apps/listings/models.py:2110
+#, fuzzy
 msgid "Suspension"
-msgstr ""
+msgstr "Đình chỉ"
 
 #: apps/listings/models.py:2121
 msgid "Curb weight (kg)"
 msgstr "Trọng lượng tịnh (kg)"
 
 #: apps/listings/models.py:2130
+#, fuzzy
 msgid "Cargo volume (m³)"
-msgstr ""
+msgstr "Thể tích hàng hóa (m³)"
 
 #: apps/listings/models.py:2134
+#, fuzzy
 msgid "Cargo length (m)"
-msgstr ""
+msgstr "Chiều dài hàng hóa (m)"
 
 #: apps/listings/models.py:2138
+#, fuzzy
 msgid "Cargo width (m)"
-msgstr ""
+msgstr "Chiều rộng hàng hóa (m)"
 
 #: apps/listings/models.py:2142
+#, fuzzy
 msgid "Cargo height (m)"
-msgstr ""
+msgstr "Chiều cao hàng hóa (m)"
 
 #: apps/listings/models.py:2147
 #: templates/listings/boats_listing_create.html:167
@@ -2399,60 +2766,73 @@ msgid "Number of seats"
 msgstr "Số lượng chỗ ngồi"
 
 #: apps/listings/models.py:2158
+#, fuzzy
 msgid "Engine capacity (L)"
-msgstr ""
+msgstr "Dung tích động cơ (L)"
 
 #: apps/listings/models.py:2168
+#, fuzzy
 msgid "Power (HP)"
-msgstr ""
+msgstr "Công suất (HP)"
 
 #: apps/listings/models.py:2173
+#, fuzzy
 msgid "Torque (Nm)"
-msgstr ""
+msgstr "Mô-men xoắn (Nm)"
 
 #: apps/listings/models.py:2180
 msgid "Fuel consumption (L/100km)"
 msgstr "Mức tiêu thụ nhiên liệu (l/100km)"
 
 #: apps/listings/models.py:2185
+#, fuzzy
 msgid "Fuel tank (L)"
-msgstr ""
+msgstr "Bình nhiên liệu (L)"
 
 #: apps/listings/models.py:2213
+#, fuzzy
 msgid "Price excludes VAT"
-msgstr ""
+msgstr "Giá chưa bao gồm VAT"
 
 #: apps/listings/models.py:2261
+#, fuzzy
 msgid "Truck"
-msgstr ""
+msgstr "Xe tải"
 
 #: apps/listings/models.py:2573
+#, fuzzy
 msgid "Truck Image"
-msgstr ""
+msgstr "Hình ảnh xe tải"
 
 #: apps/listings/models.py:2586
+#, fuzzy
 msgid "Truck Equipment Selection"
-msgstr ""
+msgstr "Lựa chọn thiết bị xe tải"
 
 #: apps/listings/models.py:2601
+#, fuzzy
 msgid "Saved Truck"
-msgstr ""
+msgstr "Xe tải được cứu"
 
 #: apps/listings/models.py:2677
+#, fuzzy
 msgid "Truck Sales Record"
-msgstr ""
+msgstr "Kỷ lục bán xe tải"
 
 #: apps/listings/models.py:2874
+#, fuzzy
 msgid "Passenger cars"
-msgstr ""
+msgstr "Xe chở khách"
 
 #: apps/listings/models.py:2875
+#, fuzzy
 msgid "SUV / Off-road"
-msgstr ""
+msgstr "Xe SUV / Xe địa hình"
 
 #: apps/listings/models.py:2876
+#, fuzzy
 msgid "Commercial / Van"
-msgstr ""
+msgstr "Thương mại / Từ"
 
 #: apps/listings/models.py:2877 apps/listings/translatable_db.py:43
 msgid "Trucks"
@@ -2466,36 +2846,44 @@ msgid "Motorcycles"
 msgstr "Xe máy"
 
 #: apps/listings/models.py:2879
+#, fuzzy
 msgid "Industrial"
-msgstr ""
+msgstr "Công nghiệp"
 
 #: apps/listings/models.py:2895
+#, fuzzy
 msgid "Summer"
-msgstr ""
+msgstr "Mùa hè"
 
 #: apps/listings/models.py:2896
+#, fuzzy
 msgid "Winter"
-msgstr ""
+msgstr "Mùa đông"
 
 #: apps/listings/models.py:2897
+#, fuzzy
 msgid "All-season"
-msgstr ""
+msgstr "Suốt cả mùa"
 
 #: apps/listings/models.py:2934
+#, fuzzy
 msgid "Alloy"
-msgstr ""
+msgstr "Hợp kim"
 
 #: apps/listings/models.py:2936
+#, fuzzy
 msgid "Forged"
-msgstr ""
+msgstr "Rèn"
 
 #: apps/listings/models.py:2937
+#, fuzzy
 msgid "Carbon fiber"
-msgstr ""
+msgstr "Sợi carbon"
 
 #: apps/listings/models.py:2946
+#, fuzzy
 msgid "Draft"
-msgstr ""
+msgstr "Bản nháp"
 
 #: apps/listings/models.py:2947 templates/listings/my_listings.html:146
 msgid "Active"
@@ -2511,12 +2899,14 @@ msgid "Sold"
 msgstr "Đã bán"
 
 #: apps/listings/models.py:2950
+#, fuzzy
 msgid "Expired"
-msgstr ""
+msgstr "Hết hạn"
 
 #: apps/listings/models.py:2951
+#, fuzzy
 msgid "Archived"
-msgstr ""
+msgstr "Đã lưu trữ"
 
 #: apps/listings/models.py:2963 apps/listings/translatable_db.py:44
 #: templates/listings/partials/search_rail.html:44
@@ -2524,8 +2914,9 @@ msgstr ""
 #: templates/listings/wheels_create.html:17
 #: templates/listings/wheels_list.html:91
 #: templates/listings/wheels_list.html:108
+#, fuzzy
 msgid "Tyres"
-msgstr ""
+msgstr "Lốp xe"
 
 #: apps/listings/models.py:2964 apps/listings/translatable_db.py:40
 #: templates/listings/partials/search_rail.html:45
@@ -2533,80 +2924,97 @@ msgstr ""
 #: templates/listings/wheels_create.html:19
 #: templates/listings/wheels_list.html:91
 #: templates/listings/wheels_list.html:108
+#, fuzzy
 msgid "Rims"
-msgstr ""
+msgstr "Vành xe"
 
 #: apps/listings/models.py:3049
+#, fuzzy
 msgid "Wheel Listing"
-msgstr ""
+msgstr "Danh sách bánh xe"
 
 #: apps/listings/models.py:3134
+#, fuzzy
 msgid "Wheel Image"
-msgstr ""
+msgstr "Hình ảnh bánh xe"
 
 #: apps/listings/moto_part_views.py:23
+#, fuzzy
 msgid "Trim / Body parts"
-msgstr ""
+msgstr "Các chi tiết trang trí/thân xe"
 
 #: apps/listings/moto_part_views.py:24
 #: apps/listings/truck_for_parts_views.py:42
+#, fuzzy
 msgid "Electrical system parts"
-msgstr ""
+msgstr "Các bộ phận của hệ thống điện"
 
 #: apps/listings/moto_part_views.py:25
+#, fuzzy
 msgid "Engine cooling parts"
-msgstr ""
+msgstr "các bộ phận làm mát động cơ"
 
 #: apps/listings/moto_part_views.py:26
 #: apps/listings/truck_for_parts_views.py:43
+#, fuzzy
 msgid "Engine parts"
-msgstr ""
+msgstr "Các bộ phận động cơ"
 
 #: apps/listings/moto_part_views.py:27
+#, fuzzy
 msgid "Chassis & transmission parts"
-msgstr ""
+msgstr "Các bộ phận khung gầm và hộp số"
 
 #: apps/listings/moto_part_views.py:33
+#, fuzzy
 msgid "Refurbished"
-msgstr ""
+msgstr "Đã tân trang"
 
 #: apps/listings/motogear_views.py:173 apps/listings/motorcycles_views.py:570
 #: apps/listings/trucks_views.py:842 apps/listings/views.py:1441
 #: apps/listings/views.py:1581
+#, fuzzy
 msgid "No images uploaded"
-msgstr ""
+msgstr "Chưa có hình ảnh nào được tải lên."
 
 #: apps/listings/motogear_views.py:183 apps/listings/motorcycles_views.py:580
 #: apps/listings/views.py:1453
+#, fuzzy
 msgid "Maximum 40 photos reached"
-msgstr ""
+msgstr "Đã đạt tối đa 40 bức ảnh."
 
 #: apps/listings/motorcycles_views.py:461
+#, fuzzy
 msgid "Failed to save draft."
-msgstr ""
+msgstr "Không thể lưu bản nháp."
 
 #: apps/listings/motorcycles_views.py:508 apps/listings/views.py:1577
+#, fuzzy
 msgid "Draft not found"
-msgstr ""
+msgstr "Không tìm thấy bản nháp"
 
 #: apps/listings/parts_views.py:73
+#, fuzzy
 msgid "Car, van parts"
-msgstr ""
+msgstr "Phụ tùng ô tô, xe tải"
 
 #: apps/listings/search_panel.py:31
 #: templates/listings/partials/search_panel.html:1124
+#, fuzzy
 msgid "Automobilių, mikroautobusų dalys"
-msgstr ""
+msgstr "Phụ tùng ô tô, xe buýt nhỏ"
 
 #: apps/listings/search_panel.py:32
 #: templates/listings/partials/search_panel.html:1125
+#, fuzzy
 msgid "Motociklų dalys"
-msgstr ""
+msgstr "Phụ tùng xe máy"
 
 #: apps/listings/search_panel.py:33
 #: templates/listings/partials/search_panel.html:1126
+#, fuzzy
 msgid "Sunkiojo transporto dalys"
-msgstr ""
+msgstr "Phụ tùng vận tải hạng nặng"
 
 #: apps/listings/translatable_db.py:15
 #: templates/listings/listing_list.html:260
@@ -2768,232 +3176,285 @@ msgid "Komunalinio ūkio transportas"
 msgstr ""
 
 #: apps/listings/translatable_db.py:21
+#, fuzzy
 msgid "Krovimo ir sandėliavimo technika"
-msgstr ""
+msgstr "Thiết bị xếp dỡ và lưu trữ"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Automobilių supirkimas"
-msgstr ""
+msgstr "Mua xe hơi"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Video, audio, navigacijos"
-msgstr ""
+msgstr "Video, âm thanh, điều hướng"
 
 #: apps/listings/translatable_db.py:22
+#, fuzzy
 msgid "Miško ūkio technika"
-msgstr ""
+msgstr "Máy móc lâm nghiệp"
 
 #: apps/listings/translatable_db.py:23
 msgid "Turistiniai nameliai"
 msgstr ""
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Aircraft Accessories"
-msgstr ""
+msgstr "Phụ kiện máy bay"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Airplanes"
-msgstr ""
+msgstr "Máy bay"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Avionics"
-msgstr ""
+msgstr "Điện tử hàng không"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Balers"
-msgstr ""
+msgstr "Máy đóng kiện"
 
 #: apps/listings/translatable_db.py:27
+#, fuzzy
 msgid "Bicycles"
-msgstr ""
+msgstr "Xe đạp"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Boat Trailers"
-msgstr ""
+msgstr "Rơ moóc thuyền"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Boats"
-msgstr ""
+msgstr "Thuyền"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Body Repair"
-msgstr ""
+msgstr "Sửa chữa thân xe"
 
 #: apps/listings/translatable_db.py:28
+#, fuzzy
 msgid "Bulldozers"
-msgstr ""
+msgstr "Máy ủi"
 
 #: apps/listings/translatable_db.py:28
 msgid "Buses"
 msgstr ""
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Campers"
-msgstr ""
+msgstr "Người cắm trại"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Parts"
-msgstr ""
+msgstr "Phụ tùng ô tô"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Service"
-msgstr ""
+msgstr "Dịch vụ xe hơi"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Trailers"
-msgstr ""
+msgstr "Rơ moóc ô tô"
 
 #: apps/listings/translatable_db.py:29
+#, fuzzy
 msgid "Car Wash"
-msgstr ""
+msgstr "Rửa xe"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Caravans"
-msgstr ""
+msgstr "Xe caravan"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Cargo Minibuses over 3.5t"
-msgstr ""
+msgstr "Xe buýt nhỏ chở hàng trên 3,5 tấn"
 
 #: apps/listings/translatable_db.py:30
+#, fuzzy
 msgid "Cargo Minibuses up to 3.5t"
-msgstr ""
+msgstr "Xe buýt nhỏ chở hàng có trọng tải lên đến 3,5 tấn"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Combine Harvesters"
-msgstr ""
+msgstr "Máy gặt đập liên hợp"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Compactors"
-msgstr ""
+msgstr "Máy nén"
 
 #: apps/listings/translatable_db.py:31
+#, fuzzy
 msgid "Cranes"
-msgstr ""
+msgstr "Cần cẩu"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Cultivators"
-msgstr ""
+msgstr "Người trồng trọt"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Curtainsider Trailers"
-msgstr ""
+msgstr "Rơ moóc thùng bạt"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Diagnostics"
-msgstr ""
+msgstr "Chẩn đoán"
 
 #: apps/listings/translatable_db.py:32
+#, fuzzy
 msgid "Drones"
-msgstr ""
+msgstr "Máy bay không người lái"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Electric Bikes"
-msgstr ""
+msgstr "Xe đạp điện"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Electric Scooters"
-msgstr ""
+msgstr "Xe tay ga điện"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Engine Parts"
-msgstr ""
+msgstr "Phụ tùng động cơ"
 
 #: apps/listings/translatable_db.py:33
+#, fuzzy
 msgid "Excavators"
-msgstr ""
+msgstr "Máy xúc"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Fishing Boats"
-msgstr ""
+msgstr "Thuyền đánh cá"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Flatbed Trailers"
-msgstr ""
+msgstr "Rơ moóc sàn phẳng"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Forestry Machines"
-msgstr ""
+msgstr "Máy móc lâm nghiệp"
 
 #: apps/listings/translatable_db.py:34
+#, fuzzy
 msgid "Forklifts"
-msgstr ""
+msgstr "Xe nâng hàng"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Helicopters"
-msgstr ""
+msgstr "Máy bay trực thăng"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Inflatable Boats"
-msgstr ""
+msgstr "Thuyền bơm hơi"
 
 #: apps/listings/translatable_db.py:35
+#, fuzzy
 msgid "Jet Skis"
-msgstr ""
+msgstr "Mô tô nước"
 
 #: apps/listings/translatable_db.py:36
+#, fuzzy
 msgid "Limuzinų, vestuvių transporto nuoma"
-msgstr ""
+msgstr "Dịch vụ cho thuê xe limousine và xe cưới"
 
 #: apps/listings/translatable_db.py:36
+#, fuzzy
 msgid "Loaders"
-msgstr ""
+msgstr "Máy xúc"
 
 #: apps/listings/translatable_db.py:36
 msgid "Moto Gear, accessories"
 msgstr "Trang phục và phụ kiện xe máy"
 
 #: apps/listings/translatable_db.py:37
+#, fuzzy
 msgid "Moto Parts"
-msgstr ""
+msgstr "Phụ tùng xe máy"
 
 #: apps/listings/translatable_db.py:37
 msgid "Motociklų nuoma"
 msgstr ""
 
 #: apps/listings/translatable_db.py:37
+#, fuzzy
 msgid "Motorboats"
-msgstr ""
+msgstr "Thuyền máy"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Agricultural"
-msgstr ""
+msgstr "Nông nghiệp khác"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Construction"
-msgstr ""
+msgstr "Công trình xây dựng khác"
 
 #: apps/listings/translatable_db.py:38
+#, fuzzy
 msgid "Other Trailers"
-msgstr ""
+msgstr "Các đoạn giới thiệu khác"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Other Watercraft"
-msgstr ""
+msgstr "Các loại phương tiện đường thủy khác"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Painting"
-msgstr ""
+msgstr "Bức vẽ"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Passenger Minibuses"
-msgstr ""
+msgstr "Xe buýt nhỏ chở khách"
 
 #: apps/listings/translatable_db.py:39
+#, fuzzy
 msgid "Ploughs"
-msgstr ""
+msgstr "Máy cày"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Refrigerator Trailers"
-msgstr ""
+msgstr "Xe moóc đông lạnh"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Sailboats"
-msgstr ""
+msgstr "Thuyền buồm"
 
 #: apps/listings/translatable_db.py:40
+#, fuzzy
 msgid "Semi-Trucks / Tractors"
-msgstr ""
+msgstr "Xe tải/Xe kéo"
 
 #: apps/listings/translatable_db.py:41
 msgid "Semi-trailers"
@@ -3001,64 +3462,79 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:41
 #: templates/listings/sidebar_moto_parts.html:19
+#, fuzzy
 msgid "Single moto part"
-msgstr ""
+msgstr "Bộ phận mô tô đơn"
 
 #: apps/listings/translatable_db.py:41
+#, fuzzy
 msgid "Single part / parts kit"
-msgstr ""
+msgstr "Bộ phận đơn lẻ / Bộ linh kiện"
 
 #: apps/listings/translatable_db.py:41
+#, fuzzy
 msgid "Sprayers"
-msgstr ""
+msgstr "Máy phun"
 
 #: apps/listings/translatable_db.py:42
+#, fuzzy
 msgid "Statybinės technikos priedai"
-msgstr ""
+msgstr "Phụ kiện thiết bị xây dựng"
 
 #: apps/listings/translatable_db.py:42
+#, fuzzy
 msgid "Sunkiojo transporto, priekabų nuoma"
-msgstr ""
+msgstr "Cho thuê xe vận tải hạng nặng và xe rơ moóc."
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Tipper Trailers"
-msgstr ""
+msgstr "Rơ moóc tự đổ"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Towing"
-msgstr ""
+msgstr "Kéo xe"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Tractors"
-msgstr ""
+msgstr "Máy kéo"
 
 #: apps/listings/translatable_db.py:43
+#, fuzzy
 msgid "Truck Parts"
-msgstr ""
+msgstr "Phụ tùng xe tải"
 
 #: apps/listings/translatable_db.py:44
+#, fuzzy
 msgid "Ultralight Aircraft"
-msgstr ""
+msgstr "Máy bay siêu nhẹ"
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole car for parts"
-msgstr ""
+msgstr "Cả chiếc xe để lấy phụ tùng."
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole moto for parts"
-msgstr ""
+msgstr "Nguyên chiếc xe máy để lấy phụ tùng."
 
 #: apps/listings/translatable_db.py:45
+#, fuzzy
 msgid "Whole truck for parts"
-msgstr ""
+msgstr "Cả chiếc xe tải để lấy phụ tùng."
 
 #: apps/listings/translatable_db.py:46
+#, fuzzy
 msgid "Yachts"
-msgstr ""
+msgstr "Du thuyền"
 
 #: apps/listings/translatable_db.py:51
+#, fuzzy
 msgid "CVT"
-msgstr ""
+msgstr "CVT"
 
 #: apps/listings/translatable_db.py:51
 msgid "Diesel / Electric (Hybrid)"
@@ -3069,8 +3545,9 @@ msgid "Diesel / Electric (Plug-in)"
 msgstr ""
 
 #: apps/listings/translatable_db.py:52
+#, fuzzy
 msgid "Ethanol"
-msgstr ""
+msgstr "Ethanol"
 
 #: apps/listings/translatable_db.py:53
 msgid "Petrol"
@@ -3097,146 +3574,181 @@ msgid "Petrol / LPG"
 msgstr ""
 
 #: apps/listings/truck_for_parts_views.py:39
+#, fuzzy
 msgid "Body parts"
-msgstr ""
+msgstr "Các bộ phận cơ thể"
 
 #: apps/listings/truck_for_parts_views.py:40
+#, fuzzy
 msgid "Chassis / transmission parts"
-msgstr ""
+msgstr "Các bộ phận khung gầm/hộp số"
 
 #: apps/listings/truck_for_parts_views.py:41
+#, fuzzy
 msgid "Cooling system parts"
-msgstr ""
+msgstr "Các bộ phận của hệ thống làm mát"
 
 #: apps/listings/truck_for_parts_views.py:44
+#, fuzzy
 msgid "Cabin / interior parts"
-msgstr ""
+msgstr "Cabin / các bộ phận nội thất"
 
 #: apps/listings/truck_for_parts_views.py:45
+#, fuzzy
 msgid "Superstructure parts"
-msgstr ""
+msgstr "Các bộ phận cấu trúc thượng tầng"
 
 #: apps/listings/trucks_views.py:834 apps/listings/views.py:1437
 #: apps/listings/views.py:1487 apps/listings/views.py:5869
 #: apps/listings/views.py:5875
+#, fuzzy
 msgid "Listing not found"
-msgstr ""
+msgstr "Không tìm thấy danh sách"
 
 #: apps/listings/views.py:62
+#, fuzzy
 msgid "Safety & Security"
-msgstr ""
+msgstr "An toàn và Bảo mật"
 
 #: apps/listings/views.py:63
+#, fuzzy
 msgid "Audio, Video & Connectivity"
-msgstr ""
+msgstr "Âm thanh, Video & Kết nối"
 
 #: apps/listings/views.py:65
+#, fuzzy
 msgid "Electric vehicle features"
-msgstr ""
+msgstr "Đặc điểm của xe điện"
 
 #: apps/listings/views.py:5866
+#, fuzzy
 msgid "Įveskite kodą"
-msgstr ""
+msgstr "Nhập mã"
 
 #: apps/listings/views.py:5880
+#, fuzzy
 msgid "Toks kodas neegzistuoja"
-msgstr ""
+msgstr "Loại mã như vậy không tồn tại."
 
 #: apps/listings/wheels_views.py:56
+#, fuzzy
 msgid "Spare tyre (thin)"
-msgstr ""
+msgstr "Lốp dự phòng (mỏng)"
 
 #: apps/listings/wheels_views.py:57 apps/listings/wheels_views.py:134
+#, fuzzy
 msgid "Sold individually"
-msgstr ""
+msgstr "Bán lẻ từng chiếc"
 
 #: apps/listings/wheels_views.py:58
+#, fuzzy
 msgid "Sport tyres"
-msgstr ""
+msgstr "Lốp xe thể thao"
 
 #: apps/listings/wheels_views.py:59
+#, fuzzy
 msgid "SUV tyres"
-msgstr ""
+msgstr "Lốp xe SUV"
 
 #: apps/listings/wheels_views.py:60
+#, fuzzy
 msgid "Rain tyres"
-msgstr ""
+msgstr "Lốp xe đi mưa"
 
 #: apps/listings/wheels_views.py:61
+#, fuzzy
 msgid "Run-flat"
-msgstr ""
+msgstr "Lốp xe chống xẹp"
 
 #: apps/listings/wheels_views.py:62
+#, fuzzy
 msgid "Reinforced"
-msgstr ""
+msgstr "Gia cố"
 
 #: apps/listings/wheels_views.py:63
+#, fuzzy
 msgid "Studded (winter)"
-msgstr ""
+msgstr "Đinh tán (mùa đông)"
 
 #: apps/listings/wheels_views.py:132
+#, fuzzy
 msgid "Bent rims"
-msgstr ""
+msgstr "Vành xe bị cong"
 
 #: apps/listings/wheels_views.py:133
+#, fuzzy
 msgid "Original rims"
-msgstr ""
+msgstr "Vành xe nguyên bản"
 
 #: apps/listings/wheels_views.py:135
+#, fuzzy
 msgid "With tyres"
-msgstr ""
+msgstr "Có lốp xe"
 
 #: apps/listings/wheels_views.py:136
+#, fuzzy
 msgid "Chromed"
-msgstr ""
+msgstr "Mạ crom"
 
 #: config/settings.py:144
+#, fuzzy
 msgid "Lithuanian"
-msgstr ""
+msgstr "tiếng Litva"
 
 #: config/settings.py:145
+#, fuzzy
 msgid "Latvian"
-msgstr ""
+msgstr "tiếng Latvia"
 
 #: config/settings.py:146
+#, fuzzy
 msgid "Estonian"
-msgstr ""
+msgstr "tiếng Estonia"
 
 #: config/settings.py:147
+#, fuzzy
 msgid "Polish"
-msgstr ""
+msgstr "Đánh bóng"
 
 #: config/settings.py:148
+#, fuzzy
 msgid "German"
-msgstr ""
+msgstr "tiếng Đức"
 
 #: config/settings.py:149
+#, fuzzy
 msgid "Russian"
-msgstr ""
+msgstr "Tiếng Nga"
 
 #: config/settings.py:150
+#, fuzzy
 msgid "French"
-msgstr ""
+msgstr "tiếng Pháp"
 
 #: config/settings.py:151
+#, fuzzy
 msgid "Spanish"
-msgstr ""
+msgstr "tiếng Tây Ban Nha"
 
 #: config/settings.py:152
+#, fuzzy
 msgid "Chinese"
-msgstr ""
+msgstr "Trung Quốc"
 
 #: config/settings.py:153
+#, fuzzy
 msgid "Vietnamese"
-msgstr ""
+msgstr "Tiếng Việt"
 
 #: config/settings.py:154
+#, fuzzy
 msgid "Arabic"
-msgstr ""
+msgstr "tiếng Ả Rập"
 
 #: config/settings.py:155
+#, fuzzy
 msgid "Korean"
-msgstr ""
+msgstr "tiếng Hàn"
 
 #: templates/accounts/become_dealer.html:3
 #: templates/pages/help_center.html:540
@@ -3252,26 +3764,33 @@ msgid "Sell more cars on SellCar"
 msgstr "Bán được nhiều xe hơn trên AutoLeft"
 
 #: templates/accounts/become_dealer.html:13
+#, fuzzy
 msgid ""
 "Reach thousands of buyers with your branded dealer page and professional "
 "tools."
 msgstr ""
+"Tiếp cận hàng ngàn người mua tiềm năng với trang đại lý mang thương hiệu "
+"riêng và các công cụ chuyên nghiệp."
 
 #: templates/accounts/become_dealer.html:20
+#, fuzzy
 msgid "You are an active Dealer"
-msgstr ""
+msgstr "Bạn là một đại lý đang hoạt động."
 
 #: templates/accounts/become_dealer.html:22
+#, fuzzy
 msgid "Subscription active until"
-msgstr ""
+msgstr "Gói đăng ký có hiệu lực cho đến"
 
 #: templates/accounts/become_dealer.html:26
+#, fuzzy
 msgid "Go to Dashboard"
-msgstr ""
+msgstr "Truy cập Bảng điều khiển"
 
 #: templates/accounts/become_dealer.html:34
+#, fuzzy
 msgid "Dealer / Autohouse"
-msgstr ""
+msgstr "Đại lý / Nhà xe"
 
 #: templates/accounts/become_dealer.html:37
 msgid "/month"
@@ -3283,16 +3802,18 @@ msgid "Cancel anytime"
 msgstr "Hủy bất cứ lúc nào"
 
 #: templates/accounts/become_dealer.html:46
+#, fuzzy
 msgid "Extend subscription"
-msgstr ""
+msgstr "Gia hạn đăng ký"
 
 #: templates/accounts/become_dealer.html:48
 msgid "Subscribe"
 msgstr "Đặt mua"
 
 #: templates/accounts/become_dealer.html:52
+#, fuzzy
 msgid "Wallet balance:"
-msgstr ""
+msgstr "Số dư ví:"
 
 #: templates/accounts/become_dealer.html:53 templates/accounts/wallet.html:21
 #: templates/accounts/wallet.html:55
@@ -3301,16 +3822,19 @@ msgid "Top up"
 msgstr "Nạp tiền"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "Up to"
-msgstr ""
+msgstr "Lên đến"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "active listings"
-msgstr ""
+msgstr "danh sách đang hoạt động"
 
 #: templates/accounts/become_dealer.html:60
+#, fuzzy
 msgid "across all categories"
-msgstr ""
+msgstr "trên tất cả các hạng mục"
 
 #: templates/accounts/become_dealer.html:64
 msgid "Branded dealer page"
@@ -3338,8 +3862,9 @@ msgid "Priority support"
 msgstr "Hỗ trợ ưu tiên"
 
 #: templates/accounts/become_dealer.html:92
+#, fuzzy
 msgid "Need more listings?"
-msgstr ""
+msgstr "Bạn cần thêm danh sách?"
 
 #: templates/accounts/become_dealer.html:93
 msgid "Talk to us about volume pricing or partnership opportunities."
@@ -3352,19 +3877,24 @@ msgid "Contact us"
 msgstr "Liên hệ với chúng tôi"
 
 #: templates/accounts/become_dealer.html:101
+#, fuzzy
 msgid ""
 "Payments processed via your wallet balance. Stripe direct subscription "
 "coming soon."
 msgstr ""
+"Các khoản thanh toán được xử lý thông qua số dư ví của bạn. Dịch vụ đăng ký "
+"trực tiếp Stripe sẽ sớm ra mắt."
 
 #: templates/accounts/dealer_dashboard.html:3
 #: templates/accounts/dealer_dashboard.html:10
+#, fuzzy
 msgid "Dealer Dashboard"
-msgstr ""
+msgstr "Bảng điều khiển đại lý"
 
 #: templates/accounts/dealer_dashboard.html:15
+#, fuzzy
 msgid "Welcome, Dealer"
-msgstr ""
+msgstr "Chào mừng, Đại lý"
 
 #: templates/accounts/dealer_dashboard.html:21
 #: templates/accounts/profile_edit.html:4
@@ -3377,16 +3907,19 @@ msgid "View Public Page"
 msgstr "Xem trang công khai"
 
 #: templates/accounts/dealer_dashboard.html:34
+#, fuzzy
 msgid "Dealer subscription active"
-msgstr ""
+msgstr "Đăng ký đại lý đang hoạt động"
 
 #: templates/accounts/dealer_dashboard.html:36
+#, fuzzy
 msgid "Expires"
-msgstr ""
+msgstr "Hết hạn"
 
 #: templates/accounts/dealer_dashboard.html:37
+#, fuzzy
 msgid "days remaining"
-msgstr ""
+msgstr "số ngày còn lại"
 
 #: templates/accounts/dealer_dashboard.html:42
 #: templates/listings/my_listings.html:53
@@ -3395,20 +3928,24 @@ msgid "Renew"
 msgstr "Gia hạn"
 
 #: templates/accounts/dealer_dashboard.html:49
+#, fuzzy
 msgid "Active listings"
-msgstr ""
+msgstr "Danh sách đang hoạt động"
 
 #: templates/accounts/dealer_dashboard.html:53
+#, fuzzy
 msgid "Total views"
-msgstr ""
+msgstr "Tổng lượt xem"
 
 #: templates/accounts/dealer_dashboard.html:57
+#, fuzzy
 msgid "Total saves"
-msgstr ""
+msgstr "Tổng số lần tiết kiệm"
 
 #: templates/accounts/dealer_dashboard.html:61
+#, fuzzy
 msgid "Days remaining"
-msgstr ""
+msgstr "Số ngày còn lại"
 
 #: templates/accounts/dealer_dashboard.html:73
 #: templates/accounts/dealer_dashboard.html:131
@@ -3416,16 +3953,18 @@ msgid "Create listing"
 msgstr "Tạo danh sách"
 
 #: templates/accounts/dealer_dashboard.html:74
+#, fuzzy
 msgid "Add a new vehicle"
-msgstr ""
+msgstr "Thêm một phương tiện mới"
 
 #: templates/accounts/dealer_dashboard.html:82
 msgid "My listings"
 msgstr "Danh sách của tôi"
 
 #: templates/accounts/dealer_dashboard.html:83
+#, fuzzy
 msgid "Manage your inventory"
-msgstr ""
+msgstr "Quản lý hàng tồn kho của bạn"
 
 #: templates/accounts/dealer_dashboard.html:91
 #: templates/accounts/wallet.html:3 templates/accounts/wallet.html:9
@@ -3434,25 +3973,29 @@ msgid "Wallet"
 msgstr "Cái ví"
 
 #: templates/accounts/dealer_dashboard.html:92
+#, fuzzy
 msgid "Balance & top-up"
-msgstr ""
+msgstr "Số dư & nạp tiền"
 
 #: templates/accounts/dealer_dashboard.html:100
+#, fuzzy
 msgid "Top viewed listings"
-msgstr ""
+msgstr "Các tin đăng được xem nhiều nhất"
 
 #: templates/accounts/dealer_dashboard.html:128
 msgid "No listings yet"
 msgstr "Chưa có tin đăng nào"
 
 #: templates/accounts/dealer_dashboard.html:129
+#, fuzzy
 msgid "Create your first listing to get started"
-msgstr ""
+msgstr "Hãy tạo tin đăng đầu tiên của bạn để bắt đầu."
 
 #: templates/accounts/dealer_public_page.html:32
 #: templates/listings/listing_detail.html:1142
+#, fuzzy
 msgid "Verified Dealer"
-msgstr ""
+msgstr "Đại lý đã được xác minh"
 
 #: templates/accounts/dealer_public_page.html:34
 #: templates/accounts/dealer_public_page.html:179
@@ -3674,12 +4217,14 @@ msgid "Clear"
 msgstr "Thông thoáng"
 
 #: templates/accounts/dealer_public_page.html:144
+#, fuzzy
 msgid "Categories"
-msgstr ""
+msgstr "Thể loại"
 
 #: templates/accounts/dealer_public_page.html:151
+#, fuzzy
 msgid "All listings"
-msgstr ""
+msgstr "Tất cả danh sách"
 
 #: templates/accounts/dealer_public_page.html:179
 #: templates/accounts/seller_profile.html:291
@@ -3687,8 +4232,9 @@ msgid "Showing"
 msgstr "Đang hiển thị"
 
 #: templates/accounts/dealer_public_page.html:192
+#, fuzzy
 msgid "Sort"
-msgstr ""
+msgstr "Loại"
 
 #: templates/accounts/dealer_public_page.html:194
 #: templates/accounts/seller_profile.html:300
@@ -3696,8 +4242,9 @@ msgid "Newest first"
 msgstr "Mới nhất trước"
 
 #: templates/accounts/dealer_public_page.html:195
+#, fuzzy
 msgid "Oldest first"
-msgstr ""
+msgstr "Người lớn tuổi nhất trước"
 
 #: templates/accounts/dealer_public_page.html:196
 msgid "Price: low to high"
@@ -3708,50 +4255,63 @@ msgid "Price: high to low"
 msgstr "Giá: Từ cao đến thấp"
 
 #: templates/accounts/dealer_public_page.html:198
+#, fuzzy
 msgid "Most viewed"
-msgstr ""
+msgstr "Được xem nhiều nhất"
 
 #: templates/accounts/dealer_public_page.html:248
+#, fuzzy
 msgid "No listings match your filters."
-msgstr ""
+msgstr "Không có kết quả nào phù hợp với bộ lọc của bạn."
 
 #: templates/accounts/dealer_public_page.html:260
 #: templates/pages/help_center.html:140
+#, fuzzy
 msgid "Contact"
-msgstr ""
+msgstr "Liên hệ"
 
 #: templates/accounts/dealer_public_page.html:281
+#, fuzzy
 msgid "No contact info provided"
-msgstr ""
+msgstr "Không có thông tin liên hệ nào được cung cấp."
 
 #: templates/accounts/dealer_public_page.html:292
+#, fuzzy
 msgid "Open Hours"
-msgstr ""
+msgstr "Giờ mở cửa"
 
 #: templates/accounts/dealer_public_page.html:300
 #: templates/accounts/dealer_setup.html:86
+#, fuzzy
 msgid "Closed"
-msgstr ""
+msgstr "Đóng cửa"
 
 #: templates/accounts/dealer_public_page.html:315
+#, fuzzy
 msgid "About"
-msgstr ""
+msgstr "Về"
 
 #: templates/accounts/dealer_setup.html:3
+#, fuzzy
 msgid "Dealer Setup"
-msgstr ""
+msgstr "Thiết lập đại lý"
 
 #: templates/accounts/dealer_setup.html:9
+#, fuzzy
 msgid "Dealer Profile Setup"
-msgstr ""
+msgstr "Thiết lập hồ sơ đại lý"
 
 #: templates/accounts/dealer_setup.html:10
+#, fuzzy
 msgid "All fields are optional. You can fill them now or later via Dashboard."
 msgstr ""
+"Tất cả các trường đều không bắt buộc. Bạn có thể điền chúng ngay bây giờ "
+"hoặc sau này thông qua Bảng điều khiển."
 
 #: templates/accounts/dealer_setup.html:18
+#, fuzzy
 msgid "Company Information"
-msgstr ""
+msgstr "Thông tin công ty"
 
 #: templates/accounts/dealer_setup.html:26
 #: templates/accounts/seller_profile.html:371
@@ -3784,24 +4344,29 @@ msgid "Address"
 msgstr "Địa chỉ"
 
 #: templates/accounts/dealer_setup.html:42
+#, fuzzy
 msgid "Visual Branding"
-msgstr ""
+msgstr "Nhận diện thương hiệu trực quan"
 
 #: templates/accounts/dealer_setup.html:46
+#, fuzzy
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: templates/accounts/dealer_setup.html:53
+#, fuzzy
 msgid "Recommended: square, 200x200px+"
-msgstr ""
+msgstr "Khuyến nghị: hình vuông, 200x200px trở lên"
 
 #: templates/accounts/dealer_setup.html:56
+#, fuzzy
 msgid "Banner"
-msgstr ""
+msgstr "Ngọn cờ"
 
 #: templates/accounts/dealer_setup.html:63
+#, fuzzy
 msgid "Recommended: 1920x400px"
-msgstr ""
+msgstr "Độ phân giải đề xuất: 1920x400px"
 
 #: templates/accounts/dealer_setup.html:70
 #: templates/pages/help_center.html:655
@@ -3809,20 +4374,25 @@ msgid "About Us"
 msgstr "Về chúng tôi"
 
 #: templates/accounts/dealer_setup.html:71
+#, fuzzy
 msgid "Tell buyers about your dealership..."
-msgstr ""
+msgstr "Hãy giới thiệu đại lý của bạn cho khách hàng..."
 
 #: templates/accounts/dealer_setup.html:77
+#, fuzzy
 msgid "Set opening and closing times for each day, or mark as Closed."
 msgstr ""
+"Thiết lập giờ mở cửa và đóng cửa cho mỗi ngày, hoặc đánh dấu là Đóng cửa."
 
 #: templates/accounts/dealer_setup.html:102
+#, fuzzy
 msgid "Skip for now"
-msgstr ""
+msgstr "Tạm thời bỏ qua"
 
 #: templates/accounts/dealer_setup.html:105
+#, fuzzy
 msgid "Save profile"
-msgstr ""
+msgstr "Lưu hồ sơ"
 
 #: templates/accounts/login.html:4 templates/accounts/login.html:85
 #: templates/base.html:232
@@ -4254,9 +4824,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/accounts/seller_profile.html:168
-#, python-format
+#, python-format, fuzzy
 msgid "Member since %(year)s"
-msgstr ""
+msgstr "Thành viên từ %(year)s"
 
 #: templates/accounts/seller_profile.html:190 templates/home.html:36
 #: templates/listings/home.html:24 templates/listings/listing_list.html:1376
@@ -4454,9 +5024,9 @@ msgid "Clear All"
 msgstr "Xóa tất cả"
 
 #: templates/accounts/seller_profile.html:292
-#, python-format
+#, python-format, fuzzy
 msgid "of %(total)s"
-msgstr ""
+msgstr "của %(total)s"
 
 #: templates/accounts/seller_profile.html:301
 #: templates/listings/listing_list_v2.html:341
@@ -4516,9 +5086,9 @@ msgid "Phone 2"
 msgstr "Điện thoại 2"
 
 #: templates/accounts/seller_profile.html:383
-#, python-format
+#, python-format, fuzzy
 msgid "About %(company)s"
-msgstr ""
+msgstr "Giới thiệu %(company)s"
 
 #: templates/accounts/seller_profile.html:408
 msgid "No reviews yet."
@@ -4590,9 +5160,9 @@ msgid "Get"
 msgstr "Lấy"
 
 #: templates/accounts/wallet.html:88
-#, python-format
+#, python-format, fuzzy
 msgid "= %(total)s points"
-msgstr ""
+msgstr "= %(total)s điểm"
 
 #: templates/accounts/wallet.html:103
 msgid "Test mode (developer only)"
@@ -4640,8 +5210,9 @@ msgid "No transactions yet."
 msgstr "Chưa có giao dịch nào."
 
 #: templates/base.html:8
+#, fuzzy
 msgid "AutoLeft - Buy & Sell Cars Online"
-msgstr ""
+msgstr "AutoLeft - Mua & Bán Xe Ô Tô Trực Tuyến"
 
 #: templates/base.html:57 templates/base.html:262
 #: templates/listings/search_map.html:5
@@ -4649,16 +5220,18 @@ msgid "Map Search"
 msgstr "Tìm kiếm trên bản đồ"
 
 #: templates/base.html:62 templates/base.html:265 templates/base.html:378
+#, fuzzy
 msgid "News & Help"
-msgstr ""
+msgstr "Tin tức & Trợ giúp"
 
 #: templates/base.html:105 templates/base.html:109 templates/base.html:258
 msgid "Create Ad"
 msgstr "Tạo quảng cáo"
 
 #: templates/base.html:116 templates/base.html:175 templates/base.html:273
+#, fuzzy
 msgid "Saved Ads"
-msgstr ""
+msgstr "Quảng cáo đã lưu"
 
 #: templates/base.html:126 templates/base.html:184 templates/base.html:276
 #: templates/listings/saved_searches.html:18
@@ -4674,8 +5247,9 @@ msgstr "Tin nhắn"
 #: templates/base.html:166 templates/base.html:270
 #: templates/listings/my_listings.html:4
 #: templates/listings/my_listings.html:45
+#, fuzzy
 msgid "My Ads"
-msgstr ""
+msgstr "Quảng cáo của tôi"
 
 #: templates/base.html:196 templates/base.html:282
 msgid "Settings"
@@ -4701,8 +5275,9 @@ msgid "Moderate users"
 msgstr "Người dùng trung bình"
 
 #: templates/base.html:213 templates/base.html:297
+#, fuzzy
 msgid "Moderate dealers"
-msgstr ""
+msgstr "Các đại lý trung bình"
 
 #: templates/base.html:216 templates/base.html:300
 msgid "Sales stats"
@@ -4717,8 +5292,9 @@ msgid "Logout"
 msgstr "Đăng xuất"
 
 #: templates/base.html:235
+#, fuzzy
 msgid "Register"
-msgstr ""
+msgstr "Đăng ký"
 
 #: templates/base.html:357
 msgid "Discover trusted vehicles and services — easier, faster, simpler."
@@ -4727,12 +5303,16 @@ msgstr ""
 "đơn giản hơn."
 
 #: templates/base.html:376
+#, fuzzy
 msgid "Looking for FAQ, dealer info, pricing? See"
 msgstr ""
+"Bạn đang tìm kiếm câu hỏi thường gặp, thông tin đại lý, bảng giá? Xem tại "
+"đây."
 
 #: templates/base.html:379
+#, fuzzy
 msgid "in the menu above."
-msgstr ""
+msgstr "trong menu phía trên."
 
 #: templates/base.html:385
 msgid "Have questions?"
@@ -5008,9 +5588,9 @@ msgid "Find Your Perfect Vehicle"
 msgstr "Tìm chiếc xe hoàn hảo dành cho bạn"
 
 #: templates/home.html:14
-#, python-format
+#, python-format, fuzzy
 msgid "Browse %(count)s listings"
-msgstr ""
+msgstr "Xem %(count)s danh sách"
 
 #: templates/home.html:23 templates/listings/motogear_create.html:48
 #: templates/listings/motogear_create.html:477
@@ -5068,9 +5648,9 @@ msgstr "Các loại xe hiện có"
 #: templates/home.html:149 templates/listings/motogear_list.html:215
 #: templates/listings/search_map.html:79
 #: templates/listings/trucks_list.html:504
-#, python-format
+#, python-format, fuzzy
 msgid "Found %(count)s listings"
-msgstr ""
+msgstr "Tìm thấy %(count)s tin đăng"
 
 #: templates/home.html:155 templates/listings/listing_list.html:690
 #: templates/listings/listing_list.html:814
@@ -5303,22 +5883,26 @@ msgid "Part Name or Code"
 msgstr "Tên hoặc mã bộ phận"
 
 #: templates/listings/advanced_search.html:450
+#, fuzzy
 msgid "Text search: name, OEM, engine code, gearbox code..."
 msgstr ""
+"Tìm kiếm theo văn bản: tên, nhà sản xuất gốc (OEM), mã động cơ, mã hộp số..."
 
 #: templates/listings/advanced_search.html:454
+#, fuzzy
 msgid ""
 "Searches: Title, Description, OEM Code, Engine Code, Gearbox Code, "
 "Modification"
-msgstr ""
+msgstr "Tìm kiếm: Tiêu đề, Mô tả, Mã OEM, Mã động cơ, Mã hộp số, Phiên bản"
 
 #: templates/listings/advanced_search.html:509
 msgid "Compatible With (Vehicle)"
 msgstr "Tương thích với (Xe)"
 
 #: templates/listings/advanced_search.html:564
+#, fuzzy
 msgid "Vehicle Technical Specs"
-msgstr ""
+msgstr "Thông số kỹ thuật xe"
 
 #: templates/listings/advanced_search.html:586
 #: templates/listings/listing_detail.html:335
@@ -5327,8 +5911,9 @@ msgid "Gearbox"
 msgstr "Hộp số"
 
 #: templates/listings/advanced_search.html:634
+#, fuzzy
 msgid "Drive Wheels"
-msgstr ""
+msgstr "Bánh xe dẫn động"
 
 #: templates/listings/advanced_search.html:668
 msgid "Engine Size (L)"
@@ -5343,16 +5928,19 @@ msgstr ""
 "bỏ qua. Để trống tất cả các hàng = tìm kiếm tất cả các phụ tùng."
 
 #: templates/listings/advanced_search.html:878
+#, fuzzy
 msgid "Part Categories"
-msgstr ""
+msgstr "Danh mục bộ phận"
 
 #: templates/listings/advanced_search.html:886
+#, fuzzy
 msgid "Search categories..."
-msgstr ""
+msgstr "Tìm kiếm theo danh mục..."
 
 #: templates/listings/advanced_search.html:894
+#, fuzzy
 msgid "categories selected"
-msgstr ""
+msgstr "các danh mục đã chọn"
 
 #: templates/listings/advanced_search.html:1140
 #: templates/listings/advanced_search.html:1231
@@ -5393,8 +5981,9 @@ msgid "Edit listing"
 msgstr "Chỉnh sửa danh sách"
 
 #: templates/listings/boats_listing_create.html:24
+#, fuzzy
 msgid "New listing"
-msgstr ""
+msgstr "Tin đăng mới"
 
 #: templates/listings/boats_listing_create.html:39
 #: templates/listings/listing_create_cars_quick.html:38
@@ -5405,12 +5994,14 @@ msgid "Main listing data"
 msgstr "Dữ liệu niêm yết chính"
 
 #: templates/listings/boats_listing_create.html:66
+#, fuzzy
 msgid "e.g. Bayliner"
-msgstr ""
+msgstr "ví dụ: Bayliner"
 
 #: templates/listings/boats_listing_create.html:73
+#, fuzzy
 msgid "e.g. VR5"
-msgstr ""
+msgstr "ví dụ: VR5"
 
 #: templates/listings/boats_listing_create.html:89
 #: templates/listings/motogear_create.html:160
@@ -5478,16 +6069,19 @@ msgid "Additional data"
 msgstr "Dữ liệu bổ sung"
 
 #: templates/listings/boats_listing_create.html:155
+#, fuzzy
 msgid "Length (m)"
-msgstr ""
+msgstr "Chiều dài (m)"
 
 #: templates/listings/boats_listing_create.html:161
+#, fuzzy
 msgid "Width (m)"
-msgstr ""
+msgstr "Chiều rộng (m)"
 
 #: templates/listings/boats_listing_create.html:214
+#, fuzzy
 msgid "Number of engines"
-msgstr ""
+msgstr "Số lượng động cơ"
 
 #: templates/listings/boats_listing_create.html:264
 #: templates/listings/listing_create_cars_quick.html:467
@@ -5568,12 +6162,14 @@ msgstr "Xoay sang phải"
 #: templates/listings/rims_create.html:220
 #: templates/listings/tyres_create.html:253
 #: templates/listings/wheels_create.html:334
+#, fuzzy
 msgid "Selected photos"
-msgstr ""
+msgstr "Ảnh đã chọn"
 
 #: templates/listings/boats_listing_create.html:326
+#, fuzzy
 msgid "Drag to reorder. The first photo is the main one."
-msgstr ""
+msgstr "Kéo để sắp xếp lại thứ tự. Ảnh đầu tiên là ảnh chính."
 
 #: templates/listings/boats_listing_create.html:332
 #: templates/listings/listing_create_cars_quick.html:554
@@ -5597,8 +6193,9 @@ msgstr "Tối đa 40 ảnh. Dung lượng tối đa 24MB. Định dạng JPG, GI
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:365
 #: templates/listings/motorcycle_create.html:503
+#, fuzzy
 msgid "Uploading photos..."
-msgstr ""
+msgstr "Đang tải ảnh lên..."
 
 #: templates/listings/boats_listing_create.html:362
 #: templates/listings/listing_create_cars_quick.html:594
@@ -5652,12 +6249,18 @@ msgid "Street, house number"
 msgstr "Đường, số nhà"
 
 #: templates/listings/boats_listing_create.html:409
+#, fuzzy
 msgid "By submitting, I agree to the Terms and Conditions and Privacy Policy"
 msgstr ""
+"Bằng cách gửi biểu mẫu, tôi đồng ý với Điều khoản và Điều kiện cũng như "
+"Chính sách Bảo mật."
 
 #: templates/listings/boats_listing_create.html:421
+#, fuzzy
 msgid "Not all required fields are filled in. These fields are marked in red."
 msgstr ""
+"Không phải tất cả các trường bắt buộc đều được điền đầy đủ. Những trường này"
+" được đánh dấu màu đỏ."
 
 #: templates/listings/boats_listing_create.html:441
 #: templates/listings/listing_create.html:748
@@ -5714,8 +6317,9 @@ msgstr "Không tìm thấy ID tin đăng"
 #: templates/listings/listing_create_cars_quick.html:1658
 #: templates/listings/moto_part_create.html:425
 #: templates/listings/motorcycle_create.html:502
+#, fuzzy
 msgid "Preparing photos..."
-msgstr ""
+msgstr "Đang chuẩn bị ảnh..."
 
 #: templates/listings/boats_listing_create.html:835
 #: templates/listings/boats_listing_create.html:836
@@ -5879,9 +6483,9 @@ msgstr ""
 
 #: templates/listings/car_for_parts_create.html:269
 #: templates/listings/truck_for_parts_create.html:202
-#, python-format
+#, python-format, fuzzy
 msgid "(%(count)s / 36 — drag to reorder, click to enlarge)"
-msgstr ""
+msgstr "(%(count)s / 36 — kéo để sắp xếp lại, nhấp chuột để phóng to)"
 
 #: templates/listings/car_for_parts_create.html:295
 #: templates/listings/listing_create.html:273
@@ -6154,18 +6758,18 @@ msgid "Vehicle Details"
 msgstr "Thông tin chi tiết về xe"
 
 #: templates/listings/listing_create.html:28
-#, python-format
+#, python-format, fuzzy
 msgid "Editing: %(brand)s %(model)s"
-msgstr ""
+msgstr "Chỉnh sửa: %(brand)s %(model)s"
 
 #: templates/listings/listing_create.html:34
 msgid "Create New Listing"
 msgstr "Tạo tin đăng mới"
 
 #: templates/listings/listing_create.html:35
-#, python-format
+#, python-format, fuzzy
 msgid "Step %(current)s of %(total)s"
-msgstr ""
+msgstr "Bước %(current)s của %(total)s"
 
 #: templates/listings/listing_create.html:54
 #: templates/listings/listing_create.html:848
@@ -6296,9 +6900,9 @@ msgid "Already uploaded"
 msgstr "Đã tải lên"
 
 #: templates/listings/listing_create.html:243
-#, python-format
+#, python-format, fuzzy
 msgid "(%(count)s / 40 — click to enlarge, drag to reorder)"
-msgstr ""
+msgstr "(%(count)s / 40 — nhấp chuột để phóng to, kéo để sắp xếp lại)"
 
 #: templates/listings/listing_create.html:270
 msgid "Add more photos"
@@ -6513,9 +7117,9 @@ msgid "Defects is required"
 msgstr "Cần có lỗi."
 
 #: templates/listings/listing_create_cars_quick.html:22
-#, python-format
+#, python-format, fuzzy
 msgid "Edit listing: %(brand)s %(model)s"
-msgstr ""
+msgstr "Chỉnh sửa danh sách: %(brand)s %(model)s"
 
 #: templates/listings/listing_create_cars_quick.html:24
 msgid "New listing: Cars"
@@ -6911,12 +7515,14 @@ msgstr ""
 "tục và điều kiện xuất khẩu."
 
 #: templates/listings/listing_detail.html:1156
+#, fuzzy
 msgid "cars available"
-msgstr ""
+msgstr "xe có sẵn"
 
 #: templates/listings/listing_detail.html:1162
+#, fuzzy
 msgid "Browse all listings"
-msgstr ""
+msgstr "Xem tất cả danh sách"
 
 #: templates/listings/listing_detail.html:1181
 msgid "Click to copy"
@@ -6963,8 +7569,9 @@ msgid "Report"
 msgstr "Báo cáo"
 
 #: templates/listings/listing_detail.html:1238
+#, fuzzy
 msgid "Listing ID"
-msgstr ""
+msgstr "Mã số niêm yết"
 
 #: templates/listings/listing_detail.html:1243
 #, python-format
@@ -7516,20 +8123,24 @@ msgid "Loading..."
 msgstr "Đang tải..."
 
 #: templates/listings/listing_list_v2.html:249
+#, fuzzy
 msgid "V2 preview — autogidas style sidebar"
-msgstr ""
+msgstr "Bản xem trước V2 — thanh bên kiểu autogidas"
 
 #: templates/listings/listing_list_v2.html:250
+#, fuzzy
 msgid "Switch back to V1"
-msgstr ""
+msgstr "Chuyển lại sang phiên bản V1"
 
 #: templates/listings/listing_list_v2.html:275
+#, fuzzy
 msgid "subcategories"
-msgstr ""
+msgstr "tiểu danh mục"
 
 #: templates/listings/listing_list_v2.html:284
+#, fuzzy
 msgid "No subcategories"
-msgstr ""
+msgstr "Không có danh mục phụ"
 
 #: templates/listings/listing_list_v2.html:304
 msgid "Price max"
@@ -7543,12 +8154,14 @@ msgid_plural "%(counter)s ads"
 msgstr[0] ""
 
 #: templates/listings/listing_list_v2.html:374
+#, fuzzy
 msgid "No ads found"
-msgstr ""
+msgstr "Không tìm thấy quảng cáo nào"
 
 #: templates/listings/listing_list_v2.html:375
+#, fuzzy
 msgid "Try selecting a different category or adjusting filters"
-msgstr ""
+msgstr "Hãy thử chọn một danh mục khác hoặc điều chỉnh bộ lọc."
 
 #: templates/listings/listing_select_plan.html:5
 #: templates/listings/listing_select_plan.html:422
@@ -7665,8 +8278,9 @@ msgid "Total"
 msgstr "Tổng cộng"
 
 #: templates/listings/listing_select_plan.html:230
+#, fuzzy
 msgid "Pay with card"
-msgstr ""
+msgstr "Thanh toán bằng thẻ"
 
 #: templates/listings/listing_select_plan.html:237
 msgid "By submitting your listing, you agree to SellCar"
@@ -7686,9 +8300,12 @@ msgid "privacy policy"
 msgstr "chính sách bảo mật"
 
 #: templates/listings/listing_select_plan.html:244
+#, fuzzy
 msgid ""
 "Secure payment via Stripe. You'll be redirected to a secure checkout page."
 msgstr ""
+"Thanh toán an toàn qua Stripe. Bạn sẽ được chuyển hướng đến trang thanh toán"
+" an toàn."
 
 #: templates/listings/listing_select_plan.html:288
 msgid "Back to edit listing"
@@ -7740,49 +8357,60 @@ msgstr ""
 
 #: templates/listings/listing_services_order.html:5
 #: templates/listings/listing_services_order.html:16
+#, fuzzy
 msgid "Order extra services"
-msgstr ""
+msgstr "Đặt thêm dịch vụ"
 
 #: templates/listings/listing_services_order.html:13
+#, fuzzy
 msgid "Back to my ads"
-msgstr ""
+msgstr "Quay lại quảng cáo của tôi"
 
 #: templates/listings/listing_services_order.html:19
+#, fuzzy
 msgid ""
 "Boost your active listing with stars, highlight, or featured placement."
 msgstr ""
+"Tăng cường độ hiển thị tin đăng của bạn bằng cách gắn sao, làm nổi bật hoặc "
+"hiển thị ở vị trí nổi bật."
 
 #: templates/listings/listing_services_order.html:48
+#, fuzzy
 msgid "Listing is active"
-msgstr ""
+msgstr "Tin đăng đang hoạt động"
 
 #: templates/listings/listing_services_order.html:65
 #: templates/listings/listing_services_order.html:89
 #: templates/listings/listing_services_order.html:108
+#, fuzzy
 msgid "Currently:"
-msgstr ""
+msgstr "Hiện nay:"
 
 #: templates/listings/listing_services_order.html:65
 #: templates/listings/listing_services_order.html:89
 #: templates/listings/listing_services_order.html:108
+#, fuzzy
 msgid "d. left"
-msgstr ""
+msgstr "d. bên trái"
 
 #: templates/listings/listing_services_order.html:129
+#, fuzzy
 msgid "Wallet balance"
-msgstr ""
+msgstr "Số dư ví"
 
 #: templates/listings/listing_services_order.html:153
 msgid "Insufficient wallet balance. Please top up."
 msgstr "Số dư trong ví không đủ. Vui lòng nạp tiền."
 
 #: templates/listings/listing_services_order.html:157
+#, fuzzy
 msgid "Cost will be deducted from your wallet balance."
-msgstr ""
+msgstr "Chi phí sẽ được trừ vào số dư trong ví của bạn."
 
 #: templates/listings/listing_services_order.html:247
+#, fuzzy
 msgid "Insufficient balance"
-msgstr ""
+msgstr "Số dư không đủ"
 
 #: templates/listings/listing_stats.html:4
 #: templates/listings/my_listings.html:302
@@ -7842,14 +8470,14 @@ msgid "views / impressions"
 msgstr "quan điểm / ấn tượng"
 
 #: templates/listings/listing_stats.html:95
-#, python-format
+#, python-format, fuzzy
 msgid "%(rate)s%% save rate"
-msgstr ""
+msgstr "%(rate)s%% tỷ lệ tiết kiệm"
 
 #: templates/listings/listing_stats.html:106
-#, python-format
+#, python-format, fuzzy
 msgid "Your listing position: %(pos)s / %(total)s"
-msgstr ""
+msgstr "Vị trí hiển thị tin đăng của bạn: %(pos)s / %(total)s"
 
 #: templates/listings/listing_stats.html:110
 msgid ""
@@ -7914,9 +8542,10 @@ msgid "Listing published"
 msgstr "Thông tin đăng tải"
 
 #: templates/listings/listing_success.html:60
-#, python-format
+#, python-format, fuzzy
 msgid "Listing valid for <strong class=\"text-gray-900\">%(days)s days</strong>"
 msgstr ""
+"Thời hạn đăng tin là <strong class=\"text-gray-900\">%(days)s ngày</strong>"
 
 #: templates/listings/listing_success.html:65
 #, python-format
@@ -7971,11 +8600,13 @@ msgid "You've reached your listing limit"
 msgstr "Bạn đã đạt đến giới hạn số lượng tin đăng."
 
 #: templates/listings/listing_upgrade.html:14
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "You currently have %(count)s of %(limit)s active listings. Choose an option "
 "below to add more."
 msgstr ""
+"Hiện tại bạn có %(count)s trong số %(limit)s tin đăng đang hoạt động. Chọn "
+"một tùy chọn bên dưới để thêm tin."
 
 #: templates/listings/listing_upgrade.html:24
 msgid "Pay per listing"
@@ -8025,9 +8656,9 @@ msgstr "mỗi tháng"
 
 #: templates/listings/listing_upgrade.html:56
 #: templates/listings/listing_upgrade.html:77
-#, python-format
+#, python-format, fuzzy
 msgid "%(count)s active listings"
-msgstr ""
+msgstr "%(count)s tin đăng đang hoạt động"
 
 #: templates/listings/listing_upgrade.html:58
 msgid "All features included"
@@ -8059,24 +8690,29 @@ msgid "Back to my listings"
 msgstr "Trở lại danh sách của tôi"
 
 #: templates/listings/moto_part_create.html:4
+#, fuzzy
 msgid "Sell Moto Part"
-msgstr ""
+msgstr "Bán phụ tùng xe máy"
 
 #: templates/listings/moto_part_create.html:16
+#, fuzzy
 msgid "Edit motorcycle part"
-msgstr ""
+msgstr "Chỉnh sửa phụ tùng xe máy"
 
 #: templates/listings/moto_part_create.html:16
+#, fuzzy
 msgid "Motorcycle part"
-msgstr ""
+msgstr "Phụ tùng xe máy"
 
 #: templates/listings/moto_part_create.html:55
+#, fuzzy
 msgid "Part name"
-msgstr ""
+msgstr "Tên bộ phận"
 
 #: templates/listings/moto_part_create.html:62
+#, fuzzy
 msgid "Part code"
-msgstr ""
+msgstr "Mã bộ phận"
 
 #: templates/listings/moto_part_create.html:96
 #: templates/listings/moto_parts_advanced.html:65
@@ -8087,59 +8723,74 @@ msgid "Motorcycle type"
 msgstr "Loại xe máy"
 
 #: templates/listings/moto_part_create.html:116
+#, fuzzy
 msgid "Engine displacement (cm³)"
-msgstr ""
+msgstr "Dung tích xi lanh (cm³)"
 
 #: templates/listings/moto_part_create.html:117
+#, fuzzy
 msgid "e.g. 1300"
-msgstr ""
+msgstr "ví dụ: 1300"
 
 #: templates/listings/moto_part_create.html:140
+#, fuzzy
 msgid "Part type"
-msgstr ""
+msgstr "Loại bộ phận"
 
 #: templates/listings/moto_part_create.html:155
+#, fuzzy
 msgid "No part types configured yet."
-msgstr ""
+msgstr "Chưa có loại linh kiện nào được cấu hình."
 
 #: templates/listings/moto_part_create.html:162
+#, fuzzy
 msgid "Comments"
-msgstr ""
+msgstr "Bình luận"
 
 #: templates/listings/moto_part_create.html:163
+#, fuzzy
 msgid "Describe the part, defects, condition, compatibility, etc."
 msgstr ""
+"Mô tả chi tiết bộ phận, các khuyết điểm, tình trạng, khả năng tương thích, "
+"v.v."
 
 #: templates/listings/moto_part_create.html:170
+#, fuzzy
 msgid "(max 36)"
-msgstr ""
+msgstr "(tối đa 36)"
 
 #: templates/listings/moto_part_create.html:289
+#, fuzzy
 msgid "I agree to the terms and conditions"
-msgstr ""
+msgstr "Tôi đồng ý với các điều khoản và điều kiện."
 
 #: templates/listings/moto_part_create.html:343
+#, fuzzy
 msgid "Part name is required"
-msgstr ""
+msgstr "Tên bộ phận là bắt buộc"
 
 #: templates/listings/moto_part_create.html:350
+#, fuzzy
 msgid "You must agree to the terms"
-msgstr ""
+msgstr "Bạn phải đồng ý với các điều khoản"
 
 #: templates/listings/moto_parts_advanced.html:5
+#, fuzzy
 msgid "Motorcycle Parts Search"
-msgstr ""
+msgstr "Tìm kiếm phụ tùng xe máy"
 
 #: templates/listings/moto_parts_advanced.html:54
+#, fuzzy
 msgid "Motorcycle parts search"
-msgstr ""
+msgstr "Tìm kiếm phụ tùng xe máy"
 
 #: templates/listings/moto_parts_advanced.html:60
 #: templates/listings/moto_parts_browse.html:110
 #: templates/listings/truck_parts_advanced.html:60
 #: templates/listings/truck_parts_browse.html:110
+#, fuzzy
 msgid "Text search / Part code"
-msgstr ""
+msgstr "Tìm kiếm văn bản / Mã phụ tùng"
 
 #: templates/listings/moto_parts_advanced.html:90
 #: templates/listings/moto_parts_browse.html:139
@@ -8150,55 +8801,65 @@ msgstr "Dung tích động cơ (cm³)"
 #: templates/listings/moto_parts_browse.html:179
 #: templates/listings/truck_parts_advanced.html:130
 #: templates/listings/truck_parts_browse.html:181
+#, fuzzy
 msgid "1 week"
-msgstr ""
+msgstr "1 tuần"
 
 #: templates/listings/moto_parts_advanced.html:129
 #: templates/listings/moto_parts_browse.html:180
 #: templates/listings/truck_parts_advanced.html:131
 #: templates/listings/truck_parts_browse.html:182
+#, fuzzy
 msgid "1 month"
-msgstr ""
+msgstr "1 tháng"
 
 #: templates/listings/moto_parts_advanced.html:141
 #: templates/listings/moto_parts_browse.html:192
+#, fuzzy
 msgid "Being dismantled for parts"
-msgstr ""
+msgstr "Đang được tháo dỡ để lấy phụ tùng."
 
 #: templates/listings/moto_parts_browse.html:5
 #: templates/listings/moto_parts_browse.html:97
+#, fuzzy
 msgid "Motorcycle parts"
-msgstr ""
+msgstr "Phụ tùng xe máy"
 
 #: templates/listings/moto_parts_browse.html:98
 #: templates/listings/truck_parts_browse.html:98
+#, fuzzy
 msgid "listings found"
-msgstr ""
+msgstr "danh sách được tìm thấy"
 
 #: templates/listings/moto_parts_browse.html:165
 #: templates/listings/truck_parts_advanced.html:142
 #: templates/listings/truck_parts_browse.html:167
+#, fuzzy
 msgid "State (US)"
-msgstr ""
+msgstr "Tiểu bang (Hoa Kỳ)"
 
 #: templates/listings/motogear_advanced.html:3
 #: templates/listings/partials/search_panel.html:73
 #: templates/listings/partials/search_panel.html:538
+#, fuzzy
 msgid "Apranga, šalmai, aksesuarai"
-msgstr ""
+msgstr "Quần áo, mũ bảo hiểm, phụ kiện"
 
 #: templates/listings/motogear_advanced.html:47
+#, fuzzy
 msgid "Aprangos, šalmų, aksesuarų paieška"
-msgstr ""
+msgstr "Tìm kiếm quần áo, mũ bảo hiểm, phụ kiện"
 
 #: templates/listings/motogear_advanced.html:48
+#, fuzzy
 msgid "Išvalyti paiešką"
-msgstr ""
+msgstr "Xóa tìm kiếm"
 
 #: templates/listings/motogear_advanced.html:53
 #: templates/listings/partials/search_panel.html:544
+#, fuzzy
 msgid "Tipas"
-msgstr ""
+msgstr "Kiểu"
 
 #: templates/listings/motogear_advanced.html:55
 #: templates/listings/motogear_advanced.html:80
@@ -8247,42 +8908,50 @@ msgstr "Tất cả"
 
 #: templates/listings/motogear_advanced.html:56
 #: templates/listings/partials/search_panel.html:548
+#, fuzzy
 msgid "Šalmai"
-msgstr ""
+msgstr "Mũ bảo hiểm"
 
 #: templates/listings/motogear_advanced.html:57
 #: templates/listings/partials/search_panel.html:549
+#, fuzzy
 msgid "Striukės"
-msgstr ""
+msgstr "Áo khoác"
 
 #: templates/listings/motogear_advanced.html:58
 #: templates/listings/partials/search_panel.html:550
+#, fuzzy
 msgid "Kelnės"
-msgstr ""
+msgstr "Quần dài"
 
 #: templates/listings/motogear_advanced.html:59
 #: templates/listings/partials/search_panel.html:551
+#, fuzzy
 msgid "Kombinezonai"
-msgstr ""
+msgstr "Bộ áo liền quần"
 
 #: templates/listings/motogear_advanced.html:60
 #: templates/listings/partials/search_panel.html:552
+#, fuzzy
 msgid "Pirštinės"
-msgstr ""
+msgstr "Găng tay"
 
 #: templates/listings/motogear_advanced.html:61
 #: templates/listings/partials/search_panel.html:553
+#, fuzzy
 msgid "Batai"
-msgstr ""
+msgstr "Đôi giày"
 
 #: templates/listings/motogear_advanced.html:62
 #: templates/listings/partials/search_panel.html:554
+#, fuzzy
 msgid "Apsaugos"
-msgstr ""
+msgstr "Sự bảo vệ"
 
 #: templates/listings/motogear_advanced.html:63
+#, fuzzy
 msgid "Krepšiai, kuprinės"
-msgstr ""
+msgstr "Túi xách, ba lô"
 
 #: templates/listings/motogear_advanced.html:69
 msgid "Kaina, $"
@@ -8337,127 +9006,156 @@ msgstr "Đến"
 
 #: templates/listings/motogear_advanced.html:78
 #: templates/listings/partials/search_panel.html:584
+#, fuzzy
 msgid "Vyriškas / moteriškas"
-msgstr ""
+msgstr "Nam/Nữ"
 
 #: templates/listings/motogear_advanced.html:81
 #: templates/listings/partials/search_panel.html:588
+#, fuzzy
 msgid "Vyriškas"
-msgstr ""
+msgstr "Nam giới"
 
 #: templates/listings/motogear_advanced.html:82
 #: templates/listings/partials/search_panel.html:589
+#, fuzzy
 msgid "Moteriškas"
-msgstr ""
+msgstr "Nữ tính"
 
 #: templates/listings/motogear_advanced.html:83
+#, fuzzy
 msgid "Vaikiškas"
-msgstr ""
+msgstr "Trẻ con"
 
 #: templates/listings/motogear_advanced.html:90
+#, fuzzy
 msgid "Dydis"
-msgstr ""
+msgstr "Kích cỡ"
 
 #: templates/listings/motogear_advanced.html:101
+#, fuzzy
 msgid "Vienas dydis"
-msgstr ""
+msgstr "Một kích cỡ"
 
 #: templates/listings/motogear_advanced.html:102
+#, fuzzy
 msgid "Skaitinis"
-msgstr ""
+msgstr "Số"
 
 #: templates/listings/motogear_advanced.html:108
+#, fuzzy
 msgid "Gamintojas"
-msgstr ""
+msgstr "Nhà sản xuất"
 
 #: templates/listings/motogear_advanced.html:116
 #: templates/listings/partials/search_panel.html:595
+#, fuzzy
 msgid "Pagamintas iš"
-msgstr ""
+msgstr "Được làm từ"
 
 #: templates/listings/motogear_advanced.html:119
+#, fuzzy
 msgid "Odos"
-msgstr ""
+msgstr "Da"
 
 #: templates/listings/motogear_advanced.html:120
+#, fuzzy
 msgid "Tekstilės"
-msgstr ""
+msgstr "Dệt may"
 
 #: templates/listings/motogear_advanced.html:121
+#, fuzzy
 msgid "Oda + tekstilė"
-msgstr ""
+msgstr "Da + vải"
 
 #: templates/listings/motogear_advanced.html:122
+#, fuzzy
 msgid "Sintetikos"
-msgstr ""
+msgstr "Tổng hợp"
 
 #: templates/listings/motogear_advanced.html:123
+#, fuzzy
 msgid "Tinklelio"
-msgstr ""
+msgstr "Lưới"
 
 #: templates/listings/motogear_advanced.html:129
+#, fuzzy
 msgid "Naudota / nauja"
-msgstr ""
+msgstr "Đã qua sử dụng / mới"
 
 #: templates/listings/motogear_advanced.html:132
+#, fuzzy
 msgid "Nauja"
-msgstr ""
+msgstr "Mới"
 
 #: templates/listings/motogear_advanced.html:133
+#, fuzzy
 msgid "Naudota"
-msgstr ""
+msgstr "Đã sử dụng"
 
 #: templates/listings/motogear_advanced.html:134
+#, fuzzy
 msgid "Su defektais"
-msgstr ""
+msgstr "Có khuyết điểm"
 
 #: templates/listings/motogear_advanced.html:139
+#, fuzzy
 msgid "Tipo detalė"
-msgstr ""
+msgstr "Chi tiết loại"
 
 #: templates/listings/motogear_advanced.html:146
 msgid "Spalva"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:149
+#, fuzzy
 msgid "Juoda"
-msgstr ""
+msgstr "Đen"
 
 #: templates/listings/motogear_advanced.html:150
+#, fuzzy
 msgid "Balta"
-msgstr ""
+msgstr "Trắng"
 
 #: templates/listings/motogear_advanced.html:151
+#, fuzzy
 msgid "Raudona"
-msgstr ""
+msgstr "Màu đỏ"
 
 #: templates/listings/motogear_advanced.html:152
+#, fuzzy
 msgid "Mėlyna"
-msgstr ""
+msgstr "Màu xanh da trời"
 
 #: templates/listings/motogear_advanced.html:153
+#, fuzzy
 msgid "Žalia / chaki"
-msgstr ""
+msgstr "Xanh lá cây / kaki"
 
 #: templates/listings/motogear_advanced.html:154
+#, fuzzy
 msgid "Geltona / auksinė"
-msgstr ""
+msgstr "Vàng/vàng kim"
 
 #: templates/listings/motogear_advanced.html:155
+#, fuzzy
 msgid "Oranžinė"
-msgstr ""
+msgstr "Quả cam"
 
 #: templates/listings/motogear_advanced.html:156
+#, fuzzy
 msgid "Violetinė"
-msgstr ""
+msgstr "Tím"
 
 #: templates/listings/motogear_advanced.html:157
+#, fuzzy
 msgid "Ruda / smėlio"
-msgstr ""
+msgstr "Nâu/be"
 
 #: templates/listings/motogear_advanced.html:158
+#, fuzzy
 msgid "Marga"
-msgstr ""
+msgstr "Nhiều"
 
 #: templates/listings/motogear_advanced.html:164
 #: templates/listings/partials/search_panel.html:313
@@ -8489,8 +9187,9 @@ msgid "Visos"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:181
+#, fuzzy
 msgid "Valstija (JAV)"
-msgstr ""
+msgstr "Tiểu bang (Hoa Kỳ)"
 
 #: templates/listings/motogear_advanced.html:189
 #: templates/listings/partials/search_panel.html:605
@@ -8499,24 +9198,29 @@ msgid "Miestas"
 msgstr ""
 
 #: templates/listings/motogear_advanced.html:194
+#, fuzzy
 msgid "Rodyti ne senesnius nei"
-msgstr ""
+msgstr "Hiển thị không quá tuổi"
 
 #: templates/listings/motogear_advanced.html:197
+#, fuzzy
 msgid "24 valandos"
-msgstr ""
+msgstr "24 giờ"
 
 #: templates/listings/motogear_advanced.html:198
+#, fuzzy
 msgid "3 dienos"
-msgstr ""
+msgstr "3 ngày"
 
 #: templates/listings/motogear_advanced.html:199
+#, fuzzy
 msgid "7 dienos"
-msgstr ""
+msgstr "7 ngày"
 
 #: templates/listings/motogear_advanced.html:200
+#, fuzzy
 msgid "30 dienų"
-msgstr ""
+msgstr "30 ngày"
 
 #: templates/listings/motogear_advanced.html:205
 #: templates/listings/partials/search_panel.html:360
@@ -8536,12 +9240,14 @@ msgstr ""
 #: templates/listings/motogear_advanced.html:206
 #: templates/listings/partials/search_panel.html:517
 #: templates/listings/partials/search_panel.html:839
+#, fuzzy
 msgid "Ieškoti..."
-msgstr ""
+msgstr "Tìm kiếm..."
 
 #: templates/listings/motogear_advanced.html:211
+#, fuzzy
 msgid "Ypatumai"
-msgstr ""
+msgstr "Đặc trưng"
 
 #: templates/listings/motogear_advanced.html:220
 #: templates/listings/partials/search_panel.html:363
@@ -8726,8 +9432,9 @@ msgid "Browse Moto Gear"
 msgstr "Tìm kiếm phụ kiện xe máy"
 
 #: templates/listings/motogear_list.html:91
+#, fuzzy
 msgid "Moto Gear"
-msgstr ""
+msgstr "Đồ bảo hộ mô tô"
 
 #: templates/listings/motogear_list.html:107
 #: templates/listings/motorcycles_list.html:206
@@ -8832,8 +9539,9 @@ msgstr ""
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
+#, fuzzy
 msgid "Edit Motorcycle Listing"
-msgstr ""
+msgstr "Chỉnh sửa thông tin xe máy"
 
 #: templates/listings/motorcycle_create.html:4
 #: templates/listings/motorcycle_create.html:12
@@ -9245,26 +9953,27 @@ msgid_plural "%(counter)s motorcycle listings found"
 msgstr[0] ""
 
 #: templates/listings/motorcycles_list.html:550
+#, fuzzy
 msgid "Cooling"
-msgstr ""
+msgstr "Làm mát"
 
 #: templates/listings/motorcycles_list.html:561
 msgid "Engine type"
 msgstr "Loại động cơ"
 
 #: templates/listings/my_listings.html:61
-#, python-format
+#, python-format, fuzzy
 msgid "Renew all %(count)s active ads to the top?"
-msgstr ""
+msgstr "Làm mới tất cả %(count)s quảng cáo đang hoạt động lên đầu trang?"
 
 #: templates/listings/my_listings.html:63
 msgid "Renew all"
 msgstr "Gia hạn tất cả"
 
 #: templates/listings/my_listings.html:64
-#, python-format
+#, python-format, fuzzy
 msgid "%(count)s active ads jump to top of the list"
-msgstr ""
+msgstr "%(count)s Quảng cáo đang hoạt động được đưa lên đầu danh sách"
 
 #: templates/listings/my_listings.html:73
 msgid "Create new"
@@ -9291,8 +10000,9 @@ msgid "Recently renewed - can renew again after 1 hour"
 msgstr "Mới được gia hạn gần đây - có thể gia hạn lại sau 1 giờ."
 
 #: templates/listings/my_listings.html:268
+#, fuzzy
 msgid "Order services"
-msgstr ""
+msgstr "Đặt dịch vụ"
 
 #: templates/listings/my_listings.html:287
 msgid "Extend"
@@ -9322,65 +10032,73 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/listings/my_listings.html:408
-#, python-format
+#, python-format, fuzzy
 msgid "Auto-delete in %(days)sd"
-msgstr ""
+msgstr "Tự động xóa trong %(days)sd"
 
 #: templates/listings/my_listings.html:504
 msgid "Price not set"
 msgstr "Giá chưa được ấn định."
 
 #: templates/listings/my_listings.html:556
+#, fuzzy
 msgid "Ad is <strong>inactive</strong>"
-msgstr ""
+msgstr "Quảng cáo <strong>không hoạt động</strong>"
 
 #: templates/listings/my_listings.html:560
 msgid "Activate"
 msgstr "Kích hoạt"
 
 #: templates/listings/my_listings.html:581
+#, fuzzy
 msgid "Ad is"
-msgstr ""
+msgstr "Quảng cáo là"
 
 #: templates/listings/my_listings.html:582
 msgid "inactive"
 msgstr "không hoạt động"
 
 #: templates/listings/my_listings.html:603
+#, fuzzy
 msgid "No ads in this category"
-msgstr ""
+msgstr "Không có quảng cáo nào trong danh mục này"
 
 #: templates/listings/my_listings.html:603
+#, fuzzy
 msgid "No ads yet"
-msgstr ""
+msgstr "Chưa có quảng cáo nào."
 
 #: templates/listings/my_listings.html:607
 msgid "Try selecting \\"
 msgstr "Hãy thử chọn \\"
 
 #: templates/listings/my_listings.html:609
+#, fuzzy
 msgid "Create your first ad to start selling."
-msgstr ""
+msgstr "Hãy tạo quảng cáo đầu tiên để bắt đầu bán hàng."
 
 #: templates/listings/my_listings.html:614
 msgid "Create ad"
 msgstr "Tạo quảng cáo"
 
 #: templates/listings/my_listings.html:632
+#, fuzzy
 msgid "Are you sure you want to delete this ad?"
-msgstr ""
+msgstr "Bạn có chắc chắn muốn xóa quảng cáo này không?"
 
 #: templates/listings/my_listings.html:642
 msgid "I sold it"
 msgstr "Tôi đã bán nó."
 
 #: templates/listings/my_listings.html:661
+#, fuzzy
 msgid "Mark ad with \\"
-msgstr ""
+msgstr "Đánh dấu quảng cáo bằng \\"
 
 #: templates/listings/my_listings.html:684
+#, fuzzy
 msgid "Delete ad"
-msgstr ""
+msgstr "Xóa quảng cáo"
 
 #: templates/listings/my_listings.html:702
 msgid "Are you sure you want to delete this listing?"
@@ -9419,20 +10137,23 @@ msgstr ""
 #: templates/listings/partials/_sp_parts_brand.html:21
 #: templates/listings/partials/search_panel.html:268
 #: templates/listings/partials/search_panel.html:1258
+#, fuzzy
 msgid "Top markės"
-msgstr ""
+msgstr "Các thương hiệu hàng đầu"
 
 #: templates/listings/partials/_sp_parts_brand.html:32
 #: templates/listings/partials/search_panel.html:279
 #: templates/listings/partials/search_panel.html:1269
+#, fuzzy
 msgid "Tik markės su skelbimais."
-msgstr ""
+msgstr "Chỉ những thương hiệu có quảng cáo."
 
 #: templates/listings/partials/_sp_parts_brand.html:33
 #: templates/listings/partials/search_panel.html:280
 #: templates/listings/partials/search_panel.html:1270
+#, fuzzy
 msgid "Rodyti visus"
-msgstr ""
+msgstr "Hiển thị tất cả"
 
 #: templates/listings/partials/_sp_parts_brand.html:39
 #: templates/listings/partials/search_panel.html:285
@@ -9490,51 +10211,61 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:80
 #: templates/listings/partials/search_panel.html:636
+#, fuzzy
 msgid "Padangos motociklams"
-msgstr ""
+msgstr "Lốp xe máy"
 
 #: templates/listings/partials/search_panel.html:87
 #: templates/listings/partials/search_panel.html:723
+#, fuzzy
 msgid "Padangos keturračiams"
-msgstr ""
+msgstr "Lốp xe ATV"
 
 #: templates/listings/partials/search_panel.html:107
+#, fuzzy
 msgid "Padangos"
-msgstr ""
+msgstr "Lốp xe"
 
 #: templates/listings/partials/search_panel.html:113
 msgid "Ratlankiai"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:164
+#, fuzzy
 msgid "Lėktuvai"
-msgstr ""
+msgstr "Máy bay"
 
 #: templates/listings/partials/search_panel.html:168
+#, fuzzy
 msgid "Lėktuvų dalys"
-msgstr ""
+msgstr "Phụ tùng máy bay"
 
 #: templates/listings/partials/search_panel.html:175
+#, fuzzy
 msgid "Robotai"
-msgstr ""
+msgstr "Robot"
 
 #: templates/listings/partials/search_panel.html:179
+#, fuzzy
 msgid "Robotų dalys"
-msgstr ""
+msgstr "Các bộ phận robot"
 
 #: templates/listings/partials/search_panel.html:186
+#, fuzzy
 msgid "Dronai"
-msgstr ""
+msgstr "Máy bay không người lái"
 
 #: templates/listings/partials/search_panel.html:190
+#, fuzzy
 msgid "Dronų dalys"
-msgstr ""
+msgstr "Phụ tùng máy bay không người lái"
 
 #: templates/listings/partials/search_panel.html:248
 #: templates/listings/partials/search_panel.html:860
 #: templates/search/_panel_cars.html:4
+#, fuzzy
 msgid "Paieška"
-msgstr ""
+msgstr "Tìm kiếm"
 
 #: templates/listings/partials/search_panel.html:337
 #: templates/listings/partials/search_panel.html:1157
@@ -9548,8 +10279,9 @@ msgid "Kėbulo tipas"
 msgstr ""
 
 #: templates/listings/partials/search_panel.html:369
+#, fuzzy
 msgid "Skelbimas su VIN"
-msgstr ""
+msgstr "Quảng cáo có số VIN"
 
 #: templates/listings/partials/search_panel.html:378
 #: templates/listings/partials/search_panel.html:525
@@ -9560,13 +10292,15 @@ msgstr ""
 #: templates/listings/partials/search_panel.html:1178
 #: templates/listings/partials/search_panel.html:1229
 #: templates/listings/partials/search_panel.html:1311
+#, fuzzy
 msgid "Išplėstinė paieška"
-msgstr ""
+msgstr "Tìm kiếm nâng cao"
 
 #: templates/listings/partials/search_panel.html:385
 #: templates/listings/partials/search_panel.html:1626
+#, fuzzy
 msgid "Išsaugoti paiešką"
-msgstr ""
+msgstr "Lưu tìm kiếm"
 
 #: templates/listings/partials/search_panel.html:392
 #: templates/listings/partials/search_panel.html:530
@@ -9592,63 +10326,76 @@ msgid "Visi modeliai"
 msgstr "Tất cả mẫu xe"
 
 #: templates/listings/partials/search_panel.html:471
+#, fuzzy
 msgid "Darbinis tūris cm³"
-msgstr ""
+msgstr "Thể tích dịch chuyển cm³"
 
 #: templates/listings/partials/search_panel.html:498
+#, fuzzy
 msgid "Motociklo tipas"
-msgstr ""
+msgstr "Loại xe máy"
 
 #: templates/listings/partials/search_panel.html:503
+#, fuzzy
 msgid "Turistiniai"
-msgstr ""
+msgstr "Du khách"
 
 #: templates/listings/partials/search_panel.html:504
+#, fuzzy
 msgid "Cruiser / Chopper"
-msgstr ""
+msgstr "Xe Cruiser / Xe Chopper"
 
 #: templates/listings/partials/search_panel.html:505
+#, fuzzy
 msgid "Naked / Street"
-msgstr ""
+msgstr "Khỏa thân / Đường phố"
 
 #: templates/listings/partials/search_panel.html:506
+#, fuzzy
 msgid "Enduro / Cross"
-msgstr ""
+msgstr "Enduro / Cross"
 
 #: templates/listings/partials/search_panel.html:507
+#, fuzzy
 msgid "Motoroleriai"
-msgstr ""
+msgstr "Xe tay ga"
 
 #: templates/listings/partials/search_panel.html:508
+#, fuzzy
 msgid "Mopedai"
-msgstr ""
+msgstr "Xe máy"
 
 #: templates/listings/partials/search_panel.html:509
+#, fuzzy
 msgid "Keturračiai (ATV)"
-msgstr ""
+msgstr "Xe địa hình bốn bánh (ATV)"
 
 #: templates/listings/partials/search_panel.html:555
+#, fuzzy
 msgid "Aksesuarai"
-msgstr ""
+msgstr "Phụ kiện"
 
 #: templates/listings/partials/search_panel.html:644
 #: templates/listings/partials/search_panel.html:731
 #: templates/listings/partials/search_panel.html:885
 #: templates/listings/partials/search_panel.html:996
+#, fuzzy
 msgid "Skersmuo"
-msgstr ""
+msgstr "Đường kính"
 
 #: templates/listings/partials/search_panel.html:657
 #: templates/listings/partials/search_panel.html:743
 #: templates/listings/partials/search_panel.html:901
+#, fuzzy
 msgid "Plotis"
-msgstr ""
+msgstr "Chiều rộng"
 
 #: templates/listings/partials/search_panel.html:672
 #: templates/listings/partials/search_panel.html:757
 #: templates/listings/partials/search_panel.html:918
+#, fuzzy
 msgid "Aukštis"
-msgstr ""
+msgstr "Chiều cao"
 
 #: templates/listings/partials/search_panel.html:807
 msgid "Sunkvežimiai"
@@ -9656,131 +10403,158 @@ msgstr ""
 
 #: templates/listings/partials/search_panel.html:870
 #: templates/listings/partials/search_panel.html:983
+#, fuzzy
 msgid "Paskirtis"
-msgstr ""
+msgstr "Mục đích"
 
 #: templates/listings/partials/search_panel.html:874
 #: templates/listings/partials/search_panel.html:987
+#, fuzzy
 msgid "Lengviesiems"
-msgstr ""
+msgstr "Dành cho hành khách"
 
 #: templates/listings/partials/search_panel.html:875
 #: templates/listings/partials/search_panel.html:988
+#, fuzzy
 msgid "Visureigiams (SUV)"
-msgstr ""
+msgstr "Dành cho xe SUV"
 
 #: templates/listings/partials/search_panel.html:876
 #: templates/listings/partials/search_panel.html:989
+#, fuzzy
 msgid "Mikroautobusams"
-msgstr ""
+msgstr "Dành cho xe buýt nhỏ"
 
 #: templates/listings/partials/search_panel.html:877
 #: templates/listings/partials/search_panel.html:990
+#, fuzzy
 msgid "Sunkvežimiams"
-msgstr ""
+msgstr "Dành cho xe tải"
 
 #: templates/listings/partials/search_panel.html:878
 #: templates/listings/partials/search_panel.html:991
+#, fuzzy
 msgid "Motociklams"
-msgstr ""
+msgstr "Dành cho xe máy"
 
 #: templates/listings/partials/search_panel.html:879
+#, fuzzy
 msgid "Keturračiams"
-msgstr ""
+msgstr "Dành cho xe địa hình bốn bánh"
 
 #: templates/listings/partials/search_panel.html:880
+#, fuzzy
 msgid "Žemės ūkio technikai"
-msgstr ""
+msgstr "Kỹ thuật viên nông nghiệp"
 
 #: templates/listings/partials/search_panel.html:1010
+#, fuzzy
 msgid "Medžiaga"
-msgstr ""
+msgstr "Vật liệu"
 
 #: templates/listings/partials/search_panel.html:1014
+#, fuzzy
 msgid "Lengvojo lydinio"
-msgstr ""
+msgstr "Hợp kim nhẹ"
 
 #: templates/listings/partials/search_panel.html:1015
+#, fuzzy
 msgid "Plieniniai"
-msgstr ""
+msgstr "Thép"
 
 #: templates/listings/partials/search_panel.html:1016
+#, fuzzy
 msgid "Kalti"
-msgstr ""
+msgstr "Phải chịu trách nhiệm"
 
 #: templates/listings/partials/search_panel.html:1021
+#, fuzzy
 msgid "Skylių išdėstymas (PCD)"
-msgstr ""
+msgstr "Bố trí lỗ (PCD)"
 
 #: templates/listings/partials/search_panel.html:1079
+#, fuzzy
 msgid "Vandens transportas"
-msgstr ""
+msgstr "Vận tải đường thủy"
 
 #: templates/listings/partials/search_panel.html:1105
+#, fuzzy
 msgid "Maks."
-msgstr ""
+msgstr "Tối đa."
 
 #: templates/listings/partials/search_panel.html:1170
+#, fuzzy
 msgid "pvz. 06H 145 601 H"
-msgstr ""
+msgstr "ví dụ: 06H 145 601 H"
 
 #: templates/listings/partials/search_panel.html:1208
 #: templates/listings/partials/search_panel.html:1290
+#, fuzzy
 msgid "pvz. detalės kodas"
-msgstr ""
+msgstr "ví dụ: mã bộ phận"
 
 #: templates/listings/partials/search_panel.html:1211
 #: templates/listings/partials/search_panel.html:1293
+#, fuzzy
 msgid "Dalies tipas"
-msgstr ""
+msgstr "Loại bộ phận"
 
 #: templates/listings/partials/search_panel.html:1644
+#, fuzzy
 msgid "Išsaugota"
-msgstr ""
+msgstr "Đã lưu"
 
 #: templates/listings/partials/search_panel.html:1664
 msgid "Kraunama..."
 msgstr "Đang tải..."
 
 #: templates/listings/parts_category_select.html:8
+#, fuzzy
 msgid "Car parts — Select category"
-msgstr ""
+msgstr "Phụ tùng ô tô — Chọn danh mục"
 
 #: templates/listings/parts_category_select.html:28
+#, fuzzy
 msgid "Listing information"
-msgstr ""
+msgstr "Thông tin niêm yết"
 
 #: templates/listings/parts_category_select.html:76
+#, fuzzy
 msgid "Search parts category..."
-msgstr ""
+msgstr "Tìm kiếm theo danh mục phụ tùng..."
 
 #: templates/listings/parts_category_select.html:144
 msgid "Loading…"
 msgstr "Đang tải..."
 
 #: templates/listings/parts_category_select.html:290
+#, fuzzy
 msgid "Error loading."
-msgstr ""
+msgstr "Lỗi khi tải."
 
 #: templates/listings/parts_category_select.html:312
+#, fuzzy
 msgid "No parts available"
-msgstr ""
+msgstr "Không có phụ tùng thay thế."
 
 #: templates/listings/parts_category_select.html:408
+#, fuzzy
 msgid "No matches found"
-msgstr ""
+msgstr "Không tìm thấy kết quả phù hợp"
 
 #: templates/listings/rims_create.html:4
 #: templates/listings/rims_create.html:12
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Rims"
-msgstr ""
+msgstr "Sản phẩm mới: Vành xe"
 
 #: templates/listings/rims_create.html:40
 #: templates/listings/tyres_create.html:43
 #: templates/listings/wheels_create.html:54
+#, fuzzy
 msgid "Enter manufacturer"
-msgstr ""
+msgstr "Nhập nhà sản xuất"
 
 #: templates/listings/rims_create.html:53
 #: templates/listings/tyres_create.html:66
@@ -9788,90 +10562,106 @@ msgstr ""
 #: templates/listings/wheels_create.html:77
 #: templates/listings/wheels_list.html:156
 #: templates/listings/wheels_list.html:290
+#, fuzzy
 msgid "Diameter"
-msgstr ""
+msgstr "Đường kính"
 
 #: templates/listings/rims_create.html:74
 #: templates/listings/tyres_create.html:87
 #: templates/listings/wheels_create.html:98
+#, fuzzy
 msgid "Quantity"
-msgstr ""
+msgstr "Số lượng"
 
 #: templates/listings/rims_create.html:103
 #: templates/listings/wheels_create.html:238
+#, fuzzy
 msgid "Rim details"
-msgstr ""
+msgstr "Chi tiết vành xe"
 
 #: templates/listings/rims_create.html:121
 #: templates/listings/wheels_advanced_search.html:191
 #: templates/listings/wheels_create.html:269
 #: templates/listings/wheels_list.html:190
 #: templates/listings/wheels_list.html:346
+#, fuzzy
 msgid "Bolt count"
-msgstr ""
+msgstr "Số lượng bu lông"
 
 #: templates/listings/rims_create.html:145
 #: templates/listings/wheels_create.html:245
+#, fuzzy
 msgid "Width (J)"
-msgstr ""
+msgstr "Chiều rộng (J)"
 
 #: templates/listings/rims_create.html:157
+#, fuzzy
 msgid "Center bore"
-msgstr ""
+msgstr "Lỗ trung tâm"
 
 #: templates/listings/rims_create.html:171
+#, fuzzy
 msgid "Fits car brands"
-msgstr ""
+msgstr "Phù hợp với các thương hiệu xe hơi"
 
 #: templates/listings/rims_create.html:172
+#, fuzzy
 msgid "e.g. Audi, BMW, VW"
-msgstr ""
+msgstr "Ví dụ: Audi, BMW, VW"
 
 #: templates/listings/rims_create.html:201
 #: templates/listings/tyres_create.html:232
 #: templates/listings/wheels_create.html:313
+#, fuzzy
 msgid "Describe condition, wear, storage, reason for selling..."
-msgstr ""
+msgstr "Mô tả tình trạng, độ hao mòn, cách bảo quản, lý do bán..."
 
 #: templates/listings/rims_create.html:229
 #: templates/listings/tyres_create.html:262
 #: templates/listings/wheels_create.html:343
+#, fuzzy
 msgid "Up to 20 photos. Max size 24MB. JPG, GIF, PNG."
-msgstr ""
+msgstr "Tối đa 20 ảnh. Dung lượng tối đa 24MB. Định dạng JPG, GIF, PNG."
 
 #: templates/listings/rims_create.html:406
 #: templates/listings/tyres_create.html:443
 #: templates/listings/wheels_create.html:573
+#, fuzzy
 msgid "Manufacturer is required"
-msgstr ""
+msgstr "Nhà sản xuất là bắt buộc"
 
 #: templates/listings/rims_create.html:409
 #: templates/listings/tyres_create.html:446
 #: templates/listings/wheels_create.html:576
+#, fuzzy
 msgid "Diameter is required"
-msgstr ""
+msgstr "Cần có đường kính"
 
 #: templates/listings/rims_create.html:418
 #: templates/listings/truck_for_parts_create.html:348
+#, fuzzy
 msgid "Type is required"
-msgstr ""
+msgstr "Nhập liệu là bắt buộc"
 
 #: templates/listings/rims_create.html:419
+#, fuzzy
 msgid "Bolt count is required"
-msgstr ""
+msgstr "Cần phải đếm số bu lông."
 
 #: templates/listings/rims_create.html:421
 #: templates/listings/tyres_create.html:454
 #: templates/listings/wheels_create.html:585
 #: templates/listings/wheels_create.html:591
+#, fuzzy
 msgid "Width is required"
-msgstr ""
+msgstr "Cần có chiều rộng"
 
 #: templates/listings/rims_create.html:590
 #: templates/listings/tyres_create.html:628
 #: templates/listings/wheels_create.html:804
+#, fuzzy
 msgid "Maximum 20 photos. Remove some first."
-msgstr ""
+msgstr "Tối đa 20 ảnh. Hãy xóa bớt ảnh trước."
 
 #: templates/listings/saved_listings.html:4
 #: templates/listings/saved_listings.html:8
@@ -9954,52 +10744,62 @@ msgid "No image"
 msgstr "Không có hình ảnh"
 
 #: templates/listings/sidebar_moto_parts.html:18
+#, fuzzy
 msgid "CATEGORY"
-msgstr ""
+msgstr "LOẠI"
 
 #: templates/listings/sidebar_moto_parts.html:24
+#, fuzzy
 msgid "PART TYPE"
-msgstr ""
+msgstr "LOẠI BỘ PHẬN"
 
 #: templates/listings/sidebar_moto_parts.html:41
+#, fuzzy
 msgid "BRAND"
-msgstr ""
+msgstr "THƯƠNG HIỆU"
 
 #: templates/listings/sidebar_moto_parts.html:55
 msgid "MODEL"
 msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:64
+#, fuzzy
 msgid "CONDITION"
-msgstr ""
+msgstr "TÌNH TRẠNG"
 
 #: templates/listings/sidebar_moto_parts.html:76
+#, fuzzy
 msgid "PRICE ($)"
-msgstr ""
+msgstr "GIÁ ($)"
 
 #: templates/listings/sidebar_moto_parts.html:89
+#, fuzzy
 msgid "TEXT SEARCH"
-msgstr ""
+msgstr "TÌM KIẾM VĂN BẢN"
 
 #: templates/listings/sidebar_moto_parts.html:91
+#, fuzzy
 msgid "Name or OEM code..."
-msgstr ""
+msgstr "Tên hoặc mã OEM..."
 
 #: templates/listings/sidebar_moto_parts.html:100
+#, fuzzy
 msgid "MOTORCYCLE TYPE"
-msgstr ""
+msgstr "LOẠI XE MÁY"
 
 #: templates/listings/sidebar_moto_parts.html:112
+#, fuzzy
 msgid "ENGINE CAPACITY (cm³)"
-msgstr ""
+msgstr "DUNG TÍCH ĐỘNG CƠ (cm³)"
 
 #: templates/listings/sidebar_moto_parts.html:125
 msgid "COUNTRY"
 msgstr ""
 
 #: templates/listings/sidebar_moto_parts.html:137
+#, fuzzy
 msgid "STATE"
-msgstr ""
+msgstr "TÌNH TRẠNG"
 
 #: templates/listings/sidebar_moto_parts.html:139
 #: templates/listings/trucks_advanced_search.html:558
@@ -10007,51 +10807,62 @@ msgid "All states"
 msgstr "Tất cả các tiểu bang"
 
 #: templates/listings/sidebar_moto_parts.html:151
+#, fuzzy
 msgid "Negotiable price"
-msgstr ""
+msgstr "Giá cả có thể thương lượng"
 
 #: templates/listings/truck_for_parts_create.html:4
+#, fuzzy
 msgid "Sell Truck For Parts"
-msgstr ""
+msgstr "Bán xe tải để lấy phụ tùng"
 
 #: templates/listings/truck_for_parts_create.html:23
+#, fuzzy
 msgid "Sell whole truck for parts"
-msgstr ""
+msgstr "Bán cả chiếc xe tải để lấy phụ tùng."
 
 #: templates/listings/truck_for_parts_create.html:82
+#, fuzzy
 msgid "e.g. Actros, FH, TGX"
-msgstr ""
+msgstr "Ví dụ: Actros, FH, TGX"
 
 #: templates/listings/truck_for_parts_create.html:111
+#, fuzzy
 msgid "e.g. 320"
-msgstr ""
+msgstr "ví dụ: 320"
 
 #: templates/listings/truck_for_parts_create.html:124
+#, fuzzy
 msgid "e.g. 12.8"
-msgstr ""
+msgstr "ví dụ: 12.8"
 
 #: templates/listings/truck_for_parts_create.html:170
 #: templates/listings/truck_parts_advanced.html:153
 #: templates/listings/truck_parts_browse.html:193
+#, fuzzy
 msgid "Available parts"
-msgstr ""
+msgstr "Các bộ phận có sẵn"
 
 #: templates/listings/truck_for_parts_create.html:171
+#, fuzzy
 msgid "Tick the parts available from this truck."
-msgstr ""
+msgstr "Đánh dấu các bộ phận có sẵn từ xe tải này."
 
 #: templates/listings/truck_parts_advanced.html:5
+#, fuzzy
 msgid "Truck Parts Search"
-msgstr ""
+msgstr "Tìm kiếm phụ tùng xe tải"
 
 #: templates/listings/truck_parts_advanced.html:54
+#, fuzzy
 msgid "Truck parts search"
-msgstr ""
+msgstr "Tìm kiếm phụ tùng xe tải"
 
 #: templates/listings/truck_parts_browse.html:5
 #: templates/listings/truck_parts_browse.html:97
+#, fuzzy
 msgid "Truck parts"
-msgstr ""
+msgstr "Phụ tùng xe tải"
 
 #: templates/listings/trucks_advanced_search.html:5
 #: templates/listings/trucks_advanced_search.html:268
@@ -10122,9 +10933,9 @@ msgid "listings match your filters"
 msgstr "các danh sách phù hợp với bộ lọc của bạn"
 
 #: templates/listings/trucks_advanced_search.html:592
-#, python-format
+#, python-format, fuzzy
 msgid "Show %(count)s results"
-msgstr ""
+msgstr "Hiển thị %(count)s kết quả"
 
 #: templates/listings/trucks_advanced_search.html:603
 msgid "Save this search"
@@ -10191,9 +11002,9 @@ msgid "Search make..."
 msgstr "Tìm kiếm tạo..."
 
 #: templates/listings/trucks_list.html:376
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(count)s listings"
-msgstr ""
+msgstr "Hiển thị %(count)s tin đăng"
 
 #: templates/listings/trucks_list.html:486
 #: templates/listings/trucks_list.html:798
@@ -10219,9 +11030,9 @@ msgid "Euro"
 msgstr "Euro"
 
 #: templates/listings/trucks_list.html:680
-#, python-format
+#, python-format, fuzzy
 msgid "Showing %(shown)s of %(total)s"
-msgstr ""
+msgstr "Hiển thị %(shown)s trong số %(total)s"
 
 #: templates/listings/trucks_list.html:843
 msgid "FEATURED"
@@ -10254,9 +11065,9 @@ msgid "Status:"
 msgstr "Trạng thái:"
 
 #: templates/listings/trucks_listing_create.html:306
-#, python-format
+#, python-format, fuzzy
 msgid "Expires %(date)s"
-msgstr ""
+msgstr "Hết hạn %(date)s"
 
 #: templates/listings/trucks_listing_create.html:311
 msgid "View public page"
@@ -10359,8 +11170,9 @@ msgstr "Lưu thất bại"
 #: templates/listings/tyres_create.html:4
 #: templates/listings/tyres_create.html:12
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Tyres"
-msgstr ""
+msgstr "Sản phẩm mới: Lốp xe"
 
 #: templates/listings/tyres_create.html:56
 #: templates/listings/wheels_advanced_search.html:222
@@ -10368,159 +11180,191 @@ msgstr ""
 #: templates/listings/wheels_list.html:133
 #: templates/listings/wheels_list.html:255
 #: templates/pages/help_center.html:854
+#, fuzzy
 msgid "Purpose"
-msgstr ""
+msgstr "Mục đích"
 
 #: templates/listings/tyres_create.html:118
 #: templates/listings/wheels_create.html:129
+#, fuzzy
 msgid "Tyre details"
-msgstr ""
+msgstr "Thông tin chi tiết về lốp xe"
 
 #: templates/listings/tyres_create.html:137
 #: templates/listings/wheels_create.html:148
-#, python-format
+#, python-format, fuzzy
 msgid "Profile (%%)"
-msgstr ""
+msgstr "Hồ sơ (%%)"
 
 #: templates/listings/tyres_create.html:149
 #: templates/listings/wheels_advanced_search.html:130
 #: templates/listings/wheels_create.html:160
 #: templates/listings/wheels_list.html:267
+#, fuzzy
 msgid "Season"
-msgstr ""
+msgstr "Mùa"
 
 #: templates/listings/tyres_create.html:161
 #: templates/listings/wheels_advanced_search.html:140
 #: templates/listings/wheels_create.html:172
+#, fuzzy
 msgid "Speed index"
-msgstr ""
+msgstr "Chỉ số tốc độ"
 
 #: templates/listings/tyres_create.html:171
 #: templates/listings/wheels_create.html:182
+#, fuzzy
 msgid "Load index"
-msgstr ""
+msgstr "Tải chỉ mục"
 
 #: templates/listings/tyres_create.html:177
 #: templates/listings/wheels_advanced_search.html:150
 #: templates/listings/wheels_create.html:188
+#, fuzzy
 msgid "Tread depth"
-msgstr ""
+msgstr "Độ sâu rãnh"
 
 #: templates/listings/tyres_create.html:187
 #: templates/listings/wheels_create.html:198
-#, python-format
+#, python-format, fuzzy
 msgid "Remaining (%%)"
-msgstr ""
+msgstr "Còn lại (%%)"
 
 #: templates/listings/tyres_create.html:197
 #: templates/listings/wheels_create.html:208
+#, fuzzy
 msgid "Production year (DOT)"
-msgstr ""
+msgstr "Năm sản xuất (DOT)"
 
 #: templates/listings/tyres_create.html:455
 #: templates/listings/wheels_create.html:586
+#, fuzzy
 msgid "Profile is required"
-msgstr ""
+msgstr "Cần có hồ sơ"
 
 #: templates/listings/tyres_create.html:456
 #: templates/listings/wheels_create.html:587
+#, fuzzy
 msgid "Season is required"
-msgstr ""
+msgstr "Cần có mùa vụ"
 
 #: templates/listings/wheels_advanced_search.html:63
+#, fuzzy
 msgid "Rims search"
-msgstr ""
+msgstr "Tìm kiếm vành xe"
 
 #: templates/listings/wheels_advanced_search.html:63
+#, fuzzy
 msgid "Tyres search"
-msgstr ""
+msgstr "Tìm kiếm lốp xe"
 
 #: templates/listings/wheels_advanced_search.html:160
+#, fuzzy
 msgid "DOT year"
-msgstr ""
+msgstr "Năm DOT"
 
 #: templates/listings/wheels_advanced_search.html:171
+#, fuzzy
 msgid "Rim width"
-msgstr ""
+msgstr "Chiều rộng vành"
 
 #: templates/listings/wheels_advanced_search.html:181
 #: templates/listings/wheels_list.html:201
 #: templates/listings/wheels_list.html:335
+#, fuzzy
 msgid "PCD"
-msgstr ""
+msgstr "PCD"
 
 #: templates/listings/wheels_advanced_search.html:211
+#, fuzzy
 msgid "ET (offset)"
-msgstr ""
+msgstr "ET (độ lệch)"
 
 #: templates/listings/wheels_advanced_search.html:242
+#, fuzzy
 msgid "Min quantity"
-msgstr ""
+msgstr "Số lượng tối thiểu"
 
 #: templates/listings/wheels_advanced_search.html:278
+#, fuzzy
 msgid "e.g. Michelin winter set..."
-msgstr ""
+msgstr "Ví dụ: Bộ lốp mùa đông Michelin..."
 
 #: templates/listings/wheels_create.html:13
+#, fuzzy
 msgid "New listing: Tyres & Rims"
-msgstr ""
+msgstr "Sản phẩm mới: Lốp & Vành xe"
 
 #: templates/listings/wheels_list.html:5
+#, fuzzy
 msgid "Browse Rims"
-msgstr ""
+msgstr "Tìm kiếm mâm xe"
 
 #: templates/listings/wheels_list.html:5
+#, fuzzy
 msgid "Browse Tyres"
-msgstr ""
+msgstr "Tìm kiếm lốp xe"
 
 #: templates/listings/wheels_list.html:391
+#, fuzzy
 msgid "Listings found:"
-msgstr ""
+msgstr "Các tin đăng được tìm thấy:"
 
 #: templates/listings/wheels_list.html:473
+#, fuzzy
 msgid "Tread left"
-msgstr ""
+msgstr "Đi về bên trái"
 
 #: templates/listings/wheels_list.html:481
+#, fuzzy
 msgid "Qty"
-msgstr ""
+msgstr "Số lượng"
 
 #: templates/pages/help_center.html:4 templates/pages/help_center.html:16
 #: templates/pages/page_simple.html:18
+#, fuzzy
 msgid "Help Center"
-msgstr ""
+msgstr "Trung tâm trợ giúp"
 
 #: templates/pages/help_center.html:24
+#, fuzzy
 msgid "Help & Information"
-msgstr ""
+msgstr "Trợ giúp & Thông tin"
 
 #: templates/pages/help_center.html:40
+#, fuzzy
 msgid "Quick navigation"
-msgstr ""
+msgstr "Điều hướng nhanh"
 
 #: templates/pages/help_center.html:47
+#, fuzzy
 msgid "Overview"
-msgstr ""
+msgstr "Tổng quan"
 
 #: templates/pages/help_center.html:52
+#, fuzzy
 msgid "News & Updates"
-msgstr ""
+msgstr "Tin tức & Cập nhật"
 
 #: templates/pages/help_center.html:57
+#, fuzzy
 msgid "What's new"
-msgstr ""
+msgstr "Có gì mới?"
 
 #: templates/pages/help_center.html:62
+#, fuzzy
 msgid "Market trends"
-msgstr ""
+msgstr "Xu hướng thị trường"
 
 #: templates/pages/help_center.html:67
+#, fuzzy
 msgid "Tips & guides"
-msgstr ""
+msgstr "Mẹo và hướng dẫn"
 
 #: templates/pages/help_center.html:72
+#, fuzzy
 msgid "Help & Support"
-msgstr ""
+msgstr "Trợ giúp & Hỗ trợ"
 
 #: templates/pages/help_center.html:77
 msgid "FAQ"
@@ -10536,16 +11380,19 @@ msgid "Advertising"
 msgstr "Quảng cáo"
 
 #: templates/pages/help_center.html:102
+#, fuzzy
 msgid "Partners"
-msgstr ""
+msgstr "Đối tác"
 
 #: templates/pages/help_center.html:107
+#, fuzzy
 msgid "Partners & resources"
-msgstr ""
+msgstr "Đối tác & nguồn lực"
 
 #: templates/pages/help_center.html:112
+#, fuzzy
 msgid "About & Legal"
-msgstr ""
+msgstr "Về chúng tôi & Pháp lý"
 
 #: templates/pages/help_center.html:122
 msgid "Terms of use"
@@ -10556,27 +11403,34 @@ msgid "Privacy policy"
 msgstr "Chính sách bảo mật"
 
 #: templates/pages/help_center.html:148
+#, fuzzy
 msgid "Hours"
-msgstr ""
+msgstr "Giờ"
 
 #: templates/pages/help_center.html:153
+#, fuzzy
 msgid "Live chat"
-msgstr ""
+msgstr "Trò chuyện trực tiếp"
 
 #: templates/pages/help_center.html:167
+#, fuzzy
 msgid "Welcome — thank you for joining"
-msgstr ""
+msgstr "Chào mừng — cảm ơn bạn đã tham gia!"
 
 #: templates/pages/help_center.html:168
+#, fuzzy
 msgid "A personal note from us"
-msgstr ""
+msgstr "Lời nhắn cá nhân từ chúng tôi"
 
 #: templates/pages/help_center.html:171
+#, fuzzy
 msgid ""
 "Hello, and thank you for being here. We're glad to have you on the platform."
 msgstr ""
+"Chào mừng bạn đến với nền tảng này. Chúng tôi rất vui mừng chào đón bạn."
 
 #: templates/pages/help_center.html:173
+#, fuzzy
 msgid ""
 "Every user gets <strong class=\"text-gray-900 font-semibold\">3 free "
 "listings</strong> in any category. If you delete a listing, that <strong "
@@ -10585,150 +11439,200 @@ msgid ""
 "free listings are used, additional listings carry a small fee that keeps the"
 " platform running and online for everyone."
 msgstr ""
+"Mỗi người dùng được <strong class=\"text-gray-900 font-semibold\">3 lượt "
+"đăng tin miễn phí</strong> trong bất kỳ danh mục nào. Nếu bạn xóa một tin "
+"đăng, vị trí <strong class=\"text-gray-900 font-semibold\">miễn phí</strong>"
+" đó sẽ lại khả dụng — vì vậy bạn luôn có thể đăng lại tin trong giới hạn "
+"miễn phí của mình. Sau khi sử dụng hết số lượt đăng miễn phí, các tin đăng "
+"bổ sung sẽ phải trả một khoản phí nhỏ để duy trì hoạt động của nền tảng và "
+"đảm bảo mọi người đều có thể sử dụng."
 
 #: templates/pages/help_center.html:175
+#, fuzzy
 msgid ""
 "Once your ad is live, send us the link — we create extra video content on "
 "our Instagram and TikTok channels to promote selected listings and help you "
 "reach more buyers, <strong class=\"text-gray-900 font-semibold\">free of "
 "charge</strong>."
 msgstr ""
+"Sau khi quảng cáo của bạn được đăng tải, hãy gửi cho chúng tôi đường dẫn — "
+"chúng tôi sẽ tạo thêm nội dung video trên các kênh Instagram và TikTok của "
+"mình để quảng bá các tin đăng được chọn và giúp bạn tiếp cận nhiều người mua"
+" hơn, <strong class=\"text-gray-900 font-semibold\">hoàn toàn miễn "
+"phí</strong>."
 
 #: templates/pages/help_center.html:177
+#, fuzzy
 msgid "You can reach us through support or social media:"
-msgstr ""
+msgstr "Bạn có thể liên hệ với chúng tôi qua bộ phận hỗ trợ hoặc mạng xã hội:"
 
 #: templates/pages/help_center.html:185 templates/pages/help_center.html:193
+#, fuzzy
 msgid "Send us your listing link"
-msgstr ""
+msgstr "Hãy gửi cho chúng tôi liên kết trang đăng tin của bạn."
 
 #: templates/pages/help_center.html:186
+#, fuzzy
 msgid "Message support"
-msgstr ""
+msgstr "Hỗ trợ tin nhắn"
 
 #: templates/pages/help_center.html:194
+#, fuzzy
 msgid "Login to message support"
-msgstr ""
+msgstr "Đăng nhập để gửi tin nhắn hỗ trợ"
 
 #: templates/pages/help_center.html:201
+#, fuzzy
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #: templates/pages/help_center.html:214
+#, fuzzy
 msgid "Browse the topics on the left for FAQ, pricing, and more."
 msgstr ""
+"Hãy xem các chủ đề ở bên trái để tìm câu trả lời cho câu hỏi thường gặp, "
+"bảng giá và nhiều thông tin khác."
 
 #: templates/pages/help_center.html:223
+#, fuzzy
 msgid "What's New"
-msgstr ""
+msgstr "Có gì mới?"
 
 #: templates/pages/help_center.html:229 templates/pages/help_center.html:245
+#, fuzzy
 msgid "New Feature"
-msgstr ""
+msgstr "Tính năng mới"
 
 #: templates/pages/help_center.html:231
+#, fuzzy
 msgid "Dealer Subscriptions Launched"
-msgstr ""
+msgstr "Ra mắt dịch vụ đăng ký dành cho đại lý."
 
 #: templates/pages/help_center.html:232
+#, fuzzy
 msgid "Become a verified dealer for $100/month and list up to 30 vehicles."
 msgstr ""
+"Trở thành đại lý được xác minh chỉ với 100 đô la/tháng và đăng bán tối đa 30"
+" xe."
 
 #: templates/pages/help_center.html:237
+#, fuzzy
 msgid "Update"
-msgstr ""
+msgstr "Cập nhật"
 
 #: templates/pages/help_center.html:239
+#, fuzzy
 msgid "New Vehicle Categories: Trucks"
-msgstr ""
+msgstr "Danh mục xe mới: Xe tải"
 
 #: templates/pages/help_center.html:240
+#, fuzzy
 msgid "You can now buy and sell heavy commercial vehicles."
-msgstr ""
+msgstr "Giờ đây bạn có thể mua và bán các loại xe thương mại hạng nặng."
 
 #: templates/pages/help_center.html:247
+#, fuzzy
 msgid "Wallet System & Bonuses"
-msgstr ""
+msgstr "Hệ thống ví điện tử & Phần thưởng"
 
 #: templates/pages/help_center.html:248
-#, python-format
+#, python-format, fuzzy
 msgid "Top up your wallet and get up to 20%% bonus on payments."
-msgstr ""
+msgstr "Nạp tiền vào ví và nhận ngay tới 20%% tiền thưởng khi thanh toán."
 
 #: templates/pages/help_center.html:259
+#, fuzzy
 msgid "Market Trends"
-msgstr ""
+msgstr "Xu hướng thị trường"
 
 #: templates/pages/help_center.html:262
+#, fuzzy
 msgid ""
 "Insights and statistics about the marketplace — what's selling, where, and "
 "at what price."
 msgstr ""
+"Thông tin chi tiết và số liệu thống kê về thị trường — mặt hàng nào đang bán"
+" chạy, ở đâu và với giá bao nhiêu."
 
 #: templates/pages/help_center.html:267
+#, fuzzy
 msgid "Most popular category"
-msgstr ""
+msgstr "Danh mục phổ biến nhất"
 
 #: templates/pages/help_center.html:268
+#, fuzzy
 msgid "Sedans"
-msgstr ""
+msgstr "Xe sedan"
 
 #: templates/pages/help_center.html:269
-#, python-format
+#, python-format, fuzzy
 msgid "42%% of all listings"
-msgstr ""
+msgstr "42%% trong tổng số danh sách"
 
 #: templates/pages/help_center.html:272
+#, fuzzy
 msgid "Average sale time"
-msgstr ""
+msgstr "Thời gian bán hàng trung bình"
 
 #: templates/pages/help_center.html:273
+#, fuzzy
 msgid "18 days"
-msgstr ""
+msgstr "18 ngày"
 
 #: templates/pages/help_center.html:274
+#, fuzzy
 msgid "Across all categories"
-msgstr ""
+msgstr "Trên tất cả các hạng mục"
 
 #: templates/pages/help_center.html:277
+#, fuzzy
 msgid "Top selling brand"
-msgstr ""
+msgstr "Thương hiệu bán chạy nhất"
 
 #: templates/pages/help_center.html:278
+#, fuzzy
 msgid "Toyota"
-msgstr ""
+msgstr "Toyota"
 
 #: templates/pages/help_center.html:279
+#, fuzzy
 msgid "By volume"
-msgstr ""
+msgstr "Theo thể tích"
 
 #: templates/pages/help_center.html:283
+#, fuzzy
 msgid "What buyers are searching for"
-msgstr ""
+msgstr "Những gì người mua đang tìm kiếm"
 
 #: templates/pages/help_center.html:285
+#, fuzzy
 msgid "Fuel-efficient sedans under $15,000"
-msgstr ""
+msgstr "Xe sedan tiết kiệm nhiên liệu dưới 15.000 đô la"
 
 #: templates/pages/help_center.html:286
+#, fuzzy
 msgid "Pickup trucks with low mileage"
-msgstr ""
+msgstr "Xe bán tải có số km đã đi thấp"
 
 #: templates/pages/help_center.html:287
+#, fuzzy
 msgid "Hybrid and electric vehicles"
-msgstr ""
+msgstr "Xe lai và xe điện"
 
 #: templates/pages/help_center.html:288
+#, fuzzy
 msgid "SUVs with all-wheel drive"
-msgstr ""
+msgstr "Xe SUV dẫn động bốn bánh"
 
 #: templates/pages/help_center.html:291
+#, fuzzy
 msgid "Selling tips based on data"
-msgstr ""
+msgstr "Mẹo bán hàng dựa trên dữ liệu"
 
 #: templates/pages/help_center.html:293
+#, fuzzy
 msgid "Listings with 8+ photos sell 2x faster"
-msgstr ""
+msgstr "Những tin đăng có từ 8 ảnh trở lên bán nhanh gấp 2 lần."
 
 #: templates/pages/help_center.html:294
 #, python-format
@@ -10741,322 +11645,453 @@ msgid "Listings posted on weekends get 40%% more views"
 msgstr ""
 
 #: templates/pages/help_center.html:296
+#, fuzzy
 msgid "Featured listings receive 5x more inquiries"
-msgstr ""
+msgstr "Các tin đăng nổi bật nhận được số lượng yêu cầu gấp 5 lần."
 
 #: templates/pages/help_center.html:299
+#, fuzzy
 msgid "Data updated weekly based on marketplace activity."
-msgstr ""
+msgstr "Dữ liệu được cập nhật hàng tuần dựa trên hoạt động của thị trường."
 
 #: templates/pages/help_center.html:308
+#, fuzzy
 msgid "Tips & Guides"
-msgstr ""
+msgstr "Mẹo & Hướng dẫn"
 
 #: templates/pages/help_center.html:311
+#, fuzzy
 msgid "Everything you need to know to sell faster and buy smarter."
-msgstr ""
+msgstr "Tất cả những gì bạn cần biết để bán nhanh hơn và mua thông minh hơn."
 
 #: templates/pages/help_center.html:318
+#, fuzzy
 msgid "Posting your first listing"
-msgstr ""
+msgstr "Đăng tin đăng đầu tiên của bạn"
 
 #: templates/pages/help_center.html:321
+#, fuzzy
 msgid ""
 "Click 'Create Ad' in the top menu, choose a category, and fill in the "
 "vehicle details. Upload at least 5 clear photos — listings with more photos "
 "get more views. Add a detailed description including condition, history, and"
 " any modifications. Your first 3 listings are completely free."
 msgstr ""
+"Nhấp vào 'Tạo quảng cáo' trên menu phía trên, chọn danh mục và điền thông "
+"tin chi tiết về xe. Tải lên ít nhất 5 ảnh rõ nét — tin đăng có nhiều ảnh hơn"
+" sẽ nhận được nhiều lượt xem hơn. Thêm mô tả chi tiết bao gồm tình trạng, "
+"lịch sử và bất kỳ sửa đổi nào. 3 tin đăng đầu tiên của bạn hoàn toàn miễn "
+"phí."
 
 #: templates/pages/help_center.html:328
+#, fuzzy
 msgid "Renewing your listing"
-msgstr ""
+msgstr "Gia hạn tin đăng của bạn"
 
 #: templates/pages/help_center.html:331
+#, fuzzy
 msgid ""
 "Listings stay active for 30 days. After that, you'll need to renew them — "
 "once per hour you can boost any listing back to the top of search results. "
 "Renewing is free for your first 3 listings; additional renewals require a "
 "paid plan."
 msgstr ""
+"Các tin đăng sẽ hiển thị trong 30 ngày. Sau đó, bạn cần gia hạn chúng — mỗi "
+"giờ bạn có thể đẩy bất kỳ tin đăng nào lên đầu kết quả tìm kiếm. Gia hạn "
+"miễn phí cho 3 tin đăng đầu tiên; các lần gia hạn tiếp theo yêu cầu gói trả "
+"phí."
 
 #: templates/pages/help_center.html:338
+#, fuzzy
 msgid "Drafts — save and activate later"
-msgstr ""
+msgstr "Bản nháp — lưu lại và kích hoạt sau"
 
 #: templates/pages/help_center.html:341
+#, fuzzy
 msgid ""
 "Started a listing but not ready to publish? Your work is saved automatically"
 " as a draft. Find drafts in 'My Listings' and continue editing whenever you "
 "want. Activate the draft when you're ready — it will go live for 30 days."
 msgstr ""
+"Bạn đã bắt đầu viết tin đăng nhưng chưa sẵn sàng đăng tải? Tin đăng của bạn "
+"sẽ được tự động lưu dưới dạng bản nháp. Tìm các bản nháp trong mục 'Tin đăng"
+" của tôi' và tiếp tục chỉnh sửa bất cứ khi nào bạn muốn. Kích hoạt bản nháp "
+"khi bạn đã sẵn sàng — tin đăng sẽ được hiển thị công khai trong 30 ngày."
 
 #: templates/pages/help_center.html:348
+#, fuzzy
 msgid "Saving favorites with the heart icon"
-msgstr ""
+msgstr "Lưu mục yêu thích bằng biểu tượng trái tim"
 
 #: templates/pages/help_center.html:351
+#, fuzzy
 msgid ""
 "See a listing you like? Click the heart icon to save it. All your favorites "
 "are kept in 'Saved Listings' so you can compare prices and come back to them"
 " later. You'll also receive email notifications when a saved listing's price"
 " drops."
 msgstr ""
+"Bạn thấy tin rao bán nào ưng ý? Hãy nhấn vào biểu tượng trái tim để lưu lại."
+" Tất cả các tin rao bán yêu thích của bạn sẽ được lưu trong mục 'Tin rao bán"
+" đã lưu' để bạn có thể so sánh giá và quay lại xem sau. Bạn cũng sẽ nhận "
+"được thông báo qua email khi giá của tin rao bán đã lưu giảm."
 
 #: templates/pages/help_center.html:358
+#, fuzzy
 msgid "Tracking listing performance"
-msgstr ""
+msgstr "Theo dõi hiệu suất danh sách"
 
 #: templates/pages/help_center.html:361
+#, fuzzy
 msgid ""
 "Each listing has a statistics page showing views, impressions, saves, and "
 "where it ranks compared to similar listings. Use these numbers to figure out"
 " if your price is competitive and whether you need better photos or a "
 "stronger description."
 msgstr ""
+"Mỗi tin đăng đều có trang thống kê hiển thị lượt xem, số lần xuất hiện, số "
+"lượt lưu và thứ hạng so với các tin đăng tương tự. Hãy sử dụng những con số "
+"này để đánh giá xem giá của bạn có cạnh tranh hay không và liệu bạn có cần "
+"cải thiện ảnh hoặc mô tả sản phẩm hay không."
 
 #: templates/pages/help_center.html:368
+#, fuzzy
 msgid "Communicating with buyers"
-msgstr ""
+msgstr "Giao tiếp với người mua"
 
 #: templates/pages/help_center.html:371
+#, fuzzy
 msgid ""
 "Buyers can message you directly through the platform — no need to share your"
 " phone number publicly. Reply quickly: fast responses build trust and sell "
 "vehicles faster. Use the in-app conversation system to keep records of "
 "negotiations."
 msgstr ""
+"Người mua có thể nhắn tin trực tiếp cho bạn qua nền tảng — không cần phải "
+"chia sẻ số điện thoại công khai. Hãy trả lời nhanh chóng: phản hồi nhanh "
+"giúp xây dựng lòng tin và bán xe nhanh hơn. Sử dụng hệ thống trò chuyện "
+"trong ứng dụng để lưu lại lịch sử đàm phán."
 
 #: templates/pages/help_center.html:378
+#, fuzzy
 msgid "When you sell — mark it sold"
-msgstr ""
+msgstr "Khi bán hàng, hãy đánh dấu là đã bán."
 
 #: templates/pages/help_center.html:381
+#, fuzzy
 msgid ""
 "When the deal closes, mark the listing as sold from the 'My Listings' page. "
 "Buyers who saved the listing will be notified automatically, and the sale "
 "gets recorded in your seller history."
 msgstr ""
+"Khi giao dịch hoàn tất, hãy đánh dấu tin đăng là đã bán trên trang 'Tin đăng"
+" của tôi'. Người mua đã lưu tin đăng sẽ nhận được thông báo tự động và giao "
+"dịch sẽ được ghi lại trong lịch sử bán hàng của bạn."
 
 #: templates/pages/help_center.html:398
+#, fuzzy
 msgid "How do I create an ad?"
-msgstr ""
+msgstr "Tôi tạo quảng cáo như thế nào?"
 
 #: templates/pages/help_center.html:402
+#, fuzzy
 msgid ""
 "Click the 'Create Ad' button in the top right corner, select a category, "
 "fill in the details, upload photos, and publish your listing. The process "
 "takes about 5 minutes."
 msgstr ""
+"Nhấp vào nút 'Tạo quảng cáo' ở góc trên bên phải, chọn danh mục, điền thông "
+"tin chi tiết, tải ảnh lên và đăng tải tin rao. Quá trình này mất khoảng 5 "
+"phút."
 
 #: templates/pages/help_center.html:407
+#, fuzzy
 msgid "How to become a dealer?"
-msgstr ""
+msgstr "Làm thế nào để trở thành đại lý?"
 
 #: templates/pages/help_center.html:411
+#, fuzzy
 msgid ""
 "Visit the 'Become a Dealer' page, subscribe for $100/month, and fill in your"
 " business profile. You'll get a verified dealer badge, public dealer page, "
 "and ability to list up to 30 vehicles."
 msgstr ""
+"Hãy truy cập trang 'Trở thành đại lý', đăng ký với giá 100 đô la/tháng và "
+"điền thông tin hồ sơ doanh nghiệp của bạn. Bạn sẽ nhận được huy hiệu đại lý "
+"đã được xác minh, trang đại lý công khai và khả năng đăng tải tối đa 30 xe."
 
 #: templates/pages/help_center.html:416
+#, fuzzy
 msgid "Is my data safe?"
-msgstr ""
+msgstr "Dữ liệu của tôi có an toàn không?"
 
 #: templates/pages/help_center.html:420
+#, fuzzy
 msgid ""
 "Yes. We use industry-standard encryption to protect your personal "
 "information. See our Privacy Policy for details."
 msgstr ""
+"Có. Chúng tôi sử dụng mã hóa theo tiêu chuẩn ngành để bảo vệ thông tin cá "
+"nhân của bạn. Xem Chính sách bảo mật của chúng tôi để biết thêm chi tiết."
 
 #: templates/pages/help_center.html:425
+#, fuzzy
 msgid "How do I delete my listing?"
-msgstr ""
+msgstr "Tôi có thể xóa tin đăng của mình như thế nào?"
 
 #: templates/pages/help_center.html:429
+#, fuzzy
 msgid ""
 "Go to 'My Ads' in the user menu, find the listing, click the menu icon, and "
 "select 'Delete'. The listing will be permanently removed."
 msgstr ""
+"Vào mục 'Quảng cáo của tôi' trong menu người dùng, tìm tin đăng, nhấp vào "
+"biểu tượng menu và chọn 'Xóa'. Tin đăng sẽ bị xóa vĩnh viễn."
 
 #: templates/pages/help_center.html:441
 msgid "Contact Us"
 msgstr "Liên hệ với chúng tôi"
 
 #: templates/pages/help_center.html:444
+#, fuzzy
 msgid "Get in touch with us — we usually reply within 24 hours."
 msgstr ""
+"Hãy liên hệ với chúng tôi — chúng tôi thường trả lời trong vòng 24 giờ."
 
 #: templates/pages/help_center.html:447
+#, fuzzy
 msgid "United States based support — serving customers worldwide."
 msgstr ""
+"Dịch vụ hỗ trợ đặt tại Hoa Kỳ — phục vụ khách hàng trên toàn thế giới."
 
 #: templates/pages/help_center.html:454 templates/pages/help_center.html:460
+#, fuzzy
 msgid "Private message support"
-msgstr ""
+msgstr "Hỗ trợ qua tin nhắn riêng"
 
 #: templates/pages/help_center.html:455
+#, fuzzy
 msgid "Start a chat — fastest response"
-msgstr ""
+msgstr "Bắt đầu trò chuyện — phản hồi nhanh nhất"
 
 #: templates/pages/help_center.html:461
+#, fuzzy
 msgid "Login to start a chat"
-msgstr ""
+msgstr "Đăng nhập để bắt đầu trò chuyện"
 
 #: templates/pages/help_center.html:493
+#, fuzzy
 msgid "First 3 listings — FREE"
-msgstr ""
+msgstr "3 tin đăng đầu tiên — MIỄN PHÍ"
 
 #: templates/pages/help_center.html:495
+#, fuzzy
 msgid ""
 "Your first 3 listings are completely free, in any category. Renewals are "
 "free too. After 3 listings, paid plans apply for additional listings and "
 "renewals."
 msgstr ""
+"Ba tin đăng đầu tiên của bạn hoàn toàn miễn phí, ở bất kỳ danh mục nào. Gia "
+"hạn cũng miễn phí. Sau 3 tin đăng, các gói trả phí sẽ được áp dụng cho các "
+"tin đăng bổ sung và gia hạn."
 
 #: templates/pages/help_center.html:503
+#, fuzzy
 msgid "Private sellers — additional listings"
-msgstr ""
+msgstr "Người bán cá nhân — danh sách bổ sung"
 
 #: templates/pages/help_center.html:507
+#, fuzzy
 msgid "First 3 listings"
-msgstr ""
+msgstr "3 kết quả đầu tiên"
 
 #: templates/pages/help_center.html:508
+#, fuzzy
 msgid "FREE"
-msgstr ""
+msgstr "MIỄN PHÍ"
 
 #: templates/pages/help_center.html:511
+#, fuzzy
 msgid "Basic — 30 days"
-msgstr ""
+msgstr "Cơ bản — 30 ngày"
 
 #: templates/pages/help_center.html:515
+#, fuzzy
 msgid "Standard — 60 days"
-msgstr ""
+msgstr "Tiêu chuẩn — 60 ngày"
 
 #: templates/pages/help_center.html:519
+#, fuzzy
 msgid "Recommended — 90 days"
-msgstr ""
+msgstr "Khuyến nghị — 90 ngày"
 
 #: templates/pages/help_center.html:524
+#, fuzzy
 msgid ""
 "Renewing a listing is free for the first 3 listings. After that, renewing "
 "costs the same as a fresh listing."
 msgstr ""
+"Gia hạn tin đăng là miễn phí cho 3 tin đăng đầu tiên. Sau đó, phí gia hạn sẽ"
+" giống như phí đăng tin mới."
 
 #: templates/pages/help_center.html:528
+#, fuzzy
 msgid "Dealers"
-msgstr ""
+msgstr "Đại lý"
 
 #: templates/pages/help_center.html:531
+#, fuzzy
 msgid "Dealer Subscription"
-msgstr ""
+msgstr "Đăng ký đại lý"
 
 #: templates/pages/help_center.html:535
+#, fuzzy
 msgid "Up to 30 active listings"
-msgstr ""
+msgstr "Tối đa 30 tin đăng đang hoạt động"
 
 #: templates/pages/help_center.html:536
 msgid "Verified Dealer badge"
 msgstr "Huy hiệu đại lý đã được xác minh"
 
 #: templates/pages/help_center.html:555
+#, fuzzy
 msgid ""
 "Reach thousands of car buyers and sellers across Europe and the United "
 "States. Contact us to discuss advertising opportunities — banners, sponsored"
 " placements, or partnership campaigns."
 msgstr ""
+"Tiếp cận hàng ngàn người mua và bán xe hơi trên khắp châu Âu và Hoa Kỳ. Liên"
+" hệ với chúng tôi để thảo luận về các cơ hội quảng cáo — banner, vị trí tài "
+"trợ hoặc các chiến dịch hợp tác."
 
 #: templates/pages/help_center.html:567
+#, fuzzy
 msgid "WhatsApp"
-msgstr ""
+msgstr "WhatsApp"
 
 #: templates/pages/help_center.html:574 templates/pages/help_center.html:580
+#, fuzzy
 msgid "Live support"
-msgstr ""
+msgstr "Hỗ trợ trực tiếp"
 
 #: templates/pages/help_center.html:575
+#, fuzzy
 msgid "Chat with support"
-msgstr ""
+msgstr "Trò chuyện với bộ phận hỗ trợ"
 
 #: templates/pages/help_center.html:581
+#, fuzzy
 msgid "Login to chat"
-msgstr ""
+msgstr "Đăng nhập để trò chuyện"
 
 #: templates/pages/help_center.html:593
+#, fuzzy
 msgid "Partners & Resources"
-msgstr ""
+msgstr "Đối tác & Nguồn lực"
 
 #: templates/pages/help_center.html:596
+#, fuzzy
 msgid ""
 "Trusted services and tools to help you buy and sell with confidence. Some "
 "are run by us, others by partners we work with."
 msgstr ""
+"Các dịch vụ và công cụ đáng tin cậy giúp bạn mua và bán một cách tự tin. Một"
+" số do chúng tôi vận hành, số khác do các đối tác chúng tôi hợp tác cung "
+"cấp."
 
 #: templates/pages/help_center.html:600
+#, fuzzy
 msgid "Recommended services"
-msgstr ""
+msgstr "Dịch vụ được đề xuất"
 
 #: templates/pages/help_center.html:613
+#, fuzzy
 msgid ""
 "Vehicle history reports — check mileage, accidents, ownership history and "
 "more before you buy a car."
 msgstr ""
+"Báo cáo lịch sử xe — kiểm tra số km đã đi, tai nạn, lịch sử sở hữu và nhiều "
+"thông tin khác trước khi mua xe."
 
 #: templates/pages/help_center.html:630
+#, fuzzy
 msgid "Want your business or ad featured here?"
 msgstr ""
+"Bạn muốn doanh nghiệp hoặc quảng cáo của mình được giới thiệu tại đây?"
 
 #: templates/pages/help_center.html:632
+#, fuzzy
 msgid ""
 "If you run a car-related service — insurance, financing, transport, "
 "detailing, parts — or want to advertise another platform, you can reach our "
 "buyers and sellers. Tell us what you'd like to promote and we'll find the "
 "right placement for you."
 msgstr ""
+"Nếu bạn kinh doanh dịch vụ liên quan đến ô tô — bảo hiểm, tài chính, vận "
+"chuyển, chăm sóc xe, phụ tùng — hoặc muốn quảng cáo trên nền tảng khác, bạn "
+"có thể tiếp cận người mua và người bán của chúng tôi. Hãy cho chúng tôi biết"
+" bạn muốn quảng bá điều gì và chúng tôi sẽ tìm vị trí phù hợp cho bạn."
 
 #: templates/pages/help_center.html:637
+#, fuzzy
 msgid "See advertising options"
-msgstr ""
+msgstr "Xem các tùy chọn quảng cáo"
 
 #: templates/pages/help_center.html:641
+#, fuzzy
 msgid "Write to us"
-msgstr ""
+msgstr "Hãy viết thư cho chúng tôi"
 
 #: templates/pages/help_center.html:659
+#, fuzzy
 msgid ""
 "Thousands of clients use our platform every day to browse, buy, and sell "
 "vehicles directly — without middlemen, without dealer markups, without "
 "hidden fees."
 msgstr ""
+"Hàng nghìn khách hàng sử dụng nền tảng của chúng tôi mỗi ngày để duyệt, mua "
+"và bán xe trực tiếp — không qua trung gian, không phí hoa hồng của đại lý, "
+"không phí ẩn."
 
 #: templates/pages/help_center.html:663
+#, fuzzy
 msgid ""
 "We're not a dealership. We don't buy or sell cars. We're a marketplace — a "
 "platform where private sellers and verified dealers meet real buyers. The "
 "deal happens between you and the other party, exactly as it should."
 msgstr ""
+"Chúng tôi không phải là đại lý. Chúng tôi không mua hoặc bán xe. Chúng tôi "
+"là một sàn giao dịch — một nền tảng nơi người bán cá nhân và các đại lý đã "
+"được xác minh gặp gỡ người mua thực sự. Giao dịch diễn ra giữa bạn và bên "
+"kia, đúng như lẽ ra phải vậy."
 
 #: templates/pages/help_center.html:667
+#, fuzzy
 msgid ""
 "What we do is help you get noticed. We promote listings through targeted "
 "ads, video content, and social media campaigns — bringing more eyes to the "
 "right vehicles, so sales happen faster and at fair prices for everyone "
 "involved."
 msgstr ""
+"Điều chúng tôi làm là giúp bạn thu hút sự chú ý. Chúng tôi quảng bá tin đăng"
+" thông qua quảng cáo nhắm mục tiêu, nội dung video và các chiến dịch truyền "
+"thông xã hội — thu hút nhiều người xem hơn đến đúng loại xe, giúp giao dịch "
+"diễn ra nhanh hơn và với giá cả hợp lý cho tất cả các bên liên quan."
 
 #: templates/pages/help_center.html:673
+#, fuzzy
 msgid "Active users"
-msgstr ""
+msgstr "Người dùng hoạt động"
 
 #: templates/pages/help_center.html:677
+#, fuzzy
 msgid "Vehicles listed"
-msgstr ""
+msgstr "Danh sách xe"
 
 #: templates/pages/help_center.html:681
+#, fuzzy
 msgid "Middleman fees"
-msgstr ""
+msgstr "Phí trung gian"
 
 #: templates/pages/help_center.html:692
 msgid "Terms of Use"
@@ -11064,46 +12099,65 @@ msgstr "Điều khoản sử dụng"
 
 #: templates/pages/help_center.html:695 templates/pages/help_center.html:769
 #: templates/pages/help_center.html:838
+#, fuzzy
 msgid "Last updated: May 13, 2026"
-msgstr ""
+msgstr "Cập nhật lần cuối: ngày 13 tháng 5 năm 2026"
 
 #: templates/pages/help_center.html:699
+#, fuzzy
 msgid "1. Acceptance of Terms"
-msgstr ""
+msgstr "1. Chấp nhận các Điều khoản"
 
 #: templates/pages/help_center.html:700
+#, fuzzy
 msgid ""
 "By accessing or using this platform, you agree to these Terms of Use. If you"
 " don't agree, please don't use the platform."
 msgstr ""
+"Bằng cách truy cập hoặc sử dụng nền tảng này, bạn đồng ý với các Điều khoản "
+"sử dụng này. Nếu bạn không đồng ý, vui lòng không sử dụng nền tảng."
 
 #: templates/pages/help_center.html:704
+#, fuzzy
 msgid "2. What This Platform Is"
-msgstr ""
+msgstr "2. Nền tảng này là gì?"
 
 #: templates/pages/help_center.html:705
+#, fuzzy
 msgid ""
 "This is an online marketplace that connects buyers and sellers of vehicles. "
 "We don't own, sell, inspect, or warrant any vehicle listed on the platform. "
 "All transactions happen directly between users."
 msgstr ""
+"Đây là một sàn giao dịch trực tuyến kết nối người mua và người bán xe. Chúng"
+" tôi không sở hữu, bán, kiểm tra hoặc bảo hành bất kỳ chiếc xe nào được niêm"
+" yết trên nền tảng này. Tất cả các giao dịch đều diễn ra trực tiếp giữa "
+"người dùng."
 
 #: templates/pages/help_center.html:709
+#, fuzzy
 msgid "3. User Accounts"
-msgstr ""
+msgstr "3. Tài khoản người dùng"
 
 #: templates/pages/help_center.html:710
+#, fuzzy
 msgid ""
 "To create listings or contact sellers, you must register an account. You are"
 " responsible for keeping your password secure and for all activity under "
 "your account. Provide accurate information — fake accounts will be removed."
 msgstr ""
+"Để tạo tin đăng hoặc liên hệ với người bán, bạn phải đăng ký tài khoản. Bạn "
+"chịu trách nhiệm bảo mật mật khẩu và chịu trách nhiệm cho mọi hoạt động dưới"
+" tài khoản của mình. Hãy cung cấp thông tin chính xác — các tài khoản giả "
+"mạo sẽ bị xóa."
 
 #: templates/pages/help_center.html:714
+#, fuzzy
 msgid "4. Listings Content"
-msgstr ""
+msgstr "4. Nội dung danh sách"
 
 #: templates/pages/help_center.html:715
+#, fuzzy
 msgid ""
 "You are fully responsible for the content you post: photos, descriptions, "
 "prices, and vehicle data. Listings must be accurate, legal, and your own. "
@@ -11111,178 +12165,267 @@ msgid ""
 "fraudulent listings. We reserve the right to remove any listing without "
 "notice."
 msgstr ""
+"Bạn hoàn toàn chịu trách nhiệm về nội dung mình đăng tải: ảnh, mô tả, giá cả"
+" và thông tin xe. Bài đăng phải chính xác, hợp pháp và do chính bạn thực "
+"hiện. Không đăng bán xe bị đánh cắp, xe mà bạn không có quyền bán hoặc các "
+"bài đăng gian lận. Chúng tôi có quyền xóa bất kỳ bài đăng nào mà không cần "
+"báo trước."
 
 #: templates/pages/help_center.html:719
+#, fuzzy
 msgid "5. Transactions Between Users"
-msgstr ""
+msgstr "5. Giao dịch giữa người dùng"
 
 #: templates/pages/help_center.html:720
+#, fuzzy
 msgid ""
 "We are not a party to any transaction between buyers and sellers. We don't "
 "handle payments, deliveries, inspections, or disputes. Always verify the "
 "vehicle in person before paying. Use safe payment methods and meet in safe "
 "public locations."
 msgstr ""
+"Chúng tôi không tham gia vào bất kỳ giao dịch nào giữa người mua và người "
+"bán. Chúng tôi không xử lý thanh toán, giao hàng, kiểm tra hoặc tranh chấp. "
+"Luôn luôn kiểm tra xe trực tiếp trước khi thanh toán. Sử dụng các phương "
+"thức thanh toán an toàn và gặp nhau tại các địa điểm công cộng an toàn."
 
 #: templates/pages/help_center.html:724
+#, fuzzy
 msgid "6. Fees and Payments"
-msgstr ""
+msgstr "6. Lệ phí và Thanh toán"
 
 #: templates/pages/help_center.html:725
+#, fuzzy
 msgid ""
 "The first 3 listings per user are free. Additional listings, premium plans, "
 "and dealer subscriptions are paid. All fees are non-refundable except where "
 "required by law. See the Pricing page for current rates."
 msgstr ""
+"Mỗi người dùng được đăng 3 tin rao bán đầu tiên miễn phí. Các tin rao bán bổ"
+" sung, gói cao cấp và gói dành cho đại lý đều phải trả phí. Tất cả các khoản"
+" phí đều không được hoàn lại trừ trường hợp pháp luật yêu cầu. Xem trang Giá"
+" cả để biết mức giá hiện hành."
 
 #: templates/pages/help_center.html:729
+#, fuzzy
 msgid "7. Prohibited Activities"
-msgstr ""
+msgstr "7. Các hoạt động bị cấm"
 
 #: templates/pages/help_center.html:730
+#, fuzzy
 msgid ""
 "You may not: post duplicate listings, spam other users, harass anyone, "
 "scrape data from the site, attempt to manipulate search rankings, post "
 "illegal or fraudulent content, or use bots to interact with the platform. "
 "Violations may result in account suspension."
 msgstr ""
+"Bạn không được phép: đăng tin trùng lặp, gửi thư rác cho người dùng khác, "
+"quấy rối bất kỳ ai, thu thập dữ liệu từ trang web, cố gắng thao túng thứ "
+"hạng tìm kiếm, đăng nội dung bất hợp pháp hoặc gian lận, hoặc sử dụng bot để"
+" tương tác với nền tảng. Vi phạm có thể dẫn đến việc bị đình chỉ tài khoản."
 
 #: templates/pages/help_center.html:734
+#, fuzzy
 msgid "8. Disclaimer of Warranties"
-msgstr ""
+msgstr "8. Từ chối bảo hành"
 
 #: templates/pages/help_center.html:735
+#, fuzzy
 msgid ""
 "The platform is provided 'as is' without warranties of any kind. We don't "
 "guarantee that listings are accurate, that transactions will be successful, "
 "or that the service will be uninterrupted."
 msgstr ""
+"Nền tảng này được cung cấp \"nguyên trạng\" mà không có bất kỳ bảo đảm nào. "
+"Chúng tôi không đảm bảo rằng các thông tin đăng tải là chính xác, giao dịch "
+"sẽ thành công hoặc dịch vụ sẽ không bị gián đoạn."
 
 #: templates/pages/help_center.html:739
+#, fuzzy
 msgid "9. Limitation of Liability"
-msgstr ""
+msgstr "9. Giới hạn trách nhiệm"
 
 #: templates/pages/help_center.html:740
+#, fuzzy
 msgid ""
 "To the maximum extent allowed by law, we are not liable for any damages "
 "arising from your use of the platform or from transactions between users."
 msgstr ""
+"Trong phạm vi tối đa được pháp luật cho phép, chúng tôi không chịu trách "
+"nhiệm đối với bất kỳ thiệt hại nào phát sinh từ việc bạn sử dụng nền tảng "
+"hoặc từ các giao dịch giữa người dùng."
 
 #: templates/pages/help_center.html:744
+#, fuzzy
 msgid "10. Termination"
-msgstr ""
+msgstr "10. Chấm dứt"
 
 #: templates/pages/help_center.html:745
+#, fuzzy
 msgid ""
 "We reserve the right to suspend or terminate accounts that violate these "
 "Terms. You may delete your account at any time from your account settings."
 msgstr ""
+"Chúng tôi có quyền đình chỉ hoặc chấm dứt các tài khoản vi phạm Điều khoản "
+"này. Bạn có thể xóa tài khoản của mình bất cứ lúc nào từ phần cài đặt tài "
+"khoản."
 
 #: templates/pages/help_center.html:749
+#, fuzzy
 msgid "11. Changes to Terms"
-msgstr ""
+msgstr "11. Thay đổi Điều khoản"
 
 #: templates/pages/help_center.html:750
+#, fuzzy
 msgid ""
 "We may update these Terms occasionally. Significant changes will be "
 "announced on the site. Continued use after changes means you accept the "
 "updated Terms."
 msgstr ""
+"Chúng tôi có thể cập nhật các Điều khoản này định kỳ. Những thay đổi quan "
+"trọng sẽ được thông báo trên trang web. Việc tiếp tục sử dụng sau khi có "
+"thay đổi đồng nghĩa với việc bạn chấp nhận các Điều khoản đã được cập nhật."
 
 #: templates/pages/help_center.html:754
+#, fuzzy
 msgid "12. Contact"
-msgstr ""
+msgstr "12. Liên hệ"
 
 #: templates/pages/help_center.html:755
+#, fuzzy
 msgid "Questions about these Terms? Email us at helpautoinfo@gmail.com."
 msgstr ""
+"Bạn có thắc mắc gì về các Điều khoản này? Vui lòng gửi email cho chúng tôi "
+"theo địa chỉ helpautoinfo@gmail.com."
 
 #: templates/pages/help_center.html:766
 msgid "Privacy Policy"
 msgstr "Chính sách bảo mật"
 
 #: templates/pages/help_center.html:773
+#, fuzzy
 msgid "1. What We Collect"
-msgstr ""
+msgstr "1. Những gì chúng tôi thu thập"
 
 #: templates/pages/help_center.html:774
+#, fuzzy
 msgid ""
 "When you use this platform, we collect: your email and name (for your "
 "account), your phone number (if you choose to share it on listings), photos "
 "and descriptions you upload, your IP address and browser type, and pages you"
 " visit on our site."
 msgstr ""
+"Khi bạn sử dụng nền tảng này, chúng tôi thu thập: email và tên của bạn (cho "
+"tài khoản của bạn), số điện thoại của bạn (nếu bạn chọn chia sẻ trên các tin"
+" đăng), ảnh và mô tả bạn tải lên, địa chỉ IP và loại trình duyệt của bạn, và"
+" các trang bạn truy cập trên trang web của chúng tôi."
 
 #: templates/pages/help_center.html:778
+#, fuzzy
 msgid "2. How We Use Your Data"
-msgstr ""
+msgstr "2. Cách chúng tôi sử dụng dữ liệu của bạn"
 
 #: templates/pages/help_center.html:779
+#, fuzzy
 msgid ""
 "We use your data to: operate the marketplace (show your listings, deliver "
 "messages), send important account emails, improve the platform, prevent "
 "fraud and abuse, and (with your consent) send marketing emails. We don't "
 "sell your personal data to third parties."
 msgstr ""
+"Chúng tôi sử dụng dữ liệu của bạn để: vận hành sàn giao dịch (hiển thị tin "
+"đăng của bạn, gửi tin nhắn), gửi email quan trọng về tài khoản, cải thiện "
+"nền tảng, ngăn chặn gian lận và lạm dụng, và (với sự đồng ý của bạn) gửi "
+"email tiếp thị. Chúng tôi không bán dữ liệu cá nhân của bạn cho bên thứ ba."
 
 #: templates/pages/help_center.html:783
+#, fuzzy
 msgid "3. What's Public"
-msgstr ""
+msgstr "3. Thế nào là thông tin công khai"
 
 #: templates/pages/help_center.html:784
+#, fuzzy
 msgid ""
 "Your listings, including photos and descriptions, are public. Your name or "
 "username, city, and (if enabled) phone number are visible to other users. "
 "Your email is not shown publicly unless you choose to display it."
 msgstr ""
+"Thông tin đăng tải của bạn, bao gồm ảnh và mô tả, đều được công khai. Tên "
+"hoặc tên người dùng, thành phố và (nếu được bật) số điện thoại của bạn sẽ "
+"hiển thị cho người dùng khác. Địa chỉ email của bạn sẽ không được hiển thị "
+"công khai trừ khi bạn chọn hiển thị."
 
 #: templates/pages/help_center.html:788
+#, fuzzy
 msgid "4. Cookies and Tracking"
-msgstr ""
+msgstr "4. Cookie và Theo dõi"
 
 #: templates/pages/help_center.html:789
+#, fuzzy
 msgid ""
 "We use cookies to keep you logged in, remember your language and search "
 "preferences, and analyze how the site is used. See the Cookie Policy for "
 "full details."
 msgstr ""
+"Chúng tôi sử dụng cookie để duy trì trạng thái đăng nhập của bạn, ghi nhớ "
+"ngôn ngữ và tùy chọn tìm kiếm, cũng như phân tích cách thức sử dụng trang "
+"web. Xem Chính sách Cookie để biết thêm chi tiết."
 
 #: templates/pages/help_center.html:793
+#, fuzzy
 msgid "5. Third-Party Services"
-msgstr ""
+msgstr "5. Dịch vụ của bên thứ ba"
 
 #: templates/pages/help_center.html:794
+#, fuzzy
 msgid ""
 "We use trusted third-party services for payments (Stripe), email delivery, "
 "and analytics. These providers handle data securely under their own privacy "
 "policies. We also embed Google Maps on listing pages."
 msgstr ""
+"Chúng tôi sử dụng các dịch vụ bên thứ ba đáng tin cậy cho thanh toán "
+"(Stripe), gửi email và phân tích. Các nhà cung cấp này xử lý dữ liệu một "
+"cách an toàn theo chính sách bảo mật riêng của họ. Chúng tôi cũng tích hợp "
+"Google Maps vào các trang thông tin bất động sản."
 
 #: templates/pages/help_center.html:798
+#, fuzzy
 msgid "6. Your Rights (GDPR)"
-msgstr ""
+msgstr "6. Quyền của bạn (GDPR)"
 
 #: templates/pages/help_center.html:799
+#, fuzzy
 msgid ""
 "If you're in the EU, you have the right to: access the data we hold about "
 "you, correct inaccurate data, delete your account and data, export your "
 "data, and withdraw marketing consent. Contact us to use these rights."
 msgstr ""
+"Nếu bạn đang ở trong Liên minh Châu Âu, bạn có quyền: truy cập dữ liệu chúng"
+" tôi lưu giữ về bạn, sửa dữ liệu không chính xác, xóa tài khoản và dữ liệu "
+"của bạn, xuất dữ liệu của bạn và thu hồi sự đồng ý tiếp thị. Vui lòng liên "
+"hệ với chúng tôi để thực hiện các quyền này."
 
 #: templates/pages/help_center.html:803
+#, fuzzy
 msgid "7. Data Retention"
-msgstr ""
+msgstr "7. Lưu trữ dữ liệu"
 
 #: templates/pages/help_center.html:804
+#, fuzzy
 msgid ""
 "We keep your data while your account is active. If you delete your account, "
 "we remove personal data within 30 days, except where we need to keep it for "
 "legal reasons (tax records, fraud prevention)."
 msgstr ""
+"Chúng tôi lưu giữ dữ liệu của bạn trong suốt thời gian tài khoản của bạn "
+"hoạt động. Nếu bạn xóa tài khoản, chúng tôi sẽ xóa dữ liệu cá nhân trong "
+"vòng 30 ngày, trừ trường hợp cần giữ lại vì lý do pháp lý (hồ sơ thuế, phòng"
+" chống gian lận)."
 
 #: templates/pages/help_center.html:808
+#, fuzzy
 msgid "8. Security"
-msgstr ""
+msgstr "8. An ninh"
 
 #: templates/pages/help_center.html:809
 #, python-format
@@ -11293,157 +12436,211 @@ msgid ""
 msgstr ""
 
 #: templates/pages/help_center.html:813
+#, fuzzy
 msgid "9. Children"
-msgstr ""
+msgstr "9. Trẻ em"
 
 #: templates/pages/help_center.html:814
+#, fuzzy
 msgid ""
 "This platform is not intended for users under 18. We don't knowingly collect"
 " data from minors."
 msgstr ""
+"Nền tảng này không dành cho người dùng dưới 18 tuổi. Chúng tôi không cố ý "
+"thu thập dữ liệu từ trẻ vị thành niên."
 
 #: templates/pages/help_center.html:818
+#, fuzzy
 msgid "10. Changes"
-msgstr ""
+msgstr "10. Thay đổi"
 
 #: templates/pages/help_center.html:819
+#, fuzzy
 msgid ""
 "We may update this Privacy Policy. Important changes will be announced on "
 "the site."
 msgstr ""
+"Chúng tôi có thể cập nhật Chính sách Bảo mật này. Những thay đổi quan trọng "
+"sẽ được thông báo trên trang web."
 
 #: templates/pages/help_center.html:823
+#, fuzzy
 msgid "11. Contact"
-msgstr ""
+msgstr "11. Liên hệ"
 
 #: templates/pages/help_center.html:824
+#, fuzzy
 msgid ""
 "Questions about your privacy or data? Email us at helpautoinfo@gmail.com."
 msgstr ""
+"Bạn có thắc mắc về quyền riêng tư hoặc dữ liệu của mình? Vui lòng gửi email "
+"cho chúng tôi theo địa chỉ helpautoinfo@gmail.com."
 
 #: templates/pages/help_center.html:835
+#, fuzzy
 msgid "Cookie Policy"
-msgstr ""
+msgstr "Chính sách cookie"
 
 #: templates/pages/help_center.html:842
+#, fuzzy
 msgid "What are cookies?"
-msgstr ""
+msgstr "Cookie là gì?"
 
 #: templates/pages/help_center.html:843
+#, fuzzy
 msgid ""
 "Cookies are small text files that websites store on your device to remember "
 "things — like that you're logged in, what language you prefer, or which "
 "listings you've viewed."
 msgstr ""
+"Cookie là những tệp văn bản nhỏ mà các trang web lưu trữ trên thiết bị của "
+"bạn để ghi nhớ một số thông tin — chẳng hạn như bạn đã đăng nhập, ngôn ngữ "
+"bạn ưa thích hoặc những tin đăng bạn đã xem."
 
 #: templates/pages/help_center.html:847
+#, fuzzy
 msgid "Cookies we use"
-msgstr ""
+msgstr "Các cookie chúng tôi sử dụng"
 
 #: templates/pages/help_center.html:855
+#, fuzzy
 msgid "Required?"
-msgstr ""
+msgstr "Yêu cầu?"
 
 #: templates/pages/help_center.html:860
+#, fuzzy
 msgid "Essential"
-msgstr ""
+msgstr "Thiết yếu"
 
 #: templates/pages/help_center.html:861
+#, fuzzy
 msgid "Login session, security, CSRF protection"
-msgstr ""
+msgstr "Phiên đăng nhập, bảo mật, bảo vệ CSRF"
 
 #: templates/pages/help_center.html:862
+#, fuzzy
 msgid "Yes"
-msgstr ""
+msgstr "Đúng"
 
 #: templates/pages/help_center.html:865
+#, fuzzy
 msgid "Preferences"
-msgstr ""
+msgstr "Tùy chọn"
 
 #: templates/pages/help_center.html:866
+#, fuzzy
 msgid "Language, currency, recent searches"
-msgstr ""
+msgstr "Ngôn ngữ, tiền tệ, tìm kiếm gần đây"
 
 #: templates/pages/help_center.html:867 templates/pages/help_center.html:872
+#, fuzzy
 msgid "No"
-msgstr ""
+msgstr "KHÔNG"
 
 #: templates/pages/help_center.html:870
+#, fuzzy
 msgid "Analytics"
-msgstr ""
+msgstr "Phân tích"
 
 #: templates/pages/help_center.html:871
+#, fuzzy
 msgid "Anonymous usage statistics (page views, errors)"
-msgstr ""
+msgstr "Thống kê sử dụng ẩn danh (lượt xem trang, lỗi)"
 
 #: templates/pages/help_center.html:875
+#, fuzzy
 msgid "Third-party"
-msgstr ""
+msgstr "Bên thứ ba"
 
 #: templates/pages/help_center.html:876
+#, fuzzy
 msgid "Stripe (payments), Google Maps (location)"
-msgstr ""
+msgstr "Stripe (thanh toán), Google Maps (định vị)"
 
 #: templates/pages/help_center.html:877
+#, fuzzy
 msgid "Optional"
-msgstr ""
+msgstr "Không bắt buộc"
 
 #: templates/pages/help_center.html:885
+#, fuzzy
 msgid "How long cookies last"
-msgstr ""
+msgstr "Bánh quy để được bao lâu"
 
 #: templates/pages/help_center.html:886
+#, fuzzy
 msgid ""
 "Session cookies are deleted when you close your browser. Persistent cookies "
 "(like login remembering) last up to 1 year. You can clear cookies any time "
 "from your browser settings."
 msgstr ""
+"Cookie phiên sẽ bị xóa khi bạn đóng trình duyệt. Cookie lâu dài (như cookie "
+"ghi nhớ thông tin đăng nhập) có thời hạn tối đa 1 năm. Bạn có thể xóa cookie"
+" bất cứ lúc nào từ cài đặt trình duyệt của mình."
 
 #: templates/pages/help_center.html:890
+#, fuzzy
 msgid "Managing cookies"
-msgstr ""
+msgstr "Quản lý cookie"
 
 #: templates/pages/help_center.html:891
+#, fuzzy
 msgid ""
 "You can disable cookies in your browser settings — but if you disable "
 "essential cookies, the platform may not work properly. You won't be able to "
 "log in, post listings, or save preferences."
 msgstr ""
+"Bạn có thể tắt cookie trong cài đặt trình duyệt của mình — nhưng nếu bạn tắt"
+" các cookie thiết yếu, nền tảng có thể không hoạt động bình thường. Bạn sẽ "
+"không thể đăng nhập, đăng tin rao bán hoặc lưu tùy chọn."
 
 #: templates/pages/help_center.html:895
+#, fuzzy
 msgid "Do Not Track"
-msgstr ""
+msgstr "Không theo dõi"
 
 #: templates/pages/help_center.html:896
+#, fuzzy
 msgid ""
 "We honor 'Do Not Track' signals where technically feasible. Non-essential "
 "analytics cookies will not be set if your browser sends this signal."
 msgstr ""
+"Chúng tôi tôn trọng tín hiệu \"Không theo dõi\" (Do Not Track) khi khả thi "
+"về mặt kỹ thuật. Cookie phân tích không thiết yếu sẽ không được thiết lập "
+"nếu trình duyệt của bạn gửi tín hiệu này."
 
 #: templates/pages/help_center.html:900
+#, fuzzy
 msgid "Questions?"
-msgstr ""
+msgstr "Có câu hỏi gì không?"
 
 #: templates/pages/help_center.html:901
+#, fuzzy
 msgid "Email us at helpautoinfo@gmail.com."
-msgstr ""
+msgstr "Vui lòng gửi email cho chúng tôi theo địa chỉ helpautoinfo@gmail.com."
 
 #: templates/pages/page_simple.html:69
+#, fuzzy
 msgid "Coming Soon"
-msgstr ""
+msgstr "Sắp ra mắt"
 
 #: templates/pages/page_simple.html:71
+#, fuzzy
 msgid ""
 "We're working on this page. Check back soon for full content and features."
 msgstr ""
+"Chúng tôi đang hoàn thiện trang này. Hãy quay lại sau để xem nội dung và "
+"tính năng đầy đủ."
 
 #: templates/pages/page_simple.html:75
+#, fuzzy
 msgid "Need information now? Reach out to us:"
-msgstr ""
+msgstr "Cần thông tin ngay? Hãy liên hệ với chúng tôi:"
 
 #: templates/pages/page_simple.html:86
+#, fuzzy
 msgid "Back to Help Center"
-msgstr ""
+msgstr "Trở lại Trung tâm trợ giúp"
 
 #: templates/search/_panel_cars.html:57
 msgid "Detali paieška"
