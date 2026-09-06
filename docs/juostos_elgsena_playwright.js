@@ -16,7 +16,7 @@
  *
  * Paleidimas:  SP=<scratchpad> node docs/juostos_elgsena_playwright.js
  */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const A = 'http://127.0.0.1:8899';
 const KELIAS = '/?section=cars&sidebar=1';
 

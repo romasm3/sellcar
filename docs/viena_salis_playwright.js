@@ -11,7 +11,7 @@
  * Paleidimas (serveris turi suktis ties 127.0.0.1:8899):
  *   SP=<scratchpad> node docs/viena_salis_playwright.js
  */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const EKRANAI = __dirname + '/ekranai';
 const A = 'http://127.0.0.1:8899';
 const VOKISKAS = '/11/';                 // „DE auto 3", Berlin

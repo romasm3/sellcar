@@ -11,7 +11,7 @@
  *
  * Paleidimas:  SP=<scratchpad> node docs/kalbos_perjungimo_playwright.js
  */
-const { chromium } = require(process.env.SP + '/nuotrauka.js');
+const { chromium } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const A = process.env.ADRESAS || 'http://127.0.0.1:8899';
 
 let gerai = 0, blogai = 0;

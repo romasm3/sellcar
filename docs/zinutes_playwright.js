@@ -15,8 +15,8 @@
  *
  * Paleidimas:  SP=<scratchpad> node docs/zinutes_playwright.js
  */
-const { chromium } = require(process.env.SP + '/nuotrauka.js');
-const { puslapis, prisijunk, A } = require(process.env.SP + '/pk2.js');
+const { chromium } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
+const { puslapis, prisijunk, A } = require(require('path').join(__dirname, 'patikra', 'pk2.js'));
 const EKRANAI = __dirname + '/ekranai';
 
 let gerai = 0, blogai = 0;

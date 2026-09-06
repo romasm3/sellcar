@@ -8,7 +8,7 @@
    <img> su SVG (ne emoji), ir surenka palyginimą: kontaktų blokas bei
    žemėlapio burbulas su lietuvišku ir vokišku skelbimu greta.
    ═══════════════════════════════════════════════════════════════════ */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const S = process.env.SP;
 let gerai=0, blogai=0;
 const tik=(s,k)=>{ s?gerai++:(blogai++,console.log('  NEPAVYKO: '+k)); };

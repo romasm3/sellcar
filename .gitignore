@@ -134,3 +134,6 @@ yarn-debug.log*
 # Kritusio commit'o žymė — kad autodiegimas jo nekartotų kas minutę
 deploy/.blogas-commitas
 VERSIJA
+
+# Vietinės patikros DB (docs/patikra/sqlite_settings.py)
+.patikra.sqlite3

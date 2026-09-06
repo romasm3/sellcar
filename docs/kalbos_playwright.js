@@ -9,7 +9,7 @@
    poraštė, ir svarbiausia — kad po perjungimo lieki TAME PAČIAME
    puslapyje su visais GET filtrais.
    ═══════════════════════════════════════════════════════════════════ */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const S = process.env.SP;
 const ADRESAS = 'http://127.0.0.1:8899/?section=cars&price_min=5000&fuel_type=2';
 let gerai = 0, blogai = 0;

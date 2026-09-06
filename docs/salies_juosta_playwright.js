@@ -5,7 +5,7 @@
    Paleidimas (reikia vietinio serverio ties 127.0.0.1:8899):
        SP=<katalogas su node_modules> node docs/salies_juosta_playwright.js
    ═══════════════════════════════════════════════════════════════════ */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const S = process.env.SP;
 let gerai=0, blogai=0;
 const tik=(s,k)=>{ s?gerai++:(blogai++,console.log('  NEPAVYKO: '+k)); };

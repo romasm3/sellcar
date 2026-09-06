@@ -6,7 +6,7 @@
  *
  * Paleidimas:  SP=<scratchpad> node docs/sonines_sarasu_playwright.js
  */
-const { chromium, paruosti } = require(process.env.SP + '/nuotrauka.js');
+const { chromium, paruosti } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const A = process.env.ADRESAS || 'http://127.0.0.1:8899';
 let blogai = 0;
 

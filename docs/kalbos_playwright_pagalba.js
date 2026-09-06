@@ -1,7 +1,7 @@
 /* Ekrano nuotraukos vietiniam serveriui.
    CDN (tailwind, flag-icons, font-awesome) naršyklei per agentų tarpinį
    nepasiekiami, todėl juos parsiunčiam curl'u ir atiduodam patys. */
-const { chromium } = require(process.env.SP + '/node_modules/playwright');
+const { chromium } = require(require('path').join(__dirname, 'patikra', 'nuotrauka.js'));
 const { execFileSync } = require('child_process');
 const fs = require('fs');
 
