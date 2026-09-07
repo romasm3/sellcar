@@ -223,6 +223,128 @@ for kalba in KALBOS:
                 rado = False
             tikrink(rado, '%s: %s neišsisprendžia (404)' % (kalba, kelias))
 
+
+# ═══════════════════════════════════════════════════════════════════
+# Kiekviena kategorija — visos keturios galimybės
+#
+# Neužtenka, kad bendra dalis būtų prijungta: ji turi būti prijungta
+# TEISINGAI. Perskaitom, ką kiekvienas puslapis paskelbė savo
+# nustatymų bloke, ir tikrinam, ar iš to išeina veikiantys ◀ ▶,
+# trynimas ir siuntimas po vieną.
+# ═══════════════════════════════════════════════════════════════════
+import re
+
+antraste('Kiekviena kategorija: ◀ ▶, trynimas, po vieną, sargas')
+
+def nustatymai(kunas):
+    m = re.search(r'<div data-al-nuotraukos(.*?)>', kunas, re.S)
+    if not m:
+        return None
+    return dict(re.findall(r'data-([a-z-]+)="([^"]*)"', m.group(1)))
+
+be_bloko, be_perstumimo, be_trynimo, be_po_vieno, be_kablio = [], [], [], [], []
+tikrintos = 0
+c = klientas('lt')
+for kelias in KELIAI:
+    r = c.get(kelias, follow=True)
+    if r.status_code != 200:
+        continue
+    kunas = r.content.decode('utf-8')
+    if 'id="imageInput"' not in kunas and 'id="photoInput"' not in kunas:
+        continue          # kategorijų rinkiklis — nuotraukų neturi
+    tikrintos += 1
+    n = nustatymai(kunas)
+    if not n:
+        be_bloko.append(kelias)
+        continue
+
+    # 1. ◀ ▶ — turi būti kaip išsaugoti tvarką
+    kablys = n.get('tvarkos-kablys', '')
+    if not (n.get('pertvarkyti') or kablys or n.get('vietinis') == '1'):
+        be_perstumimo.append(kelias)
+    # kablys turi būti tikra funkcija tame pačiame puslapyje
+    if kablys and ('window.%s' % kablys) not in kunas \
+            and ('function %s' % kablys) not in kunas:
+        be_kablio.append('%s → %s' % (kelias, kablys))
+
+    # 2. trynimas — arba bendras adresas, arba savas mygtukas
+    if not n.get('trinti') and 'foto-trinti' not in kunas \
+            and 'delete' not in kunas.lower():
+        be_trynimo.append(kelias)
+
+    # 3. įkėlimas po vieną — arba perima bendras, arba forma kviečia
+    #    bendrą pagalbininką
+    if n.get('perimti-ikelima') != '1' \
+            and 'ALNuotraukos.siuskPoViena' not in kunas \
+            and n.get('vietinis') != '1':
+        be_po_vieno.append(kelias)
+
+print('  su nuotraukomis: %d formų' % tikrintos)
+tikrink(tikrintos >= 20, 'per mažai formų su nuotraukomis: %d' % tikrintos)
+tikrink(not be_bloko, 'nėra nustatymų bloko: %s' % be_bloko[:5])
+tikrink(not be_perstumimo, 'nebus ◀ ▶ (nėra kaip įrašyti tvarkos): %s'
+        % be_perstumimo[:5])
+tikrink(not be_kablio, 'nurodytas kablys puslapyje neegzistuoja: %s'
+        % be_kablio[:5])
+tikrink(not be_trynimo, 'nėra kaip ištrinti: %s' % be_trynimo[:5])
+tikrink(not be_po_vieno, 'siunčia ne po vieną: %s' % be_po_vieno[:5])
+
+
+antraste('Šablonuose nebeliko savo nusirašyto kodo')
+# `tik_kalba` buvo skylė: su juo forma gaudavo tik laukų išsaugojimą,
+# o ◀ ▶ ir „PAGRINDINĖ" likdavo nepasiekiami.
+su_isimtimi, su_pluostu = [], []
+for f in SABLONAI:
+    turinys = io.open(os.path.join(BASE, 'templates', 'listings', f),
+                      encoding='utf-8').read()
+    if 'tik_kalba' in turinys:
+        su_isimtimi.append(f)
+    # Visos nuotraukos vienu siuntiniu — būtent tai telefone ir krisdavo
+    if re.search(r"forEach\([^)]*\)\s*\{?\s*[^;]*append\('images'", turinys) \
+            or re.search(r"\.forEach\(f => fd\.append\('images'", turinys):
+        su_pluostu.append(f)
+tikrink(not su_isimtimi, 'formos vis dar išsisuka su tik_kalba: %s' % su_isimtimi)
+tikrink(not su_pluostu, 'formos siunčia visas nuotraukas vienu pluoštu: %s'
+        % su_pluostu)
+
+# Bendrame JS — visos keturios galimybės ir kabliai
+for dalis, kam in (('tvarkosKablys', 'formos kablys tvarkai įrašyti'),
+                   ('vietinis', 'vietinis režimas (nuotraukos naršyklėje)'),
+                   ('ALNuotraukos', 'viešas pagalbininkas formoms'),
+                   ('popstate', '„atgal" sargas')):
+    tikrink(dalis in js, 'bendrame JS nėra: %s' % kam)
+
+# Ženklo išvaizda — CSS, ne Tailwind: dalis formų turi savo apipavidalinimą
+css = io.open(os.path.join(BASE, 'static/css/style.css'), encoding='utf-8').read()
+for dalis, kam in (('.foto-zyme', 'PAGRINDINĖ ženklo stilius'),
+                   ('.foto-perstumti', '◀ ▶ mygtukų stilius'),
+                   ('hover: none', 'matomumas telefone')):
+    tikrink(dalis in css, 'style.css nėra: %s' % kam)
+
+
+antraste('Kiekvienos formos paskelbti adresai išsisprendžia (13 kalbų)')
+adresai = set()
+for kelias in KELIAI:
+    r = c.get(kelias, follow=True)
+    if r.status_code != 200:
+        continue
+    n = nustatymai(r.content.decode('utf-8')) or {}
+    for raktas in ('ikelti', 'pertvarkyti', 'trinti'):
+        v = (n.get(raktas) or '').strip()
+        if v.startswith('/'):
+            adresai.add(v.replace('/0/', '/1/'))
+print('  skirtingų adresų: %d' % len(adresai))
+for kalba in KALBOS:
+    with translation.override(kalba):
+        for adresas in sorted(adresai):
+            try:
+                resolve(adresas)
+                rado = True
+            except Resolver404:
+                rado = False
+            tikrink(rado, '%s: %s neišsisprendžia' % (kalba, adresas))
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

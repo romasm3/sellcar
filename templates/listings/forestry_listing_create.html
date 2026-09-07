@@ -524,7 +524,17 @@ function renderCreatePhotos() {
     if (wrap) wrap.style.display = createFiles.length ? '' : 'none';
     updateCreateCount();
     syncCreateInput();
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
+
+/* Vietinis perstūmimas ◀ ▶ (static/js/nuotrauku_valdymas.js): kuriant
+   nuotraukos dar naršyklėje, tad tvarką keičiam masyve ir perpiešiam.
+   Telefone HTML5 tempimas nekyla — be šito tvarkos pakeisti nebūtų kaip. */
+window.alCreatePerstumk = function(nuo, i) {
+    var f = createFiles.splice(nuo, 1)[0];
+    createFiles.splice(i, 0, f);
+    renderCreatePhotos();
+};
 
 function deleteCreatePhoto(idx) {
     if (createFiles[idx] && createFiles[idx].url) {
@@ -718,28 +728,18 @@ function uploadPhotosToEditListing(files) {
     if (!EDIT_LISTING_ID) { alert('{% trans "Skelbimo ID nerastas" %}'); return; }
     showUploadProgress(true);
     setUploadProgress(0, '{% trans "Ruošiamos nuotraukos..." %}');
+    // PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js).
+    // Vienu siuntiniu telefone krisdavo visos iš karto, o žmogus
+    // matydavo tik „Nepavyko įkelti".
     compressAll(files).then(function(compressed) {
-        var fd = new FormData();
-        compressed.forEach(function(f) { fd.append('images', f); });
-        fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/ajax/upload-listing-images/' + EDIT_LISTING_ID + '/');
-        xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-        xhr.upload.onprogress = function(e) {
-            if (e.lengthComputable) setUploadProgress(Math.round((e.loaded / e.total) * 100), '{% trans "Keliamos nuotraukos..." %}');
-        };
-        xhr.onload = function() {
-            showUploadProgress(false);
-            if (xhr.status >= 200 && xhr.status < 300) {
-                try {
-                    var data = JSON.parse(xhr.responseText);
-                    if (data && data.success) location.reload();
-                    else alert('{% trans "Nepavyko įkelti" %}: ' + (data.error || 'unknown error'));
-                } catch (err) { alert('{% trans "Nepavyko įkelti" %}'); }
-            } else { alert('{% trans "Nepavyko įkelti" %} (' + xhr.status + ')'); }
-        };
-        xhr.onerror = function() { showUploadProgress(false); alert('{% trans "Nepavyko įkelti" %}'); };
-        xhr.send(fd);
+        ALNuotraukos.siuskPoViena(compressed, {
+            url: '/ajax/upload-listing-images/' + EDIT_LISTING_ID + '/',
+            eiga: function(p, uzrasas) {
+                showUploadProgress(p !== null);
+                if (p !== null) setUploadProgress(p, uzrasas);
+            },
+            baigta: function() { location.reload(); }
+        });
     });
 }
 
@@ -829,5 +829,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="{% static 'js/brand_other.js' %}"></script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with pk=edit_listing_id perimti_ikelima=1 %}
+{% comment %}Redaguojant nuotraukos jau serveryje (◀ ▶ įrašo tvarką iš
+karto), kuriant — dar naršyklėje, tad tvarką keičia pati forma.{% endcomment %}
+{% if is_edit_mode %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with pk=edit_listing_id kortele='.existing-photo' perimti_ikelima=1 %}
+{% else %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#create-photos' vietinis=1 tvarkos_kablys='alCreatePerstumk' trinti='' %}
+{% endif %}
 {% endblock %}

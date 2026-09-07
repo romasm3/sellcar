@@ -24695,3 +24695,15 @@ msgstr "البحث عن بلد"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "مزيد من خيارات التنقل"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "نقل إلى اليسار"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "نقل إلى اليمين"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "لا تزال بعض الصور قيد الرفع. هل تريد المغادرة على أي حال؟"

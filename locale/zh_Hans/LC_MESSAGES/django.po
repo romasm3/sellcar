@@ -17394,7 +17394,7 @@ msgstr "当前照片"
 #: templates/listings/trailers_listing_create.html:651
 #: templates/listings/trailers_listing_create.html:817
 msgid "PAGRINDINĖ"
-msgstr "主要的"
+msgstr "主图"
 
 #: templates/listings/agriculture_listing_create.html:301
 #: templates/listings/bicycles_listing_create.html:283
@@ -24431,3 +24431,15 @@ msgstr "搜索国家"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "更多导航"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "向左移动"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "向右移动"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "仍有照片正在上传。确定要离开吗？"

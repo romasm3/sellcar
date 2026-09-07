@@ -843,29 +843,23 @@ function uploadPhotos(files) {
 }
 
 function uploadPhotosNow(files) {
-    const fd = new FormData();
-    Array.from(files).forEach(f => fd.append('images', f));
-    if (IS_EDIT_MODE && LISTING_ID) {
-        fd.append('listing_id', LISTING_ID);
-    }
-
-    fetch(AJAX_UPLOAD_IMAGE, {
-        method: 'POST',
-        headers: { 'X-CSRFToken': csrfToken },
-        body: fd,
-    })
-    .then(r => r.json())
-    .then(json => {
-        if (json.success && json.uploaded) {
-            json.uploaded.forEach(addPhotoToGrid);
-            showToast('saved', 'Uploaded');
+    // PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js).
+    // Vienu siuntiniu telefone krisdavo visos iš karto.
+    ALNuotraukos.siuskPoViena(files, {
+        url: AJAX_UPLOAD_IMAGE,
+        laukai: function() {
+            return (IS_EDIT_MODE && LISTING_ID) ? { listing_id: LISTING_ID } : {};
+        },
+        ikelta: function(json) {
+            (json.uploaded || []).forEach(addPhotoToGrid);
             const hint = document.querySelector('.photo-grid-hint');
             if (hint) hint.remove();
-        } else {
-            showToast('error', json.error || I18N.uploadFailed);
+        },
+        baigta: function(nepavyko) {
+            showToast(nepavyko.length ? 'error' : 'saved',
+                      nepavyko.length ? I18N.uploadFailed : 'Uploaded');
         }
-    })
-    .catch(() => showToast('error', I18N.uploadFailed));
+    });
 }
 
 function addPhotoToGrid(img) {
@@ -1070,5 +1064,5 @@ function openLightbox(url) {
 
 <script>
 </script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#photoGrid' kortele='.photo-item' tvarkos_kablys='saveOrder' trinti='' ivestis='#photoInput' maks=40 %}
 {% endblock %}

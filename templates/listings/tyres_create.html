@@ -500,6 +500,11 @@ function compressImage(file) {
     });
 }
 
+/* Kortelės piešiamos IŠ KARTO, o paveikslėlis įkrinta į jas vėliau.
+   Anksčiau visą kortelę kūrė FileReader.onload, tad jos atsirasdavo ne
+   eilės, o nuskaitymo tvarka — ir „pagrindine" tapdavo atsitiktinė.
+   Ženklus, numeraciją ir ◀ ▶ prideda bendras kodas
+   (static/js/nuotrauku_valdymas.js). */
 function renderPhotoPreviews() {
     var panel = document.getElementById('photo-preview');
     var wrap = document.getElementById('photo-preview-wrapper');
@@ -507,32 +512,45 @@ function renderPhotoPreviews() {
     if (!panel) return;
     panel.innerHTML = '';
     selectedFiles.forEach(function(file, idx) {
+        var div = document.createElement('div');
+        div.className = 'relative group aspect-square overflow-hidden rounded-lg ' +
+                        'border-2 border-gray-200 bg-gray-100';
+        div.dataset.vietinisIdx = idx;
+        var img = document.createElement('img');
+        img.className = 'w-full h-full object-cover hover:opacity-90 transition-opacity';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'foto-trinti absolute top-1 right-1 w-6 h-6 bg-red-500 ' +
+                        'hover:bg-red-600 text-white rounded-full text-xs flex ' +
+                        'items-center justify-center z-10';
+        btn.textContent = '\u00D7';
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            selectedFiles.splice(idx, 1);
+            renderPhotoPreviews();
+        });
+        div.appendChild(img);
+        div.appendChild(btn);
+        panel.appendChild(div);
         var reader = new FileReader();
         reader.onload = function(ev) {
-            var div = document.createElement('div');
-            div.className = 'relative group aspect-square overflow-hidden rounded-lg border-2 ' +
-                            (idx === 0 ? 'border-green-500' : 'border-gray-200') + ' bg-gray-100';
-            var badge = idx === 0
-                ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none"><i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}</span>'
-                : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none">' + (idx + 1) + '</span>';
-            div.innerHTML =
-                '<img src="' + ev.target.result + '" class="w-full h-full object-cover hover:opacity-90 transition-opacity">' +
-                badge +
-                '<button type="button" data-remove-idx="' + idx + '" class="absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">×</button>';
-            div.querySelector('img').addEventListener('click', function() { openPreviewLightbox(ev.target.result); });
-            div.querySelector('button').addEventListener('click', function(e) {
-                e.stopPropagation();
-                var i = parseInt(this.dataset.removeIdx, 10);
-                selectedFiles.splice(i, 1);
-                renderPhotoPreviews();
-            });
-            panel.appendChild(div);
+            img.src = ev.target.result;
+            img.addEventListener('click', function() { openPreviewLightbox(ev.target.result); });
         };
         reader.readAsDataURL(file);
     });
     if (wrap) wrap.style.display = selectedFiles.length ? '' : 'none';
     if (count) count.textContent = '(' + selectedFiles.length + ' / ' + MAX_PHOTOS + ')';
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
+
+/* Vietinis perstūmimas: nuotraukos dar naršyklėje, serveryje jų nėra,
+   tad tvarką keičiam masyve ir perpiešiam. */
+window.alVietinisPerstumk = function(nuo, i) {
+    var f = selectedFiles.splice(nuo, 1)[0];
+    selectedFiles.splice(i, 0, f);
+    renderPhotoPreviews();
+};
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('tyreBrandOther').addEventListener('input', function() {
@@ -575,5 +593,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#photo-preview' vietinis=1 tvarkos_kablys='alVietinisPerstumk' trinti='' maks=20 %}
 {% endblock %}

@@ -24777,3 +24777,15 @@ msgstr "Szukaj kraju"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Dodatkowa nawigacja"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Przesuń w lewo"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Przesuń w prawo"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Część zdjęć wciąż się przesyła. Na pewno wyjść?"

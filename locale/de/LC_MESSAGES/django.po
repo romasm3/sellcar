@@ -17487,7 +17487,7 @@ msgstr "Aktuelle Fotos"
 #: templates/listings/trailers_listing_create.html:651
 #: templates/listings/trailers_listing_create.html:817
 msgid "PAGRINDINĖ"
-msgstr "HAUPTSÄCHLICH"
+msgstr "HAUPTBILD"
 
 #: templates/listings/agriculture_listing_create.html:301
 #: templates/listings/bicycles_listing_create.html:283
@@ -24810,3 +24810,15 @@ msgstr "Land suchen"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Weitere Navigation"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Nach links verschieben"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Nach rechts verschieben"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Es werden noch Fotos hochgeladen. Trotzdem verlassen?"

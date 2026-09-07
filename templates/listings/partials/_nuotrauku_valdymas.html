@@ -13,35 +13,48 @@ prisijungia viena eilute:
 Parametrai (visi nebūtini):
     tinklelis        — miniatiūrų konteinerio selektorius
                        (numatytai '#existing-photos')
+    kortele          — kortelės selektorius tinklelyje, jei kortelės
+                       ne tiesioginiai vaikai (pvz. '.photo-item')
     pk               — skelbimo id; su juo sudedami įkėlimo ir
                        pertvarkymo adresai
     ikelti           — savas įkėlimo adresas (jei ne standartinis)
+    laukai           — papildomi įkėlimo laukai: „draft_id=@#laukas;a=1"
+                       (@ = reikšmė nuskaitoma iš DOM siuntimo metu)
     pertvarkyti      — savas pertvarkymo adresas
+    tvarkos_laukai   — papildomi pertvarkymo laukai („listing_id=12")
+    tvarkos_kablys   — formos funkcijos vardas, kuri pati įrašo tvarką
+                       (naudojam ten, kur adresas priklauso nuo formos
+                       būsenos); vietiniame režime gauna (nuo, į)
     trinti           — savas trynimo adresas; „0" pakeičiamas nuotraukos id
-    pagrindine       — „padaryti pagrindine" adresas
+    ivestis          — failų lauko selektorius (numatytai '#imageInput')
     perimti_ikelima  — 1, jei įkėlimą turi perimti bendras kodas
+    vietinis         — 1, kai nuotraukos dar naršyklėje (ratlankiai,
+                       padangos, ratai): tvarką keičia forma per kablį
     maks             — kiek nuotraukų daugiausia (numatytai 40)
 
 Adresai — BE kalbos priešdėlio (žr. apps/listings/urls_ajax.py): su
 priešdėliu jie krito į 404 dvylikai kalbų iš trylikos.
+
+VISOS create formos jungiasi PILNAI. Anksčiau buvęs `tik_kalba`
+jungiklis panaikintas: su juo pusė formų liko be ◀ ▶ ir be „PAGRINDINĖ",
+o būtent to ir buvo prašyta išvengti.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
-{% comment %}Formos, kurios jau turi savą pilną nuotraukų kodą
-(automobilių greitoji, motociklai, sunkvežimiai, „dalimis"), prisijungia
-su tik_kalba=1: iš čia joms reikia tik laukų išsaugojimo keičiant kalbą,
-o miniatiūrų valdymo jos turi savo — kitaip ženklai dubliuotųsi.
-{% endcomment %}{% if not tik_kalba %}
 <div data-al-nuotraukos
      data-tinklelis="{{ tinklelis|default:'#existing-photos' }}"
+     data-kortele="{{ kortele|default:'' }}"
      data-pk="{{ pk|default:'' }}"
      data-ikelti="{% if ikelti %}{{ ikelti }}{% elif pk %}/ajax/upload-listing-images/{{ pk }}/{% endif %}"
+     data-laukai="{{ laukai|default:'' }}"
      data-pertvarkyti="{% if pertvarkyti %}{{ pertvarkyti }}{% elif pk %}/ajax/reorder-listing-images/{{ pk }}/{% endif %}"
+     data-tvarkos-laukai="{{ tvarkos_laukai|default:'' }}"
+     data-tvarkos-kablys="{{ tvarkos_kablys|default:'' }}"
      data-trinti="{{ trinti|default:'/image/0/delete/' }}"
-     data-pagrindine="{{ pagrindine|default:'/image/0/set-main/' }}"
+     data-ivestis="{{ ivestis|default:'#imageInput' }}"
      data-perimti-ikelima="{% if perimti_ikelima %}1{% else %}0{% endif %}"
+     data-vietinis="{% if vietinis %}1{% else %}0{% endif %}"
      data-maks="{{ maks|default:'40' }}"
      hidden></div>
-{% endif %}
 <script>
   // Užrašai — vartotojo kalba; JS jų pats išversti negali.
   window.AL_NUOTRAUKU_TEKSTAI = {

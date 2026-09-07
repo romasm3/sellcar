@@ -554,37 +554,41 @@ document.getElementById('motoBrand').addEventListener('change', function() {
     }
 
     function uploadFiles(files) {
-        showProgress(true); setProgress(0, I18N.preparing);
+        // PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js).
+        // Juodraščio id gimsta prie pirmos nuotraukos, tad laukus
+        // paduodam funkcija: kitos jau keliauja į tą patį juodraštį.
         compressAll(files).then(function(compressed) {
-            var fd = new FormData();
-            compressed.forEach(function(f) { fd.append('images', f); });
-            if (!IS_EDIT_MODE) fd.append('draft_id', draftIdEl ? (draftIdEl.value || '') : '');
-            fd.append('csrfmiddlewaretoken', getCsrfToken());
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', UPLOAD_URL);
-            xhr.setRequestHeader('X-CSRFToken', getCsrfToken());
-            xhr.upload.onprogress = function(e) {
-                if (e.lengthComputable) setProgress(Math.round(e.loaded / e.total * 100), I18N.uploading);
-            };
-            xhr.onload = function() {
-                showProgress(false); setProgress(0, '');
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    try {
-                        var data = JSON.parse(xhr.responseText);
-                        if (data.success) {
-                            if (data.listing_id && draftIdEl) draftIdEl.value = data.listing_id;
-                            var wrap = document.getElementById('draft-photos-wrapper');
-                            if (wrap) wrap.style.display = '';
-                            appendPhotos(data.uploaded || []);
-                            updateCount();
-                        } else { alert(I18N.uploadFailed + ': ' + (data.error || '')); }
-                    } catch (err) { alert(I18N.uploadFailed); }
-                } else { alert(I18N.uploadFailed + ' (' + xhr.status + ')'); }
-            };
-            xhr.onerror = function() { showProgress(false); alert(I18N.uploadFailed); };
-            xhr.send(fd);
+            ALNuotraukos.siuskPoViena(compressed, {
+                url: UPLOAD_URL,
+                laukai: function() {
+                    return IS_EDIT_MODE ? {}
+                        : { draft_id: draftIdEl ? (draftIdEl.value || '') : '' };
+                },
+                eiga: function(p, uzrasas) {
+                    showProgress(p !== null);
+                    if (p !== null) setProgress(p, uzrasas || I18N.uploading);
+                },
+                ikelta: function(data) {
+                    if (data.listing_id && draftIdEl) draftIdEl.value = data.listing_id;
+                    var wrap = document.getElementById('draft-photos-wrapper');
+                    if (wrap) wrap.style.display = '';
+                    appendPhotos(data.uploaded || []);
+                    updateCount();
+                }
+            });
         });
     }
+
+    // Tvarką įrašo forma: adresas priklauso nuo to, ar redaguojam.
+    window.alMotoTvarka = function() {
+        var ids = Array.from(document.querySelectorAll('#draft-photos > div[data-img-id]'))
+                       .map(function(el) { return parseInt(el.dataset.imgId, 10); });
+        fetch(REORDER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
+            body: JSON.stringify({ image_ids: ids })
+        }).catch(function() {});
+    };
 
     function showProgress(show) { var box = document.getElementById('uploadProgress'); if (box) box.classList.toggle('hidden', !show); }
     function setProgress(p, label) {
@@ -770,5 +774,5 @@ function initAutosave() {
     });
 }
 </script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#draft-photos' tvarkos_kablys='alMotoTvarka' trinti='' maks=40 %}
 {% endblock %}

@@ -447,3 +447,28 @@ img {
 .foto-perstumti:disabled { opacity: .3; cursor: default; }
 .foto-perstumti-kaire { left: 2px; }
 .foto-perstumti-desine { right: 2px; }
+
+/* „PAGRINDINĖ" ir eilės numeris. Anksčiau ženklas buvo lipdomas iš
+   Tailwind klasių JS'e — bet dalis formų (sunkvežimiai) turi savo CSS
+   ir Tailwind ten neveikia. Dabar išvaizda čia, viena visiems. */
+.foto-zyme {
+  position: absolute; top: 4px; left: 4px; z-index: 11;
+  padding: 2px 6px; border-radius: 3px;
+  background: rgba(0, 0, 0, .6); color: #fff;
+  font-size: 10px; font-weight: 600; line-height: 1.3;
+  pointer-events: none;
+}
+.foto-zyme-pagrindine { background: #16a34a; }
+
+/* Sunkvežimių forma pagrindinę žymi savo ::before — kad ženklas
+   nesidubliuotų, jį paslepiam. */
+.photo-item.is-main::before { display: none; }
+
+/* Telefone „hover" nebūna, tad veiksmų mygtukai liktų nematomi.
+   Sunkvežimių ir kitų savo CSS turinčių formų juostelės — visada
+   matomos, kai pirštas yra vienintelis įrankis. */
+@media (hover: none) {
+  .photo-item .photo-actions { opacity: 1 !important; visibility: visible !important; }
+  .photo-card .photo-actions,
+  .photo-card .opacity-0 { opacity: 1 !important; }
+}

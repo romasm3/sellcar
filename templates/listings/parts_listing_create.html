@@ -970,21 +970,12 @@
 
 
 
-    // State visibility
-
-    const countrySel = document.getElementById('countrySelect');
-
-    const stateDiv = document.getElementById('stateDiv');
-
-    function toggleState() {
-
-        stateDiv.style.display = countrySel.value === 'US' ? '' : 'none';
-
-    }
-
-    countrySel.addEventListener('change', toggleState);
-
-    toggleState();
+    // Šalis → valstija: tuo rūpinasi pats kontaktų blokas
+    // (static/js/contact_block.js). Čia buvo likusi senoji kopija su
+    // #countrySelect / #stateDiv — tų elementų puslapyje nebėra, tad
+    // ji krisdavo su „Cannot read properties of null" ir nutraukdavo
+    // VISĄ likusį šio bloko kodą: nuotraukos parts formoje net
+    // neįsikeldavo.
 
 
 
@@ -1065,31 +1056,50 @@
 
 
 
+    // Kortelė sukuriama IŠ KARTO, paveikslėlis įkrinta vėliau: kai visą
+    // kortelę kūrė FileReader.onload, jos atsirasdavo nuskaitymo, o ne
+    // eilės tvarka, ir „pagrindine" tapdavo atsitiktinė.
+    // Ženklus ir ◀ ▶ prideda static/js/nuotrauku_valdymas.js.
     function renderPreviews() {
 
         photoPreview.innerHTML = '';
 
         selectedFiles.forEach((file, idx) => {
 
+            const div = document.createElement('div');
+
+            div.className = 'photo-preview-item';
+
+            div.dataset.idx = idx;
+
+            div.innerHTML = `<img alt=""><button type="button" class="photo-preview-remove" data-idx="${idx}">×</button>`;
+
+            photoPreview.appendChild(div);
+
             const reader = new FileReader();
 
-            reader.onload = function(e) {
-
-                const div = document.createElement('div');
-
-                div.className = 'photo-preview-item';
-
-                div.innerHTML = `<img src="${e.target.result}" alt=""><button type="button" class="photo-preview-remove" data-idx="${idx}">×</button>`;
-
-                photoPreview.appendChild(div);
-
-            };
+            reader.onload = function(e) { div.querySelector('img').src = e.target.result; };
 
             reader.readAsDataURL(file);
 
         });
 
+        if (window.ALNuotraukos) ALNuotraukos.atnaujink();
+
     }
+
+    // ◀ ▶ kuriant: nuotraukos dar naršyklėje, tad tvarką keičiam masyve.
+    window.alCreatePerstumk = function(nuo, i) {
+
+        const f = selectedFiles.splice(nuo, 1)[0];
+
+        selectedFiles.splice(i, 0, f);
+
+        syncInput();
+
+        renderPreviews();
+
+    };
 
 
 
@@ -1173,7 +1183,7 @@ function mpSetProgress(p,l){var bar=document.getElementById('uploadProgressBar')
 
 function mpCompress(file){return new Promise(function(resolve){if(file.type==='image/gif'||file.size<600*1024){resolve(file);return;}var reader=new FileReader();reader.onload=function(e){var img=new Image();img.onload=function(){var MAX=1920,w=img.width,h=img.height;if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;}}var c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);c.toBlob(function(blob){if(!blob||blob.size>=file.size){resolve(file);return;}var nn=(file.name.split('.').slice(0,-1).join('.')||file.name)+'.jpg';resolve(new File([blob],nn,{type:'image/jpeg'}));},'image/jpeg',0.85);};img.onerror=function(){resolve(file);};img.src=e.target.result;};reader.onerror=function(){resolve(file);};reader.readAsDataURL(file);});}
 
-window.partEditUpload=function(fileList){var files=Array.from(fileList).filter(function(f){return f.type&&f.type.indexOf('image/')===0;});if(!files.length||!window.EDIT_LISTING_ID)return;mpProgress(true);mpSetProgress(0,'Preparing photos...');Promise.all(files.map(mpCompress)).then(function(comp){var fd=new FormData();comp.forEach(function(f){fd.append('images',f);});fd.append('csrfmiddlewaretoken',PCSRF);var xhr=new XMLHttpRequest();xhr.open('POST','/ajax/upload-listing-images/'+window.EDIT_LISTING_ID+'/');xhr.setRequestHeader('X-CSRFToken',PCSRF);xhr.upload.onprogress=function(e){if(e.lengthComputable)mpSetProgress(Math.round(e.loaded/e.total*100),'Uploading photos...');};xhr.onload=function(){mpProgress(false);if(xhr.status>=200&&xhr.status<300){location.reload();}else{alert('Upload failed');}};xhr.onerror=function(){mpProgress(false);alert('Upload failed');};xhr.send(fd);});};
+window.partEditUpload=function(fileList){var files=Array.from(fileList).filter(function(f){return f.type&&f.type.indexOf('image/')===0;});if(!files.length||!window.EDIT_LISTING_ID)return;/* PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js) */Promise.all(files.map(mpCompress)).then(function(comp){ALNuotraukos.siuskPoViena(comp,{url:'/ajax/upload-listing-images/'+window.EDIT_LISTING_ID+'/',eiga:function(p,u){mpProgress(p!==null);if(p!==null)mpSetProgress(p,u);},baigta:function(){location.reload();}});});};
 
 function mpSetMain(id){var fd=new FormData();fd.append('csrfmiddlewaretoken',PCSRF);fetch('/image/'+id+'/set-main/',{method:'POST',headers:{'X-CSRFToken':PCSRF,'X-Requested-With':'XMLHttpRequest'},body:fd}).then(function(){location.reload();}).catch(function(){location.reload();});}
 
@@ -1191,6 +1201,12 @@ if(document.readyState!=='loading'){mpInitExistingDrag();}else{document.addEvent
 
 </script>
 
-{% include 'listings/partials/_nuotrauku_valdymas.html' with pk=edit_listing_id perimti_ikelima=1 %}
+{% comment %}Redaguojant nuotraukos jau serveryje, kuriant — dar
+naršyklėje; skiriasi tik tai, kas įrašo tvarką.{% endcomment %}
+{% if edit_listing_id %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with pk=edit_listing_id kortele='.existing-photo' perimti_ikelima=1 %}
+{% else %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#photoPreview' kortele='.photo-preview-item' vietinis=1 tvarkos_kablys='alCreatePerstumk' trinti='' ivestis='#photoInput' maks=10 %}
+{% endif %}
 {% endblock %}
 

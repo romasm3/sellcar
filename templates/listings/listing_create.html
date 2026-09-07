@@ -1617,22 +1617,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function uploadPhotosToDraft(files) {
-            var fd = new FormData();
-            files.forEach(function(f) { fd.append('images', f); });
-
-            fetch('/ajax/upload-draft-images/', {
-                method: 'POST',
-                headers: { 'X-CSRFToken': CSRF_TOKEN },
-                body: fd,
-            }).then(function(r) { return r.json(); })
-              .then(function(data) {
-                  if (data.success) {
-                      var wrap = document.getElementById('draft-photos-wrapper');
-                      if (wrap) wrap.style.display = '';
-                      appendUploadedToDraftPanel(data.uploaded);
-                      updateDraftPhotosCount();
-                  }
-              });
+            // PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js)
+            ALNuotraukos.siuskPoViena(files, {
+                url: '/ajax/upload-draft-images/',
+                ikelta: function(data) {
+                    var wrap = document.getElementById('draft-photos-wrapper');
+                    if (wrap) wrap.style.display = '';
+                    appendUploadedToDraftPanel(data.uploaded || []);
+                    updateDraftPhotosCount();
+                }
+            });
         }
 
         function appendUploadedToDraftPanel(uploaded) {
@@ -1663,5 +1657,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#draft-photos' tvarkos_kablys='saveDraftPhotoOrder' trinti='' maks=40 %}
 {% endblock %}

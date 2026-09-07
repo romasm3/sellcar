@@ -24768,3 +24768,15 @@ msgstr "Meklēt valsti"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Papildu navigācija"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Pārvietot pa kreisi"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Pārvietot pa labi"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Dažas fotogrāfijas vēl tiek augšupielādētas. Tomēr iziet?"

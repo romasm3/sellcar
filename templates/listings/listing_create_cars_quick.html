@@ -1047,59 +1047,10 @@ function onDraftDrop(e) {
     return false;
 }
 
-// Perstūmimo mygtukai: telefone HTML5 „drag and drop" nekyla, tad be jų
-// nuotraukų tvarkos pakeisti neįmanoma. Pirmoji nuotrauka yra pagrindinė,
-// todėl perstūmimas kairėn ir yra „padaryti pagrindine".
-function pridekPerstumimoMygtukus(el) {
-    if (el.querySelector('.foto-perstumti')) return;
-    [['kaire', '\u25C0', -1, '{% trans "Perkelti kairėn" %}'],
-     ['desine', '\u25B6', 1, '{% trans "Perkelti dešinėn" %}']].forEach(function(m) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'foto-perstumti foto-perstumti-' + m[0];
-        b.innerHTML = m[1];
-        b.title = m[3];
-        b.setAttribute('aria-label', m[3]);
-        b.addEventListener('click', function(e) {
-            e.stopPropagation();
-            perstumkNuotrauka(el, m[2]);
-        });
-        el.appendChild(b);
-    });
-}
-
-function perstumkNuotrauka(el, kryptis) {
-    var tevas = el.parentNode;
-    if (!tevas) return;
-    var kaimynas = kryptis < 0 ? el.previousElementSibling : el.nextElementSibling;
-    if (!kaimynas || !kaimynas.dataset.imgId) return;
-    if (kryptis < 0) tevas.insertBefore(el, kaimynas);
-    else tevas.insertBefore(kaimynas, el);
-    refreshDraftPhotoBadges();
-    saveDraftPhotoOrder();
-}
-
+// Ženklus, numeraciją ir ◀ ▶ piešia bendras kodas
+// (static/js/nuotrauku_valdymas.js) — visose kategorijose vienodai.
 function refreshDraftPhotoBadges() {
-    var items = document.querySelectorAll('#draft-photos > div[data-img-id]');
-    items.forEach(function(el, idx) {
-        pridekPerstumimoMygtukus(el);
-        var k = el.querySelector('.foto-perstumti-kaire');
-        var d = el.querySelector('.foto-perstumti-desine');
-        if (k) k.disabled = (idx === 0);
-        if (d) d.disabled = (idx === items.length - 1);
-        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
-        el.classList.remove('border-green-500', 'border-gray-200');
-        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
-        var badge = document.createElement('span');
-        if (idx === 0) {
-            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
-            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
-        } else {
-            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none photo-order-badge';
-            badge.textContent = (idx + 1);
-        }
-        el.appendChild(badge);
-    });
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
 
 function saveDraftPhotoOrder() {
@@ -1254,25 +1205,9 @@ function attachExistingPhotoDragHandlers() {
     });
 }
 
+// Ženklus ir ◀ ▶ piešia bendras kodas (nuotrauku_valdymas.js).
 function refreshExistingPhotoBadges() {
-    var items = document.querySelectorAll('#existing-photos .existing-photo');
-    items.forEach(function(el, idx) {
-        // Remove existing top-1 left-1 badges
-        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
-        // Update border
-        el.classList.remove('border-green-500', 'border-gray-200');
-        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
-
-        var badge = document.createElement('span');
-        if (idx === 0) {
-            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
-            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
-        } else {
-            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
-            badge.textContent = (idx + 1);
-        }
-        el.appendChild(badge);
-    });
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
 
 function saveExistingPhotoOrder() {
@@ -1461,115 +1396,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('{% trans "Listing ID not found" %}');
                 return;
             }
-            showUploadProgress(true);
-            setUploadProgress(0, '{% trans "Preparing photos..." %}');
-
-            // Po vieną — kaip ir juodraštyje (žr. uploadPhotosToDraft).
-            var nepavyko = [];
-
-            function siuskViena(f, nr, viso) {
-                return new Promise(function (baigta) {
-                    ikelimasPrasidejo();
-                    var uzbaik = function () { ikelimasBaigesi(); baigta(); };
-                    var fd = new FormData();
-                    fd.append('images', f);
-                    fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/ajax/upload-listing-images/' + listingId + '/');
-                    xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-
-                    xhr.upload.onprogress = function (e) {
-                        if (!e.lengthComputable) return;
-                        var dalis = (nr + e.loaded / e.total) / viso;
-                        setUploadProgress(Math.round(dalis * 100),
-                            '{% trans "Uploading photos..." %} ' + (nr + 1) + ' / ' + viso);
-                    };
-
-                    xhr.onload = function () {
-                        var ok = false;
-                        if (xhr.status >= 200 && xhr.status < 300) {
-                            try {
-                                var data = JSON.parse(xhr.responseText);
-                                ok = !!(data && data.success);
-                            } catch (err) { /* ok lieka false */ }
-                        }
-                        if (!ok) nepavyko.push(f.name || ('#' + (nr + 1)));
-                        uzbaik();
-                    };
-                    xhr.onerror = function () {
-                        nepavyko.push(f.name || ('#' + (nr + 1)));
-                        uzbaik();
-                    };
-                    xhr.send(fd);
+            compressAll(Array.prototype.slice.call(files)).then(function (suspausti) {
+                ALNuotraukos.siuskPoViena(suspausti, {
+                    url: '/ajax/upload-listing-images/' + listingId + '/',
+                    eiga: function (p, uzrasas) {
+                        showUploadProgress(p !== null);
+                        if (p !== null) setUploadProgress(p, uzrasas);
+                    },
+                    // Redagavimo režime miniatiūras atiduoda serveris.
+                    baigta: function () { location.reload(); }
                 });
-            }
-
-            compressAll(files).then(function (suspausti) {
-                var viso = suspausti.length;
-                var eile = Promise.resolve();
-                suspausti.forEach(function (f, nr) {
-                    eile = eile.then(function () { return siuskViena(f, nr, viso); });
-                });
-                return eile;
-            }).then(function () {
-                showUploadProgress(false);
-                if (nepavyko.length) {
-                    alert('{% trans "Upload failed" %}: ' + nepavyko.join(', '));
-                }
-                // Redagavimo režime miniatiūras atiduoda serveris.
-                location.reload();
             });
         }
 
-        // ═══════════════════════════════════════════════════════
-        // IŠĖJIMO SARGAS
-        //
-        // Laukų reikšmes juodraštin rašo autoSave() po kiekvieno
-        // pakeitimo, o įkelta nuotrauka iš karto gula į juodraštį
-        // serveryje — grįžus jos vietoje. Tikrai neišsaugotas yra
-        // VIENINTELIS dalykas: siuntimas, kuris dar vyksta.
-        //
-        // Todėl įspėjam tik tada, o ne kiekvieną kartą paliekant
-        // puslapį: nuolatinis „Tikrai išeiti?" žmones pratina jį
-        // atmesti nežiūrint.
-        // ═══════════════════════════════════════════════════════
-        var siuntimuVyksta = 0;
-        var sargasIdetas = false;
-
-        function ikelimasPrasidejo() {
-            siuntimuVyksta++;
-            if (sargasIdetas) return;
-            sargasIdetas = true;
-            // Papildomas istorijos įrašas: pirmas „atgal" telefone
-            // nebeišmeta iš puslapio, o pirmiausia paklausia.
-            try { history.pushState({ alIkelimas: true }, ''); } catch (e) {}
-        }
-
-        function ikelimasBaigesi() {
-            siuntimuVyksta = Math.max(0, siuntimuVyksta - 1);
-        }
-
-        // Kiek siuntimų vyksta — kad būklę matytų ir patikra
-        // (docs/nuotrauku_valdymas_playwright.js).
-        window.alIkelimuVyksta = function () { return siuntimuVyksta; };
-
-        window.addEventListener('beforeunload', function (e) {
-            if (!siuntimuVyksta) return;
-            // Tekstą rodo pati naršyklė; mums reikia tik grąžinti reikšmę.
-            e.preventDefault();
-            e.returnValue = '';
-            return '';
-        });
-
-        window.addEventListener('popstate', function () {
-            if (!siuntimuVyksta) return;
-            var likti = !window.confirm(
-                '{% trans "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?" %}');
-            if (likti) {
-                try { history.pushState({ alIkelimas: true }, ''); } catch (e) {}
-            }
-        });
+        // Išėjimo sargą (įspėjimą, kol siuntimas nebaigtas) ir
+        // window.alIkelimuVyksta() dabar laiko bendras kodas —
+        // static/js/nuotrauku_valdymas.js. Čia jo antros kopijos nebėra:
+        // dvi skaitliukų kopijos rodė skirtingus skaičius.
 
         function showUploadProgress(show) {
             var box = document.getElementById('uploadProgress');
@@ -1593,72 +1436,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Dabar kiekviena atsiranda vos įkelta, matyti „3 / 12", o
         // nepavykusi nesugriauna jau įkeltų.
         function uploadPhotosToDraft(files) {
-            var sarasas = Array.prototype.slice.call(files);
-            if (!sarasas.length) return;
-            showUploadProgress(true);
-            setUploadProgress(0, '{% trans "Preparing photos..." %}');
-
-            var nepavyko = [];
-
-            function siusk(f, nr, viso) {
-                return new Promise(function (baigta) {
-                    ikelimasPrasidejo();
-                    var uzbaik = function () { ikelimasBaigesi(); baigta(); };
-                    var fd = new FormData();
-                    fd.append('images', f);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/ajax/upload-draft-images/');
-                    xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-
-                    xhr.upload.onprogress = function (e) {
-                        if (!e.lengthComputable) return;
-                        // Bendra eiga: jau baigtos + šitos dalis
-                        var dalis = (nr + e.loaded / e.total) / viso;
-                        setUploadProgress(Math.round(dalis * 100),
-                            '{% trans "Uploading photos..." %} ' + (nr + 1) + ' / ' + viso);
-                    };
-
-                    xhr.onload = function () {
-                        var ok = false;
-                        if (xhr.status >= 200 && xhr.status < 300) {
-                            try {
-                                var data = JSON.parse(xhr.responseText);
-                                if (data && data.success) {
-                                    var wrap = document.getElementById('draft-photos-wrapper');
-                                    if (wrap) wrap.style.display = '';
-                                    appendUploadedToDraftPanel(data.uploaded);
-                                    updateDraftPhotosCount();
-                                    ok = true;
-                                }
-                            } catch (err) { /* ok lieka false */ }
-                        }
-                        if (!ok) nepavyko.push(f.name || ('#' + (nr + 1)));
-                        uzbaik();
-                    };
-
-                    xhr.onerror = function () {
-                        nepavyko.push(f.name || ('#' + (nr + 1)));
-                        uzbaik();
-                    };
-
-                    xhr.send(fd);
+            compressAll(Array.prototype.slice.call(files)).then(function (suspausti) {
+                ALNuotraukos.siuskPoViena(suspausti, {
+                    url: '/ajax/upload-draft-images/',
+                    eiga: function (p, uzrasas) {
+                        showUploadProgress(p !== null);
+                        if (p !== null) setUploadProgress(p, uzrasas);
+                    },
+                    ikelta: function (data) {
+                        var wrap = document.getElementById('draft-photos-wrapper');
+                        if (wrap) wrap.style.display = '';
+                        appendUploadedToDraftPanel(data.uploaded || []);
+                        updateDraftPhotosCount();
+                    }
                 });
-            }
-
-            compressAll(sarasas).then(function (suspausti) {
-                var viso = suspausti.length;
-                var eile = Promise.resolve();
-                suspausti.forEach(function (f, nr) {
-                    eile = eile.then(function () { return siusk(f, nr, viso); });
-                });
-                return eile;
-            }).then(function () {
-                showUploadProgress(false);
-                setUploadProgress(0, '');
-                if (nepavyko.length) {
-                    alert('{% trans "Upload failed" %}: ' + nepavyko.join(', '));
-                }
             });
         }
 
@@ -1690,5 +1481,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
+{% comment %}Redaguojant tvarkomos jau įkeltos nuotraukos, kuriant —
+juodraščio. Skiriasi tik tinklelis ir kas įrašo tvarką.{% endcomment %}
+{% if is_edit_mode %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#existing-photos' kortele='.existing-photo' tvarkos_kablys='saveExistingPhotoOrder' trinti='' maks=40 %}
+{% else %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#draft-photos' tvarkos_kablys='saveDraftPhotoOrder' trinti='' maks=40 %}
+{% endif %}
 {% endblock %}

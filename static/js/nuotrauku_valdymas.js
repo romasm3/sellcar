@@ -6,18 +6,35 @@
    ◀ ▶ mygtukai atsirado tik automobiliuose, o pusėje formų iš viso
    nebuvo kaip pakeisti pagrindinės nuotraukos.
 
-   Nuo šiol viskas čia. Forma prisijungia VIENA eilute:
+   Nuo šiol VISA elgsena čia. Forma prisijungia viena eilute:
 
        {% include 'listings/partials/_nuotrauku_valdymas.html' with
-           tinklelis='#existing-photos' pk=listing.pk %}
+           tinklelis='#draft-photos' pertvarkyti='/ajax/...' %}
 
    Ką duoda:
      • ◀ ▶ perstūmimas (telefone HTML5 tempimas nekyla visai);
      • pirmoji nuotrauka = pagrindinė, žalias ženklas ir numeracija;
-     • trynimas su patvirtinimu;
+     • trynimas su patvirtinimu (jei forma savo „×" neturi);
      • nuoseklus įkėlimas po vieną su bendra eiga;
      • išėjimo sargas, kol siuntimas dar nebaigtas;
      • formos laukų išsaugojimas keičiant kalbą.
+
+   DVI PRIJUNGIMO PAKOPOS. Kategorijos skiriasi ne elgsena, o tuo, KUR
+   nuotraukos gyvena (juodraštis serveryje ar naršyklėje) ir ko reikia
+   jų adresams (draft_id, listing_id, išankstinis juodraščio įrašymas).
+   Todėl:
+
+     1. Paprastoms formoms užtenka adresų — `data-pertvarkyti`,
+        `data-trinti`, `data-ikelti`.
+     2. Toms, kurios turi savo išsaugojimo tvarką, paduodam KABLĮ —
+        `data-tvarkos-kablys="saveOrder"`. Perstūmimą piešiam mes,
+        įrašo forma savo funkcija. Taip nedubliuojam nei mygtukų, nei
+        adresų logikos.
+
+   Nuoseklų siuntimą formos gali pasiimti ir tiesiogiai:
+
+       ALNuotraukos.siuskPoViena(failai, {url: ..., laukai: {...},
+                                          ikelta: fn, baigta: fn});
 
    Nieko nepiešia iš naujo: randa jau esamas miniatiūras ir papildo jas.
    ═══════════════════════════════════════════════════════════════════ */
@@ -33,6 +50,10 @@
     return el ? el.value : '';
   }
 
+  function kablys(vardas) {
+    return (vardas && typeof window[vardas] === 'function') ? window[vardas] : null;
+  }
+
   // ─────────────────────────────────────────────────────────────────
   // Konfigūracija iš šablono
   // ─────────────────────────────────────────────────────────────────
@@ -42,38 +63,52 @@
     var d = el.dataset;
     return {
       tinklelis: d.tinklelis || '#existing-photos',
+      kortele: d.kortele || '',
       pk: d.pk || '',
       ikelti: d.ikelti || '',
+      laukai: d.laukai || '',
       pertvarkyti: d.pertvarkyti || '',
+      tvarkosLaukai: d.tvarkosLaukai || '',
+      tvarkosKablys: d.tvarkosKablys || '',
       trinti: d.trinti || '',
-      pagrindine: d.pagrindine || '',
+      ivestis: d.ivestis || '#imageInput',
       perimtiIkelima: d.perimtiIkelima === '1',
+      vietinis: d.vietinis === '1',
       maks: parseInt(d.maks || '40', 10)
     };
   }
 
   var N = null;
 
+  function tinklas() { return document.querySelector(N.tinklelis); }
+
   function kortos() {
-    var t = document.querySelector(N.tinklelis);
+    var t = tinklas();
     if (!t) return [];
+    if (N.kortele) {
+      return Array.prototype.slice.call(t.querySelectorAll(N.kortele));
+    }
     return Array.prototype.filter.call(
       t.children,
-      function (el) { return el.nodeType === 1 && idIs(el); });
+      function (el) { return el.nodeType === 1 && (N.vietinis || idIs(el)); });
   }
 
   function idIs(el) {
-    return el.dataset.imgId || el.dataset.existingImgId || el.dataset.id || '';
+    var d = el.dataset || {};
+    return d.imgId || d.existingImgId || d.imageId || d.id || '';
   }
 
   // ─────────────────────────────────────────────────────────────────
   // ◀ ▶ ir „PAGRINDINĖ"
   // ─────────────────────────────────────────────────────────────────
+  function galimaPertvarkyti() {
+    return !!(N.pertvarkyti || N.tvarkosKablys || N.vietinis);
+  }
+
   function pridekMygtukus(el) {
-    // Be pertvarkymo adreso mygtukų nededam: tvarka neišsisaugotų, o
-    // mygtukas, kuris „veikia" tik iki perkrovimo, yra blogiau nei jo
-    // nebuvimas.
-    if (!N.pertvarkyti) return;
+    // Be išsaugojimo būdo mygtukų nededam: tvarka neišliktų, o mygtukas,
+    // kuris „veikia" tik iki perkrovimo, yra blogiau nei jo nebuvimas.
+    if (!galimaPertvarkyti()) return;
     if (el.querySelector('.foto-perstumti')) return;
     [['kaire', '◀', -1, t('kairen', 'Perkelti kairėn')],
      ['desine', '▶', 1, t('desinen', 'Perkelti dešinėn')]].forEach(function (m) {
@@ -88,17 +123,29 @@
         e.preventDefault();
         perstumk(el, m[2]);
       });
+      // Tempiamose kortelėse (trucks) mygtukas be to pradėtų vilkimą.
+      b.draggable = false;
+      b.addEventListener('dragstart', function (e) { e.preventDefault(); });
       el.appendChild(b);
     });
   }
 
+  var SAVO_TRYNIMAS = '.foto-trinti, .photo-action-btn.delete, .photo-delete, '
+                    + '.delete-photo, [data-trinti], [data-delete]';
+
+  function turiSavaTrynima(el) {
+    if (el.querySelector(SAVO_TRYNIMAS)) return true;
+    return Array.prototype.some.call(
+      el.querySelectorAll('button, a'),
+      function (b) {
+        var v = (b.textContent || '').trim();
+        return v === '×' || v === '✕' || v === '✖'
+            || /delete|remove|trin/i.test(b.getAttribute('onclick') || '');
+      });
+  }
+
   function pridekTrynima(el) {
-    if (!N.trinti || el.querySelector('.foto-trinti')) return;
-    // Jei forma jau turi savo „×" — antro nededam.
-    var savas = Array.prototype.some.call(
-      el.querySelectorAll('button'),
-      function (b) { return b.textContent.trim() === '×'; });
-    if (savas) return;
+    if (!N.trinti || turiSavaTrynima(el)) return;
     var b = document.createElement('button');
     b.type = 'button';
     b.className = 'foto-trinti absolute top-1 right-1 w-6 h-6 bg-red-500 '
@@ -115,19 +162,40 @@
   }
 
   function perstumk(el, kryptis) {
+    var sarasas = kortos();
+    var vieta = sarasas.indexOf(el);
+    var nauja = vieta + kryptis;
+    if (vieta < 0 || nauja < 0 || nauja >= sarasas.length) return;
+
+    // Vietinis režimas (ratlankiai, padangos, ratai): nuotraukos dar
+    // naršyklėje, tad tvarką keičia pati forma — mes tik pasakom, ką.
+    if (N.vietinis) {
+      var f = kablys(N.tvarkosKablys);
+      if (f) f(vieta, nauja);
+      setTimeout(atnaujink, 0);
+      return;
+    }
+
+    var kaimynas = sarasas[nauja];
     var tevas = el.parentNode;
-    if (!tevas) return;
-    var kaimynas = kryptis < 0 ? el.previousElementSibling : el.nextElementSibling;
-    if (!kaimynas || !idIs(kaimynas)) return;
+    if (!tevas || !kaimynas) return;
     if (kryptis < 0) tevas.insertBefore(el, kaimynas);
     else tevas.insertBefore(kaimynas, el);
     atnaujink();
     issaugokTvarka();
   }
 
+  function pozicija(el) {
+    // Ženklas dedamas absoliučiai — kortelė privalo būti atskaitos taškas.
+    var s = window.getComputedStyle(el);
+    if (s && s.position === 'static') el.style.position = 'relative';
+  }
+
   function atnaujink() {
+    if (!N) return;
     var sarasas = kortos();
     sarasas.forEach(function (el, idx) {
+      pozicija(el);
       pridekMygtukus(el);
       pridekTrynima(el);
       var k = el.querySelector('.foto-perstumti-kaire');
@@ -142,13 +210,14 @@
         el.querySelectorAll('.absolute.top-1.left-1'),
         function (b) { b.remove(); });
       var z = document.createElement('span');
-      z.className = 'foto-zyme absolute top-1 left-1 text-white text-[10px] '
-                  + 'rounded font-semibold pointer-events-none '
-                  + (idx === 0 ? 'bg-green-600 px-2 py-0.5 shadow'
-                               : 'bg-black/60 px-1.5 py-0.5');
+      z.className = 'foto-zyme' + (idx === 0 ? ' foto-zyme-pagrindine' : '');
       z.textContent = idx === 0 ? t('pagrindine', 'PAGRINDINĖ') : String(idx + 1);
       el.appendChild(z);
 
+      // Formos su savo „MAIN" ženklu (sunkvežimiai) — nuosekliai
+      if (el.classList.contains('photo-item')) {
+        el.classList.toggle('is-main', idx === 0);
+      }
       el.classList.remove('border-green-500', 'border-gray-200');
       el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
     });
@@ -163,13 +232,37 @@
       });
   }
 
+  function poros(tekstas) {
+    // „a=1;b=@#laukas" → {a: '1', b: <lauko reikšmė siuntimo metu>}
+    var out = {};
+    (tekstas || '').split(';').forEach(function (d) {
+      if (!d) return;
+      var i = d.indexOf('=');
+      if (i < 1) return;
+      var raktas = d.slice(0, i).trim();
+      var v = d.slice(i + 1).trim();
+      if (v.charAt(0) === '@') {
+        var el = document.querySelector(v.slice(1));
+        v = el ? (el.value || '') : '';
+      }
+      out[raktas] = v;
+    });
+    return out;
+  }
+
   function issaugokTvarka() {
+    var f = kablys(N.tvarkosKablys);
+    if (f) { f(); return; }
     if (!N.pertvarkyti) return;
-    var ids = kortos().map(function (el) { return parseInt(idIs(el), 10); });
+    var kunas = { image_ids: kortos().map(function (el) {
+      return parseInt(idIs(el), 10);
+    }) };
+    var papildomi = poros(N.tvarkosLaukai);
+    Object.keys(papildomi).forEach(function (r) { kunas[r] = papildomi[r]; });
     fetch(N.pertvarkyti, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf() },
-      body: JSON.stringify({ image_ids: ids })
+      body: JSON.stringify(kunas)
     }).catch(function () {});
   }
 
@@ -226,14 +319,22 @@
     if (l && uzrasas) l.textContent = uzrasas;
   }
 
-  function siuskPoViena(failai) {
+  /* Siunčia PO VIENĄ. Kodėl ne visas iš karto: telefono ryšiu vienas
+     didelis siuntinys arba pavyksta, arba krenta visas — o žmogus mato
+     tik „Upload failed". Po vieną matosi eiga, o nepavykusią galima
+     įvardyti. Formos šitą kviečia ir tiesiogiai — savo adresu ir savo
+     laukais. */
+  function siuskPoViena(failai, p) {
+    p = p || {};
     var sarasas = Array.prototype.slice.call(failai).filter(function (f) {
       return f.type && f.type.indexOf('image/') === 0;
     });
-    if (!sarasas.length || !N.ikelti) return;
+    var url = p.url || (N && N.ikelti) || '';
+    if (!sarasas.length || !url) return Promise.resolve([]);
     var viso = sarasas.length;
     var nepavyko = [];
-    eiga(0, t('ruosiama', 'Ruošiamos nuotraukos...'));
+    var rodyk = p.eiga || eiga;
+    rodyk(0, t('ruosiama', 'Ruošiamos nuotraukos...'));
 
     function viena(f, nr) {
       return new Promise(function (baigta) {
@@ -242,14 +343,21 @@
         var fd = new FormData();
         fd.append('images', f);
         fd.append('csrfmiddlewaretoken', csrf());
+        // Laukai gali priklausyti nuo ankstesnio atsakymo (juodraščio id
+        // gimsta prie pirmos nuotraukos), tad leidžiam ir funkciją.
+        var papildomi = (typeof p.laukai === 'function') ? p.laukai()
+                      : (p.laukai || poros(N ? N.laukai : ''));
+        Object.keys(papildomi).forEach(function (r) {
+          if (papildomi[r] !== '' && papildomi[r] != null) fd.append(r, papildomi[r]);
+        });
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', N.ikelti);
+        xhr.open('POST', url);
         xhr.setRequestHeader('X-CSRFToken', csrf());
         xhr.upload.onprogress = function (e) {
           if (!e.lengthComputable) return;
           var dalis = (nr + e.loaded / e.total) / viso;
-          eiga(Math.round(dalis * 100),
-               t('keliama', 'Keliamos nuotraukos...') + ' ' + (nr + 1) + ' / ' + viso);
+          rodyk(Math.round(dalis * 100),
+                t('keliama', 'Keliamos nuotraukos...') + ' ' + (nr + 1) + ' / ' + viso);
         };
         xhr.onload = function () {
           var ok = false, duom = null;
@@ -257,7 +365,10 @@
             try { duom = JSON.parse(xhr.responseText); ok = !!(duom && duom.success); }
             catch (err) { ok = false; }
           }
-          if (ok && duom && duom.uploaded) pridekMiniatiuras(duom.uploaded);
+          if (ok && duom) {
+            if (p.ikelta) p.ikelta(duom);
+            else if (duom.uploaded) pridekMiniatiuras(duom.uploaded);
+          }
           if (!ok) nepavyko.push(f.name || ('#' + (nr + 1)));
           uzbaik();
         };
@@ -273,19 +384,22 @@
     sarasas.forEach(function (f, nr) {
       eile = eile.then(function () { return viena(f, nr); });
     });
-    eile.then(function () {
-      eiga(null);
+    return eile.then(function () {
+      rodyk(null);
       if (nepavyko.length) {
         window.alert(t('nepavyko', 'Nepavyko įkelti') + ': ' + nepavyko.join(', '));
       }
+      if (p.baigta) p.baigta(nepavyko);
+      return nepavyko;
     });
   }
 
   function pridekMiniatiuras(sarasas) {
-    var tinkl = document.querySelector(N.tinklelis);
+    var tinkl = tinklas();
     if (!tinkl) return;
     var wrap = document.getElementById('draft-photos-wrapper')
-            || document.getElementById('existing-photos-wrapper');
+            || document.getElementById('existing-photos-wrapper')
+            || document.getElementById('photo-preview-wrapper');
     if (wrap) wrap.style.display = '';
     sarasas.forEach(function (img) {
       var d = document.createElement('div');
@@ -383,6 +497,22 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
+  function perimkIkelima() {
+    if (!N.perimtiIkelima || !N.ikelti) return;
+    var laukas = document.querySelector(N.ivestis);
+    if (!laukas) return;
+    // Klausom PRIE DOKUMENTO, gaudymo fazėje: taip mūsų tvarkytojas
+    // suveikia anksčiau už bet kurį formos savą, nesvarbu, kada tas
+    // buvo prikabintas. Su registracijos eile lenktyniauti negalima —
+    // nuotraukos keliautų dukart.
+    document.addEventListener('change', function (e) {
+      if (e.target !== laukas) return;
+      e.stopImmediatePropagation();
+      siuskPoViena(laukas.files);
+      laukas.value = '';
+    }, true);
+  }
+
   function paleisk() {
     sekLaKalbosPerjungima();
     atstatyk();
@@ -390,20 +520,27 @@
     N = nustatymai();
     if (!N) return;
     atnaujink();
+    perimkIkelima();
 
-    if (N.perimtiIkelima && N.ikelti) {
-      var laukas = document.getElementById('imageInput');
-      if (laukas) {
-        // Formos savas tvarkytojas lieka, bet mūsų eina pirmas ir
-        // sustabdo tolesnius — kitaip nuotraukos keliautų dukart.
-        laukas.addEventListener('change', function (e) {
-          e.stopImmediatePropagation();
-          siuskPoViena(laukas.files);
-          laukas.value = '';
-        }, true);
-      }
+    // Formos, kurios miniatiūras piešia pačios, po perpiešimo kviečia
+    // ALNuotraukos.atnaujink() — kad ženklai ir ◀ ▶ grįžtų.
+    var tinkl = tinklas();
+    if (tinkl && window.MutationObserver) {
+      var laukia = false;
+      new MutationObserver(function () {
+        if (laukia) return;
+        laukia = true;
+        setTimeout(function () { laukia = false; atnaujink(); }, 60);
+      }).observe(tinkl, { childList: true });
     }
   }
+
+  window.ALNuotraukos = {
+    atnaujink: function () { if (N) atnaujink(); },
+    siuskPoViena: siuskPoViena,
+    eiga: eiga,
+    vyksta: function () { return vyksta; }
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', paleisk);
