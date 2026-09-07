@@ -303,6 +303,7 @@
                     <div>
                         <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
                         <select name="truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
                             {% for v, l in truck_type_choices %}
                             <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}

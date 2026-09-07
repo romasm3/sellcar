@@ -702,11 +702,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
                         {% endif %}
                         {% endif %}
 
-                        {% if listing.is_truck and listing.truck_type %}
-                        <span class="card-truck-type-badge absolute top-2 right-2 z-10">
-                            🚛 {{ listing.get_truck_type_display }}
-                        </span>
-                        {% endif %}
+                        {% include 'listings/partials/_sunkiojo_zenklas.html' with listing=listing %}
 
                         <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
                         {% if eff_level > 0 %}

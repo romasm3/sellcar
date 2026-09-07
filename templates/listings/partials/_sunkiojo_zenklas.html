@@ -1,0 +1,21 @@
+{% load i18n_db %}{% comment %}
+SUNKIOJO TRANSPORTO ŽENKLIUKAS KORTELĖJE (viršuje dešinėje).
+
+Iki šiol rodė tik „Tipą" — sunkvežimių antstatą (savivartis, cisterna).
+Vilkikams, autobusams ir komunalinei technikai to lauko nebėra
+(apps/listings/sunkusis.py), o `listing.is_truck` reiškia siaurai
+„Sunkvežimių subkategorija" — tad kortelė likdavo be jokios žymos ir
+vilkikas sąraše nesiskyrė nuo nieko. Todėl žiūrim į transporto rūšį, o
+nesant „Tipo" rodom subkategoriją.
+
+Išvaizda ta pati — tas pats .card-truck-type-badge ir tas pats 🚛.
+Naudojimas: {% include 'listings/partials/_sunkiojo_zenklas.html' with listing=listing %}
+{% endcomment %}{% if listing.is_truck and listing.truck_type %}
+                            <span class="card-truck-type-badge absolute top-2 right-2 z-10">
+                                🚛 {{ listing.get_truck_type_display }}
+                            </span>
+{% elif listing.vehicle_type.slug == 'trucks' and listing.subcategory %}
+                            <span class="card-truck-type-badge absolute top-2 right-2 z-10">
+                                🚛 {{ listing.subcategory.name|tdb }}
+                            </span>
+{% endif %}

@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
 from django.views.decorators.http import require_POST
-from django.utils import timezone
+from django.utils import timezone, translation
 from .search_config import panels as panel_config
 from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce
@@ -715,7 +715,19 @@ def sunkiojo_antraste(listing):
 
     Trūkstamos dalys tiesiog praleidžiamos — antraštė lieka trumpesnė,
     bet niekada su tuščiomis vietomis.
+
+    Antraštė sudaroma LIETUVIŠKAI, kad ir kokia kalba pildoma forma:
+    tai DB laukas, rašomas vieną kartą ir rodomas visiems, tad
+    įrašytas vertimas užšaltų pildžiusiojo kalba. Formatas ir taip
+    lietuviškas („2022 m"), o „Vilkikas" kitomis kalbomis reikštų ne tą
+    patį (vok. „Abschleppwagen" — techninės pagalbos automobilis).
+    Kalbos yra rodymo reikalas — tam turim i18n_db.
     """
+    with translation.override('lt'):
+        return _antraste_lietuviskai(listing)
+
+
+def _antraste_lietuviskai(listing):
     dalys = []
     if listing.truck_brand_id and listing.truck_brand:
         dalys.append(listing.truck_brand.name)

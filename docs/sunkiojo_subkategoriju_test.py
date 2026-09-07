@@ -52,6 +52,7 @@ from django.core.management import call_command
 call_command('migrate', run_syncdb=True, verbosity=0)
 
 from django.contrib.auth import get_user_model
+from django.utils import translation
 from django.test import Client
 
 from apps.listings import sunkusis
@@ -245,6 +246,27 @@ if vilkikas:
     tikrink('Vilkikai' in puslapis, 'puslapyje nematyti subkategorijos')
     tikrink('MAN 18.510 4x2 2022 m Vilkikas' in puslapis,
             'puslapyje nematyti naujos antraštės')
+    # Antraštė nepriklauso nuo to, kokia kalba pildyta forma: ji
+    # įrašoma vieną kartą ir rodoma visiems.
+    for kalba in ('de', 'ru', 'en'):
+        with translation.override(kalba):
+            tikrink(sunkiojo_antraste(vilkikas)
+                    == 'MAN 18.510 4x2 2022 m Vilkikas',
+                    'antraštė %s kalba pasikeitė: %r'
+                    % (kalba, sunkiojo_antraste(vilkikas)))
+    # Kortelėje sąraše — irgi subkategorija, nes „Tipo" vilkikas neturi
+    # ir žymė iš kortelės buvo dingusi visai
+    r = c.get('/search/advanced/?category=trucks', follow=True)
+    sarasas = r.content.decode('utf-8')
+    tikrink('Vilkikai' in sarasas, 'kortelėje nematyti subkategorijos')
+    # Redaguojant rodomi tie patys laukai — subkategorija paimama iš
+    # paties skelbimo, o ne iš adreso
+    r = c.get('/%d/edit-trucks/' % vilkikas.pk, follow=True)
+    forma = r.content.decode('utf-8')
+    tikrink('name="truck_type"' not in forma, 'redaguojant vilkikui rodomas Tipas')
+    tikrink('name="axle_count"' in forma, 'redaguojant nėra ašių skaičiaus')
+    tikrink('name="subcategory" value="semi-trucks-tractors"' in forma,
+            'redaguojant subkategorija nekeliauja su forma')
 
 # Sunkvežimis su Tipu — savo subkategorijoje
 r = pateik('trucks', truck_type='tippers')
