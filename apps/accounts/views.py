@@ -106,6 +106,12 @@ def register(request):
             except Exception as e:
                 print(f"[email] account_welcome failed: {e}")
 
+            # ═══ EMAIL: pranešimas savininkui ═══
+            # Kabinam čia, o ne prie post_save: signalas praneštų ir apie
+            # admin'e ar masiškai sukurtus naudotojus. Klaidos nekelia.
+            from .pranesimai import pranesk_apie_registracija
+            pranesk_apie_registracija(user)
+
             login(request, user)
             return redirect(safe_next(request) or "accounts:home")
         else:
