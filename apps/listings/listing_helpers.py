@@ -101,7 +101,9 @@ def parse_common_listing_fields(request):
         'condition': request.POST.get('condition', '').strip(),
         'year': _int_or_none(request.POST.get('year')),
         'price': _float_or_none(request.POST.get('price')),
-        'currency': request.POST.get('currency', 'USD').strip() or 'USD',
+        # Valiutą lemia šalis (apps/listings/valiutos.py), o ne forma:
+        # anksčiau čia visada atkeliaudavo įrašytas „USD".
+        'currency': request.POST.get('currency', '').strip(),
         'negotiable': request.POST.get('negotiable') in ('on', 'true', '1'),
         
         # Aprašymas
@@ -195,7 +197,10 @@ def apply_common_fields_to_listing(listing, common_data):
     if common_data['year']:
         listing.year = common_data['year']
     listing.price = common_data['price']
-    listing.currency = common_data['currency']
+    # Galutinį žodį taria Listing.save() pagal šalį — čia tik
+    # perduodam tai, ką atsiuntė forma.
+    if common_data.get('currency'):
+        listing.currency = common_data['currency']
     listing.negotiable = common_data['negotiable']
     listing.description = common_data['description']
     

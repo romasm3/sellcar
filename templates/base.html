@@ -1,4 +1,4 @@
-{% load static listing_filters %}
+{% load valiutos_tags static listing_filters %}
 {% load i18n %}
 {% load dict_extras %}
 {% load kalbu_tags %}
@@ -975,6 +975,10 @@
     variklio tūrio lauke) — logika unit_toggle.js, tekstas čia, kad būtų verčiamas.{% endcomment %}
     window.UNIT_WARN_TEXT = '{% trans "Ar tikrai {sk} {vnt}? Panašu, kad tai {alt}." %}';
     window.UNIT_WARN_BUTTON = '{% trans "Perjungti į" %}';</script>
+    {% comment %}Kainos valiuta seka šalį — žemėlapis vienoje vietoje
+    (apps/listings/valiutos.py).{% endcomment %}
+    <script>window.AL_VALIUTOS = {% valiutu_zemelapis_json %};</script>
+    <script src="{% static 'js/valiuta.js' %}" defer></script>
     <script src="{% static 'js/form_validation.js' %}" defer></script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
     {# „Išsaugoti paiešką" jungiklis ir pranešimas #}

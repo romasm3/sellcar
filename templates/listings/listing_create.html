@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n i18n_db l10n %}
+{% load valiutos_tags i18n i18n_db l10n %}
 
 {% block title %}{% if is_edit_mode %}{% trans "Edit Listing" %}{% else %}{% trans "Create Listing" %}{% endif %} - AutoLeft{% endblock %}
 
@@ -675,13 +675,14 @@
                     <div data-field-wrap="price">
                         <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Price (€)" %} <span class="text-red-500">*</span></label>
                         <div class="relative">
-                            <span class="absolute left-4 top-3 text-gray-500 text-lg">€</span>
+                            <span data-valiutos-sufiksas class="absolute left-4 top-3 text-gray-500 text-lg">€</span>
                             <input type="number" name="price" id="id_price" min="0" step="1" required
                                    value="{% if listing %}{{ listing.price|floatformat:0 }}{% elif listing_data.step5.price %}{{ listing_data.step5.price|floatformat:0 }}{% endif %}"
                                    placeholder="0" class="w-full border border-gray-300 rounded-lg">
                         </div>
                         <p class="field-error-msg hidden mt-1 text-xs text-red-600">{% trans "This field is required" %}</p>
-                        <input type="hidden" name="currency" value="{% if listing.currency %}{{ listing.currency }}{% else %}USD{% endif %}">
+                        {% comment %}Valiuta seka šalį (apps/listings/valiutos.py); JS atnaujina pakeitus šalį{% endcomment %}
+                            {% valiutos_kodas listing.country as val_kodas %}<input type="hidden" name="currency" value="{{ val_kodas }}">
                     </div>
                     <div class="flex items-center gap-3">{{ form.negotiable }}<label class="text-sm text-gray-700">{% trans "Price is negotiable" %}</label></div>
                 </div>

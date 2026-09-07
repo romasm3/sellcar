@@ -53,7 +53,11 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 
 ## Conventions
 - i18n: all templates {% load i18n %} + {% trans %}; views use gettext as _; models use gettext_lazy. Msgids written in Lithuanian (LT is source language). Single quotes inside HTML attributes
-- Prices: step=1, |floatformat:0, "$" suffix; months 01-12; dates m/Y
+- Prices: step=1, |floatformat:0; valiutos sufiksas pagal ŠALĮ
+  (apps/listings/valiutos.py — euro zona EUR, GB GBP, PL PLN…,
+  nežinoma šalis EUR, nes rinka yra Europa). Formose sufiksas
+  atsinaujina pakeitus šalies lauką (static/js/valiuta.js).
+  Months 01-12; dates m/Y
 - Internal links: {% url 'xxx' %}?{{ request.GET.urlencode }} to preserve filters
 - Frontend: Alpine.js + Tailwind
 - Single Listing table for most categories via ?category= filter; trucks have separate TruckBrand/TruckModel tables

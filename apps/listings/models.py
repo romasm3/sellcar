@@ -1786,6 +1786,27 @@ class Listing(PaskelbimoLaikas, models.Model):
     def get_absolute_url(self):
         return reverse('listing_detail', kwargs={'pk': self.pk})
 
+    def save(self, *args, **kwargs):
+        """Valiuta seka šalį.
+
+        Formos valiutos nesirenka — jos siųsdavo paslėptą „USD", todėl
+        vokiškas ar kroatiškas skelbimas rodydavo „$", nors kaina įvesta
+        eurais. Žemėlapis vienas visai svetainei:
+        apps/listings/valiutos.py.
+
+        Su `update_fields` liečiam tik tada, kai išsaugoma ir šalis —
+        kitaip pakeitimas vis tiek nenugultų, o `activate()` ir panašūs
+        dalinis įrašymai lieka tokie, kokie buvo.
+        """
+        from apps.listings import valiutos
+
+        laukai = kwargs.get('update_fields')
+        if self.country and (laukai is None or 'country' in laukai):
+            self.currency = valiutos.pagal_sali(self.country)
+            if laukai is not None and 'currency' not in laukai:
+                kwargs['update_fields'] = list(laukai) + ['currency']
+        return super().save(*args, **kwargs)
+
     @property
     def kontaktinis_pastas(self):
         """Adresas, kuriuo pirkėjas pasiekia pardavėją DĖL ŠIO skelbimo.
@@ -1915,7 +1936,10 @@ class Listing(PaskelbimoLaikas, models.Model):
 
     @property
     def currency_symbol(self):
-        return self.CURRENCY_SYMBOLS.get(self.currency, '€')
+        # Simbolių žemėlapis vienas visai svetainei
+        # (apps/listings/valiutos.py) — buvo keturios kopijos.
+        from apps.listings import valiutos
+        return valiutos.simbolis(self.currency)
 
     # ═══ Helpers for resolving 'Other' fallback values ═══
     def get_color_display_value(self):
@@ -2313,7 +2337,8 @@ class SalesRecord(models.Model):
 
     @property
     def currency_symbol(self):
-        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '€')
+        from apps.listings import valiutos
+        return valiutos.simbolis(self.currency)
 
     @classmethod
     def create_from_listing(cls, listing, marked_sold=False):
@@ -3183,7 +3208,8 @@ class Truck(PaskelbimoLaikas, models.Model):
     origin_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
 
     price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
-    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
+    # Rinka — Europa, tad numatyta EUR (apps/listings/valiutos.py)
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='EUR')
     negotiable = models.BooleanField(default=False)
     open_to_trade = models.BooleanField(default=False, verbose_name=_("Open to trade"))
     price_excludes_vat = models.BooleanField(
@@ -3318,7 +3344,10 @@ class Truck(PaskelbimoLaikas, models.Model):
 
     @property
     def currency_symbol(self):
-        return self.CURRENCY_SYMBOLS.get(self.currency, '€')
+        # Simbolių žemėlapis vienas visai svetainei
+        # (apps/listings/valiutos.py) — buvo keturios kopijos.
+        from apps.listings import valiutos
+        return valiutos.simbolis(self.currency)
 
     def is_star_active(self):
         if self.star_level == 0 or not self.star_expires_at:
@@ -3648,7 +3677,7 @@ class TruckSalesRecord(models.Model):
     title = models.CharField(max_length=200)
     year = models.IntegerField(null=True, blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
-    currency = models.CharField(max_length=3, default='USD')
+    currency = models.CharField(max_length=3, default='EUR')
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=2, blank=True)
     truck_created_at = models.DateTimeField(null=True, blank=True)
@@ -3673,7 +3702,8 @@ class TruckSalesRecord(models.Model):
 
     @property
     def currency_symbol(self):
-        return {'USD': '$', 'EUR': '€', 'GBP': '£'}.get(self.currency, '€')
+        from apps.listings import valiutos
+        return valiutos.simbolis(self.currency)
 
     @classmethod
     def create_from_truck(cls, truck, marked_sold=False):
@@ -4080,7 +4110,10 @@ class WheelListing(PaskelbimoLaikas, models.Model):
  
     @property
     def currency_symbol(self):
-        return '$' if self.country == 'US' else '€'
+        # Tas pats žemėlapis, kaip ir skelbimams — čia buvo sava, tik
+        # dviejų šalių taisyklė, tad lenkiškas ratlankis rodė „€".
+        from apps.listings import valiutos
+        return valiutos.simbolis_pagal_sali(self.country)
  
     def build_title(self):
         if self.product_type == 'tyre':
