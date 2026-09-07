@@ -531,7 +531,8 @@
                     <div id="draft-photos-wrapper" {% if not current_draft.images.all %}style="display:none"{% endif %} class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-3">
                             {% trans "Already uploaded" %}
-                            <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count }} / 40)</span>
+                            {# Be juodraščio `images.count` yra tuščias ir skaitiklis rodo „( / 40)" #}
+                            <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count|default:0 }} / 40)</span>
                         </label>
                         <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="draft-photos">
                             {% if current_draft and current_draft.images.all %}
@@ -587,7 +588,7 @@
                 {% firstof listing_data.step7.city '' as contact_city %}
                 {% firstof listing_data.step7.address '' as contact_address %}
             {% endif %}
-            {% include 'listings/partials/contact_block.html' with val_phone=user.profile.phone_number val_email=user.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=contact_city val_address=contact_address %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user.profile.phone_number val_email=listing_data.step7.email|default:user.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=contact_city val_address=contact_address %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ERRORS                                                     #}
@@ -1046,22 +1047,10 @@ function onDraftDrop(e) {
     return false;
 }
 
+// Ženklus, numeraciją ir ◀ ▶ piešia bendras kodas
+// (static/js/nuotrauku_valdymas.js) — visose kategorijose vienodai.
 function refreshDraftPhotoBadges() {
-    var items = document.querySelectorAll('#draft-photos > div[data-img-id]');
-    items.forEach(function(el, idx) {
-        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
-        el.classList.remove('border-green-500', 'border-gray-200');
-        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
-        var badge = document.createElement('span');
-        if (idx === 0) {
-            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
-            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
-        } else {
-            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none photo-order-badge';
-            badge.textContent = (idx + 1);
-        }
-        el.appendChild(badge);
-    });
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
 
 function saveDraftPhotoOrder() {
@@ -1101,7 +1090,7 @@ window.deleteDraftImage = function(imgId) {
 window.setExistingImageMain = function(imgId) {
     var fd = new FormData();
     fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-    fetch('/listings/image/' + imgId + '/set-main/', {
+    fetch('/image/' + imgId + '/set-main/', {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' },
         body: fd,
@@ -1115,7 +1104,7 @@ window.deleteExistingImage = function(imgId) {
     if (!confirm('{% trans "Delete this photo?" %}')) return;
     var fd = new FormData();
     fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-    fetch('/listings/image/' + imgId + '/delete/', {
+    fetch('/image/' + imgId + '/delete/', {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF_TOKEN },
         body: fd,
@@ -1216,25 +1205,9 @@ function attachExistingPhotoDragHandlers() {
     });
 }
 
+// Ženklus ir ◀ ▶ piešia bendras kodas (nuotrauku_valdymas.js).
 function refreshExistingPhotoBadges() {
-    var items = document.querySelectorAll('#existing-photos .existing-photo');
-    items.forEach(function(el, idx) {
-        // Remove existing top-1 left-1 badges
-        el.querySelectorAll('.absolute.top-1.left-1').forEach(function(b) { b.remove(); });
-        // Update border
-        el.classList.remove('border-green-500', 'border-gray-200');
-        el.classList.add(idx === 0 ? 'border-green-500' : 'border-gray-200');
-
-        var badge = document.createElement('span');
-        if (idx === 0) {
-            badge.className = 'absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold shadow flex items-center gap-1 pointer-events-none';
-            badge.innerHTML = '<i class="fas fa-star text-[8px]"></i>{% trans "MAIN" %}';
-        } else {
-            badge.className = 'absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold pointer-events-none';
-            badge.textContent = (idx + 1);
-        }
-        el.appendChild(badge);
-    });
+    if (window.ALNuotraukos) ALNuotraukos.atnaujink();
 }
 
 function saveExistingPhotoOrder() {
@@ -1269,6 +1242,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('#draft-photos > div[data-img-id]').forEach(function(el) {
         attachDraftPhotoHandlers(el);
     });
+    // Perstūmimo mygtukai ir „pagrindinė" ženklas iš karto, dar prieš
+    // pirmą tempimą: serverio atiduotos miniatiūros jų neturi.
+    refreshDraftPhotoBadges();
 
     // Edit mode: attach drag handlers to existing photos
     if (typeof attachExistingPhotoDragHandlers === 'function') {
@@ -1420,51 +1396,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('{% trans "Listing ID not found" %}');
                 return;
             }
-            showUploadProgress(true);
-            setUploadProgress(0, '{% trans "Preparing photos..." %}');
-
-            compressAll(files).then(function(compressed) {
-                var fd = new FormData();
-                compressed.forEach(function(f) { fd.append('images', f); });
-                fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/ajax/upload-listing-images/' + listingId + '/');
-                xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-
-                xhr.upload.onprogress = function(e) {
-                    if (e.lengthComputable) {
-                        var percent = Math.round((e.loaded / e.total) * 100);
-                        setUploadProgress(percent, '{% trans "Uploading photos..." %}');
-                    }
-                };
-
-                xhr.onload = function() {
-                    showUploadProgress(false);
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        try {
-                            var data = JSON.parse(xhr.responseText);
-                            if (data && data.success) {
-                                location.reload();
-                            } else {
-                                alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown error'));
-                            }
-                        } catch (err) {
-                            alert('{% trans "Upload failed" %}');
-                        }
-                    } else {
-                        alert('{% trans "Upload failed" %} (' + xhr.status + ')');
-                    }
-                };
-
-                xhr.onerror = function() {
-                    showUploadProgress(false);
-                    alert('{% trans "Upload failed" %}');
-                };
-
-                xhr.send(fd);
+            compressAll(Array.prototype.slice.call(files)).then(function (suspausti) {
+                ALNuotraukos.siuskPoViena(suspausti, {
+                    url: '/ajax/upload-listing-images/' + listingId + '/',
+                    eiga: function (p, uzrasas) {
+                        showUploadProgress(p !== null);
+                        if (p !== null) setUploadProgress(p, uzrasas);
+                    },
+                    // Redagavimo režime miniatiūras atiduoda serveris.
+                    baigta: function () { location.reload(); }
+                });
             });
         }
+
+        // Išėjimo sargą (įspėjimą, kol siuntimas nebaigtas) ir
+        // window.alIkelimuVyksta() dabar laiko bendras kodas —
+        // static/js/nuotrauku_valdymas.js. Čia jo antros kopijos nebėra:
+        // dvi skaitliukų kopijos rodė skirtingus skaičius.
 
         function showUploadProgress(show) {
             var box = document.getElementById('uploadProgress');
@@ -1480,53 +1428,28 @@ document.addEventListener('DOMContentLoaded', function() {
             if (lbl && label) lbl.textContent = label;
         }
 
+        // Nuotraukos siunčiamos PO VIENĄ, ne visos vienu kartu.
+        //
+        // Anksčiau visos ėjo viename POST'e: telefone su silpnesniu ryšiu
+        // juosta ilgai stovėjo ties 0 %, o miniatiūros atsirasdavo visos
+        // iš karto pačioje pabaigoje. Nutrūkus ryšiui krisdavo VISOS.
+        // Dabar kiekviena atsiranda vos įkelta, matyti „3 / 12", o
+        // nepavykusi nesugriauna jau įkeltų.
         function uploadPhotosToDraft(files) {
-            showUploadProgress(true);
-            setUploadProgress(0, '{% trans "Preparing photos..." %}');
-
-            compressAll(files).then(function(compressed) {
-                var fd = new FormData();
-                compressed.forEach(function(f) { fd.append('images', f); });
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/ajax/upload-draft-images/');
-                xhr.setRequestHeader('X-CSRFToken', CSRF_TOKEN);
-
-                xhr.upload.onprogress = function(e) {
-                    if (e.lengthComputable) {
-                        var percent = Math.round((e.loaded / e.total) * 100);
-                        setUploadProgress(percent, '{% trans "Uploading photos..." %}');
+            compressAll(Array.prototype.slice.call(files)).then(function (suspausti) {
+                ALNuotraukos.siuskPoViena(suspausti, {
+                    url: '/ajax/upload-draft-images/',
+                    eiga: function (p, uzrasas) {
+                        showUploadProgress(p !== null);
+                        if (p !== null) setUploadProgress(p, uzrasas);
+                    },
+                    ikelta: function (data) {
+                        var wrap = document.getElementById('draft-photos-wrapper');
+                        if (wrap) wrap.style.display = '';
+                        appendUploadedToDraftPanel(data.uploaded || []);
+                        updateDraftPhotosCount();
                     }
-                };
-
-                xhr.onload = function() {
-                    showUploadProgress(false);
-                    setUploadProgress(0, '');
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        try {
-                            var data = JSON.parse(xhr.responseText);
-                            if (data.success) {
-                                var wrap = document.getElementById('draft-photos-wrapper');
-                                if (wrap) wrap.style.display = '';
-                                appendUploadedToDraftPanel(data.uploaded);
-                                updateDraftPhotosCount();
-                            } else {
-                                alert('{% trans "Upload failed" %}: ' + (data.error || 'unknown'));
-                            }
-                        } catch (err) {
-                            alert('{% trans "Upload failed" %}');
-                        }
-                    } else {
-                        alert('{% trans "Upload failed" %} (' + xhr.status + ')');
-                    }
-                };
-
-                xhr.onerror = function() {
-                    showUploadProgress(false);
-                    alert('{% trans "Upload failed" %}');
-                };
-
-                xhr.send(fd);
+                });
             });
         }
 
@@ -1551,8 +1474,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 attachDraftPhotoHandlers(div);
                 panel.appendChild(div);
             });
+            // Naujoms miniatiūroms irgi reikia perstūmimo mygtukų, o
+            // paskutinės kaimynui — atkabinti „dešinėn".
+            refreshDraftPhotoBadges();
         }
     }
 });
 </script>
+{% comment %}Redaguojant tvarkomos jau įkeltos nuotraukos, kuriant —
+juodraščio. Skiriasi tik tinklelis ir kas įrašo tvarką.{% endcomment %}
+{% if is_edit_mode %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#existing-photos' kortele='.existing-photo' tvarkos_kablys='saveExistingPhotoOrder' trinti='' maks=40 %}
+{% else %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#draft-photos' tvarkos_kablys='saveDraftPhotoOrder' trinti='' maks=40 %}
+{% endif %}
 {% endblock %}

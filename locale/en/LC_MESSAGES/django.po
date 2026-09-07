@@ -24650,3 +24650,15 @@ msgstr "Search country"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Secondary navigation"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Move left"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Move right"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Some photos are still uploading. Leave anyway?"

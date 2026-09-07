@@ -208,7 +208,7 @@
 
             {# ═══ CONTACTS ═══ #}
             {% if draft.city != '—' %}{% firstof draft.city '' as contact_city %}{% else %}{% firstof '' as contact_city %}{% endif %}
-            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=request.user.email val_country=draft.country val_state=draft.state val_city=contact_city val_address=draft.address %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=draft.contact_email|default:request.user.email val_country=draft.country val_state=draft.state val_city=contact_city val_address=draft.address %}
 
             <div class="flex items-center justify-between">
                 {% if is_edit_mode %}
@@ -546,21 +546,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Suspaudžiam prieš siuntimą (static/js/photo_compress.js)
         compressAll(arr).then(function(arr) {
-        var fd = new FormData();
-        arr.forEach(function(f) { fd.append('images', f); });
-
         var url = IS_EDIT_MODE
             ? '/ajax/upload-moto-for-parts-edit-image/' + EDIT_LISTING_PK + '/'
             : '/ajax/upload-moto-for-parts-image/';
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'X-CSRFToken': CSRF_TOKEN },
-            body: fd,
-        }).then(function(r) { return r.json(); })
-          .then(function(data) {
-              if (data.success) appendPhotos(data.uploaded);
-          });
+        // PO VIENĄ (static/js/nuotrauku_valdymas.js): telefono ryšiu
+        // vienas didelis siuntinys krenta visas, o žmogus mato tik
+        // „Upload failed". Po vieną matosi eiga ir kuri nepavyko.
+        ALNuotraukos.siuskPoViena(arr, {
+            url: url,
+            ikelta: function(data) { if (data.uploaded) appendPhotos(data.uploaded); }
+        });
         });   // compressAll
     }
 
@@ -624,4 +620,5 @@ input:focus, select:focus, textarea:focus {
     color: #dc2626 !important;
 }
 </style>
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#photos-grid' tvarkos_kablys='savePhotoOrder' trinti='' maks=36 %}
 {% endblock %}

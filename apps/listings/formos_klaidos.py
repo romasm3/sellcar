@@ -25,6 +25,30 @@ PRIVALOMAS = 'Privalomas laukas'
 TAISYKLES = 'Turite sutikti su taisyklėmis'
 
 
+def yra_klaida(zinute):
+    """Ar Django žinutė yra klaida.
+
+    Žiūrim į LYGĮ, o ne į `tags`: prie ženklo prikabinami ir
+    `extra_tags`, tad tikslus lyginimas („== 'error'") prašauna.
+    Lygio neturintys įrašai (paprastas tekstas iš vaizdo) laikomi
+    klaidomis — būtent tokius sąrašus vaizdai ir paduoda.
+    """
+    from django.contrib.messages import constants
+    lygis = getattr(zinute, 'level', None)
+    return lygis is None or lygis >= constants.ERROR
+
+
+def tik_klaidu_tekstai(zinutes):
+    """Klaidų tekstai iš `messages`.
+
+    Be šito filtro į formos klaidų dėžutę pakliūdavo VISKAS, ir po
+    sėkmingo išsaugojimo žmogus matydavo „Ištaisykite šias klaidas:
+    Listing updated successfully." Sėkmę, informaciją ir įspėjimus
+    rodo bendras žinučių blokas (templates/partials/_zinutes.html).
+    """
+    return [str(z) for z in (zinutes or []) if yra_klaida(z)]
+
+
 def _t(tekstas):
     """Vertimas paieškai — msgid'ai .po faile yra lietuviški."""
     return _(tekstas)

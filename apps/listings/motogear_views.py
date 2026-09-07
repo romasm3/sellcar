@@ -15,6 +15,7 @@ from django.db.models.functions import Greatest, Coalesce
 from datetime import timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
+from .kontaktai import issaugok_pasta
 from .models import (
     Listing,
     ListingImage,
@@ -473,6 +474,9 @@ def _draft_to_submitted(draft):
         'address': draft.address or '',
         'hide_exact_address': 'on' if draft.hide_exact_address else '',
         'is_business_seller': 'on' if draft.is_business_seller else '',
+        # Skelbimo paštas, o ne paskyros — kitaip redaguojant įrašyta
+        # reikšmė kaskart pradingtų.
+        'email': draft.contact_email or '',
     }
 
 
@@ -720,6 +724,9 @@ def _handle_post(request, edit_listing=None):
     if phone_val and hasattr(request.user, 'profile'):
         request.user.profile.phone_number = phone_val
         request.user.profile.save(update_fields=['phone_number'])
+
+    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
+    issaugok_pasta(listing, request)
 
     if errors:
         return render(

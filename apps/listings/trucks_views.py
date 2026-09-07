@@ -492,6 +492,9 @@ def _listing_to_form_data(listing):
         'city': listing.city if listing.city != '—' else '',
         'postal_code': listing.postal_code or '',
         'address': listing.address or '',
+        # Skelbimo paštas, o ne paskyros — kitaip redaguojant įrašyta
+        # reikšmė kaskart pradingtų.
+        'email': listing.contact_email or '',
         'equipment': [str(eid) for eid in eq_ids],
     }
 
@@ -597,6 +600,11 @@ def _save_form_to_listing(post, listing):
     if phone_val and hasattr(listing.seller, 'profile'):
         listing.seller.profile.phone_number = phone_val
         listing.seller.profile.save(update_fields=['phone_number'])
+
+    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
+    pastas = (post.get('email', '') or '').strip()
+    if pastas:
+        listing.contact_email = pastas
 
     # Coords
     lat, lng = _get_coordinates(listing.city, listing.country)

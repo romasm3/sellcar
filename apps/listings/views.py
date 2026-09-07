@@ -40,6 +40,7 @@ from .forms import (
     Step7ContactForm,
 )
 from . import salys
+from .kontaktai import issaugok_pasta
 from .models import (
     Listing,
     ListingImage,
@@ -2852,6 +2853,10 @@ def _draft_to_session_data(draft):
         data['step7']['postal_code'] = draft.postal_code or ''
         data['step7']['address'] = draft.address or ''
         data['step7']['hide_exact_address'] = draft.hide_exact_address
+    # Paštas — ir tada, kai vietos laukai dar tušti: jis atkeliauja iš
+    # ankstesnio skelbimo redagavimo, o ne iš vietos bloko.
+    if draft.contact_email:
+        data['step7']['email'] = draft.contact_email
 
     return data
 
@@ -3633,6 +3638,10 @@ def listing_create(request):
                     request.user.profile.phone_number = phone_val
                     request.user.profile.save(update_fields=['phone_number'])
 
+                # Kontaktinis paštas — kartu su telefonu
+                # (apps/listings/kontaktai.py)
+                issaugok_pasta(current_draft, request)
+
                 current_draft.country = form.cleaned_data['country']
                 current_draft.city = form.cleaned_data.get('city', '') or '—'
                 if hasattr(current_draft, 'state'):
@@ -4083,7 +4092,7 @@ Message:
 
 View listing: http://127.0.0.1:8000{listing.get_absolute_url()}"""
         send_mail(
-            subject, body, sender_email, [listing.seller.email],
+            subject, body, sender_email, [listing.kontaktinis_pastas],
             fail_silently=True,
         )
     return redirect('listing_detail', pk=listing.pk)
@@ -5411,38 +5420,52 @@ def listing_activation_plans(request, pk):
     return render(request, 'listings/listing_activation_plans.html', context)
 
 
+# Ko dar reikalaujam iš kiekvienos kategorijos — TIK tų laukų, kuriuos
+# jos forma iš tikrųjų renka. Anksčiau iš VISŲ buvo reikalaujama metų,
+# registracijos datos ir kuro; dalių, ratlankių, elektronikos,
+# paslaugų, dviračių, valčių ir nuomos formose tokių laukų nėra visai,
+# tad tie skelbimai niekada nebūdavo išleidžiami — žmogus paspausdavo
+# „Įkelti" ir grįždavo į tą pačią formą su prierašu „užpildykite".
+PAPILDOMI_LAUKAI = {
+    'cars': ('year', 'brand_id', 'body_type', 'transmission_id',
+             'doors', 'mileage'),
+    'motorcycles': ('year',),
+    'trucks': ('year', 'truck_brand_id', 'truck_model_text', 'truck_type'),
+    'trailers': ('year',),
+    'agriculture': ('year',),
+    'construction': ('year',),
+    'forestry': ('year',),
+    'loading-equipment': ('year',),
+    'camping-houses': ('year',),
+}
+
+
 def _skelbimas_uzpildytas(listing):
     """Ar juodraštyje užpildyta tai, be ko skelbimo skelbti negalima.
 
     Ta pati sąlyga naudojama ir planų puslapyje (mokėjimai įjungti), ir
     nemokamame publikavime — kad nemokamas srautas nepraleistų į
     svetainę pusiau tuščio skelbimo.
+
+    Bendra dalis visoms kategorijoms: kaina ir vieta. Viskas kita —
+    pagal kategoriją (PAPILDOMI_LAUKAI); ko forma nerenka, to ir
+    nereikalaujam.
     """
+    bendra = bool(
+        listing.price and listing.price > 0
+        and listing.country and listing.city and listing.city != '—'
+    )
+    if not bendra:
+        return False
+
     is_moto_gear = (listing.subcategory_id
                     and listing.subcategory.slug in MOTO_GEAR_SLUGS)
     if is_moto_gear:
-        return bool(
-            listing.subcategory_id and listing.condition
-            and listing.price and listing.price > 0
-            and listing.country and listing.city and listing.city != '—'
-        )
-    uzpildyta = bool(
-        listing.year and listing.first_registration and listing.fuel_type_id
-        and listing.price and listing.price > 0
-        and listing.country and listing.city and listing.city != '—'
-    )
+        return bool(listing.subcategory_id and listing.condition)
+
     slug = listing.vehicle_type.slug if listing.vehicle_type else ''
-    if slug == 'cars':
-        uzpildyta = uzpildyta and bool(
-            listing.brand_id and listing.body_type
-            and listing.transmission_id and listing.doors and listing.mileage
-        )
-    elif slug == 'trucks':
-        uzpildyta = uzpildyta and bool(
-            listing.truck_brand_id and listing.truck_model_text
-            and listing.truck_type
-        )
-    return uzpildyta
+    return all(getattr(listing, laukas, None)
+               for laukas in PAPILDOMI_LAUKAI.get(slug, ()))
 
 
 def _publikuok_nemokamai(request, listing):
@@ -5632,7 +5655,8 @@ def _render_edit_step(request, listing, step):
             'address': listing.address,
             'hide_exact_address': listing.hide_exact_address,
             'phone': seller_phone,
-            'email': listing.seller.email,
+            # Skelbimo paštas pirmas, paskyros — tik kai jo nėra
+            'email': listing.kontaktinis_pastas,
             'agree_terms': True,
         })
     else:
@@ -7106,6 +7130,10 @@ def listing_create_cars_quick(request):
             request.user.profile.phone_number = phone_val
             request.user.profile.save(update_fields=['phone_number'])
 
+        # Paštas — į PATĮ skelbimą: jis gali skirtis nuo paskyros pašto
+        # (apps/listings/kontaktai.py)
+        issaugok_pasta(target, request)
+
         # Terms agreement (tik CREATE)
         if not is_edit_mode and not request.POST.get('agree_terms'):
             errors.append(_('Turite sutikti su taisyklėmis'))
@@ -7308,7 +7336,9 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
             'address': source.address,
             'hide_exact_address': source.hide_exact_address,
             'phone': user_phone,
-            'email': request.user.email,
+            # Skelbimo paštas pirmas, paskyros — tik kai jo dar nėra.
+            # Buvo atvirkščiai, tad įrašyta reikšmė kaskart pradingdavo.
+            'email': source.kontaktinis_pastas,
         }
     else:
         user_phone = ''

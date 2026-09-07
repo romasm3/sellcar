@@ -14,6 +14,7 @@ from .models import (
     SubCategory,
     FuelType,
 )
+from .kontaktai import issaugok_pasta
 from .views import (
     _int_or_none,
     _float_or_none,
@@ -227,6 +228,10 @@ def boats_listing_create(request):
         elif hasattr(request.user, 'profile'):
             request.user.profile.phone_number = phone_val
             request.user.profile.save(update_fields=['phone_number'])
+
+        # Kontaktinis paštas — ten pat, kur telefonas.
+        # Iki šiol formos jį rodė, bet niekur nedėjo.
+        issaugok_pasta(target, request)
 
         # Terms (CREATE only)
         if not is_edit_mode and not request.POST.get('agree_terms'):

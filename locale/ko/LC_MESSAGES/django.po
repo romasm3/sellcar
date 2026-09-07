@@ -17407,7 +17407,7 @@ msgstr "현재 사진"
 #: templates/listings/trailers_listing_create.html:651
 #: templates/listings/trailers_listing_create.html:817
 msgid "PAGRINDINĖ"
-msgstr "기본"
+msgstr "대표 사진"
 
 #: templates/listings/agriculture_listing_create.html:301
 #: templates/listings/bicycles_listing_create.html:283
@@ -24509,3 +24509,15 @@ msgstr "국가 검색"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "추가 탐색"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "왼쪽으로 이동"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "오른쪽으로 이동"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "아직 업로드 중인 사진이 있습니다. 나가시겠습니까?"

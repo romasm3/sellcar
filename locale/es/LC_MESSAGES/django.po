@@ -24785,3 +24785,15 @@ msgstr "Buscar país"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Navegación adicional"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Mover a la izquierda"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Mover a la derecha"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Todavía se están subiendo fotos. ¿Salir de todos modos?"

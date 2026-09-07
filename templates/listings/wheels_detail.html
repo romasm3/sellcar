@@ -18,13 +18,7 @@
             <span class="text-sm">{% if listing.product_type == 'rim' %}{% trans "Back to rims" %}{% else %}{% trans "Back to tyres" %}{% endif %}</span>
         </a>
 
-        {% if messages %}
-        <div class="mb-4 space-y-2">
-            {% for message in messages %}
-            <div class="p-3 rounded-lg text-sm bg-white border border-gray-200 text-gray-800">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
+        {% include 'partials/_zinutes.html' with tankiai=1 %}
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 space-y-6">

@@ -44,9 +44,13 @@ from django.urls import Resolver404, resolve
 from django.utils import translation
 from django.utils.translation import get_language_from_path
 
-# Keliai, gyvenantys UŽ i18n_patterns ribų (config/urls.py)
+# Keliai, gyvenantys UŽ i18n_patterns ribų (config/urls.py).
+#
+# `/ajax/` čia atsirado kartu su apps/listings/urls_ajax.py: AJAX
+# maršrutai prijungti ir be priešdėlio, tad nukreipti juos į „/ru/ajax/…"
+# būtų tuščias papildomas šuolis. POST'ui jis dar ir pavojingas.
 BE_PRIESDELIO = ('/admin/', '/static/', '/media/', '/i18n/', '/rosetta/',
-                 '/robots.txt', '/sitemap')
+                 '/ajax/', '/robots.txt', '/sitemap')
 
 
 def _uz_i18n(kelias):

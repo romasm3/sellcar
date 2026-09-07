@@ -739,30 +739,20 @@ function uploadPhotosAjax(rawFiles) {
     }
     showUploadStatus(I18N.preparingDraft);
 
-    ensureDraft().then(function(draftId) {
-        console.log('[upload] draft ready:', draftId);
-        var fd = new FormData();
-        files.forEach(function(f, i) {
-            console.log('[upload] adding file #' + i + ':', f.name, f.size);
-            fd.append('images', f);
-        });
-        if (IS_EDIT_MODE) fd.append('edit', EDIT_ID);
+    // PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js).
+    // Juodraštis turi būti sukurtas pirma, kitaip nuotraukoms nėra kur
+    // gultis.
+    ensureDraft().then(function() {
         showUploadStatus(I18N.uploadingPhotos.replace('{n}', files.length));
-        return fetch('/ajax/upload-motogear-draft-images/', {
-            method: 'POST',
-            headers: { 'X-CSRFToken': CSRF_TOKEN },
-            body: fd,
+        return ALNuotraukos.siuskPoViena(files, {
+            url: '/ajax/upload-motogear-draft-images/',
+            laukai: function() { return IS_EDIT_MODE ? { edit: EDIT_ID } : {}; },
+            ikelta: function(data) {
+                if (data.listing_id) document.getElementById('draft_id').value = data.listing_id;
+                (data.uploaded || []).forEach(function(img) { appendPhotoToPreview(img); });
+            },
+            baigta: function() { showUploadStatus(null); }
         });
-    }).then(function(r) {
-        if (!r) return null;
-        return r.json();
-    }).then(function(data) {
-        showUploadStatus(null);
-        if (!data) { alert(I18N.uploadFailedNoResp); return; }
-        if (!data.success) { alert(I18N.uploadFailed + ' ' + (data.error || I18N.unknownError)); return; }
-        if (data.listing_id) document.getElementById('draft_id').value = data.listing_id;
-        (data.uploaded || []).forEach(function(img) { appendPhotoToPreview(img); });
-        console.log('[upload] success:', data.uploaded.length, 'images uploaded');
     }).catch(function(err) {
         showUploadStatus(null);
         console.error('[upload] error:', err);
@@ -990,4 +980,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#imagePreview' kortele='.photo-card' tvarkos_kablys='savePhotoOrder' trinti='' maks=40 %}
 {% endblock %}

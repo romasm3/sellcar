@@ -17451,7 +17451,7 @@ msgstr "Praegused fotod"
 #: templates/listings/trailers_listing_create.html:651
 #: templates/listings/trailers_listing_create.html:817
 msgid "PAGRINDINĖ"
-msgstr "PEAMINE"
+msgstr "PÕHIFOTO"
 
 #: templates/listings/agriculture_listing_create.html:301
 #: templates/listings/bicycles_listing_create.html:283
@@ -24695,3 +24695,15 @@ msgstr "Otsi riiki"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Lisanavigatsioon"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Liiguta vasakule"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Liiguta paremale"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Mõned fotod on veel üleslaadimisel. Kas ikkagi lahkuda?"

@@ -252,9 +252,11 @@ def form_error_fields(request):
 
     def _surinkti():
         try:
-            tekstai = [str(m) for m in get_messages(request)]
+            # TIK KLAIDOS: sėkmė ir informacija turi savo bloką, o čia
+            # patekusios virsdavo raudona „Ištaisykite šias klaidas".
+            tekstai = formos_klaidos.tik_klaidu_tekstai(get_messages(request))
         except Exception:
-            return {'error_fields': [], 'error_messages': {}}
+            return {'error_fields': [], 'error_messages': {}, 'form_errors': []}
         return formos_klaidos.kontekstas(tekstai)
 
     return {

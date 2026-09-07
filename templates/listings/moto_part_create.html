@@ -337,23 +337,65 @@ document.addEventListener('DOMContentLoaded', function() {
     dropZone.addEventListener('drop', function(e){
         e.preventDefault();
         dropZone.classList.remove('border-gray-500','bg-gray-50');
-        if (e.dataTransfer.files.length) { if (IS_EDIT_MODE) { motoPartEditUpload(e.dataTransfer.files); } else { imageInput.files = e.dataTransfer.files; renderPreviews(); } }
+        if (e.dataTransfer.files.length) { if (IS_EDIT_MODE) { motoPartEditUpload(e.dataTransfer.files); } else { mpPridek(e.dataTransfer.files); } }
     });
-    imageInput.addEventListener('change', function(){ if (IS_EDIT_MODE) { motoPartEditUpload(imageInput.files); imageInput.value=''; } else { renderPreviews(); } });
+    imageInput.addEventListener('change', function(){ if (IS_EDIT_MODE) { motoPartEditUpload(imageInput.files); imageInput.value=''; } else { mpPridek(imageInput.files); } });
+
+    // Kuriant nuotraukos dar naršyklėje. Anksčiau jos gyveno tiesiog
+    // input.files — o iš FileList nei ištrinsi vienos, nei perstumsi.
+    // Todėl laikom masyve ir prieš siuntimą sudedam atgal į lauką.
+    var mpCreateFiles = [];
+
+    function mpSync() {
+        var dt = new DataTransfer();
+        mpCreateFiles.forEach(function(f){ dt.items.add(f); });
+        imageInput.files = dt.files;
+    }
+
+    function mpPridek(sarasas) {
+        Array.from(sarasas).forEach(function(f){
+            if (f.type && f.type.startsWith('image/')) mpCreateFiles.push(f);
+        });
+        mpCreateFiles = mpCreateFiles.slice(0, 36);
+        mpSync();
+        renderPreviews();
+    }
 
     function renderPreviews() {
         previewGrid.innerHTML = '';
-        Array.from(imageInput.files).slice(0, 36).forEach(function(file, idx){
-            if (!file.type.startsWith('image/')) return;
-            var url = URL.createObjectURL(file);
+        mpCreateFiles.forEach(function(file, idx){
             var div = document.createElement('div');
-            div.className = 'relative aspect-square overflow-hidden rounded-lg border-2 ' + (idx === 0 ? 'border-green-500' : 'border-gray-200') + ' bg-gray-100';
-            div.innerHTML = '<img src="' + url + '" class="w-full h-full object-cover">' +
-                (idx === 0 ? '<span class="absolute top-1 left-1 bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-semibold">MAIN</span>'
-                           : '<span class="absolute top-1 left-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">' + (idx + 1) + '</span>');
+            div.className = 'relative aspect-square overflow-hidden rounded-lg border-2 border-gray-200 bg-gray-100';
+            div.dataset.idx = idx;
+            var img = document.createElement('img');
+            img.className = 'w-full h-full object-cover';
+            img.src = URL.createObjectURL(file);
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'foto-trinti absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full text-xs flex items-center justify-center z-10';
+            btn.textContent = '\u00D7';
+            btn.title = '{% trans "Ištrinti" %}';
+            btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                try { URL.revokeObjectURL(img.src); } catch (err) {}
+                mpCreateFiles.splice(idx, 1);
+                mpSync();
+                renderPreviews();
+            });
+            div.appendChild(img);
+            div.appendChild(btn);
             previewGrid.appendChild(div);
         });
+        if (window.ALNuotraukos) ALNuotraukos.atnaujink();
     }
+
+    // ◀ ▶ kuriant — tvarką keičiam masyve ir perpiešiam.
+    window.alCreatePerstumk = function(nuo, i) {
+        var f = mpCreateFiles.splice(nuo, 1)[0];
+        mpCreateFiles.splice(i, 0, f);
+        mpSync();
+        renderPreviews();
+    };
 });
 
 
@@ -365,11 +407,11 @@ function mpSetProgress(p,l){var bar=document.getElementById('uploadProgressBar')
 
 function mpCompress(file){return new Promise(function(resolve){if(file.type==='image/gif'||file.size<600*1024){resolve(file);return;}var reader=new FileReader();reader.onload=function(e){var img=new Image();img.onload=function(){var MAX=1920,w=img.width,h=img.height;if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;}}var c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);c.toBlob(function(blob){if(!blob||blob.size>=file.size){resolve(file);return;}var nn=(file.name.split('.').slice(0,-1).join('.')||file.name)+'.jpg';resolve(new File([blob],nn,{type:'image/jpeg'}));},'image/jpeg',0.85);};img.onerror=function(){resolve(file);};img.src=e.target.result;};reader.onerror=function(){resolve(file);};reader.readAsDataURL(file);});}
 
-function motoPartEditUpload(fileList){var files=Array.from(fileList).filter(function(f){return f.type&&f.type.indexOf('image/')===0;});if(!files.length||!EDIT_LISTING_ID)return;mpProgress(true);mpSetProgress(0,'{% trans "Preparing photos..." %}');Promise.all(files.map(mpCompress)).then(function(comp){var fd=new FormData();comp.forEach(function(f){fd.append('images',f);});fd.append('csrfmiddlewaretoken',CSRF_TOKEN);var xhr=new XMLHttpRequest();xhr.open('POST','/ajax/upload-listing-images/'+EDIT_LISTING_ID+'/');xhr.setRequestHeader('X-CSRFToken',CSRF_TOKEN);xhr.upload.onprogress=function(e){if(e.lengthComputable)mpSetProgress(Math.round(e.loaded/e.total*100),'{% trans "Uploading photos..." %}');};xhr.onload=function(){mpProgress(false);if(xhr.status>=200&&xhr.status<300){location.reload();}else{alert('{% trans "Upload failed" %}');}};xhr.onerror=function(){mpProgress(false);alert('{% trans "Upload failed" %}');};xhr.send(fd);});}
+function motoPartEditUpload(fileList){var files=Array.from(fileList).filter(function(f){return f.type&&f.type.indexOf('image/')===0;});if(!files.length||!EDIT_LISTING_ID)return;/* PO VIENĄ — bendras kodas (static/js/nuotrauku_valdymas.js) */Promise.all(files.map(mpCompress)).then(function(comp){ALNuotraukos.siuskPoViena(comp,{url:'/ajax/upload-listing-images/'+EDIT_LISTING_ID+'/',eiga:function(p,u){mpProgress(p!==null);if(p!==null)mpSetProgress(p,u);},baigta:function(){location.reload();}});});}
 
-function mpSetMain(id){var fd=new FormData();fd.append('csrfmiddlewaretoken',CSRF_TOKEN);fetch('/listings/image/'+id+'/set-main/',{method:'POST',headers:{'X-CSRFToken':CSRF_TOKEN,'X-Requested-With':'XMLHttpRequest'},body:fd}).then(function(){location.reload();}).catch(function(){location.reload();});}
+function mpSetMain(id){var fd=new FormData();fd.append('csrfmiddlewaretoken',CSRF_TOKEN);fetch('/image/'+id+'/set-main/',{method:'POST',headers:{'X-CSRFToken':CSRF_TOKEN,'X-Requested-With':'XMLHttpRequest'},body:fd}).then(function(){location.reload();}).catch(function(){location.reload();});}
 
-function mpDelete(id){if(!confirm('{% trans "Delete this photo?" %}'))return;var fd=new FormData();fd.append('csrfmiddlewaretoken',CSRF_TOKEN);fetch('/listings/image/'+id+'/delete/',{method:'POST',headers:{'X-CSRFToken':CSRF_TOKEN},body:fd}).then(function(){location.reload();});}
+function mpDelete(id){if(!confirm('{% trans "Delete this photo?" %}'))return;var fd=new FormData();fd.append('csrfmiddlewaretoken',CSRF_TOKEN);fetch('/image/'+id+'/delete/',{method:'POST',headers:{'X-CSRFToken':CSRF_TOKEN},body:fd}).then(function(){location.reload();});}
 
 function mpRotate(id,dir,btn){if(btn){btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';}var fd=new FormData();fd.append('csrfmiddlewaretoken',CSRF_TOKEN);fd.append('direction',dir);fetch('/ajax/rotate-listing-image/'+id+'/',{method:'POST',headers:{'X-CSRFToken':CSRF_TOKEN},body:fd}).then(function(r){return r.json();}).then(function(d){if(d&&d.success){var card=document.querySelector('[data-existing-img-id="'+id+'"]');if(card){var im=card.querySelector('img');if(im)im.src=d.url;}if(btn){btn.disabled=false;btn.innerHTML=dir==='ccw'?'<i class="fas fa-undo"></i>':'<i class="fas fa-redo"></i>';}}else{alert('{% trans "Rotate failed" %}');if(btn)btn.disabled=false;}}).catch(function(){alert('{% trans "Rotate failed" %}');if(btn)btn.disabled=false;});}
 
@@ -391,4 +433,11 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 }
 [data-field-wrap].field-error label { color: #dc2626 !important; }
 </style>
+{% comment %}Redaguojant nuotraukos jau serveryje, kuriant — dar
+naršyklėje; skiriasi tik tai, kas įrašo tvarką.{% endcomment %}
+{% if is_edit_mode %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with pk=edit_listing_id kortele='.existing-photo' perimti_ikelima=1 %}
+{% else %}
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tinklelis='#previewGrid' vietinis=1 tvarkos_kablys='alCreatePerstumk' trinti='' maks=36 %}
+{% endif %}
 {% endblock %}

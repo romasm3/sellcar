@@ -1,0 +1,38 @@
+{% comment %}
+═══════════════════════════════════════════════════════════════════════
+DJANGO ŽINUTĖS — VIENA DĖŽUTĖ VISAI SVETAINEI
+
+Iki šiol tas pats ciklas gulėjo keturiuose šablonuose (base.html,
+my_listings, listing_services_order, wheels_detail), ir jie nesutarė:
+vieni sėkmę dažė žaliai, kiti VISKĄ, kas ne „success", — raudonai.
+Todėl po sėkmingo išsaugojimo žmogus matydavo žalią žinutę viename
+puslapyje ir raudoną kitame.
+
+Spalva ieškoma ženklų EILUTĖJE, o ne lyginama tiksliai: Django prie
+ženklo prikabina ir `extra_tags`, tad tikslus sutapimas prašauna.
+
+    sėkmė      žalia
+    klaida     raudona
+    įspėjimas  geltona
+    kita       mėlyna
+
+Naudojimas (konteinerį duoda kviečiantysis):
+    {% include 'partials/_zinutes.html' %}
+    {% include 'partials/_zinutes.html' with tankiai=1 %}   ← siauresnė
+
+Klaidų dėžutė formose (_form_errors.html) yra ATSKIRA: ten patenka tik
+klaidos ir tik su nuorodomis į laukus.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}{% if messages %}
+{% for message in messages %}
+<div class="al-zinute mb-4 rounded-lg border {% if tankiai %}p-3 text-sm{% else %}p-4{% endif %} {% if 'success' in message.tags %}bg-green-50 text-green-800 border-green-200{% elif 'error' in message.tags %}bg-red-50 text-red-800 border-red-200{% elif 'warning' in message.tags %}bg-yellow-50 text-yellow-800 border-yellow-200{% else %}bg-blue-50 text-blue-800 border-blue-200{% endif %}">
+  <div class="flex items-center gap-3">
+    {% if 'success' in message.tags %}<i class="fas fa-check-circle"></i>
+    {% elif 'error' in message.tags %}<i class="fas fa-exclamation-circle"></i>
+    {% elif 'warning' in message.tags %}<i class="fas fa-exclamation-triangle"></i>
+    {% else %}<i class="fas fa-info-circle"></i>{% endif %}
+    <span>{{ message }}</span>
+  </div>
+</div>
+{% endfor %}
+{% endif %}

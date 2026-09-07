@@ -17448,7 +17448,7 @@ msgstr "Ảnh hiện tại"
 #: templates/listings/trailers_listing_create.html:651
 #: templates/listings/trailers_listing_create.html:817
 msgid "PAGRINDINĖ"
-msgstr "CHỦ YẾU"
+msgstr "ẢNH CHÍNH"
 
 #: templates/listings/agriculture_listing_create.html:301
 #: templates/listings/bicycles_listing_create.html:283
@@ -24729,3 +24729,15 @@ msgstr "Tìm quốc gia"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr "Điều hướng bổ sung"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr "Chuyển sang trái"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr "Chuyển sang phải"
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr "Một số ảnh vẫn đang tải lên. Vẫn thoát?"

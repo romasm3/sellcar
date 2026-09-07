@@ -382,6 +382,11 @@ EMAIL_TIMEOUT = 10
 # Testai ir management komandos šitą išjungia, kad matytų tikrą rezultatą.
 PASTAS_FONE = config("PASTAS_FONE", default=True, cast=bool)
 
+# Kam pranešti apie naują registraciją. Tuščia reikšmė pranešimą išjungia
+# (pvz. kai serveryje sukamas bandomasis egzempliorius).
+REGISTRACIJOS_PRANESIMU_EL = config(
+    "REGISTRACIJOS_PRANESIMU_EL", default="romasm333@gmail.com").strip()
+
 # Password Reset settings
 PASSWORD_RESET_TIMEOUT = 259200
 

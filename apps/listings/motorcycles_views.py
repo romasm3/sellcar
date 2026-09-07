@@ -28,6 +28,7 @@ from django.db.models.functions import Greatest, Coalesce, Lower
 from datetime import date, timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
+from .kontaktai import issaugok_pasta
 from apps.listings import salys
 from .models import (
     Listing,
@@ -284,6 +285,9 @@ def _draft_to_submitted(draft):
         'postal_code': draft.postal_code or '',
         'address': draft.address or '',
         'hide_exact_address': 'on' if draft.hide_exact_address else '',
+        # Skelbimo paštas, o ne paskyros — kitaip redaguojant įrašyta
+        # reikšmė kaskart pradingtų.
+        'email': draft.contact_email or '',
     }
 
 
@@ -755,6 +759,9 @@ def _handle_post(request):
     if phone_val and hasattr(request.user, 'profile'):
         request.user.profile.phone_number = phone_val
         request.user.profile.save(update_fields=['phone_number'])
+
+    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
+    issaugok_pasta(listing, request)
 
     # ═══════════════════════════════════════════════════════
     # EDIT MODE — update existing listing in place, no re-activation

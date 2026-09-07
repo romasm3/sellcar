@@ -197,6 +197,13 @@ def apply_common_fields_to_listing(listing, common_data):
     listing.country = common_data['country']
     listing.state = common_data['state'] if common_data['country'] == 'US' else ''
     
+    # Kontaktinis paštas — POST reikšmę parse_common_listing_fields()
+    # nuskaitydavo, bet niekas jos nedėdavo į skelbimą, tad po
+    # išsaugojimo laukas vėl rodydavo paskyros paštą. Tuščias nieko
+    # netrina: dalis srautų kontaktų bloko nerodo.
+    if common_data.get('email'):
+        listing.contact_email = common_data['email']
+
     listing.city = common_data['city'] or common_data.get('vietos_miestas', '')
     listing.address = common_data['address']
     listing.postal_code = common_data['postal_code']

@@ -24727,3 +24727,15 @@ msgstr "Ieškoti šalies"
 #: templates/partials/secondary_nav.html:19
 msgid "Papildoma navigacija"
 msgstr ""
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti kairėn"
+msgstr ""
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Perkelti dešinėn"
+msgstr ""
+
+#: templates/listings/partials/_nuotrauku_valdymas.html
+msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
+msgstr ""

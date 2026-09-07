@@ -26,6 +26,7 @@ from .views import (
     COUNTRY_FLAGS,
 )
 from apps.listings import brands as brand_source
+from .kontaktai import issaugok_pasta
 
 
 # ═══════════════════════════════════════════════════════════
@@ -236,6 +237,10 @@ def camping_listing_create(request):
         elif hasattr(request.user, 'profile'):
             request.user.profile.phone_number = phone_val
             request.user.profile.save(update_fields=['phone_number'])
+
+        # Kontaktinis paštas — ten pat, kur telefonas.
+        # Iki šiol formos jį rodė, bet niekur nedėjo.
+        issaugok_pasta(target, request)
 
         if not is_edit_mode and not request.POST.get('agree_terms'):
             errors.append(_('Turite sutikti su taisyklėmis'))

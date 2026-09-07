@@ -415,3 +415,60 @@ img {
 @media (max-width: 1023px) {
     .vieta-eilute { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SKELBIMO NUOTRAUKŲ VALDYMAS TELEFONE
+
+   Trynimo „×", „pagrindinė" ir pasukimo mygtukai skelbimo įkėlimo
+   formose paslėpti per `opacity-0 group-hover:opacity-100`. Telefone
+   `:hover` neįvyksta niekada, tad mygtukai lieka nematomi — žmogus mato
+   tik nuotraukų numerius ir negali nei ištrinti, nei pakeisti
+   pagrindinės. Paspausti juos techniškai galima (opacity nuo paspaudimo
+   neapsaugo), bet nematomo mygtuko niekas nespaudžia.
+
+   Įrenginiuose be pelės rodom juos iš karto.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (hover: none) {
+  .group .opacity-0.group-hover\:opacity-100 { opacity: 1; }
+  /* Apatinė juostelė su „pagrindinė / pasukti" — tas pats */
+  .group > .absolute.inset-x-0.bottom-0.opacity-0 { opacity: 1; }
+}
+
+/* Nuotraukų perstūmimo mygtukai (◀ ▶) — veikia ir pele, ir pirštu.
+   HTML5 „drag and drop" telefone nekyla visai, tad be jų nuotraukų
+   tvarkos pakeisti neįmanoma. */
+.foto-perstumti {
+  position: absolute; bottom: 2px; width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .92); color: #111; border: 0;
+  border-radius: 999px; font-size: 13px; line-height: 1; cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3); z-index: 12; padding: 0;
+}
+.foto-perstumti:disabled { opacity: .3; cursor: default; }
+.foto-perstumti-kaire { left: 2px; }
+.foto-perstumti-desine { right: 2px; }
+
+/* „PAGRINDINĖ" ir eilės numeris. Anksčiau ženklas buvo lipdomas iš
+   Tailwind klasių JS'e — bet dalis formų (sunkvežimiai) turi savo CSS
+   ir Tailwind ten neveikia. Dabar išvaizda čia, viena visiems. */
+.foto-zyme {
+  position: absolute; top: 4px; left: 4px; z-index: 11;
+  padding: 2px 6px; border-radius: 3px;
+  background: rgba(0, 0, 0, .6); color: #fff;
+  font-size: 10px; font-weight: 600; line-height: 1.3;
+  pointer-events: none;
+}
+.foto-zyme-pagrindine { background: #16a34a; }
+
+/* Sunkvežimių forma pagrindinę žymi savo ::before — kad ženklas
+   nesidubliuotų, jį paslepiam. */
+.photo-item.is-main::before { display: none; }
+
+/* Telefone „hover" nebūna, tad veiksmų mygtukai liktų nematomi.
+   Sunkvežimių ir kitų savo CSS turinčių formų juostelės — visada
+   matomos, kai pirštas yra vienintelis įrankis. */
+@media (hover: none) {
+  .photo-item .photo-actions { opacity: 1 !important; visibility: visible !important; }
+  .photo-card .photo-actions,
+  .photo-card .opacity-0 { opacity: 1 !important; }
+}
