@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-07 14:54:00 CEST
+Sugeneruota: 2026-09-07 15:10:38 CEST
 
 ## Kodas
 
 ```
 sukasi:      c6aa4e6 fix(nuotraukos): trynimas, pertvarkymas ir „pagrindinė" telefone; įkėlimas po vieną
-origin/master: 626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
+origin/master: de5208b fix(skelbimai): pateikus skelbimą — „pavyko" puslapis, o sėkmė žalia
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.039767s
+HTTP 301, 0.004849s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 07 14:53:49 vmi3306453 autoleft-deploy[1174177]: [2026-09-07 14:53:49] === Naujų commit'ų rasta: c6aa4e6 → 626d94a ===
-Sep 07 14:53:49 vmi3306453 autoleft-deploy[1174202]:     626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
-Sep 07 14:53:49 vmi3306453 autoleft-deploy[1174202]:     0cde182 feat(registracija): pranešimas savininkui apie naują vartotoją
-Sep 07 14:53:49 vmi3306453 autoleft-deploy[1174202]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
-Sep 07 14:53:49 vmi3306453 autoleft-deploy[1174177]: [2026-09-07 14:53:49] Kodas atnaujintas iki 626d94a
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:         hashed_name = hashed_name_func(*args)
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:         raise ValueError(
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     ValueError: Missing staticfiles manifest entry for 'js/nuotrauku_valdymas.js'
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     ----------------------------------------------------------------------
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     Ran 11 tests in 6.322s
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     FAILED (errors=1)
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     Found 4 test(s).
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     System check identified no issues (0 silenced).
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     ....
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     ----------------------------------------------------------------------
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     Ran 4 tests in 0.444s
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     OK
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     
-Sep 07 14:54:00 vmi3306453 autoleft-deploy[1174369]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 07 15:10:27 vmi3306453 autoleft-deploy[1184133]:     de5208b fix(skelbimai): pateikus skelbimą — „pavyko" puslapis, o sėkmė žalia
+Sep 07 15:10:27 vmi3306453 autoleft-deploy[1184133]:     626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
+Sep 07 15:10:27 vmi3306453 autoleft-deploy[1184133]:     0cde182 feat(registracija): pranešimas savininkui apie naują vartotoją
+Sep 07 15:10:27 vmi3306453 autoleft-deploy[1184133]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
+Sep 07 15:10:27 vmi3306453 autoleft-deploy[1184115]: [2026-09-07 15:10:27] Kodas atnaujintas iki de5208b
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:         hashed_name = hashed_name_func(*args)
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:         raise ValueError(
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     ValueError: Missing staticfiles manifest entry for 'js/nuotrauku_valdymas.js'
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     ----------------------------------------------------------------------
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     Ran 11 tests in 7.325s
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     FAILED (errors=1)
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     Found 4 test(s).
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     System check identified no issues (0 silenced).
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     ....
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     ----------------------------------------------------------------------
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     Ran 4 tests in 0.435s
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     OK
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     
+Sep 07 15:10:38 vmi3306453 autoleft-deploy[1184282]:     PATIKRA NEPRAĖJO — nediegti.
 ```
