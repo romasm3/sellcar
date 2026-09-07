@@ -261,3 +261,39 @@ for pk in (727, 749, 754):
 
 `valyti_juodrascius --dienos 0` liečia TIK tuščius juodraščius; turintys
 nuotraukų ar aprašymo lieka (juos žmogus mato „Mano skelbimuose").
+
+## Sunkiojo transporto subkategorijos — backfill serveryje
+
+Skelbimai #749, #754 ir #762 gulė į „Sunkvežimius" ir gavo antstato
+„Tipą", nors yra vilkikai: `?subcategory=` iš pikerio pasiekdavo tik
+juodraščio sukūrimą. Priežastis sutvarkyta, o jau įvykę įrašai
+perkeliami rankomis:
+
+```bash
+cd /root/autoleft
+
+# 0. Kopija — kaip visada prieš duomenų keitimą
+mkdir -p /root/autoleft_backups
+.venv/bin/python manage.py dumpdata listings \
+    > /root/autoleft_backups/listings_pries_subkategorijas.json
+
+# 1. Apžvalga — kiek ko kurioje subkategorijoje
+.venv/bin/python manage.py sunkiojo_subkategorijos
+
+# 2. Sausas bėgimas — parodo senas ir naujas antraštes, nieko nekeičia
+.venv/bin/python manage.py sunkiojo_subkategorijos \
+    --skelbimai 749 754 762 --subkategorija semi-trucks-tractors \
+    --isvalyti-tipa
+
+# 3. Tikras perkėlimas
+.venv/bin/python manage.py sunkiojo_subkategorijos \
+    --skelbimai 749 754 762 --subkategorija semi-trucks-tractors \
+    --isvalyti-tipa --patvirtinu
+```
+
+Komanda perrašo ir antraštes į etalono formatą („MAN 18.510 4x2 2022 m
+Vilkikas"). Antraštės visada lietuviškos — tai DB laukas, rodomas
+visiems, o kalbos yra rodymo reikalas.
+
+Migracija `0102_listing_axle_count` prideda „Ašių skaičiaus" lauką —
+ji vykdoma įprastai su `migrate`.
