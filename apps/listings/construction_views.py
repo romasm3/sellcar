@@ -25,6 +25,7 @@ from .views import (
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 # ═══════════════════════════════════════════════════════════
@@ -187,7 +188,7 @@ def _save_common(request, target, errors, require_month=True):
     target.taxes_extra = request.POST.get('taxes_extra') == 'on'
     target.negotiable = request.POST.get('negotiable') == 'on'
 
-    target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
+    target.curb_weight = units.reiksme(request.POST, 'curb_weight')
     target.length_m = _float_or_none(request.POST.get('length_m'))
     target.width_m = _float_or_none(request.POST.get('width_m'))
     target.height_m = _float_or_none(request.POST.get('height_m'))
@@ -343,13 +344,13 @@ def construction_listing_create(request):
         target.subcategory = _subcategory_for(constr_type)
 
         target.sdk_number = (request.POST.get('sdk_number', '') or '').strip()[:8]
-        target.power = _int_or_none(request.POST.get('power'))
+        target.power = units.reiksme(request.POST, 'power')
         target.constr_drive_type = request.POST.get('constr_drive_type', '') or ''
         target.wheel_formula = request.POST.get('wheel_formula', '') or ''
-        target.mileage = _int_or_none(request.POST.get('mileage')) or 0
-        target.fuel_tank_capacity_l = _int_or_none(request.POST.get('fuel_tank_capacity_l'))
+        target.mileage = units.reiksme(request.POST, 'mileage') or 0
+        target.fuel_tank_capacity_l = units.reiksme(request.POST, 'fuel_tank_capacity_l')
         target.engine_hours = _int_or_none(request.POST.get('engine_hours'))
-        target.payload_kg = _int_or_none(request.POST.get('payload_kg'))
+        target.payload_kg = units.reiksme(request.POST, 'payload_kg')
 
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None

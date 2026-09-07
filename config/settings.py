@@ -106,10 +106,6 @@ MIDDLEWARE = [
     # o be kalbos priešdėlio toks kelias nebeatitinka nė vieno maršruto
     # (404). Šitas nukreipia į /<kalba>/… Žr. apps/listings/kalbos_kelias.py
     "apps.listings.kalbos_kelias.KalbosKelioMiddleware",
-    # Matavimo vienetai į saugojimo vienetus (l, km, kg) — VIENOJE
-    # vietoje, kad nė vienas vaizdas negautų „10837 cm³" kaip litrų.
-    # Žr. apps/listings/units.py
-    "apps.listings.units.VienetuMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.analytics.middleware.VisitorTrackingMiddleware",

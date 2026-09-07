@@ -1,4 +1,5 @@
 from .search_params import sanitize as sanitize_search_params
+from apps.listings import units
 """
 Single moto part srautas — autogidas.lt "Motociklų dalys" 1:1 forma.
 URL: /create/moto-part/
@@ -171,7 +172,7 @@ def _handle_post(request, edit_listing=None):
 
         listing.motorcycle_type = request.POST.get('motorcycle_type', '') or ''
 
-        _cc = _float_or_none(request.POST.get('engine_capacity'))
+        _cc = units.reiksme(request.POST, 'engine_capacity')
 
         if _cc:
 
@@ -264,7 +265,7 @@ def _handle_post(request, edit_listing=None):
     listing.motorcycle_type = request.POST.get('motorcycle_type', '') or ''
 
     # Darbinis tūris cm³ → engine_capacity (saugom cm³ reikšmę, pvz. 1300)
-    cc = _float_or_none(request.POST.get('engine_capacity'))
+    cc = units.reiksme(request.POST, 'engine_capacity')
     if cc:
         listing.engine_capacity = cc
 

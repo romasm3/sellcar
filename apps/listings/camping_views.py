@@ -28,6 +28,7 @@ from .views import (
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 # ═══════════════════════════════════════════════════════════
@@ -196,12 +197,12 @@ def camping_listing_create(request):
         # ─── Papildomi (automobiliniai laukai) ───
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None
-        target.fuel_tank_capacity_l = _int_or_none(request.POST.get('fuel_tank_capacity_l'))
+        target.fuel_tank_capacity_l = units.reiksme(request.POST, 'fuel_tank_capacity_l')
         target.modification = (request.POST.get('modification', '') or '').strip()[:32]
-        target.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
+        target.engine_capacity = units.reiksme(request.POST, 'engine_capacity')
         target.technical_inspection_year = _int_or_none(request.POST.get('technical_inspection_year'))
         target.technical_inspection_month = _int_or_none(request.POST.get('technical_inspection_month'))
-        target.mileage = _int_or_none(request.POST.get('mileage')) or 0
+        target.mileage = units.reiksme(request.POST, 'mileage') or 0
         target.color = request.POST.get('color', '') or ''
         target.rim_size = (request.POST.get('rim_size', '') or '').strip()[:20]
         target.tyre_condition_pct = _int_or_none(request.POST.get('tyre_condition_pct'))
@@ -209,7 +210,7 @@ def camping_listing_create(request):
         target.drive_type = request.POST.get('drive_type', '') or ''
         tr_id = _int_or_none(request.POST.get('transmission'))
         target.transmission = Transmission.objects.filter(pk=tr_id).first() if tr_id else None
-        target.power = _int_or_none(request.POST.get('power'))
+        target.power = units.reiksme(request.POST, 'power')
         target.defects = request.POST.get('defects', '') or 'none'
         target.b_licence_ok = request.POST.get('b_licence_ok') == 'on'
 

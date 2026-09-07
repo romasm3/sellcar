@@ -31,6 +31,7 @@ from datetime import date, timedelta
 from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 from apps.listings import salys
 from .models import (
     Listing,
@@ -381,15 +382,15 @@ def _build_fields_from_post(request, POST):
         'motorcycle_type': POST.get('motorcycle_type', ''),
         'cooling_type': POST.get('cooling_type', ''),
         'moto_engine_type': POST.get('moto_engine_type', ''),
-        'engine_capacity_cc': _int_or_none(POST.get('engine_capacity_cc')),
-        'power': _int_or_none(POST.get('power')),
-        'mileage': _int_or_none(POST.get('mileage')) or 0,
+        'engine_capacity_cc': units.reiksme(POST, 'engine_capacity_cc'),
+        'power': units.reiksme(POST, 'power'),
+        'mileage': units.reiksme(POST, 'mileage') or 0,
         'condition': POST.get('condition') or 'used',
         'color': POST.get('color', ''),
         'defects': POST.get('defects') or 'none',
         'fuel_type': fuel_type_obj,
         'transmission': transmission_obj,
-        'curb_weight': _int_or_none(POST.get('curb_weight')),
+        'curb_weight': units.reiksme(POST, 'curb_weight'),
         'euro_standard': POST.get('euro_standard', ''),
         'origin_country': POST.get('origin_country', '')[:2],
         'technical_inspection_month': _int_or_none(POST.get('technical_inspection_month')),

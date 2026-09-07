@@ -26,6 +26,7 @@ from .views import (
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 # ═══════════════════════════════════════════════════════════
@@ -173,9 +174,9 @@ def bicycles_listing_create(request):
         # ─── techniniai (vienetai sutampa su esamais stulpeliais) ───
         target.power_w = _int_or_none(request.POST.get('power_w'))
         target.max_speed_kmh = _int_or_none(request.POST.get('max_speed_kmh'))
-        target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
-        target.payload_kg = _int_or_none(request.POST.get('payload_kg'))
-        target.range_km = _int_or_none(request.POST.get('range_km'))
+        target.curb_weight = units.reiksme(request.POST, 'curb_weight')
+        target.payload_kg = units.reiksme(request.POST, 'payload_kg')
+        target.range_km = units.reiksme(request.POST, 'range_km')
         target.color = request.POST.get('color', '') or ''
 
         target.battery_ah = _float_or_none(request.POST.get('battery_ah'))

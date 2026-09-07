@@ -45,6 +45,8 @@ from apps.listings.models import NAUJO_SKELBIMO_DIENOS
 from . import formos_klaidos
 from . import juodrasciai
 from . import skaiciai
+from . import units
+from . import valiutos
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 CITY_COORDINATES = {
@@ -546,9 +548,9 @@ def _save_form_to_listing(post, listing):
     listing.truck_width_mm = _int_or_none(post.get('truck_width_mm'))
     listing.truck_height_mm = _int_or_none(post.get('truck_height_mm'))
     listing.truck_volume_m3 = _decimal_or_none(post.get('truck_volume_m3'))
-    listing.gross_weight_kg = _int_or_none(post.get('gross_weight_kg'))
-    listing.payload_kg = _int_or_none(post.get('payload_kg'))
-    listing.fuel_tank_capacity_l = _int_or_none(post.get('fuel_tank_capacity_l'))
+    listing.gross_weight_kg = units.reiksme(post, 'gross_weight_kg')
+    listing.payload_kg = units.reiksme(post, 'payload_kg')
+    listing.fuel_tank_capacity_l = units.reiksme(post, 'fuel_tank_capacity_l')
     listing.sleeping_seats = _int_or_none(post.get('sleeping_seats'))
 
     # Common fields
@@ -579,17 +581,17 @@ def _save_form_to_listing(post, listing):
     elif post.get('transmission') == '':
         listing.transmission = None
 
-    mileage = _int_or_none(post.get('mileage'))
+    mileage = units.reiksme(post, 'mileage')
     if mileage is not None:
         listing.mileage = mileage
 
-    listing.engine_capacity = _decimal_or_none(post.get('engine_capacity'))
-    listing.power = _int_or_none(post.get('power'))
+    listing.engine_capacity = units.reiksme(post, 'engine_capacity')
+    listing.power = units.reiksme(post, 'power')
     listing.condition = post.get('condition', '')
     listing.defects = post.get('defects', '')
     listing.steering = post.get('steering', '')
     listing.color = post.get('color', '')
-    listing.curb_weight = _int_or_none(post.get('curb_weight'))
+    listing.curb_weight = units.reiksme(post, 'curb_weight')
     listing.euro_standard = post.get('euro_standard', '')
     listing.technical_inspection_month = _int_or_none(post.get('technical_inspection_month'))
     listing.technical_inspection_year = _int_or_none(post.get('technical_inspection_year'))
@@ -710,7 +712,11 @@ def trucks_listing_create(request):
         if not draft:
             return redirect('/')
 
-        errors = _validate_required(request.POST, require_terms=True)
+        # Vienetai į saugojimo vienetus PRIEŠ validaciją — grynos
+        # funkcijos, originalus POST nepaliečiamas
+        # (apps/listings/units.py).
+        post = units.normalizuotas(request.POST)
+        errors = _validate_required(post, require_terms=True)
         if errors:
             data = dict(request.POST)
             data['equipment'] = request.POST.getlist('equipment')
@@ -723,7 +729,7 @@ def trucks_listing_create(request):
                                          is_edit=False))
 
         # Save and activate
-        _save_form_to_listing(request.POST, draft)
+        _save_form_to_listing(post, draft)
 
         # Clear session
         request.session[TRUCKS_DRAFT_SESSION_KEY] = None
@@ -772,7 +778,8 @@ def trucks_listing_edit(request, pk):
         return redirect('listing_edit_hub', pk=pk)
 
     if request.method == 'POST':
-        errors = _validate_required(request.POST)
+        post = units.normalizuotas(request.POST)
+        errors = _validate_required(post)
         if errors:
             data = dict(request.POST)
             data['equipment'] = request.POST.getlist('equipment')
@@ -784,7 +791,7 @@ def trucks_listing_edit(request, pk):
                                          is_edit=True))
 
         old_price = listing.price
-        _save_form_to_listing(request.POST, listing)
+        _save_form_to_listing(post, listing)
 
         # Email notifications
         try:

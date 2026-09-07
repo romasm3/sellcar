@@ -21,6 +21,7 @@ from django.utils.translation import gettext as _
 
 from apps.listings import juodrasciai
 from .image_validation import split_valid_images, ImageValidationError, validate_images
+from apps.listings import units
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
     MotorcycleBrand, MotorcycleModel,
@@ -129,11 +130,11 @@ def _parse_moto_for_parts_specific_fields(request):
         'brand_id': _int_or_none(request.POST.get('motorcycle_brand')),
         'model_id': _int_or_none(request.POST.get('motorcycle_model')),
         'motorcycle_type': request.POST.get('motorcycle_type', '').strip(),
-        'engine_capacity_cc': _int_or_none(request.POST.get('engine_capacity_cc')),
+        'engine_capacity_cc': units.reiksme(request.POST, 'engine_capacity_cc'),
         'moto_engine_type': request.POST.get('moto_engine_type', '').strip(),
         'cooling_type': request.POST.get('cooling_type', '').strip(),
-        'power': _int_or_none(request.POST.get('power')),
-        'mileage': _int_or_none(request.POST.get('mileage_km')),
+        'power': units.reiksme(request.POST, 'power'),
+        'mileage': units.reiksme(request.POST, 'mileage_km'),
         'color': request.POST.get('color', '').strip(),
     }
 

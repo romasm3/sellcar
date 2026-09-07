@@ -14,7 +14,7 @@ Modelio validatoriai vieni nepadeda: vaizdai objektą užpildo ir kviečia
 
 Paleidimas:  python docs/skaiciu_ribu_test.py
 """
-import io, os, sys, tempfile
+import io, os, re, sys, tempfile
 from decimal import Decimal
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -249,36 +249,73 @@ tikrink('UNIT_WARN_TEXT' in b, 'perspėjimo tekstas neverčiamas (nėra base.htm
 # ═══════════════════════════════════════════════════════════════════
 antraste('7. Vienetai keliauja kartu su reikšme')
 
-from django.test import RequestFactory
 from apps.listings import units
-from apps.listings.units import VienetuMiddleware
 
-rf = RequestFactory()
-mw = VienetuMiddleware(lambda r: r)
+# GRYNOS funkcijos: jokio request, jokio POST perrašymo
+tikrink(not hasattr(units, 'VienetuMiddleware'),
+        'vienetų normalizavimas vėl tapo middleware — POST perrašinėtų '
+        'visoje svetainėje')
+nustatymai = io.open(os.path.join(BASE, 'config/settings.py'),
+                     encoding='utf-8').read()
+tikrink('units.Vienetu' not in nustatymai,
+        'vienetų middleware prijungtas prie MIDDLEWARE')
+vienetu_kodas = io.open(os.path.join(BASE, 'apps/listings/units.py'),
+                        encoding='utf-8').read()
+# Dokumentacijos pavyzdys su „request.POST" nėra darbas su objektu
+kodas_be_docstringu = re.sub(r'\"\"\"(?:.|\n)*?\"\"\"', '', vienetu_kodas)
+tikrink('request' not in kodas_be_docstringu,
+        'units.py vėl dirba su request objektu')
 
-r = rf.post('/', {'engine_capacity': '10837', 'engine_capacity_unit': 'cm3'})
-mw(r)
-tikrink(r.POST['engine_capacity'] == '10.8',
-        'cm³ neperskaičiuoti: %s' % r.POST['engine_capacity'])
-tikrink(r.POST['engine_capacity_unit'] == 'L',
-        'po normalizavimo vienetas turi būti saugojimo')
-
-r = rf.post('/', {'mileage': '100', 'mileage_unit': 'mi'})
-mw(r)
-tikrink(r.POST['mileage'] == '161', 'mylios neperskaičiuotos: %s' % r.POST['mileage'])
-tikrink('.' not in r.POST['mileage'], 'sveikam laukui liko trupmena')
-
-r = rf.post('/', {'curb_weight': '3000', 'curb_weight_unit': 'lb'})
-mw(r)
-tikrink(r.POST['curb_weight'] == '1361', 'svarai neperskaičiuoti')
+tikrink(units.reiksme({'engine_capacity': '10837',
+                       'engine_capacity_unit': 'cm3'},
+                      'engine_capacity') == Decimal('10.8'),
+        'cm³ neperskaičiuoti į litrus')
+tikrink(units.reiksme({'mileage': '100', 'mileage_unit': 'mi'},
+                      'mileage') == 161,
+        'mylios neperskaičiuotos į km')
+tikrink(isinstance(units.reiksme({'mileage': '100', 'mileage_unit': 'mi'},
+                                 'mileage'), int),
+        'sveikam laukui grąžinta trupmena')
+tikrink(units.reiksme({'curb_weight': '3000', 'curb_weight_unit': 'lb'},
+                      'curb_weight') == 1361, 'svarai neperskaičiuoti')
 
 # Kanoninė reikšmė NEKEIČIAMA — dvigubo vertimo negali būti
-r = rf.post('/', {'engine_capacity': '12.0', 'engine_capacity_unit': 'L'})
-mw(r)
-tikrink(r.POST['engine_capacity'] == '12.0', 'kanoninė reikšmė pakeista')
-r = rf.post('/', {'engine_capacity': '12.0'})
-mw(r)
-tikrink(r.POST['engine_capacity'] == '12.0', 'reikšmė be vieneto pakeista')
+tikrink(units.reiksme({'engine_capacity': '12.0',
+                       'engine_capacity_unit': 'L'},
+                      'engine_capacity') == Decimal('12.0'),
+        'kanoninė reikšmė pakeista')
+tikrink(units.reiksme({'engine_capacity': '12.0'},
+                      'engine_capacity') == Decimal('12.0'),
+        'reikšmė be vieneto pakeista')
+tikrink(units.reiksme({'power': ''}, 'power') is None, 'tuščias laukas ne None')
+
+# Šaltinis lieka nepaliestas
+saltinis = {'engine_capacity': '10837', 'engine_capacity_unit': 'cm3'}
+kopija = units.normalizuotas(saltinis)
+tikrink(saltinis['engine_capacity'] == '10837', 'normalizavimas pakeitė šaltinį')
+tikrink(kopija['engine_capacity'] == '10.8', 'kopijoje neperskaičiuota')
+
+# Formoms — mixin'as, veikiantis PRIEŠ validaciją
+tikrink(hasattr(units, 'UnitNormalizationMixin'), 'nėra formų mixin\'o')
+from apps.listings.forms import Step3VehicleDataForm
+tikrink(issubclass(Step3VehicleDataForm, units.UnitNormalizationMixin),
+        'automobilių formos nenaudoja mixin\'o')
+f = Step3VehicleDataForm(data={
+    'engine_capacity': '10837', 'engine_capacity_unit': 'cm3',
+    'mileage': '100', 'mileage_unit': 'mi',
+    'power': '100', 'power_unit': 'HP'})
+f.is_valid()
+tikrink(f.cleaned_data.get('engine_capacity') == Decimal('10.8'),
+        'forma neperskaičiavo cm³: %r' % f.cleaned_data.get('engine_capacity'))
+tikrink(int(f.cleaned_data.get('mileage')) == 161,
+        'forma neperskaičiavo mylių: %r' % f.cleaned_data.get('mileage'))
+tikrink(int(f.cleaned_data.get('power')) == 75,
+        'forma neperskaičiavo AG: %r' % f.cleaned_data.get('power'))
+f2 = Step3VehicleDataForm(data={'engine_capacity': '12.0',
+                                'engine_capacity_unit': 'L'})
+f2.is_valid()
+tikrink(str(f2.cleaned_data.get('engine_capacity')) == '12.0',
+        'forma pakeitė kanoninę reikšmę')
 
 # Žinutė įvardija vienetą ir siūlo kitą
 zinute = units.per_didele('engine_capacity', 10837, 'L')
@@ -295,9 +332,14 @@ for zenklas in ("engine_capacity:", "mileage:", "curb_weight:",
 tikrink("_unit'" in js or '_unit"' in js or "'_unit'" in js
         or "f.origName + '_unit'" in js,
         'naršyklė nesiunčia vieneto kartu su reikšme')
-tikrink('VienetuMiddleware' in io.open(
-    os.path.join(BASE, 'config/settings.py'), encoding='utf-8').read(),
-    'normalizavimas neprijungtas prie užklausų')
+# Normalizuoja pati forma / vaizdas, ne bendras middleware
+tikrink('units.normalizuotas' in io.open(
+    os.path.join(BASE, 'apps/listings/trucks_views.py'), encoding='utf-8').read(),
+    'sunkvežimių forma nenormalizuoja vienetų')
+tikrink('units.reiksme' in io.open(
+    os.path.join(BASE, 'apps/listings/agriculture_views.py'),
+    encoding='utf-8').read(),
+    'kitos formos vienetų neperskaičiuoja')
 
 # Pasirinkimas išlieka perkrovus formą (klaidos, ?edit=) — jungiklio
 # būsena laikoma localStorage'e pagal šeimą

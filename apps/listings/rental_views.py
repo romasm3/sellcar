@@ -18,6 +18,7 @@ from .models import (
 )
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 from .views import (
     _int_or_none,
     _float_or_none,
@@ -211,8 +212,8 @@ def _handle(request, form_key, parse_fields):
         target.rent_price_hour = _float_or_none(request.POST.get('rent_price_hour'))
         target.negotiable = request.POST.get('negotiable') == 'on'
 
-        target.mileage = _int_or_none(request.POST.get('mileage')) or 0
-        target.power = _int_or_none(request.POST.get('power'))
+        target.mileage = units.reiksme(request.POST, 'mileage') or 0
+        target.power = units.reiksme(request.POST, 'power')
         target.color = request.POST.get('color', '') or ''
         target.description = request.POST.get('description', '') or ''
         target.video_url = request.POST.get('video_url', '') or ''
@@ -402,7 +403,7 @@ def rental_car_create(request):
             kind = FORM_SPEC['car'][0][0]
 
         target.modification = (request.POST.get('modification', '') or '').strip()[:32]
-        target.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
+        target.engine_capacity = units.reiksme(request.POST, 'engine_capacity')
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None
         tr_id = _int_or_none(request.POST.get('transmission'))
@@ -426,7 +427,7 @@ def rental_car_create(request):
             target.doors = ''
             target.metallic = False
 
-        target.fuel_tank_capacity_l = _int_or_none(request.POST.get('fuel_tank_capacity_l'))
+        target.fuel_tank_capacity_l = units.reiksme(request.POST, 'fuel_tank_capacity_l')
         target.fuel_consumption_combined = _float_or_none(
             request.POST.get('fuel_consumption_combined'))
         return kind
@@ -443,7 +444,7 @@ def rental_moto_create(request):
             errors.append(_('Motociklo tipas yra privalomas'))
         target.motorcycle_type = mtype
 
-        target.engine_capacity_cc = _int_or_none(request.POST.get('engine_capacity_cc'))
+        target.engine_capacity_cc = units.reiksme(request.POST, 'engine_capacity_cc')
         target.cooling_type = request.POST.get('cooling_type', '') or ''
         target.metallic = request.POST.get('metallic') == 'on'
         ft_id = _int_or_none(request.POST.get('fuel_type'))
@@ -473,8 +474,8 @@ def rental_minibus_create(request):
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None
         tr_id = _int_or_none(request.POST.get('transmission'))
         target.transmission = Transmission.objects.filter(pk=tr_id).first() if tr_id else None
-        target.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
-        target.fuel_tank_capacity_l = _int_or_none(request.POST.get('fuel_tank_capacity_l'))
+        target.engine_capacity = units.reiksme(request.POST, 'engine_capacity')
+        target.fuel_tank_capacity_l = units.reiksme(request.POST, 'fuel_tank_capacity_l')
         target.fuel_consumption_combined = _float_or_none(
             request.POST.get('fuel_consumption_combined'))
         return None
@@ -494,10 +495,10 @@ def rental_heavy_create(request):
 
         target.trailer_kind = request.POST.get('trailer_kind', '') or ''
         target.wheel_formula = request.POST.get('wheel_formula', '') or ''
-        target.payload_kg = _int_or_none(request.POST.get('payload_kg'))
+        target.payload_kg = units.reiksme(request.POST, 'payload_kg')
         target.fork_length_m = _float_or_none(request.POST.get('fork_length_m'))
-        target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
-        target.gross_weight_kg = _int_or_none(request.POST.get('gross_weight_kg'))
+        target.curb_weight = units.reiksme(request.POST, 'curb_weight')
+        target.gross_weight_kg = units.reiksme(request.POST, 'gross_weight_kg')
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None
         return None

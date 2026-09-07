@@ -24,6 +24,7 @@ from .views import (
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 # ═══════════════════════════════════════════════════════════
@@ -137,7 +138,7 @@ def forestry_listing_create(request):
             target.year = year
         # Mėnesio lauko ši kategorija neturi — first_registration nepildom
 
-        target.power = _int_or_none(request.POST.get('power'))
+        target.power = units.reiksme(request.POST, 'power')
         target.constr_drive_type = request.POST.get('constr_drive_type', '') or ''
         target.sdk_number = (request.POST.get('sdk_number', '') or '').strip()[:8]
 
@@ -154,14 +155,14 @@ def forestry_listing_create(request):
         target.wheel_formula = request.POST.get('wheel_formula', '') or ''
         ft_id = _int_or_none(request.POST.get('fuel_type'))
         target.fuel_type = FuelType.objects.filter(pk=ft_id).first() if ft_id else None
-        target.fuel_tank_capacity_l = _int_or_none(request.POST.get('fuel_tank_capacity_l'))
+        target.fuel_tank_capacity_l = units.reiksme(request.POST, 'fuel_tank_capacity_l')
         # Matmenys METRAIS — tie patys laukai kaip statybinėje technikoje
         target.length_m = _float_or_none(request.POST.get('length_m'))
         target.width_m = _float_or_none(request.POST.get('width_m'))
         target.height_m = _float_or_none(request.POST.get('height_m'))
         target.engine_hours = _int_or_none(request.POST.get('engine_hours'))
-        target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
-        target.gross_weight_kg = _int_or_none(request.POST.get('gross_weight_kg'))
+        target.curb_weight = units.reiksme(request.POST, 'curb_weight')
+        target.gross_weight_kg = units.reiksme(request.POST, 'gross_weight_kg')
         target.technical_inspection_year = _int_or_none(request.POST.get('technical_inspection_year'))
         target.technical_inspection_month = _int_or_none(request.POST.get('technical_inspection_month'))
         target.vin = (request.POST.get('vin', '') or '').strip()[:17]

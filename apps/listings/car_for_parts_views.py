@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from apps.listings import juodrasciai
 from .image_validation import split_valid_images, ImageValidationError, validate_images
+from apps.listings import units
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
     Brand, Model, FuelType, Transmission,
@@ -119,9 +120,9 @@ def _parse_car_for_parts_specific_fields(request):
         'modification': request.POST.get('modification', '').strip(),
         'version': request.POST.get('version', '').strip(),
         'fuel_type_id': _int_or_none(request.POST.get('fuel_type')),
-        'engine_capacity': _float_or_none(request.POST.get('engine_capacity')),
-        'power': _int_or_none(request.POST.get('power')),
-        'mileage': _int_or_none(request.POST.get('mileage_km')),
+        'engine_capacity': units.reiksme(request.POST, 'engine_capacity'),
+        'power': units.reiksme(request.POST, 'power'),
+        'mileage': units.reiksme(request.POST, 'mileage_km'),
         'transmission_id': _int_or_none(request.POST.get('transmission')),
         'body_type': request.POST.get('body_type', '').strip(),
         'doors': request.POST.get('doors', '').strip(),

@@ -16,6 +16,7 @@ from .models import (
 )
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 from .views import (
     _int_or_none,
     _float_or_none,
@@ -159,7 +160,7 @@ def boats_listing_create(request):
         # ─── Reused fields ───
         target.seats = request.POST.get('seats', '') or ''
         target.color = request.POST.get('color', '') or ''
-        target.power = _int_or_none(request.POST.get('power'))
+        target.power = units.reiksme(request.POST, 'power')
 
         # ─── Boat engine + fuel tank + feature checkboxes ───
         target.boat_engine_type = request.POST.get('boat_engine_type', '') or ''

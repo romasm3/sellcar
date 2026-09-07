@@ -43,6 +43,7 @@ from . import salys
 from . import juodrasciai
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 from .models import (
     Listing,
     ListingImage,
@@ -3536,16 +3537,16 @@ def listing_create(request):
             current_draft.color = request.POST.get('color', '')
             current_draft.defects = request.POST.get('defects', '')
             current_draft.steering = request.POST.get('steering', '')
-            mileage_val = _int_or_none(request.POST.get('mileage'))
+            mileage_val = units.reiksme(request.POST, 'mileage')
             if mileage_val is not None:
                 current_draft.mileage = mileage_val
-            current_draft.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
-            current_draft.power = _int_or_none(request.POST.get('power'))
+            current_draft.engine_capacity = units.reiksme(request.POST, 'engine_capacity')
+            current_draft.power = units.reiksme(request.POST, 'power')
             current_draft.drive_type = request.POST.get('drive_type', '')
             current_draft.seats = request.POST.get('seats', '')
             current_draft.rim_size = request.POST.get('rim_size', '')
             current_draft.climate = request.POST.get('climate', '')
-            current_draft.curb_weight = _int_or_none(request.POST.get('curb_weight'))
+            current_draft.curb_weight = units.reiksme(request.POST, 'curb_weight')
             current_draft.euro_standard = request.POST.get('euro_standard', '')
             current_draft.co2_emission = _int_or_none(request.POST.get('co2_emission'))
             current_draft.fuel_consumption_city = _float_or_none(request.POST.get('fuel_consumption_city'))
@@ -7064,7 +7065,7 @@ def listing_create_cars_quick(request):
             errors.append(_('Defektai yra privalomi'))
         target.defects = defects
 
-        mileage = _int_or_none(request.POST.get('mileage'))
+        mileage = units.reiksme(request.POST, 'mileage')
         if mileage is None:
             errors.append(_('Rida yra privaloma'))
         else:
@@ -7073,8 +7074,8 @@ def listing_create_cars_quick(request):
         # Optional Section 3 fields
         target.color = request.POST.get('color', '')
         target.steering = request.POST.get('steering', '')
-        target.engine_capacity = _float_or_none(request.POST.get('engine_capacity'))
-        target.power = _int_or_none(request.POST.get('power'))
+        target.engine_capacity = units.reiksme(request.POST, 'engine_capacity')
+        target.power = units.reiksme(request.POST, 'power')
         # Etalono laukai (docs/autogidas-laukai.md „Papildomi duomenys")
         target.cylinders = request.POST.get('cylinders', '')
         target.gear_count = request.POST.get('gear_count', '')
@@ -7084,7 +7085,7 @@ def listing_create_cars_quick(request):
         target.seats = request.POST.get('seats', '')
         target.rim_size = request.POST.get('rim_size', '')
         target.climate = request.POST.get('climate', '')
-        target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
+        target.curb_weight = units.reiksme(request.POST, 'curb_weight')
         target.euro_standard = request.POST.get('euro_standard', '')
         target.co2_emission = _int_or_none(request.POST.get('co2_emission'))
         target.fuel_consumption_city = _float_or_none(request.POST.get('fuel_consumption_city'))

@@ -80,6 +80,7 @@ LOAD_BRANDS = _BrandList()
 from .equipment_registry import LOAD_EQUIPMENT_DEFINITION  # noqa: E402
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 def get_load_equipment():
@@ -167,8 +168,8 @@ def loading_listing_create(request):
 
         # ─── Pagrindiniai skaičiai ───
         target.lift_height_m = _float_or_none(request.POST.get('lift_height_m'))
-        target.payload_kg = _int_or_none(request.POST.get('payload_kg'))
-        target.power = _int_or_none(request.POST.get('power'))
+        target.payload_kg = units.reiksme(request.POST, 'payload_kg')
+        target.power = units.reiksme(request.POST, 'power')
         target.sdk_number = (request.POST.get('sdk_number', '') or '').strip()[:8]
 
         price = _float_or_none(request.POST.get('price'))

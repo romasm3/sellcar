@@ -20,6 +20,12 @@ pati (taip veikia ir paieškos filtrai bei juodraščių autosave), tad
 forma buvo atvaizduota. Serveris normalizuoja bet kurį atvejį, tad
 dvigubo vertimo būti negali.
 
+Čia — TIK GRYNOS FUNKCIJOS: jokio `request`, jokio POST perrašymo.
+Normalizuoja pati forma (žr. `UnitNormalizationMixin`) arba vaizdas,
+paimdamas reikšmę per `reiksme(post, laukas)`. Bendro middleware
+sąmoningai NĖRA: jis perrašinėtų POST visoje svetainėje — ir ten, kur
+apie vienetus niekas nieko nežino (admin, API, svetimos formos).
+
 Saugojimo vienetai nesikeičia: litrai, kilometrai, kilogramai.
 
 Ribos (RIBOS) — dalykinės, ne stulpelio talpos: variklis iki 30 l, o ne
@@ -215,53 +221,106 @@ def per_didele(laukas, kanonine, vienetas=None):
 
 
 # ═══════════════════════════════════════════════════════════════════
-# NORMALIZAVIMAS UŽKLAUSOJE — viena vieta visoms formoms
+# FORMOMS IR VAIZDAMS
 # ═══════════════════════════════════════════════════════════════════
-class VienetuMiddleware:
-    """Reikšmes su ne saugojimo vienetu paverčia saugojimo vienetu.
+def reiksme(post, laukas, numatyta=None):
+    """Lauko reikšmė SAUGOJIMO vienetu iš bet kokio žodyno.
 
-    Kodėl čia, o ne dvidešimtyje vaizdų: laukai su jungikliais yra ir
-    įkėlimo formose, ir paieškos filtruose, ir juodraščių autosave —
-    visi jie POST'ą skaito tiesiogiai. Sutvarkius vienoje vietoje,
-    kiekvienas iš jų gauna litrus, kilometrus ir kilogramus, nieko
-    savyje nekeitęs.
+    `post` — bet kas, kas turi `.get()` (QueryDict, dict, cleaned_data).
+    Nieko nekeičia: grąžina naują reikšmę, o šaltinis lieka toks, koks
+    buvo.
 
-    Įprastai tai NIEKO nekeičia: naršyklė (static/js/unit_toggle.js)
-    reikšmę į kanoninį vienetą verčia pati, o `<laukas>_unit` tada yra
-    saugojimo vienetas. Verčiam tik tada, kai atkeliauja kitoks — be
-    JavaScript'o arba iš išorinio kliento. Dvigubo vertimo būti negali:
-    sprendžiam pagal patį lauką, ne pagal spėjimą.
+        listing.engine_capacity = units.reiksme(request.POST,
+                                                'engine_capacity')
+    """
+    if post is None or laukas not in post:
+        return numatyta
+    tekstas = (post.get(laukas) or '').strip() if isinstance(
+        post.get(laukas), str) else post.get(laukas)
+    if tekstas in (None, ''):
+        return numatyta
+    rezultatas = i_saugojima(laukas, tekstas, vienetas_is_posto(post, laukas))
+    if rezultatas is None:
+        return numatyta
+    return lauko_tikslumu(laukas, rezultatas)
+
+
+def lauko_tikslumu(laukas, reiksme):
+    """Suapvalina lauko tikslumu.
+
+    Sveikiems laukams (rida, galia, masė) grąžinam `int`: Decimal su
+    trupmena būtų arba nukirstas, arba iš viso nepriimtas.
+    """
+    skaicius = _dec(reiksme)
+    if skaicius is None:
+        return None
+    po_kablelio = TIKSLUMAS.get(laukas)
+    if po_kablelio == 0:
+        return int(skaicius.quantize(Decimal(1)))
+    if po_kablelio:
+        return skaicius.quantize(Decimal('1').scaleb(-po_kablelio))
+    return skaicius
+
+
+def normalizuotas(post, laukai=None):
+    """NAUJAS žodynas, kuriame vienetų laukai jau saugojimo vienetais.
+
+    Originalas nepaliečiamas. Naudinga vaizdams, kurie POST'ą paduoda
+    toliau vienu gabalu (pvz. sunkvežimių `_save_form_to_listing`).
+    """
+    # QueryDict'ui — jo paties kopija: vaizdai naudoja `getlist()`
+    # (įranga, žymimieji laukeliai), o paprastas dict to nemoka.
+    if hasattr(post, 'getlist') and hasattr(post, 'copy'):
+        kopija = post.copy()
+        kopija._mutable = True
+    else:
+        kopija = dict(post.items()) if hasattr(post, 'items') else dict(post)
+    for laukas in (laukai or VIENETAI):
+        if laukas not in kopija:
+            continue
+        saugojimo = saugojimo_vienetas(laukas)
+        v = vienetas_is_posto(kopija, laukas)
+        if not v or v == saugojimo:
+            continue
+        nauja = i_saugojima(laukas, kopija.get(laukas), v)
+        if nauja is None:
+            continue
+        kopija[laukas] = suapvalink(laukas, nauja)
+        kopija['%s_unit' % laukas] = saugojimo
+    return kopija
+
+
+class UnitNormalizationMixin:
+    """Django formoms: `<laukas>_unit` → saugojimo vienetas PRIEŠ validaciją.
+
+    Naudojimas:
+
+        class Step3VehicleDataForm(UnitNormalizationMixin, forms.Form):
+            VIENETU_LAUKAI = ('engine_capacity', 'power', 'mileage')
+
+    Be `VIENETU_LAUKAI` imami visi formos laukai, kuriems vienetai
+    aprašyti (VIENETAI). Vienetas paimamas iš `self.data`, nes pats
+    `<laukas>_unit` paprastai nėra formos laukas.
     """
 
-    def __init__(self, get_response):
-        self.get_response = get_response
+    VIENETU_LAUKAI = None
 
-    def __call__(self, request):
-        if request.method == 'POST':
-            self._normalizuok(request)
-        return self.get_response(request)
+    def _vienetu_laukai(self):
+        if self.VIENETU_LAUKAI is not None:
+            return self.VIENETU_LAUKAI
+        return [v for v in getattr(self, 'fields', {}) if v in VIENETAI]
 
-    @staticmethod
-    def _normalizuok(request):
-        try:
-            post = request.POST
-        except Exception:                      # noqa: BLE001 (pvz. sugadintas kūnas)
-            return
-        keistini = []
-        for laukas, (saugojimo, santykiai) in VIENETAI.items():
-            if laukas not in post:
+    def clean(self):
+        isvalyta = super().clean()
+        if not isinstance(isvalyta, dict):
+            return isvalyta
+        for laukas in self._vienetu_laukai():
+            if isvalyta.get(laukas) in (None, ''):
                 continue
-            v = normalizuok_vieneta(post.get('%s_unit' % laukas, ''))
-            if not v or v == saugojimo or v not in santykiai:
+            v = vienetas_is_posto(getattr(self, 'data', {}) or {}, laukas)
+            if not v or v == saugojimo_vienetas(laukas):
                 continue
-            nauja = i_saugojima(laukas, post.get(laukas), v)
+            nauja = i_saugojima(laukas, isvalyta[laukas], v)
             if nauja is not None:
-                keistini.append((laukas, nauja, saugojimo))
-        if not keistini:
-            return
-        kopija = post.copy()
-        for laukas, reiksme, saugojimo in keistini:
-            kopija[laukas] = suapvalink(laukas, reiksme)
-            kopija['%s_unit' % laukas] = saugojimo
-        kopija._mutable = False
-        request.POST = kopija
+                isvalyta[laukas] = lauko_tikslumu(laukas, nauja)
+        return isvalyta

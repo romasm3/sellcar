@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from . import salys
+from . import units
 from .models import (
     Listing,
     ListingImage,
@@ -89,8 +90,15 @@ class Step2MediaForm(forms.Form):
 
 
 # STEP 3: Vehicle Data
-class Step3VehicleDataForm(forms.Form):
-    """Step 3: Technical Vehicle Data"""
+class Step3VehicleDataForm(units.UnitNormalizationMixin, forms.Form):
+    """Step 3: Technical Vehicle Data
+
+    Vienetų jungikliai (L/cm³, km/mi, kW/HP) siunčia `<laukas>_unit`, o
+    mixin'as reikšmę paverčia saugojimo vienetu PRIEŠ validaciją —
+    apps/listings/units.py. Bendro middleware sąmoningai nėra.
+    """
+
+    VIENETU_LAUKAI = ('engine_capacity', 'power', 'mileage')
 
     body_type = forms.ChoiceField(
         label=_("Body Type"),

@@ -18,6 +18,7 @@ from django.views.decorators.http import require_POST
 
 from apps.listings import juodrasciai
 from .image_validation import ImageValidationError, validate_images
+from apps.listings import units
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
     TruckBrand, FuelType, Equipment, ListingEquipment,
@@ -124,9 +125,9 @@ def _parse_specific(request):
         'truck_model_text': (request.POST.get('truck_model_text') or '').strip(),
         'truck_type': (request.POST.get('truck_type') or '').strip(),
         'fuel_type_id': _int_or_none(request.POST.get('fuel_type')),
-        'engine_capacity': _float_or_none(request.POST.get('engine_capacity')),
-        'power': _int_or_none(request.POST.get('power')),
-        'mileage': _int_or_none(request.POST.get('mileage_km')),
+        'engine_capacity': units.reiksme(request.POST, 'engine_capacity'),
+        'power': units.reiksme(request.POST, 'power'),
+        'mileage': units.reiksme(request.POST, 'mileage_km'),
         'color': (request.POST.get('color') or '').strip(),
         'part_types': [v for v in request.POST.getlist('part_types') if v],
     }

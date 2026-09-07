@@ -107,6 +107,7 @@ AGRI_DEFAULT_SUBCATEGORY = 'other-agricultural'
 from .equipment_registry import AGRI_EQUIPMENT_DEFINITION  # noqa: E402
 from .kontaktai import issaugok_pasta
 from . import skaiciai
+from apps.listings import units
 
 
 def get_agri_equipment():
@@ -252,11 +253,11 @@ def agriculture_listing_create(request):
 
         # ─── Papildomi (skaičiai) ───
         target.engine_hours = _int_or_none(request.POST.get('engine_hours'))
-        target.power = _int_or_none(request.POST.get('power'))
+        target.power = units.reiksme(request.POST, 'power')
         target.working_width_m = _float_or_none(request.POST.get('working_width_m'))
-        target.curb_weight = _int_or_none(request.POST.get('curb_weight'))
-        target.gross_weight_kg = _int_or_none(request.POST.get('gross_weight_kg'))
-        target.payload_kg = _int_or_none(request.POST.get('payload_kg'))
+        target.curb_weight = units.reiksme(request.POST, 'curb_weight')
+        target.gross_weight_kg = units.reiksme(request.POST, 'gross_weight_kg')
+        target.payload_kg = units.reiksme(request.POST, 'payload_kg')
         target.truck_volume_m3 = _float_or_none(request.POST.get('truck_volume_m3'))
 
         if target.mileage is None:

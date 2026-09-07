@@ -26,6 +26,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
 from apps.listings import brands as brand_source
+from apps.listings import units
 
 from django.contrib import messages
 
@@ -460,11 +461,11 @@ def parts_listing_create(request):
             except Transmission.DoesNotExist:
                 pass
 
-        engine_cap = _float_or_none(request.POST.get('engine_capacity'))
+        engine_cap = units.reiksme(request.POST, 'engine_capacity')
         if engine_cap:
             target.engine_capacity = engine_cap
 
-        power = _int_or_none(request.POST.get('power'))
+        power = units.reiksme(request.POST, 'power')
         if power:
             target.power = power
 
