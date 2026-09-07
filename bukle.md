@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-07 12:34:44 CEST
+Sugeneruota: 2026-09-07 12:35:54 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001574s
+HTTP 301, 0.063168s
 ```
 
 ## Skelbimų būsenos
@@ -57,10 +57,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:18 vmi3306453 autoleft-deploy[1083962]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/sq/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:18 vmi3306453 autoleft-deploy[1083962]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/dsb/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:18 vmi3306453 autoleft-deploy[1083962]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/ckb/LC_MESSAGES/django.po” is already compiled and up to date.
-Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:18 vmi3306453 autoleft-deploy[1083962]: File “/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/sites/locale/es_MX/LC_MESSAGES/django.po” is already compiled and up to date.
 Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:18 vmi3306453 autoleft-deploy[1083012]: [12:32:18] Restartinam gunicorn.service
 Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:20 vmi3306453 autoleft-deploy[1083012]: [12:32:20] Health OK (1/10)
 Sep 07 12:32:24 vmi3306453 autoleft-deploy[1084128]: Sep 07 12:32:21 vmi3306453 autoleft-deploy[1083012]: [12:32:21] Statiniai OK: style.641848969862.css (manifestas atnaujintas)
@@ -82,4 +78,8 @@ Sep 07 12:33:39 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated succ
 Sep 07 12:33:39 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 Sep 07 12:33:39 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.468s CPU time.
 Sep 07 12:34:44 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 07 12:34:46 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 07 12:34:46 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 07 12:34:46 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.573s CPU time.
+Sep 07 12:35:54 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
 ```
