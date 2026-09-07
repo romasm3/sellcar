@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 """SKELBIMŲ TRYNIMO komandos patikra — manage.py trinti_skelbimus.
 
-Tikrinam penkias apsaugas: be atsarginės kopijos netrina, nutraukia kai
-rastų kiekis nesutampa su nurodytu, nutraukia kai saugomas ID pakliuvo į
-trinamuosius, sausas bėgimas nieko nekeičia, o tikras trynimas išvalo ir
-įrašus, ir nuotraukų failus, bet svetimų failų neliečia.
+Dešimt patikrų, abu režimai:
+
+ID režimas — be atsarginės kopijos netrina; nutraukia, kai rastų kiekis
+nesutampa su nurodytu; nutraukia, kai saugomas ID pakliuvo į trinamuosius;
+sausas bėgimas nieko nekeičia; tikras trynimas išvalo įrašus ir nuotraukų
+failus, bet svetimų failų neliečia.
+
+--visus režimas — nutraukia, kai duotas kartu su ID arba be nieko; sausas
+bėgimas nieko nekeičia; tikras išvalo ir Listing, ir WheelListing su visais
+failais, o naudotojai, markės ir kategorijos lieka vietoje; ant tuščios DB
+praeina švariai.
 
 Paleidimas:  python docs/skelbimu_trynimo_test.py
 """
@@ -40,7 +47,8 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.db import connection
 from django.contrib.auth.models import User
-from apps.listings.models import Listing, ListingImage, VehicleType
+from apps.listings.models import (Listing, ListingImage, VehicleType,
+                                  WheelListing, WheelImage)
 
 call_command('migrate', run_syncdb=True, verbosity=0)
 
@@ -125,5 +133,70 @@ def t5():
     for f in (cf, cg):
         assert os.path.exists(f), f'ištrintas svetimas failas {f}!'
 tikrinu('ištrina įrašus + failus, saugomo neliečia', t5)
+
+# ── 6-9: --visus režimas ───────────────────────────────────────────
+def ratlankis(pk, pav):
+    w = WheelListing.objects.create(id=pk, title=pav, seller=u, price=100,
+                                    status='active')
+    d = os.path.join(MEDIA, 'wheels', '2025', '01')
+    os.makedirs(d, exist_ok=True)
+    f = os.path.join(d, f'{pk}.jpg'); open(f, 'wb').write(b'x' * 10)
+    WheelImage.objects.create(listing=w, image=f'wheels/2025/01/{pk}.jpg')
+    return w, f
+
+print('\n== 6. --visus kartu su ID — turi nutraukti ==')
+def t6():
+    try:
+        call_command('trinti_skelbimus', 754, visus=True, kopija=KOPIJA, patvirtinu=True)
+    except CommandError as e:
+        assert 'Rinkis vieną' in str(e), e
+        assert Listing.objects.count() == 1
+    else:
+        raise AssertionError('nenutraukė')
+tikrinu('nutraukia, kai --visus duotas kartu su ID', t6)
+
+print('\n== 7. Nei ID, nei --visus — turi nutraukti ==')
+def t7():
+    try:
+        call_command('trinti_skelbimus', kopija=KOPIJA, patvirtinu=True)
+    except CommandError as e:
+        assert 'Nurodyk ID arba --visus' in str(e), e
+    else:
+        raise AssertionError('nenutraukė')
+tikrinu('nutraukia, kai nenurodyta nieko', t7)
+
+# prisidedam juodraštį ir ratlankį, kad būtų ką valyti
+d, df, dg = skelbimas(760, 'Juodraštis')
+Listing.objects.filter(pk=760).update(status='draft')
+w, wf = ratlankis(900, 'Nokian 205/55')
+
+print('\n== 8. --visus sausas bėgimas — nieko netrina ==')
+def t8():
+    call_command('trinti_skelbimus', visus=True, kopija=KOPIJA)
+    assert Listing.objects.count() == 2, 'sausas bėgimas trynė Listing!'
+    assert WheelListing.objects.count() == 1, 'sausas bėgimas trynė WheelListing!'
+    assert os.path.exists(cf) and os.path.exists(wf), 'sausas bėgimas trynė failus!'
+tikrinu('--visus sausas bėgimas nieko nekeičia', t8)
+
+print('\n== 9. --visus tikras — viskas 0, bet naudotojai/markės lieka ==')
+def t9():
+    naudotoju = User.objects.count()
+    kategoriju = VehicleType.objects.count()
+    call_command('trinti_skelbimus', visus=True, kopija=KOPIJA, patvirtinu=True)
+    assert Listing.objects.count() == 0, 'liko Listing'
+    assert WheelListing.objects.count() == 0, 'liko WheelListing'
+    assert ListingImage.objects.count() == 0, 'liko ListingImage'
+    assert WheelImage.objects.count() == 0, 'liko WheelImage'
+    for f in (cf, cg, df, dg, wf):
+        assert not os.path.exists(f), f'liko failas {f}'
+    assert User.objects.count() == naudotoju, 'ištrinti naudotojai!'
+    assert VehicleType.objects.count() == kategoriju, 'ištrintos kategorijos!'
+tikrinu('--visus išvalo abi lenteles + failus, naudotojų neliečia', t9)
+
+print('\n== 10. --visus ant tuščios DB — nelūžta ==')
+def t10():
+    call_command('trinti_skelbimus', visus=True, kopija=KOPIJA, patvirtinu=True)
+    assert Listing.objects.count() == 0
+tikrinu('--visus ant tuščios DB praeina švariai', t10)
 
 print('\nVISI TESTAI PRAĖJO')
