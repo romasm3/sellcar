@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-07 13:08:59 CEST
+Sugeneruota: 2026-09-07 13:10:20 CEST
 
 ## Kodas
 
 ```
 sukasi:      c6aa4e6 fix(nuotraukos): trynimas, pertvarkymas ir „pagrindinė" telefone; įkėlimas po vieną
-origin/master: c6aa4e6 fix(nuotraukos): trynimas, pertvarkymas ir „pagrindinė" telefone; įkėlimas po vieną
+origin/master: f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.002010s
+HTTP 301, 0.107238s
 ```
 
 ## Skelbimų būsenos
@@ -57,29 +57,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 07 13:02:18 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:02:20 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:02:20 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:02:20 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.649s CPU time.
-Sep 07 13:03:22 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:03:24 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:03:24 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:03:24 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.513s CPU time.
-Sep 07 13:04:29 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:04:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:04:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:04:31 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.606s CPU time.
-Sep 07 13:05:35 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:05:37 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:05:37 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:05:37 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.498s CPU time.
-Sep 07 13:06:42 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:06:44 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:06:44 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:06:44 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.479s CPU time.
-Sep 07 13:07:50 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
-Sep 07 13:07:53 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
-Sep 07 13:07:53 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
-Sep 07 13:07:53 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.653s CPU time.
-Sep 07 13:08:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 07 13:09:01 vmi3306453 systemd[1]: autoleft-deploy.service: Consumed 1.494s CPU time.
+Sep 07 13:10:08 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 07 13:10:08 vmi3306453 autoleft-deploy[1110999]: [2026-09-07 13:10:08] === Naujų commit'ų rasta: c6aa4e6 → f4511d0 ===
+Sep 07 13:10:08 vmi3306453 autoleft-deploy[1111018]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
+Sep 07 13:10:08 vmi3306453 autoleft-deploy[1110999]: [2026-09-07 13:10:08] Kodas atnaujintas iki f4511d0
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:         hashed_name = hashed_name_func(*args)
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:         raise ValueError(
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     ValueError: Missing staticfiles manifest entry for 'js/nuotrauku_valdymas.js'
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     ----------------------------------------------------------------------
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     Ran 11 tests in 7.016s
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     FAILED (errors=1)
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     Found 4 test(s).
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     System check identified no issues (0 silenced).
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     ....
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     ----------------------------------------------------------------------
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     Ran 4 tests in 0.438s
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     OK
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     
+Sep 07 13:10:20 vmi3306453 autoleft-deploy[1111205]:     PATIKRA NEPRAĖJO — nediegti.
 ```
