@@ -531,7 +531,8 @@
                     <div id="draft-photos-wrapper" {% if not current_draft.images.all %}style="display:none"{% endif %} class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-3">
                             {% trans "Already uploaded" %}
-                            <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count }} / 40)</span>
+                            {# Be juodraščio `images.count` yra tuščias ir skaitiklis rodo „( / 40)" #}
+                            <span class="text-xs text-gray-400" id="draft-photos-count">({{ current_draft.images.count|default:0 }} / 40)</span>
                         </label>
                         <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4" id="draft-photos">
                             {% if current_draft and current_draft.images.all %}
@@ -1689,4 +1690,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+{% include 'listings/partials/_nuotrauku_valdymas.html' with tik_kalba=1 %}
 {% endblock %}

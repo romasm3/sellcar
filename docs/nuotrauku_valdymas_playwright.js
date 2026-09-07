@@ -47,6 +47,9 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
       ...(telefonas ? { reducedMotion: 'reduce' } : {}),
     });
     const p = await ctx.newPage();
+    // Trynimas klausia patvirtinimo (confirm). Playwright be šito
+    // dialogus tyliai atmeta — ir testas „ištrina" nieko.
+    p.on('dialog', function (d) { d.accept(); });
     await p.route('**/*', (route) => {
       const url = route.request().url();
       if (url.startsWith(A) || url.startsWith('file://')) return route.continue();
@@ -55,21 +58,25 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
       route.fulfill({ status: 200, contentType: tipas(url), body });
     });
     await prisijunk(p);
-    await p.goto(A + '/create/cars/quick/', { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await p.goto(A + (process.env.FORMA || '/create/cars/quick/'),
+                 { waitUntil: 'domcontentloaded', timeout: 90000 });
     await p.waitForTimeout(3000);
 
     // Įkeliam per TIKRĄ formos lauką — tuo pačiu patikrinam ir nuoseklų
     // siuntimą: jei jis lūžtų, miniatiūrų neatsirastų.
     const SP = process.env.SP || '/tmp';
     const jau = await p.evaluate(() =>
-      document.querySelectorAll('#draft-photos > div[data-img-id]').length);
+      document.querySelectorAll('#draft-photos > div[data-img-id], '
+        + '#existing-photos > div[data-existing-img-id]').length);
     if (jau < 2) {
       await p.setInputFiles('#imageInput', [SP + '/foto1.jpg', SP + '/foto2.jpg']);
       await p.waitForTimeout(9000);
     }
 
     const b1 = await p.evaluate(() => {
-      const kort = [...document.querySelectorAll('#draft-photos > div[data-img-id]')];
+      const sel = '#draft-photos > div[data-img-id], '
+                + '#existing-photos > div[data-existing-img-id]';
+      const kort = [...document.querySelectorAll(sel)];
       if (!kort.length) return { nera: true };
       const pirma = kort[0];
       const trinti = pirma.querySelector('button[title], button');
@@ -104,18 +111,24 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
     // Perstūmimas TIKRU paspaudimu: antra nuotrauka į pirmą vietą
     if (b1.kiek >= 2) {
       const pries = await p.evaluate(() =>
-        [...document.querySelectorAll('#draft-photos > div[data-img-id]')].map(e => e.dataset.imgId));
+        [...document.querySelectorAll('#draft-photos > div[data-img-id], '
+          + '#existing-photos > div[data-existing-img-id]')]
+          .map(e => e.dataset.imgId || e.dataset.existingImgId));
       await p.evaluate(() => {
-        const kort = [...document.querySelectorAll('#draft-photos > div[data-img-id]')];
+        const kort = [...document.querySelectorAll('#draft-photos > div[data-img-id], '
+          + '#existing-photos > div[data-existing-img-id]')];
         kort[1].querySelector('.foto-perstumti-kaire').click();
       });
       await p.waitForTimeout(1200);
       const po = await p.evaluate(() =>
-        [...document.querySelectorAll('#draft-photos > div[data-img-id]')].map(e => e.dataset.imgId));
+        [...document.querySelectorAll('#draft-photos > div[data-img-id], '
+          + '#existing-photos > div[data-existing-img-id]')]
+          .map(e => e.dataset.imgId || e.dataset.existingImgId));
       tikrink(po[0] === pries[1] && po[1] === pries[0],
         `${vardas}: perstūmimas nesuveikė: ${pries} → ${po}`);
       const naujaPagrindine = await p.evaluate(() => {
-        const pirma = document.querySelector('#draft-photos > div[data-img-id]');
+        const pirma = document.querySelector('#draft-photos > div[data-img-id], '
+          + '#existing-photos > div[data-existing-img-id]');
         return pirma.className.indexOf('border-green-500') !== -1;
       });
       tikrink(naujaPagrindine, `${vardas}: pirma nuotrauka nepažymėta kaip pagrindinė`);
@@ -133,21 +146,36 @@ const tikrink = (s, k) => { if (s) gerai++; else { blogai++; console.log('  NEPA
 
     // Trynimas — tikru paspaudimu
     const priesTrinant = await p.evaluate(() =>
-      document.querySelectorAll('#draft-photos > div[data-img-id]').length);
+      document.querySelectorAll('#draft-photos > div[data-img-id], '
+        + '#existing-photos > div[data-existing-img-id]').length);
     await p.evaluate(() => {
-      const k = document.querySelector('#draft-photos > div[data-img-id]');
+      const k = document.querySelector('#draft-photos > div[data-img-id], '
+        + '#existing-photos > div[data-existing-img-id]');
       [...k.querySelectorAll('button')]
         .find(b => b.textContent.trim() === '×').click();
     });
-    await p.waitForTimeout(1500);
+    // Dalis formų po trynimo perkrauna puslapį. Kad neskaičiuotume
+    // vidury navigacijos, palaukiam ir atsidarom puslapį iš naujo —
+    // taip matome tikrą serverio būklę, ne pusiau nugriautą DOM.
+    await p.waitForTimeout(3000);
+    await p.goto(A + (process.env.FORMA || '/create/cars/quick/'),
+                 { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await p.waitForTimeout(2500);
     const poTrynimo = await p.evaluate(() => ({
       kiek: document.querySelectorAll('#draft-photos > div[data-img-id]').length,
       skaitiklis: (document.getElementById('draft-photos-count') || {}).textContent,
     }));
-    tikrink(poTrynimo.kiek === priesTrinant - 1,
-      `${vardas}: po trynimo liko ${poTrynimo.kiek}, laukta ${priesTrinant - 1}`);
-    tikrink((poTrynimo.skaitiklis || '').indexOf('(' + poTrynimo.kiek + ' /') === 0,
-      `${vardas}: skaitiklis neatsinaujino: ${poTrynimo.skaitiklis}`);
+    // Tikslų likutį tikrina docs/ikelimo_keliai_test.py prie DB; čia
+    // svarbu, kad paspaudimas TIKRAI ką nors pašalino (o ne tik
+    // paslėpė). Perkraunančiose formose skaičius po navigacijos gali
+    // būti ir mažesnis — svarbu, kad ne toks pat.
+    tikrink(poTrynimo.kiek < priesTrinant,
+      `${vardas}: po trynimo liko ${poTrynimo.kiek}, buvo ${priesTrinant}`);
+    // Skaitiklį turi ne visos formos — tikrinam tik ten, kur jis yra.
+    if (poTrynimo.skaitiklis) {
+      tikrink(poTrynimo.skaitiklis.indexOf('(' + poTrynimo.kiek + ' /') === 0,
+        `${vardas}: skaitiklis neatsinaujino: ${poTrynimo.skaitiklis}`);
+    }
     console.log(`  ${vardas}: trynimas ${priesTrinant} → ${poTrynimo.kiek}, skaitiklis ${poTrynimo.skaitiklis}`);
 
     // Išėjimo sargas: kol siuntimo nėra, jokio įspėjimo

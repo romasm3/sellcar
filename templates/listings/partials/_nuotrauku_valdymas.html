@@ -1,0 +1,59 @@
+{% load i18n static %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+NUOTRAUKŲ VALDYMAS — VIENA DALIS VISOMS ĮKĖLIMO FORMOMS
+
+Iki šiol kiekvienas iš 28 create šablonų turėjo savo nusirašytą
+nuotraukų kodą, todėl pataisa vienoje kategorijoje kitų nepasiekdavo.
+Dabar visa elgsena gyvena static/js/nuotrauku_valdymas.js, o forma
+prisijungia viena eilute:
+
+    {% include 'listings/partials/_nuotrauku_valdymas.html' with
+        pk=listing.pk %}
+
+Parametrai (visi nebūtini):
+    tinklelis        — miniatiūrų konteinerio selektorius
+                       (numatytai '#existing-photos')
+    pk               — skelbimo id; su juo sudedami įkėlimo ir
+                       pertvarkymo adresai
+    ikelti           — savas įkėlimo adresas (jei ne standartinis)
+    pertvarkyti      — savas pertvarkymo adresas
+    trinti           — savas trynimo adresas; „0" pakeičiamas nuotraukos id
+    pagrindine       — „padaryti pagrindine" adresas
+    perimti_ikelima  — 1, jei įkėlimą turi perimti bendras kodas
+    maks             — kiek nuotraukų daugiausia (numatytai 40)
+
+Adresai — BE kalbos priešdėlio (žr. apps/listings/urls_ajax.py): su
+priešdėliu jie krito į 404 dvylikai kalbų iš trylikos.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}
+{% comment %}Formos, kurios jau turi savą pilną nuotraukų kodą
+(automobilių greitoji, motociklai, sunkvežimiai, „dalimis"), prisijungia
+su tik_kalba=1: iš čia joms reikia tik laukų išsaugojimo keičiant kalbą,
+o miniatiūrų valdymo jos turi savo — kitaip ženklai dubliuotųsi.
+{% endcomment %}{% if not tik_kalba %}
+<div data-al-nuotraukos
+     data-tinklelis="{{ tinklelis|default:'#existing-photos' }}"
+     data-pk="{{ pk|default:'' }}"
+     data-ikelti="{% if ikelti %}{{ ikelti }}{% elif pk %}/ajax/upload-listing-images/{{ pk }}/{% endif %}"
+     data-pertvarkyti="{% if pertvarkyti %}{{ pertvarkyti }}{% elif pk %}/ajax/reorder-listing-images/{{ pk }}/{% endif %}"
+     data-trinti="{{ trinti|default:'/image/0/delete/' }}"
+     data-pagrindine="{{ pagrindine|default:'/image/0/set-main/' }}"
+     data-perimti-ikelima="{% if perimti_ikelima %}1{% else %}0{% endif %}"
+     data-maks="{{ maks|default:'40' }}"
+     hidden></div>
+{% endif %}
+<script>
+  // Užrašai — vartotojo kalba; JS jų pats išversti negali.
+  window.AL_NUOTRAUKU_TEKSTAI = {
+    kairen: "{% trans 'Perkelti kairėn' %}",
+    desinen: "{% trans 'Perkelti dešinėn' %}",
+    pagrindine: "{% trans 'PAGRINDINĖ' %}",
+    trinti: "{% trans 'Ištrinti' %}",
+    trintiKlausimas: "{% trans 'Ištrinti šią nuotrauką?' %}",
+    ruosiama: "{% trans 'Ruošiamos nuotraukos...' %}",
+    keliama: "{% trans 'Keliamos nuotraukos...' %}",
+    nepavyko: "{% trans 'Nepavyko įkelti' %}",
+    iseiti: "{% trans 'Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?' %}"
+  };
+</script>
+<script src="{% static 'js/nuotrauku_valdymas.js' %}" defer></script>
