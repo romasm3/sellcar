@@ -556,7 +556,7 @@ function attachCreateDragHandlers(div) {
 window.setExistingImageMain = function(imgId) {
     var fd = new FormData();
     fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-    fetch('/listings/image/' + imgId + '/set-main/', {
+    fetch('/image/' + imgId + '/set-main/', {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' },
         body: fd,
@@ -569,7 +569,7 @@ window.deleteExistingImage = function(imgId) {
     if (!confirm('{% trans "Ištrinti šią nuotrauką?" %}')) return;
     var fd = new FormData();
     fd.append('csrfmiddlewaretoken', CSRF_TOKEN);
-    fetch('/listings/image/' + imgId + '/delete/', {
+    fetch('/image/' + imgId + '/delete/', {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF_TOKEN },
         body: fd,

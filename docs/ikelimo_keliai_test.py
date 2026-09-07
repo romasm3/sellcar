@@ -21,6 +21,7 @@ Tikrinam KIEKVIENĄ kalbą ir abu pavidalus — su priešdėliu ir be jo.
 Paleidimas:  python docs/ikelimo_keliai_test.py
 """
 import io
+import json
 import os
 import sys
 import tempfile
@@ -168,6 +169,61 @@ for kalba in ('lt', 'ru', 'de'):
             else c.get(kelias)
         tikrink(r.status_code != 404,
                 '%s: %s grąžino 404' % (kalba, kelias))
+
+
+antraste('Trynimas, pertvarkymas ir juodraštis — visomis kalbomis')
+# Nuotraukų valdymas formoje remiasi šiais trimis keliais. Jei bent
+# vienas kuria nors kalba grąžina 404, mygtukai atrodo „neveikiantys".
+for kalba in KALBOS:
+    c = klientas(kalba)
+
+    # Įkeliam dvi, kad būtų ką pertvarkyti ir ištrinti
+    ikelk(c, KELIAS); ikelk(c, KELIAS)
+    ids = list(SKELBIMAS.images.order_by('order').values_list('pk', flat=True))
+    tikrink(len(ids) >= 2, '%s: per mažai nuotraukų pertvarkymui' % kalba)
+    if len(ids) < 2:
+        continue
+
+    # Pertvarkymas: apsukam pirmas dvi
+    nauja = [ids[1], ids[0]] + list(ids[2:])
+    r = c.post('/ajax/reorder-listing-images/%d/' % SKELBIMAS.pk,
+               data=json.dumps({'image_ids': nauja}),
+               content_type='application/json')
+    tikrink(r.status_code == 200,
+            '%s: pertvarkymas grąžino %s' % (kalba, r.status_code))
+    po = list(SKELBIMAS.images.order_by('order').values_list('pk', flat=True))
+    tikrink(po[:2] == nauja[:2],
+            '%s: tvarka neišsaugota: %s vs %s' % (kalba, po[:2], nauja[:2]))
+    pirma = SKELBIMAS.images.order_by('order').first()
+    tikrink(pirma.pk == nauja[0],
+            '%s: pirmoji nuotrauka ne ta, kurią uždėjom' % kalba)
+
+    # Juodraščio išsaugojimas (grįžus „atgal" darbas neturi dingti)
+    r = c.post('/ajax/save-cars-draft/',
+               data=json.dumps({'price': '5500'}),
+               content_type='application/json')
+    tikrink(r.status_code == 200,
+            '%s: save-cars-draft grąžino %s' % (kalba, r.status_code))
+
+    # Trynimas
+    kiek = SKELBIMAS.images.count()
+    r = c.post('/image/%d/delete/' % nauja[-1])
+    tikrink(r.status_code in (200, 302),
+            '%s: trynimas grąžino %s (404 = kelio nėra)' % (kalba, r.status_code))
+    tikrink(SKELBIMAS.images.count() == kiek - 1,
+            '%s: nuotrauka neištrinta' % kalba)
+
+    # „Padaryti pagrindine" — 18 šablonų kvietė /listings/image/…/,
+    # kurio NIEKADA nebuvo (404 net lietuviškai).
+    likusios = list(SKELBIMAS.images.order_by('order').values_list('pk', flat=True))
+    if len(likusios) >= 2:
+        r = c.post('/image/%d/set-main/' % likusios[-1])
+        tikrink(r.status_code in (200, 302),
+                '%s: set-main grąžino %s' % (kalba, r.status_code))
+        SKELBIMAS.refresh_from_db()
+        tikrink(SKELBIMAS.images.get(pk=likusios[-1]).is_main,
+                '%s: pagrindinė nuotrauka nepasikeitė' % kalba)
+    SKELBIMAS.images.all().delete()
 
 
 antraste('Nuotrauka tikrai JPEG (ne šiukšlės)')

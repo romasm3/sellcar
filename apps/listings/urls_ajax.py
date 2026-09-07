@@ -34,13 +34,26 @@ vartotojo kalba.
 """
 from apps.listings import urls as _puslapiai
 
-PRIESAGA = 'ajax/'
+# Ne visi frontend'o kviečiami keliai prasideda „ajax/". Šitie irgi
+# užrašyti kietai (fetch('/image/12/set-main/') ir pan.), tad jiems
+# reikia to paties bepriešdėlio varianto. Sąrašas trumpas ir aiškus:
+# įrašom tik tai, ką JS tikrai kviečia.
+PRIESAGOS = (
+    'ajax/',            # visi AJAX galiniai taškai
+    'image/',           # nuotraukos trynimas ir „padaryti pagrindine"
+    'paieska/count/',   # „Filtruoti · N" skaitiklis
+    'search/save/',     # išsaugota paieška
+    'search/toggle-save/',
+    'perziureti/id/',   # peržiūrėtų skelbimų žymėjimas
+    'map/duomenys/',    # žemėlapio duomenys
+    'map/pardavejas/',
+)
 
 
 def _ajax_marsrutai():
-    """Tik `ajax/…` maršrutai iš pagrindinio urls.py."""
+    """Frontend'o kviečiami keliai iš pagrindinio urls.py."""
     return [m for m in _puslapiai.urlpatterns
-            if str(getattr(m, 'pattern', '')).startswith(PRIESAGA)]
+            if str(getattr(m, 'pattern', '')).startswith(PRIESAGOS)]
 
 
 urlpatterns = _ajax_marsrutai()
