@@ -41,6 +41,7 @@ from .forms import (
 )
 from . import salys
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 from .models import (
     Listing,
     ListingImage,
@@ -7133,6 +7134,9 @@ def listing_create_cars_quick(request):
         # Paštas — į PATĮ skelbimą: jis gali skirtis nuo paskyros pašto
         # (apps/listings/kontaktai.py)
         issaugok_pasta(target, request)
+
+        # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
+        errors.extend(skaiciai.netelpa(target))
 
         # Terms agreement (tik CREATE)
         if not is_edit_mode and not request.POST.get('agree_terms'):

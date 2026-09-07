@@ -15,6 +15,7 @@ from .models import (
     FuelType,
 )
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 from .views import (
     _int_or_none,
     _float_or_none,
@@ -232,6 +233,10 @@ def boats_listing_create(request):
         # Kontaktinis paštas — ten pat, kur telefonas.
         # Iki šiol formos jį rodė, bet niekur nedėjo.
         issaugok_pasta(target, request)
+
+        # Skaičiai, kurie netelpa į stulpelį — kad vietoj
+        # žinutės nebūtų 500 (apps/listings/skaiciai.py).
+        errors.extend(skaiciai.netelpa(target))
 
         # Terms (CREATE only)
         if not is_edit_mode and not request.POST.get('agree_terms'):

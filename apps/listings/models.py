@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from decimal import Decimal
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.urls import reverse
@@ -758,6 +760,7 @@ class Listing(PaskelbimoLaikas, models.Model):
     )
     truck_volume_m3 = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(Decimal('9999.99'))],
         verbose_name=_('Volume (m³)'),
     )
     gross_weight_kg = models.IntegerField(
@@ -801,8 +804,8 @@ class Listing(PaskelbimoLaikas, models.Model):
     boat_make_text = models.CharField(max_length=120, blank=True, default='')
     boat_model_text = models.CharField(max_length=120, blank=True, default='')
     boat_material = models.CharField(max_length=40, blank=True, default='')
-    boat_length_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    boat_width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    boat_length_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('9999.99'))])
+    boat_width_m = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('9999.99'))])
     boat_engine_count = models.PositiveSmallIntegerField(null=True, blank=True)
     BOAT_ENGINE_TYPE_CHOICES = [
         ('petrol_4stroke_outboard', _('Petrol 4-stroke outboard')),
@@ -1282,8 +1285,7 @@ class Listing(PaskelbimoLaikas, models.Model):
     )
     rent_price_hour = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True,
-        verbose_name=_('Nuomos kaina valandai'),
-    )
+        verbose_name=_('Nuomos kaina valandai'), validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     seats_count = models.IntegerField(
         null=True, blank=True,
         validators=[MinValueValidator(1), MaxValueValidator(99)],
@@ -1492,7 +1494,7 @@ class Listing(PaskelbimoLaikas, models.Model):
         help_text="Used when subcategory is 'Trucks' (Sunkvežimiai)",
     )
 
-    engine_capacity = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    engine_capacity = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('9999.9'))], verbose_name=_('Variklio darbinis tūris (l)'))
     power = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(9999)])
     color = models.CharField(max_length=50, choices=COLOR_CHOICES, blank=True)
     color_other_text = models.CharField(
@@ -1522,9 +1524,9 @@ class Listing(PaskelbimoLaikas, models.Model):
     curb_weight = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(99999)])
     euro_standard = models.CharField(max_length=10, choices=EURO_STANDARD_CHOICES, blank=True)
     co2_emission = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(9999)])
-    fuel_consumption_city = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
-    fuel_consumption_highway = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
-    fuel_consumption_combined = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    fuel_consumption_city = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('999.9'))], verbose_name=_('Sąnaudos mieste (l/100 km)'))
+    fuel_consumption_highway = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('999.9'))], verbose_name=_('Sąnaudos užmiestyje (l/100 km)'))
+    fuel_consumption_combined = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('999.9'))], verbose_name=_('Sąnaudos mišriu ciklu (l/100 km)'))
     origin_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
     technical_inspection_month = models.IntegerField(null=True, blank=True)
     technical_inspection_year = models.IntegerField(null=True, blank=True)
@@ -1669,12 +1671,11 @@ class Listing(PaskelbimoLaikas, models.Model):
         help_text='e.g. "DSG7"',
     )
 
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))], verbose_name=_('Kaina'))
     export_price = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True,
         verbose_name=_("Export price"),
-        help_text="Optional separate price for export buyers",
-    )
+        help_text="Optional separate price for export buyers", validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     # Rinka — Lietuva, todėl numatytoji valiuta EUR (žr. CLAUDE.md konvencijas)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='EUR')
     negotiable = models.BooleanField(default=False)
@@ -1722,8 +1723,8 @@ class Listing(PaskelbimoLaikas, models.Model):
     # jis bendras visiems žmogaus skelbimams; paštas gali skirtis
     # (pvz. atskira dėžutė vienam pardavimui).
     contact_email = models.EmailField(blank=True)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-90), MaxValueValidator(90)])
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
     # Ar koordinates pažymėjo pats pardavėjas (žymekliu žemėlapyje), ar jos
     # spėtos iš miesto pavadinimo. Spėtos rodomos su žyma „apytiksliai".
     koordinates_tikslios = models.BooleanField(default=False)
@@ -2288,7 +2289,7 @@ class SalesRecord(models.Model):
     motorcycle_model = models.ForeignKey(MotorcycleModel, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=200)
     year = models.IntegerField(null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     currency = models.CharField(max_length=3, default='EUR')
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=2, blank=True)
@@ -2560,7 +2561,7 @@ class EmailScenario(models.Model):
 class PricingPlan(models.Model):
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='pricing_plans')
     duration_days = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     discount_percent = models.PositiveIntegerField(null=True, blank=True)
     is_popular = models.BooleanField(default=False)
@@ -3181,7 +3182,7 @@ class Truck(PaskelbimoLaikas, models.Model):
     registration_number = models.CharField(max_length=20, blank=True)
     origin_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
 
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
     negotiable = models.BooleanField(default=False)
     open_to_trade = models.BooleanField(default=False, verbose_name=_("Open to trade"))
@@ -3197,8 +3198,8 @@ class Truck(PaskelbimoLaikas, models.Model):
     postal_code = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=200, blank=True)
     hide_exact_address = models.BooleanField(default=False)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-90), MaxValueValidator(90)])
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
 
     features = models.TextField(blank=True)
     video_url = models.URLField(blank=True)
@@ -3646,7 +3647,7 @@ class TruckSalesRecord(models.Model):
     )
     title = models.CharField(max_length=200)
     year = models.IntegerField(null=True, blank=True)
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     currency = models.CharField(max_length=3, default='USD')
     city = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=2, blank=True)
@@ -3984,7 +3985,7 @@ class WheelListing(PaskelbimoLaikas, models.Model):
     diameter = models.CharField(max_length=4, choices=WHEEL_DIAMETER_CHOICES, blank=True, db_index=True)  # R
     condition = models.CharField(max_length=8, choices=WHEEL_CONDITION_CHOICES, default='used')
     quantity = models.PositiveSmallIntegerField(default=4)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     negotiable = models.BooleanField(default=False)
     description = models.TextField(blank=True)
  
@@ -4013,7 +4014,7 @@ class WheelListing(PaskelbimoLaikas, models.Model):
     rim_pcd = models.CharField(max_length=12, choices=RIM_PCD_CHOICES, blank=True, db_index=True)
     rim_bolt_count = models.CharField(max_length=2, choices=RIM_BOLT_COUNT_CHOICES, blank=True)
     rim_et = models.IntegerField(null=True, blank=True)
-    rim_dia = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
+    rim_dia = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(Decimal('9999.9'))])
     rim_material = models.CharField(max_length=16, choices=RIM_MATERIAL_CHOICES, blank=True)
 
     # Ypatumai (etalonas sec 11) — iki šiol formoje buvo rodomi, bet
@@ -4037,8 +4038,8 @@ class WheelListing(PaskelbimoLaikas, models.Model):
     postal_code = models.CharField(max_length=20, blank=True)
     contact_phone = models.CharField(max_length=30, blank=True)
     contact_email = models.EmailField(blank=True)
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True, validators=[MinValueValidator(-90), MaxValueValidator(90)])
+    longitude = models.FloatField(null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
  
     # ─── Marketplace (star / boost / expires) ───
     status = models.CharField(max_length=12, choices=WHEEL_STATUS_CHOICES, default='draft', db_index=True)

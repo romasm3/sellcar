@@ -29,6 +29,7 @@ from datetime import date, timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 from apps.listings import salys
 from .models import (
     Listing,
@@ -762,6 +763,11 @@ def _handle_post(request):
 
     # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
     issaugok_pasta(listing, request)
+
+    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
+    netelpantys = skaiciai.netelpa(listing)
+    if netelpantys:
+        return _rerender(netelpantys)
 
     # ═══════════════════════════════════════════════════════
     # EDIT MODE — update existing listing in place, no re-activation

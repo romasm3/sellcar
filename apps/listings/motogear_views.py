@@ -16,6 +16,7 @@ from datetime import timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 from .models import (
     Listing,
     ListingImage,
@@ -727,6 +728,9 @@ def _handle_post(request, edit_listing=None):
 
     # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
     issaugok_pasta(listing, request)
+
+    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
+    errors.extend(skaiciai.netelpa(listing))
 
     if errors:
         return render(

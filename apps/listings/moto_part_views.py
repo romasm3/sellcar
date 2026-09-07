@@ -15,6 +15,7 @@ from django.db.models import Q
 
 from apps.listings.image_validation import split_valid_images
 from apps.listings.kontaktai import issaugok_pasta
+from apps.listings import skaiciai
 from apps.listings.models import (
     Listing, ListingImage, VehicleType, SubCategory,
     MotorcycleBrand, MotorcycleModel, Equipment, ListingEquipment,
@@ -98,6 +99,9 @@ def _handle_post(request, edit_listing=None):
     phone = (request.POST.get('phone', '') or '').strip()
     if not phone:
         errors.append(_('Telefonas yra privalomas'))
+
+    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
+    errors.extend(skaiciai.patikra_posto(Listing, request.POST).values())
 
     if not edit_listing and not request.POST.get('agree_terms'):
         errors.append(_('Turite sutikti su taisyklėmis'))

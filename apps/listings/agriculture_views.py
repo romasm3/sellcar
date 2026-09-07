@@ -106,6 +106,7 @@ AGRI_DEFAULT_SUBCATEGORY = 'other-agricultural'
 # `seed_equipment` komanda, ir 0063 migracija.
 from .equipment_registry import AGRI_EQUIPMENT_DEFINITION  # noqa: E402
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 
 
 def get_agri_equipment():
@@ -300,6 +301,10 @@ def agriculture_listing_create(request):
         # Kontaktinis paštas — ten pat, kur telefonas.
         # Iki šiol formos jį rodė, bet niekur nedėjo.
         issaugok_pasta(target, request)
+
+        # Skaičiai, kurie netelpa į stulpelį — kad vietoj
+        # žinutės nebūtų 500 (apps/listings/skaiciai.py).
+        errors.extend(skaiciai.netelpa(target))
 
         if not is_edit_mode and not request.POST.get('agree_terms'):
             errors.append(_('Turite sutikti su taisyklėmis'))

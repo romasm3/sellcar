@@ -29,6 +29,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .image_validation import split_valid_images
+from . import skaiciai
 from . import wheels_filters
 from .models import (
     WheelListing, WheelImage, SavedWheelListing,
@@ -300,6 +301,13 @@ def wheels_create(request):
     if request.method == 'POST':
         listing = _apply_wheel_post(WheelListing(seller=request.user), request)
         listing.title = listing.build_title()
+        # Per didelis skaičius netilptų į stulpelį ir vietoj žinutės
+        # duotų 500 (apps/listings/skaiciai.py).
+        netelpantys = skaiciai.netelpa(listing)
+        if netelpantys:
+            for tekstas in netelpantys:
+                messages.error(request, tekstas)
+            return render(request, *_wheel_form(request, None))
         listing.save()
         _save_wheel_photos(listing, request)
         listing.activate()
@@ -381,6 +389,11 @@ def wheels_edit(request, pk):
     if request.method == 'POST':
         _apply_wheel_post(listing, request)
         listing.title = listing.build_title()
+        netelpantys = skaiciai.netelpa(listing)
+        if netelpantys:
+            for tekstas in netelpantys:
+                messages.error(request, tekstas)
+            return render(request, *_wheel_form(request, listing))
         listing.save()
         _save_wheel_photos(listing, request)
         messages.success(request, _('Skelbimas atnaujintas.'))

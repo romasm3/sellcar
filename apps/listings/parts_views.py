@@ -39,6 +39,7 @@ from django.urls import reverse
 
 from apps.listings.image_validation import split_valid_images
 from apps.listings.kontaktai import issaugok_pasta
+from apps.listings import skaiciai
 from apps.listings.models import (
 
     PartCategory, Listing, ListingImage,
@@ -367,6 +368,9 @@ def parts_listing_create(request):
 
         if not is_edit_mode and not request.POST.get('agree_terms'):
             errors.append(_('Turite sutikti su taisyklėmis'))
+
+        # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
+        errors.extend(skaiciai.patikra_posto(Listing, request.POST).values())
 
         if errors:
             for e in errors:

@@ -101,6 +101,22 @@
         fuel_consumption_combined: { canonical: 'l/100km', alt: 'mpg', mul: 235.215, inv: true, dec: 1, altDec: 1, family: 'consumption' }
     };
 
+    // ───────────────────────────────────────────────────────────────────
+    // PERSPĖJIMAI — kai reikšmė akivaizdžiai ne tų vienetų
+    //
+    // Variklio tūrio laukas prašo LITRŲ („pvz., 12,0"), o žmogus rašo
+    // kubinius centimetrus: 10837. Serveryje toks skaičius netelpa į
+    // stulpelį, tad anksčiau tai baigdavosi 500 klaida
+    // (apps/listings/skaiciai.py). Perspėjam iškart ir siūlom perskaityti
+    // tą patį skaičių kitais vienetais — skaičiaus nekeičiam, keičiam
+    // vienetą.
+    //
+    //   virs  — nuo kurios kanoninės reikšmės perspėjam
+    // ───────────────────────────────────────────────────────────────────
+    var PERSPEJIMAI = {
+        engine_capacity: { virs: 100 },
+    };
+
     var STORAGE_KEY = 'autoleft_units';
 
     // ───────────────────────────────────────────────────────────────────
@@ -398,8 +414,32 @@
         updateHint(f);
     }
 
+    // POST vardas vienetui: „cm³" → „cm3" (apps/listings/units.py)
+    var VIENETU_VARDAI = { 'cm³': 'cm3', 'm³': 'm3', 'm²': 'm2', 'lbs': 'lb' };
+    function vienetoVardas(u) { return VIENETU_VARDAI[u] || u; }
+
+    // Kartu su reikšme siunčiam ir JOS VIENETĄ: serveris kitaip nežino,
+    // ar „10837" yra litrai, ar cm³ (apps/listings/units.py). Reikšmę į
+    // kanoninį vienetą verčia pati naršyklė — taip veikia ir paieškos
+    // filtrai, ir juodraščių autosave — todėl čia visada kanoninis.
+    function syncUnit(f) {
+        if (!f.form && !f.input.parentNode) return;
+        if (!f.unitInput) {
+            f.unitInput = document.createElement('input');
+            f.unitInput.type = 'hidden';
+            f.unitInput.name = f.origName + '_unit';
+            if (f.input.hasAttribute('data-autosave')) {
+                f.unitInput.setAttribute('data-autosave',
+                                         f.input.getAttribute('data-autosave'));
+            }
+            (f.form || f.input.parentNode).appendChild(f.unitInput);
+        }
+        f.unitInput.value = vienetoVardas(f.spec.canonical);
+    }
+
     // name visada ten, kur kanoninė reikšmė
     function syncName(f) {
+        syncUnit(f);
         var isCanon = !isAlt(f.spec);
         if (isCanon) {
             f.input.setAttribute('name', f.origName);
@@ -431,9 +471,55 @@
         return !!(spec && SLEPIAMOS_SEIMOS[spec.family]);
     }
 
+    // Ar reikšmė įtartinai didelė KANONINIAIS vienetais
+    function perspejimoTekstas(f) {
+        var cfg = PERSPEJIMAI[f.key];
+        if (!cfg || isAlt(f.spec)) return null;
+        if (f.canon === null || isNaN(f.canon) || f.canon <= cfg.virs) return null;
+        var t = window.UNIT_WARN_TEXT || 'Ar tikrai {sk} {vnt}? Panašu, kad tai {alt}.';
+        return t.replace('{sk}', forHint(f.canon, f.spec.dec))
+                .replace('{vnt}', f.spec.canonical)
+                .replace('{alt}', f.spec.alt);
+    }
+
+    // „Skaičių palikti, vienetą pakeisti": 10837 L → 10837 cm³.
+    // Kanoninė reikšmė tampa 10,837 L, o laukas rodo tą patį 10837.
+    function perskaitykKitaisVienetais(f) {
+        if (f.canon === null || isNaN(f.canon)) return;
+        var naujas = toCanon(f.spec, f.canon);
+        if (naujas === null || isNaN(naujas)) return;
+        f.canon = naujas;
+        setFamilyMode(f.spec.family, 'alt');
+        render(f);
+    }
+
     function updateHint(f) {
         var spec = f.spec;
         if (f.quiet || !f.hint) return;
+
+        // PATARIMAS, NE BLOKAVIMAS: žmogus gali nepaisyti, tada suveiks
+        // serverio patikra (apps/listings/units.py).
+        var ispejimas = perspejimoTekstas(f);
+        if (ispejimas) {
+            f.hint.textContent = '';
+            f.hint.style.color = '#b45309';          // gintarinis, ne akcentas
+            f.hint.appendChild(document.createTextNode(ispejimas + ' '));
+            var mygtukas = document.createElement('button');
+            mygtukas.type = 'button';
+            mygtukas.className = 'unit-warn';
+            mygtukas.textContent = (window.UNIT_WARN_BUTTON
+                || 'Perjungti į') + ' ' + f.spec.alt;
+            mygtukas.setAttribute(
+                'style', 'background:#b45309;border:0;border-radius:4px;'
+                       + 'padding:1px 6px;margin-left:.15rem;color:#fff;'
+                       + 'font:inherit;line-height:1.4;cursor:pointer;');
+            mygtukas.addEventListener('click', function () {
+                perskaitykKitaisVienetais(f);
+            });
+            f.hint.appendChild(mygtukas);
+            return;
+        }
+        f.hint.style.color = '#9ca3af';
         if (seimaSlepiama(spec)) { f.hint.textContent = ''; return; }
         if (f.canon === null || isNaN(f.canon)) { f.hint.textContent = ''; return; }
         if (!isAlt(spec)) {

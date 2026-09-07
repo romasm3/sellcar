@@ -42,6 +42,8 @@ TRUCKS_DRAFT_SESSION_KEY = 'active_trucks_draft_id'
 # Kiek dienų skelbimas laikomas nauju — vienas šaltinis modelyje
 # (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
 from apps.listings.models import NAUJO_SKELBIMO_DIENOS
+from . import formos_klaidos
+from . import skaiciai
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
 CITY_COORDINATES = {
@@ -668,6 +670,11 @@ def _validate_required(post, require_terms=False):
         errors['phone'] = _('Telefonas yra privalomas')
     if require_terms and not post.get('agree_terms'):
         errors['agree_terms'] = _('Turite sutikti su taisyklėmis')
+
+    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py).
+    # Be šito „10837" variklio tūrio lauke (litrai, o žmogus rašo cm³)
+    # nuvesdavo į 500 — ir palikdavo pakibusį juodraštį su nuotraukomis.
+    errors.update(skaiciai.patikra_posto(Listing, post))
     return errors
 
 
@@ -795,12 +802,19 @@ def trucks_listing_edit(request, pk):
 # ═══════════════════════════════════════════════════════════
 def _build_context(request, listing, data, errors, is_edit):
     """Single context builder shared by create + edit."""
+    # Klaidos ir bendrai dėžutei viršuje (_form_errors.html): iki šiol
+    # trucks jas laikė TIK savo `errors` žodyne, tad naujos žinutės
+    # (pvz. per didelis variklio tūris) niekur nepasirodydavo.
+    bendros = formos_klaidos.kontekstas(errors or {})
     return {
         'is_edit': is_edit,
         'current_draft': listing if not is_edit else None,
         'current_listing': listing if is_edit else None,
         'data': data,
         'errors': errors,
+        'error_fields': bendros['error_fields'],
+        'error_messages': bendros['error_messages'],
+        'form_errors': bendros['form_errors'],
         # Choices
         'truck_type_choices': _truck_type_choices(),
         'wheel_formula_choices': _wheel_formula_choices(),

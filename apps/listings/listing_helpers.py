@@ -166,6 +166,12 @@ def validate_common_fields(common_data, require_condition=True, require_year=Tru
     if not common_data['city']:
         errors.append(_('Miestas yra privalomas'))
     
+    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py):
+    # be šito per didelė reikšmė nuvesdavo į 500.
+    from .models import Listing as _Listing
+    from . import skaiciai as _skaiciai
+    errors.extend(_skaiciai.patikra_posto(_Listing, common_data).values())
+
     if common_data['country'] == 'US' and not common_data['state']:
         errors.append(_('Valstija yra privaloma'))
     

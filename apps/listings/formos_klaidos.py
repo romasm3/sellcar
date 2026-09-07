@@ -205,14 +205,20 @@ def kontekstas(klaidos):
 
     laukai, zinutes, eilutes = [], {}, []
     for irasas in (klaidos or []):
+        savas = False
         if isinstance(irasas, (tuple, list)) and len(irasas) == 2:
             laukas, tekstas = irasas[0], irasas[1]
+            # Vaizdas pats parašė tekstą — jo NEPERRAŠOM. Anksčiau čia
+            # viskas virsdavo bendru „Privalomas laukas", tad tikslios
+            # žinutės (pvz. „negali viršyti 30 L — gal norėjote cm³?")
+            # niekada nepasiekdavo žmogaus.
+            savas = bool(str(tekstas or '').strip())
         else:
             laukas, tekstas = laukas_pagal_teksta(irasas), irasas
 
-        if laukas:
+        if laukas and not savas:
             tekstas = tekstas_laukui(laukas)
-        else:
+        elif not laukas:
             tekstas = str(tekstas)
 
         if laukas and laukas in zinutes:

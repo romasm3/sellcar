@@ -24,6 +24,7 @@ from .views import (
 )
 from apps.listings import brands as brand_source
 from .kontaktai import issaugok_pasta
+from . import skaiciai
 
 
 # ═══════════════════════════════════════════════════════════
@@ -223,6 +224,10 @@ def _save_common(request, target, errors, require_month=True):
     # Kontaktinis paštas — ten pat, kur telefonas.
     # Iki šiol formos jį rodė, bet niekur nedėjo.
     issaugok_pasta(target, request)
+
+    # Skaičiai, kurie netelpa į stulpelį — kad vietoj
+    # žinutės nebūtų 500 (apps/listings/skaiciai.py).
+    errors.extend(skaiciai.netelpa(target))
 
     return errors
 

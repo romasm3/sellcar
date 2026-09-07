@@ -970,7 +970,11 @@
     </footer>
 
     {# Matavimo vienetų perjungikliai — no-op puslapiuose be data-unit-field/-show #}
-    <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';</script>
+    <script>window.UNIT_TOGGLE_TITLE = '{% trans "Spausk, kad pakeistum matavimo vienetus" %}';
+    {% comment %}Perspėjimas, kai reikšmė akivaizdžiai ne tų vienetų (12 vs 10837
+    variklio tūrio lauke) — logika unit_toggle.js, tekstas čia, kad būtų verčiamas.{% endcomment %}
+    window.UNIT_WARN_TEXT = '{% trans "Ar tikrai {sk} {vnt}? Panašu, kad tai {alt}." %}';
+    window.UNIT_WARN_BUTTON = '{% trans "Perjungti į" %}';</script>
     <script src="{% static 'js/form_validation.js' %}" defer></script>
     <script src="{% static 'js/unit_toggle.js' %}" defer></script>
     {# „Išsaugoti paiešką" jungiklis ir pranešimas #}
