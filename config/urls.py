@@ -36,6 +36,19 @@ urlpatterns += i18n_patterns(
     prefix_default_language=False,
 )
 
+# AJAX maršrutai DAR KARTĄ — be kalbos priešdėlio.
+#
+# Frontend'as juos rašo kietai („/ajax/upload-listing-images/12/"), tad
+# su ne lietuvių kalba jie krisdavo į 404: i18n_patterns tokiu atveju
+# laukia „/ru/ajax/…". Nuotraukų įkėlimas neveikė 12 iš 13 kalbų.
+# Paaiškinimas — apps/listings/urls_ajax.py.
+#
+# Dedam PO i18n_patterns, kad `reverse()` grąžintų būtent bepriešdėlį
+# variantą: AJAX adresui priešdėlio nereikia niekada.
+urlpatterns += [
+    path('', include('apps.listings.urls_ajax')),
+]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
