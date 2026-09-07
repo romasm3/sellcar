@@ -354,7 +354,7 @@
             {# ═══════════════════════════════════════════════════════════ #}
             {# SECTION: CONTACTS                                           #}
             {# ═══════════════════════════════════════════════════════════ #}
-            {% include 'listings/partials/contact_block.html' with phone_name='contact_phone' email_name='contact_email' val_phone=user.profile.phone_number val_email=user.email show_address=False %}
+            {% include 'listings/partials/contact_block.html' with phone_name='contact_phone' email_name='contact_email' val_phone=listing.contact_phone|default:user.profile.phone_number val_email=listing.contact_email|default:user.email show_address=False %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ERRORS                                                      #}

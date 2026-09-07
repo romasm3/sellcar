@@ -185,24 +185,26 @@ tikrink('/%d/' % l.pk in kunas, '„pavyko" puslapyje nėra nuorodos į skelbim�
 # ═══════════════════════════════════════════════════════════════════
 antraste('4. Sėkmės žinutė — ŽALIA, nežinoma — ne raudona')
 
-SABLONAI = ['templates/base.html',
-            'templates/listings/my_listings.html',
-            'templates/listings/listing_services_order.html',
-            'templates/listings/wheels_detail.html']
-for kelias in SABLONAI:
+# Ciklas nebekopijuojamas: spalva gyvena vienoje dalyje
+BENDRA = 'templates/partials/_zinutes.html'
+tikrink(os.path.exists(os.path.join(BASE, BENDRA)), 'nėra %s' % BENDRA)
+t = io.open(os.path.join(BASE, BENDRA), encoding='utf-8').read()
+# Lyginimas „== 'success'" lūžta, kai Django prideda extra_tags
+tikrink("message.tags == 'success'" not in t,
+        '%s: spalvą renka tiksliu lyginimu (extra_tags viską sugriauna)' % BENDRA)
+tikrink("'success' in message.tags" in t,
+        '%s: sėkmės žinutė neturi savo (žalios) spalvos' % BENDRA)
+# Raudona — tik klaidai. Jei „else" yra raudonas, sėkmė virsta klaida.
+raudona_else = re.search(r"\{%\s*else\s*%\}[^{]*bg-red", t)
+tikrink(not raudona_else, '%s: nežinomas ženklas dažomas raudonai' % BENDRA)
+
+for kelias in ('templates/base.html',
+               'templates/listings/my_listings.html',
+               'templates/listings/listing_services_order.html',
+               'templates/listings/wheels_detail.html'):
     t = io.open(os.path.join(BASE, kelias), encoding='utf-8').read()
-    if 'for message in messages' not in t:
-        continue
-    # Lyginimas „== 'success'" lūžta, kai Django prideda extra_tags
-    tikrink("message.tags == 'success'" not in t,
-            '%s: spalvą renka tiksliu lyginimu (extra_tags viską sugriauna)'
-            % kelias)
-    tikrink("'success' in message.tags" in t,
-            '%s: sėkmės žinutė neturi savo (žalios) spalvos' % kelias)
-    # Raudona — tik klaidai. Jei „else" yra raudonas, sėkmė virsta klaida.
-    raudona_else = re.search(r"\{%\s*else\s*%\}[^{]*bg-red", t)
-    tikrink(not raudona_else,
-            '%s: nežinomas ženklas dažomas raudonai' % kelias)
+    tikrink('partials/_zinutes.html' in t,
+            '%s: žinutes piešia savo kodu, ne bendra dalimi' % kelias)
 
 
 # ═══════════════════════════════════════════════════════════════════

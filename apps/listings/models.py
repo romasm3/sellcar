@@ -1713,6 +1713,15 @@ class Listing(PaskelbimoLaikas, models.Model):
     postal_code = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=200, blank=True)
     hide_exact_address = models.BooleanField(default=False)
+    # Kontaktinis paštas ŠIAM skelbimui. Iki šiol formos jį rodydavo, bet
+    # niekur nedėdavo: laukas visada būdavo perrašomas paskyros paštu, o
+    # įrašyta reikšmė dingdavo perkrovus. Tuščias = naudojam paskyros
+    # paštą (žr. kontaktinis_pastas).
+    #
+    # Telefonas sąmoningai lieka profilyje (`profile.phone_number`) —
+    # jis bendras visiems žmogaus skelbimams; paštas gali skirtis
+    # (pvz. atskira dėžutė vienam pardavimui).
+    contact_email = models.EmailField(blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     # Ar koordinates pažymėjo pats pardavėjas (žymekliu žemėlapyje), ar jos
@@ -1776,7 +1785,19 @@ class Listing(PaskelbimoLaikas, models.Model):
     def get_absolute_url(self):
         return reverse('listing_detail', kwargs={'pk': self.pk})
 
+    @property
+    def kontaktinis_pastas(self):
+        """Adresas, kuriuo pirkėjas pasiekia pardavėją DĖL ŠIO skelbimo.
 
+        Skelbimo laukas pirmas, paskyros paštas — atsarginis. Viena
+        vieta, kad forma, skelbimo puslapis ir laiškai sutartų.
+
+        Paskyros pranešimai (peržiūrų slenkstis, „skelbimą įsiminė")
+        šito NENAUDOJA: jie eina žmogui, ne dėl konkretaus skelbimo,
+        tad lieka paskyros pašte.
+        """
+        return (self.contact_email or '').strip() or (
+            self.seller.email if self.seller else '')
 
     def get_edit_url(self):
 

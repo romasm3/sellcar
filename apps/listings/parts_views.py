@@ -38,6 +38,7 @@ from django.urls import reverse
 
 
 from apps.listings.image_validation import split_valid_images
+from apps.listings.kontaktai import issaugok_pasta
 from apps.listings.models import (
 
     PartCategory, Listing, ListingImage,
@@ -477,6 +478,10 @@ def parts_listing_create(request):
             request.user.profile.phone_number = phone
             request.user.profile.save(update_fields=['phone_number'])
 
+        # Kontaktinis paštas — į patį skelbimą
+        # (apps/listings/kontaktai.py)
+        issaugok_pasta(target, request)
+
         try:
             target.save()
         except Exception as e:
@@ -592,7 +597,9 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
         'transmissions': transmissions,
         'years': years,
         'user_phone': user_phone,
-        'user_email': request.user.email,
+        # Skelbimo paštas pirmas, paskyros — tik kai jo dar nėra
+        'user_email': (listing.kontaktinis_pastas if listing
+                       else request.user.email),
         'form_data': form_data,
         'errors': errors or [],
         'is_edit_mode': is_edit_mode,

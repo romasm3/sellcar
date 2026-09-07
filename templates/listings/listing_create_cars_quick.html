@@ -588,7 +588,7 @@
                 {% firstof listing_data.step7.city '' as contact_city %}
                 {% firstof listing_data.step7.address '' as contact_address %}
             {% endif %}
-            {% include 'listings/partials/contact_block.html' with val_phone=user.profile.phone_number val_email=user.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=contact_city val_address=contact_address %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user.profile.phone_number val_email=listing_data.step7.email|default:user.email val_country=listing_data.step7.country val_state=listing_data.step7.state val_city=contact_city val_address=contact_address %}
 
             {# ═══════════════════════════════════════════════════════════ #}
             {# ERRORS                                                     #}

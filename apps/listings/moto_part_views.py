@@ -14,6 +14,7 @@ from django.utils import timezone
 from django.db.models import Q
 
 from apps.listings.image_validation import split_valid_images
+from apps.listings.kontaktai import issaugok_pasta
 from apps.listings.models import (
     Listing, ListingImage, VehicleType, SubCategory,
     MotorcycleBrand, MotorcycleModel, Equipment, ListingEquipment,
@@ -178,6 +179,11 @@ def _handle_post(request, edit_listing=None):
 
             request.user.profile.save(update_fields=['phone_number'])
 
+        # Kontaktinis paštas — į patį skelbimą
+        # (apps/listings/kontaktai.py)
+
+        issaugok_pasta(listing, request)
+
         listing.save()
 
         ListingEquipment.objects.filter(listing=listing).delete()
@@ -262,6 +268,9 @@ def _handle_post(request, edit_listing=None):
     if hasattr(request.user, 'profile'):
         request.user.profile.phone_number = phone
         request.user.profile.save(update_fields=['phone_number'])
+
+    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
+    issaugok_pasta(listing, request)
 
     try:
         listing.save()
@@ -383,7 +392,9 @@ def _render_form(request, listing=None, errors=None):
         'country_choices': country_choices,
         'us_states': Listing.US_STATE_CHOICES,
         'user_phone': user_phone,
-        'user_email': request.user.email,
+        # Skelbimo paštas pirmas, paskyros — tik kai jo dar nėra
+        'user_email': (listing.kontaktinis_pastas if listing
+                       else request.user.email),
         'form_data': _moto_part_form_data(request, listing),
 
         'selected_part_types': ([str(i) for i in listing.equipment_items.values_list('equipment_id', flat=True)] if listing else []),

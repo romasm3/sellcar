@@ -353,7 +353,7 @@
             {# SECTION: KONTAKTAI                                          #}
             {# ═══════════════════════════════════════════════════════════ #}
             {% if listing.city and listing.city != '—' %}{% firstof listing.city '' as contact_city %}{% else %}{% firstof '' as contact_city %}{% endif %}
-            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=user.email val_country=listing.country val_state=listing.state val_city=contact_city val_address=listing.address %}
+            {% include 'listings/partials/contact_block.html' with val_phone=user_phone val_email=listing.contact_email|default:user.email val_country=listing.country val_state=listing.state val_city=contact_city val_address=listing.address %}
 
             {# ═══ ERRORS ═══ #}
             <div id="forest-form-errors" class="hidden mb-5 p-4 top-error-banner rounded-lg">

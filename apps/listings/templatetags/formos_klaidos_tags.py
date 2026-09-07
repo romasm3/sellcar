@@ -33,7 +33,14 @@ def formos_klaidos_kontekstas(context):
     if not laukai and not eilutes:
         # `messages` iteruojasi kelis kartus tame pačiame atvaizdavime,
         # tad senas šablono blokas (jei toks dar yra) nenukenčia.
-        tekstai = [str(m) for m in (context.get('messages') or [])]
+        #
+        # TIK KLAIDOS. Anksčiau čia patekdavo visos žinutės, tad po
+        # sėkmingo išsaugojimo žmogus matydavo „Ištaisykite šias
+        # klaidas: Listing updated successfully." — sėkmė raudonoje
+        # dėžutėje. Sėkmę, informaciją ir įspėjimus rodo base.html
+        # (kiekvieną savo spalva), o čia lieka tik tai, ką reikia
+        # taisyti.
+        tekstai = formos_klaidos.tik_klaidu_tekstai(context.get('messages'))
         surinkta = formos_klaidos.kontekstas(tekstai)
         laukai = surinkta['error_fields']
         zinutes = surinkta['error_messages']

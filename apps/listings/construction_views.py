@@ -23,6 +23,7 @@ from .views import (
     COUNTRY_FLAGS,
 )
 from apps.listings import brands as brand_source
+from .kontaktai import issaugok_pasta
 
 
 # ═══════════════════════════════════════════════════════════
@@ -218,6 +219,10 @@ def _save_common(request, target, errors, require_month=True):
     elif hasattr(request.user, 'profile'):
         request.user.profile.phone_number = phone_val
         request.user.profile.save(update_fields=['phone_number'])
+
+    # Kontaktinis paštas — ten pat, kur telefonas.
+    # Iki šiol formos jį rodė, bet niekur nedėjo.
+    issaugok_pasta(target, request)
 
     return errors
 
