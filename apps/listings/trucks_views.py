@@ -43,6 +43,7 @@ TRUCKS_DRAFT_SESSION_KEY = 'active_trucks_draft_id'
 # (models.NAUJO_SKELBIMO_DIENOS, ten pat ir Listing.yra_naujas).
 from apps.listings.models import NAUJO_SKELBIMO_DIENOS
 from . import formos_klaidos
+from . import juodrasciai
 from . import skaiciai
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
@@ -152,18 +153,35 @@ def _get_trucks_draft(request, force_new=False):
     atsirasdavo „Untitled truck draft". Draft'as sukuriamas tik tada, kai
     vartotojas ką nors realiai padaro: autosave (įvedė lauką), nuotraukos
     įkėlimas arba formos pateikimas.
+
+    ŠVIEŽIAS ATIDARYMAS PRADEDA ŠVARIAI (apps/listings/juodrasciai.py):
+    kitaip po nulūžusio pateikimo naujos nuotraukos gultų į tą patį
+    juodraštį ir skelbimas gautų dvi jų partijas (taip nutiko #754).
     """
     if force_new:
         _drop_empty_trucks_draft(request)
-    draft_id = request.session.get(TRUCKS_DRAFT_SESSION_KEY)
+
+    tesiamas = juodrasciai.tesiamas_id(request)
+    draft_id = tesiamas or request.session.get(TRUCKS_DRAFT_SESSION_KEY)
     if not draft_id:
         return None
     try:
-        return Listing.objects.get(
+        draft = Listing.objects.get(
             pk=draft_id, seller=request.user, status='draft')
     except Listing.DoesNotExist:
         request.session[TRUCKS_DRAFT_SESSION_KEY] = None
         return None
+
+    if tesiamas:
+        request.session[TRUCKS_DRAFT_SESSION_KEY] = draft.pk
+        request.session.modified = True
+        return draft
+
+    naudotinas, likes = juodrasciai.pradek_svariai(
+        request, TRUCKS_DRAFT_SESSION_KEY, draft)
+    if likes is not None:
+        juodrasciai.pasiulyk_testi(request, likes)
+    return naudotinas
 
 
 def _drop_empty_trucks_draft(request):

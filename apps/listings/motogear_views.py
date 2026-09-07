@@ -14,6 +14,7 @@ from django.db.models import Count, Q, Case, When, IntegerField, Value
 from django.db.models.functions import Greatest, Coalesce
 from datetime import timedelta
 
+from apps.listings import juodrasciai
 from .image_validation import split_valid_images, ImageValidationError, validate_images
 from .kontaktai import issaugok_pasta
 from . import skaiciai
@@ -340,7 +341,11 @@ def motogear_listing_create(request):
             ),
         )
 
-    draft_id = request.session.get(MOTO_GEAR_DRAFT_SESSION_KEY)
+    # Šviežias atidarymas pradeda švariai — kitaip po nulūžusio
+    # pateikimo naujos nuotraukos gultų į tą patį juodraštį
+    # (apps/listings/juodrasciai.py).
+    tesiamas = juodrasciai.tesiamas_id(request)
+    draft_id = tesiamas or request.session.get(MOTO_GEAR_DRAFT_SESSION_KEY)
     submitted = {}
     selected_subcategory_slug = request.GET.get('subcategory', '')
     selected_equipment_ids = []
@@ -349,6 +354,16 @@ def motogear_listing_create(request):
     if draft_id:
         try:
             current_draft = Listing.objects.get(pk=draft_id, seller=request.user, status='draft')
+            if tesiamas:
+                request.session[MOTO_GEAR_DRAFT_SESSION_KEY] = current_draft.pk
+                request.session.modified = True
+            else:
+                current_draft, likes = juodrasciai.pradek_svariai(
+                    request, MOTO_GEAR_DRAFT_SESSION_KEY, current_draft)
+                if likes is not None:
+                    juodrasciai.pasiulyk_testi(request, likes)
+            if current_draft is None:
+                raise Listing.DoesNotExist
             submitted = _draft_to_submitted(current_draft)
             if current_draft.subcategory:
                 selected_subcategory_slug = current_draft.subcategory.slug

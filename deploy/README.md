@@ -212,3 +212,18 @@ systemctl enable --now autoleft-deploy.timer
 rm -f /root/autoleft/deploy/.blogas-commitas
 /root/autoleft/deploy-from-git.sh          # paleidžia iškart, rodo žurnalą
 ```
+
+## Cron (serveryje)
+
+Kasdieniai darbai. `expire_listings` veikia nuo seno; `valyti_juodrascius`
+pridėtas kartu su juodraščių sesijos pataisa (žr.
+`apps/listings/juodrasciai.py`) — be jo pakibę juodraščiai kauptųsi.
+
+```cron
+30 3 * * *  cd /root/autoleft && .venv/bin/python manage.py expire_listings
+40 3 * * *  cd /root/autoleft && .venv/bin/python manage.py valyti_juodrascius
+```
+
+`valyti_juodrascius` numatytai trina tik TUŠČIUS juodraščius, senesnius nei
+30 dienų. Turintys nuotraukų ar aprašymo lieka — juos žmogus mato „Mano
+skelbimuose". Pirma verta paleisti su `--dry-run`.

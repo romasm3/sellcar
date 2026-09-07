@@ -40,6 +40,7 @@ from .forms import (
     Step7ContactForm,
 )
 from . import salys
+from . import juodrasciai
 from .kontaktai import issaugok_pasta
 from . import skaiciai
 from .models import (
@@ -3377,7 +3378,8 @@ def listing_create(request):
             return redirect('/create/')
 
     current_draft = None
-    draft_id = request.session.get(CARS_DRAFT_SESSION_KEY)
+    tesiamas = juodrasciai.tesiamas_id(request)
+    draft_id = tesiamas or request.session.get(CARS_DRAFT_SESSION_KEY)
     if draft_id:
         try:
             current_draft = Listing.objects.get(
@@ -3388,6 +3390,17 @@ def listing_create(request):
         except Listing.DoesNotExist:
             request.session[CARS_DRAFT_SESSION_KEY] = None
             current_draft = None
+    if current_draft is not None:
+        if tesiamas:
+            request.session[CARS_DRAFT_SESSION_KEY] = current_draft.pk
+            request.session.modified = True
+        else:
+            # Šviežias atidarymas pradeda švariai
+            # (apps/listings/juodrasciai.py)
+            current_draft, likes = juodrasciai.pradek_svariai(
+                request, CARS_DRAFT_SESSION_KEY, current_draft)
+            if likes is not None:
+                juodrasciai.pasiulyk_testi(request, likes)
 
     listing_data = _draft_to_session_data(current_draft)
 
@@ -6929,7 +6942,8 @@ def listing_create_cars_quick(request):
     # ═══ Get current draft from session (CREATE mode) ═══
     current_draft = None
     if not is_edit_mode:
-        draft_id = request.session.get(CARS_DRAFT_SESSION_KEY)
+        tesiamas = juodrasciai.tesiamas_id(request)
+        draft_id = tesiamas or request.session.get(CARS_DRAFT_SESSION_KEY)
         if draft_id:
             try:
                 current_draft = Listing.objects.get(
@@ -6940,6 +6954,18 @@ def listing_create_cars_quick(request):
             except Listing.DoesNotExist:
                 request.session[CARS_DRAFT_SESSION_KEY] = None
                 current_draft = None
+        if current_draft is not None:
+            if tesiamas:
+                request.session[CARS_DRAFT_SESSION_KEY] = current_draft.pk
+                request.session.modified = True
+            else:
+                # Šviežias atidarymas pradeda švariai — kitaip po
+                # nulūžusio pateikimo naujos nuotraukos gultų į tą patį
+                # juodraštį (apps/listings/juodrasciai.py).
+                current_draft, likes = juodrasciai.pradek_svariai(
+                    request, CARS_DRAFT_SESSION_KEY, current_draft)
+                if likes is not None:
+                    juodrasciai.pasiulyk_testi(request, likes)
 
     listing_data = _draft_to_session_data(listing if is_edit_mode else current_draft)
 

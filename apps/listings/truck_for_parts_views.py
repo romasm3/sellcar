@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from apps.listings import juodrasciai
 from .image_validation import ImageValidationError, validate_images
 from .models import (
     Listing, ListingImage, VehicleType, SubCategory,
@@ -57,15 +58,29 @@ def _get_draft(request):
     neįvedė. Eilutė sukuriama tik tada, kai vartotojas ką nors realiai
     padaro — įkelia nuotrauką (AJAX) arba pateikia formą (POST).
     """
-    draft_id = request.session.get(TRUCK_FOR_PARTS_DRAFT_SESSION_KEY)
+    # ŠVIEŽIAS ATIDARYMAS PRADEDA ŠVARIAI: po nulūžusio pateikimo
+    # naujos nuotraukos gultų į tą patį juodraštį ir skelbimas gautų
+    # dvi jų partijas (apps/listings/juodrasciai.py).
+    tesiamas = juodrasciai.tesiamas_id(request)
+    draft_id = tesiamas or request.session.get(TRUCK_FOR_PARTS_DRAFT_SESSION_KEY)
     if not draft_id:
         return None
     try:
-        return Listing.objects.get(
+        draft = Listing.objects.get(
             pk=draft_id, seller=request.user, status='draft')
     except Listing.DoesNotExist:
         request.session[TRUCK_FOR_PARTS_DRAFT_SESSION_KEY] = None
         return None
+
+    if tesiamas:
+        request.session[TRUCK_FOR_PARTS_DRAFT_SESSION_KEY] = draft.pk
+        request.session.modified = True
+        return draft
+
+    naudotinas, likes = juodrasciai.pradek_svariai(request, TRUCK_FOR_PARTS_DRAFT_SESSION_KEY, draft)
+    if likes is not None:
+        juodrasciai.pasiulyk_testi(request, likes)
+    return naudotinas
 
 
 def _get_or_create_draft(request):

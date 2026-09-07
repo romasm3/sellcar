@@ -21,6 +21,7 @@ from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.utils import timezone
+from apps.listings import juodrasciai
 from .search_config import panels as panel_config
 from django.views.decorators.http import require_POST
 from django.db.models import Count, Q, Case, When, IntegerField, Value
@@ -218,7 +219,11 @@ def motorcycle_listing_create(request):
         except Listing.DoesNotExist:
             pass
     else:
-        # No explicit pk — fall back to session draft
+        # No explicit pk — fall back to session draft.
+        # Šviežias atidarymas pradeda švariai: po nulūžusio pateikimo
+        # naujos nuotraukos gultų į tą patį juodraštį
+        # (apps/listings/juodrasciai.py). Tęsiama su ?tesk=<id> arba
+        # per ?edit=<id>, kaip ir anksčiau.
         draft_id = request.session.get('active_moto_draft_id')
         if draft_id:
             try:
@@ -227,10 +232,15 @@ def motorcycle_listing_create(request):
                     seller=request.user,
                     status='draft',
                 )
-                submitted = _draft_to_submitted(draft)
-                current_draft = draft
+                draft, likes = juodrasciai.pradek_svariai(
+                    request, 'active_moto_draft_id', draft)
+                if likes is not None:
+                    juodrasciai.pasiulyk_testi(request, likes)
+                if draft is not None:
+                    submitted = _draft_to_submitted(draft)
+                    current_draft = draft
             except Listing.DoesNotExist:
-                del request.session['active_moto_draft_id']
+                request.session.pop('active_moto_draft_id', None)
                 request.session.modified = True
 
     # Phone is stored on the profile, not the listing — inject for pre-fill
