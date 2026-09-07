@@ -76,7 +76,10 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         nuotraukas nesikeičia dėžutės dydis, todėl rodyklės, miniatiūros
                         ir tekstas žemiau nepašoka. Nuotrauka telpa per object-fit.
                         {% endcomment %}
-                        <div class="relative overflow-hidden ld-stage">
+                        <div class="relative overflow-hidden ld-stage"
+                             @pointerdown="pirstasZemyn($event)"
+                             @pointerup="pirstasAukstyn($event)"
+                             @pointercancel="pradzia = null">
                             {% for image in listing.images.all %}
                             <div x-show="currentImage === {{ forloop.counter0 }}"
                                  {% if not forloop.first %}style="display:none;"{% endif %}
@@ -86,7 +89,7 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                                 {% comment %}Paspaudus atsidaro sluoksnis virš skelbimo, ne failas.
                                 href lieka kaip atsarga be JS.{% endcomment %}
                                 <a href="{{ image.image.url }}" class="relative flex items-center justify-center ld-link"
-                                   @click.prevent="window.lb && window.lb.open({{ forloop.counter0 }})">
+                                   @click.prevent="atidaryk({{ forloop.counter0 }})">
                                     {% comment %}Rodom 1600 px versiją; originalas lieka lightbox nuorodoje.{% endcomment %}
                                     <picture>
                                       {% if image.url_sm_webp %}<source media="(max-width: 668px)" srcset="{{ image.url_sm_webp }}" type="image/webp">{% endif %}
@@ -2953,6 +2956,8 @@ window.__lbShareUrl = "{{ request.scheme }}://{{ request.get_host }}{{ listing.g
   .ld-link { position: absolute; inset: 0; z-index: 1; }
   .ld-img { max-width: 100%; max-height: 100%; width: auto; height: auto;
             object-fit: contain; }
+    /* Vertikalus slinkimas lieka puslapiui, horizontalus — braukymui */
+    .ld-stage { touch-action: pan-y; }
 </style>
 
 <script>
@@ -2977,6 +2982,41 @@ function galerijosJuosta(kiek) {
         el.loading = 'eager';
         if (el.dataset.pilna) { new Image().src = el.dataset.pilna; }
       });
+    },
+
+    // ─── Braukymas pirštu ───────────────────────────────────────
+    // Telefone rodyklės mažos ir dengia pačią nuotrauką, o braukymas
+    // yra tai, ko žmogus ir tikisi. Reikalaujam, kad judesys būtų
+    // aiškiai horizontalus (ilgesnis nei 45 px ir ilgesnis už
+    // vertikalųjį) — kitaip slenkant puslapį žemyn keistųsi
+    // nuotraukos. Peržiūros sluoksnis (lightbox) braukymą turi savo.
+    pradzia: null,
+    braukta: false,
+
+    pirstasZemyn(e) {
+      // Kiekvienas naujas judesys prasideda švarus: kitaip po braukymo
+      // liktų pakelta vėliavėlė ir SEKANTIS paspaudimas neatidarytų
+      // peržiūros.
+      this.braukta = false;
+      this.pradzia = { x: e.clientX, y: e.clientY };
+    },
+
+    pirstasAukstyn(e) {
+      var s = this.pradzia;
+      this.pradzia = null;
+      if (!s || this.images < 2) { return; }
+      var dx = e.clientX - s.x, dy = e.clientY - s.y;
+      if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) { return; }
+      // Po braukymo eina „click" ant nuotraukos — jį praleidžiam,
+      // kitaip kartu atsivertų ir peržiūra.
+      this.braukta = true;
+      var kryptis = dx < 0 ? 1 : -1;
+      this.rodyk((this.currentImage + kryptis + this.images) % this.images);
+    },
+
+    atidaryk(i) {
+      if (this.braukta) { this.braukta = false; return; }
+      if (window.lb) { window.lb.open(i); }
     },
   };
 }

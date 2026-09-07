@@ -5411,38 +5411,52 @@ def listing_activation_plans(request, pk):
     return render(request, 'listings/listing_activation_plans.html', context)
 
 
+# Ko dar reikalaujam iš kiekvienos kategorijos — TIK tų laukų, kuriuos
+# jos forma iš tikrųjų renka. Anksčiau iš VISŲ buvo reikalaujama metų,
+# registracijos datos ir kuro; dalių, ratlankių, elektronikos,
+# paslaugų, dviračių, valčių ir nuomos formose tokių laukų nėra visai,
+# tad tie skelbimai niekada nebūdavo išleidžiami — žmogus paspausdavo
+# „Įkelti" ir grįždavo į tą pačią formą su prierašu „užpildykite".
+PAPILDOMI_LAUKAI = {
+    'cars': ('year', 'brand_id', 'body_type', 'transmission_id',
+             'doors', 'mileage'),
+    'motorcycles': ('year',),
+    'trucks': ('year', 'truck_brand_id', 'truck_model_text', 'truck_type'),
+    'trailers': ('year',),
+    'agriculture': ('year',),
+    'construction': ('year',),
+    'forestry': ('year',),
+    'loading-equipment': ('year',),
+    'camping-houses': ('year',),
+}
+
+
 def _skelbimas_uzpildytas(listing):
     """Ar juodraštyje užpildyta tai, be ko skelbimo skelbti negalima.
 
     Ta pati sąlyga naudojama ir planų puslapyje (mokėjimai įjungti), ir
     nemokamame publikavime — kad nemokamas srautas nepraleistų į
     svetainę pusiau tuščio skelbimo.
+
+    Bendra dalis visoms kategorijoms: kaina ir vieta. Viskas kita —
+    pagal kategoriją (PAPILDOMI_LAUKAI); ko forma nerenka, to ir
+    nereikalaujam.
     """
+    bendra = bool(
+        listing.price and listing.price > 0
+        and listing.country and listing.city and listing.city != '—'
+    )
+    if not bendra:
+        return False
+
     is_moto_gear = (listing.subcategory_id
                     and listing.subcategory.slug in MOTO_GEAR_SLUGS)
     if is_moto_gear:
-        return bool(
-            listing.subcategory_id and listing.condition
-            and listing.price and listing.price > 0
-            and listing.country and listing.city and listing.city != '—'
-        )
-    uzpildyta = bool(
-        listing.year and listing.first_registration and listing.fuel_type_id
-        and listing.price and listing.price > 0
-        and listing.country and listing.city and listing.city != '—'
-    )
+        return bool(listing.subcategory_id and listing.condition)
+
     slug = listing.vehicle_type.slug if listing.vehicle_type else ''
-    if slug == 'cars':
-        uzpildyta = uzpildyta and bool(
-            listing.brand_id and listing.body_type
-            and listing.transmission_id and listing.doors and listing.mileage
-        )
-    elif slug == 'trucks':
-        uzpildyta = uzpildyta and bool(
-            listing.truck_brand_id and listing.truck_model_text
-            and listing.truck_type
-        )
-    return uzpildyta
+    return all(getattr(listing, laukas, None)
+               for laukas in PAPILDOMI_LAUKAI.get(slug, ()))
 
 
 def _publikuok_nemokamai(request, listing):
