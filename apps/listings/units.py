@@ -222,21 +222,33 @@ def per_didele(laukas, kanonine, vienetas=None):
 
 # ═══════════════════════════════════════════════════════════════════
 # FORMOMS IR VAIZDAMS
-# ═══════════════════════════════════════════════════════════════════
+# Lauko nebuvimą skiriam nuo tuščios reikšmės — „nėra" reiškia
+# „nekeičiam", o tuščia reikšmė gali reikšti „išvalyk".
+_NERA = object()
+
+
 def reiksme(post, laukas, numatyta=None):
     """Lauko reikšmė SAUGOJIMO vienetu iš bet kokio žodyno.
 
     `post` — bet kas, kas turi `.get()` (QueryDict, dict, cleaned_data).
+    Reikalaujam TIK `.get()`: autosave'as siunčia JSON'ą ir apvynioja jį
+    savo klase be `__contains__`, tad `laukas in post` čia lūžtų
+    (TypeError → 500 kiekvienam autosave'ui). Nesant lauko, `.get()`
+    grąžina `_NERA` ir mes atiduodam numatytąją reikšmę.
+
     Nieko nekeičia: grąžina naują reikšmę, o šaltinis lieka toks, koks
     buvo.
 
         listing.engine_capacity = units.reiksme(request.POST,
                                                 'engine_capacity')
     """
-    if post is None or laukas not in post:
+    if post is None:
         return numatyta
-    tekstas = (post.get(laukas) or '').strip() if isinstance(
-        post.get(laukas), str) else post.get(laukas)
+    tekstas = post.get(laukas, _NERA)
+    if tekstas is _NERA:
+        return numatyta
+    if isinstance(tekstas, str):
+        tekstas = tekstas.strip()
     if tekstas in (None, ''):
         return numatyta
     rezultatas = i_saugojima(laukas, tekstas, vienetas_is_posto(post, laukas))

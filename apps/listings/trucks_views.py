@@ -45,6 +45,7 @@ from apps.listings.models import NAUJO_SKELBIMO_DIENOS
 from . import formos_klaidos
 from . import juodrasciai
 from . import skaiciai
+from . import sunkusis
 from . import units
 from . import valiutos
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
@@ -146,6 +147,45 @@ def _resolve_trucks_subcategory(slug):
     return sub or SubCategory.objects.filter(
         vehicle_type=trucks_vt, slug='trucks'
     ).first()
+
+
+def subkategorijos_slug(request, draft=None):
+    """Kuri iš penkių subkategorijų dabar pildoma.
+
+    Eilės tvarka: adresas (?subcategory=) → forma (paslėptas laukas) →
+    jau įrašyta juodraščio reikšmė → „trucks". Adresas pirmas, nes
+    pikeris žmogų atveda būtent juo.
+    """
+    slug = (request.GET.get('subcategory')
+            or request.POST.get('subcategory')
+            or (draft.subcategory.slug if draft is not None
+                and draft.subcategory_id else ''))
+    return sunkusis.normalizuok(slug)
+
+
+def taikyk_subkategorija(request, draft, slug=None):
+    """Įrašo ?subcategory= į juodraštį, jei ji pasikeitė.
+
+    Anksčiau subkategorija būdavo nustatoma TIK kuriant juodraštį, tad
+    atėjus į formą su jau esamu juodraščiu (autosave arba pikerio
+    nuoroda po to) ?subcategory= tiesiog dingdavo — visi vilkikai
+    gulėdavo į „Sunkvežimius" (#749, #754, #762).
+
+    `slug` paduodamas ten, kur adreso nei formos nėra — autosave
+    siunčia JSON'ą, tad pasirinkimą perduoda savo lauku.
+    """
+    if draft is None:
+        return draft
+    if slug is None:
+        slug = subkategorijos_slug(request, draft)
+    dabartinis = draft.subcategory.slug if draft.subcategory_id else ''
+    if slug == dabartinis:
+        return draft
+    sub = _resolve_trucks_subcategory(slug)
+    if sub is not None and sub.pk != draft.subcategory_id:
+        draft.subcategory = sub
+        draft.save(update_fields=['subcategory'])
+    return draft
 
 
 def _get_trucks_draft(request, force_new=False):
@@ -254,8 +294,15 @@ def _get_or_create_trucks_draft(request, force_new=False):
 # CHOICES (single source for create + edit + filters)
 # ═══════════════════════════════════════════════════════════
 def _truck_type_choices():
+    """Antstatų sąrašas BE tuščios eilutės.
+
+    `Listing.TRUCK_TYPE_CHOICES` prasideda ('', '— Select —'), o šablonas
+    dar pridėdavo savo tokią pat — sąraše kabėdavo du tušti „—
+    Pasirinkite —". Tuščią variantą palieka šablonas, nes tik jis žino,
+    ar laukas privalomas.
+    """
     if hasattr(Listing, 'TRUCK_TYPE_CHOICES'):
-        return Listing.TRUCK_TYPE_CHOICES
+        return [(v, l) for v, l in Listing.TRUCK_TYPE_CHOICES if v]
     return [
         ('curtain_side', 'Curtain-Side'),
         ('refrigerator', 'Refrigerator'),
@@ -498,6 +545,7 @@ def _listing_to_form_data(listing):
         'steering': listing.steering or '',
         'transmission': str(listing.transmission_id) if listing.transmission_id else '',
         'sleeping_seats': listing.sleeping_seats or '',
+        'axle_count': listing.axle_count or '',
         'front_suspension': listing.front_suspension or '',
         'rear_suspension': listing.rear_suspension or '',
         'sdk_number': listing.sdk_number or '',
@@ -636,16 +684,10 @@ def _save_form_to_listing(post, listing):
     listing.latitude = Decimal(str(lat))
     listing.longitude = Decimal(str(lng))
 
-    # Title
-    title_parts = []
-    if listing.truck_brand:
-        title_parts.append(listing.truck_brand.name)
-    if listing.truck_model_text:
-        title_parts.append(listing.truck_model_text)
-    if listing.year:
-        title_parts.append(str(listing.year))
-    if title_parts:
-        listing.title = ' '.join(title_parts)
+    # Ašių skaičius — vilkikų laukas (apps/listings/sunkusis.py)
+    listing.axle_count = (post.get('axle_count', '') or '').strip()
+
+    listing.title = sunkiojo_antraste(listing)
 
     listing.save()
 
@@ -664,10 +706,44 @@ def _save_form_to_listing(post, listing):
     return listing
 
 
-def _validate_required(post, require_terms=False):
-    """Returns dict of {field: error_msg} for any missing required fields."""
+def sunkiojo_antraste(listing):
+    """Antraštė kaip etalone: „MAN 18.510 4x2 2022 m Vilkikas".
+
+    Markė · modelis · ratų formulė · metai su „m" · subkategorija.
+    Anksčiau buvo tik markė, modelis ir metai, tad sąraše vilkikas nuo
+    savivarčio nesiskyrė niekuo.
+
+    Trūkstamos dalys tiesiog praleidžiamos — antraštė lieka trumpesnė,
+    bet niekada su tuščiomis vietomis.
+    """
+    dalys = []
+    if listing.truck_brand_id and listing.truck_brand:
+        dalys.append(listing.truck_brand.name)
+    if listing.truck_model_text:
+        dalys.append(listing.truck_model_text)
+    if listing.wheel_formula:
+        dalys.append(listing.get_wheel_formula_display()
+                     if hasattr(listing, 'get_wheel_formula_display')
+                     else listing.wheel_formula)
+    if listing.year:
+        dalys.append('%s %s' % (listing.year, _('m')))
+    vardas = sunkusis.antrastes_vardas(
+        listing.subcategory.slug if listing.subcategory_id else '')
+    if vardas:
+        dalys.append(str(vardas))
+    return ' '.join(dalys) if dalys else (listing.title or '')
+
+
+def _validate_required(post, require_terms=False, subkategorija=None):
+    """Returns dict of {field: error_msg} for any missing required fields.
+
+    Reikalaujam tik tų laukų, kurie tai subkategorijai IŠ VISO rodomi:
+    vilkikų formoje „Tipo" nėra, tad ir reikalauti jo negalima
+    (apps/listings/sunkusis.py).
+    """
     errors = {}
-    if not post.get('truck_type'):
+    rodomi = sunkusis.laukai(subkategorija)
+    if rodomi.get('truck_type', True) and not post.get('truck_type'):
         errors['truck_type'] = _('Tipas yra privalomas')
     if not _int_or_none(post.get('truck_brand')):
         errors['truck_brand'] = _('Markė yra privaloma')
@@ -707,19 +783,24 @@ def _validate_required(post, require_terms=False):
 @login_required
 def trucks_listing_create(request):
     force_new = request.GET.get('new') == '1'
-    draft = _get_trucks_draft(request, force_new=force_new)
+    draft = taikyk_subkategorija(request, _get_trucks_draft(request,
+                                                            force_new=force_new))
 
     if request.method == 'POST':
         if draft is None:
             draft = _get_or_create_trucks_draft(request, force_new=False)
         if not draft:
             return redirect('/')
+        # Pasirinkimas ateina paslėptu lauku — kad išliktų ir tada, kai
+        # forma perkraunama su klaidomis
+        draft = taikyk_subkategorija(request, draft)
 
         # Vienetai į saugojimo vienetus PRIEŠ validaciją — grynos
         # funkcijos, originalus POST nepaliečiamas
         # (apps/listings/units.py).
         post = units.normalizuotas(request.POST)
-        errors = _validate_required(post, require_terms=True)
+        errors = _validate_required(post, require_terms=True,
+                                    subkategorija=subkategorijos_slug(request, draft))
         if errors:
             data = dict(request.POST)
             data['equipment'] = request.POST.getlist('equipment')
@@ -782,7 +863,8 @@ def trucks_listing_edit(request, pk):
 
     if request.method == 'POST':
         post = units.normalizuotas(request.POST)
-        errors = _validate_required(post)
+        errors = _validate_required(
+            post, subkategorija=subkategorijos_slug(request, listing))
         if errors:
             data = dict(request.POST)
             data['equipment'] = request.POST.getlist('equipment')
@@ -834,12 +916,19 @@ def _build_context(request, listing, data, errors, is_edit):
     # trucks jas laikė TIK savo `errors` žodyne, tad naujos žinutės
     # (pvz. per didelis variklio tūris) niekur nepasirodydavo.
     bendros = formos_klaidos.kontekstas(errors or {})
+    # Kuri iš penkių subkategorijų pildoma — nuo to priklauso, KURIE
+    # laukai rodomi (apps/listings/sunkusis.py). Išvaizda ta pati.
+    subkategorija = subkategorijos_slug(request, listing)
     return {
         'is_edit': is_edit,
         'current_draft': listing if not is_edit else None,
         'current_listing': listing if is_edit else None,
         'data': data,
         'errors': errors,
+        'subkategorija': subkategorija,
+        'subkategorijos_vardas': sunkusis.antrastes_vardas(subkategorija),
+        'rodomi': sunkusis.laukai(subkategorija),
+        'axle_count_choices': Listing.AXLE_COUNT_CHOICES,
         'error_fields': bendros['error_fields'],
         'error_messages': bendros['error_messages'],
         'form_errors': bendros['form_errors'],
@@ -880,6 +969,14 @@ def save_trucks_draft_ajax(request):
     draft = _get_or_create_trucks_draft(request, force_new=False)
     if not draft:
         return JsonResponse({'success': False, 'error': 'Cannot create draft'}, status=400)
+
+    # Autosave'as juodraštį dažnai ir sukuria — tad pasirinkta
+    # subkategorija turi atkeliauti kartu su laukais, kitaip naujas
+    # juodraštis gula į „Sunkvežimius" nepriklausomai nuo to, kurią
+    # formą žmogus pildo.
+    if data.get('subcategory'):
+        draft = taikyk_subkategorija(
+            request, draft, slug=sunkusis.normalizuok(data.get('subcategory')))
 
     # Treat data as POST-style dict
     class FakePost:

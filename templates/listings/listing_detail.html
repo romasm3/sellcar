@@ -488,8 +488,9 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                                 <div class="font-semibold text-gray-900">
                                     {% if listing.rent_type %}{{ listing.get_rent_type_display }}
                                     {% elif listing.motorcycle_type %}{{ listing.get_motorcycle_type_display }}
+                                    {% elif listing.truck_type %}{{ listing.get_truck_type_display }}
                                     {% elif listing.body_type %}{{ listing.get_body_type_display }}
-                                    {% else %}{{ listing.subcategory.name|default:"—" }}{% endif %}</div></div>
+                                    {% else %}{{ listing.subcategory.name|tdb|default:"—" }}{% endif %}</div></div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                             <i class="fas fa-users text-primary text-xl"></i>
@@ -1635,11 +1636,31 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="font-medium text-gray-900">{{ listing.truck_model_text|default:"—" }}</span>
                         </div>
 
+                        {% comment %}Subkategorija — kuri iš penkių (Sunkvežimiai,
+                        Vilkikai, Autotraukiniai, Autobusai, Komunalinis). Anksčiau
+                        skelbime jos nesimatė niekur.{% endcomment %}
+                        {% if listing.subcategory %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Subkategorija" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.subcategory.name|tdb }}</span>
+                        </div>
+                        {% endif %}
+
                         {# Type / First registration #}
+                        {% comment %}Vilkikams „Tipo" nėra — jų formoje šio lauko
+                        visai nerodom (apps/listings/sunkusis.py).{% endcomment %}
+                        {% if listing.truck_type %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Type" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.get_truck_type_display|default:"—" }}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_truck_type_display }}</span>
                         </div>
+                        {% endif %}
+                        {% if listing.axle_count %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Ašių skaičius" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_axle_count_display }}</span>
+                        </div>
+                        {% endif %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "First registration" %}</span>
                             <span class="font-medium text-gray-900">

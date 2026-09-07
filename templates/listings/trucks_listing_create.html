@@ -295,16 +295,34 @@
                 <div class="field-grid">
 
                     {# ─── ROW 1: Type | First registration | Gross weight | Curb weight ─── #}
+{% comment %}Tipas — sunkvežimių antstatų sąrašas. Vilkikams jo etalone
+                    nėra visai, užtat yra ašių skaičius; abu užima tą pačią
+                    vietą tinklelyje, tad išdėstymas nepasikeičia
+                    (apps/listings/sunkusis.py).{% endcomment %}
+                    {% if rodomi.truck_type %}
                     <div>
                         <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
                         <select name="truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
                             {% for v, l in truck_type_choices %}
                             <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
                         </select>
                         {% if errors.truck_type %}<span class="field-error-msg">{{ errors.truck_type }}</span>{% endif %}
                     </div>
+                    {% endif %}
+
+                    {% if rodomi.axle_count %}
+                    <div>
+                        <label class="field-label">{% trans "Ašių skaičius" %}</label>
+                        <select name="axle_count" class="form-select {% if errors.axle_count %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">— {% trans "Select" %} —</option>
+                            {% for v, l in axle_count_choices %}
+                            <option value="{{ v }}" {% if data.axle_count == v %}selected{% endif %}>{{ l }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if errors.axle_count %}<span class="field-error-msg">{{ errors.axle_count }}</span>{% endif %}
+                    </div>
+                    {% endif %}
 
                     <div>
                         <label class="field-label">{% trans "First registration" %}<span class="required-star">*</span></label>
@@ -641,7 +659,10 @@
                         <div class="with-suffix">
                             <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
                             <span data-valiutos-sufiksas class="suffix">€</span>
-                            {% valiutos_kodas data.country as val_kodas %}<input type="hidden" name="currency" value="{{ val_kodas }}">
+                            {% valiutos_kodas data.country as val_kodas %}{% comment %}Subkategorija keliauja kartu su forma — kitaip perkrovus
+                            su klaidomis pasirinkimas dingtų.{% endcomment %}
+                            <input type="hidden" name="subcategory" value="{{ subkategorija }}" data-autosave="true">
+                            <input type="hidden" name="currency" value="{{ val_kodas }}">
                         </div>
                         {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
                     </div>

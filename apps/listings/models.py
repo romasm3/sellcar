@@ -783,6 +783,20 @@ class Listing(PaskelbimoLaikas, models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(20)],
         verbose_name=_('Sleeping seats'),
     )
+    # Ašių skaičius — vilkikų laukas iš etalono; AutoLeft jo neturėjo.
+    # CharField, o ne skaičius: etalone yra „>3" ir „Kitas", o jų į
+    # sveikąjį skaičių neįrašysi (žr. apps/listings/sunkusis.py).
+    AXLE_COUNT_CHOICES = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('more', _('>3')),
+        ('other', _('Kitas')),
+    ]
+    axle_count = models.CharField(
+        max_length=10, choices=AXLE_COUNT_CHOICES, blank=True, default='',
+        verbose_name=_('Ašių skaičius'),
+    )
     sdk_number = models.CharField(
         max_length=50, blank=True,
         verbose_name=_('SDK number'),
