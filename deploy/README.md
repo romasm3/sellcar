@@ -227,3 +227,37 @@ pridėtas kartu su juodraščių sesijos pataisa (žr.
 `valyti_juodrascius` numatytai trina tik TUŠČIUS juodraščius, senesnius nei
 30 dienų. Turintys nuotraukų ar aprašymo lieka — juos žmogus mato „Mano
 skelbimuose". Pirma verta paleisti su `--dry-run`.
+
+## Po šio deploy'o — rankiniai darbai serveryje
+
+Trys pataisos (per didelis skaičius → 500, juodraščių nuotraukos,
+valiuta) sutvarko PRIEŽASTIS. Tai, kas jau įvyko, sutvarkoma rankomis:
+
+```bash
+cd /root/autoleft
+
+# 0. Atsarginė kopija — be jos trynimo komandos neleis trinti
+mkdir -p /root/autoleft_backups
+.venv/bin/python manage.py dumpdata listings \
+    > /root/autoleft_backups/listings_pries_trynima.json
+
+# 1. #754 — dvi nuotraukų partijos. Pirma pažiūrim, tada trinam.
+.venv/bin/python manage.py valyti_dubliuotas_nuotraukas \
+    --skelbimas 754 --trinti "renault-t460_" --dry-run
+.venv/bin/python manage.py valyti_dubliuotas_nuotraukas \
+    --skelbimas 754 --trinti "renault-t460_"
+
+# 2. Pakibę juodraščiai (tarp jų 750–753, jei jie tušti)
+.venv/bin/python manage.py valyti_juodrascius --dienos 0 --dry-run
+.venv/bin/python manage.py valyti_juodrascius --dienos 0
+
+# 3. Valiutos jau sutvarkytos migracijoje 0100 — tik pasitikrinam
+.venv/bin/python manage.py shell -c "
+from apps.listings.models import Listing
+for pk in (727, 749, 754):
+    l = Listing.objects.filter(pk=pk).first()
+    print(pk, l and l.country, l and l.currency, l and l.currency_symbol)"
+```
+
+`valyti_juodrascius --dienos 0` liečia TIK tuščius juodraščius; turintys
+nuotraukų ar aprašymo lieka (juos žmogus mato „Mano skelbimuose").
