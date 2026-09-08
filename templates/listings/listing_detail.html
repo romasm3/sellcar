@@ -2654,6 +2654,34 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
 
                     <div class="text-sm text-gray-500 mb-2">{{ listing.year }}</div>
                     <h2 class="text-xl font-bold text-gray-900 mb-3">{{ listing.title }}</h2>
+                    {% comment %}KAINA — kaip etalone, dešinėje juostoje kartu su
+                    kontaktais. Pagrindiniame stulpelyje ji rodoma tik telefone
+                    (ten ši kortelė nusileidžia į patį apačią), todėl viename
+                    ekrane kaina visada matoma vieną kartą.{% endcomment %}
+                    <div class="hidden lg:block mb-4">
+                        <p class="ap-kaina">
+                            {{ listing.price|kaina:listing.currency_symbol }}
+                            {% if listing.taxes_extra %}<span class="text-sm font-normal text-gray-500 ml-1">{% trans "+ taxes" %}</span>{% endif %}
+                            {% if listing.negotiable %}<span class="text-sm font-normal text-gray-500 ml-1" title="{% trans 'Kaina derinama' %}">◎</span>{% endif %}
+                        </p>
+                        {% if listing.export_price %}
+                        <p class="text-sm text-gray-600 mt-1">
+                            {% trans "Eksportui" %}: <span class="font-semibold text-gray-900">{{ listing.export_price|kaina:listing.currency_symbol }}</span>
+                        </p>
+                        {% endif %}
+                        {% if listing.open_to_trade %}
+                        <p class="text-xs text-gray-600 mt-1">{% trans "Interested in trade" %}</p>
+                        {% endif %}
+                        <p class="text-sm text-gray-500 mt-2">
+                            {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}
+                        </p>
+                    </div>
+
+                    {% comment %}Viena skiriamoji linija — po kaina ir vieta,
+                    prieš specifikacijas. Kaina yra antra pagal svarbą
+                    informacija, todėl stovi iškart po pavadinimo, o ne
+                    tarp galios ir vietos.{% endcomment %}
+                    <hr class="ap-skirtukas">
                     <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-2">
                         {% if listing.fuel_type %}<span>{{ listing.fuel_type.name|tdb }}</span>{% endif %}
                         {% if listing.engine_capacity %}<span>{{ listing.engine_capacity }}L</span>{% endif %}
@@ -2673,31 +2701,6 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                         <span data-unit-show="power" data-unit-raw="{{ listing.power|default_if_none:''|unlocalize }}">{{ listing.power }} kW</span>
                     </div>
                     {% endif %}
-
-                    {% comment %}KAINA — kaip etalone, dešinėje juostoje kartu su
-                    kontaktais. Pagrindiniame stulpelyje ji rodoma tik telefone
-                    (ten ši kortelė nusileidžia į patį apačią), todėl viename
-                    ekrane kaina visada matoma vieną kartą.{% endcomment %}
-                    <div class="hidden lg:block mb-4">
-                        <p class="text-3xl font-bold text-primary">
-                            {{ listing.price|kaina:listing.currency_symbol }}
-                            {% if listing.taxes_extra %}<span class="text-sm font-normal text-gray-500 ml-1">{% trans "+ taxes" %}</span>{% endif %}
-                            {% if listing.negotiable %}<span class="text-sm font-normal text-gray-500 ml-1" title="{% trans 'Kaina derinama' %}">◎</span>{% endif %}
-                        </p>
-                        {% if listing.export_price %}
-                        <p class="text-sm text-gray-600 mt-1">
-                            {% trans "Eksportui" %}: <span class="font-semibold text-gray-900">{{ listing.export_price|kaina:listing.currency_symbol }}</span>
-                        </p>
-                        {% endif %}
-                        {% if listing.open_to_trade %}
-                        <p class="text-xs text-gray-600 mt-1">{% trans "Interested in trade" %}</p>
-                        {% endif %}
-                        <p class="text-sm text-gray-500 mt-2">
-                            {% if listing.city and listing.city != "—" %}{{ listing.city|vietovardis }}{% endif %}{% if listing.country %}{% if listing.city and listing.city != "—" %}, {% endif %}{{ listing.get_country_display }}{% endif %}
-                        </p>
-                    </div>
-
-                    <hr class="mb-4">
 
                     {% comment %}Pardavėjo informacija perkelta į pagrindinį
                     stulpelį (partials/_pardavejo_blokas.html) — čia lieka tik
@@ -3140,6 +3143,18 @@ function phoneReveal(pk, masked) {
   .ap-phone em { margin-left: auto; font-style: normal; font-size: var(--fs-xs);
                  font-weight: var(--fw-medium); color: var(--text-muted); }
   .ap-phone.is-full { color: var(--text); }
+
+  /* KAINA šoninėje juostoje — antra pagal svarbą informacija po
+     pavadinimo. Telefone ši kortelė nusileidžia į apačią ir kaina joje
+     paslėpta (.hidden lg:block) — matoma pagrindinio stulpelio kaina,
+     todėl 30 px lieka atsarginis dydis siauram ekranui. */
+  .ap-kaina { font-size: 30px; font-weight: 700; color: var(--text);
+              letter-spacing: -0.02em; line-height: 1.15; }
+  @media (min-width: 1024px) { .ap-kaina { font-size: 38px; } }
+
+  /* Skiriamoji linija tarp kainos su vieta ir specifikacijų */
+  .ap-skirtukas { border: 0; border-top: 1px solid var(--border);
+                  margin: 0 0 var(--sp-4); }
 </style>
 
 
