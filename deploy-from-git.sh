@@ -78,9 +78,48 @@ if ! git merge --ff-only "${REMOTE}/${BRANCH}" --quiet; then
 fi
 log "Kodas atnaujintas iki ${UPSTREAM:0:7}"
 
+# ── Migracijos PRIEŠ patikrą ───────────────────────────────────────────
+# Patikros testai (config.test_runner.BeDuombazes) dirba su GYVA duomenų
+# baze — testinės kurti neleidžia teisės. Todėl naujas modelio laukas
+# užrakindavo diegimą lygiai taip pat, kaip naujas statinis failas:
+#
+#   ProgrammingError: column listings_listing.axle_count does not exist
+#
+# Kodas lauko jau prašo, migracija jį pridėtų — bet ji sukdavosi tik
+# deploy-agent.sh viduje, JAU PO patikros. Patikra krisdavo, kodas
+# atsukamas, migracija taip ir nepaleidžiama, kitas bandymas krinta taip
+# pat. 2026-09 taip užstrigo 19 commit'ų (pirma dėl statinių manifesto,
+# paskui dėl šito).
+#
+# Todėl migracijas paleidžiam pirma. Jos yra pridedančios (AddField,
+# AlterField), o senas kodas papildomo stulpelio nemato ir juo
+# nesiskundžia — tad jei patikra po to kristų, kodą atsukam, o duomenų
+# bazė lieka su nauju stulpeliu ir svetainė veikia toliau. ĮSPĖJIMAS
+# rašomas į žurnalą, kad niekas nemanytų, jog DB visai nepaliesta.
+#
+# Kas duomenis TRINA (RemoveField, DeleteModel), tas per šitą kelią
+# neturi eiti — tokią migraciją leisk ranka ir stebėk.
+if [[ -x ./venv/bin/python ]]; then
+    if MIGRACIJOS="$(./venv/bin/python manage.py migrate --noinput 2>&1)"; then
+        # „if … fi" be tinkančios šakos grąžina 0, tad `set -e` nenukerta
+        # deploy'o vien todėl, kad migracijų nebuvo.
+        if echo "$MIGRACIJOS" | grep -q "Applying "; then
+            log "Migracijos pritaikytos:"
+            echo "$MIGRACIJOS" | grep "Applying " | sed 's/^/    /'
+        fi
+    else
+        echo "$MIGRACIJOS" | tail -20 | sed 's/^/    /'
+        echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+        git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
+        die "Migracijos krito — grąžinta į ${LOCAL:0:7}. Kito bandymo su tuo pačiu commit'u nebus."
+    fi
+else
+    log "DĖMESIO: nerastas ./venv/bin/python — migracijos praleistos"
+fi
+
 # ── Patikra PRIEŠ liečiant produkciją ──────────────────────────────────
-# Šablonų nuotėkis ir testai tikrinami dar prieš migracijas ir perkrovimą:
-# jei krenta, produkcija net nesujudinama, o kodas atsukamas atgal.
+# Šablonų nuotėkis ir testai tikrinami dar prieš perkrovimą: jei krenta,
+# kodas atsukamas atgal, o gunicorn net nesujudinamas.
 if [[ -x ./scripts/patikra.sh ]]; then
     if PATIKRA="$(./scripts/patikra.sh 2>&1)"; then
         log "Patikra praėjo"
@@ -89,7 +128,8 @@ if [[ -x ./scripts/patikra.sh ]]; then
         echo "$UPSTREAM" > "$BLOGAS_FAILAS"
         git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
         if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
-        die "Patikra krito — grąžinta į ${LOCAL:0:7}, produkcija nepaliesta. Kito bandymo su tuo pačiu commit'u nebus."
+        log "DĖMESIO: migracijos jau pritaikytos — DB liko naujesnė nei kodas (pridedančios, todėl senas kodas veikia)."
+        die "Patikra krito — grąžinta į ${LOCAL:0:7}, gunicorn nepaliestas. Kito bandymo su tuo pačiu commit'u nebus."
     fi
 else
     log "DĖMESIO: scripts/patikra.sh nerastas — diegiam be testų"
