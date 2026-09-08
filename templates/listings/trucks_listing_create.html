@@ -303,7 +303,7 @@
                     <div>
                         <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
                         <select name="truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in truck_type_choices %}
                             <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -316,7 +316,7 @@
                     <div>
                         <label class="field-label">{% trans "Ašių skaičius" %}</label>
                         <select name="axle_count" class="form-select {% if errors.axle_count %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in axle_count_choices %}
                             <option value="{{ v }}" {% if data.axle_count == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -359,7 +359,7 @@
                     <div>
                         <label class="field-label">{% trans "Make" %}<span class="required-star">*</span></label>
                         <select name="truck_brand" class="form-select {% if errors.truck_brand %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for brand in brands %}
                             <option value="{{ brand.id }}" {% if data.truck_brand|stringformat:'s' == brand.id|stringformat:'s' %}selected{% endif %}>{{ brand.name }}</option>
                             {% endfor %}
@@ -394,7 +394,7 @@
                     <div>
                         <label class="field-label">{% trans "Fuel type" %}<span class="required-star">*</span></label>
                         <select name="fuel_type" class="form-select {% if errors.fuel_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for ft in fuel_types %}
                             <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
@@ -405,10 +405,12 @@
                     <div>
                         <label class="field-label">{% trans "Wheel formula" %}</label>
                         <select name="wheel_formula" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in wheel_formula_choices %}
+                            <option value="">---------</option>
+                            {% comment %}Tuščią eilutę duoda šablonas („---------"), o
+                            sąraše ji irgi yra — be šito filtro kabėtų dvi.{% endcomment %}
+                            {% for v, l in wheel_formula_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.wheel_formula == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
@@ -426,10 +428,12 @@
                     <div>
                         <label class="field-label">{% trans "Mass interval" %}</label>
                         <select name="mass_interval" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in mass_interval_choices %}
+                            <option value="">---------</option>
+                            {% comment %}Tuščią eilutę duoda šablonas („---------"), o
+                            sąraše ji irgi yra — be šito filtro kabėtų dvi.{% endcomment %}
+                            {% for v, l in mass_interval_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.mass_interval == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
@@ -447,7 +451,7 @@
                     <div>
                         <label class="field-label">{% trans "Defects" %}<span class="required-star">*</span></label>
                         <select name="defects" class="form-select {% if errors.defects %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in defect_choices %}
                             <option value="{{ v }}" {% if data.defects == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -458,7 +462,7 @@
                     <div>
                         <label class="field-label">{% trans "New / Used" %}<span class="required-star">*</span></label>
                         <select name="condition" class="form-select {% if errors.condition %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in condition_choices %}
                             <option value="{{ v }}" {% if data.condition == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -498,7 +502,7 @@
                     <div>
                         <label class="field-label">{% trans "Steering" %}</label>
                         <select name="steering" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in steering_choices %}
                             <option value="{{ v }}" {% if data.steering == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -508,7 +512,7 @@
                     <div>
                         <label class="field-label">{% trans "Gearbox" %}</label>
                         <select name="transmission" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for tr in transmissions %}
                             <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name|tdb }}</option>
                             {% endfor %}
@@ -524,20 +528,24 @@
                     <div>
                         <label class="field-label">{% trans "Front suspension" %}</label>
                         <select name="front_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in truck_suspension_choices %}
+                            <option value="">---------</option>
+                            {% comment %}Tuščią eilutę duoda šablonas („---------"), o
+                            sąraše ji irgi yra — be šito filtro kabėtų dvi.{% endcomment %}
+                            {% for v, l in truck_suspension_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.front_suspension == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
                     <div>
                         <label class="field-label">{% trans "Rear suspension" %}</label>
                         <select name="rear_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in truck_suspension_choices %}
+                            <option value="">---------</option>
+                            {% comment %}Tuščią eilutę duoda šablonas („---------"), o
+                            sąraše ji irgi yra — be šito filtro kabėtų dvi.{% endcomment %}
+                            {% for v, l in truck_suspension_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.rear_suspension == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
@@ -550,7 +558,7 @@
                     <div>
                         <label class="field-label">{% trans "Color" %}</label>
                         <select name="color" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                            <option value="">---------</option>
                             {% for v, l in color_choices %}
                             <option value="{{ v }}" {% if data.color == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -560,6 +568,27 @@
                     <div class="col-2">
                         <label class="field-label">{% trans "VIN (Body number)" %}</label>
                         <input type="text" name="vin" value="{{ data.vin }}" maxlength="17" placeholder="{% trans 'E.G. WMA17XZZ8AY123456' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    </div>
+
+                    {# ─── KAINA — pagrindinių duomenų bloke, kaip Autogide ─── #}
+                    <div class="col-2">
+                        <label class="field-label">{% trans "Price" %}<span class="required-star">*</span></label>
+                        <div class="with-suffix">
+                            <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <span data-valiutos-sufiksas class="suffix">€</span>
+                            {% valiutos_kodas data.country as val_kodas %}{% comment %}Subkategorija keliauja kartu su forma — kitaip perkrovus
+                            su klaidomis pasirinkimas dingtų.{% endcomment %}
+                            <input type="hidden" name="subcategory" value="{{ subkategorija }}" data-autosave="true">
+                            <input type="hidden" name="currency" value="{{ val_kodas }}">
+                        </div>
+                        {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
+                    </div>
+
+                    <div class="col-2 flex items-end">
+                        <label class="equipment-row" style="padding: 0.55rem 0.75rem;">
+                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %} {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <span>{% trans "Price is negotiable" %}</span>
+                        </label>
                     </div>
 
                 </div>
@@ -647,34 +676,6 @@
             <div class="create-card">
                 <div class="create-card-title">{% trans "Video (optional)" %}</div>
                 <input type="url" name="video_url" value="{{ data.video_url }}" placeholder="{% trans 'YouTube URL — e.g. https://youtube.com/watch?v=...' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
-            </div>
-
-            {# ════════════════════════════════════════════════ #}
-            {#  PRICE                                           #}
-            {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Price" %}</div>
-                <div class="field-grid">
-                    <div class="col-2">
-                        <label class="field-label">{% trans "Asking price" %}<span class="required-star">*</span></label>
-                        <div class="with-suffix">
-                            <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <span data-valiutos-sufiksas class="suffix">€</span>
-                            {% valiutos_kodas data.country as val_kodas %}{% comment %}Subkategorija keliauja kartu su forma — kitaip perkrovus
-                            su klaidomis pasirinkimas dingtų.{% endcomment %}
-                            <input type="hidden" name="subcategory" value="{{ subkategorija }}" data-autosave="true">
-                            <input type="hidden" name="currency" value="{{ val_kodas }}">
-                        </div>
-                        {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
-                    </div>
-
-                    <div class="col-2 flex items-end">
-                        <label class="equipment-row" style="padding: 0.55rem 0.75rem;">
-                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %} {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <span>{% trans "Price is negotiable" %}</span>
-                        </label>
-                    </div>
-                </div>
             </div>
 
             {# ════════════════════════════════════════════════ #}

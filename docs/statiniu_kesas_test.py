@@ -197,15 +197,20 @@ tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_atsukimo_test.sh')),
 
 antraste('11. Kritęs deploy nekartojamas kas minutę')
 g = open(os.path.join(BASE, 'deploy-from-git.sh'), encoding='utf-8').read()
-# Žymė turi būti rašoma DVIEJOSE vietose: po patikra.sh ir po
-# deploy-agent.sh. Iki 2026-09-02 buvo tik pirmoji, ir kritęs deploy'as
-# kas minutę atsukdavo kodą.
-tikrink(g.count('> "$BLOGAS_FAILAS"') == 2,
-        'žymė rašoma abiejuose kritimo keliuose (%d)'
-        % g.count('> "$BLOGAS_FAILAS"'))
+# Žymė turi būti rašoma KIEKVIENAME kritimo kelyje. Iki 2026-09-02 buvo
+# tik po patikra.sh, ir kritęs deploy'as kas minutę atsukdavo kodą.
+# Kelių yra tiek, kiek `git reset --hard "$LOCAL"` atsukimų — skaičiaus
+# nefiksuojam, nes 2026-09-08 atsirado trečias (kritusios migracijos).
+atsukimai = g.count('git reset --hard "$LOCAL"')
+tikrink(g.count('> "$BLOGAS_FAILAS"') == atsukimai,
+        'žymė rašoma visuose kritimo keliuose (žymių %d, atsukimų %d)'
+        % (g.count('> "$BLOGAS_FAILAS"'), atsukimai))
+tikrink(atsukimai >= 3, 'kritimo kelių mažiau nei tikėtasi (%d)' % atsukimai)
 po_agento = g[g.index('if ./deploy-agent.sh; then'):]
 tikrink('> "$BLOGAS_FAILAS"' in po_agento,
         'agentui kritus žymė įrašoma')
+tikrink('manage.py migrate' in g[:g.index('scripts/patikra.sh')],
+        'migracijos leidžiamos PRIEŠ patikrą (kitaip naujas laukas rakina diegimą)')
 tikrink('LOCKFILE:-' in g, 'užrakto kelias perrašomas (testuojamumas)')
 tikrink(os.path.exists(os.path.join(BASE, 'docs/deploy_kartojimo_test.sh')),
         'yra kartojimo testas su tikrais git repozitoriumis')
