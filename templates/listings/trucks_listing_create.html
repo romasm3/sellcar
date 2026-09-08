@@ -6,137 +6,56 @@
 
 {% block extra_css %}
 <style>
-.create-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
-.create-card-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #0891b2;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #f3f4f6;
-}
+    {# Etalonas — listing_create_cars_quick.html. Laukų išvaizda,
+       kortelės ir privalomų laukų žymėjimas turi būti tie patys, tad
+       taisyklės perkeltos iš ten pažodžiui. #}
+    select, input[type="text"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], textarea {
+        width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
+        font-size: 0.875rem; transition: all 0.2s;
+    }
+    select:focus, input:focus, textarea:focus {
+        outline: none; border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.15);
+    }
+    textarea { min-height: 140px; resize: vertical; padding: 0.75rem; }
+    input[type="checkbox"] { width: 1rem; height: 1rem; border-radius: 0.25rem; accent-color: #4b5563; }
 
-.field-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.875rem 1rem;
-}
-@media (max-width: 1024px) { .field-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px) { .field-grid { grid-template-columns: 1fr; } }
+    /* Privalomas laukas — storesnis pilkas rėmelis is visu pusiu + sviesiai pilkas vidus.
+       background-color, NE background: sutrumpinta savybe atstatytu
+       background-repeat ir select rodykle issiklotu per visa lauka. */
+    [data-required="true"] input[type="text"],
+    [data-required="true"] input[type="number"],
+    [data-required="true"] input[type="tel"],
+    [data-required="true"] input[type="email"],
+    [data-required="true"] select,
+    [data-required="true"] textarea {
+        border: 2px solid #6b7280;
+        background-color: #f3f4f6;
+    }
+    [data-required="true"] input[type="text"]:focus,
+    [data-required="true"] input[type="number"]:focus,
+    [data-required="true"] input[type="tel"]:focus,
+    [data-required="true"] input[type="email"]:focus,
+    [data-required="true"] select:focus,
+    [data-required="true"] textarea:focus {
+        border: 2px solid #4b5563;
+        background-color: #ffffff;
+    }
 
-.field-grid .col-2 { grid-column: span 2; }
-.field-grid .col-3 { grid-column: span 3; }
-.field-grid .col-4 { grid-column: span 4; }
-@media (max-width: 1024px) {
-    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 2; }
-}
-@media (max-width: 640px) {
-    .field-grid .col-2, .field-grid .col-3, .field-grid .col-4 { grid-column: span 1; }
-}
+    /* ERROR STATE — raudonas remelis + sviesiai rozinis vidus */
+    [data-field-wrap].field-error input,
+    [data-field-wrap].field-error select,
+    [data-field-wrap].field-error textarea,
+    input.has-error, select.has-error, textarea.has-error {
+        border-color: #ef4444 !important;
+        background-color: #fef2f2 !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    [data-field-wrap].field-error label {
+        color: #dc2626 !important;
+    }
 
-.field-label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 0.35rem;
-}
-.required-star { color: #dc2626; margin-left: 2px; }
-
-.form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 0.55rem 0.75rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.45rem;
-    font-size: 0.875rem;
-    color: #111827;
-    background: #fff;
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: #0891b2;
-    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.1);
-}
-.form-textarea { min-height: 100px; resize: vertical; }
-
-.form-input.has-error, .form-select.has-error, .form-textarea.has-error {
-    border-color: #dc2626;
-    background: #fef2f2;
-}
-.field-error-msg {
-    display: block;
-    color: #dc2626;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-}
-
-.year-month-row { display: flex; gap: 0.5rem; }
-.year-month-row > * { flex: 1; min-width: 0; }
-
-.with-suffix { position: relative; display: flex; align-items: stretch; }
-.with-suffix .form-input { border-top-right-radius: 0; border-bottom-right-radius: 0; flex: 1; }
-.with-suffix .suffix {
-    padding: 0 0.65rem;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-left: 0;
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
-    font-size: 0.8rem;
-    color: #6b7280;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-.with-suffix .form-select.suffix-select {
-    border-top-right-radius: 0.45rem;
-    border-bottom-right-radius: 0.45rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0;
-    width: 90px;
-    flex-shrink: 0;
-    background: #f9fafb;
-}
-
-
-.equipment-section { margin-bottom: 1.25rem; }
-.equipment-section:last-child { margin-bottom: 0; }
-.equipment-cat-title {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-}
-.equipment-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.4rem 0.875rem;
-}
-@media (max-width: 1024px) { .equipment-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .equipment-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .equipment-grid { grid-template-columns: 1fr; } }
-.equipment-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.3rem 0.4rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background 0.1s;
-}
-.equipment-row:hover { background: #f9fafb; }
-.equipment-row input { accent-color: #0891b2; width: 14px; height: 14px; flex-shrink: 0; }
-.equipment-row span { font-size: 0.825rem; color: var(--accent); }
+    {# Klaidų dėžutė (.form-error-box) ir .field-error-msg jau aprašyti
+       static/css/form_validation.css — čia jų nekartojam. #}
 
 .photo-drop-zone {
     border: 2px dashed #d1d5db;
@@ -208,50 +127,16 @@
     text-align: center; color: #9ca3af;
     font-size: 0.75rem; padding: 0.5rem;
 }
-
-.action-bar-bottom {
-    position: sticky; bottom: 1rem;
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    padding: 0.875rem 1.25rem;
-    display: flex; align-items: center;
-    justify-content: flex-end; gap: 0.75rem;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
-    z-index: 20; margin-top: 1rem;
-}
-.btn-cancel {
-    padding: 0.6rem 1.5rem;
-    background: #fff; border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    font-size: 0.875rem; color: #6b7280;
-    cursor: pointer; text-decoration: none;
-    display: inline-flex; align-items: center; gap: 0.4rem;
-}
-.btn-cancel:hover { background: #f9fafb; color: #111827; }
-.btn-publish {
-    padding: 0.6rem 1.75rem;
-    background: linear-gradient(to right, #0891b2, #0e7490);
-    color: #fff; border: none;
-    border-radius: 0.5rem;
-    font-size: 0.9rem; font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(8, 145, 178, 0.25);
-    display: inline-flex; align-items: center; gap: 0.5rem;
-}
-.btn-publish:hover {
-    box-shadow: 0 6px 14px rgba(8, 145, 178, 0.35);
-    transform: translateY(-1px);
-}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 min-h-screen pb-12">
-    <div class="max-w-5xl mx-auto px-4 py-6">
+<div class="bg-gray-50 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {# ═══ Header (different for create vs edit) ═══ #}
         {% if is_edit %}
-            <div class="mb-5 flex items-center justify-between">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5 flex items-center justify-between">
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
                         🚛 {% trans "Edit Trucks Listing" %}
@@ -267,12 +152,12 @@
                         {% endif %}
                     </p>
                 </div>
-                <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">
+                <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
                     <i class="fas fa-eye"></i> {% trans "View public page" %}
                 </a>
             </div>
         {% else %}
-            <div class="mb-5">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4 mb-5">
                 <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
                     🚛 {% trans "Create Trucks & Commercial Listing" %}
                 </h1>
@@ -289,10 +174,13 @@
             {# ════════════════════════════════════════════════ #}
             {#  BASIC INFORMATION (autoplius 8x4 layout)        #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Basic Information" %}</div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Basic Information" %}</h3>
+                </div>
+                <div class="p-6">
 
-                <div class="field-grid">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
                     {# ─── ROW 1: Type | First registration | Gross weight | Curb weight ─── #}
 {% comment %}Tipas — sunkvežimių antstatų sąrašas. Vilkikams jo etalone
@@ -300,10 +188,10 @@
                     vietą tinklelyje, tad išdėstymas nepasikeičia
                     (apps/listings/sunkusis.py).{% endcomment %}
                     {% if rodomi.truck_type %}
-                    <div>
-                        <label class="field-label">{% trans "Type" %}<span class="required-star">*</span></label>
-                        <select name="truck_type" class="form-select {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                    <div data-field-wrap="truck_type" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Type" %} <span class="text-red-500">*</span></label>
+                        <select name="truck_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.truck_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in truck_type_choices %}
                             <option value="{{ v }}" {% if data.truck_type == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -314,9 +202,9 @@
 
                     {% if rodomi.axle_count %}
                     <div>
-                        <label class="field-label">{% trans "Ašių skaičius" %}</label>
-                        <select name="axle_count" class="form-select {% if errors.axle_count %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Ašių skaičius" %}</label>
+                        <select name="axle_count" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.axle_count %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in axle_count_choices %}
                             <option value="{{ v }}" {% if data.axle_count == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -325,20 +213,17 @@
                     </div>
                     {% endif %}
 
-                    <div>
-                        <label class="field-label">{% trans "First registration" %}<span class="required-star">*</span></label>
-                        <div class="year-month-row">
-                            <select name="year" class="form-select {% if errors.year %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                                <option value="">{% trans "Year" %}</option>
+                    <div data-field-wrap="year" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "First registration" %} <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <select name="year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.year %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">---------</option>
                                 {% for y in years %}
                                 <option value="{{ y }}" {% if data.year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
                                 {% endfor %}
                             </select>
-                            <select name="first_registration_month" class="form-select {% if errors.first_registration_month %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                                <option value="">{% trans "MM" %}</option>
-                                {% for v, l in months %}
-                                <option value="{{ v }}" {% if data.first_registration_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
-                                {% endfor %}
+                            <select name="first_registration_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.first_registration_month %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                {% include 'listings/partials/_menesio_pasirinkimai.html' with pasirinkta=data.first_registration_month %}
                             </select>
                         </div>
                         {% if errors.year %}<span class="field-error-msg">{{ errors.year }}</span>{% endif %}
@@ -346,20 +231,20 @@
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Gross weight" %}</label>
-                        <input type="number" name="gross_weight_kg" data-unit-field="gross_weight_kg" value="{{ data.gross_weight_kg|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Gross weight" %}</label>
+                        <input type="number" name="gross_weight_kg" data-unit-field="gross_weight_kg" value="{{ data.gross_weight_kg|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Curb weight" %}</label>
-                        <input type="number" name="curb_weight" data-unit-field="curb_weight" value="{{ data.curb_weight|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Curb weight" %}</label>
+                        <input type="number" name="curb_weight" data-unit-field="curb_weight" value="{{ data.curb_weight|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 2: Make | Model | Power (kW↔HP) | Mileage (km↔mi) ─── #}
-                    <div>
-                        <label class="field-label">{% trans "Make" %}<span class="required-star">*</span></label>
-                        <select name="truck_brand" class="form-select {% if errors.truck_brand %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                    <div data-field-wrap="truck_brand" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Make" %} <span class="text-red-500">*</span></label>
+                        <select name="truck_brand" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.truck_brand %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for brand in brands %}
                             <option value="{{ brand.id }}" {% if data.truck_brand|stringformat:'s' == brand.id|stringformat:'s' %}selected{% endif %}>{{ brand.name }}</option>
                             {% endfor %}
@@ -367,34 +252,34 @@
                         {% if errors.truck_brand %}<span class="field-error-msg">{{ errors.truck_brand }}</span>{% endif %}
                     </div>
 
-                    <div>
-                        <label class="field-label">{% trans "Model" %}<span class="required-star">*</span></label>
+                    <div data-field-wrap="truck_model_text" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Model" %} <span class="text-red-500">*</span></label>
                         <input type="text" name="truck_model_text"
                                value="{{ data.truck_model_text }}"
                                maxlength="100"
                                placeholder="{% trans 'e.g. FH16, Actros 1845' %}"
-                               class="form-input {% if errors.truck_model_text %}has-error{% endif %}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.truck_model_text %}has-error{% endif %}"
                                {% if not is_edit %}data-autosave="true"{% endif %}>
                         {% if errors.truck_model_text %}<span class="field-error-msg">{{ errors.truck_model_text }}</span>{% endif %}
                     </div>
 
                     {# ─── POWER — input + [kW|HP] toggle, conversion hint below ─── #}
                     <div>
-                        <label class="field-label">{% trans "Power" %}</label>
-                        <input type="number" name="power" data-unit-field="power" value="{{ data.power|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Power" %}</label>
+                        <input type="number" name="power" data-unit-field="power" value="{{ data.power|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── MILEAGE — input + [km|mi] toggle, conversion hint below ─── #}
                     <div>
-                        <label class="field-label">{% trans "Mileage" %}</label>
-                        <input type="number" name="mileage" data-unit-field="mileage" value="{{ data.mileage|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mileage" %}</label>
+                        <input type="number" name="mileage" data-unit-field="mileage" value="{{ data.mileage|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 3: Fuel type | Wheel formula | Length | Width ─── #}
-                    <div>
-                        <label class="field-label">{% trans "Fuel type" %}<span class="required-star">*</span></label>
-                        <select name="fuel_type" class="form-select {% if errors.fuel_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                    <div data-field-wrap="fuel_type" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel type" %} <span class="text-red-500">*</span></label>
+                        <select name="fuel_type" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.fuel_type %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for ft in fuel_types %}
                             <option value="{{ ft.id }}" {% if data.fuel_type|stringformat:'s' == ft.id|stringformat:'s' %}selected{% endif %}>{{ ft.name|tdb }}</option>
                             {% endfor %}
@@ -403,51 +288,53 @@
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Wheel formula" %}</label>
-                        <select name="wheel_formula" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in wheel_formula_choices %}
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Wheel formula" %}</label>
+                        <select name="wheel_formula" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
+                            {% comment %}Tuščią eilutę duoda tik šablonas — sąraše ji jau
+                            buvo, tad „— Pasirinkite —" kabėdavo dukart.{% endcomment %}
+                            {% for v, l in wheel_formula_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.wheel_formula == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Length" %}</label>
-                        <input type="number" name="truck_length_mm" data-unit-field="truck_length_mm" value="{{ data.truck_length_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Length" %}</label>
+                        <input type="number" name="truck_length_mm" data-unit-field="truck_length_mm" value="{{ data.truck_length_mm|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Width" %}</label>
-                        <input type="number" name="truck_width_mm" data-unit-field="truck_width_mm" value="{{ data.truck_width_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Width" %}</label>
+                        <input type="number" name="truck_width_mm" data-unit-field="truck_width_mm" value="{{ data.truck_width_mm|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 4: Mass interval | Height | Volume | Defects ─── #}
                     <div>
-                        <label class="field-label">{% trans "Mass interval" %}</label>
-                        <select name="mass_interval" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in mass_interval_choices %}
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Mass interval" %}</label>
+                        <select name="mass_interval" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
+                            {% for v, l in mass_interval_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.mass_interval == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Height" %}</label>
-                        <input type="number" name="truck_height_mm" data-unit-field="truck_height_mm" value="{{ data.truck_height_mm|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Height" %}</label>
+                        <input type="number" name="truck_height_mm" data-unit-field="truck_height_mm" value="{{ data.truck_height_mm|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Volume" %}</label>
-                        <input type="number" step="0.01" name="truck_volume_m3" data-unit-field="truck_volume_m3" value="{{ data.truck_volume_m3|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Volume" %}</label>
+                        <input type="number" step="0.01" name="truck_volume_m3" data-unit-field="truck_volume_m3" value="{{ data.truck_volume_m3|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 5: Defects | New/Used | Payload | Fuel tank ─── #}
-                    <div>
-                        <label class="field-label">{% trans "Defects" %}<span class="required-star">*</span></label>
-                        <select name="defects" class="form-select {% if errors.defects %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                    <div data-field-wrap="defects" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Defects" %} <span class="text-red-500">*</span></label>
+                        <select name="defects" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.defects %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in defect_choices %}
                             <option value="{{ v }}" {% if data.defects == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -455,10 +342,10 @@
                         {% if errors.defects %}<span class="field-error-msg">{{ errors.defects }}</span>{% endif %}
                     </div>
 
-                    <div>
-                        <label class="field-label">{% trans "New / Used" %}<span class="required-star">*</span></label>
-                        <select name="condition" class="form-select {% if errors.condition %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                    <div data-field-wrap="condition" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "New / Used" %} <span class="text-red-500">*</span></label>
+                        <select name="condition" class="w-full px-3 py-2 border border-gray-300 rounded text-sm {% if errors.condition %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in condition_choices %}
                             <option value="{{ v }}" {% if data.condition == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -467,38 +354,35 @@
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Payload capacity" %}</label>
-                        <input type="number" name="payload_kg" data-unit-field="payload_kg" value="{{ data.payload_kg|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Payload capacity" %}</label>
+                        <input type="number" name="payload_kg" data-unit-field="payload_kg" value="{{ data.payload_kg|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Fuel tank capacity" %}</label>
-                        <input type="number" name="fuel_tank_capacity_l" data-unit-field="fuel_tank_capacity_l" value="{{ data.fuel_tank_capacity_l|unlocalize }}" min="0" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Fuel tank capacity" %}</label>
+                        <input type="number" name="fuel_tank_capacity_l" data-unit-field="fuel_tank_capacity_l" value="{{ data.fuel_tank_capacity_l|unlocalize }}" min="0" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 6: Tech inspection | Steering | Gearbox | Sleeping seats ─── #}
                     <div>
-                        <label class="field-label">{% trans "Tech inspection valid until" %}</label>
-                        <div class="year-month-row">
-                            <select name="technical_inspection_year" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                                <option value="">{% trans "Year" %}</option>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Tech inspection valid until" %}</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <select name="technical_inspection_year" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                <option value="">---------</option>
                                 {% for y in years %}
                                 <option value="{{ y }}" {% if data.technical_inspection_year|stringformat:'s' == y|stringformat:'s' %}selected{% endif %}>{{ y }}</option>
                                 {% endfor %}
                             </select>
-                            <select name="technical_inspection_month" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                                <option value="">{% trans "MM" %}</option>
-                                {% for v, l in months %}
-                                <option value="{{ v }}" {% if data.technical_inspection_month|stringformat:'s' == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>
-                                {% endfor %}
+                            <select name="technical_inspection_month" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                                {% include 'listings/partials/_menesio_pasirinkimai.html' with pasirinkta=data.technical_inspection_month %}
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Steering" %}</label>
-                        <select name="steering" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Steering" %}</label>
+                        <select name="steering" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in steering_choices %}
                             <option value="{{ v }}" {% if data.steering == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
@@ -506,9 +390,9 @@
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Gearbox" %}</label>
-                        <select name="transmission" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Gearbox" %}</label>
+                        <select name="transmission" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for tr in transmissions %}
                             <option value="{{ tr.id }}" {% if data.transmission|stringformat:'s' == tr.id|stringformat:'s' %}selected{% endif %}>{{ tr.name|tdb }}</option>
                             {% endfor %}
@@ -516,52 +400,53 @@
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Sleeping seats" %}</label>
-                        <input type="number" name="sleeping_seats" value="{{ data.sleeping_seats }}" min="0" max="20" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Sleeping seats" %}</label>
+                        <input type="number" name="sleeping_seats" value="{{ data.sleeping_seats }}" min="0" max="20" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 7: Front suspension | Rear suspension | Engine capacity ─── #}
                     <div>
-                        <label class="field-label">{% trans "Front suspension" %}</label>
-                        <select name="front_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in truck_suspension_choices %}
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Front suspension" %}</label>
+                        <select name="front_suspension" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
+                            {% for v, l in truck_suspension_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.front_suspension == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Rear suspension" %}</label>
-                        <select name="rear_suspension" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
-                            {% for v, l in truck_suspension_choices %}
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Rear suspension" %}</label>
+                        <select name="rear_suspension" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
+                            {% for v, l in truck_suspension_choices %}{% if v %}
                             <option value="{{ v }}" {% if data.rear_suspension == v %}selected{% endif %}>{{ l }}</option>
-                            {% endfor %}
+                            {% endif %}{% endfor %}
                         </select>
                     </div>
 
                     <div>
-                        <label class="field-label">{% trans "Engine capacity, L" %}</label>
-                        <input type="number" step="0.1" name="engine_capacity" data-unit-field="engine_capacity" value="{{ data.engine_capacity|unlocalize }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Engine capacity, L" %}</label>
+                        <input type="number" step="0.1" name="engine_capacity" data-unit-field="engine_capacity" value="{{ data.engine_capacity|unlocalize }}" min="0" placeholder="{% trans 'e.g. 12.0' %}" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
                     {# ─── ROW 8: Color | VIN ─── #}
                     <div>
-                        <label class="field-label">{% trans "Color" %}</label>
-                        <select name="color" class="form-select" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <option value="">— {% trans "Select" %} —</option>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Color" %}</label>
+                        <select name="color" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <option value="">---------</option>
                             {% for v, l in color_choices %}
                             <option value="{{ v }}" {% if data.color == v %}selected{% endif %}>{{ l }}</option>
                             {% endfor %}
                         </select>
                     </div>
 
-                    <div class="col-2">
-                        <label class="field-label">{% trans "VIN (Body number)" %}</label>
-                        <input type="text" name="vin" value="{{ data.vin }}" maxlength="17" placeholder="{% trans 'E.G. WMA17XZZ8AY123456' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "VIN (Body number)" %}</label>
+                        <input type="text" name="vin" value="{{ data.vin }}" maxlength="17" placeholder="{% trans 'E.G. WMA17XZZ8AY123456' %}" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
                     </div>
 
+                </div>
                 </div>
             </div>
 
@@ -569,41 +454,53 @@
             {#  EQUIPMENT / FEATURES                            #}
             {# ════════════════════════════════════════════════ #}
             {% if equipment_by_category %}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Features / Equipment" %}</div>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Features / Equipment" %}</h3>
+                </div>
+                <div class="p-6 space-y-6">
                 {% for cat in equipment_by_category %}
-                <div class="equipment-section">
-                    <div class="equipment-cat-title">{{ cat.label }}</div>
-                    <div class="equipment-grid">
+                <div>
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
+                        <h4 class="text-sm font-semibold text-gray-700">{{ cat.label }}</h4>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
                         {% for item in cat.items %}
-                        <label class="equipment-row">
+                        <label class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
                             <input type="checkbox" name="equipment" value="{{ item.id }}"
                                    {% if item.id|stringformat:'s' in data.equipment %}checked{% endif %}
-                                   {% if not is_edit %}data-autosave="true" class="equipment-checkbox"{% endif %}>
-                            <span>{{ item.name|tdb }}</span>
+                                   {% if not is_edit %}data-autosave="true"{% endif %}
+                                   class="w-4 h-4 rounded{% if not is_edit %} equipment-checkbox{% endif %}">
+                            <span class="text-sm text-gray-700">{{ item.name|tdb }}</span>
                         </label>
                         {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
+                </div>
             </div>
             {% endif %}
 
             {# ════════════════════════════════════════════════ #}
             {#  DESCRIPTION                                     #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Description" %}</div>
-                <textarea name="description" rows="6" placeholder="{% trans 'Describe your truck...' %}" class="form-textarea" {% if not is_edit %}data-autosave="true"{% endif %}>{{ data.description }}</textarea>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Description" %}</h3>
+                </div>
+                <div class="p-6">
+                <textarea name="description" rows="6" placeholder="{% trans 'Describe your truck...' %}" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>{{ data.description }}</textarea>
+                </div>
             </div>
 
             {# ════════════════════════════════════════════════ #}
             {#  PHOTOS                                          #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">
-                    {% trans "Photos" %}{% if is_edit %} ({{ current_listing.images.count }} / 40){% endif %}
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Photos" %}{% if is_edit %} ({{ current_listing.images.count }} / 40){% endif %}</h3>
                 </div>
+                <div class="p-6">
 
                 <div class="photo-drop-zone" id="dropZone" onclick="document.getElementById('photoInput').click()">
                     <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -639,41 +536,50 @@
                         {% endif %}
                     {% endif %}
                 </div>
+                </div>
             </div>
 
             {# ════════════════════════════════════════════════ #}
             {#  VIDEO                                           #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Video (optional)" %}</div>
-                <input type="url" name="video_url" value="{{ data.video_url }}" placeholder="{% trans 'YouTube URL — e.g. https://youtube.com/watch?v=...' %}" class="form-input" {% if not is_edit %}data-autosave="true"{% endif %}>
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Video (optional)" %}</h3>
+                </div>
+                <div class="p-6">
+                <input type="url" name="video_url" value="{{ data.video_url }}" placeholder="{% trans 'YouTube URL — e.g. https://youtube.com/watch?v=...' %}" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" {% if not is_edit %}data-autosave="true"{% endif %}>
+                </div>
             </div>
 
             {# ════════════════════════════════════════════════ #}
             {#  PRICE                                           #}
             {# ════════════════════════════════════════════════ #}
-            <div class="create-card">
-                <div class="create-card-title">{% trans "Price" %}</div>
-                <div class="field-grid">
-                    <div class="col-2">
-                        <label class="field-label">{% trans "Asking price" %}<span class="required-star">*</span></label>
-                        <div class="with-suffix">
-                            <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" class="form-input {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <span data-valiutos-sufiksas class="suffix">€</span>
-                            {% valiutos_kodas data.country as val_kodas %}{% comment %}Subkategorija keliauja kartu su forma — kitaip perkrovus
-                            su klaidomis pasirinkimas dingtų.{% endcomment %}
-                            <input type="hidden" name="subcategory" value="{{ subkategorija }}" data-autosave="true">
-                            <input type="hidden" name="currency" value="{{ val_kodas }}">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-5">
+                <div class="px-6 py-3 border-b border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">{% trans "Price" %}</h3>
+                </div>
+                <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="md:col-span-2" data-field-wrap="price" data-required="true">
+                        <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Asking price" %} <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <input type="number" step="1" name="price" value="{{ data.price|floatformat:0 }}" min="0" placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm {% if errors.price %}has-error{% endif %}" {% if not is_edit %}data-autosave="true"{% endif %}>
+                            <span data-valiutos-sufiksas class="absolute right-3 top-2 text-gray-500 text-sm">€</span>
                         </div>
+                        {% valiutos_kodas data.country as val_kodas %}{% comment %}Subkategorija keliauja kartu su forma — kitaip perkrovus
+                        su klaidomis pasirinkimas dingtų.{% endcomment %}
+                        <input type="hidden" name="subcategory" value="{{ subkategorija }}" data-autosave="true">
+                        <input type="hidden" name="currency" value="{{ val_kodas }}">
                         {% if errors.price %}<span class="field-error-msg">{{ errors.price }}</span>{% endif %}
                     </div>
 
-                    <div class="col-2 flex items-end">
-                        <label class="equipment-row" style="padding: 0.55rem 0.75rem;">
-                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %} {% if not is_edit %}data-autosave="true"{% endif %}>
-                            <span>{% trans "Price is negotiable" %}</span>
+                    <div class="md:col-span-2 flex items-end">
+                        <label class="flex items-center gap-2 py-2 cursor-pointer">
+                            <input type="checkbox" name="negotiable" {% if data.negotiable %}checked{% endif %} {% if not is_edit %}data-autosave="true"{% endif %} class="w-4 h-4 rounded">
+                            <span class="text-sm text-gray-700">{% trans "Price is negotiable" %}</span>
                         </label>
                     </div>
+                </div>
                 </div>
             </div>
 
@@ -681,16 +587,22 @@
             {#  LOCATION                                        #}
             {# ════════════════════════════════════════════════ #}
             {% if not is_edit %}{% firstof 1 as contact_autosave %}{% else %}{% firstof '' as contact_autosave %}{% endif %}
-            {% include 'listings/partials/contact_block.html' with is_edit_mode=is_edit css_style='custom' card_class='create-card' card_title_class='create-card-title' grid_class='field-grid' cls_label='field-label' cls_star='required-star' cls_input='form-input' cls_select='form-select' autosave=contact_autosave errors=errors val_phone=user.profile.phone_number val_email=data.email|default:user.email val_country=data.country val_state=data.state val_city=data.city val_postal=data.postal_code val_address=data.address show_postal=True %}
+            {% comment %}Kontaktų blokas turi savo etaloninę (automobilių) išvaizdą —
+            ji gaunama nieko neperduodant. Anksčiau čia buvo perduodamas
+            sunkvežimių „skin'as" (css_style='custom', form-input…), todėl
+            blokas atrodė kitaip nei visa kita forma.{% endcomment %}
+            {% include 'listings/partials/contact_block.html' with is_edit_mode=is_edit autosave=contact_autosave errors=errors val_phone=user.profile.phone_number val_email=data.email|default:user.email val_country=data.country val_state=data.state val_city=data.city val_postal=data.postal_code val_address=data.address show_postal=True %}
 
             {# ─── Bottom action bar ─── #}
-            <div class="action-bar-bottom">
+            {% comment %}Mygtukų juosta — etalono (automobilių) išvaizda:
+            centre, be „sticky". Elgsena ta pati — type="submit".{% endcomment %}
+            <div class="flex items-center justify-center mb-8">
                 {% if is_edit %}
-                    <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="btn-cancel">{% trans "Cancel" %}</a>
-                    <button type="submit" class="btn-publish"><i class="fas fa-save"></i> {% trans "Save Changes" %}</button>
+                    <a href="{% url 'listing_detail' pk=current_listing.pk %}" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">{% trans "Cancel" %}</a>
+                    <button type="submit" class="px-12 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium text-sm">{% trans "Save Changes" %}</button>
                 {% else %}
-                    <a href="/?category=trucks" class="btn-cancel">{% trans "Cancel" %}</a>
-                    <button type="submit" class="btn-publish"><i class="fas fa-check"></i> {% trans "Publish Listing" %}</button>
+                    <a href="/?category=trucks" class="mr-3 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">{% trans "Cancel" %}</a>
+                    <button type="submit" class="px-16 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold text-base shadow">{% trans "Publish Listing" %}</button>
                 {% endif %}
             </div>
 

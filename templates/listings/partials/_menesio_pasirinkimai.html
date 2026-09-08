@@ -1,0 +1,25 @@
+{% load i18n %}{% comment %}
+MĖNESIO PASIRINKIMAI — tokie patys kaip automobilių formoje
+(listing_create_cars_quick.html): reikšmė 1..12, rodomas tekstas 01..12.
+
+Anksčiau sunkvežimiai siuntė „01".."12", ir tas pats laukas dviejose
+svetainės vietose turėjo skirtingą reikšmę. Rodomas tekstas nesikeičia.
+
+„pasirinkta" gali ateiti ir kaip „03", ir kaip 3 — todėl lyginam
+skaičiais (|add:0), o ne tekstais.
+
+Naudojimas:
+  {% include 'listings/partials/_menesio_pasirinkimai.html' with pasirinkta=data.first_registration_month %}
+{% endcomment %}<option value="">--</option>
+<option value="1" {% if pasirinkta|add:0 == 1 %}selected{% endif %}>01</option>
+<option value="2" {% if pasirinkta|add:0 == 2 %}selected{% endif %}>02</option>
+<option value="3" {% if pasirinkta|add:0 == 3 %}selected{% endif %}>03</option>
+<option value="4" {% if pasirinkta|add:0 == 4 %}selected{% endif %}>04</option>
+<option value="5" {% if pasirinkta|add:0 == 5 %}selected{% endif %}>05</option>
+<option value="6" {% if pasirinkta|add:0 == 6 %}selected{% endif %}>06</option>
+<option value="7" {% if pasirinkta|add:0 == 7 %}selected{% endif %}>07</option>
+<option value="8" {% if pasirinkta|add:0 == 8 %}selected{% endif %}>08</option>
+<option value="9" {% if pasirinkta|add:0 == 9 %}selected{% endif %}>09</option>
+<option value="10" {% if pasirinkta|add:0 == 10 %}selected{% endif %}>10</option>
+<option value="11" {% if pasirinkta|add:0 == 11 %}selected{% endif %}>11</option>
+<option value="12" {% if pasirinkta|add:0 == 12 %}selected{% endif %}>12</option>
