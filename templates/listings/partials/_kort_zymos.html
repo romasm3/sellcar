@@ -1,0 +1,32 @@
+{% load i18n %}{% comment %}
+═══════════════════════════════════════════════════════════════════════
+KORTELĖS ŽYMOS — viena vieta visiems sąrašams.
+
+Anksčiau žymos buvo perrašytos kiekviename sąraše atskirai, todėl
+pagrindinio puslapio „Pasiūlymų" kortelėse jų paprasčiausiai nebuvo.
+Nuo šiol tas pats blokas dedamas į kiekvieną kortelės nuotraukos
+langelį, tad naujos žymos atsiranda visur iš karto.
+
+Rodo:
+  • viršuje kairėje — „Naujas" (jei paskelbta per 3 paras) ir laikas
+    (partials/_laiko_zyma.html, tekstą įrašo _laiko_zyma_js.html);
+  • apačioje kairėje — VIN (jei yra) ir žvaigždutė (mokama iškėlimo
+    žyma, jei get_effective_star_level > 0).
+  „Žiūrėjote" į tą patį apatinį kampą prideda static/js/perziureti.js
+  pagal data-skelbimas — jam reikia tik .card-bottom-left arba
+  nuotraukos langelio, tad veikia savaime.
+
+Naudojimas (tėvas turi būti position: relative):
+    {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
+
+Stiliai: partials/_kort_zymos_stiliai.html — įtraukiamas kartą puslapyje.
+═══════════════════════════════════════════════════════════════════════
+{% endcomment %}<div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
+{% with zvaigzdes=listing.get_effective_star_level %}
+{% if listing.vin or zvaigzdes > 0 %}
+<div class="card-bottom-left">
+  {% if listing.vin %}<span class="sk-vin">{% trans "VIN" %}</span>{% endif %}
+  {% if zvaigzdes >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
+</div>
+{% endif %}
+{% endwith %}

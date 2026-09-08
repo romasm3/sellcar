@@ -1,0 +1,16 @@
+{% comment %}Kortelės žymų stiliai — pora, kurios anksčiau gyveno tik
+viename puslapyje, todėl kitur žyma likdavo neapipavidalinta. Spalvos
+nekeistos, tik perkeltos į bendrą vietą (docs/dizaino-sistema.md).
+
+Įtraukti KARTĄ puslapyje, šalia kitų kortelės stilių:
+    {% include 'listings/partials/_kort_zymos_stiliai.html' %}
+{% endcomment %}
+<style>
+  /* VIN — bendroje apatinio kampo krūvelėje, todėl be savo position */
+  .sk-vin { display: inline-flex; align-items: center; padding: 2px 6px;
+            background: rgba(6,118,71,.9); color: #fff; font-size: var(--fs-xs);
+            font-weight: var(--fw-semibold); border-radius: 4px; line-height: 1; }
+  /* Mokamo iškėlimo žvaigždutė */
+  .mini-1star, .mini-2star { background: rgba(0,0,0,0.35); color: #fff; border: none;
+                             text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+</style>
