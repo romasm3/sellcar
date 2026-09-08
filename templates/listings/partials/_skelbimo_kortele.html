@@ -14,8 +14,9 @@ Parametrai:
                 tik žemėlapio paieškoje ir tik darbalaukyje — ten žmogus
                 surenka filtrus bei mastelį ir jų prarasti nenori.
 
-Žymos: laikas ir „Naujas" — visada; VIN — jei yra; „Žiūrėjote" prideda
-static/js/perziureti.js pagal data-skelbimas.
+Žymos: bendras blokas partials/_kort_zymos.html (laikas, „Naujas",
+VIN, žvaigždutė). „Žiūrėjote" prideda static/js/perziureti.js pagal
+data-skelbimas.
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}
 <div class="sk-kort" data-skelbimas="{{ i.pk }}">
@@ -25,8 +26,7 @@ static/js/perziureti.js pagal data-skelbimas.
     {% else %}
       <span class="sk-be-nuotraukos"><i class="fas fa-car"></i></span>
     {% endif %}
-    <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=i.obj %}</div>
-    {% if i.vin %}<span class="sk-vin">{% trans "VIN" %}</span>{% endif %}
+    {% include 'listings/partials/_kort_zymos.html' with listing=i.obj %}
   </a>
 
   <div class="sk-turinys">

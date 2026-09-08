@@ -67,8 +67,6 @@
 .h-listing-card.highlighted-card { background: var(--accent-soft) !important; border-color: var(--accent) !important; }
 .h-listing-card.highlighted-card .h-img-side { background: transparent !important; }
 .card-badge-new { display:inline-flex; align-items:center; padding:3px 8px; background:rgba(16,185,129,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; font-size:0.62rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.4); }
-.mini-2star { background:rgba(0,0,0,0.35); color:#fff; border:none; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
-.mini-1star { background:rgba(0,0,0,0.35); color:#fff; border:none; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
 
 .sold-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:5; }
 .sold-badge-big { padding:5px 16px; background:#16a34a; color:#fff; font-size:0.85rem; font-weight:800; letter-spacing:0.08em; border-radius:5px; box-shadow:0 4px 12px rgba(0,0,0,0.3); transform:rotate(-8deg); }
@@ -322,6 +320,7 @@ a.sp-rail-btn { text-decoration:none; }
 
 [x-cloak] { display: none !important; }
 </style>
+{% include 'listings/partials/_kort_zymos_stiliai.html' %}
 {% endblock %}
 
 {% block content %}
@@ -895,13 +894,7 @@ a.sp-rail-btn { text-decoration:none; }
                             </a>
                             {% endif %}
                             {% endif %}
-                            <div class="card-top-left">{% include 'listings/partials/_laiko_zyma.html' with listing=listing %}</div>
-                            {% if eff_level > 0 %}
-                            <div class="card-bottom-left">
-                                {% if eff_level >= 1 %}<span class="card-mini-badge mini-1star">{% if listing.star_count > 0 %}{{ listing.star_count }} {% endif %}⭐</span>{% endif %}
-
-                            </div>
-                            {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
                         </div>
                         <div class="h-info-side">
                             <div class="ap-title-row">
@@ -1167,6 +1160,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
@@ -1206,6 +1200,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
 
                         </div>
                         <div class="home-tab-info">
@@ -1240,6 +1235,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
                         </div>
                         <div class="home-tab-info">
                             <div class="home-tab-title">{{ listing.title }}</div>
@@ -1272,6 +1268,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
                             {% if listing.views_count and listing.views_count > 0 %}
                             {% endif %}
                         </div>
@@ -1306,6 +1303,7 @@ function onSortChange(selectEl) {
                             {% else %}
                                 <div class="home-tab-no-img"><i class="fas fa-car"></i></div>
                             {% endif %}
+                            {% include 'listings/partials/_kort_zymos.html' with listing=listing %}
                             {% if listing.star_level >= 2 %}
                             {% elif listing.star_level >= 1 %}
                             {% endif %}
