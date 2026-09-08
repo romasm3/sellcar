@@ -1,12 +1,12 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-07 21:26:16 CEST
+Sugeneruota: 2026-09-08 08:27:24 CEST
 
 ## Kodas
 
 ```
 sukasi:      c6aa4e6 fix(nuotraukos): trynimas, pertvarkymas ir „pagrindinė" telefone; įkėlimas po vieną
-origin/master: 8b30369 Merge remote-tracking branch 'origin/master' into claude/pasijunge-mes-cy48ei
+origin/master: debc505 feat(korteles): „Pasiūlymų" srautas rodo tas pačias žymas kaip sąrašas
 šaka:        master
 darbo katalogas: švarus
 ```
@@ -23,15 +23,15 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.190107s
+HTTP 301, 0.001390s
 ```
 
 ## Skelbimų būsenos
 
 ```
 
-Listing — iš viso 6
-  active         6   MATOMAS
+Listing — iš viso 9
+  active         9   MATOMAS
   ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─
   nematomi dėl būsenos:      0
 Truck: skelbimų nėra.
@@ -52,29 +52,29 @@ Filesystem      Size  Used Avail Use% Mounted on
 ## Paskutinis auto-deploy
 
 ```
-Sep 07 21:26:11 vmi3306453 autoleft-deploy[1410158]:     de5208b fix(skelbimai): pateikus skelbimą — „pavyko" puslapis, o sėkmė žalia
-Sep 07 21:26:11 vmi3306453 autoleft-deploy[1410158]:     626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
-Sep 07 21:26:11 vmi3306453 autoleft-deploy[1410158]:     0cde182 feat(registracija): pranešimas savininkui apie naują vartotoją
-Sep 07 21:26:11 vmi3306453 autoleft-deploy[1410158]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
-Sep 07 21:26:11 vmi3306453 autoleft-deploy[1410137]: [2026-09-07 21:26:11] Kodas atnaujintas iki 8b30369
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:                                                                  ^
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     ----------------------------------------------------------------------
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     Ran 11 tests in 0.111s
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     FAILED (errors=4)
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:         hashed_name = hashed_name_func(*args)
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:         raise ValueError(
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     ValueError: Missing staticfiles manifest entry for 'js/valiuta.js'
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     ----------------------------------------------------------------------
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     Ran 4 tests in 0.320s
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     FAILED (errors=2)
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     
-Sep 07 21:26:16 vmi3306453 autoleft-deploy[1410269]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 08 08:27:20 vmi3306453 autoleft-deploy[1811326]:     de5208b fix(skelbimai): pateikus skelbimą — „pavyko" puslapis, o sėkmė žalia
+Sep 08 08:27:20 vmi3306453 autoleft-deploy[1811326]:     626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
+Sep 08 08:27:20 vmi3306453 autoleft-deploy[1811326]:     0cde182 feat(registracija): pranešimas savininkui apie naują vartotoją
+Sep 08 08:27:20 vmi3306453 autoleft-deploy[1811326]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
+Sep 08 08:27:20 vmi3306453 autoleft-deploy[1811306]: [2026-09-08 08:27:20] Kodas atnaujintas iki debc505
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:                                                                  ^
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     ----------------------------------------------------------------------
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     Ran 11 tests in 0.097s
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     FAILED (errors=4)
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:         hashed_name = hashed_name_func(*args)
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:       File "/root/autoleft/venv/lib/python3.10/site-packages/django/contrib/staticfiles/storage.py", line 516, in stored_name
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:         raise ValueError(
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     ValueError: Missing staticfiles manifest entry for 'js/valiuta.js'
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     ----------------------------------------------------------------------
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     Ran 4 tests in 0.358s
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     FAILED (errors=2)
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     
+Sep 08 08:27:24 vmi3306453 autoleft-deploy[1811378]:     PATIKRA NEPRAĖJO — nediegti.
 ```
