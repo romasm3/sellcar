@@ -224,13 +224,19 @@ body {
     box-shadow: 0 10px 15px -3px rgba(75, 85, 99, 0.3) !important;
 }
 
-/* text-primary → Pilka */
+/* text-primary → akcento spalva (VIENAS tonas, ne gradiento taskas).
+   Cia buvo --accent-grad-from (#9ca3af) — sviesiausias gradiento taskas,
+   skirtas fonams. Tekstui jis sutampa su --text-disabled, todel kaina ir
+   ikonos atrodydavo isjungtos. Gradientams si klase nenaudojama niekur
+   (bg-clip-text projekte nera), tad perkelti jos nereikia — uztenka
+   teisingo kintamojo. Gradiento kintamuju reiksmes nekeistos.
+   Zr. docs/dizaino-sistema.md, 6 skyrius. */
 .text-primary {
-    color: var(--accent-grad-from) !important;
+    color: var(--accent) !important;
 }
 .hover\:text-primary-dark:hover,
 .hover\:text-primary:hover {
-    color: var(--accent-grad-to) !important;
+    color: var(--accent-hover) !important;
 }
 
 /* ======================================== */
