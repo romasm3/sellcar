@@ -13,6 +13,7 @@ Naudojimas:
 from django.conf import settings
 from django.test.runner import DiscoverRunner
 from django.test.utils import override_settings
+from django.utils.functional import empty
 
 # Paprasta statinių saugykla — be turinio maišų ir be staticfiles.json.
 #
@@ -53,7 +54,24 @@ class BeDuombazes(DiscoverRunner):
             'staticfiles': {'BACKEND': STATINIU_SAUGYKLA},
         })
         self._statiniai.enable()
+        _pamirsk_saugykla()
 
     def teardown_test_environment(self, **kwargs):
-        self._statiniai.disable()
+        statiniai = getattr(self, '_statiniai', None)
+        if statiniai is not None:
+            statiniai.disable()
+            _pamirsk_saugykla()
         super().teardown_test_environment(**kwargs)
+
+
+def _pamirsk_saugykla():
+    """Priverstinai perkrauna `staticfiles_storage`.
+
+    `override_settings` pasikliauja Django signalu, kuris pamiršta seną
+    saugyklą pasikeitus STORAGES. Nesiremiam juo: signalo gaudytojas
+    skirtingose Django versijose stebi skirtingus raktus, o klaidos kaina
+    čia — sustojęs diegimas. Objektas yra `SimpleLazyObject`, tad
+    užtenka nuvalyti tai, ką jis jau buvo įsiminęs.
+    """
+    from django.contrib.staticfiles.storage import staticfiles_storage
+    staticfiles_storage._wrapped = empty
