@@ -1,6 +1,6 @@
 # Serverio būklė
 
-Sugeneruota: 2026-09-08 09:05:41 CEST
+Sugeneruota: 2026-09-08 15:27:45 CEST
 
 ## Kodas
 
@@ -23,7 +23,7 @@ autoleft-deploy.timer    active
 ## Ar svetainė atsako
 
 ```
-HTTP 301, 0.001323s
+HTTP 301, 0.002325s
 ```
 
 ## Skelbimų būsenos
@@ -31,10 +31,10 @@ HTTP 301, 0.001323s
 ```
 
 Listing — iš viso 12
-  active        10   MATOMAS
-  draft          2   nematomas
+  active        11   MATOMAS
+  draft          1   nematomas
   ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─  ─
-  nematomi dėl būsenos:      2
+  nematomi dėl būsenos:      1
 Truck: skelbimų nėra.
 WheelListing: skelbimų nėra.
 
@@ -47,35 +47,35 @@ o ne taisyti kode.
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda1       291G   30G  262G  11% /
+/dev/sda1       291G   30G  261G  11% /
 ```
 
 ## Paskutinis auto-deploy
 
 ```
-Sep 08 09:05:37 vmi3306453 autoleft-deploy[1836311]:     de5208b fix(skelbimai): pateikus skelbimą — „pavyko" puslapis, o sėkmė žalia
-Sep 08 09:05:37 vmi3306453 autoleft-deploy[1836311]:     626d94a feat(nuotraukos): visos 28 create formos valdo nuotraukas vienodai
-Sep 08 09:05:37 vmi3306453 autoleft-deploy[1836311]:     0cde182 feat(registracija): pranešimas savininkui apie naują vartotoją
-Sep 08 09:05:37 vmi3306453 autoleft-deploy[1836311]:     f4511d0 refactor(nuotraukos): vienas bendras nuotraukų valdymas visoms 28 create formoms
-Sep 08 09:05:37 vmi3306453 autoleft-deploy[1836290]: [2026-09-08 09:05:37] Kodas atnaujintas iki ae14238
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:         return self.cursor.execute(sql, params)
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     django.db.utils.ProgrammingError: column listings_listing.axle_count does not exist
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     LINE 1: ...capacity_l", "listings_listing"."sleeping_seats", "listings_...
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:                                                                  ^
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     ----------------------------------------------------------------------
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     Ran 11 tests in 0.094s
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     FAILED (errors=4)
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     ── 3/3  Vertimai: /en/ be lietuvių kalbos, šablonai apvynioti
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     Found 4 test(s).
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     System check identified no issues (0 silenced).
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     ....
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     ----------------------------------------------------------------------
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     Ran 4 tests in 0.350s
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     OK
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     
-Sep 08 09:05:40 vmi3306453 autoleft-deploy[1836418]:     PATIKRA NEPRAĖJO — nediegti.
+Sep 08 15:17:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:19:07 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:19:08 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:19:08 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:20:20 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:20:20 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:20:20 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:21:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:21:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:21:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:22:54 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:22:54 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:22:54 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:23:59 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:23:59 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:23:59 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:25:01 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:25:02 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:25:02 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:26:20 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:26:20 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:26:20 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
+Sep 08 15:27:30 vmi3306453 systemd[1]: Starting AutoLeft — deploy iš git, kai master gauna naujų commit'ų...
+Sep 08 15:27:31 vmi3306453 systemd[1]: autoleft-deploy.service: Deactivated successfully.
+Sep 08 15:27:31 vmi3306453 systemd[1]: Finished AutoLeft — deploy iš git, kai master gauna naujų commit'ų.
 ```
