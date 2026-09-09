@@ -233,8 +233,17 @@ tikrink('salies-juosta' in html and 'salies-eilute' in html, 'yra juostos strukt
 tikrink(html.count('salies-punktas') >= 5, 'sąraše „Visos šalys" ir 4 šalys')
 tikrink('Visos šalys' in html, 'yra „Visos šalys" eilutė')
 tikrink('su-skirtuku' in html, '„Visos šalys" atskirta linija')
-tikrink(re.search(r'flags/visos(\.[0-9a-f]{8,12})?\.svg', html),
-        'gaublio ikona')
+# „Visos šalys" vėliavos NETURI. Anksčiau jos vietoje buvo gaublys, ir
+# eilutėje atsidurdavo dvi vietos ikonos iš eilės: smeigtukas kairėje ir
+# gaublys po pavadinimo. Vieta žymima vienu ženklu — smeigtuku.
+tikrink(not re.search(r'flags/visos(\.[0-9a-f]{8,12})?\.svg', html),
+        'gaublio prie „Visos šalys" nebeturi būti')
+tikrink('salies-smeigtukas' in html, 'vietą žymi smeigtukas')
+tikrink('stroke="currentColor"' in html,
+        'smeigtukas paveldi teksto spalvą (currentColor, ne įkoduota)')
+# Tikros šalys vėliavą rodo kaip rodžiusios
+tikrink(re.search(r'flags/lt(\.[0-9a-f]{8,12})?\.svg', html),
+        'šalies vėliava lieka')
 # Eilutės vėliavėlė ateina iš bendros dalies (_veliava.html) — savo
 # klasės neturi, atpažįstam pagal .veliava-didele.
 tikrink('veliava-didele' in html, 'eilutėje yra vėliavėlė prieš pavadinimą')

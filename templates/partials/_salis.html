@@ -112,10 +112,12 @@ sprendžia CSS (@media).{% endcomment %}
      @keydown.escape.window="atidaryta = false">
 
   <div class="salies-eilute">
-    <svg class="salies-smeigtukas" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="1.8" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/>
+    {% comment %}Vietos ženklas eilutėje — vienintelis. „Visos šalys"
+    vėliavos nebeturi (buvo gaublys), kad iš eilės nestovėtų dvi vietos
+    ikonos. Spalva paveldima per currentColor, dydis — iš .salies-smeigtukas.{% endcomment %}
+    <svg class="salies-smeigtukas" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/>
       <circle cx="12" cy="10" r="2.6"/>
     </svg>
     <span class="salies-vardas">{{ salies_vardas }}</span>
