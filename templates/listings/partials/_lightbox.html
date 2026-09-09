@@ -172,9 +172,22 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
   .lb-img.is-grabbing { cursor: grabbing; }
   .lb-blur { position: absolute; inset: var(--sp-2) 64px; margin: auto;
              filter: blur(18px); transform: scale(1.04); }
-  .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
-  .lb-prev { left: var(--sp-3); }
-  .lb-next { right: var(--sp-3); }
+  /* Rodyklės didesnės nei viršutinės juostos mygtukai: jos spaudomos
+     dažniausiai, o 34 px ant nuotraukos buvo per maža taikytis. Dydį ir
+     foną rašom po bendrąja `.lb-tools button, .lb-arrow` taisykle, kad
+     viršutinė juosta liktų tokia pat.
+     Fonas tamsus permatomas — baltas .08 ant šviesios nuotraukos
+     pradingdavo. */
+  .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+              width: 60px; height: 60px; background: rgba(0, 0, 0, .45); }
+  .lb-arrow:hover { background: rgba(0, 0, 0, .65); }
+  .lb-arrow svg { width: 30px; height: 30px; }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  @media (max-width: 640px) {
+    .lb-arrow { width: 48px; height: 48px; }
+    .lb-arrow svg { width: 24px; height: 24px; }
+  }
   .lb-thumbs { flex: 0 0 auto; display: flex; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3);
                overflow-x: auto; overscroll-behavior-x: contain;
                scrollbar-width: none; -ms-overflow-style: none; }
@@ -186,8 +199,6 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
   .lb-thumb.is-on { opacity: 1; border-color: #fff; }
   @media (max-width: 1023px) {
     .lb-thumb { width: 64px; height: 48px; }
-    .lb-prev { left: var(--sp-1); }
-    .lb-next { right: var(--sp-1); }
   }
 </style>
 
