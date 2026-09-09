@@ -48,7 +48,7 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
     <div class="lb-frame">
       {% comment %}Blur-up: kol didelė kraunasi, rodom išplėstą mažąją.{% endcomment %}
       <img class="lb-blur" :src="items[idx] && items[idx].sm" alt="" x-show="!loaded" aria-hidden="true">
-      <img class="lb-img" :src="items[idx] && items[idx].full" :alt="alt"
+      <img class="lb-img" :src="items[idx] && items[idx].full" :alt="alt" decoding="async"
            :style="'transform: translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'"
            :class="[scale > 1 && 'is-zoomed', grabbing && 'is-grabbing']"
            @load="loaded = true" @dragstart.prevent>
@@ -192,6 +192,20 @@ Matmenys ir spalvos — docs/dizaino-sistema.md kintamieji.
 </style>
 
 <script>
+// Vieną adresą šildom vieną kartą: peržiūra ir puslapio juosta naudoja
+// tą patį sąrašą, o kaimynai kartojasi kas žingsnį. Be šito po kelių
+// paspaudimų tas pats failas būtų užsakomas dešimtis kartų — su šiltu
+// kešu tai nieko nekainuoja, bet be jo (arba kešui pasibaigus) būtų
+// tikras eismas.
+window.__lbSildyta = window.__lbSildyta || {};
+function sildyk(url) {
+  if (!url || window.__lbSildyta[url]) { return; }
+  window.__lbSildyta[url] = true;
+  var im = new Image();
+  im.decoding = 'async';
+  im.src = url;
+}
+
 function lightbox() {
   return {
     on: false, idx: 0, items: [], alt: '',
@@ -233,8 +247,24 @@ function lightbox() {
       else { history.pushState(null, '', h); }
     },
 
+    // Kaimynų šildymas. Visas nuotraukas fone šildo puslapio juosta
+    // (galerijosJuosta.preloadVisas), bet peržiūra atsidaro ir tiesiai
+    // iš adreso #gallery/3, ir pirmas sekundes po atidarymo šildymas dar
+    // nebūna baigtas. Todėl kiekvienas žingsnis pasirūpina artimiausiais
+    // kadrais — tiek jų ir tereikia greitai spaudinėjant.
+    sildykKaimynus() {
+      var n = this.items.length;
+      if (!n) { return; }
+      var self = this;
+      [this.idx - 1, this.idx + 1, this.idx + 2].forEach(function (x) {
+        var it = self.items[(x + n) % n];
+        if (it) { sildyk(it.full); }
+      });
+    },
+
     open(i, isHash) {
       this.idx = i || 0; this.reset(); this.on = true;
+      this.sildykKaimynus();
       // Fonas nejuda, bet padėtis išsaugoma — uždarius grįžtam tiksliai ten
       this._scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
@@ -248,11 +278,14 @@ function lightbox() {
       // Uždarant mygtuku grįžtam per istoriją, kad „atgal" nesugrąžintų galerijos
       if (!isHash && location.hash.indexOf('#gallery/') === 0) { history.back(); }
     },
-    show(i, isHash) { this.idx = i; this.reset(); this.setHash(!!isHash); },
+    show(i, isHash) {
+      this.idx = i; this.reset(); this.sildykKaimynus(); this.setHash(!!isHash);
+    },
     go(d) {
       if (!this.items.length) { return; }
       this.idx = (this.idx + d + this.items.length) % this.items.length;
       this.reset();
+      this.sildykKaimynus();
       this.setHash(true);
     },
     reset() { this.scale = 1; this.tx = 0; this.ty = 0; this.loaded = false; },

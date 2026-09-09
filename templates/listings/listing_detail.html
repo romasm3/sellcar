@@ -3008,6 +3008,43 @@ function galerijosJuosta(kiek) {
       });
     },
 
+    // ─── Peržiūros nuotraukų šildymas ───────────────────────────
+    // Peržiūroje (lightbox) skaidrė rodoma tiesiai iš url_lg, o tos
+    // nuotraukos sveria 135–320 KB. Greitai spaudinėjant „kitas"
+    // sekanti dar nebūdavo atsisiųsta ir keliaudavo tik tada, kai jos
+    // prireikdavo — matėsi kaip strigimas.
+    //
+    // Todėl atidarius peržiūrą fone susikuriam Image objektus VISOMS
+    // nuotraukoms: DOM elementų tai nekuria, tik sušildo naršyklės
+    // talpyklą, o iš jos skaidrė atsiranda iškart. Puslapio juostos
+    // miniatiūrų tingus krovimas (loading="lazy") lieka nepaliestas —
+    // čia tik pilno dydžio peržiūros nuotraukos.
+    preloadDaryta: false,
+    preloadVisas() {
+      if (this.preloadDaryta) { return; }
+      this.preloadDaryta = true;
+      // Sąrašas — tas pats, kurį naudoja peržiūra (window.__lbImages).
+      // Jo nesant imam iš juostos (data-pilna) — tie patys url_lg.
+      var sarasas = (window.__lbImages || []).map(function (im) {
+        return im && im.full;
+      });
+      if (!sarasas.length) {
+        sarasas = Array.prototype.map.call(
+          this.$el.querySelectorAll('.ld-img'),
+          function (el) { return el.dataset.pilna; });
+      }
+      // sildyk() — bendras peržiūros šildytojas (_lightbox.html): tas
+      // pats adresas užsakomas vieną kartą, kad kaimynų šildymas
+      // nekartotų to, kas jau paimta.
+      sarasas.forEach(function (url) {
+        if (typeof sildyk === 'function') { sildyk(url); return; }
+        if (!url) { return; }
+        var im = new Image();
+        im.decoding = 'async';
+        im.src = url;
+      });
+    },
+
     // ─── Braukymas pirštu ───────────────────────────────────────
     // Telefone rodyklės mažos ir dengia pačią nuotrauką, o braukymas
     // yra tai, ko žmogus ir tikisi. Reikalaujam, kad judesys būtų
@@ -3040,6 +3077,12 @@ function galerijosJuosta(kiek) {
 
     atidaryk(i) {
       if (this.braukta) { this.braukta = false; return; }
+      // Šildom per requestIdleCallback, kad nekonkuruotų su tuo, ką
+      // naršyklė daro atidarymo metu; be jo — po trumpos pauzės.
+      var self = this;
+      var sildyk = function () { self.preloadVisas(); };
+      if (window.requestIdleCallback) { window.requestIdleCallback(sildyk); }
+      else { setTimeout(sildyk, 200); }
       if (window.lb) { window.lb.open(i); }
     },
   };
