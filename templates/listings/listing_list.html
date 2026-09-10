@@ -1060,8 +1060,22 @@ a.sp-rail-btn { text-decoration:none; }
     kurį galima įdėti ir čia, kai prireiks.{% endcomment %}
 
     <div class="max-w-7xl mx-auto px-4 py-6">
+        {% comment %}Skaičius — TAS PATS, kurį rodo šalies juosta žemiau
+        („Visos šalys · N"): salies_kiekis iš konteksto procesoriaus
+        (apps/listings/context_processors.py salis → salies_juosta).
+
+        Ne total_count: jis skaičiuoja `listings`, o tas queryset'as
+        susiaurintas iki automobilių (views.py listing_list —
+        category_filter numatytai 'cars'). Pagrindiniame puslapyje
+        skelbimų sąrašo iš viso nėra (žr. komentarą žemiau), o skirtukai
+        apačioje rodo visas kategorijas, tad „Rasta 13" prieštaravo ir
+        juostai, ir tam, ką žmogus mato. Rezultatų puslapis (sidebar)
+        toliau naudoja total_count — ten jis atitinka rodomą sąrašą.
+
+        |default:0|add:0 — kaip ir juostoje: salies_kiekis yra tingus
+        objektas, o „blocktrans count" priima tik tikrą skaičių.{% endcomment %}
         <div class="flex items-center justify-between mb-6">
-            <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=total_count %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
+            <p class="text-gray-500 text-lg font-medium">{% blocktrans count counter=salies_kiekis|default:0|add:0 %}Found {{ counter }} listing{% plural %}Found {{ counter }} listings{% endblocktrans %}</p>
         </div>
 
         {% comment %}Šalies juosta — ATSKIRA eilutė virš panelės. Panelės
