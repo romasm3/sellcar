@@ -2478,10 +2478,31 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                             <span class="font-medium text-gray-900">{{ listing.seats }}</span>
                         </div>
                         {% endif %}
+                        {% comment %}Cilindrų ir pavarų skaičius bei modifikacija —
+                        formoje jie pildomi, bet čia nebuvo rodomi. Eilių tvarka kaip
+                        Autogide: cilindrai, pavaros, ratlankiai, modifikacija.{% endcomment %}
+                        {% if listing.cylinders %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Cilindrų skaičius" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_cylinders_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.gear_count %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Pavarų skaičius" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.get_gear_count_display }}</span>
+                        </div>
+                        {% endif %}
                         {% if listing.rim_size %}
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Rim Size" %}</span>
                             <span class="font-medium text-gray-900">{{ listing.rim_size }}"</span>
+                        </div>
+                        {% endif %}
+                        {% if listing.modification %}
+                        <div class="flex justify-between py-3 border-b border-gray-200">
+                            <span class="text-gray-600">{% trans "Modifikacija" %}</span>
+                            <span class="font-medium text-gray-900">{{ listing.modification }}</span>
                         </div>
                         {% endif %}
                         {% if listing.climate %}

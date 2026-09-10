@@ -270,7 +270,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Modification (TDI, TSI, CDI...)" %}</label>
-                            <input type="text" name="modification" placeholder="---------" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                            <input type="text" name="modification" placeholder="---------"
+                                   value="{{ listing_data.step3_partial.modification|default:'' }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Tech inspection until" %}</label>
@@ -285,9 +287,20 @@
                                    value="{{ listing_data.step3_partial.power|default:''|unlocalize }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
+                        {% comment %}Šitas laukas rodė TĄ PATĮ {{ form.rim_size }}
+                        kaip „Ratlankiai" žemiau — du <select> vienodu name ir id.
+                        Naršyklė siunčia abu, o request.POST.get() ima PASKUTINĮ,
+                        tad neužpildytasis ištrindavo įvestą ratlankių reikšmę.
+                        Vardas ir id dabar savi; vaizdas ir pasirinkimai tie patys.
+                        Vaizdas šio lauko neskaito — atrodo perteklinis, bet
+                        nešalinu savo nuožiūra (žr. ataskaitą).{% endcomment %}
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Summer/Winter wheels" %}</label>
-                            {{ form.rim_size }}
+                            <select name="rim_size_sezoniniai" id="id_rim_size_sezoniniai" class="form-control">
+                                {% for v, l in form.rim_size.field.choices %}
+                                <option value="{{ v }}">{{ l }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "CO₂ emission, g/km" %}</label>

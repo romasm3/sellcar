@@ -2819,6 +2819,9 @@ def _draft_to_session_data(draft):
         data['step1']['vin'] = draft.vin
 
     s3p = data['step3_partial']
+    # Modifikacija nėra Step3 formos laukas (šablone tai paprastas
+    # <input>), tad į formą ji grįžta tik per šitą reikšmę.
+    s3p['modification'] = draft.modification or ''
     s3p['body_type'] = draft.body_type or ''
     s3p['fuel_type'] = str(draft.fuel_type_id) if draft.fuel_type_id else ''
     s3p['transmission'] = str(draft.transmission_id) if draft.transmission_id else ''
@@ -7079,6 +7082,9 @@ def listing_create_cars_quick(request):
         # Etalono laukai (docs/autogidas-laukai.md „Papildomi duomenys")
         target.cylinders = request.POST.get('cylinders', '')
         target.gear_count = request.POST.get('gear_count', '')
+        # Modifikacija („318i Touring Facelift") — laukas šablone buvo,
+        # bet reikšmė niekur nekeliavo, tad po išsaugojimo dingdavo.
+        target.modification = request.POST.get('modification', '')
         target.manufacturer_warranty = request.POST.get('manufacturer_warranty') == 'on'
         target.sdk_number = request.POST.get('sdk_number', target.sdk_number or '').strip()
         target.drive_type = request.POST.get('drive_type', '')
@@ -7339,6 +7345,10 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
             'power': source.power,
             'drive_type': source.drive_type,
             'seats': source.seats,
+            # Be šitų dviejų įrašyta reikšmė edit'e atrodė tuščia, nors
+            # duomenų bazėje buvo — laukas tiesiog nebūdavo užpildomas.
+            'cylinders': source.cylinders,
+            'gear_count': source.gear_count,
             'rim_size': source.rim_size,
             'climate': source.climate,
             'curb_weight': source.curb_weight,
