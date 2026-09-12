@@ -170,7 +170,14 @@ def patikra_posto(modelis, post, laukai=None):
             continue
         if laukas.name not in post:
             continue
-        tekstas = (post.get(laukas.name) or '').strip()
+        # Ne visi kvietėjai paduoda žalią POST'ą: listing_helpers
+        # .parse_common_listing_fields `year` ir `price` jau paverčia
+        # skaičiais (_int_or_none / _float_or_none), o tada .strip()
+        # nebeturi į ką atsiremti — buvo 500 vos atsiuntus galiojantį
+        # skaičių (/create/car-for-parts/ su price=33).
+        reiksme_is_posto = post.get(laukas.name)
+        tekstas = ('' if reiksme_is_posto is None
+                   else str(reiksme_is_posto).strip())
         if not tekstas:
             continue
 
