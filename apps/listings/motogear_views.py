@@ -741,11 +741,16 @@ def _handle_post(request, edit_listing=None):
         request.user.profile.phone_number = phone_val
         request.user.profile.save(update_fields=['phone_number'])
 
-    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
-    issaugok_pasta(listing, request)
-
-    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
-    errors.extend(skaiciai.netelpa(listing))
+    # Kontaktinis paštas ir skaičių ribos — ant TO objekto, kuris jau yra.
+    #
+    # Anksčiau čia stovėjo `listing`, bet jis atsiranda tik žemiau
+    # (_save_draft_fields). Redaguojant jis nesukuriamas niekada, tad kiekvienas
+    # išsaugojimas baigdavosi UnboundLocalError → 500. Redagavimo objektas
+    # vadinasi `edit_listing`; kuriant tie patys žingsniai atliekami po to, kai
+    # skelbimas jau sukurtas.
+    if edit_listing:
+        issaugok_pasta(edit_listing, request)
+        errors.extend(skaiciai.netelpa(edit_listing))
 
     if errors:
         return render(
@@ -774,6 +779,21 @@ def _handle_post(request, edit_listing=None):
             _build_context(request, submitted=submitted, errors=errors, draft_id=draft_id,
                            edit_listing=edit_listing),
         )
+
+    # Tas pats, kas redagavimo šakoje — tik čia objektas atsiranda vėliau.
+    if not edit_listing:
+        issaugok_pasta(listing, request)
+        netelpantys = skaiciai.netelpa(listing)
+        if netelpantys:
+            return render(
+                request, 'listings/motogear_create.html',
+                _build_context(
+                    request, submitted=submitted, errors=netelpantys,
+                    draft_id=draft_id,
+                    selected_equipment_ids=_posted_equipment_ids(POST),
+                    edit_listing=edit_listing,
+                ),
+            )
 
     # Final submit may also include extra images (fallback) — but normally
     # they were uploaded via AJAX during typing.
