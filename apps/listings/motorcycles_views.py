@@ -772,13 +772,18 @@ def _handle_post(request):
         request.user.profile.phone_number = phone_val
         request.user.profile.save(update_fields=['phone_number'])
 
-    # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
-    issaugok_pasta(listing, request)
-
-    # Skaičiai, kurie netelpa į stulpelį (apps/listings/skaiciai.py)
-    netelpantys = skaiciai.netelpa(listing)
-    if netelpantys:
-        return _rerender(netelpantys)
+    # Kontaktinis paštas ir skaičių ribos — ant TO objekto, kuris jau yra.
+    #
+    # Anksčiau čia stovėjo `listing`, bet jis atsiranda tik kuriant, ir tik
+    # žemiau (_save_draft_fields). Redaguojant jis nesukuriamas niekada, tad
+    # kiekvienas išsaugojimas baigdavosi UnboundLocalError → 500.
+    # Redagavimo objektas vadinasi `edit_listing`; kuriant tie patys žingsniai
+    # atliekami po to, kai skelbimas jau sukurtas.
+    if is_edit_mode:
+        issaugok_pasta(edit_listing, request)
+        netelpantys = skaiciai.netelpa(edit_listing)
+        if netelpantys:
+            return _rerender(netelpantys)
 
     # ═══════════════════════════════════════════════════════
     # EDIT MODE — update existing listing in place, no re-activation
@@ -828,6 +833,12 @@ def _handle_post(request):
     if not listing:
         return _rerender(['Failed to save listing.'])
 
+    # Tas pats, kas redagavimo šakoje — tik čia objektas atsiranda vėliau.
+    issaugok_pasta(listing, request)
+    netelpantys = skaiciai.netelpa(listing)
+    if netelpantys:
+        return _rerender(netelpantys)
+
     images, _image_errors = split_valid_images(FILES.getlist('images'))
     for _err in _image_errors:
         messages.error(request, _err)
@@ -849,7 +860,10 @@ def _handle_post(request):
 
     # ═══ Pirmi 3 nemokami (bendrai per visas kategorijas) ═══
     from .constants import can_create_free_listing, FREE_LISTING_DAYS
-    is_free, _, _ = can_create_free_listing(request.user)
+    # NE `_`: tokia iškrova padaro `_` VIETINIU visai funkcijai, o `_` čia yra
+    # gettext. Tada bet kuri ankstesnė `_('…')` eilutė (pvz. „Kaina yra
+    # privaloma") krenta su UnboundLocalError, t. y. 500 vietoj klaidos žinutės.
+    is_free, aktyviu, nemokamu_riba = can_create_free_listing(request.user)
 
     if is_free:
         listing.activate(days=FREE_LISTING_DAYS)
