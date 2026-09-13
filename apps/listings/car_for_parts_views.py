@@ -239,12 +239,6 @@ def car_for_parts_create(request):
     draft = _get_draft(request)
 
     if request.method == 'POST':
-        if draft is None:
-            draft = _get_or_create_draft(request)
-        if not draft:
-            messages.error(request, "Parts category not configured.")
-            return redirect('listing_list')
-
         # 1. Parse fields — BENDRUS per helper, SPECIFINIUS atskirai
         common = parse_common_listing_fields(request)
         specific = _parse_car_for_parts_specific_fields(request)
@@ -258,6 +252,16 @@ def car_for_parts_create(request):
             for e in errors:
                 messages.error(request, e)
         else:
+            # Juodraščio eilutė DB atsiranda TIK dabar — kai forma jau praėjo
+            # patikrą. Anksčiau ji buvo kuriama iškart POST pradžioje, tad
+            # kiekvienas nepavykęs pateikimas (klaida formoje ar 500) palikdavo
+            # tuščią „Untitled draft" eilutę.
+            if draft is None:
+                draft = _get_or_create_draft(request)
+            if not draft:
+                messages.error(request, "Parts category not configured.")
+                return redirect('listing_list')
+
             # 3. Apply BENDRUS laukus per helper
             apply_common_fields_to_listing(draft, common)
 
