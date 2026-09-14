@@ -6137,6 +6137,106 @@ def admin_toggle_shadow_ban(request, pk):
 
 
 @user_passes_test(_is_superuser)
+def admin_visitors_stats(request):
+    """/admin-moderate/visitors/ — lankytojai pagal šalį.
+
+    Duomenys — apps.analytics.VisitorHit, kurį pildo
+    apps/analytics/middleware.py. Žalio IP ten nėra: unikalus lankytojas
+    atpažįstamas pagal `ip_hash` (sha256 su SECRET_KEY druska).
+
+    Botai skaičiuojami ATSKIRAI ir į „realius lankytojus" neįtraukiami —
+    kitaip skenerių srautas nustelbtų žmones.
+
+    Viskas skaičiuojama DB pusėje: lentelė didelė, o į atmintį traukti
+    eilučių negalima (dėl to buvo nukritęs /sales-stats/).
+    """
+    from apps.analytics import valymas
+    from apps.analytics.models import SAUGOM_DIENAS, VisitorHit
+
+    # Lentelė neturi augti be galo; cron'o serveryje gali ir nebūti.
+    valymas.valyk_karta_per_para()
+
+    LAIKOTARPIAI = (
+        ('today', _('Šiandien'), 0),
+        ('7d', _('7 d.'), 7),
+        ('30d', _('30 d.'), 30),
+        ('all', _('Viskas'), None),
+    )
+    pasirinktas = request.GET.get('laikotarpis', '30d')
+    if pasirinktas not in [z for z, _v, _d in LAIKOTARPIAI]:
+        pasirinktas = '30d'
+
+    now = timezone.now()
+    nuo = None
+    for zyme, _vardas, dienos in LAIKOTARPIAI:
+        if zyme != pasirinktas:
+            continue
+        if dienos == 0:
+            nuo = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        elif dienos:
+            nuo = now - timedelta(days=dienos)
+
+    visi = VisitorHit.objects.all()
+    if nuo is not None:
+        visi = visi.filter(created_at__gte=nuo)
+
+    zmones = visi.filter(is_bot=False)
+
+    apsilankymu = zmones.count()
+    unikaliu = zmones.values('ip_hash').distinct().count()
+    botu = visi.filter(is_bot=True).count()
+
+    pagal_sali = list(
+        zmones.values('country', 'country_name')
+        .annotate(unikaliu=Count('ip_hash', distinct=True),
+                  apsilankymu=Count('id'))
+        .order_by('-unikaliu', '-apsilankymu')
+    )
+
+    # Ta pati šalis su tuščiu ir užpildytu pavadinimu būtų dvi eilutės.
+    sujungta = {}
+    for eil in pagal_sali:
+        kodas = (eil['country'] or '??').upper()
+        t = sujungta.setdefault(kodas, {
+            'kodas': kodas, 'vardas': '', 'unikaliu': 0, 'apsilankymu': 0,
+        })
+        t['unikaliu'] += eil['unikaliu']
+        t['apsilankymu'] += eil['apsilankymu']
+        if not t['vardas'] and eil['country_name']:
+            t['vardas'] = eil['country_name']
+
+    salys = sorted(sujungta.values(),
+                   key=lambda e: (-e['unikaliu'], -e['apsilankymu']))
+    for eil in salys:
+        if not eil['vardas']:
+            eil['vardas'] = (_('Nežinoma') if eil['kodas'] in ('??', 'LOCAL')
+                             else eil['kodas'])
+        eil['procentai'] = (round(eil['unikaliu'] * 100.0 / unikaliu, 1)
+                            if unikaliu else 0)
+        # „LOCAL"/„??" vėliavėlės neturi — _veliava.html tuščio nerodo.
+        eil['veliavos_kodas'] = ('' if eil['kodas'] in ('??', 'LOCAL')
+                                 else eil['kodas'])
+
+    # Jei nginx neperduoda X-Forwarded-For, visi lankytojai atrodo kaip
+    # 127.0.0.1 ir suplaukia į „Nežinoma" (žr. deploy/nginx-tikras-ip.conf).
+    nezinomu = sum(e['unikaliu'] for e in salys
+                   if e['kodas'] in ('??', 'LOCAL'))
+    ip_itartinas = bool(unikaliu) and nezinomu >= unikaliu * 0.9
+
+    return render(request, 'listings/admin_visitors_stats.html', {
+        'ip_itartinas': ip_itartinas,
+        'laikotarpiai': [(z, v) for z, v, _d in LAIKOTARPIAI],
+        'pasirinktas': pasirinktas,
+        'apsilankymu': apsilankymu,
+        'unikaliu': unikaliu,
+        'botu': botu,
+        'salys': salys,
+        'saugom_dienas': SAUGOM_DIENAS,
+        'viso_lenteleje': VisitorHit.objects.count(),
+    })
+
+
+@user_passes_test(_is_superuser)
 def admin_sales_stats(request):
     from collections import defaultdict
 
@@ -6630,145 +6730,88 @@ def admin_sales_stats(request):
 
     # ════════════════════════════════════════════════════
 
-    from apps.analytics.models import PageView
-
-    from collections import defaultdict as _dd
-
-
-
-    _human_qs = PageView.objects.filter(is_bot=False)
-
-
-
-    def _unique_ips(start):
-
-        return set(_human_qs.filter(created_at__gte=start).values_list('ip_address', flat=True))
-
-
-
-    _ips_today = _unique_ips(today_start)
-
-    _ips_week = _unique_ips(week_ago)
-
-    _ips_month = _unique_ips(start_30d)
-
-
-
-    visitors_today = len(_ips_today)
-
-    visitors_week = len(_ips_week)
-
-    visitors_month = len(_ips_month)
-
-
-
-    _before_today = set(_human_qs.filter(created_at__lt=today_start).values_list('ip_address', flat=True))
-
-    _before_week = set(_human_qs.filter(created_at__lt=week_ago).values_list('ip_address', flat=True))
-
-    _before_month = set(_human_qs.filter(created_at__lt=start_30d).values_list('ip_address', flat=True))
-
-
-
-    returning_visitors_today = len(_ips_today & _before_today)
-
-    returning_visitors_week = len(_ips_week & _before_week)
-
-    returning_visitors_month = len(_ips_month & _before_month)
-
-
-
-    new_visitors_today = visitors_today - returning_visitors_today
-
-    new_visitors_week = visitors_week - returning_visitors_week
-
-    new_visitors_month = visitors_month - returning_visitors_month
-
-
-
-    _daily_ips = _dd(set)
-
-    for _ip, _ts in _human_qs.filter(created_at__gte=start_30d).values_list('ip_address', 'created_at'):
-
-        _daily_ips[_ts.date()].add(_ip)
-
-
-
-    traffic_labels_list = []
-
-    traffic_unique_list = []
-
-    _cur = start_30d.date()
-
-    _end_d = now.date()
-
-    while _cur <= _end_d:
-
-        traffic_labels_list.append(_cur.strftime('%Y-%m-%d'))
-
-        traffic_unique_list.append(len(_daily_ips.get(_cur, ())))
-
-        _cur += timedelta(days=1)
-
-
-
-    top_countries_data = list(
-
-        _human_qs.filter(created_at__gte=start_30d)
-
-        .exclude(country='')
-
-        .values('country', 'country_name')
-
-        .annotate(visitors=Count('ip_address', distinct=True))
-
-        .order_by('-visitors')[:10]
-
-    )
-
-    total_country_visitors = (
-
-        _human_qs.filter(created_at__gte=start_30d)
-
-        .exclude(country='')
-
-        .values('ip_address').distinct().count()
-
-    )
-
-    for _c in top_countries_data:
-
-        _c['percent'] = round(_c['visitors'] * 100.0 / total_country_visitors, 1) if total_country_visitors else 0
-
-
+    # Skaičiuojam DUOMENŲ BAZĖJE, ne Python'e.
+    #
+    # Kas buvo: trys `set(...values_list('ip_address', flat=True))` be jokio
+    # laiko rėžio — t. y. VISI istoriniai lankytojų įrašai į atmintį, ir dar
+    # `_daily_ips` su 30 dienų eilutėmis. Prie 400 tūkst. eilučių tai jau
+    # ~150 MB vienai užklausai ir auga tiesiškai; kai gunicorn darbininkas
+    # nebetelpa į atmintį, nginx tai parodo kaip 502 Bad Gateway.
+    # Dabar tą patį suskaičiuoja DB — atmintis nebepriklauso nuo eilučių
+    # skaičiaus.
+    from apps.analytics.models import VisitorHit
+
+    def _lankytoju_srautas():
+        zmones = VisitorHit.objects.filter(is_bot=False)
+
+        def _unikalus(nuo):
+            return zmones.filter(created_at__gte=nuo).values('ip_hash').distinct().count()
+
+        def _grizusiu(nuo):
+            # Tie, kurie laikotarpiu buvo IR anksčiau jau lankėsi.
+            per = zmones.filter(created_at__gte=nuo).values('ip_hash')
+            return (zmones.filter(created_at__lt=nuo, ip_hash__in=per)
+                    .values('ip_hash').distinct().count())
+
+        rezultatas = {}
+        for zyme, nuo in (('today', today_start), ('week', week_ago),
+                          ('month', start_30d)):
+            viso = _unikalus(nuo)
+            grizo = _grizusiu(nuo)
+            rezultatas['visitors_' + zyme] = viso
+            rezultatas['returning_visitors_' + zyme] = grizo
+            rezultatas['new_visitors_' + zyme] = viso - grizo
+
+        # Dienos pjūvis — irgi grupuojam DB, ne cikle per eilutes.
+        from django.db.models.functions import TruncDate
+        pagal_diena = {}
+        for e in (zmones.filter(created_at__gte=start_30d)
+                  .annotate(diena=TruncDate('created_at'))
+                  .values('diena')
+                  .annotate(kiek=Count('ip_hash', distinct=True))):
+            d = e['diena']
+            if not d:
+                continue
+            pagal_diena[d.date() if hasattr(d, 'date') else d] = e['kiek']
+
+        zymos, unikalus = [], []
+        diena = start_30d.date()
+        paskutine = now.date()
+        while diena <= paskutine:
+            zymos.append(diena.strftime('%Y-%m-%d'))
+            unikalus.append(pagal_diena.get(diena, 0))
+            diena += timedelta(days=1)
+        rezultatas['traffic_chart_labels'] = json.dumps(zymos)
+        rezultatas['traffic_chart_unique'] = json.dumps(unikalus)
+
+        salys = list(
+            zmones.filter(created_at__gte=start_30d)
+            .exclude(country='')
+            .values('country', 'country_name')
+            .annotate(visitors=Count('ip_hash', distinct=True))
+            .order_by('-visitors')[:10]
+        )
+        viso_salyse = (zmones.filter(created_at__gte=start_30d)
+                       .exclude(country='')
+                       .values('ip_hash').distinct().count())
+        for eil in salys:
+            eil['percent'] = (round(eil['visitors'] * 100.0 / viso_salyse, 1)
+                              if viso_salyse else 0)
+        rezultatas['top_countries_data'] = salys
+        rezultatas['total_country_visitors'] = viso_salyse
+        return rezultatas
+
+    # Lankytojų dalis — tik vienas iš dvidešimties šio puslapio blokų; jos
+    # klaida neturi nusinešti viso puslapio (buvo 502 visam /sales-stats/).
+    try:
+        _srautas = _lankytoju_srautas()
+    except Exception as e:
+        print('[sales-stats] lankytoju blokas nepavyko: %s' % e)
+        _srautas = {
+        }
 
     context = {
-
-        'visitors_today': visitors_today,
-
-        'visitors_week': visitors_week,
-
-        'visitors_month': visitors_month,
-
-        'new_visitors_today': new_visitors_today,
-
-        'new_visitors_week': new_visitors_week,
-
-        'new_visitors_month': new_visitors_month,
-
-        'returning_visitors_today': returning_visitors_today,
-
-        'returning_visitors_week': returning_visitors_week,
-
-        'returning_visitors_month': returning_visitors_month,
-
-        'traffic_chart_labels': json.dumps(traffic_labels_list),
-
-        'traffic_chart_unique': json.dumps(traffic_unique_list),
-
-        'top_countries_data': top_countries_data,
-
-        'total_country_visitors': total_country_visitors,
+        **_srautas,
 
         'total_listings': total_listings,
         'active_listings': active_listings,

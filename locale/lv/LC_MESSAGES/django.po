@@ -15989,11 +15989,11 @@ msgstr "Administrators"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "Vidēji lietotāji"
+msgstr "Lietotāju moderēšana"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "Mēreni tirgotāji"
+msgstr "Tirgotāju moderēšana"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

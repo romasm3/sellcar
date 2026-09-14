@@ -328,6 +328,11 @@ STORAGES = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# ── Lankytojų šalys (apps/analytics/middleware.py) ──────────────────────
+# GeoLite2-Country.mmdb kelias. Nerastas failas arba neįdiegtas `geoip2`
+# nieko nelaužo — šalis tada lieka tuščia („Unknown").
+GEOIP_PATH = os.environ.get('GEOIP_PATH', str(BASE_DIR / 'data' / 'GeoLite2-Country.mmdb'))
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Crispy forms

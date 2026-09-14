@@ -15957,11 +15957,11 @@ msgstr "관리자"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "보통 사용자"
+msgstr "사용자 관리"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "중도 딜러"
+msgstr "딜러 관리"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

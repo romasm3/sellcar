@@ -16018,11 +16018,11 @@ msgstr "Administrateur"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "Utilisateurs modérés"
+msgstr "Modérer les utilisateurs"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "Concessionnaires modérés"
+msgstr "Modérer les concessionnaires"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

@@ -15982,11 +15982,11 @@ msgstr "Quản trị viên"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "Người dùng trung bình"
+msgstr "Kiểm duyệt người dùng"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "Các đại lý trung bình"
+msgstr "Kiểm duyệt đại lý"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

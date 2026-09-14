@@ -15974,11 +15974,11 @@ msgstr "Administratorius"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "Vidutiniai vartotojai"
+msgstr "Vartotojų moderavimas"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "Vidutiniai vartotojai"
+msgstr "Prekiautojų moderavimas"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

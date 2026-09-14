@@ -15956,11 +15956,11 @@ msgstr "行政"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "中度用户"
+msgstr "用户审核"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "中等价位的经销商"
+msgstr "经销商审核"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load i18n listing_filters %}
+
+{% block title %}{% trans "Lankytojų statistika" %} - AutoLeft{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+            <i class="fas fa-shield-alt text-red-600 text-xl"></i>
+            <div>
+                <div class="font-semibold text-red-900">{% trans "Administratoriaus skydelis" %}</div>
+                <div class="text-sm text-red-700">
+                    {% blocktrans %}IP adresai nesaugomi — lankytojai atpažįstami tik pagal vienakryptę maišą.{% endblocktrans %}
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">{% trans "Lankytojų statistika" %}</h1>
+            <a href="{% url 'admin_users_list' %}" class="text-sm text-blue-600 hover:underline">
+                &larr; {% trans "Vartotojų moderavimas" %}
+            </a>
+        </div>
+
+        {% if ip_itartinas %}
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-sm text-amber-900">
+            <i class="fas fa-triangle-exclamation mr-1"></i>
+            {% blocktrans %}Beveik visi lankytojai be šalies — panašu, kad nginx neperduoda tikro IP. Žr. deploy/nginx-tikras-ip.conf{% endblocktrans %}
+        </div>
+        {% endif %}
+
+        {# Laikotarpio filtras #}
+        <div class="flex flex-wrap gap-2 mb-6">
+            {% for zyme, vardas in laikotarpiai %}
+            <a href="?laikotarpis={{ zyme }}"
+               class="px-4 py-2 rounded-lg text-sm font-medium border transition-colors
+                      {% if zyme == pasirinktas %}bg-blue-600 text-white border-blue-600{% else %}bg-white text-gray-700 border-gray-200 hover:bg-gray-100{% endif %}">
+                {{ vardas }}
+            </a>
+            {% endfor %}
+        </div>
+
+        {# Suvestinė #}
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="text-sm text-gray-500">{% trans "Viso apsilankymų" %}</div>
+                <div class="text-3xl font-bold text-gray-900 mt-1">{{ apsilankymu|sk }}</div>
+                <div class="text-xs text-gray-400 mt-1">{% trans "be botų" %}</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="text-sm text-gray-500">{% trans "Unikalių lankytojų" %}</div>
+                <div class="text-3xl font-bold text-blue-600 mt-1">{{ unikaliu|sk }}</div>
+                <div class="text-xs text-gray-400 mt-1">{% trans "skirtingi įrenginiai" %}</div>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-200 p-5">
+                <div class="text-sm text-gray-500">{% trans "Botų apsilankymų" %}</div>
+                <div class="text-3xl font-bold text-gray-400 mt-1">{{ botu|sk }}</div>
+                <div class="text-xs text-gray-400 mt-1">{% trans "neįskaičiuoti aukščiau" %}</div>
+            </div>
+        </div>
+
+        {# Pagal šalį #}
+        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="px-5 py-4 border-b border-gray-100">
+                <h2 class="font-semibold text-gray-900">{% trans "Lankytojai pagal šalį" %}</h2>
+            </div>
+
+            {% if salys %}
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-50 text-gray-500">
+                        <tr>
+                            <th class="text-left font-medium px-5 py-3">{% trans "Šalis" %}</th>
+                            <th class="text-right font-medium px-5 py-3">{% trans "Unikalūs" %}</th>
+                            <th class="text-right font-medium px-5 py-3">{% trans "Apsilankymai" %}</th>
+                            <th class="text-right font-medium px-5 py-3">%</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for eil in salys %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-5 py-3">
+                                <span class="inline-flex items-center gap-2">
+                                    {% include 'partials/_veliava.html' with kodas=eil.veliavos_kodas vardas=eil.vardas %}
+                                    <span class="text-gray-900">{{ eil.vardas }}</span>
+                                </span>
+                            </td>
+                            <td class="px-5 py-3 text-right font-semibold text-gray-900">{{ eil.unikaliu|sk }}</td>
+                            <td class="px-5 py-3 text-right text-gray-600">{{ eil.apsilankymu|sk }}</td>
+                            <td class="px-5 py-3 text-right text-gray-500">{{ eil.procentai }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="px-5 py-10 text-center text-gray-500">
+                <i class="fas fa-globe text-3xl text-gray-300 mb-3 block"></i>
+                {% trans "Šiuo laikotarpiu lankytojų neužfiksuota." %}
+            </div>
+            {% endif %}
+        </div>
+
+        <p class="text-xs text-gray-400 mt-4">
+            {% blocktrans %}Įrašai saugomi {{ saugom_dienas }} d., senesni valomi automatiškai. Šiuo metu lentelėje {{ viso_lenteleje }} įrašų.{% endblocktrans %}
+        </p>
+
+    </div>
+</div>
+{% endblock %}

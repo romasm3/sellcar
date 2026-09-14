@@ -16004,11 +16004,11 @@ msgstr "Administrator"
 
 #: templates/base.html:626 templates/base.html:762
 msgid "Moderate users"
-msgstr "Umiarkowani użytkownicy"
+msgstr "Moderacja użytkowników"
 
 #: templates/base.html:629 templates/base.html:765
 msgid "Moderate dealers"
-msgstr "Umiarkowani dealerzy"
+msgstr "Moderacja dealerów"
 
 #: templates/base.html:632 templates/base.html:768
 msgid "Sales stats"

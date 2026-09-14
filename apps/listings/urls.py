@@ -220,6 +220,7 @@ urlpatterns = [
     path('admin-moderate/user/<int:user_id>/', views.admin_moderate_user, name='admin_moderate_user'),
     path('admin-moderate/listing/<int:pk>/toggle-shadow-ban/', views.admin_toggle_shadow_ban, name='admin_toggle_shadow_ban'),
     path('admin-moderate/sales-stats/', views.admin_sales_stats, name='admin_sales_stats'),
+    path('admin-moderate/visitors/', views.admin_visitors_stats, name='admin_visitors_stats'),
 
     # ─── MOTO GEAR ───
     path('create/motogear/', motogear_views.motogear_listing_create, name='motogear_listing_create'),
