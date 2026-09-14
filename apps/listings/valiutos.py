@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-ŠALIS → VALIUTA. VIENA VIETA VISAI SVETAINEI.
+VALIUTA — VIENA VISAI SVETAINEI: EUR.
+
+DAUGIAVALIUTĖS KOL KAS NEDAROM. Sąsaja „šalis → valiuta" pašalinta:
+`pagal_sali()` bet kuriai šaliai grąžina EUR, tad ir sufiksas formoje,
+ir įrašomas `Listing.currency` visada eurai.
+
+Kas buvo. Sąsaja žymę keitė, o SUMOS nekonvertavo: pasirinkus Lenkiją
+43 000 € virsdavo „43 000 zł" (≈10 000 €). Taip nukentėjo #789 Dodge RAM,
+#791 Lamborghini Urus, #798 Audi S5, #792 ir #799. Kursų svetainė neturi,
+tad vienintelis teisingas elgesys — nekeisti nieko.
+
+Žemiau paliktos EURO_ZONA ir KITOS lentelės: jos NIEKUR nebenaudojamos,
+bet pravers, kai GBP/USD bus daromi atskirai (tada kartu reikės ir kursų,
+ir sumų perskaičiavimo — be jų žymės keisti negalima).
 
 Žemėlapio nebuvo VISAI. Įkėlimo formos valiutą siųsdavo paslėptu lauku
 su įrašyta reikšme „USD" (trucks_listing_create.html, cars quick ir
@@ -43,11 +56,13 @@ SIMBOLIAI = {
 
 
 def pagal_sali(salies_kodas):
-    """Šalies kodas (LT, DE, HR…) → valiutos kodas. Nežinoma → EUR."""
-    kodas = (salies_kodas or '').strip().upper()
-    if kodas in EURO_ZONA:
-        return 'EUR'
-    return KITOS.get(kodas, NUMATYTA)
+    """Bet kuri šalis → EUR.
+
+    Argumentas lieka, kad kviečiantys vaizdai ir šablonų žymos
+    nesikeistų, bet reikšmės nebežiūrim: kol nėra kursų, žymės keitimas
+    tik meluoja apie kainą.
+    """
+    return NUMATYTA
 
 
 def simbolis(valiutos_kodas):
@@ -61,7 +76,9 @@ def simbolis_pagal_sali(salies_kodas):
 
 
 def zemelapis():
-    """Visas žemėlapis {šalis: valiuta} — patikroms ir ataskaitoms."""
-    visos = {kodas: 'EUR' for kodas in EURO_ZONA}
-    visos.update(KITOS)
-    return visos
+    """Visas žemėlapis {šalis: valiuta} — naršyklei ir patikroms.
+
+    Visoms šalims EUR, todėl static/js/valiuta.js pakeitus šalį sufikso
+    nebekeičia.
+    """
+    return {kodas: NUMATYTA for kodas in tuple(EURO_ZONA) + tuple(KITOS)}

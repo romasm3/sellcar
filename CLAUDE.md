@@ -53,10 +53,12 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 
 ## Conventions
 - i18n: all templates {% load i18n %} + {% trans %}; views use gettext as _; models use gettext_lazy. Msgids written in Lithuanian (LT is source language). Single quotes inside HTML attributes
-- Prices: step=1, |floatformat:0; valiutos sufiksas pagal ŠALĮ
-  (apps/listings/valiutos.py — euro zona EUR, GB GBP, PL PLN…,
-  nežinoma šalis EUR, nes rinka yra Europa). Formose sufiksas
-  atsinaujina pakeitus šalies lauką (static/js/valiuta.js).
+- Prices: step=1, |floatformat:0; valiuta VISADA EUR, šalis jos
+  nelemia (apps/listings/valiutos.py — `pagal_sali()` bet kuriai šaliai
+  grąžina EUR, `Listing.save()` įrašo EUR, static/js/valiuta.js šalies
+  lauko neklauso). Sąsaja su šalimi buvo pašalinta, nes keitė tik ŽYMĘ,
+  o ne sumą: 43 000 € virsdavo „43 000 zł". Daugiavaliutės (GBP/USD) —
+  atskiras darbas kartu su kursais; iki tol EUR niekur nekeičiam.
   Months 01-12; dates m/Y
 - Internal links: {% url 'xxx' %}?{{ request.GET.urlencode }} to preserve filters
 - Frontend: Alpine.js + Tailwind

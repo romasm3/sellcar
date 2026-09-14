@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-VALIUTA SEKA ŠALĮ — VIENAS ŽEMĖLAPIS VISAI SVETAINEI.
+VALIUTA — VISADA EURAI. ŠALIS JOS NEBELEMIA.
 
-Kas buvo. Šalis→valiuta žemėlapio NEBUVO VISAI: įkėlimo formos siųsdavo
-paslėptą „USD", tad vokiškas #749 ir kroatiškas #754 rodė „$", nors
-kaina įvesta eurais. Lietuviškas #727 rodė „€" tik todėl, kad modelio
-numatytoji reikšmė yra EUR. Simbolių žemėlapis dar buvo nusirašytas
-keturis kartus modelyje ir penktą — ratlankiuose („$ jei US, kitaip €").
+Kas buvo. Iš pradžių formos siųsdavo paslėptą „USD", tad vokiškas #749 ir
+kroatiškas #754 rodė „$", nors kaina įvesta eurais. Pataisa susiejo
+valiutą su šalimi — ir atsirado blogesnė klaida: keitėsi tik ŽYMĖ, o
+suma ne. Pasirinkus Lenkiją įvesti 43 000 € virsdavo „43 000 zł"
+(≈10 000 €). Taip nukentėjo #789 Dodge RAM, #791 Lamborghini Urus
+(„327 250 kr"), #798 Audi S5 („45 942 CHF"), #792 ir #799.
 
-Dabar viskas iš apps/listings/valiutos.py: euro zona → EUR, GB→GBP,
-PL→PLN, CZ→CZK, DK→DKK, SE→SEK, NO→NOK, CH→CHF, US→USD, nežinoma → EUR
-(rinka — Europa).
+Kursų svetainė neturi, tad sąsaja pašalinta: `pagal_sali()` bet kuriai
+šaliai grąžina EUR, `Listing.save()` įrašo EUR, static/js/valiuta.js
+šalies lauko nebeklauso. Daugiavaliutės (GBP/USD) — atskiras darbas
+kartu su kursais ir sumų perskaičiavimu.
 
 Paleidimas:  python docs/valiutos_test.py
 """
@@ -65,36 +67,40 @@ def antraste(t):
 
 
 # ═══════════════════════════════════════════════════════════════════
-antraste('1. Žemėlapis — visa euro zona ir kaimynai')
+antraste('1. Bet kuri šalis → EUR')
 
-EURO = ['AT', 'BE', 'HR', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT',
-        'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES']
-for salis in EURO:
+VISOS = ['AT', 'BE', 'HR', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT',
+         'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES',
+         'GB', 'PL', 'CZ', 'DK', 'SE', 'NO', 'CH', 'US']
+for salis in VISOS:
     tikrink(valiutos.pagal_sali(salis) == 'EUR',
             '%s turi būti EUR, gavom %s' % (salis, valiutos.pagal_sali(salis)))
 
-KITOS = {'GB': 'GBP', 'PL': 'PLN', 'CZ': 'CZK', 'DK': 'DKK',
-         'SE': 'SEK', 'NO': 'NOK', 'CH': 'CHF', 'US': 'USD'}
-for salis, valiuta in KITOS.items():
-    tikrink(valiutos.pagal_sali(salis) == valiuta,
-            '%s turi būti %s, gavom %s' % (salis, valiuta,
-                                           valiutos.pagal_sali(salis)))
+# Būtent šitos šalys ir sugadino #789, #791, #792, #798, #799
+for salis, senas in (('PL', 'PLN'), ('SE', 'SEK'), ('CH', 'CHF'),
+                     ('NO', 'NOK'), ('DK', 'DKK'), ('CZ', 'CZK'),
+                     ('GB', 'GBP'), ('US', 'USD')):
+    tikrink(valiutos.pagal_sali(salis) != senas,
+            '%s vėl gauna %s — sąsaja su šalimi grįžo' % (salis, senas))
+    tikrink(valiutos.simbolis_pagal_sali(salis) == '€',
+            '%s sufiksas ne €: %s' % (salis, valiutos.simbolis_pagal_sali(salis)))
 
-# Nežinoma šalis — EUR, ne USD: rinka yra Europa
 for salis in ('XX', '', None, 'ZZ'):
     tikrink(valiutos.pagal_sali(salis) == 'EUR',
             'nežinomai šaliai %r turi būti EUR' % salis)
 
+# Simbolių lentelė lieka — pačios valiutos kodas → ženklas nesikeitė
 tikrink(valiutos.simbolis('EUR') == '€' and valiutos.simbolis('USD') == '$'
         and valiutos.simbolis('GBP') == '£' and valiutos.simbolis('PLN') == 'zł',
-        'netinkami valiutų simboliai')
+        'netinkami valiutų simbolių ženklai')
 tikrink(valiutos.simbolis('XYZ') == '€', 'nežinomos valiutos simbolis ne €')
-tikrink(len(valiutos.zemelapis()) == len(EURO) + len(KITOS),
-        'žemėlapio dydis %d' % len(valiutos.zemelapis()))
+tikrink(set(valiutos.zemelapis().values()) == {'EUR'},
+        'žemėlapyje liko ne EUR: %s'
+        % {k: v for k, v in valiutos.zemelapis().items() if v != 'EUR'})
 
 
 # ═══════════════════════════════════════════════════════════════════
-antraste('2. Skelbimas gauna valiutą pagal šalį')
+antraste('2. Skelbimas visada gauna EUR')
 
 U = get_user_model()
 u = U.objects.create_user(username='p@x.lt', email='p@x.lt', password='x')
@@ -132,16 +138,17 @@ def skelbimas(salis, valiuta=None):
     return Listing.objects.create(**d)
 
 
-for salis, zenklas in (('DE', '€'), ('HR', '€'), ('LT', '€'),
-                       ('US', '$'), ('GB', '£'), ('PL', 'zł')):
+for salis in ('DE', 'HR', 'LT', 'US', 'GB', 'PL', 'SE', 'CH', 'NO'):
     sk = skelbimas(salis)
-    tikrink(sk.currency_symbol == zenklas,
-            '%s: simbolis %s, tikėtasi %s' % (salis, sk.currency_symbol, zenklas))
+    tikrink(sk.currency == 'EUR',
+            '%s: valiuta %s, tikėtasi EUR' % (salis, sk.currency))
+    tikrink(sk.currency_symbol == '€',
+            '%s: simbolis %s, tikėtasi €' % (salis, sk.currency_symbol))
 
-# Net jei kas nors bandytų įrašyti kitą valiutą — šalis svarbesnė
-klaidingas = skelbimas('DE', valiuta='USD')
+# Forma vis dar gali atsiųsti paslėptą lauką — modelis jį normalizuoja
+klaidingas = skelbimas('PL', valiuta='PLN')
 tikrink(klaidingas.currency == 'EUR',
-        'įrašytas USD vokiškam skelbimui liko: %s' % klaidingas.currency)
+        'atsiųstas PLN liko: %s' % klaidingas.currency)
 
 # Dalinis įrašymas (activate ir pan.) skelbimo nepagadina
 klaidingas.status = 'draft'
@@ -151,14 +158,16 @@ tikrink(klaidingas.currency == 'EUR', 'dalinis įrašymas sugadino valiutą')
 
 
 # ═══════════════════════════════════════════════════════════════════
-antraste('3. Ratlankiai/padangos — tas pats žemėlapis')
+antraste('3. Ratlankiai/padangos — irgi €')
 
 ratai = WheelListing(seller=u, product_type='tyre', country='PL', price=100,
                      city='Varšuva', title='T')
-tikrink(ratai.currency_symbol == 'zł',
-        'ratlankiams sava taisyklė: %s' % ratai.currency_symbol)
-ratai.country = 'US'
-tikrink(ratai.currency_symbol == '$', 'US ratlankiams ne $')
+tikrink(ratai.currency_symbol == '€',
+        'lenkiškas ratlankis rodo %s' % ratai.currency_symbol)
+for salis in ('US', 'SE', 'CH', 'GB'):
+    ratai.country = salis
+    tikrink(ratai.currency_symbol == '€',
+            '%s ratlankis rodo %s' % (salis, ratai.currency_symbol))
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -194,15 +203,17 @@ tikrink(not be_zymes, 'nepažymėti kainos sufiksai: %s' % be_zymes[:3])
 tikrink(not su_usd, 'formos vis dar siunčia įrašytą USD: %s' % su_usd)
 
 js = io.open(os.path.join(BASE, 'static/js/valiuta.js'), encoding='utf-8').read()
-tikrink('data-valiutos-sufiksas' in js and 'id_country' in js,
-        'valiuta.js neseka šalies lauko')
+tikrink('data-valiutos-sufiksas' in js,
+        'valiuta.js nebeįrašo sufikso')
+tikrink('id_country' not in js and 'al:salis-pakeista' not in js,
+        'valiuta.js vėl klauso šalies lauko')
 b = io.open(os.path.join(BASE, 'templates/base.html'), encoding='utf-8').read()
 tikrink('valiutu_zemelapis_json' in b and 'valiuta.js' in b,
         'žemėlapis nepasiekia naršyklės')
 
 
 # ═══════════════════════════════════════════════════════════════════
-antraste('6. Pilnas ratas: vokiškas skelbimas gauna €')
+antraste('6. Pilnas ratas: ir lenkiškas skelbimas gauna €')
 
 c = Client()
 c.force_login(u)
@@ -212,7 +223,7 @@ duom = {
     'first_registration_month': '5', 'fuel_type': str(KURAS.pk),
     'defects': 'none', 'condition': 'used', 'price': '25000',
     'country': 'DE', 'city': 'Berlynas', 'phone': '+37060000000',
-    'agree_terms': 'on', 'mileage': '500000', 'currency': 'USD',
+    'agree_terms': 'on', 'mileage': '500000', 'currency': 'PLN',
 }
 c.post('/create/trucks/', duom, follow=True)
 naujas = Listing.objects.filter(city='Berlynas').order_by('-pk').first()
@@ -225,13 +236,18 @@ if naujas:
     tikrink(r.status_code == 200, 'skelbimo puslapis %s' % r.status_code)
     tikrink('€' in kunas, 'skelbimo puslapyje nėra €')
 
-# Kroatija — nuo 2023 euro zonoje (#754)
-duom.update(country='HR', city='Zagrebas')
+# Lenkija — būtent ji virsdavo „zł" (#789 Dodge RAM)
+duom.update(country='PL', city='Varšuva', price='43000')
 c.post('/create/trucks/', duom, follow=True)
-kroatiskas = Listing.objects.filter(city='Zagrebas').order_by('-pk').first()
-tikrink(kroatiskas is not None and kroatiskas.currency == 'EUR',
-        'kroatiškas skelbimas gavo %s'
-        % (kroatiskas.currency if kroatiskas else '—'))
+lenkiskas = Listing.objects.filter(city='Varšuva').order_by('-pk').first()
+tikrink(lenkiskas is not None and lenkiskas.currency == 'EUR',
+        'lenkiškas skelbimas gavo %s'
+        % (lenkiskas.currency if lenkiskas else '—'))
+if lenkiskas:
+    kunas = c.get('/%d/' % lenkiskas.pk, follow=True).content.decode('utf-8')
+    tikrink('zł' not in kunas, 'lenkiško skelbimo puslapyje vis dar „zł"')
+    tikrink(int(lenkiskas.price) == 43000,
+            'suma pasikeitė: %s' % lenkiskas.price)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -241,15 +257,17 @@ migracijos = [f for f in os.listdir(os.path.join(BASE, 'apps/listings/migrations
               if 'valiuta' in f]
 tikrink(migracijos, 'nėra migracijos esamiems skelbimams')
 
-# Ta pati logika, kaip migracijoje
-sugadintas = skelbimas('DE')
-Listing.objects.filter(pk=sugadintas.pk).update(currency='USD')
-for salis in Listing.objects.values_list('country', flat=True).distinct():
-    Listing.objects.filter(country=salis).exclude(
-        currency=valiutos.pagal_sali(salis)).update(
-        currency=valiutos.pagal_sali(salis))
+tikrink(any('visada_eur' in f for f in migracijos),
+        'nėra migracijos, grąžinančios EUR (#789, #791, #792, #798, #799)')
+
+# Ta pati logika, kaip 0103 migracijoje: keičiam TIK žymę, ne sumą
+sugadintas = skelbimas('PL')
+Listing.objects.filter(pk=sugadintas.pk).update(currency='PLN', price=43000)
+Listing.objects.exclude(currency='EUR').update(currency='EUR')
 sugadintas.refresh_from_db()
-tikrink(sugadintas.currency == 'EUR', 'migracija nepataisė vokiško skelbimo')
+tikrink(sugadintas.currency == 'EUR', 'migracija nepataisė lenkiško skelbimo')
+tikrink(int(sugadintas.price) == 43000,
+        'migracija pakeitė sumą: %s' % sugadintas.price)
 
 
 print('\n' + '═' * 60)

@@ -555,7 +555,7 @@ def _listing_to_form_data(listing):
         'description': listing.description or '',
         'video_url': listing.video_url or '',
         'price': listing.price or '',
-        'currency': listing.currency or valiutos.pagal_sali(listing.country),
+        'currency': valiutos.NUMATYTA,
         'negotiable': listing.negotiable,
         'country': listing.country or 'US',
         'state': listing.state or '',
@@ -652,10 +652,10 @@ def _save_form_to_listing(post, listing):
     price = _decimal_or_none(post.get('price'))
     if price is not None:
         listing.price = price
-    # Valiuta seka šalį (apps/listings/valiutos.py); paslėptas laukas
-    # tik atkartoja tą patį pasirinkimą.
-    listing.currency = (post.get('currency', '').strip()
-                        or valiutos.pagal_sali(post.get('country', '')))
+    # Valiuta visada EUR (apps/listings/valiutos.py). Formos atsiųsto
+    # `currency` nebeklausiam — anksčiau pasirinkus Lenkiją ta pati suma
+    # gaudavo „zł" žymę, nors niekas nekonvertuojama.
+    listing.currency = valiutos.NUMATYTA
     listing.negotiable = post.get('negotiable') in ('on', 'true', '1', True)
 
     # Location

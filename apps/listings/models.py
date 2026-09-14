@@ -1801,22 +1801,24 @@ class Listing(PaskelbimoLaikas, models.Model):
         return reverse('listing_detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
-        """Valiuta seka šalį.
+        """Valiuta VISADA eurai — šalis jos nebelemia.
 
-        Formos valiutos nesirenka — jos siųsdavo paslėptą „USD", todėl
-        vokiškas ar kroatiškas skelbimas rodydavo „$", nors kaina įvesta
-        eurais. Žemėlapis vienas visai svetainei:
-        apps/listings/valiutos.py.
+        Anksčiau čia buvo `valiutos.pagal_sali(self.country)`: pasirinkus
+        Lenkiją to paties 43 000 žymė virsdavo „zł" (≈10 000 €), nes suma
+        nekonvertuojama. Kursų svetainė neturi, tad ir žymės keisti
+        negalim. Daugiavaliutės (GBP/USD) — atskiras darbas su kursais.
 
-        Su `update_fields` liečiam tik tada, kai išsaugoma ir šalis —
-        kitaip pakeitimas vis tiek nenugultų, o `activate()` ir panašūs
-        dalinis įrašymai lieka tokie, kokie buvo.
+        Normalizuojam čia, o ne vaizduose: dalis formų vis dar siunčia
+        paslėptą `currency` lauką, ir be šito į DB nugultų tai, kas
+        atsiųsta. Su `update_fields` liečiam tik tada, kai ir taip
+        rašomas kuris nors iš tų dviejų stulpelių — `activate()` ir kiti
+        daliniai įrašymai lieka tokie, kokie buvo.
         """
         from apps.listings import valiutos
 
         laukai = kwargs.get('update_fields')
-        if self.country and (laukai is None or 'country' in laukai):
-            self.currency = valiutos.pagal_sali(self.country)
+        if laukai is None or 'currency' in laukai or 'country' in laukai:
+            self.currency = valiutos.NUMATYTA
             if laukai is not None and 'currency' not in laukai:
                 kwargs['update_fields'] = list(laukai) + ['currency']
         return super().save(*args, **kwargs)

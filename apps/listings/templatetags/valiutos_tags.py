@@ -25,12 +25,17 @@ def valiutos_kodas(salies_kodas):
 
 @register.simple_tag
 def valiutu_zemelapis_json():
-    """Žemėlapis naršyklei — kad sufiksas atsinaujintų pakeitus šalį."""
+    """Ką naršyklei reikia žinoti apie valiutą — žr. static/js/valiuta.js.
+
+    Anksčiau čia keliavo visas {šalis: valiuta} žemėlapis ir visų valiutų
+    simboliai, nes JS sufiksą keitė pagal pasirinktą šalį. Sąsaja
+    pašalinta (valiuta visada EUR), tad nebesiunčiam ir sąrašo — kitaip
+    „zł", „kr", „CHF" gulėtų kiekvieno puslapio kode be jokio tikslo.
+    """
     import json
 
     from django.utils.safestring import mark_safe
     return mark_safe(json.dumps({
-        'salys': valiutos.zemelapis(),
         'numatyta': valiutos.NUMATYTA,
-        'simboliai': valiutos.SIMBOLIAI,
+        'simboliai': {valiutos.NUMATYTA: valiutos.simbolis(valiutos.NUMATYTA)},
     }, ensure_ascii=False))
