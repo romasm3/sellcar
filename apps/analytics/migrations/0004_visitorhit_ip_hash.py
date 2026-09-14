@@ -14,34 +14,66 @@ from django.db import migrations, models
 
 
 def i_maisa(apps, schema_editor):
-    from django.utils import timezone
+    """Užpildo ip_hash iš turimo adreso.
+
+    Ne eilutė po eilutės: skirtingų ADRESŲ yra kartais dešimt kartų mažiau
+    nei eilučių (tas pats lankytojas atsiveria dešimt puslapių), tad
+    maišuojam adresų sąrašą ir vienu UPDATE pažymim visas to adreso
+    eilutes. `bulk_update` su modelio objektais tam pačiam darbui siunčia
+    tūkstančius CASE sakinių ir dideliėje lentelėje užtrunka tiek, kad
+    stabdo patį diegimą.
+    """
     from datetime import timedelta
 
-    from apps.analytics.models import ip_maisa, SAUGOM_DIENAS
+    from django.utils import timezone
+
+    from apps.analytics.models import SAUGOM_DIENAS, ip_maisa
 
     Modelis = apps.get_model('analytics', 'VisitorHit')
 
     # Pirma išvalom tai, ko ir taip nebelaikom (>90 d.) — tada maišuoti
-    # reikia mažiau eilučių ir migracija nestabdo diegimo. Kartu tai iškart
-    # įgyvendina saugojimo terminą seniems įrašams.
+    # reikia mažiau eilučių. Kartu tai iškart įgyvendina saugojimo terminą.
     riba = timezone.now() - timedelta(days=SAUGOM_DIENAS)
     istrinta = Modelis.objects.filter(created_at__lt=riba).delete()[0]
     if istrinta:
         print('    senų (>%d d.) lankytojų įrašų ištrinta: %d'
               % (SAUGOM_DIENAS, istrinta))
 
-    paketas = []
+    lentele = Modelis._meta.db_table
+    # TIK `isnull`: GenericIPAddressField tuščią eilutę paverčia į None,
+    # tad `.exclude(ip_address='')` virsta `NOT (ip_address = None)` ir
+    # atmeta VISAS eilutes — maiša tada neįrašoma niekur.
+    adresai = (Modelis.objects.exclude(ip_address__isnull=True)
+               .values_list('ip_address', flat=True)
+               .distinct().order_by())
+
+    PAKETAS = 500
+    buferis = []
     pakeista = 0
-    for eil in Modelis.objects.only('id', 'ip_address').iterator(chunk_size=5000):
-        eil.ip_hash = ip_maisa(eil.ip_address)
-        paketas.append(eil)
-        if len(paketas) >= 5000:
-            Modelis.objects.bulk_update(paketas, ['ip_hash'])
-            pakeista += len(paketas)
-            paketas = []
-    if paketas:
-        Modelis.objects.bulk_update(paketas, ['ip_hash'])
-        pakeista += len(paketas)
+
+    def _israsyk(pora):
+        # UPDATE ... SET ip_hash = CASE ip_address WHEN ? THEN ? ... END
+        # WHERE ip_address IN (?, ?, ...) — vienas sakinys visam paketui.
+        kai = ' '.join(['WHEN %s THEN %s'] * len(pora))
+        vietos = ', '.join(['%s'] * len(pora))
+        sql = ('UPDATE %s SET ip_hash = CASE ip_address %s END '
+               'WHERE ip_address IN (%s)' % (lentele, kai, vietos))
+        reiksmes = []
+        for ip, maisa in pora:
+            reiksmes.extend([ip, maisa])
+        reiksmes.extend([ip for ip, _m in pora])
+        with schema_editor.connection.cursor() as zymeklis:
+            zymeklis.execute(sql, reiksmes)
+            return zymeklis.rowcount or 0
+
+    for ip in adresai.iterator(chunk_size=5000):
+        buferis.append((ip, ip_maisa(ip)))
+        if len(buferis) >= PAKETAS:
+            pakeista += _israsyk(buferis)
+            buferis = []
+    if buferis:
+        pakeista += _israsyk(buferis)
+
     if pakeista:
         print('    lankytojų įrašų su maiša: %d' % pakeista)
 

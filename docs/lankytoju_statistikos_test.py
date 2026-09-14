@@ -341,6 +341,29 @@ tikrink(r.status_code == 200, '/sales-stats/ → %s' % r.status_code)
 tikrink(r.context['visitors_month'] >= 0, 'nėra visitors_month')
 
 
+# ═══════════════════════════════════════════════════════════════════
+antraste('9. Migracija 0004 tikrai užpildo maišą')
+
+mig = io.open(os.path.join(BASE,
+              'apps/analytics/migrations/0004_visitorhit_ip_hash.py'),
+              encoding='utf-8').read()
+# GenericIPAddressField tuščią eilutę paverčia į None, tad
+# `.exclude(ip_address='')` virsta `NOT (ip_address = None)` ir atmeta
+# VISAS eilutes — maiša tyliai liktų tuščia kiekvienam įrašui.
+mig_kodas = '\n'.join(e for e in mig.split('\n')
+                      if not e.lstrip().startswith('#'))
+tikrink(".exclude(ip_address='')" not in mig_kodas,
+        "migracijoje vėl atmetamos tuščios eilutės — maiša neįrašoma")
+tikrink('ip_address__isnull=True' in mig,
+        'migracija nebeatmeta NULL adresų')
+tikrink('RemoveField' in mig and "name='ip_address'" in mig,
+        'migracija nepašalina žalio adreso stulpelio')
+tikrink(mig.index('RunPython') < mig.index('RemoveField'),
+        'stulpelis šalinamas PRIEŠ maišos skaičiavimą')
+tikrink('SAUGOM_DIENAS' in mig,
+        'migracija neišvalo senų įrašų prieš maišuodama')
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)
