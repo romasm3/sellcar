@@ -21,12 +21,12 @@ kt.), todėl vokiškas #749 ir kroatiškas #754 rodė „$", nors kaina
 įvesta eurais. Lietuviškas #727 rodė „€" tik todėl, kad modelio
 numatytoji reikšmė yra EUR.
 
-Rinka — Europa, tad nežinomai šaliai atsarginė valiuta irgi EUR, ne USD.
+Rinka — Europa, tad ir numatytoji, ir vienintelė valiuta yra EUR.
 
 Naudojimas:
 
     from apps.listings import valiutos
-    listing.currency = valiutos.pagal_sali(listing.country)
+    listing.currency = valiutos.NUMATYTA
     simbolis = valiutos.simbolis(listing.currency)
 
 Šablonuose — per `valiutos_tags`:

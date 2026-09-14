@@ -270,6 +270,86 @@ tikrink(int(sugadintas.price) == 43000,
         'migracija pakeitė sumą: %s' % sugadintas.price)
 
 
+# ═══════════════════════════════════════════════════════════════════
+antraste('8. VISOS create formos — sufiksas € ir laukas EUR')
+
+# Kiekviena forma atidaroma ir tikrinama, ką ji siųstų: paslėptas
+# `currency` laukas ir kainos sufiksas. Anksčiau JS juos perrašydavo
+# pagal pasirinktą šalį, tad užtenka vienos praleistos formos.
+FORMOS = [
+    '/create/cars/quick/', '/create/', '/create/trucks/',
+    '/create/motorcycle/', '/create/motogear/', '/create/agriculture/',
+    '/create/boats/', '/create/trailers/', '/create/construction/',
+    '/create/construction/attachment/', '/create/forestry/',
+    '/create/loading-equipment/', '/create/camping-houses/',
+    '/create/bicycles/', '/create/electronics/', '/create/services/',
+    '/create/rental/car/', '/create/rental/moto/',
+    '/create/rental/minibus/', '/create/rental/heavy/',
+    '/create/tyres/', '/create/rims/', '/create/moto-part/',
+    '/create/car-for-parts/', '/create/moto-for-parts/',
+    '/create/truck-for-parts/',
+]
+NE_EUR = ('PLN', 'SEK', 'NOK', 'DKK', 'CZK', 'CHF', 'GBP', 'USD')
+NE_EURO_ZENKLAI = ('zł', 'Kč', 'CHF', '£', '$')
+
+for adresas in FORMOS:
+    r = c.get(adresas, follow=True)
+    if r.status_code != 200:
+        tikrink(False, '%s neatsidaro (%s)' % (adresas, r.status_code))
+        continue
+    kunas = r.content.decode('utf-8')
+
+    for m in re.finditer(r'<input[^>]*name="currency"[^>]*>', kunas):
+        v = re.search(r'value="([^"]*)"', m.group(0))
+        tikrink(v is not None and v.group(1) == 'EUR',
+                '%s: paslėptas currency = %s'
+                % (adresas, v.group(1) if v else '—'))
+
+    for m in re.finditer(r'<select[^>]*name="currency"', kunas):
+        tikrink(False, '%s: valiutos pasirinkimas formoje' % adresas)
+
+    for m in re.finditer(r'data-valiutos-sufiksas[^>]*>([^<]{0,6})<', kunas):
+        tikrink(m.group(1).strip() in ('€', ''),
+                '%s: sufiksas %r' % (adresas, m.group(1)))
+
+    # Į naršyklę neturi keliauti nė vienos kitos valiutos
+    for kodas in NE_EUR:
+        tikrink('"%s"' % kodas not in kunas,
+                '%s: puslapyje minima valiuta %s' % (adresas, kodas))
+
+
+# ═══════════════════════════════════════════════════════════════════
+antraste('9. Švedija — kaina lieka eurais')
+
+# Būtent taip tikrina žmogus: naujas skelbimas su šalimi Švedija.
+duom.update(country='SE', city='Stokholmas', price='45942', currency='SEK')
+c.post('/create/trucks/', duom, follow=True)
+svedas = Listing.objects.filter(city='Stokholmas').order_by('-pk').first()
+tikrink(svedas is not None, 'švediškas skelbimas nesukurtas')
+if svedas:
+    tikrink(svedas.currency == 'EUR', 'švediškas gavo %s' % svedas.currency)
+    tikrink(int(svedas.price) == 45942, 'suma pasikeitė: %s' % svedas.price)
+    kunas = c.get('/%d/' % svedas.pk, follow=True).content.decode('utf-8')
+    tikrink('45' in kunas and '€' in kunas, 'puslapyje nėra „45 942 €"')
+    tikrink(' kr<' not in kunas and '>kr<' not in kunas,
+            'puslapyje liko „kr"')
+
+# Ir tos šalys, kurių žemėlapyje niekada nebuvo (HU, RO, BG) — irgi EUR
+for salis in ('HU', 'RO', 'BG'):
+    sk = skelbimas(salis)
+    tikrink(sk.currency == 'EUR', '%s gavo %s' % (salis, sk.currency))
+
+# Modelis normalizuoja ir tada, kai reikšmė ateina apeinant formą
+apeinant = skelbimas('SE', valiuta='SEK')
+tikrink(apeinant.currency == 'EUR',
+        'tiesiogiai įrašytas SEK liko: %s' % apeinant.currency)
+apeinant.price = 45942
+apeinant.save(update_fields=['price'])
+apeinant.refresh_from_db()
+tikrink(apeinant.currency == 'EUR', 'dalinis įrašymas grąžino SEK')
+
+
+
 print('\n' + '═' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

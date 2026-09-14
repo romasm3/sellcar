@@ -1,4 +1,6 @@
 from django.utils.translation import gettext as _
+
+from . import valiutos as _valiutos
 """
 ═══════════════════════════════════════════════════════════════════════════════
 AutoLeft — Listing Helper Functions
@@ -197,10 +199,13 @@ def apply_common_fields_to_listing(listing, common_data):
     if common_data['year']:
         listing.year = common_data['year']
     listing.price = common_data['price']
-    # Galutinį žodį taria Listing.save() pagal šalį — čia tik
-    # perduodam tai, ką atsiuntė forma.
-    if common_data.get('currency'):
-        listing.currency = common_data['currency']
+    # Valiutos iš formos NEIMAM — visada EUR (apps/listings/valiutos.py).
+    # Anksčiau čia gulė tai, ką atsiuntė paslėptas laukas, o jį JS keitė
+    # pagal pasirinktą šalį: Lenkija → PLN, nors suma liko ta pati.
+    # `Listing.save()` tą patį dar kartą normalizuoja, bet jei kada nors
+    # kas išsaugotų su update_fields be `currency`, čia atsiųsta reikšmė
+    # būtų jau nugulusi.
+    listing.currency = _valiutos.NUMATYTA
     listing.negotiable = common_data['negotiable']
     listing.description = common_data['description']
     
