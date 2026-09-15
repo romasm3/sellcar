@@ -15,6 +15,12 @@ Naudojimas vaizde, ten pat, kur įrašomas telefonas:
 
 WheelListing turi savo `contact_email` stulpelį ir savo POST vardą, tad
 jam paduodam `laukas='contact_email'`.
+
+TELEFONAS — tas pats. Iki 2026-09-15 jis gulėjo TIK paskyroje
+(`profile.phone_number`), tad buvo vienas visiems žmogaus skelbimams:
+pakeitus numerį viename, jis tyliai pasikeisdavo visuose kituose.
+Dabar kiekvienas skelbimas turi savo `contact_phone`, o paskyros
+numeris naudojamas tik kaip PRADINĖ reikšmė naujam skelbimui.
 """
 
 
@@ -51,3 +57,47 @@ def pasto_reiksme(listing, user=None):
     if user is not None and getattr(user, 'is_authenticated', False):
         return user.email or ''
     return ''
+
+
+# ═══════════════════════════════════════════════════════════════════
+# TELEFONAS — tiksliai tas pats, kaip paštas
+# ═══════════════════════════════════════════════════════════════════
+
+def telefonas_is_posto(request, laukas='phone'):
+    """POST reikšmė be tarpų galuose. Trūkstamas laukas — tuščia eilutė."""
+    return (request.POST.get(laukas, '') or '').strip()
+
+
+def issaugok_telefona(listing, request, laukas='phone'):
+    """Įrašo skelbimo kontaktinį telefoną iš POST.
+
+    Tuščias laukas NIEKO netrina — lygiai kaip su paštu: dalis formų
+    kontaktų bloko nerodo (redagavimo žingsniai, greitieji išsaugojimai),
+    o tyliai išvalytas numeris atrodytų kaip dingęs kontaktas.
+
+    PASKYROS NELIEČIA. Anksčiau kiekvienas vaizdas rašydavo numerį į
+    profilio lauką, ir tai buvo visos bėdos šaltinis: vieno skelbimo
+    redagavimas perrašydavo kontaktą visuose.
+
+    Įrašo tik į objektą — `save()` lieka vaizdo reikalas.
+    """
+    if listing is None:
+        return ''
+    reiksme = telefonas_is_posto(request, laukas)
+    if reiksme:
+        listing.contact_phone = reiksme
+    return getattr(listing, 'contact_phone', '')
+
+
+def telefono_reiksme(listing, user=None):
+    """Ką rodyti formos lauke.
+
+    Skelbimo numeris pirmas; paskyros — tik kai skelbimo laukas tuščias
+    (naujas skelbimas arba senas, kurio migracija nepasiekė). Tokia pati
+    tvarka kaip `pasto_reiksme`.
+    """
+    esamas = (getattr(listing, 'contact_phone', '') or '').strip() if listing else ''
+    if esamas:
+        return esamas
+    profilis = getattr(user, 'profile', None) if user is not None else None
+    return (getattr(profilis, 'phone_number', '') or '').strip()

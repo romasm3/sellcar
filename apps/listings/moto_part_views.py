@@ -178,11 +178,11 @@ def _handle_post(request, edit_listing=None):
 
             listing.engine_capacity = _cc
 
-        if hasattr(request.user, 'profile'):
+        # Telefonas — Į SKELBIMĄ, ne į paskyrą (apps/listings/kontaktai.py).
 
-            request.user.profile.phone_number = phone
+        if phone:
 
-            request.user.profile.save(update_fields=['phone_number'])
+            listing.contact_phone = phone
 
         # Kontaktinis paštas — į patį skelbimą
         # (apps/listings/kontaktai.py)
@@ -269,10 +269,9 @@ def _handle_post(request, edit_listing=None):
     if cc:
         listing.engine_capacity = cc
 
-    # Telefonas → user.profile
-    if hasattr(request.user, 'profile'):
-        request.user.profile.phone_number = phone
-        request.user.profile.save(update_fields=['phone_number'])
+    # Telefonas — Į SKELBIMĄ, ne į paskyrą (apps/listings/kontaktai.py).
+    if phone:
+        listing.contact_phone = phone
 
     # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
     issaugok_pasta(listing, request)

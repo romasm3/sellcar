@@ -668,11 +668,12 @@ def _save_form_to_listing(post, listing):
     listing.postal_code = post.get('postal_code', '').strip()
     listing.address = post.get('address', '').strip()
 
-    # Phone lives on the profile, not the listing — same as every other form.
+    # Telefonas — Į SKELBIMĄ, ne į paskyrą. Paskyros laukas buvo
+    # bendras visiems žmogaus skelbimams, tad vieno redagavimas
+    # perrašydavo kontaktą visuose (apps/listings/kontaktai.py).
     phone_val = (post.get('phone', '') or '').strip()
-    if phone_val and hasattr(listing.seller, 'profile'):
-        listing.seller.profile.phone_number = phone_val
-        listing.seller.profile.save(update_fields=['phone_number'])
+    if phone_val:
+        listing.contact_phone = phone_val
 
     # Kontaktinis paštas — į patį skelbimą (apps/listings/kontaktai.py)
     pastas = (post.get('email', '') or '').strip()

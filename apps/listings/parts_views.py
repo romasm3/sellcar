@@ -479,9 +479,11 @@ def parts_listing_create(request):
         target.engine_code = (request.POST.get('engine_code', '') or '').strip()[:30]
         target.gearbox_code = (request.POST.get('transmission_code', '') or '').strip()[:30]
 
-        if hasattr(request.user, 'profile'):
-            request.user.profile.phone_number = phone
-            request.user.profile.save(update_fields=['phone_number'])
+        # Telefonas — Į SKELBIMĄ, ne į paskyrą (apps/listings/kontaktai.py).
+        # Buvo paskyroje: vieno skelbimo redagavimas perrašydavo numerį
+        # visuose kituose to žmogaus skelbimuose.
+        if phone:
+            target.contact_phone = phone
 
         # Kontaktinis paštas — į patį skelbimą
         # (apps/listings/kontaktai.py)

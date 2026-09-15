@@ -14,7 +14,7 @@ from .models import (
     SubCategory,
     FuelType,
 )
-from .kontaktai import issaugok_pasta
+from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from apps.listings import units
 from .views import (
@@ -227,9 +227,10 @@ def boats_listing_create(request):
         phone_val = (request.POST.get('phone', '') or '').strip()
         if not phone_val:
             errors.append(_('Telefonas yra privalomas'))
-        elif hasattr(request.user, 'profile'):
-            request.user.profile.phone_number = phone_val
-            request.user.profile.save(update_fields=['phone_number'])
+        # Telefonas — Į SKELBIMĄ, ne į paskyrą (apps/listings/kontaktai.py).
+        # Anksčiau čia buvo `request.user.profile.phone_number = …`, tad
+        # vieno skelbimo redagavimas perrašydavo numerį VISUOSE kituose.
+        issaugok_telefona(target, request)
 
         # Kontaktinis paštas — ten pat, kur telefonas.
         # Iki šiol formos jį rodė, bet niekur nedėjo.

@@ -241,11 +241,16 @@ r = c.get(adresas, follow=True)
 tikrink('pakeistas@x.lt' in r.content.decode('utf-8'),
         'po perkrovimo formoje vėl ne ta reikšmė')
 
-# TELEFONAS — atvirkštinio atvejo patikra: jis gyvena profilyje ir
-# redaguojant privalo išlikti lygiai taip pat
+# TELEFONAS — nuo 2026-09-15 jis irgi gyvena PRIE SKELBIMO, ne profilyje
+# (docs/klaidos/AUTOMOBILIAI.md, CAR-12). Pateikta reikšmė turi nugulti į
+# skelbimą, o paskyros numeris likti nepaliestas.
+l.refresh_from_db()
 u.profile.refresh_from_db()
-tikrink(u.profile.phone_number == '+37060000000',
-        'telefonas redaguojant neišsisaugojo (%r)' % u.profile.phone_number)
+tikrink(l.contact_phone == '+37060000000',
+        'telefonas neįrašytas į SKELBIMĄ (%r)' % l.contact_phone)
+tikrink(u.profile.phone_number != '+37060000000'
+        or l.contact_phone == u.profile.phone_number,
+        'telefonas nugulė į paskyrą, o turėjo į skelbimą')
 r = c.get(adresas, follow=True)
 tikrink('+37060000000' in r.content.decode('utf-8'),
         'po perkrovimo formoje nerodomas išsaugotas telefonas')

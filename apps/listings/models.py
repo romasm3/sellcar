@@ -1733,9 +1733,18 @@ class Listing(PaskelbimoLaikas, models.Model):
     # įrašyta reikšmė dingdavo perkrovus. Tuščias = naudojam paskyros
     # paštą (žr. kontaktinis_pastas).
     #
-    # Telefonas sąmoningai lieka profilyje (`profile.phone_number`) —
-    # jis bendras visiems žmogaus skelbimams; paštas gali skirtis
-    # (pvz. atskira dėžutė vienam pardavimui).
+    # Telefonas irgi PRIE SKELBIMO, ne prie paskyros.
+    #
+    # Anksčiau jis gulėdavo tik `profile.phone_number`: vienas laukas
+    # visiems žmogaus skelbimams. Pakeitus numerį viename skelbime jis
+    # tyliai pasikeisdavo VISUOSE kituose, įskaitant senus — penki
+    # skelbimai skirtingose šalyse (#821–#825) ėmė rodyti tą patį
+    # paskutinį numerį. Ratlankiai/padangos (WheelListing) savo kopiją
+    # turėjo nuo pradžių; dabar taip pat ir čia.
+    #
+    # Paskyros numeris lieka tik PRADINE reikšme naujam skelbimui —
+    # žr. kontaktai.telefono_reiksme().
+    contact_phone = models.CharField(max_length=30, blank=True)
     contact_email = models.EmailField(blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, validators=[MinValueValidator(-180), MaxValueValidator(180)])
@@ -1836,6 +1845,20 @@ class Listing(PaskelbimoLaikas, models.Model):
         """
         return (self.contact_email or '').strip() or (
             self.seller.email if self.seller else '')
+
+    @property
+    def kontaktinis_telefonas(self):
+        """Numeris, kuriuo pirkėjas pasiekia pardavėją DĖL ŠIO skelbimo.
+
+        Skelbimo laukas pirmas, paskyros numeris — atsarginis (seni
+        skelbimai, kurių migracija nepasiekė). Viena vieta, kad forma,
+        skelbimo puslapis ir laiškai sutartų.
+        """
+        savas = (self.contact_phone or '').strip()
+        if savas:
+            return savas
+        profilis = getattr(self.seller, 'profile', None) if self.seller else None
+        return (getattr(profilis, 'phone_number', '') or '').strip()
 
     def get_edit_url(self):
 

@@ -105,7 +105,7 @@ AGRI_DEFAULT_SUBCATEGORY = 'other-agricultural'
 # Apibrėžimai gyvena equipment_registry — juos turi matyti ir
 # `seed_equipment` komanda, ir 0063 migracija.
 from .equipment_registry import AGRI_EQUIPMENT_DEFINITION  # noqa: E402
-from .kontaktai import issaugok_pasta
+from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from apps.listings import units
 
@@ -295,9 +295,10 @@ def agriculture_listing_create(request):
         phone_val = (request.POST.get('phone', '') or '').strip()
         if not phone_val:
             errors.append(_('Telefonas yra privalomas'))
-        elif hasattr(request.user, 'profile'):
-            request.user.profile.phone_number = phone_val
-            request.user.profile.save(update_fields=['phone_number'])
+        # Telefonas — Į SKELBIMĄ, ne į paskyrą (apps/listings/kontaktai.py).
+        # Anksčiau čia buvo `request.user.profile.phone_number = …`, tad
+        # vieno skelbimo redagavimas perrašydavo numerį VISUOSE kituose.
+        issaugok_telefona(target, request)
 
         # Kontaktinis paštas — ten pat, kur telefonas.
         # Iki šiol formos jį rodė, bet niekur nedėjo.

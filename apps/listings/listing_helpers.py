@@ -259,10 +259,11 @@ def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
     from .models import Listing
     from .views import get_coordinates_for_location
     
-    # 1. Phone save į user profile
-    if phone and hasattr(user, 'profile'):
-        user.profile.phone_number = phone
-        user.profile.save(update_fields=['phone_number'])
+    # 1. Telefonas — Į SKELBIMĄ, ne į paskyrą. Paskyros laukas buvo
+    #    bendras visiems žmogaus skelbimams, tad vieno redagavimas
+    #    perrašydavo kontaktą visuose (apps/listings/kontaktai.py).
+    if phone:
+        listing.contact_phone = phone
     
     # 2. Coordinates — tik jei žmogus nepasižymėjo vietos žemėlapyje.
     # Žymeklio koordinatės tikslios, miesto centras — apytikslis.
@@ -313,10 +314,9 @@ def finalize_listing_edit(listing, phone, user, recalc_coordinates=True):
     """
     from .views import get_coordinates_for_location
     
-    # 1. Phone save į profile
-    if phone and hasattr(user, 'profile'):
-        user.profile.phone_number = phone
-        user.profile.save(update_fields=['phone_number'])
+    # 1. Telefonas — Į SKELBIMĄ, ne į paskyrą (žr. finalize_listing_publish).
+    if phone:
+        listing.contact_phone = phone
     
     # 2. Recalculate coordinates
     if recalc_coordinates and listing.city and listing.country:

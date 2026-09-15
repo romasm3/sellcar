@@ -2737,8 +2737,8 @@ paaiškina, kodėl puslapis atidarytas, nors viešai jo nebėra.{% endcomment %}
                     robotai jo nenusirenka iš HTML — pilnas numeris ateina
                     tik iš /skelbimas/<id>/telefonas/.
                     {% endcomment %}
-                    {% if listing.seller.profile.show_phone and listing.seller.profile.phone_number %}
-                    <div class="mb-4" x-data="phoneReveal({{ listing.pk }}, '{{ listing.seller.profile.phone_number|slice:':8' }}...')">
+                    {% if listing.seller.profile.show_phone and listing.kontaktinis_telefonas %}
+                    <div class="mb-4" x-data="phoneReveal({{ listing.pk }}, '{{ listing.kontaktinis_telefonas|slice:':8' }}...')">
                         <button type="button" class="ap-phone" @click="reveal()" x-show="!full">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
                             <span x-text="masked"></span>
@@ -3234,13 +3234,13 @@ Darbalaukyje bloko nėra — ten kontaktai matomi šone.
 {% endcomment %}
 {% if listing.status != 'sold' and user != listing.seller %}
 <div class="ap-sticky lg:hidden"
-     x-data="phoneReveal({{ listing.pk }}, '{{ listing.seller.profile.phone_number|slice:":8" }}...')">
+     x-data="phoneReveal({{ listing.pk }}, '{{ listing.kontaktinis_telefonas|slice:":8" }}...')">
   <a class="ap-sticky-btn is-msg"
      href="{% if user.is_authenticated %}{% url 'conversations:start' listing.pk %}{% else %}{% url 'accounts:login' %}?next={{ request.path|add:'?rasyti=1'|urlencode }}{% endif %}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H8l-4 3z"/></svg>
     <span>{% trans "Rašyti" %}</span>
   </a>
-  {% if listing.seller.profile.show_phone and listing.seller.profile.phone_number %}
+  {% if listing.seller.profile.show_phone and listing.kontaktinis_telefonas %}
   <button type="button" class="ap-sticky-btn" @click="reveal()" x-show="!full">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>
     <span x-text="masked"></span>

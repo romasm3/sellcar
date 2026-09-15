@@ -29,7 +29,7 @@ from django.db.models.functions import Greatest, Coalesce, Lower
 from datetime import date, timedelta
 
 from .image_validation import split_valid_images, ImageValidationError, validate_images
-from .kontaktai import issaugok_pasta
+from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from apps.listings import units
 from apps.listings import salys
@@ -244,9 +244,11 @@ def motorcycle_listing_create(request):
                 request.session.pop('active_moto_draft_id', None)
                 request.session.modified = True
 
-    # Phone is stored on the profile, not the listing — inject for pre-fill
-    if not submitted.get('phone') and hasattr(request.user, 'profile') and request.user.profile.phone_number:
-        submitted['phone'] = request.user.profile.phone_number
+    # Numeris pirmiausia iš SKELBIMO; paskyros — tik pradinė reikšmė
+    # naujam skelbimui (apps/listings/kontaktai.py).
+    if not submitted.get('phone'):
+        from .kontaktai import telefono_reiksme
+        submitted['phone'] = telefono_reiksme(current_draft, request.user)
 
     draft_id_ctx = edit_listing_id if is_edit_mode else (current_draft.pk if current_draft else None)
 
@@ -297,9 +299,11 @@ def _draft_to_submitted(draft):
         'postal_code': draft.postal_code or '',
         'address': draft.address or '',
         'hide_exact_address': 'on' if draft.hide_exact_address else '',
-        # Skelbimo paštas, o ne paskyros — kitaip redaguojant įrašyta
-        # reikšmė kaskart pradingtų.
+        # Skelbimo paštas ir telefonas, o ne paskyros — kitaip redaguojant
+        # įrašyta reikšmė kaskart pradingtų, o telefonas dar ir būtų
+        # bendras visiems žmogaus skelbimams.
         'email': draft.contact_email or '',
+        'phone': draft.contact_phone or '',
     }
 
 
@@ -766,13 +770,7 @@ def _handle_post(request):
     if errors:
         return _rerender(errors)
 
-    # Persist phone to profile (both modes)
-    phone_val = (POST.get('phone', '') or '').strip()
-    if phone_val and hasattr(request.user, 'profile'):
-        request.user.profile.phone_number = phone_val
-        request.user.profile.save(update_fields=['phone_number'])
-
-    # Kontaktinis paštas ir skaičių ribos — ant TO objekto, kuris jau yra.
+    # Telefonas ir paštas — ant TO objekto, kuris jau yra.
     #
     # Anksčiau čia stovėjo `listing`, bet jis atsiranda tik kuriant, ir tik
     # žemiau (_save_draft_fields). Redaguojant jis nesukuriamas niekada, tad
@@ -780,6 +778,7 @@ def _handle_post(request):
     # Redagavimo objektas vadinasi `edit_listing`; kuriant tie patys žingsniai
     # atliekami po to, kai skelbimas jau sukurtas.
     if is_edit_mode:
+        issaugok_telefona(edit_listing, request)
         issaugok_pasta(edit_listing, request)
         netelpantys = skaiciai.netelpa(edit_listing)
         if netelpantys:
@@ -834,6 +833,7 @@ def _handle_post(request):
         return _rerender(['Failed to save listing.'])
 
     # Tas pats, kas redagavimo šakoje — tik čia objektas atsiranda vėliau.
+    issaugok_telefona(listing, request)
     issaugok_pasta(listing, request)
     netelpantys = skaiciai.netelpa(listing)
     if netelpantys:

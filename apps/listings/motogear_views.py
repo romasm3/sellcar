@@ -16,7 +16,7 @@ from datetime import timedelta
 
 from apps.listings import juodrasciai
 from .image_validation import split_valid_images, ImageValidationError, validate_images
-from .kontaktai import issaugok_pasta
+from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from .models import (
     Listing,
@@ -419,7 +419,11 @@ def _build_context(request, submitted=None, errors=None, draft_id=None, current_
 
     submitted = submitted or {}
     if not submitted.get('phone'):
-        submitted['phone'] = _get_user_phone(request.user)
+        # Numeris pirmiausia iš SKELBIMO; paskyros — tik pradinė reikšmė
+        # naujam skelbimui (apps/listings/kontaktai.py).
+        from .kontaktai import telefono_reiksme
+        submitted['phone'] = telefono_reiksme(
+            edit_listing or current_draft, request.user)
     if not submitted.get('email'):
         submitted['email'] = request.user.email or ''
 
@@ -490,9 +494,11 @@ def _draft_to_submitted(draft):
         'address': draft.address or '',
         'hide_exact_address': 'on' if draft.hide_exact_address else '',
         'is_business_seller': 'on' if draft.is_business_seller else '',
-        # Skelbimo paštas, o ne paskyros — kitaip redaguojant įrašyta
-        # reikšmė kaskart pradingtų.
+        # Skelbimo paštas ir telefonas, o ne paskyros — kitaip redaguojant
+        # įrašyta reikšmė kaskart pradingtų, o telefonas dar ir būtų
+        # bendras visiems žmogaus skelbimams.
         'email': draft.contact_email or '',
+        'phone': draft.contact_phone or '',
     }
 
 
@@ -735,12 +741,6 @@ def _handle_post(request, edit_listing=None):
     if not edit_listing and not POST.get('agree_terms'):
         errors.append(_('Turite sutikti su taisyklėmis'))
 
-    # Phone lives on the profile, not the listing — same as every other form.
-    phone_val = (POST.get('phone', '') or '').strip()
-    if phone_val and hasattr(request.user, 'profile'):
-        request.user.profile.phone_number = phone_val
-        request.user.profile.save(update_fields=['phone_number'])
-
     # Kontaktinis paštas ir skaičių ribos — ant TO objekto, kuris jau yra.
     #
     # Anksčiau čia stovėjo `listing`, bet jis atsiranda tik žemiau
@@ -749,6 +749,7 @@ def _handle_post(request, edit_listing=None):
     # vadinasi `edit_listing`; kuriant tie patys žingsniai atliekami po to, kai
     # skelbimas jau sukurtas.
     if edit_listing:
+        issaugok_telefona(edit_listing, request)
         issaugok_pasta(edit_listing, request)
         errors.extend(skaiciai.netelpa(edit_listing))
 
@@ -782,6 +783,7 @@ def _handle_post(request, edit_listing=None):
 
     # Tas pats, kas redagavimo šakoje — tik čia objektas atsiranda vėliau.
     if not edit_listing:
+        issaugok_telefona(listing, request)
         issaugok_pasta(listing, request)
         netelpantys = skaiciai.netelpa(listing)
         if netelpantys:

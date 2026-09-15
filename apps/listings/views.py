@@ -41,7 +41,7 @@ from .forms import (
 )
 from . import salys
 from . import juodrasciai
-from .kontaktai import issaugok_pasta
+from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from apps.listings import units
 from .models import (
@@ -2863,6 +2863,8 @@ def _draft_to_session_data(draft):
     # ankstesnio skelbimo redagavimo, o ne iš vietos bloko.
     if draft.contact_email:
         data['step7']['email'] = draft.contact_email
+    if getattr(draft, 'contact_phone', ''):
+        data['step7']['phone'] = draft.contact_phone
 
     return data
 
@@ -3652,9 +3654,9 @@ def listing_create(request):
                 extra_errors.append(_('agree_terms: Turite sutikti su taisyklėmis'))
 
             if form.is_valid() and not extra_errors:
-                if phone_val and hasattr(request.user, 'profile'):
-                    request.user.profile.phone_number = phone_val
-                    request.user.profile.save(update_fields=['phone_number'])
+                # Telefonas — Į SKELBIMĄ, ne į paskyrą
+                # (apps/listings/kontaktai.py).
+                issaugok_telefona(current_draft, request)
 
                 # Kontaktinis paštas — kartu su telefonu
                 # (apps/listings/kontaktai.py)
@@ -5705,9 +5707,8 @@ def _render_edit_step(request, listing, step):
     elif step == 6:
         form = Step6DescriptionForm(initial={'description': listing.description})
     elif step == 7:
-        seller_phone = ''
-        if hasattr(listing.seller, 'profile') and listing.seller.profile.phone_number:
-            seller_phone = listing.seller.profile.phone_number
+        # Skelbimo numeris pirmas, paskyros — atsarginis.
+        seller_phone = listing.kontaktinis_telefonas
 
         form = Step7ContactForm(initial={
             'country': listing.country,
@@ -7242,13 +7243,13 @@ def listing_create_cars_quick(request):
         target.address = request.POST.get('address', '')
         target.hide_exact_address = request.POST.get('hide_exact_address') == 'on'
 
-        # Phone — į user.profile (autoplius style)
+        # Telefonas — į PATĮ skelbimą, ne į paskyrą. Paskyros laukas buvo
+        # bendras visiems skelbimams: pakeitus numerį viename, jis tyliai
+        # pasikeisdavo visuose kituose (apps/listings/kontaktai.py).
         phone_val = (request.POST.get('phone', '') or '').strip()
         if not phone_val:
             errors.append(_('Telefonas yra privalomas'))
-        elif hasattr(request.user, 'profile'):
-            request.user.profile.phone_number = phone_val
-            request.user.profile.save(update_fields=['phone_number'])
+        issaugok_telefona(target, request)
 
         # Paštas — į PATĮ skelbimą: jis gali skirtis nuo paskyros pašto
         # (apps/listings/kontaktai.py)
@@ -7462,9 +7463,10 @@ def _render_quick_form(request, current_draft, listing_data, listing=None, is_ed
             'postal_code': source.postal_code,
             'address': source.address,
             'hide_exact_address': source.hide_exact_address,
-            'phone': user_phone,
-            # Skelbimo paštas pirmas, paskyros — tik kai jo dar nėra.
-            # Buvo atvirkščiai, tad įrašyta reikšmė kaskart pradingdavo.
+            # Skelbimo numeris ir paštas pirmi, paskyros — tik kai jų dar
+            # nėra. Telefonas anksčiau visada ateidavo iš paskyros, tad
+            # redaguojant rodydavo ne šio skelbimo kontaktą.
+            'phone': source.kontaktinis_telefonas or user_phone,
             'email': source.kontaktinis_pastas,
         }
     else:
@@ -8796,9 +8798,15 @@ def listing_phone(request, pk):
     """
     listing = get_object_or_404(_public_listings_qs(request.user), pk=pk)
     prof = getattr(listing.seller, 'profile', None)
-    if not prof or not prof.show_phone or not prof.phone_number:
+    # „Rodyti numerį" jungiklis lieka paskyroje — jis apie žmogų, ne apie
+    # skelbimą. O pats numeris imamas IŠ SKELBIMO (kontaktinis_telefonas),
+    # nes kiekvienas skelbimas turi savo.
+    if not prof or not prof.show_phone:
         return JsonResponse({'telefonas': None}, status=404)
-    return JsonResponse({'telefonas': prof.phone_number})
+    numeris = listing.kontaktinis_telefonas
+    if not numeris:
+        return JsonResponse({'telefonas': None}, status=404)
+    return JsonResponse({'telefonas': numeris})
 
 
 @require_POST
