@@ -5337,9 +5337,41 @@ def listing_edit_section(request, pk, section):
 
 @login_required
 def listing_activation_plans(request, pk):
+    """Aktyvavimo planai. Į čia veda nuoroda iš priminimo laiško.
+
+    Laiško nuoroda paspaudžiama po savaitės, kitame įrenginyje, kartais
+    ne tos paskyros naršyklėje — tad kiekvienas „blogas" atvejis čia yra
+    normalus, ne išimtis. Nė vienas jų neturi baigtis klaidos puslapiu:
+
+        neprisijungęs      → prisijungimas su ?next= ir grįžimu atgal
+        skelbimo nebėra    → žinutė ir „Mano skelbimai"
+        svetimas skelbimas → TA PATI žinutė (kad neatskleistume, ar toks yra)
+        jau aktyvus        → žinutė ir pats skelbimas
+        galiojimas baigėsi → žinutė ir planai pratęsimui
+    """
     from .models import PricingPlan
 
-    listing = get_object_or_404(Listing, pk=pk, seller=request.user)
+    # Ne get_object_or_404: 404 puslapis žmogui iš laiško nieko nepaaiškina.
+    # Svetimas ir neegzistuojantis skelbimas duoda TĄ PAČIĄ žinutę — kitaip
+    # pagal atsakymą būtų galima tikrinti, kuris pk egzistuoja.
+    listing = Listing.objects.filter(pk=pk, seller=request.user).first()
+    if listing is None:
+        messages.error(request, _(
+            'Šio skelbimo nebėra arba jis priklauso kitai paskyrai. '
+            'Patikrinkite, ar prisijungėte ta paskyra, kuriai atėjo laiškas.'))
+        return redirect('my_listings')
+
+    if listing.status in ('active', 'reserved'):
+        messages.info(request, _('Šis skelbimas jau aktyvus — aktyvuoti iš naujo nereikia.'))
+        return redirect('listing_detail', pk=listing.pk)
+
+    if listing.status == 'sold':
+        messages.info(request, _('Šis skelbimas pažymėtas kaip parduotas.'))
+        return redirect('listing_edit_hub', pk=listing.pk)
+
+    if listing.status == 'expired':
+        messages.info(request, _(
+            'Skelbimo galiojimas pasibaigęs. Pasirinkite planą, kad jis vėl būtų matomas.'))
 
     if listing.status == 'draft':
         is_moto_gear_draft = (
@@ -5394,10 +5426,16 @@ def listing_activation_plans(request, pk):
                 messages.info(request, 'Complete the listing before activating it.')
                 return redirect('/create/?step=2')
 
-    plans = PricingPlan.objects.filter(
+    plans = list(PricingPlan.objects.filter(
         vehicle_type=listing.vehicle_type,
         is_active=True,
-    ).order_by('order', 'duration_days')
+    ).order_by('order', 'duration_days'))
+
+    if not plans:
+        messages.error(request, _(
+            'Šiai kategorijai kol kas nėra galiojimo planų. '
+            'Parašykite mums ir skelbimą aktyvuosime patys.'))
+        return redirect('listing_edit_hub', pk=listing.pk)
 
     if request.method == 'POST':
         plan_id = request.POST.get('plan_id')
@@ -5409,7 +5447,7 @@ def listing_activation_plans(request, pk):
                 is_active=True,
             )
         except (PricingPlan.DoesNotExist, ValueError, TypeError):
-            messages.error(request, 'Invalid plan selected.')
+            messages.error(request, _('Pasirinkite galiojimo planą.'))
             return redirect('listing_activation_plans', pk=listing.pk)
 
         listing.status = 'active'
@@ -5424,7 +5462,12 @@ def listing_activation_plans(request, pk):
 
         listing.save()
 
-        _send_listing_published_email(listing, request.user)
+        # Skelbimas JAU aktyvus; nepavykęs laiškas neturi virsti 500 ir
+        # atrodyti, tarsi aktyvavimas nepavyko.
+        try:
+            _send_listing_published_email(listing, request.user)
+        except Exception as e:
+            print('[aktyvavimas] laiško išsiųsti nepavyko: %s' % e)
 
         return redirect(
             reverse('listing_success', kwargs={'pk': listing.pk}) + '?action=published'

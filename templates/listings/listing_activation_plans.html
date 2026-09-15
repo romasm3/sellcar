@@ -18,7 +18,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 {% for plan in plans %}
                 <div class="relative bg-white rounded-xl shadow-sm border-2 {% if plan.is_popular %}border-primary{% else %}border-gray-200{% endif %} p-6 hover:shadow-lg transition-all cursor-pointer plan-card"
-                     data-days="{{ plan.days }}"
+                     data-plan-id="{{ plan.id }}"
+                     data-days="{{ plan.duration_days }}"
                      onclick="selectPlan(this)">
 
                     {% if plan.is_popular %}
@@ -27,15 +28,15 @@
                     </span>
                     {% endif %}
 
-                    {% if plan.discount %}
+                    {% if plan.discount_percent %}
                     <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
-                        -{{ plan.discount }}%
+                        -{{ plan.discount_percent }}%
                     </span>
                     {% endif %}
 
                     <div class="text-center mb-6">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                            {% blocktrans count counter=plan.days %}
+                            {% blocktrans count counter=plan.duration_days %}
                             {{ counter }} day
                             {% plural %}
                             {{ counter }} days
@@ -43,14 +44,14 @@
                         </h3>
 
                         {% if plan.old_price %}
-                        <p class="text-sm text-gray-400 line-through">${{ plan.old_price }}</p>
+                        <p class="text-sm text-gray-400 line-through">{{ plan.old_price|floatformat:2 }} &euro;</p>
                         {% endif %}
 
-                        <p class="text-4xl font-bold text-primary mt-2">${{ plan.price }}</p>
+                        <p class="text-4xl font-bold text-primary mt-2">{{ plan.price|floatformat:2 }} &euro;</p>
                     </div>
 
                     <ul class="space-y-3 text-sm">
-                        {% for feature in plan.features %}
+                        {% for feature in plan.features_list %}
                         <li class="flex justify-between items-center border-b border-gray-100 pb-2">
                             <span class="text-gray-600">{{ feature.label }}</span>
                             <span class="font-semibold text-gray-900">{{ feature.value }}</span>
@@ -67,7 +68,8 @@
                 {% endfor %}
             </div>
 
-            <input type="hidden" name="plan" id="selectedPlan" value="">
+            {# Vaizdas laukia plano ID (plan_id), ne dienų skaičiaus. #}
+            <input type="hidden" name="plan_id" id="selectedPlan" value="">
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div class="flex items-center justify-between">
@@ -119,7 +121,9 @@ function selectPlan(card) {
     card.querySelector('.plan-radio-inner').classList.remove('hidden');
 
     var days = parseInt(card.dataset.days, 10);
-    document.getElementById('selectedPlan').value = days;
+    // Siunčiam plano ID — anksčiau čia gulė dienų skaičius, tad vaizdas
+    // kiekvieną pasirinkimą atmesdavo su „Invalid plan selected".
+    document.getElementById('selectedPlan').value = card.dataset.planId;
     document.getElementById('selectedPlanLabel').textContent = pluralizeDays(days);
     document.getElementById('submitBtn').disabled = false;
 }
