@@ -4214,6 +4214,34 @@ class WheelListing(PaskelbimoLaikas, models.Model):
         from apps.listings import valiutos
         return valiutos.simbolis_pagal_sali(self.country)
  
+    # ─── Kortelės API — toks pat, kaip Listing ──────────────────────
+    #
+    # Kortelė abiem modeliams ta pati (apps/listings/korteles.py,
+    # partials/_skelbimo_kortele.html), o tituliniame „Dienos pasiūlymai"
+    # ratlankiai maišomi kartu su visais. Be šitų trijų dalykų kortelė
+    # pieštųsi be nuotraukos ir be žymų — Django šablonas nesamą atributą
+    # tyliai laiko tuščiu.
+
+    @property
+    def first_image(self):
+        """Pirma nuotrauka per prefetch kešą (žr. Listing.first_image)."""
+        imgs = list(self.images.all())
+        return imgs[0] if imgs else None
+
+    @property
+    def is_highlighted(self):
+        if not self.highlight_until:
+            return False
+        return self.highlight_until > timezone.now()
+
+    def get_effective_star_level(self):
+        """Žvaigždutės lygis, jei jos dar galioja."""
+        if not self.star_level:
+            return 0
+        if self.star_expires_at and self.star_expires_at <= timezone.now():
+            return 0
+        return self.star_level
+
     def build_title(self):
         if self.product_type == 'tyre':
             # „R" BŪTINAS: skersmuo saugomas be jo (16, 16C, 22.5), tad be

@@ -1167,7 +1167,10 @@ function onSortChange(selectEl) {
                 <div class="home-tab-grid">
                     {% for listing in tab_daily %}
                     {% with eff_level=listing.get_effective_star_level %}
-                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                    {% comment %}get_absolute_url, ne {% url 'listing_detail' %}:
+                    padangos ir ratlankiai gyvena /wheels/<id>/, ir su įrašytu
+                    adresu jų kortelė vestų į neegzistuojantį puslapį.{% endcomment %}
+                    <a data-skelbimas="{{ listing.pk }}" href="{{ listing.get_absolute_url }}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1207,7 +1210,7 @@ function onSortChange(selectEl) {
                 <div class="home-tab-grid">
                     {% for listing in tab_offers %}
                     {% with eff_level=listing.get_effective_star_level %}
-                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
+                    <a data-skelbimas="{{ listing.pk }}" href="{{ listing.get_absolute_url }}" class="home-tab-card{% if listing.is_highlighted %} highlighted-card{% endif %}">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1242,7 +1245,7 @@ function onSortChange(selectEl) {
                 {% if tab_newest %}
                 <div class="home-tab-grid">
                     {% for listing in tab_newest %}
-                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{{ listing.get_absolute_url }}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1275,7 +1278,7 @@ function onSortChange(selectEl) {
                 {% if tab_popular %}
                 <div class="home-tab-grid">
                     {% for listing in tab_popular %}
-                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{{ listing.get_absolute_url }}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}
@@ -1310,7 +1313,7 @@ function onSortChange(selectEl) {
                 {% if tab_expensive %}
                 <div class="home-tab-grid">
                     {% for listing in tab_expensive %}
-                    <a data-skelbimas="{{ listing.pk }}" href="{% url 'listing_detail' listing.pk %}" class="home-tab-card">
+                    <a data-skelbimas="{{ listing.pk }}" href="{{ listing.get_absolute_url }}" class="home-tab-card">
                         <div class="home-tab-img">
                             {% if listing.first_image %}
                                 {% include 'listings/partials/_img.html' with img=listing.first_image alt=listing.title %}

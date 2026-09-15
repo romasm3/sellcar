@@ -24,15 +24,19 @@ def _nuotrauka(objektas):
 def _ratlankio_spec(w):
     """„205/55 R16 · Vasarinės · 4 vnt." — ratlankių ir padangų eilutė."""
     dalys = []
+    # Skersmuo saugomas BE „R" (16, 16C, 22.5) — kortelėje jį rašom su
+    # priedeliu, kaip ir pavadinime („Nokian 205/55 R16"). Be to kortelė
+    # rodydavo „205/55 16".
+    skersmuo = ('R%s' % w.diameter) if w.diameter else ''
     if w.product_type == 'tyre':
         matmuo = '/'.join(x for x in (w.tyre_width, w.tyre_profile) if x)
-        if matmuo or w.diameter:
-            dalys.append(' '.join(x for x in (matmuo, w.diameter) if x))
+        if matmuo or skersmuo:
+            dalys.append(' '.join(x for x in (matmuo, skersmuo) if x))
         if w.tyre_season:
             dalys.append(w.get_tyre_season_display())
     else:
-        if w.diameter or w.rim_width:
-            dalys.append(' '.join(x for x in (w.diameter, w.rim_width) if x))
+        if skersmuo or w.rim_width:
+            dalys.append(' '.join(x for x in (skersmuo, w.rim_width) if x))
         if w.rim_pcd:
             dalys.append(w.rim_pcd)
     if w.quantity:

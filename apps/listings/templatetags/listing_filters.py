@@ -77,6 +77,13 @@ from django.utils.translation import gettext
 @register.simple_tag(name='spec_eilute')
 def spec_eilute(listing):
     """„2.0 L · Benzinas / dujos · Sedanas"."""
+    # Ratlankiai ir padangos gyvena kitame modelyje; jų eilutė — „205/65
+    # R16C · Vasarinės · 2 vnt." (apps/listings/korteles.py). Be šito jie
+    # tituliniame rodytųsi be specifikacijos eilutės.
+    if listing.__class__.__name__ == 'WheelListing':
+        from apps.listings.korteles import _ratlankio_spec
+        return _ratlankio_spec(listing)
+
     dalys = []
 
     if getattr(listing, 'is_truck', False) and getattr(listing, 'truck_type', ''):

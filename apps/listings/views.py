@@ -1,4 +1,5 @@
 import json
+import random
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 import os
@@ -1836,6 +1837,47 @@ COMING_SOON_PICKER = [
 ]
 
 
+def _dienos_pasiulymai(listing_qs, request, kiek=12):
+    """Atsitiktiniai skelbimai iš ABIEJŲ modelių.
+
+    Skelbimai gyvena dviejuose modeliuose: `Listing` (visos kategorijos) ir
+    `WheelListing` (padangos ir ratlankiai, /wheels/<id>/). Kortelė ta pati
+    (apps/listings/korteles.py), tad tituliniame jie turi maišytis kaip lygūs.
+
+    Vietas dalijam PAGAL KIEKĮ: jei ratlankiai sudaro šeštadalį katalogo, jie
+    gauna maždaug šeštadalį vietų. Tai tas pats, kas traukti atsitiktinai iš
+    sujungto sąrašo, tik be svyravimo, dėl kurio kartais neliktų nė vieno.
+
+    Rikiuojam `order_by('?')` — DB pusėje (Postgrese ORDER BY RANDOM()). Į
+    atmintį traukiam tik tiek eilučių, kiek rodysim.
+    """
+    from apps.listings import salies_juosta as _sj
+    from .models import WheelListing
+
+    ratai_qs = _sj.filtruoti(
+        WheelListing.objects.filter(status='active', is_shadow_banned=False),
+        request,
+    ).prefetch_related('images')
+
+    ratu_kiek = ratai_qs.count()
+    kitu_kiek = listing_qs.count()
+    viso = ratu_kiek + kitu_kiek
+    if not viso:
+        return []
+
+    # Proporcija, bet bent po vieną vietą kiekvienam nedykam modeliui.
+    ratu_vietu = round(kiek * ratu_kiek / viso) if ratu_kiek else 0
+    if ratu_kiek and ratu_vietu == 0:
+        ratu_vietu = 1
+    ratu_vietu = min(ratu_vietu, ratu_kiek, max(kiek - 1, 0))
+    kitu_vietu = min(kiek - ratu_vietu, kitu_kiek)
+
+    pasiulymai = list(listing_qs.order_by('?')[:kitu_vietu])
+    pasiulymai += list(ratai_qs.order_by('?')[:ratu_vietu])
+    random.shuffle(pasiulymai)
+    return pasiulymai
+
+
 # Rezultatu puslapis renderina sonine juosta tik ne telefonams
 # (context_processors.device_kind), todel atsakymas priklauso nuo
 # User-Agent ir tai turi buti pasakyta kesams.
@@ -2252,13 +2294,17 @@ def listing_list(request, panel_fragment=False, category=None):
     tab_offers = tab_featured + list(
         _tabs_base.exclude(pk__in=_offer_ids).order_by('-created_at')[:HOME_OFFERS_MAX]
     )
-    # „Dienos pasiūlymai" — šiandien įkelti skelbimai, kurie skirtuke
-    # išsilaiko 7 paras. Todėl riba ne „šiandien", o paskutinės 7 paros:
-    # šiandien įkeltas skelbimas iškris po 7 dienų.
-    tab_daily = list(
-        _tabs_base.filter(created_at__gte=_now_tabs - timedelta(days=7))
-        .order_by('-created_at')[:12]
-    )
+    # „Dienos pasiūlymai" — ATSITIKTINIAI skelbimai iš VISŲ kategorijų.
+    #
+    # Kas buvo. Sąrašas buvo `created_at__gte=-7d` su `order_by('-created_at')`,
+    # tad kiekvienas perkrovimas duodavo TĄ PAČIĄ eilę pagal ID mažėjančiai
+    # (825, 824, 823…) — jokio pasiūlymo, tik naujausi. Ir tik iš `Listing`:
+    # padangos su ratlankiais gyvena `WheelListing` modelyje, tad į titulinį
+    # nepatekdavo NĖ VIENAS iš dvylikos.
+    #
+    # Naujumas čia nebefiltruojamas sąmoningai: tam yra atskiras skirtukas
+    # „Naujausi" (tab_newest). Šitas rodo atsitiktinį pjūvį iš viso katalogo.
+    tab_daily = _dienos_pasiulymai(_tabs_base, request, kiek=12)
     tab_newest = list(_tabs_base.annotate(paskelbta_db=Coalesce('activated_at', 'created_at')).order_by('-paskelbta_db')[:6])
     tab_popular = list(_tabs_base.order_by('-views_count')[:6])
     tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
