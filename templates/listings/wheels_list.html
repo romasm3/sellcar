@@ -211,7 +211,11 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
                 <div class="flex items-center justify-between flex-wrap gap-3">
                     <div class="font-semibold text-gray-900 text-sm">
-                        {% trans "Listings found:" %} {{ total_count|sk }}
+                        {% comment %}„Nerasta" — tik kai tikrai 0. Anksčiau ji buvo
+                        rodoma visada (msgid „Listings found:" lietuviškai buvo
+                        išverstas „Nerasta jokių skelbimų"), tad virš šešių
+                        kortelių kabėjo „Nerasta jokių skelbimų 6".{% endcomment %}
+                        {% if total_count %}{% trans "Listings found:" %} {{ total_count|sk }}{% else %}{% trans "No listings found" %}{% endif %}
                     </div>
                     <div class="flex items-center gap-3">
                         {% if user.is_authenticated %}

@@ -24662,3 +24662,22 @@ msgstr "Move right"
 #: templates/listings/partials/_nuotrauku_valdymas.html
 msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
 msgstr "Some photos are still uploading. Leave anyway?"
+
+#: templates/listings/partials/_laiko_zyma.html:17
+msgid "Naujiena"
+msgstr "New"
+
+msgid "Unit price"
+msgstr "Unit price"
+
+msgid "Set"
+msgstr "Set"
+
+msgid "pcs."
+msgstr "pcs."
+
+msgid "Restauruotos"
+msgstr "Refurbished"
+
+msgid "Traktoriams ir spec. technikai"
+msgstr "Tractors and special machinery"

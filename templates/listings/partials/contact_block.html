@@ -138,7 +138,8 @@ Behaviour (matches the cars quick form, which is the reference):
     {% if show_terms|default_if_none:True and not is_edit_mode %}
     <div class="mt-5 border-t border-gray-100 pt-4">
         <label class="flex items-start gap-2 cursor-pointer">
-            <input type="checkbox" name="agree_terms" id="id_agree_terms" class="w-4 h-4 rounded mt-0.5">
+            {# required: dalis formų siunčiamos įprastai, ne per JS #}
+            <input type="checkbox" name="agree_terms" id="id_agree_terms" required class="w-4 h-4 rounded mt-0.5">
             <span class="text-sm text-gray-700">{% blocktrans %}By submitting, I agree to the <a href="#" class="text-gray-600 underline hover:text-gray-900">Terms and Conditions</a> and <a href="#" class="text-gray-600 underline hover:text-gray-900">Privacy Policy</a>{% endblocktrans %} <span class="text-red-500">*</span></span>
         </label>
     </div>

@@ -523,7 +523,9 @@ function handleWheelsSubmit() {
     var country = document.getElementById('id_country');
     var state = document.getElementById('id_state');
     var city = document.getElementById('id_city');
-    var phone = document.getElementById('id_contact_phone');
+    // Pagal NAME, ne id — žr. tyres_create.html: kontaktų bloko id
+    // visada id_phone, o name ateina parametru (contact_phone).
+    var phone = document.querySelector('[name="contact_phone"]');
     var agreeTerms = document.getElementById('id_agree_terms');
 
     if (country && country.value === 'US') {

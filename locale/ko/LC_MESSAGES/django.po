@@ -24521,3 +24521,22 @@ msgstr "오른쪽으로 이동"
 #: templates/listings/partials/_nuotrauku_valdymas.html
 msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
 msgstr "아직 업로드 중인 사진이 있습니다. 나가시겠습니까?"
+
+#: templates/listings/partials/_laiko_zyma.html:17
+msgid "Naujiena"
+msgstr "새로운"
+
+msgid "Unit price"
+msgstr ""
+
+msgid "Set"
+msgstr ""
+
+msgid "pcs."
+msgstr ""
+
+msgid "Restauruotos"
+msgstr ""
+
+msgid "Traktoriams ir spec. technikai"
+msgstr ""

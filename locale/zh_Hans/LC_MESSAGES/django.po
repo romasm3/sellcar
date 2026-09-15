@@ -24443,3 +24443,22 @@ msgstr "向右移动"
 #: templates/listings/partials/_nuotrauku_valdymas.html
 msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
 msgstr "仍有照片正在上传。确定要离开吗？"
+
+#: templates/listings/partials/_laiko_zyma.html:17
+msgid "Naujiena"
+msgstr "新的"
+
+msgid "Unit price"
+msgstr ""
+
+msgid "Set"
+msgstr ""
+
+msgid "pcs."
+msgstr ""
+
+msgid "Restauruotos"
+msgstr ""
+
+msgid "Traktoriams ir spec. technikai"
+msgstr ""

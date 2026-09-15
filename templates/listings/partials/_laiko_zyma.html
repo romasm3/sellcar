@@ -14,6 +14,6 @@ nesensta puslapiui gulint atidarytam.
 Naudojimas:  {% include 'listings/partials/_laiko_zyma.html' with listing=listing %}
 ═══════════════════════════════════════════════════════════════════════
 {% endcomment %}<div class="card-badge-group time-ago" data-paskelbta="{{ listing.paskelbta|date:'c' }}">
-  {% if listing.yra_naujas %}<span class="card-badge-new">{% trans "Naujas" %}</span>{% endif %}
+  {% if listing.yra_naujas %}<span class="card-badge-new">{% trans "Naujiena" %}</span>{% endif %}
   <span class="card-badge-time"><span class="time-ago-text"></span></span>
 </div>

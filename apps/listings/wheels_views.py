@@ -466,7 +466,8 @@ def _apply_wheels_filters(request, product_type=None):
 
     # ─── bendri filtrai ───
     if getval('purpose'):
-        qs = qs.filter(purpose=getval('purpose'))
+        qs = qs.filter(purpose=SENOS_PASKIRTYS.get(getval('purpose'),
+                                                   getval('purpose')))
     if getval('diameter'):
         qs = qs.filter(diameter=getval('diameter'))
     if getval('condition'):
@@ -619,6 +620,20 @@ def _wheels_cities(product_type):
     )
 
 
+# Senos paieškos panelės reikšmės → dabartinės.
+#
+# Panelė turėjo savo sąrašą su „car", „van", „agro", „quad", nors
+# skelbimuose guli passenger/commercial/industrial. Toks filtras
+# nerasdavo nieko. Sąrašai sujungti (models.WHEEL_PURPOSE_CHOICES), o
+# šitas žemėlapis palieka veikti senas nuorodas ir išsaugotas paieškas.
+SENOS_PASKIRTYS = {
+    'car': 'passenger',
+    'van': 'commercial',
+    'agro': 'industrial',
+    'quad': 'atv',
+}
+
+
 def _wheels_vehicle_brands():
     """Tr. priem. markės — automobilių markių sąrašas (`fits_brands` tekste)."""
     from .models import Brand
@@ -628,12 +643,14 @@ def _wheels_vehicle_brands():
 def _wheels_choices_context():
     """Bendri choices — list + advanced search template'ams.
 
-    „Keturračiams" yra tik PAIEŠKOJE: etalone toks punktas yra (juostoje —
-    „Padangos keturračiams"), o skelbimo formoje jo nėra ir modelio
-    WHEEL_PURPOSE_CHOICES nekeičiam — create forma lieka tokia pati.
+    „Keturračiams" anksčiau buvo pridedama TIK čia, atskira reikšme
+    („quad"), nes formoje tokio punkto nebuvo. Filtras dėl to nerasdavo
+    nieko: nė vienas skelbimas negalėjo turėti purpose=quad. Dabar
+    „atv" yra pačiame WHEEL_PURPOSE_CHOICES, tad ir forma, ir filtras
+    ima tą patį sąrašą.
     """
     return {
-        'purpose_choices': list(WHEEL_PURPOSE_CHOICES) + [('quad', _('Keturračiams'))],
+        'purpose_choices': WHEEL_PURPOSE_CHOICES,
         'diameter_choices': WHEEL_DIAMETER_CHOICES,
         'condition_choices': WHEEL_CONDITION_CHOICES,
         'tyre_width_choices': TYRE_WIDTH_CHOICES,

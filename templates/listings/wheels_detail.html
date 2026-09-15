@@ -114,7 +114,8 @@
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Season" %}</span>
-                            <span class="font-medium text-gray-900">{{ listing.tyre_season|default:"—" }}</span>
+                            {# get_..._display, ne žalias laukas: buvo rodoma „summer" #}
+                            <span class="font-medium text-gray-900">{{ listing.get_tyre_season_display|default:"—" }}</span>
                         </div>
                         <div class="flex justify-between py-3 border-b border-gray-200">
                             <span class="text-gray-600">{% trans "Speed index" %}</span>

@@ -245,7 +245,7 @@ msgstr "Pageidaujama kalba"
 #: templates/listings/wheels_advanced_search.html:137
 #: templates/listings/wheels_list.html:302
 msgid "Profile"
-msgstr "Redaguoti profilį"
+msgstr "Profilis"
 
 #: apps/accounts/models.py:205
 msgid "Top-up"
@@ -2058,7 +2058,7 @@ msgstr "Visi"
 #: apps/listings/models.py:476 apps/listings/models.py:866
 #: apps/listings/models.py:1045 apps/listings/models.py:1183
 msgid "Kitas"
-msgstr ""
+msgstr "Kitas"
 
 #: apps/listings/models.py:486
 msgid "No climate control"
@@ -12332,7 +12332,7 @@ msgstr ""
 
 #: apps/listings/translatable_db.py:1805
 msgid "Sunkvežimiams ir autobusams"
-msgstr ""
+msgstr "Sunkvežimiams ir autobusams"
 
 #: apps/listings/translatable_db.py:1807
 msgid "Sunkvežimis virš 7,5t."
@@ -22660,13 +22660,13 @@ msgstr "Iki 20 nuotraukų. Maks. dydis 20MB. JPG, GIF, PNG."
 #: templates/listings/tyres_create.html:385
 #: templates/listings/wheels_create.html:502
 msgid "Manufacturer is required"
-msgstr "Būtina nurodyti valstiją"
+msgstr "Būtina nurodyti gamintoją"
 
 #: templates/listings/rims_create.html:351
 #: templates/listings/tyres_create.html:388
 #: templates/listings/wheels_create.html:505
 msgid "Diameter is required"
-msgstr "Būtina nurodyti valstiją"
+msgstr "Būtina nurodyti skersmenį"
 
 #: templates/listings/rims_create.html:360
 #: templates/listings/truck_for_parts_create.html:267
@@ -22682,7 +22682,7 @@ msgstr "Būtina nurodyti mėnesį"
 #: templates/listings/wheels_create.html:514
 #: templates/listings/wheels_create.html:520
 msgid "Width is required"
-msgstr "Būtina nurodyti miestą"
+msgstr "Būtina nurodyti plotį"
 
 #: templates/listings/rims_create.html:520
 #: templates/listings/tyres_create.html:558
@@ -23455,12 +23455,12 @@ msgstr "Pagaminimo metai (DOT)"
 #: templates/listings/tyres_create.html:397
 #: templates/listings/wheels_create.html:515
 msgid "Profile is required"
-msgstr "Būtina nurodyti kainą"
+msgstr "Būtina nurodyti profilį"
 
 #: templates/listings/tyres_create.html:398
 #: templates/listings/wheels_create.html:516
 msgid "Season is required"
-msgstr "Būtina nurodyti metus"
+msgstr "Būtina nurodyti sezoniškumą"
 
 #: templates/listings/wheels_advanced_search.html:177
 msgid "DOT year"
@@ -23505,15 +23505,15 @@ msgstr "Vieneto kaina"
 
 #: templates/listings/wheels_detail.html:103
 msgid "Specifications"
-msgstr ""
+msgstr "Specifikacijos"
 
 #: templates/listings/wheels_detail.html:139
 msgid "Remaining"
-msgstr ""
+msgstr "Likutis"
 
 #: templates/listings/wheels_detail.html:143
 msgid "Production year"
-msgstr ""
+msgstr "Pagaminimo metai (DOT)"
 
 #: templates/listings/wheels_detail.html:165
 msgid "ET"
@@ -23525,15 +23525,15 @@ msgstr "Jūsų skelbimas"
 
 #: templates/listings/wheels_list.html:6
 msgid "Browse Rims"
-msgstr "Naršyti automobilius"
+msgstr "Naršyti ratlankius"
 
 #: templates/listings/wheels_list.html:6
 msgid "Browse Tyres"
-msgstr "Naršyti sunkvežimius"
+msgstr "Naršyti padangas"
 
 #: templates/listings/wheels_list.html:223
 msgid "Listings found:"
-msgstr "Nerasta jokių skelbimų"
+msgstr "Rasta skelbimų:"
 
 #: templates/listings/wheels_list.html:303
 msgid "Tread left"
@@ -24739,3 +24739,22 @@ msgstr ""
 #: templates/listings/partials/_nuotrauku_valdymas.html
 msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
 msgstr ""
+
+#: templates/listings/partials/_laiko_zyma.html:17
+msgid "Naujiena"
+msgstr "Naujiena"
+
+msgid "Unit price"
+msgstr "Vieneto kaina"
+
+msgid "Set"
+msgstr "Komplektas"
+
+msgid "pcs."
+msgstr "vnt."
+
+msgid "Restauruotos"
+msgstr "Restauruotos"
+
+msgid "Traktoriams ir spec. technikai"
+msgstr "Traktoriams ir spec. technikai"

@@ -24707,3 +24707,22 @@ msgstr "نقل إلى اليمين"
 #: templates/listings/partials/_nuotrauku_valdymas.html
 msgid "Turite dar nebaigtų keltis nuotraukų. Tikrai išeiti?"
 msgstr "لا تزال بعض الصور قيد الرفع. هل تريد المغادرة على أي حال؟"
+
+#: templates/listings/partials/_laiko_zyma.html:17
+msgid "Naujiena"
+msgstr "جديد"
+
+msgid "Unit price"
+msgstr ""
+
+msgid "Set"
+msgstr ""
+
+msgid "pcs."
+msgstr ""
+
+msgid "Restauruotos"
+msgstr ""
+
+msgid "Traktoriams ir spec. technikai"
+msgstr ""

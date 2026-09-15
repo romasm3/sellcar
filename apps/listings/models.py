@@ -3907,43 +3907,100 @@ class PartCategory(models.Model):
 
         return separator.join(n.name_en for n in self.breadcrumb())
 
+# ═══════════════════════════════════════════════════════════════════
+# PADANGŲ IR RATLANKIŲ SĄRAŠAI — VIENAS ŠALTINIS FORMAI IR FILTRUI.
+#
+# Sąrašai buvo per trumpi realiems skelbimams: Bridgestone Duravis R16C
+# tekdavo vesti kaip R16, sunkvežimio 315/70 R22.5 — kaip 295/70 R21,
+# motociklo 120/70 ZR17 — kaip 185/50 R17 (motociklų pločių 90–130 iš
+# viso nebuvo). Papildyta pagal autogidas.lt etaloną; senos reikšmės
+# paliktos, kad jau įvesti skelbimai nesugriūtų.
+#
+# Filtro panelė (templates/listings/partials/_panel_bodies.html) anksčiau
+# turėjo SAVO, ranka surašytus sąrašus — ir net kitas reikšmes: „car",
+# „van", „agro", „quad" vietoj passenger/commercial/industrial. Tokie
+# filtrai nerasdavo NIEKO, nes skelbimuose įrašyta kita reikšmė. Dabar
+# abi vietos ima tuos pačius sąrašus iš čia (šablonams — per
+# apps/listings/templatetags/ratu_tags.py), o senos filtro reikšmės
+# perrašomos į naująsias (wheels_views.SENOS_PASKIRTYS), kad išsaugotos
+# nuorodos veiktų.
+# ═══════════════════════════════════════════════════════════════════
+
+# Paskirtis. Pavadinimai — filtro variantai (jie tikslesni už buvusius
+# formos „Lengvieji automobiliai / Komerciniams / Pramoniniai").
+# Msgid'ai lietuviški: „Trucks" jau reiškia sunkvežimių KATEGORIJĄ, tad
+# jo perrašyti čia negalima.
 WHEEL_PURPOSE_CHOICES = [
-    ('passenger', _('Passenger cars')),
-    ('suv', _('SUV / Off-road')),
-    ('commercial', _('Commercial / Van')),
-    ('truck', _('Trucks')),
-    ('moto', _('Motorcycles')),
-    ('industrial', _('Industrial')),
+    ('passenger', _('Lengviesiems')),
+    ('suv', _('Visureigiams (SUV)')),
+    ('commercial', _('Mikroautobusams')),
+    ('truck', _('Sunkvežimiams ir autobusams')),
+    ('moto', _('Motociklams')),
+    ('atv', _('Keturračiams')),
+    ('industrial', _('Traktoriams ir spec. technikai')),
 ]
- 
-# Padangų plotis (mm) — 125..355 žingsniu 10
-TYRE_WIDTH_CHOICES = [(str(w), str(w)) for w in range(125, 356, 10)]
- 
-# Padangų profilis / aukštis (%)
-TYRE_PROFILE_CHOICES = [
-    (str(p), str(p)) for p in
-    [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85]
+
+# Padangų plotis (mm). Buvo 125..355 žingsniu 10 — be motociklų (90–130),
+# be sunkvežimių ir be colinių (5.50, 10.5) dydžių.
+_TYRE_WIDTHS = [
+    '5.50', '6.00', '6.50', '7.00', '10.5', '11.5', '12.5', '13.5',
+    '14', '20', '32', '33', '38',
+    '80', '85', '90', '95', '100', '105', '110', '115', '120', '125',
+    '130', '135', '140', '145', '150', '155', '160', '165', '170',
+    '175', '180', '185', '190', '195', '200', '205', '215', '225',
+    '235', '245', '255', '265', '270', '275', '280', '285', '295',
+    '305', '315', '325', '335', '345', '355', '365', '385', '425',
+    '430', '445', '460', '480', '495', '500', '520', '525', '540',
+    '580', '600', '605', '620', '650', '680', '685', '700', '710',
+    '750', '775', '800', '900', '1050',
 ]
- 
-# Skersmuo (R) — bendras padangoms ir ratlankiams
-WHEEL_DIAMETER_CHOICES = [(str(d), f'R{d}') for d in range(10, 25)]  # R10..R24
- 
+TYRE_WIDTH_CHOICES = [(w, w) for w in _TYRE_WIDTHS]
+
+# Padangų profilis / aukštis (%). Buvo 20..85 žingsniu 5.
+_TYRE_PROFILES = [
+    '12.5', '14', '14.5', '20', '25', '30', '31', '32', '33', '35',
+    '37', '40', '45', '50', '55', '60', '65', '70', '75', '80',
+    '85', '88', '90', '95', '100', '105', '110', '115', '120',
+]
+TYRE_PROFILE_CHOICES = [(p, p) for p in _TYRE_PROFILES]
+
+# Skersmuo (R) — bendras padangoms ir ratlankiams. Buvo R10..R24.
+# Reikšmė saugoma BE „R" (taip jau guli DB), etiketė — su „R".
+# „C" — komercinės (R16C), „.5" — sunkvežimių colinės (R22.5).
+_WHEEL_DIAMETERS = [
+    '4', '5', '6', '7', '8', '9',
+    '10', '10C', '11', '12', '12C', '13', '13C', '14', '14C',
+    '15', '15.3', '15.5', '15C', '16', '16C', '16.5',
+    '17', '17C', '17.5', '18', '19', '19.5', '20', '21',
+    '22', '22.5', '23', '24', '24.5', '25', '26', '26.5', '27',
+    '28', '29', '30', '32', '34', '38', '42', '44', '45', '46',
+    '48', '49', '50', '51', '52', '54', '57', '63',
+]
+WHEEL_DIAMETER_CHOICES = [(d, 'R%s' % d) for d in _WHEEL_DIAMETERS]
+
 TYRE_SEASON_CHOICES = [
     ('summer', _('Summer')),
     ('winter', _('Winter')),
     ('all_season', _('All-season')),
+    ('other', _('Kitas')),
 ]
- 
+
 TYRE_SPEED_CHOICES = [
     (c, c) for c in ['J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
                      'T', 'U', 'H', 'V', 'W', 'Y', 'Z']
 ]
  
-# Protektoriaus gylis (mm) — dropdown 1..10
-TYRE_TREAD_CHOICES = [(str(x), f'{x} mm') for x in range(1, 11)]
+# Protektoriaus gylis (mm). Buvo 1..10 — sunkvežimių ir žemės ūkio
+# padangoms to per mažai (nauja sunkvežimio padanga turi 15–20 mm).
+_TYRE_TREADS = [
+    '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9',
+    '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+    '25', '30', '35', '40',
+]
+TYRE_TREAD_CHOICES = [(t, '%s mm' % t) for t in _TYRE_TREADS]
  
-# Padangų likutis (%) — dropdown 10..100 žingsniu 10
-TYRE_REMAINING_CHOICES = [(str(p), f'{p}%') for p in range(10, 101, 10)]
+# Padangų likutis (%) — 5..100 žingsniu 5 (buvo 10 žingsniu 10)
+TYRE_REMAINING_CHOICES = [(str(p), f'{p}%') for p in range(5, 101, 5)]
  
 # Pagaminimo metai (DOT) — dropdown (paskutiniai 20 metų)
 import datetime as _dt
@@ -3987,6 +4044,8 @@ RIM_MATERIAL_CHOICES = [
 WHEEL_CONDITION_CHOICES = [
     ('new', _('New')),
     ('used', _('Used')),
+    # Atnaujinto protektoriaus padangos — autogide atskira būklė.
+    ('refurbished', _('Restauruotos')),
 ]
  
 WHEEL_STATUS_CHOICES = [
@@ -4029,7 +4088,8 @@ class WheelListing(PaskelbimoLaikas, models.Model):
     model_name = models.CharField(max_length=80, blank=True)
     purpose = models.CharField(max_length=20, choices=WHEEL_PURPOSE_CHOICES, blank=True, db_index=True)
     diameter = models.CharField(max_length=4, choices=WHEEL_DIAMETER_CHOICES, blank=True, db_index=True)  # R
-    condition = models.CharField(max_length=8, choices=WHEEL_CONDITION_CHOICES, default='used')
+    # 20, ne 8: reiksme 'refurbished' yra 11 simboliu.
+    condition = models.CharField(max_length=20, choices=WHEEL_CONDITION_CHOICES, default='used')
     quantity = models.PositiveSmallIntegerField(default=4)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0), MaxValueValidator(Decimal('99999999.99'))])
     negotiable = models.BooleanField(default=False)
@@ -4133,9 +4193,12 @@ class WheelListing(PaskelbimoLaikas, models.Model):
  
     def build_title(self):
         if self.product_type == 'tyre':
-            size = f'{self.tyre_width}/{self.tyre_profile} {self.diameter}'
+            # „R" BŪTINAS: skersmuo saugomas be jo (16, 16C, 22.5), tad be
+            # priedelio pavadinimas buvo „Bridgestone 225/45 18", nors tos
+            # pačios kortelės viduje — „Dydis: 225/45 R18".
+            size = f'{self.tyre_width}/{self.tyre_profile} R{self.diameter}'
             return f'{self.brand_name} {size}'.strip()
-        size = f'{self.diameter}x{self.rim_width} {self.rim_pcd}'
+        size = f'R{self.diameter}x{self.rim_width} {self.rim_pcd}'
         return f'{self.brand_name} {size}'.strip()
  
     def activate(self, days=None):

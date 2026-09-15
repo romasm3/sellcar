@@ -87,18 +87,21 @@
                         <div data-field-wrap="quantity" data-required="true">
                             <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Quantity" %} <span class="text-red-500">*</span></label>
                             <input type="number" name="quantity" id="id_quantity" value="4" min="1" max="99" step="1"
+                                   oninput="perskaiciuokKomplekta()"
                                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
                         </div>
 
                         {# ═══ PRICE — € DEŠINĖJE ═══ #}
                         <div data-field-wrap="price" data-required="true">
-                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Price" %} <span class="text-red-500">*</span></label>
+                            <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Unit price" %} <span class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="number" name="price" value="{{ listing.price|default:'' }}" id="id_price" min="0" step="1"
-                                       oninput="if(this.value) markFieldError('price', false)"
+                                       oninput="if(this.value) markFieldError('price', false); perskaiciuokKomplekta()"
                                        placeholder="0" class="w-full pl-3 pr-8 py-2 border border-gray-300 rounded text-sm">
                                 <span data-valiutos-sufiksas class="absolute right-3 top-2 text-gray-500 text-sm">€</span>
                             </div>
+                            {# Kiekis × vieneto kaina — kad matytųsi, kiek kainuoja visas komplektas. #}
+                            <p id="komplekto-kaina" class="mt-1 text-xs text-gray-500" style="display:none"></p>
                         </div>
 
                         <div class="flex items-end pb-2">
@@ -377,6 +380,28 @@ function clearAllFieldErrors() {
     document.querySelectorAll('[data-field-wrap].field-error').forEach(function(el) { el.classList.remove('field-error'); });
 }
 
+// ═══ KOMPLEKTO KAINA ═══
+// Kaina laukelyje yra VIENO vieneto, o perkama dažniausiai komplektu.
+// Rodom sandaugą, kad pardavėjas matytų, ką pamatys pirkėjas.
+function perskaiciuokKomplekta() {
+    var kiekisLaukas = document.getElementById('id_quantity');
+    var kainaLaukas = document.getElementById('id_price');
+    var eilute = document.getElementById('komplekto-kaina');
+    if (!eilute) return;
+
+    var kiekis = parseInt(kiekisLaukas && kiekisLaukas.value, 10);
+    var kaina = parseFloat(kainaLaukas && kainaLaukas.value);
+    if (!kiekis || kiekis < 2 || !kaina || kaina <= 0) {
+        eilute.style.display = 'none';
+        return;
+    }
+    var suma = Math.round(kiekis * kaina * 100) / 100;
+    eilute.textContent = '{% trans "Set" %} (' + kiekis + ' {% trans "pcs." %}): '
+                       + suma.toLocaleString('lt-LT') + ' €';
+    eilute.style.display = '';
+}
+document.addEventListener('DOMContentLoaded', perskaiciuokKomplekta);
+
 function handleTyresSubmit() {
     clearAllFieldErrors();
     var errors = [];
@@ -400,7 +425,12 @@ function handleTyresSubmit() {
     var country = document.getElementById('id_country');
     var state = document.getElementById('id_state');
     var city = document.getElementById('id_city');
-    var phone = document.getElementById('id_contact_phone');
+    // Pagal NAME, ne id: kontaktų blokas name'ą gauna parametru
+    // (wheels/tyres/rims siunčia contact_phone), o id jame visada
+    // id_phone. Ieškant pagal id paieška visada grąžindavo null, tad
+    // klaida įsirašydavo net užpildžius telefoną ir forma niekada
+    // nebūdavo išsiunčiama.
+    var phone = document.querySelector('[name="contact_phone"]');
     var agreeTerms = document.getElementById('id_agree_terms');
 
     if (country && country.value === 'US') {

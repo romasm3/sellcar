@@ -114,8 +114,11 @@ for kalba in ('en', 'ru', 'de'):
         h = zymos(vin='WBA1', zvaigzdes=1)
     tikrinu(u'%s: blokas atsipiešia' % kalba,
             'card-badge-time' in h and 'sk-vin' in h)
-tikrinu(u'„Naujas" eina per {% trans %}',
-        '{% trans "Naujas" %}' in io.open(
+# „Naujas" pervadinta į „Naujiena": kortelėje vienu metu kabėdavo
+# įkėlimo žyma „Naujas" ir būklė „Naudotas" (docs/klaidos/PADANGOS.md,
+# TYRE-17). Žyma bendra visoms kategorijoms.
+tikrinu(u'„Naujiena" eina per {% trans %}',
+        '{% trans "Naujiena" %}' in io.open(
             os.path.join(BASE, 'templates/listings/partials/_laiko_zyma.html'),
             encoding='utf-8').read())
 tikrinu(u'VIN eina per {% trans %}',
