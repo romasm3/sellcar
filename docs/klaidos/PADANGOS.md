@@ -10,21 +10,21 @@ jis krenta ties kiekviena žemiau išvardyta klaida.
 
 | Nr. | Klaida | Būsena | Commit |
 |-----|--------|--------|--------|
-| TYRE-01 | Padangų formos pateikti neįmanoma: telefono ieškota per `getElementById('id_contact_phone')`, tokio id nėra | IŠTAISYTA | `902230855ab2` |
-| RIM-01 | Ta pati klaida ratlankių formoje | IŠTAISYTA | `902230855ab2` |
-| TYRE-02 | Validacijos pranešimai rodė ne tą lauką („Būtina nurodyti valstiją" vietoj „gamintoją") | IŠTAISYTA | `902230855ab2` |
-| TYRE-03 | Per trumpi sąrašai: skersmuo, plotis, profilis | IŠTAISYTA | `902230855ab2` |
-| TYRE-04 | Per trumpi sąrašai: protektoriaus gylis, likutis, būklė, sezoniškumas, paskirtis | IŠTAISYTA | `902230855ab2` |
-| TYRE-05 | Skelbimo puslapyje „Sezoniškumas: summer" — žalia DB reikšmė | IŠTAISYTA | `902230855ab2` |
-| TYRE-06 | Lentelėje angliški „Specifications", „Remaining", „Production year" | IŠTAISYTA | `902230855ab2` |
-| TYRE-07 | `/browse/tyres/` `<title>` — „Naršyti sunkvežimius" | IŠTAISYTA | `902230855ab2` |
-| TYRE-08 | Virš rezultatų „Nerasta jokių skelbimų 6" | IŠTAISYTA | `902230855ab2` |
-| TYRE-09 | Kortelėje žyma „Redaguoti profilį 50" | IŠTAISYTA | `902230855ab2` |
-| TYRE-10 | „Paskirtis" skirtinga formoje ir filtre; filtras naudojo kitas reikšmes | IŠTAISYTA | `902230855ab2` |
-| TYRE-12 | Automatinis pavadinimas be „R": „Bridgestone 225/45 18" | IŠTAISYTA | `902230855ab2` |
-| TYRE-13 | `agree_terms` be `required` | IŠTAISYTA | `902230855ab2` |
-| TYRE-16 | Kainos etiketė, komplekto suma, nuotraukų ribos | IŠTAISYTA | `902230855ab2` |
-| TYRE-17 | Kortelėje vienu metu „Naujas" (įkėlimo žyma) ir „Naudotas" (būklė) | IŠTAISYTA | `902230855ab2` |
+| TYRE-01 | Padangų formos pateikti neįmanoma: telefono ieškota per `getElementById('id_contact_phone')`, tokio id nėra | IŠTAISYTA | `33b2a8836ab3` |
+| RIM-01 | Ta pati klaida ratlankių formoje | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-02 | Validacijos pranešimai rodė ne tą lauką („Būtina nurodyti valstiją" vietoj „gamintoją") | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-03 | Per trumpi sąrašai: skersmuo, plotis, profilis | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-04 | Per trumpi sąrašai: protektoriaus gylis, likutis, būklė, sezoniškumas, paskirtis | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-05 | Skelbimo puslapyje „Sezoniškumas: summer" — žalia DB reikšmė | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-06 | Lentelėje angliški „Specifications", „Remaining", „Production year" | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-07 | `/browse/tyres/` `<title>` — „Naršyti sunkvežimius" | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-08 | Virš rezultatų „Nerasta jokių skelbimų 6" | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-09 | Kortelėje žyma „Redaguoti profilį 50" | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-10 | „Paskirtis" skirtinga formoje ir filtre; filtras naudojo kitas reikšmes | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-12 | Automatinis pavadinimas be „R": „Bridgestone 225/45 18" | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-13 | `agree_terms` be `required` | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-16 | Kainos etiketė, komplekto suma, nuotraukų ribos | IŠTAISYTA | `33b2a8836ab3` |
+| TYRE-17 | Kortelėje vienu metu „Naujas" (įkėlimo žyma) ir „Naudotas" (būklė) | IŠTAISYTA | `33b2a8836ab3` |
 
 ## Ką reiškė kiekviena pataisa
 
