@@ -49,16 +49,47 @@ if [[ -f "$BLOGAS_FAILAS" ]] && [[ "$(cat "$BLOGAS_FAILAS")" == "$UPSTREAM" ]]; 
     exit 0
 fi
 
-if [[ "$LOCAL" == "$UPSTREAM" ]]; then
-    # Naujo kodo nėra, bet būklę paskelbiam — taip ją matyti ir tada,
-    # kai niekas nediegiama. Skriptas pats nieko nekelia, jei nepasikeitė.
+# ── Ar ĮDIEGTA tai, kas guli diske? ────────────────────────────────────
+#
+# 2026-09-13..15 svetainė septynias paras rodė seną kodą, nors serverio
+# git buvo ant naujausio commit'o, o servisas kas minutę baigdavosi
+# `status=0/SUCCESS`. Kaltas šitas palyginimas: jis klausė „ar git HEAD
+# sutampa su upstream", o ne „ar tai, kas guli diske, tikrai atiduodama
+# lankytojui".
+#
+# Eiga tokia. Žemiau `git merge --ff-only` darbo katalogą pastumia PIRMA,
+# o gunicorn perkraunamas tik pabaigoje (deploy-agent.sh). Kai systemd
+# nutraukė vieną paleidimą per vidurį (13:10:00, „Failed with result
+# 'timeout'"), medis jau buvo pastumtas, o perkrovimas nebeįvyko. Nuo tos
+# akimirkos LOCAL == UPSTREAM, tad kiekvienas kitas ciklas išeidavo čia —
+# tyliai ir „sėkmingai". Diegimas nebeįvyktų NIEKADA: klaida pati save
+# palaiko.
+#
+# Todėl tikrinam ne tik git, bet ir VERSIJA — žymę, kurią rašo
+# deploy-agent.sh TADA, kai tikrai perkrovė aplikaciją. Jei ji atsilieka
+# nuo darbo katalogo, diegimas liko nebaigtas ir jį reikia pabaigti.
+HEAD_TRUMPAS="$(git rev-parse --short=12 HEAD)"
+IDIEGTA="$(tr -d '[:space:]' < "${APP_DIR}/VERSIJA" 2>/dev/null || true)"
+NEBAIGTAS=0
+if [[ -n "$IDIEGTA" && "$IDIEGTA" != "$HEAD_TRUMPAS" ]]; then
+    NEBAIGTAS=1
+fi
+
+if [[ "$LOCAL" == "$UPSTREAM" && "$NEBAIGTAS" -eq 0 ]]; then
+    # Naujo kodo nėra ir įdiegta tai, kas guli diske. Būklę paskelbiam —
+    # taip ją matyti ir tada, kai niekas nediegiama.
     if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
     exit 0
 fi
 
 # ── Nuo šios vietos jau turim ką pranešti ──────────────────────────────
-log "=== Naujų commit'ų rasta: ${LOCAL:0:7} → ${UPSTREAM:0:7} ==="
-git --no-pager log --oneline "HEAD..${REMOTE}/${BRANCH}" | sed 's/^/    /'
+if [[ "$NEBAIGTAS" -eq 1 ]]; then
+    log "=== NEBAIGTAS DIEGIMAS: diske ${HEAD_TRUMPAS}, o įdiegta ${IDIEGTA} — tęsiam ==="
+fi
+if [[ "$LOCAL" != "$UPSTREAM" ]]; then
+    log "=== Naujų commit'ų rasta: ${LOCAL:0:7} → ${UPSTREAM:0:7} ==="
+    git --no-pager log --oneline "HEAD..${REMOTE}/${BRANCH}" | sed 's/^/    /'
+fi
 
 # Ar dabartinė šaka apskritai ta, kurią diegiam?
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
@@ -73,10 +104,12 @@ if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
 fi
 
 # ── Parsisiunčiam (tik fast-forward) ───────────────────────────────────
-if ! git merge --ff-only "${REMOTE}/${BRANCH}" --quiet; then
-    die "Fast-forward negalimas — serverio šaka nuklydusi nuo ${REMOTE}/${BRANCH}. Sutvarkyk ranka."
+if [[ "$LOCAL" != "$UPSTREAM" ]]; then
+    if ! git merge --ff-only "${REMOTE}/${BRANCH}" --quiet; then
+        die "Fast-forward negalimas — serverio šaka nuklydusi nuo ${REMOTE}/${BRANCH}. Sutvarkyk ranka."
+    fi
+    log "Kodas atnaujintas iki ${UPSTREAM:0:7}"
 fi
-log "Kodas atnaujintas iki ${UPSTREAM:0:7}"
 
 # ── Migracijos PRIEŠ patikrą ───────────────────────────────────────────
 # Patikros testai (config.test_runner.BeDuombazes) dirba su GYVA duomenų
@@ -138,9 +171,32 @@ rm -f "$BLOGAS_FAILAS"
 
 # ── Deploy per esamą agentą (migrate + collectstatic + restart + health) ──
 if ./deploy-agent.sh; then
-    log "✅ Deploy OK — gyvai veikia ${UPSTREAM:0:7}"
+    # „Skriptas nenukrito" NĖRA tas pats, kas „naujas kodas atiduodamas".
+    # Septynias paras diegimas baigdavosi sėkme, o lankytojas matė seną
+    # kodą. Todėl pabaigoje klausiam PAČIOS svetainės, kuris commit'as
+    # gyvas, ir tik tada skelbiam sėkmę.
+    LAUKIAMA="$(git rev-parse --short=12 HEAD)"
+    GYVAI=""
+    for _bandymas in 1 2 3 4 5; do
+        GYVAI="$(curl -fsS --max-time 10 -H 'X-Forwarded-Proto: https' \
+                     http://127.0.0.1/ 2>/dev/null \
+                 | grep -o 'name="versija" content="[0-9a-f]*"' \
+                 | grep -o '[0-9a-f]\{6,\}' || true)"
+        [[ "$GYVAI" == "$LAUKIAMA" ]] && break
+        sleep 2
+    done
+
+    if [[ "$GYVAI" == "$LAUKIAMA" ]]; then
+        log "✅ Deploy OK — GYVAI veikia ${LAUKIAMA}"
+        if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh || true; fi
+        exit 0
+    fi
+
+    # Failai pakeisti ir servisas perkrautas, bet atiduodamas ne tas kodas.
+    # Neskelbiam sėkmės — kitaip klaida vėl liktų nepastebėta.
+    log "DĖMESIO: perkrauta, bet svetainė rodo '${GYVAI:-nieko}', laukta ${LAUKIAMA}."
     if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh || true; fi
-    exit 0
+    die "Deploy nepatvirtintas: gyvai ne tas commit'as. Patikrink gunicorn ir nginx talpyklą."
 fi
 
 # Nekartojam to paties commit'o kas minutę.
