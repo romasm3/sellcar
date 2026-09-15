@@ -6,7 +6,7 @@ Patikra: `python docs/kontaktu_telefono_test.py` (32 patikros).
 
 | Nr. | Klaida | Būsena | Commit |
 |-----|--------|--------|--------|
-| CAR-12 | Telefono numeris saugomas prie paskyros, ne prie skelbimo: pakeitus jį viename skelbime, tyliai pasikeičia visuose kituose | IŠTAISYTA | `PLACEHOLDER` |
+| CAR-12 | Telefono numeris saugomas prie paskyros, ne prie skelbimo: pakeitus jį viename skelbime, tyliai pasikeičia visuose kituose | IŠTAISYTA | `43cb054d6d95` |
 
 ## CAR-12 — ką radau
 

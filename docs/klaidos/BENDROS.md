@@ -4,7 +4,7 @@ Liečia daugiau nei vieną kategoriją.
 
 | Nr. | Klaida | Būsena | Commit |
 |-----|--------|--------|--------|
-| CFG-01 | Skelbime rodomas portalo palaikymo adresas `helpautoinfo@gmail.com` vietoj pardavėjo | IŠTAISYTA | `PLACEHOLDER` |
+| CFG-01 | Skelbime rodomas portalo palaikymo adresas `helpautoinfo@gmail.com` vietoj pardavėjo | IŠTAISYTA | `43cb054d6d95` |
 
 ## CFG-01 — ką radau
 
