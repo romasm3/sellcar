@@ -131,6 +131,11 @@ tikrinu(u'„Pasiūlymai" rodo bent 4 korteles', seg.count('home-tab-card') >= 4
         seg.count('home-tab-card'))
 tikrinu(u'„Pasiūlymai" nebe vien automobiliai',
         seg.count('home-tab-card') > len(re.findall(r'href="/wheels/\d+/"', seg)))
+# Skirtukas yra vienintelė vieta, kur titulinis rodo skelbimų sąrašą, tad
+# po kryžminio mišinio jame turi būti VISAS katalogas — kitaip grįžta
+# skundas „mano skelbimo nesimato".
+tikrinu(u'„Pasiūlymai" rodo visą katalogą', seg.count('home-tab-card') == VISO,
+        u'%d iš %d' % (seg.count('home-tab-card'), VISO))
 
 seg = skirtukas('daily')
 tikrinu(u'„Dienos pasiūlymai" nėra tuščias', seg.count('home-tab-card') > 0,

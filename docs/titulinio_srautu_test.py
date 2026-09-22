@@ -122,9 +122,18 @@ tikrinu(u'WheelListing modelyje nėra lauko wheel_type',
         u'jei atsirado — senas filtras būtų veikęs')
 tikrinu(u'ratlankiu_qs grąžina visus 12', titulinis.ratlankiu_qs(R).count() == 12)
 
-print(u'\n== 2. „Pasiūlymai" — po 1–2 iš kiekvienos kategorijos ==')
+print(u'\n== 2. „Pasiūlymai" — po 1–2 iš kiekvienos kategorijos, toliau visi ==')
 p = titulinis.pasiulymai(VISI, R)
-kategorijos = [titulinis.kategorija(o) for o in p]
+# Mišinys yra sąrašo VIRŠUJE; žemiau eina likęs katalogas, kad nedingtų
+# nė vieno žmogaus skelbimas („mano skelbimo nesimato").
+# Mišinio ilgis = po PER_KATEGORIJA iš kiekvienos kategorijos, o mažesnėje
+# — tiek, kiek joje yra.
+_visos = {}
+for _o in p:
+    _visos[titulinis.kategorija(_o)] = _visos.get(titulinis.kategorija(_o), 0) + 1
+_misinio = sum(min(titulinis.PER_KATEGORIJA, _n) for _n in _visos.values())
+galva = p[:_misinio]
+kategorijos = [titulinis.kategorija(o) for o in galva]
 tikrinu(u'bent 4 skirtingos kategorijos', len(set(kategorijos)) >= 4, set(kategorijos))
 tikrinu(u'yra padangų arba ratlankių',
         'tyres' in kategorijos or 'rims' in kategorijos, set(kategorijos))
@@ -138,8 +147,21 @@ tikrinu(u'visos 7 netuščios kategorijos atstovaujamos',
 tuscia = VehicleType.objects.create(slug='boats', name='Katerai')
 p2 = titulinis.pasiulymai(VISI, R)
 tikrinu(u'tuščia kategorija praleidžiama',
-        'boats' not in [titulinis.kategorija(o) for o in p2])
+        'boats' not in [titulinis.kategorija(o) for o in p2[:len(galva) + 2]])
 tuscia.delete()
+
+# Uodega: skirtukas rodo VISĄ katalogą, ne tik mišinį.
+VISO_KATALOGE = VISI.count() + titulinis.ratlankiu_qs(R).count()
+tikrinu(u'po mišinio eina visas katalogas', len(p) == VISO_KATALOGE,
+        u'%d iš %d' % (len(p), VISO_KATALOGE))
+raktai = [(o.__class__.__name__, o.pk) for o in p]
+tikrinu(u'nė vienas skelbimas nesikartoja', len(raktai) == len(set(raktai)))
+tikrinu(u'uodegoje irgi yra ratlankių',
+        any(titulinis.ar_ratlankis(o) for o in p[len(galva):]))
+# Riba yra: begalinio puslapio nedarom.
+tikrinu(u'daugiau už ribą neatiduoda',
+        len(titulinis.pasiulymai(VISI, R, viso=5)) == 5,
+        len(titulinis.pasiulymai(VISI, R, viso=5)))
 
 print(u'\n== 2b. Tvarka stabili per sesiją ==')
 a = [(o.__class__.__name__, o.pk) for o in titulinis.pasiulymai(VISI, R)]
@@ -192,6 +214,48 @@ tikrinu(u'senesni metai irgi grupuojami po tris',
         titulinis._metu_juosta(2017) == titulinis._metu_juosta(2019)
         != titulinis._metu_juosta(2016))
 tikrinu(u'be metų — juostos nėra', titulinis._metu_juosta(None) is None)
+print(u'\n== 3c. Skirtukas nelieka tuščias ir mažame kataloge ==')
+# Griežtas raktas (kategorija + metų juosta, nuo 5 skelbimų) tiksliausias,
+# bet retame kataloge jo neišlaiko nė viena grupė. Tada palyginimo grupė
+# platinama, o kraštutiniu atveju rodomi pigiausi — tuščio lango nebūna.
+_mazos = ('trucks', 'trailers', 'agriculture')
+_maza_qs = VISI.filter(vehicle_type__slug__in=_mazos)
+tikrinu(u'mažos kategorijos — vis tiek ne tuščias',
+        len(titulinis.dienos_pasiulymai(_maza_qs, R, kiek=12)) > 0)
+
+# Kopetėlių pakopos atskirai: tie patys įrašai, vis platesnė grupė.
+_ir = [('L', 1, ('cars', 0), 1000.0), ('L', 2, ('cars', 1), 2000.0),
+       ('L', 3, ('trucks', 0), 3000.0)]
+tikrinu(u'griežtas raktas mažoje grupėje nieko neduoda',
+        titulinis._po_medianos(_ir, False, titulinis.MIN_GRUPEJE) == [])
+tikrinu(u'be metų juostos ir nuo dviejų — jau duoda',
+        len(titulinis._po_medianos(_ir, True, 2)) == 1,
+        titulinis._po_medianos(_ir, True, 2))
+
+# Kraštutinumas: po vieną kainą kategorijoje, lyginti nėra su kuo.
+# Ratlankius laikinai paslepiam — kitaip dešimt padangų sudaro grupę.
+_ratu_busenos = [(w.pk, w.status) for w in WheelListing.objects.all()]
+WheelListing.objects.update(status='draft')
+_vienetai = VISI.filter(vehicle_type__slug__in=('trucks', 'trailers')).order_by('pk')[:2]
+_vienetai = VISI.filter(pk__in=[o.pk for o in _vienetai])
+_krastas = titulinis.dienos_pasiulymai(_vienetai, R, kiek=12)
+tikrinu(u'po vieną kategorijoje — vis tiek ne tuščias', len(_krastas) > 0,
+        len(_krastas))
+tikrinu(u'be palyginimo nuolaida nerodoma',
+        all(not getattr(o, 'nuolaida_proc', 0) for o in _krastas),
+        [getattr(o, 'nuolaida_proc', None) for o in _krastas])
+tikrinu(u'pigiausias pirmas',
+        [float(o.price) for o in _krastas]
+        == sorted(float(o.price) for o in _krastas),
+        [float(o.price) for o in _krastas])
+for _pk, _b in _ratu_busenos:
+    WheelListing.objects.filter(pk=_pk).update(status=_b)
+
+# O kai duomenų pakanka, kopetėlės nesileidžia: mažos grupės toliau
+# praleidžiamos, kaip ir tikrinta 3 skyriuje.
+tikrinu(u'pilname kataloge kopetėlės nesileidžia',
+        not any(titulinis.kategorija(o) in _mazos
+                for o in titulinis.dienos_pasiulymai(VISI, R, kiek=12)))
 
 print(u'\n== 4. Kiti skirtukai apima abu modelius ==')
 br = titulinis.brangiausi(VISI, R, kiek=6)

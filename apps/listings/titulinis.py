@@ -26,6 +26,10 @@ from django.db.models.functions import Coalesce
 
 # „Pasiūlymuose" iš vienos kategorijos — ne daugiau tiek kortelių.
 PER_KATEGORIJA = 2
+# Kiek kortelių iš viso telpa „Pasiūlymuose" (mišinys + uodega).
+# Apsauga nuo begalinio puslapio: jei skelbimų daugiau, reikės
+# puslapiavimo arba lazy-load, o ne didesnio skaičiaus.
+VISO_PASIULYMU = 500
 # „Dienos pasiūlymuose" metų juostos plotis ir atskaitos taškas, kad
 # juostos kristų 2020-2022, 2023-2025... — o ne kur pakliuvo.
 METU_JUOSTA = 3
@@ -114,14 +118,22 @@ def _paimti(listing_qs, ratai_qs, listing_ids, ratu_ids):
 
 # ── „Pasiūlymai" — po 1–2 iš kiekvienos kategorijos ─────────────────
 
-def pasiulymai(listing_qs, request, per_kategorija=PER_KATEGORIJA):
-    """Po kelis skelbimus iš KIEKVIENOS kategorijos, kurioje jų yra.
+def pasiulymai(listing_qs, request, per_kategorija=PER_KATEGORIJA,
+               viso=VISO_PASIULYMU):
+    """Po kelis skelbimus iš KIEKVIENOS kategorijos, o toliau — visi likusieji.
 
     Anksčiau čia buvo naujausi pagal ID, todėl iš dvylikos kortelių
     vienuolika būdavo automobiliai — likusios kategorijos nesimatė visai.
 
     Kategorijos be aktyvių skelbimų praleidžiamos savaime: jų tiesiog
     nėra sugrupuotame sąraše.
+
+    Bet vien mišiniu apsiriboti negalima. Skirtukas yra vienintelė vieta,
+    kur titulinis apskritai rodo skelbimų sąrašą, ir kadaise jis buvo
+    apkarpytas iki keliolikos kortelių — tada žmonės ir skundėsi, kad
+    „mano skelbimo nesimato". Todėl po mišinio eina VISI likusieji nuo
+    naujausio, iki `viso` ribos. Viršuje — kryžminis pjūvis, žemiau —
+    katalogas.
     """
     ratai_qs = ratlankiu_qs(request)
 
@@ -150,7 +162,28 @@ def pasiulymai(listing_qs, request, per_kategorija=PER_KATEGORIJA):
     rasta = _paimti(listing_qs, ratai_qs,
                     [pk for z, pk in pasirinkti if z == 'L'],
                     [pk for z, pk in pasirinkti if z == 'R'])
-    return [rasta[(z, pk)] for z, pk in pasirinkti if (z, pk) in rasta]
+    misinys = [rasta[(z, pk)] for z, pk in pasirinkti if (z, pk) in rasta]
+
+    # Uodega — visi likusieji nuo naujausio, iš abiejų lentelių.
+    rodyti = {(z, pk) for z, pk in pasirinkti}
+    liko = viso - len(misinys)
+    if liko <= 0:
+        return misinys[:viso]
+    return misinys + _uodega(listing_qs, ratai_qs, rodyti, liko)
+
+
+def _uodega(listing_qs, ratai_qs, rodyti, kiek):
+    """Likusieji skelbimai nuo naujausio — tai, ko mišinys nepaslinko."""
+    from django.db.models.functions import Coalesce as _C
+
+    paskelbta = _C('activated_at', 'created_at')
+    kiti = (listing_qs.exclude(pk__in=[pk for z, pk in rodyti if z == 'L'])
+            .annotate(paskelbta_db=paskelbta).order_by('-paskelbta_db')[:kiek])
+    ratai = (ratai_qs.exclude(pk__in=[pk for z, pk in rodyti if z == 'R'])
+             .annotate(paskelbta_db=paskelbta).order_by('-paskelbta_db')[:kiek])
+    nariai = list(kiti) + list(ratai)
+    nariai.sort(key=lambda o: o.paskelbta_db, reverse=True)
+    return nariai[:kiek]
 
 
 # ── „Dienos pasiūlymai" — kaina žemiau grupės medianos ──────────────
@@ -162,6 +195,31 @@ def _metu_juosta(metai):
     return (int(metai) - METU_BAZE) // METU_JUOSTA
 
 
+def _po_medianos(irasai, tik_kategorija, minimumas):
+    """(žymė, pk, nuolaida) tiems, kurie pigesni už savo grupės medianą.
+
+    `tik_kategorija` — metų juosta iš rakto išmetama; `minimumas` — kiek
+    kainų grupėje būtina, kad mediana ką nors reikštų.
+    """
+    grupes = {}
+    for zyme, pk, raktas, kaina in irasai:
+        if tik_kategorija:
+            raktas = (raktas[0], None)
+        grupes.setdefault(raktas, []).append((zyme, pk, kaina))
+
+    radiniai = []
+    for nariai in grupes.values():
+        if len(nariai) < minimumas:
+            continue
+        mediana = statistics.median([k for _, _, k in nariai])
+        if mediana <= 0:
+            continue
+        for zyme, pk, kaina in nariai:
+            if kaina <= mediana:
+                radiniai.append((zyme, pk, (mediana - kaina) / mediana))
+    return radiniai
+
+
 def dienos_pasiulymai(listing_qs, request, kiek=12):
     """Skelbimai, kurių kaina žemiau savo grupės medianos.
 
@@ -170,7 +228,8 @@ def dienos_pasiulymai(listing_qs, request, kiek=12):
 
     Skaičiuojama iš aktyvių skelbimų su kaina > 0. Grupė, kurioje mažiau
     nei MIN_GRUPEJE skelbimų, praleidžiama — iš trijų kainų mediana
-    nieko nereiškia.
+    nieko nereiškia. Jei tokios grupės nėra nė vienos, palyginimas
+    platinamas (žr. kopetėles žemiau), kad skirtukas neliktų tuščias.
 
     Anksčiau šis skirtukas reiškė „šiandien įkelta", tad tyliomis
     dienomis būdavo tuščias ir dubliuodavo „Naujausius".
@@ -190,26 +249,34 @@ def dienos_pasiulymai(listing_qs, request, kiek=12):
     if not irasai:
         return []
 
-    grupes = {}
-    for zyme, pk, raktas, kaina in irasai:
-        grupes.setdefault(raktas, []).append((zyme, pk, kaina))
-
+    # Grupavimo kopetėlės. Griežtas raktas (kategorija + metų juosta) su
+    # penkių skelbimų minimumu duoda tiksliausią palyginimą, bet mažame
+    # kataloge jo neišlaiko NE VIENA grupė — ir skirtukas lieka tuščias,
+    # t. y. grįžta ta pati bėda, tik dėl kitos priežasties. Todėl, nieko
+    # neradus, palyginimo grupė platinama: pirma atsisakom metų juostos
+    # (lieka kategorija), paskui — minimumo iki dviejų kainų.
+    #
+    # Ties kategorija sustojam sąmoningai: lyginti padangos kainą su
+    # sunkvežimio yra beprasmiška, o kortelė sako „žemiau vidurkio".
     radiniai = []
-    for nariai in grupes.values():
-        if len(nariai) < MIN_GRUPEJE:
-            continue
-        mediana = statistics.median([k for _, _, k in nariai])
-        if mediana <= 0:
-            continue
-        for zyme, pk, kaina in nariai:
-            if kaina <= mediana:
-                radiniai.append((zyme, pk, (mediana - kaina) / mediana))
+    for tik_kategorija, minimumas in ((False, MIN_GRUPEJE),
+                                      (True, MIN_GRUPEJE),
+                                      (True, 2)):
+        radiniai = _po_medianos(irasai, tik_kategorija, minimumas)
+        if radiniai:
+            # Didžiausia nuolaida pirma; ties lygiosiomis — stabili tvarka.
+            radiniai.sort(key=lambda t: (-t[2], t[0], t[1]))
+            break
 
     if not radiniai:
-        return []
+        # Paskutinė pakopa: kiekvienoje kategorijoje po vieną kainą —
+        # nėra su kuo lyginti. Tokiame kataloge rodom tiesiog pigiausius,
+        # be nuolaidos ženklelio (šablonas jo nerodo, kai nuolaida 0).
+        # Geriau taip, nei tuščias langas — būtent dėl jo šis skirtukas ir
+        # buvo taisomas.
+        radiniai = [(zyme, pk, 0.0) for zyme, pk, _r, _k
+                    in sorted(irasai, key=lambda t: t[3])]
 
-    # Didžiausia nuolaida pirma; ties lygiosiomis — stabili tvarka.
-    radiniai.sort(key=lambda t: (-t[2], t[0], t[1]))
     radiniai = radiniai[:kiek]
 
     rasta = _paimti(listing_qs, ratai_qs,
