@@ -24681,3 +24681,11 @@ msgstr "Refurbished"
 
 msgid "Traktoriams ir spec. technikai"
 msgstr "Tractors and special machinery"
+
+#: templates/listings/listing_list.html
+msgid "žemiau vidurkio"
+msgstr "below average"
+
+#: templates/listings/listing_list.html
+msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
+msgstr "Not enough listings yet to compare prices."

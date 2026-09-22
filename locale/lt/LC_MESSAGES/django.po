@@ -16467,7 +16467,7 @@ msgstr "Rasta %(count)s skelbimų"
 #: templates/listings/trucks_list.html:820
 #: templates/listings/wheels_list.html:233
 msgid "Newest"
-msgstr "Naujausias"
+msgstr "Naujausi"
 
 #: templates/home.html:157 templates/listings/listing_list.html:827
 #: templates/listings/motorcycles_list.html:713
@@ -20296,7 +20296,7 @@ msgstr "Populiariausi"
 #: templates/listings/listing_list.html:1173
 #: templates/listings/trucks_list.html:828
 msgid "Most expensive"
-msgstr "Brangiausias"
+msgstr "Brangiausi"
 
 #: templates/listings/listing_list.html:1250
 msgid "No featured listings yet."
@@ -24758,3 +24758,11 @@ msgstr "Restauruotos"
 
 msgid "Traktoriams ir spec. technikai"
 msgstr "Traktoriams ir spec. technikai"
+
+#: templates/listings/listing_list.html
+msgid "žemiau vidurkio"
+msgstr ""
+
+#: templates/listings/listing_list.html
+msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
+msgstr ""

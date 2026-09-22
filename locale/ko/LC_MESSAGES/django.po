@@ -24540,3 +24540,11 @@ msgstr ""
 
 msgid "Traktoriams ir spec. technikai"
 msgstr ""
+
+#: templates/listings/listing_list.html
+msgid "žemiau vidurkio"
+msgstr "평균 이하"
+
+#: templates/listings/listing_list.html
+msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
+msgstr "아직 가격을 비교할 만큼 매물이 충분하지 않습니다."

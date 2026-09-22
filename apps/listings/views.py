@@ -42,6 +42,7 @@ from .forms import (
 )
 from . import salys
 from . import juodrasciai
+from . import titulinis
 from .kontaktai import issaugok_pasta, issaugok_telefona
 from . import skaiciai
 from apps.listings import units
@@ -74,10 +75,6 @@ from datetime import date, timedelta, datetime
 from apps.listings.models import NAUJO_SKELBIMO_DIENOS
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
-# „Pasiūlymai" skirtuke rodomi VISI vieši skelbimai. Riba palikta tik kaip
-# apsauga nuo begalinio puslapio — jei skelbimų daugiau, reikės puslapiavimo
-# arba lazy-load, o ne didesnio skaičiaus.
-HOME_OFFERS_MAX = 500
 RENEW_RATE_LIMIT_HOURS = 1
 
 # ═══════════════════════════════════════════════════════════
@@ -1837,47 +1834,6 @@ COMING_SOON_PICKER = [
 ]
 
 
-def _dienos_pasiulymai(listing_qs, request, kiek=12):
-    """Atsitiktiniai skelbimai iš ABIEJŲ modelių.
-
-    Skelbimai gyvena dviejuose modeliuose: `Listing` (visos kategorijos) ir
-    `WheelListing` (padangos ir ratlankiai, /wheels/<id>/). Kortelė ta pati
-    (apps/listings/korteles.py), tad tituliniame jie turi maišytis kaip lygūs.
-
-    Vietas dalijam PAGAL KIEKĮ: jei ratlankiai sudaro šeštadalį katalogo, jie
-    gauna maždaug šeštadalį vietų. Tai tas pats, kas traukti atsitiktinai iš
-    sujungto sąrašo, tik be svyravimo, dėl kurio kartais neliktų nė vieno.
-
-    Rikiuojam `order_by('?')` — DB pusėje (Postgrese ORDER BY RANDOM()). Į
-    atmintį traukiam tik tiek eilučių, kiek rodysim.
-    """
-    from apps.listings import salies_juosta as _sj
-    from .models import WheelListing
-
-    ratai_qs = _sj.filtruoti(
-        WheelListing.objects.filter(status='active', is_shadow_banned=False),
-        request,
-    ).prefetch_related('images')
-
-    ratu_kiek = ratai_qs.count()
-    kitu_kiek = listing_qs.count()
-    viso = ratu_kiek + kitu_kiek
-    if not viso:
-        return []
-
-    # Proporcija, bet bent po vieną vietą kiekvienam nedykam modeliui.
-    ratu_vietu = round(kiek * ratu_kiek / viso) if ratu_kiek else 0
-    if ratu_kiek and ratu_vietu == 0:
-        ratu_vietu = 1
-    ratu_vietu = min(ratu_vietu, ratu_kiek, max(kiek - 1, 0))
-    kitu_vietu = min(kiek - ratu_vietu, kitu_kiek)
-
-    pasiulymai = list(listing_qs.order_by('?')[:kitu_vietu])
-    pasiulymai += list(ratai_qs.order_by('?')[:ratu_vietu])
-    random.shuffle(pasiulymai)
-    return pasiulymai
-
-
 # Rezultatu puslapis renderina sonine juosta tik ne telefonams
 # (context_processors.device_kind), todel atsakymas priklauso nuo
 # User-Agent ir tai turi buti pasakyta kesams.
@@ -2283,31 +2239,35 @@ def listing_list(request, panel_fragment=False, category=None):
     else:
         tab_featured = featured_paid
 
-    # „Pasiūlymai" — sujungtas skirtukas: mokami featured ir žvaigždutiniai
-    # eina pirmi, po jų VISI likusieji nuo naujausio. Visos kategorijos kartu,
-    # nes _tabs_base kategorijos nefiltruoja.
+    # „Pasiūlymai" — po 1-2 iš KIEKVIENOS netuščios kategorijos, įskaitant
+    # padangas ir ratlankius (jie gyvena WheelListing lentelėje).
     #
-    # Anksčiau čia buvo imami tik 24 naujausi ir apkarpoma iki 18 kortelių.
-    # Todėl užtekdavo per parą atsirasti keliolikai naujų skelbimų, kad visi
-    # senesni iškristų iš skirtuko — o tai ir yra „mano skelbimų nesimato".
+    # Anksčiau čia ėjo visi likusieji nuo naujausio, tad iš dvylikos
+    # kortelių vienuolika būdavo automobiliai — kitų kategorijų žmogus
+    # tituliniame nepamatydavo. Mokami featured ir žvaigždutiniai ir
+    # toliau eina pirmi.
+    #
+    # Atranka atsitiktinė, bet sėkla — data + sesija, tad perkrovus
+    # puslapį tvarka nešokinėja (apps/listings/titulinis.py).
     _offer_ids = {l.pk for l in tab_featured}
-    tab_offers = tab_featured + list(
-        _tabs_base.exclude(pk__in=_offer_ids).order_by('-created_at')[:HOME_OFFERS_MAX]
-    )
-    # „Dienos pasiūlymai" — ATSITIKTINIAI skelbimai iš VISŲ kategorijų.
+    tab_offers = tab_featured + [
+        o for o in titulinis.pasiulymai(_tabs_base, request)
+        if not (o.__class__.__name__ == 'Listing' and o.pk in _offer_ids)
+    ]
+    # „Dienos pasiūlymai" — GERIAUSIOS KAINOS: skelbimai, kurių kaina
+    # žemiau savo grupės (kategorija + metų juosta) medianos.
     #
-    # Kas buvo. Sąrašas buvo `created_at__gte=-7d` su `order_by('-created_at')`,
-    # tad kiekvienas perkrovimas duodavo TĄ PAČIĄ eilę pagal ID mažėjančiai
-    # (825, 824, 823…) — jokio pasiūlymo, tik naujausi. Ir tik iš `Listing`:
-    # padangos su ratlankiais gyvena `WheelListing` modelyje, tad į titulinį
-    # nepatekdavo NĖ VIENAS iš dvylikos.
-    #
-    # Naujumas čia nebefiltruojamas sąmoningai: tam yra atskiras skirtukas
-    # „Naujausi" (tab_newest). Šitas rodo atsitiktinį pjūvį iš viso katalogo.
-    tab_daily = _dienos_pasiulymai(_tabs_base, request, kiek=12)
-    tab_newest = list(_tabs_base.annotate(paskelbta_db=Coalesce('activated_at', 'created_at')).order_by('-paskelbta_db')[:6])
-    tab_popular = list(_tabs_base.order_by('-views_count')[:6])
-    tab_expensive = list(_tabs_base.filter(price__gt=0).order_by('-price')[:6])
+    # Kas buvo. Sąlyga buvo „šiandien įkelta", tad tyliomis dienomis
+    # skirtukas likdavo tuščias, o triukšmingomis dubliuodavo „Naujausius".
+    # Dabar jis turi savo prasmę pirkėjui ir tuščias nebūna tol, kol yra
+    # bent viena pakankamai didelė grupė (apps/listings/titulinis.py).
+    tab_daily = titulinis.dienos_pasiulymai(_tabs_base, request, kiek=12)
+    tab_newest = titulinis.naujausi(_tabs_base, request, kiek=6)
+    tab_popular = titulinis.populiariausi(_tabs_base, request, kiek=6)
+    tab_expensive = titulinis.brangiausi(_tabs_base, request, kiek=6)
+    # „Populiariausi" slepiamas, kol nė vienas skelbimas neturi nei
+    # peržiūrų, nei įsiminimų — tokia eilė būtų atsitiktinė.
+    tab_popular_rodyti = titulinis.turi_populiarumo(tab_popular)
 
     # Moto brands ir wheel counts — search panel
 
@@ -2321,20 +2281,13 @@ def listing_list(request, panel_fragment=False, category=None):
 
         moto_brands = []
 
+    # Ratlankių ir padangų skaitliukai. Laukas — product_type; anksčiau
+    # čia buvo wheel_type, tokio lauko nėra, o klaidą nurydavo
+    # `except Exception`, tad meniu rodė „Padangos (0)" ir „Ratlankiai (0)"
+    # net turint dvylika skelbimų.
     try:
-
-        from .models import WheelListing
-
-        wheel_counts = {
-
-            'tyre': WheelListing.objects.filter(status='active', wheel_type='tyre').count(),
-
-            'rim': WheelListing.objects.filter(status='active', wheel_type='rim').count(),
-
-        }
-
+        wheel_counts = titulinis.ratu_kiekiai()
     except Exception:
-
         wheel_counts = {'tyre': 0, 'rim': 0}
 
     # ═══ MORE flyout — fiksuotas plokščias sąrašas (autogidas tvarka), be nested subų ═══
@@ -2571,6 +2524,7 @@ def listing_list(request, panel_fragment=False, category=None):
         'tab_featured': tab_featured,
         'tab_newest': tab_newest,
         'tab_popular': tab_popular,
+        'tab_popular_rodyti': tab_popular_rodyti,
         'tab_expensive': tab_expensive,
         'equipment_by_category': equipment_by_category,
         'selected_equipment': equipment_ids_selected,

@@ -24816,3 +24816,11 @@ msgstr ""
 
 msgid "Traktoriams ir spec. technikai"
 msgstr ""
+
+#: templates/listings/listing_list.html
+msgid "žemiau vidurkio"
+msgstr "por debajo de la media"
+
+#: templates/listings/listing_list.html
+msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
+msgstr "Aún no hay suficientes anuncios para comparar precios."

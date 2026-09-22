@@ -24726,3 +24726,11 @@ msgstr ""
 
 msgid "Traktoriams ir spec. technikai"
 msgstr ""
+
+#: templates/listings/listing_list.html
+msgid "žemiau vidurkio"
+msgstr "alla keskmise"
+
+#: templates/listings/listing_list.html
+msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
+msgstr "Hindade võrdlemiseks pole veel piisavalt kuulutusi."

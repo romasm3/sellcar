@@ -134,6 +134,22 @@ def kiekiai(request=None, vieso_qs=None):
                          base_qs=vieso_qs)
     eilutes = qs.exclude(country='').values('country').annotate(kiek=Count('id'))
     surinkta = {e['country']: e['kiek'] for e in eilutes}
+
+    # Padangos ir ratlankiai gyvena WheelListing lentelėje, tad į
+    # `filter_listings` nepatenka — be šito titulinio „Rasta N skelbimų"
+    # jų nesuskaičiuodavo. Pridedam TIK kai paieškos filtrų nėra
+    # (titulinis puslapis): filtruotame sąraše nefiltruoti ratlankiai
+    # pripūstų skaičių. Skaičiuojam tiesiogiai, ne per `filtruoti` —
+    # ta kviečia `kiekiai` ir gautųsi begalinis ratas.
+    if not params:
+        from .models import WheelListing
+        ratai = (WheelListing.objects
+                 .filter(status='active', is_shadow_banned=False)
+                 .exclude(country='')
+                 .values('country').annotate(kiek=Count('id')))
+        for e in ratai:
+            surinkta[e['country']] = surinkta.get(e['country'], 0) + e['kiek']
+
     cache.set(raktas, surinkta, KESO_LAIKAS)
     return surinkta
 

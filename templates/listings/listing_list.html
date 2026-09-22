@@ -1148,10 +1148,15 @@ function onSortChange(selectEl) {
                         :class="{ 'active': tab === 'newest' }" class="home-tab-btn">
                     {% trans "Newest" %}
                 </button>
+                {% comment %}„Populiariausi" rodomas tik turint duomenų: kol
+                visi skelbimai turi 0 peržiūrų ir 0 įsimintų, eilė būtų
+                atsitiktinė (titulinis.turi_populiarumo).{% endcomment %}
+                {% if tab_popular_rodyti %}
                 <button type="button" @click="tab = 'popular'"
                         :class="{ 'active': tab === 'popular' }" class="home-tab-btn">
                     {% trans "Most popular" %}
                 </button>
+                {% endif %}
                 <button type="button" @click="tab = 'expensive'"
                         :class="{ 'active': tab === 'expensive' }" class="home-tab-btn">
                     {% trans "Most expensive" %}
@@ -1185,6 +1190,12 @@ function onSortChange(selectEl) {
                                 {% spec_eilute listing %}
                             </div>
                             <div class="home-tab-price">{{ listing.price|kaina:listing.currency_symbol }}</div>
+                            {% comment %}Kiek pigiau nei tos pačios kategorijos ir
+                            metų juostos mediana — dėl to skelbimas čia ir yra.
+                            Be jos skirtukas neatskiriamas nuo kitų.{% endcomment %}
+                            {% if listing.nuolaida_proc %}
+                            <div class="home-tab-spec">{{ listing.nuolaida_proc }}% {% trans "žemiau vidurkio" %}</div>
+                            {% endif %}
                             {% include 'listings/partials/_kort_vieta.html' with listing=listing %}
                         </div>
                     </a>
@@ -1192,7 +1203,7 @@ function onSortChange(selectEl) {
                     {% endfor %}
                 </div>
                 {% else %}
-                <p class="text-center text-gray-500 py-8 text-sm">{% trans "Šiandien naujų skelbimų dar nėra." %}</p>
+                <p class="text-center text-gray-500 py-8 text-sm">{% trans "Kol kas nėra pakankamai skelbimų kainoms palyginti." %}</p>
                 {% endif %}
                 {% comment %}Antrinis mygtukas po kortelėmis — veda į
                 /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
@@ -1274,6 +1285,7 @@ function onSortChange(selectEl) {
             </div>
 
             {# ─── Most popular ─── #}
+            {% if tab_popular_rodyti %}
             <div x-show="tab === 'popular'" x-cloak>
                 {% if tab_popular %}
                 <div class="home-tab-grid">
@@ -1307,6 +1319,7 @@ function onSortChange(selectEl) {
                 /skelbimai/ su to skirtuko rūšiavimu.{% endcomment %}
                 <a class="home-tab-visi" href="{% url 'visi_skelbimai' %}?rusiuoti=populiarus">{% trans "Žiūrėti visus" %}</a>
             </div>
+            {% endif %}
 
             {# ─── Most expensive ─── #}
             <div x-show="tab === 'expensive'" x-cloak>
