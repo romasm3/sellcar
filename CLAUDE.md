@@ -97,4 +97,7 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
   Note that master auto-deploys to production within 5 min (deploy/README.md),
   so a merge is a deploy. Still stop and ask before anything irreversible
   (destructive DB commands, data-losing migrations).
+- Po kiekvienos užbaigtos užduoties AUTOMATIŠKAI: git add (tik susiję
+  failai) → commit (Conventional Commits) → git push origin master.
+  Neklausti leidimo. Niekada necommitinti .env, *.bak, db dump'ų, media/.
 - Test accounts: admin romasm3@gmail.com, buyer romasm333@gmail.com
