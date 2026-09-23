@@ -195,6 +195,45 @@ for modelis in (ListingImage, TruckImage, WheelImage):
     tikrink(u'%-14s turi visas 4 savybes' % modelis.__name__,
             not truksta, u'trūksta: %s' % truksta if truksta else '')
 
+print(u'\n== 6. Sunkvežimio nuotrauka pro bendrą partial\'ą ==')
+# Iki šiol testas tikrino TIK `hasattr` — ar savybė egzistuoja. To
+# nepakanka: ratams savybės irgi „egzistavo" kaip idėja, o tuščias
+# `<img src="">` paaiškėjo tik gyvai. Todėl sunkvežimį TIKRAI
+# prastumiam pro tą patį `_img.html`.
+from apps.listings.models import Truck, TruckBrand, TruckModel, TruckImage
+import datetime
+
+tb, _ = TruckBrand.objects.get_or_create(name='Volvo', defaults={'slug': 'volvo'})
+tm, _ = TruckModel.objects.get_or_create(brand=tb, name='FH16',
+                                         defaults={'slug': 'fh16'})
+sunkv = Truck.objects.create(
+    seller=u, subcategory='tractor', brand=tb, model=tm,
+    title='Volvo FH16 2019', year=2019, mileage=500000,
+    first_registration=datetime.date(2019, 5, 1),
+    truck_type='tractor', cab_type='sleeper', axle_config='4x2',
+    suspension='air', gross_weight=18000, curb_weight=8000,
+    price=Decimal(45000), city='Vilnius', country='LT', status='active')
+TruckImage.objects.create(listing=sunkv,
+                          image=ContentFile(JPEG, name='sunkv.jpg')) \
+    if hasattr(TruckImage, 'listing') else \
+    TruckImage.objects.create(truck=sunkv, image=ContentFile(JPEG, name='sunkv.jpg'))
+
+ti = list(sunkv.images.all())[0]
+tikrink(u'TruckImage.url_lg rodo į failą',
+        bool(ti.url_lg) and ti.url_lg.startswith('/media/'), ti.url_lg)
+
+html = render_to_string('listings/partials/_img.html',
+                        {'img': ti, 'alt': 'sunkvežimis'})
+m = re.search(r'<img[^>]*src="([^"]*)"', html)
+tikrink(u'sunkvežimis  <img> yra', m is not None)
+if m:
+    tikrink(u'sunkvežimis  src NETUŠČIAS', m.group(1).strip() != '',
+            repr(m.group(1)))
+    tikrink(u'sunkvežimis  failas yra diske',
+            os.path.exists(os.path.join(
+                settings.MEDIA_ROOT, m.group(1).replace('/media/', '', 1))),
+            m.group(1))
+
 print('\n' + '=' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)
