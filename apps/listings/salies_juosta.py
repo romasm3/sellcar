@@ -91,6 +91,27 @@ PRIRISTI_PRIE_SALIES = ('city', 'spindulys', 'radius', 'state_filter',
                         'country_filter', 'page')
 
 
+# Parametrai, kurie sąrašo NESIAURINA — tik keičia rodymą ar vietą
+# puslapyje. Ratų skaičiavimui jie neturi reikšmės: `?section=cars`
+# tik parenka titulinio sekciją, `page` ir `sort` — eilę.
+#
+# Kodėl svarbu: skaičiukas prieš tai buvo dedamas tik `if not params`,
+# tad tituliniame su `?section=cars` iš „Rasta N skelbimų" iškrisdavo
+# VISI dvylika ratų (išmatuota: / → 47, /?section=cars → 35).
+NEFILTRUOJA = ('section', 'page', 'sort', 'rusiuoti', 'sidebar', 'view')
+
+
+def _ar_filtruota(params):
+    """Ar paieška susiaurinta tuo, ko ratai neturi?
+
+    Ratai neturi nei markės, nei metų, nei kėbulo, tad ieškant „BMW 2018"
+    jų skaičiuoti negalima — juosta žadėtų daugiau, nei parodys sąrašas.
+    Bet vien sekcija, puslapis ar rikiavimas paieškos nesiaurina.
+    """
+    return any(raktas not in NEFILTRUOJA and (params.get(raktas) or '').strip()
+               for raktas in params.keys())
+
+
 def _be_salies(params):
     """Filtrai, pagal kuriuos skaičiuojami šalių skaičiukai.
 
@@ -137,11 +158,12 @@ def kiekiai(request=None, vieso_qs=None):
 
     # Padangos ir ratlankiai gyvena WheelListing lentelėje, tad į
     # `filter_listings` nepatenka — be šito titulinio „Rasta N skelbimų"
-    # jų nesuskaičiuodavo. Pridedam TIK kai paieškos filtrų nėra
-    # (titulinis puslapis): filtruotame sąraše nefiltruoti ratlankiai
-    # pripūstų skaičių. Skaičiuojam tiesiogiai, ne per `filtruoti` —
-    # ta kviečia `kiekiai` ir gautųsi begalinis ratas.
-    if not params:
+    # jų nesuskaičiuodavo. Pridedam, kol paieška NESUSIAURINTA:
+    # filtruotame sąraše nefiltruoti ratlankiai pripūstų skaičių, o vien
+    # sekcija ar puslapis nieko nesiaurina (žr. `_ar_filtruota`).
+    # Skaičiuojam tiesiogiai, ne per `filtruoti` — ta kviečia `kiekiai`
+    # ir gautųsi begalinis ratas.
+    if not _ar_filtruota(params):
         from .models import WheelListing
         ratai = (WheelListing.objects
                  .filter(status='active', is_shadow_banned=False)
