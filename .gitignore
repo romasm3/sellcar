@@ -14,6 +14,12 @@ google-translate-key.json
 db.sqlite3
 db.sqlite3-journal
 *.sqlite3
+# Duombazės iškrovos — pg_dump ir manage.py dumpdata rezultatai. Juose
+# guli gyvi vartotojų duomenys, tad repo jiems ne vieta.
+*.sql
+*.sql.gz
+*.dump
+*.pgdump
 
 # ============================================
 # PYTHON
@@ -68,8 +74,10 @@ locale_backup*/
 # ============================================
 # BACKUP / TEMP FILES
 # ============================================
-*.bak
-*.bak2
+# *.bak* su žvaigždute gale — ne *.bak. Siauras šablonas praleido
+# septynias redaktoriaus kopijas (views.py.bak_webhook, .bak_autosave,
+# listing_list.html.bak3, .bak_search…), ir jos nugulė į repo.
+*.bak*
 *.backup
 *.zip
 
