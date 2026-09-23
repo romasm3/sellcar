@@ -24,7 +24,17 @@ BRANCH="${DEPLOY_BRANCH:-master}"
 REMOTE="${DEPLOY_REMOTE:-origin}"
 LOCKFILE="${LOCKFILE:-/run/autoleft-deploy.lock}"
 
-log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
+# Žurnalas rašomas ir į failą, ne tik į journald: `journalctl` pasiekiamas
+# ne visiems ir ne iš visur, o klausimas „kodėl svetainėje senas kodas"
+# užduodamas dažnai. Failas rotuojamas paprastai — laikom 200 paskutinių
+# tūkstančių eilučių, daugiau nereikia.
+ZURNALAS="${ZURNALAS:-/var/log/autoleft-deploy.log}"
+mkdir -p "$(dirname "$ZURNALAS")" 2>/dev/null || true
+log() {
+    local eil="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+    echo "$eil"
+    echo "$eil" >> "$ZURNALAS" 2>/dev/null || true
+}
 die() { log "❌ $*"; exit 1; }
 
 # ── Vienas deploy'as vienu metu ────────────────────────────────────────
@@ -163,6 +173,26 @@ fi
 #
 # Kas duomenis TRINA (RemoveField, DeleteModel), tas per šitą kelią
 # neturi eiti — tokią migraciją leisk ranka ir stebėk.
+# ── DB kopija PRIEŠ migracijas ─────────────────────────────────────────
+# Kopija iki šiol buvo daroma deploy-agent.sh viduje, o tas paleidžiamas
+# TIK PO migracijų (žr. žemiau). Vadinasi, blogos migracijos atveju
+# atstatyti buvo ne iš ko: pirmas dumpas jau turėjo pakeistą schemą.
+#
+# Kopiją ima tas pats agentas su --tik-db-kopija, kad pg_dump logika
+# liktų vienoje vietoje (nustatymai skaitomi iš Django, ne perrašomi).
+#
+# Jei kopija nepavyksta — MIGRACIJŲ NELEIDŽIAM. Geriau nediegti, nei
+# migruoti be tinklo po kojomis.
+if [[ -x ./deploy-agent.sh ]]; then
+    if ./deploy-agent.sh --tik-db-kopija; then
+        log "DB kopija prieš migracijas paimta"
+    else
+        echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+        git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
+        die "DB kopija nepavyko — migracijų neleidžiam, grąžinta į ${LOCAL:0:7}."
+    fi
+fi
+
 if [[ -x ./venv/bin/python ]]; then
     if MIGRACIJOS="$(./venv/bin/python manage.py migrate --noinput 2>&1)"; then
         # „if … fi" be tinkančios šakos grąžina 0, tad `set -e` nenukerta

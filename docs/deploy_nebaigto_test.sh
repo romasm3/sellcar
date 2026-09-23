@@ -47,6 +47,9 @@ cp "$SAKNIS/deploy-from-git.sh" .
 # Agentas: pažymi kvietimą ir įrašo VERSIJA, kaip daro tikrasis.
 cat > deploy-agent.sh <<'AG'
 #!/usr/bin/env bash
+# --tik-db-kopija yra parengiamasis kvietimas (DB kopija pries
+# migracijas), ne diegimas — jo neskaiciuojam.
+[[ "${1:-}" == "--tik-db-kopija" ]] && exit 0
 echo x >> "$SKAITIKLIS"
 git rev-parse --short=12 HEAD > VERSIJA
 exit 0

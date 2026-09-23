@@ -181,6 +181,14 @@ sutvarkyti_po_atsukimo() {
   fi
 }
 
+# ── Rezimas „tik DB kopija" ───────────────────────────────────────────
+# deploy-from-git.sh paleidzia migracijas PRIES sitaa agenta, o kopija iki
+# siol buvo daroma tik cia — t. y. JAU PO migraciju. Klaidingos migracijos
+# atveju atstatyti buvo ne is ko. Kad logika neliktu dviejose vietose,
+# agentas moka paleisti vien kopija:  ./deploy-agent.sh --tik-db-kopija
+TIK_DB_KOPIJA=0
+[[ "${1:-}" == "--tik-db-kopija" ]] && TIK_DB_KOPIJA=1
+
 dump_db() {
   mkdir -p "$BACKUP_DIR"
   local out="${BACKUP_DIR}/db_${TS}.sql"
@@ -340,6 +348,12 @@ PRIES_CSS="${PRIES##* }"
 # Vietos patikra — PIRMA, dar nieko nepakeitus.
 if ! vietos_patikra; then
   exit 2
+fi
+
+if [[ "$TIK_DB_KOPIJA" == "1" ]]; then
+  dump_db
+  log "Tik DB kopija — daugiau nieko nedarom."
+  exit 0
 fi
 
 dump_db

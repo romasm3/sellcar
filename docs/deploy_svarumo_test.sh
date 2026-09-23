@@ -37,6 +37,9 @@ echo "# pastabos" > docs/klaidos/BENDROS.md
 cp "$SAKNIS/deploy-from-git.sh" .
 cat > deploy-agent.sh <<'AG'
 #!/usr/bin/env bash
+# --tik-db-kopija yra parengiamasis kvietimas (DB kopija pries
+# migracijas), ne diegimas — jo neskaiciuojam.
+[[ "${1:-}" == "--tik-db-kopija" ]] && exit 0
 echo x >> "$SKAITIKLIS"
 exit 0
 AG

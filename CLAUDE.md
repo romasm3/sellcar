@@ -100,4 +100,16 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 - Po kiekvienos užbaigtos užduoties AUTOMATIŠKAI: git add (tik susiję
   failai) → commit (Conventional Commits) → git push origin master.
   Neklausti leidimo. Niekada necommitinti .env, *.bak, db dump'ų, media/.
+- Debesų sesijos DEPLOY'INA push'indamos į master: serveryje sukasi
+  autoleft-deploy.timer, kuris kas minutę tikrina origin/master ir,
+  radęs naują commit'ą, pats parsisiunčia, migruoja, surenka statinius
+  ir perkrauna gunicorn. Push į master = deploy.
+- Darbas NĖRA baigtas, kol autoleft.com versijos žymė nesutampa su
+  commit'u. Po push'o palauk ~3 min ir patikrink:
+      curl -s https://autoleft.com/ | grep -o 'name="versija" content="[^"]*"'
+      git rev-parse --short=12 HEAD
+  Sutampa — baigta. Nesutampa — darbas dar NEPASIEKĖ svetainės, ir tai
+  rašoma pirmoje ataskaitos eilutėje (žr. „PO KIEKVIENO DARBO" aukščiau).
+  Deploy žurnalas: /var/log/autoleft-deploy.log, taip pat
+  `journalctl -u autoleft-deploy -n 50`.
 - Test accounts: admin romasm3@gmail.com, buyer romasm333@gmail.com

@@ -36,6 +36,29 @@ systemctl list-timers autoleft-deploy     # kada kitas paleidimas
 journalctl -u autoleft-deploy -n 50       # ką darė
 ```
 
+## Deploy žurnalas ir DB kopija
+
+Žurnalas rašomas į DVI vietas, kad klausimas „kodėl svetainėje senas
+kodas" turėtų atsakymą ir be `journalctl`:
+
+```bash
+tail -50 /var/log/autoleft-deploy.log      # failas, lieka po perkrovimų
+journalctl -u autoleft-deploy -n 50        # tas pats per systemd
+```
+
+DB kopija imama **prieš migracijas**, ne po jų. Iki 2026-09 `pg_dump`
+sukdavosi `deploy-agent.sh` viduje, o tas paleidžiamas jau PO to, kai
+`deploy-from-git.sh` pritaikė migracijas — blogos migracijos atveju
+atstatyti buvo ne iš ko, nes pirmas dumpas jau turėjo pakeistą schemą.
+
+Dabar `deploy-from-git.sh` pirma paleidžia patį agentą su
+`--tik-db-kopija` (kad pg_dump logika liktų vienoje vietoje), ir tik tada
+migruoja. Jei kopija nepavyksta, migracijos NEPALEIDŽIAMOS, kodas
+atsukamas, o commit'as pažymimas kaip nebandytinas.
+
+Kopijos guli `/root/autoleft_backups/`. Patikra:
+`bash docs/deploy_db_kopijos_test.sh`.
+
 ## Sargybinis — ar deploy'as apskritai vyksta
 
 2026-09 deploy'as stovėjo **aštuonias paras**, ir to nepamatė niekas. Timeris

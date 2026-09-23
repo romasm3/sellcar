@@ -38,6 +38,9 @@ cp "$SAKNIS/deploy-from-git.sh" .
 # Maketai: patikra praeina, agentas KRENTA ir imituoja failų atsukimą
 cat > deploy-agent.sh <<'AG'
 #!/usr/bin/env bash
+# --tik-db-kopija yra parengiamasis kvietimas (DB kopija pries
+# migracijas), ne diegimas — jo neskaiciuojam.
+[[ "${1:-}" == "--tik-db-kopija" ]] && exit 0
 echo x >> "$SKAITIKLIS"
 echo "v1" > failas.txt      # tarsi restore_code būtų grąžinęs seną versiją
 exit 1
