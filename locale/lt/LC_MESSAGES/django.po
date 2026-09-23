@@ -24766,3 +24766,7 @@ msgstr ""
 #: templates/listings/listing_list.html
 msgid "Kol kas nėra pakankamai skelbimų kainoms palyginti."
 msgstr ""
+
+#: templates/partials/_beta_zyma.html
+msgid "beta"
+msgstr "beta"

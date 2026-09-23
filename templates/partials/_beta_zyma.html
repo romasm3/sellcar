@@ -1,0 +1,16 @@
+{% load i18n %}{% comment %}
+══════════════════════════════════════════════════════════════════════
+„BETA" ženkliukas prie logotipo.
+
+Vienas failas visoms keturioms vietoms (antraštė, du mobilūs meniu,
+porė) — kad ženkliukas visur atrodytų vienodai savaime ir kito
+keisdamas nepamirštum likusių.
+
+Dėti TIK į elementą su klase `.site-logo`: jam uždėtas
+`position: relative`, o ženkliukas dėliojamas absoliučiai, tad iš eilutės
+nieko nestumia — antraštės aukštis nesikeičia.
+
+`aria-hidden` būtinas: `<a>` jau turi `aria-label="AutoLeft"`, ir be šito
+ekrano skaitytuvas skaitytų pavadinimą kaip „AutoLeft beta".
+══════════════════════════════════════════════════════════════════════
+{% endcomment %}<span class="beta-zyma" aria-hidden="true">{% trans "beta" %}</span>

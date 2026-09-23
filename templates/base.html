@@ -60,9 +60,31 @@
            Proporcija 4,07:1 — plotis skaičiuojamas iš aukščio (width:auto),
            ženklo netempiam. Aplink jį tuščia erdvė, lygi PUSEI raidės „A"
            aukščio (≈ 0,31 × logotipo aukščio). Minimalus aukštis 18 px. */
-        .site-logo { display: inline-flex; align-items: center;
+        .site-logo { display: inline-flex; align-items: center; position: relative;
                      padding: calc(32px * .31) 0; text-decoration: none; }
         .site-logo img { height: 32px; width: auto; display: block; min-height: 18px; }
+        /* „beta" ženkliukas — dešinėje apačioje, po „Left" galu.
+           Absoliutus: iš antraštės eilutės nieko nestumia, tad logotipo
+           kaimynai lieka savo vietose. `pointer-events: none` — kad
+           ženkliukas neatimtų paspaudimo iš pačios nuorodos. */
+        /* Kabo -6px, ne -12px. Prie -12px ženkliukas nusileisdavo į
+           EILUTĘ ŽEMIAU ir užlipdavo: 1280 px — ant antrinės navigacijos
+           (tarpas iki jos 8 px), 360 px — ant „Ĭkelti", kai antraštė
+           persilaužia į dvi eilutes (tarpas 0 px). Išmatuota naršykle
+           (docs/beta_zymos_playwright.py); siauruose ekranuose kabo dar
+           mažiau, nes tarpo ten nėra visai. */
+        .beta-zyma { position: absolute; right: -6px; bottom: -6px;
+                     font-size: 8.5px; font-weight: 700; letter-spacing: .6px;
+                     text-transform: uppercase; color: #fff;
+                     background: linear-gradient(90deg, #ef4444, #f97316);
+                     padding: 2px 5px; border-radius: 999px; line-height: 1.2;
+                     pointer-events: none; white-space: nowrap; }
+        @media (max-width: 1023px) { .beta-zyma { bottom: -4px; } }
+        /* ≤400 px antraštė persilaužia į dvi eilutes, ir „Ĭkelti" atsiduria
+           TIESIAI po logotipu — tarpo nėra visai. Tad čia ženkliukas
+           nekabo nei per plauką: laikom jį logotipo dėžės viduje. */
+        @media (max-width: 400px)  { .beta-zyma { bottom: 2px; right: -4px;
+                                                  font-size: 8px; padding: 1px 4px; } }
         @media (max-width: 1023px) {
             .site-logo { padding: calc(24px * .31) 0; }
             .site-logo img { height: 24px; }
@@ -413,7 +435,7 @@
                 <!-- Logo -->
                 <div class="flex items-center gap-8 min-w-0">
                     <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
-                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="130" height="32">{% include 'partials/_beta_zyma.html' %}
                     </a>
 
                     {% comment %}Šalia logotipo nebėra jokio teksto: puslapio
@@ -685,7 +707,7 @@
                 {% comment %}Meniu viršuje — logotipas, kaip ir svečio meniu.{% endcomment %}
                 <div class="px-4 pb-3 mb-1 border-b border-gray-200">
                     <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
-                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">{% include 'partials/_beta_zyma.html' %}
                     </a>
                 </div>
                 <a href="{% url 'listing_create' %}"
@@ -775,7 +797,7 @@
             <div class="mm-panel">
                 <div class="mm-head">
                     <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
-                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">
+                        <img src="{% static 'brand/autoleft-logo.svg' %}" alt="AutoLeft" width="98" height="24">{% include 'partials/_beta_zyma.html' %}
                     </a>
                     <button type="button" class="mm-close" @click="mobileMenu = false"
                             aria-label="{% trans 'Uždaryti' %}">
@@ -884,7 +906,7 @@
                 <div class="lg:col-span-7">
                     <div class="mb-4">
                         <a href="{% url 'home' %}" class="site-logo" aria-label="AutoLeft">
-                            <img src="{% static 'brand/autoleft-logo-dark.svg' %}" alt="AutoLeft" width="130" height="32">
+                            <img src="{% static 'brand/autoleft-logo-dark.svg' %}" alt="AutoLeft" width="130" height="32">{% include 'partials/_beta_zyma.html' %}
                         </a>
                     </div>
                     <p class="text-sm text-gray-400 leading-relaxed mb-6 max-w-md">
