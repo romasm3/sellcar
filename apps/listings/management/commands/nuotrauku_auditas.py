@@ -150,6 +150,22 @@ def atkurk(radinys, atmintine):
     return atkurta
 
 
+def uzmigdyk(radinys):
+    """Aktyvų skelbimą perjungia į „Neaktyvus" (expired).
+
+    Ne trynimas: skelbimas dingsta iš paieškos ir titulinio (visi sąrašai
+    filtruoja status='active'), bet lieka savininko paskyroje ir duomenų
+    bazėje. Savininkas gali įkelti nuotraukas ir paskelbti iš naujo.
+
+    Naudojam 'expired', nes jis yra VISUOSE trijuose modeliuose ir jau
+    reiškia „neaktyvus" (Listing.STATUS_CHOICES: 'expired' -> Neaktyvus).
+    """
+    o = radinys['objektas']
+    o.status = 'expired'
+    o.save(update_fields=['status'])
+    return True
+
+
 def atsargine_kopija():
     """pg_dump į ATSARGU_KATALOGAS. Grąžina kelią arba kelia klaidą.
 
@@ -190,8 +206,12 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--atkurti', action='store_true',
                             help='prisegti diske rastus failus')
+        parser.add_argument('--uzmigdyk', action='store_true',
+                            help='perjungti į „Neaktyvus" (dingsta iš paieškos, '
+                                 'lieka savininkui ir DB)')
         parser.add_argument('--trinti', action='store_true',
-                            help='ištrinti tuos, kurių atkurti nepavyko (tik savus)')
+                            help='IŠTRINTI tuos, kurių atkurti nepavyko (tik savus). '
+                                 'Beveik visada geriau --uzmigdyk.')
         parser.add_argument('--savininkai', default=','.join(SAVI),
                             help='kieno skelbimus leidžiama trinti (kableliais)')
 
@@ -231,32 +251,56 @@ class Command(BaseCommand):
             else:
                 liko.append(r)
 
+        # ── Kieno jie? Savininkų pjūvis rodomas VISADA ───────────────
+        mano = [r for r in radiniai if r['savininkas'].lower() in savi]
+        kitu = [r for r in radiniai if r['savininkas'].lower() not in savi]
+        self.stdout.write('\nIš viso %d: mano paskyrų %d, kitų vartotojų %d'
+                          % (len(radiniai), len(mano), len(kitu)))
+        if kitu:
+            pagal = {}
+            for r in kitu:
+                pagal[r['savininkas']] = pagal.get(r['savininkas'], 0) + 1
+            for adresas, kiek in sorted(pagal.items(), key=lambda p: -p[1]):
+                self.stdout.write('    %-34s %d' % (adresas, kiek))
+
         if not n['atkurti']:
             self.stdout.write(self.style.WARNING(
                 '\nTik peržiūra. Atkurtų: %d, liktų: %d. '
-                'Veiksmui pridėk --atkurti [--trinti].' % (len(atkurti), len(liko))))
-            self._santrauka(atkurti, liko, savi, [], [])
+                'Veiksmui pridėk --atkurti [--uzmigdyk|--trinti].'
+                % (len(atkurti), len(liko))))
+            self._santrauka(atkurti, liko, savi, [], [], [])
             return
 
-        # ── c. Trynimas ─────────────────────────────────────────────
-        tryti = [r for r in liko if r['savininkas'].lower() in savi]
+        # ── c. Užmigdymas arba trynimas ─────────────────────────────
+        # Užmigdymas yra numatytas kelias: skelbimas dingsta iš paieškos,
+        # bet lieka savininkui. Trynimas — tik jei to paprašyta atskirai.
+        veikiami = [r for r in liko if r['savininkas'].lower() in savi]
         svetimi = [r for r in liko if r['savininkas'].lower() not in savi]
-        istrinti = []
-        if n['trinti'] and tryti:
+        uzmigdyti, istrinti = [], []
+
+        if n['uzmigdyk'] and veikiami:
+            for r in veikiami:
+                uzmigdyk(r)
+                uzmigdyti.append(r)
+        elif n['trinti'] and veikiami:
             kelias = atsargine_kopija()
             self.stdout.write(self.style.SUCCESS(
                 'Atsarginė kopija: %s (%d B)' % (kelias, os.path.getsize(kelias))))
-            for r in tryti:
+            for r in veikiami:
                 r['objektas'].delete()
                 istrinti.append(r)
-        self._santrauka(atkurti, liko, savi, istrinti, svetimi)
 
-    def _santrauka(self, atkurti, liko, savi, istrinti, svetimi):
+        self._santrauka(atkurti, liko, savi, istrinti, svetimi, uzmigdyti)
+
+    def _santrauka(self, atkurti, liko, savi, istrinti, svetimi, uzmigdyti=()):
         self.stdout.write('\n%-13s %6s  %-34s %s' % ('LENTELĖ', 'ID', 'PAVADINIMAS', 'KAS PADARYTA'))
         for r in atkurti:
             self.stdout.write('%-13s %6s  %-34s nuotraukos pridėtos (%d)'
                               % (r['lentele'], r['id'], r['pavadinimas'][:34],
                                  r.get('atkurta', r['atkuriamu'])))
+        for r in uzmigdyti:
+            self.stdout.write('%-13s %6s  %-34s UŽMIGDYTAS -> Neaktyvus (liko savininkui)'
+                              % (r['lentele'], r['id'], r['pavadinimas'][:34]))
         for r in istrinti:
             self.stdout.write('%-13s %6s  %-34s IŠTRINTAS (nuotraukų atkurti nepavyko)'
                               % (r['lentele'], r['id'], r['pavadinimas'][:34]))
@@ -264,11 +308,11 @@ class Command(BaseCommand):
             self.stdout.write('%-13s %6s  %-34s paliktas — svetimas (%s)'
                               % (r['lentele'], r['id'], r['pavadinimas'][:34],
                                  r['savininkas']))
-        neistrinti = [r for r in liko
-                      if r not in istrinti and r not in svetimi]
+        neistrinti = [r for r in liko if r not in istrinti
+                      and r not in svetimi and r not in uzmigdyti]
         for r in neistrinti:
             self.stdout.write('%-13s %6s  %-34s paliktas — trynimas neįjungtas (--trinti)'
                               % (r['lentele'], r['id'], r['pavadinimas'][:34]))
-        self.stdout.write('\nIš viso: pridėta %d, ištrinta %d, palikta %d'
-                          % (len(atkurti), len(istrinti),
+        self.stdout.write('\nIš viso: pridėta %d, užmigdyta %d, ištrinta %d, palikta %d'
+                          % (len(atkurti), len(uzmigdyti), len(istrinti),
                              len(svetimi) + len(neistrinti)))

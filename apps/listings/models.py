@@ -2141,7 +2141,27 @@ class Listing(PaskelbimoLaikas, models.Model):
         self.sold_at = timezone.now()
         self.save(update_fields=['status', 'sold_at'])
 
+    def turi_nuotrauku(self):
+        """Ar skelbimas turi bent vieną nuotrauką.
+
+        Kortelė be nuotraukos tituliniame atrodo kaip klaida, o pirkėjui
+        ji bevertė. 2026-09 tokių aktyvių skelbimų buvo trys (#769, #770,
+        #771) — jie ten pateko ne per klaidą DB, o pro aktyvavimą.
+        """
+        return self.images.exists()
+
     def activate(self, days=None):
+        # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
+        # pro kurią eina visi keliolika kvietimų (views, admin, planai,
+        # listing_helpers). Viena sąlyga modelyje yra tvirtesnė garantija
+        # nei dvidešimt patikrų, išbarstytų po vaizdus.
+        #
+        # Grąžinam False, o ne keliam klaidos: aktyvavimas yra vartotojo
+        # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
+        # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
+        # NEPASKELBIA tuščio skelbimo.
+        if not self.turi_nuotrauku():
+            return False
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
         self.status = 'active'
@@ -3505,7 +3525,27 @@ class Truck(PaskelbimoLaikas, models.Model):
         self.sold_at = timezone.now()
         self.save(update_fields=['status', 'sold_at'])
 
+    def turi_nuotrauku(self):
+        """Ar skelbimas turi bent vieną nuotrauką.
+
+        Kortelė be nuotraukos tituliniame atrodo kaip klaida, o pirkėjui
+        ji bevertė. 2026-09 tokių aktyvių skelbimų buvo trys (#769, #770,
+        #771) — jie ten pateko ne per klaidą DB, o pro aktyvavimą.
+        """
+        return self.images.exists()
+
     def activate(self, days=None):
+        # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
+        # pro kurią eina visi keliolika kvietimų (views, admin, planai,
+        # listing_helpers). Viena sąlyga modelyje yra tvirtesnė garantija
+        # nei dvidešimt patikrų, išbarstytų po vaizdus.
+        #
+        # Grąžinam False, o ne keliam klaidos: aktyvavimas yra vartotojo
+        # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
+        # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
+        # NEPASKELBIA tuščio skelbimo.
+        if not self.turi_nuotrauku():
+            return False
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
         self.status = 'active'
@@ -4252,7 +4292,27 @@ class WheelListing(PaskelbimoLaikas, models.Model):
         size = f'R{self.diameter}x{self.rim_width} {self.rim_pcd}'
         return f'{self.brand_name} {size}'.strip()
  
+    def turi_nuotrauku(self):
+        """Ar skelbimas turi bent vieną nuotrauką.
+
+        Kortelė be nuotraukos tituliniame atrodo kaip klaida, o pirkėjui
+        ji bevertė. 2026-09 tokių aktyvių skelbimų buvo trys (#769, #770,
+        #771) — jie ten pateko ne per klaidą DB, o pro aktyvavimą.
+        """
+        return self.images.exists()
+
     def activate(self, days=None):
+        # Tikrinam ČIA, o ne formose: `activate()` yra vienintelė vieta,
+        # pro kurią eina visi keliolika kvietimų (views, admin, planai,
+        # listing_helpers). Viena sąlyga modelyje yra tvirtesnė garantija
+        # nei dvidešimt patikrų, išbarstytų po vaizdus.
+        #
+        # Grąžinam False, o ne keliam klaidos: aktyvavimas yra vartotojo
+        # veiksmas, ne programos klaida. Kviečiantysis, kuris tikrina
+        # grąžinimą, parodo žinutę; tas, kuris netikrina, bent jau
+        # NEPASKELBIA tuščio skelbimo.
+        if not self.turi_nuotrauku():
+            return False
         if days is None:
             days = self.DEFAULT_ACTIVE_DAYS
         now = timezone.now()

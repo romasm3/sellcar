@@ -165,6 +165,56 @@ tikrink(u'svetimas atpažintas', [x['id'] for x in svetimi] == [kito.pk],
 tikrink(u'svetimas vis dar aktyvus',
         Listing.objects.filter(pk=kito.pk, status='active').exists())
 
+print(u'\n== 6. --uzmigdyk vietoj trynimo ==')
+# Kiek aktyvių PRIEŠ
+pries = Listing.objects.filter(status='active').count()
+call_command('nuotrauku_auditas', atkurti=True, uzmigdyk=True, verbosity=0)
+po = Listing.objects.filter(status='active').count()
+tikrink(u'aktyvių sumažėjo', po < pries, u'%d -> %d' % (pries, po))
+tikrink(u'niekas neištrinta', Listing.objects.count() == 5,
+        Listing.objects.count())
+
+tuscias.refresh_from_db(); dinges.refresh_from_db(); kito.refresh_from_db()
+tikrink(u'be nuotraukų -> expired', tuscias.status == 'expired', tuscias.status)
+tikrink(u'dingęs failas -> expired', dinges.status == 'expired', dinges.status)
+tikrink(u'SVETIMAS liko aktyvus', kito.status == 'active', kito.status)
+geras.refresh_from_db()
+tikrink(u'geras skelbimas nepaliestas', geras.status == 'active', geras.status)
+tikrink(u'užmigdytas lieka savininkui',
+        Listing.objects.filter(pk=tuscias.pk, seller=mano).exists())
+tikrink(u'užmigdytas iškrenta iš aktyvių sąrašo',
+        not Listing.objects.filter(pk=tuscias.pk, status='active').exists())
+
+
+print(u'\n== 7. Be nuotraukų neaktyvuojamas ==')
+naujas = skelbimas('Naujas be nuotraukų')
+naujas.status = 'draft'
+naujas.save(update_fields=['status'])
+tikrink(u'activate() grąžina False', naujas.activate() is False)
+naujas.refresh_from_db()
+tikrink(u'statusas liko draft', naujas.status == 'draft', naujas.status)
+
+# Įkėlus nuotrauką — aktyvuojasi
+ListingImage.objects.create(listing=naujas, image=ContentFile(JPEG, name='naujas.jpg'))
+tikrink(u'su nuotrauka activate() grąžina True', naujas.activate() is True)
+naujas.refresh_from_db()
+tikrink(u'statusas tapo active', naujas.status == 'active', naujas.status)
+
+# Ta pati taisyklė VISIEMS trims modeliams — ne tik Listing.
+from apps.listings.models import Truck, WheelListing, WheelImage
+for modelis in (Listing, Truck, WheelListing):
+    tikrink(u'%-13s turi turi_nuotrauku()' % modelis.__name__,
+            hasattr(modelis, 'turi_nuotrauku'))
+
+w = WheelListing.objects.create(
+    seller=mano, product_type='tyre', title='Padanga be nuotraukos',
+    price=Decimal(100), country='LT', city='Kaunas', status='draft')
+tikrink(u'WheelListing be nuotraukos neaktyvuojamas', w.activate() is False)
+w.refresh_from_db()
+tikrink(u'WheelListing liko draft', w.status == 'draft', w.status)
+WheelImage.objects.create(listing=w, image=ContentFile(JPEG, name='w.jpg'))
+tikrink(u'WheelListing su nuotrauka aktyvuojasi', w.activate() is True)
+
 print('\n' + '=' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)

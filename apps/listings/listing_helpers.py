@@ -254,6 +254,12 @@ def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
         user: request.user
         send_email: Ar siųsti published email (default True)
         days: Kiek dienų aktyvus (default Listing.DEFAULT_ACTIVE_DAYS)
+
+    Grąžina:
+        True  — paskelbta
+        False — NEPASKELBTA, nes skelbimas neturi nė vienos nuotraukos.
+                Kviečiantysis turi parodyti žinutę ir palikti žmogų
+                formoje, o ne vesti į „skelbimas paskelbtas".
     """
     # Importas viduje, kad išvengti cyclic imports
     from .models import Listing
@@ -279,9 +285,15 @@ def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
     listing.save()
     
     # 4. Activate
+    #
+    # activate() atsisako skelbimo be nė vienos nuotraukos (modelyje —
+    # ten vienintelė vieta, pro kurią eina visi kvietimai). Tada
+    # NESIUNČIAM ir „paskelbta" laiško: žmogui parašyti, kad skelbimas
+    # gyvas, kai jis liko juodraštyje, yra blogiau nei nieko.
     if days is None:
         days = Listing.DEFAULT_ACTIVE_DAYS
-    listing.activate(days=days)
+    if not listing.activate(days=days):
+        return False
     
     # 5. Email
     if send_email:
@@ -291,6 +303,7 @@ def finalize_listing_publish(listing, phone, user, send_email=True, days=None):
         except (ImportError, AttributeError):
             # Email funkcija gali neegzistuoti senose versijose — silent fail
             pass
+    return True
 
 
 # ═══════════════════════════════════════════════════════════════════════════
