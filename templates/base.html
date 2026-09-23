@@ -135,8 +135,14 @@
                konkrečių px ar hex reikšmių nerašom — imam iš čia. */
 
             /* 1. Tarpai */
+            /* --sp-5 skalėje buvo praleistas, nors jo prašė dešimt vietų
+               (titulinio „Žiūrėti visus", žemėlapio skydelis, pardavėjo ir
+               vietos blokai, 404). Neapibrėžtas var() sugadina VISĄ
+               savybę, tad `margin: var(--sp-5) auto 0` virsdavo `margin: 0`
+               — kartu dingdavo ir `auto`, ir mygtukas likdavo kairėje. */
             --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
-            --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px; --sp-16: 64px;
+            --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+            --sp-16: 64px;
 
             /* Laukų tinklelis — visur vienodas */
             --grid-gap-y: var(--sp-3);

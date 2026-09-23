@@ -177,9 +177,15 @@
 .home-tab-btn-hot:hover { color: var(--accent-hover); }
 .home-tab-btn-hot.active { border-bottom-color: var(--accent); color: var(--accent); }
 .home-tab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-/* „Žiūrėti visus" — antrinis mygtukas, centruotas po kortelėmis */
+/* „Žiūrėti visus" — antrinis mygtukas, centruotas po kortelėmis.
+   Centravimas (`margin-inline: auto`) rašomas ATSKIRAI nuo viršutinio
+   tarpo: trumpinyje `margin: var(--X) auto 0` pakanka vienam neapibrėžtam
+   kintamajam, ir naršyklė išmeta visą savybę — kartu su `auto`. Būtent
+   taip mygtukas ir buvo atsidūręs kairėje. */
 .home-tab-visi { display: flex; align-items: center; justify-content: center;
-                 max-width: 320px; margin: var(--sp-5) auto 0; height: var(--btn-h);
+                 max-width: 320px; width: 100%;
+                 margin-inline: auto; margin-top: var(--sp-5, 20px);
+                 margin-bottom: 0; height: var(--btn-h);
                  border: 1px solid var(--border); border-radius: var(--r-md);
                  background: var(--surface); color: var(--text);
                  font-weight: var(--fw-semibold); text-decoration: none; }
