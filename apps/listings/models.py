@@ -3676,6 +3676,35 @@ class TruckImage(models.Model):
         return f"{self.truck.title} - {self.order}"
 
 
+
+    # ── Ką rodyti šablonuose ────────────────────────────────────────
+    #
+    # Tie patys vardai, kaip ListingImage ir WheelImage. Šiandien
+    # trucks_list.html piešia savo markup'u per `image.url`, tad bendras
+    # partials/_img.html sunkvežimių dar neliečia — bet ratams lygiai ta
+    # pati neatitiktis 2026-09 paliko tuščius pilkus langelius, ir
+    # pastebėta ji buvo tik akimis. Perkėlus sunkvežimius į bendrą
+    # kortelę, be šitų keturių savybių viskas lūžtų taip pat tyliai.
+    #
+    # Išvestinių (lg/sm/webp) sunkvežimiams negaminam, tad grąžinam
+    # originalą arba None.
+
+    @property
+    def url_lg(self):
+        return self.image.url if self.image else ''
+
+    @property
+    def url_lg_webp(self):
+        return None
+
+    @property
+    def url_sm(self):
+        return self.image.url if self.image else ''
+
+    @property
+    def url_sm_webp(self):
+        return None
+
 class TruckEquipment(models.Model):
     truck = models.ForeignKey(Truck, on_delete=models.CASCADE, related_name='equipment_items')
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)

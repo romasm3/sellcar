@@ -185,6 +185,16 @@ for vardas, obj in ((u'automobilis', auto), (u'ratas', ratas)):
     tikrink(u'%-12s kortelės adresas teisingas' % vardas,
             i['url'] in html, i['url'])
 
+print(u'\n== 5. VISI trys nuotraukų modeliai turi tą patį API ==')
+# Sargyba nuo pasikartojimo: ratams šitos neatitikties nepagavo joks
+# testas — pastebėta akimis, gyvai. TruckImage šiandien pro _img.html
+# neina, bet perkėlus sunkvežimius į bendrą kortelę lūžtų taip pat.
+from apps.listings.models import TruckImage
+for modelis in (ListingImage, TruckImage, WheelImage):
+    truksta = [s for s in BUTINI if not hasattr(modelis, s)]
+    tikrink(u'%-14s turi visas 4 savybes' % modelis.__name__,
+            not truksta, u'trūksta: %s' % truksta if truksta else '')
+
 print('\n' + '=' * 60)
 print('gerai: %d, nepavyko: %d' % (gerai, blogai))
 sys.exit(1 if blogai else 0)
