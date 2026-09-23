@@ -1,0 +1,24 @@
+[Unit]
+Description=AutoLeft — sargybinis: ar įdiegta versija dar seka origin/master
+Documentation=file:///root/autoleft/deploy/README.md
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/autoleft
+ExecStart=/root/autoleft/venv/bin/python manage.py deploy_sargyba
+
+# Užtenka minutės: vienas git fetch ir, blogiausiu atveju, vienas laiškas.
+TimeoutStartSec=300
+
+# Nekartojam: timeris vis tiek ateis rytoj, o dubliuotas laiškas nieko
+# neprideda.
+Restart=no
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=autoleft-sargyba
+
+[Install]
+WantedBy=multi-user.target

@@ -6,8 +6,9 @@
 #
 # Saugikliai:
 #   • flock — du deploy'ai vienu metu nesusidurs;
-#   • švarus darbo katalogas privalomas — jei kas nors redagavo kodą serveryje,
-#     nieko nedarom (deploy-agent.sh tokį darbą užtrintų);
+#   • švarus darbo katalogas privalomas — jei kas nors redagavo KODĄ serveryje,
+#     nieko nedarom (deploy-agent.sh tokį darbą užtrintų); docs/ pakeitimai
+#     deploy'o nestabdo — padedami į stash'ą (žr. komentarą ties vartais);
 #   • tik fast-forward — niekada nekuriam merge commit'ų ir neperrašom istorijos;
 #   • jei deploy-agent.sh grąžina klaidą, jis PATS jau atkeitė failus iš
 #     last_good, bet .git liktų rodyti į blogą commit'ą — todėl git atsukam
@@ -97,10 +98,40 @@ CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     die "Serveryje iškrauta šaka '$CURRENT_BRANCH', o diegiam '$BRANCH'. Nieko nedarom."
 
 # Nešvarus katalogas = kažkas redagavo kodą serveryje. Deploy tai užtrintų.
-if [[ -n "$(git status --porcelain --untracked-files=no)" ]]; then
-    log "Nesucommit'inti pakeitimai serveryje:"
-    git --no-pager status --short --untracked-files=no | sed 's/^/    /'
-    die "Darbo katalogas nešvarus — deploy'as sustabdytas. Sutvarkyk ranka."
+#
+# 2026-09: būtent čia deploy'as ir užstrigo 8 paroms. Serveryje dirbantys
+# agentai rašo pastabas į docs/klaidos/*.md, tie failai yra sekami, ir
+# kiekvienas timerio ciklas — kas 5 min, apie 11 000 kartų — krisdavo ties
+# šia patikra. Tekstinis žinynas stabdė KODO diegimą.
+#
+# Todėl vartai dabar skiria du dalykus:
+#   • kodo pakeitimas (viskas ne docs/) — sustojam, kaip ir anksčiau;
+#   • vien dokumentacija (docs/) — pasidedam į stash'ą ir tęsiam.
+#
+# Kodėl ne .gitignore: failai JAU sekami, o sekamam failui .gitignore
+# negalioja. Kad galiotų, tektų `git rm --cached`, t. y. išimti žinyną iš
+# repo — tada jo nebematytų nei kiti konteineriai, nei kitos sesijos, o
+# būtent dėl to jis ir rašomas. Turinys niekur nedingsta: `git stash`
+# saugo jį git objektuose, atkuriama su `git stash pop`.
+NESVARU="$(git status --porcelain --untracked-files=no)"
+if [[ -n "$NESVARU" ]]; then
+    KODAS="$(printf '%s\n' "$NESVARU" | grep -v ' docs/' || true)"
+    if [[ -n "$KODAS" ]]; then
+        log "Nesucommit'inti KODO pakeitimai serveryje:"
+        printf '%s\n' "$KODAS" | sed 's/^/    /'
+        die "Darbo katalogas nešvarus — deploy'as sustabdytas. Sutvarkyk ranka."
+    fi
+    log "Dokumentacijos pakeitimai serveryje (deploy'o nestabdo):"
+    printf '%s\n' "$NESVARU" | sed 's/^/    /'
+    if git stash push --quiet -m "deploy $(date '+%Y-%m-%d %H:%M') — docs serveryje" -- docs/; then
+        log "Padėta į stash'ą; atkuriama su: git -C ${APP_DIR} stash pop"
+    else
+        die "Nepavyko padėti docs/ į stash'ą — sutvarkyk ranka."
+    fi
+    # Jei po to kas nors liko — vadinasi, ne docs/, ir toliau neinam.
+    LIKO="$(git status --porcelain --untracked-files=no)"
+    [[ -z "$LIKO" ]] || { printf '%s\n' "$LIKO" | sed 's/^/    /'
+                          die "Katalogas vis tiek nešvarus — sutvarkyk ranka."; }
 fi
 
 # ── Parsisiunčiam (tik fast-forward) ───────────────────────────────────

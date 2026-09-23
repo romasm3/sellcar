@@ -36,6 +36,65 @@ systemctl list-timers autoleft-deploy     # kada kitas paleidimas
 journalctl -u autoleft-deploy -n 50       # ką darė
 ```
 
+## Sargybinis — ar deploy'as apskritai vyksta
+
+2026-09 deploy'as stovėjo **aštuonias paras**, ir to nepamatė niekas. Timeris
+sukosi kas minutę, krisdavo ties švarumo patikra ir tylėjo — tyla yra jo
+normalus elgesys. Svetainė rodė rugsėjo 14 d. kodą, o `master`'yje gulėjo
+vienuolika commit'ų.
+
+Todėl kartą per parą tą patį patikrina sargybinis ir, atsilikus daugiau nei
+parą, rašo laišką į `romasm3@gmail.com` su commit'ų skaičiumi, abiem
+versijomis ir paskutinėmis `journalctl -u autoleft-deploy` eilutėmis.
+
+```bash
+ln -sf /root/autoleft/deploy/systemd/autoleft-sargyba.service /etc/systemd/system/
+ln -sf /root/autoleft/deploy/systemd/autoleft-sargyba.timer   /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now autoleft-sargyba.timer
+```
+
+Rankomis:
+
+```bash
+cd /root/autoleft
+venv/bin/python manage.py deploy_sargyba --parodyk    # parodo, nesiunčia
+venv/bin/python manage.py deploy_sargyba              # tikrina ir rašo
+venv/bin/python manage.py deploy_sargyba --valandos 6 # griežtesnė riba
+```
+
+Matuojama **atsilikimo trukmė**, ne commit'ų kiekis: dešimt commit'ų per
+valandą yra normalu, o vienas commit'as, gulintis parą — jau gedimas.
+Įdiegta versija imama iš `settings.GIT_SHA` — tos pačios, kurią rodo
+`<meta name="versija">`, tad sargybinis mato lygiai tą patį, ką lankytojas.
+
+Kodas: `apps/analytics/management/commands/deploy_sargyba.py`,
+testas: `python docs/deploy_sargybos_test.py`.
+
+## Švarumo vartai ir `docs/`
+
+Būtent jie deploy'ą ir užrakino. `deploy-from-git.sh` sustodavo, radęs bet
+kokį nesucommit'intą pakeitimą, o serveryje dirbantys agentai rašo pastabas
+į `docs/klaidos/*.md` — sekamus failus. Tekstinis žinynas stabdė kodo
+diegimą apie 11 000 ciklų iš eilės.
+
+Dabar vartai skiria du dalykus:
+
+* **kodo** pakeitimas (viskas ne `docs/`) — sustojam, kaip ir anksčiau;
+* vien **dokumentacija** — padedama į `git stash` ir deploy'as tęsiasi.
+
+`.gitignore` čia netinka: failai jau sekami, o sekamam failui `.gitignore`
+negalioja. Kad galiotų, tektų `git rm --cached`, t. y. išimti žinyną iš
+repo — tada jo nebematytų nei kiti konteineriai, nei kitos sesijos, o
+būtent dėl to jis ir rašomas. Su `stash` turinys lieka git objektuose:
+
+```bash
+git -C /root/autoleft stash list
+git -C /root/autoleft stash pop
+```
+
+Testas: `bash docs/deploy_svarumo_test.sh`.
+
 ## Kasdienis naudojimas
 
 Nieko daryti nereikia. Sumergini į `master` → per ~1–2 min pasirodo svetainėje.

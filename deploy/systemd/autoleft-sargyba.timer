@@ -1,0 +1,14 @@
+[Unit]
+Description=AutoLeft — kasdienis patikrinimas, ar deploy'as neatsilieka
+Documentation=file:///root/autoleft/deploy/README.md
+
+[Timer]
+# Kartą per parą, rytą — kad laiškas ateitų prieš darbo dieną, o ne naktį.
+OnCalendar=*-*-* 08:00:00
+# Serveris laiką laiko UTC; 08:00 UTC yra 11:00 Lietuvoje vasarą.
+Persistent=true
+RandomizedDelaySec=5min
+Unit=autoleft-sargyba.service
+
+[Install]
+WantedBy=timers.target
