@@ -4366,6 +4366,35 @@ class WheelImage(models.Model):
     is_main = models.BooleanField(default=False)
     order = models.PositiveSmallIntegerField(default=0)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    # ── Ką rodyti šablonuose ────────────────────────────────────────
+    #
+    # Tie patys vardai, kaip ListingImage: bendras kortelės partial'as
+    # `partials/_img.html` kreipiasi būtent į juos. Be jų Django tyliai
+    # išvesdavo tuščią eilutę — `<img src="">` — ir kortelėje likdavo
+    # pilkas langelis, nors detaliame puslapyje nuotraukos matėsi
+    # (ten kreipiamasi tiesiai į `image.url`).
+    #
+    # Išvestinių (lg/sm/webp) ratams kol kas negaminam, tad visos
+    # savybės grąžina originalą arba None. Svarbu, kad API sutaptų:
+    # atsiradus išvestinėms, pasikeis TIK šitos keturios eilutės, o
+    # šablonų liesti nereikės.
+
+    @property
+    def url_lg(self):
+        return self.image.url if self.image else ''
+
+    @property
+    def url_lg_webp(self):
+        return None
+
+    @property
+    def url_sm(self):
+        return self.image.url if self.image else ''
+
+    @property
+    def url_sm_webp(self):
+        return None
  
     class Meta:
         ordering = ['order', '-is_main']
