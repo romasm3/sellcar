@@ -820,7 +820,11 @@ def _handle_post(request, edit_listing=None):
     # Editing an existing listing — no plan/activation step, back to the hub.
     if edit_listing:
         messages.success(request, _('Listing updated.'))
-        return redirect('listing_edit_hub', pk=listing.pk)
+        # Po sėkmingo išsaugojimo — į patį skelbimą, kaip trucks/wheels formose.
+        # Anksčiau čia buvo listing_edit_hub, o hub'as tą patį skelbimą grąžina
+        # atgal į /create/…/?edit=<pk>, todėl vartotojas likdavo toje pačioje
+        # formoje ir nematydavo jokio patvirtinimo.
+        return redirect('listing_detail', pk=listing.pk)
 
     # ═══ Pirmi 3 nemokami (bendrai per visas kategorijas) ═══
     # NB: do not unpack into `_` — it shadows gettext for this whole function.

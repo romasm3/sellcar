@@ -223,7 +223,10 @@ def _handle_post(request, edit_listing=None):
 
         messages.success(request, 'Listing updated successfully.')
 
-        return redirect('my_listings')
+        # Po išsaugojimo — į patį skelbimą, kaip visose kitose formose.
+        # Anksčiau metė į /dashboard/announcements/, ir vartotojas turėdavo
+        # pats ieškoti, ar pakeitimas prigijo.
+        return redirect('listing_detail', pk=listing.pk)
 
 
 

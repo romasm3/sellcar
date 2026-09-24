@@ -264,7 +264,11 @@ def electronics_listing_create(request):
             except (ValueError, TypeError):
                 pass
             messages.success(request, _('Skelbimas atnaujintas.'))
-            return redirect('listing_edit_hub', pk=target.pk)
+            # Po sėkmingo išsaugojimo — į patį skelbimą, kaip trucks/wheels formose.
+            # Anksčiau čia buvo listing_edit_hub, o hub'as tą patį skelbimą grąžina
+            # atgal į /create/…/?edit=<pk>, todėl vartotojas likdavo toje pačioje
+            # formoje ir nematydavo jokio patvirtinimo.
+            return redirect('listing_detail', pk=target.pk)
 
         is_free, _c, _l = can_create_free_listing(request.user)
         if is_free:

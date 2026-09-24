@@ -4328,6 +4328,12 @@ def listing_edit(request, pk):
         return redirect('moto_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
         return redirect('truck_for_parts_edit', pk=pk)
+    # Atskira motociklo dalis turi SAVO formą. Bendroji parts forma sukasi
+    # apie PartCategory medį, kurio moto dalis neturi (part_category tuščias),
+    # todėl ji tyliai nusviesdavo į /dashboard/announcements/ ir redaguoti
+    # motociklo dalies buvo neįmanoma. Tikrinam PRIEŠ bendrąją šaką.
+    if listing.subcategory and listing.subcategory.slug == 'single-moto-part':
+        return redirect(f'/create/moto-part/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -5206,6 +5212,12 @@ def listing_edit_hub(request, pk):
         return redirect('moto_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
         return redirect('truck_for_parts_edit', pk=pk)
+    # Atskira motociklo dalis turi SAVO formą. Bendroji parts forma sukasi
+    # apie PartCategory medį, kurio moto dalis neturi (part_category tuščias),
+    # todėl ji tyliai nusviesdavo į /dashboard/announcements/ ir redaguoti
+    # motociklo dalies buvo neįmanoma. Tikrinam PRIEŠ bendrąją šaką.
+    if listing.subcategory and listing.subcategory.slug == 'single-moto-part':
+        return redirect(f'/create/moto-part/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -5316,6 +5328,12 @@ def listing_edit_section(request, pk, section):
         return redirect('moto_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
         return redirect('truck_for_parts_edit', pk=pk)
+    # Atskira motociklo dalis turi SAVO formą. Bendroji parts forma sukasi
+    # apie PartCategory medį, kurio moto dalis neturi (part_category tuščias),
+    # todėl ji tyliai nusviesdavo į /dashboard/announcements/ ir redaguoti
+    # motociklo dalies buvo neįmanoma. Tikrinam PRIEŠ bendrąją šaką.
+    if listing.subcategory and listing.subcategory.slug == 'single-moto-part':
+        return redirect(f'/create/moto-part/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -5658,6 +5676,12 @@ def listing_edit_step(request, pk, step):
         return redirect('moto_for_parts_edit', pk=pk)
     if listing.subcategory and listing.subcategory.slug == 'whole-truck-for-parts':
         return redirect('truck_for_parts_edit', pk=pk)
+    # Atskira motociklo dalis turi SAVO formą. Bendroji parts forma sukasi
+    # apie PartCategory medį, kurio moto dalis neturi (part_category tuščias),
+    # todėl ji tyliai nusviesdavo į /dashboard/announcements/ ir redaguoti
+    # motociklo dalies buvo neįmanoma. Tikrinam PRIEŠ bendrąją šaką.
+    if listing.subcategory and listing.subcategory.slug == 'single-moto-part':
+        return redirect(f'/create/moto-part/?edit={pk}')
     if listing.vehicle_type and listing.vehicle_type.slug == 'parts':
         return redirect(f'/create/parts/form/?edit={pk}')
     # Moto gear sits under the motorcycles vehicle type — check it first, or
@@ -7365,7 +7389,11 @@ def listing_create_cars_quick(request):
                 pass
 
             messages.success(request, 'Listing updated successfully.')
-            return redirect('listing_edit_hub', pk=target.pk)
+            # Po sėkmingo išsaugojimo — į patį skelbimą, kaip trucks/wheels formose.
+            # Anksčiau čia buvo listing_edit_hub, o hub'as tą patį skelbimą grąžina
+            # atgal į /create/…/?edit=<pk>, todėl vartotojas likdavo toje pačioje
+            # formoje ir nematydavo jokio patvirtinimo.
+            return redirect('listing_detail', pk=target.pk)
 
         # ═══ CREATE mode: check free tier vs paid plan ═══
         from .constants import can_create_free_listing, FREE_LISTING_DAYS
