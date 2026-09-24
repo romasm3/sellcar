@@ -89,29 +89,43 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
   PRIEŠ atiduodant kiekvieną darbą, ne tik naują kategoriją.
 
 ## Workflow
-- Commit as you go: small logical commits after each meaningful step, Conventional Commits format (feat/fix/chore...), then push
-- Merge to master yourself when the work is done — do NOT ask each time.
-  Before every merge: fetch master, check it hasn't moved under you, check
-  your files don't overlap with what another session pushed, and re-run the
-  checks ON THE MERGED TREE, not just on the branch. Merge only green work.
-  Note that master auto-deploys to production within 5 min (deploy/README.md),
-  so a merge is a deploy. Still stop and ask before anything irreversible
-  (destructive DB commands, data-losing migrations).
-- Po kiekvienos užbaigtos užduoties AUTOMATIŠKAI: git add (tik susiję
-  failai) → commit (Conventional Commits) → git push origin master.
-  Neklausti leidimo. Niekada necommitinti .env, *.bak, db dump'ų, media/.
-- Debesų sesijos DEPLOY'INA push'indamos į master: serveryje sukasi
-  autoleft-deploy.timer, kuris kas minutę tikrina origin/master ir,
-  radęs naują commit'ą, pats parsisiunčia, migruoja, surenka statinius
-  ir perkrauna gunicorn. Push į master = deploy.
-- Darbas NĖRA baigtas, kol autoleft.com versijos žymė nesutampa su
-  commit'u. Po push'o palauk ~3 min ir patikrink:
-      curl -s https://autoleft.com/ | grep -o 'name="versija" content="[^"]*"'
-      git rev-parse --short=12 HEAD
-  Sutampa — baigta. Nesutampa — darbas dar NEPASIEKĖ svetainės, ir tai
-  rašoma pirmoje ataskaitos eilutėje (žr. „PO KIEKVIENO DARBO" aukščiau).
-  Deploy žurnalas: /var/log/autoleft-deploy.log, taip pat
-  `journalctl -u autoleft-deploy -n 50`.
+
+### DIRBAMA TIESIAI PRODUKCIJOJE (/root/autoleft)
+Automatinis deploy'as IŠJUNGTAS sąmoningai
+(`systemctl disable --now autoleft-deploy.timer`). GitHub nuo šiol yra
+tik atsarginė kopija ir atsukimo istorija, NE pristatymo kelias.
+Push į master NIEKO nebediegia.
+
+Tvarka kiekvienam pakeitimui:
+
+    redaguoju → systemctl restart gunicorn → curl patikra
+             → git commit → git push (tik kaip kopija)
+
+- Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną.
+- Po kiekvieno pakeitimo PRIVALOMA: `systemctl restart gunicorn` ir
+  curl patikra, kad `/` grąžina 200. Neatsako 200 →
+  `git reset --hard HEAD~1` ir restart gunicorn.
+- Prieš bet kokį DB ar migracijų keitimą: `pg_dump` į /root/backups/
+  su data. Neatsukamos migracijos (pvz. 0107, trinanti contact_phone)
+  be kopijos nediegiamos.
+- NIEKADA: `rm -rf`, `DROP TABLE`, `TRUNCATE`, `git push --force`.
+- Veikiu TIK /root/autoleft viduje.
+- Nesakau „padaryta", kol nepatikrinau gyvai per curl.
+
+### Debesų konteinerio sesijos (/home/user/sellcar)
+Konteineris prie serverio NEPRIEINA (nėra ssh, raktų, systemd, maršruto
+į VPS). Jis gali tik commit'inti ir push'inti į GitHub — o push nuo šiol
+NEDIEGIA. Todėl debesų sesija darbo gyvai patikrinti NEGALI ir privalo
+tai pasakyti, o ne skelbti „padaryta". Diegia žmogus arba serverio sesija.
+
+### Bendra
+- Commit as you go: small logical commits after each meaningful step,
+  Conventional Commits format (feat/fix/chore...), then push.
+- Niekada necommitinti .env, *.bak, db dump'ų, media/.
+- Stop and ask before anything irreversible (destructive DB commands,
+  data-losing migrations).
+- Versijos žymė (`meta name="versija"`) NEPATIKIMA — deploy'as jos
+  neperrašo. Tikrinama pagal tikrą pakeitimą, ne pagal ją.
 - MATOMAS ŽYMEKLIS prieš kiekvieną darbą. Dar prieš pradėdamas
   pasirink, KĄ konkrečiai matysi per curl, kai darbas bus gyvas:
   tekstą, CSS klasę, elementą ar skaičių. Komentaro eilutės, testų
