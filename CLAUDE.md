@@ -69,6 +69,14 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
   fetch() su matoma klaidos būsena, ikonos static/img/, „atgal" nuorodos
   gilyn einančiuose ekranuose, target="_blank" tik išoriniams adresams.
   Taisyklės ir esama būklė: docs/pwa-pasiruosimas.md
+- Kontaktai: paskyros numeris ir paštas skelbime NEĮRAŠOMI savaime.
+  Formoje jie tik SIŪLOMI — placeholder'iu (`siulomas_telefonas`
+  parametras contact_block.html), o placeholder į POST nepatenka.
+  Įrašytas į `value` paskyros numeris nugulėdavo skelbime žmogui nieko
+  nepakeitus, ir savininko asmeninis numeris atsidurdavo svetimo
+  pardavėjo skelbime (#827). Skelbimo puslapis rodo TIK
+  `listing.contact_phone`; tuščias — nerodo nieko, o ne paskyros
+  numerio (`Listing.kontaktinis_telefonas`).
 - Contact block: every create/edit form renders it ONLY via
   {% include 'listings/partials/contact_block.html' %} — never copy the HTML.
   Per-category differences go through include parameters (show_postal,
@@ -126,6 +134,16 @@ tai pasakyti, o ne skelbti „padaryta". Diegia žmogus arba serverio sesija.
   data-losing migrations).
 - Versijos žymė (`meta name="versija"`) NEPATIKIMA — deploy'as jos
   neperrašo. Tikrinama pagal tikrą pakeitimą, ne pagal ją.
+- Gyvai tikrinama TIK per `curl`, niekada per naršyklę: naršyklė ir
+  tarpinės talpyklos rodo seną puslapį, ir taip jau buvo pranešta apie
+  „nepataisytą" klaidą, kuri iš tikrųjų buvo gyva ir veikianti.
+- Diegimo tvarka (deploy-agent.sh): `manage.py check` eina PRIEŠ
+  migracijas — sulūžęs kodas sustabdomas nepalietus duomenų. Jei
+  migracijos jau pritaikytos, o patikra krinta, kodas NEBEATSUKAMAS:
+  sena versija liktų su naujesne schema. Tokiu atveju skriptas sustoja
+  ir šaukiasi žmogaus, o DB atkuriama iš kopijos.
+- Patikros išvestis niekada nemetama į /dev/null — kitaip žurnale lieka
+  tik „patikra krito", o priežasties nesimato.
 - MATOMAS ŽYMEKLIS prieš kiekvieną darbą. Dar prieš pradėdamas
   pasirink, KĄ konkrečiai matysi per curl, kai darbas bus gyvas:
   tekstą, CSS klasę, elementą ar skaičių. Komentaro eilutės, testų
