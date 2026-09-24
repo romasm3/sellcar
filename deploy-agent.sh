@@ -110,14 +110,27 @@ vietos_patikra() {
 restart_service() { log "Restartinam $SERVICE"; systemctl restart "$SERVICE"; }
 
 health_check() {
-  local tries=10 delay=2
+  # Išvesties NEBEMETAM į /dev/null. Dėl to anksčiau žurnale likdavo tik
+  # „Patikra krito", o KODĖL — niekada nesimatydavo, ir priežasties
+  # tekdavo ieškoti gunicorn žurnale rankomis.
+  #
+  # Sėkmės sąlyga nekeista (`curl -f`), pakeista tik tai, kad atsakymas
+  # nueina į failą ir paskutinį kartą atsiduria žurnale.
+  local tries=10 delay=2 kunas
+  kunas="$(mktemp)"
   for ((i=1; i<=tries; i++)); do
     if curl -fsS --max-time 5 --unix-socket "$GUNICORN_SOCK" \
-         -H "Host: $HEALTH_HOST" "http://localhost${HEALTH_PATH}" >/dev/null 2>&1; then
-      log "Health OK ($i/$tries)"; return 0
+         -H "Host: $HEALTH_HOST" "http://localhost${HEALTH_PATH}" >"$kunas" 2>&1; then
+      log "Health OK ($i/$tries)"; rm -f "$kunas"; return 0
     fi
-    log "Health dar ne... ($i/$tries)"; sleep "$delay"
+    log "Health dar ne... ($i/$tries)"
+    if (( i == tries )); then
+      log "Paskutinis atsakymas arba curl klaida (pirmos 40 eilučių):"
+      head -40 "$kunas" | sed 's/^/    /'
+    fi
+    sleep "$delay"
   done
+  rm -f "$kunas"
   return 1
 }
 
@@ -262,7 +275,39 @@ apply() {
 
   # shellcheck disable=SC1091
   source "${VENV}/bin/activate"
+
+  # ── KODO PATIKRA EINA PRIEŠ MIGRACIJAS ──────────────────────────────
+  # Anksčiau tvarka buvo: migruojam → perkraunam → tikrinam. Kai patikra
+  # krisdavo, kodas būdavo atsukamas, o DB likdavo naujesnė — būtent taip
+  # neatsukama 0107 ištrynė duomenis per NEPAVYKUSĮ bandymą.
+  #
+  # `manage.py check` importuoja visą projektą ir nieko DB'je nekeičia,
+  # tad sulūžęs kodas sustabdomas dar nepalietus duomenų.
+  local patikra
+  if ! patikra="$(python manage.py check 2>&1)"; then
+    printf '%s\n' "$patikra" | sed 's/^/    /'
+    deactivate
+    # `die` gyvena deploy-from-git.sh, ne čia — agentas klaidas praneša
+    # pats. (Tą sugavo docs/deploy_migraciju_tvarkos_test.sh.)
+    log "❌ manage.py check krito — kodas blogas."
+    log "   MIGRACIJOS NEPALEISTOS, DB nepaliesta."
+    exit 1
+  fi
+  log "manage.py check praėjo — galima migruoti."
+
+  # Ar migracijos iš tikrųjų kažką pritaikė — nuo to priklauso, ar
+  # nepavykus galima atsukti kodą (žr. health `else` šaką).
+  local pries_mig po_mig
+  pries_mig="$(python manage.py showmigrations --plan 2>/dev/null | grep -c '^\[X\]' || true)"
   python manage.py migrate --noinput
+  po_mig="$(python manage.py showmigrations --plan 2>/dev/null | grep -c '^\[X\]' || true)"
+  if [[ "$po_mig" != "$pries_mig" ]]; then
+    MIGRACIJOS_PRITAIKYTOS=1
+    log "Pritaikyta migracijų: $(( po_mig - pries_mig )) (buvo $pries_mig, dabar $po_mig)"
+  else
+    log "Naujų migracijų nebuvo."
+  fi
+
   python manage.py collectstatic --noinput
   # .mo failai nebelaikomi git'e (binariniai — nuolatiniai merge
   # konfliktai), tad juos privalo pagaminti deploy'as. Be šito žingsnio
@@ -348,6 +393,9 @@ log "=== Deploy pradžia ($TS) ==="
 VERSIJOS_FAILAS="${APP_DIR}/VERSIJA"
 VERSIJA_SENA="$(tr -d '[:space:]' < "$VERSIJOS_FAILAS" 2>/dev/null || true)"
 DIEGIMAS_PAVYKO=0
+# Ar šis diegimas jau pritaikė migracijų. Jei taip, kodo atsukti
+# NEBEGALIMA: sena versija liktų su naujesne schema (žr. health `else`).
+MIGRACIJOS_PRITAIKYTOS=0
 
 grazinti_versija() {
   [[ "$DIEGIMAS_PAVYKO" == "1" ]] && return 0
@@ -427,8 +475,20 @@ if health_check; then
   else
     log "=== Deploy OK, BET TRŪKSTA SERVERIO FAILŲ (žr. 🔴 aukščiau) ==="
   fi
+elif [[ "$MIGRACIJOS_PRITAIKYTOS" == "1" ]]; then
+  # Kodą atsukti po pritaikytų migracijų yra PAVOJINGIAU nei palikti
+  # sulūžusį: sena versija nemoka naujos schemos, o DB atgal nesukama.
+  # Todėl sustojam ir šaukiamės žmogaus.
+  log "❌ Health FAIL, BET MIGRACIJOS JAU PRITAIKYTOS — kodo NEATSUKAM."
+  log "   Atsukus kodą sena versija liktų su naujesne schema."
+  log "   DB kopija prieš migracijas: ${BACKUP_DIR}/db_${TS}.sql.gz"
+  log "   Reikia rankinio sprendimo: arba pataisyti kodą pirmyn, arba"
+  log "   atkurti DB iš kopijos IR tada atsukti kodą."
+  tikrinti_raktus || true
+  exit 1
 else
   log "❌ Health FAIL — atkeičiam KODĄ į paskutinę veikiančią versiją (old)."
+  log "   (Migracijų šiame diegime nebuvo, tad atsukti saugu.)"
   restore_code
   sutvarkyti_po_atsukimo
   # Atsukimas naudoja rsync --delete — būtent čia anksčiau dingdavo
