@@ -99,10 +99,16 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 ## Workflow
 
 ### DIRBAMA TIESIAI PRODUKCIJOJE (/root/autoleft)
-Automatinis deploy'as IŠJUNGTAS sąmoningai
-(`systemctl disable --now autoleft-deploy.timer`). GitHub nuo šiol yra
-tik atsarginė kopija ir atsukimo istorija, NE pristatymo kelias.
-Push į master NIEKO nebediegia.
+GitHub — atsarginė kopija ir atsukimo istorija.
+DĖMESIO (patikrinta 2026-09-24 20:10): `autoleft-deploy.timer` VIS DAR
+ĮJUNGTAS (`systemctl is-enabled autoleft-deploy.timer` → enabled), t. y.
+push į master iš debesų VIS DAR diegia. Išjungti ar palikti — žmogaus
+sprendimas; kol neišjungtas, prieš darbą serveryje
+`git fetch && git merge --ff-only origin/master`, o commit'ink ir push'ink
+iškart po patikros — nesucommit'intas kodas ar nuklydusi šaka taimerį
+stabdo. Push atmestas → `git pull --rebase`, patikra, push (ne --force).
+Duomenis keičiančių migracijų (RunPython/RunSQL/RemoveField/DeleteModel)
+taimeris nebevykdo — jos leidžiamos ranka po pg_dump.
 
 Tvarka kiekvienam pakeitimui:
 
@@ -132,8 +138,9 @@ tai pasakyti, o ne skelbti „padaryta". Diegia žmogus arba serverio sesija.
 - Niekada necommitinti .env, *.bak, db dump'ų, media/.
 - Stop and ask before anything irreversible (destructive DB commands,
   data-losing migrations).
-- Versijos žymė (`meta name="versija"`) NEPATIKIMA — deploy'as jos
-  neperrašo. Tikrinama pagal tikrą pakeitimą, ne pagal ją.
+- Versijos žymę (`meta name="versija"`) rašo `./idiek.sh` (ir
+  `./deploy-agent.sh`) PRIEŠ perkrovimą; vien `systemctl restart gunicorn`
+  jos NEatnaujina. Tikrinama ir pagal tikrą pakeitimą (žymeklį).
 - Gyvai tikrinama TIK per `curl`, niekada per naršyklę: naršyklė ir
   tarpinės talpyklos rodo seną puslapį, ir taip jau buvo pranešta apie
   „nepataisytą" klaidą, kuri iš tikrųjų buvo gyva ir veikianti.
