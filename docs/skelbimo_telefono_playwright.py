@@ -133,12 +133,20 @@ def main():
         tikrink(reiksme.strip() == SKELBIMO,
                 'redagavimo forma rodo SKELBIMO numerį', f'rodo {reiksme!r}')
 
+        # Tuščiam skelbimui paskyros numeris tik SIŪLOMAS — placeholder'iu.
+        # Įrašytas į `value` jis išsisaugodavo žmogui nieko nepakeitus, ir
+        # taip paskyros savininko numeris atsidurdavo svetimame skelbime.
         p.goto(f"{ADRESAS}/{s['tuscias'].pk}/edit/", wait_until='domcontentloaded')
         p.wait_for_timeout(600)
-        reiksme = p.locator('[name="phone"]').first.input_value()
-        tikrink(reiksme.strip() == PASKYROS,
-                'tuščiam skelbimui forma siūlo paskyros numerį (numatytoji)',
-                f'rodo {reiksme!r}')
+        laukas = p.locator('[name="phone"]').first
+        reiksme = laukas.input_value()
+        uzuomina = laukas.get_attribute('placeholder') or ''
+        tikrink(reiksme.strip() == '',
+                'tuščiam skelbimui laukas TUŠČIAS (paskyros numeris neįrašomas)',
+                f'rodo {reiksme!r} — vėl išsisaugotų savaime')
+        tikrink(uzuomina.strip() == PASKYROS,
+                'paskyros numeris matomas kaip užuomina (placeholder)',
+                f'placeholder={uzuomina!r}')
 
         ctx.close()
         b.close()

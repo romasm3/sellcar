@@ -90,14 +90,27 @@ def issaugok_telefona(listing, request, laukas='phone'):
 
 
 def telefono_reiksme(listing, user=None):
-    """Ką rodyti formos lauke.
+    """Ką ĮRAŠYTI į formos lauką.
 
-    Skelbimo numeris pirmas; paskyros — tik kai skelbimo laukas tuščias
-    (naujas skelbimas arba senas, kurio migracija nepasiekė). Tokia pati
-    tvarka kaip `pasto_reiksme`.
+    TIK skelbimo numeris. Paskyros numerio čia NEBĖRA sąmoningai: kai jis
+    būdavo įrašomas į `value`, žmogui nieko nepakeitus jis nugulėdavo
+    skelbime kaip to skelbimo kontaktas. Taip paskyros savininko asmeninis
+    numeris atsidūrė svetimų pardavėjų skelbimuose (#827).
+
+    Paskyros numeris dabar tik SIŪLOMAS — kaip placeholder, žr.
+    `siulomas_telefonas()` ir contact_block.html parametrą
+    `siulomas_telefonas`. Placeholder į POST nepatenka.
+
+    `user` paliktas parašo suderinamumui ir sąmoningai nenaudojamas.
     """
-    esamas = (getattr(listing, 'contact_phone', '') or '').strip() if listing else ''
-    if esamas:
-        return esamas
+    return (getattr(listing, 'contact_phone', '') or '').strip() if listing else ''
+
+
+def siulomas_telefonas(user=None):
+    """Paskyros numeris — tik kaip užuomina tuščiam formos laukui.
+
+    Rodomas placeholder'iu, todėl matomas, bet neišsisaugo, kol žmogus
+    jo pats neįveda.
+    """
     profilis = getattr(user, 'profile', None) if user is not None else None
     return (getattr(profilis, 'phone_number', '') or '').strip()

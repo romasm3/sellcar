@@ -27,6 +27,8 @@ Behaviour (matches the cars quick form, which is the reference):
 ── Values to prefill ────────────────────────────────────────────────
   val_phone val_email val_country val_state val_city val_postal val_address
   checked_hide_address checked_business
+  siulomas_telefonas   paskyros numeris — rodomas kaip placeholder, NE value.
+                       Į POST nepatenka, tad savaime neišsisaugo.
 
 ── Choices ──────────────────────────────────────────────────────────
   Country / state lists come from contact_block_tags, NOT from the view
@@ -83,7 +85,12 @@ Behaviour (matches the cars quick form, which is the reference):
     <div class="{{ grid_class|default:'grid grid-cols-1 md:grid-cols-3 gap-4' }}">
 
         {% if show_phone|default_if_none:True %}
-            {% include 'listings/partials/_contact_field.html' with type='tel' name=phone_name|default:'phone' id='id_phone' label=lbl_phone value=val_phone required=True placeholder=ph_phone tooltip=tip_phone wrap_attrs='data-field-wrap="phone" data-required="true"' span='' error=errors.phone %}
+            {% comment %}Paskyros numeris čia ateina kaip `siulomas_telefonas` ir
+            rodomas TIK kaip placeholder — jis nepatenka į POST, tad
+            neišsisaugo savaime. Anksčiau jis būdavo įrašomas į `value`, ir
+            žmogui nieko nepakeitus paskyros savininko asmeninis numeris
+            nugulodavo svetimo pardavėjo skelbime (#827).{% endcomment %}
+            {% include 'listings/partials/_contact_field.html' with type='tel' name=phone_name|default:'phone' id='id_phone' label=lbl_phone value=val_phone required=True placeholder=siulomas_telefonas|default:ph_phone tooltip=tip_phone wrap_attrs='data-field-wrap="phone" data-required="true"' span='' error=errors.phone %}
         {% endif %}
 
         {% if show_email|default_if_none:True %}
