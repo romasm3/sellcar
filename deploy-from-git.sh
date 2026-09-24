@@ -94,6 +94,13 @@ if [[ -n "$IDIEGTA" && "$IDIEGTA" != "$HEAD_TRUMPAS" ]]; then
     NEBAIGTAS=1
 fi
 
+# Serveris gali būti PRIEŠ upstream (commit'inta serveryje, push dar
+# neįvyko). Tai ne „nauji commit'ai" — be šito kiekvienas ciklas darytų
+# pilną diegimą (DB kopija + restart), kol push nepavyks.
+if [[ "$LOCAL" != "$UPSTREAM" ]] && git merge-base --is-ancestor "$UPSTREAM" "$LOCAL"; then
+    UPSTREAM="$LOCAL"
+fi
+
 if [[ "$LOCAL" == "$UPSTREAM" && "$NEBAIGTAS" -eq 0 ]]; then
     # Naujo kodo nėra ir įdiegta tai, kas guli diske. Būklę paskelbiam —
     # taip ją matyti ir tada, kai niekas nediegiama.
