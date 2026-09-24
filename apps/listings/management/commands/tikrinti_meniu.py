@@ -51,7 +51,8 @@ class Command(BaseCommand):
             ('motorcycles',       'Motociklai',                    max(0, pagal_tipa('motorcycles') - apranga)),
             ('motogear',          'Apranga, šalmai, aksesuarai',   apranga),
             ('moto-tyres',        'Padangos motociklams',          ratai.filter(product_type='tyre', purpose='moto').count()),
-            ('quad-tyres',        'Padangos keturračiams',         ratai.filter(product_type='tyre', purpose='quad').count()),
+            # 'atv', ne 'quad' — taip vadinasi reikšmė WHEEL_PURPOSE_CHOICES
+            ('quad-tyres',        'Padangos keturračiams',         ratai.filter(product_type='tyre', purpose='atv').count()),
             ('wheels:tyre',       'Padangos',                      ratai.filter(product_type='tyre').count()),
             ('wheels:rim',        'Ratlankiai',                    ratai.filter(product_type='rim').count()),
             ('trucks',            'Sunkvežimiai (visa kategorija)', sunkusis),

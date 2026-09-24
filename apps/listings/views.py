@@ -1801,18 +1801,21 @@ def _track_listing_impressions(request, listings):
 # pačia tvarka, gale — būsimos (nespaudžiamos).
 # ═══════════════════════════════════════════════════════════
 
-def _picker_plyteles(vt_counts, wheel_counts, more_items):
+def _picker_plyteles(kiekiai, more_items):
+    """Telefono pikerio plytelės. Skaičiai — iš to paties žodyno, kurį
+    rodo darbalaukio meniu (meniu_kiekiai), kad telefone ir kompiuteryje
+    nesiskirtų."""
     plyteles = [
         {'slug': 'cars', 'label': _('Automobiliai'), 'url': '?section=cars',
-         'section': 'cars', 'sekcija': '', 'count': vt_counts.get('cars', 0)},
+         'section': 'cars', 'sekcija': '', 'count': kiekiai.get('cars', 0)},
         {'slug': 'motorcycles', 'label': _('Motociklai, apranga'),
          'url': '?section=motorcycles', 'section': 'motorcycles', 'sekcija': '',
-         'count': vt_counts.get('motorcycles', 0)},
+         'count': kiekiai.get('motorcycles', 0) + kiekiai.get('motogear', 0)},
         {'slug': 'tires', 'label': _('Ratlankiai / padangos'),
          'url': '?section=wheels', 'section': 'wheels', 'sekcija': '',
-         'count': wheel_counts.get('tyre', 0) + wheel_counts.get('rim', 0)},
+         'count': kiekiai.get('wheels', 0)},
         {'slug': 'parts', 'label': _('Dalys'), 'url': '?section=parts',
-         'section': 'parts', 'sekcija': '', 'count': vt_counts.get('parts', 0)},
+         'section': 'parts', 'sekcija': '', 'count': kiekiai.get('parts', 0)},
     ]
     for i in more_items:
         plyteles.append({
@@ -2002,6 +2005,13 @@ def listing_list(request, panel_fragment=False, category=None):
     if category_filter:
         listings = listings.filter(vehicle_type__slug=category_filter)
     subcategory_filter = request.GET.get('subcategory')
+    # Apranga — atskira kategorija (savas punktas meniu, sava panelė,
+    # savas /browse/motogear/). Motociklų sąraše ji buvo skaičiuojama
+    # antrą kartą, o „Motociklai" rodė šalmus. Tas pats išėmimas yra
+    # filter_listings ir sekciju_uzklausos — trys vietos, nes sąrašas,
+    # skaitliukas ir meniu turi trigubą filtrų kelią.
+    if category_filter == 'motorcycles' and not subcategory_filter:
+        listings = listings.exclude(subcategory__slug__in=list(MOTO_GEAR_SLUGS))
     if subcategory_filter:
         # Priima ir id, ir slug'ą — kaip filter_listings. Nuomos panelė
         # siunčia slug'ą (jis skaitomas URL'e ir stabilus), o be šito
@@ -2420,13 +2430,13 @@ def listing_list(request, panel_fragment=False, category=None):
         # (ratlankiai/padangos gyvena atskiroje lentelėje, todėl atskirai).
         'picker_primary': [
             {'slug': 'cars', 'label': _('Automobiliai'),
-             'count': _vt_counts.get('cars', 0)},
+             'count': _kiekiai.get('cars', 0)},
             {'slug': 'motorcycles', 'label': _('Motociklai, apranga'),
-             'count': _vt_counts.get('motorcycles', 0)},
+             'count': _kiekiai.get('motorcycles', 0) + _kiekiai.get('motogear', 0)},
             {'slug': 'tires', 'label': _('Ratlankiai / padangos'),
-             'count': wheel_counts.get('tyre', 0) + wheel_counts.get('rim', 0)},
+             'count': _kiekiai.get('wheels', 0)},
             {'slug': 'parts', 'label': _('Dalys'),
-             'count': _vt_counts.get('parts', 0)},
+             'count': _kiekiai.get('parts', 0)},
         ],
         # Pikerio sekcijos: nuoma ir paslaugos atskirai nuo technikos —
         # taip sąrašas skaitomas be ilgo slinkimo (demo maketas).
@@ -2438,7 +2448,7 @@ def listing_list(request, panel_fragment=False, category=None):
         # pirmos keturios populiariausios, po jų likusios ta pačia tvarka,
         # gale — būsimos kategorijos (nespaudžiamos). Sekcijų nebeliko:
         # taip visos telpa į ekraną be slinkimo.
-        'picker_visos': _picker_plyteles(_vt_counts, wheel_counts, more_items),
+        'picker_visos': _picker_plyteles(_kiekiai, more_items),
         **_lazy_ctx(lambda: parts_panel_context(request.user),
                     ('parts_subs', 'parts_car_subcats', 'parts_brands',
                      'parts_moto_brands', 'parts_truck_brands',
@@ -8448,6 +8458,13 @@ def filter_listings(params, user=None, category=None, base_qs=None):
     if category:
         listings = listings.filter(vehicle_type__slug=category)
 
+    # Apranga gyvena po „motorcycles" tipu, bet visur yra ATSKIRA
+    # kategorija: savo punktas meniu, sava panelė, savas
+    # /browse/motogear/. Palikta motociklų sąraše ji buvo skaičiuojama
+    # dukart, o „Motociklai" rodė šalmus tarp motociklų.
+    if category == 'motorcycles' and not params.get('subcategory'):
+        listings = listings.exclude(subcategory__slug__in=list(MOTO_GEAR_SLUGS))
+
     # subcategory — listing_list tai jau darė, count endpoint'as ne
     if params.get('subcategory'):
         # Priima ir id, ir slug — kategorijoms su dviem formomis
@@ -8628,26 +8645,23 @@ def _rail_counts():
         .values_list('vehicle_type__slug')
         .annotate(n=Count('id'))
     )
-    # Motociklai be aprangos — ji juostoje rodoma atskiru punktu
-    kiekiai['motogear'] = motogear_views._moto_gear_public_qs(None).count()
-    kiekiai['motorcycles'] = max(
-        0, kiekiai.get('motorcycles', 0) - kiekiai['motogear'])
+    # Motociklai be aprangos — ji juostoje rodoma atskiru punktu.
+    # Skaičius per bendrą sekcijos užklausą, kad juosta, panelės mygtukas
+    # ir /browse/ visada sutartų (apps/listings/sekciju_uzklausos.py).
+    from .sekciju_uzklausos import kiek as _sekcijos_kiek
+    kiekiai['motogear'] = _sekcijos_kiek('motogear')
+    kiekiai['motorcycles'] = _sekcijos_kiek('motorcycles')
 
     ratai = dict(
         WheelListing.objects.filter(status='active', is_shadow_banned=False)
         .values_list('product_type').annotate(n=Count('id'))
     )
-    kiekiai['rims'] = ratai.get('rim', 0)
-    kiekiai['tyres'] = ratai.get('tyre', 0)
+    kiekiai['rims'] = _sekcijos_kiek('rims')
+    kiekiai['tyres'] = _sekcijos_kiek('tyres')
 
     # Padangos pagal paskirtį — atskiri juostos punktai po „Motociklai"
-    pagal_paskirti = dict(
-        WheelListing.objects.filter(status='active', is_shadow_banned=False,
-                                    product_type='tyre')
-        .values_list('purpose').annotate(n=Count('id'))
-    )
-    kiekiai['moto-tyres'] = pagal_paskirti.get('moto', 0)
-    kiekiai['quad-tyres'] = pagal_paskirti.get('quad', 0)
+    kiekiai['moto-tyres'] = _sekcijos_kiek('moto-tyres')
+    kiekiai['quad-tyres'] = _sekcijos_kiek('quad-tyres')
 
     for raktas, sub in (('parts', 'car'), ('moto-parts', 'moto'),
                         ('truck-parts', 'truck')):
@@ -8669,7 +8683,7 @@ def _rail_url(slug):
     if slug == 'moto-tyres':
         return reverse('wheels_advanced_search') + '?type=tyre&purpose=moto'
     if slug == 'quad-tyres':
-        return reverse('wheels_advanced_search') + '?type=tyre&purpose=quad'
+        return reverse('wheels_advanced_search') + '?type=tyre&purpose=atv'
     if slug == 'motogear':
         return reverse('motogear_advanced_search')
     if slug == 'moto-parts':
@@ -8704,6 +8718,10 @@ def _advanced_rail(active_slug):
             'slug': slug, 'label': label, 'key': key,
             'url': vaikai[0]['url'] if vaikai else _rail_url(slug),
             'children': vaikai, 'active': aktyvus,
+            # Punktas su vaikais rodo jų sumą, vienišas — savo skaičių.
+            # Iki šiol juostos „…" sąrašo eilutės skaičiaus neturėjo visai.
+            'count': (sum(v['count'] for v in vaikai) if vaikai
+                      else kiekiai.get(slug, 0)),
         })
 
     daugiau = []
@@ -8786,45 +8804,20 @@ def advanced_search_generic(request, category):
 
 
 def search_panel_count(request, category):
-    """AJAX — grąžina tik filtruotų skelbimų skaičių panelės mygtukui."""
+    """AJAX — filtruotų skelbimų skaičius panelės mygtukui.
+
+    Skaičiuoja TA PATI užklausa, kurią rodo /browse/<sekcija>/
+    (apps/listings/sekciju_uzklausos.py). Anksčiau čia gyveno atskiros,
+    trumpesnės užklausos kiekvienai sekcijai, o „moto-tyres" ir
+    „quad-tyres" nebuvo išvis — endpoint'as grąžindavo 404, naršyklė
+    klaidą nurydavo ir mygtuke likdavo 0, nors skelbimų yra.
+    """
+    from .sekciju_uzklausos import uzklausa
+
     request.GET = sanitize_search_params(request.GET)
-    if category in ('tires', 'wheels', 'rims'):
-        try:
-            from . import wheels_views
-            # Tas pats filtrų kelias kaip naršymo puslapyje, todėl skaičius
-            # mygtuke visada sutampa su rezultatų sąrašu.
-            tipas = 'rim' if category == 'rims' or request.GET.get('type') == 'rim' else 'tyre'
-            qs, _tipas, _f = wheels_views._apply_wheels_filters(request, tipas)
-            return JsonResponse({'count': qs.count()})
-        except Exception:
-            return JsonResponse({'count': 0})
-
-    if category == 'motogear':
-        qs = _public_listings_qs(request.user).filter(
-            subcategory__slug__in=MOTO_GEAR_SLUGS
-        )
-        if request.GET.get('price_min'):
-            qs = qs.filter(price__gte=request.GET['price_min'])
-        if request.GET.get('price_max'):
-            qs = qs.filter(price__lte=request.GET['price_max'])
-        _gq = (request.GET.get('search') or request.GET.get('q') or '').strip()
-        if _gq:
-            qs = qs.filter(title__icontains=_gq)
-        return JsonResponse({'count': qs.count()})
-
-    # DALYS tab'as — trys subkategorijos, kiekviena su savo browse view'u.
-    # Detali paieška (advanced=1) skaičiuoja bendru filtru, kad mygtuko
-    # skaičius sutaptų su rezultatų sąrašu.
-    if category in PARTS_COUNT_KEYS and not request.GET.get('advanced'):
-        qs = parts_count_qs(
-            PARTS_COUNT_KEYS[category], request.GET, user=request.user
-        )
-        return JsonResponse({'count': qs.count()})
-
-    if (category not in SEARCH_PANEL_CATEGORIES
-            and not panel_config.advanced_is_active(category)):
+    qs = uzklausa(category, request.GET, request.user)
+    if qs is None:
         raise Http404
-    qs = filter_listings(request.GET, user=request.user, category=category)
     return JsonResponse({'count': qs.count()})
 
 

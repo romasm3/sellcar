@@ -68,7 +68,10 @@ RATU_KATEGORIJOS = {
     'rims':       {'product_type': 'rim'},
     'tyres':      {'product_type': 'tyre'},
     'moto-tyres': {'product_type': 'tyre', 'purpose': 'moto'},
-    'quad-tyres': {'product_type': 'tyre', 'purpose': 'quad'},
+    # 'atv', ne 'quad' — taip vadinasi reikšmė modelyje
+    # (WHEEL_PURPOSE_CHOICES). Su 'quad' žemėlapis keturračių
+    # padangų nerasdavo niekada.
+    'quad-tyres': {'product_type': 'tyre', 'purpose': 'atv'},
 }
 
 # Juostoje „Padangos" (po „Ratai") ir „Padangos motociklams" (po
@@ -76,7 +79,7 @@ RATU_KATEGORIJOS = {
 # abiejuose. Filtrų sąraše punktai turi nepersidengti — kitaip suma
 # nesutampa su „N skelbimų šioje srityje", todėl bendros padangos
 # rodomos be motociklų ir keturračių.
-RATU_ISSKYRUS = {'tyres': {'purpose__in': ('moto', 'quad')}}
+RATU_ISSKYRUS = {'tyres': {'purpose__in': ('moto', 'atv')}}
 
 # Filtrai, kurių ratlankiai ir padangos neturi (metai, rida, kuras...).
 # Jei toks filtras įjungtas, ratų šeima į rezultatus nepatenka — padanga

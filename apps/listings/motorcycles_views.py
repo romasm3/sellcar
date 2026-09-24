@@ -894,10 +894,21 @@ def _moto_public_listings_qs(request_user=None):
     now = timezone.now()
     sold_cutoff = now - timedelta(days=Listing.SOLD_DISPLAY_DAYS)
 
+    from .views import MOTO_GEAR_SLUGS
+
     qs = Listing.objects.filter(
         Q(status='active') |
         Q(status='sold', sold_at__gte=sold_cutoff)
-    ).filter(vehicle_type__slug='motorcycles')
+    ).filter(
+        vehicle_type__slug='motorcycles'
+    ).exclude(
+        # Apranga gyvena po tuo pačiu tipu, bet visur yra ATSKIRA
+        # kategorija: savas punktas meniu, sava panelė, savas
+        # /browse/motogear/. Motociklų sąraše ji buvo antrą kartą, todėl
+        # „Motociklai" rodė šalmus, o skaitliukas — kitą skaičių nei
+        # sąrašas.
+        subcategory__slug__in=list(MOTO_GEAR_SLUGS)
+    )
 
     if request_user and request_user.is_authenticated and request_user.is_superuser:
         return qs
