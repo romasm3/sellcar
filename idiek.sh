@@ -40,6 +40,8 @@ laukiam_200() {
 }
 
 perkrauk() {
+    # Versijos žymę settings.py skaito paleidžiant — rašom PRIEŠ restart.
+    git rev-parse --short=12 HEAD > VERSIJA
     venv/bin/python manage.py collectstatic --noinput -v 0 \
         || echo "DĖMESIO: collectstatic krito"
     systemctl restart gunicorn || echo "DĖMESIO: systemctl restart gunicorn krito"
@@ -83,6 +85,12 @@ PO="$(laukiam_200)"
 
 # ── 5. Gyva ────────────────────────────────────────────────────────────
 if [[ "$PO" == "200" ]]; then
+    GYVAI="$(curl -s --max-time 15 "$URL" | grep -o 'name="versija" content="[^"]*"' | cut -d'"' -f4)"
+    if [[ "$GYVAI" != "$COMMIT" ]]; then
+        echo "DĖMESIO: / → 200, bet versijos žymė '${GYVAI:-nėra}', laukta $COMMIT (nginx talpykla?)"
+        zurnalas "200, bet versija '${GYVAI:-nėra}' ≠ $COMMIT"
+        exit 3
+    fi
     echo "GYVA: $COMMIT"
     zurnalas "GYVA: $COMMIT — $(git log --format=%s -1)"
     exit 0
