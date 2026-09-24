@@ -28,6 +28,9 @@ from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
+# Grandinės bandymas 2026-09-24: push → master → autoleft.com.
+# Šios trys eilutės elgsenos nekeičia — tai žymė, pagal kurią matyti,
+# ar commit'as iš viso pasiekė serverį.
 # Po tiek valandų atsilikimas laikomas gedimu, ne normaliu darbu.
 RIBA_VALANDOMIS = 24
 GAVEJAS = 'romasm3@gmail.com'
