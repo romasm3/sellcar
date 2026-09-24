@@ -13,14 +13,18 @@
 set -euo pipefail
 
 ### ---- KONFIGŪRACIJA ----
-APP_DIR="/root/autoleft"
-VENV="${APP_DIR}/venv"
+# Keliai perrašomi per aplinką — kaip ir deploy-from-git.sh. Produkcijoje
+# kintamieji nenustatyti, tad reikšmės lieka tos pačios; perrašyti reikia
+# tik testams (docs/deploy_versijos_test.sh), kurie kitaip lystų į tikrą
+# /root/autoleft.
+APP_DIR="${APP_DIR:-/root/autoleft}"
+VENV="${VENV:-${APP_DIR}/venv}"
 SERVICE="gunicorn.service"
 GUNICORN_SOCK="/run/gunicorn.sock"
 HEALTH_HOST="autoleft.com"               # turi būti ALLOWED_HOSTS sąraše
 HEALTH_PATH="/"                          # arba /health/ jei turėsi
-LAST_GOOD="/root/autoleft_last_good"     # "old" kodo kopija
-BACKUP_DIR="/root/autoleft_backups"      # DB dumpai
+LAST_GOOD="${LAST_GOOD:-/root/autoleft_last_good}"   # "old" kodo kopija
+BACKUP_DIR="${BACKUP_DIR:-/root/autoleft_backups}"   # DB dumpai
 KEEP_DB_DUMPS=5                          # laikom paskutines 5 (buvo 10)
 MIN_LAISVOS_PROC=20                      # mažiau — deploy nutrūksta
 ### -----------------------
@@ -245,8 +249,13 @@ PY
 
 apply() {
   # Versijos žymė: iš jos settings.GIT_SHA, o iš jo — <meta name="versija">
-  # kiekviename puslapyje. Failas NEĮTRAUKTAS į EXCLUDES, tad keliauja su
-  # snapshot'u: atsukus kodą grįžta ir sena žyma, o ne apgaulinga nauja.
+  # kiekviename puslapyje. Rašom čia, nes Django ją nuskaito starto metu,
+  # o `restart_service` eina iš karto po šito.
+  #
+  # Įrašas dar NĖRA patvirtinimas: jei diegimas toliau kris, `trap
+  # grazinti_versija` (žr. „eiga" apačioje) grąžins senają reiškmę.
+  # Vien snapshot'u pasitikėti negalima — jis atkuriamas tik health_check
+  # `else` šakoje, o `set -e` nutrauktas skriptas iki jos nenueina.
   git -C "$APP_DIR" rev-parse --short=12 HEAD > "${APP_DIR}/VERSIJA" 2>/dev/null \
     || echo "nezinoma" > "${APP_DIR}/VERSIJA"
   log "Versija: $(cat "${APP_DIR}/VERSIJA")"
@@ -321,6 +330,41 @@ tikrinti_statinius() {
 ### --- eiga ---
 log "=== Deploy pradžia ($TS) ==="
 
+# ── VERSIJOS ŽYMĖ: rašoma prieš perkrovimą, PATVIRTINAMA tik po sėkmės ──
+#
+# Kodėl ne „tik po sėkmingo diegimo". settings.GIT_SHA nuskaitomas VIENĄ
+# kartą, Django starto metu. Tad failas privalo gulėti diske jau PRIEŠ
+# `restart_service` — kitaip naujas procesas perimtų seną reikšmę, ir
+# žymė meluotų lygiai taip pat, tik priešinga kryptimi.
+#
+# Todėl dviem žingsniais: įrašom naują reikšmę, o jei diegimas nepavyksta
+# — grąžinam senąją. Anksčiau grąžinimo nebuvo VISAI: `apply()` įrašydavo
+# žymę pirmuoju veiksmu, ir jei toliau krisdavo `collectstatic` ar
+# `compilemessages`, `set -e` nutraukdavo skriptą su NAUJA žyme ant SENO
+# kodo.
+#
+# `trap` reikalingas būtent tam nutraukimui: `restore_code` kviečiamas tik
+# health_check `else` šakoje, o iki jos nutrūkęs skriptas nenueina.
+VERSIJOS_FAILAS="${APP_DIR}/VERSIJA"
+VERSIJA_SENA="$(tr -d '[:space:]' < "$VERSIJOS_FAILAS" 2>/dev/null || true)"
+DIEGIMAS_PAVYKO=0
+
+grazinti_versija() {
+  [[ "$DIEGIMAS_PAVYKO" == "1" ]] && return 0
+  local dabar
+  dabar="$(tr -d '[:space:]' < "$VERSIJOS_FAILAS" 2>/dev/null || true)"
+  [[ "$dabar" == "$VERSIJA_SENA" ]] && return 0
+  if [[ -n "$VERSIJA_SENA" ]]; then
+    echo "$VERSIJA_SENA" > "$VERSIJOS_FAILAS"
+    log "Versijos žymė grąžinta į ${VERSIJA_SENA} — diegimas nepavyko."
+  else
+    rm -f "$VERSIJOS_FAILAS"
+    log "Versijos žymė pašalinta — diegimas nepavyko, o senos nebuvo."
+  fi
+}
+trap grazinti_versija EXIT
+
+
 # Pirmas paleidimas: dabartinis (veikiantis) kodas tampa baseline
 if [[ ! -d "$LAST_GOOD" ]]; then
   log "Pirmas paleidimas — kuriam baseline iš dabartinio kodo."
@@ -373,6 +417,9 @@ if health_check; then
     log "⚠️  gali kurį laiką rodyti seną CSS; patikrink rankiniu būdu:"
     log "⚠️    curl -s https://${HEALTH_HOST}/ | grep -o 'style\.[a-z0-9]*\.css'"
   fi
+  # Nuo šios vietos žymė laikoma patvirtinta: puslapis atsidaro su nauju
+  # kodu, tad `trap` jos nebegrąžins.
+  DIEGIMAS_PAVYKO=1
   log "✅ Veikia — atnaujinam 'last_good' į naują versiją."
   snapshot_code
   if tikrinti_raktus; then

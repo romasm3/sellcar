@@ -112,4 +112,10 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
   rašoma pirmoje ataskaitos eilutėje (žr. „PO KIEKVIENO DARBO" aukščiau).
   Deploy žurnalas: /var/log/autoleft-deploy.log, taip pat
   `journalctl -u autoleft-deploy -n 50`.
+- MATOMAS ŽYMEKLIS prieš kiekvieną darbą. Dar prieš pradėdamas
+  pasirink, KĄ konkrečiai matysi per curl, kai darbas bus gyvas:
+  tekstą, CSS klasę, elementą ar skaičių. Komentaro eilutės, testų
+  failai ir vien modelio savybės patikrai NETINKA — jų iš išorės
+  nematyti, ir tada patikra neįmanoma nei patvirtinti, nei paneigti.
+  Ataskaitoje rodyk tą žymeklį, o ne vien versijos žymę.
 - Test accounts: admin romasm3@gmail.com, buyer romasm333@gmail.com
