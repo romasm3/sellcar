@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="lt"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kainos blokas — variantai</title>
+<style>
+:root{
+ --accent:#374151;--accent-hover:#1F2937;--accent-soft:#EEF0F2;--accent-contrast:#fff;
+ --accent-grad-from:#9CA3AF;
+ --brand-ink:#181B1F;--brand-orange:#E14D28;
+ --text:#111827;--text-muted:#6B7280;--text-disabled:#9CA3AF;
+ --border:#E7E7E7;--border-hover:#B0B0B0;--surface:#fff;--surface-muted:#F9FAFB;
+ --success:#067647;--success-bg:#ECFDF3;--success-border:#ABEFC6;--danger:#FF5151;
+ --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-6:24px;
+ --fs-xs:12px;--fs-sm:14px;--fs-base:16px;--fs-lg:18px;--fs-xl:20px;--fs-2xl:24px;
+ --r-sm:4px;--r-md:8px;--r-pill:999px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-muted);color:var(--text);
+ font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 16px 70px}
+.bar{background:var(--brand-ink);color:#fff;padding:16px;border-radius:var(--r-md);margin-bottom:16px}
+.bar b{font-size:16px}.bar p{margin:8px 0 0;color:#9ca3af;font-size:12px}
+.warn{background:#FFF4F4;border:1px solid #FFD6D6;border-radius:var(--r-md);
+ padding:14px 16px;margin-bottom:20px;font-size:13px}
+.warn b{color:var(--danger)}
+.warn code{background:#fff;border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.card > h3{margin:0;padding:10px 16px;font-size:12px;font-weight:700;letter-spacing:.05em;
+ text-transform:uppercase;color:var(--text-muted);background:var(--surface-muted);
+ border-bottom:1px solid var(--border)}
+.card > .note{padding:0 16px;font-size:12px;color:var(--text-muted);margin:10px 0 0}
+.side{padding:16px}
+.yr{font-size:var(--fs-xs);color:var(--text-muted)}
+.ttl{font-size:var(--fs-lg);font-weight:700;margin:2px 0 10px}
+.spec{font-size:var(--fs-sm);color:var(--text-muted);line-height:1.8}
+.loc{font-size:var(--fs-sm);color:var(--text-muted);margin-top:6px}
+.tel{display:flex;align-items:center;justify-content:space-between;gap:8px;
+ border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px;margin-top:14px;
+ font-size:var(--fs-base);font-weight:600}
+.tel small{font-weight:400;font-size:var(--fs-xs);color:var(--text-muted)}
+hr{border:0;border-top:1px solid var(--border);margin:14px 0}
+
+/* --- kainos variantai --- */
+.p0{font-size:30px;font-weight:700;color:var(--accent-grad-from)}            /* dabar */
+.p1{font-size:30px;font-weight:700;color:var(--text)}                        /* tik spalva */
+.p2{font-size:38px;font-weight:700;color:var(--text);letter-spacing:-.02em}  /* didesnė */
+.p3{font-size:34px;font-weight:700;color:var(--text)}
+.tag{display:inline-block;font-size:var(--fs-xs);font-weight:600;padding:2px 8px;
+ border-radius:var(--r-pill);margin-left:8px;vertical-align:6px}
+.tag-fix{background:var(--success-bg);color:var(--success);border:1px solid var(--success-border)}
+.tag-neg{background:var(--surface-muted);color:var(--text-muted);border:1px solid var(--border)}
+.pbox{background:var(--surface-muted);border:1px solid var(--border);border-radius:var(--r-md);
+ padding:14px 16px;margin:10px 0}
+.pbox .lbl{font-size:var(--fs-xs);color:var(--text-muted);margin-bottom:2px}
+.pbox .val{font-size:34px;font-weight:700;color:var(--text);line-height:1.1}
+.pbox .sub{font-size:var(--fs-xs);color:var(--text-muted);margin-top:6px}
+.vat{font-size:var(--fs-sm);color:var(--text-muted);margin-top:4px}
+.lease{display:flex;justify-content:space-between;align-items:center;gap:8px;
+ border-top:1px dashed var(--border);margin-top:10px;padding-top:10px;
+ font-size:var(--fs-sm);color:var(--text-muted)}
+.lease b{color:var(--text);font-size:var(--fs-base)}
+.pbar{background:var(--accent);color:#fff;border-radius:var(--r-md);padding:14px 16px;margin:10px 0}
+.pbar .val{font-size:34px;font-weight:700;line-height:1.1}
+.pbar .sub{font-size:var(--fs-xs);opacity:.75;margin-top:4px}
+.deal{font-size:var(--fs-xs);color:var(--success);font-weight:600;margin-top:6px}
+.old{font-size:var(--fs-sm);color:var(--text-disabled);text-decoration:line-through;margin-left:8px}
+</style></head>
+<body><div class="wrap">
+
+<div class="bar">
+  <b>Skelbimo kainos blokas — variantai</b>
+  <p>Kairėje viršuje — kaip yra dabar. Visos spalvos iš projekto tokenų.</p>
+</div>
+
+<div class="warn">
+  <b>Pirma — tai ne dizaino, o CSS klaida.</b><br>
+  Kaina turi klasę <code>text-primary</code>, o stiliuose yra dvi konfliktuojančios taisyklės:<br>
+  <code>.text-primary { color: var(--accent-rgb) }</code> → #374151 (teisinga)<br>
+  <code>.text-primary { color: var(--accent-grad-from) !important }</code> → <b>#9CA3AF</b> (laimi dėl !important)<br>
+  <code>--accent-grad-from</code> yra <b>gradiento šviesiausias taškas</b>, skirtas fonams — ne tekstui.
+  Todėl svarbiausias puslapio skaičius nupieštas ta pačia spalva kaip neaktyvūs elementai
+  (<code>--text-disabled</code> = #9CA3AF). Klasė naudojama 7 vietose šiame puslapyje.
+</div>
+
+<div class="grid">
+
+  <div class="card"><h3>0 · Dabar</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="p0">18 450 €</div>
+    <div class="loc">Oldenburg, Vokietija</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Kaina šviesesnė už ridą ir galią. Akis jos neranda.</p><br></div>
+
+  <div class="card"><h3>1 · Tik pataisyta spalva</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="p1">18 450 €</div>
+    <div class="loc">Oldenburg, Vokietija</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Vienos eilutės pataisymas, jokio dizaino keitimo. Jau pakanka.</p><br></div>
+
+  <div class="card"><h3>2 · Didesnė ir arčiau viršaus</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="p2">18 450 €</div>
+    <div class="loc" style="margin-bottom:10px">Oldenburg, Vokietija</div>
+    <hr>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Kaina pakelta virš specifikacijų — pirmas dalykas po pavadinimo.</p><br></div>
+
+  <div class="card"><h3>3 · Su kainos tipo žyma</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="p3">18 450 € <span class="tag tag-fix">Fiksuota</span></div>
+    <div class="loc" style="margin-bottom:10px">Oldenburg, Vokietija</div>
+    <hr>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">„Fiksuota" arba „Derybų kaina" — laukas <code>negotiable</code> jau yra, tik nerodomas.</p><br></div>
+
+  <div class="card"><h3>4 · Kainos kortelė</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="pbox">
+      <div class="lbl">Kaina</div>
+      <div class="val">18 450 €</div>
+      <div class="sub">Derybų kaina · Vokietijoje registruotas</div>
+    </div>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Kaina atskirta fonu. Gerai, kai šalia reikia papildomos eilutės.</p><br></div>
+
+  <div class="card"><h3>5 · Su PVM (sunkiajam transportui)</h3><div class="side">
+    <div class="yr">2022</div><div class="ttl">MAN TGX 18.510 2022</div>
+    <div class="p3">42 000 €</div>
+    <div class="vat">be PVM · <b>49 980 €</b> su PVM (19%)</div>
+    <div class="loc" style="margin:10px 0">Aldingen, Vokietija</div>
+    <hr>
+    <div class="spec">Dyzelinas<br>398 457 km<br>375 kW ≈ 510 HP</div>
+    <div class="tel">+49 7424 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">B2B kategorijoms būtina. Dabar PVM tenka rašyti į aprašymą.</p><br></div>
+
+  <div class="card"><h3>6 · Su mėnesio įmoka</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="pbox">
+      <div class="lbl">Kaina</div>
+      <div class="val">18 450 €</div>
+      <div class="lease">nuo <b>219 €/mėn.</b><span>Skaičiuoti lizingą →</span></div>
+    </div>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Autogidas ir mobile.de taip daro. Vieta partnerių pajamoms.</p><br></div>
+
+  <div class="card"><h3>7 · Tamsi juosta</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="pbar">
+      <div class="val">18 450 €</div>
+      <div class="sub">Derybų kaina</div>
+    </div>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Stipriausias akcentas, bet konkuruoja su „Rodyti numerį" mygtuku.</p><br></div>
+
+  <div class="card"><h3>8 · Su kainos įvertinimu</h3><div class="side">
+    <div class="yr">2017</div><div class="ttl">BMW S 1000 RR 2017</div>
+    <div class="p3">18 450 €<span class="old">19 590 €</span></div>
+    <div class="deal">✓ Gera kaina rinkoje</div>
+    <div class="loc" style="margin:10px 0">Oldenburg, Vokietija</div>
+    <hr>
+    <div class="spec">Benzinas<br>19 192 km<br>146 kW ≈ 196 HP</div>
+    <div class="tel">+49 176 … <small>Rodyti numerį</small></div>
+  </div>
+  <p class="note">Kaip mobile.de „Guter Preis". Reikia kainų statistikos — vėlesniam etapui.</p><br></div>
+
+</div>
+</div></body></html>
