@@ -794,8 +794,12 @@ function spPanel() {
         if (!panel) return;
         var form;
         var cat = self.tab;
+        var papildomai = '';
         if (self.tab === 'wheels') {
           form = panel.querySelector('form[data-wheel="' + self.wheelType + '"]');
+          // Ratlankių forma pati nenurodo tipo, todėl skaitliukas
+          // skaičiuodavo padangas ir rodė svetimą skaičių.
+          papildomai = 'type=' + self.wheelType;
         } else if (self.tab === 'parts') {
           form = panel.querySelector('form[data-partsub="' + self.partSub + '"]');
           cat = self.partsCountKey();
@@ -811,6 +815,7 @@ function spPanel() {
         }
         if (!form) return;
         var qs = new URLSearchParams(new FormData(form)).toString();
+        if (papildomai) { qs += (qs ? '&' : '') + papildomai; }
         fetch('/paieska/count/' + cat + '/?' + qs)
           .then(function(r) { return r.json(); })
           .then(function(data) {
