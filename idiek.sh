@@ -20,7 +20,8 @@
 # ═══════════════════════════════════════════════════════════════════════
 set -u
 cd "$(dirname "$0")" || exit 1
-URL="https://autoleft.com/"
+URL="${IDIEK_URL:-https://autoleft.com/}"   # IDIEK_URL — tik atsukimo bandymui
+PAGRINDINIS="https://autoleft.com/"
 ZURNALAS="deploy/idiegimai.log"
 
 zurnalas() { echo "[$(date '+%F %T')] $*" >> "$ZURNALAS"; }
@@ -85,7 +86,7 @@ PO="$(laukiam_200)"
 
 # ── 5. Gyva ────────────────────────────────────────────────────────────
 if [[ "$PO" == "200" ]]; then
-    GYVAI="$(curl -s --max-time 15 "$URL" | grep -o 'name="versija" content="[^"]*"' | cut -d'"' -f4)"
+    GYVAI="$(curl -s --max-time 15 "$PAGRINDINIS" | grep -o 'name="versija" content="[^"]*"' | cut -d'"' -f4)"
     if [[ "$GYVAI" != "$COMMIT" ]]; then
         echo "DĖMESIO: / → 200, bet versijos žymė '${GYVAI:-nėra}', laukta $COMMIT (nginx talpykla?)"
         zurnalas "200, bet versija '${GYVAI:-nėra}' ≠ $COMMIT"
