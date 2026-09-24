@@ -439,7 +439,7 @@ visose kitose detaliose paieškose (partials/_adv_rail.html).{% endcomment %}
                                     <label class="equipment-row">
                                         <input type="checkbox" name="truck_type" value="{{ choice.value }}"
                                                {% if choice.value in selected_truck_types %}checked{% endif %}>
-                                        <span>{{ choice.label }} <span class="text-[13.5px] text-gray-400">{{ choice.count|default:0 }}</span></span>
+                                        <span>{{ choice.label }}{% if choice.count %} <span class="text-gray-400">({{ choice.count }})</span>{% endif %}</span>
                                     </label>
                                     {% endfor %}
                                 </div>

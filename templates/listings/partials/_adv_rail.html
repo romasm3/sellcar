@@ -33,7 +33,7 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
          @click="uzdarykDabar()">
         <span class="adv-rail-fly-ico">{% include 'listings/partials/_adv_rail_ico.html' with key=c.slug %}</span>
         <span class="adv-rail-fly-txt">{{ c.label }}</span>
-        <span class="adv-rail-fly-num">{{ c.count|default:0 }}</span>
+        <span class="adv-rail-fly-num">({{ c.count }})</span>
       </a>
       {% endfor %}
     </div>
@@ -69,7 +69,6 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
          @click="uzdarykDabar()">
         <span class="adv-rail-fly-ico">{% include 'listings/partials/_adv_rail_ico.html' with key=r.key %}</span>
         <span class="adv-rail-fly-txt">{{ r.label }}</span>
-        <span class="adv-rail-fly-num">{{ r.count|default:0 }}</span>
       </a>
       {% endif %}{% endfor %}
       {% for m in adv_more %}
@@ -77,7 +76,7 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
          @click="uzdarykDabar()">
         <span class="adv-rail-fly-ico">{% include 'listings/partials/_adv_rail_ico.html' with key=m.slug %}</span>
         <span class="adv-rail-fly-txt">{{ m.label }}</span>
-        <span class="adv-rail-fly-num">{{ m.count|default:0 }}</span>
+        <span class="adv-rail-fly-num">({{ m.count }})</span>
       </a>
       {% endfor %}
     </div>
@@ -149,7 +148,7 @@ panels.ADVANCED_RAIL), todėl juostoje yra tik veikiančios kategorijos.
   .adv-rail-fly-ico svg { width: 24px; height: 24px; display: block; }
   .adv-rail-fly-item:hover .adv-rail-fly-ico { color: var(--accent); }
   .adv-rail-fly-txt { flex: 1 1 auto; }
-  .adv-rail-fly-num { flex: 0 0 auto; color: var(--text-muted); font-size: 13.5px; }
+  .adv-rail-fly-num { flex: 0 0 auto; color: var(--text-muted); font-size: 13px; }
   .adv-rail-fly-item.is-on { color: var(--accent); font-weight: var(--fw-semibold); }
   /* ═══ Telefonas ═══
      Etalone juostoje yra TIK ikonos (be pavadinimų) ir tik keturios +

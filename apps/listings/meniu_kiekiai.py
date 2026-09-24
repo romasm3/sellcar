@@ -48,7 +48,6 @@ def kiekiai(user=None):
     from .views import _public_listings_qs
     from . import motogear_views
     from .search_panel import parts_panel_context
-    from .sekciju_uzklausos import kiek
 
     vieši = _public_listings_qs(user)
     k = {}
@@ -62,8 +61,8 @@ def kiekiai(user=None):
     # Apranga gyvena po „motorcycles" tipu, bet meniu yra atskiras
     # punktas, todėl iš motociklų ją atimam — kitaip tas pats skelbimas
     # būtų suskaičiuotas dukart.
-    k['motogear'] = kiek('motogear', user=user)
-    k['motorcycles'] = kiek('motorcycles', user=user)
+    k['motogear'] = motogear_views._moto_gear_public_qs(user).count()
+    k['motorcycles'] = max(0, k.get('motorcycles', 0) - k['motogear'])
 
     # ─── Ratai (atskira lentelė) ───
     ratai = WheelListing.objects.filter(is_shadow_banned=False, status='active')
@@ -72,11 +71,10 @@ def kiekiai(user=None):
     k['wheels:rim'] = pagal_tipa.get('rim', 0)
     k['wheels'] = k['wheels:tyre'] + k['wheels:rim']
 
-    # Paskirtys — per bendrą sekcijos užklausą, kad meniu skaičius
-    # sutaptų su panelės mygtuku ir su /browse/. Reikšmė modelyje yra
-    # 'atv', ne 'quad'; dėl to čia anksčiau visada būdavo 0.
-    k['moto-tyres'] = kiek('moto-tyres', user=user)
-    k['quad-tyres'] = kiek('quad-tyres', user=user)
+    pagal_paskirti = dict(
+        ratai.filter(product_type='tyre').values_list('purpose').annotate(n=Count('id')))
+    k['moto-tyres'] = pagal_paskirti.get('moto', 0)
+    k['quad-tyres'] = pagal_paskirti.get('quad', 0)
 
     # ─── Sekcijos pagal subkategoriją (sunkusis, nuoma, statybinė) ───
     pagal_sub = {

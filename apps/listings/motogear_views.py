@@ -846,63 +846,6 @@ def _handle_post(request, edit_listing=None):
 # BROWSE / LIST
 # ═══════════════════════════════════════════════════════════
 
-def taikyk_filtrus(listings, f):
-    """Aprangos filtrai iš GET — VIENA vieta sąrašui ir skaitliukui.
-
-    Anksčiau šitas blokas gyveno tik `motogear_list` viduje, o panelės
-    mygtuko skaičių skaičiavo atskira, trumpesnė užklausa views.py'uje.
-    Dvi užklausos tam pačiam dalykui anksčiau ar vėliau išsiskiria —
-    todėl abi vietos dabar kviečia šitą funkciją.
-    """
-    def sarasas(raktas):
-        if hasattr(f, 'getlist'):
-            return [v for v in f.getlist(raktas) if v]
-        v = f.get(raktas)
-        return [v] if v else []
-
-    search_query = f.get('search') or f.get('q') or ''
-    if search_query:
-        listings = listings.filter(
-            Q(title__icontains=search_query) |
-            Q(gear_brand__name__icontains=search_query) |
-            Q(gear_brand_other_text__icontains=search_query) |
-            Q(gear_model_text__icontains=search_query) |
-            Q(description__icontains=search_query)
-        )
-    for raktas, laukas in (('subcategory', 'subcategory_id__in'),
-                           ('gear_size', 'gear_size__in'),
-                           ('gear_material', 'gear_material__in'),
-                           ('gear_gender', 'gear_gender__in'),
-                           ('gear_brand', 'gear_brand_id__in'),
-                           ('condition', 'condition__in')):
-        reiksmes = sarasas(raktas)
-        if reiksmes:
-            listings = listings.filter(**{laukas: reiksmes})
-
-    # Panelėje laukas vadinasi `gear_type`, sąraše — `subcategory`.
-    # Iki šiol skaitliukas jo nepaisydavo visai.
-    gear_type = f.get('gear_type')
-    if gear_type:
-        listings = listings.filter(subcategory__slug=gear_type)
-    gender = f.get('gender')
-    if gender:
-        listings = listings.filter(gear_gender=gender)
-
-    if f.get('price_min'):
-        listings = listings.filter(price__gte=f['price_min'])
-    if f.get('price_max'):
-        listings = listings.filter(price__lte=f['price_max'])
-    if f.get('year_min'):
-        listings = listings.filter(year__gte=f['year_min'])
-    if f.get('city'):
-        listings = listings.filter(city=f['city'])
-    if f.get('state_filter'):
-        listings = listings.filter(country='US', state=f['state_filter'])
-    elif f.get('country_filter'):
-        listings = listings.filter(country=f['country_filter'])
-    return listings
-
-
 def motogear_list(request):
     # Sugadintos skaitinės reikšmės (?price_min=abc) tyliai išmetamos.
     request.GET = sanitize_search_params(request.GET)
@@ -953,8 +896,34 @@ def motogear_list(request):
     country_filter = f.get('country_filter', '')
     state_filter = f.get('state_filter', '')
 
-    # Filtrai — bendra funkcija, ta pati, kurią naudoja panelės skaitliukas.
-    listings = taikyk_filtrus(listings, f)
+    if search_query:
+        listings = listings.filter(
+            Q(title__icontains=search_query) |
+            Q(gear_brand__name__icontains=search_query) |
+            Q(gear_brand_other_text__icontains=search_query) |
+            Q(gear_model_text__icontains=search_query) |
+            Q(description__icontains=search_query)
+        )
+    if subcategory_filter:
+        listings = listings.filter(subcategory_id__in=subcategory_filter)
+    if gear_size_filter:
+        listings = listings.filter(gear_size__in=gear_size_filter)
+    if gear_material_filter:
+        listings = listings.filter(gear_material__in=gear_material_filter)
+    if gear_gender_filter:
+        listings = listings.filter(gear_gender__in=gear_gender_filter)
+    if gear_brand_filter:
+        listings = listings.filter(gear_brand_id__in=gear_brand_filter)
+    if condition_filter:
+        listings = listings.filter(condition__in=condition_filter)
+    if price_min:
+        listings = listings.filter(price__gte=price_min)
+    if price_max:
+        listings = listings.filter(price__lte=price_max)
+    if state_filter:
+        listings = listings.filter(country='US', state=state_filter)
+    elif country_filter:
+        listings = listings.filter(country=country_filter)
 
     saved_ids = []
     if request.user.is_authenticated:

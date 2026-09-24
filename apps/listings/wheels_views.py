@@ -812,7 +812,7 @@ def wheels_advanced_search(request):
         _aktyvus = 'rims'
     elif f.get('purpose') == 'moto':
         _aktyvus = 'moto-tyres'
-    elif f.get('purpose') in ('atv', 'quad'):   # 'quad' — senos nuorodos
+    elif f.get('purpose') == 'quad':
         _aktyvus = 'quad-tyres'
     else:
         _aktyvus = 'tyres'
