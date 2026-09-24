@@ -41,30 +41,42 @@
            @mouseenter="fly4Open()" @mouseleave="fly4Close()">
 
         <a href="/?section=motorcycles" @click.prevent="goTab('motorcycles'); fly4 = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='motorcycles' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="tab === 'motorcycles' && 'text-primary'">{% trans "Motociklai" %}</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='motorcycles' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="tab === 'motorcycles' && 'text-primary'">{% trans "Motociklai" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai.motorcycles|default:0 }}</span>
         </a>
 
         {# Apranga, šalmai — atidaro motogear formą panelėje #}
         <a href="/?section=motogear" @click.prevent="goTab('motogear'); fly4 = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='motogear' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="tab === 'motogear' && 'text-primary'">{% trans "Apranga, šalmai, aksesuarai" %}</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='motogear' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="tab === 'motogear' && 'text-primary'">{% trans "Apranga, šalmai, aksesuarai" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai.motogear|default:0 }}</span>
         </a>
 
         {# Padangos motociklams — atskira kategorija (moto-tyres) #}
         <a href="/?section=moto-tyres" @click.prevent="goTab('moto-tyres'); fly4 = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='moto-tyres' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="tab === 'moto-tyres' && 'text-primary'">{% trans "Padangos motociklams" %}</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='moto-tyres' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="tab === 'moto-tyres' && 'text-primary'">{% trans "Padangos motociklams" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai|get_item:'moto-tyres'|default:0 }}</span>
         </a>
 
         {# Padangos keturračiams — atskira kategorija (quad-tyres) #}
         <a href="/?section=quad-tyres" @click.prevent="goTab('quad-tyres'); fly4 = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='quad-tyres' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="tab === 'quad-tyres' && 'text-primary'">{% trans "Padangos keturračiams" %}</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='quad-tyres' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="tab === 'quad-tyres' && 'text-primary'">{% trans "Padangos keturračiams" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai|get_item:'quad-tyres'|default:0 }}</span>
         </a>
 
       </div>
@@ -82,16 +94,20 @@
            class="absolute top-0 bg-white rounded-lg shadow-lg border border-gray-100 py-2 w-56 z-50" style="left:calc(100% - 2px)"
            @mouseenter="flyOpen()" @mouseleave="flyClose()">
         <a href="/?section=wheels&amp;sekcija=tyre" @click.prevent="goTab('wheels', 'tyre'); fly = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='tires' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="wheelType === 'tyre' && 'text-primary'">{% trans "Padangos" %}</span>
-          <span class="text-[13.5px] text-gray-400">({{ wheel_counts.tyre|default:0 }})</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='tires' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="wheelType === 'tyre' && 'text-primary'">{% trans "Padangos" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai|get_item:'wheels:tyre'|default:0 }}</span>
         </a>
         <a href="/?section=wheels&amp;sekcija=rim" @click.prevent="goTab('wheels', 'rim'); fly = false"
-                class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
-          {% include 'listings/partials/category_icon.html' with slug='rims' dydis=19 %}
-          <span class="text-[14.5px] font-bold" :class="wheelType === 'rim' && 'text-primary'">{% trans "Ratlankiai" %}</span>
-          <span class="text-[13.5px] text-gray-400">({{ wheel_counts.rim|default:0 }})</span>
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-gray-50 text-left">
+          <span class="flex items-center gap-3">
+            {% include 'listings/partials/category_icon.html' with slug='rims' dydis=19 %}
+            <span class="text-[14.5px] font-bold" :class="wheelType === 'rim' && 'text-primary'">{% trans "Ratlankiai" %}</span>
+          </span>
+          <span class="text-[13.5px] text-gray-400">{{ meniu_kiekiai|get_item:'wheels:rim'|default:0 }}</span>
         </a>
       </div>
     </div>
@@ -158,7 +174,7 @@
             {% include 'listings/partials/category_icon.html' with slug='boats' dydis=19 %}
             <span class="text-[14.5px] font-bold text-gray-800" :class="tab === 'boats' && 'text-primary'">{{ item.name|tdb }}</span>
           </span>
-          <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
+          <span class="text-[13.5px] text-gray-400">{{ item.count|default:0 }}</span>
         </a>
         {% else %}
         {% comment %}Turinčioms panelę — perjungiam vietoje (goTab), slinkimo
@@ -171,7 +187,7 @@
             {% include 'listings/partials/category_icon.html' with slug=item.slug dydis=19 pav=item.name %}
             <span class="text-[14.5px] font-bold text-gray-800">{{ item.name|tdb }}</span>
           </span>
-          <span class="text-[13.5px] text-gray-400">{% if item.count %}({{ item.count }}){% endif %}</span>
+          <span class="text-[13.5px] text-gray-400">{{ item.count|default:0 }}</span>
         </a>
         {% endif %}
         {% endfor %}

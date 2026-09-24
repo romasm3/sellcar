@@ -43,7 +43,8 @@ from .forms import (
 from . import salys
 from . import juodrasciai
 from . import titulinis
-from .kontaktai import issaugok_pasta, issaugok_telefona
+from .kontaktai import (issaugok_pasta, issaugok_telefona,
+                        telefono_reiksme)
 from . import skaiciai
 from apps.listings import units
 from .models import (
@@ -2306,6 +2307,13 @@ def listing_list(request, panel_fragment=False, category=None):
     _car_buying_count = _public_listings_qs(request.user).filter(
         vehicle_type__slug='services', service_type='car_buying').count()
 
+    # Visi meniu skaitliukai — iš vienos vietos (apps/listings/meniu_kiekiai.py).
+    # Anksčiau sunkiojo transporto sekcijos („Vilkikai", „Autotraukiniai",
+    # „Komunalinis") skaičiaus neturėjo: jų slug'ai nėra VehicleType, tad
+    # _vt_counts joms visada grąžindavo 0 ir skaičius būdavo paslėptas.
+    from .meniu_kiekiai import kiekiai as _meniu_kiekiai
+    _kiekiai = _meniu_kiekiai(request.user)
+
     # (slug, pavadinimas, svg_path_d, subcategory_id|None)
     MORE_ITEMS_SPEC = [
         ('agriculture',       'Žemės ūkio technika, padargai',        'M4 17a2 2 0 104 0 2 2 0 00-4 0zM15 17a3 3 0 106 0 3 3 0 00-6 0zM6 15V8h5l3 4M9 8V5h4', None),
@@ -2389,6 +2397,8 @@ def listing_list(request, panel_fragment=False, category=None):
             # car-buying skelbimų neturi ir neturės — rodom, kiek yra
             # paslaugų su tipu „Automobilių supirkimas"
             'count': (_car_buying_count if _slug == 'car-buying'
+                      else _kiekiai.get('trucks:' + TRUCK_SECTIONS[_slug], 0)
+                      if _slug in TRUCK_SECTIONS
                       else _sub_counts.get(_sub_id, 0) if _sub_id
                       else _vt_counts.get(_slug, 0)),
         })
@@ -2400,6 +2410,7 @@ def listing_list(request, panel_fragment=False, category=None):
         'brands': brands,
         'moto_brands': moto_brands,
         'wheel_counts': wheel_counts,
+        'meniu_kiekiai': _kiekiai,
         'more_items': more_items,
         # Mobilus kategorijų pikeris (trys taškiukai ikonų juostoje) —
         # tas pats šaltinis kaip juostos ir „daugiau" sąrašo: pirmos
@@ -5731,8 +5742,10 @@ def _render_edit_step(request, listing, step):
     elif step == 6:
         form = Step6DescriptionForm(initial={'description': listing.description})
     elif step == 7:
-        # Skelbimo numeris pirmas, paskyros — atsarginis.
-        seller_phone = listing.kontaktinis_telefonas
+        # Skelbimo numeris pirmas, paskyros — tik kaip numatytoji
+        # FORMOS reikšmė (kontaktai.telefono_reiksme). Skelbimo puslapyje
+        # paskyros numeris nebenaudojamas niekur.
+        seller_phone = telefono_reiksme(listing, request.user)
 
         form = Step7ContactForm(initial={
             'country': listing.country,

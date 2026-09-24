@@ -69,8 +69,13 @@ Spalvos ir matmenys — docs/dizaino-sistema.md (jokios oranžinės).
     </div>
   </div>
 
-  {% if p.show_phone and p.phone_number %}
-  <div class="pard-kontaktai" x-data="phoneReveal({{ listing.pk }}, '{{ p.phone_number|slice:':8' }}...')">
+  {% comment %}Numeris — IŠ SKELBIMO, ne iš paskyros. Čia ir buvo klaida:
+  `p.phone_number` yra paskyros laukas, bendras visiems žmogaus
+  skelbimams, todėl skelbime rodydavosi ne tas numeris, kurį žmogus
+  įvedė kurdamas. Jungiklis „rodyti numerį" lieka paskyros — jis apie
+  žmogų, ne apie skelbimą.{% endcomment %}
+  {% if p.show_phone and listing.kontaktinis_telefonas %}
+  <div class="pard-kontaktai" x-data="phoneReveal({{ listing.pk }}, '{{ listing.kontaktinis_telefonas|slice:':8' }}...')">
     <div class="pard-kontaktai-vardas">{% trans "Papildomi skelbimo kontaktai" %}</div>
     <button type="button" class="ap-phone" @click="reveal()" x-show="!full">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" d="M4 5c0 8.3 6.7 15 15 15v-3.2l-3.6-1.4-2 2a12 12 0 01-6.8-6.8l2-2L7.2 5z"/></svg>

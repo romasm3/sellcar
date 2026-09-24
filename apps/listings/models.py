@@ -1850,15 +1850,16 @@ class Listing(PaskelbimoLaikas, models.Model):
     def kontaktinis_telefonas(self):
         """Numeris, kuriuo pirkėjas pasiekia pardavėją DĖL ŠIO skelbimo.
 
-        Skelbimo laukas pirmas, paskyros numeris — atsarginis (seni
-        skelbimai, kurių migracija nepasiekė). Viena vieta, kad forma,
-        skelbimo puslapis ir laiškai sutartų.
+        TIK skelbimo laukas. Paskyros numerio čia NEBĖRA sąmoningai:
+        anksčiau jis buvo atsarginis, todėl skelbimas, kuriame įvestas
+        numeris kažkur pradingo, tyliai rodydavo savininko asmeninį
+        numerį (#833, #841, #844, #847 — įvestas +49…, rodė +370…).
+        Geriau nerodyti nieko, negu rodyti ne tą numerį.
+
+        Paskyros numeris lieka tik kaip PRADINĖ formos reikšmė —
+        kontaktai.telefono_reiksme().
         """
-        savas = (self.contact_phone or '').strip()
-        if savas:
-            return savas
-        profilis = getattr(self.seller, 'profile', None) if self.seller else None
-        return (getattr(profilis, 'phone_number', '') or '').strip()
+        return (self.contact_phone or '').strip()
 
     def get_edit_url(self):
 

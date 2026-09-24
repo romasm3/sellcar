@@ -78,8 +78,8 @@ def skelbimai():
         # Ne pagal title: formos po išsaugojimo jį persirenka iš markės ir
         # modelio, todėl antrą kartą nebesusirastų ir sėtų vis naujus.
         # (vehicle_type, subcategory) šiame rinkinyje yra unikalu.
-        l = Listing.objects.filter(seller=u, vehicle_type=vt,
-                                   subcategory=sub).first()
+        l = Listing.objects.filter(seller=u, vehicle_type=vt, subcategory=sub,
+                                   title__startswith='Patikra ').first()
         if not l:
             l = Listing(seller=u)
         l.title = l.title or antraste
