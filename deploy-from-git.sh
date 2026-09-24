@@ -193,6 +193,25 @@ if [[ -x ./deploy-agent.sh ]]; then
     fi
 fi
 
+# ── Duomenis keičiančios migracijos — TIK ranka ────────────────────────
+# Aukščiau parašyta „kas duomenis TRINA, per šitą kelią neturi eiti", bet
+# niekas to netikrino. 2026-09-24 18:52 taip automatiškai prasisuko
+# 0107 (RunPython, išvalė contact_phone), o patikra po jos krito ir kodas
+# buvo atsuktas — DB liko pakeista, gyvai sukosi senas kodas.
+# Todėl žiūrim į planą (--plan nieko nevykdo) ir tokių migracijų neleidžiam.
+if [[ -x ./venv/bin/python ]]; then
+    PLANAS="$(./venv/bin/python manage.py migrate --plan 2>&1 || true)"
+    PAVOJINGOS="$(printf '%s\n' "$PLANAS" \
+        | grep -E 'Raw Python operation|Raw SQL operation|Remove field|Delete model' || true)"
+    if [[ -n "$PAVOJINGOS" ]]; then
+        printf '%s\n' "$PLANAS" | sed 's/^/    /'
+        echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+        git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
+        if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
+        die "Duomenis keičianti migracija — automatiškai neleidžiam. Grąžinta į ${LOCAL:0:7}. Ranka: pg_dump į /root/backups/, git merge --ff-only origin/${BRANCH}, ./deploy-agent.sh"
+    fi
+fi
+
 if [[ -x ./venv/bin/python ]]; then
     if MIGRACIJOS="$(./venv/bin/python manage.py migrate --noinput 2>&1)"; then
         # „if … fi" be tinkančios šakos grąžina 0, tad `set -e` nenukerta
