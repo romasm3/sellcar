@@ -236,8 +236,15 @@ function spPanel() {
     _fly5Timer: null,
     {% comment %}Pradinė sekcijos būsena ateina iš serverio (sp_sekcija):
     puslapyje yra tik vienos sekcijos forma, o jei Alpine manytų kitaip,
-    ta vienintelė forma liktų paslėpta.{% endcomment %}
-    wheelType: '{{ sp_sekcija|default:"tyre" }}',
+    ta vienintelė forma liktų paslėpta.
+
+    SVARBU: sp_sekcija priklauso TIK tai kategorijai, kuri dabar atidaryta
+    (sp_tab). Anksčiau ta pati reikšmė buvo įrašoma į visus potipių laukus
+    iš karto, todėl po ?section=trucks&sekcija=semi-trucks-tractors ir
+    subTab.construction, ir partSub, ir rentSub likdavo „semi-trucks-tractors“;
+    perėjus į tas kategorijas nė viena forma nebeatitikdavo x-show sąlygos
+    ir skydelis likdavo tuščias.{% endcomment %}
+    wheelType: '{% if sp_tab == "wheels" %}{{ sp_sekcija|default:"tyre" }}{% else %}tyre{% endif %}',
     loading: false,
     _loadTimer: null,
     bOpen: false, bQ: '', bAll: false,
@@ -247,7 +254,7 @@ function spPanel() {
     modelList: [],
 
     // ─── DALYS: subkategorija + markės/modelio dropdown'ai kiekvienai ───
-    partSub: '{{ sp_sekcija|default:"car" }}',
+    partSub: '{% if sp_tab == "parts" %}{{ sp_sekcija|default:"car" }}{% else %}car{% endif %}',
     picker: false,
     pq: '',
 
@@ -290,8 +297,11 @@ function spPanel() {
 
     // Kategorijos, kurios etalone turi kelias sekcijas (sunkusis 04/06/03/08/21,
     // statybinė 24/16). 'main' — pagrindinė sekcija be subkategorijos.
-    subTab: { trucks: '{{ sp_sekcija|default:"main" }}', construction: '{{ sp_sekcija|default:"main" }}' },
-    rentSub: '{{ sp_sekcija|default:"car-rental" }}',
+    subTab: {
+      trucks:       '{% if sp_tab == "trucks" %}{{ sp_sekcija|default:"main" }}{% else %}main{% endif %}',
+      construction: '{% if sp_tab == "construction" %}{{ sp_sekcija|default:"main" }}{% else %}main{% endif %}',
+    },
+    rentSub: '{% if sp_tab == "rental" %}{{ sp_sekcija|default:"car-rental" }}{% else %}car-rental{% endif %}',
     // Dalių markės — sąrašas (`brands`) tuščias, kol laukas neatidarytas;
     // tada pdLoadBrands() paima jį iš /ajax/markes/ (žr. brand_api.py).
     pd: {
@@ -530,9 +540,7 @@ function spPanel() {
       // Sunkiojo transporto sekcija iš adreso (?sekcija=) — „…" sąrašo
       // nuorodos „Vilkikai", „Autovežiai", „Komunalinis" veda čia.
       var sek = p.get('sekcija');
-      if (sek && this.subTab[this.tab] !== undefined) {
-        this.subTab[this.tab] = sek;
-      }
+      if (sek) { this.applySection(this.tab, sek); }
 
       var sub = p.get('subcategory');
       if (this.tab === 'rental' && sub &&
@@ -559,6 +567,7 @@ function spPanel() {
       });
 
       this.switchTab(this.tab);
+      this.uztikrinkMatoma(this.tab);
     },
 
     // Trumpas loading spinneris (kaip autogidas) perjungiant kategoriją
@@ -602,7 +611,12 @@ function spPanel() {
         host.innerHTML = html;
         host.style.minHeight = '';
         self.tab = key;
-        if (sek) { self.applySection(key, sek); }
+        // VISADA — ir kai sek tuščias. Serveris ką tik atidavė pagrindinės
+        // sekcijos formą (data-subtab="main"); jei potipio lauko
+        // neatstatytume, jame liktų senas potipis ir x-show paliktų
+        // skydelį tuščią.
+        self.applySection(key, sek || '');
+        self.uztikrinkMatoma(key);
         // Adresas be #sp-target — jokio šuolio prie panelės.
         history.pushState({ tab: key, sek: sek || '' }, '', target);
         if (restoreScroll !== null && restoreScroll !== undefined) {
@@ -630,12 +644,64 @@ function spPanel() {
         .catch(function () { location.href = target; });   // nepavyko — perkraunam
     },
 
-    // Sekcijos būsena po įstatymo (nuoma, dalys, ratai, sunkusis)
+    // ── Potipio (sekcijos) laukas pagal kategoriją ────────────────────
+    // Kiekviena kategorija turi SAVO Alpine lauką ir savo formų žymę.
+    // Reikšmės tarp kategorijų nesimaišo: „semi-trucks-tractors“ galioja
+    // tik vilkikams, o statybinei technikai ar nuomai — ne.
+    SEKCIJOS: {
+      rental:       { attr: 'data-rentsub', numatyta: 'car-rental' },
+      parts:        { attr: 'data-partsub', numatyta: 'car' },
+      wheels:       { attr: 'data-wheel',   numatyta: 'tyre' },
+      trucks:       { attr: 'data-subtab',  numatyta: 'main' },
+      construction: { attr: 'data-subtab',  numatyta: 'main' },
+    },
+
+    /** Grąžina potipį, kuriam tos kategorijos skydelyje TIKRAI yra forma.
+     *  Svetima ar sena reikšmė virsta numatytąja („main“), o jei ir tos
+     *  formos nėra — pirmos esamos formos reikšme. Todėl tuščio skydelio
+     *  negali būti. */
+    patikrintaSekcija(key, sek) {
+      var apr = this.SEKCIJOS[key];
+      if (!apr) { return ''; }
+      var panele = document.getElementById('sp-panel-' + key);
+      if (!panele) { return sek || apr.numatyta; }
+      var yra = function (v) {
+        return !!v && !!panele.querySelector('form[' + apr.attr + '="' + v + '"]');
+      };
+      if (yra(sek)) { return sek; }
+      if (yra(apr.numatyta)) { return apr.numatyta; }
+      var pirma = panele.querySelector('form[' + apr.attr + ']');
+      return pirma ? pirma.getAttribute(apr.attr) : apr.numatyta;
+    },
+
+    // Sekcijos būsena po įstatymo (nuoma, dalys, ratai, sunkusis).
+    // Keičiam TIK tos kategorijos lauką — kitų neliečiam.
     applySection(key, sek) {
-      if (key === 'rental') { this.rentSub = sek; }
-      else if (key === 'parts') { this.partSub = sek; }
-      else if (key === 'wheels') { this.wheelType = sek; }
-      else if (this.subTab[key] !== undefined) { this.subTab[key] = sek; }
+      var apr = this.SEKCIJOS[key];
+      if (!apr) { return; }                       // paslaugos, automobiliai ir kt.
+      var v = this.patikrintaSekcija(key, sek);
+      if (key === 'rental') { this.rentSub = v; }
+      else if (key === 'parts') { this.partSub = v; }
+      else if (key === 'wheels') { this.wheelType = v; }
+      else { this.subTab[key] = v; }
+    },
+
+    /** Apsauga: jei po perjungimo nė viena tos kategorijos forma nematoma,
+     *  parodom pirmą esamą. Skydelis be laukų — visada klaida. */
+    uztikrinkMatoma(key) {
+      var apr = this.SEKCIJOS[key];
+      if (!apr) { return; }
+      var self = this;
+      this.$nextTick(function () { requestAnimationFrame(function () {
+        var panele = document.getElementById('sp-panel-' + key);
+        if (!panele || !panele.offsetHeight) { return; }   // skydelis paslėptas — ne mūsų reikalas
+        var formos = panele.querySelectorAll('form[' + apr.attr + ']');
+        if (!formos.length) { return; }
+        for (var i = 0; i < formos.length; i++) {
+          if (formos[i].offsetWidth || formos[i].offsetHeight) { return; }
+        }
+        self.applySection(key, formos[0].getAttribute(apr.attr));
+      }); });
     },
 
     // Panelė lieka ten, kur buvo. Jei vartotojas nuslinkęs taip, kad jos
