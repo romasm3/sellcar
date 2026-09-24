@@ -56,8 +56,16 @@ UPSTREAM="$(git rev-parse "${REMOTE}/${BRANCH}")"
 # Commit'as, kuris jau krito per patikrą — nekartojam jo kas minutę.
 # Naujas commit'as žymę nuvalo (upstream pajudėjo).
 BLOGAS_FAILAS="${APP_DIR}/deploy/.blogas-commitas"
+# Bet NE tyliai: 2026-09-23..24 taip buvo atmesta 13 commit'ų iš eilės, o
+# servisas kas minutę rodė „status=0/SUCCESS" — niekas nepastebėjo. Kol
+# master neįdiegtas, unit'as lieka „failed" (matosi `systemctl --failed`).
 if [[ -f "$BLOGAS_FAILAS" ]] && [[ "$(cat "$BLOGAS_FAILAS")" == "$UPSTREAM" ]]; then
-    exit 0
+    IDIEGTA_DABAR="$(tr -d '[:space:]' < "${APP_DIR}/VERSIJA" 2>/dev/null || true)"
+    if [[ "${UPSTREAM:0:12}" == "$IDIEGTA_DABAR" ]]; then
+        exit 0   # ranka jau įdiegta — žymė nebeaktuali
+    fi
+    echo "UŽBLOKUOTA: ${UPSTREAM:0:12} krito per patikrą, gyvai ${IDIEGTA_DABAR:-?}. Žr. /var/log/autoleft-deploy.log; po pataisymo naujas commit'as žymę nuvalo." >&2
+    exit 1
 fi
 
 # ── Ar ĮDIEGTA tai, kas guli diske? ────────────────────────────────────
