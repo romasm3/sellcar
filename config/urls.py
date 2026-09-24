@@ -14,7 +14,10 @@ admin.site.site_title = 'Autoleft.'
 admin.site.index_title = 'Valdymas'
 
 # Be kalbos priešdėlio: valdymas, kalbos keitimas, robots.txt.
+# LAIKINA: idiek.sh atsukimo bandymas — bus pašalinta.
+from django.http import HttpResponse
 urlpatterns = [
+    path("idiek-testas/", lambda r: HttpResponse("ok", status=200)),
     path('admin/', admin.site.urls),
     # Kalbos perjungimas — SAVAS, prieš Django rinkinį: Django
     # `set_language` adreso priešdėlio čia nepersuka (žr.
