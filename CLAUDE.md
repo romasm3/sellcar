@@ -135,8 +135,10 @@ grąžinimo komanda ir įrašas `deploy/idiegimai.log`. Jei svetainė buvo
 sulūžusi dar prieš — nieko neatsuka, tik praneša. Nepritaikytų migracijų
 nevykdo — sustoja (pirma pg_dump, tada `migrate` ranka).
 Po `./idiek.sh` lieka tik `git push` (jei commit'ino jis — commit'as jau yra).
-Push nepavyksta dėl prieigos (`could not read Username`) → sakyk žmogui
-ataskaitoje, kiek commit'ų liko tik serveryje; diegimo tai nestabdo.
+Push eina per SSH deploy key (`origin` = git@github.com:romasm3/sellcar.git,
+raktas /root/.ssh/autoleft_github, rašymo teisė tik šiam repo). Push
+nepavyksta dėl prieigos → sakyk žmogui ataskaitoje, kiek commit'ų liko
+tik serveryje; diegimo tai nestabdo.
 
 - Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną
   (commit'ink pats su prasmingu pranešimu prieš `./idiek.sh`; jo
