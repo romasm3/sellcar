@@ -109,9 +109,22 @@ kiekvienos kritusios patikros darydavo `git reset` ir galėjo ištrinti
 serveryje daromus pakeitimus. NEĮJUNGINĖK jo atgal be žmogaus sutikimo.
 Push į GitHub NIEKO NEDIEGIA — diegia tik `./idiek.sh` serveryje.
 
-Tvarka kiekvienam pakeitimui:
+**ĮPRASTINĖ DARBO EIGA — daroma PATIEM, NEKLAUSIANT** (žmogus nenori
+kaskart sakyti „paleisk idiek" ar „pushink"):
 
-    redaguoju → ./idiek.sh → git commit → git push (tik kopija)
+    0. prieš darbą: git fetch; yra naujų origin/master commit'ų →
+       git pull --rebase ir PARODYK žmogui, ką parsinešei
+       (git log --oneline <senas HEAD>..HEAD), tik tada dirbk
+    1. pataisai failą (commit'ini su prasmingu pranešimu)
+    2. ./idiek.sh   — commit + restart + patikra, laukiam „GYVA: <sha>"
+    3. git push origin master   — į GitHub, tik atsarginė kopija
+
+Po KIEKVIENO pakeitimo, ne darbo pabaigoje.
+
+**VIENINTELĖ IŠIMTIS — DB ir migracijos.** Jei pakeitimas liečia DB
+(duomenų keitimas, nauja/pakeista migracija): pirma `pg_dump` į
+/root/backups/ su data, tada **SUSTOK IR PAKLAUSK žmogaus** prieš
+`migrate`/diegimą.
 
 `./idiek.sh` (viena komanda): nesucommit'intus pakeitimus pats
 sucommit'ina (git add -A) PRIEŠ perkrovimą, įrašo VERSIJA, collectstatic,
@@ -122,6 +135,8 @@ grąžinimo komanda ir įrašas `deploy/idiegimai.log`. Jei svetainė buvo
 sulūžusi dar prieš — nieko neatsuka, tik praneša. Nepritaikytų migracijų
 nevykdo — sustoja (pirma pg_dump, tada `migrate` ranka).
 Po `./idiek.sh` lieka tik `git push` (jei commit'ino jis — commit'as jau yra).
+Push nepavyksta dėl prieigos (`could not read Username`) → sakyk žmogui
+ataskaitoje, kiek commit'ų liko tik serveryje; diegimo tai nestabdo.
 
 - Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną
   (commit'ink pats su prasmingu pranešimu prieš `./idiek.sh`; jo
