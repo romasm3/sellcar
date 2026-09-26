@@ -83,13 +83,60 @@ def tikrink(salyga, tekstas, papildomai=''):
           + ('' if salyga or not papildomai else f'\n         {papildomai}'))
 
 
-def atidaryk(c, kelias):
-    """(kodas, klaidos tekstas). Išimtis irgi laikoma nesėkme."""
+def daliu_keliai():
+    """Adresai, kuriuos forma TIKRAI atpažįsta, + kiek kurio tipo.
+
+    `parts_listing_create` ieško PartCategory pagal TIKSLŲ `slug`
+    (level=2). Svetainės nuorodos statomos iš trijų dalių kelio
+    „sekcija-kategorija-lapas" (lighting-rear-lights-rear-light). Jei
+    patikra imtų vien lapo trumpą slug'ą (`rear-light`), gautų 302 į
+    /create/parts/ — būtent taip anksčiau išėjo „blogų: 294" visiškai
+    sveikoje svetainėje.
+
+    Todėl kelią statom iš protėvių, o jei DB tokios eilutės nėra (lapo
+    slug'as jau ir yra pilnas kelias), imam patį slug'ą. Abi formos
+    suskaičiuojamos atskirai, kad ataskaitoje matytųsi, kaip duomenys
+    sutvarkyti.
+    """
+    keliai, pilnu, savu = [], 0, 0
+    lapai = (PartCategory.objects
+             .filter(level=PartCategory.LEVEL_SUBCATEGORY, is_active=True)
+             .select_related('parent', 'parent__parent'))
+    for lapas in lapai:
+        dalys = [lapas.slug]
+        if lapas.parent:
+            dalys.insert(0, lapas.parent.slug)
+            if lapas.parent.parent:
+                dalys.insert(0, lapas.parent.parent.slug)
+        pilnas = '-'.join(dalys)
+        if pilnas != lapas.slug and PartCategory.objects.filter(
+                slug=pilnas, level=PartCategory.LEVEL_SUBCATEGORY).exists():
+            keliai.append(pilnas); pilnu += 1
+        else:
+            keliai.append(lapas.slug); savu += 1
+    return sorted(keliai), pilnu, savu
+
+
+def atidaryk(c, kelias, turi_likti=None):
+    """(kodas, klaidos tekstas). Išimtis irgi laikoma nesėkme.
+
+    `follow=True` reikalingas dėl kalbos priešdėlio (i18n_patterns) — be
+    jo KIEKVIENAS atsakymas būtų 302. Bet jis ir pavojingas: nukreipimas
+    į /create/parts/ irgi baigiasi 200, tad sulaužytas adresas atrodytų
+    geras. Todėl `turi_likti` tikrina, kad galiausiai vis dar esam toje
+    pačioje formoje, o ne kategorijų rinkiklyje.
+    """
     try:
         a = c.get(kelias, follow=True)
-        return a.status_code, ''
     except Exception as e:                    # noqa: BLE001
         return 500, f'{type(e).__name__}: {str(e)[:200]}'
+    if a.status_code != 200:
+        return a.status_code, ''
+    if turi_likti:
+        galutinis = a.redirect_chain[-1][0] if a.redirect_chain else kelias
+        if turi_likti not in galutinis:
+            return 302, f'nukreipė į {galutinis} (adresas neatpažintas)'
+    return 200, ''
 
 
 def main():
@@ -99,16 +146,16 @@ def main():
     if not c.login(username=u.username, password=formu_seed.SLAPTAZODIS):
         print('NEPAVYKO PRISIJUNGTI'); return 1
 
-    potipiai = list(PartCategory.objects.filter(
-        level=PartCategory.LEVEL_SUBCATEGORY, is_active=True
-    ).values_list('slug', flat=True))
+    keliai, pilnu, savu = daliu_keliai()
 
-    print(f'\n— Dalių potipiai ({len(potipiai)} vnt.)')
-    if not potipiai:
+    print(f'\n— Dalių potipiai ({len(keliai)} vnt.; '
+          f'pilnu keliu {pilnu}, savo slug\'u {savu})')
+    if not keliai:
         print('  (DB nėra nė vieno PartCategory potipio — patikra neinformatyvi)')
-    for slug in potipiai:
-        kodas, klaida = atidaryk(c, f'/create/parts/form/?sub={slug}')
-        tikrink(kodas == 200, f'/create/parts/form/?sub={slug}',
+    for sub in keliai:
+        kodas, klaida = atidaryk(c, f'/create/parts/form/?sub={sub}',
+                                 turi_likti='/create/parts/form/')
+        tikrink(kodas == 200, f'/create/parts/form/?sub={sub}',
                 klaida or f'HTTP {kodas}')
 
     print('\n— Kitos kūrimo formos')
