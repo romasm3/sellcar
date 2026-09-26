@@ -39,7 +39,7 @@ from django.urls import reverse
 
 
 from apps.listings.image_validation import split_valid_images
-from apps.listings.kontaktai import issaugok_pasta
+from apps.listings.kontaktai import issaugok_pasta, telefono_reiksme
 from apps.listings import skaiciai
 from apps.listings.models import (
 
@@ -604,6 +604,14 @@ def _render_parts_form(request, part_subcategory, errors=None, listing=None, is_
         'transmissions': transmissions,
         'years': years,
         'user_phone': user_phone,
+        # Telefonas paduodamas kaip PAPRASTA EILUTĖ, ne per `listing`.
+        # Šablonas jo negali imti per `listing.contact_phone`: kūrimo
+        # kelyje `listing` konteksto nėra, o Django filtro ARGUMENTE
+        # trūkstamo kintamojo NENURYJA (kitaip nei pagrindinėje
+        # išraiškoje — FilterExpression.resolve ignore_failures taikomas
+        # tik jai). Dėl to /create/parts/form/?sub=… krisdavo su 500 ir
+        # dalies įkelti buvo neįmanoma.
+        'listing_telefonas': telefono_reiksme(listing),
         # Skelbimo paštas pirmas, paskyros — tik kai jo dar nėra
         'user_email': (listing.kontaktinis_pastas if listing
                        else request.user.email),
