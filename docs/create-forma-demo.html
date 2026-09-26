@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoLeft — vieninga create forma (demo)</title>
+<style>
+:root{
+  --bg:#f7f8fa; --surface:#fff; --border:#d1d5db; --border-soft:#e5e7eb;
+  --text:#111827; --muted:#6b7280; --accent:#10b981; --accent-soft:#ecfdf5;
+  --danger:#ef4444; --radius:6px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 80px}
+
+/* --- demo chrome (nebus produkte) --- */
+.demo-bar{background:#111827;color:#fff;padding:14px 18px;border-radius:var(--radius);
+  margin-bottom:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.demo-bar b{font-size:15px}
+.demo-bar span{color:#9ca3af;font-size:13px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:8px 16px;border:1px solid var(--border);background:var(--surface);
+  border-radius:var(--radius);cursor:pointer;font-size:14px}
+.tab.on{background:var(--text);color:#fff;border-color:var(--text)}
+.note{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);
+  padding:12px 14px;margin-bottom:18px;font-size:13px;color:#92400e}
+
+/* --- ETALONAS: formos rėmas --- */
+.page-title{background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:var(--radius);padding:20px 24px;margin-bottom:16px}
+.page-title h1{margin:0;font-size:21px;font-weight:700}
+
+.section{background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:var(--radius);margin-bottom:16px}
+.section > h2{margin:0;padding:16px 24px;font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--border-soft)}
+.section-body{padding:22px 24px}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 20px}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.col-2{grid-column:span 2}
+.col-4{grid-column:1 / -1}
+@media(max-width:900px){.grid,.grid.g2{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.grid,.grid.g2{grid-template-columns:1fr}.col-2{grid-column:auto}}
+
+/* --- ETALONAS: laukas --- */
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f label{font-size:13px;color:var(--text);display:flex;align-items:center;
+  justify-content:space-between;gap:8px;min-height:20px}
+.req{color:var(--danger)}
+.opt{color:var(--muted);font-weight:400}
+.f input,.f select,.f textarea{
+  width:100%;padding:9px 12px;border:1px solid var(--border);
+  border-radius:var(--radius);font-size:14px;background:var(--surface);
+  color:var(--text);font-family:inherit}
+.f textarea{min-height:150px;resize:vertical}
+.f input::placeholder,.f textarea::placeholder{color:#9ca3af}
+.f select{appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.hint{font-size:12px;color:var(--muted)}
+
+/* vienetų jungiklis */
+.units{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.units button{border:0;background:var(--surface);color:var(--muted);
+  padding:2px 9px;font-size:11px;cursor:pointer;font-family:inherit}
+.units button.on{background:var(--text);color:#fff}
+
+/* varnelės */
+.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 20px}
+@media(max-width:900px){.checks{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.checks{grid-template-columns:1fr}}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer}
+.chk input{width:15px;height:15px;accent-color:var(--accent);margin:0}
+.subhead{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.05em;margin:22px 0 10px}
+.subhead:first-child{margin-top:0}
+
+/* nuotraukos */
+.drop{border:2px dashed var(--border);border-radius:var(--radius);
+  padding:34px;text-align:center;color:var(--muted);background:#fafafa}
+.drop b{color:var(--text);display:block;margin-bottom:4px;font-size:14px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));
+  gap:10px;margin-top:14px}
+.thumb{aspect-ratio:4/3;border-radius:4px;background:linear-gradient(135deg,#e5e7eb,#cbd5e1);
+  position:relative;border:1px solid var(--border-soft)}
+.thumb span{position:absolute;left:5px;bottom:5px;background:rgba(17,24,39,.82);
+  color:#fff;font-size:10px;padding:2px 6px;border-radius:3px}
+
+/* apačia */
+.actions{display:flex;justify-content:flex-end;gap:12px;align-items:center;
+  background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:var(--radius);padding:16px 24px}
+.btn{padding:10px 22px;border-radius:var(--radius);font-size:14px;
+  cursor:pointer;font-family:inherit;border:1px solid var(--border);background:var(--surface)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.terms{display:flex;gap:8px;align-items:center;font-size:13px;margin-right:auto}
+.terms input{accent-color:var(--accent)}
+
+/* "dabar" palyginimas */
+.old .f input,.old .f select{padding:6px 10px;border-radius:3px;font-size:13px;
+  border-color:#9ca3af;background:#fcfcfc}
+.old .page-title h1{font-size:18px;font-weight:600}
+.old .section > h2{text-transform:none;letter-spacing:0;font-size:15px;
+  font-weight:600;color:var(--text)}
+.old .grid{grid-template-columns:repeat(3,1fr);gap:12px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.cmp{grid-template-columns:1fr}}
+.cmp h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="demo-bar">
+  <b>AutoLeft — vieninga „Naujas skelbimas" forma</b>
+  <span>Demo. Rėmas ir langeliai vienodi visose kategorijose, skiriasi tik laukai.</span>
+</div>
+
+<div class="tabs">
+  <button class="tab on" data-t="cars">Automobiliai</button>
+  <button class="tab" data-t="trucks">Vilkikai</button>
+  <button class="tab" data-t="agro">Žemės ūkio technika</button>
+  <button class="tab" data-t="cmp">Prieš / po</button>
+</div>
+
+<!-- ============ AUTOMOBILIAI ============ -->
+<div id="cars">
+  <div class="page-title"><h1>Naujas skelbimas: Automobiliai</h1></div>
+
+  <div class="section">
+    <h2>Pagrindiniai sąrašo duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Markė <span class="req">*</span></label><select><option>BMW</option></select></div>
+        <div class="f"><label>Modelis <span class="req">*</span></label><select><option>M4</option></select></div>
+        <div class="f"><label>Pirmoji registracija <span class="req">*</span></label><select><option>2019</option></select></div>
+        <div class="f"><label>&nbsp;</label><select><option>11</option></select></div>
+
+        <div class="f"><label>Kuro tipas <span class="req">*</span></label><select><option>Benzinas</option></select></div>
+        <div class="f"><label>Kėbulo tipas <span class="req">*</span></label><select><option>Kupė</option></select></div>
+        <div class="f"><label>Pavarų dėžė <span class="req">*</span></label><select><option>Automatinė</option></select></div>
+        <div class="f"><label>Durų skaičius <span class="req">*</span></label><select><option>2/3 durų</option></select></div>
+
+        <div class="f">
+          <label>Variklio darbinis tūris
+            <span class="units"><button class="on">L</button><button>cm³</button></span></label>
+          <input value="3,0"><div class="hint">≈ 3 000 cm³</div>
+        </div>
+        <div class="f"><label>Vairo padėtis</label><select><option>Kairėje</option></select></div>
+        <div class="f"><label>Defektai <span class="req">*</span></label><select><option>Be defektų</option></select></div>
+        <div class="f">
+          <label>Rida <span class="req">*</span>
+            <span class="units"><button class="on">km</button><button>mi</button></span></label>
+          <input value="41 000">
+        </div>
+
+        <div class="f col-2"><label>VIN kodas <span class="opt">(neprivaloma)</span></label><input placeholder="WBS1J92060V…"></div>
+        <div class="f col-2"><label>Kaina <span class="req">*</span></label><input value="54 990 €"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Papildomi duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Galia, kW</label><input value="331"></div>
+        <div class="f"><label>Cilindrų skaičius</label><select><option>6</option></select></div>
+        <div class="f"><label>Varantieji ratai</label><select><option>Galiniai</option></select></div>
+        <div class="f"><label>Spalva</label><select><option>Oranžinė</option></select></div>
+        <div class="f"><label>Vietų skaičius</label><select><option>4</option></select></div>
+        <div class="f"><label>Klimatas</label><select><option>Klimato kontrolė</option></select></div>
+        <div class="f"><label>Euro standartas</label><select><option>Euro 6d</option></select></div>
+        <div class="f"><label>CO₂, g/km</label><input value="194"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Ypatybės</h2>
+    <div class="section-body">
+      <div class="subhead">Salonas ir komfortas</div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" checked>Odinis salonas</label>
+        <label class="chk"><input type="checkbox" checked>Šildomos sėdynės</label>
+        <label class="chk"><input type="checkbox" checked>Sportinės sėdynės</label>
+        <label class="chk"><input type="checkbox">Ventiliuojamos sėdynės</label>
+      </div>
+      <div class="subhead">Sauga ir asistentai</div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" checked>ESP</label>
+        <label class="chk"><input type="checkbox" checked>Aklosios zonos sistema</label>
+        <label class="chk"><input type="checkbox" checked>Galinio vaizdo kamera</label>
+        <label class="chk"><input type="checkbox">Naktinio matymo asistentas</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Nuotraukos</h2>
+    <div class="section-body">
+      <div class="drop"><b>Vilkite nuotraukas arba spauskite</b>Iki 40 nuotraukų · maks. 20 MB · JPG, PNG, WEBP</div>
+      <div class="thumbs">
+        <div class="thumb"><span>PAGRINDINĖ</span></div><div class="thumb"><span>2</span></div>
+        <div class="thumb"><span>3</span></div><div class="thumb"><span>4</span></div>
+        <div class="thumb"><span>5</span></div><div class="thumb"><span>6</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Aprašymas</h2>
+    <div class="section-body">
+      <div class="f"><label>Skelbimo tekstas</label>
+        <textarea placeholder="Išsamiai aprašykite savo pasiūlymą…"></textarea></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <label class="terms"><input type="checkbox" checked> Sutinku su taisyklėmis</label>
+    <button class="btn">Atšaukti</button>
+    <button class="btn btn-primary">Skelbti skelbimą</button>
+  </div>
+</div>
+
+<!-- ============ VILKIKAI ============ -->
+<div id="trucks" class="hidden">
+  <div class="note"><b>Tas pats rėmas, kiti laukai.</b> Vilkikams NĖRA „Tipas" lauko (jis aprašo antstatą, kurio vilkikas neturi). Vietoj jo — Ašių skaičius ir Miegamų vietų skaičius, kaip Autogidas'e.</div>
+
+  <div class="page-title"><h1>Naujas skelbimas: Vilkikai</h1></div>
+
+  <div class="section">
+    <h2>Pagrindiniai sąrašo duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Markė <span class="req">*</span></label><select><option>MAN</option></select></div>
+        <div class="f"><label>Modelis <span class="req">*</span></label><input value="TGX 18.510"></div>
+        <div class="f"><label>Pirmoji registracija <span class="req">*</span></label><select><option>2022</option></select></div>
+        <div class="f"><label>&nbsp;</label><select><option>08</option></select></div>
+
+        <div class="f"><label>Kuro tipas <span class="req">*</span></label><select><option>Dyzelinas</option></select></div>
+        <div class="f"><label>Pavarų dėžė <span class="req">*</span></label><select><option>Automatinė</option></select></div>
+        <div class="f"><label>Ratų formulė <span class="req">*</span></label><select><option>4x2</option></select></div>
+        <div class="f"><label>Ašių skaičius <span class="req">*</span></label><select><option>2 ašys</option></select></div>
+
+        <div class="f">
+          <label>Variklio darbinis tūris
+            <span class="units"><button class="on">L</button><button>cm³</button></span></label>
+          <input value="12,4"><div class="hint">≈ 12 400 cm³</div>
+        </div>
+        <div class="f"><label>Daužtas <span class="req">*</span></label><select><option>Ne</option></select></div>
+        <div class="f">
+          <label>Rida <span class="req">*</span>
+            <span class="units"><button class="on">km</button><button>mi</button></span></label>
+          <input value="398 457">
+        </div>
+        <div class="f"><label>Miegamų vietų skaičius</label><select><option>2</option></select></div>
+
+        <div class="f col-2"><label>Kaina <span class="req">*</span></label><input value="42 000 €"></div>
+        <div class="f col-2"><label>PVM</label><select><option>Kaina be PVM (19%)</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Papildomi duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Galia, kW</label><input value="375"><div class="hint">≈ 510 AG</div></div>
+        <div class="f"><label>Euro standartas</label><select><option>Euro 6</option></select></div>
+        <div class="f">
+          <label>Bendroji masė
+            <span class="units"><button class="on">kg</button><button>lbs</button></span></label>
+          <input value="18 000">
+        </div>
+        <div class="f">
+          <label>Bako talpa
+            <span class="units"><button class="on">L</button><button>gal</button></span></label>
+          <input value="1 160">
+        </div>
+        <div class="f"><label>Priekinė pakaba</label><select><option>Pneumatinė</option></select></div>
+        <div class="f"><label>Galinė pakaba</label><select><option>Pneumatinė</option></select></div>
+        <div class="f"><label>Spalva</label><select><option>Balta</option></select></div>
+        <div class="f"><label>Techninė apžiūra iki</label><select><option>2027-08</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Ypatybės</h2>
+    <div class="section-body">
+      <div class="subhead">Kabina</div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" checked>Šaldytuvas</label>
+        <label class="chk"><input type="checkbox" checked>Stovėjimo kondicionierius</label>
+        <label class="chk"><input type="checkbox" checked>Autonominis šildytuvas</label>
+        <label class="chk"><input type="checkbox" checked>Šildomos sėdynės</label>
+      </div>
+      <div class="subhead">Sauga ir asistentai</div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" checked>ABS</label>
+        <label class="chk"><input type="checkbox" checked>EBS</label>
+        <label class="chk"><input type="checkbox" checked>Retarderis</label>
+        <label class="chk"><input type="checkbox" checked>Juostos palaikymas</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Nuotraukos</h2>
+    <div class="section-body">
+      <div class="drop"><b>Vilkite nuotraukas arba spauskite</b>Iki 40 nuotraukų · maks. 20 MB · JPG, PNG, WEBP</div>
+      <div class="thumbs">
+        <div class="thumb"><span>PAGRINDINĖ</span></div><div class="thumb"><span>2</span></div>
+        <div class="thumb"><span>3</span></div><div class="thumb"><span>4</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <label class="terms"><input type="checkbox" checked> Sutinku su taisyklėmis</label>
+    <button class="btn">Atšaukti</button>
+    <button class="btn btn-primary">Skelbti skelbimą</button>
+  </div>
+</div>
+
+<!-- ============ AGRO ============ -->
+<div id="agro" class="hidden">
+  <div class="note"><b>Tas pats rėmas.</b> Savaeigei technikai rodomi variklio laukai, padargui — darbo plotis ir svoris. Vienas laukas nusprendžia, kas matoma.</div>
+
+  <div class="page-title"><h1>Naujas skelbimas: Žemės ūkio technika</h1></div>
+
+  <div class="section">
+    <h2>Pagrindiniai sąrašo duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Padargas / Savaeigė <span class="req">*</span></label><select><option>Savaeigė</option></select></div>
+        <div class="f"><label>Tipas <span class="req">*</span></label><select><option>Traktorius</option></select></div>
+        <div class="f"><label>Markė <span class="req">*</span></label><select><option>Fendt</option></select></div>
+        <div class="f"><label>Modelis <span class="req">*</span></label><input value="412 Vario"></div>
+
+        <div class="f"><label>Pagaminimo metai <span class="req">*</span></label><select><option>2005</option></select></div>
+        <div class="f"><label>Būklė <span class="req">*</span></label><select><option>Naudota</option></select></div>
+        <div class="f"><label>Motovalandos</label><input value="11 600"></div>
+        <div class="f">
+          <label>Rida
+            <span class="units"><button class="on">km</button><button>mi</button></span></label>
+          <input placeholder="pvz., 25 000">
+        </div>
+
+        <div class="f"><label>Galia, kW</label><input value="92"><div class="hint">≈ 125 AG</div></div>
+        <div class="f"><label>Kuro tipas</label><select><option>Dyzelinas</option></select></div>
+        <div class="f"><label>Pavarų dėžė</label><select><option>Vario (bepakopė)</option></select></div>
+        <div class="f"><label>Varantieji ratai</label><select><option>4x4</option></select></div>
+
+        <div class="f col-2"><label>Kaina <span class="req">*</span></label><input value="31 924 €"></div>
+        <div class="f col-2"><label>PVM</label><select><option>Kaina be PVM (19%)</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Papildomi duomenys</h2>
+    <div class="section-body">
+      <div class="grid">
+        <div class="f"><label>Kabina</label><select><option>Su kabina</option></select></div>
+        <div class="f"><label>Priekinė hidraulika</label><select><option>Taip</option></select></div>
+        <div class="f"><label>Priekinis VOM</label><select><option>Taip</option></select></div>
+        <div class="f"><label>Hidraulikos išvadų sk.</label><select><option>4</option></select></div>
+        <div class="f"><label>Padangos priekis</label><input value="540/65 R24"></div>
+        <div class="f"><label>Padangos galas</label><input value="600/65 R38"></div>
+        <div class="f"><label>Padangų likutis, %</label><input value="80"></div>
+        <div class="f"><label>Maks. greitis, km/h</label><input value="50"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Nuotraukos</h2>
+    <div class="section-body">
+      <div class="drop"><b>Vilkite nuotraukas arba spauskite</b>Iki 40 nuotraukų · maks. 20 MB · JPG, PNG, WEBP</div>
+      <div class="thumbs"><div class="thumb"><span>PAGRINDINĖ</span></div><div class="thumb"><span>2</span></div><div class="thumb"><span>3</span></div></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <label class="terms"><input type="checkbox" checked> Sutinku su taisyklėmis</label>
+    <button class="btn">Atšaukti</button>
+    <button class="btn btn-primary">Skelbti skelbimą</button>
+  </div>
+</div>
+
+<!-- ============ PRIEŠ / PO ============ -->
+<div id="cmp" class="hidden">
+  <div class="note"><b>Kairėje — kaip sunkvežimių forma atrodo dabar</b> (kitos CSS klasės <code>form-input</code>, emoji antraštė, 3 stulpeliai, kitokie tarpai). <b>Dešinėje — etalonas.</b></div>
+  <div class="cmp">
+    <div class="old">
+      <h3>Dabar</h3>
+      <div class="page-title"><h1>🚛 Sukurkite sunkvežimių ir komercinių transporto priemonių skelbimus</h1></div>
+      <div class="section"><h2>Pagrindinė informacija</h2><div class="section-body">
+        <div class="grid">
+          <div class="f"><label>Tipas *</label><select><option>— Pasirinkite —</option></select></div>
+          <div class="f"><label>Markė *</label><select><option>— Pasirinkite —</option></select></div>
+          <div class="f"><label>Modelis *</label><input placeholder="pvz., FH16, Actros 1845"></div>
+          <div class="f"><label>Pirmoji registracija *</label><select><option>Metai</option></select></div>
+          <div class="f"><label>&nbsp;</label><select><option>MM</option></select></div>
+          <div class="f"><label>Bendras svoris</label><input></div>
+          <div class="f"><label>Galia</label><input></div>
+          <div class="f"><label>Rida</label><input></div>
+          <div class="f"><label>Ratų formulė</label><select><option>— Pasirinkite —</option></select></div>
+        </div>
+      </div></div>
+    </div>
+    <div>
+      <h3>Etalonas</h3>
+      <div class="page-title"><h1>Naujas skelbimas: Vilkikai</h1></div>
+      <div class="section"><h2>Pagrindiniai sąrašo duomenys</h2><div class="section-body">
+        <div class="grid g2">
+          <div class="f"><label>Markė <span class="req">*</span></label><select><option>MAN</option></select></div>
+          <div class="f"><label>Modelis <span class="req">*</span></label><input value="TGX 18.510"></div>
+          <div class="f"><label>Pirmoji registracija <span class="req">*</span></label><select><option>2022</option></select></div>
+          <div class="f"><label>&nbsp;</label><select><option>08</option></select></div>
+          <div class="f"><label>Ratų formulė <span class="req">*</span></label><select><option>4x2</option></select></div>
+          <div class="f"><label>Ašių skaičius <span class="req">*</span></label><select><option>2 ašys</option></select></div>
+          <div class="f"><label>Galia, kW</label><input value="375"><div class="hint">≈ 510 AG</div></div>
+          <div class="f"><label>Rida <span class="units"><button class="on">km</button><button>mi</button></span></label><input value="398 457"></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tabs=document.querySelectorAll('.tab');
+const panes=['cars','trucks','agro','cmp'];
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  panes.forEach(p=>document.getElementById(p).classList.toggle('hidden',p!==t.dataset.t));
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+document.querySelectorAll('.units').forEach(u=>{
+  u.querySelectorAll('button').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();u.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');}));
+});
+</script>
+</div>
+</body>
+</html>

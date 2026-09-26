@@ -56,8 +56,16 @@ UPSTREAM="$(git rev-parse "${REMOTE}/${BRANCH}")"
 # Commit'as, kuris jau krito per patikrą — nekartojam jo kas minutę.
 # Naujas commit'as žymę nuvalo (upstream pajudėjo).
 BLOGAS_FAILAS="${APP_DIR}/deploy/.blogas-commitas"
+# Bet NE tyliai: 2026-09-23..24 taip buvo atmesta 13 commit'ų iš eilės, o
+# servisas kas minutę rodė „status=0/SUCCESS" — niekas nepastebėjo. Kol
+# master neįdiegtas, unit'as lieka „failed" (matosi `systemctl --failed`).
 if [[ -f "$BLOGAS_FAILAS" ]] && [[ "$(cat "$BLOGAS_FAILAS")" == "$UPSTREAM" ]]; then
-    exit 0
+    IDIEGTA_DABAR="$(tr -d '[:space:]' < "${APP_DIR}/VERSIJA" 2>/dev/null || true)"
+    if [[ "${UPSTREAM:0:12}" == "$IDIEGTA_DABAR" ]]; then
+        exit 0   # ranka jau įdiegta — žymė nebeaktuali
+    fi
+    echo "UŽBLOKUOTA: ${UPSTREAM:0:12} krito per patikrą, gyvai ${IDIEGTA_DABAR:-?}. Žr. /var/log/autoleft-deploy.log; po pataisymo naujas commit'as žymę nuvalo." >&2
+    exit 1
 fi
 
 # ── Ar ĮDIEGTA tai, kas guli diske? ────────────────────────────────────
@@ -84,6 +92,13 @@ IDIEGTA="$(tr -d '[:space:]' < "${APP_DIR}/VERSIJA" 2>/dev/null || true)"
 NEBAIGTAS=0
 if [[ -n "$IDIEGTA" && "$IDIEGTA" != "$HEAD_TRUMPAS" ]]; then
     NEBAIGTAS=1
+fi
+
+# Serveris gali būti PRIEŠ upstream (commit'inta serveryje, push dar
+# neįvyko). Tai ne „nauji commit'ai" — be šito kiekvienas ciklas darytų
+# pilną diegimą (DB kopija + restart), kol push nepavyks.
+if [[ "$LOCAL" != "$UPSTREAM" ]] && git merge-base --is-ancestor "$UPSTREAM" "$LOCAL"; then
+    UPSTREAM="$LOCAL"
 fi
 
 if [[ "$LOCAL" == "$UPSTREAM" && "$NEBAIGTAS" -eq 0 ]]; then
@@ -190,6 +205,25 @@ if [[ -x ./deploy-agent.sh ]]; then
         echo "$UPSTREAM" > "$BLOGAS_FAILAS"
         git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
         die "DB kopija nepavyko — migracijų neleidžiam, grąžinta į ${LOCAL:0:7}."
+    fi
+fi
+
+# ── Duomenis keičiančios migracijos — TIK ranka ────────────────────────
+# Aukščiau parašyta „kas duomenis TRINA, per šitą kelią neturi eiti", bet
+# niekas to netikrino. 2026-09-24 18:52 taip automatiškai prasisuko
+# 0107 (RunPython, išvalė contact_phone), o patikra po jos krito ir kodas
+# buvo atsuktas — DB liko pakeista, gyvai sukosi senas kodas.
+# Todėl žiūrim į planą (--plan nieko nevykdo) ir tokių migracijų neleidžiam.
+if [[ -x ./venv/bin/python ]]; then
+    PLANAS="$(./venv/bin/python manage.py migrate --plan 2>&1 || true)"
+    PAVOJINGOS="$(printf '%s\n' "$PLANAS" \
+        | grep -E 'Raw Python operation|Raw SQL operation|Remove field|Delete model' || true)"
+    if [[ -n "$PAVOJINGOS" ]]; then
+        printf '%s\n' "$PLANAS" | sed 's/^/    /'
+        echo "$UPSTREAM" > "$BLOGAS_FAILAS"
+        git reset --hard "$LOCAL" --quiet || log "DĖMESIO: git reset nepavyko"
+        if [[ -x ./deploy/bukle.sh ]]; then ./deploy/bukle.sh >/dev/null 2>&1 || true; fi
+        die "Duomenis keičianti migracija — automatiškai neleidžiam. Grąžinta į ${LOCAL:0:7}. Ranka: pg_dump į /root/backups/, git merge --ff-only origin/${BRANCH}, ./deploy-agent.sh"
     fi
 fi
 

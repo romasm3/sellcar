@@ -18,12 +18,13 @@ pwd; ls -d /root/autoleft 2>/dev/null && echo SERVERIS || echo KONTEINERIS
 systemd, nginx, psycopg): šviežias git klonas, be produkcijos prieigos.
 - Vietinei patikrai: sqlite + runserver (žr. docs/*_test.py antraštes)
 - `systemctl`, `journalctl`, `./deploy-agent.sh` čia NEVEIKIA — net
-  nebandyk; iškelk pakeitimus į master ir deploy'ą paleis serverio timeris
+  nebandyk. Automatinis deploy'as IŠJUNGTAS — push į master NIEKO
+  NEDIEGIA; diegia žmogus arba serverio sesija su ./idiek.sh
 - Gyvą svetainę matai tik per `curl https://autoleft.com/…` — tuo ir
   tikrink, ar darbas pasiekė lankytoją (SKILL.md 8 taisyklė)
 - Prieigos prie 66.94.124.183 (produkcijos VPS) NĖRA: nei ssh, nei
-  systemctl, nei DB. Kodas į svetainę patenka TIK per serverio deploy
-  taimerį, kai commit'as atsiranda master'yje
+  systemctl, nei DB. Kodas į svetainę patenka TIK kai serveryje kas nors
+  paleidžia ./idiek.sh (taimeris išjungtas)
 - Jei reikia serverio žurnalų ar rankinio deploy'o — paprašyk žmogaus,
   nemeluok, kad „paleidau"
 
@@ -99,20 +100,53 @@ nepatvirtina. Žalias vietinis testas to NEPATVIRTINA.
 ## Workflow
 
 ### DIRBAMA TIESIAI PRODUKCIJOJE (/root/autoleft)
-Automatinis deploy'as IŠJUNGTAS sąmoningai
-(`systemctl disable --now autoleft-deploy.timer`). GitHub nuo šiol yra
-tik atsarginė kopija ir atsukimo istorija, NE pristatymo kelias.
-Push į master NIEKO nebediegia.
+GitHub — atsarginė kopija ir atsukimo istorija.
 
-Tvarka kiekvienam pakeitimui:
+**AUTOMATINIS DEPLOY'AS IŠJUNGTAS SĄMONINGAI** (2026-09-24, žmogaus
+sprendimas). `autoleft-deploy.timer` sustabdytas ir išjungtas
+(`systemctl is-active` → inactive; unit'o nuoroda pašalinta). Jis po
+kiekvienos kritusios patikros darydavo `git reset` ir galėjo ištrinti
+serveryje daromus pakeitimus. NEĮJUNGINĖK jo atgal be žmogaus sutikimo.
+Push į GitHub NIEKO NEDIEGIA — diegia tik `./idiek.sh` serveryje.
 
-    redaguoju → systemctl restart gunicorn → curl patikra
-             → git commit → git push (tik kaip kopija)
+**ĮPRASTINĖ DARBO EIGA — daroma PATIEM, NEKLAUSIANT** (žmogus nenori
+kaskart sakyti „paleisk idiek" ar „pushink"):
 
-- Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną.
-- Po kiekvieno pakeitimo PRIVALOMA: `systemctl restart gunicorn` ir
-  curl patikra, kad `/` grąžina 200. Neatsako 200 →
-  `git reset --hard HEAD~1` ir restart gunicorn.
+    0. prieš darbą: git fetch; yra naujų origin/master commit'ų →
+       git pull --rebase ir PARODYK žmogui, ką parsinešei
+       (git log --oneline <senas HEAD>..HEAD), tik tada dirbk
+    1. pataisai failą (commit'ini su prasmingu pranešimu)
+    2. ./idiek.sh   — commit + restart + patikra, laukiam „GYVA: <sha>"
+    3. git push origin master   — į GitHub, tik atsarginė kopija
+
+Po KIEKVIENO pakeitimo, ne darbo pabaigoje.
+
+**VIENINTELĖ IŠIMTIS — DB ir migracijos.** Jei pakeitimas liečia DB
+(duomenų keitimas, nauja/pakeista migracija): pirma `pg_dump` į
+/root/backups/ su data, tada **SUSTOK IR PAKLAUSK žmogaus** prieš
+`migrate`/diegimą.
+
+`./idiek.sh` (viena komanda): nesucommit'intus pakeitimus pats
+sucommit'ina (git add -A) PRIEŠ perkrovimą, įrašo VERSIJA, collectstatic,
+`systemctl restart gunicorn`, tikrina https://autoleft.com/ iki 10×2 s ir
+ar gyva versijos žymė = HEAD. Ne 200, o prieš tai buvo 200 →
+`git reset --hard HEAD~1` + perkrovimas, pranešimas DIDELĖMIS raidėmis su
+grąžinimo komanda ir įrašas `deploy/idiegimai.log`. Jei svetainė buvo
+sulūžusi dar prieš — nieko neatsuka, tik praneša. Nepritaikytų migracijų
+nevykdo — sustoja (pirma pg_dump, tada `migrate` ranka).
+Po `./idiek.sh` lieka tik `git push` (jei commit'ino jis — commit'as jau yra).
+Push eina per SSH deploy key (`origin` = git@github.com:romasm3/sellcar.git,
+raktas /root/.ssh/autoleft_github, rašymo teisė tik šiam repo). Push
+nepavyksta dėl prieigos → sakyk žmogui ataskaitoje, kiek commit'ų liko
+tik serveryje; diegimo tai nestabdo.
+
+- Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną
+  (commit'ink pats su prasmingu pranešimu prieš `./idiek.sh`; jo
+  automatinis commit'as — tik atsarga).
+- Po kiekvieno pakeitimo PRIVALOMA `./idiek.sh` ir jo „GYVA: <sha>".
+- Push atmestas → `git pull --rebase`, `./idiek.sh`, push (ne --force).
+  Pull iš GitHub = kodas iš debesų į produkciją: pirma peržiūrėk, ką
+  parsineši (`git log HEAD..origin/master`).
 - Prieš bet kokį DB ar migracijų keitimą: `pg_dump` į /root/backups/
   su data. Neatsukamos migracijos (pvz. 0107, trinanti contact_phone)
   be kopijos nediegiamos.
@@ -132,8 +166,9 @@ tai pasakyti, o ne skelbti „padaryta". Diegia žmogus arba serverio sesija.
 - Niekada necommitinti .env, *.bak, db dump'ų, media/.
 - Stop and ask before anything irreversible (destructive DB commands,
   data-losing migrations).
-- Versijos žymė (`meta name="versija"`) NEPATIKIMA — deploy'as jos
-  neperrašo. Tikrinama pagal tikrą pakeitimą, ne pagal ją.
+- Versijos žymę (`meta name="versija"`) rašo `./idiek.sh` (ir
+  `./deploy-agent.sh`) PRIEŠ perkrovimą; vien `systemctl restart gunicorn`
+  jos NEatnaujina. Tikrinama ir pagal tikrą pakeitimą (žymeklį).
 - Gyvai tikrinama TIK per `curl`, niekada per naršyklę: naršyklė ir
   tarpinės talpyklos rodo seną puslapį, ir taip jau buvo pranešta apie
   „nepataisytą" klaidą, kuri iš tikrųjų buvo gyva ir veikianti.

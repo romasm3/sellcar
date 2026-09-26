@@ -114,10 +114,17 @@ class PuslapiuTestas(SimpleTestCase):
             r'block w-12 h-12 mx-auto mb-4 text-gray-300">\s*'
             r'(<svg.*?</svg>|<i class="fa-solid[^>]*></i>)', re.S)
         klaidos = []
+        # Kategorijos su savo naršymo puslapiu — kreipiamės TIESIAI.
+        # /?category=tires peradresuoja į /browse/tyres/ ir numeta
+        # price_min, o padangos filtruoja pagal price_from. Per
+        # peradresavimą puslapis niekada nebūna tuščias, kai DB yra
+        # padangų — nuo 2026-09-23 tai blokavo KIEKVIENĄ deploy'ą.
+        tiesiai = {'tires': '/browse/tyres/?price_from=99999999'}
         for slug in self.kategorijos:
-            # price_min didesnis už bet kokią kainą → tuščia būsena
-            atsakymas = self.c.get(f'/?category={slug}&sidebar=1&price_min=99999999',
-                                   secure=True, follow=True)
+            # kaina didesnė už bet kokią → tuščia būsena
+            adresas = tiesiai.get(
+                slug, f'/?category={slug}&sidebar=1&price_min=99999999')
+            atsakymas = self.c.get(adresas, secure=True, follow=True)
             self.assertEqual(atsakymas.status_code, 200, slug)
             turinys = atsakymas.content.decode('utf-8', 'ignore')
             rastas = sablonas.search(turinys)
