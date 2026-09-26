@@ -4,6 +4,8 @@
 #
 # Tvarka:  redaguoju → ./idiek.sh → git push (tik kopija)
 #
+# 0a. docs/deploy_*_test.sh — bent vienas raudonas ar rodantis
+#     „can't read" → NEDIEGIAM.
 # 1. Nesucommit'inti pakeitimai → git add -A && git commit (PRIEŠ
 #    perkrovimą, kad atsukus niekas nedingtų iš istorijos).
 # 2. Įsimenam commit'ą ir ar svetainė JAU dabar grąžina 200.
@@ -24,7 +26,7 @@ URL="${IDIEK_URL:-https://autoleft.com/}"   # IDIEK_URL — tik atsukimo bandymu
 PAGRINDINIS="https://autoleft.com/"
 ZURNALAS="deploy/idiegimai.log"
 
-zurnalas() { echo "[$(date '+%F %T')] $*" >> "$ZURNALAS"; }
+zurnalas() { mkdir -p "$(dirname "$ZURNALAS")" 2>/dev/null; echo "[$(date '+%F %T')] $*" >> "$ZURNALAS"; }
 
 kodas() {
     curl -s -o /dev/null -w '%{http_code}' --max-time 15 "$URL"
@@ -47,6 +49,31 @@ perkrauk() {
         || echo "DĖMESIO: collectstatic krito"
     systemctl restart gunicorn || echo "DĖMESIO: systemctl restart gunicorn krito"
 }
+
+# ── 0a. Deploy testai — raudonas testas STABDO diegimą ─────────────────
+# Kodėl: du testai ilgai rodė „sed: can't read /home/user/sellcar/…" —
+# prikaltas konteinerio kelias. Jie netikrino NIEKO, o diegimas vis tiek
+# praeidavo. Blogiausia įmanoma būsena. Nuo šiol tokia išvestis reiškia
+# sustojimą lygiai taip pat, kaip ir nenulinis išėjimo kodas.
+BLOGI=""
+for T in docs/deploy_*_test.sh; do
+    [[ -r "$T" ]] || continue
+    ISVESTIS="$(bash "$T" 2>&1)"; KODAS=$?
+    if [[ "$KODAS" != "0" ]]; then
+        BLOGI+="    $(basename "$T") — išėjimo kodas $KODAS"$'\n'
+    elif grep -qiE "can't read|No such file or directory" <<< "$ISVESTIS"; then
+        BLOGI+="    $(basename "$T") — testas nieko netikrina:"$'\n'
+        BLOGI+="$(grep -iE "can't read|No such file or directory" <<< "$ISVESTIS" | sed 's/^/        /')"$'\n'
+    fi
+done
+if [[ -n "$BLOGI" ]]; then
+    echo "NEDIEGTA: deploy testai raudoni arba nieko netikrina:"
+    printf '%s' "$BLOGI"
+    echo "Pataisyk juos — tik tada diek."
+    zurnalas "NEDIEGTA: raudoni deploy testai"
+    exit 1
+fi
+echo "Deploy testai: visi žali."
 
 # ── 0. Migracijos — ne šio skripto darbas ──────────────────────────────
 if venv/bin/python manage.py showmigrations --plan 2>/dev/null | grep -q '^\[ \]'; then
