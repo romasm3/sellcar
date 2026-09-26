@@ -17,9 +17,16 @@
 # Paleidimas:  bash docs/deploy_atsukimo_test.sh
 # ═══════════════════════════════════════════════════════════════════
 set -euo pipefail
+# Kelias imamas iš paties testo vietos, ne prikaltas: serveryje repo
+# yra /root/autoleft, konteineryje /home/user/sellcar. Prikaltas
+# kelias reiškė „sed: can't read …" — testas nieko netikrino, o
+# atrodė paleistas.
+SAKNIS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+AGENTAS="$SAKNIS/deploy-agent.sh"
+[[ -r "$AGENTAS" ]] || { echo "NERASTA: $AGENTAS"; exit 1; }
 T=$(mktemp -d); APP_DIR="$T/app"; LAST_GOOD="$T/last_good"; BACKUP_DIR="$T/atsargos"; TS=test
 log() { echo "  [log] $*"; }
-sed -n '/^sutvarkyti_po_atsukimo()/,/^}$/p' /home/user/sellcar/deploy-agent.sh > "$T/fn.sh"
+sed -n '/^sutvarkyti_po_atsukimo()/,/^}$/p' "$AGENTAS" > "$T/fn.sh"
 # shellcheck disable=SC1090
 source "$T/fn.sh"
 

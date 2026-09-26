@@ -15,19 +15,27 @@
 #
 # Paleidimas:  bash docs/deploy_statiniu_test.sh
 set -euo pipefail
-APP_DIR=/tmp/claude-0/fake_app
+# Kelias imamas iš paties testo vietos, laikini failai — per mktemp.
+# Anksčiau buvo prikaltas konteinerio kelias, tad serveryje testas
+# krisdavo su „sed: can't read …" ir netikrino NIEKO, o diegimas
+# vis tiek praeidavo.
+SAKNIS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+AGENTAS="$SAKNIS/deploy-agent.sh"
+[[ -r "$AGENTAS" ]] || { echo "NERASTA: $AGENTAS"; exit 1; }
+T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
+APP_DIR="$T/fake_app"
 GUNICORN_SOCK=/tmp/fake.sock
 HEALTH_HOST=autoleft.com
 log() { echo "  [log] $*"; }
 
 # Ištraukiam funkcijas iš tikro skripto
-sed -n '/^STATINIU_MANIFESTAS=/,/^}$/p' /home/user/sellcar/deploy-agent.sh > /tmp/claude-0/fn.sh
-sed -n '/^tikrinti_statinius()/,/^}$/p' /home/user/sellcar/deploy-agent.sh >> /tmp/claude-0/fn.sh
+sed -n '/^STATINIU_MANIFESTAS=/,/^}$/p' "$AGENTAS" > "$T/fn.sh"
+sed -n '/^tikrinti_statinius()/,/^}$/p' "$AGENTAS" >> "$T/fn.sh"
 # curl maketas: HTML be maišo arba su maišu
 curl() { printf '%s' "$FAKE_HTML"; }
 stat() { echo "$FAKE_MT"; }
 # shellcheck disable=SC1091
-source /tmp/claude-0/fn.sh
+source "$T/fn.sh"
 
 mkdir -p "$(dirname "$APP_DIR/staticfiles/staticfiles.json")"
 
@@ -58,7 +66,7 @@ if tikrinti_statinius "1000" ""; then
 echo "── 6. Statinių patikra NEATSUKA kodo ──"
 # 2026-09-01: patikra buvo sujungta su health per `&&`, tad viena
 # nepavykusi smulkmena atsukdavo visiškai veikiantį deploy'ą.
-SRC=/home/user/sellcar/deploy-agent.sh
+SRC="$AGENTAS"
 if grep -q 'health_check && tikrinti_statinius' "$SRC"; then
   echo "  ✘ patikra vis dar gali atsukti kodą"; exit 1
 else
