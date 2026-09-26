@@ -140,6 +140,18 @@ raktas /root/.ssh/autoleft_github, rašymo teisė tik šiam repo). Push
 nepavyksta dėl prieigos → sakyk žmogui ataskaitoje, kiek commit'ų liko
 tik serveryje; diegimo tai nestabdo.
 
+**KADA DIEGTI — SPRENDŽIAMA PATIEM, BE KLAUSIMO.** Diegi, kai abu
+žalia:
+
+    visi deploy testai (docs/deploy_*_test.sh)  →  žali
+    venv/bin/python manage.py check             →  0 problemų
+
+Tada `./idiek.sh` paleidi iškart, nelaukdamas žmogaus. Bent vienas
+testas raudonas arba `check` randa problemą — **NEDIEGI**, o parašai, kas
+konkrečiai neveikia. Ir jei `./idiek.sh` atliko atsukimą (rollback) —
+parašai tai IŠKART ir GARSIAI, pirmoje ataskaitos eilutėje, ir
+**nekartoji to paties diegimo**, kol priežastis nerasta.
+
 - Kiekvienas pakeitimas — ATSKIRAS commit, kad būtų atsukamas po vieną
   (commit'ink pats su prasmingu pranešimu prieš `./idiek.sh`; jo
   automatinis commit'as — tik atsarga).
@@ -159,6 +171,32 @@ Konteineris prie serverio NEPRIEINA (nėra ssh, raktų, systemd, maršruto
 į VPS). Jis gali tik commit'inti ir push'inti į GitHub — o push nuo šiol
 NEDIEGIA. Todėl debesų sesija darbo gyvai patikrinti NEGALI ir privalo
 tai pasakyti, o ne skelbti „padaryta". Diegia žmogus arba serverio sesija.
+
+`./idiek.sh` konteineryje NEVEIKIA ir jo paleidimas NIEKO neįdiegia.
+Jis randa svetainę gyvą (200 iš produkcijos, kurios nepalietė) ir gali
+atrodyti kaip pavykęs. Tikroji išvestis konteineryje:
+
+    venv/bin/python: No such file or directory
+    DĖMESIO: collectstatic krito
+    System has not been booted with systemd as init system (PID 1).
+    DĖMESIO: systemctl restart gunicorn krito
+    DĖMESIO: / → 200, bet versijos žymė '<sena>', laukta <HEAD>   (exit 3)
+
+Taigi „kai testai žali — diek pats" taisyklė galioja TIK serverio
+sesijai. Konteinerio sesija vietoj to pasako, kiek commit'ų gyvai
+atsilieka, ir kad diegti reikia serveryje.
+
+### Testai, kurių NEGALIMA leisti prieš produkcijos DB
+- `docs/kurimo_formu_test.py` ir visi `docs/*_playwright.py` naudoja
+  sqlite nustatymus (`docs/patikra/sqlite_settings.py`) ir SĖJA
+  bandomąjį naudotoją bei skelbimus (`docs/patikra/formu_seed.py`).
+  Produkcijoje jie sukurtų šiukšles tikroje bazėje — leidžiami TIK
+  vietoje, su `PATIKRA_DB=<laikinas failas>`.
+- Serveryje tam pačiam dalykui naudojamas `manage.py shell` su
+  `force_login` ir **`follow=True`** — be `follow=True` kiekvienas
+  atsakymas bus 302 (kalbos priešdėlio peradresavimas per
+  `i18n_patterns`), ir patikra parodys „blogų: N" visiškai sveikoje
+  svetainėje.
 
 ### Bendra
 - Commit as you go: small logical commits after each meaningful step,
