@@ -32,9 +32,19 @@ mkdir -p deploy scripts venv/bin
 cp "$SAKNIS/deploy-from-git.sh" .
 
 # Maketai: „python" rašo į eigą, kai kviečiamas migrate.
+#
+# Šablonas turi būti TIKSLUS: `*migrate*` pagauna ir `showmigrations`
+# (apply() tikrina, ar kas nors pritaikyta), ir `migrate --plan`
+# (deploy-from-git.sh apžiūri, ar migracijos keičia duomenis). Nė vienas
+# iš jų DB nekeičia, tad į eigą jie neturi patekti. Dėl to eiga atrodė
+# „KOPIJA MIGRATE MIGRATE DIEGIMAS" ir testas krisdavo, nors tvarka
+# teisinga.
 cat > venv/bin/python <<'PY'
 #!/usr/bin/env bash
-[[ "$*" == *"migrate"* ]] && echo "MIGRATE" >> "$EIGA"
+case "$*" in
+  *showmigrations*|*"migrate --plan"*) : ;;   # tik apžiūra, nieko nekeičia
+  *migrate*) echo "MIGRATE" >> "$EIGA" ;;
+esac
 exit 0
 PY
 cat > deploy-agent.sh <<'AG'
