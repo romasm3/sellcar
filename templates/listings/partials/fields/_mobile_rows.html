@@ -120,7 +120,7 @@ Parametrai:
   <label class="sp-mfoot-search">
     <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
     <input type="text" name="{{ f.param }}" value="{{ request.GET|get_param:f.param }}"
-           placeholder="{% trans 'Ieškoti' %}">
+           placeholder="{% if f.placeholder %}{{ f.placeholder }}{% else %}{% trans 'Ieškoti' %}{% endif %}">
   </label>
   {% endif %}{% endfor %}{% endfor %}
 
