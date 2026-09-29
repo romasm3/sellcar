@@ -24,6 +24,9 @@ Tiekėją keičiam vienoje vietoje: GEO_TIEKEJAS.
 import hashlib
 import json
 import logging
+import threading
+import time
+import unicodedata
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
@@ -223,3 +226,102 @@ def ajax_adresas_pagal_taska(request):
     duom = atvirkstinis(request.GET.get('lat'), request.GET.get('lon'),
                         _kalba(request))
     return JsonResponse({'vieta': duom or {}})
+
+
+# ═══════════════════════════════════════════════════════════════════
+# SKELBIMO VIETA → KOORDINATĖS (serverio pusėje, po išsaugojimo)
+#
+# Formose žemėlapio nebėra (OSM viešos plytelės blokuojamos), tad
+# koordinates nustatom patys iš to, ką žmogus įvedė: adresas + miestas +
+# šalis. Kviečia Listing.save()/activate() — viena vieta visoms
+# kategorijoms, nes dalis formų koordinačių nepildė visai (dalys, #875–883).
+#
+# Nominatim taisyklės serveriui: ≤1 užklausa/s, aiškus User-Agent,
+# rezultatų kešas. Laikomės visų trijų; nesėkmė irgi kešuojama (parai),
+# kad nežinomas miestas nekviestų tinklo kiekvieno įrašymo metu.
+# ═══════════════════════════════════════════════════════════════════
+
+_NOMINATIM_TARPAS = 1.1          # sekundės tarp užklausų (taisyklė: ≤1/s)
+_uzrakas = threading.Lock()
+_paskutine = [0.0]
+_NERASTA = '__nerasta__'
+NESEKMES_KESAS = 60 * 60 * 24    # 1 para
+
+
+def _nominatim_paieska(q, salis=''):
+    """Viena Nominatim paieška su tempo ribojimu. None — nerasta/klaida."""
+    with _uzrakas:
+        laukti = _NOMINATIM_TARPAS - (time.monotonic() - _paskutine[0])
+        if laukti > 0:
+            time.sleep(laukti)
+        parametrai = {'q': q, 'format': 'jsonv2', 'limit': 1}
+        if salis and len(salis) == 2:
+            parametrai['countrycodes'] = salis.lower()
+        duom = _uzklausa(NOMINATIM_SEARCH, parametrai)
+        _paskutine[0] = time.monotonic()
+    if not duom:
+        return None
+    try:
+        return float(duom[0]['lat']), float(duom[0]['lon'])
+    except (KeyError, IndexError, TypeError, ValueError):
+        return None
+
+
+def _be_diakritiku(tekstas):
+    return ''.join(c for c in unicodedata.normalize('NFKD', tekstas)
+                   if not unicodedata.combining(c)).lower().strip()
+
+
+def _is_zodyno(miestas):
+    """Atsarga be tinklo: keli dideli miestai iš views.CITY_COORDINATES."""
+    from apps.listings.views import CITY_COORDINATES
+    return CITY_COORDINATES.get(_be_diakritiku(miestas))
+
+
+def vietos_koordinates(miestas, adresas='', salis=''):
+    """(lat, lon, tikslios) arba None.
+
+    1. adresas + miestas  → tiksli vieta (tikslios=True);
+    2. vien miestas       → miesto centras (tikslios=False);
+    3. tinklas neveikia   → miesto centras iš vietinio žodyno.
+    Tuščias ar „—" miestas → None (nieko nespėliojam; anksčiau čia
+    grįždavo Kauno koordinatės bet kokiam nežinomam miestui).
+    """
+    miestas = (miestas or '').strip()
+    adresas = (adresas or '').strip()
+    salis = (salis or '').strip().upper()
+    if not miestas or miestas in ('—', '-'):
+        return None
+
+    raktas = _raktas('vieta', miestas.lower(), adresas.lower(), salis)
+    kesuota = cache.get(raktas)
+    if kesuota == _NERASTA:
+        return None
+    if kesuota is not None:
+        return tuple(kesuota)
+
+    rezultatas = None
+    if adresas:
+        taskas = _nominatim_paieska(f'{adresas}, {miestas}', salis)
+        if taskas:
+            rezultatas = (taskas[0], taskas[1], True)
+    if rezultatas is None:
+        centras = cache.get(_raktas('vieta', miestas.lower(), '', salis))
+        if centras and centras != _NERASTA:
+            rezultatas = (centras[0], centras[1], False)
+        else:
+            taskas = _nominatim_paieska(miestas, salis)
+            if taskas:
+                rezultatas = (taskas[0], taskas[1], False)
+                cache.set(_raktas('vieta', miestas.lower(), '', salis),
+                          list(rezultatas), KESO_TRUKME)
+    if rezultatas is None:
+        is_zodyno = _is_zodyno(miestas)
+        if is_zodyno:
+            # Tinklo klaidos kešuojam trumpai — kitą kartą bandysim tikslesnį
+            return (is_zodyno[0], is_zodyno[1], False)
+        cache.set(raktas, _NERASTA, NESEKMES_KESAS)
+        return None
+
+    cache.set(raktas, list(rezultatas), KESO_TRUKME)
+    return rezultatas

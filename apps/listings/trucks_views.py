@@ -50,16 +50,6 @@ from . import units
 from . import valiutos
 NEW_LISTING_DAYS = NAUJO_SKELBIMO_DIENOS
 
-CITY_COORDINATES = {
-    'vilnius': (54.6872, 25.2797), 'kaunas': (54.8985, 23.9036),
-    'klaipeda': (55.7033, 21.1443), 'siauliai': (55.9349, 23.3137),
-}
-COUNTRY_COORDINATES = {
-    'US': (37.0902, -95.7129), 'LT': (55.1694, 23.8813),
-    'LV': (56.8796, 24.6032), 'EE': (58.5953, 25.0136),
-    'PL': (51.9194, 19.1451), 'DE': (51.1657, 10.4515),
-}
-
 CURRENCY_CHOICES = [
     ('USD', '$'), ('EUR', '€'), ('GBP', '£'),
 ]
@@ -74,16 +64,6 @@ MONTHS = [
     ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'),
     ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12'),
 ]
-
-
-def _get_coordinates(city, country_code):
-    if city:
-        cl = city.lower().strip()
-        if cl in CITY_COORDINATES:
-            return CITY_COORDINATES[cl]
-    if country_code and country_code in COUNTRY_COORDINATES:
-        return COUNTRY_COORDINATES[country_code]
-    return (54.8985, 23.9036)
 
 
 def _int_or_none(v):
@@ -680,10 +660,9 @@ def _save_form_to_listing(post, listing):
     if pastas:
         listing.contact_email = pastas
 
-    # Coords
-    lat, lng = _get_coordinates(listing.city, listing.country)
-    listing.latitude = Decimal(str(lat))
-    listing.longitude = Decimal(str(lng))
+    # Koordinates iš miesto/adreso nustato Listing.save()/activate()
+    # (geokodavimas.vietos_koordinates). Čia nebespėliojam: senas
+    # žodynas nežinomam miestui grąžindavo Kauno koordinates.
 
     # Ašių skaičius — vilkikų laukas (apps/listings/sunkusis.py)
     listing.axle_count = (post.get('axle_count', '') or '').strip()

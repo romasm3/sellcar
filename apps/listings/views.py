@@ -340,23 +340,19 @@ TRAILERS_SUBCATEGORY_SLUGS = {
 logger = logging.getLogger(__name__)
 
 def get_coordinates_for_location(city, country_code, post=None):
-    """Koordinatės vietai.
+    """Koordinatės, kurias ATSIUNTĖ forma — kitaip (None, None).
 
-    Jei forma atsiuntė žymeklio koordinates (partials/_vietos_blokas.html),
-    grąžinam jas — jos tikslios. Kitaip lieka senasis būdas: miesto centras
-    iš CITY_COORDINATES (apytiksliai).
+    Nebespėliojam: anksčiau čia grįždavo miesto centras iš žodyno, o
+    nežinomam miestui — KAUNO koordinatės (Utena atsidurdavo Kaune).
+    Dabar koordinates iš miesto+adreso nustato Listing.save()/activate()
+    (apps/listings/geokodavimas.vietos_koordinates) — viena vieta visoms
+    kategorijoms, ir be tinklo užklausų juodraščių automatiniame įrašyme.
     """
     if post:
         lat, lon = _float_or_none(post.get('latitude')), _float_or_none(post.get('longitude'))
         if lat is not None and lon is not None:
             return (lat, lon)
-    if city:
-        city_lower = city.lower().strip()
-        if city_lower in CITY_COORDINATES:
-            return CITY_COORDINATES[city_lower]
-    if country_code and country_code in COUNTRY_COORDINATES:
-        return COUNTRY_COORDINATES[country_code]
-    return (54.8985, 23.9036)
+    return (None, None)
 
 
 def _int_or_none(value):

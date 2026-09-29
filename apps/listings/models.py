@@ -1830,7 +1830,49 @@ class Listing(PaskelbimoLaikas, models.Model):
             self.currency = valiutos.NUMATYTA
             if laukai is not None and 'currency' not in laukai:
                 kwargs['update_fields'] = list(laukai) + ['currency']
+
+        # Koordinatės iš įvestos vietos — tik pilnam įrašymui ir ne
+        # juodraščiui (juodraščių automatinis išsaugojimas vyksta rašant,
+        # o žemėlapyje jų vis tiek nėra; aktyvuojant — activate()).
+        if laukai is None and self.status != 'draft':
+            self._koordinates_jei_reikia()
         return super().save(*args, **kwargs)
+
+    VIETOS_LAUKAI = ('city', 'address', 'country')
+
+    def _koordinates_jei_reikia(self, priverstinai=False):
+        """Nustato latitude/longitude iš miesto+adreso+šalies (serveryje).
+
+        Formose žemėlapio nebėra (OSM viešos plytelės blokuojamos), tad
+        vietą geokoduojam patys: kai jos dar nėra arba pasikeitė miestas,
+        adresas ar šalis. Nepavykus — skelbimas vis tiek išsaugomas, tik
+        be koordinačių (jei vieta pasikeitė — senos nuimamos, nes jos
+        rodytų ne ten). Grąžina True, jei koordinatės pakeistos.
+        """
+        from decimal import Decimal
+        from apps.listings import geokodavimas
+
+        senos = None
+        if self.pk and not priverstinai:
+            senos = type(self).objects.filter(pk=self.pk).values_list(
+                *self.VIETOS_LAUKAI).first()
+        dabar = tuple((getattr(self, f) or '').strip() for f in self.VIETOS_LAUKAI)
+        pasikeite = senos is None or tuple((x or '').strip() for x in senos) != dabar
+        truksta = self.latitude is None or self.longitude is None
+        if not (priverstinai or pasikeite or truksta):
+            return False
+
+        vieta = geokodavimas.vietos_koordinates(self.city, self.address, self.country)
+        if vieta:
+            self.latitude = Decimal(str(round(vieta[0], 6)))
+            self.longitude = Decimal(str(round(vieta[1], 6)))
+            self.koordinates_tikslios = vieta[2]
+            return True
+        if pasikeite and self.pk and senos is not None:
+            self.latitude = self.longitude = None
+            self.koordinates_tikslios = False
+            return True
+        return False
 
     @property
     def kontaktinis_pastas(self):
@@ -2156,12 +2198,18 @@ class Listing(PaskelbimoLaikas, models.Model):
         self.last_expired_reminder_at = None
         self.last_draft_reminder_at = None
         self.draft_reminder_count = 0
-        self.save(update_fields=[
+        laukai = [
             'status', 'activated_at', 'expires_at',
             'last_reminder_sent_at', 'last_no_sale_reminder_at',
             'last_expired_reminder_at',
             'last_draft_reminder_at', 'draft_reminder_count',
-        ])
+        ]
+        # Juodraštis koordinačių negauna (save() jų nelaukia) — paskelbiant
+        # jos būtinos, kitaip skelbimas nepatenka į žemėlapio paiešką.
+        if self.latitude is None or self.longitude is None:
+            if self._koordinates_jei_reikia(priverstinai=True):
+                laukai += ['latitude', 'longitude', 'koordinates_tikslios']
+        self.save(update_fields=laukai)
         return True
 
     def pratesti(self, days=None):
