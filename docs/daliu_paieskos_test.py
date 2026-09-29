@@ -91,8 +91,10 @@ def rasta(c, q):
     if a.status_code != 200:
         return None
     html = a.content.decode('utf-8', 'replace')
-    pk = Listing.objects.get(title=PAVADINIMAS).pk
-    return _Rasta([type('L', (), {'pk': pk})()] if f'/{pk}/' in html else [])
+    # Tuo pačiu pavadinimu DB gali būti ir kitų testų skelbimų — grąžinam
+    # visus, kurių nuoroda yra puslapyje; kviečiantis tikrina savo pk.
+    return _Rasta([x for x in Listing.objects.filter(title=PAVADINIMAS)
+                   if f'/{x.pk}/' in html])
 
 
 def main():
