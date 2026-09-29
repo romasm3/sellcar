@@ -231,17 +231,11 @@
                                 </div>
 
                                 <div class="mt-3 flex items-center gap-3 text-sm">
-                                    {% if listing.is_motorcycle %}
-                                        <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
+                                    {# Vienas kelias visoms kategorijoms: /<id>/edit/ (listing_edit_hub) nukreipia į formą su ID. #}
+                                    <a href="{% url 'listing_edit_hub' listing.pk %}"
                                            class="text-primary hover:underline font-medium">
                                             <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                         </a>
-                                    {% else %}
-                                        <a href="{% url 'listing_edit_hub' listing.pk %}"
-                                           class="text-primary hover:underline font-medium">
-                                            <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
-                                        </a>
-                                    {% endif %}
 
                                     {% if listing.status == 'active' and not listing.is_boosted %}
                                     <form method="post" action="{% url 'listing_boost_all' %}" class="inline">
@@ -432,11 +426,7 @@
                             <div class="md:w-48 flex-shrink-0 bg-gray-200 relative">
                                 {% if listing.main_image %}
                                     {% if listing.status == 'draft' %}
-                                        {% if listing.is_motorcycle %}
-                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}">
-                                        {% else %}
-                                            <a href="{{ listing.get_edit_url }}">
-                                        {% endif %}
+                                        <a href="{% url 'listing_edit_hub' listing.pk %}">
                                     {% else %}
                                         <a href="{% url 'listing_detail' listing.pk %}">
                                     {% endif %}
@@ -458,7 +448,7 @@
 
                                 {% if listing.status == 'draft' %}
                                     {% if listing.is_motorcycle %}
-                                        <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
+                                        <a href="{% url 'listing_edit_hub' listing.pk %}"
                                            class="block text-lg font-semibold text-gray-700 hover:text-primary">
                                             {% if listing.motorcycle_brand %}{{ listing.motorcycle_brand.name }}{% endif %}
                                             {% if listing.motorcycle_model %} {{ listing.motorcycle_model.name }}{% endif %}
@@ -466,7 +456,7 @@
                                             {% if not listing.motorcycle_brand %}{% trans "Untitled" %}{% endif %}
                                         </a>
                                     {% else %}
-                                        <a href="{{ listing.get_edit_url }}"
+                                        <a href="{% url 'listing_edit_hub' listing.pk %}"
                                            class="block text-lg font-semibold text-gray-700 hover:text-primary">
                                             {% if listing.brand %}{{ listing.brand.name }}{% endif %}
                                             {% if listing.model %} {{ listing.model.name }}{% endif %}
@@ -510,31 +500,11 @@
                                 </div>
 
                                 <div class="mt-3 flex items-center gap-3 text-sm">
-                                    {% if listing.status == 'draft' %}
-                                        {% if listing.is_motorcycle %}
-                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
+                                    {# Juodraštis ar neaktyvus — tas pats /<id>/edit/ (žr. aukščiau). #}
+                                    <a href="{% url 'listing_edit_hub' listing.pk %}"
                                                class="text-primary hover:underline font-medium">
                                                 <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
                                             </a>
-                                        {% else %}
-                                            <a href="{{ listing.get_edit_url }}"
-                                               class="text-primary hover:underline font-medium">
-                                                <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
-                                            </a>
-                                        {% endif %}
-                                    {% else %}
-                                        {% if listing.is_motorcycle %}
-                                            <a href="{% if listing.subcategory.slug == 'single-moto-part' %}{% url 'moto_part_create' %}?edit={{ listing.pk }}{% else %}{% url 'motorcycle_listing_create' %}?draft_id={{ listing.pk }}{% endif %}"
-                                               class="text-primary hover:underline font-medium">
-                                                <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
-                                            </a>
-                                        {% else %}
-                                            <a href="{% url 'listing_edit_hub' listing.pk %}"
-                                               class="text-primary hover:underline font-medium">
-                                                <i class="fas fa-edit text-xs"></i> {% trans "Edit" %}
-                                            </a>
-                                        {% endif %}
-                                    {% endif %}
 
                                     <button type="button"
                                             @click="openInactiveModal('{% url 'listing_delete' listing.pk %}', '{% if listing.is_motorcycle %}{% if listing.motorcycle_brand %}{{ listing.motorcycle_brand.name }} {{ listing.year }}{% else %}{% trans "Untitled" %}{% endif %}{% else %}{% if listing.brand %}{{ listing.brand.name }} {{ listing.year }}{% else %}{% trans "Untitled" %}{% endif %}{% endif %}')"

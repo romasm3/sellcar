@@ -1862,29 +1862,12 @@ class Listing(PaskelbimoLaikas, models.Model):
         return (self.contact_phone or '').strip()
 
     def get_edit_url(self):
+        """Redagavimas — VISADA /<id>/edit/, bet kokiam statusui ir kategorijai.
 
-        slug = self.vehicle_type.slug if self.vehicle_type else None
-
-        if self.status == 'draft':
-
-            if slug == 'cars':
-
-                return f"{reverse('listing_create_cars_quick')}?draft={self.pk}"
-
-            if slug == 'motorcycles':
-
-                return f"{reverse('motorcycle_listing_create')}?draft_id={self.pk}"
-
-            if slug == 'trucks':
-
-                return reverse('trucks_listing_create')
-
-            return reverse('listing_create')
-
-        if slug == 'motorcycles':
-
-            return f"{reverse('motorcycle_listing_create')}?draft_id={self.pk}"
-
+        listing_edit_hub pats nukreipia į tinkamą formą su ID. Anksčiau
+        juodraščiai gaudavo /create/trucks/ ar /create/ BE ID — atsidarydavo
+        tuščia forma, o skelbimo duomenys ir nuotraukos „dingdavo".
+        """
         return reverse('listing_edit_hub', kwargs={'pk': self.pk})
 
 
