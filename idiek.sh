@@ -9,7 +9,7 @@
 # 1. Nesucommit'inti pakeitimai → git add -A && git commit (PRIEŠ
 #    perkrovimą, kad atsukus niekas nedingtų iš istorijos).
 # 2. Įsimenam commit'ą ir ar svetainė JAU dabar grąžina 200.
-# 3. collectstatic + systemctl restart gunicorn.
+# 3. compilemessages + collectstatic + systemctl restart gunicorn.
 # 4. https://autoleft.com/ iki 10 kartų po 2 s.
 # 5. 200 → „GYVA: <commit>".
 # 6. Ne 200, o prieš tai buvo 200 → git reset --hard HEAD~1, perkrovimas,
@@ -45,6 +45,11 @@ laukiam_200() {
 perkrauk() {
     # Versijos žymę settings.py skaito paleidžiant — rašom PRIEŠ restart.
     git rev-parse --short=12 HEAD > VERSIJA
+    # Vertimai: .mo git'e nelaikomi (.gitignore), tad be šito žingsnio
+    # naujas .po į svetainę nepatenka — ji tyliai rodo senus/angliškus
+    # užrašus. --ignore=venv: Django bibliotekų .po neliečiam.
+    venv/bin/python manage.py compilemessages --ignore=venv -v 0 \
+        || echo "DĖMESIO: compilemessages krito — vertimai liko SENI"
     venv/bin/python manage.py collectstatic --noinput -v 0 \
         || echo "DĖMESIO: collectstatic krito"
     systemctl restart gunicorn || echo "DĖMESIO: systemctl restart gunicorn krito"
